@@ -81,7 +81,7 @@ NIVisumParser_Lanes::myDependentReport()
         string laneS = NBHelpers::normalIDRepresentation(myLineParser.get("FSNR"));
         int lane = -1;
         try {
-            lane = TplConvert<char>::_2int(laneS.c_str());
+            lane = TplConvert<char>::my2int(laneS.c_str());
         } catch (NumberFormatException &) {
             addError("A lane number for edge '" + edge->getID() + "' is not numeric (" + laneS + ").");
             return;
@@ -103,7 +103,7 @@ NIVisumParser_Lanes::myDependentReport()
         string lengthS = NBHelpers::normalIDRepresentation(myLineParser.get("LAENGE"));
         SUMOReal length = -1;
         try {
-            length = TplConvert<char>::_2SUMOReal(lengthS.c_str());
+            length = TplConvert<char>::my2SUMOReal(lengthS.c_str());
         } catch (NumberFormatException &) {
             addError("A lane length for edge '" + edge->getID() + "' is not numeric (" + lengthS + ").");
             return;
@@ -150,7 +150,7 @@ NIVisumParser_Lanes::myDependentReport()
                     string sub = edge->getID();
                     sub = sub.substr(sub.rfind('_', sub.rfind('_')-1));
                     sub = sub.substr(1, sub.find('_', 1)-1);
-                    SUMOReal dist = TplConvert<char>::_2SUMOReal(sub.c_str());
+                    SUMOReal dist = TplConvert<char>::my2SUMOReal(sub.c_str());
                     if (dist<length) {
                         seenLength += edge->getLength();
                         if (dirS=="1") {

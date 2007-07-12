@@ -86,14 +86,14 @@ NIElmar2NodesHandler::report(const std::string &result)
     id = st.next();
     // intermediate?
     try {
-        intermediate = TplConvert<char>::_2int(st.next().c_str());
+        intermediate = TplConvert<char>::my2int(st.next().c_str());
     } catch (NumberFormatException &) {
         throw ProcessError("Non-numerical value for internmediate y/n occured.");
 
     }
     // number of geometrical information
     try {
-        no_geoms = TplConvert<char>::_2int(st.next().c_str());
+        no_geoms = TplConvert<char>::my2int(st.next().c_str());
     } catch (NumberFormatException &) {
         throw ProcessError("Non-numerical value for number of nodes occured.");
 
@@ -102,13 +102,13 @@ NIElmar2NodesHandler::report(const std::string &result)
     Position2DVector geoms;
     for (int i=0; i<no_geoms; i++) {
         try {
-            x = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
+            x = (SUMOReal) TplConvert<char>::my2SUMOReal(st.next().c_str());
         } catch (NumberFormatException &) {
             throw ProcessError("Non-numerical value for node-x-position occured.");
 
         }
         try {
-            y = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
+            y = (SUMOReal) TplConvert<char>::my2SUMOReal(st.next().c_str());
         } catch (NumberFormatException &) {
             throw ProcessError("Non-numerical value for node-y-position occured.");
 

@@ -98,7 +98,7 @@ public:
     SUMOTime getCurrentTimeStep() const;
 
     /// Initialises the handler for reading
-    virtual bool init(OptionsCont &_options);
+    virtual bool init(OptionsCont &myOptions);
 
 protected:
     /** @brief reads the next route
@@ -119,40 +119,40 @@ private:
 
 private:
     /// Gives route ids
-    IDSupplier _routeIdSupplier;
+    IDSupplier myRouteIdSupplier;
 
     /// Gives vehicle ids
-    IDSupplier _vehicleIdSupplier;
+    IDSupplier myVehicleIdSupplier;
 
     /// Class to read either from the route or from the route index file
-    LineReader _lineReader;
+    LineReader myLineReader;
 
     /// The name of the driver file
-    std::string     _driverFile;
+    std::string     myDriverFile;
 
     /// The stream reding the driver file
-    std::ifstream    _driverStrm;
+    std::ifstream    myDriverStrm;
 
     /// The name of the file containing the routes
-    std::string     _routeDefFile;
+    std::string     myRouteDefFile;
 
     /// The name of the file containing indices of the routes
-    std::string     _routeIdxFile;
+    std::string     myRouteIdxFile;
 
     /// Byte position of routes within the route file
-    std::vector<unsigned long> _routes;
+    std::vector<unsigned long> myRoutes;
 
     /// A parser for single driver structures
-    CellDriverInfoParser _driverParser;
+    CellDriverInfoParser myDriverParser;
 
     /// Information whether an index file exists
-    bool _hasIndexFile;
+    bool myHasIndexFile;
 
     /// Information whether the byte shall be swapped
-    bool _isIntel;
+    bool myIsIntel;
 
     /// Values for Christian Gawron's DUA
-    SUMOReal _gawronBeta, _gawronA;
+    SUMOReal myGawronBeta, myGawronA;
 
     /// The time step read as the last one
     SUMOTime myCurrentTime;

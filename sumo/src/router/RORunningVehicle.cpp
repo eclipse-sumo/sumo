@@ -56,7 +56,7 @@ RORunningVehicle::RORunningVehicle(ROVehicleBuilder &vb,
                                    const RGBColor &col,
                                    int period, int repNo)
         : ROVehicle(vb, id, route, time, type, col, period, repNo),
-        _lane(lane), _pos(pos), _speed(speed)
+        myLane(lane), myPos(pos), mySpeed(speed)
 {}
 
 
@@ -72,9 +72,9 @@ RORunningVehicle::xmlOut(std::ostream &os) const
     os << " type=\"" << myType->getID() << "\"";
     os << " route=\"" << myRoute->getID() << "\"";
     os << " depart=\"" << myDepartTime << "\"";
-    os << " lane=\"" << _lane << "\"";
-    os << " pos=\"" << _pos << "\"";
-    os << " speed=\"" << _speed << "\"";
+    os << " lane=\"" << myLane << "\"";
+    os << " pos=\"" << myPos << "\"";
+    os << " speed=\"" << mySpeed << "\"";
     os << "/>" << endl;
 }
 
@@ -84,8 +84,8 @@ RORunningVehicle::copy(ROVehicleBuilder &vb,
                        const std::string &id, unsigned int depTime,
                        RORouteDef *newRoute)
 {
-    return new RORunningVehicle(vb, id, newRoute, depTime, myType, _lane, _pos,
-                                _speed, myColor, myRepetitionPeriod, myRepetitionNumber);
+    return new RORunningVehicle(vb, id, newRoute, depTime, myType, myLane, myPos,
+                                mySpeed, myColor, myRepetitionPeriod, myRepetitionNumber);
 }
 
 

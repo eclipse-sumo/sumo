@@ -55,10 +55,10 @@ public:
 
 private:
     /// The current index
-    long _current;
+    long myCurrent;
 
     /// The prefix to use
-    std::string _prefix;
+    std::string myPrefix;
 
 };
 

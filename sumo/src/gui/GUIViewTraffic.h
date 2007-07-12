@@ -169,32 +169,31 @@ protected:
     GUIROWDrawer myROWDrawer;
 
     /// The coloring scheme of junctions to use
-    JunctionColoringScheme _junctionColScheme;
+    JunctionColoringScheme myJunctionColScheme;
 
     int myTrackedID;
 
     /** @brief Pointers to tables holding the information which of the items are visible
         All vehicles on visible edges will be drawn */
-    size_t *_edges2Show, *_junctions2Show, *_additional2Show;
+    size_t *myEdges2Show, *myJunctions2Show, *myAdditional2Show;
 
     /// The absolut numbers of the array sizes
-    size_t _edges2ShowSize, _junctions2ShowSize, _additional2ShowSize;
+    size_t myEdges2ShowSize, myJunctions2ShowSize, myAdditional2ShowSize;
 
-    PointOfInterest *_pointToMove;
-    PointOfInterest *_secondPoint; // first's Line Point
-    PointOfInterest *_firstPoint;  // second's Line Point
-    unsigned int _IdToMove;  // for deleting the _pointToMove also into gIDStorage
-    bool _leftButtonPressed; // set to true if the left Button is pressed and keep pressed
+    PointOfInterest *myPointToMove;
+    PointOfInterest *mySecondPoint; // first's Line Point
+    PointOfInterest *myFirstPoint;  // second's Line Point
+    unsigned int myIdToMove;  // for deleting the myPointToMove also into gIDStorage
+    bool myLeftButtonPressed; // set to true if the left Button is pressed and keep pressed
 
-    GUINet *_net;
+    GUINet *myNet;
 
     /** @brief The list of vehicle coloring schemes that may be used */
     static GUIColoringSchemesMap<GUIVehicle> myVehicleColoringSchemes;
 
     /** @brief The list of coloring schemes that may be used */
     static GUIColoringSchemesMap<GUILaneWrapper> myLaneColoringSchemes;
-
-
+  
 protected:
     std::vector<GUIEdge*> myEmptyEdges;
     std::vector<GUIJunctionWrapper*> myEmptyJunctions;

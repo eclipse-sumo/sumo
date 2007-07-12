@@ -109,11 +109,11 @@ RORDLoader_SUMOBase::closeVehicle() throw()
         return;
     }
     // get vehicle type
-    ROVehicleType *type = _net.getVehicleTypeSecure(myCurrentVType);
+    ROVehicleType *type = myNet.getVehicleTypeSecure(myCurrentVType);
     // get the route
-    RORouteDef *route = _net.getRouteDef(myCurrentRouteName);
+    RORouteDef *route = myNet.getRouteDef(myCurrentRouteName);
     if (route==0) {
-        route = _net.getRouteDef("!" + myActiveVehicleID);
+        route = myNet.getRouteDef("!" + myActiveVehicleID);
     }
     if (route==0) {
         getErrorHandlerMarkInvalid()->inform("The route of the vehicle '" + myActiveVehicleID + "' is not known.");
@@ -124,14 +124,14 @@ RORDLoader_SUMOBase::closeVehicle() throw()
     // get further optional information
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
         if (myCurrentDepart<myBegin||myCurrentDepart>=myEnd) {
-            _net.removeRouteSecure(route);
+            myNet.removeRouteSecure(route);
             // !!! was ist mit type?
             return;
         }
         ROVehicle *veh = myVehicleBuilder.buildVehicle(
                              myActiveVehicleID, route, myCurrentDepart, type, myCurrentVehicleColor,
                              myRepOffset, myRepNumber);
-        _net.addVehicle(myActiveVehicleID, veh);
+        myNet.addVehicle(myActiveVehicleID, veh);
     }
 }
 
@@ -171,7 +171,7 @@ RORDLoader_SUMOBase::startVehType(const Attributes &attrs)
         if (maxspeed>0&&length>0&&accel>0&&decel>0&&sigma>0) {
             myCurrentVehicleType = new ROVehicleType_Krauss(
                                        id, color, length, vclass, accel, decel, sigma, maxspeed, tau);
-            _net.addVehicleType(myCurrentVehicleType);
+            myNet.addVehicleType(myCurrentVehicleType);
         }
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("At least one parameter of vehicle type '" + id + "' is not numeric, but should be.");

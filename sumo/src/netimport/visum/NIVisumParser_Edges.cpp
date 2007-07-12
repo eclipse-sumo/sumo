@@ -84,7 +84,7 @@ NIVisumParser_Edges::myDependentReport()
         // get the information whether the edge is a one-way
         bool oneway =
             myLineParser.know("Einbahn")
-            ? TplConvert<char>::_2bool(myLineParser.get("Einbahn").c_str())
+            ? TplConvert<char>::my2bool(myLineParser.get("Einbahn").c_str())
             : true;
         // get the number of lanes
         int nolanes = getNoLanes(type);
@@ -155,7 +155,7 @@ NIVisumParser_Edges::getLength(NBNode *from, NBNode *to) const
 {
     SUMOReal length = 0;
     try {
-        length = TplConvertSec<char>::_2SUMORealSec(
+        length = TplConvertSec<char>::my2SUMORealSec(
                      myLineParser.get("Laenge").c_str(), 0);
     } catch (OutOfBoundsException) {}
     // compute when the street's length is not available
@@ -172,8 +172,8 @@ NIVisumParser_Edges::getSpeed(const std::string &type) const
     SUMOReal speed = 0;
     try {
         speed = myLineParser.know("v0-IV")
-                ? TplConvertSec<char>::_2SUMORealSec(myLineParser.get("v0-IV").c_str(), -1)
-                : TplConvertSec<char>::_2SUMORealSec(myLineParser.get("V0IV").c_str(), -1);
+                ? TplConvertSec<char>::my2SUMORealSec(myLineParser.get("v0-IV").c_str(), -1)
+                : TplConvertSec<char>::my2SUMORealSec(myLineParser.get("V0IV").c_str(), -1);
     } catch (OutOfBoundsException) {}
     if (speed<=0) {
         speed = myTypeCont.getSpeed(type);
@@ -190,8 +190,8 @@ NIVisumParser_Edges::getNoLanes(const std::string &type) const
     int nolanes = 0;
     try {
         nolanes = myLineParser.know("Fahrstreifen")
-                  ? TplConvertSec<char>::_2intSec(myLineParser.get("Fahrstreifen").c_str(), 0)
-                  : TplConvertSec<char>::_2intSec(myLineParser.get("ANZFAHRSTREIFEN").c_str(), 0);
+                  ? TplConvertSec<char>::my2intSec(myLineParser.get("Fahrstreifen").c_str(), 0)
+                  : TplConvertSec<char>::my2intSec(myLineParser.get("ANZFAHRSTREIFEN").c_str(), 0);
     } catch (UnknownElement) {
         nolanes = myTypeCont.getNoLanes(type);
     }

@@ -921,11 +921,11 @@ int main(int ac, char * av[])
             continue;
         // event_interval;cell_id;count_active;count_entries;count_exits;count_starts;count_ends;dur_mean;dur_stdev
         StringTokenizer st(bline, ";");
-        int time = TplConvert<char>::_2int(st.next().c_str());
-        int cell = TplConvert<char>::_2int(st.next().c_str());
+        int time = TplConvert<char>::my2int(st.next().c_str());
+        int cell = TplConvert<char>::my2int(st.next().c_str());
         if (find(cells.begin(), cells.end(), toString(cell))==cells.end())
             continue;
-        int no   = TplConvert<char>::_2int(st.next().c_str());
+        int no   = TplConvert<char>::my2int(st.next().c_str());
         fout << "\t<trigger objecttype=\"vehicle_actor\" id=\"" << cell
         <<"\" objectid=\"" << time  << "\" pos=\"" << no << "\" to=\""
         << -1 << "\" xto=\"" << -1 << "\" type=\"3\"/>" << endl;
@@ -951,17 +951,17 @@ int main(int ac, char * av[])
             continue;
         // event_interval;cell_id;count_active;count_entries;count_exits;count_starts;count_ends;dur_mean;dur_stdev
         StringTokenizer st(bline, ";");
-        int time = TplConvert<char>::_2int(st.next().c_str());
-        int cell = TplConvert<char>::_2int(st.next().c_str());
+        int time = TplConvert<char>::my2int(st.next().c_str());
+        int cell = TplConvert<char>::my2int(st.next().c_str());
         if (find(cells.begin(), cells.end(), toString(cell))==cells.end())
             continue;
-        int no   = TplConvert<char>::_2int(st.next().c_str());
-        int entries = TplConvert<char>::_2int(st.next().c_str());// // count_entries
+        int no   = TplConvert<char>::my2int(st.next().c_str());
+        int entries = TplConvert<char>::my2int(st.next().c_str());// // count_entries
         st.next(); // count_exits
         st.next(); // count_starts
         st.next(); // count_ends
-        SUMOReal mean = TplConvert<char>::_2SUMOReal(st.next().c_str());
-        SUMOReal dev  = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        SUMOReal mean = TplConvert<char>::my2SUMOReal(st.next().c_str());
+        SUMOReal dev  = TplConvert<char>::my2SUMOReal(st.next().c_str());
         fout << "\t<trigger objecttype=\"vehicle_actor\" id=\"" << cell
         <<"\" objectid=\"" << time  << "\" pos=\"" << no << "\" to=\""
         << mean << "\" xto=\"" << dev << "\" entering=\""

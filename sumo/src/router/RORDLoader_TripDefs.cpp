@@ -141,7 +141,7 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
                 }
             }
             myCurrentVehicleType = new ROVehicleType_Krauss(id, col, length, vclass, a, b, eps, vmax, tau);
-            _net.addVehicleType(myCurrentVehicleType);
+            myNet.addVehicleType(myCurrentVehicleType);
         } catch (NumberFormatException&) {
             MsgHandler::getErrorInstance()->inform("One of the parameter for vehicle type '" + id + "' is not numeric.");
             return;
@@ -162,13 +162,13 @@ RORDLoader_TripDefs::getVehicleID(const Attributes &attrs)
     } catch (EmptyData &) {}
     // get a valid vehicle id
     while (id.length()==0) {
-        string tmp = _idSupplier.getNext();
-        if (!_net.isKnownVehicleID(tmp)) {
+        string tmp = myIdSupplier.getNext();
+        if (!myNet.isKnownVehicleID(tmp)) {
             id = tmp;
         }
     }
     // and save this vehicle id
-    _net.addVehicleID(id); // !!! what for?
+   myNet.addVehicleID(id); // !!! what for?
     return id;
 }
 
@@ -183,7 +183,7 @@ RORDLoader_TripDefs::getEdge(const Attributes &attrs,
     string id;
     try {
         id = getString(attrs, which);
-        e = _net.getEdge(id);
+        e = myNet.getEdge(id);
         if (e!=0) {
             return e;
         }
@@ -304,7 +304,7 @@ RORDLoader_TripDefs::myCharacters(SumoXMLTag element,
         myEdges.clear();
         while (st.hasNext()) {
             string id = st.next();
-            ROEdge *edge = _net.getEdge(id);
+            ROEdge *edge = myNet.getEdge(id);
             if (edge==0) {
                 MsgHandler::getErrorInstance()->inform("Could not find edge '" + id + "' within route '" + myID + "'.");
                 return;
@@ -332,13 +332,13 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError)
             route = new RORouteDef_Complete(myID, myColor,
                                             myEdges);
         }
-        ROVehicleType *type = _net.getVehicleTypeSecure(myType);
+        ROVehicleType *type = myNet.getVehicleTypeSecure(myType);
         // check whether any errors occured
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return;
         }
-        _net.addRouteDef(route);
-        _nextRouteRead = true;
+        myNet.addRouteDef(route);
+        myNextRouteRead = true;
         // build the vehicle
         ROVehicle *veh = 0;
         if (myPos>=0||mySpeed>=0) {
@@ -351,7 +351,7 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError)
                       myID, route, myDepartureTime,
                       type, myColor, myPeriodTime, myNumberOfRepetitions);
         }
-        _net.addVehicle(myID, veh);
+        myNet.addVehicle(myID, veh);
     }
 }
 
@@ -381,14 +381,14 @@ RORDLoader_TripDefs::getRGBColorReporting(const Attributes &attrs,
 bool
 RORDLoader_TripDefs::nextRouteRead()
 {
-    return _nextRouteRead;
+    return myNextRouteRead;
 }
 
 
 void
 RORDLoader_TripDefs::beginNextRoute()
 {
-    _nextRouteRead = false;
+    myNextRouteRead = false;
 }
 
 

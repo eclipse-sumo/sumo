@@ -182,7 +182,7 @@ readDetectors(OptionsCont &oc, DFRONet *optNet)
                 string id = values2[0];
                 string dist = values2[2];
                 dist = dist.substr(8);
-                SUMOReal d = TplConvert<char>::_2SUMOReal(dist.c_str());
+                SUMOReal d = TplConvert<char>::my2SUMOReal(dist.c_str());
                 ROEdge *e = optNet->getEdge(edge);
                 if (e==0) {
                     MsgHandler::getWarningInstance()->inform("Detector " + id + " lies on an edge not inside the network (" + edge + ").");

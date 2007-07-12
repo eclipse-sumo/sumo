@@ -95,13 +95,13 @@ private:
     typedef std::map<std::string, NBTrafficLightLogicVector*> ComputedContType;
 
     /// The container for previously computed tl-logics
-    ComputedContType _computed;
+    ComputedContType myComputed;
 
     /// Definition of the container type for tl-ids to their definitions
     typedef std::map<std::string, NBTrafficLightDefinition*> DefinitionContType;
 
     /// The container for tl-ids to their definitions
-    DefinitionContType _definitions;
+    DefinitionContType myDefinitions;
 
 };
 

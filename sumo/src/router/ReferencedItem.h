@@ -44,7 +44,7 @@ class ReferencedItem
 {
 public:
     /// Constructor
-    ReferencedItem() : _wasSaved(false)
+    ReferencedItem() : myWasSaved(false)
     { }
 
     /// Destructor
@@ -54,18 +54,18 @@ public:
     /// Returns the information whether this item was already saved
     bool isSaved() const
     {
-        return _wasSaved;
+        return myWasSaved;
     }
 
     /// Marks the item as saved
     void markSaved()
     {
-        _wasSaved = true;
+        myWasSaved = true;
     }
 
 private:
     /// Information whether the item was already saved
-    bool _wasSaved;
+    bool myWasSaved;
 
 };
 

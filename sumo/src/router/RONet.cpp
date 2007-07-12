@@ -69,7 +69,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 RONet::RONet(bool /*multireferencedRoutes*/)
-        : _vehicleTypes(),
+        : myVehicleTypes(),
         myRoutesOutput(0), myRouteAlternativesOutput(0),
         myReadRouteNo(0), myDiscardedRouteNo(0), myWrittenRouteNo(0),
         myHaveRestrictions(false)
@@ -78,18 +78,18 @@ RONet::RONet(bool /*multireferencedRoutes*/)
 
 RONet::~RONet()
 {
-    _nodes.clear();
-    _edges.clear();
-    _vehicleTypes.clear();
-    _routes.clear();
-    _vehicles.clear();
+    myNodes.clear();
+    myEdges.clear();
+    myVehicleTypes.clear();
+    myRoutes.clear();
+    myVehicles.clear();
 }
 
 
 void
 RONet::addEdge(ROEdge *edge)
 {
-    if (!_edges.add(edge->getID(), edge)) {
+    if (!myEdges.add(edge->getID(), edge)) {
         MsgHandler::getErrorInstance()->inform("The edge '" + edge->getID() + "' occures at least twice.");
         delete edge;
     }
@@ -99,21 +99,21 @@ RONet::addEdge(ROEdge *edge)
 ROEdge *
 RONet::getEdge(const std::string &name) const
 {
-    return _edges.get(name);
+    return myEdges.get(name);
 }
 
 
 void
 RONet::addNode(RONode *node)
 {
-    _nodes.add(node->getID(), node);
+    myNodes.add(node->getID(), node);
 }
 
 
 RONode *
 RONet::getNode(const std::string &name) const
 {
-    return _nodes.get(name);
+    return myNodes.get(name);
 }
 
 
@@ -122,8 +122,8 @@ bool
 RONet::isKnownVehicleID(const std::string &id) const
 {
     VehIDCont::const_iterator i =
-        find(_vehIDs.begin(), _vehIDs.end(), id);
-    if (i==_vehIDs.end()) {
+        find(myVehIDs.begin(), myVehIDs.end(), id);
+    if (i==myVehIDs.end()) {
         return false;
     }
     return true;
@@ -133,21 +133,21 @@ RONet::isKnownVehicleID(const std::string &id) const
 void
 RONet::addVehicleID(const std::string &id)
 {
-    _vehIDs.push_back(id);
+    myVehIDs.push_back(id);
 }
 
 
 RORouteDef *
 RONet::getRouteDef(const std::string &name) const
 {
-    return _routes.get(name);
+    return myRoutes.get(name);
 }
 
 
 void
 RONet::addRouteDef(RORouteDef *def)
 {
-    _routes.add(def);
+    myRoutes.add(def);
 }
 
 
@@ -190,7 +190,7 @@ ROVehicleType *
 RONet::getVehicleTypeSecure(const std::string &id)
 {
     // check whether the type was already known
-    ROVehicleType *type = _vehicleTypes.get(id);
+    ROVehicleType *type = myVehicleTypes.get(id);
     if (type!=0) {
         return type;
     }
@@ -210,14 +210,14 @@ RONet::getVehicleTypeSecure(const std::string &id)
 void
 RONet::addVehicleType(ROVehicleType *type)
 {
-    _vehicleTypes.add(type->getID(), type);
+    myVehicleTypes.add(type->getID(), type);
 }
 
 
 void
 RONet::addVehicle(const std::string &id, ROVehicle *veh)
 {
-    _vehicles.add(id, veh);
+    myVehicles.add(id, veh);
     myReadRouteNo++;
 }
 
@@ -285,7 +285,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
                                 SUMOTime time)
 {
     // sort the list of route definitions
-    priority_queue<ROVehicle*, std::vector<ROVehicle*>, ROHelper::VehicleByDepartureComperator> &sortedVehicles = _vehicles.sort();
+    priority_queue<ROVehicle*, std::vector<ROVehicle*>, ROHelper::VehicleByDepartureComperator> &sortedVehicles = myVehicles.sort();
     SUMOTime lastTime = -1;
     // write all vehicles (and additional structures)
     while (!sortedVehicles.empty()) {
@@ -318,7 +318,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
         }
         // remove the route if it is not longer used
         removeRouteSecure(veh->getRoute());
-        _vehicles.erase(veh->getID());
+        myVehicles.erase(veh->getID());
     }
 }
 
@@ -327,7 +327,7 @@ void
 RONet::removeRouteSecure(const RORouteDef * const route)
 {
     // !!! later, a counter should be used to keep computed routes in the memory
-    if (!_routes.erase(route->getID())) {
+    if (!myRoutes.erase(route->getID())) {
         MsgHandler::getWarningInstance()->inform("Could not remove " + route->getID());
     }
 }
@@ -336,28 +336,28 @@ RONet::removeRouteSecure(const RORouteDef * const route)
 bool
 RONet::addRouteSnipplet(const ROEdgeVector &item)
 {
-    return _snipplets.add(item);
+    return mySnipplets.add(item);
 }
 
 
 const ROEdgeVector &
 RONet::getRouteSnipplet(ROEdge *from, ROEdge *to) const
 {
-    return _snipplets.get(from, to);
+    return mySnipplets.get(from, to);
 }
 
 
 bool
 RONet::knowsRouteSnipplet(ROEdge *from, ROEdge *to) const
 {
-    return _snipplets.knows(from, to);
+    return mySnipplets.knows(from, to);
 }
 
 
 bool
 RONet::furtherStored()
 {
-    return _vehicles.size()>0;
+    return myVehicles.size()>0;
 }
 
 
@@ -395,7 +395,7 @@ RONet::checkSourceAndDestinations()
     if (myDestinationEdges.size()!=0||mySourceEdges.size()!=0) {
         return;
     }
-    std::vector<ROEdge*> edges = _edges.getTempVector();
+    std::vector<ROEdge*> edges = myEdges.getTempVector();
     for (std::vector<ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
         ROEdge::EdgeType type = (*i)->getType();
         // !!! add something like "classified edges only" for using only sources or sinks
@@ -412,7 +412,7 @@ RONet::checkSourceAndDestinations()
 unsigned int
 RONet::getEdgeNo() const
 {
-    return _edges.size();
+    return myEdges.size();
 }
 
 
@@ -431,7 +431,7 @@ RONet::buildOutput(const std::string &name)
 ROEdgeCont *
 RONet::getMyEdgeCont()
 {
-    return &_edges;
+    return &myEdges;
 }
 
 

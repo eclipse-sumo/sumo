@@ -66,9 +66,9 @@ NIArtemisParser_SignalPhases::myDependentReport()
     string nodeid = myLineParser.get("NodeID");
     string phase = myLineParser.get("Phase");
     SUMOReal perc =
-        TplConvert<char>::_2SUMOReal(myLineParser.get("PercentCT").c_str());
+        TplConvert<char>::my2SUMOReal(myLineParser.get("PercentCT").c_str());
     int start =
-        TplConvert<char>::_2int(myLineParser.get("Start").c_str());
+        TplConvert<char>::my2int(myLineParser.get("Start").c_str());
 //    !!! insert
     NIArtemisTempSignal::addPhase(
         nodeid, phase.at(0), perc, start);

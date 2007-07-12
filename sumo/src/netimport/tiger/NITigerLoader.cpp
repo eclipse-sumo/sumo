@@ -71,10 +71,10 @@ NITigerLoader::~NITigerLoader()
 void
 NITigerLoader::load(OptionsCont &)
 {
-    LineReader tgr1r((_file + ".rt1").c_str());
-    LineReader tgr2r((_file + ".rt2").c_str());
+    LineReader tgr1r((myFile + ".rt1").c_str());
+    LineReader tgr2r((myFile + ".rt2").c_str());
     if (!tgr1r.good()) {
-        throw ProcessError("Could not open '" + _file + ".rt1" + "'.");
+        throw ProcessError("Could not open '" + myFile + ".rt1" + "'.");
 
     }
     string line1, line2, tmp;
@@ -166,8 +166,8 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
             ? info.substr(b2)
             : info.substr(b2, b3-b2);
         try {
-            SUMOReal x = TplConvert<char>::_2SUMOReal(p1.c_str());
-            SUMOReal y = TplConvert<char>::_2SUMOReal(p2.c_str());
+            SUMOReal x = TplConvert<char>::my2SUMOReal(p1.c_str());
+            SUMOReal y = TplConvert<char>::my2SUMOReal(p2.c_str());
 
             Position2D pos(x, y);
             GeoConvHelper::x2cartesian(pos);

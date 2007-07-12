@@ -78,7 +78,7 @@ void
 GUIEdge::initGeometry(GUIGlObjectStorage &idStorage)
 {
     // do not this twice
-    if (_laneGeoms.size()>0) {
+    if (myLaneGeoms.size()>0) {
         return;
     }
     // build the lane wrapper
@@ -86,8 +86,8 @@ GUIEdge::initGeometry(GUIGlObjectStorage &idStorage)
     for (LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); i++) {
         tmp.push_back((*i)->buildLaneWrapper(idStorage));
     }
-    _laneGeoms.reserve(tmp.size());
-    copy(tmp.rbegin(), tmp.rend(), back_inserter(_laneGeoms));
+    myLaneGeoms.reserve(tmp.size());
+    copy(tmp.rbegin(), tmp.rend(), back_inserter(myLaneGeoms));
 }
 
 
@@ -103,7 +103,7 @@ GUILaneWrapper &
 GUIEdge::getLaneGeometry(size_t laneNo) const
 {
     assert(laneNo<myLanes->size());
-    return *(_laneGeoms[laneNo]);
+    return *(myLaneGeoms[laneNo]);
 }
 
 
@@ -111,7 +111,7 @@ GUILaneWrapper &
 GUIEdge::getLaneGeometry(const MSLane *lane) const
 {
     LaneWrapperVector::const_iterator i=
-        find_if(_laneGeoms.begin(), _laneGeoms.end(), lane_wrapper_finder(*lane));
+        find_if(myLaneGeoms.begin(), myLaneGeoms.end(), lane_wrapper_finder(*lane));
     assert(i!=_laneGeoms.end());
     return *(*i);
 }
@@ -193,7 +193,7 @@ GUIEdge::getParameterWindow(GUIMainWindow &app,
 #ifdef HAVE_MESOSIM
     ret = new GUIParameterTableWindow(app, *this, 5);
     // add items
-    ret->mkItem("length [m]", false, (SUMOReal) _laneGeoms[0]->getLength());
+    ret->mkItem("length [m]", false, (SUMOReal) myLaneGeoms[0]->getLength());
     ret->mkItem("allowed speed [m/s]", false, (SUMOReal) getAllowedSpeed());
     ret->mkItem("occupancy [%]", true,
                 new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getDensity));

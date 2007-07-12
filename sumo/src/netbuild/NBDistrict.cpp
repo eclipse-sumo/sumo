@@ -56,13 +56,13 @@ using namespace std;
 NBDistrict::NBDistrict(const std::string &id, const std::string &name,
                        SUMOReal x, SUMOReal y)
         : Named(StringUtils::convertUmlaute(id)),
-        _name(StringUtils::convertUmlaute(name)),
+        myName(StringUtils::convertUmlaute(name)),
         myPosition(x, y)
 {}
 
 
 NBDistrict::NBDistrict(const std::string &id, const std::string &name)
-        : Named(id), _name(name),
+        : Named(id), myName(name),
         myPosition(0, 0)
 {}
 
@@ -74,12 +74,12 @@ NBDistrict::~NBDistrict()
 bool
 NBDistrict::addSource(NBEdge *source, SUMOReal weight)
 {
-    EdgeVector::iterator i = find(_sources.begin(), _sources.end(), source);
-    if (i!=_sources.end()) {
+    EdgeVector::iterator i = find(mySources.begin(), mySources.end(), source);
+    if (i!=mySources.end()) {
         return false;
     }
-    _sources.push_back(source);
-    _sourceWeights.push_back(weight);
+    mySources.push_back(source);
+    mySourceWeights.push_back(weight);
     assert(source->getID()!="");
     return true;
 }
@@ -88,12 +88,12 @@ NBDistrict::addSource(NBEdge *source, SUMOReal weight)
 bool
 NBDistrict::addSink(NBEdge *sink, SUMOReal weight)
 {
-    EdgeVector::iterator i = find(_sinks.begin(), _sinks.end(), sink);
-    if (i!=_sinks.end()) {
+    EdgeVector::iterator i = find(mySinks.begin(), mySinks.end(), sink);
+    if (i!=mySinks.end()) {
         return false;
     }
-    _sinks.push_back(sink);
-    _sinkWeights.push_back(weight);
+    mySinks.push_back(sink);
+    mySinkWeights.push_back(weight);
     assert(sink->getID()!="");
     return true;
 }
@@ -102,24 +102,24 @@ NBDistrict::addSink(NBEdge *sink, SUMOReal weight)
 void
 NBDistrict::writeXML(std::ostream &into)
 {
-    DoubleVectorHelper::normalise(_sourceWeights, 1.0);
-    DoubleVectorHelper::normalise(_sinkWeights, 1.0);
+    DoubleVectorHelper::normalise(mySourceWeights, 1.0);
+    DoubleVectorHelper::normalise(mySinkWeights, 1.0);
     // write the head and the id of the district
-    into << "   " << "<district id=\"" << _id << "\">" << endl;
+    into << "   " << "<district id=\"" << myId << "\">" << endl;
     size_t i;
     // write all sources
-    for (i=0; i<_sources.size(); i++) {
+    for (i=0; i<mySources.size(); i++) {
         // write the head and the id of the source
-        assert(i<_sources.size());
-        into << "      " << "<dsource id=\"" << _sources[i]->getID()
-        << "\" weight=\"" << _sourceWeights[i] << "\"/>" << endl;
+        assert(i<mySources.size());
+        into << "      " << "<dsource id=\"" << mySources[i]->getID()
+        << "\" weight=\"" << mySourceWeights[i] << "\"/>" << endl;
     }
     // write all sinks
-    for (i=0; i<_sinks.size(); i++) {
+    for (i=0; i<mySinks.size(); i++) {
         // write the head and the id of the sink
-        assert(i<_sinks.size());
-        into << "      " << "<dsink id=\"" << _sinks[i]->getID()
-        << "\" weight=\"" << _sinkWeights[i] << "\"/>" << endl;
+        assert(i<mySinks.size());
+        into << "      " << "<dsink id=\"" << mySinks[i]->getID()
+        << "\" weight=\"" << mySinkWeights[i] << "\"/>" << endl;
     }
     // write the tail
     into << "   " << "</district>" << endl << endl;
@@ -141,9 +141,9 @@ NBDistrict::replaceIncoming(const EdgeVector &which, NBEdge *by)
     WeightsCont newWeights;
     SUMOReal joinedVal = 0;
     // go through the list of sinks
-    EdgeVector::iterator i=_sinks.begin();
-    WeightsCont::iterator j=_sinkWeights.begin();
-    for (; i!=_sinks.end(); i++, j++) {
+    EdgeVector::iterator i=mySinks.begin();
+    WeightsCont::iterator j=mySinkWeights.begin();
+    for (; i!=mySinks.end(); i++, j++) {
         NBEdge *tmp = (*i);
         SUMOReal val = (*j);
         if (find(which.begin(), which.end(), tmp)==which.end()) {
@@ -161,8 +161,8 @@ NBDistrict::replaceIncoming(const EdgeVector &which, NBEdge *by)
     newList.push_back(by);
     newWeights.push_back(joinedVal);
     // assign to values
-    _sinks = newList;
-    _sinkWeights = newWeights;
+    mySinks = newList;
+    mySinkWeights = newWeights;
 }
 
 
@@ -174,9 +174,9 @@ NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge *by)
     WeightsCont newWeights;
     SUMOReal joinedVal = 0;
     // go through the list of sinks
-    EdgeVector::iterator i=_sources.begin();
-    WeightsCont::iterator j=_sourceWeights.begin();
-    for (; i!=_sources.end(); i++, j++) {
+    EdgeVector::iterator i=mySources.begin();
+    WeightsCont::iterator j=mySourceWeights.begin();
+    for (; i!=mySources.end(); i++, j++) {
         NBEdge *tmp = (*i);
         SUMOReal val = (*j);
         if (find(which.begin(), which.end(), tmp)==which.end()) {
@@ -194,8 +194,8 @@ NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge *by)
     newList.push_back(by);
     newWeights.push_back(joinedVal);
     // assign to values
-    _sources = newList;
-    _sourceWeights = newWeights;
+    mySources = newList;
+    mySourceWeights = newWeights;
 }
 
 
@@ -210,16 +210,16 @@ void
 NBDistrict::removeFromSinksAndSources(NBEdge *e)
 {
     size_t i;
-    for (i=0; i<_sinks.size(); ++i) {
-        if (_sinks[i]==e) {
-            _sinks.erase(_sinks.begin()+i);
-            _sinkWeights.erase(_sinkWeights.begin()+i);
+    for (i=0; i<mySinks.size(); ++i) {
+        if (mySinks[i]==e) {
+            mySinks.erase(mySinks.begin()+i);
+            mySinkWeights.erase(mySinkWeights.begin()+i);
         }
     }
-    for (i=0; i<_sources.size(); ++i) {
-        if (_sources[i]==e) {
-            _sources.erase(_sources.begin()+i);
-            _sourceWeights.erase(_sourceWeights.begin()+i);
+    for (i=0; i<mySources.size(); ++i) {
+        if (mySources[i]==e) {
+            mySources.erase(mySources.begin()+i);
+            mySourceWeights.erase(mySourceWeights.begin()+i);
         }
     }
 }

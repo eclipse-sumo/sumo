@@ -68,20 +68,20 @@ ROTypedXMLRoutesLoader::ROTypedXMLRoutesLoader(ROVehicleBuilder &vb,
         const std::string &file)
         : ROAbstractRouteDefLoader(vb, net, begin, end),
         SUMOSAXHandler(file),
-        _parser(XMLSubSys::getSAXReader(*this)), _token(), _ended(false)
+        myParser(XMLSubSys::getSAXReader(*this)), myToken(), myEnded(false)
 {}
 
 
 ROTypedXMLRoutesLoader::~ROTypedXMLRoutesLoader() throw()
 {
-    delete _parser;
+    delete myParser;
 }
 
 
 void
 ROTypedXMLRoutesLoader::closeReading()
 {
-    _parser->parseReset(_token);
+    myParser->parseReset(myToken);
 }
 
 
@@ -92,7 +92,7 @@ ROTypedXMLRoutesLoader::myReadRoutesAtLeastUntil(SUMOTime time)
         beginNextRoute();
         while (!nextRouteRead()&&!ended()) {
             try {
-                _parser->parseNext(_token);
+                myParser->parseNext(myToken);
             } catch (std::string) {
                 return false;
             }
@@ -105,21 +105,21 @@ ROTypedXMLRoutesLoader::myReadRoutesAtLeastUntil(SUMOTime time)
 bool
 ROTypedXMLRoutesLoader::init(OptionsCont &)
 {
-    return _parser->parseFirst(getFileName().c_str(), _token);
+    return myParser->parseFirst(getFileName().c_str(), myToken);
 }
 
 
 void
 ROTypedXMLRoutesLoader::endDocument()
 {
-    _ended = true;
+    myEnded = true;
 }
 
 
 bool
 ROTypedXMLRoutesLoader::ended() const
 {
-    return _ended;
+    return myEnded;
 }
 
 

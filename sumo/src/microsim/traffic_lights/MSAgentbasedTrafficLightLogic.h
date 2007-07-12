@@ -99,7 +99,7 @@ public:
 protected:
     /// Returns the index of the phase next to the given phase
     /// and stores the duration of the phase, which was just sent
-    /// or stores the activation-time in _lastphase of the phase next
+    /// or stores the activation-time in myLastphase of the phase next
     size_t nextStep();
 
     /// Collects the trafficdata

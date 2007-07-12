@@ -49,7 +49,7 @@ class NBNode;
 class NISUMOHandlerEdges : public SUMOSAXHandler
 {
 private:
-    LoadFilter _loading;
+    LoadFilter myLoading;
 public:
     NISUMOHandlerEdges(NBEdgeCont &ec, NBNodeCont &nc, LoadFilter what);
     ~NISUMOHandlerEdges() throw();

@@ -85,7 +85,7 @@ NIVissimSingleTypeParser_Fahrzeugtypdefinition::parse(std::istream &from)
                 color = (*i).second;
             } else {
                 int r, g, b;
-                r = TplConvert<char>::_2int(colorName.c_str());
+                r = TplConvert<char>::my2int(colorName.c_str());
                 from >> g; // type-checking is missing!
                 from >> b; // type-checking is missing!
                 color = RGBColor(

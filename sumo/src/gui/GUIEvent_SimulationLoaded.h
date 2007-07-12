@@ -59,8 +59,8 @@ public:
                               SUMOTime startTime, SUMOTime endTime,
                               const std::string &file)
             : GUIEvent(EVENT_SIMULATION_LOADED),
-            _net(net), _begin(startTime), _end(endTime),
-            _file(file)
+            myNet(net), myBegin(startTime), myEnd(endTime),
+            myFile(file)
     { }
 
     /// destructor
@@ -69,16 +69,16 @@ public:
 
 public:
     /// the loaded net
-    GUINet          *_net;
+    GUINet          *myNet;
 
     /// the time the simulation shall start with
-    SUMOTime     _begin;
+    SUMOTime     myBegin;
 
     /// the time the simulation shall end with
-    SUMOTime     _end;
+    SUMOTime     myEnd;
 
     /// the name of the loaded file
-    std::string     _file;
+    std::string     myFile;
 
 };
 

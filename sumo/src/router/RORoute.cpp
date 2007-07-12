@@ -52,15 +52,15 @@ using namespace std;
 // ===========================================================================
 RORoute::RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
                  const ROEdgeVector &route)
-        : Named(StringUtils::convertUmlaute(id)), _costs(costs),
-        _probability(prop), _route(route)
+        : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
+        myProbability(prop), myRoute(route)
 {}
 
 
 RORoute::RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
                  const std::vector<const ROEdge*> &route)
-        : Named(StringUtils::convertUmlaute(id)), _costs(costs),
-        _probability(prop), _route(route)
+        : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
+        myProbability(prop), myRoute(route)
 {}
 
 
@@ -71,61 +71,61 @@ RORoute::~RORoute()
 void
 RORoute::add(ROEdge *edge)
 {
-    _route.add(edge);
+    myRoute.add(edge);
 }
 
 
 void
 RORoute::xmlOut(std::ostream &os, bool isPeriodical) const
 {
-    os << "   <route id=\"" << _id << "\"";
+    os << "   <route id=\"" << myId << "\"";
     if (isPeriodical) {
         os << " multi_ref=\"x\"";
     }
     os << ">";
-    os << _route;
+    os << myRoute;
     os << "</route>" << endl;
 }
 
 void
 RORoute::xmlOutEdges(std::ostream &os) const
 {
-    os << _route;
+    os << myRoute;
 }
 
 
 SUMOReal
 RORoute::getCosts() const
 {
-    return _costs;
+    return myCosts;
 }
 
 
 void
 RORoute::setCosts(SUMOReal costs)
 {
-    _costs = costs;
+    myCosts = costs;
 }
 
 
 SUMOReal
 RORoute::recomputeCosts(const ROVehicle *const v, SUMOTime begin) const
 {
-    return _route.recomputeCosts(v, begin);
+    return myRoute.recomputeCosts(v, begin);
 }
 
 
 const ROEdge *
 RORoute::getFirst() const
 {
-    return _route.getFirst();
+    return myRoute.getFirst();
 }
 
 
 const ROEdge *
 RORoute::getLast() const
 {
-    return _route.getLast();
+    return myRoute.getLast();
 }
 
 
@@ -133,49 +133,49 @@ RORoute::getLast() const
 SUMOReal
 RORoute::getProbability() const
 {
-    return _probability;
+    return myProbability;
 }
 
 
 bool
 RORoute::equals(RORoute *ro) const
 {
-    return _route.equals(ro->_route);
+    return myRoute.equals(ro->myRoute);
 }
 
 
 size_t
 RORoute::size() const
 {
-    return _route.size();
+    return myRoute.size();
 }
 
 
 void
 RORoute::setProbability(SUMOReal prop)
 {
-    _probability = prop;
+    myProbability = prop;
 }
 
 
 void
 RORoute::pruneFirst()
 {
-    _route.removeFirst();
+    myRoute.removeFirst();
 }
 
 
 const ROEdgeVector &
 RORoute::getEdgeVector() const
 {
-    return _route;
+    return myRoute;
 }
 
 
 void
 RORoute::recheckForLoops()
 {
-    _route.recheckForLoops();
+    myRoute.recheckForLoops();
 }
 
 

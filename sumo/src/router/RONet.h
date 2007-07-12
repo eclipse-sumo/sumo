@@ -174,25 +174,25 @@ protected:
     typedef std::vector<std::string> VehIDCont; // should be something else
 
     /// Known vehicle ids
-    VehIDCont _vehIDs;
+    VehIDCont myVehIDs;
 
     /// Known nodes
-    RONodeCont _nodes;
+    RONodeCont myNodes;
 
     /// Known edges
-    ROEdgeCont _edges;
+    ROEdgeCont myEdges;
 
     /// Known vehicle types
-    ROVehTypeCont _vehicleTypes;
+    ROVehTypeCont myVehicleTypes;
 
     /// Known routes
-    RORouteDefCont _routes;
+    RORouteDefCont myRoutes;
 
     /// Known vehicles
-    ROVehicleCont _vehicles;
+    ROVehicleCont myVehicles;
 
     /// Known route sipplets
-    RORouteSnippletCont _snipplets;
+    RORouteSnippletCont mySnipplets;
 
     /// List of source edges
     std::vector<ROEdge*> mySourceEdges;

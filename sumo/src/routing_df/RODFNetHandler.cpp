@@ -72,17 +72,17 @@ RODFNetHandler::myCharacters(SumoXMLTag element,
     switch (element) {
     case SUMO_TAG_LANE:
         // may be an unparsed internal lane
-        if (_currentEdge!=0) {
+        if (myCurrentEdge!=0) {
             try {
                 Position2DVector p = GeomConvHelper::parseShape(chars);
-                static_cast<RODFEdge*>(_currentEdge)->setFromPosition(p[0]);
-                static_cast<RODFEdge*>(_currentEdge)->setToPosition(p[-1]);
+                static_cast<RODFEdge*>(myCurrentEdge)->setFromPosition(p[0]);
+                static_cast<RODFEdge*>(myCurrentEdge)->setToPosition(p[-1]);
                 return;
             } catch (OutOfBoundsException &) {
             } catch (NumberFormatException &) {
             } catch (EmptyData &) {
             }
-            MsgHandler::getErrorInstance()->inform("Could not parse lane shape (edge '" + _currentName + "').");
+            MsgHandler::getErrorInstance()->inform("Could not parse lane shape (edge '" + myCurrentName + "').");
         }
         break;
     default:

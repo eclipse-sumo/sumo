@@ -488,7 +488,7 @@ Position2DVector::reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
 
 
 Position2DVector::as_poly_cw_sorter::as_poly_cw_sorter(Position2D center)
-        : _center(center)
+        : myCenter(center)
 {}
 
 

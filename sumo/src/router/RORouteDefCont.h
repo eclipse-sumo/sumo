@@ -84,10 +84,10 @@ private:
     typedef std::map<std::pair<const ROEdge*, const ROEdge*>, RORouteDef*> idMap;
 
     /// Container with routes definitions accessable by their starting and ending point
-    idMap _known;
+    idMap myKnown;
 
     /// A supplier of further ids
-    IDSupplier _idSupplier;
+    IDSupplier myIdSupplier;
 
 private:
     /// we made the copy constructor invalid

@@ -49,16 +49,16 @@ public:
     SUMOTime duration;
 
     /// stores the timestep of the last on-switched of the phase
-    SUMOTime _lastSwitch;
+    SUMOTime myLastSwitch;
 
     /// constructor
     MSPhaseDefinition(size_t durationArg, const std::bitset<64> &driveMaskArg,
                       const std::bitset<64> &breakMaskArg,
                       const std::bitset<64> &yellowMaskArg)
-            : duration(durationArg), _lastSwitch(0), driveMask(driveMaskArg),
+            : duration(durationArg), myLastSwitch(0), driveMask(driveMaskArg),
             breakMask(breakMaskArg), yellowMask(yellowMaskArg)
     {
-        _lastSwitch = OptionsCont::getOptions().getInt("begin");
+        myLastSwitch = OptionsCont::getOptions().getInt("begin");
     }
 
     /// destructor

@@ -138,7 +138,7 @@ MSAgentbasedTrafficLightLogic::lengthenCycleTime(size_t toLengthen)
     size_t maxLengthen = 0;  // the sum of all times, that is possible to lengthen
 
     /* fills the vector tmp_phases with the difference between
-       duration and maxduration and the _step of the phases.
+       duration and maxduration and the myStep of the phases.
        only phases with duration < maxDuration are written in the vector.
        sorts the vector after the difference. */
     for (size_t i_Step = 0; i_Step!=myPhases.size(); i_Step++) {
@@ -179,7 +179,7 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(size_t toCut)
     size_t maxCut = 0;  // the sum of all times, that is possible to cut
 
     /* fills the vector tmp_phases with the difference between
-       duration and minduration and the _step of the phases.
+       duration and minduration and the myStep of the phases.
        only phases with duration > minDuration are written in the vector.
        sorts the vector after the difference. */
     for (size_t i_Step = 0; i_Step!=myPhases.size(); i_Step++) {
@@ -225,8 +225,8 @@ MSAgentbasedTrafficLightLogic::trySwitch(bool)
     }
 
     // some output for control
-    /*    if (_step == 0) {
-            cut << endl << "JunctionID: "<< _id  <<"  Zeit: " << MSNet::globaltime;
+    /*    if (myStep == 0) {
+            cut << endl << "JunctionID: "<< myId  <<"  Zeit: " << MSNet::globaltime;
             for (PhaseValueMap:: const_iterator it = myRawDetectorData.begin(); it!=myRawDetectorData.end(); it++) {
                 cut<< " step: "<<(*it).first << "  Anz.Werte: " << (*it).second.size();
                 for (ValueType:: const_iterator itV = myRawDetectorData[(*it).first].begin(); itV!=myRawDetectorData[(*it).first].end(); itV++) {

@@ -100,14 +100,14 @@ GenericSAXHandler::hasAttribute(const Attributes &attrs,
 bool
 GenericSAXHandler::getBool(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData)
 {
-    return TplConvert<XMLCh>::_2bool(getAttributeValueSecure(attrs, id));
+    return TplConvert<XMLCh>::my2bool(getAttributeValueSecure(attrs, id));
 }
 
 
 bool
 GenericSAXHandler::getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool val) const throw(EmptyData)
 {
-    return TplConvertSec<XMLCh>::_2boolSec(
+    return TplConvertSec<XMLCh>::my2boolSec(
                getAttributeValueSecure(attrs, id), val);
 }
 
@@ -115,7 +115,7 @@ GenericSAXHandler::getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool v
 int
 GenericSAXHandler::getInt(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException)
 {
-    return TplConvert<XMLCh>::_2int(getAttributeValueSecure(attrs, id));
+    return TplConvert<XMLCh>::my2int(getAttributeValueSecure(attrs, id));
 }
 
 
@@ -123,7 +123,7 @@ int
 GenericSAXHandler::getIntSecure(const Attributes &attrs, SumoXMLAttr id,
                                 int def) const throw(EmptyData, NumberFormatException)
 {
-    return TplConvertSec<XMLCh>::_2intSec(
+    return TplConvertSec<XMLCh>::my2intSec(
                getAttributeValueSecure(attrs, id), def);
 }
 
@@ -131,7 +131,7 @@ GenericSAXHandler::getIntSecure(const Attributes &attrs, SumoXMLAttr id,
 std::string
 GenericSAXHandler::getString(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData)
 {
-    return TplConvert<XMLCh>::_2str(getAttributeValueSecure(attrs, id));
+    return TplConvert<XMLCh>::my2str(getAttributeValueSecure(attrs, id));
 }
 
 
@@ -139,7 +139,7 @@ std::string
 GenericSAXHandler::getStringSecure(const Attributes &attrs, SumoXMLAttr id,
                                    const std::string &str) const throw(EmptyData)
 {
-    return TplConvertSec<XMLCh>::_2strSec(
+    return TplConvertSec<XMLCh>::my2strSec(
                getAttributeValueSecure(attrs, id), str);
 }
 
@@ -147,7 +147,7 @@ GenericSAXHandler::getStringSecure(const Attributes &attrs, SumoXMLAttr id,
 SUMOReal
 GenericSAXHandler::getFloat(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException)
 {
-    return TplConvert<XMLCh>::_2SUMOReal(getAttributeValueSecure(attrs, id));
+    return TplConvert<XMLCh>::my2SUMOReal(getAttributeValueSecure(attrs, id));
 }
 
 
@@ -155,7 +155,7 @@ SUMOReal
 GenericSAXHandler::getFloatSecure(const Attributes &attrs, SumoXMLAttr id,
                                   SUMOReal def) const throw(EmptyData, NumberFormatException)
 {
-    return TplConvertSec<XMLCh>::_2SUMORealSec(
+    return TplConvertSec<XMLCh>::my2SUMORealSec(
                getAttributeValueSecure(attrs, id), def);
 }
 
@@ -164,7 +164,7 @@ SUMOReal
 GenericSAXHandler::getFloat(const Attributes &attrs,
                             const XMLCh * const id) const throw(EmptyData, NumberFormatException)
 {
-    return TplConvert<XMLCh>::_2SUMOReal(attrs.getValue(id));
+    return TplConvert<XMLCh>::my2SUMOReal(attrs.getValue(id));
 }
 
 
@@ -212,10 +212,10 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
                                 const XMLCh* const qname,
                                 const Attributes& attrs)
 {
-    string name = TplConvert<XMLCh>::_2str(qname);
+    string name = TplConvert<XMLCh>::my2str(qname);
     SumoXMLTag element = convertTag(name);
     myTagTree.push(element);
-    //_characters = "";
+    //myCharacters = "";
     myCharactersVector.clear();
     if (element<0) {
         myUnknownOccured = true;
@@ -229,7 +229,7 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
                               const XMLCh* const /*localname*/,
                               const XMLCh* const qname)
 {
-    string name = TplConvert<XMLCh>::_2str(qname);
+    string name = TplConvert<XMLCh>::my2str(qname);
     SumoXMLTag element = convertTag(name);
     if (element == SUMO_TAG_NOTHING) {
         myUnknownOccured = true;
@@ -266,7 +266,7 @@ void
 GenericSAXHandler::characters(const XMLCh* const chars,
                               const unsigned int length)
 {
-    myCharactersVector.push_back(TplConvert<XMLCh>::_2str(chars, length));
+    myCharactersVector.push_back(TplConvert<XMLCh>::my2str(chars, length));
 }
 
 

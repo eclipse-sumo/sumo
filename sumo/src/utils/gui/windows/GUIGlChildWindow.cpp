@@ -60,7 +60,7 @@ GUIGlChildWindow::GUIGlChildWindow(FXMDIClient* p,
                                    FXIcon* ic, FXPopup* /*pup*/,
                                    FXuint opts,FXint /*x*/,FXint /*y*/,FXint /*w*/,FXint /*h*/)
         : FXMDIChild(p, name, ic, mdimenu, opts, 10, 10, 300, 200),
-        _view(0)
+        myView(0)
 {
     // Make MDI Window Menu
     setTracking();
@@ -88,7 +88,7 @@ GUIGlChildWindow::create()
     FXMDIChild::create();
     myNavigationToolBar->create();
     myLocatorPopup->create();
-    _view->create();
+    myView->create();
 }
 
 
@@ -160,7 +160,7 @@ GUIGlChildWindow::buildScreenshotToolBar()
 FXGLCanvas *
 GUIGlChildWindow::getBuildGLCanvas() const
 {
-    return _view;
+    return myView;
 }
 
 
@@ -188,8 +188,8 @@ GUIGlChildWindow::getColoringSchemesCombo()
 long
 GUIGlChildWindow::onCmdRecenterView(FXObject*,FXSelector,void*)
 {
-    _view->recenterView();
-    _view->update();
+    myView->recenterView();
+    myView->update();
     return 1;
 }
 
@@ -197,7 +197,7 @@ GUIGlChildWindow::onCmdRecenterView(FXObject*,FXSelector,void*)
 long
 GUIGlChildWindow::onCmdEditViewport(FXObject*,FXSelector,void*)
 {
-    _view->showViewportEditor();
+    myView->showViewportEditor();
     return 1;
 }
 
@@ -205,7 +205,7 @@ GUIGlChildWindow::onCmdEditViewport(FXObject*,FXSelector,void*)
 long
 GUIGlChildWindow::onCmdEditViewScheme(FXObject*,FXSelector,void*)
 {
-    _view->showViewschemeEditor();
+    myView->showViewschemeEditor();
     return 1;
 }
 
@@ -215,10 +215,10 @@ GUIGlChildWindow::onCmdShowToolTips(FXObject*sender,FXSelector,void*)
 {
     MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
     button->setChecked(!button->amChecked());
-    _view->showToolTips(button->amChecked());
-//    _useToolTips = button->amChecked();
+    myView->showToolTips(button->amChecked());
+//    myUseToolTips = button->amChecked();
     update();
-    _view->update();
+    myView->update();
     return 1;
 }
 
@@ -226,7 +226,7 @@ GUIGlChildWindow::onCmdShowToolTips(FXObject*sender,FXSelector,void*)
 long
 GUIGlChildWindow::onCmdChangeColorScheme(FXObject*,FXSelector ,void*data)
 {
-    _view->setColorScheme((char*) data);
+    myView->setColorScheme((char*) data);
     return 1;
 }
 

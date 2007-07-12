@@ -39,7 +39,7 @@
 
 NISUMOHandlerDepth::NISUMOHandlerDepth(LoadFilter what)
         : SUMOSAXHandler("sumo-network"),
-        _loading(what)
+        myLoading(what)
 {}
 
 

@@ -171,7 +171,7 @@ public:
 protected:
     /** the visualisation length; As sources and sinks may be shorter/longer
         as their visualisation length, a second length information is necessary */
-    SUMOReal _visLength;
+    SUMOReal myVisLength;
 
     /// The assigned lane
     MSLane &myLane;

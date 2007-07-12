@@ -117,7 +117,7 @@ class SignalGroup : public Named
         std::string mySignalGroup;
         SUMOTime myBegin, myEnd;
         typedef std::map<std::string, TLColor> SignalGroupColorMap;
-        SignalGroupColorMap _groupColors;
+        SignalGroupColorMap myGroupColors;
     };
 
     /// Definition of the container for signal groups

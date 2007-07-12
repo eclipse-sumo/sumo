@@ -50,14 +50,14 @@ using namespace std;
 // member method definitions
 // ===========================================================================
 MSCell::MSCell(SUMOReal xcellsize, SUMOReal ycellsize)
-        : _xcellsize(xcellsize), _ycellsize(ycellsize)
+        : myXcellsize(xcellsize), myYcellsize(ycellsize)
 {}
 
 
 MSCell::~MSCell()
 {
-    _edgesCont.clear();
-    _neighbors.clear();
+    myEdgesCont.clear();
+    myNeighbors.clear();
 
 }
 
@@ -71,14 +71,14 @@ MSCell::setIndex(size_t index)
 void
 MSCell::addEdge(MSEdge *edge)
 {
-    _edgesCont.push_back(edge);
+    myEdgesCont.push_back(edge);
 }
 
 
 void
 MSCell::setCellNeighbors(std::vector<MSCell*> ret)
 {
-    _neighbors = ret;
+    myNeighbors = ret;
 }
 
 
@@ -92,7 +92,7 @@ MSCell::setEdgesNeighbors(void)
         std::string neighbor;
         for (std::vector<MSCell*>::iterator j=_neighbors.begin(); j!=_neighbors.end(); j++) {
             // all Edges in others Cells
-            for (std::vector<MSEdge*>::iterator k=((*j)->_edgesCont).begin(); k!=((*j)->_edgesCont).end(); k++) {
+            for (std::vector<MSEdge*>::iterator k=((*j)->myEdgesCont).begin(); k!=((*j)->myEdgesCont).end(); k++) {
                 (*i)->addNeighborEdge(*k);
                 anzahl++;
                 neighbor=neighbor+" "+(*k)->getID();

@@ -99,7 +99,7 @@ public:
 
 protected:
     /// The offset to the next event
-    SUMOTime _offset;
+    SUMOTime myOffset;
     bool myWasInitialised;
 
 private:

@@ -310,7 +310,7 @@ public:
 
     EdgeBuildingStep getStep() const
     {
-        return _step;
+        return myStep;
     }
 
     void moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff,
@@ -370,17 +370,17 @@ class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack
     {
     private:
         /// map of edges to this edge's lanes that reach them
-        std::map<NBEdge*, std::vector<size_t> > *_connections;
+        std::map<NBEdge*, std::vector<size_t> > *myConnections;
 
         /// the transition from the virtual lane to the edge it belongs to
-        const std::vector<NBEdge*> &_transitions;
+        const std::vector<NBEdge*> &myTransitions;
 
     public:
         /// constructor
         ToEdgeConnectionsAdder(std::map<NBEdge*,
                                std::vector<size_t> > *connections,
                                const std::vector<NBEdge*> &transitions)
-                : _connections(connections), _transitions(transitions)
+                : myConnections(connections), myTransitions(transitions)
         { }
 
         /// destructor
@@ -406,7 +406,7 @@ class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack
 
         /** list of the main direction within the following junction relative
             to the edge */
-        std::vector<Direction> _dirs;
+        std::vector<Direction> myDirs;
 
     public:
         /// constructor
@@ -444,61 +444,61 @@ protected:
 
 private:
     /// the building step
-    EdgeBuildingStep _step;
+    EdgeBuildingStep myStep;
 
     /// the id of the edge
-    std::string _id;
+    std::string myId;
 
     /// the type of the edge
-    std::string _type;
+    std::string myType;
 
     /// the number of lanes
-    size_t     _nolanes;
+    size_t     myNolanes;
 
     /// the source and the destination node
-    NBNode  *_from, *_to;
+    NBNode  *myFrom, *myTo;
 
     /// the length of the edge
-    SUMOReal  _length;
+    SUMOReal  myLength;
 
     /// the angle of the edge
-    SUMOReal  _angle;
+    SUMOReal  myAngle;
 
     /** the converted priority of the edge (needed while the ocmputation of
         the node the edge is incoming in / outgoing of) */
-    int     _priority;
+    int     myPriority;
 
     /// the maximal speed
-    SUMOReal  _speed;
+    SUMOReal  mySpeed;
 
     /// the name of the edge
-    std::string  _name;
+    std::string  myName;
 
     /// information about connected edges
-    EdgeVector _connectedEdges;
+    EdgeVector myConnectedEdges;
 
     /// information about which edge is approached by which lanes
-    std::map<NBEdge*, std::vector<size_t> > _ToEdges;
+    std::map<NBEdge*, std::vector<size_t> > myToEdges;
 
     /// the edge to turn into
-    NBEdge *_turnDestination;
+    NBEdge *myTurnDestination;
 
     /** contains the information which lanes of which edges may follow a
         lane (index) */
-    ReachableFromLaneVector _reachable;
+    ReachableFromLaneVector myReachable;
 
     /** contains the information which lanes(value) may be used to reach the
         edge (key) */
-    LanesThatSucceedEdgeCont _succeedinglanes;
+    LanesThatSucceedEdgeCont mySucceedinglanes;
 
     /// the priority normalised for the node the edge is outgoing of
-    int     _fromJunctionPriority;
+    int     myFromJunctionPriority;
 
     /// the priority normalised for the node the edge is incoming in
-    int     _toJunctionPriority;
+    int     myToJunctionPriority;
 
     /// the information what purpose the edge has within a simulation
-    EdgeBasicFunction _basicType;
+    EdgeBasicFunction myBasicType;
 
     /// An optional geometry for the edge
     Position2DVector myGeom;

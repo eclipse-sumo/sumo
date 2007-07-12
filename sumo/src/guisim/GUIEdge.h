@@ -134,7 +134,7 @@ private:
     typedef std::vector<GUILaneWrapper*> LaneWrapperVector;
 
     /// List of the edge's lanes geometrical information
-    LaneWrapperVector _laneGeoms;
+    LaneWrapperVector myLaneGeoms;
 
     /**
      * A class to find the matching lane wrapper

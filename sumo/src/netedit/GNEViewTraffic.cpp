@@ -120,16 +120,16 @@ GNEViewTraffic::onCmdEditGraph(FXObject*sender,FXSelector,void*)
 {
     MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
     button->setChecked(!button->amChecked());
-    _inEditMode = button->amChecked();
-    if (_inEditMode) {
+    myInEditMode = button->amChecked();
+    if (myInEditMode) {
         static_cast<GNEViewParent*>(par)->getEditGroupBox()->show();
     } else {
         static_cast<GNEViewParent*>(par)->getEditGroupBox()->hide();
     }
     recalc();
-    _widthInPixels = getWidth();
-    _heightInPixels = getHeight();
-    _changer->otherChange();
+    myWidthInPixels = getWidth();
+    myHeightInPixels = getHeight();
+    myChanger->otherChange();
     update();
     return 1;
 }
@@ -159,7 +159,7 @@ GNEViewTraffic::onLeftBtnRelease(FXObject*sender,FXSelector selector,void*data)
     GUIViewTraffic::onLeftBtnRelease(sender, selector, data);
     FXEvent *e = (FXEvent*) data;
     //new Andreas
-    if (/*e->state&&*/_inEditMode) {
+    if (/*e->state&&*/myInEditMode) {
         if (makeCurrent()) {
             // initialise the select mode
             unsigned int id = getObjectUnderCursor();

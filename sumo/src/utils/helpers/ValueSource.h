@@ -37,7 +37,7 @@
 /**
  *
  */
-template<typename _T>
+template<typename myT>
 class ValueSource
 {
 public:
@@ -45,7 +45,7 @@ public:
     { }
     virtual ~ValueSource()
     { }
-    virtual _T getValue() const = 0;
+    virtual myT getValue() const = 0;
     virtual ValueSource *copy() const = 0;
 
 };

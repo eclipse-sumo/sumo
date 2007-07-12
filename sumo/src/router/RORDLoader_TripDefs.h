@@ -120,7 +120,7 @@ protected:
 
 protected:
     /// generates numerical ids
-    IDSupplier _idSupplier;
+    IDSupplier myIdSupplier;
 
     /// The id of the vehicle
     std::string myID;
@@ -164,7 +164,7 @@ protected:
     RGBColor myColor;
 
     /// The information whether the next route was read
-    bool _nextRouteRead;
+    bool myNextRouteRead;
 
     /// The vehicle type currently being parsed
     ROVehicleType *myCurrentVehicleType;

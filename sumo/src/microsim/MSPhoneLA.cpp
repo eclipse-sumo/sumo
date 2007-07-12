@@ -71,7 +71,7 @@ MSPhoneLA::addCall()
 void
 MSPhoneLA::addCall(const std::string &id)
 {
-    _Calls[id] = 1;
+    myCalls[id] = 1;
     ++sum_changes;
 }
 
@@ -79,9 +79,9 @@ MSPhoneLA::addCall(const std::string &id)
 void
 MSPhoneLA::remCall(const std::string &id)
 {
-    std::map<std::string, int>::iterator icalls = _Calls.find(id);
+    std::map<std::string, int>::iterator icalls = myCalls.find(id);
     if (icalls!=_Calls.end()) {
-        _Calls.erase(icalls);
+        myCalls.erase(icalls);
     }
 }
 
@@ -89,7 +89,7 @@ MSPhoneLA::remCall(const std::string &id)
 bool
 MSPhoneLA::hasCall(const std::string &id)
 {
-    return _Calls.find(id)!=_Calls.end();
+    return myCalls.find(id)!=_Calls.end();
 }
 
 

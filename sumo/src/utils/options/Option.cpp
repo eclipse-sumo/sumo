@@ -264,7 +264,7 @@ bool
 Option_Integer::set(string v, bool isDefault)
 {
     try {
-        myValue = TplConvert<char>::_2int(v.c_str());
+        myValue = TplConvert<char>::my2int(v.c_str());
         return markSet(isDefault);
     } catch (...) {
         string s = "'" + v + "' is not a valid integer (should be).";
@@ -334,7 +334,7 @@ bool
 Option_Long::set(string v, bool isDefault)
 {
     try {
-        myValue = TplConvert<char>::_2long(v.c_str());
+        myValue = TplConvert<char>::my2long(v.c_str());
         return markSet(isDefault);
     } catch (...) {
         string s = "'" + v + "' is not a valid long (should be).";
@@ -467,7 +467,7 @@ bool
 Option_Float::set(string v, bool isDefault)
 {
     try {
-        myValue = TplConvert<char>::_2SUMOReal(v.c_str());
+        myValue = TplConvert<char>::my2SUMOReal(v.c_str());
         return markSet(isDefault);
     } catch (...) {
         string s = "'" + v + "' is not a valid float (should be).";
@@ -661,7 +661,7 @@ Option_IntVector::set(std::string v, bool isDefault)
         }
         StringTokenizer st(v, ";,", true);
         while (st.hasNext()) {
-            myValue.push_back(TplConvert<char>::_2int(st.next().c_str()));
+            myValue.push_back(TplConvert<char>::my2int(st.next().c_str()));
         }
         return markSet(isDefault);
     } catch (EmptyData &) {

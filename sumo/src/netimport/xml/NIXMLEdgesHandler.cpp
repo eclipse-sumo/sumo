@@ -70,7 +70,7 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
                                      NBDistrictCont &dc,
                                      OptionsCont &options)
         : SUMOSAXHandler("xml-edges - file"),
-        _options(options),
+        myOptions(options),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc)
 {}
 
@@ -229,7 +229,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                         toNext = false;
                         break;
                     }
-                    int dist = TplConvert<char>::_2int(nextID.substr(myCurrentID.length()+1).c_str());
+                    int dist = TplConvert<char>::my2int(nextID.substr(myCurrentID.length()+1).c_str());
                     if (forcedLength>dist) {
                         toNext = false;
                         splitLength -= dist;
@@ -352,7 +352,7 @@ NIXMLEdgesHandler::setID(const Attributes &attrs)
             throw EmptyData();
         }
     } catch (EmptyData &) {
-        if(_options.getBool("omit-corrupt-edges")) {
+        if(myOptions.getBool("omit-corrupt-edges")) {
             MsgHandler::getWarningInstance()->inform("Missing edge id.");
         } else {
             MsgHandler::getErrorInstance()->inform("Missing edge id.");
@@ -400,14 +400,14 @@ void
 NIXMLEdgesHandler::setGivenSpeed(const Attributes &attrs)
 {
     if (!hasAttribute(attrs, SUMO_ATTR_SPEED)) {
-        if (_options.getBool("speed-in-kmh")) {
+        if (myOptions.getBool("speed-in-kmh")) {
             myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
         }
         return;
     }
     try {
         myCurrentSpeed = getFloat(attrs, SUMO_ATTR_SPEED);
-        if (_options.getBool("speed-in-kmh")) {
+        if (myOptions.getBool("speed-in-kmh")) {
             myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
         }
     } catch (NumberFormatException &) {
@@ -499,7 +499,7 @@ NIXMLEdgesHandler::setNodes(const Attributes &attrs)
         endNodeYPos = pos.y();
     }
     // check the obtained values for nodes
-    MsgHandler *msgh = _options.getBool("omit-corrupt-edges")
+    MsgHandler *msgh = myOptions.getBool("omit-corrupt-edges")
                        ? MsgHandler::getWarningInstance()
                        : MsgHandler::getErrorInstance();
     myFromNode = insertNodeChecking(*msgh, Position2D(begNodeXPos, begNodeYPos), begNodeID, "from");
@@ -627,7 +627,7 @@ NIXMLEdgesHandler::myCharacters(SumoXMLTag element,
             StringTokenizer st(chars, ";");
             while (st.hasNext()) {
                 try {
-                    int lane = TplConvert<char>::_2int(st.next().c_str());
+                    int lane = TplConvert<char>::my2int(st.next().c_str());
                     e.lanes.push_back(lane);
                 } catch (NumberFormatException &) {
                     MsgHandler::getErrorInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");

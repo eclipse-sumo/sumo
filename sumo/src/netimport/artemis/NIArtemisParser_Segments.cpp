@@ -66,11 +66,11 @@ NIArtemisParser_Segments::myDependentReport()
 {
     string linkname = myLineParser.get("Link");
     int segment =
-        TplConvert<char>::_2int(myLineParser.get("Segment").c_str());
+        TplConvert<char>::my2int(myLineParser.get("Segment").c_str());
     SUMOReal x =
-        TplConvert<char>::_2SUMOReal(myLineParser.get("StartX").c_str());
+        TplConvert<char>::my2SUMOReal(myLineParser.get("StartX").c_str());
     SUMOReal y =
-        TplConvert<char>::_2SUMOReal(myLineParser.get("StartY").c_str());
+        TplConvert<char>::my2SUMOReal(myLineParser.get("StartY").c_str());
     // length omitted
     // speed omitted!!!
     NIArtemisTempSegments::add(linkname, segment, x, y);

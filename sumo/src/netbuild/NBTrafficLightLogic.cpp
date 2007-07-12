@@ -64,12 +64,12 @@ using namespace std;
 // ===========================================================================
 NBTrafficLightLogic::NBTrafficLightLogic(const std::string &key,
         size_t noLinks)
-        : _key(key), _noLinks(noLinks)
+        : myKey(key), myNoLinks(noLinks)
 {}
 
 
 NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic &s)
-        : _key(s._key), _noLinks(s._noLinks), _phases(s._phases)
+        : myKey(s.myKey), myNoLinks(s.myNoLinks), myPhases(s.myPhases)
 {}
 
 
@@ -83,7 +83,7 @@ NBTrafficLightLogic::addStep(size_t duration,
                              std::bitset<64> brakeMask,
                              std::bitset<64> yellowMask)
 {
-    _phases.push_back(PhaseDefinition(duration, driveMask, brakeMask, yellowMask));
+    myPhases.push_back(PhaseDefinition(duration, driveMask, brakeMask, yellowMask));
 }
 
 
@@ -93,9 +93,9 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no, SUMOReal /*distance*/,
                               const std::set<string> &/*inLanes*/) const
     {
         into << "   <tl-logic type=\"" << type << "\">" << endl;
-        into << "      <key>" << _key << "</key>" << endl;
+        into << "      <key>" << myKey << "</key>" << endl;
         into << "      <subkey>" << no << "</subkey>" << endl;
-        into << "      <phaseno>" << _phases.size() << "</phaseno>" << endl;
+        into << "      <phaseno>" << myPhases.size() << "</phaseno>" << endl;
         int offset = getOffset();
         into << "      <offset>" << offset << "</offset>" << endl;
         // write the inlanes
@@ -113,24 +113,24 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no, SUMOReal /*distance*/,
         into << "</inclanes>" << endl;
         */
         // write the phases
-        for (PhaseDefinitionVector::const_iterator i=_phases.begin();
-                i!=_phases.end(); i++) {
+        for (PhaseDefinitionVector::const_iterator i=myPhases.begin();
+                i!=myPhases.end(); i++) {
             std::bitset<64> mask = (*i).driveMask;
             stringstream tmp1;
             tmp1 << mask;
             into << "      <phase duration=\"" << (*i).duration
-            << "\" phase=\"" << tmp1.str().substr(64-_noLinks) << "\"";
+            << "\" phase=\"" << tmp1.str().substr(64-myNoLinks) << "\"";
             // by now, only the vehicles that are not allowed to drive are
             //  breaking; later the right-arrow - rule should be concerned
             stringstream tmp2;
             mask = (*i).brakeMask;
             tmp2 << mask;
-            into << " brake=\"" << tmp2.str().substr(64-_noLinks) << "\"";
+            into << " brake=\"" << tmp2.str().substr(64-myNoLinks) << "\"";
             // write the information which link have a yellow light
             stringstream tmp3;
             mask = (*i).yellowMask;
             tmp3 << mask;
-            into << " yellow=\"" << tmp3.str().substr(64-_noLinks) << "\"";
+            into << " yellow=\"" << tmp3.str().substr(64-myNoLinks) << "\"";
             // close phase information
             into << "/>" << endl;
         }
@@ -139,10 +139,10 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no, SUMOReal /*distance*/,
 
 
 void
-NBTrafficLightLogic::_debugWritePhases() const
+NBTrafficLightLogic::myDebugWritePhases() const
 {
-    for (PhaseDefinitionVector::const_iterator i=_phases.begin();
-            i!=_phases.end(); i++) {
+    for (PhaseDefinitionVector::const_iterator i=myPhases.begin();
+            i!=myPhases.end(); i++) {
         DEBUG_OUT << (*i).duration << "s : " << (*i).driveMask << endl;
     }
 }
@@ -151,12 +151,12 @@ NBTrafficLightLogic::_debugWritePhases() const
 bool
 NBTrafficLightLogic::equals(const NBTrafficLightLogic &logic) const
 {
-    if (_phases.size()!=logic._phases.size()) {
+    if (myPhases.size()!=logic.myPhases.size()) {
         return false;
     }
     PhaseDefinitionVector::const_iterator i, j;
-    for (i=_phases.begin(), j=logic._phases.begin();
-            i!=_phases.end(); i++, j++) {
+    for (i=myPhases.begin(), j=logic.myPhases.begin();
+            i!=myPhases.end(); i++, j++) {
         if ((*i)!=(*j)) {
             return false;
         }
@@ -168,19 +168,19 @@ NBTrafficLightLogic::equals(const NBTrafficLightLogic &logic) const
 void
 NBTrafficLightLogic::closeBuilding()
 {
-    for (size_t i=0; i<_phases.size()-1;) {
-        if (_phases[i].driveMask!=_phases[i+1].driveMask
+    for (size_t i=0; i<myPhases.size()-1;) {
+        if (myPhases[i].driveMask!=myPhases[i+1].driveMask
                 ||
-                _phases[i].brakeMask!=_phases[i+1].brakeMask
+                myPhases[i].brakeMask!=myPhases[i+1].brakeMask
                 ||
-                _phases[i].yellowMask!=_phases[i+1].yellowMask) {
+                myPhases[i].yellowMask!=myPhases[i+1].yellowMask) {
 
             i++;
             continue;
         }
 
-        _phases[i].duration += _phases[i+1].duration;
-        _phases.erase(_phases.begin()+i+1);
+        myPhases[i].duration += myPhases[i+1].duration;
+        myPhases.erase(myPhases.begin()+i+1);
     }
 }
 
@@ -216,7 +216,7 @@ NBTrafficLightLogic::checkOffsetFor(const std::string &optionName) const
     StringTokenizer st(offsets, ";");
     while (st.hasNext()) {
         string key = st.next();
-        if (key==_key) {
+        if (key==myKey) {
             return true;
         }
     }
@@ -228,8 +228,8 @@ size_t
 NBTrafficLightLogic::computeOffsetFor(SUMOReal offsetMult) const
 {
     size_t dur = 0;
-    for (size_t i=0; i<_phases.size(); ++i) {
-        dur += _phases[i].duration;
+    for (size_t i=0; i<myPhases.size(); ++i) {
+        dur += myPhases[i].duration;
     }
     return (size_t)((SUMOReal) dur * offsetMult);
 }

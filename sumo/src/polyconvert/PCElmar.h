@@ -56,7 +56,7 @@ class OptionsCont;
  * @class PCElmar
  * @brief A reader of polygons stored in elmar-format
  *
- * Reads polygons stored in "..._polygons.txt" or "..._water_polygons.txt",
+ * Reads polygons stored in "...myPolygons.txt" or "...myWater_polygons.txt",
  *  applies the given projection and network offset and stores the so build
  *  polygons into the given map.
  */

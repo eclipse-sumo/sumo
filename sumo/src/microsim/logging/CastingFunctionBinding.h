@@ -39,14 +39,14 @@
 /**
  * @class CastingFunctionBinding
  */
-template< class _T, typename _R, typename _O  >
-class CastingFunctionBinding : public ValueSource<_R>
+template< class myT, typename myR, typename myO  >
+class CastingFunctionBinding : public ValueSource<myR>
 {
 public:
     /// Type of the function to execute.
-    typedef _O(_T::* Operation)() const;
+    typedef myO(myT::* Operation)() const;
 
-    CastingFunctionBinding(_T* source, Operation operation) :
+    CastingFunctionBinding(myT* source, Operation operation) :
             mySource(source),
             myOperation(operation)
     {}
@@ -55,21 +55,21 @@ public:
     ~CastingFunctionBinding()
     {}
 
-    _R getValue() const
+    myR getValue() const
     {
-        return (_R)(mySource->*myOperation)();
+        return (myR)(mySource->*myOperation)();
     }
 
-    ValueSource<_R> *copy() const
+    ValueSource<myR> *copy() const
     {
-        return new CastingFunctionBinding<_T, _R, _O>(mySource, myOperation);
+        return new CastingFunctionBinding<myT, myR, myO>(mySource, myOperation);
     }
 
 protected:
 
 private:
     /// The object the action is directed to.
-    _T* mySource;
+    myT* mySource;
 
     /// The object's operation to perform.
     Operation myOperation;

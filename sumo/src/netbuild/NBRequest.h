@@ -150,33 +150,33 @@ private:
 
 private:
     /// the node the request is assigned to
-    NBNode *_junction;
+    NBNode *myJunction;
 
     /** all (icoming and outgoing) of the junctions edges */
-    const EdgeVector * const _all;
+    const EdgeVector * const myAll;
 
     /** edges incoming to the junction */
-    const EdgeVector * const _incoming;
+    const EdgeVector * const myIncoming;
 
     /** edges outgoing from the junction */
-    const EdgeVector * const _outgoing;
+    const EdgeVector * const myOutgoing;
 
     /** definition of a container to store boolean informations about a link
         into */
     typedef std::vector<bool> LinkInfoCont;
 
     /** definition of a container for link(edge->edge) X link(edge->edge)
-        combinations (size = |_incoming|*|_outgoing|) */
+        combinations (size = |myIncoming|*|myOutgoing|) */
     typedef std::vector<LinkInfoCont> CombinationsCont;
 
     /** a container for approached lanes of a certain edge */
     typedef std::map<NBEdge*, LaneVector> OccupiedLanes;
 
     /** the link X link blockings */
-    CombinationsCont  _forbids;
+    CombinationsCont  myForbids;
 
     /** the link X link is done-checks */
-    CombinationsCont  _done;
+    CombinationsCont  myDone;
 
 private:
     static size_t myGoodBuilds, myNotBuild;

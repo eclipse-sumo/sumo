@@ -67,10 +67,10 @@ NBNodeShapeComputer::compute()
 {
     Position2DVector ret;
     bool isDeadEnd = false;
-    if (myNode._allEdges.size()==1) {
+    if (myNode.myAllEdges.size()==1) {
         isDeadEnd = true;
     }
-    if (myNode._allEdges.size()==2&&myNode.getIncomingEdges().size()==1) {
+    if (myNode.myAllEdges.size()==2&&myNode.getIncomingEdges().size()==1) {
         if (myNode.getIncomingEdges()[0]->isTurningDirectionAt(&myNode, myNode.getOutgoingEdges()[0])) {
             isDeadEnd = true;
         }
@@ -108,7 +108,7 @@ void
 NBNodeShapeComputer::addInternalGeometry()
 {
     /*
-    for(EdgeVector::const_iterator i=myNode._incomingEdges->begin(); i!=myNode._incomingEdges->end(); i++) {
+    for(EdgeVector::const_iterator i=myNode.myIncomingEdges->begin(); i!=myNode.myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
             const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
@@ -224,7 +224,7 @@ Position2DVector
 NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
 {
     // if we have less than two edges, we can not compute the node's shape this way
-    if (myNode._allEdges.size()<2) {
+    if (myNode.myAllEdges.size()<2) {
         return Position2DVector();
     }
 
@@ -239,7 +239,7 @@ NBNodeShapeComputer::computeContinuationNodeShape(bool simpleContinuation)
     // store relationships
     std::map<NBEdge*, NBEdge*> ccwBoundary;
     std::map<NBEdge*, NBEdge*> cwBoundary;
-    for (i=myNode._allEdges.begin(); i!=myNode._allEdges.end(); i++) {
+    for (i=myNode.myAllEdges.begin(); i!=myNode.myAllEdges.end(); i++) {
         cwBoundary[*i] = *i;
         ccwBoundary[*i] = *i;
     }
@@ -657,7 +657,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::vector<NBEdge
         std::map<NBEdge*, Position2DVector> &geomsCW)
 {
     EdgeVector::const_iterator i, j;
-    for (i=myNode._allEdges.begin(); i!=myNode._allEdges.end()-1; i++) {
+    for (i=myNode.myAllEdges.begin(); i!=myNode.myAllEdges.end()-1; i++) {
         // store current edge's boundary as current ccw/cw boundary
         geomsCCW[*i] = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
         geomsCW[*i] = (*i)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
@@ -674,7 +674,7 @@ NBNodeShapeComputer::joinSameDirectionEdges(std::map<NBEdge*, std::vector<NBEdge
         tmp.extrapolateBy(100);
         geomsCW[*i].replaceAt(0, tmp.p1());
         //
-        for (j=i+1; j!=myNode._allEdges.end(); j++) {
+        for (j=i+1; j!=myNode.myAllEdges.end(); j++) {
             geomsCCW[*j] = (*j)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
             geomsCW[*j] = (*j)->getCWBoundaryLine(myNode, SUMO_const_halfLaneWidth);
             Position2DVector g2 =
@@ -715,7 +715,7 @@ NBNodeShapeComputer::computeUniqueDirectionList(
     std::map<NBEdge*, NBEdge*> &ccwBoundary,
     std::map<NBEdge*, NBEdge*> &cwBoundary)
 {
-    std::vector<NBEdge*> newAll = myNode._allEdges;
+    std::vector<NBEdge*> newAll = myNode.myAllEdges;
     EdgeVector::const_iterator j;
     EdgeVector::iterator i2;
     std::map<NBEdge*, std::vector<NBEdge*> >::iterator k;
@@ -765,7 +765,7 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
 {
     Position2DVector ret;
     EdgeVector::const_iterator i;
-    for (i=myNode._allEdges.begin(); i!=myNode._allEdges.end(); i++) {
+    for (i=myNode.myAllEdges.begin(); i!=myNode.myAllEdges.end(); i++) {
         // compute crossing with normal
         {
             Line2D edgebound1 = (*i)->getCCWBoundaryLine(myNode, SUMO_const_halfLaneWidth).lineAt(0);

@@ -65,7 +65,7 @@ GUIAbstractRunThread::GUIAbstractRunThread(GUIApplicationWindow *parent,
         FXRealSpinDial &simDelay, MFXEventQue &eq,
         FXEX::FXThreadEvent &ev)
         : FXSingleEventThread(parent->getApp(), parent),
-        _net(0), _quit(false), _simulationInProgress(false), _ok(true),
+        myNet(0), myQuit(false), mySimulationInProgress(false), myOk(true),
         mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev)
 {
     myErrorRetriever = new MsgRetrievingFunction<GUIAbstractRunThread>(this,
@@ -80,13 +80,13 @@ GUIAbstractRunThread::GUIAbstractRunThread(GUIApplicationWindow *parent,
 GUIAbstractRunThread::~GUIAbstractRunThread()
 {
     // the thread shall stop
-    _quit = true;
+    myQuit = true;
     deleteSim();
     delete myErrorRetriever;
     delete myMessageRetriever;
     delete myWarningRetreiver;
     // wait for the thread
-    while (_simulationInProgress||_net!=0);
+    while (mySimulationInProgress||myNet!=0);
 }
 
 
@@ -100,9 +100,9 @@ GUIAbstractRunThread::run()
 void
 GUIAbstractRunThread::resume()
 {
-    if (_step<_simEndTime) {
-        _single = false;
-        _halting = false;
+    if (myStep<mySimEndTime) {
+        mySingle = false;
+        myHalting = false;
     }
 }
 
@@ -110,8 +110,8 @@ GUIAbstractRunThread::resume()
 void
 GUIAbstractRunThread::singleStep()
 {
-    _single = true;
-    _halting = false;
+    mySingle = true;
+    myHalting = false;
 }
 
 
@@ -123,15 +123,15 @@ GUIAbstractRunThread::begin()
 void
 GUIAbstractRunThread::stop()
 {
-    _single = false;
-    _halting = true;
+    mySingle = false;
+    myHalting = true;
 }
 
 
 bool
 GUIAbstractRunThread::simulationAvailable() const
 {
-    return _net!=0;
+    return myNet!=0;
 }
 
 
@@ -144,7 +144,7 @@ GUIAbstractRunThread::deleteSim()
 SUMOTime
 GUIAbstractRunThread::getCurrentTimeStep() const
 {
-    return _step;
+    return myStep;
 }
 
 
@@ -152,15 +152,15 @@ GUIAbstractRunThread::getCurrentTimeStep() const
 void
 GUIAbstractRunThread::prepareDestruction()
 {
-    _halting = true;
-    _quit = true;
+    myHalting = true;
+    myQuit = true;
 }
 
 
 void
 GUIAbstractRunThread::retrieveMessage(const std::string &msg)
 {
-    if (!_simulationInProgress) {
+    if (!mySimulationInProgress) {
         return;
     }
     GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_MESSAGE, msg);
@@ -172,7 +172,7 @@ GUIAbstractRunThread::retrieveMessage(const std::string &msg)
 void
 GUIAbstractRunThread::retrieveWarning(const std::string &msg)
 {
-    if (!_simulationInProgress) {
+    if (!mySimulationInProgress) {
         return;
     }
     GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_WARNING, msg);
@@ -184,7 +184,7 @@ GUIAbstractRunThread::retrieveWarning(const std::string &msg)
 void
 GUIAbstractRunThread::retrieveError(const std::string &msg)
 {
-    if (!_simulationInProgress) {
+    if (!mySimulationInProgress) {
         return;
     }
     GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_ERROR, msg);
@@ -196,21 +196,21 @@ GUIAbstractRunThread::retrieveError(const std::string &msg)
 bool
 GUIAbstractRunThread::simulationIsStartable() const
 {
-    return _net!=0&&(_halting||_single);
+    return myNet!=0&&(myHalting||mySingle);
 }
 
 
 bool
 GUIAbstractRunThread::simulationIsStopable() const
 {
-    return _net!=0&&(!_halting);
+    return myNet!=0&&(!myHalting);
 }
 
 
 bool
 GUIAbstractRunThread::simulationIsStepable() const
 {
-    return _net!=0&&(_halting||_single);
+    return myNet!=0&&(myHalting||mySingle);
 }
 
 

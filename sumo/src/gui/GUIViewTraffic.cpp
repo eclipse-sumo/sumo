@@ -96,8 +96,8 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
         myDetectorDrawer(GUIGlObject_AbstractAdd::getObjectList()),
         myROWDrawer(net.myEdgeWrapper),
         myTrackedID(-1),
-        _edges2Show(0), _junctions2Show(0), _additional2Show(0), _pointToMove(0),_IdToMove(0),
-        _leftButtonPressed(false), _net(&net)
+        myEdges2Show(0), myJunctions2Show(0), myAdditional2Show(0), myPointToMove(0),myIdToMove(0),
+        myLeftButtonPressed(false), myNet(&net)
 {
     init(net);
 }
@@ -114,8 +114,8 @@ GUIViewTraffic::GUIViewTraffic(FXComposite *p,
         myDetectorDrawer(GUIGlObject_AbstractAdd::getObjectList()),
         myROWDrawer(net.myEdgeWrapper),
         myTrackedID(-1),
-        _edges2Show(0), _junctions2Show(0), _additional2Show(0), _pointToMove(0),
-        _net(&net)
+        myEdges2Show(0), myJunctions2Show(0), myAdditional2Show(0), myPointToMove(0),
+        myNet(&net)
 {
     init(net);
 }
@@ -125,15 +125,15 @@ void
 GUIViewTraffic::init(GUINet &)
 {
     // build the artifact-instances-to-draw - tables
-    _edges2ShowSize = (MSEdge::dictSize()>>5) + 1;
-    _edges2Show = new size_t[_edges2ShowSize];
-    clearUsetable(_edges2Show, _edges2ShowSize);
-    _junctions2ShowSize = (MSJunction::dictSize()>>5) + 1;
-    _junctions2Show = new size_t[_junctions2ShowSize];
-    clearUsetable(_junctions2Show, _junctions2ShowSize);
-    _additional2ShowSize = (GUIGlObject_AbstractAdd::getObjectList().size()>>5) + 1;
-    _additional2Show = new size_t[_additional2ShowSize];
-    clearUsetable(_additional2Show, _additional2ShowSize);
+    myEdges2ShowSize = (MSEdge::dictSize()>>5) + 1;
+    myEdges2Show = new size_t[myEdges2ShowSize];
+    clearUsetable(myEdges2Show, myEdges2ShowSize);
+    myJunctions2ShowSize = (MSJunction::dictSize()>>5) + 1;
+    myJunctions2Show = new size_t[myJunctions2ShowSize];
+    clearUsetable(myJunctions2Show, myJunctions2ShowSize);
+    myAdditional2ShowSize = (GUIGlObject_AbstractAdd::getObjectList().size()>>5) + 1;
+    myAdditional2Show = new size_t[myAdditional2ShowSize];
+    clearUsetable(myAdditional2Show, myAdditional2ShowSize);
     // initialise default scheme
     myVisualizationSettings = &gSchemeStorage.get(gSchemeStorage.getNames()[0]);
 }
@@ -141,9 +141,9 @@ GUIViewTraffic::init(GUINet &)
 
 GUIViewTraffic::~GUIViewTraffic()
 {
-    delete[] _edges2Show;
-    delete[] _junctions2Show;
-    delete[] _additional2Show;
+    delete[] myEdges2Show;
+    delete[] myJunctions2Show;
+    delete[] myAdditional2Show;
 }
 
 
@@ -258,20 +258,20 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     glDisable(GL_BLEND);
     glDisable(GL_DEPTH_TEST);
     // get the viewport settings
-    const Boundary &nb = _net->getBoundary();
+    const Boundary &nb = myNet->getBoundary();
     {
         SUMOReal width = nb.getWidth();
         SUMOReal height = nb.getHeight();
-        SUMOReal mzoom = _changer->getZoom();
-        SUMOReal cy = _changer->getYPos();//cursorY;
-        SUMOReal cx = _changer->getXPos();//cursorY;
+        SUMOReal mzoom = myChanger->getZoom();
+        SUMOReal cy = myChanger->getYPos();//cursorY;
+        SUMOReal cx = myChanger->getXPos();//cursorY;
 
         // compute the visible area in horizontal direction
         SUMOReal mratioX = 1;
         SUMOReal mratioY = 1;
-        SUMOReal xs = ((SUMOReal) _widthInPixels / (SUMOReal) myApp->getMaxGLWidth())
-                      / (myGrid->getBoundary().getWidth() / myNetScale) * _ratio;
-        SUMOReal ys = ((SUMOReal) _heightInPixels / (SUMOReal) myApp->getMaxGLHeight())
+        SUMOReal xs = ((SUMOReal) myWidthInPixels / (SUMOReal) myApp->getMaxGLWidth())
+                      / (myGrid->getBoundary().getWidth() / myNetScale) * myRatio;
+        SUMOReal ys = ((SUMOReal) myHeightInPixels / (SUMOReal) myApp->getMaxGLHeight())
                       / (myGrid->getBoundary().getHeight() / myNetScale);
         if (xs<ys) {
             mratioX = 1;
@@ -297,11 +297,11 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
 
         // reset the tables of things to show if the viewport has changed
         if (myViewportSettings.differ(sxmin, symin, sxmax, symax)) {
-            clearUsetable(_edges2Show, _edges2ShowSize);
-            clearUsetable(_junctions2Show, _junctions2ShowSize);
-            _net->_grid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR,
+            clearUsetable(myEdges2Show,myEdges2ShowSize);
+            clearUsetable(myJunctions2Show, myJunctions2ShowSize);
+            myNet->myGrid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR,
                             sxmin, symin, sxmax, symax,
-                            _edges2Show, _junctions2Show, _additional2Show);
+                            myEdges2Show, myJunctions2Show,myAdditional2Show);
             myViewportSettings.set(sxmin, symin, sxmax, symax);
         }
     }
@@ -309,7 +309,7 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
     // compute lane width
     SUMOReal width = m2p(3.0) * scale;
     // compute which drawer shall be used
-    if (_useToolTips) {
+    if (myUseToolTips) {
         myVehicleDrawer.setGLID(true);
         myLaneDrawer.setGLID(true);
         myDetectorDrawer.setGLID(true);
@@ -343,24 +343,24 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
         }
         myDecalsLock.unlock();
     }
-    drawShapes(_net->getShapeContainer(), 0, width);
+    drawShapes(myNet->getShapeContainer(), 0, width);
 
-    myJunctionDrawer.drawGLJunctions(_junctions2Show, _junctions2ShowSize,
-                                     _junctionColScheme, *myVisualizationSettings);
-    myLaneDrawer.drawGLLanes(_edges2Show, _edges2ShowSize, width,
+    myJunctionDrawer.drawGLJunctions(myJunctions2Show, myJunctions2ShowSize,
+                                     myJunctionColScheme, *myVisualizationSettings);
+    myLaneDrawer.drawGLLanes(myEdges2Show, myEdges2ShowSize, width,
                              *myLaneColoringSchemes.getColorer(myVisualizationSettings->laneEdgeMode),
                              *myVisualizationSettings);
-    myDetectorDrawer.drawGLDetectors(_additional2Show, _additional2ShowSize,
+    myDetectorDrawer.drawGLDetectors(myAdditional2Show, myAdditional2ShowSize,
                                      width, *myVisualizationSettings);
-    myROWDrawer.drawGLROWs(*_net, _edges2Show, _edges2ShowSize, width,
+    myROWDrawer.drawGLROWs(*myNet, myEdges2Show, myEdges2ShowSize, width,
                            *myVisualizationSettings);
     if (myVisualizationSettings->drawEdgeName) {
-        myLaneDrawer.drawGLLaneNames(_edges2Show, _edges2ShowSize, width,
+        myLaneDrawer.drawGLLaneNames(myEdges2Show, myEdges2ShowSize, width,
                                      *myVisualizationSettings);
     }
     if (myVisualizationSettings->drawJunctionName) {
-        myJunctionDrawer.drawGLJunctionNames(_junctions2Show, _junctions2ShowSize,
-                                             width, _junctionColScheme, *myVisualizationSettings);
+        myJunctionDrawer.drawGLJunctionNames(myJunctions2Show, myJunctions2ShowSize,
+                                             width, myJunctionColScheme, *myVisualizationSettings);
     }
     //
     for (std::vector<VehicleOps>::iterator i=myVehicleOps.begin(); i!=myVehicleOps.end(); ++i) {
@@ -390,10 +390,10 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
         }
     }
     // draw the Polygons
-    drawShapes(_net->getShapeContainer(), 10, width);
+    drawShapes(myNet->getShapeContainer(), 10, width);
     // draw vehicles only when they're visible
     if (scale*m2p(3)>myVisualizationSettings->minVehicleSize) {
-        myVehicleDrawer.drawGLVehicles(_edges2Show, _edges2ShowSize, width,
+        myVehicleDrawer.drawGLVehicles(myEdges2Show, myEdges2ShowSize, width,
                                        myVehicleColoringSchemes, *myVisualizationSettings);
     }
     glPopMatrix();
@@ -449,7 +449,7 @@ GUIViewTraffic::doInit()
 void
 GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken)
 {
-    if (_useToolTips) {
+    if (myUseToolTips) {
         glPushName(vo.vehicle->getGlID());
     }
     myVehicleColoringSchemes.getColorer(myVisualizationSettings->vehicleMode)->setGlColor(*(vo.vehicle));
@@ -465,7 +465,7 @@ GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken)
     if (colors[3]<0) colors[3] = 0;
     glColor3dv(colors);
     draw(vo.vehicle->getRoute(routeNo));
-    if (_useToolTips) {
+    if (myUseToolTips) {
         glPopName();
     }
 }
@@ -547,7 +547,7 @@ long
 GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
 {
     FXEvent *e = (FXEvent*) data;
-    _leftButtonPressed=true;
+    myLeftButtonPressed=true;
     if (e->state&CAPSLOCKMASK) {
         if (makeCurrent()) {
             unsigned int id = getObjectUnderCursor();
@@ -555,7 +555,7 @@ GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
                 GUIGlObject *o = gIDStorage.getObjectBlocking(id);
                 std::string n= o->getFullName();
                 std::string name = n.substr(n.find(":")+1,n.length());
-                GUIPointOfInterest *p= static_cast<GUIPointOfInterest *>(_net->getShapeContainer().getPOICont(1).get(name));
+                GUIPointOfInterest *p= static_cast<GUIPointOfInterest *>(myNet->getShapeContainer().getPOICont(1).get(name));
                 setFirstPoint(p);
             } else {
                 FXMessageBox::error(myApp,MBOX_OK,"Error Get Point","No Point at the Position","");
@@ -575,14 +575,14 @@ GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
                 std::string n= o->getFullName();
                 std::string name = n.substr(n.find(":")+1,n.length());
                 GUIPointOfInterest *p= static_cast<GUIPointOfInterest *>
-                                       (_net->getShapeContainer().getPOICont(1).get(name));
+                                       (myNet->getShapeContainer().getPOICont(1).get(name));
                 setPointToMove(p);
             } else {
                 Position2D point = getPositionInformation();
                 std::string Id= toString(point.x()) +  "," + toString(point.y());
                 GUIPointOfInterest *p = new GUIPointOfInterest(gIDStorage, 1, Id, "point",
                                         Position2D(point.x(), point.y()),RGBColor(0,0,0));
-                _net->getShapeContainer().add(1, p);
+                myNet->getShapeContainer().add(1, p);
                 update();
             }
         }
@@ -595,14 +595,14 @@ GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
 void
 GUIViewTraffic::setPointToMove(PointOfInterest *p)
 {
-    _pointToMove = p;
+    myPointToMove = p;
 }
 
 
 void
 GUIViewTraffic::setIdToMove(unsigned int id)
 {
-    _IdToMove = id;
+    myIdToMove = id;
 }
 
 
@@ -612,38 +612,38 @@ GUIViewTraffic::onLeftBtnRelease(FXObject *o,FXSelector sel,void *data)
 {
     long ret = GUISUMOAbstractView::onLeftBtnRelease(o, sel, data);
     FXEvent *e = (FXEvent*) data;
-    if (_leftButtonPressed && _firstPoint!=0 && e->state&CAPSLOCKMASK) {
+    if (myLeftButtonPressed && myFirstPoint!=0 && e->state&CAPSLOCKMASK) {
         if (makeCurrent()) {
             unsigned int id = getObjectUnderCursor();
             if (id==-1) {
                 GUIGlObject *o = gIDStorage.getObjectBlocking(id);
                 std::string n= o->getFullName();
                 std::string name = n.substr(n.find(":")+1,n.length());
-                GUIPointOfInterest *p= static_cast<GUIPointOfInterest *>(_net->getShapeContainer().getPOICont(1).get(name));
+                GUIPointOfInterest *p= static_cast<GUIPointOfInterest *>(myNet->getShapeContainer().getPOICont(1).get(name));
                 setSecondPoint(p);
-//!!!				_net->getShapeContainer().addPair(_firstPoint,_secondPoint);
+//!!!				_net->getShapeContainer().addPair(myFirstPoint,_secondPoint);
                 update();
             } else {
                 Position2D point = getPositionInformation();
                 std::string Id= toString(point.x())+toString(point.y());
                 GUIPointOfInterest *p =
                     new GUIPointOfInterest(gIDStorage, 1, Id, "point", point, RGBColor(0,0,0));
-                _net->getShapeContainer().add(1, p);
+                myNet->getShapeContainer().add(1, p);
                 setSecondPoint(p);
-//!!!				_net->getShapeContainer().addPair(_firstPoint,_secondPoint);
-                SUMOReal dist = (SUMOReal)(sqrt(pow((_firstPoint->x() - _secondPoint->x()),2) + pow((_firstPoint->y() - _secondPoint->y()),2)));
+//!!!				_net->getShapeContainer().addPair(myFirstPoint,_secondPoint);
+                SUMOReal dist = (SUMOReal)(sqrt(pow((myFirstPoint->x() - mySecondPoint->x()),2) + pow((myFirstPoint->y() - mySecondPoint->y()),2)));
                 update();
             }
-            _firstPoint=0;
+            myFirstPoint=0;
             makeNonCurrent();
         }
 
     } else {
-        delete _popup;
-        _popup = 0;
+        delete myPopup;
+        myPopup = 0;
         ungrab();
     }
-    _leftButtonPressed=false;
+    myLeftButtonPressed=false;
     return ret;
 }
 
@@ -652,23 +652,23 @@ long
 GUIViewTraffic::onMouseMove(FXObject *o,FXSelector sel,void *data)
 {
     /*
-    SUMOReal xpos = _changer->getXPos();
-    SUMOReal ypos = _changer->getYPos();
-    SUMOReal zoom = _changer->getZoom();
+    SUMOReal xpos = myChanger->getXPos();
+    SUMOReal ypos = myChanger->getYPos();
+    SUMOReal zoom = myChanger->getZoom();
     */
     FXEvent *e=(FXEvent*)data;
 
-    if (_pointToMove!=0 && e->state&SHIFTMASK) {
+    if (myPointToMove!=0 && e->state&SHIFTMASK) {
         // Keep Color Informations
         Position2D point = getPositionInformation(e->win_x, e->win_y);
-        _pointToMove->set(point.x(), point.y());
+        myPointToMove->set(point.x(), point.y());
         if (!_leftButtonPressed) {
-            _pointToMove=0;
+            myPointToMove=0;
         }
         updatePositionInformation();
         update();
     } else {
-        if (_firstPoint!=0 && e->state&CAPSLOCKMASK && _leftButtonPressed) {
+        if (myFirstPoint!=0 && e->state&CAPSLOCKMASK && myLeftButtonPressed) {
             //do Nothing
             return 1;
         }
@@ -692,9 +692,9 @@ GUIViewTraffic::rename(GUIGlObject *o)
         RGBColor col(p->red(),p->green(),p->blue());
         GUIPointOfInterest *p_new = new GUIPointOfInterest(gIDStorage, input.text(), "point",
           Position2D(p->x(), p->y()),col);
-        _net->getShapeContainer().add(1, p_new);
+        myNet->getShapeContainer().add(1, p_new);
 
-        //!!!           const std::map<PointOfInterest*, PointOfInterest*> &pv = _net->getShapeContainer().getPOIPairCont();
+        //!!!           const std::map<PointOfInterest*, PointOfInterest*> &pv = myNet->getShapeContainer().getPOIPairCont();
         std::map<PointOfInterest*, PointOfInterest*>::const_iterator pi = pv.begin();
         for(; pi!=pv.end(); pi++) {
         if((*pi).first->getID()==name){
@@ -732,11 +732,11 @@ GUIViewTraffic::moveTo(GUIGlObject *)
 
     new FXLabel(contents,"Enter XPos",NULL,LAYOUT_LEFT);
     FXTextField* textX =new FXTextField(contents,6,NULL,0,FRAME_SUNKEN|FRAME_THICK|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FILL_COLUMN,0,0,0,0, 2,2,2,2);
-    textX->setText((toString((_net->getShapeContainer().getPOICont().get(name))->x())).c_str());
+    textX->setText((toString((myNet->getShapeContainer().getPOICont().get(name))->x())).c_str());
 
     new FXLabel(contents,"Enter YPos",NULL,LAYOUT_LEFT);
     FXTextField* textY =new FXTextField(contents,6,NULL,0,FRAME_SUNKEN|FRAME_THICK|LAYOUT_CENTER_Y|LAYOUT_FILL_X|LAYOUT_FILL_COLUMN,0,0,0,0, 2,2,2,2);
-    textY->setText((toString((_net->getShapeContainer().getPOICont().get(name))->y())).c_str());
+    textY->setText((toString((myNet->getShapeContainer().getPOICont().get(name))->y())).c_str());
 
     new FXButton(buttons,"&Accept",NULL,dialog,FXDialogBox::ID_ACCEPT,BUTTON_INITIAL|BUTTON_DEFAULT|LAYOUT_RIGHT|FRAME_RAISED|FRAME_THICK,0,0,0,0, 20,20);
     new FXButton(buttons,"&Cancel",NULL,dialog,FXDialogBox::ID_CANCEL,BUTTON_DEFAULT|LAYOUT_RIGHT|FRAME_RAISED|FRAME_THICK,0,0,0,0, 20,20);
@@ -747,7 +747,7 @@ GUIViewTraffic::moveTo(GUIGlObject *)
     if(inputX.length() > 0 && inputY.length() > 0){
     SUMOReal x = TplConvert<char>::_2SUMOReal(textX->getText().text());
     SUMOReal y = TplConvert<char>::_2SUMOReal(textY->getText().text());
-     _net->getShapeContainer().getPOICont().get(name)->set(x,y);
+     myNet->getShapeContainer().getPOICont().get(name)->set(x,y);
     }
     }
     delete dialog;
@@ -764,15 +764,15 @@ GUIViewTraffic::changeCol(GUIGlObject *)
 
     FXColorDialog * dialog = new FXColorDialog(myApp,"Color");
 
-    RGBColor col = RGBColor(_net->getShapeContainer().getPOICont().get(name)->myRed,
+    RGBColor col = RGBColor(myNet->getShapeContainer().getPOICont().get(name)->myRed,
     			_net->getShapeContainer().getPOICont().get(name)->myGreen,
     			_net->getShapeContainer().getPOICont().get(name)->myBlue);
     dialog->setRGBA(FXRGB(col.red()*255., col.green()*255., col.blue()*255.));
     if(dialog->execute()){
     FXColor c = dialog->getRGBA();
-    _net->getShapeContainer().getPOICont().get(name)->myRed=(SUMOReal) FXREDVAL(c) / (SUMOReal) 255.;
-    _net->getShapeContainer().getPOICont().get(name)->myGreen=(SUMOReal) FXGREENVAL(c) / (SUMOReal) 255.;
-    _net->getShapeContainer().getPOICont().get(name)->myBlue=(SUMOReal) FXBLUEVAL(c) / (SUMOReal) 255.;
+    myNet->getShapeContainer().getPOICont().get(name)->myRed=(SUMOReal) FXREDVAL(c) / (SUMOReal) 255.;
+    myNet->getShapeContainer().getPOICont().get(name)->myGreen=(SUMOReal) FXGREENVAL(c) / (SUMOReal) 255.;
+    myNet->getShapeContainer().getPOICont().get(name)->myBlue=(SUMOReal) FXBLUEVAL(c) / (SUMOReal) 255.;
     }
     delete dialog;
     */
@@ -810,7 +810,7 @@ GUIViewTraffic::changeTyp(GUIGlObject *)
     new FXButton(buttons,"&Cancel",NULL,dialog,FXDialogBox::ID_CANCEL,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_RIGHT|LAYOUT_CENTER_Y);
 
     if(dialog->execute()){
-    (_net->getShapeContainer().getPOICont().get(name))->setType((lstb->getItemText(lstb->getCurrentItem())).text());
+    (myNet->getShapeContainer().getPOICont().get(name))->setType((lstb->getItemText(lstb->getCurrentItem())).text());
     }
 
     delete buttons;
@@ -841,13 +841,13 @@ GUIViewTraffic::deleteObj(GUIGlObject *)
 void
 GUIViewTraffic::setFirstPoint(PointOfInterest *p)
 {
-    _firstPoint=p;
+    myFirstPoint=p;
 }
 
 void
 GUIViewTraffic::setSecondPoint(PointOfInterest *p)
 {
-    _secondPoint=p;
+    mySecondPoint=p;
 }
 
 

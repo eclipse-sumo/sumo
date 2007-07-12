@@ -62,9 +62,9 @@ NBDistrictCont::~NBDistrictCont()
 bool
 NBDistrictCont::insert(NBDistrict *district)
 {
-    DistrictCont::iterator i = _districts.find(district->getID());
-    if (i!=_districts.end()) return false;
-    _districts.insert(DistrictCont::value_type(district->getID(), district));
+    DistrictCont::iterator i = myDistricts.find(district->getID());
+    if (i!=myDistricts.end()) return false;
+    myDistricts.insert(DistrictCont::value_type(district->getID(), district));
     return true;
 }
 
@@ -72,8 +72,8 @@ NBDistrictCont::insert(NBDistrict *district)
 NBDistrict *
 NBDistrictCont::retrieve(const string &id)
 {
-    DistrictCont::iterator i = _districts.find(id);
-    if (i==_districts.end()) return 0;
+    DistrictCont::iterator i = myDistricts.find(id);
+    if (i==myDistricts.end()) return 0;
     return (*i).second;
 }
 
@@ -81,7 +81,7 @@ NBDistrictCont::retrieve(const string &id)
 void
 NBDistrictCont::writeXML(ostream &into)
 {
-    for (DistrictCont::iterator i=_districts.begin(); i!=_districts.end(); i++) {
+    for (DistrictCont::iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
         (*i).second->writeXML(into);
     }
     into << endl;
@@ -90,17 +90,17 @@ NBDistrictCont::writeXML(ostream &into)
 
 int NBDistrictCont::size()
 {
-    return _districts.size();
+    return myDistricts.size();
 }
 
 
 void
 NBDistrictCont::clear()
 {
-    for (DistrictCont::iterator i=_districts.begin(); i!=_districts.end(); i++) {
+    for (DistrictCont::iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
         delete((*i).second);
     }
-    _districts.clear();
+    myDistricts.clear();
 }
 
 
@@ -131,7 +131,7 @@ NBDistrictCont::addSink(const std::string &dist, NBEdge *destination,
 void
 NBDistrictCont::removeFromSinksAndSources(NBEdge *e)
 {
-    for (DistrictCont::iterator i=_districts.begin(); i!=_districts.end(); i++) {
+    for (DistrictCont::iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
         (*i).second->removeFromSinksAndSources(e);
     }
 }

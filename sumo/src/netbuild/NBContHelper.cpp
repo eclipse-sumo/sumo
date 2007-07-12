@@ -128,14 +128,14 @@ NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge *e) const
 
     SUMOReal angle;
     // convert angle if the edge is an outgoing edge
-    if (e->getFromNode()==_node) {
-        angle = e->getNormedAngle(*_node);
+    if (e->getFromNode()==myNode) {
+        angle = e->getNormedAngle(*myNode);
         angle += (SUMOReal) 180.;
         if (angle>=(SUMOReal) 360.) {
             angle -= (SUMOReal) 360.;
         }
     } else {
-        angle = e->getNormedAngle(*_node);
+        angle = e->getNormedAngle(*myNode);
     }
     if (angle<0.1||angle>359.9) {
         angle = (SUMOReal) 0.;
@@ -150,7 +150,7 @@ NBContHelper::edge_by_junction_angle_sorter::getConvAngle(NBEdge *e) const
  * methods from node_with_incoming_finder
  * ----------------------------------------------------------------------- */
 NBContHelper::node_with_incoming_finder::node_with_incoming_finder(NBEdge *e)
-        : _edge(e)
+        : myEdge(e)
 {}
 
 
@@ -158,7 +158,7 @@ bool
 NBContHelper::node_with_incoming_finder::operator()(const NBNode * const n) const
 {
     const EdgeVector &incoming = n->getIncomingEdges();
-    return std::find(incoming.begin(), incoming.end(), _edge)!=incoming.end();
+    return std::find(incoming.begin(), incoming.end(), myEdge)!=incoming.end();
 }
 
 
@@ -167,7 +167,7 @@ NBContHelper::node_with_incoming_finder::operator()(const NBNode * const n) cons
  * methods from node_with_outgoing_finder
  * ----------------------------------------------------------------------- */
 NBContHelper::node_with_outgoing_finder::node_with_outgoing_finder(NBEdge *e)
-        : _edge(e)
+        : myEdge(e)
 {}
 
 
@@ -175,7 +175,7 @@ bool
 NBContHelper::node_with_outgoing_finder::operator()(const NBNode * const n) const
 {
     const EdgeVector &outgoing = n->getOutgoingEdges();
-    return std::find(outgoing.begin(), outgoing.end(), _edge)!=outgoing.end();
+    return std::find(outgoing.begin(), outgoing.end(), myEdge)!=outgoing.end();
 }
 
 

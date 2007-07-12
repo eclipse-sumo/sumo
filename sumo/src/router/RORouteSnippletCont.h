@@ -71,7 +71,7 @@ private:
     typedef std::map<std::pair<const ROEdge*, const ROEdge*>, ROEdgeVector > MapType;
 
     /// The snipplet container
-    MapType _known;
+    MapType myKnown;
 
 private:
     /// we made the copy constructor invalid

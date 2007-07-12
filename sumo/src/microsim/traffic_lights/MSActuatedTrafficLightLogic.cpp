@@ -55,7 +55,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(
     size_t step, size_t delay, SUMOReal maxGap, SUMOReal passingTime,
     SUMOReal detectorGap)
         : MSSimpleTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
-        _continue(false),
+        myContinue(false),
         myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap)
 {}
 
@@ -140,7 +140,7 @@ MSActuatedTrafficLightLogic::~MSActuatedTrafficLightLogic()
 SUMOTime
 MSActuatedTrafficLightLogic::duration() const
 {
-    if (_continue) {
+    if (myContinue) {
         return 1;
     }
     assert(myPhases.size()>myStep);
@@ -193,7 +193,7 @@ MSActuatedTrafficLightLogic::trySwitch(bool)
 {
     // checks if the actual phase should be continued
     gapControl();
-    if (_continue) {
+    if (myContinue) {
         return duration();
     }
     // increment the index to the current phase
@@ -203,7 +203,7 @@ MSActuatedTrafficLightLogic::trySwitch(bool)
         myStep = 0;
     }
     //stores the time the phase started
-    static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->_lastSwitch =
+    static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->myLastSwitch =
         MSNet::getInstance()->getCurrentTimeStep();
     // set the next event
     return duration();
@@ -229,15 +229,15 @@ MSActuatedTrafficLightLogic::gapControl()
     //intergreen times should not be lenghtend
     assert(myPhases.size()>myStep);
     if (!isGreenPhase()) {
-        _continue = false;
+        myContinue = false;
         return;
     }
 
     // Checks, if the maxDuration is kept. No phase should longer send than maxDuration.
     SUMOTime actDuration =
-        MSNet::getInstance()->getCurrentTimeStep() - static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->_lastSwitch;
+        MSNet::getInstance()->getCurrentTimeStep() - static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->myLastSwitch;
     if (actDuration >= currentPhaseDef()->maxDuration) {
-        _continue = false;
+        myContinue = false;
         return;
     }
 
@@ -256,13 +256,13 @@ MSActuatedTrafficLightLogic::gapControl()
                 SUMOReal actualGap =
                     myInductLoops.find(*j)->second->getTimestepsSinceLastDetection();
                 if (actualGap < myMaxGap) {
-                    _continue = true;
+                    myContinue = true;
                     return;
                 }
             }
         }
     }
-    _continue = false;
+    myContinue = false;
 }
 
 

@@ -213,7 +213,7 @@ RORDGenerator_ODAmounts::buildForTimeStep(SUMOTime time)
         FlowDef *fd = *i;
         // skip flow definitions not valid for the current time
         if (fd->applicableForTime(time)) {
-            fd->addRoutes(myVehicleBuilder, _net, time);
+            fd->addRoutes(myVehicleBuilder, myNet, time);
         }
         // check whether any further exists
         if (fd->getIntervalEnd()>time) {
@@ -334,14 +334,14 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
         // add the vehicle type, the vehicle and the route to the net
         RORouteDef *route = new RORouteDef_OrigDest(myID, myColor,
                             myBeginEdge, myEndEdge);
-        ROVehicleType *type = _net.getVehicleTypeSecure(myType);
+        ROVehicleType *type = myNet.getVehicleTypeSecure(myType);
         // check whether any errors occured
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return;
         }
         // build the vehicle
-        _net.addRouteDef(route);
-        _nextRouteRead = true;
+        myNet.addRouteDef(route);
+        myNextRouteRead = true;
         ROVehicle *vehicle = 0;
         if (myPos>=0||mySpeed>=0) {
             vehicle = myVehicleBuilder.buildRunningVehicle(myID, route, myDepartureTime,
@@ -370,7 +370,7 @@ bool
 RORDGenerator_ODAmounts::init(OptionsCont &)
 {
     // read in the file on initialisation
-    _parser->parse(getFileName().c_str());
+    myParser->parse(getFileName().c_str());
     myDepartureTime = myBegin;
     return true;
 }

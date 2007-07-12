@@ -70,13 +70,13 @@ RONet *
 RODFLoader::loadNet(ROAbstractEdgeBuilder &eb)
 {
     RONet *net = new RONet(true);
-    std::string file = _options.getString("n");
+    std::string file = myOptions.getString("n");
     if (file==""||!FileHelpers::exists(file)) {
         delete net;
         throw ProcessError("The network file '" + file + "' could not be found.");
     }
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading net...");
-    RODFNetHandler handler(_options, *net, eb);
+    RODFNetHandler handler(myOptions, *net, eb);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file)) {
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");

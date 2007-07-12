@@ -91,20 +91,20 @@ protected:
 
 protected:
     /// the options (program settings)
-    OptionsCont &_options;
+    OptionsCont &myOptions;
 
     /// the net to store the information into
-    RONet &_net;
+    RONet &myNet;
 
     /// the name of the edge/node that is currently processed
-    std::string _currentName;
+    std::string myCurrentName;
 
     /// the currently build edge
-    ROEdge *_currentEdge;
+    ROEdge *myCurrentEdge;
 
     /** @brief An indicator whether the next edge shall be read
         Internal edges are not read by now */
-    bool _process;
+    bool myProcess;
 
     std::vector<SUMOVehicleClass> myAllowedClasses;
     std::vector<SUMOVehicleClass> myNotAllowedClasses;

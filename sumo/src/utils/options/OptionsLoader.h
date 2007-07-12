@@ -123,19 +123,19 @@ private:
 
 private:
     /** the information whether an error occured */
-    bool  _error;
+    bool  myError;
 
     /** the parsed file */
-    const char  *_file;
+    const char  *myFile;
 
     /** the information whether the builder shall be run in verbose mode */
-    bool  _verbose;
+    bool  myVerbose;
 
     /** the container to store the informations into */
-    OptionsCont &_options;
+    OptionsCont &myOptions;
 
     /** the name of the currently parsed option */
-    std::string _item;
+    std::string myItem;
 };
 
 

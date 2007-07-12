@@ -47,20 +47,20 @@
  * @brief Colors by first asking whether a value can be retrieved, then
  *  retrieving it
  */
-template<class _T, class _D>
-class GUIColorer_ByOptCORNValue : public GUIBaseColorer<_T>
+template<class myT, class myD>
+class GUIColorer_ByOptCORNValue : public GUIBaseColorer<myT>
 {
 public:
     /// Type of the function to execute to get the information whether a value is existing
-    typedef bool(_T::* HasOperation)(_D) const;
+    typedef bool(myT::* HasOperation)(myD) const;
     /// Type of the function to execute to get the value
-    typedef int(_T::* NumberOperation)(_D) const;
+    typedef int(myT::* NumberOperation)(myD) const;
 
     /// Constructor
     GUIColorer_ByOptCORNValue(HasOperation hasOperation,
                               NumberOperation numberOperation, bool catchNo, SUMOReal min, SUMOReal max,
                               const RGBColor &no, const RGBColor &minColor, const RGBColor &maxColor,
-                              _D param)
+                              myD param)
             : myHasOperation(hasOperation), myNumberOperation(numberOperation),
             myNoColor(no), myMinColor(minColor), myMaxColor(maxColor),
             myMin(min), myMax(max), myParameter(param)
@@ -74,11 +74,11 @@ public:
 
     /// @name inherited from GUIBaseColorer
     //@{
-    /// Sets the color using a value from the given instance of _T
-    void setGlColor(const _T& i) const
+    /// Sets the color using a value from the given instance of myT
+    void setGlColor(const myT& i) const
     {
         // check whether a value can be retrieved...
-        if (!(i.*myHasOperation)((_D) myParameter)) {
+        if (!(i.*myHasOperation)((myD) myParameter)) {
             // ... no, check whether the min color shall be used
             if (myCatchNo) {
                 // ... no, use the fallback color
@@ -89,7 +89,7 @@ public:
             }
         } else {
             // ... yes, then retrieve the value
-            SUMOReal val = (i.*myNumberOperation)((_D) myParameter) - myMin;
+            SUMOReal val = (i.*myNumberOperation)((myD) myParameter) - myMin;
             if (val<myMin) {
                 val = myMin;
             } else if (val>myMax) {
@@ -169,7 +169,7 @@ protected:
     SUMOReal myMin, myMax, myScale;
 
     /// The parameter to use to retrieve the information/value
-    _D myParameter;
+    myD myParameter;
 
 };
 

@@ -86,7 +86,7 @@ private:
     typedef std::map<std::string, NBDistrict*> DistrictCont;
 
     /// the instance of the dictionary
-    DistrictCont _districts;
+    DistrictCont myDistricts;
 
 private:
     /** invalid copy constructor */

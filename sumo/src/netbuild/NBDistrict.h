@@ -100,22 +100,22 @@ public:
 
 private:
     /// a secondary name
-    std::string _name;
+    std::string myName;
 
     /// definition of a vector of connection weights
     typedef DoubleVector WeightsCont;
 
     /// the sources (connection from district to network)
-    EdgeVector _sources;
+    EdgeVector mySources;
 
     /// the weights of the sources
-    WeightsCont _sourceWeights;
+    WeightsCont mySourceWeights;
 
     /// the sinks (connection from network to district)
-    EdgeVector _sinks;
+    EdgeVector mySinks;
 
     /// the weights of the sinks
-    WeightsCont _sinkWeights;
+    WeightsCont mySinkWeights;
 
     /// the position of the distrct (it's mass-middle-point)
     Position2D myPosition;

@@ -139,7 +139,7 @@ NBOwnTLDef::computeTrafficLightLogics(const std::string &key,
 
 #ifdef TL_DEBUG
     if (maxStromAnz>=10) {
-        DEBUG_OUT << _junction->getID() << ":" << maxStromAnz << endl;
+        DEBUG_OUT << myJunction->getID() << ":" << maxStromAnz << endl;
     }
 #endif
 

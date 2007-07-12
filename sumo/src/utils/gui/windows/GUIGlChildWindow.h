@@ -74,7 +74,7 @@ public:
 
 protected:
     /// the view
-    GUISUMOAbstractView *_view;
+    GUISUMOAbstractView *myView;
 
     /// The tool bar
     FXToolBar *myNavigationToolBar;

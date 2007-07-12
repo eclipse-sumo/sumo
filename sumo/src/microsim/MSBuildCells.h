@@ -77,19 +77,19 @@ private:
     MSNet &myNet;
 
     /// The networks boundary
-    Boundary _boundary;
+    Boundary myBoundary;
 
     /// Definition of a MSCell container
     typedef std::vector<MSCell*> Cont;
 
     /// The container saves the MSCell
-    Cont _cellsCont;
+    Cont myCellsCont;
 
     /// The Number of Cells in x- and y-Direction
-    size_t _xsize, _ysize;
+    size_t myXsize, myYsize;
 
     /// The sizes of each cell
-    SUMOReal _xcellsize, _ycellsize;
+    SUMOReal myXcellsize, myYcellsize;
 
     /// creates size's amount of new Cells
     void createCells(size_t size);

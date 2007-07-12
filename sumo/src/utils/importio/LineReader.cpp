@@ -54,10 +54,10 @@ LineReader::LineReader()
 
 
 LineReader::LineReader(const std::string &file)
-        : _fileName(file),
-        _read(0)
+        : myFileName(file),
+        myRead(0)
 {
-    _strm.unsetf(ios::skipws);
+    myStrm.unsetf(ios::skipws);
     setFileName(file);
 }
 
@@ -67,14 +67,14 @@ LineReader::~LineReader()
 bool
 LineReader::hasMore() const
 {
-    return _rread<_available;
+    return myRread<myAvailable;
 }
 
 
 void
 LineReader::readAll(LineHandler &lh)
 {
-    while (_rread<_available) {
+    while (myRread<myAvailable) {
         if (!readLine(lh)) {
             return;
         }
@@ -88,28 +88,28 @@ LineReader::readLine(LineHandler &lh)
     string toReport;
     bool moreAvailable = true;
     while (toReport.length()==0) {
-        size_t idx = _strBuffer.find('\n');
+        size_t idx = myStrBuffer.find('\n');
         if (idx==0) {
-            _strBuffer = _strBuffer.substr(1);
-            _rread++;
+            myStrBuffer = myStrBuffer.substr(1);
+            myRread++;
             return lh.report("");
         }
         if (idx!=string::npos) {
-            toReport = _strBuffer.substr(0, idx);
-            _strBuffer = _strBuffer.substr(idx+1);
-            _rread += idx+1;
+            toReport = myStrBuffer.substr(0, idx);
+            myStrBuffer = myStrBuffer.substr(idx+1);
+            myRread += idx+1;
         } else {
-            if (_read<_available) {
-                _strm.read(_buffer,
-                           _available - _read<1024
-                           ? _available - _read
+            if (myRead<myAvailable) {
+                myStrm.read(myBuffer,
+                           myAvailable - myRead<1024
+                           ? myAvailable - myRead
                            : 1024);
-                size_t noBytes = _available - _read;
+                size_t noBytes = myAvailable - myRead;
                 noBytes = noBytes > 1024 ? 1024 : noBytes;
-                _strBuffer += string(_buffer, noBytes);
-                _read += 1024;
+                myStrBuffer += string(myBuffer, noBytes);
+                myRead += 1024;
             } else {
-                toReport = _strBuffer;
+                toReport = myStrBuffer;
                 moreAvailable = false;
                 if (toReport=="") {
                     return lh.report(toReport);
@@ -140,30 +140,30 @@ LineReader::readLine()
 {
     string toReport;
     bool moreAvailable = true;
-    while (toReport.length()==0&&_strm.good()) {
-        size_t idx = _strBuffer.find('\n');
+    while (toReport.length()==0&&myStrm.good()) {
+        size_t idx = myStrBuffer.find('\n');
         if (idx==0) {
-            _strBuffer = _strBuffer.substr(1);
-            _rread++;
+            myStrBuffer = myStrBuffer.substr(1);
+            myRread++;
             return "";
         }
         if (idx!=string::npos) {
-            toReport = _strBuffer.substr(0, idx);
-            _strBuffer = _strBuffer.substr(idx+1);
-            _rread += idx+1;
+            toReport = myStrBuffer.substr(0, idx);
+            myStrBuffer = myStrBuffer.substr(idx+1);
+            myRread += idx+1;
         } else {
-            if (_read<_available) {
-                _strm.read(_buffer,
-                           _available - _read<1024
-                           ? _available - _read
+            if (myRead<myAvailable) {
+                myStrm.read(myBuffer,
+                           myAvailable - myRead<1024
+                           ? myAvailable - myRead
                            : 1024);
-                size_t noBytes = _available - _read;
+                size_t noBytes = myAvailable - myRead;
                 noBytes = noBytes > 1024 ? 1024 : noBytes;
-                _strBuffer += string(_buffer, noBytes);
-                _read += 1024;
+                myStrBuffer += string(myBuffer, noBytes);
+                myRead += 1024;
             } else {
-                toReport = _strBuffer;
-                _rread += 1024; // toReport.length()
+                toReport = myStrBuffer;
+                myRread += 1024; // toReport.length()
                 moreAvailable = false;
                 if (toReport=="") {
                     return toReport;
@@ -171,7 +171,7 @@ LineReader::readLine()
             }
         }
     }
-    if (!_strm.good()) {
+    if (!myStrm.good()) {
         return "";
     }
     // remove trailing blanks
@@ -192,63 +192,63 @@ LineReader::readLine()
 std::string
 LineReader::getFileName() const
 {
-    return _fileName;
+    return myFileName;
 }
 
 bool
 LineReader::setFileName(const std::string &file)
 {
-    if (_strm.is_open()) {
-        _strm.close();
+    if (myStrm.is_open()) {
+        myStrm.close();
     }
-//    _strm.clear();
-    _fileName = file;
-    _strm.open(file.c_str(), ios::binary);
-    _strm.unsetf(ios::skipws);
-    _strm.seekg(0, ios::end);
-    _available = _strm.tellg();
-    _strm.seekg(0, ios::beg);
-    _read = 0;
-    _rread = 0;
-    _strBuffer = "";
-    return _strm.good();
+//    myStrm.clear();
+    myFileName = file;
+    myStrm.open(file.c_str(), ios::binary);
+    myStrm.unsetf(ios::skipws);
+    myStrm.seekg(0, ios::end);
+    myAvailable = myStrm.tellg();
+    myStrm.seekg(0, ios::beg);
+    myRead = 0;
+    myRread = 0;
+    myStrBuffer = "";
+    return myStrm.good();
 }
 
 unsigned long
 LineReader::getPosition()
 {
-    return _rread;
+    return myRread;
 }
 
 void
 LineReader::reinit()
 {
-    if (_strm.is_open()) {
-        _strm.close();
+    if (myStrm.is_open()) {
+        myStrm.close();
     }
-    _strm.open(_fileName.c_str(), ios::binary);
-    _strm.unsetf(ios::skipws);
-    _strm.seekg(0, ios::end);
-    _available = _strm.tellg();
-    _strm.seekg(0, ios::beg);
-    _read = 0;
-    _rread = 0;
-    _strBuffer = "";
+    myStrm.open(myFileName.c_str(), ios::binary);
+    myStrm.unsetf(ios::skipws);
+    myStrm.seekg(0, ios::end);
+    myAvailable = myStrm.tellg();
+    myStrm.seekg(0, ios::beg);
+    myRead = 0;
+    myRread = 0;
+    myStrBuffer = "";
 }
 
 void
 LineReader::setPos(unsigned long pos)
 {
-    _strm.seekg(pos, ios::beg);
-    _read = pos;
-    _rread = pos;
-    _strBuffer = "";
+    myStrm.seekg(pos, ios::beg);
+    myRead = pos;
+    myRread = pos;
+    myStrBuffer = "";
 }
 
 bool
 LineReader::good() const
 {
-    return _strm.good();
+    return myStrm.good();
 }
 
 

@@ -193,7 +193,7 @@ GUILoadThread::submitEndAndCleanup(GUINet *net,
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetreiver);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     // inform parent about the process
-    GUIEvent *e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, _file);
+    GUIEvent *e = new GUIEvent_SimulationLoaded(net, simStartTime, simEndTime, myFile);
     myEventQue.add(e);
     myEventThrow.signal();
 }
@@ -206,9 +206,9 @@ GUILoadThread::initOptions()
         SUMOFrame::fillOptions();
         OptionsCont &oc = OptionsCont::getOptions();
         if (myLoadNet) {
-            oc.set("net-file", _file);
+            oc.set("net-file", myFile);
         } else {
-            oc.set("configuration-file", _file);
+            oc.set("configuration-file", myFile);
         }
         OptionsIO::getOptions(true, 1, 0);
         return true;

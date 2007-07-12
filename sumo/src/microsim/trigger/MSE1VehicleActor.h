@@ -161,10 +161,10 @@ public:
 
 protected:
     const SUMOReal posM;          /**< Detector's position on lane [cells]. */
-    //const ActorType _type;
-    unsigned int _LAId;
-    unsigned int _AreaId;
-    unsigned int _ActorType;
+    //const ActorType myType;
+    unsigned int myLAId;
+    unsigned int myAreaId;
+    unsigned int myActorType;
 
     /// The number of vehicles that have passed this actor
     unsigned int myPassedVehicleNo;

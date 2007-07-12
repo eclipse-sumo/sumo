@@ -172,29 +172,29 @@ public:
 
 protected:
     /// The id of the edge
-    std::string _id;
+    std::string myId;
 
     /// The maximum distance of this edge (including all lanes)
-    SUMOReal _dist;
+    SUMOReal myDist;
 
     /// The maximum speed allowed on this edge
-    SUMOReal _speed;
+    SUMOReal mySpeed;
 
     /// Container storing passing time varying over time for the edge
-    FloatValueTimeLine _ownValueLine;
+    FloatValueTimeLine myOwnValueLine;
 
     /// "Absolut" supplementary weights.
-    FloatValueTimeLine* _supplementaryWeightAbsolut;
+    FloatValueTimeLine* mySupplementaryWeightAbsolut;
     /// "Add" supplementary weights.
-    FloatValueTimeLine* _supplementaryWeightAdd;
+    FloatValueTimeLine* mySupplementaryWeightAdd;
     /// "Multiplication" supplementary weights.
-    FloatValueTimeLine* _supplementaryWeightMult;
+    FloatValueTimeLine* mySupplementaryWeightMult;
 
     /// List of edges that may be approached from this edge
     std::vector<ROEdge*> myFollowingEdges;
 
     /// information whether the time line shall be used instead of the length value
-    bool _usingTimeLine;
+    bool myUsingTimeLine;
 
 
     /// The type of the edge
@@ -208,7 +208,7 @@ protected:
 
     /// Flag that indicates, if the supplementary weights have been
     /// set. Initially false.
-    bool _hasSupplementaryWeights;
+    bool myHasSupplementaryWeights;
 
     /// Information whether the edge has reported missing weights
     //bool myHaveWarned;

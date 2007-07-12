@@ -76,7 +76,7 @@ private:
     typedef std::map<std::string, std::string> LogicMap;
 
     /// the storage for the computed logic
-    LogicMap _map;
+    LogicMap myMap;
 
 private:
     /** invalid copy constructor */

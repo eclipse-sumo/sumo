@@ -108,13 +108,13 @@ public:
 
 private:
     /// The costs of the route
-    SUMOReal _costs;
+    SUMOReal myCosts;
 
     /// The probability the driver will take this route with
-    SUMOReal _probability;
+    SUMOReal myProbability;
 
     /// The edges the route consists of
-    ROEdgeVector _route;
+    ROEdgeVector myRoute;
 
 };
 

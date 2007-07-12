@@ -252,13 +252,13 @@ protected:
 
 protected:
     /// Options to use
-    OptionsCont &_options;
+    OptionsCont &myOptions;
 
     /// Definition of route loader list
     typedef std::vector<ROAbstractRouteDefLoader*> RouteLoaderCont;
 
     /// List of route loaders
-    RouteLoaderCont _handler;
+    RouteLoaderCont myHandler;
 
     /// Information whether empty destinations are allowed
     bool myEmptyDestinationsAllowed;

@@ -45,7 +45,7 @@
 class NISUMOHandlerNodes : public SUMOSAXHandler
 {
 private:
-    LoadFilter _loading;
+    LoadFilter myLoading;
 public:
     NISUMOHandlerNodes(NBNodeCont &nc, LoadFilter what);
     ~NISUMOHandlerNodes() throw();

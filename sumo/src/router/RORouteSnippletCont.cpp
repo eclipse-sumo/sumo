@@ -61,9 +61,9 @@ RORouteSnippletCont::add(const ROEdgeVector &item)
 {
     const ROEdge *from = item.getFirst();
     const ROEdge *to = item.getLast();
-    MapType::iterator i=_known.find(MapType::key_type(from, to));
-    if (i==_known.end()) {
-        _known.insert(
+    MapType::iterator i=myKnown.find(MapType::key_type(from, to));
+    if (i==myKnown.end()) {
+        myKnown.insert(
             MapType::value_type(std::pair<const ROEdge*, const ROEdge*>(from, to), item));
         return true;
     }
@@ -74,7 +74,7 @@ RORouteSnippletCont::add(const ROEdgeVector &item)
 const ROEdgeVector &
 RORouteSnippletCont::get(ROEdge *from, ROEdge *to) const
     {
-        MapType::const_iterator i=_known.find(MapType::key_type(from, to));
+        MapType::const_iterator i=myKnown.find(MapType::key_type(from, to));
         return (*i).second;
     }
 
@@ -82,8 +82,8 @@ bool
 RORouteSnippletCont::knows(ROEdge * /*from*/, ROEdge * /*to*/) const
 {
     return false; // !!! should not be used until a validation of net statistics has been made
-    /*    MapType::const_iterator i=_known.find(MapType::key_type(from, to));
-        return i!=_known.end();*/
+    /*    MapType::const_iterator i=myKnown.find(MapType::key_type(from, to));
+        return i!=myKnown.end();*/
 }
 
 

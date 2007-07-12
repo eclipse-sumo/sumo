@@ -118,8 +118,8 @@ RORDLoader_Artemis::myReadRoutesAtLeastUntil(SUMOTime time)
                     // retrieve the edges
                     string fromname = orig + "SOURCE";
                     string toname = (*j).first + "SINK";
-                    ROEdge *from = _net.getEdge(fromname);
-                    ROEdge *to = _net.getEdge(toname);
+                    ROEdge *from = myNet.getEdge(fromname);
+                    ROEdge *to = myNet.getEdge(toname);
                     if (from==0) {
                         MsgHandler::getErrorInstance()->inform("The origin edge '" + fromname + "'is not known");
                         return false;
@@ -133,10 +133,10 @@ RORDLoader_Artemis::myReadRoutesAtLeastUntil(SUMOTime time)
                         RORouteDef *route =
                             new RORouteDef_OrigDest(myRouteIDSupplier.getNext(),
                                                     RGBColor(-1, -1, -1), from, to);
-                        _net.addRouteDef(route);
+                        myNet.addRouteDef(route);
                         ROVehicleType *type = 0;
                         string vehID = myVehIDSupplier.getNext();
-                        _net.addVehicle(vehID,
+                        myNet.addVehicle(vehID,
                                         myVehicleBuilder.buildVehicle(vehID, route, time, type,
                                                                       RGBColor(),-1, 0));
                     }
@@ -180,7 +180,7 @@ RORDLoader_Artemis::report(const std::string &result)
             string nodeid = myLineHandler.get("NodeID");
             string destid = myLineHandler.get("DestID");
             SUMOReal perc =
-                TplConvert<char>::_2SUMOReal(myLineHandler.get("Percent").c_str());
+                TplConvert<char>::my2SUMOReal(myLineHandler.get("Percent").c_str());
             myNodeConnections[nodeid].push_back(
                 DestPercentage(destid, perc));
         }
@@ -193,7 +193,7 @@ RORDLoader_Artemis::report(const std::string &result)
             myLineHandler.parseLine(result);
             string nodeid = myLineHandler.get("NodeID");
             SUMOReal flow =
-                TplConvert<char>::_2SUMOReal(myLineHandler.get("a0").c_str());
+                TplConvert<char>::my2SUMOReal(myLineHandler.get("a0").c_str());
             myNodeFlows[nodeid] = flow;
         }
     }

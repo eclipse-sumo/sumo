@@ -54,7 +54,7 @@ MSUnboundActuatedTrafficLightLogic::MSUnboundActuatedTrafficLightLogic(
     size_t step, size_t delay,
     SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap)
         : MSSimpleTrafficLightLogic(id, phases, step, delay),
-        _continue(false),
+        myContinue(false),
         myMaxGap(maxGap), myPassingTime(passingTime), myDetectorGap(detectorGap)
 {}
 
@@ -84,7 +84,7 @@ MSUnboundActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
             ilpos = 0;
         }
         // Build the induct loop and set it into the container
-        std::string id = "TLS" + _id + "_InductLoopOn_" + lane->getID();
+        std::string id = "TLS" + myId + "_InductLoopOn_" + lane->getID();
         if (myInductLoops.find(lane)==myInductLoops.end()) {
             myInductLoops[lane] =
                 nb.createInductLoop(id, lane, ilpos, inductLoopInterval);
@@ -101,7 +101,7 @@ MSUnboundActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
         }
         SUMOReal lspos = length - lslen;
         // Build the lane state detetcor and set it into the container
-        std::string id = "TLS" + _id + "_LaneStateOff_" + lane->getID();
+        std::string id = "TLS" + myId + "_LaneStateOff_" + lane->getID();
         if (myLaneStates.find(lane)==myLaneStates.end()) {
             MSLaneState* loop =
                 new MSLaneState(id, lane, lspos, lslen,
@@ -120,7 +120,7 @@ MSUnboundActuatedTrafficLightLogic::~MSUnboundActuatedTrafficLightLogic()
 SUMOTime
 MSUnboundActuatedTrafficLightLogic::duration() const
 {
-    if (_continue) {
+    if (myContinue) {
         return 1;
     }
     assert(myPhases.size()>myStep);
@@ -159,7 +159,7 @@ MSUnboundActuatedTrafficLightLogic::trySwitch(bool)
 {
     // checks if the actual phase should be continued
     gapControl();
-    if (_continue) {
+    if (myContinue) {
         return duration();
     }
     // increment the index to the current phase
@@ -169,7 +169,7 @@ MSUnboundActuatedTrafficLightLogic::trySwitch(bool)
         myStep = 0;
     }
     //stores the time the phase started
-    static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->_lastSwitch =
+    static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->myLastSwitch =
         MSNet::getInstance()->getCurrentTimeStep();
     // set the next event
     return duration();
@@ -195,14 +195,14 @@ MSUnboundActuatedTrafficLightLogic::gapControl()
     //intergreen times should not be lenghtend
     assert(myPhases.size()>myStep);
     if (!isGreenPhase()) {
-        return _continue = false;
+        return myContinue = false;
     }
 
     // Checks, if the maxDuration is kept. No phase should longer send than maxDuration.
     SUMOTime actDuration =
-        MSNet::getInstance()->getCurrentTimeStep() - static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->_lastSwitch;
+        MSNet::getInstance()->getCurrentTimeStep() - static_cast<MSActuatedPhaseDefinition*>(myPhases[myStep])->myLastSwitch;
     if (actDuration >= currentPhaseDef()->maxDuration) {
-        return _continue = false;
+        return myContinue = false;
     }
 
     // now the gapcontrol starts
@@ -220,12 +220,12 @@ MSUnboundActuatedTrafficLightLogic::gapControl()
                 SUMOReal actualGap =
                     myInductLoops.find(*j)->second->getTimestepsSinceLastDetection();
                 if (actualGap < myMaxGap) {
-                    return _continue = true;
+                    return myContinue = true;
                 }
             }
         }
     }
-    return _continue = false;
+    return myContinue = false;
 }
 
 

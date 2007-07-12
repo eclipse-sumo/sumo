@@ -67,7 +67,7 @@ FileErrorReporter::Child::addError(const std::string &error) const
  * ----------------------------------------------------------------------- */
 FileErrorReporter::FileErrorReporter(const std::string &filetype,
                                      const std::string &file)
-        : _file(file), _filetype(filetype)
+        : myFile(file), myFiletype(filetype)
 {}
 
 
@@ -78,21 +78,21 @@ FileErrorReporter::~FileErrorReporter()
 void
 FileErrorReporter::addError(const std::string &msg)
 {
-    MsgHandler::getErrorInstance()->inform("The " + _filetype + " '" + _file + "' is corrupt:\n " + msg);
+    MsgHandler::getErrorInstance()->inform("The " + myFiletype + " '" + myFile + "' is corrupt:\n " + msg);
 }
 
 
 void
 FileErrorReporter::setFileName(const std::string &file)
 {
-    _file = file;
+    myFile = file;
 }
 
 
 const string &
 FileErrorReporter::getFileName() const
 {
-    return _file;
+    return myFile;
 }
 
 
@@ -100,7 +100,7 @@ FileErrorReporter::getFileName() const
 const std::string &
 FileErrorReporter::getDataType() const
 {
-    return _filetype;
+    return myFiletype;
 }
 
 

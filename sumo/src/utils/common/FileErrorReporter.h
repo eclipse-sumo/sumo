@@ -76,10 +76,10 @@ public:
     };
 protected:
     /** the file currently parsed */
-    std::string _file;
+    std::string myFile;
 
     /// name of the file type currently parsed
-    std::string _filetype;
+    std::string myFiletype;
 
 };
 

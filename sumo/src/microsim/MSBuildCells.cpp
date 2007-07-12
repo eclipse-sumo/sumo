@@ -59,19 +59,19 @@ using namespace std;
 // member method definitions
 // ===========================================================================
 MSBuildCells::MSBuildCells(MSNet &net, Boundary boundary)
-        : myNet(net), _boundary(boundary)
+        : myNet(net), myBoundary(boundary)
 {
-    _boundary = GeoConvHelper::getConvBoundary();
-    _xsize = (size_t)((_boundary.xmax()-_boundary.xmin())/MSGlobals::gLANRange) + 1;
-    _ysize = (size_t)((_boundary.ymax()-_boundary.ymin())/MSGlobals::gLANRange) + 1;
+    myBoundary = GeoConvHelper::getConvBoundary();
+    myXsize = (size_t)((myBoundary.xmax()-myBoundary.xmin())/MSGlobals::gLANRange) + 1;
+    myYsize = (size_t)((myBoundary.ymax()-myBoundary.ymin())/MSGlobals::gLANRange) + 1;
 }
 
 
 MSBuildCells::~MSBuildCells()
 {
-    size_t size = _xsize*_ysize;
+    size_t size = myXsize*myYsize;
     for (size_t i=0; i<size; i++) {
-        delete _cellsCont[i];
+        delete myCellsCont[i];
     }
 }
 
@@ -81,15 +81,15 @@ MSBuildCells::build()
 {
 
     // allocate grid
-    size_t size = _xsize*_ysize;
+    size_t size = myXsize*myYsize;
     // get the boundary
-    if (_boundary.getHeight()==0||_boundary.getWidth()==0) {
-        _boundary.add(_boundary.xmin()+1, _boundary.ymax()+1);
-        _boundary.add(_boundary.xmin()-1, _boundary.ymax()-1);
+    if (myBoundary.getHeight()==0||myBoundary.getWidth()==0) {
+        myBoundary.add(myBoundary.xmin()+1, myBoundary.ymax()+1);
+        myBoundary.add(myBoundary.xmin()-1, myBoundary.ymax()-1);
     }
     // compute the cell size
-    _xcellsize = MSGlobals::gLANRange;
-    _ycellsize = MSGlobals::gLANRange;
+    myXcellsize = MSGlobals::gLANRange;
+    myYcellsize = MSGlobals::gLANRange;
     createCells(size);
     // divide Edges on grid
     divideOnGrid();
@@ -101,8 +101,8 @@ void
 MSBuildCells::createCells(size_t size)
 {
     for (size_t i=0; i<size; i++) {
-        MSCell *cell = new MSCell(_xcellsize,_xcellsize);
-        _cellsCont.push_back(cell);
+        MSCell *cell = new MSCell(myXcellsize,myXcellsize);
+        myCellsCont.push_back(cell);
     }
 }
 
@@ -164,43 +164,43 @@ MSBuildCells::computeLaneCells(size_t /*index !!!*/, const Position2DVector &lan
         bb1.add(lane[i]);
     }
     // compute the cells the lane is going through
-    for (int y=(int)(bb1.ymin()/_ycellsize); y<(int)((bb1.ymax()/_ycellsize)+1)&&y<(int) _ysize; y++) {
-        SUMOReal ypos1 = SUMOReal(y) * _ycellsize;
-        for (int x=(int)(bb1.xmin()/_xcellsize); x<(int)((bb1.xmax()/_xcellsize)+1)&&x<(int) _xsize; x++) {
-            SUMOReal xpos1 = SUMOReal(x) * _xcellsize;
+    for (int y=(int)(bb1.ymin()/myYcellsize); y<(int)((bb1.ymax()/myYcellsize)+1)&&y<(int) myYsize; y++) {
+        SUMOReal ypos1 = SUMOReal(y) * myYcellsize;
+        for (int x=(int)(bb1.xmin()/myXcellsize); x<(int)((bb1.xmax()/myXcellsize)+1)&&x<(int) myXsize; x++) {
+            SUMOReal xpos1 = SUMOReal(x) * myXcellsize;
 
-            size_t offset = _xsize * y + x;
+            size_t offset = myXsize * y + x;
             if (
                 GeomHelper::intersects(x11, y11, x12, y12,
-                                       xpos1, ypos1, xpos1+_xcellsize, ypos1) ||
+                                       xpos1, ypos1, xpos1+myXcellsize, ypos1) ||
                 GeomHelper::intersects(x11, y11, x12, y12,
-                                       xpos1, ypos1, xpos1, ypos1+_ycellsize) ||
+                                       xpos1, ypos1, xpos1, ypos1+myYcellsize) ||
                 GeomHelper::intersects(x11, y11, x12, y12,
-                                       xpos1, ypos1+_ycellsize, xpos1+_xcellsize,
-                                       ypos1+_ycellsize) ||
+                                       xpos1, ypos1+myYcellsize, xpos1+myXcellsize,
+                                       ypos1+myYcellsize) ||
                 GeomHelper::intersects(x11, y11, x12, y12,
-                                       xpos1+_xcellsize, ypos1, xpos1+_xcellsize,
-                                       ypos1+_ycellsize) ||
+                                       xpos1+myXcellsize, ypos1, xpos1+myXcellsize,
+                                       ypos1+myYcellsize) ||
 
                 GeomHelper::intersects(x21, y21, x22, y22,
-                                       xpos1, ypos1, xpos1+_xcellsize, ypos1) ||
+                                       xpos1, ypos1, xpos1+myXcellsize, ypos1) ||
                 GeomHelper::intersects(x21, y21, x22, y22,
-                                       xpos1, ypos1, xpos1, ypos1+_ycellsize) ||
+                                       xpos1, ypos1, xpos1, ypos1+myYcellsize) ||
                 GeomHelper::intersects(x21, y21, x22, y22,
-                                       xpos1, ypos1+_ycellsize, xpos1+_xcellsize,
-                                       ypos1+_ycellsize) ||
+                                       xpos1, ypos1+myYcellsize, xpos1+myXcellsize,
+                                       ypos1+myYcellsize) ||
                 GeomHelper::intersects(x21, y21, x22, y22,
-                                       xpos1+_xcellsize, ypos1, xpos1+_xcellsize,
-                                       ypos1+_ycellsize) ||
+                                       xpos1+myXcellsize, ypos1, xpos1+myXcellsize,
+                                       ypos1+myYcellsize) ||
 
-                (x11>=xpos1&&x11<xpos1+_xcellsize&&y11>=ypos1&&y11<ypos1+_ycellsize) ||
-                (x12>=xpos1&&x12<xpos1+_xcellsize&&y12>=ypos1&&y12<ypos1+_ycellsize) ||
-                (x21>=xpos1&&x21<xpos1+_xcellsize&&y21>=ypos1&&y21<ypos1+_ycellsize) ||
-                (x22>=xpos1&&x22<xpos1+_xcellsize&&y22>=ypos1&&y22<ypos1+_ycellsize)
+                (x11>=xpos1&&x11<xpos1+myXcellsize&&y11>=ypos1&&y11<ypos1+myYcellsize) ||
+                (x12>=xpos1&&x12<xpos1+myXcellsize&&y12>=ypos1&&y12<ypos1+myYcellsize) ||
+                (x21>=xpos1&&x21<xpos1+myXcellsize&&y21>=ypos1&&y21<ypos1+myYcellsize) ||
+                (x22>=xpos1&&x22<xpos1+myXcellsize&&y22>=ypos1&&y22<ypos1+myYcellsize)
             ) {
-                _cellsCont[offset]->addEdge(edge);
+                myCellsCont[offset]->addEdge(edge);
             }
-            _cellsCont[offset]->setIndex(offset); // Die Position ist schon die eigentliche Index
+            myCellsCont[offset]->setIndex(offset); // Die Position ist schon die eigentliche Index
         }
     }
 }
@@ -208,9 +208,9 @@ MSBuildCells::computeLaneCells(size_t /*index !!!*/, const Position2DVector &lan
 
 void MSBuildCells::setCellsNeighbors(void)
 {
-    for (size_t i=0; i < _cellsCont.size(); i++) {
-        _cellsCont[i]->setCellNeighbors(getNeighbors(i));
-        _cellsCont[i]->setEdgesNeighbors();
+    for (size_t i=0; i < myCellsCont.size(); i++) {
+        myCellsCont[i]->setCellNeighbors(getNeighbors(i));
+        myCellsCont[i]->setEdgesNeighbors();
     }
 
 }
@@ -220,56 +220,56 @@ std::vector<MSCell*>
 MSBuildCells::getNeighbors(size_t i)
 {
     std::vector<MSCell*> ret;
-    ret.push_back(_cellsCont[i]); //I'am my own neighbor
+    ret.push_back(myCellsCont[i]); //I'am my own neighbor
 
-    size_t x = i % _xsize;
+    size_t x = i % myXsize;
     if (x==0) {
-        ret.push_back(_cellsCont[i+1]);
+        ret.push_back(myCellsCont[i+1]);
         //	cout<<"-----Nachbarn1   "<<i+1<<endl;
     }
-    if (x==_xsize-1) {
-        ret.push_back(_cellsCont[i-1]);
+    if (x==myXsize-1) {
+        ret.push_back(myCellsCont[i-1]);
         //cout<<"-----Nachbarn2   "<<i-1<<endl;
     }
-    if ((x>0) && (x<_xsize-1)) {
+    if ((x>0) && (x<myXsize-1)) {
         //	cout<<"-----Nachbarn3   "<<i+1<<endl;
         //	cout<<"-----Nachbarn4   "<<i-1<<endl;
-        ret.push_back(_cellsCont[i-1]);
-        ret.push_back(_cellsCont[i+1]);
+        ret.push_back(myCellsCont[i-1]);
+        ret.push_back(myCellsCont[i+1]);
     }
 
-    size_t y = i / _xsize;
+    size_t y = i / myXsize;
     if (y==0) {
-        ret.push_back(_cellsCont[i+_xsize]);
-        //	cout<<"-----Nachbarn5   "<<i+_xsize<<endl;
+        ret.push_back(myCellsCont[i+myXsize]);
+        //	cout<<"-----Nachbarn5   "<<i+myXsize<<endl;
     }
-    if (y==_ysize-1) {
-        ret.push_back(_cellsCont[i-_xsize]);
-        //	cout<<"-----Nachbarn6   "<<i-_xsize<<endl;
+    if (y==myYsize-1) {
+        ret.push_back(myCellsCont[i-myXsize]);
+        //	cout<<"-----Nachbarn6   "<<i-myXsize<<endl;
     }
-    if ((y>0) && (y<_ysize-1)) {
+    if ((y>0) && (y<myYsize-1)) {
         //	cout <<"i == "<<i<<"  y == "<<y<<endl;
-        //	cout<<"-----Nachbarn7   "<<i+_xsize<<endl;
-        //	cout<<"-----Nachbarn8   "<<i-_xsize<<endl;
-        ret.push_back(_cellsCont[i+_xsize]);
-        ret.push_back(_cellsCont[i-_xsize]);
+        //	cout<<"-----Nachbarn7   "<<i+myXsize<<endl;
+        //	cout<<"-----Nachbarn8   "<<i-myXsize<<endl;
+        ret.push_back(myCellsCont[i+myXsize]);
+        ret.push_back(myCellsCont[i-myXsize]);
     }
 
     if ((x>0) && (y>0)) {
-        ret.push_back(_cellsCont[i-_xsize-1]);
-        //	cout<<"-----Nachbarn9   "<<i-_xsize-1<<endl;
+        ret.push_back(myCellsCont[i-myXsize-1]);
+        //	cout<<"-----Nachbarn9   "<<i-myXsize-1<<endl;
     }
-    if ((x>0) && (y<_ysize-1)) {
-        ret.push_back(_cellsCont[i+_xsize-1]);
-        //	cout<<"-----Nachbarn10   "<<i+_xsize-1<<endl;
+    if ((x>0) && (y<myYsize-1)) {
+        ret.push_back(myCellsCont[i+myXsize-1]);
+        //	cout<<"-----Nachbarn10   "<<i+myXsize-1<<endl;
     }
-    if ((x<_xsize-1) && (y<_ysize-1)) {
-        ret.push_back(_cellsCont[i+_xsize+1]);
-        //	cout<<"-----Nachbarn11   "<<i+_xsize+1<<endl;
+    if ((x<myXsize-1) && (y<myYsize-1)) {
+        ret.push_back(myCellsCont[i+myXsize+1]);
+        //	cout<<"-----Nachbarn11   "<<i+myXsize+1<<endl;
     }
-    if ((x<_xsize-1) && (y>0)) {
-        ret.push_back(_cellsCont[i-_xsize+1]);
-        //	cout<<"-----Nachbarn 12  "<<i-_xsize+1<<endl;
+    if ((x<myXsize-1) && (y>0)) {
+        ret.push_back(myCellsCont[i-myXsize+1]);
+        //	cout<<"-----Nachbarn 12  "<<i-myXsize+1<<endl;
     }
     return ret;
 

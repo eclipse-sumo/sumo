@@ -121,13 +121,13 @@ private:
     void CallReminding(SUMOTime &t);
 
     /// A map of phone cells
-    std::map< int, MSPhoneCell* > _mMSPhoneCells;
+    std::map< int, MSPhoneCell* > myMMSPhoneCells;
 
     /// A map of location areas
-    std::map< int, MSPhoneLA* > _mMSPhoneLAs;
+    std::map< int, MSPhoneLA* > myMMSPhoneLAs;
 
     /// A map from cells to location areas
-    std::map< int, int > _mCell2LA;
+    std::map< int, int > myMCell2LA;
 
     std::map< std::string, int > myLAChanges;
     int lastTime;

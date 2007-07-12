@@ -71,7 +71,7 @@ private:
     XMLPScanToken  myToken;
 
     /// information whether more vehicles should be available
-    bool _moreAvailable;
+    bool myMoreAvailable;
 
     MSRouteHandler *myHandler;
 

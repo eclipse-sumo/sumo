@@ -63,7 +63,7 @@ MSE1VehicleActor::MSE1VehicleActor(const std::string& id, MSLane* lane,
                                    unsigned int laid, unsigned int cellid,
                                    unsigned int type)
         : MSMoveReminder(lane), MSTrigger(id), posM(positionInMeters),
-        _LAId(laid), _AreaId(cellid), _ActorType(type),
+        myLAId(laid), myAreaId(cellid), myActorType(type),
         myPassedVehicleNo(0), myPassedCPhonesNo(0), myPassedConnectedCPhonesNo(0)
 {
     assert(posM >= 0 && posM <= laneM->length());
@@ -74,10 +74,10 @@ MSE1VehicleActor::MSE1VehicleActor(const std::string& id, MSLane* lane,
 
     if (type == 1) {
         MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
-        /*if ( pPhone->getMSPhoneCell( _AreaId ) == 0 )
-            pPhone->addMSPhoneCell( _AreaId, _LAId );
+        /*if ( pPhone->getMSPhoneCell( myAreaId ) == 0 )
+            pPhone->addMSPhoneCell( myAreaId, myLAId );
         else*/
-        pPhone->addMSPhoneCell(_AreaId, _LAId);
+        pPhone->addMSPhoneCell(myAreaId, myLAId);
     }
 }
 
@@ -99,7 +99,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
     }
     // let the cell know that a new vehicle entered
     myPassedVehicleNo++;
-    if (_ActorType == 1) {
+    if (myActorType == 1) {
         SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
         if (LastCells.find(&veh)!=LastCells.end()) {
             MSPhoneCell *cell = LastCells[&veh];
@@ -109,7 +109,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                 cell->removeVehicle(veh, time);
             }
         }
-        MSPhoneCell *cell = MSNet::getInstance()->getMSPhoneNet()->getMSPhoneCell(_AreaId);
+        MSPhoneCell *cell = MSNet::getInstance()->getMSPhoneNet()->getMSPhoneCell(myAreaId);
         cell->incVehiclesEntered(veh, time);
         LastCells[&veh] = cell;
     }
@@ -142,24 +142,24 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
             }
         }
         ++passedNo;
-        if (_ActorType == 1) { /* 1 == cell/la */
+        if (myActorType == 1) { /* 1 == cell/la */
             /*now change each mobile for the old cell to the new one*/
             /* first buffer the old la, if we might change it*/
             int oldLAId = cp->getCurrentLAId();
             /* set the current cell id an LA id*/
-            cp->setCurrentCellId(_AreaId);
-            cp->setCurrentLAId(_LAId);
+            cp->setCurrentCellId(myAreaId);
+            cp->setCurrentLAId(myLAId);
             /*get the state off the mobile*/
             MSDevice_CPhone::State state = cp->GetState();
             if (state!=MSDevice_CPhone::STATE_OFF) {
                 // at first we have a look on the current la_id and the old one. if they are equal the is no reason
                 // to do anything.
-                if (oldLAId != _LAId && oldLAId != -1) {
-                    pPhone->addLAChange(toString(oldLAId) + toString(_LAId));
+                if (oldLAId != myLAId && oldLAId != -1) {
+                    pPhone->addLAChange(toString(oldLAId) + toString(myLAId));
                 }
             }
             MSPhoneCell *oldCell = pPhone->getCurrentVehicleCell(cp->getID());
-            MSPhoneCell *newCell = pPhone->getMSPhoneCell(_AreaId);
+            MSPhoneCell *newCell = pPhone->getMSPhoneCell(myAreaId);
             if (oldCell != 0) {
                 oldCell->remCPhone(cp->getID());
             }
@@ -198,7 +198,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                     od->getOStream()
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << cp->getCallId() << ';'
-                    << _AreaId << ';'
+                    << myAreaId << ';'
                     << "1;" << cp->getID() << std::endl;
                     ;
                 }
@@ -214,7 +214,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                         timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
                         // !!! recheck quality indicator
                         od->getOStream()
-                        << "01;'" << timestr << "';" << cp->getCallId() << ';' << _AreaId << ';' << 0 << "\n"; // !!! check <CR><LF>-combination
+                        << "01;'" << timestr << "';" << cp->getCallId() << ';' << myAreaId << ';' << 0 << "\n"; // !!! check <CR><LF>-combination
                     }
                 }
                 {
@@ -228,7 +228,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                         std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                         timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
                         od->getOStream()
-                        << "(NULL, NULL, '" << timestr << "', " << _AreaId << ", " << cp->getCallId()
+                        << "(NULL, NULL, '" << timestr << "', " << myAreaId << ", " << cp->getCallId()
                         << ", " << 0 << ")"; // !!! recheck quality indicator
                     }
                 }

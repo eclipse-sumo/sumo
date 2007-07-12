@@ -136,7 +136,7 @@ protected:
 
 private:
     /// information whether the canvas may be rotated
-    //  bool _allowRotation;
+    //  bool myAllowRotation;
 
     FXGroupBox  *groupBox;
     FXTextField *JunctionNameTextField;
@@ -148,7 +148,7 @@ private:
     FXTextField *MaxSpeedTextField;
     FXTextField *LengthTextField;
     /// the artifact chooser
-    GUIDialog_GLObjChooser *_chooser;
+    GUIDialog_GLObjChooser *myChooser;
 
 //    FXVerticalFrame *myContentFrame;
 

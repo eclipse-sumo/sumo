@@ -109,7 +109,7 @@ protected:
 //!!!!    LaneStateMap myLaneStates;
 
     /// information whether the current phase should be lenghtend
-    bool _continue;
+    bool myContinue;
 
     /// The maximum gap to check
     SUMOReal myMaxGap;

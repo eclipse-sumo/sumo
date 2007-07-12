@@ -39,14 +39,14 @@
 /**
  * @class FuncBinding_StringParam
  */
-template< class _T, typename _R  >
-class FuncBinding_StringParam : public ValueSource<_R>
+template< class myT, typename myR  >
+class FuncBinding_StringParam : public ValueSource<myR>
 {
 public:
     /// Type of the function to execute.
-    typedef _R(_T::* Operation)(const std::string &) const;
+    typedef myR(myT::* Operation)(const std::string &) const;
 
-    FuncBinding_StringParam(_T* source, Operation operation,
+    FuncBinding_StringParam(myT* source, Operation operation,
                             const std::string &param)
             :
             mySource(source),
@@ -58,14 +58,14 @@ public:
     ~FuncBinding_StringParam()
     {}
 
-    _R getValue() const
+    myR getValue() const
     {
         return (mySource->*myOperation)(myParam);
     }
 
-    ValueSource<_R> *copy() const
+    ValueSource<myR> *copy() const
     {
-        return new FuncBinding_StringParam<_T, _R>(
+        return new FuncBinding_StringParam<myT, myR>(
                    mySource, myOperation, myParam);
     }
 
@@ -74,7 +74,7 @@ protected:
 
 private:
     /// The object the action is directed to.
-    _T* mySource;
+    myT* mySource;
 
     /// The object's operation to perform.
     Operation myOperation;

@@ -97,18 +97,18 @@ private:
     {
     private:
         /// The wished index vector size
-        size_t _size;
+        size_t mySize;
 
     public:
         /** constructor */
         explicit phase_length_finder(size_t size)
-                : _size(size)
+                : mySize(size)
         { }
 
         /** the comparing function */
         bool operator()(const PhaseIndexVector &p)
         {
-            return p.size() == _size;
+            return p.size() == mySize;
         }
 
     };
@@ -127,12 +127,12 @@ private:
     {
     protected:
         /// The list to find all elements of within the supplied lists
-        const PhaseIndexVector &_vector;
+        const PhaseIndexVector &myVector;
 
     public:
         /** constructor */
         included_finder(const PhaseIndexVector &v)
-                : _vector(v)
+                : myVector(v)
         { }
 
     protected:
@@ -171,7 +171,7 @@ class shorter_included_finder : public included_finder
         /** the comparing function */
         bool operator()(const PhaseIndexVector &p)
         {
-            return isIn(p, _vector);
+            return isIn(p, myVector);
         }
 
     };
@@ -194,7 +194,7 @@ class larger_included_finder : public included_finder
         /** the comparing function */
         bool operator()(const PhaseIndexVector &p)
         {
-            return isIn(_vector, p);
+            return isIn(myVector, p);
         }
 
     };
@@ -206,13 +206,13 @@ class larger_included_finder : public included_finder
     typedef std::vector<PhasesVector> PhasesVectorVector;
 
     /// Container for phase lists, sorted by their length
-    PhasesVectorVector _phasesVectorsByLength;
+    PhasesVectorVector myPhasesVectorsByLength;
 
     /// The information about friendly cliqeus to build the phase lists from
-    const NBLinkCliqueContainer &_cliques;
+    const NBLinkCliqueContainer &myCliques;
 
     /// Counter of how many phase lists are available
-    size_t _noPhaseVectors;
+    size_t myNoPhaseVectors;
 
 };
 

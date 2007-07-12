@@ -138,10 +138,10 @@ public:
 
 private:
     /// The list of edges to pass
-    MSEdgeVector _edges;
+    MSEdgeVector myEdges;
 
     /// Information whether the route is used by more than a single vehicle
-    bool _multipleReferenced;
+    bool myMultipleReferenced;
 
     size_t myReferenceNo;
 

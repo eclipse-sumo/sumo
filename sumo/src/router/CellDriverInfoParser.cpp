@@ -53,7 +53,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 CellDriverInfoParser::CellDriverInfoParser(bool useLast, bool intel)
-        : _useLast(useLast), _intel(intel)
+        : myUseLast(useLast), myIntel(intel)
 {}
 
 
@@ -64,23 +64,23 @@ CellDriverInfoParser::~CellDriverInfoParser()
 void
 CellDriverInfoParser::parseFrom(std::ifstream &strm)
 {
-    _driver.start = FileHelpers::readInt(strm, _intel);
-    _driver.age = FileHelpers::readInt(strm, _intel);
+    myDriver.start = FileHelpers::readInt(strm, myIntel);
+    myDriver.age = FileHelpers::readInt(strm, myIntel);
 
-    _driver.route[0] = FileHelpers::readInt(strm, _intel);
-    _driver.route[1] = FileHelpers::readInt(strm, _intel);
-    _driver.route[2] = FileHelpers::readInt(strm, _intel);
+    myDriver.route[0] = FileHelpers::readInt(strm, myIntel);
+    myDriver.route[1] = FileHelpers::readInt(strm, myIntel);
+    myDriver.route[2] = FileHelpers::readInt(strm, myIntel);
 
-    _driver.p[0] = FileHelpers::readFloat(strm, _intel);
-    _driver.p[1] = FileHelpers::readFloat(strm, _intel);
-    _driver.p[2] = FileHelpers::readFloat(strm, _intel);
+    myDriver.p[0] = FileHelpers::readFloat(strm, myIntel);
+    myDriver.p[1] = FileHelpers::readFloat(strm, myIntel);
+    myDriver.p[2] = FileHelpers::readFloat(strm, myIntel);
 
-    _driver.cost[0] = FileHelpers::readFloat(strm, _intel);
-    _driver.cost[1] = FileHelpers::readFloat(strm, _intel);
-    _driver.cost[2] = FileHelpers::readFloat(strm, _intel);
+    myDriver.cost[0] = FileHelpers::readFloat(strm, myIntel);
+    myDriver.cost[1] = FileHelpers::readFloat(strm, myIntel);
+    myDriver.cost[2] = FileHelpers::readFloat(strm, myIntel);
 
-    _driver.lastcost = FileHelpers::readInt(strm, _intel);
-    _driver.lastroute = FileHelpers::readInt(strm, _intel);
+    myDriver.lastcost = FileHelpers::readInt(strm, myIntel);
+    myDriver.lastroute = FileHelpers::readInt(strm, myIntel);
 
     computeRouteNo();
 }
@@ -89,84 +89,84 @@ CellDriverInfoParser::parseFrom(std::ifstream &strm)
 int
 CellDriverInfoParser::computeRouteNo()
 {
-    if (_useLast) {
-        if (_driver.lastroute<0||_driver.lastroute>3) {
-            throw ProcessError("An invalid route index occured in a .driver file (" + toString(_driver.lastroute) + " at " + toString(_routeNo) + "\n Retry with a combination of '--intel-cell' and '--no-last-cell'.");
+    if (myUseLast) {
+        if (myDriver.lastroute<0||myDriver.lastroute>3) {
+            throw ProcessError("An invalid route index occured in a .driver file (" + toString(myDriver.lastroute) + " at " + toString(myRouteNo) + "\n Retry with a combination of '--intel-cell' and '--no-last-cell'.");
         }
-        _routeNo = _driver.route[_driver.lastroute];
+        myRouteNo = myDriver.route[myDriver.lastroute];
     } else {
         // get the shortest route
         SUMOReal min = SUMOReal(1E+37); // !!! some kind of a SUMOReal-max
         for (int i=0; i<3; i++) {
-            if (_driver.p[i] <= 1.0 &&
-                    _driver.p[i] >=0 &&
-                    _driver.cost[i]<min &&
-                    _driver.route[i]>0) {
-                _routeNo = _driver.route[i];
-                min = _driver.cost[i];
+            if (myDriver.p[i] <= 1.0 &&
+                    myDriver.p[i] >=0 &&
+                    myDriver.cost[i]<min &&
+                    myDriver.route[i]>0) {
+                myRouteNo = myDriver.route[i];
+                min = myDriver.cost[i];
             }
         }
     }
-    if (_routeNo<0) {
-        throw ProcessError("A negative route index occured in a .driver file (" + toString(_routeNo) + "\n Retry with '--intel-cell'.");
+    if (myRouteNo<0) {
+        throw ProcessError("A negative route index occured in a .driver file (" + toString(myRouteNo) + "\n Retry with '--intel-cell'.");
     }
-    return _routeNo;
+    return myRouteNo;
 }
 
 
 int
 CellDriverInfoParser::getRouteNo() const
 {
-    return _routeNo;
+    return myRouteNo;
 }
 
 
 int
 CellDriverInfoParser::getRouteStart() const
 {
-    return _driver.start;
+    return myDriver.start;
 }
 
 
 void
 CellDriverInfoParser::isIntel(bool value)
 {
-    _intel = value;
+    myIntel = value;
 }
 
 
 void
 CellDriverInfoParser::useLast(bool value)
 {
-    _useLast = value;
+    myUseLast = value;
 }
 
 
 int
 CellDriverInfoParser::getLast() const
 {
-    return _driver.lastroute;
+    return myDriver.lastroute;
 }
 
 
 SUMOReal
 CellDriverInfoParser::getAlternativeCost(size_t pos) const
 {
-    return _driver.cost[pos];
+    return myDriver.cost[pos];
 }
 
 
 SUMOReal
 CellDriverInfoParser::getAlternativeProbability(size_t pos) const
 {
-    return _driver.p[pos];
+    return myDriver.p[pos];
 }
 
 
 int
 CellDriverInfoParser::getRouteNo(size_t pos) const
 {
-    return _driver.route[pos];
+    return myDriver.route[pos];
 }
 
 

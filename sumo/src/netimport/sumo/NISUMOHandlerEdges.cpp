@@ -51,7 +51,7 @@ using namespace std;
 NISUMOHandlerEdges::NISUMOHandlerEdges(NBEdgeCont &ec, NBNodeCont &nc,
                                        LoadFilter what)
         : SUMOSAXHandler("sumo-network"),
-        _loading(what), myEdgeCont(ec), myNodeCont(nc)
+        myLoading(what), myEdgeCont(ec), myNodeCont(nc)
 {}
 
 
@@ -63,7 +63,7 @@ void
 NISUMOHandlerEdges::myStartElement(SumoXMLTag element,
                                    const Attributes &attrs) throw(ProcessError)
 {
-    if (element==SUMO_TAG_EDGE&&_loading==LOADFILTER_ALL) {
+    if (element==SUMO_TAG_EDGE&&myLoading==LOADFILTER_ALL) {
         addEdge(attrs);
     }
 }

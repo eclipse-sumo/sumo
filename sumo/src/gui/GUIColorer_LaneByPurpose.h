@@ -47,8 +47,8 @@
 /**
  * @class GUIColorer_LaneByPurpose
  */
-template<class _T>
-class GUIColorer_LaneByPurpose : public GUIBaseColorer<_T>
+template<class myT>
+class GUIColorer_LaneByPurpose : public GUIBaseColorer<myT>
 {
 public:
     GUIColorer_LaneByPurpose()
@@ -57,7 +57,7 @@ public:
     virtual ~GUIColorer_LaneByPurpose()
     { }
 
-    void setGlColor(const _T& i) const
+    void setGlColor(const myT& i) const
     {
         switch (i.getPurpose()) {
         case MSEdge::EDGEFUNCTION_NORMAL:

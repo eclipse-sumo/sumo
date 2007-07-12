@@ -83,7 +83,7 @@ private:
     typedef std::vector<NBTrafficLightLogic*> LogicVector;
 
     /// Container type for the phaselist
-    LogicVector _cont;
+    LogicVector myCont;
 
     /// The type of the logic (traffic-light, actuated, agentbased)
     std::string myType;

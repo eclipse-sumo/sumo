@@ -77,7 +77,7 @@ RORouteDefCont::add(RORouteDef *def)
     }
     // insert the route into the structures
     NamedObjectCont<RORouteDef*>::add(id, def);
-    _known.insert(idMap::value_type(std::pair<const ROEdge*, const ROEdge*>(def->getFrom(), def->getTo()), def)); // !!! not very well
+    myKnown.insert(idMap::value_type(std::pair<const ROEdge*, const ROEdge*>(def->getFrom(), def->getTo()), def)); // !!! not very well
     return true;
 }
 
@@ -90,8 +90,8 @@ RORouteDefCont::writeXML(std::ostream &)
 bool
 RORouteDefCont::known(ROEdge *from, ROEdge *to) const
 {
-    idMap::const_iterator i=_known.find(std::pair<ROEdge*, ROEdge*>(from, to));
-    return i!=_known.end();
+    idMap::const_iterator i=myKnown.find(std::pair<ROEdge*, ROEdge*>(from, to));
+    return i!=myKnown.end();
 }
 
 bool
@@ -104,8 +104,8 @@ RORouteDefCont::known(const std::string &name) const
 std::string
 RORouteDefCont::getID(ROEdge *from, ROEdge *to) const
 {
-    idMap::const_iterator i=_known.find(std::pair<ROEdge*, ROEdge*>(from, to));
-    if (i==_known.end())
+    idMap::const_iterator i=myKnown.find(std::pair<ROEdge*, ROEdge*>(from, to));
+    if (i==myKnown.end())
         return "";
     return (*i).second->getID();
 }
@@ -113,7 +113,7 @@ RORouteDefCont::getID(ROEdge *from, ROEdge *to) const
 void
 RORouteDefCont::clear()
 {
-    _known.clear();
+    myKnown.clear();
     NamedObjectCont<RORouteDef*>::clear();
 }
 

@@ -75,7 +75,7 @@ private:
     size_t myIndex;
 
     /// The sizes of the cells
-    SUMOReal _xcellsize, _ycellsize;
+    SUMOReal myXcellsize, myYcellsize;
 
     /// Definition of a Edges container
     typedef std::vector<MSEdge*> Cont;
@@ -84,10 +84,10 @@ private:
     typedef std::vector<MSCell*> CellCont;
 
     /// The container holding the Egdes
-    Cont _edgesCont;
+    Cont myEdgesCont;
 
     /// all the Neighbors of the Cell
-    CellCont _neighbors;
+    CellCont myNeighbors;
 
 };
 

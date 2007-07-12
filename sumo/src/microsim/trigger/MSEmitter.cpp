@@ -119,7 +119,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
 
     MSVehicle *veh =
         MSNet::getInstance()->getVehicleControl().buildVehicle(
-            aVehicleId, aEmitRoute, _offset+1, aVehType, 0, 0);
+            aVehicleId, aEmitRoute, myOffset+1, aVehType, 0, 0);
     myParent.schedule(this, veh, -1);
     myHaveNext = true;
 }
@@ -272,7 +272,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
                 aVehicleId, aEmitRoute, aEmitTime, aVehType, 0, 0);
         myParent.schedule(this, veh, aEmitSpeed);
         myHaveNext = true;
-        _offset = SUMOTime(aEmitTime);
+        myOffset = SUMOTime(aEmitTime);
     }
     // check whethe the correct tag is read
     if (element==SUMO_TAG_RESET) {

@@ -188,10 +188,10 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getWeightedFloat(
     const std::string &name)
 {
     try {
-        return TplConvert<char>::_2SUMOReal(myLineParser.get(name).c_str());
+        return TplConvert<char>::my2SUMOReal(myLineParser.get(name).c_str());
     } catch (...) {}
     try {
-        return TplConvert<char>::_2SUMOReal(myLineParser.get((name+"(IV)")).c_str());
+        return TplConvert<char>::my2SUMOReal(myLineParser.get((name+"(IV)")).c_str());
     } catch (...) {}
     return -1;
 }
@@ -202,10 +202,10 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getWeightedBool(
     const std::string &name)
 {
     try {
-        return TplConvert<char>::_2bool(myLineParser.get(name).c_str());
+        return TplConvert<char>::my2bool(myLineParser.get(name).c_str());
     } catch (...) {}
     try {
-        return TplConvert<char>::_2bool(myLineParser.get((name+"(IV)")).c_str());
+        return TplConvert<char>::my2bool(myLineParser.get((name+"(IV)")).c_str());
     } catch (...) {}
     return false;
 }
@@ -412,7 +412,7 @@ SUMOReal
 NIVisumLoader::NIVisumSingleDataTypeParser::getNamedFloat(const std::string &fieldName)
 {
     string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
-    return TplConvert<char>::_2SUMOReal(valS.c_str());
+    return TplConvert<char>::my2SUMOReal(valS.c_str());
 }
 
 
@@ -422,7 +422,7 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getNamedFloat(const std::string &fie
 {
     try {
         string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
-        return TplConvert<char>::_2SUMOReal(valS.c_str());
+        return TplConvert<char>::my2SUMOReal(valS.c_str());
     } catch (...) {
         return defaultValue;
     }
@@ -482,7 +482,7 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
                              NBCapacity2Lanes capacity2Lanes,
                              bool useVisumPrio)
         : FileErrorReporter("visum-network", file),
-        _capacity2Lanes(capacity2Lanes),
+        myCapacity2Lanes(capacity2Lanes),
         myTLLogicCont(nb.getTLLogicCont()), myEdgeCont(nb.getEdgeCont())
 {
     // the order of process is important!
@@ -490,7 +490,7 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
     mySingleDataParsers.push_back(
         new NIVisumParser_VSysTypes(*this, "VSYS", myVSysTypes));
     mySingleDataParsers.push_back(
-        new NIVisumParser_Types(*this, nb.getTypeCont(), "STRECKENTYP", _capacity2Lanes));
+        new NIVisumParser_Types(*this, nb.getTypeCont(), "STRECKENTYP", myCapacity2Lanes));
     mySingleDataParsers.push_back(
         new NIVisumParser_Nodes(*this, nb.getNodeCont(), "KNOTEN"));
     mySingleDataParsers.push_back(

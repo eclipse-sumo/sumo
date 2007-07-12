@@ -65,7 +65,7 @@ NIXMLNodesHandler::NIXMLNodesHandler(NBNodeCont &nc,
                                      NBTrafficLightLogicCont &tlc,
                                      OptionsCont &options)
         : SUMOSAXHandler("xml-nodes - file"),
-        _options(options),
+        myOptions(options),
         myNodeCont(nc), myTLLogicCont(tlc)
 {}
 
@@ -139,7 +139,7 @@ NIXMLNodesHandler::setPosition(const Attributes &attrs)
         return false;
     }
     // check whether the y-axis shall be flipped
-    if (_options.getBool("flip-y")) {
+    if (myOptions.getBool("flip-y")) {
         myPosition.mul(1.0, -1.0);
     }
     return true;

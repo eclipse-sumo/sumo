@@ -219,7 +219,7 @@ private:
 
 protected:
     /** the name of the simulation */
-    std::string _name;
+    std::string myName;
 
     /** the thread that loads simulations */
     GUILoadThread *myLoadThread;
@@ -228,7 +228,7 @@ protected:
     GUIRunThread *myRunThread;
 
     /** the information whether the simulation was started before */
-    bool _wasStarted;
+    bool myWasStarted;
 
     /// The current view number
     size_t myViewNumber;

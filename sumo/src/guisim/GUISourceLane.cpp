@@ -58,8 +58,8 @@ GUISourceLane::GUISourceLane(/*MSNet &net, */std::string id,
 GUISourceLane::~GUISourceLane()
 {
     // just to quit cleanly on a failure
-    if (_lock.locked()) {
-        _lock.unlock();
+    if (myLock.locked()) {
+       myLock.unlock();
     }
 }
 
@@ -67,36 +67,36 @@ GUISourceLane::~GUISourceLane()
 void
 GUISourceLane::moveNonCritical()
 {
-    _lock.lock();//Display();
+    myLock.lock();//Display();
     MSSourceLane::moveNonCritical(/*firstNeighLane, lastNeighLane*/);
-    _lock.unlock();//Display();
+    myLock.unlock();//Display();
 }
 
 
 void
 GUISourceLane::moveCritical()
 {
-    _lock.lock();//Display();
+    myLock.lock();//Display();
     MSSourceLane::moveCritical(/*firstNeighLane, lastNeighLane*/);
-    _lock.unlock();//Display();
+    myLock.unlock();//Display();
 }
 
 
 void
 GUISourceLane::setCritical()
 {
-    _lock.lock();//Display();
+    myLock.lock();//Display();
     MSSourceLane::setCritical();
-    _lock.unlock();//Display();
+    myLock.unlock();//Display();
 }
 
 
 bool
 GUISourceLane::emit(MSVehicle& newVeh)
 {
-    _lock.lock();//Display();
+    myLock.lock();//Display();
     bool ret = MSSourceLane::emit(newVeh);
-    _lock.unlock();//Display();
+    myLock.unlock();//Display();
     return ret;
 }
 
@@ -104,9 +104,9 @@ GUISourceLane::emit(MSVehicle& newVeh)
 bool
 GUISourceLane::isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &vstate)
 {
-    _lock.lock();//Display();
+    myLock.lock();//Display();
     bool ret = MSSourceLane::isEmissionSuccess(aVehicle, vstate);
-    _lock.unlock();//Display();
+    myLock.unlock();//Display();
     return ret;
 }
 
@@ -122,7 +122,7 @@ GUISourceLane::push(MSVehicle *veh)
 void
 GUISourceLane::releaseVehicles()
 {
-    _lock.unlock();
+    myLock.unlock();
 }
 
 
@@ -130,7 +130,7 @@ GUISourceLane::releaseVehicles()
 const MSLane::VehCont &
 GUISourceLane::getVehiclesSecure()
 {
-    _lock.lock();
+    myLock.lock();
     return myVehicles;
 }
 
@@ -138,18 +138,18 @@ GUISourceLane::getVehiclesSecure()
 void
 GUISourceLane::swapAfterLaneChange()
 {
-    _lock.lock();
+    myLock.lock();
     MSLane::swapAfterLaneChange();
-    _lock.unlock();
+    myLock.unlock();
 }
 
 
 void
 GUISourceLane::integrateNewVehicle()
 {
-    _lock.lock();
+    myLock.lock();
     MSLane::integrateNewVehicle();
-    _lock.unlock();
+    myLock.unlock();
 }
 
 
@@ -163,9 +163,9 @@ GUISourceLane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
 SUMOReal
 GUISourceLane::getDensity() const
 {
-    _lock.lock();
+    myLock.lock();
     SUMOReal ret = MSLane::getDensity();
-    _lock.unlock();
+    myLock.unlock();
     return ret;
 }
 
@@ -173,9 +173,9 @@ GUISourceLane::getDensity() const
 SUMOReal
 GUISourceLane::getVehLenSum() const
 {
-    _lock.lock();
+    myLock.lock();
     SUMOReal ret = MSLane::getVehLenSum();
-    _lock.unlock();
+    myLock.unlock();
     return ret;
 }
 
@@ -183,18 +183,18 @@ GUISourceLane::getVehLenSum() const
 void
 GUISourceLane::detectCollisions(SUMOTime timestep)
 {
-    _lock.lock();
+    myLock.lock();
     MSLane::detectCollisions(timestep);
-    _lock.unlock();
+    myLock.unlock();
 }
 
 
 MSVehicle*
 GUISourceLane::pop()
 {
-    _lock.lock();
+    myLock.lock();
     MSVehicle *ret = MSLane::pop();
-    _lock.unlock();
+    myLock.unlock();
     return ret;
 }
 

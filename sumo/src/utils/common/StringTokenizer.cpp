@@ -56,21 +56,21 @@ const int StringTokenizer::WHITECHARS = -257;
 // method definitions
 // ===========================================================================
 StringTokenizer::StringTokenizer(std::string tosplit)
-        : _tosplit(tosplit), _pos(0)
+        : myTosplit(tosplit), myPos(0)
 {
     prepareWhitechar(tosplit);
 }
 
 
 StringTokenizer::StringTokenizer(std::string tosplit, std::string token, bool splitAtAllChars)
-        : _tosplit(tosplit), _pos(0)
+        : myTosplit(tosplit), myPos(0)
 {
     prepare(tosplit, token, splitAtAllChars);
 }
 
 
 StringTokenizer::StringTokenizer(std::string tosplit, int special)
-        : _tosplit(tosplit), _pos(0)
+        : myTosplit(tosplit), myPos(0)
 {
     switch (special) {
     case NEWLINE:
@@ -95,56 +95,56 @@ StringTokenizer::~StringTokenizer()
 
 void StringTokenizer::reinit()
 {
-    _pos = 0;
+    myPos = 0;
 }
 
 bool StringTokenizer::hasNext()
 {
-    return _pos!=_starts.size();
+    return myPos!=myStarts.size();
 }
 
 std::string StringTokenizer::next()
 {
-    if (_pos>=_starts.size()) {
+    if (myPos>=myStarts.size()) {
         throw OutOfBoundsException();
     }
-    if (_lengths[_pos]==0) {
-        _pos++;
+    if (myLengths[myPos]==0) {
+        myPos++;
         return "";
     }
-    size_t start = _starts[_pos];
-    size_t length = _lengths[_pos++];
-    return _tosplit.substr(start,length);
+    size_t start = myStarts[myPos];
+    size_t length = myLengths[myPos++];
+    return myTosplit.substr(start,length);
 }
 
 std::string StringTokenizer::front()
 {
-    if (_starts.size()==0) {
+    if (myStarts.size()==0) {
         throw OutOfBoundsException();
     }
-    if (_lengths[0]==0) {
+    if (myLengths[0]==0) {
         return "";
     }
-    return _tosplit.substr(_starts[0],_lengths[0]);
+    return myTosplit.substr(myStarts[0],myLengths[0]);
 }
 
 std::string StringTokenizer::get(size_t pos) const
     {
-        if (pos>=_starts.size()) {
+        if (pos>=myStarts.size()) {
             throw OutOfBoundsException();
         }
-        if (_lengths[pos]==0) {
+        if (myLengths[pos]==0) {
             return "";
         }
-        size_t start = _starts[pos];
-        size_t length = _lengths[pos];
-        return _tosplit.substr(start, length);
+        size_t start = myStarts[pos];
+        size_t length = myLengths[pos];
+        return myTosplit.substr(start, length);
     }
 
 
 size_t StringTokenizer::size() const
 {
-    return _starts.size();
+    return myStarts.size();
 }
 
 void StringTokenizer::prepare(const string &tosplit, const string &token, bool splitAtAllChars)
@@ -164,12 +164,12 @@ void StringTokenizer::prepare(const string &tosplit, const string &token, bool s
         if (end == string::npos) {
             end = tosplit.length();
         }
-        _starts.push_back(beg);
-        _lengths.push_back(end-beg);
+        myStarts.push_back(beg);
+        myLengths.push_back(end-beg);
         beg = end + len;
         if (beg==tosplit.length()) {
-            _starts.push_back(beg-1);
-            _lengths.push_back(0);
+            myStarts.push_back(beg-1);
+            myLengths.push_back(0);
         }
     }
 }
@@ -186,8 +186,8 @@ void StringTokenizer::prepareWhitechar(const string &tosplit)
         while (end<len&&tosplit.at(end)>32) {
             end++;
         }
-        _starts.push_back(beg);
-        _lengths.push_back(end-beg);
+        myStarts.push_back(beg);
+        myLengths.push_back(end-beg);
         beg = end;
         while (beg<len&&tosplit.at(beg)<=32) {
             beg++;

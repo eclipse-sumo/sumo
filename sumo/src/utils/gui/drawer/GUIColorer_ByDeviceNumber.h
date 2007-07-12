@@ -40,19 +40,19 @@
 
 #include <GL/gl.h>
 
-template<class _T, class _D>
-class GUIColorer_ByDeviceNumber : public GUIBaseColorer<_T>
+template<class myT, class myD>
+class GUIColorer_ByDeviceNumber : public GUIBaseColorer<myT>
 {
 public:
     /// Type of the function to execute.
-    typedef bool(_T::* HasOperation)(_D) const;
-    typedef SUMOReal(_T::* NumberOperation)(_D) const;
+    typedef bool(myT::* HasOperation)(myD) const;
+    typedef SUMOReal(myT::* NumberOperation)(myD) const;
 
     GUIColorer_ByDeviceNumber(HasOperation hasOperation,
                               NumberOperation numberOperation,
                               bool catchNo, SUMOReal min, SUMOReal max,
                               const RGBColor &no, const RGBColor &minColor, const RGBColor &maxColor,
-                              _D param)
+                              myD param)
             : myHasOperation(hasOperation), myNumberOperation(numberOperation),
             myNoColor(no), myMinColor(minColor), myMaxColor(maxColor),
             myMin(min), myMax(max), myParameter(param)
@@ -63,16 +63,16 @@ public:
     virtual ~GUIColorer_ByDeviceNumber()
     { }
 
-    void setGlColor(const _T& i) const
+    void setGlColor(const myT& i) const
     {
-        if (!(i.*myHasOperation)((_D) myParameter)) {
+        if (!(i.*myHasOperation)((myD) myParameter)) {
             if (myCatchNo) {
                 glColor3d(myNoColor.red(), myNoColor.green(), myNoColor.blue());
             } else {
                 glColor3d(myMinColor.red(), myMinColor.green(), myMinColor.blue());
             }
         } else {
-            SUMOReal val = (i.*myNumberOperation)((_D) myParameter) - myMin;
+            SUMOReal val = (i.*myNumberOperation)((myD) myParameter) - myMin;
             if (val<myMin) {
                 val = myMin;
             } else if (val>myMax) {
@@ -109,7 +109,7 @@ protected:
     bool myCatchNo;
     RGBColor myNoColor, myMinColor, myMaxColor;
     SUMOReal myMin, myMax, myScale;
-    _D myParameter;
+    myD myParameter;
 
 };
 

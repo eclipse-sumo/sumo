@@ -43,7 +43,7 @@
  * MSTriggeredReader::MSTriggerCommand-methods
  * ----------------------------------------------------------------------- */
 MSTriggeredReader::MSTriggerCommand::MSTriggerCommand(MSTriggeredReader &parent)
-        : _parent(parent)
+        : myParent(parent)
 {}
 
 
@@ -55,18 +55,18 @@ SUMOTime
 MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current)
 {
     if (!_parent.isInitialised()) {
-        _parent.init();
+        myParent.init();
     }
     SUMOTime next = current;
     // loop until the next action lies in the future
     while (current==next) {
         // run the next action
         //  if it could be accomplished...
-        if (_parent.processNextEntryReaderTriggered()) {
+        if (myParent.processNextEntryReaderTriggered()) {
             // read the next one
-            if (_parent.readNextTriggered()) {
+            if (myParent.readNextTriggered()) {
                 // set the time for comparison if a next one exists
-                next = _parent._offset;
+                next = myParent._offset;
             } else {
                 // leave if no further exists
                 return 0;
@@ -77,11 +77,11 @@ MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current)
         }
     }
     // come back if the next action shall be executed
-    if (_parent._offset - current<=0) {
+    if (myParent._offset - current<=0) {
         // current is delayed;
         return 1;
     }
-    return _parent._offset - current;
+    return myParent._offset - current;
 }
 
 
@@ -89,7 +89,7 @@ MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current)
  * MSTriggeredReader-methods
  * ----------------------------------------------------------------------- */
 MSTriggeredReader::MSTriggeredReader(MSNet &)
-        : _offset(0), myWasInitialised(false)
+        : myOffset(0), myWasInitialised(false)
 {}
 
 

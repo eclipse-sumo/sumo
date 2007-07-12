@@ -90,8 +90,8 @@ NBEdgeCont::~NBEdgeCont()
 bool
 NBEdgeCont::insert(NBEdge *edge)
 {
-    EdgeCont::iterator i = _edges.find(edge->getID());
-    if (i!=_edges.end()) {
+    EdgeCont::iterator i = myEdges.find(edge->getID());
+    if (i!=myEdges.end()) {
         return false;
     }
     if (OptionsCont::getOptions().isSet("edges-min-speed")) {
@@ -146,7 +146,7 @@ NBEdgeCont::insert(NBEdge *edge)
             return true;
         }
     }
-    _edges.insert(EdgeCont::value_type(edge->getID(), edge));
+    myEdges.insert(EdgeCont::value_type(edge->getID(), edge));
     return true;
 }
 
@@ -154,8 +154,8 @@ NBEdgeCont::insert(NBEdge *edge)
 NBEdge *
 NBEdgeCont::retrieve(const string &id) const
 {
-    EdgeCont::const_iterator i = _edges.find(id);
-    if (i==_edges.end()) return 0;
+    EdgeCont::const_iterator i = myEdges.find(id);
+    if (i==myEdges.end()) return 0;
     return (*i).second;
 }
 
@@ -163,7 +163,7 @@ NBEdgeCont::retrieve(const string &id) const
 bool
 NBEdgeCont::computeTurningDirections()
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeTurningDirections();
     }
     return true;
@@ -173,7 +173,7 @@ NBEdgeCont::computeTurningDirections()
 bool
 NBEdgeCont::sortOutgoingLanesConnections()
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->sortOutgoingLanesConnections();
     }
     return true;
@@ -183,7 +183,7 @@ NBEdgeCont::sortOutgoingLanesConnections()
 bool
 NBEdgeCont::computeEdge2Edges()
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeEdge2Edges();
     }
     return true;
@@ -194,7 +194,7 @@ NBEdgeCont::computeEdge2Edges()
 bool
 NBEdgeCont::computeLanes2Edges()
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeLanes2Edges();
     }
     return true;
@@ -205,7 +205,7 @@ NBEdgeCont::computeLanes2Edges()
 bool
 NBEdgeCont::recheckLanes()
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->recheckLanes();
     }
     return true;
@@ -216,7 +216,7 @@ NBEdgeCont::recheckLanes()
 bool
 NBEdgeCont::computeLinkPriorities(bool verbose)
 {
-    for(EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for(EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeLinkPriorities();
     }
     return true;
@@ -226,7 +226,7 @@ NBEdgeCont::computeLinkPriorities(bool verbose)
 bool
 NBEdgeCont::appendTurnarounds()
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->appendTurnaround();
     }
     return true;
@@ -236,7 +236,7 @@ NBEdgeCont::appendTurnarounds()
 void
 NBEdgeCont::writeXMLEdgeList(ostream &into, std::vector<std::string> toAdd)
 {
-    into << "   <edges no=\"" << (_edges.size()+toAdd.size()) << "\">";
+    into << "   <edges no=\"" << (myEdges.size()+toAdd.size()) << "\">";
     for (vector<string>::iterator j=toAdd.begin(); j!=toAdd.end(); j++) {
         if (j!=toAdd.begin()) {
             into << ' ';
@@ -247,8 +247,8 @@ NBEdgeCont::writeXMLEdgeList(ostream &into, std::vector<std::string> toAdd)
         into << ' ';
     }
 
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
-        if (i!=_edges.begin()) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
+        if (i!=myEdges.begin()) {
             into << ' ';
         }
         into << (*i).first;
@@ -260,7 +260,7 @@ NBEdgeCont::writeXMLEdgeList(ostream &into, std::vector<std::string> toAdd)
 void
 NBEdgeCont::writeXMLStep1(std::ostream &into)
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->writeXMLStep1(into);
     }
     into << endl;
@@ -270,7 +270,7 @@ NBEdgeCont::writeXMLStep1(std::ostream &into)
 void
 NBEdgeCont::writeXMLStep2(std::ostream &into, bool includeInternal)
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->writeXMLStep2(into, includeInternal);
     }
     into << endl;
@@ -278,16 +278,16 @@ NBEdgeCont::writeXMLStep2(std::ostream &into, bool includeInternal)
 
 int NBEdgeCont::size()
 {
-    return _edges.size();
+    return myEdges.size();
 }
 
 
 void
 NBEdgeCont::clear()
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++)
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++)
         delete((*i).second);
-    _edges.clear();
+    myEdges.clear();
 }
 
 
@@ -296,7 +296,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node)
 {
     return splitAt(dc, edge, node,
                    edge->getID() + "[0]", edge->getID() + "[1]",
-                   edge->_nolanes, edge->_nolanes);
+                   edge->myNolanes, edge->myNolanes);
 }
 
 
@@ -310,7 +310,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
     pos = edge->getGeometry().nearest_position_on_line_to_point(node->getPosition());
     if (pos<=0) {
         pos = GeomHelper::nearest_position_on_line_to_point(
-                  edge->_from->getPosition(), edge->_to->getPosition(),
+                  edge->myFrom->getPosition(), edge->myTo->getPosition(),
                   node->getPosition());
     }
     if (pos<=0||pos+POSITION_EPS>edge->getGeometry().length()) {
@@ -339,7 +339,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
         geoms.second.pop_front();
         geoms.second.push_front(node->getPosition());
     }
-#ifdef _DEBUG
+#ifdef myDEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!geoms.first.assertNonEqual()) {
         DEBUG_OUT << "first: " << edge->getID() << endl;
@@ -355,28 +355,28 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
 #endif
     // build and insert the edges
     NBEdge *one = new NBEdge(firstEdgeName, firstEdgeName,
-                             edge->_from, node, edge->_type, edge->_speed, noLanesFirstEdge,
+                             edge->myFrom, node, edge->myType, edge->mySpeed, noLanesFirstEdge,
                              edge->getPriority(), geoms.first, edge->myLaneSpreadFunction,
-                             edge->_basicType);
+                             edge->myBasicType);
     size_t i;
     for (i=0; i<noLanesFirstEdge&&i<edge->getNoLanes(); i++) {
         one->setLaneSpeed(i, edge->getLaneSpeed(i));
     }
     NBEdge *two = new NBEdge(secondEdgeName, secondEdgeName,
-                             node, edge->_to, edge->_type, edge->_speed, noLanesSecondEdge,
+                             node, edge->myTo, edge->myType, edge->mySpeed, noLanesSecondEdge,
                              edge->getPriority(), geoms.second,
-                             edge->myLaneSpreadFunction, edge->_basicType);
+                             edge->myLaneSpreadFunction, edge->myBasicType);
     for (i=0; i<noLanesSecondEdge&&i<edge->getNoLanes(); i++) {
         two->setLaneSpeed(i, edge->getLaneSpeed(i));
     }
     two->copyConnectionsFrom(edge);
     // replace information about this edge within the nodes
-    edge->_from->replaceOutgoing(edge, one, 0);
-    edge->_to->replaceIncoming(edge, two, 0);
+    edge->myFrom->replaceOutgoing(edge, one, 0);
+    edge->myTo->replaceIncoming(edge, two, 0);
     // the edge is now occuring twice in both nodes...
     //  clean up
-    edge->_from->removeDoubleEdges();
-    edge->_to->removeDoubleEdges();
+    edge->myFrom->removeDoubleEdges();
+    edge->myTo->removeDoubleEdges();
     // add connections from the first to the second edge
     // check special case:
     //  one in, one out, the outgoing has one lane more
@@ -408,9 +408,9 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
 void
 NBEdgeCont::erase(NBDistrictCont &dc, NBEdge *edge)
 {
-    _edges.erase(edge->getID());
-    edge->_from->removeOutgoing(edge);
-    edge->_to->removeIncoming(edge);
+    myEdges.erase(edge->getID());
+    edge->myFrom->removeOutgoing(edge);
+    edge->myTo->removeIncoming(edge);
     dc.removeFromSinksAndSources(edge);
     delete edge;
 }
@@ -441,7 +441,7 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id,
         for (EdgeVector::iterator j=candidates.begin(); j!=candidates.end(); j++) {
             NBEdge *poss_searched = (*j);
             NBNode *node = incoming
-                           ? poss_searched->_to : poss_searched->_from;
+                           ? poss_searched->myTo : poss_searched->myFrom;
             const EdgeVector &cont = incoming
                                      ? node->getOutgoingEdges() : node->getIncomingEdges();
             if (find(cont.begin(), cont.end(), hintedge)!=cont.end()) {
@@ -458,7 +458,7 @@ NBEdgeCont::getGeneratedFrom(const std::string &id) const
 {
     size_t len = id.length();
     EdgeVector ret;
-    for (EdgeCont::const_iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         string curr = (*i).first;
         // the next check makes it possibly faster - we don not have
         //  to compare the names
@@ -637,7 +637,7 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const
 void
 NBEdgeCont::search(NBEdge *e)
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         DEBUG_OUT << (*i).second << ", " << (*i).second->getID() << endl;
         if ((*i).second==e) {
             int checkdummy = 0;
@@ -651,7 +651,7 @@ NBEdgeCont::search(NBEdge *e)
 bool
 NBEdgeCont::normaliseEdgePositions(const NBNodeCont &nc)
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->normalisePosition(nc);
     }
     return true;
@@ -661,7 +661,7 @@ NBEdgeCont::normaliseEdgePositions(const NBNodeCont &nc)
 bool
 NBEdgeCont::reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->reshiftPosition(xoff, yoff, rot);
     }
     return true;
@@ -671,7 +671,7 @@ NBEdgeCont::reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
 bool
 NBEdgeCont::computeEdgeShapes()
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeEdgeShape();
     }
     return true;
@@ -682,7 +682,7 @@ std::vector<std::string>
 NBEdgeCont::getAllNames()
 {
     std::vector<std::string> ret;
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); ++i) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         ret.push_back((*i).first);
     }
     return ret;
@@ -700,7 +700,7 @@ NBEdgeCont::savePlain(const std::string &file)
     }
     std::fixed (res);
     res << "<edges>" << endl;
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         NBEdge *e = (*i).second;
         res << std::setprecision(OUTPUT_ACCURACY);
         res << "   <edge id=\"" << e->getID()
@@ -750,7 +750,7 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &)
 {
     //
     std::vector<NBEdge*> toRemove;
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end();) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end();) {
         NBEdge *edge = (*i).second;
         if (!OptionsCont::getOptions().isInStringVector("keep-edges", edge->getID())) {
             edge->getFromNode()->removeOutgoing(edge);
@@ -769,7 +769,7 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &)
 bool
 NBEdgeCont::recomputeLaneShapes()
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); ++i) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         (*i).second->computeLaneShapes();
     }
     return true;
@@ -779,7 +779,7 @@ NBEdgeCont::recomputeLaneShapes()
 bool
 NBEdgeCont::splitGeometry(NBNodeCont &nc)
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); ++i) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         if ((*i).second->getGeometry().size()<3) {
             continue;
         }
@@ -792,16 +792,16 @@ NBEdgeCont::splitGeometry(NBNodeCont &nc)
 void
 NBEdgeCont::recheckLaneSpread()
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); ++i) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         string oppositeID;
         if ((*i).first[0]=='-') {
             oppositeID = (*i).first.substr(1);
         } else {
             oppositeID = "-" + (*i).first;
         }
-        if (_edges.find(oppositeID)!=_edges.end()) {
+        if (myEdges.find(oppositeID)!=myEdges.end()) {
             (*i).second->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
-            _edges.find(oppositeID)->second->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
+            myEdges.find(oppositeID)->second->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
         } else {
             (*i).second->setLaneSpreadFunction(NBEdge::LANESPREAD_CENTER);
         }
@@ -812,7 +812,7 @@ NBEdgeCont::recheckLaneSpread()
 void
 NBEdgeCont::recheckEdgeGeomsForDoublePositions()
 {
-    for (EdgeCont::iterator i=_edges.begin(); i!=_edges.end(); ++i) {
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         (*i).second->recheckEdgeGeomForDoublePositions();
     }
 }

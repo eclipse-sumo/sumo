@@ -48,12 +48,12 @@
  * @class GUIColorer_ShadeByFunctionValue
  * @brief Colors by using a retrieved value; the function must return a SUMOReal
  */
-template<class _T>
-class GUIColorer_ShadeByFunctionValue : public GUIBaseColorer<_T>
+template<class myT>
+class GUIColorer_ShadeByFunctionValue : public GUIBaseColorer<myT>
 {
 public:
     /// Type of the function to execute.
-    typedef SUMOReal(_T::* Operation)() const;
+    typedef SUMOReal(myT::* Operation)() const;
 
     /// Constructor
     GUIColorer_ShadeByFunctionValue(SUMOReal min, SUMOReal max,
@@ -72,8 +72,8 @@ public:
 
     /// @name inherited from GUIBaseColorer
     //@{
-    /// Sets the color using a value from the given instance of _T
-    void setGlColor(const _T& i) const
+    /// Sets the color using a value from the given instance of myT
+    void setGlColor(const myT& i) const
     {
         SUMOReal val = (i.*myOperation)() - myMin;
         if (val==-1) {

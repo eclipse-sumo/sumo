@@ -239,8 +239,8 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
         int fromLane;
         int toLane;
         try {
-            fromLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
-            toLane = TplConvertSec<char>::_2intSec(st.next().c_str(), -1);
+            fromLane = TplConvertSec<char>::my2intSec(st.next().c_str(), -1);
+            toLane = TplConvertSec<char>::my2intSec(st.next().c_str(), -1);
             if (!from->addLane2LaneConnection(fromLane, to, toLane, false, true)) {
                 NBEdge *nFrom = from;
                 bool toNext = true;

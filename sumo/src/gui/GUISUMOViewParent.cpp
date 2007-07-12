@@ -123,7 +123,7 @@ GUISUMOViewParent::GUISUMOViewParent(FXMDIClient* p,
                                      FXuint opts,
                                      FXint /*x!!!*/, FXint /*y!!!*/, FXint /*w!!!*/, FXint /*h!!!*/)
         : GUIGlChildWindow(p, mdimenu, name, ic, 0, opts, 10, 10, 300, 200),
-        myParent(parentWindow), _chooser(0)
+        myParent(parentWindow), myChooser(0)
 
 {
     myParent->addChild(this, false);
@@ -147,11 +147,11 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
     default:
     case MICROSCOPIC_VIEW:
         if (share!=0) {
-            _view =
+            myView =
                 new GUIViewTraffic(myContentFrame, *myParent, this, net,
                                    myParent->getGLVisual(), share);
         } else {
-            _view =
+            myView =
                 new GUIViewTraffic(myContentFrame, *myParent, this, net,
                                    myParent->getGLVisual());
         }
@@ -159,18 +159,18 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
 #ifdef HAVE_MESOSIM
     case EDGE_MESO_VIEW:
         if (share!=0) {
-            _view =
+            myView =
                 new GUIViewMesoEdges(myContentFrame, *myParent, this,
                                      net, myParent->getGLVisual(), share);
         } else {
-            _view =
+            myView =
                 new GUIViewMesoEdges(myContentFrame, *myParent, this,
                                      net, myParent->getGLVisual());
         }
         break;
 #endif
     }
-    _view->buildViewToolBars(*this);
+    myView->buildViewToolBars(*this);
 }
 
 
@@ -203,11 +203,11 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*)
     }
     gCurrentFolder = opendialog.getDirectory().text();
     string file = opendialog.getFilename().text();
-    FXColor *buf = _view->getSnapshot();
+    FXColor *buf = myView->getSnapshot();
     // save
     try {
         MFXImageHelper::saveimage(getApp(), file,
-                                  _view->getWidth(), _view->getHeight(), buf);
+                                  myView->getWidth(), myView->getHeight(), buf);
     } catch (...) {
         string msg = "Could not save '" + file + "'.\nMaybe the extension is unknown.";
         FXMessageBox::error(this, MBOX_OK, "Saving failed.",
@@ -223,7 +223,7 @@ GUISUMOViewParent::onCmdAllowRotation(FXObject*sender,FXSelector,void*)
 {
     MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
     button->setChecked(!button->amChecked());
-    _allowRotation = button->amChecked();
+    myAllowRotation = button->amChecked();
     return 1;
 }
 */
@@ -303,7 +303,7 @@ GUISUMOViewParent::onCmdLocateShape(FXObject *sender,FXSelector,void*)
 void
 GUISUMOViewParent::setView(GUIGlObject *o)
 {
-    _view->centerTo(o);
+    myView->centerTo(o);
 }
 
 
@@ -324,7 +324,7 @@ GUISUMOViewParent::getMaxGLHeight() const
 long
 GUISUMOViewParent::onSimStep(FXObject*,FXSelector,void*)
 {
-    _view->update();
+    myView->update();
     return 1;
 }
 

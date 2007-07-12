@@ -68,8 +68,8 @@ IncludedRoutes::~IncludedRoutes()
 void
 IncludedRoutes::loadRoutes(const int a)
 {
-    char buffer[_MAX_PATH];
-    getcwd(buffer,_MAX_PATH);
+    char buffer[myMAX_PATH];
+    getcwd(buffer,myMAX_PATH);
     cout<<"Current directory is "<<buffer<<endl;
 
     const char * datei;

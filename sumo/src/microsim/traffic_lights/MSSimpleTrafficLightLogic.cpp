@@ -109,7 +109,7 @@ MSSimpleTrafficLightLogic::trySwitch(bool)
     }
     assert(myPhases.size()>myStep);
     //stores the time the phase started
-    myPhases[myStep]->_lastSwitch = MSNet::getInstance()->getCurrentTimeStep();
+    myPhases[myStep]->myLastSwitch = MSNet::getInstance()->getCurrentTimeStep();
     // check whether the next duration was overridden
     if (myOverridingTimes.size()>0) {
         SUMOTime nextDuration = myOverridingTimes[0];

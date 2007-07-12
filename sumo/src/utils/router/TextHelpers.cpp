@@ -70,7 +70,7 @@ TextHelpers::version(std::string str)
     // change the version
     size_t idx1 = str.rfind('(');
     size_t idx2 = str.rfind(')');
-    long val = TplConvert<char>::_2long(str.substr(idx1+1, idx2-idx1-1).c_str());
+    long val = TplConvert<char>::my2long(str.substr(idx1+1, idx2-idx1-1).c_str());
     ostringstream strm;
     strm << str.substr(0, idx1) << val+1 << ")";
     return strm.str();

@@ -45,9 +45,9 @@
  * junction that may be used parallel, that means, that none of the links
  * within such a clique is a foe to another one from the same clique.
  * For a faster computation of permutations of the cliques that do regard all
- * links, a second structure, _further,  also stores the information which
- * links are regarded within the following cliques (the sizes of _cliques
- * and _further are the same)
+ * links, a second structure, myFurther,  also stores the information which
+ * links are regarded within the following cliques (the sizes of myCliques
+ * and myFurther are the same)
  */
 class NBLinkCliqueContainer
 {
@@ -87,13 +87,13 @@ private:
     typedef std::vector<std::bitset<64> > LinkCliqueContainer;
 
     /// the list of cliques
-    LinkCliqueContainer _cliques;
+    LinkCliqueContainer myCliques;
 
     /// the definitions of the list of further set cliques
     typedef std::vector<std::bitset<64> > FurtherPossibleContainer;
 
     /// the list of further set cliques
-    FurtherPossibleContainer _further;
+    FurtherPossibleContainer myFurther;
 };
 
 

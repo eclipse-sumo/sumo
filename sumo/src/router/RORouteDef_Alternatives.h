@@ -110,22 +110,22 @@ private:
 
 private:
     /// Information whether a new route was generated
-    mutable bool _newRoute;
+    mutable bool myNewRoute;
 
     /// Index of the route used within the last step
-    mutable int _lastUsed;
+    mutable int myLastUsed;
 
     /// Definition of the storage for alternatives
     typedef std::vector<RORoute*> AlternativesVector;
 
     /// The alternatives
-    AlternativesVector _alternatives;
+    AlternativesVector myAlternatives;
 
     /// gawron beta - value
-    SUMOReal _gawronBeta;
+    SUMOReal myGawronBeta;
 
     /// gawron a - value
-    SUMOReal _gawronA;
+    SUMOReal myGawronA;
 
     /// The maximum route number
     int myMaxRouteNumber;

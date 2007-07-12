@@ -129,43 +129,43 @@ private:
 
 private:
     /// the request to use
-    const NBTrafficLightDefinition * const _request;
+    const NBTrafficLightDefinition * const myRequest;
 
     /// the list of edges incoming into the regarded junction
-    EdgeVector _fromEdges;
+    EdgeVector myFromEdges;
 
     /// the list of edges outgoing from the regarded junction
-    EdgeVector _toEdges;
+    EdgeVector myToEdges;
 
     /// the number of links
-    size_t _linkNumber;
+    size_t myLinkNumber;
 
     /// the number of valid links
-    size_t _validLinks;
+    size_t myValidLinks;
 
     /// the current position
-    size_t _position;
+    size_t myPosition;
 
     /// information which links are valid non-left movers
-    std::bitset<64> _validNonLeft;
+    std::bitset<64> myValidNonLeft;
 
     /// information which links are valid
-    std::bitset<64> _valid;
+    std::bitset<64> myValid;
 
     /// information about valid positions
-    std::vector<size_t> _positions;
+    std::vector<size_t> myPositions;
 
     /// information which link is a left-mover
-    std::vector<bool> _isLeftMover;
+    std::vector<bool> myIsLeftMover;
 
     /// information which link is a turnaround
-    std::vector<bool> _isTurnaround;
+    std::vector<bool> myIsTurnaround;
 
     /// list of lanes to use for incoming edges
-    std::vector<int> _fromLanes;
+    std::vector<int> myFromLanes;
 
     /// information whether links shall be joined
-    bool _joinLaneLinks;
+    bool myJoinLaneLinks;
 
 };
 

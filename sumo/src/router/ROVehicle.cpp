@@ -158,7 +158,7 @@ ROVehicle::saveAllAsXML(std::ostream * const os,
                 // ok, we have here a RORouteDef_Alternatives
                 for (size_t i=0; i!=myRoute->getAlternativesSize(); i++) {
                     const RORoute &alt =
-                        static_cast<RORouteDef_Alternatives*>(myRoute)->getAlternative(i);//_alternatives[i];
+                        static_cast<RORouteDef_Alternatives*>(myRoute)->getAlternative(i);//myAlternatives[i];
                     (*altos) << "         <route cost=\"" << alt.getCosts();
                     (*altos) << "\" probability=\"" << alt.getProbability();
                     (*altos) << "\">";

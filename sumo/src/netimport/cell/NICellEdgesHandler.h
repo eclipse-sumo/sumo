@@ -73,7 +73,7 @@ protected:
 
 private:
     /// the converter for converting capacities to laneno
-    NBCapacity2Lanes _capacity2Lanes;
+    NBCapacity2Lanes myCapacity2Lanes;
 
 };
 

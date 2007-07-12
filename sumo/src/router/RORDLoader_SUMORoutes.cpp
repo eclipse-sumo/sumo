@@ -97,7 +97,7 @@ RORDLoader_SUMORoutes::myCharacters(SumoXMLTag element,
         bool ok = st.size()>1;
         while (ok&&st.hasNext()) { // !!! too slow !!!
             string id = st.next();
-            ROEdge *edge = _net.getEdge(id);
+            ROEdge *edge = myNet.getEdge(id);
             if (edge!=0) {
                 list.add(edge);
             } else {
@@ -112,7 +112,7 @@ RORDLoader_SUMORoutes::myCharacters(SumoXMLTag element,
             // build the route if everything's ok
             RORouteDef_Complete *route =
                 new RORouteDef_Complete(myCurrentRouteName, myCurrentColor, list);
-            _net.addRouteDef(route);
+            myNet.addRouteDef(route);
         } else {
             // report problems otherwise
             if (myCurrentRouteName.length()>0) {

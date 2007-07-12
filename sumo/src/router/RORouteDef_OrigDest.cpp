@@ -59,28 +59,28 @@ RORouteDef_OrigDest::RORouteDef_OrigDest(const std::string &id,
         const ROEdge *from,
         const ROEdge *to,
         bool removeFirst)
-        : RORouteDef(id, color), _from(from), _to(to), _current(0),
+        : RORouteDef(id, color), myFrom(from), myTo(to), myCurrent(0),
         myRemoveFirst(removeFirst)
 {}
 
 
 RORouteDef_OrigDest::~RORouteDef_OrigDest()
 {
-    delete _current;
+    delete myCurrent;
 }
 
 
 const ROEdge * const
 RORouteDef_OrigDest::getFrom() const
 {
-    return _from;
+    return myFrom;
 }
 
 
 const ROEdge * const
 RORouteDef_OrigDest::getTo() const
 {
-    return _to;
+    return myTo;
 }
 
 
@@ -89,27 +89,27 @@ RORouteDef_OrigDest::buildCurrentRoute(ROAbstractRouter &router,
                                        SUMOTime begin, ROVehicle &veh) const
 {
     std::vector<const ROEdge*> edges;
-    router.compute(_from, _to, &veh, begin, edges);
+    router.compute(myFrom, myTo, &veh, begin, edges);
     if (myRemoveFirst&&edges.size()>1) {
         edges.erase(edges.begin());
         edges.erase(edges.end()-1);
     }
-    return new RORoute(_id, 0, 1, edges);
+    return new RORoute(myId, 0, 1, edges);
 }
 
 
 void
 RORouteDef_OrigDest::addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin)
 {
-    _current = current;
-    _startTime = begin;
+    myCurrent = current;
+    myStartTime = begin;
 }
 
 
 RORouteDef *
 RORouteDef_OrigDest::copy(const std::string &id) const
 {
-    return new RORouteDef_OrigDest(id, myColor, _from, _to,
+    return new RORouteDef_OrigDest(id, myColor, myFrom, myTo,
                                    myRemoveFirst);
 }
 
@@ -117,7 +117,7 @@ RORouteDef_OrigDest::copy(const std::string &id) const
 const ROEdgeVector &
 RORouteDef_OrigDest::getCurrentEdgeVector() const
 {
-    return _current->getEdgeVector();
+    return myCurrent->getEdgeVector();
 }
 
 

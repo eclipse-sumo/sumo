@@ -60,12 +60,12 @@ bool myHaveWarned = false; // !!! make this static or so
 // method definitions
 // ===========================================================================
 ROEdge::ROEdge(const std::string &id, int index, bool useBoundariesOnOverride)
-        : _id(id), _dist(0), _speed(-1),
-        _supplementaryWeightAbsolut(0),
-        _supplementaryWeightAdd(0),
-        _supplementaryWeightMult(0),
-        _usingTimeLine(false),
-        myIndex(index), myLength(-1), _hasSupplementaryWeights(false),
+        : myId(id), myDist(0), mySpeed(-1),
+        mySupplementaryWeightAbsolut(0),
+        mySupplementaryWeightAdd(0),
+        mySupplementaryWeightMult(0),
+        myUsingTimeLine(false),
+        myIndex(index), myLength(-1), myHasSupplementaryWeights(false),
         myUseBoundariesOnOverride(useBoundariesOnOverride),
         myHaveBuildShortCut(false), myPackedValueLine(0)
 {}
@@ -76,9 +76,9 @@ ROEdge::~ROEdge()
     for (std::vector<ROLane*>::iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
         delete(*i);
     }
-    delete _supplementaryWeightAbsolut;
-    delete _supplementaryWeightAdd;
-    delete _supplementaryWeightMult;
+    delete mySupplementaryWeightAbsolut;
+    delete mySupplementaryWeightAdd;
+    delete mySupplementaryWeightMult;
     delete[] myPackedValueLine;
 }
 
@@ -96,9 +96,9 @@ ROEdge::addLane(ROLane *lane)
     SUMOReal length = lane->getLength();
     assert(myLength==-1||length==myLength);
     myLength = length;
-    _dist = length > _dist ? length : _dist;
+    myDist = length > myDist ? length : myDist;
     SUMOReal speed = lane->getSpeed();
-    _speed = speed > _speed ? speed : _speed;
+    mySpeed = speed > mySpeed ? speed : mySpeed;
     myDictLane[lane->getID()] = lane;
     myLanes.push_back(lane);
 
@@ -140,8 +140,8 @@ ROEdge::addLane(ROLane *lane)
 void
 ROEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd)
 {
-    _ownValueLine.add(timeBegin, timeEnd, value);
-    _usingTimeLine = true;
+    myOwnValueLine.add(timeBegin, timeEnd, value);
+    myUsingTimeLine = true;
 }
 
 
@@ -158,8 +158,8 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const
     FloatValueTimeLine::SearchResult searchResult;
     FloatValueTimeLine::SearchResult supplementarySearchResult;
     // check whether an absolute value shalle be used
-    if (_hasSupplementaryWeights) {
-        searchResult = _supplementaryWeightAbsolut->getSearchStateAndValue(time);
+    if (myHasSupplementaryWeights) {
+        searchResult = mySupplementaryWeightAbsolut->getSearchStateAndValue(time);
         if (searchResult.first) {
             // ok, we have an absolute value for this time step, return it
             return searchResult.second;
@@ -168,16 +168,16 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const
 
     // ok, no absolute value was found, use the normal value (without)
     //  weight as default
-    SUMOReal value = (SUMOReal)(_dist / _speed);
-    if (_usingTimeLine) {
+    SUMOReal value = (SUMOReal)(myDist / mySpeed);
+    if (myUsingTimeLine) {
         if (!myHaveBuildShortCut) {
-            myPackedValueLine = _ownValueLine.buildShortCut(myShortCutBegin, myShortCutEnd, myLastPackedIndex, myShortCutInterval);
+            myPackedValueLine = myOwnValueLine.buildShortCut(myShortCutBegin, myShortCutEnd, myLastPackedIndex, myShortCutInterval);
             myHaveBuildShortCut = true;
         }
         if (myShortCutBegin>time||myShortCutEnd<time) {
             if (myUseBoundariesOnOverride) {
                 if (!myHaveWarned) {
-                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + _id + "'.\n Using first/last entry.");
+                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myId + "'.\n Using first/last entry.");
                     myHaveWarned = true;
                 }
                 if (myShortCutBegin>time) {
@@ -189,7 +189,7 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const
                 // value is already set
                 //  warn if wished
                 if (!myHaveWarned) {
-                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + _id + "'.\n Using edge's length / edge's speed.");
+                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myId + "'.\n Using edge's length / edge's speed.");
                     myHaveWarned = true;
                 }
             }
@@ -199,14 +199,14 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const
     }
 
     // check for additional values
-    if (_hasSupplementaryWeights == true) {
+    if (myHasSupplementaryWeights == true) {
         // for factors
-        supplementarySearchResult = _supplementaryWeightMult->getSearchStateAndValue(time);
+        supplementarySearchResult = mySupplementaryWeightMult->getSearchStateAndValue(time);
         if (supplementarySearchResult.first) {
             value *= supplementarySearchResult.second;
         }
         // for a value to add
-        supplementarySearchResult = _supplementaryWeightAdd->getSearchStateAndValue(time);
+        supplementarySearchResult = mySupplementaryWeightAdd->getSearchStateAndValue(time);
         if (supplementarySearchResult.first) {
             value += supplementarySearchResult.second;
         }
@@ -257,7 +257,7 @@ ROEdge::getDuration(const ROVehicle *const v, SUMOTime time) const
 const std::string &
 ROEdge::getID() const
 {
-    return _id;
+    return myId;
 }
 
 
@@ -286,13 +286,13 @@ ROEdge::setSupplementaryWeights(FloatValueTimeLine* absolut,
                                 FloatValueTimeLine* add,
                                     FloatValueTimeLine* mult)
 {
-    _supplementaryWeightAbsolut = absolut;
-    _supplementaryWeightAdd     = add;
-    _supplementaryWeightMult    = mult;
-    assert(_supplementaryWeightAbsolut != 0 &&
-           _supplementaryWeightAdd     != 0 &&
-           _supplementaryWeightMult    != 0);
-    _hasSupplementaryWeights = true;
+    mySupplementaryWeightAbsolut = absolut;
+    mySupplementaryWeightAdd     = add;
+    mySupplementaryWeightMult    = mult;
+    assert(mySupplementaryWeightAbsolut != 0 &&
+           mySupplementaryWeightAdd     != 0 &&
+           mySupplementaryWeightMult    != 0);
+    myHasSupplementaryWeights = true;
 }
 
 
@@ -353,7 +353,7 @@ ROEdge::getLane(size_t index)
 SUMOReal
 ROEdge::getSpeed() const
 {
-    return _speed;
+    return mySpeed;
 }
 
 

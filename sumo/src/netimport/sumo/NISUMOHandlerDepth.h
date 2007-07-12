@@ -44,7 +44,7 @@
 class NISUMOHandlerDepth : public SUMOSAXHandler
 {
 private:
-    LoadFilter _loading;
+    LoadFilter myLoading;
 public:
     NISUMOHandlerDepth(LoadFilter what);
     ~NISUMOHandlerDepth() throw();

@@ -84,10 +84,10 @@ using namespace std;
 // ===========================================================================
 // static variable definitions
 // ===========================================================================
-int NBNode::_noDistricts = 0;
-int NBNode::_noUnregulatedJunctions = 0;
-int NBNode::_noPriorityJunctions = 0;
-int NBNode::_noRightBeforeLeftJunctions = 0;
+int NBNode::myNoDistricts = 0;
+int NBNode::myNoUnregulatedJunctions = 0;
+int NBNode::myNoPriorityJunctions = 0;
+int NBNode::myNoRightBeforeLeftJunctions = 0;
 
 
 // ===========================================================================
@@ -98,10 +98,10 @@ int NBNode::_noRightBeforeLeftJunctions = 0;
  * ----------------------------------------------------------------------- */
 NBNode::ApproachingDivider::ApproachingDivider(
     std::vector<NBEdge*> *approaching, NBEdge *currentOutgoing)
-        : _approaching(approaching), _currentOutgoing(currentOutgoing)
+        : myApproaching(approaching), myCurrentOutgoing(currentOutgoing)
 {
     // check whether origin lanes have been given
-    assert(_approaching!=0);
+    assert(myApproaching!=0);
 }
 
 
@@ -112,23 +112,23 @@ NBNode::ApproachingDivider::~ApproachingDivider()
 void
 NBNode::ApproachingDivider::execute(SUMOReal src, SUMOReal dest)
 {
-    assert(_approaching->size()>src);
+    assert(myApproaching->size()>src);
     // get the origin edge
-    NBEdge *incomingEdge = (*_approaching)[(int) src];
+    NBEdge *incomingEdge = (*myApproaching)[(int) src];
     if (incomingEdge->getStep()==NBEdge::LANES2LANES) {
         return;
     }
     vector<size_t> approachingLanes =
-        incomingEdge->getConnectionLanes(_currentOutgoing);
+        incomingEdge->getConnectionLanes(myCurrentOutgoing);
     assert(approachingLanes.size()!=0);
     deque<size_t> *approachedLanes = spread(approachingLanes, dest);
-    assert(approachedLanes->size()<=_currentOutgoing->getNoLanes());
+    assert(approachedLanes->size()<=myCurrentOutgoing->getNoLanes());
     // set lanes
     for (size_t i=0; i<approachedLanes->size(); i++) {
         size_t approached = (*approachedLanes)[i];
         assert(approachedLanes->size()>i);
         assert(approachingLanes.size()>i);
-        incomingEdge->setConnection(approachingLanes[i], _currentOutgoing,
+        incomingEdge->setConnection(approachingLanes[i], myCurrentOutgoing,
                                     approached, true);
     }
     delete approachedLanes;
@@ -152,7 +152,7 @@ NBNode::ApproachingDivider::spread(const vector<size_t> &approachingLanes,
         return ret;
     }
 
-    size_t noOutgoingLanes = _currentOutgoing->getNoLanes();
+    size_t noOutgoingLanes = myCurrentOutgoing->getNoLanes();
     //
     ret->push_back((size_t) dest);
     size_t noSet = 1;
@@ -215,38 +215,38 @@ NBNode::ApproachingDivider::spread(const vector<size_t> &approachingLanes,
  * NBNode-methods
  * ----------------------------------------------------------------------- */
 NBNode::NBNode(const string &id, const Position2D &position)
-        : _id(StringUtils::convertUmlaute(id)), myPosition(position),
-        _type(NODETYPE_UNKNOWN), myDistrict(0), _request(0)
+        : myId(StringUtils::convertUmlaute(id)), myPosition(position),
+        myType(NODETYPE_UNKNOWN), myDistrict(0), myRequest(0)
 {
-    _incomingEdges = new EdgeVector();
-    _outgoingEdges = new EdgeVector();
+    myIncomingEdges = new EdgeVector();
+    myOutgoingEdges = new EdgeVector();
 }
 
 
 NBNode::NBNode(const string &id, const Position2D &position,
                BasicNodeType type)
-        : _id(StringUtils::convertUmlaute(id)), myPosition(position),
-        _type(type), myDistrict(0), _request(0)
+        : myId(StringUtils::convertUmlaute(id)), myPosition(position),
+        myType(type), myDistrict(0), myRequest(0)
 {
-    _incomingEdges = new EdgeVector();
-    _outgoingEdges = new EdgeVector();
+    myIncomingEdges = new EdgeVector();
+    myOutgoingEdges = new EdgeVector();
 }
 
 
 NBNode::NBNode(const string &id, const Position2D &position, NBDistrict *district)
-        : _id(StringUtils::convertUmlaute(id)), myPosition(position),
-        _type(NODETYPE_DISTRICT), myDistrict(district), _request(0)
+        : myId(StringUtils::convertUmlaute(id)), myPosition(position),
+        myType(NODETYPE_DISTRICT), myDistrict(district), myRequest(0)
 {
-    _incomingEdges = new EdgeVector();
-    _outgoingEdges = new EdgeVector();
+    myIncomingEdges = new EdgeVector();
+    myOutgoingEdges = new EdgeVector();
 }
 
 
 NBNode::~NBNode()
 {
-    delete _incomingEdges;
-    delete _outgoingEdges;
-    delete _request;
+    delete myIncomingEdges;
+    delete myOutgoingEdges;
+    delete myRequest;
 }
 
 
@@ -263,11 +263,11 @@ void
 NBNode::addIncomingEdge(NBEdge *edge)
 {
     assert(edge!=0);
-    if (find(_incomingEdges->begin(), _incomingEdges->end(), edge)
-            ==_incomingEdges->end()) {
+    if (find(myIncomingEdges->begin(), myIncomingEdges->end(), edge)
+            ==myIncomingEdges->end()) {
 
-        _incomingEdges->push_back(edge);
-        for (std::vector<NBEdge*>::iterator i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); ++i) {
+        myIncomingEdges->push_back(edge);
+        for (std::vector<NBEdge*>::iterator i=myOutgoingEdges->begin(); i!=myOutgoingEdges->end(); ++i) {
             if ((*i)->getToNode()==edge->getFromNode()) {
                 (*i)->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
                 edge->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
@@ -281,11 +281,11 @@ void
 NBNode::addOutgoingEdge(NBEdge *edge)
 {
     assert(edge!=0);
-    if (find(_outgoingEdges->begin(), _outgoingEdges->end(), edge)
-            ==_outgoingEdges->end()) {
+    if (find(myOutgoingEdges->begin(), myOutgoingEdges->end(), edge)
+            ==myOutgoingEdges->end()) {
 
-        _outgoingEdges->push_back(edge);
-        for (std::vector<NBEdge*>::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); ++i) {
+        myOutgoingEdges->push_back(edge);
+        for (std::vector<NBEdge*>::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); ++i) {
             if ((*i)->getFromNode()==edge->getToNode()) {
                 (*i)->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
                 edge->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
@@ -298,38 +298,38 @@ NBNode::addOutgoingEdge(NBEdge *edge)
 const std::string &
 NBNode::getID() const
 {
-    return _id;
+    return myId;
 }
 
 
 const EdgeVector &
 NBNode::getIncomingEdges() const
 {
-    return *_incomingEdges;
+    return *myIncomingEdges;
 }
 
 
 const EdgeVector &
 NBNode::getOutgoingEdges() const
 {
-    return *_outgoingEdges;
+    return *myOutgoingEdges;
 }
 
 
 const EdgeVector &
 NBNode::getEdges() const
 {
-    return _allEdges;
+    return myAllEdges;
 }
 
 
 void
 NBNode::buildList()
 {
-    copy(_incomingEdges->begin(), _incomingEdges->end(),
-         back_inserter(_allEdges));
-    copy(_outgoingEdges->begin(), _outgoingEdges->end(),
-         back_inserter(_allEdges));
+    copy(myIncomingEdges->begin(), myIncomingEdges->end(),
+         back_inserter(myAllEdges));
+    copy(myOutgoingEdges->begin(), myOutgoingEdges->end(),
+         back_inserter(myAllEdges));
 }
 
 
@@ -352,18 +352,18 @@ NBNode::setPriorities()
     // reset all priorities
     vector<NBEdge*>::iterator i;
     // check if the junction is not a real junction
-    if (_incomingEdges->size()==1&&_outgoingEdges->size()==1) {
-        for (i=_allEdges.begin(); i!=_allEdges.end(); i++) {
+    if (myIncomingEdges->size()==1&&myOutgoingEdges->size()==1) {
+        for (i=myAllEdges.begin(); i!=myAllEdges.end(); i++) {
             (*i)->setJunctionPriority(this, 1);
         }
         return;
     }
     // preset all junction's edge priorities to zero
-    for (i=_allEdges.begin(); i!=_allEdges.end(); i++) {
+    for (i=myAllEdges.begin(); i!=myAllEdges.end(); i++) {
         (*i)->setJunctionPriority(this, 0);
     }
     // compute the priorities on junction when needed
-    if (_type!=NODETYPE_RIGHT_BEFORE_LEFT) {
+    if (myType!=NODETYPE_RIGHT_BEFORE_LEFT) {
         setPriorityJunctionPriorities();
     }
 }
@@ -373,11 +373,11 @@ NBNode::BasicNodeType
 NBNode::computeType(const NBTypeCont &tc) const
 {
     // the type may already be set from the data
-    if (_type!=NODETYPE_UNKNOWN) {
-        return _type;
+    if (myType!=NODETYPE_UNKNOWN) {
+        return myType;
     }
     // check whether the junction is not a real junction
-    if (_incomingEdges->size()==1) {
+    if (myIncomingEdges->size()==1) {
         return NODETYPE_PRIORITY_JUNCTION;
     }
     // check whether the junction is a district and has no
@@ -391,10 +391,10 @@ NBNode::computeType(const NBTypeCont &tc) const
     // choose the uppermost type as default
     BasicNodeType type = NODETYPE_RIGHT_BEFORE_LEFT;
     // determine the type
-    for (vector<NBEdge*>::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
-        for (vector<NBEdge*>::const_iterator j=i+1; j!=_incomingEdges->end(); j++) {
+    for (vector<NBEdge*>::const_iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
+        for (vector<NBEdge*>::const_iterator j=i+1; j!=myIncomingEdges->end(); j++) {
             bool isOpposite = false;
-            if (getOppositeIncoming(*j)==*i&&_incomingEdges->size()>2) {
+            if (getOppositeIncoming(*j)==*i&&myIncomingEdges->size()>2) {
                 isOpposite = true;
             }
 
@@ -418,21 +418,21 @@ bool
 NBNode::isSimpleContinuation() const
 {
     // one in, one out->continuation
-    if (_incomingEdges->size()==1&&_outgoingEdges->size()==1) {
+    if (myIncomingEdges->size()==1&&myOutgoingEdges->size()==1) {
         // both must have the same number of lanes
-        return (*(_incomingEdges->begin()))->getNoLanes()==(*(_outgoingEdges->begin()))->getNoLanes();
+        return (*(myIncomingEdges->begin()))->getNoLanes()==(*(myOutgoingEdges->begin()))->getNoLanes();
     }
     // two in and two out and both in reverse direction
-    if (_incomingEdges->size()==2&&_outgoingEdges->size()==2) {
-        for (EdgeVector::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+    if (myIncomingEdges->size()==2&&myOutgoingEdges->size()==2) {
+        for (EdgeVector::const_iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
             NBEdge *in = *i;
-            EdgeVector::const_iterator opposite = find_if(_outgoingEdges->begin(), _outgoingEdges->end(), NBContHelper::opposite_finder(in, this));
+            EdgeVector::const_iterator opposite = find_if(myOutgoingEdges->begin(), myOutgoingEdges->end(), NBContHelper::opposite_finder(in, this));
             // must have an opposite edge
-            if (opposite==_outgoingEdges->end()) {
+            if (opposite==myOutgoingEdges->end()) {
                 return false;
             }
             // both must have the same number of lanes
-            NBContHelper::nextCW(_outgoingEdges, opposite);
+            NBContHelper::nextCW(myOutgoingEdges, opposite);
             if (in->getNoLanes()!=(*opposite)->getNoLanes()) {
                 return false;
             }
@@ -447,7 +447,7 @@ NBNode::isSimpleContinuation() const
 bool
 NBNode::isDistrictCenter() const
 {
-    return _id.substr(0, 14)=="DistrictCenter";
+    return myId.substr(0, 14)=="DistrictCenter";
 }
 
 
@@ -470,11 +470,11 @@ samePriority(NBEdge *e1, NBEdge *e2)
 void
 NBNode::setPriorityJunctionPriorities()
 {
-    if (_incomingEdges->size()==0||_outgoingEdges->size()==0) {
+    if (myIncomingEdges->size()==0||myOutgoingEdges->size()==0) {
         return;
     }
-    vector<NBEdge*> incoming(*_incomingEdges);
-    vector<NBEdge*> outgoing(*_outgoingEdges);
+    vector<NBEdge*> incoming(*myIncomingEdges);
+    vector<NBEdge*> outgoing(*myOutgoingEdges);
     // what we do want to have is to extract the pair of roads that are
     //  the major roads for this junction
     // let's get the list of incoming edges with the highest priority
@@ -500,8 +500,8 @@ NBNode::setPriorityJunctionPriorities()
     vector<NBEdge*>::iterator i;
     map<NBEdge*, NBEdge*> counterIncomingEdges;
     map<NBEdge*, NBEdge*> counterOutgoingEdges;
-    incoming = *_incomingEdges;
-    outgoing = *_outgoingEdges;
+    incoming = *myIncomingEdges;
+    outgoing = *myOutgoingEdges;
     for (i=bestIncoming.begin(); i!=bestIncoming.end(); ++i) {
         sort(incoming.begin(), incoming.end(), NBContHelper::edge_opposite_direction_sorter(*i));
         counterIncomingEdges[*i] = *incoming.begin();
@@ -586,18 +586,18 @@ NBNode::extractAndMarkFirst(vector<NBEdge*> &s)
 void
 NBNode::rotateIncomingEdges(int norot)
 {
-    if (_incomingEdges->size()==0) {
+    if (myIncomingEdges->size()==0) {
         return;
     }
     while (norot>0) {
-        NBEdge *e = (*_incomingEdges)[0];
+        NBEdge *e = (*myIncomingEdges)[0];
         unsigned int i;
-        for (i=0; i<_incomingEdges->size()-1; i++) {
-            assert(_incomingEdges!=0&&_incomingEdges->size()>i+1);
-            (*_incomingEdges)[i] = (*_incomingEdges)[i+1];
+        for (i=0; i<myIncomingEdges->size()-1; i++) {
+            assert(myIncomingEdges!=0&&myIncomingEdges->size()>i+1);
+            (*myIncomingEdges)[i] = (*myIncomingEdges)[i+1];
         }
-        assert(_incomingEdges!=0&&i<_incomingEdges->size());
-        (*_incomingEdges)[i] = e;
+        assert(myIncomingEdges!=0&&i<myIncomingEdges->size());
+        (*myIncomingEdges)[i] = e;
         norot--;
     }
 }
@@ -610,7 +610,7 @@ NBNode::getInternalNamesList()
     size_t noInternalLanes = countInternalLanes(true);
     if (noInternalLanes!=0) {
         for (size_t i=0; i<noInternalLanes; i++) {
-            ret.push_back(":" + _id + "_" + toString<size_t>(i));
+            ret.push_back(":" + myId + "_" + toString<size_t>(i));
         }
     }
     return ret;
@@ -622,7 +622,7 @@ NBNode::countInternalLanes(bool includeSplits)
 {
     size_t lno = 0;
     EdgeVector::iterator i;
-    for (i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+    for (i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for (size_t j=0; j<noLanesEdge; j++) {
             const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
@@ -652,11 +652,11 @@ NBNode::writeXMLInternalLinks(ostream &into)
     if (noInternalNoSplits==0) {
         return;
     }
-    string id = ":" + _id;
+    string id = ":" + myId;
     size_t lno = 0;
     size_t splitNo = 0;
     EdgeVector::iterator i;
-    for (i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+    for (i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for (size_t j=0; j<noLanesEdge; j++) {
             const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
@@ -674,7 +674,7 @@ NBNode::writeXMLInternalLinks(ostream &into)
                 vmax = MIN2(vmax, (((*i)->getSpeed()+(*k).edge->getSpeed())/(SUMOReal) 2.0));
                 vmax = ((*i)->getSpeed()+(*k).edge->getSpeed())/(SUMOReal) 2.0;
                 //
-                string id = ":" + _id + "_" + toString<size_t>(lno);
+                string id = ":" + myId + "_" + toString<size_t>(lno);
                 Position2D end = (*k).edge->getLaneShape((*k).lane).getBegin();
                 Position2D beg = (*i)->getLaneShape(j).getEnd();
                 Position2DVector shape = computeInternalLaneShape(*i, j, (*k).edge, (*k).lane);
@@ -695,12 +695,12 @@ NBNode::writeXMLInternalLinks(ostream &into)
                     << split.first
                     << "</lane>" << endl;
                     into << "      </lanes>" << endl;
-                    into << "      <cedge id=\":" << _id << "_" << toString<size_t>(splitNo+noInternalNoSplits)
+                    into << "      <cedge id=\":" << myId << "_" << toString<size_t>(splitNo+noInternalNoSplits)
                     << "\">" << id << "_0" << "</cedge>" << endl;
                     into << "   </edge>" << endl << endl;
                     lno++;
 
-                    string id = ":" + _id + "_" + toString<size_t>(splitNo+noInternalNoSplits);
+                    string id = ":" + myId + "_" + toString<size_t>(splitNo+noInternalNoSplits);
                     into << "   <edge id=\"" << id
                     << "\" function=\"internal\">" << endl;
                     into << "      <lanes>" << endl;
@@ -869,7 +869,7 @@ NBNode::getCrossingPosition(NBEdge *fromE, size_t fromL, NBEdge *toE, size_t toL
     case MMLDIR_TURN: {
         Position2DVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
         size_t index = 0;
-        for (EdgeVector::iterator i2=_incomingEdges->begin(); i2!=_incomingEdges->end(); i2++) {
+        for (EdgeVector::iterator i2=myIncomingEdges->begin(); i2!=myIncomingEdges->end(); i2++) {
             size_t noLanesEdge = (*i2)->getNoLanes();
             for (size_t j2=0; j2<noLanesEdge; j2++) {
                 const EdgeLaneVector &elv = (*i2)->getEdgeLanesFromLane(j2);
@@ -877,7 +877,7 @@ NBNode::getCrossingPosition(NBEdge *fromE, size_t fromL, NBEdge *toE, size_t toL
                     if ((*k2).edge==0) {
                         continue;
                     }
-                    if (fromE!=(*i2)&&_request->forbids(*i2, (*k2).edge, fromE, toE, true)) {
+                    if (fromE!=(*i2)&&myRequest->forbids(*i2, (*k2).edge, fromE, toE, true)) {
                         // compute the crossing point
                         ret.second.push_back(index);
                         Position2DVector otherShape = computeInternalLaneShape(*i2, j2, (*k2).edge, (*k2).lane);
@@ -921,7 +921,7 @@ NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, size_t fromL,
     case MMLDIR_TURN: {
         Position2DVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
         size_t index = 0;
-        for (EdgeVector::iterator i2=_incomingEdges->begin(); i2!=_incomingEdges->end(); i2++) {
+        for (EdgeVector::iterator i2=myIncomingEdges->begin(); i2!=myIncomingEdges->end(); i2++) {
             size_t noLanesEdge = (*i2)->getNoLanes();
             for (size_t j2=0; j2<noLanesEdge; j2++) {
                 const EdgeLaneVector &elv = (*i2)->getEdgeLanesFromLane(j2);
@@ -937,11 +937,11 @@ NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, size_t fromL,
                     NBMMLDirection dir2 = getMMLDirection(*i2, (*k2).edge);
                     bool left = dir2==MMLDIR_LEFT || dir2==MMLDIR_PARTLEFT || dir2==MMLDIR_TURN;
                     left = false;
-                    if (!left&&fromE!=(*i2)&&_request->forbids(*i2, (*k2).edge, fromE, toE, true)) {
+                    if (!left&&fromE!=(*i2)&&myRequest->forbids(*i2, (*k2).edge, fromE, toE, true)) {
                         if (ret.length()!=0) {
                             ret += " ";
                         }
-                        ret += (":" + _id + "_" + toString(index) + "_0");
+                        ret += (":" + myId + "_" + toString(index) + "_0");
                     }
                     index++;
                 }
@@ -969,7 +969,7 @@ NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, size_t fromL,
     case MMLDIR_TURN: {
         Position2DVector thisShape = computeInternalLaneShape(fromE, fromL, toE, toL);
         size_t index = 0;
-        for (EdgeVector::iterator i2=_incomingEdges->begin(); i2!=_incomingEdges->end(); i2++) {
+        for (EdgeVector::iterator i2=myIncomingEdges->begin(); i2!=myIncomingEdges->end(); i2++) {
             size_t noLanesEdge = (*i2)->getNoLanes();
             for (size_t j2=0; j2<noLanesEdge; j2++) {
                 const EdgeLaneVector &elv = (*i2)->getEdgeLanesFromLane(j2);
@@ -985,7 +985,7 @@ NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, size_t fromL,
                     NBMMLDirection dir2 = getMMLDirection(*i2, (*k2).edge);
                     bool left = dir2==MMLDIR_LEFT || dir2==MMLDIR_PARTLEFT || dir2==MMLDIR_TURN;
                     left = false;
-                    if (!left&&fromE!=(*i2)&&_request->forbids(*i2, (*k2).edge, fromE, toE, true)) {
+                    if (!left&&fromE!=(*i2)&&myRequest->forbids(*i2, (*k2).edge, fromE, toE, true)) {
                         string nid = (*i2)->getID() + "_" + toString(j2);
                         if (find(tmp.begin(), tmp.end(), nid)==tmp.end()) {
                             tmp.push_back(nid);
@@ -1019,7 +1019,7 @@ NBNode::writeXMLInternalSuccInfos(ostream &into)
     }
     size_t lno = 0;
     size_t splitNo = 0;
-    for (EdgeVector::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+    for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for (size_t j=0; j<noLanesEdge; j++) {
             const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
@@ -1027,14 +1027,14 @@ NBNode::writeXMLInternalSuccInfos(ostream &into)
                 if ((*k).edge==0) {
                     continue;
                 }
-                string id = ":" + _id + "_" + toString<size_t>(lno);
-                string sid = ":" + _id + "_" + toString<size_t>(splitNo+noInternalNoSplits);
+                string id = ":" + myId + "_" + toString<size_t>(lno);
+                string sid = ":" + myId + "_" + toString<size_t>(splitNo+noInternalNoSplits);
                 std::pair<SUMOReal, std::vector<size_t> > cross = getCrossingPosition(*i, j, (*k).edge, (*k).lane);
 
                 // get internal splits if any
                 into << "   <succ edge=\"" << id << "\" "
                 << "lane=\"" << id << "_"
-                << 0 << "\" junction=\"" << _id << "\">"
+                << 0 << "\" junction=\"" << myId << "\">"
                 << endl;
                 if (cross.first>=0) {
                     into << "      <succlane lane=\""
@@ -1081,7 +1081,7 @@ NBNode::writeXMLInternalNodes(ostream &into)
     }
     size_t lno = 0;
     size_t splitNo = 0;
-    for (EdgeVector::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+    for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for (size_t j=0; j<noLanesEdge; j++) {
             const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
@@ -1098,8 +1098,8 @@ NBNode::writeXMLInternalNodes(ostream &into)
                 }
 
                 // write the attributes
-                string sid = ":" + _id + "_" + toString<size_t>(splitNo+noInternalNoSplits) + "_0";
-                string iid = ":" + _id + "_" + toString<size_t>(lno) + "_0";
+                string sid = ":" + myId + "_" + toString<size_t>(splitNo+noInternalNoSplits) + "_0";
+                string iid = ":" + myId + "_" + toString<size_t>(lno) + "_0";
                 Position2DVector shape = computeInternalLaneShape(*i, j, (*k).edge, (*k).lane);
                 Position2D pos = shape.positionAtLengthPosition(cross.first);
                 into << "   <junction id=\"" << sid << '\"';
@@ -1129,10 +1129,10 @@ NBNode::writeXMLInternalNodes(ostream &into)
 
 
 void
-writeinternal(EdgeVector *_incomingEdges, ostream &into, const std::string &id)
+writeinternal(EdgeVector *myIncomingEdges, ostream &into, const std::string &id)
 {
     size_t l = 0;
-    for (EdgeVector::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+    for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for (size_t j=0; j<noLanesEdge; j++) {
             const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
@@ -1155,10 +1155,10 @@ void
 NBNode::writeXML(ostream &into)
 {
     // write the attributes
-    into << "   <junction id=\"" << _id << '\"';
-    if (_incomingEdges->size()!=0&&_outgoingEdges->size()!=0) {
+    into << "   <junction id=\"" << myId << '\"';
+    if (myIncomingEdges->size()!=0&&myOutgoingEdges->size()!=0) {
         //into << " key=\"" << _key << '\"';
-        switch (_type) {
+        switch (myType) {
         case NODETYPE_NOJUNCTION:
             into << " type=\"" << "none\"";
             break;
@@ -1185,12 +1185,12 @@ NBNode::writeXML(ostream &into)
     // write the incoming lanes
     EdgeVector::iterator i;
     into << "      <inclanes>";
-    for (i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+    for (i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         size_t noLanes = (*i)->getNoLanes();
         string id = (*i)->getID();
         for (size_t j=0; j<noLanes; j++) {
             into << id << '_' << j;
-            if (i!=_incomingEdges->end()-1 || j<noLanes-1) {
+            if (i!=myIncomingEdges->end()-1 || j<noLanes-1) {
                 into << ' ';
             }
         }
@@ -1199,7 +1199,7 @@ NBNode::writeXML(ostream &into)
     // write the internal lanes
     if (OptionsCont::getOptions().getBool("add-internal-links")) {
         into << "      <intlanes>";
-        writeinternal(_incomingEdges, into, _id);
+        writeinternal(myIncomingEdges, into, myId);
         into << "</intlanes>" << endl;
     }
 
@@ -1214,19 +1214,19 @@ void
 NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
                      OptionsCont &)
 {
-    if (_incomingEdges->size()==0||_outgoingEdges->size()==0) {
+    if (myIncomingEdges->size()==0||myOutgoingEdges->size()==0) {
         return;
     }
     // build the request
-    _request = new NBRequest(ec, this,
-                             static_cast<const EdgeVector * const>(&_allEdges),
-                             static_cast<const EdgeVector * const>(_incomingEdges),
-                             static_cast<const EdgeVector * const>(_outgoingEdges),
-                             _blockedConnections);
+    myRequest = new NBRequest(ec, this,
+                             static_cast<const EdgeVector * const>(&myAllEdges),
+                             static_cast<const EdgeVector * const>(myIncomingEdges),
+                             static_cast<const EdgeVector * const>(myOutgoingEdges),
+                             myBlockedConnections);
 
     // compute the logic if necessary or split the junction
-    if (_type!=NODETYPE_NOJUNCTION&&_type!=NODETYPE_DISTRICT) {
-        _request->buildBitfieldLogic(jc, _id);
+    if (myType!=NODETYPE_NOJUNCTION&&myType!=NODETYPE_DISTRICT) {
+        myRequest->buildBitfieldLogic(jc, myId);
     }
 }
 
@@ -1236,29 +1236,29 @@ NBNode::setType(BasicNodeType type)
 {
     switch (type) {
     case NODETYPE_NOJUNCTION:
-        _noUnregulatedJunctions++;
+        myNoUnregulatedJunctions++;
         break;
     case NODETYPE_PRIORITY_JUNCTION:
     case NODETYPE_TRAFFIC_LIGHT:
-        _noPriorityJunctions++;
+        myNoPriorityJunctions++;
         break;
     case NODETYPE_RIGHT_BEFORE_LEFT:
-        _noRightBeforeLeftJunctions++;
+        myNoRightBeforeLeftJunctions++;
         break;
     case NODETYPE_DISTRICT:
-        _noRightBeforeLeftJunctions++;
+        myNoRightBeforeLeftJunctions++;
         break;
     default:
         throw exception();
     }
-    _type = type;
+    myType = type;
 }
 
 
 NBNode::BasicNodeType
 NBNode::getType() const
 {
-    return _type;
+    return myType;
 }
 
 
@@ -1268,9 +1268,9 @@ NBNode::reportBuild()
     WRITE_MESSAGE("-----------------------------------------------------");
     WRITE_MESSAGE("Summary:");
     WRITE_MESSAGE(" Node type statistics:");
-    WRITE_MESSAGE("  Unregulated junctions       : " + toString<int>(_noUnregulatedJunctions));
-    WRITE_MESSAGE("  Priority junctions          : " + toString<int>(_noPriorityJunctions));
-    WRITE_MESSAGE("  Right-before-left junctions : " + toString<int>(_noRightBeforeLeftJunctions));
+    WRITE_MESSAGE("  Unregulated junctions       : " + toString<int>(myNoUnregulatedJunctions));
+    WRITE_MESSAGE("  Priority junctions          : " + toString<int>(myNoPriorityJunctions));
+    WRITE_MESSAGE("  Right-before-left junctions : " + toString<int>(myNoRightBeforeLeftJunctions));
     WRITE_MESSAGE(" Network boundaries:");
     WRITE_MESSAGE("  Original boundary  : " + toString(GeoConvHelper::getOrigBoundary()));
     WRITE_MESSAGE("  Applied offset     : " + toString(GeoConvHelper::getOffset()));
@@ -1284,23 +1284,23 @@ NBNode::sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm)
 {
     // sort the edges
     buildList();
-    sort(_allEdges.begin(), _allEdges.end(), NBContHelper::edge_by_junction_angle_sorter(this));
-    sort(_incomingEdges->begin(), _incomingEdges->end(), NBContHelper::edge_by_junction_angle_sorter(this));
-    sort(_outgoingEdges->begin(), _outgoingEdges->end(), NBContHelper::edge_by_junction_angle_sorter(this));
-    if (_allEdges.size()==0) {
+    sort(myAllEdges.begin(), myAllEdges.end(), NBContHelper::edge_by_junction_angle_sorter(this));
+    sort(myIncomingEdges->begin(), myIncomingEdges->end(), NBContHelper::edge_by_junction_angle_sorter(this));
+    sort(myOutgoingEdges->begin(), myOutgoingEdges->end(), NBContHelper::edge_by_junction_angle_sorter(this));
+    if (myAllEdges.size()==0) {
         return;
     }
     vector<NBEdge*>::iterator i;
-    for (i=_allEdges.begin();
-            i!=_allEdges.end()-1&&i!=_allEdges.end(); i++) {
+    for (i=myAllEdges.begin();
+            i!=myAllEdges.end()-1&&i!=myAllEdges.end(); i++) {
         swapWhenReversed(i, i+1);
     }
-    if (_allEdges.size()>1 && i!=_allEdges.end()) {
-        swapWhenReversed(_allEdges.end()-1, _allEdges.begin());
+    if (myAllEdges.size()>1 && i!=myAllEdges.end()) {
+        swapWhenReversed(myAllEdges.end()-1, myAllEdges.begin());
     }
 #ifdef _DEBUG
     if (OptionsCont::getOptions().getInt("netbuild.debug")>0) {
-        DEBUG_OUT << "Node '" << _id << "': ";
+        DEBUG_OUT << "Node '" << myId << "': ";
         const EdgeVector &ev = getEdges();
         for (EdgeVector::const_iterator i=ev.begin(); i!=ev.end(); ++i) {
             DEBUG_OUT << (*i)->getID() << ", ";
@@ -1329,7 +1329,7 @@ NBNode::sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm)
             col = "1,1,0";
             break;
         }
-        (*strm) << "   <poi id=\"type_" << _id
+        (*strm) << "   <poi id=\"type_" << myId
         << "\" type=\"node_type\" color=\"" << col << "\""
         << " x=\"" << getPosition().x() << "\" y=\"" << getPosition().y() << "\"/>"
         << endl;
@@ -1342,7 +1342,7 @@ NBNode::sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm)
 void
 NBNode::computeNodeShape(ofstream *out)
 {
-    if (_incomingEdges->size()==0&&_outgoingEdges->size()==0) {
+    if (myIncomingEdges->size()==0&&myOutgoingEdges->size()==0) {
         return;
     }
     NBNodeShapeComputer computer(*this, out);
@@ -1400,9 +1400,9 @@ NBNode::computeLanes2Lanes()
 {
     // special case:
     //  one in, one out, the outgoing has one lane more
-    if (_incomingEdges->size()==1&&_outgoingEdges->size()==1&&(*_incomingEdges)[0]->getNoLanes()==(*_outgoingEdges)[0]->getNoLanes()-1&&(*_incomingEdges)[0]!=(*_outgoingEdges)[0]) {
-        NBEdge *incoming = (*_incomingEdges)[0];
-        NBEdge *outgoing = (*_outgoingEdges)[0];
+    if (myIncomingEdges->size()==1&&myOutgoingEdges->size()==1&&(*myIncomingEdges)[0]->getNoLanes()==(*myOutgoingEdges)[0]->getNoLanes()-1&&(*myIncomingEdges)[0]!=(*myOutgoingEdges)[0]) {
+        NBEdge *incoming = (*myIncomingEdges)[0];
+        NBEdge *outgoing = (*myOutgoingEdges)[0];
         for (int i=0; i<(int) incoming->getNoLanes(); ++i) {
             incoming->setConnection(i, outgoing, i+1, false);
         }
@@ -1415,7 +1415,7 @@ NBNode::computeLanes2Lanes()
     //  incoming edges on this edge when approaching this edge
     // the incoming edges' steps will then also be marked as LANE2LANE_RECHECK...
     vector<NBEdge*>::reverse_iterator i;
-    for (i=_outgoingEdges->rbegin(); i!=_outgoingEdges->rend(); i++) {
+    for (i=myOutgoingEdges->rbegin(); i!=myOutgoingEdges->rend(); i++) {
         NBEdge *currentOutgoing = *i;
         // get the information about edges that do approach this edge
         vector<NBEdge*> *approaching = getApproaching(currentOutgoing);
@@ -1429,8 +1429,8 @@ NBNode::computeLanes2Lanes()
     // ... but we may have the case that there are no outgoing edges
     //  In this case, we have to mark the incoming edges as being in state
     //   LANE2LANE( not RECHECK) by hand
-    if (_outgoingEdges->size()==0) {
-        for (i=_incomingEdges->rbegin(); i!=_incomingEdges->rend(); i++) {
+    if (myOutgoingEdges->size()==0) {
+        for (i=myIncomingEdges->rbegin(); i!=myIncomingEdges->rend(); i++) {
             (*i)->markAsInLane2LaneState();
         }
     }
@@ -1438,9 +1438,9 @@ NBNode::computeLanes2Lanes()
     //  next lanes. We take a look at each combination of from-lane and to-lane
     //  and if a lane beside the to-lane is free we will also add a connection
     //  to it as long as it is not approached by any other lane from the same edge
-    if (_outgoingEdges->size()==1&&_incomingEdges->size()==1) {
+    if (myOutgoingEdges->size()==1&&myIncomingEdges->size()==1) {
         vector<NBEdge*>::iterator i2;
-        for (i2=_incomingEdges->begin(); i2!=_incomingEdges->end(); i2++) {
+        for (i2=myIncomingEdges->begin(); i2!=myIncomingEdges->end(); i2++) {
             NBEdge *currentIncoming = *i2;
             currentIncoming->addAdditionalConnections();
         }
@@ -1452,10 +1452,10 @@ vector<NBEdge*> *
 NBNode::getApproaching(NBEdge *currentOutgoing)
 {
     // get the position of the node to get the approaching nodes of
-    vector<NBEdge*>::const_iterator i = find(_allEdges.begin(),
-                                        _allEdges.end(), currentOutgoing);
+    vector<NBEdge*>::const_iterator i = find(myAllEdges.begin(),
+                                        myAllEdges.end(), currentOutgoing);
     // get the first possible approaching edge
-    NBContHelper::nextCW(&_allEdges, i);
+    NBContHelper::nextCW(&myAllEdges, i);
     // go through the list of edges clockwise and add the edges
     vector<NBEdge*> *approaching = new vector<NBEdge*>();
     for (; *i!=currentOutgoing;) {
@@ -1467,7 +1467,7 @@ NBNode::getApproaching(NBEdge *currentOutgoing)
                 approaching->push_back(*i);
             }
         }
-        NBContHelper::nextCW(&_allEdges, i);
+        NBContHelper::nextCW(&myAllEdges, i);
     }
     return approaching;
 }
@@ -1479,14 +1479,14 @@ NBNode::setTurningDefinition(NBNode *from, NBNode *to)
     EdgeVector::iterator i;
     // get the source edge
     NBEdge *src = 0;
-    for (i=_incomingEdges->begin(); src==0 && i!=_incomingEdges->end(); i++) {
+    for (i=myIncomingEdges->begin(); src==0 && i!=myIncomingEdges->end(); i++) {
         if ((*i)->getFromNode()==from) {
             src = (*i);
         }
     }
     // get the destination edge
     NBEdge *dest = 0;
-    for (i=_outgoingEdges->begin(); dest==0 && i!=_outgoingEdges->end(); i++) {
+    for (i=myOutgoingEdges->begin(); dest==0 && i!=myOutgoingEdges->end(); i++) {
         if ((*i)->getToNode()==to) {
             dest = (*i);
         }
@@ -1542,14 +1542,14 @@ NBNode::replaceOutgoing(NBEdge *which, NBEdge *by, size_t laneOff)
 {
     size_t i;
     // replace the edge in the list of outgoing nodes
-    for (i=0; i<_outgoingEdges->size(); i++) {
-        if ((*_outgoingEdges)[i]==which) {
-            (*_outgoingEdges)[i] = by;
+    for (i=0; i<myOutgoingEdges->size(); i++) {
+        if ((*myOutgoingEdges)[i]==which) {
+            (*myOutgoingEdges)[i] = by;
         }
     }
     // replace the edge in connections of incoming edges
-    for (i=0; i<_incomingEdges->size(); i++) {
-        (*_incomingEdges)[i]->replaceInConnections(which, by, laneOff);
+    for (i=0; i<myIncomingEdges->size(); i++) {
+        (*myIncomingEdges)[i]->replaceInConnections(which, by, laneOff);
     }
     // replace within the connetion prohibition dependencies
     replaceInConnectionProhibitions(which, by, 0, laneOff);
@@ -1579,9 +1579,9 @@ void
 NBNode::replaceIncoming(NBEdge *which, NBEdge *by, size_t laneOff)
 {
     // replace the edge in the list of incoming nodes
-    for (size_t i=0; i<_incomingEdges->size(); i++) {
-        if ((*_incomingEdges)[i]==which) {
-            (*_incomingEdges)[i] = by;
+    for (size_t i=0; i<myIncomingEdges->size(); i++) {
+        if ((*myIncomingEdges)[i]==which) {
+            (*myIncomingEdges)[i] = by;
         }
     }
     // replace within the connetion prohibition dependencies
@@ -1614,8 +1614,8 @@ NBNode::replaceInConnectionProhibitions(NBEdge *which, NBEdge *by,
                                         size_t whichLaneOff, size_t byLaneOff)
 {
     // replace in keys
-    NBConnectionProhibits::iterator j = _blockedConnections.begin();
-    while (j!=_blockedConnections.end()) {
+    NBConnectionProhibits::iterator j = myBlockedConnections.begin();
+    while (j!=myBlockedConnections.end()) {
         bool changed = false;
         NBConnection c = (*j).first;
         if (c.replaceFrom(which, whichLaneOff, by, byLaneOff)) {
@@ -1625,15 +1625,15 @@ NBNode::replaceInConnectionProhibitions(NBEdge *which, NBEdge *by,
             changed = true;
         }
         if (changed) {
-            _blockedConnections[c] = (*j).second;
-            _blockedConnections.erase(j);
-            j = _blockedConnections.begin();
+            myBlockedConnections[c] = (*j).second;
+            myBlockedConnections.erase(j);
+            j = myBlockedConnections.begin();
         } else {
             j++;
         }
     }
     // replace in values
-    for (j=_blockedConnections.begin(); j!=_blockedConnections.end(); j++) {
+    for (j=myBlockedConnections.begin(); j!=myBlockedConnections.end(); j++) {
         NBConnectionVector &prohibiting = (*j).second;
         for (NBConnectionVector::iterator k=prohibiting.begin(); k!=prohibiting.end(); k++) {
             NBConnection &sprohibiting = *k;
@@ -1650,22 +1650,22 @@ NBNode::removeDoubleEdges()
 {
     size_t i, j;
     // check incoming
-    for (i=0; _incomingEdges->size()>0&&i<_incomingEdges->size()-1; i++) {
+    for (i=0; myIncomingEdges->size()>0&&i<myIncomingEdges->size()-1; i++) {
         j = i + 1;
-        while (j<_incomingEdges->size()) {
-            if ((*_incomingEdges)[i]==(*_incomingEdges)[j]) {
-                _incomingEdges->erase(_incomingEdges->begin()+j);
+        while (j<myIncomingEdges->size()) {
+            if ((*myIncomingEdges)[i]==(*myIncomingEdges)[j]) {
+                myIncomingEdges->erase(myIncomingEdges->begin()+j);
             } else {
                 j++;
             }
         }
     }
     // check outgoing
-    for (i=0; _outgoingEdges->size()>0&&i<_outgoingEdges->size()-1; i++) {
+    for (i=0; myOutgoingEdges->size()>0&&i<myOutgoingEdges->size()-1; i++) {
         j = i + 1;
-        while (j<_outgoingEdges->size()) {
-            if ((*_outgoingEdges)[i]==(*_outgoingEdges)[j]) {
-                _outgoingEdges->erase(_outgoingEdges->begin()+j);
+        while (j<myOutgoingEdges->size()) {
+            if ((*myOutgoingEdges)[i]==(*myOutgoingEdges)[j]) {
+                myOutgoingEdges->erase(myOutgoingEdges->begin()+j);
             } else {
                 j++;
             }
@@ -1677,25 +1677,25 @@ NBNode::removeDoubleEdges()
 bool
 NBNode::hasOutgoing(NBEdge *e) const
 {
-    return find(_outgoingEdges->begin(), _outgoingEdges->end(), e)
+    return find(myOutgoingEdges->begin(), myOutgoingEdges->end(), e)
            !=
-           _outgoingEdges->end();
+           myOutgoingEdges->end();
 }
 
 
 bool
 NBNode::hasIncoming(NBEdge *e) const
 {
-    return find(_incomingEdges->begin(), _incomingEdges->end(), e)
+    return find(myIncomingEdges->begin(), myIncomingEdges->end(), e)
            !=
-           _incomingEdges->end();
+           myIncomingEdges->end();
 }
 
 
 NBEdge *
 NBNode::getOppositeIncoming(NBEdge *e) const
 {
-    EdgeVector edges(*_incomingEdges);
+    EdgeVector edges(*myIncomingEdges);
     if (find(edges.begin(), edges.end(), e)!=edges.end()) {
         edges.erase(find(edges.begin(), edges.end(), e));
     }
@@ -1720,9 +1720,9 @@ NBNode::addSortedLinkFoes(const NBConnection &mayDrive,
         WRITE_WARNING("Something went wrong during the building of a connection...");
         return; // !!! mark to recompute connections
     }
-    NBConnectionVector conn = _blockedConnections[mustStop];
+    NBConnectionVector conn = myBlockedConnections[mustStop];
     conn.push_back(mayDrive);
-    _blockedConnections[mustStop] = conn;
+    myBlockedConnections[mustStop] = conn;
 }
 
 
@@ -1730,7 +1730,7 @@ NBEdge *
 NBNode::getPossiblySplittedIncoming(const std::string &edgeid)
 {
     size_t size = edgeid.length();
-    for (EdgeVector::iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+    for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         string id = (*i)->getID();
         if (id.substr(0, size)==edgeid) {
             return *i;
@@ -1744,7 +1744,7 @@ NBEdge *
 NBNode::getPossiblySplittedOutgoing(const std::string &edgeid)
 {
     size_t size = edgeid.length();
-    for (EdgeVector::iterator i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
+    for (EdgeVector::iterator i=myOutgoingEdges->begin(); i!=myOutgoingEdges->end(); i++) {
         string id = (*i)->getID();
         if (id.substr(0, size)==edgeid) {
             return *i;
@@ -1758,14 +1758,14 @@ size_t
 NBNode::eraseDummies(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc)
 {
     size_t ret = 0;
-    if (_outgoingEdges==0||_incomingEdges==0) {
+    if (myOutgoingEdges==0||myIncomingEdges==0) {
         return ret;
     }
     size_t pos = 0;
-    EdgeVector::const_iterator j=_incomingEdges->begin();
-    while (j!=_incomingEdges->end()) {
+    EdgeVector::const_iterator j=myIncomingEdges->begin();
+    while (j!=myIncomingEdges->end()) {
         // skip edges which are only incoming and not outgoing
-        if (find(_outgoingEdges->begin(), _outgoingEdges->end(), *j)==_outgoingEdges->end()) {
+        if (find(myOutgoingEdges->begin(), myOutgoingEdges->end(), *j)==myOutgoingEdges->end()) {
             j++;
             pos++;
             continue;
@@ -1777,14 +1777,14 @@ NBNode::eraseDummies(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont
         // get the list of incoming edges connected to the dummy
         EdgeVector incomingConnected;
         EdgeVector::const_iterator i;
-        for (i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        for (i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
             if ((*i)->isConnectedTo(dummy)&&*i!=dummy) {
                 incomingConnected.push_back(*i);
             }
         }
         // get the list of outgoing edges connected to the dummy
         EdgeVector outgoingConnected;
-        for (i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
+        for (i=myOutgoingEdges->begin(); i!=myOutgoingEdges->end(); i++) {
             if (dummy->isConnectedTo(*i)&&*i!=dummy) {
                 outgoingConnected.push_back(*i);
             }
@@ -1794,7 +1794,7 @@ NBNode::eraseDummies(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont
         remapRemoved(tc, dummy, incomingConnected, outgoingConnected);
         // delete the dummy
         ec.erase(dc, dummy);
-        j = _incomingEdges->begin() + pos;
+        j = myIncomingEdges->begin() + pos;
         ret++;
     }
     return ret;
@@ -1805,9 +1805,9 @@ void
 NBNode::removeOutgoing(NBEdge *edge)
 {
     EdgeVector::iterator i =
-        find(_outgoingEdges->begin(), _outgoingEdges->end(), edge);
-    if (i!=_outgoingEdges->end()) {
-        _outgoingEdges->erase(i);
+        find(myOutgoingEdges->begin(), myOutgoingEdges->end(), edge);
+    if (i!=myOutgoingEdges->end()) {
+        myOutgoingEdges->erase(i);
     }
 }
 
@@ -1816,9 +1816,9 @@ void
 NBNode::removeIncoming(NBEdge *edge)
 {
     EdgeVector::iterator i =
-        find(_incomingEdges->begin(), _incomingEdges->end(), edge);
-    if (i!=_incomingEdges->end()) {
-        _incomingEdges->erase(i);
+        find(myIncomingEdges->begin(), myIncomingEdges->end(), edge);
+    if (i!=myIncomingEdges->end()) {
+        myIncomingEdges->erase(i);
     }
 }
 
@@ -1830,21 +1830,21 @@ NBNode::getEmptyDir() const
 {
     Position2D pos(0, 0);
     EdgeVector::const_iterator i;
-    for (i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+    for (i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         NBNode *conn = (*i)->getFromNode();
         Position2D toAdd = conn->getPosition();
         toAdd.sub(myPosition);
         toAdd.mul((SUMOReal) 1.0/sqrt(toAdd.x()*toAdd.x()+toAdd.y()*toAdd.y()));
         pos.add(toAdd);
     }
-    for (i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
+    for (imyOutgoingEdges->begin(); i!=myOutgoingEdges->end(); i++) {
         NBNode *conn = (*i)->getToNode();
         Position2D toAdd = conn->getPosition();
         toAdd.sub(myPosition);
         toAdd.mul((SUMOReal) 1.0/sqrt(toAdd.x()*toAdd.x()+toAdd.y()*toAdd.y()));
         pos.add(toAdd);
     }
-    pos.mul((SUMOReal) -1.0/(_incomingEdges->size()+_outgoingEdges->size()));
+    pos.mul((SUMOReal) -1.0/(myIncomingEdges->size()+myOutgoingEdges->size()));
     if (pos.x()==0&&pos.y()==0) {
         pos = Position2D(1, 0);
     }
@@ -1857,7 +1857,7 @@ NBNode::getEmptyDir() const
 void
 NBNode::invalidateIncomingConnections()
 {
-    for (EdgeVector::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+    for (EdgeVector::const_iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         (*i)->invalidateConnections();
     }
 }
@@ -1866,7 +1866,7 @@ NBNode::invalidateIncomingConnections()
 void
 NBNode::invalidateOutgoingConnections()
 {
-    for (EdgeVector::const_iterator i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
+    for (EdgeVector::const_iterator i=myOutgoingEdges->begin(); i!=myOutgoingEdges->end(); i++) {
         (*i)->invalidateConnections();
     }
 }
@@ -1875,7 +1875,7 @@ NBNode::invalidateOutgoingConnections()
 bool
 NBNode::mustBrake(NBEdge *from, NBEdge *to, int toLane) const
 {
-    assert(_request!=0);
+    assert(myRequest!=0);
     // check whether it is participant to a traffic light
     //  - controlled links are set by the traffic lights, not the normal
     //    right-of-way rules
@@ -1890,7 +1890,7 @@ NBNode::mustBrake(NBEdge *from, NBEdge *to, int toLane) const
         return true;
     }
     // check whether any other connection on this node prohibits this connection
-    bool try1 = _request->mustBrake(from, to);
+    bool try1 = myRequest->mustBrake(from, to);
     if (!try1||toLane==-1) {
         return try1;
     }
@@ -1899,7 +1899,7 @@ NBNode::mustBrake(NBEdge *from, NBEdge *to, int toLane) const
     }
     // on highways (on-ramps, in fact):
     // check whether any other connection uses the same destination edge
-    for (EdgeVector::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+    for (EdgeVector::const_iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         if ((*i)==from) {
             continue;
         }
@@ -1923,7 +1923,7 @@ NBNode::isLeftMover(NBEdge *from, NBEdge *to) const
 {
     // when the junction has only one incoming edge, there are no
     //  problems caused by left blockings
-    if (_incomingEdges->size()==1) {
+    if (myIncomingEdges->size()==1) {
         return false;
     }
     // ok, per definition, a left-moving stream is a stream
@@ -1937,14 +1937,14 @@ NBNode::isLeftMover(NBEdge *from, NBEdge *to) const
     // now again some heuristics...
     //  how to compute whether an edge is going to the left in the meaning,
     //  that it crosses the opposite straight direction?!
-    vector<NBEdge*> incoming(*_incomingEdges);
+    vector<NBEdge*> incoming(*myIncomingEdges);
     sort(incoming.begin(), incoming.end(),
          NBContHelper::edge_opposite_direction_sorter(from));
     NBEdge *opposite = *(incoming.begin());
     assert(opposite!=from);
     EdgeVector::const_iterator i =
-        find(_allEdges.begin(), _allEdges.end(), from);
-    NBContHelper::nextCW(&_allEdges, i);
+        find(myAllEdges.begin(), myAllEdges.end(), from);
+    NBContHelper::nextCW(&myAllEdges, i);
     while (true) {
         if ((*i)==opposite) {
             return false;
@@ -1952,7 +1952,7 @@ NBNode::isLeftMover(NBEdge *from, NBEdge *to) const
         if ((*i)==to) {
             return true;
         }
-        NBContHelper::nextCW(&_allEdges, i);
+        NBContHelper::nextCW(&myAllEdges, i);
     }
     return false;
 }
@@ -1963,7 +1963,7 @@ NBNode::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
                 NBEdge *possProhibitedFrom, NBEdge *possProhibitedTo,
                 bool regardNonSignalisedLowerPriority) const
 {
-    return _request->forbids(possProhibitorFrom, possProhibitorTo,
+    return myRequest->forbids(possProhibitorFrom, possProhibitorTo,
                              possProhibitedFrom, possProhibitedTo,
                              regardNonSignalisedLowerPriority);
 }
@@ -1972,7 +1972,7 @@ NBNode::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
 bool
 NBNode::foes(NBEdge *from1, NBEdge *to1, NBEdge *from2, NBEdge *to2) const
 {
-    return _request->foes(from1, to1, from2, to2);
+    return myRequest->foes(from1, to1, from2, to2);
 }
 
 
@@ -1985,7 +1985,7 @@ NBNode::remapRemoved(NBTrafficLightLogicCont &tc,
     bool changed = true;
     while (changed) {
         changed = false;
-        NBConnectionProhibits blockedConnectionsTmp = _blockedConnections;
+        NBConnectionProhibits blockedConnectionsTmp = myBlockedConnections;
         NBConnectionProhibits blockedConnectionsNew;
         // remap in connections
         for (NBConnectionProhibits::iterator i=blockedConnectionsTmp.begin(); i!=blockedConnectionsTmp.end(); i++) {
@@ -2051,7 +2051,7 @@ NBNode::remapRemoved(NBTrafficLightLogicCont &tc,
                 }
             }
         }
-        _blockedConnections = blockedConnectionsNew;
+        myBlockedConnections = blockedConnectionsNew;
     }
     // remap in traffic lights
     tc.remapRemoved(removed, incoming, outgoing);
@@ -2089,25 +2089,25 @@ NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
     if (angle>0) {
         // check whether any othe edge outgoes further to right
         EdgeVector::const_iterator i =
-            find(_allEdges.begin(), _allEdges.end(), outgoing);
-        NBContHelper::nextCW(&_allEdges, i);
+            find(myAllEdges.begin(), myAllEdges.end(), outgoing);
+        NBContHelper::nextCW(&myAllEdges, i);
         while ((*i)!=incoming) {
             if ((*i)->getFromNode()==this) {
                 return MMLDIR_PARTRIGHT;
             }
-            NBContHelper::nextCW(&_allEdges, i);
+            NBContHelper::nextCW(&myAllEdges, i);
         }
         return MMLDIR_RIGHT;
     } else {
         // check whether any othe edge outgoes further to right
         EdgeVector::const_iterator i =
-            find(_allEdges.begin(), _allEdges.end(), outgoing);
-        NBContHelper::nextCCW(&_allEdges, i);
+            find(myAllEdges.begin(), myAllEdges.end(), outgoing);
+        NBContHelper::nextCCW(&myAllEdges, i);
         while ((*i)!=incoming) {
             if ((*i)->getFromNode()==this&&!incoming->isTurningDirectionAt(this, *i)) {
                 return MMLDIR_PARTLEFT;
             }
-            NBContHelper::nextCCW(&_allEdges, i);
+            NBContHelper::nextCCW(&myAllEdges, i);
         }
         return MMLDIR_LEFT;
     }
@@ -2122,7 +2122,7 @@ NBNode::stateCode(NBEdge *incoming, NBEdge *outgoing, int fromlane)
     if (outgoing==0) {
         return 'O'; // always off
     }
-    if (_type==NODETYPE_RIGHT_BEFORE_LEFT) {
+    if (myType==NODETYPE_RIGHT_BEFORE_LEFT) {
         return '='; // all the same
     }
     if (mustBrake(incoming, outgoing, fromlane)) {
@@ -2142,19 +2142,19 @@ NBNode::checkIsRemovable() const
     }
     EdgeVector::const_iterator i;
     // one in, one out -> just a geometry ...
-    if (_outgoingEdges->size()==1&&_incomingEdges->size()==1) {
+    if (myOutgoingEdges->size()==1&&myIncomingEdges->size()==1) {
         // ... if types match ...
-        if (!(*_incomingEdges)[0]->expandableBy((*_outgoingEdges)[0])) {
+        if (!(*myIncomingEdges)[0]->expandableBy((*myOutgoingEdges)[0])) {
             return false;
         }
         //
-        return (*_incomingEdges)[0]->getFromNode()!=(*_outgoingEdges)[0]->getToNode();
+        return (*myIncomingEdges)[0]->getFromNode()!=(*myOutgoingEdges)[0]->getToNode();
     }
     // two in, two out -> may be something else
-    if (_outgoingEdges->size()==2&&_incomingEdges->size()==2) {
+    if (myOutgoingEdges->size()==2&&myIncomingEdges->size()==2) {
         // check whether the origin nodes of the incoming edges differ
         std::set<NBNode*> origSet;
-        for (i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        for (i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
             origSet.insert((*i)->getFromNode());
         }
         if (origSet.size()<2) {
@@ -2162,18 +2162,18 @@ NBNode::checkIsRemovable() const
         }
         // check whether this node is an intermediate node of
         //  a two-directional street
-        for (i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+        for (i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
             // try to find the opposite direction
             NBNode *origin = (*i)->getFromNode();
             // find the back direction of the current edge
             EdgeVector::const_iterator j =
-                find_if(_outgoingEdges->begin(), _outgoingEdges->end(),
+                find_if(myOutgoingEdges->begin(), myOutgoingEdges->end(),
                         NBContHelper::edge_with_destination_finder(origin));
             // check whether the back direction exists
-            if (j!=_outgoingEdges->end()) {
+            if (j!=myOutgoingEdges->end()) {
                 // check whether the edge from the backdirection (must be
                 //  the counter-clockwise one) may be joined with the current
-                NBContHelper::nextCCW(_outgoingEdges, j);
+                NBContHelper::nextCCW(myOutgoingEdges, j);
                 // check whether the types allow joining
                 if (!(*i)->expandableBy(*j)) {
                     return false;
@@ -2197,19 +2197,19 @@ NBNode::getEdgesToJoin() const
     assert(checkIsRemovable());
     std::vector<std::pair<NBEdge*, NBEdge*> > ret;
     // one in, one out-case
-    if (_outgoingEdges->size()==1&&_incomingEdges->size()==1) {
+    if (myOutgoingEdges->size()==1&&myIncomingEdges->size()==1) {
         ret.push_back(
             std::pair<NBEdge*, NBEdge*>(
-                (*_incomingEdges)[0], (*_outgoingEdges)[0]));
+                (*myIncomingEdges)[0], (*myOutgoingEdges)[0]));
         return ret;
     }
     // two in, two out-case
-    for (EdgeVector::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+    for (EdgeVector::const_iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         NBNode *origin = (*i)->getFromNode();
         EdgeVector::const_iterator j =
-            find_if(_outgoingEdges->begin(), _outgoingEdges->end(),
+            find_if(myOutgoingEdges->begin(), myOutgoingEdges->end(),
                     NBContHelper::edge_with_destination_finder(origin));
-        NBContHelper::nextCCW(_outgoingEdges, j);
+        NBContHelper::nextCCW(myOutgoingEdges, j);
         ret.push_back(std::pair<NBEdge*, NBEdge*>(*i, *j));
     }
     return ret;
@@ -2227,7 +2227,7 @@ NBNode::getInternalLaneID(NBEdge *from, size_t fromlane,
                           NBEdge *to, size_t tolane) const
 {
     size_t l = 0;
-    for (EdgeVector::const_iterator i=_incomingEdges->begin(); i!=_incomingEdges->end(); i++) {
+    for (EdgeVector::const_iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for (size_t j=0; j<noLanesEdge; j++) {
             const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
@@ -2236,7 +2236,7 @@ NBNode::getInternalLaneID(NBEdge *from, size_t fromlane,
                     continue;
                 }
                 if ((from==*i)&&(j==fromlane)&&((*k).edge==to)&&((*k).lane==tolane)) {
-                    return ":" + _id + "_" + toString<size_t>(l);
+                    return ":" + myId + "_" + toString<size_t>(l);
                 }
                 l++;
             }
@@ -2256,11 +2256,11 @@ NBNode::isTLControlled() const
 SUMOReal
 NBNode::getMaxEdgeWidth() const
 {
-    EdgeVector::const_iterator i=_allEdges.begin();
-    assert(i!=_allEdges.end());
+    EdgeVector::const_iterator i=myAllEdges.begin();
+    assert(i!=myAllEdges.end());
     SUMOReal ret = (*i)->width();
     ++i;
-    for (; i!=_allEdges.end(); i++) {
+    for (; i!=myAllEdges.end(); i++) {
         ret = ret > (*i)->width()
               ? ret
               : (*i)->width();
@@ -2273,7 +2273,7 @@ NBEdge *
 NBNode::getConnectionTo(NBNode *n) const
 {
     vector<NBEdge*>::iterator i;
-    for (i=_outgoingEdges->begin(); i!=_outgoingEdges->end(); i++) {
+    for (i=myOutgoingEdges->begin(); i!=myOutgoingEdges->end(); i++) {
         if ((*i)->getToNode()==n) {
             return (*i);
         }
@@ -2326,7 +2326,7 @@ NBNode::isNearDistrict() const
 bool
 NBNode::isDistrict() const
 {
-    if (_type==NODETYPE_DISTRICT) {
+    if (myType==NODETYPE_DISTRICT) {
         return true;
     }
     EdgeVector edges;

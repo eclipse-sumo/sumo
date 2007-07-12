@@ -68,7 +68,7 @@ GUIRunThread::GUIRunThread(MFXInterThreadEventClient *parent,
                            FXRealSpinDial &simDelay, MFXEventQue &eq,
                            FXEX::FXThreadEvent &ev)
         : FXSingleEventThread(gFXApp, parent),
-        _net(0), _quit(false), _simulationInProgress(false), _ok(true),
+        myNet(0), myQuit(false), mySimulationInProgress(false), myOk(true),
         mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev)
 {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this,
@@ -83,13 +83,13 @@ GUIRunThread::GUIRunThread(MFXInterThreadEventClient *parent,
 GUIRunThread::~GUIRunThread()
 {
     // the thread shall stop
-    _quit = true;
+    myQuit = true;
     deleteSim();
     delete myErrorRetriever;
     delete myMessageRetriever;
     delete myWarningRetreiver;
     // wait for the thread
-    while (_simulationInProgress||_net!=0);
+    while (mySimulationInProgress||_net!=0);
 }
 
 
@@ -97,11 +97,11 @@ void
 GUIRunThread::init(GUINet *net, SUMOTime start, SUMOTime end)
 {
     // assign new values
-    _net = net;
-    _simStartTime = start;
-    _simEndTime = end;
-    _step = start;
-    _net->initialiseSimulation();
+    myNet = net;
+    mySimStartTime = start;
+    mySimEndTime = end;
+    myStep = start;
+    myNet->initialiseSimulation();
     // register message callbacks
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
@@ -127,7 +127,7 @@ GUIRunThread::run()
             }
             // check whether we shall stop at this step
             bool haltAfter =
-                find(gBreakpoints.begin(), gBreakpoints.end(), _step)!=gBreakpoints.end();
+                find(gBreakpoints.begin(), gBreakpoints.end(), myStep)!=gBreakpoints.end();
             // do the step
             makeStep();
             // stop if wished
@@ -160,12 +160,12 @@ GUIRunThread::makeStep()
 {
     GUIEvent *e = 0;
     // simulation is being perfomed
-    _simulationInProgress = true;
+    mySimulationInProgress = true;
     // execute a single step
     try {
         mySimulationLock.lock();
-        _net->simulationStep(_simStartTime, _step);
-        _net->guiSimulationStep();
+        myNet->simulationStep(mySimStartTime, myStep);
+        myNet->guiSimulationStep();
         mySimulationLock.unlock();
 
         // inform parent that a step has been performed
@@ -173,27 +173,27 @@ GUIRunThread::makeStep()
         myEventQue.add(e);
         myEventThrow.signal();
         // increase step counter
-        _step += DELTA_T;
+        myStep += DELTA_T;
         // stop the simulation when the last step has been reached
-        if (_step==_simEndTime) {
+        if (myStep==_simEndTime) {
             e = new GUIEvent_SimulationEnded(
-                    GUIEvent_SimulationEnded::ER_END_STEP_REACHED, _step);
+                    GUIEvent_SimulationEnded::ER_END_STEP_REACHED, myStep);
             myEventQue.add(e);
             myEventThrow.signal();
-            _halting = true;
+            myHalting = true;
         }
         // stop the execution when only a single step should have
         //  been performed
-        if (_single) {
-            _halting = true;
+        if (mySingle) {
+            myHalting = true;
         }
         // simulation step is over
-        _simulationInProgress = false;
+        mySimulationInProgress = false;
         // check whether all vehicles loaded have left the simulation
-        if (_net->getVehicleControl().haveAllVehiclesQuit()) {
-            _halting = true;
+        if (myNet->getVehicleControl().haveAllVehiclesQuit()) {
+            myHalting = true;
             e = new GUIEvent_SimulationEnded(
-                    GUIEvent_SimulationEnded::ER_NO_VEHICLES, _step-1);
+                    GUIEvent_SimulationEnded::ER_NO_VEHICLES, myStep-1);
             myEventQue.add(e);
             myEventThrow.signal();
         }
@@ -203,33 +203,33 @@ GUIRunThread::makeStep()
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         mySimulationLock.unlock();
-        _simulationInProgress = false;
+        mySimulationInProgress = false;
         e = new GUIEvent_SimulationEnded(
-                GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, _step);
+                GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, myStep);
         myEventQue.add(e);
         myEventThrow.signal();
-        _halting = true;
-        _ok = false;
+        myHalting = true;
+        myOk = false;
 #ifndef _DEBUG
     } catch (...) {
         mySimulationLock.unlock();
-        _simulationInProgress = false;
+        mySimulationInProgress = false;
         e = new GUIEvent_SimulationEnded(
-                GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, _step);
+                GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, myStep);
         myEventQue.add(e);
         myEventThrow.signal();
-        _halting = true;
-        _ok = false;
+        myHalting = true;
+        myOk = false;
 #endif
     }
     // check whether the simulation got too slow, halt then
-    if (_net->logSimulationDuration() && _net->getTooSlowRTF()>0) {
+    if (myNet->logSimulationDuration() && myNet->getTooSlowRTF()>0) {
         SUMOReal rtf =
-            ((SUMOReal) _net->getVehicleControl().getRunningVehicleNo()/(SUMOReal) _net->getSimStepDurationInMillis()*(SUMOReal) 1000.);
+            ((SUMOReal) myNet->getVehicleControl().getRunningVehicleNo()/(SUMOReal) myNet->getSimStepDurationInMillis()*(SUMOReal) 1000.);
         if (rtf<_net->getTooSlowRTF()) {
-            _halting = true;
+            myHalting = true;
             e = new GUIEvent_SimulationEnded(
-                    GUIEvent_SimulationEnded::ER_NO_VEHICLES, _step-1);
+                    GUIEvent_SimulationEnded::ER_NO_VEHICLES, myStep-1);
             myEventQue.add(e);
             myEventThrow.signal();
         }
@@ -240,16 +240,16 @@ GUIRunThread::makeStep()
 void
 GUIRunThread::resume()
 {
-    _single = false;
-    _halting = false;
+    mySingle = false;
+    myHalting = false;
 }
 
 
 void
 GUIRunThread::singleStep()
 {
-    _single = true;
-    _halting = false;
+    mySingle = true;
+    myHalting = false;
 }
 
 
@@ -259,18 +259,18 @@ GUIRunThread::begin()
 #ifndef _DEBUG
     try {
 #endif
-        _step = _simStartTime;
-        _ok = true;
+        myStep = mySimStartTime;
+        myOk = true;
 #ifndef _DEBUG
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("A serious error occured.");
-        _ok = false;
-        _simulationInProgress = false;
+        myOk = false;
+        mySimulationInProgress = false;
         GUIEvent_SimulationEnded *e = new GUIEvent_SimulationEnded(
-                                          GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, _step);
+                                          GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, myStep);
         myEventQue.add(e);
         myEventThrow.signal();
-        _halting = true;
+        myHalting = true;
     }
 #endif
 }
@@ -279,34 +279,34 @@ GUIRunThread::begin()
 void
 GUIRunThread::stop()
 {
-    _single = false;
-    _halting = true;
+    mySingle = false;
+    myHalting = true;
 }
 
 
 bool
 GUIRunThread::simulationAvailable() const
 {
-    return _net!=0;
+    return myNet!=0;
 }
 
 
 void
 GUIRunThread::deleteSim()
 {
-    _halting = true;
+    myHalting = true;
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->removeRetriever(myWarningRetreiver);
     MsgHandler::getMessageInstance()->removeRetriever(myMessageRetriever);
     //
     mySimulationLock.lock();
-    if (_net!=0) {
-        _net->closeSimulation(_simStartTime, _simEndTime);
+    if (myNet!=0) {
+        myNet->closeSimulation(mySimStartTime, mySimEndTime);
     }
-    while (_simulationInProgress);
-    delete _net;
-    _net = 0;
+    while (mySimulationInProgress);
+    delete myNet;
+    myNet = 0;
     delete SharedOutputDevices::getInstance();
     mySimulationLock.unlock();
 }
@@ -315,14 +315,14 @@ GUIRunThread::deleteSim()
 GUINet &
 GUIRunThread::getNet() const
 {
-    return *_net;
+    return *myNet;
 }
 
 
 SUMOTime
 GUIRunThread::getCurrentTimeStep() const
 {
-    return _step;
+    return myStep;
 }
 
 
@@ -330,8 +330,8 @@ GUIRunThread::getCurrentTimeStep() const
 void
 GUIRunThread::prepareDestruction()
 {
-    _halting = true;
-    _quit = true;
+    myHalting = true;
+    myQuit = true;
 }
 
 
@@ -374,21 +374,21 @@ GUIRunThread::retrieveError(const std::string &msg)
 bool
 GUIRunThread::simulationIsStartable() const
 {
-    return _net!=0&&_halting;
+    return myNet!=0&&_halting;
 }
 
 
 bool
 GUIRunThread::simulationIsStopable() const
 {
-    return _net!=0&&(!_halting);
+    return myNet!=0&&(!_halting);
 }
 
 
 bool
 GUIRunThread::simulationIsStepable() const
 {
-    return _net!=0&&_halting;
+    return myNet!=0&&_halting;
 }
 
 

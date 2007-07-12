@@ -82,7 +82,7 @@ NIVissimSingleTypeParser_Kantensperrung::parse(std::istream &from)
     while (tag!="DATAEND") {
         tag = readEndSecure(from);
         if (tag!="DATAEND") {
-            edges.push_back(TplConvert<char>::_2int(tag.c_str()));
+            edges.push_back(TplConvert<char>::my2int(tag.c_str()));
         }
     }
     NIVissimClosures::dictionary(id, from_node, to_node, edges);

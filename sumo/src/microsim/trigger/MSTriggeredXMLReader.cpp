@@ -103,13 +103,13 @@ MSTriggeredXMLReader::myInit()
     }
 
     if (readNextTriggered()) {
-        if (_offset<MSNet::getInstance()->getCurrentTimeStep()) {
-            _offset = MSNet::getInstance()->getCurrentTimeStep() + 1;
+        if (myOffset<MSNet::getInstance()->getCurrentTimeStep()) {
+            myOffset = MSNet::getInstance()->getCurrentTimeStep() + 1;
             // !!! Warning?
         }
         /*
         MSEventControl::getBeginOfTimestepEvents()->addEvent(
-            new MSTriggerCommand(*this), _offset, MSEventControl::ADAPT_AFTER_EXECUTION);
+            new MSTriggerCommand(*this), myOffset, MSEventControl::ADAPT_AFTER_EXECUTION);
             */
     } else {
         myHaveMore = false;

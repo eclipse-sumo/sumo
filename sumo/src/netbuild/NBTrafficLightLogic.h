@@ -71,7 +71,7 @@ public:
     // !!! the key should be given here, too, instead of storing it
 
     /// Debug method showing the phases
-    void _debugWritePhases() const;
+    void myDebugWritePhases() const;
 
     /// Information whether the given logic is equal to this
     bool equals(const NBTrafficLightLogic &logic) const;
@@ -89,10 +89,10 @@ private:
 
 private:
     /// The key (id) of the logic
-    std::string _key;
+    std::string myKey;
 
     /// The number of participating links
-    size_t _noLinks;
+    size_t myNoLinks;
 
     /**
      * @class PhaseDefinition
@@ -138,7 +138,7 @@ private:
     typedef std::vector<PhaseDefinition> PhaseDefinitionVector;
 
     /// The junction logic's storage for traffic light phase list
-    PhaseDefinitionVector _phases;
+    PhaseDefinitionVector myPhases;
 
 };
 

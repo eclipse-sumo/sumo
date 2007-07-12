@@ -52,8 +52,8 @@ NBRequestEdgeLinkIterator::NBRequestEdgeLinkIterator(
     const NBTrafficLightDefinition * const request, bool joinLaneLinks,
     bool removeTurnArounds, NBOwnTLDef::LinkRemovalType removalType)
         :
-        _request(request), _linkNumber(0), _validLinks(0), _position(0),
-        _joinLaneLinks(joinLaneLinks)
+        myRequest(request), myLinkNumber(0), myValidLinks(0), myPosition(0),
+        myJoinLaneLinks(joinLaneLinks)
 {
     init(request, joinLaneLinks, removeTurnArounds, removalType);
     setValidNonLeft(removeTurnArounds, removalType);
@@ -83,21 +83,21 @@ NBRequestEdgeLinkIterator::init(
             for (size_t i3=0; i3<approached.size(); i3++) {
                 assert(i3<approached.size());
                 NBEdge *toEdge = approached[i3].edge;
-                _fromEdges.push_back(fromEdge);
-                _fromLanes.push_back(i2);
-                _toEdges.push_back(toEdge);
+                myFromEdges.push_back(fromEdge);
+                myFromLanes.push_back(i2);
+                myToEdges.push_back(toEdge);
                 if (toEdge!=0) {
-                    _isLeftMover.push_back(
+                    myIsLeftMover.push_back(
                         request->isLeftMover(fromEdge, toEdge)
                         ||
                         fromEdge->isTurningDirectionAt(fromEdge->getToNode(), toEdge));
 
-                    _isTurnaround.push_back(
+                    myIsTurnaround.push_back(
                         fromEdge->isTurningDirectionAt(
                             fromEdge->getToNode(), toEdge));
                 } else {
-                    _isLeftMover.push_back(true);
-                    _isTurnaround.push_back(true);
+                    myIsLeftMover.push_back(true);
+                    myIsTurnaround.push_back(true);
                 }
             }
         }
@@ -112,19 +112,19 @@ NBRequestEdgeLinkIterator::setValidNonLeft(
     // reparse lists and remove unwanted items
     NBEdge *currentEdge = 0;
     int currentLane = -1;
-    for (size_t i1=0; i1<_fromEdges.size()&&i1<64; i1++) { // !!! hell happens when i1>=64
-        assert(i1<_fromEdges.size());
-        if (currentEdge!=_fromEdges[i1] ||
+    for (size_t i1=0; i1<myFromEdges.size()&&i1<64; i1++) { // !!! hell happens when i1>=64
+        assert(i1<myFromEdges.size());
+        if (currentEdge!=myFromEdges[i1] ||
                 valid(i1, removeTurnArounds, removalType)) {
 
-            _validNonLeft.set(i1, 1);
+            myValidNonLeft.set(i1, 1);
         } else {
-            _validNonLeft.set(i1, 0);
+            myValidNonLeft.set(i1, 0);
         }
-        assert(i1<_fromEdges.size());
-        currentEdge = _fromEdges[i1];
-        assert(i1<_fromEdges.size());
-        currentLane = _fromLanes[i1];
+        assert(i1<myFromEdges.size());
+        currentEdge = myFromEdges[i1];
+        assert(i1<myFromEdges.size());
+        currentLane = myFromLanes[i1];
     }
 }
 
@@ -136,8 +136,8 @@ NBRequestEdgeLinkIterator::joinLaneLinksFunc(
     // the set of links to view from the outside stays the same
     //  when the links of a lane shall not be merged
     if (!joinLaneLinks) {
-        for (size_t i=0; i<_fromEdges.size()&&i<64; i++) { // !!! hell happens when i>=64
-            _valid.set(i, _validNonLeft.test(i));
+        for (size_t i=0; i<myFromEdges.size()&&i<64; i++) { // !!! hell happens when i>=64
+            myValid.set(i, myValidNonLeft.test(i));
         }
         return;
     }
@@ -150,9 +150,9 @@ NBRequestEdgeLinkIterator::joinLaneLinksFunc(
         for (size_t i2=0; i2<noLanes; i2++) {
             NBEdge *fromEdge = incoming[i1];
             const EdgeLaneVector &approached = fromEdge->getEdgeLanesFromLane(i2);
-            _valid.set(pos++, 1);
+            myValid.set(pos++, 1);
             for (size_t i3=1; i3<approached.size(); i3++) {
-                _valid.set(pos++, 0);
+                myValid.set(pos++, 0);
             }
         }
     }
@@ -162,10 +162,10 @@ NBRequestEdgeLinkIterator::joinLaneLinksFunc(
 void
 NBRequestEdgeLinkIterator::computeValidLinks()
 {
-    for (size_t i=0; i<_fromEdges.size()&&i<64; i++) { // !!! hell happens when i>=64
-        if (_valid.test(i)==1) {
-            _positions.push_back(i);
-            _validLinks++;
+    for (size_t i=0; i<myFromEdges.size()&&i<64; i++) { // !!! hell happens when i>=64
+        if (myValid.test(i)==1) {
+            myPositions.push_back(i);
+            myValidLinks++;
         }
     }
 }
@@ -177,7 +177,7 @@ NBRequestEdgeLinkIterator::valid(size_t pos,
                                  NBOwnTLDef::LinkRemovalType removalType)
 {
     // if only turnaround are not wished
-    if (removeTurnArounds && _isTurnaround[pos]) {
+    if (removeTurnArounds && myIsTurnaround[pos]) {
         return false;
     }
 
@@ -187,7 +187,7 @@ NBRequestEdgeLinkIterator::valid(size_t pos,
     }
 
     // check if is a potentially unwanted leftmover -> keep if not
-    if (!_isLeftMover[pos]) {
+    if (!myIsLeftMover[pos]) {
         return true;
     }
 
@@ -196,12 +196,12 @@ NBRequestEdgeLinkIterator::valid(size_t pos,
     //  non-left mover on the same lane -> refuse if not
     if (removalType==NBOwnTLDef::LRT_REMOVE_WHEN_NOT_OWN) {
         int tmpPos = int(pos) - 1;
-        assert(pos<_fromEdges.size());
-        assert(pos<_fromLanes.size());
+        assert(pos<myFromEdges.size());
+        assert(pos<myFromLanes.size());
         while (//!!! (tmppos): was : pos>=0 &&
-            _fromEdges[pos]==_fromEdges[tmpPos] &&
-            _fromLanes[pos]==_fromLanes[tmpPos]) {
-            if (!_isLeftMover[tmpPos--]) {
+            myFromEdges[pos]==myFromEdges[tmpPos] &&
+            myFromLanes[pos]==myFromLanes[tmpPos]) {
+            if (!myIsLeftMover[tmpPos--]) {
                 return false;
             }
         }
@@ -214,46 +214,46 @@ NBRequestEdgeLinkIterator::valid(size_t pos,
 size_t
 NBRequestEdgeLinkIterator::getLinkNumber() const
 {
-    return _linkNumber;
+    return myLinkNumber;
 }
 
 
 NBEdge *
 NBRequestEdgeLinkIterator::getFromEdge() const
 {
-    assert(_position<_fromEdges.size());
-    return _fromEdges[_position];
+    assert(myPosition<myFromEdges.size());
+    return myFromEdges[myPosition];
 }
 
 
 NBEdge *
 NBRequestEdgeLinkIterator::getToEdge() const
 {
-    assert(_position<_toEdges.size());
-    return _toEdges[_position];
+    assert(myPosition<myToEdges.size());
+    return myToEdges[myPosition];
 }
 
 
 bool
 NBRequestEdgeLinkIterator::pp()
 {
-    if (_position>=63) {
-        // !!! hell happens when _position >= 64
+    if (myPosition>=63) {
+        // !!! hell happens when myPosition >= 64
         return false;
     }
-    _position++;
-    while (_position<_fromEdges.size() && !_valid.test(_position)) {
-        _position++;
+    myPosition++;
+    while (myPosition<myFromEdges.size() && !myValid.test(myPosition)) {
+        myPosition++;
     }
-    _linkNumber++;
-    return _linkNumber < _validLinks;
+    myLinkNumber++;
+    return myLinkNumber < myValidLinks;
 }
 
 
 size_t
 NBRequestEdgeLinkIterator::getNoValidLinks() const
 {
-    return _validLinks;
+    return myValidLinks;
 }
 
 
@@ -261,15 +261,15 @@ size_t
 NBRequestEdgeLinkIterator::getNumberOfAssignedLinks(size_t pos) const
 {
     // count the number of assigned links
-    assert(pos<_positions.size());
-    size_t current_pointer = _positions[pos];
+    assert(pos<myPositions.size());
+    size_t current_pointer = myPositions[pos];
     size_t count = 1;
-    assert(current_pointer<_fromEdges.size());
-    NBEdge *srcEdge = _fromEdges[current_pointer];
+    assert(current_pointer<myFromEdges.size());
+    NBEdge *srcEdge = myFromEdges[current_pointer];
     current_pointer++;
-    while (current_pointer<_fromEdges.size() &&
-            !_valid.test(current_pointer) &&
-            _fromEdges[current_pointer] == srcEdge) {
+    while (current_pointer<myFromEdges.size() &&
+            !myValid.test(current_pointer) &&
+            myFromEdges[current_pointer] == srcEdge) {
         current_pointer++;
         count++;
     }
@@ -280,15 +280,15 @@ size_t
 NBRequestEdgeLinkIterator::getNumberOfAssignedLinks(size_t pos, int /*dummy*/) const
 {
     // count the number of assigned links
-    assert(pos<_positions.size());
-    size_t current_pointer = _positions[pos];
+    assert(pos<myPositions.size());
+    size_t current_pointer = myPositions[pos];
     size_t count = 1;
-    assert(current_pointer<_fromEdges.size());
-    NBEdge *srcEdge = _fromEdges[current_pointer];
+    assert(current_pointer<myFromEdges.size());
+    NBEdge *srcEdge = myFromEdges[current_pointer];
     current_pointer++;
-    while (current_pointer<_fromEdges.size() &&
-            !_valid.test(current_pointer) &&
-            _fromEdges[current_pointer] == srcEdge) {
+    while (current_pointer<myFromEdges.size() &&
+            !myValid.test(current_pointer) &&
+            myFromEdges[current_pointer] == srcEdge) {
         current_pointer++;
         count++;
     }
@@ -301,7 +301,7 @@ NBRequestEdgeLinkIterator::resetNonLeftMovers(std::bitset<64> &driveMask,
         std::bitset<64> &yellowM) const
 {
     // get bitset showing left-movers
-    std::bitset<64> tmp = _validNonLeft;
+    std::bitset<64> tmp = myValidNonLeft;
     tmp.flip();
     // combine with drive mask
     //  -> only left-movers are set which had to wait
@@ -324,21 +324,21 @@ bool
 NBRequestEdgeLinkIterator::forbids(
     const NBRequestEdgeLinkIterator &other) const
 {
-    if (!_joinLaneLinks) {
-        assert(_position<_fromEdges.size());
-        assert(_position<_toEdges.size());
-        return _request->foes(
-                   _fromEdges[_position], _toEdges[_position],
+    if (!myJoinLaneLinks) {
+        assert(myPosition<myFromEdges.size());
+        assert(myPosition<myToEdges.size());
+        return myRequest->foes(
+                   myFromEdges[myPosition], myToEdges[myPosition],
                    other.getFromEdge(), other.getToEdge());
     }
-    bool forbids = other.internJoinLaneForbids(_fromEdges[_position],
-                   _toEdges[_position]);
-    size_t position = _position+1;
-    while (position<_fromEdges.size() &&
-            !_valid.test(position) && _validNonLeft.test(position)) {
+    bool forbids = other.internJoinLaneForbids(myFromEdges[myPosition],
+                   myToEdges[myPosition]);
+    size_t position = myPosition+1;
+    while (position<myFromEdges.size() &&
+            !myValid.test(position) && myValidNonLeft.test(position)) {
         forbids |=
-            other.internJoinLaneForbids(_fromEdges[position],
-                                        _toEdges[position]);
+            other.internJoinLaneForbids(myFromEdges[position],
+                                        myToEdges[position]);
         position++;
     }
     return forbids;
@@ -349,18 +349,18 @@ bool
 NBRequestEdgeLinkIterator::internJoinLaneForbids(NBEdge *fromEdge,
         NBEdge *toEdge) const
 {
-    assert(_position<_toEdges.size());
-    assert(_position<_fromEdges.size());
-    bool forbids = _request->foes(fromEdge, toEdge,
-                                  _fromEdges[_position], _toEdges[_position]);
-    size_t position = _position + 1;
-    while (position<_fromEdges.size() &&
-            !_valid.test(position) && _validNonLeft.test(position)) {
-        assert(position<_toEdges.size());
-        assert(position<_fromEdges.size());
-        forbids |= _request->foes(
+    assert(myPosition<myToEdges.size());
+    assert(myPosition<myFromEdges.size());
+    bool forbids = myRequest->foes(fromEdge, toEdge,
+                                  myFromEdges[myPosition], myToEdges[myPosition]);
+    size_t position = myPosition + 1;
+    while (position<myFromEdges.size() &&
+            !myValid.test(position) && myValidNonLeft.test(position)) {
+        assert(position<myToEdges.size());
+        assert(position<myFromEdges.size());
+        forbids |= myRequest->foes(
                        fromEdge, toEdge,
-                       _fromEdges[position], _toEdges[position]);
+                       myFromEdges[position], myToEdges[position]);
         position++;
     }
     return forbids;
@@ -371,7 +371,7 @@ bool
 NBRequestEdgeLinkIterator::testBrakeMask(bool hasGreen, size_t pos) const
 {
     return
-        _request->mustBrake(_fromEdges[pos], _toEdges[pos])
+        myRequest->mustBrake(myFromEdges[pos], myToEdges[pos])
         ||
         !hasGreen;
 }
@@ -381,8 +381,8 @@ bool
 NBRequestEdgeLinkIterator::testBrakeMask(size_t pos,
         const std::bitset<64> &driveMask) const
 {
-    NBEdge *from1 = _fromEdges[pos];
-    NBEdge *to1 = _toEdges[pos];
+    NBEdge *from1 = myFromEdges[pos];
+    NBEdge *to1 = myToEdges[pos];
     size_t run = 0;
     for (size_t j=0; j<getNoValidLinks(); j++) {
         size_t noEdges = getNumberOfAssignedLinks(j);
@@ -390,12 +390,12 @@ NBRequestEdgeLinkIterator::testBrakeMask(size_t pos,
             if (!driveMask.test(run)) {
                 continue;
             }
-            NBEdge *from2 = _fromEdges[run];
+            NBEdge *from2 = myFromEdges[run];
             if (from1==from2) {
                 continue;
             }
-            NBEdge *to2 = _toEdges[run];
-            if (_request->mustBrake(from1, to1, from2, to2, false)) {
+            NBEdge *to2 = myToEdges[run];
+            if (myRequest->mustBrake(from1, to1, from2, to2, false)) {
                 return true;
             }
         }
@@ -407,8 +407,8 @@ NBRequestEdgeLinkIterator::testBrakeMask(size_t pos,
 std::ostream &
 operator<<(std::ostream &os, const NBRequestEdgeLinkIterator &o)
 {
-    os << "ValidNonLeft: " << o._validNonLeft << endl;
-    os << "Valid: " << o._valid << endl;
+    os << "ValidNonLeft: " << o.myValidNonLeft << endl;
+    os << "Valid: " << o.myValid << endl;
     return os;
 }
 

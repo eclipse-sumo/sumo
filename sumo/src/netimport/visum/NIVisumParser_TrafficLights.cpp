@@ -74,7 +74,7 @@ NIVisumParser_TrafficLights::myDependentReport()
         // PhaseBased
         bool PhaseBased =
             myLineParser.know("PhasenBasiert")
-            ? TplConvert<char>::_2bool(myLineParser.get("PhasenBasiert").c_str())
+            ? TplConvert<char>::my2bool(myLineParser.get("PhasenBasiert").c_str())
             : false;
         // add to the list
         myNIVisumTLs[id] = new NIVisumTL(id, (SUMOTime) CycleTime, (SUMOTime) IntermediateTime, PhaseBased);

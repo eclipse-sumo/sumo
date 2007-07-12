@@ -140,16 +140,16 @@ private:
     typedef std::vector<size_t> SizeVector;
 
     /** the string to split */
-    std::string   _tosplit;
+    std::string   myTosplit;
 
     /** the current position in the list of substrings */
-    size_t        _pos;
+    size_t        myPos;
 
     /** the list of substring starts */
-    SizeVector    _starts;
+    SizeVector    myStarts;
 
     /** the list of substring lengths */
-    SizeVector    _lengths;
+    SizeVector   myLengths;
 
 };
 

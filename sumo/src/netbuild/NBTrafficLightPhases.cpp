@@ -57,8 +57,8 @@ using namespace std;
 // ===========================================================================
 NBTrafficLightPhases::NBTrafficLightPhases(
     const NBLinkCliqueContainer &cliques, size_t noCliques)
-        : _phasesVectorsByLength(noCliques, PhasesVector()),
-        _cliques(cliques), _noPhaseVectors(0)
+        : myPhasesVectorsByLength(noCliques, PhasesVector()),
+        myCliques(cliques), myNoPhaseVectors(0)
 {}
 
 
@@ -74,38 +74,38 @@ NBTrafficLightPhases::add(const PhaseIndexVector &phase)
     //  do this for smaller vectors only
     size_t size = phase.size();
     size_t i;
-    for (i=0; i<size&&i<_phasesVectorsByLength.size(); i++) {
-        assert(i<_phasesVectorsByLength.size());
+    for (i=0; i<size&&i<myPhasesVectorsByLength.size(); i++) {
+        assert(i<myPhasesVectorsByLength.size());
         PhasesVector::iterator j = find_if(
-                                       _phasesVectorsByLength[i].begin(),
-                                       _phasesVectorsByLength[i].end(),
+                                       myPhasesVectorsByLength[i].begin(),
+                                       myPhasesVectorsByLength[i].end(),
                                        shorter_included_finder(phase));
         // shorter fully included by current was found;
         //  return without adding
-        if (j!=_phasesVectorsByLength[i].end()) {
+        if (j!=myPhasesVectorsByLength[i].end()) {
             return;
         }
     }
     // check whether the given phasevector is inside one of the larger
     //  already added phases
-    for (i=size+1; i<_phasesVectorsByLength.size(); i++) {
-        assert(i<_phasesVectorsByLength.size());
+    for (i=size+1; i<myPhasesVectorsByLength.size(); i++) {
+        assert(i<myPhasesVectorsByLength.size());
         PhasesVector::iterator j = find_if(
-                                       _phasesVectorsByLength[i].begin(),
-                                       _phasesVectorsByLength[i].end(),
+                                       myPhasesVectorsByLength[i].begin(),
+                                       myPhasesVectorsByLength[i].end(),
                                        larger_included_finder(phase));
-        if (j!=_phasesVectorsByLength[i].end()) {
-            _phasesVectorsByLength[i].erase(j);
+        if (j!=myPhasesVectorsByLength[i].end()) {
+            myPhasesVectorsByLength[i].erase(j);
         }
     }
     // append empty vectors when needed
-    while (_phasesVectorsByLength.size()<phase.size()+1)  {
-        _phasesVectorsByLength.push_back(PhasesVector());
+    while (myPhasesVectorsByLength.size()<phase.size()+1)  {
+        myPhasesVectorsByLength.push_back(PhasesVector());
     }
     // add the current phase to the list
-    assert(phase.size()<_phasesVectorsByLength.size());
-    _phasesVectorsByLength[phase.size()].push_back(phase);
-    _noPhaseVectors += 1;
+    assert(phase.size()<myPhasesVectorsByLength.size());
+    myPhasesVectorsByLength[phase.size()].push_back(phase);
+    myNoPhaseVectors += 1;
 }
 
 
@@ -113,19 +113,19 @@ void
 NBTrafficLightPhases::add(const NBTrafficLightPhases &phases,
                               bool skipLarger)
 {
-    size_t size = _phasesVectorsByLength.size();
+    size_t size = myPhasesVectorsByLength.size();
     size_t i;
-    for (i=0; i<size&&i<phases._phasesVectorsByLength.size(); i++) {
-        for (size_t j=0; j<phases._phasesVectorsByLength[i].size(); j++) {
-            add(phases._phasesVectorsByLength[i][j]);
+    for (i=0; i<size&&i<phases.myPhasesVectorsByLength.size(); i++) {
+        for (size_t j=0; j<phases.myPhasesVectorsByLength[i].size(); j++) {
+            add(phases.myPhasesVectorsByLength[i][j]);
         }
     }
     if (skipLarger) {
         return;
     }
-    for (; i<phases._phasesVectorsByLength.size(); i++) {
-        for (size_t j=0; j<phases._phasesVectorsByLength[i].size(); j++) {
-            add(phases._phasesVectorsByLength[i][j]);
+    for (; i<phases.myPhasesVectorsByLength.size(); i++) {
+        for (size_t j=0; j<phases.myPhasesVectorsByLength[i].size(); j++) {
+            add(phases.myPhasesVectorsByLength[i][j]);
         }
     }
 }
@@ -135,8 +135,8 @@ std::ostream &operator<<(std::ostream &os, const NBTrafficLightPhases &p)
 {
     os << "Folgen:" << endl;
     for (NBTrafficLightPhases::PhasesVectorVector::const_iterator
-            i=p._phasesVectorsByLength.begin();
-            i!=p._phasesVectorsByLength.end(); i++) {
+            i=p.myPhasesVectorsByLength.begin();
+            i!=p.myPhasesVectorsByLength.end(); i++) {
         for (NBTrafficLightPhases::PhasesVector::const_iterator
                 j=(*i).begin();
                 j!=(*i).end();
@@ -163,11 +163,11 @@ NBTrafficLightPhases::computeLogics(const std::string &key,
 {
     NBTrafficLightLogicVector *ret =
         new NBTrafficLightLogicVector(inLinks, type);
-    for (size_t i=0; i<_phasesVectorsByLength.size(); i++) {
-        for (size_t j=0; j<_phasesVectorsByLength[i].size(); j++) {
+    for (size_t i=0; i<myPhasesVectorsByLength.size(); i++) {
+        for (size_t j=0; j<myPhasesVectorsByLength[i].size(); j++) {
             ret->add(
                 buildTrafficLightsLogic(
-                    key, noLinks, _phasesVectorsByLength[i][j], cei1,
+                    key, noLinks, myPhasesVectorsByLength[i][j], cei1,
                     breakingTime));
         }
     }
@@ -199,7 +199,7 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
             for (size_t k=0; k<noEdges; k++) {
                 // set information for this link
                 assert(i<phaseList.size());
-                driveMask.set(pos, _cliques.test(phaseList[i], j));
+                driveMask.set(pos, myCliques.test(phaseList[i], j));
                 pos++;
             }
         }
@@ -256,7 +256,7 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
     }
 #ifdef TL_DEBUG
     DEBUG_OUT << "Phasenfolge (Ende):" << endl;
-    ret->_debugWritePhases();
+    ret->myDebugWritePhases();
     DEBUG_OUT << "----------------------------------" << endl;
 #endif
     return ret;

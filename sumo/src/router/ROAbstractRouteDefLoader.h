@@ -101,7 +101,7 @@ protected:
 
 protected:
     /// The network to add routes to
-    RONet &_net;
+    RONet &myNet;
 
     /// The time for which the first route shall be compute
     SUMOTime myBegin;

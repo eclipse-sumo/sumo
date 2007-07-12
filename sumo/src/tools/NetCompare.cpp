@@ -79,8 +79,8 @@ NetCompare::load(void)
 void
 NetCompare::loadNet(const char *net, int dic)
 {
-    char buffer[_MAX_PATH];
-    getcwd(buffer,_MAX_PATH);
+    char buffer[myMAX_PATH];
+    getcwd(buffer,myMAX_PATH);
     cout<<"Current directory is "<<buffer<<endl;
 
     ifstream out(net);

@@ -62,8 +62,8 @@ MSRoute::RouteDict MSRoute::myDict;
 MSRoute::MSRoute(const std::string &id,
                  const MSEdgeVector &edges,
                  bool multipleReferenced)
-        : Named(id), _edges(edges),
-        _multipleReferenced(multipleReferenced),
+        : Named(id), myEdges(edges),
+        myMultipleReferenced(multipleReferenced),
         myReferenceNo(1)
 {}
 
@@ -74,27 +74,27 @@ MSRoute::~MSRoute()
 MSRouteIterator
 MSRoute::begin() const
 {
-    return _edges.begin();
+    return myEdges.begin();
 }
 
 MSRouteIterator
 MSRoute::end() const
 {
-    return _edges.end();
+    return myEdges.end();
 }
 
 size_t
 MSRoute::size() const
 {
-    return _edges.size();
+    return myEdges.size();
 }
 
 
 const MSEdge *
 MSRoute::getLastEdge() const
 {
-    assert(_edges.size()>0);
-    return _edges[_edges.size()-1];
+    assert(myEdges.size()>0);
+    return myEdges[myEdges.size()-1];
 }
 
 bool
@@ -145,7 +145,7 @@ MSRoute::erase(std::string id)
 bool
 MSRoute::inFurtherUse() const
 {
-    return _multipleReferenced||myReferenceNo>0;
+    return myMultipleReferenced||myReferenceNo>0;
 }
 
 
@@ -159,10 +159,10 @@ MSRoute::replaceBy(const MSEdgeVector &edges, MSRouteIterator &currentEdge)
         return false;
     }
     MSEdgeVector n;
-    copy(_edges.begin(), std::find(_edges.begin(), _edges.end(), *currentEdge),
+    copy(myEdges.begin(), std::find(myEdges.begin(), myEdges.end(), *currentEdge),
          back_inserter(n));
     copy(i, edges.end(), back_inserter(n));
-    _edges = n;
+    myEdges = n;
     return true;
 }
 
@@ -170,14 +170,14 @@ MSRoute::replaceBy(const MSEdgeVector &edges, MSRouteIterator &currentEdge)
 MSRouteIterator
 MSRoute::find(const MSEdge *e) const
 {
-    return std::find(_edges.begin(), _edges.end(), e);
+    return std::find(myEdges.begin(), myEdges.end(), e);
 }
 
 
 void
 MSRoute::writeEdgeIDs(std::ostream &os) const
 {
-    MSEdgeVector::const_iterator i = _edges.begin();
+    MSEdgeVector::const_iterator i = myEdges.begin();
     for (;i!=_edges.end(); ++i) {
         if (i!=_edges.begin()) {
             os << ' ';
@@ -210,7 +210,7 @@ MSRoute::containsAnyOf(const std::vector<MSEdge*> &edgelist) const
 const MSEdge *
 MSRoute::operator[](size_t index)
 {
-    return _edges[index];
+    return myEdges[index];
 }
 
 
@@ -228,9 +228,9 @@ void
 MSRoute::saveState(std::ostream &os, long /*what*/)
 {
     FileHelpers::writeString(os, getID());
-    FileHelpers::writeUInt(os, _edges.size());
-    FileHelpers::writeByte(os, _multipleReferenced);
-    for (MSEdgeVector::const_iterator i = _edges.begin(); i!=_edges.end(); ++i) {
+    FileHelpers::writeUInt(os, myEdges.size());
+    FileHelpers::writeByte(os, myMultipleReferenced);
+    for (MSEdgeVector::const_iterator i = myEdges.begin(); i!=_edges.end(); ++i) {
         FileHelpers::writeUInt(os, (*i)->getNumericalID());
     }
 }
@@ -275,7 +275,7 @@ MSRoute::dict_loadState(BinaryInputDevice &bis, long /*what*/)
 size_t
 MSRoute::posInRoute(const MSRouteIterator &currentEdge) const
 {
-    return distance(_edges.begin(), currentEdge);
+    return distance(myEdges.begin(), currentEdge);
 }
 
 

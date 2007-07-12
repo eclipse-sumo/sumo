@@ -60,8 +60,8 @@ using namespace std;
 RONetHandler::RONetHandler(OptionsCont &oc, RONet &net,
                            ROAbstractEdgeBuilder &eb)
         : SUMOSAXHandler("sumo-network"),
-        _options(oc), _net(net), _currentName(),
-        _currentEdge(0), myEdgeBuilder(eb)
+        myOptions(oc), myNet(net), myCurrentName(),
+        myCurrentEdge(0), myEdgeBuilder(eb)
 {}
 
 
@@ -81,7 +81,7 @@ RONetHandler::myStartElement(SumoXMLTag element,
         parseEdge(attrs);
         break;
     case SUMO_TAG_LANE:
-        if (_process) {
+        if (myProcess) {
             parseLane(attrs);
         }
         break;
@@ -89,7 +89,7 @@ RONetHandler::myStartElement(SumoXMLTag element,
         parseJunction(attrs);
         break;
     case SUMO_TAG_CEDGE:
-        if (_process) {
+        if (myProcess) {
             parseConnEdge(attrs);
         }
         break;
@@ -105,8 +105,8 @@ RONetHandler::parseEdge(const Attributes &attrs)
     // get the id of the edge and the edge
 	_currentEdge = 0;
     try {
-        _currentName = getString(attrs, SUMO_ATTR_ID);
-        if (_currentName[0]==':') {
+        myCurrentName = getString(attrs, SUMO_ATTR_ID);
+        if (myCurrentName[0]==':') {
             // this is an internal edge - we will not use it
             //  !!! recheck this; internal edges may be of importance during the dua
             return;
@@ -115,30 +115,30 @@ RONetHandler::parseEdge(const Attributes &attrs)
 		MsgHandler::getErrorInstance()->inform("An edge without an id occured within '" + getFileName() + "'.");
 		return;
     }
-    _currentEdge = _net.getEdge(_currentName);
-    if (_currentEdge==0) {
-        MsgHandler::getErrorInstance()->inform("An unknown edge occured within '" + getFileName() + "' (id='" + _currentName + "').");
+    myCurrentEdge = myNet.getEdge(myCurrentName);
+    if (myCurrentEdge==0) {
+        MsgHandler::getErrorInstance()->inform("An unknown edge occured within '" + getFileName() + "' (id='" + myCurrentName + "').");
 		return;
     }
 
     // get the type of the edge
     try {
         string type = getString(attrs, SUMO_ATTR_FUNC);
-        _process = true;
+        myProcess = true;
         if (type=="normal") {
-            _currentEdge->setType(ROEdge::ET_NORMAL);
+            myCurrentEdge->setType(ROEdge::ET_NORMAL);
         } else if (type=="source") {
-            _currentEdge->setType(ROEdge::ET_SOURCE);
+            myCurrentEdge->setType(ROEdge::ET_SOURCE);
         } else if (type=="sink") {
-            _currentEdge->setType(ROEdge::ET_SINK);
+            myCurrentEdge->setType(ROEdge::ET_SINK);
         } else if (type=="internal") {
-            _process = false;
+            myProcess = false;
         } else {
-            MsgHandler::getErrorInstance()->inform("Edge '" + _currentName + "' has an unknown type.");
+            MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentName + "' has an unknown type.");
 			return;
         }
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing type in edge '" + _currentName + "'.");
+        MsgHandler::getErrorInstance()->inform("Missing type in edge '" + myCurrentName + "'.");
 		return;
     }
     // get the from-junction
@@ -148,13 +148,13 @@ RONetHandler::parseEdge(const Attributes &attrs)
         if(from=="") {
             throw EmptyData();
         }
-        fromNode = _net.getNode(from);
+        fromNode = myNet.getNode(from);
         if (fromNode==0) {
             fromNode = new RONode(from);
-            _net.addNode(fromNode);
+            myNet.addNode(fromNode);
         }
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing from-node in edge '" + _currentName + "'.");
+        MsgHandler::getErrorInstance()->inform("Missing from-node in edge '" + myCurrentName + "'.");
 		return;
     }
     // get the to-junction
@@ -164,24 +164,24 @@ RONetHandler::parseEdge(const Attributes &attrs)
         if(to=="") {
             throw EmptyData();
         }
-        toNode = _net.getNode(to);
+        toNode = myNet.getNode(to);
         if (toNode==0) {
             toNode = new RONode(to);
-            _net.addNode(toNode);
+            myNet.addNode(toNode);
         }
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing to-node in edge '" + _currentName + "'.");
+        MsgHandler::getErrorInstance()->inform("Missing to-node in edge '" + myCurrentName + "'.");
 		return;
     }
     // add the edge
-    _currentEdge->setNodes(fromNode, toNode);
+    myCurrentEdge->setNodes(fromNode, toNode);
 }
 
 
 void
 RONetHandler::parseLane(const Attributes &attrs)
 {
-    if (_currentEdge==0) {
+    if (myCurrentEdge==0) {
         // was an internal edge to skip or an error occured
         return;
     }
@@ -222,16 +222,16 @@ RONetHandler::parseLane(const Attributes &attrs)
             string next = st.next();
             if (next[0]=='-') {
                 disallowed.push_back(getVehicleClassID(next.substr(1)));
-                _net.setRestrictionFound();
+                myNet.setRestrictionFound();
             } else {
                 allowed.push_back(getVehicleClassID(next));
-                _net.setRestrictionFound();
+                myNet.setRestrictionFound();
             }
         }
     }
     // add when both values are valid
     if (maxSpeed>0&&length>0&&id.length()>0) {
-        _currentEdge->addLane(new ROLane(id, length, maxSpeed, allowed, disallowed));
+        myCurrentEdge->addLane(new ROLane(id, length, maxSpeed, allowed, disallowed));
     }
 }
 
@@ -240,8 +240,8 @@ void
 RONetHandler::parseJunction(const Attributes &attrs)
 {
     try {
-        _currentName = getString(attrs, SUMO_ATTR_ID);
-        if(_currentName=="") {
+        myCurrentName = getString(attrs, SUMO_ATTR_ID);
+        if(myCurrentName=="") {
             throw EmptyData();
         }
     } catch (EmptyData &) {
@@ -253,22 +253,22 @@ RONetHandler::parseJunction(const Attributes &attrs)
 void
 RONetHandler::parseConnEdge(const Attributes &attrs)
 {
-    if (_currentEdge==0) {
+    if (myCurrentEdge==0) {
         // was an internal edge to skip
         return;
     }
     try {
         // get the edge to connect
         string succID = getString(attrs, SUMO_ATTR_ID);
-        ROEdge *succ = _net.getEdge(succID);
+        ROEdge *succ = myNet.getEdge(succID);
         if (succ!=0) {
             // connect edge
-            _currentEdge->addFollower(succ);
+            myCurrentEdge->addFollower(succ);
         } else {
-            MsgHandler::getErrorInstance()->inform("At edge '" + _currentName + "': succeding edge '" + succID + "' does not exist.");
+            MsgHandler::getErrorInstance()->inform("At edge '" + myCurrentName + "': succeding edge '" + succID + "' does not exist.");
         }
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("At edge '" + _currentName + "': a succeding edge has no id.");
+        MsgHandler::getErrorInstance()->inform("At edge '" + myCurrentName + "': a succeding edge has no id.");
     }
 }
 
@@ -294,7 +294,7 @@ RONetHandler::preallocateEdges(const std::string &chars)
             //  !!! recheck this; internal edges may be of importance during the dua
             continue;
         }
-        _net.addEdge(myEdgeBuilder.buildEdge(id)); // !!! where is the edge deleted when failing?
+        myNet.addEdge(myEdgeBuilder.buildEdge(id)); // !!! where is the edge deleted when failing?
     }
 }
 

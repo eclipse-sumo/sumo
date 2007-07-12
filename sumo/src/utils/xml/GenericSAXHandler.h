@@ -208,8 +208,8 @@ public:
      * @brief Returns the bool-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2bool. 
-     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2bool throws an 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2bool. 
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::my2bool throws an 
      *  EmptyData-exception which is passed.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
@@ -220,9 +220,9 @@ public:
      * @brief Returns the bool-value of the named (by its enum-value) attribute or the given value if the attribute is not known
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2boolSec. 
-     *  If the attribute is empty, TplConvert<XMLCh>::_2boolSec throws an 
-     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2boolSec
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2boolSec. 
+     *  If the attribute is empty, TplConvert<XMLCh>::my2boolSec throws an 
+     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::my2boolSec
      *  returns the default value.
      *
      * @exception EmptyData If the attribute value is an empty string
@@ -234,10 +234,10 @@ public:
      * @brief Returns the int-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2int. 
-     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2int throws an 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2int. 
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::my2int throws an 
      *  EmptyData-exception which is passed.
-     * If the value can not be parsed to an int, TplConvert<XMLCh>::_2int throws a
+     * If the value can not be parsed to an int, TplConvert<XMLCh>::my2int throws a
      *  NumberFormatException-exception which is passed.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
@@ -249,11 +249,11 @@ public:
      * @brief Returns the int-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2intSec. 
-     *  If the attribute is empty, TplConvert<XMLCh>::_2intSec throws an 
-     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2intSec
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2intSec. 
+     *  If the attribute is empty, TplConvert<XMLCh>::my2intSec throws an 
+     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::my2intSec
      *  returns the default value.
-     * If the value can not be parsed to an int, TplConvert<XMLCh>::_2intSec throws a
+     * If the value can not be parsed to an int, TplConvert<XMLCh>::my2intSec throws a
      *  NumberFormatException-exception which is passed.
      *
      * @exception EmptyData If the attribute value is an empty string
@@ -266,8 +266,8 @@ public:
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2str. 
-     *  If the attribute is ==0, TplConvert<XMLCh>::_2str throws an 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2str. 
+     *  If the attribute is ==0, TplConvert<XMLCh>::my2str throws an 
      *  EmptyData-exception which is passed.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
@@ -278,8 +278,8 @@ public:
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2strSec. 
-     *  If the attribute is ==0, TplConvert<XMLCh>::_2strSec returns the default value.
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2strSec. 
+     *  If the attribute is ==0, TplConvert<XMLCh>::my2strSec returns the default value.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
@@ -291,10 +291,10 @@ public:
      * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2SUMOReal. 
-     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2SUMOReal throws an 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2SUMOReal. 
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::my2SUMOReal throws an 
      *  EmptyData-exception which is passed.
-     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMOReal throws a
+     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::my2SUMOReal throws a
      *  NumberFormatException-exception which is passed.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
@@ -306,11 +306,11 @@ public:
      * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2SUMORealSec. 
-     *  If the attribute is empty, TplConvert<XMLCh>::_2SUMORealSec throws an 
-     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2SUMORealSec
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2SUMORealSec. 
+     *  If the attribute is empty, TplConvert<XMLCh>::my2SUMORealSec throws an 
+     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::my2SUMORealSec
      *  returns the default value.
-     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMORealSec throws a
+     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::my2SUMORealSec throws a
      *  NumberFormatException-exception which is passed.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
@@ -322,10 +322,10 @@ public:
      * @brief Returns the SUMOReal-value of the named attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2SUMOReal. 
-     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2SUMOReal throws an 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2SUMOReal. 
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::my2SUMOReal throws an 
      *  EmptyData-exception which is passed.
-     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMOReal throws a
+     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::my2SUMOReal throws a
      *  NumberFormatException-exception which is passed.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string

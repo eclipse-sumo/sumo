@@ -80,7 +80,7 @@ public:
     /// Returns the number of vehicles calling within this cell
     size_t getVehicleNumber() const
     {
-        return _Calls.size();
+        return myCalls.size();
     }
 
 private:
@@ -90,7 +90,7 @@ private:
     int sum_changes;
     int quality_id;
     int intervall;
-    std::map<std::string, int> _Calls;
+    std::map<std::string, int> myCalls;
 };
 
 

@@ -160,26 +160,26 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
                      MID_GLCANVAS, LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
                      0, 0, 300, 200),
         myApp(&app),
-        _parent(parent),
+        myParent(parent),
         myGrid(&((GUIGrid&) grid)),
-        _changer(0),
-        _mouseHotspotX(app.getDefaultCursor()->getHotX()),
-        _mouseHotspotY(app.getDefaultCursor()->getHotY()),
-        _popup(0),
+        myChanger(0),
+        myMouseHotspotX(app.getDefaultCursor()->getHotX()),
+        myMouseHotspotY(app.getDefaultCursor()->getHotY()),
+        myPopup(0),
         myAmInitialised(false),
         myViewportChooser(0), myVisualizationChanger(0),
-        _useToolTips(false)
+        myUseToolTips(false)
 {
     flags|=FLAG_ENABLED;
-    _inEditMode=false;
+    myInEditMode=false;
     // compute the net scale
     SUMOReal nw = myGrid->getBoundary().getWidth();
     SUMOReal nh = myGrid->getBoundary().getHeight();
     myNetScale = (nw < nh ? nh : nw);
     // show the middle at the beginning
-    _changer = new GUIDanielPerspectiveChanger(*this);
-    _changer->setNetSizes((size_t) nw, (size_t) nh);
-    _toolTip = new GUIGLObjectToolTip(myApp);
+    myChanger = new GUIDanielPerspectiveChanger(*this);
+    myChanger->setNetSizes((size_t) nw, (size_t) nh);
+    myToolTip = new GUIGLObjectToolTip(myApp);
 }
 
 
@@ -191,33 +191,33 @@ GUISUMOAbstractView::GUISUMOAbstractView(FXComposite *p,
         : FXGLCanvas(p, glVis, share, p, MID_GLCANVAS,
                      LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y, 0, 0, 300, 200),
         myApp(&app),
-        _parent(parent),
+        myParent(parent),
         myGrid(&((GUIGrid&) grid)),
-        _changer(0),
-        _mouseHotspotX(app.getDefaultCursor()->getHotX()),
-        _mouseHotspotY(app.getDefaultCursor()->getHotY()),
-        _popup(0),
+        myChanger(0),
+        myMouseHotspotX(app.getDefaultCursor()->getHotX()),
+        myMouseHotspotY(app.getDefaultCursor()->getHotY()),
+        myPopup(0),
         myAmInitialised(false),
         myViewportChooser(0), myVisualizationChanger(0),
-        _useToolTips(false)
+        myUseToolTips(false)
 {
     flags|=FLAG_ENABLED;
-    _inEditMode=false;
+    myInEditMode=false;
     // compute the net scale
     SUMOReal nw = myGrid->getBoundary().getWidth();
     SUMOReal nh = myGrid->getBoundary().getHeight();
     myNetScale = (nw < nh ? nh : nw);
     // show the middle at the beginning
-    _changer = new GUIDanielPerspectiveChanger(*this);
-    _changer->setNetSizes((size_t) nw, (size_t) nh);
-    _toolTip = new GUIGLObjectToolTip(myApp);
+    myChanger = new GUIDanielPerspectiveChanger(*this);
+    myChanger->setNetSizes((size_t) nw, (size_t) nh);
+    myToolTip = new GUIGLObjectToolTip(myApp);
 }
 
 
 GUISUMOAbstractView::~GUISUMOAbstractView()
 {
-    delete _changer;
-    delete _toolTip;
+    delete myChanger;
+    delete myToolTip;
     delete myViewportChooser;
     delete myVisualizationChanger;
 }
@@ -226,14 +226,14 @@ GUISUMOAbstractView::~GUISUMOAbstractView()
 bool
 GUISUMOAbstractView::isInEditMode()
 {
-    return _inEditMode;
+    return myInEditMode;
 }
 
 
 void
 GUISUMOAbstractView::updateToolTip()
 {
-    if (!_useToolTips) {
+    if (!myUseToolTips) {
         return;
     }
     update();
@@ -243,7 +243,7 @@ GUISUMOAbstractView::updateToolTip()
 Position2D
 GUISUMOAbstractView::getPositionInformation() const
 {
-    return getPositionInformation(_changer->getMouseXPosition(), _changer->getMouseYPosition());
+    return getPositionInformation(myChanger->getMouseXPosition(), myChanger->getMouseYPosition());
 }
 
 
@@ -254,16 +254,16 @@ GUISUMOAbstractView::getPositionInformation(int mx, int my) const
     SUMOReal width = nb.getWidth();
     SUMOReal height = nb.getHeight();
 
-    SUMOReal mzoom = _changer->getZoom();
+    SUMOReal mzoom = myChanger->getZoom();
     // compute the offset
-    SUMOReal cy = _changer->getYPos();//cursorY;
-    SUMOReal cx = _changer->getXPos();//cursorY;
+    SUMOReal cy = myChanger->getYPos();//cursorY;
+    SUMOReal cx = myChanger->getXPos();//cursorY;
     // compute the visible area in horizontal direction
     SUMOReal mratioX;
     SUMOReal mratioY;
-    SUMOReal xs = ((SUMOReal) _widthInPixels / (SUMOReal) myApp->getMaxGLWidth())
-                  / (myGrid->getBoundary().getWidth() / myNetScale) * _ratio;
-    SUMOReal ys = ((SUMOReal) _heightInPixels / (SUMOReal) myApp->getMaxGLHeight())
+    SUMOReal xs = ((SUMOReal) myWidthInPixels / (SUMOReal) myApp->getMaxGLWidth())
+                  / (myGrid->getBoundary().getWidth() / myNetScale) * myRatio;
+    SUMOReal ys = ((SUMOReal) myHeightInPixels / (SUMOReal) myApp->getMaxGLHeight())
                   / (myGrid->getBoundary().getHeight() / myNetScale);
     if (xs<ys) {
         mratioX = 1;
@@ -293,20 +293,20 @@ GUISUMOAbstractView::getPositionInformation(int mx, int my) const
         sx = sxmin
              + (sxmax-sxmin)
              * (SUMOReal) mx
-             / (SUMOReal) _widthInPixels;
+             / (SUMOReal) myWidthInPixels;
         sy = symin
              + (symax-symin)
-             * ((SUMOReal) _heightInPixels - (SUMOReal) my)
-             / (SUMOReal) _heightInPixels;
+             * ((SUMOReal) myHeightInPixels - (SUMOReal) my)
+             / (SUMOReal) myHeightInPixels;
     } else {
         sx = sxmin
              + (sxmax-sxmin)
              * (SUMOReal) mx
-             / (SUMOReal) _widthInPixels;
+             / (SUMOReal) myWidthInPixels;
         sy = symin
              + (symax-symin)
-             * ((SUMOReal) _heightInPixels - (SUMOReal) my)
-             / (SUMOReal) _heightInPixels;
+             * ((SUMOReal) myHeightInPixels - (SUMOReal) my)
+             / (SUMOReal) myHeightInPixels;
     }
     return Position2D(sx, sy);
 }
@@ -334,9 +334,9 @@ GUISUMOAbstractView::updatePositionInformation() const
 void
 GUISUMOAbstractView::paintGL()
 {
-    _widthInPixels = getWidth();
-    _heightInPixels = getHeight();
-    if (_widthInPixels==0||_heightInPixels==0) {
+    myWidthInPixels = getWidth();
+    myHeightInPixels = getHeight();
+    if (myWidthInPixels==0||myHeightInPixels==0) {
         return;
     }
 
@@ -345,12 +345,12 @@ GUISUMOAbstractView::paintGL()
         if (o!=0) {
             Boundary b = o->getCenteringBoundary();
             //b.grow(20);
-            _changer->centerTo(myGrid->getBoundary(), b, false);
+            myChanger->centerTo(myGrid->getBoundary(), b, false);
         }
     }
 
     unsigned int id = 0;
-    if (_useToolTips) {
+    if (myUseToolTips) {
         id = getObjectUnderCursor();
     }
 
@@ -391,7 +391,7 @@ GUISUMOAbstractView::paintGL()
     //  shall be computed, too
     glFlush();
     swapBuffers();
-    if (_useToolTips) {
+    if (myUseToolTips) {
         showToolTipFor(id);
     }
 }
@@ -400,12 +400,12 @@ GUISUMOAbstractView::paintGL()
 unsigned int
 GUISUMOAbstractView::getObjectUnderCursor()
 {
-    int xpos = _toolTipX+_mouseHotspotX;
-    int ypos = _toolTipY+_mouseHotspotY;
-    if (xpos<0||xpos>=_widthInPixels) {
+    int xpos = myToolTipX+myMouseHotspotX;
+    int ypos = myToolTipY+myMouseHotspotY;
+    if (xpos<0||xpos>=myWidthInPixels) {
         return 0;
     }
-    if (ypos<0||ypos>=_heightInPixels) {
+    if (ypos<0||ypos>=myHeightInPixels) {
         return 0;
     }
 
@@ -419,12 +419,12 @@ GUISUMOAbstractView::getObjectUnderCursor()
     glInitNames();
     // compute new scale
     SUMOReal scale = SUMOReal(getMaxGLWidth())/SUMOReal(SENSITIVITY);
-    applyChanges(scale, _toolTipX+_mouseHotspotX, _toolTipY+_mouseHotspotY);
+    applyChanges(scale, myToolTipX+myMouseHotspotX, myToolTipY+myMouseHotspotY);
     // paint in select mode
-    bool tmp = _useToolTips;
-    _useToolTips = true;
+    bool tmp = myUseToolTips;
+    myUseToolTips = true;
     doPaintGL(GL_SELECT, scale);
-    _useToolTips = tmp;
+    myUseToolTips = tmp;
     // Get the results
     nb_hits = glRenderMode(GL_RENDER);
     if (nb_hits==0) {
@@ -482,12 +482,12 @@ GUISUMOAbstractView::showToolTipFor(unsigned int id)
 {
     if (id!=0) {
         GUIGlObject *object = gIDStorage.getObjectBlocking(id);
-        _toolTip->setObjectTip(object, _mouseX, _mouseY);
+        myToolTip->setObjectTip(object, myMouseX, myMouseY);
         if (object!=0) {
             gIDStorage.unblockObject(id);
         }
     } else {
-        _toolTip->hide();
+        myToolTip->hide();
     }
 }
 
@@ -564,59 +564,59 @@ GUISUMOAbstractView::paintGLGrid()
 void
 GUISUMOAbstractView::applyChanges(SUMOReal scale, size_t xoff, size_t yoff)
 {
-    _widthInPixels = getWidth();
-    _heightInPixels = getHeight();
+    myWidthInPixels = getWidth();
+    myHeightInPixels = getHeight();
     glMatrixMode(GL_MODELVIEW);
     glLoadIdentity();
     // rotate first;
     //  This is quite unchecked, so it's meaning and position is quite
     //  unclear
-    glRotated(_changer->getRotation(), 0, 0, 1);
+    glRotated(myChanger->getRotation(), 0, 0, 1);
     // Fit the view's size to the size of the net
     glScaled(2.0/myNetScale, 2.0/myNetScale, 0);
     // apply ratio between window width and height
-    glScaled(1/_ratio, 1, 0);
+    glScaled(1/myRatio, 1, 0);
     // initially (zoom=100), the net shall be completely visible on the screen
-    SUMOReal xs = ((SUMOReal) _widthInPixels / (SUMOReal) myApp->getMaxGLWidth())
-                  / (myGrid->getBoundary().getWidth() / myNetScale) * _ratio;
-    SUMOReal ys = ((SUMOReal) _heightInPixels / (SUMOReal) myApp->getMaxGLHeight())
+    SUMOReal xs = ((SUMOReal) myWidthInPixels / (SUMOReal) myApp->getMaxGLWidth())
+                  / (myGrid->getBoundary().getWidth() / myNetScale) * myRatio;
+    SUMOReal ys = ((SUMOReal) myHeightInPixels / (SUMOReal) myApp->getMaxGLHeight())
                   / (myGrid->getBoundary().getHeight() / myNetScale);
     if (xs<ys) {
         glScaled(xs, xs, 1);
-        _addScl = xs;
+        myAddScl = xs;
     } else {
         glScaled(ys, ys, 1);
-        _addScl = ys;
+        myAddScl = ys;
     }
     // initially, leave some room for the net
     glScaled((SUMOReal) 0.97, (SUMOReal) 0.97, (SUMOReal) 1);
-    _addScl *= (SUMOReal) .97;
+    myAddScl *= (SUMOReal) .97;
 
     // Apply the zoom and the scale
-    SUMOReal zoom = (SUMOReal)(_changer->getZoom() / 100.0 * scale);
+    SUMOReal zoom = (SUMOReal)(myChanger->getZoom() / 100.0 * scale);
     glScaled(zoom, zoom, 0);
     // Translate to the middle of the net
     Position2D center = myGrid->getBoundary().getCenter();
     glTranslated(-center.x(), -center.y(), 0);
     // Translate in dependence to the view position applied by the user
-    glTranslated(_changer->getXPos(), _changer->getYPos(), 0);
+    glTranslated(myChanger->getXPos(), myChanger->getYPos(), 0);
     // Translate to the mouse pointer, when wished
     if (xoff!=0||yoff!=0) {
-        SUMOReal absX = (SUMOReal)(xoff-((SUMOReal) _widthInPixels/2.0));
-        SUMOReal absY = (SUMOReal)(yoff-((SUMOReal) _heightInPixels/2.0));
+        SUMOReal absX = (SUMOReal)(xoff-((SUMOReal) myWidthInPixels/2.0));
+        SUMOReal absY = (SUMOReal)(yoff-((SUMOReal) myHeightInPixels/2.0));
         glTranslated(-p2m(absX), p2m(absY), 0);
     }
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
     // apply the widow size
     SUMOReal xf = (SUMOReal) -1.0 *
-                  ((SUMOReal) myApp->getMaxGLWidth() - (SUMOReal) _widthInPixels)
+                  ((SUMOReal) myApp->getMaxGLWidth() - (SUMOReal) myWidthInPixels)
                   / (SUMOReal) myApp->getMaxGLWidth();
     SUMOReal yf = (SUMOReal) -1.0 *
-                  ((SUMOReal) myApp->getMaxGLHeight() - (SUMOReal) _heightInPixels)
+                  ((SUMOReal) myApp->getMaxGLHeight() - (SUMOReal) myHeightInPixels)
                   / (SUMOReal) myApp->getMaxGLHeight();
     glTranslated(xf, yf, 0);
-    _changer->applied();
+    myChanger->applied();
 }
 
 
@@ -690,8 +690,8 @@ GUISUMOAbstractView::m2p(SUMOReal meter)
 {
     return (SUMOReal)
            (meter/myNetScale
-            *(myApp->getMaxGLWidth()/_ratio)
-            * _addScl * _changer->getZoom() / (SUMOReal) 100.0);
+            *(myApp->getMaxGLWidth()/myRatio)
+            * myAddScl * myChanger->getZoom() / (SUMOReal) 100.0);
 }
 
 
@@ -700,14 +700,14 @@ GUISUMOAbstractView::p2m(SUMOReal pixel)
 {
     return (SUMOReal)
            pixel * myNetScale /
-           ((myApp->getMaxGLWidth()/_ratio) * _addScl *_changer->getZoom() / (SUMOReal) 100.0);
+           ((myApp->getMaxGLWidth()/myRatio) * myAddScl *myChanger->getZoom() / (SUMOReal) 100.0);
 }
 
 
 void
 GUISUMOAbstractView::recenterView()
 {
-    _changer->recenterView();
+    myChanger->recenterView();
 }
 
 
@@ -715,7 +715,7 @@ void
 GUISUMOAbstractView::centerTo(GUIGlObject *o)
 {
     centerTo(o->getCenteringBoundary());
-    _changer->otherChange();
+    myChanger->otherChange();
     update();
 }
 
@@ -723,14 +723,14 @@ GUISUMOAbstractView::centerTo(GUIGlObject *o)
 void
 GUISUMOAbstractView::centerTo(Boundary bound)
 {
-    _changer->centerTo(myGrid->getBoundary(), bound);
+    myChanger->centerTo(myGrid->getBoundary(), bound);
 }
 
 /*
 bool
 GUISUMOAbstractView::allowRotation() const
 {
-    return _parent->allowRotation();
+    return myParent->allowRotation();
 }
 */
 
@@ -738,10 +738,10 @@ void
 GUISUMOAbstractView::setTooltipPosition(size_t x, size_t y,
                                         size_t mouseX, size_t mouseY)
 {
-    _toolTipX = x;
-    _toolTipY = y;
-    _mouseX = mouseX;
-    _mouseY = mouseY;
+    myToolTipX = x;
+    myToolTipY = y;
+    myMouseX = mouseX;
+    myMouseY = mouseY;
 }
 
 
@@ -779,16 +779,16 @@ long
 GUISUMOAbstractView::onConfigure(FXObject*,FXSelector,void*)
 {
     if (makeCurrent()) {
-        _widthInPixels = myApp->getMaxGLWidth();
-        _heightInPixels = myApp->getMaxGLHeight();
-        _ratio = (SUMOReal) _widthInPixels / (SUMOReal) _heightInPixels;
+        myWidthInPixels = myApp->getMaxGLWidth();
+        myHeightInPixels = myApp->getMaxGLHeight();
+        myRatio = (SUMOReal) myWidthInPixels / (SUMOReal) myHeightInPixels;
         glViewport(0, 0, myApp->getMaxGLWidth()-1, myApp->getMaxGLHeight()-1);
         glClearColor(
             myVisualizationSettings->backgroundColor.red(),
             myVisualizationSettings->backgroundColor.green(),
             myVisualizationSettings->backgroundColor.blue(),
             1);
-        _changer->applyCanvasSize(width, height);
+        myChanger->applyCanvasSize(width, height);
         doInit();
         myAmInitialised = true;
         makeNonCurrent();
@@ -814,8 +814,8 @@ GUISUMOAbstractView::onPaint(FXObject*,FXSelector,void*)
 long
 GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data)
 {
-    delete _popup;
-    _popup = 0;
+    delete myPopup;
+    myPopup = 0;
     FXEvent *e = (FXEvent*) data;
     // check whether the selection-mode is activated
     if (e->state&ALTMASK) {
@@ -833,7 +833,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data)
             }
         }
     }
-    _changer->onLeftBtnPress(data);
+    myChanger->onLeftBtnPress(data);
     grab();
     return 1;
 }
@@ -842,9 +842,9 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data)
 long
 GUISUMOAbstractView::onLeftBtnRelease(FXObject *,FXSelector ,void *data)
 {
-    delete _popup;
-    _popup = 0;
-    _changer->onLeftBtnRelease(data);
+    delete myPopup;
+    myPopup = 0;
+    myChanger->onLeftBtnRelease(data);
     ungrab();
     return 1;
 }
@@ -853,9 +853,9 @@ GUISUMOAbstractView::onLeftBtnRelease(FXObject *,FXSelector ,void *data)
 long
 GUISUMOAbstractView::onRightBtnPress(FXObject *,FXSelector ,void *data)
 {
-    delete _popup;
-    _popup = 0;
-    _changer->onRightBtnPress(data);
+    delete myPopup;
+    myPopup = 0;
+    myChanger->onRightBtnPress(data);
     grab();
     return 1;
 }
@@ -864,9 +864,9 @@ GUISUMOAbstractView::onRightBtnPress(FXObject *,FXSelector ,void *data)
 long
 GUISUMOAbstractView::onRightBtnRelease(FXObject *,FXSelector ,void *data)
 {
-    delete _popup;
-    _popup = 0;
-    if (_changer->onRightBtnRelease(data)) {
+    delete myPopup;
+    myPopup = 0;
+    if (myChanger->onRightBtnRelease(data)) {
         openObjectDialog();
     }
     ungrab();
@@ -877,17 +877,17 @@ GUISUMOAbstractView::onRightBtnRelease(FXObject *,FXSelector ,void *data)
 long
 GUISUMOAbstractView::onMouseMove(FXObject *,FXSelector ,void *data)
 {
-    SUMOReal xpos = _changer->getXPos();
-    SUMOReal ypos = _changer->getYPos();
-    SUMOReal zoom = _changer->getZoom();
+    SUMOReal xpos = myChanger->getXPos();
+    SUMOReal ypos = myChanger->getYPos();
+    SUMOReal zoom = myChanger->getZoom();
     if (myViewportChooser==0||!myViewportChooser->haveGrabbed()) {
-        _changer->onMouseMove(data);
+        myChanger->onMouseMove(data);
     }
     if (myViewportChooser!=0 &&
-            (xpos!=_changer->getXPos()||ypos!=_changer->getYPos()||zoom!=_changer->getZoom())) {
+            (xpos!=myChanger->getXPos()||ypos!=myChanger->getYPos()||zoom!=myChanger->getZoom())) {
 
         myViewportChooser->setValues(
-            _changer->getZoom(), _changer->getXPos(), _changer->getYPos());
+            myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
 
     }
     updatePositionInformation();
@@ -899,8 +899,8 @@ long
 GUISUMOAbstractView::onMouseLeft(FXObject *,FXSelector ,void *data)
 {
     if (myViewportChooser==0||!myViewportChooser->haveGrabbed()) {
-//        _changer->onMouseLeft();
-        _toolTip->setObjectTip(0, -1, -1);
+//        myChanger->onMouseLeft();
+        myToolTip->setObjectTip(0, -1, -1);
     }
     return 1;
 }
@@ -923,12 +923,12 @@ GUISUMOAbstractView::openObjectDialog()
             o = gNetWrapper;
         }
         if (o!=0) {
-            _popup = o->getPopUpMenu(*myApp, *this);
-            _popup->setX(_mouseX);
-            _popup->setY(_mouseY);
-            _popup->create();
-            _popup->show();
-            _changer->onRightBtnRelease(0);
+            myPopup = o->getPopUpMenu(*myApp, *this);
+            myPopup->setX(myMouseX);
+            myPopup->setY(myMouseY);
+            myPopup->create();
+            myPopup->show();
+            myChanger->onRightBtnRelease(0);
         }
         makeNonCurrent();
     }
@@ -965,7 +965,7 @@ GUISUMOAbstractView::onCmdShowGrid(FXObject*sender,FXSelector,void*)
 {
     MFXCheckableButton *button = static_cast<MFXCheckableButton*>(sender);
     button->setChecked(!button->amChecked());
-    _showGrid = button->amChecked();
+    myShowGrid = button->amChecked();
     update();
     return 1;
 }
@@ -1040,7 +1040,7 @@ GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
     }
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     myPolyDrawLock.lock();
-    if (_useToolTips) {
+    if (myUseToolTips) {
         glPushName(static_cast<const GUIPolygon2D&>(polygon).getGlID());
     }
     RGBColor color = polygon.getColor();
@@ -1077,7 +1077,7 @@ GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
         GLHelper::drawBoxLines(polygon.getPosition2DVector(), 1.);
     }
 
-    if (_useToolTips) {
+    if (myUseToolTips) {
         glPopName();
     }
     myPolyDrawLock.unlock();
@@ -1087,7 +1087,7 @@ GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
 void
 GUISUMOAbstractView::drawPOI2D(const PointOfInterest &p, SUMOReal width) const
 {
-    if (_useToolTips) {
+    if (myUseToolTips) {
         glPushName(static_cast<const GUIPointOfInterest&>(p).getGlID());
     }
     glColor3d(p.red(),p.green(),p.blue());
@@ -1105,7 +1105,7 @@ GUISUMOAbstractView::drawPOI2D(const PointOfInterest &p, SUMOReal width) const
         glPopMatrix();
     }
     glTranslated(-p.x(), -p.y(), 0);
-    if (_useToolTips) {
+    if (myUseToolTips) {
         glPopName();
     }
 }
@@ -1187,12 +1187,12 @@ GUISUMOAbstractView::showViewportEditor()
     if (myViewportChooser==0) {
         myViewportChooser =
             new GUIDialog_EditViewport(this, "Edit Viewport...",
-                                       _changer->getZoom(), _changer->getXPos(), _changer->getYPos(),
+                                       myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos(),
                                        0, 0);
         myViewportChooser->create();
     }
     myViewportChooser->setOldValues(
-        _changer->getZoom(), _changer->getXPos(), _changer->getYPos());
+        myChanger->getZoom(), myChanger->getXPos(), myChanger->getYPos());
     myViewportChooser->show();
 }
 
@@ -1200,8 +1200,8 @@ GUISUMOAbstractView::showViewportEditor()
 void
 GUISUMOAbstractView::setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos)
 {
-    _changer->setViewport(zoom, xPos, yPos);
-    _changer->otherChange();
+    myChanger->setViewport(zoom, xPos, yPos);
+    myChanger->otherChange();
     update();
 }
 
@@ -1209,7 +1209,7 @@ GUISUMOAbstractView::setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos)
 void
 GUISUMOAbstractView::showToolTips(bool val)
 {
-    _useToolTips = val;
+    myUseToolTips = val;
 }
 
 
@@ -1287,7 +1287,7 @@ GUISUMOAbstractView::deleteObj(GUIGlObject *)
 FXComboBox &
 GUISUMOAbstractView::getColoringSchemesCombo()
 {
-    return _parent->getColoringSchemesCombo();
+    return myParent->getColoringSchemesCombo();
 }
 
 

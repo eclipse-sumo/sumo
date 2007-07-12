@@ -43,12 +43,12 @@ class Position2D
 {
 public:
     /// default constructor
-    Position2D() : _x(0.0), _y(0.0)
+    Position2D() : myX(0.0), myY(0.0)
     { }
 
     /// parametrised constructor
     Position2D(SUMOReal x, SUMOReal y)
-            : _x(x), _y(y)
+            : myX(x), myY(y)
     { }
 
     /// Destructor
@@ -58,90 +58,90 @@ public:
     /// Returns the x-position
     SUMOReal x() const
     {
-        return _x;
+        return myX;
     }
 
     /// Returns the y-position
     SUMOReal y() const
     {
-        return _y;
+        return myY;
     }
 
     ///
     void set(SUMOReal x, SUMOReal y)
     {
-        _x = x;
-        _y = y;
+        myX = x;
+        myY = y;
     }
 
     ///
     void set(const Position2D &pos)
     {
-        _x = pos._x;
-        _y = pos._y;
+        myX = pos.myX;
+        myY = pos.myY;
     }
 
 
     /// Multiplies both positions with the given value
     void mul(SUMOReal val)
     {
-        _x *= val;
-        _y *= val;
+        myX *= val;
+        myY *= val;
     }
 
     /// Multiplies position with the given values
     void mul(SUMOReal mx, SUMOReal my)
     {
-        _x *= mx;
-        _y *= my;
+        myX *= mx;
+        myY *= my;
     }
 
     /// Adds the given position to this one
     void add(const Position2D &pos)
     {
-        _x += pos._x;
-        _y += pos._y;
+        myX += pos.myX;
+        myY += pos.myY;
     }
 
     /// Adds the given position to this one
     void add(SUMOReal dx, SUMOReal dy)
     {
-        _x += dx;
-        _y += dy;
+        myX += dx;
+        myY += dy;
     }
 
     /// Substracts the given position from this one
     void sub(SUMOReal dx, SUMOReal dy)
     {
-        _x -= dx;
-        _y -= dy;
+        myX -= dx;
+        myY -= dy;
     }
 
     /// Substracts the given position from this one
     void sub(const Position2D &pos)
     {
-        _x -= pos._x;
-        _y -= pos._y;
+        myX -= pos.myX;
+        myY -= pos.myY;
     }
 
     SUMOReal scalar() const
     {
-        return sqrt(_x*_x + _y*_y);
+        return sqrt(myX*myX + _y*myY);
     }
 
     void norm()
     {
         SUMOReal val = scalar();
-        _x = _x / val;
-        _y = _y / val;
+        myX = myX / val;
+        myY = myY / val;
     }
 
     void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
     {
-        SUMOReal x = _x * cos(rot) - _y * sin(rot) + xoff;
-        SUMOReal y = _x * sin(rot) + yoff + _y * cos(rot);
-        _x = x;
-        _y = y;
+        SUMOReal x = myX * cos(rot) -myY * sin(rot) + xoff;
+        SUMOReal y =myX * sin(rot) + yoff + myY * cos(rot);
+        myX = x;
+        myY = y;
     }
 
 
@@ -166,10 +166,10 @@ public:
 
 private:
     /// The x-position
-    SUMOReal _x;
+    SUMOReal myX;
 
     /// The y-position
-    SUMOReal _y;
+    SUMOReal myY;
 
 };
 

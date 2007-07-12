@@ -247,7 +247,7 @@ protected:
 
     /** @brief Lane from which vehicles will depart.
         Usually the rightmost,
-        except for those countries which drive on the _wrong_
+        except for those countries which drive on the myWrong_
         side. */
     MSLane* myDepartLane;
 
@@ -255,7 +255,7 @@ protected:
     MSLaneChanger* myLaneChanger;
 
     /// the purpose of the edge
-    EdgeBasicFunction _function;
+    EdgeBasicFunction myFunction;
 
     /// definition of the static dictionary type
     typedef std::map< std::string, MSEdge* > DictType;

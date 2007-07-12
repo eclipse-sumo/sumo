@@ -74,13 +74,13 @@ public:
 
 private:
     /// The lane the vehicle shall depart from
-    std::string _lane;
+    std::string myLane;
 
     /// The position on the lane the vehicle shall depart from
-    SUMOReal _pos;
+    SUMOReal myPos;
 
     /// The initial speed of the vehicle
-    SUMOReal _speed;
+    SUMOReal mySpeed;
 
 };
 

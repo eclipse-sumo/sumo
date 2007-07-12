@@ -60,8 +60,8 @@ using namespace std;
 // method definitions
 // ===========================================================================
 OptionsLoader::OptionsLoader(const char *file, bool verbose)
-        : _error(false), _file(file), _verbose(verbose),
-        _options(OptionsCont::getOptions()), _item()
+        : myError(false), myFile(file), myVerbose(verbose),
+        myOptions(OptionsCont::getOptions()), myItem()
 {}
 
 
@@ -72,13 +72,13 @@ OptionsLoader::~OptionsLoader()
 void OptionsLoader::startElement(const XMLCh* const name,
                                  AttributeList& /*attributes*/)
 {
-    _item = TplConvert<XMLCh>::_2str(name);
+    myItem = TplConvert<XMLCh>::my2str(name);
     /*
-    if( _item=="configuration" ||
-        _item=="files" ||
-        _item=="defaults" ||
-        _item=="reports") {
-        _item = "";
+    if( myItem=="configuration" ||
+        myItem=="files" ||
+        myItem=="defaults" ||
+        myItem=="reports") {
+        myItem = "";
     }
     */
 }
@@ -87,10 +87,10 @@ void OptionsLoader::startElement(const XMLCh* const name,
 void OptionsLoader::characters(const XMLCh* const chars,
                                const unsigned int length)
 {
-    if (_item.length()==0) {
+    if (myItem.length()==0) {
         return;
     }
-    string value = TplConvert<XMLCh>::_2str(chars, length);
+    string value = TplConvert<XMLCh>::my2str(chars, length);
     size_t index = value.find_first_not_of("\n\t \a");
     if (index==string::npos) {
         return;
@@ -98,14 +98,14 @@ void OptionsLoader::characters(const XMLCh* const chars,
     if (value.length()>0) {
         try {
             bool isWriteable;
-            if (_options.isBool(_item)) {
+            if (myOptions.isBool(myItem)) {
                 if (value=="0"||value=="false"||value=="FALSE") {
-                    isWriteable = setSecure(_item, false);
+                    isWriteable = setSecure(myItem, false);
                 } else {
-                    isWriteable = setSecure(_item, true);
+                    isWriteable = setSecure(myItem, true);
                 }
             } else {
-                if (_options.isFileName(_item)) {
+                if (myOptions.isFileName(myItem)) {
                     StringTokenizer st(value, ';');
                     string conv;
                     while (st.hasNext()) {
@@ -114,22 +114,22 @@ void OptionsLoader::characters(const XMLCh* const chars,
                         }
                         string tmp = st.next();
                         if (!FileHelpers::isAbsolute(value)) {
-                            tmp = FileHelpers::getConfigurationRelative(_file, tmp);
+                            tmp = FileHelpers::getConfigurationRelative(myFile, tmp);
                         }
                         conv += tmp;
                     }
-                    isWriteable = setSecure(_item, conv);
+                    isWriteable = setSecure(myItem, conv);
                 } else {
-                    isWriteable = setSecure(_item, value);
+                    isWriteable = setSecure(myItem, value);
                 }
             }
             if (!isWriteable) {
-                MsgHandler::getErrorInstance()->inform("Could not set option '" + _item + "' (probably defined twice).");
-                _error = true;
+                MsgHandler::getErrorInstance()->inform("Could not set option '" + myItem + "' (probably defined twice).");
+                myError = true;
             }
         } catch (InvalidArgument e) {
             MsgHandler::getErrorInstance()->inform(e.what());
-            _error = true;
+            myError = true;
         }
     }
 }
@@ -138,8 +138,8 @@ void OptionsLoader::characters(const XMLCh* const chars,
 bool
 OptionsLoader::setSecure(const std::string &name, bool value)
 {
-    if (_options.isWriteable(name)) {
-        _options.set(name, value);
+    if (myOptions.isWriteable(name)) {
+        myOptions.set(name, value);
         return true;
     }
     return false;
@@ -149,8 +149,8 @@ OptionsLoader::setSecure(const std::string &name, bool value)
 bool
 OptionsLoader::setSecure(const std::string &name, const std::string &value)
 {
-    if (_options.isWriteable(name)) {
-        _options.set(name, value);
+    if (myOptions.isWriteable(name)) {
+        myOptions.set(name, value);
         return true;
     }
     return false;
@@ -160,19 +160,19 @@ OptionsLoader::setSecure(const std::string &name, const std::string &value)
 void
 OptionsLoader::endElement(const XMLCh* const /*name*/)
 {
-    _item = "";
+    myItem = "";
 }
 
 
 void
 OptionsLoader::warning(const SAXParseException& exception)
 {
-    WRITE_WARNING(TplConvert<XMLCh>::_2str(exception.getMessage()));
+    WRITE_WARNING(TplConvert<XMLCh>::my2str(exception.getMessage()));
     WRITE_WARNING(\
                   " (At line/column " \
                   + toString<int>(exception.getLineNumber()+1) + '/' \
                   + toString<int>(exception.getColumnNumber()) + ").");
-    _error = true;
+    myError = true;
 }
 
 
@@ -180,12 +180,12 @@ void
 OptionsLoader::error(const SAXParseException& exception)
 {
     MsgHandler::getErrorInstance()->inform(
-        TplConvert<XMLCh>::_2str(exception.getMessage()));
+        TplConvert<XMLCh>::my2str(exception.getMessage()));
     MsgHandler::getErrorInstance()->inform(
         " (At line/column "
         + toString<int>(exception.getLineNumber()+1) + '/'
         + toString<int>(exception.getColumnNumber()) + ").");
-    _error = true;
+    myError = true;
 }
 
 
@@ -193,19 +193,19 @@ void
 OptionsLoader::fatalError(const SAXParseException& exception)
 {
     MsgHandler::getErrorInstance()->inform(
-        TplConvert<XMLCh>::_2str(exception.getMessage()));
+        TplConvert<XMLCh>::my2str(exception.getMessage()));
     MsgHandler::getErrorInstance()->inform(
         " (At line/column "
         + toString<int>(exception.getLineNumber()+1) + '/'
         + toString<int>(exception.getColumnNumber()) + ").");
-    _error = true;
+    myError = true;
 }
 
 
 bool
 OptionsLoader::errorOccured()
 {
-    return _error;
+    return myError;
 }
 
 

@@ -79,7 +79,7 @@ public:
     {
     public:
         /// constructor
-        explicit edge_by_junction_angle_sorter(NBNode *n) : _node(n)
+        explicit edge_by_junction_angle_sorter(NBNode *n) : myNode(n)
         {}
 
         /// comparing operation
@@ -91,7 +91,7 @@ public:
 
     private:
         /// the edge to compute the relative angle of
-        NBNode *_node;
+        NBNode *myNode;
 
     };
 
@@ -108,7 +108,7 @@ public:
     public:
         /// constructor
         explicit relative_edge_sorter(NBEdge *e, NBNode *n)
-                : _edge(e), _node(n)
+                : myEdge(e), myNode(n)
         {}
 
     public:
@@ -116,18 +116,18 @@ public:
         int operator()(NBEdge *e1, NBEdge *e2) const
         {
             SUMOReal relAngle1 = NBHelpers::normRelAngle(
-                                     _edge->getAngle(), e1->getAngle());
+                                     myEdge->getAngle(), e1->getAngle());
             SUMOReal relAngle2 = NBHelpers::normRelAngle(
-                                     _edge->getAngle(), e2->getAngle());
+                                     myEdge->getAngle(), e2->getAngle());
             return relAngle1 > relAngle2;
         }
 
     private:
         /// the edge to compute the relative angle of
-        NBEdge *_edge;
+        NBEdge *myEdge;
 
         /// the node to use
-        NBNode *_node;
+        NBNode *myNode;
 
     };
 
@@ -140,7 +140,7 @@ public:
     public:
         /// constructor
         explicit relative_edgelane_sorter(NBEdge *e, NBNode *n)
-                : _edge(e), _node(n)
+                : myEdge(e), myNode(n)
         {}
 
     public:
@@ -148,18 +148,18 @@ public:
         int operator()(EdgeLane e1, EdgeLane e2) const
         {
             SUMOReal relAngle1 = NBHelpers::normRelAngle(
-                                     _edge->getAngle(), e1.edge->getAngle());
+                                     myEdge->getAngle(), e1.edge->getAngle());
             SUMOReal relAngle2 = NBHelpers::normRelAngle(
-                                     _edge->getAngle(), e2.edge->getAngle());
+                                     myEdge->getAngle(), e2.edge->getAngle());
             return relAngle1 > relAngle2;
         }
 
     private:
         /// the edge to compute the relative angle of
-        NBEdge *_edge;
+        NBEdge *myEdge;
 
         /// the node to use
-        NBNode *_node;
+        NBNode *myNode;
 
     };
 
@@ -194,7 +194,7 @@ public:
     public:
         /// constructor
         explicit edge_opposite_direction_sorter(NBEdge *e)
-                : _angle(e->getAngle()), _edge(e)
+                : myAngle(e->getAngle()), myEdge(e)
         {}
 
     public:
@@ -215,15 +215,15 @@ public:
             if (d>=360) {
                 d -= 360;
             }
-            return MIN2(GeomHelper::getCCWAngleDiff(d, _angle), GeomHelper::getCWAngleDiff(d, _angle));
+            return MIN2(GeomHelper::getCCWAngleDiff(d, myAngle), GeomHelper::getCWAngleDiff(d, myAngle));
         }
 
     private:
         /// the angle to find the edge with the opposite direction
-        SUMOReal _angle;
+        SUMOReal myAngle;
 
         /// the edge - to avoid comparison of an edge with itself
-        NBEdge *_edge;
+        NBEdge *myEdge;
 
     };
 
@@ -238,7 +238,7 @@ public:
     public:
         /// constructor
         explicit edge_similar_direction_sorter(NBEdge *e)
-                : _angle(e->getAngle())
+                : myAngle(e->getAngle())
         {}
 
         /// comparing operation
@@ -255,12 +255,12 @@ public:
         SUMOReal getDiff(NBEdge *e) const
         {
             SUMOReal d = e->getAngle();
-            return MIN2(GeomHelper::getCCWAngleDiff(d, _angle), GeomHelper::getCWAngleDiff(d, _angle));
+            return MIN2(GeomHelper::getCCWAngleDiff(d, myAngle), GeomHelper::getCWAngleDiff(d, myAngle));
         }
 
     private:
         /// the angle to find the edge with the opposite direction
-        SUMOReal _angle;
+        SUMOReal myAngle;
     };
 
 
@@ -276,7 +276,7 @@ public:
         bool operator()(const NBNode * const n) const;
 
     private:
-        NBEdge *_edge;
+        NBEdge *myEdge;
 
     };
 
@@ -293,7 +293,7 @@ public:
         bool operator()(const NBNode * const n) const;
 
     private:
-        NBEdge *_edge;
+        NBEdge *myEdge;
 
     };
 

@@ -94,7 +94,7 @@ private:
     typedef std::map<char, NBNode::BasicNodeType> CharToVal;
 
     /** a container for edge priority ranges */
-    RangeCont   _ranges;
+    RangeCont   myRanges;
 
     /** A container for the resulting junction types (cross matrix)
     The informations are stored as chars:
@@ -102,10 +102,10 @@ private:
     'r': Right-before-Left Junction
     'p': Priority Junction
     'x': no Junction */
-    StringCont  _values;
+    StringCont  myValues;
 
     /** a map of chars to their NBNode-representation */
-    CharToVal   _map;
+    CharToVal   myMap;
 
 };
 

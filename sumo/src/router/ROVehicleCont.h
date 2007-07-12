@@ -66,7 +66,7 @@ private:
     /// The sorted vehicle list
     std::priority_queue<ROVehicle*,
     std::vector<ROVehicle*>,
-    ROHelper::VehicleByDepartureComperator> _sorted;
+    ROHelper::VehicleByDepartureComperator> mySorted;
 
 private:
     /// we made the copy constructor invalid

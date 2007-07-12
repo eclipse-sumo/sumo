@@ -66,7 +66,7 @@ NBJunctionLogicCont::~NBJunctionLogicCont()
 bool
 NBJunctionLogicCont::exists(const string &key)
 {
-    return _map.find(key)!=_map.end();
+    return myMap.find(key)!=myMap.end();
 }
 
 /*
@@ -90,18 +90,18 @@ void
 NBJunctionLogicCont::add(const std::string &key,
                              const std::string &xmlDescription)
 {
-    LogicMap::iterator i=_map.find(key);
-    if (i!=_map.end()) {
+    LogicMap::iterator i=myMap.find(key);
+    if (i!=myMap.end()) {
         string tmp = (*i).second;
     }
-    _map.insert(LogicMap::value_type(key, xmlDescription));
+    myMap.insert(LogicMap::value_type(key, xmlDescription));
 }
 
 
 void
 NBJunctionLogicCont::writeXML(ostream &into)
 {
-    for (LogicMap::iterator i=_map.begin(); i!=_map.end(); i++) {
+    for (LogicMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
         into << (*i).second << endl;
     }
     into << endl;
@@ -111,7 +111,7 @@ NBJunctionLogicCont::writeXML(ostream &into)
 void
 NBJunctionLogicCont::clear()
 {
-    _map.clear();
+    myMap.clear();
 }
 
 

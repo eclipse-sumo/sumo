@@ -162,7 +162,7 @@ private:
         typedef std::vector<SubSet> Cont;
 
         /// The container holding the subsets
-        Cont _cont;
+        Cont myCont;
 
     };
 

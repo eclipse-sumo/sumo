@@ -56,12 +56,12 @@ ROEdgeVector::ROEdgeVector()
 
 ROEdgeVector::ROEdgeVector(size_t toReserve)
 {
-    _edges.reserve(toReserve);
+    myEdges.reserve(toReserve);
 }
 
 
 ROEdgeVector::ROEdgeVector(const EdgeVector &edges)
-        : _edges(edges)
+        : myEdges(edges)
 {}
 
 
@@ -72,14 +72,14 @@ ROEdgeVector::~ROEdgeVector()
 void
 ROEdgeVector::add(const ROEdge *edge)
 {
-    _edges.push_back(edge);
+    myEdges.push_back(edge);
 }
 
 
 std::ostream &operator<<(std::ostream &os, const ROEdgeVector &ev)
 {
-    for (ROEdgeVector::EdgeVector::const_iterator j=ev._edges.begin(); j!=ev._edges.end(); j++) {
-        if (j!=ev._edges.begin()) {
+    for (ROEdgeVector::EdgeVector::const_iterator j=ev.myEdges.begin(); j!=ev.myEdges.end(); j++) {
+        if (j!=ev.myEdges.begin()) {
             os << ' ';
         }
         os << (*j)->getID();
@@ -91,20 +91,20 @@ std::ostream &operator<<(std::ostream &os, const ROEdgeVector &ev)
 const ROEdge *
 ROEdgeVector::getFirst() const
 {
-    if (_edges.size()==0) {
+    if (myEdges.size()==0) {
         throw OutOfBoundsException();
     }
-    return _edges[0];
+    return myEdges[0];
 }
 
 
 const ROEdge *
 ROEdgeVector::getLast() const
 {
-    if (_edges.size()==0) {
+    if (myEdges.size()==0) {
         throw OutOfBoundsException();
     }
-    return _edges[_edges.size()-1];
+    return myEdges[myEdges.size()-1];
 }
 
 
@@ -113,7 +113,7 @@ std::deque<std::string>
 ROEdgeVector::getIDs() const
 {
     std::deque<std::string> ret;
-    for (EdgeVector::const_iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         ret.push_back((*i)->getID());
     }
     return ret;
@@ -124,7 +124,7 @@ SUMOReal
 ROEdgeVector::recomputeCosts(const ROVehicle *const v, SUMOTime time) const
 {
     SUMOReal costs = 0;
-    for (EdgeVector::const_iterator i=_edges.begin(); i!=_edges.end(); i++) {
+    for (EdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         costs += (*i)->getCost(v, time);
         time += ((SUMOTime)(*i)->getDuration(v, time));
     }
@@ -139,7 +139,7 @@ ROEdgeVector::equals(const ROEdgeVector &vc) const
         return false;
     }
     for (size_t i=0; i<size(); i++) {
-        if (_edges[i]!=vc._edges[i]) {
+        if (myEdges[i]!=vc.myEdges[i]) {
             return false;
         }
     }
@@ -150,22 +150,22 @@ ROEdgeVector::equals(const ROEdgeVector &vc) const
 size_t
 ROEdgeVector::size() const
 {
-    return _edges.size();
+    return myEdges.size();
 }
 
 
 void
 ROEdgeVector::clear()
 {
-    _edges.clear();
+    myEdges.clear();
 }
 
 
 ROEdgeVector
 ROEdgeVector::getReverse() const
 {
-    ROEdgeVector ret(_edges.size());
-    for (EdgeVector::const_reverse_iterator i=_edges.rbegin(); i!=_edges.rend(); i++) {
+    ROEdgeVector ret(myEdges.size());
+    for (EdgeVector::const_reverse_iterator i=myEdges.rbegin(); i!=myEdges.rend(); i++) {
         ret.add(*i);
     }
     return ret;
@@ -175,22 +175,22 @@ ROEdgeVector::getReverse() const
 void
 ROEdgeVector::removeEnds()
 {
-    _edges.erase(_edges.begin());
-    _edges.erase(_edges.end()-1);
+    myEdges.erase(myEdges.begin());
+    myEdges.erase(myEdges.end()-1);
 }
 
 
 void
 ROEdgeVector::removeFirst()
 {
-    _edges.erase(_edges.begin());
+    myEdges.erase(myEdges.begin());
 }
 
 
 const ROEdgeVector::EdgeVector &
 ROEdgeVector::getEdges() const
 {
-    return _edges;
+    return myEdges;
 }
 
 
@@ -206,9 +206,9 @@ ROEdgeVector::recheckForLoops()
     {
         int lastReversed = 0;
         bool found = false;
-        for (int i=0; i<(int) _edges.size()/2+1; i++) {
-            for (int j=i+1; j<(int) _edges.size()/2+1; j++) {
-                if (isTurnaround(_edges[i], _edges[j])&&lastReversed<j) {
+        for (int i=0; i<(int) myEdges.size()/2+1; i++) {
+            for (int j=i+1; j<(int) myEdges.size()/2+1; j++) {
+                if (isTurnaround(myEdges[i], myEdges[j])&&lastReversed<j) {
                     lastReversed = j;
                     found = true;
                 }
@@ -216,21 +216,21 @@ ROEdgeVector::recheckForLoops()
         }
         if (found) {
 //            cout << "Erasing from begin to " << lastReversed << endl;
-            _edges.erase(_edges.begin(), _edges.begin()+lastReversed-1);
+            myEdges.erase(myEdges.begin(), myEdges.begin()+lastReversed-1);
         }
     }
     //
-    if (_edges.size()<2) {
+    if (myEdges.size()<2) {
         return;
     }
     // backward
     {
-        int lastReversed = _edges.size()-1;
+        int lastReversed = myEdges.size()-1;
         bool found = false;
-        for (int i=_edges.size()-1; i>=0; i--) {
+        for (int i=myEdges.size()-1; i>=0; i--) {
             for (int j=i-1; j>=0; j--) {
-                if (isTurnaround(_edges[i], _edges[j])&&lastReversed>j) {
-//                    cout << endl << _edges[i]->getID() << " " << _edges[j]->getID() << endl;
+                if (isTurnaround(myEdges[i], myEdges[j])&&lastReversed>j) {
+//                    cout << endl << myEdges[i]->getID() << " " << myEdges[j]->getID() << endl;
                     lastReversed = j;
                     found = true;
                 }
@@ -240,7 +240,7 @@ ROEdgeVector::recheckForLoops()
 //            cout << endl;
 //            cout << (*this) << endl;
 //            cout << "Erasing from "<< lastReversed << " to end " << endl;
-            _edges.erase(_edges.begin()+lastReversed, _edges.end());
+            myEdges.erase(myEdges.begin()+lastReversed, myEdges.end());
 //            cout << (*this) << endl;
 //            cout << "-----------" << endl;
         }

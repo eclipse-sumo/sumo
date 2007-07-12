@@ -60,29 +60,29 @@ GUIGlObjectStorage::~GUIGlObjectStorage()
 void
 GUIGlObjectStorage::registerObject(GUIGlObject *object)
 {
-    _lock.lock();
+    myLock.lock();
     object->setGlID(myAktID);
     myMap[myAktID++] = object;
-    _lock.unlock();
+    myLock.unlock();
 }
 
 
 void
 GUIGlObjectStorage::registerObject(GUIGlObject *object, size_t id)
 {
-    _lock.lock();
+    myLock.lock();
     object->setGlID(id);
     myMap[id] = object;
-    _lock.unlock();
+    myLock.unlock();
 }
 
 
 size_t
 GUIGlObjectStorage::getUniqueID()
 {
-    _lock.lock();
+    myLock.lock();
     size_t ret = myAktID++;
-    _lock.unlock();
+    myLock.unlock();
     return ret;
 }
 
@@ -90,22 +90,22 @@ GUIGlObjectStorage::getUniqueID()
 GUIGlObject *
 GUIGlObjectStorage::getObjectBlocking(size_t id)
 {
-    _lock.lock();
+    myLock.lock();
     ObjectMap::iterator i=myMap.find(id);
     if (i==myMap.end()) {
         i = myBlocked.find(id);
         if (i!=myBlocked.end()) {
             GUIGlObject *o = (*i).second;
-            _lock.unlock();
+            myLock.unlock();
             return o;
         }
-        _lock.unlock();
+        myLock.unlock();
         return 0;
     }
     GUIGlObject *o = (*i).second;
     myMap.erase(id);
     myBlocked[id] = o;
-    _lock.unlock();
+    myLock.unlock();
     return o;
 }
 
@@ -113,7 +113,7 @@ GUIGlObjectStorage::getObjectBlocking(size_t id)
 bool
 GUIGlObjectStorage::remove(size_t id)
 {
-    _lock.lock();
+    myLock.lock();
     ObjectMap::iterator i=myMap.find(id);
     if (i==myMap.end()) {
         i = myBlocked.find(id);
@@ -121,11 +121,11 @@ GUIGlObjectStorage::remove(size_t id)
         GUIGlObject *o = (*i).second;
         myBlocked.erase(id);
         my2Delete[id] = o;
-        _lock.unlock();
+        myLock.unlock();
         return false;
     } else {
         myMap.erase(id);
-        _lock.unlock();
+        myLock.unlock();
         return true;
     }
 }
@@ -134,26 +134,26 @@ GUIGlObjectStorage::remove(size_t id)
 void
 GUIGlObjectStorage::clear()
 {
-    _lock.lock();
+    myLock.lock();
     myMap.clear();
     myAktID = 0;
-    _lock.unlock();
+    myLock.unlock();
 }
 
 
 void
 GUIGlObjectStorage::unblockObject(size_t id)
 {
-    _lock.lock();
+    myLock.lock();
     ObjectMap::iterator i=myBlocked.find(id);
     if (i==myBlocked.end()) {
-        _lock.unlock();
+        myLock.unlock();
         return;
     }
     GUIGlObject *o = (*i).second;
     myBlocked.erase(id);
     myMap[id] = o;
-    _lock.unlock();
+    myLock.unlock();
 }
 
 

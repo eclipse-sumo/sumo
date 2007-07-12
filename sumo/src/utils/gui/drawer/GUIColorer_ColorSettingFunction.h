@@ -48,12 +48,12 @@
  * @class GUIColorer_ColorSettingFunction
  * @brief Does not set a color directly, but calls a function that does it
  */
-template<class _T>
-class GUIColorer_ColorSettingFunction : public GUIBaseColorer<_T>
+template<class myT>
+class GUIColorer_ColorSettingFunction : public GUIBaseColorer<myT>
 {
 public:
     /// Type of the function to execute.
-    typedef void(_T::* Operation)() const;
+    typedef void(myT::* Operation)() const;
 
     /// Constructor
     GUIColorer_ColorSettingFunction(Operation operation)
@@ -66,8 +66,8 @@ public:
 
     /// @name inherited from GUIBaseColorer
     //@{
-    /// Sets the color using a value from the given instance of _T
-    void setGlColor(const _T& i) const
+    /// Sets the color using a value from the given instance of myT
+    void setGlColor(const myT& i) const
     {
         (i.*myOperation)();
     }

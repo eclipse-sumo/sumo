@@ -56,7 +56,7 @@ ROAbstractRouteDefLoader::ROAbstractRouteDefLoader(ROVehicleBuilder &vb,
         SUMOTime begin,
         SUMOTime end,
         const std::string &/*file*/)
-        : _net(net), myBegin(begin), myEnd(end), myVehicleBuilder(vb)
+        : myNet(net), myBegin(begin), myEnd(end), myVehicleBuilder(vb)
 {}
 
 

@@ -346,12 +346,12 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues()
 {
     // compute which font to use
     /*
-    SUMOReal fontIdx = ((SUMOReal) _widthInPixels-300.) / 10.;
+    SUMOReal fontIdx = ((SUMOReal) myWidthInPixels-300.) / 10.;
     if(fontIdx<=0) fontIdx = 1;
     if(fontIdx>4) fontIdx = 4;
     */
     pfSetScale((SUMOReal) 0.1);
-    pfSetScaleXY((SUMOReal)(.1*300./_widthInPixels), (SUMOReal)(.1*300./(SUMOReal) _heightInPixels));
+    pfSetScaleXY((SUMOReal)(.1*300./myWidthInPixels), (SUMOReal)(.1*300./(SUMOReal) myHeightInPixels));
 
 //    GUITexturesHelper::getFontRenderer().SetActiveFont(4-fontIdx);
     //
@@ -364,10 +364,10 @@ GUIParameterTracker::GUIParameterTrackerPanel::drawValues()
     for (TrackedVarsVector::iterator i=myParent->myTracked.begin(); i!=myParent->myTracked.end(); i++) {
         TrackerValueDesc *desc = *i;
         drawValue(*desc,
-                  (SUMOReal) _widthInPixels / (SUMOReal) myParent->myTracked.size() *(SUMOReal) run);
+                  (SUMOReal) myWidthInPixels / (SUMOReal) myParent->myTracked.size() *(SUMOReal) run);
         run++;
     }
-//    GUITexturesHelper::getFontRenderer().Draw(_widthInPixels, _heightInPixels);//this, width, height);
+//    GUITexturesHelper::getFontRenderer().Draw(myWidthInPixels, myHeightInPixels);//this, width, height);
 }
 
 
@@ -573,7 +573,7 @@ SUMOReal
 GUIParameterTracker::GUIParameterTrackerPanel::patchHeightVal(TrackerValueDesc &desc,
         SUMOReal d)
 {
-    SUMOReal height = (SUMOReal) _heightInPixels;
+    SUMOReal height = (SUMOReal) myHeightInPixels;
     SUMOReal range = (SUMOReal) desc.getRange();
     SUMOReal yoff = (SUMOReal) desc.getYCenter();
     SUMOReal abs = (height) * (((SUMOReal)d-yoff)/range) * 0.8f;
@@ -586,9 +586,9 @@ GUIParameterTracker::GUIParameterTrackerPanel::onConfigure(FXObject*,
         FXSelector,void*)
 {
     if (makeCurrent()) {
-        _widthInPixels = myParent->getMaxGLWidth();
-        _heightInPixels = myParent->getMaxGLHeight();
-        glViewport(0, 0, _widthInPixels-1, _heightInPixels-1);
+        myWidthInPixels = myParent->getMaxGLWidth();
+        myHeightInPixels = myParent->getMaxGLHeight();
+        glViewport(0, 0, myWidthInPixels-1, myHeightInPixels-1);
         glClearColor(1.0, 1.0, 1.0, 1);
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_LIGHTING);
@@ -612,10 +612,10 @@ GUIParameterTracker::GUIParameterTrackerPanel::onPaint(FXObject*,
         return 1;
     }
     if (makeCurrent()) {
-        _widthInPixels = getWidth();
-        _heightInPixels = getHeight();
-        if (_widthInPixels!=0&&_heightInPixels!=0) {
-            glViewport(0, 0, _widthInPixels-1, _heightInPixels-1);
+        myWidthInPixels = getWidth();
+        myHeightInPixels = getHeight();
+        if (myWidthInPixels!=0&&myHeightInPixels!=0) {
+            glViewport(0, 0, myWidthInPixels-1, myHeightInPixels-1);
             glClearColor(1.0, 1.0, 1.0, 1);
             glDisable(GL_DEPTH_TEST);
             glDisable(GL_LIGHTING);

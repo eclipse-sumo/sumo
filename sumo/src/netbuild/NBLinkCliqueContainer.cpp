@@ -73,9 +73,9 @@ NBLinkCliqueContainer::computePhases(NBLinkPossibilityMatrix *,
                                      bool appendSmallestOnly,
                                      bool skipLarger) const
 {
-    assert(_cliques.size()!=0);
+    assert(myCliques.size()!=0);
     NBTrafficLightPhases *ret = new NBTrafficLightPhases(*this, noLinks);
-    size_t clAnzahl = _cliques.size();
+    size_t clAnzahl = myCliques.size();
 //    std::bitset<64> aktStrNr;
     std::bitset<64> vorhanden;
     std::bitset<64> needed;
@@ -85,8 +85,8 @@ NBLinkCliqueContainer::computePhases(NBLinkPossibilityMatrix *,
     }
     size_t minSize = INT_MAX;
     usedCliques.push_back(0);
-    assert(_cliques.size()>0);
-    vorhanden = _cliques[0];
+    assert(myCliques.size()>0);
+    vorhanden = myCliques[0];
     // maybe the first is already enough
     if (vorhanden==needed) {
         ret->add(usedCliques);
@@ -94,17 +94,17 @@ NBLinkCliqueContainer::computePhases(NBLinkPossibilityMatrix *,
     }
     // loop adding valid phase lists
     for (size_t i=1;
-            i<_cliques.size() &&  // do not read over the available elements
+            i<myCliques.size() &&  // do not read over the available elements
             (usedCliques.size()!=0 ||  // check all combinations (until stack empty)
-             i<_cliques.size()-1);) {
+             i<myCliques.size()-1);) {
         // step 1
         while (vorhanden!=needed && i<clAnzahl &&
                 (!skipLarger || usedCliques.size()<minSize-1) &&
                 furtherResolutionPossible(vorhanden, needed, i)
               ) {
             usedCliques.push_back(i);
-            assert(i<_cliques.size());
-            vorhanden |= _cliques[i++];//getIncludedCliqueLinks(v, clVektor, ++i);//(*v)[(*clVektor)[++i]];
+            assert(i<myCliques.size());
+            vorhanden |= myCliques[i++];//getIncludedCliqueLinks(v, clVektor, ++i);//(*v)[(*clVektor)[++i]];
         }
         // Note: we do not check for a maximum number of joinable cliques
         // Note: the order of steps was changed
@@ -129,15 +129,15 @@ NBLinkCliqueContainer::computePhases(NBLinkPossibilityMatrix *,
                     furtherResolutionPossible(vorhanden, needed, i+1)) {
                 vorhanden.reset();
                 for (std::vector<size_t>::iterator l=usedCliques.begin(); l!=usedCliques.end(); l++) {
-                    assert(*l<_cliques.size());
-                    vorhanden |= _cliques[*l];
+                    assert(*l<myCliques.size());
+                    vorhanden |= myCliques[*l];
                 }
                 newFound = true;
                 i++;
             }
         }
         if (!newFound&&usedCliques.size()==0) {
-            i = _cliques.size() + 1;
+            i = myCliques.size() + 1;
         }
     }
     //
@@ -148,8 +148,8 @@ NBLinkCliqueContainer::computePhases(NBLinkPossibilityMatrix *,
 bool
 NBLinkCliqueContainer::test(size_t itemIndex, size_t linkIndex) const
 {
-    assert(itemIndex<_cliques.size());
-    return _cliques[itemIndex].test(linkIndex);
+    assert(itemIndex<myCliques.size());
+    return myCliques[itemIndex].test(linkIndex);
 }
 
 
@@ -158,8 +158,8 @@ NBLinkCliqueContainer::furtherResolutionPossible(std::bitset<64> vorhanden,
         std::bitset<64> needed,
         size_t next) const
 {
-    if (next<_further.size()) {
-        vorhanden |= _further[next];
+    if (next<myFurther.size()) {
+        vorhanden |= myFurther[next];
     }
     return vorhanden==needed;
 }
@@ -214,7 +214,7 @@ NBLinkCliqueContainer::buildCliques(NBLinkPossibilityMatrix *v,
         letzterSchnitt &= verbStromNr;
         if (letzterSchnitt.none()) {
             assert(j<(int) schnitt.size());
-            _cliques.push_back(schnitt[j]);
+            myCliques.push_back(schnitt[j]);
         }
         //
         assert(i<idxKeller.size());
@@ -239,7 +239,7 @@ NBLinkCliqueContainer::buildCliques(NBLinkPossibilityMatrix *v,
     }
 #ifdef TL_DEBUG
     DEBUG_OUT << "Cliquen:" << endl;
-    for (LinkCliqueContainer::iterator a=_cliques.begin(); a!=_cliques.end(); a++) {
+    for (LinkCliqueContainer::iterator a=myCliques.begin(); a!=myCliques.end(); a++) {
         DEBUG_OUT << (*a) << endl;
     }
     DEBUG_OUT << "--------------------------------" << endl;
@@ -253,23 +253,23 @@ NBLinkCliqueContainer::buildFurther()
     std::bitset<64> current;
     size_t i;
     // preinit the further-structure
-    _further.reserve(_cliques.size());
-    for (i=0; i<_cliques.size(); i++) {
-        _further.push_back(current);
+    myFurther.reserve(myCliques.size());
+    for (i=0; i<myCliques.size(); i++) {
+        myFurther.push_back(current);
     }
     // compute the following clique definition
-    for (i=0; i<_cliques.size(); i++) {
+    for (i=0; i<myCliques.size(); i++) {
         current.reset();
-        for (size_t j=i; j<_cliques.size(); j++) {
-            current |= _cliques[j];
+        for (size_t j=i; j<myCliques.size(); j++) {
+            current |= myCliques[j];
         }
-        _further[i] = current;
+        myFurther[i] = current;
     }
     //
 #ifdef TL_DEBUG
     DEBUG_OUT << "------------" << endl << "Cliquen: " << endl;
-    for (i=0; i<_cliques.size(); i++) {
-        DEBUG_OUT << _cliques[i] << endl;
+    for (i=0; i<myCliques.size(); i++) {
+        DEBUG_OUT << myCliques[i] << endl;
     }
 #endif
 }

@@ -71,16 +71,16 @@ void
 RORouteDef::patchID()
 {
     // patch the name
-    size_t idx = _id.rfind('_');
+    size_t idx = myId.rfind('_');
     if (idx!=string::npos) {
         try {
-            int no = TplConvert<char>::_2int(_id.substr(idx+1).c_str());
-            _id = _id.substr(0, idx+1) + toString<int>(no+1);
+            int no = TplConvert<char>::my2int(myId.substr(idx+1).c_str());
+            myId = myId.substr(0, idx+1) + toString<int>(no+1);
         } catch (NumberFormatException &) {
-            _id = _id + "_0";
+            myId = myId + "_0";
         }
     } else {
-        _id = _id + "_0";
+        myId = myId + "_0";
     }
 }
 

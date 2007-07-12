@@ -175,7 +175,7 @@ private:
     typedef std::map<std::string, NBEdge*> EdgeCont;
 
     /// the instance of the dictionary
-    EdgeCont _edges;
+    EdgeCont myEdges;
 
     /// the number of splits of edges during the building
     size_t myEdgesSplit;

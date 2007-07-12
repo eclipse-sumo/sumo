@@ -89,7 +89,7 @@ public:
     SUMOTime getCurrentTimeStep() const;
 
     /// Initialises the handler for reading
-    virtual bool init(OptionsCont &_options);
+    virtual bool init(OptionsCont &myOptions);
 
 protected:
     /** @brief reads the next route

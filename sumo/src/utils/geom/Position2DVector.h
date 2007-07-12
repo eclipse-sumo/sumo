@@ -203,7 +203,7 @@ public:
 
     private:
         /// the edge to compute the relative angle of
-        Position2D _center;
+        Position2D myCenter;
 
     };
 

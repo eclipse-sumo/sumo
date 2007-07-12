@@ -69,12 +69,12 @@ NIArtemisParser_Links::myDependentReport()
     string id = myLineParser.get("ID");
     string name = myLineParser.get("Name");
     SUMOReal length =
-        TplConvert<char>::_2SUMOReal(myLineParser.get("Length").c_str());
+        TplConvert<char>::my2SUMOReal(myLineParser.get("Length").c_str());
     SUMOReal speed =
-        TplConvert<char>::_2SUMOReal(myLineParser.get("Speed").c_str());
+        TplConvert<char>::my2SUMOReal(myLineParser.get("Speed").c_str());
     // costfact omitted
     int laneno =
-        TplConvert<char>::_2int(myLineParser.get("NumLanes").c_str());
+        TplConvert<char>::my2int(myLineParser.get("NumLanes").c_str());
     // rest omitted (by now)
 // !!! right-of-way
 // !!! prio

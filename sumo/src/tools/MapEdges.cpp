@@ -105,8 +105,8 @@ getAttr(string from, string attrName)
 void
 MapEdges::loadNet(const char *net, int dic)
 {
-    char buffer[_MAX_PATH];
-    getcwd(buffer,_MAX_PATH);
+    char buffer[myMAX_PATH];
+    getcwd(buffer,myMAX_PATH);
     ifstream out(net);
     if (!out) {
         cerr << "cannot open file: " << net << endl;

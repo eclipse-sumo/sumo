@@ -48,9 +48,9 @@ GfxConvHelper::parseColor(const std::string &coldef)
     if(st.size()<3) {
         throw EmptyData();
     }
-    SUMOReal r = TplConvert<char>::_2SUMOReal(st.next().c_str());
-    SUMOReal g = TplConvert<char>::_2SUMOReal(st.next().c_str());
-    SUMOReal b = TplConvert<char>::_2SUMOReal(st.next().c_str());
+    SUMOReal r = TplConvert<char>::my2SUMOReal(st.next().c_str());
+    SUMOReal g = TplConvert<char>::my2SUMOReal(st.next().c_str());
+    SUMOReal b = TplConvert<char>::my2SUMOReal(st.next().c_str());
     return RGBColor(r, g, b);
 }
 

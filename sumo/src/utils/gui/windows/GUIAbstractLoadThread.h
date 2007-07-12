@@ -89,7 +89,7 @@ protected:
     MFXInterThreadEventClient *myParent;
 
     /// the path to load the simulation from
-    std::string _file;
+    std::string myFile;
 
     /** @brief The instances of message retriever encapsulations
         Needed to be deleted from the handler later on */

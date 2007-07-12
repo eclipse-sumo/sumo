@@ -46,8 +46,8 @@
  * @class GUIColorer_SingleColor
  * @brief Uses a single color for coloring
  */
-template<class _T>
-class GUIColorer_SingleColor : public GUIBaseColorer<_T>
+template<class myT>
+class GUIColorer_SingleColor : public GUIBaseColorer<myT>
 {
 public:
     /// Constructor
@@ -61,8 +61,8 @@ public:
 
     /// @name inherited from GUIBaseColorer
     //@{
-    /// Sets the color using a value from the given instance of _T
-    void setGlColor(const _T&) const
+    /// Sets the color using a value from the given instance of myT
+    void setGlColor(const myT&) const
     {
         glColor3d(myColor.red(), myColor.green(), myColor.blue());
     }

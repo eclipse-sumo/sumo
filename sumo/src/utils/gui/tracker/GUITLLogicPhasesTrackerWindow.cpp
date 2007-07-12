@@ -494,14 +494,14 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::~GUITLLogicPhasesTr
 size_t
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::getHeightInPixels() const
 {
-    return _heightInPixels;
+    return myHeightInPixels;
 }
 
 
 size_t
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::getWidthInPixels() const
 {
-    return _widthInPixels;
+    return myWidthInPixels;
 }
 
 
@@ -510,9 +510,9 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure(
     FXObject*,FXSelector,void*)
 {
     if (makeCurrent()) {
-        _widthInPixels = myParent->getMaxGLWidth();
-        _heightInPixels = myParent->getMaxGLHeight();
-        glViewport(0, 0, _widthInPixels-1, _heightInPixels-1);
+        myWidthInPixels = myParent->getMaxGLWidth();
+        myHeightInPixels = myParent->getMaxGLHeight();
+        glViewport(0, 0, myWidthInPixels-1, myHeightInPixels-1);
         glClearColor(0, 0, 0, 1);
         glDisable(GL_DEPTH_TEST);
         glDisable(GL_LIGHTING);
@@ -535,10 +535,10 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint(
         return 1;
     }
     if (makeCurrent()) {
-        _widthInPixels = getWidth();
-        _heightInPixels = getHeight();
-        if (_widthInPixels!=0&&_heightInPixels!=0) {
-            glViewport(0, 0, _widthInPixels-1, _heightInPixels-1);
+        myWidthInPixels = getWidth();
+        myHeightInPixels = getHeight();
+        if (myWidthInPixels!=0&&myHeightInPixels!=0) {
+            glViewport(0, 0, myWidthInPixels-1, myHeightInPixels-1);
             glClearColor(0, 0, 0, 1);
             glDisable(GL_DEPTH_TEST);
             glDisable(GL_LIGHTING);

@@ -108,7 +108,7 @@ OptionsIO::loadConfiguration() throw(ProcessError)
             throw ProcessError("Could not load configuration '" + path + "'.");
         }
     } catch (const XMLException &e) {
-        throw ProcessError("Could not load configuration '" + path + "':\n " + TplConvert<XMLCh>::_2str(e.getMessage()));
+        throw ProcessError("Could not load configuration '" + path + "':\n " + TplConvert<XMLCh>::my2str(e.getMessage()));
     }
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
 }

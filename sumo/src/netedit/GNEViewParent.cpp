@@ -115,20 +115,20 @@ GNEViewParent::init(GUISUMOViewParent::ViewType view, FXGLCanvas *share, GUINet 
     default:
         if (share!=0) {
             buildEditFrame(myContentFrame);
-            _view =
+            myView =
                 new GNEViewTraffic(myContentFrame, *myParent, this, net,
                                    myParent->getGLVisual(), share);
         } else {
             buildEditFrame(myContentFrame);
-            _view =
+            myView =
                 new GNEViewTraffic(myContentFrame, *myParent, this, net,
                                    myParent->getGLVisual());
-            //if(!(_view->isInEditMode()))
+            //if(!(myView->isInEditMode()))
             //	groupBox->hide();
         }
         break;
     }
-    _view->buildViewToolBars(*this);
+    myView->buildViewToolBars(*this);
 }
 
 

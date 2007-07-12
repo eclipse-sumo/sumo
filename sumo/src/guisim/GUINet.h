@@ -190,10 +190,10 @@ private:
 
 protected:
     /** A grid laid over the network to allow the drawing of visible items only */
-    GUIGrid _grid;
+    GUIGrid myGrid;
 
     /// the networks boundary
-    Boundary _boundary;
+    Boundary myBoundary;
 
     /// The wrapper for the network
     GUINetWrapper *myWrapper;

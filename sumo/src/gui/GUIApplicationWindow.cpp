@@ -738,7 +738,7 @@ GUIApplicationWindow::onCmdStart(FXObject*,FXSelector,void*)
     // check whether it was started before and paused;
     if (!_wasStarted) {
         myRunThread->begin();
-        _wasStarted = true;
+        myWasStarted = true;
     }
     myRunThread->resume();
     return 1;
@@ -764,7 +764,7 @@ GUIApplicationWindow::onCmdStep(FXObject*,FXSelector,void*)
     // check whether it was started before and paused;
     if (!_wasStarted) {
         myRunThread->begin();
-        _wasStarted = true;
+        myWasStarted = true;
     }
     myRunThread->singleStep();
     return 1;
@@ -972,22 +972,22 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
     GUIEvent_SimulationLoaded *ec =
         static_cast<GUIEvent_SimulationLoaded*>(e);
     // check whether the loading was successfull
-    if (ec->_net==0) {
+    if (ec->myNet==0) {
         // report failure
-        string text = "Loading of '" + ec->_file + "' failed!";
+        string text = "Loading of '" + ec->myFile + "' failed!";
         myStatusbar->getStatusLine()->setText(text.c_str());
         myStatusbar->getStatusLine()->setNormalText(text.c_str());
     } else {
         // initialise global information
-        gSimInfo = new GUISimInfo(*(ec->_net));
-        gNetWrapper = ec->_net->getWrapper();
+        gSimInfo = new GUISimInfo(*(ec->myNet));
+        gNetWrapper = ec->myNet->getWrapper();
         // report success
-        string text = "'" + ec->_file + "' loaded.";
+        string text = "'" + ec->myFile + "' loaded.";
         myStatusbar->getStatusLine()->setText(text.c_str());
         myStatusbar->getStatusLine()->setNormalText(text.c_str());
         // initialise simulation thread
-        myRunThread->init(ec->_net, ec->_begin, ec->_end);
-        _wasStarted = false;
+        myRunThread->init(ec->myNet, ec->myBegin, ec->myEnd);
+        myWasStarted = false;
         // initialise views
         myViewNumber = 0;
 #ifdef HAVE_MESOSIM
@@ -1000,7 +1000,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         }
 #endif
         // set simulation name on the caption
-        string caption = "SUMO " + string(VERSION_STRING) + " - " + ec->_file;
+        string caption = "SUMO " + string(VERSION_STRING) + " - " + ec->myFile;
         setTitle(caption.c_str());
         ostringstream str;
         // set simulation step begin information
@@ -1009,7 +1009,7 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
     }
     getApp()->endWaitCursor();
     // start if wished
-    if (myRunAtBegin&&ec->_net!=0&&myRunThread->simulationIsStartable()) {
+    if (myRunAtBegin&&ec->myNet!=0&&myRunThread->simulationIsStartable()) {
         onCmdStart(0, 0, 0);
     }
     update();

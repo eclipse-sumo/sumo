@@ -159,7 +159,7 @@ class GUITLLogicPhasesTrackerPanel : public FXGLCanvas
         GUITLLogicPhasesTrackerWindow *myParent;
 
         /// the sizes of the window
-        int _widthInPixels, _heightInPixels;
+        int myWidthInPixels, myHeightInPixels;
 
         /// The main application
         GUIMainWindow *myApplication;

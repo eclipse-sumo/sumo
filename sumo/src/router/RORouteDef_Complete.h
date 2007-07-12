@@ -87,10 +87,10 @@ public:
 
 protected:
     /// The list of edges the driver passes
-    ROEdgeVector _edges;
+    ROEdgeVector myEdges;
 
     /// The begin of the route
-    SUMOTime _startTime;
+    SUMOTime myStartTime;
 
 };
 

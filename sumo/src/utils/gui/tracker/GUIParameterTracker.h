@@ -146,7 +146,7 @@ class GUIParameterTrackerPanel : public FXGLCanvas
         GUIParameterTracker *myParent;
 
         /// the sizes of the window
-        int _widthInPixels, _heightInPixels;
+        int myWidthInPixels, myHeightInPixels;
 
         /// The main application
         GUIMainWindow *myApplication;

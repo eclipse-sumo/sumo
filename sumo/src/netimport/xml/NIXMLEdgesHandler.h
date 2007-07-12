@@ -124,7 +124,7 @@ private:
 
 private:
     /// A reference to the program's options
-    OptionsCont &_options;
+    OptionsCont &myOptions;
 
     /// The current edge's id
     std::string myCurrentID;

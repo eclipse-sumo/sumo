@@ -106,7 +106,7 @@ public:
 
     static void searchForConnection(int id);
 
-    static void _debugOut(std::ostream &into);
+    static void myDebugOut(std::ostream &into);
 
     static size_t dictSize();
 
@@ -144,12 +144,12 @@ private:
     class same_direction_sorter
     {
     private:
-        SUMOReal _angle;
+        SUMOReal myAngle;
 
     public:
         /// constructor
         explicit same_direction_sorter(SUMOReal angle)
-                : _angle(angle)
+                : myAngle(angle)
         { }
 
     public:
@@ -157,9 +157,9 @@ private:
         int operator()(NIVissimConnection *c1, NIVissimConnection *c2) const
         {
             return
-                fabs(c1->getGeometry().beginEndAngle()-_angle)
+                fabs(c1->getGeometry().beginEndAngle()-myAngle)
                 <
-                fabs(c2->getGeometry().beginEndAngle()-_angle);
+                fabs(c2->getGeometry().beginEndAngle()-myAngle);
         }
     };
 

@@ -167,10 +167,10 @@ private:
 
 private:
     /** the running internal id */
-    int     _internalID;
+    int     myInternalID;
 
     /** the map of names to nodes */
-    NodeCont   _nodes;
+    NodeCont   myNodes;
 
 private:
     /** invalid copy constructor */

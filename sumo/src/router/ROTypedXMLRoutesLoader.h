@@ -99,13 +99,13 @@ protected:
 
 protected:
     /// The parser used
-    SAX2XMLReader *_parser;
+    SAX2XMLReader *myParser;
 
     /// Information about the current position within the file
-    XMLPScanToken _token;
+    XMLPScanToken myToken;
 
     /// Information whether the whole file has been parsed
-    bool _ended;
+    bool myEnded;
 
 };
 

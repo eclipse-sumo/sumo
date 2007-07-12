@@ -85,10 +85,10 @@ class ApproachingDivider : public Bresenham::BresenhamCallBack
     {
     private:
         /// the list of edges that approach the current edge
-        std::vector<NBEdge*> *_approaching;
+        std::vector<NBEdge*> *myApproaching;
 
         /// the approached current edge
-        NBEdge *_currentOutgoing;
+        NBEdge *myCurrentOutgoing;
 
     public:
         /// constructor
@@ -126,16 +126,16 @@ class ApproachingDivider : public Bresenham::BresenhamCallBack
     };
 
     /** a counter for the no-junctions build */
-    static int _noDistricts;
+    static int myNoDistricts;
 
     /** a counter for the no-junctions build */
-    static int _noUnregulatedJunctions;
+    static int myNoUnregulatedJunctions;
 
     /** a counter for priority-junctions build */
-    static int _noPriorityJunctions;
+    static int myNoPriorityJunctions;
 
     /** a counter for right-before-left-junctions build */
-    static int _noRightBeforeLeftJunctions;
+    static int myNoRightBeforeLeftJunctions;
 
     friend class NBEdgeCont;
 
@@ -322,7 +322,7 @@ private:
     void setPriorityJunctionPriorities();
 
     /** used while fine sorting the incoming and outgoing edges, this method
-        performs the swapping of two edges in the _allEdges-list when the
+        performs the swapping of two edges in the myAllEdges-list when the
         outgoing is in clockwise direction to the incoming */
     bool swapWhenReversed(const std::vector<NBEdge*>::iterator &i1,
                           const std::vector<NBEdge*>::iterator &i2);
@@ -373,28 +373,28 @@ private:
 
 private:
     /** the name of the node */
-    std::string  _id;
+    std::string  myId;
 
     /// The position the node lies at
     Position2D myPosition;
 
     /** the logic-key */
-    //std::string _key;
+    //std::string myKey;
 
     /// vector of incoming edges
-    std::vector<NBEdge*> *_incomingEdges;
+    std::vector<NBEdge*> *myIncomingEdges;
 
     /// vector of outgoing edges
-    std::vector<NBEdge*> *_outgoingEdges;
+    std::vector<NBEdge*> *myOutgoingEdges;
 
     /// a vector of incoming and outgoing edges
-    std::vector<NBEdge*> _allEdges;
+    std::vector<NBEdge*> myAllEdges;
 
     /// the type of the junction
-    BasicNodeType   _type;
+    BasicNodeType   myType;
 
     /** The container for connection block dependencies */
-    NBConnectionProhibits _blockedConnections;
+    NBConnectionProhibits myBlockedConnections;
 
     /// The district the node is the centre of
     NBDistrict *myDistrict;
@@ -402,7 +402,7 @@ private:
     /// the (outer) shape of the junction
     Position2DVector myPoly;
 
-    NBRequest *_request;
+    NBRequest *myRequest;
 
     std::set<NBTrafficLightDefinition*> myTrafficLights;
 

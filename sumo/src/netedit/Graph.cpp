@@ -504,7 +504,7 @@ char* Graph::SUMORealtostr(SUMOReal i,int count)
 {
     int dec;
     int sig;
-    char* buffer = _ecvt(i,count,&dec,&sig);
+    char* buffer = myEcvt(i,count,&dec,&sig);
 
     return (buffer);
 }

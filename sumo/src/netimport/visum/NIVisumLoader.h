@@ -263,10 +263,10 @@ private:
     /** @brief the parser to parse the information from the data lines
      *
      * the visum format seems to vary, so a named parser is needed */
-    NamedColumnsParser _lineParser;
+    NamedColumnsParser myLineParser;
 
     /// the converter to compute the lane number of edges from their capacity
-    NBCapacity2Lanes _capacity2Lanes;
+    NBCapacity2Lanes myCapacity2Lanes;
 
     /// the used vsystypes
     VSysTypeNames myVSysTypes;

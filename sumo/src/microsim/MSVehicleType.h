@@ -154,12 +154,12 @@ public:
 
     SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const
     {
-        return MIN2(_vsafe(speed, myDecel, gap2pred, predSpeed), maxNextSpeed(speed));
+        return MIN2(myVsafe(speed, myDecel, gap2pred, predSpeed), maxNextSpeed(speed));
     }
 
     SUMOReal ffeS(SUMOReal speed, SUMOReal gap2pred) const
     {
-        return MIN2(_vsafe(speed, myDecel, gap2pred, 0), maxNextSpeed(speed));
+        return MIN2(myVsafe(speed, myDecel, gap2pred, 0), maxNextSpeed(speed));
     }
 
     SUMOReal getSecureGap(SUMOReal speed, SUMOReal predSpeed, SUMOReal predLength) const
@@ -253,7 +253,7 @@ public:
 
 protected:
     /** Returns the SK-vsafe. */
-    SUMOReal _vsafe(SUMOReal currentSpeed, SUMOReal /*decelAbility*/,
+    SUMOReal myVsafe(SUMOReal currentSpeed, SUMOReal /*decelAbility*/,
                     SUMOReal gap2pred, SUMOReal predSpeed) const
     {
         if (predSpeed==0&&gap2pred<0.01) {

@@ -110,7 +110,7 @@ private:
     size_t myAktID;
 
     /// A lock to avoid parallel access on the storages
-    MFXMutex _lock;
+    MFXMutex myLock;
 
 private:
     /// Invalidated copy constructor

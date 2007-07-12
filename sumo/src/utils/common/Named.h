@@ -44,7 +44,7 @@ class Named
 {
 public:
     /// Constructor
-    Named(const std::string &id) : _id(id)
+    Named(const std::string &id) : myId(id)
     { }
 
     /// Destructor
@@ -54,12 +54,12 @@ public:
     /// Returns the name
     const std::string &getID() const
     {
-        return _id;
+        return myId;
     }
 
 protected:
     /// The name of the object
-    std::string _id;
+    std::string myId;
 
 };
 

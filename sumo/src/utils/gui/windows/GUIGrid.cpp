@@ -65,15 +65,15 @@ GUIGrid::Set::add(size_t no)
     size_t index = no >> 5;
     size_t pos = no - (index<<5);
     // check whether an entry with the same index exists
-    Cont::iterator i = find_if(_cont.begin(), _cont.end(),
+    Cont::iterator i = find_if(myCont.begin(), myCont.end(),
                                index_finder(index));
-    if (i==_cont.end()) {
+    if (i==myCont.end()) {
         // if not, build a new index
         SubSet ss;
         ss.myIndex = index;
         ss.mySet = 1<<pos;
         // ... and add it
-        _cont.push_back(ss);
+        myCont.push_back(ss);
     } else {
         // add the information to the index otherwise
         (*i).mySet |= 1<<pos;
@@ -87,14 +87,14 @@ GUIGrid::Set::remove(size_t no)
     size_t index = no >> 5;
     size_t pos = no - (index<<5);
     // check whether an entry with the index exists
-    Cont::iterator i = find_if(_cont.begin(), _cont.end(),
+    Cont::iterator i = find_if(myCont.begin(), myCont.end(),
                                index_finder(index));
-    if (i!=_cont.end()) {
+    if (i!=myCont.end()) {
         // if yes, clear the information
         (*i).mySet &=~(1<<pos);
         // check whether the whoel item can be removed
         if ((*i).mySet==0) {
-            _cont.erase(i);
+            myCont.erase(i);
         }
     }
 }
@@ -103,16 +103,16 @@ GUIGrid::Set::remove(size_t no)
 void
 GUIGrid::Set::removeIfIn(const Set &other)
 {
-    for (Cont::const_iterator j=other._cont.begin(); j!=other._cont.end(); j++) {
+    for (Cont::const_iterator j=other.myCont.begin(); j!=other.myCont.end(); j++) {
         // check whether an entry with the index exists
-        Cont::iterator i = find_if(_cont.begin(), _cont.end(),
+        Cont::iterator i = find_if(myCont.begin(),myCont.end(),
                                    index_finder((*j).myIndex));
-        if (i!=_cont.end()) {
+        if (i!myCont.end()) {
             // if yes, clear the information
             (*i).mySet &=~(*j).mySet;
             // check whether the whoel item can be removed
             if ((*i).mySet==0) {
-                _cont.erase(i);
+                myCont.erase(i);
             }
         }
     }
@@ -122,7 +122,7 @@ GUIGrid::Set::removeIfIn(const Set &other)
 void
 GUIGrid::Set::setInto(size_t *into) const
 {
-    for (Cont::const_iterator j=_cont.begin(); j!=_cont.end(); j++) {
+    for (Cont::const_iterator j=myCont.begin(); j!=myCont.end(); j++) {
         into[(*j).myIndex] |= (*j).mySet;
     }
 }

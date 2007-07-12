@@ -68,20 +68,20 @@ RORDLoader_Cell::RORDLoader_Cell(ROVehicleBuilder &vb, RONet &net,
                                  int maxRoutes,
                                  string file)
         : ROAbstractRouteDefLoader(vb, net, begin, end),
-        _routeIdSupplier("Cell_"+file, 0),
-        _vehicleIdSupplier("Cell_"+file, 0),
-        _driverParser(true, true),
-        _gawronBeta(gawronBeta), _gawronA(gawronA), myHaveEnded(false),
+        myRouteIdSupplier("Cell_"+file, 0),
+        myVehicleIdSupplier("Cell_"+file, 0),
+        myDriverParser(true, true),
+        myGawronBeta(gawronBeta), myGawronA(gawronA), myHaveEnded(false),
         myMaxRoutes(maxRoutes)
 {
     if (file.length()!=0) {
         // initialise the .rinfo-reader
-        _routeDefFile = file + ".rinfo";
+        myRouteDefFile = file + ".rinfo";
         // pre-initialise the .driver-reader
-        _driverFile = file + ".driver";
-        _driverStrm.open(_driverFile.c_str(), fstream::in|fstream::binary);
+        myDriverFile = file + ".driver";
+        myDriverStrm.open(myDriverFile.c_str(), fstream::in|fstream::binary);
         // compute the name of the index file
-        _routeIdxFile = file + ".rindex";
+        myRouteIdxFile = file + ".rindex";
     }
 }
 
@@ -109,45 +109,45 @@ RORDLoader_Cell::myReadRoutesAtLeastUntil(SUMOTime time)
         return true;
     }
     do {
-        if (_driverStrm.eof()) {
+        if (myDriverStrm.eof()) {
             myHaveEnded = true;
             return true;
         }
         // parse the route information
-        _driverParser.parseFrom(_driverStrm);
+        myDriverParser.parseFrom(myDriverStrm);
         // return when the route shall be skipped
-        myCurrentTime = _driverParser.getRouteStart();
+        myCurrentTime = myDriverParser.getRouteStart();
         // check whether the route is not the end
-        if (_driverParser.getRouteStart()==INT_MAX) {
+        if (myDriverParser.getRouteStart()==INT_MAX) {
             return true;
         }
         if (myCurrentTime<myBegin||myCurrentTime>=myEnd) {
             return true;
         }
         // get the route-number
-        int routeNo = _driverParser.getRouteNo();
+        int routeNo = myDriverParser.getRouteNo();
         if (routeNo<0) {
             WRITE_WARNING("Skipping Route: " + toString<int>(routeNo));
             return true; // !!!
         }
         // add the route when it is not yet known
         RORouteDef_Alternatives *altDef =
-            new RORouteDef_Alternatives(_routeIdSupplier.getNext(),
-                                        RGBColor(-1, -1, -1), _driverParser.getLast(),
-                                        _gawronBeta, _gawronA, myMaxRoutes);
+            new RORouteDef_Alternatives(myRouteIdSupplier.getNext(),
+                                        RGBColor(-1, -1, -1), myDriverParser.getLast(),
+                                        myGawronBeta, myGawronA, myMaxRoutes);
         for (size_t i=0; i<3; i++) {
             RORoute *alt = getAlternative(i);
             if (alt!=0) {
                 altDef->addLoadedAlternative(alt);
             }
         }
-        _net.addRouteDef(altDef);
+        myNet.addRouteDef(altDef);
         // add the vehicle type, the vehicle and the route to the net
-        string id = _vehicleIdSupplier.getNext();
-        _net.addVehicle(id, myVehicleBuilder.buildVehicle(
-                            id, altDef, _driverParser.getRouteStart(),
+        string id = myVehicleIdSupplier.getNext();
+        myNet.addVehicle(id, myVehicleBuilder.buildVehicle(
+                            id, altDef, myDriverParser.getRouteStart(),
                             0, RGBColor(), -1, 0));
-    } while (!ended()&&(int) time<_driverParser.getRouteStart());
+    } while (!ended()&&(int) time<myDriverParser.getRouteStart());
     return true;
 }
 
@@ -155,28 +155,28 @@ RORDLoader_Cell::myReadRoutesAtLeastUntil(SUMOTime time)
 RORoute *
 RORDLoader_Cell::getAlternative(size_t pos)
 {
-    SUMOReal cost = _driverParser.getAlternativeCost(pos);
-    SUMOReal prop = _driverParser.getAlternativeProbability(pos);
-    int routeNo = _driverParser.getRouteNo(pos);
+    SUMOReal cost = myDriverParser.getAlternativeCost(pos);
+    SUMOReal prop = myDriverParser.getAlternativeProbability(pos);
+    int routeNo = myDriverParser.getRouteNo(pos);
     // check whether the route was already read
     //  read the route if not
     ROEdgeVector *route = 0;
     assert(routeNo>=0);
-    if (_routes.size()>(size_t) routeNo) {
+    if (myRoutes.size()>(size_t) routeNo) {
         // get the route from the file
-        route = getRouteInfoFrom(_routes[routeNo]);
+        route = getRouteInfoFrom(myRoutes[routeNo]);
     }
-    if (_routes.size()<=(size_t) routeNo||route==0) {
+    if (myRoutes.size()<=(size_t) routeNo||route==0) {
         stringstream buf;
-        buf << "The file '" << _driverFile
+        buf << "The file '" << myDriverFile
         << "'" << endl
         << " references the route #" << routeNo
-        << " which is not available in '" << _routeDefFile
+        << " which is not available in '" << myRouteDefFile
         << "'.";
         MsgHandler::getErrorInstance()->inform(buf.str());
         return 0;
     }
-    RORoute *ret = new RORoute(_routeIdSupplier.getNext(), cost,
+    RORoute *ret = new RORoute(myRouteIdSupplier.getNext(), cost,
                                prop, *route);
     delete route;
     return ret;
@@ -186,7 +186,7 @@ RORDLoader_Cell::getAlternative(size_t pos)
 ROEdgeVector *
 RORDLoader_Cell::getRouteInfoFrom(unsigned long position)
 {
-    ifstream strm(_routeDefFile.c_str());
+    ifstream strm(myRouteDefFile.c_str());
     string result;
     strm.seekg(position, ios::beg);
     getline(strm, result);
@@ -200,9 +200,9 @@ RORDLoader_Cell::getRouteInfoFrom(unsigned long position)
     ROEdgeVector *edges = new ROEdgeVector();
     while (st.hasNext()) {
         string id = st.next();
-        ROEdge *edge = _net.getEdge(id);
+        ROEdge *edge = myNet.getEdge(id);
         if (edge==0) {
-            MsgHandler::getErrorInstance()->inform("A route read from '" + _routeDefFile + "' contains an unknown edge ('" + id + "').");
+            MsgHandler::getErrorInstance()->inform("A route read from '" + myRouteDefFile + "' contains an unknown edge ('" + id + "').");
             delete edges;
             return 0;
         }
@@ -217,24 +217,24 @@ bool
 RORDLoader_Cell::init(OptionsCont &options)
 {
     // check whether non-intel-format shall be used
-    _isIntel = options.getBool("intel-cell");
-    _driverParser.isIntel(options.getBool("intel-cell"));
-    _driverParser.useLast(!options.getBool("no-last-cell"));
+    myIsIntel = options.getBool("intel-cell");
+    myDriverParser.isIntel(options.getBool("intel-cell"));
+    myDriverParser.useLast(!options.getBool("no-last-cell"));
     // read int the positions of routes within the rinfo-file
-    if (FileHelpers::exists(_routeIdxFile)) {
-        _hasIndexFile = true;
-        _lineReader.setFileName(_routeIdxFile);
+    if (FileHelpers::exists(myRouteIdxFile)) {
+        myHasIndexFile = true;
+        myLineReader.setFileName(myRouteIdxFile);
     } else {
-        _hasIndexFile = false;
-        _routes.push_back(0);
-        _lineReader.setFileName(_routeDefFile);
+        myHasIndexFile = false;
+        myRoutes.push_back(0);
+        myLineReader.setFileName(myRouteDefFile);
     }
-    _lineReader.readAll(*this);
+    myLineReader.readAll(*this);
     // save the index file when wished
-    if (!_hasIndexFile&&options.getBool("save-cell-rindex")) {
-        MsgHandler::getMessageInstance()->beginProcessMsg("Saving the cell-rindex file '" + _routeIdxFile + "'...");
-        std::ofstream out(_routeIdxFile.c_str());
-        for (std::vector<unsigned long>::iterator i=_routes.begin(); i!=_routes.end(); i++) {
+    if (!myHasIndexFile&&options.getBool("save-cell-rindex")) {
+        MsgHandler::getMessageInstance()->beginProcessMsg("Saving the cell-rindex file '" + myRouteIdxFile + "'...");
+        std::ofstream out(myRouteIdxFile.c_str());
+        for (std::vector<unsigned long>::iterator i=myRoutes.begin(); i!=myRoutes.end(); i++) {
             out << (*i) << endl;
         }
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
@@ -247,15 +247,15 @@ RORDLoader_Cell::init(OptionsCont &options)
 bool
 RORDLoader_Cell::report(const std::string &result)
 {
-    if (_hasIndexFile) {
+    if (myHasIndexFile) {
         try {
-            _routes.push_back(TplConvert<char>::_2int(result.c_str())); // !!!
+            myRoutes.push_back(TplConvert<char>::my2int(result.c_str())); // !!!
         } catch (NumberFormatException &) {
-            throw ProcessError("Your '" + _routeIdxFile + "' contains non-digits.");
+            throw ProcessError("Your '" + myRouteIdxFile + "' contains non-digits.");
         } catch (EmptyData &) {}
     }
     else {
-        _routes.push_back(_lineReader.getPosition());
+        myRoutes.push_back(myLineReader.getPosition());
     }
     return true;
 }
@@ -264,28 +264,28 @@ RORDLoader_Cell::report(const std::string &result)
 bool
 RORDLoader_Cell::initDriverFile()
 {
-    if (!_driverStrm.good()) {
-        MsgHandler::getErrorInstance()->inform("Problems on opening '" + _driverFile + "'.");
+    if (!myDriverStrm.good()) {
+        MsgHandler::getErrorInstance()->inform("Problems on opening '" + myDriverFile + "'.");
         return false;
     }
     // check for header
-    int mark = FileHelpers::readInt(_driverStrm, _isIntel);
-    int offset = FileHelpers::readInt(_driverStrm, _isIntel);
+    int mark = FileHelpers::readInt(myDriverStrm, myIsIntel);
+    int offset = FileHelpers::readInt(myDriverStrm, myIsIntel);
     /*int makeRouteTime = */
-    FileHelpers::readInt(_driverStrm, _isIntel);
+    FileHelpers::readInt(myDriverStrm, myIsIntel);
     if (mark==INT_MAX) {
         // skip header
-        _driverStrm.seekg(offset, ios::beg);
+        myDriverStrm.seekg(offset, ios::beg);
     }
     //
-    return _driverStrm.good() && !_driverStrm.eof();
+    return myDriverStrm.good() && !myDriverStrm.eof();
 }
 
 
 SUMOTime
 RORDLoader_Cell::getCurrentTimeStep() const
 {
-    return _driverParser.getRouteStart();
+    return myDriverParser.getRouteStart();
 }
 
 

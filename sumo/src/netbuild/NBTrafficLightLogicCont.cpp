@@ -67,11 +67,11 @@ NBTrafficLightLogicCont::insert(const std::string &id,
     if (logics==0) {
         return false;
     }
-    ComputedContType::iterator i=_computed.find(id);
-    if (i!=_computed.end()) {
-        _computed[id]->add(*logics);
+    ComputedContType::iterator i=myComputed.find(id);
+    if (i!=myComputed.end()) {
+        myComputed[id]->add(*logics);
     }
-    _computed[id] = logics;
+    myComputed[id] = logics;
     return true;
 }
 
@@ -80,11 +80,11 @@ bool
 NBTrafficLightLogicCont::insert(const std::string &id,
                                 NBTrafficLightDefinition *logics)
 {
-    DefinitionContType::iterator i=_definitions.find(id);
-    if (i!=_definitions.end()) {
+    DefinitionContType::iterator i=myDefinitions.find(id);
+    if (i!=myDefinitions.end()) {
         return false;
     }
-    _definitions[id] = logics;
+    myDefinitions[id] = logics;
     return true;
 }
 
@@ -92,7 +92,7 @@ NBTrafficLightLogicCont::insert(const std::string &id,
 void
 NBTrafficLightLogicCont::writeXML(std::ostream &into)
 {
-    for (ComputedContType::iterator i=_computed.begin(); i!=_computed.end(); i++) {
+    for (ComputedContType::iterator i=myComputed.begin(); i!=myComputed.end(); i++) {
         (*i).second->writeXML(into);
     }
     into << endl;
@@ -103,16 +103,16 @@ void
 NBTrafficLightLogicCont::clear()
 {
     {
-        for (ComputedContType::iterator i=_computed.begin(); i!=_computed.end(); ++i) {
+        for (ComputedContType::iterator i=myComputed.begin(); i!=myComputed.end(); ++i) {
             delete(*i).second;
         }
-        _computed.clear();
+        myComputed.clear();
     }
     {
-        for (DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); ++i) {
+        for (DefinitionContType::iterator i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
             delete(*i).second;
         }
-        _definitions.clear();
+        myDefinitions.clear();
     }
 }
 
@@ -121,7 +121,7 @@ bool
 NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc)
 {
     size_t no = 0;
-    for (DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); i++) {
+    for (DefinitionContType::iterator i=myDefinitions.begin(); i!=myDefinitions.end(); i++) {
         // get the definition
         NBTrafficLightDefinition *def = (*i).second;
         // and insert the result after coputation
@@ -141,7 +141,7 @@ void
 NBTrafficLightLogicCont::remapRemoved(NBEdge *removed, const EdgeVector &incoming,
                                       const EdgeVector &outgoing)
 {
-    for (DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); i++) {
+    for (DefinitionContType::iterator i=myDefinitions.begin(); i!=myDefinitions.end(); i++) {
         // get the definition
         NBTrafficLightDefinition *def = (*i).second;
         def->remapRemoved(removed, incoming, outgoing);
@@ -153,7 +153,7 @@ void
 NBTrafficLightLogicCont::replaceRemoved(NBEdge *removed, int removedLane,
                                         NBEdge *by, int byLane)
 {
-    for (DefinitionContType::iterator i=_definitions.begin(); i!=_definitions.end(); i++) {
+    for (DefinitionContType::iterator i=myDefinitions.begin(); i!=myDefinitions.end(); i++) {
         // get the definition
         NBTrafficLightDefinition *def = (*i).second;
         def->replaceRemoved(removed, removedLane, by, byLane);
@@ -164,8 +164,8 @@ NBTrafficLightLogicCont::replaceRemoved(NBEdge *removed, int removedLane,
 NBTrafficLightDefinition *
 NBTrafficLightLogicCont::getDefinition(const std::string &id)
 {
-    DefinitionContType::iterator i=_definitions.find(id);
-    if (i!=_definitions.end()) {
+    DefinitionContType::iterator i=myDefinitions.find(id);
+    if (i!=myDefinitions.end()) {
         return (*i).second;
     }
     return 0;
@@ -179,11 +179,11 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont &ec)
 {
     DefinitionContType::iterator i;
     // set the information about all participants, first
-    for (i=_definitions.begin(); i!=_definitions.end(); i++) {
+    for (i=myDefinitions.begin(); i!=myDefinitions.end(); i++) {
         (*i).second->setParticipantsInformation();
     }
     // insert the information about the tl-controlling
-    for (i=_definitions.begin(); i!=_definitions.end(); i++) {
+    for (i=myDefinitions.begin(); i!=myDefinitions.end(); i++) {
         (*i).second->setTLControllingInformation(ec);
     }
     return true;

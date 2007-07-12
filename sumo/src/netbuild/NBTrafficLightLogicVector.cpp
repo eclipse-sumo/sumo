@@ -57,7 +57,7 @@ NBTrafficLightLogicVector::NBTrafficLightLogicVector(
 
 NBTrafficLightLogicVector::~NBTrafficLightLogicVector()
 {
-    for (LogicVector::iterator i=_cont.begin(); i!=_cont.end(); i++) {
+    for (LogicVector::iterator i=myCont.begin(); i!=myCont.end(); i++) {
         delete(*i);
     }
 }
@@ -70,7 +70,7 @@ NBTrafficLightLogicVector::add(NBTrafficLightLogic *logic)
         return;
     }
     if (!contains(logic)) {
-        _cont.push_back(logic);
+        myCont.push_back(logic);
     } else {
         delete logic;
     }
@@ -80,7 +80,7 @@ NBTrafficLightLogicVector::add(NBTrafficLightLogic *logic)
 void
 NBTrafficLightLogicVector::add(const NBTrafficLightLogicVector &cont)
 {
-    for (LogicVector::const_iterator i=cont._cont.begin(); i!=cont._cont.end(); i++) {
+    for (LogicVector::const_iterator i=cont.myCont.begin(); i!=cont.myCont.end(); i++) {
         if (!contains(*i)) {
             NBTrafficLightLogic *logic = *i;
             add(new NBTrafficLightLogic(*logic));
@@ -100,8 +100,8 @@ NBTrafficLightLogicVector::writeXML(std::ostream &os) const
         inLanes.insert(id);
     }
     size_t pos = 0;
-    (*(_cont.begin()))->writeXML(os, pos++, distance, myType, inLanes);
-//    for(LogicVector::const_iterator i=_cont.begin(); i!=_cont.end(); i++) {
+    (*(myCont.begin()))->writeXML(os, pos++, distance, myType, inLanes);
+//    for(LogicVector::const_iterator i=myCont.begin(); i!=myCont.end(); i++) {
 //        (*i)->writeXML(os, pos++, distance, myType, inLanes);
 //    }
 }
@@ -109,7 +109,7 @@ NBTrafficLightLogicVector::writeXML(std::ostream &os) const
 bool
 NBTrafficLightLogicVector::contains(NBTrafficLightLogic *logic) const
 {
-    for (LogicVector::const_iterator i=_cont.begin(); i!=_cont.end(); i++) {
+    for (LogicVector::const_iterator i=myCont.begin(); i!=myCont.end(); i++) {
         if ((*i)->equals(*logic)) {
             return true;
         }
@@ -121,7 +121,7 @@ NBTrafficLightLogicVector::contains(NBTrafficLightLogic *logic) const
 int
 NBTrafficLightLogicVector::size() const
 {
-    return _cont.size();
+    return myCont.size();
 }
 
 

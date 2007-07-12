@@ -116,16 +116,16 @@ private:
 
 private:
     /// Information whether the last route shall be used
-    bool _useLast;
+    bool myUseLast;
 
     /// Information whether the byte order shall be swapped
-    bool _intel;
+    bool myIntel;
 
     /// The current route index
-    int _routeNo;
+    int myRouteNo;
 
     /// The current driver information
-    Driver _driver;
+    Driver myDriver;
 
 };
 

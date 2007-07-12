@@ -121,7 +121,7 @@ public:
 
 private:
     /// The boundaries
-    SUMOReal _xmin, _xmax, _ymin, _ymax;
+    SUMOReal myXmin,myXmax, myYmin, myYmax;
 
     /// Information whether the boundary was initialised
     bool myWasInitialised;

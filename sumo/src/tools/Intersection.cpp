@@ -69,8 +69,8 @@ Intersection::~Intersection()
 void
 Intersection::loadNet(void)
 {
-    char buffer[_MAX_PATH];
-    getcwd(buffer,_MAX_PATH);
+    char buffer[myMAX_PATH];
+    getcwd(buffer,myMAX_PATH);
     cout<<"Current directory is "<<buffer<<endl;
 
     ifstream out(net);
@@ -112,8 +112,8 @@ Intersection::loadNet(void)
 void
 Intersection::loadPolygon(void)
 {
-    char buffer[_MAX_PATH];
-    getcwd(buffer,_MAX_PATH);
+    char buffer[myMAX_PATH];
+    getcwd(buffer,myMAX_PATH);
 
     ifstream out(net);
 

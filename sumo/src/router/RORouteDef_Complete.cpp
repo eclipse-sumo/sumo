@@ -54,7 +54,7 @@ using namespace std;
 RORouteDef_Complete::RORouteDef_Complete(const std::string &id,
         const RGBColor &color,
         const ROEdgeVector &edges)
-        : RORouteDef(id, color), _edges(edges)
+        : RORouteDef(id, color), myEdges(edges)
 {}
 
 
@@ -65,14 +65,14 @@ RORouteDef_Complete::~RORouteDef_Complete()
 const ROEdge * const
 RORouteDef_Complete::getFrom() const
 {
-    return _edges.getFirst();
+    return myEdges.getFirst();
 }
 
 
 const ROEdge * const
 RORouteDef_Complete::getTo() const
 {
-    return _edges.getLast();
+    return myEdges.getLast();
 }
 
 
@@ -80,14 +80,14 @@ RORoute *
 RORouteDef_Complete::buildCurrentRoute(ROAbstractRouter &,
                                        SUMOTime , ROVehicle &) const
 {
-    return new RORoute(_id, 0, 1, _edges);
+    return new RORoute(myId, 0, 1, myEdges);
 }
 
 
 void
 RORouteDef_Complete::addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin)
 {
-    _startTime = begin;
+    myStartTime = begin;
     delete current;
 }
 
@@ -95,14 +95,14 @@ RORouteDef_Complete::addAlternative(const ROVehicle *const, RORoute *current, SU
 RORouteDef *
 RORouteDef_Complete::copy(const std::string &id) const
 {
-    return new RORouteDef_Complete(id, myColor, _edges);
+    return new RORouteDef_Complete(id, myColor, myEdges);
 }
 
 
 const ROEdgeVector &
 RORouteDef_Complete::getCurrentEdgeVector() const
 {
-    return _edges;
+    return myEdges;
 }
 
 

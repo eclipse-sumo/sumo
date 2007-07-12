@@ -87,7 +87,7 @@ StringUtils::version1(std::string str)
     size_t idx = str.rfind('_');
     if (idx!=string::npos&&idx<str.length()-1&&(str.substr(idx+1)!="+"&&str.substr(idx+1)!="-")) {
         try {
-            int no = TplConvert<char>::_2int(str.substr(idx+1).c_str());
+            int no = TplConvert<char>::my2int(str.substr(idx+1).c_str());
             str = str.substr(0, idx+1) + toString<int>(no+1);
         } catch (NumberFormatException &) {
             str = str + "_0";

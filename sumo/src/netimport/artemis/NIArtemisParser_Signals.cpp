@@ -65,11 +65,11 @@ NIArtemisParser_Signals::myDependentReport()
     /*    string nodeid = myLineParser.get("NodeID");
         // scats info omitted
         int noPhases =
-            TplConvert<char>::_2int(myLineParser.get("NPhases").c_str());
+            TplConvert<char>::my2int(myLineParser.get("NPhases").c_str());
         int cycle =
-            TplConvert<char>::_2int(myLineParser.get("Cycle").c_str());
+            TplConvert<char>::my2int(myLineParser.get("Cycle").c_str());
         int offset =
-            TplConvert<char>::_2int(myLineParser.get("Offset").c_str());*/
+            TplConvert<char>::my2int(myLineParser.get("Offset").c_str());*/
 //    !!! insert into node
 }
 

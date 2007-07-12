@@ -81,7 +81,7 @@ private:
 
 private:
     /// A reference to the program's options
-    OptionsCont &_options;
+    OptionsCont &myOptions;
 
     /// The id of the currently parsed node
     std::string myID;

@@ -81,13 +81,13 @@ public:
 
 protected:
     /// The origin and the destination edge of the route
-    const ROEdge *_from, *_to;
+    const ROEdge *myFrom, *myTo;
 
     /// The complete route (after building)
-    RORoute *_current;
+    RORoute *myCurrent;
 
     /// The begin of the trip
-    SUMOTime _startTime;
+    SUMOTime myStartTime;
 
     /** @brief Information whether the first edge shall be removed
         */

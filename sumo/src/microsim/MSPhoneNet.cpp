@@ -81,11 +81,11 @@ MSPhoneNet::~MSPhoneNet()
     }
     // delete cells and las
     std::map< int, MSPhoneCell* >::iterator cit;
-    for (cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++) {
+    for (cit = myMMSPhoneCells.begin(); cit != myMMSPhoneCells.end(); cit++) {
         delete cit->second;
     }
     std::map< int, MSPhoneLA* >::iterator lit;
-    for (lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++) {
+    for (lit = myMMSPhoneLAs.begin(); lit != myMMSPhoneLAs.end(); lit++) {
         delete lit->second;
     }
 }
@@ -94,8 +94,8 @@ MSPhoneNet::~MSPhoneNet()
 MSPhoneCell*
 MSPhoneNet::getMSPhoneCell(int id)
 {
-    if (_mMSPhoneCells.find(id) != _mMSPhoneCells.end()) {
-        return _mMSPhoneCells[id];
+    if (myMMSPhoneCells.find(id) != myMMSPhoneCells.end()) {
+        return myMMSPhoneCells[id];
     }
     return 0;
 }
@@ -106,7 +106,7 @@ MSPhoneNet::getCurrentVehicleCell(const std::string &id)
 {
     MSPhoneCell * ret = 0;
     std::map< int, MSPhoneCell* >::iterator cit;
-    for (cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end() ; cit++) {
+    for (cit = myMMSPhoneCells.begin(); cit != myMMSPhoneCells.end() ; cit++) {
         if (cit->second->hasCPhone(id)) {
             ret =  cit->second;
             break;
@@ -134,10 +134,10 @@ MSPhoneNet::getCurrentVehicleLA(const std::string &id)
 void
 MSPhoneNet::addMSPhoneCell(int id)
 {
-    std::map< int, MSPhoneCell* >::iterator cit = _mMSPhoneCells.find(id);
-    if (cit == _mMSPhoneCells.end()) {
+    std::map< int, MSPhoneCell* >::iterator cit = myMMSPhoneCells.find(id);
+    if (cit == myMMSPhoneCells.end()) {
         MSPhoneCell* c = new MSPhoneCell(id);
-        _mMSPhoneCells[id] = c;
+        myMMSPhoneCells[id] = c;
     }
 }
 
@@ -145,25 +145,25 @@ MSPhoneNet::addMSPhoneCell(int id)
 void
 MSPhoneNet::addMSPhoneCell(int id, int la)
 {
-    std::map< int, MSPhoneCell* >::iterator cit = _mMSPhoneCells.find(id);
-    if (cit == _mMSPhoneCells.end()) {
+    std::map< int, MSPhoneCell* >::iterator cit = myMMSPhoneCells.find(id);
+    if (cit == myMMSPhoneCells.end()) {
         MSPhoneCell* c = new MSPhoneCell(id);
-        _mMSPhoneCells[id] = c;
+        myMMSPhoneCells[id] = c;
     }
-    std::map< int, MSPhoneLA* >::iterator lit = _mMSPhoneLAs.find(la);
-    if (lit == _mMSPhoneLAs.end()) {
+    std::map< int, MSPhoneLA* >::iterator lit = myMMSPhoneLAs.find(la);
+    if (lit == myMMSPhoneLAs.end()) {
         MSPhoneLA* l = new MSPhoneLA(la, 0);
-        _mMSPhoneLAs[la] = l;
+        myMMSPhoneLAs[la] = l;
     }
-    _mCell2LA[id] = la;
+    myMCell2LA[id] = la;
 }
 
 
 void
 MSPhoneNet::connectLA2Cell(int cell_ID, int la_ID)
 {
-    if (_mMSPhoneCells.find(cell_ID) != _mMSPhoneCells.end() && _mMSPhoneLAs.find(la_ID) != _mMSPhoneLAs.end()) {
-        _mCell2LA[cell_ID] = la_ID;
+    if (myMMSPhoneCells.find(cell_ID) != myMMSPhoneCells.end() && myMMSPhoneLAs.find(la_ID) != myMMSPhoneLAs.end()) {
+        myMCell2LA[cell_ID] = la_ID;
     }
 }
 
@@ -171,10 +171,10 @@ MSPhoneNet::connectLA2Cell(int cell_ID, int la_ID)
 void
 MSPhoneNet::remMSPhoneCell(int id)
 {
-    std::map< int, MSPhoneCell* >::iterator cit = _mMSPhoneCells.find(id);
-    if (cit != _mMSPhoneCells.end()) {
+    std::map< int, MSPhoneCell* >::iterator cit = myMMSPhoneCells.find(id);
+    if (cit != myMMSPhoneCells.end()) {
         delete cit->second;
-        _mMSPhoneCells.erase(id);
+        myMMSPhoneCells.erase(id);
     }
 }
 
@@ -183,11 +183,11 @@ MSPhoneLA*
 MSPhoneNet::getMSPhoneLA(int id)
 {
     std::map<int, int>::iterator it;
-    it = _mCell2LA.find(id);
+    it = myMCell2LA.find(id);
     assert(it!=_mCell2LA.end());
-    if (it != _mCell2LA.end()) {
-        if (_mMSPhoneLAs.find(it->second) != _mMSPhoneLAs.end()) {
-            return _mMSPhoneLAs[it->second];
+    if (it != myMCell2LA.end()) {
+        if (myMMSPhoneLAs.find(it->second) != myMMSPhoneLAs.end()) {
+            return myMMSPhoneLAs[it->second];
         }
         return 0;
     }
@@ -199,17 +199,17 @@ void
 MSPhoneNet::addMSPhoneLA(int id, int dir)
 {
     MSPhoneLA* la = new MSPhoneLA(id, dir);
-    _mMSPhoneLAs[id] = la;
+    myMMSPhoneLAs[id] = la;
 }
 
 
 void
 MSPhoneNet::remMSPhoneLA(int id)
 {
-    std::map< int, MSPhoneLA* >::iterator lit = _mMSPhoneLAs.find(id);
-    if (lit != _mMSPhoneLAs.end()) {
+    std::map< int, MSPhoneLA* >::iterator lit = myMMSPhoneLAs.find(id);
+    if (lit != myMMSPhoneLAs.end()) {
         delete lit->second;
-        _mMSPhoneLAs.erase(id);
+        myMMSPhoneLAs.erase(id);
     }
 }
 
@@ -222,7 +222,7 @@ MSPhoneNet::writeCellOutput(SUMOTime t)
     OutputDevice *od2 = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL);
     if (od1 != 0 || od2 != 0) {
         std::map< int, MSPhoneCell* >::iterator cit;
-        for (cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++) {
+        for (cit = myMMSPhoneCells.begin(); cit != myMMSPhoneCells.end(); cit++) {
             cit->second->writeOutput(t);
         }
     }
@@ -239,7 +239,7 @@ MSPhoneNet::writeLAOutput(SUMOTime t)
     /*if ( od1 != 0 || od2 != 0 )
     {
     	std::map< int, MSPhoneLA* >::iterator lit;
-    	for (lit = _mMSPhoneLAs.begin(); lit != _mMSPhoneLAs.end(); lit++) {
+    	for (lit = myMMSPhoneLAs.begin(); lit != myMMSPhoneLAs.end(); lit++) {
     		lit->second->writeOutput(t);
     	}
     }*/
@@ -279,7 +279,7 @@ void
 MSPhoneNet::setDynamicCalls(SUMOTime time)
 {
     std::map< int, MSPhoneCell* >::iterator cit;
-    for (cit = _mMSPhoneCells.begin(); cit != _mMSPhoneCells.end(); cit++) {
+    for (cit = myMMSPhoneCells.begin(); cit != myMMSPhoneCells.end(); cit++) {
         cit->second->setDynamicCalls(time);
     }
 }

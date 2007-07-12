@@ -440,57 +440,57 @@ protected:
     void showToolTipFor(unsigned int id);
 
     /// Clears the usetable, filling it with false
-    void clearUsetable(size_t *_edges2Show, size_t _edges2ShowSize);
+    void clearUsetable(size_t *myEdges2Show, size_t myEdges2ShowSize);
 
 protected:
     /// The application
     GUIMainWindow *myApp;
 
     /// the parent window
-    GUIGlChildWindow *_parent;
+    GUIGlChildWindow *myParent;
 
     /// the network used (stored here for a faster access)
     GUIGrid *myGrid;
 
     /// the sizes of the window
-    int _widthInPixels, _heightInPixels;
+    int myWidthInPixels, myHeightInPixels;
 
     /// the scale of the net (the maximum size, either width or height)
     SUMOReal myNetScale;
 
     /// The perspective changer
-    GUIPerspectiveChanger *_changer;
+    GUIPerspectiveChanger *myChanger;
 
     /// Information whether too-tip informations shall be generated
-    bool _inEditMode;
+    bool myInEditMode;
 
     /// The used tooltip-class
-    GUIGLObjectToolTip *_toolTip;
+    GUIGLObjectToolTip *myToolTip;
 
     /// position to display the tooltip at
-    size_t _toolTipX, _toolTipY;
+    size_t myToolTipX, myToolTipY;
 
     /// The current mouse position (if the mouse is over this canvas)
-    size_t _mouseX, _mouseY;
+    size_t myMouseX, myMouseY;
 
     /// Offset to the mouse-hotspot from the mouse position
-    int _mouseHotspotX, _mouseHotspotY;
+    int myMouseHotspotX, myMouseHotspotY;
 
-    /// _widthInPixels / _heightInPixels
-    SUMOReal _ratio;
+    /// myWidthInPixels / myHeightInPixels
+    SUMOReal myRatio;
 
     /// Additional scaling factor for meters-to-pixels conversion
-    SUMOReal _addScl;
+    SUMOReal myAddScl;
 
     /// The current popup-menu
-    GUIGLObjectPopupMenu *_popup;
+    GUIGLObjectPopupMenu *myPopup;
 
     /// the description of the viewport
     ViewportSettings myViewportSettings;
 
     VisualizationSettings *myVisualizationSettings;
 
-    bool _useToolTips;
+    bool myUseToolTips;
 
     /// Internal information whether doInit() was called
     bool myAmInitialised;

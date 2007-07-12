@@ -72,9 +72,9 @@ RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
         OptionsCont::getOptions().getString("random-route-color");
     StringTokenizer st(color, ";");
     try {
-        SUMOReal r = TplConvert<char>::_2SUMOReal(st.next().c_str());
-        SUMOReal g = TplConvert<char>::_2SUMOReal(st.next().c_str());
-        SUMOReal b = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        SUMOReal r = TplConvert<char>::my2SUMOReal(st.next().c_str());
+        SUMOReal g = TplConvert<char>::my2SUMOReal(st.next().c_str());
+        SUMOReal b = TplConvert<char>::my2SUMOReal(st.next().c_str());
         myColor = RGBColor(r, g, b);
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("Something is wrong with the color definition for random routes\n Option: 'random-route-color'");
@@ -112,8 +112,8 @@ RORDGenerator_Random::myReadRoutesAtLeastUntil(SUMOTime time)
     myCurrentProgress += myWishedPerSecond;
     while (myCurrentProgress>0) {
         // get the next trip
-        ROEdge *from = _net.getRandomSource();
-        ROEdge *to = _net.getRandomDestination();
+        ROEdge *from = myNet.getRandomSource();
+        ROEdge *to = myNet.getRandomDestination();
         // chekc whether valid values could be found
         if (from==0||to==0) {
             if (from==0) {
@@ -128,12 +128,12 @@ RORDGenerator_Random::myReadRoutesAtLeastUntil(SUMOTime time)
         string id = myIDSupplier.getNext();
         RORouteDef *route =
             new RORouteDef_OrigDest(id, myColor, from, to, myRemoveFirst);
-        _net.addVehicle(id,
+        myNet.addVehicle(id,
                         myVehicleBuilder.buildVehicle(
                             id, route, time, 0,
                             RGBColor(randSUMO((SUMOReal) .5, (SUMOReal) 1.), randSUMO((SUMOReal) .5, (SUMOReal) 1.), randSUMO((SUMOReal) .5, (SUMOReal) 1.)),
                             -1, 0));
-        _net.addRouteDef(route);
+        myNet.addRouteDef(route);
         myReadNewRoute = true;
         // decrement counter
         myCurrentProgress -= 1;

@@ -1416,10 +1416,10 @@ MSVehicle::getWaitingTime() const
 bool
 MSVehicle::proceedVirtualReturnWhetherEnded(const MSEdge *const newEdge)
 {
-    bool _destReached = destReached(newEdge);
+    bool myDestReached = destReached(newEdge);
     myAllowedLanes.clear(); // !!! not really necessary!?
     rebuildAllowedLanes();
-    return _destReached;
+    return myDestReached;
 }
 
 

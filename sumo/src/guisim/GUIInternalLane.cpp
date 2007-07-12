@@ -74,8 +74,8 @@ GUIInternalLane::GUIInternalLane(/*MSNet &net, */std::string id,
 GUIInternalLane::~GUIInternalLane()
 {
     // just to quit cleanly on a failure
-    if (_lock.locked()) {
-        _lock.unlock();
+    if (myLock.locked()) {
+        myLock.unlock();
     }
 }
 
@@ -83,27 +83,27 @@ GUIInternalLane::~GUIInternalLane()
 void
 GUIInternalLane::moveNonCritical()
 {
-    _lock.lock();//Display();
+    myLock.lock();//Display();
     MSInternalLane::moveNonCritical();
-    _lock.unlock();//Display();
+    myLock.unlock();//Display();
 }
 
 
 void
 GUIInternalLane::moveCritical()
 {
-    _lock.lock();//Display();
+    myLock.lock();//Display();
     MSInternalLane::moveCritical();
-    _lock.unlock();//Display();
+    myLock.unlock();//Display();
 }
 
 
 void
 GUIInternalLane::setCritical()
 {
-    _lock.lock();//Display();
+    myLock.lock();//Display();
     MSInternalLane::setCritical();
-    _lock.unlock();//Display();
+    myLock.unlock();//Display();
 }
 
 
@@ -113,9 +113,9 @@ GUIInternalLane::setCritical()
 bool
 GUIInternalLane::emit(MSVehicle& newVeh)
 {
-    _lock.lock();//Display();
+    myLock.lock();//Display();
     bool ret = MSInternalLane::emit(newVeh);
-    _lock.unlock();//Display();
+    myLock.unlock();//Display();
     return ret;
 }
 
@@ -123,9 +123,9 @@ GUIInternalLane::emit(MSVehicle& newVeh)
 bool
 GUIInternalLane::isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &vstate)
 {
-    _lock.lock();//Display();
+    myLock.lock();//Display();
     bool ret = MSInternalLane::isEmissionSuccess(aVehicle, vstate);
-    _lock.unlock();//Display();
+    myLock.unlock();//Display();
     return ret;
 }
 
@@ -133,7 +133,7 @@ GUIInternalLane::isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &
 bool
 GUIInternalLane::push(MSVehicle* veh)
 {
-    _lock.lock();//Display();
+    myLock.lock();//Display();
 #ifdef ABS_DEBUG
     if (myVehBuffer!=0) {
         DEBUG_OUT << MSNet::globaltime << ":Push Failed on Lane:" << myID << std::endl;
@@ -156,7 +156,7 @@ GUIInternalLane::push(MSVehicle* veh)
         MSVehicleTransfer::getInstance()->addVeh(veh);
 //        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         // maybe the vehicle is being tracked; mark as not within the simulation any longer
-        _lock.unlock();//Display();
+        myLock.unlock();//Display();
         return true;
     }
     // check whether the vehicle has ended his route
@@ -166,8 +166,8 @@ GUIInternalLane::push(MSVehicle* veh)
     SUMOReal pspeed = veh->getSpeed();
     SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
     veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
-    veh->_assertPos();
-    _lock.unlock();//Display();
+    veh->myAssertPos();
+    myLock.unlock();//Display();
 //    setApproaching(veh->pos(), veh);
     return false;
 }
@@ -176,7 +176,7 @@ GUIInternalLane::push(MSVehicle* veh)
 void
 GUIInternalLane::releaseVehicles()
 {
-    _lock.unlock();
+    myLock.unlock();
 }
 
 
@@ -184,7 +184,7 @@ GUIInternalLane::releaseVehicles()
 const MSLane::VehCont &
 GUIInternalLane::getVehiclesSecure()
 {
-    _lock.lock();
+    myLock.lock();
     return myVehicles;
 }
 
@@ -192,18 +192,18 @@ GUIInternalLane::getVehiclesSecure()
 void
 GUIInternalLane::swapAfterLaneChange()
 {
-    _lock.lock();
+    myLock.lock();
     MSLane::swapAfterLaneChange();
-    _lock.unlock();
+    myLock.unlock();
 }
 
 
 void
 GUIInternalLane::integrateNewVehicle()
 {
-    _lock.lock();
+    myLock.lock();
     MSLane::integrateNewVehicle();
-    _lock.unlock();
+    myLock.unlock();
 }
 
 
@@ -217,9 +217,9 @@ GUIInternalLane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
 SUMOReal
 GUIInternalLane::getDensity() const
 {
-    _lock.lock();
+    myLock.lock();
     SUMOReal ret = MSLane::getDensity();
-    _lock.unlock();
+    myLock.unlock();
     return ret;
 }
 
@@ -227,9 +227,9 @@ GUIInternalLane::getDensity() const
 SUMOReal
 GUIInternalLane::getVehLenSum() const
 {
-    _lock.lock();
+    myLock.lock();
     SUMOReal ret = MSLane::getVehLenSum();
-    _lock.unlock();
+    myLock.unlock();
     return ret;
 }
 
@@ -237,18 +237,18 @@ GUIInternalLane::getVehLenSum() const
 void
 GUIInternalLane::detectCollisions(SUMOTime timestep)
 {
-    _lock.lock();
+    myLock.lock();
     MSLane::detectCollisions(timestep);
-    _lock.unlock();
+    myLock.unlock();
 }
 
 
 MSVehicle*
 GUIInternalLane::pop()
 {
-    _lock.lock();
+    myLock.lock();
     MSVehicle *ret = MSLane::pop();
-    _lock.unlock();
+    myLock.unlock();
     return ret;
 }
 

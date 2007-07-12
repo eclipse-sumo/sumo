@@ -112,7 +112,7 @@ MSEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
     myAllowed = allowed;
     myDepartLane = departLane;
     myLanes = lanes;
-    _function = function;
+    myFunction = function;
 
     if (myLanes->size() > 1 && function!=EDGEFUNCTION_INTERNAL) {
         myLaneChanger = new MSLaneChanger(myLanes);
@@ -318,7 +318,7 @@ operator<<(ostream& os, const MSEdge& edge)
 void
 MSEdge::changeLanes()
 {
-    if (_function==EDGEFUNCTION_INTERNAL) {
+    if (myFunction==EDGEFUNCTION_INTERNAL) {
         return;
     }
     assert(myLaneChanger != 0);
@@ -336,14 +336,14 @@ MSEdge::getID() const
 MSEdge::EdgeBasicFunction
 MSEdge::getPurpose() const
 {
-    return _function;
+    return myFunction;
 }
 
 
 bool
 MSEdge::isSource() const
 {
-    return _function==EDGEFUNCTION_SOURCE;
+    return myFunction==EDGEFUNCTION_SOURCE;
 }
 
 
@@ -366,7 +366,7 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const
         }
     }
 #endif
-    if (_function!=EDGEFUNCTION_SOURCE) {
+    if (myFunction!=EDGEFUNCTION_SOURCE) {
         return myDepartLane->emit(v);
     } else {
         const LaneCont &lanes =  v.departLanes();

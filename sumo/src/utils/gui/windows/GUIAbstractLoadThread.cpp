@@ -88,7 +88,7 @@ void
 GUIAbstractLoadThread::load(const std::string &file,
                             bool isNet)
 {
-    _file = file;
+    myFile = file;
     myLoadNet = isNet;
     start();
 }
@@ -124,7 +124,7 @@ GUIAbstractLoadThread::retrieveError(const std::string &msg)
 const std::string &
 GUIAbstractLoadThread::getFileName() const
 {
-    return _file;
+    return myFile;
 }
 
 

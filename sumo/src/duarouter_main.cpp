@@ -189,7 +189,7 @@ main(int argc, char **argv)
                 ret = 1;
             } catch (SAXException &e) {
                 MsgHandler::getErrorInstance()->inform(
-                    TplConvert<XMLCh>::_2str(e.getMessage()));
+                    TplConvert<XMLCh>::my2str(e.getMessage()));
                 ret = 1;
             }
         } else {

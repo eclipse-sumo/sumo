@@ -155,7 +155,7 @@ RORDLoader_SUMOAlt::myCharacters(SumoXMLTag element,
     StringTokenizer st(chars);
     while (ok&&st.hasNext()) { // !!! too slow !!!
         string id = st.next();
-        ROEdge *edge = _net.getEdge(id);
+        ROEdge *edge = myNet.getEdge(id);
         if (edge!=0) {
             list->add(edge);
         } else {
@@ -227,7 +227,7 @@ RORDLoader_SUMOAlt::startAlternative(const Attributes &attrs)
 void
 RORDLoader_SUMOAlt::endAlternative()
 {
-    _net.addRouteDef(myCurrentAlternatives);
+    myNet.addRouteDef(myCurrentAlternatives);
     myCurrentAlternatives = 0;
 }
 

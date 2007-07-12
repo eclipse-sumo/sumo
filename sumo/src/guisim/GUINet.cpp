@@ -90,7 +90,7 @@ using namespace std;
 GUINet::GUINet(SUMOTime startTimestep, MSVehicleControl *vc,
                SUMOReal tooSlowRTF, bool logExecTime, bool logStep)
         : MSNet(startTimestep, vc, tooSlowRTF, logExecTime, logStep),
-        _grid(10, 10),
+        myGrid(10, 10),
         myWrapper(new GUINetWrapper(gIDStorage, *this)),
         myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
         myLastVehicleMovementCount(0), myOverallVehicleCount(0), myOverallSimDuration(0)
@@ -127,7 +127,7 @@ GUINet::~GUINet()
 const Boundary &
 GUINet::getBoundary() const
 {
-    return _boundary;
+    return myBoundary;
 }
 
 
@@ -357,10 +357,10 @@ GUINet::initGUIStructures()
     // initialise junction storage for gui
     GUIHelpingJunction::fill(myJunctionWrapper, gIDStorage);
     // build the grid
-    GUIGridBuilder b(*this, _grid);
+    GUIGridBuilder b(*this, myGrid);
     b.build();
     // get the boundary
-    _boundary = _grid.getBoundary();
+    myBoundary = myGrid.getBoundary();
 }
 
 

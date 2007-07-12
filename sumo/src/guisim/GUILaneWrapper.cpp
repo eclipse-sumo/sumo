@@ -80,7 +80,7 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
     SUMOReal y2 = shape[-1].y();
     SUMOReal length = getLength();
     // also the virtual length is set in here
-    _visLength = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
+    myVisLength = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     // check maximum speed
     if (myAllMaxSpeed<lane.maxSpeed()) {
         myAllMaxSpeed = lane.maxSpeed();
@@ -111,7 +111,7 @@ GUILaneWrapper::getLength() const
 SUMOReal
 GUILaneWrapper::visLength() const
 {
-    return _visLength;
+    return myVisLength;
 }
 
 

@@ -122,7 +122,7 @@ protected:
 
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
-    mutable MFXMutex _lock;
+    mutable MFXMutex myLock;
 
 
 };

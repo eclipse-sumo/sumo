@@ -98,25 +98,25 @@ public:
 
 private:
     /// the name of the file to read the contents from
-    std::string     _fileName;
+    std::string     myFileName;
 
     /// the stream used
-    std::ifstream    _strm;
+    std::ifstream    myStrm;
 
     /// ha ha, to override MSVC++-bugs, we use an own getline which uses this buffer
-    char _buffer[1024];
+    char myBuffer[1024];
 
     /// a string-buffer
-    std::string _strBuffer;
+    std::string myStrBuffer;
 
     /// Information about how many characters were supplied to the LineHandler
-    size_t _read;
+    size_t myRead;
 
     /// Information how many bytes are available within the used file
-    size_t _available;
+    size_t myAvailable;
 
     /// Information how many bytes were read by the reader from the file
-    size_t _rread;
+    size_t myRread;
 
 };
 

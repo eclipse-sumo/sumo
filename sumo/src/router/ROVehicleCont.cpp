@@ -61,15 +61,15 @@ priority_queue<ROVehicle*,
 std::vector<ROVehicle*>, ROHelper::VehicleByDepartureComperator> &
 ROVehicleCont::sort()
 {
-    _sorted =
+    mySorted =
         priority_queue<ROVehicle*,
         std::vector<ROVehicle*>,
         ROHelper::VehicleByDepartureComperator>();
     std::vector<ROVehicle*> v = getTempVector();
     for (std::vector<ROVehicle*>::const_iterator i=v.begin(); i!=v.end(); i++) {
-        _sorted.push(*i);
+        mySorted.push(*i);
     }
-    return _sorted;
+    return mySorted;
 }
 
 
