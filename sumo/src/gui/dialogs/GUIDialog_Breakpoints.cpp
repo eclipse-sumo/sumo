@@ -204,7 +204,7 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*,FXSelector,void*)
             std::string val;
             strm >> val;
             try {
-                int value = TplConvert<char>::_2int(val.c_str());
+                int value = TplConvert<char>::my2int(val.c_str());
                 gBreakpoints.push_back(value);
             } catch (NumberFormatException&) {
                 MsgHandler::getErrorInstance()->inform(" A breakpoint-value must be an int, is:" + val);
@@ -326,7 +326,7 @@ GUIDialog_Breakpoints::onCmdEditTable(FXObject*,FXSelector,void*data)
     switch (i->col) {
     case 0:
         try {
-            gBreakpoints[row] = TplConvert<char>::_2int(value.c_str());
+            gBreakpoints[row] = TplConvert<char>::my2int(value.c_str());
         } catch (NumberFormatException &) {
             string msg = "The value must be an int, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());

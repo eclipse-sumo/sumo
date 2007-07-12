@@ -146,7 +146,7 @@ MSSimpleTrafficLightLogic::getPosition(SUMOTime simStep)
             position = position + getPhaseFromStep(i).duration;
         }
     }
-    position = position + simStep - getPhaseFromStep(myStep)._lastSwitch;
+    position = position + simStep - getPhaseFromStep(myStep).myLastSwitch;
     assert(position <= myCycleTime);
     return position;
 }

@@ -126,7 +126,7 @@ public:
 
     SUMOReal scalar() const
     {
-        return sqrt(myX*myX + _y*myY);
+        return sqrt(myX*myX + myY*myY);
     }
 
     void norm()

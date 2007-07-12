@@ -112,7 +112,7 @@ public:
 
 private:
     /// The list of edges
-    EdgeVector _edges;
+    EdgeVector myEdges;
 
 };
 

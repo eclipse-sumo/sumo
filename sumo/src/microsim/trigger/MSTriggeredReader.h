@@ -88,7 +88,7 @@ class MSTriggerCommand : public Command
 
     private:
         /// The parent reader
-        MSTriggeredReader &_parent;
+        MSTriggeredReader &myParent;
     };
 
 public:

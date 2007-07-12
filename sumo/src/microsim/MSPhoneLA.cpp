@@ -80,7 +80,7 @@ void
 MSPhoneLA::remCall(const std::string &id)
 {
     std::map<std::string, int>::iterator icalls = myCalls.find(id);
-    if (icalls!=_Calls.end()) {
+    if (icalls!=myCalls.end()) {
         myCalls.erase(icalls);
     }
 }
@@ -89,7 +89,7 @@ MSPhoneLA::remCall(const std::string &id)
 bool
 MSPhoneLA::hasCall(const std::string &id)
 {
-    return myCalls.find(id)!=_Calls.end();
+    return myCalls.find(id)!=myCalls.end();
 }
 
 

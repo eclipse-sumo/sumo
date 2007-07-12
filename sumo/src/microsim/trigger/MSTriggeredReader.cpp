@@ -54,7 +54,7 @@ MSTriggeredReader::MSTriggerCommand::~MSTriggerCommand(void)
 SUMOTime
 MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current)
 {
-    if (!_parent.isInitialised()) {
+    if (!myParent.isInitialised()) {
         myParent.init();
     }
     SUMOTime next = current;
@@ -66,7 +66,7 @@ MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current)
             // read the next one
             if (myParent.readNextTriggered()) {
                 // set the time for comparison if a next one exists
-                next = myParent._offset;
+                next = myParent.myOffset;
             } else {
                 // leave if no further exists
                 return 0;
@@ -77,11 +77,11 @@ MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current)
         }
     }
     // come back if the next action shall be executed
-    if (myParent._offset - current<=0) {
+    if (myParent.myOffset - current<=0) {
         // current is delayed;
         return 1;
     }
-    return myParent._offset - current;
+    return myParent.myOffset - current;
 }
 
 
