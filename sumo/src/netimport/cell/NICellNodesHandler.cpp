@@ -71,7 +71,7 @@ NICellNodesHandler::report(const std::string &result)
             SUMOReal x, y;
             try {
                 x = TplConvert<char>::my2SUMOReal(st.next().c_str());
-                y = TplConvert<char>:my2SUMOReal(st.next().c_str());
+                y = TplConvert<char>::my2SUMOReal(st.next().c_str());
                 if (!myNodeCont.insert(id, Position2D(x, y))) {
                     MsgHandler::getErrorInstance()->inform("Could not build node '" + id + "'.");
                 }

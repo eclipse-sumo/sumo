@@ -178,8 +178,8 @@ void
 MSRoute::writeEdgeIDs(std::ostream &os) const
 {
     MSEdgeVector::const_iterator i = myEdges.begin();
-    for (;i!=_edges.end(); ++i) {
-        if (i!=_edges.begin()) {
+    for (;i!=myEdges.end(); ++i) {
+        if (i!=myEdges.begin()) {
             os << ' ';
         }
         os << (*i)->getID();
@@ -190,7 +190,7 @@ MSRoute::writeEdgeIDs(std::ostream &os) const
 bool
 MSRoute::contains(MSEdge *edge) const
 {
-    return find(edge)!=_edges.end();
+    return find(edge)!=myEdges.end();
 }
 
 
@@ -230,7 +230,7 @@ MSRoute::saveState(std::ostream &os, long /*what*/)
     FileHelpers::writeString(os, getID());
     FileHelpers::writeUInt(os, myEdges.size());
     FileHelpers::writeByte(os, myMultipleReferenced);
-    for (MSEdgeVector::const_iterator i = myEdges.begin(); i!=_edges.end(); ++i) {
+    for (MSEdgeVector::const_iterator i = myEdges.begin(); i!=myEdges.end(); ++i) {
         FileHelpers::writeUInt(os, (*i)->getNumericalID());
     }
 }

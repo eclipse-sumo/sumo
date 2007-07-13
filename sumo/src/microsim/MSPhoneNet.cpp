@@ -121,7 +121,7 @@ MSPhoneNet::getCurrentVehicleLA(const std::string &id)
 {
     MSPhoneLA * ret = 0;
     std::map< int, MSPhoneLA* >::iterator lit;
-    for (lit=_mMSPhoneLAs.begin(); lit!=_mMSPhoneLAs.end(); lit++) {
+    for (lit=myMMSPhoneLAs.begin(); lit!=myMMSPhoneLAs.end(); lit++) {
         if (lit->second->hasCall(id)) {
             ret = lit->second;
             break;
@@ -184,7 +184,7 @@ MSPhoneNet::getMSPhoneLA(int id)
 {
     std::map<int, int>::iterator it;
     it = myMCell2LA.find(id);
-    assert(it!=_mCell2LA.end());
+    assert(it!=myMCell2LA.end());
     if (it != myMCell2LA.end()) {
         if (myMMSPhoneLAs.find(it->second) != myMMSPhoneLAs.end()) {
             return myMMSPhoneLAs[it->second];

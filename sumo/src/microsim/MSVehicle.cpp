@@ -775,7 +775,7 @@ MSVehicle::moveFirstChecked()
 
 
 void
-MSVehicle::_assertPos() const
+MSVehicle::myAssertPos() const
 {
     assert(myState.myPos<=myLane->length());
 }

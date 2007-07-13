@@ -81,7 +81,7 @@ MSRouteLoader::loadUntil(SUMOTime time, MSVehicleContainer &into)
     // read only when further data is available, no error occured
     //  and vehicles may be found in the between the departure time of
     //  the last read vehicle and the time to read until
-    if (!_moreAvailable || time < myHandler->getLastDepart()|| myHandler->errorOccured()) {
+    if (!myMoreAvailable || time < myHandler->getLastDepart()|| myHandler->errorOccured()) {
         return;
     }
 

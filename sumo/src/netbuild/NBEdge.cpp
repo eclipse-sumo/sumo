@@ -501,7 +501,7 @@ void
 NBEdge::writeLane(std::ostream &into, size_t lane)
 {
     // output the lane's attributes
-    into << "         <lane id=\"" << myId << 'my' << lane << "\"";
+    into << "         <lane id=\"" << myId << '_' << lane << "\"";
     // the first lane of an edge will be the depart lane
     if (lane==0) {
         into << " depart=\"1\"";
@@ -1299,7 +1299,7 @@ NBEdge::isTurningDirectionAt(const NBNode *n, NBEdge *edge) const
         return false;
     }
     // if the same nodes are connected
-    if (myFrom==edge-myTo &&myTo==edge->myFrom) {
+    if (myFrom==edge->myTo &&myTo==edge->myFrom) {
         return true;
     }
     // we have to checke whether the connection between the nodes is

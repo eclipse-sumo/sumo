@@ -1837,7 +1837,7 @@ NBNode::getEmptyDir() const
         toAdd.mul((SUMOReal) 1.0/sqrt(toAdd.x()*toAdd.x()+toAdd.y()*toAdd.y()));
         pos.add(toAdd);
     }
-    for (imyOutgoingEdges->begin(); i!=myOutgoingEdges->end(); i++) {
+    for (i=myOutgoingEdges->begin(); i!=myOutgoingEdges->end(); i++) {
         NBNode *conn = (*i)->getToNode();
         Position2D toAdd = conn->getPosition();
         toAdd.sub(myPosition);
