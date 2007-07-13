@@ -107,7 +107,7 @@ GUIGrid::Set::removeIfIn(const Set &other)
         // check whether an entry with the index exists
         Cont::iterator i = find_if(myCont.begin(),myCont.end(),
                                    index_finder((*j).myIndex));
-        if (i!myCont.end()) {
+        if (i!=myCont.end()) {
             // if yes, clear the information
             (*i).mySet &=~(*j).mySet;
             // check whether the whoel item can be removed
