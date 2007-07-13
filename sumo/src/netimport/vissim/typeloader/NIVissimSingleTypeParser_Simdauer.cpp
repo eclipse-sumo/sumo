@@ -63,7 +63,7 @@ NIVissimSingleTypeParser_Simdauer::parse(std::istream &from)
     from >> duration;
     // !!!
     try {
-        TplConvert<char>::my2SUMOReal(duration.c_str());
+        TplConvert<char>::_2SUMOReal(duration.c_str());
     } catch (...) {
         addError("Simulation duration could not be parsed");
         return false;

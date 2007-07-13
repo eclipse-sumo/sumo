@@ -166,7 +166,7 @@ GUIInternalLane::push(MSVehicle* veh)
     SUMOReal pspeed = veh->getSpeed();
     SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
     veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
-    veh->myAssertPos();
+    veh->_assertPos();
     myLock.unlock();//Display();
 //    setApproaching(veh->pos(), veh);
     return false;

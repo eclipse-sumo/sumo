@@ -72,7 +72,7 @@ OptionsLoader::~OptionsLoader()
 void OptionsLoader::startElement(const XMLCh* const name,
                                  AttributeList& /*attributes*/)
 {
-    myItem = TplConvert<XMLCh>::my2str(name);
+    _item = TplConvert<XMLCh>::_2str(name);
     /*
     if( myItem=="configuration" ||
         myItem=="files" ||
@@ -90,7 +90,7 @@ void OptionsLoader::characters(const XMLCh* const chars,
     if (myItem.length()==0) {
         return;
     }
-    string value = TplConvert<XMLCh>::my2str(chars, length);
+    string value = TplConvert<XMLCh>::_2str(chars, length);
     size_t index = value.find_first_not_of("\n\t \a");
     if (index==string::npos) {
         return;
@@ -167,7 +167,7 @@ OptionsLoader::endElement(const XMLCh* const /*name*/)
 void
 OptionsLoader::warning(const SAXParseException& exception)
 {
-    WRITE_WARNING(TplConvert<XMLCh>::my2str(exception.getMessage()));
+    WRITE_WARNING(TplConvert<XMLCh>::_2str(exception.getMessage()));
     WRITE_WARNING(\
                   " (At line/column " \
                   + toString<int>(exception.getLineNumber()+1) + '/' \
@@ -180,7 +180,7 @@ void
 OptionsLoader::error(const SAXParseException& exception)
 {
     MsgHandler::getErrorInstance()->inform(
-        TplConvert<XMLCh>::my2str(exception.getMessage()));
+        TplConvert<XMLCh>::_2str(exception.getMessage()));
     MsgHandler::getErrorInstance()->inform(
         " (At line/column "
         + toString<int>(exception.getLineNumber()+1) + '/'
@@ -193,7 +193,7 @@ void
 OptionsLoader::fatalError(const SAXParseException& exception)
 {
     MsgHandler::getErrorInstance()->inform(
-        TplConvert<XMLCh>::my2str(exception.getMessage()));
+        TplConvert<XMLCh>::_2str(exception.getMessage()));
     MsgHandler::getErrorInstance()->inform(
         " (At line/column "
         + toString<int>(exception.getLineNumber()+1) + '/'

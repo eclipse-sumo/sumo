@@ -70,8 +70,8 @@ NICellNodesHandler::report(const std::string &result)
             string id = NBHelpers::normalIDRepresentation(st.next());
             SUMOReal x, y;
             try {
-                x = TplConvert<char>::my2SUMOReal(st.next().c_str());
-                y = TplConvert<char>::my2SUMOReal(st.next().c_str());
+                x = TplConvert<char>::_2SUMOReal(st.next().c_str());
+                y = TplConvert<char>::_2SUMOReal(st.next().c_str());
                 if (!myNodeCont.insert(id, Position2D(x, y))) {
                     MsgHandler::getErrorInstance()->inform("Could not build node '" + id + "'.");
                 }

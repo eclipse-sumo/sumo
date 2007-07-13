@@ -71,7 +71,7 @@ MSTLLogicControl::WAUTSwitchProcedure::getGSPValue(MSTrafficLightLogic *from) co
     if (val.length()==0) {
         return -1;
     }
-    return TplConvert<char>::my2SUMOReal(val.c_str());
+    return TplConvert<char>::_2SUMOReal(val.c_str());
 }
 
 bool
@@ -269,7 +269,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::adaptLogic(SUMOTime step, SUMORea
         assert(def.end >= def.begin) ;
         deltaPossible = deltaPossible + (size_t)(def.end - def.begin);
     }
-    int stretchUmlaufAnz = (int) TplConvert<char>::my2SUMOReal(LogicTo->getParameterValue("StretchUmlaufAnz").c_str());
+    int stretchUmlaufAnz = (int) TplConvert<char>::_2SUMOReal(LogicTo->getParameterValue("StretchUmlaufAnz").c_str());
     deltaPossible = stretchUmlaufAnz * deltaPossible;
     if ((deltaPossible > deltaToCut)&&(deltaToCut < (cycleTime / 2))) {
         cutLogic(step, startPos, deltaToCut);
@@ -354,7 +354,7 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, size_
     size_t allStretchTime = deltaToStretch;
     size_t remainingStretchTime = allStretchTime;
     int StretchTimeOfPhase = 0;
-    size_t stretchUmlaufAnz = (size_t) TplConvert<char>::my2SUMOReal(LogicTo->getParameterValue("StretchUmlaufAnz").c_str());
+    size_t stretchUmlaufAnz = (size_t) TplConvert<char>::_2SUMOReal(LogicTo->getParameterValue("StretchUmlaufAnz").c_str());
     float facSum = 0;
     int noBereiche = getStretchBereicheNo(myTo);
     int x;
@@ -427,9 +427,9 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::StretchBereichDef
 MSTLLogicControl::WAUTSwitchProcedure_Stretch::getStretchBereichDef(MSTrafficLightLogic *from, int index) const
 {
     StretchBereichDef def;
-    def.begin = TplConvert<char>::my2SUMOReal(from->getParameterValue("B" + toString(index) + ".begin").c_str());
-    def.end = TplConvert<char>::my2SUMOReal(from->getParameterValue("B" + toString(index) + ".end").c_str());
-    def.fac = TplConvert<char>::my2SUMOReal(from->getParameterValue("B" + toString(index) + ".factor").c_str());
+    def.begin = TplConvert<char>::_2SUMOReal(from->getParameterValue("B" + toString(index) + ".begin").c_str());
+    def.end = TplConvert<char>::_2SUMOReal(from->getParameterValue("B" + toString(index) + ".end").c_str());
+    def.fac = TplConvert<char>::_2SUMOReal(from->getParameterValue("B" + toString(index) + ".factor").c_str());
     return def;
 }
 

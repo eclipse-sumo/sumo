@@ -95,10 +95,10 @@ MSTriggeredXMLReader::myInit()
             
         }
     } catch (SAXException &e) {
-        throw ProcessError(TplConvert<XMLCh>::my2str(e.getMessage()));
+        throw ProcessError(TplConvert<XMLCh>::_2str(e.getMessage()));
         
     } catch (XMLException &e) {
-        throw ProcessError(TplConvert<XMLCh>::my2str(e.getMessage()));
+        throw ProcessError(TplConvert<XMLCh>::_2str(e.getMessage()));
         
     }
 

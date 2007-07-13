@@ -115,7 +115,7 @@ getTurningDefaults(OptionsCont &oc)
     }
     for (vector<string>::const_iterator i=defs.begin(); i!=defs.end(); ++i) {
         try {
-            SUMOReal val = TplConvert<char>::my2SUMOReal((*i).c_str());
+            SUMOReal val = TplConvert<char>::_2SUMOReal((*i).c_str());
             ret.push_back(val);
         } catch (NumberFormatException&) {
             throw ProcessError("A turn default is not numeric.");
@@ -225,7 +225,7 @@ main(int argc, char **argv)
                 MsgHandler::getErrorInstance()->inform(toString<int>(e.getLineNumber()));
                 ret = 1;
             } catch (SAXException &e) {
-                MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::my2str(e.getMessage()));
+                MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
                 ret = 1;
             }
         } else {

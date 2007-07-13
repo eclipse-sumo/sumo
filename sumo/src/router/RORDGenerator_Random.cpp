@@ -72,9 +72,9 @@ RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
         OptionsCont::getOptions().getString("random-route-color");
     StringTokenizer st(color, ";");
     try {
-        SUMOReal r = TplConvert<char>::my2SUMOReal(st.next().c_str());
-        SUMOReal g = TplConvert<char>::my2SUMOReal(st.next().c_str());
-        SUMOReal b = TplConvert<char>::my2SUMOReal(st.next().c_str());
+        SUMOReal r = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        SUMOReal g = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        SUMOReal b = TplConvert<char>::_2SUMOReal(st.next().c_str());
         myColor = RGBColor(r, g, b);
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("Something is wrong with the color definition for random routes\n Option: 'random-route-color'");

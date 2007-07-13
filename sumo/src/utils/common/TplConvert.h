@@ -51,9 +51,9 @@ public:
     // conversion methods without a length
     /** converts a 0-terminated char-type array into std::string
         throws an EmptyData - exception if the given string is empty */
-    static std::string my2str(const E * const data)
+    static std::string _2str(const E * const data)
     {
-        return my2str(data, getLength(data));
+        return _2str(data, getLength(data));
     }
 
 
@@ -62,9 +62,9 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain an integer */
-    static int my2int(const E * const data)
+    static int _2int(const E * const data)
     {
-        return my2int(data, INT_MAX);
+        return _2int(data, INT_MAX);
     }
 
 
@@ -73,9 +73,9 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a long */
-    static long my2long(const E * const data)
+    static long _2long(const E * const data)
     {
-        return my2long(data, INT_MAX);
+        return _2long(data, INT_MAX);
     }
 
 
@@ -84,9 +84,9 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string
             does not contain a SUMOReal */
-    static SUMOReal my2SUMOReal(const E * const data)
+    static SUMOReal _2SUMOReal(const E * const data)
     {
-        return my2SUMOReal(data, INT_MAX);
+        return _2SUMOReal(data, INT_MAX);
     }
 
 
@@ -95,18 +95,18 @@ public:
         returns true when the first char is one of the following: '1',
             'x', 't', 'T'
         throws an EmptyData - exception if the given string is empty */
-    static bool my2bool(const E * const data)
+    static bool _2bool(const E * const data)
     {
-        return my2bool(data, 1);
+        return _2bool(data, 1);
     }
 
 
     /** converts a 0-terminated char-type array into a 0-terminated
             0-terminated c-char-string
         throws an EmptyData - exception if the given string is empty */
-    static char *my2charp(const E * const data)
+    static char *_2charp(const E * const data)
     {
-        return my2charp(data, getLength(data));
+        return _2charp(data, getLength(data));
     }
 
 
@@ -114,7 +114,7 @@ public:
     /** converts a char-type array into std::string considering the given
             length
         throws an EmptyData - exception if the given string is empty */
-    static std::string my2str(const E * const data, int length)
+    static std::string _2str(const E * const data, int length)
     {
         if (data==0) {
             throw EmptyData();
@@ -139,7 +139,7 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain an integer */
-    static int my2int(const E * const data, int length)
+    static int _2int(const E * const data, int length)
     {
         if (data==0||length==0||data[0]==0) {
             throw EmptyData();
@@ -174,7 +174,7 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a long */
-    static long my2long(const E * const data, int length)
+    static long _2long(const E * const data, int length)
     {
         if (data==0||length==0||data[0]==0) {
             throw EmptyData();
@@ -209,7 +209,7 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a SUMOReal */
-    static SUMOReal my2SUMOReal(const E * const data, int length)
+    static SUMOReal _2SUMOReal(const E * const data, int length)
     {
         if (data==0||length==0||data[0]==0) {
             throw EmptyData();
@@ -242,7 +242,7 @@ public:
         if (data[i]=='e'||data[i]=='E') {
             // no decimal point, just an exponent
             try {
-                int exp = my2int(data+i+1, length-i-1);
+                int exp = _2int(data+i+1, length-i-1);
                 SUMOReal exp2 = (SUMOReal) pow(10.0, exp);
                 return ret*sgn*exp2;
             } catch (EmptyData&) {
@@ -268,7 +268,7 @@ public:
         }
         // eponent and decimal dot
         try {
-            int exp = my2int(data+i+1, length-i-1);
+            int exp = _2int(data+i+1, length-i-1);
             SUMOReal exp2 = (SUMOReal) pow(10.0, exp);
             return ret*sgn*exp2;
         } catch (EmptyData&) {
@@ -283,7 +283,7 @@ public:
         returns true when the first char is one of the following: '1',
             'x', 't', 'T'
         throws an EmptyData - exception if the given string is empty */
-    static bool my2bool(const E * const data, int length)
+    static bool _2bool(const E * const data, int length)
     {
         if (data==0||length==0||data[0]==0) {
             throw EmptyData();
@@ -302,7 +302,7 @@ public:
     /** converts a char-type array into a 0-terminated 0-terminated
             c-char-string considering the given length
         throws an EmptyData - exception if the given string is empty */
-    static char *my2charp(const E * const data, int length)
+    static char *_2charp(const E * const data, int length)
     {
         if (length==0||data==0) {
             throw EmptyData();

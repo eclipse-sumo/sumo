@@ -46,7 +46,7 @@ SUMOReal
 NINavTeqHelper::getSpeed(const std::string &id, const std::string &speedClassS)
 {
     try {
-        int speedClass = TplConvert<char>::my2int(speedClassS.c_str());
+        int speedClass = TplConvert<char>::_2int(speedClassS.c_str());
         switch (speedClass) {
         case -1:
             return (SUMOReal) 1.0 / (SUMOReal) 3.6;
@@ -84,7 +84,7 @@ NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS,
                               SUMOReal speed, bool useNewLaneNumberInfoPlain)
 {
     try {
-        int nolanes = TplConvert<char>::my2int(laneNoS.c_str());
+        int nolanes = TplConvert<char>::_2int(laneNoS.c_str());
         if (nolanes<0) {
             return 1;
         } else if (nolanes/10>0&&(useNewLaneNumberInfoPlain||abs((nolanes%10)-(nolanes/10))<2)) {

@@ -80,7 +80,7 @@ NIVisumParser_EdgePolys::myDependentReport()
         int index;
         SUMOReal x, y;
         try {
-            index = TplConvert<char>::my2int(myLineParser.get("INDEX").c_str());
+            index = TplConvert<char>::_2int(myLineParser.get("INDEX").c_str());
             x = getNamedFloat("XKoord");
             y = getNamedFloat("YKoord");
         } catch (NumberFormatException&) {

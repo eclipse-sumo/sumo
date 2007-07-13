@@ -410,7 +410,7 @@ void
 NLHandler::setNodeNumber(const std::string &chars)
 {
     try {
-        myJunctionControlBuilder.prepare(TplConvert<char>::my2int(chars.c_str()));
+        myJunctionControlBuilder.prepare(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData &) {
         throw ProcessError("Missing number of nodes.");
     } catch (NumberFormatException &) {
@@ -1471,7 +1471,7 @@ void
 NLHandler::setRequestSize(const std::string &chars)
 {
     try {
-        myJunctionControlBuilder.setRequestSize(TplConvert<char>::my2int(chars.c_str()));
+        myJunctionControlBuilder.setRequestSize(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing request size.");
     } catch (NumberFormatException &) {
@@ -1484,7 +1484,7 @@ void
 NLHandler::setLaneNumber(const std::string &chars)
 {
     try {
-        myJunctionControlBuilder.setLaneNumber(TplConvert<char>::my2int(chars.c_str()));
+        myJunctionControlBuilder.setLaneNumber(TplConvert<char>::_2int(chars.c_str()));
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing lane number.");
     } catch (NumberFormatException &) {
@@ -1519,7 +1519,7 @@ void
 NLHandler::setOffset(const std::string &chars)
 {
     try {
-        myJunctionControlBuilder.setOffset(TplConvertSec<char>::my2intSec(chars.c_str(), 0));
+        myJunctionControlBuilder.setOffset(TplConvertSec<char>::_2intSec(chars.c_str(), 0));
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The offset for a junction is not numeric.");
     } catch (EmptyData &) {

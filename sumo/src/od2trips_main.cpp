@@ -182,14 +182,14 @@ parseTimeLine(const std::string &def, bool timelineDayInHours)
             if (st2.size()!=2) {
                 throw ProcessError("Broken time line definition: missing a value in '" + hourval + "'.");
             }
-            time = TplConvert<char>::my2int(st2.next().c_str());
+            time = TplConvert<char>::_2int(st2.next().c_str());
         }
         // check otherwise
         if (timelineDayInHours&&st2.size()!=1) {
             throw ProcessError("Broken time line definition: missing a value in '" + hourval + "'.");
         }
         // get the distribution value
-        prob = TplConvert<char>::my2SUMOReal(st2.next().c_str());
+        prob = TplConvert<char>::_2SUMOReal(st2.next().c_str());
         points.push_back(Position2D((SUMOReal) time, prob));
         chour++;
     }
@@ -295,7 +295,7 @@ parseTime(const std::string &time)
 {
     string hours = time.substr(0, time.find('.'));
     string minutes = time.substr(time.find('.')+1);
-    return TplConvert<char>::my2int(hours.c_str()) * 3600 + TplConvert<char>::my2int(minutes.c_str());
+    return TplConvert<char>::_2int(hours.c_str()) * 3600 + TplConvert<char>::_2int(minutes.c_str());
 }
 
 
@@ -308,7 +308,7 @@ readV(LineReader &lr, ODMatrix &into, float scale,
     string line;
     if (matrixHasVehType) {
         line = getNextNonCommentLine(lr);
-        int type = TplConvert<char>::my2int(StringUtils::prune(line).c_str());
+        int type = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
         if (vehType=="") {
             vehType = toString(type);
         }
@@ -318,9 +318,9 @@ readV(LineReader &lr, ODMatrix &into, float scale,
     int begin = parseTime(st.next());
     int end = parseTime(st.next());
     line = getNextNonCommentLine(lr);
-    SUMOReal factor = TplConvert<char>::my2SUMOReal(StringUtils::prune(line).c_str()) * scale;
+    SUMOReal factor = TplConvert<char>::_2SUMOReal(StringUtils::prune(line).c_str()) * scale;
     line = getNextNonCommentLine(lr);
-    int districtNo = TplConvert<char>::my2int(StringUtils::prune(line).c_str());
+    int districtNo = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
     // parse district names (normally ints)
     std::vector<std::string> names;
     line = getNextNonCommentLine(lr);
@@ -341,7 +341,7 @@ readV(LineReader &lr, ODMatrix &into, float scale,
             StringTokenizer st2(line, StringTokenizer::WHITECHARS);
             while (st2.hasNext()) {
                 assert(di!=names.end());
-                float vehNumber = TplConvert<char>::my2SUMOReal(st2.next().c_str()) * factor;
+                float vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
                 if (vehNumber!=0) {
                     ODCell *cell = new ODCell();
                     cell->begin = begin;
@@ -370,7 +370,7 @@ readO(LineReader &lr, ODMatrix &into, float scale,
     string line;
     if (matrixHasVehType) {
         line = getNextNonCommentLine(lr);
-        int type = TplConvert<char>::my2int(StringUtils::prune(line).c_str());
+        int type = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
         if (vehType=="") {
             vehType = toString(type);
         }
@@ -380,14 +380,14 @@ readO(LineReader &lr, ODMatrix &into, float scale,
     int begin = parseTime(st.next());
     int end = parseTime(st.next());
     line = getNextNonCommentLine(lr);
-    SUMOReal factor = TplConvert<char>::my2SUMOReal(line.c_str()) * scale;
+    SUMOReal factor = TplConvert<char>::_2SUMOReal(line.c_str()) * scale;
     // parse the cells
     while (lr.hasMore()) {
         line = getNextNonCommentLine(lr);
         StringTokenizer st2(line, StringTokenizer::WHITECHARS);
         string sourceD = st2.next();
         string destD = st2.next();
-        float vehNumber = TplConvert<char>::my2SUMOReal(st2.next().c_str()) * factor;
+        float vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
         if (vehNumber!=0) {
             ODCell *cell = new ODCell();
             cell->begin = begin;

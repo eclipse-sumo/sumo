@@ -180,7 +180,7 @@ RORDLoader_Artemis::report(const std::string &result)
             string nodeid = myLineHandler.get("NodeID");
             string destid = myLineHandler.get("DestID");
             SUMOReal perc =
-                TplConvert<char>::my2SUMOReal(myLineHandler.get("Percent").c_str());
+                TplConvert<char>::_2SUMOReal(myLineHandler.get("Percent").c_str());
             myNodeConnections[nodeid].push_back(
                 DestPercentage(destid, perc));
         }
@@ -193,7 +193,7 @@ RORDLoader_Artemis::report(const std::string &result)
             myLineHandler.parseLine(result);
             string nodeid = myLineHandler.get("NodeID");
             SUMOReal flow =
-                TplConvert<char>::my2SUMOReal(myLineHandler.get("a0").c_str());
+                TplConvert<char>::_2SUMOReal(myLineHandler.get("a0").c_str());
             myNodeFlows[nodeid] = flow;
         }
     }

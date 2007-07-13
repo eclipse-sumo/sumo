@@ -71,10 +71,10 @@ NIArtemisParser_Nodes::myDependentReport()
 {
     string id = myLineParser.get("IDnum");
     string name = myLineParser.get("Name");
-    SUMOReal x = TplConvert<char>::my2SUMOReal(myLineParser.get("X").c_str());
-    SUMOReal y = TplConvert<char>::my2SUMOReal(myLineParser.get("Y").c_str());
+    SUMOReal x = TplConvert<char>::_2SUMOReal(myLineParser.get("X").c_str());
+    SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("Y").c_str());
     // size omitted
-    int type = TplConvert<char>::my2int(myLineParser.get("Type").c_str());
+    int type = TplConvert<char>::_2int(myLineParser.get("Type").c_str());
     // return if an error occured
     if (MsgHandler::getErrorInstance()->wasInformed()) {
         return;

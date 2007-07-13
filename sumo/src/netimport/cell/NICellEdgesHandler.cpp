@@ -110,7 +110,7 @@ NICellEdgesHandler::report(const std::string &result)
     size_t nolanes = myTypeCont.getDefaultNoLanes();
     // get the length
     try {
-        length = TplConvert<char>::my2SUMOReal(st.next().c_str());
+        length = TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
         addError("Non-numeric length entry in the following line:\n" + result);
     }
@@ -127,12 +127,12 @@ NICellEdgesHandler::report(const std::string &result)
             // try to resolve capacity->nolanes
             if (name=="-c"&&!hadExpliciteLaneNo) {
                 nolanes = myCapacity2Lanes.get(
-                              TplConvert<char>::my2SUMOReal(value.c_str()));
+                              TplConvert<char>::_2SUMOReal(value.c_str()));
             }
             // process maximal velocity
             if (name=="-v") {
                 try {
-                    speed = TplConvert<char>::my2SUMOReal(value.c_str());
+                    speed = TplConvert<char>::_2SUMOReal(value.c_str());
                 } catch (NumberFormatException &) {
                     addError("Non-numeric speed value:\n" + result);
                 }
@@ -140,7 +140,7 @@ NICellEdgesHandler::report(const std::string &result)
             // process lane number
             if (name=="-l") {
                 try {
-                    nolanes = TplConvert<char>::my2int(value.c_str());
+                    nolanes = TplConvert<char>::_2int(value.c_str());
                     hadExpliciteLaneNo = true;
                 } catch (NumberFormatException &) {
                     addError("Non-numeric lane number value:\n" + result);

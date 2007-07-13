@@ -974,74 +974,74 @@ GUIDialog_ViewSettings::loadSettings(const std::string &file)
         string val = StringUtils::prune(line.substr(line.find(' ')));
         if (name=="name") setting.name = val;
 
-        if (name=="antialiase") setting.antialiase = TplConvert<char>::my2bool(val.c_str());
-        if (name=="dither") setting.dither = TplConvert<char>::my2bool(val.c_str());
+        if (name=="antialiase") setting.antialiase = TplConvert<char>::_2bool(val.c_str());
+        if (name=="dither") setting.dither = TplConvert<char>::_2bool(val.c_str());
 
         if (name=="backgroundColor") setting.backgroundColor = GfxConvHelper::parseColor(val);
-        if (name=="showGrid") setting.showGrid = TplConvert<char>::my2bool(val.c_str());
-        if (name=="gridXSize") setting.gridXSize = TplConvert<char>::my2SUMOReal(val.c_str());
-        if (name=="gridYSize") setting.gridYSize = TplConvert<char>::my2SUMOReal(val.c_str());
+        if (name=="showGrid") setting.showGrid = TplConvert<char>::_2bool(val.c_str());
+        if (name=="gridXSize") setting.gridXSize = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="gridYSize") setting.gridYSize = TplConvert<char>::_2SUMOReal(val.c_str());
 
-        if (name=="laneEdgeMode") setting.laneEdgeMode = TplConvert<char>::my2int(val.c_str());
-        if (name=="laneShowBorders") setting.laneShowBorders = TplConvert<char>::my2bool(val.c_str());
-        if (name=="showLinkDecals") setting.showLinkDecals = TplConvert<char>::my2bool(val.c_str());
-        if (name=="laneEdgeExaggMode") setting.laneEdgeExaggMode = TplConvert<char>::my2int(val.c_str());
-        if (name=="minExagg") setting.minExagg = TplConvert<char>::my2SUMOReal(val.c_str());
-        if (name=="maxExagg") setting.maxExagg = TplConvert<char>::my2SUMOReal(val.c_str());
-        if (name=="showRails") setting.name = TplConvert<char>::my2bool(val.c_str());
-        if (name=="edgeNameSize") setting.edgeNameSize = TplConvert<char>::my2SUMOReal(val.c_str());
+        if (name=="laneEdgeMode") setting.laneEdgeMode = TplConvert<char>::_2int(val.c_str());
+        if (name=="laneShowBorders") setting.laneShowBorders = TplConvert<char>::_2bool(val.c_str());
+        if (name=="showLinkDecals") setting.showLinkDecals = TplConvert<char>::_2bool(val.c_str());
+        if (name=="laneEdgeExaggMode") setting.laneEdgeExaggMode = TplConvert<char>::_2int(val.c_str());
+        if (name=="minExagg") setting.minExagg = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="maxExagg") setting.maxExagg = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="showRails") setting.name = TplConvert<char>::_2bool(val.c_str());
+        if (name=="edgeNameSize") setting.edgeNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
         if (name=="edgeNameColor") setting.edgeNameColor = GfxConvHelper::parseColor(val);
         if (name=="nlcC") {
             string iS = val.substr(0, val.find(' '));
             string vS = StringUtils::prune(val.substr(val.find(' ')));
-            size_t index = TplConvert<char>::my2int(iS.c_str());
+            size_t index = TplConvert<char>::_2int(iS.c_str());
             if (setting.laneColorings.find(index)==setting.laneColorings.end()) {
                 setting.laneColorings[index] = vector<RGBColor>();
             }
             setting.laneColorings[index].push_back(GfxConvHelper::parseColor(vS));
         }
 
-        if (name=="vehicleMode") setting.vehicleMode = TplConvert<char>::my2int(val.c_str());
-        if (name=="minVehicleSize") setting.minVehicleSize = TplConvert<char>::my2SUMOReal(val.c_str());
-        if (name=="vehicleExaggeration") setting.vehicleExaggeration = TplConvert<char>::my2SUMOReal(val.c_str());
-        if (name=="showBlinker") setting.showBlinker = TplConvert<char>::my2bool(val.c_str());
-        if (name=="drawcC2CRadius") setting.drawcC2CRadius = TplConvert<char>::my2bool(val.c_str());
-        if (name=="drawLaneChangePreference") setting.drawLaneChangePreference = TplConvert<char>::my2bool(val.c_str());
-        if (name=="drawVehicleName") setting.drawVehicleName = TplConvert<char>::my2bool(val.c_str());
-        if (name=="vehicleNameSize") setting.vehicleNameSize = TplConvert<char>::my2SUMOReal(val.c_str());
+        if (name=="vehicleMode") setting.vehicleMode = TplConvert<char>::_2int(val.c_str());
+        if (name=="minVehicleSize") setting.minVehicleSize = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="vehicleExaggeration") setting.vehicleExaggeration = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="showBlinker") setting.showBlinker = TplConvert<char>::_2bool(val.c_str());
+        if (name=="drawcC2CRadius") setting.drawcC2CRadius = TplConvert<char>::_2bool(val.c_str());
+        if (name=="drawLaneChangePreference") setting.drawLaneChangePreference = TplConvert<char>::_2bool(val.c_str());
+        if (name=="drawVehicleName") setting.drawVehicleName = TplConvert<char>::_2bool(val.c_str());
+        if (name=="vehicleNameSize") setting.vehicleNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
         if (name=="vehicleNameColor") setting.vehicleNameColor = GfxConvHelper::parseColor(val);
         if (name=="nvcC") {
             string iS = val.substr(0, val.find(' '));
             string vS = StringUtils::prune(val.substr(val.find(' ')));
-            size_t index = TplConvert<char>::my2int(iS.c_str());
+            size_t index = TplConvert<char>::_2int(iS.c_str());
             if (setting.vehicleColorings.find(index)==setting.vehicleColorings.end()) {
                 setting.vehicleColorings[index] = vector<RGBColor>();
             }
             setting.vehicleColorings[index].push_back(GfxConvHelper::parseColor(vS));
         }
 
-        if (name=="junctionMode") setting.junctionMode = TplConvert<char>::my2int(val.c_str());
-        if (name=="drawLinkTLIndex") setting.drawLinkTLIndex = TplConvert<char>::my2bool(val.c_str());
-        if (name=="drawLinkJunctionIndex") setting.drawLinkJunctionIndex = TplConvert<char>::my2bool(val.c_str());
-        if (name=="drawJunctionName") setting.drawJunctionName = TplConvert<char>::my2bool(val.c_str());
-        if (name=="junctionNameSize") setting.junctionNameSize = TplConvert<char>::my2SUMOReal(val.c_str());
+        if (name=="junctionMode") setting.junctionMode = TplConvert<char>::_2int(val.c_str());
+        if (name=="drawLinkTLIndex") setting.drawLinkTLIndex = TplConvert<char>::_2bool(val.c_str());
+        if (name=="drawLinkJunctionIndex") setting.drawLinkJunctionIndex = TplConvert<char>::_2bool(val.c_str());
+        if (name=="drawJunctionName") setting.drawJunctionName = TplConvert<char>::_2bool(val.c_str());
+        if (name=="junctionNameSize") setting.junctionNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
         if (name=="junctionNameColor") setting.junctionNameColor = GfxConvHelper::parseColor(val);
 
-        if (name=="showLane2Lane") setting.showLane2Lane = TplConvert<char>::my2bool(val.c_str());
+        if (name=="showLane2Lane") setting.showLane2Lane = TplConvert<char>::_2bool(val.c_str());
 
-        if (name=="addMode") setting.addMode = TplConvert<char>::my2int(val.c_str());
-        if (name=="minAddSize") setting.minAddSize = TplConvert<char>::my2SUMOReal(val.c_str());
-        if (name=="addExaggeration") setting.addExaggeration = TplConvert<char>::my2SUMOReal(val.c_str());
-        if (name=="drawAddName") setting.drawAddName = TplConvert<char>::my2bool(val.c_str());
-        if (name=="addNameSize") setting.addNameSize = TplConvert<char>::my2SUMOReal(val.c_str());
+        if (name=="addMode") setting.addMode = TplConvert<char>::_2int(val.c_str());
+        if (name=="minAddSize") setting.minAddSize = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="addExaggeration") setting.addExaggeration = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="drawAddName") setting.drawAddName = TplConvert<char>::_2bool(val.c_str());
+        if (name=="addNameSize") setting.addNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
 
-        if (name=="poiExaggeration") setting.poiExaggeration = TplConvert<char>::my2SUMOReal(val.c_str());
-        if (name=="minPOISize") setting.minPOISize = TplConvert<char>::my2SUMOReal(val.c_str());
-        if (name=="drawPOIName") setting.drawPOIName = TplConvert<char>::my2bool(val.c_str());
-        if (name=="poiNameSize") setting.poiNameSize = TplConvert<char>::my2SUMOReal(val.c_str());
+        if (name=="poiExaggeration") setting.poiExaggeration = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="minPOISize") setting.minPOISize = TplConvert<char>::_2SUMOReal(val.c_str());
+        if (name=="drawPOIName") setting.drawPOIName = TplConvert<char>::_2bool(val.c_str());
+        if (name=="poiNameSize") setting.poiNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
         if (name=="poiNameColor") setting.poiNameColor = GfxConvHelper::parseColor(val);
 
-        if (name=="showSizeLegend") setting.showSizeLegend = TplConvert<char>::my2bool(val.c_str());
+        if (name=="showSizeLegend") setting.showSizeLegend = TplConvert<char>::_2bool(val.c_str());
 
     }
     size_t index = mySchemeName->appendItem(setting.name.c_str());
@@ -1077,7 +1077,7 @@ GUIDialog_ViewSettings::onCmdSaveSetting(FXObject*,FXSelector,void*data)
             string name = text->getText().text();
             bool isAlphaNum = true;
             for (size_t i=0; i<name.length(); ++i) {
-                if (name[i]=='my' || (name[i]>='a'&&name[i]<='z') || (name[i]>='A'&&name[i]<='Z') || (name[i]>='0'&&name[i]<='9')) {
+                if (name[i]=='_' || (name[i]>='a'&&name[i]<='z') || (name[i]>='A'&&name[i]<='Z') || (name[i]>='0'&&name[i]<='9')) {
                     continue;
                 }
                 isAlphaNum = false;
@@ -1422,7 +1422,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 1:
         try {
-            d.left = TplConvert<char>::my2SUMOReal(value.c_str());
+            d.left = TplConvert<char>::_2SUMOReal(value.c_str());
             SUMOReal width = d.right - d.left;
             myDecalsTable->setItemText(i->row, 5, toString(width).c_str());
         } catch (NumberFormatException) {
@@ -1432,7 +1432,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 2:
         try {
-            d.top = TplConvert<char>::my2SUMOReal(value.c_str());
+            d.top = TplConvert<char>::_2SUMOReal(value.c_str());
             SUMOReal height = d.bottom - d.top;
             myDecalsTable->setItemText(i->row, 6, toString(height).c_str());
         } catch (NumberFormatException) {
@@ -1442,7 +1442,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 3:
         try {
-            d.right = TplConvert<char>::my2SUMOReal(value.c_str());
+            d.right = TplConvert<char>::_2SUMOReal(value.c_str());
             SUMOReal width = d.right - d.left;
             myDecalsTable->setItemText(i->row, 5, toString(width).c_str());
         } catch (NumberFormatException) {
@@ -1452,7 +1452,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 4:
         try {
-            d.bottom = TplConvert<char>::my2SUMOReal(value.c_str());
+            d.bottom = TplConvert<char>::_2SUMOReal(value.c_str());
             SUMOReal height = d.bottom - d.top;
             myDecalsTable->setItemText(i->row, 6, toString(height).c_str());
         } catch (NumberFormatException) {
@@ -1462,7 +1462,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 5:
         try {
-            SUMOReal width = TplConvert<char>::my2SUMOReal(value.c_str());
+            SUMOReal width = TplConvert<char>::_2SUMOReal(value.c_str());
             d.right = width + d.left;
             myDecalsTable->setItemText(i->row, 3, toString(d.right).c_str());
         } catch (NumberFormatException) {
@@ -1472,7 +1472,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 6:
         try {
-            SUMOReal height = TplConvert<char>::my2SUMOReal(value.c_str());
+            SUMOReal height = TplConvert<char>::_2SUMOReal(value.c_str());
             d.bottom = height + d.top;
             myDecalsTable->setItemText(i->row, 4, toString(d.bottom).c_str());
         } catch (NumberFormatException) {
@@ -1482,7 +1482,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 7:
         try {
-            d.rot = TplConvert<char>::my2SUMOReal(value.c_str());
+            d.rot = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException) {
             string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());

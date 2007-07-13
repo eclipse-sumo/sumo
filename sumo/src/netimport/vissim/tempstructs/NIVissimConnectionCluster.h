@@ -106,7 +106,7 @@ public:
 
     static void searchForConnection(int id);
 
-    static void myDebugOut(std::ostream &into);
+    static void _debugOut(std::ostream &into);
 
     static size_t dictSize();
 

@@ -64,7 +64,7 @@ void
 MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
                                   const MSEdgeContinuations &/*edgeContinuations*/)
 {
-    SUMOReal det_offset = TplConvert<char>::my2SUMOReal(myParameter.find("detector_offset")->second.c_str());
+    SUMOReal det_offset = TplConvert<char>::_2SUMOReal(myParameter.find("detector_offset")->second.c_str());
     // change values for setting the loops and lanestate-detectors, here
     SUMOTime inductLoopInterval = 1; //
     // as the laneStateDetector shall end at the end of the lane, the position

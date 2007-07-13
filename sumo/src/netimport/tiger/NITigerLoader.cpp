@@ -166,8 +166,8 @@ NITigerLoader::convertShape(const std::vector<std::string> &sv)
             ? info.substr(b2)
             : info.substr(b2, b3-b2);
         try {
-            SUMOReal x = TplConvert<char>::my2SUMOReal(p1.c_str());
-            SUMOReal y = TplConvert<char>::my2SUMOReal(p2.c_str());
+            SUMOReal x = TplConvert<char>::_2SUMOReal(p1.c_str());
+            SUMOReal y = TplConvert<char>::_2SUMOReal(p2.c_str());
 
             Position2D pos(x, y);
             GeoConvHelper::x2cartesian(pos);

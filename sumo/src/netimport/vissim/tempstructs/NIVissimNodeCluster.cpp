@@ -261,7 +261,7 @@ NIVissimNodeCluster::getToNode(int edgeid)
 
 
 void
-NIVissimNodeCluster::myDebugOut(std::ostream &into)
+NIVissimNodeCluster::_debugOut(std::ostream &into)
 {
     for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
         NIVissimNodeCluster *c = (*i).second;

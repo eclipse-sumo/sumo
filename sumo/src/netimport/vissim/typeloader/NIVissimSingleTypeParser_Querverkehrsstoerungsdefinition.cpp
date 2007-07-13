@@ -191,7 +191,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream 
                 from >> tag;
                 tag = "alle";
             } else if (tag!="zeitluecke"&&tag!="durch"&&tag!="DATAEND") {
-                int tmp = TplConvert<char>::my2int(tag.c_str());
+                int tmp = TplConvert<char>::_2int(tag.c_str());
                 types.push_back(tmp);
             }
         }

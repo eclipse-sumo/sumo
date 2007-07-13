@@ -745,8 +745,8 @@ GUIViewTraffic::moveTo(GUIGlObject *)
     FXString inputX = textX->getText();
     FXString inputY = textX->getText();
     if(inputX.length() > 0 && inputY.length() > 0){
-    SUMOReal x = TplConvert<char>::my2SUMOReal(textX->getText().text());
-    SUMOReal y = TplConvert<char>::my2SUMOReal(textY->getText().text());
+    SUMOReal x = TplConvert<char>::_2SUMOReal(textX->getText().text());
+    SUMOReal y = TplConvert<char>::_2SUMOReal(textY->getText().text());
      myNet->getShapeContainer().getPOICont().get(name)->set(x,y);
     }
     }

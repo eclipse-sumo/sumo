@@ -102,7 +102,7 @@ NIVisumParser_LanesConnections::myDependentReport()
 
         int fromLane = -1;
         try {
-            fromLane = TplConvert<char>::my2int(fromLaneS.c_str());
+            fromLane = TplConvert<char>::_2int(fromLaneS.c_str());
         } catch (NumberFormatException &) {
             addError("A from-lane number for edge '" + fromEdge->getID() + "' is not numeric (" + fromLaneS + ").");
             return;
@@ -117,7 +117,7 @@ NIVisumParser_LanesConnections::myDependentReport()
             NBHelpers::normalIDRepresentation(myLineParser.get("NACHFSNR"));
         int toLane = -1;
         try {
-            toLane = TplConvert<char>::my2int(toLaneS.c_str());
+            toLane = TplConvert<char>::_2int(toLaneS.c_str());
         } catch (NumberFormatException &) {
             addError("A to-lane number for edge '" + toEdge->getID() + "' is not numeric (" + toLaneS + ").");
             return;

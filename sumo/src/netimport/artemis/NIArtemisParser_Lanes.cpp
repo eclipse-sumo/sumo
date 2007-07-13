@@ -67,13 +67,13 @@ NIArtemisParser_Lanes::myDependentReport()
 {
     string link = myLineParser.get("Link");
     int lane =
-        TplConvert<char>::my2int(myLineParser.get("Lane").c_str());
+        TplConvert<char>::_2int(myLineParser.get("Lane").c_str());
     int section =
-        TplConvert<char>::my2int(myLineParser.get("Section").c_str());
+        TplConvert<char>::_2int(myLineParser.get("Section").c_str());
     SUMOReal start =
-        TplConvert<char>::my2SUMOReal(myLineParser.get("Start").c_str());
+        TplConvert<char>::_2SUMOReal(myLineParser.get("Start").c_str());
     SUMOReal end =
-        TplConvert<char>::my2SUMOReal(myLineParser.get("End").c_str());
+        TplConvert<char>::_2SUMOReal(myLineParser.get("End").c_str());
     // purpose omitted
     NIArtemisTempEdgeLanes::add(link, lane, section, start, end);
 }

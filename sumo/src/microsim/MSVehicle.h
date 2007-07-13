@@ -218,7 +218,7 @@ public:
 
     /** @brief An position assertion
         (needed as state and lane are not accessable) */
-    void myAssertPos() const;
+    void _assertPos() const;
 
 
     /** Returns the gap between pred and this vehicle. Assumes they

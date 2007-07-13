@@ -84,13 +84,13 @@ NIElmarNodesHandler::report(const std::string &result)
     // parse
     id = st.next();
     try {
-        x = (SUMOReal) TplConvert<char>::my2SUMOReal(st.next().c_str());
+        x = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
         throw ProcessError("Non-numerical value for node-x-position occured.");
 
     }
     try {
-        y = (SUMOReal) TplConvert<char>::my2SUMOReal(st.next().c_str());
+        y = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
         throw ProcessError("Non-numerical value for node-y-position occured.");
 

@@ -160,14 +160,14 @@ ROJTRTurnDefLoader::report(const std::string &line)
             myColumnsParser.parseLine(line);
             try {
                 myIntervalBegin =
-                    TplConvert<char>::my2int(getSecure("begin").c_str());
+                    TplConvert<char>::_2int(getSecure("begin").c_str());
             } catch (NumberFormatException &) {
                 MsgHandler::getErrorInstance()->inform("The attribute 'from' is not numeric.");
                 return false;
             }
             try {
                 myIntervalEnd =
-                    TplConvert<char>::my2int(getSecure("end").c_str());
+                    TplConvert<char>::_2int(getSecure("end").c_str());
             } catch (NumberFormatException &) {
                 MsgHandler::getErrorInstance()->inform("The attribute 'to' is not numeric.");
                 return false;
@@ -187,7 +187,7 @@ ROJTRTurnDefLoader::report(const std::string &line)
             SUMOReal probability;
             try {
                 probability =
-                    TplConvert<char>::my2SUMOReal(getSecure("split").c_str());
+                    TplConvert<char>::_2SUMOReal(getSecure("split").c_str());
             } catch (NumberFormatException &) {
                 MsgHandler::getErrorInstance()->inform("The attribute 'perc' is not numeric.");
                 return false;

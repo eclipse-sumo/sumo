@@ -233,7 +233,7 @@ NIVissimLoader::VissimSingleTypeParser::parseAssignedVehicleTypes(
         return ret;
     }
     while (tmp!="DATAEND"&&tmp!=next) {
-        ret.push_back(TplConvert<char>::my2int(tmp.c_str()));
+        ret.push_back(TplConvert<char>::_2int(tmp.c_str()));
         tmp = readEndSecure(from);
     }
     return ret;
@@ -253,7 +253,7 @@ NIVissimLoader::VissimSingleTypeParser::readExtEdgePointDef(
     while (tag!="bei") {
         tag = readEndSecure(from);
         if (tag!="bei") {
-            int lane = TplConvert<char>::my2int(tag.c_str());
+            int lane = TplConvert<char>::_2int(tag.c_str());
             lanes.push_back(lane-1);
         }
     }

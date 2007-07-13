@@ -611,7 +611,7 @@ NIVissimConnectionCluster::searchForConnection(int id)
 
 
 void
-NIVissimConnectionCluster::myDebugOut(std::ostream &into)
+NIVissimConnectionCluster::_debugOut(std::ostream &into)
 {
     for (ContType::iterator i=myClusters.begin(); i!=myClusters.end(); i++) {
         IntVector connections = (*i)->myConnections;

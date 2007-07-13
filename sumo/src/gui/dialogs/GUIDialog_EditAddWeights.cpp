@@ -506,7 +506,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 1:
         try {
-            aw.timeBeg = TplConvert<char>::my2int(value.c_str());
+            aw.timeBeg = TplConvert<char>::_2int(value.c_str());
             if (aw.timeEnd==INVALID_VALUE) {
                 aw.timeEnd = aw.timeBeg + 1;
             } else {
@@ -523,7 +523,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 2:
         try {
-            aw.timeEnd = TplConvert<char>::my2int(value.c_str());
+            aw.timeEnd = TplConvert<char>::_2int(value.c_str());
             if (aw.timeBeg==INVALID_VALUE) {
                 aw.timeBeg = aw.timeEnd - 1;
             } else {
@@ -540,7 +540,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 3:
         try {
-            aw.absolute = TplConvert<char>::my2SUMOReal(value.c_str());
+            aw.absolute = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException &) {
             string msg = "The value must be a SUMOReal, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
@@ -548,7 +548,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 4:
         try {
-            aw.summand = TplConvert<char>::my2SUMOReal(value.c_str());
+            aw.summand = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException &) {
             string msg = "The value must be a SUMOReal, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
@@ -556,7 +556,7 @@ GUIDialog_EditAddWeights::onCmdEditTable(FXObject*,FXSelector,void*data)
         break;
     case 5:
         try {
-            aw.factor = TplConvert<char>::my2SUMOReal(value.c_str());
+            aw.factor = TplConvert<char>::_2SUMOReal(value.c_str());
         } catch (NumberFormatException &) {
             string msg = "The value must be a SUMOReal, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());

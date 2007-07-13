@@ -138,22 +138,22 @@ DFDetFlowLoader::report(const std::string &result)
         myLineHandler.parseLine(result);
         try {
             string detName = myLineHandler.get("detector");
-            int time = TplConvert<char>::my2int((myLineHandler.get("time").c_str()));
+            int time = TplConvert<char>::_2int((myLineHandler.get("time").c_str()));
             time -= myTimeOffset;
             if (time<myStartTime||time>myEndTime) {
                 return true;
             }
             FlowDef fd;
             fd.isLKW = 0;
-            fd.qPKW = TplConvert<char>::my2SUMOReal(myLineHandler.get("qpkw").c_str());
-            fd.vPKW = TplConvert<char>::my2SUMOReal(myLineHandler.get("vpkw").c_str());
+            fd.qPKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("qpkw").c_str());
+            fd.vPKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vpkw").c_str());
             fd.qLKW = 0;
             if (myLineHandler.know("qLKW")) {
-                fd.qLKW = TplConvert<char>::my2SUMOReal(myLineHandler.get("qlkw").c_str());
+                fd.qLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("qlkw").c_str());
             }
             fd.vLKW = 0;
             if (myLineHandler.know("vLKW")) {
-                fd.vLKW = TplConvert<char>::my2SUMOReal(myLineHandler.get("vlkw").c_str());
+                fd.vLKW = TplConvert<char>::_2SUMOReal(myLineHandler.get("vlkw").c_str());
             }
             if (fd.qLKW<0) {
                 fd.qLKW = 0;

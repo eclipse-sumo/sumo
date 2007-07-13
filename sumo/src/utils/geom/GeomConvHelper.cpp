@@ -53,8 +53,8 @@ GeomConvHelper::parseShape(const std::string &shpdef)
     Position2DVector shape;
     while (st.hasNext()) {
         StringTokenizer pos(st.next(), ",");
-        SUMOReal x = TplConvert<char>::my2SUMOReal(pos.next().c_str());
-        SUMOReal y = TplConvert<char>::my2SUMOReal(pos.next().c_str());
+        SUMOReal x = TplConvert<char>::_2SUMOReal(pos.next().c_str());
+        SUMOReal y = TplConvert<char>::_2SUMOReal(pos.next().c_str());
         shape.push_back(Position2D(x, y));
     }
     return shape;
@@ -68,10 +68,10 @@ GeomConvHelper::parseBoundary(const std::string &def)
     if (st.size()!=4) {
         throw InvalidArgument("Could not parse '" + def + "' as boundary.");
     }
-    SUMOReal xmin = TplConvert<char>::my2SUMOReal(st.next().c_str());
-    SUMOReal ymin = TplConvert<char>::my2SUMOReal(st.next().c_str());
-    SUMOReal xmax = TplConvert<char>::my2SUMOReal(st.next().c_str());
-    SUMOReal ymax = TplConvert<char>::my2SUMOReal(st.next().c_str());
+    SUMOReal xmin = TplConvert<char>::_2SUMOReal(st.next().c_str());
+    SUMOReal ymin = TplConvert<char>::_2SUMOReal(st.next().c_str());
+    SUMOReal xmax = TplConvert<char>::_2SUMOReal(st.next().c_str());
+    SUMOReal ymax = TplConvert<char>::_2SUMOReal(st.next().c_str());
     return Boundary(xmin, ymin, xmax, ymax);
 }
 

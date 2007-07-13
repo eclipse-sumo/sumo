@@ -100,7 +100,7 @@ NIElmar2EdgesHandler::report(const std::string &result)
     interID = st.next();
     // length
     try {
-        length = TplConvert<char>::my2SUMOReal(st.next().c_str());
+        length = TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
         throw ProcessError("Non-numerical value for an edge's length occured (edge '" + id + "'.");
 

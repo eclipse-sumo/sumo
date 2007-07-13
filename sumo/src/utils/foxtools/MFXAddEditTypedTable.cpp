@@ -108,7 +108,7 @@ MFXAddEditTypedTable::editItem(FXTableItem* item,FXint how)
         {
             try {
                 myNumberEditor->setValue(
-                    TplConvert<char>::my2SUMOReal(it->getText().text()));
+                    TplConvert<char>::_2SUMOReal(it->getText().text()));
             } catch (NumberFormatException &) {
             } catch (EmptyData &) {
             }
@@ -131,7 +131,7 @@ MFXAddEditTypedTable::editItem(FXTableItem* item,FXint how)
         {
             try {
                 myNumberEditor->setValue(
-                    TplConvert<char>::my2int(it->getText().text()));
+                    TplConvert<char>::_2int(it->getText().text()));
             } catch (NumberFormatException &) {
             } catch (EmptyData &) {
             }
@@ -152,7 +152,7 @@ MFXAddEditTypedTable::editItem(FXTableItem* item,FXint how)
     case CT_BOOL:
         try {
             myBoolEditor->setCheck(
-                TplConvert<char>::my2bool(it->getText().text())
+                TplConvert<char>::_2bool(it->getText().text())
                 ? true : false);
         } catch (NumberFormatException &) {
         } catch (EmptyData &) {
@@ -257,9 +257,9 @@ MFXAddEditTypedTable::getControlForItem(FXint r,FXint c)
         }
         try {
             if (getCellType(c)==CT_REAL) {
-                field->setValue(TplConvert<char>::my2SUMOReal(item->getText().text()));
+                field->setValue(TplConvert<char>::_2SUMOReal(item->getText().text()));
             } else {
-                field->setValue(TplConvert<char>::my2int(item->getText().text()));
+                field->setValue(TplConvert<char>::_2int(item->getText().text()));
             }
         } catch (NumberFormatException &) {
             field->setValue(0);

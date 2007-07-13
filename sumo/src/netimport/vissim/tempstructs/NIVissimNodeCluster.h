@@ -80,7 +80,7 @@ public:
     static void dict_recheckEdgeChanges();
     static int getFromNode(int edgeid);
     static int getToNode(int edgeid);
-    static void myDebugOut(std::ostream &into);
+    static void _debugOut(std::ostream &into);
     static void dict_addDisturbances(NBDistrictCont &dc,
                                      NBNodeCont &nc, NBEdgeCont &ec);
     static void clearDict();

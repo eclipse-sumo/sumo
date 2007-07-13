@@ -188,10 +188,10 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getWeightedFloat(
     const std::string &name)
 {
     try {
-        return TplConvert<char>::my2SUMOReal(myLineParser.get(name).c_str());
+        return TplConvert<char>::_2SUMOReal(myLineParser.get(name).c_str());
     } catch (...) {}
     try {
-        return TplConvert<char>::my2SUMOReal(myLineParser.get((name+"(IV)")).c_str());
+        return TplConvert<char>::_2SUMOReal(myLineParser.get((name+"(IV)")).c_str());
     } catch (...) {}
     return -1;
 }
@@ -202,10 +202,10 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getWeightedBool(
     const std::string &name)
 {
     try {
-        return TplConvert<char>::my2bool(myLineParser.get(name).c_str());
+        return TplConvert<char>::_2bool(myLineParser.get(name).c_str());
     } catch (...) {}
     try {
-        return TplConvert<char>::my2bool(myLineParser.get((name+"(IV)")).c_str());
+        return TplConvert<char>::_2bool(myLineParser.get((name+"(IV)")).c_str());
     } catch (...) {}
     return false;
 }
@@ -412,7 +412,7 @@ SUMOReal
 NIVisumLoader::NIVisumSingleDataTypeParser::getNamedFloat(const std::string &fieldName)
 {
     string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
-    return TplConvert<char>::my2SUMOReal(valS.c_str());
+    return TplConvert<char>::_2SUMOReal(valS.c_str());
 }
 
 
@@ -422,7 +422,7 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getNamedFloat(const std::string &fie
 {
     try {
         string valS = NBHelpers::normalIDRepresentation(myLineParser.get(fieldName));
-        return TplConvert<char>::my2SUMOReal(valS.c_str());
+        return TplConvert<char>::_2SUMOReal(valS.c_str());
     } catch (...) {
         return defaultValue;
     }

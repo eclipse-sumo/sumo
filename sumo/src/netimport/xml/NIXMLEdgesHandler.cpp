@@ -229,7 +229,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                         toNext = false;
                         break;
                     }
-                    int dist = TplConvert<char>::my2int(nextID.substr(myCurrentID.length()+1).c_str());
+                    int dist = TplConvert<char>::_2int(nextID.substr(myCurrentID.length()+1).c_str());
                     if (forcedLength>dist) {
                         toNext = false;
                         splitLength -= dist;
@@ -627,7 +627,7 @@ NIXMLEdgesHandler::myCharacters(SumoXMLTag element,
             StringTokenizer st(chars, ";");
             while (st.hasNext()) {
                 try {
-                    int lane = TplConvert<char>::my2int(st.next().c_str());
+                    int lane = TplConvert<char>::_2int(st.next().c_str());
                     e.lanes.push_back(lane);
                 } catch (NumberFormatException &) {
                     MsgHandler::getErrorInstance()->inform("Error on parsing an expansion (edge '" + myCurrentID + "').");
