@@ -9,7 +9,7 @@ import os, random, string, sys
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 
-MAX_POS_DEVIATION = 10
+import detector
 
 # Vertex class which stores incoming and outgoing edges as well as
 # auxiliary data for the flow computation. The members are accessed
@@ -57,26 +57,8 @@ class Edge:
         self.maxSpeed = 0.0
         self.length = 0.0
         self.finalizer = None
-        self.detPos = []
         self.detGroup = []
-        self.detFlow = []
         self.routes = []
-
-    def addDet(self, pos, det):
-        for index, compPos in enumerate(self.detPos):
-            if abs(compPos - pos) <= MAX_POS_DEVIATION:
-                self.detGroup[index].append(det)
-                return
-        self.detPos.append(pos)
-        self.detGroup.append([det])
-        self.detFlow.append(0)
-
-    def addFlow(self, det, flow):
-        for index, group in enumerate(self.detGroup):
-            if det in group:
-                self.detFlow[index] += flow
-                return
-        assert False
 
     def __repr__(self):
         cap = str(self.capacity)
@@ -188,23 +170,18 @@ class Net:
             if len(edgeObj.target.outEdges) == 0 or edgeObj in self._possibleSinks:
                 self.addSinkEdge(edgeObj)
 
-    def checkNet(self, forcedSourceSinkDetection):
+    def checkNet(self):
         self.trimNet()
         for edge in self._edges.itervalues():
-            if len(edge.detFlow) > 0:
-                edge.capacity = int(max(edge.detFlow))
+            if len(edge.detGroup) > 0:
+                edge.capacity = 0
+                for group in edge.detGroup:
+                    if int(group.totalFlow) > edge.capacity:
+                        edge.capacity = int(group.totalFlow)
             if not options.respectzero and edge.capacity == 0:
                 edge.capacity = sys.maxint
             edge.startCapacity = edge.capacity
-        if not forcedSourceSinkDetection:
-            if len(self._sink.inEdges) == 0:
-                warn("Warning! No sinks, trying to find some.")
-                forcedSourceSinkDetection = True
-            if len(self._source.outEdges) == 0:
-                warn("Warning! No sources, trying to find some.")
-                forcedSourceSinkDetection = True
-        if forcedSourceSinkDetection:
-            self.detectSourceSink()
+        self.detectSourceSink()
         if len(self._sink.inEdges) == 0:
             print "Error! No sinks found."
             return False
@@ -453,8 +430,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
         self._edgeString = ''
         self._edge = ''
         self._lane2edge = {}
-        self._det2edge = {}
-        self._isGroupValid = True
+        self._detReader = None
 
     def startElement(self, name, attrs):
         if name == 'edges':
@@ -472,25 +448,6 @@ class NetDetectorFlowReader(handler.ContentHandler):
             edgeObj = self._net.getEdge(self._edge)
             edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['maxspeed']))
             edgeObj.length = float(attrs['length'])
-        elif name == 'group':
-            self._isGroupValid = attrs.get('valid', "1") == "1"
-        elif name == 'detector_definition':
-            if not self._isGroupValid:
-                return
-            if not attrs['lane'] in self._lane2edge:
-                warn("Warning! Unknown lane " + attrs['lane'] + ", ignoring " + attrs['id'])
-                return
-            edgeObj = self._net.getEdge(self._lane2edge[attrs['lane']])
-            edgeObj.addDet(float(attrs['pos']), attrs['id'])
-            self._det2edge[attrs['id']] = edgeObj
-            if not 'type' in attrs:
-                if not options.sourcesink:
-                    warn("Warning! No type for detector " + attrs['id'])
-            elif not options.ignoredettype:
-                if attrs['type'] == 'source':
-                    self._net.addSourceEdge(edgeObj)
-                if attrs['type'] == 'sink':
-                    self._net.addSinkEdge(edgeObj)
 
     def characters(self, content):
         if self._edgeString != '':
@@ -504,17 +461,15 @@ class NetDetectorFlowReader(handler.ContentHandler):
         elif name == 'edge':
             self._edge = ''
 
+    def readDetectors(self, detFile):
+        self._detReader = detector.DetectorReader(detFile, self._lane2edge)
+        for edge, detGroups in self._detReader._edge2DetData.iteritems():
+            for group in detGroups:
+                if group.isValid:
+                    self._net.getEdge(edge).detGroup.append(group)
+    
     def readFlows(self, flowFile):
-        headerSeen = False
-        for l in file(flowFile):
-            flowDef = l.split(';')
-            if not headerSeen and flowDef[0] == "Detector":
-                headerSeen = True
-                continue
-            if not flowDef[0] in self._det2edge:
-                warn("Warning! Unknown detector " + flowDef[0])
-            else:
-                self._det2edge[flowDef[0]].addFlow(flowDef[0], float(flowDef[2]))
+        self._detReader.readFlows(flowFile)
 
 
 def warn(msg):
@@ -549,13 +504,9 @@ optParser.add_option("-t", "--trimmed-output", dest="trimfile",
 optParser.add_option("-p", "--flow-poi-output", dest="flowpoifile",
                      help="write resulting flows as SUMO POIs to FILE", metavar="FILE")
 optParser.add_option("-m", "--min-speed", type="float", dest="minspeed",
-                     default=0.0, help="only consider edges where the fastest lane allows at least this maxspeed (m/s), together with their predecessors and successors")
+                     default=0.0, help="only consider edges where the fastest lane allows at least this maxspeed (m/s)")
 optParser.add_option("-D", "--keep-det", action="store_true", dest="keepdet",
                      default=False, help='keep edges with detectors when deleting "slow" edges')
-optParser.add_option("-i", "--ignore-detector-types", action="store_true", dest="ignoredettype",
-                     default=False, help="ignores source and sink types in the detector file (implies -s)")
-optParser.add_option("-s", "--source-sink-detection", action="store_true", dest="sourcesink",
-                     default=False, help="detect (additional) sources and sinks")
 optParser.add_option("-z", "--respect-zero", action="store_true", dest="respectzero",
                      default=False, help="respect detectors without data (or with permanent zero) with zero flow")
 optParser.add_option("-q", "--quiet", action="store_true", dest="quiet",
@@ -569,8 +520,6 @@ if not options.netfile or not options.detfile or not options.flowfiles:
 if options.emitfile and not options.routefile:
     optParser.print_help()
     sys.exit()
-if options.ignoredettype:
-    options.sourcesink = True
 parser = make_parser()
 if options.verbose:
     print "Reading net"
@@ -581,12 +530,12 @@ parser.parse(options.netfile)
 if options.verbose:
     print len(net._edges), "edges read"
     print "Reading detectors"
-parser.parse(options.detfile)
+reader.readDetectors(options.detfile)
 if options.verbose:
     print "Reading flows"
 for flow in options.flowfiles:
     reader.readFlows(flow)
-if net.checkNet(options.sourcesink):
+if net.checkNet():
     if options.verbose:
         print "Calculating routes"
     net.calcRoutes()

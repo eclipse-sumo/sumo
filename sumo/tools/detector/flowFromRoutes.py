@@ -5,75 +5,42 @@ import math, string, sys
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 
-MAX_POS_DEVIATION = 10
+import detector
 
-class DetectorData:
-
-    def __init__(self):
-        self.detPos = []
-        self.detGroup = []
-        self.routeFlow = []
-        self.detFlow = []
-
-    def addDet(self, pos, det):
-        for index, compPos in enumerate(self.detPos):
-            if abs(compPos - pos) <= MAX_POS_DEVIATION:
-                self.detGroup[index].append(det)
-                return
-        self.detPos.append(pos)
-        self.detGroup.append([det])
-        self.routeFlow.append(0)
-        self.detFlow.append(0)
-
-    def addDetFlow(self, det, flow):
-        for index, group in enumerate(self.detGroup):
-            if det in group:
-                self.detFlow[index] += flow
-                return
-        assert False
-
-    def addRouteFlow(self, flow):
-        for index in range(len(self.routeFlow)):
-            self.routeFlow[index] += flow
-
+class LaneMap:
+    def get(self, key, default):
+        return key[0:-2]
 
 class DetectorRouteEmitterReader(handler.ContentHandler):
 
-    def __init__(self):
+    def __init__(self, detFile):
         self._routeID = ''
         self._routeString = ''
-        self._edge2det = {}
-        self._route2dets = {}
-        self._detData = {}
+        self._routes = {}
+        self._detReader = detector.DetectorReader(detFile, LaneMap())
+        self._edgeFlow = {}
         self._parser = make_parser()
         self._parser.setContentHandler(self)
-        self._isGroupValid = True
+        
+    def addEdgeFlow(self, edge, flow):
+        if not edge in self._edgeFlow:
+            self._edgeFlow[edge] = 0
+        self._edgeFlow[edge] += flow
 
     def startElement(self, name, attrs):
-        if name == 'group':
-            self._isGroupValid = attrs.get('valid', "1") == "1"
-        elif name == 'detector_definition':
-            if not self._isGroupValid:
-                return
-            edge = attrs['lane'][0:-2]
-            if not edge in self._edge2det:
-                self._edge2det[edge] = DetectorData()
-            self._edge2det[edge].addDet(float(attrs['pos']), attrs['id'])
-            self._detData[attrs['id']] = self._edge2det[edge]
         if name == 'route':
             self._routeID = attrs['id']
-            self._route2dets[attrs['id']] = []
         if name == 'trigger':
             self._parser.parse(attrs['file'])
         if name == 'routedistelem':
             if not options.dfrstyle:
                 flow = int(attrs['probability'])
-                for det in self._route2dets[attrs['id']]:
-                    det.addRouteFlow(flow)
+                for edge in self._routes[attrs['id']]:
+                    self.addEdgeFlow(edge, flow)
         if name == 'emit':
             if options.dfrstyle:
                 for det in self._route2dets[attrs['route']]:
-                    det.addRouteFlow(1)
+                    self.addEdgeFlow(edge, 1)
 
     def characters(self, content):
         if self._routeID != '':
@@ -81,24 +48,14 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
 
     def endElement(self, name):
         if name == 'route':
-            for edge in self._routeString.split():
-                if edge in self._edge2det:
-                    self._route2dets[self._routeID].append(self._edge2det[edge])
-            if not options.respectsink and edge in self._edge2det:
-                self._route2dets[self._routeID].pop()
+            self._routes[self._routeID] = self._routeString.split()
+            if not options.respectsink:
+                self._routes[self._routeID].pop()
             self._routeID = ''
             self._routeString = ''
 
     def readDetFlows(self, flowFile):
-        headerSeen = False
-        for l in file(flowFile):
-            flowDef = l.split(';')
-            det = flowDef[0]
-            if not headerSeen and det == "Detector":
-                headerSeen = True
-            else:
-                if flowDef[0] in self._detData:
-                    self._detData[flowDef[0]].addDetFlow(flowDef[0], float(flowDef[2]))
+        self._detReader.readFlows(flowFile)
 
     def calcStatistics(self):
         rSum = 0
@@ -107,17 +64,20 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         sumSquaredDev = 0
         sumSquaredPercent = 0
         n = 0
-        for det in self._edge2det.itervalues():
-            for rFlow, dFlow in zip(det.routeFlow, det.detFlow):
-                if dFlow > 0 or options.respectzero:
-                    rSum += rFlow
-                    dSum += dFlow
-                    dev = float(abs(rFlow - dFlow))
-                    sumAbsDev += dev
-                    sumSquaredDev += dev * dev
-                    if dFlow > 0:
-                        sumSquaredPercent += dev * dev / dFlow / dFlow
-                    n += 1
+        for edge, detData in self._detReader._edge2DetData.iteritems():
+            rFlow = self._edgeFlow.get(edge, 0)
+            for group in detData:
+                if group.isValid:
+                    dFlow = group.totalFlow
+                    if dFlow > 0 or options.respectzero:
+                        rSum += rFlow
+                        dSum += dFlow
+                        dev = float(abs(rFlow - dFlow))
+                        sumAbsDev += dev
+                        sumSquaredDev += dev * dev
+                        if dFlow > 0:
+                            sumSquaredPercent += dev * dev / dFlow / dFlow
+                        n += 1
         print '# avgRouteFlow avgDetFlow avgDev RMSE RMSPE'
         print '#', rSum/n, dSum/n, sumAbsDev/n, math.sqrt(sumSquaredDev/n), math.sqrt(sumSquaredPercent/n)
 
@@ -127,14 +87,18 @@ class DetectorRouteEmitterReader(handler.ContentHandler):
         else:
             print '# detNames RouteFlow'
         output = []
-        for det in self._edge2det.itervalues():
-            det.detString = []
-            for group in det.detGroup:
-                det.detString.append(string.join(sorted(group), ';'))
+        for edge, detData in self._detReader._edge2DetData.iteritems():
+            detString = []
+            dFlow = []
+            for group in detData:
+                if group.isValid:
+                    detString.append(string.join(sorted(group.ids), ';'))
+                    dFlow.append(group.totalFlow)
+            rFlow = len(detString) * [self._edgeFlow.get(edge, 0)]
             if includeDets:
-                output.extend(zip(det.detString, det.routeFlow, det.detFlow))
+                output.extend(zip(detString, rFlow, dFlow))
             else:
-                output.extend(zip(det.detString, det.routeFlow))
+                output.extend(zip(detString, rFlow))
         if includeDets:
             for group, rflow, dflow in sorted(output):
                 if dflow > 0 or options.respectzero:
@@ -166,11 +130,10 @@ if not options.detfile or not options.routefile or not options.emitfile:
     optParser.print_help()
     sys.exit()
 parser = make_parser()
-reader = DetectorRouteEmitterReader()
-parser.setContentHandler(reader)
 if options.verbose:
     print "Reading detectors"
-parser.parse(options.detfile)
+reader = DetectorRouteEmitterReader(options.detfile)
+parser.setContentHandler(reader)
 if options.verbose:
     print "Reading routes"
 parser.parse(options.routefile)

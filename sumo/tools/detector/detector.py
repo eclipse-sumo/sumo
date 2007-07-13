@@ -1,5 +1,5 @@
 #!/usr/bin/python
-import pickle, sys
+import sys
 
 from xml.sax import make_parser, handler
 
@@ -7,9 +7,10 @@ MAX_POS_DEVIATION = 10
 
 class DetectorGroupData:
 
-    def __init__(self, pos, id=None):
+    def __init__(self, pos, isValid, id=None):
         self.ids = []
         self.pos = pos
+        self.isValid = isValid
         self.totalFlow = 0
         self.avgSpeed = 0
         self.entryCount = 0
@@ -27,21 +28,16 @@ class DetectorGroupData:
 
 class DetectorReader(handler.ContentHandler):
 
-    def __init__(self, detFile=None, isPickled=False):
+    def __init__(self, detFile=None, laneMap={}):
         self._edge2DetData = {}
         self._det2edge = {}
         self._currentGroup = None
         self._currentEdge = None
+        self._laneMap = laneMap
         if detFile:
-            if isPickled:
-                pklFile = open(detFile, 'rb')
-                self._edge2DetData = pickle.load(pklFile)
-                self._det2edge = pickle.load(pklFile)
-                pklFile.close()
-            else:
-                parser = make_parser()
-                parser.setContentHandler(self)
-                parser.parse(detFile)
+            parser = make_parser()
+            parser.setContentHandler(self)
+            parser.parse(detFile)
 
     def addDetector(self, id, pos, edge):
         if id in self._det2edge:
@@ -59,15 +55,16 @@ class DetectorReader(handler.ContentHandler):
                     haveGroup = True
                     break
             if not haveGroup:
-                self._edge2DetData[edge].append(DetectorGroupData(pos, id))
+                self._edge2DetData[edge].append(DetectorGroupData(pos, True, id))
         self._det2edge[id] = edge
 
     def startElement(self, name, attrs):
         if name == 'detector_definition':
             self.addDetector(attrs['id'], float(attrs['pos']),
-                             attrs.get('orig_edge', self._currentEdge))
+                             self._laneMap.get(attrs['lane'], self._currentEdge))
         elif name == 'group':
-            self._currentGroup = DetectorGroupData(float(attrs['pos']))
+            self._currentGroup = DetectorGroupData(float(attrs['pos']),
+                                                   attrs.get('valid', "1") == "1")
             edge = attrs['orig_edge']
             self._currentEdge = edge
             if not edge in self._edge2DetData:
@@ -78,11 +75,7 @@ class DetectorReader(handler.ContentHandler):
         if name == 'group':
             self._currentGroup = None
 
-    def pickle(self):
-        pickle.dump(self._edge2DetData, sys.stdout, -1)
-        pickle.dump(self._det2edge, sys.stdout, -1)
-
-    def addFlow(self, det, flow, speed):
+    def addFlow(self, det, flow, speed=0.0):
         if det in self._det2edge:
             edge = self._det2edge[det]
             for group in self._edge2DetData[edge]:
@@ -90,6 +83,11 @@ class DetectorReader(handler.ContentHandler):
                     group.addDetFlow(flow, speed)
                     break
 
-
-if __name__ == "__main__":
-    DetectorReader(sys.argv[1]).pickle()
+    def readFlows(self, flowFile):
+        headerSeen = False
+        for l in file(flowFile):
+            flowDef = l.split(';')
+            if not headerSeen and flowDef[0] == "Detector":
+                headerSeen = True
+            else:
+                self.addFlow(flowDef[0], float(flowDef[2]))
