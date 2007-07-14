@@ -47,7 +47,7 @@ class GUIDialog_SimSettings : public FXDialogBox
 public:
     /// Constructor
     GUIDialog_SimSettings(FXMainWindow* parent, bool *quitOnEnd,
-                          bool *surpressEnd);
+                          bool *suppressEnd);
 
     /// Destructor
     ~GUIDialog_SimSettings();
@@ -61,8 +61,8 @@ public:
     /// Called when the user changes the state of the "quit on end"-checkbox
     long onCmdQuitOnEnd(FXObject*,FXSelector,void*);
 
-    /// Called when the user changes the state of the "surpress end information"-checkbox
-    long onCmdSurpressEnd(FXObject*,FXSelector,void*);
+    /// Called when the user changes the state of the "suppress end information"-checkbox
+    long onCmdSuppressEnd(FXObject*,FXSelector,void*);
 
 
 private:
@@ -70,13 +70,13 @@ private:
     bool myAppQuitOnEnd;
 
     /// Current dialog setting whether no simulation end information shall be printed
-    bool mySurpressEnd;
+    bool mySuppressEnd;
 
     /// Pointer to the bool that shall be set with the current "quit on end"-value
     bool *mySetAppQuitOnEnd;
 
-    /// Pointer to the bool that shall be set with the current "surpress end information"-value
-    bool *mySetSurpressEnd;
+    /// Pointer to the bool that shall be set with the current "suppress end information"-value
+    bool *mySetSuppressEnd;
 
 protected:
     /// Fox needs this

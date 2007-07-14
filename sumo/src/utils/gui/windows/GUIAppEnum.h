@@ -304,7 +304,7 @@ enum {
     /// Close simulation at end - Option
     MID_QUITONSIMEND,
     /// Suppress end message - Option
-    MID_SURPRESSENDINFO,
+    MID_SUPPRESSENDINFO,
     /// Allow textures - Option
     MID_ALLOWTEXTURES,
     //@}

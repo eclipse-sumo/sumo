@@ -44,7 +44,7 @@ FXDEFMAP(GUIDialog_SimSettings) GUIDialog_SimSettingsMap[]=
     {
         //________Message_Type____________ID________________________Message_Handler________
         FXMAPFUNC(SEL_COMMAND,  MID_QUITONSIMEND,    GUIDialog_SimSettings::onCmdQuitOnEnd),
-        FXMAPFUNC(SEL_COMMAND,  MID_SURPRESSENDINFO, GUIDialog_SimSettings::onCmdSurpressEnd),
+        FXMAPFUNC(SEL_COMMAND,  MID_SUPPRESSENDINFO, GUIDialog_SimSettings::onCmdSuppressEnd),
         FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,     GUIDialog_SimSettings::onCmdOk),
         FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL, GUIDialog_SimSettings::onCmdCancel),
     };
@@ -57,17 +57,17 @@ FXIMPLEMENT(GUIDialog_SimSettings, FXDialogBox, GUIDialog_SimSettingsMap, ARRAYN
 // member method definitions
 // ===========================================================================
 GUIDialog_SimSettings::GUIDialog_SimSettings(FXMainWindow* parent,
-        bool *quitOnEnd, bool *surpressEnd)
+        bool *quitOnEnd, bool *suppressEnd)
         : FXDialogBox(parent, "Simulation Settings"),
-        myAppQuitOnEnd(*quitOnEnd), mySurpressEnd(*surpressEnd),
-        mySetAppQuitOnEnd(quitOnEnd), mySetSurpressEnd(surpressEnd)
+        myAppQuitOnEnd(*quitOnEnd), mySuppressEnd(*suppressEnd),
+        mySetAppQuitOnEnd(quitOnEnd), mySetSuppressEnd(suppressEnd)
 {
     FXCheckButton *b = 0;
     FXVerticalFrame *f1 = new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
     b = new FXCheckButton(f1, "Quit on Simulation End", this ,MID_QUITONSIMEND);
     b->setCheck(myAppQuitOnEnd);
-    b = new FXCheckButton(f1, "Surpress End Information", this ,MID_SURPRESSENDINFO);
-    b->setCheck(mySurpressEnd);
+    b = new FXCheckButton(f1, "Suppress End Information", this ,MID_SUPPRESSENDINFO);
+    b->setCheck(mySuppressEnd);
     FXHorizontalFrame *f2 = new FXHorizontalFrame(f1, LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH,0,0,0,0, 10,10,5,5);
     FXButton *initial=new FXButton(f2,"&OK",NULL,this,MID_SETTINGS_OK,BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
     new FXButton(f2,"&Cancel",NULL,this,MID_SETTINGS_CANCEL,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
@@ -83,7 +83,7 @@ long
 GUIDialog_SimSettings::onCmdOk(FXObject*,FXSelector,void*)
 {
     *mySetAppQuitOnEnd = myAppQuitOnEnd;
-    *mySetSurpressEnd = mySurpressEnd;
+    *mySetSuppressEnd = mySuppressEnd;
     destroy();
     return 1;
 }
@@ -106,9 +106,9 @@ GUIDialog_SimSettings::onCmdQuitOnEnd(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_SimSettings::onCmdSurpressEnd(FXObject*,FXSelector,void*)
+GUIDialog_SimSettings::onCmdSuppressEnd(FXObject*,FXSelector,void*)
 {
-    mySurpressEnd = !mySurpressEnd;
+    mySuppressEnd = !mySuppressEnd;
     return 1;
 }
 

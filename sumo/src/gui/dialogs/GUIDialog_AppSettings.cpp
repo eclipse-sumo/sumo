@@ -44,7 +44,7 @@
 FXDEFMAP(GUIDialog_AppSettings) GUIDialog_AppSettingsMap[]=
     {
         FXMAPFUNC(SEL_COMMAND,  MID_QUITONSIMEND,    GUIDialog_AppSettings::onCmdQuitOnEnd),
-        FXMAPFUNC(SEL_COMMAND,  MID_SURPRESSENDINFO, GUIDialog_AppSettings::onCmdSurpressEnd),
+        FXMAPFUNC(SEL_COMMAND,  MID_SUPPRESSENDINFO, GUIDialog_AppSettings::onCmdSuppressEnd),
         FXMAPFUNC(SEL_COMMAND,  MID_ALLOWTEXTURES,   GUIDialog_AppSettings::onCmdAllowTextures),
         FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,     GUIDialog_AppSettings::onCmdOk),
         FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL, GUIDialog_AppSettings::onCmdCancel),
@@ -58,15 +58,15 @@ FXIMPLEMENT(GUIDialog_AppSettings, FXDialogBox, GUIDialog_AppSettingsMap, ARRAYN
 // ===========================================================================
 GUIDialog_AppSettings::GUIDialog_AppSettings(FXMainWindow* parent)
         : FXDialogBox(parent, "Application Settings"),
-        myAppQuitOnEnd(gQuitOnEnd), mySurpressEnd(gSuppressEndInfo),
+        myAppQuitOnEnd(gQuitOnEnd), mySuppressEnd(gSuppressEndInfo),
         myAllowTextures(gAllowTextures)
 {
     FXCheckButton *b = 0;
     FXVerticalFrame *f1 = new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
     b = new FXCheckButton(f1, "Quit on Simulation End", this ,MID_QUITONSIMEND);
     b->setCheck(myAppQuitOnEnd);
-    b = new FXCheckButton(f1, "Surpress End Information", this ,MID_SURPRESSENDINFO);
-    b->setCheck(mySurpressEnd);
+    b = new FXCheckButton(f1, "Suppress End Information", this ,MID_SUPPRESSENDINFO);
+    b->setCheck(mySuppressEnd);
     new FXHorizontalSeparator(f1,SEPARATOR_GROOVE|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X);
     b = new FXCheckButton(f1, "Allow Textures", this ,MID_ALLOWTEXTURES);
     b->setCheck(myAllowTextures);
@@ -86,7 +86,7 @@ long
 GUIDialog_AppSettings::onCmdOk(FXObject*,FXSelector,void*)
 {
     gQuitOnEnd = myAppQuitOnEnd;
-    gSuppressEndInfo = mySurpressEnd;
+    gSuppressEndInfo = mySuppressEnd;
     gAllowTextures = myAllowTextures;
     destroy();
     return 1;
@@ -110,9 +110,9 @@ GUIDialog_AppSettings::onCmdQuitOnEnd(FXObject*,FXSelector,void*)
 
 
 long
-GUIDialog_AppSettings::onCmdSurpressEnd(FXObject*,FXSelector,void*)
+GUIDialog_AppSettings::onCmdSuppressEnd(FXObject*,FXSelector,void*)
 {
-    mySurpressEnd = !mySurpressEnd;
+    mySuppressEnd = !mySuppressEnd;
     return 1;
 }
 

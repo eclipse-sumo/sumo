@@ -470,7 +470,7 @@ main(int argc, char **argv)
         // initialise global settings
         gQuitOnEnd = oc.getBool("quit-on-end");
         gAllowTextures = !oc.getBool("disable-textures");
-        gSuppressEndInfo = oc.getBool("surpress-end-info");
+        gSuppressEndInfo = oc.getBool("suppress-end-info");
         bool useConfig = oc.isSet("configuration-file");
         string configFile = useConfig ? oc.getString("configuration-file") : "";
         bool runAfterLoad = !oc.isSet("no-start");
