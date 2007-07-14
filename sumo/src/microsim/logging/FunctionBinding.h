@@ -40,14 +40,14 @@
 /**
  * @class FunctionBinding
  */
-template< class myT, typename myR  >
-class FunctionBinding : public ValueSource<myR>
+template< class T, typename R  >
+class FunctionBinding : public ValueSource<R>
 {
 public:
     /// Type of the function to execute.
-    typedef myR(myT::* Operation)() const;
+    typedef R(T::* Operation)() const;
 
-    FunctionBinding(myT* source, Operation operation) :
+    FunctionBinding(T* source, Operation operation) :
             mySource(source),
             myOperation(operation)
     {}
@@ -56,19 +56,19 @@ public:
     ~FunctionBinding()
     {}
 
-    myR getValue() const
+    R getValue() const
     {
         return (mySource->*myOperation)();
     }
 
-    ValueSource<myR> *copy() const
+    ValueSource<R> *copy() const
     {
-        return new FunctionBinding<myT, myR>(mySource, myOperation);
+        return new FunctionBinding<T, R>(mySource, myOperation);
     }
 
 private:
     /// The object the action is directed to.
-    myT* mySource;
+    T* mySource;
 
     /// The object's operation to perform.
     Operation myOperation;

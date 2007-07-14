@@ -59,12 +59,12 @@ class GUILaneRepresentation;
 /**
  * Draws lanes as simple, one-colored straights
  */
-template<class myE1, class myE2, class myL1>
+template<class E1, class E2, class L1>
 class GUILaneDrawer
 {
 public:
     /// constructor
-    GUILaneDrawer(const std::vector<myE1*> &edges)
+    GUILaneDrawer(const std::vector<E1*> &edges)
             : myEdges(edges)
     { }
 
@@ -81,7 +81,7 @@ public:
 
     /// Draws the lanes
     virtual void drawGLLanes(size_t *which, size_t maxEdges,
-                             SUMOReal width, GUIBaseColorer<myL1> &colorer,
+                             SUMOReal width, GUIBaseColorer<L1> &colorer,
                              GUISUMOAbstractView::VisualizationSettings &settings)
     {
         // initialise drawing
@@ -94,7 +94,7 @@ public:
             size_t pos = 1;
             for (size_t j=0; j<32; j++, pos<<=1) {
                 if ((which[i]&pos)!=0) {
-                    myE2 *edge = static_cast<myE2*>(myEdges[j+(i<<5)]);
+                    E2 *edge = static_cast<E2*>(myEdges[j+(i<<5)]);
                     size_t noLanes = edge->nLanes();
 
                     // check whether lane boundaries shall be drawn
@@ -106,12 +106,12 @@ public:
                         // draw white boundings
                         size_t k;
                         for (k=0; k<noLanes; k++) {
-                            const myL1 &lane = edge->getLaneGeometry(k);
+                            const L1 &lane = edge->getLaneGeometry(k);
                             GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), SUMO_const_halfLaneAndOffset);
                         }
                         // draw black boxes
                         for (k=1; k<noLanes; k++) {
-                            const myL1 &lane = edge->getLaneGeometry(k);
+                            const L1 &lane = edge->getLaneGeometry(k);
                             colorer.setGlColor(lane);
                             const DoubleVector &rots = lane.getShapeRotations();
                             const DoubleVector &lengths = lane.getShapeLengths();
@@ -139,7 +139,7 @@ public:
                     // go through the current edge's lanes
                     if (true) {
                         for (size_t k=0; k<noLanes; k++) {
-                            const myL1 &lane = edge->getLaneGeometry(k);
+                            const L1 &lane = edge->getLaneGeometry(k);
                             colorer.setGlColor(lane);
 //			        		      if(lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
                             if (width>1.) {//&&lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
@@ -180,9 +180,9 @@ public:
             size_t pos = 1;
             for (size_t j=0; j<32; j++, pos<<=1) {
                 if ((which[i]&pos)!=0) {
-                    myE2 *edge = static_cast<myE2*>(myEdges[j+(i<<5)]);
-                    const myL1 &lane1 = edge->getLaneGeometry((size_t) 0);
-                    const myL1 &lane2 = edge->getLaneGeometry(edge->nLanes()-1);
+                    E2 *edge = static_cast<E2*>(myEdges[j+(i<<5)]);
+                    const L1 &lane1 = edge->getLaneGeometry((size_t) 0);
+                    const L1 &lane2 = edge->getLaneGeometry(edge->nLanes()-1);
                     glPushMatrix();
                     Position2D p = lane1.getShape().positionAtLengthPosition(lane1.getShape().length()/(SUMOReal) 2.);
                     p.add(lane2.getShape().positionAtLengthPosition(lane2.getShape().length()/(SUMOReal) 2.));
@@ -216,7 +216,7 @@ protected:
     }
 
     /// draws a single lane as a box list
-    void drawLane(const myL1 &lane, SUMOReal mult) const
+    void drawLane(const L1 &lane, SUMOReal mult) const
     {
         if (myShowToolTips) {
             glPushName(lane.getGlID());
@@ -228,13 +228,13 @@ protected:
     }
 
     /// draws a single edge as a box list
-    void drawEdge(const myE2 &edge, SUMOReal mult) const
+    void drawEdge(const E2 &edge, SUMOReal mult) const
     {
         if (myShowToolTips) {
             glPushName(edge.getGlID());
         }
-        const myL1 &lane1 = edge.getLaneGeometry((size_t) 0);
-        const myL1 &lane2 = edge.getLaneGeometry(edge.nLanes()-1);
+        const L1 &lane1 = edge.getLaneGeometry((size_t) 0);
+        const L1 &lane2 = edge.getLaneGeometry(edge.nLanes()-1);
         GLHelper::drawBoxLines(lane1.getShape(), lane2.getShape(), lane1.getShapeRotations(), lane1.getShapeLengths(), (SUMOReal) edge.nLanes()*SUMO_const_halfLaneAndOffset*mult);
         if (myShowToolTips) {
             glPopName();
@@ -242,7 +242,7 @@ protected:
     }
 
     /// draws a lane as a line
-    void drawLine(const myL1 &lane) const
+    void drawLine(const L1 &lane) const
     {
         if (myShowToolTips) {
             glPushName(lane.getGlID());
@@ -259,13 +259,13 @@ protected:
     }
 
     /// draws an edge as a line
-    void drawLine(const myE2 &edge) const
+    void drawLine(const E2 &edge) const
     {
         if (myShowToolTips) {
             glPushName(edge.getGlID());
         }
-        const myL1 &lane1 = edge.getLaneGeometry((size_t) 0);
-        const myL1 &lane2 = edge.getLaneGeometry(edge.nLanes()-1);
+        const L1 &lane1 = edge.getLaneGeometry((size_t) 0);
+        const L1 &lane2 = edge.getLaneGeometry(edge.nLanes()-1);
         const DoubleVector &rots = lane1.getShapeRotations();
         const DoubleVector &lengths = lane1.getShapeLengths();
         const Position2DVector &geom1 = lane1.getShape();
@@ -281,7 +281,7 @@ protected:
 
 protected:
     /// The list of edges to consider at drawing
-    const std::vector<myE1*> &myEdges;
+    const std::vector<E1*> &myEdges;
 
     /// Information whether the gl-id shall be set
     bool myShowToolTips;

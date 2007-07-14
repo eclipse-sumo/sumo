@@ -42,15 +42,15 @@
  * A class that encapsulates an object with a given method to be usable as
  *  a retriever of messages.
  */
-template< class myT >
+template< class T >
 class MsgRetrievingFunction : public MsgRetriever
 {
 public:
     /// Type of the function to execute.
-    typedef void(myT::* Operation)(const std::string &);
+    typedef void(T::* Operation)(const std::string &);
 
     /// Constructor
-    MsgRetrievingFunction(myT* object, Operation operation) :
+    MsgRetrievingFunction(T* object, Operation operation) :
             myObject(object),
             myOperation(operation)
     {}
@@ -67,7 +67,7 @@ public:
 
 private:
     /// The object the action is directed to.
-    myT* myObject;
+    T* myObject;
 
     /// The object's operation to perform.
     Operation myOperation;

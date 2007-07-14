@@ -41,15 +41,15 @@
  * This class allows a view at a SUMORealing window of a fixed size.
  * The values are stored in an array to allow faster adaption of their sum.
  */
-template<typename myT>
+template<typename T>
 class LoggedValue_TimeFloating
-            : public LoggedValue<myT>
+            : public LoggedValue<T>
 {
 public:
     /// Constructor
     LoggedValue_TimeFloating(size_t sampleInterval)
             : LoggedValue<_T>(sampleInterval),
-            myFloatingArray(new myT[sampleInterval]), mySampleInterval(sampleInterval),
+            myFloatingArray(new T[sampleInterval]), mySampleInterval(sampleInterval),
             mySampledUnits(0), myBufferWasFull(false)
     {
         for (size_t i=0; i<sampleInterval; i++) {
@@ -67,7 +67,7 @@ public:
 
     /** @brief Adds a new value
         See source code */
-    void add(myT value)
+    void add(T value)
     {
         // remove the value lying some steps ahead
         this->myCurrentValue -= myFloatingArray[mySampledUnits];
@@ -87,7 +87,7 @@ public:
 
     /** returns the average of previously set values
         (for and over the given sample interval) */
-    myT getAvg() const
+    T getAvg() const
     {
         // the list is complete
         if (myBufferWasFull) {
@@ -104,7 +104,7 @@ public:
 
     /** returns the sum of previously set values
         (for the given sample interval) */
-    myT getAbs() const
+    T getAbs() const
     {
         return this->myCurrentValue;
     }
@@ -112,7 +112,7 @@ public:
 
 private:
     /// The array of number within the moving window
-    myT      *myFloatingArray;
+    T      *myFloatingArray;
 
     /// The window (sample interval) size
     size_t  mySampleInterval;

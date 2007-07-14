@@ -44,14 +44,14 @@
  * has been added to allow a normalised reading in respect to the number
  * of values stored (or the time interval if smaller).
  */
-template<typename myT>
+template<typename T>
 class LoggedValue_TimeFixed
-            : public LoggedValue<myT>
+            : public LoggedValue<T>
 {
 public:
     /// Constructor
     LoggedValue_TimeFixed(size_t sampleInterval)
-            : LoggedValue<myT>(sampleInterval), mySampleInterval(sampleInterval),
+            : LoggedValue<T>(sampleInterval), mySampleInterval(sampleInterval),
             mySampledUnits(0)
     {}
 
@@ -63,7 +63,7 @@ public:
     /** @brief Adds a new value
         Adds the value to the sum; increases the number of read units.
         Possibly resets the buffer to zero if the fixed length has been exceeded */
-    void add(myT value)
+    void add(T value)
     {
         mySampledUnits++;
         // clear on a new interval
@@ -78,7 +78,7 @@ public:
 
     /** returns the average of previously set values
         (for and over the given sample interval or the number of sampled units, if smaller) */
-    myT getAvg() const
+    T getAvg() const
     {
         // Security check for false interval usage
         if (mySampledUnits==0) {
@@ -91,7 +91,7 @@ public:
 
     /** returns the sum of previously set values
         (for the given sample interval) */
-    myT getAbs() const
+    T getAbs() const
     {
         return this->myCurrentValue;
     }

@@ -144,7 +144,7 @@ public:
  * As @class GUIBaseColorer is still not a "final" class, we maybe should get
  *  rid of it.
  */
-template<class myT>
+template<class T>
 class GUIBaseColorer : public GUIBaseColorerInterface
 {
 public:
@@ -156,8 +156,8 @@ public:
     virtual ~GUIBaseColorer()
     { }
 
-    /// Sets the color using a value from the given instance of myT
-    virtual void setGlColor(const myT& i) const = 0;
+    /// Sets the color using a value from the given instance of T
+    virtual void setGlColor(const T& i) const = 0;
 
     /// Sets the color using the given value
     virtual void setGlColor(SUMOReal val) const

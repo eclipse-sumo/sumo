@@ -41,7 +41,7 @@
  * previous values, we implemented this class to make a common access to
  * all those mentioned cases.
  */
-template<typename myT>
+template<typename T>
 class LoggedValue
 {
 public:
@@ -57,19 +57,19 @@ public:
     { }
 
     /// Adds a new value
-    virtual void add(myT value) = 0;
+    virtual void add(T value) = 0;
 
     /** returns the average of previously set values
         (for and over the given sample interval) */
-    virtual myT getAvg() const = 0;
+    virtual T getAvg() const = 0;
 
     /** returns the sum of previously set values
         (for the given sample interval) */
-    virtual myT getAbs() const = 0;
+    virtual T getAbs() const = 0;
 
 protected:
     /// The current value
-    myT      myCurrentValue;
+    T      myCurrentValue;
 
 };
 

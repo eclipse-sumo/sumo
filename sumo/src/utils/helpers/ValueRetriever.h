@@ -37,7 +37,7 @@
 /**
  *
  */
-template<typename myT>
+template<typename T>
 class ValueRetriever
 {
 public:
@@ -45,7 +45,7 @@ public:
     { }
     virtual ~ValueRetriever()
     { }
-    virtual void addValue(myT value) = 0;
+    virtual void addValue(T value) = 0;
 
 };
 

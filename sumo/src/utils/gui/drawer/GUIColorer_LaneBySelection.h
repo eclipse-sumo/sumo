@@ -47,8 +47,8 @@
 /**
  *
  */
-template<class myT>
-class GUIColorer_LaneBySelection : public GUIBaseColorer<myT>
+template<class T>
+class GUIColorer_LaneBySelection : public GUIBaseColorer<T>
 {
 public:
     GUIColorer_LaneBySelection()
@@ -57,7 +57,7 @@ public:
     virtual ~GUIColorer_LaneBySelection()
     { }
 
-    void setGlColor(const myT& i) const
+    void setGlColor(const T& i) const
     {
 #ifdef HAVE_MESOSIM
         if (gSelected.isSelected(i.getType(), i.getGlID())) {

@@ -40,14 +40,14 @@
  * @class LoggedValue_Single
  * This class simply stores a value and allows its retrieval
  */
-template<typename myT>
+template<typename T>
 class LoggedValue_Single
-            : public LoggedValue<myT>
+            : public LoggedValue<T>
 {
 public:
     /// Constructor
     LoggedValue_Single(size_t dummy)
-            : LoggedValue<myT>(dummy)
+            : LoggedValue<T>(dummy)
     {}
 
     /// Destructor
@@ -57,7 +57,7 @@ public:
 
     /** @brief Adds a new value
         Simply sets the current value */
-    void add(myT value)
+    void add(T value)
     {
         this->myCurrentValue = value;
     }
@@ -65,7 +65,7 @@ public:
 
     /** returns the average of previously set values
         (for and over the given sample interval) */
-    myT getAvg() const
+    T getAvg() const
     {
         return this->myCurrentValue;
     }
@@ -73,7 +73,7 @@ public:
 
     /** returns the sum of previously set values
         (for the given sample interval) */
-    myT getAbs() const
+    T getAbs() const
     {
         return this->myCurrentValue;
     }

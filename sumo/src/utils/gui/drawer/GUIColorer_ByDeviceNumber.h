@@ -40,19 +40,19 @@
 
 #include <GL/gl.h>
 
-template<class myT, class myD>
-class GUIColorer_ByDeviceNumber : public GUIBaseColorer<myT>
+template<class T, class D>
+class GUIColorer_ByDeviceNumber : public GUIBaseColorer<T>
 {
 public:
     /// Type of the function to execute.
-    typedef bool(myT::* HasOperation)(myD) const;
-    typedef SUMOReal(myT::* NumberOperation)(myD) const;
+    typedef bool(T::* HasOperation)(D) const;
+    typedef SUMOReal(T::* NumberOperation)(D) const;
 
     GUIColorer_ByDeviceNumber(HasOperation hasOperation,
                               NumberOperation numberOperation,
                               bool catchNo, SUMOReal min, SUMOReal max,
                               const RGBColor &no, const RGBColor &minColor, const RGBColor &maxColor,
-                              myD param)
+                              D param)
             : myHasOperation(hasOperation), myNumberOperation(numberOperation),
             myNoColor(no), myMinColor(minColor), myMaxColor(maxColor),
             myMin(min), myMax(max), myParameter(param)
@@ -63,16 +63,16 @@ public:
     virtual ~GUIColorer_ByDeviceNumber()
     { }
 
-    void setGlColor(const myT& i) const
+    void setGlColor(const T& i) const
     {
-        if (!(i.*myHasOperation)((myD) myParameter)) {
+        if (!(i.*myHasOperation)((D) myParameter)) {
             if (myCatchNo) {
                 glColor3d(myNoColor.red(), myNoColor.green(), myNoColor.blue());
             } else {
                 glColor3d(myMinColor.red(), myMinColor.green(), myMinColor.blue());
             }
         } else {
-            SUMOReal val = (i.*myNumberOperation)((myD) myParameter) - myMin;
+            SUMOReal val = (i.*myNumberOperation)((D) myParameter) - myMin;
             if (val<myMin) {
                 val = myMin;
             } else if (val>myMax) {
@@ -109,7 +109,7 @@ protected:
     bool myCatchNo;
     RGBColor myNoColor, myMinColor, myMaxColor;
     SUMOReal myMin, myMax, myScale;
-    myD myParameter;
+    D myParameter;
 
 };
 

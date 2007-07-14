@@ -40,18 +40,18 @@
 
 #include <GL/gl.h>
 
-template<class myT1, class myP>
-class GUIColorer_ByDeviceState : public GUIBaseColorer<myT>
+template<class T, class P>
+class GUIColorer_ByDeviceState : public GUIBaseColorer<T>
 {
 public:
     /// Type of the function to execute.
-    typedef bool(myT::* HasOperation)(myP) const;
-    typedef size_t(myT::* StateOperation1)(myP) const;
-    typedef size_t(myT::* StateOperation2)() const;
+    typedef bool(T::* HasOperation)(P) const;
+    typedef size_t(T::* StateOperation1)(P) const;
+    typedef size_t(T::* StateOperation2)() const;
 
     GUIColorer_ByDeviceState(HasOperation hasOperation,
                              NumberOperation numberOperation,
-                             bool catchNo, const RGBColor &no, myP hasParam, myP stateParam)
+                             bool catchNo, const RGBColor &no, P hasParam, P stateParam)
             : myHasOperation(hasOperation), myNumberOperation(numberOperation),
             myNoColor(no), myHasParameter(hasParam), myStateParameter(stateParam)
     {}
@@ -59,9 +59,9 @@ public:
     virtual ~GUIColorer_ByDeviceState()
     { }
 
-    void setGlColor(const myT& i) const
+    void setGlColor(const T& i) const
     {
-        if (!(i.*myHasOperation)((myP) myHasParameter)) {
+        if (!(i.*myHasOperation)((P) myHasParameter)) {
             if (myCatchNo) {
                 mglColor(myNoColor);
             } else {
@@ -71,7 +71,7 @@ public:
             const MSDevice_CPhone * const phone =
                 (const MSDevice_CPhone * const)
                 vehicle.getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
-            size_t state = (i.*myNumberOperation)((myP) myStateParameter);
+            size_t state = (i.*myNumberOperation)((P) myStateParameter);
             const RGBColor &c = myColors.find(state)->second;
             glColor3f(c.red(), c.green(), c.blue());
         }
@@ -105,8 +105,8 @@ protected:
     NumberOperation myNumberOperation;
     bool myCatchNo;
     RGBColor myNoColor;
-    myP myHasParameter;
-    myP myStateParameter;
+    P myHasParameter;
+    P myStateParameter;
     std::map<size_t, RGBColor> myColors;
 
 };

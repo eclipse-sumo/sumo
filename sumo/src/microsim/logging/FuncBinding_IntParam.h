@@ -40,14 +40,14 @@
 /**
  * @class FuncBinding_IntParam
  */
-template< class myT, typename myR  >
-class FuncBinding_IntParam : public ValueSource<myR>
+template< class T, typename R  >
+class FuncBinding_IntParam : public ValueSource<R>
 {
 public:
     /// Type of the function to execute.
-    typedef myR(myT::* Operation)(int) const;
+    typedef R(T::* Operation)(int) const;
 
-    FuncBinding_IntParam(myT* source, Operation operation,
+    FuncBinding_IntParam(T* source, Operation operation,
                          size_t param)
             :
             mySource(source),
@@ -64,9 +64,9 @@ public:
         return (mySource->*myOperation)(myParam);
     }
 
-    ValueSource<myR> *copy() const
+    ValueSource<R> *copy() const
     {
-        return new FuncBinding_IntParam<myT, myR>(
+        return new FuncBinding_IntParam<T, R>(
                    mySource, myOperation, myParam);
     }
 
@@ -75,7 +75,7 @@ protected:
 
 private:
     /// The object the action is directed to.
-    myT* mySource;
+    T* mySource;
 
     /// The object's operation to perform.
     Operation myOperation;
