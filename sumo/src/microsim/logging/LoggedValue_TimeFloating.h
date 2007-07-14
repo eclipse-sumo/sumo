@@ -48,7 +48,7 @@ class LoggedValue_TimeFloating
 public:
     /// Constructor
     LoggedValue_TimeFloating(size_t sampleInterval)
-            : LoggedValue<_T>(sampleInterval),
+            : LoggedValue<T>(sampleInterval),
             myFloatingArray(new T[sampleInterval]), mySampleInterval(sampleInterval),
             mySampledUnits(0), myBufferWasFull(false)
     {
