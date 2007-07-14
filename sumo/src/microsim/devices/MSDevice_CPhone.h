@@ -107,7 +107,7 @@ public:
     };
     std::string getID()
     {
-        return myId;
+        return myID;
     };
 
     void invalidateCommand();
@@ -179,7 +179,7 @@ private:
     */
 
     std::string myparentid;
-    std::string myId;
+    std::string myID;
     //the State the cellphone (if available) is in
     //0: no cellphone; 1: turned off; 2: idle ; 3: connected
     int m_PhoneCount;

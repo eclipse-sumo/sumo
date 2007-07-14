@@ -105,7 +105,7 @@ NBDistrict::writeXML(std::ostream &into)
     DoubleVectorHelper::normalise(mySourceWeights, 1.0);
     DoubleVectorHelper::normalise(mySinkWeights, 1.0);
     // write the head and the id of the district
-    into << "   " << "<district id=\"" << myId << "\">" << endl;
+    into << "   " << "<district id=\"" << myID << "\">" << endl;
     size_t i;
     // write all sources
     for (i=0; i<mySources.size(); i++) {

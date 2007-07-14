@@ -336,7 +336,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
 
     // we have a new destination, let's replace the vehicle route
     if (route.inFurtherUse()) {
-        string nid = myId + "_re_" + src->getID() + "_" + route.getID();
+        string nid = myID + "_re_" + src->getID() + "_" + route.getID();
         if (MSRoute::dictionary(nid)!=0) {
             MSRoute *rep = MSRoute::dictionary(nid);
             veh.replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());

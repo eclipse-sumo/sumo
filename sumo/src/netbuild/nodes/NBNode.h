@@ -373,7 +373,7 @@ private:
 
 private:
     /** the name of the node */
-    std::string  myId;
+    std::string  myID;
 
     /// The position the node lies at
     Position2D myPosition;

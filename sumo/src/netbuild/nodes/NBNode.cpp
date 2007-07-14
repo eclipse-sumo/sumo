@@ -215,7 +215,7 @@ NBNode::ApproachingDivider::spread(const vector<size_t> &approachingLanes,
  * NBNode-methods
  * ----------------------------------------------------------------------- */
 NBNode::NBNode(const string &id, const Position2D &position)
-        : myId(StringUtils::convertUmlaute(id)), myPosition(position),
+        : myID(StringUtils::convertUmlaute(id)), myPosition(position),
         myType(NODETYPE_UNKNOWN), myDistrict(0), myRequest(0)
 {
     myIncomingEdges = new EdgeVector();
@@ -225,7 +225,7 @@ NBNode::NBNode(const string &id, const Position2D &position)
 
 NBNode::NBNode(const string &id, const Position2D &position,
                BasicNodeType type)
-        : myId(StringUtils::convertUmlaute(id)), myPosition(position),
+        : myID(StringUtils::convertUmlaute(id)), myPosition(position),
         myType(type), myDistrict(0), myRequest(0)
 {
     myIncomingEdges = new EdgeVector();
@@ -234,7 +234,7 @@ NBNode::NBNode(const string &id, const Position2D &position,
 
 
 NBNode::NBNode(const string &id, const Position2D &position, NBDistrict *district)
-        : myId(StringUtils::convertUmlaute(id)), myPosition(position),
+        : myID(StringUtils::convertUmlaute(id)), myPosition(position),
         myType(NODETYPE_DISTRICT), myDistrict(district), myRequest(0)
 {
     myIncomingEdges = new EdgeVector();
@@ -298,7 +298,7 @@ NBNode::addOutgoingEdge(NBEdge *edge)
 const std::string &
 NBNode::getID() const
 {
-    return myId;
+    return myID;
 }
 
 
@@ -447,7 +447,7 @@ NBNode::isSimpleContinuation() const
 bool
 NBNode::isDistrictCenter() const
 {
-    return myId.substr(0, 14)=="DistrictCenter";
+    return myID.substr(0, 14)=="DistrictCenter";
 }
 
 
@@ -610,7 +610,7 @@ NBNode::getInternalNamesList()
     size_t noInternalLanes = countInternalLanes(true);
     if (noInternalLanes!=0) {
         for (size_t i=0; i<noInternalLanes; i++) {
-            ret.push_back(":" + myId + "_" + toString<size_t>(i));
+            ret.push_back(":" + myID + "_" + toString<size_t>(i));
         }
     }
     return ret;
@@ -652,7 +652,7 @@ NBNode::writeXMLInternalLinks(ostream &into)
     if (noInternalNoSplits==0) {
         return;
     }
-    string id = ":" + myId;
+    string id = ":" + myID;
     size_t lno = 0;
     size_t splitNo = 0;
     EdgeVector::iterator i;
@@ -674,7 +674,7 @@ NBNode::writeXMLInternalLinks(ostream &into)
                 vmax = MIN2(vmax, (((*i)->getSpeed()+(*k).edge->getSpeed())/(SUMOReal) 2.0));
                 vmax = ((*i)->getSpeed()+(*k).edge->getSpeed())/(SUMOReal) 2.0;
                 //
-                string id = ":" + myId + "_" + toString<size_t>(lno);
+                string id = ":" + myID + "_" + toString<size_t>(lno);
                 Position2D end = (*k).edge->getLaneShape((*k).lane).getBegin();
                 Position2D beg = (*i)->getLaneShape(j).getEnd();
                 Position2DVector shape = computeInternalLaneShape(*i, j, (*k).edge, (*k).lane);
@@ -695,12 +695,12 @@ NBNode::writeXMLInternalLinks(ostream &into)
                     << split.first
                     << "</lane>" << endl;
                     into << "      </lanes>" << endl;
-                    into << "      <cedge id=\":" << myId << "_" << toString<size_t>(splitNo+noInternalNoSplits)
+                    into << "      <cedge id=\":" << myID << "_" << toString<size_t>(splitNo+noInternalNoSplits)
                     << "\">" << id << "_0" << "</cedge>" << endl;
                     into << "   </edge>" << endl << endl;
                     lno++;
 
-                    string id = ":" + myId + "_" + toString<size_t>(splitNo+noInternalNoSplits);
+                    string id = ":" + myID + "_" + toString<size_t>(splitNo+noInternalNoSplits);
                     into << "   <edge id=\"" << id
                     << "\" function=\"internal\">" << endl;
                     into << "      <lanes>" << endl;
@@ -941,7 +941,7 @@ NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, size_t fromL,
                         if (ret.length()!=0) {
                             ret += " ";
                         }
-                        ret += (":" + myId + "_" + toString(index) + "_0");
+                        ret += (":" + myID + "_" + toString(index) + "_0");
                     }
                     index++;
                 }
@@ -1027,14 +1027,14 @@ NBNode::writeXMLInternalSuccInfos(ostream &into)
                 if ((*k).edge==0) {
                     continue;
                 }
-                string id = ":" + myId + "_" + toString<size_t>(lno);
-                string sid = ":" + myId + "_" + toString<size_t>(splitNo+noInternalNoSplits);
+                string id = ":" + myID + "_" + toString<size_t>(lno);
+                string sid = ":" + myID + "_" + toString<size_t>(splitNo+noInternalNoSplits);
                 std::pair<SUMOReal, std::vector<size_t> > cross = getCrossingPosition(*i, j, (*k).edge, (*k).lane);
 
                 // get internal splits if any
                 into << "   <succ edge=\"" << id << "\" "
                 << "lane=\"" << id << "_"
-                << 0 << "\" junction=\"" << myId << "\">"
+                << 0 << "\" junction=\"" << myID << "\">"
                 << endl;
                 if (cross.first>=0) {
                     into << "      <succlane lane=\""
@@ -1098,8 +1098,8 @@ NBNode::writeXMLInternalNodes(ostream &into)
                 }
 
                 // write the attributes
-                string sid = ":" + myId + "_" + toString<size_t>(splitNo+noInternalNoSplits) + "_0";
-                string iid = ":" + myId + "_" + toString<size_t>(lno) + "_0";
+                string sid = ":" + myID + "_" + toString<size_t>(splitNo+noInternalNoSplits) + "_0";
+                string iid = ":" + myID + "_" + toString<size_t>(lno) + "_0";
                 Position2DVector shape = computeInternalLaneShape(*i, j, (*k).edge, (*k).lane);
                 Position2D pos = shape.positionAtLengthPosition(cross.first);
                 into << "   <junction id=\"" << sid << '\"';
@@ -1155,7 +1155,7 @@ void
 NBNode::writeXML(ostream &into)
 {
     // write the attributes
-    into << "   <junction id=\"" << myId << '\"';
+    into << "   <junction id=\"" << myID << '\"';
     if (myIncomingEdges->size()!=0&&myOutgoingEdges->size()!=0) {
         //into << " key=\"" << _key << '\"';
         switch (myType) {
@@ -1199,7 +1199,7 @@ NBNode::writeXML(ostream &into)
     // write the internal lanes
     if (OptionsCont::getOptions().getBool("add-internal-links")) {
         into << "      <intlanes>";
-        writeinternal(myIncomingEdges, into, myId);
+        writeinternal(myIncomingEdges, into, myID);
         into << "</intlanes>" << endl;
     }
 
@@ -1226,7 +1226,7 @@ NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
 
     // compute the logic if necessary or split the junction
     if (myType!=NODETYPE_NOJUNCTION&&myType!=NODETYPE_DISTRICT) {
-        myRequest->buildBitfieldLogic(jc, myId);
+        myRequest->buildBitfieldLogic(jc, myID);
     }
 }
 
@@ -1300,7 +1300,7 @@ NBNode::sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm)
     }
 #ifdef _DEBUG
     if (OptionsCont::getOptions().getInt("netbuild.debug")>0) {
-        DEBUG_OUT << "Node '" << myId << "': ";
+        DEBUG_OUT << "Node '" << myID << "': ";
         const EdgeVector &ev = getEdges();
         for (EdgeVector::const_iterator i=ev.begin(); i!=ev.end(); ++i) {
             DEBUG_OUT << (*i)->getID() << ", ";
@@ -1329,7 +1329,7 @@ NBNode::sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm)
             col = "1,1,0";
             break;
         }
-        (*strm) << "   <poi id=\"type_" << myId
+        (*strm) << "   <poi id=\"type_" << myID
         << "\" type=\"node_type\" color=\"" << col << "\""
         << " x=\"" << getPosition().x() << "\" y=\"" << getPosition().y() << "\"/>"
         << endl;
@@ -2236,7 +2236,7 @@ NBNode::getInternalLaneID(NBEdge *from, size_t fromlane,
                     continue;
                 }
                 if ((from==*i)&&(j==fromlane)&&((*k).edge==to)&&((*k).lane==tolane)) {
-                    return ":" + myId + "_" + toString<size_t>(l);
+                    return ":" + myID + "_" + toString<size_t>(l);
                 }
                 l++;
             }

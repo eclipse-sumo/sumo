@@ -174,7 +174,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
                string type, SUMOReal speed, size_t nolanes,
                int priority, LaneSpreadFunction spread,
                EdgeBasicFunction basic) :
-        myStep(INIT), myId(StringUtils::convertUmlaute(id)),
+        myStep(INIT), myID(StringUtils::convertUmlaute(id)),
         myType(StringUtils::convertUmlaute(type)),
         myNolanes(nolanes), myFrom(from), myTo(to), myAngle(0),
         myPriority(priority), mySpeed(speed),
@@ -221,7 +221,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
                int priority,
                Position2DVector geom, LaneSpreadFunction spread,
                EdgeBasicFunction basic) :
-        myStep(INIT), myId(StringUtils::convertUmlaute(id)),
+        myStep(INIT), myID(StringUtils::convertUmlaute(id)),
         myType(StringUtils::convertUmlaute(type)),
         myNolanes(nolanes), myFrom(from), myTo(to), myAngle(0),
         myPriority(priority), mySpeed(speed),
@@ -313,7 +313,7 @@ NBEdge::setJunctionPriority(NBNode *node, int prio)
 const string &
 NBEdge::getID() const
 {
-    return myId;
+    return myID;
 }
 
 
@@ -444,7 +444,7 @@ void
 NBEdge::writeXMLStep1(std::ostream &into)
 {
     // write the edge's begin
-    into << "   <edge id=\"" << myId <<
+    into << "   <edge id=\"" << myID <<
     "\" from=\"" << myFrom->getID() <<
     "\" to=\"" << myTo->getID() <<
     "\" priority=\"" << myPriority <<
@@ -501,7 +501,7 @@ void
 NBEdge::writeLane(std::ostream &into, size_t lane)
 {
     // output the lane's attributes
-    into << "         <lane id=\"" << myId << '_' << lane << "\"";
+    into << "         <lane id=\"" << myID << '_' << lane << "\"";
     // the first lane of an edge will be the depart lane
     if (lane==0) {
         into << " depart=\"1\"";
@@ -531,9 +531,9 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
     }
     // some further information
     if (myLaneSpeeds[lane]==0) {
-        WRITE_WARNING("Lane #" + toString<size_t>(lane) + " of edge '" + myId + "' has a maximum velocity of 0.");
+        WRITE_WARNING("Lane #" + toString<size_t>(lane) + " of edge '" + myID + "' has a maximum velocity of 0.");
     } else if (myLaneSpeeds[lane]<0) {
-        throw ProcessError("Negative velocity (" + toString(myLaneSpeeds[lane]) + " on edge '" + myId + "' lane#" + toString(lane) + ".");
+        throw ProcessError("Negative velocity (" + toString(myLaneSpeeds[lane]) + " on edge '" + myID + "' lane#" + toString(lane) + ".");
 
     }
     SUMOReal length = myLength;
@@ -692,7 +692,7 @@ NBEdge::writeConnected(std::ostream &into, NBEdge *edge, LaneVector &lanes)
     size_t noApproachers = lanes.size();
     for (size_t i=0; i<noApproachers; i++) {
         assert(i<lanes.size());
-        into << myId << '_' << lanes[i];
+        into << myID << '_' << lanes[i];
         if (i<noApproachers-1) {
             into << ' ';
         }
@@ -705,7 +705,7 @@ void
 NBEdge::writeSucceeding(std::ostream &into, size_t lane,
                         bool includeInternal)
 {
-    into << "   <succ edge=\"" << myId << "\" lane=\"" << myId << "_"
+    into << "   <succ edge=\"" << myID << "\" lane=\"" << myID << "_"
     << lane << "\" junction=\"" << myTo->getID() << "\">" << endl;
     // the lane may be unconnented; output information about being invalid
     assert(lane<myReachable.size());
@@ -1269,7 +1269,7 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
     // append current connection only if no equal is already known
     if (!known) {
         if (myReachable.size()<=src_lane) {
-            MsgHandler::getErrorInstance()->inform("Could not set connection from '" + myId + "_" + toString(src_lane) + "' to '" + dest_edge->getID() + "_" + toString(dest_lane) + "'.");
+            MsgHandler::getErrorInstance()->inform("Could not set connection from '" + myID + "_" + toString(src_lane) + "' to '" + dest_edge->getID() + "_" + toString(dest_lane) + "'.");
             return;
         }
         assert(myReachable.size()>src_lane);
@@ -2120,7 +2120,7 @@ std::string
 NBEdge::getLaneID(size_t lane)
 {
     assert(lane<myNolanes);
-    return myId + "_" + toString<size_t>(lane);
+    return myID + "_" + toString<size_t>(lane);
 }
 
 
@@ -2277,7 +2277,7 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
     for (size_t i=1; i<myGeom.size()-1; i++) {
         // build the node first
         if (i!=myGeom.size()-2) {
-            string nodename = myId + "_in_between#" + toString(i);
+            string nodename = myID + "_in_between#" + toString(i);
             if (!nc.insert(nodename, myGeom[i])) {
                 throw ProcessError("Error on adding in-between node '" + nodename + "'.");
 
@@ -2291,7 +2291,7 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
             currentEdge->myTo = newTo;
             newTo->addIncomingEdge(currentEdge);
         } else {
-            string edgename = myId + "[" + toString(i-1) + "]";
+            string edgename = myID + "[" + toString(i-1) + "]";
             currentEdge = new NBEdge(edgename, edgename, newFrom, newTo, myType, mySpeed, myNolanes,
                                      myPriority, myLaneSpreadFunction, myBasicType);
             if (!ec.insert(currentEdge)) {

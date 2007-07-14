@@ -447,7 +447,7 @@ private:
     EdgeBuildingStep myStep;
 
     /// the id of the edge
-    std::string myId;
+    std::string myID;
 
     /// the type of the edge
     std::string myType;

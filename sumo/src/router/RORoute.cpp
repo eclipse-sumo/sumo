@@ -78,7 +78,7 @@ RORoute::add(ROEdge *edge)
 void
 RORoute::xmlOut(std::ostream &os, bool isPeriodical) const
 {
-    os << "   <route id=\"" << myId << "\"";
+    os << "   <route id=\"" << myID << "\"";
     if (isPeriodical) {
         os << " multi_ref=\"x\"";
     }

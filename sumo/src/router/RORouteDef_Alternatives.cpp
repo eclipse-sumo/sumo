@@ -121,7 +121,7 @@ RORouteDef_Alternatives::buildCurrentRoute(ROAbstractRouter &router,
     //  !!! after some iterations, no further routes should be build
     std::vector<const ROEdge*> edges;
     router.compute(getFrom(), getTo(), &veh, begin, edges);
-    RORoute *opt = new RORoute(myId, 0, 1, edges);
+    RORoute *opt = new RORoute(myID, 0, 1, edges);
     opt->setCosts(opt->recomputeCosts(&veh, begin));
     // check whether the same route was already used
     myLastUsed = findRoute(opt);

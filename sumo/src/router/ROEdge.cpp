@@ -60,7 +60,7 @@ bool myHaveWarned = false; // !!! make this static or so
 // method definitions
 // ===========================================================================
 ROEdge::ROEdge(const std::string &id, int index, bool useBoundariesOnOverride)
-        : myId(id), myDist(0), mySpeed(-1),
+        : myID(id), myDist(0), mySpeed(-1),
         mySupplementaryWeightAbsolut(0),
         mySupplementaryWeightAdd(0),
         mySupplementaryWeightMult(0),
@@ -177,7 +177,7 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const
         if (myShortCutBegin>time||myShortCutEnd<time) {
             if (myUseBoundariesOnOverride) {
                 if (!myHaveWarned) {
-                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myId + "'.\n Using first/last entry.");
+                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using first/last entry.");
                     myHaveWarned = true;
                 }
                 if (myShortCutBegin>time) {
@@ -189,7 +189,7 @@ ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const
                 // value is already set
                 //  warn if wished
                 if (!myHaveWarned) {
-                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myId + "'.\n Using edge's length / edge's speed.");
+                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(time)  + " in edge '" + myID + "'.\n Using edge's length / edge's speed.");
                     myHaveWarned = true;
                 }
             }
@@ -257,7 +257,7 @@ ROEdge::getDuration(const ROVehicle *const v, SUMOTime time) const
 const std::string &
 ROEdge::getID() const
 {
-    return myId;
+    return myID;
 }
 
 

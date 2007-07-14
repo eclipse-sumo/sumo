@@ -80,7 +80,7 @@ RORoute *
 RORouteDef_Complete::buildCurrentRoute(ROAbstractRouter &,
                                        SUMOTime , ROVehicle &) const
 {
-    return new RORoute(myId, 0, 1, myEdges);
+    return new RORoute(myID, 0, 1, myEdges);
 }
 
 

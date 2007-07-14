@@ -242,7 +242,7 @@ inline int getTrainDuration(void)
 
 
 MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id)
-        : myVehicle(vehicle), myId(id), myCommand(0)
+        : myVehicle(vehicle), myID(id), myCommand(0)
 {
     OptionsCont &oc = OptionsCont::getOptions();
     mycurrentCellId = -1;
@@ -266,7 +266,7 @@ MSDevice_CPhone::~MSDevice_CPhone()
     /*if registered to a cell then deregist from it*/
     MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
     if (pPhone != 0) {
-        MSPhoneCell * cell = pPhone->getCurrentVehicleCell(myId);
+        MSPhoneCell * cell = pPhone->getCurrentVehicleCell(myID);
         if (cell != 0) {
             if (m_State!=STATE_IDLE && m_State!=STATE_OFF) {
                 cell->remCall(myCallId);
@@ -275,16 +275,16 @@ MSDevice_CPhone::~MSDevice_CPhone()
                     od->getOStream()
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << myCallId << ';' << mycurrentCellId << ';'
-                    << 2 << ';' << myId <<"\n";
+                    << 2 << ';' << myID <<"\n";
                 }
             }
-            cell->remCPhone(myId);
+            cell->remCPhone(myID);
         } /*else {
                                             assert(m_State==STATE_IDLE||m_State==STATE_OFF);
                                         }*/
-        MSPhoneLA * la = pPhone->getCurrentVehicleLA(myId);
+        MSPhoneLA * la = pPhone->getCurrentVehicleLA(myID);
         if (la != 0) {
-            la->remCall(myId);
+            la->remCall(myID);
         }/* else {
                                             assert(m_State==STATE_IDLE||m_State==STATE_OFF);
                                         }*/
@@ -375,7 +375,7 @@ MSDevice_CPhone::SetState(State s, int dur)
         od->getOStream()
         << MSNet::getInstance()->getCurrentTimeStep() << ';'
         << myCallId << ';' << mycurrentCellId << ';'
-        << 0 << ';' << myId <<"\n";
+        << 0 << ';' << myID <<"\n";
     }
     return dur;
 }
@@ -394,7 +394,7 @@ MSDevice_CPhone::changeState()
             od->getOStream()
             << MSNet::getInstance()->getCurrentTimeStep() << ';'
             << myCallId << ';' << mycurrentCellId << ';'
-            << 2 << ';' << myId <<"\n";
+            << 2 << ';' << myID <<"\n";
         }
         MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
         MSPhoneCell * cell = pPhone->getMSPhoneCell(mycurrentCellId);
@@ -444,7 +444,7 @@ MSDevice_CPhone::changeState()
                             od->getOStream()
                                 << MSNet::getInstance()->getCurrentTimeStep() << ';'
                                 << myCallId << ';' << mycurrentCellId << ';'
-                                << 0 << ';' << myId <<"\n";
+                                << 0 << ';' << myID <<"\n";
                         }
                         //next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // telephone some seconds
                         next = (SUMOTime) getTrainDuration();
@@ -495,7 +495,7 @@ MSDevice_CPhone::changeState()
                         od->getOStream()
                         << MSNet::getInstance()->getCurrentTimeStep() << ';'
                         << myCallId << ';' << mycurrentCellId << ';'
-                        << 0 << ';' << myId <<"\n";
+                        << 0 << ';' << myID <<"\n";
                     }
                     //next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 60. * 60.);   // telephone some seconds
                     next = (SUMOTime) getTrainDuration();
@@ -509,7 +509,7 @@ MSDevice_CPhone::changeState()
                     od->getOStream()
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << myCallId << ';' << mycurrentCellId << ';'
-                    << 2 << ';' << myId <<"\n";
+                    << 2 << ';' << myID <<"\n";
                 }
                 MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
                 MSPhoneCell * cell = pPhone->getMSPhoneCell(mycurrentCellId);
@@ -592,7 +592,7 @@ MSDevice_CPhone::onDepart()
                     od->getOStream()
                         << MSNet::getInstance()->getCurrentTimeStep() << ';'
                         << myCallId << ';' << mycurrentCellId << ';'
-                        << 0 << ';' << myId <<"\n";
+                        << 0 << ';' << myID <<"\n";
                 }
                 t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // stop telephoning after some time
             }

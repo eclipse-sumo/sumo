@@ -94,7 +94,7 @@ RORouteDef_OrigDest::buildCurrentRoute(ROAbstractRouter &router,
         edges.erase(edges.begin());
         edges.erase(edges.end()-1);
     }
-    return new RORoute(myId, 0, 1, edges);
+    return new RORoute(myID, 0, 1, edges);
 }
 
 

@@ -172,7 +172,7 @@ public:
 
 protected:
     /// The id of the edge
-    std::string myId;
+    std::string myID;
 
     /// The maximum distance of this edge (including all lanes)
     SUMOReal myDist;
