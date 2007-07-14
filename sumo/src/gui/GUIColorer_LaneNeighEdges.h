@@ -48,8 +48,8 @@
 /**
  * @class GUIColorer_LaneNeighEdges
  */
-template<class myT>
-class GUIColorer_LaneNeighEdges : public GUIBaseColorer<myT>
+template<class T>
+class GUIColorer_LaneNeighEdges : public GUIBaseColorer<T>
 {
 public:
     GUIColorer_LaneNeighEdges(GUISUMOAbstractView *parent) : myParent(parent)
@@ -58,7 +58,7 @@ public:
     virtual ~GUIColorer_LaneNeighEdges()
     { }
 
-    void setGlColor(const myT& i) const
+    void setGlColor(const T& i) const
     {
         int id = myParent->getTrackedID();
         if (id>0) {

@@ -49,8 +49,8 @@
 /**
  * @class GUIColorer_LaneByVehKnowledge
  */
-template<class myT>
-class GUIColorer_LaneByVehKnowledge : public GUIBaseColorer<myT>
+template<class T>
+class GUIColorer_LaneByVehKnowledge : public GUIBaseColorer<T>
 {
 public:
     GUIColorer_LaneByVehKnowledge(GUISUMOAbstractView *parent) : myParent(parent)
@@ -59,7 +59,7 @@ public:
     virtual ~GUIColorer_LaneByVehKnowledge()
     { }
 
-    void setGlColor(const myT& i) const
+    void setGlColor(const T& i) const
     {
         int id = myParent->getTrackedID();
         if (id>0) {
