@@ -225,26 +225,6 @@
 						PreprocessorDefinitions=""/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath="..\..\..\src\utils\options\OptionsSubSys.cpp">
-				<FileConfiguration
-					Name="Debug|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32">
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""/>
-				</FileConfiguration>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -263,9 +243,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\options\OptionsParser.h">
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\options\OptionsSubSys.h">
 			</File>
 		</Filter>
 	</Files>

@@ -89,7 +89,7 @@ GUIRunThread::~GUIRunThread()
     delete myMessageRetriever;
     delete myWarningRetreiver;
     // wait for the thread
-    while (mySimulationInProgress||_net!=0);
+    while (mySimulationInProgress||myNet!=0);
 }
 
 
@@ -116,9 +116,9 @@ GUIRunThread::run()
     SUMOTime end = 0;
     SUMOTime end2 = -1;
     // perform an endless loop
-    while (!_quit) {
+    while (!myQuit) {
         // if the simulation shall be perfomed, do it
-        if (!_halting&&_net!=0&&_ok) {
+        if (!myHalting&&myNet!=0&&myOk) {
             if (getNet().logSimulationDuration()) {
                 beg = SysUtils::getCurrentMillis();
                 if (end2!=-1) {
@@ -175,7 +175,7 @@ GUIRunThread::makeStep()
         // increase step counter
         myStep += DELTA_T;
         // stop the simulation when the last step has been reached
-        if (myStep==_simEndTime) {
+        if (myStep==mySimEndTime) {
             e = new GUIEvent_SimulationEnded(
                     GUIEvent_SimulationEnded::ER_END_STEP_REACHED, myStep);
             myEventQue.add(e);
@@ -226,7 +226,7 @@ GUIRunThread::makeStep()
     if (myNet->logSimulationDuration() && myNet->getTooSlowRTF()>0) {
         SUMOReal rtf =
             ((SUMOReal) myNet->getVehicleControl().getRunningVehicleNo()/(SUMOReal) myNet->getSimStepDurationInMillis()*(SUMOReal) 1000.);
-        if (rtf<_net->getTooSlowRTF()) {
+        if (rtf<myNet->getTooSlowRTF()) {
             myHalting = true;
             e = new GUIEvent_SimulationEnded(
                     GUIEvent_SimulationEnded::ER_NO_VEHICLES, myStep-1);
@@ -338,7 +338,7 @@ GUIRunThread::prepareDestruction()
 void
 GUIRunThread::retrieveMessage(const std::string &msg)
 {
-    if (!_simulationInProgress) {
+    if (!mySimulationInProgress) {
         return;
     }
     GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_MESSAGE, msg);
@@ -350,7 +350,7 @@ GUIRunThread::retrieveMessage(const std::string &msg)
 void
 GUIRunThread::retrieveWarning(const std::string &msg)
 {
-    if (!_simulationInProgress) {
+    if (!mySimulationInProgress) {
         return;
     }
     GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_WARNING, msg);
@@ -362,7 +362,7 @@ GUIRunThread::retrieveWarning(const std::string &msg)
 void
 GUIRunThread::retrieveError(const std::string &msg)
 {
-    if (!_simulationInProgress) {
+    if (!mySimulationInProgress) {
         return;
     }
     GUIEvent *e = new GUIEvent_Message(MsgHandler::MT_ERROR, msg);
@@ -374,21 +374,21 @@ GUIRunThread::retrieveError(const std::string &msg)
 bool
 GUIRunThread::simulationIsStartable() const
 {
-    return myNet!=0&&_halting;
+    return myNet!=0&&myHalting;
 }
 
 
 bool
 GUIRunThread::simulationIsStopable() const
 {
-    return myNet!=0&&(!_halting);
+    return myNet!=0&&(!myHalting);
 }
 
 
 bool
 GUIRunThread::simulationIsStepable() const
 {
-    return myNet!=0&&_halting;
+    return myNet!=0&&myHalting;
 }
 
 

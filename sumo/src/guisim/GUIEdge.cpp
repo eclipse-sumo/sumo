@@ -69,7 +69,7 @@ GUIEdge::GUIEdge(const std::string &id, size_t numericalID,
 
 GUIEdge::~GUIEdge()
 {
-    for (LaneWrapperVector::iterator i=_laneGeoms.begin(); i!=_laneGeoms.end(); i++) {
+    for (LaneWrapperVector::iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); i++) {
         delete(*i);
     }
 }
@@ -112,7 +112,7 @@ GUIEdge::getLaneGeometry(const MSLane *lane) const
 {
     LaneWrapperVector::const_iterator i=
         find_if(myLaneGeoms.begin(), myLaneGeoms.end(), lane_wrapper_finder(*lane));
-    assert(i!=_laneGeoms.end());
+    assert(i!=myLaneGeoms.end());
     return *(*i);
 }
 
@@ -145,7 +145,7 @@ Boundary
 GUIEdge::getBoundary() const
 {
     Boundary ret;
-    for (LaneWrapperVector::const_iterator i=_laneGeoms.begin(); i!=_laneGeoms.end(); ++i) {
+    for (LaneWrapperVector::const_iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); ++i) {
         const Position2DVector &g = (*i)->getShape();
         for (unsigned int j=0; j<g.size(); j++) {
             ret.add(g[j]);

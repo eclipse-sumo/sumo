@@ -103,7 +103,7 @@ void
 RONetHandler::parseEdge(const Attributes &attrs)
 {
     // get the id of the edge and the edge
-	_currentEdge = 0;
+	myCurrentEdge = 0;
     try {
         myCurrentName = getString(attrs, SUMO_ATTR_ID);
         if (myCurrentName[0]==':') {

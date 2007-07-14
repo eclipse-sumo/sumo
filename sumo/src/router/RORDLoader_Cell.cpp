@@ -249,7 +249,7 @@ RORDLoader_Cell::report(const std::string &result)
 {
     if (myHasIndexFile) {
         try {
-            myRoutes.push_back(TplConvert<char>::my2int(result.c_str())); // !!!
+            myRoutes.push_back(TplConvert<char>::_2int(result.c_str())); // !!!
         } catch (NumberFormatException &) {
             throw ProcessError("Your '" + myRouteIdxFile + "' contains non-digits.");
         } catch (EmptyData &) {}

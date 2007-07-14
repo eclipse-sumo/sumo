@@ -736,7 +736,7 @@ GUIApplicationWindow::onCmdStart(FXObject*,FXSelector,void*)
         return 1;
     }
     // check whether it was started before and paused;
-    if (!_wasStarted) {
+    if (!myWasStarted) {
         myRunThread->begin();
         myWasStarted = true;
     }
@@ -762,7 +762,7 @@ GUIApplicationWindow::onCmdStep(FXObject*,FXSelector,void*)
         return 1;
     }
     // check whether it was started before and paused;
-    if (!_wasStarted) {
+    if (!myWasStarted) {
         myRunThread->begin();
         myWasStarted = true;
     }

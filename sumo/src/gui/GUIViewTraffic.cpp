@@ -662,7 +662,7 @@ GUIViewTraffic::onMouseMove(FXObject *o,FXSelector sel,void *data)
         // Keep Color Informations
         Position2D point = getPositionInformation(e->win_x, e->win_y);
         myPointToMove->set(point.x(), point.y());
-        if (!_leftButtonPressed) {
+        if (!myLeftButtonPressed) {
             myPointToMove=0;
         }
         updatePositionInformation();

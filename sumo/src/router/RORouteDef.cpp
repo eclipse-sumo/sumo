@@ -74,7 +74,7 @@ RORouteDef::patchID()
     size_t idx = myId.rfind('_');
     if (idx!=string::npos) {
         try {
-            int no = TplConvert<char>::my2int(myId.substr(idx+1).c_str());
+            int no = TplConvert<char>::_2int(myId.substr(idx+1).c_str());
             myId = myId.substr(0, idx+1) + toString<int>(no+1);
         } catch (NumberFormatException &) {
             myId = myId + "_0";

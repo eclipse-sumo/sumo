@@ -72,7 +72,7 @@ OptionsLoader::~OptionsLoader()
 void OptionsLoader::startElement(const XMLCh* const name,
                                  AttributeList& /*attributes*/)
 {
-    _item = TplConvert<XMLCh>::_2str(name);
+    myItem = TplConvert<XMLCh>::_2str(name);
     /*
     if( myItem=="configuration" ||
         myItem=="files" ||
