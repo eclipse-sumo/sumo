@@ -235,9 +235,6 @@
    </unregulated_nodes>
 
    <processing>
-      <!-- Continues though corrupt edges -->
-      <omit-corrupt-edges>false</omit-corrupt-edges>
-
       <!-- Flips the y-coordinate along zero -->
       <flip-y>false</flip-y>
 

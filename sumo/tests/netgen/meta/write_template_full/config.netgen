@@ -97,7 +97,6 @@
    </unregulated_nodes>
 
    <processing>
-      <omit-corrupt-edges>false</omit-corrupt-edges>
       <flip-y>false</flip-y>
       <dismiss-vclasses>false</dismiss-vclasses>
       <remove-geometry>false</remove-geometry>

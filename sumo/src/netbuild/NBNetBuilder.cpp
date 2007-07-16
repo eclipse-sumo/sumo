@@ -511,9 +511,6 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
 
 
     // register the data processing options
-    oc.doRegister("omit-corrupt-edges", new Option_Bool(false));
-    oc.addDescription("omit-corrupt-edges", "Processing", "Continues though corrupt edges");
-
     oc.doRegister("flip-y", new Option_Bool(false));
     oc.addDescription("flip-y", "Processing", "Flips the y-coordinate along zero");
 

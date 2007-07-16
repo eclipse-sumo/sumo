@@ -118,8 +118,8 @@ private:
     /// Parses the optional information of how to spread the lanes
     NBEdge::LaneSpreadFunction getSpreadFunction(const Attributes &attrs);
 
-    NBNode * insertNodeChecking(MsgHandler &msgh, const Position2D &pos, 
-                                      const std::string &name, const std::string &dir);
+    NBNode * insertNodeChecking(const Position2D &pos, 
+        const std::string &name, const std::string &dir);
 
 
 private:

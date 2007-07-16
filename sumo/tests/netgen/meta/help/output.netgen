@@ -1,15 +1,15 @@
-SUMO netgen Version dev-SVN-r4156
+SUMO netgen Version 0.9.6
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
 
-Usage: sumo-netgen [OPTION]*
+Usage: netgen.exe [OPTION]*
  
  Examples:
-  sumo-netgen -c <CONFIGURATION>
-  sumo-netgen --grid-net [grid-network options] -o <OUTPUTFILE>
-  sumo-netgen --spider-net [spider-network opts] -o <OUTPUTFILE>
-  sumo-netgen --random-net [random-network opts] -o <OUTPUTFILE>
+  netgen.exe -c <CONFIGURATION>
+  netgen.exe --grid-net [grid-network options] -o <OUTPUTFILE>
+  netgen.exe --spider-net [spider-network opts] -o <OUTPUTFILE>
+  netgen.exe --random-net [random-network opts] -o <OUTPUTFILE>
  
  Either "--grid-net", "--spider-net" or "--random-net" must be 
   supplied. In dependance to these switches other options are used.
@@ -133,7 +133,6 @@ Usage: sumo-netgen [OPTION]*
   --keep-unregulated.district-nodes    Do not regulate district nodes
 
  Processing Options:
-  --omit-corrupt-edges                 Continues though corrupt edges
   --flip-y                             Flips the y-coordinate along zero
   --dismiss-vclasses                   
   -R, --remove-geometry                Removes geometry information from edges

@@ -96,7 +96,6 @@
       <vissim.speed-norm>1</vissim.speed-norm>
       <visum.use-net-prio>false</visum.use-net-prio>
       <navtech.rechecklanes>false</navtech.rechecklanes>
-      <omit-corrupt-edges>false</omit-corrupt-edges>
       <flip-y>false</flip-y>
       <dismiss-vclasses>false</dismiss-vclasses>
       <remove-geometry>false</remove-geometry>

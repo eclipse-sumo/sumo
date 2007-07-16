@@ -352,11 +352,7 @@ NIXMLEdgesHandler::setID(const Attributes &attrs)
             throw EmptyData();
         }
     } catch (EmptyData &) {
-        if(myOptions.getBool("omit-corrupt-edges")) {
-            MsgHandler::getWarningInstance()->inform("Missing edge id.");
-        } else {
-            MsgHandler::getErrorInstance()->inform("Missing edge id.");
-        }
+        MsgHandler::getErrorInstance()->inform("Missing edge id.");
     }
 }
 
@@ -499,11 +495,8 @@ NIXMLEdgesHandler::setNodes(const Attributes &attrs)
         endNodeYPos = pos.y();
     }
     // check the obtained values for nodes
-    MsgHandler *msgh = myOptions.getBool("omit-corrupt-edges")
-                       ? MsgHandler::getWarningInstance()
-                       : MsgHandler::getErrorInstance();
-    myFromNode = insertNodeChecking(*msgh, Position2D(begNodeXPos, begNodeYPos), begNodeID, "from");
-    myToNode = insertNodeChecking(*msgh, Position2D(endNodeXPos, endNodeYPos), endNodeID, "to");
+    myFromNode = insertNodeChecking(Position2D(begNodeXPos, begNodeYPos), begNodeID, "from");
+    myToNode = insertNodeChecking(Position2D(endNodeXPos, endNodeYPos), endNodeID, "to");
     return myFromNode!=0&&myToNode!=0;
 }
 
@@ -522,33 +515,33 @@ NIXMLEdgesHandler::tryGetPosition(const Attributes &attrs, SumoXMLAttr attrID,
 
 
 NBNode *
-NIXMLEdgesHandler::insertNodeChecking(MsgHandler &msgh, const Position2D &pos, 
+NIXMLEdgesHandler::insertNodeChecking(const Position2D &pos, 
                                       const std::string &name, const std::string &dir)
 {
     NBNode *ret = 0;
     if(name=="" && (pos.x()==SUMOXML_INVALID_POSITION || pos.y()==SUMOXML_INVALID_POSITION)) {
-        msgh.inform("Neither the name nor the position of the " + dir + "-node is given for edge '" + myCurrentID + "'.");
+        MsgHandler::getErrorInstance()->inform("Neither the name nor the position of the " + dir + "-node is given for edge '" + myCurrentID + "'.");
         return ret;
     }
     if(name!="") {
         if (pos.x()!=SUMOXML_INVALID_POSITION && pos.y()!=SUMOXML_INVALID_POSITION) {
             // the node is named and it has a position given
             if(!myNodeCont.insert(name, pos)) {
-                msgh.inform("Position of " + dir + "-node '" + name + "' mismatches previous positions.");
+                MsgHandler::getErrorInstance()->inform("Position of " + dir + "-node '" + name + "' mismatches previous positions.");
                 return 0;
             }
         }
         // the node is given by its name
         ret = myNodeCont.retrieve(name);
         if(ret==0) {
-            msgh.inform("Edge's '" + myCurrentID + "' " + dir + "-node '" + name + "' is not known.");
+            MsgHandler::getErrorInstance()->inform("Edge's '" + myCurrentID + "' " + dir + "-node '" + name + "' is not known.");
         }
     } else {
         ret = myNodeCont.retrieve(pos);
         if (ret==0) {
             ret = new NBNode(myNodeCont.getFreeID(), pos);
             if (!myNodeCont.insert(ret)) {
-                msgh.inform("Could not insert " + dir + "-node at position " + toString(pos) + ".");
+                MsgHandler::getErrorInstance()->inform("Could not insert " + dir + "-node at position " + toString(pos) + ".");
                 delete ret;
                 return 0;
             }
