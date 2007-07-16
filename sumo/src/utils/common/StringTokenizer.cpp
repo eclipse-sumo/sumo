@@ -178,18 +178,18 @@ void StringTokenizer::prepareWhitechar(const string &tosplit)
 {
     size_t len = tosplit.length();
     size_t beg = 0;
-    while (beg<len&&tosplit.at(beg)<=32) {
+    while (beg<len&&tosplit[beg]<=32) {
         beg++;
     }
     while (beg!=string::npos&&beg<len) {
         size_t end = beg;
-        while (end<len&&tosplit.at(end)>32) {
+        while (end<len&&tosplit[end]>32) {
             end++;
         }
         myStarts.push_back(beg);
         myLengths.push_back(end-beg);
         beg = end;
-        while (beg<len&&tosplit.at(beg)<=32) {
+        while (beg<len&&tosplit[beg]<=32) {
             beg++;
         }
     }

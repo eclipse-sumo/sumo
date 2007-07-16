@@ -119,7 +119,7 @@ LineReader::readLine(LineHandler &lh)
     }
     // remove trailing blanks
     int idx = toReport.length()-1;
-    while (idx>=0&&toReport.at(idx)<32) {
+    while (idx>=0&&toReport[idx]<32) {
         idx--;
     }
     if (idx>=0) {
@@ -176,7 +176,7 @@ LineReader::readLine()
     }
     // remove trailing blanks
     int idx = toReport.length()-1;
-    while (idx>=0&&toReport.at(idx)<32) {
+    while (idx>=0&&toReport[idx]<32) {
         idx--;
     }
     if (idx>=0) {

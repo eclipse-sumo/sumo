@@ -69,7 +69,7 @@ FileHelpers::exists(string path)
     if (path.length()==0) {
         return false;
     }
-    while (path.at(path.length()-1)=='/'||path.at(path.length()-1)=='\\') {
+    while (path[path.length()-1]=='/'||path[path.length()-1]=='\\') {
         path.erase(path.end()-1);
     }
     if (path.length()==0) {

@@ -77,8 +77,8 @@ NIArtemisParser_SignalGroups::myDependentReport()
     string from = myLineParser.get("From");
     string to = myLineParser.get("To");
     // "isArrow" omitted
-    char startPhase = myLineParser.get("StartPhase").at(0); // !!! insecure when string empty
-    char endPhase = myLineParser.get("EndPhase").at(0); // !!! insecure when string empty
+    char startPhase = myLineParser.get("StartPhase")[0]; // !!! insecure when string empty
+    char endPhase = myLineParser.get("EndPhase")[0]; // !!! insecure when string empty
     // "satflow" omitted
     // get the according structures
     NBNode *node = myNodeCont.retrieve(nodeid);

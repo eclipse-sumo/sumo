@@ -915,19 +915,19 @@ Position2DVector::move2side(SUMOReal amount, int index)
         index = myCont.size() + index;
     }
     if (/*i==myGeom.size()-2||*/index==0) {
-        Position2D from = myCont.at(index);
-        Position2D to = myCont.at(index+1);
+        Position2D from = myCont[index];
+        Position2D to = myCont[index+1];
         std::pair<SUMOReal, SUMOReal> offsets = offset(from, to, amount);
         myCont[index] = Position2D(from.x()-offsets.first, from.y()-offsets.second);
     } else if (index==(int) myCont.size()-1) {
-        Position2D from = myCont.at(index-1);
-        Position2D to = myCont.at(index);
+        Position2D from = myCont[index-1];
+        Position2D to = myCont[index];
         std::pair<SUMOReal, SUMOReal> offsets = offset(from, to, amount);
         myCont[index] = Position2D(to.x()-offsets.first, to.y()-offsets.second);
     } else {
-        Position2D from = myCont.at(index-1);
-        Position2D me = myCont.at(index);
-        Position2D to = myCont.at(index+1);
+        Position2D from = myCont[index-1];
+        Position2D me = myCont[index];
+        Position2D to = myCont[index+1];
         std::pair<SUMOReal, SUMOReal> offsets = offset(from, me, amount);
         std::pair<SUMOReal, SUMOReal> offsets2 = offset(me, to, amount);
         Line2D l1(
@@ -957,25 +957,25 @@ Position2DVector::move2side(SUMOReal amount)
     Position2DVector shape;
     for (size_t i=0; i<myCont.size(); i++) {
         if (/*i==myGeom.size()-2||*/i==0) {
-            Position2D from = myCont.at(i);
-            Position2D to = myCont.at(i+1);
+            Position2D from = myCont[i];
+            Position2D to = myCont[i+1];
             std::pair<SUMOReal, SUMOReal> offsets =
                 offset(from, to, amount);
             shape.push_back_noDoublePos(//.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position2D(from.x()-offsets.first, from.y()-offsets.second));
         } else if (i==myCont.size()-1) {
-            Position2D from = myCont.at(i-1);
-            Position2D to = myCont.at(i);
+            Position2D from = myCont[i-1];
+            Position2D to = myCont[i];
             std::pair<SUMOReal, SUMOReal> offsets =
                 offset(from, to, amount);
             shape.push_back_noDoublePos(//.push_back(
                 // (methode umbenennen; was heisst hier "-")
                 Position2D(to.x()-offsets.first, to.y()-offsets.second));
         } else {
-            Position2D from = myCont.at(i-1);
-            Position2D me = myCont.at(i);
-            Position2D to = myCont.at(i+1);
+            Position2D from = myCont[i-1];
+            Position2D me = myCont[i];
+            Position2D to = myCont[i+1];
             std::pair<SUMOReal, SUMOReal> offsets =
                 offset(from, me, amount);
             std::pair<SUMOReal, SUMOReal> offsets2 =

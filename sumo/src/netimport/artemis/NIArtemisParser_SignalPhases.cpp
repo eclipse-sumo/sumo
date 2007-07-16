@@ -70,8 +70,7 @@ NIArtemisParser_SignalPhases::myDependentReport()
     int start =
         TplConvert<char>::_2int(myLineParser.get("Start").c_str());
 //    !!! insert
-    NIArtemisTempSignal::addPhase(
-        nodeid, phase.at(0), perc, start);
+    NIArtemisTempSignal::addPhase(nodeid, phase.at(0), perc, start);
 }
 
 

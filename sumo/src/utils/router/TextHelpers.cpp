@@ -53,14 +53,14 @@ TextHelpers::version(std::string str)
     bool isVersion = false;
     // check whether this already is a version
     int pos = (int) str.length()-1;
-    if (str.at(pos)==')') {
+    if (str[pos]==')') {
         isVersion = true;
-        while (pos>=0&&str.at(--pos)!='(') {
-            if (str.at(pos)>'9'||str.at(pos)<'1') {
+        while (pos>=0&&str[--pos]!='(') {
+            if (str[pos]>'9'||str[pos]<'1') {
                 isVersion = false;
             }
         }
-        if (str.at(pos)!='(') {
+        if (str[pos]!='(') {
             isVersion = false;
         }
     }
