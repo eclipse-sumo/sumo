@@ -247,9 +247,6 @@ class NIVisumSingleDataTypeParser :
         /// Sets the stream position to the
         void rewind(std::istream &strm) const;
 
-        /// Returns the information whether the current line is an end-of-data line
-        bool dataTypeEnded(const std::string &msg);
-
     private:
         /// Position the certain data type starts at within the stream
         long myPosition;

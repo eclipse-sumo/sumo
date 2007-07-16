@@ -136,24 +136,15 @@ NIVisumLoader::NIVisumSingleDataTypeParser::getDataName() const
 
 
 bool
-NIVisumLoader::NIVisumSingleDataTypeParser::report(
-    const std::string &line)
+NIVisumLoader::NIVisumSingleDataTypeParser::report(const std::string &line)
 {
     // check whether there are further data to read
-    if (dataTypeEnded(line)) {
+    if (line.length()==0||line[0]=='*'||line[0]=='$') {
         return false;
     }
     myLineParser.parseLine(line);
     myDependentReport();
     return true;
-}
-
-
-bool
-NIVisumLoader::NIVisumSingleDataTypeParser::dataTypeEnded(
-    const std::string &msg)
-{
-    return (msg.length()==0||msg.at(0)=='*'||msg.at(0)=='$');
 }
 
 
