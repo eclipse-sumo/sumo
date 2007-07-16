@@ -490,6 +490,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\SUMOTime.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\SUMOVehicleClass.h"
 				>
 			</File>
@@ -502,7 +506,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\ToString.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\convert\TplConvert.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\TplConvert.h"
 				>
 			</File>
 			<File
