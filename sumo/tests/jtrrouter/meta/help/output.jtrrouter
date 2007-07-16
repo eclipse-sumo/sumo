@@ -1,13 +1,13 @@
-SUMO jtrrouter Version dev-SVN-r4156
+SUMO jtrrouter Version 0.9.6
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Router for the microscopic road traffic simulation SUMO based on junction
   turning ratios.
 
-Usage: sumo-jtrrouter [OPTION]*
+Usage: jtrrouter.exe [OPTION]*
  
  Example:
-  sumo-jtrrouter -c <CONFIGURATION>
+  jtrrouter.exe -c <CONFIGURATION>
  
  Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup
@@ -20,7 +20,7 @@ Usage: sumo-jtrrouter [OPTION]*
   -n, --net-file FILE              Use FILE as SUMO-network to route on
   -a, --alternatives FILE          Read alternatives from FILE
   -w, --weights FILE               Read network weights from FILE
-  -l, --lane-weights FILE          Read lane-weights from FILE
+  --lane-weights FILE              Read lane-weights from FILE
 
  Output Options:
   -o, --output-file FILE           Write generated routes to FILE
@@ -51,7 +51,7 @@ Usage: sumo-jtrrouter [OPTION]*
   -W, --suppress-warnings          Disables output of warnings
   -p, --print-options              Prints option values before processing
   -?, --help                       Prints this screen
-  --log-file FILE                  Writes all messages to FILE
+  -l, --log-file FILE              Writes all messages to FILE
   --stats-period INT               Defines how often statistics shall be
                                      printed
 

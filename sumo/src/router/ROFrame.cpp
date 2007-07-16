@@ -72,7 +72,7 @@ ROFrame::fillOptions(OptionsCont &oc)
     oc.addSynonyme("weights", "weight-files");
     oc.addDescription("weights", "Input", "Read network weights from FILE");
 
-    oc.doRegister("lane-weights", 'l', new Option_FileName());
+    oc.doRegister("lane-weights", new Option_FileName());
     oc.addDescription("lane-weights", "Input", "Read lane-weights from FILE");
 
 

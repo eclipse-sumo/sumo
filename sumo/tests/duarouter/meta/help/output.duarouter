@@ -1,13 +1,13 @@
-SUMO duarouter Version dev-SVN-r4156
+SUMO duarouter Version 0.9.6
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Shortest path router and DUE computer for the microscopic road traffic
   simulation SUMO.
 
-Usage: sumo-duarouter [OPTION]*
+Usage: duarouter.exe [OPTION]*
  
  Example:
-  sumo-duarouter -c <CONFIGURATION>
+  duarouter.exe -c <CONFIGURATION>
  
  Configuration Options:
   -c, --configuration-file FILE       Loads the named config on startup
@@ -20,7 +20,7 @@ Usage: sumo-duarouter [OPTION]*
   -n, --net-file FILE                 Use FILE as SUMO-network to route on
   -a, --alternatives FILE             Read alternatives from FILE
   -w, --weights FILE                  Read network weights from FILE
-  -l, --lane-weights FILE             Read lane-weights from FILE
+  --lane-weights FILE                 Read lane-weights from FILE
   -t, --trip-defs FILE                Read trip-definitions from FILE
   -f, --flow-definition FILE          Read flow-definitions from FILE
   -s, --sumo-input FILE               Read sumo-routes from FILE
@@ -61,7 +61,7 @@ Usage: sumo-duarouter [OPTION]*
   -W, --suppress-warnings             Disables output of warnings
   -p, --print-options                 Prints option values before processing
   -?, --help                          Prints this screen
-  --log-file FILE                     Writes all messages to FILE
+  -l, --log-file FILE                 Writes all messages to FILE
   --stats-period INT                  Defines how often statistics shall be
                                         printed
 
