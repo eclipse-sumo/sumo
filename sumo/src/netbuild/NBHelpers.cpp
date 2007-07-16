@@ -99,11 +99,11 @@ NBHelpers::computeLogicSize(string key)
     long size = 1;
     size_t index = key.find('_');
     while (index<key.size()-1) {
-        if (key.at(index+1)=='+') {
-            int nolanes = key.at(index+2) - '0';
+        if (key[index+1]=='+') {
+            int nolanes = key[index+2] - '0';
             int pos = index + 4;
             for (int i=0; i<nolanes; i++) {
-                int noconn = key.at(pos) - 'a';
+                int noconn = key[pos] - 'a';
                 size *= (noconn+1);
                 pos += noconn * 2 + 1;
             }
