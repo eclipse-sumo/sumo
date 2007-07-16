@@ -52,12 +52,6 @@ public:
     NBJunctionLogicCont();
     ~NBJunctionLogicCont();
 
-    /** returns the number of rotations that must be performed to map the key
-        onto an existing logic.
-        returns a negative number when the key could not be fitted to any of
-        the previously saved keys */
-    //int try2convert(const std::string &key);
-
     /// saves the given junction logic bitfield
     void add(const std::string &key, const std::string &xmlDescription);
 

@@ -57,7 +57,6 @@
 #include <netbuild/NBHelpers.h>
 #include <netbuild/NBDistrict.h>
 #include <netbuild/NBContHelper.h>
-#include <netbuild/NBLogicKeyBuilder.h>
 #include <netbuild/NBRequest.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <netbuild/NBTrafficLightLogicCont.h>

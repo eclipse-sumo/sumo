@@ -34,7 +34,6 @@
 #include <algorithm>
 #include <vector>
 #include <map>
-#include "NBLogicKeyBuilder.h"
 #include "NBJunctionLogicCont.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
@@ -69,22 +68,6 @@ NBJunctionLogicCont::exists(const string &key)
     return myMap.find(key)!=myMap.end();
 }
 
-/*
-int
-NBJunctionLogicCont::try2convert(const string &key)
-{
-    int rot = 0;
-    if(exists(string("b.") + key)) return rot;
-    string run = key;
-    run = NBLogicKeyBuilder::rotateKey(run);
-    while(run!=key) {
-        rot++;
-        if(exists(string("b.") + run)) return rot;
-        run = NBLogicKeyBuilder::rotateKey(run);
-    }
-    return -1;
-}
-*/
 
 void
 NBJunctionLogicCont::add(const std::string &key,
