@@ -26,9 +26,11 @@ Parsing SIGNALGRUPPE... done.
 Parsing SIGNALGRUPPEZUABBIEGER... done.
 Parsing PHASE... done.
 Parsing FAHRSTREIFENABBIEGER... done.
+ Import done;
+   29 districts loaded.
+   49 nodes loaded.
    100 types loaded.
    100 edges loaded.
-   49 nodes loaded.
 Computing step 1: Removing dummy edges
 Computing step 2: Joining double connections
 Computing step 3: Normalising node positions
