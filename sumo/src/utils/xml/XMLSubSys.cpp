@@ -129,7 +129,7 @@ XMLSubSys::setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &reader,
                       const std::string &feature, bool value) throw()
 {
     XMLCh *xmlFeature = XMLString::transcode(feature.c_str());
-    reader.setFeature(xmlFeature, false);
+    reader.setFeature(xmlFeature, value);
     XMLString::release(&xmlFeature);
 }
 
