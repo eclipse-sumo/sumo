@@ -51,7 +51,6 @@
 #include "RORDLoader_SUMORoutes.h"
 #include "RORDLoader_Cell.h"
 #include "RORDLoader_SUMOAlt.h"
-#include "RORDLoader_Artemis.h"
 #include "RORDGenerator_Random.h"
 #include "RORDGenerator_ODAmounts.h"
 #include "ROAbstractRouteDefLoader.h"
@@ -263,8 +262,6 @@ ROLoader::openRoutes(RONet &net, SUMOReal /*gBeta*/, SUMOReal /*gA*/)
     openTypedRoutes("trip-defs", net);
     // load the cell-routes when wished
     openTypedRoutes("cell-input", net);
-    // load artemis routes when wished
-    openTypedRoutes("artemis-input", net);
     // load the sumo-alternative file when wished
     openTypedRoutes("alternatives", net);
     // build generators
@@ -447,10 +444,6 @@ ROLoader::buildNamedHandler(const std::string &optionName,
                                    myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
                                    myOptions.getInt("max-alternatives"), file);
     }
-    if (optionName=="artemis-input") {
-        return new RORDLoader_Artemis(myVehicleBuilder, net,
-                                      myOptions.getInt("begin"), myOptions.getInt("end"), file);
-    }
     if (optionName=="alternatives") {
         return new RORDLoader_SUMOAlt(myVehicleBuilder, net,
                                       myOptions.getInt("begin"), myOptions.getInt("end"),
@@ -477,9 +470,6 @@ ROLoader::checkFile(const std::string &optionName,
         return;
     }
     if (optionName=="cell-input"&&FileHelpers::exists(file+".driver")&&FileHelpers::exists(file+".rinfo")) {
-        return;
-    }
-    if (optionName=="artemis-input"&&FileHelpers::exists(file + "/HVdests.txt")&&FileHelpers::exists(file + "/Flows.txt")) {
         return;
     }
     if (optionName=="alternatives"&&FileHelpers::exists(file)) {

@@ -72,7 +72,6 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netimport/visum/libvisumimport.a \
 ./netimport/xml/libxmlimport.a \
 ./netimport/arcview/libarcviewimport.a \
-./netimport/artemis/libartemisimport.a \
 ./netimport/elmar/libelmarimport.a \
 ./netimport/elmar2/libelmar2import.a \
 ./netimport/tiger/libtigerimport.a \

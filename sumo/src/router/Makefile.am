@@ -12,7 +12,6 @@ ROLoader.cpp ROLoader.h RONet.cpp RONet.h RONetHandler.cpp RONetHandler.h \
 RONode.cpp RONode.h RONodeCont.h \
 RORDGenerator_ODAmounts.cpp RORDGenerator_ODAmounts.h \
 RORDGenerator_Random.cpp RORDGenerator_Random.h \
-RORDLoader_Artemis.cpp RORDLoader_Artemis.h \
 RORDLoader_Cell.cpp RORDLoader_Cell.h \
 RORDLoader_SUMOAlt.cpp RORDLoader_SUMOAlt.h \
 RORDLoader_SUMOBase.cpp RORDLoader_SUMOBase.h \
