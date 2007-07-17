@@ -90,9 +90,6 @@ private:
     /** loads data from cell-input-files */
     void loadCell(OptionsCont &oc);
 
-    /** loads data from artemis-input-files */
-    void loadArtemis(OptionsCont &oc);
-
     /** reads using a file reader */
     bool useLineReader(LineReader &lr, const std::string &file,
                        LineHandler &lh);

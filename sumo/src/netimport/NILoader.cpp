@@ -59,7 +59,6 @@
 #include <netimport/visum/NIVisumLoader.h>
 #include <netimport/vissim/NIVissimLoader.h>
 #include <netimport/arcview/NIArcView_Loader.h>
-#include <netimport/artemis/NIArtemisLoader.h>
 #include <netimport/sumo/NISUMOHandlerNodes.h>
 #include <netimport/sumo/NISUMOHandlerEdges.h>
 #include <netimport/sumo/NISUMOHandlerDepth.h>
@@ -116,7 +115,6 @@ NILoader::load(OptionsCont &oc)
     loadCell(oc);
     loadVisum(oc);
     loadArcView(oc);
-    loadArtemis(oc);
     loadVissim(oc);
     loadElmar(oc);
     loadTiger(oc);
@@ -331,21 +329,6 @@ NILoader::loadVissim(OptionsCont &oc)
     }
     // load the visum network
     NIVissimLoader loader(myNetBuilder, oc.getString("vissim"));
-    loader.load(oc);
-}
-
-
-void
-NILoader::loadArtemis(OptionsCont &oc)
-{
-    if (!oc.isSet("artemis")) {
-        return;
-    }
-    // load the visum network
-    NIArtemisLoader loader(oc.getString("artemis"),
-                           myNetBuilder.getDistrictCont(),
-                           myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
-                           myNetBuilder.getTLLogicCont());
     loader.load(oc);
 }
 

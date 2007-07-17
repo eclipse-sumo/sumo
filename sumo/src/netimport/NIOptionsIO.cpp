@@ -127,10 +127,6 @@ NIOptionsIO::fillOptions()
     oc.addSynonyme("vissim-file", "vissim");
     oc.addDescription("vissim-file", "Input", "Read VISSIM-net from FILE");
 
-    oc.doRegister("artemis-path", new Option_FileName());
-    oc.addSynonyme("artemis-path", "artemis");
-    oc.addDescription("artemis-path", "Input", "Read ARTEMIS-net from path 'FILE'");
-
 
     // register processing options
     oc.doRegister("dismiss-loading-errors", new Option_Bool(false)); // !!! describe, document
@@ -232,7 +228,6 @@ NIOptionsIO::checkNodes()
             oc.isSet("cell-nodes") ||
             oc.isSet("visum") ||
             oc.isSet("vissim") ||
-            oc.isSet("artemis") ||
             oc.isSet("tiger") ||
             oc.isSet("elmar") ||
             oc.isSet("arcview") ||
@@ -253,7 +248,6 @@ NIOptionsIO::checkEdges()
             oc.isSet("cell-edges") ||
             oc.isSet("visum") ||
             oc.isSet("vissim") ||
-            oc.isSet("artemis") ||
             oc.isSet("arcview") ||
             oc.isSet("sumo-net")) {
         return true;
