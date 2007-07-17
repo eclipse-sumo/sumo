@@ -101,13 +101,15 @@ GUILoadThread::run()
         submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
     }
+    MsgHandler::initOutputOptions(true);
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
-
+    RandHelper::initRandGlobal();
     // try to load
     OptionsCont &oc = OptionsCont::getOptions();
+    initDevices();
     SUMOFrame::setMSGlobals(oc);
     net =
         new GUINet(oc.getInt("begin"), buildVehicleControl(),
@@ -123,7 +125,6 @@ GUILoadThread::run()
         MsgHandler::getErrorInstance()->clear();
         MsgHandler::getWarningInstance()->clear();
         MsgHandler::getMessageInstance()->clear();
-        initDevices();
         if (!builder.build()) {
             delete net;
             net = 0;
@@ -132,7 +133,6 @@ GUILoadThread::run()
             simStartTime = oc.getInt("begin");
             simEndTime = oc.getInt("end");
             closeNetLoadingDependent(oc, *net);
-            RandHelper::initRandGlobal();
         }
     } catch (ProcessError &e) {
         if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {

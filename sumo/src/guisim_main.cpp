@@ -444,13 +444,11 @@ main(int argc, char **argv)
         XMLSubSys::init();
         fillOptions();
         OptionsIO::getOptions(true, argc, argv);
-        if(oc.processMetaOptions(argc < 2)) {
+        if(oc.processMetaOptions(false)) {
             SystemFrame::close();
             return 0;
         }
-        MsgHandler::initOutputOptions();
         GUIFrame::checkInitOptions();
-        RandHelper::initRandGlobal();
         // within gui-based applications, nothing is reported to the console
         MsgHandler::getErrorInstance()->report2cout(false);
         MsgHandler::getErrorInstance()->report2cerr(false);

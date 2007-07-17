@@ -81,7 +81,7 @@ public:
     /// Returns the instance to add errors to
     static MsgHandler *getErrorInstance();
 
-    static void initOutputOptions();
+    static void initOutputOptions(bool gui=false);
 
     /// Removes pending handler
     static void cleanupOnEnd();

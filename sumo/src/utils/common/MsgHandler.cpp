@@ -306,10 +306,10 @@ MsgHandler::report2cerr(bool value)
 
 
 void
-MsgHandler::initOutputOptions()
+MsgHandler::initOutputOptions(bool gui)
 {
-    getMessageInstance()->report2cout(OptionsCont::getOptions().getBool("verbose"));
-    getWarningInstance()->report2cerr(!OptionsCont::getOptions().getBool("suppress-warnings"));
+    getMessageInstance()->report2cout(!gui && OptionsCont::getOptions().getBool("verbose"));
+    getWarningInstance()->report2cerr(!gui && !OptionsCont::getOptions().getBool("suppress-warnings"));
     // build the logger if possible
     if (OptionsCont::getOptions().isSet("log-file")) {
         myLogFile =
