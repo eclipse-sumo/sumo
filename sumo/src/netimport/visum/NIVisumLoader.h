@@ -4,7 +4,7 @@
 /// @date    Fri, 19 Jul 2002
 /// @version $Id$
 ///
-// A loader visum-files
+// A VISUM networks importer
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -57,268 +57,417 @@ class NBEdge;
 // ===========================================================================
 /**
  * @class NIVisumLoader
- * @brief This class parses the given visum file.
+ * @brief A VISUM networks importer
  *
- * When the edge definition is before the node and the type definitions, it
- * will be parsed using a second step; otherwise this class parses the file
- * using a single step.
- * Types are loaded optionally.
+ * This class build an internal list of those VISUM-db entries which are 
+ *  supported, first. This list is sorted in a way that the parsed dbs can
+ *  build upon each other as their related structures within the XML-input. 
+ *  So, nodes are loaded first, then edges, etc. 
+ *
+ * Because these structures may have a different order within the VISUM-file
+ *  than we need, at first the file is scanned and any occurence of one of the
+ *  searched dbs is saved. That's where the "Found $XXX at YYY" are printed.
+ *  "YYY" is the character position within the file.
+ *
+ * In a second step, the dbs are parsed in the order we need. It is asked for
+ *  each subsequently whether it was found and if so, the proper parse_XXX()
+ *  method is called.
  */
-class NIVisumLoader :
-            public FileErrorReporter
+class NIVisumLoader : public FileErrorReporter
 {
 public:
-    typedef std::map<std::string, std::string> VSysTypeNames;
-    typedef std::map<std::string, NIVisumTL*> NIVisumTL_Map;
-public:
-    /// constructor
-    NIVisumLoader(NBNetBuilder &nb, const std::string &file,
-                  NBCapacity2Lanes capacity2Lanes, bool useVisumPrio);
-
-    /// destructor
-    ~NIVisumLoader();
-
-    /// starts the parsing
-    void load(OptionsCont &options);
-
-public:
-    /**
-     * @class NIVisumSingleDataTypeParser
-     * @brief The class that parses entries of a certain data type, like edges, edge
-     * connections etc.
+    /** @brief constructor
+     *
+     * Builds the list of typed db parsers ("TypeParser") and stores them in
+     *  mySingleDataParsers in the order the according db values must be parsed.
+     *
+     * @param[in,out] nb the network builder (storage) to fill with parsed values
+     * @param[in] file The name of the file to parse
+     * @param[in] capacity2Lanes The converter from flow to lanes
+     * @param[in] useVisumPrio Information whether the VISUM type's priority shall be used
      */
-class NIVisumSingleDataTypeParser :
-                public FileErrorReporter::Child,
-                public LineHandler
-    {
-    public:
-        /// constructor
-        NIVisumSingleDataTypeParser(NIVisumLoader &parent,
-                                    const std::string &dataName);
+    NIVisumLoader(NBNetBuilder &nb, const std::string &file,
+        NBCapacity2Lanes capacity2Lanes, bool useVisumPrio) throw();
 
-        /// Destructor
-        virtual ~NIVisumSingleDataTypeParser();
 
-        /** @brief Sets the position of the data-type within the visum-file
+    /// @brief destructor
+    ~NIVisumLoader() throw();
+
+
+    /** @brief Parses the VISUM-network file storing the parsed structures within myNetBuilder
+     *
+     * At first, it is checked whether the file can be opened. A ProcessError is thrown
+     *  if not. Otherwise, the file is scanned for occurences of db table begins. For each found
+     *  db, its position within the file, and the column names are stored in the according 
+     *  TypeParser. After this, the sorted list of type parsers is one through and each 
+     *  found is used to parse the entries at the found positions using the found column names.
+     *
+     * @exception ProcessError If the file could not be opened
+     */
+    void load() throw(ProcessError);
+
+private:
+    /** @brief Returns the value from the named column as a float 
+     *
+     * @param[in] fieldName Name of the column to extract the float from
+     * @return The parsed real
+     * @exception OutOfBoundsException If the current data line has less entries than the float's position
+     * @exception NumberFormatException If the float is not numeric
+     * @exception UnknownElement If the named data field is not in the line
+     */
+    SUMOReal getNamedFloat(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+
+    /** @brief The same, but two different names for the field are allowed
+     *
+     * @param[in] fieldName1 Name of the first column to extract the float from
+     * @param[in] fieldName2 Name of the second column to extract the efloat from
+     * @return The parsed real
+     * @exception OutOfBoundsException If the current data line has less entries than the float's position
+     * @exception NumberFormatException If the float is not numeric
+     * @exception UnknownElement If the named data field is not in the line
+     */
+    SUMOReal getNamedFloat(const std::string &fieldName1, const std::string &fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+
+
+    /** @brief Returns the value from the named column as a float or the default value if an error occures
+     *
+     * @param[in] fieldName Name of the column to extract the float from
+     * @param[in] defaultValue The default to return in the case of an error
+     * @return The parsed real or the default value if an error while parsing occured
+     */
+    SUMOReal getNamedFloat(const std::string &fieldName, SUMOReal defaultValue) throw();
+
+    /** @brief The same, but two different names for the field are allowed
+     *
+     * @param[in] fieldName1 Name of the first column to extract the float from
+     * @param[in] fieldName2 Name of the second column to extract the efloat from
+     * @param[in] defaultValue The default to return in the case of an error
+     * @return The parsed real or the default value if an error while parsing occured
+     */
+    SUMOReal getNamedFloat(const std::string &fieldName1, const std::string &fieldName2, 
+        SUMOReal defaultValue) throw();
+
+
+    /** @brief Returns the value from the named column as a normalised string 
+     *
+     * "Normalised" means herein that the leading '0' (zeros) are prunned.
+     *
+     * @param[in] fieldName Name of the column to extract the string from
+     * @return The parsed, normalised string
+     * @exception OutOfBoundsException If the current data line has less entries than the string's position
+     * @exception NumberFormatException If the string is not numeric
+     * @exception UnknownElement If the named data field is not in the line
+     */
+    std::string getNamedString(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+
+    /** @brief The same, but two different names for the field are allowed
+     *
+     * @param[in] fieldName1 Name of the first column to extract the string from
+     * @param[in] fieldName2 Name of the second column to extract the string from
+     * @return The parsed, normalised string
+     * @exception OutOfBoundsException If the current data line has less entries than the string's position
+     * @exception NumberFormatException If the string is not numeric
+     * @exception UnknownElement If the named data field is not in the line
+     */
+    std::string getNamedString(const std::string &fieldName1, const std::string &fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+
+
+    /** @brief tries to get a SUMOReal which is possibly assigned to a certain modality
+     *
+     * When the SUMOReal cannot be extracted using the given name, "(IV)" is
+     * appended to the begin of the name. Remark that this function does not
+     * yet support public traffic.
+     *
+     * @param[in] name Name of the column to extract the real from
+     * @return The real stored under the named column, or if not found the one from "(IV)"+name, or if not found -1
+     */
+    SUMOReal getWeightedFloat(const std::string &name) throw();
+
+
+    /** @brief tries to get a bool which is possibly assigned to a certain modality
+     *
+     * When the bool cannot be extracted using the given name, "IV" is
+     * appended to the begin of the name. Remark that this function does not
+     * yet support public traffic.
+     *
+     * @param[in] name Name of the column to extract the bool from
+     * @return The bool stored under the named column, or if not found the one from "(IV)"+name, or if not found false
+     */
+    bool getWeightedBool(const std::string &name) throw();
+
+
+    /** @brief Tries to get the node which name is stored in the given field
+     *
+     * If the field can not be parsed, an exception is thrown. Prints an error if the 
+     *  node could not be found, returning 0. Otherwise, if the field could be parsed
+     *  and the node was found, this node is returned.
+     *
+     * @param[in] fieldName Name of the column to extract the node's name from
+     * @return An already known node with the found name
+     * @exception OutOfBoundsException If the current data line has less entries than the node id's position
+     * @exception NumberFormatException If the node id is not numeric
+     * @exception UnknownElement If the named data field is not in the line
+     */
+    NBNode *getNamedNode(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+
+    /** @brief The same, but two different names for the field are allowed 
+     *
+     * @param[in] fieldName1 Name of the first column to extract the node's name from
+     * @param[in] fieldName2 Name of the second column to extract the node's name from
+     * @return An already known node with the found name
+     * @exception OutOfBoundsException If the current data line has less entries than the node id's position
+     * @exception NumberFormatException If the node id is not numeric
+     * @exception UnknownElement If the named data field is not in the line
+     */
+    NBNode *getNamedNode(const std::string &fieldName1, const std::string &fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+
+
+    /** @brief Tries to get the edge which name is stored in the given field
+     *
+     * If the field can not be parsed, an exception is thrown. Prints an error if the 
+     *  edge could not be found, returning 0. Otherwise, if the field could be parsed
+     *  and the edge was found, this edge is returned.
+     *
+     * @param[in] fieldName Name of the column to extract the edge's name from
+     * @return An already known edge with the found name
+     * @exception OutOfBoundsException If the current data line has less entries than the edge id's position
+     * @exception NumberFormatException If the edge id is not numeric
+     * @exception UnknownElement If the named data field is not in the line
+     */
+    NBEdge *getNamedEdge(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+
+    /** @brief The same, but two different names for the field are allowed
+     *
+     * @param[in] fieldName1 Name of the first column to extract the edge's name from
+     * @param[in] fieldName2 Name of the second column to extract the edge's name from
+     * @return An already known edge with the found name
+     * @exception OutOfBoundsException If the current data line has less entries than the edge id's position
+     * @exception NumberFormatException If the edge id is not numeric
+     * @exception UnknownElement If the named data field is not in the line
+     */
+    NBEdge *getNamedEdge(const std::string &fieldName1, const std::string &fieldName2) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+
+
+    /** @brief Tries to get the edge which name is stored in the given field
+     * continuating the search for a subedge that ends at the given node
+     *
+     * If the field can not be parsed, an exception is thrown. Prints an error if the 
+     *  edge could not be found, returning 0. Otherwise, if the field could be parsed
+     *  and the edge was found, this edge is returned.
+     *
+     * @param[in] fieldName Name of the column to extract the edge's name from
+     * @param[in] node The node the consecutive edge must end at in order to be returned
+     * @return The edge's continuation up to the given node, 0 if not found
+     * @exception OutOfBoundsException If the current data line has less entries than the edge id's position
+     * @exception NumberFormatException If the edge id is not numeric
+     * @exception UnknownElement If the named data field is not in the line
+     */
+    NBEdge *getNamedEdgeContinuating(const std::string &fieldName, NBNode *node) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+
+    /** @brief The same, but two different names for the field are allowed
+     *
+     * @param[in] fieldName1 Name of the first column to extract the edge's name from
+     * @param[in] fieldName2 Name of the second column to extract the edge's name from
+     * @param[in] node The node the consecutive edge must end at in order to be returned
+     * @return The edge's continuation up to the given node, 0 if not found
+     * @exception OutOfBoundsException If the current data line has less entries than the edge id's position
+     * @exception NumberFormatException If the edge id is not numeric
+     * @exception UnknownElement If the named data field is not in the line
+     */
+    NBEdge *getNamedEdgeContinuating(const std::string &fieldName1, const std::string &fieldName2,
+        NBNode *node) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+
+    /** @brief The same, but for an already given edge
+     *
+     * @param[in] begin The edge to get the continuation of
+     * @param[in] node The node the consecutive edge must end at in order to be returned
+     * @return The edge's continuation up to the given node, 0 if not found
+     */
+    NBEdge *getNamedEdgeContinuating(NBEdge *begin, NBNode *node) throw();
+
+
+    /** @brief Returns the edge that connects both nodes
+     * 
+     * @param[in] FromNode Name of the node the edge shall start at
+     * @param[in] ToNode Name of the node the edge shall end at
+     * @return The edge connecting both nodes, 0 if no such edge exists
+     */     
+    NBEdge *getEdge(NBNode *FromNode, NBNode *ToNode) throw();
+
+
+    /** @brief Returns the opposite direction of the given edge
+     *
+     * Because the opposite direction edge may be split, not the the plain opposite
+     *  edge, the one which name is obtained by adding/removing the leading '-', is returned,
+     *  but its continuation until the named node.
+     * 
+     * @param[in] edge Name of the edge to find the opposite of
+     * @param[in] node Name of the node the opposite edge's continuation must end at
+     * @return The found opposite edge's continuation, 0 if not found
+     */
+    NBEdge *getReversedContinuating(NBEdge *edge, NBNode *node) throw();
+
+
+    /** @brief Builds a node for the given district and returns it
+     *
+     * If the district does not exist, an error is generated and 0 returned. Otherwise
+     *  a position for the new node is computed and the new node is built using a combination
+     *  of the district name and the node name as id. If Inserting this node into
+     *  the net builder fails, zero is returned.
+     *
+     * @param[in] id Name of the district
+     * @param[in] dest Name of the according network node
+     * @param[in] dir Information whether this node will be used as a sink or a source
+     * @return The built node, zero if an error occured
+     */
+    NBNode *buildDistrictNode(const std::string &id, NBNode *dest, NBEdge::EdgeBasicFunction dir) throw();
+
+
+    /** @brief Returns whether both nodes are a valid combination of from/to-nodes
+     *
+     * They are valid if both are !=0 and differ. 
+     *
+     * @param[in] from The from-node
+     * @param[in] from The to-node
+     * @return Whether the nodes may be used
+     */
+    bool checkNodes(NBNode *from, NBNode *to) throw();
+
+
+private:
+    /**
+     * @brief Definition of a function for parsing a single line from a certain db
+     * 
+     * This function may assume that both the LineParser is initialised
+     *  with the current line.
+     */
+    typedef void (NIVisumLoader::*ParsingFunction)();
+
+    /**
+     * @struct TypeParser
+     * @brief A complete call description for parsing a single db.
+     */
+    struct TypeParser {
+        /** @brief The name of the db 
          *
-         * The position is saved as a byte-offset within the file */
-        void setStreamPosition(long pos);
+         * Initialised in the constructor */
+        std::string name;
 
-        /** @brief Returns the information whether the data type was found within the visum-file
+        /** @brief  Pointer to the function used for parsing 
          *
-         * This method returns valid values only after the first step - the scanning process */
-        bool positionKnown() const;
+         * Initialised in the constructor */
+        ParsingFunction function;
 
-        /// Reads the data-type from the visum-file using the given reader
-        bool readUsing(LineReader &reader);
-
-        /// Returns the name of the data type
-        const std::string &getDataName() const;
-
-        /** @brief LineHandler-interface
+        /** @brief Position of the according db within the file 
          *
-         * Returns values from the visum-file; Checks whether the data type is over */
-        bool report(const std::string &line);
+         * Set to -1 in the constructor, and reset to the position while
+         *  scaning the file if the according db was found */
+        long position;
 
-        /// Initialises the line parser
-        void initLineParser(const std::string &pattern);
-
-    protected:
-        /** @brief builds structures from read data
+        /** @brief The column names
          *
-         * When this method which must be implemented by derived classes, each
-         * loading a certain type of visum-data, the line parser contains the
-         * values of the next data line.
-         * This method is called only for data of a single data type, without
-         * the head and the tail */
-        virtual void myDependentReport() = 0;
-
-        /** @brief Builds and reports an error
-         *
-         * We had to name it this way, as otherwise it may be ambigous with the
-         * method from FileErrorReporter */
-        void addError2(const std::string &type, const std::string &id,
-                       const std::string &exception);
-
-        /** @brief tries to get a SUMOReal which is possibly assigned to a certain modality
-         *
-         * When the SUMOReal cannot be extracted using the given name, "IV" is
-         * appended to the begin of the name. Remark that this function does not
-         * yet support public traffic. */
-        SUMOReal getWeightedFloat(const std::string &name);
-
-        /** @brief tries to get a bool which is possibly assigned to a certain modality
-         *
-         * When the bool cannot be extracted using the given name, "IV" is
-         * appended to the begin of the name. Remark that this function does not
-         * yet support public traffic. */
-        bool getWeightedBool(const std::string &name);
-
-        /** @brief Tries to get the node which name is stored in the given field
-         *
-         * If either the "fieldName" does not occure within the currently loaded
-         *  data line or the node was not loaded before, an error is generated and
-         *  0 is returned.
-         * The "dataName" is used to report errors.
-         */
-        NBNode *getNamedNode(NBNodeCont &nc, const std::string &dataName,
-                             const std::string &fieldName);
-
-        /** @brief The same, but two different names for the field are allowed */
-        NBNode *getNamedNode(NBNodeCont &nc, const std::string &dataName,
-                             const std::string &fieldName1, const std::string &fieldName2);
-
-
-        /** @brief Tries to get the edge which name is stored in the given field
-         *
-         * If either the "fieldName" does not occure within the currently loaded
-         *  data line or the edge was not loaded before, an error is generated and
-         *  0 is returned.
-         * The "dataName" is used to report errors.
-         */
-        NBEdge *getNamedEdge(NBEdgeCont &nc, const std::string &dataName,
-                             const std::string &fieldName);
-
-        /** @brief The same, but two different names for the field are allowed */
-        NBEdge *getNamedEdge(NBEdgeCont &nc, const std::string &dataName,
-                             const std::string &fieldName1, const std::string &fieldName2);
-
-
-        /** @brief Tries to get the edge which name is stored in the given field
-         * continuating the search for a subedge that ends at the given node
-         *
-         * If either the "fieldName" does not occure within the currently loaded
-         *  data line or the edge was not loaded before, an error is generated and
-         *  0 is returned.
-         * The "dataName" is used to report errors.
-         */
-        NBEdge *getNamedEdgeContinuating(NBEdgeCont &nc, const std::string &dataName,
-                                         const std::string &fieldName, NBNode *node);
-
-        /** @brief The same, but two different names for the field are allowed */
-        NBEdge *getNamedEdgeContinuating(NBEdgeCont &nc, const std::string &dataName,
-                                         const std::string &fieldName1, const std::string &fieldName2,
-                                         NBNode *node);
-
-        /** @brief The same, but the search is started at a named edge */
-        NBEdge *getNamedEdgeContinuating(NBEdgeCont &nc, const std::string &name,
-                                         NBNode *node);
-
-
-        /** @brief Returns the named value as a float
-         */
-        SUMOReal getNamedFloat(const std::string &fieldName);
-        SUMOReal getNamedFloat(const std::string &fieldName, SUMOReal defaultValue);
-
-        /** @brief The same, but two different names for the field are allowed */
-        SUMOReal getNamedFloat(const std::string &fieldName1,
-                               const std::string &fieldName2);
-        SUMOReal getNamedFloat(const std::string &fieldName1,
-                               const std::string &fieldName2, SUMOReal defaultValue);
-
-
-        /** @brief Returns the named value as a string
-         */
-        std::string getNamedString(const std::string &fieldName);
-
-        /** @brief The same, but two different names for the field are allowed */
-        std::string getNamedString(const std::string &fieldName1,
-                                   const std::string &fieldName2);
-
-        /** @brief Returns the opposite direction of the given edge
-         * till its begin
-         */
-        NBEdge *getReversedContinuating(NBEdgeCont &nc, NBEdge *edge,
-                                        NBNode *node);
-
-    private:
-        /// Continues the search for a matching edge continuation
-        NBEdge *getNamedEdgeContinuating(NBEdge *begin, NBNode *node);
-
-
-    protected:
-        /// The line parser to use
-        NamedColumnsParser myLineParser;
-
-        /// The name of the parsed data
-        std::string myDataName;
-
-    private:
-        /// Sets the stream position to the
-        void rewind(std::istream &strm) const;
-
-    private:
-        /// Position the certain data type starts at within the stream
-        long myPosition;
+         * Set while scaning the file if the according db was found */
+        std::string pattern;
 
     };
 
+    /** @brief Parses VSYS */
+    void parse_VSysTypes();
+
+    /** @brief Parses STRECKENTYP */
+    void parse_Types();
+
+    /** @brief Parses KNOTEN */
+    void parse_Nodes();
+
+    /** @brief Parses BEZIRK */
+    void parse_Districts();
+
+    /** @brief Parses STRECKE/STRECKEN */
+    void parse_Edges();
+
+    /** @brief Parses ANBINDUNG */
+    void parse_Connectors();
+
+    /** @brief Parses ABBIEGEBEZIEHUNG/ABBIEGER */
+    void parse_Turns();
+
+    /** @brief Parses STRECKENPOLY */
+    void parse_EdgePolys();
+
+    /** @brief Parses FAHRSTREIFEN */
+    void parse_Lanes();
+
+    /** @brief Parses LSA/SIGNALANLAGE */
+    void parse_TrafficLights();
+
+    /** @brief Parses KNOTENZULSA/SIGNALANLAGEZUKNOTEN */
+    void parse_NodesToTrafficLights();
+
+    /** @brief Parses LSASIGNALGRUPPE/SIGNALGRUPPE */
+    void parse_SignalGroups();
+
+    /** @brief Parses ABBZULSASIGNALGRUPPE/SIGNALGRUPPEZUABBIEGER */
+    void parse_TurnsToSignalGroups();
+
+    /** @brief Parses LSAPHASE/PHASE */
+    void parse_Phases();
+
+    /** @brief Parses LSASIGNALGRUPPEZULSAPHASE */
+    void parse_SignalGroupsToPhases();
+
+    /** @brief Parses FAHRSTREIFENABBIEGER */
+    void parse_LanesConnections();
+
+
+    /**
+     * @brief Adds a parser into the sorted list of parsers to use
+     * 
+     * @param[in] name db name to assign the parser to
+     * @param[in] function The function to use for parsing the named db
+     */
+    void addParser(const std::string &name, ParsingFunction function) throw();
+
+
 private:
-    /// the line reader to read from the file
+    /** @brief the network builder to fill with loaded values */
+    NBNetBuilder &myNetBuilder;
+
+    /// the line reader to use to read from the file
     LineReader myLineReader;
 
     /** @brief the parser to parse the information from the data lines
      *
-     * the visum format seems to vary, so a named parser is needed */
+     * the order of columns within the visum format seems to vary, so a named parser is needed */
     NamedColumnsParser myLineParser;
 
     /// the converter to compute the lane number of edges from their capacity
     NBCapacity2Lanes myCapacity2Lanes;
 
+    /// Definition of a storage for vsystypes
+    typedef std::map<std::string, std::string> VSysTypeNames;
     /// the used vsystypes
     VSysTypeNames myVSysTypes;
 
-    /** @brief definition of the list of known parsers
-        (each reads a certain visum-type) */
-    typedef std::vector<NIVisumSingleDataTypeParser*> ParserVector;
-
+    /** @brief definition of the list of known parsers */
+    typedef std::vector<TypeParser> ParserVector;
     /// list of known parsers
     ParserVector mySingleDataParsers;
 
+    /// Definition of a map for loaded traffic lights (id->tls)
+    typedef std::map<std::string, NIVisumTL*> NIVisumTL_Map;
     // list of visum traffic lights
     NIVisumTL_Map myNIVisumTLs;
-private:
-    /**
-     * @class PositionSetter
-     * @brief Used within the scanning step for setting the positions of the data
-     */
-class PositionSetter : public LineHandler
-    {
-    public:
-        /// Constructor
-        PositionSetter(NIVisumLoader &parent);
 
-        /// Destructor
-        ~PositionSetter();
+    /// Already read edges
+    std::vector<std::string > myTouchedEdges;
 
-        /** @brief Interface of line handler - receives all lines, individually */
-        bool report(const std::string &result);
+    /// Information whether VISUM priority information shall be used
+    bool myUseVisumPrio;
 
-    private:
-        /** @brief The loader to inform about the occurence of a new data type begin
-         *
-         * The positions are not set within the PositionSetter itself.
-         * Rather, the Loader performs this. */
-        NIVisumLoader &myParent;
+    /** @brief The name of the currently parsed item used for error reporting */
+    std::string myCurrentID;
 
-    };
-
-public:
-    /** @brief The PositionSetter is an internal class for retrieving data positions
-     *
-     * It shall have access to "checkForPosition" */
-    friend class PositionSetter;
-
-private:
-    /** @brief Sets the begin of known data
-     *
-     * Checks whether the current line is the begin of one of the known data
-     * and saves the current position within the stream into the data type loader
-     * if so */
-    bool checkForPosition(const std::string &line);
-
-    NBTrafficLightLogicCont &myTLLogicCont;
-    NBEdgeCont &myEdgeCont;
 
 };
 

@@ -152,6 +152,11 @@ public:
             : std::runtime_error("Unknown Element")
     {}
 
+    /** constructor */
+    UnknownElement(const std::string &msg)
+            : std::runtime_error(msg.c_str())
+    {}
+
 };
 
 
