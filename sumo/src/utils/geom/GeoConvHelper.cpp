@@ -82,7 +82,7 @@ GeoConvHelper::init(const std::string &proj,
     }
 #ifdef HAVE_PROJ
     // use full projection
-    myProjection = pj_init_plus("+proj=utm +zone=33 +ellps=bessel +units=m");
+    myProjection = pj_init_plus(proj.c_str());
     return myProjection!=0;
 #else
     // use a simple projection only
