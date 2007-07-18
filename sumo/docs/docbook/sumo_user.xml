@@ -628,7 +628,7 @@
   <chapter id="user_chp04">
     <title>Network Generation</title>
 
-    <sect1 id="user_chp04-introduction" revision="0.9.6">
+    <sect1 id="user_chp04-introduction" revision="0.9.7">
       <title>Introduction</title>
 
       <para>As <application><application>SUMO</application></application> uses
@@ -674,13 +674,6 @@
             simulation package), see chapter "<ulink
             url="#user_chp04-other_input-vissim">Importing
             VISSIM-networks</ulink>"</para>
-          </listitem>
-
-          <listitem>
-            <para><emphasis>ARTEMIS</emphasis> by Prof. Peter Hidas (a
-            microscopic traffic simulation package), see chapter "<ulink
-            url="#user_chp04-other_input-artemis">Importing Artemis-simulation
-            folders</ulink>"</para>
           </listitem>
 
           <listitem>
@@ -753,6 +746,14 @@
           </listitem>
         </varlistentry>
       </variablelist>
+      <para>Recent changes:</para>
+
+      <itemizedlist spacing="compact">
+        <listitem>
+          <para>ARTEMIS network import is was removed from version
+          0.9.7</para>
+        </listitem>
+      </itemizedlist>
     </sect1>
 
     <sect1 id="user_chp04-xml_descriptions">
@@ -2213,121 +2214,6 @@
         </itemizedlist>
       </sect2>
 
-      <sect2 id="user_chp04-other_input-artemis">
-        <title>Importing Artemis-simulation folders</title>
-
-        <para>To import Artemis-network descriptions, start
-        <application>NETCONVERT</application> with the following
-        parameter:</para>
-
-        <screen>netconvert --artemis=&lt;PATH&gt; --output-file=MySUMOFile.net.xml</screen>
-
-        <para>This should build the network
-        "<filename>MySUMOFile.net.xml</filename>" which contains the build
-        network that may be used by SUMO.
-        <option><replaceable>&lt;PATH&gt;</replaceable></option> is the path
-        to (the name of) the folder that contains the files that make up the
-        description of an ARTEMIS-simulation.</para>
-
-        <para>Imported information:</para>
-
-        <itemizedlist spacing="compact">
-          <listitem>
-            <para>Nodes (id, position, type)</para>
-          </listitem>
-
-          <listitem>
-            <para>Links (origin, destination, id, speed, number of lanes,
-            length)</para>
-          </listitem>
-
-          <listitem>
-            <para>Signals</para>
-          </listitem>
-
-          <listitem>
-            <para>Signal Groups (node id, group, connection, start &amp; end
-            phase)</para>
-          </listitem>
-
-          <listitem>
-            <para>Signal Phases (node id, start, phase, percentage)</para>
-          </listitem>
-
-          <listitem>
-            <para>Segments (link, position on link, geometrical
-            position)</para>
-          </listitem>
-
-          <listitem>
-            <para>Lanes (lane number, section number, begin and end
-            position)</para>
-          </listitem>
-
-          <listitem>
-            <para>HVdests (origin and destination lane)</para>
-          </listitem>
-        </itemizedlist>
-
-        <para>We have to import the HVdests to know which sources and sinks we
-        have to build.</para>
-
-        <para>Known problems:</para>
-
-        <itemizedlist spacing="compact">
-          <listitem>
-            <para>The connections between lanes may be not the same as in the
-            input</para>
-          </listitem>
-
-          <listitem>
-            <para>The positions of the lanes are not correct</para>
-          </listitem>
-
-          <listitem>
-            <para>The times the traffic lights switch at may not be the same
-            as within the input</para>
-          </listitem>
-
-          <listitem>
-            <para>Additional source and sink links must be build</para>
-          </listitem>
-
-          <listitem>
-            <para>Possible speed changes at segments are not supported</para>
-          </listitem>
-        </itemizedlist>
-
-        <para>Artemis simulation description also holds definitions of the
-        traffic flows to use. They are not parsed by the
-        <application>NETCONVERT</application> - module, but may be passed to
-        <application>ROUTER</application> to gain the according routes.</para>
-
-        <para>Specific options:</para>
-
-        <variablelist>
-          <varlistentry>
-            <term><option>( --artemis-path | --artemis )
-            <replaceable>&lt;PATH&gt;</replaceable></option></term>
-
-            <listitem>
-              <para>Loads definitions from the given path. <remark>Optional,
-              type:path, default: none</remark></para>
-            </listitem>
-          </varlistentry>
-        </variablelist>
-
-        <para>Known problems:</para>
-
-        <caution>
-          <para>The import of ARTEMIS is not longer supplied and seems to be
-          buggy.</para>
-        </caution>
-
-        <para>Examples: none yet (we do not own a network we could give away
-        for legal reasons)</para>
-      </sect2>
-
       <sect2 id="user_chp04-other_input-fastlane">
         <title>Importing Cell/Fastlane-networks</title>
 
@@ -3468,13 +3354,12 @@
       <sect2 id="user_chp04-further_options-importing_notls">
         <title>Importing Networks without Traffic Light Logics</title>
 
-        <para>Some of the supported network formats - Visum, Vissim and
-        Artemis, supply information about the logic of the traffic lights,
-        other do not. Due to this, we have to compute the traffic lights by
-        our own. Doing this, we do not only have to compute the plans, but of
-        course also, on which junction traffic lights are positioned. There
-        are several options steering this procedure. At first, you have to
-        tell
+        <para>Some of the supported network formats supply information about
+        the logic of the traffic lights, other do not. Due to this, we have to
+        compute the traffic lights by our own. Doing this, we do not only have
+        to compute the plans, but of course also, on which junction traffic
+        lights are positioned. There are several options steering this
+        procedure. At first, you have to tell
         <application>NETCONVERT</application>/<application>NETGEN</application>
         that you wish him to guess positions of traffic lights. This is done
         using the "<option>--guess-tls</option>"-option. Then, you have the
@@ -4287,7 +4172,7 @@
         they are made of (<option>--spider-circle-number</option> or
         <option>--circles</option>, default is 20) and the distance between
         the circles (<option>--spider-space-rad</option> or
-        <option>--radius</option> in meters, default is 100). </para>
+        <option>--radius</option> in meters, default is 100).</para>
 
         <para><caution>
             <para>As the number of edges within the middle of the spider net
@@ -6012,36 +5897,6 @@
 
     <sect1 id="user_chp05-import_routes">
       <title>Importing Routes from other Simulations</title>
-
-      <sect2 id="user_chp05-import_routes-artemis">
-        <title>Importing Artemis-routes</title>
-
-        <para>Although originally ARTEMIS-routes are stored within an
-        OD-matrix, the import within SUMO is done using the
-        <application>DUAROUTER</application> program.</para>
-
-        <para>This is basically done this way:</para>
-
-        <screen>duarouter --artemis=<replaceable>&lt;ARTEMIS_FOLDER&gt;</replaceable> --net=<replaceable>&lt;SUMO_NET&gt;</replaceable> \
-  --output-file=<replaceable>MySUMORoutes.rou.xml</replaceable> -b <replaceable>&lt;UINT&gt;</replaceable> -e <replaceable>&lt;UINT&gt;</replaceable></screen>
-
-        <para>Remind that you have to specify the begin and the end of the
-        simulation. This is quite inconsequent, as our mechanisms would allow
-        import of repeatable routes, too. This is just not yet
-        implemented.</para>
-
-        <para>Known problems:</para>
-
-        <itemizedlist spacing="compact">
-          <listitem>
-            <para>Only the a0-Flow is being imported</para>
-          </listitem>
-
-          <listitem>
-            <para>Only one time-period is imported</para>
-          </listitem>
-        </itemizedlist>
-      </sect2>
 
       <sect2 id="user_chp05-import_routes-fastlane">
         <title>Importing FastLane-routes</title>
@@ -11730,15 +11585,6 @@ myDet1;0;10;2;100;80
               <para>*.net</para>
 
               <para>VISUM network files</para>
-            </listitem>
-
-            <listitem>
-              <para>Destinations.txt, Detectors.txt, Flows.txt,
-              Generators.txt, HVdests.txt, Incidents.txt, IntLinks.txt,
-              Lanes.txt, Links.txt, Nodes.txt, Project Vars.txt, Signal
-              Groups.txt, Signal Phases.txt, Signals.txt</para>
-
-              <para>ARTEMIS input files</para>
             </listitem>
 
             <listitem>
