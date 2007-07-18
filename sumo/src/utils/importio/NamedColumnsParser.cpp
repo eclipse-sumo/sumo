@@ -95,7 +95,7 @@ NamedColumnsParser::get(const std::string &name, bool prune) const
                 i = myDefinitionsMap.find(StringUtils::to_lower_case(name));
             }
             if (i==myDefinitionsMap.end()) {
-                throw UnknownElement();
+                throw UnknownElement(name);
             }
         }
         size_t pos = (*i).second;
