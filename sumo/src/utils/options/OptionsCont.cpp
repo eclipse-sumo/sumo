@@ -342,7 +342,7 @@ OptionsCont::isUsableFileList(const std::string &name) const
         ok = false;
     }
     for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
-        if (!exists(*fileIt)) {
+        if (!FileHelpers::exists(*fileIt)) {
             if (*fileIt!="") {
                 MsgHandler::getErrorInstance()->inform("File '" + *fileIt + "' does not exist.");
                 ok = false;
