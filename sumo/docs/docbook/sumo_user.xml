@@ -5026,7 +5026,7 @@
           </itemizedlist>
         </sect3>
 
-        <sect3 id="user_chp05-explicite-flows">
+        <sect3 id="user_chp05-explicite-flows" revision="0.9.7">
           <title>Using Flow Definitions</title>
 
           <para>Flow amounts share most of the parameter with trip
@@ -5117,11 +5117,10 @@
 
           <para>As we have to read in the flow definitions completely into the
           memory - something we do not have to do necessarily with trips, an
-          extra parameter (<option>-f</option> or
-          <option>--flow-defs</option>) is used to make them known by the
-          router:</para>
+          extra parameter (<option>-f</option> or <option>--flows</option>) is
+          used to make them known by the router:</para>
 
-          <screen>duarouter --flow-defs=<replaceable>&lt;FLOW_DEFS&gt;</replaceable> --net=<replaceable>&lt;SUMO_NET&gt;</replaceable> \
+          <screen>duarouter --flows=<replaceable>&lt;FLOW_DEFS&gt;</replaceable> --net=<replaceable>&lt;SUMO_NET&gt;</replaceable> \
    --output-file=<replaceable>MySUMORoutes.rou.xml</replaceable> -b <replaceable>&lt;UINT&gt;</replaceable> -e <replaceable>&lt;UINT&gt;</replaceable></screen>
 
           <para>Remind that you can not insert flow descriptions into a trip
@@ -5129,14 +5128,14 @@
           descriptions file) is possible. You also can give both files at the
           input file, for example:</para>
 
-          <screen>duarouter --flow-defs=<replaceable>&lt;FLOW_DEFS&gt;</replaceable> --trip-defs=<replaceable>&lt;TRIP_DEFS&gt;</replaceable> --net=<replaceable>&lt;SUMO_NET&gt;</replaceable> \
+          <screen>duarouter --flows=<replaceable>&lt;FLOW_DEFS&gt;</replaceable> --trip-defs=<replaceable>&lt;TRIP_DEFS&gt;</replaceable> --net=<replaceable>&lt;SUMO_NET&gt;</replaceable> \
    --output-file=<replaceable>MySUMORoutes.rou.xml</replaceable> -b <replaceable>&lt;UINT&gt;</replaceable> -e <replaceable>&lt;UINT&gt;</replaceable></screen>
 
           <para>Specific options:</para>
 
           <variablelist>
             <varlistentry>
-              <term><option>( --flow-definition | --flow-defs | --flows | -f )
+              <term><option>( --flow-definition | --flows | -f )
               <replaceable>&lt;FLOW_DEFINITION_FILE&gt;</replaceable></option></term>
 
               <listitem>
@@ -5174,7 +5173,7 @@
             <listitem>
               <para><filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/router/flows2routes_100s_interval_ext/</filename>
               shows the second possibility of defining intervals in
-              flow-defs.</para>
+              flow-definition.</para>
             </listitem>
           </itemizedlist>
 
@@ -5192,6 +5191,11 @@
 
               <para><emphasis>Reason:</emphasis> The prior behaviour was not
               correct</para>
+            </listitem>
+
+            <listitem>
+              <para>version 0.9.7: the option names for using flows have been
+              consolidated.</para>
             </listitem>
           </itemizedlist>
         </sect3>
@@ -5274,7 +5278,8 @@
       </sect2>
 
       <sect2 id="user_chp05-own_routes-jtr">
-        <title>Using the Junction Turning Ratio - Router</title>
+        <title revision="0.9.7">Using the Junction Turning Ratio -
+        Router</title>
 
         <para>The <application>JTRROUTER</application> is a routing
         applications which uses flows and turning percentages at junctions as
@@ -5285,7 +5290,7 @@
 
         <para>A call may look like this:</para>
 
-        <screen>jtrrouter --flow-defs=<replaceable>&lt;FLOW_DEFS&gt;</replaceable> --turns=<replaceable>&lt;TURN_DEFINITIONS&gt;</replaceable> --net=<replaceable>&lt;SUMO_NET&gt;</replaceable> \
+        <screen>jtrrouter --flows=<replaceable>&lt;FLOW_DEFS&gt;</replaceable> --turns=<replaceable>&lt;TURN_DEFINITIONS&gt;</replaceable> --net=<replaceable>&lt;SUMO_NET&gt;</replaceable> \
    --output-file=<replaceable>MySUMORoutes.rou.xml</replaceable> -b <replaceable>&lt;UINT&gt;</replaceable> -e <replaceable>&lt;UINT&gt;</replaceable></screen>
 
         <para>To describe the turn definitions, one has to build a further
@@ -5896,7 +5901,7 @@
     </sect1>
 
     <sect1 id="user_chp05-import_routes">
-      <title>Importing Routes from other Simulations</title>
+      <title revision="0.9.7">Importing Routes from other Simulations</title>
 
       <sect2 id="user_chp05-import_routes-fastlane">
         <title>Importing FastLane-routes</title>

@@ -90,7 +90,6 @@ RODUAFrame::addImportOptions()
 
     oc.doRegister("flow-definition", 'f', new Option_FileName());
     oc.addSynonyme("flow-definition", "flows");
-    oc.addSynonyme("flow-definition", "flow-defs");
     oc.addDescription("flow-definition", "Input", "Read flow-definitions from FILE");
 
     oc.doRegister("sumo-input", 's', new Option_FileName());
