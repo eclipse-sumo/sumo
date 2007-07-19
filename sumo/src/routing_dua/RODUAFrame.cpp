@@ -101,10 +101,6 @@ RODUAFrame::addImportOptions()
     oc.addSynonyme("cell", "cell-input");
     oc.addDescription("cell-input", "Input", "Read cell-routes from FILE");
 
-    oc.doRegister("artemis-input", new Option_FileName());
-    oc.addSynonyme("artemis", "artemis-input");
-    oc.addDescription("artemis-input", "Input", "Read artemis-routes from FILE");
-
     oc.doRegister("save-cell-rindex", new Option_Bool(false));
     oc.addDescription("save-cell-rindex", "Input", "Save Cell route indices");
 
