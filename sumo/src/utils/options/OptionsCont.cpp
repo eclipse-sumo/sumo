@@ -145,7 +145,7 @@ OptionsCont::exists(const string &name) const throw()
 
 
 bool
-OptionsCont::isSet(const string &name) const
+OptionsCont::isSet(const string &name) const throw(InvalidArgument)
 {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
@@ -156,7 +156,7 @@ OptionsCont::isSet(const string &name) const
 
 
 bool
-OptionsCont::isDefault(const std::string &name) const
+OptionsCont::isDefault(const std::string &name) const throw(InvalidArgument)
 {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
@@ -178,7 +178,7 @@ OptionsCont::getSecure(const string &name) const
 
 
 string
-OptionsCont::getString(const string &name) const
+OptionsCont::getString(const string &name) const throw(InvalidArgument)
 {
     Option *o = getSecure(name);
     return o->getString();
@@ -335,10 +335,23 @@ OptionsCont::isUsableFileList(const std::string &name) const
         return false;
     }
     // check whether the list of files is valid
-    if (!FileHelpers::checkFileList(name, o->getString())) {
-        return false;
+    bool ok = true;
+    vector<string> files = getStringVector(name);
+    if (files.size()==0) {
+        MsgHandler::getErrorInstance()->inform("The file list for '" + name + "' is empty.");
+        ok = false;
     }
-    return true;
+    for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        if (!exists(*fileIt)) {
+            if (*fileIt!="") {
+                MsgHandler::getErrorInstance()->inform("File '" + *fileIt + "' does not exist.");
+                ok = false;
+            } else {
+                MsgHandler::getWarningInstance()->inform("Empty file name given; ignoring.");
+            }
+        }
+    }
+    return ok;
 }
 
 

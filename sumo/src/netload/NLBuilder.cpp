@@ -132,7 +132,7 @@ NLBuilder::build()
 {
     SAX2XMLReader* parser = XMLSubSys::getSAXReader(myXMLHandler);
     // try to build the net
-    if(!load("net", LOADFILTER_ALL, m_pOptions.getString("net-file"), *parser)) {
+    if(!load("net-file", LOADFILTER_ALL, *parser)) {
         delete parser;
         return false;
     }
@@ -152,7 +152,7 @@ NLBuilder::build()
     }
     // load weights if wished
     if (m_pOptions.isSet("weight-files")) {
-        if (!FileHelpers::checkFileList("weights", m_pOptions.getString("weight-files"))) {
+        if (!m_pOptions.isUsableFileList("weight-files")) {
             delete parser;
             return false;
         }
@@ -180,16 +180,16 @@ NLBuilder::build()
     }
     // load routes
     if (m_pOptions.isSet("route-files")&&m_pOptions.getInt("route-steps")<=0) {
-        if(!load("routes", LOADFILTER_DYNAMIC, m_pOptions.getString("route-files"), *parser)) {
+        if(!load("route-files", LOADFILTER_DYNAMIC, *parser)) {
             delete parser;
             return false;
         }
     }
     // load additional net elements (sources, detectors, ...)
     if (m_pOptions.isSet("additional-files")) {
-        if(!load("additional elements",
+        if(!load("additional-files",
                   (NLLoadFilter)((int) LOADFILTER_NETADD|(int) LOADFILTER_DYNAMIC),
-                  m_pOptions.getString("additional-files"), *parser)) {
+                  *parser)) {
             delete parser;
             return false;
         }
@@ -226,19 +226,14 @@ NLBuilder::buildNet()
 bool
 NLBuilder::load(const std::string &mmlWhat,
                 NLLoadFilter what,
-                const string &files,
                 SAX2XMLReader &parser)
 {
     // initialise the handler for the current type of data
     myXMLHandler.setWanted(what);
-    // check whether the list of files does not contain ';'s only
-    if (!FileHelpers::checkFileList(mmlWhat, files)) {
-        return false;
-    }
     // start parsing
     parser.setContentHandler(&myXMLHandler);
     parser.setErrorHandler(&myXMLHandler);
-    parse(mmlWhat, files, parser);
+    parse(mmlWhat, parser);
     // report about loaded structures
     if(MsgHandler::getErrorInstance()->wasInformed()) {
         WRITE_MESSAGE("Loading of " + mmlWhat + " failed.");
@@ -252,29 +247,21 @@ NLBuilder::load(const std::string &mmlWhat,
 
 bool
 NLBuilder::parse(const std::string &mmlWhat,
-                 const string &files,
                  SAX2XMLReader &parser)
 {
-    // for each file in the list
-    StringTokenizer st(files, ';');
-    bool ok = true;
-    while (st.hasNext()&&ok) {
-        string tmp = st.next();
-        // report about loading when wished
-        WRITE_MESSAGE("Loading " + mmlWhat + " from '" + tmp + "'...");
-        // check whether the file exists
-        if (!FileHelpers::exists(tmp)) {
-            // report error if not
-            MsgHandler::getErrorInstance()->inform("The " + mmlWhat + " file '" + tmp + "' does not exist!");
+    if (!OptionsCont::getOptions().isUsableFileList(mmlWhat)) {
+        return false;
+    }
+    vector<string> files = OptionsCont::getOptions().getStringVector(mmlWhat);
+    for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        WRITE_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'...");
+        myXMLHandler.setFileName(*fileIt);
+        parser.parse(fileIt->c_str());
+        if (MsgHandler::getErrorInstance()->wasInformed()) {
             return false;
-        } else {
-            // parse the file
-            myXMLHandler.setFileName(tmp);
-            parser.parse(tmp.c_str());
-            ok = !(MsgHandler::getErrorInstance()->wasInformed());
         }
     }
-    return ok;
+    return true;
 }
 
 
@@ -285,25 +272,15 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont &oc)
     MSRouteLoaderControl::LoaderVector loaders;
     // check whether a list is existing
     if (oc.isSet("r")&&oc.getInt("route-steps")>0) {
-        // extract the list
-        StringTokenizer st(oc.getString("r"), ';');
-        // check whether all files can be opened
-        bool ok = true;
-        while (st.hasNext()) {
-            string name = st.next();
-            if (!FileHelpers::exists(name)) {
-                MsgHandler::getErrorInstance()->inform("The route file '" + name + "' does not exist.");
-                ok = false;
+        vector<string> files = oc.getStringVector("r");
+        for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+            if (!FileHelpers::exists(*fileIt)) {
+                throw ProcessError("The route file '" + *fileIt + "' does not exist.");
             }
         }
-        if (!ok) {
-            throw ProcessError();
-        }
         // open files for reading
-        st.reinit();
-        while (st.hasNext()) {
-            string file = st.next();
-            loaders.push_back(myNet.buildRouteLoader(file, oc.getInt("incremental-dua-base"), oc.getInt("incremental-dua-step")));
+        for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+            loaders.push_back(myNet.buildRouteLoader(*fileIt, oc.getInt("incremental-dua-base"), oc.getInt("incremental-dua-step")));
         }
     }
     // build the route control

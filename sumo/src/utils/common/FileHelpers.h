@@ -63,10 +63,6 @@ public:
     /** removes the directory information from the path */
     static std::string removeDir(const std::string &path);
 
-    /** checks whether the list of files is not empty */
-    static bool checkFileList(const std::string &optionName,
-                              const std::string &files);
-
     /** removes the file information from the given path */
     static std::string removeFile(const std::string &path);
 

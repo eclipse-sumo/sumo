@@ -425,7 +425,7 @@ Option_Float::Option_Float(SUMOReal value) throw()
 }
 
 
-Option_Float::~Option_Float()
+Option_Float::~Option_Float() throw()
 {}
 
 

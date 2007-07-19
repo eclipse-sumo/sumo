@@ -92,31 +92,6 @@ FileHelpers::removeDir(const std::string &path)
 }
 
 
-bool
-FileHelpers::checkFileList(const std::string &optionName,
-                           const std::string &files)
-{
-    bool ok = true;
-    StringTokenizer st(files, ';');
-    if (st.size()==0) {
-        MsgHandler::getErrorInstance()->inform("The file list for '" + optionName + "' is empty.");
-        ok = false;
-    }
-    while (st.hasNext()) {
-        string file = st.next();
-        if (!exists(file)) {
-            if (file!="") {
-                MsgHandler::getErrorInstance()->inform("File '" + file + "' does not exist.");
-                ok = false;
-            } else {
-                MsgHandler::getWarningInstance()->inform("Empty file name given; ignoring.");
-            }
-        }
-    }
-    return ok;
-}
-
-
 std::string
 FileHelpers::removeFile(const std::string &path)
 {

@@ -99,11 +99,10 @@ public:
 protected:
     /// loads a described subpart form the given list of files
     bool load(const std::string &mmlWhat, NLLoadFilter what,
-              const std::string &files, SAX2XMLReader &parser);
+              SAX2XMLReader &parser);
 
     /// parses the files using the given initialised parser
-    bool parse(const std::string &mmlWhat, const std::string &files,
-               SAX2XMLReader &parser);
+    bool parse(const std::string &mmlWhat, SAX2XMLReader &parser);
 
     /// Closes the net building process
     void buildNet();
