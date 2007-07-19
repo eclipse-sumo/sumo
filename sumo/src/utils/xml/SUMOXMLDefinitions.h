@@ -37,6 +37,8 @@
 /**
  * @enum SumoXMLTag
  * @brief Numbers representing SUMO-XML - element names
+ * @see GenericSAXHandler
+ * @see SUMOSAXHandler
  */
 enum SumoXMLTag
 {
@@ -179,6 +181,8 @@ enum SumoXMLTag
 /**
  * @enum SumoXMLAttr
  * @brief Numbers representing SUMO-XML - attributes
+ * @see GenericSAXHandler
+ * @see SUMOSAXHandler
  */
 enum SumoXMLAttr
 {

@@ -92,9 +92,13 @@ public:
      *
      * Tries to build a SAX2XMLReader using XMLReaderFactory::createXMLReader. If this
      *  fails, 0 is returned.
+     *
      * If the reader could be built, validation is turned off, first. Then the given
      *  handler is assigned to the reader as the current DefaultHandler and 
      *  ErrorHandler.
+     *
+     * @param[in] handler The handler to assign to the built reader
+     * @return The build Xerces-SAX-reader, 0 if something failed
      */
     static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader *
     getSAXReader(SUMOSAXHandler &handler) throw();
@@ -112,6 +116,10 @@ public:
      * The method returns true if everything went ok. This means, that the reader could be
      *  built, no exception was caught, and nothing was reported to the error-instance
      *  of the MsgHandler.
+     *
+     * @param[in] handler The handler to assign to the built reader
+     * @param[in] file The file to run the parser at
+     * @return true if the parsing was done without errors, false otherwise (error was printed)
      */
     static bool runParser(SUMOSAXHandler &handler,
                           const std::string &file) throw();
@@ -120,8 +128,14 @@ public:
 protected:
     /**
      * @brief Sets the named feature of the given reader to the given value
+     *
+     * The given feature name is translated into an XMLCh* and set.
+     *
+     * @param[in] reader The reader to set the feature of
+     * @param[in] feature Name of the feature to set
+     * @param[in] value Value of the feature to set
      */
-    static void setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &,
+    static void setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &reader,
                            const std::string &feature, bool value) throw();
 
 
