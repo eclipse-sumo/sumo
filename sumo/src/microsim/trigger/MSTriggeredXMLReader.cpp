@@ -73,13 +73,11 @@ MSTriggeredXMLReader::~MSTriggeredXMLReader() throw()
 bool
 MSTriggeredXMLReader::readNextTriggered()
 {
-    try {
-        while (myHaveMore&&myParser->parseNext(myToken)) {
-            if (nextRead()) {
-                return true;
-            }
+    while (myHaveMore&&myParser->parseNext(myToken)) {
+        if (nextRead()) {
+            return true;
         }
-    } catch (ProcessError &) {}
+    }
     myHaveMore = false;
     return false;
 }

@@ -97,8 +97,6 @@ GUIRouteHandler::addVehicleType(const Attributes &attrs)
                                  parseVehicleClass(*this, attrs, "vehicle", id),
                                  col,
                                  getFloatSecure(attrs, SUMO_ATTR_PROB, 1.));
-        } catch (ProcessError &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Missing attribute in a vehicletype-object.");
         } catch (NumberFormatException &) {

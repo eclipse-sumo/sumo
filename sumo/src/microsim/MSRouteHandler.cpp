@@ -205,8 +205,6 @@ MSRouteHandler::addVehicleType(const Attributes &attrs)
                                  getFloatSecure(attrs, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
                                  parseVehicleClass(*this, attrs, "vehicle", id),
                                  getFloatSecure(attrs, SUMO_ATTR_PROB, (SUMOReal) 1.));
-        } catch (ProcessError &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Missing attribute in a vehicletype-object.");
         } catch (NumberFormatException &) {
