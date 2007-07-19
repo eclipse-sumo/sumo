@@ -40,9 +40,6 @@
       <!-- Read VISSIM-net from FILE -->
       <vissim-file></vissim-file>
 
-      <!-- Read ARTEMIS-net from path 'FILE' -->
-      <artemis-path></artemis-path>
-
    </input>
 
    <output>

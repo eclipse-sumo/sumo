@@ -9,7 +9,6 @@
       <flow-definition></flow-definition>
       <sumo-input></sumo-input>
       <cell-input></cell-input>
-      <artemis-input></artemis-input>
       <save-cell-rindex>false</save-cell-rindex>
       <intel-cell>false</intel-cell>
       <no-last-cell>false</no-last-cell>

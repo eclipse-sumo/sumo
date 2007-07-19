@@ -25,9 +25,6 @@
       <!-- Read cell-routes from FILE -->
       <cell-input></cell-input>
 
-      <!-- Read artemis-routes from FILE -->
-      <artemis-input></artemis-input>
-
       <!-- Save Cell route indices -->
       <save-cell-rindex>false</save-cell-rindex>
 

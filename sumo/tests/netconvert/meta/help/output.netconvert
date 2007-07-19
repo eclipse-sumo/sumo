@@ -33,7 +33,6 @@ Usage: netconvert.exe [OPTION]*
   --cell-edge-file FILE                Read Cell-edges from FILE
   --visum-file FILE                    Read VISUM-net from FILE
   --vissim-file FILE                   Read VISSIM-net from FILE
-  --artemis-path FILE                  Read ARTEMIS-net from path 'FILE'
 
  Output Options:
   -o, --output-file FILE               The generated net will be written to

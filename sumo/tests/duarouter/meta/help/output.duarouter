@@ -25,7 +25,6 @@ Usage: duarouter.exe [OPTION]*
   -f, --flow-definition FILE          Read flow-definitions from FILE
   -s, --sumo-input FILE               Read sumo-routes from FILE
   --cell-input FILE                   Read cell-routes from FILE
-  --artemis-input FILE                Read artemis-routes from FILE
   --save-cell-rindex                  Save Cell route indices
   --intel-cell                        Flip byte order on reading Cell-routes
   --no-last-cell                      Use best, not the last cell-route
