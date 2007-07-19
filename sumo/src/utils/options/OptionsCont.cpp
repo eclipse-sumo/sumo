@@ -4,7 +4,7 @@
 /// @date    Mon, 17 Dec 2001
 /// @version $Id$
 ///
-// }
+// A storage for options (typed value containers)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -73,37 +73,40 @@ OptionsCont OptionsCont::myOptions;
 // method definitions
 // ===========================================================================
 OptionsCont &
-OptionsCont::getOptions()
+OptionsCont::getOptions() throw()
 {
     return myOptions;
 }
 
 
-OptionsCont::OptionsCont()
+OptionsCont::OptionsCont() throw()
         : myAddresses(), myValues(), myHaveInformedAboutDeprecatedDivider(false)
 {}
 
 
-OptionsCont::~OptionsCont()
+OptionsCont::~OptionsCont() throw()
 {
     clear();
 }
 
 
 void
-OptionsCont::doRegister(const string &name1, Option *v)
+OptionsCont::doRegister(const string &name, Option *v) throw(InvalidArgument)
 {
     assert(v!=0);
     ItemAddressContType::iterator i = find(myAddresses.begin(), myAddresses.end(), v);
     if (i==myAddresses.end()) {
         myAddresses.push_back(v);
     }
-    myValues.insert(KnownContType::value_type(name1, v));
+    if(myValues.find(name)!=myValues.end()) {
+        throw InvalidArgument(name + " is an already used option name.");
+    }
+    myValues[name] = v;
 }
 
 
 void
-OptionsCont::doRegister(const string &name1, char abbr, Option *v)
+OptionsCont::doRegister(const string &name1, char abbr, Option *v) throw(InvalidArgument)
 {
     doRegister(name1, v);
     doRegister(convertChar(abbr), v);
@@ -111,7 +114,7 @@ OptionsCont::doRegister(const string &name1, char abbr, Option *v)
 
 
 void
-OptionsCont::addSynonyme(const string &name1, const string &name2)
+OptionsCont::addSynonyme(const string &name1, const string &name2) throw(InvalidArgument)
 {
     KnownContType::iterator i1 = myValues.find(name1);
     KnownContType::iterator i2 = myValues.find(name2);
@@ -134,7 +137,7 @@ OptionsCont::addSynonyme(const string &name1, const string &name2)
 
 
 bool
-OptionsCont::exists(const string &name) const
+OptionsCont::exists(const string &name) const throw()
 {
     KnownContType::const_iterator i = myValues.find(name);
     return i!=myValues.end();
@@ -223,7 +226,7 @@ OptionsCont::getIntVector(const std::string &name) const
 
 
 bool
-OptionsCont::set(const string &name, const string &value, bool isDefault)
+OptionsCont::set(const string &name, const string &value)
 {
     Option *o = getSecure(name);
     if (!o->isWriteable()) {
@@ -231,7 +234,7 @@ OptionsCont::set(const string &name, const string &value, bool isDefault)
         return false;
     }
     try {
-        if (!o->set(value, isDefault)) {
+        if (!o->set(value)) {
             return false;
         }
     } catch (InvalidArgument &e) {
@@ -243,7 +246,7 @@ OptionsCont::set(const string &name, const string &value, bool isDefault)
 
 
 bool
-OptionsCont::set(const string &name, bool value, bool isDefault)
+OptionsCont::set(const string &name, bool value)
 {
     Option *o = getSecure(name);
     if (!o->isBool()) {
@@ -254,7 +257,7 @@ OptionsCont::set(const string &name, bool value, bool isDefault)
         return false;
     }
     try {
-        if (!o->set(value, isDefault)) {
+        if (!o->set(value)) {
             return false;
         }
     } catch (InvalidArgument &e) {
@@ -302,7 +305,7 @@ operator<<(ostream& os, const OptionsCont& oc)
                 os << (*i).first;
             }
             if ((*i).second->isSet()) {
-                os << ": " << (*i).second->getValue() << endl;
+                os << ": " << (*i).second->getValueString() << endl;
             } else {
                 os << ": <INVALID>" << endl;
             }
@@ -409,22 +412,17 @@ OptionsCont::clear()
 void
 OptionsCont::addDescription(const std::string &name,
                             const std::string &subtopic,
-                            const std::string &description)
+                            const std::string &description) throw(InvalidArgument)
 {
     Option *o = getSecure(name);
+    if(o==0) {
+        throw InvalidArgument("Trying to describe the unknown option '" + name + "'.");
+    }
     if (o->myDescription!="") {
         throw InvalidArgument("The description was set before");
     }
     o->myDescription = description;
     mySubTopicEntries[subtopic].push_back(name);
-}
-
-
-void
-OptionsCont::setMandatory(const std::string &name)
-{
-    Option *o = getSecure(name);
-    o->myAmMandatory = true;
 }
 
 
@@ -495,6 +493,7 @@ OptionsCont::splitLines(std::ostream &os, std::string what,
     }
     os << endl;
 }
+
 
 bool
 OptionsCont::processMetaOptions(bool missingOptions)
@@ -667,7 +666,7 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
         bool hadOne = false;
         for (j=entries.begin(); j!=entries.end(); ++j) {
             Option *o = getSecure(*j);
-            bool write = complete || (filled&&!o->isDefault()) || (!filled&&o->isMandatory());
+            bool write = complete || (filled&&!o->isDefault());
             if (!write) {
                 continue;
             }
@@ -681,7 +680,7 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
             // write the option and the value (if given)
             os << "      <" << *j << ">";
             if (o->isSet()) {
-                os << o->getValue();
+                os << o->getValueString();
             }
             os << "</" << *j << ">" << endl;
             // append an endline if a comment was printed

@@ -123,12 +123,12 @@ SUMOFrame::fillOptions()
     oc.addSynonyme("vehroute-output", "vehroutes");
     oc.addDescription("vehroute-output", "Output", "Save single vehicle route inf. into FILE");
 
-    oc.doRegister("dump-intervals", new Option_IntVector(""));
+    oc.doRegister("dump-intervals", new Option_IntVector(IntVector()));
     oc.addDescription("dump-intervals", "Output", "Build edge-based network dumps for given intervals");
     oc.doRegister("dump-basename", new Option_FileName());
     oc.addDescription("dump-basename", "Output", "Save edge-based network dumps with FILE as prefix");
 
-    oc.doRegister("lanedump-intervals", new Option_IntVector(""));
+    oc.doRegister("lanedump-intervals", new Option_IntVector(IntVector()));
     oc.addDescription("lanedump-intervals", "Output", "Build lane-based network dumps for given intervals");
     oc.doRegister("lanedump-basename", new Option_FileName());
     oc.addDescription("lanedump-basename", "Output", "Save lane-based network dumps with FILE as prefix");
@@ -136,15 +136,15 @@ SUMOFrame::fillOptions()
     oc.doRegister("dump-empty-edges", new Option_Bool(false));
     oc.addDescription("dump-empty-edges", "Output", "Write also empty edges completely when dumping");
 
-    oc.doRegister("dump-begins", new Option_IntVector(""));
+    oc.doRegister("dump-begins", new Option_IntVector(IntVector()));
     oc.addDescription("dump-begins", "Output", "Use INT[] as times at which a dump must begin in order to be written");
-    oc.doRegister("dump-ends", new Option_IntVector(""));
+    oc.doRegister("dump-ends", new Option_IntVector(IntVector()));
     oc.addDescription("dump-ends", "Output", "Use INT[] as times at which a dump must end in order to be written");
 
     oc.doRegister("physical-states-output", new Option_FileName());
     oc.addDescription("physical-states-output", "Output", "Write vehicle states");
 
-    oc.doRegister("save-state.times", new Option_IntVector(""));//!!! check, describe
+    oc.doRegister("save-state.times", new Option_IntVector(IntVector()));//!!! check, describe
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
     oc.doRegister("save-state.prefix", new Option_FileName());//!!! check, describe
     oc.addDescription("save-state.prefix", "Output", "Prefix for network states");

@@ -4,7 +4,7 @@
 /// @date    Mon, 17 Dec 2001
 /// @version $Id$
 ///
-// Parses the command line arguments
+// Parses command line arguments
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -42,41 +42,49 @@ class OptionsCont;
 // ===========================================================================
 /**
  * @class OptionsParser
- * Used for the parsing of the command line arguments.
- * Usage:
- * The only accessable method returns false when something failed. This may
- * happend when the syntax of the arguments is invalid, a value is tried to
- * be set several times or an unknown option is tried to be set.
+ * @brief Parses command line arguments
+ *
+ * The only public method parses the given list of arguments. It returns false 
+ *  when something failed. This may happen if the syntax of the arguments is 
+ *  invalid, a value is tried to be set several times or an unknown option 
+ *  is tried to be set.
+ *
  * The class assumes all options are unset or using default values only.
  */
 class OptionsParser
 {
 public:
-    /** parses the command line arguments */
+    /** @brief Parses the given command line arguments 
+     *
+     * @param[in] oc The options container to fill
+     * @param[in] argc The number of given command line arguments
+     * @param[in] argv The command line arguments
+     */
     static bool parse(int argc, char **argv);
 
 private:
-    /** parses the last argument */
+    /** @brief parses the last argument
+     */
     static int check(char *arg1, bool &ok);
 
-    /** parses the previous arguments */
+    /** @brief parses the previous arguments */
     static int check(char *arg1, char *arg2, bool &ok);
 
-    /** returns the information whether the given argument is an option
+    /** @brief returns the information whether the given argument is an option
         (begins with '-') */
     static bool checkParameter(char *arg1);
 
-    /** returns the information whether the given argument consists of
+    /** @brief returns the information whether the given argument consists of
         abbreviations (single leading '-') */
     static bool isAbbreviation(char *arg1);
 
-    /** converts char* to string */
+    /** @brief converts char* to string */
     static std::string convert(char *arg);
 
-    /** converts char to string */
+    /** @brief converts char to string */
     static std::string convert(char abbr);
 
-    /** extracts the parameter directly attached to an option */
+    /** @brief extracts the parameter directly attached to an option */
     static bool processNonBooleanSingleSwitch(OptionsCont &oc, char *arg);
 
 };
