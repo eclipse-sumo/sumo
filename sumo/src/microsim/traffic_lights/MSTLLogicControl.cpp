@@ -390,11 +390,11 @@ MSTLLogicControl::WAUTSwitchProcedure_Stretch::stretchLogic(SUMOTime step, size_
 
     // stretch all other phases, if there is a "bereich"
     while (remainingStretchTime > 0) {
-        for (int i=currStep; i<(int) LogicTo->getPhases().size(); i++) {
+        for (int i=currStep; i<(int) LogicTo->getPhases().size() && remainingStretchTime > 0; i++) {
             durOfPhase = LogicTo->getPhaseFromStep(i).duration;
             size_t beginOfPhase = LogicTo->getPosFromStep(i);
             size_t endOfPhase = beginOfPhase + durOfPhase;
-            for (int j=0; j<noBereiche; j++) {
+            for (int j=0; j<noBereiche && remainingStretchTime > 0; j++) {
                 StretchBereichDef def = getStretchBereichDef(myTo, j+1);
                 size_t end = (size_t) def.end;
                 SUMOReal fac = def.fac;
