@@ -153,6 +153,9 @@ findNearest(std::map<std::string, Position2DVector> &emap, const Position2D &p)
 bool
 hasAny(const vector<string> &edges)
 {
+    if(edges.size()==0) {
+        return false;
+    }
     vector<string>::const_iterator c;
     for (c=edges.begin(); c!=edges.end()-1; ++c) {
         if (mcedge.find(*c)!=mcedge.end()) {
@@ -348,7 +351,7 @@ tryFindBegEdge(const map<string, Position2DVector> &edgeShapes,
 int main(int ac, char * av[])
 {
     ifstream fin, fnet, fla, fseg, ftol;
-    ofstream fout;
+    ofstream fout, fout2, fout3;
     if (ac<7) {
         cout << "no input-file-name given\n";
         cout << "pointcollection netfile la2cell segmente tolpoints"<<endl;
@@ -358,6 +361,9 @@ int main(int ac, char * av[])
     ofstream logF("log.txt");
 
     fout.open("sumo.add.xml", ios_base::out);
+    fout2.open("sumo_e3.add.xml", ios_base::out);
+    fout3.open("sumo_sas.txt", ios_base::out);
+
 
     /*erstmal aus der netzdatei alle edges und die anzahl der lanes raus schreiben.
     desweiteren werden in mcedge die folgekanten gespeichert*/
@@ -368,7 +374,7 @@ int main(int ac, char * av[])
         logF << "cant open file " << av[2] << endl;
         return -2;
     }
-    map<string, pair< string, double> > medge;
+    map<string, pair< int, double> > medge;
     std::map<string, Position2D> edgeBegins;
     std::map<string, Position2D> edgeEnds;
     std::map<string, Position2DVector> edgeShapes;
@@ -400,7 +406,7 @@ int main(int ac, char * av[])
             strtok(NULL, "\"");
             strtok(NULL, "\"");
             nolanes=strtok(NULL, "\"");
-            medge[id]=make_pair(nolanes, length);
+            medge[id]=make_pair(0, 0);
             ++count;
 
             //
@@ -418,6 +424,11 @@ int main(int ac, char * av[])
             string shapeS = bline.substr(beg+1, end-beg-1);
             Position2DVector shape = GeomConvHelper::parseShape(shapeS);
             edgeShapes[id] = shape;
+            medge[id].first = medge[id].first + 1;
+            beg = bline.find("length");
+            end = bline.find("\"", beg+8);
+            string ls = bline.substr(beg+8, end-beg-8);
+            medge[id].second = TplConvert<char>::_2SUMOReal(ls.c_str());
         }
     }
 
@@ -449,6 +460,7 @@ int main(int ac, char * av[])
 
     /*schreibe die add-datei*/
     fout << "<additional>"<<endl;
+    fout2 << "<additional>"<<endl;
     /*zu erst die la/cell aktoren*/
     string lane, pos, to, objid, la;
     string offid, onid;
@@ -534,7 +546,7 @@ int main(int ac, char * av[])
             logF  << "edge " << id << " is too short" << endl;
         }
 
-        count=atoi(medge[id].first.c_str());
+        count=medge[id].first;
         if (count==0)
             continue;//cout << id << "_" << count << endl;
         itla=mla2cell.find(la);
@@ -660,6 +672,11 @@ int main(int ac, char * av[])
             int bla = 0;
         }
         poses[point_id] = Position2D(x, y);
+        if(point_id[0]=='.') {
+            poses[point_id.substr(1)] = Position2D(x, y);
+        } else {
+            poses["." + point_id] = Position2D(x, y);
+        }
     }
 
 
@@ -685,6 +702,11 @@ int main(int ac, char * av[])
             }
         }
         vector<string> nEdges = buildDirectedEdges(ittol->second.edges);
+        size_t index3 = 0;
+        for(vector<string>::iterator t = nEdges.begin(); t!=nEdges.end(); ++t) {
+            fout3 << ittol->first << ";" << index3 << ";" << *t << endl;
+            index3++;
+        }
         /*da wir in der net die richtung durch ein - angezeigt ist muessen wir erst eraus-
         finden welche richting wir nehmen*/
         string bla = ittol->first;
@@ -743,7 +765,7 @@ int main(int ac, char * av[])
         }
 
 
-        if (beginPoint=="17579") {
+        if (beginPoint=="10167" && endPoint=="10006") {
             int bla = 0;
         }
 
@@ -757,6 +779,7 @@ int main(int ac, char * av[])
             int bla = 0;
         }
 
+        fout2 <<"\t<e3-detector id=\"" << ittol->first <<"\" freq=\"300\" file=\"e3.xml\">" << endl;
 
         string beginEdge2 = findNearest(shapes, begPointPos);
         string endEdge2 = findNearest(shapes, endPointPos);
@@ -793,7 +816,7 @@ int main(int ac, char * av[])
         if (beginEdge2!="") {
             Position2DVector shape = edgeShapes[beginEdge2];
             SUMOReal pos = shape.nearest_position_on_line_to_point(begPointPos);
-            int count=atoi(medge[beginEdge2].first.c_str());
+            int count=medge[beginEdge2].first;
             for (int i=0; i!=count;i++) {
                 string withLaneID = beginPoint + "_" + toString(i);
                 if (doneSAPoints.find(withLaneID)==doneSAPoints.end()) {
@@ -802,12 +825,13 @@ int main(int ac, char * av[])
                     << beginPoint << "\" xto=\"" << -1 << "\" type=\"2\"/>" << endl;
                     doneSAPoints[withLaneID] = true;
                 }
+                fout2 <<"\t\t<det_entry lane=\"" << beginEdge2  << '_' << i << "\" pos=\"" << pos << "\"/>" << endl;
             }
         }
 
         for (vector<string>::iterator pi=ittol->second.mpoints.begin(); pi!=ittol->second.mpoints.end(); ++pi) {
             Position2D pointPos = poses[*pi];
-            if (*pi=="11207") {
+            if (*pi=="10195") {
                 int bla = 0;
             }
             string edge2 = findNearest(shapes, pointPos);
@@ -827,7 +851,7 @@ int main(int ac, char * av[])
             if (edge2!="") {
                 Position2DVector shape = edgeShapes[edge2];
                 SUMOReal pos = shape.nearest_position_on_line_to_point(pointPos);
-                int count=atoi(medge[edge2].first.c_str());
+                int count=medge[edge2].first;
                 for (int i=0; i!=count;i++) {
                     string withLaneID = *pi + "_" + toString(i);
                     if (doneSAPoints.find(withLaneID)==doneSAPoints.end()) {
@@ -847,7 +871,7 @@ int main(int ac, char * av[])
         if (endEdge2!="") {
             Position2DVector shape = edgeShapes[endEdge2];
             SUMOReal pos = shape.nearest_position_on_line_to_point(endPointPos);
-            int count=atoi(medge[endEdge2].first.c_str());
+            int count=medge[endEdge2].first;
             for (int i=0; i!=count;i++) {
                 string withLaneID = endPoint + "_" + toString(i);
                 if (doneSAPoints.find(withLaneID)==doneSAPoints.end()) {
@@ -856,9 +880,11 @@ int main(int ac, char * av[])
                     << endPoint << "\" xto=\"" << -1 << "\" type=\"2\"/>" << endl;
                     doneSAPoints[withLaneID] = true;
                 }
+                fout2 <<"\t\t<det_exit lane=\"" << endEdge2  << '_' << i << "\" pos=\"" << pos << "\"/>" << endl;
             }
         }
 
+        fout2 <<"\t</e3-detector>" << endl;
 
         //
 
@@ -919,13 +945,14 @@ int main(int ac, char * av[])
         getline(fcs, bline);
         if (bline.length()<2)
             continue;
-        // event_interval;cell_id;count_active;count_entries;count_exits;count_starts;count_ends;dur_mean;dur_stdev
+        // interval_id;cell_id;count_entered;count_active;count_exited;count_starts;count_ends;count_active_distinct;count_entered_distinct;count_exited_distinct;dur_start_mean;dur_start_stdev;dur_entered_mean;dur_entered_stdev;dur_ends_mean;dur_ends_stdev;cchanges01;cchanges02;cchanges03;cchanges04;cchanges05;cchanges06;cchanges07;cchanges08;cchanges09;cchanges10
         StringTokenizer st(bline, ";");
-        int time = TplConvert<char>::my2int(st.next().c_str());
-        int cell = TplConvert<char>::my2int(st.next().c_str());
+        int time = TplConvert<char>::_2int(st.next().c_str());
+        int cell = TplConvert<char>::_2int(st.next().c_str());
         if (find(cells.begin(), cells.end(), toString(cell))==cells.end())
             continue;
-        int no   = TplConvert<char>::my2int(st.next().c_str());
+        st.next(); // count_entered
+        int no   = TplConvert<char>::_2int(st.next().c_str()); // count_active
         fout << "\t<trigger objecttype=\"vehicle_actor\" id=\"" << cell
         <<"\" objectid=\"" << time  << "\" pos=\"" << no << "\" to=\""
         << -1 << "\" xto=\"" << -1 << "\" type=\"3\"/>" << endl;
@@ -949,27 +976,38 @@ int main(int ac, char * av[])
         getline(fcd, bline);
         if (bline.length()<2)
             continue;
-        // event_interval;cell_id;count_active;count_entries;count_exits;count_starts;count_ends;dur_mean;dur_stdev
+        // interval_id;cell_id;count_entered;count_active;count_exited;count_starts;count_ends;count_active_distinct;count_entered_distinct;count_exited_distinct;dur_start_mean;dur_start_stdev;dur_entered_mean;dur_entered_stdev;dur_ends_mean;dur_ends_stdev;cchanges01;cchanges02;cchanges03;cchanges04;cchanges05;cchanges06;cchanges07;cchanges08;cchanges09;cchanges10
         StringTokenizer st(bline, ";");
-        int time = TplConvert<char>::my2int(st.next().c_str());
-        int cell = TplConvert<char>::my2int(st.next().c_str());
+        int time = TplConvert<char>::_2int(st.next().c_str());
+        int cell = TplConvert<char>::_2int(st.next().c_str());
         if (find(cells.begin(), cells.end(), toString(cell))==cells.end())
             continue;
-        int no   = TplConvert<char>::my2int(st.next().c_str());
-        int entries = TplConvert<char>::my2int(st.next().c_str());// // count_entries
-        st.next(); // count_exits
-        st.next(); // count_starts
+        st.next(); // count_entered
+        st.next(); // count_active
+        st.next(); // count_exited
+        int starts = TplConvert<char>::_2int(st.next().c_str()); // count_starts
         st.next(); // count_ends
-        SUMOReal mean = TplConvert<char>::my2SUMOReal(st.next().c_str());
-        SUMOReal dev  = TplConvert<char>::my2SUMOReal(st.next().c_str());
+        st.next(); // count_active_distinct
+        int entries = TplConvert<char>::_2int(st.next().c_str()); // count_entered_distinct
+        st.next(); // count_exited_distinct
+        SUMOReal mean = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        SUMOReal dev  = TplConvert<char>::_2SUMOReal(st.next().c_str());
+        if(mean<10) {
+            mean = 300;
+            dev = 100;
+        }
+        starts = 0; // !!!
         fout << "\t<trigger objecttype=\"vehicle_actor\" id=\"" << cell
-        <<"\" objectid=\"" << time  << "\" pos=\"" << no << "\" to=\""
+        <<"\" objectid=\"" << time  << "\" pos=\"" << starts << "\" to=\""
         << mean << "\" xto=\"" << dev << "\" entering=\""
         << entries << "\" type=\"4\"/>" << endl;
     }
 
     fout << "</additional>"<<endl;
+    fout2 << "</additional>"<<endl;
     fout.close();
+    fout2.close();
+    fout3.close();
     fin.close();
     fnet.close();
     return 0;
