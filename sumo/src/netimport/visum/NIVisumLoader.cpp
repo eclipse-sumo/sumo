@@ -128,7 +128,8 @@ NIVisumLoader::addParser(const std::string &name, ParsingFunction function) thro
 }
 
 
-void NIVisumLoader::load() throw(ProcessError)
+void 
+NIVisumLoader::load() throw(ProcessError)
 {
     // open the file
     if (!myLineReader.setFileName(getFileName())) {
@@ -197,7 +198,8 @@ void NIVisumLoader::load() throw(ProcessError)
 
 
 
-void NIVisumLoader::parse_VSysTypes()
+void 
+NIVisumLoader::parse_VSysTypes()
 {
     string name = myLineParser.know("VSysCode") ? myLineParser.get("VSysCode").c_str() : myLineParser.get("CODE").c_str();
     string type = myLineParser.know("VSysMode") ? myLineParser.get("VSysMode").c_str() : myLineParser.get("Typ").c_str();
@@ -205,7 +207,8 @@ void NIVisumLoader::parse_VSysTypes()
 }
 
 
-void NIVisumLoader::parse_Types()
+void 
+NIVisumLoader::parse_Types()
 {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
@@ -225,7 +228,8 @@ void NIVisumLoader::parse_Types()
 }
 
 
-void NIVisumLoader::parse_Nodes()
+void 
+NIVisumLoader::parse_Nodes()
 {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
@@ -241,7 +245,8 @@ void NIVisumLoader::parse_Nodes()
 }
 
 
-void NIVisumLoader::parse_Districts()
+void 
+NIVisumLoader::parse_Districts()
 {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
@@ -265,7 +270,8 @@ void NIVisumLoader::parse_Districts()
 }
 
 
-void NIVisumLoader::parse_Edges()
+void 
+NIVisumLoader::parse_Edges()
 {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
@@ -356,7 +362,8 @@ void NIVisumLoader::parse_Edges()
 }
 
 
-void NIVisumLoader::parse_Connectors()
+void 
+NIVisumLoader::parse_Connectors()
 {
     // get the source district
     string bez = NBHelpers::normalIDRepresentation(myLineParser.get("BezNr"));
@@ -423,7 +430,8 @@ void NIVisumLoader::parse_Connectors()
 }
 
 
-void NIVisumLoader::parse_Turns()
+void 
+NIVisumLoader::parse_Turns()
 {
     // retrieve the nodes
     NBNode *from = getNamedNode("VonKnot", "VonKnotNr");
@@ -443,7 +451,8 @@ void NIVisumLoader::parse_Turns()
 }
 
 
-void NIVisumLoader::parse_EdgePolys()
+void 
+NIVisumLoader::parse_EdgePolys()
 {
     // get the from- & to-node and validate them
     NBNode *from = getNamedNode("VonKnot", "VonKnotNr");
@@ -489,7 +498,8 @@ void NIVisumLoader::parse_EdgePolys()
 }
 
 
-void NIVisumLoader::parse_Lanes()
+void 
+NIVisumLoader::parse_Lanes()
 {
     // get the node
     NBNode *node = getNamedNode("KNOTNR");
@@ -619,7 +629,8 @@ void NIVisumLoader::parse_Lanes()
 }
 
 
-void NIVisumLoader::parse_TrafficLights()
+void 
+NIVisumLoader::parse_TrafficLights()
 {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
@@ -636,7 +647,8 @@ void NIVisumLoader::parse_TrafficLights()
 }
 
 
-void NIVisumLoader::parse_NodesToTrafficLights()
+void 
+NIVisumLoader::parse_NodesToTrafficLights()
 {
     string Node = myLineParser.get("KnotNr").c_str();
     string TrafficLight = myLineParser.get("LsaNr").c_str();
@@ -645,7 +657,8 @@ void NIVisumLoader::parse_NodesToTrafficLights()
 }
 
 
-void NIVisumLoader::parse_SignalGroups()
+void 
+NIVisumLoader::parse_SignalGroups()
 {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
@@ -659,7 +672,8 @@ void NIVisumLoader::parse_SignalGroups()
 }
 
 
-void NIVisumLoader::parse_TurnsToSignalGroups()
+void 
+NIVisumLoader::parse_TurnsToSignalGroups()
 {
     // get the id
     string SGid = getNamedString("SGNR", "SIGNALGRUPPENNR");
@@ -711,7 +725,8 @@ void NIVisumLoader::parse_TurnsToSignalGroups()
 }
 
 
-void NIVisumLoader::parse_Phases()
+void 
+NIVisumLoader::parse_Phases()
 {
     // get the id
     string Phaseid = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
@@ -852,7 +867,7 @@ NIVisumLoader::getWeightedFloat(const std::string &name) throw()
 
 
 bool
-NIVisumLoader::getWeightedBool(const std::string &name)
+NIVisumLoader::getWeightedBool(const std::string &name) throw()
 {
     try {
         return TplConvert<char>::_2bool(myLineParser.get(name).c_str());
