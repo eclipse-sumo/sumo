@@ -51,10 +51,8 @@ GenericSAXHandler::GenericSAXHandler() throw()
 { }
 
 
-GenericSAXHandler::GenericSAXHandler(
-    GenericSAXHandler::Tag *tags,
-    GenericSAXHandler::Attr *attrs) throw()
-        : myErrorOccured(false), myUnknownOccured(false)
+GenericSAXHandler::GenericSAXHandler(GenericSAXHandler::Tag *tags,
+                                     GenericSAXHandler::Attr *attrs) throw()
 {
     int i = 0;
     while (tags[i].key != SUMO_TAG_NOTHING) {
@@ -185,24 +183,10 @@ GenericSAXHandler::convert(const std::string &name) const throw()
     XMLCh *ret = new XMLCh[len+1];
     size_t i=0;
     for (; i<len; i++) {
-        ret[i] = (XMLCh) name.at(i);
+        ret[i] = (XMLCh) name[i];
     }
     ret[i] = 0;
     return ret;
-}
-
-
-bool
-GenericSAXHandler::errorOccured() const throw()
-{
-    return myErrorOccured;
-}
-
-
-bool
-GenericSAXHandler::unknownOccured() const throw()
-{
-    return myUnknownOccured;
 }
 
 
@@ -214,12 +198,9 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
 {
     string name = TplConvert<XMLCh>::_2str(qname);
     SumoXMLTag element = convertTag(name);
-    myTagTree.push(element);
-    //myCharacters = "";
+    //myTagTree.push(element);
+    //_characters = "";
     myCharactersVector.clear();
-    if (element<0) {
-        myUnknownOccured = true;
-    }
     myStartElement(element, attrs);
 }
 
@@ -231,10 +212,6 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
 {
     string name = TplConvert<XMLCh>::_2str(qname);
     SumoXMLTag element = convertTag(name);
-    if (element == SUMO_TAG_NOTHING) {
-        myUnknownOccured = true;
-    }
-    // call user handler
     // collect characters
     size_t len = 0;
     size_t i;
@@ -250,15 +227,15 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
     }
     buf[pos] = 0;
 
-    myCharacters(element, buf);
+    // call user handler
+    try {
+        myCharacters(element, buf);
+    } catch (std::runtime_error &) {
+        delete[] buf;
+        throw;
+    }
     delete[] buf;
     myEndElement(element);
-    // update the tag tree
-    if (myTagTree.size()==0) {
-        myErrorOccured = true;
-    } else {
-        myTagTree.pop();
-    }
 }
 
 

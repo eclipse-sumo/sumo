@@ -58,14 +58,14 @@ using namespace XERCES_CPP_NAMESPACE;
  * Normally, when using a standard SAX-handler, we would have to compare
  *  the incoming XMLCh*-element names with the ones we can parse. The same
  *  applies to parsing the attributes. This was assumed to be very time consuming,
- *  that's why we derive our handlers from this class.
- *
+ *  that's why we derive our handlers from this class. 
+ * 
  * The idea behind this second handler layer was avoid repeated conversion
  *  from strings/whatever to XMLCh* and back again. The usage is quite straight
  *  forward, the only overhead is the need to define the enums - both emelents
  *  and attributes within "SUMOXMLDefinition". Still, it maybe helps to avoid typos.
  *
- * This class implements the SAX-callback and offers a new set of callbacks
+ * This class implements the SAX-callback and offers a new set of callbacks 
  *  which must be implemented by derived classes. Instead of XMLCh*-values,
  *  element names are supplied to the derived classes as enums (SumoXMLTag).
  *
@@ -75,13 +75,11 @@ using namespace XERCES_CPP_NAMESPACE;
  * Basically, GenericSAXHandler is not derived within SUMO directly, but via SUMOSAXHandler
  *  which knows all tags/attributes used by SUMO. It is still kept separate for
  *  an easier maintainability and later extensions.
- *
- * @todo recheck whether usage of myTagTree is needed at all (errorOccured would get unneeded, too)
  */
 class GenericSAXHandler : public DefaultHandler
 {
 public:
-    /**
+    /** 
      * @struct Attr
      * @brief An attribute name and its numerical representation 
      */
@@ -93,7 +91,7 @@ public:
         SumoXMLAttr key;
     };
 
-    /**
+    /** 
      * @struct Tag
      * @brief A tag (element) name with its numerical representation
      */
@@ -111,7 +109,7 @@ public:
     GenericSAXHandler() throw();
 
 
-    /**
+    /** 
      * @brief parametrised constructor 
      *
      * This constructor gets the lists of known tag and attribute names with 
@@ -130,24 +128,6 @@ public:
 
 
     /**
-     * @brief Returns the information whether an error occured during the parsing 
-     *
-     * Returns the value of myErrorOccured.
-     * 
-     * @todo: recheck this!
-     */
-    bool errorOccured() const throw();
-
-
-    /**
-     * @brief returns the information whether an unknown tag occured 
-     * 
-     * Returns the value of myUnknownOccured
-     */
-    bool unknownOccured() const throw();
-
-
-    /**
      * @brief The inherited method called when a new tag opens
      *
      * The method parses the supplied XMLCh*-qname using the internal name/enum-map
@@ -163,7 +143,7 @@ public:
                       const XMLCh* const qname, const Attributes& attrs);
 
 
-    /**
+    /** 
      * @brief The inherited method called when characters occured
      *
      * The retrieved characters are converted into a string and appended into a 
@@ -175,7 +155,7 @@ public:
     void characters(const XMLCh* const chars, const unsigned int length);
 
 
-    /**
+    /** 
      * @brief The inherited method called when a tag is being closed
      *
      * This method calls the user-implemented methods myCharacters with the previously
@@ -193,36 +173,36 @@ public:
 
 
     //{ methods for retrieving attribute values
-    /**
+    /** 
      * @brief Returns the information whether the named (by its enum-value) attribute is within the current list
      */
     bool hasAttribute(const Attributes &attrs, SumoXMLAttr id) throw();
 
-    /**
+    /** 
      * @brief Returns the information whether the named attribute is within the current list
      */
     bool hasAttribute(const Attributes &attrs, const XMLCh * const id) throw();
 
 
-    /**
+    /** 
      * @brief Returns the bool-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2bool. 
-     *  If the attribute is empty or ==0, TplConvert<XMLCh>::my2bool throws an 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2bool. 
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2bool throws an 
      *  EmptyData-exception which is passed.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
     bool getBool(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData);
 
-    /**
+    /** 
      * @brief Returns the bool-value of the named (by its enum-value) attribute or the given value if the attribute is not known
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2boolSec. 
-     *  If the attribute is empty, TplConvert<XMLCh>::my2boolSec throws an 
-     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::my2boolSec
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2boolSec. 
+     *  If the attribute is empty, TplConvert<XMLCh>::_2boolSec throws an 
+     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2boolSec
      *  returns the default value.
      *
      * @exception EmptyData If the attribute value is an empty string
@@ -230,14 +210,14 @@ public:
     bool getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool val) const throw(EmptyData);
 
 
-    /**
+    /** 
      * @brief Returns the int-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2int. 
-     *  If the attribute is empty or ==0, TplConvert<XMLCh>::my2int throws an 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2int. 
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2int throws an 
      *  EmptyData-exception which is passed.
-     * If the value can not be parsed to an int, TplConvert<XMLCh>::my2int throws a
+     * If the value can not be parsed to an int, TplConvert<XMLCh>::_2int throws a
      *  NumberFormatException-exception which is passed.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
@@ -245,15 +225,15 @@ public:
      */
     int getInt(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException);
 
-    /**
+    /** 
      * @brief Returns the int-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2intSec. 
-     *  If the attribute is empty, TplConvert<XMLCh>::my2intSec throws an 
-     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::my2intSec
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2intSec. 
+     *  If the attribute is empty, TplConvert<XMLCh>::_2intSec throws an 
+     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2intSec
      *  returns the default value.
-     * If the value can not be parsed to an int, TplConvert<XMLCh>::my2intSec throws a
+     * If the value can not be parsed to an int, TplConvert<XMLCh>::_2intSec throws a
      *  NumberFormatException-exception which is passed.
      *
      * @exception EmptyData If the attribute value is an empty string
@@ -262,24 +242,24 @@ public:
     int getIntSecure(const Attributes &attrs, SumoXMLAttr id, int def) const throw(EmptyData, NumberFormatException);
 
 
-    /**
+    /** 
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2str. 
-     *  If the attribute is ==0, TplConvert<XMLCh>::my2str throws an 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2str. 
+     *  If the attribute is ==0, TplConvert<XMLCh>::_2str throws an 
      *  EmptyData-exception which is passed.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
     std::string getString(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData);
 
-    /**
+    /** 
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2strSec. 
-     *  If the attribute is ==0, TplConvert<XMLCh>::my2strSec returns the default value.
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2strSec. 
+     *  If the attribute is ==0, TplConvert<XMLCh>::_2strSec returns the default value.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
@@ -287,14 +267,14 @@ public:
                                 const std::string &str) const throw(EmptyData);
 
 
-    /**
+    /** 
      * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2SUMOReal. 
-     *  If the attribute is empty or ==0, TplConvert<XMLCh>::my2SUMOReal throws an 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2SUMOReal. 
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2SUMOReal throws an 
      *  EmptyData-exception which is passed.
-     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::my2SUMOReal throws a
+     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMOReal throws a
      *  NumberFormatException-exception which is passed.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
@@ -302,15 +282,15 @@ public:
      */
     SUMOReal getFloat(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException);
 
-    /**
+    /** 
      * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2SUMORealSec. 
-     *  If the attribute is empty, TplConvert<XMLCh>::my2SUMORealSec throws an 
-     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::my2SUMORealSec
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2SUMORealSec. 
+     *  If the attribute is empty, TplConvert<XMLCh>::_2SUMORealSec throws an 
+     *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2SUMORealSec
      *  returns the default value.
-     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::my2SUMORealSec throws a
+     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMORealSec throws a
      *  NumberFormatException-exception which is passed.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
@@ -318,14 +298,14 @@ public:
      */
     SUMOReal getFloatSecure(const Attributes &attrs, SumoXMLAttr id, SUMOReal def) const throw(EmptyData, NumberFormatException);
 
-    /**
+    /** 
      * @brief Returns the SUMOReal-value of the named attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved 
-     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::my2SUMOReal. 
-     *  If the attribute is empty or ==0, TplConvert<XMLCh>::my2SUMOReal throws an 
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2SUMOReal. 
+     *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2SUMOReal throws an 
      *  EmptyData-exception which is passed.
-     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::my2SUMOReal throws a
+     * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMOReal throws a
      *  NumberFormatException-exception which is passed.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
@@ -335,7 +315,7 @@ public:
     //}
 
 protected:
-    /**
+    /** 
      * @brief Callback method for an opening tag to implement by derived classes
      *
      * Called by "startElement" (see there).
@@ -361,7 +341,7 @@ protected:
 
 
 private:
-    /**
+    /** 
      * @brief converts from c++-string into unicode 
      * 
      * @todo recheck encoding
@@ -369,7 +349,7 @@ private:
     XMLCh *convert(const std::string &name) const throw();
 
 
-    /**
+    /** 
      * @brief Converts a tag from its string into its numerical representation 
      *
      * Returns the enum-representation stored for the given tag. If the tag is not
@@ -379,7 +359,7 @@ private:
 
 
 private:
-    /**
+    /** 
      * @brief returns the xml-value of an attribute-enum value 
      *
      * It is assumed, that each SumoXMLAttr has a string-representation.
@@ -391,7 +371,7 @@ private:
 
 private:
     /// @name attributes parsing
-    //@{
+    //@{ 
     // the type of the map from ids to their unicode-string representation
     typedef std::map<SumoXMLAttr, XMLCh*> AttrMap;
 
@@ -401,23 +381,13 @@ private:
 
 
     /// @name elements parsing
-    //@{
-    // the type of the map that maps tag names to ints
+    //@{ 
+    // the type of the map that maps tag names to ints 
     typedef std::map<std::string, SumoXMLTag> TagMap;
 
     // the map of tag names to their internal numerical representation
     TagMap myTagMap;
     //@}
-
-
-    /** the information whether an error occured during the parsing */
-    bool myErrorOccured;
-
-    /** the information whether an unknown tag occured */
-    bool myUnknownOccured;
-
-    /** the current position in the xml-tree as a stack */
-    std::stack<int> myTagTree;
 
     /// A list of character strings obtained so far to build the complete characters string at the end
     std::vector<std::string> myCharactersVector;
