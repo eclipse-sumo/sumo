@@ -10,7 +10,7 @@ endif
 
 if WITH_GUI
 GUI_APPS = sumo-guisim
-GUI_DIRS = gui guinetload guisim icons
+GUI_DIRS = gui guinetload guisim icons mesogui
 endif
 
 if CHECK_MEMORY_LEAKS
@@ -50,6 +50,7 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/actions/libmsactions.a \
 ./microsim/lanechanging/libmicrosimlanechange.a \
 ./microsim/traffic_lights/libmicrosimtls.a \
+./mesosim/libmesosim.a \
 ./sumo_only/libsumoonly.a \
 ./utils/geom/libgeom.a \
 ./utils/shapes/libshapes.a \
@@ -192,6 +193,7 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/gui/images/libguiutilsimages.a \
 ./utils/gui/tracker/libguiutilstracker.a \
 ./utils/foxtools/libfoxtools.a \
+./mesogui/libmesogui.a \
 $(sumo_LDADD) \
 ./utils/glutils/libglutils.a \
 ./gui/GUIManipulator.o \
@@ -200,8 +202,8 @@ $(sumo_LDADD) \
 endif
 
 
-SUBDIRS = foreign microsim netbuild netedit netgen netimport netload \
-od2trips polyconvert router routing_df routing_dua routing_jtr sumo_only \
+SUBDIRS = foreign mesosim mesogui microsim netbuild netedit netgen netimport \
+netload od2trips polyconvert router routing_df routing_dua routing_jtr sumo_only \
 tools utils $(GUI_DIRS) $(ITM_DIRS)
 
 EXTRA_DIST = config.h config.h.in \
