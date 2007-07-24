@@ -30,8 +30,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include <string>
 #include <vector>
 
@@ -70,8 +68,6 @@ protected:
     SUMOReal myScale;
 
 };
-
-#endif // HAVE_MESOSIM
 
 #endif
 

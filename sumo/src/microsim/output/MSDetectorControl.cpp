@@ -43,12 +43,8 @@
 #include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/output/e3_detectors/MSE3Collector.h>
 #include <microsim/output/MSInductLoop.h>
-
 #include "MSInductLoop.h"
-
-#ifdef HAVE_MESOSIM
 #include <mesosim/MEInductLoop.h>
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -73,9 +69,7 @@ MSDetectorControl::MSDetectorControl()
 MSDetectorControl::~MSDetectorControl()
 {
     myDetector2File.close();
-#ifdef HAVE_MESOSIM
     myMesoLoops.clear();
-#endif
     myLoops.clear();
     myE2Detectors.clear();
     myE3Detectors.clear();
@@ -175,7 +169,6 @@ MSDetectorControl::add(MSE3Collector *e3,
 }
 
 
-#ifdef HAVE_MESOSIM
 void
 MSDetectorControl::add(MEInductLoop *meil,
                            OutputDevice *device,
@@ -188,7 +181,6 @@ MSDetectorControl::add(MEInductLoop *meil,
     }
     myDetector2File.addDetectorAndInterval(meil, device, splInterval); // !!! test
 }
-#endif
 
 
 MSDetector2File &

@@ -30,8 +30,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include <utils/common/StdDefs.h>
 #include <iostream>
 #include <cassert>
@@ -93,8 +91,6 @@ protected:
     SUMOReal tLastEntry;
 
 };
-
-#endif // HAVE_MESOSIM
 
 #endif
 

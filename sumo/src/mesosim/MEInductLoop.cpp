@@ -34,8 +34,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include "MEInductLoop.h"
 #include <cassert>
 #include <numeric>
@@ -159,7 +157,6 @@ MEInductLoop::getDataCleanUpSteps(void) const
     return deleteDataAfterStepsM;
 }
 
-#endif // HAVE_MESOSIM
 
 
 /****************************************************************************/

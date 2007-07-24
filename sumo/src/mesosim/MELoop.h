@@ -30,8 +30,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include <queue>
 #include <vector>
 #include <map>
@@ -375,8 +373,6 @@ private:
 
 };
 
-
-#endif // HAVE_MESOSIM
 
 #endif
 

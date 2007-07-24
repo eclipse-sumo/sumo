@@ -30,8 +30,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include <algorithm>
 #include <utils/common/StdDefs.h>
 #include "MEGlobals.h"
@@ -1178,8 +1176,6 @@ private:
 
 };
 
-
-#endif // HAVE_MESOSIM
 
 #endif
 

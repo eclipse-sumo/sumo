@@ -30,8 +30,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include <string>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
@@ -198,7 +196,6 @@ protected:
 };
 
 
-#endif
 #endif
 
 /****************************************************************************/

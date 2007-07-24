@@ -176,11 +176,9 @@ GUIEdge::getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent)
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret, true);
-#ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         buildShowParamsPopupEntry(ret, false);
     }
-#endif
     return ret;
 }
 
@@ -190,7 +188,6 @@ GUIEdge::getParameterWindow(GUIMainWindow &app,
                             GUISUMOAbstractView &)
 {
     GUIParameterTableWindow *ret = 0;
-#ifdef HAVE_MESOSIM
     ret = new GUIParameterTableWindow(app, *this, 5);
     // add items
     ret->mkItem("length [m]", false, (SUMOReal) myLaneGeoms[0]->getLength());
@@ -205,7 +202,6 @@ GUIEdge::getParameterWindow(GUIMainWindow &app,
                 new CastingFunctionBinding<GUIEdge, SUMOReal, size_t>(this, &GUIEdge::getVehicleNo));
     // close building
     ret->closeBuilding();
-#endif
     return ret;
 }
 
@@ -241,7 +237,6 @@ GUIEdge::getCenteringBoundary() const
 }
 
 
-#ifdef HAVE_MESOSIM
 
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
@@ -347,7 +342,6 @@ GUIEdge::getAllowedSpeed() const
     return (*myLanes)[0]->maxSpeed();
 }
 
-#endif
 
 
 /****************************************************************************/

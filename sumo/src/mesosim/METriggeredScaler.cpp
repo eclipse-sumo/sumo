@@ -28,8 +28,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include <microsim/MSLane.h>
 #include <microsim/MSGlobals.h>
 #include "MELoop.h"
@@ -90,8 +88,6 @@ METriggeredScaler::execute(SUMOTime currentTime)
     return 1;
 }
 
-
-#endif // HAVE_MESOSIM
 
 /****************************************************************************/
 

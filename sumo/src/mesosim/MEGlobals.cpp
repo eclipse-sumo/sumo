@@ -32,8 +32,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include <utils/common/StdDefs.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -57,5 +55,4 @@ SUMOReal segment_taujj = 2.0f;//1.8f;//2.0;
 // mode:C++
 // End:
 
-#endif // HAVE_MESOSIM
 

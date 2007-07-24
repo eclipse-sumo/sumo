@@ -30,8 +30,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include <string>
 #include <vector>
 #include <microsim/MSMoveReminder.h>
@@ -157,8 +155,6 @@ protected:
     int blaDelay;
 
 };
-
-#endif // HAVE_MESOSIM
 
 #endif
 

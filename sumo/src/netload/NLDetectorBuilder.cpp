@@ -44,11 +44,8 @@
 #include <utils/common/UtilExceptions.h>
 #include "NLDetectorBuilder.h"
 #include <microsim/output/MSDetectorControl.h>
-
-#ifdef HAVE_MESOSIM
 #include <mesosim/MEInductLoop.h>
 #include <mesosim/MELoop.h>
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -106,9 +103,7 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
     if (pos<0) {
         pos = clane->length() + pos;
     }
-#ifdef HAVE_MESOSIM
     if (!MSGlobals::gUseMesoSim) {
-#endif
         // get the output style
 //   MSDetector::OutputStyle cstyle = convertStyle(id, style);
         // check whether the file must be converted into a relative path
@@ -124,7 +119,6 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
         MSInductLoop *loop = createInductLoop(id, clane, pos, splInterval);
         // add the file output
         myNet.getDetectorControl().add(loop, device, splInterval);
-#ifdef HAVE_MESOSIM
     } else {
         MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(clane->getEdge());
         MESegment *prev = s;
@@ -146,7 +140,6 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
             createMEInductLoop(id, prev, rpos, splInterval);
         myNet.getDetectorControl().add(loop, device, splInterval);
     }
-#endif
 }
 
 
@@ -542,7 +535,6 @@ NLDetectorBuilder::createInductLoop(const std::string &id,
 }
 
 
-#ifdef HAVE_MESOSIM
 MEInductLoop *
 NLDetectorBuilder::createMEInductLoop(const std::string &id,
                                       MESegment *s, SUMOReal pos,
@@ -550,7 +542,6 @@ NLDetectorBuilder::createMEInductLoop(const std::string &id,
 {
     return new MEInductLoop(id, s, pos, splInterval);
 }
-#endif
 
 
 MSE2Collector *

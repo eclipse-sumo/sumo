@@ -74,10 +74,7 @@
 #include <guisim/GUINetWrapper.h>
 #include <guisim/GUISelectionLoader.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-
-#ifdef HAVE_MESOSIM
 #include <microsim/MSGlobals.h>
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -118,9 +115,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]=
         FXMAPFUNC(SEL_COMMAND,  MID_STOP,               GUIApplicationWindow::onCmdStop),
         FXMAPFUNC(SEL_COMMAND,  MID_STEP,               GUIApplicationWindow::onCmdStep),
         FXMAPFUNC(SEL_COMMAND,  MID_CLEARMESSAGEWINDOW, GUIApplicationWindow::onCmdClearMsgWindow),
-#ifdef HAVE_MESOSIM
         FXMAPFUNC(SEL_COMMAND,  MID_NEW_MESOVIEW,       GUIApplicationWindow::onCmdNewMesoView),
-#endif
 
         FXMAPFUNC(SEL_UPDATE,   MID_OPEN_CONFIG,       GUIApplicationWindow::onUpdOpen),
         FXMAPFUNC(SEL_UPDATE,   MID_OPEN_NETWORK,      GUIApplicationWindow::onUpdOpen),
@@ -134,9 +129,7 @@ FXDEFMAP(GUIApplicationWindow) GUIApplicationWindowMap[]=
         FXMAPFUNC(SEL_UPDATE,   MID_EDIT_ADD_WEIGHTS,  GUIApplicationWindow::onUpdEditAddWeights),
         FXMAPFUNC(SEL_UPDATE,   MID_EDIT_BREAKPOINTS,  GUIApplicationWindow::onUpdEditBreakpoints),
         FXMAPFUNC(SEL_UPDATE,   MID_SIMSETTINGS,       GUIApplicationWindow::onUpdSimSettings),
-#ifdef HAVE_MESOSIM
         FXMAPFUNC(SEL_UPDATE,   MID_NEW_MESOVIEW,     GUIApplicationWindow::onUpdAddMesoView),
-#endif
 
 
         FXMAPFUNC(SEL_THREAD_EVENT, ID_LOADTHREAD_EVENT, GUIApplicationWindow::onLoadThreadEvent),
@@ -549,12 +542,10 @@ GUIApplicationWindow::buildToolBars()
         new FXButton(myToolBar5,"\t\tOpen a new microscopic view.",
                      GUIIconSubSys::getIcon(ICON_MICROVIEW), this, MID_NEW_MICROVIEW,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-#ifdef HAVE_MESOSIM
         new FXButton(myToolBar5,
                      "\t\tOpen a new edge meso view.",
                      GUIIconSubSys::getIcon(ICON_LAGGRVIEW), this, MID_NEW_MESOVIEW,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
-#endif
     }
 }
 
@@ -713,12 +704,10 @@ GUIApplicationWindow::onUpdOpenRecent(FXObject*sender,FXSelector,void*ptr)
 long
 GUIApplicationWindow::onUpdAddMicro(FXObject*sender,FXSelector,void*ptr)
 {
-#ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         sender->handle(this, FXSEL(SEL_COMMAND,ID_DISABLE), ptr);
         return 1;
     }
-#endif
     sender->handle(this,
                    myAmLoading||!myRunThread->simulationAvailable()
                    ? FXSEL(SEL_COMMAND,ID_DISABLE) : FXSEL(SEL_COMMAND,ID_ENABLE),
@@ -779,7 +768,6 @@ GUIApplicationWindow::onCmdClearMsgWindow(FXObject*,FXSelector,void*)
 }
 
 
-#ifdef HAVE_MESOSIM
 long
 GUIApplicationWindow::onUpdAddMesoView(FXObject*sender,FXSelector,void*ptr)
 {
@@ -789,7 +777,6 @@ GUIApplicationWindow::onUpdAddMesoView(FXObject*sender,FXSelector,void*ptr)
                    ptr);
     return 1;
 }
-#endif
 
 
 long
@@ -894,14 +881,12 @@ GUIApplicationWindow::onCmdNewMicro(FXObject*,FXSelector,void*)
 }
 
 
-#ifdef HAVE_MESOSIM
 long
 GUIApplicationWindow::onCmdNewMesoView(FXObject*,FXSelector,void*)
 {
     openNewView(GUISUMOViewParent::EDGE_MESO_VIEW);
     return 1;
 }
-#endif
 
 
 long
@@ -990,15 +975,11 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         myWasStarted = false;
         // initialise views
         myViewNumber = 0;
-#ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
             openNewView(GUISUMOViewParent::EDGE_MESO_VIEW);
         } else {
-#endif
             openNewView(GUISUMOViewParent::MICROSCOPIC_VIEW);
-#ifdef HAVE_MESOSIM
         }
-#endif
         // set simulation name on the caption
         string caption = "SUMO " + string(VERSION_STRING) + " - " + ec->myFile;
         setTitle(caption.c_str());

@@ -36,8 +36,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include <utils/common/StdDefs.h>
 
 
@@ -49,8 +47,6 @@ extern SUMOReal segment_tauff;
 extern SUMOReal segment_taufj;
 extern SUMOReal segment_taujf;
 extern SUMOReal segment_taujj;
-
-#endif // HAVE_MESOSIM
 
 #endif
 

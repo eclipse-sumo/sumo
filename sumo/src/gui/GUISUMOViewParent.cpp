@@ -53,10 +53,7 @@
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/foxtools/MFXImageHelper.h>
-
-#ifdef HAVE_MESOSIM
 #include <mesogui/GUIViewMesoEdges.h>
-#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -156,7 +153,6 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
                                    myParent->getGLVisual());
         }
         break;
-#ifdef HAVE_MESOSIM
     case EDGE_MESO_VIEW:
         if (share!=0) {
             myView =
@@ -168,7 +164,6 @@ GUISUMOViewParent::init(ViewType view, FXGLCanvas *share, GUINet &net)
                                      net, myParent->getGLVisual());
         }
         break;
-#endif
     }
     myView->buildViewToolBars(*this);
 }

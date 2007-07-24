@@ -145,10 +145,8 @@ public:
     long onCmdStep(FXObject*,FXSelector,void*);
 
     long onCmdNewMicro(FXObject*,FXSelector,void*);
-#ifdef HAVE_MESOSIM
     long onCmdNewMesoView(FXObject*,FXSelector,void*);
     long onUpdAddMesoView(FXObject*,FXSelector,void*);
-#endif
 
     long onUpdOpen(FXObject*,FXSelector,void*);
     long onUpdReload(FXObject*,FXSelector,void*);

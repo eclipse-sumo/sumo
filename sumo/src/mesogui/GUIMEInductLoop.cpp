@@ -28,8 +28,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include <mesosim/MEInductLoop.h>
 #include <mesosim/MESegment.h>
 #include <utils/gui/globjects/GUIGlObject.h>
@@ -231,7 +229,6 @@ GUIMEInductLoop::MyWrapper::getLoop()
     return myDetector;
 }
 
-#endif
 
 /****************************************************************************/
 

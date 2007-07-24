@@ -37,15 +37,11 @@
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "devices/MSDevice_CPhone.h"
+#include <mesosim/MELoop.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
-
-#ifdef HAVE_MESOSIM
-#include <mesosim/MELoop.h>
-#endif
-
 
 // ===========================================================================
 // used namespaces
@@ -426,7 +422,6 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
                     v->myCurrEdge++;
                     routeOffset--;
                 }
-#ifdef HAVE_MESOSIM
                 v->seg = MSGlobals::gMesoNet->getSegmentForEdge(*(v->myCurrEdge));
                 while (v->seg->get_index()!=segIndex) {
                     v->seg = MSGlobals::gMesoNet->next_segment(v->seg, v);
@@ -436,7 +431,6 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
                 bool inserted;
                 bis >> inserted;
                 v->inserted = inserted!=0;
-#endif
                 if (!addVehicle(id, v)) {
                     cout << "Could not build vehicle!!!" << endl;
                     throw 1;

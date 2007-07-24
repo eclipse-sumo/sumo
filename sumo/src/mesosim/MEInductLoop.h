@@ -30,8 +30,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include <string>
 #include <deque>
 #include <map>
@@ -176,8 +174,6 @@ private:
     /// Hidden assignment operator.
     MEInductLoop& operator=(const MEInductLoop&);
 };
-
-#endif // HAVE_MESOSIM
 
 #endif
 

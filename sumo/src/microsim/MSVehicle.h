@@ -45,10 +45,8 @@
 #include "MSVehicleQuitReminded.h"
 #include <utils/common/SUMOVehicleClass.h>
 #include "MSVehicleType.h"
-
-#ifdef HAVE_MESOSIM
 #include <mesosim/MEVehicle.h>
-#endif
+
 #ifdef RAKNET_DEMO
 #include <raknet_demo/vehicle.h>
 #endif
@@ -71,10 +69,7 @@ class MSBusStop;
 /**
  * @class MSVehicle
  */
-class MSVehicle : public MSVehicleQuitReminded
-#ifdef HAVE_MESOSIM
-            , public MEVehicle
-#endif
+class MSVehicle : public MSVehicleQuitReminded, public MEVehicle
 #ifdef RAKNET_DEMO
             , public Vehicle
 #endif

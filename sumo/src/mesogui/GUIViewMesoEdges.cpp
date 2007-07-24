@@ -28,8 +28,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include <iostream>
 #include <utility>
 #include <cmath>
@@ -674,8 +672,6 @@ GUIViewMesoEdges::getLaneSchemesMap()
 {
     return myLaneColoringSchemes;
 }
-
-#endif
 
 
 /****************************************************************************/

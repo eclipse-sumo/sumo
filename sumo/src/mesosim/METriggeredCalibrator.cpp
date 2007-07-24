@@ -28,8 +28,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include <string>
 #include <algorithm>
 #include <utils/common/MsgHandler.h>
@@ -538,8 +536,6 @@ METriggeredCalibrator::getRandomVehicleType(const ShouldBe &sb)
     return 0;
 }
 
-
-#endif // HAVE_MESOSIM
 
 /****************************************************************************/
 

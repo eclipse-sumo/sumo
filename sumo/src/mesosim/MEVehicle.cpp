@@ -28,8 +28,6 @@
 #include <config.h>
 #endif
 
-#ifdef HAVE_MESOSIM
-
 #include <utils/common/StdDefs.h>
 #include <iostream>
 #include <cassert>
@@ -111,8 +109,6 @@ MEVehicle::me_length() const
 {
     return mySUMOVehicle->getLength();
 }
-
-#endif // HAVE_MESOSIM
 
 
 

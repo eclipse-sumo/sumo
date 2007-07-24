@@ -68,10 +68,8 @@ SUMOTime MSGlobals::gLANRefuseOldInfosOffset = 30 * 60;
 
 SUMOReal MSGlobals::gAddInfoFactor = (SUMOReal) 1.2;
 
-#ifdef HAVE_MESOSIM
 bool MSGlobals::gUseMesoSim;
 MELoop *MSGlobals::gMesoNet;
-#endif
 
 
 /****************************************************************************/
