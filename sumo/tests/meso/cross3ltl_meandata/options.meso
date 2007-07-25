@@ -1,0 +1,1 @@
+--mesosim --no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml --dump-basename=aggregated --dump-intervals=15,60,300,900 -b 0 -e 10000

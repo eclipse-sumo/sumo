@@ -1,0 +1,3 @@
+<add>
+	<trigger id="2si_calibrator" objecttype="calibrator" objectid="2fi_0" pos="10" file="input_definition.def.xml" rfile="input_definition2.def.xml"/>
+</add>

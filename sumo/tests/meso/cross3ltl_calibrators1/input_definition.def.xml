@@ -1,0 +1,7 @@
+<rerouter>
+	<vtype-interval beg="100" end="200">
+		<vtype-dist id="SUMO_DEFAULT_TYPE" probability="1"/>
+	</vtype-interval>
+
+	<state-interval beg="0" end="86400" v="10" q="0"/>
+</rerouter>
