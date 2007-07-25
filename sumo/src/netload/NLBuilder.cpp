@@ -271,8 +271,8 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont &oc)
     // build the loaders
     MSRouteLoaderControl::LoaderVector loaders;
     // check whether a list is existing
-    if (oc.isSet("r")&&oc.getInt("route-steps")>0) {
-        vector<string> files = oc.getStringVector("r");
+    if (oc.isSet("route-files")&&oc.getInt("route-steps")>0) {
+        vector<string> files = oc.getStringVector("route-files");
         for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
             if (!FileHelpers::exists(*fileIt)) {
                 throw ProcessError("The route file '" + *fileIt + "' does not exist.");
