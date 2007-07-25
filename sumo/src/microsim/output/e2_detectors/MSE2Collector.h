@@ -525,7 +525,7 @@ public:
         writeXMLOutput(dev, detectorsTDM, startTime, stopTime);
         writeXMLOutput(dev, detectorsEDM, startTime, stopTime);
         writeXMLOutput(dev, detectorsLDM, startTime, stopTime);
-        dev.writeString("/>");
+        dev.writeString("/>\n");
     }
 
     /// Get an opening XML-tag containing information about the detector.
