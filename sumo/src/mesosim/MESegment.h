@@ -701,7 +701,7 @@ public:
                 (*i).second.speedSum = MAX2((SUMOReal) 0., (*i).second.speedSum-(length / v->getNeededTime()));
                 (*i).second.vehLengthSum = MAX2((SUMOReal) 0., (*i).second.vehLengthSum-v->me_length());
                 (*i).second.nSamples = MAX2((SUMOReal) 0, (*i).second.nSamples-1);
-                (*i).second.nVehEntireLane = MAX2((size_t) 0, (*i).second.nVehEntireLane-1);
+                (*i).second.nVehEntireLane = MAX2((unsigned int) 0, (*i).second.nVehEntireLane-1);
             }
         }
         {
@@ -709,7 +709,7 @@ public:
                 (*i).speedSum = MAX2((SUMOReal) 0, (*i).speedSum-(length / v->getNeededTime()));
                 (*i).vehLengthSum = MAX2((SUMOReal) 0, (*i).vehLengthSum-v->me_length());
                 (*i).nSamples = MAX2((SUMOReal) 0, (*i).nSamples-1);
-                (*i).nVehEntireLane = MAX2((size_t) 0, (*i).nVehEntireLane-1);
+                (*i).nVehEntireLane = MAX2((unsigned int) 0, (*i).nVehEntireLane-1);
             }
         }
         assert(myOccupancy<length*nLanes*.29||state!=Free);
