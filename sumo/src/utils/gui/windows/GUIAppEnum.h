@@ -89,10 +89,8 @@ enum {
     //@{
     /// Open a new microscopic view
     MID_NEW_MICROVIEW,
-#ifdef HAVE_MESOSIM
     /// Open a new mesoscopic view
     MID_NEW_MESOVIEW,
-#endif
     //@}
 
     /// @name SubThread - IDs

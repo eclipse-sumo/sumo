@@ -79,10 +79,7 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <ctime>
 #include "MSPerson.h"
-
-#ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
-#endif
 
 
 #ifdef CHECK_MEMORY_LEAKS
