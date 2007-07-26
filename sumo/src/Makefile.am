@@ -202,7 +202,7 @@ $(sumo_LDADD) \
 endif
 
 
-SUBDIRS = foreign mesosim mesogui microsim netbuild netedit netgen netimport \
+SUBDIRS = foreign mesosim microsim netbuild netedit netgen netimport \
 netload od2trips polyconvert router routing_df routing_dua routing_jtr sumo_only \
 tools utils $(GUI_DIRS) $(ITM_DIRS)
 
