@@ -202,7 +202,10 @@ NBNetBuilder::normaliseNodePositions(int &step)
     inform(step, "Normalising node positions");
     bool ok = myNodeCont.normaliseNodePositions();
     if (ok) {
-        ok = myEdgeCont.normaliseEdgePositions(myNodeCont);
+        ok = myEdgeCont.normaliseEdgePositions();
+    }
+    if (ok) {
+        ok = myDistrictCont.normaliseDistrictPositions();
     }
     return ok;
 }

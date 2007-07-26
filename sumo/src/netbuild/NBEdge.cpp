@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
-// Methods for the representation of a single egde
+// Methods for the representation of a single edge
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -1777,7 +1777,7 @@ NBEdge::disableConnection4TLS(int fromLane, NBEdge *toEdge, int toLane)
 
 
 void
-NBEdge::normalisePosition(const NBNodeCont &nc)
+NBEdge::normalisePosition()
 {
     myGeom.resetBy(GeoConvHelper::getOffset());
 #ifdef _DEBUG
@@ -1790,6 +1790,7 @@ NBEdge::normalisePosition(const NBNodeCont &nc)
 #endif
     for (size_t i=0; i<myNolanes; i++) {
         myLaneGeoms[i].resetBy(GeoConvHelper::getOffset());
+
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
         if (!myLaneGeoms[i].assertNonEqual()) {

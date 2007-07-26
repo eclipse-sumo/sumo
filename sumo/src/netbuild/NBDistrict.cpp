@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A class representing districts
+// A class representing a single district
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,6 +36,7 @@
 #include <algorithm>
 #include <utils/common/Named.h>
 #include <utils/common/StringUtils.h>
+#include <utils/geom/GeoConvHelper.h>
 #include "NBEdge.h"
 #include "NBDistrict.h"
 
@@ -53,26 +54,23 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-NBDistrict::NBDistrict(const std::string &id, const std::string &name,
-                       SUMOReal x, SUMOReal y)
+NBDistrict::NBDistrict(const std::string &id, const Position2D &pos) throw()
         : Named(StringUtils::convertUmlaute(id)),
-        myName(StringUtils::convertUmlaute(name)),
-        myPosition(x, y)
+        myPosition(pos)
 {}
 
 
-NBDistrict::NBDistrict(const std::string &id, const std::string &name)
-        : Named(id), myName(name),
-        myPosition(0, 0)
+NBDistrict::NBDistrict(const std::string &id) throw()
+        : Named(id), myPosition(0, 0)
 {}
 
 
-NBDistrict::~NBDistrict()
+NBDistrict::~NBDistrict() throw()
 {}
 
 
 bool
-NBDistrict::addSource(NBEdge *source, SUMOReal weight)
+NBDistrict::addSource(NBEdge * const source, SUMOReal weight) throw()
 {
     EdgeVector::iterator i = find(mySources.begin(), mySources.end(), source);
     if (i!=mySources.end()) {
@@ -86,7 +84,7 @@ NBDistrict::addSource(NBEdge *source, SUMOReal weight)
 
 
 bool
-NBDistrict::addSink(NBEdge *sink, SUMOReal weight)
+NBDistrict::addSink(NBEdge * const sink, SUMOReal weight) throw()
 {
     EdgeVector::iterator i = find(mySinks.begin(), mySinks.end(), sink);
     if (i!=mySinks.end()) {
@@ -100,41 +98,43 @@ NBDistrict::addSink(NBEdge *sink, SUMOReal weight)
 
 
 void
-NBDistrict::writeXML(std::ostream &into)
+NBDistrict::writeXML(std::ostream &into) throw()
 {
     DoubleVectorHelper::normalise(mySourceWeights, 1.0);
     DoubleVectorHelper::normalise(mySinkWeights, 1.0);
     // write the head and the id of the district
-    into << "   " << "<district id=\"" << myID << "\">" << endl;
+    into << "   <district id=\"" << myID << "\">" << endl;
     size_t i;
     // write all sources
     for (i=0; i<mySources.size(); i++) {
         // write the head and the id of the source
         assert(i<mySources.size());
-        into << "      " << "<dsource id=\"" << mySources[i]->getID()
-        << "\" weight=\"" << mySourceWeights[i] << "\"/>" << endl;
+        into << "      <dsource id=\"" << mySources[i]->getID() << "\" weight=\"" << mySourceWeights[i] << "\"/>" << endl;
     }
     // write all sinks
     for (i=0; i<mySinks.size(); i++) {
         // write the head and the id of the sink
         assert(i<mySinks.size());
-        into << "      " << "<dsink id=\"" << mySinks[i]->getID()
-        << "\" weight=\"" << mySinkWeights[i] << "\"/>" << endl;
+        into << "      <dsink id=\"" << mySinks[i]->getID() << "\" weight=\"" << mySinkWeights[i] << "\"/>" << endl;
+    }
+    // write the shape if given
+    if (myShape.size()>0) {
+        into << "      <shape>" << myShape << "</shape>" << endl;
     }
     // write the tail
-    into << "   " << "</district>" << endl << endl;
+    into << "   </district>" << endl << endl;
 }
 
 
 void
-NBDistrict::setCenter(SUMOReal x, SUMOReal y)
+NBDistrict::setCenter(const Position2D &pos) throw()
 {
-    myPosition = Position2D(x, y);
+    myPosition = pos;
 }
 
 
 void
-NBDistrict::replaceIncoming(const EdgeVector &which, NBEdge *by)
+NBDistrict::replaceIncoming(const EdgeVector &which, NBEdge * const by) throw()
 {
     // temporary structures
     EdgeVector newList;
@@ -167,7 +167,7 @@ NBDistrict::replaceIncoming(const EdgeVector &which, NBEdge *by)
 
 
 void
-NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge *by)
+NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge * const by) throw()
 {
     // temporary structures
     EdgeVector newList;
@@ -200,14 +200,14 @@ NBDistrict::replaceOutgoing(const EdgeVector &which, NBEdge *by)
 
 
 const Position2D &
-NBDistrict::getPosition() const
+NBDistrict::getPosition() const throw()
 {
     return myPosition;
 }
 
 
 void
-NBDistrict::removeFromSinksAndSources(NBEdge *e)
+NBDistrict::removeFromSinksAndSources(NBEdge * const e) throw()
 {
     size_t i;
     for (i=0; i<mySinks.size(); ++i) {
@@ -222,6 +222,21 @@ NBDistrict::removeFromSinksAndSources(NBEdge *e)
             mySourceWeights.erase(mySourceWeights.begin()+i);
         }
     }
+}
+
+
+void 
+NBDistrict::addShape(const Position2DVector &p) throw()
+{
+    myShape = p;
+}
+
+
+void 
+NBDistrict::normalisePositions() throw()
+{
+    myPosition.add(GeoConvHelper::getOffset());
+    myShape.resetBy(GeoConvHelper::getOffset());
 }
 
 

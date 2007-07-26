@@ -149,12 +149,14 @@ GeoConvHelper::cartesian2geo(Position2D &cartesian)
 
 
 void
-GeoConvHelper::x2cartesian(Position2D &from)
+GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary)
 {
     myOrigBoundary.add(from);
     if (myDisableProjection) {
         from.add(myOffset);
-        myConvBoundary.add(from);
+        if(includeInBoundary) {
+            myConvBoundary.add(from);
+        }
         return;
     }
 #ifdef HAVE_PROJ
@@ -187,7 +189,9 @@ GeoConvHelper::x2cartesian(Position2D &from)
 #ifdef HAVE_PROJ
     }
 #endif
-    myConvBoundary.add(from);
+    if(includeInBoundary) {
+        myConvBoundary.add(from);
+    }
 }
 
 

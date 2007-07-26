@@ -1,4 +1,8 @@
 Found: $VSYS: at 15982
+Found: $PUNKT: at 19683
+Found: $KANTE: at 20201
+Found: $TEILFLAECHENELEMENT: at 26223
+Found: $FLAECHENELEMENT: at 26711
 Found: $KNOTEN: at 27371
 Found: $BEZIRK: at 34191
 Found: $STRECKENTYP: at 38137
@@ -16,14 +20,18 @@ Parsing VSYS... done.
 Parsing STRECKENTYP... done.
 Parsing KNOTEN... done.
 Parsing BEZIRK... done.
+Parsing PUNKT... done.
 Parsing STRECKE... done.
+Parsing KANTE... done.
 Parsing ABBIEGER... done.
 Parsing STRECKENPOLY... done.
 Parsing FAHRSTREIFEN... done.
+Parsing FLAECHENELEMENT... done.
 Parsing SIGNALANLAGE... done.
 Parsing SIGNALANLAGEZUKNOTEN... done.
 Parsing SIGNALGRUPPE... done.
 Parsing SIGNALGRUPPEZUABBIEGER... done.
+Parsing TEILFLAECHENELEMENT... done.
 Parsing PHASE... done.
 Parsing FAHRSTREIFENABBIEGER... done.
  Import done;
@@ -57,6 +65,6 @@ Summary:
  Network boundaries:
   Original boundary  : 4436760.00,5472772.00,4441717.00,5475996.00
   Applied offset     : -4436760.00,-5472772.00
-  Converted boundary : 0.00,0.00,4957.00,3224.00
+  Converted boundary : 0.00,0.00,4020.00,3208.00
 -----------------------------------------------------
 Success.

@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
-// A container for all of the nets districts
+// A container for districts
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -49,53 +49,11 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBDistrictCont::NBDistrictCont()
+NBDistrictCont::NBDistrictCont() throw()
 {}
 
 
-NBDistrictCont::~NBDistrictCont()
-{
-    clear();
-}
-
-
-bool
-NBDistrictCont::insert(NBDistrict *district)
-{
-    DistrictCont::iterator i = myDistricts.find(district->getID());
-    if (i!=myDistricts.end()) return false;
-    myDistricts.insert(DistrictCont::value_type(district->getID(), district));
-    return true;
-}
-
-
-NBDistrict *
-NBDistrictCont::retrieve(const string &id)
-{
-    DistrictCont::iterator i = myDistricts.find(id);
-    if (i==myDistricts.end()) return 0;
-    return (*i).second;
-}
-
-
-void
-NBDistrictCont::writeXML(ostream &into)
-{
-    for (DistrictCont::iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
-        (*i).second->writeXML(into);
-    }
-    into << endl;
-}
-
-
-int NBDistrictCont::size()
-{
-    return myDistricts.size();
-}
-
-
-void
-NBDistrictCont::clear()
+NBDistrictCont::~NBDistrictCont() throw()
 {
     for (DistrictCont::iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
         delete((*i).second);
@@ -105,8 +63,44 @@ NBDistrictCont::clear()
 
 
 bool
-NBDistrictCont::addSource(const std::string &dist, NBEdge *source,
-                          SUMOReal weight)
+NBDistrictCont::insert(NBDistrict * const district) throw()
+{
+    DistrictCont::const_iterator i = myDistricts.find(district->getID());
+    if (i!=myDistricts.end()) return false;
+    myDistricts.insert(DistrictCont::value_type(district->getID(), district));
+    return true;
+}
+
+
+NBDistrict *
+NBDistrictCont::retrieve(const string &id) const throw()
+{
+    DistrictCont::const_iterator i = myDistricts.find(id);
+    if (i==myDistricts.end()) return 0;
+    return (*i).second;
+}
+
+
+void
+NBDistrictCont::writeXML(ostream &into) const throw()
+{
+    for (DistrictCont::const_iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
+        (*i).second->writeXML(into);
+    }
+    into << endl;
+}
+
+
+size_t
+NBDistrictCont::size() const throw()
+{
+    return myDistricts.size();
+}
+
+
+bool
+NBDistrictCont::addSource(const std::string &dist, NBEdge * const source,
+                          SUMOReal weight) throw()
 {
     NBDistrict *o = retrieve(dist);
     if (o==0) {
@@ -117,8 +111,8 @@ NBDistrictCont::addSource(const std::string &dist, NBEdge *source,
 
 
 bool
-NBDistrictCont::addSink(const std::string &dist, NBEdge *destination,
-                        SUMOReal weight)
+NBDistrictCont::addSink(const std::string &dist, NBEdge * const destination,
+                        SUMOReal weight) throw()
 {
     NBDistrict *o = retrieve(dist);
     if (o==0) {
@@ -129,13 +123,22 @@ NBDistrictCont::addSink(const std::string &dist, NBEdge *destination,
 
 
 void
-NBDistrictCont::removeFromSinksAndSources(NBEdge *e)
+NBDistrictCont::removeFromSinksAndSources(NBEdge * const e) throw()
 {
     for (DistrictCont::iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
         (*i).second->removeFromSinksAndSources(e);
     }
 }
 
+
+bool 
+NBDistrictCont::normaliseDistrictPositions() throw()
+{
+    for (DistrictCont::iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
+        (*i).second->normalisePositions();
+    }
+    return true;
+}
 
 
 /****************************************************************************/

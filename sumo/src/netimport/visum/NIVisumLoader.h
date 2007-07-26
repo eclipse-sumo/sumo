@@ -383,9 +383,20 @@ private:
     /** @brief Parses BEZIRK */
     void parse_Districts();
 
+    /** @brief Parses PUNKT */
+    void parse_Point();
+
+
     /** @brief Parses STRECKE/STRECKEN */
     void parse_Edges();
 
+    /** @brief Parses FLAECHENELEMENT */
+    void parse_PartOfArea();
+
+    /** @brief Parses FLAECHENELEMENT */
+    void parse_Kante();
+
+    
     /** @brief Parses ANBINDUNG */
     void parse_Connectors();
 
@@ -409,6 +420,9 @@ private:
 
     /** @brief Parses ABBZULSASIGNALGRUPPE/SIGNALGRUPPEZUABBIEGER */
     void parse_TurnsToSignalGroups();
+
+    /** @brief Parses ABBZULSASIGNALGRUPPE/SIGNALGRUPPEZUABBIEGER */
+    void parse_AreaSubPartElement();
 
     /** @brief Parses LSAPHASE/PHASE */
     void parse_Phases();
@@ -467,6 +481,22 @@ private:
 
     /** @brief The name of the currently parsed item used for error reporting */
     std::string myCurrentID;
+
+
+    /// A map of point ids to positions
+    std::map<long, Position2D> myPoints;
+
+    /// A map of edge (not road, but "edge" in this case) ids to from/to-points
+    std::map<long, std::pair<long, long> > myEdges;
+
+    /// A map from district shape definition name to the district
+    std::map<long, NBDistrict*> myShapeDistrictMap;
+
+    /// A map from area parts to area ids
+    std::map<long, std::vector<long> > mySubPartsAreas;
+
+    /// A temporary storage for district shapes as they are filled incrementally
+    std::map<NBDistrict*, Position2DVector> myDistrictShapes;
 
 
 };

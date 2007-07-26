@@ -67,7 +67,7 @@ public:
     static void cartesian2geo(Position2D &cartesian);
 
     /// Converts the given coordinate into a cartesian using the previous initialisation
-    static void x2cartesian(Position2D &from);
+    static void x2cartesian(Position2D &from, bool includeInBoundary=true);
 
     /// Returns the information whether the subsystem was initialised
     static bool usingGeoProjection();

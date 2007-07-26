@@ -181,7 +181,7 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes(NBDistrictCont &dc,
         const IntVector &connections = (*k).second;
         // retrieve the current district
         string dsid = toString<int>((*k).first);
-        NBDistrict *district = new NBDistrict(dsid, dsid, true, true);
+        NBDistrict *district = new NBDistrict(dsid);
         dc.insert(district);
         // compute the middle of the district
         Position2DVector pos;
@@ -193,7 +193,7 @@ NIVissimDistrictConnection::dict_BuildDistrictNodes(NBDistrictCont &dc,
         if (connections.size()==1) { // !!! ok, ok, maybe not the best way just to add an offset
             distCenter.add(10, 10);
         }
-        district->setCenter(distCenter.x(), distCenter.y());
+        district->setCenter(distCenter);
         // build the node
         string id = "District" + district->getID();
         NBNode *districtNode =

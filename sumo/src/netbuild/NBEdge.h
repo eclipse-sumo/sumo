@@ -279,7 +279,7 @@ public:
     bool setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
                                      const std::string &tlID, size_t tlPos);
 
-    void normalisePosition(const NBNodeCont &nc);
+    void normalisePosition();
 
     void reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 

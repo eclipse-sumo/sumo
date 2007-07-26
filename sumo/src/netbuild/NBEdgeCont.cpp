@@ -649,10 +649,10 @@ NBEdgeCont::search(NBEdge *e)
 
 
 bool
-NBEdgeCont::normaliseEdgePositions(const NBNodeCont &nc)
+NBEdgeCont::normaliseEdgePositions()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->normalisePosition(nc);
+        (*i).second->normalisePosition();
     }
     return true;
 }

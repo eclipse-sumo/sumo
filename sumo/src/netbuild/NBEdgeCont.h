@@ -142,7 +142,7 @@ public:
     void search(NBEdge *e);
 
     /// moves the geometry of the edges by the network offset
-    bool normaliseEdgePositions(const NBNodeCont &nc);
+    bool normaliseEdgePositions();
     bool reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
     bool computeEdgeShapes();

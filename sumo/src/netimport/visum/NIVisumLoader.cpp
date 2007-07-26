@@ -68,12 +68,14 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
     addParser("STRECKENTYP", &NIVisumLoader::parse_Types);
     addParser("KNOTEN", &NIVisumLoader::parse_Nodes);
     addParser("BEZIRK", &NIVisumLoader::parse_Districts);
+    addParser("PUNKT", &NIVisumLoader::parse_Point);
 
 
     // set2
     // two types of "strecke"
     addParser("STRECKE", &NIVisumLoader::parse_Edges);
     addParser("STRECKEN", &NIVisumLoader::parse_Edges);
+    addParser("KANTE", &NIVisumLoader::parse_Kante);
 
 
     // set3
@@ -84,6 +86,7 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
 
     addParser("STRECKENPOLY", &NIVisumLoader::parse_EdgePolys);
     addParser("FAHRSTREIFEN", &NIVisumLoader::parse_Lanes);
+    addParser("FLAECHENELEMENT", &NIVisumLoader::parse_PartOfArea);
 
 
     // set4
@@ -99,6 +102,8 @@ NIVisumLoader::NIVisumLoader(NBNetBuilder &nb,
     // two types of ABBZULSASIGNALGRUPPE
     addParser("ABBZULSASIGNALGRUPPE", &NIVisumLoader::parse_TurnsToSignalGroups);
     addParser("SIGNALGRUPPEZUABBIEGER", &NIVisumLoader::parse_TurnsToSignalGroups);
+
+    addParser("TEILFLAECHENELEMENT", &NIVisumLoader::parse_AreaSubPartElement);
 
     // two types of LSAPHASE
     addParser("LSAPHASE", &NIVisumLoader::parse_Phases);
@@ -192,6 +197,10 @@ NIVisumLoader::load() throw(ProcessError)
     }
     // recheck all edge shapes
     myNetBuilder.getEdgeCont().recheckEdgeGeomsForDoublePositions();
+    // build district shapes
+    for(map<NBDistrict*, Position2DVector>::const_iterator k=myDistrictShapes.begin(); k!=myDistrictShapes.end(); ++k) {
+        (*k).first->addShape((*k).second);
+    }
 }
 
 
@@ -250,8 +259,6 @@ NIVisumLoader::parse_Districts()
 {
     // get the id
     myCurrentID = NBHelpers::normalIDRepresentation(myLineParser.get("Nr"));
-    // get the name
-    string name = myLineParser.get("NAME");
     // get the information whether the source and the destination
     //  connections are weighted
     //bool sourcesWeighted = getWeightedBool("Proz_Q");
@@ -260,13 +267,29 @@ NIVisumLoader::parse_Districts()
     SUMOReal x = getNamedFloat("XKoord");
     SUMOReal y = getNamedFloat("YKoord");
     Position2D pos(x, y);
-    GeoConvHelper::x2cartesian(pos);
+    GeoConvHelper::x2cartesian(pos, false);
     // build the district
-    NBDistrict *district = new NBDistrict(myCurrentID, name, pos.x(), pos.y());
+    NBDistrict *district = new NBDistrict(myCurrentID, pos);
     if (!myNetBuilder.getDistrictCont().insert(district)) {
         addError(" Duplicate district occured ('" + myCurrentID + "').");
         delete district;
     }
+    if(myLineParser.know("FLAECHEID")) {
+        long flaecheID = TplConvert<char>::_2long(myLineParser.get("FLAECHEID").c_str());
+        myShapeDistrictMap[flaecheID] = district;
+    }
+}
+
+
+void 
+NIVisumLoader::parse_Point()
+{
+    long id = TplConvert<char>::_2long(myLineParser.get("ID").c_str());
+    SUMOReal x = TplConvert<char>::_2SUMOReal(myLineParser.get("XKOORD").c_str());
+    SUMOReal y = TplConvert<char>::_2SUMOReal(myLineParser.get("YKOORD").c_str());
+    Position2D pos(x, y);
+    GeoConvHelper::x2cartesian(pos, false);
+    myPoints[id] = pos;
 }
 
 
@@ -359,6 +382,28 @@ NIVisumLoader::parse_Edges()
         }
     }
     myTouchedEdges.push_back(myCurrentID);
+}
+
+
+void 
+NIVisumLoader::parse_Kante()
+{
+    long id = TplConvert<char>::_2long(myLineParser.get("ID").c_str());
+    long from = TplConvert<char>::_2long(myLineParser.get("VONPUNKTID").c_str());
+    long to = TplConvert<char>::_2long(myLineParser.get("NACHPUNKTID").c_str());
+    myEdges[id] = make_pair(from, to);
+}
+
+
+void 
+NIVisumLoader::parse_PartOfArea()
+{
+    long flaecheID = TplConvert<char>::_2long(myLineParser.get("FLAECHEID").c_str());
+    long flaechePartID = TplConvert<char>::_2long(myLineParser.get("TFLAECHEID").c_str());
+    if(mySubPartsAreas.find(flaechePartID)==mySubPartsAreas.end()) {
+        mySubPartsAreas[flaechePartID] = vector<long>();
+    }
+    mySubPartsAreas[flaechePartID].push_back(flaecheID);
 }
 
 
@@ -721,6 +766,63 @@ NIVisumLoader::parse_TurnsToSignalGroups()
             edg2 = getNamedEdgeContinuating(myNetBuilder.getEdgeCont().retrieve(sid),  via);
         }
         SG->GetConnections()->push_back(NBConnection(edg1, edg2));
+    }
+}
+
+
+void 
+NIVisumLoader::parse_AreaSubPartElement()
+{
+    long id = TplConvert<char>::_2long(myLineParser.get("TFLAECHEID").c_str());
+    long edgeid = TplConvert<char>::_2long(myLineParser.get("KANTEID").c_str());
+    if(myEdges.find(edgeid)==myEdges.end()) {
+        addError("Unknown edge in TEILFLAECHENELEMENT");
+        return;
+    }
+    string dir = myLineParser.get("RICHTUNG");
+    string indexS = NBHelpers::normalIDRepresentation(myLineParser.get("INDEX"));
+    int index = -1;
+    try {
+        index = TplConvert<char>::_2int(indexS.c_str()) - 1;
+    } catch (NumberFormatException &) {
+        addError("An index for a TEILFLAECHENELEMENT is not numeric (id='" + toString(id) + "').");
+        return;
+    }
+    Position2DVector shape;
+    shape.push_back(myPoints[myEdges[edgeid].first]);
+    shape.push_back(myPoints[myEdges[edgeid].second]);
+    if(dir.length()>0&&dir[0]=='1') {
+        shape = shape.reverse();
+    }
+    if(mySubPartsAreas.find(id)==mySubPartsAreas.end()) {
+        addError("Unkown are for area part '" + myCurrentID + "'.");
+        return;
+    }
+
+    const vector<long> &areas = mySubPartsAreas.find(id)->second;
+    for(vector<long>::const_iterator i=areas.begin(); i!=areas.end(); ++i) {
+        NBDistrict *d = myShapeDistrictMap[*i];
+        if(d==0) {
+            continue;
+        }
+        if(myDistrictShapes.find(d)==myDistrictShapes.end()) {
+            myDistrictShapes[d] = Position2DVector();
+        }
+        if(dir.length()>0&&dir[0]=='1') {
+            myDistrictShapes[d].push_back(myPoints[myEdges[edgeid].second]);
+            myDistrictShapes[d].push_back(myPoints[myEdges[edgeid].first]);
+            /*
+            myDistrictShapes[d].insertAt(index, myPoints[myEdges[edgeid].first]);
+            myDistrictShapes[d].insertAt(index, myPoints[myEdges[edgeid].second]);
+            */
+        } else {
+            myDistrictShapes[d].push_back(myPoints[myEdges[edgeid].first]);
+            myDistrictShapes[d].push_back(myPoints[myEdges[edgeid].second]);
+            /*
+            myDistrictShapes[d].insertAt(index, myPoints[myEdges[edgeid].second]);
+            myDistrictShapes[d].insertAt(index, myPoints[myEdges[edgeid].first]);
+            */
+        }
     }
 }
 

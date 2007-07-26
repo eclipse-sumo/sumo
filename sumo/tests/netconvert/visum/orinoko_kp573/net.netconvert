@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/16/07 10:21:10 by SUMO netconvert Version 0.9.6
+<!-- generated on 07/26/07 09:51:31 by SUMO netconvert Version 0.9.6
 <configuration>
 
    <input>
@@ -20,8 +20,8 @@
 
 <net>
 
-   <net-offset>-4436613.000000,-5472772.000000</net-offset>
-   <conv-boundary>0.000000,0.000000,3763.000000,4144.000000</conv-boundary>
+   <net-offset>-4437090.000000,-5472772.000000</net-offset>
+   <conv-boundary>0.000000,0.000000,3286.000000,4144.000000</conv-boundary>
    <orig-boundary>4436613.000000,5472772.000000,4440376.000000,5476916.000000</orig-boundary>
    <orig-proj>!</orig-proj>
 
@@ -35,42 +35,55 @@
    </district>
 
    <district id="956400300">
+      <shape>35.50,3635.50 35.50,3635.50</shape>
    </district>
 
    <district id="956400332">
+      <shape>-371.50,3147.00 -371.50,3147.00</shape>
    </district>
 
    <district id="956400333">
+      <shape>-178.00,2914.00 -178.00,2914.00</shape>
    </district>
 
    <district id="956400334">
+      <shape>799.50,2801.50 799.50,2801.50</shape>
    </district>
 
    <district id="956400340">
+      <shape>157.50,4023.00 157.50,4023.00</shape>
    </district>
 
    <district id="956400350">
+      <shape>1861.00,3163.50 1861.00,3163.50</shape>
    </district>
 
    <district id="956400353">
+      <shape>2318.50,2003.50 2318.50,2003.50</shape>
    </district>
 
    <district id="956400360">
+      <shape>799.50,2801.50 799.50,2801.50</shape>
    </district>
 
    <district id="956400361">
+      <shape>1246.50,1727.50 1246.50,1727.50</shape>
    </district>
 
    <district id="956400362">
+      <shape>625.50,1350.50 625.50,1350.50</shape>
    </district>
 
    <district id="956400363">
+      <shape>1246.50,1727.50 1246.50,1727.50</shape>
    </district>
 
    <district id="956400366">
+      <shape>1766.50,3.00 1766.50,3.00</shape>
    </district>
 
    <district id="956400382">
+      <shape>2994.50,1304.00 2994.50,1304.00</shape>
    </district>
 
    <district id="957612520">
@@ -94,16 +107,16 @@
 
    <edge id="-53091482" from="100667830" to="1567" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-53091482_0" depart="1" vclasses="" maxspeed="13.89" length="35.26">506.33,1848.20 474.79,1832.43</lane>
-         <lane id="-53091482_1" depart="0" vclasses="" maxspeed="13.89" length="35.26">507.80,1845.25 476.26,1829.48</lane>
+         <lane id="-53091482_0" depart="1" vclasses="" maxspeed="13.89" length="35.26">29.33,1848.20 -2.21,1832.43</lane>
+         <lane id="-53091482_1" depart="0" vclasses="" maxspeed="13.89" length="35.26">30.80,1845.25 -0.74,1829.48</lane>
       </lanes>
       <cedge id="53091482">-53091482_1</cedge>
    </edge>
 
    <edge id="-53091559" from="100667891" to="1566" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-53091559_0" depart="1" vclasses="" maxspeed="13.89" length="355.62">1196.47,2474.50 941.55,2226.55</lane>
-         <lane id="-53091559_1" depart="0" vclasses="" maxspeed="13.89" length="355.62">1198.77,2472.13 943.85,2224.18</lane>
+         <lane id="-53091559_0" depart="1" vclasses="" maxspeed="13.89" length="355.62">719.47,2474.50 464.55,2226.55</lane>
+         <lane id="-53091559_1" depart="0" vclasses="" maxspeed="13.89" length="355.62">721.77,2472.13 466.85,2224.18</lane>
       </lanes>
       <cedge id="905002541">-53091559_0 -53091559_1</cedge>
       <cedge id="53091559">-53091559_1</cedge>
@@ -111,8 +124,8 @@
 
    <edge id="-53091615" from="1562" to="1560" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-53091615_0" depart="1" vclasses="" maxspeed="13.89" length="164.91">2120.13,1733.91 2223.00,1605.08</lane>
-         <lane id="-53091615_1" depart="0" vclasses="" maxspeed="13.89" length="164.91">2122.72,1735.96 2225.65,1607.04</lane>
+         <lane id="-53091615_0" depart="1" vclasses="" maxspeed="13.89" length="164.91">1643.13,1733.91 1746.00,1605.08</lane>
+         <lane id="-53091615_1" depart="0" vclasses="" maxspeed="13.89" length="164.91">1645.72,1735.96 1748.65,1607.04</lane>
       </lanes>
       <cedge id="905006042">-53091615_0 -53091615_1</cedge>
       <cedge id="53091615">-53091615_1</cedge>
@@ -120,8 +133,8 @@
 
    <edge id="-53091628" from="1564" to="1563" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-53091628_0" depart="1" vclasses="" maxspeed="13.89" length="340.45">1672.08,2285.20 1903.00,2035.03</lane>
-         <lane id="-53091628_1" depart="0" vclasses="" maxspeed="13.89" length="340.45">1674.50,2287.44 1905.43,2037.27</lane>
+         <lane id="-53091628_0" depart="1" vclasses="" maxspeed="13.89" length="340.46">1195.08,2285.20 1426.00,2035.03</lane>
+         <lane id="-53091628_1" depart="0" vclasses="" maxspeed="13.89" length="340.46">1197.50,2287.44 1428.43,2037.27</lane>
       </lanes>
       <cedge id="-545285124">-53091628_0 -53091628_1</cedge>
       <cedge id="53091628">-53091628_1</cedge>
@@ -129,9 +142,9 @@
 
    <edge id="-53091655" from="1672" to="1565" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-53091655_0" depart="1" vclasses="" maxspeed="13.89" length="328.98">1638.42,2908.28 1399.69,2681.92</lane>
-         <lane id="-53091655_1" depart="0" vclasses="" maxspeed="13.89" length="328.98">1640.69,2905.89 1401.96,2679.52</lane>
-         <lane id="-53091655_2" depart="0" vclasses="" maxspeed="13.89" length="328.98">1642.96,2903.49 1404.23,2677.13</lane>
+         <lane id="-53091655_0" depart="1" vclasses="" maxspeed="13.89" length="328.98">1161.42,2908.28 922.69,2681.92</lane>
+         <lane id="-53091655_1" depart="0" vclasses="" maxspeed="13.89" length="328.98">1163.69,2905.89 924.96,2679.52</lane>
+         <lane id="-53091655_2" depart="0" vclasses="" maxspeed="13.89" length="328.98">1165.96,2903.49 927.23,2677.13</lane>
       </lanes>
       <cedge id="905002548">-53091655_0</cedge>
       <cedge id="905002551">-53091655_1</cedge>
@@ -141,7 +154,7 @@
 
    <edge id="-545279717" from="100674949" to="100674627" priority="-1" type="85" function="normal">
       <lanes>
-         <lane id="-545279717_0" depart="1" vclasses="" maxspeed="19.44" length="156.11">3569.98,21.68 3510.19,22.65 3447.57,36.56 3419.00,51.34</lane>
+         <lane id="-545279717_0" depart="1" vclasses="" maxspeed="19.44" length="156.11">3092.98,21.68 3033.19,22.65 2970.57,36.56 2942.00,51.34</lane>
       </lanes>
       <cedge id="-59394070">-545279717_0</cedge>
       <cedge id="545279717">-545279717_0</cedge>
@@ -149,7 +162,7 @@
 
    <edge id="-545285123" from="1671" to="814" priority="-1" type="84" function="normal">
       <lanes>
-         <lane id="-545285123_0" depart="1" vclasses="" maxspeed="16.67" length="451.69">2387.19,2809.64 2255.67,2824.58 2233.10,2843.23 2145.11,2928.22 2093.16,2973.18 2041.41,3031.90 2032.98,3050.86</lane>
+         <lane id="-545285123_0" depart="1" vclasses="" maxspeed="16.67" length="451.69">1910.19,2809.64 1778.67,2824.58 1756.10,2843.23 1668.12,2928.22 1616.16,2973.17 1564.41,3031.90 1555.98,3050.86</lane>
       </lanes>
       <cedge id="905005456">-545285123_0</cedge>
       <cedge id="905005626">-545285123_0</cedge>
@@ -158,8 +171,8 @@
 
    <edge id="-545285124" from="1563" to="1562" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-545285124_0" depart="1" vclasses="" maxspeed="13.89" length="371.15">1903.16,2034.83 2005.98,1879.10 2120.13,1733.91</lane>
-         <lane id="-545285124_1" depart="0" vclasses="" maxspeed="13.89" length="371.15">1905.92,2036.65 2008.66,1881.03 2122.71,1735.97</lane>
+         <lane id="-545285124_0" depart="1" vclasses="" maxspeed="13.89" length="371.15">1426.16,2034.83 1528.98,1879.10 1643.13,1733.91</lane>
+         <lane id="-545285124_1" depart="0" vclasses="" maxspeed="13.89" length="371.15">1428.92,2036.65 1531.66,1881.03 1645.71,1735.97</lane>
       </lanes>
       <cedge id="-53091615">-545285124_0 -545285124_1</cedge>
       <cedge id="545285124">-545285124_1</cedge>
@@ -167,7 +180,7 @@
 
    <edge id="-59394061" from="100674626" to="100668229" priority="-1" type="82" function="normal">
       <lanes>
-         <lane id="-59394061_0" depart="1" vclasses="" maxspeed="11.11" length="345.19">3383.04,78.36 3171.32,350.99</lane>
+         <lane id="-59394061_0" depart="1" vclasses="" maxspeed="11.11" length="345.19">2906.04,78.36 2694.32,350.99</lane>
       </lanes>
       <cedge id="905002586">-59394061_0</cedge>
       <cedge id="59394061">-59394061_0</cedge>
@@ -175,7 +188,7 @@
 
    <edge id="-59394070" from="100674627" to="100674626" priority="-1" type="85" function="normal">
       <lanes>
-         <lane id="-59394070_0" depart="1" vclasses="" maxspeed="19.44" length="44.29">3418.77,51.48 3383.34,78.06</lane>
+         <lane id="-59394070_0" depart="1" vclasses="" maxspeed="19.44" length="44.29">2941.77,51.48 2906.34,78.06</lane>
       </lanes>
       <cedge id="-59394061">-59394070_0</cedge>
       <cedge id="59394070">-59394070_0</cedge>
@@ -183,14 +196,14 @@
 
    <edge id="-83535600" from="100674947" to="1678" priority="-1" type="85" function="normal">
       <lanes>
-         <lane id="-83535600_0" depart="1" vclasses="" maxspeed="19.44" length="166.75">3597.96,12.86 3660.83,-1.65 3763.03,0.35</lane>
+         <lane id="-83535600_0" depart="1" vclasses="" maxspeed="19.44" length="166.75">3120.96,12.86 3183.83,-1.65 3286.03,0.35</lane>
       </lanes>
       <cedge id="83535600">-83535600_0</cedge>
    </edge>
 
    <edge id="-83535603" from="100674949" to="100674947" priority="-1" type="0" function="normal">
       <lanes>
-         <lane id="-83535603_0" depart="1" vclasses="" maxspeed="3.06" length="30.22">3574.39,21.09 3576.07,24.45 3593.48,26.19 3594.17,17.25</lane>
+         <lane id="-83535603_0" depart="1" vclasses="" maxspeed="3.06" length="30.22">3097.39,21.09 3099.07,24.45 3116.48,26.19 3117.17,17.25</lane>
       </lanes>
       <cedge id="-83535600">-83535603_0</cedge>
       <cedge id="83535603">-83535603_0</cedge>
@@ -198,8 +211,8 @@
 
    <edge id="-905001099" from="100667991" to="1572" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-905001099_0" depart="1" vclasses="" maxspeed="13.89" length="433.21">542.87,3567.09 768.68,3321.39 801.98,3228.33</lane>
-         <lane id="-905001099_1" depart="0" vclasses="" maxspeed="13.89" length="433.21">545.30,3569.32 771.56,3323.13 805.09,3229.44</lane>
+         <lane id="-905001099_0" depart="1" vclasses="" maxspeed="13.89" length="433.21">65.87,3567.09 291.68,3321.39 324.98,3228.33</lane>
+         <lane id="-905001099_1" depart="0" vclasses="" maxspeed="13.89" length="433.21">68.30,3569.32 294.56,3323.13 328.09,3229.44</lane>
       </lanes>
       <cedge id="-905006034">-905001099_0 -905001099_1</cedge>
       <cedge id="905001099">-905001099_1</cedge>
@@ -207,7 +220,7 @@
 
    <edge id="-905001109" from="1571" to="1568" priority="-1" type="81" function="normal">
       <lanes>
-         <lane id="-905001109_0" depart="1" vclasses="" maxspeed="8.33" length="322.12">779.99,2746.68 888.99,2828.68 958.03,2881.71 1034.39,2944.19</lane>
+         <lane id="-905001109_0" depart="1" vclasses="" maxspeed="8.33" length="322.12">302.99,2746.68 412.00,2828.69 481.02,2881.71 557.39,2944.19</lane>
       </lanes>
       <cedge id="-905002548">-905001109_0</cedge>
       <cedge id="905006034">-905001109_0</cedge>
@@ -216,8 +229,8 @@
 
    <edge id="-905002541" from="100667830" to="1566" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-905002541_0" depart="1" vclasses="" maxspeed="13.89" length="579.44">512.29,1840.27 546.86,1864.96 576.87,1885.97 708.22,1981.22 838.49,2111.49 948.45,2219.45</lane>
-         <lane id="-905002541_1" depart="0" vclasses="" maxspeed="13.89" length="579.44">510.38,1842.96 544.96,1867.66 574.96,1888.66 706.07,1983.74 836.16,2113.83 946.15,2221.82</lane>
+         <lane id="-905002541_0" depart="1" vclasses="" maxspeed="13.89" length="579.44">35.30,1840.27 69.86,1864.96 99.87,1885.97 231.22,1981.22 361.49,2111.49 471.45,2219.45</lane>
+         <lane id="-905002541_1" depart="0" vclasses="" maxspeed="13.89" length="579.44">33.38,1842.96 67.96,1867.66 97.96,1888.66 229.07,1983.74 359.16,2113.82 469.15,2221.82</lane>
       </lanes>
       <cedge id="53091559">-905002541_0 -905002541_1</cedge>
       <cedge id="905002541">-905002541_1</cedge>
@@ -225,10 +238,10 @@
 
    <edge id="-905002548" from="1568" to="1565" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-905002548_0" depart="1" vclasses="" maxspeed="13.89" length="449.07">1043.83,2943.24 1130.86,2915.20 1193.16,2887.40 1235.54,2842.13 1343.97,2723.76 1380.41,2671.59</lane>
-         <lane id="-905002548_1" depart="0" vclasses="" maxspeed="13.89" length="449.07">1044.84,2946.38 1132.05,2918.28 1195.12,2890.15 1237.95,2844.39 1346.55,2725.83 1383.11,2673.48</lane>
-         <lane id="-905002548_2" depart="0" vclasses="" maxspeed="13.89" length="449.07">1045.86,2949.52 1133.23,2921.37 1197.07,2892.89 1240.37,2846.63 1349.13,2727.90 1385.82,2675.37</lane>
-         <lane id="-905002548_3" depart="0" vclasses="" maxspeed="13.89" length="449.07">1046.87,2952.66 1134.41,2924.46 1199.02,2895.63 1242.80,2848.87 1351.71,2729.97 1388.52,2677.26</lane>
+         <lane id="-905002548_0" depart="1" vclasses="" maxspeed="13.89" length="449.07">566.83,2943.24 653.86,2915.20 716.16,2887.40 758.53,2842.15 866.97,2723.76 903.41,2671.59</lane>
+         <lane id="-905002548_1" depart="0" vclasses="" maxspeed="13.89" length="449.07">567.84,2946.38 655.05,2918.28 718.12,2890.14 760.94,2844.40 869.55,2725.83 906.11,2673.48</lane>
+         <lane id="-905002548_2" depart="0" vclasses="" maxspeed="13.89" length="449.07">568.86,2949.52 656.23,2921.37 720.07,2892.89 763.38,2846.63 872.13,2727.90 908.82,2675.37</lane>
+         <lane id="-905002548_3" depart="0" vclasses="" maxspeed="13.89" length="449.07">569.87,2952.66 657.41,2924.46 722.02,2895.63 765.79,2848.88 874.71,2729.97 911.52,2677.26</lane>
       </lanes>
       <cedge id="905002551">-905002548_0</cedge>
       <cedge id="-905002550">-905002548_1 -905002548_0</cedge>
@@ -238,8 +251,8 @@
 
    <edge id="-905002550" from="1565" to="1564" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-905002550_0" depart="1" vclasses="" maxspeed="13.89" length="452.79">1403.45,2654.55 1437.28,2620.72 1525.04,2507.03 1544.06,2481.00 1626.73,2376.42 1665.38,2289.46</lane>
-         <lane id="-905002550_1" depart="0" vclasses="" maxspeed="13.89" length="452.79">1405.78,2656.89 1439.76,2622.91 1527.68,2509.01 1546.69,2483.00 1629.58,2378.14 1668.39,2290.80</lane>
+         <lane id="-905002550_0" depart="1" vclasses="" maxspeed="13.89" length="452.78">926.45,2654.55 960.28,2620.72 1048.04,2507.03 1067.06,2481.00 1149.73,2376.42 1188.38,2289.46</lane>
+         <lane id="-905002550_1" depart="0" vclasses="" maxspeed="13.89" length="452.78">928.78,2656.89 962.76,2622.91 1050.68,2509.00 1069.69,2483.00 1152.58,2378.14 1191.39,2290.80</lane>
       </lanes>
       <cedge id="-53091628">-905002550_0 -905002550_1</cedge>
       <cedge id="905002550">-905002550_1</cedge>
@@ -247,9 +260,9 @@
 
    <edge id="-905002551" from="100667891" to="1565" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-905002551_0" depart="1" vclasses="" maxspeed="13.89" length="265.51">1207.76,2467.04 1284.71,2540.05 1372.77,2624.10 1395.78,2647.11 1398.61,2652.77</lane>
-         <lane id="-905002551_1" depart="0" vclasses="" maxspeed="13.89" length="265.51">1205.49,2469.44 1282.41,2542.41 1370.46,2626.46 1393.07,2649.07 1395.66,2654.24</lane>
-         <lane id="-905002551_2" depart="0" vclasses="" maxspeed="13.89" length="265.51">1203.22,2471.83 1280.13,2544.79 1368.15,2628.82 1390.36,2651.02 1392.70,2655.72</lane>
+         <lane id="-905002551_0" depart="1" vclasses="" maxspeed="13.89" length="265.51">730.76,2467.04 807.69,2540.02 895.77,2624.10 918.78,2647.11 921.61,2652.77</lane>
+         <lane id="-905002551_1" depart="0" vclasses="" maxspeed="13.89" length="265.51">728.49,2469.44 805.40,2542.41 893.46,2626.46 916.07,2649.07 918.66,2654.24</lane>
+         <lane id="-905002551_2" depart="0" vclasses="" maxspeed="13.89" length="265.51">726.22,2471.83 803.14,2544.81 891.15,2628.82 913.36,2651.02 915.70,2655.72</lane>
       </lanes>
       <cedge id="-905002550">-905002551_1</cedge>
       <cedge id="53091655">-905002551_1</cedge>
@@ -259,7 +272,7 @@
 
    <edge id="-905002586" from="605000010" to="100668229" priority="-1" type="82" function="normal">
       <lanes>
-         <lane id="-905002586_0" depart="1" vclasses="" maxspeed="11.11" length="473.73">2881.60,725.81 3168.70,348.99</lane>
+         <lane id="-905002586_0" depart="1" vclasses="" maxspeed="11.11" length="473.73">2404.60,725.81 2691.70,348.99</lane>
       </lanes>
       <cedge id="59394061">-905002586_0</cedge>
       <cedge id="905002586">-905002586_0</cedge>
@@ -267,8 +280,8 @@
 
    <edge id="-905005134" from="100667991" to="1577" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-905005134_0" depart="1" vclasses="" maxspeed="13.89" length="92.37">549.94,3574.09 517.68,3631.56 494.32,3645.74</lane>
-         <lane id="-905005134_1" depart="0" vclasses="" maxspeed="13.89" length="92.37">547.07,3572.47 515.23,3629.19 492.61,3642.92</lane>
+         <lane id="-905005134_0" depart="1" vclasses="" maxspeed="13.89" length="92.37">72.94,3574.09 40.68,3631.56 17.32,3645.74</lane>
+         <lane id="-905005134_1" depart="0" vclasses="" maxspeed="13.89" length="92.37">70.07,3572.47 38.23,3629.19 15.61,3642.92</lane>
       </lanes>
       <cedge id="-905005137">-905005134_0 -905005134_1</cedge>
       <cedge id="905005134">-905005134_1</cedge>
@@ -276,16 +289,16 @@
 
    <edge id="-905005137" from="1577" to="1574" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-905005137_0" depart="1" vclasses="" maxspeed="13.89" length="518.31">493.81,3647.97 519.36,3687.63 562.65,3783.27 590.84,3878.92 601.95,3951.62 601.95,4020.32 585.91,4144.63</lane>
-         <lane id="-905005137_1" depart="0" vclasses="" maxspeed="13.89" length="518.31">491.03,3649.76 516.45,3689.21 559.55,3784.42 587.61,3879.64 598.65,3951.87 598.65,4020.11 582.64,4144.21</lane>
+         <lane id="-905005137_0" depart="1" vclasses="" maxspeed="13.89" length="518.31">16.81,3647.97 42.36,3687.63 85.65,3783.27 113.84,3878.92 124.95,3951.62 124.95,4020.32 108.91,4144.63</lane>
+         <lane id="-905005137_1" depart="0" vclasses="" maxspeed="13.89" length="518.31">14.03,3649.76 39.45,3689.21 82.55,3784.42 110.61,3879.64 121.65,3951.87 121.65,4020.11 105.64,4144.21</lane>
       </lanes>
       <cedge id="905005137">-905005137_1</cedge>
    </edge>
 
    <edge id="-905005456" from="100668444" to="814" priority="-1" type="84" function="normal">
       <lanes>
-         <lane id="-905005456_0" depart="1" vclasses="" maxspeed="16.67" length="754.94">2524.57,3567.21 2518.54,3555.15 2420.54,3343.14 2365.83,3233.73 2321.57,3180.62 2271.47,3143.28 2215.27,3117.65 2032.06,3064.34</lane>
-         <lane id="-905005456_1" depart="0" vclasses="" maxspeed="16.67" length="754.94">2527.52,3565.74 2521.51,3553.71 2423.51,3341.71 2368.61,3231.91 2323.86,3178.21 2273.16,3140.43 2216.42,3114.55 2032.98,3061.17</lane>
+         <lane id="-905005456_0" depart="1" vclasses="" maxspeed="16.67" length="754.94">2047.57,3567.21 2041.54,3555.15 1943.54,3343.15 1888.83,3233.73 1844.57,3180.62 1794.47,3143.28 1738.27,3117.65 1555.06,3064.34</lane>
+         <lane id="-905005456_1" depart="0" vclasses="" maxspeed="16.67" length="754.94">2050.52,3565.74 2044.51,3553.71 1946.51,3341.71 1891.61,3231.91 1846.86,3178.21 1796.16,3140.43 1739.42,3114.55 1555.98,3061.17</lane>
       </lanes>
       <cedge id="905005626">-905005456_0 -905005456_1</cedge>
       <cedge id="545285123">-905005456_1</cedge>
@@ -294,8 +307,8 @@
 
    <edge id="-905005617" from="605000010" to="1561" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-905005617_0" depart="1" vclasses="" maxspeed="13.89" length="423.47">2885.06,732.17 2630.98,1070.94</lane>
-         <lane id="-905005617_1" depart="0" vclasses="" maxspeed="13.89" length="423.47">2882.42,730.19 2628.33,1068.97</lane>
+         <lane id="-905005617_0" depart="1" vclasses="" maxspeed="13.89" length="423.47">2408.06,732.17 2153.98,1070.94</lane>
+         <lane id="-905005617_1" depart="0" vclasses="" maxspeed="13.89" length="423.47">2405.42,730.19 2151.33,1068.97</lane>
       </lanes>
       <cedge id="-905006042">-905005617_0 -905005617_1</cedge>
       <cedge id="905005617">-905005617_1</cedge>
@@ -303,8 +316,8 @@
 
    <edge id="-905005626" from="1672" to="814" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-905005626_0" depart="1" vclasses="" maxspeed="13.89" length="405.66">1654.52,2905.20 1708.66,2953.74 1766.62,2977.32 2025.65,3052.17</lane>
-         <lane id="-905005626_1" depart="0" vclasses="" maxspeed="13.89" length="405.66">1652.32,2907.66 1706.89,2956.58 1765.54,2980.44 2024.73,3055.34</lane>
+         <lane id="-905005626_0" depart="1" vclasses="" maxspeed="13.89" length="405.66">1177.52,2905.20 1231.66,2953.74 1289.62,2977.32 1548.65,3052.17</lane>
+         <lane id="-905005626_1" depart="0" vclasses="" maxspeed="13.89" length="405.66">1175.32,2907.66 1229.89,2956.58 1288.54,2980.44 1547.73,3055.34</lane>
       </lanes>
       <cedge id="545285123">-905005626_0</cedge>
       <cedge id="905005456">-905005626_0 -905005626_1</cedge>
@@ -313,8 +326,8 @@
 
    <edge id="-905006034" from="1572" to="1568" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-905006034_0" depart="1" vclasses="" maxspeed="13.89" length="358.50">803.76,3225.11 963.08,3021.98 987.51,2989.40 1036.67,2954.81</lane>
-         <lane id="-905006034_1" depart="0" vclasses="" maxspeed="13.89" length="358.50">806.36,3227.15 965.69,3023.99 989.84,2991.80 1038.57,2957.51</lane>
+         <lane id="-905006034_0" depart="1" vclasses="" maxspeed="13.89" length="358.50">326.76,3225.11 486.07,3021.99 510.51,2989.40 559.67,2954.81</lane>
+         <lane id="-905006034_1" depart="0" vclasses="" maxspeed="13.89" length="358.50">329.36,3227.15 488.69,3024.00 512.84,2991.80 561.57,2957.51</lane>
       </lanes>
       <cedge id="905001109">-905006034_0</cedge>
       <cedge id="-905002548">-905006034_0 -905006034_1</cedge>
@@ -323,8 +336,8 @@
 
    <edge id="-905006042" from="1561" to="1560" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="-905006042_0" depart="1" vclasses="" maxspeed="13.89" length="672.02">2630.96,1070.97 2230.96,1610.97</lane>
-         <lane id="-905006042_1" depart="0" vclasses="" maxspeed="13.89" length="672.02">2628.32,1068.99 2228.31,1609.01</lane>
+         <lane id="-905006042_0" depart="1" vclasses="" maxspeed="13.89" length="672.02">2153.96,1070.97 1753.96,1610.97</lane>
+         <lane id="-905006042_1" depart="0" vclasses="" maxspeed="13.89" length="672.02">2151.32,1068.99 1751.31,1609.01</lane>
       </lanes>
       <cedge id="53091615">-905006042_0 -905006042_1</cedge>
       <cedge id="905006042">-905006042_1</cedge>
@@ -332,15 +345,15 @@
 
    <edge id="-905006352" from="1672" to="261" priority="-1" type="0" function="normal">
       <lanes>
-         <lane id="-905006352_0" depart="1" vclasses="" maxspeed="3.06" length="97.04">1651.87,2898.38 1711.70,2821.98</lane>
+         <lane id="-905006352_0" depart="1" vclasses="" maxspeed="3.06" length="97.04">1174.87,2898.38 1234.70,2821.98</lane>
       </lanes>
       <cedge id="905006352">-905006352_0</cedge>
    </edge>
 
    <edge id="53091482" from="1567" to="100667830" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="53091482_0" depart="1" vclasses="" maxspeed="13.89" length="35.26">479.21,1823.57 510.75,1839.34</lane>
-         <lane id="53091482_1" depart="0" vclasses="" maxspeed="13.89" length="35.26">477.74,1826.52 509.28,1842.29</lane>
+         <lane id="53091482_0" depart="1" vclasses="" maxspeed="13.89" length="35.26">2.21,1823.57 33.75,1839.34</lane>
+         <lane id="53091482_1" depart="0" vclasses="" maxspeed="13.89" length="35.26">0.74,1826.52 32.28,1842.29</lane>
       </lanes>
       <cedge id="-905002541">53091482_0 53091482_1</cedge>
       <cedge id="-53091482">53091482_1</cedge>
@@ -348,8 +361,8 @@
 
    <edge id="53091559" from="1566" to="100667891" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="53091559_0" depart="1" vclasses="" maxspeed="13.89" length="355.62">948.45,2219.45 1203.37,2467.40</lane>
-         <lane id="53091559_1" depart="0" vclasses="" maxspeed="13.89" length="355.62">946.15,2221.82 1201.07,2469.77</lane>
+         <lane id="53091559_0" depart="1" vclasses="" maxspeed="13.89" length="355.62">471.45,2219.45 726.37,2467.40</lane>
+         <lane id="53091559_1" depart="0" vclasses="" maxspeed="13.89" length="355.62">469.15,2221.82 724.07,2469.77</lane>
       </lanes>
       <cedge id="-905002551">53091559_0 53091559_1</cedge>
       <cedge id="-53091559">53091559_1</cedge>
@@ -357,8 +370,8 @@
 
    <edge id="53091615" from="1560" to="1562" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="53091615_0" depart="1" vclasses="" maxspeed="13.89" length="165.12">2230.96,1610.97 2127.90,1740.05</lane>
-         <lane id="53091615_1" depart="0" vclasses="" maxspeed="13.89" length="165.12">2228.31,1609.01 2125.31,1738.01</lane>
+         <lane id="53091615_0" depart="1" vclasses="" maxspeed="13.89" length="165.12">1753.96,1610.97 1650.90,1740.05</lane>
+         <lane id="53091615_1" depart="0" vclasses="" maxspeed="13.89" length="165.12">1751.31,1609.01 1648.31,1738.01</lane>
       </lanes>
       <cedge id="545285124">53091615_0 53091615_1</cedge>
       <cedge id="-53091615">53091615_1</cedge>
@@ -366,8 +379,8 @@
 
    <edge id="53091628" from="1563" to="1564" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="53091628_0" depart="1" vclasses="" maxspeed="13.89" length="340.45">1910.28,2041.75 1679.35,2291.92</lane>
-         <lane id="53091628_1" depart="0" vclasses="" maxspeed="13.89" length="340.45">1907.85,2039.51 1676.93,2289.68</lane>
+         <lane id="53091628_0" depart="1" vclasses="" maxspeed="13.89" length="340.46">1433.28,2041.75 1202.35,2291.92</lane>
+         <lane id="53091628_1" depart="0" vclasses="" maxspeed="13.89" length="340.46">1430.85,2039.51 1199.93,2289.68</lane>
       </lanes>
       <cedge id="905002550">53091628_0 53091628_1</cedge>
       <cedge id="-53091628">53091628_1</cedge>
@@ -375,8 +388,8 @@
 
    <edge id="53091655" from="1565" to="1672" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="53091655_0" depart="1" vclasses="" maxspeed="13.89" length="328.98">1408.77,2672.34 1647.50,2898.70</lane>
-         <lane id="53091655_1" depart="0" vclasses="" maxspeed="13.89" length="328.98">1406.50,2674.73 1645.23,2901.10</lane>
+         <lane id="53091655_0" depart="1" vclasses="" maxspeed="13.89" length="328.98">931.77,2672.34 1170.50,2898.70</lane>
+         <lane id="53091655_1" depart="0" vclasses="" maxspeed="13.89" length="328.98">929.50,2674.73 1168.23,2901.10</lane>
       </lanes>
       <cedge id="-905006352">53091655_0</cedge>
       <cedge id="-905005626">53091655_0 53091655_1</cedge>
@@ -385,7 +398,7 @@
 
    <edge id="545279717" from="100674627" to="100674949" priority="-1" type="85" function="normal">
       <lanes>
-         <lane id="545279717_0" depart="1" vclasses="" maxspeed="19.44" length="157.64">3417.48,48.41 3446.43,33.44 3509.81,19.35 3569.93,18.38</lane>
+         <lane id="545279717_0" depart="1" vclasses="" maxspeed="19.44" length="157.64">2940.48,48.41 2969.43,33.44 3032.81,19.35 3092.93,18.38</lane>
       </lanes>
       <cedge id="-83535603">545279717_0</cedge>
       <cedge id="-545279717">545279717_0</cedge>
@@ -393,15 +406,15 @@
 
    <edge id="545285123" from="814" to="1671" priority="-1" type="84" function="normal">
       <lanes>
-         <lane id="545285123_0" depart="1" vclasses="" maxspeed="16.67" length="455.18">2029.97,3049.52 2038.59,3030.10 2090.84,2970.82 2142.89,2925.78 2230.90,2840.77 2254.33,2821.42 2386.81,2806.36</lane>
+         <lane id="545285123_0" depart="1" vclasses="" maxspeed="16.67" length="455.18">1552.97,3049.52 1561.59,3030.10 1613.84,2970.83 1665.89,2925.78 1753.90,2840.77 1777.33,2821.42 1909.81,2806.36</lane>
       </lanes>
       <cedge id="-545285123">545285123_0</cedge>
    </edge>
 
    <edge id="545285124" from="1562" to="1563" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="545285124_0" depart="1" vclasses="" maxspeed="13.89" length="370.55">2127.87,1740.09 2014.02,1884.90 1911.42,2040.28</lane>
-         <lane id="545285124_1" depart="0" vclasses="" maxspeed="13.89" length="370.55">2125.29,1738.03 2011.34,1882.97 1908.67,2038.47</lane>
+         <lane id="545285124_0" depart="1" vclasses="" maxspeed="13.89" length="370.55">1650.87,1740.09 1537.02,1884.90 1434.42,2040.28</lane>
+         <lane id="545285124_1" depart="0" vclasses="" maxspeed="13.89" length="370.55">1648.29,1738.03 1534.34,1882.96 1431.67,2038.47</lane>
       </lanes>
       <cedge id="53091628">545285124_0 545285124_1</cedge>
       <cedge id="-545285124">545285124_1</cedge>
@@ -409,7 +422,7 @@
 
    <edge id="59394061" from="100668229" to="100674626" priority="-1" type="82" function="normal">
       <lanes>
-         <lane id="59394061_0" depart="1" vclasses="" maxspeed="11.11" length="345.21">3168.70,348.98 3380.43,76.33</lane>
+         <lane id="59394061_0" depart="1" vclasses="" maxspeed="11.11" length="345.21">2691.70,348.98 2903.43,76.33</lane>
       </lanes>
       <cedge id="59394070">59394061_0</cedge>
       <cedge id="-59394061">59394061_0</cedge>
@@ -417,7 +430,7 @@
 
    <edge id="59394070" from="100674626" to="100674627" priority="-1" type="85" function="normal">
       <lanes>
-         <lane id="59394070_0" depart="1" vclasses="" maxspeed="19.44" length="44.29">3381.36,75.42 3416.79,48.84</lane>
+         <lane id="59394070_0" depart="1" vclasses="" maxspeed="19.44" length="44.29">2904.36,75.42 2939.79,48.84</lane>
       </lanes>
       <cedge id="545279717">59394070_0</cedge>
       <cedge id="-59394070">59394070_0</cedge>
@@ -425,7 +438,7 @@
 
    <edge id="83535600" from="1678" to="100674947" priority="-1" type="85" function="normal">
       <lanes>
-         <lane id="83535600_0" depart="1" vclasses="" maxspeed="19.44" length="165.93">3762.97,3.65 3661.17,1.65 3598.70,16.07</lane>
+         <lane id="83535600_0" depart="1" vclasses="" maxspeed="19.44" length="165.93">3285.97,3.65 3184.17,1.65 3121.70,16.07</lane>
       </lanes>
       <cedge id="83535603">83535600_0</cedge>
       <cedge id="-83535600">83535600_0</cedge>
@@ -433,7 +446,7 @@
 
    <edge id="83535603" from="100674947" to="100674949" priority="-1" type="86" function="normal">
       <lanes>
-         <lane id="83535603_0" depart="1" vclasses="" maxspeed="22.22" length="40.61">3597.46,17.51 3596.52,29.81 3573.93,27.55 3571.44,22.57</lane>
+         <lane id="83535603_0" depart="1" vclasses="" maxspeed="22.22" length="40.61">3120.46,17.51 3119.52,29.81 3096.93,27.55 3094.44,22.57</lane>
       </lanes>
       <cedge id="-545279717">83535603_0</cedge>
       <cedge id="-83535603">83535603_0</cedge>
@@ -441,8 +454,8 @@
 
    <edge id="905001099" from="1572" to="100667991" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="905001099_0" depart="1" vclasses="" maxspeed="13.89" length="435.88">811.30,3231.67 777.32,3326.61 550.16,3573.79</lane>
-         <lane id="905001099_1" depart="0" vclasses="" maxspeed="13.89" length="435.88">808.20,3230.56 774.44,3324.87 547.73,3571.56</lane>
+         <lane id="905001099_0" depart="1" vclasses="" maxspeed="13.89" length="435.88">334.30,3231.67 300.32,3326.61 73.16,3573.79</lane>
+         <lane id="905001099_1" depart="0" vclasses="" maxspeed="13.89" length="435.88">331.20,3230.56 297.44,3324.87 70.73,3571.56</lane>
       </lanes>
       <cedge id="-905005134">905001099_0 905001099_1</cedge>
       <cedge id="-905001099">905001099_1</cedge>
@@ -450,15 +463,15 @@
 
    <edge id="905001109" from="1568" to="1571" priority="-1" type="81" function="normal">
       <lanes>
-         <lane id="905001109_0" depart="1" vclasses="" maxspeed="8.33" length="321.98">1032.30,2946.74 955.97,2884.29 887.00,2831.31 778.01,2749.32</lane>
+         <lane id="905001109_0" depart="1" vclasses="" maxspeed="8.33" length="321.99">555.30,2946.74 478.98,2884.29 410.00,2831.31 301.01,2749.32</lane>
       </lanes>
       <cedge id="-905001109">905001109_0</cedge>
    </edge>
 
    <edge id="905002541" from="1566" to="100667830" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="905002541_0" depart="1" vclasses="" maxspeed="13.89" length="578.42">941.53,2226.53 831.51,2118.51 701.78,1988.78 571.13,1894.03 541.15,1873.04 506.54,1848.33</lane>
-         <lane id="905002541_1" depart="0" vclasses="" maxspeed="13.89" length="578.42">943.84,2224.17 833.84,2116.18 703.93,1986.26 573.04,1891.34 543.04,1870.34 508.46,1845.64</lane>
+         <lane id="905002541_0" depart="1" vclasses="" maxspeed="13.89" length="578.42">464.53,2226.53 354.51,2118.51 224.78,1988.78 94.13,1894.03 64.14,1873.04 29.54,1848.33</lane>
+         <lane id="905002541_1" depart="0" vclasses="" maxspeed="13.89" length="578.42">466.84,2224.17 356.84,2116.18 226.93,1986.26 96.04,1891.34 66.04,1870.34 31.46,1845.64</lane>
       </lanes>
       <cedge id="-53091482">905002541_0 905002541_1</cedge>
       <cedge id="-905002541">905002541_1</cedge>
@@ -466,8 +479,8 @@
 
    <edge id="905002548" from="1565" to="1568" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="905002548_0" depart="1" vclasses="" maxspeed="13.89" length="455.56">1393.93,2681.04 1356.87,2734.10 1247.63,2853.37 1202.93,2901.11 1136.77,2930.63 1048.89,2958.95</lane>
-         <lane id="905002548_1" depart="0" vclasses="" maxspeed="13.89" length="455.56">1391.23,2679.15 1354.29,2732.03 1245.20,2851.13 1200.98,2898.37 1135.59,2927.54 1047.88,2955.81</lane>
+         <lane id="905002548_0" depart="1" vclasses="" maxspeed="13.89" length="455.56">916.93,2681.04 879.87,2734.10 770.64,2853.35 725.93,2901.11 659.77,2930.63 571.89,2958.95</lane>
+         <lane id="905002548_1" depart="0" vclasses="" maxspeed="13.89" length="455.56">914.23,2679.15 877.29,2732.03 768.22,2851.12 723.98,2898.37 658.59,2927.54 570.88,2955.81</lane>
       </lanes>
       <cedge id="905006034">905002548_0 905002548_1</cedge>
       <cedge id="905001109">905002548_1</cedge>
@@ -476,9 +489,9 @@
 
    <edge id="905002550" from="1564" to="1565" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="905002550_0" depart="1" vclasses="" maxspeed="13.89" length="455.83">1677.44,2294.82 1638.12,2383.30 1554.57,2488.99 1535.60,2514.95 1447.21,2629.46 1412.78,2663.89</lane>
-         <lane id="905002550_1" depart="0" vclasses="" maxspeed="13.89" length="455.83">1674.42,2293.48 1635.27,2381.58 1551.94,2486.99 1532.96,2512.97 1444.72,2627.28 1410.45,2661.55</lane>
-         <lane id="905002550_2" depart="0" vclasses="" maxspeed="13.89" length="455.83">1671.41,2292.14 1632.42,2379.86 1549.31,2485.00 1530.32,2510.99 1442.24,2625.09 1408.11,2659.22</lane>
+         <lane id="905002550_0" depart="1" vclasses="" maxspeed="13.89" length="455.83">1200.44,2294.82 1161.12,2383.30 1077.57,2488.99 1058.60,2514.95 970.21,2629.46 935.78,2663.89</lane>
+         <lane id="905002550_1" depart="0" vclasses="" maxspeed="13.89" length="455.83">1197.42,2293.48 1158.27,2381.58 1074.94,2486.99 1055.96,2512.97 967.72,2627.28 933.45,2661.55</lane>
+         <lane id="905002550_2" depart="0" vclasses="" maxspeed="13.89" length="455.83">1194.41,2292.14 1155.42,2379.86 1072.31,2485.00 1053.32,2510.99 965.24,2625.09 931.11,2659.22</lane>
       </lanes>
       <cedge id="53091655">905002550_0</cedge>
       <cedge id="905002548">905002550_0 905002550_1</cedge>
@@ -488,8 +501,8 @@
 
    <edge id="905002551" from="1565" to="100667891" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="905002551_0" depart="1" vclasses="" maxspeed="13.89" length="262.61">1386.80,2658.67 1384.93,2654.93 1363.54,2633.54 1275.58,2549.58 1198.68,2476.62</lane>
-         <lane id="905002551_1" depart="0" vclasses="" maxspeed="13.89" length="262.61">1389.75,2657.19 1387.64,2652.98 1365.85,2631.18 1277.84,2547.18 1200.95,2474.23</lane>
+         <lane id="905002551_0" depart="1" vclasses="" maxspeed="13.89" length="262.61">909.80,2658.67 907.93,2654.93 886.54,2633.54 798.58,2549.57 721.68,2476.62</lane>
+         <lane id="905002551_1" depart="0" vclasses="" maxspeed="13.89" length="262.61">912.75,2657.19 910.64,2652.98 888.85,2631.18 800.86,2547.19 723.95,2474.23</lane>
       </lanes>
       <cedge id="-53091559">905002551_0 905002551_1</cedge>
       <cedge id="-905002551">905002551_1</cedge>
@@ -497,7 +510,7 @@
 
    <edge id="905002586" from="100668229" to="605000010" priority="-1" type="82" function="normal">
       <lanes>
-         <lane id="905002586_0" depart="1" vclasses="" maxspeed="11.11" length="473.70">3171.30,351.01 2884.22,727.81</lane>
+         <lane id="905002586_0" depart="1" vclasses="" maxspeed="11.11" length="473.70">2694.30,351.01 2407.22,727.81</lane>
       </lanes>
       <cedge id="-905005617">905002586_0</cedge>
       <cedge id="-905002586">905002586_0</cedge>
@@ -505,8 +518,8 @@
 
    <edge id="905005134" from="1577" to="100667991" priority="-1" type="0" function="normal">
       <lanes>
-         <lane id="905005134_0" depart="1" vclasses="" maxspeed="3.06" length="88.90">489.18,3637.28 510.32,3624.44 541.31,3569.24</lane>
-         <lane id="905005134_1" depart="0" vclasses="" maxspeed="3.06" length="88.90">490.89,3640.10 512.77,3626.81 544.19,3570.86</lane>
+         <lane id="905005134_0" depart="1" vclasses="" maxspeed="3.06" length="88.90">12.18,3637.28 33.32,3624.44 64.31,3569.24</lane>
+         <lane id="905005134_1" depart="0" vclasses="" maxspeed="3.06" length="88.90">13.89,3640.10 35.77,3626.81 67.19,3570.86</lane>
       </lanes>
       <cedge id="-905001099">905005134_0 905005134_1</cedge>
       <cedge id="-905005134">905005134_1</cedge>
@@ -514,8 +527,8 @@
 
    <edge id="905005137" from="1574" to="1577" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="905005137_0" depart="1" vclasses="" maxspeed="13.89" length="513.67">576.09,4143.37 592.05,4019.68 592.05,3952.38 581.16,3881.08 553.35,3786.73 510.64,3692.37 485.48,3653.34</lane>
-         <lane id="905005137_1" depart="0" vclasses="" maxspeed="13.89" length="513.67">579.36,4143.79 595.35,4019.89 595.35,3952.13 584.39,3880.36 556.45,3785.58 513.55,3690.79 488.26,3651.55</lane>
+         <lane id="905005137_0" depart="1" vclasses="" maxspeed="13.89" length="513.67">99.09,4143.37 115.05,4019.68 115.05,3952.38 104.16,3881.08 76.35,3786.73 33.64,3692.37 8.48,3653.34</lane>
+         <lane id="905005137_1" depart="0" vclasses="" maxspeed="13.89" length="513.67">102.36,4143.79 118.35,4019.89 118.35,3952.13 107.39,3880.36 79.45,3785.58 36.55,3690.79 11.26,3651.55</lane>
       </lanes>
       <cedge id="905005134">905005137_0 905005137_1</cedge>
       <cedge id="-905005137">905005137_1</cedge>
@@ -523,16 +536,16 @@
 
    <edge id="905005456" from="814" to="100668444" priority="-1" type="84" function="normal">
       <lanes>
-         <lane id="905005456_0" depart="1" vclasses="" maxspeed="16.67" length="760.40">2034.83,3054.83 2218.73,3108.35 2276.53,3134.72 2328.43,3173.38 2374.17,3228.27 2429.46,3338.85 2527.46,3550.85 2533.43,3562.79</lane>
-         <lane id="905005456_1" depart="0" vclasses="" maxspeed="16.67" length="760.40">2033.91,3058.00 2217.58,3111.45 2274.84,3137.57 2326.14,3175.79 2371.39,3230.09 2426.49,3340.29 2524.49,3552.29 2530.48,3564.26</lane>
+         <lane id="905005456_0" depart="1" vclasses="" maxspeed="16.67" length="760.40">1557.83,3054.83 1741.73,3108.35 1799.53,3134.71 1851.43,3173.38 1897.17,3228.27 1952.46,3338.86 2050.46,3550.85 2056.43,3562.79</lane>
+         <lane id="905005456_1" depart="0" vclasses="" maxspeed="16.67" length="760.40">1556.91,3058.00 1740.58,3111.45 1797.84,3137.57 1849.14,3175.79 1894.39,3230.09 1949.49,3340.28 2047.49,3552.28 2053.48,3564.26</lane>
       </lanes>
       <cedge id="-905005456">905005456_1</cedge>
    </edge>
 
    <edge id="905005617" from="1561" to="605000010" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="905005617_0" depart="1" vclasses="" maxspeed="13.89" length="423.49">2623.04,1065.03 2877.14,726.23</lane>
-         <lane id="905005617_1" depart="0" vclasses="" maxspeed="13.89" length="423.49">2625.69,1067.00 2879.78,728.21</lane>
+         <lane id="905005617_0" depart="1" vclasses="" maxspeed="13.89" length="423.49">2146.04,1065.03 2400.14,726.23</lane>
+         <lane id="905005617_1" depart="0" vclasses="" maxspeed="13.89" length="423.49">2148.69,1067.00 2402.78,728.21</lane>
       </lanes>
       <cedge id="-905002586">905005617_0</cedge>
       <cedge id="-905005617">905005617_1</cedge>
@@ -540,8 +553,8 @@
 
    <edge id="905005626" from="814" to="1672" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="905005626_0" depart="1" vclasses="" maxspeed="13.89" length="408.65">2022.90,3061.68 1763.38,2986.68 1703.34,2962.26 1647.91,2912.57</lane>
-         <lane id="905005626_1" depart="0" vclasses="" maxspeed="13.89" length="408.65">2023.82,3058.51 1764.46,2983.56 1705.11,2959.42 1650.12,2910.11</lane>
+         <lane id="905005626_0" depart="1" vclasses="" maxspeed="13.89" length="408.65">1545.90,3061.68 1286.37,2986.68 1226.34,2962.26 1170.91,2912.57</lane>
+         <lane id="905005626_1" depart="0" vclasses="" maxspeed="13.89" length="408.65">1546.82,3058.51 1287.46,2983.56 1228.11,2959.42 1173.12,2910.11</lane>
       </lanes>
       <cedge id="-53091655">905005626_0 905005626_1</cedge>
       <cedge id="-905006352">905005626_1</cedge>
@@ -550,8 +563,8 @@
 
    <edge id="905006034" from="1568" to="1572" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="905006034_0" depart="1" vclasses="" maxspeed="13.89" length="356.56">1042.37,2962.90 994.49,2996.60 970.93,3028.01 811.55,3231.22</lane>
-         <lane id="905006034_1" depart="0" vclasses="" maxspeed="13.89" length="356.56">1040.47,2960.21 992.16,2994.20 968.31,3026.00 808.95,3229.18</lane>
+         <lane id="905006034_0" depart="1" vclasses="" maxspeed="13.89" length="356.56">565.37,2962.90 517.49,2996.60 493.92,3028.02 334.55,3231.22</lane>
+         <lane id="905006034_1" depart="0" vclasses="" maxspeed="13.89" length="356.56">563.47,2960.21 515.16,2994.20 491.31,3026.01 331.95,3229.18</lane>
       </lanes>
       <cedge id="905001099">905006034_0 905006034_1</cedge>
       <cedge id="-905006034">905006034_1</cedge>
@@ -559,8 +572,8 @@
 
    <edge id="905006042" from="1560" to="1561" priority="-1" type="83" function="normal">
       <lanes>
-         <lane id="905006042_0" depart="1" vclasses="" maxspeed="13.89" length="671.88">2223.15,1604.88 2623.04,1065.03</lane>
-         <lane id="905006042_1" depart="0" vclasses="" maxspeed="13.89" length="671.88">2225.73,1606.94 2625.68,1067.01</lane>
+         <lane id="905006042_0" depart="1" vclasses="" maxspeed="13.89" length="671.88">1746.15,1604.88 2146.04,1065.03</lane>
+         <lane id="905006042_1" depart="0" vclasses="" maxspeed="13.89" length="671.88">1748.73,1606.94 2148.68,1067.01</lane>
       </lanes>
       <cedge id="905005617">905006042_0 905006042_1</cedge>
       <cedge id="-905006042">905006042_1</cedge>
@@ -568,7 +581,7 @@
 
    <edge id="905006352" from="261" to="1672" priority="-1" type="0" function="normal">
       <lanes>
-         <lane id="905006352_0" depart="1" vclasses="" maxspeed="3.06" length="97.04">1714.30,2824.02 1654.47,2900.41</lane>
+         <lane id="905006352_0" depart="1" vclasses="" maxspeed="3.06" length="97.04">1237.30,2824.02 1177.47,2900.41</lane>
       </lanes>
       <cedge id="-905005626">905006352_0</cedge>
       <cedge id="-53091655">905006352_0</cedge>
@@ -981,144 +994,144 @@
    </tl-logic>
 
 
-   <junction id="100667830" type="priority" x="509.00" y="1844.00">
+   <junction id="100667830" type="priority" x="32.00" y="1844.00">
       <inclanes>905002541_0 905002541_1 53091482_0 53091482_1</inclanes>
-      <shape>505.61,1849.63 513.22,1838.97 511.47,1837.91 505.61,1849.63</shape>
+      <shape>28.61,1849.63 36.23,1838.97 34.47,1837.91 28.61,1849.63</shape>
    </junction>
 
-   <junction id="100667891" type="priority" x="1201.00" y="2472.00">
+   <junction id="100667891" type="priority" x="724.00" y="2472.00">
       <inclanes>905002551_0 905002551_1 53091559_0 53091559_1</inclanes>
-      <shape>1197.58,2477.78 1208.86,2465.88 1204.49,2466.25 1195.35,2475.65</shape>
+      <shape>720.58,2477.78 731.86,2465.88 727.49,2466.25 718.35,2475.65</shape>
    </junction>
 
-   <junction id="100667991" type="priority" x="546.00" y="3571.00">
+   <junction id="100667991" type="priority" x="69.00" y="3571.00">
       <inclanes>905001099_0 905001099_1 905005134_0 905005134_1</inclanes>
-      <shape>551.34,3574.87 541.69,3566.01 539.92,3568.46 551.34,3574.87</shape>
+      <shape>74.34,3574.87 64.69,3566.01 62.91,3568.46 74.34,3574.87</shape>
    </junction>
 
-   <junction id="100668229" type="priority" x="3170.00" y="350.00">
+   <junction id="100668229" type="priority" x="2693.00" y="350.00">
       <inclanes>-59394061_0 -905002586_0</inclanes>
-      <shape>3172.57,351.99 3167.43,348.01 3172.59,351.97</shape>
+      <shape>2695.57,351.99 2690.43,348.01 2695.59,351.97</shape>
    </junction>
 
-   <junction id="100668444" type="priority" x="2529.00" y="3565.00">
+   <junction id="100668444" type="priority" x="2052.00" y="3565.00">
       <inclanes>905005456_0 905005456_1</inclanes>
-      <shape>2528.96,3565.02 2523.14,3567.93 2534.86,3562.07 2529.04,3564.98</shape>
+      <shape>2051.96,3565.02 2046.14,3567.93 2057.86,3562.07 2052.04,3564.98</shape>
    </junction>
 
-   <junction id="100674626" type="priority" x="3382.00" y="77.00">
+   <junction id="100674626" type="priority" x="2905.00" y="77.00">
       <inclanes>-59394070_0 59394061_0</inclanes>
-      <shape>3384.30,79.34 3380.40,74.14 3379.17,75.35 3384.30,79.34</shape>
+      <shape>2907.30,79.34 2903.40,74.14 2902.17,75.35 2907.30,79.34</shape>
    </junction>
 
-   <junction id="100674627" type="priority" x="3418.00" y="50.00">
+   <junction id="100674627" type="priority" x="2941.00" y="50.00">
       <inclanes>-545279717_0 59394070_0</inclanes>
-      <shape>3419.73,52.76 3416.75,46.99 3415.83,47.56 3419.73,52.76</shape>
+      <shape>2942.73,52.76 2939.75,46.99 2938.83,47.56 2942.73,52.76</shape>
    </junction>
 
-   <junction id="100674947" type="priority" x="3596.00" y="15.00">
+   <junction id="100674947" type="priority" x="3119.00" y="15.00">
       <inclanes>83535600_0 -83535603_0</inclanes>
-      <shape>3599.06,17.63 3597.60,11.30 3592.58,17.13 3599.06,17.63</shape>
+      <shape>3122.06,17.63 3120.60,11.30 3115.58,17.13 3122.06,17.63</shape>
    </junction>
 
-   <junction id="100674949" type="priority" x="3572.00" y="20.00">
+   <junction id="100674949" type="priority" x="3095.00" y="20.00">
       <inclanes>83535603_0 545279717_0</inclanes>
-      <shape>3570.01,23.28 3575.82,20.38 3569.90,16.78 3570.01,23.28</shape>
+      <shape>3093.01,23.28 3098.82,20.38 3092.90,16.78 3093.01,23.28</shape>
    </junction>
 
-   <junction id="1560" type="priority" x="2227.00" y="1608.00">
+   <junction id="1560" type="priority" x="1750.00" y="1608.00">
       <inclanes>-905006042_0 -905006042_1 -53091615_0 -53091615_1</inclanes>
-      <shape>2232.24,1611.93 2221.72,1604.13 2221.90,1603.89 2232.14,1612.06</shape>
+      <shape>1755.24,1611.93 1744.72,1604.13 1744.90,1603.89 1755.14,1612.06</shape>
    </junction>
 
-   <junction id="1561" type="priority" x="2627.00" y="1068.00">
+   <junction id="1561" type="priority" x="2150.00" y="1068.00">
       <inclanes>-905005617_0 -905005617_1 905006042_0 905006042_1</inclanes>
-      <shape>2632.24,1071.93 2621.76,1064.07 2632.26,1071.90</shape>
+      <shape>2155.24,1071.93 2144.76,1064.07 2155.26,1071.90</shape>
    </junction>
 
-   <junction id="1562" type="priority" x="2124.00" y="1737.00">
+   <junction id="1562" type="priority" x="1647.00" y="1737.00">
       <inclanes>53091615_0 53091615_1 -545285124_0 -545285124_1</inclanes>
-      <shape>2129.12,1741.09 2118.88,1732.91 2129.15,1741.05</shape>
+      <shape>1652.12,1741.09 1641.88,1732.91 1652.15,1741.05</shape>
    </junction>
 
-   <junction id="1563" type="priority" x="1907.00" y="2038.00">
+   <junction id="1563" type="priority" x="1430.00" y="2038.00">
       <inclanes>545285124_0 545285124_1 -53091628_0 -53091628_1</inclanes>
-      <shape>1912.76,2041.17 1901.83,2033.95 1911.45,2042.83</shape>
+      <shape>1435.76,2041.17 1424.83,2033.95 1434.45,2042.83</shape>
    </junction>
 
-   <junction id="1564" type="priority" x="1667.00" y="2298.00">
+   <junction id="1564" type="priority" x="1190.00" y="2298.00">
       <inclanes>53091628_0 53091628_1 -905002550_0 -905002550_1</inclanes>
-      <shape>1680.53,2293.00 1670.90,2284.11 1663.92,2288.81 1678.90,2295.47</shape>
+      <shape>1203.53,2293.00 1193.90,2284.12 1186.92,2288.81 1201.90,2295.47</shape>
    </junction>
 
-   <junction id="1565" type="priority" x="1397.00" y="2668.00">
+   <junction id="1565" type="priority" x="920.00" y="2668.00">
       <inclanes>-53091655_0 -53091655_1 -53091655_2 905002550_0 905002550_1 905002550_2 -905002551_0 -905002551_1 -905002551_2 -905002548_0 -905002548_1 -905002548_2 -905002548_3</inclanes>
-      <shape>1398.59,2683.08 1409.87,2671.18 1413.91,2665.02 1402.31,2653.42 1400.04,2652.05 1385.37,2659.38 1379.09,2670.67 1395.24,2681.95</shape>
+      <shape>921.59,2683.08 932.87,2671.18 936.91,2665.02 925.31,2653.42 923.04,2652.05 908.37,2659.39 902.09,2670.67 918.24,2681.95</shape>
    </junction>
 
-   <junction id="1566" type="priority" x="945.00" y="2223.00">
+   <junction id="1566" type="priority" x="468.00" y="2223.00">
       <inclanes>-53091559_0 -53091559_1 -905002541_0 -905002541_1</inclanes>
-      <shape>940.43,2227.70 949.57,2218.30 940.41,2227.67</shape>
+      <shape>463.43,2227.69 472.57,2218.30 463.41,2227.67</shape>
    </junction>
 
-   <junction id="1567" type="priority" x="477.00" y="1828.00">
+   <junction id="1567" type="priority" x="0.00" y="1828.00">
       <inclanes>-53091482_0 -53091482_1</inclanes>
-      <shape>477.02,1827.96 479.93,1822.14 474.07,1833.86 476.98,1828.04</shape>
+      <shape>0.02,1827.96 2.93,1822.14 -2.93,1833.86 -0.02,1828.04</shape>
    </junction>
 
-   <junction id="1568" type="priority" x="1045.00" y="2955.00">
+   <junction id="1568" type="priority" x="568.00" y="2955.00">
       <inclanes>905002548_0 905002548_1 -905001109_0 -905006034_0 -905006034_1</inclanes>
-      <shape>1049.38,2960.47 1043.34,2941.72 1035.41,2942.95 1031.29,2947.98 1035.75,2953.50 1043.29,2964.21</shape>
+      <shape>572.38,2960.47 566.34,2941.72 558.41,2942.95 554.29,2947.98 558.75,2953.50 566.29,2964.21</shape>
    </junction>
 
-   <junction id="1571" type="priority" x="779.00" y="2748.00">
+   <junction id="1571" type="priority" x="302.00" y="2748.00">
       <inclanes>905001109_0</inclanes>
-      <shape>779.03,2747.96 780.95,2745.40 777.05,2750.60 778.97,2748.04</shape>
+      <shape>302.03,2747.96 303.95,2745.40 300.05,2750.60 301.97,2748.04</shape>
    </junction>
 
-   <junction id="1572" type="priority" x="807.00" y="3229.00">
+   <junction id="1572" type="priority" x="330.00" y="3229.00">
       <inclanes>905006034_0 905006034_1 -905001099_0 -905001099_1</inclanes>
-      <shape>812.81,3232.21 802.50,3224.12 800.48,3227.79 812.81,3232.21</shape>
+      <shape>335.81,3232.21 325.50,3224.12 323.48,3227.79 335.81,3232.21</shape>
    </junction>
 
-   <junction id="1574" type="priority" x="581.00" y="4144.00">
+   <junction id="1574" type="priority" x="104.00" y="4144.00">
       <inclanes>-905005137_0 -905005137_1</inclanes>
-      <shape>580.95,4143.99 574.50,4143.16 587.50,4144.84 581.05,4144.01</shape>
+      <shape>103.95,4143.99 97.50,4143.16 110.50,4144.84 104.05,4144.01</shape>
    </junction>
 
-   <junction id="1577" type="priority" x="486.00" y="3645.00">
+   <junction id="1577" type="priority" x="9.00" y="3645.00">
       <inclanes>905005137_0 905005137_1 -905005134_0 -905005134_1</inclanes>
-      <shape>484.14,3654.20 495.15,3647.11 488.35,3635.91</shape>
+      <shape>7.14,3654.20 18.15,3647.11 11.35,3635.91</shape>
    </junction>
 
-   <junction id="1671" type="priority" x="2387.00" y="2808.00">
+   <junction id="1671" type="priority" x="1910.00" y="2808.00">
       <inclanes>545285123_0</inclanes>
-      <shape>2387.01,2808.05 2387.37,2811.23 2386.63,2804.77 2386.99,2807.95</shape>
+      <shape>1910.01,2808.05 1910.37,2811.23 1909.63,2804.77 1909.99,2807.95</shape>
    </junction>
 
-   <junction id="1672" type="priority" x="1648.00" y="2906.00">
+   <junction id="1672" type="priority" x="1171.00" y="2906.00">
       <inclanes>905005626_0 905005626_1 905006352_0 53091655_0 53091655_1</inclanes>
-      <shape>1646.84,2913.76 1655.59,2904.01 1655.73,2901.40 1650.61,2897.39 1648.60,2897.54 1637.31,2909.44</shape>
+      <shape>1169.84,2913.76 1178.59,2904.01 1178.73,2901.40 1173.61,2897.39 1171.60,2897.54 1160.31,2909.44</shape>
    </junction>
 
-   <junction id="1678" type="priority" x="3763.00" y="2.00">
+   <junction id="1678" type="priority" x="3286.00" y="2.00">
       <inclanes>-83535600_0</inclanes>
-      <shape>3763.00,2.05 3762.94,5.25 3763.06,-1.25 3763.00,1.95</shape>
+      <shape>3286.00,2.05 3285.94,5.25 3286.06,-1.25 3286.00,1.95</shape>
    </junction>
 
-   <junction id="261" type="priority" x="1713.00" y="2823.00">
+   <junction id="261" type="priority" x="1236.00" y="2823.00">
       <inclanes>-905006352_0</inclanes>
-      <shape>1713.04,2823.03 1715.56,2825.00 1710.44,2821.00 1712.96,2822.97</shape>
+      <shape>1236.04,2823.03 1238.56,2825.00 1233.44,2821.00 1235.96,2822.97</shape>
    </junction>
 
-   <junction id="605000010" type="priority" x="2882.00" y="728.00">
+   <junction id="605000010" type="priority" x="2405.00" y="728.00">
       <inclanes>905002586_0 905005617_0 905005617_1</inclanes>
-      <shape>2885.49,728.78 2880.32,724.84 2875.86,725.27 2886.34,733.13</shape>
+      <shape>2408.49,728.78 2403.32,724.84 2398.86,725.27 2409.34,733.13</shape>
    </junction>
 
-   <junction id="814" type="priority" x="2028.00" y="3058.00">
+   <junction id="814" type="priority" x="1551.00" y="3058.00">
       <inclanes>-905005456_0 -905005456_1 -545285123_0 -905005626_0 -905005626_1</inclanes>
-      <shape>2031.61,3065.87 2035.27,3053.29 2034.44,3051.51 2028.50,3048.87 2026.09,3050.63 2022.46,3063.22</shape>
+      <shape>1554.61,3065.87 1558.27,3053.29 1557.44,3051.51 1551.50,3048.87 1549.09,3050.63 1545.46,3063.22</shape>
    </junction>
 
 

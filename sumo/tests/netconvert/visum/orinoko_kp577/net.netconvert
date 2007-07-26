@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/16/07 10:21:11 by SUMO netconvert Version 0.9.6
+<!-- generated on 07/26/07 09:51:31 by SUMO netconvert Version 0.9.6
 <configuration>
 
    <input>
@@ -21,7 +21,7 @@
 <net>
 
    <net-offset>-4436760.000000,-5472772.000000</net-offset>
-   <conv-boundary>0.000000,0.000000,4957.000000,3224.000000</conv-boundary>
+   <conv-boundary>0.000000,0.000000,4020.000000,3208.000000</conv-boundary>
    <orig-boundary>4436760.000000,5472772.000000,4441717.000000,5475996.000000</orig-boundary>
    <orig-proj>!</orig-proj>
 
@@ -47,54 +47,71 @@
    </district>
 
    <district id="956400334">
+      <shape>1129.50,2801.50 1129.50,2801.50</shape>
    </district>
 
    <district id="956400350">
+      <shape>2191.00,3163.50 2191.00,3163.50</shape>
    </district>
 
    <district id="956400351">
+      <shape>3169.50,2694.00 3169.50,2694.00</shape>
    </district>
 
    <district id="956400352">
+      <shape>3159.00,2683.50 3159.00,2683.50</shape>
    </district>
 
    <district id="956400353">
+      <shape>2648.50,2003.50 2648.50,2003.50</shape>
    </district>
 
    <district id="956400360">
+      <shape>1129.50,2801.50 1129.50,2801.50</shape>
    </district>
 
    <district id="956400361">
+      <shape>1576.50,1727.50 1576.50,1727.50</shape>
    </district>
 
    <district id="956400363">
+      <shape>1576.50,1727.50 1576.50,1727.50</shape>
    </district>
 
    <district id="956400364">
+      <shape>1645.50,1265.50 1645.50,1265.50</shape>
    </district>
 
    <district id="956400366">
+      <shape>2096.50,3.00 2096.50,3.00</shape>
    </district>
 
    <district id="956400372">
+      <shape>562.00,506.00 562.00,506.00</shape>
    </district>
 
    <district id="956400373">
+      <shape>562.00,506.00 562.00,506.00</shape>
    </district>
 
    <district id="956400375">
+      <shape>143.50,321.00 143.50,321.00</shape>
    </district>
 
    <district id="956400380">
+      <shape>3377.50,289.50 3377.50,289.50</shape>
    </district>
 
    <district id="956400381">
+      <shape>3526.00,1149.00 3526.00,1149.00</shape>
    </district>
 
    <district id="956400382">
+      <shape>3324.50,1304.00 3324.50,1304.00</shape>
    </district>
 
    <district id="956400960">
+      <shape>3686.50,2813.00 3686.50,2813.00</shape>
    </district>
 
    <district id="957613262">

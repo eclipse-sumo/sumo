@@ -40,6 +40,7 @@
 // ===========================================================================
 class NBDistrict;
 class NBEdge;
+class NBNodeCont;
 
 
 // ===========================================================================
@@ -47,46 +48,117 @@ class NBEdge;
 // ===========================================================================
 /**
  * @class NBDistrictCont
- * A container of districts
+ * @brief A container for districts
+ *
+ * A simple storage for district instances. Allows addition an retrieval of
+ *  districts, filling them with sources/sinks, and some other methods which
+ *  operate at all stored districts.
+ *
+ * @see NBDistrict
  */
 class NBDistrictCont
 {
 public:
-    NBDistrictCont();
-    ~NBDistrictCont();
+    /// @brief Constructor
+    NBDistrictCont() throw();
 
-    /** adds a district to the dictionary;
-        returns false if the districts already was in the dictionary */
-    bool insert(NBDistrict *district);
 
-    /// returns the districts that has the given id
-    NBDistrict *retrieve(const std::string &id);
+    /// @brief Destructor
+    ~NBDistrictCont() throw();
 
-    /** prints all edges */
-    void writeXML(std::ostream &into);
 
-    /** returns the number of districts inside the container */
-    int size();
+    /** @brief Adds a district to the dictionary
+     *
+     * @param[in] district The district to add
+     * @return false if the districts already was in the dictionary 
+     */
+    bool insert(NBDistrict * const district) throw();
 
-    /** deletes all districts */
-    void clear();
 
-    /// adds a source to the named district
-    bool addSource(const std::string &dist, NBEdge *source,
-                   SUMOReal weight);
+    /** @brief Returns the districts with the given id
+     *
+     * @param[in] id The id of the district to retrieve
+     * @return The district with the given id if there was one having it, 0 otherwise
+     */
+    NBDistrict *retrieve(const std::string &id) const throw();
 
-    /// adds a destination to the named district
-    bool addSink(const std::string &dist, NBEdge *destination,
-                 SUMOReal weight);
 
-    void removeFromSinksAndSources(NBEdge *e);
+    /** @brief Writes the sumo-xml-representation of all districts into the given stream
+     *
+     * This method simply goes through all stored districts and calls their method
+     *  NBDistrict::writeXML.
+     *
+     * @see NBDistrict::writeXML
+     * @param[in] into The stream to wirte the xml-representations into
+     */
+    void writeXML(std::ostream &into) const throw();
+
+
+    /** @brief Returns the number of districts inside the container */
+    size_t size() const throw();
+
+
+    /** @brief Adds a source to the named district
+     *
+     * At first, the district is tried to be retrieved. If this fails, false is
+     *  returned. Otherwise the retrieved districts NBDistrict::addSource-method
+     *  is called.
+     *
+     * @see NBDistrict::addSource
+     * @param[in] dist The id of the district to add the source to
+     * @param[in] source An edge that shall be used as source
+     * @param[in] weight An optional weight of the source
+     * @return Whether the source could be added (the district exists and the suorce was not added to it before)
+     */
+    bool addSource(const std::string &dist, NBEdge * const source,
+                   SUMOReal weight) throw();
+
+
+    /** @brief Adds a sink to the named district
+     *
+     * At first, the district is tried to be retrieved. If this fails, false is
+     *  returned. Otherwise the retrieved districts NBDistrict::addSink-method
+     *  is called.
+     *
+     * @see NBDistrict::addSink
+     * @param[in] dist The id of the district to add the sink to
+     * @param[in] source An edge that shall be used as sink
+     * @param[in] weight An optional weight of the source
+     * @return Whether the source could be added (the district exists and the suorce was not added to it before)
+     */
+    bool addSink(const std::string &dist, NBEdge * const destination,
+                 SUMOReal weight) throw();
+
+
+    /** @brief Removes the given edge from the lists of sources and sinks in all stored districts
+     *
+     * This method simply goes through all stored districts and calls their method
+     *  NBDistrict::removeFromSinksAndSources.
+     *
+     * @see NBDistrict::removeFromSinksAndSources
+     * @param[in] e The edge to remove from sinks/sources
+     */
+    void removeFromSinksAndSources(NBEdge * const e) throw();
+
+
+    /** @brief Normalises the geometrical information of all districts
+     *
+     * This method simply goes through all stored districts and calls their method
+     *  NBDistrict::normalisePositions.
+     *
+     * @see NBDistrict::normalisePositions
+     * @return Alsways true
+     */
+    bool normaliseDistrictPositions() throw();
+
 
 private:
-    /// the type of the dictionary where a node may be found by her id
+    /// @brief The type of the dictionary where a node may be found by her id
     typedef std::map<std::string, NBDistrict*> DistrictCont;
 
-    /// the instance of the dictionary
+    /// @brief The instance of the dictionary
     DistrictCont myDistricts;
+
 
 private:
     /** invalid copy constructor */
@@ -94,6 +166,7 @@ private:
 
     /** invalid assignment operator */
     NBDistrictCont &operator=(const NBDistrictCont &s);
+
 
 };
 
