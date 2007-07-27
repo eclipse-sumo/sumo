@@ -57,7 +57,8 @@
 #include <utils/helpers/SUMODijkstraRouter.h>
 #include "MSPerson.h"
 #include <utils/common/RandHelper.h>
-
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
 
 #include "devices/MSDevice_CPhone.h"
 
@@ -1956,10 +1957,6 @@ MSVehicle::setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue)
     myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL] = new RGBColor(red, green, blue);
 }
 
-
-#include <mesosim/MESegment.h>
-#include <mesosim/MELoop.h>
-#include "MSGlobals.h"
 
 void
 MSVehicle::saveState(std::ostream &os, long /*what*/)
