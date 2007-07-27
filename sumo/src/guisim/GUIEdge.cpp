@@ -45,6 +45,8 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -237,10 +239,6 @@ GUIEdge::getCenteringBoundary() const
 }
 
 
-
-#include <mesosim/MESegment.h>
-#include <mesosim/MELoop.h>
-#include <microsim/MSGlobals.h>
 size_t
 GUIEdge::getVehicleNo() const
 {
