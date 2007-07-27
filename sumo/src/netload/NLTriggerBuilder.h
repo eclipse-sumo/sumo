@@ -47,9 +47,12 @@ class MSLane;
 class MSEdge;
 class MSBusStop;
 class MSE1VehicleActor;
+
+#ifdef HAVE_MESOSIM
 class METriggeredCalibrator;
 class MESegment;
 class METriggeredScaler;
+#endif
 
 
 // ===========================================================================
@@ -104,6 +107,7 @@ protected:
             const Attributes &attrs, const std::string &base,
             const NLHandler &helper);
 
+#ifdef HAVE_MESOSIM
     /// Builds a mesoscopic calibrator
     METriggeredCalibrator *parseAndBuildCalibrator(MSNet &net,
             const Attributes &attrs, const std::string &base,
@@ -113,6 +117,7 @@ protected:
     METriggeredScaler *parseAndBuildScaler(MSNet &net,
                                            const Attributes &attrs, const std::string &base,
                                            const NLHandler &helper);
+#endif
     //@}
 
 protected:
@@ -139,6 +144,7 @@ protected:
                                     const std::string &id, const std::vector<std::string> &lines,
                                     MSLane *lane, SUMOReal frompos, SUMOReal topos);
 
+#ifdef HAVE_MESOSIM
     /// builds a calibrator
     virtual METriggeredCalibrator *buildCalibrator(MSNet &net,
             const std::string &id, MESegment *edge, SUMOReal pos,
@@ -148,6 +154,7 @@ protected:
     virtual METriggeredScaler *buildScaler(MSNet &net,
                                            const std::string &id, MESegment *edge, SUMOReal pos,
                                            SUMOReal scale);
+#endif
 
     /// builds an emitter
     virtual MSTriggeredRerouter *buildRerouter(MSNet &net,

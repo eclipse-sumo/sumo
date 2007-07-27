@@ -62,7 +62,11 @@
 #include <utils/gui/images/GUIImageGlobals.h>
 #include <utils/gui/drawer/GUICompleteSchemeStorage.h>
 #include <gui/GUIViewTraffic.h>
+
+#ifdef HAVE_MESOSIM
 #include <mesogui/GUIViewMesoEdges.h>
+#endif
+
 #include <gui/GUIColorer_LaneByPurpose.h>
 #include <utils/gui/drawer/GUIColorer_LaneBySelection.h>
 #include <gui/GUIColorer_LaneByVehKnowledge.h>
@@ -304,6 +308,7 @@ initLaneColoringSchemes()
     return laneColMap;
 }
 
+#ifdef HAVE_MESOSIM
 map<int, vector<RGBColor> >
 initEdgeColoringSchemes()
 {
@@ -367,13 +372,16 @@ initEdgeColoringSchemes()
     }
     return edgeColMap;
 }
+#endif
 
 void
 initColoringSchemes(FXApp *a)
 {
     map<int, vector<RGBColor> > vehColMap = initVehicleColoringSchemes();
     map<int, vector<RGBColor> > laneColMap = initLaneColoringSchemes();
+#ifdef HAVE_MESOSIM
     map<int, vector<RGBColor> > edgeColMap = initEdgeColoringSchemes();
+#endif
     // initialise gradients
     myDensityGradient = gGradients->getRGBColors(GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 101);
     // initialise available coloring schemes

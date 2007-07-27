@@ -43,7 +43,10 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/helpers/SUMODijkstraRouter.h>
 #include <utils/common/RandHelper.h>
+
+#ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
+#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -109,12 +112,14 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
         throw ProcessError();
     }
     // build actors
+#ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         for (std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
             MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(*j);
             s->addRerouter(this);
         }
     } else {
+#endif
         for (std::vector<MSEdge*>::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
             const std::vector<MSLane*> * const destLanes = (*j)->getLanes();
             std::vector<MSLane*>::const_iterator i;
@@ -122,7 +127,9 @@ MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
                 mySetter.push_back(new Setter(this, (*i)));
             }
         }
+#ifdef HAVE_MESOSIM
     }
+#endif
 }
 
 

@@ -120,12 +120,14 @@ public:
     Boundary getCenteringBoundary() const;
     //@}
 
+#ifdef HAVE_MESOSIM
     size_t getVehicleNo() const;
     SUMOReal getDensity() const;
     SUMOReal getRouteSpread() const;
     SUMOReal getMeanSpeed() const;
     SUMOReal getAllowedSpeed() const;
     SUMOReal getFlow() const;
+#endif
 
 private:
     /// Definition of the lane's positions vector

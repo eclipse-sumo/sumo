@@ -45,10 +45,13 @@
 #include "NLHandler.h"
 #include "NLTriggerBuilder.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
+
+#ifdef HAVE_MESOSIM
 #include <mesosim/METriggeredCalibrator.h>
 #include <mesosim/METriggeredScaler.h>
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
+#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -120,11 +123,13 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
                 t = parseAndBuildVehicleActor(net, attrs, base, helper);
         }
     }
+#ifdef HAVE_MESOSIM
     else if (type=="calibrator"&&MSGlobals::gUseMesoSim) {
         t = parseAndBuildCalibrator(net, attrs, base, helper);
     } else if (type=="scaler"&&MSGlobals::gUseMesoSim) {
         t = parseAndBuildScaler(net, attrs, base, helper);
     }
+#endif
     if (t!=0) {
         net.getTriggerControl().addTrigger(t);
     }
@@ -234,6 +239,7 @@ NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net,
 }
 
 
+#ifdef HAVE_MESOSIM
 METriggeredCalibrator *
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
         const Attributes &attrs,
@@ -297,6 +303,7 @@ NLTriggerBuilder::parseAndBuildScaler(MSNet &net,
 
     return buildScaler(net, id, prev, rpos, scale);
 }
+#endif
 
 
 MSTriggeredRerouter *
@@ -365,6 +372,7 @@ NLTriggerBuilder::buildLaneEmitTrigger(MSNet &net,
 }
 
 
+#ifdef HAVE_MESOSIM
 METriggeredCalibrator *
 NLTriggerBuilder::buildCalibrator(MSNet &net,
                                   const std::string &id,
@@ -384,6 +392,7 @@ NLTriggerBuilder::buildScaler(MSNet &net,
 {
     return new METriggeredScaler(id, edge, scale);
 }
+#endif
 
 
 MSTriggeredRerouter *

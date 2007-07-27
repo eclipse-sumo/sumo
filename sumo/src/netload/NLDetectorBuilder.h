@@ -47,8 +47,11 @@ class MSDetectorControl;
 class MELoop;
 class MSLane;
 class MSEdgeContinuations;
+
+#ifdef HAVE_MESOSIM
 class MEInductLoop;
 class MESegment;
+#endif
 
 
 // ===========================================================================
@@ -174,9 +177,11 @@ public:
     virtual MSInductLoop *createInductLoop(const std::string &id,
                                            MSLane *lane, SUMOReal pos, int splInterval);
 
+#ifdef HAVE_MESOSIM
     /// Creates the instance of an induct loop (overwritten by gui version)
     virtual MEInductLoop *createMEInductLoop(const std::string &id,
             MESegment *s, SUMOReal pos, int splInterval);
+#endif
 
     /// Creates the instance of a single-lane-e2-detector (overwritten by gui version)
     virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,

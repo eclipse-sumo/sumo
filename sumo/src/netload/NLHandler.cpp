@@ -69,7 +69,10 @@
 #include <utils/geom/GeoConvHelper.h>
 #include "NLLoadFilter.h"
 #include "NLGeomShapeBuilder.h"
+
+#ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
+#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -488,9 +491,11 @@ NLHandler::closeEdge()
     }
     try {
         MSEdge *edge = myEdgeControlBuilder.closeEdge();
+#ifdef HAVE_MESOSIM
         if (MSGlobals::gUseMesoSim) {
             MSGlobals::gMesoNet->buildSegmentsFor(edge, *(MSNet::getInstance()), OptionsCont::getOptions());
         }
+#endif
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }

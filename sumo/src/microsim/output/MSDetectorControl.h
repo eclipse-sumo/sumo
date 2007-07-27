@@ -39,7 +39,10 @@
 #include <microsim/output/MSInductLoop.h>
 #include "meandata/MSMeanData_Net_Cont.h"
 #include "MSDetector2File.h"
+
+#ifdef HAVE_MESOSIM
 #include <mesosim/MEInductLoop.h>
+#endif
 
 
 //class MSE2Collector;
@@ -59,13 +62,17 @@ class MSDetectorControl
 {
 public:
     typedef NamedObjectCont< MSInductLoop*> LoopDict;
+#ifdef HAVE_MESOSIM
     typedef NamedObjectCont< MEInductLoop*> MELoopDict;
+#endif
     typedef NamedObjectCont< MSE2Collector*> E2Dict;
     typedef NamedObjectCont< MSE3Collector*> E3Dict;
     typedef NamedObjectCont< MS_E2_ZS_CollectorOverLanes* > E2ZSOLDict;
 
     typedef std::vector< MSInductLoop*> LoopVect;
+#ifdef HAVE_MESOSIM
     typedef std::vector< MEInductLoop*> MELoopVect;
+#endif
     typedef std::vector< MSE2Collector*> E2Vect;
     typedef std::vector< MSE3Collector*> E3Vect;
     typedef std::vector< MS_E2_ZS_CollectorOverLanes* > E2ZSOLVect;
@@ -79,8 +86,10 @@ public:
 
     void add(MSInductLoop *il, OutputDevice *device,
                  int splInterval);
+#ifdef HAVE_MESOSIM
     void add(MEInductLoop *il, OutputDevice *device,
                  int splInterval);
+#endif
 
     void add(MSE2Collector *e2, OutputDevice *device,
                  int splInterval);
@@ -109,7 +118,9 @@ public:
 
 protected:
     LoopDict myLoops;
+#ifdef HAVE_MESOSIM
     MELoopDict myMesoLoops;
+#endif
     E2Dict myE2Detectors;
     E3Dict myE3Detectors;
     E2ZSOLDict myE2OverLanesDetectors;

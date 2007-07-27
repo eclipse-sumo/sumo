@@ -342,8 +342,6 @@ src/guinetload/Makefile
 src/guisim/Makefile
 src/guisim/guilogging/Makefile
 src/icons/Makefile
-src/mesogui/Makefile
-src/mesosim/Makefile
 src/microsim/Makefile
 src/microsim/actions/Makefile
 src/microsim/devices/Makefile

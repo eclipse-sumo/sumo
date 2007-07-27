@@ -36,9 +36,12 @@
 #include <utils/iodevices/OutputDevice.h>
 #include "MSMeanData_Net.h"
 #include <limits>
+
+#ifdef HAVE_MESOSIM
 #include <microsim/MSGlobals.h>
 #include <mesosim/MELoop.h>
 #include <mesosim/MESegment.h>
+#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -73,6 +76,7 @@ MSMeanData_Net::~MSMeanData_Net()
 void
 MSMeanData_Net::resetOnly(const MSEdge &edge, SUMOTime /*stopTime*/)
 {
+#ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
         while (s!=0) {
@@ -81,13 +85,16 @@ MSMeanData_Net::resetOnly(const MSEdge &edge, SUMOTime /*stopTime*/)
             meanData.reset();
         }
     } else {
+#endif
         const MSEdge::LaneCont * const lanes = edge.getLanes();
         MSEdge::LaneCont::const_iterator lane;
         for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
             MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
             meanData.reset();
         }
+#ifdef HAVE_MESOSIM
     }
+#endif
 }
 
 
@@ -149,6 +156,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
                           const MSEdge &edge,
                           SUMOTime startTime, SUMOTime stopTime)
 {
+#ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
         SUMOReal flowS = 0;
@@ -197,6 +205,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
                                     "\" flow=\"").writeString(toString(flowS*3600./((SUMOReal)(stopTime-startTime+1)))).writeString(  //!!!
                                         "\"/>\n");
     } else {
+#endif
         const MSEdge::LaneCont * const lanes = edge.getLanes();
         MSEdge::LaneCont::const_iterator lane;
         if (!myAmEdgeBased) {
@@ -240,7 +249,9 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
                                     "\" speed=\"").writeString(toString(meanSpeedS/(SUMOReal) lanes->size())).writeString(
                                         "\"/>\n");
         }
+#ifdef HAVE_MESOSIM
     }
+#endif
 }
 
 

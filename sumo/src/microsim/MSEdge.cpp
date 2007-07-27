@@ -43,7 +43,10 @@
 #include <iostream>
 #include <cassert>
 #include "MSVehicle.h"
+
+#ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
+#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -347,6 +350,7 @@ MSEdge::isSource() const
 bool
 MSEdge::emit(MSVehicle &v, SUMOTime time) const
 {
+#ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         v.update_segment(MSGlobals::gMesoNet->getSegmentForEdge(this));
         v.update_tEvent((SUMOReal) time);
@@ -361,6 +365,7 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const
             return false;
         }
     }
+#endif
     if (myFunction!=EDGEFUNCTION_SOURCE) {
         return myDepartLane->emit(v);
     } else {

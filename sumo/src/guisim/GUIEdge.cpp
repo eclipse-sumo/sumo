@@ -45,8 +45,6 @@
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
-#include <mesosim/MESegment.h>
-#include <mesosim/MELoop.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -178,9 +176,11 @@ GUIEdge::getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent)
     buildCenterPopupEntry(ret);
     buildNameCopyPopupEntry(ret);
     buildSelectionPopupEntry(ret, true);
+#ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         buildShowParamsPopupEntry(ret, false);
     }
+#endif
     return ret;
 }
 
@@ -190,6 +190,7 @@ GUIEdge::getParameterWindow(GUIMainWindow &app,
                             GUISUMOAbstractView &)
 {
     GUIParameterTableWindow *ret = 0;
+#ifdef HAVE_MESOSIM
     ret = new GUIParameterTableWindow(app, *this, 5);
     // add items
     ret->mkItem("length [m]", false, (SUMOReal) myLaneGeoms[0]->getLength());
@@ -204,6 +205,7 @@ GUIEdge::getParameterWindow(GUIMainWindow &app,
                 new CastingFunctionBinding<GUIEdge, SUMOReal, size_t>(this, &GUIEdge::getVehicleNo));
     // close building
     ret->closeBuilding();
+#endif
     return ret;
 }
 
@@ -239,6 +241,11 @@ GUIEdge::getCenteringBoundary() const
 }
 
 
+#ifdef HAVE_MESOSIM
+
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
+#include <microsim/MSGlobals.h>
 size_t
 GUIEdge::getVehicleNo() const
 {
@@ -340,6 +347,7 @@ GUIEdge::getAllowedSpeed() const
     return (*myLanes)[0]->maxSpeed();
 }
 
+#endif
 
 
 /****************************************************************************/

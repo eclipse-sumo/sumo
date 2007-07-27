@@ -95,9 +95,12 @@ public:
     /// factor over which the real duration over an edge must lie over the estimated to be inserted
     static SUMOReal gAddInfoFactor;
 
+#ifdef HAVE_MESOSIM
     /** Information whether mesosim shall be used */
     static bool gUseMesoSim;
     static MELoop *gMesoNet;
+
+#endif
 
 };
 
