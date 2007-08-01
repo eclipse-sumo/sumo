@@ -1,0 +1,20 @@
+$VMR
+* vehicle type
+4
+* From-Time  To-Time
+0.00 1.00
+* Factor
+1.00
+*
+* some
+* additional
+* comments
+* District number
+2
+* names:
+         1          2
+*
+* District 1 Sum = 100
+         a          100
+* District 2 Sum = 0
+         0          0

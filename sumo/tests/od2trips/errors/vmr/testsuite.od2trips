@@ -1,0 +1,36 @@
+
+# The vehicle type is missing (based import/vmr/100vehs_hour) 
+vmr_no_vehicle_type
+
+
+# The begin time is larger than the end time
+vmr_time_begin_larger
+
+# begin time not numeric
+vmr_time_begin_false
+
+# end time not numeric
+vmr_time_end_false
+
+
+# first amount in first district not numeric
+vmr_false11
+
+# second amount in first district not numeric
+vmr_false12
+
+
+# first amount in second district not numeric
+vmr_false21
+
+# second amount in second district not numeric
+vmr_false22
+
+
+# factor not numeric
+vmr_factor_false
+
+
+
+
+
