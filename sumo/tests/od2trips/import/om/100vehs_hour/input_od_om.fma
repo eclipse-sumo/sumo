@@ -1,6 +1,8 @@
-$O;D2
+$OM;D2
+* vehicle type
+4
 * From-Time  To-Time
-0.00 24.00
+0.00 1.00
 * Factor
 1.00
 *
@@ -8,3 +10,4 @@ $O;D2
 * additional
 * comments
          1          2          100
+

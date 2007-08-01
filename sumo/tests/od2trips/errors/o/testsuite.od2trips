@@ -1,23 +1,23 @@
 # The begin time is larger than the end time (based import/or/100vehs_hour)
-or_time_begin_larger
+o_time_begin_larger
 
 # begin time not numeric
-or_time_begin_false
+o_time_begin_false
 
 # end time not numeric
-or_time_end_false
+o_time_end_false
 
 # one time is missing
-or_time_one_missing
+o_time_one_missing
 
 
 # factor not numeric
-or_factor_false
+o_factor_false
 
 # factor missing
-or_factor_missing
+o_factor_missing
 
 
 # first amount not numeric
-or_false
+o_false
 

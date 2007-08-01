@@ -1,8 +1,10 @@
 import_config_file:../config_all
 binary:$OD2TRIPS_BINARY
 copy_test_path:input_net.net.xml
-copy_test_path:input_od_vmr.fma
-copy_test_path:input_od_or.fma
+copy_test_path:input_od_vm.fma
+copy_test_path:input_od_v.fma
+copy_test_path:input_od_om.fma
+copy_test_path:input_od_o.fma
 
 [collate_file]
 config:config.cfg

@@ -1,1 +1,1 @@
--n input_net.net.xml -d input_od_or.fma -o trips.trips.xml
+-n input_net.net.xml -d input_od_o.fma -o trips.trips.xml

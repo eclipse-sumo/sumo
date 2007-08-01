@@ -1,8 +1,6 @@
-$VM
-* vehicle type
-4
+$V
 * From-Time  To-Time
-0.00 24.00
+0.00 1.00
 * Factor
 1.00
 *
