@@ -1,102 +1,102 @@
 <tripdefs>
-   <tripdef id="3" depart="521" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="91" depart="958" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="93" depart="2300" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="81" depart="2724" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="83" depart="3417" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="40" depart="3680" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="25" depart="4047" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="90" depart="4191" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="5" depart="5206" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="22" depart="5786" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="70" depart="7349" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="61" depart="8441" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="36" depart="8771" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="31" depart="9047" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="53" depart="9879" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="38" depart="10739" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="60" depart="11188" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="57" depart="13249" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="49" depart="14472" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="19" depart="14549" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="64" depart="16461" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="62" depart="16877" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="82" depart="17448" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="80" depart="18291" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="65" depart="19061" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="14" depart="19278" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="74" depart="19901" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="76" depart="19957" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="96" depart="20787" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="15" depart="20855" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="2" depart="21384" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="63" depart="21643" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="77" depart="22834" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="21" depart="24091" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="87" depart="25354" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="10" depart="26072" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="7" depart="26530" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="18" depart="26592" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="23" depart="27117" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="88" depart="27568" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="99" depart="28298" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="12" depart="28624" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="26" depart="30399" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="44" depart="32784" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="86" depart="33259" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="28" depart="33674" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="54" depart="33995" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="94" depart="34274" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="97" depart="35148" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="35" depart="35517" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="13" depart="35540" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="43" depart="37226" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="4" depart="39062" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="69" depart="39373" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="50" depart="40632" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="52" depart="42025" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="73" depart="45647" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="9" depart="47028" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="47" depart="47454" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="24" depart="49001" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="67" depart="49211" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="45" depart="49536" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="34" depart="49563" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="84" depart="50420" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="29" depart="50545" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="1" depart="50972" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="46" depart="55393" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="20" depart="55437" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="51" depart="56905" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="16" depart="57726" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="27" depart="58637" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="6" depart="59063" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="17" depart="59754" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="85" depart="60842" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="33" depart="61408" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="0" depart="61559" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="58" depart="62479" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="71" depart="63852" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="68" depart="64028" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="78" depart="65751" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="92" depart="66903" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="37" depart="67478" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="66" depart="68515" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="59" depart="69270" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="8" depart="71220" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="95" depart="72854" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="56" depart="72893" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="39" depart="76204" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="48" depart="76654" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="42" depart="78142" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="75" depart="78179" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="32" depart="79911" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="55" depart="80885" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="79" depart="80999" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="98" depart="82436" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="11" depart="82649" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="30" depart="84397" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="41" depart="84517" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="72" depart="84870" from="a1" to="b2" color="0,0.25,0.5" />
-   <tripdef id="89" depart="85931" from="a1" to="b2" color="0,0.25,0.5" />
+   <tripdef id="3" depart="521" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="91" depart="958" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="93" depart="2300" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="81" depart="2724" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="83" depart="3417" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="40" depart="3680" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="25" depart="4047" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="90" depart="4191" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="5" depart="5206" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="22" depart="5786" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="70" depart="7349" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="61" depart="8441" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="36" depart="8771" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="31" depart="9047" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="53" depart="9879" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="38" depart="10739" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="60" depart="11188" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="57" depart="13249" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="49" depart="14472" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="19" depart="14549" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="64" depart="16461" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="62" depart="16877" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="82" depart="17448" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="80" depart="18291" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="65" depart="19061" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="14" depart="19278" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="74" depart="19901" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="76" depart="19957" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="96" depart="20787" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="15" depart="20855" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="2" depart="21384" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="63" depart="21643" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="77" depart="22834" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="21" depart="24091" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="87" depart="25354" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="10" depart="26072" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="7" depart="26530" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="18" depart="26592" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="23" depart="27117" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="88" depart="27568" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="99" depart="28298" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="12" depart="28624" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="26" depart="30399" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="44" depart="32784" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="86" depart="33259" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="28" depart="33674" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="54" depart="33995" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="94" depart="34274" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="97" depart="35148" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="35" depart="35517" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="13" depart="35540" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="43" depart="37226" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="4" depart="39062" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="69" depart="39373" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="50" depart="40632" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="52" depart="42025" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="73" depart="45647" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="9" depart="47028" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="47" depart="47454" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="24" depart="49001" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="67" depart="49211" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="45" depart="49536" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="34" depart="49563" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="84" depart="50420" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="29" depart="50545" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="1" depart="50972" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="46" depart="55393" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="20" depart="55437" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="51" depart="56905" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="16" depart="57726" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="27" depart="58637" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="6" depart="59063" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="17" depart="59754" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="85" depart="60842" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="33" depart="61408" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="0" depart="61559" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="58" depart="62479" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="71" depart="63852" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="68" depart="64028" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="78" depart="65751" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="92" depart="66903" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="37" depart="67478" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="66" depart="68515" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="59" depart="69270" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="8" depart="71220" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="95" depart="72854" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="56" depart="72893" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="39" depart="76204" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="48" depart="76654" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="42" depart="78142" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="75" depart="78179" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="32" depart="79911" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="55" depart="80885" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="79" depart="80999" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="98" depart="82436" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="11" depart="82649" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="30" depart="84397" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="41" depart="84517" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="72" depart="84870" from="a1" to="b2" type="4" color="0,0.25,0.5" />
+   <tripdef id="89" depart="85931" from="a1" to="b2" type="4" color="0,0.25,0.5" />
 </tripdefs>
