@@ -35,8 +35,9 @@
 // class definitions
 // ===========================================================================
 /**
- * struct ODCell
- * This class represents a single od-matrix cell
+ * @struct ODCell
+ * @brief This class represents a single od-matrix cell
+ *
  */
 struct ODCell
 {

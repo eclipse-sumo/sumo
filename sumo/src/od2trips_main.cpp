@@ -4,7 +4,7 @@
 /// @date    Thu, 12 September 2002
 /// @version $Id$
 ///
-//
+// Main for OD2TRIPS
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -287,16 +287,54 @@ getNextNonCommentLine(LineReader &lr)
 
 
 SUMOTime
-parseTime(const std::string &time)
+parseSingleTime(const std::string &time)
 {
+    if(time.find('.')==string::npos) {
+        throw OutOfBoundsException();
+    }
     string hours = time.substr(0, time.find('.'));
     string minutes = time.substr(time.find('.')+1);
-    return TplConvert<char>::_2int(hours.c_str()) * 3600 + TplConvert<char>::_2int(minutes.c_str());
+    return (SUMOTime) TplConvert<char>::_2int(hours.c_str()) * 3600 + TplConvert<char>::_2int(minutes.c_str());
 }
 
 
+std::pair<SUMOTime, SUMOTime>
+readTime(LineReader &lr)
+{
+    string line = getNextNonCommentLine(lr);
+    try {
+        StringTokenizer st(line, StringTokenizer::WHITECHARS);
+        SUMOTime begin = parseSingleTime(st.next());
+        SUMOTime end = parseSingleTime(st.next());
+        if(begin>=end) {
+            throw ProcessError("Begin time is larger than end time.");
+        }
+        return make_pair(begin, end);
+    } catch (OutOfBoundsException &) {
+        throw ProcessError("Broken period definition '" + line + "'.");
+    } catch (NumberFormatException &) {
+        throw ProcessError("Broken period definition '" + line + "'.");
+    }
+}
+
+
+SUMOReal
+readFactor(LineReader &lr, SUMOReal scale)
+{
+    string line = getNextNonCommentLine(lr);
+    SUMOReal factor = -1;
+    try {
+        factor = TplConvert<char>::_2SUMOReal(line.c_str()) * scale;
+    } catch (NumberFormatException &) {
+        throw ProcessError("Broken factor: '" + line + "'.");
+    }
+    return factor;
+}
+
+
+
 void
-readV(LineReader &lr, ODMatrix &into, float scale,
+readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
       std::string vehType, bool matrixHasVehType)
 {
     MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as VMR...");
@@ -304,17 +342,19 @@ readV(LineReader &lr, ODMatrix &into, float scale,
     string line;
     if (matrixHasVehType) {
         line = getNextNonCommentLine(lr);
-        int type = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
         if (vehType=="") {
-            vehType = toString(type);
+            vehType = StringUtils::prune(line);
         }
     }
-    line = getNextNonCommentLine(lr);
-    StringTokenizer st(line, StringTokenizer::WHITECHARS);
-    int begin = parseTime(st.next());
-    int end = parseTime(st.next());
-    line = getNextNonCommentLine(lr);
-    SUMOReal factor = TplConvert<char>::_2SUMOReal(StringUtils::prune(line).c_str()) * scale;
+
+    // parse time
+    pair<SUMOTime, SUMOTime> times = readTime(lr);
+    SUMOTime begin = times.first;
+    SUMOTime end = times.second;
+
+    // factor
+    SUMOReal factor = readFactor(lr, scale);
+
     line = getNextNonCommentLine(lr);
     int districtNo = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
     // parse district names (normally ints)
@@ -334,21 +374,25 @@ readV(LineReader &lr, ODMatrix &into, float scale,
         //
         line = getNextNonCommentLine(lr);
         do {
-            StringTokenizer st2(line, StringTokenizer::WHITECHARS);
-            while (st2.hasNext()) {
-                assert(di!=names.end());
-                float vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
-                if (vehNumber!=0) {
-                    ODCell *cell = new ODCell();
-                    cell->begin = begin;
-                    cell->end = end;
-                    cell->origin = *si;
-                    cell->destination = *di;
-                    cell->vehicleType = vehType;
-                    cell->vehicleNumber = vehNumber;
-                    into.add(cell);
+            try {
+                StringTokenizer st2(line, StringTokenizer::WHITECHARS);
+                while (st2.hasNext()) {
+                    assert(di!=names.end());
+                    SUMOReal vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
+                    if (vehNumber!=0) {
+                        ODCell *cell = new ODCell();
+                        cell->begin = begin;
+                        cell->end = end;
+                        cell->origin = *si;
+                        cell->destination = *di;
+                        cell->vehicleType = vehType;
+                        cell->vehicleNumber = vehNumber;
+                        into.add(cell);
+                    }
+                    di++;
                 }
-                di++;
+            } catch (NumberFormatException &) {
+                throw ProcessError("Not numeric vehicle number in line '" + line + "'.");
             }
             line = lr.readLine();
         } while (line[0]!='*'&&lr.hasMore());
@@ -358,7 +402,7 @@ readV(LineReader &lr, ODMatrix &into, float scale,
 
 
 void
-readO(LineReader &lr, ODMatrix &into, float scale,
+readO(LineReader &lr, ODMatrix &into, SUMOReal scale,
       std::string vehType, bool matrixHasVehType)
 {
     MsgHandler::getMessageInstance()->beginProcessMsg("Reading matrix '" + lr.getFileName() + "' stored as OR...");
@@ -371,28 +415,40 @@ readO(LineReader &lr, ODMatrix &into, float scale,
             vehType = toString(type);
         }
     }
-    line = getNextNonCommentLine(lr);
-    StringTokenizer st(line, StringTokenizer::WHITECHARS);
-    int begin = parseTime(st.next());
-    int end = parseTime(st.next());
-    line = getNextNonCommentLine(lr);
-    SUMOReal factor = TplConvert<char>::_2SUMOReal(line.c_str()) * scale;
+
+    // parse time
+    pair<SUMOTime, SUMOTime> times = readTime(lr);
+    SUMOTime begin = times.first;
+    SUMOTime end = times.second;
+
+    // factor
+    SUMOReal factor = readFactor(lr, scale);
+
     // parse the cells
     while (lr.hasMore()) {
         line = getNextNonCommentLine(lr);
         StringTokenizer st2(line, StringTokenizer::WHITECHARS);
-        string sourceD = st2.next();
-        string destD = st2.next();
-        float vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
-        if (vehNumber!=0) {
-            ODCell *cell = new ODCell();
-            cell->begin = begin;
-            cell->end = end;
-            cell->origin = sourceD;
-            cell->destination = destD;
-            cell->vehicleType = vehType;
-            cell->vehicleNumber = vehNumber;
-            into.add(cell);
+        if(st2.size()==0) {
+            continue;
+        }
+        try {
+            string sourceD = st2.next();
+            string destD = st2.next();
+            SUMOReal vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
+            if (vehNumber!=0) {
+                ODCell *cell = new ODCell();
+                cell->begin = begin;
+                cell->end = end;
+                cell->origin = sourceD;
+                cell->destination = destD;
+                cell->vehicleType = vehType;
+                cell->vehicleNumber = vehNumber;
+                into.add(cell);
+            }
+        } catch (OutOfBoundsException &) {
+            throw ProcessError("Missing at least one information in line '" + line + "'.");
+        } catch (NumberFormatException &) {
+            throw ProcessError("Not numeric vehicle number in line '" + line + "'.");
         }
     }
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
@@ -407,9 +463,7 @@ loadMatrix(OptionsCont &oc, ODMatrix &into)
     if (oc.isSet("vissim")) {
         files = getVissimDynUMLMatrices(oc.getString("vissim"));
     } else {
-        string fileS = oc.getString("od-files");
-        StringTokenizer st(fileS, ";");
-        files = st.getVector();
+        files = oc.getStringVector("od-files");
     }
 
     // ok, we now should have a list of files to parse
@@ -494,12 +548,12 @@ main(int argc, char **argv)
             throw ProcessError("Could not open output file '" + oc.getString("output") + "'.");
         }
         ostrm << "<tripdefs>" << endl;
-        matrix.write(oc.getInt("begin"), oc.getInt("end"),
+        matrix.write((SUMOTime) oc.getInt("begin"), (SUMOTime) oc.getInt("end"),
                      ostrm, *districts, oc.getBool("spread.uniform"), oc.getString("prefix"));
         ostrm << "</tripdefs>" << endl;
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");
     } catch (ProcessError &e) {
-        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

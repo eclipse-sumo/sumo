@@ -95,7 +95,7 @@ ODMatrix::computeEmissions(const ODDistrictCont &dc, ODCell *cell,
         if (uniform) {
             veh.depart = (int)(offset + cell->begin + ((SUMOReal)(cell->end - cell->begin) * (SUMOReal) i / (SUMOReal) vehicles2emit));
         } else {
-            veh.depart = (int)(cell->begin + randSUMO() * (double)(cell->end - cell->begin));
+            veh.depart = (int)(cell->begin + randSUMO() * (SUMOReal)(cell->end - cell->begin));
         }
 
         veh.from = dc.getRandomSourceFromDistrict(cell->origin);
