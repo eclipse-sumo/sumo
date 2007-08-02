@@ -60,10 +60,4 @@ OutputDevice_COUT::getOStream()
 }
 
 
-void
-OutputDevice_COUT::closeInfo()
-{
-    cout << endl;
-}
-
 /****************************************************************************/

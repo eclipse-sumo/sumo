@@ -508,12 +508,8 @@ public:
     ///
     void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime)
     {
-        dev<<"   <interval begin=\""<<
-            toString(startTime)<<"\" end=\""<<
-                toString(stopTime)<<"\" ";
-        if (dev.needsDetectorName()) {
-            dev<<"id=\""<<getID()<<"\" ";
-        }
+        dev<<"   <interval begin=\""<<toString(startTime)<<"\" end=\""<<
+            toString(stopTime)<<"\" "<<"id=\""<<getID()<<"\" ";
         if (hasDetector(
                     E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
             dev<<"queueLengthAheadOfTrafficLightsInVehiclesMax=\"";

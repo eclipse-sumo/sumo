@@ -264,12 +264,8 @@ MSInductLoop::writeXMLOutput(OutputDevice &dev,
     size_t nVehCrossed = ((size_t) getNVehContributed(t))
                          + distance(
                              getDismissedStartIterator(t), mend);
-    dev<<"   <interval begin=\""<<
-        toString(startTime)<<"\" end=\""<<
-            toString(stopTime)<<"\" ";
-    if (dev.needsDetectorName()) {
-        dev<<"id=\""<<getID()<<"\" ";
-    }
+    dev<<"   <interval begin=\""<<toString(startTime)<<"\" end=\""<<
+        toString(stopTime)<<"\" "<<"id=\""<<getID()<<"\" ";
     dev<<"nVehContrib=\""<<
         toString(getNVehContributed(t))<<"\" flow=\""<<
             toString(getFlow(t))<<"\" occupancy=\""<<

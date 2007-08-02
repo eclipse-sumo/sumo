@@ -61,7 +61,7 @@ public:
 
     /// Constructor
     OutputDevice() :
-            myNeedHeader(true), myNeedTail(true), myNeedDetectorName(false)
+            myNeedHeader(true), myNeedTail(true)
     { }
 
     /// Destructor
@@ -76,15 +76,6 @@ public:
 
     /// Returns the associated ostream
     virtual std::ostream &getOStream() = 0;
-
-    virtual void closeInfo() = 0;
-
-    /// Returns the information whether the detector's name should always be printed
-    bool needsDetectorName() const
-    {
-        return myNeedDetectorName;
-    }
-    //}
 
     /// Returns the information whether a header shall be printed
     bool needsHeader() const
@@ -108,12 +99,6 @@ public:
     void setNeedsTail(bool value)
     {
         myNeedTail = value;
-    }
-
-    /// Sets the information whether the detector's name should always be printed
-    void setNeedsDetectorName(bool value)
-    {
-        myNeedDetectorName = value;
     }
 
     /// @name methods for saving/reading an abstract state
@@ -140,7 +125,12 @@ public:
     }
     //@}
 
-    OutputDevice &operator<<(const std::string &str);
+    template <class T>
+    OutputDevice &operator<<(const T &t)
+    {
+        getOStream() << t;
+        return *this;
+    }
 
 protected:
     /// The information whether a header shall be written
@@ -148,9 +138,6 @@ protected:
 
     /// The information whether a tail shall be written
     bool myNeedTail;
-
-    /// The information wheter the detector's name should be printed
-    bool myNeedDetectorName;
 
     /// Map of boolean markers
     std::map<std::string, bool> myBoolMarkers;

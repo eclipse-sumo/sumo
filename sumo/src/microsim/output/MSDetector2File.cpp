@@ -4,7 +4,7 @@
 /// @date    Wed Aug 6 16:16:26 2003
 /// @version $Id$
 ///
-//  »missingDescription«
+//  missingDescription
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -79,7 +79,6 @@ MSDetector2File::close()
             MSDetectorFileOutput *det = df->first;
             if (df->second->needsTail()) {
                 det->writeXMLDetectorInfoEnd(*(df->second));
-                df->second->closeInfo();
                 df->second->setNeedsTail(false);
             }
         }
@@ -125,7 +124,6 @@ MSDetector2File::addDetectorAndInterval(MSDetectorFileOutput* det,
     if (!reinsert&&device->needsHeader()) {
         det->writeXMLHeader(*device);
         det->writeXMLDetectorInfoStart(*device);
-        device->closeInfo();
         device->setNeedsHeader(false);
     }
 }
@@ -149,7 +147,6 @@ MSDetector2File::write2file(IntervalsKey key)
             it != dfVec.end(); ++it) {
         MSDetectorFileOutput* det = it->first;
         det->writeXMLOutput(*(it->second), startTime, stopTime-1);
-        it->second->closeInfo();
     }
     myLastCalls[interval] = MSNet::getInstance()->simSeconds();
     return interval;

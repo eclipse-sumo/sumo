@@ -19,14 +19,8 @@
 /****************************************************************************/
 #ifndef OutputDevice_Network_h
 #define OutputDevice_Network_h
-// Only build this module if socket support is enabled
-#ifdef USE_SOCKETS
 
 
-
-// ==========================================================================
-// included modules
-// ==========================================================================
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -36,11 +30,12 @@
 #include <config.h>
 #endif // #ifdef WIN32
 
+#include "foreign/tcpip/socket.h"
+#include "foreign/tcpip/storage.h"
 #include "OutputDevice.h"
 #include <string>
-
-// includes from DataReel library
-#include <Gxsocket.h>
+#include <iostream>
+#include <sstream>
 
 // ==========================================================================
 // class definitions
@@ -64,26 +59,28 @@ public:
     // closes the device
     void close();
 
-    // returns the assiciated ostream
+    // returns the associated ostream
     std::ostream &getOStream();
-
-    void closeInfo();
-
-private:
-    // transfer a string to remote host by whatever protocol is configured
-    bool Send(std::string st);
 
 private:
     // packet buffer
-    std::string m_Message;
-    // if true, UDP is used to transfer data. If false, TCP is used
-    bool m_useUDP;
-    // the UDP socket to transfer the data
-    gxSocket* m_sockUDP;
+    std::ostringstream myMessage;
+    // the  socket to transfer the data
+    tcpip::Socket* mySocket;
+
+public:
+    template <class T>
+    OutputDevice &operator<<(const T &t)
+    {
+        getOStream() << t;
+        mySocket->sendExact(tcpip::Storage(myMessage.str().c_str()));
+        myMessage.rdbuf()->pubseekpos(0);
+        return *this;
+    }
+
 };
 
 
-#endif // #ifdef USE_SOCKETS
 #endif
 
 /****************************************************************************/

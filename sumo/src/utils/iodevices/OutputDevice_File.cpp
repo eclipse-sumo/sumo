@@ -77,13 +77,5 @@ OutputDevice_File::getOStream()
 }
 
 
-void
-OutputDevice_File::closeInfo()
-{
-    (*myFileStream) << endl;
-}
-
-
-
 /****************************************************************************/
 

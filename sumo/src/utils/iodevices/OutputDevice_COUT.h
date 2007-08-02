@@ -52,8 +52,6 @@ public:
     /// Returns the associated ostream
     std::ostream &getOStream();
 
-    void closeInfo();
-
 };
 
 

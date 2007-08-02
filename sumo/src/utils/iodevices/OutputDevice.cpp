@@ -61,9 +61,6 @@ OutputDevice::getOutputDevice(const std::string &name)
     // check whether the device has already been aqcuired
     DeviceMap::iterator i = myOutputDevices.find(name);
     if (i!=myOutputDevices.end()) {
-        // marks that extra definitions of the outputted values are needed
-        (*i).second->setNeedsDetectorName(true);
-        // return
         return (*i).second;
     }
     // build the device
@@ -140,14 +137,6 @@ OutputDevice::ok()
 void
 OutputDevice::close()
 {}
-
-
-OutputDevice &
-OutputDevice::operator<<(const std::string &str)
-{
-    getOStream() << str;
-    return *this;
-}
 
 
 /****************************************************************************/

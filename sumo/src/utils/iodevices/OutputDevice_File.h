@@ -59,8 +59,6 @@ public:
     /// Returns the assiciated ostream
     std::ostream &getOStream();
 
-    void closeInfo();
-
 private:
     /// The wrapped ofstream
     std::ofstream *myFileStream;

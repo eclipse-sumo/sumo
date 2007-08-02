@@ -219,12 +219,8 @@ void
 MSE3Collector::writeXMLOutput(OutputDevice &dev,
                               SUMOTime startTime, SUMOTime stopTime)
 {
-    dev<<"   <interval begin=\""<<
-        toString(startTime)<<"\" end=\""<<
-            toString(stopTime)<<"\" ";
-    if (dev.needsDetectorName()) {
-        dev<<"id=\""<<idM<<"\" ";
-    }
+    dev<<"   <interval begin=\""<<toString(startTime)<<"\" end=\""<<
+        toString(stopTime)<<"\" "<<"id=\""<<idM<<"\" ";
     // collect values
     SUMOReal vehicleSum = (SUMOReal) myLeftContainer.size();
     SUMOReal meanTravelTime = 0.;

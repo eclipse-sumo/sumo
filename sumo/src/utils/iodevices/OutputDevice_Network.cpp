@@ -22,17 +22,11 @@
 // ==========================================================================
 // included modules
 // ==========================================================================
-// ===========================================================================
-// included modules
-// ===========================================================================
 #ifdef _MSC_VER
 #include <windows_config.h>
 #else
 #include <config.h>
 #endif // #ifdef WIN32
-
-// Only build this module if socket support is enabled
-#ifdef USE_SOCKETS
 
 #include "OutputDevice_Network.h"
 #include <utils/common/UtilExceptions.h>
@@ -40,9 +34,7 @@
 #include <iostream>
 #include <sstream>
 
-// includes for DataReel library
-#include <Gxip32.h>
-#include <Gxsocket.h>
+#include "foreign/tcpip/socket.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -52,9 +44,6 @@
 // ==========================================================================
 // used namespaces
 // ===========================================================================
-// used namespaces
-// ===========================================================================
-// ==========================================================================
 using namespace std;
 
 
@@ -63,66 +52,19 @@ using namespace std;
 // ==========================================================================
 OutputDevice_Network::OutputDevice_Network(const std::string &host, const int port, const std::string &protocol)
 {
-    ostringstream portString;
-
-    // initialize
-    m_useUDP= true;
-    portString << port;
-
-    // initialize socket
-    if (protocol=="udp") {
-        m_sockUDP= new gxSocket(SOCK_DGRAM, port, (char*)(host.c_str()));
-        if (m_sockUDP->GetSocketError()!=gxSOCKET_NO_ERROR) {
-            throw NetworkError("Unable to create UDP socket for host '" + host + ":" + portString.str() +"'.");
-        }
-    } else if (protocol=="tcp-client") {
-        throw NetworkError("Protocol '" + protocol + "' is not yet supported");
-    } else if (protocol=="tcp-server") {
-        throw NetworkError("Protocol '" + protocol + "' is not yet supported");
-    } else {
-        throw NetworkError("Protocol '" + protocol + "' is unknown (this parameter is case sensitive!)");
-    }
+    mySocket = new tcpip::Socket(host, port);
 }
 
 OutputDevice_Network::~OutputDevice_Network()
 {
-    delete m_sockUDP;
+    delete mySocket;
 }
 
 std::ostream &
 OutputDevice_Network::getOStream()
 {
-    // we do not support an output stream, redirect to standard error
-    return std::cerr;
+    return myMessage;
 }
-
-OutputDevice &
-OutputDevice_Network::writeString(const std::string &str)
-{
-    m_Message+= str;
-    if (str.find("/>")!=string::npos) {
-        Send(m_Message);
-        m_Message.clear();
-    }
-    return *this;
-}
-
-void
-OutputDevice_Network::closeInfo()
-{}
-
-
-bool
-OutputDevice_Network::Send(std::string st)
-{
-    if (m_useUDP) {
-        m_sockUDP->SendTo(st.c_str(), st.length());
-    }
-
-    return false;
-}
-
-#endif USE_SOCKETS // #ifdef USE_SOCKETS
 
 /****************************************************************************/
 
