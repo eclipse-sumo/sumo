@@ -39,7 +39,7 @@
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/iodevices/SharedOutputDevices.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -121,7 +121,7 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(GenericSAXHandler &parser,
     }
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
     // build the output
-    OutputDevice *od = SharedOutputDevices::getInstance()->getOutputDeviceChecking(basePath, dest);
+    OutputDevice *od = OutputDevice::getOutputDeviceChecking(basePath, dest);
     // build the action
     return new Command_SaveTLSState(logics, od);
 }
@@ -146,7 +146,7 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
     }
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
     // build the output
-    OutputDevice *od = SharedOutputDevices::getInstance()->getOutputDeviceChecking(basePath, dest);
+    OutputDevice *od = OutputDevice::getOutputDeviceChecking(basePath, dest);
     // build the action
     return new Command_SaveTLSSwitches(logics, od);
 }
@@ -171,7 +171,7 @@ NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(GenericSAXHandler &parser
     }
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
     // build the output
-    OutputDevice *od = SharedOutputDevices::getInstance()->getOutputDeviceChecking(basePath, dest);
+    OutputDevice *od = OutputDevice::getOutputDeviceChecking(basePath, dest);
     // build the action
     return new Command_SaveTLSSwitchStates(logics, od);
 }

@@ -348,32 +348,31 @@ void
 MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice &dev,
         SUMOTime startTime, SUMOTime stopTime)
 {
-    dev.writeString("<interval begin=\"").writeString(
-        toString(startTime)).writeString("\" end=\"").writeString(
-            toString(stopTime)).writeString("\" ");
+    dev<<"<interval begin=\""<<
+        toString(startTime)<<"\" end=\""<<
+            toString(stopTime)<<"\" ";
     if (dev.needsDetectorName()) {
-        dev.writeString("id=\"").writeString(myID).writeString("\" ");
+        dev<<"id=\""<<myID<<"\" ";
     }
     if (hasDetector(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
-        dev.writeString("collQueueLengthAheadOfTrafficLightsInVehiclesMax=\"");
-        dev.writeString(
-            toString(getCurrent(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)));
-        dev.writeString("\" ");
+        dev<<"collQueueLengthAheadOfTrafficLightsInVehiclesMax=\"";
+        dev<<toString(getCurrent(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES));
+        dev<<"\" ";
         resetQueueLengthAheadOfTrafficLights();
     }
     myDetectorCombinations[0][0]->writeXMLOutput(dev, startTime, stopTime);
-    dev.writeString("/>\n");
+    dev<<"/>\n";
 }
 
 
 void
 MS_E2_ZS_CollectorOverLanes::writeXMLDetectorInfoStart(OutputDevice &dev) const
 {
-    dev.writeString("<detector type=\"E2_ZS_Collector\" id=\"").writeString(
-        myID).writeString("\" startlane=\"").writeString(
-            myStartLaneID).writeString("\" startpos=\"").writeString(
-                toString(startPosM)).writeString("\" length=\"").writeString(
-                    toString(myLength)).writeString("\" >\n");
+    dev<<"<detector type=\"E2_ZS_Collector\" id=\""<<
+        myID<<"\" startlane=\""<<
+            myStartLaneID<<"\" startpos=\""<<
+                toString(startPosM)<<"\" length=\""<<
+                    toString(myLength)<<"\" >\n";
 }
 
 

@@ -58,7 +58,6 @@
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/common/RandHelper.h>
 #include <ctime>
-#include <utils/iodevices/SharedOutputDevices.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -109,7 +108,6 @@ GUILoadThread::run()
     RandHelper::initRandGlobal();
     // try to load
     OptionsCont &oc = OptionsCont::getOptions();
-    initDevices();
     SUMOFrame::setMSGlobals(oc);
     net =
         new GUINet(oc.getInt("begin"), buildVehicleControl(),
@@ -173,13 +171,6 @@ GUIVehicleControl*
 GUILoadThread::buildVehicleControl()
 {
     return new GUIVehicleControl();
-}
-
-
-void
-GUILoadThread::initDevices()
-{
-    SharedOutputDevices::setInstance(new SharedOutputDevices());
 }
 
 

@@ -195,25 +195,25 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         meanSpeedS = meanSpeedS / (SUMOReal) noSegments;
         flowS = flowS / (SUMOReal) noSegments;
 //        flowS = flowS * 10 * (1000./absLen);
-        dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString(
-            "\" traveltime=\"").writeString(toString(traveltimeS)).writeString(
-                "\" nSamples=\"").writeString(toString((size_t) nVehS)).writeString(
-                    "\" density=\"").writeString(toString(meanDensityS)).writeString(
-                        "\" occupancy=\"").writeString(toString(meanOccupancyS)).writeString(
-                            "\" noStops=\"").writeString(toString(noStopsS)).writeString(
-                                "\" speed=\"").writeString(toString(meanSpeedS)).writeString(
-                                    "\" flow=\"").writeString(toString(flowS*3600./((SUMOReal)(stopTime-startTime+1)))).writeString(  //!!!
-                                        "\"/>\n");
+        dev<<"      <edge id=\""<<edge.getID()<<
+            "\" traveltime=\""<<toString(traveltimeS)<<
+                "\" nSamples=\""<<toString((size_t) nVehS)<<
+                    "\" density=\""<<toString(meanDensityS)<<
+                        "\" occupancy=\""<<toString(meanOccupancyS)<<
+                            "\" noStops=\""<<toString(noStopsS)<<
+                                "\" speed=\""<<toString(meanSpeedS)<<
+                                    "\" flow=\""<<toString(flowS*3600./((SUMOReal)(stopTime-startTime+1)))<<  //!!!
+                                        "\"/>\n";
     } else {
 #endif
         const MSEdge::LaneCont * const lanes = edge.getLanes();
         MSEdge::LaneCont::const_iterator lane;
         if (!myAmEdgeBased) {
-            dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString("\">\n");
+            dev<<"      <edge id=\""<<edge.getID()<<"\">\n";
             for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
                 writeLane(dev, *(*lane), startTime, stopTime);
             }
-            dev.writeString("      </edge>\n");
+            dev<<"      </edge>\n";
         } else {
             SUMOReal traveltimeS = 0;
             SUMOReal meanSpeedS = 0;
@@ -240,14 +240,14 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
                 meanData.reset();
             }
             assert(lanes->size()!=0);
-            dev.writeString("      <edge id=\"").writeString(edge.getID()).writeString(
-                "\" traveltime=\"").writeString(toString(traveltimeS/(SUMOReal) lanes->size())).writeString(
-                    "\" nSamples=\"").writeString(toString((size_t) nVehS)).writeString(
-                        "\" density=\"").writeString(toString(meanDensityS)).writeString(
-                            "\" occupancy=\"").writeString(toString(meanOccupancyS/(SUMOReal) lanes->size())).writeString(
-                                "\" noStops=\"").writeString(toString(noStopsS)).writeString(
-                                    "\" speed=\"").writeString(toString(meanSpeedS/(SUMOReal) lanes->size())).writeString(
-                                        "\"/>\n");
+            dev<<"      <edge id=\""<<edge.getID()<<
+                "\" traveltime=\""<<toString(traveltimeS/(SUMOReal) lanes->size())<<
+                    "\" nSamples=\""<<toString((size_t) nVehS)<<
+                        "\" density=\""<<toString(meanDensityS)<<
+                            "\" occupancy=\""<<toString(meanOccupancyS/(SUMOReal) lanes->size())<<
+                                "\" noStops=\""<<toString(noStopsS)<<
+                                    "\" speed=\""<<toString(meanSpeedS/(SUMOReal) lanes->size())<<
+                                        "\"/>\n";
         }
 #ifdef HAVE_MESOSIM
     }
@@ -270,14 +270,14 @@ MSMeanData_Net::writeLane(OutputDevice &dev,
     conv(meanData, (stopTime-startTime+1),
          lane.myLength, lane.myMaxSpeed,
          traveltime, meanSpeed, meanDensity, meanOccupancy);
-    dev.writeString("         <lane id=\"").writeString(lane.getID()).writeString(
-        "\" traveltime=\"").writeString(toString(traveltime)).writeString(
-            "\" nSamples=\"").writeString(toString((size_t) meanData.nSamples)).writeString(
-                "\" density=\"").writeString(toString(meanDensity)).writeString(
-                    "\" occupancy=\"").writeString(toString(meanOccupancy)).writeString(
-                        "\" noStops=\"").writeString(toString(meanData.haltSum)).writeString(
-                            "\" speed=\"").writeString(toString(meanSpeed)).writeString(
-                                "\"/>\n");
+    dev<<"         <lane id=\""<<lane.getID()<<
+        "\" traveltime=\""<<toString(traveltime)<<
+            "\" nSamples=\""<<toString((size_t) meanData.nSamples)<<
+                "\" density=\""<<toString(meanDensity)<<
+                    "\" occupancy=\""<<toString(meanOccupancy)<<
+                        "\" noStops=\""<<toString(meanData.haltSum)<<
+                            "\" speed=\""<<toString(meanSpeed)<<
+                                "\"/>\n";
     meanData.reset();
 }
 
@@ -291,29 +291,29 @@ void
 MSMeanData_Net::writeXMLOutput(OutputDevice &dev,
                                SUMOTime startTime, SUMOTime stopTime)
 {
-    dev.writeString("   <interval begin=\"").writeString(
-        toString(startTime)).writeString("\" end=\"").writeString(
-            toString(stopTime)).writeString("\" ");
+    dev<<"   <interval begin=\""<<
+        toString(startTime)<<"\" end=\""<<
+            toString(stopTime)<<"\" ";
     if (dev.needsDetectorName()) {
-        dev.writeString("id=\"dump_").writeString(toString(myInterval)).writeString("\" ");
+        dev<<"id=\"dump_"<<toString(myInterval)<<"\" ";
     }
-    dev.writeString(">\n");
+    dev<<">\n";
     write(dev, startTime, stopTime);
-    dev.writeString("   </interval>");
+    dev<<"   </interval>";
 }
 
 
 void
 MSMeanData_Net::writeXMLDetectorInfoStart(OutputDevice &dev) const
 {
-    dev.writeString("<netstats>");
+    dev<<"<netstats>";
 }
 
 
 void
 MSMeanData_Net::writeXMLDetectorInfoEnd(OutputDevice &dev) const
 {
-    dev.writeString("</netstats>");
+    dev<<"</netstats>";
 }
 
 

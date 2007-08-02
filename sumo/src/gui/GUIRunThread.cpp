@@ -45,9 +45,9 @@
 #include "GUIRunThread.h"
 #include "GUIGlobals.h"
 #include <utils/options/OptionsCont.h>
-#include <utils/iodevices/SharedOutputDevices.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/common/SysUtils.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -307,7 +307,7 @@ GUIRunThread::deleteSim()
     while (mySimulationInProgress);
     delete myNet;
     myNet = 0;
-    delete SharedOutputDevices::getInstance();
+    OutputDevice::closeAll();
     mySimulationLock.unlock();
 }
 

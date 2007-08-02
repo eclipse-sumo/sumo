@@ -1,10 +1,10 @@
 /****************************************************************************/
 /// @file    MSInductLoop.cpp
 /// @author  Christian Roessel
-/// @date    dev.writeString("<interval begin=\"").writeString(
+/// @date    dev<<"<interval begin=\""<<
 /// @version $Id$
 ///
-//  »missingDescription«
+//  missingDescription
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -38,6 +38,7 @@
 #include <microsim/MSLane.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -236,21 +237,21 @@ MSInductLoop::getNVehContributed(SUMOTime lastNTimesteps) const
 void
 MSInductLoop::writeXMLHeader(OutputDevice &dev) const
 {
-    dev.writeString(xmlHeaderM);
+    dev<<xmlHeaderM;
 }
 
 
 void
 MSInductLoop::writeXMLDetectorInfoStart(OutputDevice &dev) const
 {
-    dev.writeString("<detector>\n");
+    dev<<"<detector>\n";
 }
 
 
 void
 MSInductLoop::writeXMLDetectorInfoEnd(OutputDevice &dev) const
 {
-    dev.writeString(xmlDetectorInfoEndM);
+    dev<<xmlDetectorInfoEndM;
 }
 
 
@@ -263,19 +264,19 @@ MSInductLoop::writeXMLOutput(OutputDevice &dev,
     size_t nVehCrossed = ((size_t) getNVehContributed(t))
                          + distance(
                              getDismissedStartIterator(t), mend);
-    dev.writeString("   <interval begin=\"").writeString(
-        toString(startTime)).writeString("\" end=\"").writeString(
-            toString(stopTime)).writeString("\" ");
+    dev<<"   <interval begin=\""<<
+        toString(startTime)<<"\" end=\""<<
+            toString(stopTime)<<"\" ";
     if (dev.needsDetectorName()) {
-        dev.writeString("id=\"").writeString(getID()).writeString("\" ");
+        dev<<"id=\""<<getID()<<"\" ";
     }
-    dev.writeString("nVehContrib=\"").writeString(
-        toString(getNVehContributed(t))).writeString("\" flow=\"").writeString(
-            toString(getFlow(t))).writeString("\" occupancy=\"").writeString(
-                toString(getOccupancy(t))).writeString("\" speed=\"").writeString(
-                    toString(getMeanSpeed(t))).writeString("\" length=\"").writeString(
-                        toString(getMeanVehicleLength(t))).writeString("\" nVehCrossed=\"").writeString(
-                            toString(nVehCrossed)).writeString("\"/>");
+    dev<<"nVehContrib=\""<<
+        toString(getNVehContributed(t))<<"\" flow=\""<<
+            toString(getFlow(t))<<"\" occupancy=\""<<
+                toString(getOccupancy(t))<<"\" speed=\""<<
+                    toString(getMeanSpeed(t))<<"\" length=\""<<
+                        toString(getMeanVehicleLength(t))<<"\" nVehCrossed=\""<<
+                            toString(nVehCrossed)<<"\"/>";
 }
 
 

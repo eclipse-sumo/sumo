@@ -4,7 +4,7 @@
 /// @date    Tue Dec 02 2003 22:13 CET
 /// @version $Id$
 ///
-//	»missingDescription«
+//	missingDescription
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -493,7 +493,7 @@ public:
     ///
     void writeXMLHeader(OutputDevice &dev) const
     {
-        dev.writeString(xmlHeaderM);
+        dev<<xmlHeaderM;
     }
 
     /// Get the XML-formatted output of the concrete detector.  Calls
@@ -508,24 +508,23 @@ public:
     ///
     void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime)
     {
-        dev.writeString("   <interval begin=\"").writeString(
-            toString(startTime)).writeString("\" end=\"").writeString(
-                toString(stopTime)).writeString("\" ");
+        dev<<"   <interval begin=\""<<
+            toString(startTime)<<"\" end=\""<<
+                toString(stopTime)<<"\" ";
         if (dev.needsDetectorName()) {
-            dev.writeString("id=\"").writeString(getID()).writeString("\" ");
+            dev<<"id=\""<<getID()<<"\" ";
         }
         if (hasDetector(
                     E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
-            dev.writeString("queueLengthAheadOfTrafficLightsInVehiclesMax=\"");
-            dev.writeString(
-                toString(getCurrent(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)));
-            dev.writeString("\" ");
+            dev<<"queueLengthAheadOfTrafficLightsInVehiclesMax=\"";
+            dev<<toString(getCurrent(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES));
+            dev<<"\" ";
             resetQueueLengthAheadOfTrafficLights();
         }
         writeXMLOutput(dev, detectorsTDM, startTime, stopTime);
         writeXMLOutput(dev, detectorsEDM, startTime, stopTime);
         writeXMLOutput(dev, detectorsLDM, startTime, stopTime);
-        dev.writeString("/>\n");
+        dev<<"/>\n";
     }
 
     /// Get an opening XML-tag containing information about the detector.
@@ -534,7 +533,7 @@ public:
     ///
     void writeXMLDetectorInfoStart(OutputDevice &dev) const
     {
-        dev.writeString("<detector>\n");
+        dev<<"<detector>\n";
     }
 
     /// Get an closing XML-tag corresponding to the opening tag from
@@ -544,7 +543,7 @@ public:
     ///
     void writeXMLDetectorInfoEnd(OutputDevice &dev) const
     {
-        dev.writeString(infoEndM);
+        dev<<infoEndM;
     }
 
     /// @}
@@ -900,9 +899,9 @@ private:
             if (*it == 0) {
                 continue;
             }
-            dev.writeString((*it)->getName()).writeString("=\"").writeString(
-                toString((*it)->getAggregate(lastNSeconds))).writeString(
-                    "\" ");
+            dev<<(*it)->getName()<<"=\""<<
+                toString((*it)->getAggregate(lastNSeconds))<<
+                    "\" ";
         }
     }
 

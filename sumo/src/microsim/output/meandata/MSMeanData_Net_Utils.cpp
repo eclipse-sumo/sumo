@@ -38,7 +38,6 @@
 #include <utils/common/ToString.h>
 #include <microsim/MSEdgeControl.h>
 #include <utils/iodevices/OutputDevice.h>
-#include <utils/iodevices/SharedOutputDevices.h>
 #include <microsim/output/MSDetector2File.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -116,8 +115,7 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
                 it != dumpMeanDataIntervalls.end(); ++it) {
 
             string fileName   = baseNameDumpFiles + "_" + toString(*it) + ".xml";
-            OutputDevice* dev =
-                SharedOutputDevices::getInstance()->getOutputDevice(fileName);
+            OutputDevice* dev = OutputDevice::getOutputDevice(fileName);
             if (dev==0) {
                 throw ProcessError("The following file containing aggregated values could not been build:\n" + fileName);
             }

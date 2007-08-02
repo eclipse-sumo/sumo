@@ -89,22 +89,6 @@ OutputDevice_Network::~OutputDevice_Network()
     delete m_sockUDP;
 }
 
-bool
-OutputDevice_Network::ok()
-{
-    return true;
-}
-
-void
-OutputDevice_Network::close()
-{}
-
-bool
-OutputDevice_Network::supportsStreams() const
-{
-    return false;
-}
-
 std::ostream &
 OutputDevice_Network::getOStream()
 {

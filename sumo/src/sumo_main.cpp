@@ -58,7 +58,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <sumo_only/SUMOFrame.h>
 #include <microsim/output/MSDetectorControl.h>
-#include <utils/iodevices/SharedOutputDevices.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef ITM
 #include <itm-remoteserver/remoteserver.h>
@@ -98,7 +98,6 @@ using namespace std;
 MSNet *
 load(OptionsCont &oc)
 {
-    SharedOutputDevices::setInstance(new SharedOutputDevices());
     SUMOFrame::setMSGlobals(oc);
     MSNet *net =
         new MSNet(oc.getInt("begin"), new MSVehicleControl(),
@@ -168,7 +167,7 @@ main(int argc, char **argv)
             }
 #endif
             delete net;
-            delete SharedOutputDevices::getInstance();
+            OutputDevice::closeAll();
         }
     } catch (ProcessError &e) {
         if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
@@ -179,7 +178,7 @@ main(int argc, char **argv)
 #ifndef _DEBUG
     } catch (...) {
         MSNet::clearAll();
-        delete SharedOutputDevices::getInstance();
+        OutputDevice::closeAll();
         MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;
 #endif

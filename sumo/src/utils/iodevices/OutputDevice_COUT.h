@@ -49,25 +49,10 @@ public:
     /// Destructor
     ~OutputDevice_COUT();
 
-    /// returns the information whether one can write into the device
-    bool ok();
-
-    /// Closes the device
-    void close();
-
-    /** @brief returns the information whether a stream is available
-        If not, one has to use the "writeString" API */
-    bool supportsStreams() const;
-
-    /// Returns the assiciated ostream
+    /// Returns the associated ostream
     std::ostream &getOStream();
 
-    //{
-    /// Writes the given string
-    OutputDevice &writeString(const std::string &str);
-
     void closeInfo();
-    //}
 
 };
 

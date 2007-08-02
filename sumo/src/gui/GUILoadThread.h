@@ -71,7 +71,6 @@ protected:
     virtual GUIEdgeControlBuilder *buildEdgeBuilder();
     virtual GUIVehicleControl *buildVehicleControl();
     virtual bool initOptions();
-    virtual void initDevices();
     virtual void closeNetLoadingDependent(OptionsCont &, GUINet &)
     { }
 

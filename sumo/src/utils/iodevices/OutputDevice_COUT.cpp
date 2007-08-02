@@ -53,38 +53,10 @@ OutputDevice_COUT::~OutputDevice_COUT()
 {}
 
 
-bool
-OutputDevice_COUT::ok()
-{
-    return true;
-}
-
-
-void
-OutputDevice_COUT::close()
-{
-    throw 1;
-}
-
 std::ostream &
 OutputDevice_COUT::getOStream()
 {
     return cout;
-}
-
-
-bool
-OutputDevice_COUT::supportsStreams() const
-{
-    return true;
-}
-
-
-OutputDevice &
-OutputDevice_COUT::writeString(const std::string &str)
-{
-    cout << str;
-    return *this;
 }
 
 
@@ -94,7 +66,4 @@ OutputDevice_COUT::closeInfo()
     cout << endl;
 }
 
-
-
 /****************************************************************************/
-

@@ -64,7 +64,7 @@
 #include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
-#include <utils/iodevices/SharedOutputDevices.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/GeoConvHelper.h>
 #include "NLLoadFilter.h"
@@ -1080,7 +1080,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
                                               getString(attrs, SUMO_ATTR_LANE),
                                               getFloat(attrs, SUMO_ATTR_POSITION),
                                               getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-                                              SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                                              OutputDevice::getOutputDeviceChecking(
                                                   getFileName(), getString(attrs, SUMO_ATTR_FILE)),
                                               getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false),
                                               getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
@@ -1090,7 +1090,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
                                               getString(attrs, SUMO_ATTR_LANE),
                                               getFloat(attrs, SUMO_ATTR_POSITION),
                                               getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-                                              SharedOutputDevices::getInstance()->getOutputDevice(getString(attrs, SUMO_ATTR_HOST),
+                                              OutputDevice::getOutputDevice(getString(attrs, SUMO_ATTR_HOST),
                                                       getInt(attrs, SUMO_ATTR_PORT),
                                                       getString(attrs, SUMO_ATTR_PROTOCOL)),
                                               getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false),
@@ -1101,7 +1101,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
                                           getString(attrs, SUMO_ATTR_LANE),
                                           getFloat(attrs, SUMO_ATTR_POSITION),
                                           getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-                                          SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                                          OutputDevice::getOutputDeviceChecking(
                                               getFileName(), getString(attrs, SUMO_ATTR_FILE)),
                                           getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false),
                                           getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
@@ -1158,7 +1158,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                                   getBoolSecure(attrs, SUMO_ATTR_CONT, false),
                                                   tll,
                                                   getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-                                                  SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                                                  OutputDevice::getOutputDeviceChecking(
                                                       getFileName(), getString(attrs, SUMO_ATTR_FILE)),
                                                   getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
@@ -1175,7 +1175,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                                   getBoolSecure(attrs, SUMO_ATTR_CONT, false),
                                                   tll, toLane,
                                                   getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-                                                  SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                                                  OutputDevice::getOutputDeviceChecking(
                                                       getFileName(), getString(attrs, SUMO_ATTR_FILE)),
                                                   getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
@@ -1193,7 +1193,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                               getBoolSecure(attrs, SUMO_ATTR_CONT, false),
                                               getInt(attrs, SUMO_ATTR_SPLINTERVAL),
                                               getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-                                              SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                                              OutputDevice::getOutputDeviceChecking(
                                                   getFileName(), getString(attrs, SUMO_ATTR_FILE)),
                                               getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                               getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
@@ -1229,7 +1229,7 @@ NLHandler::beginE3Detector(const Attributes &attrs)
     }
     try {
         myDetectorBuilder.beginE3Detector(id,
-                                          SharedOutputDevices::getInstance()->getOutputDeviceChecking(
+                                          OutputDevice::getOutputDeviceChecking(
                                               getFileName(), getString(attrs, SUMO_ATTR_FILE)),
                                           getInt(attrs, SUMO_ATTR_SPLINTERVAL),
                                           getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),

@@ -105,7 +105,7 @@ public:
      */
     void writeXMLHeader(OutputDevice &dev) const
     {
-        dev.writeString(xmlHeaderM);
+        dev<<xmlHeaderM;
     }
 
     /**
@@ -124,7 +124,7 @@ public:
 
     void writeXMLDetectorInfoEnd(OutputDevice &dev) const
     {
-        dev.writeString(infoEndM);
+        dev<<infoEndM;
     }
 
     /// Returns this detector's length

@@ -4,7 +4,7 @@
 /// @date    Wed Jun 9 16:40:56 CEST 2004
 /// @version $Id$
 ///
-//	»missingDescription«
+//	missingDescription
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -222,7 +222,7 @@ public:
     ///
     void writeXMLHeader(OutputDevice &dev) const
     {
-        dev.writeString(xmlHeaderM);
+        dev<<xmlHeaderM;
     }
 
     /// Get the XML-formatted output of the concrete detector.  Calls
@@ -236,14 +236,14 @@ public:
     ///
     void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime)
     {
-        dev.writeString("<interval begin=\"").writeString(
-            toString(startTime)).writeString("\" end=\"").writeString(
-                toString(stopTime)).writeString("\" ");
+        dev<<"<interval begin=\""<<
+            toString(startTime)<<"\" end=\""<<
+                toString(stopTime)<<"\" ";
         if (dev.needsDetectorName()) {
-            dev.writeString("id=\"").writeString(idM).writeString("\" ");
+            dev<<"id=\""<<idM<<"\" ";
         }
         writeXMLOutput(dev, detectorsM, startTime, stopTime);
-        dev.writeString("/>");
+        dev<<"/>";
     }
 
     /// Get an opening XML-tag containing information about the detector.
@@ -252,11 +252,11 @@ public:
     ///
     void writeXMLDetectorInfoStart(OutputDevice &dev) const
     {
-        dev.writeString("<detector type=\"E1_Collector\" id=\"").writeString(
-            idM).writeString("\" >\n");
-        dev.writeString("<location lane=\"").writeString(
-            crossSectionM.laneM->getID()).writeString("\" pos=\"").writeString(
-                toString(crossSectionM.posM)).writeString("\" />\n");
+        dev<<"<detector type=\"E1_Collector\" id=\""<<
+            idM<<"\" >\n";
+        dev<<"<location lane=\""<<
+            crossSectionM.laneM->getID()<<"\" pos=\""<<
+                toString(crossSectionM.posM)<<"\" />\n";
     }
 
     /// Get an closing XML-tag corresponding to the opening tag from
@@ -397,9 +397,9 @@ protected:
             if (*it == 0) {
                 continue;
             }
-            dev.writeString((*it)->getName()).writeString("=\"").writeString(
-                toString((*it)->getAggregate(lastNSeconds))).writeString(
-                    "\" ");
+            dev<<(*it)->getName()<<"=\""<<
+                toString((*it)->getAggregate(lastNSeconds))<<
+                    "\" ";
         }
     }
 

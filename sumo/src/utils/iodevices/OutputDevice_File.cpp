@@ -70,25 +70,10 @@ OutputDevice_File::close()
 }
 
 
-bool
-OutputDevice_File::supportsStreams() const
-{
-    return true;
-}
-
-
 std::ostream &
 OutputDevice_File::getOStream()
 {
     return *myFileStream;
-}
-
-
-OutputDevice &
-OutputDevice_File::writeString(const std::string &str)
-{
-    (*myFileStream) << str;
-    return *this;
 }
 
 

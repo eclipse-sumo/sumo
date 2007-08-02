@@ -64,15 +64,8 @@ public:
     // closes the device
     void close();
 
-    // @brief returns the information whether a stream is available
-    // If not, one has to use the "writeString" API
-    bool supportsStreams() const;
-
     // returns the assiciated ostream
     std::ostream &getOStream();
-
-    // writes the given string
-    OutputDevice &writeString(const std::string &str);
 
     void closeInfo();
 

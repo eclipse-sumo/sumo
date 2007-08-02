@@ -37,8 +37,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
-#include <utils/iodevices/OutputDevice_File.h>
-#include <utils/iodevices/SharedOutputDevices.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <microsim/MSJunction.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
@@ -451,7 +450,7 @@ SUMOFrame::buildStream(const OptionsCont &oc,
     if (!oc.isSet(optionName)) {
         return 0;
     }
-    return SharedOutputDevices::getInstance()->getOutputDevice(oc.getString(optionName).c_str());
+    return OutputDevice::getOutputDevice(oc.getString(optionName).c_str());
 }
 
 

@@ -44,6 +44,21 @@
 class OutputDevice
 {
 public:
+    /// Returns the named file
+    static OutputDevice *getOutputDevice(const std::string &name);
+
+    /// Returns the named file checking whether the path is completely given
+    static OutputDevice *getOutputDeviceChecking(
+        const std::string &base, const std::string &name);
+
+#ifdef USE_SOCKETS
+    // returns the netework target denoted by 'host', 'port' and 'protocol'
+    static OutputDevice *getOutputDevice(const std::string &host, const int port, const std::string &protocol);
+#endif //#ifdef USE_SOCKETS
+
+    /// Closes all registered devices
+    static void closeAll();
+
     /// Constructor
     OutputDevice() :
             myNeedHeader(true), myNeedTail(true), myNeedDetectorName(false)
@@ -54,21 +69,13 @@ public:
     { }
 
     /// returns the information whether one can write into the device
-    virtual bool ok() = 0;
+    virtual bool ok();
 
     /// Closes the device
-    virtual void close() = 0;
-
-    /** @brief returns the information whether a stream is available
-        If not, one has to use the "writeString" API */
-    virtual bool supportsStreams() const = 0;
+    virtual void close();
 
     /// Returns the associated ostream
     virtual std::ostream &getOStream() = 0;
-
-    //{
-    /// Writes the given string
-    virtual OutputDevice &writeString(const std::string &str) = 0;
 
     virtual void closeInfo() = 0;
 
@@ -133,6 +140,7 @@ public:
     }
     //@}
 
+    OutputDevice &operator<<(const std::string &str);
 
 protected:
     /// The information whether a header shall be written
@@ -147,6 +155,13 @@ protected:
     /// Map of boolean markers
     std::map<std::string, bool> myBoolMarkers;
 
+
+private:
+    /// Definition of a map from names to output devices
+    typedef std::map<std::string, OutputDevice*> DeviceMap;
+
+    /// map from names to output devices
+    static DeviceMap myOutputDevices;
 };
 
 

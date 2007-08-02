@@ -211,7 +211,7 @@ MSE3Collector::removeOnTripEnd(MSVehicle *veh)
 void
 MSE3Collector::writeXMLHeader(OutputDevice &dev) const
 {
-    dev.writeString(xmlHeaderM);
+    dev<<xmlHeaderM;
 }
 
 
@@ -219,11 +219,11 @@ void
 MSE3Collector::writeXMLOutput(OutputDevice &dev,
                               SUMOTime startTime, SUMOTime stopTime)
 {
-    dev.writeString("   <interval begin=\"").writeString(
-        toString(startTime)).writeString("\" end=\"").writeString(
-            toString(stopTime)).writeString("\" ");
+    dev<<"   <interval begin=\""<<
+        toString(startTime)<<"\" end=\""<<
+            toString(stopTime)<<"\" ";
     if (dev.needsDetectorName()) {
-        dev.writeString("id=\"").writeString(idM).writeString("\" ");
+        dev<<"id=\""<<idM<<"\" ";
     }
     // collect values
     SUMOReal vehicleSum = (SUMOReal) myLeftContainer.size();
@@ -241,10 +241,10 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
     meanSpeed /= vehicleSum;
     meanHaltsPerVehicle /= vehicleSum;
     // write values
-    dev.writeString("meanTravelTime=\"").writeString(toString(meanTravelTime)).writeString(
-        "\" meanSpeed=\"").writeString(toString(meanSpeed)).writeString(
-            "\" meanHaltsPerVehicle=\"").writeString(toString(meanHaltsPerVehicle)).writeString(
-                "\" vehicleSum=\"").writeString(toString(vehicleSum)).writeString("\"/>");
+    dev<<"meanTravelTime=\""<<toString(meanTravelTime)<<
+        "\" meanSpeed=\""<<toString(meanSpeed)<<
+            "\" meanHaltsPerVehicle=\""<<toString(meanHaltsPerVehicle)<<
+                "\" vehicleSum=\""<<toString(vehicleSum)<<"\"/>";
     // clear container
     myLeftContainer.clear();
 }
@@ -308,19 +308,19 @@ MSE3Collector::getValue(MSE3Collector::Value which) const
 void
 MSE3Collector::writeXMLDetectorInfoStart(OutputDevice &dev) const
 {
-    dev.writeString("<e3-detector>\n");
+    dev<<"<e3-detector>\n";
     std::string entries;
     CrossSectionVectorConstIt crossSec;
     for (crossSec = entriesM.begin(); crossSec != entriesM.end(); ++crossSec) {
-        dev.writeString("   <entry lane=\"").writeString(
-            crossSec->laneM->getID()).writeString("\" pos=\"").writeString(
-                toString(crossSec->posM)).writeString("\"/>\n");
+        dev<<"   <entry lane=\""<<
+            crossSec->laneM->getID()<<"\" pos=\""<<
+                toString(crossSec->posM)<<"\"/>\n";
     }
     std::string exits;
     for (crossSec = exitsM.begin(); crossSec != exitsM.end(); ++crossSec) {
-        dev.writeString("   <exit lane=\"").writeString(
-            crossSec->laneM->getID()).writeString("\" pos=\"").writeString(
-                toString(crossSec->posM)).writeString("\"/>\n");
+        dev<<"   <exit lane=\""<<
+            crossSec->laneM->getID()<<"\" pos=\""<<
+                toString(crossSec->posM)<<"\"/>\n";
     }
 }
 
@@ -328,7 +328,7 @@ MSE3Collector::writeXMLDetectorInfoStart(OutputDevice &dev) const
 void
 MSE3Collector::writeXMLDetectorInfoEnd(OutputDevice &dev) const
 {
-    dev.writeString(infoEndM);
+    dev<<infoEndM;
 }
 
 
