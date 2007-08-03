@@ -182,6 +182,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\iodevices\OutputDevice.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\iodevices\OutputDevice_COUT.cpp"
 				>
 				<FileConfiguration
@@ -235,35 +239,6 @@
 				RelativePath="..\..\..\src\utils\iodevices\OutputDevice_Network.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\utils\iodevices\OutputWrapper.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\iodevices\SharedOutputDevices.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -291,14 +266,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\iodevices\OutputDevice_Network.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\iodevices\OutputWrapper.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\iodevices\SharedOutputDevices.h"
 				>
 			</File>
 		</Filter>
