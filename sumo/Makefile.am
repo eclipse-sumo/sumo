@@ -7,7 +7,6 @@ doc:
 
 dist-hook:
 	cd $(srcdir)
-	cp --parents `find build/msvc6 -name "*.dsw" -o -name "*.dsp"` $(distdir)
 	cp --parents `find build -name "*.vcproj" -o -name "*.sln"` $(distdir)
 	cp --parents `find data -regex ".*\.\(nod\|edg\|rou\|add\|def\)\.xml"` $(distdir)
 	cp --parents `find data -name "*.cfg"` $(distdir)
