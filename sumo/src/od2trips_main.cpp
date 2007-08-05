@@ -52,7 +52,7 @@
 #include <utils/common/StringUtils.h>
 #include <od2trips/ODDistrictCont.h>
 #include <od2trips/ODDistrictHandler.h>
-#include <od2trips/ODmatrix.h>
+#include <od2trips/ODMatrix.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StringTokenizer.h>
@@ -117,9 +117,6 @@ fillOptions()
     oc.doRegister("scale", 's', new Option_Float(1));
     oc.addDescription("scale", "Processing", "Scales the loaded flows by FLOAT");
 
-    oc.doRegister("no-color", new Option_Bool(false));
-    oc.addDescription("no-color", "Processing", "Disables writing color information for vehicles");
-
     oc.doRegister("spread.uniform", new Option_Bool(false));
     oc.addDescription("spread.uniform", "Processing", "Spreads trips uniformly over each time period");
 
@@ -159,38 +156,31 @@ fillOptions()
 
 
 Distribution_Points
-parseTimeLine(const std::string &def, bool timelineDayInHours)
+parseTimeLine(const std::vector<std::string> &def, bool timelineDayInHours)
 {
     bool interpolating = !timelineDayInHours;
     Position2DVector points;
-    StringTokenizer st(def, ";");
-    if (timelineDayInHours&&st.size()!=24) {
-        throw ProcessError("Assuming 24 entries for a day timeline, but got " + toString(st.size()) + ".");
-    }
-    int chour = 0;
     SUMOReal prob;
-    while (st.hasNext()) {
-        string hourval = st.next();
-        StringTokenizer st2(hourval, ",");
-        int time = chour * 3600;
-        // parse time if the time line is assumed to contain this
-        if (!timelineDayInHours) {
+    if(timelineDayInHours) {
+        if (def.size()!=24) {
+            throw ProcessError("Assuming 24 entries for a day timeline, but got " + toString(def.size()) + ".");
+        }
+        for(int chour=0; chour<24; ++chour) {
+            prob = TplConvert<char>::_2SUMOReal(def[chour].c_str());
+            points.push_back(Position2D((SUMOReal) (chour*3600), prob));
+        }
+        points.push_back(Position2D((SUMOReal) (24 * 3600), prob));
+    } else {
+        size_t i = 0;
+        while(i<def.size()) {
+			StringTokenizer st2(def[i++], ":");
             if (st2.size()!=2) {
-                throw ProcessError("Broken time line definition: missing a value in '" + hourval + "'.");
+                throw ProcessError("Broken time line definition: missing a value in '" + def[i-1] + "'.");
             }
-            time = TplConvert<char>::_2int(st2.next().c_str());
+			int time = TplConvert<char>::_2int(st2.next().c_str());
+            prob = TplConvert<char>::_2SUMOReal(st2.next().c_str());
+            points.push_back(Position2D((SUMOReal) time, prob));
         }
-        // check otherwise
-        if (timelineDayInHours&&st2.size()!=1) {
-            throw ProcessError("Broken time line definition: missing a value in '" + hourval + "'.");
-        }
-        // get the distribution value
-        prob = TplConvert<char>::_2SUMOReal(st2.next().c_str());
-        points.push_back(Position2D((SUMOReal) time, prob));
-        chour++;
-    }
-    if (timelineDayInHours) {
-        points.push_back(Position2D((SUMOReal) chour *(SUMOReal) 3600, prob));
     }
     return Distribution_Points("N/A", points, interpolating);
 }
@@ -239,7 +229,6 @@ loadDistricts(OptionsCont &oc)
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");
         return 0;
     }
-    ret->colorize();
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
     return ret;
 }
@@ -355,6 +344,7 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
     // factor
     SUMOReal factor = readFactor(lr, scale);
 
+	// districts
     line = getNextNonCommentLine(lr);
     int districtNo = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
     // parse district names (normally ints)
@@ -368,6 +358,7 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
         line = lr.readLine();
     } while (line[0]!='*');
     assert((int) names.size()==districtNo);
+
     // parse the cells
     for (std::vector<std::string>::iterator si=names.begin(); si!=names.end(); ++si) {
         std::vector<std::string>::iterator di = names.begin();
@@ -380,14 +371,7 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
                     assert(di!=names.end());
                     SUMOReal vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
                     if (vehNumber!=0) {
-                        ODCell *cell = new ODCell();
-                        cell->begin = begin;
-                        cell->end = end;
-                        cell->origin = *si;
-                        cell->destination = *di;
-                        cell->vehicleType = vehType;
-                        cell->vehicleNumber = vehNumber;
-                        into.add(cell);
+                        into.add(vehNumber, begin, end, *si, *di, vehType);
                     }
                     di++;
                 }
@@ -436,14 +420,7 @@ readO(LineReader &lr, ODMatrix &into, SUMOReal scale,
             string destD = st2.next();
             SUMOReal vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
             if (vehNumber!=0) {
-                ODCell *cell = new ODCell();
-                cell->begin = begin;
-                cell->end = end;
-                cell->origin = sourceD;
-                cell->destination = destD;
-                cell->vehicleType = vehType;
-                cell->vehicleNumber = vehNumber;
-                into.add(cell);
+				into.add(vehNumber, begin, end, sourceD, destD, vehType);
             }
         } catch (OutOfBoundsException &) {
             throw ProcessError("Missing at least one information in line '" + line + "'.");
@@ -535,12 +512,12 @@ main(int argc, char **argv)
             throw ProcessError("No districts loaded...");
         }
         // load the matrix
-        ODMatrix matrix;
+        ODMatrix matrix(*districts);
         loadMatrix(oc, matrix);
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoLoaded()) + " vehicles loaded.");
         // apply a curve if wished
         if (oc.isSet("timeline")) {
-            matrix.applyCurve(parseTimeLine(oc.getString("timeline"), oc.getBool("timeline.day-in-hours")));
+            matrix.applyCurve(parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
         // write
         ofstream ostrm(oc.getString("output").c_str());
@@ -549,8 +526,9 @@ main(int argc, char **argv)
         }
         ostrm << "<tripdefs>" << endl;
         matrix.write((SUMOTime) oc.getInt("begin"), (SUMOTime) oc.getInt("end"),
-                     ostrm, *districts, oc.getBool("spread.uniform"), oc.getString("prefix"));
+                     ostrm, oc.getBool("spread.uniform"), oc.getString("prefix"));
         ostrm << "</tripdefs>" << endl;
+        MsgHandler::getMessageInstance()->inform(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");
     } catch (ProcessError &e) {
         if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {

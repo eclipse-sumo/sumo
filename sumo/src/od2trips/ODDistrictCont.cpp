@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The container for districts
+// A container for districts
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -49,55 +49,33 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ODDistrictCont::ODDistrictCont()
-        : myHadColorized(false)
+ODDistrictCont::ODDistrictCont() throw()
 {}
 
 
-ODDistrictCont::~ODDistrictCont()
+ODDistrictCont::~ODDistrictCont() throw()
 {}
 
 
 std::string
-ODDistrictCont::getRandomSourceFromDistrict(const std::string &name) const
+ODDistrictCont::getRandomSourceFromDistrict(const std::string &name) const throw(OutOfBoundsException, InvalidArgument)
 {
     ODDistrict *district = get(name);
     if (district==0) {
-        throw ProcessError("There is no district '" + name + "'.");
+        throw InvalidArgument("There is no district '" + name + "'.");
     }
     return district->getRandomSource();
 }
 
 
 std::string
-ODDistrictCont::getRandomSinkFromDistrict(const std::string &name) const
+ODDistrictCont::getRandomSinkFromDistrict(const std::string &name) const throw(OutOfBoundsException, InvalidArgument)
 {
     ODDistrict *district = get(name);
     if (district==0) {
-        throw ProcessError("There is no district '" + name + "'.");
+        throw InvalidArgument("There is no district '" + name + "'.");
     }
     return district->getRandomSink();
-}
-
-
-void
-ODDistrictCont::colorize()
-{
-    const std::vector<ODDistrict*> &v = getTempVector();
-    for (size_t i=0; i!=v.size(); i++) {
-        v[i]->setColor((SUMOReal) i / (SUMOReal) v.size());
-    }
-}
-
-
-SUMOReal
-ODDistrictCont::getDistrictColor(const std::string &name) const
-{
-    ODDistrict *district = get(name);
-    if (district==0) {
-        throw ProcessError("There is no district '" + name + "'.");
-    }
-    return district->getColor();
 }
 
 

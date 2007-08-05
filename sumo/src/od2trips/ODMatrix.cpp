@@ -4,7 +4,7 @@
 /// @date    05 Apr. 2006
 /// @version $Id$
 ///
-// An internal representation of the loaded matrix
+// An O/D (origin/destination) matrix
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -28,7 +28,7 @@
 #include <config.h>
 #endif
 
-#include "ODmatrix.h"
+#include "ODMatrix.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/MsgHandler.h>
@@ -52,12 +52,12 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ODMatrix::ODMatrix()
-        : myNoLoaded(0), myNoWritten(0)
+ODMatrix::ODMatrix(const ODDistrictCont &dc) throw()
+        : myDistricts(dc), myNoLoaded(0), myNoWritten(0), myNoDiscarded(0)
 {}
 
 
-ODMatrix::~ODMatrix()
+ODMatrix::~ODMatrix() throw()
 {
     for (CellVector::iterator i=myContainer.begin(); i!=myContainer.end(); ++i) {
         delete *i;
@@ -67,27 +67,46 @@ ODMatrix::~ODMatrix()
 
 
 void
-ODMatrix::add(ODCell *cell)
+ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
+		SUMOTime end, const std::string &origin, const std::string &destination,
+		const std::string &vehicleType) throw()
 {
-    myNoLoaded += cell->vehicleNumber;
-    myContainer.push_back(cell);
+    myNoLoaded += vehicleNumber;
+    if(myDistricts.get(origin)==0&&myDistricts.get(destination)==0) {
+        MsgHandler::getWarningInstance()->inform("Missing origin '" + origin + "' and destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
+    } else if(myDistricts.get(origin)==0&&vehicleNumber>0) {
+        MsgHandler::getErrorInstance()->inform("Missing origin '" + origin + "' (" + toString(vehicleNumber) + " vehicles).");
+        myNoDiscarded += vehicleNumber;
+    } else if(myDistricts.get(destination)==0&&vehicleNumber>0) {
+        MsgHandler::getErrorInstance()->inform("Missing destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
+        myNoDiscarded += vehicleNumber;
+    } else {
+		ODCell *cell = new ODCell();
+        cell->begin = begin;
+        cell->end = end;
+        cell->origin = origin;
+        cell->destination = destination;
+        cell->vehicleType = vehicleType;
+        cell->vehicleNumber = vehicleNumber;
+        myContainer.push_back(cell);
+    }
 }
 
 
 SUMOReal
-ODMatrix::computeEmissions(const ODDistrictCont &dc, ODCell *cell,
+ODMatrix::computeEmissions(ODCell *cell,
                            size_t &vehName, std::vector<ODVehicle> &into,
-                           bool uniform, const std::string &prefix)
+                           bool uniform, const std::string &prefix) throw()
 {
     int vehicles2emit = (int) cell->vehicleNumber;
     // compute whether the fraction forces an additional vehicle emission
     SUMOReal mrand = randSUMO();
-    SUMOReal mprob = (SUMOReal)cell->vehicleNumber-(SUMOReal) vehicles2emit;
+    SUMOReal mprob = (SUMOReal) cell->vehicleNumber - (SUMOReal) vehicles2emit;
     if (mrand<mprob) {
         vehicles2emit++;
     }
 
-    SUMOReal offset = (SUMOReal)(cell->end - cell->begin) / (SUMOReal) vehicles2emit / (SUMOReal) 2.;
+    SUMOReal offset = (SUMOReal) (cell->end - cell->begin) / (SUMOReal) vehicles2emit / (SUMOReal) 2.;
     for (int i=0; i<vehicles2emit; i++) {
         ODVehicle veh;
         veh.id = prefix + toString(vehName++);
@@ -98,13 +117,9 @@ ODMatrix::computeEmissions(const ODDistrictCont &dc, ODCell *cell,
             veh.depart = (int)(cell->begin + randSUMO() * (SUMOReal)(cell->end - cell->begin));
         }
 
-        veh.from = dc.getRandomSourceFromDistrict(cell->origin);
-        veh.to = dc.getRandomSinkFromDistrict(cell->destination);
+        veh.from = myDistricts.getRandomSourceFromDistrict(cell->origin);
+        veh.to = myDistricts.getRandomSinkFromDistrict(cell->destination);
         veh.type = cell->vehicleType;
-        SUMOReal red = dc.getDistrictColor(cell->origin);
-        SUMOReal blue = dc.getDistrictColor(cell->destination);
-        SUMOReal green = (red + blue) / 2.0f;
-        veh.color = RGBColor(red, green, blue);
         into.push_back(veh);
     }
     return cell->vehicleNumber - vehicles2emit;
@@ -113,10 +128,13 @@ ODMatrix::computeEmissions(const ODDistrictCont &dc, ODCell *cell,
 
 void
 ODMatrix::write(SUMOTime begin, SUMOTime end,
-                std::ofstream &strm, const ODDistrictCont &dc,
+                std::ofstream &strm, 
                 bool uniform,
-                const std::string &prefix)
+                const std::string &prefix) throw()
 {
+    if(myContainer.size()==0) {
+        return;
+    }
     std::map<std::pair<std::string, std::string>, SUMOReal> fractionLeft;
     size_t vehName = 0;
     sort(myContainer.begin(), myContainer.end(), cell_by_begin_sorter());
@@ -139,7 +157,7 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             }
             // get the new emissions (into tmp)
             std::vector<ODVehicle> tmp;
-            SUMOReal fraction = computeEmissions(dc, *next, vehName, tmp, uniform, prefix);
+            SUMOReal fraction = computeEmissions(*next, vehName, tmp, uniform, prefix);
             // copy new emissions if any
             if (tmp.size()!=0) {
                 copy(tmp.begin(), tmp.end(), back_inserter(vehicles));
@@ -164,12 +182,9 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             myNoWritten++;
             strm << "   <tripdef id=\"" << (*i).id << "\" depart=\"" << t << "\" ";
             strm << "from=\"" << (*i).from << "\" ";
-            strm << "to=\"" << (*i).to << "\" ";
+            strm << "to=\"" << (*i).to << "\"";
             if ((*i).type.length()!=0) {
-                strm << "type=\"" << (*i).type << "\" ";
-            }
-            if (!OptionsCont::getOptions().getBool("no-color")) {
-                strm << "color=\"" << (*i).color << "\" ";
+                strm << " type=\"" << (*i).type << "\"";
             }
             strm << "/>"<< endl;
         }
@@ -181,21 +196,28 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
 
 
 SUMOReal
-ODMatrix::getNoLoaded() const
+ODMatrix::getNoLoaded() const throw()
 {
     return myNoLoaded;
 }
 
 
 SUMOReal
-ODMatrix::getNoWritten() const
+ODMatrix::getNoWritten() const throw()
 {
     return myNoWritten;
 }
 
 
+SUMOReal
+ODMatrix::getNoDiscarded() const throw()
+{
+    return myNoDiscarded;
+}
+
+
 void
-ODMatrix::applyCurve(const Distribution_Points &ps, ODCell *cell, CellVector &newCells)
+ODMatrix::applyCurve(const Distribution_Points &ps, ODCell *cell, CellVector &newCells) throw()
 {
     for (size_t i=0; i<ps.getAreaNo(); i++) {
         ODCell *ncell = new ODCell();
@@ -211,7 +233,7 @@ ODMatrix::applyCurve(const Distribution_Points &ps, ODCell *cell, CellVector &ne
 
 
 void
-ODMatrix::applyCurve(const Distribution_Points &ps)
+ODMatrix::applyCurve(const Distribution_Points &ps) throw()
 {
     CellVector oldCells = myContainer;
     myContainer.clear();

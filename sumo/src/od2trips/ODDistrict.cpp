@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A district
+// A district (origin/destination)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -49,61 +49,41 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ODDistrict::ODDistrict(const std::string &id)
+ODDistrict::ODDistrict(const std::string &id) throw()
         : Named(id)
 {}
 
-ODDistrict::~ODDistrict()
+
+ODDistrict::~ODDistrict() throw()
 {}
 
 
 void
-ODDistrict::addSource(const std::string &id, SUMOReal weight)
+ODDistrict::addSource(const std::string &id, SUMOReal weight) throw()
 {
     mySources.add(weight, id);
 }
 
 
 void
-ODDistrict::addSink(const std::string &id, SUMOReal weight)
+ODDistrict::addSink(const std::string &id, SUMOReal weight) throw()
 {
     mySinks.add(weight, id);
 }
 
 
 std::string
-ODDistrict::getRandomSource() const
+ODDistrict::getRandomSource() const throw(OutOfBoundsException)
 {
-    if (mySources.getOverallProb()==0) {
-        throw ProcessError("There is no source for district '" + getID() + "'.");
-    }
     return mySources.get();
 }
 
 
 std::string
-ODDistrict::getRandomSink() const
+ODDistrict::getRandomSink() const throw(OutOfBoundsException)
 {
-    if (mySinks.getOverallProb()==0) {
-        throw ProcessError("There is no sink for district '" + getID() + "'.");
-    }
     return mySinks.get();
 }
-
-
-void
-ODDistrict::setColor(SUMOReal val)
-{
-    myColor = val;
-}
-
-
-SUMOReal
-ODDistrict::getColor()  const
-{
-    return myColor;
-}
-
 
 
 /****************************************************************************/

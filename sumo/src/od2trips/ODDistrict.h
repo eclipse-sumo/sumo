@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A district
+// A district (origin/destination)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -34,6 +34,7 @@
 #include <string>
 #include <utility>
 #include <utils/common/Named.h>
+#include <utils/common/UtilExceptions.h>
 #include <utils/helpers/RandomDistributor.h>
 
 
@@ -42,41 +43,78 @@
 // ===========================================================================
 /**
  * @class ODDistrict
+ * @brief A district (origin/destination)
+ *
  * Class representing a district which has some ingoing and outgoing connections
- * to the road network which may be weighted.
+ *  to the road network which may be weighted.
  */
 class ODDistrict : public Named
 {
 public:
-    /// Constructor
-    ODDistrict(const std::string &id);
+    /** @brief Constructor
+	 *
+	 * @param[in] id The id of the district
+	 */
+    ODDistrict(const std::string &id) throw();
+
 
     /// Destructor
-    ~ODDistrict();
+    ~ODDistrict() throw();
+
 
     /** @brief Adds a source connection
      *
      * A source is an edge where vehicles leave the district from to reach
-     * the network */
-    void addSource(const std::string &id, SUMOReal weight);
+     *  the network. The weight is used when a random source shall be
+	 *  chosen.
+	 *
+	 * BTW, it is possible to add a source twice. In this case it will occure
+	 *  twice within the distribution so that the behaviour is as adding
+	 *  both given probabilities.
+	 *
+	 * @param[in] id The id of the source
+	 * @param[in] weight The weight (probability to be chosen) of the source
+	 */
+    void addSource(const std::string &id, SUMOReal weight) throw();
+
 
     /** @brief Adds a sink connection
      *
      * A sink connection is an edge which is used by vehicles to leave the
-     * network and reach the district */
-    void addSink(const std::string &id, SUMOReal weight);
+     *  network and reach the district.  The weight is used when a random 
+	 *  sink shall be chosen.
+	 *
+	 * BTW, it is possible to add a sink twice. In this case it will occure
+	 *  twice within the distribution so that the behaviour is as adding
+	 *  both given probabilities.
+	 *
+	 * @param[in] id The id of the sink
+	 * @param[in] weight The weight (probability to be chosen) of the sink
+	 */
+    void addSink(const std::string &id, SUMOReal weight) throw();
 
-    /// Returns the name of a source to use
-    std::string getRandomSource() const;
 
-    /// Returns the name of a sink to use
-    std::string getRandomSink() const;
+    /** @brief Returns the id of a source to use
+	 *
+	 * If the list of this district's sources is empty, an OutOfBoundsException
+	 *  -exception is thrown.
+	 *
+	 * @return One of this district's sources chosen randomly regarding their weights
+	 * @exception OutOfBoundsException If this district has no sources
+	 */
+    std::string getRandomSource() const throw(OutOfBoundsException);
 
-    /// Sets the abstract color
-    void setColor(SUMOReal val);
 
-    /// returns the color of the district
-    SUMOReal getColor() const;
+    /** @brief Returns the id of a sink to use
+	 *
+	 * If the list of this district's sinks is empty, an OutOfBoundsException
+	 *  -exception is thrown.
+	 *
+	 * @return One of this district's sinks chosen randomly regarding their weights
+	 * @exception OutOfBoundsException If this district has no sinks
+	 */
+    std::string getRandomSink() const throw(OutOfBoundsException);
+
 
 private:
     /// Container of weighted sources
@@ -85,9 +123,6 @@ private:
     /// Container of weighted sinks
     RandomDistributor<std::string> mySinks;
 
-private:
-    /// The abstract color of the district
-    SUMOReal myColor;
 
 };
 

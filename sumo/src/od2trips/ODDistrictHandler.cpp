@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The XML-Handler for district loading
+// An XML-Handler for districts
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -53,7 +53,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ODDistrictHandler::ODDistrictHandler(ODDistrictCont &cont)
+ODDistrictHandler::ODDistrictHandler(ODDistrictCont &cont) throw()
         : SUMOSAXHandler("sumo-districts"),
         myContainer(cont), myCurrentDistrict(0)
 {}
@@ -93,7 +93,7 @@ ODDistrictHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 
 
 void
-ODDistrictHandler::openDistrict(const Attributes &attrs)
+ODDistrictHandler::openDistrict(const Attributes &attrs) throw()
 {
     myCurrentDistrict = 0;
     try {
@@ -105,9 +105,9 @@ ODDistrictHandler::openDistrict(const Attributes &attrs)
 
 
 void
-ODDistrictHandler::addSource(const Attributes &attrs)
+ODDistrictHandler::addSource(const Attributes &attrs) throw()
 {
-    std::pair<std::string, SUMOReal> vals = getValues(attrs, "source");
+    std::pair<std::string, SUMOReal> vals = parseConnection(attrs, "source");
     if (vals.second>=0) {
         myCurrentDistrict->addSource(vals.first, vals.second);
     }
@@ -115,9 +115,9 @@ ODDistrictHandler::addSource(const Attributes &attrs)
 
 
 void
-ODDistrictHandler::addSink(const Attributes &attrs)
+ODDistrictHandler::addSink(const Attributes &attrs) throw()
 {
-    std::pair<std::string, SUMOReal> vals = getValues(attrs, "sink");
+    std::pair<std::string, SUMOReal> vals = parseConnection(attrs, "sink");
     if (vals.second>=0) {
         myCurrentDistrict->addSink(vals.first, vals.second);
     }
@@ -126,7 +126,7 @@ ODDistrictHandler::addSink(const Attributes &attrs)
 
 
 std::pair<std::string, SUMOReal>
-ODDistrictHandler::getValues(const Attributes &attrs, const std::string &type)
+ODDistrictHandler::parseConnection(const Attributes &attrs, const std::string &type) throw()
 {
     // check the current district first
     if (myCurrentDistrict==0) {
@@ -141,20 +141,27 @@ ODDistrictHandler::getValues(const Attributes &attrs, const std::string &type)
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the weight
-    SUMOReal weight = getFloatSecure(attrs, SUMO_ATTR_WEIGHT, -1);
-    if (weight==-1) {
-        MsgHandler::getErrorInstance()->inform("The weight of the " + type + " '" + id + "' within district '" + myCurrentDistrict->getID() + "' is not numeric.");
-        return std::pair<std::string, SUMOReal>("", -1);
-    }
-    // return the values
-    return std::pair<std::string, SUMOReal>(id, weight);
+	try {
+	    SUMOReal weight = getFloatSecure(attrs, SUMO_ATTR_WEIGHT, -1);
+		if (weight==-1) {
+			MsgHandler::getErrorInstance()->inform("The weight of the " + type + " '" + id + "' within district '" + myCurrentDistrict->getID() + "' is not given or <0.");
+			return std::pair<std::string, SUMOReal>("", -1);
+		}
+		// return the values
+		return std::pair<std::string, SUMOReal>(id, weight);
+	} catch (NumberFormatException &) {
+		MsgHandler::getErrorInstance()->inform("The weight of the " + type + " '" + id + "' within district '" + myCurrentDistrict->getID() + "' is not numeric.");
+	}
+	return std::pair<std::string, SUMOReal>("", -1);
 }
 
 
 void
-ODDistrictHandler::closeDistrict()
+ODDistrictHandler::closeDistrict() throw()
 {
-    myContainer.add(myCurrentDistrict->getID(), myCurrentDistrict);
+	if(myCurrentDistrict!=0) {
+	    myContainer.add(myCurrentDistrict->getID(), myCurrentDistrict);
+	}
 }
 
 

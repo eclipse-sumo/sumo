@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A single cell within the od-matrix
+// A single O/D-matrix cell
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,21 +36,32 @@
 // ===========================================================================
 /**
  * @struct ODCell
- * @brief This class represents a single od-matrix cell
+ * @brief A single O/D-matrix cell
  *
+ * A single cell within an O/D-matrix. Contains the information about the origin
+ *  and destination via string-ids of the district, the begin and the end time
+ *  for which this cell is valid, the id of the vehicle type to use, and the
+ *  amount of vehicles to emit during the described interval.
+ *
+ * @todo Check whether the vehicle type is used and makes sense herein
  */
 struct ODCell
 {
     /// The number of vehicles
     SUMOReal vehicleNumber;
+
     /// The begin time this cell describes
     SUMOTime begin;
+
     /// The end time this cell describes
     SUMOTime end;
+
     /// Name of the origin district
     std::string origin;
+
     /// Name of the destination district
     std::string destination;
+
     /// Name of the vehicle type
     std::string vehicleType;
 

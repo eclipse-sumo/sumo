@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The container for districts
+// A container for districts
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,32 +39,54 @@
 // ===========================================================================
 /**
  * @class ODDistrictCont
- * A container for districts.
+ * @brief A container for districts
+ *
+ * Besides the inherited methods for adding/removing districts, this container
+ *  allows to retrieve a random source or sink from a named district.
  */
 class ODDistrictCont : public NamedObjectCont<ODDistrict*>
 {
 public:
     /// Constructor
-    ODDistrictCont();
+    ODDistrictCont() throw();
+
 
     /// Destructor
-    ~ODDistrictCont();
+    ~ODDistrictCont() throw();
 
-    /// Returns a source from the named district by random
-    std::string getRandomSourceFromDistrict(const std::string &name) const;
 
-    /// Returns a sink from the named district by random
-    std::string getRandomSinkFromDistrict(const std::string &name) const;
+    /** @brief Returns the id of a random source from the named district
+	 *
+	 * At first, the named district is retrieved. If this fails, an
+	 *  InvalidArgument-exception is thrown. Otherwise, a source (edge) 
+	 *  is chosen randomly from this  district using this district's 
+	 *  getRandomSource-method which throws an OutOfBoundsException-exception
+	 *  if this district does not contain a source.
+	 *
+	 * @param[in] name The id of the district to get a random source from
+	 * @return The is of a randomly chosen source
+	 * @exception InvalidArgument If the named district is not known
+	 * @exception OutOfBoundsException If the named district has no sources
+	 * @see ODDistrict::getRandomSource
+	 */
+    std::string getRandomSourceFromDistrict(const std::string &name) const throw(OutOfBoundsException, InvalidArgument);
 
-    /// Computes abstract colors for all districts
-    void colorize();
 
-    /// Returns an abstract (computed) color of the district
-    SUMOReal getDistrictColor(const std::string &name) const;
-
-private:
-    /// Holds the information whether the districts were colored
-    bool myHadColorized;
+    /** @brief Returns the id of a random sink from the named district
+	 *
+	 * At first, the named district is retrieved. If this fails, an
+	 *  InvalidArgument-exception is thrown. Otherwise, a sink (edge) 
+	 *  is chosen randomly from this district using this district's 
+	 *  getRandomSink-method which throws an OutOfBoundsException-exception 
+	 *  if this district does not contain a sink.
+	 *
+	 * @param[in] name The id of the district to get a random sink from
+	 * @return The is of a randomly chosen sink
+	 * @exception InvalidArgument If the named district is not known
+	 * @exception OutOfBoundsException If the named district has no sinks
+	 * @see ODDistrict::getRandomSink
+	 */
+    std::string getRandomSinkFromDistrict(const std::string &name) const throw(OutOfBoundsException, InvalidArgument);
 
 };
 
