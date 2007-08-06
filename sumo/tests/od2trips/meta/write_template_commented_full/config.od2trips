@@ -31,9 +31,6 @@
       <!-- Scales the loaded flows by FLOAT -->
       <scale>1</scale>
 
-      <!-- Disables writing color information for vehicles -->
-      <no-color>false</no-color>
-
       <!-- Spreads trips uniformly over each time period -->
       <spread.uniform>false</spread.uniform>
 

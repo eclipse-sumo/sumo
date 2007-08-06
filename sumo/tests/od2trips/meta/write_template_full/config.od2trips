@@ -17,7 +17,6 @@
 
    <processing>
       <scale>1</scale>
-      <no-color>false</no-color>
       <spread.uniform>false</spread.uniform>
       <vtype></vtype>
       <prefix></prefix>

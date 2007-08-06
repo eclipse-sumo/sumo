@@ -1,12 +1,12 @@
-SUMO od2trips Version dev-SVN-r4156
+SUMO od2trips Version 0.9.6
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Importer of O/D-matrices for the road traffic simulation SUMO.
 
-Usage: sumo-od2trips [OPTION]*
+Usage: od2trips.exe [OPTION]*
  
  Example:
-  sumo-od2trips -c <CONFIGURATION>
+  od2trips.exe -c <CONFIGURATION>
  
  Configuration Options:
   -c, --configuration-file FILE    Loads the named config on startup
@@ -32,8 +32,6 @@ Usage: sumo-od2trips [OPTION]*
 
  Processing Options:
   -s, --scale FLOAT                Scales the loaded flows by FLOAT
-  --no-color                       Disables writing color information for
-                                     vehicles
   --spread.uniform                 Spreads trips uniformly over each time
                                      period
   --vtype STR                      Defines the name of the vehicle type to use
