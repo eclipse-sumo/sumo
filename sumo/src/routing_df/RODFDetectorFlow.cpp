@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    DFDetectorFlow.cpp
+/// @file    RODFDetectorFlow.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
 /// @version $Id$
@@ -30,7 +30,7 @@
 
 #include <iostream>
 #include <cassert>
-#include "DFDetectorFlow.h"
+#include "RODFDetectorFlow.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -46,19 +46,19 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-DFDetectorFlows::DFDetectorFlows(SUMOTime startTime, SUMOTime endTime,
+RODFDetectorFlows::RODFDetectorFlows(SUMOTime startTime, SUMOTime endTime,
                                  SUMOTime stepOffset)
         : myBeginTime(startTime), myEndTime(endTime), myStepOffset(stepOffset),
         myMaxDetectorFlow(-1)
 {}
 
 
-DFDetectorFlows::~DFDetectorFlows()
+RODFDetectorFlows::~RODFDetectorFlows()
 {}
 
 
 void
-DFDetectorFlows::addFlow(const std::string &id, int t, const FlowDef &fd)
+RODFDetectorFlows::addFlow(const std::string &id, int t, const FlowDef &fd)
 {
     if (myFastAccessFlows.find(id)==myFastAccessFlows.end()) {
         size_t noItems = (size_t)((myEndTime-myBeginTime)/myStepOffset);
@@ -97,7 +97,7 @@ DFDetectorFlows::addFlow(const std::string &id, int t, const FlowDef &fd)
 
 
 void
-DFDetectorFlows::setFlows(const std::string &detector_id,
+RODFDetectorFlows::setFlows(const std::string &detector_id,
                           std::vector<FlowDef> &flows)
 {
     for (std::vector<FlowDef>::iterator i=flows.begin(); i<flows.end(); ++i) {
@@ -113,7 +113,7 @@ DFDetectorFlows::setFlows(const std::string &detector_id,
 
 
 void
-DFDetectorFlows::removeFlow(const std::string &detector_id)
+RODFDetectorFlows::removeFlow(const std::string &detector_id)
 {
     if (myFastAccessFlows.find(detector_id)!=myFastAccessFlows.end()) {
         myFastAccessFlows.erase(myFastAccessFlows.find(detector_id));
@@ -122,28 +122,28 @@ DFDetectorFlows::removeFlow(const std::string &detector_id)
 
 /*
 const FlowDef &
-DFDetectorFlows::getFlowDef( const std::string &id, int t ) const
+RODFDetectorFlows::getFlowDef( const std::string &id, int t ) const
 {
 	return myCurrFlows.find(id)->second.find(t)->second;
 }
 
 
 const std::map< int, FlowDef > &
-DFDetectorFlows::getFlowDefs( const std::string &id ) const
+RODFDetectorFlows::getFlowDefs( const std::string &id ) const
 {
 	return myCurrFlows.find(id)->second;
 }
 */
 
 bool
-DFDetectorFlows::knows(const std::string &det_id) const
+RODFDetectorFlows::knows(const std::string &det_id) const
 {
     return myFastAccessFlows.find(det_id)!=myFastAccessFlows.end();
 }
 
 
 bool
-DFDetectorFlows::knows(const std::string &det_id, SUMOTime /*time*/) const
+RODFDetectorFlows::knows(const std::string &det_id, SUMOTime /*time*/) const
 {
     if (myFastAccessFlows.find(det_id)==myFastAccessFlows.end()) {
         return false;
@@ -153,7 +153,7 @@ DFDetectorFlows::knows(const std::string &det_id, SUMOTime /*time*/) const
 
 /*
 void
-DFDetectorFlows::buildFastAccess(SUMOTime startTime, SUMOTime endTime,
+RODFDetectorFlows::buildFastAccess(SUMOTime startTime, SUMOTime endTime,
                                  SUMOTime stepOffset)
 {
     myBeginTime = startTime;
@@ -184,7 +184,7 @@ DFDetectorFlows::buildFastAccess(SUMOTime startTime, SUMOTime endTime,
 */
 
 const std::vector<FlowDef> &
-DFDetectorFlows::getFlowDefs(const std::string &id) const
+RODFDetectorFlows::getFlowDefs(const std::string &id) const
 {
     assert(myFastAccessFlows.find(id)!=myFastAccessFlows.end());
     assert(myFastAccessFlows.find(id)->second.size()!=0);
@@ -193,7 +193,7 @@ DFDetectorFlows::getFlowDefs(const std::string &id) const
 
 
 SUMOReal
-DFDetectorFlows::getFlowSumSecure(const std::string &id) const
+RODFDetectorFlows::getFlowSumSecure(const std::string &id) const
 {
     SUMOReal ret = 0;
     if (knows(id)) {
@@ -208,7 +208,7 @@ DFDetectorFlows::getFlowSumSecure(const std::string &id) const
 
 
 SUMOReal
-DFDetectorFlows::getMaxDetectorFlow() const
+RODFDetectorFlows::getMaxDetectorFlow() const
 {
     if (myMaxDetectorFlow<0) {
         SUMOReal max = 0;
@@ -231,7 +231,7 @@ DFDetectorFlows::getMaxDetectorFlow() const
 
 
 void
-DFDetectorFlows::mesoJoin(const std::string &nid,
+RODFDetectorFlows::mesoJoin(const std::string &nid,
                           const std::vector<std::string> &oldids)
 {
     for (std::vector<std::string>::const_iterator i=oldids.begin(); i!=oldids.end(); ++i) {
@@ -250,7 +250,7 @@ DFDetectorFlows::mesoJoin(const std::string &nid,
 
 
 void
-DFDetectorFlows::printAbsolute() const
+RODFDetectorFlows::printAbsolute() const
 {
     for (std::map<std::string, std::vector<FlowDef> >::const_iterator i=myFastAccessFlows.begin(); i!=myFastAccessFlows.end(); ++i) {
         cout << (*i).first << ":";

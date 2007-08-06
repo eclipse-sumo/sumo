@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    DFDetector.cpp
+/// @file    RODFDetector.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
 /// @version $Id$
@@ -28,7 +28,7 @@
 #include <config.h>
 #endif
 
-#include "DFDetector.h"
+#include "RODFDetector.h"
 #include <fstream>
 #include <iostream>
 #include <utils/common/MsgHandler.h>
@@ -37,7 +37,7 @@
 #include "RODFEdge.h"
 #include "DFRORouteDesc.h"
 #include "DFRORouteCont.h"
-#include "DFDetectorFlow.h"
+#include "RODFDetectorFlow.h"
 #include <utils/helpers/RandomDistributor.h>
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeomHelper.h>
@@ -57,13 +57,13 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-DFDetector::DFDetector(const std::string &Id, const std::string &laneId,
-                       SUMOReal pos, const RODFDetectorType type)
+RODFDetector::RODFDetector(const std::string &Id, const std::string &laneId,
+                       SUMOReal pos, const RORODFDetectorType type)
         : myID(Id), myLaneID(laneId), myPosition(pos), myType(type), myRoutes(0)
 {}
 
 
-DFDetector::DFDetector(const std::string &Id, const DFDetector &f)
+RODFDetector::RODFDetector(const std::string &Id, const RODFDetector &f)
         : myID(Id), myLaneID(f.myLaneID), myPosition(f.myPosition),
         myType(f.myType), myRoutes(0)
 {
@@ -73,21 +73,21 @@ DFDetector::DFDetector(const std::string &Id, const DFDetector &f)
 }
 
 
-DFDetector::~DFDetector()
+RODFDetector::~RODFDetector()
 {
     delete myRoutes;
 }
 
 
 void
-DFDetector::setType(RODFDetectorType type)
+RODFDetector::setType(RORODFDetectorType type)
 {
     myType = type;
 }
 
 
 SUMOReal
-DFDetector::computeDistanceFactor(const DFRORouteDesc &rd) const
+RODFDetector::computeDistanceFactor(const DFRORouteDesc &rd) const
 {
     SUMOReal distance = GeomHelper::distance(
                             static_cast<RODFEdge*>(rd.edges2Pass[0])->getFromPosition(),
@@ -101,8 +101,8 @@ DFDetector::computeDistanceFactor(const DFRORouteDesc &rd) const
 
 
 SUMOReal 
-DFDetector::getUsage(const DFDetectorCon &detectors,DFRORouteDesc*route, DFRORouteCont::RoutesMap *curr,
-                     SUMOTime time, const DFDetectorFlows &flows) const
+RODFDetector::getUsage(const RODFDetectorCon &detectors,DFRORouteDesc*route, DFRORouteCont::RoutesMap *curr,
+                     SUMOTime time, const RODFDetectorFlows &flows) const
 {
     if(curr->splitMap.size()==0) {
         // ok, reached end
@@ -169,8 +169,8 @@ DFDetector::getUsage(const DFDetectorCon &detectors,DFRORouteDesc*route, DFRORou
 
 
 void
-DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
-        const DFDetectorFlows &flows,
+RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
+        const RODFDetectorFlows &flows,
         SUMOTime startTime,
         SUMOTime endTime,
         SUMOTime stepOffset,
@@ -491,35 +491,35 @@ DFDetector::buildDestinationDistribution(const DFDetectorCon &detectors,
 
 
 const std::vector<DFRORouteDesc*> &
-DFDetector::getRouteVector() const
+RODFDetector::getRouteVector() const
 {
     return myRoutes->get();
 }
 
 
 void
-DFDetector::addPriorDetector(DFDetector *det)
+RODFDetector::addPriorDetector(RODFDetector *det)
 {
     myPriorDetectors.push_back(det);
 }
 
 
 void
-DFDetector::addFollowingDetector(DFDetector *det)
+RODFDetector::addFollowingDetector(RODFDetector *det)
 {
     myFollowingDetectors.push_back(det);
 }
 
 
-const std::vector<DFDetector*> &
-DFDetector::getPriorDetectors() const
+const std::vector<RODFDetector*> &
+RODFDetector::getPriorDetectors() const
 {
     return myPriorDetectors;
 }
 
 
-const std::vector<DFDetector*> &
-DFDetector::getFollowerDetectors() const
+const std::vector<RODFDetector*> &
+RODFDetector::getFollowerDetectors() const
 {
     return myFollowingDetectors;
 }
@@ -527,9 +527,9 @@ DFDetector::getFollowerDetectors() const
 
 
 bool
-DFDetector::writeEmitterDefinition(const std::string &file,
-                                   const DFDetectorCon &detectors,
-                                   const DFDetectorFlows &flows,
+RODFDetector::writeEmitterDefinition(const std::string &file,
+                                   const RODFDetectorCon &detectors,
+                                   const RODFDetectorFlows &flows,
                                    SUMOTime startTime, SUMOTime endTime,
                                    SUMOTime stepOffset,
                                    const RODFNet &net,
@@ -669,7 +669,7 @@ DFDetector::writeEmitterDefinition(const std::string &file,
 
 
 void
-DFDetector::addRoutes(DFRORouteCont *routes)
+RODFDetector::addRoutes(DFRORouteCont *routes)
 {
     delete myRoutes;
     myRoutes = routes;
@@ -677,7 +677,7 @@ DFDetector::addRoutes(DFRORouteCont *routes)
 
 
 void
-DFDetector::addRoute(const RODFNet &net, DFRORouteDesc *nrd)
+RODFDetector::addRoute(const RODFNet &net, DFRORouteDesc *nrd)
 {
     if (myRoutes==0) {
         myRoutes = new DFRORouteCont(net);
@@ -686,14 +686,14 @@ DFDetector::addRoute(const RODFNet &net, DFRORouteDesc *nrd)
 }
 
 bool
-DFDetector::hasRoutes() const
+RODFDetector::hasRoutes() const
 {
     return myRoutes!=0&&myRoutes->get().size()!=0;
 }
 
 
 bool
-DFDetector::writeRoutes(std::vector<std::string> &saved,
+RODFDetector::writeRoutes(std::vector<std::string> &saved,
                         std::ostream &os)
 {
     if (myRoutes!=0) {
@@ -704,8 +704,8 @@ DFDetector::writeRoutes(std::vector<std::string> &saved,
 
 
 void
-DFDetector::writeSingleSpeedTrigger(const std::string &file,
-                                    const DFDetectorFlows &flows,
+RODFDetector::writeSingleSpeedTrigger(const std::string &file,
+                                    const RODFDetectorFlows &flows,
                                     SUMOTime startTime, SUMOTime endTime,
                                     SUMOTime stepOffset)
 {
@@ -736,16 +736,16 @@ DFDetector::writeSingleSpeedTrigger(const std::string &file,
 
 
 
-DFDetectorCon::DFDetectorCon()
+RODFDetectorCon::RODFDetectorCon()
 {}
 
 
-DFDetectorCon::~DFDetectorCon()
+RODFDetectorCon::~RODFDetectorCon()
 {}
 
 
 bool
-DFDetectorCon::addDetector(DFDetector *dfd)
+RODFDetectorCon::addDetector(RODFDetector *dfd)
 {
     if (myDetectorMap.find(dfd->getID())!=myDetectorMap.end()) {
         return false;
@@ -754,7 +754,7 @@ DFDetectorCon::addDetector(DFDetector *dfd)
     myDetectors.push_back(dfd);
     string edgeid = dfd->getLaneID().substr(0, dfd->getLaneID().rfind('_'));
     if (myDetectorEdgeMap.find(edgeid)==myDetectorEdgeMap.end()) {
-        myDetectorEdgeMap[edgeid] = std::vector<DFDetector*>();
+        myDetectorEdgeMap[edgeid] = std::vector<RODFDetector*>();
     }
     myDetectorEdgeMap[edgeid].push_back(dfd);
     return true; // !!!
@@ -762,9 +762,9 @@ DFDetectorCon::addDetector(DFDetector *dfd)
 
 
 bool
-DFDetectorCon::detectorsHaveCompleteTypes() const
+RODFDetectorCon::detectorsHaveCompleteTypes() const
 {
-    for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+    for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         if ((*i)->getType()==TYPE_NOT_DEFINED) {
             return false;
         }
@@ -774,9 +774,9 @@ DFDetectorCon::detectorsHaveCompleteTypes() const
 
 
 bool
-DFDetectorCon::detectorsHaveRoutes() const
+RODFDetectorCon::detectorsHaveRoutes() const
 {
-    for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+    for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         if ((*i)->hasRoutes()) {
             return true;
         }
@@ -785,22 +785,22 @@ DFDetectorCon::detectorsHaveRoutes() const
 }
 
 
-const std::vector< DFDetector*> &
-DFDetectorCon::getDetectors() const
+const std::vector< RODFDetector*> &
+RODFDetectorCon::getDetectors() const
 {
     return myDetectors;
 }
 
 
 void
-DFDetectorCon::save(const std::string &file) const
+RODFDetectorCon::save(const std::string &file) const
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
         throw ProcessError("Can not write detectors to file '" + file + "'.");
     }
     strm << "<detectors>" << endl;
-    for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+    for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         strm << "   <detector_definition id=\"" << (*i)->getID()
         << "\" lane=\"" << (*i)->getLaneID()
         << "\" pos=\"" << (*i)->getPos();
@@ -827,11 +827,11 @@ DFDetectorCon::save(const std::string &file) const
 
 
 void
-DFDetectorCon::saveAsPOIs(const std::string &file) const
+RODFDetectorCon::saveAsPOIs(const std::string &file) const
 {
     ofstream strm(file.c_str());
     strm << "<pois>" << endl;
-    for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+    for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         strm << "   <poi id=\"" << (*i)->getID();
         switch ((*i)->getType()) {
         case BETWEEN_DETECTOR:
@@ -857,7 +857,7 @@ DFDetectorCon::saveAsPOIs(const std::string &file) const
 
 
 void
-DFDetectorCon::saveRoutes(const std::string &file) const
+RODFDetectorCon::saveRoutes(const std::string &file) const
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
@@ -867,7 +867,7 @@ DFDetectorCon::saveRoutes(const std::string &file) const
     strm << "<routes>" << endl;
     // write for source detectors
     bool lastWasSaved = true;
-    for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+    for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         if (lastWasSaved) {
             strm << endl;
         }
@@ -878,8 +878,8 @@ DFDetectorCon::saveRoutes(const std::string &file) const
 }
 
 
-const DFDetector &
-DFDetectorCon::getDetector(const std::string &id) const
+const RODFDetector &
+RODFDetectorCon::getDetector(const std::string &id) const
 {
     return *(myDetectorMap.find(id)->second);
 }
@@ -887,10 +887,10 @@ DFDetectorCon::getDetector(const std::string &id) const
 
 /*
 bool
-DFDetectorCon::isDetector( std::string id )
+RODFDetectorCon::isDetector( std::string id )
 {
 	bool ret = false;
-	for(std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+	for(std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
 		if ( (*i)->getID() == id )
 			ret = true;
 	}
@@ -900,8 +900,8 @@ DFDetectorCon::isDetector( std::string id )
 
 
 void
-DFDetectorCon::writeEmitters(const std::string &file,
-                             const DFDetectorFlows &flows,
+RODFDetectorCon::writeEmitters(const std::string &file,
+                             const RODFDetectorFlows &flows,
                              SUMOTime startTime, SUMOTime endTime,
                              SUMOTime stepOffset, const RODFNet &net,
                              bool writeCalibrators,
@@ -915,8 +915,8 @@ DFDetectorCon::writeEmitters(const std::string &file,
         throw ProcessError("Can not write emitter definitions to file '" + file + "'.");
     }
     strm << "<additional>" << endl;
-    for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
-        DFDetector *det = *i;
+    for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+        RODFDetector *det = *i;
         string defFileName;
 
         // write the declaration into the file
@@ -956,8 +956,8 @@ DFDetectorCon::writeEmitters(const std::string &file,
 
 /*
 void
-DFDetectorCon::writeVehicles(const std::string &file,
-                             const DFDetectorFlows &flows,
+RODFDetectorCon::writeVehicles(const std::string &file,
+                             const RODFDetectorFlows &flows,
                              SUMOTime startTime, SUMOTime endTime,
                              SUMOTime stepOffset, bool writeCalibrators)
 {
@@ -968,8 +968,8 @@ DFDetectorCon::writeVehicles(const std::string &file,
     }
     strm << "<routes>" << endl;
     for(SUMOTime t=startTime; t<endTime; t++) {
-        for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
-            DFDetector *det = *i;
+        for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+            RODFDetector *det = *i;
             det->writeVehicles(defFileName, *this, flows, t);
             strm << endl;
         }
@@ -979,8 +979,8 @@ DFDetectorCon::writeVehicles(const std::string &file,
 */
 
 void
-DFDetectorCon::writeEmitterPOIs(const std::string &file,
-                                const DFDetectorFlows &flows,
+RODFDetectorCon::writeEmitterPOIs(const std::string &file,
+                                const RODFDetectorFlows &flows,
                                 SUMOTime startTime, SUMOTime endTime,
                                 SUMOTime stepOffset)
 {
@@ -989,8 +989,8 @@ DFDetectorCon::writeEmitterPOIs(const std::string &file,
         throw ProcessError("Can not write emitter pois to file '" + file + "'.");
     }
     strm << "<additional>" << endl;
-    for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
-        DFDetector *det = *i;
+    for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+        RODFDetector *det = *i;
         SUMOReal flow = flows.getFlowSumSecure(det->getID());
         SUMOReal col = flow / flows.getMaxDetectorFlow();
         col = (SUMOReal)(col / 2. + .5);
@@ -1020,8 +1020,8 @@ DFDetectorCon::writeEmitterPOIs(const std::string &file,
 
 
 int
-DFDetectorCon::getFlowFor(const ROEdge *edge, SUMOTime time,
-                          const DFDetectorFlows &) const
+RODFDetectorCon::getFlowFor(const ROEdge *edge, SUMOTime time,
+                          const RODFDetectorFlows &) const
 {
     SUMOReal stepOffset = 60; // !!!
     SUMOReal startTime = 0; // !!!
@@ -1032,8 +1032,8 @@ DFDetectorCon::getFlowFor(const ROEdge *edge, SUMOTime time,
         return (int)(MAX2(srcFD.qLKW, (SUMOReal) 0.) + MAX2(srcFD.qPKW, (SUMOReal) 0.));
     }
     /*
-    const std::vector<DFDetector*> &detsOnEdge = myDetectorEdgeMap.find(edge->getID())->second;
-    std::vector<DFDetector*>::const_iterator i;
+    const std::vector<RODFDetector*> &detsOnEdge = myDetectorEdgeMap.find(edge->getID())->second;
+    std::vector<RODFDetector*>::const_iterator i;
     SUMOReal ret = 0;
     int counted = 0;
     for(i=detsOnEdge.begin(); i!=detsOnEdge.end(); ++i) {
@@ -1053,8 +1053,8 @@ DFDetectorCon::getFlowFor(const ROEdge *edge, SUMOTime time,
 
 
 int
-DFDetectorCon::getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
-                             const DFDetectorFlows &) const
+RODFDetectorCon::getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
+                             const RODFDetectorFlows &) const
 {
     if(edge==0) {
         return 0;
@@ -1096,8 +1096,8 @@ DFDetectorCon::getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
 
 
 void
-DFDetectorCon::writeSpeedTrigger(const std::string &file,
-                                 const DFDetectorFlows &flows,
+RODFDetectorCon::writeSpeedTrigger(const std::string &file,
+                                 const RODFDetectorFlows &flows,
                                  SUMOTime startTime, SUMOTime endTime,
                                  SUMOTime stepOffset)
 {
@@ -1106,8 +1106,8 @@ DFDetectorCon::writeSpeedTrigger(const std::string &file,
         throw ProcessError("Can not write speed trigger definitions to file '" + file + "'.");
     }
     strm << "<additional>" << endl;
-    for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
-        DFDetector *det = *i;
+    for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+        RODFDetector *det = *i;
         // write the declaration into the file
         if (det->getType()==SINK_DETECTOR&&flows.knows(det->getID())) {
             string filename = "vss_" + det->getID() + ".def.xml";
@@ -1125,15 +1125,15 @@ DFDetectorCon::writeSpeedTrigger(const std::string &file,
 
 
 void
-DFDetectorCon::writeEndRerouterDetectors(const std::string &file)
+RODFDetectorCon::writeEndRerouterDetectors(const std::string &file)
 {
     ofstream strm(file.c_str());
     if (!strm.good()) {
         throw ProcessError("Can not write end rerouter definitions to file '" + file + "'.");
     }
     strm << "<additional>" << endl;
-    for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
-        DFDetector *det = *i;
+    for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+        RODFDetector *det = *i;
         // write the declaration into the file
         if (det->getType()==SINK_DETECTOR) {
             strm << "   <trigger id=\"endrerouter_" << det->getID()
@@ -1147,7 +1147,7 @@ DFDetectorCon::writeEndRerouterDetectors(const std::string &file)
 
 
 void
-DFDetectorCon::writeValidationDetectors(const std::string &file,
+RODFDetectorCon::writeValidationDetectors(const std::string &file,
                                         bool includeSources,
                                         bool singleFile, bool friendly)
 {
@@ -1156,8 +1156,8 @@ DFDetectorCon::writeValidationDetectors(const std::string &file,
         throw ProcessError("Can not write validation detectors to file '" + file + "'.");
     }
     strm << "<additional>" << endl;
-    for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
-        DFDetector *det = *i;
+    for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+        RODFDetector *det = *i;
         // write the declaration into the file
         if (det->getType()!=SOURCE_DETECTOR||includeSources) {
             SUMOReal pos = det->getPos();
@@ -1183,21 +1183,21 @@ DFDetectorCon::writeValidationDetectors(const std::string &file,
 
 
 void
-DFDetectorCon::removeDetector(const std::string &id)
+RODFDetectorCon::removeDetector(const std::string &id)
 {
     //
-    std::map<std::string, DFDetector*>::iterator ri1 = myDetectorMap.find(id);
-    DFDetector *oldDet = (*ri1).second;
+    std::map<std::string, RODFDetector*>::iterator ri1 = myDetectorMap.find(id);
+    RODFDetector *oldDet = (*ri1).second;
     myDetectorMap.erase(ri1);
     //
-    std::vector<DFDetector*>::iterator ri2 =
+    std::vector<RODFDetector*>::iterator ri2 =
         find(myDetectors.begin(), myDetectors.end(), oldDet);
     myDetectors.erase(ri2);
     //
     bool found = false;
-    for (std::map<std::string, std::vector<DFDetector*> >::iterator rr3=myDetectorEdgeMap.begin(); !found&&rr3!=myDetectorEdgeMap.end(); ++rr3) {
-        std::vector<DFDetector*> &dets = (*rr3).second;
-        for (std::vector<DFDetector*>::iterator ri3=dets.begin(); !found&&ri3!=dets.end();) {
+    for (std::map<std::string, std::vector<RODFDetector*> >::iterator rr3=myDetectorEdgeMap.begin(); !found&&rr3!=myDetectorEdgeMap.end(); ++rr3) {
+        std::vector<RODFDetector*> &dets = (*rr3).second;
+        for (std::vector<RODFDetector*>::iterator ri3=dets.begin(); !found&&ri3!=dets.end();) {
             if (*ri3==oldDet) {
                 found = true;
                 ri3 = dets.erase(ri3);
@@ -1211,21 +1211,21 @@ DFDetectorCon::removeDetector(const std::string &id)
 
 
 void
-DFDetectorCon::guessEmptyFlows(DFDetectorFlows &flows)
+RODFDetectorCon::guessEmptyFlows(RODFDetectorFlows &flows)
 {
     // routes must be built (we have ensured this in main)
     // detector followers/prior must be build (we have ensured this in main)
     //
     bool changed = true;
     while (changed) {
-        for (std::vector<DFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
-            DFDetector *det = *i;
-            const vector<DFDetector*> &prior = det->getPriorDetectors();
-            const vector<DFDetector*> &follower = det->getFollowerDetectors();
+        for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+            RODFDetector *det = *i;
+            const vector<RODFDetector*> &prior = det->getPriorDetectors();
+            const vector<RODFDetector*> &follower = det->getFollowerDetectors();
             size_t noFollowerWithRoutes = 0;
             size_t noPriorWithRoutes = 0;
             // count occurences of detectors with/without routes
-            vector<DFDetector*>::const_iterator j;
+            vector<RODFDetector*>::const_iterator j;
             for (j=prior.begin(); j!=prior.end(); ++j) {
                 if (flows.knows((*j)->getID())) {
                     ++noPriorWithRoutes;
@@ -1256,12 +1256,12 @@ DFDetectorCon::guessEmptyFlows(DFDetectorFlows &flows)
 
 
 void
-DFDetectorCon::mesoJoin(const std::string &nid,
+RODFDetectorCon::mesoJoin(const std::string &nid,
                         const std::vector<std::string> &oldids)
 {
     // build the new detector
-    const DFDetector &first = getDetector(*(oldids.begin()));
-    DFDetector *newDet = new DFDetector(nid, first);
+    const RODFDetector &first = getDetector(*(oldids.begin()));
+    RODFDetector *newDet = new RODFDetector(nid, first);
     addDetector(newDet);
     // delete previous
     for (std::vector<std::string>::const_iterator i=oldids.begin(); i!=oldids.end(); ++i) {

@@ -64,8 +64,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-DFDetFlowLoader::DFDetFlowLoader(DFDetectorCon &dets,
-                                 DFDetectorFlows &into,
+DFDetFlowLoader::DFDetFlowLoader(RODFDetectorCon &dets,
+                                 RODFDetectorFlows &into,
                                  SUMOTime startTime, SUMOTime endTime,
                                  int timeOffset)
         : myStorage(into), myTimeOffset(timeOffset),

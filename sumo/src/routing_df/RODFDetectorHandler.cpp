@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    DFDetectorHandler.cpp
+/// @file    RODFDetectorHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
 /// @version $Id$
@@ -35,7 +35,7 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include "DFDetectorHandler.h"
+#include "RODFDetectorHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -51,19 +51,19 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-DFDetectorHandler::DFDetectorHandler(OptionsCont &oc, DFDetectorCon &con,
+RODFDetectorHandler::RODFDetectorHandler(OptionsCont &oc, RODFDetectorCon &con,
                                      const std::string &file)
         : SUMOSAXHandler(file),
         myOptions(oc),  myContainer(con)
 {}
 
 
-DFDetectorHandler::~DFDetectorHandler() throw()
+RODFDetectorHandler::~RODFDetectorHandler() throw()
 {}
 
 
 void
-DFDetectorHandler::myStartElement(SumoXMLTag element,
+RODFDetectorHandler::myStartElement(SumoXMLTag element,
                                   const Attributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_DETECTOR_DEFINITION) {
@@ -88,7 +88,7 @@ DFDetectorHandler::myStartElement(SumoXMLTag element,
             throw ProcessError("Not numeric lane position within '" + getFileName() + "' (detector id='" + id + ").");
         }
         string mml_type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
-        RODFDetectorType type = TYPE_NOT_DEFINED;
+        RORODFDetectorType type = TYPE_NOT_DEFINED;
         if (mml_type=="between") {
             type = BETWEEN_DETECTOR;
         } else if (mml_type=="source"||mml_type=="highway_source") { // !!! highway-source is legacy (removed accoring output on 06.08.2007)
@@ -96,7 +96,7 @@ DFDetectorHandler::myStartElement(SumoXMLTag element,
         } else if (mml_type=="sink") {
             type = SINK_DETECTOR;
         }
-        DFDetector *detector = new DFDetector(id, lane, pos, type);
+        RODFDetector *detector = new RODFDetector(id, lane, pos, type);
         if (!myContainer.addDetector(detector)) {
             delete detector;
             throw ProcessError("Could not add detector '" + id + "' (probably the id is already used).");

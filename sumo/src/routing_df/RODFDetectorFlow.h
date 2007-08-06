@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    DFDetectorFlow.h
+/// @file    RODFDetectorFlow.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
 /// @version $Id$
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef DFDetectorFlow_h
-#define DFDetectorFlow_h
+#ifndef RODFDetectorFlow_h
+#define RODFDetectorFlow_h
 
 
 // ===========================================================================
@@ -68,15 +68,15 @@ struct FlowDef
 // class definitions
 // ===========================================================================
 /**
- * @class DFDetector
+ * @class RODFDetector
  * @brief A container for flows
  */
-class DFDetectorFlows
+class RODFDetectorFlows
 {
 public:
-    DFDetectorFlows(SUMOTime startTime, SUMOTime endTime,
+    RODFDetectorFlows(SUMOTime startTime, SUMOTime endTime,
                     SUMOTime stepOffset);
-    ~DFDetectorFlows();
+    ~RODFDetectorFlows();
     void addFlow(const std::string &detector_id, int timestamp,
                  const FlowDef &fd);
     void removeFlow(const std::string &detector_id);

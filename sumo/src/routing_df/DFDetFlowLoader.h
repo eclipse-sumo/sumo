@@ -36,8 +36,8 @@
 #include <utils/importio/LineHandler.h>
 #include <utils/importio/LineReader.h>
 #include <utils/router/IDSupplier.h>
-#include <routing_df/DFDetector.h>
-#include <routing_df/DFDetectorFlow.h>
+#include <routing_df/RODFDetector.h>
+#include <routing_df/RODFDetectorFlow.h>
 
 
 // ===========================================================================
@@ -59,7 +59,7 @@ class DFDetFlowLoader :
 public:
     /// Constructor
     ///!!!DFDetFlowLoader();
-    DFDetFlowLoader(DFDetectorCon &dets, DFDetectorFlows &into,
+    DFDetFlowLoader(RODFDetectorCon &dets, RODFDetectorFlows &into,
                     SUMOTime startTime, SUMOTime endTime,
                     int timeOffset);
 
@@ -79,7 +79,7 @@ protected:
     bool parseFast(const std::string &file);
 
 private:
-    DFDetectorFlows &myStorage;
+    RODFDetectorFlows &myStorage;
 
     int myTimeOffset;
 
@@ -99,7 +99,7 @@ private:
 
     /// The path information is found under
     //std::string fname;
-    DFDetectorCon &myDetectorContainer;
+    RODFDetectorCon &myDetectorContainer;
 
 
 };

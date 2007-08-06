@@ -32,7 +32,7 @@
 
 #include <router/RONet.h>
 #include <utils/options/OptionsCont.h>
-#include <routing_df/DFDetector.h>
+#include <routing_df/RODFDetector.h>
 #include <routing_df/DFRORouteDesc.h>
 #include <routing_df/DFRORouteCont.h>
 #include <utils/common/StdDefs.h>
@@ -57,32 +57,32 @@ public:
     size_t numberOfEdgesAfter(ROEdge *edge) const;
     const std::vector<ROEdge*> &getEdgesAfter(ROEdge *edge) const;
 
-    void computeTypes(DFDetectorCon &dets,
+    void computeTypes(RODFDetectorCon &dets,
                       bool sourcesStrict) const;
-    void buildRoutes(DFDetectorCon &det, bool allEndFollower,
+    void buildRoutes(RODFDetectorCon &det, bool allEndFollower,
                      bool keepUnfoundEnds, bool includeInBetween,
                      bool keepShortestOnly, int maxFollowingLength) const;
-    SUMOReal getAbsPos(const DFDetector &det) const;
+    SUMOReal getAbsPos(const RODFDetector &det) const;
 
-    void buildEdgeFlowMap(const DFDetectorFlows &flows,
-                          const DFDetectorCon &detectors,
+    void buildEdgeFlowMap(const RODFDetectorFlows &flows,
+                          const RODFDetectorCon &detectors,
                           SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 
-    void revalidateFlows(const DFDetectorCon &detectors,
-                         DFDetectorFlows &flows,
+    void revalidateFlows(const RODFDetectorCon &detectors,
+                         RODFDetectorFlows &flows,
                          SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 
 
-    void removeEmptyDetectors(DFDetectorCon &detectors,
-                              DFDetectorFlows &flows,  SUMOTime startTime, SUMOTime endTime,
+    void removeEmptyDetectors(RODFDetectorCon &detectors,
+                              RODFDetectorFlows &flows,  SUMOTime startTime, SUMOTime endTime,
                               SUMOTime stepOffset);
 
-    void reportEmptyDetectors(DFDetectorCon &detectors,
-                              DFDetectorFlows &flows);
+    void reportEmptyDetectors(RODFDetectorCon &detectors,
+                              RODFDetectorFlows &flows);
 
-    void buildDetectorDependencies(DFDetectorCon &detectors);
+    void buildDetectorDependencies(RODFDetectorCon &detectors);
 
-    void mesoJoin(DFDetectorCon &detectors, DFDetectorFlows &flows);
+    void mesoJoin(RODFDetectorCon &detectors, RODFDetectorFlows &flows);
 
     void computeID4Route(DFRORouteDesc &desc) const;
     bool hasDetector(ROEdge *edge) const;
@@ -90,42 +90,42 @@ public:
 
 
 protected:
-    void revalidateFlows(const DFDetector *detector,
-                         DFDetectorFlows &flows,
+    void revalidateFlows(const RODFDetector *detector,
+                         RODFDetectorFlows &flows,
                          SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
-    bool isSource(const DFDetector &det,
-                  const DFDetectorCon &detectors, bool strict) const;
-    bool isFalseSource(const DFDetector &det,
-                       const DFDetectorCon &detectors) const;
-    bool isDestination(const DFDetector &det,
-                       const DFDetectorCon &detectors) const;
+    bool isSource(const RODFDetector &det,
+                  const RODFDetectorCon &detectors, bool strict) const;
+    bool isFalseSource(const RODFDetector &det,
+                       const RODFDetectorCon &detectors) const;
+    bool isDestination(const RODFDetector &det,
+                       const RODFDetectorCon &detectors) const;
 
-    ROEdge *getDetectorEdge(const DFDetector &det) const;
-    bool isSource(const DFDetector &det, ROEdge *edge,
-                  std::vector<ROEdge*> &seen, const DFDetectorCon &detectors,
+    ROEdge *getDetectorEdge(const RODFDetector &det) const;
+    bool isSource(const RODFDetector &det, ROEdge *edge,
+                  std::vector<ROEdge*> &seen, const RODFDetectorCon &detectors,
                   bool strict) const;
-    bool isFalseSource(const DFDetector &det, ROEdge *edge,
-                       std::vector<ROEdge*> &seen, const DFDetectorCon &detectors) const;
-    bool isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
-                       const DFDetectorCon &detectors) const;
+    bool isFalseSource(const RODFDetector &det, ROEdge *edge,
+                       std::vector<ROEdge*> &seen, const RODFDetectorCon &detectors) const;
+    bool isDestination(const RODFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
+                       const RODFDetectorCon &detectors) const;
 
     void computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
                           bool allEndFollower, bool keepUnfoundEnds,
                           bool keepShortestOnly,
-                          std::vector<ROEdge*> &visited, const DFDetector &det,
-                          DFRORouteCont &into, const DFDetectorCon &detectors,
+                          std::vector<ROEdge*> &visited, const RODFDetector &det,
+                          DFRORouteCont &into, const RODFDetectorCon &detectors,
                           int maxFollowingLength,
                           std::vector<ROEdge*> &seen) const;
 
-    void buildDetectorEdgeDependencies(DFDetectorCon &dets) const;
+    void buildDetectorEdgeDependencies(RODFDetectorCon &dets) const;
 
     bool hasApproaching(ROEdge *edge) const;
     bool hasApproached(ROEdge *edge) const;
 
     bool hasInBetweenDetectorsOnly(ROEdge *edge,
-                                   const DFDetectorCon &detectors) const;
+                                   const RODFDetectorCon &detectors) const;
     bool hasSourceDetector(ROEdge *edge,
-                           const DFDetectorCon &detectors) const;
+                           const RODFDetectorCon &detectors) const;
 
     struct IterationEdge
     {

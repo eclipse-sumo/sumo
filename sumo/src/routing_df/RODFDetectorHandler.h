@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    DFDetectorHandler.h
+/// @file    RODFDetectorHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
 /// @version $Id$
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef DFDetectorHandler_h
-#define DFDetectorHandler_h
+#ifndef RODFDetectorHandler_h
+#define RODFDetectorHandler_h
 
 
 // ===========================================================================
@@ -33,25 +33,25 @@
 #include <string>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/options/OptionsCont.h>
-#include "DFDetector.h"
+#include "RODFDetector.h"
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class DFDetectorHandler
+ * @class RODFDetectorHandler
  * @brief SAX2-Handler for loading DFROUTER-detector definitions
  */
-class DFDetectorHandler : public SUMOSAXHandler
+class RODFDetectorHandler : public SUMOSAXHandler
 {
 public:
     /// Constructor
-    DFDetectorHandler(OptionsCont &oc, DFDetectorCon &con,
+    RODFDetectorHandler(OptionsCont &oc, RODFDetectorCon &con,
                       const std::string &file);
 
     /// Destrcutor
-    virtual ~DFDetectorHandler() throw();
+    virtual ~RODFDetectorHandler() throw();
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -65,14 +65,14 @@ protected:
     /// the options (program settings)
     OptionsCont &myOptions;
 
-    DFDetectorCon &myContainer;
+    RODFDetectorCon &myContainer;
 
 private:
     /// invalidated copy constructor
-    DFDetectorHandler(const DFDetectorHandler &src);
+    RODFDetectorHandler(const RODFDetectorHandler &src);
 
     /// invalidated assignment operator
-    DFDetectorHandler &operator=(const DFDetectorHandler &src);
+    RODFDetectorHandler &operator=(const RODFDetectorHandler &src);
 
 };
 
