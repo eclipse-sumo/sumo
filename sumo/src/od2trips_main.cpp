@@ -208,29 +208,25 @@ checkOptions()
 }
 
 
-ODDistrictCont *
-loadDistricts(OptionsCont &oc)
+void
+loadDistricts(ODDistrictCont &districts, OptionsCont &oc)
 {
     // check whether the user gave a net filename
-    if (!oc.isSet("n")) {
+    if (!oc.isSet("net-file")) {
         MsgHandler::getErrorInstance()->inform("You must supply a network ('-n').");
-        return 0;
+        return;
     }
-    // build the container
-    ODDistrictCont *ret = new ODDistrictCont();
     // get the file name and set it
     string file = oc.getString("net-file");
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading districts from '" + file + "'...");
     // build the xml-parser and handler
-    ODDistrictHandler handler(*ret);
+    ODDistrictHandler handler(districts);
     handler.setFileName(file); // !!! can do this in the constructor
-    if (!XMLSubSys::runParser(handler, file)||ret->size()==0) {
-        delete ret;
+    if (!XMLSubSys::runParser(handler, file)) {
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");
-        return 0;
+    } else {
+        MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
-    MsgHandler::getMessageInstance()->endProcessMsg("done.");
-    return ret;
 }
 
 
@@ -507,12 +503,13 @@ main(int argc, char **argv)
         if (!checkOptions()) throw ProcessError();
         RandHelper::initRandGlobal();
         // load the districts
-        ODDistrictCont *districts = loadDistricts(oc);
-        if (districts==0) {
+        ODDistrictCont districts;
+        loadDistricts(districts, oc);
+        if (districts.size()==0) {
             throw ProcessError("No districts loaded...");
         }
         // load the matrix
-        ODMatrix matrix(*districts);
+        ODMatrix matrix(districts);
         loadMatrix(oc, matrix);
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoLoaded()) + " vehicles loaded.");
         // apply a curve if wished
