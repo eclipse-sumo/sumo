@@ -1,7 +1,7 @@
 /****************************************************************************/
 /// @file    MSInductLoop.cpp
 /// @author  Christian Roessel
-/// @date    dev<<"<interval begin=\""<<
+/// @date    2004-11-23
 /// @version $Id$
 ///
 //  missingDescription
