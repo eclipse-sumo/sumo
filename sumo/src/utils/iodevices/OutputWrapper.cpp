@@ -67,7 +67,7 @@ OutputWrapper::OutputWrapper(const string &name)
         myStream = new std::ofstream(name.c_str());
         if (!myStream->good()) {
             delete myStream;
-            throw FileBuildError("Could not build output file '" + name + "'.");
+            throw IOError("Could not build output file '" + name + "'.");
         }
     }
     (*myStream) << setprecision(OUTPUT_ACCURACY) << setiosflags(ios::fixed);

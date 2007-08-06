@@ -82,17 +82,6 @@ FileHelpers::exists(string path)
 
 
 std::string
-FileHelpers::removeDir(const std::string &path)
-{
-    size_t beg = path.find_last_of("\\/");
-    if (beg==string::npos||beg==0) {
-        return path;
-    }
-    return path.substr(beg);
-}
-
-
-std::string
 FileHelpers::removeFile(const std::string &path)
 {
     size_t beg = path.find_last_of("\\/");

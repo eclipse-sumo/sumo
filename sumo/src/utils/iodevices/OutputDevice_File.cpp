@@ -52,6 +52,7 @@ OutputDevice_File::OutputDevice_File(std::ofstream *strm)
 
 OutputDevice_File::~OutputDevice_File()
 {
+    myFileStream->close();
     delete myFileStream;
 }
 
@@ -60,13 +61,6 @@ bool
 OutputDevice_File::ok()
 {
     return myFileStream->good();
-}
-
-
-void
-OutputDevice_File::close()
-{
-    myFileStream->close();
 }
 
 

@@ -160,22 +160,11 @@ public:
 };
 
 
-class FileBuildError : public std::runtime_error
+class IOError : public std::runtime_error
 {
 public:
     /** constructor */
-    FileBuildError(const std::string &message)
-            : std::runtime_error(message)
-    {}
-
-};
-
-
-class NetworkError : public std::runtime_error
-{
-public:
-    // constructor
-    NetworkError(const std::string &message)
+    IOError(const std::string &message)
             : std::runtime_error(message)
     {}
 

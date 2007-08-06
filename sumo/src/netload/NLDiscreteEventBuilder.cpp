@@ -121,7 +121,7 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(GenericSAXHandler &parser,
     }
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
     // build the output
-    OutputDevice *od = OutputDevice::getOutputDeviceChecking(basePath, dest);
+    OutputDevice *od = OutputDevice::getOutputDevice(dest, basePath);
     // build the action
     return new Command_SaveTLSState(logics, od);
 }
@@ -146,7 +146,7 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
     }
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
     // build the output
-    OutputDevice *od = OutputDevice::getOutputDeviceChecking(basePath, dest);
+    OutputDevice *od = OutputDevice::getOutputDevice(dest, basePath);
     // build the action
     return new Command_SaveTLSSwitches(logics, od);
 }
@@ -171,7 +171,7 @@ NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(GenericSAXHandler &parser
     }
     const MSTLLogicControl::TLSLogicVariants &logics = myNet.getTLSControl().get(source);
     // build the output
-    OutputDevice *od = OutputDevice::getOutputDeviceChecking(basePath, dest);
+    OutputDevice *od = OutputDevice::getOutputDevice(dest, basePath);
     // build the action
     return new Command_SaveTLSSwitchStates(logics, od);
 }

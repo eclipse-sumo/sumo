@@ -1064,48 +1064,15 @@ NLHandler::addE1Detector(const Attributes &attrs)
         return;
     }
 
-    // check whether it is a detector storing data to a file or sending it over the network
-    bool isfd= true;
     try {
-        getString(attrs, SUMO_ATTR_FILE);
-    } catch (EmptyData &) {
-        isfd= false;
-    }
-
-    try {
-#ifdef USE_SOCKETS
-        if (isfd) {
-            // this detector stores it's data in a file
-            myDetectorBuilder.buildInductLoop(id,
-                                              getString(attrs, SUMO_ATTR_LANE),
-                                              getFloat(attrs, SUMO_ATTR_POSITION),
-                                              getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-                                              OutputDevice::getOutputDeviceChecking(
-                                                  getFileName(), getString(attrs, SUMO_ATTR_FILE)),
-                                              getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false),
-                                              getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
-        } else {
-            // this detector sends it's data to some host on the network
-            myDetectorBuilder.buildInductLoop(id,
-                                              getString(attrs, SUMO_ATTR_LANE),
-                                              getFloat(attrs, SUMO_ATTR_POSITION),
-                                              getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-                                              OutputDevice::getOutputDevice(getString(attrs, SUMO_ATTR_HOST),
-                                                      getInt(attrs, SUMO_ATTR_PORT),
-                                                      getString(attrs, SUMO_ATTR_PROTOCOL)),
-                                              getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false),
-                                              getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
-        }
-#else //#ifdef USE_SOCKETS
         myDetectorBuilder.buildInductLoop(id,
                                           getString(attrs, SUMO_ATTR_LANE),
                                           getFloat(attrs, SUMO_ATTR_POSITION),
                                           getInt(attrs, SUMO_ATTR_SPLINTERVAL),
-                                          OutputDevice::getOutputDeviceChecking(
-                                              getFileName(), getString(attrs, SUMO_ATTR_FILE)),
+                                          OutputDevice::getOutputDevice(getString(attrs, SUMO_ATTR_FILE),
+                                                                        getFileName()),
                                           getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false),
                                           getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
-#endif //#ifdef USE_SOCKETS
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData &) {
@@ -1114,9 +1081,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' contains a broken boolean.");
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' contains a broken number.");
-    } catch (FileBuildError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (NetworkError &e) {
+    } catch (IOError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
@@ -1158,8 +1123,8 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                                   getBoolSecure(attrs, SUMO_ATTR_CONT, false),
                                                   tll,
                                                   getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-                                                  OutputDevice::getOutputDeviceChecking(
-                                                      getFileName(), getString(attrs, SUMO_ATTR_FILE)),
+                                                  OutputDevice::getOutputDevice(getString(attrs, SUMO_ATTR_FILE),
+                                                                                getFileName()),
                                                   getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
@@ -1175,8 +1140,8 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                                   getBoolSecure(attrs, SUMO_ATTR_CONT, false),
                                                   tll, toLane,
                                                   getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-                                                  OutputDevice::getOutputDeviceChecking(
-                                                      getFileName(), getString(attrs, SUMO_ATTR_FILE)),
+                                                  OutputDevice::getOutputDevice(getString(attrs, SUMO_ATTR_FILE),
+                                                                                getFileName()),
                                                   getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
@@ -1193,8 +1158,8 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                               getBoolSecure(attrs, SUMO_ATTR_CONT, false),
                                               getInt(attrs, SUMO_ATTR_SPLINTERVAL),
                                               getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
-                                              OutputDevice::getOutputDeviceChecking(
-                                                  getFileName(), getString(attrs, SUMO_ATTR_FILE)),
+                                              OutputDevice::getOutputDevice(getString(attrs, SUMO_ATTR_FILE),
+                                                                            getFileName()),
                                               getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                               getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                               getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
@@ -1210,7 +1175,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' contains a broken number.");
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
-    } catch (FileBuildError &e) {
+    } catch (IOError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
@@ -1229,8 +1194,8 @@ NLHandler::beginE3Detector(const Attributes &attrs)
     }
     try {
         myDetectorBuilder.beginE3Detector(id,
-                                          OutputDevice::getOutputDeviceChecking(
-                                              getFileName(), getString(attrs, SUMO_ATTR_FILE)),
+                                          OutputDevice::getOutputDevice(getString(attrs, SUMO_ATTR_FILE),
+                                                                        getFileName()),
                                           getInt(attrs, SUMO_ATTR_SPLINTERVAL),
                                           getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                           getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f));
@@ -1242,7 +1207,7 @@ NLHandler::beginE3Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' contains a broken number.");
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
-    } catch (FileBuildError &e) {
+    } catch (IOError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
@@ -1302,7 +1267,7 @@ NLHandler::addSource(const Attributes &attrs)
         }
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing id of a detector-object.");
-    } catch (FileBuildError &e) {
+    } catch (IOError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
@@ -1321,7 +1286,7 @@ NLHandler::addTrigger(const Attributes &attrs)
             MsgHandler::getErrorInstance()->inform(e.what());
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("The description of the trigger '" + id + "' does not contain a needed value.");
-        } catch (FileBuildError &e) {
+        } catch (IOError &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
     } catch (EmptyData &) {

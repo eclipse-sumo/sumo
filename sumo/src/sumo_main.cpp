@@ -68,18 +68,6 @@
 #include <foreign/nvwa/debug_new.h>
 #endif
 
-// conditionally add library search record to object file for DataReel
-#ifdef USE_SOCKETS
-#ifdef _WIN32
-#ifdef _DEBUG
-#pragma comment (lib, "gxcoded.lib")
-#else // _DEBUG
-#pragma comment (lib, "gxcode.lib")
-#endif // _DEBUG
-#endif // _WIN32
-#endif // USE_SOCKETS
-
-
 // ===========================================================================
 // used namespaces
 // ===========================================================================

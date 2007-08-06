@@ -44,17 +44,12 @@
 class OutputDevice
 {
 public:
-    /// Returns the named file
-    static OutputDevice *getOutputDevice(const std::string &name);
-
-    /// Returns the named file checking whether the path is completely given
-    static OutputDevice *getOutputDeviceChecking(
-        const std::string &base, const std::string &name);
-
-#ifdef USE_SOCKETS
-    // returns the netework target denoted by 'host', 'port' and 'protocol'
-    static OutputDevice *getOutputDevice(const std::string &host, const int port, const std::string &protocol);
-#endif //#ifdef USE_SOCKETS
+    /**
+     * Returns the named device. "stdout" and "-" refer to standard out,
+     * "hostname:port" initiates socket connection. Otherwise a filename
+     * is assumed and the second parameter may be used to give a base directory.
+     */
+    static OutputDevice *getOutputDevice(const std::string &name, const std::string &base="");
 
     /// Closes all registered devices
     static void closeAll();
@@ -71,8 +66,8 @@ public:
     /// returns the information whether one can write into the device
     virtual bool ok();
 
-    /// Closes the device
-    virtual void close();
+    /// Closes the device and removes it from the dictionary
+    void close();
 
     /// Returns the associated ostream
     virtual std::ostream &getOStream() = 0;
@@ -129,10 +124,15 @@ public:
     OutputDevice &operator<<(const T &t)
     {
         getOStream() << t;
+        postWriteHook();
         return *this;
     }
 
 protected:
+    /// Is called after every write access. Default implememntation does nothing.
+    virtual void postWriteHook();
+
+private:
     /// The information whether a header shall be written
     bool myNeedHeader;
 
@@ -142,8 +142,6 @@ protected:
     /// Map of boolean markers
     std::map<std::string, bool> myBoolMarkers;
 
-
-private:
     /// Definition of a map from names to output devices
     typedef std::map<std::string, OutputDevice*> DeviceMap;
 

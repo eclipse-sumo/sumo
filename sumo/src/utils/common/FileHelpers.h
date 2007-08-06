@@ -60,9 +60,6 @@ public:
     /** checks whether the given file exists */
     static bool exists(std::string path);
 
-    /** removes the directory information from the path */
-    static std::string removeDir(const std::string &path);
-
     /** removes the file information from the given path */
     static std::string removeFile(const std::string &path);
 

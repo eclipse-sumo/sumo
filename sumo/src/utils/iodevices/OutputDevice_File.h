@@ -54,7 +54,7 @@ public:
     bool ok();
 
     /// Closes the device
-    void close();
+    void closeDevice();
 
     /// Returns the assiciated ostream
     std::ostream &getOStream();

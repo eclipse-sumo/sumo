@@ -1,10 +1,10 @@
 /****************************************************************************/
 /// @file    OutputDevice_Network.cpp
-/// @author  Felix Brack
+/// @author  Michael Behrisch
 /// @date    2006
 /// @version $Id$
 ///
-// missing_desc
+// An output device for TCP/IP Network connections
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -28,13 +28,10 @@
 #include <config.h>
 #endif // #ifdef WIN32
 
+#include <vector>
 #include "OutputDevice_Network.h"
-#include <utils/common/UtilExceptions.h>
-
-#include <iostream>
-#include <sstream>
-
 #include "foreign/tcpip/socket.h"
+#include "utils/common/ToString.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -42,21 +39,21 @@
 
 
 // ==========================================================================
-// used namespaces
-// ===========================================================================
-using namespace std;
-
-
-// ==========================================================================
 // method definitions
 // ==========================================================================
-OutputDevice_Network::OutputDevice_Network(const std::string &host, const int port, const std::string &protocol)
+OutputDevice_Network::OutputDevice_Network(const std::string &host, const int port) throw(IOError)
 {
     mySocket = new tcpip::Socket(host, port);
+    try {
+        mySocket->connect();
+    } catch (tcpip::SocketException e) {
+        throw IOError(toString(e.what()) + " (host: " + host + ", port: " + toString(port) + ")");
+    }
 }
 
 OutputDevice_Network::~OutputDevice_Network()
 {
+    mySocket->close();
     delete mySocket;
 }
 
@@ -66,5 +63,15 @@ OutputDevice_Network::getOStream()
     return myMessage;
 }
 
-/****************************************************************************/
+void
+OutputDevice_Network::postWriteHook()
+{
+    std::string toSend = myMessage.str();
+    std::vector<unsigned char> msg;
+    msg.insert(msg.end(), toSend.begin(), toSend.end());
+    mySocket->send(msg);
+    myMessage.str("");
+}
 
+
+/****************************************************************************/

@@ -1,10 +1,10 @@
 /****************************************************************************/
 /// @file    OutputDevice_Network.h
-/// @author  Felix Brack
+/// @author  Michael Behrisch
 /// @date    2006
 /// @version $Id$
 ///
-// missing_desc
+// An output device for TCP/IP Network connections
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -33,6 +33,7 @@
 #include "foreign/tcpip/socket.h"
 #include "foreign/tcpip/storage.h"
 #include "OutputDevice.h"
+#include <utils/common/UtilExceptions.h>
 #include <string>
 #include <iostream>
 #include <sstream>
@@ -40,43 +41,31 @@
 // ==========================================================================
 // class definitions
 // ==========================================================================
-//
-// @class OutputDevice_Network
-// An output device that encapsulates a network host
-//
+/**
+ * @class OutputDevice_Network
+ * @brief An output device for TCP/IP network connections
+ */
 class OutputDevice_Network : public OutputDevice
 {
 public:
-    // constructor
-    OutputDevice_Network(const std::string &host, const int port, const std::string &protocol);
+    /// constructor
+    OutputDevice_Network(const std::string &host, const int port) throw(IOError);
 
-    // destructor
+    /// destructor
     ~OutputDevice_Network();
 
-    // returns the information whether one can write into the device
-    bool ok();
-
-    // closes the device
-    void close();
-
-    // returns the associated ostream
+    /// returns the associated ostream
     std::ostream &getOStream();
 
-private:
-    // packet buffer
-    std::ostringstream myMessage;
-    // the  socket to transfer the data
-    tcpip::Socket* mySocket;
+protected:
+    /// Actually sends the data which was written to the string stream over the socket.
+    virtual void postWriteHook();
 
-public:
-    template <class T>
-    OutputDevice &operator<<(const T &t)
-    {
-        getOStream() << t;
-        mySocket->sendExact(tcpip::Storage(myMessage.str().c_str()));
-        myMessage.rdbuf()->pubseekpos(0);
-        return *this;
-    }
+private:
+    /// packet buffer
+    std::ostringstream myMessage;
+    /// the socket to transfer the data
+    tcpip::Socket* mySocket;
 
 };
 
@@ -84,4 +73,3 @@ public:
 #endif
 
 /****************************************************************************/
-

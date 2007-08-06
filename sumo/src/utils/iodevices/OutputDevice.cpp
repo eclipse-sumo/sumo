@@ -38,6 +38,7 @@
 #include "OutputDevice_File.h"
 #include "OutputDevice_COUT.h"
 #include "OutputDevice_Network.h"
+#include <utils/common/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 
@@ -56,7 +57,7 @@ OutputDevice::DeviceMap OutputDevice::myOutputDevices;
 // method definitions
 // ===========================================================================
 OutputDevice *
-OutputDevice::getOutputDevice(const std::string &name)
+OutputDevice::getOutputDevice(const std::string &name, const std::string &base)
 {
     // check whether the device has already been aqcuired
     DeviceMap::iterator i = myOutputDevices.find(name);
@@ -65,57 +66,26 @@ OutputDevice::getOutputDevice(const std::string &name)
     }
     // build the device
     OutputDevice *dev = 0;
+    int colonPos = name.find(":");
     // check whether the device shall print to stdout
-    if (name=="stdout") {
+    if (name=="stdout" || name=="-") {
         dev = new OutputDevice_COUT();
+    } else if (colonPos > 1) {
+        int port = TplConvert<char>::_2int(name.substr(colonPos+1).c_str());
+        dev = new OutputDevice_Network(name.substr(0, colonPos), port);
     } else {
-        std::ofstream *strm = new std::ofstream(name.c_str());
+        std::string fullName = FileHelpers::checkForRelativity(name, base);
+        std::ofstream *strm = new std::ofstream(fullName.c_str());
         if (!strm->good()) {
             delete strm;
-            throw FileBuildError("Could not build output file '" + name + "'.");
+            throw IOError("Could not build output file '" + fullName + "'.");
         }
-        (*strm) << setprecision(OUTPUT_ACCURACY) << setiosflags(ios::fixed);
         dev = new OutputDevice_File(strm);
     }
+    dev->getOStream() << setprecision(OUTPUT_ACCURACY) << setiosflags(ios::fixed);
     myOutputDevices[name] = dev;
     return dev;
 }
-
-
-OutputDevice *
-OutputDevice::getOutputDeviceChecking(const std::string &base,
-        const std::string &name)
-{
-    return getOutputDevice(FileHelpers::checkForRelativity(name, base));
-}
-
-
-
-#ifdef USE_SOCKETS
-
-OutputDevice *
-OutputDevice::getOutputDevice(const std::string &host, const int port, const std::string &protocol)
-{
-    std::ostringstream os;
-    std::string deviceName;
-
-    os << port;
-    deviceName= host + "-" + os.str() + "-" + protocol;
-
-    // check wether this device does already exist
-    DeviceMap::iterator i = myOutputDevices.find(deviceName);
-    if (i!=myOutputDevices.end()) {
-        (*i).second->setNeedsDetectorName(true);
-        return (*i).second;
-    }
-
-    // create device
-    OutputDevice *dev = new OutputDevice_Network(host, port, protocol);
-    myOutputDevices[deviceName] = dev;
-    return dev;
-}
-
-#endif //#ifdef USE_SOCKETS
 
 
 void
@@ -123,7 +93,6 @@ OutputDevice::closeAll()
 {
     for (DeviceMap::iterator i=myOutputDevices.begin(); i!=myOutputDevices.end(); ++i) {
         i->second->close();
-        delete(*i).second;
     }
     myOutputDevices.clear();
 }
@@ -136,6 +105,19 @@ OutputDevice::ok()
 
 void
 OutputDevice::close()
+{
+    for (DeviceMap::iterator i=myOutputDevices.begin(); i!=myOutputDevices.end(); ++i) {
+        if (i->second == this) {
+            delete(*i).second;
+            myOutputDevices.erase(i);
+            break;
+        }
+    }
+}
+
+
+void
+OutputDevice::postWriteHook()
 {}
 
 
