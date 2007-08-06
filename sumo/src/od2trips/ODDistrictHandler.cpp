@@ -53,9 +53,9 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ODDistrictHandler::ODDistrictHandler(ODDistrictCont &cont) throw()
-        : SUMOSAXHandler("sumo-districts"),
-        myContainer(cont), myCurrentDistrict(0)
+ODDistrictHandler::ODDistrictHandler(ODDistrictCont &cont,
+                                     const std::string &file) throw()
+        : SUMOSAXHandler(file), myContainer(cont), myCurrentDistrict(0)
 {}
 
 

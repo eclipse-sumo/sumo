@@ -220,8 +220,7 @@ loadDistricts(ODDistrictCont &districts, OptionsCont &oc)
     string file = oc.getString("net-file");
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading districts from '" + file + "'...");
     // build the xml-parser and handler
-    ODDistrictHandler handler(districts);
-    handler.setFileName(file); // !!! can do this in the constructor
+    ODDistrictHandler handler(districts, file);
     if (!XMLSubSys::runParser(handler, file)) {
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");
     } else {

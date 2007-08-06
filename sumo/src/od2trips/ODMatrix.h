@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    ODmatrix.h
+/// @file    ODMatrix.h
 /// @author  Daniel Krajzewicz
 /// @date    05. Apr. 2006
-/// @version $Id: ODmatrix.h 4084 2007-06-06 07:51:13Z behrisch $
+/// @version $Id: ODMatrix.h 4084 2007-06-06 07:51:13Z behrisch $
 ///
 // An O/D (origin/destination) matrix
 /****************************************************************************/
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef ODmatrix_h
-#define ODmatrix_h
+#ifndef ODMatrix_h
+#define ODMatrix_h
 
 
 // ===========================================================================

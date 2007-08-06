@@ -60,7 +60,8 @@ public:
 	 * Saves the given district containe in order to fill it.
 	 * @param[in] cont The container of districts to fill
 	 */
-    ODDistrictHandler(ODDistrictCont &cont) throw();
+    ODDistrictHandler(ODDistrictCont &cont,
+        const std::string &file) throw();
 
 
     /// Destructor
