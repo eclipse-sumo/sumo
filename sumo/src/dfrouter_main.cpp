@@ -235,14 +235,6 @@ startComputation(DFRONet *optNet, OptionsCont &oc)
 {
     // read the detector definitions (mandatory)
     DFDetectorCon *detectors = readDetectors(oc, optNet);
-    // read routes (optionally)
-    /*!!!
-       DFRORouteCont *routes = new DFRORouteCont();
-       if(oc.isSet("routes-input")) {
-    	throw 1;//!!!
-           routes->readFrom(oc.getString("routes-input"));
-       }
-    */
     DFDetectorFlows *flows = readDetectorFlows(oc, *detectors);
     if (flows!=0&&oc.getBool("print-absolute-flows")) {
         flows->printAbsolute();

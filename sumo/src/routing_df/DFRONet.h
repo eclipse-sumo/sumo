@@ -89,6 +89,7 @@ public:
 
     void computeID4Route(DFRORouteDesc &desc) const;
     bool hasDetector(ROEdge *edge) const;
+    const std::vector<std::string> &getDetectorList(ROEdge *edge) const;
 
 
 protected:

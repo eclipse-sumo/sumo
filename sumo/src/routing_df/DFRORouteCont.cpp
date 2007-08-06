@@ -49,6 +49,48 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+DFRORouteCont::RoutesMap::RoutesMap()
+{
+}
+
+
+DFRORouteCont::RoutesMap::~RoutesMap()
+{
+    for(std::map<ROEdge*, RoutesMap*>::iterator i=splitMap.begin(); i!=splitMap.end(); ++i) {
+        delete (*i).second;
+    }
+}
+
+std::ostream &
+operator<<(std::ostream &os, const DFRORouteCont::RoutesMap &rm)
+{
+    rm.write(os, 0);
+    return os;
+}
+
+
+void 
+DFRORouteCont::RoutesMap::write(std::ostream &os, size_t offset) const
+{
+    for(size_t j=0; j<offset; ++j) {
+        cout << " ";
+    }
+    if(lastDetectorEdge!=0) {
+        os << lastDetectorEdge->getID() << ":";
+    } else {
+        os << "NULL:";
+    }
+    for(std::vector<ROEdge*>::const_iterator i=common.begin(); i!=common.end(); ++i) {
+        cout << (*i)->getID() << " ";
+    }
+    cout << endl;
+    for(std::map<ROEdge*, RoutesMap*>::const_iterator k=splitMap.begin(); k!=splitMap.end(); ++k) {
+        (*k).second->write(os, offset + 3);
+    }
+}
+
+
+
 DFRORouteCont::DFRORouteCont(const DFRONet &net)
         : myNet(net)
 {}
@@ -211,6 +253,129 @@ DFRORouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals)
             ++i;
         }
     }
+}
+
+
+void
+DFRORouteCont::determineEndDetector(const DFRONet &net, DFRORouteCont::RoutesMap *rmap) const
+{
+    rmap->lastDetectorEdge = 0;
+    // get and set the last detector on this map's edges
+    {
+        std::vector<ROEdge*>::const_iterator i = rmap->common.begin();
+        for(; i!=rmap->common.end(); ++i) {
+            if(net.hasDetector(*i)) {
+                rmap->lastDetectors = net.getDetectorList(*i);
+                rmap->lastDetectorEdge = *i;
+//                cout << (*i)->getID() << endl;
+                break;
+            }
+        }
+    }
+    // do this for the followers
+    {
+        std::map<ROEdge*, RoutesMap*>::const_iterator i = rmap->splitMap.begin();
+        for(; i!=rmap->splitMap.end(); ++i) {
+            determineEndDetector(net, (*i).second);
+        }
+    }
+}
+
+
+DFRORouteCont::RoutesMap *
+DFRORouteCont::getRouteMap(const DFRONet &net) const
+{
+    DFRORouteCont::RoutesMap *ret = new DFRORouteCont::RoutesMap();
+    if(myRoutes.size()>0) {
+        std::vector<DFRORouteDesc*>::const_iterator i = myRoutes.begin();
+        ret->common = (*i)->edges2Pass;
+        // from here on a valid map is stored in "ret" which must be split/extended 
+        //  by following routes
+
+        // for each following route
+        for(i=myRoutes.begin()+1; i!=myRoutes.end(); ++i) {
+            DFRORouteCont::RoutesMap *curr = ret;
+            DFRORouteDesc *d = *i;
+            // find the position where the current route splits from the one in curr
+            std::vector<ROEdge*>::iterator j1, j2;
+            j1 = d->edges2Pass.begin();
+            j2 = curr->common.begin();
+            // we'll iterate until the complete route is stored in the map
+            while(j1!=d->edges2Pass.end()) {
+                // let's find the first mismatch between the current route and the current route map entry
+                while(j1!=d->edges2Pass.end()&&j2!=curr->common.end()&&(*j1)==(*j2)) {
+                    ++j1;
+                    ++j2;
+                }
+                // case 1: the current route ends before the end of the map-route
+                //  (does this happen anyway?)
+                if(j1==d->edges2Pass.end()&&j2!=curr->common.end()) {
+                    cout << "End" << endl;
+                }
+                // case 2: the current route continues, the map-route not; probably an already
+                //  existing split
+                //  (should be the most common case)
+                else if(j1!=d->edges2Pass.end()&&j2==curr->common.end()) {
+                    // check whether the split for the net edge is already known by the split
+                    ROEdge *next = *j1;
+                    if(curr->splitMap.find(next)!=curr->splitMap.end()) {
+                        // ok, it's already there; take the first "common" edge as the current position 
+                        //  within the route map (and the according route map entry)
+                        curr = curr->splitMap[next];
+                        assert(curr!=0);
+                        j2 = curr->common.begin();
+                    } else {
+                        // nope, it's not in there; generate a new split entry
+                        RoutesMap *newSplit = new RoutesMap();
+                        for(; j1!=d->edges2Pass.end(); ++j1) {
+                            newSplit->common.push_back(*j1);
+                        }
+                        curr->splitMap[next] = newSplit;
+                        // ok, this should also end the loop for this route
+                    }
+                }
+                // case 3: both end; this indicates the routes are same!?
+                else if(j1==d->edges2Pass.end()&&j2==curr->common.end()) {
+                    cout << "SAme end" << endl;
+                } 
+                // case 3: both in between; a new split has to be inserted here, the old one should be replaces
+                else if(j1!=d->edges2Pass.end()&&j2!=curr->common.end()) {
+                    // build the continuation for the old map route
+                    ROEdge *nextMap = *j2;
+                    RoutesMap *mapSplit = new RoutesMap();
+                    for(; j2!=curr->common.end(); ++j2) {
+                        mapSplit->common.push_back(*j2);
+                    }
+                    curr->splitMap[nextMap] = mapSplit;
+                    // build the continuation for the current route
+                    ROEdge *nextCurr = *j1;
+                    RoutesMap *currSplit = new RoutesMap();
+                    for(; j1!=d->edges2Pass.end(); ++j1) {
+                        currSplit->common.push_back(*j1);
+                    }
+                    curr->splitMap[nextCurr] = currSplit;
+
+                    // let the current split contain edges up to the split edge only
+                    std::vector<ROEdge*>::iterator q = 
+                        find(curr->common.begin(), curr->common.end(), *mapSplit->common.begin());
+                    assert(q!=curr->common.end());
+                    curr->common.erase(q, curr->common.end());
+                
+                    // the new split for this route gets curr
+                    curr = currSplit;
+                    // ok, this should also end the loop for this route
+                } else {
+                    throw 1;
+                }
+            }
+
+        }
+    }
+    determineEndDetector(net, ret);
+//    cout << *ret << endl;
+    //
+    //
+    return ret;
 }
 
 

@@ -140,6 +140,7 @@ DFRONet::numberOfEdgesBefore(ROEdge *edge) const
     return myApproachingEdges.find(edge)->second.size();
 }
 
+
 const std::vector<ROEdge *> &
 DFRONet::getEdgesBefore(ROEdge *edge) const
 {
@@ -420,6 +421,11 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
 //!!!            assert(ok);
         }
     }
+    while(!toSolve.empty()) {
+        DFRORouteDesc *d = toSolve.top();
+        toSolve.pop();
+        delete d;
+    }
 
     /*
     // ok, we have built the routes;
@@ -687,8 +693,7 @@ DFRONet::revalidateFlows(const DFDetector *detector,
     }
     // ok, there is no information for the whole time;
     //  lets find preceding detectors and rebuild the flows if possible
-    WRITE_WARNING("Detector '" + detector->getID() + "' has no flows."
-                  + "\n Trying to rebuild.");
+    WRITE_WARNING("Detector '" + detector->getID() + "' has no flows.\n Trying to rebuild.");
     // go back and collect flows
     std::vector<ROEdge*> previous;
     {
@@ -919,6 +924,13 @@ DFRONet::hasDetector(ROEdge *edge) const
         myDetectorsOnEdges.find(edge)!=myDetectorsOnEdges.end()
         &&
         myDetectorsOnEdges.find(edge)->second.size()!=0;
+}
+
+
+const std::vector<std::string> &
+DFRONet::getDetectorList(ROEdge *edge) const
+{
+    return myDetectorsOnEdges.find(edge)->second;
 }
 
 

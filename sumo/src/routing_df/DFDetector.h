@@ -36,6 +36,7 @@
 #include <map>
 #include <utils/common/SUMOTime.h>
 #include <utils/helpers/RandomDistributor.h>
+#include "DFRORouteCont.h"
 
 
 // ===========================================================================
@@ -120,6 +121,8 @@ public:
     void addFollowingDetector(DFDetector *det);
     const std::vector<DFDetector*> &getPriorDetectors() const;
     const std::vector<DFDetector*> &getFollowerDetectors() const;
+    SUMOReal getUsage(const DFDetectorCon &detectors,DFRORouteDesc*route, DFRORouteCont::RoutesMap *curr,
+                     SUMOTime time, const DFDetectorFlows &flows) const;
 
 protected:
     void buildDestinationDistribution(const DFDetectorCon &detectors,

@@ -66,6 +66,22 @@ public:
     const std::map<ROEdge*, std::vector<ROEdge*> > &getDets2Follow() const;
     void removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals);
 
+    class RoutesMap {
+    public:
+        RoutesMap();
+        ~RoutesMap();
+        friend std::ostream &operator<<(std::ostream &os, const RoutesMap &rm);
+        void write(std::ostream &os, size_t offset) const;
+
+        std::vector<ROEdge*> common;
+        std::map<ROEdge*, RoutesMap*> splitMap;
+        std::vector<std::string> lastDetectors;
+        ROEdge* lastDetectorEdge;
+    };
+
+    RoutesMap *getRouteMap(const DFRONet &net) const;
+
+    void determineEndDetector(const DFRONet &net, DFRORouteCont::RoutesMap *rmap) const;
 
 protected:
     class by_distance_sorter
@@ -99,6 +115,10 @@ protected:
         const DFRORouteDesc &myDesc;
 
     };
+
+
+
+
 
 
     std::vector<DFRORouteDesc*> myRoutes;
