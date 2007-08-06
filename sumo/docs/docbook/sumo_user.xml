@@ -5471,20 +5471,20 @@
         <filename><replaceable>&lt;SUMO_DIST&gt;</replaceable>/data/examples/jtrrouter/</filename>.</para>
       </sect2>
 
-      <sect2 id="user_chp05-od2trips" revision="0.9.6">
-        <title>Using OD2TRIPS</title>
+      <sect2 id="user_chp05-od2trips" revision="0.9.7">
+        <title revision="0.9.7">Using OD2TRIPS</title>
 
         <para><application>OD2TRIPS</application> computes trips tables from
         O/D (origin/destination) matrices. <application>OD2TRIPS</application>
-        assumes the matrix/matrices to be coded as amounts of vehicles that
-        drive from one district to another within a certain time period.
+        assumes the matrix / the matrices to be coded as amounts of vehicles
+        that drive from one district to another within a certain time period.
         Because the generated trips must start and end at edges,
         <application>OD2TRIPS</application> requires a mapping of districts to
-        edges. During conversion of VISUM networks - the base of the
-        <application>OD2TRIPS</application> development - districts stored in
-        the VISUM input file are parsed and stored within the outputted SUMO
-        network file. If you do not use VISUM as input, you must build a
-        districts file by your own. The format is given in "<link
+        edges. During conversion of VISUM networks with
+        <application>NETCONVERT</application> districts stored in the VISUM
+        input file are parsed and stored within the generated SUMO network
+        file. If you do not use VISUM as input, you must build a districts
+        file by your own. The format is given in "<link
         linkend="user_chp05-od2trips-districts">Describing the
         Districts</link>", one of the next subchapters. You have to pass the
         file containing the district definitions to
@@ -5493,22 +5493,22 @@
         <option>-n</option> for short) option.</para>
 
         <para>Because <application>OD2TRIPS</application> was used only to
-        import data stored in VISUM/VISION formats, it assumes O/D to be
-        stored in one of the VISUM formats. Not all VISUM formats are
-        supported, by now only two, namely the "VMR" and the "OR" format. If
-        you do not own matrices stored in these formats, you still have three
-        possibilities: a) convert them into one of the supported formats, b)
-        write your own reader for <application>OD2TRIPS</application>, or c)
-        convert them into flow definitions and then give them to
-        <application>DUAROUTER</application> (see Chapter "<ulink
-        url="#user_chp05-explicite-flows">Using Flow Definitions</ulink>").
-        Both supported formats are described in "<link
+        import data stored in VISUM/VISION/VISSIM formats, it assumes O/D to
+        be stored in one of the formats used by these applications. Not all
+        VISUM/VISION/VISSIM formats are supported, by now only two, namely the
+        "V"- and the "O"-format. If you do not own matrices stored in these
+        formats, you still have three possibilities: a) convert them into one
+        of the supported formats, b) write your own reader for
+        <application>OD2TRIPS</application>, or c) convert them into flow
+        definitions and then give them to <application>DUAROUTER</application>
+        (see Chapter "<ulink url="#user_chp05-explicite-flows">Using Flow
+        Definitions</ulink>"). Both supported formats are described in "<link
         linkend="user_chp05-od2trips-matrices">Describing the Matrix
         Cells</link>", one of the next subchapters. You may either give a list
         of matrices to <application>OD2TRIPS</application> using the
         <option>--od-files</option> (<option>--od</option> or
         <option>-d</option> for short) option followed by the list of files
-        separated using a ';', or - when importing routes from a Vissim
+        separated using a ',', or - when importing routes from a Vissim
         simulation - using <option>--vissim
         <replaceable>&lt;VISSIM_SIMULATION_FILE&gt;</replaceable></option> to
         read the matrices referred in this simulation file.</para>
@@ -5521,30 +5521,29 @@
         <option>--prefix <replaceable>&lt;STRING&gt;</replaceable></option>.
         As usual, they are written to the output file named using the
         <option>--output-file</option> option (<option>--output</option> or
-        <option>-o</option> for short). <application>OD2TRIPS</application>
-        colors the trip definitions. To remove this feature, use
-        <option>--no-color</option>. You can specify a vehicle type to be
+        <option>-o</option> for short). You can specify a vehicle type to be
         added to the trip definitions using <option>--vtype</option> followed
         by the type name. Please remark that vehicles will have no type unless
-        not given in the O/D-matrices or defined using this option. This
-        option overrides type names given in the O/D-matrices. The type itself
-        will not be generated. Vehicles will be generated for the time period
-        between <option>--begin</option> (<option>-b</option>) and
-        <option>--end</option> (<option>-e</option>), having 0 and 86400 as
-        default values, respectively. The meaning is the simulation step in
+        not given in the O/D-matrices or defined using this option. The
+        command line option overrides type names given in the O/D-matrices.
+        The type itself will not be generated. Vehicles will be generated for
+        the time period between <option>--begin</option> (<option>-b</option>)
+        and <option>--end</option> (<option>-e</option>), having 0 and 86400
+        as default values, respectively. The meaning is the simulation step in
         seconds, as usual.</para>
 
         <para>Because each O/D-matrix cell describes the amount of vehicles to
-        emit within a certain time period, <application>OD2TRIPS</application>
-        has to compute the vehicle's explicite departure times. Normally, this
-        is done by using a random time within the time interval the O/D-matrix
-        cell is defined for. It still is possible to emit a cell's vehicles
-        with an uniform time between their emissions. Use the option
-        <option>--spread.uniform</option> to enable this.</para>
+        be emitted within a certain time period,
+        <application>OD2TRIPS</application> has to compute the vehicle's
+        explicite departure times. Normally, this is done by using a random
+        time within the time interval a O/D-matrix cell describes. It still is
+        possible to emit a cell's vehicles with an uniform time between their
+        emissions. Use the option <option>--spread.uniform</option> to enable
+        this.</para>
 
         <para>You can scale the amounts stored in the O/D-matrices using the
         <option>--scale</option> option which assumes a float as parameter.
-        All read flows will be multiplied with this values, the default is 1.
+        All read flows will be multiplied with this value, the default is 1.
         When importing O/D-matrices that cover a whole day, you maybe want to
         apply a curve which resembles the spread of the trip begins found in
         reality. Please read the subchapter "<link
@@ -5628,8 +5627,8 @@
             <replaceable>&lt;INT&gt;</replaceable></option></term>
 
             <listitem>
-              <para>The last time step (+1) for which trip definitions shall
-              be build. <remark>Optional (pregiven), type: int, default:
+              <para>The last time step +1 for which trip definitions shall be
+              build. <remark>Optional (pregiven), type: int, default:
               86400</remark></para>
             </listitem>
           </varlistentry>
@@ -5639,18 +5638,9 @@
             <replaceable>&lt;FLOAT&gt;</replaceable></option></term>
 
             <listitem>
-              <para>A value with which read flow amount are multiplied.
+              <para>A value by which read flow amount shall be multiplied.
               <remark>Optional (pregiven), type: float, default:
               1</remark></para>
-            </listitem>
-          </varlistentry>
-
-          <varlistentry>
-            <term><option>--no-color</option></term>
-
-            <listitem>
-              <para>Disables trip coloring. <remark>Optional (pre-given),
-              type: bool, default: false</remark></para>
             </listitem>
           </varlistentry>
 
@@ -5688,7 +5678,7 @@
             <term><option>--timeline.day-in-hours</option></term>
 
             <listitem>
-              <para>Says OD2TRIPS that the timeline is a list of amount per
+              <para>Says OD2TRIPS that the timeline is a list of amounts per
               hour. <remark>Optional (pregiven), type: bool, default:
               false</remark></para>
             </listitem>
@@ -5718,39 +5708,59 @@
 
         <itemizedlist>
           <listitem>
-            <para>The whole application was rewritten for the 0.9.5. version.
-            Most things still should work as well with older versions, but the
-            options <option>--vtype</option>, <option>--prefix</option>,
-            <option>--timeline</option>, and
-            <option>--timeline.day-in-hours</option> were not
-            available.</para>
+            <para>Changes in 0.9.5 <itemizedlist>
+                <listitem>
+                  <para>The whole application was rewritten for the 0.9.5.
+                  version. Most things still should work as well with older
+                  versions, but the options <option>--vtype</option>,
+                  <option>--prefix</option>, <option>--timeline</option>, and
+                  <option>--timeline.day-in-hours</option> were not
+                  available.</para>
+                </listitem>
+
+                <listitem>
+                  <para>The usage of <option>--od-files</option> and
+                  <option>--vissim</option> differs from prior
+                  versions.</para>
+                </listitem>
+
+                <listitem>
+                  <para><option>--od-files</option> was named
+                  <option>--od-file</option> in versions prior to
+                  0.9.5.</para>
+                </listitem>
+              </itemizedlist></para>
           </listitem>
 
           <listitem>
-            <para>The usage of <option>--od-files</option> and
-            <option>--vissim</option> differs from prior versions.</para>
-          </listitem>
+            <para>Changes in 0.9.7<itemizedlist>
+                <listitem>
+                  <para>The matrice names given in option
+                  <option>--od-files</option> should now be devided using a
+                  ",", not a ";"</para>
+                </listitem>
 
-          <listitem>
-            <para><option>--od-files</option> was named
-            <option>--od-file</option> in versions prior to 0.9.5.</para>
+                <listitem>
+                  <para>Coloring trip definitions was removed. This made the
+                  <option>--no-color</option> option not needed which was
+                  removed, too.</para>
+                </listitem>
+
+                <listitem>
+                  <para>The timeline entries must be split using a "," instead
+                  of a ";". In case of not using a timeline for the whole day,
+                  the definition of time is separated using a ":" from the
+                  probability (earlier: ",")</para>
+                </listitem>
+              </itemizedlist></para>
           </listitem>
         </itemizedlist>
 
         <sect3 id="user_chp05-od2trips-districts">
           <title>Describing the Districts</title>
 
-          <para><application>OD2TRIPS</application> assumes the
-          matrix/matrices to be coded as amount of vehicles that drive from
-          one district to another within a certain time period. Because the
-          generated trips must start and end at edges,
-          <application>OD2TRIPS</application> requires a mapping of districts
-          to edges. During conversion of VISUM networks which conversion was
-          the base of the <application>OD2TRIPS</application> development,
-          districts stored in the VISUM input file are parsed and stored
-          within the network file. If you have to generate districts by your
-          own, you must build a districts file by your own. Such a file looks
-          as following:</para>
+          <para>A file containing a mapping from districts to edges looks as
+          following:</para>
 
           <programlisting><sgmltag>&lt;districts&gt;</sgmltag>
    <sgmltag>&lt;district id="<replaceable>&lt;DISTRICT_ID&gt;</replaceable>"&gt;</sgmltag>
@@ -5769,9 +5779,9 @@
           <para>This means that a district is described by its
           <sgmltag>id</sgmltag>, being a simple name, and lists of source and
           destination edges. A district should have at least one source and
-          one destination edge each described by its <sgmltag>id</sgmltag> and
-          use probability called <sgmltag>weight</sgmltag> herein. These edges
-          are used to emit and remove vehicles into/from the network
+          one destination edge, each described by its <sgmltag>id</sgmltag>
+          and use probability called <sgmltag>weight</sgmltag> herein. These
+          edges are used to emit and remove vehicles into/from the network
           respectively. The probability sums of each the source and the
           destination lists are normalized after loading.</para>
         </sect3>
@@ -5821,9 +5831,9 @@
 <remark>*
 * District 1 Sum = 6</remark>
          1          2          3
-<remark>* District 1 Sum = 15</remark>
+<remark>* District 2 Sum = 15</remark>
          4          5          6
-<remark>* District 1 Sum = 24</remark>
+<remark>* District 2 Sum = 24</remark>
          7          8          9 </programlisting>
 
           <para>The 'M' in the type name indicates that a vehicle type is
@@ -5832,8 +5842,8 @@
           what means that you can parse both V-, VR-, VMR, and VM-matrices.
           Please remark that both the names list and the lists containing the
           amounts are written in a way that no more than 10 fields are stored
-          in the same line. Each of the entries they contain seems to be
-          left-alogned to a boundary of 11 characters (possibly 10 for the
+          in the same line. Each of the entries they contain seem to be
+          left-aligned to a boundary of 11 characters (possibly 10 for the
           name and one space character). Both constraints are not mandatory
           for the importer used in <application>OD2TRIPS</application>.</para>
 
@@ -5866,19 +5876,19 @@
           <title>Splitting large matrices</title>
 
           <para>Since version 0.9.5 <application>OD2TRIPS</application> allows
-          splitting matrices defining a long tie period into parts that dure
-          less long. There are two ways of defining the amounts the matrix
-          shall be split into. The first possibility is to use the option
-          <option>--timeline</option> directly. In this case, it should be
-          followed by a list of times and probabilities, separated by ';'.
-          Each time and probability field is made up of two values, an integer
-          time being the simulation time in seconds and a floating point
-          number describing the probability. These two values are separated
-          using a ','. At least two values must be supplied making the
-          definition of a timeline in this case being decribeable by the
-          following BNF-formula:</para>
+          splitting matrices which define a long time period into smaller
+          parts which contain definite percentages of the whole. There are two
+          ways of defining the amounts the matrix shall be split into. The
+          first possibility is to use the option <option>--timeline</option>
+          directly. In this case, it should be followed by a list of times and
+          probabilities, separated by ','. Each time and probability field is
+          made up of two values, an integer time being the simulation time in
+          seconds and a floating point number describing the probability.
+          These two values are separated using a ':'. At least two values must
+          be supplied making the definition of a timeline in this case being
+          decribeable by the following BNF-formula:</para>
 
-          <para>&lt;TIME&gt;,&lt;AMOUNT&gt;[;&lt;TIME&gt;,&lt;AMOUNT&gt;]+</para>
+          <para>&lt;TIME&gt;:&lt;AMOUNT&gt;[,&lt;TIME&gt;:&lt;AMOUNT&gt;]+</para>
 
           <para>In this case, the matrix will be split into (fields-1) parts
           and each part will have the amount described by the integral within
@@ -5886,12 +5896,12 @@
 
           <para>The second case is rather common in transportation science. It
           allows to split the matrix into 24 subparts - this means the number
-          of dields is fixed to 24 - allowing to spread an O/D-matrix over a
+          of fields is fixed to 24 - allowing to spread an O/D-matrix over a
           day describing it by hours. To use this, give additionally the
           option <option>--timeline.day-in-hours</option> to
           <application>OD2TRIPS</application>. It the assumes the values from
           the <option>--timeline</option> - option being a list of 24 floats,
-          divided by ';', each describing the probability of emitting a
+          divided by ',', each describing the probability of emitting a
           vehicle within the according hour.</para>
 
           <para>In both cases, the probabilities are automatically
