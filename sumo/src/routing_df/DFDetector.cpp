@@ -58,7 +58,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 DFDetector::DFDetector(const std::string &Id, const std::string &laneId,
-                       SUMOReal pos, const dfdetector_type type)
+                       SUMOReal pos, const RODFDetectorType type)
         : myID(Id), myLaneID(laneId), myPosition(pos), myType(type), myRoutes(0)
 {}
 
@@ -80,7 +80,7 @@ DFDetector::~DFDetector()
 
 
 void
-DFDetector::setType(dfdetector_type type)
+DFDetector::setType(RODFDetectorType type)
 {
     myType = type;
 }

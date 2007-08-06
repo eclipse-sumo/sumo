@@ -54,10 +54,10 @@ struct DFRORouteDesc;
 // enumerations
 // ===========================================================================
 /**
- * @enum dfdetector_type
+ * @enum RODFDetectorType
  * @brief Numerical representation of different detector types
  */
-enum dfdetector_type
+enum RODFDetectorType
 {
     TYPE_NOT_DEFINED = 0,
     DISCARDED_DETECTOR,
@@ -80,7 +80,7 @@ class DFDetector
 {
 public:
     DFDetector(const std::string &Id, const std::string &laneId,
-               SUMOReal pos, const dfdetector_type type);
+               SUMOReal pos, const RODFDetectorType type);
     DFDetector(const std::string &Id, const DFDetector &f);
     ~DFDetector();
     const std::string &getID() const
@@ -95,11 +95,11 @@ public:
     {
         return myPosition;
     };
-    dfdetector_type getType() const
+    RODFDetectorType getType() const
     {
         return myType;
     };
-    void setType(dfdetector_type type);
+    void setType(RODFDetectorType type);
     bool writeEmitterDefinition(const std::string &file,
                                 const DFDetectorCon &detectors, const DFDetectorFlows &flows,
                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
@@ -144,7 +144,7 @@ protected:
     std::string myID;
     std::string myLaneID;
     SUMOReal myPosition;
-    dfdetector_type myType;
+    RODFDetectorType myType;
     DFRORouteCont *myRoutes;
     std::vector<DFDetector*> myPriorDetectors, myFollowingDetectors;
 

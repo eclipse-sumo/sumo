@@ -88,7 +88,7 @@ DFDetectorHandler::myStartElement(SumoXMLTag element,
             throw ProcessError("Not numeric lane position within '" + getFileName() + "' (detector id='" + id + ").");
         }
         string mml_type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
-        dfdetector_type type = TYPE_NOT_DEFINED;
+        RODFDetectorType type = TYPE_NOT_DEFINED;
         if (mml_type=="between") {
             type = BETWEEN_DETECTOR;
         } else if (mml_type=="source") {
