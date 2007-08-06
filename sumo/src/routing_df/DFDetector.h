@@ -59,13 +59,18 @@ struct DFRORouteDesc;
  */
 enum RODFDetectorType
 {
+    /// A not yet defined detector
     TYPE_NOT_DEFINED = 0,
+
+    /// A detector which had to be discarded (!!!)
     DISCARDED_DETECTOR,
+
+    /// An in-between detector
     BETWEEN_DETECTOR,
+
+    /// A source detector
     SOURCE_DETECTOR,
-    HIGHWAY_SOURCE_DETECTOR,
-    SINK_DETECTOR,
-    HIGHWAY_SINK_DETECTOR
+    SINK_DETECTOR
 };
 
 
@@ -133,12 +138,6 @@ protected:
                                       int maxFollower) const;
     int getFlowFor(const ROEdge *edge, SUMOTime time) const;
     SUMOReal computeDistanceFactor(const DFRORouteDesc &rd) const;
-    SUMOReal getUsage(ROEdge *e,
-                      std::vector<ROEdge*>::const_iterator end,
-                      std::vector<ROEdge*>::const_iterator q,
-                      const DFDetectorCon &detectors,
-                      const DFDetectorFlows &flows,SUMOTime time, const RODFNet &net,
-                      int maxFollower, int follower) const;
 
 protected:
     std::string myID;

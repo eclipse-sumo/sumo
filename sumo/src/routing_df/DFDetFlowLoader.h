@@ -99,7 +99,6 @@ private:
 
     /// The path information is found under
     //std::string fname;
-//	DFDetectorFlows * mydetFlows;
     DFDetectorCon &myDetectorContainer;
 
 

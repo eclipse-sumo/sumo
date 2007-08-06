@@ -81,8 +81,6 @@ public:
                  const FlowDef &fd);
     void removeFlow(const std::string &detector_id);
     void setFlows(const std::string &detector_id, std::vector<FlowDef> &);
-    //const FlowDef &getFlowDef(const std::string &det_id, SUMOTime timestamp) const;
-    //const std::map< int, FlowDef > &getFlowDefs( const std::string &id ) const;
 
     const std::vector<FlowDef> &getFlowDefs(const std::string &id) const;
     bool knows(const std::string &det_id) const;
@@ -93,9 +91,7 @@ public:
 
     void mesoJoin(const std::string &nid, const std::vector<std::string> &oldids);
 
-    //void buildFastAccess(SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 protected:
-//    std::map<std::string, std::map<SUMOTime, FlowDef> > myCurrentFlows;
     std::map<std::string, std::vector<FlowDef> > myFastAccessFlows;
     SUMOTime myBeginTime, myEndTime, myStepOffset;
     mutable SUMOReal myMaxDetectorFlow;

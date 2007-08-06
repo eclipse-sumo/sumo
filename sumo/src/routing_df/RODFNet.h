@@ -163,20 +163,6 @@ private:
     mutable std::map<std::string, ROEdge*> myDetectorEdges;
     mutable std::map<std::pair<ROEdge*, ROEdge*>, int> myConnectionOccurences;
 
-    /*
-    	// edge->mapped edge
-    	std::map<std::string, std::string> edgemap;
-
-    	// edge->speed
-    	std::map<std::string, SUMOReal> speedmap;
-
-    	// edge->lanes
-    	std::map<std::string, int> lanemap;
-
-    	// edge->length
-    	std::map<std::string, SUMOReal> lengthmap;
-    */
-
     bool myAmInHighwayMode;
     mutable size_t mySourceNumber, mySinkNumber, myInBetweenNumber, myInvalidNumber;
 };

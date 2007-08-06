@@ -55,7 +55,6 @@ struct DFRORouteDesc
     std::string routename;
     SUMOReal duration_2;
     SUMOReal distance;
-//	std::vector<std::pair<SUMOReal, SUMOReal> > myProbabilities;
     int passedNo;
     const ROEdge *endDetectorEdge;
     const ROEdge *lastDetectorEdge;

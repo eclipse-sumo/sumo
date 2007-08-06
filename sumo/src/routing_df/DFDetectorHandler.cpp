@@ -91,10 +91,8 @@ DFDetectorHandler::myStartElement(SumoXMLTag element,
         RODFDetectorType type = TYPE_NOT_DEFINED;
         if (mml_type=="between") {
             type = BETWEEN_DETECTOR;
-        } else if (mml_type=="source") {
+        } else if (mml_type=="source"||mml_type=="highway_source") { // !!! highway-source is legacy (removed accoring output on 06.08.2007)
             type = SOURCE_DETECTOR;
-        } else if (mml_type=="highway_source") {
-            type = HIGHWAY_SOURCE_DETECTOR;
         } else if (mml_type=="sink") {
             type = SINK_DETECTOR;
         }

@@ -100,56 +100,6 @@ DFDetector::computeDistanceFactor(const DFRORouteDesc &rd) const
 }
 
 
-SUMOReal
-DFDetector::getUsage(ROEdge *e, vector<ROEdge*>::const_iterator end,
-                     vector<ROEdge*>::const_iterator q,
-                     const DFDetectorCon &detectors,
-                     const DFDetectorFlows &flows,
-                     SUMOTime time,
-                     const RODFNet &net,
-                     int maxFollower,
-                     int follower) const
-{
-    if(follower>maxFollower){
-        return 0;
-    }
-    while (e!=0) {
-        follower++;
-        if(q==end) {
-            return 0;
-        }
-        if (net.hasDetector(e)) {
-            return (SUMOReal) detectors.getAggFlowFor(e, time, 30*60, flows);
-        }
-        if (e->getNoFollowing()>1) {
-            if(q==end-1) {
-                return 0;
-            }
-            map<ROEdge*, SUMOReal> probs;
-            SUMOReal allProbs = 0;
-            for (size_t i=0; i<e->getNoFollowing(); ++i) {
-                ROEdge *ne = e->getFollower(i);
-                SUMOReal prob = getUsage(ne, end, q, detectors, flows, time, net, maxFollower, follower);
-                probs[ne] = prob;
-                allProbs += prob;
-            }
-            if (allProbs!=0) {
-                return probs[*(q+1)] / allProbs;
-            } else {
-                return 0;
-            }
-        } else if (e->getNoFollowing()==1) {
-            e = e->getFollower(0);
-            q = q + 1;
-        } else {
-            // no follower!?
-            return 0;
-        }
-    }
-    return 0;
-}
-
-
 SUMOReal 
 DFDetector::getUsage(const DFDetectorCon &detectors,DFRORouteDesc*route, DFRORouteCont::RoutesMap *curr,
                      SUMOTime time, const DFDetectorFlows &flows) const
@@ -861,9 +811,6 @@ DFDetectorCon::save(const std::string &file) const
         case SOURCE_DETECTOR:
             strm << "\" type=\"source\"";
             break;
-        case HIGHWAY_SOURCE_DETECTOR:
-            strm << "\" type=\"highway_source\"";
-            break;
         case SINK_DETECTOR:
             strm << "\" type=\"sink\"";
             break;
@@ -892,9 +839,6 @@ DFDetectorCon::saveAsPOIs(const std::string &file) const
             break;
         case SOURCE_DETECTOR:
             strm << "\" type=\"source_detector_position\" color=\"0,1,0\"";
-            break;
-        case HIGHWAY_SOURCE_DETECTOR:
-            strm << "\" type=\"highway_source_detector_position\" color=\".5,1,.5\"";
             break;
         case SINK_DETECTOR:
             strm << "\" type=\"sink_detector_position\" color=\"1,0,0\"";
@@ -1059,9 +1003,6 @@ DFDetectorCon::writeEmitterPOIs(const std::string &file,
             break;
         case SOURCE_DETECTOR:
             strm << "\" type=\"source_detector_position\" color=\"0," << col << ",0\"";
-            break;
-        case HIGHWAY_SOURCE_DETECTOR:
-            strm << "\" type=\"highway_source_detector_position\" color=\".5," << col << ",.5\"";
             break;
         case SINK_DETECTOR:
             strm << "\" type=\"sink_detector_position\" color=\"" << col << ",0,0\"";
