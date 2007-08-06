@@ -41,6 +41,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/XMLSubSys.h>
+#include "RODFNet.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -66,10 +67,10 @@ RODFLoader::~RODFLoader()
 {}
 
 
-RONet *
-RODFLoader::loadNet(ROAbstractEdgeBuilder &eb)
+RODFNet *
+RODFLoader::loadNet(ROAbstractEdgeBuilder &eb, bool amInHighwayMode)
 {
-    RONet *net = new RONet(true);
+    RODFNet *net = new RODFNet(amInHighwayMode);
     std::string file = myOptions.getString("n");
     if (file==""||!FileHelpers::exists(file)) {
         delete net;
@@ -85,7 +86,7 @@ RODFLoader::loadNet(ROAbstractEdgeBuilder &eb)
     } else {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
-    // build and prepare the parser
+    net->buildApproachList();
     return net;
 }
 

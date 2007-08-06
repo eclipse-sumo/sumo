@@ -34,6 +34,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class RODFNet;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 class RODFLoader : public ROLoader
@@ -46,8 +52,8 @@ public:
     /// Destructor
     ~RODFLoader();
 
-    /// Builds the ROONet
-    RONet *loadNet(ROAbstractEdgeBuilder &eb);
+    /// Builds the RODFNet
+    RODFNet *loadNet(ROAbstractEdgeBuilder &eb, bool amInHighwayMode);
 
 };
 

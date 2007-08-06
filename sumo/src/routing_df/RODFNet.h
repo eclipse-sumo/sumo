@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    DFRONet.h
+/// @file    RODFNet.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
 /// @version $Id$
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef DFRONet_h
-#define DFRONet_h
+#ifndef RODFNet_h
+#define RODFNet_h
 
 
 // ===========================================================================
@@ -43,15 +43,14 @@
 // class definitions
 // ===========================================================================
 /**
- * @class DFRONet
+ * @class RODFNet
  * @brief A DFROUTER-network
  */
-class DFRONet
+class RODFNet : public RONet
 {
 public:
-    DFRONet(RONet * ro, bool amInHighwayMode);
-    DFRONet();
-    ~DFRONet();
+    RODFNet(bool amInHighwayMode);
+    ~RODFNet();
     void buildApproachList();
     size_t numberOfEdgesBefore(ROEdge *edge) const;
     const std::vector<ROEdge*> &getEdgesBefore(ROEdge *edge) const;
@@ -80,8 +79,6 @@ public:
 
     void reportEmptyDetectors(DFDetectorCon &detectors,
                               DFDetectorFlows &flows);
-
-    ROEdge *getEdge(const std::string &name) const;
 
     void buildDetectorDependencies(DFDetectorCon &detectors);
 
@@ -156,8 +153,6 @@ protected:
     };
 
 private:
-    RONet * ro;
-
     // map of edge name->list of names of this edge approaching edges
     std::map<ROEdge*, std::vector<ROEdge*> > myApproachingEdges;
 

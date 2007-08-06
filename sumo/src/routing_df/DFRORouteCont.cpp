@@ -32,7 +32,7 @@
 #include <cassert>
 #include "DFRORouteDesc.h"
 #include "DFRORouteCont.h"
-#include "DFRONet.h"
+#include "RODFNet.h"
 #include <router/ROEdge.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -91,7 +91,7 @@ DFRORouteCont::RoutesMap::write(std::ostream &os, size_t offset) const
 
 
 
-DFRORouteCont::DFRORouteCont(const DFRONet &net)
+DFRORouteCont::DFRORouteCont(const RODFNet &net)
         : myNet(net)
 {}
 
@@ -257,7 +257,7 @@ DFRORouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals)
 
 
 void
-DFRORouteCont::determineEndDetector(const DFRONet &net, DFRORouteCont::RoutesMap *rmap) const
+DFRORouteCont::determineEndDetector(const RODFNet &net, DFRORouteCont::RoutesMap *rmap) const
 {
     rmap->lastDetectorEdge = 0;
     // get and set the last detector on this map's edges
@@ -283,7 +283,7 @@ DFRORouteCont::determineEndDetector(const DFRONet &net, DFRORouteCont::RoutesMap
 
 
 DFRORouteCont::RoutesMap *
-DFRORouteCont::getRouteMap(const DFRONet &net) const
+DFRORouteCont::getRouteMap(const RODFNet &net) const
 {
     DFRORouteCont::RoutesMap *ret = new DFRORouteCont::RoutesMap();
     if(myRoutes.size()>0) {

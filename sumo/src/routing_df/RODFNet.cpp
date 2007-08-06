@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    DFRONet.cpp
+/// @file    RODFNet.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
 /// @version $Id$
@@ -38,7 +38,7 @@
 #include <iostream>
 #include <map>
 #include <vector>
-#include "DFRONet.h"
+#include "RODFNet.h"
 #include <routing_df/DFDetector.h>
 #include <routing_df/DFRORouteDesc.h>
 #include "DFDetectorFlow.h"
@@ -62,27 +62,22 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-DFRONet::DFRONet()
-{
-    ro = NULL;
-}
-
-DFRONet::DFRONet(RONet * Ro, bool amInHighwayMode)
-        : myAmInHighwayMode(amInHighwayMode),
+RODFNet::RODFNet(bool amInHighwayMode)
+        : RONet(true), myAmInHighwayMode(amInHighwayMode),
         mySourceNumber(0), mySinkNumber(0), myInBetweenNumber(0), myInvalidNumber(0)
 {
-    ro = Ro;
 }
 
-DFRONet::~DFRONet()
+
+RODFNet::~RODFNet()
 {
-    delete ro;
 }
+
 
 void
-DFRONet::buildApproachList()
+RODFNet::buildApproachList()
 {
-    std::vector<ROEdge *> r = ro->getMyEdgeCont()->getTempVector();
+    std::vector<ROEdge *> r = getMyEdgeCont()->getTempVector();
     std::vector<ROEdge *>::iterator rit = r.begin();
     for (; rit != r.end(); rit++) {
         size_t i = 0;
@@ -132,7 +127,7 @@ DFRONet::buildApproachList()
 
 
 size_t
-DFRONet::numberOfEdgesBefore(ROEdge *edge) const
+RODFNet::numberOfEdgesBefore(ROEdge *edge) const
 {
     if (myApproachingEdges.find(edge)==myApproachingEdges.end()) {
         return 0;
@@ -142,7 +137,7 @@ DFRONet::numberOfEdgesBefore(ROEdge *edge) const
 
 
 const std::vector<ROEdge *> &
-DFRONet::getEdgesBefore(ROEdge *edge) const
+RODFNet::getEdgesBefore(ROEdge *edge) const
 {
     assert(myApproachingEdges.find(edge)!=myApproachingEdges.end());
     return myApproachingEdges.find(edge)->second;
@@ -150,7 +145,7 @@ DFRONet::getEdgesBefore(ROEdge *edge) const
 
 
 size_t
-DFRONet::numberOfEdgesAfter(ROEdge *edge) const
+RODFNet::numberOfEdgesAfter(ROEdge *edge) const
 {
     if (myApproachedEdges.find(edge)==myApproachedEdges.end()) {
         return 0;
@@ -160,7 +155,7 @@ DFRONet::numberOfEdgesAfter(ROEdge *edge) const
 
 
 const std::vector<ROEdge *> &
-DFRONet::getEdgesAfter(ROEdge *edge) const
+RODFNet::getEdgesAfter(ROEdge *edge) const
 {
     assert(myApproachedEdges.find(edge)!=myApproachedEdges.end());
     return myApproachedEdges.find(edge)->second;
@@ -168,7 +163,7 @@ DFRONet::getEdgesAfter(ROEdge *edge) const
 
 
 void
-DFRONet::buildDetectorEdgeDependencies(DFDetectorCon &detcont) const
+RODFNet::buildDetectorEdgeDependencies(DFDetectorCon &detcont) const
 {
     myDetectorsOnEdges.clear();
     myDetectorEdges.clear();
@@ -189,7 +184,7 @@ DFRONet::buildDetectorEdgeDependencies(DFDetectorCon &detcont) const
 
 
 void
-DFRONet::computeTypes(DFDetectorCon &detcont,
+RODFNet::computeTypes(DFDetectorCon &detcont,
                       bool sourcesStrict) const
 {
     MsgHandler::getMessageInstance()->beginProcessMsg("Computing detector types...");
@@ -234,7 +229,7 @@ DFRONet::computeTypes(DFDetectorCon &detcont,
 
 
 bool
-DFRONet::hasInBetweenDetectorsOnly(ROEdge *edge,
+RODFNet::hasInBetweenDetectorsOnly(ROEdge *edge,
                                    const DFDetectorCon &detectors) const
 {
     assert(myDetectorsOnEdges.find(edge)!=myDetectorsOnEdges.end());
@@ -251,7 +246,7 @@ DFRONet::hasInBetweenDetectorsOnly(ROEdge *edge,
 
 
 bool
-DFRONet::hasSourceDetector(ROEdge *edge,
+RODFNet::hasSourceDetector(ROEdge *edge,
                            const DFDetectorCon &detectors) const
 {
     assert(myDetectorsOnEdges.find(edge)!=myDetectorsOnEdges.end());
@@ -269,7 +264,7 @@ DFRONet::hasSourceDetector(ROEdge *edge,
 
 
 void
-DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
+RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
                           bool allEndFollower, bool keepUnfoundEnds,
                           bool keepShortestOnly,
                           std::vector<ROEdge*> &/*visited*/,
@@ -543,46 +538,46 @@ DFRONet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
 
 
 void
-DFRONet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
+RODFNet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
                      bool keepUnfoundEnds, bool includeInBetween,
                      bool keepShortestOnly, int maxFollowingLength) const
 {
     std::vector<std::vector<ROEdge*> > illegals;
     std::vector<ROEdge*> i1;
-    i1.push_back(ro->getEdge("-51140604"));
-    i1.push_back(ro->getEdge("-51140594"));
-    i1.push_back(ro->getEdge("51140072"));
-    i1.push_back(ro->getEdge("51140612"));
+    i1.push_back(getEdge("-51140604"));
+    i1.push_back(getEdge("-51140594"));
+    i1.push_back(getEdge("51140072"));
+    i1.push_back(getEdge("51140612"));
     illegals.push_back(i1);
     std::vector<ROEdge*> i2;
-    i2.push_back(ro->getEdge("-51047761"));
-    i2.push_back(ro->getEdge("-51047760"));
-    i2.push_back(ro->getEdge("51047759"));
-    i2.push_back(ro->getEdge("51047758"));
+    i2.push_back(getEdge("-51047761"));
+    i2.push_back(getEdge("-51047760"));
+    i2.push_back(getEdge("51047759"));
+    i2.push_back(getEdge("51047758"));
     illegals.push_back(i2);
     std::vector<ROEdge*> i3;
-    i3.push_back(ro->getEdge("-51049672"));
-    i3.push_back(ro->getEdge("-51049675"));
-    i3.push_back(ro->getEdge("51049662"));
-    i3.push_back(ro->getEdge("51049676"));
+    i3.push_back(getEdge("-51049672"));
+    i3.push_back(getEdge("-51049675"));
+    i3.push_back(getEdge("51049662"));
+    i3.push_back(getEdge("51049676"));
     illegals.push_back(i3);
     std::vector<ROEdge*> i4;
-    i4.push_back(ro->getEdge("-51069817"));
-    i4.push_back(ro->getEdge("-51069812"));
-    i4.push_back(ro->getEdge("51069813"));
-    i4.push_back(ro->getEdge("51069815"));
+    i4.push_back(getEdge("-51069817"));
+    i4.push_back(getEdge("-51069812"));
+    i4.push_back(getEdge("51069813"));
+    i4.push_back(getEdge("51069815"));
     illegals.push_back(i4);
     std::vector<ROEdge*> i5;
-    i5.push_back(ro->getEdge("50872831"));
-    i5.push_back(ro->getEdge("-50872833"));
-    i5.push_back(ro->getEdge("-50872829"));
-    i5.push_back(ro->getEdge("572267133"));
+    i5.push_back(getEdge("50872831"));
+    i5.push_back(getEdge("-50872833"));
+    i5.push_back(getEdge("-50872829"));
+    i5.push_back(getEdge("572267133"));
     illegals.push_back(i5);
     std::vector<ROEdge*> i6;
-    i6.push_back(ro->getEdge("-51066847"));
-    i6.push_back(ro->getEdge("-51066836"));
-    i6.push_back(ro->getEdge("51066830"));
-    i6.push_back(ro->getEdge("51066846"));
+    i6.push_back(getEdge("-51066847"));
+    i6.push_back(getEdge("-51066836"));
+    i6.push_back(getEdge("51066830"));
+    i6.push_back(getEdge("51066846"));
     illegals.push_back(i6);
     // build needed information first
     buildDetectorEdgeDependencies(detcont);
@@ -676,7 +671,7 @@ DFRONet::buildRoutes(DFDetectorCon &detcont, bool allEndFollower,
 
 
 void
-DFRONet::revalidateFlows(const DFDetector *detector,
+RODFNet::revalidateFlows(const DFDetector *detector,
                          DFDetectorFlows &flows,
                          SUMOTime startTime, SUMOTime endTime,
                          SUMOTime stepOffset)
@@ -824,7 +819,7 @@ DFRONet::revalidateFlows(const DFDetector *detector,
 
 
 void
-DFRONet::revalidateFlows(const DFDetectorCon &detectors,
+RODFNet::revalidateFlows(const DFDetectorCon &detectors,
                          DFDetectorFlows &flows,
                          SUMOTime startTime, SUMOTime endTime,
                          SUMOTime stepOffset)
@@ -839,7 +834,7 @@ DFRONet::revalidateFlows(const DFDetectorCon &detectors,
 
 
 void
-DFRONet::removeEmptyDetectors(DFDetectorCon &detectors,
+RODFNet::removeEmptyDetectors(DFDetectorCon &detectors,
                               DFDetectorFlows &flows,
                               SUMOTime /*startTime*/, SUMOTime /*endTime*/,
                               SUMOTime /*stepOffset*/)
@@ -866,7 +861,7 @@ DFRONet::removeEmptyDetectors(DFDetectorCon &detectors,
 
 
 void
-DFRONet::reportEmptyDetectors(DFDetectorCon &detectors,
+RODFNet::reportEmptyDetectors(DFDetectorCon &detectors,
                               DFDetectorFlows &flows)
 {
     const std::vector<DFDetector*> &dets = detectors.getDetectors();
@@ -885,11 +880,11 @@ DFRONet::reportEmptyDetectors(DFDetectorCon &detectors,
 
 
 ROEdge *
-DFRONet::getDetectorEdge(const DFDetector &det) const
+RODFNet::getDetectorEdge(const DFDetector &det) const
 {
     string edgeName = det.getLaneID();
     edgeName = edgeName.substr(0, edgeName.rfind('_'));
-    ROEdge *ret = ro->getEdge(edgeName);
+    ROEdge *ret = getEdge(edgeName);
     if (ret==0) {
         throw ProcessError("Edge '" + edgeName + "' used by detector '" + det.getID() + "' is not known.");
     }
@@ -898,7 +893,7 @@ DFRONet::getDetectorEdge(const DFDetector &det) const
 
 
 bool
-DFRONet::hasApproaching(ROEdge *edge) const
+RODFNet::hasApproaching(ROEdge *edge) const
 {
     return
         myApproachingEdges.find(edge)!=myApproachingEdges.end()
@@ -908,7 +903,7 @@ DFRONet::hasApproaching(ROEdge *edge) const
 
 
 bool
-DFRONet::hasApproached(ROEdge *edge) const
+RODFNet::hasApproached(ROEdge *edge) const
 {
     return
         myApproachedEdges.find(edge)!=myApproachedEdges.end()
@@ -918,7 +913,7 @@ DFRONet::hasApproached(ROEdge *edge) const
 
 
 bool
-DFRONet::hasDetector(ROEdge *edge) const
+RODFNet::hasDetector(ROEdge *edge) const
 {
     return
         myDetectorsOnEdges.find(edge)!=myDetectorsOnEdges.end()
@@ -928,14 +923,14 @@ DFRONet::hasDetector(ROEdge *edge) const
 
 
 const std::vector<std::string> &
-DFRONet::getDetectorList(ROEdge *edge) const
+RODFNet::getDetectorList(ROEdge *edge) const
 {
     return myDetectorsOnEdges.find(edge)->second;
 }
 
 
 SUMOReal
-DFRONet::getAbsPos(const DFDetector &det) const
+RODFNet::getAbsPos(const DFDetector &det) const
 {
     if (det.getPos()>=0) {
         return det.getPos();
@@ -944,7 +939,7 @@ DFRONet::getAbsPos(const DFDetector &det) const
 }
 
 bool
-DFRONet::isSource(const DFDetector &det, const DFDetectorCon &detectors,
+RODFNet::isSource(const DFDetector &det, const DFDetectorCon &detectors,
                   bool strict) const
 {
     std::vector<ROEdge*> seen;
@@ -953,7 +948,7 @@ DFRONet::isSource(const DFDetector &det, const DFDetectorCon &detectors,
 }
 
 bool
-DFRONet::isFalseSource(const DFDetector &det, const DFDetectorCon &detectors) const
+RODFNet::isFalseSource(const DFDetector &det, const DFDetectorCon &detectors) const
 {
     std::vector<ROEdge*> seen;
     return
@@ -961,7 +956,7 @@ DFRONet::isFalseSource(const DFDetector &det, const DFDetectorCon &detectors) co
 }
 
 bool
-DFRONet::isDestination(const DFDetector &det, const DFDetectorCon &detectors) const
+RODFNet::isDestination(const DFDetector &det, const DFDetectorCon &detectors) const
 {
     std::vector<ROEdge*> seen;
     return isDestination(det, getDetectorEdge(det), seen, detectors);
@@ -969,7 +964,7 @@ DFRONet::isDestination(const DFDetector &det, const DFDetectorCon &detectors) co
 
 
 bool
-DFRONet::isSource(const DFDetector &det, ROEdge *edge,
+RODFNet::isSource(const DFDetector &det, ROEdge *edge,
                   std::vector<ROEdge*> &seen,
                   const DFDetectorCon &detectors,
                   bool strict) const
@@ -1073,7 +1068,7 @@ DFRONet::isSource(const DFDetector &det, ROEdge *edge,
 
 
 bool
-DFRONet::isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
+RODFNet::isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
                        const DFDetectorCon &detectors) const
 {
     if (seen.size()==1000) { // !!!
@@ -1151,7 +1146,7 @@ DFRONet::isDestination(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*>
 }
 
 bool
-DFRONet::isFalseSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
+RODFNet::isFalseSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
                        const DFDetectorCon &detectors) const
 {
     if (seen.size()==1000) { // !!!
@@ -1201,7 +1196,7 @@ DFRONet::isFalseSource(const DFDetector &det, ROEdge *edge, std::vector<ROEdge*>
 
 
 void
-DFRONet::buildEdgeFlowMap(const DFDetectorFlows &flows,
+RODFNet::buildEdgeFlowMap(const DFDetectorFlows &flows,
                           const DFDetectorCon &detectors,
                           SUMOTime startTime, SUMOTime endTime,
                           SUMOTime stepOffset)
@@ -1267,15 +1262,8 @@ DFRONet::buildEdgeFlowMap(const DFDetectorFlows &flows,
 }
 
 
-ROEdge *
-DFRONet::getEdge(const std::string &name) const
-{
-    return ro->getEdge(name);
-}
-
-
 void
-DFRONet::buildDetectorDependencies(DFDetectorCon &detectors)
+RODFNet::buildDetectorDependencies(DFDetectorCon &detectors)
 {
     // !!! this will not work when several detectors are lying on the same edge on different positions
 
@@ -1323,7 +1311,7 @@ DFRONet::buildDetectorDependencies(DFDetectorCon &detectors)
 
 
 void
-DFRONet::computeID4Route(DFRORouteDesc &desc) const
+RODFNet::computeID4Route(DFRORouteDesc &desc) const
 {
     ROEdge *first = *(desc.edges2Pass.begin());
     ROEdge *last = *(desc.edges2Pass.end()-1);
@@ -1339,7 +1327,7 @@ DFRONet::computeID4Route(DFRORouteDesc &desc) const
 
 
 void
-DFRONet::mesoJoin(DFDetectorCon &detectors, DFDetectorFlows &flows)
+RODFNet::mesoJoin(DFDetectorCon &detectors, DFDetectorFlows &flows)
 {
     buildDetectorEdgeDependencies(detectors);
     std::map<ROEdge*, std::vector<std::string> >::iterator i;

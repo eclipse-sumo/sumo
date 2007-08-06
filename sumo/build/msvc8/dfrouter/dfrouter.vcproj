@@ -234,10 +234,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\DFRONet.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\routing_df\DFRORouteCont.cpp"
 				>
 			</File>
@@ -283,6 +279,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\routing_df\RODFNet.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\routing_df\RODFNetHandler.cpp"
 				>
 			</File>
@@ -308,10 +308,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\DFRONet.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\routing_df\DFRORouteCont.h"
 				>
 			</File>
@@ -333,6 +329,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\routing_df\RODFLoader.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\routing_df\RODFNet.h"
 				>
 			</File>
 			<File

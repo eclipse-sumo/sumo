@@ -38,7 +38,7 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class DFRONet;
+class RODFNet;
 
 
 // ===========================================================================
@@ -51,7 +51,7 @@ class DFRONet;
 class DFRORouteCont
 {
 public:
-    DFRORouteCont(const DFRONet &net);
+    DFRORouteCont(const RODFNet &net);
 //	DFRORouteCont(const DFRORouteCont &s);
     ~DFRORouteCont();
     void addRouteDesc(DFRORouteDesc *desc);
@@ -79,9 +79,9 @@ public:
         ROEdge* lastDetectorEdge;
     };
 
-    RoutesMap *getRouteMap(const DFRONet &net) const;
+    RoutesMap *getRouteMap(const RODFNet &net) const;
 
-    void determineEndDetector(const DFRONet &net, DFRORouteCont::RoutesMap *rmap) const;
+    void determineEndDetector(const RODFNet &net, DFRORouteCont::RoutesMap *rmap) const;
 
 protected:
     class by_distance_sorter
@@ -123,7 +123,7 @@ protected:
 
     std::vector<DFRORouteDesc*> myRoutes;
     std::map<ROEdge*, std::vector<ROEdge*> > myDets2Follow;
-    const DFRONet &myNet;
+    const RODFNet &myNet;
 
 };
 

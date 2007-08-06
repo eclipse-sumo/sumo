@@ -46,7 +46,7 @@ class DFRORouteCont;
 class DFDetectorFlows;
 class ROEdge;
 class DFDetectorCon;
-class DFRONet;
+class RODFNet;
 struct DFRORouteDesc;
 
 
@@ -103,11 +103,11 @@ public:
     bool writeEmitterDefinition(const std::string &file,
                                 const DFDetectorCon &detectors, const DFDetectorFlows &flows,
                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
-                                const DFRONet &net,
+                                const RODFNet &net,
                                 bool includeUnusedRoutes, SUMOReal scale, int maxFollower,
                                 bool emissionsOnly) const;
 
-    void addRoute(const DFRONet &net, DFRORouteDesc *nrd);
+    void addRoute(const RODFNet &net, DFRORouteDesc *nrd);
     void addRoutes(DFRORouteCont *routes);
     bool hasRoutes() const;
     bool writeRoutes(std::vector<std::string> &saved,
@@ -128,7 +128,7 @@ protected:
     void buildDestinationDistribution(const DFDetectorCon &detectors,
                                       const DFDetectorFlows &flows,
                                       SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
-                                      const DFRONet &net,
+                                      const RODFNet &net,
                                       std::map<size_t, RandomDistributor<size_t>* > &into,
                                       int maxFollower) const;
     int getFlowFor(const ROEdge *edge, SUMOTime time) const;
@@ -137,7 +137,7 @@ protected:
                       std::vector<ROEdge*>::const_iterator end,
                       std::vector<ROEdge*>::const_iterator q,
                       const DFDetectorCon &detectors,
-                      const DFDetectorFlows &flows,SUMOTime time, const DFRONet &net,
+                      const DFDetectorFlows &flows,SUMOTime time, const RODFNet &net,
                       int maxFollower, int follower) const;
 
 protected:
@@ -174,7 +174,7 @@ public:
     void writeEmitters(const std::string &file,
                        const DFDetectorFlows &flows,
                        SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
-                       const DFRONet &net,
+                       const RODFNet &net,
                        bool writeCalibrators, bool includeUnusedRoutes,
                        SUMOReal scale, int maxFollower,
                        bool emissionsOnly);

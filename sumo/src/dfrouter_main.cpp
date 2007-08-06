@@ -54,7 +54,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <routing_df/RODFLoader.h>
 #include <routing_df/RODFFrame.h>
-#include <routing_df/DFRONet.h>
+#include <routing_df/RODFNet.h>
 #include <routing_df/DFDetector.h>
 #include <routing_df/DFDetectorHandler.h>
 #include <routing_df/DFRORouteCont.h>
@@ -85,7 +85,7 @@ using namespace std;
  * The net is in this meaning made up by the net itself and the dynamic
  * weights which may be supplied in a separate file
  */
-DFRONet *
+RODFNet *
 loadNet(OptionsCont &oc)
 {
     // load the network if wished
@@ -96,20 +96,12 @@ loadNet(OptionsCont &oc)
     RODFLoader loader(oc, vb, false);
     // load the net
     RODFEdgeBuilder builder;
-    RONet *ronet =  loader.loadNet(builder);
-    if (ronet==0) {
-         throw ProcessError();
-    }
-
-    DFRONet *net = new DFRONet(ronet, oc.getBool("highway-mode"));
-    net->buildApproachList();
-
-    return net;
+    return loader.loadNet(builder, oc.getBool("highway-mode"));
 }
 
 
 DFDetectorCon *
-readDetectors(OptionsCont &oc, DFRONet *optNet)
+readDetectors(OptionsCont &oc, RODFNet *optNet)
 {
     if (!oc.isSet("detector-files")&&!oc.isSet("elmar-detector-files")) {
         throw ProcessError("No detector file given (use --detector-files <FILE>).");
@@ -231,7 +223,7 @@ readDetectorFlows(OptionsCont &oc, DFDetectorCon &dc)
 
 
 void
-startComputation(DFRONet *optNet, OptionsCont &oc)
+startComputation(RODFNet *optNet, OptionsCont &oc)
 {
     // read the detector definitions (mandatory)
     DFDetectorCon *detectors = readDetectors(oc, optNet);
@@ -371,7 +363,7 @@ main(int argc, char **argv)
     oc.setApplicationName("sumo-dfrouter", "SUMO dfrouter Version " + (string)VERSION_STRING);
 #endif
     int ret = 0;
-    DFRONet *net = 0;
+    RODFNet *net = 0;
     try {
         // initialise the application system (messaging, xml, options)
         XMLSubSys::init();
@@ -386,6 +378,9 @@ main(int argc, char **argv)
         RandHelper::initRandGlobal();
         // retrieve the options
         net = loadNet(oc);
+        if (net==0) {
+            throw ProcessError();
+        }
         // build routes
         startComputation(net, oc);
     } catch (ProcessError &e) {
