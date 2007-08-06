@@ -55,10 +55,10 @@
 #include <routing_df/RODFLoader.h>
 #include <routing_df/RODFFrame.h>
 #include <routing_df/RODFNet.h>
-#include <routing_df/DFDetector.h>
-#include <routing_df/DFDetectorHandler.h>
+#include <routing_df/RODFDetector.h>
+#include <routing_df/RODFDetectorHandler.h>
 #include <routing_df/DFRORouteCont.h>
-#include <routing_df/DFDetectorFlow.h>
+#include <routing_df/RODFDetectorFlow.h>
 #include <routing_df/DFDetFlowLoader.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
@@ -100,13 +100,13 @@ loadNet(OptionsCont &oc)
 }
 
 
-DFDetectorCon *
+RODFDetectorCon *
 readDetectors(OptionsCont &oc, RODFNet *optNet)
 {
     if (!oc.isSet("detector-files")&&!oc.isSet("elmar-detector-files")) {
         throw ProcessError("No detector file given (use --detector-files <FILE>).");
     }
-    DFDetectorCon *cont = new DFDetectorCon();
+    RODFDetectorCon *cont = new RODFDetectorCon();
     // read definitions stored in XML-format
     {
         vector<string> files = oc.getStringVector("detector-files");
@@ -116,7 +116,7 @@ readDetectors(OptionsCont &oc, RODFNet *optNet)
                 throw ProcessError("Could not open detector file '" + *fileIt + "'");
             }
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + *fileIt + "'... ");
-            DFDetectorHandler handler(oc, *cont, *fileIt);
+            RODFDetectorHandler handler(oc, *cont, *fileIt);
             if(XMLSubSys::runParser(handler, *fileIt)) {
                 MsgHandler::getMessageInstance()->endProcessMsg("done.");
             } else {
@@ -183,7 +183,7 @@ readDetectors(OptionsCont &oc, RODFNet *optNet)
                 for (int i=0; i<e->getLaneNo(); ++i) {
                     string lane = edge + "_" + toString(i);
                     string did = id + "_" + toString(i);
-                    DFDetector *detector = new DFDetector(did, lane, d, TYPE_NOT_DEFINED);
+                    RODFDetector *detector = new RODFDetector(did, lane, d, TYPE_NOT_DEFINED);
                     if (!cont->addDetector(detector)) {
                         MsgHandler::getErrorInstance()->inform("Could not add detector '" + id + "' (probably the id is already used).");
                         delete detector;
@@ -198,10 +198,10 @@ readDetectors(OptionsCont &oc, RODFNet *optNet)
 }
 
 
-DFDetectorFlows *
-readDetectorFlows(OptionsCont &oc, DFDetectorCon &dc)
+RODFDetectorFlows *
+readDetectorFlows(OptionsCont &oc, RODFDetectorCon &dc)
 {
-    DFDetectorFlows *ret = new DFDetectorFlows(oc.getInt("begin"), oc.getInt("end"), 60); // !!!
+    RODFDetectorFlows *ret = new RODFDetectorFlows(oc.getInt("begin"), oc.getInt("end"), 60); // !!!
     if (!oc.isSet("detector-flow-files")) {
         // ok, not given, return an empty container
         return ret;
@@ -226,8 +226,8 @@ void
 startComputation(RODFNet *optNet, OptionsCont &oc)
 {
     // read the detector definitions (mandatory)
-    DFDetectorCon *detectors = readDetectors(oc, optNet);
-    DFDetectorFlows *flows = readDetectorFlows(oc, *detectors);
+    RODFDetectorCon *detectors = readDetectors(oc, optNet);
+    RODFDetectorFlows *flows = readDetectorFlows(oc, *detectors);
     if (flows!=0&&oc.getBool("print-absolute-flows")) {
         flows->printAbsolute();
     }
