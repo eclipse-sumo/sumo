@@ -1,5 +1,5 @@
-Parsing nodes from 'input_nodes.nod.xml'...
-Parsing edges from 'input_edges.edg.xml'...
+Parsing nodes from 'input_nodes.nod.xml'... done.
+Parsing edges from 'input_edges.edg.xml'... done.
  Import done;
    5 nodes loaded.
    8 edges loaded.

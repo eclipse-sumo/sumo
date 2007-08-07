@@ -92,6 +92,7 @@ bool
 NIArcView_Loader::load(OptionsCont &)
 {
 #ifdef HAVE_GDAL
+    MsgHandler::getMessageInstance()->beginProcessMsg("Loading data from '" + mySHPName + "'...");
     OGRRegisterAll();
     OGRDataSource       *poDS;
 
@@ -246,6 +247,7 @@ NIArcView_Loader::load(OptionsCont &)
         }
         OGRFeature::DestroyFeature(poFeature);
     }
+    MsgHandler::getMessageInstance()->endProcessMsg("done.");
     return !MsgHandler::getErrorInstance()->wasInformed();
 #else
     MsgHandler::getErrorInstance()->inform("SUMO was compiled without GDAL support.");

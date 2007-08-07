@@ -212,8 +212,9 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const vector<string> &files,
                 continue;
             }
             handler->setFileName(*file);
-            WRITE_MESSAGE("Parsing " + type + " from '" + *file + "'...");
+            MsgHandler::getMessageInstance()->beginProcessMsg("Parsing " + type + " from '" + *file + "'...");
             parser->parse(file->c_str());
+            MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
     } catch (const XMLException& toCatch) {
         exceptMsg = TplConvert<XMLCh>::_2str(toCatch.getMessage())
