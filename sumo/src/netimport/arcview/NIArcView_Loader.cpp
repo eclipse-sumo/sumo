@@ -108,11 +108,8 @@ NIArcView_Loader::load(OptionsCont &)
     // build coordinate transformation
     OGRSpatialReference *origTransf = poLayer->GetSpatialRef();
     OGRSpatialReference destTransf;
-    // assume utm-projection
-    destTransf.SetProjCS("UTM 32 / WGS84");
+    // use wgs84 as destination
     destTransf.SetWellKnownGeogCS("WGS84");
-    int zone = myOptions.getInt("arcview.utm");
-    destTransf.SetUTM(zone);
     OGRCoordinateTransformation *poCT =
         OGRCreateCoordinateTransformation(origTransf, &destTransf);
     if (poCT == NULL) {
@@ -181,29 +178,19 @@ NIArcView_Loader::load(OptionsCont &)
         OGRGeometry *poGeometry = poFeature->GetGeometryRef();
         OGRwkbGeometryType gtype = poGeometry->getGeometryType();
         assert(gtype==wkbLineString);
-        OGRLineString *cgeom = (OGRLineString*) poGeometry;//;dynamic_cast<OGRLineString*>(poGeometry);
-
-        int j;
-        for (j=0; j<cgeom->getNumPoints(); j++) {
-            GeoConvHelper::includeInOriginal((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
-        }
-        bool try_transform2 = true;
+        OGRLineString *cgeom = (OGRLineString*) poGeometry;
         if (poCT!=0) {
+            // try transform to wgs84
             cgeom->transform(poCT);
-            try_transform2 = false;
         }
 
         Position2DVector shape;
-        for (j=0; j<cgeom->getNumPoints(); j++) {
-            if (!try_transform2) {
-                shape.push_back_noDoublePos(Position2D((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j))); // !!!
-            } else {
-                Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
-                GeoConvHelper::x2cartesian(pos);
-                shape.push_back_noDoublePos(pos);
-            }
+        for (int j=0; j<cgeom->getNumPoints(); j++) {
+            Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
+            pos.mul(100000.0);
+            GeoConvHelper::x2cartesian(pos);
+            shape.push_back_noDoublePos(pos);
         }
-
 
         // build from-node
         Position2D from_pos = shape[0];
