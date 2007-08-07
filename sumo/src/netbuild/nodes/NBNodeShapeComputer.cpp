@@ -35,6 +35,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/ToString.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "NBNode.h"
 #include "NBNodeShapeComputer.h"
 
@@ -53,7 +54,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NBNodeShapeComputer::NBNodeShapeComputer(const NBNode &node,
-        std::ofstream * const out)
+        OutputDevice * const out)
         : myNode(node), myNodeShapePOIOut(out)
 {}
 
@@ -94,9 +95,8 @@ NBNodeShapeComputer::compute()
         if (myNodeShapePOIOut!=0) {
             for (int i=0; i<(int) ret.size(); ++i) {
                 (*myNodeShapePOIOut) << "   <poi id=\"end_" << myNode.getID() << "_"
-                << toString(i) << "\" type=\"nodeshape.end\" color=\"1,0,1\""
-                << " x=\"" << ret[i].x() << "\" y=\"" << ret[i].y() << "\"/>"
-                << endl;
+                << i << "\" type=\"nodeshape.end\" color=\"1,0,1\""
+                << " x=\"" << ret[i].x() << "\" y=\"" << ret[i].y() << "\"/>\n";
             }
         }
     }
@@ -789,9 +789,8 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
         if (myNodeShapePOIOut!=0) {
             for (int i=0; i<(int) ret.size(); ++i) {
                 (*myNodeShapePOIOut) << "   <poi id=\"cross1_" << myNode.getID() << "_" <<
-                toString(i) << "\" type=\"nodeshape.cross1\" color=\"0,0,1\""
-                << " x=\"" << ret[i].x() << "\" y=\"" << ret[i].y() << "\"/>"
-                << endl;
+                i << "\" type=\"nodeshape.cross1\" color=\"0,0,1\""
+                << " x=\"" << ret[i].x() << "\" y=\"" << ret[i].y() << "\"/>\n";
             }
         }
     }

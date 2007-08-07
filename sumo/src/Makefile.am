@@ -18,7 +18,6 @@ MEM_LIBS  = ./foreign/nvwa/libnvwa.a
 endif
 
 if ITM
-TCPIP_LIBS = ./foreign/tcpip/libtcpip.a
 ITM_LIBS = ./itm-remoteserver/libitmremoteserver.a
 ITM_DIRS = itm-remoteserver
 endif
@@ -32,7 +31,8 @@ COMMON_LIBS = ./utils/options/liboptions.a \
 ./utils/xml/libxml.a \
 ./utils/gfx/libgfx.a \
 ./utils/importio/libimportio.a \
-./utils/iodevices/libiodevices.a
+./utils/iodevices/libiodevices.a \
+./foreign/tcpip/libtcpip.a
 
 sumo_SOURCES = sumo_main.cpp
 
@@ -56,7 +56,6 @@ sumo_LDADD   = ./netload/libnetload.a \
 $(COMMON_LIBS) \
 $(MEM_LIBS) \
 $(ITM_LIBS) \
-$(TCPIP_LIBS) \
 $(XERCES_LIBS) \
 $(PROJ_LIBS)
 
@@ -85,7 +84,6 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./utils/geom/libgeom.a \
 $(COMMON_LIBS) \
 $(MEM_LIBS) \
-$(TCPIP_LIBS) \
 $(XERCES_LIBS) \
 $(GDAL_LIBS) \
 $(PROJ_LIBS)

@@ -55,8 +55,7 @@ public:
     static void closeAll();
 
     /// Constructor
-    OutputDevice() :
-            myNeedHeader(true), myNeedTail(true)
+    OutputDevice() : myRootElement("")
     { }
 
     /// Destructor
@@ -69,32 +68,20 @@ public:
     /// Closes the device and removes it from the dictionary
     void close();
 
+    /// Sets the precison or resets it to default
+    void setPrecision(unsigned int precision=OUTPUT_ACCURACY);
+
     /// Returns the associated ostream
     virtual std::ostream &getOStream() = 0;
 
-    /// Returns the information whether a header shall be printed
-    bool needsHeader() const
-    {
-        return myNeedHeader;
-    }
+    /// Writes an XML header with optional configuration
+    bool writeXMLHeader(const std::string &rootElement,
+                        const bool writeConfig=true,
+                        const std::string &attrs="",
+                        const std::string &comment="");
 
-    /// Sets the information whether a header is wished
-    void setNeedsHeader(bool value)
-    {
-        myNeedHeader = value;
-    }
-
-    /// Returns the information whether a header shall be printed
-    bool needsTail() const
-    {
-        return myNeedTail;
-    }
-
-    /// Sets the information whether a header is wished
-    void setNeedsTail(bool value)
-    {
-        myNeedTail = value;
-    }
+    /// Writes the corresponding XML footer
+    bool writeXMLFooter();
 
     /// @name methods for saving/reading an abstract state
     //@{
@@ -133,11 +120,8 @@ protected:
     virtual void postWriteHook();
 
 private:
-    /// The information whether a header shall be written
-    bool myNeedHeader;
-
-    /// The information whether a tail shall be written
-    bool myNeedTail;
+    /// the XML root element
+    std::string myRootElement;
 
     /// Map of boolean markers
     std::map<std::string, bool> myBoolMarkers;

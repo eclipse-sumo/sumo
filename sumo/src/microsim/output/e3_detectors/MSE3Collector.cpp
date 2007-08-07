@@ -35,13 +35,6 @@
 
 
 // ===========================================================================
-// variable declarations
-// ===========================================================================
-std::string MSE3Collector::xmlHeaderM("<?xml version=\"1.0\" standalone=\"yes\"?>\n\n");
-std::string MSE3Collector::infoEndM = "</e3-detector>";
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 /* -------------------------------------------------------------------------
@@ -209,18 +202,11 @@ MSE3Collector::removeOnTripEnd(MSVehicle *veh)
 
 
 void
-MSE3Collector::writeXMLHeader(OutputDevice &dev) const
-{
-    dev<<xmlHeaderM;
-}
-
-
-void
 MSE3Collector::writeXMLOutput(OutputDevice &dev,
                               SUMOTime startTime, SUMOTime stopTime)
 {
-    dev<<"   <interval begin=\""<<toString(startTime)<<"\" end=\""<<
-        toString(stopTime)<<"\" "<<"id=\""<<idM<<"\" ";
+    dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
+        stopTime<<"\" "<<"id=\""<<idM<<"\" ";
     // collect values
     SUMOReal vehicleSum = (SUMOReal) myLeftContainer.size();
     SUMOReal meanTravelTime = 0.;
@@ -237,10 +223,9 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
     meanSpeed /= vehicleSum;
     meanHaltsPerVehicle /= vehicleSum;
     // write values
-    dev<<"meanTravelTime=\""<<toString(meanTravelTime)<<
-        "\" meanSpeed=\""<<toString(meanSpeed)<<
-            "\" meanHaltsPerVehicle=\""<<toString(meanHaltsPerVehicle)<<
-                "\" vehicleSum=\""<<toString(vehicleSum)<<"\"/>";
+    dev<<"meanTravelTime=\""<<meanTravelTime<<"\" meanSpeed=\""<<meanSpeed<<
+            "\" meanHaltsPerVehicle=\""<<meanHaltsPerVehicle<<
+                "\" vehicleSum=\""<<vehicleSum<<"\"/>\n";
     // clear container
     myLeftContainer.clear();
 }
@@ -302,9 +287,9 @@ MSE3Collector::getValue(MSE3Collector::Value which) const
 
 
 void
-MSE3Collector::writeXMLDetectorInfoStart(OutputDevice &dev) const
+MSE3Collector::writeXMLDetectorProlog(OutputDevice &dev) const
 {
-    dev<<"<e3-detector>\n";
+    if (!dev.writeXMLHeader("e3-detector")) return;
     std::string entries;
     CrossSectionVectorConstIt crossSec;
     for (crossSec = entriesM.begin(); crossSec != entriesM.end(); ++crossSec) {
@@ -318,13 +303,6 @@ MSE3Collector::writeXMLDetectorInfoStart(OutputDevice &dev) const
             crossSec->laneM->getID()<<"\" pos=\""<<
                 toString(crossSec->posM)<<"\"/>\n";
     }
-}
-
-
-void
-MSE3Collector::writeXMLDetectorInfoEnd(OutputDevice &dev) const
-{
-    dev<<infoEndM;
 }
 
 

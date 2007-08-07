@@ -4,7 +4,7 @@
 /// @date    2004-11-23
 /// @version $Id$
 ///
-//	»missingDescription«
+//	missingDescription
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -240,17 +240,6 @@ public:
      */
     //@{
     /**
-     * Get a header for file output via MSDetector2File
-     *
-     * @return The static XML-Header which explains the output of getXMLOutput.
-     *
-     * @see MSDetector2File
-     * @see getXMLOutput
-     */
-    void writeXMLHeader(OutputDevice &dev) const;
-
-
-    /**
      * Get the XML-formatted output of all the get*-methods except
      * getTimestepsSinceLastDetection.
      *
@@ -274,18 +263,7 @@ public:
      * @see MSDetector2File
      * @see getXMLDetectorInfoEnd
      */
-    void writeXMLDetectorInfoStart(OutputDevice &dev) const;
-
-
-    /**
-     * Get the closing XML-element to getXMLDetectorInfoStart
-     *
-     * @return </detector>
-     *
-     * @see MSDetector2File
-     * @see getXMLDetectorInfoStart
-     */
-    void writeXMLDetectorInfoEnd(OutputDevice &dev) const;
+    void writeXMLDetectorProlog(OutputDevice &dev) const;
     //@}
 
     /**
@@ -426,11 +404,6 @@ struct leaveTimeLesser :
      * deleteDataAfterSecondsM this container is cleared partially.
      */
     VehicleDataCont vehicleDataContM;
-
-    static std::string xmlHeaderM; /**< Contains a XML-comment that
-                                                    * explain the printed data. */
-
-    static std::string xmlDetectorInfoEndM; /**< Closing tag for detector. */
 
 private:
 

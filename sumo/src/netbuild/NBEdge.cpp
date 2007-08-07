@@ -40,7 +40,6 @@
 #include <cmath>
 #include <iomanip>
 #include "NBTypeCont.h"
-#include <iostream>
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringUtils.h>
@@ -50,6 +49,7 @@
 #include "NBEdge.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -204,7 +204,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!myGeom.assertNonEqual()) {
-        DEBUG_OUT << getID() << "in constructor" << endl;
+        DEBUG_OUT << getID() << "in constructor\n";
         throw 1;
     }
 #endif
@@ -255,7 +255,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!myGeom.assertNonEqual()) {
-        DEBUG_OUT << getID() << "in constructor" << endl;
+        DEBUG_OUT << getID() << "in constructor\n";
         throw 1;
     }
 #endif
@@ -386,7 +386,7 @@ NBEdge::getAngle(const NBNode &atNode) const
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!myGeom.assertNonEqual()) {
-        DEBUG_OUT << getID() << "in getAngle" << endl;
+        DEBUG_OUT << getID() << "in getAngle\n";
         throw 1;
     }
 #endif
@@ -441,7 +441,7 @@ NBEdge::acceptBeingTurning(NBEdge *e)
 
 
 void
-NBEdge::writeXMLStep1(std::ostream &into)
+NBEdge::writeXMLStep1(OutputDevice &into)
 {
     // write the edge's begin
     into << "   <edge id=\"" << myID <<
@@ -463,13 +463,13 @@ NBEdge::writeXMLStep1(std::ostream &into)
     default:
         throw 1;
     }
-    into << "\">" << endl;
+    into << "\">\n";
     // write the lanes
-    into << "      <lanes>" << endl;
+    into << "      <lanes>\n";
     for (size_t i=0; i<myNolanes; i++) {
         writeLane(into, i);
     }
-    into << "      </lanes>" << endl;
+    into << "      </lanes>\n";
     // write the list of connected edges
     const std::vector<NBEdge*> *tmp = getConnectedSorted();
     std::vector<NBEdge*> sortedConnected = *tmp;
@@ -484,12 +484,12 @@ NBEdge::writeXMLStep1(std::ostream &into)
         }
     }
     // close the edge
-    into << "   </edge>" << endl << endl;
+    into << "   </edge>\n\n";
 }
 
 
 void
-NBEdge::writeXMLStep2(std::ostream &into, bool includeInternal)
+NBEdge::writeXMLStep2(OutputDevice &into, bool includeInternal)
 {
     for (size_t i=0; i<myNolanes; i++) {
         writeSucceeding(into, i, includeInternal);
@@ -498,7 +498,7 @@ NBEdge::writeXMLStep2(std::ostream &into, bool includeInternal)
 
 
 void
-NBEdge::writeLane(std::ostream &into, size_t lane)
+NBEdge::writeLane(OutputDevice &into, size_t lane)
 {
     // output the lane's attributes
     into << "         <lane id=\"" << myID << '_' << lane << "\"";
@@ -544,7 +544,7 @@ NBEdge::writeLane(std::ostream &into, size_t lane)
     // the lane's shape
     into << myLaneGeoms[lane];
     // close
-    into << "</lane>" << endl;
+    into << "</lane>\n";
 }
 
 
@@ -576,7 +576,7 @@ NBEdge::computeLaneShapes()
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
         if (!myLaneGeoms[myLaneGeoms.size()-1].assertNonEqual()) {
-            DEBUG_OUT << getID() << "in computeLaneShapes" << endl;
+            DEBUG_OUT << getID() << "in computeLaneShapes\n";
             throw 1;
         }
 #endif
@@ -591,7 +591,7 @@ NBEdge::getLaneShape(size_t i) const
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!myLaneGeoms[i].assertNonEqual()) {
-        DEBUG_OUT << getID() << "in getLaneShape" << endl;
+        DEBUG_OUT << getID() << "in getLaneShape\n";
         throw 1;
     }
 #endif
@@ -649,7 +649,7 @@ NBEdge::computeLaneShape(size_t lane)
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!shape.assertNonEqual()) {
-        DEBUG_OUT << getID() << "computeLaneShape" << endl;
+        DEBUG_OUT << getID() << "computeLaneShape\n";
     }
 #endif
 #endif
@@ -683,7 +683,7 @@ NBEdge::laneOffset(const Position2D &from, const Position2D &to,
 
 
 void
-NBEdge::writeConnected(std::ostream &into, NBEdge *edge, LaneVector &lanes)
+NBEdge::writeConnected(OutputDevice &into, NBEdge *edge, LaneVector &lanes)
 {
     if (edge==0) {
         return;
@@ -697,34 +697,33 @@ NBEdge::writeConnected(std::ostream &into, NBEdge *edge, LaneVector &lanes)
             into << ' ';
         }
     }
-    into << "</cedge>" << endl;
+    into << "</cedge>\n";
 }
 
 
 void
-NBEdge::writeSucceeding(std::ostream &into, size_t lane,
+NBEdge::writeSucceeding(OutputDevice &into, size_t lane,
                         bool includeInternal)
 {
     into << "   <succ edge=\"" << myID << "\" lane=\"" << myID << "_"
-    << lane << "\" junction=\"" << myTo->getID() << "\">" << endl;
+    << lane << "\" junction=\"" << myTo->getID() << "\">\n";
     // the lane may be unconnented; output information about being invalid
     assert(lane<myReachable.size());
     size_t noApproached = myReachable[lane].size();
     if (noApproached==0) {
-        into << "      <succlane lane=\"SUMO_NO_DESTINATION\" yield=\"1\"/>"
-        << endl;
+        into << "      <succlane lane=\"SUMO_NO_DESTINATION\" yield=\"1\"/>\n";
     }
     // output list of connected lanes
     // go through each connected edge
     for (size_t j=0; j<noApproached; j++) {
         writeSingleSucceeding(into, lane, j, includeInternal);
     }
-    into << "   </succ>" << endl << endl;
+    into << "   </succ>\n\n";
 }
 
 
 void
-NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destidx,
+NBEdge::writeSingleSucceeding(OutputDevice &into, size_t fromlane, size_t destidx,
                               bool includeInternal)
 {
     // check whether the connected lane is invalid
@@ -733,8 +732,7 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
     assert(destidx<myReachable[fromlane].size());
     if (myReachable[fromlane][destidx].edge==0) {
         into << "      <succlane lane=\"SUMO_NO_DESTINATION\" yield=\"1\" "
-        << "dir=\"s\" state=\"O\"/>" // !!! check dummy values
-        << endl;
+        << "dir=\"s\" state=\"O\"/>\n"; // !!! check dummy values
         return;
     }
     // write the id
@@ -795,7 +793,7 @@ NBEdge::writeSingleSucceeding(std::ostream &into, size_t fromlane, size_t destid
         << myTo->stateCode(this, myReachable[fromlane][destidx].edge, myReachable[fromlane][destidx].lane);
     }
     // close
-    into << "\"/>" << endl;
+    into << "\"/>\n";
 }
 
 
@@ -815,7 +813,7 @@ NBEdge::hasRestrictions() const
 
 
 void
-NBEdge::writeLanesPlain(std::ostream &into)
+NBEdge::writeLanesPlain(OutputDevice &into)
 {
     for (size_t lane=0; lane<myNolanes; ++lane) {
         into << "      <lane id=\"" << lane << "\"";
@@ -846,7 +844,7 @@ NBEdge::writeLanesPlain(std::ostream &into)
             }
             into << "\"";
         }
-        into << "/>" << endl;
+        into << "/>\n";
     }
 }
 
@@ -1598,7 +1596,7 @@ NBEdge::getGeometry() const
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!myGeom.assertNonEqual()) {
-        DEBUG_OUT << getID() << "in getGeometry" << endl;
+        DEBUG_OUT << getID() << "in getGeometry\n";
         throw 1;
     }
 #endif
@@ -1614,7 +1612,7 @@ NBEdge::setGeometry(const Position2DVector &s)
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!myGeom.assertNonEqual()) {
-        DEBUG_OUT << getID() << "in setGeometry" << endl;
+        DEBUG_OUT << getID() << "in setGeometry\n";
         throw 1;
     }
 #endif
@@ -1636,7 +1634,7 @@ NBEdge::getMinLaneOffsetPositionAt(NBNode *node, SUMOReal width)
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!myLaneGeoms[0].assertNonEqual()) {
-        DEBUG_OUT << getID() << "in minlaneoffset" << endl;
+        DEBUG_OUT << getID() << "in minlaneoffset\n";
         throw 1;
     }
 #endif
@@ -1668,7 +1666,7 @@ NBEdge::getMaxLaneOffsetPositionAt(NBNode *node, SUMOReal width)
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!myLaneGeoms[0].assertNonEqual()) {
-        DEBUG_OUT << getID() << "in getmaxlane" << endl;
+        DEBUG_OUT << getID() << "in getmaxlane\n";
         throw 1;
     }
 #endif
@@ -1783,7 +1781,7 @@ NBEdge::normalisePosition()
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!myGeom.assertNonEqual()) {
-        DEBUG_OUT << getID() << "in normalise2" << endl;
+        DEBUG_OUT << getID() << "in normalise2\n";
         throw 1;
     }
 #endif
@@ -1794,7 +1792,7 @@ NBEdge::normalisePosition()
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
         if (!myLaneGeoms[i].assertNonEqual()) {
-            DEBUG_OUT << getID() << "in normalise" << endl;
+            DEBUG_OUT << getID() << "in normalise\n";
             throw 1;
         }
 #endif
@@ -1810,7 +1808,7 @@ NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!myGeom.assertNonEqual()) {
-        DEBUG_OUT << getID() << "in reshift" << endl;
+        DEBUG_OUT << getID() << "in reshift\n";
         throw 1;
     }
 #endif
@@ -1820,7 +1818,7 @@ NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
         if (!myLaneGeoms[i].assertNonEqual()) {
-            DEBUG_OUT << getID() << "in reshift2" << endl;
+            DEBUG_OUT << getID() << "in reshift2\n";
             throw 1;
         }
 #endif
@@ -1854,7 +1852,7 @@ NBEdge::getCWBoundaryLine(const NBNode &n, SUMOReal offset) const
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!ret.assertNonEqual()) {
-        DEBUG_OUT << getID() << "in cwBoundary" << endl;
+        DEBUG_OUT << getID() << "in cwBoundary\n";
         throw 1;
     }
 #endif
@@ -1878,7 +1876,7 @@ NBEdge::getCCWBoundaryLine(const NBNode &n, SUMOReal offset) const
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!ret.assertNonEqual()) {
-        DEBUG_OUT << getID() << "in ccwboundary" << endl;
+        DEBUG_OUT << getID() << "in ccwboundary\n";
         throw 1;
     }
 #endif
@@ -1985,7 +1983,7 @@ NBEdge::append(NBEdge *e)
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
     if (!myGeom.assertNonEqual()) {
-        DEBUG_OUT << getID() << "in append" << endl;
+        DEBUG_OUT << getID() << "in append\n";
         throw 1;
     }
 #endif
@@ -1995,7 +1993,7 @@ NBEdge::append(NBEdge *e)
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY
         if (!myLaneGeoms[i].assertNonEqual()) {
-            DEBUG_OUT << getID() << "in append2" << endl;
+            DEBUG_OUT << getID() << "in append2\n";
             throw 1;
         }
 #endif

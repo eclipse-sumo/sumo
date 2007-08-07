@@ -79,11 +79,9 @@ public:
 
     friend class MSMeanData_Net_Utils;
 
-    void writeXMLHeader(OutputDevice &dev) const;
     virtual void writeXMLOutput(OutputDevice &dev,
                                 SUMOTime startTime, SUMOTime stopTime);
-    void writeXMLDetectorInfoStart(OutputDevice &dev) const;
-    void writeXMLDetectorInfoEnd(OutputDevice &dev) const;
+    void writeXMLDetectorProlog(OutputDevice &dev) const;
 
 protected:
     void resetOnly(SUMOTime stopTime);

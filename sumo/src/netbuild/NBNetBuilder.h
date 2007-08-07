@@ -40,6 +40,7 @@
 #include "NBDistrictCont.h"
 
 class OptionsCont;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -70,7 +71,7 @@ public:
     void compute(OptionsCont &oc);
 
     /** saves the net */
-    bool save(std::ostream &os, OptionsCont &oc);
+    bool save(OutputDevice &device, OptionsCont &oc);
 
     bool netBuild() const;
 
@@ -105,7 +106,7 @@ protected:
     bool computeTurningDirections(int &step);
 
     /** sorts the edges of a node */
-    bool sortNodesEdges(int &step, std::ofstream *strm);
+    bool sortNodesEdges(int &step, OutputDevice *device);
 
     /** sets the node positions in a way that nodes are lying at zero */
     bool normaliseNodePositions(int &step);

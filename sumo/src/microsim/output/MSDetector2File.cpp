@@ -76,11 +76,7 @@ MSDetector2File::close()
     for (it = intervalsM.begin(); it != intervalsM.end(); ++it) {
         for (DetectorFileVec::iterator df =
                     it->second.begin(); df != it->second.end(); ++df) {
-            MSDetectorFileOutput *det = df->first;
-            if (df->second->needsTail()) {
-                det->writeXMLDetectorInfoEnd(*(df->second));
-                df->second->setNeedsTail(false);
-            }
+            df->second->close();
         }
     }
     intervalsM.clear();
@@ -121,10 +117,8 @@ MSDetector2File::addDetectorAndInterval(MSDetectorFileOutput* det,
             return;
         }
     }
-    if (!reinsert&&device->needsHeader()) {
-        det->writeXMLHeader(*device);
-        det->writeXMLDetectorInfoStart(*device);
-        device->setNeedsHeader(false);
+    if (!reinsert) {
+        det->writeXMLDetectorProlog(*device);
     }
 }
 

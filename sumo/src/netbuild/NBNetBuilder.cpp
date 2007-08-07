@@ -30,8 +30,6 @@
 
 #include <string>
 #include <fstream>
-#include <iostream>
-#include <iomanip>
 #include "NBNetBuilder.h"
 #include "nodes/NBNodeCont.h"
 #include "NBEdgeCont.h"
@@ -47,6 +45,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "NBJoinedEdgesMap.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -79,11 +78,11 @@ NBNetBuilder::buildLoaded()
     OptionsCont &oc = OptionsCont::getOptions();
     compute(oc);
     // save network
-    ofstream res(oc.getString("o").c_str());
-    if (res.good()) {
-        save(res, oc);
-    } else {
-        throw ProcessError("Could not save net to '" + oc.getString("o") + "'.");
+    try {
+        OutputDevice *device = OutputDevice::getOutputDevice(oc.getString("o"));
+        save(*device, oc);
+    } catch (IOError e) {
+        throw ProcessError("Could not save net to '" + oc.getString("o") + "'.\n "+e.what());
     }
     // save the mapping information when wished
     if (oc.isSet("map-output")) {
@@ -189,10 +188,10 @@ NBNetBuilder::computeTurningDirections(int &step)
 
 
 bool
-NBNetBuilder::sortNodesEdges(int &step, ofstream *strm)
+NBNetBuilder::sortNodesEdges(int &step, OutputDevice *device)
 {
     inform(step, "Sorting nodes' edges");
-    return myNodeCont.sortNodesEdges(myTypeCont, strm);
+    return myNodeCont.sortNodesEdges(myTypeCont, device);
 }
 
 
@@ -340,15 +339,14 @@ NBNetBuilder::compute(OptionsCont &oc)
     if (ok) ok = guessTLs(step, oc);
     if (ok) ok = computeTurningDirections(step);
 
-    ofstream *strm = 0;
+    OutputDevice *device = 0;
     if (oc.isSet("node-type-output")) {
-        strm = new ofstream(oc.getString("node-type-output").c_str());
-        (*strm) << "<pois>" << endl;
+        device = OutputDevice::getOutputDevice(oc.getString("node-type-output"));
+        device->writeXMLHeader("pois");
     }
-    if (ok) ok = sortNodesEdges(step, strm);
-    if (strm!=0) {
-        (*strm) << "</pois>" << endl;
-        delete strm;
+    sortNodesEdges(step, device);
+    if (oc.isSet("node-type-output")) {
+        device->close();
     }
 
     if (ok) ok = computeEdge2Edges(step);
@@ -390,26 +388,24 @@ NBNetBuilder::checkPrint(OptionsCont &oc)
 
 
 bool
-NBNetBuilder::save(ostream &res, OptionsCont &oc)
+NBNetBuilder::save(OutputDevice &device, OptionsCont &oc)
 {
-    // print the header
-    oc.writeXMLHeader(res);
-    // print the computed values
-    res << "<net>" << endl << endl;
-    res.setf(ios::fixed , ios::floatfield);
+    device.writeXMLHeader("net");
+    device.setPrecision(6);
+    device << "\n";
     // write network offsets
-    res << "   <net-offset>" << GeoConvHelper::getOffset() << "</net-offset>" << endl;
-    res << "   <conv-boundary>" << GeoConvHelper::getConvBoundary() << "</conv-boundary>" << endl;
-    res << "   <orig-boundary>" << GeoConvHelper::getOrigBoundary() << "</orig-boundary>" << endl;
+    device << "   <net-offset>" << GeoConvHelper::getOffset() << "</net-offset>\n";
+    device << "   <conv-boundary>" << GeoConvHelper::getConvBoundary() << "</conv-boundary>\n";
+    device << "   <orig-boundary>" << GeoConvHelper::getOrigBoundary() << "</orig-boundary>\n";
     if (!oc.getBool("use-projection")) {
-        res << "   <orig-proj>!</orig-proj>" << endl;
+        device << "   <orig-proj>!</orig-proj>\n";
     } else if (oc.getBool("proj.simple")) {
-        res << "   <orig-proj>-</orig-proj>" << endl;
+        device << "   <orig-proj>-</orig-proj>\n";
     } else {
-        res << "   <orig-proj>" << oc.getString("proj") << "</orig-proj>" << endl;
+        device << "   <orig-proj>" << oc.getString("proj") << "</orig-proj>\n";
     }
-    res << endl;
-    res << setprecision(OUTPUT_ACCURACY);
+    device << "\n";
+    device.setPrecision();
 
     // write the numbers of some elements
     // edges
@@ -417,33 +413,33 @@ NBNetBuilder::save(ostream &res, OptionsCont &oc)
     if (oc.getBool("add-internal-links")) {
         ids = myNodeCont.getInternalNamesList();
     }
-    myEdgeCont.writeXMLEdgeList(res, ids);
+    myEdgeCont.writeXMLEdgeList(device, ids);
     if (oc.getBool("add-internal-links")) {
-        myNodeCont.writeXMLInternalLinks(res);
+        myNodeCont.writeXMLInternalLinks(device);
     }
 
     // write the number of nodes
-    myNodeCont.writeXMLNumber(res);
-    res << endl;
+    myNodeCont.writeXMLNumber(device);
+    device << "\n";
     // write the districts
-    myDistrictCont.writeXML(res);
+    myDistrictCont.writeXML(device);
     // write edges with lanes and connected edges
-    myEdgeCont.writeXMLStep1(res);
+    myEdgeCont.writeXMLStep1(device);
     // write the logics
-    myJunctionLogicCont.writeXML(res);
-    myTLLCont.writeXML(res);
+    myJunctionLogicCont.writeXML(device);
+    myTLLCont.writeXML(device);
     // write the nodes
-    myNodeCont.writeXML(res);
+    myNodeCont.writeXML(device);
     // write internal nodes
     if (oc.getBool("add-internal-links")) {
-        myNodeCont.writeXMLInternalNodes(res);
+        myNodeCont.writeXMLInternalNodes(device);
     }
     // write the successors of lanes
-    myEdgeCont.writeXMLStep2(res, oc.getBool("add-internal-links"));
+    myEdgeCont.writeXMLStep2(device, oc.getBool("add-internal-links"));
     if (oc.getBool("add-internal-links")) {
-        myNodeCont.writeXMLInternalSuccInfos(res);
+        myNodeCont.writeXMLInternalSuccInfos(device);
     }
-    res << "</net>" << endl;
+    device.close();
     return true;
 }
 
@@ -452,13 +448,13 @@ bool
 NBNetBuilder::saveMap(const string &path)
 {
     // try to build the output file
-    ofstream res(path.c_str());
-    if (!res.good()) {
+    OutputDevice *res = OutputDevice::getOutputDevice(path);
+    if (!res->ok()) {
         MsgHandler::getErrorInstance()->inform("Map output '" + path + "' could not be opened.");
         return false;
     }
     // write map
-    res << gJoinedEdges;
+    *res << gJoinedEdges;
     return true;
 }
 

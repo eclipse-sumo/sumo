@@ -30,7 +30,6 @@
 #include <config.h>
 #endif
 
-#include <fstream>
 #include <utils/geom/Position2DVector.h>
 
 
@@ -39,6 +38,7 @@
 // ===========================================================================
 class NBNode;
 class NBEdge;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -52,7 +52,7 @@ class NBNodeShapeComputer
 {
 public:
     /// Constructor
-    NBNodeShapeComputer(const NBNode &node, std::ofstream * const out);
+    NBNodeShapeComputer(const NBNode &node, OutputDevice * const out);
 
     /// Destructor
     ~NBNodeShapeComputer();
@@ -93,7 +93,7 @@ private:
      *  at the node's position.
      * In addition, "same" is filled so that this map contains a list of
      *  all edges within the value-vector which direction at the node differs
-     *  less than 1° from the key-edge's direction.
+     *  less than 1 from the key-edge's direction.
      */
     void joinSameDirectionEdges(std::map<NBEdge*, std::vector<NBEdge*> > &same,
                                 std::map<NBEdge*, Position2DVector> &geomsCCW,
@@ -119,7 +119,7 @@ private:
     const NBNode &myNode;
 
     /// The stream to write the node shape pois to (may be 0)
-    std::ofstream * const myNodeShapePOIOut;
+    OutputDevice * const myNodeShapePOIOut;
 
 };
 

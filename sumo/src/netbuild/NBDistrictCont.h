@@ -31,7 +31,6 @@
 #endif
 
 #include <map>
-#include <iostream>
 #include <string>
 
 
@@ -41,6 +40,7 @@
 class NBDistrict;
 class NBEdge;
 class NBNodeCont;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -89,9 +89,9 @@ public:
      *  NBDistrict::writeXML.
      *
      * @see NBDistrict::writeXML
-     * @param[in] into The stream to wirte the xml-representations into
+     * @param[in] into The stream to write the xml-representations into
      */
-    void writeXML(std::ostream &into) const throw();
+    void writeXML(OutputDevice &into) const throw();
 
 
     /** @brief Returns the number of districts inside the container */

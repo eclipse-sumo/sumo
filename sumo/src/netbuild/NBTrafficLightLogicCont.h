@@ -41,6 +41,7 @@
 // ===========================================================================
 class OptionsCont;
 class NBEdgeCont;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -68,7 +69,7 @@ public:
     bool computeLogics(NBEdgeCont &ec, OptionsCont &oc);
 
     /// saves all known logics
-    void writeXML(std::ostream &into);
+    void writeXML(OutputDevice &into);
 
     /// destroys all stored logics
     void clear();

@@ -47,6 +47,7 @@ class NBNode;
 class OptionsCont;
 class NBDistrictCont;
 class NBTrafficLightLogicCont;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -118,15 +119,15 @@ public:
     void erase(NBDistrictCont &dc, NBEdge *edge);
 
     /** writes the list of edge names into the given stream */
-    void writeXMLEdgeList(std::ostream &into,
+    void writeXMLEdgeList(OutputDevice &into,
                           std::vector<std::string> toAdd);
 
     /** writes the edge definitions with lanes and connected edges
         into the given stream */
-    void writeXMLStep1(std::ostream &into);
+    void writeXMLStep1(OutputDevice &into);
 
     /** writes the successor definitions of edges */
-    void writeXMLStep2(std::ostream &into, bool includeInternal);
+    void writeXMLStep2(OutputDevice &into, bool includeInternal);
 
     /** returns the number of edges */
     int size();

@@ -297,8 +297,8 @@ public:
     void writeConfiguration(std::ostream &os, bool filled,
                             bool complete, bool addComments);
 
-    /// Writes a standard XML header, including the configuration
-    void writeXMLHeader(std::ostream &os);
+    /// Writes a standard XML header, optionally including the configuration
+    void writeXMLHeader(std::ostream &os, const bool writeConfig=true);
 
     /// Checks for help and configuration output, returns whether we should exit
     bool processMetaOptions(bool missingOptions);

@@ -44,32 +44,6 @@ using namespace std;
 
 
 // ===========================================================================
-// member variable definitions
-// ===========================================================================
-std::string
-MS_E2_ZS_CollectorOverLanes::xmlHeaderM(
-    "<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
-    "<!--\n"
-    "- densityMean [veh/km]\n"
-    "- maxJamLengthInVehiclesMean [veh]\n"
-    "- maxJamLengthInMetersMean [m]\n"
-    "- jamLengthSumInVehiclesMean [veh]\n"
-    "- jamLengthSumInMetersMean [m]\n"
-    "- queueLengthAheadOfTrafficLightsInVehiclesMean [veh]\n"
-    "- queueLengthAheadOfTrafficLightsInMetersMean [m]\n"
-    "- nE2VehiclesMean [veh]\n"
-    "- occupancyDegreeMean [0,1]\n"
-    "- spaceMeanSpeedMean [m/s]\n"
-    "- currentHaltingDurationSumPerVehicleMean [s]\n"
-    "- nStartedHalts [n]\n"
-    //"- haltingDurationSum [s]\n"
-    "- haltingDurationMean [s]\n"
-    "-->\n\n");
-
-std::string MS_E2_ZS_CollectorOverLanes::infoEndM = "</detector>";
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
@@ -362,13 +336,27 @@ MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice &dev,
 
 
 void
-MS_E2_ZS_CollectorOverLanes::writeXMLDetectorInfoStart(OutputDevice &dev) const
+MS_E2_ZS_CollectorOverLanes::writeXMLDetectorProlog(OutputDevice &dev) const
 {
-    dev<<"<detector type=\"E2_ZS_Collector\" id=\""<<
-        myID<<"\" startlane=\""<<
-            myStartLaneID<<"\" startpos=\""<<
-                toString(startPosM)<<"\" length=\""<<
-                    toString(myLength)<<"\" >\n";
+    dev.writeXMLHeader("detector", true, "type=\"E2_ZS_Collector\" id=\""+myID+
+                                         "\" startlane=\""+myStartLaneID+
+                                         "\" startpos=\""+toString(startPosM)+
+                                         "\" length=\""+toString(myLength)+"\"",
+                                         "<!--\n"
+                                         "- densityMean [veh/km]\n"
+                                         "- maxJamLengthInVehiclesMean [veh]\n"
+                                         "- maxJamLengthInMetersMean [m]\n"
+                                         "- jamLengthSumInVehiclesMean [veh]\n"
+                                         "- jamLengthSumInMetersMean [m]\n"
+                                         "- queueLengthAheadOfTrafficLightsInVehiclesMean [veh]\n"
+                                         "- queueLengthAheadOfTrafficLightsInMetersMean [m]\n"
+                                         "- nE2VehiclesMean [veh]\n"
+                                         "- occupancyDegreeMean [0,1]\n"
+                                         "- spaceMeanSpeedMean [m/s]\n"
+                                         "- currentHaltingDurationSumPerVehicleMean [s]\n"
+                                         "- nStartedHalts [n]\n"
+                                         "- haltingDurationMean [s]\n"
+                                         "-->\n\n");
 }
 
 

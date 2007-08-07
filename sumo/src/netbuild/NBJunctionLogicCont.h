@@ -32,7 +32,12 @@
 
 #include <string>
 #include <map>
-#include <iostream>
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class OutputDevice;
 
 
 // ===========================================================================
@@ -56,7 +61,7 @@ public:
     void add(const std::string &key, const std::string &xmlDescription);
 
     /// saves all known logics
-    void writeXML(std::ostream &into);
+    void writeXML(OutputDevice &into);
 
     /// destroys all stored logics
     void clear();

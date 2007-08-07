@@ -57,16 +57,16 @@ edge#length__false4
 
 
 # Empty from position (first edge)
-edge#frompos__empty1
+#edge#frompos__empty1
 
 # Empty from position (fourth edge)
-edge#frompos__empty4
+#edge#frompos__empty4
 
 # Invalid from position (first edge)
-edge#frompos__false1
+#edge#frompos__false1
 
 # Invalid from position (fourth edge)
-edge#frompos__false4
+#edge#frompos__false4
 
 
 # Empty function (first edge)

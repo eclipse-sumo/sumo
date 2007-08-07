@@ -31,7 +31,6 @@
 #include <string>
 #include <map>
 #include <algorithm>
-#include <fstream>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/GeomHelper.h>
@@ -46,9 +45,9 @@
 #include <netbuild/NBTrafficLightLogicCont.h>
 #include <netbuild/NBJoinedEdgesMap.h>
 #include <netbuild/NBOwnTLDef.h>
-#include <iomanip>
 #include <cmath>
 #include <utils/geom/GeoConvHelper.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #include "NBNodeCont.h"
 
@@ -236,19 +235,19 @@ NBNodeCont::computeLogics(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
 
 
 bool
-NBNodeCont::sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm)
+NBNodeCont::sortNodesEdges(const NBTypeCont &tc, OutputDevice *device)
 {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->sortNodesEdges(tc, strm);
+        (*i).second->sortNodesEdges(tc, device);
     }
     return true;
 }
 
 
 void
-NBNodeCont::writeXMLNumber(ostream &into)
+NBNodeCont::writeXMLNumber(OutputDevice &into)
 {
-    into << "   <node_count>" << myNodes.size() << "</node_count>" << endl;
+    into << "   <node_count>" << myNodes.size() << "</node_count>\n";
 }
 
 
@@ -266,42 +265,42 @@ NBNodeCont::getInternalNamesList()
 
 
 void
-NBNodeCont::writeXMLInternalLinks(ostream &into)
+NBNodeCont::writeXMLInternalLinks(OutputDevice &into)
 {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->writeXMLInternalLinks(into);
     }
-    into << endl;
+    into << "\n";
 }
 
 
 void
-NBNodeCont::writeXMLInternalSuccInfos(ostream &into)
+NBNodeCont::writeXMLInternalSuccInfos(OutputDevice &into)
 {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->writeXMLInternalSuccInfos(into);
     }
-    into << endl;
+    into << "\n";
 }
 
 
 void
-NBNodeCont::writeXMLInternalNodes(ostream &into)
+NBNodeCont::writeXMLInternalNodes(OutputDevice &into)
 {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->writeXMLInternalNodes(into);
     }
-    into << endl;
+    into << "\n";
 }
 
 
 void
-NBNodeCont::writeXML(ostream &into)
+NBNodeCont::writeXML(OutputDevice &into)
 {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->writeXML(into);
     }
-    into << endl;
+    into << "\n";
 }
 
 
@@ -436,18 +435,17 @@ NBNodeCont::getFreeID()
 bool
 NBNodeCont::computeNodeShapes(OptionsCont &oc)
 {
-    ofstream *ngd = 0;
+    OutputDevice *device = 0;
     if (oc.isSet("node-geometry-dump")) {
-        ngd = new ofstream(oc.getString("node-geometry-dump").c_str());
-        (*ngd) << "<pois>" << endl;
+        device = OutputDevice::getOutputDevice(oc.getString("node-geometry-dump"));
+        device->writeXMLHeader("pois");
     }
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->computeNodeShape(ngd);
+        (*i).second->computeNodeShape(device);
     }
-    if (ngd!=0) {
-        (*ngd) << "</pois>" << endl;
+    if (device!=0) {
+        device->close();
     }
-    delete ngd;
     return true;
 }
 
@@ -1072,44 +1070,46 @@ bool
 NBNodeCont::savePlain(const std::string &file)
 {
     // try to build the output file
-    ofstream res(file.c_str());
-    if (!res.good()) {
-        MsgHandler::getErrorInstance()->inform("Plain node file '" + file + "' could not be opened.");
+    OutputDevice *device = 0;
+    try {
+        device = OutputDevice::getOutputDevice(file);
+    } catch (IOError e) {
+        MsgHandler::getErrorInstance()->inform("Plain node file '" + file + "' could not be opened.\n "+e.what());
         return false;
     }
-    std::fixed (res);
-    res << std::setprecision(10);
-    res << "<nodes>" << endl;
+    device->writeXMLHeader("nodes");
+    device->setPrecision(10);
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         NBNode *n = (*i).second;
-        res << "   <node id=\"" << n->getID() << "\" ";
-        res << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>" << endl;
+        *device << "   <node id=\"" << n->getID() << "\" ";
+        *device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>\n";
     }
-    res << "</nodes>" << endl;
-    return res.good();
+    device->close();
+    return true;
 }
 
 bool
 NBNodeCont::writeTLSasPOIs(const std::string &file)
 {
     // try to build the output file
-    ofstream res(file.c_str());
-    if (!res.good()) {
-        MsgHandler::getErrorInstance()->inform("Plain node file '" + file + "' could not be opened.");
+    OutputDevice *device = 0;
+    try {
+        device = OutputDevice::getOutputDevice(file);
+    } catch (IOError e) {
+        MsgHandler::getErrorInstance()->inform("POI file '" + file + "' could not be opened.");
         return false;
     }
-    res << "<pois>" << endl;
+    device->writeXMLHeader("pois");
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         NBNode *n = (*i).second;
         if (n->isTLControlled()) {
-            res << "   <poi id=\"" << (*i).first
+            *device << "   <poi id=\"" << (*i).first
             << "\" type=\"tls controlled node\" color=\"1,1,0\""
-            << " x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>"
-            << endl;
+            << " x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>\n";
         }
     }
-    res << "</pois>" << endl;
-    return res.good();
+    device->close();
+    return true;
 }
 
 

@@ -4,7 +4,7 @@
 /// @date    Tue Dec 02 2003 22:13 CET
 /// @version $Id$
 ///
-//  »missingDescription«
+//  missingDescription
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -37,9 +37,6 @@
 // ===========================================================================
 // variable declarations
 // ===========================================================================
-std::string MSE2Collector::xmlHeaderM("<?xml version=\"1.0\" standalone=\"yes\"?>\n\n");
-std::string MSE2Collector::infoEndM = "</detector>";
-
 
 namespace E2
 {

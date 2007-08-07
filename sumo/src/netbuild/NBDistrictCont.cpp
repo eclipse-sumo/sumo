@@ -32,6 +32,7 @@
 #include <iostream>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "NBDistrict.h"
 #include "NBDistrictCont.h"
 
@@ -82,12 +83,12 @@ NBDistrictCont::retrieve(const string &id) const throw()
 
 
 void
-NBDistrictCont::writeXML(ostream &into) const throw()
+NBDistrictCont::writeXML(OutputDevice &into) const throw()
 {
     for (DistrictCont::const_iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
         (*i).second->writeXML(into);
     }
-    into << endl;
+    into << "\n";
 }
 
 

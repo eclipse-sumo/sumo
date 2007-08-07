@@ -4,7 +4,7 @@
 /// @date    Wed Jun 9 16:40:56 CEST 2004
 /// @version $Id$
 ///
-//  »missingDescription«
+//  missingDescription
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -37,19 +37,6 @@
 // ===========================================================================
 // variable declarations
 // ===========================================================================
-
-std::string MSE1Collector::xmlHeaderM(
-    "<?xml version=\"1.0\" standalone=\"yes\"?>\n\n"
-    "<!--\n"
-    "- meanSpeed [m/s]\n"
-    "- nVehicles [veh]\n"
-    "- flow [veh/h]\n"
-    "- meanOccupancy [%]\n"
-    "- meanVehLength [m]\n"
-    "-->\n\n");
-
-
-std::string MSE1Collector::infoEndM = "</detector>";
 
 namespace E1
 {

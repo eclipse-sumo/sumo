@@ -50,6 +50,7 @@
 #include <iostream>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -234,7 +235,7 @@ NBEdgeCont::appendTurnarounds()
 
 
 void
-NBEdgeCont::writeXMLEdgeList(ostream &into, std::vector<std::string> toAdd)
+NBEdgeCont::writeXMLEdgeList(OutputDevice &into, std::vector<std::string> toAdd)
 {
     into << "   <edges no=\"" << (myEdges.size()+toAdd.size()) << "\">";
     for (vector<string>::iterator j=toAdd.begin(); j!=toAdd.end(); j++) {
@@ -253,27 +254,27 @@ NBEdgeCont::writeXMLEdgeList(ostream &into, std::vector<std::string> toAdd)
         }
         into << (*i).first;
     }
-    into << "</edges>" << endl;
+    into << "</edges>\n";
 }
 
 
 void
-NBEdgeCont::writeXMLStep1(std::ostream &into)
+NBEdgeCont::writeXMLStep1(OutputDevice &into)
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->writeXMLStep1(into);
     }
-    into << endl;
+    into << "\n";
 }
 
 
 void
-NBEdgeCont::writeXMLStep2(std::ostream &into, bool includeInternal)
+NBEdgeCont::writeXMLStep2(OutputDevice &into, bool includeInternal)
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->writeXMLStep2(into, includeInternal);
     }
-    into << endl;
+    into << "\n";
 }
 
 int NBEdgeCont::size()
@@ -644,7 +645,7 @@ NBEdgeCont::search(NBEdge *e)
             checkdummy += 2;
         }
     }
-    DEBUG_OUT << "--------------------------------" << endl;
+    DEBUG_OUT << "--------------------------------\n";
 }
 
 
@@ -693,38 +694,39 @@ bool
 NBEdgeCont::savePlain(const std::string &file)
 {
     // try to build the output file
-    ofstream res(file.c_str());
-    if (!res.good()) {
-        MsgHandler::getErrorInstance()->inform("Plain edge file '" + file + "' could not be opened.");
+    OutputDevice *device = 0;
+    try {
+        device = OutputDevice::getOutputDevice(file);
+    } catch (IOError e) {
+        MsgHandler::getErrorInstance()->inform("Plain edge file '" + file + "' could not be opened.\n "+e.what());
         return false;
     }
-    std::fixed (res);
-    res << "<edges>" << endl;
+    device->writeXMLHeader("edges");
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         NBEdge *e = (*i).second;
-        res << std::setprecision(OUTPUT_ACCURACY);
-        res << "   <edge id=\"" << e->getID()
+        *device << "   <edge id=\"" << e->getID()
         << "\" fromnode=\"" << e->getFromNode()->getID()
         << "\" tonode=\"" << e->getToNode()->getID()
         << "\" nolanes=\"" << e->getNoLanes()
         << "\" speed=\"" << e->getSpeed() << "\"";
         // write the geometry only if larger than just the from/to positions
         if (e->getGeometry().size()>2) {
-            res << std::setprecision(10);
-            res << " shape=\"" << e->getGeometry() << "\"";
+            device->setPrecision(10);
+            *device << " shape=\"" << e->getGeometry() << "\"";
+            device->setPrecision();
         }
         // write the spread type if not default ("right")
         if (e->getLaneSpreadFunction()!=NBEdge::LANESPREAD_RIGHT) {
-            res << " spread_type=\"center\"";
+            *device << " spread_type=\"center\"";
         }
         // write the function if not "normal"
         if (e->getBasicType()!=NBEdge::EDGEFUNCTION_NORMAL) {
             switch (e->getBasicType()) {
             case NBEdge::EDGEFUNCTION_SOURCE:
-                res << " function=\"source\"";
+                *device << " function=\"source\"";
                 break;
             case NBEdge::EDGEFUNCTION_SINK:
-                res << " function=\"sink\"";
+                *device << " function=\"sink\"";
                 break;
             default:
                 // hmmm - do nothing? seems to be invalid anyhow
@@ -733,15 +735,15 @@ NBEdgeCont::savePlain(const std::string &file)
         }
         // write the vehicles class if restrictions exist
         if (!e->hasRestrictions()) {
-            res << "/>" << endl;
+            *device << "/>\n";
         } else {
-            res << ">" << endl;
-            e->writeLanesPlain(res);
-            res << "   </edge>" << endl;
+            *device << ">\n";
+            e->writeLanesPlain(*device);
+            *device << "   </edge>\n";
         }
     }
-    res << "</edges>" << endl;
-    return res.good();
+    device->close();
+    return true;
 }
 
 

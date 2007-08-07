@@ -35,8 +35,13 @@
 #include <bitset>
 #include <utility>
 #include <set>
-#include <iostream>
 #include "NBConnectionDefs.h"
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class OutputDevice;
 
 
 // ===========================================================================
@@ -66,7 +71,7 @@ public:
                  std::bitset<64> brakeMask, std::bitset<64> yellowMask);
 
     /// Writes the traffic light logic into the given stream in it's XML-representation
-    void writeXML(std::ostream &into, size_t no, SUMOReal distance,
+    void writeXML(OutputDevice &into, size_t no, SUMOReal distance,
                   std::string type, const std::set<std::string> &inLanes) const;
     // !!! the key should be given here, too, instead of storing it
 

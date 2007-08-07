@@ -31,7 +31,6 @@
 #include <vector>
 #include <bitset>
 #include <utility>
-#include <iostream>
 #include <string>
 #include <sstream>
 #include <cassert>
@@ -41,6 +40,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -88,16 +88,16 @@ NBTrafficLightLogic::addStep(size_t duration,
 
 
 void
-NBTrafficLightLogic::writeXML(ostream &into, size_t no, SUMOReal /*distance*/,
+NBTrafficLightLogic::writeXML(OutputDevice &into, size_t no, SUMOReal /*distance*/,
                               std::string type,
                               const std::set<string> &/*inLanes*/) const
     {
-        into << "   <tl-logic type=\"" << type << "\">" << endl;
-        into << "      <key>" << myKey << "</key>" << endl;
-        into << "      <subkey>" << no << "</subkey>" << endl;
-        into << "      <phaseno>" << myPhases.size() << "</phaseno>" << endl;
+        into << "   <tl-logic type=\"" << type << "\">\n";
+        into << "      <key>" << myKey << "</key>\n";
+        into << "      <subkey>" << no << "</subkey>\n";
+        into << "      <phaseno>" << myPhases.size() << "</phaseno>\n";
         int offset = getOffset();
-        into << "      <offset>" << offset << "</offset>" << endl;
+        into << "      <offset>" << offset << "</offset>\n";
         // write the inlanes
         /*
         std::set<string>::const_iterator j;
@@ -110,7 +110,7 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no, SUMOReal /*distance*/,
         //        first = false;
             into << (*j);
         }
-        into << "</inclanes>" << endl;
+        into << "</inclanes>\n";
         */
         // write the phases
         for (PhaseDefinitionVector::const_iterator i=myPhases.begin();
@@ -132,9 +132,9 @@ NBTrafficLightLogic::writeXML(ostream &into, size_t no, SUMOReal /*distance*/,
             tmp3 << mask;
             into << " yellow=\"" << tmp3.str().substr(64-myNoLinks) << "\"";
             // close phase information
-            into << "/>" << endl;
+            into << "/>\n";
         }
-        into << "   </tl-logic>" << endl << endl;
+        into << "   </tl-logic>\n\n";
     }
 
 

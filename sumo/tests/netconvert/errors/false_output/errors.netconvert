@@ -1,2 +1,3 @@
 Error: Could not save net to 'output/net.net.xml'.
+ Could not build output file 'output/net.net.xml'.
 Quitting (on error).

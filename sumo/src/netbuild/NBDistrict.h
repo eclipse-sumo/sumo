@@ -32,7 +32,6 @@
 
 #include <vector>
 #include <string>
-#include <iostream>
 #include <utility>
 #include "NBCont.h"
 #include <utils/common/Named.h>
@@ -45,6 +44,7 @@
 // class declarations
 // ===========================================================================
 class NBEdge;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -134,7 +134,7 @@ public:
      *
      * @param[in] into The stream to wirte the xml-representation into
      */
-    void writeXML(std::ostream &into) throw();
+    void writeXML(OutputDevice &into) throw();
 
 
     /** @brief Returns the position of this district's center

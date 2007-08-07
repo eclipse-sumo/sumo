@@ -34,7 +34,6 @@
 #include <algorithm>
 #include <vector>
 #include <deque>
-#include <iostream>
 #include <set>
 #include <cmath>
 #include <utils/common/UtilExceptions.h>
@@ -47,6 +46,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <iomanip>
 #include "NBNode.h"
 #include "NBNodeCont.h"
@@ -645,7 +645,7 @@ NBNode::countInternalLanes(bool includeSplits)
 
 
 void
-NBNode::writeXMLInternalLinks(ostream &into)
+NBNode::writeXMLInternalLinks(OutputDevice &into)
 {
     size_t noInternalNoSplits = countInternalLanes(false);
     if (noInternalNoSplits==0) {
@@ -684,50 +684,49 @@ NBNode::writeXMLInternalLinks(ostream &into)
                 if (cross.first>=0) {
                     std::pair<Position2DVector, Position2DVector> split = shape.splitAt(cross.first);
 
-                    into << "   <edge id=\"" << id
-                    << "\" function=\"internal\">" << endl;
-                    into << "      <lanes>" << endl;
+                    into << "   <edge id=\"" << id << "\" function=\"internal\">\n";
+                    into << "      <lanes>\n";
                     into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
                     << "maxspeed=\"" << vmax << "\" length=\""
                     << toString<SUMOReal>(cross.first) << "\" "
                     << ">"
                     << split.first
-                    << "</lane>" << endl;
-                    into << "      </lanes>" << endl;
+                    << "</lane>\n";
+                    into << "      </lanes>\n";
                     into << "      <cedge id=\":" << myID << "_" << toString<size_t>(splitNo+noInternalNoSplits)
-                    << "\">" << id << "_0" << "</cedge>" << endl;
-                    into << "   </edge>" << endl << endl;
+                    << "\">" << id << "_0" << "</cedge>\n";
+                    into << "   </edge>\n\n";
                     lno++;
 
                     string id = ":" + myID + "_" + toString<size_t>(splitNo+noInternalNoSplits);
                     into << "   <edge id=\"" << id
-                    << "\" function=\"internal\">" << endl;
-                    into << "      <lanes>" << endl;
+                    << "\" function=\"internal\">\n";
+                    into << "      <lanes>\n";
                     into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
                     << "maxspeed=\"" << vmax << "\" length=\""
                     << toString<SUMOReal>(length-cross.first) << "\" "
                     << ">"
                     << split.second
-                    << "</lane>" << endl;
-                    into << "      </lanes>" << endl;
+                    << "</lane>\n";
+                    into << "      </lanes>\n";
                     into << "      <cedge id=\"" << (*k).edge->getID()
-                    << "\">" << id << "_0" << "</cedge>" << endl;
-                    into << "   </edge>" << endl << endl;
+                    << "\">" << id << "_0" << "</cedge>\n";
+                    into << "   </edge>\n\n";
                     splitNo++;
                 } else {
                     into << "   <edge id=\"" << id
-                    << "\" function=\"internal\">" << endl;
-                    into << "      <lanes>" << endl;
+                    << "\" function=\"internal\">\n";
+                    into << "      <lanes>\n";
                     into << "         <lane id=\"" << id << "_0\" depart=\"0\" "
                     << "maxspeed=\"" << vmax << "\" length=\""
                     << toString<SUMOReal>(length) << "\" "
                     << ">"
                     << shape
-                    << "</lane>" << endl;
-                    into << "      </lanes>" << endl;
+                    << "</lane>\n";
+                    into << "      </lanes>\n";
                     into << "      <cedge id=\"" << (*k).edge->getID()
-                    << "\">" << id << "_0" << "</cedge>" << endl;
-                    into << "   </edge>" << endl << endl;
+                    << "\">" << id << "_0" << "</cedge>\n";
+                    into << "   </edge>\n\n";
                     lno++;
                 }
             }
@@ -1010,7 +1009,7 @@ NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, size_t fromL,
 
 
 void
-NBNode::writeXMLInternalSuccInfos(ostream &into)
+NBNode::writeXMLInternalSuccInfos(OutputDevice &into)
 {
     size_t noInternalNoSplits = countInternalLanes(false);
     if (noInternalNoSplits==0) {
@@ -1033,8 +1032,7 @@ NBNode::writeXMLInternalSuccInfos(ostream &into)
                 // get internal splits if any
                 into << "   <succ edge=\"" << id << "\" "
                 << "lane=\"" << id << "_"
-                << 0 << "\" junction=\"" << myID << "\">"
-                << endl;
+                << 0 << "\" junction=\"" << myID << "\">\n";
                 if (cross.first>=0) {
                     into << "      <succlane lane=\""
                     //<< sid << "_" << 0 ()
@@ -1048,20 +1046,19 @@ NBNode::writeXMLInternalSuccInfos(ostream &into)
                     << "\" tl=\"" << "" << "\" linkno=\""
                     << "" << "\" yield=\"0\" dir=\"s\" state=\"M\"";
                 }
-                into << " int_end=\"x\"/>" << endl;
-                into << "   </succ>" << endl;
+                into << " int_end=\"x\"/>\n";
+                into << "   </succ>\n";
 
                 if (cross.first>=0) {
                     into << "   <succ edge=\"" << sid << "\" "
                     << "lane=\"" << sid << "_" << 0
-                    << "\" junction=\"" << sid << "\">"
-                    << endl;
+                    << "\" junction=\"" << sid << "\">\n";
                     into << "      <succlane lane=\""
                     << (*k).edge->getID() << "_" << (*k).lane
                     << "\" tl=\"" << "" << "\" linkno=\""
                     << "0" << "\" yield=\"0\" dir=\"s\" state=\"M\"";
-                    into << " int_end=\"x\"/>" << endl;
-                    into << "   </succ>" << endl;
+                    into << " int_end=\"x\"/>\n";
+                    into << "   </succ>\n";
                     splitNo++;
                 }
                 lno++;
@@ -1072,7 +1069,7 @@ NBNode::writeXMLInternalSuccInfos(ostream &into)
 
 
 void
-NBNode::writeXMLInternalNodes(ostream &into)
+NBNode::writeXMLInternalNodes(OutputDevice &into)
 {
     size_t noInternalNoSplits = countInternalLanes(false);
     if (noInternalNoSplits==0) {
@@ -1105,20 +1102,20 @@ NBNode::writeXMLInternalNodes(ostream &into)
                 into << " type=\"" << "internal\"";
                 into << " x=\"" << setprecision(OUTPUT_ACCURACY) << pos.x()
                 << "\" y=\"" << setprecision(OUTPUT_ACCURACY) << pos.y() << "\"";
-                into <<  ">" << endl;
+                into <<  ">\n";
                 // write the incoming and the internal lanes
                 string furtherIncoming = getCrossingSourcesNames_dividedBySpace(*i, j, (*k).edge, (*k).lane);
                 if (furtherIncoming.length()!=0) {
-                    into << "      <inclanes>" << iid << " " << furtherIncoming << "</inclanes>" << endl;
+                    into << "      <inclanes>" << iid << " " << furtherIncoming << "</inclanes>\n";
                 } else {
-                    into << "      <inclanes>" << iid << "</inclanes>" << endl;
+                    into << "      <inclanes>" << iid << "</inclanes>\n";
                 }
                 into << "      <intlanes>"
                 << getCrossingNames_dividedBySpace(*i, j, (*k).edge, (*k).lane)
-                << "</intlanes>" << endl;
-                into << "      <shape></shape>" << endl;
+                << "</intlanes>\n";
+                into << "      <shape></shape>\n";
                 // close writing
-                into << "   </junction>" << endl << endl;
+                into << "   </junction>\n\n";
                 splitNo++;
                 lno++;
             }
@@ -1128,7 +1125,7 @@ NBNode::writeXMLInternalNodes(ostream &into)
 
 
 void
-writeinternal(EdgeVector *myIncomingEdges, ostream &into, const std::string &id)
+writeinternal(EdgeVector *myIncomingEdges, OutputDevice &into, const std::string &id)
 {
     size_t l = 0;
     for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
@@ -1151,7 +1148,7 @@ writeinternal(EdgeVector *myIncomingEdges, ostream &into, const std::string &id)
 
 
 void
-NBNode::writeXML(ostream &into)
+NBNode::writeXML(OutputDevice &into)
 {
     // write the attributes
     into << "   <junction id=\"" << myID << '\"';
@@ -1180,7 +1177,7 @@ NBNode::writeXML(ostream &into)
     }
     into << " x=\"" << setprecision(OUTPUT_ACCURACY) << myPosition.x()
     << "\" y=\"" << setprecision(OUTPUT_ACCURACY) << myPosition.y() << "\"";
-    into <<  ">" << endl;
+    into <<  ">\n";
     // write the incoming lanes
     EdgeVector::iterator i;
     into << "      <inclanes>";
@@ -1194,18 +1191,18 @@ NBNode::writeXML(ostream &into)
             }
         }
     }
-    into << "</inclanes>" << endl;
+    into << "</inclanes>\n";
     // write the internal lanes
     if (OptionsCont::getOptions().getBool("add-internal-links")) {
         into << "      <intlanes>";
         writeinternal(myIncomingEdges, into, myID);
-        into << "</intlanes>" << endl;
+        into << "</intlanes>\n";
     }
 
     // write the shape
-    into << "      <shape>" << myPoly << "</shape>" << endl;
+    into << "      <shape>" << myPoly << "</shape>\n";
     // close writing
-    into << "   </junction>" << endl << endl;
+    into << "   </junction>\n\n";
 }
 
 
@@ -1279,7 +1276,7 @@ NBNode::reportBuild()
 
 
 void
-NBNode::sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm)
+NBNode::sortNodesEdges(const NBTypeCont &tc, OutputDevice *device)
 {
     // sort the edges
     buildList();
@@ -1309,7 +1306,7 @@ NBNode::sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm)
 #endif
     NBNode::BasicNodeType type = computeType(tc);
     // write if wished
-    if (strm!=0) {
+    if (device!=0) {
         string col;
         switch (type) {
         case NODETYPE_NOJUNCTION:
@@ -1328,10 +1325,9 @@ NBNode::sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm)
             col = "1,1,0";
             break;
         }
-        (*strm) << "   <poi id=\"type_" << myID
+        *device << "   <poi id=\"type_" << myID
         << "\" type=\"node_type\" color=\"" << col << "\""
-        << " x=\"" << getPosition().x() << "\" y=\"" << getPosition().y() << "\"/>"
-        << endl;
+        << " x=\"" << getPosition().x() << "\" y=\"" << getPosition().y() << "\"/>\n";
     }
     setType(type);
     setPriorities();
@@ -1339,7 +1335,7 @@ NBNode::sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm)
 
 
 void
-NBNode::computeNodeShape(ofstream *out)
+NBNode::computeNodeShape(OutputDevice *out)
 {
     if (myIncomingEdges->size()==0&&myOutgoingEdges->size()==0) {
         return;

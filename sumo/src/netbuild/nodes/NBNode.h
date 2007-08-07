@@ -35,7 +35,6 @@
 #include <utility>
 #include <string>
 #include <set>
-#include <iostream>
 #include <utils/common/Named.h>
 #include <utils/common/DoubleVector.h>
 #include <utils/geom/Position2D.h>
@@ -60,7 +59,7 @@ class NBTrafficLightDefinition;
 class NBTypeCont;
 class NBTrafficLightLogicCont;
 class NBDistrictCont;
-
+class OutputDevice;
 
 // ===========================================================================
 // class definitions
@@ -174,14 +173,14 @@ public:
 
     std::vector<std::string> getInternalNamesList();
 
-    void writeXMLInternalLinks(std::ostream &into);
-    void writeXMLInternalSuccInfos(std::ostream &into);
-    void writeXMLInternalNodes(std::ostream &into);
+    void writeXMLInternalLinks(OutputDevice &into);
+    void writeXMLInternalSuccInfos(OutputDevice &into);
+    void writeXMLInternalNodes(OutputDevice &into);
 
 
 
     /// prints the junction
-    void writeXML(std::ostream &into);
+    void writeXML(OutputDevice &into);
 
     /// computes the connections of lanes to edges
     void computeLanes2Lanes();
@@ -191,7 +190,7 @@ public:
                       OptionsCont &oc);
 
     /** initialises the list of all edges and sorts all edges */
-    void sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm);
+    void sortNodesEdges(const NBTypeCont &tc, OutputDevice *device);
 
     /** reports about the build junctions */
     static void reportBuild();
@@ -248,7 +247,7 @@ public:
 
     char stateCode(NBEdge *incoming, NBEdge *outgoing, int fromLane);
 
-    void computeNodeShape(std::ofstream *out);
+    void computeNodeShape(OutputDevice *out);
 
     friend class NBNodeCont;
 

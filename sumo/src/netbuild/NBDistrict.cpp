@@ -37,6 +37,7 @@
 #include <utils/common/Named.h>
 #include <utils/common/StringUtils.h>
 #include <utils/geom/GeoConvHelper.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "NBEdge.h"
 #include "NBDistrict.h"
 
@@ -98,31 +99,31 @@ NBDistrict::addSink(NBEdge * const sink, SUMOReal weight) throw()
 
 
 void
-NBDistrict::writeXML(std::ostream &into) throw()
+NBDistrict::writeXML(OutputDevice &into) throw()
 {
     DoubleVectorHelper::normalise(mySourceWeights, 1.0);
     DoubleVectorHelper::normalise(mySinkWeights, 1.0);
     // write the head and the id of the district
-    into << "   <district id=\"" << myID << "\">" << endl;
+    into << "   <district id=\"" << myID << "\">\n";
     size_t i;
     // write all sources
     for (i=0; i<mySources.size(); i++) {
         // write the head and the id of the source
         assert(i<mySources.size());
-        into << "      <dsource id=\"" << mySources[i]->getID() << "\" weight=\"" << mySourceWeights[i] << "\"/>" << endl;
+        into << "      <dsource id=\"" << mySources[i]->getID() << "\" weight=\"" << mySourceWeights[i] << "\"/>\n";
     }
     // write all sinks
     for (i=0; i<mySinks.size(); i++) {
         // write the head and the id of the sink
         assert(i<mySinks.size());
-        into << "      <dsink id=\"" << mySinks[i]->getID() << "\" weight=\"" << mySinkWeights[i] << "\"/>" << endl;
+        into << "      <dsink id=\"" << mySinks[i]->getID() << "\" weight=\"" << mySinkWeights[i] << "\"/>\n";
     }
     // write the shape if given
     if (myShape.size()>0) {
-        into << "      <shape>" << myShape << "</shape>" << endl;
+        into << "      <shape>" << myShape << "</shape>\n";
     }
     // write the tail
-    into << "   </district>" << endl << endl;
+    into << "   </district>\n\n";
 }
 
 

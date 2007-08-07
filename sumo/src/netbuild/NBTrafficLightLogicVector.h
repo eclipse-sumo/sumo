@@ -31,13 +31,14 @@
 #endif
 
 #include <vector>
-#include <iostream>
 #include "NBConnectionDefs.h"
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class NBTrafficLightLogic;
+class OutputDevice;
+
 
 // ===========================================================================
 // class definitions
@@ -64,7 +65,7 @@ public:
     void add(const NBTrafficLightLogicVector &cont);
 
     /// Writes the logics for this junction
-    void writeXML(std::ostream &os) const;
+    void writeXML(OutputDevice &os) const;
 
     /// returns the information whether the given phaselists is already within this container
     bool contains(NBTrafficLightLogic *logic) const;

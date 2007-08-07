@@ -37,6 +37,7 @@
 #include "NBJunctionLogicCont.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -82,12 +83,12 @@ NBJunctionLogicCont::add(const std::string &key,
 
 
 void
-NBJunctionLogicCont::writeXML(ostream &into)
+NBJunctionLogicCont::writeXML(OutputDevice &into)
 {
     for (LogicMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
-        into << (*i).second << endl;
+        into << (*i).second << "\n";
     }
-    into << endl;
+    into << "\n";
 }
 
 

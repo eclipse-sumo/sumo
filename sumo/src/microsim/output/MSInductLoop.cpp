@@ -52,13 +52,6 @@ using namespace std;
 
 
 // ===========================================================================
-// member variable definitions
-// ===========================================================================
-string MSInductLoop::xmlHeaderM("<?xml version=\"1.0\" standalone=\"yes\"?>\n\n");
-string MSInductLoop::xmlDetectorInfoEndM("</detector>\n");
-
-
-// ===========================================================================
 // method definitions
 // ===========================================================================
 MSInductLoop::MSInductLoop(const string& id,
@@ -235,23 +228,9 @@ MSInductLoop::getNVehContributed(SUMOTime lastNTimesteps) const
 
 
 void
-MSInductLoop::writeXMLHeader(OutputDevice &dev) const
+MSInductLoop::writeXMLDetectorProlog(OutputDevice &dev) const
 {
-    dev<<xmlHeaderM;
-}
-
-
-void
-MSInductLoop::writeXMLDetectorInfoStart(OutputDevice &dev) const
-{
-    dev<<"<detector>\n";
-}
-
-
-void
-MSInductLoop::writeXMLDetectorInfoEnd(OutputDevice &dev) const
-{
-    dev<<xmlDetectorInfoEndM;
+    dev.writeXMLHeader("detector");
 }
 
 

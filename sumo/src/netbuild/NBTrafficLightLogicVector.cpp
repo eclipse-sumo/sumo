@@ -29,7 +29,6 @@
 #endif
 
 #include <vector>
-#include <iostream>
 #include <set>
 #include <cassert>
 #include <utils/common/ToString.h>
@@ -90,7 +89,7 @@ NBTrafficLightLogicVector::add(const NBTrafficLightLogicVector &cont)
 
 
 void
-NBTrafficLightLogicVector::writeXML(std::ostream &os) const
+NBTrafficLightLogicVector::writeXML(OutputDevice &os) const
 {
     SUMOReal distance = 250;
     set<string> inLanes;

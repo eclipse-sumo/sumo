@@ -711,7 +711,7 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
 
 
 void
-OptionsCont::writeXMLHeader(std::ostream &os)
+OptionsCont::writeXMLHeader(std::ostream &os, const bool writeConfig)
 {
     time_t rawtime;
     char buffer [80];
@@ -720,7 +720,9 @@ OptionsCont::writeXMLHeader(std::ostream &os)
     time(&rawtime);
     strftime(buffer, 80, "<!-- generated on %c by ", localtime (&rawtime));
     os << buffer << myFullName << endl;
-    writeConfiguration(os, true, false, false);
+    if (writeConfig) {
+        writeConfiguration(os, true, false, false);
+    }
     os << "-->" << endl << endl;
 }
 

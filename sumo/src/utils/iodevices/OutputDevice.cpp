@@ -41,6 +41,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -82,7 +83,8 @@ OutputDevice::getOutputDevice(const std::string &name, const std::string &base)
         }
         dev = new OutputDevice_File(strm);
     }
-    dev->getOStream() << setprecision(OUTPUT_ACCURACY) << setiosflags(ios::fixed);
+    dev->setPrecision();
+    dev->getOStream() << setiosflags(ios::fixed);
     myOutputDevices[name] = dev;
     return dev;
 }
@@ -106,6 +108,7 @@ OutputDevice::ok()
 void
 OutputDevice::close()
 {
+    writeXMLFooter();
     for (DeviceMap::iterator i=myOutputDevices.begin(); i!=myOutputDevices.end(); ++i) {
         if (i->second == this) {
             delete(*i).second;
@@ -113,6 +116,45 @@ OutputDevice::close()
             break;
         }
     }
+}
+
+
+void
+OutputDevice::setPrecision(unsigned int precision)
+{
+    getOStream() << setprecision(precision);
+}
+
+
+bool
+OutputDevice::writeXMLHeader(const string &rootElement, const bool writeConfig,
+                             const string &attrs, const string &comment)
+{
+    if (myRootElement == "") {
+        myRootElement = rootElement;
+        OptionsCont::getOptions().writeXMLHeader(getOStream(), writeConfig);
+        getOStream() << "<" << myRootElement;
+        if (attrs != "") {
+            getOStream() << " " << attrs;
+        }
+        getOStream() << ">" << endl;
+        postWriteHook();
+        return true;
+    }
+    return false;
+}
+
+
+bool
+OutputDevice::writeXMLFooter()
+{
+    if (myRootElement != "") {
+        getOStream() << "</" << myRootElement << ">" << std::endl;
+        postWriteHook();
+        myRootElement = "";
+        return true;
+    }
+    return false;
 }
 
 

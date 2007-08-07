@@ -32,7 +32,6 @@
 
 #include <string>
 #include <map>
-#include <iostream>
 #include <utils/geom/Position2D.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBJunctionLogicCont.h>
@@ -44,7 +43,7 @@
 // ===========================================================================
 class NBDistrict;
 class OptionsCont;
-
+class OutputDevice;
 
 // ===========================================================================
 // class definitions
@@ -104,19 +103,19 @@ public:
                        OptionsCont &oc);
 
     /// sorts the nodes' edges
-    bool sortNodesEdges(const NBTypeCont &tc, std::ofstream *strm);
+    bool sortNodesEdges(const NBTypeCont &tc, OutputDevice *device);
 
     std::vector<std::string> getInternalNamesList();
     /// writes the number nodes into the given ostream
-    void writeXMLNumber(std::ostream &into);
+    void writeXMLNumber(OutputDevice &into);
 
-    void writeXMLInternalLinks(std::ostream &into);
-    void writeXMLInternalSuccInfos(std::ostream &into);
-    void writeXMLInternalNodes(std::ostream &into);
+    void writeXMLInternalLinks(OutputDevice &into);
+    void writeXMLInternalSuccInfos(OutputDevice &into);
+    void writeXMLInternalNodes(OutputDevice &into);
 
 
     /// writes the nodes into the given ostream
-    void writeXML(std::ostream &into);
+    void writeXML(OutputDevice &into);
 
     /// returns the number of known nodes
     int size();

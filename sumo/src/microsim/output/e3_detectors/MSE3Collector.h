@@ -178,21 +178,11 @@ class MSE3LeaveReminder : public MSMoveReminder
     /// internal containers.
     void removeOnTripEnd(MSVehicle *veh);
 
-    /// Writes the header into the given device
-    void writeXMLHeader(OutputDevice &dev) const;
-
     /// Writes the current output into the device
     void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime);
 
     /// Get an opening XML-tag containing information about the detector.
-    void writeXMLDetectorInfoStart(OutputDevice &dev) const;
-
-    /// Get an closing XML-tag corresponding to the opening tag from
-    /// getXMLDetectorInfoStart().
-    ///
-    /// @return The member infoEndM.
-    ///
-    void writeXMLDetectorInfoEnd(OutputDevice &dev) const;
+    void writeXMLDetectorProlog(OutputDevice &dev) const;
 
     /// @}
 
@@ -216,10 +206,6 @@ protected:
 
     /// Speed-theshold to determine if a vehicle is halting.
     MSUnit::MetersPerSecond haltingSpeedThresholdM;
-
-    static std::string xmlHeaderM; ///< Header for the XML-output.
-
-    static std::string infoEndM; ///< Closing detector tag.
 
     struct E3Values
     {

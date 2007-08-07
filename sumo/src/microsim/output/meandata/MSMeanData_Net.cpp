@@ -283,11 +283,6 @@ MSMeanData_Net::writeLane(OutputDevice &dev,
 
 
 void
-MSMeanData_Net::writeXMLHeader(OutputDevice &) const
-    {}
-
-
-void
 MSMeanData_Net::writeXMLOutput(OutputDevice &dev,
                                SUMOTime startTime, SUMOTime stopTime)
 {
@@ -299,16 +294,9 @@ MSMeanData_Net::writeXMLOutput(OutputDevice &dev,
 
 
 void
-MSMeanData_Net::writeXMLDetectorInfoStart(OutputDevice &dev) const
+MSMeanData_Net::writeXMLDetectorProlog(OutputDevice &dev) const
 {
-    dev<<"<netstats>";
-}
-
-
-void
-MSMeanData_Net::writeXMLDetectorInfoEnd(OutputDevice &dev) const
-{
-    dev<<"</netstats>";
+    dev.writeXMLHeader("netstats");
 }
 
 

@@ -32,7 +32,6 @@
 
 #include <map>
 #include <vector>
-#include <iostream>
 #include <string>
 #include <set>
 #include "NBCont.h"
@@ -50,6 +49,7 @@
 class NBNode;
 class NBNodeCont;
 class NBEdgeCont;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -180,13 +180,13 @@ public:
 
     /** writes the edge definition with lanes and connected edges
         into the given stream */
-    void writeXMLStep1(std::ostream &into);
+    void writeXMLStep1(OutputDevice &into);
 
     /** writes the succeeding lane information */
-    void writeXMLStep2(std::ostream &into, bool includeInternal);
+    void writeXMLStep2(OutputDevice &into, bool includeInternal);
 
     bool hasRestrictions() const;
-    void writeLanesPlain(std::ostream &into);
+    void writeLanesPlain(OutputDevice &into);
     void setLoadedLength(SUMOReal val);
 
 
@@ -580,17 +580,17 @@ private:
     std::pair<NBEdge*, size_t> getConnectionRemoving(size_t srcLane, size_t pos);
 
     /** writes information about the described lane into the given stream */
-    void writeLane(std::ostream &into, size_t lane);
+    void writeLane(OutputDevice &into, size_t lane);
 
     // !!! describe
-    void writeConnected(std::ostream &into, NBEdge *edge, LaneVector &lanes);
+    void writeConnected(OutputDevice &into, NBEdge *edge, LaneVector &lanes);
 
     // !!! describe
-    void writeSucceeding(std::ostream &into, size_t lane,
+    void writeSucceeding(OutputDevice &into, size_t lane,
                          bool includeInternal);
 
     // !!! describe
-    void writeSingleSucceeding(std::ostream &into,
+    void writeSingleSucceeding(OutputDevice &into,
                                size_t fromlane, size_t destidx, bool includeInternal);
 
 private:

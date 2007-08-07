@@ -32,6 +32,7 @@
 #include <algorithm>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/iodevices/OutputDevice.h>
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightLogicVector.h"
 #include "NBTrafficLightLogicCont.h"
@@ -90,12 +91,12 @@ NBTrafficLightLogicCont::insert(const std::string &id,
 
 
 void
-NBTrafficLightLogicCont::writeXML(std::ostream &into)
+NBTrafficLightLogicCont::writeXML(OutputDevice &into)
 {
     for (ComputedContType::iterator i=myComputed.begin(); i!=myComputed.end(); i++) {
         (*i).second->writeXML(into);
     }
-    into << endl;
+    into << "\n";
 }
 
 
