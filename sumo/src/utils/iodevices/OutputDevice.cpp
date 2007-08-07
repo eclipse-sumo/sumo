@@ -91,8 +91,8 @@ OutputDevice::getOutputDevice(const std::string &name, const std::string &base)
 void
 OutputDevice::closeAll()
 {
-    for (DeviceMap::iterator i=myOutputDevices.begin(); i!=myOutputDevices.end(); ++i) {
-        i->second->close();
+    while (myOutputDevices.size()!=0) {
+        myOutputDevices.begin()->second->close();
     }
     myOutputDevices.clear();
 }
