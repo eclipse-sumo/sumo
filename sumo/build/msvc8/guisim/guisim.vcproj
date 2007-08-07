@@ -45,6 +45,7 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="0"
+				FavorSizeOrSpeed="1"
 				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(FOX14)\include,$(XERCES)\include,..\..\..\src"
 				MinimalRebuild="true"
 				BasicRuntimeChecks="3"
@@ -77,7 +78,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib shell32.lib opengl32.lib glu32.lib $(XERCES)\lib\xerces-c_2D.lib $(FOX14)\lib\FOXDLLD-1.4.lib user32.lib $(NOINHERIT)"
+				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib shell32.lib opengl32.lib glu32.lib $(XERCES)\lib\xerces-c_2D.lib $(FOX14)\lib\FOXDLLD-1.4.lib user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
 				OutputFile=".\Debug/guisimD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -176,7 +177,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib shell32.lib opengl32.lib glu32.lib $(XERCES)\lib\xerces-c_2.lib $(FOX14)\lib\FOXDLL-1.4.lib user32.lib $(NOINHERIT)"
+				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib shell32.lib opengl32.lib glu32.lib $(XERCES)\lib\xerces-c_2.lib $(FOX14)\lib\FOXDLL-1.4.lib user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
 				OutputFile=".\Release/guisim.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -220,6 +221,10 @@
 			Name="Quellcodedateien"
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
+			<File
+				RelativePath="..\..\..\src\foreign\AviFile.cpp"
+				>
+			</File>
 			<File
 				RelativePath="..\..\..\src\guisim_main.cpp"
 				>
@@ -277,6 +282,10 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
+			<File
+				RelativePath="..\..\..\src\foreign\AviFile.h"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Ressourcendateien"

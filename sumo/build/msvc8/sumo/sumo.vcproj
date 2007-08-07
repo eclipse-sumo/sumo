@@ -74,11 +74,12 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2D.lib $(NOINHERIT)"
+				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2D.lib $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Debug/sumoD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
 				AdditionalLibraryDirectories="$(DREEL)\PRJ\MSVC.NET-71\Debug"
+				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug/sumo.pdb"
@@ -172,7 +173,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2.lib $(NOINHERIT)"
+				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2.lib $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/sumo.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
