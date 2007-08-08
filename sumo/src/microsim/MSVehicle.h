@@ -506,6 +506,7 @@ public:
         MSBusStop *busstop;
         SUMOReal pos;
         SUMOTime duration;
+        SUMOTime until;
         bool reached;
     };
 

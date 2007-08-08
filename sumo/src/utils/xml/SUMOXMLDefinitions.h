@@ -245,6 +245,7 @@ enum SumoXMLAttr
     SUMO_ATTR_BRAKE,
     SUMO_ATTR_YELLOW,
     SUMO_ATTR_DURATION,
+    SUMO_ATTR_UNTIL,
     /** trigger: definition of an object type to be triggered */
     SUMO_ATTR_OBJECTTYPE,
     /** trigger: definition of an attribute to trigger */

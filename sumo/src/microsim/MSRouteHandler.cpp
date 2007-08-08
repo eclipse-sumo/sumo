@@ -174,14 +174,31 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         }
 
         // get the standing duration
-        try {
-            stop.duration = (SUMOTime) getFloat(attrs, SUMO_ATTR_DURATION); // time-parser
-        } catch (EmptyData&) {
+        stop.until = -1;
+        stop.duration = -1;
+        if(!hasAttribute(attrs, SUMO_ATTR_DURATION) && !hasAttribute(attrs, SUMO_ATTR_UNTIL)) {
             MsgHandler::getErrorInstance()->inform("The duration of a stop is not defined.");
             return;
-        } catch (NumberFormatException&) {
-            MsgHandler::getErrorInstance()->inform("The duration of a stop is not numeric.");
-            return;
+        } else if(hasAttribute(attrs, SUMO_ATTR_DURATION)) {
+            try {
+                stop.duration = (SUMOTime) getFloat(attrs, SUMO_ATTR_DURATION); // time-parser
+            } catch (EmptyData&) {
+                MsgHandler::getErrorInstance()->inform("The duration of a stop is empty.");
+                return;
+            } catch (NumberFormatException&) {
+                MsgHandler::getErrorInstance()->inform("The duration of a stop is not numeric.");
+                return;
+            }
+        } else {
+            try {
+                stop.until = (SUMOTime) getFloat(attrs, SUMO_ATTR_UNTIL); // time-parser
+            } catch (EmptyData&) {
+                MsgHandler::getErrorInstance()->inform("The duration of a stop is empty.");
+                return;
+            } catch (NumberFormatException&) {
+                MsgHandler::getErrorInstance()->inform("The duration of a stop is not numeric.");
+                return;
+            }
         }
         stop.reached = false;
         myVehicleStops.push_back(stop);

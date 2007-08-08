@@ -469,6 +469,10 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
                 }
                 if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                     bstop.reached = true;
+                    if(bstop.duration==-1) {
+                        assert(bstop.until>=0);
+                        bstop.duration = bstop.until - MSNet::getInstance()->getCurrentTimeStep();
+                    }
                     if (bstop.busstop!=0) {
                         bstop.busstop->enter(this, myState.pos(), myState.pos()-myType->getLength());
                     }
@@ -659,6 +663,10 @@ MSVehicle::moveFirstChecked()
                 }
                 if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                     bstop.reached = true;
+                    if(bstop.duration==-1) {
+                        assert(bstop.until>=0);
+                        bstop.duration = bstop.until - MSNet::getInstance()->getCurrentTimeStep();
+                    }
                     if (bstop.busstop!=0) {
                         bstop.busstop->enter(this, myState.pos(), myState.pos()-myType->getLength());
                     }

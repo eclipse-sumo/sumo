@@ -184,6 +184,7 @@ GenericSAXHandler::Attr sumoattrs[] =
         { "brake",          SUMO_ATTR_BRAKE },
         { "yellow",         SUMO_ATTR_YELLOW },
         { "duration",       SUMO_ATTR_DURATION },
+        { "until",          SUMO_ATTR_UNTIL },
 
         { "objecttype",     SUMO_ATTR_OBJECTTYPE },
         { "attr",           SUMO_ATTR_ATTR },
