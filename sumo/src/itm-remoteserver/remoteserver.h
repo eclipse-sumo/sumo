@@ -49,72 +49,90 @@
 /**
  * @class remoteserver
  */
-namespace itm {
-class RemoteException {
-private:
-    std::string what_;
+namespace itm
+  {
+  class RemoteException
+    {
+    private:
+      std::string what_;
 
-public:
-    RemoteException( std::string what )
-            : what_(what) {}
-    std::string what() const {
-        return what_;
-    }
-};
+    public:
+      RemoteException( std::string what )
+          : what_(what)
+      {}
+      std::string what() const
+        {
+          return what_;
+        }
+    };
 
-// RemoteServer
-// Allows communication of sumo with external program. The external
-// program will control sumo.
-// @author: Thimor Bohn <bohn@itm.uni-luebeck.de>
-class RemoteServer {
-public:
-    // Constructor
-    // @param port defines on which port the server is listening on
-    // @param endTime defines at which time the simulation stops
-    // @param penetration defines how many vehicles are included
-    // @param routeFile name of file which contains vehicle routes
-    RemoteServer(int port, SUMOTime endTime, float penetration, std::string routeFile);
+  // RemoteServer
+  // Allows communication of sumo with external program. The external
+  // program will control sumo.
+  // @author: Thimor Bohn <bohn@itm.uni-luebeck.de>
+  class RemoteServer
+    {
+    public:
+      // Constructor
+      // @param port defines on which port the server is listening on
+      // @param endTime defines at which time the simulation stops
+      // @param penetration defines how many vehicles are included
+      // @param routeFile name of file which contains vehicle routes
+      RemoteServer(int port, SUMOTime endTime, float penetration, std::string routeFile);
 
-    // Destructor
-    // final cleanup
-    virtual ~RemoteServer(void);
+      // Destructor
+      // final cleanup
+      virtual ~RemoteServer(void);
 
-    // start server
-    void run();
+      // start server
+      void run();
 
-protected:
-    // process command simStep
-    // step forward in simulation until targetTime or endTime reached
-    // report node positions if wanted
-    // @param in contains unparsed parameters targetTime, ResultType
-    // @param out contains node positions ready for output
-    void simStep(tcpip::Storage &in, tcpip::Storage &out) throw(RemoteException);
-    
-    // process command simInfo
-    // report node count and simulation area
-    // @param out contains node positions ready for output
-    void simInfo(tcpip::Storage &out) throw(RemoteException);
+    protected:
+      // process command simStep
+      // This is the basic comman that encourage the mobility generator to simulate up to the given TargetTime.
+      // Normaly, the network simulator sends this command every time unit to gain actual node positions.
+      // Probably, the node positions can be desribed in a x- and y-position in a simualated 2D-world.
+      // But node positions can be represented in many more ways, e.g. 2.5D, 3D or as points on a road network.
+      // The desired representation of positions is given by the entry ResultType.
+      // If more than one representation is needed, the command simulation step can be sent several times with the same Target Time and different ResultTypes.
+      // @param in contains unparsed parameters targetTime, ResultType
+      // @param out contains node positions ready for output
+      // @param length message length
+      void simStep(tcpip::Storage &in, tcpip::Storage &out, int length) throw(RemoteException);
 
-private:
-    // port on which server is listening on
-    int port_;
+      // process command setMaximumSpeed
+      // This command causes the node given by nodeId to limit its speed to a maximum speed (float).
+      // If maximum speed is set to a negative value, the individual speed limit for that node gets annihilated.
+      // @param in contains unparsed parameters targetTime, ResultType
+      // @param out contains node positions ready for output
+      // @param length message length
+      void setMaximumSpeed(tcpip::Storage &in, tcpip::Storage &out, int length) throw(RemoteException);
 
-    // simulation end time
-    SUMOTime endTime_;
+    private:
+      // port on which server is listening on
+      int port_;
 
-    // penetration rate, measurement of equipped vehicles in simulation
-    float penetration_;
+      // simulation end time
+      SUMOTime endTime_;
 
-    // routeFile name of file which contains vehicle routes
-    std::string routeFile_;
-    
-    //  maps all internal vehicle ids to external id if equipped else to -1
-    std::map<std::string, int> equippedVehicles_;
+      // penetration rate, measurement of equipped vehicles in simulation
+      float penetration_;
 
-    // hold number of all equipped vehicles
-    int numEquippedVehicles_;
-    
-};
+      // routeFile name of file which contains vehicle routes
+      std::string routeFile_;
+
+      //  maps all internal vehicle ids to external id if equipped else to -1
+      std::map<std::string, int> equippedVehicles_;
+
+      //  maps all external vehicle ids to internal id
+      std::map<int, std::string> ext2intId;
+
+      bool isMapChanged_;
+
+      // hold number of all equipped vehicles
+      int numEquippedVehicles_;
+
+    };
 }
 
 

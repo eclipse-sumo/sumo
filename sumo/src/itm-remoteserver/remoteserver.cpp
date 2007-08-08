@@ -61,208 +61,225 @@ using namespace tcpip;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-namespace itm {
-/*****************************************************************************/
+namespace itm
+  {
+  /*****************************************************************************/
 
-RemoteServer::RemoteServer(int port, SUMOTime endTime, float penetration, string routeFile)
-        : port_(port), endTime_(endTime), penetration_(penetration), 
-	  routeFile_(routeFile), numEquippedVehicles_(0) {}
+  RemoteServer::RemoteServer(int port, SUMOTime endTime, float penetration, string routeFile)
+      : port_(port), endTime_(endTime), penetration_(penetration), isMapChanged_(true),
+      routeFile_(routeFile), numEquippedVehicles_(0)
+  {}
 
-/*****************************************************************************/
+  /*****************************************************************************/
 
-RemoteServer::~RemoteServer() {}
+  RemoteServer::~RemoteServer()
+  {}
 
-/*****************************************************************************/
+  /*****************************************************************************/
 
-void
-RemoteServer::run() {
-    try {
+  void
+  RemoteServer::run()
+  {
+    try
+      {
         Socket socket(port_);
         socket.accept();
 
         bool running = true;
 
-        while (running) {
+        while (running)
+          {
             Storage in;
             Storage out;
             socket.receiveExact(in);
-            unsigned char cmd = in.readChar();
-            switch (cmd) {
-	    
-            case CMD_SIMINFO:
-	        cout << "case CMD_SIMINFO:" << endl;
-                simInfo(out);
-                break;
-            
-            case CMD_SIMSTEP:
-	        cout << "case CMD_SIMSTEP:" << endl;
-                simStep(in, out);
-                break;
+            int N = in.readInt(); // number of commands
+            for (int i=0; i<N; ++i)
+              {
+                unsigned char length = in.readChar(); // command length
+                unsigned char cmd = in.readChar(); // command code
+		
+                switch (cmd)
+                  { // parse command code
 
-	    case CMD_CLOSE:
-                cout << "case CMD_CLOSE:" << endl;
-                running = false;
-                out.writeChar(RTYPE_ERR);
-                out.writeString("sumo shut down");
-                break;
+                  case CMD_SIMSTEP:
+                    simStep(in, out, length);
+                    break;
 
-	    default:
-                cout << "default:" << endl;
-                running = false;
-                out.writeChar(RTYPE_ERR);
-                out.writeString("unknown command received. sumo shut down.");
-                cerr << "unkown command received. sumo shut down" << endl;
-                break;
-            }
-	    
-	    cout << "socket.sendExact(out);" << endl;
-            socket.sendExact(out);
-        }
-    } catch (RemoteException e) {
+                  case CMD_SETMAXSPEED:
+                    setMaximumSpeed(in, out, length);
+                    break;
+
+                  case CMD_CLOSE:
+                    running = false;
+                    break;
+
+                  default:
+                    running = false;
+                    out.writeChar(RTYPE_ERR);
+                    out.writeString("unknown command received. sumo shut down.");
+                    cerr << "unkown command received. sumo shut down" << endl;
+                    break;
+                  }
+
+                socket.sendExact(out);
+              }
+          }
+      }
+    catch (RemoteException e)
+      {
         cerr << e.what() << endl;
-    } catch (SocketException e) {
+      }
+    catch (SocketException e)
+      {
         cerr << e.what() << endl;
-    }
-}
+      }
+  }
 
-/*****************************************************************************/
+  /*****************************************************************************/
 
-void
-RemoteServer::simStep(tcpip::Storage &in, tcpip::Storage &out)
-throw (RemoteException) {
+  void
+  RemoteServer::simStep(tcpip::Storage &in, tcpip::Storage &out, int length)
+  throw (RemoteException)
+  {
     // prepare out
     out.reset();
     // check parameters
     int targetTime = in.readInt();
-    if (targetTime > endTime_) {
-        out.writeChar(RTYPE_ERR);
-        out.writeString("targetTime > endTime. sumo shut down");
-        cerr << "targetTime > endTime. sumo shut down" << endl;
-        throw new RemoteException("targerTime > endTime");
-        return;
-    }
+    if (targetTime > endTime_)
+      {
+        targetTime = endTime_;
+      }
     unsigned char rtype = in.readChar();
-    bool rtype_abs      = ((rtype & RTYPE_ABS) == RTYPE_ABS);
-    bool rtype_rel      = ((rtype & RTYPE_REL) == RTYPE_REL);
 
     // do simulation step
     MSNet *net = MSNet::getInstance();
     SUMOTime currentTime    = net->getCurrentTimeStep();
     SUMOTime targetTimeStep = static_cast<SUMOTime>(targetTime);
-    net->simulate(currentTime, targetTimeStep);
+    if (targetTimeStep - currentTime > 0)
+      {
+        net->simulate(currentTime, targetTimeStep);
+        isMapChanged_ = true;
+      }
 
     // prepare output
-    try {
+    try
+      {
         // map containing all active equipped vehicles. maps external id to MSVehicle*
         map<int, const MSVehicle*> activeEquippedVehicles;
         // get access to all vehicles in simulation
         MSVehicleControl &vehControl = net->getVehicleControl();
         // iterate over all vehicles in simulation
-        for (map<string, MSVehicle*>::const_iterator iter = vehControl.loadedVehBegin(); iter != vehControl.loadedVehEnd(); ++iter) {
+        for (map<string, MSVehicle*>::const_iterator iter = vehControl.loadedVehBegin(); iter != vehControl.loadedVehEnd(); ++iter)
+          {
             // selected vehicle
             const string vehicleId   = (*iter).first;
             const MSVehicle *vehicle = (*iter).second;
             // insert into equippedVehicleId if not contained
-            if (equippedVehicles_.find(vehicleId) == equippedVehicles_.end()) {
+            if (equippedVehicles_.find(vehicleId) == equippedVehicles_.end())
+              {
                 // determine if vehicle is equipped
                 double rnd = double(rand())/RAND_MAX;
-                if (rnd <= penetration_) {
+                if (rnd <= penetration_)
+                  {
                     // vehicle is equipped
                     equippedVehicles_[vehicleId] = numEquippedVehicles_++;
-                } else {
+                  }
+                else
+                  {
                     // vehicle is not equipped
                     equippedVehicles_[vehicleId] = -1;
-                }
-            }
-            if (equippedVehicles_[vehicleId] >= 0) {
+                  }
+              }
+            if (equippedVehicles_[vehicleId] >= 0)
+              {
                 int extId = equippedVehicles_[vehicleId];
                 activeEquippedVehicles[extId] = vehicle;
                 // vehicle is equipped
-            }
-        }
+              }
+          }
 
-        out.writeChar( static_cast<unsigned char>( (rtype_abs?RTYPE_ABS:0) + (rtype_rel?RTYPE_REL:0) ) );
+        out.writeChar( static_cast<unsigned char>(rtype) );
         out.writeInt(numEquippedVehicles_);
         // iterate over all active equipped vehicles
-        for (map<int, const MSVehicle*>::iterator iter = activeEquippedVehicles.begin(); iter != activeEquippedVehicles.end(); ++iter) {
+        for (map<int, const MSVehicle*>::iterator iter = activeEquippedVehicles.begin(); iter != activeEquippedVehicles.end(); ++iter)
+          {
             int extId = (*iter).first;
             out.writeInt(extId);
             const MSVehicle* vehicle = (*iter).second;
-            if (rtype_abs) {
+            if (rtype == RTYPE_XY)
+              {
                 Position2D pos = vehicle->getPosition();
                 out.writeFloat(pos.x());
                 out.writeFloat(pos.y());
-		out.writeFloat(vehicle->getSpeed());
-		cout << extId << ", " << pos.x() << ", " << pos.y() << ", " << vehicle->getSpeed() << endl;
-            }
-            if (rtype_rel) {
+                out.writeFloat(vehicle->getSpeed());
+              }
+            if (rtype == RTYPE_REL)
+              {
                 out.writeString(vehicle->getEdge()->getID());
                 out.writeFloat(vehicle->getPositionOnLane());
-            }
-        }
+              }
+          }
 
-    } catch (...) {
+        if (isMapChanged_)
+          {
+            isMapChanged_ = false;
+            ext2intId.clear();
+            for (map<std::string, int>::iterator iter = equippedVehicles_.begin(); iter != equippedVehicles_.end(); ++iter)
+              {
+                std::string intId = (*iter).first;
+                int extId = (*iter).second;
+                ext2intId[extId] = intId;
+              }
+          }
+
+      }
+    catch (...)
+      {
         out.writeChar(RTYPE_ERR);
         out.writeString("some error happen in command: simulation step. "
                         "sumo shut down");
         throw new RemoteException("some error happen in command: simulation step.");
         return;
-    }
+      }
 
     return;
-}
+  }
+  /*****************************************************************************/
 
-/*****************************************************************************/
-
-void
-RemoteServer::simInfo(tcpip::Storage &out)
-throw (RemoteException) {
+  void
+  RemoteServer::setMaximumSpeed(tcpip::Storage &in, tcpip::Storage &out, int length)
+  throw (RemoteException)
+  {
+    cout << "x***" << endl;
     // prepare out
-    cout << "out.reset();" << endl;
     out.reset();
     
-    /*
-    cout << "MSVehicleControl vc;" << endl;
-    MSVehicleControl vc;
-    
-    cout << "MSRouteHandler rh(routeFile_, vc, true, false, 0, 0);" << endl;
-    MSRouteHandler rh(routeFile_, vc, true, false, 0, 0);
-    
-    cout << "MSNet *net = MSNet::getInstance();" << endl;
-    MSNet *net = MSNet::getInstance();
-    
-    cout << "MSRouteLoader rl(*net, &rh);" << endl;
-    MSRouteLoader rl(*net, &rh);
-    
-    cout << "vector<MSRouteLoader*> lv;" << endl;
-    vector<MSRouteLoader*> lv;
-    
-    cout << "lv.push_back(&rl);" << endl;
-    lv.push_back(&rl);
-    
-    cout << "MSRouteLoaderControl rlc(*net, 0, lv);" << endl;
-    MSRouteLoaderControl rlc(*net, 0, lv);
-    
-    cout << "rlc.loadNext(endTime_);" << endl;
-    rlc.loadNext(endTime_);
-    
-    cout << "size_t numVehicles = rlc.myVehCont.size();" << endl;
-    size_t numVehicles = rlc.myVehCont.size();
-    cout << " *** numVehicles = " << numVehicles << endl;
-    */
-    
-    size_t numVehicles = 21;
-    cout << "out.writeChar(RTYPE_NONE);" << endl;
-    out.writeChar(RTYPE_NONE);
-    
-    cout << "out.writeInt(numVehicles);" << endl;
-    out.writeInt(static_cast<int>(numVehicles));
-    
-    /*
-    cout << "delete net;" << endl;
-    delete net;
-    */
-}
+    int extId = in.readInt(); // external node id (equipped vehicle number)
+    cout << "extId = " << extId << endl;
+    float maxspeed = in.readFloat();
+    cout << "maxspeed = " << maxspeed << endl;
+    std::string intId = ext2intId[extId];
+    cout << "intId = " << intId << endl;
+    MSVehicle *veh = MSNet::getInstance()->getVehicleControl().getVehicle( intId );
+    if ( veh != NULL )
+      {
+        if (maxspeed>=0)
+          {
+	    cout << "maxspeed>=0" << endl;
+            veh->setIndividualMaxSpeed( maxspeed );
+          }
+        else
+          {
+	    cout << "maxspeed<0" << endl;
+            veh->unsetIndividualMaxSpeed();
+          }
+      } else {
+        cout << "(veh == NULL)" << endl;
+      }
+    cout << "***x" << endl;
 
-/*****************************************************************************/
+    return;
+  }
+
+  /*****************************************************************************/
 }
