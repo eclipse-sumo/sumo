@@ -336,7 +336,28 @@ public:
 
     SUMOReal getMaxSpeed() const
     {
+        if ( isIndividualMaxSpeedSet() )
+            return getIndividualMaxSpeed();
+    
         return myType->getMaxSpeed();
+    }
+    
+    void setIndividualMaxSpeed( SUMOReal individualMaxSpeed ) {
+        myIsIndividualMaxSpeedSet = true;
+        myIndividualMaxSpeed = individualMaxSpeed;
+    }
+
+    void unsetIndividualMaxSpeed( void ) {
+        myIsIndividualMaxSpeedSet = false;
+        myIndividualMaxSpeed = 0.0;
+    }
+
+    SUMOReal getIndividualMaxSpeed( void ) const {
+        return myIndividualMaxSpeed;
+    }
+
+    bool isIndividualMaxSpeedSet( void ) const {
+        return myIsIndividualMaxSpeedSet;
     }
 
     /** */
@@ -627,7 +648,16 @@ protected:
 
     /// Vehicles driving state. here: pos and speed
     State myState;
-
+    
+    /// An individual speed for an vehicle that is used (iff set) instead of
+    /// the maximal speed of the vehicle class.
+    /// NOTE: This is just a little workaround for allowing an external
+    ///       influence on the actual speed
+    SUMOReal myIndividualMaxSpeed;
+    
+    /// is true if there has an individual speed been set
+    bool myIsIndividualMaxSpeedSet;
+    
     /// is true, if the vehicle is abble to send Informations to another vehicle
     bool equipped;
 

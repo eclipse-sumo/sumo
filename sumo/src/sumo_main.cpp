@@ -139,10 +139,10 @@ main(int argc, char **argv)
 #ifdef ITM
             if (oc.getInt("remote-port") != 0) {
                 WRITE_MESSAGE("waiting for request on port " + toString<int>(oc.getInt("remote-port")));
-                itm::RemoteServer rs(oc.getInt("remote-port"),oc.getInt("end"),oc.getFloat("penetration"));
-                WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("begin")));
-                rs.run();
-                WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
+		itm::RemoteServer rs(oc.getInt("remote-port"),oc.getInt("end"),oc.getFloat("penetration"),oc.getString("route-files"));
+		WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("begin")));
+		rs.run();
+		WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
             } else {
 #endif
                 // report the begin when wished

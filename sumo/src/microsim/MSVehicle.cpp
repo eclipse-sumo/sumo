@@ -229,6 +229,8 @@ MSVehicle::MSVehicle(string id,
         myRoute(route),
         myDesiredDepart(departTime),
         myState(0, 0), //
+        myIndividualMaxSpeed( 0.0 ),
+        myIsIndividualMaxSpeedSet( false ),
         equipped(false),
         lastUp(0),
         clusterId(-1),
@@ -483,15 +485,16 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
         }
     }
 
-
+    SUMOReal maxNextSpeed = MIN2( myType->maxNextSpeed(myState.mySpeed), getMaxSpeed() );
+    
     SUMOReal vNext = myType->dawdle(MIN3(lane->maxSpeed(), myType->maxNextSpeed(myState.mySpeed), vSafe));
     vNext =
         myLaneChangeModel->patchSpeed(
             MAX2((SUMOReal) 0, ACCEL2SPEED(myState.mySpeed-myType->getMaxDecel())), //!!! reverify
             vNext,
-            MIN3(vSafe, myLane->maxSpeed(), myType->maxNextSpeed(myState.mySpeed)),//vaccel(myState.mySpeed, myLane->maxSpeed())),
+            MIN3(vSafe, myLane->maxSpeed(), maxNextSpeed),//vaccel(myState.mySpeed, myLane->maxSpeed())),
             vSafe);
-    vNext = MIN4(vNext, vSafe, myLane->maxSpeed(), myType->maxNextSpeed(myState.mySpeed));//vaccel(myState.mySpeed, myLane->maxSpeed()));
+    vNext = MIN4(vNext, vSafe, myLane->maxSpeed(), maxNextSpeed);//vaccel(myState.mySpeed, myLane->maxSpeed()));
 
     SUMOReal predDec = pred->getSpeedAfterMaxDecel(pred->getSpeed()); //!!!!q//-decelAbility() /* !!! decelAbility of leader! */);
     if (myType->brakeGap(vNext)+vNext*myType->getTau() > myType->brakeGap(predDec) + gap) {
@@ -693,6 +696,8 @@ MSVehicle::moveFirstChecked()
     }
     // call reminders after vNext is set
     SUMOReal pos = myState.myPos;
+    
+    vNext = MIN2( vNext, getMaxSpeed() );
 
     // update position
     myState.myPos += SPEED2DIST(vNext);

@@ -26,6 +26,8 @@
 // COMMANDS
 // ****************************************
 
+// command: simulation info
+#define CMD_SIMINFO 0x00
 // command: simulation step
 #define CMD_SIMSTEP 0x01
 // command: close sumo

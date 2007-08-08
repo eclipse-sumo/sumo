@@ -72,7 +72,8 @@ public:
     // @param port defines on which port the server is listening on
     // @param endTime defines at which time the simulation stops
     // @param penetration defines how many vehicles are included
-    RemoteServer(int port, SUMOTime endTime, float penetration);
+    // @param routeFile name of file which contains vehicle routes
+    RemoteServer(int port, SUMOTime endTime, float penetration, std::string routeFile);
 
     // Destructor
     // final cleanup
@@ -81,12 +82,18 @@ public:
     // start server
     void run();
 
+protected:
     // process command simStep
     // step forward in simulation until targetTime or endTime reached
     // report node positions if wanted
     // @param in contains unparsed parameters targetTime, ResultType
     // @param out contains node positions ready for output
     void simStep(tcpip::Storage &in, tcpip::Storage &out) throw(RemoteException);
+    
+    // process command simInfo
+    // report node count and simulation area
+    // @param out contains node positions ready for output
+    void simInfo(tcpip::Storage &out) throw(RemoteException);
 
 private:
     // port on which server is listening on
@@ -98,11 +105,15 @@ private:
     // penetration rate, measurement of equipped vehicles in simulation
     float penetration_;
 
+    // routeFile name of file which contains vehicle routes
+    std::string routeFile_;
+    
     //  maps all internal vehicle ids to external id if equipped else to -1
     std::map<std::string, int> equippedVehicles_;
 
     // hold number of all equipped vehicles
     int numEquippedVehicles_;
+    
 };
 }
 

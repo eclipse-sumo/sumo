@@ -37,6 +37,9 @@
 #include "microsim/MSVehicle.h"
 #include "utils/geom/Position2D.h"
 #include "microsim/MSEdge.h"
+#include "microsim/MSRouteHandler.h"
+#include "microsim/MSRouteLoaderControl.h"
+#include "microsim/MSRouteLoader.h"
 
 #include <string>
 #include <map>
@@ -61,8 +64,9 @@ using namespace tcpip;
 namespace itm {
 /*****************************************************************************/
 
-RemoteServer::RemoteServer(int port, SUMOTime endTime, float penetration)
-        : port_(port), endTime_(endTime), penetration_(penetration), numEquippedVehicles_(0) {}
+RemoteServer::RemoteServer(int port, SUMOTime endTime, float penetration, string routeFile)
+        : port_(port), endTime_(endTime), penetration_(penetration), 
+	  routeFile_(routeFile), numEquippedVehicles_(0) {}
 
 /*****************************************************************************/
 
@@ -84,24 +88,34 @@ RemoteServer::run() {
             socket.receiveExact(in);
             unsigned char cmd = in.readChar();
             switch (cmd) {
+	    
+            case CMD_SIMINFO:
+	        cout << "case CMD_SIMINFO:" << endl;
+                simInfo(out);
+                break;
+            
             case CMD_SIMSTEP:
+	        cout << "case CMD_SIMSTEP:" << endl;
                 simStep(in, out);
                 break;
 
-            case CMD_CLOSE:
+	    case CMD_CLOSE:
+                cout << "case CMD_CLOSE:" << endl;
                 running = false;
                 out.writeChar(RTYPE_ERR);
                 out.writeString("sumo shut down");
                 break;
 
-            default:
+	    default:
+                cout << "default:" << endl;
                 running = false;
                 out.writeChar(RTYPE_ERR);
                 out.writeString("unknown command received. sumo shut down.");
                 cerr << "unkown command received. sumo shut down" << endl;
                 break;
             }
-
+	    
+	    cout << "socket.sendExact(out);" << endl;
             socket.sendExact(out);
         }
     } catch (RemoteException e) {
@@ -179,6 +193,7 @@ throw (RemoteException) {
                 out.writeFloat(pos.x());
                 out.writeFloat(pos.y());
 		out.writeFloat(vehicle->getSpeed());
+		cout << extId << ", " << pos.x() << ", " << pos.y() << ", " << vehicle->getSpeed() << endl;
             }
             if (rtype_rel) {
                 out.writeString(vehicle->getEdge()->getID());
@@ -195,6 +210,58 @@ throw (RemoteException) {
     }
 
     return;
+}
+
+/*****************************************************************************/
+
+void
+RemoteServer::simInfo(tcpip::Storage &out)
+throw (RemoteException) {
+    // prepare out
+    cout << "out.reset();" << endl;
+    out.reset();
+    
+    /*
+    cout << "MSVehicleControl vc;" << endl;
+    MSVehicleControl vc;
+    
+    cout << "MSRouteHandler rh(routeFile_, vc, true, false, 0, 0);" << endl;
+    MSRouteHandler rh(routeFile_, vc, true, false, 0, 0);
+    
+    cout << "MSNet *net = MSNet::getInstance();" << endl;
+    MSNet *net = MSNet::getInstance();
+    
+    cout << "MSRouteLoader rl(*net, &rh);" << endl;
+    MSRouteLoader rl(*net, &rh);
+    
+    cout << "vector<MSRouteLoader*> lv;" << endl;
+    vector<MSRouteLoader*> lv;
+    
+    cout << "lv.push_back(&rl);" << endl;
+    lv.push_back(&rl);
+    
+    cout << "MSRouteLoaderControl rlc(*net, 0, lv);" << endl;
+    MSRouteLoaderControl rlc(*net, 0, lv);
+    
+    cout << "rlc.loadNext(endTime_);" << endl;
+    rlc.loadNext(endTime_);
+    
+    cout << "size_t numVehicles = rlc.myVehCont.size();" << endl;
+    size_t numVehicles = rlc.myVehCont.size();
+    cout << " *** numVehicles = " << numVehicles << endl;
+    */
+    
+    size_t numVehicles = 21;
+    cout << "out.writeChar(RTYPE_NONE);" << endl;
+    out.writeChar(RTYPE_NONE);
+    
+    cout << "out.writeInt(numVehicles);" << endl;
+    out.writeInt(static_cast<int>(numVehicles));
+    
+    /*
+    cout << "delete net;" << endl;
+    delete net;
+    */
 }
 
 /*****************************************************************************/
