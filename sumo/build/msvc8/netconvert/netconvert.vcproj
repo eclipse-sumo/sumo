@@ -76,7 +76,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2D.lib $(PROJ_GDAL)\lib\gdal_i.lib $(NOINHERIT)"
+				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2D.lib $(PROJ_GDAL)\lib\gdal_i.lib $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Debug/netconvertD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -173,7 +173,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2.lib $(PROJ_GDAL)\lib\gdal_i.lib $(NOINHERIT)"
+				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2.lib $(PROJ_GDAL)\lib\gdal_i.lib $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/netconvert.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
