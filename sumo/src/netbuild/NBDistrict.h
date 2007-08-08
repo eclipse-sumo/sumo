@@ -132,7 +132,7 @@ public:
      *        <shape><THE_SHAPE></shape>
      *    </district>
      *
-     * @param[in] into The stream to wirte the xml-representation into
+     * @param[in] into The device to write the xml-representation into
      */
     void writeXML(OutputDevice &into) throw();
 
