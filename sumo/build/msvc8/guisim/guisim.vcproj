@@ -222,10 +222,6 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\src\foreign\AviFile.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\guisim_main.cpp"
 				>
 				<FileConfiguration
@@ -282,10 +278,6 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
-			<File
-				RelativePath="..\..\..\src\foreign\AviFile.h"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Ressourcendateien"
