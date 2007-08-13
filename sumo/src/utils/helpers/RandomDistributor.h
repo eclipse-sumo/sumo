@@ -32,6 +32,7 @@
 
 #include <cassert>
 #include <utils/common/RandHelper.h>
+#include <utils/common/UtilExceptions.h>
 
 template<class T>
 class RandomDistributor
@@ -52,6 +53,9 @@ public:
 
     T get() const
         {
+			if(myProb==0) {
+				throw OutOfBoundsException();
+			}
             SUMOReal prob = randSUMO(myProb);
             for (int i=0; i<(int) myVals.size(); i++) {
                 if (prob<myProbs[i]) {
