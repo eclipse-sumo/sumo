@@ -194,8 +194,9 @@ bool
 GUILoadThread::initOptions()
 {
     try {
-        SUMOFrame::fillOptions();
         OptionsCont &oc = OptionsCont::getOptions();
+		oc.clear();
+        SUMOFrame::fillOptions();
         if (myLoadNet) {
             oc.set("net-file", myFile);
         } else {

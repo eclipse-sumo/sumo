@@ -413,12 +413,14 @@ OptionsCont::isWriteable(const std::string &name)
 void
 OptionsCont::clear()
 {
-    for (ItemAddressContType::iterator i=myAddresses.begin();
-            i!=myAddresses.end(); i++) {
-        delete(*i);
+	ItemAddressContType::iterator i;
+    for (i=myAddresses.begin(); i!=myAddresses.end(); i++) {
+        delete (*i);
     }
     myAddresses.clear();
     myValues.clear();
+	mySubTopics.clear();
+	mySubTopicEntries.clear();
 }
 
 
