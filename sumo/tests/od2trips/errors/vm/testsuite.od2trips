@@ -1,8 +1,3 @@
-
-# The vehicle type is missing (based import/vmr/100vehs_hour) 
-vm_no_vehicle_type
-
-
 # The begin time is larger than the end time
 vm_time_begin_larger
 
@@ -15,12 +10,6 @@ vm_time_end_false
 # one time is missing
 vm_time_one_missing
 
-
-# One district too much in the data
-vm_one_district_too_much
-
-# One district too less in the data
-vm_one_district_missing
 
 # first amount in first district not numeric
 vm_false11
@@ -39,7 +28,5 @@ vm_false22
 # factor not numeric
 vm_factor_false
 
-# factor missing
-vm_factor_missing
 
 
