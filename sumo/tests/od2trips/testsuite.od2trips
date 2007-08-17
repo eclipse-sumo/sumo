@@ -8,3 +8,5 @@ meta
 # tests for what happens if an error occures
 errors
 
+# Tests for splitting matrices by time lines
+timelines
