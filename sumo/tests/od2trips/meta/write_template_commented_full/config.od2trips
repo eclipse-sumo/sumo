@@ -46,6 +46,9 @@
       <!-- Uses STR as a 24h-timeline definition -->
       <timeline.day-in-hours>false</timeline.day-in-hours>
 
+      <!-- Continue on broken input -->
+      <dismiss-loading-errors>false</dismiss-loading-errors>
+
    </processing>
 
    <report>

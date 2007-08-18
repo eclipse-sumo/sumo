@@ -38,6 +38,7 @@ Usage: od2trips.exe [OPTION]*
   --prefix STR                     Defines the prefix for vehicle names
   --timeline STR                   Uses STR as a timeline definition
   --timeline.day-in-hours          Uses STR as a 24h-timeline definition
+  --dismiss-loading-errors         Continue on broken input
 
  Report Options:
   -v, --verbose                    Switches to verbose output

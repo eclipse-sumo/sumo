@@ -132,6 +132,9 @@ fillOptions()
     oc.doRegister("timeline.day-in-hours", new Option_Bool(false));
     oc.addDescription("timeline.day-in-hours", "Processing", "Uses STR as a 24h-timeline definition");
 
+    oc.doRegister("dismiss-loading-errors", new Option_Bool(false)); // !!! describe, document
+    oc.addDescription("dismiss-loading-errors", "Processing", "Continue on broken input");
+
 
     // register report options
     oc.doRegister("verbose", 'v', new Option_Bool(false));
@@ -510,6 +513,12 @@ main(int argc, char **argv)
         // load the matrix
         ODMatrix matrix(districts);
         loadMatrix(oc, matrix);
+        if (matrix.getNoLoaded()==0) {
+            throw ProcessError("No vehicles loaded...");
+        }
+		if (MsgHandler::getErrorInstance()->wasInformed()&&!oc.getBool("dismiss-loading-errors")) {
+            throw ProcessError("Loading failed...");
+        }
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoLoaded()) + " vehicles loaded.");
         // apply a curve if wished
         if (oc.isSet("timeline")) {

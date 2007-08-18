@@ -20,3 +20,20 @@ both_missing1of2
 both_missing2of2
 
 
+
+# From-district is unknown in first of two o/d entries; loading errors are ignored
+from_missing1of2_allowed
+
+# From-district is unknown in second of two o/d entries; loading errors are ignored
+from_missing2of2_allowed
+
+
+# To-district is unknown in first of two o/d entries; loading errors are ignored
+to_missing1of2_allowed
+
+# To-district is unknown in second of two o/d entries; loading errors are ignored
+to_missing2of2_allowed
+
+
+
+
