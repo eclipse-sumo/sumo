@@ -1,8 +1,7 @@
+# Format errors in read O/D-matrices
+format
 
-# Errors in VMR-files
-vm
-
-# Errors in OR-format
-o
+# Incomplete matrices (unknown districts)
+incomplete
 
 
