@@ -412,6 +412,18 @@ ROEdge::getToNode() const
 }
 
 
+bool 
+ROEdge::allFollowersProhibit(const ROVehicle * const vehicle) const
+{
+	for(std::vector<ROEdge*>::const_iterator i=myFollowingEdges.begin(); i!=myFollowingEdges.end(); ++i) {
+		if(!(*i)->prohibits(vehicle)) {
+			return false;
+		}
+	}
+	return true;
+}
+
+
 
 /****************************************************************************/
 
