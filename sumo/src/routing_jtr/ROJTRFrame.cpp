@@ -101,6 +101,9 @@ ROJTRFrame::addJTROptions()
 
     oc.doRegister("accept-all-destinations", 'A', new Option_Bool(false));
     oc.addDescription("accept-all-destinations", "Processing", "");
+
+    oc.doRegister("ignore-classes", 'i', new Option_Bool(false));
+    oc.addDescription("ignore-classes", "Processing", "");
 }
 
 

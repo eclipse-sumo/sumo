@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Jan 2004
 /// @version $Id$
 ///
-// An edge the router may route through
+// An edge the jtr-router may route through
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -33,6 +33,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RandHelper.h>
 #include "ROJTREdge.h"
+#include <utils/helpers/RandomDistributor.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -65,8 +66,7 @@ void
 ROJTREdge::addFollower(ROEdge *s)
 {
     ROEdge::addFollower(s);
-    myFollowingDefs[static_cast<ROJTREdge*>(s)] =
-        new FloatValueTimeLine();
+    myFollowingDefs[static_cast<ROJTREdge*>(s)] = new FloatValueTimeLine();
 }
 
 
@@ -84,67 +84,38 @@ ROJTREdge::addFollowerProbability(ROJTREdge *follower, SUMOTime begTime,
 
 
 ROJTREdge *
-ROJTREdge::chooseNext(SUMOTime time) const
+ROJTREdge::chooseNext(const ROVehicle * const veh, SUMOTime time) const
 {
-    if (myFollowingEdges.size()==0) {
+	// if no usable follower exist, return 0
+	//  their probabilities are not yet regarded
+    if (myFollowingEdges.size()==0 || (veh!=0 && allFollowersProhibit(veh)) ) {
         return 0;
     }
-    // check whether any definition exists
-    FollowerUsageCont::const_iterator i;
-    // check how many edges are defined for the given time step
-    size_t noDescs = 0;
-    bool hasDescription = true;
-    for (i=myFollowingDefs.begin(); i!=myFollowingDefs.end()&&hasDescription; i++) {
-        if ((*i).second->describesTime(time)) {
-            noDescs++;
-        }
-    }
-    // get a random number between zero and one
-    SUMOReal chosen = randSUMO();
-    // if no description is given for the current time
-    if (noDescs==0) {
-        //  use the defaults
-        std::vector<SUMOReal>::const_iterator j;
-        size_t pos = 0;
-        for (j=myParsedTurnings.begin(); j!=myParsedTurnings.end(); j++) {
-            chosen = chosen - (*j);
-            if (chosen<0) {
-                return static_cast<ROJTREdge*>(myFollowingEdges[pos]);
-            }
-            pos++;
-        }
-        return static_cast<ROJTREdge*>(myFollowingEdges[0]);
-    }
-    // if the probabilities are given for all following edges
-    if (noDescs==myFollowingEdges.size()) {
-        // use the loaded definition
-        // choose the appropriate one from the list
-        for (i=myFollowingDefs.begin(); i!=myFollowingDefs.end(); i++) {
-            chosen = chosen - (*i).second->getValue(time);
-            if (chosen<=0) {
-                return (*i).first;
-            }
-        }
-        return (*myFollowingDefs.begin()).first;
-    } else {
-        // ok, at least one description is missing
-        //  the missing descriptions will be treated as zero
-        bool allZero = true; // we won't be as stupid as our users may be...
-        while (allZero) { // ... we may loop several times, but not forever
-            allZero = false;
-            for (i=myFollowingDefs.begin(); i!=myFollowingDefs.end(); i++) {
-                if ((*i).second->describesTime(time)) {
-                    chosen = chosen - (*i).second->getValue(time);
-                    if (chosen<=0) {
-                        return (*i).first;
-                    }
-                    allZero = allZero |
-                              ((*i).second->getValue(time)!=0);
-                }
-            }
-        }
-        return (*myFollowingDefs.begin()).first;
-    }
+	// gather information about the probabilities at this time
+	RandomDistributor<ROJTREdge*> dist;
+	{
+		// use the loaded definitions, first
+	    FollowerUsageCont::const_iterator i;
+		for (i=myFollowingDefs.begin(); i!=myFollowingDefs.end(); i++) {
+			if ((veh==0 || !(*i).first->prohibits(veh)) && (*i).second->describesTime(time)) {
+				dist.add((*i).second->getValue(time), (*i).first);
+			}
+		}
+	}
+	// if no loaded definitions are valid for this time, try to use the defaults
+	if(dist.getOverallProb()==0) {
+		for(size_t i=0; i<myParsedTurnings.size(); ++i) {
+			if (veh==0 || !myFollowingEdges[i]->prohibits(veh)) {
+				dist.add(myParsedTurnings[i], static_cast<ROJTREdge*>(myFollowingEdges[i]));
+			}
+		}
+	}
+	// if still no valid follower exists, return null
+	if(dist.getOverallProb()==0) {
+		return 0;
+	}
+	// return one of the possible followers
+	return dist.get();
 }
 
 

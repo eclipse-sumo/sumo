@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Jan 2004
 /// @version $Id$
 ///
-// An edge the router may route through
+// An edge the jtr-router may route through
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -48,27 +48,53 @@ class ROLane;
 // ===========================================================================
 /**
  * @class ROJTREdge
- * A router's edge extended by the definition about the probability a
- *  vehicle's probabilities to choose a certain following edge over time.
+ * @brief An edge the jtr-router may route through
+ *
+ * A router edge extended by the definition about the probability a
+ *  vehicle chooses a certain following edge over time.
  */
 class ROJTREdge : public ROEdge
 {
 public:
-    /// Constructor
-    ROJTREdge(const std::string &id, int index);
+    /** @brief Constructor
+	 *
+	 * @param[in] id The id of the edge
+	 * @param[in] index The numerical id of the edge
+	 */
+    ROJTREdge(const std::string &id, int index) throw();
+
 
     /// Desturctor
-    ~ROJTREdge();
+    ~ROJTREdge() throw();
 
-    /// Adds information about a connected edge
-    void addFollower(ROEdge *s);
 
-    /// adds the information about the percentage of using a certain follower
-    void addFollowerProbability(ROJTREdge *follower,
+    /** @brief Adds information about a connected edge
+	 * 
+	 * Makes this edge know the given following edge. Calls ROEdge::addFollower.
+	 *
+	 * Additionally it generates the entry for the given following edge
+	 *  in myFollowingDefs.
+	 *
+	 * @param[in] s The following edge
+	 * @see ROEdge::addFollower
+	 */
+    void addFollower(ROEdge *s) throw();
+
+
+    /** @brief adds the information about the percentage of using a certain follower
+	 *
+	 *!!!
+	 *
+	 * @param[in] follower The following edge
+	 * @param[in] begTime Time begin for which this probability is valid
+	 * @param[in] endTime Time end for which this probability is valid
+	 * @param[in] probability The probability to use the given follower
+	 */
+	void addFollowerProbability(ROJTREdge *follower,
                                 SUMOTime begTime, SUMOTime endTime, SUMOReal probability);
 
     /// Returns the next edge to use
-    ROJTREdge *chooseNext(SUMOTime time) const;
+    ROJTREdge *chooseNext(const ROVehicle *const, SUMOTime time) const;
 
     /// Sets the turning definition defaults
     void setTurnDefaults(const std::vector<SUMOReal> &defs);
