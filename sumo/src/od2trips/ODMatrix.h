@@ -226,6 +226,7 @@ protected:
 	 * @param[in] ps The time line to apply
 	 * @param[in] cell The cell to split
 	 * @param[out] newCells The storage to put generated cells into
+	 * @todo describe better!!!
      */
     void applyCurve(const Distribution_Points &ps, ODCell *cell,
                     CellVector &newCells) throw();
