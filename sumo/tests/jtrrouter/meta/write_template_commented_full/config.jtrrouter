@@ -58,6 +58,9 @@
       <!--  -->
       <accept-all-destinations>false</accept-all-destinations>
 
+      <!--  -->
+      <ignore-classes>false</ignore-classes>
+
    </processing>
 
    <time>

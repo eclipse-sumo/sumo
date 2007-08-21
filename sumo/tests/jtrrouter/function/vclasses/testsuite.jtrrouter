@@ -1,0 +1,6 @@
+# No vehicle class given
+no_vclass
+
+# All vehicles are passenger cars (may not use left route)
+passenger
+

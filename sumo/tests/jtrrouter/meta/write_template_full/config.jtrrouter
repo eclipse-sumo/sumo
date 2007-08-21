@@ -24,6 +24,7 @@
       <turn-defaults>30,50,20</turn-defaults>
       <sinks></sinks>
       <accept-all-destinations>false</accept-all-destinations>
+      <ignore-classes>false</ignore-classes>
    </processing>
 
    <time>
