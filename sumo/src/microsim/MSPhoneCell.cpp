@@ -196,9 +196,9 @@ MSPhoneCell::setStatParams(int interval, int statcallcount)
     }
     /*
     if(myCellId==2503) {
-        cout << "------------" << endl;
+        cout << "------------" << "\n";
         for(size_t i=0; i<myExpectedStaticCalls.size(); ++i) {
-            cout << myExpectedStaticCalls[i].first << ", " << myExpectedStaticCalls[i].second << endl;
+            cout << myExpectedStaticCalls[i].first << ", " << myExpectedStaticCalls[i].second << "\n";
         }
         int bla = 0;
     }
@@ -378,7 +378,7 @@ MSPhoneCell::writeOutput(SUMOTime t)
             for (i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
                 t1 = t1 + (t - (*i).second);
             }
-            od->getOStream()
+            *od
             << "02;" << timestr << ';'
             << myCellId << ';'
             << myStaticCallsIn << ';' << myStaticCallsOut << ';'
@@ -387,7 +387,7 @@ MSPhoneCell::writeOutput(SUMOTime t)
             << t << ';'
             << myLaterDynamicStarted << ';'
             << myVehiclesEntered << ';'
-            << t1 << endl;
+            << t1 << "\n";
             myVehiclesEntered = 0;
             myVehicleTimes = 0;
             for (i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
@@ -401,11 +401,11 @@ MSPhoneCell::writeOutput(SUMOTime t)
             std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
             timestr = timestr + " " + StringUtils::toTimeString(t);
             if (od->getBoolMarker("hadFirstCall")) {
-                od->getOStream() << "," << endl;
+                *od << "," << "\n";
             } else {
                 od->setBoolMarker("hadFirstCall", true);
             }
-            od->getOStream()
+            *od
             << "(NULL, \' \', '" << timestr << "',"
             << myCellId << ','
             << myStaticCallsIn << ',' << myStaticCallsOut << ','

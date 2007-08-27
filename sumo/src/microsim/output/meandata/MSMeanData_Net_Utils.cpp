@@ -121,7 +121,7 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
             }
             // Write xml-comment
             /*
-            dev->getOStream() << "<!--\n"
+            dev << "<!--\n"
                 "- noVehContrib is the number of vehicles have been on the lane for\n"
                 "  at least one timestep during the current intervall.\n"
                 "  They contribute to speed, speedsquare and density.\n"

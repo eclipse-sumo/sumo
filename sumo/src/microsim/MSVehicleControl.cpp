@@ -119,7 +119,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
         OutputDevice *od = net->getOutputDevice(MSNet::OS_TRIPDURATIONS);
         SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART);
         SUMOTime time = net->getCurrentTimeStep();
-        od->getOStream()
+        *od
         << "   <tripinfo vehicle_id=\"" << v->getID() << "\" "
         << "start=\"" << realDepart << "\" "
         << "wished=\"" << v->desiredDepart() << "\" "
@@ -129,30 +129,30 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
         // write reroutes
         << "reroutes=\"";
         if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
-            od->getOStream()
+            *od
             << v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
         } else {
-            od->getOStream() << '0';
+            *od << '0';
         }
-        od->getOStream() << "\" ";
+        *od << "\" ";
         // write devices
-        od->getOStream() << "devices=\"";
+        *od << "devices=\"";
         bool addSem = false;
         if (v->hasCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE)) {
             vector<MSDevice_CPhone*> *phones = (vector<MSDevice_CPhone*>*) v->getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
             if (phones->size()!=0) {
-                od->getOStream() << "cphones=" << phones->size();
+                *od << "cphones=" << phones->size();
                 addSem = true;
             }
         }
         if (v->isEquipped()) {
             if (addSem) {
-                od->getOStream() << ';';
+                *od << ';';
             }
-            od->getOStream() << "c2c";
+            *od << "c2c";
             addSem = true;
         }
-        od->getOStream() << "\" vtype=\"" << v->getVehicleType().getID() << "\"/>" << endl;
+        *od << "\" vtype=\"" << v->getVehicleType().getID() << "\"/>" << "\n";
     }
 
     // check whether to generate the information about the vehicle's routes
@@ -162,20 +162,20 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
         OutputDevice *od = net->getOutputDevice(MSNet::OS_VEHROUTE);
         SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART);
         SUMOTime time = net->getCurrentTimeStep();
-        od->getOStream()
+        *od
         << "   <vehicle id=\"" << v->getID() << "\" emittedAt=\""
         << v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART)
         << "\" endedAt=\"" << MSNet::getInstance()->getCurrentTimeStep()
-        << "\">" << endl;
+        << "\">" << "\n";
         if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
             int noReroutes = v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
             for (int i=0; i<noReroutes; i++) {
-                v->writeXMLRoute(od->getOStream(), i);
-                od->getOStream() << endl;
+                v->writeXMLRoute(*od, i);
+                *od << "\n";
             }
         }
-        v->writeXMLRoute(od->getOStream());
-        od->getOStream() << "   </vehicle>" << endl << endl;
+        v->writeXMLRoute(*od);
+        *od << "   </vehicle>" << "\n" << "\n";
     }
 
     // check whether to save c2c info output
@@ -184,7 +184,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
     if (d!=0) {
         int noReroutes = v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)
                          ? v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE) : 0;
-        d->getOStream()
+        *d
         << "	<vehicle id=\"" << v->getID()
         << "\" timestep=\"" << net->getCurrentTimeStep()
         << "\" numberOfInfos=\"" << v->getTotalInformationNumber()
@@ -192,7 +192,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
         << "\" got=\"" << v->getNoGot()
         << "\" sent=\"" << v->getNoSent()
         << "\" reroutes=\"" << noReroutes
-        << "\"/>"<<endl;
+        << "\"/>"<<"\n";
     }
 
     // check whether to save information about the vehicle's trip
@@ -415,7 +415,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
                 type = getVType(typeID);
                 assert(type!=0);
                 if (getVehicle(id)!=0) {
-                    DEBUG_OUT << "Error: vehicle was already added" << endl;
+                    DEBUG_OUT << "Error: vehicle was already added" << "\n";
                     continue;
                 }
 
@@ -438,7 +438,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
                 v->inserted = inserted!=0;
 #endif
                 if (!addVehicle(id, v)) {
-                    cout << "Could not build vehicle!!!" << endl;
+                    cout << "Could not build vehicle!!!" << "\n";
                     throw 1;
                 }
                 size--;

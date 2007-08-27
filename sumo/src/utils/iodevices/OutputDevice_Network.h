@@ -54,10 +54,10 @@ public:
     /// destructor
     ~OutputDevice_Network();
 
+protected:
     /// returns the associated ostream
     std::ostream &getOStream();
 
-protected:
     /// Actually sends the data which was written to the string stream over the socket.
     virtual void postWriteHook();
 

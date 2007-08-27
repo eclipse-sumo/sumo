@@ -124,7 +124,7 @@ MSPhoneLA::writeOutput(SUMOTime t)
         if (od!=0) {
             std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
             timestr = timestr + " " + StringUtils::toTimeString(t);
-            od->getOStream()
+            *od
             << "03;" << ';' << timestr << ';' << position_id << ';' << dir << ';' << sum_changes
             << ';' << quality_id << ';' << intervall << "\n";
         }
@@ -135,11 +135,11 @@ MSPhoneLA::writeOutput(SUMOTime t)
             std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
             timestr = timestr + " " + StringUtils::toTimeString(t);
             if (od->getBoolMarker("hadFirstCall")) {
-                od->getOStream() << "," << endl;
+                *od << "," << "\n";
             } else {
                 od->setBoolMarker("hadFirstCall", true);
             }
-            od->getOStream()
+            *od
             << "(NULL, \' \', '" << timestr << "'," << position_id << ',' << dir << ',' << sum_changes << ','
             << quality_id << ',' << intervall << ")";
         }

@@ -195,12 +195,11 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
             if (state==MSDevice_CPhone::STATE_CONNECTED_IN || state==MSDevice_CPhone::STATE_CONNECTED_OUT) {
                 OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
                 if (od!=0) {
-                    od->getOStream()
+                    *od
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << cp->getCallId() << ';'
                     << myAreaId << ';'
-                    << "1;" << cp->getID() << std::endl;
-                    ;
+                    << "1;" << cp->getID() << "\n";
                 }
             }
         } else { // TOL_SA
@@ -213,7 +212,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                         std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                         timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
                         // !!! recheck quality indicator
-                        od->getOStream()
+                        *od
                         << "01;'" << timestr << "';" << cp->getCallId() << ';' << myAreaId << ';' << 0 << "\n"; // !!! check <CR><LF>-combination
                     }
                 }
@@ -221,13 +220,13 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                     OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_DEVICE_TO_SS2_SQL);
                     if (od!=0) {
                         if (od->getBoolMarker("hadFirstCall")) {
-                            od->getOStream() << "," << endl;
+                            *od << "," << "\n";
                         } else {
                             od->setBoolMarker("hadFirstCall", true);
                         }
                         std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                         timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
-                        od->getOStream()
+                        *od
                         << "(NULL, NULL, '" << timestr << "', " << myAreaId << ", " << cp->getCallId()
                         << ", " << 0 << ")"; // !!! recheck quality indicator
                     }

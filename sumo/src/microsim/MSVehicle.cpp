@@ -52,6 +52,7 @@
 #include "lanechanging/MSLCM_DK2004.h"
 #include <utils/common/ToString.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include "trigger/MSBusStop.h"
 #include <utils/helpers/SUMODijkstraRouter.h>
@@ -425,7 +426,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     myTarget = 0;
 #ifdef ABS_DEBUG
     if (debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
-        DEBUG_OUT << "movea/1:" << debug_globaltime << ": " << myID << " at " << myLane->getID() << ": " << getPositionOnLane() << ", " << getSpeed() << endl;
+        DEBUG_OUT << "movea/1:" << debug_globaltime << ": " << myID << " at " << myLane->getID() << ": " << getPositionOnLane() << ", " << getSpeed() << "\n";
     }
 #endif
     // save old v for optional acceleration computation
@@ -518,7 +519,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     myState.mySpeed = vNext;
 #ifdef ABS_DEBUG
     if (debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
-        DEBUG_OUT << "movea/2:" << debug_globaltime << ": " << myID << " at " << myLane->getID() << ": " << getPositionOnLane() << ", " << getSpeed() << endl;
+        DEBUG_OUT << "movea/2:" << debug_globaltime << ": " << myID << " at " << myLane->getID() << ": " << getPositionOnLane() << ", " << getSpeed() << "\n";
     }
 #endif
     //@ to be optimized (move to somewhere else)
@@ -546,7 +547,7 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
 #endif
 #ifdef ABS_DEBUG
     if (debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
-        DEBUG_OUT << "moveb/1:" << debug_globaltime << ": " << myID << " at " << myLane->getID() << ": " << getPositionOnLane() << ", " << getSpeed() << endl;
+        DEBUG_OUT << "moveb/1:" << debug_globaltime << ": " << myID << " at " << myLane->getID() << ": " << getPositionOnLane() << ", " << getSpeed() << "\n";
     }
 #endif
     myLFLinkLanes.clear();
@@ -775,7 +776,7 @@ MSVehicle::moveFirstChecked()
     assert(myTarget!=0);
 #ifdef ABS_DEBUG
     if (debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
-        DEBUG_OUT << "moveb/1:" << debug_globaltime << ": " << myID << " at " << getLane().getID() << ": " << myState.myPos << ", " << myState.mySpeed << endl;
+        DEBUG_OUT << "moveb/1:" << debug_globaltime << ": " << myID << " at " << getLane().getID() << ": " << myState.myPos << ", " << myState.mySpeed << "\n";
     }
 #endif
 #ifdef RAKNET_DEMO
@@ -804,7 +805,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
 #endif
 #ifdef ABS_DEBUG
     if (debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
-        DEBUG_OUT << "vsafeCriticalCont/" << debug_globaltime << ":" << myID << endl;
+        DEBUG_OUT << "vsafeCriticalCont/" << debug_globaltime << ":" << myID << "\n";
     }
 #endif
     // the vehicle may have just to look into the next lane
@@ -881,7 +882,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
         } else {
             r_dist2Pred = r_dist2Pred + nextLane->length();
         }
-//        +nextLane->myLastState.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs;
+//        +nextLane->myLastState.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! the real length of the car
 
 #ifdef HAVE_INTERNAL_LANES
         if (MSGlobals::gUsingInternalLanes) {
@@ -901,8 +902,8 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                 } else {
                     dist2Pred = dist2Pred + nl->length();
                 }
-//                seen+nextLanePred.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs
-//            if(nl->length()<dist2Pred&&nl->length()<MSVehicleType::getMaxVehicleLength()) { // @!!! die echte Länge des fahrzeugs
+//                seen+nextLanePred.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! the real length of the car
+//            if(nl->length()<dist2Pred&&nl->length()<MSVehicleType::getMaxVehicleLength()) { // @!!! the real length of the car
 
 
                 if (dist2Pred>=0) {
@@ -936,7 +937,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                         continue;
                     }
                     const State &nextLanePred2 = nl2->myLastState;
-                    SUMOReal dist2Pred2 = dist2Pred;//dist2Pred+nextLanePred2.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs
+                    SUMOReal dist2Pred2 = dist2Pred;//dist2Pred+nextLanePred2.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! the real length of the car
                     if (nl2->getLastVehicle()!=0) {
                         dist2Pred2 = dist2Pred2 + nextLanePred2.pos() - nl2->getLastVehicle()->getLength();
                     } else {
@@ -967,8 +968,8 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
             } else {
                 dist2Pred = dist2Pred + nextLane->length();
             }
-//                seen+nextLanePred.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! die echte Länge des fahrzeugs
-//            if(nl->length()<dist2Pred&&nl->length()<MSVehicleType::getMaxVehicleLength()) { // @!!! die echte Länge des fahrzeugs
+//                seen+nextLanePred.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! the real length of the car
+//            if(nl->length()<dist2Pred&&nl->length()<MSVehicleType::getMaxVehicleLength()) { // @!!! the real length of the car
 
 
             if (dist2Pred>=0) {
@@ -1611,11 +1612,11 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
         for (MSEdgeVector::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
             DEBUG_OUT << (*i)->getID() << ", ";
         }
-        DEBUG_OUT << "-------------" << endl;
+        DEBUG_OUT << "-------------" << "\n";
         for (MSRouteIterator i2=myRoute->begin(); i2!=myRoute->end(); ++i2) {
             DEBUG_OUT << (*i2)->getID() << ", ";
         }
-        DEBUG_OUT << "-------------" << endl;
+        DEBUG_OUT << "-------------" << "\n";
     }
 #endif
     MSRoute *otherr = 0;
@@ -1653,7 +1654,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
         for (MSRouteIterator i=myRoute->begin(); i!=myRoute->end(); ++i) {
             DEBUG_OUT << (*i)->getID() << ", ";
         }
-        DEBUG_OUT << "-------------" << endl;
+        DEBUG_OUT << "-------------" << "\n";
     }
 #endif
     return replaced;
@@ -1668,11 +1669,11 @@ MSVehicle::replaceRoute(MSRoute *newRoute, SUMOTime simTime)
         for (MSEdgeVector::const_iterator i=newRoute->begin(); i!=newRoute->end(); ++i) {
             DEBUG_OUT << (*i)->getID() << ", ";
         }
-        DEBUG_OUT << "-------------" << endl;
+        DEBUG_OUT << "-------------" << "\n";
         for (MSRouteIterator i2=myRoute->begin(); i2!=myRoute->end(); ++i2) {
             DEBUG_OUT << (*i2)->getID() << ", ";
         }
-        DEBUG_OUT << "-------------" << endl;
+        DEBUG_OUT << "-------------" << "\n";
     }
 #endif
     MSRoute *otherr = 0;
@@ -1709,7 +1710,7 @@ MSVehicle::replaceRoute(MSRoute *newRoute, SUMOTime simTime)
         for (MSRouteIterator i=myRoute->begin(); i!=myRoute->end(); ++i) {
             DEBUG_OUT << (*i)->getID() << ", ";
         }
-        DEBUG_OUT << "-------------" << endl;
+        DEBUG_OUT << "-------------" << "\n";
     }
 #endif
     assert((MSEdge*)succEdge(1)!=0);
@@ -1890,15 +1891,15 @@ MSVehicle::getBestLanes() const
                         for (std::vector<LaneQ>::iterator l=next.begin(); l!=next.end(); ++l) {
                             if ((*l).lane==c/*&&curr[j].t1&&(*l).t1*/) {
                                 /*
-                                cout << "c3111 " << endl;
+                                cout << "c3111 " << "\n";
                                 (*l).length += next[j].lane->length();//.length;
-                                cout << "c3112 " << endl;
+                                cout << "c3112 " << "\n";
                                 (*l).v += next[j].lane->getDensity();//;
-                                cout << "c3113 " << endl;
+                                cout << "c3113 " << "\n";
                                 (*l).wish++;
-                                cout << "c3114 " << endl;
+                                cout << "c3114 " << "\n";
                                 (*l).alllength += next[j].lane->length();//.alllength;
-                                cout << "c3115 " << endl;
+                                cout << "c3115 " << "\n";
                                 */
                                 curr[j].length += (*l).lane->length();//.length;
                                 curr[j].v += (*l).lane->getDensity();//.v;
@@ -1938,7 +1939,7 @@ MSVehicle::getBestLanes() const
 
 
 void
-MSVehicle::writeXMLRoute(std::ostream &os, int index) const
+MSVehicle::writeXMLRoute(OutputDevice &os, int index) const
 {
     MSRoute *route2Write = myRoute;
     // check if a previous route shall be written
@@ -1958,7 +1959,7 @@ MSVehicle::writeXMLRoute(std::ostream &os, int index) const
     os << ">";
     // write the route
     route2Write->writeEdgeIDs(os);
-    os << "</route>" << endl;
+    os << "</route>" << "\n";
 }
 
 
@@ -2204,7 +2205,7 @@ MSVehicle::buildMyCluster(int myStep, int clId)
                     }
                 }
             } else if ((*i).second->connectedVeh->getClusterId()==clusterId) {
-                // du bist zwar mein Nachbarn, aber du würdest von einem anderen Nachbarn von mir schon eingeladen,
+                // du bist zwar mein Nachbarn, aber du wrdest von einem anderen Nachbarn von mir schon eingeladen,
                 // dann werde ich deine nachbarn einladen.
                 std::map<MSVehicle * const, C2CConnection*>::iterator j;
                 for (j=(*i).first->myNeighbors.begin(); j!=(*i).second->connectedVeh->myNeighbors.end(); j++) {
@@ -2391,7 +2392,7 @@ MSVehicle::checkReroute(SUMOTime t)
             string nid = myRoute->getID() + "#" + toString(rerouteIndex);
             MSRoute *rep = new MSRoute(nid, edges, true);
             if (!MSRoute::dictionary(nid, rep)) {
-                //cout << "Error: Could not insert route ''" << endl;
+                //cout << "Error: Could not insert route ''" << "\n";
             } else {
                 MSCORN::setWished(MSCORN::CORN_VEH_SAVEREROUTING);
                 replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());

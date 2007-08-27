@@ -4,7 +4,7 @@
 /// @date    Mon, 10.05.2004
 /// @version $Id$
 ///
-//  »missingDescription«
+//  missingDescription
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -59,11 +59,11 @@ MSXMLRawOut::~MSXMLRawOut()
 
 
 void
-MSXMLRawOut::write(OutputDevice* of, const MSEdgeControl &ec,
+MSXMLRawOut::write(OutputDevice &of, const MSEdgeControl &ec,
                    SUMOTime timestep,
                    unsigned int intend)
 {
-    of->getOStream() << "   <timestep time=\"" << timestep << "\">" << endl;
+    of << "   <timestep time=\"" << timestep << "\">" << "\n";
     const MSEdgeControl::EdgeCont &ec1 = ec.getSingleLaneEdges();
     for (MSEdgeControl::EdgeCont::const_iterator edg1=ec1.begin(); edg1!=ec1.end(); ++edg1) {
         writeEdge(of, **edg1, intend+3);
@@ -73,12 +73,12 @@ MSXMLRawOut::write(OutputDevice* of, const MSEdgeControl &ec,
     for (MSEdgeControl::EdgeCont::const_iterator edg2=ec2.begin(); edg2!=ec2.end(); ++edg2) {
         writeEdge(of, **edg2, intend+3);
     }
-    of->getOStream() << "   </timestep>" << endl;
+    of << "   </timestep>" << "\n";
 }
 
 
 void
-MSXMLRawOut::writeEdge(OutputDevice* of, const MSEdge &edge,
+MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge,
                        unsigned int intend)
 {
     //en
@@ -94,26 +94,26 @@ MSXMLRawOut::writeEdge(OutputDevice* of, const MSEdge &edge,
     //en
     if (dump) {
         string indent(intend, ' ');
-        of->getOStream() << indent << "<edge id=\"" << edge.getID() << "\">" << endl;
+        of << indent << "<edge id=\"" << edge.getID() << "\">" << "\n";
         for (MSEdge::LaneCont::const_iterator lane=edge.getLanes()->begin(); lane!=edge.getLanes()->end(); ++lane) {
             writeLane(of, **lane, intend+3);
         }
-        of->getOStream() << indent << "</edge>" << endl;
+        of << indent << "</edge>" << "\n";
     }
 }
 
 
 void
-MSXMLRawOut::writeLane(OutputDevice* of, const MSLane &lane,
+MSXMLRawOut::writeLane(OutputDevice &of, const MSLane &lane,
                        unsigned int intend)
 {
     string indent(intend , ' ');
     if (lane.myVehicles.empty() == true && lane.myVehBuffer == 0) {
-        of->getOStream() << indent << "<lane id=\"" << lane.myID
-        << "\"/>" << endl;
+        of << indent << "<lane id=\"" << lane.myID
+        << "\"/>" << "\n";
     } else { // not empty
-        of->getOStream() << indent << "<lane id=\"" << lane.myID << "\">"
-        << endl;
+        of << indent << "<lane id=\"" << lane.myID << "\">"
+        << "\n";
         if (lane.myVehBuffer != 0) {
             writeVehicle(of, *(lane.myVehBuffer), intend+3);
         }
@@ -122,19 +122,19 @@ MSXMLRawOut::writeLane(OutputDevice* of, const MSLane &lane,
 
             writeVehicle(of, **veh, intend+3);
         }
-        of->getOStream() << indent << "</lane>" << endl;
+        of << indent << "</lane>" << "\n";
     }
 }
 
 
 void
-MSXMLRawOut::writeVehicle(OutputDevice* of, const MSVehicle &veh,
+MSXMLRawOut::writeVehicle(OutputDevice &of, const MSVehicle &veh,
                           unsigned int intend)
 {
     string indent(intend , ' ');
-    of->getOStream() << indent << "<vehicle id=\"" << veh.getID() << "\" pos=\""
+    of << indent << "<vehicle id=\"" << veh.getID() << "\" pos=\""
     << veh.getPositionOnLane() << "\" speed=\"" << veh.getSpeed()
-    << "\"/>" << endl;
+    << "\"/>" << "\n";
 }
 
 

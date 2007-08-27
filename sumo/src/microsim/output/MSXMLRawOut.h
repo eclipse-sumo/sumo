@@ -4,7 +4,7 @@
 /// @date    Mon, 10.05.2004
 /// @version $Id$
 ///
-// »missingDescription«
+// missingDescription
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -58,16 +58,16 @@ public:
     /// destructor
     virtual ~MSXMLRawOut();
 
-    static void write(OutputDevice* of, const MSEdgeControl &ec,
+    static void write(OutputDevice &of, const MSEdgeControl &ec,
                       SUMOTime timestep, unsigned int intend);
 
-    static void writeEdge(OutputDevice* of, const MSEdge &edge,
+    static void writeEdge(OutputDevice &of, const MSEdge &edge,
                           unsigned int intend);
 
-    static void writeLane(OutputDevice* of, const MSLane &lane,
+    static void writeLane(OutputDevice &of, const MSLane &lane,
                           unsigned int intend);
 
-    static void writeVehicle(OutputDevice* of, const MSVehicle &veh,
+    static void writeVehicle(OutputDevice &of, const MSVehicle &veh,
                              unsigned int intend);
 
 

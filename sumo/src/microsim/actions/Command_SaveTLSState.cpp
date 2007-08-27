@@ -52,28 +52,28 @@ using namespace std;
 // ===========================================================================
 Command_SaveTLSState::Command_SaveTLSState(
     const MSTLLogicControl::TLSLogicVariants &logics,
-    OutputDevice *od)
+    OutputDevice &od)
         : myOutputDevice(od), myLogics(logics)
 {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
             0, MSEventControl::ADAPT_AFTER_EXECUTION);
-    myOutputDevice->getOStream() << "<tls-states>" << endl;
+    myOutputDevice << "<tls-states>" << "\n";
 }
 
 
 Command_SaveTLSState::~Command_SaveTLSState()
 {
-    myOutputDevice->getOStream() << "</tls-states>" << endl;
+    myOutputDevice << "</tls-states>" << "\n";
 }
 
 
 SUMOTime
 Command_SaveTLSState::execute(SUMOTime currentTime)
 {
-    myOutputDevice->getOStream() << "   <tlsstate time=\"" << currentTime
+    myOutputDevice << "   <tlsstate time=\"" << currentTime
     << "\" id=\"" << myLogics.defaultTL->getID()
     << "\" subid=\"" << myLogics.defaultTL->getSubID() << "\">"
-    << myLogics.defaultTL->buildStateList() << "</tlsstate>" << endl;
+    << myLogics.defaultTL->buildStateList() << "</tlsstate>" << "\n";
     return 1;
 }
 

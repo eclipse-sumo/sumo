@@ -225,15 +225,15 @@ MSBuildCells::getNeighbors(size_t i)
     size_t x = i % myXsize;
     if (x==0) {
         ret.push_back(myCellsCont[i+1]);
-        //	cout<<"-----Nachbarn1   "<<i+1<<endl;
+        //	cout<<"-----Nachbarn1   "<<i+1<<"\n";
     }
     if (x==myXsize-1) {
         ret.push_back(myCellsCont[i-1]);
-        //cout<<"-----Nachbarn2   "<<i-1<<endl;
+        //cout<<"-----Nachbarn2   "<<i-1<<"\n";
     }
     if ((x>0) && (x<myXsize-1)) {
-        //	cout<<"-----Nachbarn3   "<<i+1<<endl;
-        //	cout<<"-----Nachbarn4   "<<i-1<<endl;
+        //	cout<<"-----Nachbarn3   "<<i+1<<"\n";
+        //	cout<<"-----Nachbarn4   "<<i-1<<"\n";
         ret.push_back(myCellsCont[i-1]);
         ret.push_back(myCellsCont[i+1]);
     }
@@ -241,35 +241,35 @@ MSBuildCells::getNeighbors(size_t i)
     size_t y = i / myXsize;
     if (y==0) {
         ret.push_back(myCellsCont[i+myXsize]);
-        //	cout<<"-----Nachbarn5   "<<i+myXsize<<endl;
+        //	cout<<"-----Nachbarn5   "<<i+myXsize<<"\n";
     }
     if (y==myYsize-1) {
         ret.push_back(myCellsCont[i-myXsize]);
-        //	cout<<"-----Nachbarn6   "<<i-myXsize<<endl;
+        //	cout<<"-----Nachbarn6   "<<i-myXsize<<"\n";
     }
     if ((y>0) && (y<myYsize-1)) {
-        //	cout <<"i == "<<i<<"  y == "<<y<<endl;
-        //	cout<<"-----Nachbarn7   "<<i+myXsize<<endl;
-        //	cout<<"-----Nachbarn8   "<<i-myXsize<<endl;
+        //	cout <<"i == "<<i<<"  y == "<<y<<"\n";
+        //	cout<<"-----Nachbarn7   "<<i+myXsize<<"\n";
+        //	cout<<"-----Nachbarn8   "<<i-myXsize<<"\n";
         ret.push_back(myCellsCont[i+myXsize]);
         ret.push_back(myCellsCont[i-myXsize]);
     }
 
     if ((x>0) && (y>0)) {
         ret.push_back(myCellsCont[i-myXsize-1]);
-        //	cout<<"-----Nachbarn9   "<<i-myXsize-1<<endl;
+        //	cout<<"-----Nachbarn9   "<<i-myXsize-1<<"\n";
     }
     if ((x>0) && (y<myYsize-1)) {
         ret.push_back(myCellsCont[i+myXsize-1]);
-        //	cout<<"-----Nachbarn10   "<<i+myXsize-1<<endl;
+        //	cout<<"-----Nachbarn10   "<<i+myXsize-1<<"\n";
     }
     if ((x<myXsize-1) && (y<myYsize-1)) {
         ret.push_back(myCellsCont[i+myXsize+1]);
-        //	cout<<"-----Nachbarn11   "<<i+myXsize+1<<endl;
+        //	cout<<"-----Nachbarn11   "<<i+myXsize+1<<"\n";
     }
     if ((x<myXsize-1) && (y>0)) {
         ret.push_back(myCellsCont[i-myXsize+1]);
-        //	cout<<"-----Nachbarn 12  "<<i-myXsize+1<<endl;
+        //	cout<<"-----Nachbarn 12  "<<i-myXsize+1<<"\n";
     }
     return ret;
 
@@ -277,39 +277,39 @@ MSBuildCells::getNeighbors(size_t i)
 
 
 void
-MSBuildCells::writeNearEdges(OutputDevice *od)
+MSBuildCells::writeNearEdges(OutputDevice &od)
 {
-    od->getOStream() << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl << "<edge-neighbors>" << endl;
+    od << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << "\n" << "<edge-neighbors>" << "\n";
     size_t index, sizeOfCont;
     sizeOfCont = myNet.getEdgeControl().getSingleLaneEdges().size();
     for (index=0; index<sizeOfCont; index++) {
         MSEdge *e = myNet.getEdgeControl().getSingleLaneEdges()[index];
         const std::vector<MSEdge*> &neighbors = e->getNeighborEdges();
-        od->getOStream() << "   <edge id=\"" << e->getID()
+        od << "   <edge id=\"" << e->getID()
         << "\" neighborNo=\"" << neighbors.size() << "\">";
         for (std::vector<MSEdge*>::const_iterator j=neighbors.begin(); j!=neighbors.end(); ++j) {
             if (j!=neighbors.begin()) {
-                od->getOStream() << ' ';
+                od << ' ';
             }
-            od->getOStream() << (*j)->getID();
+            od << (*j)->getID();
         }
-        od->getOStream() << "</edge>" << endl;
+        od << "</edge>" << "\n";
     }
     sizeOfCont = myNet.getEdgeControl().getMultiLaneEdges().size();
     for (index=0; index<sizeOfCont; index++) {
         MSEdge *e = myNet.getEdgeControl().getMultiLaneEdges()[index];
         const std::vector<MSEdge*> &neighbors = e->getNeighborEdges();
-        od->getOStream() << "   <edge id=\"" << e->getID()
+        od << "   <edge id=\"" << e->getID()
         << "\" neighborNo=\"" << neighbors.size() << "\">";
         for (std::vector<MSEdge*>::const_iterator j=neighbors.begin(); j!=neighbors.end(); ++j) {
             if (j!=neighbors.begin()) {
-                od->getOStream() << ' ';
+                od << ' ';
             }
-            od->getOStream() << (*j)->getID();
+            od << (*j)->getID();
         }
-        od->getOStream() << "</edge>" << endl;
+        od << "</edge>" << "\n";
     }
-    od->getOStream() << "</edge-neighbors>" << endl;
+    od << "</edge-neighbors>" << "\n";
 }
 
 

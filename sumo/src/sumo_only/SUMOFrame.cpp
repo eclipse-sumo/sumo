@@ -387,7 +387,7 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
 
     // initialise TrafficOnline-outputs
     if (ret[MSNet::OS_DEVICE_TO_SS2_SQL]!=0) {
-        (ret[MSNet::OS_DEVICE_TO_SS2_SQL])->getOStream()
+        (*ret[MSNet::OS_DEVICE_TO_SS2_SQL])
         << "CREATE TABLE `COLLECTORPOS` (\n"
         << "`ID` int(11) NOT NULL auto_increment,\n"
         << "`TID` varchar(20) NOT NULL default '',\n"
@@ -397,12 +397,12 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
         << "`QUALITY_ID` int(5) NOT NULL default '30',\n"
         << "PRIMARY KEY  (`ID`)\n"
         << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
-        (ret[MSNet::OS_DEVICE_TO_SS2_SQL])->getOStream()
+        (*ret[MSNet::OS_DEVICE_TO_SS2_SQL])
         << "INSERT INTO `COLLECTORPOS` (`ID`,`TID`,`DATE_TIME`, `POSITION_ID`, `CALL_ID`, `QUALITY_ID`) VALUES "
-        << endl;
+        << "\n";
     }
     if (ret[MSNet::OS_CELL_TO_SS2_SQL]!=0) {
-        (ret[MSNet::OS_CELL_TO_SS2_SQL])->getOStream()
+        (*ret[MSNet::OS_CELL_TO_SS2_SQL])
         << "CREATE TABLE `COLLECTORCS` ("
         << "`ID` int(11) NOT NULL auto_increment,\n"
         << "`TID` varchar(20) NOT NULL default '',\n"
@@ -417,12 +417,12 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
         << "PRIMARY KEY  (`ID`,`TID`)\n"
         << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
 
-        (ret[MSNet::OS_CELL_TO_SS2_SQL])->getOStream()
+        (*ret[MSNet::OS_CELL_TO_SS2_SQL])
         << "INSERT INTO `COLLECTORCS` (`ID`,`TID`,`DATE_TIME`,`CELL_ID`,`STAT_CALLS_IN`,`STAT_CALLS_OUT`,"
         << "`DYN_CALLS_IN`,`DYN_CALLS_OUT`,`SUM_CALLS`,`INTERVALL`) VALUES \n";
     }
     if (ret[MSNet::OS_LA_TO_SS2_SQL]!=0) {
-        (ret[MSNet::OS_LA_TO_SS2_SQL])->getOStream()
+        (*ret[MSNet::OS_LA_TO_SS2_SQL])
         << "CREATE TABLE `COLLECTORLA` (\n"
         << "`ID` int(11) NOT NULL auto_increment,\n"
         << "`TID` varchar(20) NOT NULL default '',\n"
@@ -435,7 +435,7 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
         << "PRIMARY KEY  (`ID`,`TID`)\n"
         << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
 
-        (ret[MSNet::OS_LA_TO_SS2_SQL])->getOStream()
+        (*ret[MSNet::OS_LA_TO_SS2_SQL])
         << "INSERT INTO `COLLECTORLA` (`ID`,`TID`,`DATE_TIME`,`POSITION_ID`,`DIR`,`SUM_CHANGE`,"
         << "`QUALITY_ID`,`INTERVALL`) VALUES \n";
     }

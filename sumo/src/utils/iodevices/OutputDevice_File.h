@@ -50,13 +50,11 @@ public:
     /// Destructor
     ~OutputDevice_File();
 
-    /// returns the information whether one can write into the device
-    bool ok();
-
     /// Closes the device
     void closeDevice();
 
-    /// Returns the assiciated ostream
+protected:
+    /// Returns the associated ostream
     std::ostream &getOStream();
 
 private:

@@ -102,7 +102,7 @@ OutputDevice::closeAll()
 bool
 OutputDevice::ok()
 {
-    return true;
+    return getOStream().good();
 }
 
 void

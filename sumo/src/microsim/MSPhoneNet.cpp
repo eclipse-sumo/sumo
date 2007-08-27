@@ -74,10 +74,10 @@ MSPhoneNet::~MSPhoneNet()
         }
     }
     if (MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL)!=0) {
-        MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL)->getOStream() << ";" << endl;
+        *MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL) << ";" << "\n";
     }
     if (MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL)!=0) {
-        MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL)->getOStream() << ";" << endl;
+        *MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL) << ";" << "\n";
     }
     // delete cells and las
     std::map< int, MSPhoneCell* >::iterator cit;
@@ -251,7 +251,7 @@ MSPhoneNet::writeLAOutput(SUMOTime t)
             if (od1 != 0) {
                 std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                 timestr = timestr + " " + StringUtils::toTimeString(t);
-                od1->getOStream()
+                *od1
                 << "03;" << timestr << ';' << coit->first << ";0;" << coit->second
                 << ";0;" << intervall << "\n";
             }
@@ -259,11 +259,11 @@ MSPhoneNet::writeLAOutput(SUMOTime t)
                 std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                 timestr = timestr + " " + StringUtils::toTimeString(t);
                 if (od2->getBoolMarker("hadFirstCall")) {
-                    od2->getOStream() << "," << endl;
+                    *od2 << "," << "\n";
                 } else {
                     od2->setBoolMarker("hadFirstCall", true);
                 }
-                od2->getOStream()
+                *od2
                 << "(NULL, \' \', '" << timestr << "'," << coit->first << ";0;" << coit->second
                 << ";0;" << intervall << ")";
             }

@@ -52,18 +52,18 @@ using namespace std;
 // ===========================================================================
 Command_SaveTLSSwitchStates::Command_SaveTLSSwitchStates(
     const MSTLLogicControl::TLSLogicVariants &logics,
-    OutputDevice *od)
+    OutputDevice &od)
         : myOutputDevice(od), myLogics(logics)
 {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
             0, MSEventControl::ADAPT_AFTER_EXECUTION);
-    myOutputDevice->getOStream() << "<tls-switch-states>" << endl;
+    myOutputDevice << "<tls-switch-states>" << "\n";
 }
 
 
 Command_SaveTLSSwitchStates::~Command_SaveTLSSwitchStates()
 {
-    myOutputDevice->getOStream() << "</tls-switch-states>" << endl;
+    myOutputDevice << "</tls-switch-states>" << "\n";
 }
 
 
@@ -72,10 +72,10 @@ Command_SaveTLSSwitchStates::execute(SUMOTime currentTime)
 {
     string state = myLogics.defaultTL->buildStateList();
     if (state!=myPreviousState||myLogics.defaultTL->getSubID()!=myPreviousSubID) {
-        myOutputDevice->getOStream() << "   <tlsstate time=\"" << currentTime
+        myOutputDevice << "   <tlsstate time=\"" << currentTime
         << "\" id=\"" << myLogics.defaultTL->getID()
         << "\" subid=\"" << myLogics.defaultTL->getSubID() << "\">"
-        << myLogics.defaultTL->buildStateList() << "</tlsstate>" << endl;
+        << myLogics.defaultTL->buildStateList() << "</tlsstate>" << "\n";
         myPreviousState = state;
         myPreviousSubID = myLogics.defaultTL->getSubID();
     }

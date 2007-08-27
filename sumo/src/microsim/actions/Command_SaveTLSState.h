@@ -55,7 +55,7 @@ class Command_SaveTLSState : public Command
 public:
     /// Constructor
     Command_SaveTLSState(const MSTLLogicControl::TLSLogicVariants &logics,
-                         OutputDevice *od);
+                         OutputDevice &od);
 
     /// Destructor
     ~Command_SaveTLSState();
@@ -65,7 +65,7 @@ public:
 
 private:
     /// The device to write to
-    OutputDevice *myOutputDevice;
+    OutputDevice &myOutputDevice;
 
     /// The traffic light logic to use
     const MSTLLogicControl::TLSLogicVariants &myLogics;

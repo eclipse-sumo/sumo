@@ -63,6 +63,7 @@ class MSLaneChanger;
 class MSVehicleTransfer;
 class MSAbstractLaneChangeModel;
 class MSBusStop;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -519,7 +520,7 @@ public:
     void onDepart();
 
     void onTripEnd(/*MSLane &caller, */bool wasAlreadySet=false);
-    void writeXMLRoute(std::ostream &os, int index=-1) const;
+    void writeXMLRoute(OutputDevice &os, int index=-1) const;
 
     struct Stop
     {
@@ -667,8 +668,8 @@ protected:
     // the Id of the Cluster
     int clusterId;
 
-    //Aktuelle Information
-    //wird erst gespiechert, wenn vehicle die Lane verlässt !!!!!!!!!
+    //recent information
+    //is saved when the vehicle leaves the lane!!!
     Information *akt;
     SUMOTime myLastInfoTime;
     bool myHaveRouteInfo;

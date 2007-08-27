@@ -123,7 +123,7 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(GenericSAXHandler &parser,
     // build the output
     OutputDevice *od = OutputDevice::getOutputDevice(dest, basePath);
     // build the action
-    return new Command_SaveTLSState(logics, od);
+    return new Command_SaveTLSState(logics, *od);
 }
 
 
@@ -148,7 +148,7 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
     // build the output
     OutputDevice *od = OutputDevice::getOutputDevice(dest, basePath);
     // build the action
-    return new Command_SaveTLSSwitches(logics, od);
+    return new Command_SaveTLSSwitches(logics, *od);
 }
 
 
@@ -173,7 +173,7 @@ NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(GenericSAXHandler &parser
     // build the output
     OutputDevice *od = OutputDevice::getOutputDevice(dest, basePath);
     // build the action
-    return new Command_SaveTLSSwitchStates(logics, od);
+    return new Command_SaveTLSSwitchStates(logics, *od);
 }
 
 

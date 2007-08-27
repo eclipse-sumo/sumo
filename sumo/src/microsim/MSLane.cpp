@@ -266,7 +266,7 @@ MSLane::detectCollisions(SUMOTime timestep)
         SUMOReal gap = (*pred)->getPositionOnLane() - (*pred)->getLength() - (*veh)->getPositionOnLane();
 #ifdef ABS_DEBUG
         if (debug_globaltime>=21868 && ((*veh)->getID()==debug_searched1||(*veh)->getID()==debug_searched2)) {
-            DEBUG_OUT << gap << endl;
+            DEBUG_OUT << gap << "\n";
         }
 #endif
         if (gap < 0) {
@@ -285,8 +285,8 @@ MSLane::detectCollisions(SUMOTime timestep)
             }
             handler->inform(
                 "MSLane::detectCollision: Collision of " + vehV->getID() + " with " + predV->getID() + " on MSLane " + myID +" during timestep " + toString<int>(timestep));
-//            DEBUG_OUT << ( *veh )->getID() << ":" << ( *veh )->pos() << ", " << ( *veh )->speed() << endl;
-//            DEBUG_OUT << ( *pred )->getID() << ":" << ( *pred )->pos() << ", " << ( *pred )->speed() << endl;
+//            DEBUG_OUT << ( *veh )->getID() << ":" << ( *veh )->pos() << ", " << ( *veh )->speed() << "\n";
+//            DEBUG_OUT << ( *pred )->getID() << ":" << ( *pred )->pos() << ", " << ( *pred )->speed() << "\n";
             if (OptionsCont::getOptions().getBool("quit-on-accident")) {
                 throw ProcessError();
             } else {
@@ -416,7 +416,7 @@ MSLane::emitTry(MSVehicle& veh)
 
 #ifdef ABS_DEBUG
         if (debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
-            DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << debug_globaltime << endl;
+            DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << debug_globaltime << "\n";
         }
 #endif
 
@@ -451,7 +451,7 @@ MSLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
 
 #ifdef ABS_DEBUG
             if (debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
-                DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << debug_globaltime << endl;
+                DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << debug_globaltime << "\n";
             }
 #endif
 
@@ -482,7 +482,7 @@ MSLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
             assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
             if (debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
-                DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/2:" << debug_globaltime << endl;
+                DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/2:" << debug_globaltime << "\n";
             }
 #endif
 
@@ -516,7 +516,7 @@ MSLane::emitTry(VehCont::iterator followIt, MSVehicle& veh)
         assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
         if (debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
-            DEBUG_OUT << "Using emitTry( VehCont::iterator followIt, MSVehicle& veh )/1:" << debug_globaltime << endl;
+            DEBUG_OUT << "Using emitTry( VehCont::iterator followIt, MSVehicle& veh )/1:" << debug_globaltime << "\n";
         }
 #endif
 
@@ -553,7 +553,7 @@ MSLane::emitTry(VehCont::iterator followIt, MSVehicle& veh,
         assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
         if (debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
-            DEBUG_OUT << "Using emitTry( followIt, veh, leaderIt )/1:" << debug_globaltime << endl;
+            DEBUG_OUT << "Using emitTry( followIt, veh, leaderIt )/1:" << debug_globaltime << "\n";
         }
 #endif
 
@@ -664,9 +664,9 @@ MSLane::push(MSVehicle* veh)
 {
 #ifdef ABS_DEBUG
     if (myVehBuffer!=0) {
-        DEBUG_OUT << "Push Failed on Lane:" << myID << endl;
-        DEBUG_OUT << myVehBuffer->getID() << ", " << myVehBuffer->getPositionOnLane() << ", " << myVehBuffer->getSpeed() << endl;
-        DEBUG_OUT << veh->getID() << ", " << veh->getPositionOnLane() << ", " << veh->getSpeed() << endl;
+        DEBUG_OUT << "Push Failed on Lane:" << myID << "\n";
+        DEBUG_OUT << myVehBuffer->getID() << ", " << myVehBuffer->getPositionOnLane() << ", " << myVehBuffer->getSpeed() << "\n";
+        DEBUG_OUT << veh->getID() << ", " << veh->getPositionOnLane() << ", " << veh->getSpeed() << "\n";
     }
 #endif
     MSVehicle *last = myVehicles.size()!=0
@@ -872,12 +872,12 @@ MSLane::addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal ga
     // Add to phys state
     OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_PHYSSTATES);
     if (od!=0) {
-        od->getOStream() << "   <vphys id=\"" << veh.getID()
+        *od << "   <vphys id=\"" << veh.getID()
         << "\" t=\"" << MSNet::getInstance()->getCurrentTimeStep()
         << "\" v=\"" << newV
         << "\" a=\"" << (newV-oldV)
         << "\" g=\"" << gap
-        << "\"/>" << endl;
+        << "\"/>" << "\n";
     }
 }
 
@@ -887,7 +887,7 @@ MSLane::addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal ga
 ostream&
 operator<<(ostream& os, const MSLane& lane)
 {
-    os << "MSLane: Id = " << lane.myID << endl;
+    os << "MSLane: Id = " << lane.myID << "\n";
     return os;
 }
 
@@ -1083,7 +1083,7 @@ MSLane::getDensity() const
         ret += (*i)->getLength();
     }
     if(myUseDefinition->vehLenSum!=ret) {
-        cout << myUseDefinition->vehLenSum << " <-> " << ret << endl;
+        cout << myUseDefinition->vehLenSum << " <-> " << ret << "\n";
         throw 1;
     }
     */

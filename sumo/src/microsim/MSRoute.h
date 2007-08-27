@@ -41,6 +41,7 @@
 // ===========================================================================
 class MSEdge;
 class BinaryInputDevice;
+class OutputDevice;
 
 
 typedef std::vector<const MSEdge*> MSEdgeVector;
@@ -81,7 +82,7 @@ public:
 
     bool replaceBy(const MSEdgeVector &edges, MSRouteIterator &currentEdge);
 
-    void writeEdgeIDs(std::ostream &os) const;
+    void writeEdgeIDs(OutputDevice &os) const;
 
     bool contains(MSEdge *edge) const;
     bool containsAnyOf(const std::vector<MSEdge*> &edgelist) const;

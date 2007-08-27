@@ -71,9 +71,6 @@ public:
     /// Sets the precison or resets it to default
     void setPrecision(unsigned int precision=OUTPUT_ACCURACY);
 
-    /// Returns the associated ostream
-    virtual std::ostream &getOStream() = 0;
-
     /// Writes an XML header with optional configuration
     bool writeXMLHeader(const std::string &rootElement,
                         const bool writeConfig=true,
@@ -116,7 +113,10 @@ public:
     }
 
 protected:
-    /// Is called after every write access. Default implememntation does nothing.
+    /// Returns the associated ostream
+    virtual std::ostream &getOStream() = 0;
+
+    /// Is called after every write access. Default implementation does nothing.
     virtual void postWriteHook();
 
 private:

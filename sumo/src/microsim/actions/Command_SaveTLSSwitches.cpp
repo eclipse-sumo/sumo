@@ -54,18 +54,18 @@ using namespace std;
 // ===========================================================================
 Command_SaveTLSSwitches::Command_SaveTLSSwitches(
     const MSTLLogicControl::TLSLogicVariants &logics,
-    OutputDevice *od)
+    OutputDevice &od)
         : myOutputDevice(od), myLogics(logics)
 {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
             0, MSEventControl::ADAPT_AFTER_EXECUTION);
-    myOutputDevice->getOStream() << "<tls-switches>" << endl;
+    myOutputDevice << "<tls-switches>" << "\n";
 }
 
 
 Command_SaveTLSSwitches::~Command_SaveTLSSwitches()
 {
-    myOutputDevice->getOStream() << "</tls-switches>" << endl;
+    myOutputDevice << "</tls-switches>" << "\n";
 }
 
 
@@ -87,14 +87,14 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime)
                     SUMOTime lastOn = myPreviousLinkStates[link].first;
                     bool saved = myPreviousLinkStates[link].second;
                     if (!saved) {
-                        myOutputDevice->getOStream() << "   <tlsswitch tls=\"" << light->getID()
+                        myOutputDevice << "   <tlsswitch tls=\"" << light->getID()
                         << "\" subid=\"" << light->getSubID()
                         << "\" fromLane=\"" << currLanes[j]->getID()
                         << "\" toLane=\"" << link->getLane()->getID()
                         << "\" begin=\"" << lastOn
                         << "\" end=\"" << currentTime
                         << "\" duration=\"" << (currentTime-lastOn)
-                        << "\"/>" << endl;
+                        << "\"/>" << "\n";
                         myPreviousLinkStates[link] = make_pair<SUMOTime, bool>(lastOn, true);
                     }
                 }

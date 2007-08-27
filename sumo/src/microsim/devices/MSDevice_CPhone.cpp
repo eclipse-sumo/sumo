@@ -221,12 +221,12 @@ inline int getTrainDuration(void)
         randvalue2=double(rand())/double(RAND_MAX);
     }
     //Bei 16 % der mobilen Werte gleichverteilte Werte zwischen 30 (minimal)
-    //und 60 (maximale Häufigkeit => ab hier greift die Funktion) Sekunden
+    //und 60 (maximale Haeufigkeit => ab hier greift die Funktion) Sekunden
     if (randvalue2 < 0.16)
         duration=(int)(30+300*randvalue2);
     else {
         duration=0;
-        //nur Werte über 60 Sekunden simulieren, da die anderen oben abgedeckt sind
+        //nur Werte ueber 60 Sekunden simulieren, da die anderen oben abgedeckt sind
         while (duration < 60) {
             randvalue1=0;
             while (randvalue1==0) {
@@ -272,7 +272,7 @@ MSDevice_CPhone::~MSDevice_CPhone()
                 cell->remCall(myCallId);
                 OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
                 if (od!=0) {
-                    od->getOStream()
+                    *od
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << myCallId << ';' << mycurrentCellId << ';'
                     << 2 << ';' << myID <<"\n";
@@ -372,7 +372,7 @@ MSDevice_CPhone::SetState(State s, int dur)
         myCommand, dur + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
     OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
     if (od!=0) {
-        od->getOStream()
+        *od
         << MSNet::getInstance()->getCurrentTimeStep() << ';'
         << myCallId << ';' << mycurrentCellId << ';'
         << 0 << ';' << myID <<"\n";
@@ -391,7 +391,7 @@ MSDevice_CPhone::changeState()
         assert(mycurrentCellId != -1);
         OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
         if (od!=0) {
-            od->getOStream()
+            *od
             << MSNet::getInstance()->getCurrentTimeStep() << ';'
             << myCallId << ';' << mycurrentCellId << ';'
             << 2 << ';' << myID <<"\n";
@@ -441,7 +441,7 @@ MSDevice_CPhone::changeState()
                             cell->addCall( myCallId, STATICOUT, myCallCellCount );
                         OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
                         if (od!=0) {
-                            od->getOStream()
+                            *od
                                 << MSNet::getInstance()->getCurrentTimeStep() << ';'
                                 << myCallId << ';' << mycurrentCellId << ';'
                                 << 0 << ';' << myID <<"\n";
@@ -492,7 +492,7 @@ MSDevice_CPhone::changeState()
                         cell->addCall(myCallId, STATICOUT, myCallCellCount);
                     OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
                     if (od!=0) {
-                        od->getOStream()
+                        *od
                         << MSNet::getInstance()->getCurrentTimeStep() << ';'
                         << myCallId << ';' << mycurrentCellId << ';'
                         << 0 << ';' << myID <<"\n";
@@ -506,7 +506,7 @@ MSDevice_CPhone::changeState()
             case STATE_CONNECTED_OUT: {
                 OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
                 if (od!=0) {
-                    od->getOStream()
+                    *od
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << myCallId << ';' << mycurrentCellId << ';'
                     << 2 << ';' << myID <<"\n";
@@ -589,7 +589,7 @@ MSDevice_CPhone::onDepart()
                     cell->addCall( myCallId, STATICOUT, myCallCellCount );
                 OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
                 if (od!=0) {
-                    od->getOStream()
+                    od
                         << MSNet::getInstance()->getCurrentTimeStep() << ';'
                         << myCallId << ';' << mycurrentCellId << ';'
                         << 0 << ';' << myID <<"\n";

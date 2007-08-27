@@ -177,15 +177,15 @@ MSCORN::saveClusterInfoData(SUMOTime step, int id,
     if (myLastStepClusterInfoOutput!=step) {
         if (myLastStepClusterInfoOutput!=-1) {
             // close the previous step if its not the first one
-            myClusterInfoOutput->getOStream() << "   </timestep>" << endl;
+            *myClusterInfoOutput << "   </timestep>" << "\n";
         }
-        myClusterInfoOutput->getOStream() << "   <timestep time=\"" << step << "\">"<< endl;
+        *myClusterInfoOutput << "   <timestep time=\"" << step << "\">"<< "\n";
     }
     myLastStepClusterInfoOutput = step;
-    myClusterInfoOutput->getOStream()
+    *myClusterInfoOutput
     << "      <cluster id=\"" << id
     << "\" headID=\"" << headID << "\" vehNo=\"" << quantity << "\""
-    << ">" << vehs << "</cluster>" << endl;
+    << ">" << vehs << "</cluster>" << "\n";
 }
 
 
@@ -193,7 +193,7 @@ void
 MSCORN::checkCloseClusterInfoData()
 {
     if (myLastStepClusterInfoOutput!=-1) {
-        myClusterInfoOutput->getOStream() << "   </timestep>" << endl;
+        *myClusterInfoOutput << "   </timestep>" << "\n";
     }
 }
 
@@ -209,22 +209,22 @@ MSCORN::saveSavedInformationData(SUMOTime step, const std::string &veh,
     if (myLastStepSavedInfoOutput!=step) {
         if (myLastStepSavedInfoOutput!=-1) {
             // close the previous step if its not the first one
-            mySavedInfoOutput->getOStream() << "   </timestep>"<< endl;
+            *mySavedInfoOutput << "   </timestep>"<< "\n";
         }
-        mySavedInfoOutput->getOStream() << "   <timestep time=\"" << step << "\">"<< endl;
+        *mySavedInfoOutput << "   <timestep time=\"" << step << "\">"<< "\n";
     }
     myLastStepSavedInfoOutput = step;
     // save the current values
-    mySavedInfoOutput->getOStream()
+    *mySavedInfoOutput
     << "      <info veh=\"" << veh <<"\" edge=\"" << edge << "\""<< " type=\"" << type << "\" "
-    << "time=\""<<time<<"\""<<" neededtime=\""<<nt<<"\"/>"<<endl;
+    << "time=\""<<time<<"\""<<" neededtime=\""<<nt<<"\"/>"<<"\n";
 }
 
 void
 MSCORN::checkCloseSavedInformationData()
 {
     if (myLastStepSavedInfoOutput!=-1) {
-        mySavedInfoOutput->getOStream() << "   </timestep>"<< endl;
+        *mySavedInfoOutput << "   </timestep>"<< "\n";
     }
 }
 
@@ -240,21 +240,21 @@ MSCORN::saveTransmittedInformationData(SUMOTime step, const std::string &from, c
     if (myLastStepTransmittedInfoOutput!=step) {
         if (myLastStepTransmittedInfoOutput!=-1) {
             // close the previous step if its not the first one
-            myTransmittedInfoOutput->getOStream() << "   </timestep>"<< endl;
+            *myTransmittedInfoOutput << "   </timestep>"<< "\n";
         }
-        myTransmittedInfoOutput->getOStream() << "   <timestep time=\"" << step << "\">"<< endl;
+        *myTransmittedInfoOutput << "   <timestep time=\"" << step << "\">"<< "\n";
     }
     myLastStepTransmittedInfoOutput = step;
-    myTransmittedInfoOutput->getOStream()
+    *myTransmittedInfoOutput
     << "      <info edge=\"" << edge <<"\" from=\"" << from << "\""<< " to=\"" << to << "\" "
-    << "time=\""<<time<<"\""<<" neededtime=\""<<nt<<"\"/>"<<endl;
+    << "time=\""<<time<<"\""<<" neededtime=\""<<nt<<"\"/>"<<"\n";
 }
 
 void
 MSCORN::checkCloseTransmittedInformationData()
 {
     if (myLastStepTransmittedInfoOutput!=-1) {
-        myTransmittedInfoOutput->getOStream() << "   </timestep>"<< endl;
+        *myTransmittedInfoOutput << "   </timestep>"<< "\n";
     }
 }
 
@@ -269,15 +269,15 @@ MSCORN::saveVehicleInRangeData(SUMOTime step, const std::string &veh1, const std
     if (myLastStepVehicleInRangeOutput!=step) {
         if (myLastStepVehicleInRangeOutput!=-1) {
             // close the previous step if its not the first one
-            myVehicleInRangeOutput->getOStream() << "   </timestep>"<< endl;
+            *myVehicleInRangeOutput << "   </timestep>"<< "\n";
         }
-        myVehicleInRangeOutput->getOStream() << "   <timestep time=\"" << step << "\">"<< endl;
+        *myVehicleInRangeOutput << "   <timestep time=\"" << step << "\">"<< "\n";
     }
     myLastStepVehicleInRangeOutput = step;
-    myVehicleInRangeOutput->getOStream()
+    *myVehicleInRangeOutput
     << "      <connection veh1=\"" << veh1<<"\"" <<" x1=\""<< x1 << "\""<< " y1=\"" << y1 << "\" "
     <<"veh2=\"" << veh2<<"\"" <<" x2=\""<< x2 << "\""<< " y2=\"" << y2 << "\" "
-    <<"/>"<<endl;
+    <<"/>"<<"\n";
 }
 
 
@@ -285,7 +285,7 @@ void
 MSCORN::checkCloseVehicleInRangeData()
 {
     if (myLastStepVehicleInRangeOutput!=-1) {
-        myVehicleInRangeOutput->getOStream() << "   </timestep>"<< endl;
+        *myVehicleInRangeOutput << "   </timestep>"<< "\n";
     }
 }
 

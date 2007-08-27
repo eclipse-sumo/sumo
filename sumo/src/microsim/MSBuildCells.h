@@ -69,7 +69,7 @@ public:
     void build();
 
     /// writes information about edge neighbors
-    void writeNearEdges(OutputDevice *od);
+    void writeNearEdges(OutputDevice &od);
 
 private:
 

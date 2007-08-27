@@ -34,6 +34,7 @@
 #include "MSEdge.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/iodevices/BinaryInputDevice.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef ABS_DEBUG
 #include "MSNet.h"
@@ -175,7 +176,7 @@ MSRoute::find(const MSEdge *e) const
 
 
 void
-MSRoute::writeEdgeIDs(std::ostream &os) const
+MSRoute::writeEdgeIDs(OutputDevice &os) const
 {
     MSEdgeVector::const_iterator i = myEdges.begin();
     for (;i!=myEdges.end(); ++i) {

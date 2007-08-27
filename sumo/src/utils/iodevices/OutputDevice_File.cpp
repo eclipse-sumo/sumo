@@ -57,13 +57,6 @@ OutputDevice_File::~OutputDevice_File()
 }
 
 
-bool
-OutputDevice_File::ok()
-{
-    return myFileStream->good();
-}
-
-
 std::ostream &
 OutputDevice_File::getOStream()
 {

@@ -49,6 +49,7 @@ public:
     /// Destructor
     ~OutputDevice_COUT();
 
+protected:
     /// Returns the associated ostream
     std::ostream &getOStream();
 

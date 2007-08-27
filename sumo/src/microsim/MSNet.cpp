@@ -197,7 +197,7 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
             myCellsBuilder->build();
             // print some debug stuff if wished
             if (streams[OS_EDGE_NEAR]!=0) {
-                myCellsBuilder->writeNearEdges(streams[OS_EDGE_NEAR]);
+                myCellsBuilder->writeNearEdges(*streams[OS_EDGE_NEAR]);
             }
         }
     }
@@ -292,67 +292,67 @@ MSNet::initialiseSimulation()
 {
     // prepare the "netstate" output and print the first line
     if (myOutputStreams[OS_NETSTATE]!=0) {
-        myOutputStreams[OS_NETSTATE]->getOStream()
-        << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
-        << "<sumo-netstate>" << endl;
+        *myOutputStreams[OS_NETSTATE]
+        << "<?xml version=\"1.0\" standalone=\"no\"?>" << "\n"
+        << "<sumo-netstate>" << "\n";
     }
     // ... the same for the vehicle emission state
     if (myOutputStreams[OS_EMISSIONS]!=0) {
-        myOutputStreams[OS_EMISSIONS]->getOStream()
-        << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
-        << "<emissions>" << endl;
+        *myOutputStreams[OS_EMISSIONS]
+        << "<?xml version=\"1.0\" standalone=\"no\"?>" << "\n"
+        << "<emissions>" << "\n";
         MSCORN::setWished(MSCORN::CORN_OUT_EMISSIONS);
     }
     // ... the same for the vehicle trip durations
     if (myOutputStreams[OS_TRIPDURATIONS]!=0) {
-        myOutputStreams[OS_TRIPDURATIONS]->getOStream()
-        << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
-        << "<tripinfos>" << endl;
+        *myOutputStreams[OS_TRIPDURATIONS]
+        << "<?xml version=\"1.0\" standalone=\"no\"?>" << "\n"
+        << "<tripinfos>" << "\n";
         MSCORN::setWished(MSCORN::CORN_OUT_TRIPDURATIONS);
     }
     // ... the same for the vehicle route information
     if (myOutputStreams[OS_VEHROUTE]!=0) {
-        myOutputStreams[OS_VEHROUTE]->getOStream()
-        << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
-        << "<vehicleroutes>" << endl;
+        *myOutputStreams[OS_VEHROUTE]
+        << "<?xml version=\"1.0\" standalone=\"no\"?>" << "\n"
+        << "<vehicleroutes>" << "\n";
         MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
     }
     // ... the same for the vehicle route information
     if (myOutputStreams[OS_PHYSSTATES]!=0) {
-        myOutputStreams[OS_PHYSSTATES]->getOStream()
-        << "<?xml version=\"1.0\" standalone=\"no\"?>" << endl
-        << "<physical-states>" << endl;
+        *myOutputStreams[OS_PHYSSTATES]
+        << "<?xml version=\"1.0\" standalone=\"no\"?>" << "\n"
+        << "<physical-states>" << "\n";
     }
 
     //car2car
     if (myOutputStreams[OS_CLUSTER_INFO]!=0) {
-        myOutputStreams[OS_CLUSTER_INFO]->getOStream()
-        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl
-        << "<clusterInfos>" << endl;
+        *myOutputStreams[OS_CLUSTER_INFO]
+        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << "\n"
+        << "<clusterInfos>" << "\n";
         MSCORN::setWished(MSCORN::CORN_OUT_CLUSTER_INFO);
     }
     if (myOutputStreams[OS_SAVED_INFO]!=0) {
-        myOutputStreams[OS_SAVED_INFO]->getOStream()
-        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl
-        << "<savedInfos>" << endl;
+        *myOutputStreams[OS_SAVED_INFO]
+        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << "\n"
+        << "<savedInfos>" << "\n";
         MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO);
     }
     if (myOutputStreams[OS_SAVED_INFO_FREQ]!=0) {
-        myOutputStreams[OS_SAVED_INFO_FREQ]->getOStream()
-        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl
-        << "<savedInfosFreq>" << endl;
+        *myOutputStreams[OS_SAVED_INFO_FREQ]
+        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << "\n"
+        << "<savedInfosFreq>" << "\n";
         MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO_FREQ);
     }
     if (myOutputStreams[OS_TRANS_INFO]!=0) {
-        myOutputStreams[OS_TRANS_INFO]->getOStream()
-        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl
-        << "<transmittedInfos>" << endl;
+        *myOutputStreams[OS_TRANS_INFO]
+        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << "\n"
+        << "<transmittedInfos>" << "\n";
         MSCORN::setWished(MSCORN::CORN_OUT_TRANS_INFO);
     }
     if (myOutputStreams[OS_VEH_IN_RANGE]!=0) {
-        myOutputStreams[OS_VEH_IN_RANGE]->getOStream()
-        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << endl
-        << "<vehicleInRanges>" << endl;
+        *myOutputStreams[OS_VEH_IN_RANGE]
+        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << "\n"
+        << "<vehicleInRanges>" << "\n";
         MSCORN::setWished(MSCORN::CORN_OUT_VEH_IN_RANGE);
     }
 }
@@ -363,54 +363,54 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
 {
     // print the last line of the "netstate" output
     if (myOutputStreams[OS_NETSTATE]!=0) {
-        myOutputStreams[OS_NETSTATE]->getOStream() << "</sumo-netstate>" << endl;
+        *myOutputStreams[OS_NETSTATE] << "</sumo-netstate>" << "\n";
     }
     // ... the same for the vehicle emission state
     if (myOutputStreams[OS_EMISSIONS]!=0) {
-        myOutputStreams[OS_EMISSIONS]->getOStream() << "</emissions>" << endl;
+        *myOutputStreams[OS_EMISSIONS] << "</emissions>" << "\n";
     }
     // ... the same for the vehicle trip information
     if (myOutputStreams[OS_TRIPDURATIONS]!=0) {
-        myOutputStreams[OS_TRIPDURATIONS]->getOStream() << "</tripinfos>" << endl;
+        *myOutputStreams[OS_TRIPDURATIONS] << "</tripinfos>" << "\n";
     }
     // ... the same for the vehicle trip information
     if (myOutputStreams[OS_VEHROUTE]!=0) {
-        myOutputStreams[OS_VEHROUTE]->getOStream() << "</vehicleroutes>" << endl;
+        *myOutputStreams[OS_VEHROUTE] << "</vehicleroutes>" << "\n";
     }
     // ... the same for the physical vehicle states
     if (myOutputStreams[OS_PHYSSTATES]!=0) {
-        myOutputStreams[OS_PHYSSTATES]->getOStream() << "</physical-states>" << endl;
+        *myOutputStreams[OS_PHYSSTATES] << "</physical-states>" << "\n";
     }
     // ... the same for the OS_CELL_TO_SS2_SQL
     if (myOutputStreams[OS_DEVICE_TO_SS2_SQL]!=0) {
-        myOutputStreams[OS_DEVICE_TO_SS2_SQL]->getOStream() << ";" << endl;
+        *myOutputStreams[OS_DEVICE_TO_SS2_SQL] << ";" << "\n";
     }
     //car2car
     if (myOutputStreams[OS_CLUSTER_INFO]!=0) {
         MSCORN::checkCloseClusterInfoData();
-        myOutputStreams[OS_CLUSTER_INFO]->getOStream() << "</clusterInfos>" << endl;
+        *myOutputStreams[OS_CLUSTER_INFO] << "</clusterInfos>" << "\n";
     }
     if (myOutputStreams[OS_SAVED_INFO]!=0) {
         MSCORN::checkCloseSavedInformationData();
-        myOutputStreams[OS_SAVED_INFO]->getOStream() << "</savedInfos>" << endl;
+        *myOutputStreams[OS_SAVED_INFO] << "</savedInfos>" << "\n";
     }
     if (myOutputStreams[OS_SAVED_INFO_FREQ]!=0) {
-        myOutputStreams[OS_SAVED_INFO_FREQ]->getOStream() << "</savedInfosFreq>" << endl;
+        *myOutputStreams[OS_SAVED_INFO_FREQ] << "</savedInfosFreq>" << "\n";
     }
     if (myOutputStreams[OS_TRANS_INFO]!=0) {
         MSCORN::checkCloseTransmittedInformationData();
-        myOutputStreams[OS_TRANS_INFO]->getOStream() << "</transmittedInfos>" << endl;
+        *myOutputStreams[OS_TRANS_INFO] << "</transmittedInfos>" << "\n";
     }
     if (myOutputStreams[OS_VEH_IN_RANGE]!=0) {
         MSCORN::checkCloseVehicleInRangeData();
-        myOutputStreams[OS_VEH_IN_RANGE]->getOStream() << "</vehicleInRanges>" << endl;
+        *myOutputStreams[OS_VEH_IN_RANGE] << "</vehicleInRanges>" << "\n";
     }
     if (myLogExecutionTime!=0&&mySimDuration!=0) {
         ostringstream msg;
-        msg << "Performance: " << endl
-        << " Duration: " << mySimDuration << "ms" << endl
-        << " Real time factor: " << ((SUMOReal)(stop-start)*1000./(SUMOReal)mySimDuration) << endl
-        << " UPS: " << ((SUMOReal) myVehiclesMoved / (SUMOReal) mySimDuration * 1000.) << endl;
+        msg << "Performance: " << "\n"
+        << " Duration: " << mySimDuration << "ms" << "\n"
+        << " Real time factor: " << ((SUMOReal)(stop-start)*1000./(SUMOReal)mySimDuration) << "\n"
+        << " UPS: " << ((SUMOReal) myVehiclesMoved / (SUMOReal) mySimDuration * 1000.) << "\n";
         WRITE_MESSAGE(msg.str());
     }
 }
@@ -663,11 +663,11 @@ MSNet::writeOutput()
 {
     // netstate output.
     if (myOutputStreams[OS_NETSTATE]!=0) {
-        MSXMLRawOut::write(myOutputStreams[OS_NETSTATE], *myEdges, myStep, 3);
+        MSXMLRawOut::write(*myOutputStreams[OS_NETSTATE], *myEdges, myStep, 3);
     }
     // emission output
     if (myOutputStreams[OS_EMISSIONS]!=0) {
-        myOutputStreams[OS_EMISSIONS]->getOStream()
+        *myOutputStreams[OS_EMISSIONS]
         << "    <emission-state time=\"" << myStep << "\" "
         << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "
         << "emitted=\"" << myVehicleControl->getEmittedVehicleNo() << "\" "
@@ -677,11 +677,11 @@ MSNet::writeOutput()
         << "meanWaitingTime=\"" << myVehicleControl->getMeanWaitingTime() << "\" "
         << "meanTravelTime=\"" << myVehicleControl->getMeanTravelTime() << "\" ";
         if (myLogExecutionTime) {
-            myOutputStreams[OS_EMISSIONS]->getOStream()
+            *myOutputStreams[OS_EMISSIONS]
             << "duration=\"" << mySimStepDuration << "\" ";
         }
-        myOutputStreams[OS_EMISSIONS]->getOStream()
-        << "/>" << endl;
+        *myOutputStreams[OS_EMISSIONS]
+        << "/>" << "\n";
     }
 }
 

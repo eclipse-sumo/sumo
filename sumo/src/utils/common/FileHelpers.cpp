@@ -104,6 +104,10 @@ FileHelpers::getConfigurationRelative(const std::string &configPath,
 bool
 FileHelpers::isAbsolute(const std::string &path)
 {
+    // check sockets
+    if (path.length()>0&&path.find(":")>1) {
+        return true;
+    }
     // check UNIX - absolute paths
     if (path.length()>0&&path[0]=='/') {
         return true;
