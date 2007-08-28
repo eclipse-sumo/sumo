@@ -2,7 +2,7 @@
 /// @file    OutputDevice.cpp
 /// @author  Daniel Krajzewicz
 /// @date    2004
-/// @version $Id: SharedOutputDevices.cpp 4084 2007-06-06 07:51:13Z behrisch $
+/// @version $Id$
 ///
 // The holder/builder of output devices
 /****************************************************************************/

@@ -359,8 +359,8 @@ public:
             std::pair<SUMOReal, SUMOReal> mm1 = getMinMaxRelAngles(e1);
             std::pair<SUMOReal, SUMOReal> mm2 = getMinMaxRelAngles(e2);
             if(mm1.first==mm2.first && mm1.second==mm2.second) {
-                // ok, let's simply sort them arbitary
-                return (int) e1 < (int) e2;
+                // ok, let's simply sort them arbitarily
+                return e1->getID() < e2->getID();
             }
 
             assert(
