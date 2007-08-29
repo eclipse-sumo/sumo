@@ -480,7 +480,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         myPOIUpscaleDialer =
             new FXRealSpinDial(m622, 10, this, MID_SIMPLE_VIEW_COLORCHANGE,
                                LAYOUT_TOP|FRAME_SUNKEN|FRAME_THICK);
-        myPOIUpscaleDialer->setRange(1, 100);
+        myPOIUpscaleDialer->setRange(1, 1000);
         myPOIUpscaleDialer->setValue(mySettings->addExaggeration);
 
 
@@ -725,7 +725,6 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
         switch (myLaneColoringInfoSource->getColorSetType(tmpSettings.laneEdgeMode)) {
         case CST_SINGLE:
             if (sender==mySingleLaneColor) {
-                //cout << (int) FXREDVAL((FXColor) val) << " " << (int) FXGREENVAL((FXColor) val) << " " << (int) FXBLUEVAL((FXColor) val) << endl;
                 tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0] = convert((FXColor) val);
                 myLaneColoringInfoSource->getColorerInterface(tmpSettings.laneEdgeMode)->resetColor(
                     tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0]);
@@ -747,7 +746,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
         }
     }
     // vehicles
-    if (myVehicleColoringInfoSource!=0&&tmpSettings.vehicleMode!=prevVehicleMode) {
+    if (myVehicleColoringInfoSource!=0&&tmpSettings.vehicleMode==prevVehicleMode) {
         switch (myVehicleColoringInfoSource->getColorSetType(tmpSettings.vehicleMode)) {
         case CST_SINGLE:
             if (sender==mySingleVehicleColor) {
@@ -1425,7 +1424,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
             d.left = TplConvert<char>::_2SUMOReal(value.c_str());
             SUMOReal width = d.right - d.left;
             myDecalsTable->setItemText(i->row, 5, toString(width).c_str());
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
@@ -1435,7 +1434,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
             d.top = TplConvert<char>::_2SUMOReal(value.c_str());
             SUMOReal height = d.bottom - d.top;
             myDecalsTable->setItemText(i->row, 6, toString(height).c_str());
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
@@ -1445,7 +1444,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
             d.right = TplConvert<char>::_2SUMOReal(value.c_str());
             SUMOReal width = d.right - d.left;
             myDecalsTable->setItemText(i->row, 5, toString(width).c_str());
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
@@ -1455,7 +1454,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
             d.bottom = TplConvert<char>::_2SUMOReal(value.c_str());
             SUMOReal height = d.bottom - d.top;
             myDecalsTable->setItemText(i->row, 6, toString(height).c_str());
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
@@ -1465,7 +1464,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
             SUMOReal width = TplConvert<char>::_2SUMOReal(value.c_str());
             d.right = width + d.left;
             myDecalsTable->setItemText(i->row, 3, toString(d.right).c_str());
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
@@ -1475,7 +1474,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
             SUMOReal height = TplConvert<char>::_2SUMOReal(value.c_str());
             d.bottom = height + d.top;
             myDecalsTable->setItemText(i->row, 4, toString(d.bottom).c_str());
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
@@ -1483,7 +1482,7 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
     case 7:
         try {
             d.rot = TplConvert<char>::_2SUMOReal(value.c_str());
-        } catch (NumberFormatException) {
+        } catch (NumberFormatException &) {
             string msg = "The value must be a float, is:" + value;
             FXMessageBox::error(this, MBOX_OK, "Number format error", msg.c_str());
         }
