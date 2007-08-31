@@ -106,14 +106,14 @@ void OptionsLoader::characters(const XMLCh* const chars,
                 }
             } else {
                 if (myOptions.isFileName(myItem)) {
-                    StringTokenizer st(value, ';');
+				    StringTokenizer st(value, ";,", true);
                     string conv;
                     while (st.hasNext()) {
                         if (conv.length()!=0) {
-                            conv += ';';
+                            conv += ',';
                         }
                         string tmp = st.next();
-                        if (!FileHelpers::isAbsolute(value)) {
+                        if (!FileHelpers::isAbsolute(tmp)) {
                             tmp = FileHelpers::getConfigurationRelative(myFile, tmp);
                         }
                         conv += tmp;
