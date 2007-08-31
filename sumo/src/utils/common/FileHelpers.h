@@ -67,6 +67,9 @@ public:
     static std::string getConfigurationRelative(const std::string &configPath,
             const std::string &path);
 
+    /** returns the information whether the given name represents a socket */
+    static bool isSocket(const std::string &name);
+
     /** returns the information whether the given path is absolute */
     static bool isAbsolute(const std::string &path);
 
