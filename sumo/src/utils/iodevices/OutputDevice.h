@@ -40,7 +40,16 @@
 // ===========================================================================
 /**
  * @class OutputDevice
- * An abstract output device
+ * An abstract output device. OutputDevices are basically a capsule around
+ * std::ostream, which give a unified access to sockets, files and stdout.
+ * Although everything that can be written to a stream can also be written
+ * to an OutputDevice, there is special support for XML tags (remembering
+ * all open tags to close them at the end). OutputDevices are still lacking
+ * support for function pointers with the '<<' operator (no endl, use '\n').
+ * The most important method to implement in subclasses is getOStream,
+ * the most used part of the interface is the '<<' operator.
+ *
+ * The Boolean markers are used rarely and might get removed in future versions.
  */
 class OutputDevice
 {
