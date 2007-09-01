@@ -53,27 +53,31 @@
 // ===========================================================================
 using namespace std;
 
+
+// ===========================================================================
+// static member defintions
+// ===========================================================================
 OutputDevice::DeviceMap OutputDevice::myOutputDevices;
+
+
 // ===========================================================================
-// method definitions
+// static method definitions
 // ===========================================================================
-OutputDevice *
-OutputDevice::getOutputDevice(const std::string &name, const std::string &base)
+OutputDevice&
+OutputDevice::getDevice(const std::string &name, const std::string &base)
 {
     // check whether the device has already been aqcuired
-    DeviceMap::iterator i = myOutputDevices.find(name);
-    if (i!=myOutputDevices.end()) {
-        return (*i).second;
+    if (OutputDevice::hasDevice(name)) {
+        return *myOutputDevices[name];
     }
     // build the device
     OutputDevice *dev = 0;
-    int colonPos = name.find(":");
     // check whether the device shall print to stdout
     if (name=="stdout" || name=="-") {
         dev = new OutputDevice_COUT();
-    } else if (colonPos > 1) {
-        int port = TplConvert<char>::_2int(name.substr(colonPos+1).c_str());
-        dev = new OutputDevice_Network(name.substr(0, colonPos), port);
+    } else if (FileHelpers::isSocket(name)) {
+        int port = TplConvert<char>::_2int(name.substr(name.find(":")+1).c_str());
+        dev = new OutputDevice_Network(name.substr(0, name.find(":")), port);
     } else {
         std::string fullName = FileHelpers::checkForRelativity(name, base);
         std::ofstream *strm = new std::ofstream(fullName.c_str());
@@ -86,7 +90,15 @@ OutputDevice::getOutputDevice(const std::string &name, const std::string &base)
     dev->setPrecision();
     dev->getOStream() << setiosflags(ios::fixed);
     myOutputDevices[name] = dev;
-    return dev;
+    return *dev;
+}
+
+
+bool
+OutputDevice::hasDevice(const std::string &name)
+{
+    DeviceMap::iterator i = myOutputDevices.find(name);
+    return i!=myOutputDevices.end();
 }
 
 
@@ -99,6 +111,10 @@ OutputDevice::closeAll()
     myOutputDevices.clear();
 }
 
+
+// ===========================================================================
+// member method definitions
+// ===========================================================================
 bool
 OutputDevice::ok()
 {
@@ -108,7 +124,7 @@ OutputDevice::ok()
 void
 OutputDevice::close()
 {
-    writeXMLFooter();
+    while(closeTag());
     for (DeviceMap::iterator i=myOutputDevices.begin(); i!=myOutputDevices.end(); ++i) {
         if (i->second == this) {
             delete(*i).second;
@@ -130,14 +146,39 @@ bool
 OutputDevice::writeXMLHeader(const string &rootElement, const bool writeConfig,
                              const string &attrs, const string &comment)
 {
-    if (myRootElement == "") {
-        myRootElement = rootElement;
+    if (myXMLStack.empty()) {
         OptionsCont::getOptions().writeXMLHeader(getOStream(), writeConfig);
-        getOStream() << "<" << myRootElement;
-        if (attrs != "") {
-            getOStream() << " " << attrs;
+        if (comment != "") {
+            getOStream() << comment << "\n";
         }
-        getOStream() << ">" << endl;
+        openTag(rootElement, attrs);
+        return true;
+    }
+    return false;
+}
+
+
+void
+OutputDevice::openTag(const string &xmlElement, const string &attrs)
+{
+    string indent(3*myXMLStack.size(), ' ');
+    myXMLStack.push_back(xmlElement);
+    getOStream() << indent << "<" << xmlElement;
+    if (attrs != "") {
+        getOStream() << " " << attrs;
+    }
+    getOStream() << ">" << endl;
+    postWriteHook();
+}
+
+
+bool
+OutputDevice::closeTag()
+{
+    if (!myXMLStack.empty()) {
+        string indent(3*(myXMLStack.size()-1), ' ');
+        getOStream() << indent << "</" << myXMLStack.back() << ">" << endl;
+        myXMLStack.pop_back();
         postWriteHook();
         return true;
     }
@@ -146,15 +187,13 @@ OutputDevice::writeXMLHeader(const string &rootElement, const bool writeConfig,
 
 
 bool
-OutputDevice::writeXMLFooter()
+OutputDevice::createAlias(const std::string &name)
 {
-    if (myRootElement != "") {
-        getOStream() << "</" << myRootElement << ">" << std::endl;
-        postWriteHook();
-        myRootElement = "";
-        return true;
+    if (OutputDevice::hasDevice(name)) {
+        return false;
     }
-    return false;
+    myOutputDevices[name] = this;
+    return true;
 }
 
 

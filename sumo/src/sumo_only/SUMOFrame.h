@@ -54,11 +54,12 @@ public:
     static void fillOptions();
 
     /** @brief Builds the streams used possibly by the simulation */
-    static std::vector<OutputDevice*> buildStreams(const OptionsCont &oc);
+    static void buildStreams(const OptionsCont &oc);
 
     /// Build the output stream named by the according option
-    static OutputDevice *buildStream(const OptionsCont &oc,
-                                     const std::string &optionName);
+    static void buildStream(const OptionsCont &oc,
+                            const std::string &optionName,
+                            const std::string &rootElement="");
 
     /**
      * Checks the build settings. The following constraints must be valid:

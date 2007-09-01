@@ -66,18 +66,18 @@ MSPhoneNet::~MSPhoneNet()
     // close outputs
     SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     if ((currentTime-1)%300!=0) {
-        if (MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2)!=0||MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL)!=0) {
+        if (OutputDevice::hasDevice("ss2-cell-output")||OutputDevice::hasDevice("ss2-sql-cell-output")) {
             writeCellOutput(currentTime);
         }
-        if (MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2)!=0||MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL)!=0) {
+        if (OutputDevice::hasDevice("ss2-la-output")||OutputDevice::hasDevice("ss2-sql-la-output")) {
             writeLAOutput(currentTime);
         }
     }
-    if (MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL)!=0) {
-        *MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL) << ";" << "\n";
+    if (OutputDevice::hasDevice("ss2-sql-cell-output")) {
+        OutputDevice::getDevice("ss2-sql-cell-output") << ";\n";
     }
-    if (MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL)!=0) {
-        *MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL) << ";" << "\n";
+    if (OutputDevice::hasDevice("ss2-sql-la-output")) {
+        OutputDevice::getDevice("ss2-sql-la-output") << ";\n";
     }
     // delete cells and las
     std::map< int, MSPhoneCell* >::iterator cit;
@@ -218,9 +218,7 @@ SUMOTime
 MSPhoneNet::writeCellOutput(SUMOTime t)
 {
     // cell output / sql cell output
-    OutputDevice *od1 = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2);
-    OutputDevice *od2 = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELL_TO_SS2_SQL);
-    if (od1 != 0 || od2 != 0) {
+    if (OutputDevice::hasDevice("ss2-cell-output")||OutputDevice::hasDevice("ss2-sql-cell-output")) {
         std::map< int, MSPhoneCell* >::iterator cit;
         for (cit = myMMSPhoneCells.begin(); cit != myMMSPhoneCells.end(); cit++) {
             cit->second->writeOutput(t);
@@ -234,9 +232,9 @@ SUMOTime
 MSPhoneNet::writeLAOutput(SUMOTime t)
 {
     // la output / sql la output
-    OutputDevice *od1 = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2);
+    /*OutputDevice *od1 = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2);
     OutputDevice *od2 = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL);
-    /*if ( od1 != 0 || od2 != 0 )
+    if ( od1 != 0 || od2 != 0 )
     {
     	std::map< int, MSPhoneLA* >::iterator lit;
     	for (lit = myMMSPhoneLAs.begin(); lit != myMMSPhoneLAs.end(); lit++) {
@@ -245,25 +243,26 @@ MSPhoneNet::writeLAOutput(SUMOTime t)
     }*/
 
     int intervall = t - lastTime;
-    if (od1 != 0 || od2 != 0) {
+    if (OutputDevice::hasDevice("ss2-la-output")||OutputDevice::hasDevice("ss2-sql-la-output")) {
         std::map< std::string, int >::const_iterator coit;
         for (coit = myLAChanges.begin(); coit != myLAChanges.end(); coit++) {
-            if (od1 != 0) {
+            if (OutputDevice::hasDevice("ss2-la-output")) {
                 std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                 timestr = timestr + " " + StringUtils::toTimeString(t);
-                *od1
+                OutputDevice::getDevice("ss2-la-output")
                 << "03;" << timestr << ';' << coit->first << ";0;" << coit->second
                 << ";0;" << intervall << "\n";
             }
-            if (od2 != 0) {
+            if (OutputDevice::hasDevice("ss2-sql-la-output")) {
+                OutputDevice& od = OutputDevice::getDevice("ss2-sql-la-output");
                 std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                 timestr = timestr + " " + StringUtils::toTimeString(t);
-                if (od2->getBoolMarker("hadFirstCall")) {
-                    *od2 << "," << "\n";
+                if (od.getBoolMarker("hadFirstCall")) {
+                    od << ",\n";
                 } else {
-                    od2->setBoolMarker("hadFirstCall", true);
+                    od.setBoolMarker("hadFirstCall", true);
                 }
-                *od2
+                od
                 << "(NULL, \' \', '" << timestr << "'," << coit->first << ";0;" << coit->second
                 << ";0;" << intervall << ")";
             }

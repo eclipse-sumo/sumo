@@ -55,7 +55,7 @@ using namespace std;
 Command_SaveTLCoupledLaneDet::Command_SaveTLCoupledLaneDet(
     const MSTLLogicControl::TLSLogicVariants &tlls,
     MSDetectorFileOutput *dtf,
-    unsigned int begin, OutputDevice *device, MSLink *link)
+    unsigned int begin, OutputDevice& device, MSLink *link)
         : Command_SaveTLCoupledDet(tlls, dtf, begin, device),
         myLink(link), myLastState(MSLink::LINKSTATE_TL_RED)
 {}
@@ -72,7 +72,7 @@ Command_SaveTLCoupledLaneDet::execute(SUMOTime currentTime)
         return true;
     }
     if (myLink->getState()==MSLink::LINKSTATE_TL_RED) {
-        myDetector->writeXMLOutput(*myDevice, myStartTime, currentTime);
+        myDetector->writeXMLOutput(myDevice, myStartTime, currentTime);
         myStartTime = currentTime;
     }
     myLastState = myLink->getState();

@@ -359,35 +359,34 @@ SUMOFrame::fillOptions()
 }
 
 
-std::vector<OutputDevice*>
+void
 SUMOFrame::buildStreams(const OptionsCont &oc)
 {
-    std::vector<OutputDevice*> ret(MSNet::OS_MAX, 0);
     // standard outputs
-    ret[MSNet::OS_NETSTATE] = buildStream(oc, "netstate-dump");
-    ret[MSNet::OS_EMISSIONS] = buildStream(oc, "emissions-output");
-    ret[MSNet::OS_TRIPDURATIONS] = buildStream(oc, "tripinfo-output");
-    ret[MSNet::OS_VEHROUTE] = buildStream(oc, "vehroute-output");
-    ret[MSNet::OS_PHYSSTATES] = buildStream(oc, "physical-states-output");
+    buildStream(oc, "netstate-dump", "sumo-netstate");
+    buildStream(oc, "emissions-output", "emissions");
+    buildStream(oc, "tripinfo-output", "tripinfos");
+    buildStream(oc, "vehroute-output", "vehicleroutes");
+    buildStream(oc, "physical-states-output", "physical-states");
     // TrafficOnline-outputs
-    ret[MSNet::OS_DEVICE_TO_SS2] = buildStream(oc, "ss2-output");
-    ret[MSNet::OS_CELL_TO_SS2] = buildStream(oc, "ss2-cell-output");
-    ret[MSNet::OS_LA_TO_SS2] = buildStream(oc, "ss2-la-output");
-    ret[MSNet::OS_DEVICE_TO_SS2_SQL] = buildStream(oc, "ss2-sql-output");
-    ret[MSNet::OS_CELL_TO_SS2_SQL] = buildStream(oc, "ss2-sql-cell-output");
-    ret[MSNet::OS_LA_TO_SS2_SQL] = buildStream(oc, "ss2-sql-la-output");
-    ret[MSNet::OS_CELLPHONE_DUMP_TO] = buildStream(oc, "cellphone-dump");
+    buildStream(oc, "ss2-output");
+    buildStream(oc, "ss2-cell-output");
+    buildStream(oc, "ss2-la-output");
+    buildStream(oc, "ss2-sql-output");
+    buildStream(oc, "ss2-sql-cell-output");
+    buildStream(oc, "ss2-sql-la-output");
+    buildStream(oc, "cellphone-dump");
     // c2x-outputs
-    ret[MSNet::OS_CLUSTER_INFO] = buildStream(oc, "c2x.cluster-info");
-    ret[MSNet::OS_EDGE_NEAR] = buildStream(oc, "c2x.edge-near-info");
-    ret[MSNet::OS_SAVED_INFO] = buildStream(oc, "c2x.saved-info");
-    ret[MSNet::OS_SAVED_INFO_FREQ] = buildStream(oc, "c2x.saved-info-freq");
-    ret[MSNet::OS_TRANS_INFO] = buildStream(oc, "c2x.transmitted-info");
-    ret[MSNet::OS_VEH_IN_RANGE] = buildStream(oc, "c2x.vehicle-in-range");
+    buildStream(oc, "c2x.cluster-info", "clusterInfos");
+    buildStream(oc, "c2x.edge-near-info", "edge-neighbors");
+    buildStream(oc, "c2x.saved-info", "savedInfos");
+    buildStream(oc, "c2x.saved-info-freq", "savedInfosFreq");
+    buildStream(oc, "c2x.transmitted-info", "transmittedInfos");
+    buildStream(oc, "c2x.vehicle-in-range", "vehicleInRanges");
 
     // initialise TrafficOnline-outputs
-    if (ret[MSNet::OS_DEVICE_TO_SS2_SQL]!=0) {
-        (*ret[MSNet::OS_DEVICE_TO_SS2_SQL])
+    if (OutputDevice::hasDevice("ss2-sql-output")) {
+        OutputDevice::getDevice("ss2-sql-output")
         << "CREATE TABLE `COLLECTORPOS` (\n"
         << "`ID` int(11) NOT NULL auto_increment,\n"
         << "`TID` varchar(20) NOT NULL default '',\n"
@@ -396,13 +395,13 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
         << "`CALL_ID` int(5) NOT NULL default '0',\n"
         << "`QUALITY_ID` int(5) NOT NULL default '30',\n"
         << "PRIMARY KEY  (`ID`)\n"
-        << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
-        (*ret[MSNet::OS_DEVICE_TO_SS2_SQL])
+        << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n"
+
         << "INSERT INTO `COLLECTORPOS` (`ID`,`TID`,`DATE_TIME`, `POSITION_ID`, `CALL_ID`, `QUALITY_ID`) VALUES "
         << "\n";
     }
-    if (ret[MSNet::OS_CELL_TO_SS2_SQL]!=0) {
-        (*ret[MSNet::OS_CELL_TO_SS2_SQL])
+    if (OutputDevice::hasDevice("ss2-sql-cell-output")) {
+        OutputDevice::getDevice("ss2-sql-cell-output")
         << "CREATE TABLE `COLLECTORCS` ("
         << "`ID` int(11) NOT NULL auto_increment,\n"
         << "`TID` varchar(20) NOT NULL default '',\n"
@@ -415,14 +414,13 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
         << "`SUM_CALLS` int(5) NOT NULL default '0',\n"
         << "`INTERVALL` int(5) NOT NULL default '0',\n"
         << "PRIMARY KEY  (`ID`,`TID`)\n"
-        << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
+        << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n"
 
-        (*ret[MSNet::OS_CELL_TO_SS2_SQL])
         << "INSERT INTO `COLLECTORCS` (`ID`,`TID`,`DATE_TIME`,`CELL_ID`,`STAT_CALLS_IN`,`STAT_CALLS_OUT`,"
         << "`DYN_CALLS_IN`,`DYN_CALLS_OUT`,`SUM_CALLS`,`INTERVALL`) VALUES \n";
     }
-    if (ret[MSNet::OS_LA_TO_SS2_SQL]!=0) {
-        (*ret[MSNet::OS_LA_TO_SS2_SQL])
+    if (OutputDevice::hasDevice("ss2-sql-la-output")) {
+        OutputDevice::getDevice("ss2-sql-la-output")
         << "CREATE TABLE `COLLECTORLA` (\n"
         << "`ID` int(11) NOT NULL auto_increment,\n"
         << "`TID` varchar(20) NOT NULL default '',\n"
@@ -433,24 +431,27 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
         << "`QUALITY_ID` int(2) NOT NULL default '0',\n"
         << "`INTERVALL` int(5) NOT NULL default '0',\n"
         << "PRIMARY KEY  (`ID`,`TID`)\n"
-        << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n";
+        << ") ENGINE=MyISAM DEFAULT CHARSET=latin1;\n\n"
 
-        (*ret[MSNet::OS_LA_TO_SS2_SQL])
         << "INSERT INTO `COLLECTORLA` (`ID`,`TID`,`DATE_TIME`,`POSITION_ID`,`DIR`,`SUM_CHANGE`,"
         << "`QUALITY_ID`,`INTERVALL`) VALUES \n";
     }
-    return ret;
 }
 
 
-OutputDevice *
+void
 SUMOFrame::buildStream(const OptionsCont &oc,
-                       const std::string &optionName)
+                       const std::string &optionName,
+                       const std::string &rootElement)
 {
     if (!oc.isSet(optionName)) {
-        return 0;
+        return;
     }
-    return OutputDevice::getOutputDevice(oc.getString(optionName).c_str());
+    OutputDevice& dev = OutputDevice::getDevice(oc.getString(optionName));
+    dev.createAlias(optionName);
+    if (rootElement != "") {
+        dev.writeXMLHeader(rootElement);
+    }
 }
 
 

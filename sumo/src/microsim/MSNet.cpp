@@ -97,7 +97,7 @@ using namespace std;
 
 
 // ===========================================================================
-// static member defintions
+// static member definitions
 // ===========================================================================
 MSNet* MSNet::myInstance = 0;
 SUMOReal MSNet::myDeltaT = 1;
@@ -152,7 +152,6 @@ void
 MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
                      MSRouteLoaderControl *routeLoaders,
                      MSTLLogicControl *tlc, // ShapeContainer *sc,
-                     std::vector<OutputDevice*> streams,
                      const MSMeanData_Net_Cont &meanData,
                      TimeVector stateDumpTimes,
                      std::string stateDumpFiles)
@@ -163,22 +162,16 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     myLogics = tlc;
     myMSPhoneNet = new MSPhoneNet();
     // intialise outputs
-    myOutputStreams = streams;
     myMeanData = meanData;
-    // c2c
-    MSCORN::setClusterInfoOutput(streams[OS_CLUSTER_INFO]);
-    MSCORN::setSavedInfoOutput(streams[OS_SAVED_INFO]);
-    MSCORN::setTransmittedInfoOutput(streams[OS_TRANS_INFO]);
-    MSCORN::setVehicleInRangeOutput(streams[OS_VEH_IN_RANGE]);
     // tol
-    if (getOutputDevice(OS_CELL_TO_SS2)!=0||getOutputDevice(OS_CELL_TO_SS2_SQL)!=0) {
+    if (OutputDevice::hasDevice("ss2-cell-output")||OutputDevice::hasDevice("ss2-sql-cell-output")) {
         // start old-data removal through MSEventControl
         Command* writeDate = new WrappingCommand< MSPhoneNet >(
                                  myMSPhoneNet, &MSPhoneNet::writeCellOutput);
         getEndOfTimestepEvents().addEvent(
             writeDate, (myStep)%300+300, MSEventControl::NO_CHANGE);
     }
-    if (getOutputDevice(OS_LA_TO_SS2)!=0||getOutputDevice(OS_LA_TO_SS2_SQL)!=0) {
+    if (OutputDevice::hasDevice("ss2-la-output")||OutputDevice::hasDevice("ss2-sql-la-output")) {
         // start old-data removal through MSEventControl
         Command* writeDate = new WrappingCommand< MSPhoneNet >(
                                  myMSPhoneNet, &MSPhoneNet::writeLAOutput);
@@ -196,8 +189,8 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
             myCellsBuilder = new MSBuildCells(*this, GeoConvHelper::getConvBoundary());
             myCellsBuilder->build();
             // print some debug stuff if wished
-            if (streams[OS_EDGE_NEAR]!=0) {
-                myCellsBuilder->writeNearEdges(*streams[OS_EDGE_NEAR]);
+            if (OutputDevice::hasDevice("c2x.edge-near-info")) {
+                myCellsBuilder->writeNearEdges(OutputDevice::getDevice("c2x.edge-near-info"));
             }
         }
     }
@@ -290,69 +283,30 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
 void
 MSNet::initialiseSimulation()
 {
-    // prepare the "netstate" output and print the first line
-    if (myOutputStreams[OS_NETSTATE]!=0) {
-        *myOutputStreams[OS_NETSTATE]
-        << "<?xml version=\"1.0\" standalone=\"no\"?>" << "\n"
-        << "<sumo-netstate>" << "\n";
-    }
-    // ... the same for the vehicle emission state
-    if (myOutputStreams[OS_EMISSIONS]!=0) {
-        *myOutputStreams[OS_EMISSIONS]
-        << "<?xml version=\"1.0\" standalone=\"no\"?>" << "\n"
-        << "<emissions>" << "\n";
+    if (OutputDevice::hasDevice("emissions-output")) {
         MSCORN::setWished(MSCORN::CORN_OUT_EMISSIONS);
     }
-    // ... the same for the vehicle trip durations
-    if (myOutputStreams[OS_TRIPDURATIONS]!=0) {
-        *myOutputStreams[OS_TRIPDURATIONS]
-        << "<?xml version=\"1.0\" standalone=\"no\"?>" << "\n"
-        << "<tripinfos>" << "\n";
+    if (OutputDevice::hasDevice("tripinfo-output")) {
         MSCORN::setWished(MSCORN::CORN_OUT_TRIPDURATIONS);
     }
-    // ... the same for the vehicle route information
-    if (myOutputStreams[OS_VEHROUTE]!=0) {
-        *myOutputStreams[OS_VEHROUTE]
-        << "<?xml version=\"1.0\" standalone=\"no\"?>" << "\n"
-        << "<vehicleroutes>" << "\n";
+    if (OutputDevice::hasDevice("vehroute-output")) {
         MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
-    }
-    // ... the same for the vehicle route information
-    if (myOutputStreams[OS_PHYSSTATES]!=0) {
-        *myOutputStreams[OS_PHYSSTATES]
-        << "<?xml version=\"1.0\" standalone=\"no\"?>" << "\n"
-        << "<physical-states>" << "\n";
     }
 
     //car2car
-    if (myOutputStreams[OS_CLUSTER_INFO]!=0) {
-        *myOutputStreams[OS_CLUSTER_INFO]
-        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << "\n"
-        << "<clusterInfos>" << "\n";
+    if (OutputDevice::hasDevice("c2x.cluster-info")) {
         MSCORN::setWished(MSCORN::CORN_OUT_CLUSTER_INFO);
     }
-    if (myOutputStreams[OS_SAVED_INFO]!=0) {
-        *myOutputStreams[OS_SAVED_INFO]
-        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << "\n"
-        << "<savedInfos>" << "\n";
+    if (OutputDevice::hasDevice("c2x.saved-info")) {
         MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO);
     }
-    if (myOutputStreams[OS_SAVED_INFO_FREQ]!=0) {
-        *myOutputStreams[OS_SAVED_INFO_FREQ]
-        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << "\n"
-        << "<savedInfosFreq>" << "\n";
+    if (OutputDevice::hasDevice("c2x.saved-info-freq")) {
         MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO_FREQ);
     }
-    if (myOutputStreams[OS_TRANS_INFO]!=0) {
-        *myOutputStreams[OS_TRANS_INFO]
-        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << "\n"
-        << "<transmittedInfos>" << "\n";
+    if (OutputDevice::hasDevice("c2x.transmitted-info")) {
         MSCORN::setWished(MSCORN::CORN_OUT_TRANS_INFO);
     }
-    if (myOutputStreams[OS_VEH_IN_RANGE]!=0) {
-        *myOutputStreams[OS_VEH_IN_RANGE]
-        << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << "\n"
-        << "<vehicleInRanges>" << "\n";
+    if (OutputDevice::hasDevice("c2x.vehicle-in-range")) {
         MSCORN::setWished(MSCORN::CORN_OUT_VEH_IN_RANGE);
     }
 }
@@ -361,49 +315,8 @@ MSNet::initialiseSimulation()
 void
 MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
 {
-    // print the last line of the "netstate" output
-    if (myOutputStreams[OS_NETSTATE]!=0) {
-        *myOutputStreams[OS_NETSTATE] << "</sumo-netstate>" << "\n";
-    }
-    // ... the same for the vehicle emission state
-    if (myOutputStreams[OS_EMISSIONS]!=0) {
-        *myOutputStreams[OS_EMISSIONS] << "</emissions>" << "\n";
-    }
-    // ... the same for the vehicle trip information
-    if (myOutputStreams[OS_TRIPDURATIONS]!=0) {
-        *myOutputStreams[OS_TRIPDURATIONS] << "</tripinfos>" << "\n";
-    }
-    // ... the same for the vehicle trip information
-    if (myOutputStreams[OS_VEHROUTE]!=0) {
-        *myOutputStreams[OS_VEHROUTE] << "</vehicleroutes>" << "\n";
-    }
-    // ... the same for the physical vehicle states
-    if (myOutputStreams[OS_PHYSSTATES]!=0) {
-        *myOutputStreams[OS_PHYSSTATES] << "</physical-states>" << "\n";
-    }
-    // ... the same for the OS_CELL_TO_SS2_SQL
-    if (myOutputStreams[OS_DEVICE_TO_SS2_SQL]!=0) {
-        *myOutputStreams[OS_DEVICE_TO_SS2_SQL] << ";" << "\n";
-    }
-    //car2car
-    if (myOutputStreams[OS_CLUSTER_INFO]!=0) {
-        MSCORN::checkCloseClusterInfoData();
-        *myOutputStreams[OS_CLUSTER_INFO] << "</clusterInfos>" << "\n";
-    }
-    if (myOutputStreams[OS_SAVED_INFO]!=0) {
-        MSCORN::checkCloseSavedInformationData();
-        *myOutputStreams[OS_SAVED_INFO] << "</savedInfos>" << "\n";
-    }
-    if (myOutputStreams[OS_SAVED_INFO_FREQ]!=0) {
-        *myOutputStreams[OS_SAVED_INFO_FREQ] << "</savedInfosFreq>" << "\n";
-    }
-    if (myOutputStreams[OS_TRANS_INFO]!=0) {
-        MSCORN::checkCloseTransmittedInformationData();
-        *myOutputStreams[OS_TRANS_INFO] << "</transmittedInfos>" << "\n";
-    }
-    if (myOutputStreams[OS_VEH_IN_RANGE]!=0) {
-        MSCORN::checkCloseVehicleInRangeData();
-        *myOutputStreams[OS_VEH_IN_RANGE] << "</vehicleInRanges>" << "\n";
+    if (OutputDevice::hasDevice("ss2-sql-output")) {
+        OutputDevice::getDevice("ss2-sql-output") << ";\n";
     }
     if (myLogExecutionTime!=0&&mySimDuration!=0) {
         ostringstream msg;
@@ -662,12 +575,12 @@ void
 MSNet::writeOutput()
 {
     // netstate output.
-    if (myOutputStreams[OS_NETSTATE]!=0) {
-        MSXMLRawOut::write(*myOutputStreams[OS_NETSTATE], *myEdges, myStep, 3);
+    if (OutputDevice::hasDevice("netstate-dump")) {
+        MSXMLRawOut::write(OutputDevice::getDevice("netstate-dump"), *myEdges, myStep, 3);
     }
     // emission output
-    if (myOutputStreams[OS_EMISSIONS]!=0) {
-        *myOutputStreams[OS_EMISSIONS]
+    if (OutputDevice::hasDevice("emissions-output")) {
+        OutputDevice::getDevice("emissions-output")
         << "    <emission-state time=\"" << myStep << "\" "
         << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "
         << "emitted=\"" << myVehicleControl->getEmittedVehicleNo() << "\" "
@@ -677,11 +590,10 @@ MSNet::writeOutput()
         << "meanWaitingTime=\"" << myVehicleControl->getMeanWaitingTime() << "\" "
         << "meanTravelTime=\"" << myVehicleControl->getMeanTravelTime() << "\" ";
         if (myLogExecutionTime) {
-            *myOutputStreams[OS_EMISSIONS]
+            OutputDevice::getDevice("emissions-output")
             << "duration=\"" << mySimStepDuration << "\" ";
         }
-        *myOutputStreams[OS_EMISSIONS]
-        << "/>" << "\n";
+        OutputDevice::getDevice("emissions-output") << "/>\n";
     }
 }
 
@@ -821,14 +733,6 @@ MSNet::getPersonControl() const
     }
     return *myPersonControl;
 }
-
-
-OutputDevice *
-MSNet::getOutputDevice(MSNetOutputs output) const
-{
-    return myOutputStreams[output];
-}
-
 
 
 /****************************************************************************/

@@ -57,13 +57,12 @@ Command_SaveTLSState::Command_SaveTLSState(
 {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
             0, MSEventControl::ADAPT_AFTER_EXECUTION);
-    myOutputDevice << "<tls-states>" << "\n";
+    myOutputDevice.writeXMLHeader("tls-states");
 }
 
 
 Command_SaveTLSState::~Command_SaveTLSState()
 {
-    myOutputDevice << "</tls-states>" << "\n";
 }
 
 

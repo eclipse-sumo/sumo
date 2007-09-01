@@ -79,8 +79,8 @@ NBNetBuilder::buildLoaded()
     compute(oc);
     // save network
     try {
-        OutputDevice *device = OutputDevice::getOutputDevice(oc.getString("o"));
-        save(*device, oc);
+        OutputDevice& device = OutputDevice::getDevice(oc.getString("o"));
+        save(device, oc);
     } catch (IOError e) {
         throw ProcessError("Could not save net to '" + oc.getString("o") + "'.\n "+e.what());
     }
@@ -341,7 +341,7 @@ NBNetBuilder::compute(OptionsCont &oc)
 
     OutputDevice *device = 0;
     if (oc.isSet("node-type-output")) {
-        device = OutputDevice::getOutputDevice(oc.getString("node-type-output"));
+        device = &OutputDevice::getDevice(oc.getString("node-type-output"));
         device->writeXMLHeader("pois");
     }
     sortNodesEdges(step, device);
@@ -447,15 +447,13 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc)
 bool
 NBNetBuilder::saveMap(const string &path)
 {
-    // try to build the output file
-    OutputDevice *res = OutputDevice::getOutputDevice(path);
-    if (!res->ok()) {
+    try {
+        OutputDevice::getDevice(path) << gJoinedEdges;
+        return true;
+    } catch (IOError e) {
         MsgHandler::getErrorInstance()->inform("Map output '" + path + "' could not be opened.");
         return false;
     }
-    // write map
-    *res << gJoinedEdges;
-    return true;
 }
 
 

@@ -91,18 +91,10 @@ public:
     };
 
     static void init();
-    static void clear();
     static bool wished(Function f);
     static void setWished(Function f);
 
 public:
-    // Car2Car
-    static void setClusterInfoOutput(OutputDevice *s);
-    static void setSavedInfoOutput(OutputDevice *s);
-    static void setTransmittedInfoOutput(OutputDevice *s);
-    static void setVehicleInRangeOutput(OutputDevice *s);
-
-
     static void saveTOSS2_CalledPositionData(SUMOTime time,
             int callID, const std::string &pos, int quality);
 
@@ -111,32 +103,18 @@ public:
     static void saveClusterInfoData(SUMOTime step, int id,
                                     const std::string &headID,
                                     const std::string &vehs, int quantity);
-    static void checkCloseClusterInfoData();
-
     static void saveSavedInformationData(SUMOTime step, const std::string &veh,
                                          const std::string &edge, const std::string &type,
                                          int time, SUMOReal nt);
-    static void checkCloseSavedInformationData();
-
     static void saveTransmittedInformationData(SUMOTime step, const std::string &from,
             const std::string &to, const std::string &edge, int time, SUMOReal nt);
-    static void checkCloseTransmittedInformationData();
-
     static void saveVehicleInRangeData(SUMOTime step, const std::string &veh1,
                                        const std::string &veh2,
                                        SUMOReal x1, SUMOReal y1,
                                        SUMOReal x2 , SUMOReal y2);
-    static void checkCloseVehicleInRangeData();
-
 
 private:
-    //
-    ///
     //Car2car
-    static OutputDevice *myClusterInfoOutput;
-    static OutputDevice *mySavedInfoOutput;
-    static OutputDevice *myTransmittedInfoOutput;
-    static OutputDevice *myVehicleInRangeOutput;
     static SUMOTime myLastStepClusterInfoOutput;
     static SUMOTime myLastStepSavedInfoOutput;
     static SUMOTime myLastStepTransmittedInfoOutput;

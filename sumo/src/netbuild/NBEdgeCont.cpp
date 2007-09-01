@@ -693,57 +693,55 @@ NBEdgeCont::getAllNames()
 bool
 NBEdgeCont::savePlain(const std::string &file)
 {
-    // try to build the output file
-    OutputDevice *device = 0;
     try {
-        device = OutputDevice::getOutputDevice(file);
+        OutputDevice& device = OutputDevice::getDevice(file);
+        device.writeXMLHeader("edges");
+        for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
+            NBEdge *e = (*i).second;
+            device << "   <edge id=\"" << e->getID()
+            << "\" fromnode=\"" << e->getFromNode()->getID()
+            << "\" tonode=\"" << e->getToNode()->getID()
+            << "\" nolanes=\"" << e->getNoLanes()
+            << "\" speed=\"" << e->getSpeed() << "\"";
+            // write the geometry only if larger than just the from/to positions
+            if (e->getGeometry().size()>2) {
+                device.setPrecision(10);
+                device << " shape=\"" << e->getGeometry() << "\"";
+                device.setPrecision();
+            }
+            // write the spread type if not default ("right")
+            if (e->getLaneSpreadFunction()!=NBEdge::LANESPREAD_RIGHT) {
+                device << " spread_type=\"center\"";
+            }
+            // write the function if not "normal"
+            if (e->getBasicType()!=NBEdge::EDGEFUNCTION_NORMAL) {
+                switch (e->getBasicType()) {
+                case NBEdge::EDGEFUNCTION_SOURCE:
+                    device << " function=\"source\"";
+                    break;
+                case NBEdge::EDGEFUNCTION_SINK:
+                    device << " function=\"sink\"";
+                    break;
+                default:
+                    // hmmm - do nothing? seems to be invalid anyhow
+                    break;
+                }
+            }
+            // write the vehicles class if restrictions exist
+            if (!e->hasRestrictions()) {
+                device << "/>\n";
+            } else {
+                device << ">\n";
+                e->writeLanesPlain(device);
+                device << "   </edge>\n";
+            }
+        }
+        device.close();
+        return true;
     } catch (IOError e) {
         MsgHandler::getErrorInstance()->inform("Plain edge file '" + file + "' could not be opened.\n "+e.what());
         return false;
     }
-    device->writeXMLHeader("edges");
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        NBEdge *e = (*i).second;
-        *device << "   <edge id=\"" << e->getID()
-        << "\" fromnode=\"" << e->getFromNode()->getID()
-        << "\" tonode=\"" << e->getToNode()->getID()
-        << "\" nolanes=\"" << e->getNoLanes()
-        << "\" speed=\"" << e->getSpeed() << "\"";
-        // write the geometry only if larger than just the from/to positions
-        if (e->getGeometry().size()>2) {
-            device->setPrecision(10);
-            *device << " shape=\"" << e->getGeometry() << "\"";
-            device->setPrecision();
-        }
-        // write the spread type if not default ("right")
-        if (e->getLaneSpreadFunction()!=NBEdge::LANESPREAD_RIGHT) {
-            *device << " spread_type=\"center\"";
-        }
-        // write the function if not "normal"
-        if (e->getBasicType()!=NBEdge::EDGEFUNCTION_NORMAL) {
-            switch (e->getBasicType()) {
-            case NBEdge::EDGEFUNCTION_SOURCE:
-                *device << " function=\"source\"";
-                break;
-            case NBEdge::EDGEFUNCTION_SINK:
-                *device << " function=\"sink\"";
-                break;
-            default:
-                // hmmm - do nothing? seems to be invalid anyhow
-                break;
-            }
-        }
-        // write the vehicles class if restrictions exist
-        if (!e->hasRestrictions()) {
-            *device << "/>\n";
-        } else {
-            *device << ">\n";
-            e->writeLanesPlain(*device);
-            *device << "   </edge>\n";
-        }
-    }
-    device->close();
-    return true;
 }
 
 

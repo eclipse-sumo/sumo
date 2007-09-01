@@ -270,9 +270,8 @@ MSDevice_CPhone::~MSDevice_CPhone()
         if (cell != 0) {
             if (m_State!=STATE_IDLE && m_State!=STATE_OFF) {
                 cell->remCall(myCallId);
-                OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
-                if (od!=0) {
-                    *od
+                if (OutputDevice::hasDevice("cellphone-dump")) {
+                    OutputDevice::getDevice("cellphone-dump")
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << myCallId << ';' << mycurrentCellId << ';'
                     << 2 << ';' << myID <<"\n";
@@ -370,9 +369,8 @@ MSDevice_CPhone::SetState(State s, int dur)
     myCommand = new MyCommand(*this);
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         myCommand, dur + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
-    OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
-    if (od!=0) {
-        *od
+    if (OutputDevice::hasDevice("cellphone-dump")) {
+        OutputDevice::getDevice("cellphone-dump")
         << MSNet::getInstance()->getCurrentTimeStep() << ';'
         << myCallId << ';' << mycurrentCellId << ';'
         << 0 << ';' << myID <<"\n";
@@ -389,9 +387,8 @@ MSDevice_CPhone::changeState()
         throw 1;
         assert(myCallId != -1);
         assert(mycurrentCellId != -1);
-        OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
-        if (od!=0) {
-            *od
+        if (OutputDevice::hasDevice("cellphone-dump")) {
+            OutputDevice::getDevice("cellphone-dump")
             << MSNet::getInstance()->getCurrentTimeStep() << ';'
             << myCallId << ';' << mycurrentCellId << ';'
             << 2 << ';' << myID <<"\n";
@@ -439,12 +436,11 @@ MSDevice_CPhone::changeState()
                             cell->addCall( myCallId, STATICIN, myCallCellCount );
                         else
                             cell->addCall( myCallId, STATICOUT, myCallCellCount );
-                        OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
-                        if (od!=0) {
-                            *od
-                                << MSNet::getInstance()->getCurrentTimeStep() << ';'
-                                << myCallId << ';' << mycurrentCellId << ';'
-                                << 0 << ';' << myID <<"\n";
+                        if (OutputDevice::hasDevice("cellphone-dump")) {
+                            OutputDevice::getDevice("cellphone-dump")
+                            << MSNet::getInstance()->getCurrentTimeStep() << ';'
+                            << myCallId << ';' << mycurrentCellId << ';'
+                            << 0 << ';' << myID <<"\n";
                         }
                         //next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // telephone some seconds
                         next = (SUMOTime) getTrainDuration();
@@ -490,9 +486,8 @@ MSDevice_CPhone::changeState()
                         cell->addCall(myCallId, STATICIN, myCallCellCount);
                     else
                         cell->addCall(myCallId, STATICOUT, myCallCellCount);
-                    OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
-                    if (od!=0) {
-                        *od
+                    if (OutputDevice::hasDevice("cellphone-dump")) {
+                        OutputDevice::getDevice("cellphone-dump")
                         << MSNet::getInstance()->getCurrentTimeStep() << ';'
                         << myCallId << ';' << mycurrentCellId << ';'
                         << 0 << ';' << myID <<"\n";
@@ -504,9 +499,8 @@ MSDevice_CPhone::changeState()
             break;
             case STATE_CONNECTED_IN:
             case STATE_CONNECTED_OUT: {
-                OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
-                if (od!=0) {
-                    *od
+                if (OutputDevice::hasDevice("cellphone-dump")) {
+                    OutputDevice::getDevice("cellphone-dump")
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << myCallId << ';' << mycurrentCellId << ';'
                     << 2 << ';' << myID <<"\n";
@@ -587,12 +581,11 @@ MSDevice_CPhone::onDepart()
                     cell->addCall( myCallId, STATICIN , myCallCellCount);
                 else
                     cell->addCall( myCallId, STATICOUT, myCallCellCount );
-                OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_CELLPHONE_DUMP_TO);
-                if (od!=0) {
-                    od
-                        << MSNet::getInstance()->getCurrentTimeStep() << ';'
-                        << myCallId << ';' << mycurrentCellId << ';'
-                        << 0 << ';' << myID <<"\n";
+                if (OutputDevice::hasDevice("cellphone-dump")) {
+                    OutputDevice::getDevice("cellphone-dump")
+                    << MSNet::getInstance()->getCurrentTimeStep() << ';'
+                    << myCallId << ';' << mycurrentCellId << ';'
+                    << 0 << ';' << myID <<"\n";
                 }
                 t1 = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 5. * 60.);   // stop telephoning after some time
             }

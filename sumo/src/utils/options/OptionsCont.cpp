@@ -718,14 +718,14 @@ OptionsCont::writeXMLHeader(std::ostream &os, const bool writeConfig)
     time_t rawtime;
     char buffer [80];
 
-    os << "<?xml version=\"1.0\"?>" << endl << endl;
+    os << "<?xml version=\"1.0\"?>\n\n";
     time(&rawtime);
     strftime(buffer, 80, "<!-- generated on %c by ", localtime (&rawtime));
-    os << buffer << myFullName << endl;
+    os << buffer << myFullName << "\n";
     if (writeConfig) {
         writeConfiguration(os, true, false, false);
     }
-    os << "-->" << endl << endl;
+    os << "-->\n\n";
 }
 
 

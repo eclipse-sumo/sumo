@@ -4,7 +4,7 @@
 /// @date    2005-09-15
 /// @version $Id$
 ///
-//	»missingDescription«
+//	missingDescription
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -84,17 +84,17 @@ public:
 
     MSInductLoop *findInductLoop(const std::string &id);
 
-    void add(MSInductLoop *il, OutputDevice *device,
+    void add(MSInductLoop *il, OutputDevice& device,
                  int splInterval);
 #ifdef HAVE_MESOSIM
-    void add(MEInductLoop *il, OutputDevice *device,
+    void add(MEInductLoop *il, OutputDevice& device,
                  int splInterval);
 #endif
 
-    void add(MSE2Collector *e2, OutputDevice *device,
+    void add(MSE2Collector *e2, OutputDevice& device,
                  int splInterval);
 
-    void add(MS_E2_ZS_CollectorOverLanes *e2ol, OutputDevice *device,
+    void add(MS_E2_ZS_CollectorOverLanes *e2ol, OutputDevice& device,
                  int splInterval);
 
     /// adds an e2 detector coupled to an extern output impulse giver
@@ -103,7 +103,7 @@ public:
     /// adds an e2ol detector coupled to an extern output impulse giver
     void add(MS_E2_ZS_CollectorOverLanes *e2ol);
 
-    void add(MSE3Collector *e3, OutputDevice *device,
+    void add(MSE3Collector *e3, OutputDevice& device,
                  int splInterval);
 
     MSDetector2File &getDet2File();

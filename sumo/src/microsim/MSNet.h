@@ -92,52 +92,6 @@ class MSBuildCells;
 class MSNet
 {
 public:
-    /**
-     * @enum MSNetOutputs
-     * List of network-wide outputs
-     */
-    enum MSNetOutputs {
-        /// netstate output
-        OS_NETSTATE = 0,
-        /// emissions output
-        OS_EMISSIONS,
-        /// trip information output
-        OS_TRIPDURATIONS,
-        /// route information output
-        OS_VEHROUTE,
-        /// vehicles' physical states output
-        OS_PHYSSTATES,
-        /// TrafficOnline-SS2 output
-        OS_DEVICE_TO_SS2,
-        /// TrafficOnline-SS2 Cell output
-        OS_CELL_TO_SS2,
-        /// TrafficOnline-SS2 LA output
-        OS_LA_TO_SS2,
-        /// TrafficOnline-SS2-SQL output
-        OS_DEVICE_TO_SS2_SQL,
-        /// TrafficOnline-SS2-SQL Cell output
-        OS_CELL_TO_SS2_SQL,
-        /// TrafficOnline-SS2-SQL LA output
-        OS_LA_TO_SS2_SQL,
-        /// TrafficOnline-Cellphone output
-        OS_CELLPHONE_DUMP_TO,
-        /// Cluster's Information output
-        OS_CLUSTER_INFO,
-        /// Edge Neighborhood output
-        OS_EDGE_NEAR,
-        /// Saved Informations output
-        OS_SAVED_INFO,
-        /// Saved Informations output
-        OS_SAVED_INFO_FREQ,
-        /// Transmitted Informations output
-        OS_TRANS_INFO,
-        /// Vehicle in range
-        OS_VEH_IN_RANGE,
-        /// maximum value
-        OS_MAX
-    };
-
-public:
     /** Get a pointer to the unique instance of MSNet (singleton).
      * @return Pointer to the unique MSNet-instance.
      */
@@ -256,7 +210,6 @@ public:
     virtual void closeBuilding(MSEdgeControl *edges,
                                MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
                                MSTLLogicControl *tlc, //ShapeContainer *sc,
-                               std::vector<OutputDevice*> streams,
                                const MSMeanData_Net_Cont &meanData,
                                TimeVector stateDumpTimes, std::string stateDumpFiles);
 
@@ -326,8 +279,6 @@ public:
         return myMSPhoneNet;
     } ;
     /////////////////////////////////////////////
-
-    OutputDevice *getOutputDevice(MSNetOutputs output) const;
 
 protected:
     MSPhoneNet * myMSPhoneNet;

@@ -1,4 +1,30 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0"?>
+
+<!-- generated on Sat Sep  1 07:45:31 2007 by SUMO sumo Version dev-SVN-r4392
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+   </input>
+
+   <output>
+      <tripinfo-output>tripinfos.xml</tripinfo-output>
+   </output>
+
+   <time>
+      <begin>0</begin>
+      <end>1000</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
 <tripinfos>
    <tripinfo vehicle_id="0" start="0" wished="0" end="125" duration="125" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
    <tripinfo vehicle_id="1" start="10" wished="10" end="135" duration="125" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>

@@ -52,7 +52,7 @@ public:
     Command_SaveTLCoupledLaneDet(
         const MSTLLogicControl::TLSLogicVariants &tlls,
         MSDetectorFileOutput *dtf,
-        unsigned int begin, OutputDevice *device, MSLink *link);
+        unsigned int begin, OutputDevice& device, MSLink *link);
 
     /// Destructor
     ~Command_SaveTLCoupledLaneDet();

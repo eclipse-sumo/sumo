@@ -4,7 +4,7 @@
 /// @date    2005-09-15
 /// @version $Id$
 ///
-//  »missingDescription«
+//  missingDescription
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -98,7 +98,7 @@ MSDetectorControl::findInductLoop(const std::string &id)
 
 void
 MSDetectorControl::add(MSInductLoop *il,
-                           OutputDevice *device,
+                           OutputDevice& device,
                            int splInterval)
 {
     // insert object into dictionary
@@ -106,14 +106,14 @@ MSDetectorControl::add(MSInductLoop *il,
         throw ProcessError("induct loop '" + il->getID() + "' could not be build;"
                            + "\n (declared twice?)");
     }
-    myDetector2File.addDetectorAndInterval(il, device, splInterval); // !!! test
+    myDetector2File.addDetectorAndInterval(il, &device, splInterval); // !!! test
     // !!!! a command may have been added
 }
 
 
 void
 MSDetectorControl::add(MSE2Collector *e2,
-                           OutputDevice *device,
+                           OutputDevice& device,
                            int splInterval)
 {
     // insert object into dictionary
@@ -121,13 +121,13 @@ MSDetectorControl::add(MSE2Collector *e2,
         throw ProcessError("e2-detector '" + e2->getID() + "' could not be build;"
                            + "\n (declared twice?)");
     }
-    myDetector2File.addDetectorAndInterval(e2, device, splInterval); // !!! test
+    myDetector2File.addDetectorAndInterval(e2, &device, splInterval); // !!! test
 }
 
 
 void
 MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol,
-                           OutputDevice *device,
+                           OutputDevice& device,
                            int splInterval)
 {
     // insert object into dictionary
@@ -135,7 +135,7 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol,
         throw ProcessError("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;"
                            + "\n (declared twice?)");
     }
-    myDetector2File.addDetectorAndInterval(e2ol, device, splInterval); // !!! test
+    myDetector2File.addDetectorAndInterval(e2ol, &device, splInterval); // !!! test
 }
 
 
@@ -163,7 +163,7 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol)
 
 void
 MSDetectorControl::add(MSE3Collector *e3,
-                           OutputDevice *device,
+                           OutputDevice& device,
                            int splInterval)
 {
     // insert object into dictionary
@@ -171,14 +171,14 @@ MSDetectorControl::add(MSE3Collector *e3,
         throw ProcessError("e3-detector '" + e3->getID() + "' could not be build;"
                            + "\n (declared twice?)");
     }
-    myDetector2File.addDetectorAndInterval(e3, device, splInterval); // !!! test
+    myDetector2File.addDetectorAndInterval(e3, &device, splInterval); // !!! test
 }
 
 
 #ifdef HAVE_MESOSIM
 void
 MSDetectorControl::add(MEInductLoop *meil,
-                           OutputDevice *device,
+                           OutputDevice& device,
                            int splInterval)
 {
     // insert object into dictionary
@@ -186,7 +186,7 @@ MSDetectorControl::add(MEInductLoop *meil,
         throw ProcessError("meso-induct loop '" + meil->getID() + "' could not be build;"
                            + "\n (declared twice?)");
     }
-    myDetector2File.addDetectorAndInterval(meil, device, splInterval); // !!! test
+    myDetector2File.addDetectorAndInterval(meil, &device, splInterval); // !!! test
 }
 #endif
 

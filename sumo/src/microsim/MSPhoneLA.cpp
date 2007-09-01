@@ -120,26 +120,25 @@ MSPhoneLA::writeOutput(SUMOTime t)
 {
     intervall = t - last_time;
     {
-        OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2);
-        if (od!=0) {
+        if (OutputDevice::hasDevice("ss2-la-output")) {
             std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
             timestr = timestr + " " + StringUtils::toTimeString(t);
-            *od
+            OutputDevice::getDevice("ss2-la-output")
             << "03;" << ';' << timestr << ';' << position_id << ';' << dir << ';' << sum_changes
             << ';' << quality_id << ';' << intervall << "\n";
         }
     }
     {
-        OutputDevice *od = MSNet::getInstance()->getOutputDevice(MSNet::OS_LA_TO_SS2_SQL);
-        if (od!=0) {
+        if (OutputDevice::hasDevice("ss2-sql-la-output")) {
+            OutputDevice& od = OutputDevice::getDevice("ss2-sql-la-output");
             std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
             timestr = timestr + " " + StringUtils::toTimeString(t);
-            if (od->getBoolMarker("hadFirstCall")) {
-                *od << "," << "\n";
+            if (od.getBoolMarker("hadFirstCall")) {
+                od << "," << "\n";
             } else {
-                od->setBoolMarker("hadFirstCall", true);
+                od.setBoolMarker("hadFirstCall", true);
             }
-            *od
+            od
             << "(NULL, \' \', '" << timestr << "'," << position_id << ',' << dir << ',' << sum_changes << ','
             << quality_id << ',' << intervall << ")";
         }

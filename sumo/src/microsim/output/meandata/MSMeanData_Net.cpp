@@ -286,10 +286,10 @@ void
 MSMeanData_Net::writeXMLOutput(OutputDevice &dev,
                                SUMOTime startTime, SUMOTime stopTime)
 {
-    dev<<"   <interval begin=\""<<toString(startTime)<<"\" end=\""<<
-        toString(stopTime)<<"\" "<<"id=\"dump_"<<toString(myInterval)<<"\">\n";
+    dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
+        stopTime<<"\" "<<"id=\"dump_"<<myInterval<<"\">\n";
     write(dev, startTime, stopTime);
-    dev<<"   </interval>";
+    dev<<"   </interval>\n";
 }
 
 

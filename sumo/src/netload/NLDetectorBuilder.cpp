@@ -69,7 +69,7 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(
     const std::string &id,
-    OutputDevice *device,
+    OutputDevice& device,
     MSUnit::MetersPerSecond haltingSpeedThreshold,
     const E3MeasuresVector &measures,
     int splInterval) :
@@ -98,7 +98,7 @@ NLDetectorBuilder::~NLDetectorBuilder()
 void
 NLDetectorBuilder::buildInductLoop(const std::string &id,
                                    const std::string &lane, SUMOReal pos, int splInterval,
-                                   OutputDevice *device, bool friendly_pos,
+                                   OutputDevice& device, bool friendly_pos,
                                    const std::string &/*style*/)
 {
     // get and check the lane
@@ -156,7 +156,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                                    const std::string &lane, SUMOReal pos, SUMOReal length,
                                    bool cont, int splInterval,
                                    const std::string &/*style*/,
-                                   OutputDevice *device,
+                                   OutputDevice& device,
                                    const std::string &measures,
                                    SUMOReal haltingTimeThreshold,
                                    MSUnit::MetersPerSecond haltingSpeedThreshold,
@@ -194,7 +194,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                                    const std::string &lane, SUMOReal pos, SUMOReal length,
                                    bool cont,
                                    const MSTLLogicControl::TLSLogicVariants &tlls,
-                                   const std::string &/*style*/, OutputDevice *device,
+                                   const std::string &/*style*/, OutputDevice& device,
                                    const std::string &measures,
                                    SUMOReal haltingTimeThreshold,
                                    MSUnit::MetersPerSecond haltingSpeedThreshold,
@@ -236,7 +236,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                                    bool cont,
                                    const MSTLLogicControl::TLSLogicVariants &tlls,
                                    const std::string &tolane,
-                                   const std::string &/*style*/, OutputDevice *device,
+                                   const std::string &/*style*/, OutputDevice& device,
                                    const std::string &measures,
                                    SUMOReal haltingTimeThreshold,
                                    MSUnit::MetersPerSecond haltingSpeedThreshold,
@@ -323,7 +323,7 @@ NLDetectorBuilder::convContE2PosLength(const std::string &id,
 
 void
 NLDetectorBuilder::beginE3Detector(const std::string &id,
-                                   OutputDevice *device, int splInterval,
+                                   OutputDevice& device, int splInterval,
                                    const std::string &measures,
                                    MSUnit::MetersPerSecond haltingSpeedThreshold)
 {

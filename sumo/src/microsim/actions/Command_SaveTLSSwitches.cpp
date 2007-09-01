@@ -59,13 +59,12 @@ Command_SaveTLSSwitches::Command_SaveTLSSwitches(
 {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
             0, MSEventControl::ADAPT_AFTER_EXECUTION);
-    myOutputDevice << "<tls-switches>" << "\n";
+    myOutputDevice.writeXMLHeader("tls-switches");
 }
 
 
 Command_SaveTLSSwitches::~Command_SaveTLSSwitches()
 {
-    myOutputDevice << "</tls-switches>" << "\n";
 }
 
 

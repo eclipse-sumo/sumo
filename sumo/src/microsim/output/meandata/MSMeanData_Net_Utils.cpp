@@ -115,10 +115,7 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
                 it != dumpMeanDataIntervalls.end(); ++it) {
 
             string fileName   = baseNameDumpFiles + "_" + toString(*it) + ".xml";
-            OutputDevice* dev = OutputDevice::getOutputDevice(fileName);
-            if (dev==0) {
-                throw ProcessError("The following file containing aggregated values could not been build:\n" + fileName);
-            }
+            OutputDevice* dev = &OutputDevice::getDevice(fileName);
             // Write xml-comment
             /*
             dev << "<!--\n"

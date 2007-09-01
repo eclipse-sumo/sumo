@@ -74,14 +74,14 @@ public:
     /// builds an induct loop
     void buildInductLoop(const std::string &id,
                          const std::string &lane, SUMOReal pos, int splInterval,
-                         OutputDevice *device, bool friendly_pos, const std::string &style="");
+                         OutputDevice& device, bool friendly_pos, const std::string &style="");
 
     /// builds a lane-based areal (E2-) detector with a fixed interval
     void buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                          const std::string &id,
                          const std::string &lane, SUMOReal pos, SUMOReal length,
                          bool cont, int splInterval,
-                         const std::string &/*style*/, OutputDevice *device,
+                         const std::string &/*style*/, OutputDevice& device,
                          const std::string &measures,
                          MSUnit::Seconds haltingTimeThreshold,
                          MSUnit::MetersPerSecond haltingSpeedThreshold,
@@ -93,7 +93,7 @@ public:
                          const std::string &id,
                          const std::string &lane, SUMOReal pos, SUMOReal length,
                          bool cont, const MSTLLogicControl::TLSLogicVariants &tlls,
-                         const std::string &/*style*/, OutputDevice *device,
+                         const std::string &/*style*/, OutputDevice& device,
                          const std::string &measures,
                          MSUnit::Seconds haltingTimeThreshold,
                          MSUnit::MetersPerSecond haltingSpeedThreshold,
@@ -106,7 +106,7 @@ public:
                          const std::string &lane, SUMOReal pos, SUMOReal length,
                          bool cont, const MSTLLogicControl::TLSLogicVariants &tlls,
                          const std::string &tolane,
-                         const std::string &style, OutputDevice *device,
+                         const std::string &style, OutputDevice& device,
                          const std::string &measures,
                          MSUnit::Seconds haltingTimeThreshold,
                          MSUnit::MetersPerSecond haltingSpeedThreshold,
@@ -115,7 +115,7 @@ public:
 
     /// builds a multi-od (E3-) detector
     void beginE3Detector(const std::string &id,
-                         OutputDevice *device, int splInterval,
+                         OutputDevice& device, int splInterval,
                          const std::string &measures,
                          MSUnit::MetersPerSecond haltingSpeedThreshold);
 
@@ -219,7 +219,7 @@ public:
     public:
         /// Constructor
         E3DetectorDefinition(const std::string &id,
-                             OutputDevice *device,
+                             OutputDevice& device,
                              MSUnit::MetersPerSecond haltingSpeedThreshold,
                              const E3MeasuresVector &measures,
                              int splInterval);
@@ -230,7 +230,7 @@ public:
         /// The id of the detector
         std::string myID;
         /// The device the detector shall use
-        OutputDevice *myDevice;
+        OutputDevice& myDevice;
         /// @name further detector descriptions
         //@{ 
         MSUnit::MetersPerSecond myHaltingSpeedThreshold;

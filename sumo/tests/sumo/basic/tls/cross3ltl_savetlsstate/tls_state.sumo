@@ -1,3 +1,27 @@
+<?xml version="1.0"?>
+
+<!-- generated on Sat Sep  1 08:27:43 2007 by SUMO sumo Version dev-SVN-r4392
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+      <additional-files>input_additional.add.xml</additional-files>
+   </input>
+
+   <time>
+      <begin>0</begin>
+      <end>200</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
 <tls-states>
    <tlsstate time="0" id="0" subid="default">GGGGRRRRGGGGRRRR</tlsstate>
    <tlsstate time="1" id="0" subid="default">GGGGRRRRGGGGRRRR</tlsstate>

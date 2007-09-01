@@ -40,4 +40,24 @@ c2x_edge_near_info:c2x_edge_near_info.xml
 [run_dependent_text]
 output:\r{REPLACE \n}
 output:sumo.exe{REPLACE sumo}
+detector:Version
+emissions:Version
+aggregated15:Version
+aggregated25:Version
+aggregated60:Version
+aggregated300:Version
+aggregated900:Version
+rawdump:Version
+tripinfos:Version
+vehroutes:Version
+tls_state:Version
+tls_switch:Version
+tls_state_switch:Version
+physstates:Version
+c2x_cluster_info:Version
+c2x_saved_info:Version
+c2x_transmitted_info:Version
+c2x_vehicle_in_range:Version
+c2x_saved_info_freq:Version
+c2x_edge_near_info:Version
 

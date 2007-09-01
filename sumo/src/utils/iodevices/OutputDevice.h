@@ -32,6 +32,7 @@
 
 #include <string>
 #include <map>
+#include <vector>
 
 
 // ===========================================================================
@@ -45,17 +46,21 @@ class OutputDevice
 {
 public:
     /**
-     * Returns the named device. "stdout" and "-" refer to standard out,
+     * Creates and returns the named device. "stdout" and "-" refer to standard out,
      * "hostname:port" initiates socket connection. Otherwise a filename
      * is assumed and the second parameter may be used to give a base directory.
+     * If there already is a device with the same name this one is returned.
      */
-    static OutputDevice *getOutputDevice(const std::string &name, const std::string &base="");
+    static OutputDevice& getDevice(const std::string &name, const std::string &base="");
+
+    /// Checks for the existence of the named device
+    static bool hasDevice(const std::string &name);
 
     /// Closes all registered devices
     static void closeAll();
 
     /// Constructor
-    OutputDevice() : myRootElement("")
+    OutputDevice()
     { }
 
     /// Destructor
@@ -77,8 +82,18 @@ public:
                         const std::string &attrs="",
                         const std::string &comment="");
 
-    /// Writes the corresponding XML footer
-    bool writeXMLFooter();
+    /// Opens an XML tag with optional attributes
+    void openTag(const std::string &xmlElement,
+                 const std::string &attrs="");
+
+    /// Closes the most recently opened tag
+    bool closeTag();
+
+    /** @brief  Saves this device under another name.
+     *
+     * Does nothing and returns false if the name was already in use.
+     */
+    bool createAlias(const std::string &name);
 
     /// @name methods for saving/reading an abstract state
     //@{
@@ -121,7 +136,7 @@ protected:
 
 private:
     /// the XML root element
-    std::string myRootElement;
+    std::vector<std::string> myXMLStack;
 
     /// Map of boolean markers
     std::map<std::string, bool> myBoolMarkers;

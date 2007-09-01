@@ -205,7 +205,7 @@ NLBuilder::buildNet()
 {
     myJunctionBuilder.closeJunctions(myDetectorBuilder, myXMLHandler.getContinuations());
     MSEdgeControl *edges = myEdgeBuilder.build();
-    std::vector<OutputDevice*> streams = SUMOFrame::buildStreams(m_pOptions);
+    SUMOFrame::buildStreams(m_pOptions);
     MSMeanData_Net_Cont meanData = MSMeanData_Net_Utils::buildList(
                                        myNet.getDetectorControl().getDet2File(), *edges,
                                        m_pOptions.getIntVector("dump-intervals"),
@@ -218,7 +218,7 @@ NLBuilder::buildNet()
         myJunctionBuilder.build(),
         buildRouteLoaderControl(m_pOptions),
         myJunctionBuilder.buildTLLogics(),
-        streams, meanData,
+        meanData,
         m_pOptions.getIntVector("save-state.times"),
         m_pOptions.getString("save-state.prefix"));
 }

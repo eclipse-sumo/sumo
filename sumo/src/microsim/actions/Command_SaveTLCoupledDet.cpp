@@ -54,7 +54,7 @@ using namespace std;
 Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(
     const MSTLLogicControl::TLSLogicVariants &tlls,
     MSDetectorFileOutput *dtf, unsigned int begin,
-    OutputDevice *device)
+    OutputDevice& device)
         : myDevice(device), myLogics(tlls), myDetector(dtf),
         myStartTime(begin)
 {
@@ -73,7 +73,7 @@ Command_SaveTLCoupledDet::execute()
 {
     SUMOTime end =
         MSNet::getInstance()->getCurrentTimeStep();
-    myDetector->writeXMLOutput(*myDevice, myStartTime, end);
+    myDetector->writeXMLOutput(myDevice, myStartTime, end);
     myStartTime = end;
     return true;
 }

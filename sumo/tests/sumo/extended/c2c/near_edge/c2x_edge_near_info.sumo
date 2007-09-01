@@ -1,4 +1,25 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0"?>
+
+<!-- generated on Sat Sep  1 12:03:27 2007 by SUMO sumo Version dev-SVN-r4392
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <additional-files>input_routes.rou.xml</additional-files>
+   </input>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+   <c2c>
+      <device.c2x.probability>1</device.c2x.probability>
+      <c2x.edge-near-info>c2x_edge_near_info.xml</c2x.edge-near-info>
+   </c2c>
+
+</configuration>
+-->
 
 <edge-neighbors>
    <edge id="1fi" neighborNo="3">1fi 1o 1si</edge>

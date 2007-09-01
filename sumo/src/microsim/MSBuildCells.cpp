@@ -279,7 +279,6 @@ MSBuildCells::getNeighbors(size_t i)
 void
 MSBuildCells::writeNearEdges(OutputDevice &od)
 {
-    od << "<?xml version=\"1.0\" standalone=\"no\"?>\n" << "\n" << "<edge-neighbors>" << "\n";
     size_t index, sizeOfCont;
     sizeOfCont = myNet.getEdgeControl().getSingleLaneEdges().size();
     for (index=0; index<sizeOfCont; index++) {
@@ -309,7 +308,6 @@ MSBuildCells::writeNearEdges(OutputDevice &od)
         }
         od << "</edge>" << "\n";
     }
-    od << "</edge-neighbors>" << "\n";
 }
 
 

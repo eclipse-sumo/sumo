@@ -437,7 +437,7 @@ NBNodeCont::computeNodeShapes(OptionsCont &oc)
 {
     OutputDevice *device = 0;
     if (oc.isSet("node-geometry-dump")) {
-        device = OutputDevice::getOutputDevice(oc.getString("node-geometry-dump"));
+        device = &OutputDevice::getDevice(oc.getString("node-geometry-dump"));
         device->writeXMLHeader("pois");
     }
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
@@ -1069,47 +1069,43 @@ NBNodeCont::setAsTLControlled(const std::string &name,
 bool
 NBNodeCont::savePlain(const std::string &file)
 {
-    // try to build the output file
-    OutputDevice *device = 0;
     try {
-        device = OutputDevice::getOutputDevice(file);
+        OutputDevice& device = OutputDevice::getDevice(file);
+        device.writeXMLHeader("nodes");
+        device.setPrecision(10);
+        for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+            NBNode *n = (*i).second;
+            device << "   <node id=\"" << n->getID() << "\" ";
+            device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>\n";
+        }
+        device.close();
+        return true;
     } catch (IOError e) {
         MsgHandler::getErrorInstance()->inform("Plain node file '" + file + "' could not be opened.\n "+e.what());
         return false;
     }
-    device->writeXMLHeader("nodes");
-    device->setPrecision(10);
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        NBNode *n = (*i).second;
-        *device << "   <node id=\"" << n->getID() << "\" ";
-        *device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>\n";
-    }
-    device->close();
-    return true;
 }
 
 bool
 NBNodeCont::writeTLSasPOIs(const std::string &file)
 {
-    // try to build the output file
-    OutputDevice *device = 0;
     try {
-        device = OutputDevice::getOutputDevice(file);
+        OutputDevice& device = OutputDevice::getDevice(file);
+        device.writeXMLHeader("pois");
+        for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+            NBNode *n = (*i).second;
+            if (n->isTLControlled()) {
+                device << "   <poi id=\"" << (*i).first
+                << "\" type=\"tls controlled node\" color=\"1,1,0\""
+                << " x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>\n";
+            }
+        }
+        device.close();
+        return true;
     } catch (IOError e) {
         MsgHandler::getErrorInstance()->inform("POI file '" + file + "' could not be opened.");
         return false;
     }
-    device->writeXMLHeader("pois");
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        NBNode *n = (*i).second;
-        if (n->isTLControlled()) {
-            *device << "   <poi id=\"" << (*i).first
-            << "\" type=\"tls controlled node\" color=\"1,1,0\""
-            << " x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>\n";
-        }
-    }
-    device->close();
-    return true;
 }
 
 

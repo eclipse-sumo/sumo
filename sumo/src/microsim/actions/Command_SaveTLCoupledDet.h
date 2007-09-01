@@ -62,7 +62,7 @@ public:
     Command_SaveTLCoupledDet(
         const MSTLLogicControl::TLSLogicVariants &tlls,
         MSDetectorFileOutput *dtf, unsigned int begin,
-        OutputDevice *device);
+        OutputDevice& device);
 
     /// Destructor
     virtual ~Command_SaveTLCoupledDet();
@@ -72,7 +72,7 @@ public:
 
 protected:
     /// The file to write the output to
-    OutputDevice *myDevice;
+    OutputDevice& myDevice;
 
     /// The logic to use
     const MSTLLogicControl::TLSLogicVariants &myLogics;
