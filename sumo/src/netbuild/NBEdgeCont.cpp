@@ -161,55 +161,48 @@ NBEdgeCont::retrieve(const string &id) const
 }
 
 
-bool
+void
 NBEdgeCont::computeTurningDirections()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeTurningDirections();
     }
-    return true;
 }
 
 
-bool
+void
 NBEdgeCont::sortOutgoingLanesConnections()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->sortOutgoingLanesConnections();
     }
-    return true;
 }
 
 
-bool
+void
 NBEdgeCont::computeEdge2Edges()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeEdge2Edges();
     }
-    return true;
 }
 
 
-
-bool
+void
 NBEdgeCont::computeLanes2Edges()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeLanes2Edges();
     }
-    return true;
 }
 
 
-
-bool
+void
 NBEdgeCont::recheckLanes()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->recheckLanes();
     }
-    return true;
 }
 
 
@@ -224,13 +217,12 @@ NBEdgeCont::computeLinkPriorities(bool verbose)
 }
 */
 
-bool
+void
 NBEdgeCont::appendTurnarounds()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->appendTurnaround();
     }
-    return true;
 }
 
 
@@ -649,33 +641,30 @@ NBEdgeCont::search(NBEdge *e)
 }
 
 
-bool
+void
 NBEdgeCont::normaliseEdgePositions()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->normalisePosition();
     }
-    return true;
 }
 
 
-bool
+void
 NBEdgeCont::reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->reshiftPosition(xoff, yoff, rot);
     }
-    return true;
 }
 
 
-bool
+void
 NBEdgeCont::computeEdgeShapes()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeEdgeShape();
     }
-    return true;
 }
 
 
@@ -745,7 +734,7 @@ NBEdgeCont::savePlain(const std::string &file)
 }
 
 
-bool
+void
 NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &)
 {
     //
@@ -762,21 +751,19 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &)
     for (std::vector<NBEdge*>::iterator j=toRemove.begin(); j!=toRemove.end(); ++j) {
         erase(dc, *j);
     }
-    return true;
 }
 
 
-bool
+void
 NBEdgeCont::recomputeLaneShapes()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         (*i).second->computeLaneShapes();
     }
-    return true;
 }
 
 
-bool
+void
 NBEdgeCont::splitGeometry(NBNodeCont &nc)
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
@@ -785,7 +772,6 @@ NBEdgeCont::splitGeometry(NBNodeCont &nc)
         }
         (*i).second->splitGeometry(*this, nc);
     }
-    return true;
 }
 
 

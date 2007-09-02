@@ -331,8 +331,6 @@ protected:
     MSEventControl myBeginOfTimestepEvents;
     MSEventControl myEndOfTimestepEvents;
     ShapeContainer *myShapeContainer; // could be a direct member
-    /// List of output (files)
-    std::vector<OutputDevice*> myOutputStreams;
 
     //{@ data needed for computing performance values
     /// Information whether the simulation duration shall be logged

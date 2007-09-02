@@ -92,18 +92,18 @@ public:
     NodeCont::iterator end();
 
     /// resets the node positions in a way that they begin from (0, 0)
-    bool normaliseNodePositions();
-    bool reshiftNodePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
+    void normaliseNodePositions();
+    void reshiftNodePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
     /// divides the incoming lanes on outgoing lanes
-    bool computeLanes2Lanes();
+    void computeLanes2Lanes();
 
     /// build the list of outgoing edges and lanes
-    bool computeLogics(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
+    void computeLogics(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
                        OptionsCont &oc);
 
     /// sorts the nodes' edges
-    bool sortNodesEdges(const NBTypeCont &tc, OutputDevice *device);
+    void sortNodesEdges(const NBTypeCont &tc);
 
     std::vector<std::string> getInternalNamesList();
     /// writes the number nodes into the given ostream
@@ -124,11 +124,11 @@ public:
     void clear();
 
     /// Joins edges connecting the same nodes
-    bool recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
+    void recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
                       NBEdgeCont &ec);
 
     /// Removes dummy edges (edges lying completely within a node)
-    bool removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
+    void removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
                           NBTrafficLightLogicCont &tc);
 
     void searchEdgeInNode(const NBEdgeCont &ec,
@@ -136,15 +136,15 @@ public:
 
     std::string getFreeID();
 
-    bool computeNodeShapes(OptionsCont &oc);
+    void computeNodeShapes();
 
     void printNodePositions();
 
-    bool removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
+    void removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
                              NBTrafficLightLogicCont &tlc);
 
-    bool guessRamps(OptionsCont &oc, NBEdgeCont &ec, NBDistrictCont &dc);
-    bool guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc);
+    void guessRamps(OptionsCont &oc, NBEdgeCont &ec, NBDistrictCont &dc);
+    void guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc);
 
     void setAsTLControlled(const std::string &name,
                            NBTrafficLightLogicCont &tlc);

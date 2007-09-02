@@ -132,13 +132,12 @@ NBDistrictCont::removeFromSinksAndSources(NBEdge * const e) throw()
 }
 
 
-bool 
+void
 NBDistrictCont::normaliseDistrictPositions() throw()
 {
     for (DistrictCont::iterator i=myDistricts.begin(); i!=myDistricts.end(); i++) {
         (*i).second->normalisePositions();
     }
-    return true;
 }
 
 

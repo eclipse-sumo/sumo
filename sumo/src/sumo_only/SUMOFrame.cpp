@@ -360,29 +360,29 @@ SUMOFrame::fillOptions()
 
 
 void
-SUMOFrame::buildStreams(const OptionsCont &oc)
+SUMOFrame::buildStreams()
 {
     // standard outputs
-    buildStream(oc, "netstate-dump", "sumo-netstate");
-    buildStream(oc, "emissions-output", "emissions");
-    buildStream(oc, "tripinfo-output", "tripinfos");
-    buildStream(oc, "vehroute-output", "vehicleroutes");
-    buildStream(oc, "physical-states-output", "physical-states");
+    OutputDevice::createDeviceByOption("netstate-dump", "sumo-netstate");
+    OutputDevice::createDeviceByOption("emissions-output", "emissions");
+    OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
+    OutputDevice::createDeviceByOption("vehroute-output", "vehicleroutes");
+    OutputDevice::createDeviceByOption("physical-states-output", "physical-states");
     // TrafficOnline-outputs
-    buildStream(oc, "ss2-output");
-    buildStream(oc, "ss2-cell-output");
-    buildStream(oc, "ss2-la-output");
-    buildStream(oc, "ss2-sql-output");
-    buildStream(oc, "ss2-sql-cell-output");
-    buildStream(oc, "ss2-sql-la-output");
-    buildStream(oc, "cellphone-dump");
+    OutputDevice::createDeviceByOption("ss2-output");
+    OutputDevice::createDeviceByOption("ss2-cell-output");
+    OutputDevice::createDeviceByOption("ss2-la-output");
+    OutputDevice::createDeviceByOption("ss2-sql-output");
+    OutputDevice::createDeviceByOption("ss2-sql-cell-output");
+    OutputDevice::createDeviceByOption("ss2-sql-la-output");
+    OutputDevice::createDeviceByOption("cellphone-dump");
     // c2x-outputs
-    buildStream(oc, "c2x.cluster-info", "clusterInfos");
-    buildStream(oc, "c2x.edge-near-info", "edge-neighbors");
-    buildStream(oc, "c2x.saved-info", "savedInfos");
-    buildStream(oc, "c2x.saved-info-freq", "savedInfosFreq");
-    buildStream(oc, "c2x.transmitted-info", "transmittedInfos");
-    buildStream(oc, "c2x.vehicle-in-range", "vehicleInRanges");
+    OutputDevice::createDeviceByOption("c2x.cluster-info", "clusterInfos");
+    OutputDevice::createDeviceByOption("c2x.edge-near-info", "edge-neighbors");
+    OutputDevice::createDeviceByOption("c2x.saved-info", "savedInfos");
+    OutputDevice::createDeviceByOption("c2x.saved-info-freq", "savedInfosFreq");
+    OutputDevice::createDeviceByOption("c2x.transmitted-info", "transmittedInfos");
+    OutputDevice::createDeviceByOption("c2x.vehicle-in-range", "vehicleInRanges");
 
     // initialise TrafficOnline-outputs
     if (OutputDevice::hasDevice("ss2-sql-output")) {
@@ -435,22 +435,6 @@ SUMOFrame::buildStreams(const OptionsCont &oc)
 
         << "INSERT INTO `COLLECTORLA` (`ID`,`TID`,`DATE_TIME`,`POSITION_ID`,`DIR`,`SUM_CHANGE`,"
         << "`QUALITY_ID`,`INTERVALL`) VALUES \n";
-    }
-}
-
-
-void
-SUMOFrame::buildStream(const OptionsCont &oc,
-                       const std::string &optionName,
-                       const std::string &rootElement)
-{
-    if (!oc.isSet(optionName)) {
-        return;
-    }
-    OutputDevice& dev = OutputDevice::getDevice(oc.getString(optionName));
-    dev.createAlias(optionName);
-    if (rootElement != "") {
-        dev.writeXMLHeader(rootElement);
     }
 }
 

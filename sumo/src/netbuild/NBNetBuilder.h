@@ -89,60 +89,60 @@ protected:
 
 
     /** removes dummy edges from junctions */
-    bool removeDummyEdges(int &step);
+    void removeDummyEdges(int &step);
 
     /** joins edges which connect the same nodes */
-    bool joinEdges(int &step);
+    void joinEdges(int &step);
 
-    bool removeUnwishedNodes(int &step, OptionsCont &oc);
-    bool removeUnwishedEdges(int &step, OptionsCont &oc);
+    void removeUnwishedNodes(int &step, OptionsCont &oc);
+    void removeUnwishedEdges(int &step, OptionsCont &oc);
 
-    bool guessRamps(int &step, OptionsCont &oc);
-    bool guessTLs(int &step, OptionsCont &oc);
+    void guessRamps(int &step, OptionsCont &oc);
+    void guessTLs(int &step, OptionsCont &oc);
 
-    bool splitGeometry(int &step, OptionsCont &oc);
+    void splitGeometry(int &step, OptionsCont &oc);
 
     /** computes the turning direction for each edge */
-    bool computeTurningDirections(int &step);
+    void computeTurningDirections(int &step);
 
     /** sorts the edges of a node */
-    bool sortNodesEdges(int &step, OutputDevice *device);
+    void sortNodesEdges(int &step);
 
     /** sets the node positions in a way that nodes are lying at zero */
-    bool normaliseNodePositions(int &step);
+    void normaliseNodePositions(int &step);
 
     /** computes edges 2 edges - relationships
         (step1: computation of approached edges) */
-    bool computeEdge2Edges(int &step);
+    void computeEdge2Edges(int &step);
 
     /** computes edges 2 edges - relationships
         (step2: computation of which lanes approach the edges) */
-    bool computeLanes2Edges(int &step);
+    void computeLanes2Edges(int &step);
 
     /** computes edges 2 edges - relationships
         (step3: division of lanes to approached edges) */
-    bool computeLanes2Lanes(int &step);
+    void computeLanes2Lanes(int &step);
 
     /** rechecks whether all lanes have a following lane/edge */
-    bool recheckLanes(int &step);
+    void recheckLanes(int &step);
 
     void initJoinedEdgesInformation();
 
-    bool computeNodeShapes(int &step, OptionsCont &oc);
-    bool computeEdgeShapes(int &step);
+    void computeNodeShapes(int &step);
+    void computeEdgeShapes(int &step);
 
-    bool setTLControllingInformation(int &step);
+    void setTLControllingInformation(int &step);
 
     /** appends the turnarounds */
-    bool appendTurnarounds(int &step, OptionsCont &oc);
+    void appendTurnarounds(int &step, OptionsCont &oc);
 
     /** computes nodes' logics */
-    bool computeLogic(int &step, OptionsCont &oc);
+    void computeLogic(int &step, OptionsCont &oc);
 
     /** computes nodes' tl-logics */
-    bool computeTLLogic(int &step, OptionsCont &oc);
+    void computeTLLogic(int &step, OptionsCont &oc);
 
-    bool reshiftRotateNet(int &step, OptionsCont &oc);
+    void reshiftRotateNet(int &step, OptionsCont &oc);
 
     void checkPrint(OptionsCont &oc) ;
 

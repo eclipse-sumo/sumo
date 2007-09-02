@@ -95,6 +95,22 @@ OutputDevice::getDevice(const std::string &name, const std::string &base)
 
 
 bool
+OutputDevice::createDeviceByOption(const std::string &optionName,
+                                   const std::string &rootElement)
+{
+    if (!OptionsCont::getOptions().isSet(optionName)) {
+        return false;
+    }
+    OutputDevice& dev = OutputDevice::getDevice(OptionsCont::getOptions().getString(optionName));
+    dev.createAlias(optionName);
+    if (rootElement != "") {
+        dev.writeXMLHeader(rootElement);
+    }
+    return true;
+}
+
+
+bool
 OutputDevice::hasDevice(const std::string &name)
 {
     DeviceMap::iterator i = myOutputDevices.find(name);

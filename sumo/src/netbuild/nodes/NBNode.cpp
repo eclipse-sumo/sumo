@@ -1276,7 +1276,7 @@ NBNode::reportBuild()
 
 
 void
-NBNode::sortNodesEdges(const NBTypeCont &tc, OutputDevice *device)
+NBNode::sortNodesEdges(const NBTypeCont &tc)
 {
     // sort the edges
     buildList();
@@ -1306,7 +1306,7 @@ NBNode::sortNodesEdges(const NBTypeCont &tc, OutputDevice *device)
 #endif
     NBNode::BasicNodeType type = computeType(tc);
     // write if wished
-    if (device!=0) {
+    if (OutputDevice::hasDevice("node-type-output")) {
         string col;
         switch (type) {
         case NODETYPE_NOJUNCTION:
@@ -1325,7 +1325,7 @@ NBNode::sortNodesEdges(const NBTypeCont &tc, OutputDevice *device)
             col = "1,1,0";
             break;
         }
-        *device << "   <poi id=\"type_" << myID
+        OutputDevice::getDevice("node-type-output") << "   <poi id=\"type_" << myID
         << "\" type=\"node_type\" color=\"" << col << "\""
         << " x=\"" << getPosition().x() << "\" y=\"" << getPosition().y() << "\"/>\n";
     }
@@ -1335,12 +1335,12 @@ NBNode::sortNodesEdges(const NBTypeCont &tc, OutputDevice *device)
 
 
 void
-NBNode::computeNodeShape(OutputDevice *out)
+NBNode::computeNodeShape()
 {
     if (myIncomingEdges->size()==0&&myOutgoingEdges->size()==0) {
         return;
     }
-    NBNodeShapeComputer computer(*this, out);
+    NBNodeShapeComputer computer(*this);
     myPoly = computer.compute();
 }
 

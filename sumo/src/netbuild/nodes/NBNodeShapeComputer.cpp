@@ -53,9 +53,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBNodeShapeComputer::NBNodeShapeComputer(const NBNode &node,
-        OutputDevice * const out)
-        : myNode(node), myNodeShapePOIOut(out)
+NBNodeShapeComputer::NBNodeShapeComputer(const NBNode &node)
+        : myNode(node)
 {}
 
 
@@ -91,13 +90,12 @@ NBNodeShapeComputer::compute()
     if (ret.size()<3) {
         ret = computeNodeShapeByCrosses();
     }
-    {
-        if (myNodeShapePOIOut!=0) {
-            for (int i=0; i<(int) ret.size(); ++i) {
-                (*myNodeShapePOIOut) << "   <poi id=\"end_" << myNode.getID() << "_"
-                << i << "\" type=\"nodeshape.end\" color=\"1,0,1\""
-                << " x=\"" << ret[i].x() << "\" y=\"" << ret[i].y() << "\"/>\n";
-            }
+    if (OutputDevice::hasDevice("node-geometry-dump")) {
+        for (int i=0; i<(int) ret.size(); ++i) {
+            OutputDevice::getDevice("node-geometry-dump")
+            << "   <poi id=\"end_" << myNode.getID() << "_"
+            << i << "\" type=\"nodeshape.end\" color=\"1,0,1\""
+            << " x=\"" << ret[i].x() << "\" y=\"" << ret[i].y() << "\"/>\n";
         }
     }
     return ret;
@@ -785,13 +783,12 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
             }
         }
     }
-    {
-        if (myNodeShapePOIOut!=0) {
-            for (int i=0; i<(int) ret.size(); ++i) {
-                (*myNodeShapePOIOut) << "   <poi id=\"cross1_" << myNode.getID() << "_" <<
-                i << "\" type=\"nodeshape.cross1\" color=\"0,0,1\""
-                << " x=\"" << ret[i].x() << "\" y=\"" << ret[i].y() << "\"/>\n";
-            }
+    if (OutputDevice::hasDevice("node-geometry-dump")) {
+        for (int i=0; i<(int) ret.size(); ++i) {
+            OutputDevice::getDevice("node-geometry-dump")
+            << "   <poi id=\"cross1_" << myNode.getID() << "_" << i
+            << "\" type=\"nodeshape.cross1\" color=\"0,0,1\""
+            << " x=\"" << ret[i].x() << "\" y=\"" << ret[i].y() << "\"/>\n";
         }
     }
     return ret;

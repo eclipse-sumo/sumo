@@ -183,7 +183,7 @@ NBNodeCont::erase(NBNode *node)
 }
 
 
-bool
+void
 NBNodeCont::normaliseNodePositions()
 {
     NodeCont::iterator i;
@@ -197,50 +197,45 @@ NBNodeCont::normaliseNodePositions()
         }
         GeoConvHelper::moveConvertedBy(xmin, ymin);
     }
-    return true;
 }
 
 
-bool
+void
 NBNodeCont::reshiftNodePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
 {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->reshiftPosition(xoff, yoff, rot);
     }
     GeoConvHelper::moveConvertedBy(xoff, yoff); // !!! rotation
-    return true;
 }
 
 
-bool
+void
 NBNodeCont::computeLanes2Lanes()
 {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->computeLanes2Lanes();
     }
-    return true;
 }
 
 
 // computes the "wheel" of incoming and outgoing edges for every node
-bool
+void
 NBNodeCont::computeLogics(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
                           OptionsCont &oc)
 {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         (*i).second->computeLogic(ec, jc, oc);
     }
-    return true;
 }
 
 
-bool
-NBNodeCont::sortNodesEdges(const NBTypeCont &tc, OutputDevice *device)
+void
+NBNodeCont::sortNodesEdges(const NBTypeCont &tc)
 {
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->sortNodesEdges(tc, device);
+        (*i).second->sortNodesEdges(tc);
     }
-    return true;
 }
 
 
@@ -321,7 +316,7 @@ NBNodeCont::clear()
 }
 
 
-bool
+void
 NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
                          NBEdgeCont &ec)
 {
@@ -385,12 +380,11 @@ NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
             }
         }
     }
-    return true;
 }
 
 
 
-bool
+void
 NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
                              NBTrafficLightLogicCont &tc)
 {
@@ -401,7 +395,6 @@ NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
     if (no!=0) {
         WRITE_WARNING(toString<int>(no) + " dummy edges removed.");
     }
-    return true;
 }
 
 
@@ -432,21 +425,13 @@ NBNodeCont::getFreeID()
 }
 
 
-bool
-NBNodeCont::computeNodeShapes(OptionsCont &oc)
+void
+NBNodeCont::computeNodeShapes()
 {
-    OutputDevice *device = 0;
-    if (oc.isSet("node-geometry-dump")) {
-        device = &OutputDevice::getDevice(oc.getString("node-geometry-dump"));
-        device->writeXMLHeader("pois");
-    }
+    OutputDevice::createDeviceByOption("node-geometry-dump", "pois");
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        (*i).second->computeNodeShape(device);
+        (*i).second->computeNodeShape();
     }
-    if (device!=0) {
-        device->close();
-    }
-    return true;
 }
 
 
@@ -461,7 +446,7 @@ NBNodeCont::printNodePositions()
 }
 
 
-bool
+void
 NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
                                 NBTrafficLightLogicCont &tlc)
 {
@@ -516,7 +501,6 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
         erase(*j);
     }
     WRITE_MESSAGE("   " + toString<int>(no) + " nodes removed.");
-    return true;
 }
 
 
@@ -852,7 +836,7 @@ NBNodeCont::checkHighwayRampOrder(NBEdge *&pot_highway, NBEdge *&pot_ramp)
 }
 
 
-bool
+void
 NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
                        NBDistrictCont &dc)
 {
@@ -954,11 +938,10 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
             }
         }
     }
-    return true;
 }
 
 
-bool
+void
 NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
 {
     // loop#1 checking whether the node shall tls controlled,
@@ -973,7 +956,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
     }
     // maybe no tls shall be guessed
     if (!oc.getBool("guess-tls")) {
-        return true;
+        return;
     }
     // build list of definitely not tls-controlled junctions
     std::vector<NBNode*> ncontrolled;
@@ -1041,7 +1024,6 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
         setAsTLControlled((*i).first, tlc);
 
     }
-    return true;
 }
 
 

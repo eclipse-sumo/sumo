@@ -62,6 +62,13 @@ public:
      */
     static OutputDevice& getDevice(const std::string &name, const std::string &base="");
 
+    /**
+     * Creates and returns the device named by the option. Asks whether the option
+     * and retrieves the name from the option if so. Optionally the XML header
+     * gets written as well. Returns whether a device was created (option was set).
+     */
+    static bool createDeviceByOption(const std::string &optionName, const std::string &rootElement="");
+
     /// Checks for the existence of the named device
     static bool hasDevice(const std::string &name);
 

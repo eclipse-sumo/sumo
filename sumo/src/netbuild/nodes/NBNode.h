@@ -190,7 +190,7 @@ public:
                       OptionsCont &oc);
 
     /** initialises the list of all edges and sorts all edges */
-    void sortNodesEdges(const NBTypeCont &tc, OutputDevice *device);
+    void sortNodesEdges(const NBTypeCont &tc);
 
     /** reports about the build junctions */
     static void reportBuild();
@@ -247,7 +247,7 @@ public:
 
     char stateCode(NBEdge *incoming, NBEdge *outgoing, int fromLane);
 
-    void computeNodeShape(OutputDevice *out);
+    void computeNodeShape();
 
     friend class NBNodeCont;
 

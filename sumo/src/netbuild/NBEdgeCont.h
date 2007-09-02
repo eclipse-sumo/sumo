@@ -84,23 +84,23 @@ public:
         const std::string &id, SUMOReal pos) const;
 
     /** computes edges, step1: computation of approached edges */
-    bool computeEdge2Edges();
+    void computeEdge2Edges();
 
     /// computes edges, step2: computation of which lanes approach the edges)
-    bool computeLanes2Edges();
+    void computeLanes2Edges();
 
     /** sorts all lanes of all edges within the container by their direction */
-    bool sortOutgoingLanesConnections();
+    void sortOutgoingLanesConnections();
 
     /** computes the turn-around directions of all edges within the
         container */
-    bool computeTurningDirections();
+    void computeTurningDirections();
 
     /** rechecks whether all lanes have a successor */
-    bool recheckLanes();
+    void recheckLanes();
 
     /** appends turnarounds */
-    bool appendTurnarounds();
+    void appendTurnarounds();
 
     /** @brief Splits the edge at the position nearest to the given node */
     bool splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node);
@@ -143,20 +143,20 @@ public:
     void search(NBEdge *e);
 
     /// moves the geometry of the edges by the network offset
-    bool normaliseEdgePositions();
-    bool reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
+    void normaliseEdgePositions();
+    void reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
-    bool computeEdgeShapes();
+    void computeEdgeShapes();
 
     std::vector<std::string> getAllNames();
 
     bool savePlain(const std::string &file);
 
-    bool removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &oc);
+    void removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &oc);
 
-    bool recomputeLaneShapes();
+    void recomputeLaneShapes();
 
-    bool splitGeometry(NBNodeCont &nc);
+    void splitGeometry(NBNodeCont &nc);
 
     void recheckLaneSpread();
 

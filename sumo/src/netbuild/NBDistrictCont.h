@@ -147,9 +147,8 @@ public:
      *  NBDistrict::normalisePositions.
      *
      * @see NBDistrict::normalisePositions
-     * @return Alsways true
      */
-    bool normaliseDistrictPositions() throw();
+    void normaliseDistrictPositions() throw();
 
 
 private:

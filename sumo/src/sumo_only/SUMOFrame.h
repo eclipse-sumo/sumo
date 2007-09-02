@@ -54,12 +54,7 @@ public:
     static void fillOptions();
 
     /** @brief Builds the streams used possibly by the simulation */
-    static void buildStreams(const OptionsCont &oc);
-
-    /// Build the output stream named by the according option
-    static void buildStream(const OptionsCont &oc,
-                            const std::string &optionName,
-                            const std::string &rootElement="");
+    static void buildStreams();
 
     /**
      * Checks the build settings. The following constraints must be valid:

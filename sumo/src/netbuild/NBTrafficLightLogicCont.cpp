@@ -118,7 +118,7 @@ NBTrafficLightLogicCont::clear()
 }
 
 
-bool
+void
 NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc)
 {
     size_t no = 0;
@@ -134,7 +134,6 @@ NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc)
         }
     }
     WRITE_MESSAGE(toString<int>(no) + " traffic light(s) computed.");
-    return true;
 }
 
 
@@ -173,9 +172,7 @@ NBTrafficLightLogicCont::getDefinition(const std::string &id)
 }
 
 
-
-
-bool
+void
 NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont &ec)
 {
     DefinitionContType::iterator i;
@@ -187,9 +184,7 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont &ec)
     for (i=myDefinitions.begin(); i!=myDefinitions.end(); i++) {
         (*i).second->setTLControllingInformation(ec);
     }
-    return true;
 }
-
 
 
 /****************************************************************************/

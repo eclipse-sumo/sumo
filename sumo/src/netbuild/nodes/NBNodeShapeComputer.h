@@ -38,7 +38,6 @@
 // ===========================================================================
 class NBNode;
 class NBEdge;
-class OutputDevice;
 
 
 // ===========================================================================
@@ -52,7 +51,7 @@ class NBNodeShapeComputer
 {
 public:
     /// Constructor
-    NBNodeShapeComputer(const NBNode &node, OutputDevice * const out);
+    NBNodeShapeComputer(const NBNode &node);
 
     /// Destructor
     ~NBNodeShapeComputer();
@@ -117,9 +116,6 @@ private:
 private:
     /// The node to compute the geometry for
     const NBNode &myNode;
-
-    /// The stream to write the node shape pois to (may be 0)
-    OutputDevice * const myNodeShapePOIOut;
 
 };
 

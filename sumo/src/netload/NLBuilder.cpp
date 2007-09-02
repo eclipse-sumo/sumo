@@ -205,7 +205,7 @@ NLBuilder::buildNet()
 {
     myJunctionBuilder.closeJunctions(myDetectorBuilder, myXMLHandler.getContinuations());
     MSEdgeControl *edges = myEdgeBuilder.build();
-    SUMOFrame::buildStreams(m_pOptions);
+    SUMOFrame::buildStreams();
     MSMeanData_Net_Cont meanData = MSMeanData_Net_Utils::buildList(
                                        myNet.getDetectorControl().getDet2File(), *edges,
                                        m_pOptions.getIntVector("dump-intervals"),

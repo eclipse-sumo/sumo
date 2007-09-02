@@ -66,7 +66,7 @@ public:
                 NBTrafficLightDefinition *logics);
 
     /// computes the traffic light logics using the definitions and stores the results
-    bool computeLogics(NBEdgeCont &ec, OptionsCont &oc);
+    void computeLogics(NBEdgeCont &ec, OptionsCont &oc);
 
     /// saves all known logics
     void writeXML(OutputDevice &into);
@@ -82,7 +82,7 @@ public:
 
     NBTrafficLightDefinition *getDefinition(const std::string &id);
 
-    bool setTLControllingInformation(const NBEdgeCont &ec);
+    void setTLControllingInformation(const NBEdgeCont &ec);
 
 
 private:
