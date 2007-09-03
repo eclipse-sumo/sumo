@@ -162,6 +162,7 @@ private:
 
     /// map from names to output devices
     static DeviceMap myOutputDevices;
+
 };
 
 

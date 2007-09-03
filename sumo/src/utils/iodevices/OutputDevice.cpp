@@ -141,12 +141,17 @@ void
 OutputDevice::close()
 {
     while(closeTag());
+    vector<string> silbings;
     for (DeviceMap::iterator i=myOutputDevices.begin(); i!=myOutputDevices.end(); ++i) {
         if (i->second == this) {
-            delete(*i).second;
-            myOutputDevices.erase(i);
-            break;
+            silbings.push_back((*i).first);
         }
+    }
+    assert(myOutputDevices.find(*silbings.begin())!=myOutputDevices.end());
+    delete myOutputDevices.find(*silbings.begin())->second;
+    for(vector<string>::iterator i=silbings.begin(); i!=silbings.end(); ++i) {
+        assert(myOutputDevices.find(*i)!=myOutputDevices.end());
+        myOutputDevices.erase(myOutputDevices.find(*i));
     }
 }
 
