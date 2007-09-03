@@ -157,6 +157,8 @@ GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
     new FXMenuSeparator(ret);
     //
     buildShowParamsPopupEntry(ret, false);
+    SUMOReal pos = myShape.nearest_position_on_line_to_point(parent.getPositionInformation());
+    new FXMenuCommand(ret, ("pos: " + toString(pos)).c_str(), 0, 0, 0);
     return ret;
 }
 
