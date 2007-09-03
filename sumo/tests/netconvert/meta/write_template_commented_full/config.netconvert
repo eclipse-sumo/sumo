@@ -71,7 +71,7 @@
       <proj.simple>false</proj.simple>
 
       <!-- Uses STR as proj.4 definition for projection -->
-      <proj>+proj=utm +zone=33 +ellps=bessel +units=m</proj>
+      <proj>+proj=utm +ellps=bessel +units=m</proj>
 
    </projection>
 

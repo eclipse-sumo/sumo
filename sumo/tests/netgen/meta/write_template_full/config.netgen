@@ -46,7 +46,7 @@
    <projection>
       <use-projection>false</use-projection>
       <proj.simple>false</proj.simple>
-      <proj>+proj=utm +zone=33 +ellps=bessel +units=m</proj>
+      <proj>+proj=utm +ellps=bessel +units=m</proj>
    </projection>
 
    <tls_building>

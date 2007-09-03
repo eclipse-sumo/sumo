@@ -3715,11 +3715,12 @@
         <option>--use-projection</option>. You can then add parameter for the
         projection using <option>--proj
         <replaceable>&lt;STRING&gt;</replaceable></option>. The default for
-        the projection is "+proj=utm +zone=33 +ellps=bessel +units=m". That
-        means, that NETCONVERT assumes the network is a part of the UTM zone
-        33 and is described using the Bessel ellipsoid. Please remark, that
-        when giving own description, you should embed it into "" for passing
-        all the arguments to PROJ.4.</para>
+        the projection is "+proj=utm +ellps=bessel +units=m". That means, that
+        NETCONVERT assumes the network to be encoded using "universal traverse
+        mercator" and the Bessel ellipsoid what resembles what is known as
+        WGS84 (as far as we have understood it). Please remark, that when
+        giving own description, you should embed it into "" for passing all
+        the arguments to PROJ.4.</para>
 
         <para>Specific options:</para>
 
@@ -3739,7 +3740,7 @@
 
             <listitem>
               <para>Defines projection. <remark>Optional (pregiven),
-              type:string, default: "+proj=utm +zone=33 +ellps=bessel
+              type:string, default: "+proj=utm +ellps=bessel
               +units=m"</remark></para>
             </listitem>
           </varlistentry>
@@ -3776,6 +3777,15 @@
         </caution>
 
         <para>Examples: none yet</para>
+        <para>Recent changes:</para>
+
+        <itemizedlist spacing="compact">
+          <listitem>
+            <para>The default for the proj-option changed in 0.9.7 from
+            "+proj=utm +zone=33 +ellps=bessel +units=m" to "+proj=utm
+            +ellps=bessel +units=m"</para>
+          </listitem>
+        </itemizedlist>
       </sect2>
 
       <sect2 id="user_chp04-further_options-internal_lanes" revision="0.9.5">
@@ -11158,7 +11168,7 @@ myDet1;0;10;2;100;80
 
             <listitem>
               <para>Defines the projection to use. <remark>Optional,
-              type:string, default: "+proj=utm +zone=33 +ellps=bessel
+              type:string, default: "+proj=utm +ellps=bessel
               +units=m"</remark></para>
             </listitem>
           </varlistentry>
@@ -11261,6 +11271,12 @@ myDet1;0;10;2;100;80
           <listitem>
             <para>Since version 0.9.6, <application>POLYCONVERT</application>
             is able to import Visum polygons and points</para>
+          </listitem>
+
+          <listitem>
+            <para>The default for the proj-option changed in 0.9.7 from
+            "+proj=utm +zone=33 +ellps=bessel +units=m" to "+proj=utm
+            +ellps=bessel +units=m"</para>
           </listitem>
         </itemizedlist>
       </sect2>

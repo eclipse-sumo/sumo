@@ -475,7 +475,7 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("proj.simple", new Option_Bool(false));
     oc.addDescription("proj.simple", "Projection", "Uses a simple method for projection");
 
-    oc.doRegister("proj", new Option_String("+proj=utm +zone=33 +ellps=bessel +units=m"));
+    oc.doRegister("proj", new Option_String("+proj=utm +ellps=bessel +units=m"));
     oc.addDescription("proj", "Projection", "Uses STR as proj.4 definition for projection");
 
 
