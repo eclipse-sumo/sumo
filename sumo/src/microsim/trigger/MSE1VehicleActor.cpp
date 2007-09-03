@@ -129,13 +129,13 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
     for (vector<MSDevice_CPhone*>::iterator i=v->begin(); !doBreak&&i!=v->end(); ++i, ++currNo) {
         MSDevice_CPhone *cp = (*i);
         assert(cp != 0);
-        if (veh.getVehicleType().getID()=="SBahn") {
+        if(veh.getVehicleType().getID()=="SBahn"||veh.getVehicleType().getID()=="BUS"||veh.getVehicleType().getID()=="Zug") {
             SUMOReal phoneVehPos = (SUMOReal)(veh.getVehicleType().getLength()-2.) / (SUMOReal) v->size() * (SUMOReal) currNo;
-            if (oldPos + phoneVehPos<posM) {
+            if(oldPos + phoneVehPos<posM) {
                 // ok, was already processed
                 continue;
             }
-            if (newPos + phoneVehPos<posM) {
+            if(newPos + phoneVehPos<posM) {
                 // ok, has not yet reached the detector
                 doBreak = true;
                 continue;
@@ -160,38 +160,38 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
             }
             MSPhoneCell *oldCell = pPhone->getCurrentVehicleCell(cp->getID());
             MSPhoneCell *newCell = pPhone->getMSPhoneCell(myAreaId);
-            if (oldCell != 0) {
-                oldCell->remCPhone(cp->getID());
-            }
-            assert(newCell != 0);
-            newCell->addCPhone(cp->getID(), cp);
-            int callCount = cp->GetCallCellCount();
-            cp->IncCallCellCount();
-            switch (cp->GetState()) {
-            case MSDevice_CPhone::STATE_OFF:
-                break;
-            case MSDevice_CPhone::STATE_IDLE:
-                break;
-            case MSDevice_CPhone::STATE_CONNECTED_IN:
-                assert(cp->getCallId() != -1);
-                // remove the call from the old cell
                 if (oldCell != 0) {
-                    oldCell->remCall(cp->getCallId());
+                    oldCell->remCPhone(cp->getID());
+                } 
+                assert(newCell != 0);
+                newCell->addCPhone(cp->getID(), cp);
+                int callCount = cp->GetCallCellCount();
+                cp->IncCallCellCount();
+                switch (cp->GetState()) {
+                case MSDevice_CPhone::STATE_OFF:
+                    break;
+                case MSDevice_CPhone::STATE_IDLE:
+                    break;
+                case MSDevice_CPhone::STATE_CONNECTED_IN:
+                    assert(cp->getCallId() != -1);
+                    // remove the call from the old cell
+                    if (oldCell != 0) {
+                        oldCell->remCall(cp->getCallId());
+                    }
+                    // move to the new cell if the phone is connected
+                    newCell->addCall(cp->getCallId(), DYNIN, callCount);
+                    myPassedConnectedCPhonesNo++;
+                    break;
+                case MSDevice_CPhone::STATE_CONNECTED_OUT:
+                    assert(cp->getCallId() != -1);
+                    // move to the new cell if the phone is connected
+                    if (oldCell != 0) {
+                        oldCell->remCall(cp->getCallId());
+                    }
+                    newCell->addCall(cp->getCallId(), DYNOUT, callCount);
+                    myPassedConnectedCPhonesNo++;
+                    break;
                 }
-                // move to the new cell if the phone is connected
-                newCell->addCall(cp->getCallId(), DYNIN, callCount);
-                myPassedConnectedCPhonesNo++;
-                break;
-            case MSDevice_CPhone::STATE_CONNECTED_OUT:
-                assert(cp->getCallId() != -1);
-                // move to the new cell if the phone is connected
-                if (oldCell != 0) {
-                    oldCell->remCall(cp->getCallId());
-                }
-                newCell->addCall(cp->getCallId(), DYNOUT, callCount);
-                myPassedConnectedCPhonesNo++;
-                break;
-            }
             if (state==MSDevice_CPhone::STATE_CONNECTED_IN || state==MSDevice_CPhone::STATE_CONNECTED_OUT) {
                 if (OutputDevice::hasDevice("cellphone-dump")) {
                     OutputDevice::getDevice("cellphone-dump")
