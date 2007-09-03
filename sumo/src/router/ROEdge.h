@@ -164,7 +164,7 @@ public:
     int getLaneNo() const;
 
     bool prohibits(const ROVehicle * const vehicle) const;
-	bool allFollowersProhibit(const ROVehicle * const vehicle) const;
+    bool allFollowersProhibit(const ROVehicle * const vehicle) const;
 
     void setNodes(RONode *from, RONode *to);
 
