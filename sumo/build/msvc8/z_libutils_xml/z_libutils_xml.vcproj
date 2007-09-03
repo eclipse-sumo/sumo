@@ -15,8 +15,8 @@
 	<Configurations>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\Release"
-			IntermediateDirectory=".\Release"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
@@ -91,8 +91,8 @@
 		</Configuration>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Debug"
-			IntermediateDirectory=".\Debug"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
@@ -177,6 +177,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\xml\SAXWeightsHandler.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOBaseRouteHandler.cpp"
 				>
 			</File>
@@ -186,10 +190,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOXMLDefinitions.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\xml\SAXWeightsHandler.cpp"
 				>
 			</File>
 			<File
@@ -227,6 +227,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\xml\SAXWeightsHandler.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOBaseRouteHandler.h"
 				>
 			</File>
@@ -236,10 +240,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOXMLDefinitions.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\xml\SAXWeightsHandler.h"
 				>
 			</File>
 			<File

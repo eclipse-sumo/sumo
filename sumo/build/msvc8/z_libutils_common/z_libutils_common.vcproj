@@ -15,8 +15,8 @@
 	<Configurations>
 		<Configuration
 			Name="Debug|Win32"
-			OutputDirectory=".\Debug"
-			IntermediateDirectory=".\Debug"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
@@ -90,8 +90,8 @@
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
-			OutputDirectory=".\Release"
-			IntermediateDirectory=".\Release"
+			OutputDirectory="$(ConfigurationName)"
+			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
 			InheritedPropertySheets="$(VCInstallDir)VCProjectDefaults\UpgradeFromVC71.vsprops"
 			UseOfMFC="0"
@@ -510,11 +510,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\convert\TplConvert.h"
+				RelativePath="..\..\..\src\utils\common\TplConvert.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\common\TplConvert.h"
+				RelativePath="..\..\..\src\utils\convert\TplConvert.h"
 				>
 			</File>
 			<File
