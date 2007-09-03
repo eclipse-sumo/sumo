@@ -198,7 +198,7 @@ NBRequestEdgeLinkIterator::valid(size_t pos,
         int tmpPos = int(pos) - 1;
         assert(pos<myFromEdges.size());
         assert(pos<myFromLanes.size());
-        while (//!!! (tmppos): was : pos>=0 &&
+        while (tmpPos>=0 &&//!!! (tmppos): was : pos>=0 &&
             myFromEdges[pos]==myFromEdges[tmpPos] &&
             myFromLanes[pos]==myFromLanes[tmpPos]) {
             if (!myIsLeftMover[tmpPos--]) {

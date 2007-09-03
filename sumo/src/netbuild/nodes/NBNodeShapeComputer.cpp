@@ -720,7 +720,7 @@ NBNodeShapeComputer::computeUniqueDirectionList(
     bool changed = true;
     while (changed) {
         changed = false;
-        for (i2=newAll.begin(); i2!=newAll.end()&&!changed; ++i2) {
+        for (i2=newAll.begin(); !changed&&i2!=newAll.end(); ) {
             if ((*i2)->getBasicType()!=NBEdge::EDGEFUNCTION_NORMAL) {
                 newAll.erase(i2);
                 changed = true;
@@ -751,6 +751,9 @@ NBNodeShapeComputer::computeUniqueDirectionList(
                     newAll.erase(k);
                     changed = true;
                 }
+            }
+            if(!changed) {
+                ++i2;
             }
         }
     }
