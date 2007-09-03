@@ -126,42 +126,6 @@ RODFNet::buildApproachList()
 }
 
 
-size_t
-RODFNet::numberOfEdgesBefore(ROEdge *edge) const
-{
-    if (myApproachingEdges.find(edge)==myApproachingEdges.end()) {
-        return 0;
-    }
-    return myApproachingEdges.find(edge)->second.size();
-}
-
-
-const std::vector<ROEdge *> &
-RODFNet::getEdgesBefore(ROEdge *edge) const
-{
-    assert(myApproachingEdges.find(edge)!=myApproachingEdges.end());
-    return myApproachingEdges.find(edge)->second;
-}
-
-
-size_t
-RODFNet::numberOfEdgesAfter(ROEdge *edge) const
-{
-    if (myApproachedEdges.find(edge)==myApproachedEdges.end()) {
-        return 0;
-    }
-    return myApproachedEdges.find(edge)->second.size();
-}
-
-
-const std::vector<ROEdge *> &
-RODFNet::getEdgesAfter(ROEdge *edge) const
-{
-    assert(myApproachedEdges.find(edge)!=myApproachedEdges.end());
-    return myApproachedEdges.find(edge)->second;
-}
-
-
 void
 RODFNet::buildDetectorEdgeDependencies(RODFDetectorCon &detcont) const
 {

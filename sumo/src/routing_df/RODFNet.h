@@ -52,10 +52,6 @@ public:
     RODFNet(bool amInHighwayMode);
     ~RODFNet();
     void buildApproachList();
-    size_t numberOfEdgesBefore(ROEdge *edge) const;
-    const std::vector<ROEdge*> &getEdgesBefore(ROEdge *edge) const;
-    size_t numberOfEdgesAfter(ROEdge *edge) const;
-    const std::vector<ROEdge*> &getEdgesAfter(ROEdge *edge) const;
 
     void computeTypes(RODFDetectorCon &dets,
                       bool sourcesStrict) const;
