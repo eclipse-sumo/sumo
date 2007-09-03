@@ -153,7 +153,7 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
                      MSRouteLoaderControl *routeLoaders,
                      MSTLLogicControl *tlc, // ShapeContainer *sc,
                      const MSMeanData_Net_Cont &meanData,
-                     TimeVector stateDumpTimes,
+                     vector<int> stateDumpTimes,
                      std::string stateDumpFiles)
 {
     myEdges = edges;
@@ -236,6 +236,7 @@ MSNet::~MSNet()
     delete myCellsBuilder;
     clearAll();
     GeoConvHelper::close();
+    OutputDevice::closeAll();
 }
 
 
@@ -271,7 +272,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
             WRITE_MESSAGE("Simulation End: All vehicles have left the simulation.");
         }
     } catch (ProcessError &e) {
-        WRITE_MESSAGE("Simulation End: An error occured (see log).");
+//!!!        WRITE_MESSAGE("Simulation End: An error occured (see log).");
         throw e;
     }
     // exit simulation loop

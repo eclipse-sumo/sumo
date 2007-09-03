@@ -97,9 +97,6 @@ public:
      */
     static MSNet* getInstance(void);
 
-    /// List of times (intervals or similar)
-    typedef std::vector< SUMOTime > TimeVector;
-
     MSNet(SUMOTime startTimestep, MSVehicleControl *vc,
           SUMOReal tooSlowRTF, bool logExecTime, bool logStep);
 
@@ -211,7 +208,7 @@ public:
                                MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
                                MSTLLogicControl *tlc, //ShapeContainer *sc,
                                const MSMeanData_Net_Cont &meanData,
-                               TimeVector stateDumpTimes, std::string stateDumpFiles);
+                               std::vector<int> stateDumpTimes, std::string stateDumpFiles);
 
     bool logSimulationDuration() const
     {
@@ -283,7 +280,7 @@ public:
 protected:
     MSPhoneNet * myMSPhoneNet;
     /** initialises the MeanData-container */
-    static void initMeanData(TimeVector dumpMeanDataIntervalls,
+    static void initMeanData(std::vector<int> dumpMeanDataIntervalls,
                              std::string baseNameDumpFiles);
 
     /// Unique instance of MSNet
@@ -349,7 +346,7 @@ protected:
     long myVehiclesMoved;
     //}
 
-    TimeVector myStateDumpTimes;
+    std::vector<int> myStateDumpTimes;
     std::string myStateDumpFiles;
 
     SUMOReal myTooSlowRTF;
