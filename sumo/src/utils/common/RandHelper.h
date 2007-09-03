@@ -59,7 +59,7 @@ public:
     /// Returns a random integer in [0, len-1]
     static inline size_t getRandomIndex(size_t len)
     {
-        return (size_t) RandHelper::myRandomNumberGenerator.randInt(len-1);
+        return (size_t) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32) (len-1));
     }
 
     /// Returns a random real number in [0, 1)
