@@ -28,7 +28,7 @@
    <tripdef id="74" depart="19901" from="a1" to="b2" type="4"/>
    <tripdef id="76" depart="19957" from="a1" to="b2" type="4"/>
    <tripdef id="96" depart="20787" from="a1" to="b2" type="4"/>
-   <tripdef id="15" depart="20855" from="a1" to="b2" type="4"/>
+   <tripdef id="15" depart="20856" from="a1" to="b2" type="4"/>
    <tripdef id="2" depart="21384" from="a1" to="b2" type="4"/>
    <tripdef id="63" depart="21643" from="a1" to="b2" type="4"/>
    <tripdef id="77" depart="22834" from="a1" to="b2" type="4"/>

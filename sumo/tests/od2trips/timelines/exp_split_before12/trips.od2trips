@@ -4,7 +4,7 @@
    <tripdef id="22" depart="2893" from="a1" to="b2"/>
    <tripdef id="19" depart="7274" from="a1" to="b2"/>
    <tripdef id="14" depart="9639" from="a1" to="b2"/>
-   <tripdef id="15" depart="10427" from="a1" to="b2"/>
+   <tripdef id="15" depart="10428" from="a1" to="b2"/>
    <tripdef id="2" depart="10692" from="a1" to="b2"/>
    <tripdef id="21" depart="12045" from="a1" to="b2"/>
    <tripdef id="10" depart="13036" from="a1" to="b2"/>

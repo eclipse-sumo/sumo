@@ -12,7 +12,7 @@
    <tripdef id="11" depart="18451" from="a1" to="b2"/>
    <tripdef id="10" depart="20466" from="a1" to="b2"/>
    <tripdef id="12" depart="22403" from="a1" to="b2"/>
-   <tripdef id="13" depart="22468" from="a1" to="b2"/>
+   <tripdef id="13" depart="22469" from="a1" to="b2"/>
    <tripdef id="14" depart="27776" from="a1" to="b2"/>
    <tripdef id="15" depart="28566" from="a1" to="b2"/>
    <tripdef id="17" depart="29460" from="a1" to="b2"/>
