@@ -147,11 +147,12 @@ OutputDevice::close()
             silbings.push_back((*i).first);
         }
     }
-    assert(myOutputDevices.find(*silbings.begin())!=myOutputDevices.end());
-    delete myOutputDevices.find(*silbings.begin())->second;
-    for(vector<string>::iterator i=silbings.begin(); i!=silbings.end(); ++i) {
-        assert(myOutputDevices.find(*i)!=myOutputDevices.end());
-        myOutputDevices.erase(myOutputDevices.find(*i));
+    if(silbings.size()!=0) {
+        delete myOutputDevices.find(*silbings.begin())->second;
+        for(vector<string>::iterator i=silbings.begin(); i!=silbings.end(); ++i) {
+            assert(myOutputDevices.find(*i)!=myOutputDevices.end());
+            myOutputDevices.erase(myOutputDevices.find(*i));
+        }
     }
 }
 
