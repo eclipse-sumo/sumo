@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A class that holds all traffic light logics used
+// A class that stores and controls tls and switching of their programs
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -41,6 +41,7 @@
 #include "MSTrafficLightLogic.h"
 #include "MSSimpleTrafficLightLogic.h"
 #include "MSTLLogicControl.h"
+#include "MSOffTrafficLightLogic.h"
 #include <microsim/MSEventControl.h>
 #include <microsim/MSNet.h>
 #include <utils/common/TplConvert.h>
@@ -529,7 +530,7 @@ MSTLLogicControl::add(const std::string &id, const std::string &subID,
     if (tlmap.ltVariants.find(subID)!=tlmap.ltVariants.end()) {
         return false;
     }
-    // assert the liks are set
+    // assert the links are set
     if (myNetWasLoaded) {
         // this one has not yet its links set
         if (tlmap.defaultTL==0) {
@@ -566,8 +567,11 @@ MSTLLogicControl::knows(const std::string &id) const
 
 
 void
-MSTLLogicControl::markNetLoadingClosed()
+MSTLLogicControl::closeNetworkReading()
 {
+    for(map<std::string, TLSLogicVariants>::iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
+        (*i).second.originalLinkStates = (*i).second.defaultTL->collectLinkStates();
+    }
     myNetWasLoaded = true;
 }
 
@@ -604,10 +608,7 @@ MSTLLogicControl::switchTo(const std::string &id, const std::string &subid)
         throw ProcessError("Could not switch tls '" + id + "' to program '" + subid + "':\n No such tls exists.");
     }
     if ((*i).second.ltVariants.find(subid)==(*i).second.ltVariants.end()) {
-        // maybe this switch shall move the tls to an off-state
-        //  in this case, we mybe have to build the program
-        //  (this is done internally)
-        // otherwise we'll inform the user about the missing tls program
+        // we'll inform the user about the missing tls program
         throw ProcessError("Could not switch tls '" + id + "' to program '" + subid + "':\n No such program exists.");
     }
     // try to get the program to switch to
@@ -620,8 +621,14 @@ MSTLLogicControl::switchTo(const std::string &id, const std::string &subid)
         throw ProcessError("Could not switch tls '" + id + "' to program '" + subid + "':\n No such tls exists.");
     }
     // switch to the wished program
+        // replace the current sub-program by the found wished in myActiveLogics
     *j = touse;
+        // set the found wished sub-program as this tls' current one
     (*i).second.defaultTL = touse;
+    // in the case we have switched to an off-state, we'll reset the links
+    if(subid=="off") {
+        touse->resetLinkStates((*i).second.originalLinkStates);
+    }
     return true;
 }
 
@@ -669,7 +676,10 @@ MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
             // make a day period
             begin = begin - (86400-myWAUTs[wautid]->refTime);
         }
-        begin = (86400 + begin) % 86400;
+        begin = (86400 + begin);
+        while(begin>86400) {
+            begin -= 86400;
+        }
         // activate
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             new SwitchInitCommand(*this, wautid),
@@ -717,8 +727,16 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
         TLSLogicVariants &vars = myLogics.find((*i).junction)->second;
         MSTrafficLightLogic *from = vars.defaultTL;
         if (vars.ltVariants.find(s.to)==vars.ltVariants.end()) {
-            throw ProcessError("Can not switch tls '" + (*i).junction + "' to program '" + s.to + "';\n The program is not known.");
-            
+            if(s.to=="off") {
+                // build an off-tll if this switch indicates it
+                if(!add((*i).junction, "off", new MSOffTrafficLightLogic(*this, (*i).junction), false)) {
+                    // inform the user if this fails
+                    throw ProcessError("Could not build an off-state for tls '" + (*i).junction + "'.");
+                }
+            } else {
+                // inform the user about a missing logic
+                throw ProcessError("Can not switch tls '" + (*i).junction + "' to program '" + s.to + "';\n The program is not known.");
+            }
         }
         MSTrafficLightLogic *to = vars.ltVariants.find(s.to)->second;
 
@@ -763,13 +781,13 @@ MSTLLogicControl::check2Switch(SUMOTime step)
 }
 
 
-CompletePhaseDef
+std::pair<SUMOTime, MSPhaseDefinition>
 MSTLLogicControl::getPhaseDef(const std::string &tlid) const
 {
     MSTrafficLightLogic *tl = getActive(tlid);
-    return CompletePhaseDef(
+    return make_pair(
                MSNet::getInstance()->getCurrentTimeStep(),
-               SimplePhaseDef(tl->allowed(), tl->yellowMask()));
+               tl->getCurrentPhaseDef());
 }
 
 

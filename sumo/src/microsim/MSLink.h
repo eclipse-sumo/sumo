@@ -108,7 +108,7 @@ public:
     };
 
     /// Some Junctions need to switch the priority
-    void setPriority(bool prio, bool yellow);
+    void setPriority(bool prio);
 
     /** @brief Returns the information whether the link may be passed
         A valid after the junctions have set their reponds */
@@ -126,9 +126,6 @@ public:
 
     /// Sets the current tl-state
     void setTLState(LinkState state);
-
-    /// Returns whether the tl (if this link belongs to one) shows yellow
-    bool amYellow() const;
 
     /// Returns the connected lane
     MSLane *getLane() const;
@@ -176,9 +173,6 @@ private:
 
     /// The basic state of the link
     LinkState myState;
-
-    /// Information whether the tl (if this link belongs to one) shows yellow
-    bool myAmYellow; // !!! deprecated
 
     /// An abstract (hopefully human readable) definition of the link's direction
     LinkDirection myDirection;

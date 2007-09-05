@@ -327,8 +327,7 @@ NLJunctionControlBuilder::computeInitTLSStep()  const
 {
     assert(myActivePhases.size()!=0);
     SUMOTime offset = myOffset % myAbsDuration;
-    MSSimpleTrafficLightLogic::Phases::const_iterator i
-    = myActivePhases.begin();
+    MSSimpleTrafficLightLogic::Phases::const_iterator i = myActivePhases.begin();
     SUMOTime step = 0;
     while (true) {
         if (offset<(*i)->duration) {
@@ -501,7 +500,6 @@ NLJunctionControlBuilder::closeJunctions(NLDetectorBuilder &db,
 {
     for (std::vector<TLInitInfo>::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
         (*i).logic->setParameter((*i).params);
-        (*i).logic->init(db, edgeContinuations);
     }
 }
 
@@ -511,7 +509,7 @@ NLJunctionControlBuilder::buildTLLogics() const
 {
     MSTLLogicControl *ret = myLogicControl;
     myLogicControl = 0;
-    ret->markNetLoadingClosed();
+    ret->closeNetworkReading();
     return ret;
 }
 

@@ -81,7 +81,7 @@ FXIMPLEMENT(GUITLLogicPhasesTrackerWindow,FXMainWindow,GUITLLogicPhasesTrackerWi
 GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     GUIMainWindow &app,
     MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
-    ValueSource<CompletePhaseDef> *src)
+    ValueSource<std::pair<SUMOTime, MSPhaseDefinition> > *src)
         : FXMainWindow(app.getApp(), "TLS-Tracker",NULL,NULL,DECOR_ALL,
                        20,20,300,200),
         myApplication(&app), myTLLogic(&logic), myAmInTrackingMode(true)
@@ -98,7 +98,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     myBeginOffset->setValue(240);
     new FXLabel(myToolBar, "(s)", 0, LAYOUT_CENTER_Y);
     //
-    myConnector = new GLObjectValuePassConnector<CompletePhaseDef>(wrapper, src, this);
+    myConnector = new GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >(wrapper, src, this);
     size_t height = myTLLogic->getLinks().size() * 20 + 30 + 8 + 30;
     app.addChild(this, true);
     for (size_t i=0; i<myTLLogic->getLinks().size(); i++) {
@@ -197,7 +197,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
         myLastTime = 0;
         myBeginTime = 0;
         for (j=phases.begin(); j!=phases.end(); ++j) {
-            myPhases.push_back(SimplePhaseDef((*j)->getDriveMask(), (*j)->getYellowMask()));
+            myPhases.push_back(*(*j));
             myDurations.push_back((*j)->duration);
             myLastTime += (*j)->duration;
         }
@@ -309,12 +309,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
         // go through the links
         for (size_t j=0; j<myTLLogic->getLinks().size(); j++) {
             // determine the current link's color
-            MSLink::LinkState state =
-                (*pi).first.test(j)==true
-                ? MSLink::LINKSTATE_TL_GREEN
-                : (*pi).second.test(j)==true
-                ? MSLink::LINKSTATE_TL_YELLOW
-                : MSLink::LINKSTATE_TL_RED;
+            MSLink::LinkState state = (*pi).getLinkState(j);
             // draw the bar (red is drawn as a line)
             switch (state) {
             case MSLink::LINKSTATE_TL_GREEN:
@@ -407,7 +402,7 @@ GUITLLogicPhasesTrackerWindow::drawValues(GUITLLogicPhasesTrackerPanel &caller)
 
 
 void
-GUITLLogicPhasesTrackerWindow::addValue(CompletePhaseDef def)
+GUITLLogicPhasesTrackerWindow::addValue(std::pair<SUMOTime, MSPhaseDefinition>  def)
 {
     // do not draw while adding
     myLock.lock();

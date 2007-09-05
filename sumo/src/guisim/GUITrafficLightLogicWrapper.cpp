@@ -65,6 +65,7 @@ GUITrafficLightLogicWrapperPopupMenuMap[]=
     {
         FXMAPFUNC(SEL_COMMAND,  MID_SHOWPHASES,             GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhases),
         FXMAPFUNC(SEL_COMMAND,  MID_TRACKPHASES,            GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdBegin2TrackPhases),
+        FXMAPFUNC(SEL_COMMAND,  MID_SWITCH_OFF,             GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLS2Off),
         FXMAPFUNCS(SEL_COMMAND, MID_SWITCH, MID_SWITCH+20, GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLSLogic),
     };
 
@@ -106,6 +107,16 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdShowPhas
 {
     assert(myObject->getType()==GLO_TLLOGIC);
     static_cast<GUITrafficLightLogicWrapper*>(myObject)->showPhases();
+    return 1;
+}
+
+
+long
+GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTLS2Off(
+    FXObject*,FXSelector sel,void*)
+{
+    assert(myObject->getType()==GLO_TLLOGIC);
+    static_cast<GUITrafficLightLogicWrapper*>(myObject)->switchTLSLogic(-1);
     return 1;
 }
 
@@ -157,6 +168,7 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
         }
         new FXMenuSeparator(ret);
     }
+    new FXMenuCommand(ret, "Switch off", GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_SWITCH_OFF);
     new FXMenuCommand(ret, "Track Phases", 0, ret, MID_TRACKPHASES);
     new FXMenuCommand(ret, "Show Phases", 0, ret, MID_SHOWPHASES);
     new FXMenuSeparator(ret);
@@ -172,7 +184,7 @@ GUITrafficLightLogicWrapper::begin2TrackPhases()
 {
     GUITLLogicPhasesTrackerWindow *window =
         new GUITLLogicPhasesTrackerWindow(*myApp, myTLLogic, *this,
-                                          new FuncBinding_StringParam<MSTLLogicControl, CompletePhaseDef>
+                                          new FuncBinding_StringParam<MSTLLogicControl, std::pair<SUMOTime, MSPhaseDefinition> >
                                           (&MSNet::getInstance()->getTLSControl(), &MSTLLogicControl::getPhaseDef, myTLLogic.getID()));
     window->create();
     window->show();
@@ -239,12 +251,16 @@ GUITrafficLightLogicWrapper::getCenteringBoundary() const
 void
 GUITrafficLightLogicWrapper::switchTLSLogic(int to)
 {
+    if(to==-1) {
+        myTLLogicControl.switchTo(myTLLogic.getID(), "off");
+        return;
+    }
     const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.getID());
     std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
     int index = 0;
     for (i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
         if (index==to) {
-            myTLLogicControl.switchTo((*i).second->getID(), (*i).second->getSubID());
+            myTLLogicControl.switchTo(myTLLogic.getID(), (*i).second->getSubID());
             return;
         }
     }

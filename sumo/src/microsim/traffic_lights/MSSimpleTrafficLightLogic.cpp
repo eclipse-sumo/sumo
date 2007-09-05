@@ -32,6 +32,7 @@
 #include <utility>
 #include <vector>
 #include <bitset>
+#include <sstream>
 #include <microsim/MSEventControl.h>
 #include "MSTrafficLightLogic.h"
 #include "MSSimpleTrafficLightLogic.h"
@@ -63,30 +64,6 @@ MSSimpleTrafficLightLogic::~MSSimpleTrafficLightLogic()
     for (size_t i=0; i<myPhases.size(); i++) {
         delete myPhases[i];
     }
-}
-
-
-const std::bitset<64> &
-MSSimpleTrafficLightLogic::linkPriorities() const
-{
-    assert(myPhases.size()>myStep);
-    return myPhases[myStep]->getBreakMask();
-}
-
-
-const std::bitset<64> &
-MSSimpleTrafficLightLogic::yellowMask() const
-{
-    assert(myPhases.size()>myStep);
-    return myPhases[myStep]->getYellowMask();
-}
-
-
-const std::bitset<64> &
-MSSimpleTrafficLightLogic::allowed() const
-{
-    assert(myPhases.size()>myStep);
-    return myPhases[myStep]->getDriveMask();
 }
 
 
@@ -126,6 +103,84 @@ MSSimpleTrafficLightLogic::getStepNo() const
 {
     return myStep;
 }
+
+void
+MSSimpleTrafficLightLogic::setLinkPriorities() const
+{
+    const std::bitset<64> &linkPrios = myPhases[myStep]->getBreakMask();
+    for (size_t i=0; i<myLinks.size(); i++) {
+        const LinkVector &currGroup = myLinks[i];
+        for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+            (*j)->setPriority(linkPrios.test(i));
+        }
+    }
+}
+
+bool
+MSSimpleTrafficLightLogic::maskRedLinks() const
+{
+    // get the current traffic light signal combination
+    const std::bitset<64> &allowedLinks = myPhases[myStep]->getDriveMask();
+    const std::bitset<64> &yellowLinks = myPhases[myStep]->getYellowMask();
+    // go through the links
+    for (size_t i=0; i<myLinks.size(); i++) {
+        // mark out links having red
+        if (!allowedLinks.test(i)&&!yellowLinks.test(i)) {
+            const LinkVector &currGroup = myLinks[i];
+            for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+                (*j)->deleteRequest();
+            }
+        }
+        // set the states for assigned links
+        // !!! one should let the links ask for it
+        if (!allowedLinks.test(i)) {
+            if (yellowLinks.test(i)) {
+                const LinkVector &currGroup = myLinks[i];
+                for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+                    (*j)->setTLState(MSLink::LINKSTATE_TL_YELLOW);
+                }
+            } else {
+                const LinkVector &currGroup = myLinks[i];
+                for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+                    (*j)->setTLState(MSLink::LINKSTATE_TL_RED);
+                }
+            }
+        } else {
+            const LinkVector &currGroup = myLinks[i];
+            for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+                (*j)->setTLState(MSLink::LINKSTATE_TL_GREEN);
+            }
+        }
+    }
+    return true;
+}
+
+
+bool
+MSSimpleTrafficLightLogic::maskYellowLinks() const
+{
+    // get the current traffic light signal combination
+    const std::bitset<64> &allowedLinks = myPhases[myStep]->getDriveMask();
+    // go through the links
+    for (size_t i=0; i<myLinks.size(); i++) {
+        // mark out links having red
+        if (!allowedLinks.test(i)) {
+            const LinkVector &currGroup = myLinks[i];
+            for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
+                (*j)->deleteRequest();
+            }
+        }
+    }
+    return true;
+}
+
+
+MSPhaseDefinition 
+MSSimpleTrafficLightLogic::getCurrentPhaseDef() const
+{
+    return *myPhases[myStep];
+}
+
 
 size_t
 MSSimpleTrafficLightLogic::getCycleTime()
@@ -221,6 +276,28 @@ MSSimpleTrafficLightLogic::changeStepAndDuration(MSTLLogicControl &tlcontrol,
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         mySwitchCommand, stepDuration+simStep,
         MSEventControl::ADAPT_AFTER_EXECUTION);
+}
+
+
+std::string
+MSSimpleTrafficLightLogic::buildStateList() const
+{
+    MSPhaseDefinition curr = getCurrentPhaseDef();
+    std::ostringstream strm;
+    const std::bitset<64> &allowedLinks = curr.getDriveMask();
+    const std::bitset<64> &yellowLinks = curr.getYellowMask();
+    for (size_t i=0; i<myLinks.size(); i++) {
+        if (yellowLinks.test(i)) {
+            strm << 'Y';
+        } else {
+            if (allowedLinks.test(i)) {
+                strm << 'G';
+            } else {
+                strm << 'R';
+            }
+        }
+    }
+    return strm.str();
 }
 
 

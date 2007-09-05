@@ -73,7 +73,7 @@ Command_SaveTLSSwitches::execute(SUMOTime currentTime)
 {
     MSTrafficLightLogic *light = myLogics.defaultTL;
     const MSTrafficLightLogic::LinkVectorVector &links = light->getLinks();
-    const std::bitset<64> &allowedLinks = light->allowed();
+    const std::bitset<64> &allowedLinks = light->getCurrentPhaseDef().getDriveMask();
     for (size_t i=0; i<links.size(); i++) {
         if (!allowedLinks.test(i)) {
             const MSTrafficLightLogic::LinkVector &currLinks = links[i];

@@ -46,7 +46,7 @@ MSLink::MSLink(MSLane* succLane, bool yield,
         myLane(succLane),
         myPrio(!yield), myApproaching(0),
         myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
-        myState(state), myAmYellow(false), myDirection(dir)
+        myState(state), myDirection(dir)
 {}
 #else
 MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
@@ -55,7 +55,7 @@ MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
         myLane(succLane), myJunctionInlane(via),
         myPrio(!yield), myApproaching(0),
         myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
-        myState(state), myAmYellow(false), myDirection(dir),
+        myState(state), myDirection(dir),
         myIsInternalEnd(internalEnd)
 {}
 #endif
@@ -94,10 +94,9 @@ MSLink::setApproaching(MSVehicle *approaching)
 /////////////////////////////////////////////////////////////////////////////
 
 void
-MSLink::setPriority(bool prio, bool yellow)
+MSLink::setPriority(bool prio)
 {
     myPrio = prio;
-    myAmYellow = yellow;
 }
 
 
@@ -132,19 +131,7 @@ MSLink::deleteRequest()
 MSLink::LinkState
 MSLink::getState() const
 {
-//    if(myState!=LINKSTATE_ABSTRACT_TL) {
     return myState;
-    /*
-    }
-    if(myAmYellow) {
-    return LINKSTATE_TL_YELLOW;
-    }
-    if(opened()) {
-    return LINKSTATE_TL_GREEN;
-    } else {
-    return LINKSTATE_TL_RED;
-    }
-    */
 }
 
 
@@ -159,13 +146,6 @@ void
 MSLink::setTLState(LinkState state)
 {
     myState = state;
-}
-
-
-bool
-MSLink::amYellow() const
-{
-    return myAmYellow;
 }
 
 

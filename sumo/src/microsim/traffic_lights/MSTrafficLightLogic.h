@@ -35,6 +35,8 @@
 #include <bitset>
 #include <utils/helpers/Command.h>
 #include <microsim/MSLogicJunction.h>
+#include <microsim/MSLink.h>
+#include "MSPhaseDefinition.h"
 
 
 // ===========================================================================
@@ -73,7 +75,7 @@ public:
 public:
     /// Constructor
     MSTrafficLightLogic(MSTLLogicControl &tlcontrol,
-                        const std::string &id, const std::string &subid, size_t delay);
+                        const std::string &id, const std::string &subid, SUMOTime delay);
 
     /// Destructor
     virtual ~MSTrafficLightLogic();
@@ -82,33 +84,23 @@ public:
         Returns the time of the next switch */
     virtual SUMOTime trySwitch(bool isActive) = 0;
 
-    /** Returns the link priorities for the given phase */
-    virtual const std::bitset<64> &linkPriorities() const = 0;
-
-    /// Returns the mask of links that have yellow
-    virtual const std::bitset<64> &yellowMask() const = 0;
-
-    /// Returns the mask of links that may move
-    virtual const std::bitset<64> &allowed() const = 0;
-
     /// Returns the current step
     virtual size_t getStepNo() const = 0;
 
-
     /** @brief Sets the priorities of incoming lanes
         This must be done as they change when the light changes */
-    void setLinkPriorities();
+    virtual void setLinkPriorities() const = 0;
 
     /// Clears all incoming vehicle information on links that have red
-    bool maskRedLinks();
+    virtual bool maskRedLinks() const = 0;
 
     /// Clears all incoming vehicle information on links that have yellow
-    bool maskYellowLinks();
+    virtual bool maskYellowLinks() const = 0;
 
     friend class NLSucceedingLaneBuilder;
 
     /// Builds a string that contains the states of the signals
-    std::string buildStateList() const;
+    virtual std::string buildStateList() const = 0;
 
     /// Returns the list of lanes that are controlled by the signals at the given position
     const LaneVector &getLanesAt(size_t i) const;
@@ -145,11 +137,13 @@ public:
     virtual void changeStepAndDuration(MSTLLogicControl &tlcontrol,
                                        SUMOTime simStep, int step, SUMOTime stepDuration) = 0;
 
-    virtual void init(NLDetectorBuilder &nb,
-                      const MSEdgeContinuations &edgeContinuations);
-
     /// Returns the index of the given link
     int getLinkIndex(MSLink *link) const;
+
+    std::map<MSLink*, std::pair<MSLink::LinkState, bool> > collectLinkStates() const;
+    void resetLinkStates(const std::map<MSLink*, std::pair<MSLink::LinkState, bool> > &vals) const;
+
+    virtual MSPhaseDefinition getCurrentPhaseDef() const = 0;
 
 
 protected:

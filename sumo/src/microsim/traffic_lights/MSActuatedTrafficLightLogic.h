@@ -65,15 +65,12 @@ public:
     /// Definition of a map from lanes to induct loops lying on them
     typedef std::map<MSLane*, MSInductLoop*> InductLoopMap;
 
-    /// Definition of a map from lanes to lane state detectors lying on them
-//!!!!    typedef std::map<MSLane*, MSLaneState*> LaneStateMap;
-
 public:
     /// constructor
     MSActuatedTrafficLightLogic(MSNet &net, MSTLLogicControl &tlcontrol,
                                 const std::string &id, const std::string &subid,
                                 const MSSimpleTrafficLightLogic::Phases &phases,
-                                size_t step, size_t delay,
+                                size_t step, SUMOTime delay,
                                 SUMOReal maxGap, SUMOReal passingTime, SUMOReal detectorGap);
 
     /// Initialises the tls with information about incoming lanes
@@ -104,9 +101,6 @@ protected:
 protected:
     /// A map from lanes to induct loops lying on them
     InductLoopMap myInductLoops;
-
-    /// A map from lanes to lane states lying on them
-//!!!!    LaneStateMap myLaneStates;
 
     /// information whether the current phase should be lenghtend
     bool myContinue;

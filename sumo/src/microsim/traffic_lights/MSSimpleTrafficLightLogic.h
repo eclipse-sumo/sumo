@@ -69,16 +69,13 @@ public:
         Returns the time of the next switch */
     SUMOTime trySwitch(bool isActive);
 
-    /// Returns the priorities for all lanes for the current phase
-    const std::bitset<64> &linkPriorities() const;
-
-    /// Returns a bitset where all links having yellow are set
-    const std::bitset<64> &yellowMask() const;
-
-    const std::bitset<64> &allowed() const;
-
     /// returns the current step
     size_t getStepNo() const;
+
+    void setLinkPriorities() const;
+    bool maskRedLinks() const;
+    bool maskYellowLinks() const;
+    MSPhaseDefinition getCurrentPhaseDef() const;
 
     /// returns the cycletime
     size_t getCycleTime() ;
@@ -100,6 +97,8 @@ public:
 
     void changeStepAndDuration(MSTLLogicControl &tlcontrol, SUMOTime simStep,
                                int step, SUMOTime stepDuration);
+
+    std::string buildStateList() const;
 
 protected:
     /// the list of phases this logic uses

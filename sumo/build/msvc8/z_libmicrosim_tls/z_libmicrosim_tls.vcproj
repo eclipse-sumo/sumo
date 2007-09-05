@@ -221,6 +221,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\traffic_lights\MSOffTrafficLightLogic.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\traffic_lights\MSSimpleTrafficLightLogic.cpp"
 				>
 				<FileConfiguration
@@ -310,6 +314,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\traffic_lights\MSAgentbasedTrafficLightLogic.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\traffic_lights\MSOffTrafficLightLogic.h"
 				>
 			</File>
 			<File

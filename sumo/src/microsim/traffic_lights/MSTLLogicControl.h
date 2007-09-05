@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A class that holds all traffic light logics used
+// A class that stores and controls tls and switching of their programs
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -38,24 +38,15 @@
 
 
 // ===========================================================================
-// type definitions
-// ===========================================================================
-/** @brief Definition of a phase description
-    Within the first bitsets, all links having gree are marked, within the second
-    all links having yellow */
-typedef std::pair<std::bitset<64>, std::bitset<64> > SimplePhaseDef;
-
-/// Definition of a complete phase information, including the time
-typedef std::pair<SUMOTime, SimplePhaseDef> CompletePhaseDef;
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class MSTLLogicControl
- * @brief This class holds all traffic light logics (programs) and their
- *  variants during the simulation.
+ * @brief A class that stores and controls tls and switching of their programs
+ *
+ * This class holds all traffic light logics (programs) and their
+ *  variants during the simulation. In addition, the schedule for switching
+ *  between different tls programs are also stored.
  *
  * When a WAUT is forced to switch, for each TLS, a switching procedure
  *  derived from WAUTSwitchProcedure is initialised and is asked repeatedly
@@ -68,7 +59,7 @@ public:
      * @struct TLSLogicVariants
      * @brief Storage for all programs of a single tls
      *
-     * The currently used program is additionally stored.
+     * The currently used program is additionally stored in defaultTLS.
      */
     struct TLSLogicVariants
     {
@@ -76,35 +67,62 @@ public:
         MSTrafficLightLogic *defaultTL;
         /// A map of subkeys to programs
         std::map<std::string, MSTrafficLightLogic*> ltVariants;
+        /// Originally loaded link states 
+        std::map<MSLink*, std::pair<MSLink::LinkState, bool> > originalLinkStates;
     };
+
 
     /// Constructor
     MSTLLogicControl();
 
+
     /// Destructor
     ~MSTLLogicControl();
 
-    /** This method must be called after the network (including the initial tls
-     * definitions) was loaded.
-     */
-    void markNetLoadingClosed();
 
-    /// For all traffic lights, the requests are masked away if they have red light (not yellow)
+    /** @brief Lets MSTLLogicControl know that the network has been loaded
+     * 
+     * This method must be called after the network (including the initial tls
+     *  definitions) was loaded. The MSTLLogicControl is informed in order
+     *  to know that link information is known for the tls programs loaded
+     *  afterwards so that it may be adapted from the previously loaded tls
+     *  (a net may only contain one program per tls).
+     *
+     * Also, the states of the links controlled by tls are saved for their
+     *  potential later usage (if the tls is switched to off-mode).
+     */
+    void closeNetworkReading();
+
+
+    /** @brief For all traffic lights, the requests are masked away if they have red light (not yellow)
+     */
     void maskRedLinks();
 
-    /// For all traffic lights, the requests are masked away if they have yellow light
+
+    /** @brief For all traffic lights, the requests are masked away if they have yellow light
+     */
     void maskYellowLinks();
+
 
     /** @brief Returns a vector which contains all logics
      *
-     * All logics are included, active (current) and non-current
+     * All logics are included, active (current) and non-active
+     * @return A vector containing all loaded logics
      */
     std::vector<MSTrafficLightLogic*> getAllLogics() const;
 
-    /// Returns the variants of a named tls
+
+    /** @brief Returns the variants of a named tls
+     *
+     * @param[in] id The id of the tls to get variants of
+     * @return The variants of the named tls
+     */
     const TLSLogicVariants &get(const std::string &id) const;
 
-    /// Returns a single program (variant) defined by the tls id and the program subid
+
+    /** @brief Returns a single program (variant) defined by the tls id and the program subid
+     * 
+     */
     MSTrafficLightLogic *get(const std::string &id, const std::string &subid) const; // !!! reference, const?
 
     /// Returns the active program of a named tls
@@ -153,7 +171,7 @@ public:
 
     /** @brief return the complete phase definition for a named traffic lights logic
     */
-    CompletePhaseDef getPhaseDef(const std::string &tlid) const;
+    std::pair<SUMOTime, MSPhaseDefinition> getPhaseDef(const std::string &tlid) const;
 
 
 protected:
@@ -164,7 +182,7 @@ protected:
      * This command is reused. The index of the WAUT-switch is incremented at each
      *  call to the control.
      */
-class SwitchInitCommand : public Command
+    class SwitchInitCommand : public Command
     {
     public:
         // / Constructor

@@ -241,7 +241,6 @@ MSAgentbasedTrafficLightLogic::trySwitch(bool)
     // set the next event
     while (currentPhaseDef()->duration==0) {
         nextStep();
-//        setLinkPriorities();
     }
     assert(myPhases.size()>myStep);
     return currentPhaseDef()->duration;

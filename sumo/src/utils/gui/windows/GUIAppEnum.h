@@ -241,6 +241,7 @@ enum {
     /// Show object parameter - menu entry
     MID_SHOWPARS,
     /// Show TLS phases - menu entry
+    MID_SWITCH_OFF,
     MID_SWITCH,
     MID_SHOWPHASES = MID_SWITCH + 20,
     /// Begin to track phases - menu entry

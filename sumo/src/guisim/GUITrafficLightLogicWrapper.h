@@ -120,6 +120,7 @@ class GUITrafficLightLogicWrapperPopupMenu : public GUIGLObjectPopupMenu
         /// Called if the phases shall be begun to track
         long onCmdBegin2TrackPhases(FXObject*,FXSelector,void*);
 
+        long onCmdSwitchTLS2Off(FXObject*,FXSelector,void*);
         long onCmdSwitchTLSLogic(FXObject*,FXSelector,void*);
 
     protected:

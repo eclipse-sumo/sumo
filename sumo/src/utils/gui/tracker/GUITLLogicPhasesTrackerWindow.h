@@ -68,14 +68,14 @@ class GUITrafficLightLogicWrapper;
  */
 class GUITLLogicPhasesTrackerWindow
             : public FXMainWindow,
-            public ValueRetriever<CompletePhaseDef>
+            public ValueRetriever<std::pair<SUMOTime, MSPhaseDefinition> >
 {
     FXDECLARE(GUITLLogicPhasesTrackerWindow)
 public:
     /// Constructor to track current phases
     GUITLLogicPhasesTrackerWindow(GUIMainWindow &app,
                                   MSTrafficLightLogic &logic, GUITrafficLightLogicWrapper &wrapper,
-                                  ValueSource<CompletePhaseDef> *src);
+                                  ValueSource<std::pair<SUMOTime, MSPhaseDefinition> > *src);
 
     /// Constructor to show the complete phase diagram
     GUITLLogicPhasesTrackerWindow(
@@ -96,7 +96,7 @@ public:
     int getMaxGLHeight() const;
 
     /// Adds a further phase definition
-    void addValue(CompletePhaseDef def);
+    void addValue(std::pair<SUMOTime, MSPhaseDefinition>  def);
 
     /// Sets the time the display shall be shown as beginning at
     void setBeginTime(SUMOTime time);
@@ -114,7 +114,7 @@ public:
 
 public:
     /// Definition of a storage for phases
-    typedef std::vector<SimplePhaseDef> PhasesVector;
+    typedef std::vector<MSPhaseDefinition> PhasesVector;
 
     /** @brief This list of stored phases
         Only new phases are stored; The times are not stored at all, they
@@ -215,7 +215,7 @@ private:
     SUMOTime myLastTime;
 
     /// The connector for retrival of further phases
-    GLObjectValuePassConnector<CompletePhaseDef> *myConnector;
+    GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> > *myConnector;
 
     /// Information whether the tracking mode is on
     bool myAmInTrackingMode;

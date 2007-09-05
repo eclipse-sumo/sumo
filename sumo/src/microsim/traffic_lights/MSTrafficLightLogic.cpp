@@ -31,7 +31,6 @@
 #include <string>
 #include <iostream>
 #include <map>
-#include <sstream>
 #include <microsim/MSLink.h>
 #include <microsim/MSLane.h>
 #include "MSTrafficLightLogic.h"
@@ -117,7 +116,7 @@ MSTrafficLightLogic::MSTrafficLightLogic(
     MSTLLogicControl &tlcontrol,
     const std::string &id,
     const std::string &subid,
-    size_t delay)
+        SUMOTime delay)
         : myID(id), mySubID(subid), myCurrentDurationIncrement(-1)
 {
     mySwitchCommand = new SwitchCommand(tlcontrol, this);
@@ -132,19 +131,9 @@ MSTrafficLightLogic::MSTrafficLightLogic(
 
 
 MSTrafficLightLogic::~MSTrafficLightLogic()
-{}
-
-
-void
-MSTrafficLightLogic::setLinkPriorities()
 {
-    const std::bitset<64> &linkPrios = linkPriorities();
-    const std::bitset<64> &yMask = yellowMask();
-    for (size_t i=0; i<myLinks.size(); i++) {
-        const LinkVector &currGroup = myLinks[i];
-        for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-            (*j)->setPriority(linkPrios.test(i), yMask.test(i));
-        }
+    for(std::vector<DiscreteCommand*>::iterator i=myOnSwitchActions.begin(); i!=myOnSwitchActions.end(); ++i) {
+        delete *i;
     }
 }
 
@@ -169,86 +158,6 @@ MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, size_t pos)
     myAmpel->addTrafficLight(myIDs[getID()]*1000 + pos,
                              lane->getShape()[-1].x(), 0, lane->getShape()[-1].y(), lane->getShape().getEndLine().atan2DegreeAngle());
 #endif
-}
-
-
-bool
-MSTrafficLightLogic::maskRedLinks()
-{
-    // get the current traffic light signal combination
-    const std::bitset<64> &allowedLinks = allowed();
-    const std::bitset<64> &yellowLinks = yellowMask();
-    // go through the links
-    for (size_t i=0; i<myLinks.size(); i++) {
-        // mark out links having red
-        if (!allowedLinks.test(i)&&!yellowLinks.test(i)) {
-            const LinkVector &currGroup = myLinks[i];
-            for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-                (*j)->deleteRequest();
-            }
-        }
-        // set the states for assigned links
-        // !!! one should let the links ask for it
-        if (!allowedLinks.test(i)) {
-            if (yellowLinks.test(i)) {
-                const LinkVector &currGroup = myLinks[i];
-                for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-                    (*j)->setTLState(MSLink::LINKSTATE_TL_YELLOW);
-                }
-            } else {
-                const LinkVector &currGroup = myLinks[i];
-                for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-                    (*j)->setTLState(MSLink::LINKSTATE_TL_RED);
-                }
-            }
-        } else {
-            const LinkVector &currGroup = myLinks[i];
-            for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-                (*j)->setTLState(MSLink::LINKSTATE_TL_GREEN);
-            }
-        }
-    }
-    return true;
-}
-
-
-bool
-MSTrafficLightLogic::maskYellowLinks()
-{
-    // get the current traffic light signal combination
-    const std::bitset<64> &allowedLinks = allowed();
-    // go through the links
-    for (size_t i=0; i<myLinks.size(); i++) {
-        // mark out links having red
-        if (!allowedLinks.test(i)) {
-            const LinkVector &currGroup = myLinks[i];
-            for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-                (*j)->deleteRequest();
-            }
-        }
-    }
-    return true;
-}
-
-
-std::string
-MSTrafficLightLogic::buildStateList() const
-{
-    std::ostringstream strm;
-    const std::bitset<64> &allowedLinks = allowed();
-    const std::bitset<64> &yellowLinks = yellowMask();
-    for (size_t i=0; i<myLinks.size(); i++) {
-        if (yellowLinks.test(i)) {
-            strm << "Y";
-        } else {
-            if (allowedLinks.test(i)) {
-                strm << "G";
-            } else {
-                strm << "R";
-            }
-        }
-    }
-    return strm.str();
 }
 
 
@@ -381,17 +290,6 @@ MSTrafficLightLogic::setCurrentDurationIncrement(SUMOTime delay)
 }
 
 
-void
-MSTrafficLightLogic::init(NLDetectorBuilder &,
-                          const MSEdgeContinuations &/*edgeContinuations*/)
-{
-    MSJunction *j = MSJunction::dictionary(getID());
-    if (j!=0) {
-//        j->rebuildPriorities();
-    }
-}
-
-
 int
 MSTrafficLightLogic::getLinkIndex(MSLink *link) const
 {
@@ -408,6 +306,33 @@ MSTrafficLightLogic::getLinkIndex(MSLink *link) const
 }
 
 
+std::map<MSLink*, std::pair<MSLink::LinkState, bool> > 
+MSTrafficLightLogic::collectLinkStates() const
+{
+    std::map<MSLink*, std::pair<MSLink::LinkState, bool> > ret;
+    for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {
+        const LinkVector &l = (*i1);
+        for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
+            ret[*i2] = make_pair((*i2)->getState(), (*i2)->havePriority());
+        }
+    }
+    return ret;
+}
+
+
+void 
+MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, std::pair<MSLink::LinkState, bool> > &vals) const
+{
+    for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {
+        const LinkVector &l = (*i1);
+        for (LinkVector::const_iterator i2=l.begin(); i2!=l.end(); ++i2) {
+            assert(vals.find(*i2)!=vals.end());
+            const std::pair<MSLink::LinkState, bool> &lvals = vals.find(*i2)->second;
+            (*i2)->setTLState(lvals.first);
+            (*i2)->setPriority(lvals.second);
+        }
+    }
+}
 
 /****************************************************************************/
 

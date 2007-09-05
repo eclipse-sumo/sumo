@@ -30,8 +30,10 @@
 #include <config.h>
 #endif
 
+#include <bitset>
 #include <utils/common/SUMOTime.h>
 #include <utils/options/OptionsCont.h>
+#include <microsim/MSLink.h>
 
 
 // ===========================================================================
@@ -52,7 +54,7 @@ public:
     SUMOTime myLastSwitch;
 
     /// constructor
-    MSPhaseDefinition(size_t durationArg, const std::bitset<64> &driveMaskArg,
+    MSPhaseDefinition(SUMOTime durationArg, const std::bitset<64> &driveMaskArg,
                       const std::bitset<64> &breakMaskArg,
                       const std::bitset<64> &yellowMaskArg)
             : duration(durationArg), myLastSwitch(0), driveMask(driveMaskArg),
@@ -80,6 +82,20 @@ public:
         return yellowMask;
     }
 
+    MSLink::LinkState getLinkState(size_t pos) const {
+        if(driveMask.test(pos)) {
+            return MSLink::LINKSTATE_TL_GREEN;
+        }
+        if(yellowMask.test(pos)) {
+            return MSLink::LINKSTATE_TL_YELLOW;
+        }
+        return MSLink::LINKSTATE_TL_RED;
+    }
+
+    bool operator!=(const MSPhaseDefinition &pd) {
+        return driveMask!=pd.driveMask || breakMask!=pd.breakMask || yellowMask!=pd.yellowMask || duration!=pd.duration;
+    }
+
 private:
     /// invalidated standard constructor
     MSPhaseDefinition();
@@ -95,7 +111,6 @@ private:
 
 
 };
-
 
 #endif
 

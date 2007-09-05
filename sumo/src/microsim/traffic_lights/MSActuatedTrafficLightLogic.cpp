@@ -52,7 +52,7 @@ MSActuatedTrafficLightLogic::MSActuatedTrafficLightLogic(
     MSNet &net, MSTLLogicControl &tlcontrol,
     const std::string &id, const std::string &subid,
     const Phases &phases,
-    size_t step, size_t delay, SUMOReal maxGap, SUMOReal passingTime,
+    size_t step, SUMOTime delay, SUMOReal maxGap, SUMOReal passingTime,
     SUMOReal detectorGap)
         : MSSimpleTrafficLightLogic(net, tlcontrol, id, subid, phases, step, delay),
         myContinue(false),
