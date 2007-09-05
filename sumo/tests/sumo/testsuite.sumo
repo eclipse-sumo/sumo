@@ -6,7 +6,7 @@ basic
 #output
 
 # tests for additional structures
-#extended
+extended
 
 # testing meta processing
 meta

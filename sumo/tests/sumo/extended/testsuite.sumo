@@ -1,17 +1,17 @@
 # Tests whether rerouter works; also tests functioning of vehroutes output
-rerouter
+#rerouter
 
 # Tests whether variable speed signs work
-variable_speed_signs
+#variable_speed_signs
 
 # Tests whether emitters work
-emitter
+#emitter
 
 # Tests for dua-inc emissions
-inc-dua
+#inc-dua
 
 # Tests c2c output generation and functioning
-c2c
+#c2c
 
 # Tests whether wauts (tls program switches) work
 wauts

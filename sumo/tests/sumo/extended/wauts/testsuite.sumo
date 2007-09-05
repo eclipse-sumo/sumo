@@ -38,5 +38,13 @@ cross3ltl_switch200_off86000
 cross3ltl_switch100_200_off86000
 
 
+# Switches the tls off at time step 100
+cross3ltl_off100
+
+# Switches the tls off at time step 100 and on at time step 200
+cross3ltl_off100_on200
+
+
+
 
 
