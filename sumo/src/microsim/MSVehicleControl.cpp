@@ -82,13 +82,13 @@ MSVehicleControl::~MSVehicleControl()
         }
     }
     {
-        // delete the default type
-        if(myHaveDefaultVTypeOnly) {
-            delete myVehicleTypeDistribution.get();
-        } else {
-            for(vector<MSVehicleType*>::iterator i=myObsoleteVehicleTypes.begin(); i!=myObsoleteVehicleTypes.end(); ++i) {
-                delete *i;
-            }
+        vector<MSVehicleType*>::const_iterator i;
+        for(i=myObsoleteVehicleTypes.begin(); i!=myObsoleteVehicleTypes.end(); ++i) {
+            delete *i;
+        }
+        const vector<MSVehicleType*> &vehs1 = myVehicleTypeDistribution.getVals();
+        for(i=vehs1.begin(); i!=vehs1.end(); ++i) {
+            delete *i;
         }
     }
     // delete current types

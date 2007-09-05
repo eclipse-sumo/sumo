@@ -444,13 +444,17 @@ MSTLLogicControl::MSTLLogicControl()
 
 MSTLLogicControl::~MSTLLogicControl()
 {
-    std::map<std::string, TLSLogicVariants>::const_iterator i;
-    for (i=myLogics.begin(); i!=myLogics.end(); ++i) {
+    // delete logics
+    for (std::map<std::string, TLSLogicVariants>::const_iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
         const TLSLogicVariants &vars = (*i).second;
         std::map<std::string, MSTrafficLightLogic *>::const_iterator j;
         for (j=vars.ltVariants.begin(); j!=vars.ltVariants.end(); ++j) {
             delete(*j).second;
         }
+    }
+    // delete WAUTs
+    for(std::map<std::string, WAUT*>::const_iterator i=myWAUTs.begin(); i!=myWAUTs.end(); ++i) {
+        delete (*i).second;
     }
 }
 
