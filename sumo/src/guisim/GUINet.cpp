@@ -287,7 +287,7 @@ void
 GUINet::guiSimulationStep()
 {
     MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<SUMOReal> > >::getInstance()->updateAll();
-    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<CompletePhaseDef> > >::getInstance()->updateAll();
+    MSUpdateEachTimestepContainer<MSUpdateEachTimestep<GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> > > >::getInstance()->updateAll();
 }
 
 
