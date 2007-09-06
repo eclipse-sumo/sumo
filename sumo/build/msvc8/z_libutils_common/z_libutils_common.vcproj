@@ -376,6 +376,10 @@
 				</FileConfiguration>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\SUMOTime.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\SUMOVehicleClass.cpp"
 				>
 			</File>
