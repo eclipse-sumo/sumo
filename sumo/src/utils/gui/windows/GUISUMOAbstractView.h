@@ -285,7 +285,8 @@ public:
         /// Information whether dithering shall be enabled
         bool dither;
 
-        ///{ background visualization settings
+        /// @name background visualization settings
+        //@{ 
         /// The background color to use
         RGBColor backgroundColor;
         /// Information whether background decals (textures) shall be used
@@ -294,9 +295,10 @@ public:
         bool showGrid;
         /// Information about the grid spacings
         SUMOReal gridXSize, gridYSize;
-        ///}
+        //@}
 
-        ///{ lane visualization settings
+        /// @name lane visualization settings
+        //@{ 
         /// The lane visualization scheme
         int laneEdgeMode;
         /// The map if used colors (scheme->used colors)
@@ -316,9 +318,10 @@ public:
         float edgeNameSize;
         /// The color of edge names
         RGBColor edgeNameColor;
-        ///}
+        //@}
 
-        ///{ vehicle visualization settings
+        /// @name vehicle visualization settings
+        //@{ 
         /// The vehicle visualization scheme
         int vehicleMode;
         /// The minimum size of vehicles to let them be drawn
@@ -339,9 +342,10 @@ public:
         float vehicleNameSize;
         /// The color of vehicle names
         RGBColor vehicleNameColor;
-        ///}
+        //@}
 
-        ///{ junction visualization settings
+        /// @name junction visualization settings
+        //@{ 
         /// The junction visualization scheme
         int junctionMode;
         /// Information whether a link's tls index shall be drawn
@@ -354,12 +358,13 @@ public:
         float junctionNameSize;
         /// The color of junction names
         RGBColor junctionNameColor;
-        ///}
+        //@}
 
         /// Information whether lane-to-lane arrows shall be drawn
         bool showLane2Lane;
 
-        ///{ additional structures visualization settings
+        /// @name additional structures visualization settings
+        //@{ 
         /// The additional structures visualization scheme
         int addMode;
         /// The minimum size of additional structures to let them be drawn
@@ -372,9 +377,10 @@ public:
         float addNameSize;
         // The color of additionals' names
         //RGBColor addNameColor;
-        ///}
+        //@}
 
-        ///{ shapes visualization settings
+        /// @name shapes visualization settings
+        //@{ 
         /// The minimum size of shapes to let them be drawn
         float minPOISize;
         /// The additional shapes (upscale)
@@ -385,7 +391,7 @@ public:
         float poiNameSize;
         /// The color of poi names
         RGBColor poiNameColor;
-        ///}
+        //@}
 
         /// Information whether the size legend shall be drawn
         bool showSizeLegend;
@@ -395,6 +401,9 @@ public:
     };
 
     FXComboBox &getColoringSchemesCombo();
+
+    Position2D getPositionInformation() const;
+
 
 protected:
 
@@ -408,8 +417,6 @@ protected:
     void drawPOI2D(const PointOfInterest &p, SUMOReal width) const;
 
     void updatePositionInformation() const;
-
-    Position2D getPositionInformation() const;
 
     Position2D getPositionInformation(int x, int y) const;
 
