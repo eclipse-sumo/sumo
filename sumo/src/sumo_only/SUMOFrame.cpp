@@ -504,7 +504,12 @@ SUMOFrame::setMSGlobals(OptionsCont &oc)
     MSGlobals::gLANRefuseOldInfosOffset = oc.getInt("device.c2x.keep-duration");
     MSGlobals::gAddInfoFactor = oc.getFloat("device.c2x.insert-info-factor");
     //
+#ifdef HAVE_SUBSECOND_TIMESTEPS
+#ifdef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
     DELTA_T = oc.getFloat("step-length");
+#endif
+#endif
+    //
 #ifdef HAVE_MESOSIM
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");
 #endif
