@@ -51,12 +51,6 @@ using namespace std;
 // ===========================================================================
 // variable definitions
 // ===========================================================================
-std::string id_leader("367719");
-std::string id_vehicle("366338");
-std::string id_follower("4536");
-std::string id_pfollower("1131");
-size_t searchedtime = 21900;
-
 #ifdef GUI_DEBUG
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <guisim/GUIVehicle.h>
@@ -74,7 +68,6 @@ size_t searchedtime = 21900;
 
 
 
-#define LONG_FORESIGHT
 #define JAM_FACTOR 2.
 #define JAM_FACTOR2 1.
 
@@ -430,6 +423,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
                  : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     lv += myVehicle.getLength() * (SUMOReal) 2.;
 
+    
     SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos * (SUMOReal) JAM_FACTOR2;
     /*
     if(bestLaneOffset>0) {

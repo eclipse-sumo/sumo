@@ -225,13 +225,11 @@ public:
                 buildPathFrom(minimumKnot, into);
                 clearTemporaryStorages(visited, storage);
                 return;
-                //return ret;
             }
             //assert(minEdge->getNumericalID()<9);
             (*visited)[minEdge->getNumericalID()] = true;
             SUMOReal effort = (SUMOReal)(minimumKnot->effort
                                          + (minEdge->*myOperation)(vehicle, (SUMOTime)(time + minimumKnot->effort)));
-//		    	+ minEdge->getEffort((SUMOTime) (time + minimumKnot->effort)));
             // check all ways from the node with the minimal length
             size_t i = 0;
             size_t length_size = minEdge->getNoFollowing();

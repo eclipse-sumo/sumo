@@ -916,7 +916,7 @@ MSLane::releaseVehicles()
 const MSLane::VehCont &
 MSLane::getVehiclesSecure()
 {
-    return myVehicles;
+    throw 1;
 }
 
 
