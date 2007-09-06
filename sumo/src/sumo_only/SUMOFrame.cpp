@@ -156,6 +156,9 @@ SUMOFrame::fillOptions()
     oc.doRegister("end", 'e', new Option_Integer(86400));
     oc.addDescription("end", "Time", "Defines the end time; The simulation ends at this time");
 
+    oc.doRegister("step-length", new Option_Float(.1));
+    oc.addDescription("step-length", "Time", "Defines the step duration");
+
 
     // register the processing options
     oc.doRegister("route-steps", 's', new Option_Integer(200));
@@ -501,6 +504,7 @@ SUMOFrame::setMSGlobals(OptionsCont &oc)
     MSGlobals::gLANRefuseOldInfosOffset = oc.getInt("device.c2x.keep-duration");
     MSGlobals::gAddInfoFactor = oc.getFloat("device.c2x.insert-info-factor");
     //
+    DELTA_T = oc.getFloat("step-length");
 #ifdef HAVE_MESOSIM
     MSGlobals::gUseMesoSim = oc.getBool("mesosim");
 #endif

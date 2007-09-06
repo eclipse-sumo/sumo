@@ -256,7 +256,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
             if (myLogStepNumber) {
                 postSimStepOutput();
             }
-            myStep++;
+            myStep += DELTA_T;
             if (myLogExecutionTime && myTooSlowRTF>0) {
                 SUMOReal rtf = ((SUMOReal) 1000./ (SUMOReal) mySimStepDuration);
                 if (rtf<myTooSlowRTF) {

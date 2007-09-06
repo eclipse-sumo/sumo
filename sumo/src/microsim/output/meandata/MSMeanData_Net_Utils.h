@@ -55,9 +55,9 @@ public:
     /// Builds the list of mean data outputs (files) as described by the parameter
     static MSMeanData_Net_Cont buildList(MSDetector2File &det2file,
                                          MSEdgeControl &ec,
-                                         std::vector<SUMOTime> dumpMeanDataIntervalls,
+                                         std::vector<int> dumpMeanDataIntervalls,
                                          std::string baseNameDumpFiles,
-                                         std::vector<SUMOTime> laneDumpMeanDataIntervalls,
+                                         std::vector<int> laneDumpMeanDataIntervalls,
                                          std::string baseNameLaneDumpFiles,
                                          const std::vector<int> &dumpBegins,
                                          const std::vector<int> &dumpEnds);
@@ -66,15 +66,15 @@ protected:
     /// Builds the list of mean data outputs (files) as described by the parameter
     static MSMeanData_Net_Cont buildList(MSDetector2File &det2file,
                                          MSEdgeControl &ec,
-                                         std::vector<SUMOTime> dumpMeanDataIntervalls,
+                                         std::vector<int> dumpMeanDataIntervalls,
                                          std::string baseNameDumpFiles,
                                          const std::vector<int> &dumpBegins,
                                          const std::vector<int> &dumpEnds,
                                          bool useLanes);
 
     /// Builds a list with unique aggregation times
-    static std::vector<SUMOTime> buildUniqueList(
-        std::vector<SUMOTime> dumpMeanDataIntervalls);
+    static std::vector<int> buildUniqueList(
+        std::vector<int> dumpMeanDataIntervalls);
 
 };
 

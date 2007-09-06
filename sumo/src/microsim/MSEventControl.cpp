@@ -90,7 +90,7 @@ MSEventControl::execute(SUMOTime execTime)
 
         Event currEvent = myEvents.top();
 
-        if (currEvent.second == execTime) {
+        if (currEvent.second == execTime || currEvent.second<execTime+DELTA_T) {
 
             Command *command = currEvent.first;
             myEvents.pop();

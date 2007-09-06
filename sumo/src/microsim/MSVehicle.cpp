@@ -505,7 +505,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
 
     vNext = MAX2((SUMOReal) 0, vNext);
     if (vNext<=0.1) {
-        myWaitingTime++;
+        myWaitingTime += DELTA_T;
     } else {
         myWaitingTime = 0;
     }
@@ -691,7 +691,7 @@ MSVehicle::moveFirstChecked()
 
     // visit waiting time
     if (vNext<=0.1) {
-        myWaitingTime++;
+        myWaitingTime += DELTA_T;
     } else {
         myWaitingTime = 0;
     }
@@ -1025,7 +1025,6 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
             //  and when the distance to the vehicle on the next lane allows moving
             //  (the check whether other incoming vehicles may stop this one is done later)
             // then let it pass
-            //  [m]>
             if (seen>=myType->approachingBrakeGap(myState.mySpeed)&&r_dist2Pred>0) {
                 vLinkPass = MIN3(vLinkPass, myType->maxNextSpeed(myState.mySpeed), myLane->maxSpeed());
                 (*link)->setApproaching(this);

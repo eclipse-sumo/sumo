@@ -2,7 +2,7 @@
 /// @file    SUMOTime.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 29.04.2005
-/// @version $Id$
+/// @version $Id: SUMOTime.h 4084 2007-06-06 07:51:13Z behrisch $
 ///
 //
 /****************************************************************************/
@@ -17,10 +17,6 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef SUMOTime_h
-#define SUMOTime_h
-
-
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -34,58 +30,13 @@
 // ===========================================================================
 // type definitions
 // ===========================================================================
-#ifndef HAVE_SUBSECOND_TIMESTEPS
-
-typedef int SUMOTime;
-// the step length in s
-#define DELTA_T 1
-// x*deltaT
-#define SPEED2DIST(x) x
-// x/deltaT
-#define DIST2SPEED(x) x
-// x*deltaT*deltaT
-#define ACCEL2DIST(x) x
-// x*deltaT
-#define ACCEL2SPEED(x) x
-// x/deltaT
-#define SPEED2ACCEL(x) x
-// x*deltaT
-#define STEP2TIME(x) x
-#define STEPS2SECONDS(x) x
-#define TIME2STEPS(x) x
-#define GET_XML_SUMO_TIME getInt
-#define GET_XML_SUMO_TIME_SECURE getIntSecure
-
-#else
-
-typedef SUMOReal SUMOTime;
+#ifdef HAVE_SUBSECOND_TIMESTEPS
 #ifdef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
-extern SUMOReal DELTA_T;
-#else
-#define DELTA_T = .1;
+SUMOReal DELTA_T = (SUMOReal) 1.;
 #endif
-// x*deltaT
-#define SPEED2DIST(x) (x*DELTA_T)
-// x/deltaT
-#define DIST2SPEED(x) (x/DELTA_T)
-// x*deltaT*deltaT
-#define ACCEL2DIST(x) (x*DELTA_T*DELTA_T)
-// x*deltaT
-#define ACCEL2SPEED(x) (x*DELTA_T)
-// x*deltaT
-#define SPEED2ACCEL(x) (x/DELTA_T)
-// x*deltaT
-#define STEP2TIME(x) ((int) (x*DELTA_T))
-#define STEPS2SECONDS(x) ((int) (x*DELTA_T))
-#define TIME2STEPS(x) ((int) (x/DELTA_T))
-#define GET_XML_SUMO_TIME getFloat
-#define GET_XML_SUMO_TIME_SECURE getFloatSecure
-
 #endif
 
 
-
-#endif
 
 /****************************************************************************/
 
