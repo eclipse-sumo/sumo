@@ -56,6 +56,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StringTokenizer.h>
+#include <utils/common/FileHelpers.h>
 #include <utils/importio/LineReader.h>
 #include <utils/iodevices/OutputDevice.h>
 
@@ -222,6 +223,9 @@ loadDistricts(ODDistrictCont &districts, OptionsCont &oc)
     }
     // get the file name and set it
     string file = oc.getString("net-file");
+    if(!FileHelpers::exists(file)) {
+        throw ProcessError("Could not find network '" + file + "' to load.");
+    }
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading districts from '" + file + "'...");
     // build the xml-parser and handler
     ODDistrictHandler handler(districts, file);
