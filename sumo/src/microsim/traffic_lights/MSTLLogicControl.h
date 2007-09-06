@@ -35,6 +35,7 @@
 #include "MSTrafficLightLogic.h"
 #include "MSSimpleTrafficLightLogic.h"
 #include <utils/helpers/Command.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -117,24 +118,51 @@ public:
      * @param[in] id The id of the tls to get variants of
      * @return The variants of the named tls
      */
-    const TLSLogicVariants &get(const std::string &id) const;
+    const TLSLogicVariants &get(const std::string &id) const throw(InvalidArgument);
 
 
     /** @brief Returns a single program (variant) defined by the tls id and the program subid
      * 
+     * @param[in] id The id of the tls to get program of
+     * @param[in] subid The program id of the tls program to get
+     * @return The defined tls program if existing, 0 otherwise
      */
-    MSTrafficLightLogic *get(const std::string &id, const std::string &subid) const; // !!! reference, const?
+    MSTrafficLightLogic * const get(const std::string &id, const std::string &subid) const;
 
-    /// Returns the active program of a named tls
-    MSTrafficLightLogic *getActive(const std::string &id) const; // !!! reference, const?
+
+    /** @brief Returns the active program of a named tls
+     * 
+     * @param[in] id The id of the tls to get the active program of
+     * @return The current program of the defined tls if existing, 0 otherwise
+     */
+    MSTrafficLightLogic * const getActive(const std::string &id) const;
+
 
     /** @brief Adds a tls program to the container
      *
+     * If a tls with the given id is not yet known, a TLSLogicVariants structure
+     *  is built for this tls and added to the internal container and the tls
+     *  program is used as the new default.
+     *
+     * If the tls to add is loaded from an additional file (indicated by myNetWasLoaded,
+     *  see closeNetworkReading), links from previously loaded tls are adapted to the logic.
+     *  This may throw a ProcessError in the case no tls program was loaded for this
+     *  tls before (was not defined in the network).
+     *
      * The parameter newDefault defines whether this program will be used as the new
-     *  default program of this tls.
+     *  default program of this tls. This means that an existing tls program for this
+     *  tls is replaced within the according TLSLogicVariants structure and within
+     *  myActiveLogics.
+     * 
+     * @param[in] id The id of the tls (program) to add
+     * @param[in] subID The program id of the tls (program) to add
+     * @param[in] logic The tls logic to insert
+     * @exception ProcessError In the case an additional tls program is loaded and no one for the tls existed in the network
+     * @return true if the tls program could be added, false otherwise
      */
     bool add(const std::string &id, const std::string &subID,
-                 MSTrafficLightLogic *logic, bool newDefault=true);
+                 MSTrafficLightLogic *logic, bool newDefault=true) throw(ProcessError);
+
 
     /// Returns the information whether the named tls is stored
     bool knows(const std::string &id) const;

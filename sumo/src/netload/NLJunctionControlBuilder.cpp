@@ -261,7 +261,7 @@ NLJunctionControlBuilder::initIncomingLanes()
 
 
 const MSTLLogicControl::TLSLogicVariants &
-NLJunctionControlBuilder::getTLLogic(const std::string &id) const
+NLJunctionControlBuilder::getTLLogic(const std::string &id) const throw(InvalidArgument)
 {
     return getTLLogicControlToUse().get(id);
 }

@@ -40,6 +40,7 @@
 #include <microsim/traffic_lights/MSActuatedTrafficLightLogic.h>
 #include <microsim/MSBitSetLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -138,7 +139,7 @@ public:
     void setOffset(int val);
 
     /// Returns a previously build logic
-    const MSTLLogicControl::TLSLogicVariants &getTLLogic(const std::string &id) const;
+    const MSTLLogicControl::TLSLogicVariants &getTLLogic(const std::string &id) const throw(InvalidArgument);
 
     /// Returns the complete tls-logic control
     MSTLLogicControl *buildTLLogics() const;

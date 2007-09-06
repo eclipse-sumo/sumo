@@ -490,17 +490,17 @@ MSTLLogicControl::getAllLogics() const
 }
 
 const MSTLLogicControl::TLSLogicVariants &
-MSTLLogicControl::get(const std::string &id) const
+MSTLLogicControl::get(const std::string &id) const throw(InvalidArgument)
     {
         std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(id);
         if (i==myLogics.end()) {
-            throw 1;
+            throw InvalidArgument("The tls '" + id + "' is not known.");
         }
         return (*i).second;
     }
 
 
-MSTrafficLightLogic *
+MSTrafficLightLogic * const
 MSTLLogicControl::get(const std::string &id, const std::string &subid) const
     {
         std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(id);
@@ -518,7 +518,7 @@ MSTLLogicControl::get(const std::string &id, const std::string &subid) const
 
 bool
 MSTLLogicControl::add(const std::string &id, const std::string &subID,
-                          MSTrafficLightLogic *logic, bool newDefault)
+                          MSTrafficLightLogic *logic, bool newDefault) throw(ProcessError)
 {
     if (myLogics.find(id)==myLogics.end()) {
         TLSLogicVariants var;
@@ -587,7 +587,7 @@ MSTLLogicControl::isActive(const MSTrafficLightLogic *tl) const
 }
 
 
-MSTrafficLightLogic *
+MSTrafficLightLogic * const
 MSTLLogicControl::getActive(const std::string &id) const
 {
     std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(id);

@@ -1103,7 +1103,10 @@ NLHandler::addE2Detector(const Attributes &attrs)
     MSTLLogicControl::TLSLogicVariants tll;
     try {
         string lsaid = getString(attrs, SUMO_ATTR_TLID);
-        tll = myJunctionControlBuilder.getTLLogic(lsaid);
+        try {
+            tll = myJunctionControlBuilder.getTLLogic(lsaid);
+        } catch (InvalidArgument &) {
+        }
         if (tll.ltVariants.size()==0) {
             MsgHandler::getErrorInstance()->inform("The detector '" + id + "' refers to the unknown lsa '" + lsaid + "'.");
             return;
