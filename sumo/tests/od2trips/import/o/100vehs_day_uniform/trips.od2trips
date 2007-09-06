@@ -1,3 +1,24 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/06/07 16:41:01 by SUMO od2trips Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <od-files>input_od_o.fma</od-files>
+   </input>
+
+   <output>
+      <output-file>trips.trips.xml</output-file>
+   </output>
+
+   <processing>
+      <spread.uniform>true</spread.uniform>
+   </processing>
+
+</configuration>
+-->
+
 <tripdefs>
    <tripdef id="0" depart="432" from="a1" to="b2"/>
    <tripdef id="1" depart="1296" from="a1" to="b2"/>

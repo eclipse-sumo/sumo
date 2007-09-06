@@ -12,4 +12,6 @@ trips:trips.trips.xml
 
 [run_dependent_text]
 output:od2trips.exe{REPLACE sumo-od2trips}
+trips:Version
+
 

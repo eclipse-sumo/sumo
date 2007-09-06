@@ -45,6 +45,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class OutputDevice;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -121,7 +127,7 @@ public:
 	 * @param[in] prefix A prefix for the vehicle names
 	 */
     void write(SUMOTime begin, SUMOTime end,
-               std::ofstream &strm, bool uniform,
+               OutputDevice &dev, bool uniform,
                const std::string &prefix) throw();
 
 

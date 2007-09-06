@@ -1,3 +1,25 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/06/07 16:41:16 by SUMO od2trips Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <od-files>input_od_o.fma</od-files>
+   </input>
+
+   <output>
+      <output-file>trips.trips.xml</output-file>
+   </output>
+
+   <processing>
+      <timeline>0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1</timeline>
+      <timeline.day-in-hours>true</timeline.day-in-hours>
+   </processing>
+
+</configuration>
+-->
+
 <tripdefs>
    <tripdef id="1" depart="43416" from="a1" to="b2"/>
    <tripdef id="0" depart="44827" from="a1" to="b2"/>

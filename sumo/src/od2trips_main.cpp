@@ -57,6 +57,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/importio/LineReader.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -525,14 +526,16 @@ main(int argc, char **argv)
             matrix.applyCurve(parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
         // write
-        ofstream ostrm(oc.getString("output").c_str());
-        if (!ostrm.good()) {
-            throw ProcessError("Could not open output file '" + oc.getString("output") + "'.");
+        try {
+            if(!OutputDevice::createDeviceByOption("output", "tripdefs")) {
+                throw ProcessError("No output name is given.");
+            }
+        } catch (IOError &e) {
+            throw ProcessError(e.what());
         }
-        ostrm << "<tripdefs>" << endl;
+        OutputDevice& dev = OutputDevice::getDevice("output");
         matrix.write((SUMOTime) oc.getInt("begin"), (SUMOTime) oc.getInt("end"),
-                     ostrm, oc.getBool("spread.uniform"), oc.getString("prefix"));
-        ostrm << "</tripdefs>" << endl;
+                     dev, oc.getBool("spread.uniform"), oc.getString("prefix"));
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");
     } catch (ProcessError &e) {
@@ -548,6 +551,7 @@ main(int argc, char **argv)
 #endif
     }
     SystemFrame::close();
+    OutputDevice::closeAll();
     if (ret==0) {
         cout << "Success." << endl;
     }

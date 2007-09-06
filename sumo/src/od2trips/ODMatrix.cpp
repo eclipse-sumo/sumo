@@ -37,6 +37,7 @@
 #include <algorithm>
 #include <list>
 #include <utils/common/RandHelper.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -128,8 +129,7 @@ ODMatrix::computeEmissions(ODCell *cell,
 
 void
 ODMatrix::write(SUMOTime begin, SUMOTime end,
-                std::ofstream &strm, 
-                bool uniform,
+                OutputDevice &dev, bool uniform,
                 const std::string &prefix) throw()
 {
     if(myContainer.size()==0) {
@@ -180,13 +180,13 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
         std::vector<ODVehicle>::reverse_iterator i = vehicles.rbegin();
         for (; i!=vehicles.rend()&&(*i).depart==t; ++i) {
             myNoWritten++;
-            strm << "   <tripdef id=\"" << (*i).id << "\" depart=\"" << t << "\" ";
-            strm << "from=\"" << (*i).from << "\" ";
-            strm << "to=\"" << (*i).to << "\"";
+            dev << "   <tripdef id=\"" << (*i).id << "\" depart=\"" << t << "\" "
+                << "from=\"" << (*i).from << "\" "
+                << "to=\"" << (*i).to << "\"";
             if ((*i).type.length()!=0) {
-                strm << " type=\"" << (*i).type << "\"";
+                dev << " type=\"" << (*i).type << "\"";
             }
-            strm << "/>"<< endl;
+            dev << "/>\n";
         }
         while (vehicles.size()!=0&&(*vehicles.rbegin()).depart==t) {
             vehicles.pop_back();
