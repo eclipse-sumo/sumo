@@ -173,7 +173,7 @@ initVehicleColoringSchemes()
     // using C2C extensions
     sm.add("C2C: by having a device",
            new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, bool>(
-               0, 1, RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5), RGBColor(1, 1, 1),
+               0, 1, RGBColor((SUMOReal) .8, (SUMOReal) .8, (SUMOReal) .8), RGBColor(1, 1, 0),
                (bool(GUIVehicle::*)() const) &GUIVehicle::isEquipped));
     sm.add("C2C: by number of all information",
            new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, int>(
