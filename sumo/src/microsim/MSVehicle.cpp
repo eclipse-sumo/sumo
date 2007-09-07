@@ -491,7 +491,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     SUMOReal vNext = myType->dawdle(MIN3(lane->maxSpeed(), myType->maxNextSpeed(myState.mySpeed), vSafe));
     vNext =
         myLaneChangeModel->patchSpeed(
-            MAX2((SUMOReal) 0, ACCEL2SPEED(myState.mySpeed-myType->getMaxDecel())), //!!! reverify
+            MAX2((SUMOReal) 0, myState.mySpeed-ACCEL2SPEED(myType->getMaxDecel())), //!!! reverify
             vNext,
             MIN3(vSafe, myLane->maxSpeed(), maxNextSpeed),//vaccel(myState.mySpeed, myLane->maxSpeed())),
             vSafe);
@@ -812,11 +812,12 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
     //  compute this information and use it only once in the next loop
     SUMOReal seen = myLane->length() - myState.myPos;
     MSLane *nextLane = myLane;
-    // compute the way the vehicle may drive when accelerating // !!!?
-    SUMOReal dist = boundVSafe + myType->brakeGap(myState.mySpeed);
+    // compute the way the vehicle would drive if it would use the current speed and then
+    //  decelerate
+    SUMOReal dist = SPEED2DIST(boundVSafe) + myType->brakeGap(myState.mySpeed);
     SUMOReal vLinkPass = boundVSafe;
     SUMOReal vLinkWait = vLinkPass;
-    if (seen>boundVSafe + myType->brakeGap(myState.mySpeed)) {
+    if (seen>dist) {
         // just for the case the vehicle is still very far away from the lane end
         myLFLinkLanes.push_back(DriveProcessItem(0, vLinkPass, vLinkPass));
         return;
@@ -910,7 +911,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                     // leading vehicle is not overlapping
                     vsafePredNextLane =
                         MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, dist2Pred, nextLanePred.speed()));
-                    SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-myType->decelAbility() /* !!! decelAbility of leader! */);
+                    SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-ACCEL2SPEED(myType->decelAbility()) /* !!! decelAbility of leader! */);
                     if (myType->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->brakeGap(predDec) + dist2Pred) {
 
                         vsafePredNextLane = MIN2(vsafePredNextLane, DIST2SPEED(dist2Pred));
