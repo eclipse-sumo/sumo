@@ -25,6 +25,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -101,6 +102,7 @@
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
+				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
