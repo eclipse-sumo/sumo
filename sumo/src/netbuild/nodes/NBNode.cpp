@@ -1306,7 +1306,7 @@ NBNode::sortNodesEdges(const NBTypeCont &tc)
 #endif
     NBNode::BasicNodeType type = computeType(tc);
     // write if wished
-    if (OutputDevice::hasDevice("node-type-output")) {
+    if (OptionsCont::getOptions().isSet("node-type-output")) {
         string col;
         switch (type) {
         case NODETYPE_NOJUNCTION:
@@ -1325,7 +1325,7 @@ NBNode::sortNodesEdges(const NBTypeCont &tc)
             col = "1,1,0";
             break;
         }
-        OutputDevice::getDevice("node-type-output") << "   <poi id=\"type_" << myID
+        OutputDevice::getDeviceByOption("node-type-output") << "   <poi id=\"type_" << myID
         << "\" type=\"node_type\" color=\"" << col << "\""
         << " x=\"" << getPosition().x() << "\" y=\"" << getPosition().y() << "\"/>\n";
     }

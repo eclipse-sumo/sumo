@@ -369,7 +369,7 @@ void
 MSPhoneCell::writeOutput(SUMOTime t)
 {
     {
-        if (OutputDevice::hasDevice("ss2-cell-output")) {
+        if (OptionsCont::getOptions().isSet("ss2-cell-output")) {
             std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
             timestr = timestr + " " + StringUtils::toTimeString(t);
             long t1 = myVehicleTimes;
@@ -377,7 +377,7 @@ MSPhoneCell::writeOutput(SUMOTime t)
             for (i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
                 t1 = t1 + (t - (*i).second);
             }
-            OutputDevice::getDevice("ss2-cell-output")
+            OutputDevice::getDeviceByOption("ss2-cell-output")
             << "02;" << timestr << ';'
             << myCellId << ';'
             << myStaticCallsIn << ';' << myStaticCallsOut << ';'
@@ -395,8 +395,8 @@ MSPhoneCell::writeOutput(SUMOTime t)
         }
     }
     {
-        if (OutputDevice::hasDevice("ss2-sql-cell-output")) {
-            OutputDevice& od = OutputDevice::getDevice("ss2-sql-cell-output");
+        if (OptionsCont::getOptions().isSet("ss2-sql-cell-output")) {
+            OutputDevice& od = OutputDevice::getDeviceByOption("ss2-sql-cell-output");
             std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
             timestr = timestr + " " + StringUtils::toTimeString(t);
             if (od.getBoolMarker("hadFirstCall")) {

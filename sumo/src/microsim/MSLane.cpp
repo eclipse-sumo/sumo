@@ -870,8 +870,8 @@ MSLane::addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal ga
         }
     }
     // Add to phys state
-    if (OutputDevice::hasDevice("physical-states-output")) {
-        OutputDevice::getDevice("physical-states-output") << "   <vphys id=\"" << veh.getID()
+    if (OptionsCont::getOptions().isSet("physical-states-output")) {
+        OutputDevice::getDeviceByOption("physical-states-output") << "   <vphys id=\"" << veh.getID()
         << "\" t=\"" << MSNet::getInstance()->getCurrentTimeStep()
         << "\" v=\"" << newV
         << "\" a=\"" << (newV-oldV)

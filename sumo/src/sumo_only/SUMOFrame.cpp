@@ -388,8 +388,8 @@ SUMOFrame::buildStreams()
     OutputDevice::createDeviceByOption("c2x.vehicle-in-range", "vehicleInRanges");
 
     // initialise TrafficOnline-outputs
-    if (OutputDevice::hasDevice("ss2-sql-output")) {
-        OutputDevice::getDevice("ss2-sql-output")
+    if (OptionsCont::getOptions().isSet("ss2-sql-output")) {
+        OutputDevice::getDeviceByOption("ss2-sql-output")
         << "CREATE TABLE `COLLECTORPOS` (\n"
         << "`ID` int(11) NOT NULL auto_increment,\n"
         << "`TID` varchar(20) NOT NULL default '',\n"
@@ -403,8 +403,8 @@ SUMOFrame::buildStreams()
         << "INSERT INTO `COLLECTORPOS` (`ID`,`TID`,`DATE_TIME`, `POSITION_ID`, `CALL_ID`, `QUALITY_ID`) VALUES "
         << "\n";
     }
-    if (OutputDevice::hasDevice("ss2-sql-cell-output")) {
-        OutputDevice::getDevice("ss2-sql-cell-output")
+    if (OptionsCont::getOptions().isSet("ss2-sql-cell-output")) {
+        OutputDevice::getDeviceByOption("ss2-sql-cell-output")
         << "CREATE TABLE `COLLECTORCS` ("
         << "`ID` int(11) NOT NULL auto_increment,\n"
         << "`TID` varchar(20) NOT NULL default '',\n"
@@ -422,8 +422,8 @@ SUMOFrame::buildStreams()
         << "INSERT INTO `COLLECTORCS` (`ID`,`TID`,`DATE_TIME`,`CELL_ID`,`STAT_CALLS_IN`,`STAT_CALLS_OUT`,"
         << "`DYN_CALLS_IN`,`DYN_CALLS_OUT`,`SUM_CALLS`,`INTERVALL`) VALUES \n";
     }
-    if (OutputDevice::hasDevice("ss2-sql-la-output")) {
-        OutputDevice::getDevice("ss2-sql-la-output")
+    if (OptionsCont::getOptions().isSet("ss2-sql-la-output")) {
+        OutputDevice::getDeviceByOption("ss2-sql-la-output")
         << "CREATE TABLE `COLLECTORLA` (\n"
         << "`ID` int(11) NOT NULL auto_increment,\n"
         << "`TID` varchar(20) NOT NULL default '',\n"

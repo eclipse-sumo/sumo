@@ -69,6 +69,12 @@ public:
      */
     static bool createDeviceByOption(const std::string &optionName, const std::string &rootElement="");
 
+    /**
+     * Returns the device named by the option. If the option is unknown, unset
+     * or the device was not created before, IllegalArgument is thrown.
+     */
+    static OutputDevice& getDeviceByOption(const std::string &name);
+
     /// Checks for the existence of the named device
     static bool hasDevice(const std::string &name);
 
@@ -98,18 +104,11 @@ public:
                         const std::string &attrs="",
                         const std::string &comment="");
 
-    /// Opens an XML tag with optional attributes
-    void openTag(const std::string &xmlElement,
-                 const std::string &attrs="");
+    /// Opens an XML tag
+    OutputDevice& openTag(const std::string &xmlElement);
 
     /// Closes the most recently opened tag
     bool closeTag();
-
-    /** @brief  Saves this device under another name.
-     *
-     * Does nothing and returns false if the name was already in use.
-     */
-    bool createAlias(const std::string &name);
 
     /// @name methods for saving/reading an abstract state
     //@{

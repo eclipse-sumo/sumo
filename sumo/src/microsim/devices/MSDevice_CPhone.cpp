@@ -270,8 +270,8 @@ MSDevice_CPhone::~MSDevice_CPhone()
         if (cell != 0) {
             if (m_State!=STATE_IDLE && m_State!=STATE_OFF) {
                 cell->remCall(myCallId);
-                if (OutputDevice::hasDevice("cellphone-dump")) {
-                    OutputDevice::getDevice("cellphone-dump")
+                if (OptionsCont::getOptions().isSet("cellphone-dump")) {
+                    OutputDevice::getDeviceByOption("cellphone-dump")
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << myCallId << ';' << mycurrentCellId << ';'
                     << 2 << ';' << myID <<"\n";
@@ -369,8 +369,8 @@ MSDevice_CPhone::SetState(State s, int dur)
     myCommand = new MyCommand(*this);
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         myCommand, dur + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
-    if (OutputDevice::hasDevice("cellphone-dump")) {
-        OutputDevice::getDevice("cellphone-dump")
+    if (OptionsCont::getOptions().isSet("cellphone-dump")) {
+        OutputDevice::getDeviceByOption("cellphone-dump")
         << MSNet::getInstance()->getCurrentTimeStep() << ';'
         << myCallId << ';' << mycurrentCellId << ';'
         << 0 << ';' << myID <<"\n";
@@ -387,8 +387,8 @@ MSDevice_CPhone::changeState()
         throw 1;
         assert(myCallId != -1);
         assert(mycurrentCellId != -1);
-        if (OutputDevice::hasDevice("cellphone-dump")) {
-            OutputDevice::getDevice("cellphone-dump")
+        if (OptionsCont::getOptions().isSet("cellphone-dump")) {
+            OutputDevice::getDeviceByOption("cellphone-dump")
             << MSNet::getInstance()->getCurrentTimeStep() << ';'
             << myCallId << ';' << mycurrentCellId << ';'
             << 2 << ';' << myID <<"\n";
@@ -436,8 +436,8 @@ MSDevice_CPhone::changeState()
                             cell->addCall( myCallId, STATICIN, myCallCellCount );
                         else
                             cell->addCall( myCallId, STATICOUT, myCallCellCount );
-                        if (OutputDevice::hasDevice("cellphone-dump")) {
-                            OutputDevice::getDevice("cellphone-dump")
+                        if (OptionsCont::getOptions().isSet("cellphone-dump")) {
+                            OutputDevice::getDeviceByOption("cellphone-dump")
                             << MSNet::getInstance()->getCurrentTimeStep() << ';'
                             << myCallId << ';' << mycurrentCellId << ';'
                             << 0 << ';' << myID <<"\n";
@@ -486,8 +486,8 @@ MSDevice_CPhone::changeState()
                         cell->addCall(myCallId, STATICIN, myCallCellCount);
                     else
                         cell->addCall(myCallId, STATICOUT, myCallCellCount);
-                    if (OutputDevice::hasDevice("cellphone-dump")) {
-                        OutputDevice::getDevice("cellphone-dump")
+                    if (OptionsCont::getOptions().isSet("cellphone-dump")) {
+                        OutputDevice::getDeviceByOption("cellphone-dump")
                         << MSNet::getInstance()->getCurrentTimeStep() << ';'
                         << myCallId << ';' << mycurrentCellId << ';'
                         << 0 << ';' << myID <<"\n";
@@ -499,8 +499,8 @@ MSDevice_CPhone::changeState()
             break;
             case STATE_CONNECTED_IN:
             case STATE_CONNECTED_OUT: {
-                if (OutputDevice::hasDevice("cellphone-dump")) {
-                    OutputDevice::getDevice("cellphone-dump")
+                if (OptionsCont::getOptions().isSet("cellphone-dump")) {
+                    OutputDevice::getDeviceByOption("cellphone-dump")
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << myCallId << ';' << mycurrentCellId << ';'
                     << 2 << ';' << myID <<"\n";
@@ -581,8 +581,8 @@ MSDevice_CPhone::onDepart()
                     cell->addCall( myCallId, STATICIN , myCallCellCount);
                 else
                     cell->addCall( myCallId, STATICOUT, myCallCellCount );
-                if (OutputDevice::hasDevice("cellphone-dump")) {
-                    OutputDevice::getDevice("cellphone-dump")
+                if (OptionsCont::getOptions().isSet("cellphone-dump")) {
+                    OutputDevice::getDeviceByOption("cellphone-dump")
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << myCallId << ';' << mycurrentCellId << ';'
                     << 0 << ';' << myID <<"\n";

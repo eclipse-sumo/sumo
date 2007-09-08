@@ -120,17 +120,17 @@ MSPhoneLA::writeOutput(SUMOTime t)
 {
     intervall = t - last_time;
     {
-        if (OutputDevice::hasDevice("ss2-la-output")) {
+        if (OptionsCont::getOptions().isSet("ss2-la-output")) {
             std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
             timestr = timestr + " " + StringUtils::toTimeString(t);
-            OutputDevice::getDevice("ss2-la-output")
+            OutputDevice::getDeviceByOption("ss2-la-output")
             << "03;" << ';' << timestr << ';' << position_id << ';' << dir << ';' << sum_changes
             << ';' << quality_id << ';' << intervall << "\n";
         }
     }
     {
-        if (OutputDevice::hasDevice("ss2-sql-la-output")) {
-            OutputDevice& od = OutputDevice::getDevice("ss2-sql-la-output");
+        if (OptionsCont::getOptions().isSet("ss2-sql-la-output")) {
+            OutputDevice& od = OutputDevice::getDeviceByOption("ss2-sql-la-output");
             std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
             timestr = timestr + " " + StringUtils::toTimeString(t);
             if (od.getBoolMarker("hadFirstCall")) {

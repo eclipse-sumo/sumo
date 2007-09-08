@@ -537,7 +537,7 @@ main(int argc, char **argv)
         } catch (IOError &e) {
             throw ProcessError(e.what());
         }
-        OutputDevice& dev = OutputDevice::getDevice("output");
+        OutputDevice& dev = OutputDevice::getDeviceByOption("output");
         matrix.write((SUMOTime) oc.getInt("begin"), (SUMOTime) oc.getInt("end"),
                      dev, oc.getBool("spread.uniform"), oc.getString("prefix"));
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoDiscarded()) + " vehicles discarded.");

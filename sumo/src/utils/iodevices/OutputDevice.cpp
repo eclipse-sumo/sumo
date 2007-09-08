@@ -67,7 +67,7 @@ OutputDevice&
 OutputDevice::getDevice(const std::string &name, const std::string &base)
 {
     // check whether the device has already been aqcuired
-    if (OutputDevice::hasDevice(name)) {
+    if (myOutputDevices.find(name)!=myOutputDevices.end()) {
         return *myOutputDevices[name];
     }
     // build the device
@@ -102,7 +102,6 @@ OutputDevice::createDeviceByOption(const std::string &optionName,
         return false;
     }
     OutputDevice& dev = OutputDevice::getDevice(OptionsCont::getOptions().getString(optionName));
-    dev.createAlias(optionName);
     if (rootElement != "") {
         dev.writeXMLHeader(rootElement);
     }
@@ -110,11 +109,14 @@ OutputDevice::createDeviceByOption(const std::string &optionName,
 }
 
 
-bool
-OutputDevice::hasDevice(const std::string &name)
+OutputDevice&
+OutputDevice::getDeviceByOption(const std::string &optionName)
 {
-    DeviceMap::iterator i = myOutputDevices.find(name);
-    return i!=myOutputDevices.end();
+    string devName = OptionsCont::getOptions().getString(optionName);
+    if (myOutputDevices.find(devName)==myOutputDevices.end()) {
+        throw InvalidArgument("Device '" + devName + "' has not been created.");
+    }
+    return OutputDevice::getDevice(devName);
 }
 
 
@@ -141,19 +143,13 @@ void
 OutputDevice::close()
 {
     while(closeTag());
-    vector<string> silbings;
     for (DeviceMap::iterator i=myOutputDevices.begin(); i!=myOutputDevices.end(); ++i) {
         if (i->second == this) {
-            silbings.push_back((*i).first);
+            myOutputDevices.erase(i);
+            break;
         }
     }
-    if(silbings.size()!=0) {
-        delete myOutputDevices.find(*silbings.begin())->second;
-        for(vector<string>::iterator i=silbings.begin(); i!=silbings.end(); ++i) {
-            assert(myOutputDevices.find(*i)!=myOutputDevices.end());
-            myOutputDevices.erase(myOutputDevices.find(*i));
-        }
-    }
+    delete this;
 }
 
 
@@ -173,24 +169,25 @@ OutputDevice::writeXMLHeader(const string &rootElement, const bool writeConfig,
         if (comment != "") {
             getOStream() << comment << "\n";
         }
-        openTag(rootElement, attrs);
+        openTag(rootElement);
+        if (attrs != "") {
+            getOStream() << " " << attrs;
+        }
+        getOStream() << ">\n";
         return true;
     }
     return false;
 }
 
 
-void
-OutputDevice::openTag(const string &xmlElement, const string &attrs)
+OutputDevice&
+OutputDevice::openTag(const string &xmlElement)
 {
     string indent(3*myXMLStack.size(), ' ');
     myXMLStack.push_back(xmlElement);
     getOStream() << indent << "<" << xmlElement;
-    if (attrs != "") {
-        getOStream() << " " << attrs;
-    }
-    getOStream() << ">" << endl;
     postWriteHook();
+    return *this;
 }
 
 
@@ -205,17 +202,6 @@ OutputDevice::closeTag()
         return true;
     }
     return false;
-}
-
-
-bool
-OutputDevice::createAlias(const std::string &name)
-{
-    if (OutputDevice::hasDevice(name)) {
-        return false;
-    }
-    myOutputDevices[name] = this;
-    return true;
 }
 
 

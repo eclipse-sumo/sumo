@@ -193,8 +193,8 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                     break;
                 }
             if (state==MSDevice_CPhone::STATE_CONNECTED_IN || state==MSDevice_CPhone::STATE_CONNECTED_OUT) {
-                if (OutputDevice::hasDevice("cellphone-dump")) {
-                    OutputDevice::getDevice("cellphone-dump")
+                if (OptionsCont::getOptions().isSet("cellphone-dump")) {
+                    OutputDevice::getDeviceByOption("cellphone-dump")
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << cp->getCallId() << ';'
                     << myAreaId << ';'
@@ -206,17 +206,17 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
             if (state==MSDevice_CPhone::STATE_CONNECTED_IN||state==MSDevice_CPhone::STATE_CONNECTED_OUT) {
                 myPassedConnectedCPhonesNo++;
                 {
-                    if (OutputDevice::hasDevice("ss2-output")) {
+                    if (OptionsCont::getOptions().isSet("ss2-output")) {
                         std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                         timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
                         // !!! recheck quality indicator
-                        OutputDevice::getDevice("ss2-output")
+                        OutputDevice::getDeviceByOption("ss2-output")
                         << "01;'" << timestr << "';" << cp->getCallId() << ';' << myAreaId << ';' << 0 << "\n"; // !!! check <CR><LF>-combination
                     }
                 }
                 {
-                    if (OutputDevice::hasDevice("ss2-sql-output")) {
-                        OutputDevice& od = OutputDevice::getDevice("ss2-sql-output");
+                    if (OptionsCont::getOptions().isSet("ss2-sql-output")) {
+                        OutputDevice& od = OutputDevice::getDeviceByOption("ss2-sql-output");
                         if (od.getBoolMarker("hadFirstCall")) {
                             od << "," << "\n";
                         } else {

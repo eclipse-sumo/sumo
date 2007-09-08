@@ -164,14 +164,14 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     // intialise outputs
     myMeanData = meanData;
     // tol
-    if (OutputDevice::hasDevice("ss2-cell-output")||OutputDevice::hasDevice("ss2-sql-cell-output")) {
+    if (OptionsCont::getOptions().isSet("ss2-cell-output")||OptionsCont::getOptions().isSet("ss2-sql-cell-output")) {
         // start old-data removal through MSEventControl
         Command* writeDate = new WrappingCommand< MSPhoneNet >(
                                  myMSPhoneNet, &MSPhoneNet::writeCellOutput);
         getEndOfTimestepEvents().addEvent(
             writeDate, (myStep)%300+300, MSEventControl::NO_CHANGE);
     }
-    if (OutputDevice::hasDevice("ss2-la-output")||OutputDevice::hasDevice("ss2-sql-la-output")) {
+    if (OptionsCont::getOptions().isSet("ss2-la-output")||OptionsCont::getOptions().isSet("ss2-sql-la-output")) {
         // start old-data removal through MSEventControl
         Command* writeDate = new WrappingCommand< MSPhoneNet >(
                                  myMSPhoneNet, &MSPhoneNet::writeLAOutput);
@@ -189,8 +189,8 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
             myCellsBuilder = new MSBuildCells(*this, GeoConvHelper::getConvBoundary());
             myCellsBuilder->build();
             // print some debug stuff if wished
-            if (OutputDevice::hasDevice("c2x.edge-near-info")) {
-                myCellsBuilder->writeNearEdges(OutputDevice::getDevice("c2x.edge-near-info"));
+            if (OptionsCont::getOptions().isSet("c2x.edge-near-info")) {
+                myCellsBuilder->writeNearEdges(OutputDevice::getDeviceByOption("c2x.edge-near-info"));
             }
         }
     }
@@ -284,30 +284,30 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
 void
 MSNet::initialiseSimulation()
 {
-    if (OutputDevice::hasDevice("emissions-output")) {
+    if (OptionsCont::getOptions().isSet("emissions-output")) {
         MSCORN::setWished(MSCORN::CORN_OUT_EMISSIONS);
     }
-    if (OutputDevice::hasDevice("tripinfo-output")) {
+    if (OptionsCont::getOptions().isSet("tripinfo-output")) {
         MSCORN::setWished(MSCORN::CORN_OUT_TRIPDURATIONS);
     }
-    if (OutputDevice::hasDevice("vehroute-output")) {
+    if (OptionsCont::getOptions().isSet("vehroute-output")) {
         MSCORN::setWished(MSCORN::CORN_OUT_VEHROUTES);
     }
 
     //car2car
-    if (OutputDevice::hasDevice("c2x.cluster-info")) {
+    if (OptionsCont::getOptions().isSet("c2x.cluster-info")) {
         MSCORN::setWished(MSCORN::CORN_OUT_CLUSTER_INFO);
     }
-    if (OutputDevice::hasDevice("c2x.saved-info")) {
+    if (OptionsCont::getOptions().isSet("c2x.saved-info")) {
         MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO);
     }
-    if (OutputDevice::hasDevice("c2x.saved-info-freq")) {
+    if (OptionsCont::getOptions().isSet("c2x.saved-info-freq")) {
         MSCORN::setWished(MSCORN::CORN_OUT_SAVED_INFO_FREQ);
     }
-    if (OutputDevice::hasDevice("c2x.transmitted-info")) {
+    if (OptionsCont::getOptions().isSet("c2x.transmitted-info")) {
         MSCORN::setWished(MSCORN::CORN_OUT_TRANS_INFO);
     }
-    if (OutputDevice::hasDevice("c2x.vehicle-in-range")) {
+    if (OptionsCont::getOptions().isSet("c2x.vehicle-in-range")) {
         MSCORN::setWished(MSCORN::CORN_OUT_VEH_IN_RANGE);
     }
 }
@@ -316,8 +316,8 @@ MSNet::initialiseSimulation()
 void
 MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
 {
-    if (OutputDevice::hasDevice("ss2-sql-output")) {
-        OutputDevice::getDevice("ss2-sql-output") << ";\n";
+    if (OptionsCont::getOptions().isSet("ss2-sql-output")) {
+        OutputDevice::getDeviceByOption("ss2-sql-output") << ";\n";
     }
     if (myLogExecutionTime!=0&&mySimDuration!=0) {
         ostringstream msg;
@@ -576,12 +576,12 @@ void
 MSNet::writeOutput()
 {
     // netstate output.
-    if (OutputDevice::hasDevice("netstate-dump")) {
-        MSXMLRawOut::write(OutputDevice::getDevice("netstate-dump"), *myEdges, myStep, 3);
+    if (OptionsCont::getOptions().isSet("netstate-dump")) {
+        MSXMLRawOut::write(OutputDevice::getDeviceByOption("netstate-dump"), *myEdges, myStep, 3);
     }
     // emission output
-    if (OutputDevice::hasDevice("emissions-output")) {
-        OutputDevice::getDevice("emissions-output")
+    if (OptionsCont::getOptions().isSet("emissions-output")) {
+        OutputDevice::getDeviceByOption("emissions-output")
         << "    <emission-state time=\"" << myStep << "\" "
         << "loaded=\"" << myVehicleControl->getLoadedVehicleNo() << "\" "
         << "emitted=\"" << myVehicleControl->getEmittedVehicleNo() << "\" "
@@ -591,10 +591,10 @@ MSNet::writeOutput()
         << "meanWaitingTime=\"" << myVehicleControl->getMeanWaitingTime() << "\" "
         << "meanTravelTime=\"" << myVehicleControl->getMeanTravelTime() << "\" ";
         if (myLogExecutionTime) {
-            OutputDevice::getDevice("emissions-output")
+            OutputDevice::getDeviceByOption("emissions-output")
             << "duration=\"" << mySimStepDuration << "\" ";
         }
-        OutputDevice::getDevice("emissions-output") << "/>\n";
+        OutputDevice::getDeviceByOption("emissions-output") << "/>\n";
     }
 }
 

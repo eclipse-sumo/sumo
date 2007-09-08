@@ -90,9 +90,9 @@ NBNodeShapeComputer::compute()
     if (ret.size()<3) {
         ret = computeNodeShapeByCrosses();
     }
-    if (OutputDevice::hasDevice("node-geometry-dump")) {
+    if (OptionsCont::getOptions().isSet("node-geometry-dump")) {
         for (int i=0; i<(int) ret.size(); ++i) {
-            OutputDevice::getDevice("node-geometry-dump")
+            OutputDevice::getDeviceByOption("node-geometry-dump")
             << "   <poi id=\"end_" << myNode.getID() << "_"
             << i << "\" type=\"nodeshape.end\" color=\"1,0,1\""
             << " x=\"" << ret[i].x() << "\" y=\"" << ret[i].y() << "\"/>\n";
@@ -786,9 +786,9 @@ NBNodeShapeComputer::computeNodeShapeByCrosses()
             }
         }
     }
-    if (OutputDevice::hasDevice("node-geometry-dump")) {
+    if (OptionsCont::getOptions().isSet("node-geometry-dump")) {
         for (int i=0; i<(int) ret.size(); ++i) {
-            OutputDevice::getDevice("node-geometry-dump")
+            OutputDevice::getDeviceByOption("node-geometry-dump")
             << "   <poi id=\"cross1_" << myNode.getID() << "_" << i
             << "\" type=\"nodeshape.cross1\" color=\"0,0,1\""
             << " x=\"" << ret[i].x() << "\" y=\"" << ret[i].y() << "\"/>\n";

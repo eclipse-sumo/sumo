@@ -66,18 +66,18 @@ MSPhoneNet::~MSPhoneNet()
     // close outputs
     SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
     if ((currentTime-1)%300!=0) {
-        if (OutputDevice::hasDevice("ss2-cell-output")||OutputDevice::hasDevice("ss2-sql-cell-output")) {
+        if (OptionsCont::getOptions().isSet("ss2-cell-output")||OptionsCont::getOptions().isSet("ss2-sql-cell-output")) {
             writeCellOutput(currentTime);
         }
-        if (OutputDevice::hasDevice("ss2-la-output")||OutputDevice::hasDevice("ss2-sql-la-output")) {
+        if (OptionsCont::getOptions().isSet("ss2-la-output")||OptionsCont::getOptions().isSet("ss2-sql-la-output")) {
             writeLAOutput(currentTime);
         }
     }
-    if (OutputDevice::hasDevice("ss2-sql-cell-output")) {
-        OutputDevice::getDevice("ss2-sql-cell-output") << ";\n";
+    if (OptionsCont::getOptions().isSet("ss2-sql-cell-output")) {
+        OutputDevice::getDeviceByOption("ss2-sql-cell-output") << ";\n";
     }
-    if (OutputDevice::hasDevice("ss2-sql-la-output")) {
-        OutputDevice::getDevice("ss2-sql-la-output") << ";\n";
+    if (OptionsCont::getOptions().isSet("ss2-sql-la-output")) {
+        OutputDevice::getDeviceByOption("ss2-sql-la-output") << ";\n";
     }
     // delete cells and las
     std::map< int, MSPhoneCell* >::iterator cit;
@@ -218,7 +218,7 @@ SUMOTime
 MSPhoneNet::writeCellOutput(SUMOTime t)
 {
     // cell output / sql cell output
-    if (OutputDevice::hasDevice("ss2-cell-output")||OutputDevice::hasDevice("ss2-sql-cell-output")) {
+    if (OptionsCont::getOptions().isSet("ss2-cell-output")||OptionsCont::getOptions().isSet("ss2-sql-cell-output")) {
         std::map< int, MSPhoneCell* >::iterator cit;
         for (cit = myMMSPhoneCells.begin(); cit != myMMSPhoneCells.end(); cit++) {
             cit->second->writeOutput(t);
@@ -243,18 +243,18 @@ MSPhoneNet::writeLAOutput(SUMOTime t)
     }*/
 
     int intervall = t - lastTime;
-    if (OutputDevice::hasDevice("ss2-la-output")||OutputDevice::hasDevice("ss2-sql-la-output")) {
+    if (OptionsCont::getOptions().isSet("ss2-la-output")||OptionsCont::getOptions().isSet("ss2-sql-la-output")) {
         std::map< std::string, int >::const_iterator coit;
         for (coit = myLAChanges.begin(); coit != myLAChanges.end(); coit++) {
-            if (OutputDevice::hasDevice("ss2-la-output")) {
+            if (OptionsCont::getOptions().isSet("ss2-la-output")) {
                 std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                 timestr = timestr + " " + StringUtils::toTimeString(t);
-                OutputDevice::getDevice("ss2-la-output")
+                OutputDevice::getDeviceByOption("ss2-la-output")
                 << "03;" << timestr << ';' << coit->first << ";0;" << coit->second
                 << ";0;" << intervall << "\n";
             }
-            if (OutputDevice::hasDevice("ss2-sql-la-output")) {
-                OutputDevice& od = OutputDevice::getDevice("ss2-sql-la-output");
+            if (OptionsCont::getOptions().isSet("ss2-sql-la-output")) {
+                OutputDevice& od = OutputDevice::getDeviceByOption("ss2-sql-la-output");
                 std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                 timestr = timestr + " " + StringUtils::toTimeString(t);
                 if (od.getBoolMarker("hadFirstCall")) {

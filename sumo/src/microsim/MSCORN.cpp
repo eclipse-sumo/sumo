@@ -129,12 +129,12 @@ MSCORN::saveClusterInfoData(SUMOTime step, int id,
     if (myLastStepClusterInfoOutput!=step) {
         if (myLastStepClusterInfoOutput!=-1) {
             // close the previous step if its not the first one
-            OutputDevice::getDevice("c2x.cluster-info").closeTag();
+            OutputDevice::getDeviceByOption("c2x.cluster-info").closeTag();
         }
-        OutputDevice::getDevice("c2x.cluster-info").openTag("timestep", "time=\""+toString(step)+"\"");
+        OutputDevice::getDeviceByOption("c2x.cluster-info").openTag("timestep")<<"time=\""<<step<<"\">\n";
     }
     myLastStepClusterInfoOutput = step;
-    OutputDevice::getDevice("c2x.cluster-info")
+    OutputDevice::getDeviceByOption("c2x.cluster-info")
     << "      <cluster id=\"" << id
     << "\" headID=\"" << headID << "\" vehNo=\"" << quantity << "\""
     << ">" << vehs << "</cluster>\n";
@@ -152,13 +152,13 @@ MSCORN::saveSavedInformationData(SUMOTime step, const std::string &veh,
     if (myLastStepSavedInfoOutput!=step) {
         if (myLastStepSavedInfoOutput!=-1) {
             // close the previous step if its not the first one
-            OutputDevice::getDevice("c2x.saved-info").closeTag();
+            OutputDevice::getDeviceByOption("c2x.saved-info").closeTag();
         }
-        OutputDevice::getDevice("c2x.saved-info").openTag("timestep", "time=\""+toString(step)+"\"");
+        OutputDevice::getDeviceByOption("c2x.saved-info").openTag("timestep")<<"time=\""<<step<<"\">\n";
     }
     myLastStepSavedInfoOutput = step;
     // save the current values
-    OutputDevice::getDevice("c2x.saved-info")
+    OutputDevice::getDeviceByOption("c2x.saved-info")
     << "      <info veh=\"" << veh <<"\" edge=\"" << edge << "\""<< " type=\"" << type << "\" "
     << "time=\""<<time<<"\""<<" neededtime=\""<<nt<<"\"/>\n";
 }
@@ -173,12 +173,12 @@ MSCORN::saveTransmittedInformationData(SUMOTime step, const std::string &from, c
     if (myLastStepTransmittedInfoOutput!=step) {
         if (myLastStepTransmittedInfoOutput!=-1) {
             // close the previous step if its not the first one
-            OutputDevice::getDevice("c2x.transmitted-info").closeTag();
+            OutputDevice::getDeviceByOption("c2x.transmitted-info").closeTag();
         }
-        OutputDevice::getDevice("c2x.transmitted-info").openTag("timestep", "time=\""+toString(step)+"\"");
+        OutputDevice::getDeviceByOption("c2x.transmitted-info").openTag("timestep")<<"time=\""<<step<<"\">\n";
     }
     myLastStepTransmittedInfoOutput = step;
-    OutputDevice::getDevice("c2x.transmitted-info")
+    OutputDevice::getDeviceByOption("c2x.transmitted-info")
     << "      <info edge=\"" << edge <<"\" from=\"" << from << "\""<< " to=\"" << to << "\" "
     << "time=\""<<time<<"\""<<" neededtime=\""<<nt<<"\"/>\n";
 }
@@ -194,12 +194,12 @@ MSCORN::saveVehicleInRangeData(SUMOTime step, const std::string &veh1, const std
     if (myLastStepVehicleInRangeOutput!=step) {
         if (myLastStepVehicleInRangeOutput!=-1) {
             // close the previous step if its not the first one
-            OutputDevice::getDevice("c2x.vehicle-in-range").closeTag();
+            OutputDevice::getDeviceByOption("c2x.vehicle-in-range").closeTag();
         }
-        OutputDevice::getDevice("c2x.vehicle-in-range").openTag("timestep", "time=\""+toString(step)+"\"");
+        OutputDevice::getDeviceByOption("c2x.vehicle-in-range").openTag("timestep")<<"time=\""<<step<<"\">\n";
     }
     myLastStepVehicleInRangeOutput = step;
-    OutputDevice::getDevice("c2x.vehicle-in-range")
+    OutputDevice::getDeviceByOption("c2x.vehicle-in-range")
     << "      <connection veh1=\"" << veh1<<"\"" <<" x1=\""<< x1 << "\""<< " y1=\"" << y1 << "\" "
     <<"veh2=\"" << veh2<<"\"" <<" x2=\""<< x2 << "\""<< " y2=\"" << y2 << "\" />\n";
 }

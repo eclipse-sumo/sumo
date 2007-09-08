@@ -34,6 +34,7 @@
 #include "MSSaveState.h"
 #include "MSGlobals.h"
 #include <utils/common/FileHelpers.h>
+#include <utils/options/OptionsCont.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
 #include "devices/MSDevice_CPhone.h"
@@ -116,7 +117,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
     if (MSCORN::wished(MSCORN::CORN_OUT_TRIPDURATIONS)) {
         // generate vehicle's trip information
         MSNet *net = MSNet::getInstance();
-        OutputDevice& od = OutputDevice::getDevice("tripinfo-output");
+        OutputDevice& od = OutputDevice::getDeviceByOption("tripinfo-output");
         SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART);
         SUMOTime time = net->getCurrentTimeStep();
         od
@@ -158,7 +159,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
     if (MSCORN::wished(MSCORN::CORN_OUT_VEHROUTES)) {
         // generate vehicle's trip routes
         MSNet *net = MSNet::getInstance();
-        OutputDevice& od = OutputDevice::getDevice("vehroute-output");
+        OutputDevice& od = OutputDevice::getDeviceByOption("vehroute-output");
         SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART);
         SUMOTime time = net->getCurrentTimeStep();
         od
@@ -179,10 +180,10 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
 
     // check whether to save c2c info output
     MSNet *net = MSNet::getInstance();
-    if (OutputDevice::hasDevice("c2x.saved-info-freq")) {
+    if (OptionsCont::getOptions().isSet("c2x.saved-info-freq")) {
         int noReroutes = v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)
                          ? v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE) : 0;
-        OutputDevice::getDevice("c2x.saved-info-freq")
+        OutputDevice::getDeviceByOption("c2x.saved-info-freq")
         << "	<vehicle id=\"" << v->getID()
         << "\" timestep=\"" << net->getCurrentTimeStep()
         << "\" numberOfInfos=\"" << v->getTotalInformationNumber()
