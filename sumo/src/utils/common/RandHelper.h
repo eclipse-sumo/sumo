@@ -56,12 +56,6 @@ public:
     /// Reads the given random number options and initialises the random number geerator in accordance
     static void initRandGlobal();
 
-    /// Returns a random integer in [0, len-1]
-    static inline size_t getRandomIndex(size_t len)
-    {
-        return (size_t) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32) (len-1));
-    }
-
     /// Returns a random real number in [0, 1)
     static inline SUMOReal rand()
     {
@@ -71,14 +65,39 @@ public:
     /// Returns a random real number in [0, maxV)
     static inline SUMOReal rand(SUMOReal maxV)
     {
-        return maxV *(SUMOReal) RandHelper::myRandomNumberGenerator.randExc();
+        return maxV * rand();
     }
 
     /// Returns a random real number in [minV, maxV)
     static inline SUMOReal rand(SUMOReal minV, SUMOReal maxV)
     {
-        SUMOReal range = maxV - minV;
-        return minV + (range *(SUMOReal) RandHelper::myRandomNumberGenerator.randExc());
+        return minV + (maxV - minV) * rand();
+    }
+
+    /// Returns a random integer in [0, maxV-1]
+    static inline size_t rand(size_t maxV)
+    {
+        return (size_t) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32) (maxV-1));
+    }
+
+    /// Returns a random integer in [0, maxV-1]
+    static inline int rand(int maxV)
+    {
+        return (int) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32) (maxV-1));
+    }
+
+    /// Returns a random integer in [minV, maxV-1]
+    static inline int rand(int minV, int maxV)
+    {
+        return minV + rand(maxV - minV);
+    }
+
+    /// Returns a random element from the given vector
+    template<class T>
+    static inline T
+    getRandomFrom(const std::vector<T> &v)
+    {
+        return v[rand(v.size())];
     }
 
 protected:
@@ -86,42 +105,6 @@ protected:
     static MTRand myRandomNumberGenerator;
 
 };
-
-
-/// Returns a random element from the given vector
-template<class T>
-inline T
-getRandomFrom(const std::vector<T> &v)
-{
-    return v[RandHelper::getRandomIndex(v.size())];
-}
-
-
-/// Returns a random real number between [0, 1)
-inline SUMOReal
-randSUMO()
-{
-    return RandHelper::rand();
-}
-
-
-/// Returns a random number between [0, maxV)
-template<class T>
-inline T
-randSUMO(T maxV)
-{
-    return (T) RandHelper::rand((SUMOReal) maxV);
-}
-
-
-/// Returns a random number between [minV, maxV)
-template<class T>
-inline T
-randSUMO(T minV, T maxV)
-{
-    return (T) RandHelper::rand((SUMOReal) minV, (SUMOReal) maxV);
-}
-
 
 #endif
 

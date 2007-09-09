@@ -206,9 +206,9 @@ drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh)
             cluster = -1;
         }
         if (colorBla.find(cluster)==colorBla.end()) {
-            int r = (int) randSUMO(256);
-            int g = (int) randSUMO(256);
-            int b = (int) randSUMO(256);
+            int r = RandHelper::rand(256);
+            int g = RandHelper::rand(256);
+            int b = RandHelper::rand(256);
             colorBla[cluster] = FXRGB(r, g, b);
         }
         FXColor c = colorBla[cluster];

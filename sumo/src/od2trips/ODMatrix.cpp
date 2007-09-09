@@ -101,7 +101,7 @@ ODMatrix::computeEmissions(ODCell *cell,
 {
     int vehicles2emit = (int) cell->vehicleNumber;
     // compute whether the fraction forces an additional vehicle emission
-    SUMOReal mrand = randSUMO();
+    SUMOReal mrand = RandHelper::rand();
     SUMOReal mprob = (SUMOReal) cell->vehicleNumber - (SUMOReal) vehicles2emit;
     if (mrand<mprob) {
         vehicles2emit++;
@@ -115,7 +115,7 @@ ODMatrix::computeEmissions(ODCell *cell,
         if (uniform) {
             veh.depart = (int)(offset + cell->begin + ((SUMOReal)(cell->end - cell->begin) * (SUMOReal) i / (SUMOReal) vehicles2emit));
         } else {
-            veh.depart = randSUMO(cell->begin, cell->end);
+            veh.depart = RandHelper::rand(cell->begin, cell->end);
         }
 
         veh.from = myDistricts.getRandomSourceFromDistrict(cell->origin);

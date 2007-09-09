@@ -370,7 +370,7 @@ RONet::getRandomSource()
         return 0;
     }
     // choose a random edge
-    return getRandomFrom(mySourceEdges);
+    return RandHelper::getRandomFrom(mySourceEdges);
 }
 
 
@@ -385,7 +385,7 @@ RONet::getRandomDestination()
         return 0;
     }
     // choose a random edge
-    return getRandomFrom(myDestinationEdges);
+    return RandHelper::getRandomFrom(myDestinationEdges);
 }
 
 

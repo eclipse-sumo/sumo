@@ -62,7 +62,7 @@ TNeighbourDistribution::Num()
     for (i=Neighbours.begin(); i!=Neighbours.end(); ++i)
         sum += (*i).second;
     // RandValue = [0,sum]
-    RandValue = randSUMO(sum);
+    RandValue = RandHelper::rand(sum);
     // find selected item
     i = Neighbours.begin();
     sum = (*i).second;
@@ -218,8 +218,8 @@ bool
 TNGRandomNet::CreateNewNode(TNode *BaseNode)
 {
     // calculate position of new node based on BaseNode
-    SUMOReal dist = randSUMO(myMinDistance, myMaxDistance);
-    SUMOReal angle = randSUMO((SUMOReal)(2*PI));
+    SUMOReal dist = RandHelper::rand(myMinDistance, myMaxDistance);
+    SUMOReal angle = RandHelper::rand((SUMOReal)(2*PI));
     SUMOReal x = BaseNode->getPosition().x() + dist * cos(angle);
     SUMOReal y = BaseNode->getPosition().y() + dist * sin(angle);
     TNode *NewNode = new TNode(myNet->GetID());
@@ -270,7 +270,7 @@ TNGRandomNet::CreateNet(int NumNodes)
         OuterNode = OuterNodes.back();
         FindPossibleOuterNodes(OuterNode);
         created = false;
-        if ((ConNodes.size() > 0) && (randSUMO() < myConnectivity)) {
+        if ((ConNodes.size() > 0) && (RandHelper::rand() < myConnectivity)) {
             TLink *NewLink;
             // create link
             NewLink = new TLink(myNet->GetID(), OuterNode, ConNodes.back());

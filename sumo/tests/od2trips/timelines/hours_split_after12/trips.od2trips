@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/06/07 16:41:16 by SUMO od2trips Version 0.9.6
+<!-- generated on Sun Sep  9 23:28:52 2007 by SUMO od2trips Version dev-SVN-r4433
 <configuration>
 
    <input>
@@ -21,28 +21,28 @@
 -->
 
 <tripdefs>
-   <tripdef id="1" depart="43416" from="a1" to="b2"/>
-   <tripdef id="0" depart="44827" from="a1" to="b2"/>
-   <tripdef id="2" depart="46966" from="a1" to="b2"/>
-   <tripdef id="3" depart="49080" from="a1" to="b2"/>
-   <tripdef id="5" depart="50516" from="a1" to="b2"/>
-   <tripdef id="4" depart="51827" from="a1" to="b2"/>
-   <tripdef id="7" depart="55192" from="a1" to="b2"/>
-   <tripdef id="6" depart="57443" from="a1" to="b2"/>
-   <tripdef id="9" depart="58204" from="a1" to="b2"/>
-   <tripdef id="8" depart="61072" from="a1" to="b2"/>
-   <tripdef id="10" depart="61520" from="a1" to="b2"/>
-   <tripdef id="11" depart="63346" from="a1" to="b2"/>
-   <tripdef id="13" depart="65406" from="a1" to="b2"/>
-   <tripdef id="12" depart="65908" from="a1" to="b2"/>
-   <tripdef id="14" depart="68946" from="a1" to="b2"/>
-   <tripdef id="15" depart="70368" from="a1" to="b2"/>
-   <tripdef id="17" depart="72309" from="a1" to="b2"/>
-   <tripdef id="16" depart="75572" from="a1" to="b2"/>
-   <tripdef id="18" depart="75768" from="a1" to="b2"/>
-   <tripdef id="19" depart="76866" from="a1" to="b2"/>
-   <tripdef id="20" depart="80723" from="a1" to="b2"/>
-   <tripdef id="21" depart="81046" from="a1" to="b2"/>
-   <tripdef id="23" depart="83889" from="a1" to="b2"/>
-   <tripdef id="22" depart="84114" from="a1" to="b2"/>
+   <tripdef id="1" depart="44241" from="a1" to="b2"/>
+   <tripdef id="0" depart="44793" from="a1" to="b2"/>
+   <tripdef id="3" depart="48518" from="a1" to="b2"/>
+   <tripdef id="2" depart="48571" from="a1" to="b2"/>
+   <tripdef id="4" depart="50482" from="a1" to="b2"/>
+   <tripdef id="5" depart="51077" from="a1" to="b2"/>
+   <tripdef id="7" depart="54830" from="a1" to="b2"/>
+   <tripdef id="6" depart="56603" from="a1" to="b2"/>
+   <tripdef id="9" depart="59023" from="a1" to="b2"/>
+   <tripdef id="8" depart="59255" from="a1" to="b2"/>
+   <tripdef id="11" depart="62449" from="a1" to="b2"/>
+   <tripdef id="10" depart="64320" from="a1" to="b2"/>
+   <tripdef id="12" depart="64837" from="a1" to="b2"/>
+   <tripdef id="13" depart="67045" from="a1" to="b2"/>
+   <tripdef id="14" depart="69491" from="a1" to="b2"/>
+   <tripdef id="15" depart="71188" from="a1" to="b2"/>
+   <tripdef id="16" depart="72732" from="a1" to="b2"/>
+   <tripdef id="17" depart="75096" from="a1" to="b2"/>
+   <tripdef id="19" depart="76599" from="a1" to="b2"/>
+   <tripdef id="18" depart="77835" from="a1" to="b2"/>
+   <tripdef id="20" depart="79699" from="a1" to="b2"/>
+   <tripdef id="21" depart="79863" from="a1" to="b2"/>
+   <tripdef id="23" depart="84148" from="a1" to="b2"/>
+   <tripdef id="22" depart="84542" from="a1" to="b2"/>
 </tripdefs>

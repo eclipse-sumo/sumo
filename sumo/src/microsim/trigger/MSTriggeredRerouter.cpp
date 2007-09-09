@@ -313,7 +313,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
     }
 
     SUMOReal prob = myAmInUserMode ? myUserProbability : myProbability;
-    if (randSUMO() > prob) {
+    if (RandHelper::rand() > prob) {
         return;
     }
 

@@ -352,7 +352,7 @@ GUILaneWrapper::selectSucessors()
     Position2D initPos = shape.positionAtLengthPosition(getLength()/(SUMOReal) 2.0);
     Position2DVector poly;
     for (SUMOReal i=0; i<360; i += 40) {
-        SUMOReal random1 = randSUMO();
+        SUMOReal random1 = RandHelper::rand();
         Position2D p = initPos;
         p.add(sin(i)*30+random1*20, cos(i)*30+random1*20);
         poly.push_back(p);

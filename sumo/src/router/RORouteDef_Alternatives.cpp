@@ -221,7 +221,7 @@ RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *cur
         }
     }
     // find the route to use
-    SUMOReal chosen = randSUMO();
+    SUMOReal chosen = RandHelper::rand();
     size_t pos = 0;
     for (i=myAlternatives.begin(); i!=myAlternatives.end()-1; i++, pos++) {
         chosen = chosen - (*i)->getProbability();

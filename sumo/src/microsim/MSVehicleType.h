@@ -129,7 +129,7 @@ public:
     SUMOReal dawdle(SUMOReal speed) const
     {
         // generate random number out of [0,1]
-        SUMOReal random = randSUMO();
+        SUMOReal random = RandHelper::rand();
         // Dawdle.
         if (speed<getMaxAccel(0)) {
             // we should not prevent vehicles from driving just due to dawdling

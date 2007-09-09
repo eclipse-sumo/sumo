@@ -56,7 +56,7 @@ public:
 			if(myProb==0) {
 				throw OutOfBoundsException();
 			}
-            SUMOReal prob = randSUMO(myProb);
+            SUMOReal prob = RandHelper::rand(myProb);
             for (int i=0; i<(int) myVals.size(); i++) {
                 if (prob<myProbs[i]) {
                     return myVals[i];

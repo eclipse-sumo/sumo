@@ -297,19 +297,18 @@ MSVehicle::initDevices(int vehicleIndex)
         string phoneid = getID() + "_cphone#0";
         MSDevice_CPhone* pdcp  = new MSDevice_CPhone(*this, phoneid);
         myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*)pdcp;*/
-        if (randSUMO()<=oc.getFloat("device.cell-phone.probability")) {
+        if (RandHelper::rand()<=oc.getFloat("device.cell-phone.probability")) {
             vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
             string phoneid = getID() + "_cphone#0";
             v->push_back(new MSDevice_CPhone(*this, phoneid));
             myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
         }
     } else if (oc.getFloat("device.cell-phone.probability")!=0||oc.isSet("device.cell-phone.knownveh")) {
-        bool t1 = randSUMO()<=oc.getFloat("device.cell-phone.probability");
+        bool t1 = RandHelper::rand()<=oc.getFloat("device.cell-phone.probability");
         bool t2 = oc.isSet("device.cell-phone.knownveh") && OptionsCont::getOptions().isInStringVector("device.cell-phone.knownveh", myID);
         if (t1||t2) {
-            int noCellPhones = (int)(randSUMO()
-                                     * (oc.getFloat("device.cell-phone.amount.max") - oc.getFloat("device.cell-phone.amount.min"))
-                                     + oc.getFloat("device.cell-phone.amount.min"));
+            int noCellPhones = (int)RandHelper::rand(oc.getFloat("device.cell-phone.amount.min"),
+                                                     oc.getFloat("device.cell-phone.amount.max"));
             vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
             for (int np=0; np<noCellPhones; np++) {
                 string phoneid = getID() + "_cphone#" + toString(np);
@@ -323,7 +322,7 @@ MSVehicle::initDevices(int vehicleIndex)
     if (oc.getFloat("device.c2x.probability")!=0||oc.isSet("device.c2x.knownveh")) {
         bool t1 = false;
         if (!oc.getBool("device.c2x.deterministic")) {
-            t1 = randSUMO()<=oc.getFloat("device.c2x.probability");
+            t1 = RandHelper::rand()<=oc.getFloat("device.c2x.probability");
         } else {
             t1 = !((vehicleIndex%1000)>=(int)(oc.getFloat("device.c2x.probability")*1000.));
         }

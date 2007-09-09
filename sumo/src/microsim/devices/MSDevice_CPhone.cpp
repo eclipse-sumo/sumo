@@ -470,7 +470,7 @@ MSDevice_CPhone::changeState()
                 time = time / 1800;
                 prob = (SUMOReal)(beginProbs[time] /*/ 2.5*/ * (double) OptionsCont::getOptions().getFloat("cell-dynamic-callcount-scale-factor"));
                 next = 1;
-                if (randSUMO()<=prob) {
+                if (RandHelper::rand()<=prob) {
                     // most start telephoning
                     if (r2 > 0.5)
                         m_State = STATE_CONNECTED_IN;

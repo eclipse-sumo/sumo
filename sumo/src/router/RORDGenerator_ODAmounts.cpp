@@ -82,7 +82,7 @@ RORDGenerator_ODAmounts::FlowDef::FlowDef(ROVehicle *vehicle,
         SUMOTime period = myIntervalEnd - myIntervalBegin;
         myDepartures.reserve(myVehicle2EmitNumber);
         for (size_t i=0; i<myVehicle2EmitNumber; ++i) {
-            SUMOTime departure = randSUMO(period);
+            SUMOTime departure = RandHelper::rand(period);
             myDepartures.push_back(departure);
         }
         sort(myDepartures.begin(), myDepartures.end());

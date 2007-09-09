@@ -192,7 +192,7 @@ MSRightOfWayJunction::deadlockKiller()
         }
         // Choose randomly an index out of [0,trueRequests.size()];
         // !!! random choosing may choose one of less priorised lanes
-        unsigned noLockIndex = (unsigned) randSUMO(trueRequests.size());
+        unsigned noLockIndex = RandHelper::rand(trueRequests.size());
 
         // Create deadlock-free request.
         std::bitset<64> noLockRequest(false);

@@ -154,7 +154,7 @@ MSPhoneCell::addCPhone(const std::string &device_id, MSDevice_CPhone* device_poi
     } else {
         SUMOTime time = MSNet::getInstance()->getCurrentTimeStep();
         if (useAsIncomingDynamic(time)) {
-            if (randSUMO()>.5) {
+            if (RandHelper::rand()>.5) {
                 device_pointer->SetState(MSDevice_CPhone::STATE_CONNECTED_IN , (int)(getCallDuration() / 2.5));
             } else {
                 device_pointer->SetState(MSDevice_CPhone::STATE_CONNECTED_OUT , (int)(getCallDuration() / 2.5));
@@ -253,7 +253,7 @@ MSPhoneCell::nextStatPeriod(SUMOTime time)
     myIntervalBegin = next.first;
     int counts = next.second;
     if (counts < 2) {
-        if (randSUMO()>.5) {
+        if (RandHelper::rand()>.5) {
             myStaticCallsIn = counts;
             myStaticCallsOut = 0;
         } else {
@@ -343,7 +343,7 @@ MSPhoneCell::setDynamicCalls(SUMOTime time)
         return;
     }
     if (toStart-(int)toStart!=0) {
-        if (randSUMO()<toStart-(int)toStart) {
+        if (RandHelper::rand()<toStart-(int)toStart) {
             toStart++;
         }
     }
