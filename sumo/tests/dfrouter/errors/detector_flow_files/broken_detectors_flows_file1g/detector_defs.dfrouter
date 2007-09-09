@@ -1,11 +1,29 @@
+<?xml version="1.0"?>
+
+<!-- generated on Mon Sep 10 00:02:31 2007 by SUMO dfrouter Version dev-SVN-r4433
+<configuration>
+
+   <input>
+      <net-file>input_tri.net.xml</net-file>
+      <detector-files>input_tri.det.xml</detector-files>
+      <detector-flow-files>input_flows.txt</detector-flow-files>
+   </input>
+
+   <output>
+      <detectors-output>detectors_def.det.xml</detectors-output>
+   </output>
+
+</configuration>
+-->
+
 <detectors>
-   <detector_definition id="MQ_beg" lane="beg_0" pos="5" type="source"/>
-   <detector_definition id="MQ_middle" lane="middle_0" pos="500" type="between"/>
-   <detector_definition id="MQ_1toR" lane="1toR_0" pos="100" type="between"/>
-   <detector_definition id="MQ_R" lane="R_0" pos="500" type="between"/>
-   <detector_definition id="MQ_Rto2" lane="Rto2_0" pos="100" type="between"/>
-   <detector_definition id="MQ_1toL" lane="1toL_0" pos="100" type="between"/>
-   <detector_definition id="MQ_L" lane="L_0" pos="500" type="between"/>
-   <detector_definition id="MQ_Lto2" lane="Lto2_0" pos="100" type="between"/>
-   <detector_definition id="MQ_end" lane="end_0" pos="50" type="sink"/>
+   <detector_definition id="MQ_beg" lane="beg_0" pos="5.00" type="source"/>
+   <detector_definition id="MQ_middle" lane="middle_0" pos="500.00" type="between"/>
+   <detector_definition id="MQ_1toR" lane="1toR_0" pos="100.00" type="between"/>
+   <detector_definition id="MQ_R" lane="R_0" pos="500.00" type="between"/>
+   <detector_definition id="MQ_Rto2" lane="Rto2_0" pos="100.00" type="between"/>
+   <detector_definition id="MQ_1toL" lane="1toL_0" pos="100.00" type="between"/>
+   <detector_definition id="MQ_L" lane="L_0" pos="500.00" type="between"/>
+   <detector_definition id="MQ_Lto2" lane="Lto2_0" pos="100.00" type="between"/>
+   <detector_definition id="MQ_end" lane="end_0" pos="50.00" type="sink"/>
 </detectors>

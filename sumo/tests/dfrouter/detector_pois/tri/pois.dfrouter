@@ -1,11 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- generated on Mon Sep 10 00:02:09 2007 by SUMO dfrouter Version dev-SVN-r4433
+<configuration>
+
+   <input>
+      <net-file>input_tri.net.xml</net-file>
+      <detector-files>input_tri.det.xml</detector-files>
+   </input>
+
+   <output>
+      <detectors-poi-output>detectors.poi.xml</detectors-poi-output>
+   </output>
+
+</configuration>
+-->
+
 <pois>
-   <poi id="MQ_beg" type="source_detector_position" color="0,1,0" lane="beg_0" pos="5"/>
-   <poi id="MQ_middle" type="between_detector_position" color="0,0,1" lane="middle_0" pos="500"/>
-   <poi id="MQ_1toR" type="between_detector_position" color="0,0,1" lane="1toR_0" pos="100"/>
-   <poi id="MQ_R" type="between_detector_position" color="0,0,1" lane="R_0" pos="500"/>
-   <poi id="MQ_Rto2" type="between_detector_position" color="0,0,1" lane="Rto2_0" pos="100"/>
-   <poi id="MQ_1toL" type="between_detector_position" color="0,0,1" lane="1toL_0" pos="100"/>
-   <poi id="MQ_L" type="between_detector_position" color="0,0,1" lane="L_0" pos="500"/>
-   <poi id="MQ_Lto2" type="between_detector_position" color="0,0,1" lane="Lto2_0" pos="100"/>
-   <poi id="MQ_end" type="sink_detector_position" color="1,0,0" lane="end_0" pos="50"/>
+   <poi id="MQ_beg" type="source_detector_position" color="0,1,0" lane="beg_0" pos="5.00"/>
+   <poi id="MQ_middle" type="between_detector_position" color="0,0,1" lane="middle_0" pos="500.00"/>
+   <poi id="MQ_1toR" type="between_detector_position" color="0,0,1" lane="1toR_0" pos="100.00"/>
+   <poi id="MQ_R" type="between_detector_position" color="0,0,1" lane="R_0" pos="500.00"/>
+   <poi id="MQ_Rto2" type="between_detector_position" color="0,0,1" lane="Rto2_0" pos="100.00"/>
+   <poi id="MQ_1toL" type="between_detector_position" color="0,0,1" lane="1toL_0" pos="100.00"/>
+   <poi id="MQ_L" type="between_detector_position" color="0,0,1" lane="L_0" pos="500.00"/>
+   <poi id="MQ_Lto2" type="between_detector_position" color="0,0,1" lane="Lto2_0" pos="100.00"/>
+   <poi id="MQ_end" type="sink_detector_position" color="1,0,0" lane="end_0" pos="50.00"/>
 </pois>

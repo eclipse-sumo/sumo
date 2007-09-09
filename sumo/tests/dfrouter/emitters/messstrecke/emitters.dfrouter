@@ -1,12 +1,30 @@
+<?xml version="1.0"?>
+
+<!-- generated on Mon Sep 10 00:02:09 2007 by SUMO dfrouter Version dev-SVN-r4433
+<configuration>
+
+   <input>
+      <net-file>input_messstrecke.net.xml</net-file>
+      <detector-files>input_messstrecke.det.xml</detector-files>
+   </input>
+
+   <output>
+      <routes-output>routes.rou.xml</routes-output>
+      <emitters-output>emitters.add.xml</emitters-output>
+   </output>
+
+</configuration>
+-->
+
 <additional>
-   <trigger id="source_MQ11Fs1" objecttype="emitter" pos="5" objectid="ErnstRuska2O_0" friendly_pos="x" file="emitter_MQ11Fs1.def.xml"/>
-   <trigger id="source_MQ11Fs2" objecttype="emitter" pos="5" objectid="ErnstRuska2O_1" friendly_pos="x" file="emitter_MQ11Fs2.def.xml"/>
-   <trigger id="source_MQ28Fs1S" objecttype="emitter" pos="-5" objectid="HavestadtS_0" friendly_pos="x" file="emitter_MQ28Fs1S.def.xml"/>
-   <trigger id="source_MQ28Fs2S" objecttype="emitter" pos="-5" objectid="HavestadtS_1" friendly_pos="x" file="emitter_MQ28Fs2S.def.xml"/>
-   <trigger id="source_MQ35Fs1S" objecttype="emitter" pos="-5" objectid="VolmerS_0" friendly_pos="x" file="emitter_MQ35Fs1S.def.xml"/>
-   <trigger id="source_MQ43Fs1" objecttype="emitter" pos="-5" objectid="ErnstRuska5W_0" friendly_pos="x" file="emitter_MQ43Fs1.def.xml"/>
-   <trigger id="source_MQ43Fs2" objecttype="emitter" pos="-5" objectid="ErnstRuska5W_1" friendly_pos="x" file="emitter_MQ43Fs2.def.xml"/>
-   <trigger id="source_MQ43Fs3" objecttype="emitter" pos="-5" objectid="ErnstRuska5W_2" friendly_pos="x" file="emitter_MQ43Fs3.def.xml"/>
-   <trigger id="source_MQ45Fs1N" objecttype="emitter" pos="-5" objectid="AltglienickerBreitN_0" friendly_pos="x" file="emitter_MQ45Fs1N.def.xml"/>
-   <trigger id="source_MQ45Fs2N" objecttype="emitter" pos="-5" objectid="AltglienickerBreitN_1" friendly_pos="x" file="emitter_MQ45Fs2N.def.xml"/>
+   <trigger id="source_MQ11Fs1" objecttype="emitter" pos="5.00" objectid="ErnstRuska2O_0" friendly_pos="x" file="emitter_MQ11Fs1.def.xml"/>
+   <trigger id="source_MQ11Fs2" objecttype="emitter" pos="5.00" objectid="ErnstRuska2O_1" friendly_pos="x" file="emitter_MQ11Fs2.def.xml"/>
+   <trigger id="source_MQ28Fs1S" objecttype="emitter" pos="-5.00" objectid="HavestadtS_0" friendly_pos="x" file="emitter_MQ28Fs1S.def.xml"/>
+   <trigger id="source_MQ28Fs2S" objecttype="emitter" pos="-5.00" objectid="HavestadtS_1" friendly_pos="x" file="emitter_MQ28Fs2S.def.xml"/>
+   <trigger id="source_MQ35Fs1S" objecttype="emitter" pos="-5.00" objectid="VolmerS_0" friendly_pos="x" file="emitter_MQ35Fs1S.def.xml"/>
+   <trigger id="source_MQ43Fs1" objecttype="emitter" pos="-5.00" objectid="ErnstRuska5W_0" friendly_pos="x" file="emitter_MQ43Fs1.def.xml"/>
+   <trigger id="source_MQ43Fs2" objecttype="emitter" pos="-5.00" objectid="ErnstRuska5W_1" friendly_pos="x" file="emitter_MQ43Fs2.def.xml"/>
+   <trigger id="source_MQ43Fs3" objecttype="emitter" pos="-5.00" objectid="ErnstRuska5W_2" friendly_pos="x" file="emitter_MQ43Fs3.def.xml"/>
+   <trigger id="source_MQ45Fs1N" objecttype="emitter" pos="-5.00" objectid="AltglienickerBreitN_0" friendly_pos="x" file="emitter_MQ45Fs1N.def.xml"/>
+   <trigger id="source_MQ45Fs2N" objecttype="emitter" pos="-5.00" objectid="AltglienickerBreitN_1" friendly_pos="x" file="emitter_MQ45Fs2N.def.xml"/>
 </additional>

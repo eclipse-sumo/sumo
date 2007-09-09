@@ -48,6 +48,7 @@ class ROEdge;
 class RODFDetectorCon;
 class RODFNet;
 struct DFRORouteDesc;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -116,7 +117,7 @@ public:
     void addRoutes(DFRORouteCont *routes);
     bool hasRoutes() const;
     bool writeRoutes(std::vector<std::string> &saved,
-                     std::ostream &os);
+                     OutputDevice& out);
     void writeSingleSpeedTrigger(const std::string &file,
                                  const RODFDetectorFlows &flows,
                                  SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);

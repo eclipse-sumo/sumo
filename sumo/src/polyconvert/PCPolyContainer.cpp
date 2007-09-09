@@ -30,14 +30,12 @@
 
 #include <string>
 #include <map>
-#include <iostream>
-#include <iomanip>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/shapes/Polygon2D.h>
 #include "PCPolyContainer.h"
-#include <fstream>
 #include <utils/common/UtilExceptions.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -174,40 +172,36 @@ PCPolyContainer::report()
 void
 PCPolyContainer::save(const std::string &file, int /*layer*/)
 {
-    ofstream out(file.c_str());
-    if (!out.good()) {
-        throw ProcessError("Can not write to file '" + file + "'.");
-    }
-    out << "<shapes>" << endl;
+    OutputDevice& out = OutputDevice::getDevice(file);
+    out.writeXMLHeader("shapes");
     // write polygons
     {
         for (PolyCont::iterator i=myPolyCont.begin(); i!=myPolyCont.end(); ++i) {
-            out << setprecision(OUTPUT_ACCURACY);
+            out.setPrecision();
             out << "   <poly id=\"" << (*i).second->getName() << "\" type=\""
             << (*i).second->getType() << "\" color=\""
             << (*i).second->getColor() << "\" fill=\""
             << (*i).second->fill() << "\"";
             out << " layer=\"" << myPolyLayerMap[(*i).second] << "\"";
-            out << setprecision(10);
-            out << ">" << (*i).second->getPosition2DVector() << "</poly>" << endl;
+            out.setPrecision(10);
+            out << ">" << (*i).second->getPosition2DVector() << "</poly>\n";
         }
     }
     // write pois
     {
         for (POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); ++i) {
-            out << setprecision(OUTPUT_ACCURACY);
+            out.setPrecision();
             out << "   <poi id=\"" << (*i).second->getID() << "\" type=\""
             << (*i).second->getType() << "\" color=\""
             << *static_cast<RGBColor*>((*i).second) << '"';
             out << " layer=\"" << myPOILayerMap[(*i).second] << "\"";
-            out << setprecision(10);
+            out.setPrecision(10);
             out << " x=\"" << (*i).second->x() << "\""
             << " y=\"" << (*i).second->y() << "\""
-            << "/>" << endl;
+            << "/>\n";
         }
     }
-    //
-    out << "</shapes>" << endl;
+    out.close();
 }
 
 

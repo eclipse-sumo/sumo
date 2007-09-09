@@ -1,3 +1,32 @@
+<?xml version="1.0"?>
+
+<!-- generated on Mon Sep 10 00:02:19 2007 by SUMO dfrouter Version dev-SVN-r4433
+<configuration>
+
+   <input>
+      <net-file>input_tri.net.xml</net-file>
+      <detector-files>input_tri.det.xml</detector-files>
+      <detector-flow-files>input_tri_flows.txt</detector-flow-files>
+   </input>
+
+   <output>
+      <routes-output>routes.rou.xml</routes-output>
+      <emitters-output>emitters.add.xml</emitters-output>
+   </output>
+
+   <processing>
+      <keep-longer-routes>true</keep-longer-routes>
+      <include-unused-routes>true</include-unused-routes>
+      <scale>2</scale>
+   </processing>
+
+   <time>
+      <end>60</end>
+   </time>
+
+</configuration>
+-->
+
 <routes>
 
    <route id="beg_to_end" multi_ref="x">beg middle end</route>

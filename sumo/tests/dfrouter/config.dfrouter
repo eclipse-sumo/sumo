@@ -20,4 +20,9 @@ emitter_*:emitter_*.def.xml
 
 [run_dependent_text]
 output:dfrouter.exe{REPLACE sumo-dfrouter}
+detector_defs:Version
+routes:Version
+pois:Version
+emitters:Version
+emitter_*:Version
 

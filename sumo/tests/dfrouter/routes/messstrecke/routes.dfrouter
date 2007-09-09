@@ -1,3 +1,20 @@
+<?xml version="1.0"?>
+
+<!-- generated on Mon Sep 10 00:02:09 2007 by SUMO dfrouter Version dev-SVN-r4433
+<configuration>
+
+   <input>
+      <net-file>input_messstrecke.net.xml</net-file>
+      <detector-files>input_messstrecke.det.xml</detector-files>
+   </input>
+
+   <output>
+      <routes-output>routes.rou.xml</routes-output>
+   </output>
+
+</configuration>
+-->
+
 <routes>
 
    <route id="ErnstRuska2O_to_HavestadtN" multi_ref="x">ErnstRuska2O ErnstRuska231O HavestadtN</route>

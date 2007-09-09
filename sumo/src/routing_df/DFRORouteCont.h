@@ -39,6 +39,7 @@
 // class declarations
 // ===========================================================================
 class RODFNet;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -58,7 +59,7 @@ public:
     bool removeRouteDesc(DFRORouteDesc *desc);
     bool readFrom(const std::string &file);
     bool save(std::vector<std::string> &saved,
-              const std::string &prependix, std::ostream &os/*const std::string &file*/);
+              const std::string &prependix, OutputDevice& out);
     bool computed() const;
     const std::vector<DFRORouteDesc*> &get() const;
     void sortByDistance();

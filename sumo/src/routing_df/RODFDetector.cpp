@@ -29,8 +29,6 @@
 #endif
 
 #include "RODFDetector.h"
-#include <fstream>
-#include <iostream>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <router/ROEdge.h>
@@ -42,6 +40,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeomHelper.h>
 #include "RODFNet.h"
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -539,16 +538,13 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                                    bool emissionsOnly) const
 {
     // write the definition
-    ofstream strm(file.c_str());
-    if (!strm.good()) {
-        throw ProcessError("Can not write emitter definitions to file '" + file + "'.");
-    }
+    OutputDevice& out = OutputDevice::getDevice(file);
 //    cout << "a1" << endl;
     // begin
     if (getType()==SOURCE_DETECTOR) {
-        strm << "<triggeredsource>" << endl;
+        out.writeXMLHeader("triggeredsource");
     } else {
-        strm << "<calibrator>" << endl;
+        out.writeXMLHeader("calibrator");
     }
 
 //    cout << "a2" << endl;
@@ -575,7 +571,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                 // !!! optional
                 for (i=routes.begin(); i!=routes.end(); ++i) {
                     if ((*i)->overallProb>0||includeUnusedRoutes) {
-                        strm << "   <routedistelem id=\"" << (*i)->routename << "\" probability=\"" << ((*i)->overallProb/overallSum) << "\"/>" << endl; // !!!
+                        out << "   <routedistelem id=\"" << (*i)->routename << "\" probability=\"" << ((*i)->overallProb/overallSum) << "\"/>\n"; // !!!
                         writtenRoutes++;
                     }
                 }
@@ -584,7 +580,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
             //  let's save them all (should maybe be done optional)
             if (writtenRoutes==0) {
                 for (i=routes.begin(); i!=routes.end(); ++i) {
-                    strm << "   <routedistelem id=\"" << (*i)->routename << "\" probability=\"1\"/>" << endl; // !!!
+                    out << "   <routedistelem id=\"" << (*i)->routename << "\" probability=\"1\"/>\n"; // !!!
                 }
             }
         }
@@ -640,30 +636,26 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                 int ctime = (int)(time + ((SUMOReal) stepOffset * (SUMOReal) car / (SUMOReal) carNo));
 
                 // write
-                strm << "   <emit id=\"";
+                out << "   <emit id=\"";
                 if (getType()==SOURCE_DETECTOR) {
-                    strm << "emitter_" << myID;
+                    out << "emitter_" << myID;
                 } else {
-                    strm << "calibrator_" << myID;
+                    out << "calibrator_" << myID;
                 }
-                strm << "_" << ctime  << "\"" // !!! running
+                out << "_" << ctime  << "\"" // !!! running
                 << " time=\"" << ctime << "\""
                 << " speed=\"" << v << "\"";
                 if (!emissionsOnly&&destIndex>=0) {
-                    strm << " route=\"" << myRoutes->get()[destIndex]->routename << "\""; // !!! optional
+                    out << " route=\"" << myRoutes->get()[destIndex]->routename << "\""; // !!! optional
                 }
-                strm  << "/>" << endl;
+                out  << "/>\n";
                 srcFD.isLKW += srcFD.fLKW;
             }
             delete destDist;
         }
     }
 //    cout << "a5" << endl;
-    if (getType()==SOURCE_DETECTOR) {
-        strm << "</triggeredsource>" << endl;
-    } else {
-        strm << "</calibrator>" << endl;
-    }
+    out.close();
     return true;
 }
 
@@ -694,10 +686,10 @@ RODFDetector::hasRoutes() const
 
 bool
 RODFDetector::writeRoutes(std::vector<std::string> &saved,
-                        std::ostream &os)
+                          OutputDevice &out)
 {
     if (myRoutes!=0) {
-        return myRoutes->save(saved, "", os);
+        return myRoutes->save(saved, "", out);
     }
     return false;
 }
@@ -709,11 +701,8 @@ RODFDetector::writeSingleSpeedTrigger(const std::string &file,
                                     SUMOTime startTime, SUMOTime endTime,
                                     SUMOTime stepOffset)
 {
-    ofstream strm(file.c_str());
-    if (!strm.good()) {
-        throw ProcessError("Can not write speed trigger values to file '" + file + "'.");
-    }
-    strm << "<vss>" << endl;
+    OutputDevice& out = OutputDevice::getDevice(file);
+    out.writeXMLHeader("vss");
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
     for (SUMOTime t=startTime; t<endTime; t+=stepOffset) {
         const FlowDef &srcFD = mflows[(int)(t/stepOffset) - startTime]; // !!! check stepOffset
@@ -722,9 +711,9 @@ RODFDetector::writeSingleSpeedTrigger(const std::string &file,
             speed = 200; // !!! no limit
         }
         speed = (SUMOReal)(speed / 3.6);
-        strm << "   <step time=\"" << t << "\" speed=\"" << speed << "\"/>" << endl;
+        out << "   <step time=\"" << t << "\" speed=\"" << speed << "\"/>\n";
     }
-    strm << "</vss>" << endl;
+    out.close();
 }
 
 
@@ -795,86 +784,80 @@ RODFDetectorCon::getDetectors() const
 void
 RODFDetectorCon::save(const std::string &file) const
 {
-    ofstream strm(file.c_str());
-    if (!strm.good()) {
-        throw ProcessError("Can not write detectors to file '" + file + "'.");
-    }
-    strm << "<detectors>" << endl;
+    OutputDevice& out = OutputDevice::getDevice(file);
+    out.writeXMLHeader("detectors");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
-        strm << "   <detector_definition id=\"" << (*i)->getID()
+        out << "   <detector_definition id=\"" << (*i)->getID()
         << "\" lane=\"" << (*i)->getLaneID()
         << "\" pos=\"" << (*i)->getPos();
         switch ((*i)->getType()) {
         case BETWEEN_DETECTOR:
-            strm << "\" type=\"between\"";
+            out << "\" type=\"between\"";
             break;
         case SOURCE_DETECTOR:
-            strm << "\" type=\"source\"";
+            out << "\" type=\"source\"";
             break;
         case SINK_DETECTOR:
-            strm << "\" type=\"sink\"";
+            out << "\" type=\"sink\"";
             break;
         case DISCARDED_DETECTOR:
-            strm << "\" type=\"discarded\"";
+            out << "\" type=\"discarded\"";
             break;
         default:
             throw 1;
         }
-        strm << "/>" << endl;
+        out << "/>\n";
     }
-    strm << "</detectors>" << endl;
+    out.close();
 }
 
 
 void
 RODFDetectorCon::saveAsPOIs(const std::string &file) const
 {
-    ofstream strm(file.c_str());
-    strm << "<pois>" << endl;
+    OutputDevice& out = OutputDevice::getDevice(file);
+    out.writeXMLHeader("pois");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
-        strm << "   <poi id=\"" << (*i)->getID();
+        out << "   <poi id=\"" << (*i)->getID();
         switch ((*i)->getType()) {
         case BETWEEN_DETECTOR:
-            strm << "\" type=\"between_detector_position\" color=\"0,0,1\"";
+            out << "\" type=\"between_detector_position\" color=\"0,0,1\"";
             break;
         case SOURCE_DETECTOR:
-            strm << "\" type=\"source_detector_position\" color=\"0,1,0\"";
+            out << "\" type=\"source_detector_position\" color=\"0,1,0\"";
             break;
         case SINK_DETECTOR:
-            strm << "\" type=\"sink_detector_position\" color=\"1,0,0\"";
+            out << "\" type=\"sink_detector_position\" color=\"1,0,0\"";
             break;
         case DISCARDED_DETECTOR:
-            strm << "\" type=\"discarded_detector_position\" color=\".2,.2,.2\"";
+            out << "\" type=\"discarded_detector_position\" color=\".2,.2,.2\"";
             break;
         default:
             throw 1;
         }
-        strm << " lane=\"" << (*i)->getLaneID()<< "\" pos=\""
-        << (*i)->getPos() << "\"/>" << endl;
+        out << " lane=\"" << (*i)->getLaneID()<< "\" pos=\""
+        << (*i)->getPos() << "\"/>\n";
     }
-    strm << "</pois>" << endl;
+    out.close();
 }
 
 
 void
 RODFDetectorCon::saveRoutes(const std::string &file) const
 {
-    ofstream strm(file.c_str());
-    if (!strm.good()) {
-        throw ProcessError("Can not write routes to file '" + file + "'.");
-    }
+    OutputDevice& out = OutputDevice::getDevice(file);
+    out.writeXMLHeader("routes");
     std::vector<std::string> saved;
-    strm << "<routes>" << endl;
     // write for source detectors
     bool lastWasSaved = true;
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         if (lastWasSaved) {
-            strm << endl;
+            out << "\n";
         }
-        lastWasSaved = (*i)->writeRoutes(saved, strm);
+        lastWasSaved = (*i)->writeRoutes(saved, out);
     }
-    strm << endl;
-    strm << "</routes>" << endl;
+    out << "\n";
+    out.close();
 }
 
 
@@ -910,11 +893,8 @@ RODFDetectorCon::writeEmitters(const std::string &file,
                              int maxFollower,
                              bool emissionsOnly)
 {
-    ofstream strm(file.c_str());
-    if (!strm.good()) {
-        throw ProcessError("Can not write emitter definitions to file '" + file + "'.");
-    }
-    strm << "<additional>" << endl;
+    OutputDevice& out = OutputDevice::getDevice(file);
+    out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         RODFDetector *det = *i;
         string defFileName;
@@ -936,22 +916,22 @@ RODFDetectorCon::writeEmitters(const std::string &file,
         }
         // write the declaration into the file
         if (det->getType()==SOURCE_DETECTOR) {
-            strm << "   <trigger id=\"source_" << det->getID()
+            out << "   <trigger id=\"source_" << det->getID()
             << "\" objecttype=\"emitter\" "
             << "pos=\"" << det->getPos() << "\" "
             << "objectid=\"" << det->getLaneID() << "\" "
             << "friendly_pos=\"x\" " // !!!
-            << "file=\"" << defFileName << "\"/>" << endl;
+            << "file=\"" << defFileName << "\"/>\n";
         } else if (writeCalibrators&&det->getType()==BETWEEN_DETECTOR) {
-            strm << "   <trigger id=\"calibrator_" << det->getID()
+            out << "   <trigger id=\"calibrator_" << det->getID()
             << "\" objecttype=\"calibrator\" "
             << "pos=\"" << det->getPos() << "\" "
             << "objectid=\"" << det->getLaneID() << "\" "
             << "friendly_pos=\"x\" " // !!!
-            << "file=\"" << defFileName << "\"/>" << endl;
+            << "file=\"" << defFileName << "\"/>\n";
         }
     }
-    strm << "</additional>" << endl;
+    out.close();
 }
 
 /*
@@ -984,11 +964,8 @@ RODFDetectorCon::writeEmitterPOIs(const std::string &file,
                                 SUMOTime startTime, SUMOTime endTime,
                                 SUMOTime stepOffset)
 {
-    ofstream strm(file.c_str());
-    if (!strm.good()) {
-        throw ProcessError("Can not write emitter pois to file '" + file + "'.");
-    }
-    strm << "<additional>" << endl;
+    OutputDevice& out = OutputDevice::getDevice(file);
+    out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         RODFDetector *det = *i;
         SUMOReal flow = flows.getFlowSumSecure(det->getID());
@@ -996,26 +973,26 @@ RODFDetectorCon::writeEmitterPOIs(const std::string &file,
         col = (SUMOReal)(col / 2. + .5);
         SUMOReal r, g, b;
         r = g = b = 0;
-        strm << "   <poi id=\"" << (*i)->getID() << ":" << flow;
+        out << "   <poi id=\"" << (*i)->getID() << ":" << flow;
         switch ((*i)->getType()) {
         case BETWEEN_DETECTOR:
-            strm << "\" type=\"between_detector_position\" color=\"0,0," << col << "\"";
+            out << "\" type=\"between_detector_position\" color=\"0,0," << col << "\"";
             break;
         case SOURCE_DETECTOR:
-            strm << "\" type=\"source_detector_position\" color=\"0," << col << ",0\"";
+            out << "\" type=\"source_detector_position\" color=\"0," << col << ",0\"";
             break;
         case SINK_DETECTOR:
-            strm << "\" type=\"sink_detector_position\" color=\"" << col << ",0,0\"";
+            out << "\" type=\"sink_detector_position\" color=\"" << col << ",0,0\"";
             break;
         case DISCARDED_DETECTOR:
-            strm << "\" type=\"discarded_detector_position\" color=\".2,.2,.2\"";
+            out << "\" type=\"discarded_detector_position\" color=\".2,.2,.2\"";
             break;
         default:
             throw 1;
         }
-        strm << " lane=\"" << (*i)->getLaneID()<< "\" pos=\"" << (*i)->getPos() << "\"/>" << endl;
+        out << " lane=\"" << (*i)->getLaneID()<< "\" pos=\"" << (*i)->getPos() << "\"/>\n";
     }
-    strm << "</additional>" << endl;
+    out.close();
 }
 
 
@@ -1101,48 +1078,41 @@ RODFDetectorCon::writeSpeedTrigger(const std::string &file,
                                  SUMOTime startTime, SUMOTime endTime,
                                  SUMOTime stepOffset)
 {
-    ofstream strm(file.c_str());
-    if (!strm.good()) {
-        throw ProcessError("Can not write speed trigger definitions to file '" + file + "'.");
-    }
-    strm << "<additional>" << endl;
+    OutputDevice& out = OutputDevice::getDevice(file);
+    out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         RODFDetector *det = *i;
         // write the declaration into the file
         if (det->getType()==SINK_DETECTOR&&flows.knows(det->getID())) {
             string filename = "vss_" + det->getID() + ".def.xml";
-            strm << "   <trigger id=\"vss_" << det->getID() << '\"'
+            out << "   <trigger id=\"vss_" << det->getID() << '\"'
             << " objecttype=\"lane\""
             << " objectid=\"" << det->getLaneID() << '\"'
             << " attr=\"speed\" "
-            << " file=\"" << filename << "\"/>"
-            << endl;
+            << " file=\"" << filename << "\"/>\n";
             det->writeSingleSpeedTrigger(filename, flows, startTime, endTime, stepOffset);
         }
     }
-    strm << "</additional>" << endl;
+    out.close();
 }
 
 
 void
 RODFDetectorCon::writeEndRerouterDetectors(const std::string &file)
 {
-    ofstream strm(file.c_str());
-    if (!strm.good()) {
-        throw ProcessError("Can not write end rerouter definitions to file '" + file + "'.");
-    }
-    strm << "<additional>" << endl;
+    OutputDevice& out = OutputDevice::getDevice(file);
+    out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         RODFDetector *det = *i;
         // write the declaration into the file
         if (det->getType()==SINK_DETECTOR) {
-            strm << "   <trigger id=\"endrerouter_" << det->getID()
+            out << "   <trigger id=\"endrerouter_" << det->getID()
             << "\" objecttype=\"rerouter\" objectid=\"" <<
             det->getLaneID() << "\" attr=\"reroute\" pos=\"0\" file=\"endrerouter_"
-            << det->getID() << ".def.xml\"/>" << endl;
+            << det->getID() << ".def.xml\"/>\n";
         }
     }
-    strm << "</additional>" << endl;
+    out.close();
 }
 
 
@@ -1151,11 +1121,8 @@ RODFDetectorCon::writeValidationDetectors(const std::string &file,
                                         bool includeSources,
                                         bool singleFile, bool friendly)
 {
-    ofstream strm(file.c_str());
-    if (!strm.good()) {
-        throw ProcessError("Can not write validation detectors to file '" + file + "'.");
-    }
-    strm << "<additional>" << endl;
+    OutputDevice& out = OutputDevice::getDevice(file);
+    out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         RODFDetector *det = *i;
         // write the declaration into the file
@@ -1164,21 +1131,21 @@ RODFDetectorCon::writeValidationDetectors(const std::string &file,
             if (det->getType()==SOURCE_DETECTOR) {
                 pos += 1;
             }
-            strm << "   <detector id=\"validation_" << det->getID() << "\" "
+            out << "   <detector id=\"validation_" << det->getID() << "\" "
             << "lane=\"" << det->getLaneID() << "\" "
             << "pos=\"" << pos << "\" "
             << "freq=\"60\" style=\"CSV\" ";
             if (friendly) {
-                strm << "friendly_pos=\"x\" ";
+                out << "friendly_pos=\"x\" ";
             }
             if (!singleFile) {
-                strm << "file=\"validation_det_" << det->getID() << ".xml\"/>" << endl;
+                out << "file=\"validation_det_" << det->getID() << ".xml\"/>\n";
             } else {
-                strm << "file=\"validation_dets.xml\"/>" << endl;//!!!
+                out << "file=\"validation_dets.xml\"/>\n";//!!!
             }
         }
     }
-    strm << "</additional>" << endl;
+    out.close();
 }
 
 

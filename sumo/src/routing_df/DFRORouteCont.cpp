@@ -34,6 +34,7 @@
 #include "DFRORouteCont.h"
 #include "RODFNet.h"
 #include <router/ROEdge.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -157,7 +158,7 @@ DFRORouteCont::readFrom(const std::string &)
 
 bool
 DFRORouteCont::save(std::vector<std::string> &saved,
-                    const std::string &prependix, std::ostream &os/*const std::string &file*/)
+                    const std::string &prependix, OutputDevice& out)
 {
     /*
        ofstream strm(file.c_str());
@@ -176,14 +177,14 @@ DFRORouteCont::save(std::vector<std::string> &saved,
         }
         saved.push_back((*j)->routename);
         assert(desc->edges2Pass.size()>=1);
-        os << "   <route id=\"" << prependix << (*j)->routename << "\" multi_ref=\"x\">";
+        out << "   <route id=\"" << prependix << (*j)->routename << "\" multi_ref=\"x\">";
         for (std::vector<ROEdge*>::const_iterator k=desc->edges2Pass.begin(); k!=desc->edges2Pass.end(); k++) {
             if (k!=desc->edges2Pass.begin()) {
-                os << ' ';
+                out << ' ';
             }
-            os << (*k)->getID();
+            out << (*k)->getID();
         }
-        os << "</route>" << endl;
+        out << "</route>\n";
         haveSavedOnAtLeast = true;
     }
     /*        strm << endl;
