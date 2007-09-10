@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Sun Sep  9 23:28:36 2007 by SUMO od2trips Version dev-SVN-r4433
+<!-- generated on 09/10/07 09:51:06 by SUMO od2trips Version 0.9.6
 <configuration>
 
    <input>
@@ -32,8 +32,8 @@
    <tripdef id="12" depart="688" from="a1" to="b2"/>
    <tripdef id="64" depart="788" from="a1" to="b2"/>
    <tripdef id="50" depart="838" from="a1" to="b2"/>
-   <tripdef id="72" depart="962" from="a1" to="b2"/>
    <tripdef id="59" depart="962" from="a1" to="b2"/>
+   <tripdef id="72" depart="962" from="a1" to="b2"/>
    <tripdef id="58" depart="979" from="a1" to="b2"/>
    <tripdef id="8" depart="991" from="a1" to="b2"/>
    <tripdef id="3" depart="1023" from="a1" to="b2"/>
@@ -57,8 +57,8 @@
    <tripdef id="30" depart="1742" from="a1" to="b2"/>
    <tripdef id="52" depart="1748" from="a1" to="b2"/>
    <tripdef id="37" depart="1758" from="a1" to="b2"/>
-   <tripdef id="79" depart="1803" from="a1" to="b2"/>
    <tripdef id="1" depart="1803" from="a1" to="b2"/>
+   <tripdef id="79" depart="1803" from="a1" to="b2"/>
    <tripdef id="0" depart="1809" from="a1" to="b2"/>
    <tripdef id="92" depart="1828" from="a1" to="b2"/>
    <tripdef id="96" depart="1847" from="a1" to="b2"/>

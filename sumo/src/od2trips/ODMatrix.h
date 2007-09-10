@@ -308,6 +308,9 @@ protected:
 		 */
         bool operator()(const ODVehicle &p1, const ODVehicle &p2) const
         {
+            if(p1.depart==p2.depart) {
+                return p1.id>p2.id;
+            }
             return p1.depart>p2.depart;
         }
 
