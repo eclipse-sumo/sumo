@@ -62,9 +62,6 @@ private:
     /** checks whether the edge file definition is given */
     static bool checkEdges();
 
-    /** checks whether the output can be build */
-    static bool checkOutput();
-
 };
 
 

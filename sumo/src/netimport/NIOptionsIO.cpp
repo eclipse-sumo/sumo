@@ -193,21 +193,8 @@ NIOptionsIO::fillOptions()
 bool
 NIOptionsIO::checkOptions()
 {
-    bool ok = true;
-    return ok;
-    /*
-    try {
-        if (!checkCompleteDescription()) {
-            if (!checkNodes()) ok = false;
-            if (!checkEdges()) ok = false;
-            //if (!checkOutput()) ok = false;
-        }
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-        return false;
-    }
-    */
-    return ok;
+    // !!! make this live
+    return true;
 }
 
 
@@ -255,20 +242,6 @@ NIOptionsIO::checkEdges()
     MsgHandler::getErrorInstance()->inform("Edges must be supplied.");
     return false;
 }
-
-
-bool
-NIOptionsIO::checkOutput()
-{
-    OptionsCont &oc = OptionsCont::getOptions();
-    ofstream strm(oc.getString("output-file").c_str()); // !!! should be made when input are ok
-    if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("The output file \"" + oc.getString("o") + "\" can not be build.");
-        return false;
-    }
-    return true;
-}
-
 
 
 /****************************************************************************/
