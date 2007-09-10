@@ -76,7 +76,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib $(NOINHERIT)"
+				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Debug/dfrouterD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -174,7 +174,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES)\lib\xerces-c_2.lib $(NOINHERIT)"
+				AdditionalDependencies="$(XERCES)\lib\xerces-c_2.lib $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/dfrouter.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
