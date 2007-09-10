@@ -677,13 +677,6 @@
           </listitem>
 
           <listitem>
-            <para><emphasis>FastLane</emphasis> by Christian Gawron (a
-            mesoscopic traffic simulation package), see chapter "<ulink
-            url="#user_chp04-other_input-fastlane">Importing
-            Cell/Fastlane-networks</ulink>"</para>
-          </listitem>
-
-          <listitem>
             <para><emphasis>ArcView</emphasis>-data base files, see chapter
             "<ulink url="#user_chp04-other_input">Importing
             ArcView-databases</ulink>"</para>
@@ -2214,117 +2207,6 @@
         </itemizedlist>
       </sect2>
 
-      <sect2 id="user_chp04-other_input-fastlane">
-        <title>Importing Cell/Fastlane-networks</title>
-
-        <para>FastLane, developed at the <ulink
-        url="http://www.zaik.uni-koeln.de/">ZAIK</ulink>, is a mesoscopic
-        traffic simulation. The network description consists of a file
-        containing edges and a second one containing nodes. Due to this, you
-        need to supply two values as input parameter and the call looks like
-        this:</para>
-
-        <screen>netconvert --cell-nodes=<replaceable>&lt;CELL_NODE_FILE&gt;</replaceable> --cell-edges=<replaceable>&lt;CELL_EDGE_FILE&gt;</replaceable> \
-   --output-file=<replaceable>MySUMOFile.net.xml</replaceable></screen>
-
-        <para>Of course, both files must belong to the same network. As
-        FastLane is a mesoscopic simulation, sometime the number of an edge's
-        lanes is not given. Instead, FastLane uses the capacity. In such
-        cases, the number of lanes is computed roughly using the edge's
-        capacity. We assume a linear dependency for this, currently, although
-        this may not be the best solution. So, the number of lanes is computed
-        as EDGE_CAPACITY/NORM. You may change the norm from its default of
-        20000 using the option <option>--capacity-norm</option>.</para>
-
-        <para>You can also supply a type-file using <option>--xml-type-files
-        <replaceable>&lt;TYPES_FILE&gt;</replaceable></option> (or
-        <option>--types</option> or <option>-t</option>, see "<ulink
-        url="#user_chp04-xml_descriptions-types">Types Descriptions</ulink>" )
-        and specify your own connections using <option>--xml-connection-files
-        <replaceable>&lt;CONNECTIONS_FILE&gt;</replaceable></option> (or
-        <option>--xml-connections</option> or <option>-x</option>, see "<ulink
-        url="#user_chp04-xml_descriptions-connections">Connection
-        Descriptions</ulink>").</para>
-
-        <para>Specific options:</para>
-
-        <variablelist>
-          <varlistentry>
-            <term><option>( --cell-node-file | --cell-nodes )
-            <replaceable>&lt;FILE&gt;</replaceable></option></term>
-
-            <listitem>
-              <para>Reads nodes definitions from
-              <replaceable>&lt;FILE&gt;</replaceable>. <remark>Optional,
-              type:path, default: none</remark></para>
-            </listitem>
-          </varlistentry>
-
-          <varlistentry>
-            <term><option>( --cell-edge-file | --cell-edges )
-            <replaceable>&lt;FILE&gt;</replaceable></option></term>
-
-            <listitem>
-              <para>Reads edges definitions from
-              <replaceable>&lt;FILE&gt;</replaceable>. <remark>Optional,
-              type:path, default: none</remark></para>
-            </listitem>
-          </varlistentry>
-
-          <varlistentry>
-            <term><option>( --capacity-norm | -N )
-            <replaceable>&lt;FLOAT&gt;</replaceable></option></term>
-
-            <listitem>
-              <para>Sets the capacity norm to the given value.
-              <remark>Optional (pregiven), type:float, default:
-              20000</remark></para>
-            </listitem>
-          </varlistentry>
-        </variablelist>
-
-        <para>See also:</para>
-
-        <itemizedlist spacing="compact">
-          <listitem>
-            <para>"<ulink
-            url="#user_chp04-further_options-importing_notls">Importing
-            Networks without Traffic Light Logics</ulink>"</para>
-          </listitem>
-
-          <listitem>
-            <para>"<ulink
-            url="#user_chp04-further_options-guessing_ramps">Guessing On- and
-            Off-Ramps</ulink>"</para>
-          </listitem>
-
-          <listitem>
-            <para>"<ulink url="#user_chp04-further_options-turnarounds">Adding
-            Turnarounds</ulink>"</para>
-          </listitem>
-
-          <listitem>
-            <para><link
-            linkend="user_chp04-further_options-geocoordinates">Converting
-            from Geocoordinates</link></para>
-          </listitem>
-
-          <listitem>
-            <para>"<ulink url="#user_chp04-xml_descriptions-types">Types
-            Descriptions</ulink>"</para>
-          </listitem>
-
-          <listitem>
-            <para>"<ulink
-            url="#user_chp04-xml_descriptions-connections">Connection
-            Descriptions</ulink>"</para>
-          </listitem>
-        </itemizedlist>
-
-        <para>Examples: none yet (we do not own a network we could give away
-        for legal reasons)</para>
-      </sect2>
-
       <sect2 id="user_chp04-other_input-vissim">
         <title>Importing VISSIM-networks</title>
 
@@ -3223,10 +3105,6 @@
 
         <para><itemizedlist spacing="compact">
             <listitem>
-              <para>FastLane/CELL</para>
-            </listitem>
-
-            <listitem>
               <para>ARCVIEW-data base files</para>
             </listitem>
 
@@ -3311,10 +3189,6 @@
         formats:</para>
 
         <para><itemizedlist spacing="compact">
-            <listitem>
-              <para>FastLane/CELL</para>
-            </listitem>
-
             <listitem>
               <para>ARCView-databases</para>
             </listitem>
@@ -3596,10 +3470,6 @@
         formats:</para>
 
         <para><itemizedlist spacing="compact">
-            <listitem>
-              <para>FastLane/CELL</para>
-            </listitem>
-
             <listitem>
               <para>ARCVIEW-data base files</para>
             </listitem>
@@ -5922,47 +5792,6 @@
 
     <sect1 id="user_chp05-import_routes">
       <title revision="0.9.7">Importing Routes from other Simulations</title>
-
-      <sect2 id="user_chp05-import_routes-fastlane">
-        <title>Importing FastLane-routes</title>
-
-        <para>One of the main concepts of FastLane is the Dynamic User
-        Assignment by Christian Gawron. As this mechanism is based on single
-        vehicle routes, those are given for a FastLane simulation. The router
-        module has only to convert routes from the FastLane- into the
-        SUMO-representation. Do this using the following command:</para>
-
-        <screen>duarouter --cell=<replaceable>&lt;CELL_FILE_NAME(NO_EXTENSION)&gt;</replaceable> --net=<replaceable>&lt;SUMO_NET&gt;</replaceable> \
-   --output-file=<replaceable>MySUMORoutes.rou.xml</replaceable> -b <replaceable>&lt;UINT&gt;</replaceable> -e <replaceable>&lt;UINT&gt;</replaceable></screen>
-
-        <para>If you are familiar with FastLane, you may have noticed that you
-        have only to supply one file name while FastLane uses two files to
-        describe the routes: one "*.driver" and one "*.rinfo" file. As both
-        files have the same name and only the extension differs, you have to
-        give the name without the extension. So if your files have the names
-        "<filename>foo.drive</filename>r" and
-        "<filename>foo.rinfo</filename>", write
-        <option>--cell=foo</option>.</para>
-
-        <para>FastLane stores routes within a very large file what makes the
-        process quite slow. If you want to speed it up for the future, you can
-        tell SUMO-ROUTER to save some temporary files using
-        <option>--save-cell-rindex</option>. A further file named
-        "<replaceable>&lt;CELL_FILE_NAME&gt;</replaceable>.rindex" will be
-        generated. It speeds up the processing by a factor of ten or
-        so.</para>
-
-        <para>As FastLane is portable, you may encounter files generated on a
-        Windows-machine. Those files give some strange warnings, something
-        that should not happen if you supply the right net. To avoid them, use
-        the <option>--intel-cell</option> switch to tell
-        <application>DUAROUTER</application> it has to turn the byte
-        order.</para>
-
-        <para>You can also decide whether the best, not the last route a
-        driver took shall be used: set the switch
-        <option>--no-last-cell</option> for this.</para>
-      </sect2>
 
       <sect2 id="user_chp05-import_routes-ptv" revision="0.9.5">
         <title>Importing VISSIM und VISUM-routes</title>
@@ -11616,36 +11445,6 @@ myDet1;0;10;2;100;80
               <para>*.net</para>
 
               <para>VISUM network files</para>
-            </listitem>
-
-            <listitem>
-              <para>*.edg</para>
-
-              <para>CELL edge files</para>
-            </listitem>
-
-            <listitem>
-              <para>*.nod</para>
-
-              <para>CELL node files</para>
-            </listitem>
-
-            <listitem>
-              <para>*.driver</para>
-
-              <para>CELL driver files</para>
-            </listitem>
-
-            <listitem>
-              <para>*.rinfo</para>
-
-              <para>CELL route files</para>
-            </listitem>
-
-            <listitem>
-              <para>*.rindex</para>
-
-              <para>index files generated for CELL route files</para>
             </listitem>
 
             <listitem>
