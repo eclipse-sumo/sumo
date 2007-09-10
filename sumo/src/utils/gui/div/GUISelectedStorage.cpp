@@ -458,15 +458,16 @@ GUISelectedStorage::save(int type, const std::string &filename)
         return;
     }
     // ok, save all
-    ofstream strm(filename.c_str());
+    OutputDevice &dev = OutputDevice::getDevice(filename);
     for (std::vector<size_t>::iterator i=mySelected.begin(); i!=mySelected.end(); ++i) {
         GUIGlObject *object = gIDStorage.getObjectBlocking(*i);
         if (object!=0) {
             std::string name = object->getFullName();
-            strm << name << endl;
+            dev << name << '\n';
             gIDStorage.unblockObject(*i);
         }
     }
+    dev.close();
 }
 
 

@@ -43,6 +43,7 @@
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/glutils/polyfonts.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -274,21 +275,23 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
     }
     gCurrentFolder = opendialog.getDirectory().text();
     string file = opendialog.getFilename().text();
-    ofstream strm(file.c_str());
+    OutputDevice &dev = OutputDevice::getDevice(file);
+    /*
     if (!strm.good()) {
         return 1; // !!! inform the user
     }
+    */
     // write header
     TrackedVarsVector::iterator i;
-    strm << "# ";
+    dev << "# ";
     for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
         if (i!=myTracked.begin()) {
-            strm << ';';
+            dev << ';';
         }
         TrackerValueDesc *tvd = *i;
-        strm << tvd->getName();
+        dev << tvd->getName();
     }
-    strm << endl;
+    dev << '\n';
     // count entries
     size_t max = 0;
     for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
@@ -303,14 +306,15 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
     for (unsigned int j=0; j<max; j++) {
         for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
             if (i!=myTracked.begin()) {
-                strm << ';';
+                dev << ';';
             }
             TrackerValueDesc *tvd = *i;
-            strm << tvd->getAggregatedValues()[j];
+            dev << tvd->getAggregatedValues()[j];
             tvd->unlockValues();
         }
-        strm << endl;
+        dev << '\n';
     }
+    dev.close();
     return 1;
 }
 
