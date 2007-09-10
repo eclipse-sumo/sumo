@@ -1,3 +1,19 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/10/07 12:59:05 by SUMO jtrrouter Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+</configuration>
+-->
+
 <routes>
    <vehicle id="0_0" depart="0">
       <route>1 2</route>

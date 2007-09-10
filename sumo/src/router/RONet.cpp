@@ -53,6 +53,7 @@
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/SUMOVehicleClass.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -154,11 +155,19 @@ RONet::addRouteDef(RORouteDef *def)
 void
 RONet::openOutput(const std::string &filename, bool useAlternatives)
 {
-    myRoutesOutput = buildOutput(filename);
-    (*myRoutesOutput) << "<routes>" << endl;
+    try {
+        myRoutesOutput = &OutputDevice::getDevice(filename);
+        myRoutesOutput->writeXMLHeader("routes");
+    } catch (IOError &) {
+        throw InvalidArgument("The file '" + filename + "' could not be opened for writing.");
+    }
     if (useAlternatives) {
-        myRouteAlternativesOutput = buildOutput(filename+".alt");
-        (*myRouteAlternativesOutput) << "<route-alternatives>" << endl;
+        try {
+            myRouteAlternativesOutput = &OutputDevice::getDevice(filename+".alt");
+            myRouteAlternativesOutput->writeXMLHeader("route-alternatives");
+        } catch (IOError &) {
+            throw InvalidArgument("The file '" + filename + ".alt' could not be opened for writing.");
+        }
     }
 }
 
@@ -168,19 +177,11 @@ RONet::closeOutput()
 {
     // end writing
     if (myRoutesOutput!= 0) {
-        (*myRoutesOutput) << "</routes>" << endl;
-        myRoutesOutput->flush();
         myRoutesOutput->close();
-        delete myRoutesOutput;
-        myRoutesOutput = 0;
     }
     // only if opened
     if (myRouteAlternativesOutput!=0) {
-        (*myRouteAlternativesOutput) << "</route-alternatives>" << endl;
-        myRouteAlternativesOutput->flush();
         myRouteAlternativesOutput->close();
-        delete myRouteAlternativesOutput;
-        myRouteAlternativesOutput = 0;
     }
 }
 
@@ -299,7 +300,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
         // check whether to print the output
         if (lastTime!=currentTime&&lastTime!=-1) {
             // report writing progress
-            if (options.getInt("stats-period")>=0 && (currentTime%options.getInt("stats-period"))==0) {
+            if (options.getInt("stats-period")>=0 && ((int) currentTime%options.getInt("stats-period"))==0) {
                 WRITE_MESSAGE("Read: " + toString<int>(myReadRouteNo) + ",  Discarded: " + toString<int>(myDiscardedRouteNo) + ",  Written: " + toString<int>(myWrittenRouteNo));
             }
         }
@@ -311,7 +312,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
         const RORouteDef * const route = computeRoute(options, router, veh);
         if (route!=0) {
             // write the route
-            veh->saveAllAsXML(myRoutesOutput, myRouteAlternativesOutput, route);
+            veh->saveAllAsXML(*myRoutesOutput, myRouteAlternativesOutput, route);
             myWrittenRouteNo++;
         } else {
             myDiscardedRouteNo++;
@@ -413,18 +414,6 @@ unsigned int
 RONet::getEdgeNo() const
 {
     return myEdges.size();
-}
-
-
-std::ofstream *
-RONet::buildOutput(const std::string &name)
-{
-    std::ofstream *ret = new std::ofstream(name.c_str());
-    if (!ret->good()) {
-        delete ret;
-        throw InvalidArgument("The file '" + name + "' could not be opened for writing.");
-    }
-    return ret;
 }
 
 

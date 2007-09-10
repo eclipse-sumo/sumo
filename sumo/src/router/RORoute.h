@@ -39,6 +39,7 @@
 // class declarations
 // ===========================================================================
 class ROEdge;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -66,10 +67,10 @@ public:
     void add(ROEdge *id);
 
     /// Saves the whole route (as a route)
-    void xmlOut(std::ostream &os, bool isPeriodical) const;
+    void xmlOut(OutputDevice &dev, bool isPeriodical) const;
 
     /// Saves the edges the route consists of
-    void xmlOutEdges(std::ostream &os) const;
+    void xmlOutEdges(OutputDevice &dev) const;
 
     /// Returns the first edge in the route
     const ROEdge *getFirst() const;

@@ -35,6 +35,7 @@
 #include "ROEdgeVector.h"
 #include "ROEdge.h"
 #include "RORoute.h"
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -76,21 +77,21 @@ RORoute::add(ROEdge *edge)
 
 
 void
-RORoute::xmlOut(std::ostream &os, bool isPeriodical) const
+RORoute::xmlOut(OutputDevice &dev, bool isPeriodical) const
 {
-    os << "   <route id=\"" << myID << "\"";
+    dev << "   <route id=\"" << myID << "\"";
     if (isPeriodical) {
-        os << " multi_ref=\"x\"";
+        dev << " multi_ref=\"x\"";
     }
-    os << ">";
-    os << myRoute;
-    os << "</route>" << endl;
+    dev << ">";
+    dev << myRoute;
+    dev << "</route>\n";
 }
 
 void
-RORoute::xmlOutEdges(std::ostream &os) const
+RORoute::xmlOutEdges(OutputDevice &dev) const
 {
-    os << myRoute;
+    dev << myRoute;
 }
 
 

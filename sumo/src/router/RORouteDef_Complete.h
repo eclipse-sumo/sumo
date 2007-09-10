@@ -41,6 +41,7 @@
 class ROEdge;
 class RORoute;
 class ROVehicle;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -76,9 +77,6 @@ public:
      * Here, as in most cases, the alternative is the route that was build
      * as last and will stay the only route known */
     void addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin);
-
-    /// Outputs the new (current) route
-    void xmlOutCurrent(std::ostream &res, bool isPeriodical) const;
 
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;

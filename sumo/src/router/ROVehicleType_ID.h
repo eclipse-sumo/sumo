@@ -52,7 +52,7 @@ public:
     ~ROVehicleType_ID();
 
     /// Saves the vehicle type into the given stream using SUMO-XML
-    std::ostream &xmlOut(std::ostream &os) const;
+    OutputDevice &xmlOut(OutputDevice &dev) const;
 
 };
 

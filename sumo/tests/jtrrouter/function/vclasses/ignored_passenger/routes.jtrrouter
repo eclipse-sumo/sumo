@@ -1,5 +1,27 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/10/07 12:59:01 by SUMO jtrrouter Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+   <processing>
+      <continue-on-unbuild>true</continue-on-unbuild>
+      <sinks>end</sinks>
+      <ignore-classes>true</ignore-classes>
+   </processing>
+
+</configuration>
+-->
+
 <routes>
-   <vtype model="SUMO_KRAUSS" id="passenger" accel="2.6" decel="4.5" sigma="0.5" length="5" maxspeed="70" tau="1" class="passenger"/>
+   <vtype model="SUMO_KRAUSS" id="passenger" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00" class="passenger"/>
    <vehicle id="0_0" type="passenger" depart="0">
       <route>beg middle end</route>
    </vehicle>

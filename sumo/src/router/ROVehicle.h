@@ -41,6 +41,7 @@
 // ===========================================================================
 class ROVehicleType;
 class RORouteDef;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -80,7 +81,7 @@ public:
     * Saves the vehicle route if it was not saved before.
     * Saves the vehicle itself.
     * Use this method polymorph if no route alternatives shall be generated */
-    void saveAllAsXML(std::ostream * const os, std::ostream * const altos,
+    void saveAllAsXML(OutputDevice &os, OutputDevice * const altos,
                       const RORouteDef * const route) const;
 
     /// Returns a copy of the vehicle using a new id, departure time and route
@@ -90,7 +91,7 @@ public:
 
 protected:
     /// Saves the vehicle definition only into the given stream
-    void saveXMLVehicle(std::ostream * const os) const;
+    void saveXMLVehicle(OutputDevice &dev) const;
 
 protected:
     /// The name of the vehicle

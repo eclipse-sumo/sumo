@@ -13,4 +13,5 @@ config:config.cfg
 
 [run_dependent_text]
 output:jtrrouter.exe{REPLACE sumo-jtrrouter}
+routes:Version
 

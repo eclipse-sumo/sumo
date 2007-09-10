@@ -1,3 +1,23 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/10/07 12:58:58 by SUMO jtrrouter Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+   <processing>
+      <continue-on-unbuild>true</continue-on-unbuild>
+   </processing>
+
+</configuration>
+-->
+
 <routes>
    <vehicle id="0_0" depart="0">
       <route>beg -beg beg beg2right right -right -beg2right -beg beg middle -left2end -left left left2end -right2end right2end -left2end -left left left2end end -end -middle -beg beg -beg beg -beg beg middle end -end -middle beg2right right -right -beg2right</route>

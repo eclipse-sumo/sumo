@@ -57,10 +57,10 @@ ROVehicleType_ID::~ROVehicleType_ID()
 {}
 
 
-std::ostream &
-ROVehicleType_ID::xmlOut(std::ostream &os) const
+OutputDevice &
+ROVehicleType_ID::xmlOut(OutputDevice &dev) const
 {
-    return os;
+    return dev;
 }
 
 

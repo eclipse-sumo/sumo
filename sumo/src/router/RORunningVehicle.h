@@ -41,6 +41,7 @@
 // ===========================================================================
 class RGBColor;
 class ROVehicleBuilder;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -65,7 +66,7 @@ public:
     ~RORunningVehicle();
 
     /// Writes the vehicle's definition to the given stream
-    void xmlOut(std::ostream &os) const;
+    void xmlOut(OutputDevice &dev) const;
 
     /// Returns a copy of the vehicle using a new id, departure time and route
     virtual ROVehicle *copy(ROVehicleBuilder &vb,

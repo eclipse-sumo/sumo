@@ -33,6 +33,7 @@
 #include "ROVehicleType.h"
 #include "RORunningVehicle.h"
 #include "RORouteDef.h"
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -66,16 +67,16 @@ RORunningVehicle::~RORunningVehicle()
 
 
 void
-RORunningVehicle::xmlOut(std::ostream &os) const
+RORunningVehicle::xmlOut(OutputDevice &dev) const
 {
-    os << "<vehicle id=\"" << myID << "\"";
-    os << " type=\"" << myType->getID() << "\"";
-    os << " route=\"" << myRoute->getID() << "\"";
-    os << " depart=\"" << myDepartTime << "\"";
-    os << " lane=\"" << myLane << "\"";
-    os << " pos=\"" << myPos << "\"";
-    os << " speed=\"" << mySpeed << "\"";
-    os << "/>" << endl;
+    dev << "<vehicle id=\"" << myID << "\""
+        << " type=\"" << myType->getID() << "\""
+        << " route=\"" << myRoute->getID() << "\""
+        << " depart=\"" << myDepartTime << "\""
+        << " lane=\"" << myLane << "\""
+        << " pos=\"" << myPos << "\""
+        << " speed=\"" << mySpeed << "\""
+        << "/>\n";
 }
 
 

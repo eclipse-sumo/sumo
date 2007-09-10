@@ -1,5 +1,22 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/10/07 12:11:57 by SUMO duarouter Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <trip-defs>input_trips.trips.xml</trip-defs>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+</configuration>
+-->
+
 <routes>
-   <vtype model="SUMO_KRAUSS" id="0" accel="2" decel="2.5" sigma="0.2" length="4" maxspeed="70" tau="1"/>
+   <vtype model="SUMO_KRAUSS" id="0" accel="2.00" decel="2.50" sigma="0.20" length="4.00" maxspeed="70.00" tau="1.00"/>
    <vehicle id="0" type="0" depart="0">
       <route>beg middle end rend</route>
    </vehicle>

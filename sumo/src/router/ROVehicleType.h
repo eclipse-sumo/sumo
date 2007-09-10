@@ -38,6 +38,12 @@
 
 
 // ===========================================================================
+// class declarations
+// ===========================================================================
+class OutputDevice;
+
+
+// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
@@ -55,7 +61,7 @@ public:
     virtual ~ROVehicleType();
 
     /// Saves the type using SUMO-XML
-    virtual std::ostream &xmlOut(std::ostream &os) const = 0;
+    virtual OutputDevice &xmlOut(OutputDevice &dev) const = 0;
 
     /// Returns the name of the type
     std::string getID() const;

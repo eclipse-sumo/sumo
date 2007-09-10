@@ -32,6 +32,7 @@
 #include <iostream>
 #include "ROVehicleType.h"
 #include "ROVehicleType_Krauss.h"
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -60,10 +61,10 @@ ROVehicleType_Krauss::~ROVehicleType_Krauss()
 {}
 
 
-std::ostream &
-ROVehicleType_Krauss::xmlOut(std::ostream &os) const
+OutputDevice &
+ROVehicleType_Krauss::xmlOut(OutputDevice &dev) const
 {
-    os << "   <vtype model=\"SUMO_KRAUSS\""
+    dev << "   <vtype model=\"SUMO_KRAUSS\""
     << " id=\"" << myID << "\""
     << " accel=\"" << myA << "\""
     << " decel=\"" << myB << "\""
@@ -72,13 +73,13 @@ ROVehicleType_Krauss::xmlOut(std::ostream &os) const
     << " maxspeed=\"" << myMaxSpeed << "\""
     << " tau=\"" << myTau << "\"";
     if (myColor!=RGBColor(-1,-1,-1)) {
-        os << " color=\"" << myColor << "\"";
+        dev << " color=\"" << myColor << "\"";
     }
     if (myClass!=SVC_UNKNOWN) {
-        os << " class=\"" << getVehicleClassName(myClass) << "\"";
+        dev << " class=\"" << getVehicleClassName(myClass) << "\"";
     }
-    os << "/>" << endl;
-    return os;
+    dev << "/>\n";
+    return dev;
 }
 
 

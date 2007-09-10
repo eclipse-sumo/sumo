@@ -31,6 +31,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
+#include <utils/iodevices/OutputDevice.h>
 #include <string>
 #include <iostream>
 #include "ROVehicleType.h"
@@ -96,33 +97,33 @@ ROVehicle::getDepartureTime() const
 
 
 void
-ROVehicle::saveXMLVehicle(std::ostream * const os) const
+ROVehicle::saveXMLVehicle(OutputDevice &dev) const
 {
-    (*os) << "<vehicle id=\"" << myID << "\"";
+    dev << "<vehicle id=\"" << myID << "\"";
     if (myType!=0) {
-        (*os) << " type=\"" << myType->getID() << "\"";
+        dev << " type=\"" << myType->getID() << "\"";
     }
-    (*os) << " depart=\"" << myDepartTime << "\"";
+    dev << " depart=\"" << myDepartTime << "\"";
     if (myColor!=RGBColor(-1,-1,-1)) {
-        (*os) << " color=\"" << myColor << "\"";
+        dev << " color=\"" << myColor << "\"";
     }
     if (myRepetitionPeriod!=-1) {
-        (*os) << " period=\"" << myRepetitionPeriod << "\"";
-        (*os) << " repno=\"" << myRepetitionNumber << "\"";
+        dev << " period=\"" << myRepetitionPeriod << "\"";
+        dev << " repno=\"" << myRepetitionNumber << "\"";
     }
-    (*os) << ">" << endl;
+    dev << ">\n";
 }
 
 
 void
-ROVehicle::saveAllAsXML(std::ostream * const os,
-                        std::ostream * const altos,
+ROVehicle::saveAllAsXML(OutputDevice &os,
+                        OutputDevice * const altos,
                         const RORouteDef * const route) const
 {
     // check whether the vehicle's type was saved before
     if (myType!=0&&!myType->isSaved()) {
         // ... save if not
-        myType->xmlOut(*os);
+        myType->xmlOut(os);
         if (altos!=0) {
             myType->xmlOut(*altos);
         }
@@ -130,30 +131,30 @@ ROVehicle::saveAllAsXML(std::ostream * const os,
     }
 
     // write the vehicle (new style, with included routes)
-    (*os) << "   ";
+    os << "   ";
     saveXMLVehicle(os);
     if (altos!=0) {
         (*altos) << "   ";
-        saveXMLVehicle(altos);
+        saveXMLVehicle(*altos);
     }
 
     // check whether the route shall be saved
     if (!route->isSaved()) {
         // write the route
         const ROEdgeVector &routee = route->getCurrentEdgeVector();
-        (*os) << "      <route";
+        os << "      <route";
         const RGBColor &c = route->getColor();
         if (c!=RGBColor(-1,-1,-1)) {
-            (*os) << " color=\"" << c << "\"";
+            os << " color=\"" << c << "\"";
         }
-        (*os) << ">" << routee << "</route>" << endl;
+        os << ">" << routee << "</route>\n";
         // check whether the alternatives shall be written
         if (altos!=0) {
             (*altos) << "      <routealt last=\"" << myRoute->getLastUsedIndex() << "\"";
             if (c!=RGBColor(-1,-1,-1)) {
                 (*altos) << " color=\"" << c << "\"";
             }
-            (*altos) << ">" << endl;
+            (*altos) << ">\n";
             if (myRoute->getAlternativesSize()!=1) {
                 // ok, we have here a RORouteDef_Alternatives
                 for (size_t i=0; i!=myRoute->getAlternativesSize(); i++) {
@@ -163,21 +164,21 @@ ROVehicle::saveAllAsXML(std::ostream * const os,
                     (*altos) << "\" probability=\"" << alt.getProbability();
                     (*altos) << "\">";
                     alt.xmlOutEdges((*altos));
-                    (*altos) << "</route>" << endl;
+                    (*altos) << "</route>\n";
                 }
             } else {
                 // ok, only one alternative; let's write it plain
                 (*altos) << "         <route cost=\"" << routee.recomputeCosts(this, getDepartureTime());
                 (*altos) << "\" probability=\"1";
-                (*altos) << "\">" << routee << "</route>" << endl;
+                (*altos) << "\">" << routee << "</route>\n";
             }
-            (*altos) << "      </routealt>" << endl;
+            (*altos) << "      </routealt>\n";
         }
     }
 
-    (*os) << "   </vehicle>" << endl;
+    os << "   </vehicle>\n";
     if (altos!=0) {
-        (*altos) << "   </vehicle>" << endl;
+        (*altos) << "   </vehicle>\n";
     }
 }
 

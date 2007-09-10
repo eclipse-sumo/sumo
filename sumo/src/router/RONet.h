@@ -54,6 +54,7 @@ class RORouteDef;
 class ROVehicle;
 class OptionsCont;
 class ROAbstractEdgeBuilder;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -164,11 +165,6 @@ protected:
     /// Initialises the lists of source and destination edges
     void checkSourceAndDestinations();
 
-    /** @brief Builds a single output file checking it
-        If something went wrong on building, a ProcessError is thrown */
-    std::ofstream *buildOutput(const std::string &name);
-
-
 protected:
     /// Container for known vehicle ids
     typedef std::vector<std::string> VehIDCont; // should be something else
@@ -201,10 +197,10 @@ protected:
     std::vector<ROEdge*> myDestinationEdges;
 
     /// The file to write the computed routes into
-    std::ofstream *myRoutesOutput;
+    OutputDevice *myRoutesOutput;
 
     /// The file to write the computed route alternatives into
-    std::ofstream *myRouteAlternativesOutput;
+    OutputDevice *myRouteAlternativesOutput;
 
     /// number of read routes
     size_t myReadRouteNo;
