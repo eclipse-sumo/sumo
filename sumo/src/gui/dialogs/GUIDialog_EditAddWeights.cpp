@@ -50,6 +50,7 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -379,8 +380,9 @@ GUIDialog_EditAddWeights::onCmdSave(FXObject*,FXSelector,void*)
     gCurrentFolder = opendialog.getDirectory().text();
     string file = opendialog.getFilename().text();
     string content = encode2XML();
-    ofstream strm(file.c_str());
-    strm << content;
+    OutputDevice &dev = OutputDevice::getDevice(file);
+    dev << content;
+    dev.close();
     return 1;
 }
 

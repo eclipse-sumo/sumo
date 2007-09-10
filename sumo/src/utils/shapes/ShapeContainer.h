@@ -45,8 +45,6 @@ public:
 
     bool add(int layer, PointOfInterest *p);
 
-    bool save(const std::string &file);
-
     NamedObjectCont<Polygon2D*> &getPolygonCont(int layer) const;
     NamedObjectCont<PointOfInterest*> &getPOICont(int layer) const;
 

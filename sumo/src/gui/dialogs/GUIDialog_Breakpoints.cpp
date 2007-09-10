@@ -53,6 +53,7 @@
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -232,8 +233,9 @@ GUIDialog_Breakpoints::onCmdSave(FXObject*,FXSelector,void*)
     gCurrentFolder = opendialog.getDirectory().text();
     string file = opendialog.getFilename().text();
     string content = encode2TXT();
-    ofstream strm(file.c_str());
-    strm << content;
+    OutputDevice &dev = OutputDevice::getDevice(file);
+    dev << content;
+    dev.close();
     return 1;
 }
 

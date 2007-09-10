@@ -39,6 +39,7 @@
 // class declarations
 // ===========================================================================
 class GUIDialog_GLChosenEditor;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -120,7 +121,7 @@ public:
         void save(const std::string &filename);
 
         /// Saves the list to the given stream
-        void save(std::ofstream &strm);
+        void save(OutputDevice &dev);
 
         /// Returns the list of selected ids
         const std::vector<size_t> &getSelected() const;

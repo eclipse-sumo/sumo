@@ -34,6 +34,7 @@
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include "GUISelectedStorage.h"
 #include "GUIDialog_GLChosenEditor.h"
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -112,19 +113,20 @@ GUISelectedStorage::SingleTypeSelections::load(const std::string &filename)
 void
 GUISelectedStorage::SingleTypeSelections::save(const std::string &filename)
 {
-    ofstream strm(filename.c_str());
-    save(strm);
+    OutputDevice &dev = OutputDevice::getDevice(filename);
+    save(dev);
+    dev.close();
 }
 
 
 void
-GUISelectedStorage::SingleTypeSelections::save(std::ofstream &strm)
+GUISelectedStorage::SingleTypeSelections::save(OutputDevice &dev)
 {
     for (std::vector<size_t>::iterator i=mySelected.begin(); i!=mySelected.end(); ++i) {
         GUIGlObject *object = gIDStorage.getObjectBlocking(*i);
         if (object!=0) {
             std::string name = object->getFullName();
-            strm << name << endl;
+            dev << name << "\n";
             gIDStorage.unblockObject(*i);
         }
     }
