@@ -538,6 +538,11 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                                    bool emissionsOnly) const
 {
     // write the definition
+    try {
+        OutputDevice::getDevice(file);
+    } catch (IOError &) {
+        throw ProcessError("Can not write emitter definitions to file '" + file + "'.");
+    }
     OutputDevice& out = OutputDevice::getDevice(file);
 //    cout << "a1" << endl;
     // begin
@@ -701,6 +706,11 @@ RODFDetector::writeSingleSpeedTrigger(const std::string &file,
                                     SUMOTime startTime, SUMOTime endTime,
                                     SUMOTime stepOffset)
 {
+    try {
+        OutputDevice::getDevice(file);
+    } catch (IOError &) {
+        throw ProcessError("Can not write speed trigger values to file '" + file + "'.");
+    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("vss");
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
@@ -784,6 +794,11 @@ RODFDetectorCon::getDetectors() const
 void
 RODFDetectorCon::save(const std::string &file) const
 {
+    try {
+        OutputDevice::getDevice(file);
+    } catch (IOError &) {
+        throw ProcessError("Can not write detectors to file '" + file + "'.");
+    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("detectors");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -815,6 +830,11 @@ RODFDetectorCon::save(const std::string &file) const
 void
 RODFDetectorCon::saveAsPOIs(const std::string &file) const
 {
+    try {
+        OutputDevice::getDevice(file);
+    } catch (IOError &) {
+        throw ProcessError("Can not write pois to file '" + file + "'.");
+    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("pois");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -845,6 +865,11 @@ RODFDetectorCon::saveAsPOIs(const std::string &file) const
 void
 RODFDetectorCon::saveRoutes(const std::string &file) const
 {
+    try {
+        OutputDevice::getDevice(file);
+    } catch (IOError &) {
+        throw ProcessError("Can not write routes to file '" + file + "'.");
+    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("routes");
     std::vector<std::string> saved;
@@ -893,6 +918,11 @@ RODFDetectorCon::writeEmitters(const std::string &file,
                              int maxFollower,
                              bool emissionsOnly)
 {
+    try {
+        OutputDevice::getDevice(file);
+    } catch (IOError &) {
+        throw ProcessError("Can not write emitter definitions to file '" + file + "'.");
+    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -964,6 +994,11 @@ RODFDetectorCon::writeEmitterPOIs(const std::string &file,
                                 SUMOTime startTime, SUMOTime endTime,
                                 SUMOTime stepOffset)
 {
+    try {
+        OutputDevice::getDevice(file);
+    } catch (IOError &) {
+        throw ProcessError("Can not write emitter pois to file '" + file + "'.");
+    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -1078,6 +1113,11 @@ RODFDetectorCon::writeSpeedTrigger(const std::string &file,
                                  SUMOTime startTime, SUMOTime endTime,
                                  SUMOTime stepOffset)
 {
+    try {
+        OutputDevice::getDevice(file);
+    } catch (IOError &) {
+        throw ProcessError("Can not write speed trigger definitions to file '" + file + "'.");
+    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -1100,6 +1140,11 @@ RODFDetectorCon::writeSpeedTrigger(const std::string &file,
 void
 RODFDetectorCon::writeEndRerouterDetectors(const std::string &file)
 {
+    try {
+        OutputDevice::getDevice(file);
+    } catch (IOError &) {
+        throw ProcessError("Can not write end rerouter definitions to file '" + file + "'.");
+    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -1121,6 +1166,11 @@ RODFDetectorCon::writeValidationDetectors(const std::string &file,
                                         bool includeSources,
                                         bool singleFile, bool friendly)
 {
+    try {
+        OutputDevice::getDevice(file);
+    } catch (IOError &) {
+        throw ProcessError("Can not write validation detectors to file '" + file + "'.");
+    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {

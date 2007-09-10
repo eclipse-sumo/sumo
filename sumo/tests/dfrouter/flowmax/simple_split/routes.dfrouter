@@ -1,3 +1,22 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/10/07 09:25:35 by SUMO dfrouter Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <detector-files>input_detectors.det.xml</detector-files>
+      <detector-flow-files>input_flows.txt</detector-flow-files>
+   </input>
+
+   <output>
+      <routes-output>routes.rou.xml</routes-output>
+      <emitters-output>emitters.add.xml</emitters-output>
+   </output>
+
+</configuration>
+-->
+
 <routes>
 
    <route id="1to2_to_9to10" multi_ref="x">1to2 2to9split 9to10</route>
