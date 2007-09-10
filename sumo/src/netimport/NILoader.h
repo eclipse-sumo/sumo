@@ -87,9 +87,6 @@ private:
     void loadXMLType(SUMOSAXHandler *handler,
                      const std::vector<std::string> &files, const std::string &type);
 
-    /** loads data from cell-input-files */
-    void loadCell(OptionsCont &oc);
-
     /** reads using a file reader */
     bool useLineReader(LineReader &lr, const std::string &file,
                        LineHandler &lh);

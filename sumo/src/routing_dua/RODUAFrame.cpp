@@ -96,19 +96,6 @@ RODUAFrame::addImportOptions()
     oc.addSynonyme("sumo", "sumo-input");
     oc.addDescription("sumo-input", "Input", "Read sumo-routes from FILE");
 
-    oc.doRegister("cell-input", new Option_FileName());
-    oc.addSynonyme("cell", "cell-input");
-    oc.addDescription("cell-input", "Input", "Read cell-routes from FILE");
-
-    oc.doRegister("save-cell-rindex", new Option_Bool(false));
-    oc.addDescription("save-cell-rindex", "Input", "Save Cell route indices");
-
-    oc.doRegister("intel-cell", new Option_Bool(false));
-    oc.addDescription("intel-cell", "Input", "Flip byte order on reading Cell-routes");
-
-    oc.doRegister("no-last-cell", new Option_Bool(false));
-    oc.addDescription("no-last-cell", "Input", "Use best, not the last cell-route");
-
 
     // register further processing options
     // ! The subtopic "Processing" must be initialised earlier !

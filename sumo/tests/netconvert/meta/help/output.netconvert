@@ -29,8 +29,6 @@ Usage: netconvert.exe [OPTION]*
   --elmar2 FILE                        Read unsplitted Elmar-network from path
                                          'FILE'
   --tiger FILE                         Read Tiger-network from path 'FILE'
-  --cell-node-file FILE                Read Cell-nodes from FILE
-  --cell-edge-file FILE                Read Cell-edges from FILE
   --visum-file FILE                    Read VISUM-net from FILE
   --vissim-file FILE                   Read VISSIM-net from FILE
 

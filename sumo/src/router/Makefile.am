@@ -2,7 +2,7 @@ noinst_LIBRARIES = librouter.a
 
 EXTRA_DIST = ReferencedItem.h
 
-librouter_a_SOURCES = CellDriverInfoParser.cpp CellDriverInfoParser.h \
+librouter_a_SOURCES = \
 ROAbstractEdgeBuilder.h \
 ROAbstractRouteDefLoader.cpp ROAbstractRouteDefLoader.h \
 ROAbstractRouter.h ROEdge.cpp ROEdge.h \
@@ -12,7 +12,6 @@ ROLoader.cpp ROLoader.h RONet.cpp RONet.h RONetHandler.cpp RONetHandler.h \
 RONode.cpp RONode.h RONodeCont.h \
 RORDGenerator_ODAmounts.cpp RORDGenerator_ODAmounts.h \
 RORDGenerator_Random.cpp RORDGenerator_Random.h \
-RORDLoader_Cell.cpp RORDLoader_Cell.h \
 RORDLoader_SUMOAlt.cpp RORDLoader_SUMOAlt.h \
 RORDLoader_SUMOBase.cpp RORDLoader_SUMOBase.h \
 RORDLoader_SUMORoutes.cpp RORDLoader_SUMORoutes.h \

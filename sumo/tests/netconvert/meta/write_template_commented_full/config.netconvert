@@ -28,12 +28,6 @@
       <!-- Read Tiger-network from path 'FILE' -->
       <tiger></tiger>
 
-      <!-- Read Cell-nodes from FILE -->
-      <cell-node-file></cell-node-file>
-
-      <!-- Read Cell-edges from FILE -->
-      <cell-edge-file></cell-edge-file>
-
       <!-- Read VISUM-net from FILE -->
       <visum-file></visum-file>
 

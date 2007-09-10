@@ -22,18 +22,6 @@
       <!-- Read sumo-routes from FILE -->
       <sumo-input></sumo-input>
 
-      <!-- Read cell-routes from FILE -->
-      <cell-input></cell-input>
-
-      <!-- Save Cell route indices -->
-      <save-cell-rindex>false</save-cell-rindex>
-
-      <!-- Flip byte order on reading Cell-routes -->
-      <intel-cell>false</intel-cell>
-
-      <!-- Use best, not the last cell-route -->
-      <no-last-cell>false</no-last-cell>
-
       <!-- Read additional weights from FILE -->
       <supplementary-weights></supplementary-weights>
 

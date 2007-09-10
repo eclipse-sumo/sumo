@@ -50,8 +50,6 @@
 #include <netimport/xml/NIXMLNodesHandler.h>
 #include <netimport/xml/NIXMLTypesHandler.h>
 #include <netimport/xml/NIXMLConnectionsHandler.h>
-#include <netimport/cell/NICellNodesHandler.h>
-#include <netimport/cell/NICellEdgesHandler.h>
 #include <netimport/elmar/NIElmarNodesHandler.h>
 #include <netimport/elmar/NIElmarEdgesHandler.h>
 #include <netimport/elmar2/NIElmar2NodesHandler.h>
@@ -112,7 +110,6 @@ NILoader::load(OptionsCont &oc)
     loadXMLType(handler, oc.getStringVector("xml-type-files"), "types");
     // try to load using different methods
     loadSUMO(oc);
-    loadCell(oc);
     loadVisum(oc);
     loadArcView(oc);
     loadVissim(oc);
@@ -227,37 +224,6 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const vector<string> &files,
     delete handler;
     if (exceptMsg != "") {
         throw ProcessError(exceptMsg);
-    }
-}
-
-
-void
-NILoader::loadCell(OptionsCont &oc)
-{
-    LineReader lr;
-    // load nodes
-    if (oc.isSet("cell-node-file")) {
-        MsgHandler::getMessageInstance()->beginProcessMsg("Loading nodes... ");
-        string file = oc.getString("cell-node-file");
-        NICellNodesHandler handler(myNetBuilder.getNodeCont(), file);
-        if (!useLineReader(lr, file, handler)) {
-            throw ProcessError();
-        }
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
-    }
-    // load edges
-    if (oc.isSet("cell-edge-file")) {
-        MsgHandler::getMessageInstance()->beginProcessMsg("Loading edges... ");
-        string file = oc.getString("cell-edge-file");
-        // parse the file
-        NICellEdgesHandler handler(myNetBuilder.getNodeCont(),
-                                   myNetBuilder.getEdgeCont(),
-                                   myNetBuilder.getTypeCont(),
-                                   file, NBCapacity2Lanes(oc.getFloat("N")));
-        if (!useLineReader(lr, file, handler)) {
-            throw ProcessError();
-        }
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
 }
 

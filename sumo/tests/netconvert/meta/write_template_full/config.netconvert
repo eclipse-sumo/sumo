@@ -10,8 +10,6 @@
       <elmar></elmar>
       <elmar2></elmar2>
       <tiger></tiger>
-      <cell-node-file></cell-node-file>
-      <cell-edge-file></cell-edge-file>
       <visum-file></visum-file>
       <vissim-file></vissim-file>
    </input>

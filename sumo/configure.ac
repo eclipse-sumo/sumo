@@ -360,7 +360,6 @@ src/netedit/Makefile
 src/netgen/Makefile
 src/netimport/Makefile
 src/netimport/arcview/Makefile
-src/netimport/cell/Makefile
 src/netimport/elmar/Makefile
 src/netimport/elmar2/Makefile
 src/netimport/sumo/Makefile

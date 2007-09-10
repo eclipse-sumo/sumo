@@ -111,14 +111,6 @@ NIOptionsIO::fillOptions()
     oc.doRegister("tiger", new Option_FileName());
     oc.addDescription("tiger", "Input", "Read Tiger-network from path 'FILE'");
 
-    oc.doRegister("cell-node-file", new Option_FileName());
-    oc.addSynonyme("cell-node-file", "cell-nodes");
-    oc.addDescription("cell-node-file", "Input", "Read Cell-nodes from FILE");
-
-    oc.doRegister("cell-edge-file", new Option_FileName());
-    oc.addSynonyme("cell-edge-file", "cell-edges");
-    oc.addDescription("cell-edge-file", "Input", "Read Cell-edges from FILE");
-
     oc.doRegister("visum-file", new Option_FileName());
     oc.addSynonyme("visum-file", "visum");
     oc.addDescription("visum-file", "Input", "Read VISUM-net from FILE");
@@ -212,7 +204,6 @@ NIOptionsIO::checkNodes()
     // check the existance of a name for the nodes file
     if (oc.isSet("n") ||
             oc.isSet("e") ||
-            oc.isSet("cell-nodes") ||
             oc.isSet("visum") ||
             oc.isSet("vissim") ||
             oc.isSet("tiger") ||
@@ -232,7 +223,6 @@ NIOptionsIO::checkEdges()
     OptionsCont &oc = OptionsCont::getOptions();
     // check whether at least a sections or a edges file is supplied
     if (oc.isSet("e") ||
-            oc.isSet("cell-edges") ||
             oc.isSet("visum") ||
             oc.isSet("vissim") ||
             oc.isSet("arcview") ||

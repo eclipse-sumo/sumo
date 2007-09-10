@@ -8,10 +8,6 @@
       <trip-defs></trip-defs>
       <flow-definition></flow-definition>
       <sumo-input></sumo-input>
-      <cell-input></cell-input>
-      <save-cell-rindex>false</save-cell-rindex>
-      <intel-cell>false</intel-cell>
-      <no-last-cell>false</no-last-cell>
       <supplementary-weights></supplementary-weights>
    </input>
 
