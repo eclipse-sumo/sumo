@@ -964,29 +964,6 @@ RODFDetectorCon::writeEmitters(const std::string &file,
     out.close();
 }
 
-/*
-void
-RODFDetectorCon::writeVehicles(const std::string &file,
-                             const RODFDetectorFlows &flows,
-                             SUMOTime startTime, SUMOTime endTime,
-                             SUMOTime stepOffset, bool writeCalibrators)
-{
-    ofstream strm(file.c_str());
-    if (!strm.good()) {
-        throw ProcessError("Could not open file '" + file + "'.");
-
-    }
-    strm << "<routes>" << endl;
-    for(SUMOTime t=startTime; t<endTime; t++) {
-        for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
-            RODFDetector *det = *i;
-            det->writeVehicles(defFileName, *this, flows, t);
-            strm << endl;
-        }
-    }
-    strm << "</routes>" << endl;
-}
-*/
 
 void
 RODFDetectorCon::writeEmitterPOIs(const std::string &file,

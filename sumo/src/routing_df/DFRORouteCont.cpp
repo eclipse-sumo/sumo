@@ -160,15 +160,6 @@ bool
 DFRORouteCont::save(std::vector<std::string> &saved,
                     const std::string &prependix, OutputDevice& out)
 {
-    /*
-       ofstream strm(file.c_str());
-       if(!strm.good()) {
-           return false;
-       }
-       //strm << "<routes>" << endl;
-    //    for(std::map<ROEdge*, std::vector<DFRORouteDesc> >::iterator i=myRoutes.begin(); i!=myRoutes.end(); ++i) {
-    //        const std::vector<DFRORouteDesc> &routes = (*i).second;
-    */
     bool haveSavedOnAtLeast = false;
     for (std::vector<DFRORouteDesc*>::const_iterator j=myRoutes.begin(); j!=myRoutes.end(); ++j) {
         const DFRORouteDesc *desc = (*j);
