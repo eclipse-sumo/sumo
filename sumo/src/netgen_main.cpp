@@ -50,6 +50,7 @@
 #include <utils/common/ToString.h>
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -74,8 +75,9 @@ checkOptions()
         MsgHandler::getErrorInstance()->inform("No output specified.");
         return false;
     }
-    std::ofstream tst(oc.getString("output-file").c_str());
-    if (!tst.good()) {
+    try {
+        OutputDevice::getDevice(oc.getString("output-file"));
+    } catch (IOError &) {
         MsgHandler::getErrorInstance()->inform("The output file '" + oc.getString("output-file") + "' can not be build.");
         return false;
     }
