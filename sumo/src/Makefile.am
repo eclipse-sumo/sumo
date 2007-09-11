@@ -198,15 +198,12 @@ $(sumo_LDADD) \
 endif
 
 
-SUBDIRS = foreign microsim netbuild netedit netgen netimport netload \
+SUBDIRS = foreign microsim netbuild netgen netimport netload \
 od2trips polyconvert router routing_df routing_dua routing_jtr sumo_only \
 tools utils $(GUI_DIRS) $(ITM_DIRS)
 
 EXTRA_DIST = config.h config.h.in \
-giant_main.cpp \
 guisim.rc \
-netedit_main.cpp \
-tagreader.cpp \
 windows_config.h
 
 if WITH_VERSION_H
