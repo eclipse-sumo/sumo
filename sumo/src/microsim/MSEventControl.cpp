@@ -94,7 +94,13 @@ MSEventControl::execute(SUMOTime execTime)
 
             Command *command = currEvent.first;
             myEvents.pop();
-            SUMOTime time = command->execute(execTime);
+            SUMOTime time = 0;
+            try {
+                time = command->execute(execTime);
+            } catch (...) {
+                delete command;
+                throw;
+            }
 
             // Delete nonrecurring events, reinsert recurring ones
             // with new execution time = execTime + returned offset.

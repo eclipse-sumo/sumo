@@ -73,6 +73,7 @@ NLEdgeControlBuilder::~NLEdgeControlBuilder()
 {
     delete m_pLaneStorage;
     delete m_pEdges;
+    delete m_pLanes;
 }
 
 
@@ -226,6 +227,7 @@ NLEdgeControlBuilder::closeEdge()
     }
     m_pActiveEdge->initialize(m_pAllowedLanes, m_pDepartLane,
                               m_pLanes, m_Function);
+    m_pLanes = 0;
     return m_pActiveEdge;
 }
 

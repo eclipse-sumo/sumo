@@ -121,6 +121,7 @@ main(int argc, char **argv)
     oc.setApplicationName("sumo", "SUMO sumo Version " + (string)VERSION_STRING);
 #endif
     int ret = 0;
+    MSNet *net = 0;
     try {
         // initialise subsystems
         XMLSubSys::init();
@@ -134,7 +135,7 @@ main(int argc, char **argv)
         if (!SUMOFrame::checkOptions()) throw ProcessError();
         RandHelper::initRandGlobal();
         // load the net
-        MSNet *net = load(oc);
+        net = load(oc);
         if (net!=0) {
 #ifdef ITM
             if (oc.getInt("remote-port") != 0) {
@@ -154,8 +155,6 @@ main(int argc, char **argv)
 #ifdef ITM
             }
 #endif
-            delete net;
-            OutputDevice::closeAll();
         }
     } catch (ProcessError &e) {
         if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
@@ -165,12 +164,12 @@ main(int argc, char **argv)
         ret = 1;
 #ifndef _DEBUG
     } catch (...) {
-        MSNet::clearAll();
-        OutputDevice::closeAll();
         MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;
 #endif
     }
+    delete net;
+    OutputDevice::closeAll();
     SystemFrame::close();
     return ret;
 }

@@ -373,6 +373,7 @@ main(int argc, char **argv)
         ret = 1;
 #endif
     }
+    OutputDevice::closeAll();
     SystemFrame::close();
     if (ret==0) {
         cout << "Success." << endl;
