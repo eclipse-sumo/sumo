@@ -2031,7 +2031,7 @@ NBEdge::computeEdgeShape()
             // get the intersection position with the junction
             DoubleVector pbv = myLaneGeoms[i].intersectsAtLengths(myFrom->getShape());
             if (pbv.size()>0) {
-                SUMOReal pb = DoubleVectorHelper::maxValue(pbv);
+                SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
                 if (pb>=0&&pb<=myLaneGeoms[i].length()) {
                     myLaneGeoms[i] = myLaneGeoms[i].getSubpart(pb, myLaneGeoms[i].length());
                 }
@@ -2039,7 +2039,7 @@ NBEdge::computeEdgeShape()
         } else if (myFrom->getShape().intersects(lb.p1(), lb.p2())) {
             DoubleVector pbv = lb.intersectsAtLengths(myFrom->getShape());
             if (pbv.size()>0) {
-                SUMOReal pb = DoubleVectorHelper::maxValue(pbv);
+                SUMOReal pb = VectorHelper<SUMOReal>::maxValue(pbv);
                 if (pb>=0) {
                     myLaneGeoms[i].eraseAt(0);
                     myLaneGeoms[i].push_front_noDoublePos(lb.getPositionAtDistance(pb));
@@ -2051,7 +2051,7 @@ NBEdge::computeEdgeShape()
             // get the intersection position with the junction
             DoubleVector pev = myLaneGeoms[i].intersectsAtLengths(myTo->getShape());
             if (pev.size()>0) {
-                SUMOReal pe = DoubleVectorHelper::minValue(pev);
+                SUMOReal pe = VectorHelper<SUMOReal>::minValue(pev);
                 if (pe>=0&&pe<=myLaneGeoms[i].length()) {
                     myLaneGeoms[i] = myLaneGeoms[i].getSubpart(0, pe);
                 }
@@ -2059,7 +2059,7 @@ NBEdge::computeEdgeShape()
         } else if (myTo->getShape().intersects(le.p1(), le.p2())) {
             DoubleVector pev = le.intersectsAtLengths(myTo->getShape());
             if (pev.size()>0) {
-                SUMOReal pe = DoubleVectorHelper::maxValue(pev);
+                SUMOReal pe = VectorHelper<SUMOReal>::maxValue(pev);
                 if (pe>=0) {
                     myLaneGeoms[i].eraseAt(myLaneGeoms[i].size()-1);
                     myLaneGeoms[i].push_back_noDoublePos(le.getPositionAtDistance(pe));
@@ -2130,7 +2130,7 @@ NBEdge::isNearEnough2BeJoined2(NBEdge *e)
     if (distances.size()==0) {
         distances = e->getGeometry().distancesExt(myGeom);
     }
-    SUMOReal max = DoubleVectorHelper::maxValue(distances);
+    SUMOReal max = VectorHelper<SUMOReal>::maxValue(distances);
     return max<7;
 }
 

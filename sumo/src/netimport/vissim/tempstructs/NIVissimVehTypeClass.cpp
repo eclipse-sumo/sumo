@@ -28,10 +28,9 @@
 #include <config.h>
 #endif
 
-
 #include <string>
 #include <utils/gfx/RGBColor.h>
-#include <utils/common/IntVector.h>
+#include <utils/common/VectorHelper.h>
 #include "NIVissimVehTypeClass.h"
 
 #ifdef CHECK_MEMORY_LEAKS

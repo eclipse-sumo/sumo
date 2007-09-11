@@ -36,7 +36,7 @@
 #include <utility>
 #include <set>
 #include <utils/common/Named.h>
-#include <utils/common/DoubleVector.h>
+#include <utils/common/VectorHelper.h>
 #include "NBCont.h"
 #include "NBConnection.h"
 #include "NBConnectionDefs.h"

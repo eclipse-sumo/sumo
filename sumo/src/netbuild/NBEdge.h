@@ -35,8 +35,7 @@
 #include <string>
 #include <set>
 #include "NBCont.h"
-#include <utils/common/IntVector.h>
-#include <utils/common/BoolVector.h>
+#include <utils/common/VectorHelper.h>
 #include <utils/geom/Bresenham.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/Line2D.h>

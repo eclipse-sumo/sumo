@@ -28,9 +28,8 @@
 #include <config.h>
 #endif
 
-
 #include <string>
-#include <utils/common/IntVector.h>
+#include <utils/common/VectorHelper.h>
 #include "NIVissimClosures.h"
 
 #ifdef CHECK_MEMORY_LEAKS

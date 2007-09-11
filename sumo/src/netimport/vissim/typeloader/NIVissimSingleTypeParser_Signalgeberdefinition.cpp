@@ -33,7 +33,7 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/IntVector.h>
+#include <utils/common/VectorHelper.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimTL.h"
 #include "NIVissimSingleTypeParser_Signalgeberdefinition.h"

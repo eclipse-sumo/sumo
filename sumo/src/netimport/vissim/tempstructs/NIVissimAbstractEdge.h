@@ -30,10 +30,10 @@
 #include <config.h>
 #endif
 
-
 #include <map>
-#include <utils/common/IntVector.h>
+#include <utils/common/VectorHelper.h>
 #include <utils/geom/Position2DVector.h>
+
 
 // ===========================================================================
 // class definitions

@@ -31,7 +31,8 @@
 #endif
 
 #include "Position2D.h"
-#include <utils/common/DoubleVector.h>
+#include <utils/common/VectorHelper.h>
+
 
 // ===========================================================================
 // class declarations

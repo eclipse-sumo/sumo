@@ -30,10 +30,10 @@
 #include <config.h>
 #endif
 
-
 #include <string>
 #include <map>
-#include <utils/common/IntVector.h>
+#include <utils/common/VectorHelper.h>
+
 
 // ===========================================================================
 // class definitions

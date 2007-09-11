@@ -33,8 +33,7 @@
 #include <map>
 #include <string>
 #include <utils/geom/Position2D.h>
-#include <utils/common/IntVector.h>
-#include <utils/common/DoubleVector.h>
+#include <utils/common/VectorHelper.h>
 
 
 class NBDistrictCont;

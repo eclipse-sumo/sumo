@@ -28,13 +28,12 @@
 #include <config.h>
 #endif
 
-
 #include <algorithm>
 #include <iostream>
 #include <cassert>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/GeomHelper.h>
-#include <utils/common/IntVector.h>
+#include <utils/common/VectorHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include "NIVissimConnection.h"
@@ -154,8 +153,8 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
         myIncomingEdges.push_back(c->getFromEdgeID());
         assert(c->getFromEdgeID()==edgeid||c->getToEdgeID()==edgeid);
     }
-    IntVectorHelper::removeDouble(myIncomingEdges);
-    IntVectorHelper::removeDouble(myOutgoingEdges);
+    VectorHelper<int>::removeDouble(myIncomingEdges);
+    VectorHelper<int>::removeDouble(myOutgoingEdges);
 }
 
 
@@ -178,8 +177,8 @@ NIVissimConnectionCluster::NIVissimConnectionCluster(
                ||
                find(edges.begin(), edges.end(), c->getToEdgeID())!=edges.end());
     }
-    IntVectorHelper::removeDouble(myIncomingEdges);
-    IntVectorHelper::removeDouble(myOutgoingEdges);
+    VectorHelper<int>::removeDouble(myIncomingEdges);
+    VectorHelper<int>::removeDouble(myOutgoingEdges);
 }
 
 
@@ -214,7 +213,7 @@ NIVissimConnectionCluster::add(NIVissimConnectionCluster *c)
     for (IntVector::iterator i=c->myConnections.begin(); i!=c->myConnections.end(); i++) {
         myConnections.push_back(*i);
     }
-    IntVectorHelper::removeDouble(myConnections);
+    VectorHelper<int>::removeDouble(myConnections);
     assert(myNodeCluster==-1||c->myNodeCluster==-1);
     if (myNodeCluster==-1) {
         myNodeCluster = c->myNodeCluster;
@@ -229,9 +228,9 @@ NIVissimConnectionCluster::add(NIVissimConnectionCluster *c)
          back_inserter(myIncomingEdges));
     copy(c->myOutgoingEdges.begin(), c->myOutgoingEdges.end(),
          back_inserter(myOutgoingEdges));
-    IntVectorHelper::removeDouble(myEdges);
-    IntVectorHelper::removeDouble(myIncomingEdges);
-    IntVectorHelper::removeDouble(myOutgoingEdges);
+    VectorHelper<int>::removeDouble(myEdges);
+    VectorHelper<int>::removeDouble(myIncomingEdges);
+    VectorHelper<int>::removeDouble(myOutgoingEdges);
 }
 
 
@@ -384,7 +383,7 @@ bool
 NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, SUMOReal offset)
 {
     // join clusters which have at least one connection in common
-    if (IntVectorHelper::subSetExists(myConnections, c2->myConnections)) {
+    if (VectorHelper<int>::subSetExists(myConnections, c2->myConnections)) {
         return true;
     }
 
@@ -399,9 +398,9 @@ NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, SUMOReal offs
     }
 
     // join clusters which where connections do disturb each other
-    if (IntVectorHelper::subSetExists(c2->getDisturbanceParticipators(), myConnections)
+    if (VectorHelper<int>::subSetExists(c2->getDisturbanceParticipators(), myConnections)
             ||
-            IntVectorHelper::subSetExists(getDisturbanceParticipators(), c2->myConnections)) {
+            VectorHelper<int>::subSetExists(getDisturbanceParticipators(), c2->myConnections)) {
 
         return true;
     }
@@ -428,9 +427,9 @@ NIVissimConnectionCluster::joinable(NIVissimConnectionCluster *c2, SUMOReal offs
         extendedIncoming2 = c2->myOutgoingEdges;
     }
 
-    if (IntVectorHelper::subSetExists(extendedOutgoing1, extendedOutgoing2)
+    if (VectorHelper<int>::subSetExists(extendedOutgoing1, extendedOutgoing2)
             ||
-            IntVectorHelper::subSetExists(extendedIncoming1, extendedIncoming2)
+            VectorHelper<int>::subSetExists(extendedIncoming1, extendedIncoming2)
        ) {
         return true;
     }

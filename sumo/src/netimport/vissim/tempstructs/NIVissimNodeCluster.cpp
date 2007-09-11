@@ -32,7 +32,7 @@
 #include <map>
 #include <algorithm>
 #include <cassert>
-#include <utils/common/IntVector.h>
+#include <utils/common/VectorHelper.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/Position2DVector.h>
 #include <netbuild/nodes/NBNode.h>

@@ -238,7 +238,7 @@ NIVissimEdge::buildConnectionClusters()
                 if (n_outgoing==outgoing && fabs(n_position-position)<10) {
                     currentCluster.push_back(*(j+1));
                 } else {
-                    IntVectorHelper::removeDouble(currentCluster);
+                    VectorHelper<int>::removeDouble(currentCluster);
                     (*i).second->myConnectionClusters.push_back(
                         new NIVissimConnectionCluster(currentCluster, -1,
                                                       (*i).second->myID));
@@ -251,7 +251,7 @@ NIVissimEdge::buildConnectionClusters()
             j++;
         } while (j!=connectors.end());
         if (currentCluster.size()>0) {
-            IntVectorHelper::removeDouble(currentCluster);
+            VectorHelper<int>::removeDouble(currentCluster);
             (*i).second->myConnectionClusters.push_back(
                 new NIVissimConnectionCluster(currentCluster, -1,
                                               (*i).second->myID));

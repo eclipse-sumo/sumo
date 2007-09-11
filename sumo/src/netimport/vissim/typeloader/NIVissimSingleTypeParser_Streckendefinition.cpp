@@ -30,7 +30,7 @@
 
 #include <iostream>
 #include <utils/common/TplConvert.h>
-#include <utils/common/IntVector.h>
+#include <utils/common/VectorHelper.h>
 #include <utils/geom/Position2DVector.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimEdge.h"

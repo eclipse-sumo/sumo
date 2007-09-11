@@ -36,8 +36,7 @@
 #include <vector>
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/AbstractPoly.h>
-#include <utils/common/IntVector.h>
-#include <utils/common/DoubleVector.h>
+#include <utils/common/VectorHelper.h>
 #include <utils/common/SUMOTime.h>
 
 

@@ -28,8 +28,7 @@
 #include <config.h>
 #endif
 
-
-#include <utils/common/IntVector.h>
+#include <utils/common/VectorHelper.h>
 #include "NIVissimClosedLaneDef.h"
 
 #ifdef CHECK_MEMORY_LEAKS

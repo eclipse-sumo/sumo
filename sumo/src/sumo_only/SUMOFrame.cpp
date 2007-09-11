@@ -156,8 +156,12 @@ SUMOFrame::fillOptions()
     oc.doRegister("end", 'e', new Option_Integer(86400));
     oc.addDescription("end", "Time", "Defines the end time; The simulation ends at this time");
 
+#ifdef HAVE_SUBSECOND_TIMESTEPS
+#ifdef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
     oc.doRegister("step-length", new Option_Float(.1));
     oc.addDescription("step-length", "Time", "Defines the step duration");
+#endif
+#endif
 
 
     // register the processing options

@@ -36,7 +36,7 @@
 #include <string>
 #include <set>
 #include <utils/common/Named.h>
-#include <utils/common/DoubleVector.h>
+#include <utils/common/VectorHelper.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Line2D.h>
 #include <utils/geom/Position2DVector.h>

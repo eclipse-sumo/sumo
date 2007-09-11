@@ -30,8 +30,8 @@
 #include <config.h>
 #endif
 
+#include <utils/common/VectorHelper.h>
 
-#include <utils/common/IntVector.h>
 
 // ===========================================================================
 // class definitions

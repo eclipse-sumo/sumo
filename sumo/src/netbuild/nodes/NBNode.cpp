@@ -1348,15 +1348,15 @@ NBNode::computeNodeShape()
 SUMOReal
 NBNode::chooseLaneOffset(DoubleVector &chk)
 {
-    return DoubleVectorHelper::minValue(chk);
+    return VectorHelper<SUMOReal>::minValue(chk);
 }
 
 
 SUMOReal
 NBNode::chooseLaneOffset2(DoubleVector &chk)
 {
-    DoubleVectorHelper::remove_larger_than(chk, 100);
-    SUMOReal max = DoubleVectorHelper::maxValue(chk);
+    VectorHelper<SUMOReal>::remove_larger_than(chk, 100);
+    SUMOReal max = VectorHelper<SUMOReal>::maxValue(chk);
     return 100-max+100;
 }
 
@@ -1367,7 +1367,7 @@ NBNode::getOffset(Position2DVector on, Position2DVector cross) const
         DoubleVector posses = on.intersectsAtLengths(cross);
         assert(posses.size()>0);
         // heuristic
-        SUMOReal val = DoubleVectorHelper::maxValue(posses);
+        SUMOReal val = VectorHelper<SUMOReal>::maxValue(posses);
         if (val<50) {
             return val;
         }
@@ -1376,7 +1376,7 @@ NBNode::getOffset(Position2DVector on, Position2DVector cross) const
         if (on.intersects(cross)) {
             DoubleVector posses = on.intersectsAtLengths(cross);
             assert(posses.size()>0);
-            return DoubleVectorHelper::minValue(posses) - 10;
+            return VectorHelper<SUMOReal>::minValue(posses) - 10;
         }
     }
     on.extrapolate(10);
@@ -1384,7 +1384,7 @@ NBNode::getOffset(Position2DVector on, Position2DVector cross) const
     if (on.intersects(cross)) {
         DoubleVector posses = on.intersectsAtLengths(cross);
         assert(posses.size()>0);
-        return DoubleVectorHelper::maxValue(posses) - 10;
+        return VectorHelper<SUMOReal>::maxValue(posses) - 10;
     }
     return -1;
 }

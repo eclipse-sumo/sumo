@@ -28,12 +28,11 @@
 #include <config.h>
 #endif
 
-
 #include <string>
 #include <map>
 #include <iostream>
 #include <cassert>
-#include <utils/common/IntVector.h>
+#include <utils/common/VectorHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include "NIVissimExtendedEdgePoint.h"

@@ -32,7 +32,7 @@
 
 #include <queue>
 #include <iostream>
-#include <utils/common/DoubleVector.h>
+#include <utils/common/VectorHelper.h>
 #include "AbstractPoly.h"
 #include "Boundary.h"
 #include "Position2D.h"

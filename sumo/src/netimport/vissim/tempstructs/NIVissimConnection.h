@@ -30,10 +30,9 @@
 #include <config.h>
 #endif
 
-
 #include <string>
 #include <map>
-#include <utils/common/IntVector.h>
+#include <utils/common/VectorHelper.h>
 #include "NIVissimExtendedEdgePoint.h"
 #include <utils/geom/Position2D.h>
 #include <utils/geom/AbstractPoly.h>

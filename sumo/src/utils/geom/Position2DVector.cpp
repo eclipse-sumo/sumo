@@ -838,7 +838,7 @@ Position2DVector::intersectsAtLengths(const Position2DVector &s) const
     for (ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
         Line2D l((*i), *(i+1));
         DoubleVector atSegment = l.intersectsAtLengths(s);
-        DoubleVectorHelper::add2All(atSegment, pos);
+        VectorHelper<SUMOReal>::add2All(atSegment, pos);
         copy(atSegment.begin(), atSegment.end(), back_inserter(ret));
         pos += l.length();
     }

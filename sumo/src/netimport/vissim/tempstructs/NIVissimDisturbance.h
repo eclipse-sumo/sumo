@@ -30,15 +30,15 @@
 #include <config.h>
 #endif
 
-
 #include <map>
 #include <string>
-#include <utils/common/IntVector.h>
+#include <utils/common/VectorHelper.h>
 #include <utils/geom/AbstractPoly.h>
 #include <netbuild/NBConnection.h>
 #include "NIVissimExtendedEdgePoint.h"
 #include "NIVissimBoundedClusterObject.h"
 #include "NIVissimNodeParticipatingEdgeVector.h"
+
 
 // ===========================================================================
 // class declarations

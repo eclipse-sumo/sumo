@@ -30,7 +30,7 @@
 #include <config.h>
 #endif
 
-#include <utils/common/DoubleVector.h>
+#include <utils/common/VectorHelper.h>
 #include <string>
 #include <utility>
 #include <microsim/MSEdge.h>

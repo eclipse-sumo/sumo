@@ -36,10 +36,10 @@
 #include <map>
 #include <netbuild/NBEdge.h>
 #include <utils/geom/Position2DVector.h>
-#include <utils/common/IntVector.h>
-#include <utils/common/DoubleVector.h>
+#include <utils/common/VectorHelper.h>
 #include "NIVissimAbstractEdge.h"
 #include "NIVissimClosedLanesVector.h"
+
 
 // ===========================================================================
 // class declarations

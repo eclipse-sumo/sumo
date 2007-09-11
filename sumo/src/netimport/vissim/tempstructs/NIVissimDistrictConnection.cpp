@@ -32,7 +32,7 @@
 #include <string>
 #include <algorithm>
 #include <cassert>
-#include <utils/common/IntVector.h>
+#include <utils/common/VectorHelper.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/GeomHelper.h>

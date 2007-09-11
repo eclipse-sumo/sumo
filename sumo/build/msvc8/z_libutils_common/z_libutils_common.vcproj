@@ -4,6 +4,7 @@
 	Version="8,00"
 	Name="z_libutils_common"
 	ProjectGUID="{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}"
+	RootNamespace="z_libutils_common"
 	>
 	<Platforms>
 		<Platform
@@ -172,31 +173,6 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\src\utils\common\DoubleVector.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\FileErrorReporter.cpp"
 				>
 				<FileConfiguration
@@ -223,31 +199,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\FileHelpers.cpp"
-				>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\IntVector.cpp"
 				>
 				<FileConfiguration
 					Name="Debug|Win32"
@@ -422,14 +373,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\common\BoolVector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\DoubleVector.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\FileErrorReporter.h"
 				>
 			</File>
@@ -439,10 +382,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\InstancePool.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\IntVector.h"
 				>
 			</File>
 			<File
@@ -527,6 +466,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\UtilExceptions.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\VectorHelper.h"
 				>
 			</File>
 		</Filter>

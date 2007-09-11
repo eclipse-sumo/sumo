@@ -33,7 +33,7 @@
 #include <string>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
-#include <utils/common/DoubleVector.h>
+#include <utils/common/VectorHelper.h>
 #include <utils/geom/Position2D.h>
 #include <map>
 

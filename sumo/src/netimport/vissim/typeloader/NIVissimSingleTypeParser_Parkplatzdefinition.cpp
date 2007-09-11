@@ -33,8 +33,7 @@
 #include <utility>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
-#include <utils/common/IntVector.h>
-#include <utils/common/DoubleVector.h>
+#include <utils/common/VectorHelper.h>
 #include <netbuild/NBDistrictCont.h>
 #include <netbuild/NBDistrict.h>
 #include <netbuild/nodes/NBNode.h>

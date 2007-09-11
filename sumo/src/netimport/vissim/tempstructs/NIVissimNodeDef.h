@@ -30,14 +30,13 @@
 #include <config.h>
 #endif
 
-
 #include <string>
 #include <map>
-#include <utils/common/IntVector.h>
+#include <utils/common/VectorHelper.h>
 #include <utils/geom/Boundary.h>
-//#include "NIVissimBoundedClusterObject.h"
 #include "NIVissimExtendedEdgePointVector.h"
 #include "NIVissimNodeCluster.h"
+
 
 class NIVissimNodeDef
             /*        : public NIVissimBoundedClusterObject*/

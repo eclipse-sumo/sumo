@@ -1,11 +1,10 @@
 noinst_LIBRARIES = libcommon.a
 
-EXTRA_DIST = DoubleVector.h StdDefs.h
+EXTRA_DIST = StdDefs.h VectorHelper.h
 
 libcommon_a_SOURCES = AbstractMutex.h \
-BoolVector.h DoubleVector.cpp DoubleVector.h \
 FileErrorReporter.cpp FileErrorReporter.h FileHelpers.cpp FileHelpers.h \
-IntVector.cpp IntVector.h InstancePool.h \
+InstancePool.h \
 Named.h StringTokenizer.cpp StringTokenizer.h \
 StringUtils.cpp StringUtils.h UtilExceptions.h \
 MsgHandler.h MsgHandler.cpp MsgRetriever.h \
@@ -15,4 +14,5 @@ SystemFrame.cpp SystemFrame.h SysUtils.h SysUtils.cpp \
 LogFile.cpp LogFile.h \
 MsgRetrievingFunction.h \
 SUMOVehicleClass.cpp SUMOVehicleClass.h \
-ToString.h TplConvert.h TplConvertSec.h
+ToString.h TplConvert.h TplConvertSec.h 
+
