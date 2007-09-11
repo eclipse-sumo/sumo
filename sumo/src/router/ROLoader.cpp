@@ -49,7 +49,6 @@
 #include "ROLoader.h"
 #include "RORDLoader_TripDefs.h"
 #include "RORDLoader_SUMORoutes.h"
-#include "RORDLoader_Cell.h"
 #include "RORDLoader_SUMOAlt.h"
 #include "RORDGenerator_Random.h"
 #include "RORDGenerator_ODAmounts.h"
@@ -437,12 +436,6 @@ ROLoader::buildNamedHandler(const std::string &optionName,
         return new RORDLoader_TripDefs(myVehicleBuilder, net,
                                        myOptions.getInt("begin"), myOptions.getInt("end"),
                                        myEmptyDestinationsAllowed, file);
-    }
-    if (optionName=="cell-input") {
-        return new RORDLoader_Cell(myVehicleBuilder, net,
-                                   myOptions.getInt("begin"), myOptions.getInt("end"),
-                                   myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
-                                   myOptions.getInt("max-alternatives"), file);
     }
     if (optionName=="alternatives") {
         return new RORDLoader_SUMOAlt(myVehicleBuilder, net,
