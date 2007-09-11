@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    BinaryOutputDevice.cpp
+/// @file    BinaryInputDevice.cpp
 /// @author  Daniel Krajzewicz
 /// @date    2005-09-15
-/// @version $Id$
+/// @version $Id: BinaryInputDevice.cpp 4389 2007-08-28 10:21:00Z behrisch $
 ///
 // missing_desc
 /****************************************************************************/
@@ -29,7 +29,7 @@
 #endif
 
 #include <string>
-#include "BinaryOutputDevice.h"
+#include "BinaryInputDevice.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -44,7 +44,7 @@
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-char gBinaryOutputDeviceBuf[BUF_MAX];
+char gBinaryInputDeviceBuf[BUF_MAX];
 
 // ===========================================================================
 // used namespaces
@@ -54,59 +54,77 @@ using namespace std;
 
 
 
-BinaryOutputDevice::BinaryOutputDevice(const std::string &name,
-                                       bool fliporder)
+BinaryInputDevice::BinaryInputDevice(const std::string &name,
+                                     bool fliporder)
         : myFlipOrder(fliporder),
-        myStream(name.c_str(), fstream::out|fstream::binary)
+        myStream(name.c_str(), fstream::in|fstream::binary)
 {}
 
 
-BinaryOutputDevice::~BinaryOutputDevice()
+BinaryInputDevice::~BinaryInputDevice()
 {}
 
 
-
-BinaryOutputDevice &
-operator<<(BinaryOutputDevice &os, const int &i)
+bool
+BinaryInputDevice::good() const
 {
-    os.myStream.write((char*) &i, sizeof(int));
+    return myStream.good();
+}
+
+
+BinaryInputDevice &
+operator>>(BinaryInputDevice &os, int &i)
+{
+    os.myStream.read((char*) &i, sizeof(int));
     return os;
 }
 
 
-BinaryOutputDevice &
-operator<<(BinaryOutputDevice &os, const unsigned int &i)
+BinaryInputDevice &
+operator>>(BinaryInputDevice &os, unsigned int &i)
 {
-    os.myStream.write((char*) &i, sizeof(unsigned int));
+    os.myStream.read((char*) &i, sizeof(unsigned int));
     return os;
 }
 
 
-BinaryOutputDevice &
-operator<<(BinaryOutputDevice &os, const SUMOReal &f)
+BinaryInputDevice &
+operator>>(BinaryInputDevice &os, SUMOReal &f)
 {
-    os.myStream.write((char*) &f, sizeof(SUMOReal));
+    os.myStream.read((char*) &f, sizeof(SUMOReal));
     return os;
 }
 
 
-BinaryOutputDevice &
-operator<<(BinaryOutputDevice &os, const bool &b)
+BinaryInputDevice &
+operator>>(BinaryInputDevice &os, bool &b)
 {
-    os.myStream.write((char*) &b, sizeof(char));
+    b = 0;
+    os.myStream.read((char*) &b, sizeof(char));
     return os;
 }
 
 
-BinaryOutputDevice &
-operator<<(BinaryOutputDevice &os, const std::string &s)
+BinaryInputDevice &
+operator>>(BinaryInputDevice &os, std::string &s)
 {
-    if (s.length()<BUF_MAX) {
-        os << (unsigned int) s.length();
-        os.myStream.write((char*) s.c_str(), sizeof(char)*s.length());
+    unsigned int size;
+    os >> size;
+    if (size<BUF_MAX) {
+        os.myStream.read((char*) &gBinaryInputDeviceBuf, sizeof(char)*size);
+        gBinaryInputDeviceBuf[size] = 0;
+        s = std::string(gBinaryInputDeviceBuf);
         return os;
     }
     throw 1;
+}
+
+
+BinaryInputDevice &
+operator>>(BinaryInputDevice &os, long &l)
+{
+    os.myStream.read((char*) &l, sizeof(long));
+    return os;
 }
 
 

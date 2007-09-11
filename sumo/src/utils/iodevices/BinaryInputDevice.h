@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    BinaryOutputDevice.h
+/// @file    BinaryInputDevice.h
 /// @author  Daniel Krajzewicz
 /// @date    2005-09-15
-/// @version $Id$
+/// @version $Id: BinaryInputDevice.h 4389 2007-08-28 10:21:00Z behrisch $
 ///
 // missing_desc
 /****************************************************************************/
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef BinaryOutputDevice_h
-#define BinaryOutputDevice_h
+#ifndef BinaryInputDevice_h
+#define BinaryInputDevice_h
 
 
 // ===========================================================================
@@ -33,21 +33,24 @@
 #include <string>
 #include <fstream>
 
-class BinaryOutputDevice
+class BinaryInputDevice
 {
 public:
-    BinaryOutputDevice(const std::string &name, bool fliporder=false);
-    ~BinaryOutputDevice();
+    BinaryInputDevice(const std::string &name, bool fliporder=false);
+    ~BinaryInputDevice();
+    bool good() const;
 
-    friend BinaryOutputDevice &operator<<(BinaryOutputDevice &os, const int &i);
-    friend BinaryOutputDevice &operator<<(BinaryOutputDevice &os, const unsigned int &i);
-    friend BinaryOutputDevice &operator<<(BinaryOutputDevice &os, const SUMOReal &f);
-    friend BinaryOutputDevice &operator<<(BinaryOutputDevice &os, const bool &b);
-    friend BinaryOutputDevice &operator<<(BinaryOutputDevice &os, const std::string &s);
+    friend BinaryInputDevice &operator>>(BinaryInputDevice &os, int &i);
+    friend BinaryInputDevice &operator>>(BinaryInputDevice &os, unsigned int &i);
+    friend BinaryInputDevice &operator>>(BinaryInputDevice &os, SUMOReal &f);
+    friend BinaryInputDevice &operator>>(BinaryInputDevice &os, bool &b);
+    friend BinaryInputDevice &operator>>(BinaryInputDevice &os, std::string &s);
+    friend BinaryInputDevice &operator>>(BinaryInputDevice &os, long &l);
+
 
 private:
     bool myFlipOrder;
-    std::ofstream myStream;
+    std::ifstream myStream;
 
 };
 
