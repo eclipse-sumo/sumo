@@ -200,7 +200,7 @@ endif
 
 SUBDIRS = foreign microsim netbuild netgen netimport netload \
 od2trips polyconvert router routing_df routing_dua routing_jtr sumo_only \
-tools utils $(GUI_DIRS) $(ITM_DIRS)
+utils $(GUI_DIRS) $(ITM_DIRS)
 
 EXTRA_DIST = config.h config.h.in \
 guisim.rc \
