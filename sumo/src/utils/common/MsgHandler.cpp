@@ -312,16 +312,15 @@ MsgHandler::initOutputOptions(bool gui)
     getWarningInstance()->report2cerr(!gui && !OptionsCont::getOptions().getBool("suppress-warnings"));
     // build the logger if possible
     if (OptionsCont::getOptions().isSet("log-file")) {
-        myLogFile =
-            new LogFile(OptionsCont::getOptions().getString("log-file"));
-        if (!myLogFile->good()) {
-            delete myLogFile;
-            myLogFile = 0;
-            throw ProcessError("Could not build logging file '" + OptionsCont::getOptions().getString("log-file") + "'");
-        } else {
+        try {
+            myLogFile =
+                new LogFile(OptionsCont::getOptions().getString("log-file"));
             getErrorInstance()->addRetriever(myLogFile);
             getWarningInstance()->addRetriever(myLogFile);
             getMessageInstance()->addRetriever(myLogFile);
+        } catch (IOError &) {
+            myLogFile = 0;
+            throw ProcessError("Could not build logging file '" + OptionsCont::getOptions().getString("log-file") + "'");
         }
     }
 }

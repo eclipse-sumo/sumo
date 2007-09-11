@@ -4,7 +4,7 @@
 /// @date    Mon, 23.06.2003
 /// @version $Id$
 ///
-// missing_desc
+// Encapsulated output for saving application messages
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -30,9 +30,14 @@
 #include <config.h>
 #endif
 
-#include <fstream>
 #include <string>
 #include "MsgRetriever.h"
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class OutputDevice;
 
 
 // ===========================================================================
@@ -40,6 +45,8 @@
 // ===========================================================================
 /**
  * @class LogFile
+ * @brief Encapsulated output for saving application messages
+ *
  * This implementation of a MsgRetriever retrieves messages from an
  * application's MsgHandler and writes them into a file. No distinction is
  * being made between messages, warnings and errors beside appending the
@@ -60,12 +67,9 @@ public:
     /// Retrieves the message to log
     void inform(const std::string &msg);
 
-    /// Returns the information whether the is still writable
-    bool good();
-
 private:
     /// The used file
-    std::ofstream myFile;
+    OutputDevice &myOutput;
 
 };
 

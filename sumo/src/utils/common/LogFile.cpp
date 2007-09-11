@@ -4,7 +4,7 @@
 /// @date    Mon, 23.06.2003
 /// @version $Id$
 ///
-// A MsgRetriever - file implementation for message logging
+// Encapsulated output for saving application messages
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -28,8 +28,8 @@
 #include <config.h>
 #endif
 
-#include <fstream>
 #include <iostream>
+#include <utils/iodevices/OutputDevice.h>
 #include <string>
 #include "LogFile.h"
 
@@ -48,28 +48,21 @@ using namespace std;
 // method definitions
 // ===========================================================================
 LogFile::LogFile(const std::string &name)
+    : myOutput(OutputDevice::getDevice(name))
 {
-    myFile.open(name.c_str());
 }
 
 
 LogFile::~LogFile()
 {
-    myFile.close();
+    myOutput.close();
 }
 
 
 void
 LogFile::inform(const std::string &msg)
 {
-    myFile << msg << endl;
-}
-
-
-bool
-LogFile::good()
-{
-    return myFile.good();
+    myOutput << msg << '\n';
 }
 
 

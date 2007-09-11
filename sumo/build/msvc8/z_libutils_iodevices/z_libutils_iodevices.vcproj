@@ -174,10 +174,6 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\src\utils\iodevices\BinaryInputDevice.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\iodevices\BinaryOutputDevice.cpp"
 				>
 			</File>
@@ -244,10 +240,6 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
-			<File
-				RelativePath="..\..\..\src\utils\iodevices\BinaryInputDevice.h"
-				>
-			</File>
 			<File
 				RelativePath="..\..\..\src\utils\iodevices\BinaryOutputDevice.h"
 				>
