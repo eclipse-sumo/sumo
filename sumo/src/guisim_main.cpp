@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
-// Revision 1.23  2007/01/10 08:33:04  dkrajzew
+// Main for GUISIM
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

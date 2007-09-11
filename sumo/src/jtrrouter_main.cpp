@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Jan 2004
 /// @version $Id$
 ///
-// }
+// Main for JTRROUTER
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

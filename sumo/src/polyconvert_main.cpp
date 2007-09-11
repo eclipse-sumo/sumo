@@ -4,7 +4,7 @@
 /// @date    Mon, 05 Dec 2005
 /// @version $Id$
 ///
-// The main procedure for the conversion building of polygons
+// Main for POLYCONVERT
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
