@@ -602,7 +602,7 @@ MSDevice_CPhone::onDepart()
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             myCommand, t1 + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
     } else {
-        throw 1;
+        //throw 1;
     }
 }
 
