@@ -1,4 +1,25 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0"?>
+
+<!-- generated on 09/11/07 16:58:54 by SUMO sumo Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <additional-files>input_routes.rou.xml,input_additional.add.xml</additional-files>
+   </input>
+
+   <output>
+      <tripinfo-output>tripinfos.xml</tripinfo-output>
+   </output>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
 <tripinfos>
    <tripinfo vehicle_id="vehicle1" start="0" wished="0" end="118" duration="118" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
    <tripinfo vehicle_id="foo1" start="3" wished="1" end="121" duration="118" waited="2" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>

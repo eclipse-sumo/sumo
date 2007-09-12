@@ -1,22 +1,44 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0"?>
+
+<!-- generated on 09/11/07 16:58:50 by SUMO sumo Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <additional-files>input_routes.rou.xml,input_additional.add.xml</additional-files>
+   </input>
+
+   <output>
+      <tripinfo-output>tripinfos.xml</tripinfo-output>
+      <vehroute-output>vehroutes.xml</vehroute-output>
+   </output>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
 <vehicleroutes>
-   <vehicle id="emitter_0_0" emittedAt="0" endedAt="118">
+   <vehicle id="emitter_0_0" emittedAt="0" endedAt="117">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_1_1" emittedAt="3" endedAt="121">
+   <vehicle id="emitter_1_1" emittedAt="3" endedAt="120">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_2_2" emittedAt="6" endedAt="123">
+   <vehicle id="emitter_2_2" emittedAt="6" endedAt="124">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_3_3" emittedAt="9" endedAt="126">
+   <vehicle id="emitter_3_3" emittedAt="9" endedAt="127">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_4_4" emittedAt="12" endedAt="131">
+   <vehicle id="emitter_4_4" emittedAt="12" endedAt="130">
       <route>beg middle end rend</route>
    </vehicle>
 
@@ -24,19 +46,19 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_6_6" emittedAt="19" endedAt="137">
+   <vehicle id="emitter_6_6" emittedAt="18" endedAt="136">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_7_7" emittedAt="22" endedAt="140">
+   <vehicle id="emitter_7_7" emittedAt="21" endedAt="139">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_8_8" emittedAt="25" endedAt="143">
+   <vehicle id="emitter_8_8" emittedAt="24" endedAt="142">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_9_9" emittedAt="28" endedAt="146">
+   <vehicle id="emitter_9_9" emittedAt="27" endedAt="145">
       <route>beg middle end rend</route>
    </vehicle>
 

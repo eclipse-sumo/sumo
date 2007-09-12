@@ -5,7 +5,7 @@
 #variable_speed_signs
 
 # Tests whether emitters work
-#emitter
+emitter
 
 # Tests for dua-inc emissions
 #inc-dua

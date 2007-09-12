@@ -1,8 +1,33 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0"?>
+
+<!-- generated on 09/11/07 15:57:35 by SUMO sumo Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <additional-files>input_routes.rou.xml,input_additional.add.xml</additional-files>
+   </input>
+
+   <output>
+      <tripinfo-output>tripinfos.xml</tripinfo-output>
+   </output>
+
+   <time>
+      <begin>5</begin>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
 <tripinfos>
-   <tripinfo vehicle_id="emitter_5_0" start="5" wished="5" end="122" duration="117" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="emitter_5_0" start="5" wished="5" end="123" duration="118" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
    <tripinfo vehicle_id="emitter_6_1" start="8" wished="6" end="126" duration="118" waited="2" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
    <tripinfo vehicle_id="emitter_7_2" start="11" wished="7" end="129" duration="118" waited="4" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
-   <tripinfo vehicle_id="emitter_8_3" start="14" wished="8" end="133" duration="119" waited="6" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="emitter_8_3" start="14" wished="8" end="132" duration="118" waited="6" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
    <tripinfo vehicle_id="emitter_9_4" start="17" wished="9" end="135" duration="118" waited="8" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
 </tripinfos>
