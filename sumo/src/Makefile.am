@@ -66,7 +66,6 @@ sumo_netconvert_SOURCES = netconvert_main.cpp
 sumo_netconvert_LDFLAGS = $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
 
 sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
-./netimport/cell/libcellimport.a \
 ./netimport/sumo/libsumoimport.a \
 ./netimport/visum/libvisumimport.a \
 ./netimport/xml/libxmlimport.a \
