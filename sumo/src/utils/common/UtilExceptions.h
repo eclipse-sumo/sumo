@@ -154,18 +154,18 @@ public:
 
     /** constructor */
     UnknownElement(const std::string &msg)
-            : std::runtime_error(msg.c_str())
+            : std::runtime_error(msg)
     {}
 
 };
 
 
-class IOError : public std::runtime_error
+class IOError : public ProcessError
 {
 public:
     /** constructor */
     IOError(const std::string &message)
-            : std::runtime_error(message)
+            : ProcessError(message)
     {}
 
 };

@@ -1,2 +1,2 @@
-Error: The file 'output/routes.rou.xml' could not be opened for writing.
+Error: Could not build output file 'output/routes.rou.xml'.
 Quitting (on error).

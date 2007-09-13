@@ -530,12 +530,8 @@ main(int argc, char **argv)
             matrix.applyCurve(parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
         // write
-        try {
-            if(!OutputDevice::createDeviceByOption("output", "tripdefs")) {
-                throw ProcessError("No output name is given.");
-            }
-        } catch (IOError &e) {
-            throw ProcessError(e.what());
+        if(!OutputDevice::createDeviceByOption("output", "tripdefs")) {
+            throw ProcessError("No output name is given.");
         }
         OutputDevice& dev = OutputDevice::getDeviceByOption("output");
         matrix.write((SUMOTime) oc.getInt("begin"), (SUMOTime) oc.getInt("end"),

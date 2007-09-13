@@ -537,28 +537,16 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                                    int maxFollower,
                                    bool emissionsOnly) const
 {
-    // write the definition
-    try {
-        OutputDevice::getDevice(file);
-    } catch (IOError &) {
-        throw ProcessError("Can not write emitter definitions to file '" + file + "'.");
-    }
     OutputDevice& out = OutputDevice::getDevice(file);
-//    cout << "a1" << endl;
-    // begin
     if (getType()==SOURCE_DETECTOR) {
         out.writeXMLHeader("triggeredsource");
     } else {
         out.writeXMLHeader("calibrator");
     }
-
-//    cout << "a2" << endl;
     std::map<size_t, RandomDistributor<size_t>* > dists;
     if (!emissionsOnly&&flows.knows(myID)) {
         buildDestinationDistribution(detectors, flows, startTime, endTime, stepOffset, net, dists, maxFollower); // !!!
     }
-    //cout << "a3" << endl;
-
     // routes
     if(!emissionsOnly) {
         if (myRoutes!=0&&myRoutes->get().size()!=0) {
@@ -594,10 +582,6 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
             return false;
         }
     }
-    // vehicle types
-    {
-    }
-//    cout << "a4" << endl;
     // emissions
     if (emissionsOnly||flows.knows(myID)) {
         // get the flows for this detector
@@ -706,11 +690,6 @@ RODFDetector::writeSingleSpeedTrigger(const std::string &file,
                                     SUMOTime startTime, SUMOTime endTime,
                                     SUMOTime stepOffset)
 {
-    try {
-        OutputDevice::getDevice(file);
-    } catch (IOError &) {
-        throw ProcessError("Can not write speed trigger values to file '" + file + "'.");
-    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("vss");
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
@@ -794,11 +773,6 @@ RODFDetectorCon::getDetectors() const
 void
 RODFDetectorCon::save(const std::string &file) const
 {
-    try {
-        OutputDevice::getDevice(file);
-    } catch (IOError &) {
-        throw ProcessError("Can not write detectors to file '" + file + "'.");
-    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("detectors");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -830,11 +804,6 @@ RODFDetectorCon::save(const std::string &file) const
 void
 RODFDetectorCon::saveAsPOIs(const std::string &file) const
 {
-    try {
-        OutputDevice::getDevice(file);
-    } catch (IOError &) {
-        throw ProcessError("Can not write pois to file '" + file + "'.");
-    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("pois");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -865,11 +834,6 @@ RODFDetectorCon::saveAsPOIs(const std::string &file) const
 void
 RODFDetectorCon::saveRoutes(const std::string &file) const
 {
-    try {
-        OutputDevice::getDevice(file);
-    } catch (IOError &) {
-        throw ProcessError("Can not write routes to file '" + file + "'.");
-    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("routes");
     std::vector<std::string> saved;
@@ -918,11 +882,6 @@ RODFDetectorCon::writeEmitters(const std::string &file,
                              int maxFollower,
                              bool emissionsOnly)
 {
-    try {
-        OutputDevice::getDevice(file);
-    } catch (IOError &) {
-        throw ProcessError("Can not write emitter definitions to file '" + file + "'.");
-    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -971,11 +930,6 @@ RODFDetectorCon::writeEmitterPOIs(const std::string &file,
                                 SUMOTime startTime, SUMOTime endTime,
                                 SUMOTime stepOffset)
 {
-    try {
-        OutputDevice::getDevice(file);
-    } catch (IOError &) {
-        throw ProcessError("Can not write emitter pois to file '" + file + "'.");
-    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -1090,11 +1044,6 @@ RODFDetectorCon::writeSpeedTrigger(const std::string &file,
                                  SUMOTime startTime, SUMOTime endTime,
                                  SUMOTime stepOffset)
 {
-    try {
-        OutputDevice::getDevice(file);
-    } catch (IOError &) {
-        throw ProcessError("Can not write speed trigger definitions to file '" + file + "'.");
-    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -1117,11 +1066,6 @@ RODFDetectorCon::writeSpeedTrigger(const std::string &file,
 void
 RODFDetectorCon::writeEndRerouterDetectors(const std::string &file)
 {
-    try {
-        OutputDevice::getDevice(file);
-    } catch (IOError &) {
-        throw ProcessError("Can not write end rerouter definitions to file '" + file + "'.");
-    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
@@ -1143,11 +1087,6 @@ RODFDetectorCon::writeValidationDetectors(const std::string &file,
                                         bool includeSources,
                                         bool singleFile, bool friendly)
 {
-    try {
-        OutputDevice::getDevice(file);
-    } catch (IOError &) {
-        throw ProcessError("Can not write validation detectors to file '" + file + "'.");
-    }
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
     for (std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {

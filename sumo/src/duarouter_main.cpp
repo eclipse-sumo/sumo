@@ -128,9 +128,9 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     // prepare the output
     try {
         net.openOutput(oc.getString("output"), true);
-    } catch (InvalidArgument &e) {
+    } catch (IOError &e) {
         delete router;
-        throw ProcessError(e.what());
+        throw e;
     }
     // the routes are sorted - process stepwise
     if (!oc.getBool("unsorted")) {

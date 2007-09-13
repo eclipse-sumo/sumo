@@ -78,12 +78,8 @@ NBNetBuilder::buildLoaded()
     OptionsCont &oc = OptionsCont::getOptions();
     compute(oc);
     // save network
-    try {
-        OutputDevice& device = OutputDevice::getDevice(oc.getString("o"));
-        save(device, oc);
-    } catch (IOError e) {
-        throw ProcessError("Could not save net to '" + oc.getString("o") + "'.\n "+e.what());
-    }
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("o"));
+    save(device, oc);
     // save the mapping information when wished
     if (oc.isSet("map-output")) {
         saveMap(oc.getString("map-output"));

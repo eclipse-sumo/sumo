@@ -155,19 +155,11 @@ RONet::addRouteDef(RORouteDef *def)
 void
 RONet::openOutput(const std::string &filename, bool useAlternatives)
 {
-    try {
-        myRoutesOutput = &OutputDevice::getDevice(filename);
-        myRoutesOutput->writeXMLHeader("routes");
-    } catch (IOError &) {
-        throw InvalidArgument("The file '" + filename + "' could not be opened for writing.");
-    }
+    myRoutesOutput = &OutputDevice::getDevice(filename);
+    myRoutesOutput->writeXMLHeader("routes");
     if (useAlternatives) {
-        try {
-            myRouteAlternativesOutput = &OutputDevice::getDevice(filename+".alt");
-            myRouteAlternativesOutput->writeXMLHeader("route-alternatives");
-        } catch (IOError &) {
-            throw InvalidArgument("The file '" + filename + ".alt' could not be opened for writing.");
-        }
+        myRouteAlternativesOutput = &OutputDevice::getDevice(filename+".alt");
+        myRouteAlternativesOutput->writeXMLHeader("route-alternatives");
     }
 }
 

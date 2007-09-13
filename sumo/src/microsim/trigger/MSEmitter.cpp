@@ -152,15 +152,15 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
     }
     // vehicle-type distributions
     if (element==SUMO_TAG_VTYPEDISTELEM) {
-        SUMOReal prob = -1;
+        SUMOReal prob;
         try {
-            prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
+            prob = getFloatSecure(attrs, SUMO_ATTR_PROB, 1.);
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("False probability while parsing calibrator '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + ").");
             return;
         }
         if (prob<=0) {
-            MsgHandler::getErrorInstance()->inform("False probability while parsing calibrator '" + myParent.getID() + "' (" + toString(prob) + ").");
+            MsgHandler::getErrorInstance()->inform("Non-positive probability while parsing calibrator '" + myParent.getID() + "' (" + toString(prob) + ").");
             return;
         }
         // get the id
