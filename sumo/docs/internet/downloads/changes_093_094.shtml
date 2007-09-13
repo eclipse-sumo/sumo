@@ -44,7 +44,6 @@
 
 							<a href="downloads.shtml" class="SUMOMainLink">Downloads</a><br>
 							<a href="changes.shtml" class="SUMOSubLink">Changes</a><br>
-							<a href="add_data.shtml" class="SUMOSubLink">Add. Data</a><br>
 							<a href="http://www.gnu.org/licenses/gpl.html" target="new" class="SUMOSubLink">License</a><br>
 
 							<a href="../participants.shtml" class="SUMOMainLink">Participants</a><br>
@@ -87,7 +86,7 @@ If you are parsing the networks by your own, you will see that traffic lights de
 A description about how to import geocoordinated files (despite of ArcView-files) can be found <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-further_options-geocoordinates">here</a>.<br>
 Together with this extension, the import of ArcView-files has been rechecked and now allows to import networks stored in other schemes than the one NavTeq uses.
 The new options are described <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/user_chp04.shtml#user_chp04-other_input-arcview">here</a>.
- Some further comments on importing ArcView-files are available <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/sumo_moreon_arcview.shtml">here</a>. By now, they include only some comments on importing an open-source network of Osnabrück. You can take a look at this <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/screens/frida.shtml">here</a> and also download it from <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/downloads/add_data.shtml">here</a>.<br><br>
+ Some further comments on importing ArcView-files are available <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/sumo_moreon_arcview.shtml">here</a>. By now, they include only some comments on importing an open-source network of OsnabrÃ¼ck. You can take a look at this <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/screens/frida.shtml">here</a> and also download it from (dead).<br><br>
 
 <b>3.</b> The developer documentation has been split into several parts. It seems to be unmanageable to write a complete developer documentation. Due to this, we now offer some additional documentation on certain topics. Topics that were previously a part of the developer documentation may be now found within the <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/moredocs.shtml">More Docs</a> section.<br>
 

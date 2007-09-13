@@ -41,7 +41,6 @@
 
 							<a href="downloads.shtml" class="SUMOMainLink">Downloads</a><br>
 							<a href="changes.shtml" class="SUMOSubLink">Changes</a><br>
-							<a href="add_data.shtml" class="SUMOSubLink">Add. Data</a><br>
 							<a href="http://www.gnu.org/licenses/gpl.html" target="new" class="SUMOSubLink">License</a><br>
 
 							<a href="../participants.shtml" class="SUMOMainLink">Participants</a><br>
@@ -82,17 +81,17 @@
 								<br>
 								<ul>
 									<li><a name="frida">SUMO-Frida 0.9.4</a><br>
-										The converted network from the city of Osnabrück from the <a class="SUMOInLineLink" href="http://frida.intevation.org/">Frida</a> project.<br>
+										The converted network from the city of OsnabrÃ¼ck from the <a class="SUMOInLineLink" href="http://frida.intevation.org/">Frida</a> project.<br>
 										This data contain the converted network only. There is no demand that could be put onto it.<br>
 										It is just an example of converting networks from shape-files. Read more on the problems in
-											<a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/sumo_moreon_arcview.shtml#more_arcview-frida">Importing the Network of Osnabrück from the Frida-project</a>.<br>
+											<a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/sumo_moreon_arcview.shtml#more_arcview-frida">Importing the Network of OsnabrÃ¼ck from the Frida-project</a>.<br>
 										Download as:
 											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-frida-built-0.9.4.zip?download">.zip [sumo-frida-built-0.9.4.zip, ~6.0MB]</a>
 											or
 											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-frida-built-0.9.4.tar.gz?download">.tar.gz [sumo-frida-built-0.9.4.tar.gz, ~5.7MB]</a><br><br>
 
 										You can also download the source together with the NETCONVERT-configurations and the additional types file which was described in
-											<a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/sumo_moreon_arcview.shtml#more_arcview-frida">Importing the Network of Osnabrück from the Frida-project</a>.<br>
+											<a class="SUMOInLineLink" href="http://sumo.sourceforge.net/docs/gen/sumo_moreon_arcview.shtml#more_arcview-frida">Importing the Network of OsnabrÃ¼ck from the Frida-project</a>.<br>
 										Download as:
 											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-frida-src-0.9.4.zip?download">.zip [sumo-frida-src-0.9.4.zip, ~640kB]</a>
 											or
