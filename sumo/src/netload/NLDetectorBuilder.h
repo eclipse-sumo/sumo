@@ -250,11 +250,11 @@ protected:
 
     /// Converts the length and the position information for an uncontiuating detector
     void convUncontE2PosLength(const std::string &id, MSLane *clane,
-                               SUMOReal pos, SUMOReal length);
+                               SUMOReal &pos, SUMOReal &length);
 
     /// Converts the length and the position information for an contiuating detector
     void convContE2PosLength(const std::string &id, MSLane *clane,
-                             SUMOReal pos, SUMOReal length);
+                             SUMOReal &pos, SUMOReal &length);
 
 protected:
     /// The net to fill

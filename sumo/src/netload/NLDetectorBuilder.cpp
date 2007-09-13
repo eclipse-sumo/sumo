@@ -163,6 +163,9 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                                    SUMOReal jamDistThreshold,
                                    SUMOTime deleteDataAfterSeconds)
 {
+    if(splInterval<0) {
+        throw InvalidArgument("Negative sampling frequency (in detector '" + id + "').");
+    }
     MSLane *clane = getLaneChecking(lane, id);
     // check whether the detector may lie over more than one lane
     MSDetectorFileOutput *det = 0;
@@ -251,6 +254,9 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
             "The detector output can not be build as no connection between lanes '"
             + lane + "' and '" + tolane + "' exists.");
     }
+    if(pos<0) {
+        pos = -pos;
+    }
     // check whether the detector may lie over more than one lane
     MSDetectorFileOutput *det = 0;
     if (!cont) {
@@ -281,11 +287,14 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
 void
 NLDetectorBuilder::convUncontE2PosLength(const std::string &id,
         MSLane *clane,
-        SUMOReal pos,
-        SUMOReal length)
+        SUMOReal &pos,
+        SUMOReal &length)
 {
     if (pos<0) {
         pos = clane->length() + pos;
+    }
+    if(pos>clane->length()) {
+        throw InvalidArgument("Detector '" + id + "' lies beyond lane's '" + clane->getID() + "' end.");
     }
     // compute length
     if (length<0) {
@@ -297,11 +306,16 @@ NLDetectorBuilder::convUncontE2PosLength(const std::string &id,
         pos = (SUMOReal) 0.1;
     }
     // patch length
+    /* !!! friendly_pos
     if (pos+length>clane->length()-(SUMOReal) 0.1) {
         length = clane->length() - (SUMOReal) 0.1 - pos;
     }
+    */
     if (length<=0) {
         throw InvalidArgument("The length of detector '" + id + "' is not positive.");
+    }
+    if(pos+length>clane->length()) {
+        throw InvalidArgument("Detector's '" + id + "' end lies beyond lane's '" + clane->getID() + "' end.");
     }
 }
 
@@ -309,8 +323,8 @@ NLDetectorBuilder::convUncontE2PosLength(const std::string &id,
 void
 NLDetectorBuilder::convContE2PosLength(const std::string &id,
                                        MSLane * /*clane*/,
-                                       SUMOReal pos,
-                                       SUMOReal length)
+                                       SUMOReal &pos,
+                                       SUMOReal &length)
 {
     if (pos<0) {
         pos *= -1.0;//clane->length() + pos;
@@ -613,8 +627,7 @@ NLDetectorBuilder::getLaneChecking(const std::string &id,
     // get and check the lane
     MSLane *clane = MSLane::dictionary(id);
     if (clane==0) {
-        throw InvalidArgument("While building detector '" + detid + "':\n"
-                              + "The lane with the id '" + id + "' is not known.");
+        throw InvalidArgument("The lane with the id '" + id + "' is not known (while building detector '" + detid + "').");
     }
     return clane;
 }
