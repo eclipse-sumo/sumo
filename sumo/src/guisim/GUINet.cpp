@@ -165,7 +165,7 @@ GUINet::initDetectors()
             myDetectorDict[wrapper->microsimID()] = wrapper;
         }
     }
-    // e1-detectors
+    // induction loops
     {
         MSDetectorControl::LoopVect loopVec = myDetectorControl->getLoopVector();
         for (MSDetectorControl::LoopVect::const_iterator i=loopVec.begin(); i!=loopVec.end(); i++) {
