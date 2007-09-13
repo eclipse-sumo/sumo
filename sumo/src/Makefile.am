@@ -192,7 +192,6 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 $(sumo_LDADD) \
 ./utils/glutils/libglutils.a \
 ./gui/GUIManipulator.o \
-./utils/gui/drawer/GUICompleteSchemeStorage.o \
 -l$(LIB_FOX)
 endif
 
