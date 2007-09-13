@@ -72,13 +72,8 @@ MSDetector2File::close()
     for (it = intervalsM.begin(); it != intervalsM.end(); ++it) {
         write2file((*it).first);
     }
-    // close files and delete the detectors
-    for (it = intervalsM.begin(); it != intervalsM.end(); ++it) {
-        for (DetectorFileVec::iterator df =
-                    it->second.begin(); df != it->second.end(); ++df) {
-            df->second->close();
-        }
-    }
+    // [...] files are closed on another place [...]
+    //
     intervalsM.clear();
 }
 
