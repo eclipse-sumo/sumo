@@ -191,10 +191,13 @@ public:
      *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2bool. 
      *  If the attribute is empty or ==0, TplConvert<XMLCh>::_2bool throws an 
      *  EmptyData-exception which is passed.
+     * If the value can not be parsed to a bool, TplConvert<XMLCh>::_2bool throws a
+     *  BoolFormatException-exception which is passed.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
+     * @exception BoolFormatException If the attribute value can not be parsed to a bool
      */
-    bool getBool(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData);
+    bool getBool(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, BoolFormatException);
 
     /** 
      * @brief Returns the bool-value of the named (by its enum-value) attribute or the given value if the attribute is not known

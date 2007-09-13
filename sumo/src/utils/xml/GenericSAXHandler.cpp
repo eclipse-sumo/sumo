@@ -96,7 +96,7 @@ GenericSAXHandler::hasAttribute(const Attributes &attrs,
 
 
 bool
-GenericSAXHandler::getBool(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData)
+GenericSAXHandler::getBool(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, BoolFormatException)
 {
     return TplConvert<XMLCh>::_2bool(getAttributeValueSecure(attrs, id));
 }
