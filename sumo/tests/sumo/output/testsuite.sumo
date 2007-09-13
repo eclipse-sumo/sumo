@@ -1,46 +1,53 @@
+# Tests for e1-detectors (induction loops)
+e1
+
+# Tests for e2-detectors (lane-areal)
+e2
+
+
 
 # Tests whether emission output works
-cross3ltl_emissions
+#cross3ltl_emissions
 
 # Tests whether edge meandata output works
-cross3ltl_meandata_edges
+#cross3ltl_meandata_edges
 
 # Tests whether lane meandata output works
-cross3ltl_meandata_lanes
+#cross3ltl_meandata_lanes
 
 # Tests whether constraining edge meandata output works
-cross3ltl_meandata_edges_constrained
+#cross3ltl_meandata_edges_constrained
 
 # Tests whether constraining lane meandata output works
-cross3ltl_meandata_lanes_constrained
+#cross3ltl_meandata_lanes_constrained
 
 # Tests whether rawdump output works
-cross3ltl_rawdump
+#cross3ltl_rawdump
 
 # Tests whether rawdump output without prunning works
-cross3ltl_rawdump_withempty
+#cross3ltl_rawdump_withempty
 
 # Tests whether tripinfo output works
-cross3ltl_tripinfo
+#cross3ltl_tripinfo
 
 # Tests whether vehroutes output works
-cross3ltl_vehroutes
+#cross3ltl_vehroutes
 
 # Tests whether e1-detectors work
-cross3ltl_e1
+#cross3ltl_e1
 
 # Tests whether e1-detectors can be written into one file
-cross3ltl_e1_joined
+#cross3ltl_e1_joined
 
 # Tests whether e2-detectors work
-cross3ltl_e2
+#cross3ltl_e2
 
 # Tests whether e2-detectors can be written into one file
-cross3ltl_e2_joined
+#cross3ltl_e2_joined
 
 # Tests whether e3-detectors work
-cross3ltl_e3
+#cross3ltl_e3
 
 # Tests whether physical-states-output work
-cross3ltl_physical_states
+#cross3ltl_physical_states
 
