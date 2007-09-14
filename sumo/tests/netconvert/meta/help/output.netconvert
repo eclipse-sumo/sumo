@@ -48,6 +48,7 @@ Usage: netconvert.exe [OPTION]*
   --proj.simple                        Uses a simple method for projection
   --proj STR                           Uses STR as proj.4 definition for
                                          projection
+  --proj.inverse                       Inverses projection
 
  TLS Building Options:
   --explicite-tls STR                  Interprets STR as list of junctions to

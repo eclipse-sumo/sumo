@@ -115,6 +115,9 @@
       <!-- Uses STR as proj.4 definition for projection -->
       <proj>+proj=utm +ellps=bessel +units=m</proj>
 
+      <!-- Inverses projection -->
+      <proj.inverse>false</proj.inverse>
+
    </projection>
 
    <tls_building>

@@ -27,6 +27,7 @@
       <use-projection>false</use-projection>
       <proj.simple>false</proj.simple>
       <proj>+proj=utm +ellps=bessel +units=m</proj>
+      <proj.inverse>false</proj.inverse>
    </projection>
 
    <tls_building>
