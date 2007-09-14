@@ -133,6 +133,9 @@ fillOptions()
     oc.doRegister("proj", new Option_String());
     oc.addDescription("proj", "Projection", "Uses STR as proj.4 definition for projection");
 
+    oc.doRegister("proj.inverse", new Option_Bool(false));
+    oc.addDescription("proj.inverse", "Projection", "Inverses projection");
+
 
     // prunning options
     oc.addOptionSubTopic("Prunning");
@@ -309,7 +312,7 @@ main(int argc, char **argv)
             if (oc.isSet("proj")) {
                 proj = oc.getString("proj");
             }
-            if (!GeoConvHelper::init(proj, netOffset)) {
+            if (!GeoConvHelper::init(proj, netOffset, oc.getBool("proj.inverse"))) {
                 throw ProcessError("Could not build projection!");
             }
         }

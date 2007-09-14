@@ -49,6 +49,7 @@ projPJ GeoConvHelper::myProjection = 0;
 #endif
 Position2D GeoConvHelper::myOffset;
 bool GeoConvHelper::myDisableProjection = true;
+bool GeoConvHelper::myUseInverseProjection = true;
 SUMOReal GeoConvHelper::myInitX;
 SUMOReal GeoConvHelper::myInitY;
 Boundary GeoConvHelper::myOrigBoundary;
@@ -60,8 +61,10 @@ Boundary GeoConvHelper::myConvBoundary;
 // ===========================================================================
 bool
 GeoConvHelper::init(const std::string &proj,
-                    const Position2D &offset)
+                    const Position2D &offset,
+                    bool inverse)
 {
+    myUseInverseProjection = inverse;
 #ifdef HAVE_PROJ
     pj_free(myProjection);
 #endif
@@ -97,8 +100,10 @@ bool
 GeoConvHelper::init(const std::string &proj,
                     const Position2D &offset,
                     const Boundary &orig,
-                    const Boundary &conv)
+                    const Boundary &conv,
+                    bool inverse)
 {
+    myUseInverseProjection = inverse;
     bool ret = init(proj, offset);
     myOrigBoundary.add(orig);
     myConvBoundary.add(conv);
@@ -162,9 +167,15 @@ GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary)
 #ifdef HAVE_PROJ
     if (myProjection!=0) {
         projUV p;
-        p.u = from.x() / 100000.0 * DEG_TO_RAD;
-        p.v = from.y() / 100000.0 * DEG_TO_RAD;
-        p = pj_fwd(p, myProjection);
+        if(!myUseInverseProjection) {
+            p.u = from.x() / 100000.0 * DEG_TO_RAD;
+            p.v = from.y() / 100000.0 * DEG_TO_RAD;
+            p = pj_fwd(p, myProjection);
+        } else {
+            p = pj_inv(p, myProjection);
+            p.u *= 100000.0 * RAD_TO_DEG;
+            p.v *= 100000.0 * RAD_TO_DEG;
+        }
         from.set((SUMOReal) p.u + (SUMOReal) myOffset.x(), (SUMOReal) p.v + (SUMOReal) myOffset.y());
     } else {
 #endif

@@ -474,6 +474,9 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("proj", new Option_String("+proj=utm +ellps=bessel +units=m"));
     oc.addDescription("proj", "Projection", "Uses STR as proj.4 definition for projection");
 
+    oc.doRegister("proj.inverse", new Option_Bool(false));
+    oc.addDescription("proj.inverse", "Projection", "Inverses projection");
+
 
     // register the data processing options
     oc.doRegister("flip-y", new Option_Bool(false));

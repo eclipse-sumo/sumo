@@ -52,13 +52,15 @@ class GeoConvHelper
 public:
     /// Initialises the subsystem using the given proj.4-definition and a network offset
     static bool init(const std::string &proj,
-                     const Position2D &offset);
+                     const Position2D &offset,
+                     bool inverse=false);
 
     /// Initialises the subsystem using the given proj.4-definition and complete network parameter
     static bool init(const std::string &proj,
                      const Position2D &offset,
                      const Boundary &orig,
-                     const Boundary &conv);
+                     const Boundary &conv,
+                     bool inverse=false);
 
     /// Closes the subsystem
     static void close();
@@ -104,6 +106,9 @@ private:
 
     /// Information whether no projection shall be done
     static bool myDisableProjection;
+
+    /// Information whether inverse projection shall be used
+    static bool myUseInverseProjection;
 
     /// The initial x/y-coordinates for a very simple geocoordinates conversion
     static SUMOReal myInitX, myInitY;

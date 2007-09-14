@@ -99,9 +99,8 @@ NILoader::load(OptionsCont &oc)
     } else if (oc.getBool("proj.simple")) {
         GeoConvHelper::init("-", Position2D());
     } else {
-        if (!GeoConvHelper::init(oc.getString("proj"), Position2D())) {
+        if (!GeoConvHelper::init(oc.getString("proj"), Position2D(), oc.getBool("proj.inverse"))) {
             throw ProcessError("Could not build projection!");
-
         }
     }
     // load types first
