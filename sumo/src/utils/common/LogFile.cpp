@@ -55,7 +55,6 @@ LogFile::LogFile(const std::string &name)
 
 LogFile::~LogFile()
 {
-    myOutput.close();
 }
 
 
