@@ -1,0 +1,54 @@
+# id is missing
+id_missing
+
+# id is empty
+id_empty
+
+
+# lane is missing
+lane_missing
+
+# lane is empty
+lane_empty
+
+# lane is unknown
+lane_false
+
+
+# position is missing
+pos_missing
+
+# position is empty
+pos_empty
+
+# position is not numeric
+pos_false
+
+# position is beyond lane's length
+pos_too_high
+
+
+# freq is missing
+freq_missing
+
+# freq is empty
+freq_empty
+
+# freq is negative
+freq_negative
+
+# freq is not numeric
+freq_false
+
+
+# file is missing
+file_missing
+
+# file is empty
+file_empty
+
+# file can not be built
+file_false
+
+
+
