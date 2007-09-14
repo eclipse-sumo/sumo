@@ -1056,11 +1056,14 @@ void
 NLHandler::addE1Detector(const Attributes &attrs)
 {
     // try to get the id first
-    string id;
-    try {
-        id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing id of a detector-object.");
+    string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
+    if(id=="") {
+        MsgHandler::getErrorInstance()->inform("Missing id of a e1-detector-object.");
+        return;
+    }
+    string file = getStringSecure(attrs, SUMO_ATTR_FILE, "");
+    if(file=="") {
+        MsgHandler::getErrorInstance()->inform("Missing output definition for detector '" + id + "'.");
         return;
     }
 
@@ -1093,7 +1096,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
     // try to get the id first
     string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
     if(id=="") {
-        MsgHandler::getErrorInstance()->inform("Missing id of a detector-object.");
+        MsgHandler::getErrorInstance()->inform("Missing id of a e2-detector-object.");
         return;
     }
     // check whether this is a lsa-based detector or one that uses a sample

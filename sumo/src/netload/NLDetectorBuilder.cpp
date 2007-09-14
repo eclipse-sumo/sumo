@@ -101,6 +101,9 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
                                    OutputDevice& device, bool friendly_pos,
                                    const std::string &/*style*/)
 {
+    if(splInterval<0) {
+        throw InvalidArgument("Negative sampling frequency (in detector '" + id + "').");
+    }
     // get and check the lane
     MSLane *clane = getLaneChecking(lane, id);
     if (pos<0) {
@@ -341,6 +344,9 @@ NLDetectorBuilder::beginE3Detector(const std::string &id,
                                    const std::string &measures,
                                    MSUnit::MetersPerSecond haltingSpeedThreshold)
 {
+    if(splInterval<0) {
+        throw InvalidArgument("Negative sampling frequency (in detector '" + id + "').");
+    }
     E3MeasuresVector toAdd = parseE3Measures(measures);
     myE3Definition = new E3DetectorDefinition(id, device,
                      haltingSpeedThreshold,
