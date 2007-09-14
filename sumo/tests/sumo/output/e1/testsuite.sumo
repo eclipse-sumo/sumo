@@ -4,3 +4,8 @@ one_no_vehicles
 # Two detectors, same file, no traffic
 two_no_vehicles
 
+
+
+# Testing error cases
+errors
+
