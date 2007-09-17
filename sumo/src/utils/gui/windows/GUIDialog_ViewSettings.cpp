@@ -897,71 +897,75 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file)
 {
     size_t index, k;
     std::map<int, std::vector<RGBColor> >::const_iterator j;
-    OutputDevice &dev = OutputDevice::getDevice(file);
-    dev << "name " << mySettings->name << '\n';
+    try {
+        OutputDevice &dev = OutputDevice::getDevice(file);
+        dev << "name " << mySettings->name << '\n';
 
-    dev << "antialiase " << mySettings->antialiase << '\n';
-    dev << "dither " << mySettings->dither << '\n';
+        dev << "antialiase " << mySettings->antialiase << '\n';
+        dev << "dither " << mySettings->dither << '\n';
 
-    dev << "backgroundColor " << mySettings->backgroundColor << '\n';
-    dev << "showGrid " << mySettings->showGrid << '\n';
-    dev << "gridXSize " << mySettings->gridXSize << '\n';
-    dev << "gridYSize " << mySettings->gridYSize << '\n';
+        dev << "backgroundColor " << mySettings->backgroundColor << '\n';
+        dev << "showGrid " << mySettings->showGrid << '\n';
+        dev << "gridXSize " << mySettings->gridXSize << '\n';
+        dev << "gridYSize " << mySettings->gridYSize << '\n';
 
-    dev << "laneEdgeMode " << mySettings->laneEdgeMode << '\n';
-    dev << "laneShowBorders " << mySettings->laneShowBorders << '\n';
-    dev << "showLinkDecals " << mySettings->showLinkDecals << '\n';
-    dev << "laneEdgeExaggMode " << mySettings->laneEdgeExaggMode << '\n';
-    dev << "minExagg " << mySettings->minExagg << '\n';
-    dev << "maxExagg " << mySettings->maxExagg << '\n';
-    dev << "showRails " << mySettings->showRails << '\n';
-    dev << "edgeNameSize " << mySettings->edgeNameSize << '\n';
-    dev << "edgeNameColor " << mySettings->edgeNameColor << '\n';
-    for (j=mySettings->laneColorings.begin(), index=0; j!=mySettings->laneColorings.end(); ++j, ++index) {
-        for (k=0; k<(*j).second.size(); ++k) {
-            dev << "nlcC " << toString(index) << " " << (*j).second[k] << '\n';
+        dev << "laneEdgeMode " << mySettings->laneEdgeMode << '\n';
+        dev << "laneShowBorders " << mySettings->laneShowBorders << '\n';
+        dev << "showLinkDecals " << mySettings->showLinkDecals << '\n';
+        dev << "laneEdgeExaggMode " << mySettings->laneEdgeExaggMode << '\n';
+        dev << "minExagg " << mySettings->minExagg << '\n';
+        dev << "maxExagg " << mySettings->maxExagg << '\n';
+        dev << "showRails " << mySettings->showRails << '\n';
+        dev << "edgeNameSize " << mySettings->edgeNameSize << '\n';
+        dev << "edgeNameColor " << mySettings->edgeNameColor << '\n';
+        for (j=mySettings->laneColorings.begin(), index=0; j!=mySettings->laneColorings.end(); ++j, ++index) {
+            for (k=0; k<(*j).second.size(); ++k) {
+                dev << "nlcC " << toString(index) << " " << (*j).second[k] << '\n';
+            }
         }
-    }
 
-    dev << "vehicleMode " << mySettings->vehicleMode << '\n';
-    dev << "minVehicleSize " << mySettings->minVehicleSize << '\n';
-    dev << "vehicleExaggeration " << mySettings->vehicleExaggeration << '\n';
-    dev << "showBlinker " << mySettings->showBlinker << '\n';
-    dev << "drawcC2CRadius " << mySettings->drawcC2CRadius << '\n';
-    dev << "drawLaneChangePreference " << mySettings->drawLaneChangePreference << '\n';
-    dev << "drawVehicleName " << mySettings->drawVehicleName << '\n';
-    dev << "vehicleNameSize " << mySettings->vehicleNameSize << '\n';
-    dev << "vehicleNameColor " << mySettings->vehicleNameColor << '\n';
-    for (j=mySettings->vehicleColorings.begin(), index=0; j!=mySettings->vehicleColorings.end(); ++j, ++index) {
-        for (k=0; k<(*j).second.size(); ++k) {
-            dev << "nvcC " << toString(index) << " " << (*j).second[k] << '\n';
+        dev << "vehicleMode " << mySettings->vehicleMode << '\n';
+        dev << "minVehicleSize " << mySettings->minVehicleSize << '\n';
+        dev << "vehicleExaggeration " << mySettings->vehicleExaggeration << '\n';
+        dev << "showBlinker " << mySettings->showBlinker << '\n';
+        dev << "drawcC2CRadius " << mySettings->drawcC2CRadius << '\n';
+        dev << "drawLaneChangePreference " << mySettings->drawLaneChangePreference << '\n';
+        dev << "drawVehicleName " << mySettings->drawVehicleName << '\n';
+        dev << "vehicleNameSize " << mySettings->vehicleNameSize << '\n';
+        dev << "vehicleNameColor " << mySettings->vehicleNameColor << '\n';
+        for (j=mySettings->vehicleColorings.begin(), index=0; j!=mySettings->vehicleColorings.end(); ++j, ++index) {
+            for (k=0; k<(*j).second.size(); ++k) {
+                dev << "nvcC " << toString(index) << " " << (*j).second[k] << '\n';
+            }
         }
+    
+        dev << "junctionMode " << mySettings->junctionMode << '\n';
+        dev << "drawLinkTLIndex " << mySettings->drawLinkTLIndex << '\n';
+        dev << "drawLinkJunctionIndex " << mySettings->drawLinkJunctionIndex << '\n';
+        dev << "drawJunctionName " << mySettings->drawJunctionName << '\n';
+        dev << "junctionNameSize " << mySettings->junctionNameSize << '\n';
+        dev << "junctionNameColor " << mySettings->junctionNameColor << '\n';
+    
+        dev << "showLane2Lane " << mySettings->showLane2Lane << '\n';
+    
+        dev << "addMode " << mySettings->addMode << '\n';
+        dev << "minAddSize " << mySettings->minAddSize << '\n';
+        dev << "addExaggeration " << mySettings->addExaggeration << '\n';
+        dev << "drawAddName " << mySettings->drawAddName << '\n';
+        dev << "addNameSize " << mySettings->addNameSize << '\n';
+    
+        dev << "poiExaggeration " << mySettings->poiExaggeration << '\n';
+        dev << "minPOISize " << mySettings->minPOISize << '\n';
+        dev << "drawPOIName " << mySettings->drawPOIName << '\n';
+        dev << "poiNameSize " << mySettings->poiNameSize << '\n';
+        dev << "poiNameColor " << mySettings->poiNameColor << '\n';
+
+        dev << "showSizeLegend " << mySettings->showSizeLegend << '\n';
+
+        dev.close();
+    } catch (IOError &e) {
+        FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
     }
-
-    dev << "junctionMode " << mySettings->junctionMode << '\n';
-    dev << "drawLinkTLIndex " << mySettings->drawLinkTLIndex << '\n';
-    dev << "drawLinkJunctionIndex " << mySettings->drawLinkJunctionIndex << '\n';
-    dev << "drawJunctionName " << mySettings->drawJunctionName << '\n';
-    dev << "junctionNameSize " << mySettings->junctionNameSize << '\n';
-    dev << "junctionNameColor " << mySettings->junctionNameColor << '\n';
-
-    dev << "showLane2Lane " << mySettings->showLane2Lane << '\n';
-
-    dev << "addMode " << mySettings->addMode << '\n';
-    dev << "minAddSize " << mySettings->minAddSize << '\n';
-    dev << "addExaggeration " << mySettings->addExaggeration << '\n';
-    dev << "drawAddName " << mySettings->drawAddName << '\n';
-    dev << "addNameSize " << mySettings->addNameSize << '\n';
-
-    dev << "poiExaggeration " << mySettings->poiExaggeration << '\n';
-    dev << "minPOISize " << mySettings->minPOISize << '\n';
-    dev << "drawPOIName " << mySettings->drawPOIName << '\n';
-    dev << "poiNameSize " << mySettings->poiNameSize << '\n';
-    dev << "poiNameColor " << mySettings->poiNameColor << '\n';
-
-    dev << "showSizeLegend " << mySettings->showSizeLegend << '\n';
-
-    dev.close();
 }
 
 

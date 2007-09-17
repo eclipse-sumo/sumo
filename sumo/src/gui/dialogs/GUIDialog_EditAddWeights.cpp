@@ -380,9 +380,13 @@ GUIDialog_EditAddWeights::onCmdSave(FXObject*,FXSelector,void*)
     gCurrentFolder = opendialog.getDirectory().text();
     string file = opendialog.getFilename().text();
     string content = encode2XML();
-    OutputDevice &dev = OutputDevice::getDevice(file);
-    dev << content;
-    dev.close();
+    try {
+        OutputDevice &dev = OutputDevice::getDevice(file);
+        dev << content;
+        dev.close();
+    } catch (IOError &e) {
+        FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
+    }
     return 1;
 }
 

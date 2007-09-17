@@ -275,46 +275,45 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
     }
     gCurrentFolder = opendialog.getDirectory().text();
     string file = opendialog.getFilename().text();
-    OutputDevice &dev = OutputDevice::getDevice(file);
-    /*
-    if (!strm.good()) {
-        return 1; // !!! inform the user
-    }
-    */
-    // write header
-    TrackedVarsVector::iterator i;
-    dev << "# ";
-    for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
-        if (i!=myTracked.begin()) {
-            dev << ';';
-        }
-        TrackerValueDesc *tvd = *i;
-        dev << tvd->getName();
-    }
-    dev << '\n';
-    // count entries
-    size_t max = 0;
-    for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
-        TrackerValueDesc *tvd = *i;
-        size_t sizei = tvd->getAggregatedValues().size();
-        if (max<sizei) {
-            max = sizei;
-        }
-        tvd->unlockValues();
-    }
-    // write entries
-    for (unsigned int j=0; j<max; j++) {
+    try {
+        OutputDevice &dev = OutputDevice::getDevice(file);
+        // write header
+        TrackedVarsVector::iterator i;
+        dev << "# ";
         for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
             if (i!=myTracked.begin()) {
                 dev << ';';
             }
             TrackerValueDesc *tvd = *i;
-            dev << tvd->getAggregatedValues()[j];
-            tvd->unlockValues();
+            dev << tvd->getName();
         }
         dev << '\n';
+        // count entries
+        size_t max = 0;
+        for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
+            TrackerValueDesc *tvd = *i;
+            size_t sizei = tvd->getAggregatedValues().size();
+            if (max<sizei) {
+                max = sizei;
+            }
+            tvd->unlockValues();
+        }
+        // write entries
+        for (unsigned int j=0; j<max; j++) {
+            for (i=myTracked.begin(); i!=myTracked.end(); ++i) {
+                if (i!=myTracked.begin()) {
+                    dev << ';';
+                }
+                TrackerValueDesc *tvd = *i;
+                dev << tvd->getAggregatedValues()[j];
+                tvd->unlockValues();
+            }
+            dev << '\n';
+        }
+        dev.close();
+    } catch (IOError &e) {
+        FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
     }
-    dev.close();
     return 1;
 }
 

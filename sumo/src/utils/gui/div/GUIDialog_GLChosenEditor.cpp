@@ -185,7 +185,11 @@ GUIDialog_GLChosenEditor::onCmdSave(FXObject*,FXSelector,void*)
     }
     gCurrentFolder = opendialog.getDirectory().text();
     string file = opendialog.getFilename().text();
-    gSelected.save(-1, file);
+    try {
+        gSelected.save(-1, file);
+    } catch(IOError &e) {
+        FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
+    }
     return 1;
 }
 

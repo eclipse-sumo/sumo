@@ -111,17 +111,9 @@ GUISelectedStorage::SingleTypeSelections::load(const std::string &filename)
 
 
 void
-GUISelectedStorage::SingleTypeSelections::save(const std::string &filename)
+GUISelectedStorage::SingleTypeSelections::save(const std::string &filename) throw (IOError)
 {
     OutputDevice &dev = OutputDevice::getDevice(filename);
-    save(dev);
-    dev.close();
-}
-
-
-void
-GUISelectedStorage::SingleTypeSelections::save(OutputDevice &dev)
-{
     for (std::vector<size_t>::iterator i=mySelected.begin(); i!=mySelected.end(); ++i) {
         GUIGlObject *object = gIDStorage.getObjectBlocking(*i);
         if (object!=0) {
@@ -130,6 +122,7 @@ GUISelectedStorage::SingleTypeSelections::save(OutputDevice &dev)
             gIDStorage.unblockObject(*i);
         }
     }
+    dev.close();
 }
 
 
@@ -421,7 +414,7 @@ GUISelectedStorage::load(int type, const std::string &filename)
 
 
 void
-GUISelectedStorage::save(int type, const std::string &filename)
+GUISelectedStorage::save(int type, const std::string &filename) throw(IOError)
 {
     if (type!=-1) {
         switch (type) {

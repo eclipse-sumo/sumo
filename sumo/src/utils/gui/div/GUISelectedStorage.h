@@ -33,6 +33,7 @@
 #include <vector>
 #include <string>
 #include <fstream>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -82,7 +83,7 @@ public:
     void load(int type, const std::string &filename);
 
     /// Saves a selection list
-    void save(int type, const std::string &filename);
+    void save(int type, const std::string &filename) throw(IOError);
 
     /// Adds a selected-dialog to be updated
     void add2Update(GUIDialog_GLChosenEditor *ed);
@@ -118,10 +119,7 @@ public:
         void load(const std::string &filename);
 
         /// Saves the list of selected objects to a file named as given
-        void save(const std::string &filename);
-
-        /// Saves the list to the given stream
-        void save(OutputDevice &dev);
+        void save(const std::string &filename) throw(IOError);
 
         /// Returns the list of selected ids
         const std::vector<size_t> &getSelected() const;

@@ -33,6 +33,7 @@
 #include <string>
 #include <map>
 #include <vector>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
