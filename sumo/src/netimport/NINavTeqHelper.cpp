@@ -67,7 +67,7 @@ NINavTeqHelper::getSpeed(const std::string &id, const std::string &speedClassS)
         case 8:
             return (SUMOReal) 5 / (SUMOReal) 3.6; //< 11 KPH / < 6 MPH
         default:
-            throw ProcessError("Invalid speed code (edge '" + id + "'.");
+            throw ProcessError("Invalid speed code (edge '" + id + "').");
 
         }
     } catch (NumberFormatException &) {
