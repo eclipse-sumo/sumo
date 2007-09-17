@@ -166,13 +166,11 @@ RORDLoader_SUMOBase::startVehType(const Attributes &attrs)
         SUMOReal tau = getFloatSecure(attrs, SUMO_ATTR_TAU, DEFAULT_VEH_TAU);
         RGBColor color = parseColor(*this, attrs, "vehicle type", id);
         SUMOVehicleClass vclass = parseVehicleClass(*this, attrs, "vehicle type", id);
-        // build the vehicle type after checking
+        // build the vehicle type
         //  by now, only vehicles using the krauss model are supported
-        if (maxspeed>0&&length>0&&accel>0&&decel>0&&sigma>0) {
-            myCurrentVehicleType = new ROVehicleType_Krauss(
-                                       id, color, length, vclass, accel, decel, sigma, maxspeed, tau);
-            myNet.addVehicleType(myCurrentVehicleType);
-        }
+        myCurrentVehicleType = new ROVehicleType_Krauss(
+            id, color, length, vclass, accel, decel, sigma, maxspeed, tau);
+        myNet.addVehicleType(myCurrentVehicleType);
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("At least one parameter of vehicle type '" + id + "' is not numeric, but should be.");
     }

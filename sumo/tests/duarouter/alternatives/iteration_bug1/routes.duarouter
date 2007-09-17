@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/17/07 14:30:38 by SUMO duarouter Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <alternatives>input_alts.rou.xml.alt</alternatives>
+      <weights>input_weights.dump.xml</weights>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+   <processing>
+      <continue-on-unbuild>true</continue-on-unbuild>
+   </processing>
+
+   <time>
+      <begin>0</begin>
+      <end>86400</end>
+   </time>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
+<routes>
+   <vtype model="SUMO_KRAUSS" id="CarA" accel="2.00" decel="6.00" sigma="0.00" length="2.00" maxspeed="180.00" tau="1.00"/>
+   <vehicle id="veh0" type="CarA" depart="1" color="1.00,0.00,0.00">
+      <route color="1.00,0.00,0.00">L1 L9 L17 L26</route>
+   </vehicle>
+</routes>

@@ -37,3 +37,8 @@ newstyle_with_vehtype_with_class
 # Checks whether processing of vehicles with no vevtapye works
 newstyle_no_vehtype
 
+
+# Bug that occured during an iteration
+iteration_bug1
+
+
