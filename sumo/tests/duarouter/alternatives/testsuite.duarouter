@@ -19,8 +19,11 @@ newstyle_noid_increasing_time
 # same as unsorted_time but with new style definition (no id in route alternatives)
 newstyle_noid_unsorted_time
 
-# same as newstyle_noid_increasing_time, but a non-standard vehicle type is defined
+# same as newstyle_noid_increasing_time, but a non-standard vehicle type defined
 newstyle_with_vehtype
+
+# same as newstyle_with_vehtype, but two non-standard vehicle types defined
+newstyle_with_2vehtypes
 
 # same as newstyle_noid_increasing_time, but a non-standard vehicle type is used but not defined
 newstyle_with_vehtype_nodef

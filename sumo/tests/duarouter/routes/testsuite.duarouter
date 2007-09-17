@@ -34,6 +34,9 @@ newstyle_increasing_colors
 # same as newstyle_noid_increasing_time, but a non-standard vehicle type is defined
 newstyle_with_vehtype
 
+# same as newstyle_with_vehtype, but two non-standard vehicle types ae defined
+newstyle_with_2vehtypes
+
 # same as newstyle_noid_increasing_time, but a non-standard vehicle type is used but not defined
 newstyle_with_vehtype_nodef
 

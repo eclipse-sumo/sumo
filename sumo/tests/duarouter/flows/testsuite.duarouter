@@ -25,6 +25,9 @@ flows2routes_100s_interval_withtype
 # Test whether types may be defined
 flows2routes_100s_interval_typedefined
 
+# Test whether two types may be defined
+flows2routes_100s_interval_2typesdefined
+
 # Test whether the vehicle class is processed
 flows2routes_100s_interval_withtype_withclass
 

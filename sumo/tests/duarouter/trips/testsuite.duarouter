@@ -34,6 +34,9 @@ one_time_typedefined
 # Tests with trips which departure time increases, a type is defined in the trips file, should be kept
 increasing_time_typedefined
 
+# Tests with trips which departure time increases, two types are defined in the trips file, should be kept
+increasing_time_2typesdefined
+
 # Test whether trips with unsorted are imported correctly, a type is defined in the trips file, should be kept
 unsorted_time_typedefined
 
