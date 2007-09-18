@@ -1,0 +1,4 @@
+<tripdefs>
+	<vtype id="0" vclass="passenger"/>
+	<tripdef depart="0" from="absBeg" to="absEnd" type="0"/>
+</tripdefs>

@@ -373,7 +373,7 @@ ROEdge::prohibits(const ROVehicle * const vehicle) const
     // ok, vehicles with an unknown class may be only prohibited
     //  if the edge is limited to a set of classes
     SUMOVehicleClass vclass = vehicle->getType()!=0 ? vehicle->getType()->getClass() : DEFAULT_VEH_CLASS;
-    if (vclass==SVC_UNKNOWN&&myAllowedClasses.size()==0) {
+    if (vclass==SVC_UNKNOWN) {
         return false;
     }
     // check whether it is explicitely disallowed

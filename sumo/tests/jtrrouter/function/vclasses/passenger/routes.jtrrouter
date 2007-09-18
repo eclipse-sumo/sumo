@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/10/07 12:59:01 by SUMO jtrrouter Version 0.9.6
+<!-- generated on 09/18/07 09:33:54 by SUMO jtrrouter Version 0.9.6
 <configuration>
 
    <input>
@@ -20,7 +20,7 @@
 -->
 
 <routes>
-   <vtype model="SUMO_KRAUSS" id="passenger" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00" class="passenger"/>
+   <vtype model="SUMO_KRAUSS" id="passenger" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00" vclass="passenger"/>
    <vehicle id="0_0" type="passenger" depart="0">
       <route>beg middle end</route>
    </vehicle>

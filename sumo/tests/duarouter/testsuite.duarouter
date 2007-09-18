@@ -15,6 +15,9 @@ alternatives
 # testing the dua
 dua
 
+# testing vehicle class processing
+vclasses
+
 # testing meta processing
 meta
 

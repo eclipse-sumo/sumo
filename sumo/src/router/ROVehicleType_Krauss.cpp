@@ -76,7 +76,7 @@ ROVehicleType_Krauss::xmlOut(OutputDevice &dev) const
         dev << " color=\"" << myColor << "\"";
     }
     if (myClass!=SVC_UNKNOWN) {
-        dev << " class=\"" << getVehicleClassName(myClass) << "\"";
+        dev << " vclass=\"" << getVehicleClassName(myClass) << "\"";
     }
     dev << "/>\n";
     return dev;

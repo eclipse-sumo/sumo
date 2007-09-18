@@ -1,0 +1,33 @@
+# Tests for vehicle class usage
+#  The network has a shorter, straight path where only "passenger" are allowed
+#   and a longer path where "bus" is allowed
+
+# Tests for importing passenger-trip
+passenger_test_trips
+
+# Tests for importing passenger-flow
+passenger_test_flows
+
+
+# Tests for importing bus-trip
+bus_test_trips
+
+# Tests for importing bus-flow
+bus_test_flows
+
+
+# Tests for importing trips with no vehicle class given
+no_vclass_test_trips
+
+# Tests for importing flows with no vehicle class given
+no_vclass_test_flows
+
+
+# Tests for importing trips with an empty vehicle class
+empty_vclass_test_trips
+
+# Tests for importing flows with an empty vehicle class
+empty_vclass_test_flows
+
+
+
