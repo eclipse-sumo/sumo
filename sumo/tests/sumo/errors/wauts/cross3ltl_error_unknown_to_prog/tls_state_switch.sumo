@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/10/07 09:03:47 by SUMO sumo Version 0.9.6
+<!-- generated on 09/18/07 16:55:17 by SUMO sumo Version 0.9.6
 <configuration>
 
    <input>
@@ -35,3 +35,4 @@
    <tlsstate time="86" id="0" subid="0">RRGGRRRRRRGGRRRR</tlsstate>
    <tlsstate time="89" id="0" subid="0">RRYYRRRRRRYYRRRR</tlsstate>
    <tlsstate time="93" id="0" subid="0">RRRRGGGGRRRRGGGG</tlsstate>
+</tls-switch-states>
