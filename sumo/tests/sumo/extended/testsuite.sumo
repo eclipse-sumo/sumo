@@ -8,7 +8,7 @@
 emitter
 
 # Tests for dua-inc emissions
-#inc-dua
+inc-dua
 
 # Tests c2c output generation and functioning
 #c2c

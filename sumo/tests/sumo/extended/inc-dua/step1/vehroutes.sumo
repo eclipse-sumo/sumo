@@ -1,10 +1,36 @@
-<?xml version="1.0" standalone="no"?>
+<?xml version="1.0"?>
+
+<!-- generated on 09/18/07 16:54:05 by SUMO sumo Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+   </input>
+
+   <output>
+      <vehroute-output>vehroutes.xml</vehroute-output>
+   </output>
+
+   <time>
+      <begin>0</begin>
+   </time>
+
+   <processing>
+      <incremental-dua-step>1</incremental-dua-step>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
 <vehicleroutes>
-   <vehicle id="horizontal21" emittedAt="100" endedAt="333">
+   <vehicle id="horizontal21" emittedAt="100" endedAt="332">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal11" emittedAt="100" endedAt="334">
+   <vehicle id="horizontal11" emittedAt="100" endedAt="335">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
