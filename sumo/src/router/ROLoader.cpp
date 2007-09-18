@@ -284,11 +284,13 @@ ROLoader::openRoutes(RONet &net, SUMOReal /*gBeta*/, SUMOReal /*gA*/)
 void
 ROLoader::skipUntilBegin()
 {
-    MsgHandler::getMessageInstance()->inform("Skipping...");
-    for (RouteLoaderCont::iterator i=myHandler.begin(); i!=myHandler.end(); i++) {
-        (*i)->skipUntilBegin();
+    if(myHandler.size()!=0) {
+        MsgHandler::getMessageInstance()->inform("Skipping...");
+        for (RouteLoaderCont::iterator i=myHandler.begin(); i!=myHandler.end(); i++) {
+            (*i)->skipUntilBegin();
+        }
+        MsgHandler::getMessageInstance()->inform("Skipped until: " + toString<SUMOTime>(getMinTimeStep()));
     }
-    MsgHandler::getMessageInstance()->inform("Skipped until: " + toString<SUMOTime>(getMinTimeStep()));
 }
 
 
@@ -301,7 +303,7 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
     // loop till the end
     bool endReached = false;
     bool errorOccured = false;
-    SUMOTime time = getMinTimeStep();
+    SUMOTime time = myHandler.size()!=0 ? getMinTimeStep() : start;
     SUMOTime firstStep = time;
     SUMOTime lastStep = time;
     for (; time<end&&!errorOccured&&!endReached; time++) {
@@ -348,8 +350,10 @@ ROLoader::makeSingleStep(SUMOTime end, RONet &net, ROAbstractRouter &router)
 SUMOTime
 ROLoader::getMinTimeStep() const
 {
-    SUMOTime ret = LONG_MAX;
-    for (RouteLoaderCont::const_iterator i=myHandler.begin(); i!=myHandler.end(); i++) {
+    RouteLoaderCont::const_iterator i=myHandler.begin();
+    SUMOTime ret = (*i)->getCurrentTimeStep();
+    ++i;
+    for (; i!=myHandler.end(); i++) {
         SUMOTime akt = (*i)->getCurrentTimeStep();
         if (akt<ret) {
             ret = akt;
