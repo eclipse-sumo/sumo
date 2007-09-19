@@ -432,7 +432,7 @@ main(int argc, char **argv)
         // initialise subsystems
         XMLSubSys::init();
         fillOptions();
-        OptionsIO::getOptions(true, argc, argv);
+        OptionsIO::getOptions(false, argc, argv);
         if(oc.processMetaOptions(false)) {
             SystemFrame::close();
             return 0;
