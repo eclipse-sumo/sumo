@@ -48,8 +48,7 @@
 #include "RONetHandler.h"
 #include "ROLoader.h"
 #include "RORDLoader_TripDefs.h"
-#include "RORDLoader_SUMORoutes.h"
-#include "RORDLoader_SUMOAlt.h"
+#include "RORDLoader_SUMOBase.h"
 #include "RORDGenerator_Random.h"
 #include "RORDGenerator_ODAmounts.h"
 #include "ROAbstractRouteDefLoader.h"
@@ -433,8 +432,10 @@ ROLoader::buildNamedHandler(const std::string &optionName,
                             RONet &net)
 {
     if (optionName=="sumo-input") {
-        return new RORDLoader_SUMORoutes(myVehicleBuilder, net,
-                                         myOptions.getInt("begin"), myOptions.getInt("end"), file);
+        return new RORDLoader_SUMOBase(myVehicleBuilder, net,
+                                      myOptions.getInt("begin"), myOptions.getInt("end"),
+                                      myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
+                                      myOptions.getInt("max-alternatives"), "routes", file);
     }
     if (optionName=="trip-defs") {
         return new RORDLoader_TripDefs(myVehicleBuilder, net,
@@ -442,10 +443,10 @@ ROLoader::buildNamedHandler(const std::string &optionName,
                                        myEmptyDestinationsAllowed, file);
     }
     if (optionName=="alternatives") {
-        return new RORDLoader_SUMOAlt(myVehicleBuilder, net,
+        return new RORDLoader_SUMOBase(myVehicleBuilder, net,
                                       myOptions.getInt("begin"), myOptions.getInt("end"),
                                       myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
-                                      myOptions.getInt("max-alternatives"), file);
+                                      myOptions.getInt("max-alternatives"), "alternatives", file);
     }
     if (optionName=="flows") {
         return new RORDGenerator_ODAmounts(myVehicleBuilder, net,

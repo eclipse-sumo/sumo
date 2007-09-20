@@ -51,6 +51,8 @@ using namespace XERCES_CPP_NAMESPACE;
 class ROVehicleType;
 class RORouteDef;
 class MsgHandler;
+class RORouteDef_Alternatives;
+class RORoute;
 
 
 // ===========================================================================
@@ -71,6 +73,8 @@ public:
     /// Constructor
     RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
                         SUMOTime begin, SUMOTime end,
+                        SUMOReal gawronBeta, SUMOReal gawronA,
+                        int maxRouteNumber,
                         const std::string &dataName, const std::string &file="");
 
     /// Destructor
@@ -90,9 +94,19 @@ protected:
     virtual void myStartElement(SumoXMLTag element,
                                 const Attributes &attrs) throw(ProcessError);
 
+    /** the user-implemented handler method for characters */
+    void myCharacters(SumoXMLTag element,
+                      const std::string &chars) throw(ProcessError);
+
     /** the user-implemented handler method for a closing tag */
     virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
+
+    /// Begins the parsing of the next route alternative in the file
+    void startAlternative(const Attributes &attrs);
+
+    /// Begins the parsing of a route alternative of the opened route
+    void startRoute(const Attributes &attrs);
 
     /// Return the information whether a route was read
     bool nextRouteRead();
@@ -104,9 +118,6 @@ protected:
     void startVehType(const Attributes &attrs);
 
     MsgHandler *getErrorHandlerMarkInvalid();
-
-    /// begins the processing of a route
-    virtual void startRoute(const Attributes &attrs) = 0;
 
     void closeVehicle() throw();
 
@@ -127,6 +138,27 @@ protected:
 
     /// The vehicle type currently being parsed
     ROVehicleType *myCurrentVehicleType;
+
+    /// The current route alternatives
+    RORouteDef_Alternatives *myCurrentAlternatives;
+
+    /// The costs of the current alternative
+    SUMOReal myCost;
+
+    /// The probability of the current alternative's usage
+    SUMOReal myProbability;
+
+    /// gawron beta - value
+    SUMOReal myGawronBeta;
+
+    /// gawron beta - value
+    SUMOReal myGawronA;
+
+    /// The maximum route alternatives number
+    int myMaxRouteNumber;
+
+
+    RORoute *myCurrentRoute; 
 
 };
 

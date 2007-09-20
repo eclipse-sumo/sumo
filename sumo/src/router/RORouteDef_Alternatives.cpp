@@ -39,10 +39,12 @@
 #include "ROEdge.h"
 #include "RORouteDef.h"
 #include "RORoute.h"
+#include "ROVehicle.h"
 #include "ROAbstractRouter.h"
 #include "RORouteDef_Alternatives.h"
 #include <utils/common/StdDefs.h>
 #include <utils/common/RandHelper.h>
+#include <utils/common/UtilExceptions.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -173,6 +175,9 @@ RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *cur
             // recompute the costs for old routes
             SUMOReal oldCosts = alt->getCosts();
             SUMOReal newCosts = alt->recomputeCosts(veh, begin);
+            if(newCosts<0) {
+                throw ProcessError("Route '" + current->getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
+            }
             alt->setCosts(myGawronBeta * newCosts + ((SUMOReal) 1.0 - myGawronBeta) * oldCosts);
         }
         assert(myAlternatives.size()!=0);
