@@ -348,7 +348,6 @@ src/microsim/devices/Makefile
 src/microsim/lanechanging/Makefile
 src/microsim/logging/Makefile
 src/microsim/output/Makefile
-src/microsim/output/e1_detectors/Makefile
 src/microsim/output/e2_detectors/Makefile
 src/microsim/output/e3_detectors/Makefile
 src/microsim/output/meandata/Makefile

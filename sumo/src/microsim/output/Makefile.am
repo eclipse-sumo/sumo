@@ -27,4 +27,4 @@ MSSpaceMeanSpeed.h MSSubject.h MSSumDetector.h \
 MSTDDetector.h MSTDDetectorInterface.h \
 MSXMLRawOut.cpp MSXMLRawOut.h
 
-SUBDIRS = e1_detectors e2_detectors e3_detectors meandata
+SUBDIRS = e2_detectors e3_detectors meandata

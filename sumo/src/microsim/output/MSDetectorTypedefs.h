@@ -56,9 +56,6 @@
 
 
 
-// concrete E1 detectors, all LD
-#include <microsim/output/e1_detectors/MSE1MeanSpeed.h>
-
 // ===========================================================================
 // namespace
 // ===========================================================================
@@ -110,10 +107,6 @@ MSHaltingDurationSum >, true > E2HaltingDurationSum;
 typedef MSMeanDetector< LD::MSDetector<
 MSHaltDuration>, true > E2HaltingDurationMean;
 
-
-// E1 are all LD
-typedef MSMeanDetector< LD::MSDetector<
-MSE1MeanSpeed >, true> E1MeanSpeed;
 }
 
 
