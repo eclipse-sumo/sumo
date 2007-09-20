@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/20/07 09:41:24 by SUMO duarouter Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <alternatives>input_alts.rou.xml.alt</alternatives>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+</configuration>
+-->
+
+<routes>
