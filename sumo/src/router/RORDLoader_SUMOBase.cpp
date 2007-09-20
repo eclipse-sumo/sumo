@@ -74,7 +74,11 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
 
 
 RORDLoader_SUMOBase::~RORDLoader_SUMOBase() throw()
-{}
+{
+    // clean up (on failure)
+    delete myCurrentAlternatives;
+    delete myCurrentRoute;
+}
 
 
 void

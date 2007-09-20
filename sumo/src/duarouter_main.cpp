@@ -133,17 +133,24 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
         throw e;
     }
     // the routes are sorted - process stepwise
-    if (!oc.getBool("unsorted")) {
-        loader.processRoutesStepWise(oc.getInt("begin"), oc.getInt("end"), net, *router);
+    try {
+        if (!oc.getBool("unsorted")) {
+            loader.processRoutesStepWise(oc.getInt("begin"), oc.getInt("end"), net, *router);
+        }
+        // the routes are not sorted: load all and process
+        else {
+            loader.processAllRoutes(oc.getInt("begin"), oc.getInt("end"), net, *router);
+        }
+        // end the processing
+        loader.closeReading();
+        net.closeOutput();
+        delete router;
+    } catch (ProcessError &) {
+        loader.closeReading();
+        net.closeOutput();
+        delete router;
+        throw;
     }
-    // the routes are not sorted: load all and process
-    else {
-        loader.processAllRoutes(oc.getInt("begin"), oc.getInt("end"), net, *router);
-    }
-    // end the processing
-    loader.closeReading();
-    net.closeOutput();
-    delete router;
 }
 
 

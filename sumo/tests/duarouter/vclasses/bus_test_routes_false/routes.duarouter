@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/20/07 09:41:25 by SUMO duarouter Version 0.9.6
+<!-- generated on 09/20/07 14:39:00 by SUMO duarouter Version 0.9.6
 <configuration>
 
    <input>
@@ -16,3 +16,4 @@
 -->
 
 <routes>
+</routes>
