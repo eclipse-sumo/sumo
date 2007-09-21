@@ -52,8 +52,7 @@ using namespace std;
 // ===========================================================================
 // static member definitions
 // ===========================================================================
-ROEdge::DictType ROEdge::myDict;
-bool myHaveWarned = false; // !!! make this static or so
+bool ROEdge::myHaveWarned = false;
 
 
 // ===========================================================================
@@ -99,7 +98,6 @@ ROEdge::addLane(ROLane *lane)
     myDist = length > myDist ? length : myDist;
     SUMOReal speed = lane->getSpeed();
     mySpeed = speed > mySpeed ? speed : mySpeed;
-    myDictLane[lane->getID()] = lane;
     myLanes.push_back(lane);
 
     std::vector<SUMOVehicleClass>::const_iterator i;
@@ -293,60 +291,6 @@ ROEdge::setSupplementaryWeights(FloatValueTimeLine* absolut,
            mySupplementaryWeightAdd     != 0 &&
            mySupplementaryWeightMult    != 0);
     myHasSupplementaryWeights = true;
-}
-
-
-void
-ROEdge::clear()
-{
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        delete(*i).second;
-    }
-    myDict.clear();
-}
-
-bool
-ROEdge::dictionary(string id, ROEdge* ptr)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict.insert(DictType::value_type(id, ptr));
-        return true;
-    }
-    return false;
-}
-
-ROEdge*
-ROEdge::dictionary2(string id)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        return 0;
-    }
-    return it->second;
-}
-
-
-
-
-ROLane *
-ROEdge::getLane(std::string name)
-{
-    //(assert(laneNo<myLanes->size()); ??? was ist assert
-    //return *((*myLanes)[laneNo]);
-    std::map<std::string, ROLane*>::const_iterator i=
-        ROEdge::myDictLane.find(name);
-    //assert(i!=myEmitterDict.end());
-    return (*i).second;
-}
-
-
-ROLane*
-ROEdge::getLane(size_t index)
-{
-    return myLanes[index];
 }
 
 

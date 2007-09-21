@@ -135,30 +135,6 @@ public:
                                  FloatValueTimeLine* add,
                                      FloatValueTimeLine* mult);
 
-    void clear();
-
-    virtual ROLane *getLane(std::string name) ; //###################
-
-    static	bool dictionary(std::string id, ROEdge* ptr);
-
-    static ROEdge* dictionary2(std::string id);
-////#########################  muss Private sein
-
-
-    /// definition of the static dictionary type
-    typedef std::map<std::string, ROEdge* > DictType;
-
-    /// Static dictionary to associate string-ids with objects.
-    static DictType myDict;
-
-    /// definition of the static dictionary type
-    typedef std::map<std::string, ROLane* > DictLane;
-
-    /// Static dictionary to associate string-ids with objects.
-    DictLane myDictLane;
-
-    ROLane *getLane(size_t index);
-
     SUMOReal getSpeed() const;
 
     int getLaneNo() const;
@@ -212,7 +188,7 @@ protected:
     bool myHasSupplementaryWeights;
 
     /// Information whether the edge has reported missing weights
-    //bool myHaveWarned;
+    static bool myHaveWarned;
 
     std::vector<ROLane*> myLanes;
 
