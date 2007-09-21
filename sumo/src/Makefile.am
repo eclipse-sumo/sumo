@@ -43,7 +43,6 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/devices/libmicrosimdevs.a \
 ./microsim/output/libmicrosimoutput.a \
 ./microsim/trigger/libmicrosimtrigger.a \
-./microsim/output/e1_detectors/libmicrosimoutpute1.a \
 ./microsim/output/e2_detectors/libmicrosimoutpute2.a \
 ./microsim/output/e3_detectors/libmicrosimoutpute3.a \
 ./microsim/output/meandata/libmicrosimoutputmeanoutput.a \
