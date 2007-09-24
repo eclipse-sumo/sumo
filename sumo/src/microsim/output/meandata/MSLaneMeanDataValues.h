@@ -78,11 +78,12 @@ struct MSLaneMeanDataValues
     /// sample intervall
     unsigned nVehEnteredLane;
 
-    /// the sum of the speeds the vehicles had ont the ...
+    /// the sum of the speeds the vehicles had
     SUMOReal speedSum;
 
     unsigned haltSum;
 
+    /// the sum of the lengths the vehicles had
     SUMOReal vehLengthSum;
 
 };

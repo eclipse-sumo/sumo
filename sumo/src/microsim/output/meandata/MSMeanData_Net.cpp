@@ -164,7 +164,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         SUMOReal meanOccupancyS = 0;
         SUMOReal meanSpeedS = 0;
         SUMOReal traveltimeS = 0;
-        SUMOReal noStopsS = 0;
+        unsigned noStopsS = 0;
         SUMOReal nVehS = 0;
         SUMOReal absLen = 0;
         int noSegments = 0;
@@ -194,15 +194,14 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         meanOccupancyS = meanOccupancyS / (SUMOReal) noSegments / (SUMOReal) edge.nLanes();
         meanSpeedS = meanSpeedS / (SUMOReal) noSegments;
         flowS = flowS / (SUMOReal) noSegments;
-//        flowS = flowS * 10 * (1000./absLen);
         dev<<"      <edge id=\""<<edge.getID()<<
-            "\" traveltime=\""<<toString(traveltimeS)<<
-                "\" nSamples=\""<<toString((size_t) nVehS)<<
-                    "\" density=\""<<toString(meanDensityS)<<
-                        "\" occupancy=\""<<toString(meanOccupancyS)<<
-                            "\" noStops=\""<<toString(noStopsS)<<
-                                "\" speed=\""<<toString(meanSpeedS)<<
-                                    "\" flow=\""<<toString(flowS*3600./((SUMOReal)(stopTime-startTime+1)))<<  //!!!
+            "\" traveltime=\""<<traveltimeS<<
+                "\" nSamples=\""<<((size_t) nVehS)<<
+                    "\" density=\""<<meanDensityS<<
+                        "\" occupancy=\""<<meanOccupancyS<<
+                            "\" noStops=\""<<noStopsS<<
+                                "\" speed=\""<<meanSpeedS<<
+                                    "\" flow=\""<<(flowS*3600./((SUMOReal)(stopTime-startTime+1)))<<  //!!!
                                         "\"/>\n";
     } else {
 #endif
@@ -218,7 +217,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             SUMOReal traveltimeS = 0;
             SUMOReal meanSpeedS = 0;
             SUMOReal meanDensityS = 0;
-            SUMOReal noStopsS = 0;
+            unsigned noStopsS = 0;
             SUMOReal nVehS = 0;
             SUMOReal meanOccupancyS = 0;
             for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
@@ -241,12 +240,12 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             }
             assert(lanes->size()!=0);
             dev<<"      <edge id=\""<<edge.getID()<<
-                "\" traveltime=\""<<toString(traveltimeS/(SUMOReal) lanes->size())<<
-                    "\" nSamples=\""<<toString((size_t) nVehS)<<
-                        "\" density=\""<<toString(meanDensityS)<<
-                            "\" occupancy=\""<<toString(meanOccupancyS/(SUMOReal) lanes->size())<<
-                                "\" noStops=\""<<toString(noStopsS)<<
-                                    "\" speed=\""<<toString(meanSpeedS/(SUMOReal) lanes->size())<<
+                "\" traveltime=\""<<(traveltimeS/(SUMOReal) lanes->size())<<
+                    "\" nSamples=\""<<((size_t) nVehS)<<
+                        "\" density=\""<<meanDensityS<<
+                            "\" occupancy=\""<<(meanOccupancyS/(SUMOReal) lanes->size())<<
+                                "\" noStops=\""<<noStopsS<<
+                                    "\" speed=\""<<(meanSpeedS/(SUMOReal) lanes->size())<<
                                         "\"/>\n";
         }
 #ifdef HAVE_MESOSIM
@@ -271,12 +270,12 @@ MSMeanData_Net::writeLane(OutputDevice &dev,
          lane.myLength, lane.myMaxSpeed,
          traveltime, meanSpeed, meanDensity, meanOccupancy);
     dev<<"         <lane id=\""<<lane.getID()<<
-        "\" traveltime=\""<<toString(traveltime)<<
-            "\" nSamples=\""<<toString((size_t) meanData.nSamples)<<
-                "\" density=\""<<toString(meanDensity)<<
-                    "\" occupancy=\""<<toString(meanOccupancy)<<
-                        "\" noStops=\""<<toString(meanData.haltSum)<<
-                            "\" speed=\""<<toString(meanSpeed)<<
+        "\" traveltime=\""<<traveltime<<
+            "\" nSamples=\""<<((size_t) meanData.nSamples)<<
+                "\" density=\""<<meanDensity<<
+                    "\" occupancy=\""<<meanOccupancy<<
+                        "\" noStops=\""<<meanData.haltSum<<
+                            "\" speed=\""<<meanSpeed<<
                                 "\"/>\n";
     meanData.reset();
 }
