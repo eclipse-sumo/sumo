@@ -100,7 +100,10 @@
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				WholeProgramOptimization="false"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
+				FavorSizeOrSpeed="1"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
 				RuntimeLibrary="2"
 				WarningLevel="3"

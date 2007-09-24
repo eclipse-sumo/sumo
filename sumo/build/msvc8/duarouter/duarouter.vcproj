@@ -121,6 +121,7 @@
 			UseOfMFC="0"
 			ATLMinimizesCRunTimeLibraryUsage="false"
 			CharacterSet="2"
+			WholeProgramOptimization="1"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -143,8 +144,10 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				InlineFunctionExpansion="1"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="$(XERCES)\include,..\..\..\src"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -180,6 +183,8 @@
 				GenerateDebugInformation="false"
 				ProgramDatabaseFile=".\Release/duarouter.pdb"
 				SubSystem="1"
+				OptimizeReferences="0"
+				LinkTimeCodeGeneration="1"
 				TargetMachine="1"
 			/>
 			<Tool

@@ -143,8 +143,10 @@
 			<Tool
 				Name="VCCLCompilerTool"
 				Optimization="2"
-				InlineFunctionExpansion="1"
+				InlineFunctionExpansion="2"
+				EnableIntrinsicFunctions="true"
 				FavorSizeOrSpeed="1"
+				WholeProgramOptimization="true"
 				AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(XERCES)\include,..\..\..\src"
 				StringPooling="true"
 				RuntimeLibrary="2"
@@ -181,6 +183,7 @@
 				GenerateDebugInformation="false"
 				ProgramDatabaseFile=".\Release/sumo.pdb"
 				SubSystem="1"
+				LinkTimeCodeGeneration="1"
 				TargetMachine="1"
 			/>
 			<Tool
