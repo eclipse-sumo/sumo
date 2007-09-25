@@ -1,10 +1,10 @@
 /****************************************************************************/
 /// @file    remoteconstants.h
+/// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
 /// @author  Thimor Bohn <bohn@itm.uni-luebeck.de>
-/// @date    2007/03/13
-/// @version $Id$
+/// @date    2007/09/17
 ///
-/// holds codes used for transmission protocol
+/// holds codes used for mobility protocol
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -17,9 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef REMOTECONSTANTS_H
-#define REMOTECONSTANTS_H
-
+#ifndef MOBILITYINTERFACECONSTANTS_H
+#define MOBILITYINTERFACECONSTANTS_H
 
 
 // ****************************************
@@ -28,33 +27,48 @@
 
 // command: simulation step
 #define CMD_SIMSTEP 0x01
+
 // command: set maximum speed
 #define CMD_SETMAXSPEED 0x11
+
 // command: change target
 #define CMD_CHANGETARGET 0x12
+
+// command: move node
+#define CMD_MOVENODE 0x80
+
 // command: close sumo
-#define CMD_CLOSE   0xFF
-// result type: no result
+#define CMD_CLOSE   0x7F
+
+
+// ****************************************
+// POSITION REPRESENTATIONS
+// ****************************************
+
+// Omit position
+#define POSITION_NONE    0x00
+// 2D cartesian coordinates
+#define POSITION_2D      0x01
+// 2.5D cartesian coordinates
+#define POSITION_2_5D    0x02
+// 3D cartesian coordinates
+#define POSITION_3D      0x03
+// Position on road map
+#define POSITION_ROADMAP 0x04
 
 
 // ****************************************
 // RESULT TYPES
 // ****************************************
 
-// result type: none
-#define RTYPE_NONE	0x00
-// result type: 2D cartesian coordinates (x,y)
-#define RTYPE_XY	0x01
-// result type: 2,5D cartesian coordinates (x,y,h)
-#define RTYPE_XYH	0x02
-// result type: 3D cartesian coordinates (x,y,z)
-#define RTYPE_XYZ	0x03
-// result type: RoadId, relative position on road and driving direction
-#define RTYPE_REL	0x04
-// result type: Longitude/Latitude, e.g. GPS
-#define RTYPE_LONGLAT	0x05
+// result type: Ok
+#define RTYPE_OK    0x00
+// result type: not implemented
+#define RTYPE_NOTIMPLEMENTED  0x01
 // result type: error
-#define RTYPE_ERR	0xFF
+#define RTYPE_ERR   0xFF
 
 #endif
+
+
 

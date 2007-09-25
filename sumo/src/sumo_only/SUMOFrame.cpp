@@ -78,7 +78,7 @@ SUMOFrame::fillOptions()
     oc.addOptionSubTopic("Cellular");
     oc.addOptionSubTopic("Report");
 #ifdef ITM
-    oc.addOptionSubTopic("Remote");
+    oc.addOptionSubTopic("Mobility Interface");
 #endif // ITM
 
 
@@ -350,9 +350,9 @@ SUMOFrame::fillOptions()
 #ifdef ITM
     //remote port 0 if not used
     oc.doRegister("remote-port", new Option_Integer(0));
-    oc.addDescription("remote-port", "Remote", "enables remote server if set");
+    oc.addDescription("remote-port", "Mobility Interface", "Enables server part of the mobility interface if set");
     oc.doRegister("penetration", new Option_Float(1.0f));
-    oc.addDescription("penetration", "Remote", "value in 0..1 [default: 1]");
+    oc.addDescription("penetration", "Mobility Interface", "Value in 0..1 [default: 1]");
 #endif
     //
 #ifdef HAVE_MESOSIM
