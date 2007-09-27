@@ -5,5 +5,7 @@ messstrecke
 # Tests building detector pois on an abstract net
 tri
 
+# Input errors
+errors
 
 

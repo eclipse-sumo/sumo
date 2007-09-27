@@ -1,0 +1,1 @@
+--keep-longer-routes --net-file=input_tri.net.xml --detector-files=input_tri.det.xml --routes-output routes.rou.xml --emitters-output xxx/emitters.add.xml

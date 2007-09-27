@@ -33,3 +33,7 @@ tri_scaling_completely
 tri_scaling_completely_emissions_only
 
 
+# (user) errors on emitter usage
+errors
+
+
