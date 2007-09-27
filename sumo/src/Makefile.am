@@ -10,7 +10,7 @@ endif
 
 if WITH_GUI
 GUI_APPS = sumo-guisim
-GUI_DIRS = gui guinetload guisim icons
+GUI_DIRS = gui guinetload guisim icons ./foreign/polyfonts
 endif
 
 if CHECK_MEMORY_LEAKS
@@ -190,6 +190,7 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/foxtools/libfoxtools.a \
 $(sumo_LDADD) \
 ./utils/glutils/libglutils.a \
+./foreign/polyfonts/libpolyfonts.a \
 ./gui/GUIManipulator.o \
 -l$(LIB_FOX)
 endif

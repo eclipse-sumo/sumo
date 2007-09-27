@@ -40,7 +40,7 @@
 #include <utils/common/StdDefs.h>
 #include "GUIGradients.h"
 #include "GUIBaseColorer.h"
-#include <utils/glutils/polyfonts.h>
+#include <foreign/polyfonts/polyfonts.h>
 
 #include <GL/gl.h>
 

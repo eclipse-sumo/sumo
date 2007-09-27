@@ -40,7 +40,7 @@
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <utils/glutils/polyfonts.h>
+#include <foreign/polyfonts/polyfonts.h>
 
 #ifdef _WIN32
 #include <windows.h>

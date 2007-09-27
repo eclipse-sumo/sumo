@@ -42,7 +42,7 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/glutils/polyfonts.h>
+#include <foreign/polyfonts/polyfonts.h>
 #include <utils/iodevices/OutputDevice.h>
 
 #ifdef _WIN32

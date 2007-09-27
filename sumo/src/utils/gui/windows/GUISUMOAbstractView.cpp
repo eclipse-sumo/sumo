@@ -50,7 +50,7 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include "GUIDialog_EditViewport.h"
-#include <utils/glutils/polyfonts.h>
+#include <foreign/polyfonts/polyfonts.h>
 #include <utils/shapes/PointOfInterest.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/gui/globjects/GUIPointOfInterest.h>

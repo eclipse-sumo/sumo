@@ -201,14 +201,6 @@
 					/>
 				</FileConfiguration>
 			</File>
-			<File
-				RelativePath="..\..\..\src\utils\glutils\pfPSansBold16.c"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\glutils\polyfonts.c"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -216,18 +208,6 @@
 			>
 			<File
 				RelativePath="..\..\..\src\utils\glutils\GLHelper.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\glutils\pfPSansBold16.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\glutils\polyfonts.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\glutils\polyfonttypes.h"
 				>
 			</File>
 		</Filter>

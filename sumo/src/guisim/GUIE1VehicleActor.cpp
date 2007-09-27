@@ -58,7 +58,7 @@
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
-#include <utils/glutils/polyfonts.h>
+#include <foreign/polyfonts/polyfonts.h>
 #include <utils/geom/GeomHelper.h>
 #include <gui/GUIApplicationWindow.h>
 #include <guisim/GUIE1VehicleActor.h>

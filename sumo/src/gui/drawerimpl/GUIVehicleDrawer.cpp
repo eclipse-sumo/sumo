@@ -39,7 +39,7 @@
 #include <utils/glutils/GLHelper.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/devices/MSDevice_CPhone.h>
-#include <utils/glutils/polyfonts.h>
+#include <foreign/polyfonts/polyfonts.h>
 #include <utils/common/RandHelper.h>
 
 #ifdef _WIN32

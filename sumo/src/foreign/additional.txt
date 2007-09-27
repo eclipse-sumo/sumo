@@ -17,3 +17,9 @@ The subfolders contain additional libraries used by SUMO:
  Modifications: none
  Original Page: http://shawn.sf.net
  
+- Polyfonts
+ Text drawing in openGL (with fonts)
+ Used version: unknown
+ Modifications: configs included; renamed float to SUMOReal; including our config
+ Original Page: http://www.gameprogrammer.com/polyfonts/polyfonts.html
+

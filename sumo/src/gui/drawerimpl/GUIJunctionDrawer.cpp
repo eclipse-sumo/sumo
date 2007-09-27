@@ -33,7 +33,7 @@
 #include <utils/glutils/GLHelper.h>
 #include "GUIJunctionDrawer.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/glutils/polyfonts.h>
+#include <foreign/polyfonts/polyfonts.h>
 #include <microsim/MSJunction.h>
 
 #ifdef CHECK_MEMORY_LEAKS

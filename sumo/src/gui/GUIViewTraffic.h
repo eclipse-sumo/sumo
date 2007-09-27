@@ -99,6 +99,7 @@ public:
     long onLeftBtnPress(FXObject *o,FXSelector sel,void *data);
     long onLeftBtnRelease(FXObject*,FXSelector,void*);
     long onMouseMove(FXObject *o,FXSelector sel,void *data);
+
     void setColorScheme(char* data);
 
     void rename(GUIGlObject *o);
@@ -193,7 +194,7 @@ protected:
 
     /** @brief The list of coloring schemes that may be used */
     static GUIColoringSchemesMap<GUILaneWrapper> myLaneColoringSchemes;
-  
+
 protected:
     std::vector<GUIEdge*> myEmptyEdges;
     std::vector<GUIJunctionWrapper*> myEmptyJunctions;

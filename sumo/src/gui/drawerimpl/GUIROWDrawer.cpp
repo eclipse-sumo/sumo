@@ -37,7 +37,7 @@
 #include <utils/glutils/GLHelper.h>
 #include "GUIROWDrawer.h"
 #include <utils/gui/images/GUITexturesHelper.h>
-#include <utils/glutils/polyfonts.h>
+#include <foreign/polyfonts/polyfonts.h>
 
 #ifdef _WIN32
 #include <windows.h>

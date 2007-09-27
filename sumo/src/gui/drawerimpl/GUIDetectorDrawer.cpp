@@ -31,7 +31,7 @@
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include "GUIDetectorDrawer.h"
 #include <guisim/GUIDetectorWrapper.h>
-#include <utils/glutils/polyfonts.h>
+#include <foreign/polyfonts/polyfonts.h>
 
 #ifdef _WIN32
 #include <windows.h>
