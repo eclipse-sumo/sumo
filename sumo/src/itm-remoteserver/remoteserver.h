@@ -34,7 +34,8 @@
 #include "foreign/tcpip/storage.h"
 #include "utils/common/SUMOTime.h"
 
-#include <utils/options/OptionsCont.h>
+#include "utils/geom/boundary.h"
+#include "utils/options/OptionsCont.h"
 
 #include <map>
 #include <string>
@@ -140,6 +141,10 @@ namespace itm
 		int numEquippedVehicles_;
 
 		bool closeConnection_;
+
+		Boundary* netBoundary_;
+		const Boundary& getNetBoundary();
+
 
 	};
 }

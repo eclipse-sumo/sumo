@@ -41,6 +41,9 @@
 #include "microsim/MSRouteLoaderControl.h"
 #include "microsim/MSRouteLoader.h"
 
+#include "microsim/MSEdgeControl.h"
+#include "microsim/MSLane.h"
+
 #include <string>
 #include <map>
 #include <iostream>
@@ -76,12 +79,15 @@ namespace itm
 		isMapChanged_ = true;
 		numEquippedVehicles_ = 0;
 		closeConnection_ = false;
+		netBoundary_ = NULL;
 	}
 
 	/*****************************************************************************/
 
 	RemoteServer::~RemoteServer()
-	{}
+	{
+		if (netBoundary_ != NULL) delete netBoundary_;
+	}
 
 	/*****************************************************************************/
 
@@ -272,7 +278,7 @@ namespace itm
 						equippedVehicles_[vehicleId] = -1;
 					}
 				}
-				if (equippedVehicles_[vehicleId] >= 0 && vehicle->desiredDepart() < currentTime)
+				if (equippedVehicles_[vehicleId] >= 0 && vehicle->getInTransit())
 				{
 					int extId = equippedVehicles_[vehicleId];
 					activeEquippedVehicles[extId] = vehicle;
@@ -308,9 +314,9 @@ namespace itm
 
 					Position2D pos = vehicle->getPosition();
 					//xpos
-					respMsg.writeFloat(pos.x());
+					respMsg.writeFloat(pos.x() - getNetBoundary().xmin());
 					// y pos
-					respMsg.writeFloat(pos.y());
+					respMsg.writeFloat(pos.y() - getNetBoundary().ymin());
 				} else if (resType == POSITION_ROADMAP)
 				{
 					// return type
@@ -398,4 +404,57 @@ namespace itm
 
 	/*****************************************************************************/
 
+	const Boundary&
+		RemoteServer::getNetBoundary()
+	{
+		// If already calculated, just return the boundary
+		if (netBoundary_ != NULL) return *netBoundary_;
+
+		// Otherwise calculate it first
+		netBoundary_ = new Boundary();
+/*
+		{
+			// use the junctions to compute the boundaries
+			for (size_t index=0; index<myNet.myJunctionWrapper.size(); index++) {
+				if (myNet.myJunctionWrapper[index]->getShape().size()>0) {
+					ret.add(myNet.myJunctionWrapper[index]->getBoundary());
+				} else {
+					ret.add(myNet.myJunctionWrapper[index]->getJunction().getPosition());
+				}
+			}
+		}
+*/
+		// Get all edges
+		MSEdgeControl& edges = MSNet::getInstance()->getEdgeControl();
+		
+		// Get Boundary of Single ...
+		for (MSEdgeControl::EdgeCont::const_iterator edgeIt = edges.getSingleLaneEdges().begin(); 
+			edgeIt != edges.getSingleLaneEdges().end(); ++edgeIt)
+		{
+			for (MSEdge::LaneCont::const_iterator laneIt = (*edgeIt)->getLanes()->begin();
+				laneIt != (*edgeIt)->getLanes()->end(); ++laneIt)
+			{
+				netBoundary_->add((*laneIt)->getShape().getBoxBoundary());
+			}
+		}
+
+		// ... and MultiLaneEdges
+		for (MSEdgeControl::EdgeCont::const_iterator edgeIt = edges.getMultiLaneEdges().begin(); 
+			edgeIt != edges.getMultiLaneEdges().end(); ++edgeIt)
+		{
+			for (MSEdge::LaneCont::const_iterator laneIt = (*edgeIt)->getLanes()->begin();
+				laneIt != (*edgeIt)->getLanes()->end(); ++laneIt)
+			{
+				netBoundary_->add((*laneIt)->getShape().getBoxBoundary());
+			}
+		}
+
+		// make the boundary slightly larger
+		netBoundary_->grow(0.1);
+
+		return *netBoundary_;
+	}
+
+	/*****************************************************************************/
 }
+

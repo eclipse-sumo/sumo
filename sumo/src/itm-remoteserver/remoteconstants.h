@@ -31,8 +31,14 @@
 // command: set maximum speed
 #define CMD_SETMAXSPEED 0x11
 
+// command: stop node
+#define CMD_STOP 0x12
+
+// command: set lane
+#define CMD_CHANGELANE 0x13
+
 // command: change target
-#define CMD_CHANGETARGET 0x12
+#define CMD_CHANGETARGET 0x31
 
 // command: move node
 #define CMD_MOVENODE 0x80

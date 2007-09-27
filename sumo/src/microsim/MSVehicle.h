@@ -448,6 +448,8 @@ public:
     /// Returns the lane the vehicle is on
     const MSLane &getLane() const;
 
+	/// Returns whether the vehicle is driving, what means myLane is not null.
+	bool MSVehicle::getInTransit() const;
 
     /// @name usage of multiple vehicle emissions
     //@{
