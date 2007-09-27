@@ -682,7 +682,6 @@ NBEdgeCont::getAllNames()
 bool
 NBEdgeCont::savePlain(const std::string &file)
 {
-    try {
         OutputDevice& device = OutputDevice::getDevice(file);
         device.writeXMLHeader("edges");
         for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
@@ -727,10 +726,6 @@ NBEdgeCont::savePlain(const std::string &file)
         }
         device.close();
         return true;
-    } catch (IOError e) {
-        MsgHandler::getErrorInstance()->inform("Plain edge file '" + file + "' could not be opened.\n "+e.what());
-        return false;
-    }
 }
 
 

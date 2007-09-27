@@ -1051,7 +1051,6 @@ NBNodeCont::setAsTLControlled(const std::string &name,
 bool
 NBNodeCont::savePlain(const std::string &file)
 {
-    try {
         OutputDevice& device = OutputDevice::getDevice(file);
         device.writeXMLHeader("nodes");
         device.setPrecision(10);
@@ -1062,10 +1061,6 @@ NBNodeCont::savePlain(const std::string &file)
         }
         device.close();
         return true;
-    } catch (IOError e) {
-        MsgHandler::getErrorInstance()->inform("Plain node file '" + file + "' could not be opened.\n "+e.what());
-        return false;
-    }
 }
 
 bool
