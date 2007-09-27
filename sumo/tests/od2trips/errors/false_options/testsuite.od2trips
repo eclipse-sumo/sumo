@@ -2,7 +2,7 @@
 missing_output
 
 # The output can not be build
-unbuildable_output
+false_output
 
 
 # The network file name is not given
