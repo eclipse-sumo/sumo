@@ -34,7 +34,7 @@
 #include "foreign/tcpip/storage.h"
 #include "utils/common/SUMOTime.h"
 
-#include "utils/geom/boundary.h"
+#include "utils/geom/Boundary.h"
 #include "utils/options/OptionsCont.h"
 
 #include <map>
