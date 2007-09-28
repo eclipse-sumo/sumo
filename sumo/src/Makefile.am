@@ -10,7 +10,7 @@ endif
 
 if WITH_GUI
 GUI_APPS = sumo-guisim
-GUI_DIRS = gui guinetload guisim icons ./foreign/polyfonts
+GUI_DIRS = gui guinetload guisim icons
 endif
 
 if CHECK_MEMORY_LEAKS
