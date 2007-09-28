@@ -36,6 +36,7 @@
 
 #include "GLHelper.h"
 #include <utils/geom/GeomHelper.h>
+#include <utils/common/StdDefs.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -158,7 +159,8 @@ GLHelper::drawBoxLines(const Position2DVector &geom1,
                        const std::vector<SUMOReal> &lengths,
                        SUMOReal width)
 {
-    for (size_t i=0; i<geom1.size()-1; i++) {
+    size_t minS = MIN4(rots.size(), lengths.size(), geom1.size(), geom2.size());
+    for (size_t i=0; i<minS; i++) {
         GLHelper::drawBoxLine(geom1[i], geom2[i], rots[i], lengths[i], width);
     }
 }
