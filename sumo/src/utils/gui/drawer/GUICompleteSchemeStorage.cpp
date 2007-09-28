@@ -126,7 +126,8 @@ convert(const FXColor c)
 void
 GUICompleteSchemeStorage::init(FXApp *app,
                                const map<int, vector<RGBColor> > &vehColMap,
-                               const map<int, vector<RGBColor> > &laneColMap)
+                               const map<int, vector<RGBColor> > &laneColMap,
+                               const map<int, vector<RGBColor> > &edgeColMap)
 {
     {
         GUISUMOAbstractView::VisualizationSettings vs;
@@ -142,6 +143,9 @@ GUICompleteSchemeStorage::init(FXApp *app,
 
         vs.laneEdgeMode = 0;
         vs.laneColorings = laneColMap;
+#ifdef HAVE_MESOSIM
+        vs.edgeColorings = edgeColMap;
+#endif
         vs.laneShowBorders = false;
         vs.showLinkDecals = true;
         vs.laneEdgeExaggMode = 0; // !!! used?
@@ -203,6 +207,9 @@ GUICompleteSchemeStorage::init(FXApp *app,
 
         vs.laneEdgeMode = 0;
         vs.laneColorings = laneColMap;
+#ifdef HAVE_MESOSIM
+        vs.edgeColorings = edgeColMap;
+#endif
         vs.laneShowBorders = false;
         vs.showLinkDecals = false;
         vs.laneEdgeExaggMode = 0; // !!! used?
@@ -264,6 +271,9 @@ GUICompleteSchemeStorage::init(FXApp *app,
 
         vs.laneEdgeMode = 0;
         vs.laneColorings = laneColMap;
+#ifdef HAVE_MESOSIM
+        vs.edgeColorings = edgeColMap;
+#endif
         vs.laneShowBorders = true;
         vs.showLinkDecals = true;
         vs.laneEdgeExaggMode = 0; // !!! used?
