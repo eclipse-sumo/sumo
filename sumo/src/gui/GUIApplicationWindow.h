@@ -269,7 +269,6 @@ protected:
 
     bool hadDependentBuild;
 
-//    FXProgressBar *myProgressBar;
 
 };
 
