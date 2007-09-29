@@ -40,6 +40,9 @@
 // command: change target
 #define CMD_CHANGETARGET 0x31
 
+// command: Simulation Parameter
+#define CMD_SIMPARAMETER 0x70
+
 // command: move node
 #define CMD_MOVENODE 0x80
 

@@ -191,16 +191,12 @@ namespace itm
 		RemoteServer::commandSetMaximumSpeed(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
 		throw (RemoteException)
 	{
-
-		int extId = requestMsg.readInt(); // external node id (equipped vehicle number)
+		MSVehicle* veh = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
 		float maxspeed = requestMsg.readFloat();
-		std::string intId;
-		convertExt2IntId(extId, intId);
-		MSVehicle *veh = MSNet::getInstance()->getVehicleControl().getVehicle( intId );
-		
+
 		if ( veh == NULL )
 		{
-			writeStatusCmd(respMsg, CMD_SETMAXSPEED, RTYPE_ERR, "Can not retrieve node with given ID " + extId);
+			writeStatusCmd(respMsg, CMD_SETMAXSPEED, RTYPE_ERR, "Can not retrieve node with given ID");
 			return;
 		}
 
@@ -352,6 +348,104 @@ namespace itm
 
 	/*****************************************************************************/
 
+	void RemoteServer::commandSimulationParameter(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException)
+	{
+		bool setParameter = (requestMsg.readByte() != 0);
+		string parameter = requestMsg.readString();
+
+		// Prepare response
+		tcpip::Storage answerTmp;
+
+		if (parameter.compare("maxX"))
+		{
+			if (setParameter)
+			{
+				writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_ERR, "maxX is a read only parameter");
+				return;
+			} else {
+				answerTmp.writeFloat(getNetBoundary().getWidth());
+			}
+		} else if (parameter.compare("maxY"))
+		{
+			if (setParameter)
+			{
+				writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_ERR, "maxY is a read only parameter");
+				return;
+			} else {
+				answerTmp.writeFloat(getNetBoundary().getHeight());
+			}
+		} else if (parameter.compare("numberOfNodes"))
+		{
+			if (setParameter)
+			{
+				writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_ERR, "numberOfNodes is a read only parameter");
+			} else {
+				writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_NOTIMPLEMENTED, "numberOfNodes not implemented yet");
+				return;
+				//answerTmp.writeInt( --- Don't know where to get that information ---);
+			}
+		} else if (parameter.compare("airDistance"))
+		{
+			MSVehicle* veh1 = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
+			MSVehicle* veh2 = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
+
+			if (veh1 != NULL && veh2 != NULL)
+			{
+				if (setParameter)
+				{
+					writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_ERR, "airDistance is a read only parameter");
+					return;
+				} else {
+					float dx = veh1->getPosition().x() - veh2->getPosition().x();
+					float dy = veh1->getPosition().y() - veh2->getPosition().y();
+					answerTmp.writeFloat( sqrt( dx * dx + dy * dy ) );
+				}
+			} else {
+				writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_ERR, "Can not retrieve node with given ID");
+				return;
+			} 
+		} else if (parameter.compare("drivingDistance"))
+		{
+			MSVehicle* veh1 = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
+			MSVehicle* veh2 = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
+
+			if (veh1 != NULL && veh2 != NULL)
+			{
+				if (setParameter)
+				{
+					writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_ERR, "airDistance is a read only parameter");
+					return;
+				} else {
+					writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_NOTIMPLEMENTED, "drivingDistance not implemented yet");
+					return;
+					//float dx = veh1->getPosition().x() - veh2->getPosition().x();
+					//float dy = veh1->getPosition().y() - veh2->getPosition().y();
+					//float distance = sqrt( dx * dx + dy * dy );
+					// answerTmp.writeFloat( distance );
+				}
+			} else {
+				writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_ERR, "Can not retrieve node with given ID");
+				return;
+			} 
+		}
+
+		// When we get here, the response is stored in answerTmp -> put into respMsg
+		writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_OK, "");
+
+		// command length
+		respMsg.writeUnsignedByte(1 + 1 + 1 + 4 + static_cast<int>(parameter.length()) + answerTmp.size());
+		// command type
+		respMsg.writeUnsignedByte(CMD_SIMPARAMETER);
+		// answer only to getParameter commands as setParameter
+		respMsg.writeUnsignedByte(1);
+		// Parameter
+		respMsg.writeString(parameter);
+		// and the parameter dependant part
+		respMsg.writeStorage(answerTmp);
+	}
+
+	/*****************************************************************************/
+
 	void
 		RemoteServer::writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description)
 	{
@@ -400,6 +494,16 @@ namespace itm
 		map<int, std::string>::const_iterator it = ext2intId.find(extId);
 		if ( it != ext2intId.end() ) intId = it->second;
 		else intId = "";
+	}
+
+	/*****************************************************************************/
+
+	MSVehicle* 
+		RemoteServer::getVehicleByExtId(int extId)
+	{
+		std::string intId;
+		convertExt2IntId(extId, intId);
+		return MSNet::getInstance()->getVehicleControl().getVehicle( intId );
 	}
 
 	/*****************************************************************************/

@@ -36,6 +36,7 @@
 
 #include "utils/geom/Boundary.h"
 #include "utils/options/OptionsCont.h"
+#include "microsim/MSVehicle.h"
 
 #include <map>
 #include <string>
@@ -113,6 +114,8 @@ namespace itm
 
 		void commandCloseConnection(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException);
 
+		void commandSimulationParameter(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException);
+
 		void writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description);
 
 		// port on which server is listening on
@@ -136,6 +139,8 @@ namespace itm
 		std::map<int, std::string> ext2intId;
 		bool isMapChanged_;
 		void convertExt2IntId(int extId, std::string& intId);
+
+		MSVehicle* getVehicleByExtId(int extId);
 
 		// hold number of all equipped vehicles
 		int numEquippedVehicles_;
