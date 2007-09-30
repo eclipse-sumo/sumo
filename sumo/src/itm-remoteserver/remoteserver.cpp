@@ -441,7 +441,7 @@ namespace itm
 		// Parameter
 		respMsg.writeString(parameter);
 		// and the parameter dependant part
-		respMsg.writeStorage(answerTmp);
+// 		respMsg.writeStorage(answerTmp); //!!! Commented out to fix build !!!
 	}
 
 	/*****************************************************************************/
