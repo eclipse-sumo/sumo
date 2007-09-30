@@ -374,7 +374,11 @@ initColoringSchemes(FXApp *a)
     // initialise gradients
     myDensityGradient = gGradients->getRGBColors(GUIGradientStorage::GRADIENT_GREEN_YELLOW_RED, 101);
     // initialise available coloring schemes
-    gSchemeStorage.init(a, vehColMap, laneColMap);
+#ifdef HAVE_MESOSIM
+    gSchemeStorage.init(a, vehColMap, laneColMap, edgeColMap);
+#else
+    gSchemeStorage.init(a, vehColMap, laneColMap, map<int, vector<RGBColor> >());
+#endif
 }
 
 
@@ -383,6 +387,9 @@ deleteColoringSchemes()
 {
     delete &GUIViewTraffic::getVehiclesSchemesMap();
     delete &GUIViewTraffic::getLaneSchemesMap();
+#ifdef HAVE_MESOSIM
+    delete &GUIViewMesoEdges::getLaneSchemesMap();
+#endif
 }
 
 
