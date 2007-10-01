@@ -61,7 +61,7 @@
 #include <utils/iodevices/OutputDevice.h>
 
 #ifdef ITM
-#include <itm-remoteserver/remoteserver.h>
+#include <itm-remoteserver/RemoteServer.h>
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS

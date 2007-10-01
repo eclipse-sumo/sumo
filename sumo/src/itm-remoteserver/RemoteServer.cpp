@@ -28,7 +28,7 @@
 // included modules
 // ===========================================================================
 #include "remoteconstants.h"
-#include "remoteserver.h"
+#include "RemoteServer.h"
 #include "foreign/tcpip/socket.h"
 #include "foreign/tcpip/storage.h"
 #include "utils/common/SUMOTime.h"
