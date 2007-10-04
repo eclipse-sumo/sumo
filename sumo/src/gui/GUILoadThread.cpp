@@ -130,7 +130,6 @@ GUILoadThread::run()
             net->initGUIStructures();
             simStartTime = oc.getInt("begin");
             simEndTime = oc.getInt("end");
-            closeNetLoadingDependent(oc, *net);
         }
     } catch (ProcessError &e) {
         if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
@@ -140,12 +139,14 @@ GUILoadThread::run()
         delete net;
         MSNet::clearAll();
         net = 0;
+        MsgHandler::cleanupOnEnd();
 #ifndef _DEBUG
     } catch (exception &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         delete net;
         MSNet::clearAll();
         net = 0;
+        MsgHandler::cleanupOnEnd();
 #endif
     }
     if (net==0) {

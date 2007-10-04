@@ -309,6 +309,7 @@ GUIRunThread::deleteSim()
     myNet = 0;
     OutputDevice::closeAll();
     mySimulationLock.unlock();
+    MsgHandler::cleanupOnEnd();
 }
 
 

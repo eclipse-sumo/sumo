@@ -330,6 +330,7 @@ void
 MsgHandler::cleanupOnEnd()
 {
     delete myLogFile;
+    myLogFile = 0;
     delete myMessageInstance;
     myMessageInstance = 0;
     delete myWarningInstance;

@@ -71,8 +71,6 @@ protected:
     virtual GUIEdgeControlBuilder *buildEdgeBuilder();
     virtual GUIVehicleControl *buildVehicleControl();
     virtual bool initOptions();
-    virtual void closeNetLoadingDependent(OptionsCont &, GUINet &)
-    { }
 
 
     /** @brief Closes the loading process
