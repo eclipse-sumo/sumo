@@ -40,19 +40,19 @@ typedef int SUMOTime;
 // the step length in s
 #define DELTA_T 1
 // x*deltaT
-#define SPEED2DIST(x) x
+#define SPEED2DIST(x) (x)
 // x/deltaT
-#define DIST2SPEED(x) x
+#define DIST2SPEED(x) (x)
 // x*deltaT*deltaT
-#define ACCEL2DIST(x) x
+#define ACCEL2DIST(x) (x)
 // x*deltaT
-#define ACCEL2SPEED(x) x
+#define ACCEL2SPEED(x) (x)
 // x/deltaT
-#define SPEED2ACCEL(x) x
+#define SPEED2ACCEL(x) (x)
 // x*deltaT
-#define STEP2TIME(x) x
-#define STEPS2SECONDS(x) x
-#define TIME2STEPS(x) x
+#define STEP2TIME(x) (x)
+#define STEPS2SECONDS(x) (x)
+#define TIME2STEPS(x) (x)
 #define GET_XML_SUMO_TIME getInt
 #define GET_XML_SUMO_TIME_SECURE getIntSecure
 
@@ -65,19 +65,19 @@ extern SUMOReal DELTA_T;
 #define DELTA_T = .1;
 #endif
 // x*deltaT
-#define SPEED2DIST(x) (x*DELTA_T)
+#define SPEED2DIST(x) ((x)*DELTA_T)
 // x/deltaT
-#define DIST2SPEED(x) (x/DELTA_T)
+#define DIST2SPEED(x) ((x)/DELTA_T)
 // x*deltaT*deltaT
-#define ACCEL2DIST(x) (x*DELTA_T*DELTA_T)
+#define ACCEL2DIST(x) ((x)*DELTA_T*DELTA_T)
 // x*deltaT
-#define ACCEL2SPEED(x) (x*DELTA_T)
+#define ACCEL2SPEED(x) ((x)*DELTA_T)
 // x*deltaT
-#define SPEED2ACCEL(x) (x/DELTA_T)
+#define SPEED2ACCEL(x) ((x)/DELTA_T)
 // x*deltaT
-#define STEP2TIME(x) ((int) (x*DELTA_T))
-#define STEPS2SECONDS(x) ((int) (x*DELTA_T))
-#define TIME2STEPS(x) ((int) (x/DELTA_T))
+#define STEP2TIME(x) ((int) ((x)*DELTA_T))
+#define STEPS2SECONDS(x) ((int) ((x)*DELTA_T))
+#define TIME2STEPS(x) ((int) ((x)/DELTA_T))
 #define GET_XML_SUMO_TIME getFloat
 #define GET_XML_SUMO_TIME_SECURE getFloatSecure
 
