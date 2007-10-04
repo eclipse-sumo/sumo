@@ -287,6 +287,9 @@ SUMOFrame::fillOptions()
     oc.doRegister("cell-dynamic-callduration-scale-factor", new Option_Float(1.));
     oc.addDescription("cell-dynamic-callduration-scale-factor", "Cellular", "");
 
+    oc.doRegister("cell-def-prob", new Option_Float(-1));//!!! check, describe
+    oc.addDescription("cell-def-prob", "Cellular", "");
+
     oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));//!!! check, describe
     oc.addDescription("device.cell-phone.amount.min", "Cellular", "");
 
