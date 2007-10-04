@@ -164,6 +164,7 @@ using namespace std;
 // ===========================================================================
 int MSDevice_CPhone::gCallID = 0; // !!! reinit on simulation reload
 
+SUMOReal tolDefaultProb = -1;
 
 // ===========================================================================
 // method definitions
@@ -257,6 +258,7 @@ MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id)
     } else {
         notTriggeredByCell = false;
     }
+    tolDefaultProb = oc.getFloat("cell-def-prob");
 }
 
 //---------------------------------------------------------------------------
@@ -468,7 +470,10 @@ MSDevice_CPhone::changeState()
                 int time = MSNet::getInstance()->getCurrentTimeStep();
                 time = time % 86400;
                 time = time / 1800;
-                prob = (SUMOReal)(beginProbs[time] /*/ 2.5*/ * (double) OptionsCont::getOptions().getFloat("cell-dynamic-callcount-scale-factor"));
+                    if(tolDefaultProb>=0)
+                        prob = tolDefaultProb;
+                    else 
+                        prob = (SUMOReal) (beginProbs[time] /*/ 2.5*/ * (double) OptionsCont::getOptions().getFloat("cell-dynamic-callcount-scale-factor"));
                 next = 1;
                 if (RandHelper::rand()<=prob) {
                     // most start telephoning
