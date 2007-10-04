@@ -230,6 +230,9 @@
       <cell-dynamic-callduration-scale-factor>1</cell-dynamic-callduration-scale-factor>
 
       <!--  -->
+      <cell-def-prob>-1</cell-def-prob>
+
+      <!--  -->
       <device.cell-phone.amount.min>1</device.cell-phone.amount.min>
 
       <!--  -->

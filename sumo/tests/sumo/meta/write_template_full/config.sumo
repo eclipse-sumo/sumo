@@ -89,6 +89,7 @@
       <cell-static-callcount-scale-factor>1</cell-static-callcount-scale-factor>
       <cell-dynamic-calldeviation-scale-factor>1</cell-dynamic-calldeviation-scale-factor>
       <cell-dynamic-callduration-scale-factor>1</cell-dynamic-callduration-scale-factor>
+      <cell-def-prob>-1</cell-def-prob>
       <device.cell-phone.amount.min>1</device.cell-phone.amount.min>
       <device.cell-phone.amount.max>1</device.cell-phone.amount.max>
       <device.cell-phone.sql-date>1970-01-01</device.cell-phone.sql-date>

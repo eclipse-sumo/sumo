@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r4172
+SUMO sumo Version 0.9.6
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -122,6 +122,7 @@ Usage: sumo.exe [OPTION]*
   --cell-static-callcount-scale-factor FLOAT  
   --cell-dynamic-calldeviation-scale-factor FLOAT  
   --cell-dynamic-callduration-scale-factor FLOAT  
+  --cell-def-prob FLOAT                
   --device.cell-phone.amount.min FLOAT  
   --device.cell-phone.amount.max FLOAT  
   --device.cell-phone.sql-date STR     Sets the date to use in sql-dumps
