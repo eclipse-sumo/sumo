@@ -80,9 +80,6 @@ public:
         GUIGlObjectStorage &idStorage);
 
 
-    virtual void rebuildPriorities()
-    { }
-
     friend class GUIGridBuilder;
 
 protected:

@@ -74,8 +74,6 @@ public:
     /** Sets the information which vehicles may drive */
     virtual bool setAllowed();
 
-    void rebuildPriorities();
-
     void postloadInit();
 
 protected:
