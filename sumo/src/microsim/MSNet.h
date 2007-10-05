@@ -202,6 +202,7 @@ public:
     MSDetectorControl &getDetectorControl();
     MSTriggerControl &getTriggerControl();
     MSTLLogicControl &getTLSControl();
+    MSJunctionControl &getJunctionControl();
     void addMeanData(MSMeanData_Net *newMeanData);
 
     virtual void closeBuilding(MSEdgeControl *edges,

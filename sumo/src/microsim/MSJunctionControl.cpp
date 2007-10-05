@@ -44,74 +44,43 @@ using namespace std;
 
 
 // ===========================================================================
-// static member definitions
-// ===========================================================================
-MSJunctionControl::DictType MSJunctionControl::myDict;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
-MSJunctionControl::MSJunctionControl(string id, JunctionCont* j) :
-        myID(id), myJunctions(j)
-{}
+MSJunctionControl::MSJunctionControl(size_t no)
+{
+    /* a!!! reserve no !!! */
+}
 
 
 MSJunctionControl::~MSJunctionControl()
 {
-    delete myJunctions;
-}
-
-bool
-MSJunctionControl::dictionary(string id, MSJunctionControl* ptr)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict.insert(DictType::value_type(id, ptr));
-        return true;
-    }
-    return false;
-}
-
-
-MSJunctionControl*
-MSJunctionControl::dictionary(string id)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        return 0;
-    }
-    return it->second;
-}
-
-
-void
-MSJunctionControl::clear()
-{
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        delete(*i).second;
-    }
-    myDict.clear();
 }
 
 
 void
 MSJunctionControl::resetRequests()
 {
-    for_each(myJunctions->begin(), myJunctions->end(),
-             mem_fun(& MSJunction::clearRequests));
+    const vector<MSJunction*> &junctions = buildAndGetStaticVector();
+    for_each(junctions.begin(), junctions.end(), mem_fun(& MSJunction::clearRequests));
 }
 
 
 void
 MSJunctionControl::setAllowed()
 {
-    for_each(myJunctions->begin(), myJunctions->end(),
-             mem_fun(& MSJunction::setAllowed));
+    const vector<MSJunction*> &junctions = buildAndGetStaticVector();
+    for_each(junctions.begin(), junctions.end(), mem_fun(& MSJunction::setAllowed));
 }
 
+
+void
+MSJunctionControl::postloadInitContainer()
+{
+    const vector<MSJunction*> &junctions = buildAndGetStaticVector();
+    for (vector<MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); i++) {
+        (*i)->postloadInit();
+    }
+}
 
 
 /****************************************************************************/

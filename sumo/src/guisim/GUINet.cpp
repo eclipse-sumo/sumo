@@ -46,6 +46,7 @@
 #include <microsim/MSEmitControl.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
+#include <microsim/MSJunctionControl.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/gfx/RGBColor.h>
@@ -67,7 +68,6 @@
 #include <microsim/MSRouteLoader.h>
 #include "GUIVehicle.h"
 #include "GUINet.h"
-#include "GUIHelpingJunction.h"
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include "GUIGridBuilder.h"
 #include <utils/gui/globjects/GUIPolygon2D.h>
@@ -228,8 +228,8 @@ GUINet::initTLMap()
 Position2D
 GUINet::getJunctionPosition(const std::string &name) const
 {
-    MSJunction *junction = MSJunction::dictionary(name);
-    return Position2D(junction->getPosition());
+    // !!! no check for existance!
+    return myJunctions->get(name)->getPosition();
 }
 
 
@@ -355,7 +355,18 @@ GUINet::initGUIStructures()
     // initialise edge storage for gui
     GUIEdge::fill(myEdgeWrapper);
     // initialise junction storage for gui
-    GUIHelpingJunction::fill(myJunctionWrapper, gIDStorage);
+    {
+        size_t size = myJunctions->size();
+        myJunctionWrapper.reserve(size);
+        const vector<MSJunction*> &junctions = myJunctions->buildAndGetStaticVector();
+        for (vector<MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); i++) {
+            GUIJunctionWrapper *wrapper = (*i)->buildJunctionWrapper(gIDStorage);
+            if (wrapper!=0) {
+                myJunctionWrapper.push_back(wrapper);
+            }
+        }
+    }
+    //GUIHelpingJunction::fill(myJunctionWrapper, gIDStorage);
     // build the grid
     GUIGridBuilder b(*this, myGrid);
     b.build();

@@ -79,8 +79,7 @@ class MSVehicleControl;
  * inserting the wrapped items into vectors and is needed to fasten the
  * network's drawing as only visible items are being drawn.
  */
-class GUINet
-            : public MSNet
+class GUINet : public MSNet
 {
 public:
     GUINet(SUMOTime startTimestep, MSVehicleControl *vc,

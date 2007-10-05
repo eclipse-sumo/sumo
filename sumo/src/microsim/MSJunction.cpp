@@ -48,76 +48,16 @@ using namespace std;
 
 
 // ===========================================================================
-// static member definitions
-// ===========================================================================
-MSJunction::DictType MSJunction::myDict;
-
-
-// ===========================================================================
 // member method definition
 // ===========================================================================
 MSJunction::MSJunction(std::string id, const Position2D &position)
         : myID(id), myPosition(position)
 {}
 
-//-------------------------------------------------------------------------//
 
 MSJunction::~MSJunction()
 {}
 
-//-------------------------------------------------------------------------//
-
-bool
-MSJunction::dictionary(string id, MSJunction* ptr)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict.insert(DictType::value_type(id, ptr));
-        return true;
-    }
-    return false;
-}
-
-//-------------------------------------------------------------------------//
-
-MSJunction*
-MSJunction::dictionary(string id)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        return 0;
-    }
-    return it->second;
-}
-
-//-------------------------------------------------------------------------//
-
-void
-MSJunction::clear()
-{
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        delete(*i).second;
-    }
-    myDict.clear();
-}
-
-//-------------------------------------------------------------------------//
-
-std::vector<std::string>
-MSJunction::getNames()
-{
-    std::vector<std::string> ret;
-    ret.reserve(MSJunction::myDict.size());
-    for (MSJunction::DictType::iterator i=MSJunction::myDict.begin();
-            i!=MSJunction::myDict.end(); i++) {
-        ret.push_back((*i).first);
-    }
-    return ret;
-}
-
-//-------------------------------------------------------------------------//
 
 const Position2D &
 MSJunction::getPosition() const
@@ -125,21 +65,10 @@ MSJunction::getPosition() const
     return myPosition;
 }
 
-//-------------------------------------------------------------------------//
 
 void
 MSJunction::postloadInit()
 {}
-
-//-------------------------------------------------------------------------//
-
-void
-MSJunction::postloadInitContainer()
-{
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        (*i).second->postloadInit();
-    }
-}
 
 
 const std::string &
@@ -154,13 +83,6 @@ MSJunction::buildJunctionWrapper(GUIGlObjectStorage &)
 {
     return 0;//!!!
 }
-
-size_t
-MSJunction::dictSize()
-{
-    return myDict.size();
-}
-
 
 
 /****************************************************************************/

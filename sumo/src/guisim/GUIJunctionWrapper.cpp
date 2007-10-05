@@ -85,30 +85,7 @@ GUIParameterTableWindow *
 GUIJunctionWrapper::getParameterWindow(GUIMainWindow &app,
                                        GUISUMOAbstractView &)
 {
-    std::vector<std::string> s=myJunction.getNames();
-    int NumberOfRows =s.size();
-    GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this, 2+NumberOfRows);
-    // add items
-    //ret->mkItem("length [m]", false, myJunction.length());
-    ret->mkItem("x-Position", false, myJunction.getPosition().x());
-    ret->mkItem("y-Position", false, myJunction.getPosition().y());
-
-    //std::vector<string>::iterator p=s.begin();
-    /*
-    while(p !=s.end())
-    {
-    	ret->mkItem("name", false, s[]);
-    	p++;
-    }
-    */
-    for (unsigned int i=0 ; i<s.size(); i++) {
-        ret->mkItem("name", false, s[i]);
-    }
-
-    // close building
-    ret->closeBuilding();
-    return ret;
+    return 0;
 }
 
 

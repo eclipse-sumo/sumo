@@ -99,8 +99,7 @@ NLJunctionControlBuilder::~NLJunctionControlBuilder()
 void
 NLJunctionControlBuilder::prepare(unsigned int no)
 {
-    myJunctions = new MSJunctionControl::JunctionCont();
-    myJunctions->reserve(no);
+    myJunctions = new MSJunctionControl(no);
 }
 
 
@@ -182,8 +181,7 @@ NLJunctionControlBuilder::closeJunction()
 
     }
     if (junction!=0) {
-        myJunctions->push_back(junction);
-        if (!MSJunction::dictionary(myActiveID, junction)) {
+        if (!myJunctions->add(myActiveID, junction)) {
             throw InvalidArgument("Another junction with the id '" + myActiveID + "' exists.");
         }
     }
@@ -193,9 +191,9 @@ NLJunctionControlBuilder::closeJunction()
 MSJunctionControl *
 NLJunctionControlBuilder::build() const
 {
-    MSJunctionControl::JunctionCont *js = myJunctions;
+    MSJunctionControl *js = myJunctions;
     myJunctions = 0;
-    return new MSJunctionControl("", js);
+    return js;
 }
 
 

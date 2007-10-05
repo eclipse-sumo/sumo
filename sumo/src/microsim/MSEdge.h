@@ -84,7 +84,6 @@ public:
 
 public:
     /// for access to the dictionary
-    friend class GUIEdgeGrid;
     friend class GUIGrid;
 
     /// Constructor.

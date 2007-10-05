@@ -34,6 +34,8 @@
 #include <map>
 #include <string>
 
+#include <utils/helpers/NamedObjectCont.h>
+
 
 // ===========================================================================
 // class declarations
@@ -47,14 +49,11 @@ class MSJunction;
 /**
  * @class MSJunctionControl
  */
-class MSJunctionControl
+class MSJunctionControl : public NamedObjectCont<MSJunction*>
 {
 public:
-    /// Container for Junctions.
-    typedef std::vector< MSJunction* > JunctionCont;
-
     /// Use this constructor only.
-    MSJunctionControl(std::string id, JunctionCont* j);
+    MSJunctionControl(size_t no);
 
     /// Destructor.
     ~MSJunctionControl();
@@ -65,31 +64,9 @@ public:
     /// Sets the responds
     void setAllowed();
 
-    /** @brief Inserts MSJunctionControl into the static dictionary
-        Returns true if the key id isn't already in the dictionary.
-        Otherwise returns false (the control is not inserted then). */
-    static bool dictionary(std::string id, MSJunctionControl* junControl);
-
-    /** @brief Returns the MSEdgeControl associated to the key id if exists
-        otherwise returns 0. */
-    static MSJunctionControl* dictionary(std::string id);
-
-    /** Clears the dictionary */
-    static void clear();
-
-protected:
+    void postloadInitContainer();
 
 private:
-    /// Unique ID.
-    std::string myID;
-
-    /// The net's junctions.
-    JunctionCont* myJunctions;
-
-    /// Static dictionary to associate string-ids with objects.
-    typedef std::map< std::string, MSJunctionControl* > DictType;
-    static DictType myDict;
-
     /// Default constructor.
     MSJunctionControl();
 
@@ -98,6 +75,7 @@ private:
 
     /// Assignment operator.
     MSJunctionControl& operator=(const MSJunctionControl&);
+
 };
 
 

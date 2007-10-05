@@ -205,7 +205,7 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     myStateDumpFiles = stateDumpFiles;
 
     // set requests/responses
-    MSJunction::postloadInitContainer(); // !!!
+    myJunctions->postloadInitContainer();
 }
 
 
@@ -541,8 +541,6 @@ MSNet::clearAll()
 {
     // clear container
     MSEdge::clear();
-    MSJunction::clear();
-    MSJunctionControl::clear();
     MSJunctionLogic::clear();
     MSLane::clear();
 //    MSVehicleType::clear();
@@ -649,6 +647,12 @@ MSTLLogicControl &
 MSNet::getTLSControl()
 {
     return *myLogics;
+}
+
+MSJunctionControl &
+MSNet::getJunctionControl()
+{
+    return *myJunctions;
 }
 
 

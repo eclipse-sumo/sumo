@@ -38,6 +38,7 @@
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSCORN.h>
+#include <microsim/MSJunctionControl.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/shapes/Polygon2D.h>
@@ -128,7 +129,7 @@ GUIViewTraffic::init(GUINet &)
     myEdges2ShowSize = (MSEdge::dictSize()>>5) + 1;
     myEdges2Show = new size_t[myEdges2ShowSize];
     clearUsetable(myEdges2Show, myEdges2ShowSize);
-    myJunctions2ShowSize = (MSJunction::dictSize()>>5) + 1;
+    myJunctions2ShowSize = (myNet->getJunctionControl().size()>>5) + 1;
     myJunctions2Show = new size_t[myJunctions2ShowSize];
     clearUsetable(myJunctions2Show, myJunctions2ShowSize);
     myAdditional2ShowSize = (GUIGlObject_AbstractAdd::getObjectList().size()>>5) + 1;

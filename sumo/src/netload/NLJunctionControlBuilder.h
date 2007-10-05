@@ -226,7 +226,7 @@ protected:
 
 
     /// the list of the simulations junctions
-    mutable MSJunctionControl::JunctionCont *myJunctions;
+    mutable MSJunctionControl *myJunctions;
 
     /// the list of the incoming lanes of the currently chosen junction
     LaneVector myActiveIncomingLanes;

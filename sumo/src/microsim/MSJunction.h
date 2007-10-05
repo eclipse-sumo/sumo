@@ -52,9 +52,6 @@ class GUIGlObjectStorage;
 class MSJunction
 {
 public:
-    /// needed for the access to the dictionary
-    friend class GUIEdgeGrid;
-
     /// Destructor.
     virtual ~MSJunction();
 
@@ -71,27 +68,6 @@ public:
 
     /// Sets the responds
     virtual bool setAllowed() = 0;
-
-    /** @brief Inserts MSJunction into the static dictionary
-        Returns true if the key id isn't already in the dictionary.
-        Otherwise returns false (the junction is not inserted then). */
-    static bool dictionary(std::string id, MSJunction* junction);
-
-    /** @brief Returns the MSEdgeControl associated to the key id if exists,
-        Otherwise returns 0. */
-    static MSJunction* dictionary(std::string id);
-
-    static size_t dictSize();
-
-    /** Returns the list of all known junctions */
-    static std::vector<std::string> getNames();
-
-    /** Clears the dictionary */
-    static void clear();
-
-    /** @brief Performs some initialisation after the net was completely loaded
-        This is done for all junctions within the dictionary */
-    static void postloadInitContainer();
 
     /** returns the junction's position */
     const Position2D &getPosition() const;
@@ -112,12 +88,6 @@ public:
 protected:
     /// unique ID
     std::string myID;
-
-    /// definition of the static dictionary type
-    typedef std::map< std::string, MSJunction* > DictType;
-
-    /** Static dictionary to associate string-ids with objects. */
-    static DictType myDict;
 
     /** the position */
     Position2D myPosition;
