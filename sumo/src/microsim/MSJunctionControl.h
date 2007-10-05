@@ -53,7 +53,7 @@ class MSJunctionControl : public NamedObjectCont<MSJunction*>
 {
 public:
     /// Use this constructor only.
-    MSJunctionControl(size_t no);
+    MSJunctionControl();
 
     /// Destructor.
     ~MSJunctionControl();
@@ -67,9 +67,6 @@ public:
     void postloadInitContainer();
 
 private:
-    /// Default constructor.
-    MSJunctionControl();
-
     /// Copy constructor.
     MSJunctionControl(const MSJunctionControl&);
 

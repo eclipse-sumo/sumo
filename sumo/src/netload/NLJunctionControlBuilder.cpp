@@ -99,7 +99,7 @@ NLJunctionControlBuilder::~NLJunctionControlBuilder()
 void
 NLJunctionControlBuilder::prepare(unsigned int no)
 {
-    myJunctions = new MSJunctionControl(no);
+    myJunctions = new MSJunctionControl();
 }
 
 

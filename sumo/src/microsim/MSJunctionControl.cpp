@@ -46,9 +46,8 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSJunctionControl::MSJunctionControl(size_t no)
+MSJunctionControl::MSJunctionControl()
 {
-    /* a!!! reserve no !!! */
 }
 
 
