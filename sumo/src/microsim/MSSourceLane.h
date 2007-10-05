@@ -48,7 +48,6 @@
 // ===========================================================================
 class MSModel;
 class MSSourceLaneChanger;
-class MSEmitter;
 class MSLink;
 
 

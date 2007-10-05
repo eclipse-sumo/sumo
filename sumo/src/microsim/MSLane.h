@@ -52,7 +52,6 @@
 // class declarations
 // ===========================================================================
 class MSLaneChanger;
-class MSEmitter;
 class MSLink;
 class MSMoveReminder;
 class GUILaneWrapper;

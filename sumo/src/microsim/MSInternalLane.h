@@ -47,7 +47,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSEmitter;
 class MSLink;
 class MSMoveReminder;
 class GUILaneWrapper;
