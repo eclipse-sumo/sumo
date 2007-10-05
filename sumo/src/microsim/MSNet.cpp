@@ -38,6 +38,7 @@
 #include <algorithm>
 #include <cassert>
 #include <vector>
+#include <sstream>
 #include <utils/common/UtilExceptions.h>
 #include "MSNet.h"
 #include "MSEdgeControl.h"
@@ -737,6 +738,43 @@ MSNet::getPersonControl() const
         myPersonControl = new MSPersonControl();
     }
     return *myPersonControl;
+}
+
+
+void 
+MSNet::preSimStepOutput() const
+{
+    cout << std::setprecision(OUTPUT_ACCURACY);
+    cout << "Step #" << myStep;
+    if (!myLogExecutionTime) {
+        cout << (char) 13;
+    }
+}
+
+
+void 
+MSNet::postSimStepOutput() const
+{
+    if (myLogExecutionTime) {
+        if (mySimStepDuration!=0) {
+            ostringstream oss;
+            oss.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
+            oss.setf(std::ios::showpoint);    // print decimal point
+            oss << std::setprecision(OUTPUT_ACCURACY);
+            oss << " (" << mySimStepDuration << "ms ~= "
+            << (1000./ (SUMOReal) mySimStepDuration) << "*RT, ~"
+            << ((SUMOReal) myVehicleControl->getRunningVehicleNo()/(SUMOReal) mySimStepDuration*1000.)
+            << "UPS, vehicles"
+            << " TOT " << myVehicleControl->getEmittedVehicleNo()
+            << " ACT " << myVehicleControl->getRunningVehicleNo()
+            << ")       "
+            << (char) 13;
+            string msg = oss.str().substr(0, 79);
+            cout << msg;
+        } else {
+            cout << " (0ms; no further information available)          \r";
+        }
+    }
 }
 
 

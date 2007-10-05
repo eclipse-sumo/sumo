@@ -150,16 +150,6 @@ public:
     /// route handler may add routes and vehicles
     friend class MSRouteHandler;
 
-    /// ----------------- debug variables -------------
-    /*
-    #ifdef ABS_DEBUG
-    static SUMOTime searchedtime;
-    static std::string searched1, searched2, searchedJunction;
-    #endif
-    */
-    /// ----------------- speedcheck variables -------------
-
-
     SUMOTime getCurrentTimeStep() const;
 
     static SUMOReal getSeconds(SUMOReal steps)
@@ -207,7 +197,7 @@ public:
 
     virtual void closeBuilding(MSEdgeControl *edges,
                                MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
-                               MSTLLogicControl *tlc, //ShapeContainer *sc,
+                               MSTLLogicControl *tlc, 
                                const MSMeanData_Net_Cont &meanData,
                                std::vector<int> stateDumpTimes, std::string stateDumpFiles);
 
@@ -218,35 +208,10 @@ public:
 
     //{
     /// to be called before a simulation step is done, this prints the current step number
-    void preSimStepOutput() const
-    {
-        std::cout << "Step #" << myStep;
-        if (!myLogExecutionTime) {
-            std::cout << (char) 13;
-        }
-    }
+    void preSimStepOutput() const;
 
     /// to be called after a simulation step is done, this prints some further statistics
-    void postSimStepOutput() const
-    {
-        if (myLogExecutionTime) {
-            if (mySimStepDuration!=0) {
-                std::cout.setf(std::ios::fixed , std::ios::floatfield) ;    // use decimal format
-                std::cout.setf(std::ios::showpoint) ;    // print decimal point
-                std::cout << std::setprecision(OUTPUT_ACCURACY) ;
-                std::cout << " (" << mySimStepDuration << "ms ~= "
-                << (1000./ (SUMOReal) mySimStepDuration) << "*RT, ~"
-                << ((SUMOReal) myVehicleControl->getRunningVehicleNo()/(SUMOReal) mySimStepDuration*1000.)
-                << "UPS, vehicles"
-                << " TOT " << myVehicleControl->getEmittedVehicleNo()
-                << " ACT " << myVehicleControl->getRunningVehicleNo()
-                << ")       "
-                << (char) 13;
-            } else {
-                std::cout << " (0ms; no further information available)          \r";
-            }
-        }
-    }
+    void postSimStepOutput() const;
     //}
 
     void saveState(std::ostream &os, long what);
