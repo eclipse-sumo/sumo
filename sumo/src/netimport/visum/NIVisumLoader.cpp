@@ -491,7 +491,33 @@ NIVisumLoader::parse_Turns()
         : myLineParser.get("VSYSSET");
     if(myVSysTypes.find(type)!=myVSysTypes.end() && myVSysTypes.find(type)->second=="IV") {
         // try to set the turning definition
-        via->setTurningDefinition(from, to);
+        NBEdge *src = from->getConnectionTo(via);
+        NBEdge *dest = via->getConnectionTo(to);
+        // check both
+        if (src==0) {
+            // maybe it was removed due to something
+            if (OptionsCont::getOptions().isSet("edges-min-speed")
+                    ||
+                    OptionsCont::getOptions().isSet("keep-edges")) {
+                WRITE_WARNING("Could not set connection from node '" + from->getID() + "' to node '" + via->getID() + "'.");
+            } else {
+                MsgHandler::getErrorInstance()->inform("There is no edge from node '" + from->getID() + "' to node '" + via->getID() + "'.");
+            }
+            return;
+        }
+        if (dest==0) {
+            if (OptionsCont::getOptions().isSet("edges-min-speed")
+                    ||
+                    OptionsCont::getOptions().isSet("keep-edges")) {
+                WRITE_WARNING("Could not set connection from node '" + via->getID() + "' to node '" + to->getID() + "'.");
+            } else {
+                MsgHandler::getErrorInstance()->inform("There is no edge from node '" + via->getID() + "' to node '" + to->getID() + "'.");
+            }
+            return;
+        }
+        // both edges found
+        //  set them into the edge
+        src->setTurningDestination(dest);
     }
 }
 

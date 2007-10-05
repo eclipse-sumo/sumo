@@ -1469,54 +1469,6 @@ NBNode::getApproaching(NBEdge *currentOutgoing)
 
 
 void
-NBNode::setTurningDefinition(NBNode *from, NBNode *to)
-{
-    EdgeVector::iterator i;
-    // get the source edge
-    NBEdge *src = 0;
-    for (i=myIncomingEdges->begin(); src==0 && i!=myIncomingEdges->end(); i++) {
-        if ((*i)->getFromNode()==from) {
-            src = (*i);
-        }
-    }
-    // get the destination edge
-    NBEdge *dest = 0;
-    for (i=myOutgoingEdges->begin(); dest==0 && i!=myOutgoingEdges->end(); i++) {
-        if ((*i)->getToNode()==to) {
-            dest = (*i);
-        }
-    }
-    // check both
-    if (src==0) {
-        // maybe it was removed due to something
-        if (OptionsCont::getOptions().isSet("edges-min-speed")
-                ||
-                OptionsCont::getOptions().isSet("keep-edges")) {
-
-            WRITE_WARNING("Could not set connection from node '" + from->getID() + "' to node '" + getID() + "'.");
-        } else {
-            MsgHandler::getErrorInstance()->inform("There is no edge from node '" + from->getID() + "' to node '" + getID() + "'.");
-        }
-        return;
-    }
-    if (dest==0) {
-        if (OptionsCont::getOptions().isSet("edges-min-speed")
-                ||
-                OptionsCont::getOptions().isSet("keep-edges")) {
-
-            WRITE_WARNING("Could not set connection from node '" + getID() + "' to node '" + to->getID() + "'.");
-        } else {
-            MsgHandler::getErrorInstance()->inform("There is no edge from node '" + getID() + "' to node '" + to->getID() + "'.");
-        }
-        return;
-    }
-    // both edges found
-    //  set them into the edge
-    src->addEdge2EdgeConnection(dest);
-}
-
-
-void
 NBNode::resetby(SUMOReal xoffset, SUMOReal yoffset)
 {
     myPosition.add(xoffset, yoffset);

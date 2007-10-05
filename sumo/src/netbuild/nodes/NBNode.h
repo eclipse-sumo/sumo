@@ -195,9 +195,6 @@ public:
     /** reports about the build junctions */
     static void reportBuild();
 
-    /// sets the connection between two nodes via this node
-    void setTurningDefinition(NBNode *from, NBNode *to);
-
     /** @brief Returns something like the most unused direction
         Should only be used to add source or sink nodes */
     Position2D getEmptyDir() const;

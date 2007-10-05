@@ -435,9 +435,9 @@ class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack
 
     bool splitGeometry(NBEdgeCont &ec, NBNodeCont &nc);
 
+    void setTurningDestination(NBEdge *e);
 
 protected:
-    void setTurningDestination(NBEdge *e);
     bool acceptBeingTurning(NBEdge *e);
 
 
