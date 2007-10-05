@@ -342,16 +342,6 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     }
     myBeginOfTimestepEvents.execute(myStep);
 
-    // load routes
-    myEmitter->moveFrom(myRouteLoaders->loadNext(step));
-    // emit Vehicles
-    size_t emittedVehNo = myEmitter->emitVehicles(myStep);
-    myVehicleControl->vehiclesEmitted(emittedVehNo);
-    if (MSGlobals::gCheck4Accidents) {
-        myEdges->detectCollisions(step);
-    }
-    MSVehicleTransfer::getInstance()->checkEmissions(myStep);
-
     if (myMSPhoneNet!=0) {
         myMSPhoneNet->setDynamicCalls(myStep);
     }
@@ -404,14 +394,19 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
 #ifdef HAVE_MESOSIM
     }
 #endif
-    // Check if mean-lane-data is due
-    writeOutput();
-    // execute endOfTimestepEvents
-    myEndOfTimestepEvents.execute(myStep);
+    // load routes
+    myEmitter->moveFrom(myRouteLoaders->loadNext(step));
+    // emit Vehicles
+    size_t emittedVehNo = myEmitter->emitVehicles(myStep);
+    myVehicleControl->vehiclesEmitted(emittedVehNo);
+    if (MSGlobals::gCheck4Accidents) {
+        myEdges->detectCollisions(step);
+    }
+    MSVehicleTransfer::getInstance()->checkEmissions(myStep);
+
     if (MSGlobals::gUsingC2C) {
         computeCar2Car();
     }
-
     // persons
     if (myPersonControl!=0) {
         if (myPersonControl->hasWaitingPersons(myStep)) {
@@ -427,12 +422,18 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
         }
     }
 
+    // execute endOfTimestepEvents
+    myEndOfTimestepEvents.execute(myStep);
+
     // check state dumps
     if (find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
         string name = myStateDumpFiles + '_' + toString(myStep) + ".bin";
         ofstream strm(name.c_str(), fstream::out|fstream::binary);
         saveState(strm, (long) 0xffffffff);
     }
+
+    // Check if mean-lane-data is due
+    writeOutput();
 
     if (myLogExecutionTime) {
         mySimStepEnd = SysUtils::getCurrentMillis();
