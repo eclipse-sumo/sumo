@@ -41,12 +41,6 @@ using namespace std;
 
 
 // ===========================================================================
-// static member definitions
-// ===========================================================================
-MSJunctionLogic::DictType MSJunctionLogic::myDict;
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 unsigned int
@@ -55,7 +49,6 @@ MSJunctionLogic::nLinks()
     return myNLinks;
 }
 
-//-------------------------------------------------------------------------//
 
 unsigned int
 MSJunctionLogic::nInLanes()
@@ -63,7 +56,6 @@ MSJunctionLogic::nInLanes()
     return myNInLanes;
 }
 
-//-------------------------------------------------------------------------//
 
 MSJunctionLogic::MSJunctionLogic(unsigned int nLinks,
                                  unsigned int nInLanes) :
@@ -71,55 +63,9 @@ MSJunctionLogic::MSJunctionLogic(unsigned int nLinks,
         myNInLanes(nInLanes)
 {}
 
-//-------------------------------------------------------------------------//
 
 MSJunctionLogic::~MSJunctionLogic()
 {}
-
-//-------------------------------------------------------------------------//
-
-bool
-MSJunctionLogic::dictionary(string id, MSJunctionLogic* ptr)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict.insert(DictType::value_type(id, ptr));
-        return true;
-    }
-    return false;
-}
-
-//-------------------------------------------------------------------------//
-
-MSJunctionLogic*
-MSJunctionLogic::dictionary(string id)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        return 0;
-    }
-    return it->second;
-}
-
-//-------------------------------------------------------------------------//
-
-void
-MSJunctionLogic::clear()
-{
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
-        delete(*i).second;
-    }
-    myDict.clear();
-}
-
-
-void
-MSJunctionLogic::replace(std::string id, MSJunctionLogic* junction)
-{
-    myDict[id] = junction;
-}
 
 
 

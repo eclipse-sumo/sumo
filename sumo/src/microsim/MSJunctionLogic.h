@@ -57,19 +57,6 @@ public:
     /// Returns the logic's number of inLanes.
     unsigned int nInLanes();
 
-    /** @brief Inserts MSJunctionLogic into the static dictionary
-        Returns true if the key id isn't already in the dictionary.
-        Otherwise returns false. */
-    static bool dictionary(std::string id, MSJunctionLogic* junction);
-
-    /** Returns the MSJunctionLogic associated to the key id if exists,
-        otherwise returns 0. */
-    static MSJunctionLogic* dictionary(std::string id);
-
-    /** Clears the dictionary */
-    static void clear();
-
-    static void replace(std::string id, MSJunctionLogic* junction);
 
 protected:
     /// Constructor.
@@ -82,12 +69,6 @@ protected:
     unsigned int myNInLanes;
 
 private:
-    /** definition of the static dictionary type. */
-    typedef std::map< std::string, MSJunctionLogic* > DictType;
-
-    /** Static dictionary to associate string-ids with objects. */
-    static DictType myDict;
-
     /// Default constructor.
     MSJunctionLogic();
 
@@ -96,6 +77,7 @@ private:
 
     /// Assignment operator.
     MSJunctionLogic& operator=(const MSJunctionLogic&);
+
 };
 
 

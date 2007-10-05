@@ -90,7 +90,9 @@ MSRightOfWayJunction::clearRequests()
 
 
 MSRightOfWayJunction::~MSRightOfWayJunction()
-{}
+{
+    delete myLogic;
+}
 
 
 void
@@ -292,7 +294,6 @@ MSRightOfWayJunction::rebuildPriorities()
                                 static_cast<MSBitSetLogic<64>*>(myLogic)->getInternalConts());
     delete myLogic;
     myLogic = nlogic;
-    MSJunctionLogic::replace(getID(), myLogic);
 }
 
 

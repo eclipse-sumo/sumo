@@ -236,11 +236,10 @@ MSJunctionLogic *
 NLJunctionControlBuilder::getJunctionLogicSecure()
 {
     // get and check the junction logic
-    MSJunctionLogic *jtype = MSJunctionLogic::dictionary(myActiveID);
-    if (jtype==0) {
+    if (myLogics.find(myActiveID)==myLogics.end()) {
         throw InvalidArgument("Missing junction logic '" + myActiveID + "'.");
     }
-    return jtype;
+    return myLogics[myActiveID];
 }
 
 
@@ -488,7 +487,10 @@ NLJunctionControlBuilder::closeJunctionLogic()
     }
     MSJunctionLogic *logic =
         new MSBitsetLogic(myRequestSize, myLaneNumber, myActiveLogic, myActiveFoes, myActiveConts);
-    MSJunctionLogic::dictionary(myActiveKey, logic); // !!! replacement within the dictionary
+    if(myLogics.find(myActiveKey)!=myLogics.end()) {
+        throw InvalidArgument("Junction logic '" + myActiveKey + "' was defined twice.");
+    }
+    myLogics[myActiveKey] = logic;
 }
 
 

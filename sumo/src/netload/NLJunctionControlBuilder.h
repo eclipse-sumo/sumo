@@ -300,6 +300,9 @@ protected:
     typedef std::map<std::string, std::string> StringParameterMap;
     StringParameterMap myAdditionalParameter;
 
+    /// Map of loaded junction logics
+    std::map<std::string, MSJunctionLogic*> myLogics;
+
 protected:
     /// numerical representation for a junction with no purpose
     static const int TYPE_NOJUNCTION;

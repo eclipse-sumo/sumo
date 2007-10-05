@@ -542,9 +542,7 @@ MSNet::clearAll()
 {
     // clear container
     MSEdge::clear();
-    MSJunctionLogic::clear();
     MSLane::clear();
-//    MSVehicleType::clear();
     MSRoute::clear();
     delete MSVehicleTransfer::getInstance();
 }
