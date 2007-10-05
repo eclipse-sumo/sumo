@@ -101,9 +101,6 @@ protected:
     bool load(const std::string &mmlWhat, NLLoadFilter what,
               SAX2XMLReader &parser);
 
-    /// parses the files using the given initialised parser
-    bool parse(const std::string &mmlWhat, SAX2XMLReader &parser);
-
     /// Closes the net building process
     void buildNet();
 

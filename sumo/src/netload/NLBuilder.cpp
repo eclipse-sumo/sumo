@@ -55,6 +55,8 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/common/SysUtils.h>
+#include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <microsim/output/MSDetector2File.h>
 #include <microsim/output/MSDetectorControl.h>
@@ -146,8 +148,9 @@ NLBuilder::build()
             return false;
         } else {
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading state from '" + m_pOptions.getString("load-state") + "'...");
+            long before = SysUtils::getCurrentMillis();
             myNet.loadState(strm, (long) 0xfffffff);
-            MsgHandler::getMessageInstance()->endProcessMsg("done.");
+            MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis()-before) + "ms).");
         }
     }
     // load weights if wished
@@ -233,34 +236,21 @@ NLBuilder::load(const std::string &mmlWhat,
     // start parsing
     parser.setContentHandler(&myXMLHandler);
     parser.setErrorHandler(&myXMLHandler);
-    parse(mmlWhat, parser);
-    // report about loaded structures
-    if(MsgHandler::getErrorInstance()->wasInformed()) {
-        WRITE_MESSAGE("Loading of " + mmlWhat + " failed.");
-        return false;
-    } else {
-        WRITE_MESSAGE("Loading of " + mmlWhat + " done.");
-        return true;
-    }
-}
-
-
-bool
-NLBuilder::parse(const std::string &mmlWhat,
-                 SAX2XMLReader &parser)
-{
     if (!OptionsCont::getOptions().isUsableFileList(mmlWhat)) {
         return false;
     }
+    long before = SysUtils::getCurrentMillis();
     vector<string> files = OptionsCont::getOptions().getStringVector(mmlWhat);
     for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         WRITE_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'...");
         myXMLHandler.setFileName(*fileIt);
         parser.parse(fileIt->c_str());
         if (MsgHandler::getErrorInstance()->wasInformed()) {
+            WRITE_MESSAGE("Loading of " + mmlWhat + " failed.");
             return false;
         }
     }
+    WRITE_MESSAGE("Loading of " + mmlWhat + " done (" + toString(SysUtils::getCurrentMillis()-before) + "ms).");
     return true;
 }
 
