@@ -106,6 +106,7 @@ private:
 
     MSVehicleContainer::VehicleVector myNewPeriodicalAdds;
 
+private:
     /// Default constructor.
     MSEmitControl();
 

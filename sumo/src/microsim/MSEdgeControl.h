@@ -77,22 +77,6 @@ public:
         model-implementation is correct. */
     void detectCollisions(SUMOTime timestep);
 
-    /** Inserts edgecontrol into the static dictionary and returns true
-        if the key id isn't already in the dictionary. Otherwise returns
-        false. */
-    //static bool dictionary( std::string id, MSEdgeControl* edgeControl );
-
-    /** Returns the MSEdgeControl associated to the key id if exists,
-        otherwise returns 0. */
-    //static MSEdgeControl* dictionary( std::string id );
-
-    /** Clears the dictionary */
-    //static void clear();
-    /*
-        // simple output operator
-        friend std::ostream& operator<<( std::ostream& os,
-                                         const MSEdgeControl& ec );
-    */
     void insertMeanData(unsigned int number);
 
     const EdgeCont &getSingleLaneEdges() const;

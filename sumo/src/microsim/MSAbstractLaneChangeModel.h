@@ -101,16 +101,6 @@ public:
 
     virtual ~MSAbstractLaneChangeModel()
     { }
-    /*
-        virtual void init(int bestLaneOffset, SUMOReal bestDist,
-            SUMOReal currentDist) = 0;
-    */
-    /*
-    /// Called if the vehicle has changed the lane
-    virtual void changed(int offset) = 0;
-    */
-    /// Called if the vehicle is on a lane on which it has to change lanes
-//    virtual bool forcedChangeNecessary(const ChangeElem &vehSurround) = 0;
 
     int getState() const
     {
@@ -135,11 +125,6 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
         const std::vector<std::vector<MSVehicle::LaneQ> > &preb,
-        //        bool congested, bool predInteraction,
-        /*
-                int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
-                SUMOReal currentDist,
-                */
         MSVehicle **lastBlocked) = 0;
 
     /** @brief Called to examine whether the vehicle wants to change to left
@@ -152,11 +137,6 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
         const std::vector<std::vector<MSVehicle::LaneQ> > &preb,
-        /*
-        //        bool congested, bool predInteraction,
-        int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
-        SUMOReal currentDist,
-        */
         MSVehicle **lastBlocked) = 0;
 
     virtual void *inform(void *info, MSVehicle *sender) = 0;

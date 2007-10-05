@@ -106,6 +106,7 @@ private:
     /// Event-container, holds executable events.
     EventCont myEvents;
 
+private:
     /// Copy constructor.
     MSEventControl(const MSEventControl&);
 
