@@ -1014,6 +1014,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
         //  vehicle decelerate until the end of the street
         vLinkWait =
             MIN3(vLinkPass, vLinkWait, myType->ffeS(myState.mySpeed, seen));
+        vLinkWait = MAX2(vLinkWait, myType->getSpeedAfterMaxDecel(myState.mySpeed));
 
         if ((*link)->getState()==MSLink::LINKSTATE_TL_YELLOW&&SPEED2DIST(vLinkWait)+myState.myPos<laneLength) {
             myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkWait, vLinkWait));
