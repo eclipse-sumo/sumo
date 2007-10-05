@@ -60,7 +60,7 @@ MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet &net,
         SUMOSAXHandler(filename),
         myParser(0), myHaveMore(true)
 {
-    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+    MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
         new MSTriggerCommand(*this), net.getCurrentTimeStep(),
         MSEventControl::NO_CHANGE);
 }
