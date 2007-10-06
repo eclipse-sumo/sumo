@@ -359,6 +359,9 @@ public:
     int getMinConnectedLane(NBEdge *of) const;
     int getMaxConnectedLane(NBEdge *of) const;
 
+    void setTurningDestination(NBEdge *e);
+
+
 private:
     /**
      * ToEdgeConnectionsAdder
@@ -434,9 +437,6 @@ class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack
     void computeLaneShapes();
 
     bool splitGeometry(NBEdgeCont &ec, NBNodeCont &nc);
-
-    void setTurningDestination(NBEdge *e);
-
 protected:
     bool acceptBeingTurning(NBEdge *e);
 
