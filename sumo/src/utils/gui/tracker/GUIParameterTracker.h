@@ -35,7 +35,7 @@
 #include <fx3d.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include "TrackerValueDesc.h"
-#include <guisim/guilogging/GLObjectValuePassConnector.h>
+#include <guisim/GLObjectValuePassConnector.h>
 
 #ifdef _WIN32
 #include <windows.h>

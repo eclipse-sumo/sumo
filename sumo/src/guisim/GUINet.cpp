@@ -51,7 +51,7 @@
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/gfx/RGBColor.h>
 #include "GUINetWrapper.h"
-#include <guisim/guilogging/GLObjectValuePassConnector.h>
+#include <guisim/GLObjectValuePassConnector.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIDetectorWrapper.h>

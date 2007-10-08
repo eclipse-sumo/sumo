@@ -39,7 +39,7 @@
 #include <gui/GUIGlobals.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-#include <guisim/guilogging/GLObjectValuePassConnector.h>
+#include <guisim/GLObjectValuePassConnector.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_StringParam.h>
 #include <utils/gui/tracker/GUITLLogicPhasesTrackerWindow.h>

@@ -341,7 +341,6 @@ src/gui/dialogs/Makefile
 src/gui/drawerimpl/Makefile
 src/guinetload/Makefile
 src/guisim/Makefile
-src/guisim/guilogging/Makefile
 src/icons/Makefile
 src/microsim/Makefile
 src/microsim/actions/Makefile

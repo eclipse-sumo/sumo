@@ -27,5 +27,5 @@ GUIVehicleType.cpp GUIVehicleType.h \
 GUI_E2_ZS_Collector.cpp GUI_E2_ZS_Collector.h \
 GUI_E2_ZS_CollectorOverLanes.cpp GUI_E2_ZS_CollectorOverLanes.h
 
-SUBDIRS = guilogging
+EXTRA_DIST = GLObjectValuePassConnector.h
 
