@@ -80,6 +80,7 @@
 			OutputDirectory="$(ConfigurationName)"
 			IntermediateDirectory="$(ConfigurationName)"
 			ConfigurationType="4"
+			InheritedPropertySheets="..\Release.vsprops"
 			CharacterSet="2"
 			WholeProgramOptimization="1"
 			>
