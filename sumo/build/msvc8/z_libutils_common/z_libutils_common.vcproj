@@ -457,10 +457,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\convert\TplConvert.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\TplConvert.h"
 				>
 			</File>
