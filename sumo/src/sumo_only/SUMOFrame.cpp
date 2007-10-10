@@ -80,6 +80,9 @@ SUMOFrame::fillOptions()
 #ifdef ITM
     oc.addOptionSubTopic("Mobility Interface");
 #endif // ITM
+#ifdef HAVE_MESOSIM
+    oc.addOptionSubTopic("Mesoscopic");
+#endif
 
 
     // register configuration options
@@ -360,8 +363,11 @@ SUMOFrame::fillOptions()
     //
 #ifdef HAVE_MESOSIM
     oc.doRegister("mesosim", new Option_Bool(false));
+    oc.addDescription("mesosim", "Mesoscopic", "Enables mesoscopic simulation");
     oc.doRegister("mesosim-edgelength", new Option_Float(98.0f));
+    oc.addDescription("mesosim-edgelength", "Mesoscopic", "Length of an edge segment in mesoscopic simulation");
     oc.doRegister("meso-lanescale", new Option_Float(1.0f));
+    oc.addDescription("meso-lanescale", "Mesoscopic", "Factor for calculating number of lanes");
 #endif
 
     // add rand options
