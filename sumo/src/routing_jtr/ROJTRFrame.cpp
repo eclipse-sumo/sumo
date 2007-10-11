@@ -83,11 +83,11 @@ ROJTRFrame::addJTROptions()
     OptionsCont &oc = OptionsCont::getOptions();
     oc.doRegister("flow-definition", 'f', new Option_FileName());
     oc.addSynonyme("flow-definition", "flows");
-    oc.addDescription("flow-definition", "I/O", "Read flow-definitions from FILE");
+    oc.addDescription("flow-definition", "Input", "Read flow-definitions from FILE");
 
     oc.doRegister("turn-definition", 't', new Option_FileName());
     oc.addSynonyme("turn-definition", "turns");
-    oc.addDescription("turn-definition", "I/O", "Read turn-definitions from FILE");
+    oc.addDescription("turn-definition", "Input", "Read turn-definitions from FILE");
 
 
     oc.doRegister("max-edges-factor", new Option_Float(2.0));

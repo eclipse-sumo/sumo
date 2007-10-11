@@ -13,6 +13,12 @@
       <!-- Read lane-weights from FILE -->
       <lane-weights></lane-weights>
 
+      <!-- Read flow-definitions from FILE -->
+      <flow-definition></flow-definition>
+
+      <!-- Read turn-definitions from FILE -->
+      <turn-definition></turn-definition>
+
    </input>
 
    <output>

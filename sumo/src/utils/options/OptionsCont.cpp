@@ -437,6 +437,9 @@ OptionsCont::addDescription(const std::string &name,
         throw InvalidArgument("The description was set before");
     }
     o->myDescription = description;
+    if(find(mySubTopics.begin(), mySubTopics.end(), subtopic)==mySubTopics.end()) {
+        throw InvalidArgument("The subtopic '" + subtopic + "' is not known.");
+    }
     mySubTopicEntries[subtopic].push_back(name);
 }
 

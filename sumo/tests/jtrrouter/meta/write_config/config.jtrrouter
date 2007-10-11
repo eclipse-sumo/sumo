@@ -2,6 +2,7 @@
 
    <input>
       <net-file>input_net.net.xml</net-file>
+      <flow-definition>input_flows.flows.xml</flow-definition>
    </input>
 
    <output>

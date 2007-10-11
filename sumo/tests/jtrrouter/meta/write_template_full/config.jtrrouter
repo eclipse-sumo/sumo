@@ -5,6 +5,8 @@
       <alternatives></alternatives>
       <weights></weights>
       <lane-weights></lane-weights>
+      <flow-definition></flow-definition>
+      <turn-definition></turn-definition>
    </input>
 
    <output>
