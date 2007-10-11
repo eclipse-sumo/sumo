@@ -14,7 +14,7 @@ dnl the debug check has to be made before the program checks
 dnl because it modifies CXXFLAGS
 AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug],[enable sumo debugging code [default=no].])],
               [AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])
-CXXFLAGS="-g $CXXFLAGS"], [CXXFLAGS="-O2 $CXXFLAGS"])
+CXXFLAGS="-g $CXXFLAGS"], [CXXFLAGS="-O2 -DNDEBUG $CXXFLAGS"])
 if test x$enable_debug = xyes; then
    ac_enabled="$ac_enabled Debug"
 else
@@ -83,9 +83,16 @@ fi
 AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma in output])
 
+AM_CONDITIONAL(MESOSIM, test -d src/mesosim)
+m4_syscmd([test -d src/mesosim])
+m4_if(m4_sysval,[0],[
+   AC_DEFINE([HAVE_MESOSIM], [1], [Define to enable mesoscopic simulation code.])
+   AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile])
+])
+
 AC_ARG_ENABLE([itm],[AS_HELP_STRING([--enable-itm],[enable itm remoteserver code [default=no].])],
               [AC_DEFINE(ITM, 1, [Define to 1 in order to enable itm remote server code.])])
-AM_CONDITIONAL(ITM, test x$enable_itm = xyes)	      
+AM_CONDITIONAL(ITM, test x$enable_itm = xyes)
 if test x$enable_itm = xyes; then
    ac_enabled="$ac_enabled ITM"
 else
@@ -329,7 +336,7 @@ AC_CHECK_FUNCS([floor getcwd gettimeofday memset pow select socket sqrt])
 
 dnl ---------------------------------------------
 dnl add here all your Makefiles. These will be created by configure
-AC_OUTPUT(
+AC_CONFIG_FILES([
 src/Makefile
 src/foreign/Makefile
 src/foreign/nvwa/Makefile
@@ -406,7 +413,8 @@ docs/docbook/gfx/Makefile
 docs/docbook/gfx/dev/Makefile
 docs/docbook/gfx/more/Makefile
 docs/docbook/gfx/user/Makefile
-Makefile)
+Makefile])
+AC_OUTPUT
 
 dnl ---------------------------------------------
 dnl Summary
