@@ -86,5 +86,19 @@ ODDistrict::getRandomSink() const throw(OutOfBoundsException)
 }
 
 
+unsigned int 
+ODDistrict::sinkNumber() const
+{
+    return mySinks.getVals().size();
+}
+
+
+unsigned int 
+ODDistrict::sourceNumber() const
+{
+    return mySources.getVals().size();
+}
+
+
 /****************************************************************************/
 

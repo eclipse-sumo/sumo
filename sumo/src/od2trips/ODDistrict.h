@@ -116,6 +116,20 @@ public:
     std::string getRandomSink() const throw(OutOfBoundsException);
 
 
+    /** @brief Returns the number of sinks 
+     * 
+     * @return The number of known sinks
+     */
+    unsigned int sinkNumber() const;
+
+
+    /** @brief Returns the number of sources 
+     * 
+     * @return The number of known sources
+     */
+    unsigned int sourceNumber() const;
+
+
 private:
     /// Container of weighted sources
     RandomDistributor<std::string> mySources;

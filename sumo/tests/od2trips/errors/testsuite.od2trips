@@ -4,7 +4,11 @@ false_options
 # Format errors in read O/D-matrices
 format
 
-# Incomplete matrices (unknown districts)
-incomplete
+# Incomplete (unknown) districts
+incomplete_districts
+
+# Incomplete (unknown) district connections
+incomplete_connections
+
 
 

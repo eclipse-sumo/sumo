@@ -82,14 +82,22 @@ ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
         MsgHandler::getErrorInstance()->inform("Missing destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
         myNoDiscarded += vehicleNumber;
     } else {
-		ODCell *cell = new ODCell();
-        cell->begin = begin;
-        cell->end = end;
-        cell->origin = origin;
-        cell->destination = destination;
-        cell->vehicleType = vehicleType;
-        cell->vehicleNumber = vehicleNumber;
-        myContainer.push_back(cell);
+        if(myDistricts.get(origin)->sourceNumber()==0) {
+            MsgHandler::getErrorInstance()->inform("District '" + origin + "' has no source.");
+            myNoDiscarded += vehicleNumber;
+        } else if(myDistricts.get(destination)->sinkNumber()==0) {
+            MsgHandler::getErrorInstance()->inform("District '" + destination + "' has no sink.");
+            myNoDiscarded += vehicleNumber;
+        } else {
+    		ODCell *cell = new ODCell();
+            cell->begin = begin;
+            cell->end = end;
+            cell->origin = origin;
+            cell->destination = destination;
+            cell->vehicleType = vehicleType;
+            cell->vehicleNumber = vehicleNumber;
+            myContainer.push_back(cell);
+        }
     }
 }
 
