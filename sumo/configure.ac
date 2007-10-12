@@ -88,6 +88,10 @@ m4_syscmd([test -d src/mesosim])
 m4_if(m4_sysval,[0],[
    AC_DEFINE([HAVE_MESOSIM], [1], [Define to enable mesoscopic simulation code.])
    AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile])
+   MESO_DIRS=mesosim
+   AC_SUBST([MESO_DIRS])
+   MESOGUI_DIRS=mesogui
+   AC_SUBST([MESOGUI_DIRS])
 ])
 
 AC_ARG_ENABLE([itm],[AS_HELP_STRING([--enable-itm],[enable itm remoteserver code [default=no].])],
