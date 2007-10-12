@@ -77,7 +77,7 @@
       <begin>0</begin>
 
       <!-- Defines the end time; Later trips will be discarded -->
-      <end>864000</end>
+      <end>86400</end>
 
    </time>
 

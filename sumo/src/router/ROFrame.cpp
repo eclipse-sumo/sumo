@@ -80,7 +80,7 @@ ROFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
 
-    oc.doRegister("end", 'e', new Option_Integer(864000));
+    oc.doRegister("end", 'e', new Option_Integer(86400));
     oc.addDescription("end", "Time", "Defines the end time; Later trips will be discarded");
 
 
