@@ -100,8 +100,6 @@ loadNet(ROLoader &loader, OptionsCont &oc,
     if (oc.isSet("lane-weights")) {
         loader.loadWeights(*net, oc.getString("lane-weights"), true);
     }
-    // initialise the network
-//    net->postloadInit();
     return net;
 }
 
@@ -132,6 +130,9 @@ loadJTRDefinitions(RONet &net, OptionsCont &oc)
     if (oc.isSet("turn-definition")) {
         ROJTRTurnDefLoader loader(net);
         loader.load(oc.getString("turn-definition"));
+    }
+    if(MsgHandler::getErrorInstance()->wasInformed() && oc.getBool("dismiss-loading-errors")) {
+        MsgHandler::getErrorInstance()->clear();
     }
     // parse sink edges specified at the input/within the configuration
     if (oc.isSet("sinks")) {

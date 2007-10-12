@@ -27,11 +27,12 @@
       <sinks></sinks>
       <accept-all-destinations>false</accept-all-destinations>
       <ignore-classes>false</ignore-classes>
+      <dismiss-loading-errors>false</dismiss-loading-errors>
    </processing>
 
    <time>
       <begin>0</begin>
-      <end>864000</end>
+      <end>86400</end>
    </time>
 
    <report>
