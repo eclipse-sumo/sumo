@@ -86,11 +86,11 @@ RORouteDef_OrigDest::getTo() const
 
 RORoute *
 RORouteDef_OrigDest::buildCurrentRoute(ROAbstractRouter &router,
-                                       SUMOTime begin, ROVehicle &veh) const
+                                       SUMOTime begin, const ROVehicle &veh) const
 {
     std::vector<const ROEdge*> edges;
     router.compute(myFrom, myTo, &veh, begin, edges);
-    if (myRemoveFirst&&edges.size()>1) {
+    if (myRemoveFirst&&edges.size()>2) {
         edges.erase(edges.begin());
         edges.erase(edges.end()-1);
     }

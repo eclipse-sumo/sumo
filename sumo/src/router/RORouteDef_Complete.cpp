@@ -78,7 +78,7 @@ RORouteDef_Complete::getTo() const
 
 RORoute *
 RORouteDef_Complete::buildCurrentRoute(ROAbstractRouter &,
-                                       SUMOTime , ROVehicle &) const
+                                       SUMOTime , const ROVehicle &) const
 {
     return new RORoute(myID, 0, 1, myEdges);
 }

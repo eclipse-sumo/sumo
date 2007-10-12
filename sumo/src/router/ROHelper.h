@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Some helping functions
+// Some helping methods for router
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -38,31 +38,41 @@
 // class definitions
 // ===========================================================================
 /**
- * @class ROHelper
- * Some helping methods and classes
+ * @class ROVehicleByDepartureComperator
+ * @brief A function for sorting vehicles by their departure time
+ * 
+ * In the case two vehicles have the same departure time, they are sorted
+ *  lexically.
  */
-class ROHelper
+class ROVehicleByDepartureComperator : public std::less<ROVehicle*>
 {
 public:
-    /// Class to sort vehicles (ROVehicle) by their departure time
-class VehicleByDepartureComperator :
-                public std::less<ROVehicle*>
+    /// @brief Constructor
+    explicit ROVehicleByDepartureComperator()
+    { }
+
+    /// @brief Destructor
+    ~ROVehicleByDepartureComperator()
+    { }
+
+    /** @brief Comparing operator
+     *
+     * Returns whether the first vehicles wants to leave later than the second.
+     *  If both vehicles have the same departure time, a lexical comparison is
+     *  done.
+     *
+     * @param[i] veh1 The first vehicle to compare
+     * @param[i] veh2 The second vehicle to compare
+     * @return Whether the first vehicle departs later than the second
+     * @todo Check whether both vehicles can be const
+     */
+    bool operator()(ROVehicle *veh1, ROVehicle *veh2) const
     {
-    public:
-        /// Constructor
-        explicit VehicleByDepartureComperator()
-        { }
-
-        /// Destructor
-        ~VehicleByDepartureComperator()
-        { }
-
-        /// Comparing operator
-        bool operator()(ROVehicle *veh1, ROVehicle *veh2) const
-        {
-            return veh1->getDepartureTime()>veh2->getDepartureTime();
+        if(veh1->getDepartureTime()==veh2->getDepartureTime()) {
+            return veh1->getID()>veh2->getID();
         }
-    };
+        return veh1->getDepartureTime()>veh2->getDepartureTime();
+    }
 };
 
 

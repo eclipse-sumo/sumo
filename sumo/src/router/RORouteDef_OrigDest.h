@@ -67,7 +67,7 @@ public:
 
     /// Builds the current route from the given information (perform routing, here)
     RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
-                               ROVehicle &veh) const;
+                               const ROVehicle &veh) const;
 
     /** @brief Adds the build route to the container
     *

@@ -84,7 +84,7 @@ public:
      *
      * (or chooses her from the list of alternatives, when existing) */
     virtual RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
-                                       ROVehicle &veh) const = 0;
+                                       const ROVehicle &veh) const = 0;
 
     /** @brief Adds an alternative to the list of routes
     *

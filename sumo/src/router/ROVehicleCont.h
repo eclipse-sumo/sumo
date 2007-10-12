@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A container for vehicles
+// A container for vehicles sorted by their departure time
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -44,35 +44,94 @@
 // ===========================================================================
 /**
  * @class ROVehicleCont
- * A map of vehicle-ids to the vehicles themselves. Additionally supplies
- * a list of vehicles where these are sorted by their departure times.
+ * @brief A container for vehicles sorted by their departure time
+ *
+ * A map of vehicle-ids to the vehicles themselves. Besides the functionality
+ *  implemented in NamedObjectCont, this class stores vehicles sorted by their
+ *  departure time.
  */
-class ROVehicleCont
-            : public NamedObjectCont<ROVehicle*>
+class ROVehicleCont : public NamedObjectCont<ROVehicle*>
 {
 public:
-    /// Constructor
+    /// @brief Constructor
     ROVehicleCont();
 
-    /// Destructor
+
+    /// @brief Destructor
     ~ROVehicleCont();
 
-    /// Returns the list of sorted vehicles
-    std::priority_queue<ROVehicle*,
-    std::vector<ROVehicle*>,
-    ROHelper::VehicleByDepartureComperator> &sort();
+
+    /** @brief Returns the vehicle that departs most early
+     *
+     * Returns the first vehicle from the internal list of sorted vehicles
+     *  or 0 if this list is empty.
+     *
+     * @return The vehicle that departs most early
+     */
+    const ROVehicle * const getTopVehicle() const;
+
+
+    /** @brief Adds a vehicle to the container
+     *
+     * Tries to add the vehicle to the container using NamedObjectCont::add.
+     *  If this succeeds, the vehicle is also added to the internal sorted
+     *  list of vehicles.
+     * 
+     * Returns the value from NamedObjectCont::add.
+     *
+     * @param[in] id The id of the vehicle to add
+     * @param[in] item The vehicle to add
+     * @return Whether the vehicle could be added
+     * @see NamedObjectCont::add
+     */
+    virtual bool add(const std::string &id, ROVehicle *item);
+
+
+    /** @brief Deletes all vehicles stored; clears the lists
+     *
+     * Calls NamedObjectCont::clear and replaces the internal,
+     *  sorted list by an empty one.
+     * 
+     * @see NamedObjectCont::clear
+     */
+    void clear();
+
+
+    /** @brief Tries to remove (and delete) the named vehicle
+     *
+     * Calls NamedObjectCont::erase. If this succeeds, the vehicle is removed
+     *  from the internal sorted list. This method takes care whether the
+     *  vehicle to remove is the top-most one (the one with the earliest
+     *  depart time). If not, the internal list is rebuild.
+     * 
+     * @param[in] id The id of the vehicle to remove
+     * @return Whether the vehicle could be removed
+     * @see NamedObjectCont::erase
+     */
+    bool erase(const std::string &id);
+
 
 private:
-    /// The sorted vehicle list
-    std::priority_queue<ROVehicle*,
-    std::vector<ROVehicle*>,
-    ROHelper::VehicleByDepartureComperator> mySorted;
+    /** @brief Rebuild the internal, sorted list
+     *
+     * Rebuilds the internal, sorted list by clearing it, first, and then
+     *  adding all vehicles stored.
+     * 
+     * @see NamedObjectCont::clear
+     */
+    void rebuildSorted();
+
 
 private:
-    /// we made the copy constructor invalid
+    /// @brief The sorted vehicle list
+    mutable std::priority_queue<ROVehicle*, std::vector<ROVehicle*>, ROVehicleByDepartureComperator> mySorted;
+
+
+private:
+    /// @brief Invalidated copy constructor
     ROVehicleCont(const ROVehicleCont &src);
 
-    /// we made the assignment operator invalid
+    /// @brief Invalidated assignment operator 
     ROVehicleCont &operator=(const ROVehicleCont &src);
 
 };

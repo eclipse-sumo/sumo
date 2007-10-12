@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/10/07 12:12:05 by SUMO duarouter Version 0.9.6
+<!-- generated on 10/12/07 09:54:19 by SUMO duarouter Version 0.9.6
 <configuration>
 
    <input>
@@ -26,12 +26,12 @@
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="96" type="KRAUSS_DEFAULT" depart="1">
+   <vehicle id="7" type="KRAUSS_DEFAULT" depart="1">
       <routealt last="0">
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="7" type="KRAUSS_DEFAULT" depart="1">
+   <vehicle id="96" type="KRAUSS_DEFAULT" depart="1">
       <routealt last="0">
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
@@ -216,12 +216,12 @@
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="86" type="KRAUSS_DEFAULT" depart="42">
+   <vehicle id="40" type="KRAUSS_DEFAULT" depart="42">
       <routealt last="0">
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="40" type="KRAUSS_DEFAULT" depart="42">
+   <vehicle id="86" type="KRAUSS_DEFAULT" depart="42">
       <routealt last="0">
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
@@ -236,12 +236,12 @@
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="92" type="KRAUSS_DEFAULT" depart="51">
+   <vehicle id="36" type="KRAUSS_DEFAULT" depart="51">
       <routealt last="0">
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="36" type="KRAUSS_DEFAULT" depart="51">
+   <vehicle id="92" type="KRAUSS_DEFAULT" depart="51">
       <routealt last="0">
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
@@ -501,12 +501,12 @@
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="99" type="KRAUSS_DEFAULT" depart="94">
+   <vehicle id="85" type="KRAUSS_DEFAULT" depart="94">
       <routealt last="0">
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="85" type="KRAUSS_DEFAULT" depart="94">
+   <vehicle id="99" type="KRAUSS_DEFAULT" depart="94">
       <routealt last="0">
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>

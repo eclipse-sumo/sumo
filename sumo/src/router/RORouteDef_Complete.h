@@ -70,7 +70,7 @@ public:
 
     /// Builds the route
     RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
-                               ROVehicle &veh) const;
+                               const ROVehicle &veh) const;
 
     /** @brief Adds an route alternative (see further comments)
     *

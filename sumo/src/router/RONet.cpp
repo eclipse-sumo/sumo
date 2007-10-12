@@ -216,7 +216,7 @@ RONet::addVehicle(const std::string &id, ROVehicle *veh)
 
 const RORouteDef * const
 RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
-                    ROVehicle *veh)
+                    const ROVehicle * const veh)
 {
     MsgHandler *mh = MsgHandler::getErrorInstance();
     if (options.getBool("continue-on-unbuild")) {
@@ -278,12 +278,11 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
                                 SUMOTime time)
 {
     // sort the list of route definitions
-    priority_queue<ROVehicle*, std::vector<ROVehicle*>, ROHelper::VehicleByDepartureComperator> &sortedVehicles = myVehicles.sort();
     SUMOTime lastTime = -1;
     // write all vehicles (and additional structures)
-    while (!sortedVehicles.empty()) {
+    while (myVehicles.size()!=0) {
         // get the next vehicle
-        ROVehicle *veh = sortedVehicles.top();
+        const ROVehicle * const veh = myVehicles.getTopVehicle();//sortedVehicles.top();
         SUMOTime currentTime = veh->getDepartureTime();
         // check whether it shall not yet be computed
         if (currentTime>time) {
@@ -299,8 +298,6 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
         lastTime = currentTime;
 
         // ok, compute the route (try it)
-        sortedVehicles.pop();
-        // compute the route
         const RORouteDef * const route = computeRoute(options, router, veh);
         if (route!=0) {
             // write the route

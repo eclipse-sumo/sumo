@@ -160,7 +160,7 @@ public:
 protected:
     /** Saves the given route together with her alternatives */
     const RORouteDef * const computeRoute(OptionsCont &options,
-                                          ROAbstractRouter &router, ROVehicle *veh);
+                                          ROAbstractRouter &router, const ROVehicle * const veh);
 
     /// Initialises the lists of source and destination edges
     void checkSourceAndDestinations();

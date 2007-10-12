@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/10/07 12:11:58 by SUMO duarouter Version 0.9.6
+<!-- generated on 10/12/07 09:54:14 by SUMO duarouter Version 0.9.6
 <configuration>
 
    <input>
@@ -226,12 +226,12 @@
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="92" type="0" depart="39">
+   <vehicle id="53" type="0" depart="39">
       <routealt last="0">
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="53" type="0" depart="39">
+   <vehicle id="92" type="0" depart="39">
       <routealt last="0">
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
@@ -356,12 +356,12 @@
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="36" type="0" depart="67">
+   <vehicle id="29" type="0" depart="67">
       <routealt last="0">
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="29" type="0" depart="67">
+   <vehicle id="36" type="0" depart="67">
       <routealt last="0">
          <route cost="124.88" probability="1">beg middle end rend</route>
       </routealt>

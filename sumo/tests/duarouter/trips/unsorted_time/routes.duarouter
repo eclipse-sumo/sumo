@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/10/07 12:11:55 by SUMO duarouter Version 0.9.6
+<!-- generated on 10/12/07 09:54:12 by SUMO duarouter Version 0.9.6
 <configuration>
 
    <input>
@@ -143,10 +143,10 @@
    <vehicle id="50" type="0" depart="39">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="92" type="0" depart="39">
+   <vehicle id="53" type="0" depart="39">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="53" type="0" depart="39">
+   <vehicle id="92" type="0" depart="39">
       <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="39" type="0" depart="40">
@@ -221,10 +221,10 @@
    <vehicle id="26" type="0" depart="67">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="36" type="0" depart="67">
+   <vehicle id="29" type="0" depart="67">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="29" type="0" depart="67">
+   <vehicle id="36" type="0" depart="67">
       <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="0" type="0" depart="71">

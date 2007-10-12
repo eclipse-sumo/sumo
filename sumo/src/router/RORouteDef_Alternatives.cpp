@@ -116,7 +116,7 @@ RORouteDef_Alternatives::getTo() const
 
 RORoute *
 RORouteDef_Alternatives::buildCurrentRoute(ROAbstractRouter &router,
-        SUMOTime begin, ROVehicle &veh) const
+        SUMOTime begin, const ROVehicle &veh) const
 {
     // recompute duration of the last route used
     // build a new route to test whether it is better

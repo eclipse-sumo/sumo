@@ -71,7 +71,7 @@ public:
 
     /// Build the next route
     RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
-                               ROVehicle &veh) const;
+                               const ROVehicle &veh) const;
 
     /// Adds a build alternative
     void addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin);

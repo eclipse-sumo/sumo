@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/10/07 12:12:12 by SUMO duarouter Version 0.9.6
+<!-- generated on 10/12/07 09:54:23 by SUMO duarouter Version 0.9.6
 <configuration>
 
    <input>
@@ -51,10 +51,10 @@
    <vehicle id="28" type="KRAUSS_DEFAULT" depart="10">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="6" type="KRAUSS_DEFAULT" depart="10">
+   <vehicle id="44" type="KRAUSS_DEFAULT" depart="10">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="44" type="KRAUSS_DEFAULT" depart="10">
+   <vehicle id="6" type="KRAUSS_DEFAULT" depart="10">
       <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="11" type="KRAUSS_DEFAULT" depart="11">
@@ -105,10 +105,10 @@
    <vehicle id="22" type="KRAUSS_DEFAULT" depart="26">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="84" type="KRAUSS_DEFAULT" depart="26">
+   <vehicle id="37" type="KRAUSS_DEFAULT" depart="26">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="37" type="KRAUSS_DEFAULT" depart="26">
+   <vehicle id="84" type="KRAUSS_DEFAULT" depart="26">
       <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="14" type="KRAUSS_DEFAULT" depart="27">
@@ -144,10 +144,10 @@
    <vehicle id="10" type="KRAUSS_DEFAULT" depart="34">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="9" type="KRAUSS_DEFAULT" depart="34">
+   <vehicle id="32" type="KRAUSS_DEFAULT" depart="34">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="32" type="KRAUSS_DEFAULT" depart="34">
+   <vehicle id="9" type="KRAUSS_DEFAULT" depart="34">
       <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="21" type="KRAUSS_DEFAULT" depart="37">
@@ -228,10 +228,10 @@
    <vehicle id="5" type="KRAUSS_DEFAULT" depart="57">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="87" type="KRAUSS_DEFAULT" depart="57">
+   <vehicle id="66" type="KRAUSS_DEFAULT" depart="57">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="66" type="KRAUSS_DEFAULT" depart="57">
+   <vehicle id="87" type="KRAUSS_DEFAULT" depart="57">
       <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="77" type="KRAUSS_DEFAULT" depart="60">
@@ -258,10 +258,10 @@
    <vehicle id="57" type="KRAUSS_DEFAULT" depart="69">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="89" type="KRAUSS_DEFAULT" depart="69">
+   <vehicle id="85" type="KRAUSS_DEFAULT" depart="69">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="85" type="KRAUSS_DEFAULT" depart="69">
+   <vehicle id="89" type="KRAUSS_DEFAULT" depart="69">
       <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="67" type="KRAUSS_DEFAULT" depart="70">

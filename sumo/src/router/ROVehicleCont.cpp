@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A container for vehicles
+// A container for vehicles sorted by their departure time
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -57,21 +57,68 @@ ROVehicleCont::~ROVehicleCont()
 {}
 
 
-priority_queue<ROVehicle*,
-std::vector<ROVehicle*>, ROHelper::VehicleByDepartureComperator> &
-ROVehicleCont::sort()
+const ROVehicle * const 
+ROVehicleCont::getTopVehicle() const
 {
-    mySorted =
-        priority_queue<ROVehicle*,
-        std::vector<ROVehicle*>,
-        ROHelper::VehicleByDepartureComperator>();
-    std::vector<ROVehicle*> v = getTempVector();
-    for (std::vector<ROVehicle*>::const_iterator i=v.begin(); i!=v.end(); i++) {
-        mySorted.push(*i);
+    if(size()==0) {
+        return 0;
     }
-    return mySorted;
+    return mySorted.top();
 }
 
+
+bool 
+ROVehicleCont::add(const std::string &id, ROVehicle *item)
+{
+    if(NamedObjectCont<ROVehicle*>::add(id, item)) {
+        mySorted.push(item);
+        return true;
+    }
+    return false;
+}
+
+
+void 
+ROVehicleCont::clear()
+{
+    mySorted = priority_queue<ROVehicle*, vector<ROVehicle*>, VehicleByDepartureComperator>();
+    NamedObjectCont<ROVehicle*>::clear();
+}
+
+
+bool 
+ROVehicleCont::erase(const std::string &id)
+{
+    const ROVehicle * const topVeh = getTopVehicle();
+    bool wasTop = topVeh!=0&&topVeh->getID()==id;
+    if(!NamedObjectCont<ROVehicle*>::erase(id)) {
+        return false;
+    }
+    if(wasTop) {
+        mySorted.pop();
+    } else {
+        rebuildSorted();
+    }
+    return true;
+}
+
+
+void 
+ROVehicleCont::rebuildSorted()
+{
+    mySorted = priority_queue<ROVehicle*, vector<ROVehicle*>, VehicleByDepartureComperator>();
+    typename IDMap::const_iterator i;
+    for (i=myMap.begin(); i!=myMap.end(); ++i) {
+         mySorted.push((*i).second);
+    }
+    /*
+        vector<ROVehicle*> v = getTempVector();
+        for (vector<ROVehicle*>::const_iterator i=v.begin(); i!=v.end(); i++) {
+            mySorted.push(*i);
+        }
+        myHaveChanged = false;
+        */
+}
 
 
 /****************************************************************************/

@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A map over named objects
+// A map of named object pointers
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -40,32 +40,40 @@
 // ===========================================================================
 /**
  * @class NamedObjectCont
+ * @brief A map of named object pointers
+ *
  * An associative storage (map) for objects (pointers to them to be exact),
- * which do have a name.
+ *  which do have a name. In order to get the stored objects as a list, 
+ *  each insertion/deletion sets the internal state value "myHaveChanged"
+ *  to true, indicating the list must be rebuild.
  */
 template<class T>
 class NamedObjectCont
 {
 public:
-    /// Constructor
+    /// @brief Constructor
     NamedObjectCont() : myHaveChanged(false)
     { }
 
-    /// Destructor
+
+    ///@brief  Destructor
     virtual ~NamedObjectCont()
     {
-        for (typename IDMap::iterator i=myMap.begin();
-                i!=myMap.end();
-                i++) {
-
+        for (typename IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
             delete(*i).second;
         }
     }
 
 
     /** @brief Adds an item
-        If another item with the same name is already known, false is reported
-        and the item is not added. */
+     *
+     * If another item with the same name is already known, false is reported
+     *  and the item is not added.
+     * 
+     * @param[in] id The id of the item to add
+     * @param[in] iitem The item to add
+     * @return If the item could be added (no item with the same id was within the container before)
+     */
     virtual bool add(const std::string &id, T item)
     {
         if (myMap.find(id)!=myMap.end()) {
@@ -73,24 +81,28 @@ public:
         }
         myMap.insert(std::make_pair(id, item));
         myHaveChanged = true;
-//        myVector.push_back(item);
         return true;
     }
 
 
     /** @brief Retrieves an item
-        Returns 0 when no such item is stored within the container */
+     * 
+     * Returns 0 when no item with the given id is stored within the container 
+     *
+     * @param[in] id The id of the item to retrieve
+     * @return The item stored under the given id, or 0 if no such item exists
+     */
     T get(const std::string &id) const
-        {
-            typename std::map<std::string, T>::const_iterator i = myMap.find(id);
-            if (i==myMap.end()) {
-                return 0;
-            }
-            return (*i).second;
+    {
+        typename std::map<std::string, T>::const_iterator i = myMap.find(id);
+        if (i==myMap.end()) {
+            return 0;
         }
+        return (*i).second;
+    }
 
 
-    /// Removes all items from the container (deletes them, too)
+    /** @brief Removes all items from the container (deletes them, too) */
     void clear()
     {
         for (typename IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
@@ -102,15 +114,25 @@ public:
     }
 
 
-    /// Returns the number of items within the container
+    /** @brief Returns the number of items within the container
+     *
+     * @return The number of stored items
+     */
     size_t size() const
     {
-//        assert(myMap.size()==myVector.size());
         return myMap.size();
     }
 
 
-    /// Removes the named item from the container
+    /** @brief Removes the named item from the container
+     *
+     * If the named object exists, it is deleted, the key is
+     *  removed from the map, and true is returned. If the id was not 
+     *  known, false is returned.
+     *
+     * @param[in] id The id of the item to delete
+     * @return Whether the object could be deleted (was within the map)
+     */
     bool erase(const std::string &id)
     {
         typename IDMap::iterator i=myMap.find(id);
@@ -131,7 +153,15 @@ public:
     }
 
 
-    /* @brief Returns a vector that contains all objects. */
+    /* @brief Returns the reference to a vector that contains all objects.
+     *
+     * This method returns the reference to a vector which is stored within 
+     *  this class and contains all known objects stored within the map.
+     * This vector is rebuild in prior if "myHaveChanged" indicates 
+     *  a change has taken place.
+     *
+     * @return Reference to a saved vector of objects within the map
+     */
     const std::vector<T> &buildAndGetStaticVector() const
     {
         if (myHaveChanged) {
@@ -145,7 +175,14 @@ public:
         return myVector;
     }
 
-    /* @brief Returns a vector that contains all objects. */
+
+    /* @brief Returns a vector that contains all objects.
+     *
+     * This method builds and returns a vector which contains all known 
+     *  objects stored within the map.
+     *
+     * @return A vector of objects within the map
+     */
     std::vector<T> getTempVector() const
     {
         std::vector<T> ret;
@@ -156,6 +193,11 @@ public:
         return ret;
     }
 
+
+    /* @brief Returns a reference to the internal map
+     *
+     * @return A reference to the internal map
+     */
     const std::map<std::string, T> &getMyMap() const
     {
         return myMap;
@@ -163,22 +205,22 @@ public:
 
 
 private:
-    /// Definition of the key to pointer map type
+    /// @brief Definition of the key to pointer map type
     typedef std::map< std::string, T > IDMap;
 
-    /// Definition of the container type iterator
+    /// @brief Definition of the container type iterator
     typedef typename IDMap::iterator myContIt;
 
-    /// The map from key to object
+    /// @brief The map from key to object
     IDMap myMap;
 
-    /// Definition of the key to pointer map type
+    /// @brief Definition objects vector
     typedef std::vector<T> ObjectVector;
 
-    /// The vector of all known items
+    /// @brief The stored vector of all known items
     mutable ObjectVector myVector;
 
-    /// Information whether the vector is out of sync with the map
+    /// @brief Information whether the vector is out of sync with the map
     mutable bool myHaveChanged;
 
 };
