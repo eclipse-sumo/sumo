@@ -81,7 +81,7 @@ ROVehicleCont::add(const std::string &id, ROVehicle *item)
 void 
 ROVehicleCont::clear()
 {
-    mySorted = priority_queue<ROVehicle*, vector<ROVehicle*>, VehicleByDepartureComperator>();
+    mySorted = priority_queue<ROVehicle*, vector<ROVehicle*>, ROVehicleByDepartureComperator>();
     NamedObjectCont<ROVehicle*>::clear();
 }
 
@@ -106,18 +106,12 @@ ROVehicleCont::erase(const std::string &id)
 void 
 ROVehicleCont::rebuildSorted()
 {
-    mySorted = priority_queue<ROVehicle*, vector<ROVehicle*>, VehicleByDepartureComperator>();
-    typename IDMap::const_iterator i;
-    for (i=myMap.begin(); i!=myMap.end(); ++i) {
+    mySorted = priority_queue<ROVehicle*, vector<ROVehicle*>, ROVehicleByDepartureComperator>();
+    std::map<std::string, ROVehicle*>::const_iterator i;
+    const std::map<std::string, ROVehicle*> &mmap = getMyMap();
+    for (i=mmap.begin(); i!=mmap.end(); ++i) {
          mySorted.push((*i).second);
     }
-    /*
-        vector<ROVehicle*> v = getTempVector();
-        for (vector<ROVehicle*>::const_iterator i=v.begin(); i!=v.end(); i++) {
-            mySorted.push(*i);
-        }
-        myHaveChanged = false;
-        */
 }
 
 
