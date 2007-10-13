@@ -22,3 +22,6 @@ internal
 # tests whether lane expansions work
 lane_expansion
 
+# tests whether vclass import works
+vclasses
+
