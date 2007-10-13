@@ -1,0 +1,7 @@
+# center lanes of si-edges are for busses (allowed: bus)
+si_center_bus_lane
+
+
+# center lanes of si-edges are not for passengers (disallowed: passenger)
+si_center_no_passenger_lane
+
