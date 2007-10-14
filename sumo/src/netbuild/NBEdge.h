@@ -187,6 +187,7 @@ public:
     bool hasRestrictions() const;
     void writeLanesPlain(OutputDevice &into);
     void setLoadedLength(SUMOReal val);
+    void dismissVehicleClassInformation();
 
 
     /** adds a connection to another edge;

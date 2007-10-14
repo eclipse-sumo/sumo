@@ -125,11 +125,11 @@ NBEdgeCont::insert(NBEdge *edge)
         }
     }
     // check whether the edge shall be removed due to a allow an unwished class
-    if (OptionsCont::getOptions().isSet("remove-edges.by-type")) {
+    if (OptionsCont::getOptions().isSet("remove-edges.by-vclass")) {
         int matching = 0;
         std::vector<SUMOVehicleClass> allowed = edge->getAllowedVehicleClasses();
         // !!! don't do this each time
-        StringTokenizer st(OptionsCont::getOptions().getString("remove-edges.by-type"), ";");
+        StringTokenizer st(OptionsCont::getOptions().getString("remove-edges.by-vclass"), ";");
         while (st.hasNext()) {
             SUMOVehicleClass vclass = getVehicleClassID(st.next());
             std::vector<SUMOVehicleClass>::iterator i =
@@ -140,12 +140,15 @@ NBEdgeCont::insert(NBEdge *edge)
             }
         }
         // remove the edge if all allowed
-        if (allowed.size()==0&&matching!=0) {
+        if (/*allowed.size()==0&&*/matching!=0) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;
             return true;
         }
+    }
+    if (OptionsCont::getOptions().getBool("dismiss-vclasses")) {
+        edge->dismissVehicleClassInformation();
     }
     myEdges.insert(EdgeCont::value_type(edge->getID(), edge));
     return true;

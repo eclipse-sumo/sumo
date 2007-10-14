@@ -4,6 +4,8 @@ copy_test_path:input_nodes.nod.xml
 copy_test_path:input_edges.edg.xml
 copy_test_path:input_connections.con.xml
 copy_test_path:input_types.typ.xml
+copy_test_path:elmar_links_unsplitted.txt
+copy_test_path:elmar_nodes_unsplitted.txt
 copy_test_path:visum.net
 
 [collate_file]

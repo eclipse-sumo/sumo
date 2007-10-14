@@ -2313,9 +2313,6 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
 void
 NBEdge::allowVehicleClass(int lane, SUMOVehicleClass vclass)
 {
-    if (OptionsCont::getOptions().getBool("dismiss-vclasses")) {
-        return;
-    }
     if (lane<0) {
         // if all lanes are meant...
         for (size_t i=0; i<myNolanes; i++) {
@@ -2482,5 +2479,14 @@ NBEdge::setLoadedLength(SUMOReal val)
 {
     myLoadedLength = val;
 }
+
+
+void
+NBEdge::dismissVehicleClassInformation()
+{
+    myAllowedOnLanes = std::vector<std::vector<SUMOVehicleClass> >(myNolanes);
+    myNotAllowedOnLanes = std::vector<std::vector<SUMOVehicleClass> >(myNolanes);
+}
+
 
 /****************************************************************************/

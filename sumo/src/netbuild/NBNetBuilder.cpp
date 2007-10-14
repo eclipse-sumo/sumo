@@ -589,8 +589,8 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("keep-edges.postload", new Option_Bool(false));
     oc.addDescription("keep-edges.postload", "Edge Removal", "Remove edges after joining");
 
-    oc.doRegister("remove-edges.by-type", new Option_String());
-    oc.addDescription("remove-edges.by-type", "Edge Removal", "Remove edges where vclass def is not in STR");
+    oc.doRegister("remove-edges.by-vclass", new Option_String());
+    oc.addDescription("remove-edges.by-vclass", "Edge Removal", "Remove edges where vclass def is not in STR");
 
 
     // unregulated nodes options

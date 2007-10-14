@@ -98,7 +98,7 @@ Usage: netconvert.exe [OPTION]*
   --keep-edges STR                     Remove edges not in STR
   --keep-edges.input-file FILE         Removed edges not in FILE
   --keep-edges.postload                Remove edges after joining
-  --remove-edges.by-type STR           Remove edges where vclass def is not in
+  --remove-edges.by-vclass STR         Remove edges where vclass def is not in
                                          STR
 
  Unregulated Nodes Options:

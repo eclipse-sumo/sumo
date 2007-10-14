@@ -1,0 +1,5 @@
+# all vehicle classes allowed
+plain
+
+# same as cross_all_allowed, but vclass is dismissed
+dismissing
