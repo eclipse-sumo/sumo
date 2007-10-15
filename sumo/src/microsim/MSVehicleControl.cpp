@@ -31,7 +31,6 @@
 #include "MSCORN.h"
 #include "MSVehicleControl.h"
 #include "MSVehicle.h"
-#include "MSSaveState.h"
 #include "MSGlobals.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/options/OptionsCont.h>

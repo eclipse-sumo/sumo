@@ -72,7 +72,6 @@
 #include <utils/common/SysUtils.h>
 #include "trigger/MSTriggerControl.h"
 #include "MSGlobals.h"
-#include "MSSaveState.h"
 #include "MSDebugHelper.h"
 #include "MSRouteHandler.h"
 #include "MSRouteLoader.h"
