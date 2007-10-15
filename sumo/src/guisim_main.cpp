@@ -422,6 +422,10 @@ fillOptions()
 int
 main(int argc, char **argv)
 {
+    // make the output aware of threading
+    MFXMutex lock;
+    MsgHandler::assignLock(&lock);
+    // get the options
     OptionsCont &oc = OptionsCont::getOptions();
     // give some application descriptions
     oc.setApplicationDescription("GUI version of the simulation SUMO.");

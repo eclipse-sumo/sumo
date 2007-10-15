@@ -127,7 +127,7 @@ public:
 
     /** @brief Sets the lock to use
         The lock will not be deleted */
-    void assignLock(AbstractMutex *lock);
+    static void assignLock(AbstractMutex *lock);
 
 
 protected:
@@ -176,6 +176,10 @@ private:
         A separate storage is needed to delete the log file at application closing */
     static LogFile *myLogFile;
 
+    /** @brief The lock if any has to be used
+        The lock will not be deleted */
+    static AbstractMutex *myLock;
+
 private:
     /// The type of the instance
     MsgType myType;
@@ -194,10 +198,6 @@ private:
 
     /// The list of retrievers that shall be informed about new messages or errors
     RetrieverVector myRetrievers;
-
-    /** @brief The lock if any has to be used
-        The lock will not be deleted */
-    AbstractMutex *myLock;
 
 private:
     /** invalid copy constructor */

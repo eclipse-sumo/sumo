@@ -66,6 +66,7 @@ MsgHandler *MsgHandler::myWarningInstance = 0;
 MsgHandler *MsgHandler::myMessageInstance = 0;
 bool MsgHandler::myAmProcessingProcess = false;
 LogFile *MsgHandler::myLogFile = 0;
+AbstractMutex *MsgHandler::myLock = 0;
 
 
 // ===========================================================================
@@ -233,13 +234,22 @@ MsgHandler::endProcessMsg(std::string msg)
 void
 MsgHandler::clear()
 {
+    if (myLock!=0) {
+        myLock->lock ();
+    }
     myWasInformed = false;
+    if (myLock!=0) {
+        myLock->unlock ();
+    }
 }
 
 
 void
 MsgHandler::addRetriever(MsgRetriever *retriever)
 {
+    if (myLock!=0) {
+        myLock->lock ();
+    }
     RetrieverVector::iterator i =
         find(myRetrievers.begin(), myRetrievers.end(), retriever);
     if (i==myRetrievers.end()) {
@@ -253,12 +263,18 @@ MsgHandler::addRetriever(MsgRetriever *retriever)
     } else if (myType==MT_MESSAGE) {
         gSuppressMessages = false;
     }
+    if (myLock!=0) {
+        myLock->unlock ();
+    }
 }
 
 
 void
 MsgHandler::removeRetriever(MsgRetriever *retriever)
 {
+    if (myLock!=0) {
+        myLock->lock ();
+    }
     RetrieverVector::iterator i =
         find(myRetrievers.begin(), myRetrievers.end(), retriever);
     if (i!=myRetrievers.end()) {
@@ -272,12 +288,18 @@ MsgHandler::removeRetriever(MsgRetriever *retriever)
     } else if (myType==MT_MESSAGE) {
         gSuppressMessages = !(myRetrievers.size()==0||myReport2COUT);
     }
+    if (myLock!=0) {
+        myLock->unlock ();
+    }
 }
 
 
 void
 MsgHandler::report2cout(bool value)
 {
+    if (myLock!=0) {
+        myLock->lock ();
+    }
     myReport2COUT = value;
     if (myType==MT_WARNING) {
         gSuppressWarnings = OptionsCont::getOptions().exists("suppress-warnings")
@@ -287,12 +309,18 @@ MsgHandler::report2cout(bool value)
         gSuppressMessages = !(myRetrievers.size()==0||myReport2COUT);
     }
     cout.setf(ios::fixed ,ios::floatfield);
+    if (myLock!=0) {
+        myLock->unlock ();
+    }
 }
 
 
 void
 MsgHandler::report2cerr(bool value)
 {
+    if (myLock!=0) {
+        myLock->lock ();
+    }
     myReport2CERR = value;
     if (myType==MT_WARNING) {
         gSuppressWarnings = OptionsCont::getOptions().exists("suppress-warnings")
@@ -302,6 +330,9 @@ MsgHandler::report2cerr(bool value)
         gSuppressMessages = !(myRetrievers.size()==0||myReport2CERR);
     }
     cerr.setf(ios::fixed ,ios::floatfield);
+    if (myLock!=0) {
+        myLock->unlock ();
+    }
 }
 
 
@@ -329,6 +360,9 @@ MsgHandler::initOutputOptions(bool gui)
 void
 MsgHandler::cleanupOnEnd()
 {
+    if (myLock!=0) {
+        myLock->lock ();
+    }
     delete myLogFile;
     myLogFile = 0;
     delete myMessageInstance;
@@ -337,17 +371,21 @@ MsgHandler::cleanupOnEnd()
     myWarningInstance = 0;
     delete myErrorInstance;
     myErrorInstance = 0;
+    if (myLock!=0) {
+        myLock->unlock ();
+    }
 }
 
 
 MsgHandler::MsgHandler(MsgType type)
         : myType(type), myWasInformed(false), myReport2COUT(type==MT_MESSAGE),
-        myReport2CERR(type!=MT_MESSAGE), myLock(0)
+        myReport2CERR(type!=MT_MESSAGE)
 {}
 
 
 MsgHandler::~MsgHandler()
-{}
+{
+}
 
 
 bool

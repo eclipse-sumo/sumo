@@ -32,6 +32,8 @@
 #include <config.h>
 #endif
 
+#include <utils/common/AbstractMutex.h>
+
 #ifndef WIN32
 typedef void*		FXThreadMutex;        // handle to a mutex
 #else
@@ -40,11 +42,13 @@ typedef HANDLE	 	FXThreadMutex;        // handle to a mutex
 #endif
 
 
+
+
 /**
  * Recursive mutual exclusion object.
  * Unlocks on destruction
  */
-class MFXMutex
+class MFXMutex : public AbstractMutex
 {
 public:
     /// create me a mutex :-)
