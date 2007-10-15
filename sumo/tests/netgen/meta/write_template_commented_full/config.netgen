@@ -221,7 +221,7 @@
       <keep-edges.postload>false</keep-edges.postload>
 
       <!-- Remove edges where vclass def is not in STR -->
-      <remove-edges.by-type></remove-edges.by-type>
+      <remove-edges.by-vclass></remove-edges.by-vclass>
 
    </edge_removal>
 
