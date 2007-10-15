@@ -132,15 +132,14 @@ NBEdgeCont::insert(NBEdge *edge)
         StringTokenizer st(OptionsCont::getOptions().getString("remove-edges.by-vclass"), ";");
         while (st.hasNext()) {
             SUMOVehicleClass vclass = getVehicleClassID(st.next());
-            std::vector<SUMOVehicleClass>::iterator i =
-                find(allowed.begin(), allowed.end(), vclass);
+            std::vector<SUMOVehicleClass>::iterator i = find(allowed.begin(), allowed.end(), vclass);
             if (i!=allowed.end()) {
                 allowed.erase(i);
                 matching++;
             }
         }
         // remove the edge if all allowed
-        if (/*allowed.size()==0&&*/matching!=0) {
+        if (allowed.size()==0&&matching!=0) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;
@@ -281,8 +280,9 @@ int NBEdgeCont::size()
 void
 NBEdgeCont::clear()
 {
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++)
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         delete((*i).second);
+    }
     myEdges.clear();
 }
 

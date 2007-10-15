@@ -71,7 +71,8 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
                                      OptionsCont &options)
         : SUMOSAXHandler("xml-edges - file"),
         myOptions(options),
-        myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc)
+        myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
+        myCurrentEdge(0)
 {}
 
 
@@ -84,6 +85,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                                   const Attributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_EDGE) {
+        myCurrentEdge = 0;
         myExpansions.clear();
         // retrieve the id of the edge
         setID(attrs);
@@ -115,32 +117,28 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         setLength(attrs);
         /// insert the parsed edge into the edges map
         try {
-            NBEdge *edge = 0;
+            myCurrentEdge = 0;
             // the edge must be allocated in dependence to whether a shape
             //  is given
             if (myShape.size()==0) {
-                edge = new NBEdge(
+                myCurrentEdge = new NBEdge(
                            myCurrentID, myCurrentName,
                            myFromNode, myToNode,
                            myCurrentType, myCurrentSpeed,
                            myCurrentLaneNo, myCurrentPriority, myLanesSpread,
                            myCurrentEdgeFunction);
-                edge->setLoadedLength(myLength);
+                myCurrentEdge->setLoadedLength(myLength);
             } else {
-                edge = new NBEdge(
+                myCurrentEdge = new NBEdge(
                            myCurrentID, myCurrentName,
                            myFromNode, myToNode,
                            myCurrentType, myCurrentSpeed,
                            myCurrentLaneNo, myCurrentPriority,
                            myShape, myLanesSpread,
                            myCurrentEdgeFunction);
-                edge->setLoadedLength(myLength);
+                myCurrentEdge->setLoadedLength(myLength);
             }
             // insert the edge
-            if (!myEdgeCont.insert(edge)) {
-                MsgHandler::getErrorInstance()->inform("Duplicate edge occured. ID='" + myCurrentID + "'");
-                delete edge;
-            }
         } catch (...) {
             MsgHandler::getErrorInstance()->inform(
                 "Important information (probably the source or the destination node) missing in edge '"
@@ -148,8 +146,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         }
     }
     if (element==SUMO_TAG_LANE) {
-        NBEdge *edge = myEdgeCont.retrieve(myCurrentID);
-        if (edge==0) {
+        if (myCurrentEdge==0) {
             if (!OptionsCont::getOptions().isInStringVector("remove-edges", myCurrentID)) {
                 MsgHandler::getErrorInstance()->inform("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
             }
@@ -167,7 +164,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         if (disallowed!="") {
             StringTokenizer st(disallowed, ";");
             while (st.hasNext()) {
-                edge->disallowVehicleClass(lane, getVehicleClassID(st.next()));
+                myCurrentEdge->disallowVehicleClass(lane, getVehicleClassID(st.next()));
             }
         }
         if (allowed!="") {
@@ -175,9 +172,9 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             while (st.hasNext()) {
                 string next = st.next();
                 if (next[0]=='-') {
-                    edge->disallowVehicleClass(lane, getVehicleClassID(next.substr(1)));
+                    myCurrentEdge->disallowVehicleClass(lane, getVehicleClassID(next.substr(1)));
                 } else {
-                    edge->allowVehicleClass(lane, getVehicleClassID(next));
+                    myCurrentEdge->allowVehicleClass(lane, getVehicleClassID(next));
                 }
             }
         }
@@ -187,14 +184,14 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             try {
                 int forcedLength = getInt(attrs, SUMO_ATTR_FORCE_LENGTH); // !!! describe
                 int nameid = forcedLength;
-                forcedLength = (int)(edge->getGeometry().length() - forcedLength);
+                forcedLength = (int)(myCurrentEdge->getGeometry().length() - forcedLength);
                 std::vector<Expansion>::iterator i;
                 i = find_if(myExpansions.begin(), myExpansions.end(), expansion_by_pos_finder((SUMOReal) forcedLength));
                 if (i==myExpansions.end()) {
                     Expansion e;
                     e.pos = (SUMOReal) forcedLength;
                     e.nameid = nameid;
-                    for (size_t j=0; j<edge->getNoLanes(); j++) {
+                    for (size_t j=0; j<myCurrentEdge->getNoLanes(); j++) {
                         e.lanes.push_back(j);
                     }
                     myExpansions.push_back(e);
@@ -322,15 +319,14 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         try {
             Expansion e;
             e.pos = getFloat(attrs, SUMO_ATTR_POS);
-            NBEdge *edge = myEdgeCont.retrieve(myCurrentID);
-            if (edge==0) {
+            if (myCurrentEdge==0) {
                 if (!OptionsCont::getOptions().isInStringVector("remove-edges", myCurrentID)) {
                     MsgHandler::getErrorInstance()->inform("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
                 }
                 return;
             }
             if (e.pos<0) {
-                e.pos = edge->getGeometry().length() + e.pos;
+                e.pos = myCurrentEdge->getGeometry().length() + e.pos;
             }
             myExpansions.push_back(e);
         } catch (EmptyData&) {
@@ -638,11 +634,21 @@ NIXMLEdgesHandler::myCharacters(SumoXMLTag element,
 void
 NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
-    if (element==SUMO_TAG_EDGE) {
+    if (element==SUMO_TAG_EDGE && myCurrentEdge!=0) {
+        try {
+            if (!myEdgeCont.insert(myCurrentEdge)) {
+                MsgHandler::getErrorInstance()->inform("Duplicate edge occured. ID='" + myCurrentID + "'");
+                delete myCurrentEdge;
+            }
+        } catch (...) {
+            MsgHandler::getErrorInstance()->inform(
+                "Important information (probably the source or the destination node) missing in edge '"
+                + myCurrentID + "'.");
+        }
         if (myExpansions.size()!=0) {
             std::vector<Expansion>::iterator i, i2;
             sort(myExpansions.begin(), myExpansions.end(), expansions_sorter());
-            NBEdge *e = myEdgeCont.retrieve(myCurrentID);
+            NBEdge *e = myCurrentEdge;
             // compute the node positions and sort the lanes
             for (i=myExpansions.begin(); i!=myExpansions.end(); ++i) {
                 (*i).gpos = e->getGeometry().positionAtLengthPosition((*i).pos);

@@ -40,6 +40,7 @@
 // ===========================================================================
 class OptionsCont;
 class NBNode;
+class NBEdge;
 class NBNodeCont;
 class NBEdgeCont;
 class NBTypeCont;
@@ -176,6 +177,8 @@ private:
     };
 
     std::vector<Expansion> myExpansions;
+
+    NBEdge *myCurrentEdge;
 
     class expansions_sorter
     {

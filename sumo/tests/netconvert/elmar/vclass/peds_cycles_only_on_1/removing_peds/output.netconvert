@@ -2,7 +2,7 @@ Loading nodes... done.
 Loading edges... done.
  Import done;
    5 nodes loaded.
-   7 edges loaded.
+   8 edges loaded.
 Computing step 1: Removing dummy edges
 Computing step 2: Joining double connections
 Computing step 3: Normalising node positions
