@@ -112,6 +112,10 @@ namespace itm
         // @param length message length
         void commandSimulationStep(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException);
 
+        void commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException);
+
+        void commandChangeLane(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException);
+
         void commandCloseConnection(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException);
 
         void commandSimulationParameter(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException);

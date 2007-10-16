@@ -163,14 +163,20 @@ namespace itm
         // dispatch commands
         switch (commandId)
         {
+        case CMD_SETMAXSPEED:
+            commandSetMaximumSpeed(requestMsg, respMsg);
+            break;
         case CMD_SIMSTEP:
             commandSimulationStep(requestMsg,respMsg);
             break;
+        case CMD_STOP:
+            commandStopNode(requestMsg, respMsg);
+            break;
+        case CMD_CHANGELANE:
+            commandChangeLane(requestMsg, respMsg);
+            break;
         case CMD_CLOSE:
             commandCloseConnection(requestMsg, respMsg);
-            break;
-        case CMD_SETMAXSPEED:
-            commandSetMaximumSpeed(requestMsg, respMsg);
             break;
         default:
             writeStatusCmd(respMsg, commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
@@ -259,24 +265,29 @@ namespace itm
                 const string vehicleId   = (*iter).first;
                 const MSVehicle *vehicle = (*iter).second;
                 // insert into equippedVehicleId if not contained
-                if (equippedVehicles_.find(vehicleId) == equippedVehicles_.end())
+                std::map<std::string, int>::const_iterator equippedVeh = equippedVehicles_.find(vehicleId);
+                if (equippedVeh == equippedVehicles_.end())
                 {
                     // determine if vehicle is equipped
                     double rnd = double(rand())/RAND_MAX;
                     if (rnd <= penetration_)
                     {
                         // vehicle is equipped
-                        equippedVehicles_[vehicleId] = numEquippedVehicles_++;
+                        equippedVehicles_[vehicleId] = numEquippedVehicles_;
+                        // put into active list?
+                        if (vehicle->getInTransit()) {
+                            activeEquippedVehicles[numEquippedVehicles_] = vehicle;
+                        }
+                        numEquippedVehicles_++;
                     }
                     else
                     {
                         // vehicle is not equipped
                         equippedVehicles_[vehicleId] = -1;
                     }
-                }
-                if (equippedVehicles_[vehicleId] >= 0 && vehicle->getInTransit())
+                } else if (equippedVeh->second >= 0 && vehicle->getInTransit())
                 {
-                    int extId = equippedVehicles_[vehicleId];
+                    int extId = equippedVeh->second;
                     activeEquippedVehicles[extId] = vehicle;
                     // vehicle is equipped
                 }
@@ -337,7 +348,65 @@ namespace itm
     /*****************************************************************************/
 
     void 
-        RemoteServer::commandCloseConnection(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException)
+        RemoteServer::commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+        throw(RemoteException)
+    {
+        // NodeId
+        MSVehicle* veh = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
+        // StopPosition
+        // Todo
+        // Radius
+        float radius = requestMsg.readFloat();
+        // waitTime
+        double waitTime = requestMsg.readDouble();
+
+        if ( veh == NULL )
+        {
+            writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Can not retrieve node with given ID");
+            return;
+        }
+
+        // Forward command to vehicle
+        // Todo
+
+        // create a reply message
+        writeStatusCmd(respMsg, CMD_STOP, RTYPE_OK, "");
+
+        return;
+    }
+
+    /*****************************************************************************/
+    void 
+        RemoteServer::commandChangeLane(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
+        throw(RemoteException)
+    {
+        // NodeId
+        MSVehicle* veh = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
+        // Lane
+        int lane = requestMsg.readInt();
+        // stickyTime
+        double stickyTime = requestMsg.readDouble();
+
+        if ( veh == NULL )
+        {
+            writeStatusCmd(respMsg, CMD_CHANGELANE, RTYPE_ERR, "Can not retrieve node with given ID");
+            return;
+        }
+
+        // Forward command to vehicle
+        // Todo
+
+        // create a reply message
+        writeStatusCmd(respMsg, CMD_CHANGELANE, RTYPE_OK, "");
+
+        return;
+    }
+
+    /*****************************************************************************/
+
+    void 
+        RemoteServer::commandCloseConnection(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
+        throw(RemoteException)
     {
         // Close simulation
         closeConnection_ = true;
@@ -348,7 +417,9 @@ namespace itm
 
     /*****************************************************************************/
 
-    void RemoteServer::commandSimulationParameter(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException)
+    void 
+        RemoteServer::commandSimulationParameter(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
+        throw(RemoteException)
     {
         bool setParameter = (requestMsg.readByte() != 0);
         string parameter = requestMsg.readString();
