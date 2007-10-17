@@ -3,11 +3,14 @@ batch_result_repository:$SUMO_BATCH_RESULT
 historical_report_location:$SUMO_REPORT
 smtp_server:$SMTP_SERVER
 batch_use_collection:true
-batch_recipients:michael.behrisch@dlr.de,daniel.krajzewicz@dlr.de
+[batch_recipients]
+default:michael.behrisch@dlr.de,daniel.krajzewicz@dlr.de
+msvc8mesoreport:delphi-dev@dlr.de
 [batch_sender]
 default:behrisch@informatik.hu-berlin.de
 gcc3report:gcc3test@fileserv
 msvc8report:msvc8test@TTSTest
+msvc8mesoreport:michael.behrisch@dlr.de
 [run_dependent_text]
 output:Version
 errors:UTFDataFormatException
