@@ -306,7 +306,7 @@ MsgHandler::report2cout(bool value)
                             ? OptionsCont::getOptions().getBool("suppress-warnings")
                             : !myReport2COUT;
     } else if (myType==MT_MESSAGE) {
-        gSuppressMessages = !(myRetrievers.size()==0||myReport2COUT);
+        gSuppressMessages = myRetrievers.size()==0&&!myReport2COUT;
     }
     cout.setf(ios::fixed ,ios::floatfield);
     if (myLock!=0) {
@@ -327,7 +327,7 @@ MsgHandler::report2cerr(bool value)
                             ? OptionsCont::getOptions().getBool("suppress-warnings")
                             : !myReport2CERR;
     } else if (myType==MT_MESSAGE) {
-        gSuppressMessages = !(myRetrievers.size()==0||myReport2CERR);
+        gSuppressMessages = myRetrievers.size()==0&&!myReport2COUT;
     }
     cerr.setf(ios::fixed ,ios::floatfield);
     if (myLock!=0) {

@@ -93,18 +93,33 @@ GUILoadThread::run()
 
     // remove old options
     OptionsCont::getOptions().clear();
+        // within gui-based applications, nothing is reported to the console
+        MsgHandler::getErrorInstance()->report2cout(false);
+        MsgHandler::getErrorInstance()->report2cerr(false);
+        MsgHandler::getWarningInstance()->report2cout(false);
+        MsgHandler::getWarningInstance()->report2cerr(false);
+        MsgHandler::getMessageInstance()->report2cout(false);
+        MsgHandler::getMessageInstance()->report2cerr(false);
+    // register message callbacks
+    MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
+    MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
+    MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
 
     // try to load the given configuration
-    if (!initOptions() || !SUMOFrame::checkOptions()) {
+    if (!initOptions()) {
         // the options are not valid
         submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
     }
     MsgHandler::initOutputOptions(true);
-    // register message callbacks
-    MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
-    MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
-    MsgHandler::getWarningInstance()->addRetriever(myWarningRetreiver);
+    if (!SUMOFrame::checkOptions()) {
+        // the options are not valid
+        submitEndAndCleanup(net, simStartTime, simEndTime);
+        return 0;
+    }
+
+ 
+
     RandHelper::initRandGlobal();
     // try to load
     OptionsCont &oc = OptionsCont::getOptions();
