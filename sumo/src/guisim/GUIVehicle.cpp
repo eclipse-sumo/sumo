@@ -145,9 +145,9 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack(FXObject*,FXSelector,void*)
 }
 
 
-// ===========================================================================
-// method definitions
-// ===========================================================================
+/* -------------------------------------------------------------------------
+ * GUIVehicle - methods
+ * ----------------------------------------------------------------------- */
 GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
                        std::string id, MSRoute* route,
                        SUMOTime departTime,
@@ -249,7 +249,6 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
 }
 
 
-
 GUIGlObjectType
 GUIVehicle::getType() const
 {
@@ -314,7 +313,6 @@ GUIVehicle::getCenteringBoundary() const
     b.grow(20);
     return b;
 }
-
 
 
 /****************************************************************************/

@@ -67,36 +67,36 @@ GUISourceLane::~GUISourceLane()
 void
 GUISourceLane::moveNonCritical()
 {
-    myLock.lock();//Display();
-    MSSourceLane::moveNonCritical(/*firstNeighLane, lastNeighLane*/);
-    myLock.unlock();//Display();
+    myLock.lock();
+    MSSourceLane::moveNonCritical();
+    myLock.unlock();
 }
 
 
 void
 GUISourceLane::moveCritical()
 {
-    myLock.lock();//Display();
-    MSSourceLane::moveCritical(/*firstNeighLane, lastNeighLane*/);
-    myLock.unlock();//Display();
+    myLock.lock();
+    MSSourceLane::moveCritical();
+    myLock.unlock();
 }
 
 
 void
 GUISourceLane::setCritical()
 {
-    myLock.lock();//Display();
+    myLock.lock();
     MSSourceLane::setCritical();
-    myLock.unlock();//Display();
+    myLock.unlock();
 }
 
 
 bool
 GUISourceLane::emit(MSVehicle& newVeh)
 {
-    myLock.lock();//Display();
+    myLock.lock();
     bool ret = MSSourceLane::emit(newVeh);
-    myLock.unlock();//Display();
+    myLock.unlock();
     return ret;
 }
 
@@ -104,9 +104,9 @@ GUISourceLane::emit(MSVehicle& newVeh)
 bool
 GUISourceLane::isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &vstate)
 {
-    myLock.lock();//Display();
+    myLock.lock();
     bool ret = MSSourceLane::isEmissionSuccess(aVehicle, vstate);
-    myLock.unlock();//Display();
+    myLock.unlock();
     return ret;
 }
 

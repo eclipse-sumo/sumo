@@ -83,27 +83,27 @@ GUIInternalLane::~GUIInternalLane()
 void
 GUIInternalLane::moveNonCritical()
 {
-    myLock.lock();//Display();
+    myLock.lock();
     MSInternalLane::moveNonCritical();
-    myLock.unlock();//Display();
+    myLock.unlock();
 }
 
 
 void
 GUIInternalLane::moveCritical()
 {
-    myLock.lock();//Display();
+    myLock.lock();
     MSInternalLane::moveCritical();
-    myLock.unlock();//Display();
+    myLock.unlock();
 }
 
 
 void
 GUIInternalLane::setCritical()
 {
-    myLock.lock();//Display();
+    myLock.lock();
     MSInternalLane::setCritical();
-    myLock.unlock();//Display();
+    myLock.unlock();
 }
 
 
@@ -113,9 +113,9 @@ GUIInternalLane::setCritical()
 bool
 GUIInternalLane::emit(MSVehicle& newVeh)
 {
-    myLock.lock();//Display();
+    myLock.lock();
     bool ret = MSInternalLane::emit(newVeh);
-    myLock.unlock();//Display();
+    myLock.unlock();
     return ret;
 }
 
@@ -123,9 +123,9 @@ GUIInternalLane::emit(MSVehicle& newVeh)
 bool
 GUIInternalLane::isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &vstate)
 {
-    myLock.lock();//Display();
+    myLock.lock();
     bool ret = MSInternalLane::isEmissionSuccess(aVehicle, vstate);
-    myLock.unlock();//Display();
+    myLock.unlock();
     return ret;
 }
 
@@ -133,7 +133,7 @@ GUIInternalLane::isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &
 bool
 GUIInternalLane::push(MSVehicle* veh)
 {
-    myLock.lock();//Display();
+    myLock.lock();
 #ifdef ABS_DEBUG
     if (myVehBuffer!=0) {
         DEBUG_OUT << MSNet::globaltime << ":Push Failed on Lane:" << myID << std::endl;
@@ -151,12 +151,11 @@ GUIInternalLane::push(MSVehicle* veh)
         MSVehicle *prev = myVehBuffer!=0
                           ? myVehBuffer : last;
         WRITE_WARNING("Vehicle '" + veh->getID() + "' beamed due to a collision on push!\n" + "  Lane: '" + myID + "', previous vehicle: '" + prev->getID() + "', time: " + toString<SUMOTime>(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-        veh->onTripEnd(/* *this*/);
-        veh->removeApproachingInformationOnKill(/*this*/);
+        veh->onTripEnd();
+        veh->removeApproachingInformationOnKill();
         MSVehicleTransfer::getInstance()->addVeh(veh);
-//        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
-        // maybe the vehicle is being tracked; mark as not within the simulation any longer
-        myLock.unlock();//Display();
+        // !!!maybe the vehicle is being tracked; mark as not within the simulation any longer
+        myLock.unlock();
         return true;
     }
     // check whether the vehicle has ended his route
@@ -167,7 +166,7 @@ GUIInternalLane::push(MSVehicle* veh)
     SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
     veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
     veh->_assertPos();
-    myLock.unlock();//Display();
+    myLock.unlock();
 //    setApproaching(veh->pos(), veh);
     return false;
 }
