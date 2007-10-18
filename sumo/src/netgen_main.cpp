@@ -70,17 +70,6 @@ bool
 checkOptions()
 {
     OptionsCont &oc = OptionsCont::getOptions();
-    // check whether the output is valid and can be build
-    if (!oc.isSet("output-file")) {
-        MsgHandler::getErrorInstance()->inform("No output specified.");
-        return false;
-    }
-    try {
-        OutputDevice::getDevice(oc.getString("output-file"));
-    } catch (IOError &) {
-        MsgHandler::getErrorInstance()->inform("The output file '" + oc.getString("output-file") + "' can not be build.");
-        return false;
-    }
     // check whether exactly one type of a network to build was wished
     int no = 0;
     if (oc.getBool("spider-net")) {
@@ -111,6 +100,17 @@ checkOptions()
             MsgHandler::getErrorInstance()->inform("Only the following junction types are known: traffic_light, priority, actuated, agentbased");
             return false;
         }
+    }
+    // check whether the output is valid and can be build
+    if (!oc.isSet("output-file")) {
+        MsgHandler::getErrorInstance()->inform("No output specified.");
+        return false;
+    }
+    try {
+        OutputDevice::getDevice(oc.getString("output-file"));
+    } catch (IOError &) {
+        MsgHandler::getErrorInstance()->inform("The output file '" + oc.getString("output-file") + "' can not be build.");
+        return false;
     }
     //
     return true;
