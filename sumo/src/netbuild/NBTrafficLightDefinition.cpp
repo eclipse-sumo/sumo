@@ -387,6 +387,9 @@ bool
 NBTrafficLightDefinition::foes(NBEdge *from1, NBEdge *to1,
                                NBEdge *from2, NBEdge *to2) const
 {
+    if(to1==0||to2==0) {
+        return false;
+    }
     // retrieve both nodes (it is possible that a connection
     NodeCont::const_iterator incoming =
         find_if(myControlledNodes.begin(), myControlledNodes.end(),

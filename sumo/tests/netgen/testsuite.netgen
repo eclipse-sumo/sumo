@@ -7,6 +7,9 @@ spider
 # testing random network building
 random
 
+# testing setting junction types
+junction_types
+
 # testing meta processing
 meta
 

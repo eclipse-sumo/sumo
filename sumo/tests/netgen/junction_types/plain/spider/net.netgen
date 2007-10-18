@@ -1,0 +1,381 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/18/07 13:58:38 by SUMO netgen Version 0.9.6
+<configuration>
+
+   <spider_network>
+      <spider-net>true</spider-net>
+      <spider-arm-number>4</spider-arm-number>
+      <spider-circle-number>1</spider-circle-number>
+      <spider-space-rad>100</spider-space-rad>
+   </spider_network>
+
+   <output>
+      <output-file>net.net.xml</output-file>
+   </output>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
+<net>
+
+   <net-offset>100.000000,100.000000</net-offset>
+   <conv-boundary>0.000000,0.000000,200.000000,200.000000</conv-boundary>
+   <orig-boundary>-100.000000,-100.000000,100.000000,100.000000</orig-boundary>
+   <orig-proj>!</orig-proj>
+
+   <edges no="16">1/1to1 1/1to2/1 1/1to4/1 1to1/1 1to2/1 1to3/1 1to4/1 2/1to1 2/1to1/1 2/1to3/1 3/1to1 3/1to2/1 3/1to4/1 4/1to1 4/1to1/1 4/1to3/1</edges>
+   <node_count>5</node_count>
+
+
+   <edge id="1/1to1" from="1/1" to="1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="1/1to1_0" depart="1" vclasses="" maxspeed="13.90" length="85.90">190.65,101.65 104.75,101.65</lane>
+      </lanes>
+      <cedge id="1to2/1">1/1to1_0</cedge>
+      <cedge id="1to3/1">1/1to1_0</cedge>
+      <cedge id="1to4/1">1/1to1_0</cedge>
+      <cedge id="1to1/1">1/1to1_0</cedge>
+   </edge>
+
+   <edge id="1/1to2/1" from="1/1" to="2/1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="1/1to2/1_0" depart="1" vclasses="" maxspeed="13.90" length="122.73">194.56,107.78 107.78,194.56</lane>
+      </lanes>
+      <cedge id="2/1to3/1">1/1to2/1_0</cedge>
+      <cedge id="2/1to1">1/1to2/1_0</cedge>
+      <cedge id="2/1to1/1">1/1to2/1_0</cedge>
+   </edge>
+
+   <edge id="1/1to4/1" from="1/1" to="4/1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="1/1to4/1_0" depart="1" vclasses="" maxspeed="13.90" length="122.73">192.22,94.56 105.44,7.78</lane>
+      </lanes>
+      <cedge id="4/1to1">1/1to4/1_0</cedge>
+      <cedge id="4/1to3/1">1/1to4/1_0</cedge>
+      <cedge id="4/1to1/1">1/1to4/1_0</cedge>
+   </edge>
+
+   <edge id="1to1/1" from="1" to="1/1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="1to1/1_0" depart="1" vclasses="" maxspeed="13.90" length="85.90">104.75,98.35 190.65,98.35</lane>
+      </lanes>
+      <cedge id="1/1to4/1">1to1/1_0</cedge>
+      <cedge id="1/1to2/1">1to1/1_0</cedge>
+      <cedge id="1/1to1">1to1/1_0</cedge>
+   </edge>
+
+   <edge id="1to2/1" from="1" to="2/1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="1to2/1_0" depart="1" vclasses="" maxspeed="13.90" length="85.90">101.65,104.75 101.65,190.65</lane>
+      </lanes>
+      <cedge id="2/1to1/1">1to2/1_0</cedge>
+      <cedge id="2/1to3/1">1to2/1_0</cedge>
+      <cedge id="2/1to1">1to2/1_0</cedge>
+   </edge>
+
+   <edge id="1to3/1" from="1" to="3/1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="1to3/1_0" depart="1" vclasses="" maxspeed="13.90" length="85.90">95.25,101.65 9.35,101.65</lane>
+      </lanes>
+      <cedge id="3/1to2/1">1to3/1_0</cedge>
+      <cedge id="3/1to4/1">1to3/1_0</cedge>
+      <cedge id="3/1to1">1to3/1_0</cedge>
+   </edge>
+
+   <edge id="1to4/1" from="1" to="4/1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="1to4/1_0" depart="1" vclasses="" maxspeed="13.90" length="85.90">98.35,95.25 98.35,9.35</lane>
+      </lanes>
+      <cedge id="4/1to3/1">1to4/1_0</cedge>
+      <cedge id="4/1to1/1">1to4/1_0</cedge>
+      <cedge id="4/1to1">1to4/1_0</cedge>
+   </edge>
+
+   <edge id="2/1to1" from="2/1" to="1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="2/1to1_0" depart="1" vclasses="" maxspeed="13.90" length="85.90">98.35,190.65 98.35,104.75</lane>
+      </lanes>
+      <cedge id="1to3/1">2/1to1_0</cedge>
+      <cedge id="1to4/1">2/1to1_0</cedge>
+      <cedge id="1to1/1">2/1to1_0</cedge>
+      <cedge id="1to2/1">2/1to1_0</cedge>
+   </edge>
+
+   <edge id="2/1to1/1" from="2/1" to="1/1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="2/1to1/1_0" depart="1" vclasses="" maxspeed="13.90" length="122.73">105.44,192.22 192.22,105.44</lane>
+      </lanes>
+      <cedge id="1/1to1">2/1to1/1_0</cedge>
+      <cedge id="1/1to4/1">2/1to1/1_0</cedge>
+      <cedge id="1/1to2/1">2/1to1/1_0</cedge>
+   </edge>
+
+   <edge id="2/1to3/1" from="2/1" to="3/1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="2/1to3/1_0" depart="1" vclasses="" maxspeed="13.90" length="122.73">92.22,194.56 5.44,107.78</lane>
+      </lanes>
+      <cedge id="3/1to4/1">2/1to3/1_0</cedge>
+      <cedge id="3/1to1">2/1to3/1_0</cedge>
+      <cedge id="3/1to2/1">2/1to3/1_0</cedge>
+   </edge>
+
+   <edge id="3/1to1" from="3/1" to="1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="3/1to1_0" depart="1" vclasses="" maxspeed="13.90" length="85.90">9.35,98.35 95.25,98.35</lane>
+      </lanes>
+      <cedge id="1to4/1">3/1to1_0</cedge>
+      <cedge id="1to1/1">3/1to1_0</cedge>
+      <cedge id="1to2/1">3/1to1_0</cedge>
+      <cedge id="1to3/1">3/1to1_0</cedge>
+   </edge>
+
+   <edge id="3/1to2/1" from="3/1" to="2/1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="3/1to2/1_0" depart="1" vclasses="" maxspeed="13.90" length="122.73">7.78,105.44 94.56,192.22</lane>
+      </lanes>
+      <cedge id="2/1to1">3/1to2/1_0</cedge>
+      <cedge id="2/1to1/1">3/1to2/1_0</cedge>
+      <cedge id="2/1to3/1">3/1to2/1_0</cedge>
+   </edge>
+
+   <edge id="3/1to4/1" from="3/1" to="4/1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="3/1to4/1_0" depart="1" vclasses="" maxspeed="13.90" length="122.73">5.44,92.22 92.22,5.44</lane>
+      </lanes>
+      <cedge id="4/1to1/1">3/1to4/1_0</cedge>
+      <cedge id="4/1to1">3/1to4/1_0</cedge>
+      <cedge id="4/1to3/1">3/1to4/1_0</cedge>
+   </edge>
+
+   <edge id="4/1to1" from="4/1" to="1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="4/1to1_0" depart="1" vclasses="" maxspeed="13.90" length="85.90">101.65,9.35 101.65,95.25</lane>
+      </lanes>
+      <cedge id="1to1/1">4/1to1_0</cedge>
+      <cedge id="1to2/1">4/1to1_0</cedge>
+      <cedge id="1to3/1">4/1to1_0</cedge>
+      <cedge id="1to4/1">4/1to1_0</cedge>
+   </edge>
+
+   <edge id="4/1to1/1" from="4/1" to="1/1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="4/1to1/1_0" depart="1" vclasses="" maxspeed="13.90" length="122.73">107.78,5.44 194.56,92.22</lane>
+      </lanes>
+      <cedge id="1/1to2/1">4/1to1/1_0</cedge>
+      <cedge id="1/1to1">4/1to1/1_0</cedge>
+      <cedge id="1/1to4/1">4/1to1/1_0</cedge>
+   </edge>
+
+   <edge id="4/1to3/1" from="4/1" to="3/1" priority="-1" type="netgen-default" function="normal">
+      <lanes>
+         <lane id="4/1to3/1_0" depart="1" vclasses="" maxspeed="13.90" length="122.73">94.56,7.78 7.78,94.56</lane>
+      </lanes>
+      <cedge id="3/1to1">4/1to3/1_0</cedge>
+      <cedge id="3/1to2/1">4/1to3/1_0</cedge>
+      <cedge id="3/1to4/1">4/1to3/1_0</cedge>
+   </edge>
+
+
+   <row-logic>
+      <key>1/1</key>
+      <requestsize>9</requestsize>
+      <lanenumber>3</lanenumber>
+      <logic>
+         <logicitem request="0" response="000000000" foes="100010000"/>
+         <logicitem request="1" response="011000000" foes="011110000"/>
+         <logicitem request="2" response="010001000" foes="010001000"/>
+         <logicitem request="3" response="010000000" foes="010000100"/>
+         <logicitem request="4" response="010000011" foes="110000011"/>
+         <logicitem request="5" response="001000010" foes="001000010"/>
+         <logicitem request="6" response="000000000" foes="000100010"/>
+         <logicitem request="7" response="000000000" foes="000011110"/>
+         <logicitem request="8" response="000010001" foes="000010001"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>2/1</key>
+      <requestsize>9</requestsize>
+      <lanenumber>3</lanenumber>
+      <logic>
+         <logicitem request="0" response="000000000" foes="100010000"/>
+         <logicitem request="1" response="011000000" foes="011110000"/>
+         <logicitem request="2" response="010001000" foes="010001000"/>
+         <logicitem request="3" response="010000000" foes="010000100"/>
+         <logicitem request="4" response="010000011" foes="110000011"/>
+         <logicitem request="5" response="001000010" foes="001000010"/>
+         <logicitem request="6" response="000000000" foes="000100010"/>
+         <logicitem request="7" response="000000000" foes="000011110"/>
+         <logicitem request="8" response="000010001" foes="000010001"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>3/1</key>
+      <requestsize>9</requestsize>
+      <lanenumber>3</lanenumber>
+      <logic>
+         <logicitem request="0" response="000000000" foes="100010000"/>
+         <logicitem request="1" response="011000000" foes="011110000"/>
+         <logicitem request="2" response="010001000" foes="010001000"/>
+         <logicitem request="3" response="010000000" foes="010000100"/>
+         <logicitem request="4" response="010000011" foes="110000011"/>
+         <logicitem request="5" response="001000010" foes="001000010"/>
+         <logicitem request="6" response="000000000" foes="000100010"/>
+         <logicitem request="7" response="000000000" foes="000011110"/>
+         <logicitem request="8" response="000010001" foes="000010001"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>4/1</key>
+      <requestsize>9</requestsize>
+      <lanenumber>3</lanenumber>
+      <logic>
+         <logicitem request="0" response="000010000" foes="100010000"/>
+         <logicitem request="1" response="011010000" foes="011110000"/>
+         <logicitem request="2" response="010001000" foes="010001000"/>
+         <logicitem request="3" response="000000000" foes="010000100"/>
+         <logicitem request="4" response="000000000" foes="110000011"/>
+         <logicitem request="5" response="001000010" foes="001000010"/>
+         <logicitem request="6" response="000000000" foes="000100010"/>
+         <logicitem request="7" response="000011000" foes="000011110"/>
+         <logicitem request="8" response="000010001" foes="000010001"/>
+      </logic>
+   </row-logic>
+
+
+
+   <junction id="1" type="none" x="100.00" y="100.00">
+      <inclanes>2/1to1_0 1/1to1_0 4/1to1_0 3/1to1_0</inclanes>
+      <shape>96.75,104.75 103.25,104.75 104.75,103.25 104.75,96.75 103.25,95.25 96.75,95.25 95.25,96.75 95.25,103.25</shape>
+   </junction>
+
+   <junction id="1/1" type="priority" x="200.00" y="100.00">
+      <inclanes>4/1to1/1_0 1to1/1_0 2/1to1/1_0</inclanes>
+      <shape>195.69,91.09 191.09,95.69 190.65,96.75 190.65,103.25 191.09,104.31 195.69,108.91</shape>
+   </junction>
+
+   <junction id="2/1" type="priority" x="100.00" y="200.00">
+      <inclanes>1/1to2/1_0 1to2/1_0 3/1to2/1_0</inclanes>
+      <shape>108.91,195.69 104.31,191.09 103.25,190.65 96.75,190.65 95.69,191.09 91.09,195.69</shape>
+   </junction>
+
+   <junction id="3/1" type="priority" x="0.00" y="100.00">
+      <inclanes>2/1to3/1_0 1to3/1_0 4/1to3/1_0</inclanes>
+      <shape>4.31,108.91 8.91,104.31 9.35,103.25 9.35,96.75 8.91,95.69 4.31,91.09</shape>
+   </junction>
+
+   <junction id="4/1" type="priority" x="100.00" y="0.00">
+      <inclanes>1to4/1_0 1/1to4/1_0 3/1to4/1_0</inclanes>
+      <shape>96.75,9.35 103.25,9.35 104.31,8.91 108.91,4.31 91.09,4.31 95.69,8.91</shape>
+   </junction>
+
+
+   <succ edge="1/1to1" lane="1/1to1_0" junction="1">
+      <succlane lane="1to2/1_0" yield="0" dir="r" state="M"/>
+      <succlane lane="1to3/1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1to4/1_0" yield="0" dir="l" state="M"/>
+      <succlane lane="1to1/1_0" yield="0" dir="t" state="M"/>
+   </succ>
+
+   <succ edge="1/1to2/1" lane="1/1to2/1_0" junction="2/1">
+      <succlane lane="2/1to3/1_0" yield="0" dir="L" state="M"/>
+      <succlane lane="2/1to1_0" yield="1" dir="l" state="m"/>
+      <succlane lane="2/1to1/1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="1/1to4/1" lane="1/1to4/1_0" junction="4/1">
+      <succlane lane="4/1to1_0" yield="0" dir="r" state="M"/>
+      <succlane lane="4/1to3/1_0" yield="0" dir="R" state="M"/>
+      <succlane lane="4/1to1/1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="1to1/1" lane="1to1/1_0" junction="1/1">
+      <succlane lane="1/1to4/1_0" yield="1" dir="r" state="m"/>
+      <succlane lane="1/1to2/1_0" yield="1" dir="l" state="m"/>
+      <succlane lane="1/1to1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="1to2/1" lane="1to2/1_0" junction="2/1">
+      <succlane lane="2/1to1/1_0" yield="1" dir="r" state="m"/>
+      <succlane lane="2/1to3/1_0" yield="1" dir="l" state="m"/>
+      <succlane lane="2/1to1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="1to3/1" lane="1to3/1_0" junction="3/1">
+      <succlane lane="3/1to2/1_0" yield="1" dir="r" state="m"/>
+      <succlane lane="3/1to4/1_0" yield="1" dir="l" state="m"/>
+      <succlane lane="3/1to1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="1to4/1" lane="1to4/1_0" junction="4/1">
+      <succlane lane="4/1to3/1_0" yield="1" dir="r" state="m"/>
+      <succlane lane="4/1to1/1_0" yield="1" dir="l" state="m"/>
+      <succlane lane="4/1to1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="2/1to1" lane="2/1to1_0" junction="1">
+      <succlane lane="1to3/1_0" yield="0" dir="r" state="M"/>
+      <succlane lane="1to4/1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1to1/1_0" yield="0" dir="l" state="M"/>
+      <succlane lane="1to2/1_0" yield="0" dir="t" state="M"/>
+   </succ>
+
+   <succ edge="2/1to1/1" lane="2/1to1/1_0" junction="1/1">
+      <succlane lane="1/1to1_0" yield="0" dir="r" state="M"/>
+      <succlane lane="1/1to4/1_0" yield="0" dir="R" state="M"/>
+      <succlane lane="1/1to2/1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="2/1to3/1" lane="2/1to3/1_0" junction="3/1">
+      <succlane lane="3/1to4/1_0" yield="0" dir="L" state="M"/>
+      <succlane lane="3/1to1_0" yield="1" dir="l" state="m"/>
+      <succlane lane="3/1to2/1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="3/1to1" lane="3/1to1_0" junction="1">
+      <succlane lane="1to4/1_0" yield="0" dir="r" state="M"/>
+      <succlane lane="1to1/1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1to2/1_0" yield="0" dir="l" state="M"/>
+      <succlane lane="1to3/1_0" yield="0" dir="t" state="M"/>
+   </succ>
+
+   <succ edge="3/1to2/1" lane="3/1to2/1_0" junction="2/1">
+      <succlane lane="2/1to1_0" yield="0" dir="r" state="M"/>
+      <succlane lane="2/1to1/1_0" yield="0" dir="R" state="M"/>
+      <succlane lane="2/1to3/1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="3/1to4/1" lane="3/1to4/1_0" junction="4/1">
+      <succlane lane="4/1to1/1_0" yield="0" dir="L" state="M"/>
+      <succlane lane="4/1to1_0" yield="1" dir="l" state="m"/>
+      <succlane lane="4/1to3/1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="4/1to1" lane="4/1to1_0" junction="1">
+      <succlane lane="1to1/1_0" yield="0" dir="r" state="M"/>
+      <succlane lane="1to2/1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="1to3/1_0" yield="0" dir="l" state="M"/>
+      <succlane lane="1to4/1_0" yield="0" dir="t" state="M"/>
+   </succ>
+
+   <succ edge="4/1to1/1" lane="4/1to1/1_0" junction="1/1">
+      <succlane lane="1/1to2/1_0" yield="0" dir="L" state="M"/>
+      <succlane lane="1/1to1_0" yield="1" dir="l" state="m"/>
+      <succlane lane="1/1to4/1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+   <succ edge="4/1to3/1" lane="4/1to3/1_0" junction="3/1">
+      <succlane lane="3/1to1_0" yield="0" dir="r" state="M"/>
+      <succlane lane="3/1to2/1_0" yield="0" dir="R" state="M"/>
+      <succlane lane="3/1to4/1_0" yield="1" dir="t" state="m"/>
+   </succ>
+
+
+</net>
