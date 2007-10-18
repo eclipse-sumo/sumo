@@ -18,4 +18,6 @@ user_example1_10m
 user_example1_2nodes
 
 
+# Tests processing of errors in input
+errors
 

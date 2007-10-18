@@ -12,20 +12,6 @@ false_plain_output
 
 
 
-# Test what happens if one tries to build grid and spider net
-grid_and_spider
-
-# Test what happens if one tries to build grid and random net
-grid_and_random
-
-# Test what happens if one tries to build spider and random net
-spider_and_random
-
-# Test what happens if one tries to build all three network types
-grid_spider_and_random
-
-
-
-# Errors within definition of a grid network
-grid_errors
+# Tests for using more than one input type
+multiple_types
 
