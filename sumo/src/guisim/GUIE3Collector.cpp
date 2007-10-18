@@ -157,11 +157,11 @@ GUIE3Collector::MyWrapper::drawGL(SUMOReal /*scale*/, SUMOReal upscale)
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
     glColor3d(0, .8, 0);
-    for (i=myEntryDefinitions.begin(); i!=myEntryDefinitions.end(); i++) {
+    for (i=myEntryDefinitions.begin(); i!=myEntryDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, upscale);
     }
     glColor3d(.8, 0, 0);
-    for (i=myExitDefinitions.begin(); i!=myExitDefinitions.end(); i++) {
+    for (i=myExitDefinitions.begin(); i!=myExitDefinitions.end(); ++i) {
         drawSingleCrossing((*i).myFGPosition, (*i).myFGRotation, upscale);
     }
 }

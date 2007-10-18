@@ -168,7 +168,7 @@ GUINet::initDetectors()
     // induction loops
     {
         MSDetectorControl::LoopVect loopVec = myDetectorControl->getLoopVector();
-        for (MSDetectorControl::LoopVect::const_iterator i=loopVec.begin(); i!=loopVec.end(); i++) {
+        for (MSDetectorControl::LoopVect::const_iterator i=loopVec.begin(); i!=loopVec.end(); ++i) {
             const MSLane *lane = (*i)->getLane();
             const GUIEdge * const edge = static_cast<const GUIEdge * const>(lane->getEdge());
             // build the wrapper
@@ -359,7 +359,7 @@ GUINet::initGUIStructures()
         size_t size = myJunctions->size();
         myJunctionWrapper.reserve(size);
         const vector<MSJunction*> &junctions = myJunctions->buildAndGetStaticVector();
-        for (vector<MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); i++) {
+        for (vector<MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); ++i) {
             GUIJunctionWrapper *wrapper = (*i)->buildJunctionWrapper(gIDStorage);
             if (wrapper!=0) {
                 myJunctionWrapper.push_back(wrapper);

@@ -80,7 +80,7 @@ GUIVehicleControl::getVehicleNames()
 {
     std::vector<std::string> ret;
     ret.reserve(myVehicleDict.size());
-    for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); i++) {
+    for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
         MSVehicle *veh = (*i).second;
         if (veh->running()) {
             ret.push_back((*i).first);
@@ -95,7 +95,7 @@ GUIVehicleControl::getVehicleIDs()
 {
     std::vector<size_t> ret;
     ret.reserve(myVehicleDict.size());
-    for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); i++) {
+    for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
         MSVehicle *veh = (*i).second;
         if (veh->running()) {
             ret.push_back(static_cast<GUIVehicle*>((*i).second)->getGlID());

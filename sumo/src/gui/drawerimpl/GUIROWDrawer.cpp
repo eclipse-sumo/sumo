@@ -105,7 +105,7 @@ ROWdrawAction_drawLinkNo(const GUILaneWrapper &lane)
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (size_t i=0; i<noLinks; i++) {
+    for (size_t i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 - (SUMOReal)(w/2.);
         int linkNo = lane.getLinkRespondIndex(i);
         glPushMatrix();
@@ -144,7 +144,7 @@ ROWdrawAction_drawTLSLinkNo(const GUINet &net, const GUILaneWrapper &lane)
     SUMOReal rot = (SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265;
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (size_t i=0; i<noLinks; i++) {
+    for (size_t i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 - (SUMOReal)(w/2.);
         int linkNo = lane.getLinkTLIndex(net, i);
         if (linkNo<0) {
@@ -203,7 +203,7 @@ ROWdrawAction_drawLinkRules(const GUINet &net, const GUILaneWrapper &lane,
     glPushMatrix();
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (size_t i=0; i<noLinks; i++) {
+    for (size_t i=0; i<noLinks; ++i) {
         SUMOReal x2 = x1 + w;
         MSLink::LinkState state = lane.getLinkState(i);
         if (showToolTips) {
@@ -272,7 +272,7 @@ ROWdrawAction_drawArrows(const GUILaneWrapper &lane, bool showToolTips)
 
     glTranslated(end.x(), end.y(), 0);
     glRotated(rot, 0, 0, 1);
-    for (size_t i=0; i<noLinks; i++) {
+    for (size_t i=0; i<noLinks; ++i) {
         MSLink::LinkDirection dir = lane.getLinkDirection(i);
         MSLink::LinkState state = lane.getLinkState(i);
         if (state==MSLink::LINKSTATE_TL_OFF_NOSIGNAL||dir==MSLink::LINKDIR_NODIR) {
@@ -294,7 +294,7 @@ ROWdrawAction_drawLane2LaneConnections(const GUILaneWrapper &lane,
                                        const GUIROWDrawer::LinkColorMap &lc)
 {
     size_t noLinks = lane.getLinkNumber();
-    for (size_t i=0; i<noLinks; i++) {
+    for (size_t i=0; i<noLinks; ++i) {
         MSLink::LinkState state = lane.getLinkState(i);
         const RGBColor &color = lc.find(state)->second;
         glColor3d(color.red(), color.green(), color.blue());
@@ -329,7 +329,7 @@ GUIROWDrawer::drawGLROWs(const GUINet &net, size_t *which,
     glLineWidth(1);
     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     // go through edges
-    for (size_t i=0; i<maxEdges; i++) {
+    for (size_t i=0; i<maxEdges; ++i) {
         if (which[i]==0) {
             continue;
         }

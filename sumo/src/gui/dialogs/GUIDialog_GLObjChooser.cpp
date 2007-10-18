@@ -123,7 +123,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
     default:
         break;
     }
-    for (std::vector<size_t>::iterator i=ids.begin(); i!=ids.end(); i++) {
+    for (std::vector<size_t>::iterator i=ids.begin(); i!=ids.end(); ++i) {
         GUIGlObject *o = glStorage.getObjectBlocking(*i);
         if (o==0) {
             continue;

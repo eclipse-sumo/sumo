@@ -128,7 +128,7 @@ GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
     //
     myShapeRotations.reserve(myFullGeometry.size()-1);
     myShapeLengths.reserve(myFullGeometry.size()-1);
-    for (size_t i=0; i<myFullGeometry.size()-1; i++) {
+    for (size_t i=0; i<myFullGeometry.size()-1; ++i) {
         const Position2D &f = myFullGeometry[i];
         const Position2D &s = myFullGeometry[i+1];
         myShapeLengths.push_back(GeomHelper::distance(f, s));
@@ -221,7 +221,7 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL(SUMOReal /*scale*/, SUMOReal upscale)
         glScaled(upscale, upscale, upscale);
         GLHelper::drawBoxLines(myFullGeometry, myShapeRotations, myShapeLengths, myWidth);
     } else {
-        for (size_t i=0; i<myFullGeometry.size()-1; i++) {
+        for (size_t i=0; i<myFullGeometry.size()-1; ++i) {
             GLHelper::drawLine(myFullGeometry[i],
                                myShapeRotations[i], myShapeLengths[i]);
         }

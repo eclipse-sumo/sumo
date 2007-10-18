@@ -321,7 +321,7 @@ MSDevice_CPhone::SetProvidedCells(const vector<MSDevice_CPhone::CPhoneBroadcastC
     if (m_State == 0 || m_State == STATE_OFF)
         return 1;
     else {
-        for (int i=0;i<7;i++) {
+        for (int i=0;i<7;++i) {
             m_ProvidedCells[i].m_CellID = ActualCells[i].m_CellID;
             m_ProvidedCells[i].m_LoS = ActualCells[i].m_LoS;
         }

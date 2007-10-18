@@ -1155,10 +1155,10 @@ GUIApplicationWindow::closeAllWindows()
     myLCDLabel->setText("-----------");
     // remove trackers and other external windows
     size_t i;
-    for (i=0; i<mySubWindows.size(); i++) {
+    for (i=0; i<mySubWindows.size(); ++i) {
         mySubWindows[i]->destroy();
     }
-    for (i=0; i<myTrackerWindows.size(); i++) {
+    for (i=0; i<myTrackerWindows.size(); ++i) {
         myTrackerWindows[i]->destroy();
     }
     // delete the simulation
@@ -1230,7 +1230,7 @@ GUIApplicationWindow::onCmdCutSwell(FXObject*, FXSelector, void*)
     string text = string("Computing strategies.");
     myStatusbar->getStatusLine()->setText(text.c_str());
     myStatusbar->getStatusLine()->setNormalText(text.c_str());
-    for(int i=0; i<100; i++) {
+    for(int i=0; i<100; ++i) {
         fxsleep(3000);
         myProgressBar->setProgress(i);
     }

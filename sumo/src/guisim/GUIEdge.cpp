@@ -69,7 +69,7 @@ GUIEdge::GUIEdge(const std::string &id, size_t numericalID,
 
 GUIEdge::~GUIEdge()
 {
-    for (LaneWrapperVector::iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); i++) {
+    for (LaneWrapperVector::iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); ++i) {
         delete(*i);
     }
 }
@@ -83,7 +83,7 @@ GUIEdge::initGeometry(GUIGlObjectStorage &idStorage)
     }
     // build the lane wrapper
     LaneWrapperVector tmp;
-    for (LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); i++) {
+    for (LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); ++i) {
         tmp.push_back((*i)->buildLaneWrapper(idStorage));
     }
     myLaneGeoms.reserve(tmp.size());
@@ -122,7 +122,7 @@ GUIEdge::getNames()
 {
     std::vector<std::string> ret;
     ret.reserve(MSEdge::myDict.size());
-    for (MSEdge::DictType::iterator i=MSEdge::myDict.begin(); i!=MSEdge::myDict.end(); i++) {
+    for (MSEdge::DictType::iterator i=MSEdge::myDict.begin(); i!=MSEdge::myDict.end(); ++i) {
         ret.push_back((*i).first);
     }
     return ret;
@@ -134,7 +134,7 @@ GUIEdge::getIDs()
 {
     std::vector<size_t> ret;
     ret.reserve(MSEdge::myDict.size());
-    for (MSEdge::DictType::iterator i=MSEdge::myDict.begin();i!=MSEdge::myDict.end(); i++) {
+    for (MSEdge::DictType::iterator i=MSEdge::myDict.begin();i!=MSEdge::myDict.end(); ++i) {
         ret.push_back(static_cast<GUIEdge*>((*i).second)->getGlID());
     }
     return ret;
@@ -161,7 +161,7 @@ GUIEdge::fill(std::vector<GUIEdge*> &netsWrappers)
 {
     size_t size = MSEdge::dictSize();
     netsWrappers.reserve(size);
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); ++i) {
         netsWrappers.push_back(static_cast<GUIEdge*>((*i).second));
     }
 }

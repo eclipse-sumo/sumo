@@ -131,7 +131,7 @@ GUIGridBuilder::divideOnGrid()
 void
 GUIGridBuilder::computeEdgeCells(size_t index, GUIEdge *edge)
 {
-    for (size_t i=0; i<edge->nLanes(); i++) {
+    for (size_t i=0; i<edge->nLanes(); ++i) {
         GUILaneWrapper &lane = edge->getLaneGeometry(i);
         computeLaneCells(index, lane);
     }
@@ -206,7 +206,7 @@ void
 GUIGridBuilder::setJunction(size_t index, GUIJunctionWrapper *junction)
 {
     std::vector<size_t> cells = myGrid.getCellsContaining(junction->getBoundary());
-    for (std::vector<size_t>::iterator i=cells.begin(); i!=cells.end(); i++) {
+    for (std::vector<size_t>::iterator i=cells.begin(); i!=cells.end(); ++i) {
         myGrid.myGrid[*i].addJunction(index);
     }
 }
@@ -216,7 +216,7 @@ void
 GUIGridBuilder::setAdditional(size_t index, GUIGlObject_AbstractAdd *add)
 {
     std::vector<size_t> cells = myGrid.getCellsContaining(add->getBoundary());
-    for (std::vector<size_t>::iterator i=cells.begin(); i!=cells.end(); i++) {
+    for (std::vector<size_t>::iterator i=cells.begin(); i!=cells.end(); ++i) {
         myGrid.myGrid[*i].addAdditional(index);
     }
 }

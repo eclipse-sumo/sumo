@@ -432,7 +432,7 @@ GUIDialog_EditAddWeights::onCmdDeselect(FXObject*,FXSelector,void*)
     // remove items from list
     std::vector<size_t> chosen = gSelected.getAllSelected();
     std::vector<size_t>::iterator j = chosen.begin();
-    for(i=0; i<no; i++) {
+    for(i=0; i<no; ++i) {
         if(myList->getItem(i)->isSelected()) {
             gSelected.deselect(-1, *j);
             selected.push_back(i);

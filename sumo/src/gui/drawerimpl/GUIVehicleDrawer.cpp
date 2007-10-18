@@ -76,7 +76,7 @@ GUIVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
 {
     initStep();
     // go through edges
-    for (size_t i=0; i<maxEdges; i++) {
+    for (size_t i=0; i<maxEdges; ++i) {
         if (onWhich[i]==0) {
             continue;
         }
@@ -88,7 +88,7 @@ GUIVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
                     continue; // !!! optional
                 }
                 size_t noLanes = edge->nLanes();
-                for (size_t i=0; i<noLanes; i++) {
+                for (size_t i=0; i<noLanes; ++i) {
                     // get the lane
                     GUILaneWrapper &laneGeom = edge->getLaneGeometry(i);
                     drawLanesVehicles(laneGeom, scale, schemes, settings);

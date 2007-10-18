@@ -697,7 +697,7 @@ GUIViewTraffic::rename(GUIGlObject *o)
 
         //!!!           const std::map<PointOfInterest*, PointOfInterest*> &pv = myNet->getShapeContainer().getPOIPairCont();
         std::map<PointOfInterest*, PointOfInterest*>::const_iterator pi = pv.begin();
-        for(; pi!=pv.end(); pi++) {
+        for(; pi!=pv.end(); ++pi) {
         if((*pi).first->getID()==name){
                    (*pi).first->setID(toString(input.text()));
         }

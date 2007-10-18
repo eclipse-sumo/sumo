@@ -118,7 +118,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
         myDetector(detector)
 {
     size_t glID = idStorage.getUniqueID();
-    for (LaneDetMap::const_iterator i=detectors.begin(); i!=detectors.end(); i++) {
+    for (LaneDetMap::const_iterator i=detectors.begin(); i!=detectors.end(); ++i) {
         MSLane *l = (*i).first;
         const GUIEdge * const edge = static_cast<const GUIEdge* const>(l->getEdge());
         GUILaneWrapper &w = edge->getLaneGeometry(l);
@@ -207,7 +207,7 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::active() const
 void
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale)
 {
-    for (std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); i++) {
+    for (std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); ++i) {
         (*i)->drawGL(scale, upscale);
     }
 }
