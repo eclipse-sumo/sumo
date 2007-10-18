@@ -1,0 +1,8 @@
+# too few arms (2 given, at least 3 needed)
+arm_number_2
+
+# too few circles (0 given, at least 1 needed)
+circle_number_0
+
+# too small radius (9.9 given, at least 10 needed)
+radius_9_9

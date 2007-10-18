@@ -16,5 +16,7 @@ circle
 # omitting the center node of the spider web
 nocenter
 
-# error with too few arms
-error_arms
+
+# Tests processing of errors in input
+errors
+
