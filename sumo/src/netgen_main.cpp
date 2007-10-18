@@ -106,12 +106,6 @@ checkOptions()
         MsgHandler::getErrorInstance()->inform("No output specified.");
         return false;
     }
-    try {
-        OutputDevice::getDevice(oc.getString("output-file"));
-    } catch (IOError &) {
-        MsgHandler::getErrorInstance()->inform("The output file '" + oc.getString("output-file") + "' can not be build.");
-        return false;
-    }
     //
     return true;
 }
@@ -296,6 +290,18 @@ buildNetwork(NBNetBuilder &nb)
         }
         if (oc.isDefault("y-length")&&!oc.isDefault("length")) {
             yLength = oc.getFloat("length");
+        }
+        bool hadError = false;
+        if(xNo<1 || yNo<1) {
+            MsgHandler::getErrorInstance()->inform("The number of edges must be larger than 1 in both directions.");
+            hadError = true;
+        }
+        if(xLength<1 || yLength<1) {
+            MsgHandler::getErrorInstance()->inform("The distance between nodes must be larger than 1m in both directions.");
+            hadError = true;
+        }
+        if(hadError) {
+            throw ProcessError();
         }
         net->CreateChequerBoard(xNo, yNo, xLength, yLength);
         return net;
