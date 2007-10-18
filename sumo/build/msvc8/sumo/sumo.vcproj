@@ -82,8 +82,6 @@
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug/sumo.pdb"
-				SubSystem="1"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -181,9 +179,7 @@
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="false"
 				ProgramDatabaseFile=".\Release/sumo.pdb"
-				SubSystem="1"
 				LinkTimeCodeGeneration="1"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -282,9 +278,7 @@
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="false"
 				ProgramDatabaseFile=".\Release/sumo.pdb"
-				SubSystem="1"
 				LinkTimeCodeGeneration="1"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -382,8 +376,6 @@
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug/sumo.pdb"
-				SubSystem="1"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"

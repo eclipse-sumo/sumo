@@ -85,8 +85,6 @@
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug/guisim.pdb"
-				SubSystem="1"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -186,9 +184,7 @@
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="false"
 				ProgramDatabaseFile=".\Release/guisim.pdb"
-				SubSystem="1"
 				LinkTimeCodeGeneration="1"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -289,9 +285,7 @@
 				AdditionalLibraryDirectories=""
 				GenerateDebugInformation="false"
 				ProgramDatabaseFile=".\Release/guisim.pdb"
-				SubSystem="1"
 				LinkTimeCodeGeneration="1"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -391,8 +385,6 @@
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
 				GenerateDebugInformation="true"
 				ProgramDatabaseFile=".\Debug/guisim.pdb"
-				SubSystem="1"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
