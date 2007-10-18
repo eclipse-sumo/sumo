@@ -74,14 +74,6 @@ checkOptions()
     int no = 0;
     if (oc.getBool("spider-net")) {
         no++;
-        if (oc.getInt("arms") < 3) {
-            MsgHandler::getErrorInstance()->inform("Spider networks need at least 3 arms.");
-            return false;
-        }
-        if (oc.getInt("circles") < 1) {
-            MsgHandler::getErrorInstance()->inform("Spider networks need at least one circle.");
-            return false;
-        }
     }
     if (oc.getBool("grid-net")) {
         no++;
@@ -268,6 +260,24 @@ buildNetwork(NBNetBuilder &nb)
     OptionsCont &oc = OptionsCont::getOptions();
     // spider-net
     if (oc.getBool("spider-net")) {
+        // check values
+        bool hadError = false;
+        if (oc.getInt("arms") < 3) {
+            MsgHandler::getErrorInstance()->inform("Spider networks need at least 3 arms.");
+            hadError = true;
+        }
+        if (oc.getInt("circles") < 1) {
+            MsgHandler::getErrorInstance()->inform("Spider networks need at least one circle.");
+            hadError = true;
+        }
+        if (oc.getFloat("radius") < 10) {
+            MsgHandler::getErrorInstance()->inform("The radius of spider networks must be at least 10m.");
+            hadError = true;
+        }
+        if(hadError) {
+            throw ProcessError();
+        }
+        // build if everything's ok
         net->CreateSpiderWeb(
             oc.getInt("arms"),
             oc.getInt("circles"),
@@ -277,6 +287,7 @@ buildNetwork(NBNetBuilder &nb)
     }
     // grid-net
     if (oc.getBool("grid-net")) {
+        // get options
         int xNo = oc.getInt("x-no");
         int yNo = oc.getInt("y-no");
         SUMOReal xLength = oc.getFloat("x-length");
@@ -293,6 +304,7 @@ buildNetwork(NBNetBuilder &nb)
         if (oc.isDefault("y-length")&&!oc.isDefault("length")) {
             yLength = oc.getFloat("length");
         }
+        // check values
         bool hadError = false;
         if(xNo<2 || yNo<2) {
             MsgHandler::getErrorInstance()->inform("The number of edges must be larger than 2 in both directions.");
@@ -305,6 +317,7 @@ buildNetwork(NBNetBuilder &nb)
         if(hadError) {
             throw ProcessError();
         }
+        // build if everything's ok
         net->CreateChequerBoard(xNo, yNo, xLength, yLength);
         return net;
     }

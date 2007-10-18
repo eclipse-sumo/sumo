@@ -1,0 +1,1 @@
+--spider --circles=1 --radius=10 --arms=3 -o net.net.xml

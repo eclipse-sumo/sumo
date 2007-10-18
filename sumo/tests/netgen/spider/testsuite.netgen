@@ -16,6 +16,9 @@ circle
 # omitting the center node of the spider web
 nocenter
 
+# trying to build the minimal spider-net
+min_version
+
 
 # Tests processing of errors in input
 errors
