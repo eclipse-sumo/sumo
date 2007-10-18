@@ -144,7 +144,7 @@ private:
             //  the whole exhaustive search, but may start to search
             //  after the last elements found
             PhaseIndexVector::const_iterator v2curr = v2.begin();
-            for (PhaseIndexVector::const_iterator i=v1.begin(); i!=v1.end(); i++) {
+            for (PhaseIndexVector::const_iterator i=v1.begin(); i!=v1.end(); ++i) {
                 v2curr = std::find(v2curr, v2.end(), *i);
                 if (v2curr==v2.end()) {
                     return false;

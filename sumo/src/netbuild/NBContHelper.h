@@ -378,7 +378,7 @@ public:
             SUMOReal min = 360;
             SUMOReal max = 360;
             const EdgeVector &ev = e->getConnected();
-            for (EdgeVector::const_iterator i=ev.begin(); i!=ev.end(); i++) {
+            for (EdgeVector::const_iterator i=ev.begin(); i!=ev.end(); ++i) {
                 SUMOReal angle = NBHelpers::normRelAngle(
                                      e->getAngle(), (*i)->getAngle());
                 if (min==360||min>angle) {
