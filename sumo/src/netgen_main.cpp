@@ -83,7 +83,9 @@ checkOptions()
             return false;
         }
     }
-    if (oc.getBool("grid-net")) no++;
+    if (oc.getBool("grid-net")) {
+        no++;
+    }
     if (oc.getBool("random-net")) no++;
     if (no==0) {
         MsgHandler::getErrorInstance()->inform("You have to specify the type of network to generate.");
@@ -292,12 +294,12 @@ buildNetwork(NBNetBuilder &nb)
             yLength = oc.getFloat("length");
         }
         bool hadError = false;
-        if(xNo<1 || yNo<1) {
-            MsgHandler::getErrorInstance()->inform("The number of edges must be larger than 1 in both directions.");
+        if(xNo<2 || yNo<2) {
+            MsgHandler::getErrorInstance()->inform("The number of edges must be larger than 2 in both directions.");
             hadError = true;
         }
-        if(xLength<1 || yLength<1) {
-            MsgHandler::getErrorInstance()->inform("The distance between nodes must be larger than 1m in both directions.");
+        if(xLength<10. || yLength<10.) {
+            MsgHandler::getErrorInstance()->inform("The distance between nodes must be at least 10m in both directions.");
             hadError = true;
         }
         if(hadError) {

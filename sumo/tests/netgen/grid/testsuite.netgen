@@ -11,4 +11,11 @@ user_example1_v
 user_example2_v
 
 
+# testing what happens when the nodes are 10m away from each other
+user_example1_10m
+
+# testing what happens when only two nodes are built in each direction
+user_example1_2nodes
+
+
 
