@@ -107,7 +107,7 @@ MSEmitControl::emitVehicles(SUMOTime time)
         // let the MSVehicleContainer clear the vehicles
         myAllVeh.pop();
     }
-    for (MSVehicleContainer::VehicleVector::iterator i=myNewPeriodicalAdds.begin(); i!=myNewPeriodicalAdds.end(); i++) {
+    for (MSVehicleContainer::VehicleVector::iterator i=myNewPeriodicalAdds.begin(); i!=myNewPeriodicalAdds.end(); ++i) {
         add(*i);
     }
     myNewPeriodicalAdds.clear();

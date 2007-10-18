@@ -99,7 +99,7 @@ MSInternalJunction::postloadInit()
     #ifdef HAVE_INTERNAL_LANES
     // set information for the internal lanes
     requestPos = 0;
-    for(i=myInternalLanes.begin(); i!=myInternalLanes.end(); i++) {
+    for(i=myInternalLanes.begin(); i!=myInternalLanes.end(); ++i) {
         // ... set information about participation
         static_cast<MSInternalLane*>(*i)->setParentJunctionInformation(
             &myInnerState, requestPos++);

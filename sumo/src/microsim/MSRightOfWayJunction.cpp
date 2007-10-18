@@ -102,7 +102,7 @@ MSRightOfWayJunction::postloadInit()
     size_t requestPos = 0;
     LaneCont::iterator i;
     // going through the incoming lanes...
-    for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); i++) {
+    for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
         const MSLinkCont &links = (*i)->getLinkCont();
         // ... set information for every link
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
@@ -114,7 +114,7 @@ MSRightOfWayJunction::postloadInit()
 #ifdef HAVE_INTERNAL_LANES
     // set information for the internal lanes
     requestPos = 0;
-    for (i=myInternalLanes.begin(); i!=myInternalLanes.end(); i++) {
+    for (i=myInternalLanes.begin(); i!=myInternalLanes.end(); ++i) {
         // ... set information about participation
         static_cast<MSInternalLane*>(*i)->setParentJunctionInformation(
             &myInnerState, requestPos++);

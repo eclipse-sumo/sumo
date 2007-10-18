@@ -54,7 +54,7 @@ MSRouteLoaderControl::MSRouteLoaderControl(MSNet &,
     myLastLoadTime = -1 * (int) myInAdvanceStepNo;
     // initialize all used loaders
     for (LoaderVector::iterator i=myRouteLoaders.begin();
-            i!=myRouteLoaders.end(); i++) {
+            i!=myRouteLoaders.end(); ++i) {
         (*i)->init();
     }
 }
@@ -63,7 +63,7 @@ MSRouteLoaderControl::MSRouteLoaderControl(MSNet &,
 MSRouteLoaderControl::~MSRouteLoaderControl()
 {
     for (LoaderVector::iterator i=myRouteLoaders.begin();
-            i!=myRouteLoaders.end(); i++) {
+            i!=myRouteLoaders.end(); ++i) {
         delete(*i);
     }
 }
@@ -86,7 +86,7 @@ MSRouteLoaderControl::loadNext(SUMOTime step)
             run++) {
         furtherAvailable = false;
         for (LoaderVector::iterator i=myRouteLoaders.begin();
-                i!=myRouteLoaders.end(); i++) {
+                i!=myRouteLoaders.end(); ++i) {
             if ((*i)->moreAvailable()) {
                 (*i)->loadUntil(run, myVehCont);
             }

@@ -109,7 +109,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time)
                 desc.myProceedTime = time + (SUMOTime)(tmp->length() / tmp->maxSpeed()
                                                        * 2.0); // !!! maybe, the time should be compued in other ways
             }
-            i++;
+            ++i;
         }
 
     }

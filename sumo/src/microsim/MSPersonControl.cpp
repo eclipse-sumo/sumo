@@ -52,7 +52,7 @@ MSPersonControl::SameDepartureTimeCont::SameDepartureTimeCont(SUMOTime time)
 
 MSPersonControl::SameDepartureTimeCont::~SameDepartureTimeCont()
 {
-    for (PersonVector::iterator i=m_pPersons.begin(); i!=m_pPersons.end(); i++) {
+    for (PersonVector::iterator i=m_pPersons.begin(); i!=m_pPersons.end(); ++i) {
         delete(*i);
     }
 }

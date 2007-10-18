@@ -86,11 +86,11 @@ void
 MSCell::setEdgesNeighbors(void)
 {
     // all Edges in this Cell
-    for (std::vector<MSEdge*>::iterator i=myEdgesCont.begin(); i!=myEdgesCont.end(); i++) {
+    for (std::vector<MSEdge*>::iterator i=myEdgesCont.begin(); i!=myEdgesCont.end(); ++i) {
         // all others Cells
         int anzahl = -1; // sich selbst rausnehmen
         std::string neighbor;
-        for (std::vector<MSCell*>::iterator j=myNeighbors.begin(); j!=myNeighbors.end(); j++) {
+        for (std::vector<MSCell*>::iterator j=myNeighbors.begin(); j!=myNeighbors.end(); ++j) {
             // all Edges in others Cells
             for (std::vector<MSEdge*>::iterator k=((*j)->myEdgesCont).begin(); k!=((*j)->myEdgesCont).end(); k++) {
                 (*i)->addNeighborEdge(*k);

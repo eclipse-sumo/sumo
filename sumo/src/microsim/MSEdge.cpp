@@ -293,7 +293,7 @@ MSEdge::dictSize()
 void
 MSEdge::clear()
 {
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); ++i) {
         delete(*i).second;
     }
     myDict.clear();
@@ -374,7 +374,7 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const
         int ir = 0;
         unsigned int noCars = (unsigned int)(*getLanes())[0]->length();
         {
-            for (LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); i++, ir++) {
+            for (LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); ++i, ++ir) {
                 if ((*i)->getVehicleNumber()<noCars) {
                     minI = ir;
                     noCars = (*i)->getVehicleNumber();
@@ -385,7 +385,7 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const
             return true;
         } else {
             ir = 0;
-            for (LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); i++, ir++) {
+            for (LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); ++i, ++ir) {
                 if (ir!=minI&&(*i)->emit(v)) {
                     return true;
                 }
@@ -422,10 +422,10 @@ const MSEdge *
 MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const
 {
     //@ to be optimized
-    for (LaneCont::const_iterator i=myLanes->begin(); i!=myLanes->end(); i++) {
+    for (LaneCont::const_iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
         MSLane *l = *i;
         const MSLinkCont &lc = l->getLinkCont();
-        for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); j++) {
+        for (MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
             MSLink *link = *j;
             if (link->getLane()->getEdge()==followerAfterInternal) {
                 return link->getViaLane()->getEdge();

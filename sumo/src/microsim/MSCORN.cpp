@@ -66,7 +66,7 @@ void
 MSCORN::init()
 {
     // TrafficOnline output files & settings
-    for (int i=0; i<CORN_MAX; i++) {
+    for (int i=0; i<CORN_MAX; ++i) {
         myWished[i] = false;
         myFirstCall[i] = true;
     }

@@ -62,7 +62,7 @@ MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane)
     // for lanes with no neighbors
     size_t pos = 0;
     EdgeCont::iterator i;
-    for (i=singleLane->begin(); i!=singleLane->end(); i++) {
+    for (i=singleLane->begin(); i!=singleLane->end(); ++i) {
         const MSEdge::LaneCont * const lanes = (*i)->getLanes();
         myLanes[pos].lane = *(lanes->begin());
         myLanes[pos].noVehicles = 0;
@@ -72,7 +72,7 @@ MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane)
         pos++;
     }
     // for lanes with neighbors
-    for (i=multiLane->begin(); i!=multiLane->end(); i++) {
+    for (i=multiLane->begin(); i!=multiLane->end(); ++i) {
         const MSEdge::LaneCont * const lanes = (*i)->getLanes();
         for (MSEdge::LaneCont::const_iterator j=lanes->begin(); j!=lanes->end(); j++) {
             myLanes[pos].lane = *j;
@@ -102,11 +102,11 @@ MSEdgeControl::moveNonCritical()
 {
     LaneUsageVector::iterator i;
     // reset the approaching vehicle distance, first
-    for (i=myLanes.begin(); i!=myLanes.end(); i++) {
+    for (i=myLanes.begin(); i!=myLanes.end(); ++i) {
         (*i).lane->resetApproacherDistance();
     }
     // move non-critical vehicles
-    for (i=myLanes.begin(); i!=myLanes.end(); i++) {
+    for (i=myLanes.begin(); i!=myLanes.end(); ++i) {
         if ((*i).noVehicles!=0) {
             (*i).lane->moveNonCritical();
         }
@@ -117,9 +117,9 @@ MSEdgeControl::moveNonCritical()
 void
 MSEdgeControl::moveCritical()
 {
-    for (LaneUsageVector::iterator i=myLanes.begin(); i!=myLanes.end(); i++) {
+    for (LaneUsageVector::iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
         if ((*i).noVehicles!=0) {
-            (*i).lane->moveCritical(/*(*i).firstNeigh, (*i).lastNeigh*/);
+            (*i).lane->moveCritical();
         }
     }
 }
@@ -129,12 +129,12 @@ void
 MSEdgeControl::moveFirst()
 {
     LaneUsageVector::iterator i;
-    for (i=myLanes.begin(); i!=myLanes.end(); i++) {
+    for (i=myLanes.begin(); i!=myLanes.end(); ++i) {
         if ((*i).noVehicles!=0) {
             (*i).lane->setCritical();
         }
     }
-    for (i=myLanes.begin(); i!=myLanes.end(); i++) {
+    for (i=myLanes.begin(); i!=myLanes.end(); ++i) {
         (*i).lane->integrateNewVehicle();
     }
 }
@@ -168,7 +168,7 @@ void
 MSEdgeControl::insertMeanData(unsigned int number)
 {
     LaneUsageVector::iterator i;
-    for (i=myLanes.begin(); i!=myLanes.end(); i++) {
+    for (i=myLanes.begin(); i!=myLanes.end(); ++i) {
         (*i).lane->insertMeanData(number);
     }
 }

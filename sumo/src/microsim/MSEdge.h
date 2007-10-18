@@ -192,8 +192,8 @@ public:
     {
         AllowedLanesCont::const_iterator i = myAllowed->begin();
         while (num!=0) {
-            i++;
-            num--;
+            ++i;
+            --num;
         }
         return (*i).first;
     }

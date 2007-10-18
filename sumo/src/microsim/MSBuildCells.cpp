@@ -70,7 +70,7 @@ MSBuildCells::MSBuildCells(MSNet &net, Boundary boundary)
 MSBuildCells::~MSBuildCells()
 {
     size_t size = myXsize*myYsize;
-    for (size_t i=0; i<size; i++) {
+    for (size_t i=0; i<size; ++i) {
         delete myCellsCont[i];
     }
 }
@@ -100,7 +100,7 @@ MSBuildCells::build()
 void
 MSBuildCells::createCells(size_t size)
 {
-    for (size_t i=0; i<size; i++) {
+    for (size_t i=0; i<size; ++i) {
         MSCell *cell = new MSCell(myXcellsize,myXcellsize);
         myCellsCont.push_back(cell);
     }
@@ -128,7 +128,7 @@ MSBuildCells::computeEdgeCells(size_t index, MSEdge *edge)
 {
     //const MSEdge::LaneCont * const lanes = edge->getLanes();
     const std::vector<MSLane*> *lanes = edge->getLanes();
-    for (size_t i=0; i<lanes->size(); i++) {
+    for (size_t i=0; i<lanes->size(); ++i) {
         MSLane *lane = (*lanes)[i];
         computeLaneCells(index, lane->getShape(), edge);
     }
@@ -160,7 +160,7 @@ MSBuildCells::computeLaneCells(size_t /*index !!!*/, const Position2DVector &lan
     SUMOReal y22 = end.y() - offsets.second;
 
     Boundary bb1;
-    for (size_t i=0; i<lane.size(); i++) {
+    for (size_t i=0; i<lane.size(); ++i) {
         bb1.add(lane[i]);
     }
     // compute the cells the lane is going through
@@ -208,7 +208,7 @@ MSBuildCells::computeLaneCells(size_t /*index !!!*/, const Position2DVector &lan
 
 void MSBuildCells::setCellsNeighbors(void)
 {
-    for (size_t i=0; i < myCellsCont.size(); i++) {
+    for (size_t i=0; i < myCellsCont.size(); ++i) {
         myCellsCont[i]->setCellNeighbors(getNeighbors(i));
         myCellsCont[i]->setEdgesNeighbors();
     }

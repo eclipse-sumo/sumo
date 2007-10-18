@@ -126,7 +126,7 @@ MSRoute::dictionary(const string &id)
 void
 MSRoute::clear()
 {
-    for (RouteDict::iterator i=myDict.begin(); i!=myDict.end(); i++) {
+    for (RouteDict::iterator i=myDict.begin(); i!=myDict.end(); ++i) {
         delete(*i).second;
     }
     myDict.clear();

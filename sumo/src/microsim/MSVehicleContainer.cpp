@@ -116,7 +116,7 @@ MSVehicleContainer::moveFrom(MSVehicleContainer &cont)
         return;
     }
     for (VehicleHeap::iterator i=cont.array.begin()+1;
-            i!=cont.array.begin()+cont.currentSize+1; i++) {
+            i!=cont.array.begin()+cont.currentSize+1; ++i) {
         VehicleDepartureVector &v = (*i);
         add(v.first, v.second);
         v.second.clear();
@@ -255,7 +255,7 @@ MSVehicleContainer::size() const
 void
 MSVehicleContainer::showArray() const
 {
-    for (VehicleHeap::const_iterator i=array.begin()+1; i!=array.begin()+currentSize+1; i++) {
+    for (VehicleHeap::const_iterator i=array.begin()+1; i!=array.begin()+currentSize+1; ++i) {
         if (i!=array.begin()+1) {
             cout << ", ";
         }
@@ -270,7 +270,7 @@ std::ostream &operator << (std::ostream &strm, MSVehicleContainer &cont)
     strm << "------------------------------------" << std::endl;
     while (!cont.isEmpty()) {
         const MSVehicleContainer::VehicleVector &v = cont.top();
-        for (MSVehicleContainer::VehicleVector::const_iterator i=v.begin(); i!=v.end(); i++) {
+        for (MSVehicleContainer::VehicleVector::const_iterator i=v.begin(); i!=v.end(); ++i) {
             strm << (*i)->desiredDepart() << std::endl;
         }
         cont.pop();

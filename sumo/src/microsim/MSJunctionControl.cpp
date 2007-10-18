@@ -76,7 +76,7 @@ void
 MSJunctionControl::postloadInitContainer()
 {
     const vector<MSJunction*> &junctions = buildAndGetStaticVector();
-    for (vector<MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); i++) {
+    for (vector<MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); ++i) {
         (*i)->postloadInit();
     }
 }
