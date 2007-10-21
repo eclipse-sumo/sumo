@@ -207,6 +207,9 @@ SUMOFrame::fillOptions()
     oc.doRegister("no-step-log", new Option_Bool(false));
     oc.addDescription("no-step-log", "Processing", "Disable console output of current simulation step");
 
+    oc.doRegister("max-depart-delay", new Option_Integer(-1));
+    oc.addDescription("max-depart-delay", "Processing", "How long vehicles wait for departure before being skipped");
+
 
     // devices
     // c2x

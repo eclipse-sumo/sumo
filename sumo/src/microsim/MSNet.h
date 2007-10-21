@@ -97,8 +97,7 @@ public:
      */
     static MSNet* getInstance(void);
 
-    MSNet(SUMOTime startTimestep, MSVehicleControl *vc,
-          SUMOReal tooSlowRTF, bool logExecTime, bool logStep);
+    MSNet(MSVehicleControl *vc);
 
 
     /// Destructor.

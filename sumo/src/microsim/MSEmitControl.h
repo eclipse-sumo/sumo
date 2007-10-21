@@ -59,7 +59,7 @@ class MSEmitControl
 public:
     /** Use this constructor only. It will sort the vehicles by their
         departure time. */
-    MSEmitControl(MSVehicleControl &vc);
+    MSEmitControl(MSVehicleControl &vc, SUMOTime maxDepartDelay);
 
     /// Destructor.
     ~MSEmitControl();
@@ -105,6 +105,8 @@ private:
     MSVehicleContainer::VehicleVector myRefusedEmits2;
 
     MSVehicleContainer::VehicleVector myNewPeriodicalAdds;
+
+    SUMOTime myMaxDepartDelay;
 
 private:
     /// Default constructor.

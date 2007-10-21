@@ -70,6 +70,7 @@
 #include "output/MSXMLRawOut.h"
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/SysUtils.h>
+#include <utils/options/OptionsCont.h>
 #include "trigger/MSTriggerControl.h"
 #include "MSGlobals.h"
 #include "MSDebugHelper.h"
@@ -117,15 +118,16 @@ MSNet::getInstance(void)
 }
 
 
-MSNet::MSNet(SUMOTime startTimeStep, MSVehicleControl *vc,
-             SUMOReal tooSlowRTF, bool logExecTime, bool logStep)
-        : myLogExecutionTime(logExecTime), myLogStepNumber(logStep),
-          myTooSlowRTF(tooSlowRTF)
+MSNet::MSNet(MSVehicleControl *vc)
 {
     MSCORN::init();
     MSVehicleTransfer::setInstance(new MSVehicleTransfer());
-    myStep = startTimeStep;
-    myEmitter = new MSEmitControl(*vc);
+    OptionsCont &oc = OptionsCont::getOptions();
+    myStep = oc.getInt("begin");
+    myLogExecutionTime = !oc.getBool("no-duration-log");
+    myLogStepNumber = !oc.getBool("no-step-log");
+    myTooSlowRTF = oc.getFloat("too-slow-rtf");
+    myEmitter = new MSEmitControl(*vc, oc.getInt("max-depart-delay"));
     myVehicleControl = vc;
     myDetectorControl = new MSDetectorControl();
     myEdges = 0;

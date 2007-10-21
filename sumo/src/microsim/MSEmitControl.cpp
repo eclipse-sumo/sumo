@@ -49,8 +49,8 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSEmitControl::MSEmitControl(MSVehicleControl &vc)
-        : myVehicleControl(vc)
+MSEmitControl::MSEmitControl(MSVehicleControl &vc, SUMOTime maxDepartDelay)
+        : myVehicleControl(vc), myMaxDepartDelay(maxDepartDelay)
 {}
 
 
@@ -119,18 +119,10 @@ size_t
 MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
                        MSVehicleContainer::VehicleVector &refusedEmits)
 {
-    size_t noEmitted = 0;
-    // check whether the edge was used already and failed
-    //  (speedup function only)
+    assert(veh->desiredDepart() <= time);
     const MSEdge &edge = veh->departEdge();
-    if (edge.getLastFailedEmissionTime()==time) {
-        refusedEmits.push_back(veh);
-        return noEmitted;
-    }
-    // try to emit the vehicle
-    if (veh->departEdge().emit(*veh, time)) {
+    if (edge.getLastFailedEmissionTime()!=time && edge.emit(*veh, time)) {
         // Successful emission.
-        noEmitted++;
         veh->onDepart();
         // Check whether another vehicle shall be
         //  emitted with the same parameter
@@ -141,12 +133,15 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
                 myVehicleControl.addVehicle(nextPeriodical->getID(), nextPeriodical);
             }
         }
-    } else {
-        // Emission not successful, retry in the next step
-        refusedEmits.push_back(veh);
-        edge.setLastFailedEmissionTime(time);
+        return 1;
     }
-    return noEmitted;
+    if (myMaxDepartDelay == -1 || time - veh->desiredDepart() <= myMaxDepartDelay) {
+        refusedEmits.push_back(veh);
+    } else {
+        myVehicleControl.deleteVehicle(veh);
+    }
+    edge.setLastFailedEmissionTime(time);
+    return 0;
 }
 
 

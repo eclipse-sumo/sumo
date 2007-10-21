@@ -82,8 +82,7 @@ class MSVehicleControl;
 class GUINet : public MSNet
 {
 public:
-    GUINet(SUMOTime startTimestep, MSVehicleControl *vc,
-           SUMOReal tooSlowRTF, bool logExecTime, bool logStep);
+    GUINet(MSVehicleControl *vc);
 
     /// destructor
     ~GUINet();

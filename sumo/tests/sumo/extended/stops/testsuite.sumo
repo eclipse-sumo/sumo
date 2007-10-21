@@ -1,0 +1,5 @@
+# Tests whether stops can be handled
+simple_stop
+
+# Tests whether max-depart-delay can be handled
+max_delay

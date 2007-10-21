@@ -87,10 +87,7 @@ MSNet *
 load(OptionsCont &oc)
 {
     SUMOFrame::setMSGlobals(oc);
-    MSNet *net =
-        new MSNet(oc.getInt("begin"), new MSVehicleControl(),
-                  oc.getFloat("too-slow-rtf"), !oc.getBool("no-duration-log"),
-                  !oc.getBool("no-step-log"));
+    MSNet *net = new MSNet(new MSVehicleControl());
     NLEdgeControlBuilder eb;
     NLJunctionControlBuilder jb(*net, oc);
     NLDetectorBuilder db(*net);

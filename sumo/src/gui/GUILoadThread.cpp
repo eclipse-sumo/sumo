@@ -124,9 +124,7 @@ GUILoadThread::run()
     // try to load
     OptionsCont &oc = OptionsCont::getOptions();
     SUMOFrame::setMSGlobals(oc);
-    net =
-        new GUINet(oc.getInt("begin"), buildVehicleControl(),
-                   oc.getFloat("too-slow-rtf"), !oc.getBool("no-duration-log"), !oc.getBool("no-step-log"));
+    net = new GUINet(buildVehicleControl());
     GUIEdgeControlBuilder *eb = buildEdgeBuilder();
     GUIJunctionControlBuilder jb(*net, oc);
     GUIDetectorBuilder db(*net);
