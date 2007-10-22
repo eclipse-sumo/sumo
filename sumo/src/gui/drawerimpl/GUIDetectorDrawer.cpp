@@ -72,7 +72,7 @@ GUIDetectorDrawer::drawGLDetectors(size_t *which,
 {
     SUMOReal upscale = settings.addExaggeration;
     initStep();
-    for (size_t i=0; i<maxDetectors; i++) {
+    for (size_t i=0; i<maxDetectors; ++i) {
         if (which[i]==0) {
             continue;
         }

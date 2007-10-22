@@ -73,7 +73,7 @@ GUIJunctionDrawer::drawGLJunctions(size_t *which, size_t maxJunctions,
 {
     glLineWidth(1);
     // go through edges
-    for (size_t i=0; i<maxJunctions; i++) {
+    for (size_t i=0; i<maxJunctions; ++i) {
         if (which[i]==0) {
             continue;
         }
@@ -102,7 +102,7 @@ GUIJunctionDrawer::drawGLJunctionNames(
 {
     glLineWidth(1);
     // go through edges
-    for (size_t i=0; i<maxJunctions; i++) {
+    for (size_t i=0; i<maxJunctions; ++i) {
         if (which[i]==0) {
             continue;
         }
