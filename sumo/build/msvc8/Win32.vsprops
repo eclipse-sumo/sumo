@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioPropertySheet
+	ProjectType="Visual C++"
+	Version="8.00"
+	Name="Win32"
+	OutputDirectory="$(ConfigurationName)"
+	IntermediateDirectory="$(ConfigurationName)"
+	>
+	<Tool
+		Name="VCCLCompilerTool"
+		AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(FOX14)\include,$(XERCES)\include,..\..\..\src"
+	/>
+</VisualStudioPropertySheet>

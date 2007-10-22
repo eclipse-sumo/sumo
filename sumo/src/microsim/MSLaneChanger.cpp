@@ -702,7 +702,7 @@ MSLaneChanger::findTarget()
         }
         if (candiOnAllowed(ce)) {
 
-            unsigned int dist = abs(distance(myCandi, ce));
+            unsigned int dist = abs((int)distance(myCandi, ce));
             assert(dist > 0);
             assert(dist < myChanger.size());
             if (dist < minDist) {
