@@ -376,7 +376,7 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
                     if (vehNumber!=0) {
                         into.add(vehNumber, begin, end, *si, *di, vehType);
                     }
-                    di++;
+                    ++di;
                 }
             } catch (NumberFormatException &) {
                 throw ProcessError("Not numeric vehicle number in line '" + line + "'.");

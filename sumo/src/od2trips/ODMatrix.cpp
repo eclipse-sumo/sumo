@@ -116,7 +116,7 @@ ODMatrix::computeEmissions(ODCell *cell,
     }
 
     SUMOReal offset = (SUMOReal) (cell->end - cell->begin) / (SUMOReal) vehicles2emit / (SUMOReal) 2.;
-    for (int i=0; i<vehicles2emit; i++) {
+    for (int i=0; i<vehicles2emit; ++i) {
         ODVehicle veh;
         veh.id = prefix + toString(vehName++);
 
@@ -227,7 +227,7 @@ ODMatrix::getNoDiscarded() const throw()
 void
 ODMatrix::applyCurve(const Distribution_Points &ps, ODCell *cell, CellVector &newCells) throw()
 {
-    for (size_t i=0; i<ps.getAreaNo(); i++) {
+    for (size_t i=0; i<ps.getAreaNo(); ++i) {
         ODCell *ncell = new ODCell();
         ncell->begin = (SUMOTime) ps.getAreaBegin(i);
         ncell->end = (SUMOTime) ps.getAreaEnd(i);
