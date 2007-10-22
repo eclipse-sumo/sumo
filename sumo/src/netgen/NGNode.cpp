@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    NGNetElements.cpp
+/// @file    NGNode.cpp
 /// @author  Markus Hartinger
 /// @date    Mar, 2003
-/// @version $Id$
+/// @version $Id: NGNetElements.cpp 4389 2007-08-28 10:21:00Z behrisch $
 ///
-// netgen-representations of a network's nodes and edges
+// A netgen-representation of a node
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -41,7 +41,7 @@
 #include <utils/geom/GeoConvHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
-#include "NGNetElements.h"
+#include "NGNode.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -57,33 +57,29 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-// ---------------------------------------------------------------------------
-// TNode-definitions
-// ---------------------------------------------------------------------------
-TNode::TNode()
+NGNode::NGNode() throw()
         : xID(-1), yID(-1), myID(""), myAmCenter(false)
 {}
 
 
-TNode::TNode(const std::string &id)
+NGNode::NGNode(const std::string &id) throw()
         : xID(-1), yID(-1), myID(id), myAmCenter(false)
 {}
 
 
-TNode::TNode(const std::string &id, int xIDa, int yIDa)
+NGNode::NGNode(const std::string &id, int xIDa, int yIDa) throw()
         : xID(xIDa), yID(yIDa), myID(id), myAmCenter(false)
 {}
 
 
-TNode::TNode(const std::string &id, int xIDa, int yIDa, bool amCenter)
+NGNode::NGNode(const std::string &id, int xIDa, int yIDa, bool amCenter) throw()
         : xID(xIDa), yID(yIDa), myID(id), myAmCenter(amCenter)
 {}
 
 
-// destructor TNode
-TNode::~TNode()
+NGNode::~NGNode() throw()
 {
-    TLinkList::iterator li;
+    NGEdgeList::iterator li;
     while (LinkList.size() != 0) {
         li = LinkList.begin();
         delete(*li);
@@ -91,34 +87,16 @@ TNode::~TNode()
 }
 
 
-// Remove Link
-void
-TNode::RemoveLink(TLink *Link)
-{
-    TLinkList::iterator li;
-    li = LinkList.begin();
-    while (li!= LinkList.end()) {
-        if ((*li) == Link) {
-            LinkList.erase(li);
-            return;
-        } else {
-            li++;
-        }
-    }
-}
-
-
 NBNode *
-TNode::buildNBNode(NBNetBuilder &nb) const
+NGNode::buildNBNode(NBNetBuilder &nb) const throw(ProcessError)
 {
-    // the center will have no logic!
-    if (myAmCenter) {
-        return new NBNode(myID, myPosition,
-                          NBNode::NODETYPE_NOJUNCTION);
-    }
-    //
     Position2D pos(myPosition);
     GeoConvHelper::x2cartesian(pos);
+    // the center will have no logic!
+    if (myAmCenter) {
+        return new NBNode(myID, pos, NBNode::NODETYPE_NOJUNCTION);
+    }
+    //
     NBNode *node = new NBNode(myID, pos);
     // check whether it is a traffic light junction
     string nodeType = OptionsCont::getOptions().getString("default-junction-type");
@@ -140,73 +118,28 @@ TNode::buildNBNode(NBNetBuilder &nb) const
 
 
 void
-TNode::addLink(TLink *link)
+NGNode::addLink(NGEdge *link) throw()
 {
     LinkList.push_back(link);
 }
 
 
 void
-TNode::removeLink(TLink *link)
+NGNode::removeLink(NGEdge *link) throw()
 {
     LinkList.remove(link);
 }
 
 
 bool
-TNode::connected(TNode *node) const
+NGNode::connected(NGNode *node) const throw()
 {
-    for (TLinkList::const_iterator i=LinkList.begin(); i!=LinkList.end(); i++) {
+    for (NGEdgeList::const_iterator i=LinkList.begin(); i!=LinkList.end(); i++) {
         if (find(node->LinkList.begin(), node->LinkList.end(), *i)!=node->LinkList.end()) {
             return true;
         }
     }
     return false;
-}
-
-
-// ---------------------------------------------------------------------------
-// TLink-definitions
-// ---------------------------------------------------------------------------
-TLink::TLink()
-        : myID()
-{}
-
-
-TLink::TLink(const std::string &id)
-        : myID(id)
-{}
-
-
-TLink::TLink(const std::string &id, TNode *StartNode, TNode *EndNode)
-        : myID(id), myStartNode(StartNode), myEndNode(EndNode)
-{
-    myStartNode->addLink(this);
-    myEndNode->addLink(this);
-}
-
-
-// destructor TLink
-TLink::~TLink()
-{
-    myStartNode->removeLink(this);
-    myEndNode->removeLink(this);
-}
-
-
-NBEdge *
-TLink::buildNBEdge(NBNetBuilder &nb) const
-{
-    return new NBEdge(
-               myID, // id
-               myID, // name
-               nb.getNodeCont().retrieve(myStartNode->GetID()), // from
-               nb.getNodeCont().retrieve(myEndNode->GetID()), // to
-               "netgen-default", // type
-               nb.getTypeCont().getDefaultSpeed(),
-               nb.getTypeCont().getDefaultNoLanes(),
-               nb.getTypeCont().getDefaultPriority()
-           );
 }
 
 

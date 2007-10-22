@@ -172,6 +172,10 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
+				RelativePath="..\..\..\src\netgen\NGEdge.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netgen\NGNet.cpp"
 				>
 				<FileConfiguration
@@ -197,54 +201,12 @@
 				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netgen\NGNetElements.cpp"
+				RelativePath="..\..\..\src\netgen\NGNode.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-					/>
-				</FileConfiguration>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netgen\NGRandomNet.cpp"
+				RelativePath="..\..\..\src\netgen\NGRandomNetBuilder.cpp"
 				>
-				<FileConfiguration
-					Name="Release|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="2"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-					/>
-				</FileConfiguration>
-				<FileConfiguration
-					Name="Debug|Win32"
-					>
-					<Tool
-						Name="VCCLCompilerTool"
-						Optimization="0"
-						AdditionalIncludeDirectories=""
-						PreprocessorDefinitions=""
-						BasicRuntimeChecks="3"
-					/>
-				</FileConfiguration>
 			</File>
 		</Filter>
 		<Filter
@@ -252,15 +214,19 @@
 			Filter="h;hpp;hxx;hm;inl"
 			>
 			<File
+				RelativePath="..\..\..\src\netgen\NGEdge.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netgen\NGNet.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netgen\NGNetElements.h"
+				RelativePath="..\..\..\src\netgen\NGNode.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netgen\NGRandomNet.h"
+				RelativePath="..\..\..\src\netgen\NGRandomNetBuilder.h"
 				>
 			</File>
 		</Filter>

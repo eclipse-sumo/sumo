@@ -38,7 +38,7 @@
 #include <ctime>
 #include <netbuild/NBNetBuilder.h>
 #include <netgen/NGNet.h>
-#include <netgen/NGRandomNet.h>
+#include <netgen/NGRandomNetBuilder.h>
 #include <netbuild/NBTypeCont.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/OptionsIO.h>
@@ -253,10 +253,10 @@ fillOptions()
 }
 
 
-TNGNet *
+NGNet *
 buildNetwork(NBNetBuilder &nb)
 {
-    TNGNet *net = new TNGNet(nb);
+    NGNet *net = new NGNet(nb);
     OptionsCont &oc = OptionsCont::getOptions();
     // spider-net
     if (oc.getBool("spider-net")) {
@@ -278,7 +278,7 @@ buildNetwork(NBNetBuilder &nb)
             throw ProcessError();
         }
         // build if everything's ok
-        net->CreateSpiderWeb(
+        net->createSpiderWeb(
             oc.getInt("arms"),
             oc.getInt("circles"),
             oc.getFloat("radius"),
@@ -318,23 +318,25 @@ buildNetwork(NBNetBuilder &nb)
             throw ProcessError();
         }
         // build if everything's ok
-        net->CreateChequerBoard(xNo, yNo, xLength, yLength);
+        net->createChequerBoard(xNo, yNo, xLength, yLength);
         return net;
     }
     // random net
-    TNGRandomNet RandomNet(net);
-    RandomNet.SetMaxDistance(oc.getFloat("rand-max-distance"));
-    RandomNet.SetMinDistance(oc.getFloat("rand-min-distance"));
-    RandomNet.SetMinLinkAngle(oc.getFloat("min-angle"));
-    RandomNet.SetNumTries(oc.getInt("num-tries"));
-    RandomNet.SetConnectivity(oc.getFloat("connectivity"));
-    RandomNet.NeighbourDistribution.Add(1, oc.getFloat("dist1"));
-    RandomNet.NeighbourDistribution.Add(2, oc.getFloat("dist2"));
-    RandomNet.NeighbourDistribution.Add(3, oc.getFloat("dist3"));
-    RandomNet.NeighbourDistribution.Add(4, oc.getFloat("dist4"));
-    RandomNet.NeighbourDistribution.Add(5, oc.getFloat("dist5"));
-    RandomNet.NeighbourDistribution.Add(6, oc.getFloat("dist6"));
-    RandomNet.CreateNet(oc.getInt("iterations"));
+    TNeighbourDistribution neighborDist;
+    neighborDist.add(1, oc.getFloat("dist1"));
+    neighborDist.add(2, oc.getFloat("dist2"));
+    neighborDist.add(3, oc.getFloat("dist3"));
+    neighborDist.add(4, oc.getFloat("dist4"));
+    neighborDist.add(5, oc.getFloat("dist5"));
+    neighborDist.add(6, oc.getFloat("dist6"));
+    NGRandomNetBuilder randomNet(*net,
+        oc.getFloat("min-angle"),
+        oc.getFloat("rand-min-distance"),
+        oc.getFloat("rand-max-distance"),
+        oc.getFloat("connectivity"),
+        oc.getInt("num-tries"),
+        neighborDist);
+    randomNet.createNet(oc.getInt("iterations"));
     return net;
 }
 
@@ -369,7 +371,7 @@ main(int argc, char **argv)
         NBNetBuilder nb;
         nb.getTypeCont().setDefaults(oc.getInt("L"), oc.getFloat("S"), oc.getInt("P"));
         // build the netgen-network description
-        TNGNet *net = buildNetwork(nb);
+        NGNet *net = buildNetwork(nb);
         // ... and we have to do this...
         oc.resetWritable();
         // transfer to the netbuilding structures

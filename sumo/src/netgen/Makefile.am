@@ -1,4 +1,4 @@
 noinst_LIBRARIES = libnetgen.a
 
-libnetgen_a_SOURCES = NGNet.h NGNet.cpp NGNetElements.cpp NGNetElements.h \
-NGRandomNet.h NGRandomNet.cpp
+libnetgen_a_SOURCES = NGEdge.cpp NGEdge.h NGNet.h NGNet.cpp NGNode.cpp NGNode.h \
+NGRandomNetBuilder.h NGRandomNetBuilder.cpp

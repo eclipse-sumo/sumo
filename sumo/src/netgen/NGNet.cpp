@@ -55,22 +55,22 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-TNGNet::TNGNet(NBNetBuilder &nb)
+NGNet::NGNet(NBNetBuilder &nb) throw()
         : myNetBuilder(nb)
 {
     myLastID = 0;
 }
 
 
-TNGNet::~TNGNet()
+NGNet::~NGNet() throw()
 {
     {
-        for (TLinkList::iterator ni=myLinkList.begin(); ni!=myLinkList.end(); ++ni) {
+        for (NGEdgeList::iterator ni=myEdgeList.begin(); ni!=myEdgeList.end(); ++ni) {
             delete *ni;
         }
     }
     {
-        for (TNodeList::iterator ni=myNodeList.begin(); ni!=myNodeList.end(); ++ni) {
+        for (NGNodeList::iterator ni=myNodeList.begin(); ni!=myNodeList.end(); ++ni) {
             delete *ni;
         }
     }
@@ -78,46 +78,43 @@ TNGNet::~TNGNet()
 
 
 std::string
-TNGNet::GetID()
+NGNet::getNextFreeID() throw()
 {
     return toString<int>(++myLastID);
 }
 
 
-TNode*
-TNGNet::FindNode(int xID, int yID)
+NGNode*
+NGNet::findNode(int xID, int yID) throw()
 {
-    TNodeList::iterator ni = myNodeList.begin();
-    while ((((*ni)->xID != xID) || ((*ni)->yID != yID)) && (ni != myNodeList.end())) {
-        ni++;
+    for(NGNodeList::iterator ni = myNodeList.begin(); ni!= myNodeList.end(); ++ni) {
+        if((*ni)->samePos(xID, yID)) {
+            return *ni;
+        }
     }
-    if (((*ni)->xID == xID) && ((*ni)->yID == yID)) {
-        return *ni;
-    } else {
-        return 0;
-    }
+    return 0;
 }
 
 
 void
-TNGNet::CreateChequerBoard(int NumX, int NumY, SUMOReal SpaceX, SUMOReal SpaceY)
+NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY) throw()
 {
     int ix, iy;
-    TNode *Node;
-    for (ix=0; ix<NumX; ix++) {
-        for (iy=0; iy<NumY; iy++) {
+    NGNode *Node;
+    for (ix=0; ix<numX; ix++) {
+        for (iy=0; iy<numY; iy++) {
             // create Node
             string nodeID = toString<int>(ix) + "/" + toString<int>(iy);
-            Node = new TNode(nodeID, ix, iy);
-            Node->SetX(ix * SpaceX);
-            Node->SetY(iy * SpaceY);
+            Node = new NGNode(nodeID, ix, iy);
+            Node->setX(ix * spaceX);
+            Node->setY(iy * spaceY);
             myNodeList.push_back(Node);
             // create Links
             if (ix > 0) {
-                connect(Node, FindNode(ix-1, iy));
+                connect(Node, findNode(ix-1, iy));
             }
             if (iy > 0) {
-                connect(Node, FindNode(ix, iy-1));
+                connect(Node, findNode(ix, iy-1));
             }
         }
     }
@@ -125,82 +122,82 @@ TNGNet::CreateChequerBoard(int NumX, int NumY, SUMOReal SpaceX, SUMOReal SpaceY)
 
 
 SUMOReal
-TNGNet::RadialToX(SUMOReal radius, SUMOReal phi)
+NGNet::radialToX(SUMOReal radius, SUMOReal phi) throw()
 {
     return cos(phi) * radius;
 }
 
 
 SUMOReal
-TNGNet::RadialToY(SUMOReal radius, SUMOReal phi)
+NGNet::radialToY(SUMOReal radius, SUMOReal phi) throw()
 {
     return sin(phi) * radius;
 }
 
 
 void
-TNGNet::CreateSpiderWeb(int NumRadDiv, int NumCircles, SUMOReal SpaceRad, bool hasCenter)
+NGNet::createSpiderWeb(int numRadDiv, int numCircles, SUMOReal spaceRad, bool hasCenter) throw()
 {
-    if (NumRadDiv < 3) NumRadDiv = 3;
-    if (NumCircles < 1) NumCircles = 1;
+    if (numRadDiv < 3) numRadDiv = 3;
+    if (numCircles < 1) numCircles = 1;
 
     int ir, ic;
-    SUMOReal angle = (SUMOReal)(2*PI/NumRadDiv);   // angle between radial divisions
-    TNode *Node;
-    for (ir=1; ir<NumRadDiv+1; ir++) {
-        for (ic=1; ic<NumCircles+1; ic++) {
+    SUMOReal angle = (SUMOReal)(2*PI/numRadDiv);   // angle between radial divisions
+    NGNode *Node;
+    for (ir=1; ir<numRadDiv+1; ir++) {
+        for (ic=1; ic<numCircles+1; ic++) {
             // create Node
-            Node = new TNode(
+            Node = new NGNode(
                        toString<int>(ir) + "/" + toString<int>(ic), ir, ic);
-            Node->SetX(RadialToX((ic) * SpaceRad, (ir-1) * angle));
-            Node->SetY(RadialToY((ic) * SpaceRad, (ir-1) * angle));
+            Node->setX(radialToX((ic) * spaceRad, (ir-1) * angle));
+            Node->setY(radialToY((ic) * spaceRad, (ir-1) * angle));
             myNodeList.push_back(Node);
             // create Links
             if (ir > 1) {
-                connect(Node, FindNode(ir-1, ic));
+                connect(Node, findNode(ir-1, ic));
             }
             if (ic > 1) {
-                connect(Node, FindNode(ir, ic-1));
+                connect(Node, findNode(ir, ic-1));
             }
-            if (ir == NumRadDiv) {
-                connect(Node, FindNode(1, ic));
+            if (ir == numRadDiv) {
+                connect(Node, findNode(1, ic));
             }
         }
     }
     if (hasCenter) {
         // node
-        Node = new TNode(GetID(), 0, 0, true);
-        Node->SetX(0);
-        Node->SetY(0);
+        Node = new NGNode(getNextFreeID(), 0, 0, true);
+        Node->setX(0);
+        Node->setY(0);
         myNodeList.push_back(Node);
         // links
-        for (ir=1; ir<NumRadDiv+1; ir++) {
-            connect(Node, FindNode(ir, 1));
+        for (ir=1; ir<numRadDiv+1; ir++) {
+            connect(Node, findNode(ir, 1));
         }
     }
 }
 
 
 void
-TNGNet::connect(TNode *node1, TNode *node2)
+NGNet::connect(NGNode *node1, NGNode *node2) throw()
 {
-    string id1 = node1->GetID() + "to" + node2->GetID();
-    string id2 = node2->GetID() + "to" + node1->GetID();
-    TLink *link1 = new TLink(id1, node1, node2);
-    TLink *link2 = new TLink(id2, node2, node1);
-    myLinkList.push_back(link1);
-    myLinkList.push_back(link2);
+    string id1 = node1->getID() + "to" + node2->getID();
+    string id2 = node2->getID() + "to" + node1->getID();
+    NGEdge *link1 = new NGEdge(id1, node1, node2);
+    NGEdge *link2 = new NGEdge(id2, node2, node1);
+    myEdgeList.push_back(link1);
+    myEdgeList.push_back(link2);
 }
 
 
 void
-TNGNet::toNB() const
+NGNet::toNB() const throw(ProcessError)
 {
-    for (TNodeList::const_iterator i1=myNodeList.begin(); i1!=myNodeList.end(); i1++) {
+    for (NGNodeList::const_iterator i1=myNodeList.begin(); i1!=myNodeList.end(); i1++) {
         NBNode *node = (*i1)->buildNBNode(myNetBuilder);
         myNetBuilder.getNodeCont().insert(node);
     }
-    for (TLinkList::const_iterator i2=myLinkList.begin(); i2!=myLinkList.end(); i2++) {
+    for (NGEdgeList::const_iterator i2=myEdgeList.begin(); i2!=myEdgeList.end(); i2++) {
         NBEdge *edge = (*i2)->buildNBEdge(myNetBuilder);
         myNetBuilder.getEdgeCont().insert(edge);
     }
@@ -208,21 +205,21 @@ TNGNet::toNB() const
 
 
 void
-TNGNet::add(TNode *node)
+NGNet::add(NGNode *node) throw()
 {
     myNodeList.push_back(node);
 }
 
 
 void
-TNGNet::add(TLink *edge)
+NGNet::add(NGEdge *edge) throw()
 {
-    myLinkList.push_back(edge);
+    myEdgeList.push_back(edge);
 }
 
 
 size_t
-TNGNet::nodeNo() const
+NGNet::nodeNo() const throw()
 {
     return myNodeList.size();
 }
