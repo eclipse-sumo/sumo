@@ -746,9 +746,6 @@ MSNet::preSimStepOutput() const
 {
     cout << std::setprecision(OUTPUT_ACCURACY);
     cout << "Step #" << myStep;
-    if (!myLogExecutionTime) {
-        cout << (char) 13;
-    }
 }
 
 
@@ -756,6 +753,7 @@ void
 MSNet::postSimStepOutput() const
 {
     if (myLogExecutionTime) {
+        string msg;
         if (mySimStepDuration!=0) {
             ostringstream oss;
             oss.setf(std::ios::fixed , std::ios::floatfield);    // use decimal format
@@ -767,14 +765,16 @@ MSNet::postSimStepOutput() const
             << "UPS, vehicles"
             << " TOT " << myVehicleControl->getEmittedVehicleNo()
             << " ACT " << myVehicleControl->getRunningVehicleNo()
-            << ")       "
-            << (char) 13;
-            string msg = oss.str().substr(0, 79);
-            cout << msg;
+            << ")                                              ";
+            msg = oss.str();
         } else {
-            cout << " (0ms; no further information available)          \r";
+            cout << " (0ms; no further information available)                                        ";
         }
+        string prev = "Step #" + toString(myStep);
+        msg = msg.substr(0, 78 - prev.length());
+        cout << msg;
     }
+    cout << (char) 13;
 }
 
 
