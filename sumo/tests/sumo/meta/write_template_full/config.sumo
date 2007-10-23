@@ -45,6 +45,7 @@
       <default-lanechange-model>dk1</default-lanechange-model>
       <no-duration-log>false</no-duration-log>
       <no-step-log>false</no-step-log>
+      <max-depart-delay>-1</max-depart-delay>
    </processing>
 
    <tls_defaults>

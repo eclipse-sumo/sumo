@@ -115,6 +115,9 @@
       <!-- Disable console output of current simulation step -->
       <no-step-log>false</no-step-log>
 
+      <!-- How long vehicles wait for departure before being skipped -->
+      <max-depart-delay>-1</max-depart-delay>
+
    </processing>
 
    <tls_defaults>

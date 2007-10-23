@@ -78,6 +78,8 @@ Usage: sumo.exe [OPTION]*
                                          individual simulation steps
   --no-step-log                        Disable console output of current
                                          simulation step
+  --max-depart-delay INT               How long vehicles wait for departure
+                                         before being skipped
 
  TLS Defaults Options:
   --agent-tl.detector-len FLOAT        
