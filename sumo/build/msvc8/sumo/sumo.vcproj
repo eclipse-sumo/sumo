@@ -72,7 +72,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Debug/sumoD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -164,7 +164,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_64)\lib\xerces-c_2D.lib $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Debug/sumo64D.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -258,7 +258,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES)\lib\xerces-c_2.lib $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/sumo.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -351,7 +351,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_64)\lib\xerces-c_2.lib $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/sumo64.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -445,7 +445,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES)\lib\xerces-c_2.lib $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/meso.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -539,7 +539,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_64)\lib\xerces-c_2.lib $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/meso64.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -631,7 +631,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Debug/mesoD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -724,7 +724,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_64)\lib\xerces-c_2D.lib $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Debug/meso64D.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"

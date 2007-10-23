@@ -71,7 +71,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Debug/jtrrouterD.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -163,7 +163,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES)\lib\xerces-c_2D.lib $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_DEBUG_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Debug/jtrrouter64D.exe"
 				LinkIncremental="2"
 				SuppressStartupBanner="true"
@@ -257,7 +257,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES)\lib\xerces-c_2.lib $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/jtrrouter.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -352,7 +352,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_64)\lib\xerces-c_2.lib $(NOINHERIT) ws2_32.lib"
+				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/jtrrouter64.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"

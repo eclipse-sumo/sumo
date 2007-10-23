@@ -66,7 +66,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2D.lib ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(XERCES_DEBUG_LIB) ws2_32.lib"
 				OutputFile=".\Debug/polyconvertD.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -152,7 +152,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_64)\lib\xerces-c_2D.lib ws2_32.lib"
+				AdditionalDependencies="$(XERCES_DEBUG_LIB) ws2_32.lib"
 				OutputFile=".\Debug/polyconvert64D.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -242,7 +242,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(PROJ_GDAL)\lib\proj_i.lib $(XERCES)\lib\xerces-c_2.lib ws2_32.lib"
+				AdditionalDependencies="$(PROJ_LIB) $(XERCES_LIB) ws2_32.lib"
 				OutputFile=".\Release/polyconvert.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
@@ -333,7 +333,7 @@
 			/>
 			<Tool
 				Name="VCLinkerTool"
-				AdditionalDependencies="$(XERCES_64)\lib\xerces-c_2.lib ws2_32.lib"
+				AdditionalDependencies="$(XERCES_LIB) ws2_32.lib"
 				OutputFile=".\Release/polyconvert64.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"

@@ -8,6 +8,31 @@
 	>
 	<Tool
 		Name="VCCLCompilerTool"
-		AdditionalIncludeDirectories="$(PROJ_GDAL_64)\include,$(FOX14_64)\include,$(XERCES_64)\include,..\..\..\src"
+		AdditionalIncludeDirectories="$(XERCES_64)\include,..\..\..\src"
+		PreprocessorDefinitions=""
+	/>
+	<UserMacro
+		Name="XERCES_LIB"
+		Value="$(XERCES_64)\lib\xerces-c_2.lib"
+	/>
+	<UserMacro
+		Name="XERCES_DEBUG_LIB"
+		Value="$(XERCES_64)\lib\xerces-c_2D.lib"
+	/>
+	<UserMacro
+		Name="PROJ_LIB"
+		Value=""
+	/>
+	<UserMacro
+		Name="GDAL_LIB"
+		Value=""
+	/>
+	<UserMacro
+		Name="FOX14_LIB"
+		Value=""
+	/>
+	<UserMacro
+		Name="FOX14_DEBUG_LIB"
+		Value=""
 	/>
 </VisualStudioPropertySheet>

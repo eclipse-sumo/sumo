@@ -11,4 +11,28 @@
 		AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(FOX14)\include,$(XERCES)\include,..\..\..\src"
 		PreprocessorDefinitions="HAVE_PROJ;HAVE_GDAL"
 	/>
+	<UserMacro
+		Name="XERCES_LIB"
+		Value="$(XERCES)\lib\xerces-c_2.lib"
+	/>
+	<UserMacro
+		Name="XERCES_DEBUG_LIB"
+		Value="$(XERCES)\lib\xerces-c_2D.lib"
+	/>
+	<UserMacro
+		Name="PROJ_LIB"
+		Value="$(PROJ_GDAL)\lib\proj_i.lib"
+	/>
+	<UserMacro
+		Name="GDAL_LIB"
+		Value="$(PROJ_GDAL)\lib\gdal_i.lib"
+	/>
+	<UserMacro
+		Name="FOX14_LIB"
+		Value="$(FOX14)\lib\FOXDLL-1.4.lib"
+	/>
+	<UserMacro
+		Name="FOX14_DEBUG_LIB"
+		Value="$(FOX14)\lib\FOXDLLD-1.4.lib"
+	/>
 </VisualStudioPropertySheet>
