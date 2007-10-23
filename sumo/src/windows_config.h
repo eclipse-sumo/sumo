@@ -39,16 +39,7 @@
 #define VERSION_STRING "0.9.6"
 #endif
 
-/* define to use DataReel sockets library */
-//#define USE_SOCKETS
-
 #define HAVE_INTERNAL_LANES 1
-
-/* defined if GDAL is available */
-#define HAVE_GDAL 1
-
-/* defined if PROJ is available */
-#define HAVE_PROJ 1
 
 /* define to use nvwa for memory leak checking */
 //#define CHECK_MEMORY_LEAKS 1

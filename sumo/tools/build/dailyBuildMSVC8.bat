@@ -12,10 +12,10 @@ SET REMOTE_DIR=D:\Sumo\copytest
 cd ..\..
 svn.exe up > %MAKELOG%
 
-"D:\Programme\Microsoft Visual Studio 8\Common7\IDE\devenv.exe" /rebuild Release build\msvc8\prj.sln /out %MAKELOG%
+"D:\Programme\Microsoft Visual Studio 8\Common7\IDE\devenv.exe" /rebuild "Release|Win32" build\msvc8\prj.sln /out %MAKELOG%
 move /Y %MAKELOG% %REMOTE_DIR%
 
-"D:\Programme\Microsoft Visual Studio 8\Common7\IDE\devenv.exe" /rebuild Debug build\msvc8\prj.sln /out %MAKEALLLOG%
+"D:\Programme\Microsoft Visual Studio 8\Common7\IDE\devenv.exe" /rebuild "Debug|Win32" build\msvc8\prj.sln /out %MAKEALLLOG%
 move /Y %MAKEALLLOG% %REMOTE_DIR%
 
 REM run tests

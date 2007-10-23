@@ -9,5 +9,6 @@
 	<Tool
 		Name="VCCLCompilerTool"
 		AdditionalIncludeDirectories="$(PROJ_GDAL)\include,$(FOX14)\include,$(XERCES)\include,..\..\..\src"
+		PreprocessorDefinitions="HAVE_PROJ;HAVE_GDAL"
 	/>
 </VisualStudioPropertySheet>
