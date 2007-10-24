@@ -359,10 +359,11 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
     // get the vehicle and the speed the child has read/generated
     MSVehicle *veh = myToEmit[child].first;
     SUMOReal speed = myToEmit[child].second;
+    // !!! add warning if speed to high or negative
     // check whether the speed shall be patched
     MSVehicle::State state(myPos, MIN2(myDestLane->maxSpeed(), veh->getMaxSpeed()));
     if (speed>=0) {
-        state = MSVehicle::State(myPos, speed);
+        state = MSVehicle::State(myPos, MIN2(state.speed(), speed));
     }
     // try to emit
 #ifdef HAVE_MESOSIM
