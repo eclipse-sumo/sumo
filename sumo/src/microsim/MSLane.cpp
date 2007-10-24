@@ -1047,6 +1047,24 @@ MSLane::removeFirstVehicle()
 }
 
 
+MSVehicle *
+MSLane::removeVehicle(MSVehicle * remVehicle)
+{
+    for (MSLane::VehCont::iterator it = myVehicles.begin();
+            it < myVehicles.end();
+            it++) {
+        if (remVehicle->getID() == (*it)->getID()) {
+            remVehicle->leaveLaneAtLaneChange();
+            myVehicles.erase(it);
+            myUseDefinition->noVehicles--;
+            myUseDefinition->vehLenSum -= remVehicle->getLength();
+            break;
+        }
+    }
+    return remVehicle;
+}
+
+
 size_t
 MSLane::getNumericalID() const
 {

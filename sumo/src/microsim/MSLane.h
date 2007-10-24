@@ -88,11 +88,9 @@ public:
     /** Function-object in order to find the vehicle, that has just
         passed the detector. */
 struct VehPosition : public std::binary_function< const MSVehicle*,
-                SUMOReal, bool >
-    {
+                SUMOReal, bool > {
         /// compares vehicle position to the detector position
-        bool operator()(const MSVehicle* cmp, SUMOReal pos) const
-        {
+        bool operator()(const MSVehicle* cmp, SUMOReal pos) const {
             return cmp->getPositionOnLane() >= pos;
         }
     };
@@ -150,28 +148,24 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     //-------------- End of junction-used methods --------------------------------
 
     /// Returns true if there is not a single vehicle on the lane.
-    bool empty() const
-    {
+    bool empty() const {
         assert(myVehBuffer == 0);
         return myVehicles.empty();
     }
 
     /// Returns the lane's maximum speed.
-    SUMOReal maxSpeed() const
-    {
+    SUMOReal maxSpeed() const {
         assert(myMaxSpeed>=0);
         return myMaxSpeed;
     }
 
     /// Returns the lane's length.
-    SUMOReal length() const
-    {
+    SUMOReal length() const {
         return myLength;
     }
 
     /// Returns the lane's Edge.
-    const MSEdge * const getEdge() const
-    {
+    const MSEdge * const getEdge() const {
         return myEdge;
     }
 
@@ -187,8 +181,7 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     /** Clears the dictionary */
     static void clear();
 
-    static size_t dictSize()
-    {
+    static size_t dictSize() {
         return myDict.size();
     }
 
@@ -256,6 +249,7 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     virtual GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
 
     MSVehicle *removeFirstVehicle();
+    MSVehicle *removeVehicle(MSVehicle *remVehicle);
     MSVehicle *myApproaching;
 
     size_t getNumericalID() const;
@@ -269,14 +263,12 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     /// The shape of the lane
     Position2DVector myShape;
 
-    inline MSLaneMeanDataValues &getMeanData(int index) const
-    {
+    inline MSLaneMeanDataValues &getMeanData(int index) const {
         assert((int) myMeanData.size()>index);
         return myMeanData[index];
     }
 
-    const Position2DVector &getShape() const
-    {
+    const Position2DVector &getShape() const {
         return myShape;
     }
 

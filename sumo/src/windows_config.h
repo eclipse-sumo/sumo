@@ -47,4 +47,7 @@
 /* define to use itm remote server code */
 //#define ITM 1
 
+/* define to use calibrators for online simulations */
+//#define ONLINE_CALIBRATION 1
+
 #endif

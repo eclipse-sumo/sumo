@@ -46,6 +46,12 @@
 #include "NLTriggerBuilder.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
 
+#ifdef ONLINE_CALIBRATION
+#include <microsim/trigger/MSCalibrator.h>
+#include <microsim/trigger/MSVTypeProbe.h>
+// FIXME #include <utils/xml/SUMOSAXHandler.h>
+#endif //ONLINE_CALIBRATION
+
 #ifdef HAVE_MESOSIM
 #include <mesosim/METriggeredCalibrator.h>
 #include <mesosim/METriggeredScaler.h>
@@ -123,6 +129,14 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
                 t = parseAndBuildVehicleActor(net, attrs, base, helper);
         }
     }
+#ifdef ONLINE_CALIBRATION
+    else if (type=="calibrator") {
+        t = parseAndBuildCalibrator(net, attrs, base, helper);
+    }	else if (type=="vtype_probe") {
+        t = parseAndBuildVTypeProbe(net, attrs, base, helper);
+    }
+#endif //ONLINE_CALIBRATION
+
 #ifdef HAVE_MESOSIM
     else if (type=="calibrator"&&MSGlobals::gUseMesoSim) {
         t = parseAndBuildCalibrator(net, attrs, base, helper);
@@ -238,6 +252,38 @@ NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net,
     return buildVehicleActor(net, id, lane, pos, laid, cellid, type);
 }
 
+
+#ifdef ONLINE_CALIBRATION
+
+MSCalibrator *
+NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
+        const Attributes &attrs,
+        const std::string &base,
+        const NLHandler &helper)
+{
+    // get the file name to read further definitions (route distributions) from
+    string file = getFileName(attrs, base, helper);
+    string id = helper.getString(attrs, SUMO_ATTR_ID);
+    MSLane *lane = getLane(attrs, helper, "calibrator", id);
+    SUMOReal pos = getPosition(attrs, helper, lane, "calibrator", id);
+
+    return buildLaneCalibrator(net, id, lane, pos, file);
+}
+
+MSVTypeProbe *
+NLTriggerBuilder::parseAndBuildVTypeProbe(MSNet &net,
+        const Attributes &attrs,
+        const std::string &base,
+        const NLHandler &helper)
+{
+    string outputFile = getFileName(attrs, base, helper);
+    string id = helper.getString(attrs, SUMO_ATTR_ID);
+    string vType = helper.getString(attrs, SUMO_ATTR_TYPE);
+    int freq = helper.getInt(attrs, SUMO_ATTR_SPLINTERVAL);
+
+    return buildVTypeProbe(net, id, outputFile, vType, freq);
+}
+#endif //ONLINE_CALIBRATION
 
 #ifdef HAVE_MESOSIM
 METriggeredCalibrator *
@@ -371,6 +417,26 @@ NLTriggerBuilder::buildLaneEmitTrigger(MSNet &net,
     return new MSEmitter(id, net, destLane, pos, file);
 }
 
+#ifdef ONLINE_CALIBRATION
+
+MSCalibrator *
+NLTriggerBuilder::buildLaneCalibrator(MSNet &net,
+                                      const std::string &id,
+                                      MSLane *destLane,
+                                      SUMOReal pos,
+                                      const std::string &file)
+{
+    return new MSCalibrator(id, net, destLane, pos, file);
+}
+
+MSVTypeProbe *
+NLTriggerBuilder::buildVTypeProbe(MSNet &net,
+                                  const std::string &id, const std::string &file,
+                                  const std::string &vType, int freq)
+{
+    return new MSVTypeProbe(id, net, file, vType, freq);
+}
+#endif //ONLINE_CALIBRATION
 
 #ifdef HAVE_MESOSIM
 METriggeredCalibrator *

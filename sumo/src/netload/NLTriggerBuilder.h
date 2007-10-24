@@ -48,6 +48,11 @@ class MSEdge;
 class MSBusStop;
 class MSE1VehicleActor;
 
+#ifdef ONLINE_CALIBRATION
+class MSCalibrator;
+class MSVTypeProbe;
+#endif //ONLINE_CALIBRATION
+
 #ifdef HAVE_MESOSIM
 class METriggeredCalibrator;
 class MESegment;
@@ -81,7 +86,7 @@ protected:
     ///
     /// These methods parse the attributes for each of the described trigger
     ///  and call the according methods to build the trigger
-    //@{ 
+    //@{
     /// builds a lane speed trigger
     MSLaneSpeedTrigger *parseAndBuildLaneSpeedTrigger(MSNet &net,
             const Attributes &attrs, const std::string &base,
@@ -107,6 +112,18 @@ protected:
             const Attributes &attrs, const std::string &base,
             const NLHandler &helper);
 
+#ifdef ONLINE_CALIBRATION
+    /// builds a calibrator for online simulation
+    MSCalibrator *parseAndBuildCalibrator(MSNet &net,
+                                          const Attributes &attrs, const std::string &base,
+                                          const NLHandler &helper);
+
+    /// builds a vehicle type probe
+    MSVTypeProbe * parseAndBuildVTypeProbe(MSNet &net,
+                                           const Attributes &attrs, const std::string &base,
+                                           const NLHandler &helper);
+#endif //ONLINE_CALIBRATION
+
 #ifdef HAVE_MESOSIM
     /// Builds a mesoscopic calibrator
     METriggeredCalibrator *parseAndBuildCalibrator(MSNet &net,
@@ -128,7 +145,7 @@ protected:
     ///  to build visualizable versions of the triggers
     /// In most cases, these methods only call the constructor and
     ///  return the so build trigger
-    //@{ 
+    //@{
     /// builds a lane speed trigger
     virtual MSLaneSpeedTrigger *buildLaneSpeedTrigger(MSNet &net,
             const std::string &id, const std::vector<MSLane*> &destLanes,
@@ -143,6 +160,18 @@ protected:
     virtual MSBusStop* buildBusStop(MSNet &net,
                                     const std::string &id, const std::vector<std::string> &lines,
                                     MSLane *lane, SUMOReal frompos, SUMOReal topos);
+
+#ifdef ONLINE_CALIBRATION
+    /// builds a calibrator for online simulation
+    virtual MSCalibrator *buildLaneCalibrator(MSNet &net,
+            const std::string &id, MSLane *destLane, SUMOReal pos,
+            const std::string &file);
+
+    /// builds a vehicle type probe
+    virtual MSVTypeProbe *buildVTypeProbe(MSNet &net,
+                                          const std::string &id, const std::string &file,
+                                          const std::string &vType, int freq);
+#endif //ONLINE_CALIBRATION
 
 #ifdef HAVE_MESOSIM
     /// builds a calibrator
