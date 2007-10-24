@@ -1,24 +1,41 @@
+<?xml version="1.0"?>
+
+<!-- generated on Wed Oct 24 22:48:28 2007 by SUMO netconvert Version dev-SVN-r4602
+<configuration>
+
+   <input>
+      <xml-node-files>hello.nod.xml</xml-node-files>
+      <xml-edge-files>hello.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>../net.net.xml</output-file>
+   </output>
+
+</configuration>
+-->
+
 <net>
 
-   <net-offset>500.000000,-0.000000</net-offset>
-   <conv-boundary>0.000000,0.000000,1001.000000,0.000000</conv-boundary>
-   <orig-boundary>-0.005000,0.000000,0.005010,0.000000</orig-boundary>
+   <net-offset>0.000000,0.000000</net-offset>
+   <conv-boundary>0.000000,0.000000,6.000000,0.000000</conv-boundary>
+   <orig-boundary>0.000000,0.000000,6.000000,0.000000</orig-boundary>
    <orig-proj>!</orig-proj>
 
    <edges no="2">1to2 out</edges>
    <node_count>3</node_count>
 
 
-   <edge id="1to2" Length="1000.00" Speed="13.90" Name="1to2" NoLanes="1" XFrom="0.00" YFrom="0.00" XTo="1000.00" YTo="0.00" from="1" to="2" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="1to2" from="1" to="2" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="1000.00">0.00,-1.65 1000.00,-1.65</lane>
+         <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="5.00">0.00,-1.65 5.00,-1.65</lane>
       </lanes>
       <cedge id="out">1to2_0</cedge>
    </edge>
 
-   <edge id="out" Length="1.00" Speed="13.90" Name="out" NoLanes="1" XFrom="1000.00" YFrom="0.00" XTo="1001.00" YTo="0.00" from="2" to="3" Priority="1" Angle="270.00" Type="" function="normal">
+   <edge id="out" from="2" to="3" priority="-1" type="" function="normal">
       <lanes>
-         <lane id="out_0" depart="1" vclasses="" maxspeed="13.90" length="1.00">1000.00,-1.65 1001.00,-1.65</lane>
+         <lane id="out_0" depart="1" vclasses="" maxspeed="13.90" length="1.00">5.00,-1.65 6.00,-1.65</lane>
       </lanes>
    </edge>
 
@@ -36,17 +53,17 @@
 
    <junction id="1" type="DEAD_END" x="0.00" y="0.00">
       <inclanes></inclanes>
-      <shape>-0.05,-0.05</shape>
+      <shape>-0.00,-0.05 -0.00,-3.25</shape>
    </junction>
 
-   <junction id="2" type="priority" x="1000.00" y="0.00">
+   <junction id="2" type="priority" x="5.00" y="0.00">
       <inclanes>1to2_0</inclanes>
-      <shape>1000.00,-0.05 1000.00,-3.25 1000.00,-0.05</shape>
+      <shape>5.00,-0.05 5.00,-3.25 5.00,-0.05</shape>
    </junction>
 
-   <junction id="3" type="DEAD_END" x="1001.00" y="0.00">
+   <junction id="3" type="DEAD_END" x="6.00" y="0.00">
       <inclanes>out_0</inclanes>
-      <shape>997.75,-3.25</shape>
+      <shape>6.00,-3.25 6.00,-0.05</shape>
    </junction>
 
 
