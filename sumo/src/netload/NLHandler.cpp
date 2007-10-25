@@ -587,6 +587,7 @@ NLHandler::closeLane()
         if (!MSLane::dictionary(myCurrentLaneID, lane)) {
             delete lane;
             MsgHandler::getErrorInstance()->inform("Another lane with the id '" + myCurrentLaneID + "' exists.");
+            myCurrentIsBroken = true;
         }
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
