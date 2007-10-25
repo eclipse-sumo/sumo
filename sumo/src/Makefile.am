@@ -22,9 +22,9 @@ if CHECK_MEMORY_LEAKS
 MEM_LIBS  = ./foreign/nvwa/libnvwa.a
 endif
 
-if ITM
-ITM_LIBS = ./itm-remoteserver/libitmremoteserver.a
-ITM_DIRS = itm-remoteserver
+if TRACI
+TRACI_LIBS = ./traci-server/libtraciserver.a
+TRACI_DIRS = traci-server
 endif
 
 bin_PROGRAMS = sumo sumo-netconvert sumo-netgen \
@@ -60,7 +60,7 @@ $(MESO_LIBS) \
 ./utils/shapes/libshapes.a \
 $(COMMON_LIBS) \
 $(MEM_LIBS) \
-$(ITM_LIBS) \
+$(TRACI_LIBS) \
 $(XERCES_LIBS) \
 $(PROJ_LIBS)
 
@@ -205,7 +205,7 @@ endif
 
 SUBDIRS = foreign microsim netbuild netgen netimport netload \
 od2trips polyconvert router routing_df routing_dua routing_jtr sumo_only \
-utils $(GUI_DIRS) $(MESO_DIRS) $(ITM_DIRS)
+utils $(GUI_DIRS) $(MESO_DIRS) $(TRACI_DIRS)
 
 EXTRA_DIST = config.h config.h.in \
 guisim.rc \
