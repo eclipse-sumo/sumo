@@ -83,9 +83,6 @@ public:
 
     const EdgeCont &getMultiLaneEdges() const;
 
-    void saveState(std::ostream &os, long what);
-    void loadState(BinaryInputDevice &bis, long what);
-
     std::vector<std::string> getEdgeNames() const;
 
 public:

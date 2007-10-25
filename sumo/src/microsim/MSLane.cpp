@@ -586,16 +586,7 @@ MSLane::setCritical()
         MSVehicle *p = pop();
         assert(v==p);
         MSLane *target = p->getTargetLane();
-#ifdef RAKNET_DEMO
-        int oc = v->intOC;
-        if (target->push(p)) {
-            Vehicle::removeFromClient(oc);
-        } else {
-            v->setPosition(v->position().x(), 0, v->position().y());
-        }
-#else
         target->push(p);
-#endif
     }
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     // check whether the lane is free

@@ -216,17 +216,17 @@ MSRoute::operator[](size_t index)
 
 
 void
-MSRoute::dict_saveState(std::ostream &os, long what)
+MSRoute::dict_saveState(std::ostream &os)
 {
     FileHelpers::writeUInt(os, myDict.size());
     for (RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
-        (*it).second->saveState(os, what);
+        (*it).second->saveState(os);
     }
 }
 
 
 void
-MSRoute::saveState(std::ostream &os, long /*what*/)
+MSRoute::saveState(std::ostream &os)
 {
     FileHelpers::writeString(os, getID());
     FileHelpers::writeUInt(os, myEdges.size());
@@ -238,7 +238,7 @@ MSRoute::saveState(std::ostream &os, long /*what*/)
 
 
 void
-MSRoute::dict_loadState(BinaryInputDevice &bis, long /*what*/)
+MSRoute::dict_loadState(BinaryInputDevice &bis)
 {
     unsigned int noRoutes;
     bis >> noRoutes;

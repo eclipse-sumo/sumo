@@ -43,10 +43,6 @@
 #include <gui/GUIGlobals.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 
-#ifdef RAKNET_DEMO
-#include <raknet_demo/sumo_add/street.h>
-#endif
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -65,11 +61,7 @@ GUIEdgeControlBuilder::GUIEdgeControlBuilder(
     GUIGlObjectStorage &glObjectIDStorage, unsigned int storageSize)
         : NLEdgeControlBuilder(storageSize),
         myGlObjectIDStorage(glObjectIDStorage)
-{
-#ifdef RAKNET_DEMO
-    myStreet = new Street();
-#endif
-}
+{}
 
 GUIEdgeControlBuilder::~GUIEdgeControlBuilder()
 {}
@@ -126,17 +118,6 @@ GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
     default:
         throw InvalidArgument("A lane with an unknown type occured (" + toString(m_Function) + ")");
     }
-#ifdef RAKNET_DEMO
-    float *xPos = new float[shape.size()];
-    float *zPos = new float[shape.size()];
-    for (size_t i=0; i<shape.size(); ++i) {
-        xPos[i] = shape.at(i).x();
-        zPos[i] = shape.at(i).y();
-    }
-    myStreet->addLane(myCurrentNumericalLaneID-1, shape.size(), xPos, zPos);
-    delete[] xPos;
-    delete[] zPos;
-#endif
     m_pLaneStorage->push_back(lane);
     if (isDepart) {
         m_pDepartLane = lane;

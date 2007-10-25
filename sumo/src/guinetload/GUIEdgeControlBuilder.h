@@ -42,10 +42,6 @@
 // ===========================================================================
 class MSJunction;
 
-#ifdef RAKNET_DEMO
-class Street;
-#endif
-
 
 // ===========================================================================
 // class definitions
@@ -82,10 +78,6 @@ public:
 private:
     /// The gl-object id giver
     GUIGlObjectStorage &myGlObjectIDStorage;
-
-#ifdef RAKNET_DEMO
-    Street *myStreet;
-#endif
 
 private:
     /** invalid copy constructor */

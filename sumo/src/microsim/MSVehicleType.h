@@ -243,7 +243,7 @@ public:
 
 
     /// Saves the states of a vehicle
-    void saveState(std::ostream &os, long what);
+    void saveState(std::ostream &os);
 
     SUMOVehicleClass getVehicleClass() const
     {

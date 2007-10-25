@@ -114,8 +114,8 @@ public:
     virtual void vehicleEmitted(MSVehicle *v);
     virtual void vehicleMoves(MSVehicle *v);
 
-    void saveState(std::ostream &os, long what);
-    void loadState(BinaryInputDevice &bis, long what);
+    void saveState(std::ostream &os);
+    void loadState(BinaryInputDevice &bis);
 
     virtual bool addVehicle(const std::string &id, MSVehicle *v);
     virtual MSVehicle *getVehicle(const std::string &id);

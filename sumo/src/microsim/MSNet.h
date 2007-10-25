@@ -213,8 +213,8 @@ public:
     void postSimStepOutput() const;
     //}
 
-    void saveState(std::ostream &os, long what);
-    void loadState(BinaryInputDevice &bis, long what);
+    void saveState(std::ostream &os);
+    void loadState(BinaryInputDevice &bis);
 
     ShapeContainer &getShapeContainer() const
     {

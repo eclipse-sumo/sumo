@@ -306,7 +306,7 @@ MSVehicleControl::vehicleMoves(MSVehicle *)
 
 
 void
-MSVehicleControl::saveState(std::ostream &os, long what)
+MSVehicleControl::saveState(std::ostream &os)
 {
     FileHelpers::writeUInt(os, myLoadedVehNo);
     FileHelpers::writeUInt(os, myEmittedVehNo);
@@ -319,16 +319,16 @@ MSVehicleControl::saveState(std::ostream &os, long what)
     {
         FileHelpers::writeUInt(os, myVTypeDict.size());
         for (VehTypeDictType::iterator it=myVTypeDict.begin(); it!=myVTypeDict.end(); ++it) {
-            (*it).second->saveState(os, what);
+            (*it).second->saveState(os);
         }
     }
-    MSRoute::dict_saveState(os, what);
+    MSRoute::dict_saveState(os);
     // save vehicles
     {
         FileHelpers::writeUInt(os, myVehicleDict.size());
         for (VehicleDictType::iterator it = myVehicleDict.begin(); it!=myVehicleDict.end(); ++it) {
             if ((*it).second->hasCORNIntValue(MSCORN::CORN_VEH_REALDEPART)) {
-                (*it).second->saveState(os, what);
+                (*it).second->saveState(os);
             }
         }
         FileHelpers::writeString(os, "-----------------end---------------");
@@ -336,7 +336,7 @@ MSVehicleControl::saveState(std::ostream &os, long what)
 }
 
 void
-MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
+MSVehicleControl::loadState(BinaryInputDevice &bis)
 {
     bis >> myLoadedVehNo;
     bis >> myEmittedVehNo;
@@ -368,7 +368,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis, long what)
             addVType(t, 1.); // !!!
         }
     }
-    MSRoute::dict_loadState(bis, what);
+    MSRoute::dict_loadState(bis);
     {
         // load vehicles
         unsigned int size;

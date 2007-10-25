@@ -39,12 +39,6 @@
 #include <utils/helpers/DiscreteCommand.h>
 #include <microsim/MSJunctionLogic.h>
 
-#ifdef RAKNET_DEMO
-#include <raknet_demo/sumo_add/ampel.h>
-#include <raknet_demo/constants.h>
-#include <utils/geom/Line2D.h>
-#endif
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -54,11 +48,6 @@
 // used namespaces
 // ===========================================================================
 using namespace std;
-#ifdef RAKNET_DEMO
-Ampel *myAmpel = 0;
-std::map<std::string, int> myIDs;
-int myAmpelRunningID = 0;
-#endif
 
 
 // ===========================================================================
@@ -122,11 +111,6 @@ MSTrafficLightLogic::MSTrafficLightLogic(
     mySwitchCommand = new SwitchCommand(tlcontrol, this);
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         mySwitchCommand, delay, MSEventControl::ADAPT_AFTER_EXECUTION);
-#ifdef RAKNET_DEMO
-    if (myAmpel==0) {
-        myAmpel = new Ampel();
-    }
-#endif
 }
 
 
@@ -153,11 +137,6 @@ MSTrafficLightLogic::addLink(MSLink *link, MSLane *lane, size_t pos)
         myLanes.push_back(LaneVector());
     }
     myLanes[pos].push_back(lane);
-
-#ifdef RAKNET_DEMO
-    myAmpel->addTrafficLight(myIDs[getID()]*1000 + pos,
-                             lane->getShape()[-1].x(), 0, lane->getShape()[-1].y(), lane->getShape().getEndLine().atan2DegreeAngle());
-#endif
 }
 
 
@@ -221,33 +200,6 @@ MSTrafficLightLogic::onSwitch()
             i++;
         }
     }
-#ifdef RAKNET_DEMO
-    // get the current traffic light signal combination
-    const std::bitset<64> &allowedLinks = allowed();
-    const std::bitset<64> &yellowLinks = yellowMask();
-    // go through the links
-    for (size_t i=0; i<myLinks.size(); i++) {
-        // set the states for assigned links
-        if (!allowedLinks.test(i)) {
-            if (yellowLinks.test(i)) {
-                const LinkVector &currGroup = myLinks[i];
-                for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-                    myAmpel->setTrafficLightState(myIDs[getID()]*1000 + i, TRAFFIC_SIGN_YELLOW);
-                }
-            } else {
-                const LinkVector &currGroup = myLinks[i];
-                for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-                    myAmpel->setTrafficLightState(myIDs[getID()]*1000 + i, TRAFFIC_SIGN_RED);
-                }
-            }
-        } else {
-            const LinkVector &currGroup = myLinks[i];
-            for (LinkVector::const_iterator j=currGroup.begin(); j!=currGroup.end(); j++) {
-                myAmpel->setTrafficLightState(myIDs[getID()]*1000 + i, TRAFFIC_SIGN_GREEN);
-            }
-        }
-    }
-#endif
 }
 
 

@@ -249,33 +249,28 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
     // the simulation loop
     bool tooSlow = false;
     myStep = start;
-    try {
-        do {
-            if (myLogStepNumber) {
-                preSimStepOutput();
-            }
-            simulationStep(start, myStep);
-            if (myLogStepNumber) {
-                postSimStepOutput();
-            }
-            myStep += DELTA_T;
-            if (myLogExecutionTime && myTooSlowRTF>0) {
-                SUMOReal rtf = ((SUMOReal) 1000./ (SUMOReal) mySimStepDuration);
-                if (rtf<myTooSlowRTF) {
-                    tooSlow = true;
-                }
-            }
-        } while (myStep<=stop && !myVehicleControl->haveAllVehiclesQuit() && !tooSlow);
-        if (tooSlow) {
-            WRITE_MESSAGE("Simulation End: The simulation got too slow.");
-        } else if (myStep>stop) {
-            WRITE_MESSAGE("Simulation End: The final simulation step has been reached.");
-        } else {
-            WRITE_MESSAGE("Simulation End: All vehicles have left the simulation.");
+    do {
+        if (myLogStepNumber) {
+            preSimStepOutput();
         }
-    } catch (ProcessError &e) {
-//!!!        WRITE_MESSAGE("Simulation End: An error occured (see log).");
-        throw e;
+        simulationStep(start, myStep);
+        if (myLogStepNumber) {
+            postSimStepOutput();
+        }
+        myStep += DELTA_T;
+        if (myLogExecutionTime && myTooSlowRTF>0) {
+            SUMOReal rtf = ((SUMOReal) 1000./ (SUMOReal) mySimStepDuration);
+            if (rtf<myTooSlowRTF) {
+                tooSlow = true;
+            }
+        }
+    } while (myStep<=stop && !myVehicleControl->haveAllVehiclesQuit() && !tooSlow);
+    if (tooSlow) {
+        WRITE_MESSAGE("Simulation End: The simulation got too slow.");
+    } else if (myStep>stop) {
+        WRITE_MESSAGE("Simulation End: The final simulation step has been reached.");
+    } else {
+        WRITE_MESSAGE("Simulation End: All vehicles have left the simulation.");
     }
     // exit simulation loop
     closeSimulation(start, stop);
@@ -326,7 +321,11 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
         msg << "Performance: " << "\n"
         << " Duration: " << mySimDuration << "ms" << "\n"
         << " Real time factor: " << ((SUMOReal)(stop-start)*1000./(SUMOReal)mySimDuration) << "\n"
-        << " UPS: " << ((SUMOReal) myVehiclesMoved / (SUMOReal) mySimDuration * 1000.) << "\n";
+        << " UPS: " << ((SUMOReal) myVehiclesMoved / (SUMOReal) mySimDuration * 1000.) << "\n"
+		<< "Vehicles: " << "\n"
+		<< " Emitted: " << myVehicleControl->getEmittedVehicleNo() << "\n"
+		<< " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
+		<< " Waiting: " << myEmitter->getWaitingVehicleNo() << "\n";
         WRITE_MESSAGE(msg.str());
     }
 }
@@ -430,7 +429,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     if (find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
         string name = myStateDumpFiles + '_' + toString(myStep) + ".bin";
         ofstream strm(name.c_str(), fstream::out|fstream::binary);
-        saveState(strm, (long) 0xffffffff);
+        saveState(strm);
     }
 
     // Check if mean-lane-data is due
@@ -665,48 +664,24 @@ MSNet::getSimStepDurationInMillis() const
 
 
 void
-MSNet::saveState(std::ostream &os, long what)
+MSNet::saveState(std::ostream &os)
 {
-    myVehicleControl->saveState(os, what);
-    myEdges->saveState(os, what);
+    myVehicleControl->saveState(os);
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        MSGlobals::gMesoNet->saveState(os, what);
-//        if((what&(long) SAVESTATE_EDGES)!=0) myEdges->saveState(os);
-    } else {
-#endif
-        /*
-        if((what&(long) SAVESTATE_EDGES)!=0) myEdges->saveState(os);
-        if((what&(long) SAVESTATE_EMITTER)!=0) myEmitter->saveState(os);
-        if((what&(long) SAVESTATE_LOGICS)!=0) myLogics->saveState(os);
-        if((what&(long) SAVESTATE_ROUTES)!=0) myRouteLoaders->saveState(os);
-        if((what&(long) SAVESTATE_VEHICLES)!=0) myVehicleControl->saveState(os);
-        */
-#ifdef HAVE_MESOSIM
+        MSGlobals::gMesoNet->saveState(os);
     }
 #endif
 }
 
 
 void
-MSNet::loadState(BinaryInputDevice &bis, long what)
+MSNet::loadState(BinaryInputDevice &bis)
 {
-    myVehicleControl->loadState(bis, what);
-    myEdges->loadState(bis, what);
+    myVehicleControl->loadState(bis);
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        MSGlobals::gMesoNet->loadState(bis, what, *myVehicleControl);
-//        if((what&(long) SAVESTATE_EDGES)!=0) myEdges->saveState(os);
-    } else {
-#endif
-        /*
-        if((what&(long) SAVESTATE_EDGES)!=0) myEdges->saveState(os);
-        if((what&(long) SAVESTATE_EMITTER)!=0) myEmitter->saveState(os);
-        if((what&(long) SAVESTATE_LOGICS)!=0) myLogics->saveState(os);
-        if((what&(long) SAVESTATE_ROUTES)!=0) myRouteLoaders->saveState(os);
-        if((what&(long) SAVESTATE_VEHICLES)!=0) myVehicleControl->saveState(os);
-        */
-#ifdef HAVE_MESOSIM
+        MSGlobals::gMesoNet->loadState(bis, *myVehicleControl);
     }
 #endif
 }

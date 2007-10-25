@@ -91,7 +91,7 @@ MSVehicleType::getID() const
 
 
 void
-MSVehicleType::saveState(std::ostream &os, long /*what*/)
+MSVehicleType::saveState(std::ostream &os)
 {
     FileHelpers::writeString(os, myID);
     FileHelpers::writeFloat(os, myLength);

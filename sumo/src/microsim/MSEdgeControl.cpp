@@ -188,16 +188,6 @@ MSEdgeControl::getMultiLaneEdges() const
 }
 
 
-void
-MSEdgeControl::saveState(std::ostream &/*os*/, long /*what*/)
-{}
-
-
-void
-MSEdgeControl::loadState(BinaryInputDevice &/*bis*/, long /*what*/)
-{}
-
-
 std::vector<std::string>
 MSEdgeControl::getEdgeNames() const
 {

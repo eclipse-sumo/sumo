@@ -89,9 +89,9 @@ public:
 
     const MSEdge *operator[](size_t index);
 
-    static void dict_saveState(std::ostream &os, long what);
-    void saveState(std::ostream &os, long what);
-    static void dict_loadState(BinaryInputDevice &bis, long what);
+    static void dict_saveState(std::ostream &os);
+    void saveState(std::ostream &os);
+    static void dict_loadState(BinaryInputDevice &bis);
 
     size_t posInRoute(const MSRouteIterator &currentEdge) const;
 

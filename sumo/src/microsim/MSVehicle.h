@@ -49,9 +49,6 @@
 #ifdef HAVE_MESOSIM
 #include <mesosim/MEVehicle.h>
 #endif
-#ifdef RAKNET_DEMO
-#include <raknet_demo/vehicle.h>
-#endif
 
 
 // ===========================================================================
@@ -75,9 +72,6 @@ class OutputDevice;
 class MSVehicle : public MSVehicleQuitReminded
 #ifdef HAVE_MESOSIM
             , public MEVehicle
-#endif
-#ifdef RAKNET_DEMO
-            , public Vehicle
 #endif
 {
 public:
@@ -410,7 +404,7 @@ public:
     /// @name state io
     //@{
     /// Saves the states of a vehicle
-    void saveState(std::ostream &os, long what);
+    void saveState(std::ostream &os);
     //@}
 
 

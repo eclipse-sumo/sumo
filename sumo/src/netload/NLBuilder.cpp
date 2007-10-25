@@ -149,7 +149,7 @@ NLBuilder::build()
         } else {
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading state from '" + m_pOptions.getString("load-state") + "'...");
             long before = SysUtils::getCurrentMillis();
-            myNet.loadState(strm, (long) 0xfffffff);
+            myNet.loadState(strm);
             MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis()-before) + "ms).");
         }
     }

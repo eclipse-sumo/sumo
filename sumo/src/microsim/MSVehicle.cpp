@@ -218,9 +218,6 @@ MSVehicle::MSVehicle(string id,
 #ifdef HAVE_MESOSIM
         MEVehicle(this, 0, 0),
 #endif
-#ifdef RAKNET_DEMO
-        Vehicle(),
-#endif
         myLastLaneChangeOffset(0),
         myTarget(0),
         myWaitingTime(0),
@@ -528,9 +525,6 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     }
     //@ to be optimized (move to somewhere else)
     myLane->addMean2(*this, vNext, oldV, gap);
-#ifdef RAKNET_DEMO
-    setPosition(position().x(), 0, position().y());
-#endif
 }
 
 
@@ -776,11 +770,6 @@ MSVehicle::moveFirstChecked()
 #ifdef ABS_DEBUG
     if (debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         DEBUG_OUT << "moveb/1:" << debug_globaltime << ": " << myID << " at " << getLane().getID() << ": " << myState.myPos << ", " << myState.mySpeed << "\n";
-    }
-#endif
-#ifdef RAKNET_DEMO
-    if (myTarget==myLane) {
-        setPosition(position().x(), 0, position().y());
     }
 #endif
     assert(myTarget->length()>=myState.myPos);
@@ -1988,7 +1977,7 @@ MSVehicle::setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue)
 #endif
 
 void
-MSVehicle::saveState(std::ostream &os, long /*what*/)
+MSVehicle::saveState(std::ostream &os)
 {
     FileHelpers::writeString(os, myID);
     FileHelpers::writeInt(os, myLastLaneChangeOffset);
