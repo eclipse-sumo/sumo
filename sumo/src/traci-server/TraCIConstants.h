@@ -1,10 +1,9 @@
 /****************************************************************************/
-/// @file    remoteconstants.h
+/// @file    TraCIConstants.h
 /// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
-/// @author  Thimor Bohn <bohn@itm.uni-luebeck.de>
-/// @date    2007/09/17
+/// @date    2007/10/24
 ///
-/// holds codes used for mobility protocol
+/// holds codes used for TraCI
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -17,8 +16,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef MOBILITYINTERFACECONSTANTS_H
-#define MOBILITYINTERFACECONSTANTS_H
+#ifndef TRACICONSTANTS_H
+#define TRACICONSTANTS_H
 
 
 // ****************************************

@@ -94,13 +94,13 @@ m4_if(m4_sysval,[0],[
    AC_SUBST([MESOGUI_DIRS])
 ])
 
-AC_ARG_ENABLE([itm],[AS_HELP_STRING([--enable-itm],[enable itm remoteserver code [default=no].])],
-              [AC_DEFINE(ITM, 1, [Define to 1 in order to enable itm remote server code.])])
-AM_CONDITIONAL(ITM, test x$enable_itm = xyes)
-if test x$enable_itm = xyes; then
-   ac_enabled="$ac_enabled ITM"
+AC_ARG_ENABLE([traci],[AS_HELP_STRING([--enable-traci],[enable Traffic Control Interface (TraCI) Server [default=no].])],
+              [AC_DEFINE(TRACI, 1, [Define to 1 in order to enable TraCI Server.])])
+AM_CONDITIONAL(TRACI, test x$enable_traci = xyes)
+if test x$enable_traci = xyes; then
+   ac_enabled="$ac_enabled TRACI"
 else
-   ac_disabled="$ac_disabled ITM"
+   ac_disabled="$ac_disabled TRACI"
 fi
 
 AC_ARG_ENABLE([onlineCalib],[AS_HELP_STRING([--enable-onlinecalib],[enable online calibration / simulation code [default=no].])],
@@ -417,7 +417,7 @@ src/utils/options/Makefile
 src/utils/router/Makefile
 src/utils/shapes/Makefile
 src/utils/xml/Makefile
-src/itm-remoteserver/Makefile
+src/traci-server/Makefile
 docs/Makefile
 docs/docbook/Makefile
 docs/docbook/xslt/Makefile

@@ -44,8 +44,8 @@
 /* define to use nvwa for memory leak checking */
 //#define CHECK_MEMORY_LEAKS 1
 
-/* define to use itm remote server code */
-//#define ITM 1
+/* define to use TraCI server code */
+//#define TRACI 1
 
 /* define to use calibrators for online simulations */
 //#define ONLINE_CALIBRATION 1

@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    remoteserver.cpp
-/// @author  Thimor Bohn <bohn@itm.uni-luebeck.de>
-/// @date    2007/03/13
+/// @file    TraCIServer.cpp
+/// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
+/// @date    2007/10/24
 /// @version $Id$
 ///
-/// socket server user to control sumo by remote client
+/// TraCI server used to control sumo by a remote TraCI client (e.g., ns2)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -17,8 +17,7 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-// RemoteServer.cpp
-// @author: Thimor Bohn <bohn@itm.uni-luebeck.de
+
 // ===========================================================================
 // compiler pragmas
 // ===========================================================================
@@ -27,8 +26,8 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#include "remoteconstants.h"
-#include "RemoteServer.h"
+#include "TraCIConstants.h"
+#include "TraCIServer.h"
 #include "foreign/tcpip/socket.h"
 #include "foreign/tcpip/storage.h"
 #include "utils/common/SUMOTime.h"
@@ -64,11 +63,11 @@ using namespace tcpip;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-namespace itm
+namespace traci
 {
     /*****************************************************************************/
 
-    RemoteServer::RemoteServer()
+    TraCIServer::TraCIServer()
     {
         OptionsCont &oc = OptionsCont::getOptions();
 
@@ -84,7 +83,7 @@ namespace itm
 
     /*****************************************************************************/
 
-    RemoteServer::~RemoteServer()
+    TraCIServer::~TraCIServer()
     {
         if (netBoundary_ != NULL) delete netBoundary_;
     }
@@ -92,7 +91,7 @@ namespace itm
     /*****************************************************************************/
 
     void
-        RemoteServer::run()
+        TraCIServer::run()
     {
         try
         {
@@ -140,7 +139,7 @@ namespace itm
                 }
             }
         }
-        catch (RemoteException e)
+        catch (TraCIException e)
         {
             cerr << e.what() << endl;
         }
@@ -153,7 +152,7 @@ namespace itm
     /*****************************************************************************/
 
     bool
-        RemoteServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+        TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
     {
         int commandStart = requestMsg.position();
         int commandLength = requestMsg.readUnsignedByte();
@@ -194,8 +193,8 @@ namespace itm
     /*****************************************************************************/
 
     void
-        RemoteServer::commandSetMaximumSpeed(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-        throw (RemoteException)
+        TraCIServer::commandSetMaximumSpeed(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+        throw (TraCIException)
     {
         MSVehicle* veh = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
         float maxspeed = requestMsg.readFloat();
@@ -222,8 +221,8 @@ namespace itm
     /*****************************************************************************/
 
     void
-        RemoteServer::commandSimulationStep(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-        throw (RemoteException)
+        TraCIServer::commandSimulationStep(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+        throw (TraCIException)
     {
         // TargetTime
         SUMOTime targetTime = static_cast<SUMOTime>(requestMsg.readDouble());
@@ -348,8 +347,8 @@ namespace itm
     /*****************************************************************************/
 
     void 
-        RemoteServer::commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-        throw(RemoteException)
+        TraCIServer::commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+        throw(TraCIException)
     {
         // NodeId
         MSVehicle* veh = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
@@ -377,8 +376,8 @@ namespace itm
 
     /*****************************************************************************/
     void 
-        RemoteServer::commandChangeLane(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
-        throw(RemoteException)
+        TraCIServer::commandChangeLane(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
+        throw(TraCIException)
     {
         // NodeId
         MSVehicle* veh = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
@@ -405,8 +404,8 @@ namespace itm
     /*****************************************************************************/
 
     void 
-        RemoteServer::commandCloseConnection(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
-        throw(RemoteException)
+        TraCIServer::commandCloseConnection(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
+        throw(TraCIException)
     {
         // Close simulation
         closeConnection_ = true;
@@ -418,8 +417,8 @@ namespace itm
     /*****************************************************************************/
 
     void 
-        RemoteServer::commandSimulationParameter(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
-        throw(RemoteException)
+        TraCIServer::commandSimulationParameter(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
+        throw(TraCIException)
     {
         bool setParameter = (requestMsg.readByte() != 0);
         string parameter = requestMsg.readString();
@@ -518,7 +517,7 @@ namespace itm
     /*****************************************************************************/
 
     void
-        RemoteServer::writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description)
+        TraCIServer::writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description)
     {
         if (status == RTYPE_ERR)
         {
@@ -546,7 +545,7 @@ namespace itm
     /*****************************************************************************/
 
     void 
-        RemoteServer::convertExt2IntId(int extId, std::string& intId)
+        TraCIServer::convertExt2IntId(int extId, std::string& intId)
     {
         if (isMapChanged_)
         {
@@ -570,7 +569,7 @@ namespace itm
     /*****************************************************************************/
 
     MSVehicle* 
-        RemoteServer::getVehicleByExtId(int extId)
+        TraCIServer::getVehicleByExtId(int extId)
     {
         std::string intId;
         convertExt2IntId(extId, intId);
@@ -580,7 +579,7 @@ namespace itm
     /*****************************************************************************/
 
     const Boundary&
-        RemoteServer::getNetBoundary()
+        TraCIServer::getNetBoundary()
     {
         // If already calculated, just return the boundary
         if (netBoundary_ != NULL) return *netBoundary_;

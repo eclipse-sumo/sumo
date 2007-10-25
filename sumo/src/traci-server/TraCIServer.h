@@ -1,10 +1,10 @@
 /****************************************************************************/
-/// @file    remoteserver.h
-/// @author  Thimor Bohn <bohn@itm.uni-luebeck.de>
-/// @date    2007/03/13
+/// @file    TraCIServer.h
+/// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
+/// @date    2007/10/24
 /// @version $Id$
 ///
-/// socket server used to control sumo by remote client
+/// TraCI server used to control sumo by a remote TraCI client (e.g., ns2)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef REMOTESERVER_H
-#define REMOTESERVER_H
+#ifndef TRACISERVER_H
+#define TRACISERVER_H
 
 
 // ===========================================================================
@@ -51,17 +51,17 @@
 // class definitions
 // ===========================================================================
 /**
-* @class remoteserver
+* @class TraCIServer
 */
-namespace itm
+namespace traci
 {
-    class RemoteException
+    class TraCIException
     {
     private:
         std::string what_;
 
     public:
-        RemoteException( std::string what )
+        TraCIException( std::string what )
             : what_(what)
         {}
         std::string what() const
@@ -70,20 +70,19 @@ namespace itm
         }
     };
 
-    // RemoteServer
+    // TraCIServer
     // Allows communication of sumo with external program. The external
     // program will control sumo.
-    // @author: Thimor Bohn <bohn@itm.uni-luebeck.de>
-    class RemoteServer
+    class TraCIServer
     {
     public:
         // Constructor
         // Reads the needed parameters out of static OptionsCont
-        RemoteServer();
+        TraCIServer();
 
         // Destructor
         // final cleanup
-        virtual ~RemoteServer(void);
+        virtual ~TraCIServer(void);
 
         // start server
         void run();
@@ -98,7 +97,7 @@ namespace itm
         // @param in contains unparsed parameters targetTime, ResultType
         // @param out contains node positions ready for output
         // @param length message length
-        void commandSetMaximumSpeed(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException);
+        void commandSetMaximumSpeed(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
         // process command simStep
         // This is the basic comman that encourage the mobility generator to simulate up to the given TargetTime.
@@ -110,15 +109,15 @@ namespace itm
         // @param in contains unparsed parameters targetTime, ResultType
         // @param out contains node positions ready for output
         // @param length message length
-        void commandSimulationStep(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException);
+        void commandSimulationStep(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
-        void commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException);
+        void commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
-        void commandChangeLane(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException);
+        void commandChangeLane(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
-        void commandCloseConnection(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException);
+        void commandCloseConnection(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
-        void commandSimulationParameter(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(RemoteException);
+        void commandSimulationParameter(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
         void writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description);
 

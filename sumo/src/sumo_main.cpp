@@ -60,8 +60,8 @@
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/iodevices/OutputDevice.h>
 
-#ifdef ITM
-#include <itm-remoteserver/RemoteServer.h>
+#ifdef TRACI
+    #include <traci-server/TraCIServer.h>
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -135,12 +135,12 @@ main(int argc, char **argv)
         net = load(oc);
         if (net!=0) 
 		{
-#ifdef ITM
+#ifdef TRACI
 			// If a remote-port is given, the simulation waits for being controlled from the outside ...
 			if (oc.getInt("remote-port") != 0) 
 			{
 				WRITE_MESSAGE("waiting for request on port " + toString<int>(oc.getInt("remote-port")));
-				itm::RemoteServer rs;
+                traci::TraCIServer rs;
 				WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("begin")));
 				rs.run();
 				WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));

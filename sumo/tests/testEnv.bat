@@ -6,3 +6,4 @@ set NETCONVERT_BINARY=%CD%\..\bin\netconvert.exe
 set NETGEN_BINARY=%CD%\..\bin\netgen.exe
 set OD2TRIPS_BINARY=%CD%\..\bin\od2trips.exe
 set SUMO_BINARY=%CD%\..\bin\sumo.exe
+set PATH=C:\Programme\texttest-3.9.1\source\bin;%PATH%

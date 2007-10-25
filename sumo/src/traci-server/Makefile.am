@@ -1,4 +1,4 @@
-noinst_LIBRARIES = libitmremoteserver.a
+noinst_LIBRARIES = libtraciserver.a
 
-libitmremoteserver_a_SOURCES = remoteconstants.h RemoteServer.h RemoteServer.cpp
+libtraciserver_a_SOURCES = TraCIConstants.h TraCIServer.h TraCIServer.cpp
 

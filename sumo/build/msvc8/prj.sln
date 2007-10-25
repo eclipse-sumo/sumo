@@ -262,7 +262,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_nvwa", "zz_forei
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "zz_foreign_tcpip", "zz_foreign_tcpip\zz_foreign_tcpip.vcproj", "{492B0B5A-0BBE-49BA-82E6-70A82DBC242F}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_optional_libitm", "z_optional_libitm\z_optional_libitm.vcproj", "{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_optional_libtraciserver", "z_optional_libtraciserver\z_optional_libtraciserver.vcproj", "{00A244E4-0F0D-49B9-A557-5EF1F8B98D7C}"
 	ProjectSection(ProjectDependencies) = postProject
 		{492B0B5A-0BBE-49BA-82E6-70A82DBC242F} = {492B0B5A-0BBE-49BA-82E6-70A82DBC242F}
 	EndProjectSection

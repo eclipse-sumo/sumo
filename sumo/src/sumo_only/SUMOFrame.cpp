@@ -77,9 +77,9 @@ SUMOFrame::fillOptions()
     oc.addOptionSubTopic("C2C");
     oc.addOptionSubTopic("Cellular");
     oc.addOptionSubTopic("Report");
-#ifdef ITM
-    oc.addOptionSubTopic("Mobility Interface");
-#endif // ITM
+#ifdef TRACI
+    oc.addOptionSubTopic("Traffic Control Interface (TraCI) Server");
+#endif // TRACI
 #ifdef HAVE_MESOSIM
     oc.addOptionSubTopic("Mesoscopic");
 #endif
@@ -355,13 +355,13 @@ SUMOFrame::fillOptions()
     // debug
     oc.doRegister("track", new Option_Float(0.));//!!! check, describe
 
-    // ITM remote server
-#ifdef ITM
+    // TraCI server
+#ifdef TRACI
     //remote port 0 if not used
     oc.doRegister("remote-port", new Option_Integer(0));
-    oc.addDescription("remote-port", "Mobility Interface", "Enables server part of the mobility interface if set");
+    oc.addDescription("remote-port", "Traffic Control Interface (TraCI) Server", "Enables TraCI Server if set");
     oc.doRegister("penetration", new Option_Float(1.0f));
-    oc.addDescription("penetration", "Mobility Interface", "Value in 0..1 [default: 1]");
+    oc.addDescription("penetration", "Traffic Control Interface (TraCI) Server", "Value in 0..1 [default: 1]");
 #endif
     //
 #ifdef HAVE_MESOSIM
