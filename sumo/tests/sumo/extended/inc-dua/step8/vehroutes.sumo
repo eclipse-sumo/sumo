@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+
+<!-- generated on Fri Oct 26 01:30:58 2007 by SUMO sumo Version dev-SVN-r4625
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+   </input>
+
+   <output>
+      <vehroute-output>vehroutes.xml</vehroute-output>
+   </output>
+
+   <time>
+      <begin>0</begin>
+   </time>
+
+   <processing>
+      <incremental-dua-step>8</incremental-dua-step>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<vehicleroutes>
+   <vehicle id="horizontal21" emittedAt="100" endedAt="332">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal18" emittedAt="100" endedAt="334">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal17" emittedAt="100" endedAt="336">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal16" emittedAt="100" endedAt="337">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal15" emittedAt="100" endedAt="339">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal14" emittedAt="100" endedAt="341">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal13" emittedAt="100" endedAt="342">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal12" emittedAt="100" endedAt="395">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal11" emittedAt="100" endedAt="398">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal07" emittedAt="100" endedAt="399">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal06" emittedAt="100" endedAt="401">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal04" emittedAt="100" endedAt="402">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal08" emittedAt="100" endedAt="404">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal03" emittedAt="100" endedAt="406">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal05" emittedAt="100" endedAt="407">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal01" emittedAt="100" endedAt="456">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal02" emittedAt="100" endedAt="459">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal28" emittedAt="119" endedAt="460">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal26" emittedAt="117" endedAt="462">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal25" emittedAt="115" endedAt="464">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal23" emittedAt="112" endedAt="465">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal22" emittedAt="106" endedAt="468">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal27" emittedAt="119" endedAt="518">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal24" emittedAt="113" endedAt="520">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+</vehicleroutes>

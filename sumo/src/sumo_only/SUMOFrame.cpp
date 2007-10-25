@@ -491,6 +491,12 @@ SUMOFrame::checkOptions()
             ok = false;
         }
     }
+    if (oc.isSet("incremental-dua-step") && oc.isSet("incremental-dua-base")) {
+        if (oc.getInt("incremental-dua-step") > oc.getInt("incremental-dua-base")) {
+            MsgHandler::getErrorInstance()->inform("Invalid dua step");
+            ok = false;
+        }
+    }
     return ok;
 }
 
