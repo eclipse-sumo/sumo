@@ -127,106 +127,10 @@ FileHelpers::isAbsolute(const std::string &path)
 }
 
 
-int
-FileHelpers::readInt(std::istream &strm, bool intelFile)
-{
-    unsigned char buf[4];
-    strm.read((char*) &buf, sizeof(char)*4);
-#ifdef SUN
-    if (!intelFile) {
-        return (buf[3]<<24)|(buf[2]<<16)|(buf[1]<<8)|(buf[0]);
-    } else {
-        return (buf[0]<<24)|(buf[1]<<16)|(buf[2]<<8)|(buf[3]);
-    }
-#else
-    if (!intelFile) {
-        return (buf[0]<<24)|(buf[1]<<16)|(buf[2]<<8)|(buf[3]);
-    } else {
-        return (buf[3]<<24)|(buf[2]<<16)|(buf[1]<<8)|(buf[0]);
-    }
-#endif
-}
-
-
-unsigned int
-FileHelpers::readUInt(std::istream &strm, bool intelFile)
-{
-    unsigned char buf[4];
-    strm.read((char*) &buf, sizeof(char)*4);
-#ifdef SUN
-    if (!intelFile) {
-        return (buf[3]<<24)|(buf[2]<<16)|(buf[1]<<8)|(buf[0]);
-    } else {
-        return (buf[0]<<24)|(buf[1]<<16)|(buf[2]<<8)|(buf[3]);
-    }
-#else
-    if (!intelFile) {
-        return (buf[0]<<24)|(buf[1]<<16)|(buf[2]<<8)|(buf[3]);
-    } else {
-        return (buf[3]<<24)|(buf[2]<<16)|(buf[1]<<8)|(buf[0]);
-    }
-#endif
-}
-
-
-SUMOReal
-FileHelpers::readFloat(std::istream &strm, bool intelFile)
-{
-    SUMOReal flt;
-    strm.read((char*) &flt, sizeof(char)*4);
-#ifdef SUN
-    if (!intelFile) {
-        SUMOReal flt2;
-        ((char*) &flt2)[0] = ((char*) &flt)[3];
-        ((char*) &flt2)[1] = ((char*) &flt)[2];
-        ((char*) &flt2)[2] = ((char*) &flt)[1];
-        ((char*) &flt2)[3] = ((char*) &flt)[0];
-        return flt2;
-    } else {
-        return flt;
-    }
-#else
-    if (!intelFile) {
-        return flt;
-    } else {
-        return flt;
-        /*
-        ((char*) &flt2)[0] = ((char*) &flt)[3];
-        ((char*) &flt2)[1] = ((char*) &flt)[2];
-        ((char*) &flt2)[2] = ((char*) &flt)[1];
-        ((char*) &flt2)[3] = ((char*) &flt)[0];
-        return flt2;
-        */
-    }
-#endif
-}
-
-unsigned char
-FileHelpers::readByte(std::istream &strm)
-{
-    unsigned char chr;
-    strm >> chr;
-    return chr;
-}
-
-
-std::string
-FileHelpers::readString(std::istream &strm, bool intelFile)
-{
-    int size = readInt(strm, intelFile);
-    if (size<BUF_MAX) {
-        strm.read((char*) &gBuf, sizeof(char)*size);
-        gBuf[size] = 0;
-        return std::string(gBuf);
-    }
-    throw 1;
-}
-
-
 std::ostream &
 FileHelpers::writeInt(std::ostream &strm, int value)
 {
-    strm.write((char*) &value, sizeof(char)*4);
+    strm.write((char*) &value, sizeof(int));
     return strm;
 }
 
@@ -234,7 +138,7 @@ FileHelpers::writeInt(std::ostream &strm, int value)
 std::ostream &
 FileHelpers::writeUInt(std::ostream &strm, unsigned int value)
 {
-    strm.write((char*) &value, sizeof(char)*4);
+    strm.write((char*) &value, sizeof(unsigned int));
     return strm;
 }
 
@@ -242,7 +146,7 @@ FileHelpers::writeUInt(std::ostream &strm, unsigned int value)
 std::ostream &
 FileHelpers::writeFloat(std::ostream &strm, SUMOReal value)
 {
-    strm.write((char*) &value, sizeof(char)*4);
+    strm.write((char*) &value, sizeof(SUMOReal));
     return strm;
 }
 
@@ -250,7 +154,7 @@ FileHelpers::writeFloat(std::ostream &strm, SUMOReal value)
 std::ostream &
 FileHelpers::writeByte(std::ostream &strm, unsigned char value)
 {
-    strm.write((char*) &value, sizeof(char)*1);
+    strm.write((char*) &value, sizeof(char));
     return strm;
 }
 

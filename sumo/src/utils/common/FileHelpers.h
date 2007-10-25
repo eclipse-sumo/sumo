@@ -73,21 +73,6 @@ public:
     /** returns the information whether the given path is absolute */
     static bool isAbsolute(const std::string &path);
 
-    /** reads an integer from the given stream regarding the byte order */
-    static int readInt(std::istream &strm, bool intelFile=true);
-
-    /** reads an integer from the given stream regarding the byte order */
-    static unsigned int readUInt(std::istream &strm, bool intelFile=true);
-
-    /** reads a SUMOReal */
-    static SUMOReal readFloat(std::istream &strm, bool intelFile=true);
-
-    /** reads a byte */
-    static unsigned char readByte(std::istream &strm);
-
-    /** reads a string */
-    static std::string readString(std::istream &strm, bool intelFile=true);
-
     static std::ostream &writeInt(std::ostream &strm, int value);
     static std::ostream &writeUInt(std::ostream &strm, unsigned int value);
     static std::ostream &writeFloat(std::ostream &strm, SUMOReal value);
