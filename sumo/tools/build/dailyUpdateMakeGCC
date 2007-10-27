@@ -65,7 +65,7 @@ fi
 
 echo "--" >> $STATUSLOG
 echo `basename $MAKEALLLOG`.gz >> $STATUSLOG
-export CXXFLAGS="-Wall -W -pedantic -Wno-long-long"
+export CXXFLAGS="-Wall -W -Wfloat-equal -pedantic -Wno-long-long"
 ./configure --with-fox-libraries=$PREFIX/lib --with-fox-includes=$PREFIX/include/fox-1.4 \
 --with-proj-gdal=$PREFIX --enable-double-precision --enable-itm \
 --enable-geomcheck --enable-debug --enable-speedcheck --enable-memcheck &> $MAKEALLLOG || (echo "configure with all options failed" | tee -a $STATUSLOG; tail -10 $MAKEALLLOG)
