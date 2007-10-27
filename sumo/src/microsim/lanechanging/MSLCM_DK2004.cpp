@@ -4,7 +4,7 @@
 /// @date    Tue, 29.05.2005
 /// @version $Id$
 ///
-//  »missingDescription«
+//  missingDescription
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -502,8 +502,8 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     }
 
     // -------- higher speed
-    /* !!! scheint nicht vernünftig zu funktionieren - Fahrzeuge bleiben auf der rechten Spur
-       obwohl sie noch eine Zeitlang auf der linken fahren dürften
+    /* !!! scheint nicht vernnftig zu funktionieren - Fahrzeuge bleiben auf der rechten Spur
+       obwohl sie noch eine Zeitlang auf der linken fahren drften
     */
     if ((congested(neighLead.first) && neighLead.second<20)||predInteraction(leader.first)) { //!!!
 //    if(congested( neighLead.first ) && neighLead.second<20) {//!!!
@@ -594,7 +594,7 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
     // decelerate if being a blocking follower
     //  (and does not have to change lanes)
     if ((state&LCA_AMBLOCKINGFOLLOWER)!=0) {
-        if (max==myVehicle.maxNextSpeed(myVehicle.getSpeed())&&min==0) { // !!! was standing
+        if (fabs(max-myVehicle.maxNextSpeed(myVehicle.getSpeed()))<0.001&&min==0) { // !!! was standing
             return 0;
         }
         if (myVSafe<=0) {
