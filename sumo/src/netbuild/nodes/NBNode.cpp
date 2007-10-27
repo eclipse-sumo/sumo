@@ -529,6 +529,7 @@ NBNode::setPriorityJunctionPriorities()
     SUMOReal bestAngle = 0;
     NBEdge *bestFirst = 0;
     NBEdge *bestSecond = 0;
+    bool hadBest = false;
     for (i=bestIncoming.begin(); i!=bestIncoming.end(); ++i) {
         vector<NBEdge*>::iterator j;
         NBEdge *t1 = *i;
@@ -549,10 +550,11 @@ NBNode::setPriorityJunctionPriorities()
                 }
             }
             SUMOReal angle = MIN2(GeomHelper::getCCWAngleDiff(angle1, angle2), GeomHelper::getCWAngleDiff(angle1, angle2));
-            if (angle>bestAngle) {
+            if (!hadBest||angle>bestAngle) {
                 bestAngle = angle;
                 bestFirst = *i;
                 bestSecond = *j;
+                hadBest = true;
             }
         }
     }
