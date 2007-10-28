@@ -2,6 +2,13 @@
 # testing bug 1653266 (netconvert ignores second decimale)
 1653266
 
+# bug found by dkrajzew
+dkrajzew_bug1
+
 # testing bug 1821617 (netconvert breaks with a segmentation fault)
 1821617
+
+# testing bug 1821668 (false link direction computation)
+1821668
+
 

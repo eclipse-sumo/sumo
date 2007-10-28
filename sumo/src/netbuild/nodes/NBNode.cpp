@@ -2027,8 +2027,7 @@ NBNode::getMMLDirection(NBEdge *incoming, NBEdge *outgoing) const
     }
     // get the angle between incoming/outgoing at the junction
     SUMOReal angle =
-        NBHelpers::normRelAngle(
-            incoming->getAngle(), outgoing->getAngle());
+        NBHelpers::normRelAngle(incoming->getAngle(*this), outgoing->getAngle(*this));
     // ok, should be a straight connection
     if (abs((int) angle)+1<45) {
         return MMLDIR_STRAIGHT;

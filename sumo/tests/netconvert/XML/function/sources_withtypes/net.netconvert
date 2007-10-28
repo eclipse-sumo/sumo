@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 06/29/07 15:48:47 by SUMO netconvert Version 0.9.6
+<!-- generated on 10/28/07 15:01:00 by SUMO netconvert Version 0.9.6
 <configuration>
 
    <input>
@@ -151,19 +151,19 @@
       <succlane lane="sink_0" yield="0" dir="s" state="M"/>
       <succlane lane="sink_1" yield="0" dir="s" state="M"/>
       <succlane lane="sink_2" yield="0" dir="s" state="M"/>
-      <succlane lane="2_0" yield="0" dir="l" state="M"/>
+      <succlane lane="2_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="2" lane="2_0" junction="tr">
-      <succlane lane="3_0" yield="0" dir="l" state="M"/>
+      <succlane lane="3_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="3" lane="3_0" junction="tl">
-      <succlane lane="4_0" yield="0" dir="l" state="M"/>
+      <succlane lane="4_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="4" lane="4_0" junction="dl">
-      <succlane lane="1_0" yield="0" dir="l" state="M"/>
+      <succlane lane="1_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="sink" lane="sink_0" junction="sink">

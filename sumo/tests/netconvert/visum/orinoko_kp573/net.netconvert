@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/26/07 09:51:31 by SUMO netconvert Version 0.9.6
+<!-- generated on 10/28/07 15:01:10 by SUMO netconvert Version 0.9.6
 <configuration>
 
    <input>
@@ -1218,7 +1218,7 @@
    </succ>
 
    <succ edge="-83535603" lane="-83535603_0" junction="100674947">
-      <succlane lane="-83535600_0" yield="0" dir="s" state="M"/>
+      <succlane lane="-83535600_0" yield="0" dir="l" state="M"/>
       <succlane lane="83535603_0" yield="1" dir="t" state="m"/>
    </succ>
 
@@ -1411,7 +1411,7 @@
    </succ>
 
    <succ edge="545279717" lane="545279717_0" junction="100674949">
-      <succlane lane="-83535603_0" yield="0" dir="s" state="M"/>
+      <succlane lane="-83535603_0" yield="0" dir="l" state="M"/>
       <succlane lane="-545279717_0" yield="1" dir="t" state="m"/>
    </succ>
 
@@ -1439,12 +1439,12 @@
    </succ>
 
    <succ edge="83535600" lane="83535600_0" junction="100674947">
-      <succlane lane="83535603_0" yield="0" dir="s" state="M"/>
+      <succlane lane="83535603_0" yield="0" dir="r" state="M"/>
       <succlane lane="-83535600_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="83535603" lane="83535603_0" junction="100674949">
-      <succlane lane="-545279717_0" yield="0" dir="s" state="M"/>
+      <succlane lane="-545279717_0" yield="0" dir="r" state="M"/>
       <succlane lane="-83535603_0" yield="1" dir="t" state="m"/>
    </succ>
 
