@@ -1,0 +1,117 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/28/07 14:03:05 by SUMO netconvert Version 0.9.6
+<configuration>
+
+   <input>
+      <xml-node-files>input_nodes.nod.xml</xml-node-files>
+      <xml-edge-files>input_edges.edg.xml</xml-edge-files>
+   </input>
+
+   <processing>
+      <remove-geometry>true</remove-geometry>
+   </processing>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
+<net>
+
+   <net-offset>-11.594800,-1937.830078</net-offset>
+   <conv-boundary>0.000000,0.000000,289.540222,167.050049</conv-boundary>
+   <orig-boundary>11.594800,1937.830078,301.135010,2104.880127</orig-boundary>
+   <orig-proj>!</orig-proj>
+
+   <edges no="3">1 2 3</edges>
+   <node_count>4</node_count>
+
+
+   <edge id="1" from="node104" to="node123" priority="75" type="" function="normal">
+      <lanes>
+         <lane id="1_0" depart="1" vclasses="" maxspeed="15.00" length="365.47">278.40,172.00 -4.95,172.00 -4.95,86.58</lane>
+         <lane id="1_1" depart="0" vclasses="" maxspeed="15.00" length="365.47">278.40,168.70 -1.65,168.70 -1.65,86.58</lane>
+      </lanes>
+      <cedge id="3">1_0 1_1</cedge>
+   </edge>
+
+   <edge id="2" from="node103" to="node123" priority="75" type="" function="normal">
+      <lanes>
+         <lane id="2_0" depart="1" vclasses="" maxspeed="15.00" length="288.09">289.54,82.91 1.45,82.91</lane>
+         <lane id="2_1" depart="0" vclasses="" maxspeed="15.00" length="288.09">289.54,79.61 1.45,79.61</lane>
+      </lanes>
+      <cedge id="3">2_0 2_1</cedge>
+   </edge>
+
+   <edge id="3" from="node123" to="node125" priority="75" type="" function="normal">
+      <lanes>
+         <lane id="3_0" depart="1" vclasses="" maxspeed="15.00" length="76.51">-4.95,76.51 -4.95,0.00</lane>
+         <lane id="3_1" depart="0" vclasses="" maxspeed="15.00" length="76.51">-1.65,76.51 -1.65,0.00</lane>
+      </lanes>
+   </edge>
+
+
+   <row-logic>
+      <key>node123</key>
+      <requestsize>4</requestsize>
+      <lanenumber>4</lanenumber>
+      <logic>
+         <logicitem request="0" response="0000" foes="1100"/>
+         <logicitem request="1" response="0000" foes="1100"/>
+         <logicitem request="2" response="0001" foes="0011"/>
+         <logicitem request="3" response="0010" foes="0011"/>
+      </logic>
+   </row-logic>
+
+
+
+   <junction id="node103" type="DEAD_END" x="289.54" y="77.96">
+      <inclanes></inclanes>
+      <shape>289.54,78.01 289.54,84.51</shape>
+   </junction>
+
+   <junction id="node104" type="DEAD_END" x="278.40" y="167.05">
+      <inclanes></inclanes>
+      <shape>278.40,167.10 278.40,173.60</shape>
+   </junction>
+
+   <junction id="node123" type="priority" x="0.00" y="77.96">
+      <inclanes>1_0 1_1 2_0 2_1</inclanes>
+      <shape>-6.55,86.58 -0.05,86.58 1.45,84.51 1.45,78.01 -0.05,76.51 -6.55,76.51</shape>
+   </junction>
+
+   <junction id="node125" type="DEAD_END" x="0.00" y="0.00">
+      <inclanes>3_0 3_1</inclanes>
+      <shape>-6.55,0.00 -0.05,0.00</shape>
+   </junction>
+
+
+   <succ edge="1" lane="1_0" junction="node123">
+      <succlane lane="3_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="1" lane="1_1" junction="node123">
+      <succlane lane="3_1" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="2" lane="2_0" junction="node123">
+      <succlane lane="3_0" yield="1" dir="l" state="m"/>
+   </succ>
+
+   <succ edge="2" lane="2_1" junction="node123">
+      <succlane lane="3_1" yield="1" dir="l" state="m"/>
+   </succ>
+
+   <succ edge="3" lane="3_0" junction="node125">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="3" lane="3_1" junction="node125">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+
+</net>
