@@ -52,6 +52,8 @@ if test -e $PREFIX/bin/sumo -a $PREFIX/bin/sumo -nt $PREFIX/sumo/configure; then
   # run tests
   export PATH=$PREFIX/texttest/bin:$PATH
   export TEXTTEST_TMP=$PREFIX/texttesttmp
+  find $BATCH_RESULT_DIR -mtime +20 -type f | xargs rm
+  rm -rf $REPORT_DIR/*
   tests/testDaily.sh $PREFIX/bin $BATCH_RESULT_DIR $REPORT_DIR $SMTP_SERVER &> /dev/null
   find $TEXTTEST_TMP -name batchreport."*" -exec echo -n '{} ' \; -exec head -1 '{}' \; | sort >> $STATUSLOG
   scp -qr $REPORT_DIR $REMOTEDIR
