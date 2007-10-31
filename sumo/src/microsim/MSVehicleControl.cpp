@@ -396,16 +396,16 @@ MSVehicleControl::loadState(BinaryInputDevice &bis)
                 bis >> routeOffset;
                 unsigned int wasEmitted;
                 bis >> wasEmitted;
-
-                // !!! several things may be missing
+#ifdef HAVE_MESOSIM
                 unsigned int segIndex;
                 bis >> segIndex;
                 SUMOReal tEvent;
                 bis >> tEvent;
                 SUMOReal tLastEntry;
                 bis >> tLastEntry;
-
-                //
+                bool inserted;
+                bis >> inserted;
+#endif
                 route = MSRoute::dictionary(routeID);
                 assert(route!=0);
                 type = getVType(typeID);
@@ -423,15 +423,15 @@ MSVehicleControl::loadState(BinaryInputDevice &bis)
                     routeOffset--;
                 }
 #ifdef HAVE_MESOSIM
-                v->seg = MSGlobals::gMesoNet->getSegmentForEdge(*(v->myCurrEdge));
-                while (v->seg->get_index()!=segIndex) {
-                    v->seg = MSGlobals::gMesoNet->next_segment(v->seg, v);
+                if (MSGlobals::gUseMesoSim) {
+                    v->seg = MSGlobals::gMesoNet->getSegmentForEdge(*(v->myCurrEdge));
+                    while (v->seg->get_index()!=segIndex) {
+                        v->seg = MSGlobals::gMesoNet->next_segment(v->seg, v);
+                    }
+                    v->tEvent = tEvent;
+                    v->tLastEntry = tLastEntry;
+                    v->inserted = inserted!=0;
                 }
-                v->tEvent = tEvent;
-                v->tLastEntry = tLastEntry;
-                bool inserted;
-                bis >> inserted;
-                v->inserted = inserted!=0;
 #endif
                 if (!addVehicle(id, v)) {
                     cout << "Could not build vehicle!!!" << "\n";
