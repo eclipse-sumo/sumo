@@ -141,17 +141,19 @@ NLBuilder::build()
     buildNet();
     // load the previous state if wished
     if (m_pOptions.isSet("load-state")) {
+        long before = SysUtils::getCurrentMillis();
         BinaryInputDevice strm(m_pOptions.getString("load-state"));
         if (!strm.good()) {
-            delete parser;
             MsgHandler::getErrorInstance()->inform("Could not read state from '" + m_pOptions.getString("load-state") + "'!");
-            return false;
         } else {
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading state from '" + m_pOptions.getString("load-state") + "'...");
-            long before = SysUtils::getCurrentMillis();
             myNet.loadState(strm);
-            MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis()-before) + "ms).");
         }
+        if (MsgHandler::getErrorInstance()->wasInformed()) {
+            delete parser;
+            return false;
+        }
+        MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis()-before) + "ms).");
     }
     // load weights if wished
     if (m_pOptions.isSet("weight-files")) {

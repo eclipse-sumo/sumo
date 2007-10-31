@@ -411,7 +411,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis)
                 type = getVType(typeID);
                 assert(type!=0);
                 if (getVehicle(id)!=0) {
-                    DEBUG_OUT << "Error: vehicle was already added" << "\n";
+                    MsgHandler::getErrorInstance()->inform("Error: Vehicle " + id + " was already added!");
                     continue;
                 }
 
@@ -434,8 +434,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis)
                 }
 #endif
                 if (!addVehicle(id, v)) {
-                    cout << "Could not build vehicle!!!" << "\n";
-                    throw 1;
+                    MsgHandler::getErrorInstance()->inform("Error: Could not build vehicle " + id + "!");
                 }
                 size--;
             }
