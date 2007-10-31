@@ -140,7 +140,7 @@ GUIRouteHandler::closeRoute() throw(ProcessError)
         }
     }
     GUIRoute *route =
-        new GUIRoute(myColor, myActiveRouteID, myActiveRoute, m_IsMultiReferenced);
+        new GUIRoute(myColor, myActiveRouteID, myActiveRoute, !myAmInEmbeddedMode || myRepNumber > 0);
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
 
@@ -158,9 +158,6 @@ GUIRouteHandler::closeRoute() throw(ProcessError)
         } else {
             route = static_cast<GUIRoute*>(MSRoute::dictionary(myActiveRouteID));
         }
-    }
-    if (myAmInEmbeddedMode) {
-        myCurrentEmbeddedRoute = route;
     }
 }
 

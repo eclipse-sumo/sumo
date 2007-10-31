@@ -79,7 +79,6 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
         myLastDepart(0), myLastReadVehicle(0),
         myAddVehiclesDirectly(addVehiclesDirectly),
         myWantVehicleColor(wantsVehicleColor),
-        myCurrentEmbeddedRoute(0),
         myAmUsingIncrementalDUA(incDUAStage>0),
         myRunningVehicleNumber(0),
         myIncrementalBase(incDUABase),
@@ -269,13 +268,6 @@ MSRouteHandler::openRoute(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing id of a route-object.");
         return;
     }
-    // get the information whether the route shall be deleted after
-    // being passed
-    bool multiReferenced = false;
-    try {
-        multiReferenced = getBool(attrs, SUMO_ATTR_MULTIR);
-    } catch (...) {}
-    m_IsMultiReferenced = multiReferenced;
 }
 
 
@@ -350,7 +342,7 @@ MSRouteHandler::closeRoute() throw(ProcessError)
             throw ProcessError("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
         }
     }
-    MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, m_IsMultiReferenced);
+    MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, !myAmInEmbeddedMode || myRepNumber > 0);
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
@@ -367,9 +359,6 @@ MSRouteHandler::closeRoute() throw(ProcessError)
         } else {
             route = MSRoute::dictionary(myActiveRouteID);
         }
-    }
-    if (myAmInEmbeddedMode) {
-        myCurrentEmbeddedRoute = route;
     }
 }
 
@@ -392,7 +381,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
     }
     // get the vehicle's route
     //  maybe it was explicitely assigned to the vehicle
-    MSRoute *route = myCurrentEmbeddedRoute;
+    MSRoute *route = MSRoute::dictionary(myActiveRouteID);
     if (route==0) {
         // if not, try via the (hopefully) given route-id
         route = MSRoute::dictionary(myCurrentRouteName);
@@ -462,7 +451,6 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
     }
     myVehicleStops.clear();
     myLastDepart = myCurrentDepart;
-    myCurrentEmbeddedRoute = 0;
 }
 
 

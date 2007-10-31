@@ -140,19 +140,12 @@ protected:
     /// the id of the current route
     std::string myActiveRouteID;
 
-    /** information wheter the route shall be kept after being passed
-        (otherwise it will be deleted) */
-    bool m_IsMultiReferenced;
-
     /** information whether vehicles shall be directly added to the network
         or kept within the buffer */
     bool myAddVehiclesDirectly;
 
     /** information whether colors of vehicles shall be loaded */
     bool myWantVehicleColor;
-
-    /// The vehicle's explicite route
-    MSRoute *myCurrentEmbeddedRoute;
 
     /// List of the stops the vehicle will make
     std::vector<MSVehicle::Stop> myVehicleStops;

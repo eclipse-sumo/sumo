@@ -64,8 +64,7 @@ MSRoute::MSRoute(const std::string &id,
                  const MSEdgeVector &edges,
                  bool multipleReferenced)
         : Named(id), myEdges(edges),
-        myMultipleReferenced(multipleReferenced),
-        myReferenceNo(1)
+        myMultipleReferenced(multipleReferenced)
 {}
 
 
@@ -84,7 +83,7 @@ MSRoute::end() const
     return myEdges.end();
 }
 
-size_t
+unsigned
 MSRoute::size() const
 {
     return myEdges.size();
@@ -146,7 +145,7 @@ MSRoute::erase(std::string id)
 bool
 MSRoute::inFurtherUse() const
 {
-    return myMultipleReferenced||myReferenceNo>0;
+    return myMultipleReferenced;
 }
 
 
@@ -209,7 +208,7 @@ MSRoute::containsAnyOf(const std::vector<MSEdge*> &edgelist) const
 
 
 const MSEdge *
-MSRoute::operator[](size_t index)
+MSRoute::operator[](unsigned index)
 {
     return myEdges[index];
 }
@@ -273,7 +272,7 @@ MSRoute::dict_loadState(BinaryInputDevice &bis)
 }
 
 
-size_t
+unsigned
 MSRoute::posInRoute(const MSRouteIterator &currentEdge) const
 {
     return distance(myEdges.begin(), currentEdge);
@@ -285,7 +284,7 @@ MSRoute::clearLoadedState()
 {
     std::vector<MSRoute*> toDel;
     for (RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
-        if ((*it).second->noReferences()==0&&!(*it).second->inFurtherUse()) {
+        if (!(*it).second->inFurtherUse()) {
             toDel.push_back((*it).second);
         }
     }

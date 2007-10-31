@@ -203,7 +203,7 @@ GUIHandler::closeRoute() throw(ProcessError)
         return;
     }
     GUIRoute *route =
-        new GUIRoute(myColor, myActiveRouteID, myActiveRoute, m_IsMultiReferenced);
+        new GUIRoute(myColor, myActiveRouteID, myActiveRoute, !myAmInEmbeddedMode);
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
@@ -219,9 +219,6 @@ GUIHandler::closeRoute() throw(ProcessError)
             }
             return;
         }
-    }
-    if (myAmInEmbeddedMode) {
-        myCurrentEmbeddedRoute = route;
     }
 }
 

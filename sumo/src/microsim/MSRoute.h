@@ -71,7 +71,7 @@ public:
     MSRouteIterator end() const;
 
     /// Returns the number of edges to pass
-    size_t size() const;
+    unsigned size() const;
 
     /// returns the destination edge
     const MSEdge *getLastEdge() const;
@@ -87,28 +87,13 @@ public:
     bool contains(MSEdge *edge) const;
     bool containsAnyOf(const std::vector<MSEdge*> &edgelist) const;
 
-    const MSEdge *operator[](size_t index);
+    const MSEdge *operator[](unsigned index);
 
     static void dict_saveState(std::ostream &os);
     void saveState(std::ostream &os);
     static void dict_loadState(BinaryInputDevice &bis);
 
-    size_t posInRoute(const MSRouteIterator &currentEdge) const;
-
-    size_t noReferences() const
-    { // !!!
-        return myReferenceNo;
-    }
-
-    void incReferenceCnt()
-    {
-        myReferenceNo++;
-    }
-
-    void decReferenceCnt()
-    {
-        myReferenceNo--;
-    }
+    unsigned posInRoute(const MSRouteIterator &currentEdge) const;
 
 public:
     /** @brief Adds a route to the dictionary
@@ -118,12 +103,6 @@ public:
     /** @brief Returns the named route
         Returns 0 if no route with the given name exitsts */
     static MSRoute *dictionary(const std::string &id);
-
-    /// Returns the number of known routes
-    static size_t dictSize()
-    {
-        return myDict.size();
-    }
 
     /// Clears the dictionary (delete all known routes, too)
     static void clear();

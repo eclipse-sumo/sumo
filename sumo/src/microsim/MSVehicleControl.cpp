@@ -103,7 +103,6 @@ MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
                                int repNo, int repOffset)
 {
     myLoadedVehNo++;
-    route->incReferenceCnt();
     return new MSVehicle(id, route, departTime, type, repNo, repOffset, myLoadedVehNo-1);
 }
 
@@ -408,7 +407,6 @@ MSVehicleControl::loadState(BinaryInputDevice &bis)
 
                 //
                 route = MSRoute::dictionary(routeID);
-                route->incReferenceCnt();
                 assert(route!=0);
                 type = getVType(typeID);
                 assert(type!=0);

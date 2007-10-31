@@ -147,7 +147,6 @@ MSVehicle::~MSVehicle()
         (*i)->removeOnTripEnd(this);
     }
     // delete the route
-    myRoute->decReferenceCnt();
     if (!myRoute->inFurtherUse()) {
         MSRoute::erase(myRoute->getID());
     }
@@ -247,9 +246,6 @@ MSVehicle::MSVehicle(string id,
         myOldLaneMoveReminderOffsets(0),
         myNoGot(0), myNoSent(0), myNoGotRelevant(0)
 {
-    if (myRepetitionNumber>0) {
-        myRoute->incReferenceCnt();
-    }
     rebuildAllowedLanes();
     myLaneChangeModel = new MSLCM_DK2004(*this);
     // init cell phones

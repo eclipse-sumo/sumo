@@ -5,4 +5,7 @@
 old_style
 
 # Tests whether the new-style routes can be handled
-new_style
+nested
+
+# Test repeated vehicle creation
+repeat
