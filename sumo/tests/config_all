@@ -5,12 +5,14 @@ smtp_server:$SMTP_SERVER
 batch_use_collection:true
 [batch_recipients]
 default:michael.behrisch@dlr.de,daniel.krajzewicz@dlr.de
-msvc8mesoreport:delphi-dev@dlr.de
+msvc8mesox64report:delphi-dev@dlr.de
+msvc8mesoWin32report:delphi-dev@dlr.de
 [batch_sender]
 default:behrisch@informatik.hu-berlin.de
 gcc3report:gcc3test@fileserv
 msvc8report:msvc8test@TTSTest
-msvc8mesoreport:michael.behrisch@dlr.de
+msvc8mesox64report:michael.behrisch@dlr.de
+msvc8mesoWin32report:michael.behrisch@dlr.de
 [run_dependent_text]
 output:Version
 errors:UTFDataFormatException
