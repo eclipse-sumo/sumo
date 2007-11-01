@@ -279,21 +279,5 @@ MSRoute::posInRoute(const MSRouteIterator &currentEdge) const
 }
 
 
-void
-MSRoute::clearLoadedState()
-{
-    std::vector<MSRoute*> toDel;
-    for (RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
-        if (!(*it).second->inFurtherUse()) {
-            toDel.push_back((*it).second);
-        }
-    }
-    for (std::vector<MSRoute*>::iterator i=toDel.begin(); i!=toDel.end(); ++i) {
-        erase((*i)->getID());
-    }
-}
-
-
-
 /****************************************************************************/
 

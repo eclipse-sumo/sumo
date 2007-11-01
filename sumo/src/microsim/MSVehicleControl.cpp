@@ -441,8 +441,6 @@ MSVehicleControl::loadState(BinaryInputDevice &bis)
         } while (id!="-----------------end---------------");
         DEBUG_OUT << myVehicleDict.size() << " vehicles loaded."; // !!! verbose
     }
-//    MSVehicle::dict_loadState(bis, what);
-    MSRoute::clearLoadedState();
 }
 
 

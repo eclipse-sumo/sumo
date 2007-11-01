@@ -112,9 +112,6 @@ public:
 
     MSRouteIterator find(const MSEdge *e) const;
 
-    static void clearLoadedState();
-
-
 
 private:
     /// The list of edges to pass
@@ -122,8 +119,6 @@ private:
 
     /// Information whether the route is used by more than a single vehicle
     bool myMultipleReferenced;
-
-    size_t myReferenceNo;
 
 private:
     /// Definition of the dictionary container
