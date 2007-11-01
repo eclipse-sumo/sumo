@@ -1,13 +1,14 @@
-#!/usr/bin/python
+#!/usr/bin/env python
 
 import os, sys, smtplib
-from os.path import basename, join, expandvars, exists
+from os.path import basename, join, expandvars, exists, commonprefix
 from datetime import datetime
 
 failed = ""
 makelog = sys.argv[1]
 makealllog = sys.argv[2]
-print basename(makelog), datetime.now().ctime()
+print commonprefix([basename(makelog), basename(makealllog)]),
+print datetime.now().ctime()
 print "--"
 print basename(makelog)
 warnings = 0

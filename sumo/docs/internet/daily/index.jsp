@@ -40,7 +40,7 @@ for (File f : (new File("webapps/daily")).listFiles()) {
                     rows[rowIndex] += line.substring(12) + "</a><br/>";
                 } else {
                     if (hadLinkLine || rowIndex == 0) {
-                        rows[rowIndex] += line;
+                        rows[rowIndex] += line + "\n";
                     } else {
                         rows[rowIndex] += "<a href=\"" + line + "\"><pre>";
                         hadLinkLine = true;
