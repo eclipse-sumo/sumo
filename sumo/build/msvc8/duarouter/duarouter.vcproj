@@ -79,7 +79,6 @@
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/duarouter.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -172,7 +171,6 @@
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/duarouter.pdb"
 				SubSystem="1"
 				TargetMachine="17"
 			/>
@@ -265,7 +263,6 @@
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				GenerateDebugInformation="false"
-				ProgramDatabaseFile=".\Release/duarouter.pdb"
 				SubSystem="1"
 				OptimizeReferences="0"
 				LinkTimeCodeGeneration="1"
@@ -361,7 +358,6 @@
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				GenerateDebugInformation="false"
-				ProgramDatabaseFile=".\Release/duarouter.pdb"
 				SubSystem="1"
 				OptimizeReferences="0"
 				LinkTimeCodeGeneration="1"

@@ -79,7 +79,6 @@
 				SuppressStartupBanner="true"
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/netconvert.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -171,7 +170,6 @@
 				SuppressStartupBanner="true"
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/netconvert.pdb"
 				SubSystem="1"
 				TargetMachine="17"
 			/>
@@ -264,7 +262,6 @@
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				GenerateDebugInformation="false"
-				ProgramDatabaseFile=".\Release/netconvert.pdb"
 				SubSystem="1"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="1"
@@ -359,7 +356,6 @@
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				GenerateDebugInformation="false"
-				ProgramDatabaseFile=".\Release/netconvert.pdb"
 				SubSystem="1"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"

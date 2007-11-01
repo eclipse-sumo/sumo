@@ -71,7 +71,6 @@
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/polyconvert.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -157,7 +156,6 @@
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/polyconvert.pdb"
 				SubSystem="1"
 				TargetMachine="17"
 			/>
@@ -246,7 +244,6 @@
 				OutputFile=".\Release/polyconvert.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				ProgramDatabaseFile=".\Release/polyconvert.pdb"
 				SubSystem="1"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="1"
@@ -337,7 +334,6 @@
 				OutputFile=".\Release/polyconvert64.exe"
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
-				ProgramDatabaseFile=".\Release/polyconvert.pdb"
 				SubSystem="1"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"

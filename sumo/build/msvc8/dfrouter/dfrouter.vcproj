@@ -80,7 +80,6 @@
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/dfrouter.pdb"
 				SubSystem="1"
 				TargetMachine="1"
 			/>
@@ -173,7 +172,6 @@
 				IgnoreAllDefaultLibraries="false"
 				IgnoreDefaultLibraryNames="nafxcwd.lib"
 				GenerateDebugInformation="true"
-				ProgramDatabaseFile=".\Debug/dfrouter.pdb"
 				SubSystem="1"
 				TargetMachine="17"
 			/>
@@ -266,7 +264,6 @@
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				GenerateDebugInformation="false"
-				ProgramDatabaseFile=".\Release/dfrouter.pdb"
 				SubSystem="1"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="1"
@@ -361,7 +358,6 @@
 				LinkIncremental="1"
 				SuppressStartupBanner="true"
 				GenerateDebugInformation="false"
-				ProgramDatabaseFile=".\Release/dfrouter.pdb"
 				SubSystem="1"
 				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
