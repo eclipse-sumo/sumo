@@ -31,7 +31,6 @@
 #endif
 
 #include <xercesc/sax2/SAX2XMLReader.hpp>
-#include <xercesc/sax2/DefaultHandler.hpp>
 #include <utils/common/UtilExceptions.h>
 
 
@@ -74,7 +73,7 @@ public:
      * @brief Initialises the xml-subsystem, returns whether the initialisation succeeded.
      *
      * Calls XMLPlatformUtils::Initialize(). If this fails, the exception is
-     *  caught and their content is reported using a ProcessError.
+     *  caught and its content is reported using a ProcessError.
      */
     static void init() throw(ProcessError);
 
@@ -100,8 +99,7 @@ public:
      * @param[in] handler The handler to assign to the built reader
      * @return The build Xerces-SAX-reader, 0 if something failed
      */
-    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader *
-    getSAXReader(SUMOSAXHandler &handler) throw();
+    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader * getSAXReader(SUMOSAXHandler &handler) throw();
 
 
     /**
@@ -138,6 +136,10 @@ protected:
     static void setFeature(XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader &reader,
                            const std::string &feature, bool value) throw();
 
+
+private:
+    /// The XML Reader used for repeated parsing
+    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader * myReader;
 
 };
 

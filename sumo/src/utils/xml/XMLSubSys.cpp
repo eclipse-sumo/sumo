@@ -57,6 +57,12 @@ using namespace std;
 
 
 // ===========================================================================
+// static member variables
+// ===========================================================================
+SAX2XMLReader* XMLSubSys::myReader;
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 void
@@ -64,6 +70,17 @@ XMLSubSys::init() throw(ProcessError)
 {
     try {
         XMLPlatformUtils::Initialize();
+        myReader = XMLReaderFactory::createXMLReader();
+        setFeature(*myReader,
+                   "http://xml.org/sax/features/namespaces", false);
+        setFeature(*myReader,
+                   "http://apache.org/xml/features/validation/schema", false);
+        setFeature(*myReader,
+                   "http://apache.org/xml/features/validation/schema-full-checking", false);
+        setFeature(*myReader,
+                   "http://xml.org/sax/features/validation", false);
+        setFeature(*myReader,
+                   "http://apache.org/xml/features/validation/dynamic" , false);
     } catch (const XMLException& e) {
         throw ProcessError ("Error during XML-initialization:\n " + TplConvert<XMLCh>::_2str(e.getMessage()));
     }
@@ -73,6 +90,7 @@ XMLSubSys::init() throw(ProcessError)
 void
 XMLSubSys::close() throw()
 {
+    delete myReader;
     XMLPlatformUtils::Terminate();
 }
 
@@ -105,13 +123,10 @@ bool
 XMLSubSys::runParser(SUMOSAXHandler &handler,
                      const std::string &file) throw()
 {
-    SAX2XMLReader *reader = getSAXReader(handler);
-    if (reader==0) {
-        MsgHandler::getErrorInstance()->inform("Could not build reader to parse '" + file + "'.");
-        return false;
-    }
     try {
-        reader->parse(file.c_str());
+        myReader->setContentHandler(&handler);
+        myReader->setErrorHandler(&handler);
+        myReader->parse(file.c_str());
     } catch (ProcessError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         return false;
@@ -119,7 +134,6 @@ XMLSubSys::runParser(SUMOSAXHandler &handler,
         MsgHandler::getErrorInstance()->inform("An error occured.");
         return false;
     }
-    delete reader;
     return !MsgHandler::getErrorInstance()->wasInformed();
 }
 
