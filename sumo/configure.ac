@@ -299,7 +299,7 @@ dnl   ... for includes
 AC_ARG_WITH([fox-includes], [AS_HELP_STRING([--with-fox-includes=DIR],[where the Fox includes are.])])
 if test x"$with_fox_includes" = x; then
    save_cppflags=$CPPFLAGS
-   CPPFLAGS="$CPPFLAGS -I/usr/local/include -I/usr/include"
+   CPPFLAGS="$CPPFLAGS -I/usr/local/include/fox-1.4 -I/usr/include/fox-1.4"
    export CPPFLAGS
    AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
    with_fox_includes=yes], [AC_MSG_WARN([fox-includes not found. Specify path with option --with-fox-includes=DIR for gui applications.])])
