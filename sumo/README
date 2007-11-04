@@ -46,10 +46,11 @@ sumo-announce-request@lists.sourceforge.net.
 
 
 
-Installation.
-=============
+Build and Installation.
+=======================
 
-For Windows provide pre-compiled binaries and MSVC project files (version 6,7, and 8).
+For Windows we provide pre-compiled binaries and Visual Studio 2005 (aka MSVC 8)
+project files.
 Using Linux a simple "./configure && make" should be enough for the distributions, if you
 have installed all needed libraries properly. Using the repository checkout you
 need to issue "make -f Makefile.cvs" before "./configure && make" in order to run
@@ -80,9 +81,9 @@ Please use for bugs and requests the SourceForge Tracker
 
         http://sourceforge.net/tracker/?group_id=45607&atid=443421
 
-or file them to the list sumo-users@lists.sourceforge.net.  Before
-filing a bug, please take a moment to check with the current CVS that the problem
-still persists.
+or file them to the list sumo-users@lists.sourceforge.net. Before
+filing a bug, please consider to check with a current subversion checkout
+that the problem still persists.
 
 
 
