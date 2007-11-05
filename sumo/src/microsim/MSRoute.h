@@ -90,7 +90,6 @@ public:
     const MSEdge *operator[](unsigned index);
 
     static void dict_saveState(std::ostream &os);
-    void saveState(std::ostream &os);
     static void dict_loadState(BinaryInputDevice &bis);
 
     unsigned posInRoute(const MSRouteIterator &currentEdge) const;

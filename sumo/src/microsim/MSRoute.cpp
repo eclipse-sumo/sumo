@@ -219,19 +219,12 @@ MSRoute::dict_saveState(std::ostream &os)
 {
     FileHelpers::writeUInt(os, myDict.size());
     for (RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
-        (*it).second->saveState(os);
-    }
-}
-
-
-void
-MSRoute::saveState(std::ostream &os)
-{
-    FileHelpers::writeString(os, getID());
-    FileHelpers::writeUInt(os, myEdges.size());
-    FileHelpers::writeByte(os, myMultipleReferenced);
-    for (MSEdgeVector::const_iterator i = myEdges.begin(); i!=myEdges.end(); ++i) {
-        FileHelpers::writeUInt(os, (*i)->getNumericalID());
+		FileHelpers::writeString(os, (*it).second->getID());
+		FileHelpers::writeUInt(os, (*it).second->myEdges.size());
+		FileHelpers::writeByte(os, (*it).second->myMultipleReferenced);
+		for (MSEdgeVector::const_iterator i = (*it).second->myEdges.begin(); i!=(*it).second->myEdges.end(); ++i) {
+			FileHelpers::writeUInt(os, (*i)->getNumericalID());
+		}
     }
 }
 
@@ -248,25 +241,24 @@ MSRoute::dict_loadState(BinaryInputDevice &bis)
         bis >> no;
         bool multipleReferenced;
         bis >> multipleReferenced;
-        bool had = dictionary(id)!=0;
-        MSEdgeVector edges;
-        if (!had) {
+		if (dictionary(id)==0) {
+	        MSEdgeVector edges;
             edges.reserve(no);
-        }
-        while (no>0) {
-            unsigned int edgeID;
-            bis >> edgeID;
-            if (!had) {
+			for (;no>0;no--) {
+	            unsigned int edgeID;
+	            bis >> edgeID;
                 MSEdge *e = MSEdge::dictionary(edgeID);
                 assert(e!=0);
                 edges.push_back(e);
             }
-            no--;
-        }
-        if (!had) {
             MSRoute *r = new MSRoute(id, edges, multipleReferenced);
             dictionary(id, r);
-        }
+		} else {
+			for (;no>0;no--) {
+				unsigned int edgeID;
+				bis >> edgeID;
+			}
+		}
         noRoutes--;
     }
 }

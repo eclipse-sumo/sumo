@@ -415,8 +415,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis)
                     continue;
                 }
 
-                MSVehicle *v = MSNet::getInstance()->getVehicleControl().buildVehicle(id,
-                               route, desiredDepart, type, repetitionNumber, period);
+                MSVehicle *v = buildVehicle(id, route, desiredDepart, type, repetitionNumber, period);
                 v->myIntCORNMap[MSCORN::CORN_VEH_REALDEPART] = wasEmitted;
                 while (routeOffset>0) {
                     v->myCurrEdge++;
