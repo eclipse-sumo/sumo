@@ -674,7 +674,6 @@ MSLane::push(MSVehicle* veh)
         resetApproacherDistance();
         veh->removeApproachingInformationOnKill(/*this*/);
         MSVehicleTransfer::getInstance()->addVeh(veh);
-//        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return true;
     }
     // check whether the vehicle has ended his route
@@ -685,10 +684,9 @@ MSLane::push(MSVehicle* veh)
         SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
         veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
         veh->_assertPos();
-//        setApproaching(veh->pos(), veh);
         return false;
     } else {
-        veh->onTripEnd(/* *this*/);
+        veh->onTripEnd();
         resetApproacherDistance();
         veh->removeApproachingInformationOnKill(/*this*/);
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
