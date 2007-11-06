@@ -46,7 +46,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class MSEventControl;
 class OptionsCont;
 class MSEdgeContinuations;
 

@@ -44,7 +44,6 @@
 class MSEdgeControl;
 class MSJunctionControl;
 class MSEmitControl;
-class MSEventControl;
 class MSRouteLoaderControl;
 class MSTLLogicControl;
 class MSTrafficLightLogic;

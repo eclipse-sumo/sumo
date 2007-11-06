@@ -23,9 +23,10 @@
 <targetPlatform id="com.redhat.eclipse.cdt.autotools.toolchain.targetPlatform.1824168668" isAbstract="false" name="GNU Autotools Target Platform" superClass="com.redhat.eclipse.cdt.autotools.toolchain.targetPlatform"/>
 <builder buildPath="${workspace_loc:/Sumo/Build (GNU)}" enableAutoBuild="true" enableCleanBuild="true" id="com.redhat.eclipse.cdt.autotools.toolchain.builder.983076435" keepEnvironmentInBuildfile="false" managedBuildOn="true" name="Autotools Makefile Generator" superClass="com.redhat.eclipse.cdt.autotools.toolchain.builder"/>
 <tool id="com.redhat.eclipse.cdt.autotools.gnu.toolchain.tool.configure.1962182255" name="configure" superClass="com.redhat.eclipse.cdt.autotools.gnu.toolchain.tool.configure">
-<option id="com.redhat.eclipse.cdt.autotools.option.configure.includes.80200383" superClass="com.redhat.eclipse.cdt.autotools.option.configure.includes" valueType="includePath">
+<option id="com.redhat.eclipse.cdt.autotools.option.configure.includes.80200383" name="includes" superClass="com.redhat.eclipse.cdt.autotools.option.configure.includes" valueType="includePath">
 <listOptionValue builtIn="false" value="&quot;${workspace_loc:/Sumo/src}&quot;"/>
 </option>
+<option id="com.redhat.eclipse.cdt.autotools.option.configure.builddir.1685629935" superClass="com.redhat.eclipse.cdt.autotools.option.configure.builddir" value="" valueType="string"/>
 </tool>
 <tool id="com.redhat.eclipse.cdt.autotools.toolchain.tool.autogen.1789345191" name="autogen.sh" superClass="com.redhat.eclipse.cdt.autotools.toolchain.tool.autogen"/>
 </toolChain>
@@ -393,6 +394,10 @@
 </storageModule>
 
 
+
+<storageModule moduleId="org.eclipse.cdt.core.language.mapping">
+<project-mappings/>
+</storageModule>
 <storageModule moduleId="scannerConfiguration">
 <autodiscovery enabled="true" problemReportingEnabled="true" selectedProfileId="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile"/>
 <profile id="org.eclipse.cdt.make.core.GCCStandardMakePerProjectProfile">
@@ -558,9 +563,6 @@
 </scannerInfoProvider>
 </profile>
 </scannerConfigBuildInfo>
-</storageModule>
-<storageModule moduleId="org.eclipse.cdt.core.language.mapping">
-<project-mappings/>
 </storageModule>
 </cconfiguration>
 </storageModule>
