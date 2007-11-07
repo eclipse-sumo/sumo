@@ -21,12 +21,12 @@ move /Y %MAKEALLLOG% %REMOTE_DIR%
 REM run tests
 cd tests
 SET TEXTTEST_TMP=%CD%\texttesttmp
-deltree %TEXTTEST_TMP% /Y
+del /S /Q %TEXTTEST_TMP%
 call testEnv.bat
 texttest.py -b %SUMO_REPORT%
 texttest.py -b %SUMO_REPORT% -coll
 mkdir %REMOTE_DIR%\%SUMO_REPORT%
-xcopy %SUMO_REPORT% %REMOTE_DIR%\%SUMO_REPORT% /Y /E
+xcopy /Y /E %SUMO_REPORT% %REMOTE_DIR%\%SUMO_REPORT%
 cd ..\tools\build
 status.py %REMOTE_DIR%\%MAKELOG% %REMOTE_DIR%\%MAKEALLLOG% %TEXTTEST_TMP% ..\..\tests\config_all > %REMOTE_DIR%\%STATUSLOG%
 
