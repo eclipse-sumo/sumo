@@ -48,6 +48,8 @@
 // command: close sumo
 #define CMD_CLOSE   0x7F
 
+// command: close sumo
+#define CMD_UPDATECALIBRATOR 0x50
 
 // ****************************************
 // POSITION REPRESENTATIONS

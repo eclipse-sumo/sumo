@@ -119,6 +119,10 @@ namespace traci
 
         void commandSimulationParameter(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
+#ifdef ONLINE_CALIBRATION
+        void commandUpdateCalibrator(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+#endif //ONLINE_CALIBRATION
+
         void writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description);
 
         // port on which server is listening on

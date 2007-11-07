@@ -43,6 +43,10 @@
 #include "microsim/MSEdgeControl.h"
 #include "microsim/MSLane.h"
 
+#ifdef ONLINE_CALIBRATION
+#include "microsim/trigger/MSCalibrator.h"
+#endif //ONLINE_CALIBRATON
+
 #include <string>
 #include <map>
 #include <iostream>
@@ -177,6 +181,11 @@ namespace traci
         case CMD_CLOSE:
             commandCloseConnection(requestMsg, respMsg);
             break;
+#ifdef ONLINE_CALIBRATION
+		case CMD_UPDATECALIBRATOR:
+            commandUpdateCalibrator(requestMsg, respMsg);
+            break;
+#endif //ONLINE_CALIBRATION
         default:
             writeStatusCmd(respMsg, commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
             return false;
@@ -514,6 +523,25 @@ namespace traci
         respMsg.writeStorage(answerTmp);
     }
 
+	/*****************************************************************************/
+#ifdef ONLINE_CALIBRATION
+    void 
+        TraCIServer::commandUpdateCalibrator(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
+        throw(TraCIException)
+    {
+        respMsg.reset();
+
+        int countTime = requestMsg.readInt();
+        int vehicleCount = requestMsg.readInt();
+        std::string calibratorId = requestMsg.readString();
+
+        MSCalibrator::updateCalibrator(calibratorId, countTime, vehicleCount);
+ 
+        //@TODO write response according to result of updateCalibrator
+
+        return;
+    }
+#endif //ONLINE_CALIBRATION
     /*****************************************************************************/
 
     void
