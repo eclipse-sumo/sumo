@@ -1,3 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/07/07 11:38:47 by SUMO netconvert Version 0.9.6
+<configuration>
+
+   <input>
+      <xml-node-files>../data/examples\duarouter\flows2routes_200s_interval\flows2routes_200s_interval.nod.xml</xml-node-files>
+      <xml-edge-files>../data/examples\duarouter\flows2routes_200s_interval\flows2routes_200s_interval.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>../data/examples\duarouter\flows2routes_200s_interval\flows2routes_200s_interval.net.xml</output-file>
+   </output>
+
+   <processing>
+      <add-internal-links>true</add-internal-links>
+   </processing>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
 <net>
 
    <net-offset>500.000000,20.000000</net-offset>

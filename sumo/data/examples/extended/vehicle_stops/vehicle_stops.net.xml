@@ -1,3 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/07/07 11:38:48 by SUMO netconvert Version 0.9.6
+<configuration>
+
+   <input>
+      <xml-node-files>../data/examples\extended\vehicle_stops\vehicle_stops.nod.xml</xml-node-files>
+      <xml-edge-files>../data/examples\extended\vehicle_stops\vehicle_stops.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>../data/examples\extended\vehicle_stops\vehicle_stops.net.xml</output-file>
+   </output>
+
+   <processing>
+      <add-internal-links>true</add-internal-links>
+   </processing>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
 <net>
 
    <net-offset>500.000000,20.000000</net-offset>

@@ -1,3 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/07/07 11:38:47 by SUMO netconvert Version 0.9.6
+<configuration>
+
+   <input>
+      <xml-node-files>../data/examples\emissions\normal\hokkaido_ext.nod.xml</xml-node-files>
+      <xml-edge-files>../data/examples\emissions\normal\hokkaido_ext.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>../data/examples\emissions\normal\hokkaido_ext.net.xml</output-file>
+   </output>
+
+   <processing>
+      <add-internal-links>true</add-internal-links>
+   </processing>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
 <net>
 
    <net-offset>500.000000,0.000000</net-offset>
@@ -54,7 +79,7 @@
 
    <edge id="2" from="dr" to="tr" priority="2" type="" function="normal">
       <lanes>
-         <lane id="2_0" depart="1" vclasses="" maxspeed="13.90" length="299.48">1700.07,0.01 1716.58,1.45 1732.66,5.76 1747.75,12.79 1761.38,22.34 1773.15,34.11 1782.70,47.75 1789.73,62.83 1794.04,78.91 1795.49,95.49 1794.04,112.08 1789.73,128.15 1782.70,143.24 1773.15,156.87 1761.38,168.64 1747.75,178.19 1732.66,185.23 1716.58,189.54 1700.07,190.98</lane>
+         <lane id="2_0" depart="1" vclasses="" maxspeed="13.90" length="299.48">1700.07,0.01 1716.58,1.45 1732.66,5.76 1747.75,12.79 1761.38,22.34 1773.15,34.11 1782.70,47.75 1789.73,62.83 1794.04,78.91 1795.49,95.49 1794.04,112.07 1789.73,128.15 1782.70,143.24 1773.15,156.87 1761.38,168.64 1747.75,178.19 1732.66,185.23 1716.58,189.54 1700.07,190.98</lane>
       </lanes>
       <cedge id="3">2_0</cedge>
    </edge>
@@ -153,19 +178,19 @@
 
 
    <succ edge="1" lane="1_0" junction="dr">
-      <succlane lane="2_0" via=":dr_0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="2_0" via=":dr_0_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="2" lane="2_0" junction="tr">
-      <succlane lane="3_0" via=":tr_0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="3_0" via=":tr_0_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="3" lane="3_0" junction="tl">
-      <succlane lane="4_0" via=":tl_0_0" yield="0" dir="l" state="M"/>
+      <succlane lane="4_0" via=":tl_0_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="4" lane="4_0" junction="dl">
-      <succlane lane="1_0" via=":dl_1_0" yield="0" dir="l" state="M"/>
+      <succlane lane="1_0" via=":dl_1_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="source" lane="source_0" junction="dl">

@@ -1,3 +1,29 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/07/07 11:38:49 by SUMO netconvert Version 0.9.6
+<configuration>
+
+   <input>
+      <xml-node-files>../data/examples\netbuild\speed_in_kmh\cross_notypes_kmh\cross3l.nod.xml</xml-node-files>
+      <xml-edge-files>../data/examples\netbuild\speed_in_kmh\cross_notypes_kmh\cross3l.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>../data/examples\netbuild\speed_in_kmh\cross_notypes_kmh\cross3l.net.xml</output-file>
+   </output>
+
+   <processing>
+      <speed-in-kmh>true</speed-in-kmh>
+      <add-internal-links>true</add-internal-links>
+   </processing>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
 <net>
 
    <net-offset>500.000000,500.000000</net-offset>

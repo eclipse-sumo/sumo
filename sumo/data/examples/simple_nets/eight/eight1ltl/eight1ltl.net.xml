@@ -1,3 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/07/07 11:38:54 by SUMO netconvert Version 0.9.6
+<configuration>
+
+   <input>
+      <xml-node-files>../data/examples\simple_nets\eight\eight1ltl\eight1ltl.nod.xml</xml-node-files>
+      <xml-edge-files>../data/examples\simple_nets\eight\eight1ltl\eight1ltl.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>../data/examples\simple_nets\eight\eight1ltl\eight1ltl.net.xml</output-file>
+   </output>
+
+   <processing>
+      <add-internal-links>true</add-internal-links>
+   </processing>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
 <net>
 
    <net-offset>1000.000000,1000.000000</net-offset>
@@ -29,7 +54,7 @@
 
    <edge id=":1_3" function="internal">
       <lanes>
-         <lane id=":1_3_0" depart="0" maxspeed="36.00" length="4.82" >1.65,996.75 0.82,997.99 0.00,998.40 -0.82,997.99 -1.65,996.75</lane>
+         <lane id=":1_3_0" depart="0" maxspeed="36.00" length="4.82" >1.65,996.75 0.82,997.99 -0.00,998.40 -0.83,997.99 -1.65,996.75</lane>
       </lanes>
       <cedge id="a1">:1_3_0</cedge>
    </edge>
@@ -43,7 +68,7 @@
 
    <edge id=":2_1" function="internal">
       <lanes>
-         <lane id=":2_1_0" depart="0" maxspeed="36.00" length="4.82" >-1.65,3.25 -0.82,2.01 0.00,1.60 0.82,2.01 1.65,3.25</lane>
+         <lane id=":2_1_0" depart="0" maxspeed="36.00" length="4.82" >-1.65,3.25 -0.82,2.01 0.00,1.60 0.83,2.01 1.65,3.25</lane>
       </lanes>
       <cedge id="b8">:2_1_0</cedge>
    </edge>
@@ -57,7 +82,7 @@
 
    <edge id=":2_3" function="internal">
       <lanes>
-         <lane id=":2_3_0" depart="0" maxspeed="36.00" length="4.82" >3.25,1.65 2.01,0.82 1.60,0.00 2.01,-0.82 3.25,-1.65</lane>
+         <lane id=":2_3_0" depart="0" maxspeed="36.00" length="4.82" >3.25,1.65 2.01,0.82 1.60,-0.00 2.01,-0.83 3.25,-1.65</lane>
       </lanes>
       <cedge id="a2">:2_3_0</cedge>
    </edge>
@@ -85,7 +110,7 @@
 
    <edge id=":3_3" function="internal">
       <lanes>
-         <lane id=":3_3_0" depart="0" maxspeed="36.00" length="4.82" >996.75,-1.65 997.99,-0.82 998.40,0.00 997.99,0.82 996.75,1.65</lane>
+         <lane id=":3_3_0" depart="0" maxspeed="36.00" length="4.82" >996.75,-1.65 997.99,-0.82 998.40,0.00 997.99,0.83 996.75,1.65</lane>
       </lanes>
       <cedge id="b7">:3_3_0</cedge>
    </edge>

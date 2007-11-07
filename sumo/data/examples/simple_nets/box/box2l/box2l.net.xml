@@ -1,3 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/07/07 11:38:52 by SUMO netconvert Version 0.9.6
+<configuration>
+
+   <input>
+      <xml-node-files>../data/examples\simple_nets\box\box2l\box2l.nod.xml</xml-node-files>
+      <xml-edge-files>../data/examples\simple_nets\box\box2l\box2l.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>../data/examples\simple_nets\box\box2l\box2l.net.xml</output-file>
+   </output>
+
+   <processing>
+      <add-internal-links>true</add-internal-links>
+   </processing>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
 <net>
 
    <net-offset>250.000000,250.000000</net-offset>
@@ -29,7 +54,7 @@
 
    <edge id=":1_1" function="internal">
       <lanes>
-         <lane id=":1_1_0" depart="0" maxspeed="36.00" length="7.90" >1.65,493.45 1.96,495.59 2.88,497.12 4.41,498.04 6.55,498.35</lane>
+         <lane id=":1_1_0" depart="0" maxspeed="36.00" length="7.90" >1.65,493.45 1.96,495.59 2.88,497.13 4.41,498.04 6.55,498.35</lane>
       </lanes>
       <cedge id="1">:1_1_0</cedge>
    </edge>
@@ -57,7 +82,7 @@
 
    <edge id=":3_1" function="internal">
       <lanes>
-         <lane id=":3_1_0" depart="0" maxspeed="36.00" length="7.90" >498.35,6.55 498.04,4.41 497.13,2.88 495.59,1.96 493.45,1.65</lane>
+         <lane id=":3_1_0" depart="0" maxspeed="36.00" length="7.90" >498.35,6.55 498.04,4.41 497.13,2.87 495.59,1.96 493.45,1.65</lane>
       </lanes>
       <cedge id="3">:3_1_0</cedge>
    </edge>
