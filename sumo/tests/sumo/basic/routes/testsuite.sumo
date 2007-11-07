@@ -7,5 +7,8 @@ old_style
 # Tests whether the new-style routes can be handled
 nested
 
+# Tests whether the new-style routes can be handled
+nested_ref
+
 # Test repeated vehicle creation
 repeat
