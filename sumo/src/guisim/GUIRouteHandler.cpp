@@ -140,7 +140,7 @@ GUIRouteHandler::closeRoute() throw(ProcessError)
         }
     }
     GUIRoute *route =
-        new GUIRoute(myColor, myActiveRouteID, myActiveRoute, !myAmInEmbeddedMode || myRepNumber > 0);
+        new GUIRoute(myColor, myActiveRouteID, myActiveRoute, !myAmInEmbeddedMode);
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
 

@@ -259,8 +259,7 @@ MSRouteHandler::openRoute(const Attributes &attrs)
         if (myAmInEmbeddedMode) {
             // ok, a vehicle is wrapping the route,
             //  we may use this vehicle's id as default
-            myActiveRouteID =
-                getStringSecure(attrs, SUMO_ATTR_ID, "!" + myActiveVehicleID); // !!! document this
+            myActiveRouteID = "!" + myActiveVehicleID; // !!! document this
         } else {
             myActiveRouteID = getString(attrs, SUMO_ATTR_ID);
         }
@@ -293,10 +292,10 @@ MSRouteHandler::addRouteElements(const std::string &chars)
 {
     StringTokenizer st(chars);
     if (st.size()==0) {
-        if (myActiveRouteID[0]!='!') {
-            throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
+        if (myAmInEmbeddedMode) {
+            throw ProcessError("Vehicle's '" + myActiveVehicleID + "' route has no edges.");
         } else {
-            throw ProcessError("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
+            throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
         }
     }
     MSEdge *edge = 0;
@@ -334,30 +333,20 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 void
 MSRouteHandler::closeRoute() throw(ProcessError)
 {
-    int size = myActiveRoute.size();
-    if (size==0) {
-        if (myActiveRouteID[0]!='!') {
-            throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
-        } else {
-            throw ProcessError("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
-        }
-    }
-    MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, !myAmInEmbeddedMode || myRepNumber > 0);
+    MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, !myAmInEmbeddedMode);
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
         if (!MSGlobals::gStateLoaded) {
-            if (myActiveRouteID[0]!='!') {
-                throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
-            } else {
+            if (myAmInEmbeddedMode) {
                 if (myVehicleControl.getVehicle(myActiveVehicleID)==0) {
-                    throw ProcessError("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
+                    throw ProcessError("Another route for vehicle '" + myActiveVehicleID + "' exists.");
                 } else {
-                    throw ProcessError("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");
+                    throw ProcessError("A vehicle with id '" + myActiveVehicleID + "' already exists.");
                 }
+            } else {
+                throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
             }
-        } else {
-            route = MSRoute::dictionary(myActiveRouteID);
         }
     }
 }
@@ -394,6 +383,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
             throw ProcessError("Vehicle '" + myActiveVehicleID + "' has no route.");
         }
     }
+    myActiveRouteID = "";
 
     // check whether the first edge is long enough for the vehicle
     const MSEdge *firstEdge = (*route)[0];

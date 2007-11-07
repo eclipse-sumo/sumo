@@ -147,7 +147,7 @@ MSVehicle::~MSVehicle()
         (*i)->removeOnTripEnd(this);
     }
     // delete the route
-    if (!myRoute->inFurtherUse()) {
+    if (!myRoute->inFurtherUse() && myRepetitionNumber <= 0) {
         MSRoute::erase(myRoute->getID());
     }
     // delete values in CORN
