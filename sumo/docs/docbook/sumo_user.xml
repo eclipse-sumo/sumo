@@ -739,6 +739,7 @@
           </listitem>
         </varlistentry>
       </variablelist>
+
       <para>Recent changes:</para>
 
       <itemizedlist spacing="compact">
@@ -3647,6 +3648,7 @@
         </caution>
 
         <para>Examples: none yet</para>
+
         <para>Recent changes:</para>
 
         <itemizedlist spacing="compact">
@@ -4704,16 +4706,17 @@
           <para>This vehicle has an own, internal route which is not shared
           with other vehicles. You may also define two vehicles using the same
           route. In this case you have to "externalize" the route by giving it
-          an id and make <application>SUMO</application> know that it is
-          shared by more than one vehicle using the
-          <sgmltag>multi_ref</sgmltag> attribute. The vehicles using it refer
-          it using the "<sgmltag>route</sgmltag>"-attribute. The complete
-          change looks like this:</para>
+          an id. From <application>SUMO</application> 0.9.7 on it is no longer
+          neccessary to tell SUMO that the route is shared by using the
+          <sgmltag>multi_ref</sgmltag> attribute, all routes defined outside
+          of vehicles are shared. The vehicles using the route refer it using
+          the "<sgmltag>route</sgmltag>"-attribute. The complete change looks
+          like this:</para>
 
           <programlisting><sgmltag>&lt;routes&gt;</sgmltag>
    <sgmltag>&lt;vtype id="type1" accel="0.8" decel="4.5" sigma="0.5" length="5" maxspeed="70"/&gt;</sgmltag>
 
-   <sgmltag>&lt;route id="route0" multi_ref="x" color="1,1,0"&gt;beg middle end rend&lt;/route&gt;</sgmltag>
+   <sgmltag>&lt;route id="route0" color="1,1,0"&gt;beg middle end rend&lt;/route&gt;</sgmltag>
 
    <sgmltag>&lt;vehicle id="0" type="type1" route="route0" depart="0" color="1,0,0"/&gt;</sgmltag>
    <sgmltag>&lt;vehicle id="1" type="type1" route="route0" depart="0" color="0,1,0"/&gt;</sgmltag>
@@ -4727,12 +4730,6 @@
             <listitem>
               <para><sgmltag>id</sgmltag>: A string holding the id of the
               route</para>
-            </listitem>
-
-            <listitem>
-              <para><sgmltag>multi_ref</sgmltag>: If set to 'x' or 't' then
-              the route is assumed to be shared by several vehicles and not
-              removed until the simulation has ended</para>
             </listitem>
 
             <listitem>
