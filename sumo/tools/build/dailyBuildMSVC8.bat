@@ -21,7 +21,7 @@ move /Y %MAKEALLLOG% %REMOTE_DIR%
 REM run tests
 cd tests
 SET TEXTTEST_TMP=%CD%\texttesttmp
-del /S /Q %TEXTTEST_TMP%
+rmdir /S /Q %TEXTTEST_TMP%
 call testEnv.bat
 texttest.py -b %SUMO_REPORT%
 texttest.py -b %SUMO_REPORT% -coll
