@@ -55,7 +55,7 @@ public:
     MFXMutex();
 
     /// lock mutex
-    void lock ();
+    void lock();
 
     /// release mutex lock
     void unlock();
@@ -63,8 +63,7 @@ public:
     /// dtor
     virtual ~MFXMutex();
 
-    inline FXbool locked()
-    {
+    inline FXbool locked() {
         return lock_?TRUE:FALSE;
     }
 

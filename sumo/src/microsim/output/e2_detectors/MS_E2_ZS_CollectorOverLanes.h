@@ -113,8 +113,7 @@ public:
     void writeXMLDetectorProlog(OutputDevice &dev) const;
 
     /// Returns this detector's length
-    SUMOReal getLength() const
-    {
+    SUMOReal getLength() const {
         return myLength;
     }
 

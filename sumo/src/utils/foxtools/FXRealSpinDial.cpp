@@ -96,8 +96,7 @@ class FXRealSpinDialDial : public FXDial
 {
     FXDECLARE(FXRealSpinDialDial)
 protected:
-    FXRealSpinDialDial()
-    {}
+    FXRealSpinDialDial() {}
 private:
     FXRealSpinDialDial(const FXRealSpinDialDial&);
     FXRealSpinDialDial &operator=(const FXRealSpinDialDial&);
@@ -110,8 +109,7 @@ public:
     long onRightButtonRelease(FXObject*,FXSelector,void*);
     long onMotion(FXObject*,FXSelector,void*);
     long onAuto(FXObject*,FXSelector,void*);
-    enum
-    {
+    enum {
         ID_AUTOSPIN=FXDial::ID_LAST,
         ID_LAST
     };
@@ -121,25 +119,24 @@ public:
     FXRealSpinDialDial(FXComposite *p,FXObject* tgt=NULL,FXSelector sel=0,FXuint opts=DIAL_NORMAL,
                        FXint x=0,FXint y=0,FXint w=0,FXint h=0,
                        FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD):
-            FXDial(p,tgt,sel,opts,x,y,w,h,pl,pr,pt,pb)
-    {}
+            FXDial(p,tgt,sel,opts,x,y,w,h,pl,pr,pt,pb) {}
 
 };
 
 FXDEFMAP(FXRealSpinDialDial) FXSpinDialMap[]={
-            FXMAPFUNC(SEL_KEYPRESS,0,  FXRealSpinDialDial::onKey),
-            FXMAPFUNC(SEL_KEYRELEASE,0,  FXRealSpinDialDial::onKey),
-            FXMAPFUNC(SEL_LEFTBUTTONPRESS,0,  FXRealSpinDialDial::onButtonPress),
-            FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,0,  FXRealSpinDialDial::onRightButtonRelease),
-            FXMAPFUNC(SEL_RIGHTBUTTONPRESS,0,  FXRealSpinDialDial::onRightButtonPress),
-            FXMAPFUNC(SEL_LEFTBUTTONRELEASE,0,  FXRealSpinDialDial::onButtonRelease),
-            FXMAPFUNC(SEL_MOTION,0,  FXRealSpinDialDial::onMotion),
+    FXMAPFUNC(SEL_KEYPRESS,0,  FXRealSpinDialDial::onKey),
+    FXMAPFUNC(SEL_KEYRELEASE,0,  FXRealSpinDialDial::onKey),
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,0,  FXRealSpinDialDial::onButtonPress),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,0,  FXRealSpinDialDial::onRightButtonRelease),
+    FXMAPFUNC(SEL_RIGHTBUTTONPRESS,0,  FXRealSpinDialDial::onRightButtonPress),
+    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,0,  FXRealSpinDialDial::onButtonRelease),
+    FXMAPFUNC(SEL_MOTION,0,  FXRealSpinDialDial::onMotion),
 
-            FXMAPFUNC(SEL_TIMEOUT,FXRealSpinDialDial::ID_AUTOSPIN, FXRealSpinDialDial::onAuto),
+    FXMAPFUNC(SEL_TIMEOUT,FXRealSpinDialDial::ID_AUTOSPIN, FXRealSpinDialDial::onAuto),
 
-            //FXMAPFUNC(SEL_KEYPRESS,0,  FXRealSpinDialDial::onKeyPress),
-            //FXMAPFUNC(SEL_KEYRELEASE,0,FXRealSpinDialDial::onKeyRelease),
-        };
+    //FXMAPFUNC(SEL_KEYPRESS,0,  FXRealSpinDialDial::onKeyPress),
+    //FXMAPFUNC(SEL_KEYRELEASE,0,FXRealSpinDialDial::onKeyRelease),
+};
 FXIMPLEMENT(FXRealSpinDialDial,FXDial,FXSpinDialMap,ARRAYNUMBER(FXSpinDialMap))
 //FXIMPLEMENT(FXRealSpinDialDial,FXDial,0,0)
 
@@ -247,8 +244,7 @@ class FXRealSpinDialBtn : public FXArrowButton
 {
     FXDECLARE(FXRealSpinDialBtn)
 protected:
-    FXRealSpinDialBtn()
-    {}
+    FXRealSpinDialBtn() {}
 private:
     FXRealSpinDialBtn(const FXRealSpinDialBtn&);
     FXRealSpinDialBtn &operator=(const FXRealSpinDialBtn&);
@@ -257,8 +253,7 @@ public:
     long onKey(FXObject*,FXSelector,void*);
     long onButtonPress(FXObject*,FXSelector,void*);
     long onButtonRelease(FXObject*,FXSelector,void*);
-    enum
-    {
+    enum {
         ID_AUTOSPIN=FXDial::ID_LAST,
         ID_LAST
     };
@@ -269,21 +264,20 @@ public:
                       FXuint opts=ARROW_NORMAL,
                       FXint x=0,FXint y=0,FXint w=0,FXint h=0,
                       FXint pl=DEFAULT_PAD,FXint pr=DEFAULT_PAD,FXint pt=DEFAULT_PAD,FXint pb=DEFAULT_PAD):
-            FXArrowButton(p,tgt,sel,opts,x,y,w,h,pl,pr,pt,pb)
-    {}
+            FXArrowButton(p,tgt,sel,opts,x,y,w,h,pl,pr,pt,pb) {}
 
 };
 
 FXDEFMAP(FXRealSpinDialBtn) FXSpinDialBtnMap[]={
-            FXMAPFUNC(SEL_KEYPRESS,0,  FXRealSpinDialBtn::onKey),
-            FXMAPFUNC(SEL_KEYRELEASE,0,  FXRealSpinDialBtn::onKey),
-            FXMAPFUNC(SEL_LEFTBUTTONPRESS,0,  FXRealSpinDialBtn::onButtonPress),
-            FXMAPFUNC(SEL_LEFTBUTTONRELEASE,0,  FXRealSpinDialBtn::onButtonRelease),
+    FXMAPFUNC(SEL_KEYPRESS,0,  FXRealSpinDialBtn::onKey),
+    FXMAPFUNC(SEL_KEYRELEASE,0,  FXRealSpinDialBtn::onKey),
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,0,  FXRealSpinDialBtn::onButtonPress),
+    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,0,  FXRealSpinDialBtn::onButtonRelease),
 
 
-            //FXMAPFUNC(SEL_KEYPRESS,0,  FXRealSpinDialBtn::onKeyPress),
-            //FXMAPFUNC(SEL_KEYRELEASE,0,FXRealSpinDialBtn::onKeyRelease),
-        };
+    //FXMAPFUNC(SEL_KEYPRESS,0,  FXRealSpinDialBtn::onKeyPress),
+    //FXMAPFUNC(SEL_KEYRELEASE,0,FXRealSpinDialBtn::onKeyRelease),
+};
 FXIMPLEMENT(FXRealSpinDialBtn,FXArrowButton,FXSpinDialBtnMap,ARRAYNUMBER(FXSpinDialBtnMap))
 //FXIMPLEMENT(FXRealSpinDialBtn,FXDial,0,0)
 
@@ -323,20 +317,17 @@ class FXRealSpinDialText : public FXTextField
 {
     FXDECLARE(FXRealSpinDialText)
 protected:
-    FXRealSpinDialText()
-    {}
+    FXRealSpinDialText() {}
 private:
     FXRealSpinDialText(const FXRealSpinDialText&);
     FXRealSpinDialText &operator=(const FXRealSpinDialText&);
 public:
     long onCmdSetRealValue(FXObject*,FXSelector,void*);
     long onMotion(FXObject*,FXSelector,void*);
-    enum
-    {
+    enum {
         ID_LAST=FXTextField::ID_LAST
     };
-    enum
-    {
+    enum {
         FLAG_FMTSTRING = 0x1
     };
 public:
@@ -350,30 +341,24 @@ public:
             FXTextField(p,ncols,tgt,sel,opts,x,y,w,h,pl,pr,pt,pb),
             precision(3),
             exponent(FALSE),
-            flags(0)
-    {}
+            flags(0) {}
 
-    void setNumberFormat(FXint prec, FXbool bExp=FALSE)
-    {
+    void setNumberFormat(FXint prec, FXbool bExp=FALSE) {
         precision=prec;
         exponent=bExp;
         flags &= ~FLAG_FMTSTRING;
     }
-    FXint getNumberFormatPrecision() const
-    {
+    FXint getNumberFormatPrecision() const {
         return precision;
     }
-    FXbool getNumberFormatExponent() const
-    {
+    FXbool getNumberFormatExponent() const {
         return exponent;
     }
-    void setFormatString(FXchar *fmt)
-    {
+    void setFormatString(FXchar *fmt) {
         fmtString = fmt;
         flags |= FLAG_FMTSTRING;
     }
-    FXString getNumberFormatString() const
-    {
+    FXString getNumberFormatString() const {
         return fmtString;
     }
 
@@ -385,9 +370,9 @@ protected:
 };
 
 FXDEFMAP(FXRealSpinDialText) FXSpinDialTextMap[]={
-            FXMAPFUNC(SEL_MOTION, 0,  FXRealSpinDialText::onMotion),
-            FXMAPFUNC(SEL_COMMAND, FXWindow::ID_SETREALVALUE,  FXRealSpinDialText::onCmdSetRealValue),
-        };
+    FXMAPFUNC(SEL_MOTION, 0,  FXRealSpinDialText::onMotion),
+    FXMAPFUNC(SEL_COMMAND, FXWindow::ID_SETREALVALUE,  FXRealSpinDialText::onCmdSetRealValue),
+};
 FXIMPLEMENT(FXRealSpinDialText,FXTextField,FXSpinDialTextMap,ARRAYNUMBER(FXSpinDialTextMap))
 
 long FXRealSpinDialText::onMotion(FXObject*o,FXSelector s,void*ptr)
@@ -420,35 +405,35 @@ namespace FX
 
 //  Message map
 FXDEFMAP(FXRealSpinDial) FXRealSpinDialMap[]={
-            FXMAPFUNC(SEL_KEYPRESS,0,  FXRealSpinDial::onKeyPress),
-            FXMAPFUNC(SEL_KEYRELEASE,0,FXRealSpinDial::onKeyRelease),
-            FXMAPFUNC(SEL_MOTION,0,FXRealSpinDial::onMotion),
-            FXMAPFUNC(SEL_MOTION,FXRealSpinDial::ID_ENTRY,FXRealSpinDial::onMotion),
-            FXMAPFUNC(SEL_MOTION,FXRealSpinDial::ID_DIAL,FXRealSpinDial::onMotion),
-            FXMAPFUNC(SEL_UPDATE, FXRealSpinDial::ID_ENTRY,FXRealSpinDial::onUpdEntry),
-            FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_ENTRY,FXRealSpinDial::onCmdEntry),
-            FXMAPFUNC(SEL_CHANGED,FXRealSpinDial::ID_ENTRY,FXRealSpinDial::onChgEntry),
-            FXMAPFUNC(SEL_UPDATE, FXRealSpinDial::ID_DIAL,FXRealSpinDial::onUpdDial),
-            FXMAPFUNC(SEL_CHANGED,FXRealSpinDial::ID_DIAL,FXRealSpinDial::onChgDial),
-            FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_DIAL,FXRealSpinDial::onCmdDial),
-            FXMAPFUNC(SEL_MOUSEWHEEL,FXRealSpinDial::ID_ENTRY,FXRealSpinDial::onMouseWheel),
-            FXMAPFUNC(SEL_MOUSEWHEEL,FXRealSpinDial::ID_DIAL,FXRealSpinDial::onMouseWheel),
-            FXMAPFUNC(SEL_MOUSEWHEEL,FXRealSpinDial::ID_INCREMENT,FXRealSpinDial::onMouseWheel),
-            FXMAPFUNC(SEL_MOUSEWHEEL,FXRealSpinDial::ID_DECREMENT,FXRealSpinDial::onMouseWheel),
-            FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_SETVALUE, FXRealSpinDial::onCmdSetValue),
-            FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_SETINTVALUE,FXRealSpinDial::onCmdSetIntValue),
-            FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_GETINTVALUE,FXRealSpinDial::onCmdGetIntValue),
-            FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_SETINTRANGE,FXRealSpinDial::onCmdSetIntRange),
-            FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_GETINTRANGE,FXRealSpinDial::onCmdGetIntRange),
-            FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_SETREALVALUE,FXRealSpinDial::onCmdSetRealValue),
-            FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_GETREALVALUE,FXRealSpinDial::onCmdGetRealValue),
-            FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_SETREALRANGE,FXRealSpinDial::onCmdSetRealRange),
-            FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_GETREALRANGE,FXRealSpinDial::onCmdGetRealRange),
-            FXMAPFUNC(SEL_UPDATE, FXRealSpinDial::ID_INCREMENT,FXRealSpinDial::onUpdIncrement),
-            FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_INCREMENT,FXRealSpinDial::onCmdIncrement),
-            FXMAPFUNC(SEL_UPDATE, FXRealSpinDial::ID_DECREMENT,FXRealSpinDial::onUpdDecrement),
-            FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_DECREMENT,FXRealSpinDial::onCmdDecrement),
-        };
+    FXMAPFUNC(SEL_KEYPRESS,0,  FXRealSpinDial::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,0,FXRealSpinDial::onKeyRelease),
+    FXMAPFUNC(SEL_MOTION,0,FXRealSpinDial::onMotion),
+    FXMAPFUNC(SEL_MOTION,FXRealSpinDial::ID_ENTRY,FXRealSpinDial::onMotion),
+    FXMAPFUNC(SEL_MOTION,FXRealSpinDial::ID_DIAL,FXRealSpinDial::onMotion),
+    FXMAPFUNC(SEL_UPDATE, FXRealSpinDial::ID_ENTRY,FXRealSpinDial::onUpdEntry),
+    FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_ENTRY,FXRealSpinDial::onCmdEntry),
+    FXMAPFUNC(SEL_CHANGED,FXRealSpinDial::ID_ENTRY,FXRealSpinDial::onChgEntry),
+    FXMAPFUNC(SEL_UPDATE, FXRealSpinDial::ID_DIAL,FXRealSpinDial::onUpdDial),
+    FXMAPFUNC(SEL_CHANGED,FXRealSpinDial::ID_DIAL,FXRealSpinDial::onChgDial),
+    FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_DIAL,FXRealSpinDial::onCmdDial),
+    FXMAPFUNC(SEL_MOUSEWHEEL,FXRealSpinDial::ID_ENTRY,FXRealSpinDial::onMouseWheel),
+    FXMAPFUNC(SEL_MOUSEWHEEL,FXRealSpinDial::ID_DIAL,FXRealSpinDial::onMouseWheel),
+    FXMAPFUNC(SEL_MOUSEWHEEL,FXRealSpinDial::ID_INCREMENT,FXRealSpinDial::onMouseWheel),
+    FXMAPFUNC(SEL_MOUSEWHEEL,FXRealSpinDial::ID_DECREMENT,FXRealSpinDial::onMouseWheel),
+    FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_SETVALUE, FXRealSpinDial::onCmdSetValue),
+    FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_SETINTVALUE,FXRealSpinDial::onCmdSetIntValue),
+    FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_GETINTVALUE,FXRealSpinDial::onCmdGetIntValue),
+    FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_SETINTRANGE,FXRealSpinDial::onCmdSetIntRange),
+    FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_GETINTRANGE,FXRealSpinDial::onCmdGetIntRange),
+    FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_SETREALVALUE,FXRealSpinDial::onCmdSetRealValue),
+    FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_GETREALVALUE,FXRealSpinDial::onCmdGetRealValue),
+    FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_SETREALRANGE,FXRealSpinDial::onCmdSetRealRange),
+    FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_GETREALRANGE,FXRealSpinDial::onCmdGetRealRange),
+    FXMAPFUNC(SEL_UPDATE, FXRealSpinDial::ID_INCREMENT,FXRealSpinDial::onUpdIncrement),
+    FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_INCREMENT,FXRealSpinDial::onCmdIncrement),
+    FXMAPFUNC(SEL_UPDATE, FXRealSpinDial::ID_DECREMENT,FXRealSpinDial::onUpdDecrement),
+    FXMAPFUNC(SEL_COMMAND,FXRealSpinDial::ID_DECREMENT,FXRealSpinDial::onCmdDecrement),
+};
 
 
 // Object implementation

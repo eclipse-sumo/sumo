@@ -66,11 +66,11 @@ using namespace std;
  * GUITLLogicPhasesTrackerWindow - FOX callback mapping
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUITLLogicPhasesTrackerWindow) GUITLLogicPhasesTrackerWindowMap[]={
-            FXMAPFUNC(SEL_CONFIGURE, 0,           GUITLLogicPhasesTrackerWindow::onConfigure),
-            FXMAPFUNC(SEL_PAINT,     0,           GUITLLogicPhasesTrackerWindow::onPaint),
-            FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP, GUITLLogicPhasesTrackerWindow::onSimStep),
+    FXMAPFUNC(SEL_CONFIGURE, 0,           GUITLLogicPhasesTrackerWindow::onConfigure),
+    FXMAPFUNC(SEL_PAINT,     0,           GUITLLogicPhasesTrackerWindow::onPaint),
+    FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP, GUITLLogicPhasesTrackerWindow::onSimStep),
 
-        };
+};
 
 FXIMPLEMENT(GUITLLogicPhasesTrackerWindow,FXMainWindow,GUITLLogicPhasesTrackerWindowMap,ARRAYNUMBER(GUITLLogicPhasesTrackerWindowMap))
 
@@ -109,7 +109,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
                             FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
                             0,0,0,0,0,0,0,0);
     myPanel = new
-              GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
+    GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getSubID() + " - tracker").c_str());
     setIcon(GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER));
     setHeight(height);
@@ -137,7 +137,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
                             FRAME_SUNKEN|LAYOUT_SIDE_TOP|LAYOUT_FILL_X|LAYOUT_FILL_Y,
                             0,0,0,0,0,0,0,0);
     myPanel = new
-              GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
+    GUITLLogicPhasesTrackerPanel(glcanvasFrame, *myApplication, *this);
     setTitle((logic.getID() + " - " + logic.getSubID() + " - tracker").c_str());
     setIcon(GUIIconSubSys::getIcon(ICON_APP_TLSTRACKER));
     setHeight(height);
@@ -464,10 +464,10 @@ GUITLLogicPhasesTrackerWindow::setBeginTime(SUMOTime time)
  * GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel-methods
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel) GUITLLogicPhasesTrackerPanelMap[]={
-            FXMAPFUNC(SEL_CONFIGURE, 0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure),
-            FXMAPFUNC(SEL_PAINT,     0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint),
+    FXMAPFUNC(SEL_CONFIGURE, 0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onConfigure),
+    FXMAPFUNC(SEL_PAINT,     0, GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel::onPaint),
 
-        };
+};
 
 // Macro for the GLTestApp class hierarchy implementation
 FXIMPLEMENT(GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerPanel,FXGLCanvas,GUITLLogicPhasesTrackerPanelMap,ARRAYNUMBER(GUITLLogicPhasesTrackerPanelMap))

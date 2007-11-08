@@ -102,8 +102,7 @@ private:
 
 protected:
     /// FOX needs this
-    GUIDialog_GLObjChooser()
-    { }
+    GUIDialog_GLObjChooser() { }
 
 };
 

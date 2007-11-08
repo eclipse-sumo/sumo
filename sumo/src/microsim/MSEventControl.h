@@ -78,8 +78,7 @@ public:
     {
     public:
         /// compares two events
-        bool operator()(const Event& e1, const Event& e2) const
-        {
+        bool operator()(const Event& e1, const Event& e2) const {
             return e1.second > e2.second;
         }
     };

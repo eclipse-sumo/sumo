@@ -58,8 +58,7 @@ public:
                         const IntVector &disturbances,
                         bool amEdgeSplitOnly);
     ~NIVissimNodeCluster();
-    int getID() const
-    {
+    int getID() const {
         return myID;
     }
     void buildNBNode(NBNodeCont &nc);

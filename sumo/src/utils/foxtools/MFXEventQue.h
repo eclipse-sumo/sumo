@@ -37,10 +37,8 @@
 class MFXEventQue
 {
 public:
-    MFXEventQue()
-    { }
-    ~MFXEventQue()
-    { }
+    MFXEventQue() { }
+    ~MFXEventQue() { }
 
     void *top();
     void pop();

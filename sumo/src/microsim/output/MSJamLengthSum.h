@@ -45,14 +45,11 @@ protected:
 
     MSJamLengthSumInVehicles(SUMOReal,
                              const Container& container)
-            : containerM(container)
-    {}
+            : containerM(container) {}
 
-    virtual ~MSJamLengthSumInVehicles(void)
-    {}
+    virtual ~MSJamLengthSumInVehicles(void) {}
 
-    DetectorAggregate getDetectorAggregate(void)
-    {
+    DetectorAggregate getDetectorAggregate(void) {
         int pos = 0;
         SUMOReal nVeh = 0.0;
         for (HaltingsConstIt it = containerM.containerM.begin();
@@ -77,8 +74,7 @@ protected:
         return nVeh;
     }
 
-    static std::string getDetectorName(void)
-    {
+    static std::string getDetectorName(void) {
         return "jamLengthSumInVehicles";
     }
 private:
@@ -100,11 +96,9 @@ protected:
                                                         myOccupancyCorrection(occupancyCorrection)*/
     {}
 
-    virtual ~MSJamLengthSumInMeters(void)
-    {}
+    virtual ~MSJamLengthSumInMeters(void) {}
 
-    DetectorAggregate getDetectorAggregate(void)
-    {
+    DetectorAggregate getDetectorAggregate(void) {
         SUMOReal distSum = 0.0;
         for (HaltingsConstIt front = containerM.containerM.begin();
                 front != containerM.containerM.end(); ++front) {
@@ -141,8 +135,7 @@ protected:
         return distSum;
     }
 
-    static std::string getDetectorName(void)
-    {
+    static std::string getDetectorName(void) {
         return "jamLengthSumInMeters";
     }
 private:

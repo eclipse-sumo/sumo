@@ -64,26 +64,21 @@ public:
         MSLCMessager(MSVehicle *leader,  MSVehicle *neighLead,
                      MSVehicle *neighFollow)
                 : myLeader(leader), myNeighLeader(neighLead),
-                myNeighFollower(neighFollow)
-        { }
+                myNeighFollower(neighFollow) { }
 
-        ~MSLCMessager()
-        { }
+        ~MSLCMessager() { }
 
-        void *informLeader(void *info, MSVehicle *sender)
-        {
+        void *informLeader(void *info, MSVehicle *sender) {
             assert(myLeader!=0);
             return myLeader->getLaneChangeModel().inform(info, sender);
         }
 
-        void *informNeighLeader(void *info, MSVehicle *sender)
-        {
+        void *informNeighLeader(void *info, MSVehicle *sender) {
             assert(myNeighLeader!=0);
             return myNeighLeader->getLaneChangeModel().inform(info, sender);
         }
 
-        void *informNeighFollower(void *info, MSVehicle *sender)
-        {
+        void *informNeighFollower(void *info, MSVehicle *sender) {
             assert(myNeighFollower!=0);
             return myNeighFollower->getLaneChangeModel().inform(info, sender);
         }
@@ -96,24 +91,19 @@ public:
 
 
     MSAbstractLaneChangeModel(MSVehicle &v)
-            : myVehicle(v), myState(0)
-    { }
+            : myVehicle(v), myState(0) { }
 
-    virtual ~MSAbstractLaneChangeModel()
-    { }
+    virtual ~MSAbstractLaneChangeModel() { }
 
-    int getState() const
-    {
+    int getState() const {
         return myState;
     }
 
-    void setState(int state)
-    {
+    void setState(int state) {
         myState = state;
     }
 
-    virtual void prepareStep()
-    { }
+    virtual void prepareStep() { }
 
     /** @brief Called to examine whether the vehicle wants to change to right
         This method gets the information about the surrounding vehicles
@@ -147,8 +137,7 @@ public:
     virtual void changed() = 0;
 
 protected:
-    virtual bool congested(const MSVehicle * const neighLeader)
-    {
+    virtual bool congested(const MSVehicle * const neighLeader) {
         if (neighLeader==0) {
             return false;
         }
@@ -166,8 +155,7 @@ protected:
         return false;
     }
 
-    virtual bool predInteraction(const MSVehicle * const leader)
-    {
+    virtual bool predInteraction(const MSVehicle * const leader) {
         if (leader==0) {
             return false;
         }

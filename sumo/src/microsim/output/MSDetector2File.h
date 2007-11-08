@@ -140,11 +140,9 @@ protected:
      * @see addDetectorAndInterval
      */
 struct detectorEquals :
-                public std::binary_function< DetectorFilePair, MSDetectorFileOutput*, bool >
-    {
+                public std::binary_function< DetectorFilePair, MSDetectorFileOutput*, bool > {
         bool operator()(const DetectorFilePair& pair,
-                        const MSDetectorFileOutput* det) const
-        {
+                        const MSDetectorFileOutput* det) const {
             return pair.first == det;
         }
     };

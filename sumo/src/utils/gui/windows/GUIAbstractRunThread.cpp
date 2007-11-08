@@ -69,11 +69,11 @@ GUIAbstractRunThread::GUIAbstractRunThread(GUIApplicationWindow *parent,
         mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev)
 {
     myErrorRetriever = new MsgRetrievingFunction<GUIAbstractRunThread>(this,
-                       &GUIAbstractRunThread::retrieveError);
+            &GUIAbstractRunThread::retrieveError);
     myMessageRetriever = new MsgRetrievingFunction<GUIAbstractRunThread>(this,
-                         &GUIAbstractRunThread::retrieveMessage);
+            &GUIAbstractRunThread::retrieveMessage);
     myWarningRetreiver = new MsgRetrievingFunction<GUIAbstractRunThread>(this,
-                         &GUIAbstractRunThread::retrieveWarning);
+            &GUIAbstractRunThread::retrieveWarning);
 }
 
 

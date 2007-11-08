@@ -40,14 +40,13 @@
 // ===========================================================================
 // FOX-callbacks
 // ===========================================================================
-FXDEFMAP(GUIDialog_SimSettings) GUIDialog_SimSettingsMap[]=
-    {
-        //________Message_Type____________ID________________________Message_Handler________
-        FXMAPFUNC(SEL_COMMAND,  MID_QUITONSIMEND,    GUIDialog_SimSettings::onCmdQuitOnEnd),
-        FXMAPFUNC(SEL_COMMAND,  MID_SUPPRESSENDINFO, GUIDialog_SimSettings::onCmdSuppressEnd),
-        FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,     GUIDialog_SimSettings::onCmdOk),
-        FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL, GUIDialog_SimSettings::onCmdCancel),
-    };
+FXDEFMAP(GUIDialog_SimSettings) GUIDialog_SimSettingsMap[]= {
+    //________Message_Type____________ID________________________Message_Handler________
+    FXMAPFUNC(SEL_COMMAND,  MID_QUITONSIMEND,    GUIDialog_SimSettings::onCmdQuitOnEnd),
+    FXMAPFUNC(SEL_COMMAND,  MID_SUPPRESSENDINFO, GUIDialog_SimSettings::onCmdSuppressEnd),
+    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,     GUIDialog_SimSettings::onCmdOk),
+    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL, GUIDialog_SimSettings::onCmdCancel),
+};
 
 // Object implementation
 FXIMPLEMENT(GUIDialog_SimSettings, FXDialogBox, GUIDialog_SimSettingsMap, ARRAYNUMBER(GUIDialog_SimSettingsMap))

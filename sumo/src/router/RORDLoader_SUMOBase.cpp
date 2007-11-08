@@ -193,12 +193,12 @@ RORDLoader_SUMOBase::startAlternative(const Attributes &attrs)
     myCurrentColor = parseColor(*this, attrs, "route", myCurrentRouteName);
     // build the alternative cont
     myCurrentAlternatives = new RORouteDef_Alternatives(id, myCurrentColor,
-                            index, myGawronBeta, myGawronA, myMaxRouteNumber);
+            index, myGawronBeta, myGawronA, myMaxRouteNumber);
 }
 
 void
 RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
-                                 const std::string &chars) throw(ProcessError)
+                                  const std::string &chars) throw(ProcessError)
 {
     // process routes only, all other elements do
     //  not have embedded characters
@@ -242,9 +242,9 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_ROUTE:
-        if(myCurrentRoute!=0&&!mySkipCurrent) {
+        if (myCurrentRoute!=0&&!mySkipCurrent) {
             myCurrentAlternatives = new RORouteDef_Alternatives(myCurrentRouteName, myCurrentColor,
-                0, myGawronBeta, myGawronA, myMaxRouteNumber);
+                    0, myGawronBeta, myGawronA, myMaxRouteNumber);
             myCurrentAlternatives->addLoadedAlternative(myCurrentRoute);
             if (!myAmInEmbeddedMode) {
                 myHaveNextRoute = true;

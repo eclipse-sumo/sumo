@@ -134,7 +134,7 @@ NLBuilder::build()
 {
     SAX2XMLReader* parser = XMLSubSys::getSAXReader(myXMLHandler);
     // try to build the net
-    if(!load("net-file", LOADFILTER_ALL, *parser)) {
+    if (!load("net-file", LOADFILTER_ALL, *parser)) {
         delete parser;
         return false;
     }
@@ -177,7 +177,7 @@ NLBuilder::build()
                 SAXWeightsHandler::ToRetrieveDefinition *def = new SAXWeightsHandler::ToRetrieveDefinition("traveltime", true, retriever);
                 SAXWeightsHandler wh(def, tmp);
                 // parse the file
-                if(!XMLSubSys::runParser(wh, tmp)) {
+                if (!XMLSubSys::runParser(wh, tmp)) {
                     return false;
                 }
             }
@@ -185,14 +185,14 @@ NLBuilder::build()
     }
     // load routes
     if (m_pOptions.isSet("route-files")&&m_pOptions.getInt("route-steps")<=0) {
-        if(!load("route-files", LOADFILTER_DYNAMIC, *parser)) {
+        if (!load("route-files", LOADFILTER_DYNAMIC, *parser)) {
             delete parser;
             return false;
         }
     }
     // load additional net elements (sources, detectors, ...)
     if (m_pOptions.isSet("additional-files")) {
-        if(!load("additional-files",
+        if (!load("additional-files",
                   (NLLoadFilter)((int) LOADFILTER_NETADD|(int) LOADFILTER_DYNAMIC),
                   *parser)) {
             delete parser;
@@ -243,7 +243,7 @@ NLBuilder::load(const std::string &mmlWhat,
     }
     long before = SysUtils::getCurrentMillis();
     vector<string> files = OptionsCont::getOptions().getStringVector(mmlWhat);
-    for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+    for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         WRITE_MESSAGE("Loading " + mmlWhat + " from '" + *fileIt + "'...");
         myXMLHandler.setFileName(*fileIt);
         parser.parse(fileIt->c_str());
@@ -265,13 +265,13 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont &oc)
     // check whether a list is existing
     if (oc.isSet("route-files")&&oc.getInt("route-steps")>0) {
         vector<string> files = oc.getStringVector("route-files");
-        for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
             if (!FileHelpers::exists(*fileIt)) {
                 throw ProcessError("The route file '" + *fileIt + "' does not exist.");
             }
         }
         // open files for reading
-        for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
             loaders.push_back(myNet.buildRouteLoader(*fileIt, oc.getInt("incremental-dua-base"), oc.getInt("incremental-dua-step")));
         }
     }

@@ -63,20 +63,17 @@ public:
                               myD param)
             : myHasOperation(hasOperation), myNumberOperation(numberOperation),
             myNoColor(no), myMinColor(minColor), myMaxColor(maxColor),
-            myMin(min), myMax(max), myParameter(param)
-    {
+            myMin(min), myMax(max), myParameter(param) {
         myScale = (SUMOReal) 1.0 / (myMax-myMin);
     }
 
     /// Destructor
-    virtual ~GUIColorer_ByOptCORNValue()
-    { }
+    virtual ~GUIColorer_ByOptCORNValue() { }
 
     /// @name inherited from GUIBaseColorer
     //@{
     /// Sets the color using a value from the given instance of myT
-    void setGlColor(const myT& i) const
-    {
+    void setGlColor(const myT& i) const {
         // check whether a value can be retrieved...
         if (!(i.*myHasOperation)((myD) myParameter)) {
             // ... no, check whether the min color shall be used
@@ -102,8 +99,7 @@ public:
     }
 
     /// Sets the color using the given value
-    void setGlColor(SUMOReal val) const
-    {
+    void setGlColor(SUMOReal val) const {
         if (val<myMin) {
             val = myMin;
         } else if (val>myMax) {
@@ -115,8 +111,7 @@ public:
     }
 
     /// Returns the type of this class (CST_MINMAX_OPT)
-    virtual ColorSetType getSetType() const
-    {
+    virtual ColorSetType getSetType() const {
         return CST_MINMAX_OPT;
     }
     //@}
@@ -126,28 +121,24 @@ public:
     //@{
     /// Sets the given color as the colors to use
     virtual void resetColor(const RGBColor &minC,
-                            const RGBColor &maxC, const RGBColor &fallBackC)
-    {
+                            const RGBColor &maxC, const RGBColor &fallBackC) {
         myMinColor = minC;
         myMaxColor = maxC;
         myNoColor = fallBackC;
     }
 
     /// Returns the color used for minimum values
-    virtual const RGBColor &getMinColor() const
-    {
+    virtual const RGBColor &getMinColor() const {
         return myMinColor;
     }
 
     /// Returns the color used for maximum values
-    virtual const RGBColor &getMaxColor() const
-    {
+    virtual const RGBColor &getMaxColor() const {
         return myMaxColor;
     }
 
     /// Returns the color used when a value can not be retrieved
-    virtual const RGBColor &getFallbackColor() const
-    {
+    virtual const RGBColor &getFallbackColor() const {
         return myNoColor;
     }
     //@}

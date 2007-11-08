@@ -124,11 +124,11 @@ NILoader::load(OptionsCont &oc)
     }
     // report loaded structures
     WRITE_MESSAGE(" Import done;");
-    if(myNetBuilder.getDistrictCont().size()>0) {
+    if (myNetBuilder.getDistrictCont().size()>0) {
         WRITE_MESSAGE("   " + toString<int>(myNetBuilder.getDistrictCont().size()) + " districts loaded.");
     }
     WRITE_MESSAGE("   " + toString<int>(myNetBuilder.getNodeCont().size()) + " nodes loaded.");
-    if(myNetBuilder.getTypeCont().size()>0) {
+    if (myNetBuilder.getTypeCont().size()>0) {
         WRITE_MESSAGE("   " + toString<int>(myNetBuilder.getTypeCont().size()) + " types loaded.");
     }
     WRITE_MESSAGE("   " + toString<int>(myNetBuilder.getEdgeCont().size()) + " edges loaded.");
@@ -215,8 +215,7 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const vector<string> &files,
     } catch (const XMLException& toCatch) {
         exceptMsg = TplConvert<XMLCh>::_2str(toCatch.getMessage())
                     + "\n  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
-    }
-    catch (...) {
+    } catch (...) {
         exceptMsg = "The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
     }
     delete parser;

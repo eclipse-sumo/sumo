@@ -53,14 +53,11 @@ public:
                              NumberOperation numberOperation,
                              bool catchNo, const RGBColor &no, P hasParam, P stateParam)
             : myHasOperation(hasOperation), myNumberOperation(numberOperation),
-            myNoColor(no), myHasParameter(hasParam), myStateParameter(stateParam)
-    {}
+            myNoColor(no), myHasParameter(hasParam), myStateParameter(stateParam) {}
 
-    virtual ~GUIColorer_ByDeviceState()
-    { }
+    virtual ~GUIColorer_ByDeviceState() { }
 
-    void setGlColor(const T& i) const
-    {
+    void setGlColor(const T& i) const {
         if (!(i.*myHasOperation)((P) myHasParameter)) {
             if (myCatchNo) {
                 mglColor(myNoColor);
@@ -77,26 +74,21 @@ public:
         }
     }
 
-    void addState(size_t state, const RGBColor &c)
-    {
+    void addState(size_t state, const RGBColor &c) {
         myColors[state] = c;
     }
 
-    void setGlColor(SUMOReal val) const
-    {
+    void setGlColor(SUMOReal val) const {
         glColor3d(1, 1, 0);
     }
 
-    virtual ColorSetType getSetType() const
-    {
+    virtual ColorSetType getSetType() const {
         return CST_STATIC;
     }
 
-    virtual void resetColor(const RGBColor &min)
-    {}
+    virtual void resetColor(const RGBColor &min) {}
 
-    virtual const RGBColor &getSingleColor() const
-    {
+    virtual const RGBColor &getSingleColor() const {
         throw 1;
     }
 

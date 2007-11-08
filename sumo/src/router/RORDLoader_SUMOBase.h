@@ -158,7 +158,7 @@ protected:
     int myMaxRouteNumber;
 
 
-    RORoute *myCurrentRoute; 
+    RORoute *myCurrentRoute;
 
 };
 

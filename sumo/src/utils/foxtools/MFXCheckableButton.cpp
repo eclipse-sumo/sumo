@@ -36,9 +36,9 @@
 
 
 FXDEFMAP(MFXCheckableButton) MFXCheckableButtonMap[]={
-            FXMAPFUNC(SEL_PAINT,0,MFXCheckableButton::onPaint),
-            FXMAPFUNC(SEL_UPDATE,0,MFXCheckableButton::onUpdate),
-        };
+    FXMAPFUNC(SEL_PAINT,0,MFXCheckableButton::onPaint),
+    FXMAPFUNC(SEL_UPDATE,0,MFXCheckableButton::onUpdate),
+};
 
 
 // Object implementation

@@ -195,7 +195,7 @@ GUIHandler::closeRoute() throw(ProcessError)
 {
     int size = myActiveRoute.size();
     if (size==0) {
-        if(myActiveRouteID[0]!='!') {
+        if (myActiveRouteID[0]!='!') {
             MsgHandler::getErrorInstance()->inform("Route '" + myActiveRouteID + "' has no edges.");
         } else {
             MsgHandler::getErrorInstance()->inform("Vehicle's '" + myActiveRouteID.substr(1) + "' route has no edges.");
@@ -208,10 +208,10 @@ GUIHandler::closeRoute() throw(ProcessError)
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
         if (!MSGlobals::gStateLoaded) {
-            if(myActiveRouteID[0]!='!') {
+            if (myActiveRouteID[0]!='!') {
                 MsgHandler::getErrorInstance()->inform("Another route with the id '" + myActiveRouteID + "' exists.");
             } else {
-                if(myVehicleControl.getVehicle(myActiveVehicleID)==0) {
+                if (myVehicleControl.getVehicle(myActiveVehicleID)==0) {
                     MsgHandler::getErrorInstance()->inform("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
                 } else {
                     MsgHandler::getErrorInstance()->inform("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");

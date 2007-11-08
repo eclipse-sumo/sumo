@@ -107,8 +107,7 @@ public:
         SUMOReal pos() const;
 
         /// Speed of this state
-        SUMOReal speed() const
-        {
+        SUMOReal speed() const {
             return mySpeed;
         };
 
@@ -218,8 +217,7 @@ public:
 
     /** Returns the gap between pred and this vehicle. Assumes they
      * are on parallel lanes. Requires a positive gap. */
-    SUMOReal gap2pred(const MSVehicle& pred) const
-    {
+    SUMOReal gap2pred(const MSVehicle& pred) const {
         SUMOReal gap = pred.getPositionOnLane() - pred.getLength() - getPositionOnLane();
         if (gap<0&&gap>-1.0e-12) {
             gap = 0;
@@ -232,8 +230,7 @@ public:
         return gap;
     }
 
-    static inline SUMOReal gap(SUMOReal predPos, SUMOReal predLength, SUMOReal pos)
-    {
+    static inline SUMOReal gap(SUMOReal predPos, SUMOReal predLength, SUMOReal pos) {
         return predPos - predLength - pos;
     }
 
@@ -271,93 +268,80 @@ public:
     /// @name state setter/getter
     //@{
     /// Returns the vehicle state
-    const State &getState() const
-    {
+    const State &getState() const {
         return myState;
     }
 
     /// Get the vehicle's position.
-    SUMOReal getPositionOnLane() const
-    {
+    SUMOReal getPositionOnLane() const {
         return myState.myPos;
     }
 
     /// Returns current speed
-    SUMOReal getSpeed() const
-    {
+    SUMOReal getSpeed() const {
         return myState.mySpeed;
     }
     //@}
 
-    SUMOReal getLength() const
-    {
+    SUMOReal getLength() const {
         return myType->getLength();
     }
 
-    SUMOReal interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const
-    {
+    SUMOReal interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const {
         return myType->interactionGap(vF, laneMaxSpeed, vL);
     }
 
-    bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const
-    {
+    bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const {
         return myType->hasSafeGap(speed, gap, predSpeed, laneMaxSpeed);
     }
 
-    SUMOReal getSecureGap(SUMOReal speed, SUMOReal predSpeed, SUMOReal predLength) const
-    {
+    SUMOReal getSecureGap(SUMOReal speed, SUMOReal predSpeed, SUMOReal predLength) const {
         return myType->getSecureGap(speed, predSpeed, predLength);
     }
 
-    SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const
-    {
+    SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const {
         return myType->ffeV(speed, gap2pred, predSpeed);
     }
 
-    SUMOReal decelAbility() const
-    {
+    SUMOReal decelAbility() const {
         return myType->decelAbility(); // !!! really the speed?
     }
 
-    SUMOReal maxNextSpeed(SUMOReal v) const
-    {
+    SUMOReal maxNextSpeed(SUMOReal v) const {
         return myType->maxNextSpeed(v);
     }
 
-    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const
-    {
+    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const {
         return myType->getSpeedAfterMaxDecel(v);
     }
 
-    SUMOReal getMaxSpeed() const
-    {
-        if ( isIndividualMaxSpeedSet() )
+    SUMOReal getMaxSpeed() const {
+        if (isIndividualMaxSpeedSet())
             return getIndividualMaxSpeed();
-    
+
         return myType->getMaxSpeed();
     }
-    
-    void setIndividualMaxSpeed( SUMOReal individualMaxSpeed ) {
+
+    void setIndividualMaxSpeed(SUMOReal individualMaxSpeed) {
         myIsIndividualMaxSpeedSet = true;
         myIndividualMaxSpeed = individualMaxSpeed;
     }
 
-    void unsetIndividualMaxSpeed( void ) {
+    void unsetIndividualMaxSpeed(void) {
         myIsIndividualMaxSpeedSet = false;
         myIndividualMaxSpeed = 0.0;
     }
 
-    SUMOReal getIndividualMaxSpeed( void ) const {
+    SUMOReal getIndividualMaxSpeed(void) const {
         return myIndividualMaxSpeed;
     }
 
-    bool isIndividualMaxSpeedSet( void ) const {
+    bool isIndividualMaxSpeedSet(void) const {
         return myIsIndividualMaxSpeedSet;
     }
 
     /** */
-    SUMOReal timeHeadWayGap(SUMOReal speed) const
-    {
+    SUMOReal timeHeadWayGap(SUMOReal speed) const {
         assert(speed >= 0);
         return SPEED2DIST(speed);
     }
@@ -381,8 +365,7 @@ public:
 
 
     /** Returns true if the two vehicles overlap. */
-    static bool overlap(const MSVehicle* veh1, const MSVehicle* veh2)
-    {
+    static bool overlap(const MSVehicle* veh1, const MSVehicle* veh2) {
         if (veh1->myState.myPos < veh2->myState.myPos) {
             return veh2->myState.myPos - veh2->getLength() < veh1->myState.myPos;
         }
@@ -392,8 +375,7 @@ public:
 
     /** Returns true if vehicle's speed is below 60km/h. This is only relevant
         on highways. Overtaking on the right is allowed then. */
-    bool congested() const
-    {
+    bool congested() const {
         return myState.mySpeed < SUMOReal(60) / SUMOReal(3.6);
     }
 
@@ -481,8 +463,7 @@ public:
     typedef std::deque<const MSEdge::LaneCont*> NextAllowedLanes;
     const NextAllowedLanes &getAllowedLanes(MSLaneChanger &lc);
 
-    struct LaneQ
-    {
+    struct LaneQ {
         MSLane *lane;
         float length;
         float alllength;
@@ -496,8 +477,7 @@ public:
 
     const std::vector<std::vector<LaneQ> > &getBestLanes() const;
 
-    SUMOReal getMovedDistance(void) const
-    {
+    SUMOReal getMovedDistance(void) const {
         return SPEED2DIST(myState.mySpeed);
     }
 
@@ -505,8 +485,7 @@ public:
 
     void setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue);
 
-    enum MoveOnReminderMode
-    {
+    enum MoveOnReminderMode {
         BOTH, CURRENT
     };
 
@@ -518,8 +497,7 @@ public:
     void onTripEnd(/*MSLane &caller, */bool wasAlreadySet=false);
     void writeXMLRoute(OutputDevice &os, int index=-1) const;
 
-    struct Stop
-    {
+    struct Stop {
         MSLane *lane;
         MSBusStop *busstop;
         SUMOReal pos;
@@ -530,13 +508,11 @@ public:
 
     std::list<Stop> myStops;
 
-    void addStop(const Stop &stop)
-    {
+    void addStop(const Stop &stop) {
         myStops.push_back(stop);
     }
 
-    SUMOVehicleClass getVehicleClass() const
-    {
+    SUMOVehicleClass getVehicleClass() const {
         return myType->getVehicleClass();
     }
     bool knowsEdgeTest(MSEdge &edge) const;
@@ -546,21 +522,18 @@ public:
     {
     public:
         Information(SUMOReal neededTime_, SUMOTime time_)
-                : neededTime(neededTime_), time(time_)
-        { }
+                : neededTime(neededTime_), time(time_) { }
         SUMOReal neededTime; // how long needed the vehicle to travel on the edge
         SUMOTime time; // the Time, when the Info was saved
     };
 
     // enumeration for all type of Connection
-    enum C2CConnectionState
-    {
+    enum C2CConnectionState {
         dialing, connected, sending, receiving, disconnected
     };
 
     // structure for Car2Car Connection
-    struct C2CConnection
-    {
+    struct C2CConnection {
         MSVehicle  *connectedVeh;
         C2CConnectionState state;
         SUMOTime lastTimeSeen;
@@ -572,24 +545,19 @@ public:
     SUMOReal getC2CEffort(const MSEdge * const e, SUMOTime t) const;
     void checkReroute(SUMOTime t);
 
-    int getTotalInformationNumber() const
-    {
+    int getTotalInformationNumber() const {
         return totalNrOfSavedInfos;
     }
-    bool hasRouteInformation() const
-    {
+    bool hasRouteInformation() const {
         return myHaveRouteInfo;
     }
-    SUMOTime getLastInfoTime() const
-    {
+    SUMOTime getLastInfoTime() const {
         return myLastInfoTime;
     }
-    size_t getConnectionsNumber() const
-    {
+    size_t getConnectionsNumber() const {
         return clusterCont.size();
     }
-    size_t getInformationNumber() const
-    {
+    size_t getInformationNumber() const {
         return infoCont.size();
     }
 
@@ -645,16 +613,16 @@ protected:
 
     /// Vehicles driving state. here: pos and speed
     State myState;
-    
+
     /// An individual speed for an vehicle that is used (iff set) instead of
     /// the maximal speed of the vehicle class.
     /// NOTE: This is just a little workaround for allowing an external
     ///       influence on the actual speed
     SUMOReal myIndividualMaxSpeed;
-    
+
     /// is true if there has an individual speed been set
     bool myIsIndividualMaxSpeedSet;
-    
+
     /// is true, if the vehicle is abble to send Informations to another vehicle
     bool equipped;
 
@@ -722,14 +690,12 @@ private:
     /// Assignment operator.
     MSVehicle& operator=(const MSVehicle&);
 
-    struct DriveProcessItem
-    {
+    struct DriveProcessItem {
         MSLink *myLink;
         SUMOReal myVLinkPass;
         SUMOReal myVLinkWait;
         DriveProcessItem(MSLink *link, SUMOReal vPass, SUMOReal vWait) :
-                myLink(link), myVLinkPass(vPass), myVLinkWait(vWait)
-        { };
+                myLink(link), myVLinkPass(vPass), myVLinkWait(vWait) { };
     };
 
     typedef std::vector< DriveProcessItem > DriveItemVector;
@@ -768,12 +734,10 @@ private:
     public:
         /// Constructor
         RouteReplaceInfo(const MSEdge * const edge_, SUMOTime time_, MSRoute *route_)
-                : edge(edge_), time(time_), route(route_)
-        {}
+                : edge(edge_), time(time_), route(route_) {}
 
         /// Destructor
-        ~RouteReplaceInfo()
-        { }
+        ~RouteReplaceInfo() { }
 
         /// The edge the vehicle was on when the route was replaced
         const MSEdge *edge;

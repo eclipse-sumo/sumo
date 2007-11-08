@@ -348,7 +348,7 @@ NBLoadedTLDef::Phase::~Phase()
  * ----------------------------------------------------------------------- */
 NBLoadedTLDef::NBLoadedTLDef(const std::string &id,
                              const std::set<NBNode*> &junctions)
-            : NBTrafficLightDefinition(id, junctions)
+        : NBTrafficLightDefinition(id, junctions)
 {}
 
 

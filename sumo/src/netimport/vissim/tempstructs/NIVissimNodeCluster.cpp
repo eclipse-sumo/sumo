@@ -96,7 +96,7 @@ NIVissimNodeCluster::dictionary(int nodeid, int tlid,
         id = myCurrentID++;
     }
     NIVissimNodeCluster *o = new NIVissimNodeCluster(id,
-                             nodeid, tlid, connectors, disturbances, amEdgeSplitOnly);
+            nodeid, tlid, connectors, disturbances, amEdgeSplitOnly);
     dictionary(id, o);
     return id;
 }

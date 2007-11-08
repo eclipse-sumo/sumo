@@ -35,10 +35,8 @@
 class MFXInterThreadEventClient
 {
 public:
-    MFXInterThreadEventClient()
-    {}
-    virtual ~MFXInterThreadEventClient()
-    { }
+    MFXInterThreadEventClient() {}
+    virtual ~MFXInterThreadEventClient() { }
     virtual void eventOccured() = 0;
 };
 

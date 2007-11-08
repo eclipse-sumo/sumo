@@ -127,7 +127,7 @@ ROEdgeVector::recomputeCosts(const ROVehicle *const v, SUMOTime time) const
     for (EdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         costs += (*i)->getCost(v, time);
         time += ((SUMOTime)(*i)->getDuration(v, time));
-        if((*i)->prohibits(v)) {
+        if ((*i)->prohibits(v)) {
             return -1;
         }
     }

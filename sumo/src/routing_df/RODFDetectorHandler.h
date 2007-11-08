@@ -48,7 +48,7 @@ class RODFDetectorHandler : public SUMOSAXHandler
 public:
     /// Constructor
     RODFDetectorHandler(OptionsCont &oc, RODFDetectorCon &con,
-                      const std::string &file);
+                        const std::string &file);
 
     /// Destrcutor
     virtual ~RODFDetectorHandler() throw();

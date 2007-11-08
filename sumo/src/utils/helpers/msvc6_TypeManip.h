@@ -28,11 +28,9 @@
 
 namespace Loki
 {
-namespace Private
-{
+namespace Private {
 typedef char YES;
-struct NO
-{
+struct NO {
     char dummy[3];
 };
 }
@@ -44,10 +42,8 @@ struct NO
 ////////////////////////////////////////////////////////////////////////////////
 
 template <int v>
-struct Int2Type
-{
-    Int2Type()
-    {}
+struct Int2Type {
+    Int2Type() {}
     enum { value = v };
 };
 
@@ -59,11 +55,9 @@ struct Int2Type
 ////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-struct Type2Type
-{
+struct Type2Type {
     typedef T OriginalType;
-    Type2Type()
-    {};
+    Type2Type() {};
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -76,32 +70,26 @@ struct Type2Type
 // Result evaluates to T if flag is true, and to U otherwise.
 ////////////////////////////////////////////////////////////////////////////////
 // VC6 compatible version
-namespace Private
-{
+namespace Private {
 template <bool>
-struct SelectImpl
-{
+struct SelectImpl {
     template <class T, class U>
-    struct In
-    {
+    struct In {
         typedef T Result;
     };
 };
 
 template <>
-struct SelectImpl<false>
-{
+struct SelectImpl<false> {
     template <class T, class U>
-    struct In
-    {
+    struct In {
         typedef U Result;
     };
 };
 
 }	// end of namespace private
 template <bool flag, typename T, typename U>
-struct Select
-{
+struct Select {
     typedef typename Private::SelectImpl<flag>::template In<T, U>::Result Result;
 };
 
@@ -116,22 +104,19 @@ struct Select
 ////////////////////////////////////////////////////////////////////////////////
 //	This template is not in the original Loki-Library
 template <class T, class U>
-struct IsEqualType
-{
+struct IsEqualType {
 private:
     static Private::YES check(Type2Type<T>);
     static Private::NO check(...);
 public:
-    enum
-    {
+    enum {
         value = sizeof(check(Type2Type<U>())) == sizeof(Private::YES)
     };
 };
 ////////////////////////////////////////////////////////////////////////////////
 // Helper types Small and Big - guarantee that sizeof(Small) < sizeof(Big)
 ////////////////////////////////////////////////////////////////////////////////
-namespace Private
-{
+namespace Private {
 typedef char Small;
 class Big
 {
@@ -140,8 +125,7 @@ class Big
 
 // IsVoid from Rani Sharoni's VC 7 port
 template<typename T>
-struct IsVoid
-{
+struct IsVoid {
     enum { value =
                IsEqualType<T, void>::value          ||
            IsEqualType<T, const void>::value    ||
@@ -158,8 +142,7 @@ struct IsVoid
 template <class T, class U>
 class is_convertible
 {
-    struct VoidReplace
-        {};
+    struct VoidReplace {};
 
     typedef typename Select
     <
@@ -180,8 +163,7 @@ class is_convertible
     static T1 MakeT();
 
 public:
-    enum
-    {
+    enum {
         exists = sizeof(Test(MakeT())) == sizeof(Private::Small)
     };
 };
@@ -203,8 +185,7 @@ public:
 ////////////////////////////////////////////////////////////////////////////////
 //	Conversion-Template from Rani Sharoni's VC 7 port.
 template <class T, class U>
-struct Conversion
-{
+struct Conversion {
     enum { exists = (is_convertible<T,U>::exists) };
     enum { exists2Way = (exists && is_convertible<U, T>::exists) };
     enum { sameType = (IsEqualType<T, U>::value) };
@@ -220,10 +201,10 @@ struct Conversion
 ////////////////////////////////////////////////////////////////////////////////
 
 template <class T, class U>
-struct SuperSubclass
-{
+struct SuperSubclass {
     enum { value = (::Loki::Conversion<const volatile U*, const volatile T*>::exists &&
-                    !::Loki::Conversion<const volatile T*, const volatile void*>::sameType) };
+                    !::Loki::Conversion<const volatile T*, const volatile void*>::sameType)
+         };
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -235,11 +216,11 @@ struct SuperSubclass
 ////////////////////////////////////////////////////////////////////////////////
 
 template<class T,class U>
-struct SuperSubclassStrict
-{
+struct SuperSubclassStrict {
     enum { value = (::Loki::Conversion<const volatile U*, const volatile T*>::exists &&
                     !::Loki::Conversion<const volatile T*, const volatile void*>::sameType &&
-                    !::Loki::Conversion<const volatile T*, const volatile U*>::sameType) };
+                    !::Loki::Conversion<const volatile T*, const volatile U*>::sameType)
+         };
 };
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -270,10 +251,8 @@ struct SuperSubclassStrict
 
 
 template <unsigned i>
-struct TypeTag
-{
-    struct Inner
-    {
+struct TypeTag {
+    struct Inner {
         char c[i];
     };
     typedef Inner X;

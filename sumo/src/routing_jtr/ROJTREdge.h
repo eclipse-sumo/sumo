@@ -57,10 +57,10 @@ class ROJTREdge : public ROEdge
 {
 public:
     /** @brief Constructor
-	 *
-	 * @param[in] id The id of the edge
-	 * @param[in] index The numerical id of the edge
-	 */
+     *
+     * @param[in] id The id of the edge
+     * @param[in] index The numerical id of the edge
+     */
     ROJTREdge(const std::string &id, int index);
 
 
@@ -69,28 +69,28 @@ public:
 
 
     /** @brief Adds information about a connected edge
-	 * 
-	 * Makes this edge know the given following edge. Calls ROEdge::addFollower.
-	 *
-	 * Additionally it generates the entry for the given following edge
-	 *  in myFollowingDefs.
-	 *
-	 * @param[in] s The following edge
-	 * @see ROEdge::addFollower
-	 */
+     *
+     * Makes this edge know the given following edge. Calls ROEdge::addFollower.
+     *
+     * Additionally it generates the entry for the given following edge
+     *  in myFollowingDefs.
+     *
+     * @param[in] s The following edge
+     * @see ROEdge::addFollower
+     */
     void addFollower(ROEdge *s);
 
 
     /** @brief adds the information about the percentage of using a certain follower
-	 *
-	 *!!!
-	 *
-	 * @param[in] follower The following edge
-	 * @param[in] begTime Time begin for which this probability is valid
-	 * @param[in] endTime Time end for which this probability is valid
-	 * @param[in] probability The probability to use the given follower
-	 */
-	void addFollowerProbability(ROJTREdge *follower,
+     *
+     *!!!
+     *
+     * @param[in] follower The following edge
+     * @param[in] begTime Time begin for which this probability is valid
+     * @param[in] endTime Time end for which this probability is valid
+     * @param[in] probability The probability to use the given follower
+     */
+    void addFollowerProbability(ROJTREdge *follower,
                                 SUMOTime begTime, SUMOTime endTime, SUMOReal probability);
 
     /// Returns the next edge to use

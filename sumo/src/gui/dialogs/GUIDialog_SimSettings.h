@@ -80,8 +80,7 @@ private:
 
 protected:
     /// Fox needs this
-    GUIDialog_SimSettings()
-    { }
+    GUIDialog_SimSettings() { }
 
 };
 

@@ -106,34 +106,34 @@ MSOffTrafficLightLogic::getPhaseFromStep(size_t givenStep) const
 }
 
 
-void 
+void
 MSOffTrafficLightLogic::setLinkPriorities() const
 {
 }
 
 
-bool 
+bool
 MSOffTrafficLightLogic::maskRedLinks() const
 {
     return true;
 }
 
 
-bool 
+bool
 MSOffTrafficLightLogic::maskYellowLinks() const
 {
     return true;
 }
 
 
-MSPhaseDefinition 
+MSPhaseDefinition
 MSOffTrafficLightLogic::getCurrentPhaseDef() const
 {
     size_t no = getLinks().size();
     std::bitset<64> driveMaskArg;
     std::bitset<64> breakMaskArg;
     std::bitset<64> yellowMaskArg;
-    for(size_t i=0; i<no; ++i) {
+    for (size_t i=0; i<no; ++i) {
         driveMaskArg[i] = true;
         breakMaskArg[i] = false;
         yellowMaskArg[i] = false;
@@ -147,7 +147,7 @@ MSOffTrafficLightLogic::buildStateList() const
 {
     std::ostringstream strm;
     size_t no = getLinks().size();
-    for(size_t i=0; i<no; ++i) {
+    for (size_t i=0; i<no; ++i) {
         strm << 'O';
     }
     return strm.str();

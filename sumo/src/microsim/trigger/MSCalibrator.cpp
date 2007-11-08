@@ -92,94 +92,94 @@ SUMOTime
 MSCalibrator::execute(SUMOTime timestep)
 {
 
-   if(timestep == 0) {
-		return 1;
-   }
-	
-   if(myNumVehicles == -1) {
-		return 1;
-   }
+    if (timestep == 0) {
+        return 1;
+    }
+
+    if (myNumVehicles == -1) {
+        return 1;
+    }
 
 
 
-	SUMOReal vehPerInterval = myNumVehicles / (myInterval);
-	int num_replacements = 0;
-/*
-	OutputDevice *dev = OutputDevice::getOutputDevice(myDebugFilesBaseName + "diff.csv");
-	OutputDevice *dev2 = OutputDevice::getOutputDevice(myDebugFilesBaseName + "replace.csv");
-	OutputDevice *dev3 = OutputDevice::getOutputDevice(myDebugFilesBaseName + "vehicle.xml");
-*/	
+    SUMOReal vehPerInterval = myNumVehicles / (myInterval);
+    int num_replacements = 0;
+    /*
+    	OutputDevice *dev = OutputDevice::getOutputDevice(myDebugFilesBaseName + "diff.csv");
+    	OutputDevice *dev2 = OutputDevice::getOutputDevice(myDebugFilesBaseName + "replace.csv");
+    	OutputDevice *dev3 = OutputDevice::getOutputDevice(myDebugFilesBaseName + "vehicle.xml");
+    */
 
-	//positive diff=too many vehicles, negative diff=not enough vehicles
-	SUMOReal veh_cnt = myIL->getNVehContributed(2);
-	SUMOReal diff =  veh_cnt - vehPerInterval + myToCalibrate;
-	SUMOReal meanSpeed = myIL->getMeanSpeed(2);
-	
-	if (diff > 0) {
+    //positive diff=too many vehicles, negative diff=not enough vehicles
+    SUMOReal veh_cnt = myIL->getNVehContributed(2);
+    SUMOReal diff =  veh_cnt - vehPerInterval + myToCalibrate;
+    SUMOReal meanSpeed = myIL->getMeanSpeed(2);
 
-		size_t vehNum = myDestLane->getVehicleNumber();
+    if (diff > 0) {
 
-		//not enough vehicles to delete on the lane?
-		if( vehNum < diff ) {
+        size_t vehNum = myDestLane->getVehicleNumber();
 
-			myToCalibrate = diff - vehNum;
-		
-			diff = vehNum;
-		} else {
-			myToCalibrate = diff - floor(diff);
-		}
-		
-		for(int i=1; i <= diff; i++) {
+        //not enough vehicles to delete on the lane?
+        if (vehNum < diff) {
 
-			for(MSLane::VehCont::const_iterator it = myDestLane->getVehiclesSecure().begin();
-				it < myDestLane->getVehiclesSecure().end();
-				it++) {
-				
-				MSVehicle * veh = (*it);
+            myToCalibrate = diff - vehNum;
 
-				if(veh->getVehicleType().getID() == "BUS") {
-					continue;
-				} else {
-					veh->leaveLaneAtLaneChange();
-					veh->onTripEnd();
-					MSNet::getInstance()->getMSPhoneNet()->removeVehicle(*veh, MSNet::getInstance()->getCurrentTimeStep());
-					myDestLane->removeVehicle(veh);
-					MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
+            diff = vehNum;
+        } else {
+            myToCalibrate = diff - floor(diff);
+        }
 
-					num_replacements++;
-					
-					break;
-				}
-			}	
+        for (int i=1; i <= diff; i++) {
+
+            for (MSLane::VehCont::const_iterator it = myDestLane->getVehiclesSecure().begin();
+                    it < myDestLane->getVehiclesSecure().end();
+                    it++) {
+
+                MSVehicle * veh = (*it);
+
+                if (veh->getVehicleType().getID() == "BUS") {
+                    continue;
+                } else {
+                    veh->leaveLaneAtLaneChange();
+                    veh->onTripEnd();
+                    MSNet::getInstance()->getMSPhoneNet()->removeVehicle(*veh, MSNet::getInstance()->getCurrentTimeStep());
+                    myDestLane->removeVehicle(veh);
+                    MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
+
+                    num_replacements++;
+
+                    break;
+                }
+            }
 //			WRITE_WARNING("Removing Vehicle " + veh->getID() + " at Timestep: " + toString(timestep) + "\n");
-		}
+        }
 
-		//make sure enough cars were deleted, only happens if BUSSES were in the set
-		myToCalibrate+diff-num_replacements;
-	} else if (diff < 0) {
+        //make sure enough cars were deleted, only happens if BUSSES were in the set
+        myToCalibrate+diff-num_replacements;
+    } else if (diff < 0) {
 
-		myToCalibrate = diff - ceil(diff);
-		for(int i=-1; i >= diff; i--) {
+        myToCalibrate = diff - ceil(diff);
+        for (int i=-1; i >= diff; i--) {
 //			WRITE_WARNING("Inserting Vehicle at Timestep: " + toString(timestep) + "\n");
-		
-			((MSCalibrator_FileTriggeredChild*) myFileBasedCalibrator)->buildAndScheduleFlowVehicle(meanSpeed);
-			childCheckEmit(myFileBasedCalibrator);
-			num_replacements--;
-		}
-	} else if (diff == 0) {
-		myToCalibrate = 0;
-	}
-/*
-	if (myDebugLevel > 0) {
-		dev->getOStream() << timestep << "\t" << num_replacements << "\t" << diff << "\t" << myToCalibrate << "\t" << veh_cnt << "\t" << meanSpeed << endl;
 
-		dev2->getOStream() << num_replacements << endl;
-	
-		myIL->writeXMLOutput(*dev3, timestep-1, timestep);
-	}
+            ((MSCalibrator_FileTriggeredChild*) myFileBasedCalibrator)->buildAndScheduleFlowVehicle(meanSpeed);
+            childCheckEmit(myFileBasedCalibrator);
+            num_replacements--;
+        }
+    } else if (diff == 0) {
+        myToCalibrate = 0;
+    }
+    /*
+    	if (myDebugLevel > 0) {
+    		dev->getOStream() << timestep << "\t" << num_replacements << "\t" << diff << "\t" << myToCalibrate << "\t" << veh_cnt << "\t" << meanSpeed << endl;
 
-//	WRITE_WARNING("execute2(" + toString(timestep) + "): Count: " + toString(myIL->getNVehContributed(myInterval)));
- */   
+    		dev2->getOStream() << num_replacements << endl;
+
+    		myIL->writeXMLOutput(*dev3, timestep-1, timestep);
+    	}
+
+    //	WRITE_WARNING("execute2(" + toString(timestep) + "): Count: " + toString(myIL->getNVehContributed(myInterval)));
+     */
 
     return 1;
 }
@@ -242,14 +242,14 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
         if (route == 0) {
             throw ProcessError(
                 "MSTriggeredSource " + myParent.getID() + ": Route '" + routeStr + "' does not exist.");
-            
+
         }
         // check frequency
         SUMOReal freq = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
         if (freq<0) {
             throw ProcessError(
                 "MSTriggeredSource " + myParent.getID() + ": Attribute \"probability\" has value < 0.");
-            
+
         }
         // Attributes ok, add to routeDist
         myRouteDist.add(freq, route);
@@ -386,16 +386,16 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
     }
 #if 0
 #ifdef TM_CALIB
-	if (element==SUMO_TAG_CALIB) {
-        
-		WRITE_WARNING("FOUND calib Tag!!!");
-/*
-		  MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-                    new WrappingCommand<MSCalibrator::MSCalibrator_FileTriggeredChild>(this, &MSCalibrator::MSCalibrator_FileTriggeredChild::execute2),
-                    //MSNet::getInstance()->getCurrentTimeStep() + 5,
-					10,
-                    MSEventControl::ADAPT_AFTER_EXECUTION);
-*/              
+    if (element==SUMO_TAG_CALIB) {
+
+        WRITE_WARNING("FOUND calib Tag!!!");
+        /*
+        		  MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+                            new WrappingCommand<MSCalibrator::MSCalibrator_FileTriggeredChild>(this, &MSCalibrator::MSCalibrator_FileTriggeredChild::execute2),
+                            //MSNet::getInstance()->getCurrentTimeStep() + 5,
+        					10,
+                            MSEventControl::ADAPT_AFTER_EXECUTION);
+        */
 
     }
 #endif //TM_CALIB
@@ -435,36 +435,36 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::inputEndReached()
 // method definitions
 // ===========================================================================
 MSCalibrator::MSCalibrator(const std::string &id,
-                     MSNet &net,
-                     MSLane* destLane, SUMOReal pos,
-                     const std::string &aXMLFilename)
+                           MSNet &net,
+                           MSLane* destLane, SUMOReal pos,
+                           const std::string &aXMLFilename)
         : MSTrigger(id), myNet(net),
-		myDestLane(destLane), myPos((SUMOReal) pos), myDb(net),
-		myDebugLevel(0), myDebugFilesBaseName("x:\\temp\\dbg_")
+        myDestLane(destLane), myPos((SUMOReal) pos), myDb(net),
+        myDebugLevel(0), myDebugFilesBaseName("x:\\temp\\dbg_")
 {
     assert(myPos>=0);
 
-	myToCalibrate = 0;
+    myToCalibrate = 0;
 
-	//myInterval=atof(getenv("TM_INTERV")?getenv("TM_INTERV"):"1"); //1
-	//myNumVehicles=atof(getenv("TM_NUMVEH")?getenv("TM_NUMVEH"):"0"); //14.0
-	myInterval = 60;
-	myNumVehicles= -1;
-	
+    //myInterval=atof(getenv("TM_INTERV")?getenv("TM_INTERV"):"1"); //1
+    //myNumVehicles=atof(getenv("TM_NUMVEH")?getenv("TM_NUMVEH"):"0"); //14.0
+    myInterval = 60;
+    myNumVehicles= -1;
 
 
-	std::string ilId = "Calib_InductLoopOn_" + myDestLane->getID();
-	myIL = myDb.createInductLoop(ilId, myDestLane, myPos, 6000);
 
-	MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-		new WrappingCommand<MSCalibrator>(this, &MSCalibrator::execute),
+    std::string ilId = "Calib_InductLoopOn_" + myDestLane->getID();
+    myIL = myDb.createInductLoop(ilId, myDestLane, myPos, 6000);
+
+    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+        new WrappingCommand<MSCalibrator>(this, &MSCalibrator::execute),
         //MSNet::getInstance()->getCurrentTimeStep() + 5,
-		0,
+        0,
         MSEventControl::ADAPT_AFTER_EXECUTION);
-	
 
-	//TODO clean up in destructor!!!
-	MSCalibrator::calibratorMap[id]=this;
+
+    //TODO clean up in destructor!!!
+    MSCalibrator::calibratorMap[id]=this;
 
     myActiveChild =
         new MSCalibrator_FileTriggeredChild(net, aXMLFilename, *this, net.getVehicleControl());
@@ -505,7 +505,7 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child)
     MSVehicle *veh = myToEmit[child].first;
     SUMOReal speed = myToEmit[child].second;
     // check whether the speed shall be patched
-	//TM
+    //TM
     MSVehicle::State state(myPos+1, MIN2(myDestLane->maxSpeed(), veh->getMaxSpeed()));
     if (speed>=0) {
         state = MSVehicle::State(myPos+1, speed);
@@ -549,7 +549,7 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child)
 
 void
 MSCalibrator::schedule(MSCalibratorChild *child,
-                    MSVehicle *v, SUMOReal speed)
+                       MSVehicle *v, SUMOReal speed)
 {
     myToEmit[child] = make_pair(v, speed);
 }
@@ -572,22 +572,23 @@ MSCalibrator::setActiveChild(MSCalibratorChild *c)
 std::map<std::string, MSCalibrator*> MSCalibrator::calibratorMap;
 
 void
-MSCalibrator::updateCalibrator(std::string name, int time, SUMOReal count) {
+MSCalibrator::updateCalibrator(std::string name, int time, SUMOReal count)
+{
 
-	std::map<std::string, MSCalibrator*>::iterator it = MSCalibrator::calibratorMap.find(name);
-	
-	if (it==MSCalibrator::calibratorMap.end()) {
-		WRITE_ERROR("WRONG UPDATE COMMAND, CALIBRATOR NOT FOUND: " + name);	
-		return;
-	}
+    std::map<std::string, MSCalibrator*>::iterator it = MSCalibrator::calibratorMap.find(name);
 
-	MSCalibrator * calibrator = (*it).second;
-	
-	calibrator->myInterval = time;
-	calibrator->myNumVehicles = count;
-		
-		//DOME
-		int i=0;
+    if (it==MSCalibrator::calibratorMap.end()) {
+        WRITE_ERROR("WRONG UPDATE COMMAND, CALIBRATOR NOT FOUND: " + name);
+        return;
+    }
+
+    MSCalibrator * calibrator = (*it).second;
+
+    calibrator->myInterval = time;
+    calibrator->myNumVehicles = count;
+
+    //DOME
+    int i=0;
 
 
 }

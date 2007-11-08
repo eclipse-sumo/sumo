@@ -41,26 +41,22 @@ namespace Predicate
 {
 template< typename ContainerItem >
 struct PosGreaterC :
-            public std::binary_function< ContainerItem, SUMOReal, bool >
-{
+            public std::binary_function< ContainerItem, SUMOReal, bool > {
     bool operator()(const ContainerItem& item, SUMOReal pos) const;
 };
 
 // specialization
 template<>
 struct PosGreaterC< MSVehicle* > :
-            public std::binary_function< MSVehicle*, SUMOReal, bool >
-{
-    bool operator()(const MSVehicle* item, SUMOReal pos) const
-    {
+            public std::binary_function< MSVehicle*, SUMOReal, bool > {
+    bool operator()(const MSVehicle* item, SUMOReal pos) const {
         return item->getPositionOnLane() > pos;
     }
 };
 
 template< typename ContainerItem >
 struct VehEqualsC :
-            public std::binary_function< ContainerItem, MSVehicle*, bool >
-{
+            public std::binary_function< ContainerItem, MSVehicle*, bool > {
     bool operator()(const ContainerItem& item,
                     const MSVehicle* veh) const;
 };
@@ -68,11 +64,9 @@ struct VehEqualsC :
 // specialization
 template<>
 struct VehEqualsC< MSVehicle* > :
-            public std::binary_function< MSVehicle*, MSVehicle*, bool >
-{
+            public std::binary_function< MSVehicle*, MSVehicle*, bool > {
     bool operator()(const MSVehicle* item,
-                    const MSVehicle* veh) const
-    {
+                    const MSVehicle* veh) const {
         return item == veh;
     }
 };

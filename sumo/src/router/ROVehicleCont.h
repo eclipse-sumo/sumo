@@ -76,7 +76,7 @@ public:
      * Tries to add the vehicle to the container using NamedObjectCont::add.
      *  If this succeeds, the vehicle is also added to the internal sorted
      *  list of vehicles.
-     * 
+     *
      * Returns the value from NamedObjectCont::add.
      *
      * @param[in] id The id of the vehicle to add
@@ -91,7 +91,7 @@ public:
      *
      * Calls NamedObjectCont::clear and replaces the internal,
      *  sorted list by an empty one.
-     * 
+     *
      * @see NamedObjectCont::clear
      */
     void clear();
@@ -103,7 +103,7 @@ public:
      *  from the internal sorted list. This method takes care whether the
      *  vehicle to remove is the top-most one (the one with the earliest
      *  depart time). If not, the internal list is rebuild.
-     * 
+     *
      * @param[in] id The id of the vehicle to remove
      * @return Whether the vehicle could be removed
      * @see NamedObjectCont::erase
@@ -116,7 +116,7 @@ private:
      *
      * Rebuilds the internal, sorted list by clearing it, first, and then
      *  adding all vehicles stored.
-     * 
+     *
      * @see NamedObjectCont::clear
      */
     void rebuildSorted();
@@ -131,7 +131,7 @@ private:
     /// @brief Invalidated copy constructor
     ROVehicleCont(const ROVehicleCont &src);
 
-    /// @brief Invalidated assignment operator 
+    /// @brief Invalidated assignment operator
     ROVehicleCont &operator=(const ROVehicleCont &src);
 
 };

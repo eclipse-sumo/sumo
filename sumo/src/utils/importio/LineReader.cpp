@@ -101,9 +101,9 @@ LineReader::readLine(LineHandler &lh)
         } else {
             if (myRead<myAvailable) {
                 myStrm.read(myBuffer,
-                           myAvailable - myRead<1024
-                           ? myAvailable - myRead
-                           : 1024);
+                            myAvailable - myRead<1024
+                            ? myAvailable - myRead
+                            : 1024);
                 size_t noBytes = myAvailable - myRead;
                 noBytes = noBytes > 1024 ? 1024 : noBytes;
                 myStrBuffer += string(myBuffer, noBytes);
@@ -154,9 +154,9 @@ LineReader::readLine()
         } else {
             if (myRead<myAvailable) {
                 myStrm.read(myBuffer,
-                           myAvailable - myRead<1024
-                           ? myAvailable - myRead
-                           : 1024);
+                            myAvailable - myRead<1024
+                            ? myAvailable - myRead
+                            : 1024);
                 size_t noBytes = myAvailable - myRead;
                 noBytes = noBytes > 1024 ? 1024 : noBytes;
                 myStrBuffer += string(myBuffer, noBytes);

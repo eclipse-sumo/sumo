@@ -58,8 +58,7 @@ public:
                               int minDurationArg, int maxDurationArg)
             : MSPhaseDefinition(durationArg, driveMaskArg,
                                 breakMaskArg, yellowMaskArg),
-            minDuration(minDurationArg), maxDuration(maxDurationArg)
-    {
+            minDuration(minDurationArg), maxDuration(maxDurationArg) {
         // defines minDuration
         size_t minDurationDefault = 10;
         if (minDurationArg < 0) {
@@ -85,8 +84,7 @@ public:
     }
 
     /// destructor
-    ~MSActuatedPhaseDefinition()
-    { }
+    ~MSActuatedPhaseDefinition() { }
 
 };
 

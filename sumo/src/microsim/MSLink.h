@@ -102,8 +102,7 @@ public:
 
     /// sets the information about an approaching vehicle
     void setApproaching(MSVehicle *approaching);
-    MSVehicle *getApproaching() const
-    {
+    MSVehicle *getApproaching() const {
         return myApproaching;
     };
 

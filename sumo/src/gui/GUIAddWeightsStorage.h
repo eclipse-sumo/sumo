@@ -43,8 +43,7 @@
  * @struct GUIAddWeight
  * @brief A single additional edge weight definition
  */
-struct GUIAddWeight
-{
+struct GUIAddWeight {
     /// The edge id of the edge which shall be additionally weighted
     std::string edgeID;
     /// The absolute edge weight

@@ -52,19 +52,16 @@ typedef inline bool ( ProhibitionFunction )(const E *edge, const V *vehicle);
 */
 
 template<class E, class V>
-struct prohibited_withRestrictions
-{
+struct prohibited_withRestrictions {
 public:
-    inline bool operator()(const E *edge, const V *vehicle)
-    {
+    inline bool operator()(const E *edge, const V *vehicle) {
         if (std::find(myProhibited.begin(), myProhibited.end(), edge)!=myProhibited.end()) {
             return true;
         }
         return edge->prohibits(vehicle);
     }
 
-    void prohibit(const std::vector<E*> &toProhibit)
-    {
+    void prohibit(const std::vector<E*> &toProhibit) {
         myProhibited = toProhibit;
     }
 
@@ -74,11 +71,9 @@ protected:
 };
 
 template<class E, class V>
-struct prohibited_noRestrictions
-{
+struct prohibited_noRestrictions {
 public:
-    inline bool operator()(const E *, const V *)
-    {
+    inline bool operator()(const E *, const V *) {
         return false;
     }
 };
@@ -109,12 +104,10 @@ public:
     /// Constructor
     SUMODijkstraRouter(size_t noE, bool unbuildIsWarningOnly, Operation operation)
             : myNoE(noE), myReusableEdgeLists(true), myReusableEdgeInfoLists(true),
-            myUnbuildIsWarningOnly(unbuildIsWarningOnly), myOperation(operation)
-    { }
+            myUnbuildIsWarningOnly(unbuildIsWarningOnly), myOperation(operation) { }
 
     /// Destructor
-    virtual ~SUMODijkstraRouter()
-    { }
+    virtual ~SUMODijkstraRouter() { }
 
     /**
      * @struct EdgeInfo
@@ -126,19 +119,16 @@ public:
     public:
         /// Constructor
         EdgeInfo()
-                : edge(0), effort(0), prev(0)
-        {}
+                : edge(0), effort(0), prev(0) {}
 
 
         /// Constructor
         EdgeInfo(const E *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg)
-                : edge(edgeArg), effort(effortArg), prev(prevArg)
-        {}
+                : edge(edgeArg), effort(effortArg), prev(prevArg) {}
 
         /// Constructor
         EdgeInfo(const E *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg, SUMOReal distArg)
-                : edge(edgeArg), effort(effortArg), prev(prevArg), dist(distArg)
-        {}
+                : edge(edgeArg), effort(effortArg), prev(prevArg), dist(distArg) {}
 
         /// The current edge
         const E *edge;
@@ -162,16 +152,13 @@ public:
     {
     public:
         /// Constructor
-        explicit EdgeInfoByEffortComperator()
-        { }
+        explicit EdgeInfoByEffortComperator() { }
 
         /// Destructor
-        ~EdgeInfoByEffortComperator()
-        { }
+        ~EdgeInfoByEffortComperator() { }
 
         /// Comparing method
-        bool operator()(EdgeInfo *nod1, EdgeInfo *nod2) const
-        {
+        bool operator()(EdgeInfo *nod1, EdgeInfo *nod2) const {
             return nod1->effort>nod2->effort;
         }
     };
@@ -180,8 +167,7 @@ public:
     /** @brief Builds the route between the given edges using the minimum afford at the given time
         The definition of the afford depends on the wished routing scheme */
     virtual void compute(const E *from, const E *to, const V * const vehicle,
-                         SUMOTime time, std::vector<const E*> &into)
-    {
+                         SUMOTime time, std::vector<const E*> &into) {
 
         // get structures to reuse
         std::vector<bool> *visited = myReusableEdgeLists.getFreeInstance();
@@ -257,8 +243,7 @@ public:
 
 public:
     /// Builds the path from marked edges
-    void buildPathFrom(EdgeInfo *rbegin, std::vector<const E *> &edges)
-    {
+    void buildPathFrom(EdgeInfo *rbegin, std::vector<const E *> &edges) {
 //        B ret;
         std::deque<const E*> tmp;
         while (rbegin!=0) {
@@ -281,16 +266,13 @@ public:
     public:
         /// Constructor
         EdgeInfoCont(size_t toAlloc)
-                : myEdgeInfos(toAlloc+1, EdgeInfo())
-        { }
+                : myEdgeInfos(toAlloc+1, EdgeInfo()) { }
 
         /// Destructor
-        ~EdgeInfoCont()
-        { }
+        ~EdgeInfoCont() { }
 
         /// Adds the information about the effort to get to an edge and its predeccessing edge
-        EdgeInfo *add(const E *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg)
-        {
+        EdgeInfo *add(const E *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg) {
             EdgeInfo *ret = &(myEdgeInfos[edgeArg->getNumericalID()]);
             ret->edge = edgeArg; // !!! may be set within the constructor
             ret->effort = effortArg;
@@ -301,8 +283,7 @@ public:
 
         /// Adds the information about the effort to get to an edge and its predeccessing edge
         EdgeInfo *add(const E *edgeArg, SUMOReal effortArg, EdgeInfo *prevArg,
-                      SUMOReal distArg)
-        {
+                      SUMOReal distArg) {
             EdgeInfo *ret = &(myEdgeInfos[edgeArg->getNumericalID()]);
             ret->edge = edgeArg; // !!! may be set within the constructor
             ret->effort = effortArg;
@@ -312,8 +293,7 @@ public:
         }
 
         /// Resets all effort-information
-        void reset()
-        {
+        void reset() {
             for (typename std::vector<EdgeInfo>::iterator i=myEdgeInfos.begin(); i!=myEdgeInfos.end(); i++) {
                 (*i).effort = std::numeric_limits<SUMOReal>::max();
             }
@@ -322,8 +302,7 @@ public:
 
         /** @brief Returns the effort to get to the specify edge
             The value is valid if the edge was already visited */
-        SUMOReal getEffort(const E *to) const
-        {
+        SUMOReal getEffort(const E *to) const {
             return myEdgeInfos[to->getNumericalID()].effort;
         }
 
@@ -336,8 +315,7 @@ public:
 protected:
     /// Saves the temporary storages for further usage
     void clearTemporaryStorages(std::vector<bool> *edgeList,
-                                EdgeInfoCont *consecutionList)
-    {
+                                EdgeInfoCont *consecutionList) {
         myReusableEdgeLists.addFreeInstance(edgeList);
         myReusableEdgeInfoLists.addFreeInstance(consecutionList);
     }

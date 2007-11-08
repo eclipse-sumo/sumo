@@ -162,8 +162,7 @@ public:
     int appendWithCrossingPoint(const Position2DVector &v);
 
 
-    const ContType &getCont() const
-    {
+    const ContType &getCont() const {
         return myCont;
     }
 

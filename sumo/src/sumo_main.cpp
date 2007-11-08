@@ -61,7 +61,7 @@
 #include <utils/iodevices/OutputDevice.h>
 
 #ifdef TRACI
-    #include <traci-server/TraCIServer.h>
+#include <traci-server/TraCIServer.h>
 #endif
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -124,7 +124,7 @@ main(int argc, char **argv)
         XMLSubSys::init();
         SUMOFrame::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
-        if(oc.processMetaOptions(argc < 2)) {
+        if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }
@@ -133,29 +133,26 @@ main(int argc, char **argv)
         RandHelper::initRandGlobal();
         // load the net
         net = load(oc);
-        if (net!=0) 
-		{
+        if (net!=0) {
 #ifdef TRACI
-			// If a remote-port is given, the simulation waits for being controlled from the outside ...
-			if (oc.getInt("remote-port") != 0) 
-			{
-				WRITE_MESSAGE("waiting for request on port " + toString<int>(oc.getInt("remote-port")));
+            // If a remote-port is given, the simulation waits for being controlled from the outside ...
+            if (oc.getInt("remote-port") != 0) {
+                WRITE_MESSAGE("waiting for request on port " + toString<int>(oc.getInt("remote-port")));
                 traci::TraCIServer rs;
-				WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("begin")));
-				rs.run();
-				WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
-			} 
-			else 
-			// ... just run as always
+                WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("begin")));
+                rs.run();
+                WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
+            } else
+                // ... just run as always
 #endif
-			{
-				// report the begin when wished
-				WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("begin")));
-				// simulate
-				net->simulate(oc.getInt("begin"), oc.getInt("end"));
-				// report the end when wished
-				WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
-			}
+            {
+                // report the begin when wished
+                WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("begin")));
+                // simulate
+                net->simulate(oc.getInt("begin"), oc.getInt("end"));
+                // report the end when wished
+                WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
+            }
         }
     } catch (ProcessError &e) {
         if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {

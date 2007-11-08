@@ -70,12 +70,10 @@ public:
 
 public:
     /// Constructor
-    ValueTimeLine()
-    { }
+    ValueTimeLine() { }
 
     /// Destructor
-    ~ValueTimeLine()
-    { }
+    ~ValueTimeLine() { }
 
     /// Adds a ValuedTimeRange into the classes container. This is
     /// just a wrapper to addValue(TimeRange range, T value). Make
@@ -85,8 +83,7 @@ public:
     /// @param end End of TimeRange.
     /// @param value Value to store.
     ///
-    void add(SUMOTime begin, SUMOTime end, T value)
-    {
+    void add(SUMOTime begin, SUMOTime end, T value) {
         assert(value>=0);
         assert(begin<=end);
         // check whether this is the first entry
@@ -270,8 +267,7 @@ public:
     */
 
     /// Returns the value for the given time
-    T getValue(SUMOTime time) const
-    {
+    T getValue(SUMOTime time) const {
         assert(myValues.size()>0);
         CTVVIt i = std::find_if(
                        myValues.begin(), myValues.end(), range_finder(time));
@@ -293,8 +289,7 @@ public:
     /// returned as "second". In the other case, the value of the last
     /// element is returned.
     ///
-    SearchResult getSearchStateAndValue(SUMOTime time) const
-    {
+    SearchResult getSearchStateAndValue(SUMOTime time) const {
         if (myValues.size() == 0) {
             return std::make_pair(false, T());
         }
@@ -336,28 +331,24 @@ public:
     }
 
     /// Returns the number of known periods
-    size_t noDefinitions() const
-    {
+    size_t noDefinitions() const {
         return myValues.size();
     }
 
     /// Returns the time period description at the given position
-    const TimeRange &getRangeAtPosition(size_t pos) const
-    {
+    const TimeRange &getRangeAtPosition(size_t pos) const {
         assert(pos < myValues.size());
         return myValues[pos].first;
     }
 
     /// returns the information wehther the values for the given time are known
-    bool describesTime(SUMOTime time) const
-    {
+    bool describesTime(SUMOTime time) const {
         CTVVIt i = std::find_if(
                        myValues.begin(), myValues.end(), range_finder(time));
         return(i!=myValues.end());
     }
 
-    bool hasOverlaps() const
-    {
+    bool hasOverlaps() const {
         if (myValues.size()==0) {
             return false;
         }
@@ -379,20 +370,17 @@ public:
             assert(!hasOverlaps());
         }
     */
-    bool empty() const
-    {
+    bool empty() const {
         return myValues.size()==0;
     }
 
-    const ValuedTimeRange &getLastRange() const
-    {
+    const ValuedTimeRange &getLastRange() const {
         assert(!empty());
         return *(myValues.end()-1);
     }
 
 
-    T *buildShortCut(SUMOTime &begin, SUMOTime &end, size_t &maxIndex, SUMOTime &interval) const
-    {
+    T *buildShortCut(SUMOTime &begin, SUMOTime &end, size_t &maxIndex, SUMOTime &interval) const {
         T *ret;
         // make it simple: assume we use only weights that have the same intervals
         //  in this case!
@@ -416,12 +404,10 @@ private:
     public:
         /** constructor */
         explicit range_finder(SUMOTime time)
-                : myTime(time)
-        { }
+                : myTime(time) { }
 
         /** the comparing function */
-        bool operator()(const ValuedTimeRange &vrange)
-        {
+        bool operator()(const ValuedTimeRange &vrange) {
             const TimeRange &range = vrange.first;
             return range.first<=myTime && range.second>=myTime;
         }
@@ -437,12 +423,10 @@ private:
     public:
         /** constructor */
         explicit min_finder(SUMOTime time)
-                : myTime(time)
-        { }
+                : myTime(time) { }
 
         /** the comparing function */
-        bool operator()(const ValuedTimeRange &vrange)
-        {
+        bool operator()(const ValuedTimeRange &vrange) {
             const TimeRange &range = vrange.first;
             return range.first<=myTime&&range.second>=myTime || range.first>=myTime;
         }
@@ -458,12 +442,10 @@ private:
     public:
         /** constructor */
         explicit max_finder(SUMOTime time)
-                : myTime(time)
-        { }
+                : myTime(time) { }
 
         /** the comparing function */
-        bool operator()(const ValuedTimeRange &vrange)
-        {
+        bool operator()(const ValuedTimeRange &vrange) {
             const TimeRange &range = vrange.first;
             return range.first>=myTime;
         }
@@ -478,11 +460,9 @@ private:
     {
     public:
         /// constructor
-        explicit time_sorter()
-        { }
+        explicit time_sorter() { }
 
-        int operator()(const ValuedTimeRange &p1, const ValuedTimeRange &p2)
-        {
+        int operator()(const ValuedTimeRange &p1, const ValuedTimeRange &p2) {
             return p1.first.first<p2.first.first;
         }
     };
@@ -492,18 +472,15 @@ private:
     /// ordering and searching. If neccessary, check for the second
     /// one yourself.
 struct TimeRangeLess :
-                std::binary_function< unsigned, ValuedTimeRange, bool >
-    {
+                std::binary_function< unsigned, ValuedTimeRange, bool > {
         /// predicate to use with upper_bound.
         bool operator()(const unsigned searchTime,
-                        const ValuedTimeRange& valuedRange) const
-        {
+                        const ValuedTimeRange& valuedRange) const {
             return searchTime < valuedRange.first.first;
         }
         /// predicate to use with lower_bound
         bool operator()(const ValuedTimeRange& valuedRange,
-                        const unsigned searchTime) const
-        {
+                        const unsigned searchTime) const {
             return searchTime > valuedRange.first.first;
         }
     };

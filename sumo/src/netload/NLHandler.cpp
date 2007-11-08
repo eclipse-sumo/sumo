@@ -373,7 +373,7 @@ void
 NLHandler::allocateEdges(const std::string &chars)
 {
     size_t found = 0;
-	size_t wanted = myEdgeControlBuilder.getEdgeCapacity();
+    size_t wanted = myEdgeControlBuilder.getEdgeCapacity();
     try {
         size_t beg = 0;
         size_t idx = chars.find(' ');
@@ -398,7 +398,7 @@ NLHandler::allocateEdges(const std::string &chars)
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
-    if(wanted!=found) {
+    if (wanted!=found) {
         throw ProcessError("The number of edges in the list mismatches the edge count.");
     }
 }
@@ -429,7 +429,7 @@ NLHandler::chooseEdge(const Attributes &attrs)
     string id;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-        if(id=="") {
+        if (id=="") {
             throw EmptyData();
         }
         // omit internal edges if not wished
@@ -442,7 +442,7 @@ NLHandler::chooseEdge(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing id of an edge-object.");
         myCurrentIsBroken = true;
         return;
-    } 
+    }
 
     // get the function
     string func;
@@ -453,7 +453,7 @@ NLHandler::chooseEdge(const Attributes &attrs)
         myCurrentIsBroken = true;
         return;
     }
-        // parse the function
+    // parse the function
     MSEdge::EdgeBasicFunction funcEnum = MSEdge::EDGEFUNCTION_UNKNOWN;
     if (func=="normal") {
         funcEnum = MSEdge::EDGEFUNCTION_NORMAL;
@@ -520,7 +520,7 @@ NLHandler::addLane(const Attributes &attrs)
     }
     try {
         string id = getString(attrs, SUMO_ATTR_ID);
-        if(id=="") {
+        if (id=="") {
             throw EmptyData();
         }
         try {
@@ -574,7 +574,7 @@ NLHandler::closeLane()
         return;
     }
     // check shape
-    if(myShape.size()<2) {
+    if (myShape.size()<2) {
         MsgHandler::getErrorInstance()->inform("Shape of lane '" + myCurrentLaneID + "' is broken.\n Can not build according edge.");
         myCurrentIsBroken = true;
         return;
@@ -642,7 +642,7 @@ NLHandler::openJunction(const Attributes &attrs)
     myCurrentIsBroken = false;
     try {
         id = getString(attrs, SUMO_ATTR_ID);
-        if(id=="") {
+        if (id=="") {
             throw EmptyData();
         }
         try {
@@ -671,7 +671,7 @@ NLHandler::openJunction(const Attributes &attrs)
 void
 NLHandler::closeJunction()
 {
-    if(myCurrentIsBroken) {
+    if (myCurrentIsBroken) {
         return;
     }
     try {
@@ -731,7 +731,7 @@ NLHandler::openWAUT(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing start program for WAUT '" + id + "'.");
         myCurrentIsBroken = true;
     }
-    if(!myCurrentIsBroken) {
+    if (!myCurrentIsBroken) {
         myCurrentWAUTID = id;
         try {
             myJunctionControlBuilder.addWAUT(t, id, pro);
@@ -763,7 +763,7 @@ NLHandler::addWAUTSwitch(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing destination program for WAUT '" + myCurrentWAUTID + "'.");
         myCurrentIsBroken = true;
     }
-    if(!myCurrentIsBroken) {
+    if (!myCurrentIsBroken) {
         try {
             myJunctionControlBuilder.addWAUTSwitch(myCurrentWAUTID, t, to);
         } catch (InvalidArgument &e) {
@@ -793,7 +793,7 @@ NLHandler::addWAUTJunction(const Attributes &attrs)
     procedure = getStringSecure(attrs, SUMO_ATTR_PROCEDURE, "");
     try {
         bool synchron = getBoolSecure(attrs, SUMO_ATTR_SYNCHRON, false);
-        if(!myCurrentIsBroken) {
+        if (!myCurrentIsBroken) {
             myJunctionControlBuilder.addWAUTJunction(wautID, junctionID, procedure, synchron);
         }
     } catch (BoolFormatException &) {
@@ -1058,12 +1058,12 @@ NLHandler::addE1Detector(const Attributes &attrs)
 {
     // try to get the id first
     string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
-    if(id=="") {
+    if (id=="") {
         MsgHandler::getErrorInstance()->inform("Missing id of a e1-detector-object.");
         return;
     }
     string file = getStringSecure(attrs, SUMO_ATTR_FILE, "");
-    if(file=="") {
+    if (file=="") {
         MsgHandler::getErrorInstance()->inform("Missing output definition for detector '" + id + "'.");
         return;
     }
@@ -1096,7 +1096,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
 {
     // try to get the id first
     string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
-    if(id=="") {
+    if (id=="") {
         MsgHandler::getErrorInstance()->inform("Missing id of a e2-detector-object.");
         return;
     }
@@ -1118,7 +1118,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
     std::string toLane = getStringSecure(attrs, SUMO_ATTR_TO, "");
     // get the file name; it should not be empty
     string file = getStringSecure(attrs, SUMO_ATTR_FILE, "");
-    if(file=="") {
+    if (file=="") {
         MsgHandler::getErrorInstance()->inform("Missing output definition for detector '" + id + "'.");
         return;
     }

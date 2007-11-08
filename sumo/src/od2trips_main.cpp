@@ -165,23 +165,23 @@ parseTimeLine(const std::vector<std::string> &def, bool timelineDayInHours)
     bool interpolating = !timelineDayInHours;
     Position2DVector points;
     SUMOReal prob;
-    if(timelineDayInHours) {
+    if (timelineDayInHours) {
         if (def.size()!=24) {
             throw ProcessError("Assuming 24 entries for a day timeline, but got " + toString(def.size()) + ".");
         }
-        for(int chour=0; chour<24; ++chour) {
+        for (int chour=0; chour<24; ++chour) {
             prob = TplConvert<char>::_2SUMOReal(def[chour].c_str());
-            points.push_back(Position2D((SUMOReal) (chour*3600), prob));
+            points.push_back(Position2D((SUMOReal)(chour*3600), prob));
         }
-        points.push_back(Position2D((SUMOReal) (24 * 3600), prob));
+        points.push_back(Position2D((SUMOReal)(24 * 3600), prob));
     } else {
         size_t i = 0;
-        while(i<def.size()) {
-			StringTokenizer st2(def[i++], ":");
+        while (i<def.size()) {
+            StringTokenizer st2(def[i++], ":");
             if (st2.size()!=2) {
                 throw ProcessError("Broken time line definition: missing a value in '" + def[i-1] + "'.");
             }
-			int time = TplConvert<char>::_2int(st2.next().c_str());
+            int time = TplConvert<char>::_2int(st2.next().c_str());
             prob = TplConvert<char>::_2SUMOReal(st2.next().c_str());
             points.push_back(Position2D((SUMOReal) time, prob));
         }
@@ -222,7 +222,7 @@ loadDistricts(ODDistrictCont &districts, OptionsCont &oc)
     }
     // get the file name and set it
     string file = oc.getString("net-file");
-    if(!FileHelpers::exists(file)) {
+    if (!FileHelpers::exists(file)) {
         throw ProcessError("Could not find network '" + file + "' to load.");
     }
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading districts from '" + file + "'...");
@@ -280,7 +280,7 @@ getNextNonCommentLine(LineReader &lr)
 SUMOTime
 parseSingleTime(const std::string &time)
 {
-    if(time.find('.')==string::npos) {
+    if (time.find('.')==string::npos) {
         throw OutOfBoundsException();
     }
     string hours = time.substr(0, time.find('.'));
@@ -297,7 +297,7 @@ readTime(LineReader &lr)
         StringTokenizer st(line, StringTokenizer::WHITECHARS);
         SUMOTime begin = parseSingleTime(st.next());
         SUMOTime end = parseSingleTime(st.next());
-        if(begin>=end) {
+        if (begin>=end) {
             throw ProcessError("Begin time is larger than end time.");
         }
         return make_pair(begin, end);
@@ -346,7 +346,7 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
     // factor
     SUMOReal factor = readFactor(lr, scale);
 
-	// districts
+    // districts
     line = getNextNonCommentLine(lr);
     int districtNo = TplConvert<char>::_2int(StringUtils::prune(line).c_str());
     // parse district names (normally ints)
@@ -414,7 +414,7 @@ readO(LineReader &lr, ODMatrix &into, SUMOReal scale,
     while (lr.hasMore()) {
         line = getNextNonCommentLine(lr);
         StringTokenizer st2(line, StringTokenizer::WHITECHARS);
-        if(st2.size()==0) {
+        if (st2.size()==0) {
             continue;
         }
         try {
@@ -422,7 +422,7 @@ readO(LineReader &lr, ODMatrix &into, SUMOReal scale,
             string destD = st2.next();
             SUMOReal vehNumber = TplConvert<char>::_2SUMOReal(st2.next().c_str()) * factor;
             if (vehNumber!=0) {
-				into.add(vehNumber, begin, end, sourceD, destD, vehType);
+                into.add(vehNumber, begin, end, sourceD, destD, vehType);
             }
         } catch (OutOfBoundsException &) {
             throw ProcessError("Missing at least one information in line '" + line + "'.");
@@ -501,7 +501,7 @@ main(int argc, char **argv)
         XMLSubSys::init();
         fillOptions();
         OptionsIO::getOptions(true, argc, argv);
-        if(oc.processMetaOptions(argc < 2)) {
+        if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }
@@ -520,7 +520,7 @@ main(int argc, char **argv)
         if (matrix.getNoLoaded()==0) {
             throw ProcessError("No vehicles loaded...");
         }
-		if (MsgHandler::getErrorInstance()->wasInformed()&&!oc.getBool("dismiss-loading-errors")) {
+        if (MsgHandler::getErrorInstance()->wasInformed()&&!oc.getBool("dismiss-loading-errors")) {
             throw ProcessError("Loading failed...");
         }
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoLoaded()) + " vehicles loaded.");
@@ -529,7 +529,7 @@ main(int argc, char **argv)
             matrix.applyCurve(parseTimeLine(oc.getStringVector("timeline"), oc.getBool("timeline.day-in-hours")));
         }
         // write
-        if(!OutputDevice::createDeviceByOption("output", "tripdefs")) {
+        if (!OutputDevice::createDeviceByOption("output", "tripdefs")) {
             throw ProcessError("No output name is given.");
         }
         OutputDevice& dev = OutputDevice::getDeviceByOption("output");
@@ -538,7 +538,7 @@ main(int argc, char **argv)
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");
     } catch (ProcessError &e) {
-        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

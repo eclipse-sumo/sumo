@@ -88,24 +88,24 @@ NamedColumnsParser::parseLine(const std::string &line)
 
 std::string
 NamedColumnsParser::get(const std::string &name, bool prune) const
-    {
-        PosMap::const_iterator i = myDefinitionsMap.find(name);
+{
+    PosMap::const_iterator i = myDefinitionsMap.find(name);
+    if (i==myDefinitionsMap.end()) {
+        if (myAmCaseInsensitive) {
+            i = myDefinitionsMap.find(StringUtils::to_lower_case(name));
+        }
         if (i==myDefinitionsMap.end()) {
-            if (myAmCaseInsensitive) {
-                i = myDefinitionsMap.find(StringUtils::to_lower_case(name));
-            }
-            if (i==myDefinitionsMap.end()) {
-                throw UnknownElement(name);
-            }
+            throw UnknownElement(name);
         }
-        size_t pos = (*i).second;
-        if (myLineParser.size()<=pos) {
-            throw OutOfBoundsException();
-        }
-        std::string ret = myLineParser.get(pos);
-        checkPrune(ret, prune);
-        return ret;
     }
+    size_t pos = (*i).second;
+    if (myLineParser.size()<=pos) {
+        throw OutOfBoundsException();
+    }
+    std::string ret = myLineParser.get(pos);
+    checkPrune(ret, prune);
+    return ret;
+}
 
 
 bool

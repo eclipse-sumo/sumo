@@ -46,12 +46,10 @@ class FloatValueTimeLine : public ValueTimeLine<SUMOReal>
 {
 public:
     /// Constructor
-    FloatValueTimeLine()
-    { }
+    FloatValueTimeLine() { }
 
     /// Destructor
-    ~FloatValueTimeLine()
-    { }
+    ~FloatValueTimeLine() { }
 
 };
 

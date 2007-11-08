@@ -130,7 +130,7 @@ GUIGradientStorage::getRGBColors(GradientName idx, size_t noCells)
 
 void
 GUIGradientStorage::set(GradientName idx,
-                            const std::vector<FXGradient> &gradient)
+                        const std::vector<FXGradient> &gradient)
 {
     myGradients[idx] = gradient;
 }

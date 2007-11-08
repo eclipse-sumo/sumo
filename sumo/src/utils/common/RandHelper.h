@@ -57,46 +57,39 @@ public:
     static void initRandGlobal();
 
     /// Returns a random real number in [0, 1)
-    static inline SUMOReal rand()
-    {
+    static inline SUMOReal rand() {
         return (SUMOReal) RandHelper::myRandomNumberGenerator.randExc();
     }
 
     /// Returns a random real number in [0, maxV)
-    static inline SUMOReal rand(SUMOReal maxV)
-    {
+    static inline SUMOReal rand(SUMOReal maxV) {
         return maxV * rand();
     }
 
     /// Returns a random real number in [minV, maxV)
-    static inline SUMOReal rand(SUMOReal minV, SUMOReal maxV)
-    {
+    static inline SUMOReal rand(SUMOReal minV, SUMOReal maxV) {
         return minV + (maxV - minV) * rand();
     }
 
     /// Returns a random integer in [0, maxV-1]
-    static inline size_t rand(size_t maxV)
-    {
-        return (size_t) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32) (maxV-1));
+    static inline size_t rand(size_t maxV) {
+        return (size_t) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32)(maxV-1));
     }
 
     /// Returns a random integer in [0, maxV-1]
-    static inline int rand(int maxV)
-    {
-        return (int) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32) (maxV-1));
+    static inline int rand(int maxV) {
+        return (int) RandHelper::myRandomNumberGenerator.randInt((MTRand::uint32)(maxV-1));
     }
 
     /// Returns a random integer in [minV, maxV-1]
-    static inline int rand(int minV, int maxV)
-    {
+    static inline int rand(int minV, int maxV) {
         return minV + rand(maxV - minV);
     }
 
     /// Returns a random element from the given vector
     template<class T>
     static inline T
-    getRandomFrom(const std::vector<T> &v)
-    {
+    getRandomFrom(const std::vector<T> &v) {
         return v[rand(v.size())];
     }
 

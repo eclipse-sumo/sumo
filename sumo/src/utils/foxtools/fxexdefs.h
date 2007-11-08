@@ -325,8 +325,7 @@ typedef HMODULE			FXDLLHandle;  // handle to a dynamically loaded file
 //typedef void*                   FXDatabaseHandle;   // handle to a database connection
 
 
-namespace FXUtils
-{
+namespace FXUtils {
 
 ////////////// global variables ////////////////////
 

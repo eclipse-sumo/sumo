@@ -62,8 +62,7 @@ public:
         STATE_CONNECTED_OUT
     };
 
-    struct CPhoneBroadcastCell
-    {
+    struct CPhoneBroadcastCell {
         int m_CellID;
         int m_LoS;          //Level of Service
     };
@@ -75,50 +74,40 @@ public:
     int SetProvidedCells(const std::vector<CPhoneBroadcastCell> &ActualCells);
     int SetState(int ActualState);
     int SetState(State s, int Duration);
-    int GetCallCellCount()
-    {
+    int GetCallCellCount() {
         return myCallCellCount;
     }
-    void IncCallCellCount()
-    {
+    void IncCallCellCount() {
         ++myCallCellCount;
     }
     SUMOTime changeState();
-    void setCurrentCellId(unsigned int id)
-    {
+    void setCurrentCellId(unsigned int id) {
         mycurrentCellId = id;
     };
-    int getCurrentCellId()
-    {
+    int getCurrentCellId() {
         return mycurrentCellId;
     };
-    void setCurrentLAId(unsigned int id)
-    {
+    void setCurrentLAId(unsigned int id) {
         mycurrentLAId = id;
     };
-    int getCurrentLAId()
-    {
+    int getCurrentLAId() {
         return mycurrentLAId;
     };
     void onDepart();
-    int getCallId()
-    {
+    int getCallId() {
         return myCallId;
     };
-    std::string getID()
-    {
+    std::string getID() {
         return myID;
     };
 
     void invalidateCommand();
 
-    void setNotTriggeredByCell()
-    {
+    void setNotTriggeredByCell() {
         notTriggeredByCell = true;
     };
 
-    bool getNotTriggeredByCell()
-    {
+    bool getNotTriggeredByCell() {
         return notTriggeredByCell;
     };
 
@@ -148,25 +137,25 @@ class MyCommand : public Command
 
 private:
     /*
-        inline int getTrainDuration(void) 
+        inline int getTrainDuration(void)
     {
         int duration=0;
         double randvalue1=0, randvalue2=0;randvalue2=0;
-        while(randvalue2==0) 
+        while(randvalue2==0)
         {
             randvalue2=double(rand())/double(RAND_MAX);
         }
         //Bei 16 % der mobilen Werte gleichverteilte Werte zwischen 30 (minimal)
         //und 60 (maximale Häufigkeit => ab hier greift die Funktion) Sekunden
-        if(randvalue2 < 0.16) 
+        if(randvalue2 < 0.16)
             duration=30+300*randvalue2;
-        else 
+        else
         {
             duration=0;
             //nur Werte über 60 Sekunden simulieren, da die anderen oben abgedeckt sind
             while (duration < 60) {
                 randvalue1=0;
-                while (randvalue1==0) 
+                while (randvalue1==0)
                 {
                     randvalue1=double(rand())/double(RAND_MAX);
                 }

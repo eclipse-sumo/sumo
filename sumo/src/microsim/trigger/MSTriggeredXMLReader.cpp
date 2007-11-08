@@ -90,14 +90,14 @@ MSTriggeredXMLReader::myInit()
         myParser = XMLSubSys::getSAXReader(*this);
         if (!myParser->parseFirst(getFileName().c_str(), myToken)) {
             throw ProcessError("Can not read XML-file '" + getFileName() + "'.");
-            
+
         }
     } catch (SAXException &e) {
         throw ProcessError(TplConvert<XMLCh>::_2str(e.getMessage()));
-        
+
     } catch (XMLException &e) {
         throw ProcessError(TplConvert<XMLCh>::_2str(e.getMessage()));
-        
+
     }
 
     if (readNextTriggered()) {

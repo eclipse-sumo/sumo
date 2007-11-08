@@ -79,11 +79,9 @@ class SignalGroup : public Named
         {
         public:
             PhaseDef(SUMOTime time, TLColor color)
-                    : myTime(time), myColor(color)
-            { }
+                    : myTime(time), myColor(color) { }
             PhaseDef(const PhaseDef &p)
-                    : myTime(p.myTime), myColor(p.myColor)
-            { }
+                    : myTime(p.myTime), myColor(p.myColor) { }
             SUMOTime myTime;
             TLColor myColor;
         };
@@ -92,11 +90,9 @@ class SignalGroup : public Named
         {
         public:
             /// constructor
-            explicit phase_by_time_sorter()
-            { }
+            explicit phase_by_time_sorter() { }
 
-            int operator()(const PhaseDef &p1, const PhaseDef &p2)
-            {
+            int operator()(const PhaseDef &p1, const PhaseDef &p2) {
                 return p1.myTime<p2.myTime;
             }
         };
@@ -190,8 +186,7 @@ protected:
                         NBEdge *by, int byLane);
 
 private:
-    struct Masks
-    {
+    struct Masks {
         std::bitset<64> driveMask;
         std::bitset<64> brakeMask;
         std::bitset<64> yellowMask;

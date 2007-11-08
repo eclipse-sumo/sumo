@@ -126,15 +126,13 @@ public:
     static void clearAll();
 
     /// Returns the timestep-length in seconds.
-    static SUMOReal deltaT()
-    {
+    static SUMOReal deltaT() {
         return myDeltaT;
     }
 
     /** @brief Returns the current simulation time in seconds.
         Current means start-time plus runtime. */
-    SUMOTime simSeconds()
-    {
+    SUMOTime simSeconds() {
         return (SUMOTime)(myStep * myDeltaT);
     }
 
@@ -151,29 +149,24 @@ public:
 
     SUMOTime getCurrentTimeStep() const;
 
-    static SUMOReal getSeconds(SUMOReal steps)
-    {
+    static SUMOReal getSeconds(SUMOReal steps) {
         return steps * myDeltaT;
     }
 
-    static SUMOTime getSteps(SUMOReal seconds)
-    {
+    static SUMOTime getSteps(SUMOReal seconds) {
         return static_cast< SUMOTime >(
                    floor(seconds / myDeltaT));
     }
 
-    static SUMOReal getMeterPerSecond(SUMOReal cellsPerTimestep)
-    {
+    static SUMOReal getMeterPerSecond(SUMOReal cellsPerTimestep) {
         return cellsPerTimestep / myDeltaT;
     }
 
-    static SUMOReal getVehPerKm(SUMOReal vehPerCell)
-    {
+    static SUMOReal getVehPerKm(SUMOReal vehPerCell) {
         return (SUMOReal)(vehPerCell * 1000.0);
     }
 
-    static SUMOReal getVehPerHour(SUMOReal vehPerStep)
-    {
+    static SUMOReal getVehPerHour(SUMOReal vehPerStep) {
         return (SUMOReal)(vehPerStep / myDeltaT * 3600.0);
     }
 
@@ -196,12 +189,11 @@ public:
 
     virtual void closeBuilding(MSEdgeControl *edges,
                                MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
-                               MSTLLogicControl *tlc, 
+                               MSTLLogicControl *tlc,
                                const MSMeanData_Net_Cont &meanData,
                                std::vector<int> stateDumpTimes, std::string stateDumpFiles);
 
-    bool logSimulationDuration() const
-    {
+    bool logSimulationDuration() const {
         return myLogExecutionTime;
     }
 
@@ -216,8 +208,7 @@ public:
     void saveState(std::ostream &os);
     void loadState(BinaryInputDevice &bis);
 
-    ShapeContainer &getShapeContainer() const
-    {
+    ShapeContainer &getShapeContainer() const {
         return *myShapeContainer;
     }
 
@@ -225,19 +216,16 @@ public:
 
     SUMOReal getTooSlowRTF() const;
 
-    MSEventControl &getBeginOfTimestepEvents()
-    {
+    MSEventControl &getBeginOfTimestepEvents() {
         return myBeginOfTimestepEvents;
     }
 
-    MSEventControl &getEndOfTimestepEvents()
-    {
+    MSEventControl &getEndOfTimestepEvents() {
         return myEndOfTimestepEvents;
     }
 
     /////////////////////////////////////////////
-    MSPhoneNet * getMSPhoneNet()
-    {
+    MSPhoneNet * getMSPhoneNet() {
         return myMSPhoneNet;
     } ;
     /////////////////////////////////////////////

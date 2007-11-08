@@ -147,8 +147,7 @@ class GUIEmitterPopupMenu : public GUIGLObjectPopupMenu
         long onCmdDrawRoute(FXObject*,FXSelector,void*);
 
     protected:
-        GUIEmitterPopupMenu()
-        { }
+        GUIEmitterPopupMenu() { }
 
     };
 
@@ -193,8 +192,7 @@ class GUIManip_TriggeredEmitter : public GUIManipulator
         GUIEmitter *myObject;
 
     protected:
-        GUIManip_TriggeredEmitter()
-        { }
+        GUIManip_TriggeredEmitter() { }
 
     };
 

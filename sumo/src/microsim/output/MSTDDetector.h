@@ -71,8 +71,7 @@ public:
     /// detected values or -1 if there no values have been
     /// collected so far.
     ///
-    DetAggregate getCurrent(void) const
-    {
+    DetAggregate getCurrent(void) const {
         if (aggregatesM.size()==0) {
             return -1;
         }
@@ -105,8 +104,7 @@ protected:
             : TD::MSDetectorInterface(id)
             , ConcreteDetector(lengthInMeters, container)
             , deleteDataAfterStepsM(MSUnit::getInstance()->getIntegerSteps(
-                                        deleteDataAfterSeconds))
-    {
+                                        deleteDataAfterSeconds)) {
         startOldDataRemoval();
     }
 
@@ -125,8 +123,7 @@ protected:
             : TD::MSDetectorInterface(id)
             , ConcreteDetector(lengthInMeters, helperDetector)
             , deleteDataAfterStepsM(MSUnit::getInstance()->getIntegerSteps(
-                                        deleteDataAfterSeconds))
-    {
+                                        deleteDataAfterSeconds)) {
         if (detNameM == "") {
             detNameM = this->getDetectorName() + "Sum";
         }
@@ -134,8 +131,7 @@ protected:
     }
 
     /// Dtor. Cleares the detector-quantities-container.
-    virtual ~MSDetector(void)
-    {
+    virtual ~MSDetector(void) {
         aggregatesM.clear();
     }
 
@@ -144,19 +140,17 @@ protected:
     ///
     /// @return Dummy to please MSVC++.
     ///
-    bool updateEachTimestep(void)
-    {
+    bool updateEachTimestep(void) {
         aggregatesM.push_back(this->getDetectorAggregate());
         return false;
     }
 
     /// Call once from ctor to initialize the recurring call to
     /// freeContainer() via the MSEventControl mechanism.
-    void startOldDataRemoval(void)
-    {
+    void startOldDataRemoval(void) {
         // start old-data removal through MSEventControl
         Command* deleteData = new WrappingCommand< MSDetector >(
-                                  this, &MSDetector::freeContainer);
+            this, &MSDetector::freeContainer);
         MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
             deleteData,
             deleteDataAfterStepsM,
@@ -181,8 +175,7 @@ protected:
     /// @return Iterator to aggregatesM.
     ///
     AggregatesContIter getAggrContStartIterator(
-        MSUnit::Steps lastNTimesteps)
-    {
+        MSUnit::Steps lastNTimesteps) {
         AggregatesContIter start = aggregatesM.begin();
         typedef typename AggregatesCont::difference_type Distance;
         Distance steps = static_cast< Distance >(lastNTimesteps);
@@ -199,8 +192,7 @@ protected:
     /// @return deleteDataAfterStepsM to restart this removal via
     /// the MSEventControl mechanism.
     ///
-    SUMOTime freeContainer(SUMOTime)
-    {
+    SUMOTime freeContainer(SUMOTime) {
         AggregatesContIter end = aggregatesM.end();
         if (aggregatesM.size() > deleteDataAfterStepsM) {
             end -= deleteDataAfterStepsM;

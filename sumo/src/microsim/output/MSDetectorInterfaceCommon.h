@@ -54,8 +54,7 @@ public:
     ///
     /// @return The member idM.
     ///
-    const std::string& getID(void) const
-    {
+    const std::string& getID(void) const {
         return idM;
     }
 
@@ -63,8 +62,7 @@ public:
     ///
     /// @return The member detNameM.
     ///
-    const std::string& getName(void) const
-    {
+    const std::string& getName(void) const {
         return detNameM;
     }
 
@@ -79,8 +77,7 @@ public:
     virtual SUMOReal getAggregate(MSUnit::Seconds lastNSeconds) = 0;
 
     /// Dtor.
-    virtual ~MSDetectorInterfaceCommon(void)
-    {}
+    virtual ~MSDetectorInterfaceCommon(void) {}
 
 protected:
     /// Ctor. Note that the member detNameM has to be set by the ctor
@@ -94,8 +91,7 @@ protected:
     )
             :
             idM(id)
-            , detNameM("")
-    {}
+            , detNameM("") {}
 
     std::string idM;            ///< The detector's id.
     std::string detNameM;       ///< The name of the detector-type.

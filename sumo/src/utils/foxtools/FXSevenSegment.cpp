@@ -58,15 +58,15 @@ namespace FXEX
 
 // map
 FXDEFMAP(FXSevenSegment) FXSevenSegmentMap[]={
-            FXMAPFUNC(SEL_PAINT,0,FXSevenSegment::onPaint),
-            FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETVALUE,FXSevenSegment::onCmdSetValue),
-            FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETINTVALUE,FXSevenSegment::onCmdSetIntValue),
-            FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETINTVALUE,FXSevenSegment::onCmdGetIntValue),
-            FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETSTRINGVALUE,FXSevenSegment::onCmdSetStringValue),
-            FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETSTRINGVALUE,FXSevenSegment::onCmdGetStringValue),
-            //  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_TIP,FXSevenSegment::onQueryTip),
-            //  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_HELP,FXSevenSegment::onQueryHelp),
-        };
+    FXMAPFUNC(SEL_PAINT,0,FXSevenSegment::onPaint),
+    FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETVALUE,FXSevenSegment::onCmdSetValue),
+    FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETINTVALUE,FXSevenSegment::onCmdSetIntValue),
+    FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETINTVALUE,FXSevenSegment::onCmdGetIntValue),
+    FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETSTRINGVALUE,FXSevenSegment::onCmdSetStringValue),
+    FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETSTRINGVALUE,FXSevenSegment::onCmdGetStringValue),
+    //  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_TIP,FXSevenSegment::onQueryTip),
+    //  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_HELP,FXSevenSegment::onQueryHelp),
+};
 FXIMPLEMENT(FXSevenSegment,FXFrame,FXSevenSegmentMap,ARRAYNUMBER(FXSevenSegmentMap))
 
 // ctor

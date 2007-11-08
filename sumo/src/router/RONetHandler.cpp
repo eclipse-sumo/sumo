@@ -103,7 +103,7 @@ void
 RONetHandler::parseEdge(const Attributes &attrs)
 {
     // get the id of the edge and the edge
-	myCurrentEdge = 0;
+    myCurrentEdge = 0;
     try {
         myCurrentName = getString(attrs, SUMO_ATTR_ID);
         if (myCurrentName[0]==':') {
@@ -112,13 +112,13 @@ RONetHandler::parseEdge(const Attributes &attrs)
             return;
         }
     } catch (EmptyData &) {
-		MsgHandler::getErrorInstance()->inform("An edge without an id occured within '" + getFileName() + "'.");
-		return;
+        MsgHandler::getErrorInstance()->inform("An edge without an id occured within '" + getFileName() + "'.");
+        return;
     }
     myCurrentEdge = myNet.getEdge(myCurrentName);
     if (myCurrentEdge==0) {
         MsgHandler::getErrorInstance()->inform("An unknown edge occured within '" + getFileName() + "' (id='" + myCurrentName + "').");
-		return;
+        return;
     }
 
     // get the type of the edge
@@ -135,17 +135,17 @@ RONetHandler::parseEdge(const Attributes &attrs)
             myProcess = false;
         } else {
             MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentName + "' has an unknown type.");
-			return;
+            return;
         }
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing type in edge '" + myCurrentName + "'.");
-		return;
+        return;
     }
     // get the from-junction
     RONode *fromNode = 0;
     try {
         string from = getString(attrs, SUMO_ATTR_FROM);
-        if(from=="") {
+        if (from=="") {
             throw EmptyData();
         }
         fromNode = myNet.getNode(from);
@@ -155,13 +155,13 @@ RONetHandler::parseEdge(const Attributes &attrs)
         }
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing from-node in edge '" + myCurrentName + "'.");
-		return;
+        return;
     }
     // get the to-junction
     RONode *toNode = 0;
     try {
         string to = getString(attrs, SUMO_ATTR_TO);
-        if(to=="") {
+        if (to=="") {
             throw EmptyData();
         }
         toNode = myNet.getNode(to);
@@ -171,7 +171,7 @@ RONetHandler::parseEdge(const Attributes &attrs)
         }
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing to-node in edge '" + myCurrentName + "'.");
-		return;
+        return;
     }
     // add the edge
     myCurrentEdge->setNodes(fromNode, toNode);
@@ -241,7 +241,7 @@ RONetHandler::parseJunction(const Attributes &attrs)
 {
     try {
         myCurrentName = getString(attrs, SUMO_ATTR_ID);
-        if(myCurrentName=="") {
+        if (myCurrentName=="") {
             throw EmptyData();
         }
     } catch (EmptyData &) {

@@ -58,8 +58,7 @@ class /* FXAPI // patch by Daniel Krajzewicz 24.02.2004 */
     FXDECLARE(FXLCDLabel)
 
 protected:
-    FXLCDLabel()
-    {}
+    FXLCDLabel() {}
 
     FXString label;      /// The currently shown label
     FXint   nfigures;    /// The number of shown figuresi, greater than zero
@@ -68,8 +67,7 @@ protected:
     virtual void drawString(const FXString& lbl);
 
 public:
-    enum
-    {
+    enum {
         ID_SEVENSEGMENT=FXHorizontalFrame::ID_LAST,
         ID_LAST
     };
@@ -102,8 +100,7 @@ public:
 
     /// manipulate text in LCD label
     void setText(FXString lbl);
-    FXString getText() const
-    {
+    FXString getText() const {
         return label;
     }
 

@@ -129,10 +129,10 @@ RORDGenerator_Random::myReadRoutesAtLeastUntil(SUMOTime time)
         RORouteDef *route =
             new RORouteDef_OrigDest(id, myColor, from, to, myRemoveFirst);
         myNet.addVehicle(id,
-                        myVehicleBuilder.buildVehicle(
-                            id, route, time, 0,
-                            RGBColor(RandHelper::rand((SUMOReal) .5, (SUMOReal) 1.), RandHelper::rand((SUMOReal) .5, (SUMOReal) 1.), RandHelper::rand((SUMOReal) .5, (SUMOReal) 1.)),
-                            -1, 0));
+                         myVehicleBuilder.buildVehicle(
+                             id, route, time, 0,
+                             RGBColor(RandHelper::rand((SUMOReal) .5, (SUMOReal) 1.), RandHelper::rand((SUMOReal) .5, (SUMOReal) 1.), RandHelper::rand((SUMOReal) .5, (SUMOReal) 1.)),
+                             -1, 0));
         myNet.addRouteDef(route);
         myReadNewRoute = true;
         // decrement counter

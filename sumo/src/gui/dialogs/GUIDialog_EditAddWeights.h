@@ -155,8 +155,7 @@ protected:
          * struct SuppWeights
          * @brief A set of all three possible supplementary values of an edge
          */
-        struct SuppWeights
-        {
+        struct SuppWeights {
             /// The absolute time line
             FloatValueTimeLine *absolute;
             /// The additive time line
@@ -190,11 +189,9 @@ private:
     {
     public:
         /// constructor
-        explicit time_sorter()
-        { }
+        explicit time_sorter() { }
 
-        int operator()(const GUIAddWeight &p1, const GUIAddWeight &p2)
-        {
+        int operator()(const GUIAddWeight &p1, const GUIAddWeight &p2) {
             return p1.timeBeg<p2.timeBeg;
         }
     };
@@ -211,8 +208,7 @@ private:
 
 protected:
     /// FOX needs this
-    GUIDialog_EditAddWeights()
-    { }
+    GUIDialog_EditAddWeights() { }
 
 };
 

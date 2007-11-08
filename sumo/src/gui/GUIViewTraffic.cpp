@@ -301,8 +301,8 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
             clearUsetable(myEdges2Show,myEdges2ShowSize);
             clearUsetable(myJunctions2Show, myJunctions2ShowSize);
             myNet->myGrid.get(GLO_LANE|GLO_JUNCTION|GLO_DETECTOR,
-                            sxmin, symin, sxmax, symax,
-                            myEdges2Show, myJunctions2Show,myAdditional2Show);
+                              sxmin, symin, sxmax, symax,
+                              myEdges2Show, myJunctions2Show,myAdditional2Show);
             myViewportSettings.set(sxmin, symin, sxmax, symax);
         }
     }
@@ -535,9 +535,9 @@ GUIViewTraffic::showViewschemeEditor()
     if (myVisualizationChanger==0) {
         myVisualizationChanger =
             new GUIDialog_ViewSettings(
-                this, myVisualizationSettings,
-                &myLaneColoringSchemes, &myVehicleColoringSchemes,
-                &myDecals, &myDecalsLock);
+            this, myVisualizationSettings,
+            &myLaneColoringSchemes, &myVehicleColoringSchemes,
+            &myDecals, &myDecalsLock);
         myVisualizationChanger->create();
     }
     myVisualizationChanger->show();
@@ -582,7 +582,7 @@ GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
                 Position2D point = getPositionInformation();
                 std::string Id= toString(point.x()) +  "," + toString(point.y());
                 GUIPointOfInterest *p = new GUIPointOfInterest(gIDStorage, 1, Id, "point",
-                                        Position2D(point.x(), point.y()),RGBColor(0,0,0));
+                        Position2D(point.x(), point.y()),RGBColor(0,0,0));
                 myNet->getShapeContainer().add(1, p);
                 update();
             }

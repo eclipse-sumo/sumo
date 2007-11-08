@@ -743,11 +743,11 @@ NBNode::computeInternalLaneShape(NBEdge *fromE, size_t fromL,
 {
     if (fromL>=fromE->getNoLanes()) {
         throw ProcessError("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' starts at a not existing lane.");
-        
+
     }
     if (toL>=toE->getNoLanes()) {
         throw ProcessError("Connection '" + fromE->getID() + "_" + toString(fromL) + "->" + toE->getID() + "_" + toString(toL) + "' yields in a not existing lane.");
-        
+
     }
     bool noSpline = false;
     Position2DVector ret;
@@ -1217,10 +1217,10 @@ NBNode::computeLogic(const NBEdgeCont &ec, NBJunctionLogicCont &jc,
     }
     // build the request
     myRequest = new NBRequest(ec, this,
-                             static_cast<const EdgeVector * const>(&myAllEdges),
-                             static_cast<const EdgeVector * const>(myIncomingEdges),
-                             static_cast<const EdgeVector * const>(myOutgoingEdges),
-                             myBlockedConnections);
+                              static_cast<const EdgeVector * const>(&myAllEdges),
+                              static_cast<const EdgeVector * const>(myIncomingEdges),
+                              static_cast<const EdgeVector * const>(myOutgoingEdges),
+                              myBlockedConnections);
 
     // compute the logic if necessary or split the junction
     if (myType!=NODETYPE_NOJUNCTION&&myType!=NODETYPE_DISTRICT) {
@@ -1913,8 +1913,8 @@ NBNode::forbids(NBEdge *possProhibitorFrom, NBEdge *possProhibitorTo,
                 bool regardNonSignalisedLowerPriority) const
 {
     return myRequest->forbids(possProhibitorFrom, possProhibitorTo,
-                             possProhibitedFrom, possProhibitedTo,
-                             regardNonSignalisedLowerPriority);
+                              possProhibitedFrom, possProhibitedTo,
+                              regardNonSignalisedLowerPriority);
 }
 
 

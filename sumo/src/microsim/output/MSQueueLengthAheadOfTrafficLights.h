@@ -53,14 +53,11 @@ protected:
         SUMOReal,
         const TD::MSDetectorInterface& helperDetector)
             : helperDetectorM(helperDetector),
-            maxNVehM(0)
-    {}
+            maxNVehM(0) {}
 
-    virtual ~MSQueueLengthAheadOfTrafficLightsInVehicles(void)
-    {}
+    virtual ~MSQueueLengthAheadOfTrafficLightsInVehicles(void) {}
 
-    DetectorAggregate getDetectorAggregate(void)
-    {
+    DetectorAggregate getDetectorAggregate(void) {
         // helperDet.getDetectorAggregate must be called
         // earlier. E2_Collector is responsible for this.
         DetectorAggregate helperAggr =
@@ -71,13 +68,11 @@ protected:
         return maxNVehM;
     }
 
-    void resetMax(void)
-    {
+    void resetMax(void) {
         maxNVehM = 0.0;
     }
 
-    static std::string getDetectorName(void)
-    {
+    static std::string getDetectorName(void) {
         return "queueLengthAheadOfTrafficLightsInVehicles";
     }
 private:
@@ -97,14 +92,11 @@ protected:
         SUMOReal,
         const TD::MSDetectorInterface& helperDetector)
             : helperDetectorM(helperDetector),
-            maxJamLengthM(0)
-    {}
+            maxJamLengthM(0) {}
 
-    virtual ~MSQueueLengthAheadOfTrafficLightsInMeters(void)
-    {}
+    virtual ~MSQueueLengthAheadOfTrafficLightsInMeters(void) {}
 
-    DetectorAggregate getDetectorAggregate(void)
-    {
+    DetectorAggregate getDetectorAggregate(void) {
         // helperDet.getDetectorAggregate must be called
         // earlier. E2_Collector is responsible for this.
         DetectorAggregate helperAggr =
@@ -115,13 +107,11 @@ protected:
         return maxJamLengthM;
     }
 
-    void resetMax(void)
-    {
+    void resetMax(void) {
         maxJamLengthM = 0.0;
     }
 
-    static std::string getDetectorName(void)
-    {
+    static std::string getDetectorName(void) {
         return "queueLengthAheadOfTrafficLightsInMeters";
     }
 

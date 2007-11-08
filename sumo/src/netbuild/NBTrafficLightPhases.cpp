@@ -111,7 +111,7 @@ NBTrafficLightPhases::add(const PhaseIndexVector &phase)
 
 void
 NBTrafficLightPhases::add(const NBTrafficLightPhases &phases,
-                              bool skipLarger)
+                          bool skipLarger)
 {
     size_t size = myPhasesVectorsByLength.size();
     size_t i;

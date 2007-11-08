@@ -67,7 +67,8 @@ public:
     const std::map<ROEdge*, std::vector<ROEdge*> > &getDets2Follow() const;
     void removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals);
 
-    class RoutesMap {
+    class RoutesMap
+    {
     public:
         RoutesMap();
         ~RoutesMap();
@@ -89,11 +90,9 @@ protected:
     {
     public:
         /// constructor
-        explicit by_distance_sorter()
-        { }
+        explicit by_distance_sorter() { }
 
-        int operator()(DFRORouteDesc *p1, DFRORouteDesc *p2)
-        {
+        int operator()(DFRORouteDesc *p1, DFRORouteDesc *p2) {
             return p1->distance2Last<p2->distance2Last;
         }
     };
@@ -102,12 +101,10 @@ protected:
     {
     public:
         /** constructor */
-        explicit route_finder(const DFRORouteDesc &desc) : myDesc(desc)
-        { }
+        explicit route_finder(const DFRORouteDesc &desc) : myDesc(desc) { }
 
         /** the comparing function */
-        bool operator()(DFRORouteDesc *desc)
-        {
+        bool operator()(DFRORouteDesc *desc) {
             return myDesc.edges2Pass==desc->edges2Pass;
         }
 

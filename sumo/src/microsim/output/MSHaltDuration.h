@@ -55,8 +55,7 @@ protected:
 
     MSHaltDuration(HaltingsList& toObserve)
             :
-            haltListM(toObserve)
-    {
+            haltListM(toObserve) {
         haltListM.attach(this);
         durationMapM = new HaltDurationMap();
         for (HaltListIt it = haltListM.containerM.begin();
@@ -65,19 +64,16 @@ protected:
         }
     }
 
-    virtual ~MSHaltDuration(void)
-    {
+    virtual ~MSHaltDuration(void) {
         haltListM.detach(this);
         delete durationMapM;
     }
 
-    bool hasVehicle(MSVehicle& veh) const
-    {
+    bool hasVehicle(MSVehicle& veh) const {
         return durationMapM->hasVehicle(&veh);
     }
 
-    void update(ParameterType aObserved)
-    {
+    void update(ParameterType aObserved) {
         MSVehicle* veh = aObserved.vehM;
         MSUnit::Seconds toAdd = MSUnit::getInstance()->getSeconds(
                                     aObserved.haltingDurationM);
@@ -90,8 +86,7 @@ protected:
         pair->second += toAdd;
     }
 
-    DetectorAggregate getValue(MSVehicle& veh)   // [s]
-    {
+    DetectorAggregate getValue(MSVehicle& veh) { // [s]
         DurationMapIt pair = durationMapM->containerM.find(&veh);
         assert(pair != durationMapM->containerM.end());
 
@@ -101,8 +96,7 @@ protected:
         return haltDuration;
     }
 
-    static std::string getDetectorName(void)
-    {
+    static std::string getDetectorName(void) {
         return "haltDuration";
     }
 

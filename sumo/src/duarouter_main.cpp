@@ -112,10 +112,10 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     SUMOAbstractRouter<ROEdge, ROVehicle> *router;
     if (net.hasRestrictions()) {
         router = new SUMODijkstraRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle>, ROEdge>(
-                     net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
+            net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
     } else {
         router = new SUMODijkstraRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle>, ROEdge>(
-                     net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
+            net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
     }
     // build the router
     // initialise the loader
@@ -175,7 +175,7 @@ main(int argc, char **argv)
         XMLSubSys::init();
         RODUAFrame::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
-        if(oc.processMetaOptions(argc < 2)) {
+        if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }

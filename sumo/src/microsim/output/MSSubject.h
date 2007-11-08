@@ -128,13 +128,11 @@ public:
     typedef typename Observers::iterator ObserversIt;
 
 
-    void attach(ObserverPtr toAttach)
-    {
+    void attach(ObserverPtr toAttach) {
         observersM.push_back(toAttach);
     }
 
-    void detach(ObserverPtr toDetach)
-    {
+    void detach(ObserverPtr toDetach) {
         ObserversIt eraseIt =
             std::find(observersM.begin(), observersM.end(), toDetach);
         assert(eraseIt != observersM.end());
@@ -144,16 +142,13 @@ public:
 protected:
 
     MSSubjectPassesObserved(void)
-            : observersM()
-    {}
+            : observersM() {}
 
-    virtual ~MSSubjectPassesObserved(void)
-    {
+    virtual ~MSSubjectPassesObserved(void) {
         observersM.clear();
     }
 
-    void notify(ParameterType aObserved)
-    {
+    void notify(ParameterType aObserved) {
         for (ObserversIt observer = observersM.begin();
                 observer != observersM.end(); ++observer) {
             (*observer)->update(aObserved);
@@ -188,13 +183,11 @@ public:
     typedef std::vector< ObserverPtr > Observers;
     typedef typename Observers::iterator ObserversIt;
 
-    void attach(ObserverPtr toAttach)
-    {
+    void attach(ObserverPtr toAttach) {
         observersM.push_back(toAttach);
     }
 
-    void detach(ObserverPtr toDetach)
-    {
+    void detach(ObserverPtr toDetach) {
         ObserversIt eraseIt =
             std::find(observersM.begin(), observersM.end(), toDetach);
         assert(eraseIt != observersM.end());
@@ -204,16 +197,13 @@ public:
 protected:
 
     MSSubject(void)
-            : observersM()
-    {}
+            : observersM() {}
 
-    virtual ~MSSubject(void)
-    {
+    virtual ~MSSubject(void) {
         observersM.clear();
     }
 
-    void notify(void)
-    {
+    void notify(void) {
         std::for_each(observersM.begin(), observersM.end(),
                       std::mem_fun(&Observer::update));
     }

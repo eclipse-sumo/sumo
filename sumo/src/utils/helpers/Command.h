@@ -52,12 +52,10 @@
 class Command
 {
 public:
-    Command()
-    { }
+    Command() { }
 
     /// Destructor.
-    virtual ~Command()
-    { }
+    virtual ~Command() { }
 
     /**
      * @brief Executes the command.

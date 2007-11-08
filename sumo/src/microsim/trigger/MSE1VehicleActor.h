@@ -53,7 +53,7 @@ class GUIDetectorWrapper;
 class GUIGlObjectStorage;
 class GUILaneWrapper;
 
-enum ActorType{
+enum ActorType {
     LA,
     CELL
 };
@@ -142,20 +142,17 @@ public:
     //@}
 
     /// Returns the number of vehicles that have passed this actor
-    unsigned int getPassedVehicleNumber() const
-    {
+    unsigned int getPassedVehicleNumber() const {
         return myPassedVehicleNo;
     }
 
     /// Returns the number of mobile phones that have passed this actor
-    unsigned int getPassedCPhoneNumber() const
-    {
+    unsigned int getPassedCPhoneNumber() const {
         return myPassedCPhonesNo;
     }
 
     /// Returns the number of mobile phones that have passed this actor being in connected mode
-    unsigned int getPassedConnectedCPhoneNumber() const
-    {
+    unsigned int getPassedConnectedCPhoneNumber() const {
         return myPassedConnectedCPhonesNo;
     }
 

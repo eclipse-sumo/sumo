@@ -308,8 +308,7 @@ public:
 
     friend class NBEdgeCont;
 
-    EdgeBuildingStep getStep() const
-    {
+    EdgeBuildingStep getStep() const {
         return myStep;
     }
 
@@ -383,12 +382,10 @@ class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack
         ToEdgeConnectionsAdder(std::map<NBEdge*,
                                std::vector<size_t> > *connections,
                                const std::vector<NBEdge*> &transitions)
-                : myConnections(connections), myTransitions(transitions)
-        { }
+                : myConnections(connections), myTransitions(transitions) { }
 
         /// destructor
-        ~ToEdgeConnectionsAdder()
-        { }
+        ~ToEdgeConnectionsAdder() { }
 
         /// executes a bresenham - step
         void execute(SUMOReal lane, SUMOReal virtEdge);
@@ -516,8 +513,7 @@ private:
     SUMOReal myAmTurningWithAngle;
     NBEdge *myAmTurningOf;
 
-    struct TLSDisabledConnection
-    {
+    struct TLSDisabledConnection {
         int fromLane;
         NBEdge *to;
         int toLane;
@@ -532,11 +528,9 @@ private:
     {
     public:
         /// constructor
-        tls_disable_finder(const TLSDisabledConnection &tpl) : myDefinition(tpl)
-        { }
+        tls_disable_finder(const TLSDisabledConnection &tpl) : myDefinition(tpl) { }
 
-        bool operator()(const TLSDisabledConnection &e) const
-        {
+        bool operator()(const TLSDisabledConnection &e) const {
             if (e.to!=myDefinition.to) {
                 return false;
             }

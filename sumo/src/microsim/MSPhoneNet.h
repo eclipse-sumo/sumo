@@ -105,8 +105,7 @@ public:
 
     void addLAChange(const std::string &pos_id);
 
-    void removeVehicle(MSVehicle &veh, SUMOTime t)
-    {
+    void removeVehicle(MSVehicle &veh, SUMOTime t) {
         if (LastCells.find(&veh)!=LastCells.end()) {
             MSPhoneCell *cell = LastCells[&veh];
             LastCells.erase(LastCells.find(&veh));

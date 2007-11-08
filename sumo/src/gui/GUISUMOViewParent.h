@@ -118,8 +118,7 @@ public:
     /// Returns the maximum height of gl-windows
     int getMaxGLHeight() const;
 
-    GUIMainWindow *getParent()
-    {
+    GUIMainWindow *getParent() {
         return myParent;
     }
 
@@ -153,8 +152,7 @@ private:
 //    FXVerticalFrame *myContentFrame;
 
 protected:
-    GUISUMOViewParent()
-    { }
+    GUISUMOViewParent() { }
 
 };
 

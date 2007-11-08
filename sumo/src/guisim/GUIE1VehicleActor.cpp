@@ -81,11 +81,10 @@ using namespace std;
  * GUIE1VehicleActor::GUIE1VehicleActorPopupMenu - mapping
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUIE1VehicleActor::GUIE1VehicleActorPopupMenu)
-GUIE1VehicleActorPopupMenuMap[]=
-    {
-        FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUIE1VehicleActor::GUIE1VehicleActorPopupMenu::onCmdOpenManip),
+GUIE1VehicleActorPopupMenuMap[]= {
+    FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUIE1VehicleActor::GUIE1VehicleActorPopupMenu::onCmdOpenManip),
 
-    };
+};
 
 // Object implementation
 FXIMPLEMENT(GUIE1VehicleActor::GUIE1VehicleActorPopupMenu, GUIGLObjectPopupMenu, GUIE1VehicleActorPopupMenuMap, ARRAYNUMBER(GUIE1VehicleActorPopupMenuMap))

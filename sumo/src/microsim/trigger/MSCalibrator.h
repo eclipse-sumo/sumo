@@ -63,7 +63,7 @@ class MSCalibrator : public MSTrigger
 {
 public:
     MSCalibrator(const std::string &id, MSNet &net, MSLane* destLane,
-              SUMOReal pos, const std::string &aXMLFilename);
+                 SUMOReal pos, const std::string &aXMLFilename);
 
     virtual ~MSCalibrator();
 
@@ -81,46 +81,38 @@ public:
     public:
         /// Constructor
         MSCalibratorChild(MSCalibrator &parent, MSVehicleControl &vc)
-                : myParent(parent), myVehicleControl(vc), myTimeOffset(0)
-        { }
+                : myParent(parent), myVehicleControl(vc), myTimeOffset(0) { }
 
         /// Destructor
-        virtual ~MSCalibratorChild()
-        { }
+        virtual ~MSCalibratorChild() { }
 
         /// Returns a random route
-        MSRoute *getRndRoute() const
-        {
+        MSRoute *getRndRoute() const {
             return myRouteDist.get();
         }
 
         /// Returns a list of all available routes
-        const std::vector<MSRoute*> &getAllRoutes() const
-        {
+        const std::vector<MSRoute*> &getAllRoutes() const {
             return myRouteDist.getVals();
         }
 
         /// Returns a random type
-        MSVehicleType *getRndVType() const
-        {
+        MSVehicleType *getRndVType() const {
             return myVTypeDist.get();
         }
 
         /// Returns the information whether any route is stored
-        bool hasRoutes() const
-        {
+        bool hasRoutes() const {
             return myRouteDist.getOverallProb()!=0;
         }
 
         /// Returns the information whether any vehicle type is stored
-        bool hasVTypes() const
-        {
+        bool hasVTypes() const {
             return myVTypeDist.getOverallProb()!=0;
         }
 
         /// Returns the time offset till the next vehicle emission for a given flow
-        SUMOReal computeOffset(SUMOReal flow) const
-        {
+        SUMOReal computeOffset(SUMOReal flow) const {
             SUMOReal freq = (SUMOReal)(1. / (flow / 3600.));
             SUMOReal ret = freq;
             myTimeOffset += (freq - (SUMOTime) ret);
@@ -135,8 +127,7 @@ public:
         }
 
         /// Returns the routes probability
-        RandomDistributor<MSRoute*> &getRouteDist()
-        {
+        RandomDistributor<MSRoute*> &getRouteDist() {
             return myRouteDist;
         }
 
@@ -183,7 +174,7 @@ protected:
     public:
         /// Constructor
         MSCalibrator_FileTriggeredChild(MSNet &net,
-                                     const std::string &aXMLFilename, MSCalibrator &parent, MSVehicleControl &vc);
+                                        const std::string &aXMLFilename, MSCalibrator &parent, MSVehicleControl &vc);
 
         /// Destructor
         ~MSCalibrator_FileTriggeredChild() throw();
@@ -193,7 +184,7 @@ protected:
 
         /// Builds a vehicle and tries to emit it
         SUMOTime execute(SUMOTime currentTime);
-		
+
         /// Returns the loaded flow
         SUMOReal getLoadedFlow() const;
 
@@ -212,12 +203,12 @@ protected:
         /// Returns the information whether a next valid entry has been reached
         // !!! seee
         bool nextRead();
-	//TM
-	public:
+        //TM
+    public:
         /// Builds a vehicle and schedules it for further processing
-		void buildAndScheduleFlowVehicle() {
-			buildAndScheduleFlowVehicle(-1);
-		}
+        void buildAndScheduleFlowVehicle() {
+            buildAndScheduleFlowVehicle(-1);
+        }
         void buildAndScheduleFlowVehicle(SUMOReal speed);
 
     protected:
@@ -242,16 +233,16 @@ public:
     /// Schedules a vehicle to emit
     void schedule(MSCalibratorChild *child, MSVehicle *v, SUMOReal speed);
 
-		//TM
-	NLDetectorBuilder myDb;
-	MSInductLoop * myIL;
-	SUMOReal myToCalibrate;
-	SUMOTime myInterval;
-	SUMOReal myNumVehicles;
-	int myDebugLevel;
-	std::string myDebugFilesBaseName;
+    //TM
+    NLDetectorBuilder myDb;
+    MSInductLoop * myIL;
+    SUMOReal myToCalibrate;
+    SUMOTime myInterval;
+    SUMOReal myNumVehicles;
+    int myDebugLevel;
+    std::string myDebugFilesBaseName;
 
-	static void updateCalibrator(std::string name, int time, SUMOReal count);
+    static void updateCalibrator(std::string name, int time, SUMOReal count);
 
 protected:
     /// The network the calibrator is located in
@@ -274,9 +265,9 @@ protected:
     MSCalibratorChild *myActiveChild;
 
 
-	/// TM
-	SUMOTime execute(SUMOTime currentTime);
-	static std::map<std::string, MSCalibrator*> calibratorMap;
+    /// TM
+    SUMOTime execute(SUMOTime currentTime);
+    static std::map<std::string, MSCalibrator*> calibratorMap;
 
 
 };

@@ -283,7 +283,7 @@ ROLoader::openRoutes(RONet &net, SUMOReal /*gBeta*/, SUMOReal /*gA*/)
 void
 ROLoader::skipUntilBegin()
 {
-    if(myHandler.size()!=0) {
+    if (myHandler.size()!=0) {
         MsgHandler::getMessageInstance()->inform("Skipping...");
         for (RouteLoaderCont::iterator i=myHandler.begin(); i!=myHandler.end(); i++) {
             (*i)->skipUntilBegin();
@@ -433,9 +433,9 @@ ROLoader::buildNamedHandler(const std::string &optionName,
 {
     if (optionName=="sumo-input") {
         return new RORDLoader_SUMOBase(myVehicleBuilder, net,
-                                      myOptions.getInt("begin"), myOptions.getInt("end"),
-                                      myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
-                                      myOptions.getInt("max-alternatives"), "routes", file);
+                                       myOptions.getInt("begin"), myOptions.getInt("end"),
+                                       myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
+                                       myOptions.getInt("max-alternatives"), "routes", file);
     }
     if (optionName=="trip-defs") {
         return new RORDLoader_TripDefs(myVehicleBuilder, net,
@@ -444,9 +444,9 @@ ROLoader::buildNamedHandler(const std::string &optionName,
     }
     if (optionName=="alternatives") {
         return new RORDLoader_SUMOBase(myVehicleBuilder, net,
-                                      myOptions.getInt("begin"), myOptions.getInt("end"),
-                                      myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
-                                      myOptions.getInt("max-alternatives"), "alternatives", file);
+                                       myOptions.getInt("begin"), myOptions.getInt("end"),
+                                       myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
+                                       myOptions.getInt("max-alternatives"), "alternatives", file);
     }
     if (optionName=="flows") {
         return new RORDGenerator_ODAmounts(myVehicleBuilder, net,
@@ -523,7 +523,7 @@ ROLoader::loadSupplementaryWeights(RONet& net)
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     } else {
         throw ProcessError("failed.");
-        
+
     }
 }
 

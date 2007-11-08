@@ -381,31 +381,23 @@ namespace Loki
 //     Tail (second element, can be another typelist)
 ////////////////////////////////////////////////////////////////////////////////
 template <class T, class U>
-struct Typelist
-{
+struct Typelist {
     typedef T Head;
     typedef U Tail;
 };
 
-namespace TL
-{
+namespace TL {
 
-namespace Private
-{
+namespace Private {
 template <bool x> struct TList_is_not_legal_Typelist;
 
-template <> struct TList_is_not_legal_Typelist<true>
-    {};
+template <> struct TList_is_not_legal_Typelist<true> {};
 
-struct Typelist_tag
-    {};
-struct NullType_tag
-    {};
-struct NoneList_tag
-    {};
+struct Typelist_tag {};
+struct NullType_tag {};
+struct NoneList_tag {};
 
-enum
-{
+enum {
     NoneList_ID = 0,
     Typelist_ID = 1,
     AtomList_ID	= 2,
@@ -419,8 +411,7 @@ enum
 // IsTypelist<T>::value
 ////////////////////////////////////////////////////////////////////////////////
 template<typename T>
-struct IsTypelist
-{
+struct IsTypelist {
 private:
     typedef TypeTag<1>::X List;
     typedef TypeTag<2>::X AtomList;
@@ -444,8 +435,7 @@ private:
 
 
 public:
-    enum
-    {
+    enum {
         temp1	= sizeof(check(Type2Type<T>())) == sizeof(TypeTag<1>::X) ? Typelist_ID : NoneList_ID,
         temp2	= sizeof(check2(Type2Type<T>())) == sizeof(TypeTag<2>::X) ? AtomList_ID : NoneList_ID,
         temp4	= temp2 ? Typelist_ID :NoneList_ID,
@@ -482,8 +472,7 @@ typename T10 = NullType, typename T11 = NullType, typename T12 = NullType,
 typename T13 = NullType, typename T14 = NullType, typename T15 = NullType,
 typename T16 = NullType, typename T17 = NullType, typename T18 = NullType
 >
-struct MakeTypelist
-{
+struct MakeTypelist {
 private:
     typedef typename MakeTypelist
     <
@@ -509,8 +498,7 @@ struct MakeTypelist
             NullType, NullType, NullType,
             NullType, NullType, NullType,
             NullType, NullType, NullType
-            >
-{
+            > {
     typedef NullType Result;
 };
 
@@ -523,8 +511,7 @@ struct MakeTypelist
 // the end terminator (which by convention is NullType)
 ////////////////////////////////////////////////////////////////////////////////
 template <class TList>
-struct Length
-{
+struct Length {
 private:
     ASSERT_TYPELIST(TList);
     typedef typename TList::Head Head;
@@ -537,8 +524,7 @@ public:
 // explicit specialization for an empty list.
 // this is the border case for the recursive length-calculation
 template <>
-struct Length<NullType>
-{
+struct Length<NullType> {
     enum {value = 0};
 };
 
@@ -552,15 +538,12 @@ struct Length<NullType>
 // returns the type in position 'index' in TList
 // If you pass an out-of-bounds index, the result is a compile-time error
 ////////////////////////////////////////////////////////////////////////////////
-namespace Private
-{
+namespace Private {
 // The type at Index i is the type at i-1 of the List's Tail
 template <unsigned int Index>
-struct TypeAtImpl
-{
+struct TypeAtImpl {
     template <class TList>
-    struct In
-    {
+    struct In {
         ASSERT_TYPELIST(TList);
         typedef typename TList::Head Head;
         typedef typename TList::Tail Tail;
@@ -571,11 +554,9 @@ struct TypeAtImpl
 // the border case is represented by an explicit specialization
 // The type at Index 0 is the type of the head.
 template <>
-struct TypeAtImpl<0>
-{
+struct TypeAtImpl<0> {
     template <class TList>
-    struct In
-    {
+    struct In {
         ASSERT_TYPELIST(TList);
         typedef typename TList::Head Head;
         typedef Head Result;
@@ -584,8 +565,7 @@ struct TypeAtImpl<0>
 }	// end of namespace Private
 
 template <class TList, unsigned int Index>
-struct TypeAt
-{
+struct TypeAt {
     typedef typename Private::TypeAtImpl<Index>::template In<TList>::Result Result ;
 };
 
@@ -602,18 +582,15 @@ struct TypeAt
 ////////////////////////////////////////////////////////////////////////////////
 template <class TList, unsigned int i, class DefType = NullType>
 struct TypeAtNonStrict;
-namespace Private
-{
+namespace Private {
 // if TList is not NullType, check if Index is 0.
 // if Index is 0, the result is TList::Head
 // if Index is > 0, the result is the result of appliying TypeAtNonStrict
 // to the list's and Index-1
 template <class TList>
-struct TypeAtNonStrictImpl
-{
+struct TypeAtNonStrictImpl {
     template <class DefType, unsigned int Index>
-    struct In
-    {
+    struct In {
         ASSERT_TYPELIST(TList);
         typedef typename Select
         <
@@ -626,19 +603,16 @@ struct TypeAtNonStrictImpl
 
 // if TList is NullType the result is *always* the specified DefaultType.
 template <>
-struct TypeAtNonStrictImpl<NullType>
-{
+struct TypeAtNonStrictImpl<NullType> {
     template <class DefType, unsigned int Index>
-    struct In
-    {
+    struct In {
         typedef DefType Result;
     };
 };
 
 }	// end of namespace Private
 template <class TList, unsigned int i, class DefType>
-struct TypeAtNonStrict
-{
+struct TypeAtNonStrict {
     typedef typename
     Private::TypeAtNonStrictImpl<TList>::template In<DefType, i>::Result Result;
 };
@@ -652,25 +626,23 @@ struct TypeAtNonStrict
 ////////////////////////////////////////////////////////////////////////////////
 template <class TList, class T>
 struct IndexOf;
-namespace Private
-{
+namespace Private {
 // If TList is a typelist and TList::Head is T, then the Index is 0
 // If TList::Head is not T, compute the result of IndexOf applied to
 // TList's tail and T into a temporary value temp.
 // If temp is -1, then value is -1
 // Else value is 1 + temp
 template <class TList>
-struct IndexOfImpl
-{
+struct IndexOfImpl {
     template <class T>
-    struct In
-    {
+    struct In {
         ASSERT_TYPELIST(TList);
         typedef typename TList::Head Head;
         typedef typename TList::Tail Tail;
 private:
         enum {temp = IsEqualType<T, Head>::value != 0 ? 0
-              : IndexOf<Tail, T>::temp};
+              : IndexOf<Tail, T>::temp
+             };
 
 public:
         enum {value = temp == -1 ? -1 : 1 + temp};
@@ -680,11 +652,9 @@ public:
 // T cannot be in an empty list.
 // Therefore return -1 to indicate Not-In-List
 template <>
-struct IndexOfImpl<NullType>
-{
+struct IndexOfImpl<NullType> {
     template <class T>
-    struct In
-    {
+    struct In {
         enum {value = -1};
     };
 };
@@ -694,8 +664,7 @@ struct IndexOfImpl<NullType>
 // The primary IndexOfImpl-Template is always one step ahead.
 // Therefore if T is in list, we need to subtract one from the result.
 template <class TList, class T>
-struct IndexOf
-{
+struct IndexOf {
     enum {temp = Private::IndexOfImpl<TList>::template In<T>::value};
     enum {value = temp == -1 ? -1 : temp - 1};
 };
@@ -709,17 +678,14 @@ struct IndexOf
 template <class TList, class T>
 struct Append;
 
-namespace Private
-{
+namespace Private {
 template <class TList>
-struct AppendImpl
-{	// if TList is not NullType the result
+struct AppendImpl {	// if TList is not NullType the result
     // is a typelist having TList::Head as its Head and
     // and the result of appending T to TList::Tail as its tail.
     ASSERT_TYPELIST(TList);
     template <class T>
-    struct In
-    {
+    struct In {
         typedef Typelist<typename TList::Head,
         typename Append<typename TList::Tail, T>::Result> Result;
     };
@@ -727,8 +693,7 @@ struct AppendImpl
 };
 
 template <>
-struct AppendImpl<NullType>
-{	// if TList is NullType, check if T is NullType, a single type
+struct AppendImpl<NullType> {	// if TList is NullType, check if T is NullType, a single type
     // or a typelist
     // If TList is NullType and T is NullType
     // the result is NullType, too
@@ -740,8 +705,7 @@ struct AppendImpl<NullType>
     // if TList is NullType and T is not a typelist
     // the result is a typelist containing only T
     template <class T>
-    struct In
-    {
+    struct In {
         typedef typename Select
         <
         IsEqualType<T, NullType>::value,	// is T == Nulltype?
@@ -759,8 +723,7 @@ struct AppendImpl<NullType>
 }	// end of namespace Private
 
 template <class TList, class T>
-struct Append
-{
+struct Append {
     typedef typename Private::AppendImpl<TList>::template In<T>::Result Result;
 };
 
@@ -773,11 +736,9 @@ struct Append
 ////////////////////////////////////////////////////////////////////////////////
 template <class TList, class T>
 struct Erase;
-namespace Private
-{
+namespace Private {
 template <class TList>
-struct EraseImpl
-{	// TList is not NullType.
+struct EraseImpl {	// TList is not NullType.
     // Check if TList::Head is equal to T
     // if T is the same as TList::Head, then the Result is TList::Tail
     //
@@ -786,8 +747,7 @@ struct EraseImpl
     // and the result of applying Erase to the tail of list as its
     // tail.
     template <class T>
-    struct In
-    {
+    struct In {
         ASSERT_TYPELIST(TList);
         typedef typename TList::Head Head;
         typedef typename TList::Tail Tail;
@@ -804,19 +764,16 @@ struct EraseImpl
 
 // if TList is NullType the result is NullType.
 template <>
-struct EraseImpl<NullType>
-{
+struct EraseImpl<NullType> {
     template <class T>
-    struct In
-    {
+    struct In {
         typedef NullType Result;
     };
 };
 }	// end of namespace Private
 
 template <class TList, class T>
-struct Erase
-{
+struct Erase {
     typedef typename Private::EraseImpl<TList>::template In<T>::Result Result;
 };
 
@@ -829,11 +786,9 @@ struct Erase
 ////////////////////////////////////////////////////////////////////////////////
 template <class TList, class T>
 struct EraseAll;
-namespace Private
-{
+namespace Private {
 template <class TList>
-struct EraseAllImpl
-{	// TList is not NullType.
+struct EraseAllImpl {	// TList is not NullType.
     // Check if TList::Head is equal to T
     // If T is equal to TLIst::Head the result is the result of EraseAll
     // applied to TList::Tail
@@ -842,8 +797,7 @@ struct EraseAllImpl
     // TList::Head as its head and the result of applying EraseAll to TList::Tail
     // as its tail.
     template <class T>
-    struct In
-    {
+    struct In {
         ASSERT_TYPELIST(TList);
         typedef typename TList::Head Head;
         typedef typename TList::Tail Tail;
@@ -859,19 +813,16 @@ struct EraseAllImpl
 
 // if TList is NullType the result is NullType.
 template <>
-struct EraseAllImpl<NullType>
-{
+struct EraseAllImpl<NullType> {
     template <class T>
-    struct In
-    {
+    struct In {
         typedef NullType Result;
     };
 };
 }	// end of namespace Private
 
 template <class TList, class T>
-struct EraseAll
-{
+struct EraseAll {
     typedef typename Private::EraseAllImpl<TList>::template In<T>::Result Result;
 };
 
@@ -883,8 +834,7 @@ struct EraseAll
 ////////////////////////////////////////////////////////////////////////////////
 // NoDuplicates taken from Rani Sharoni's Loki VC7-Port.
 template <class TList>
-struct NoDuplicates
-{
+struct NoDuplicates {
 private:
     typedef typename TList::Head Head;
     typedef typename TList::Tail Tail;
@@ -899,8 +849,7 @@ public:
 };
 
 template <>
-struct NoDuplicates<NullType>
-{
+struct NoDuplicates<NullType> {
     typedef NullType Result;
 };
 ////////////////////////////////////////////////////////////////////////////////
@@ -912,15 +861,12 @@ struct NoDuplicates<NullType>
 ////////////////////////////////////////////////////////////////////////////////
 template <class TList, class T, class U>
 struct Replace;
-namespace Private
-{
+namespace Private {
 // If TList is not NullType, check if T is equal to TList::Head
 template <class TList>
-struct ReplaceImpl
-{
+struct ReplaceImpl {
     template <class T, class U>
-    struct In
-    {
+    struct In {
         // If TList::Head is equal to T, the result is a typelist
         // with U as its head an TList::Tail as its tail.
         // If T is not equal to TList::Head, the result is a typelist
@@ -940,19 +886,16 @@ struct ReplaceImpl
 
 // If TList is NullType the result is NullType
 template <>
-struct ReplaceImpl<NullType>
-{
+struct ReplaceImpl<NullType> {
     template <class T, class U>
-    struct In
-    {
+    struct In {
         typedef NullType Result;
     };
 };
 }	// end of namespace Private
 
 template <class TList, class T, class U>
-struct Replace
-{
+struct Replace {
     typedef typename
     Private::ReplaceImpl<TList>::template In<T, U>::Result Result;
 };
@@ -967,15 +910,12 @@ struct Replace
 template <class TList, class T, class U>
 struct ReplaceAll;
 
-namespace Private
-{
+namespace Private {
 // If TList is not NullType, check if T is equal to TList::Head
 template <class TList>
-struct ReplaceAllImpl
-{
+struct ReplaceAllImpl {
     template <class T, class U>
-    struct In
-    {
+    struct In {
         ASSERT_TYPELIST(TList);
         typedef typename TList::Head Head;
         typedef typename TList::Tail Tail;
@@ -990,18 +930,15 @@ struct ReplaceAllImpl
 
 // If TList is NullType the result is NullType
 template <>
-struct ReplaceAllImpl<NullType>
-{
+struct ReplaceAllImpl<NullType> {
     template <class T, class U>
-    struct In
-    {
+    struct In {
         typedef NullType Result;
     };
 };
 }
 template <class TList, class T, class U>
-struct ReplaceAll
-{
+struct ReplaceAll {
     typedef typename
     Private::ReplaceAllImpl<TList>::template In<T, U>::Result Result;
 };
@@ -1017,14 +954,12 @@ struct ReplaceAll
 template <class TList> struct Reverse;
 
 template <>
-struct Reverse<NullType>
-{
+struct Reverse<NullType> {
     typedef NullType Result;
 };
 
 template <class TList>
-struct Reverse
-{
+struct Reverse {
 private:
     typedef typename TList::Head Head;
     typedef typename TList::Tail Tail;
@@ -1044,14 +979,11 @@ public:
 // returns the type in TList that's the most derived from T
 ////////////////////////////////////////////////////////////////////////////////
 template <class TList, class T> struct MostDerived;
-namespace Private
-{
+namespace Private {
 template <class TList>
-struct MostDerivedImpl
-{
+struct MostDerivedImpl {
     template <class T>
-    struct In
-    {
+    struct In {
 private:
         ASSERT_TYPELIST(TList);
         typedef typename TList::Head Head;
@@ -1067,19 +999,16 @@ public:
     };
 };
 template <>
-struct MostDerivedImpl<NullType>
-{
+struct MostDerivedImpl<NullType> {
     template <class T>
-    struct In
-    {
+    struct In {
         typedef T Result;
     };
 };
 }	// end of namespace Private
 
 template <class TList, class T>
-struct MostDerived
-{
+struct MostDerived {
     typedef typename
     Private::MostDerivedImpl<TList>::template In<T>::Result Result;
 };
@@ -1091,8 +1020,7 @@ struct MostDerived
 // returns the reordered TList
 ////////////////////////////////////////////////////////////////////////////////
 template <class TList>
-struct DerivedToFront
-{
+struct DerivedToFront {
 private:
     ASSERT_TYPELIST(TList);
 
@@ -1108,8 +1036,7 @@ public:
 };
 
 template <>
-struct DerivedToFront<NullType>
-{
+struct DerivedToFront<NullType> {
     typedef NullType Result;
 };
 
@@ -1122,8 +1049,7 @@ struct DerivedToFront<NullType>
 ////////////////////////////////////////////////////////////////////////////////
 // DerivedToFrontAll taken from Rani Sharoni's Loki VC7-Port.
 template <class TList>
-struct DerivedToFrontAll
-{
+struct DerivedToFrontAll {
 private:
     ASSERT_TYPELIST(TList);
 
@@ -1140,8 +1066,7 @@ public:
 };
 
 template <>
-struct DerivedToFrontAll<NullType>
-{
+struct DerivedToFrontAll<NullType> {
     typedef NullType Result;
 };
 

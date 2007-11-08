@@ -60,8 +60,7 @@ public:
 
     /// The struct that is stored when an event takes place. It
     /// consists of the event-time and a value.
-    struct TimeValue
-    {
+    struct TimeValue {
         /// Ctor.
         ///
         /// @param eventSecond The second when the event took place.
@@ -69,8 +68,7 @@ public:
         TimeValue(MSUnit::Seconds eventSecond
                   , DetAggregate value)
                 : secondM(eventSecond)
-                , valueM(value)
-        {}
+                , valueM(value) {}
         MSUnit::Seconds secondM; ///< The second when the event
         ///took place.
         DetAggregate valueM; ///< The corresponding value.
@@ -88,8 +86,7 @@ public:
     ///
     /// @param aObserved The observed object.
     ///
-    void update(ParameterType aObserved)
-    {
+    void update(ParameterType aObserved) {
         DetAggregate value = getValue(aObserved);
         aggregatesM.push_back(
             TimeValue(
@@ -121,24 +118,20 @@ protected:
             ED::MSDetectorInterface(id)
             , ConcreteDetector(container)
             , deleteDataAfterStepsM(MSUnit::getInstance()->getIntegerSteps(
-                                        deleteDataAfterSeconds))
-    {
+                                        deleteDataAfterSeconds)) {
         startOldDataRemoval();
     }
 
     /// Dtor. Cleares the detector-quantities-container.
-    virtual ~MSDetector(void)
-    {
+    virtual ~MSDetector(void) {
         aggregatesM.clear();
     }
 
     /// Predicate for searching in a container<TimeValue>.
 struct TimeLesser :
-                public std::binary_function< TimeValue, TimeValue, bool >
-    {
+                public std::binary_function< TimeValue, TimeValue, bool > {
         bool operator()(const TimeValue& firstTimeValue,
-                        const TimeValue& secondTimeValue) const
-        {
+                        const TimeValue& secondTimeValue) const {
             return firstTimeValue.secondM < secondTimeValue.secondM;
         }
     };
@@ -153,8 +146,7 @@ struct TimeLesser :
     /// @return Iterator to aggregatesM.
     ///
     AggregatesContIter getAggrContStartIterator(
-        MSUnit::Steps lastNTimesteps)
-    {
+        MSUnit::Steps lastNTimesteps) {
         return std::lower_bound(
                    aggregatesM.begin(), aggregatesM.end(),
                    TimeValue(getStartTime(lastNTimesteps), 0),
@@ -169,8 +161,7 @@ struct TimeLesser :
     /// @return 0 if now - lastNTimesteps is negative. Else the
     /// corresponding time in seconds.
     ///
-    MSUnit::Seconds getStartTime(MSUnit::Steps lastNTimesteps)
-    {
+    MSUnit::Seconds getStartTime(MSUnit::Steps lastNTimesteps) {
         MSUnit::Steps timestep =
             MSNet::getInstance()->getCurrentTimeStep() - lastNTimesteps;
         if (timestep < 0) {
@@ -181,11 +172,10 @@ struct TimeLesser :
 
     /// Call once from ctor to initialize the recurring call to
     /// freeContainer() via the MSEventControl mechanism.
-    void startOldDataRemoval(void)
-    {
+    void startOldDataRemoval(void) {
         // start old-data removal through MSEventControl
         Command* deleteData = new WrappingCommand< MSDetector >(
-                                  this, &MSDetector::freeContainer);
+            this, &MSDetector::freeContainer);
         MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
             deleteData,
             deleteDataAfterStepsM,
@@ -199,8 +189,7 @@ struct TimeLesser :
     /// @return deleteDataAfterStepsM to restart this removal via
     /// the MSEventControl mechanism.
     ///
-    SUMOTime freeContainer(SUMOTime)
-    {
+    SUMOTime freeContainer(SUMOTime) {
         AggregatesContIter end =
             getAggrContStartIterator((MSUnit::Seconds) deleteDataAfterStepsM);
         aggregatesM.erase(aggregatesM.begin(), end);

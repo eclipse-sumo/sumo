@@ -57,8 +57,7 @@ public:
     virtual SUMOReal getCurrent(void) const = 0;
 
     /// Dtor.
-    virtual ~MSDetectorInterface(void)
-    {}
+    virtual ~MSDetectorInterface(void) {}
 
 protected:
 
@@ -67,8 +66,7 @@ protected:
     /// @param id The detector's id.
     MSDetectorInterface(std::string id)
             :
-            MSDetectorInterfaceCommon(id)
-    {}
+            MSDetectorInterfaceCommon(id) {}
 
 private:
 

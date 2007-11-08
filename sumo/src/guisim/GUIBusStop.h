@@ -118,8 +118,7 @@ class GUIBusStopPopupMenu : public GUIGLObjectPopupMenu
         long onCmdOpenManip(FXObject*,FXSelector,void*);
 
     protected:
-        GUIBusStopPopupMenu()
-        { }
+        GUIBusStopPopupMenu() { }
 
     };
     /*

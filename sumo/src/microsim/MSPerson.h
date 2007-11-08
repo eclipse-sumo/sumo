@@ -103,8 +103,7 @@ class MSPersonStage_Walking : MSPersonStage
         SUMOTime getWalkingTime();
 
         /// returns the type of the stage
-        int getType() const
-        {
+        int getType() const {
             return WALKING;
         }
 
@@ -137,8 +136,7 @@ class MSPersonStage_PublicVehicle : MSPersonStage
         const std::string &getLineId() const;
 
         /// returns the type of the stage
-        int getType() const
-        {
+        int getType() const {
             return PUBLIC;
         }
 
@@ -176,8 +174,7 @@ class MSPersonStage_PrivateVehicle : MSPersonStage
         const std::string &getVehicleType() const;
 
         /// returns the type of the stage
-        int getType() const
-        {
+        int getType() const {
             return PRIVATE;
         }
 
@@ -213,8 +210,7 @@ class MSPersonStage_Waiting : MSPersonStage
         SUMOTime getWaitingTime() const;
 
         /// returns the type of the stage
-        int getType() const
-        {
+        int getType() const {
             return WAITING;
         }
 

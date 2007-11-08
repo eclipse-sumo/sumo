@@ -55,10 +55,10 @@ namespace FXEX
 {
 
 FXDEFMAP(FXBaseObject) FXBaseObjectMap[]={
-            FXMAPFUNC(SEL_COMMAND,FXWindow::ID_ENABLE,FXBaseObject::onCmdEnable),
-            FXMAPFUNC(SEL_COMMAND,FXWindow::ID_DISABLE,FXBaseObject::onCmdDisable),
-            FXMAPFUNC(SEL_UPDATE,FXWindow::ID_DISABLE,FXBaseObject::onUpdate),
-        };
+    FXMAPFUNC(SEL_COMMAND,FXWindow::ID_ENABLE,FXBaseObject::onCmdEnable),
+    FXMAPFUNC(SEL_COMMAND,FXWindow::ID_DISABLE,FXBaseObject::onCmdDisable),
+    FXMAPFUNC(SEL_UPDATE,FXWindow::ID_DISABLE,FXBaseObject::onUpdate),
+};
 FXIMPLEMENT(FXBaseObject,FXObject,FXBaseObjectMap,ARRAYNUMBER(FXBaseObjectMap))
 
 // ctor

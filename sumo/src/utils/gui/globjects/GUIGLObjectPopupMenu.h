@@ -110,8 +110,7 @@ protected:
 
 protected:
     /// FOX needs this
-    GUIGLObjectPopupMenu()
-    { }
+    GUIGLObjectPopupMenu() { }
 
 };
 

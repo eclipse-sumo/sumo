@@ -57,41 +57,34 @@ public:
 
     /// Constructor
     GUIColorer_ColorSettingFunction(Operation operation)
-            : myOperation(operation)
-    {}
+            : myOperation(operation) {}
 
     /// Destructor
-    virtual ~GUIColorer_ColorSettingFunction()
-    { }
+    virtual ~GUIColorer_ColorSettingFunction() { }
 
     /// @name inherited from GUIBaseColorer
     //@{
     /// Sets the color using a value from the given instance of T
-    void setGlColor(const T& i) const
-    {
+    void setGlColor(const T& i) const {
         (i.*myOperation)();
     }
 
     /// Sets the color using the given value
-    void setGlColor(SUMOReal) const
-    {
+    void setGlColor(SUMOReal) const {
         glColor3d(1, 1, 0);
     }
 
     /// Returns the type of this class (CST_STATIC)
-    virtual ColorSetType getSetType() const
-    {
+    virtual ColorSetType getSetType() const {
         return CST_STATIC;
     }
     //@}
 
     /// @name inherited from from GUIBaseColorerInterface
     //@{
-    virtual void resetColor(const RGBColor &)
-    {}
+    virtual void resetColor(const RGBColor &) {}
 
-    virtual const RGBColor &getSingleColor() const
-    {
+    virtual const RGBColor &getSingleColor() const {
         throw 1;
     }
     //@}

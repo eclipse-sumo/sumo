@@ -51,8 +51,8 @@ class NBNetBuilder;
  * @class NGEdge
  * @brief A netgen-representation of an edge
  *
- * Please note that the edge makes itself known to the from- and the to-nodes 
- *  on initialisation and removes this information from the nodes when being 
+ * Please note that the edge makes itself known to the from- and the to-nodes
+ *  on initialisation and removes this information from the nodes when being
  *  deleted. This implicates that nodes have to be deleted after the edges.
  */
 class NGEdge
@@ -77,41 +77,38 @@ public:
 
 
     /** @brief Returns this link's id
-     * 
+     *
      * @return The id of the link
      */
-    const std::string &getID() const throw()
-    {
+    const std::string &getID() const throw() {
         return myID;
     }
 
 
     /** @brief Returns this link's start node
-     * 
+     *
      * @return The start node of the link
      */
-    NGNode *getStartNode() throw()
-    {
+    NGNode *getStartNode() throw() {
         return myStartNode;
     };
 
 
     /** @brief Returns this link's end node
-     * 
+     *
      * @return The end node of the link
      */
-    NGNode *getEndNode() throw()
-    {
+    NGNode *getEndNode() throw() {
         return myEndNode;
     };
 
 
     /** @brief Builds and returns this link's netbuild-representation
-     * 
+     *
      * Returns an edge built using the known values. Other values, such as the
      *  number of lanes, are gathered from defaults.
      * The starting and the ending node must have been built in prior.
-     * 
+     *
      * @param[in] nb The netbuilder to retrieve the referenced nodes from
      * @return The built edge
      */

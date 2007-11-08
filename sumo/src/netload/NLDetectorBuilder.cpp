@@ -101,7 +101,7 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
                                    OutputDevice& device, bool friendly_pos,
                                    const std::string &/*style*/)
 {
-    if(splInterval<0) {
+    if (splInterval<0) {
         throw InvalidArgument("Negative sampling frequency (in detector '" + id + "').");
     }
     // get and check the lane
@@ -166,7 +166,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                                    SUMOReal jamDistThreshold,
                                    SUMOTime deleteDataAfterSeconds)
 {
-    if(splInterval<0) {
+    if (splInterval<0) {
         throw InvalidArgument("Negative sampling frequency (in detector '" + id + "').");
     }
     MSLane *clane = getLaneChecking(lane, id);
@@ -257,7 +257,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
             "The detector output can not be build as no connection between lanes '"
             + lane + "' and '" + tolane + "' exists.");
     }
-    if(pos<0) {
+    if (pos<0) {
         pos = -pos;
     }
     // check whether the detector may lie over more than one lane
@@ -296,7 +296,7 @@ NLDetectorBuilder::convUncontE2PosLength(const std::string &id,
     if (pos<0) {
         pos = clane->length() + pos;
     }
-    if(pos>clane->length()) {
+    if (pos>clane->length()) {
         throw InvalidArgument("Detector '" + id + "' lies beyond lane's '" + clane->getID() + "' end.");
     }
     // compute length
@@ -317,7 +317,7 @@ NLDetectorBuilder::convUncontE2PosLength(const std::string &id,
     if (length<=0) {
         throw InvalidArgument("The length of detector '" + id + "' is not positive.");
     }
-    if(pos+length>clane->length()) {
+    if (pos+length>clane->length()) {
         throw InvalidArgument("Detector's '" + id + "' end lies beyond lane's '" + clane->getID() + "' end.");
     }
 }
@@ -344,13 +344,13 @@ NLDetectorBuilder::beginE3Detector(const std::string &id,
                                    const std::string &measures,
                                    MSUnit::MetersPerSecond haltingSpeedThreshold)
 {
-    if(splInterval<0) {
+    if (splInterval<0) {
         throw InvalidArgument("Negative sampling frequency (in detector '" + id + "').");
     }
     E3MeasuresVector toAdd = parseE3Measures(measures);
     myE3Definition = new E3DetectorDefinition(id, device,
-                     haltingSpeedThreshold,
-                     toAdd, splInterval);
+            haltingSpeedThreshold,
+            toAdd, splInterval);
 }
 
 
@@ -384,10 +384,10 @@ NLDetectorBuilder::addE3Exit(const std::string &lane,
 }
 
 
-std::string 
+std::string
 NLDetectorBuilder::getCurrentE3ID() const
 {
-    if(myE3Definition==0) {
+    if (myE3Definition==0) {
         return "<unknown>";
     }
     return myE3Definition->myID;

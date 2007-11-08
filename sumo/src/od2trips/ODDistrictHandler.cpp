@@ -141,27 +141,27 @@ ODDistrictHandler::parseConnection(const Attributes &attrs, const std::string &t
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the weight
-	try {
-	    SUMOReal weight = getFloatSecure(attrs, SUMO_ATTR_WEIGHT, -1);
-		if (weight==-1) {
-			MsgHandler::getErrorInstance()->inform("The weight of the " + type + " '" + id + "' within district '" + myCurrentDistrict->getID() + "' is not given or <0.");
-			return std::pair<std::string, SUMOReal>("", -1);
-		}
-		// return the values
-		return std::pair<std::string, SUMOReal>(id, weight);
-	} catch (NumberFormatException &) {
-		MsgHandler::getErrorInstance()->inform("The weight of the " + type + " '" + id + "' within district '" + myCurrentDistrict->getID() + "' is not numeric.");
-	}
-	return std::pair<std::string, SUMOReal>("", -1);
+    try {
+        SUMOReal weight = getFloatSecure(attrs, SUMO_ATTR_WEIGHT, -1);
+        if (weight==-1) {
+            MsgHandler::getErrorInstance()->inform("The weight of the " + type + " '" + id + "' within district '" + myCurrentDistrict->getID() + "' is not given or <0.");
+            return std::pair<std::string, SUMOReal>("", -1);
+        }
+        // return the values
+        return std::pair<std::string, SUMOReal>(id, weight);
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The weight of the " + type + " '" + id + "' within district '" + myCurrentDistrict->getID() + "' is not numeric.");
+    }
+    return std::pair<std::string, SUMOReal>("", -1);
 }
 
 
 void
 ODDistrictHandler::closeDistrict() throw()
 {
-	if(myCurrentDistrict!=0) {
-	    myContainer.add(myCurrentDistrict->getID(), myCurrentDistrict);
-	}
+    if (myCurrentDistrict!=0) {
+        myContainer.add(myCurrentDistrict->getID(), myCurrentDistrict);
+    }
 }
 
 

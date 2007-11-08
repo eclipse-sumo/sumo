@@ -66,13 +66,13 @@ using namespace std;
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIParameterTracker) GUIParameterTrackerMap[]={
-            FXMAPFUNC(SEL_CONFIGURE, 0,                       GUIParameterTracker::onConfigure),
-            FXMAPFUNC(SEL_PAINT,     0,                       GUIParameterTracker::onPaint),
-            FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP,             GUIParameterTracker::onSimStep),
-            FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_AGGREGATIONINTERVAL, GUIParameterTracker::onCmdChangeAggregation),
-            FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_SAVE, GUIParameterTracker::onCmdSave),
+    FXMAPFUNC(SEL_CONFIGURE, 0,                       GUIParameterTracker::onConfigure),
+    FXMAPFUNC(SEL_PAINT,     0,                       GUIParameterTracker::onPaint),
+    FXMAPFUNC(SEL_COMMAND,   MID_SIMSTEP,             GUIParameterTracker::onSimStep),
+    FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_AGGREGATIONINTERVAL, GUIParameterTracker::onCmdChangeAggregation),
+    FXMAPFUNC(SEL_COMMAND,   GUIParameterTracker::MID_SAVE, GUIParameterTracker::onCmdSave),
 
-        };
+};
 
 // Macro for the GLTestApp class hierarchy implementation
 FXIMPLEMENT(GUIParameterTracker,FXMainWindow,GUIParameterTrackerMap,ARRAYNUMBER(GUIParameterTrackerMap))
@@ -322,10 +322,10 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
  * GUIParameterTracker::GUIParameterTrackerPanel-methods
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUIParameterTracker::GUIParameterTrackerPanel) GUIParameterTrackerPanelMap[]={
-            FXMAPFUNC(SEL_CONFIGURE, 0, GUIParameterTracker::GUIParameterTrackerPanel::onConfigure),
-            FXMAPFUNC(SEL_PAINT,     0, GUIParameterTracker::GUIParameterTrackerPanel::onPaint),
+    FXMAPFUNC(SEL_CONFIGURE, 0, GUIParameterTracker::GUIParameterTrackerPanel::onConfigure),
+    FXMAPFUNC(SEL_PAINT,     0, GUIParameterTracker::GUIParameterTrackerPanel::onPaint),
 
-        };
+};
 
 // Macro for the GLTestApp class hierarchy implementation
 FXIMPLEMENT(GUIParameterTracker::GUIParameterTrackerPanel,FXGLCanvas,GUIParameterTrackerPanelMap,ARRAYNUMBER(GUIParameterTrackerPanelMap))

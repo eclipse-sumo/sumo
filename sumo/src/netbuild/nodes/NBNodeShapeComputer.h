@@ -70,7 +70,7 @@ private:
      * In the case the other method does not work, this method computes the geometry
      *  of a node by adding points to the polygon which are computed by building
      *  the normals of participating edges' geometry boundaries (cw/ccw)
-     *  at the node's height (the length of the edge the edge would cross the node 
+     *  at the node's height (the length of the edge the edge would cross the node
      *  point).
      */
     Position2DVector computeNodeShapeByCrosses();

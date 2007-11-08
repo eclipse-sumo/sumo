@@ -43,8 +43,7 @@
  * @class FlowDef
  * @brief Definition of the traffic during a certain time containing the flows and speeds
  */
-struct FlowDef
-{
+struct FlowDef {
     // Number of passenger vehicles that passed within the described time
     SUMOReal qPKW;
     // Number of heavy duty vehicles that passed within the described time
@@ -75,7 +74,7 @@ class RODFDetectorFlows
 {
 public:
     RODFDetectorFlows(SUMOTime startTime, SUMOTime endTime,
-                    SUMOTime stepOffset);
+                      SUMOTime stepOffset);
     ~RODFDetectorFlows();
     void addFlow(const std::string &detector_id, int timestamp,
                  const FlowDef &fd);

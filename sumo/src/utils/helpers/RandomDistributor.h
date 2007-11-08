@@ -38,53 +38,45 @@ template<class T>
 class RandomDistributor
 {
 public:
-    RandomDistributor() : myProb(0)
-    { }
-    ~RandomDistributor()
-    { }
+    RandomDistributor() : myProb(0) { }
+    ~RandomDistributor() { }
 
-    void add(SUMOReal prob, T val)
-    {
+    void add(SUMOReal prob, T val) {
         assert(prob>=0);
         myVals.push_back(val);
         myProbs.push_back(prob);
         myProb += prob;
     }
 
-    T get() const
-        {
-			if(myProb==0) {
-				throw OutOfBoundsException();
-			}
-            SUMOReal prob = RandHelper::rand(myProb);
-            for (int i=0; i<(int) myVals.size(); i++) {
-                if (prob<myProbs[i]) {
-                    return myVals[i];
-                }
-                prob -= myProbs[i];
-            }
-            return myVals[myVals.size()-1];
+    T get() const {
+        if (myProb==0) {
+            throw OutOfBoundsException();
         }
+        SUMOReal prob = RandHelper::rand(myProb);
+        for (int i=0; i<(int) myVals.size(); i++) {
+            if (prob<myProbs[i]) {
+                return myVals[i];
+            }
+            prob -= myProbs[i];
+        }
+        return myVals[myVals.size()-1];
+    }
 
-    SUMOReal getOverallProb() const
-    {
+    SUMOReal getOverallProb() const {
         return myProb;
     }
 
-    void clear()
-    {
+    void clear() {
         myProb = 0;
         myVals.clear();
         myProbs.clear();
     }
 
-    const std::vector<T> &getVals() const
-    {
+    const std::vector<T> &getVals() const {
         return myVals;
     }
 
-    const std::vector<SUMOReal> &getProbs() const
-    {
+    const std::vector<SUMOReal> &getProbs() const {
         return myProbs;
     }
 

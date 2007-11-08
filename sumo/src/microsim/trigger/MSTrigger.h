@@ -43,12 +43,10 @@ class MSTrigger : public Named
 {
 public:
     /// Constructor
-    MSTrigger(const std::string &id) : Named(id)
-    { }
+    MSTrigger(const std::string &id) : Named(id) { }
 
     /// Destructor
-    virtual ~MSTrigger()
-    { }
+    virtual ~MSTrigger() { }
 
 };
 

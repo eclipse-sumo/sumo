@@ -89,8 +89,7 @@ protected:
 
 
 protected:
-    GUIGlChildWindow()
-    { }
+    GUIGlChildWindow() { }
 
 };
 

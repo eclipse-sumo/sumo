@@ -61,8 +61,7 @@ public:
     typedef typename DetectorType::AggregatesContIter AggregatesContIter;
     typedef typename DetectorType::Container DetectorContainer;
 
-    DetAggregate getAggregate(MSUnit::Seconds lastNSeconds)
-    {
+    DetAggregate getAggregate(MSUnit::Seconds lastNSeconds) {
         // returns the mean value of the lastNSeconds
         AggregatesContIter startIt =
             this->getAggrContStartIterator(
@@ -88,8 +87,7 @@ public:
             : MSSumDetector< DetectorType, hasTimeValueCont >(
                 id, lengthInMeters,
                 deleteDataAfterSeconds,
-                container)
-    {
+                container) {
         this->detNameM = this->getDetectorName() + "Mean";
     }
 
@@ -101,8 +99,7 @@ public:
             : MSSumDetector< DetectorType, hasTimeValueCont >(
                 id, lengthInMeters,
                 deleteDataAfterSeconds,
-                helperDetector)
-    {
+                helperDetector) {
         this->detNameM = this->getDetectorName() + "Mean";
     }
 
@@ -113,8 +110,7 @@ public:
             : MSSumDetector< DetectorType, hasTimeValueCont >(
                 id,
                 deleteDataAfterSeconds,
-                container)
-    {
+                container) {
         this->detNameM = this->getDetectorName() + "Mean";
     }
 
@@ -124,15 +120,13 @@ public:
             : MSSumDetector< DetectorType, hasTimeValueCont >(
                 id,
                 deleteDataAfterSeconds,
-                container)
-    {
+                container) {
         this->detNameM = this->getDetectorName() + "Mean";
     }
 
     // E* ctors follow here
 
-    ~MSMeanDetector(void)
-    {}
+    ~MSMeanDetector(void) {}
 
 private:
     MSMeanDetector(const MSMeanDetector&);

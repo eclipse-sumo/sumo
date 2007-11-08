@@ -86,8 +86,8 @@ public:
         The arrays must have the proper size (equals to the number of the
         simulation's objects of each type) */
     void get(int what,
-                 SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax,
-                 size_t *setEdges, size_t *setJunctions, size_t *setAdditional) const;
+             SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax,
+             size_t *setEdges, size_t *setJunctions, size_t *setAdditional) const;
 
     /// returns the number of cells in x-direction
     int getNoXCells() const;
@@ -117,8 +117,7 @@ private:
      *  the myIndex-value allows the computation of the artifact's real index
      *  as it is: mySet * 32 + myIndex;
      */
-    struct SubSet
-    {
+    struct SubSet {
         /// The index of the artifact within this sub set
         size_t   myIndex;
 
@@ -223,12 +222,10 @@ private:
     public:
         /// constructor
         explicit index_finder(size_t index)
-                : myIndex(index)
-        { }
+                : myIndex(index) { }
 
         /// operator
-        bool operator()(const SubSet &s) const
-        {
+        bool operator()(const SubSet &s) const {
             return s.myIndex==myIndex;
         }
     private:

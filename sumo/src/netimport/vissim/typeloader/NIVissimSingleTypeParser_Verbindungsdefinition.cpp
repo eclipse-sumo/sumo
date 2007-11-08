@@ -90,8 +90,7 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
                 TplConvert<char>::_2SUMOReal(tag.c_str());
                 tag = myRead(from);
             } catch (NumberFormatException &) {}
-        }
-        else {
+        } else {
             tag = y;
         }
     }
@@ -169,8 +168,8 @@ NIVissimSingleTypeParser_Verbindungsdefinition::parse(std::istream &from)
         } while (tag!="DATAEND");
     }
     NIVissimConnection *c = new NIVissimConnection(id, name, from_def, to_def, geom,
-                            direction, dxnothalt, dxeinordnen, zuschlag1, zuschlag2, seglength,
-                            assignedVehicles, clv);
+            direction, dxnothalt, dxeinordnen, zuschlag1, zuschlag2, seglength,
+            assignedVehicles, clv);
 
     if (!NIVissimConnection::dictionary(id, c)) {
         return false;

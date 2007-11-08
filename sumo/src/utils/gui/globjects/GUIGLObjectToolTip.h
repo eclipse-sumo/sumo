@@ -104,8 +104,7 @@ private:
 
 protected:
     /// FOX default constructor
-    GUIGLObjectToolTip()
-    { }
+    GUIGLObjectToolTip() { }
 
 
 };

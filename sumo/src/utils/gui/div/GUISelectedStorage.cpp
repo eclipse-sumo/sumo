@@ -111,7 +111,7 @@ GUISelectedStorage::SingleTypeSelections::load(const std::string &filename)
 
 
 void
-GUISelectedStorage::SingleTypeSelections::save(const std::string &filename) throw (IOError)
+GUISelectedStorage::SingleTypeSelections::save(const std::string &filename) throw(IOError)
 {
     OutputDevice &dev = OutputDevice::getDevice(filename);
     for (std::vector<size_t>::iterator i=mySelected.begin(); i!=mySelected.end(); ++i) {

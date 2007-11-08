@@ -48,18 +48,18 @@ class ODDistrictCont;
 /**
  * @class ODDistrictHandler
  * @brief An XML-Handler for districts
- * 
- * This SUMOSAXHandler parses districts and their sinks and sources from 
+ *
+ * This SUMOSAXHandler parses districts and their sinks and sources from
  *  and stores them into a the district container given at initialisation.
  */
 class ODDistrictHandler : public SUMOSAXHandler
 {
 public:
     /** @brief Constructor
-	 *
-	 * Saves the given district containe in order to fill it.
-	 * @param[in] cont The container of districts to fill
-	 */
+     *
+     * Saves the given district containe in order to fill it.
+     * @param[in] cont The container of districts to fill
+     */
     ODDistrictHandler(ODDistrictCont &cont, const std::string &file) throw();
 
 
@@ -71,91 +71,91 @@ protected:
     /// @name inherited from GenericSAXHandler
     //@{
     /** @brief Called when an opening-tag occures
-	 *
-	 * Processes district elements via openDistrict, their sinks (via
-	 *  addSink) and sources (via addSource).
-	 *
-	 * @param[in] element The enum of the currently opened element
-	 * @param[in] attrs Attributes of the currently opened element
-	 * @exception ProcessError If an error within the parsed file occurs
-	 */
+     *
+     * Processes district elements via openDistrict, their sinks (via
+     *  addSink) and sources (via addSource).
+     *
+     * @param[in] element The enum of the currently opened element
+     * @param[in] attrs Attributes of the currently opened element
+     * @exception ProcessError If an error within the parsed file occurs
+     */
     void myStartElement(SumoXMLTag element,
                         const Attributes &attrs) throw(ProcessError);
 
 
     /** @brief Called when a closing tag occures
-	 *
-	 * Processes district elements via closeDistrict.
-	 *
-	 * @param[in] element The enum of the currently closed element
-	 * @exception ProcessError If an error within the parsed file occurs
-	 */
+     *
+     * Processes district elements via closeDistrict.
+     *
+     * @param[in] element The enum of the currently closed element
+     * @exception ProcessError If an error within the parsed file occurs
+     */
     void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 
 
 private:
     /** @brief Begins the parsing of a district
-	 *
-	 * Tries to retrieve the id of a district, adds a message to the
-	 *  error handler if this fails. Otherwise builds a new district
-	 *  with this id at myCurrentDistrict.
-	 *
-	 * @param[in] attrs Attributes of the currently opened element
-	 */
+     *
+     * Tries to retrieve the id of a district, adds a message to the
+     *  error handler if this fails. Otherwise builds a new district
+     *  with this id at myCurrentDistrict.
+     *
+     * @param[in] attrs Attributes of the currently opened element
+     */
     void openDistrict(const Attributes &attrs) throw();
 
 
     /** @brief Adds a read source to the current district
-	 *
-	 * Tries to get the id and the weight of the currently parsed source 
-	 *  from the attributes using getValues. If the retrieval could be
-	 *  done without errors (weight>=0), the so retrieved weighted source
-	 *  is added to myCurrentDistrict using addSource. (getValues checks
-	 *  whether myCurrentDistrict is valid)
-	 *
-	 * @param[in] attrs Attributes of the currently opened element
-	 * @todo Checking whether myCurrentDistrict is valid through getValues is not quite nice
-	 */
+     *
+     * Tries to get the id and the weight of the currently parsed source
+     *  from the attributes using getValues. If the retrieval could be
+     *  done without errors (weight>=0), the so retrieved weighted source
+     *  is added to myCurrentDistrict using addSource. (getValues checks
+     *  whether myCurrentDistrict is valid)
+     *
+     * @param[in] attrs Attributes of the currently opened element
+     * @todo Checking whether myCurrentDistrict is valid through getValues is not quite nice
+     */
     void addSource(const Attributes &attrs) throw();
 
 
     /** @brief Adds a read sink to the current district
-	 *
-	 * Tries to get the id and the weight of the currently parsed sink 
-	 *  from the attributes using getValues. If the retrieval could be
-	 *  done without errors (weight>=0), the so retrieved weighted sink
-	 *  is added to myCurrentDistrict using addSink. (getValues checks
-	 *  whether myCurrentDistrict is valid)
-	 *
-	 * @param[in] attrs Attributes of the currently opened element
-	 * @todo Checking whether myCurrentDistrict is valid through getValues is not quite nice
-	 */
+     *
+     * Tries to get the id and the weight of the currently parsed sink
+     *  from the attributes using getValues. If the retrieval could be
+     *  done without errors (weight>=0), the so retrieved weighted sink
+     *  is added to myCurrentDistrict using addSink. (getValues checks
+     *  whether myCurrentDistrict is valid)
+     *
+     * @param[in] attrs Attributes of the currently opened element
+     * @todo Checking whether myCurrentDistrict is valid through getValues is not quite nice
+     */
     void addSink(const Attributes &attrs) throw();
 
 
     /** @brief Closes the processing of the current district
-	 *
-	 * Adds myCurrentDistrict to myContainer.
-	 */
+     *
+     * Adds myCurrentDistrict to myContainer.
+     */
     void closeDistrict() throw();
 
 
     /** @brief Returns the id and weight for a sink/source
-	 *
-	 * Checks whether myCurrentDistrict (the currently processed 
-	 *  district) is !=0; in this case, both the id and the weight 
-	 *  are parsed. If one of them is missing or the weight is not numerical,
-	 *  an error is generated and reported to MsgHandler. The "type"-parameter
-	 *  is used in order to inform the user whether a source or a sink was
-	 *  processed. In the case of an error, the returned weight is -1.
-	 *
-	 * If no error occurs, the correct id and weight are returned.
-	 *
-	 * @param[in] attrs Attributes of the currently opened element
-	 * @param[in] type The type of the currntly processed connection (sink/source)
-	 * @return The id and the weight of a connection
-	 */
+     *
+     * Checks whether myCurrentDistrict (the currently processed
+     *  district) is !=0; in this case, both the id and the weight
+     *  are parsed. If one of them is missing or the weight is not numerical,
+     *  an error is generated and reported to MsgHandler. The "type"-parameter
+     *  is used in order to inform the user whether a source or a sink was
+     *  processed. In the case of an error, the returned weight is -1.
+     *
+     * If no error occurs, the correct id and weight are returned.
+     *
+     * @param[in] attrs Attributes of the currently opened element
+     * @param[in] type The type of the currntly processed connection (sink/source)
+     * @return The id and the weight of a connection
+     */
     std::pair<std::string, SUMOReal> parseConnection(const Attributes &attrs,
             const std::string &type) throw();
 

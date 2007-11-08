@@ -102,12 +102,10 @@ private:
     public:
         /** constructor */
         explicit phase_length_finder(size_t size)
-                : mySize(size)
-        { }
+                : mySize(size) { }
 
         /** the comparing function */
-        bool operator()(const PhaseIndexVector &p)
-        {
+        bool operator()(const PhaseIndexVector &p) {
             return p.size() == mySize;
         }
 
@@ -132,14 +130,12 @@ private:
     public:
         /** constructor */
         included_finder(const PhaseIndexVector &v)
-                : myVector(v)
-        { }
+                : myVector(v) { }
 
     protected:
         /** @brief Returns the information whether v1 is included in v2
             v1 is the first argument, v2 is the second one */
-        bool isIn(const PhaseIndexVector &v1, const PhaseIndexVector &v2)
-        {
+        bool isIn(const PhaseIndexVector &v1, const PhaseIndexVector &v2) {
             // As the lists are sorted, we do not have to perform
             //  the whole exhaustive search, but may start to search
             //  after the last elements found
@@ -165,12 +161,10 @@ class shorter_included_finder : public included_finder
     public:
         /** constructor */
         shorter_included_finder(const PhaseIndexVector &v)
-                : included_finder(v)
-        { }
+                : included_finder(v) { }
 
         /** the comparing function */
-        bool operator()(const PhaseIndexVector &p)
-        {
+        bool operator()(const PhaseIndexVector &p) {
             return isIn(p, myVector);
         }
 
@@ -188,12 +182,10 @@ class larger_included_finder : public included_finder
     public:
         /** constructor */
         larger_included_finder(const PhaseIndexVector &v)
-                : included_finder(v)
-        { }
+                : included_finder(v) { }
 
         /** the comparing function */
-        bool operator()(const PhaseIndexVector &p)
-        {
+        bool operator()(const PhaseIndexVector &p) {
             return isIn(myVector, p);
         }
 

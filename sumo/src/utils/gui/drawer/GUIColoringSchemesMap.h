@@ -42,8 +42,7 @@
 class BaseSchemeInfoSource
 {
 public:
-    virtual ~BaseSchemeInfoSource()
-    { }
+    virtual ~BaseSchemeInfoSource() { }
 
     virtual void fill(FXComboBox &cb) = 0;
     virtual ColorSetType getColorSetType(size_t index) const = 0;
@@ -64,12 +63,10 @@ class GUIColoringSchemesMap : public BaseSchemeInfoSource
 {
 public:
     /// Constructor
-    GUIColoringSchemesMap()
-    { }
+    GUIColoringSchemesMap() { }
 
     /// Destructor
-    ~GUIColoringSchemesMap()
-    {
+    ~GUIColoringSchemesMap() {
         typename std::vector<ColorMapping>::iterator i;
         for (i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
             delete(*i).colorer;
@@ -78,8 +75,7 @@ public:
     }
 
     /// Adds a named coloring scheme identifier to the list of allowed coloring schemes
-    void add(const std::string &name, GUIBaseColorer<T1> *colorer)
-    {
+    void add(const std::string &name, GUIBaseColorer<T1> *colorer) {
         ColorMapping cm;
         cm.name = name;
         cm.colorer = colorer;
@@ -89,8 +85,7 @@ public:
     /** @brief Fills the given combobox with the names of available coloring
         The indices of the coloring schemes are stored within this structures
         in order to allow the retrieval of their enumeration values. */
-    void fill(FXComboBox &cb)
-    {
+    void fill(FXComboBox &cb) {
         typename std::vector<ColorMapping>::iterator i;
         for (i=myAvailableSchemes.begin(); i!=myAvailableSchemes.end(); ++i) {
             cb.appendItem((*i).name.c_str());
@@ -124,23 +119,19 @@ public:
     */
 
     /// Returns the number of available coloring schemes
-    size_t size() const
-    {
+    size_t size() const {
         return myAvailableSchemes.size();
     }
 
-    GUIBaseColorer<T1> *getColorer(size_t index) const
-    {
+    GUIBaseColorer<T1> *getColorer(size_t index) const {
         return myAvailableSchemes[index].colorer;
     }
 
-    GUIBaseColorerInterface *getColorerInterface(size_t index) const
-    {
+    GUIBaseColorerInterface *getColorerInterface(size_t index) const {
         return myAvailableSchemes[index].colorer;
     }
 
-    ColorSetType getColorSetType(size_t index) const
-    {
+    ColorSetType getColorSetType(size_t index) const {
         return myAvailableSchemes[index].colorer->getSetType();
     }
 
@@ -150,8 +141,7 @@ private:
      * This structure holds - for each coloring scheme - its name, numerical index
      *  within the filled structure and the enumeration type.
      */
-    struct ColorMapping
-    {
+    struct ColorMapping {
         /// The name of the coloring scheme
         std::string name;
 

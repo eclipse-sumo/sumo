@@ -68,7 +68,7 @@ MSInductLoop::MSInductLoop(const string& id,
     assert(posM >= 0 && posM <= laneM->length());
     // start old-data removal through MSEventControl
     Command* deleteOldData = new WrappingCommand< MSInductLoop >(
-                                 this, &MSInductLoop::deleteOldData);
+        this, &MSInductLoop::deleteOldData);
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
         deleteOldData, deleteDataAfterStepsM, MSEventControl::ADAPT_AFTER_EXECUTION);
 }
@@ -244,11 +244,11 @@ MSInductLoop::writeXMLOutput(OutputDevice &dev,
                          + distance(
                              getDismissedStartIterator(t), mend);
     dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
-        stopTime<<"\" "<<"id=\""<<getID()<<"\" ";
+    stopTime<<"\" "<<"id=\""<<getID()<<"\" ";
     dev<<"nVehContrib=\""<<getNVehContributed(t)<<"\" flow=\""<<getFlow(t)<<
-        "\" occupancy=\""<<getOccupancy(t)<<"\" speed=\""<<getMeanSpeed(t)<<
-        "\" length=\""<<getMeanVehicleLength(t)<<
-        "\" nVehCrossed=\""<<nVehCrossed<<"\"/>\n";
+    "\" occupancy=\""<<getOccupancy(t)<<"\" speed=\""<<getMeanSpeed(t)<<
+    "\" length=\""<<getMeanVehicleLength(t)<<
+    "\" nVehCrossed=\""<<nVehCrossed<<"\"/>\n";
 }
 
 

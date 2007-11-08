@@ -99,8 +99,7 @@ private:
 
 protected:
     /// FOX needs this
-    GUIDialog_Breakpoints()
-    { }
+    GUIDialog_Breakpoints() { }
 
 };
 

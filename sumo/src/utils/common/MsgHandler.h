@@ -132,8 +132,7 @@ public:
 
 protected:
     /// Builds the string which includes the mml-message type
-    inline std::string build(const std::string &msg, bool addType)
-    {
+    inline std::string build(const std::string &msg, bool addType) {
         if (addType) {
             switch (myType) {
             case MT_MESSAGE:

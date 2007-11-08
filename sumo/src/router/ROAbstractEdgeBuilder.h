@@ -53,20 +53,17 @@ class ROAbstractEdgeBuilder
 {
 public:
     /// Constructor
-    ROAbstractEdgeBuilder() : myCurrentIndex(0)
-    { }
+    ROAbstractEdgeBuilder() : myCurrentIndex(0) { }
 
     /// Destructor
-    virtual ~ROAbstractEdgeBuilder()
-    { }
+    virtual ~ROAbstractEdgeBuilder() { }
 
     /// Builds an edge with the given name
     virtual ROEdge *buildEdge(const std::string &name) = 0;
 
 protected:
     /// Returns the index of the last built edge
-    size_t getCurrentIndex()
-    {
+    size_t getCurrentIndex() {
         return myCurrentIndex++;
     }
 

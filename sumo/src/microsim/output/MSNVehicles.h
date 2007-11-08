@@ -48,13 +48,11 @@ protected:
     MSNVehicles(const Container& counter);
     MSNVehicles(SUMOReal, const Container& counter);
 
-    virtual ~MSNVehicles(void)
-    {}
+    virtual ~MSNVehicles(void) {}
 
     DetectorAggregate getDetectorAggregate(void);
 
-    static std::string getDetectorName(void)
-    {
+    static std::string getDetectorName(void) {
         return "nE2Vehicles";
     }
 

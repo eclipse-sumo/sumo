@@ -91,8 +91,7 @@ protected:
     size_t myCurrentPos;
 
 protected:
-    GUIParameterTableWindow()
-    { }
+    GUIParameterTableWindow() { }
 };
 
 

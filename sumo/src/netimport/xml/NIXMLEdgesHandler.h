@@ -119,8 +119,8 @@ private:
     /// Parses the optional information of how to spread the lanes
     NBEdge::LaneSpreadFunction getSpreadFunction(const Attributes &attrs);
 
-    NBNode * insertNodeChecking(const Position2D &pos, 
-        const std::string &name, const std::string &dir);
+    NBNode * insertNodeChecking(const Position2D &pos,
+                                const std::string &name, const std::string &dir);
 
 
 private:
@@ -168,8 +168,7 @@ private:
 
     NBDistrictCont &myDistrictCont;
 
-    struct Expansion
-    {
+    struct Expansion {
         std::vector<int> lanes;
         SUMOReal pos;
         int nameid;
@@ -183,12 +182,10 @@ private:
     class expansions_sorter
     {
     public:
-        explicit expansions_sorter()
-        { }
+        explicit expansions_sorter() { }
 
         /// comparing operator
-        int operator()(const Expansion &e1, const Expansion &e2) const
-        {
+        int operator()(const Expansion &e1, const Expansion &e2) const {
             return e1.pos > e2.pos;
         }
     };
@@ -198,12 +195,10 @@ private:
     public:
         /** constructor */
         explicit expansion_by_pos_finder(SUMOReal pos)
-                : myPosition(pos)
-        { }
+                : myPosition(pos) { }
 
         /** the comparing function */
-        bool operator()(const Expansion &e)
-        {
+        bool operator()(const Expansion &e) {
             return e.pos==myPosition;
         }
 

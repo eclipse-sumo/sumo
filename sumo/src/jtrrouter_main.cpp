@@ -131,7 +131,7 @@ loadJTRDefinitions(RONet &net, OptionsCont &oc)
         ROJTRTurnDefLoader loader(net);
         loader.load(oc.getString("turn-definition"));
     }
-    if(MsgHandler::getErrorInstance()->wasInformed() && oc.getBool("dismiss-loading-errors")) {
+    if (MsgHandler::getErrorInstance()->wasInformed() && oc.getBool("dismiss-loading-errors")) {
         MsgHandler::getErrorInstance()->clear();
     }
     // parse sink edges specified at the input/within the configuration
@@ -199,7 +199,7 @@ main(int argc, char **argv)
         XMLSubSys::init();
         ROJTRFrame::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
-        if(oc.processMetaOptions(argc < 2)) {
+        if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }

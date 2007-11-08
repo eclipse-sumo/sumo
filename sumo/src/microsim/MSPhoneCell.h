@@ -36,15 +36,14 @@
 #include "MSCORN.h"
 #include "devices/MSDevice_CPhone.h"
 
-enum CallType{
+enum CallType {
     STATICIN,
     STATICOUT,
     DYNIN,
     DYNOUT
 };
 
-struct Call
-{
+struct Call {
     CallType ct;
 //	std::string id;
 };
@@ -62,8 +61,7 @@ class MSPhoneCell
 public:
     /// Constructor
     MSPhoneCell(int ID);
-    size_t getDynEntriesNo() const
-    {
+    size_t getDynEntriesNo() const {
         return myExpectedDynamicCalls.size();
     }
 
@@ -92,8 +90,7 @@ public:
     void setDynamicCalls(SUMOTime time);
     bool useAsIncomingDynamic(SUMOTime time);
 
-    SUMOTime getCallDuration() const
-    {
+    SUMOTime getCallDuration() const {
         return myCallDuration;
     }
 
@@ -104,8 +101,7 @@ public:
     //void decrementDynCallCount(){ --dyncallcount; }
 
     /// Returns the number of vehicles calling within this cell
-    size_t getVehicleNumber() const
-    {
+    size_t getVehicleNumber() const {
         return myCalls.size();
     }
 
@@ -122,20 +118,17 @@ class SetStatParamsCommand : public Command
     public:
         // / Constructor
         SetStatParamsCommand(MSPhoneCell &p)
-                : myParent(p)
-        { }
+                : myParent(p) { }
 
         /// Destructor
-        ~SetStatParamsCommand()
-        { }
+        ~SetStatParamsCommand() { }
 
         /** @brief Executes the command what forces the logic control to
          * initialise a switch process
          *
          * The control will ask for the index and increment it.
          */
-        SUMOTime execute(SUMOTime time)
-        {
+        SUMOTime execute(SUMOTime time) {
             return myParent.nextStatPeriod(time);
         }
 
@@ -151,20 +144,17 @@ class SetDynParamsCommand : public Command
     public:
         // / Constructor
         SetDynParamsCommand(MSPhoneCell &p)
-                : myParent(p)
-        { }
+                : myParent(p) { }
 
         /// Destructor
-        ~SetDynParamsCommand()
-        { }
+        ~SetDynParamsCommand() { }
 
         /** @brief Executes the command what forces the logic control to
          * initialise a switch process
          *
          * The control will ask for the index and increment it.
          */
-        SUMOTime execute(SUMOTime time)
-        {
+        SUMOTime execute(SUMOTime time) {
             return myParent.nextDynPeriod(time);
         }
 
@@ -208,8 +198,7 @@ private:
 
     /*myConnectionTypSelector is for selecting if a connection is
       going in( == true ) or out ( == false ).*/
-    struct DynParam
-    {
+    struct DynParam {
         int count;
         SUMOReal duration;
         SUMOReal deviation;

@@ -105,7 +105,7 @@ MSTrafficLightLogic::MSTrafficLightLogic(
     MSTLLogicControl &tlcontrol,
     const std::string &id,
     const std::string &subid,
-        SUMOTime delay)
+    SUMOTime delay)
         : myID(id), mySubID(subid), myCurrentDurationIncrement(-1)
 {
     mySwitchCommand = new SwitchCommand(tlcontrol, this);
@@ -116,7 +116,7 @@ MSTrafficLightLogic::MSTrafficLightLogic(
 
 MSTrafficLightLogic::~MSTrafficLightLogic()
 {
-    for(std::vector<DiscreteCommand*>::iterator i=myOnSwitchActions.begin(); i!=myOnSwitchActions.end(); ++i) {
+    for (std::vector<DiscreteCommand*>::iterator i=myOnSwitchActions.begin(); i!=myOnSwitchActions.end(); ++i) {
         delete *i;
     }
 }
@@ -258,7 +258,7 @@ MSTrafficLightLogic::getLinkIndex(MSLink *link) const
 }
 
 
-std::map<MSLink*, std::pair<MSLink::LinkState, bool> > 
+std::map<MSLink*, std::pair<MSLink::LinkState, bool> >
 MSTrafficLightLogic::collectLinkStates() const
 {
     std::map<MSLink*, std::pair<MSLink::LinkState, bool> > ret;
@@ -272,7 +272,7 @@ MSTrafficLightLogic::collectLinkStates() const
 }
 
 
-void 
+void
 MSTrafficLightLogic::resetLinkStates(const std::map<MSLink*, std::pair<MSLink::LinkState, bool> > &vals) const
 {
     for (LinkVectorVector::const_iterator i1=myLinks.begin(); i1!=myLinks.end(); ++i1) {

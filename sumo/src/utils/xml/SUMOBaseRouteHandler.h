@@ -117,7 +117,7 @@ protected:
      *  of the mandatory values is missing: the vehicle id, the pearture time and if
      *  the vehicle type is given but empty.
      *
-     * The method also sets myAmInEmbeddedMode to true which allows starting to process 
+     * The method also sets myAmInEmbeddedMode to true which allows starting to process
      *  additional, embedded values.
      */
     bool openVehicle(SUMOSAXHandler &helper, const Attributes &attrs,
@@ -126,7 +126,7 @@ protected:
 
     /** @brief Closes the processing of a vehicle
      *
-     * The method sets myAmInEmbeddedMode to false ending processing additional, 
+     * The method sets myAmInEmbeddedMode to false ending processing additional,
      *  embedded values.
      */
     virtual void closeVehicle() throw(ProcessError);

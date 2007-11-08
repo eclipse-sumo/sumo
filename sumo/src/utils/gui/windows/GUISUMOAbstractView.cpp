@@ -116,7 +116,7 @@ GUISUMOAbstractView::ViewportSettings::differ(SUMOReal xmin, SUMOReal ymin,
 
 void
 GUISUMOAbstractView::ViewportSettings::set(SUMOReal xmin, SUMOReal ymin,
-            SUMOReal xmax, SUMOReal ymax)
+        SUMOReal xmax, SUMOReal ymax)
 {
     myXMin = xmin;
     myYMin = ymin;
@@ -128,21 +128,20 @@ GUISUMOAbstractView::ViewportSettings::set(SUMOReal xmin, SUMOReal ymin,
 /* -------------------------------------------------------------------------
  * GUISUMOAbstractView - FOX callback mapping
  * ----------------------------------------------------------------------- */
-FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[]=
-    {
-        FXMAPFUNC(SEL_CONFIGURE,           0,                 GUISUMOAbstractView::onConfigure),
-        FXMAPFUNC(SEL_PAINT,               0,                 GUISUMOAbstractView::onPaint),
-        FXMAPFUNC(SEL_LEFTBUTTONPRESS,     0,                 GUISUMOAbstractView::onLeftBtnPress),
-        FXMAPFUNC(SEL_LEFTBUTTONRELEASE,   0,                 GUISUMOAbstractView::onLeftBtnRelease),
-        FXMAPFUNC(SEL_RIGHTBUTTONPRESS,    0,                 GUISUMOAbstractView::onRightBtnPress),
-        FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,  0,                 GUISUMOAbstractView::onRightBtnRelease),
-        FXMAPFUNC(SEL_MOTION,              0,                 GUISUMOAbstractView::onMouseMove),
-        FXMAPFUNC(SEL_LEAVE,               0,                 GUISUMOAbstractView::onMouseLeft),
-        FXMAPFUNC(SEL_COMMAND,             MID_SIMSTEP,       GUISUMOAbstractView::onSimStep),
-        FXMAPFUNC(SEL_KEYPRESS,            0,                 GUISUMOAbstractView::onKeyPress),
-        FXMAPFUNC(SEL_KEYRELEASE,          0,                 GUISUMOAbstractView::onKeyRelease),
+FXDEFMAP(GUISUMOAbstractView) GUISUMOAbstractViewMap[]= {
+    FXMAPFUNC(SEL_CONFIGURE,           0,                 GUISUMOAbstractView::onConfigure),
+    FXMAPFUNC(SEL_PAINT,               0,                 GUISUMOAbstractView::onPaint),
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,     0,                 GUISUMOAbstractView::onLeftBtnPress),
+    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,   0,                 GUISUMOAbstractView::onLeftBtnRelease),
+    FXMAPFUNC(SEL_RIGHTBUTTONPRESS,    0,                 GUISUMOAbstractView::onRightBtnPress),
+    FXMAPFUNC(SEL_RIGHTBUTTONRELEASE,  0,                 GUISUMOAbstractView::onRightBtnRelease),
+    FXMAPFUNC(SEL_MOTION,              0,                 GUISUMOAbstractView::onMouseMove),
+    FXMAPFUNC(SEL_LEAVE,               0,                 GUISUMOAbstractView::onMouseLeft),
+    FXMAPFUNC(SEL_COMMAND,             MID_SIMSTEP,       GUISUMOAbstractView::onSimStep),
+    FXMAPFUNC(SEL_KEYPRESS,            0,                 GUISUMOAbstractView::onKeyPress),
+    FXMAPFUNC(SEL_KEYRELEASE,          0,                 GUISUMOAbstractView::onKeyRelease),
 
-    };
+};
 
 
 FXIMPLEMENT_ABSTRACT(GUISUMOAbstractView,FXGLCanvas,GUISUMOAbstractViewMap,ARRAYNUMBER(GUISUMOAbstractViewMap))

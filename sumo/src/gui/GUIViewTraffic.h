@@ -203,8 +203,7 @@ protected:
             : myVehicleDrawer(myEmptyEdges), myLaneDrawer(myEmptyEdges),
             myJunctionDrawer(myEmptyJunctions),
             myDetectorDrawer(GUIGlObject_AbstractAdd::getObjectList()),
-            myROWDrawer(myEmptyEdges)
-    { }
+            myROWDrawer(myEmptyEdges) { }
 
 };
 

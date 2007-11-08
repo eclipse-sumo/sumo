@@ -75,20 +75,17 @@ class GUIEvent
 {
 public:
     /// returns the event type
-    GUIEventType getOwnType() const
-    {
+    GUIEventType getOwnType() const {
         return myType;
     }
 
     /// destructor
-    virtual ~GUIEvent()
-    { }
+    virtual ~GUIEvent() { }
 
 protected:
     /// constructor
     GUIEvent(GUIEventType ownType)
-            : myType(ownType)
-    { }
+            : myType(ownType) { }
 
 
 protected:

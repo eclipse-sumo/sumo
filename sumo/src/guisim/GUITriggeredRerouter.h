@@ -118,8 +118,7 @@ class GUITriggeredRerouterPopupMenu : public GUIGLObjectPopupMenu
         long onCmdOpenManip(FXObject*,FXSelector,void*);
 
     protected:
-        GUITriggeredRerouterPopupMenu()
-        { }
+        GUITriggeredRerouterPopupMenu() { }
 
     };
 
@@ -165,8 +164,7 @@ class GUIManip_TriggeredRerouter : public GUIManipulator
         GUITriggeredRerouter *myObject;
 
     protected:
-        GUIManip_TriggeredRerouter()
-        { }
+        GUIManip_TriggeredRerouter() { }
 
     };
 

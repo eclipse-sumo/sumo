@@ -154,7 +154,7 @@ NLJunctionControlBuilder::addIncomingLane(MSLane *lane)
 void
 NLJunctionControlBuilder::closeJunction()
 {
-    if(myJunctions==0) {
+    if (myJunctions==0) {
         throw ProcessError("Information about the number of nodes was missing.");
     }
     MSJunction *junction = 0;
@@ -487,7 +487,7 @@ NLJunctionControlBuilder::closeJunctionLogic()
     }
     MSJunctionLogic *logic =
         new MSBitsetLogic(myRequestSize, myLaneNumber, myActiveLogic, myActiveFoes, myActiveConts);
-    if(myLogics.find(myActiveKey)!=myLogics.end()) {
+    if (myLogics.find(myActiveKey)!=myLogics.end()) {
         throw InvalidArgument("Junction logic '" + myActiveKey + "' was defined twice.");
     }
     myLogics[myActiveKey] = logic;

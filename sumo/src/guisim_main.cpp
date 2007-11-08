@@ -444,7 +444,7 @@ main(int argc, char **argv)
         XMLSubSys::init();
         fillOptions();
         OptionsIO::getOptions(false, argc, argv);
-        if(oc.processMetaOptions(false)) {
+        if (oc.processMetaOptions(false)) {
             SystemFrame::close();
             return 0;
         }

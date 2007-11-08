@@ -70,12 +70,10 @@ private:
     {
     public:
         /** constructor */
-        explicit range_finder(SUMOReal speed) : mySpeed(speed)
-        { }
+        explicit range_finder(SUMOReal speed) : mySpeed(speed) { }
 
         /** the comparing function */
-        bool operator()(const std::pair<SUMOReal, SUMOReal> &range)
-        {
+        bool operator()(const std::pair<SUMOReal, SUMOReal> &range) {
             return mySpeed>=range.first && mySpeed<range.second;
         }
 

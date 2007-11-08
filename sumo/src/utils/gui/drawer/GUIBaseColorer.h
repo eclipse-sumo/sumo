@@ -85,12 +85,10 @@ class GUIBaseColorerInterface
 {
 public:
     /// Constructor
-    GUIBaseColorerInterface()
-    { }
+    GUIBaseColorerInterface() { }
 
     /// Destructor
-    virtual ~GUIBaseColorerInterface()
-    { }
+    virtual ~GUIBaseColorerInterface() { }
 
     /// @name color setting functions
     //@{
@@ -149,66 +147,53 @@ class GUIBaseColorer : public GUIBaseColorerInterface
 {
 public:
     /// Constructor
-    GUIBaseColorer()
-    { }
+    GUIBaseColorer() { }
 
     /// Destructor
-    virtual ~GUIBaseColorer()
-    { }
+    virtual ~GUIBaseColorer() { }
 
     /// Sets the color using a value from the given instance of T
     virtual void setGlColor(const T& i) const = 0;
 
     /// Sets the color using the given value
-    virtual void setGlColor(SUMOReal val) const
-    {
+    virtual void setGlColor(SUMOReal val) const {
         glColor3d(val, val, val);
     }
 
     /// Returns the type of this class (CST_SINGLE)
-    virtual ColorSetType getSetType() const
-    {
+    virtual ColorSetType getSetType() const {
         return CST_SINGLE;
     }
 
     /// @name inherited from from GUIBaseColorerInterface
     //@{
     /// Sets the given color as the color to use (valid for CST_SINGLE)
-    virtual void resetColor(const RGBColor &)
-    { }
+    virtual void resetColor(const RGBColor &) { }
     /// Sets the given color as the colors to use (valid for CST_MINMAX)
-    virtual void resetColor(const RGBColor &, const RGBColor &)
-    { }
+    virtual void resetColor(const RGBColor &, const RGBColor &) { }
     /// Sets the given color as the colors to use (valid for CST_MINMAX_OPT)
-    virtual void resetColor(const RGBColor &, const RGBColor &, const RGBColor &)
-    { }
+    virtual void resetColor(const RGBColor &, const RGBColor &, const RGBColor &) { }
     /// Sets the given colors as the colors to use (valid for ?!!!)
-    virtual void resetColor(const std::vector<RGBColor> &)
-    { }
+    virtual void resetColor(const std::vector<RGBColor> &) { }
 
     /// Returns the single color used (valid for CST_SINGLE)
-    virtual const RGBColor &getSingleColor() const
-    {
+    virtual const RGBColor &getSingleColor() const {
         throw 1;
     }
     /// Returns the color used for minimum values (valid for CST_MINMAX)
-    virtual const RGBColor &getMinColor() const
-    {
+    virtual const RGBColor &getMinColor() const {
         throw 1;
     }
     /// Returns the color used for maximum values (valid for CST_MINMAX)
-    virtual const RGBColor &getMaxColor() const
-    {
+    virtual const RGBColor &getMaxColor() const {
         throw 1;
     }
     /// Returns the color used when a value can not be retrieved (valid for CST_MINMAX_OPT)
-    virtual const RGBColor &getFallbackColor() const
-    {
+    virtual const RGBColor &getFallbackColor() const {
         throw 1;
     }
     /// Returns the colors used (valid for ?!!!)
-    virtual const std::vector<RGBColor> &getGradient() const
-    {
+    virtual const std::vector<RGBColor> &getGradient() const {
         throw 1;
     }
     //@}

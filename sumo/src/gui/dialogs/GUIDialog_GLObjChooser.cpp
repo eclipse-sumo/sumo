@@ -62,14 +62,13 @@ using namespace std;
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GUIDialog_GLObjChooser) GUIDialog_GLObjChooserMap[]=
-    {
-        FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_CENTER, GUIDialog_GLObjChooser::onCmdCenter),
-        FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,         GUIDialog_GLObjChooser::onCmdClose),
-        FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onChgText),
-        FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onCmdText),
-        FXMAPFUNC(SEL_KEYPRESS,  MID_CHOOSER_LIST,   GUIDialog_GLObjChooser::onListKeyPress),
-    };
+FXDEFMAP(GUIDialog_GLObjChooser) GUIDialog_GLObjChooserMap[]= {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_CENTER, GUIDialog_GLObjChooser::onCmdCenter),
+    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,         GUIDialog_GLObjChooser::onCmdClose),
+    FXMAPFUNC(SEL_CHANGED,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onChgText),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSER_TEXT,   GUIDialog_GLObjChooser::onCmdText),
+    FXMAPFUNC(SEL_KEYPRESS,  MID_CHOOSER_LIST,   GUIDialog_GLObjChooser::onListKeyPress),
+};
 
 FXIMPLEMENT(GUIDialog_GLObjChooser, FXMainWindow, GUIDialog_GLObjChooserMap, ARRAYNUMBER(GUIDialog_GLObjChooserMap))
 
@@ -88,7 +87,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
                               0,0,0,0);
     // build the list
     FXVerticalFrame *layout1 = new FXVerticalFrame(hbox,
-                               LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP,0,0,0,0,  4,4,4,4);
+            LAYOUT_FILL_X|LAYOUT_FILL_Y|LAYOUT_TOP,0,0,0,0,  4,4,4,4);
     myTextEntry =
         new FXTextField(layout1, 0, this, MID_CHOOSER_TEXT,
                         LAYOUT_FILL_X|FRAME_THICK|FRAME_SUNKEN);
@@ -150,7 +149,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
     }
     // build the buttons
     FXVerticalFrame *layout = new FXVerticalFrame(hbox, LAYOUT_TOP,0,0,0,0,
-                              4,4,4,4);
+            4,4,4,4);
     new FXButton(layout, "Center\t\t",
                  GUIIconSubSys::getIcon(ICON_RECENTERVIEW),
                  this, MID_CHOOSER_CENTER,

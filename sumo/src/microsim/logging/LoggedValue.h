@@ -49,12 +49,10 @@ public:
         The dummy value is used to ensure, the derived class must
         remind the sample interval */
     LoggedValue(size_t dummy)
-            : myCurrentValue(0)
-    { }
+            : myCurrentValue(0) { }
 
     /// Destructor
-    virtual ~LoggedValue()
-    { }
+    virtual ~LoggedValue() { }
 
     /// Adds a new value
     virtual void add(T value) = 0;

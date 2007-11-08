@@ -75,75 +75,62 @@ public:
     typedef SUMOReal VehPerStep;
 
     static void create(MetersPerCell metersPerCell,
-                       SecondsPerStep secondsPerStep)
-    {
+                       SecondsPerStep secondsPerStep) {
         assert(instanceM == 0);
         instanceM = new MSUnit(metersPerCell, secondsPerStep);
     }
 
-    static MSUnit* getInstance(void)
-    {
+    static MSUnit* getInstance(void) {
         return instanceM;
     }
 
-    ~MSUnit(void)
-    {
+    ~MSUnit(void) {
         instanceM = 0;
     }
 
-    Seconds getSeconds(Steps steps) const
-    {
+    Seconds getSeconds(Steps steps) const {
         return static_cast<Seconds>(steps * secondsPerStepM);
     }
 
-    IntSteps getIntegerSteps(Seconds seconds) const
-    {
+    IntSteps getIntegerSteps(Seconds seconds) const {
         return static_cast<IntSteps>(floor(seconds / secondsPerStepM));
     }
 
-    Steps getSteps(Seconds seconds) const
-    {
+    Steps getSteps(Seconds seconds) const {
         return static_cast<Steps>(seconds / secondsPerStepM);
     }
 
-    MetersPerSecond getMetersPerSecond(CellsPerStep cellsPerStep) const
-    {
+    MetersPerSecond getMetersPerSecond(CellsPerStep cellsPerStep) const {
         return static_cast<MetersPerSecond>(
                    cellsPerStep * metersPerCellM / secondsPerStepM);
     }
 
-    CellsPerStep getIntegerCellsPerStep(MetersPerSecond metersPerSecond) const
-    {
+    CellsPerStep getIntegerCellsPerStep(MetersPerSecond metersPerSecond) const {
         return static_cast<CellsPerStep>(
                    floor(metersPerSecond * secondsPerStepM / metersPerCellM));
     }
 
-    CellsPerStep getCellsPerStep(MetersPerSecond metersPerSecond) const
-    {
+    CellsPerStep getCellsPerStep(MetersPerSecond metersPerSecond) const {
         return static_cast<CellsPerStep>(
                    metersPerSecond * secondsPerStepM / metersPerCellM);
     }
 
-    VehPerKm getVehPerKm(VehPerCell vehPerCell) const
-    {
+    VehPerKm getVehPerKm(VehPerCell vehPerCell) const {
         return static_cast< VehPerKm >(
                    vehPerCell * oneKM / metersPerCellM);
     }
 
-    VehPerCell getVehPerCell(VehPerKm vehPerKm) const
-    {
+    VehPerCell getVehPerCell(VehPerKm vehPerKm) const {
         return static_cast< VehPerCell >(
                    vehPerKm * metersPerCellM / oneKM);
     }
 
-    VehPerHour getVehPerHour(VehPerStep vehPerStep) const
-    {
+    VehPerHour getVehPerHour(VehPerStep vehPerStep) const {
         return static_cast< VehPerHour >(
                    vehPerStep * oneHour / secondsPerStepM);
     }
 
-    VehPerStep getVehPerStep(VehPerHour vehPerHour)const
-    {
+    VehPerStep getVehPerStep(VehPerHour vehPerHour)const {
         return static_cast< VehPerStep >(
                    vehPerHour * secondsPerStepM / oneHour);
     }
@@ -153,8 +140,7 @@ private:
 
     MSUnit(MetersPerCell metersPerCell, SecondsPerStep secondsPerStep)
             : metersPerCellM(metersPerCell),
-            secondsPerStepM(secondsPerStep)
-    {
+            secondsPerStepM(secondsPerStep) {
         assert(metersPerCellM > 0);
         assert(secondsPerStepM > 0);
     }

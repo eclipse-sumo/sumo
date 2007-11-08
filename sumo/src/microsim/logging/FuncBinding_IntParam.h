@@ -52,20 +52,16 @@ public:
             :
             mySource(source),
             myOperation(operation),
-            myParam(param)
-    {}
+            myParam(param) {}
 
     /// Destructor.
-    ~FuncBinding_IntParam()
-    {}
+    ~FuncBinding_IntParam() {}
 
-    SUMOReal getValue() const
-    {
+    SUMOReal getValue() const {
         return (mySource->*myOperation)(myParam);
     }
 
-    ValueSource<R> *copy() const
-    {
+    ValueSource<R> *copy() const {
         return new FuncBinding_IntParam<T, R>(
                    mySource, myOperation, myParam);
     }

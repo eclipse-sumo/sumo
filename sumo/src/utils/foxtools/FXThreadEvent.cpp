@@ -67,10 +67,10 @@ namespace FXEX
 
 // Message map
 FXDEFMAP(FXThreadEvent) FXThreadEventMap[]={
-            FXMAPTYPE(0,FXThreadEvent::onThreadEvent),
-            FXMAPFUNC(SEL_THREAD,0, FXThreadEvent::onThreadEvent),
-            FXMAPFUNC(SEL_IO_READ,FXThreadEvent::ID_THREAD_EVENT,FXThreadEvent::onThreadSignal),
-        };
+    FXMAPTYPE(0,FXThreadEvent::onThreadEvent),
+    FXMAPFUNC(SEL_THREAD,0, FXThreadEvent::onThreadEvent),
+    FXMAPFUNC(SEL_IO_READ,FXThreadEvent::ID_THREAD_EVENT,FXThreadEvent::onThreadSignal),
+};
 FXIMPLEMENT(FXThreadEvent,FXBaseObject,FXThreadEventMap,ARRAYNUMBER(FXThreadEventMap))
 
 // FXThreadEvent : Constructor

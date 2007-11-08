@@ -199,8 +199,8 @@ NBRequestEdgeLinkIterator::valid(size_t pos,
         assert(pos<myFromEdges.size());
         assert(pos<myFromLanes.size());
         while (tmpPos>=0 &&//!!! (tmppos): was : pos>=0 &&
-            myFromEdges[pos]==myFromEdges[tmpPos] &&
-            myFromLanes[pos]==myFromLanes[tmpPos]) {
+                myFromEdges[pos]==myFromEdges[tmpPos] &&
+                myFromLanes[pos]==myFromLanes[tmpPos]) {
             if (!myIsLeftMover[tmpPos--]) {
                 return false;
             }
@@ -352,7 +352,7 @@ NBRequestEdgeLinkIterator::internJoinLaneForbids(NBEdge *fromEdge,
     assert(myPosition<myToEdges.size());
     assert(myPosition<myFromEdges.size());
     bool forbids = myRequest->foes(fromEdge, toEdge,
-                                  myFromEdges[myPosition], myToEdges[myPosition]);
+                                   myFromEdges[myPosition], myToEdges[myPosition]);
     size_t position = myPosition + 1;
     while (position<myFromEdges.size() &&
             !myValid.test(position) && myValidNonLeft.test(position)) {

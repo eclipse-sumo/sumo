@@ -47,7 +47,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 RODFDetectorFlows::RODFDetectorFlows(SUMOTime startTime, SUMOTime endTime,
-                                 SUMOTime stepOffset)
+                                     SUMOTime stepOffset)
         : myBeginTime(startTime), myEndTime(endTime), myStepOffset(stepOffset),
         myMaxDetectorFlow(-1)
 {}
@@ -98,7 +98,7 @@ RODFDetectorFlows::addFlow(const std::string &id, int t, const FlowDef &fd)
 
 void
 RODFDetectorFlows::setFlows(const std::string &detector_id,
-                          std::vector<FlowDef> &flows)
+                            std::vector<FlowDef> &flows)
 {
     for (std::vector<FlowDef>::iterator i=flows.begin(); i<flows.end(); ++i) {
         FlowDef &ofd = *i;
@@ -232,7 +232,7 @@ RODFDetectorFlows::getMaxDetectorFlow() const
 
 void
 RODFDetectorFlows::mesoJoin(const std::string &nid,
-                          const std::vector<std::string> &oldids)
+                            const std::vector<std::string> &oldids)
 {
     for (std::vector<std::string>::const_iterator i=oldids.begin(); i!=oldids.end(); ++i) {
         if (!knows(*i)) {

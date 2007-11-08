@@ -93,7 +93,7 @@ MSDetector2File::addDetectorAndInterval(MSDetectorFileOutput* det,
         // Add command for given key only once to MSEventControl
         Command* writeData =
             new OneArgumentCommand< MSDetector2File, IntervalsKey >
-            (this, &MSDetector2File::write2file, key);
+        (this, &MSDetector2File::write2file, key);
         MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
             writeData,
             OptionsCont::getOptions().getInt("begin") + interval,

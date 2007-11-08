@@ -122,20 +122,20 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             //  is given
             if (myShape.size()==0) {
                 myCurrentEdge = new NBEdge(
-                           myCurrentID, myCurrentName,
-                           myFromNode, myToNode,
-                           myCurrentType, myCurrentSpeed,
-                           myCurrentLaneNo, myCurrentPriority, myLanesSpread,
-                           myCurrentEdgeFunction);
+                    myCurrentID, myCurrentName,
+                    myFromNode, myToNode,
+                    myCurrentType, myCurrentSpeed,
+                    myCurrentLaneNo, myCurrentPriority, myLanesSpread,
+                    myCurrentEdgeFunction);
                 myCurrentEdge->setLoadedLength(myLength);
             } else {
                 myCurrentEdge = new NBEdge(
-                           myCurrentID, myCurrentName,
-                           myFromNode, myToNode,
-                           myCurrentType, myCurrentSpeed,
-                           myCurrentLaneNo, myCurrentPriority,
-                           myShape, myLanesSpread,
-                           myCurrentEdgeFunction);
+                    myCurrentID, myCurrentName,
+                    myFromNode, myToNode,
+                    myCurrentType, myCurrentSpeed,
+                    myCurrentLaneNo, myCurrentPriority,
+                    myShape, myLanesSpread,
+                    myCurrentEdgeFunction);
                 myCurrentEdge->setLoadedLength(myLength);
             }
             // insert the edge
@@ -201,8 +201,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                 if (k!=(*i).lanes.end()) {
                     (*i).lanes.erase(k);
                 }
-            } catch (NumberFormatException &) {}
-            catch (EmptyData &) {}
+            } catch (NumberFormatException &) {} catch (EmptyData &) {}
         }
         /*
         // to split?
@@ -344,7 +343,7 @@ NIXMLEdgesHandler::setID(const Attributes &attrs)
     myCurrentID = "";
     try {
         myCurrentID = getString(attrs, SUMO_ATTR_ID);
-        if(myCurrentID=="") {
+        if (myCurrentID=="") {
             throw EmptyData();
         }
     } catch (EmptyData &) {
@@ -372,11 +371,11 @@ NIXMLEdgesHandler::checkType(const Attributes &attrs)
     myCurrentType = "";
     if (hasAttribute(attrs, SUMO_ATTR_TYPE)) {
         myCurrentType = getString(attrs, SUMO_ATTR_TYPE);
-        if(myCurrentType=="") {
+        if (myCurrentType=="") {
             MsgHandler::getErrorInstance()->inform("Edge '" + myCurrentID + "' has an empty type.");
             return;
         }
-        if(!myTypeCont.knows(myCurrentType)) {
+        if (!myTypeCont.knows(myCurrentType)) {
             MsgHandler::getErrorInstance()->inform("Type '" + myCurrentType + "' used by edge '" + myCurrentID + "' was not defined.");
             return;
         }
@@ -511,25 +510,25 @@ NIXMLEdgesHandler::tryGetPosition(const Attributes &attrs, SumoXMLAttr attrID,
 
 
 NBNode *
-NIXMLEdgesHandler::insertNodeChecking(const Position2D &pos, 
+NIXMLEdgesHandler::insertNodeChecking(const Position2D &pos,
                                       const std::string &name, const std::string &dir)
 {
     NBNode *ret = 0;
-    if(name=="" && (pos.x()==SUMOXML_INVALID_POSITION || pos.y()==SUMOXML_INVALID_POSITION)) {
+    if (name=="" && (pos.x()==SUMOXML_INVALID_POSITION || pos.y()==SUMOXML_INVALID_POSITION)) {
         MsgHandler::getErrorInstance()->inform("Neither the name nor the position of the " + dir + "-node is given for edge '" + myCurrentID + "'.");
         return ret;
     }
-    if(name!="") {
+    if (name!="") {
         if (pos.x()!=SUMOXML_INVALID_POSITION && pos.y()!=SUMOXML_INVALID_POSITION) {
             // the node is named and it has a position given
-            if(!myNodeCont.insert(name, pos)) {
+            if (!myNodeCont.insert(name, pos)) {
                 MsgHandler::getErrorInstance()->inform("Position of " + dir + "-node '" + name + "' mismatches previous positions.");
                 return 0;
             }
         }
         // the node is given by its name
         ret = myNodeCont.retrieve(name);
-        if(ret==0) {
+        if (ret==0) {
             MsgHandler::getErrorInstance()->inform("Edge's '" + myCurrentID + "' " + dir + "-node '" + name + "' is not known.");
         }
     } else {

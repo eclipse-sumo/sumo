@@ -37,8 +37,7 @@
 // ===========================================================================
 class MSVehicle;
 
-struct MSDetectorContainerWrapperBase
-{
+struct MSDetectorContainerWrapperBase {
     virtual void enterDetectorByMove(MSVehicle* veh) = 0;
     virtual void enterDetectorByEmitOrLaneChange(MSVehicle* veh) = 0;
     virtual void leaveDetectorByMove(MSVehicle* veh) = 0;
@@ -47,16 +46,13 @@ struct MSDetectorContainerWrapperBase
 
 
     MSDetectorContainerWrapperBase()
-            : occupancyCorrectionM(0)
-    {}
+            : occupancyCorrectionM(0) {}
 
     MSDetectorContainerWrapperBase(
         const MSDetectorOccupancyCorrection& occupancyCorrection)
-            : occupancyCorrectionM(&occupancyCorrection)
-    {}
+            : occupancyCorrectionM(&occupancyCorrection) {}
 
-    virtual ~MSDetectorContainerWrapperBase(void)
-    {}
+    virtual ~MSDetectorContainerWrapperBase(void) {}
 
     const MSDetectorOccupancyCorrection* occupancyCorrectionM;
 };

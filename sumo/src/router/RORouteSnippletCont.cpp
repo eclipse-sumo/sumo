@@ -73,10 +73,10 @@ RORouteSnippletCont::add(const ROEdgeVector &item)
 
 const ROEdgeVector &
 RORouteSnippletCont::get(ROEdge *from, ROEdge *to) const
-    {
-        MapType::const_iterator i=myKnown.find(MapType::key_type(from, to));
-        return (*i).second;
-    }
+{
+    MapType::const_iterator i=myKnown.find(MapType::key_type(from, to));
+    return (*i).second;
+}
 
 bool
 RORouteSnippletCont::knows(ROEdge * /*from*/, ROEdge * /*to*/) const

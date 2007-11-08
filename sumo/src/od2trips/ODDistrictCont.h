@@ -56,36 +56,36 @@ public:
 
 
     /** @brief Returns the id of a random source from the named district
-	 *
-	 * At first, the named district is retrieved. If this fails, an
-	 *  InvalidArgument-exception is thrown. Otherwise, a source (edge) 
-	 *  is chosen randomly from this  district using this district's 
-	 *  getRandomSource-method which throws an OutOfBoundsException-exception
-	 *  if this district does not contain a source.
-	 *
-	 * @param[in] name The id of the district to get a random source from
-	 * @return The is of a randomly chosen source
-	 * @exception InvalidArgument If the named district is not known
-	 * @exception OutOfBoundsException If the named district has no sources
-	 * @see ODDistrict::getRandomSource
-	 */
+     *
+     * At first, the named district is retrieved. If this fails, an
+     *  InvalidArgument-exception is thrown. Otherwise, a source (edge)
+     *  is chosen randomly from this  district using this district's
+     *  getRandomSource-method which throws an OutOfBoundsException-exception
+     *  if this district does not contain a source.
+     *
+     * @param[in] name The id of the district to get a random source from
+     * @return The is of a randomly chosen source
+     * @exception InvalidArgument If the named district is not known
+     * @exception OutOfBoundsException If the named district has no sources
+     * @see ODDistrict::getRandomSource
+     */
     std::string getRandomSourceFromDistrict(const std::string &name) const throw(OutOfBoundsException, InvalidArgument);
 
 
     /** @brief Returns the id of a random sink from the named district
-	 *
-	 * At first, the named district is retrieved. If this fails, an
-	 *  InvalidArgument-exception is thrown. Otherwise, a sink (edge) 
-	 *  is chosen randomly from this district using this district's 
-	 *  getRandomSink-method which throws an OutOfBoundsException-exception 
-	 *  if this district does not contain a sink.
-	 *
-	 * @param[in] name The id of the district to get a random sink from
-	 * @return The is of a randomly chosen sink
-	 * @exception InvalidArgument If the named district is not known
-	 * @exception OutOfBoundsException If the named district has no sinks
-	 * @see ODDistrict::getRandomSink
-	 */
+     *
+     * At first, the named district is retrieved. If this fails, an
+     *  InvalidArgument-exception is thrown. Otherwise, a sink (edge)
+     *  is chosen randomly from this district using this district's
+     *  getRandomSink-method which throws an OutOfBoundsException-exception
+     *  if this district does not contain a sink.
+     *
+     * @param[in] name The id of the district to get a random sink from
+     * @return The is of a randomly chosen sink
+     * @exception InvalidArgument If the named district is not known
+     * @exception OutOfBoundsException If the named district has no sinks
+     * @see ODDistrict::getRandomSink
+     */
     std::string getRandomSinkFromDistrict(const std::string &name) const throw(OutOfBoundsException, InvalidArgument);
 
 };

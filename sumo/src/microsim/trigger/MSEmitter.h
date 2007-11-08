@@ -81,46 +81,38 @@ public:
     public:
         /// Constructor
         MSEmitterChild(MSEmitter &parent, MSVehicleControl &vc)
-                : myParent(parent), myVehicleControl(vc), myTimeOffset(0)
-        { }
+                : myParent(parent), myVehicleControl(vc), myTimeOffset(0) { }
 
         /// Destructor
-        virtual ~MSEmitterChild()
-        { }
+        virtual ~MSEmitterChild() { }
 
         /// Returns a random route
-        MSRoute *getRndRoute() const
-        {
+        MSRoute *getRndRoute() const {
             return myRouteDist.get();
         }
 
         /// Returns a list of all available routes
-        const std::vector<MSRoute*> &getAllRoutes() const
-        {
+        const std::vector<MSRoute*> &getAllRoutes() const {
             return myRouteDist.getVals();
         }
 
         /// Returns a random type
-        MSVehicleType *getRndVType() const
-        {
+        MSVehicleType *getRndVType() const {
             return myVTypeDist.get();
         }
 
         /// Returns the information whether any route is stored
-        bool hasRoutes() const
-        {
+        bool hasRoutes() const {
             return myRouteDist.getOverallProb()!=0;
         }
 
         /// Returns the information whether any vehicle type is stored
-        bool hasVTypes() const
-        {
+        bool hasVTypes() const {
             return myVTypeDist.getOverallProb()!=0;
         }
 
         /// Returns the time offset till the next vehicle emission for a given flow
-        SUMOReal computeOffset(SUMOReal flow) const
-        {
+        SUMOReal computeOffset(SUMOReal flow) const {
             SUMOReal freq = (SUMOReal)(1. / (flow / 3600.));
             SUMOReal ret = freq;
             myTimeOffset += (freq - (SUMOTime) ret);
@@ -135,8 +127,7 @@ public:
         }
 
         /// Returns the routes probability
-        RandomDistributor<MSRoute*> &getRouteDist()
-        {
+        RandomDistributor<MSRoute*> &getRouteDist() {
             return myRouteDist;
         }
 

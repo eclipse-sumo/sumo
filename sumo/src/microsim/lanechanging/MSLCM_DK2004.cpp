@@ -423,7 +423,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
                  : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     lv += myVehicle.getLength() * (SUMOReal) 2.;
 
-    
+
     SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos * (SUMOReal) JAM_FACTOR2;
     /*
     if(bestLaneOffset>0) {

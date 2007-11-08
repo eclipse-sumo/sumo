@@ -118,8 +118,7 @@ class GUILaneSpeedTriggerPopupMenu : public GUIGLObjectPopupMenu
         long onCmdOpenManip(FXObject*,FXSelector,void*);
 
     protected:
-        GUILaneSpeedTriggerPopupMenu()
-        { }
+        GUILaneSpeedTriggerPopupMenu() { }
 
     };
 
@@ -168,8 +167,7 @@ class GUIManip_LaneSpeedTrigger : public GUIManipulator
         GUILaneSpeedTrigger *myObject;
 
     protected:
-        GUIManip_LaneSpeedTrigger()
-        { }
+        GUIManip_LaneSpeedTrigger() { }
 
     };
 

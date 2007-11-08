@@ -51,20 +51,16 @@ public:
             :
             mySource(source),
             myOperation(operation),
-            myParam(param)
-    {}
+            myParam(param) {}
 
     /// Destructor.
-    ~FuncBinding_StringParam()
-    {}
+    ~FuncBinding_StringParam() {}
 
-    R getValue() const
-    {
+    R getValue() const {
         return (mySource->*myOperation)(myParam);
     }
 
-    ValueSource<R> *copy() const
-    {
+    ValueSource<R> *copy() const {
         return new FuncBinding_StringParam<T, R>(
                    mySource, myOperation, myParam);
     }

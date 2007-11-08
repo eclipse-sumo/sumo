@@ -49,8 +49,7 @@ class RODFDetector;
  * @struct DFRORouteDesc
  * @brief A route within the DFROUTER
  */
-struct DFRORouteDesc
-{
+struct DFRORouteDesc {
     std::vector<ROEdge*> edges2Pass;
     std::string routename;
     SUMOReal duration_2;

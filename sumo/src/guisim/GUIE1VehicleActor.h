@@ -71,7 +71,7 @@ public:
     ~GUIE1VehicleActor();
 
     /// @name inherited from GUIGlObject
-    //@{ 
+    //@{
     /// Returns an own popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent);
@@ -89,7 +89,7 @@ public:
 
 
     /// @name inherited from GUIAbstractAddGlObject
-    //@{ 
+    //@{
     /// Draws the detector in full-geometry mode
     void drawGL(SUMOReal scale, SUMOReal upscale);
 
@@ -117,8 +117,7 @@ class GUIE1VehicleActorPopupMenu : public GUIGLObjectPopupMenu
         long onCmdOpenManip(FXObject*,FXSelector,void*);
 
     protected:
-        GUIE1VehicleActorPopupMenu()
-        { }
+        GUIE1VehicleActorPopupMenu() { }
 
     };
     /*

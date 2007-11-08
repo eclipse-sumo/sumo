@@ -72,8 +72,7 @@ public:
 
     /** @brief does nothing
         Implementation of MSJunction */
-    bool setAllowed()
-    {
+    bool setAllowed() {
         return true;
     };
 

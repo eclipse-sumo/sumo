@@ -55,16 +55,13 @@ public:
                               D param)
             : myHasOperation(hasOperation), myNumberOperation(numberOperation),
             myNoColor(no), myMinColor(minColor), myMaxColor(maxColor),
-            myMin(min), myMax(max), myParameter(param)
-    {
+            myMin(min), myMax(max), myParameter(param) {
         myScale = (SUMOReal) 1.0 / (myMax-myMin);
     }
 
-    virtual ~GUIColorer_ByDeviceNumber()
-    { }
+    virtual ~GUIColorer_ByDeviceNumber() { }
 
-    void setGlColor(const T& i) const
-    {
+    void setGlColor(const T& i) const {
         if (!(i.*myHasOperation)((D) myParameter)) {
             if (myCatchNo) {
                 glColor3d(myNoColor.red(), myNoColor.green(), myNoColor.blue());
@@ -85,21 +82,17 @@ public:
         }
     }
 
-    void setGlColor(SUMOReal val) const
-    {
+    void setGlColor(SUMOReal val) const {
         glColor3d(1, 1, 0);
     }
 
-    virtual ColorSetType getSetType() const
-    {
+    virtual ColorSetType getSetType() const {
         return CST_STATIC;
     }
 
-    virtual void resetColor(const RGBColor &min)
-    {}
+    virtual void resetColor(const RGBColor &min) {}
 
-    virtual const RGBColor &getSingleColor() const
-    {
+    virtual const RGBColor &getSingleColor() const {
         throw 1;
     }
 

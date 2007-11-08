@@ -53,12 +53,12 @@
  *
  * This container stores options (typed value containers) by their names.
  * In the case of command line tools, this container is the main interface
- *  between a user's definitions about what to do (command line options, 
+ *  between a user's definitions about what to do (command line options,
  *  configuration files) and the application.
  *
- * At the begin, the application should initialise the container. Because 
+ * At the begin, the application should initialise the container. Because
  *  the OptionsCont is also responsible for printing the help screen, one
- *  should name and describe the application, first. This means that the 
+ *  should name and describe the application, first. This means that the
  *  first usage of this container should look similar to this:
  * @code
  * OptionsCont &oc = OptionsCont::getOptions();
@@ -77,12 +77,12 @@
  *  A subtopic is added using addOptionSubTopic(<SUBTOPIC_NAME>).
  * @see addOptionSubTopic
  *
- * After this, you may add options to the container. This is done using 
+ * After this, you may add options to the container. This is done using
  *  doRegister. This method requires a long name for the option and
  *  the value container. The value container must be an instance of
  *  one of the classes derived from "Option". Do not use Option itself!
- *  This is a base class which is meant to supply a default behaviour, 
- *  but this default behaviour throws exceptions only! 
+ *  This is a base class which is meant to supply a default behaviour,
+ *  but this default behaviour throws exceptions only!
  * @see Option
  * @see doRegister
  * @see addSynonyme
@@ -117,7 +117,7 @@ public:
     ~OptionsCont() throw();
 
 
-    /** @brief Adds an option under the given name 
+    /** @brief Adds an option under the given name
      * @param[in] name The (long) name of the option
      * @param[in] v The option (typed value storage)
      * @exception InvalidArgument If the name is already used
@@ -125,10 +125,10 @@ public:
     void doRegister(const std::string &name, Option *v) throw(InvalidArgument);
 
 
-    /** @brief Adds an option under the given name and the given abbreviation 
+    /** @brief Adds an option under the given name and the given abbreviation
      *
      * Adds the option under both names using void doRegister(const std::string &name, Option *v);
-     * 
+     *
      * @param[in] name The (long) name of the option
      * @param[in] abbr The (short) name of the option
      * @param[in] v The option (typed value storage)
@@ -137,7 +137,7 @@ public:
     void doRegister(const std::string &name, char abbr, Option *v) throw(InvalidArgument);
 
 
-    /** @brief Adds a synonyme for an options name (any order) 
+    /** @brief Adds a synonyme for an options name (any order)
      *
      * Tries to find one of the synonymes. If both are known and the option differs
      *  for both, an InvalidArgument exception is thrown. If none is known, also.
@@ -150,29 +150,29 @@ public:
      *
      * @param[in] name1 The first synonyme
      * @param[in] name2 The second synonyme
-     * @exception InvalidArgument If none of the synonymes or both synonymes with different options were registered before 
+     * @exception InvalidArgument If none of the synonymes or both synonymes with different options were registered before
      */
     void addSynonyme(const std::string &name1, const std::string &name2) throw(InvalidArgument);
 
 
-    /** @brief Adds a description for an option 
+    /** @brief Adds a description for an option
      *
      * Tries to retrieve the named option and to set the given description. Adds
      *  the name to the list of option names to be located in the named subtopic.
      *
-     * Throws an InvalidArgument if the option is not known or already has 
+     * Throws an InvalidArgument if the option is not known or already has
      *  a description set.
-     * 
+     *
      * @param[in] name The option's name
      * @param[in] subtopic The subtopic to locate the description within
      * @param[in] description The description
-     * @exception InvalidArgument If none of the synonymes or both synonymes with different options were registered before 
+     * @exception InvalidArgument If none of the synonymes or both synonymes with different options were registered before
      */
     void addDescription(const std::string &name, const std::string &subtopic,
                         const std::string &description) throw(InvalidArgument);
 
 
-    /** @brief Returns the information whether the named option is known 
+    /** @brief Returns the information whether the named option is known
      * @return true if an option has been added before under the given name, false otherwise
      */
     bool exists(const std::string &name) const throw();
@@ -194,14 +194,14 @@ public:
     bool isSet(const std::string &name) const throw(InvalidArgument);
 
 
-    /** @brief Returns the information whether the named option has still the default value 
+    /** @brief Returns the information whether the named option has still the default value
      *
      * The named option is tried to be retrieved from the container. If
      *  it does not exist, an InvalidArgument is thrown. If it could be
      *  retrieved, the information whether the option still has the default
      *  value is returned.
      *
-     * An option "is default" if no value has been set from the command line 
+     * An option "is default" if no value has been set from the command line
      *  / the configuration file.
      *
      * @return true if the option still has the default value
@@ -210,7 +210,7 @@ public:
     bool isDefault(const std::string &name) const throw(InvalidArgument);
 
 
-    /** @brief Returns the string-value of the named option (only for Option_String) 
+    /** @brief Returns the string-value of the named option (only for Option_String)
      *
      */
     std::string getString(const std::string &name) const throw(InvalidArgument);
@@ -356,12 +356,10 @@ private:
     {
     public:
         /** constructor */
-        explicit abbreviation_finder()
-        { }
+        explicit abbreviation_finder() { }
 
         /** the comparing function */
-        bool operator()(const std::string &s)
-        {
+        bool operator()(const std::string &s) {
             return s.length()==1;
         }
     };

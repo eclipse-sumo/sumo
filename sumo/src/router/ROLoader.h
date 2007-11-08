@@ -216,8 +216,7 @@ class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloa
          * struct SuppWeights
          * @brief A set of all three possible supplementary values of an edge
          */
-        struct SuppWeights
-        {
+        struct SuppWeights {
             /// The absolute time line
             FloatValueTimeLine *absolute;
             /// The additive time line

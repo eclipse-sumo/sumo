@@ -121,16 +121,13 @@ private:
         PhaseDefinition(size_t durationArg, std::bitset<64> driveMaskArg,
                         std::bitset<64> brakeMaskArg, std::bitset<64> yellowMaskArg)
                 : duration(durationArg), driveMask(driveMaskArg),
-                brakeMask(brakeMaskArg), yellowMask(yellowMaskArg)
-        { }
+                brakeMask(brakeMaskArg), yellowMask(yellowMaskArg) { }
 
         /// Destructor
-        ~PhaseDefinition()
-        { }
+        ~PhaseDefinition() { }
 
         /// Comparison operator
-        bool operator!=(const PhaseDefinition &pd) const
-        {
+        bool operator!=(const PhaseDefinition &pd) const {
             return pd.duration != duration ||
                    pd.driveMask != driveMask ||
                    pd.brakeMask != brakeMask ||

@@ -106,7 +106,7 @@ void OptionsLoader::characters(const XMLCh* const chars,
                 }
             } else {
                 if (myOptions.isFileName(myItem)) {
-				    StringTokenizer st(value, ";,", true);
+                    StringTokenizer st(value, ";,", true);
                     string conv;
                     while (st.hasNext()) {
                         if (conv.length()!=0) {

@@ -47,12 +47,10 @@ class LineHandler
 {
 public:
     /// constructor
-    LineHandler()
-    { }
+    LineHandler() { }
 
     /// virtual destructor
-    virtual ~LineHandler()
-    { }
+    virtual ~LineHandler() { }
 
     /** real virtual interface method (to LineReader)
         retrieves lines from a file */

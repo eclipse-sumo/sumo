@@ -40,7 +40,7 @@
 /**
  * @class ROVehicleByDepartureComperator
  * @brief A function for sorting vehicles by their departure time
- * 
+ *
  * In the case two vehicles have the same departure time, they are sorted
  *  lexically.
  */
@@ -48,12 +48,10 @@ class ROVehicleByDepartureComperator : public std::less<ROVehicle*>
 {
 public:
     /// @brief Constructor
-    explicit ROVehicleByDepartureComperator()
-    { }
+    explicit ROVehicleByDepartureComperator() { }
 
     /// @brief Destructor
-    ~ROVehicleByDepartureComperator()
-    { }
+    ~ROVehicleByDepartureComperator() { }
 
     /** @brief Comparing operator
      *
@@ -66,9 +64,8 @@ public:
      * @return Whether the first vehicle departs later than the second
      * @todo Check whether both vehicles can be const
      */
-    bool operator()(ROVehicle *veh1, ROVehicle *veh2) const
-    {
-        if(veh1->getDepartureTime()==veh2->getDepartureTime()) {
+    bool operator()(ROVehicle *veh1, ROVehicle *veh2) const {
+        if (veh1->getDepartureTime()==veh2->getDepartureTime()) {
             return veh1->getID()>veh2->getID();
         }
         return veh1->getDepartureTime()>veh2->getDepartureTime();

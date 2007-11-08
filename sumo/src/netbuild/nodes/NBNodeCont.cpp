@@ -585,11 +585,11 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                     MIN2(cont->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), false, true)) {
 
                 throw ProcessError("Could not set connection!");
-                
+
             }
             if (!pot_ramp->addLane2LaneConnections(0, cont, 0, pot_ramp->getNoLanes(), false, true)) {
                 throw ProcessError("Could not set connection!");
-                
+
             }
             //
             cont->invalidateConnections(true);
@@ -617,7 +617,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                            oc.getFloat("ramp-guess.ramp-length")));
         if (!insert(rn)) {
             throw ProcessError("Ups - could not build on-ramp for edge '" + pot_highway->getID() + "' (node could not be build)!");
-            
+
         }
         string name = cont->getID();
         bool ok = ec.splitAt(dc, cont, rn,
@@ -634,7 +634,7 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
                 int off = added_ramp->getNoLanes()-added->getNoLanes();
                 if (!added_ramp->addLane2LaneConnections(off, added, 0, added->getNoLanes(), false, true)) {
                     throw ProcessError("Could not set connection!");
-                    
+
                 }
                 if (added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                     Position2DVector g = added_ramp->getGeometry();
@@ -647,18 +647,18 @@ NBNodeCont::buildOnRamp(OptionsCont &oc, NBNode *cur,
             } else {
                 if (!added_ramp->addLane2LaneConnections(0, added, 0, added_ramp->getNoLanes(), false, true)) {
                     throw ProcessError("Could not set connection!");
-                    
+
                 }
             }
             if (!pot_highway->addLane2LaneConnections(0, added_ramp, pot_ramp->getNoLanes(),
                     MIN2(added_ramp->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), false, false)) {
 
                 throw ProcessError("Could not set connection!");
-                
+
             }
             if (!pot_ramp->addLane2LaneConnections(0, added_ramp, 0, pot_ramp->getNoLanes(), false, true)) {
                 throw ProcessError("Could not set connection!");
-                
+
             }
             Position2DVector p = pot_ramp->getGeometry();
             p.pop_back();
@@ -703,11 +703,11 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                                                MIN2(prev->getNoLanes()-1, pot_highway->getNoLanes()), false, true)) {
 
                 throw ProcessError("Could not set connection!");
-                
+
             }
             if (!prev->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNoLanes(), false, false)) {
                 throw ProcessError("Could not set connection!");
-                
+
             }
             if (prev->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                 Position2DVector g = prev->getGeometry();
@@ -726,7 +726,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
         NBNode *rn = new NBNode(prev->getID() + "-AddedOffRampNode", pos);
         if (!insert(rn)) {
             throw ProcessError("Ups - could not build off-ramp for edge '" + pot_highway->getID() + "' (node could not be build)!");
-            
+
         }
         string name = prev->getID();
         bool ok = ec.splitAt(dc, prev, rn,
@@ -743,7 +743,7 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
                 int off = added_ramp->getNoLanes()-added->getNoLanes();
                 if (!added->addLane2LaneConnections(0, added_ramp, off, added->getNoLanes(), false, true)) {
                     throw ProcessError("Could not set connection!");
-                    
+
                 }
                 if (added_ramp->getLaneSpreadFunction()==NBEdge::LANESPREAD_CENTER) {
                     Position2DVector g = added_ramp->getGeometry();
@@ -756,18 +756,18 @@ NBNodeCont::buildOffRamp(OptionsCont &oc, NBNode *cur,
             } else {
                 if (!added->addLane2LaneConnections(0, added_ramp, 0, added_ramp->getNoLanes(), false, true)) {
                     throw ProcessError("Could not set connection!");
-                    
+
                 }
             }
             if (!added_ramp->addLane2LaneConnections(pot_ramp->getNoLanes(), pot_highway, 0,
                     MIN2(added_ramp->getNoLanes()-pot_ramp->getNoLanes(), pot_highway->getNoLanes()), false, true)) {
 
                 throw ProcessError("Could not set connection!");
-                
+
             }
             if (!added_ramp->addLane2LaneConnections(0, pot_ramp, 0, pot_ramp->getNoLanes(), false, false)) {
                 throw ProcessError("Could not set connection!");
-                
+
             }
             Position2DVector p = pot_ramp->getGeometry();
             p.pop_front();
@@ -909,7 +909,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
                 new NBNode(inc_highway->getID() + "-AddedAntiObscureNode", p);
             if (!insert(rn)) {
                 throw ProcessError("Ups - could not build anti-obscure node '" + inc_highway->getID() + "'!");
-                
+
             }
             string name = inc_highway->getID();
             bool ok = ec.splitAt(dc, inc_highway, rn,
@@ -917,7 +917,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
                                  inc_highway->getNoLanes(), inc_highway->getNoLanes());
             if (!ok) {
                 throw ProcessError("Ups - could not build anti-obscure edge '" + inc_highway->getID() + "'!");
-                
+
             } else {
                 NBEdge *added_cont = ec.retrieve(name+"-AddedInBetweenEdge");
                 NBEdge *added = ec.retrieve(name);
@@ -967,7 +967,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
             NBNode *n = NBNodeCont::retrieve(name);
             if (n==0) {
                 throw ProcessError(" The node '" + name + "' to set as not-controlled is not known.");
-                
+
             }
             ncontrolled.push_back(n);
         }
@@ -1051,16 +1051,16 @@ NBNodeCont::setAsTLControlled(const std::string &name,
 bool
 NBNodeCont::savePlain(const std::string &file)
 {
-        OutputDevice& device = OutputDevice::getDevice(file);
-        device.writeXMLHeader("nodes");
-        device.setPrecision(10);
-        for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-            NBNode *n = (*i).second;
-            device << "   <node id=\"" << n->getID() << "\" ";
-            device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>\n";
-        }
-        device.close();
-        return true;
+    OutputDevice& device = OutputDevice::getDevice(file);
+    device.writeXMLHeader("nodes");
+    device.setPrecision(10);
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        NBNode *n = (*i).second;
+        device << "   <node id=\"" << n->getID() << "\" ";
+        device << "x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>\n";
+    }
+    device.close();
+    return true;
 }
 
 bool

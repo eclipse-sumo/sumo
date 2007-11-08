@@ -42,7 +42,7 @@
 /**
  * @class MSPhaseDefinition
  *
- * The definition of a single phase 
+ * The definition of a single phase
  */
 class MSPhaseDefinition
 {
@@ -58,35 +58,30 @@ public:
                       const std::bitset<64> &breakMaskArg,
                       const std::bitset<64> &yellowMaskArg)
             : duration(durationArg), myLastSwitch(0), driveMask(driveMaskArg),
-            breakMask(breakMaskArg), yellowMask(yellowMaskArg)
-    {
+            breakMask(breakMaskArg), yellowMask(yellowMaskArg) {
         myLastSwitch = OptionsCont::getOptions().getInt("begin");
     }
 
     /// destructor
-    virtual ~MSPhaseDefinition()
-    { }
+    virtual ~MSPhaseDefinition() { }
 
-    const std::bitset<64> &getDriveMask() const
-    {
+    const std::bitset<64> &getDriveMask() const {
         return driveMask;
     }
 
-    const std::bitset<64> &getBreakMask() const
-    {
+    const std::bitset<64> &getBreakMask() const {
         return breakMask;
     }
 
-    const std::bitset<64> &getYellowMask() const
-    {
+    const std::bitset<64> &getYellowMask() const {
         return yellowMask;
     }
 
     MSLink::LinkState getLinkState(size_t pos) const {
-        if(driveMask.test(pos)) {
+        if (driveMask.test(pos)) {
             return MSLink::LINKSTATE_TL_GREEN;
         }
-        if(yellowMask.test(pos)) {
+        if (yellowMask.test(pos)) {
             return MSLink::LINKSTATE_TL_YELLOW;
         }
         return MSLink::LINKSTATE_TL_RED;

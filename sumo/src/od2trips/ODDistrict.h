@@ -52,9 +52,9 @@ class ODDistrict : public Named
 {
 public:
     /** @brief Constructor
-	 *
-	 * @param[in] id The id of the district
-	 */
+     *
+     * @param[in] id The id of the district
+     */
     ODDistrict(const std::string &id) throw();
 
 
@@ -66,65 +66,65 @@ public:
      *
      * A source is an edge where vehicles leave the district from to reach
      *  the network. The weight is used when a random source shall be
-	 *  chosen.
-	 *
-	 * BTW, it is possible to add a source twice. In this case it will occure
-	 *  twice within the distribution so that the behaviour is as adding
-	 *  both given probabilities.
-	 *
-	 * @param[in] id The id of the source
-	 * @param[in] weight The weight (probability to be chosen) of the source
-	 */
+     *  chosen.
+     *
+     * BTW, it is possible to add a source twice. In this case it will occure
+     *  twice within the distribution so that the behaviour is as adding
+     *  both given probabilities.
+     *
+     * @param[in] id The id of the source
+     * @param[in] weight The weight (probability to be chosen) of the source
+     */
     void addSource(const std::string &id, SUMOReal weight) throw();
 
 
     /** @brief Adds a sink connection
      *
      * A sink connection is an edge which is used by vehicles to leave the
-     *  network and reach the district.  The weight is used when a random 
-	 *  sink shall be chosen.
-	 *
-	 * BTW, it is possible to add a sink twice. In this case it will occure
-	 *  twice within the distribution so that the behaviour is as adding
-	 *  both given probabilities.
-	 *
-	 * @param[in] id The id of the sink
-	 * @param[in] weight The weight (probability to be chosen) of the sink
-	 */
+     *  network and reach the district.  The weight is used when a random
+     *  sink shall be chosen.
+     *
+     * BTW, it is possible to add a sink twice. In this case it will occure
+     *  twice within the distribution so that the behaviour is as adding
+     *  both given probabilities.
+     *
+     * @param[in] id The id of the sink
+     * @param[in] weight The weight (probability to be chosen) of the sink
+     */
     void addSink(const std::string &id, SUMOReal weight) throw();
 
 
     /** @brief Returns the id of a source to use
-	 *
-	 * If the list of this district's sources is empty, an OutOfBoundsException
-	 *  -exception is thrown.
-	 *
-	 * @return One of this district's sources chosen randomly regarding their weights
-	 * @exception OutOfBoundsException If this district has no sources
-	 */
+     *
+     * If the list of this district's sources is empty, an OutOfBoundsException
+     *  -exception is thrown.
+     *
+     * @return One of this district's sources chosen randomly regarding their weights
+     * @exception OutOfBoundsException If this district has no sources
+     */
     std::string getRandomSource() const throw(OutOfBoundsException);
 
 
     /** @brief Returns the id of a sink to use
-	 *
-	 * If the list of this district's sinks is empty, an OutOfBoundsException
-	 *  -exception is thrown.
-	 *
-	 * @return One of this district's sinks chosen randomly regarding their weights
-	 * @exception OutOfBoundsException If this district has no sinks
-	 */
+     *
+     * If the list of this district's sinks is empty, an OutOfBoundsException
+     *  -exception is thrown.
+     *
+     * @return One of this district's sinks chosen randomly regarding their weights
+     * @exception OutOfBoundsException If this district has no sinks
+     */
     std::string getRandomSink() const throw(OutOfBoundsException);
 
 
-    /** @brief Returns the number of sinks 
-     * 
+    /** @brief Returns the number of sinks
+     *
      * @return The number of known sinks
      */
     unsigned int sinkNumber() const;
 
 
-    /** @brief Returns the number of sources 
-     * 
+    /** @brief Returns the number of sources
+     *
      * @return The number of known sources
      */
     unsigned int sourceNumber() const;

@@ -59,8 +59,7 @@ private:
     bool myAmInitialised;
 
 protected:
-    MFXCheckableButton()
-    { }
+    MFXCheckableButton() { }
 };
 
 

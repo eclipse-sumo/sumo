@@ -86,36 +86,36 @@ ROJTREdge::addFollowerProbability(ROJTREdge *follower, SUMOTime begTime,
 ROJTREdge *
 ROJTREdge::chooseNext(const ROVehicle * const veh, SUMOTime time) const
 {
-	// if no usable follower exist, return 0
-	//  their probabilities are not yet regarded
-    if (myFollowingEdges.size()==0 || (veh!=0 && allFollowersProhibit(veh)) ) {
+    // if no usable follower exist, return 0
+    //  their probabilities are not yet regarded
+    if (myFollowingEdges.size()==0 || (veh!=0 && allFollowersProhibit(veh))) {
         return 0;
     }
-	// gather information about the probabilities at this time
-	RandomDistributor<ROJTREdge*> dist;
-	{
-		// use the loaded definitions, first
-	    FollowerUsageCont::const_iterator i;
-		for (i=myFollowingDefs.begin(); i!=myFollowingDefs.end(); i++) {
-			if ((veh==0 || !(*i).first->prohibits(veh)) && (*i).second->describesTime(time)) {
-				dist.add((*i).second->getValue(time), (*i).first);
-			}
-		}
-	}
-	// if no loaded definitions are valid for this time, try to use the defaults
-	if(dist.getOverallProb()==0) {
-		for(size_t i=0; i<myParsedTurnings.size(); ++i) {
-			if (veh==0 || !myFollowingEdges[i]->prohibits(veh)) {
-				dist.add(myParsedTurnings[i], static_cast<ROJTREdge*>(myFollowingEdges[i]));
-			}
-		}
-	}
-	// if still no valid follower exists, return null
-	if(dist.getOverallProb()==0) {
-		return 0;
-	}
-	// return one of the possible followers
-	return dist.get();
+    // gather information about the probabilities at this time
+    RandomDistributor<ROJTREdge*> dist;
+    {
+        // use the loaded definitions, first
+        FollowerUsageCont::const_iterator i;
+        for (i=myFollowingDefs.begin(); i!=myFollowingDefs.end(); i++) {
+            if ((veh==0 || !(*i).first->prohibits(veh)) && (*i).second->describesTime(time)) {
+                dist.add((*i).second->getValue(time), (*i).first);
+            }
+        }
+    }
+    // if no loaded definitions are valid for this time, try to use the defaults
+    if (dist.getOverallProb()==0) {
+        for (size_t i=0; i<myParsedTurnings.size(); ++i) {
+            if (veh==0 || !myFollowingEdges[i]->prohibits(veh)) {
+                dist.add(myParsedTurnings[i], static_cast<ROJTREdge*>(myFollowingEdges[i]));
+            }
+        }
+    }
+    // if still no valid follower exists, return null
+    if (dist.getOverallProb()==0) {
+        return 0;
+    }
+    // return one of the possible followers
+    return dist.get();
 }
 
 

@@ -42,12 +42,9 @@
 class AbstractPoly
 {
 public:
-    AbstractPoly()
-    { }
-    AbstractPoly(const AbstractPoly &)
-    { }
-    virtual ~AbstractPoly()
-    { }
+    AbstractPoly() { }
+    AbstractPoly(const AbstractPoly &) { }
+    virtual ~AbstractPoly() { }
     virtual bool around(const Position2D &p, SUMOReal offset=0) const = 0;
     virtual bool overlapsWith(const AbstractPoly &poly, SUMOReal offset=0) const = 0;
     virtual bool partialWithin(const AbstractPoly &poly, SUMOReal offset=0) const = 0;

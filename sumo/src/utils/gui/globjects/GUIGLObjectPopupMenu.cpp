@@ -54,21 +54,20 @@ using namespace std;
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[]=
-    {
-        FXMAPFUNC(SEL_COMMAND,  MID_CENTER,         GUIGLObjectPopupMenu::onCmdCenter),
-        FXMAPFUNC(SEL_COMMAND,  MID_COPY_NAME,       GUIGLObjectPopupMenu::onCmdCopyName),
-        FXMAPFUNC(SEL_COMMAND,  MID_COPY_TYPED_NAME, GUIGLObjectPopupMenu::onCmdCopyTypedName),
-        FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,       GUIGLObjectPopupMenu::onCmdShowPars),
-        FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,      GUIGLObjectPopupMenu::onCmdAddSelected),
-        FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT_SUCC, GUIGLObjectPopupMenu::onCmdAddSuccessorsSelected),
-        FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,   GUIGLObjectPopupMenu::onCmdRemoveSelected),
-        FXMAPFUNC(SEL_COMMAND,  MID_RENAME,         GUIGLObjectPopupMenu::onCmdRename),
-        FXMAPFUNC(SEL_COMMAND,  MID_MOVETO,         GUIGLObjectPopupMenu::onCmdMoveTo),
-        FXMAPFUNC(SEL_COMMAND,  MID_CHANGECOL,      GUIGLObjectPopupMenu::onCmdChangeCol),
-        FXMAPFUNC(SEL_COMMAND,  MID_CHANGETYPE,     GUIGLObjectPopupMenu::onCmdChangeTyp),
-        FXMAPFUNC(SEL_COMMAND,  MID_DELETE,         GUIGLObjectPopupMenu::onCmdDelete)
-    };
+FXDEFMAP(GUIGLObjectPopupMenu) GUIGLObjectPopupMenuMap[]= {
+    FXMAPFUNC(SEL_COMMAND,  MID_CENTER,         GUIGLObjectPopupMenu::onCmdCenter),
+    FXMAPFUNC(SEL_COMMAND,  MID_COPY_NAME,       GUIGLObjectPopupMenu::onCmdCopyName),
+    FXMAPFUNC(SEL_COMMAND,  MID_COPY_TYPED_NAME, GUIGLObjectPopupMenu::onCmdCopyTypedName),
+    FXMAPFUNC(SEL_COMMAND,  MID_SHOWPARS,       GUIGLObjectPopupMenu::onCmdShowPars),
+    FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT,      GUIGLObjectPopupMenu::onCmdAddSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_ADDSELECT_SUCC, GUIGLObjectPopupMenu::onCmdAddSuccessorsSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_REMOVESELECT,   GUIGLObjectPopupMenu::onCmdRemoveSelected),
+    FXMAPFUNC(SEL_COMMAND,  MID_RENAME,         GUIGLObjectPopupMenu::onCmdRename),
+    FXMAPFUNC(SEL_COMMAND,  MID_MOVETO,         GUIGLObjectPopupMenu::onCmdMoveTo),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHANGECOL,      GUIGLObjectPopupMenu::onCmdChangeCol),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHANGETYPE,     GUIGLObjectPopupMenu::onCmdChangeTyp),
+    FXMAPFUNC(SEL_COMMAND,  MID_DELETE,         GUIGLObjectPopupMenu::onCmdDelete)
+};
 
 // Object implementation
 FXIMPLEMENT(GUIGLObjectPopupMenu, FXMenuPane, GUIGLObjectPopupMenuMap, ARRAYNUMBER(GUIGLObjectPopupMenuMap))

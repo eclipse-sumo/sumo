@@ -48,8 +48,7 @@ class GUIEvent_Message : public GUIEvent
 public:
     /// constructor
     GUIEvent_Message(MsgHandler::MsgType type, const std::string &msg)
-            : GUIEvent(EVENT_MESSAGE_OCCURED), myMsg(msg)
-    {
+            : GUIEvent(EVENT_MESSAGE_OCCURED), myMsg(msg) {
         switch (type) {
         case MsgHandler::MT_MESSAGE:
             myType = EVENT_MESSAGE_OCCURED;
@@ -66,12 +65,10 @@ public:
     }
 
     /// destructor
-    ~GUIEvent_Message()
-{ }
+    ~GUIEvent_Message() { }
 
     /// Returns the message
-    const std::string &getMsg() const
-    {
+    const std::string &getMsg() const {
         return myMsg;
     }
 

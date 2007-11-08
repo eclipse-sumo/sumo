@@ -44,9 +44,9 @@ class OptionsCont;
  * @class OptionsParser
  * @brief Parses command line arguments
  *
- * The only public method parses the given list of arguments. It returns false 
- *  when something failed. This may happen if the syntax of the arguments is 
- *  invalid, a value is tried to be set several times or an unknown option 
+ * The only public method parses the given list of arguments. It returns false
+ *  when something failed. This may happen if the syntax of the arguments is
+ *  invalid, a value is tried to be set several times or an unknown option
  *  is tried to be set.
  *
  * The class assumes all options are unset or using default values only.
@@ -54,7 +54,7 @@ class OptionsCont;
 class OptionsParser
 {
 public:
-    /** @brief Parses the given command line arguments 
+    /** @brief Parses the given command line arguments
      *
      * @param[in] oc The options container to fill
      * @param[in] argc The number of given command line arguments

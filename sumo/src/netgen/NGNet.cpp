@@ -87,8 +87,8 @@ NGNet::getNextFreeID() throw()
 NGNode*
 NGNet::findNode(int xID, int yID) throw()
 {
-    for(NGNodeList::iterator ni = myNodeList.begin(); ni!= myNodeList.end(); ++ni) {
-        if((*ni)->samePos(xID, yID)) {
+    for (NGNodeList::iterator ni = myNodeList.begin(); ni!= myNodeList.end(); ++ni) {
+        if ((*ni)->samePos(xID, yID)) {
             return *ni;
         }
     }
@@ -148,7 +148,7 @@ NGNet::createSpiderWeb(int numRadDiv, int numCircles, SUMOReal spaceRad, bool ha
         for (ic=1; ic<numCircles+1; ic++) {
             // create Node
             Node = new NGNode(
-                       toString<int>(ir) + "/" + toString<int>(ic), ir, ic);
+                toString<int>(ir) + "/" + toString<int>(ic), ir, ic);
             Node->setX(radialToX((ic) * spaceRad, (ir-1) * angle));
             Node->setY(radialToY((ic) * spaceRad, (ir-1) * angle));
             myNodeList.push_back(Node);

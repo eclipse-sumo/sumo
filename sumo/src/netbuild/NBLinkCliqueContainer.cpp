@@ -112,8 +112,7 @@ NBLinkCliqueContainer::computePhases(NBLinkPossibilityMatrix *,
         if (vorhanden==needed) {
             if (minSize==INT_MAX || // nothing was appended, yet
                     !appendSmallestOnly || // everything shall be appended
-                    (usedCliques.size()<=minSize+1))  // is (one of) the smallest
-            {
+                    (usedCliques.size()<=minSize+1)) { // is (one of) the smallest
                 ret->add(usedCliques);
                 if (minSize>usedCliques.size()) {
                     minSize = usedCliques.size();

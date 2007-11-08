@@ -52,16 +52,13 @@ public:
     /// Constructor
     MsgRetrievingFunction(T* object, Operation operation) :
             myObject(object),
-            myOperation(operation)
-    {}
+            myOperation(operation) {}
 
     /// Destructor.
-    ~MsgRetrievingFunction()
-    {}
+    ~MsgRetrievingFunction() {}
 
     /// Called to inform the object about a new message
-    void inform(const std::string &msg)
-    {
+    void inform(const std::string &msg) {
         (myObject->*myOperation)(msg);
     }
 

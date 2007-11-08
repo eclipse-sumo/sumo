@@ -56,11 +56,9 @@ public:
 
 protected:
 
-    MSObserverPassesObserved(void)
-    {}
+    MSObserverPassesObserved(void) {}
 
-    virtual ~MSObserverPassesObserved(void)
-    {}
+    virtual ~MSObserverPassesObserved(void) {}
 
 private:
 
@@ -83,11 +81,9 @@ public:
 
 protected:
 
-    MSObserver(void)
-    {};
+    MSObserver(void) {};
 
-    virtual ~MSObserver(void)
-    {}
+    virtual ~MSObserver(void) {}
 
 private:
 

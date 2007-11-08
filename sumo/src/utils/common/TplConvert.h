@@ -51,8 +51,7 @@ public:
     // conversion methods without a length
     /** converts a 0-terminated char-type array into std::string
         throws an EmptyData - exception if the given string is empty */
-    static std::string _2str(const E * const data)
-    {
+    static std::string _2str(const E * const data) {
         return _2str(data, getLength(data));
     }
 
@@ -62,8 +61,7 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain an integer */
-    static int _2int(const E * const data)
-    {
+    static int _2int(const E * const data) {
         return _2int(data, INT_MAX);
     }
 
@@ -73,8 +71,7 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a long */
-    static long _2long(const E * const data)
-    {
+    static long _2long(const E * const data) {
         return _2long(data, INT_MAX);
     }
 
@@ -84,8 +81,7 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string
             does not contain a SUMOReal */
-    static SUMOReal _2SUMOReal(const E * const data)
-    {
+    static SUMOReal _2SUMOReal(const E * const data) {
         return _2SUMOReal(data, INT_MAX);
     }
 
@@ -95,8 +91,7 @@ public:
         returns true when the first char is one of the following: '1',
             'x', 't', 'T'
         throws an EmptyData - exception if the given string is empty */
-    static bool _2bool(const E * const data)
-    {
+    static bool _2bool(const E * const data) {
         return _2bool(data, 1);
     }
 
@@ -104,8 +99,7 @@ public:
     /** converts a 0-terminated char-type array into a 0-terminated
             0-terminated c-char-string
         throws an EmptyData - exception if the given string is empty */
-    static char *_2charp(const E * const data)
-    {
+    static char *_2charp(const E * const data) {
         return _2charp(data, getLength(data));
     }
 
@@ -114,8 +108,7 @@ public:
     /** converts a char-type array into std::string considering the given
             length
         throws an EmptyData - exception if the given string is empty */
-    static std::string _2str(const E * const data, int length)
-    {
+    static std::string _2str(const E * const data, int length) {
         if (data==0) {
             throw EmptyData();
         }
@@ -139,8 +132,7 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain an integer */
-    static int _2int(const E * const data, int length)
-    {
+    static int _2int(const E * const data, int length) {
         if (data==0||length==0||data[0]==0) {
             throw EmptyData();
         }
@@ -174,8 +166,7 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a long */
-    static long _2long(const E * const data, int length)
-    {
+    static long _2long(const E * const data, int length) {
         if (data==0||length==0||data[0]==0) {
             throw EmptyData();
         }
@@ -209,8 +200,7 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a SUMOReal */
-    static SUMOReal _2SUMOReal(const E * const data, int length)
-    {
+    static SUMOReal _2SUMOReal(const E * const data, int length) {
         if (data==0||length==0||data[0]==0) {
             throw EmptyData();
         }
@@ -283,16 +273,15 @@ public:
         returns true when the first char is one of the following: '1',
             'x', 't', 'T'
         throws an EmptyData - exception if the given string is empty */
-    static bool _2bool(const E * const data, int length)
-    {
+    static bool _2bool(const E * const data, int length) {
         if (data==0||length==0||data[0]==0) {
             throw EmptyData();
         }
         char akt = (char) data[0];
-        if(akt=='1' || akt=='x' || akt=='t' || akt=='T') {
+        if (akt=='1' || akt=='x' || akt=='t' || akt=='T') {
             return true;
         }
-        if(akt=='0' || akt=='-' || akt=='f' || akt=='F') {
+        if (akt=='0' || akt=='-' || akt=='f' || akt=='F') {
             return false;
         }
         throw BoolFormatException();
@@ -302,8 +291,7 @@ public:
     /** converts a char-type array into a 0-terminated 0-terminated
             c-char-string considering the given length
         throws an EmptyData - exception if the given string is empty */
-    static char *_2charp(const E * const data, int length)
-    {
+    static char *_2charp(const E * const data, int length) {
         if (length==0||data==0) {
             throw EmptyData();
         }
@@ -318,8 +306,7 @@ public:
 
 
     /** duplicates the given string */
-    static E *duplicate(const E * const s)
-    {
+    static E *duplicate(const E * const s) {
         int i=0;
         for (;s[i]!=0; i++);
         char *ret = new E[i+1];
@@ -332,8 +319,7 @@ public:
 
 
     /** returns the length of the string (the position of the 0-character) */
-    static size_t getLength(const E * const data)
-    {
+    static size_t getLength(const E * const data) {
         if (data==0) {
             return 0;
         }

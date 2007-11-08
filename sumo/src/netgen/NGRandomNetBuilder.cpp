@@ -78,12 +78,12 @@ TNeighbourDistribution::num() throw()
 // ---------------------------------------------------------------------------
 // NGRandomNetBuilder-definitions
 // ---------------------------------------------------------------------------
-NGRandomNetBuilder::NGRandomNetBuilder(NGNet &net, SUMOReal minAngle, SUMOReal minDistance, 
-                         SUMOReal maxDistance, SUMOReal connectivity,
-                         int numTries, const TNeighbourDistribution &neighborDist) throw()
-    : myNet(net), myMinLinkAngle(minAngle), myMinDistance(minDistance),
-    myMaxDistance(maxDistance), myConnectivity(connectivity), myNumTries(numTries),
-    myNeighbourDistribution(neighborDist)
+NGRandomNetBuilder::NGRandomNetBuilder(NGNet &net, SUMOReal minAngle, SUMOReal minDistance,
+                                       SUMOReal maxDistance, SUMOReal connectivity,
+                                       int numTries, const TNeighbourDistribution &neighborDist) throw()
+        : myNet(net), myMinLinkAngle(minAngle), myMinDistance(minDistance),
+        myMaxDistance(maxDistance), myConnectivity(connectivity), myNumTries(numTries),
+        myNeighbourDistribution(neighborDist)
 {
 }
 
@@ -91,8 +91,8 @@ NGRandomNetBuilder::NGRandomNetBuilder(NGNet &net, SUMOReal minAngle, SUMOReal m
 void
 NGRandomNetBuilder::removeOuterNode(NGNode *node) throw()
 {
-    for(NGNodeList::iterator ni=myOuterNodes.begin(); ni!=myOuterNodes.end(); ++ni) {
-        if(*ni==node) {
+    for (NGNodeList::iterator ni=myOuterNodes.begin(); ni!=myOuterNodes.end(); ++ni) {
+        if (*ni==node) {
             myOuterNodes.erase(ni);
             return;
         }
@@ -196,7 +196,7 @@ NGRandomNetBuilder::findPossibleOuterNodes(NGNode *node) throw()
         NGNode *on=*ni;
         if (!node->connected(on)) {
             if ((node->getMaxNeighbours() > node->LinkList.size()) &&
-                ((on)->getMaxNeighbours() > (on)->LinkList.size())) {
+                    ((on)->getMaxNeighbours() > (on)->LinkList.size())) {
                 if (canConnect(node, on)) {
                     myConNodes.push_back(on);
                 }

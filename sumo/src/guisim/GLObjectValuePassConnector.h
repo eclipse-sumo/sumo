@@ -55,16 +55,13 @@ public:
     GLObjectValuePassConnector(GUIGlObject &o,
                                ValueSource<T> *source,
                                ValueRetriever<T> *retriever)
-            : myObject(o), mySource(source), myRetriever(retriever)
-    { }
+            : myObject(o), mySource(source), myRetriever(retriever) { }
 
-    virtual ~GLObjectValuePassConnector()
-    {
+    virtual ~GLObjectValuePassConnector() {
         delete mySource;
     }
 
-    virtual bool updateEachTimestep(void)
-    {
+    virtual bool updateEachTimestep(void) {
         if (!myObject.active()) {
             return false;
         }

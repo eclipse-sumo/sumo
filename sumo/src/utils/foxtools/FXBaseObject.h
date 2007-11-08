@@ -130,74 +130,62 @@ public:
     FXApp* getApp();
 
     /// get the target
-    FXObject* getTarget()
-    {
+    FXObject* getTarget() {
         return target;
     }
 
     /// set the target
-    void setTarget(FXObject* tgt)
-    {
+    void setTarget(FXObject* tgt) {
         target=tgt;
     }
 
     /// get the message
-    FXSelector getSelector()
-    {
+    FXSelector getSelector() {
         return message;
     }
 
     /// set the selector
-    void setSelector(FXSelector sel)
-    {
+    void setSelector(FXSelector sel) {
         message=sel;
     }
 
     /// get user data
-    void* getUserData()
-    {
+    void* getUserData() {
         return data;
     }
 
     /// set user data
-    void setUserData(void *d)
-    {
+    void setUserData(void *d) {
         data=d;
     }
 
     /// get user daat length
-    FXuint getUserDataLen()
-    {
+    FXuint getUserDataLen() {
         return datalen;
     }
 
     /// set the user data length
-    void setUserDataLen(FXuint len)
-    {
+    void setUserDataLen(FXuint len) {
         datalen=len;
     }
 
     /// are we enabled?
-    FXbool isEnabled()
-    {
+    FXbool isEnabled() {
         return (flags&FLAG_ENABLED)!=0;
     }
 
     /// enable us
-    virtual void enable()
-    {
+    virtual void enable() {
         flags|=FLAG_ENABLED;
     }
 
     /// disable us
-    virtual void disable()
-    {
+    virtual void disable() {
         flags&=~FLAG_ENABLED;
     }
 
     /// are we modifiable
-    virtual FXbool isReadonly()
-    {
+    virtual FXbool isReadonly() {
         return (flags&FLAG_READONLY)!=0;
     }
 
@@ -205,16 +193,13 @@ public:
     virtual void setReadonly(FXbool mode=TRUE);
 
     /// create resource
-    virtual void create()
-    {}
+    virtual void create() {}
 
     /// detach resource
-    virtual void detach()
-    {}
+    virtual void detach() {}
 
     /// destroy resource
-    virtual void destroy()
-    {}
+    virtual void destroy() {}
 
     /// save object to stream
     virtual void save(FXStream& store) const;

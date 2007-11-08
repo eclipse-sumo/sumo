@@ -50,8 +50,7 @@ class MSCrossSection
 public:
     MSCrossSection(MSLane* lane, SUMOReal pos)
             : laneM(lane)
-            , posM(pos)
-    {}
+            , posM(pos) {}
 
     MSLane* laneM;
     SUMOReal posM;

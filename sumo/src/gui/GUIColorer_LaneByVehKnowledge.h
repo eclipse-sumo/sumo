@@ -53,14 +53,11 @@ template<class T>
 class GUIColorer_LaneByVehKnowledge : public GUIBaseColorer<T>
 {
 public:
-    GUIColorer_LaneByVehKnowledge(GUISUMOAbstractView *parent) : myParent(parent)
-    { }
+    GUIColorer_LaneByVehKnowledge(GUISUMOAbstractView *parent) : myParent(parent) { }
 
-    virtual ~GUIColorer_LaneByVehKnowledge()
-    { }
+    virtual ~GUIColorer_LaneByVehKnowledge() { }
 
-    void setGlColor(const T& i) const
-    {
+    void setGlColor(const T& i) const {
         int id = myParent->getTrackedID();
         if (id>0) {
             GUIVehicle *o = static_cast<GUIVehicle*>(gIDStorage.getObjectBlocking(id));
@@ -79,13 +76,11 @@ public:
         return;
     }
 
-    void setGlColor(SUMOReal val) const
-    {
+    void setGlColor(SUMOReal val) const {
         glColor3d(val, val, val);
     }
 
-    virtual ColorSetType getSetType() const
-    {
+    virtual ColorSetType getSetType() const {
         return CST_STATIC; // !!! (should be "set")
     }
 

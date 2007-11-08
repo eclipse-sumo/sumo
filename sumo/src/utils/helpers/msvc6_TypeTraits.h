@@ -69,8 +69,7 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-struct IsCustomUnsignedInt
-{
+struct IsCustomUnsignedInt {
     enum { value = 0 };
 };
 
@@ -87,8 +86,7 @@ struct IsCustomUnsignedInt
 ////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-struct IsCustomSignedInt
-{
+struct IsCustomSignedInt {
     enum { value = 0 };
 };
 
@@ -104,16 +102,14 @@ struct IsCustomSignedInt
 ////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-struct IsCustomFloat
-{
+struct IsCustomFloat {
     enum { value = 0 };
 };
 
 ////////////////////////////////////////////////////////////////////////////////
 // Helper types for class template TypeTraits defined below
 ////////////////////////////////////////////////////////////////////////////////
-namespace Private
-{
+namespace Private {
 typedef TYPELIST_4(unsigned char, unsigned short int,
                    unsigned int, unsigned long int) StdUnsignedInts;
 typedef TYPELIST_4(signed char, short int,
@@ -174,41 +170,32 @@ typedef TYPELIST_3(float, double, long double) StdFloats;
 // u) TypeTraits<T>::UnqualifiedType
 // removes both the 'const' and 'volatile' qualifiers from T, if any
 ////////////////////////////////////////////////////////////////////////////////
-namespace Private
-{
+namespace Private {
 // const-detection based on boost's
 // Type-Traits. See: boost\type_traits\is_const.hpp
 YES IsConstTester(const volatile void*);
 NO IsConstTester(volatile void *);
 
 template <bool is_ref, bool array>
-struct IsConstImpl
-{
-    template <class T> struct In
-    {
+struct IsConstImpl {
+    template <class T> struct In {
         enum {value=0};
     };
 };
 template <>
-struct IsConstImpl<false,false>
-{
-    template <typename T> struct In
-    {
+struct IsConstImpl<false,false> {
+    template <typename T> struct In {
         static T* t;
-        enum
-        {
+        enum {
             value = sizeof(YES) == sizeof(IsConstTester(t))
         };
     };
 };
 template <>
-struct IsConstImpl<false,true>
-{
-    template <typename T> struct In
-    {
+struct IsConstImpl<false,true> {
+    template <typename T> struct In {
         static T t;
-        enum
-        {
+        enum {
             value = sizeof(YES) == sizeof(IsConstTester(&t))
         };
     };
@@ -220,61 +207,48 @@ YES IsVolatileTester(void const volatile*);
 NO IsVolatileTester(void const*);
 
 template <bool is_ref, bool array>
-struct IsVolatileImpl
-{
-    template <typename T> struct In
-    {
+struct IsVolatileImpl {
+    template <typename T> struct In {
         enum {value = 0};
     };
 };
 
 template <>
-struct IsVolatileImpl<false,false>
-{
-    template <typename T> struct In
-    {
+struct IsVolatileImpl<false,false> {
+    template <typename T> struct In {
         static T* t;
-        enum
-        {
+        enum {
             value = sizeof(YES) == sizeof(IsVolatileTester(t))
         };
     };
 };
 
 template <>
-struct IsVolatileImpl<false,true>
-{
-    template <typename T> struct In
-    {
+struct IsVolatileImpl<false,true> {
+    template <typename T> struct In {
         static T t;
-        enum
-        {
+        enum {
             value = sizeof(YES) == sizeof(IsVolatileTester(&t))
         };
     };
 };
 
 template<bool IsRef>
-struct AdjReference
-{
+struct AdjReference {
     template<typename U>
-    struct In
-    {
+    struct In {
         typedef U const & Result;
     };
 };
 
 template<>
-struct AdjReference<true>
-{
+struct AdjReference<true> {
     template<typename U>
-    struct In
-    {
+    struct In {
         typedef U Result;
     };
 };
-struct PointerHelper
-{
+struct PointerHelper {
     PointerHelper(const volatile void*);
 };
 
@@ -346,11 +320,14 @@ class TypeTraits
 public:
     enum { isVoid = Private::IsVoid<T>::value};
     enum { isStdUnsignedInt =
-               TL::IndexOf<Private::StdUnsignedInts, T>::value >= 0 };
+               TL::IndexOf<Private::StdUnsignedInts, T>::value >= 0
+         };
     enum { isStdSignedInt =
-               TL::IndexOf<Private::StdSignedInts, T>::value >= 0 };
+               TL::IndexOf<Private::StdSignedInts, T>::value >= 0
+         };
     enum { isStdIntegral = isStdUnsignedInt || isStdSignedInt ||
-                           TL::IndexOf<Private::StdOtherInts, T>::value >= 0 };
+                           TL::IndexOf<Private::StdOtherInts, T>::value >= 0
+         };
     enum { isStdFloat = TL::IndexOf<Private::StdFloats, T>::value >= 0 };
     enum { isStdArith = isStdIntegral || isStdFloat };
     enum { isStdFundamental = isStdArith || isStdFloat || isVoid };
@@ -384,19 +361,16 @@ private:
     typedef typename Private::AdjReference<isReference || isVoid>::
     template In<T>::Result AdjType;
 
-    struct is_scalar
-    {
+    struct is_scalar {
 private:
-        struct BoolConvert
-        {
+        struct BoolConvert {
             BoolConvert(bool);
         };
 
         static Private::YES check(BoolConvert);
         static Private::NO check(...);
 
-        struct NotScalar
-            {};
+        struct NotScalar {};
 
         typedef typename Select
         <
@@ -409,8 +383,7 @@ private:
         static RetType& get();
 
 public:
-        enum
-        {
+        enum {
             value = sizeof(check(get())) == sizeof(Private::YES)
         };
 
@@ -419,8 +392,7 @@ public:
     ; // is_scalar
 
 public:
-    enum
-    {
+    enum {
         isScalar = is_scalar::value
     };
     typedef typename Select
@@ -438,16 +410,14 @@ private:
     >::Result TestType;
     static TestType MakeT();
 
-    enum
-    {
+    enum {
         isMemberPointerTemp = sizeof(Private::YES)
-                              == sizeof(Private::IsPointer2Member(MakeT()))
+        == sizeof(Private::IsPointer2Member(MakeT()))
     };
 public:
-    enum
-    {
+    enum {
         isPointer = sizeof(Private::YES)
-                    == sizeof(Private::IsPointer(MakeT()))
+        == sizeof(Private::IsPointer(MakeT()))
     };
 private:
     typedef typename Loki::Select
@@ -463,28 +433,24 @@ public:
     // template <class T>
     // YES EnumDetection(...);
     // will only be selected for enums.
-    enum
-    {
+    enum {
         isEnum = sizeof(Private::YES)
-                 == sizeof(Private::EnumDetection<TestType>(0))
+        == sizeof(Private::EnumDetection<TestType>(0))
     };
 
-    enum
-    {
+    enum {
         isMemberFunctionPointer =	isScalar && !isArith && !isPointer &&
-                                  !isMemberPointerTemp && !isEnum
+        !isMemberPointerTemp && !isEnum
     };
-    enum
-    {
+    enum {
         isMemberPointer = isMemberPointerTemp || isMemberFunctionPointer
     };
 
-    enum
-    {
+    enum {
         isFunctionPointer = sizeof(Private::YES)
-                            == sizeof(
-                                Private::IsFunctionPtrTester1(MayBeFuncPtr(0))
-                            ) && !isMemberPointer
+        == sizeof(
+            Private::IsFunctionPtrTester1(MayBeFuncPtr(0))
+        ) && !isMemberPointer
     };
     //
     // We get is_class for free
@@ -492,14 +458,13 @@ public:
     // (but works for other incomplete types)
     // (the boost one (Paul Mensonides) is better)
     //
-    enum
-    {
+    enum {
         isClass =
-            !isScalar    &&
-            !isArray     &&
-            !isReference &&
-            !isVoid		 &&
-            !isEnum
+        !isScalar    &&
+        !isArray     &&
+        !isReference &&
+        !isVoid		 &&
+        !isEnum
     };
 };
 

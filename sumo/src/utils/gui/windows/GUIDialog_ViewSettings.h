@@ -156,8 +156,7 @@ private:
 
 protected:
     /// default constructor (needed by FOX)
-    GUIDialog_ViewSettings()
-    { }
+    GUIDialog_ViewSettings() { }
 
 };
 

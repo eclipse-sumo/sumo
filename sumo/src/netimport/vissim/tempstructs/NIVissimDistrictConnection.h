@@ -60,14 +60,12 @@ public:
     Position2D geomPosition() const;
 
     /// Returns the id of the connection
-    int getID() const
-    {
+    int getID() const {
         return myID;
     }
 
     /// Returns the position of the connection at the edge
-    SUMOReal getPosition() const
-    {
+    SUMOReal getPosition() const {
         return myPosition;
     }
 

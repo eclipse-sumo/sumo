@@ -98,8 +98,8 @@ MSDetectorControl::findInductLoop(const std::string &id)
 
 void
 MSDetectorControl::add(MSInductLoop *il,
-                           OutputDevice& device,
-                           int splInterval)
+                       OutputDevice& device,
+                       int splInterval)
 {
     // insert object into dictionary
     if (! myLoops.add(il->getID(), il)) {
@@ -113,8 +113,8 @@ MSDetectorControl::add(MSInductLoop *il,
 
 void
 MSDetectorControl::add(MSE2Collector *e2,
-                           OutputDevice& device,
-                           int splInterval)
+                       OutputDevice& device,
+                       int splInterval)
 {
     // insert object into dictionary
     if (! myE2Detectors.add(e2->getID(), e2)) {
@@ -127,8 +127,8 @@ MSDetectorControl::add(MSE2Collector *e2,
 
 void
 MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol,
-                           OutputDevice& device,
-                           int splInterval)
+                       OutputDevice& device,
+                       int splInterval)
 {
     // insert object into dictionary
     if (! myE2OverLanesDetectors.add(e2ol->getID(), e2ol)) {
@@ -163,8 +163,8 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol)
 
 void
 MSDetectorControl::add(MSE3Collector *e3,
-                           OutputDevice& device,
-                           int splInterval)
+                       OutputDevice& device,
+                       int splInterval)
 {
     // insert object into dictionary
     if (! myE3Detectors.add(e3->getID(), e3)) {
@@ -178,8 +178,8 @@ MSDetectorControl::add(MSE3Collector *e3,
 #ifdef HAVE_MESOSIM
 void
 MSDetectorControl::add(MEInductLoop *meil,
-                           OutputDevice& device,
-                           int splInterval)
+                       OutputDevice& device,
+                       int splInterval)
 {
     // insert object into dictionary
     if (! myMesoLoops.add(meil->getID(), meil)) {

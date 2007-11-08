@@ -56,7 +56,7 @@ ROJTRRouter::ROJTRRouter(RONet &net, bool unbuildIsWarningOnly,
     myMaxEdges = (int)(
                      ((SUMOReal) net.getEdgeNo()) *
                      OptionsCont::getOptions().getFloat("max-edges-factor"));
-	myIgnoreClasses = OptionsCont::getOptions().getBool("ignore-classes");
+    myIgnoreClasses = OptionsCont::getOptions().getBool("ignore-classes");
 }
 
 
@@ -79,8 +79,8 @@ ROJTRRouter::compute(const ROEdge *from, const ROEdge * /*to*/,
 
         into.push_back(current);
         time += (SUMOTime) current->getDuration(vehicle, time);
-		current = current->chooseNext(myIgnoreClasses ? 0 : vehicle, time);
-		assert(myIgnoreClasses||current==0||!current->prohibits(vehicle));
+        current = current->chooseNext(myIgnoreClasses ? 0 : vehicle, time);
+        assert(myIgnoreClasses||current==0||!current->prohibits(vehicle));
     }
     // check whether no valid ending edge was found
     if ((int) into.size()>=myMaxEdges) {

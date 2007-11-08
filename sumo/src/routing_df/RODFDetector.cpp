@@ -57,7 +57,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 RODFDetector::RODFDetector(const std::string &Id, const std::string &laneId,
-                       SUMOReal pos, const RORODFDetectorType type)
+                           SUMOReal pos, const RORODFDetectorType type)
         : myID(Id), myLaneID(laneId), myPosition(pos), myType(type), myRoutes(0)
 {}
 
@@ -99,11 +99,11 @@ RODFDetector::computeDistanceFactor(const DFRORouteDesc &rd) const
 }
 
 
-SUMOReal 
+SUMOReal
 RODFDetector::getUsage(const RODFDetectorCon &detectors,DFRORouteDesc*route, DFRORouteCont::RoutesMap *curr,
-                     SUMOTime time, const RODFDetectorFlows &flows) const
+                       SUMOTime time, const RODFDetectorFlows &flows) const
 {
-    if(curr->splitMap.size()==0) {
+    if (curr->splitMap.size()==0) {
         // ok, reached end
         return 1;
     }
@@ -111,59 +111,59 @@ RODFDetector::getUsage(const RODFDetectorCon &detectors,DFRORouteDesc*route, DFR
     SUMOReal allProb = 0;
     SUMOReal cProb = 0;
     DFRORouteCont::RoutesMap *next = 0;
-    for(std::map<ROEdge*, DFRORouteCont::RoutesMap*>::const_iterator i=curr->splitMap.begin(); i!=curr->splitMap.end(); ++i) {
+    for (std::map<ROEdge*, DFRORouteCont::RoutesMap*>::const_iterator i=curr->splitMap.begin(); i!=curr->splitMap.end(); ++i) {
         SUMOReal tprob = (SUMOReal) detectors.getAggFlowFor((*i).second->lastDetectorEdge, time, 30*60, flows);
-        if(find(route->edges2Pass.begin(), route->edges2Pass.end(), (*i).first)!=route->edges2Pass.end()) {
+        if (find(route->edges2Pass.begin(), route->edges2Pass.end(), (*i).first)!=route->edges2Pass.end()) {
             cProb += tprob;
             next = (*i).second;
         }
         allProb += tprob;
     }
-    if(cProb==0) {
+    if (cProb==0) {
         return 0;
     }
     return cProb * getUsage(detectors, route, next, time, flows);
-/*
-    std::vector<ROEdge*>::iterator j1, j2;
-    j1 = route->edges2Pass.begin();
-    j2 = curr->common.begin();
-    while(curr->splitMap.size()!=0) {
-        while(j2!=curr->common.end()) {//*j1==*j2) {
-            ++j1;
-            ++j2;
-            /
-            if(j1==route->edges2Pass.end()||j2==curr->common.end()) {
-                cout << "Ups!" << endl;
+    /*
+        std::vector<ROEdge*>::iterator j1, j2;
+        j1 = route->edges2Pass.begin();
+        j2 = curr->common.begin();
+        while(curr->splitMap.size()!=0) {
+            while(j2!=curr->common.end()) {//*j1==*j2) {
+                ++j1;
+                ++j2;
+                /
+                if(j1==route->edges2Pass.end()||j2==curr->common.end()) {
+                    cout << "Ups!" << endl;
+                    return prob;
+                }
+                /
+            }
+            DFRORouteCont::RoutesMap *next = curr->splitMap.find(*j1)->second;
+            // patch probability
+            SUMOReal allProb = 0;
+            SUMOReal cProb = 0;
+            for(std::map<ROEdge*, DFRORouteCont::RoutesMap*>::const_iterator i=curr->splitMap.begin(); i!=curr->splitMap.end(); ++i) {
+                    SUMOReal tprob = (SUMOReal) detectors.getAggFlowFor((*i).first, time, 30*60, flows);
+                    if((*i).first==*next->common.begin()) {
+                        cProb += tprob;
+                    }
+                    allProb += tprob;
+            }
+            if(cProb==0) {
+                return 0;
+            }
+            if(next->splitMap.size()==0) {
+                // ok, last entry found
                 return prob;
             }
-            /
+            curr = next;
+            j2 = curr->common.begin();
+            prob *= (cProb / allProb);
         }
-        DFRORouteCont::RoutesMap *next = curr->splitMap.find(*j1)->second;
-        // patch probability
-        SUMOReal allProb = 0;
-        SUMOReal cProb = 0;
-        for(std::map<ROEdge*, DFRORouteCont::RoutesMap*>::const_iterator i=curr->splitMap.begin(); i!=curr->splitMap.end(); ++i) {
-                SUMOReal tprob = (SUMOReal) detectors.getAggFlowFor((*i).first, time, 30*60, flows);
-                if((*i).first==*next->common.begin()) {
-                    cProb += tprob;
-                }
-                allProb += tprob;
-        }
-        if(cProb==0) {
-            return 0;
-        }
-        if(next->splitMap.size()==0) {
-            // ok, last entry found
-            return prob;
-        }
-        curr = next;
-        j2 = curr->common.begin();
-        prob *= (cProb / allProb);
-    }
-    // ok, not found!?
-    cout << "Not found!" << endl;
-    return 0;
-    */
+        // ok, not found!?
+        cout << "Not found!" << endl;
+        return 0;
+        */
 }
 
 
@@ -203,44 +203,44 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
     }
 
     delete routeMap;
-/*
-    std::vector<DFRORouteDesc*>::const_iterator ri;
-    const std::vector<DFRORouteDesc*> &descs = myRoutes->get();
-    const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
-    const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
-    // iterate through time (in output interval steps)
-    int time;
-    for (time=startTime; time<endTime; time+=stepOffset) {
-        into[time] = new RandomDistributor<size_t>();
-        // iterate through the routes
-        size_t index = 0;
-        for (ri=descs.begin(); ri!=descs.end(); ++ri, index++) {
-            DFRORouteDesc *rd = *ri;
-            SUMOReal lastProb = 1;
-            ROEdge *lastDetEdge = *rd->edges2Pass.begin();
-            for (vector<ROEdge*>::const_iterator q=rd->edges2Pass.begin(); lastProb!=0&&q!=rd->edges2Pass.end(); ++q) {
-                if ((*q)->getNoFollowing()>1&&q!=rd->edges2Pass.end()-1) {
-                    // ok, we have a split; check probability for each of the successors
-                    map<ROEdge*, SUMOReal> probs;
-                    SUMOReal allProbs = 0;
-                    for (size_t i=0; i<(*q)->getNoFollowing(); ++i) {
-                        ROEdge *ne = (*q)->getFollower(i);
-                        SUMOReal prob = getUsage(ne, rd->edges2Pass.end(), q, detectors, flows, time, net, maxFollower, 0);
-                        probs[ne] = prob;
-                        allProbs += prob;
-                    }
-                    if (allProbs!=0) {
-                        lastProb *= (probs[*(q+1)] / allProbs);
-                    } else {
-                        lastProb = 0;
+    /*
+        std::vector<DFRORouteDesc*>::const_iterator ri;
+        const std::vector<DFRORouteDesc*> &descs = myRoutes->get();
+        const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
+        const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
+        // iterate through time (in output interval steps)
+        int time;
+        for (time=startTime; time<endTime; time+=stepOffset) {
+            into[time] = new RandomDistributor<size_t>();
+            // iterate through the routes
+            size_t index = 0;
+            for (ri=descs.begin(); ri!=descs.end(); ++ri, index++) {
+                DFRORouteDesc *rd = *ri;
+                SUMOReal lastProb = 1;
+                ROEdge *lastDetEdge = *rd->edges2Pass.begin();
+                for (vector<ROEdge*>::const_iterator q=rd->edges2Pass.begin(); lastProb!=0&&q!=rd->edges2Pass.end(); ++q) {
+                    if ((*q)->getNoFollowing()>1&&q!=rd->edges2Pass.end()-1) {
+                        // ok, we have a split; check probability for each of the successors
+                        map<ROEdge*, SUMOReal> probs;
+                        SUMOReal allProbs = 0;
+                        for (size_t i=0; i<(*q)->getNoFollowing(); ++i) {
+                            ROEdge *ne = (*q)->getFollower(i);
+                            SUMOReal prob = getUsage(ne, rd->edges2Pass.end(), q, detectors, flows, time, net, maxFollower, 0);
+                            probs[ne] = prob;
+                            allProbs += prob;
+                        }
+                        if (allProbs!=0) {
+                            lastProb *= (probs[*(q+1)] / allProbs);
+                        } else {
+                            lastProb = 0;
+                        }
                     }
                 }
+                into[time]->add(lastProb, index);
+                (*ri)->overallProb = lastProb;
             }
-            into[time]->add(lastProb, index);
-            (*ri)->overallProb = lastProb;
         }
-    }
-*/
+    */
     /*
     std::map<const ROEdge *, int> lastDetNo;
     for(ri=descs.begin(); ri!=descs.end(); ++ri) {
@@ -527,15 +527,15 @@ RODFDetector::getFollowerDetectors() const
 
 bool
 RODFDetector::writeEmitterDefinition(const std::string &file,
-                                   const RODFDetectorCon &detectors,
-                                   const RODFDetectorFlows &flows,
-                                   SUMOTime startTime, SUMOTime endTime,
-                                   SUMOTime stepOffset,
-                                   const RODFNet &net,
-                                   bool includeUnusedRoutes,
-                                   SUMOReal scale,
-                                   int maxFollower,
-                                   bool emissionsOnly) const
+                                     const RODFDetectorCon &detectors,
+                                     const RODFDetectorFlows &flows,
+                                     SUMOTime startTime, SUMOTime endTime,
+                                     SUMOTime stepOffset,
+                                     const RODFNet &net,
+                                     bool includeUnusedRoutes,
+                                     SUMOReal scale,
+                                     int maxFollower,
+                                     bool emissionsOnly) const
 {
     OutputDevice& out = OutputDevice::getDevice(file);
     if (getType()==SOURCE_DETECTOR) {
@@ -548,7 +548,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
         buildDestinationDistribution(detectors, flows, startTime, endTime, stepOffset, net, dists, maxFollower); // !!!
     }
     // routes
-    if(!emissionsOnly) {
+    if (!emissionsOnly) {
         if (myRoutes!=0&&myRoutes->get().size()!=0) {
             const std::vector<DFRORouteDesc*> &routes = myRoutes->get();
             std::vector<DFRORouteDesc*>::const_iterator i;
@@ -576,8 +576,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                     out << "   <routedistelem id=\"" << (*i)->routename << "\" probability=\"1\"/>\n"; // !!!
                 }
             }
-        }
-        else {
+        } else {
             MsgHandler::getErrorInstance()->inform("Detector '" + getID() + "' has no routes!?");
             return false;
         }
@@ -686,9 +685,9 @@ RODFDetector::writeRoutes(std::vector<std::string> &saved,
 
 void
 RODFDetector::writeSingleSpeedTrigger(const std::string &file,
-                                    const RODFDetectorFlows &flows,
-                                    SUMOTime startTime, SUMOTime endTime,
-                                    SUMOTime stepOffset)
+                                      const RODFDetectorFlows &flows,
+                                      SUMOTime startTime, SUMOTime endTime,
+                                      SUMOTime stepOffset)
 {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("vss");
@@ -873,14 +872,14 @@ RODFDetectorCon::isDetector( std::string id )
 
 void
 RODFDetectorCon::writeEmitters(const std::string &file,
-                             const RODFDetectorFlows &flows,
-                             SUMOTime startTime, SUMOTime endTime,
-                             SUMOTime stepOffset, const RODFNet &net,
-                             bool writeCalibrators,
-                             bool includeUnusedRoutes,
-                             SUMOReal scale,
-                             int maxFollower,
-                             bool emissionsOnly)
+                               const RODFDetectorFlows &flows,
+                               SUMOTime startTime, SUMOTime endTime,
+                               SUMOTime stepOffset, const RODFNet &net,
+                               bool writeCalibrators,
+                               bool includeUnusedRoutes,
+                               SUMOReal scale,
+                               int maxFollower,
+                               bool emissionsOnly)
 {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
@@ -926,9 +925,9 @@ RODFDetectorCon::writeEmitters(const std::string &file,
 
 void
 RODFDetectorCon::writeEmitterPOIs(const std::string &file,
-                                const RODFDetectorFlows &flows,
-                                SUMOTime startTime, SUMOTime endTime,
-                                SUMOTime stepOffset)
+                                  const RODFDetectorFlows &flows,
+                                  SUMOTime startTime, SUMOTime endTime,
+                                  SUMOTime stepOffset)
 {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
@@ -964,7 +963,7 @@ RODFDetectorCon::writeEmitterPOIs(const std::string &file,
 
 int
 RODFDetectorCon::getFlowFor(const ROEdge *edge, SUMOTime time,
-                          const RODFDetectorFlows &) const
+                            const RODFDetectorFlows &) const
 {
     SUMOReal stepOffset = 60; // !!!
     SUMOReal startTime = 0; // !!!
@@ -997,9 +996,9 @@ RODFDetectorCon::getFlowFor(const ROEdge *edge, SUMOTime time,
 
 int
 RODFDetectorCon::getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime period,
-                             const RODFDetectorFlows &) const
+                               const RODFDetectorFlows &) const
 {
-    if(edge==0) {
+    if (edge==0) {
         return 0;
     }
     SUMOReal stepOffset = 60; // !!!
@@ -1040,9 +1039,9 @@ RODFDetectorCon::getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime perio
 
 void
 RODFDetectorCon::writeSpeedTrigger(const std::string &file,
-                                 const RODFDetectorFlows &flows,
-                                 SUMOTime startTime, SUMOTime endTime,
-                                 SUMOTime stepOffset)
+                                   const RODFDetectorFlows &flows,
+                                   SUMOTime startTime, SUMOTime endTime,
+                                   SUMOTime stepOffset)
 {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
@@ -1084,8 +1083,8 @@ RODFDetectorCon::writeEndRerouterDetectors(const std::string &file)
 
 void
 RODFDetectorCon::writeValidationDetectors(const std::string &file,
-                                        bool includeSources,
-                                        bool singleFile, bool friendly)
+        bool includeSources,
+        bool singleFile, bool friendly)
 {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("additional");
@@ -1190,7 +1189,7 @@ RODFDetectorCon::guessEmptyFlows(RODFDetectorFlows &flows)
 
 void
 RODFDetectorCon::mesoJoin(const std::string &nid,
-                        const std::vector<std::string> &oldids)
+                          const std::vector<std::string> &oldids)
 {
     // build the new detector
     const RODFDetector &first = getDetector(*(oldids.begin()));

@@ -91,51 +91,51 @@ void
 NBTrafficLightLogic::writeXML(OutputDevice &into, size_t no, SUMOReal /*distance*/,
                               std::string type,
                               const std::set<string> &/*inLanes*/) const
-    {
-        into << "   <tl-logic type=\"" << type << "\">\n";
-        into << "      <key>" << myKey << "</key>\n";
-        into << "      <subkey>" << no << "</subkey>\n";
-        into << "      <phaseno>" << myPhases.size() << "</phaseno>\n";
-        int offset = getOffset();
-        into << "      <offset>" << offset << "</offset>\n";
-        // write the inlanes
-        /*
-        std::set<string>::const_iterator j;
-        into << "      <inclanes>";
-        //    bool first = true;
-        for(j=inLanes.begin(); j!=inLanes.end(); j++) {
-            if(j!=inLanes.begin()) {
-                into << " ";
-            }
-        //        first = false;
-            into << (*j);
+{
+    into << "   <tl-logic type=\"" << type << "\">\n";
+    into << "      <key>" << myKey << "</key>\n";
+    into << "      <subkey>" << no << "</subkey>\n";
+    into << "      <phaseno>" << myPhases.size() << "</phaseno>\n";
+    int offset = getOffset();
+    into << "      <offset>" << offset << "</offset>\n";
+    // write the inlanes
+    /*
+    std::set<string>::const_iterator j;
+    into << "      <inclanes>";
+    //    bool first = true;
+    for(j=inLanes.begin(); j!=inLanes.end(); j++) {
+        if(j!=inLanes.begin()) {
+            into << " ";
         }
-        into << "</inclanes>\n";
-        */
-        // write the phases
-        for (PhaseDefinitionVector::const_iterator i=myPhases.begin();
-                i!=myPhases.end(); i++) {
-            std::bitset<64> mask = (*i).driveMask;
-            stringstream tmp1;
-            tmp1 << mask;
-            into << "      <phase duration=\"" << (*i).duration
-            << "\" phase=\"" << tmp1.str().substr(64-myNoLinks) << "\"";
-            // by now, only the vehicles that are not allowed to drive are
-            //  breaking; later the right-arrow - rule should be concerned
-            stringstream tmp2;
-            mask = (*i).brakeMask;
-            tmp2 << mask;
-            into << " brake=\"" << tmp2.str().substr(64-myNoLinks) << "\"";
-            // write the information which link have a yellow light
-            stringstream tmp3;
-            mask = (*i).yellowMask;
-            tmp3 << mask;
-            into << " yellow=\"" << tmp3.str().substr(64-myNoLinks) << "\"";
-            // close phase information
-            into << "/>\n";
-        }
-        into << "   </tl-logic>\n\n";
+    //        first = false;
+        into << (*j);
     }
+    into << "</inclanes>\n";
+    */
+    // write the phases
+    for (PhaseDefinitionVector::const_iterator i=myPhases.begin();
+            i!=myPhases.end(); i++) {
+        std::bitset<64> mask = (*i).driveMask;
+        stringstream tmp1;
+        tmp1 << mask;
+        into << "      <phase duration=\"" << (*i).duration
+        << "\" phase=\"" << tmp1.str().substr(64-myNoLinks) << "\"";
+        // by now, only the vehicles that are not allowed to drive are
+        //  breaking; later the right-arrow - rule should be concerned
+        stringstream tmp2;
+        mask = (*i).brakeMask;
+        tmp2 << mask;
+        into << " brake=\"" << tmp2.str().substr(64-myNoLinks) << "\"";
+        // write the information which link have a yellow light
+        stringstream tmp3;
+        mask = (*i).yellowMask;
+        tmp3 << mask;
+        into << " yellow=\"" << tmp3.str().substr(64-myNoLinks) << "\"";
+        // close phase information
+        into << "/>\n";
+    }
+    into << "   </tl-logic>\n\n";
+}
 
 
 void

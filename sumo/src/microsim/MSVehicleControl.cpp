@@ -83,11 +83,11 @@ MSVehicleControl::~MSVehicleControl()
     }
     {
         vector<MSVehicleType*>::const_iterator i;
-        for(i=myObsoleteVehicleTypes.begin(); i!=myObsoleteVehicleTypes.end(); ++i) {
+        for (i=myObsoleteVehicleTypes.begin(); i!=myObsoleteVehicleTypes.end(); ++i) {
             delete *i;
         }
         const vector<MSVehicleType*> &vehs1 = myVehicleTypeDistribution.getVals();
-        for(i=vehs1.begin(); i!=vehs1.end(); ++i) {
+        for (i=vehs1.begin(); i!=vehs1.end(); ++i) {
             delete *i;
         }
     }
@@ -525,7 +525,7 @@ MSVehicleControl::addVType(MSVehicleType* vehType, SUMOReal prob)
     // if still the default type is used
     if (myHaveDefaultVTypeOnly) {
         // mark it as to be deleted
-        if(myVehicleTypeDistribution.getOverallProb()>0) {
+        if (myVehicleTypeDistribution.getOverallProb()>0) {
             myObsoleteVehicleTypes.push_back(myVehicleTypeDistribution.get());
         }
         // clear the distribution

@@ -88,8 +88,7 @@ public:
      *
      * @see MSLaneState
      */
-    static void create(SUMOTime maxIntervalInSeconds)
-    {
+    static void create(SUMOTime maxIntervalInSeconds) {
         assert(instanceM == 0);
         instanceM = new MSTravelcostDetector(maxIntervalInSeconds);
     }
@@ -102,8 +101,7 @@ public:
      * @see create()
      * @return A pointer to the sole instance of this class.
      */
-    static MSTravelcostDetector* getInstance(void)
-    {
+    static MSTravelcostDetector* getInstance(void) {
         if (instanceM == 0) {
             throw SingletonNotCreated();
         }
@@ -119,8 +117,7 @@ public:
      * your own Cost objects to a SingletonDictionary too.
      *
      */
-    ~MSTravelcostDetector(void)
-    {
+    ~MSTravelcostDetector(void) {
         instanceM = 0;
         // close files
         for (IntervalFileMapIt it = intervalsAndFilesM.begin();
@@ -138,8 +135,7 @@ public:
      *
      * @param intervalLength Length of the sample interval.
      */
-    void addSampleInterval(SUMOTime intervalInSeconds)
-    {
+    void addSampleInterval(SUMOTime intervalInSeconds) {
         SUMOTime intervalInSteps = MSNet::getSteps(intervalInSeconds);
         assert(maxIntervalInStepsM >= intervalInSteps);
         assert(intervalInSteps >= 1);
@@ -162,7 +158,7 @@ public:
         // add command to MSEventControl
         Command* writeData =
             new OneArgumentCommand< MSTravelcostDetector, int >
-            (this, &MSTravelcostDetector::write2file, intervalInSteps);
+        (this, &MSTravelcostDetector::write2file, intervalInSteps);
         MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
             writeData,
             intervalInSteps - 1,
@@ -179,8 +175,7 @@ public:
      * @return Length of the sample interval. This adds a new Event to
      * MSEventControl that is due in intervalLength timesteps.
      */
-    SUMOTime write2file(int intervalInSteps)
-    {
+    SUMOTime write2file(int intervalInSteps) {
         IntervalFileMapIt ifIt = intervalsAndFilesM.find(intervalInSteps);
         assert(ifIt != intervalsAndFilesM.end());
         std::ofstream& ofs = *(ifIt->second);
@@ -219,8 +214,7 @@ protected:
     MSTravelcostDetector(SUMOTime maxIntervalInSeconds) :
             intervalsAndFilesM(),
             edgeLaneCostsM(),
-            maxIntervalInStepsM(MSNet::getSteps(maxIntervalInSeconds))
-    {
+            maxIntervalInStepsM(MSNet::getSteps(maxIntervalInSeconds)) {
         // create EdgeLaneCostCont
         typedef std::vector< MSEdge* > Edges;
         typedef typename Edges::iterator EdgeIt;

@@ -125,8 +125,7 @@ class GUITrafficLightLogicWrapperPopupMenu : public GUIGLObjectPopupMenu
 
     protected:
         /// protected constructor for FOX
-        GUITrafficLightLogicWrapperPopupMenu()
-        { }
+        GUITrafficLightLogicWrapperPopupMenu() { }
 
     };
 

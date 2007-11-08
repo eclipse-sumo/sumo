@@ -55,7 +55,7 @@ using namespace std;
  * Option - methods
  * ----------------------------------------------------------------------- */
 Option::Option(bool set) throw()
-            : myAmSet(set), myHaveTheDefaultValue(true), myAmWritable(true)
+        : myAmSet(set), myHaveTheDefaultValue(true), myAmWritable(true)
 {}
 
 

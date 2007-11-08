@@ -34,11 +34,9 @@
 class AbstractMutex
 {
 public:
-    AbstractMutex()
-    { }
-    virtual ~AbstractMutex()
-    { }
-    virtual void lock () = 0;
+    AbstractMutex() { }
+    virtual ~AbstractMutex() { }
+    virtual void lock() = 0;
     virtual void unlock() = 0;
 
 };

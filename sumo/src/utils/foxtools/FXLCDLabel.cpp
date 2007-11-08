@@ -58,18 +58,18 @@ namespace FXEX
 {
 
 FXDEFMAP(FXLCDLabel) FXLCDLabelMap[]={
-                                         FXMAPFUNC(SEL_PAINT,0,FXLCDLabel::onPaint),
-                                         FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETVALUE,FXLCDLabel::onCmdSetValue),
-                                         FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETINTVALUE,FXLCDLabel::onCmdSetIntValue),
-                                         FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETREALVALUE,FXLCDLabel::onCmdSetRealValue),
-                                         FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETSTRINGVALUE,FXLCDLabel::onCmdSetStringValue),
-                                         FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETINTVALUE,FXLCDLabel::onCmdGetIntValue),
-                                         FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETREALVALUE,FXLCDLabel::onCmdGetRealValue),
-                                         FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETSTRINGVALUE,FXLCDLabel::onCmdGetStringValue),
-                                         //  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_TIP,FXLCDLabel::onQueryTip),
-                                         //  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_HELP,FXLCDLabel::onQueryHelp),
-                                         FXMAPKEY(FXLCDLabel::ID_SEVENSEGMENT,FXLCDLabel::onRedirectEvent),
-                                     };
+    FXMAPFUNC(SEL_PAINT,0,FXLCDLabel::onPaint),
+    FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETVALUE,FXLCDLabel::onCmdSetValue),
+    FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETINTVALUE,FXLCDLabel::onCmdSetIntValue),
+    FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETREALVALUE,FXLCDLabel::onCmdSetRealValue),
+    FXMAPFUNC(SEL_COMMAND,FXWindow::ID_SETSTRINGVALUE,FXLCDLabel::onCmdSetStringValue),
+    FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETINTVALUE,FXLCDLabel::onCmdGetIntValue),
+    FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETREALVALUE,FXLCDLabel::onCmdGetRealValue),
+    FXMAPFUNC(SEL_COMMAND,FXWindow::ID_GETSTRINGVALUE,FXLCDLabel::onCmdGetStringValue),
+    //  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_TIP,FXLCDLabel::onQueryTip),
+    //  FXMAPFUNC(SEL_UPDATE,FXWindow::ID_QUERY_HELP,FXLCDLabel::onQueryHelp),
+    FXMAPKEY(FXLCDLabel::ID_SEVENSEGMENT,FXLCDLabel::onRedirectEvent),
+};
 FXIMPLEMENT(FXLCDLabel,FXHorizontalFrame,FXLCDLabelMap,ARRAYNUMBER(FXLCDLabelMap))
 
 FXLCDLabel::FXLCDLabel(FXComposite* p,FXuint nfig,FXObject* tgt,FXSelector sel,FXuint opts,FXint pl,FXint pr,FXint pt,FXint pb,FXint hs) : FXHorizontalFrame(p,opts,0,0,0,0,pl,pr,pt,pb,hs,0)

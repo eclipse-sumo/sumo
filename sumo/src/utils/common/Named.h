@@ -44,16 +44,13 @@ class Named
 {
 public:
     /// Constructor
-    Named(const std::string &id) : myID(id)
-    { }
+    Named(const std::string &id) : myID(id) { }
 
     /// Destructor
-    virtual ~Named()
-    { }
+    virtual ~Named() { }
 
     /// Returns the name
-    const std::string &getID() const
-    {
+    const std::string &getID() const {
         return myID;
     }
 

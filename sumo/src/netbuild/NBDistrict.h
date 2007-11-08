@@ -54,13 +54,13 @@ class OutputDevice;
  * @class NBDistrict
  * @brief A class representing a single district
  *
- * A "district" is an area within the network which may be referenced by 
+ * A "district" is an area within the network which may be referenced by
  *  O/D-matrices. It stems from importing VISUM-networks. Work with VISUM-
- *  -networks also made it necessary that a district knows the edges at 
+ *  -networks also made it necessary that a district knows the edges at
  *  which new vehicles shall approach the simulated network (sources) and
  *  those to use when leaving the network (sinks). These connections to the
  *  network are weighted.
- *  
+ *
  * Later work on VISUM required also parsing the shape of a district. This
  *  information is used by some external tools only, it is even not shown
  *  within the GUI.
@@ -70,7 +70,7 @@ class OutputDevice;
 class NBDistrict : public Named
 {
 public:
-    /** @brief Constructor with id, and position 
+    /** @brief Constructor with id, and position
      *
      * @param[in] id The id of the district
      * @param[in] pos The position of the district
@@ -80,7 +80,7 @@ public:
 
     /** @brief Constructor without position
      *
-     * The position must be computed later 
+     * The position must be computed later
      *
      * @param[in] id The id of the district
      */
@@ -123,7 +123,7 @@ public:
 
     /** @brief Writes the sumo-xml-representation of this district into the given stream
      *
-     * The district writes itself into the stream in XML-format. 
+     * The district writes itself into the stream in XML-format.
      * The format looks as following:
      * @code
      *    <district id="<ID>">
@@ -145,7 +145,7 @@ public:
     const Position2D &getPosition() const throw();
 
 
-    /** @brief Sets the center coordinates 
+    /** @brief Sets the center coordinates
      *
      * @param[in] pos The new center to assign
      * @todo Recheck when this information is set/needed

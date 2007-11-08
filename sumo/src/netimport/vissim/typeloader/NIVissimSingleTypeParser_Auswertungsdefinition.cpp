@@ -75,18 +75,11 @@ NIVissimSingleTypeParser_Auswertungsdefinition::parse(std::istream &from)
         while (type!="DATAEND") {
             type = readEndSecure(from, "messung");
         }
-    } else if (type=="vbv") {}
-    else if (type=="dichte") {}
-    else if (type=="emissionen") {}
-    else if (type=="fzprot") {}
-    else if (type=="spwprot") {}
-    else if (type=="segment") {
+    } else if (type=="vbv") {} else if (type=="dichte") {} else if (type=="emissionen") {} else if (type=="fzprot") {} else if (type=="spwprot") {} else if (type=="segment") {
         while (type!="konfdatei") {
             type = myRead(from);
         }
-    } else if (type=="wegeausw") {}
-    else if (type=="knoten") {}
-    else if (type=="konvergenz") {
+    } else if (type=="wegeausw") {} else if (type=="knoten") {} else if (type=="konvergenz") {
         while (type!="zeit") {
             type = myRead(from);
         }

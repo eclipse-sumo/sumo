@@ -53,16 +53,14 @@ class MSVehicle;
  */
 namespace DetectorContainer
 {
-struct Halting
-{
+struct Halting {
     Halting(MSVehicle* veh)
             : vehM(veh),
             posM(vehM->getPositionOnLane()),
             timeBelowSpeedThresholdM(0),
             isHaltingM(false),
             isInJamM(false),
-            haltingDurationM(0)
-    {}
+            haltingDurationM(0) {}
     MSVehicle* vehM;
     SUMOReal posM;
     MSUnit::Steps timeBelowSpeedThresholdM;
@@ -97,8 +95,7 @@ struct MSDetectorHaltingContainerWrapper
             , public MSUpdateEachTimestep<
             MSDetectorHaltingContainerWrapper< WrappedContainer > >
             , public halt::HaltBeginSubject
-            , public halt::HaltEndSubject
-{
+            , public halt::HaltEndSubject {
     typedef typename WrappedContainer::iterator HaltingsIt;
     typedef typename WrappedContainer::const_iterator HaltingsConstIt;
     typedef WrappedContainer InnerContainer;
@@ -107,8 +104,7 @@ struct MSDetectorHaltingContainerWrapper
     typedef halt::HaltBeginObserver HaltBeginObserver;
     typedef halt::HaltEndObserver HaltEndObserver;
 
-    MSDetectorHaltingContainerWrapper(void)
-    {}
+    MSDetectorHaltingContainerWrapper(void) {}
 
     MSDetectorHaltingContainerWrapper(
         MSLane &lane,
@@ -121,8 +117,7 @@ struct MSDetectorHaltingContainerWrapper
             timeThresholdM(timeThreshold),
             speedThresholdM(speedThreshold),
             jamDistThresholdM(jamDistThreshold),
-            myLane(lane)
-    {}
+            myLane(lane) {}
 
     MSDetectorHaltingContainerWrapper(
         MSLane &lane,
@@ -136,11 +131,9 @@ struct MSDetectorHaltingContainerWrapper
             timeThresholdM(timeThreshold),
             speedThresholdM(speedThreshold),
             jamDistThresholdM(jamDistThreshold),
-            myLane(lane)
-    {}
+            myLane(lane) {}
 
-    bool updateEachTimestep(void)
-    {
+    bool updateEachTimestep(void) {
         // set posM, isHaltingM and haltingDurationM
         for (HaltingsIt haltIt = this->containerM.begin();
                 haltIt != this->containerM.end(); ++haltIt) {
@@ -208,20 +201,16 @@ struct MSDetectorHaltingContainerWrapper
         return false;
     }
 
-    void attach(HaltBeginObserver* toAttach)
-    {
+    void attach(HaltBeginObserver* toAttach) {
         HaltBeginSubject::attach(toAttach);
     }
-    void detach(HaltBeginObserver* toDetach)
-    {
+    void detach(HaltBeginObserver* toDetach) {
         HaltBeginSubject::detach(toDetach);
     }
-    void attach(HaltEndObserver* toAttach)
-    {
+    void attach(HaltEndObserver* toAttach) {
         HaltEndSubject::attach(toAttach);
     }
-    void detach(HaltEndObserver* toDetach)
-    {
+    void detach(HaltEndObserver* toDetach) {
         HaltEndSubject::detach(toDetach);
     }
 
@@ -343,11 +332,9 @@ namespace Predicate
 template<>
 struct PosGreaterC< DetectorContainer::Halting > :
             public std::binary_function< DetectorContainer::Halting,
-            SUMOReal, bool >
-{
+            SUMOReal, bool > {
     bool operator()(const DetectorContainer::Halting& item,
-                    SUMOReal pos) const
-    {
+                    SUMOReal pos) const {
         return item.posM > pos;
     }
 };
@@ -356,11 +343,9 @@ struct PosGreaterC< DetectorContainer::Halting > :
 template<>
 struct VehEqualsC< DetectorContainer::Halting > :
             public std::binary_function< DetectorContainer::Halting,
-            MSVehicle*, bool >
-{
+            MSVehicle*, bool > {
     bool operator()(DetectorContainer::Halting item,
-                    const MSVehicle* veh) const
-    {
+                    const MSVehicle* veh) const {
         return item.vehM == veh;
     }
 };

@@ -38,17 +38,14 @@ class GUILaneRepresentation : public GUIGlObject
 public:
     /// Constructor
     GUILaneRepresentation(GUIGlObjectStorage &idStorage, std::string fullName)
-            : GUIGlObject(idStorage, fullName)
-    {}
+            : GUIGlObject(idStorage, fullName) {}
 
     /// Constructor for objects joining gl-objects
     GUILaneRepresentation(GUIGlObjectStorage &idStorage,
                           std::string fullName, size_t glID)
-            : GUIGlObject(idStorage, fullName, glID)
-    {}
+            : GUIGlObject(idStorage, fullName, glID) {}
 
-    virtual ~GUILaneRepresentation()
-    { }
+    virtual ~GUILaneRepresentation() { }
 
     /** returns the "visualisation length"; this length may differ to the
         real length */
@@ -58,8 +55,7 @@ public:
     virtual const DoubleVector &getShapeRotations() const = 0;
     virtual const DoubleVector &getShapeLengths() const = 0;
 
-    virtual void selectSucessors()
-    { }
+    virtual void selectSucessors() { }
 
 };
 

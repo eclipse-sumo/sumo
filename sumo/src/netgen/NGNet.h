@@ -63,7 +63,7 @@ public:
 
 
     /** @brief Returns the node at the given position
-     * 
+     *
      * Searches for a node with the given position within myNodeList.
      *  Returns the matching node, if one exists, or 0 otherwise.
      *
@@ -75,7 +75,7 @@ public:
 
 
     /** @brief Returns the next free id
-     * 
+     *
      * Uses the value of myLastID to return a new (numeric) id. Increases
      *  myLastID.
      *
@@ -85,7 +85,7 @@ public:
 
 
     /** @brief Returns the x-position resulting from the given radius and angle
-     * 
+     *
      * @param[in] radius The radius of the circle
      * @param[in] phi The angle the position is located at
      * @return The x-position at the described circle at angle phi
@@ -94,7 +94,7 @@ public:
 
 
     /** @brief Returns the y-position resulting from the given radius and angle
-     * 
+     *
      * @param[in] radius The radius of the circle
      * @param[in] phi The angle the position is located at
      * @return The y-position at the described circle at angle phi
@@ -105,7 +105,7 @@ public:
     /** @brief Creates a grid network
      *
      * Performs a souble-loop over numX, then numY. Builds NGNodes
-     *  at the according positions and connects them using NGNet::connect. 
+     *  at the according positions and connects them using NGNet::connect.
      * Stores both the nodes and the edges within the internal container.
      *
      * The nodes get an id using &lt;RUNNING_X&gt;/&lt;RUNNING_Y&gt;. The ids
@@ -127,7 +127,7 @@ public:
      *  connects them using NGNet::connect. Builds optionally a center node, and connects
      *  it, too.
      *
-     * The nodes get an id using &lt;RUNNING_ARM_NUMBER&gt;/&lt;RUNNING_CIRCLE_NUMBER&gt;. 
+     * The nodes get an id using &lt;RUNNING_ARM_NUMBER&gt;/&lt;RUNNING_CIRCLE_NUMBER&gt;.
      *  The ids of the links are set in NGNet::connect.
      *
      * @param[in] numRadDiv The number of arms to build
@@ -142,22 +142,22 @@ public:
 
     /** @brief Converts the stored network into its netbuilder-representation
      *
-     * Goes through all stored nodes, first, converts them into their netbuilder 
-     *  representations using NGNode::buildNBNode, and stores the built NBNodes into the 
+     * Goes through all stored nodes, first, converts them into their netbuilder
+     *  representations using NGNode::buildNBNode, and stores the built NBNodes into the
      *  net builder myNetBuilder.
      *
-     * Then, the method goes through all edges, converts them into their netbuilder 
-     *  representations using NGEdge::buildNBEdge, and stores the built NBEdges into the 
+     * Then, the method goes through all edges, converts them into their netbuilder
+     *  representations using NGEdge::buildNBEdge, and stores the built NBEdges into the
      *  net builder myNetBuilder.
      *
      * If one of the nodes is controlled by a tls and the built logic could not be added
      *  to net builder's storage, a ProcessError is thrown. This in fact may only happen
-     *  when two same ids occur, what is not possible. 
+     *  when two same ids occur, what is not possible.
      *
      * @exception ProcessError If a built tls logic could not be added (should never happen)
      * @todo Check whether throwing an exception is really necessary, here
      */
-     void toNB() const throw(ProcessError);
+    void toNB() const throw(ProcessError);
 
 
     /** @brief Adds the given node to the network
@@ -189,7 +189,7 @@ private:
     /** @brief Connects both nodes with two edges, one for each direction
      *
      * Builds one link for each direction and appends the links to myEdgeList.
-     * The name of a link is as following: &lt;FROM_NODE_ID&gt;to&lt;TO_NODE_ID&gt;. 
+     * The name of a link is as following: &lt;FROM_NODE_ID&gt;to&lt;TO_NODE_ID&gt;.
      *
      * @param[in] node1 The first node to connect
      * @param[in] node2 The second node to connect

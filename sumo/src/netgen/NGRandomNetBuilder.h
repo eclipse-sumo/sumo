@@ -45,7 +45,7 @@ class TNeighbourDistribution
 {
 public:
     /**
-     * @brief adds a neighbour item to list 
+     * @brief adds a neighbour item to list
      *
      * If NumNeighbours is already existing, the old ratio is overwritten
      *
@@ -90,7 +90,7 @@ public:
      * @todo check meanings of connectivity/numTries
      */
     NGRandomNetBuilder(NGNet &net, SUMOReal minAngle, SUMOReal minDistance, SUMOReal maxDistance, SUMOReal connectivity,
-        int numTries, const TNeighbourDistribution &neighborDist) throw();
+                       int numTries, const TNeighbourDistribution &neighborDist) throw();
 
 
 
@@ -120,7 +120,7 @@ private:
     bool checkAngles(NGNode* node) throw();
 
 
-    /** @brief Checks whether connecting the given two nodes complies with the set restrictions 
+    /** @brief Checks whether connecting the given two nodes complies with the set restrictions
      *
      * Checks whether the distance, the angle, and the connectivity is within the defined range
      *  when both nodes would be connected
@@ -133,7 +133,7 @@ private:
 
 
     /** @brief Creates new random node
-     * 
+     *
      * Returns true, if creation was successfull.
      *
      * @param[in] baseNode ?
@@ -179,7 +179,7 @@ private:
     SUMOReal myConnectivity;
     //@}
 
-    
+
     /// @brief Number of tries to create a new node
     int myNumTries;
 
@@ -189,7 +189,7 @@ private:
     /// @brief The distrubtion of number of neighbours
     TNeighbourDistribution myNeighbourDistribution;
 
-    
+
 
 
 };

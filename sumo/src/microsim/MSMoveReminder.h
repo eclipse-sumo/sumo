@@ -56,8 +56,7 @@ public:
      * @param lane Lane on which the reminder will work.
      */
     MSMoveReminder(MSLane* lane) :
-            laneM(lane)
-    {
+            laneM(lane) {
         // add reminder to lane
         laneM->addMoveReminder(this);
     }
@@ -66,8 +65,7 @@ public:
      * Destructor.
      *
      */
-    virtual ~MSMoveReminder(void)
-    {}
+    virtual ~MSMoveReminder(void) {}
 
     /**
      * Indicator if the reminders is still active for the passed
@@ -111,8 +109,7 @@ public:
      *
      * @return The lane the reminder works on.
      */
-    const MSLane* getLane(void) const
-    {
+    const MSLane* getLane(void) const {
         return laneM;
     }
 

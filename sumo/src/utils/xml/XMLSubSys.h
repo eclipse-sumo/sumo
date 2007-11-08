@@ -93,7 +93,7 @@ public:
      *  fails, 0 is returned.
      *
      * If the reader could be built, validation is turned off, first. Then the given
-     *  handler is assigned to the reader as the current DefaultHandler and 
+     *  handler is assigned to the reader as the current DefaultHandler and
      *  ErrorHandler.
      *
      * @param[in] handler The handler to assign to the built reader
@@ -104,7 +104,7 @@ public:
 
     /**
      * @brief Runs the given handler on the given file; returns if everything's ok
-     * 
+     *
      * Builds a reader using getSAXReader. Then, it parses the given file and
      *  deletes the reader.
      *

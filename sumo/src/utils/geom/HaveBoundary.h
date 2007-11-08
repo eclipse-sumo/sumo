@@ -44,12 +44,10 @@ class HaveBoundary
 {
 public:
     /// Constructor
-    HaveBoundary()
-    { }
+    HaveBoundary() { }
 
     /// Destructor
-    virtual ~HaveBoundary()
-    { }
+    virtual ~HaveBoundary() { }
 
     /// Returns the object's boundary
     virtual Boundary getBoundary() const = 0;

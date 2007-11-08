@@ -383,7 +383,7 @@ GUILaneWrapper::getEdgeLaneNumber() const
 }
 
 
-SUMOReal 
+SUMOReal
 GUILaneWrapper::getEdgeEffort(SUMOTime t) const
 {
     return (SUMOReal) myLane.getEdge()->getEffort(0, t);

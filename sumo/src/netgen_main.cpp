@@ -274,7 +274,7 @@ buildNetwork(NBNetBuilder &nb)
             MsgHandler::getErrorInstance()->inform("The radius of spider networks must be at least 10m.");
             hadError = true;
         }
-        if(hadError) {
+        if (hadError) {
             throw ProcessError();
         }
         // build if everything's ok
@@ -306,15 +306,15 @@ buildNetwork(NBNetBuilder &nb)
         }
         // check values
         bool hadError = false;
-        if(xNo<2 || yNo<2) {
+        if (xNo<2 || yNo<2) {
             MsgHandler::getErrorInstance()->inform("The number of edges must be larger than 2 in both directions.");
             hadError = true;
         }
-        if(xLength<10. || yLength<10.) {
+        if (xLength<10. || yLength<10.) {
             MsgHandler::getErrorInstance()->inform("The distance between nodes must be at least 10m in both directions.");
             hadError = true;
         }
-        if(hadError) {
+        if (hadError) {
             throw ProcessError();
         }
         // build if everything's ok
@@ -330,12 +330,12 @@ buildNetwork(NBNetBuilder &nb)
     neighborDist.add(5, oc.getFloat("dist5"));
     neighborDist.add(6, oc.getFloat("dist6"));
     NGRandomNetBuilder randomNet(*net,
-        oc.getFloat("min-angle"),
-        oc.getFloat("rand-min-distance"),
-        oc.getFloat("rand-max-distance"),
-        oc.getFloat("connectivity"),
-        oc.getInt("num-tries"),
-        neighborDist);
+                                 oc.getFloat("min-angle"),
+                                 oc.getFloat("rand-min-distance"),
+                                 oc.getFloat("rand-max-distance"),
+                                 oc.getFloat("connectivity"),
+                                 oc.getInt("num-tries"),
+                                 neighborDist);
     randomNet.createNet(oc.getInt("iterations"));
     return net;
 }
@@ -359,7 +359,7 @@ main(int argc, char **argv)
         XMLSubSys::init();
         fillOptions();
         OptionsIO::getOptions(true, argc, argv);
-        if(oc.processMetaOptions(argc < 2)) {
+        if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }

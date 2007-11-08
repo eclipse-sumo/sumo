@@ -56,10 +56,8 @@ public:
     class id_matches
     {
     public:
-        explicit id_matches(int id) : myEdgeID(id)
-        { }
-        bool operator()(NIVissimNodeParticipatingEdge *e)
-        {
+        explicit id_matches(int id) : myEdgeID(id) { }
+        bool operator()(NIVissimNodeParticipatingEdge *e) {
             return e->getID()==myEdgeID;
         }
     private:
@@ -69,10 +67,8 @@ public:
     class lying_within_match
     {
     public:
-        explicit lying_within_match(NIVissimNodeParticipatingEdge *e) : myEdge(e)
-        { }
-        bool operator()(NIVissimExtendedEdgePoint *e)
-        {
+        explicit lying_within_match(NIVissimNodeParticipatingEdge *e) : myEdge(e) { }
+        bool operator()(NIVissimExtendedEdgePoint *e) {
             return e->getEdgeID()==myEdge->getID() &&
                    myEdge->positionLiesWithin(e->getPosition());
         }

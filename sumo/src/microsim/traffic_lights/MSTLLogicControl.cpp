@@ -454,8 +454,8 @@ MSTLLogicControl::~MSTLLogicControl()
         }
     }
     // delete WAUTs
-    for(std::map<std::string, WAUT*>::const_iterator i=myWAUTs.begin(); i!=myWAUTs.end(); ++i) {
-        delete (*i).second;
+    for (std::map<std::string, WAUT*>::const_iterator i=myWAUTs.begin(); i!=myWAUTs.end(); ++i) {
+        delete(*i).second;
     }
 }
 
@@ -491,34 +491,34 @@ MSTLLogicControl::getAllLogics() const
 
 const MSTLLogicControl::TLSLogicVariants &
 MSTLLogicControl::get(const std::string &id) const throw(InvalidArgument)
-    {
-        std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(id);
-        if (i==myLogics.end()) {
-            throw InvalidArgument("The tls '" + id + "' is not known.");
-        }
-        return (*i).second;
+{
+    std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(id);
+    if (i==myLogics.end()) {
+        throw InvalidArgument("The tls '" + id + "' is not known.");
     }
+    return (*i).second;
+}
 
 
 MSTrafficLightLogic * const
 MSTLLogicControl::get(const std::string &id, const std::string &subid) const
-    {
-        std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(id);
-        if (i==myLogics.end()) {
-            return 0;
-        }
-        const std::map<std::string, MSTrafficLightLogic *> &vars = (*i).second.ltVariants;
-        std::map<std::string, MSTrafficLightLogic *>::const_iterator j = vars.find(subid);
-        if (j==vars.end()) {
-            return 0;
-        }
-        return (*j).second;
+{
+    std::map<std::string, TLSLogicVariants>::const_iterator i = myLogics.find(id);
+    if (i==myLogics.end()) {
+        return 0;
     }
+    const std::map<std::string, MSTrafficLightLogic *> &vars = (*i).second.ltVariants;
+    std::map<std::string, MSTrafficLightLogic *>::const_iterator j = vars.find(subid);
+    if (j==vars.end()) {
+        return 0;
+    }
+    return (*j).second;
+}
 
 
 bool
 MSTLLogicControl::add(const std::string &id, const std::string &subID,
-                          MSTrafficLightLogic *logic, bool newDefault) throw(ProcessError)
+                      MSTrafficLightLogic *logic, bool newDefault) throw(ProcessError)
 {
     if (myLogics.find(id)==myLogics.end()) {
         TLSLogicVariants var;
@@ -569,7 +569,7 @@ MSTLLogicControl::knows(const std::string &id) const
 void
 MSTLLogicControl::closeNetworkReading()
 {
-    for(map<std::string, TLSLogicVariants>::iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
+    for (map<std::string, TLSLogicVariants>::iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
         (*i).second.originalLinkStates = (*i).second.defaultTL->collectLinkStates();
     }
     myNetWasLoaded = true;
@@ -621,12 +621,12 @@ MSTLLogicControl::switchTo(const std::string &id, const std::string &subid)
         throw ProcessError("Could not switch tls '" + id + "' to program '" + subid + "':\n No such tls exists.");
     }
     // switch to the wished program
-        // replace the current sub-program by the found wished in myActiveLogics
+    // replace the current sub-program by the found wished in myActiveLogics
     *j = touse;
-        // set the found wished sub-program as this tls' current one
+    // set the found wished sub-program as this tls' current one
     (*i).second.defaultTL = touse;
     // in the case we have switched to an off-state, we'll reset the links
-    if(subid=="off") {
+    if (subid=="off") {
         touse->resetLinkStates((*i).second.originalLinkStates);
     }
     return true;
@@ -677,7 +677,7 @@ MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
             begin = begin - (86400-myWAUTs[wautid]->refTime);
         }
         begin = (86400 + begin);
-        while(begin>86400) {
+        while (begin>86400) {
             begin -= 86400;
         }
         // activate
@@ -727,9 +727,9 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
         TLSLogicVariants &vars = myLogics.find((*i).junction)->second;
         MSTrafficLightLogic *from = vars.defaultTL;
         if (vars.ltVariants.find(s.to)==vars.ltVariants.end()) {
-            if(s.to=="off") {
+            if (s.to=="off") {
                 // build an off-tll if this switch indicates it
-                if(!add((*i).junction, "off", new MSOffTrafficLightLogic(*this, (*i).junction), false)) {
+                if (!add((*i).junction, "off", new MSOffTrafficLightLogic(*this, (*i).junction), false)) {
                     // inform the user if this fails
                     throw ProcessError("Could not build an off-state for tls '" + (*i).junction + "'.");
                 }

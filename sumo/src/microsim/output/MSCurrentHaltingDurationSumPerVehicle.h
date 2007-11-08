@@ -51,16 +51,13 @@ protected:
 
     MSCurrentHaltingDurationSumPerVehicle(SUMOReal,
                                           const Container& vehicleCont)
-            : containerM(vehicleCont.containerM)
-    {}
+            : containerM(vehicleCont.containerM) {}
 
-    virtual ~MSCurrentHaltingDurationSumPerVehicle(void)
-    {}
+    virtual ~MSCurrentHaltingDurationSumPerVehicle(void) {}
 
     DetectorAggregate getDetectorAggregate(void);   // [s]
 
-    static std::string getDetectorName(void)
-    {
+    static std::string getDetectorName(void) {
         return "currentHaltingDurationSumPerVehicle";
     }
 

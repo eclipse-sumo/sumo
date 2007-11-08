@@ -50,8 +50,8 @@ PCTypeMap::~PCTypeMap()
 
 bool
 PCTypeMap::add(const std::string &id, const std::string &newid,
-                   const std::string &color, const std::string &prefix,
-                   int layer, bool discard, bool allowFill)
+               const std::string &color, const std::string &prefix,
+               int layer, bool discard, bool allowFill)
 {
     if (has(id)) {
         return false;

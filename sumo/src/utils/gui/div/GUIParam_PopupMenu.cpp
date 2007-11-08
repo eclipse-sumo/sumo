@@ -53,10 +53,9 @@ using namespace std;
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GUIParam_PopupMenu) GUIParam_PopupMenuMap[]=
-    {
-        FXMAPFUNC(SEL_COMMAND,  MID_OPENTRACKER, GUIParam_PopupMenu::onCmdOpenTracker),
-    };
+FXDEFMAP(GUIParam_PopupMenu) GUIParam_PopupMenuMap[]= {
+    FXMAPFUNC(SEL_COMMAND,  MID_OPENTRACKER, GUIParam_PopupMenu::onCmdOpenTracker),
+};
 
 // Object implementation
 FXIMPLEMENT(GUIParam_PopupMenu, FXMenuPane, GUIParam_PopupMenuMap, ARRAYNUMBER(GUIParam_PopupMenuMap))
@@ -88,9 +87,9 @@ GUIParam_PopupMenu::onCmdOpenTracker(FXObject*,FXSelector,void*)
 {
     string trackerName = myVarName + " from " + myObject->getFullName();
     GUIParameterTracker *tr = new GUIParameterTracker(*myApplication,
-                              trackerName, *myObject, 0, 0);
+            trackerName, *myObject, 0, 0);
     TrackerValueDesc *newTracked = new TrackerValueDesc(
-                                       myVarName, RGBColor(0, 0, 0), myObject, myApplication->getCurrentSimTime());
+        myVarName, RGBColor(0, 0, 0), myObject, myApplication->getCurrentSimTime());
     tr->addTracked(*myObject, mySource->copy(), newTracked);
     tr->create();
     tr->show();

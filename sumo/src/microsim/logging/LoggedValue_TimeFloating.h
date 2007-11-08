@@ -50,8 +50,7 @@ public:
     LoggedValue_TimeFloating(size_t sampleInterval)
             : LoggedValue<T>(sampleInterval),
             myFloatingArray(new T[sampleInterval]), mySampleInterval(sampleInterval),
-            mySampledUnits(0), myBufferWasFull(false)
-    {
+            mySampledUnits(0), myBufferWasFull(false) {
         for (size_t i=0; i<sampleInterval; i++) {
             myFloatingArray[i] = 0;
         }
@@ -59,16 +58,14 @@ public:
 
 
     /// Destructor
-    ~LoggedValue_TimeFloating()
-    {
+    ~LoggedValue_TimeFloating() {
         delete[] myFloatingArray;
     }
 
 
     /** @brief Adds a new value
         See source code */
-    void add(T value)
-    {
+    void add(T value) {
         // remove the value lying some steps ahead
         this->myCurrentValue -= myFloatingArray[mySampledUnits];
         // add the current value
@@ -87,8 +84,7 @@ public:
 
     /** returns the average of previously set values
         (for and over the given sample interval) */
-    T getAvg() const
-    {
+    T getAvg() const {
         // the list is complete
         if (myBufferWasFull) {
             return this->myCurrentValue / (SUMOReal) mySampleInterval;
@@ -104,8 +100,7 @@ public:
 
     /** returns the sum of previously set values
         (for the given sample interval) */
-    T getAbs() const
-    {
+    T getAbs() const {
         return this->myCurrentValue;
     }
 

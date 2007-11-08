@@ -206,7 +206,7 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
                               SUMOTime startTime, SUMOTime stopTime)
 {
     dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
-        stopTime<<"\" "<<"id=\""<<idM<<"\" ";
+    stopTime<<"\" "<<"id=\""<<idM<<"\" ";
     // collect values
     SUMOReal vehicleSum = (SUMOReal) myLeftContainer.size();
     SUMOReal meanTravelTime = 0.;
@@ -224,8 +224,8 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
     meanHaltsPerVehicle /= vehicleSum;
     // write values
     dev<<"meanTravelTime=\""<<meanTravelTime<<"\" meanSpeed=\""<<meanSpeed<<
-            "\" meanHaltsPerVehicle=\""<<meanHaltsPerVehicle<<
-                "\" vehicleSum=\""<<vehicleSum<<"\"/>\n";
+    "\" meanHaltsPerVehicle=\""<<meanHaltsPerVehicle<<
+    "\" vehicleSum=\""<<vehicleSum<<"\"/>\n";
     // clear container
     myLeftContainer.clear();
 }
@@ -294,14 +294,14 @@ MSE3Collector::writeXMLDetectorProlog(OutputDevice &dev) const
     CrossSectionVectorConstIt crossSec;
     for (crossSec = entriesM.begin(); crossSec != entriesM.end(); ++crossSec) {
         dev<<"   <entry lane=\""<<
-            crossSec->laneM->getID()<<"\" pos=\""<<
-                toString(crossSec->posM)<<"\"/>\n";
+        crossSec->laneM->getID()<<"\" pos=\""<<
+        toString(crossSec->posM)<<"\"/>\n";
     }
     std::string exits;
     for (crossSec = exitsM.begin(); crossSec != exitsM.end(); ++crossSec) {
         dev<<"   <exit lane=\""<<
-            crossSec->laneM->getID()<<"\" pos=\""<<
-                toString(crossSec->posM)<<"\"/>\n";
+        crossSec->laneM->getID()<<"\" pos=\""<<
+        toString(crossSec->posM)<<"\"/>\n";
     }
 }
 

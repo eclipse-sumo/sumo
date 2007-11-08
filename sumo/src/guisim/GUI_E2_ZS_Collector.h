@@ -163,22 +163,18 @@ class MyWrapper : public GUIDetectorWrapper
             /// Constructor
             MyValueRetriever(GUI_E2_ZS_Collector &det,
                              E2::DetType type, MSUnit::Seconds nSec)
-                    : myDetector(det), myType(type), myNSec(nSec)
-            { }
+                    : myDetector(det), myType(type), myNSec(nSec) { }
 
             /// Destructor
-            ~MyValueRetriever()
-            { }
+            ~MyValueRetriever() { }
 
             /// Returns the current value
-            SUMOReal getValue() const
-            {
+            SUMOReal getValue() const {
                 return myDetector.getAggregate(myType, myNSec);
             }
 
             /// Returns a copy of this instance
-            ValueSource<SUMOReal> *copy() const
-            {
+            ValueSource<SUMOReal> *copy() const {
                 return new MyValueRetriever(myDetector, myType, myNSec);
             }
 
@@ -190,7 +186,7 @@ class MyWrapper : public GUIDetectorWrapper
             E2::DetType myType;
 
             /// The aggregation interval
-			MSUnit::Seconds myNSec;
+            MSUnit::Seconds myNSec;
         };
 
     };

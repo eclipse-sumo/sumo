@@ -39,10 +39,9 @@
  * @struct MSLaneMeanDataValues
  * Structure holding values that describe the flow and other physical
  * properties aggregated over some seconds and normalised by the
- * aggregation period 
+ * aggregation period
  */
-struct MSLaneMeanDataValues
-{
+struct MSLaneMeanDataValues {
     MSLaneMeanDataValues()
             : nVehEntireLane(0),
             nSamples(0),
@@ -50,11 +49,9 @@ struct MSLaneMeanDataValues
             nVehEnteredLane(0),
             speedSum(0),
             haltSum(0),
-            vehLengthSum(0)
-    {}
+            vehLengthSum(0) {}
 
-    void reset()
-    {
+    void reset() {
         nVehEntireLane = 0;
         nSamples = 0;
         nVehLeftLane = 0;

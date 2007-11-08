@@ -43,101 +43,85 @@ class Position2D
 {
 public:
     /// default constructor
-    Position2D() : myX(0.0), myY(0.0)
-    { }
+    Position2D() : myX(0.0), myY(0.0) { }
 
     /// parametrised constructor
     Position2D(SUMOReal x, SUMOReal y)
-            : myX(x), myY(y)
-    { }
+            : myX(x), myY(y) { }
 
     /// Destructor
-    ~Position2D()
-    { }
+    ~Position2D() { }
 
     /// Returns the x-position
-    SUMOReal x() const
-    {
+    SUMOReal x() const {
         return myX;
     }
 
     /// Returns the y-position
-    SUMOReal y() const
-    {
+    SUMOReal y() const {
         return myY;
     }
 
     ///
-    void set(SUMOReal x, SUMOReal y)
-    {
+    void set(SUMOReal x, SUMOReal y) {
         myX = x;
         myY = y;
     }
 
     ///
-    void set(const Position2D &pos)
-    {
+    void set(const Position2D &pos) {
         myX = pos.myX;
         myY = pos.myY;
     }
 
 
     /// Multiplies both positions with the given value
-    void mul(SUMOReal val)
-    {
+    void mul(SUMOReal val) {
         myX *= val;
         myY *= val;
     }
 
     /// Multiplies position with the given values
-    void mul(SUMOReal mx, SUMOReal my)
-    {
+    void mul(SUMOReal mx, SUMOReal my) {
         myX *= mx;
         myY *= my;
     }
 
     /// Adds the given position to this one
-    void add(const Position2D &pos)
-    {
+    void add(const Position2D &pos) {
         myX += pos.myX;
         myY += pos.myY;
     }
 
     /// Adds the given position to this one
-    void add(SUMOReal dx, SUMOReal dy)
-    {
+    void add(SUMOReal dx, SUMOReal dy) {
         myX += dx;
         myY += dy;
     }
 
     /// Substracts the given position from this one
-    void sub(SUMOReal dx, SUMOReal dy)
-    {
+    void sub(SUMOReal dx, SUMOReal dy) {
         myX -= dx;
         myY -= dy;
     }
 
     /// Substracts the given position from this one
-    void sub(const Position2D &pos)
-    {
+    void sub(const Position2D &pos) {
         myX -= pos.myX;
         myY -= pos.myY;
     }
 
-    SUMOReal scalar() const
-    {
+    SUMOReal scalar() const {
         return sqrt(myX*myX + myY*myY);
     }
 
-    void norm()
-    {
+    void norm() {
         SUMOReal val = scalar();
         myX = myX / val;
         myY = myY / val;
     }
 
-    void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
-    {
+    void reshiftRotate(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) {
         SUMOReal x = myX * cos(rot) -myY * sin(rot) + xoff;
         SUMOReal y =myX * sin(rot) + yoff + myY * cos(rot);
         myX = x;
@@ -146,19 +130,16 @@ public:
 
 
     /// Prints to the output
-    friend std::ostream &operator<<(std::ostream &os, const Position2D &p)
-    {
+    friend std::ostream &operator<<(std::ostream &os, const Position2D &p) {
         os << p.x() << "," << p.y();
         return os;
     }
 
-    friend bool operator==(const Position2D &p1, const Position2D &p2)
-    {
+    friend bool operator==(const Position2D &p1, const Position2D &p2) {
         return p1.x()==p2.x() && p1.y()==p2.y();
     }
 
-    friend bool operator!=(const Position2D &p1, const Position2D &p2)
-    {
+    friend bool operator!=(const Position2D &p1, const Position2D &p2) {
         return p1.x()!=p2.x() || p1.y()!=p2.y();
     }
 

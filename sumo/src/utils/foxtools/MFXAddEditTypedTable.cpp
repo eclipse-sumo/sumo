@@ -42,11 +42,11 @@
 
 // Map
 FXDEFMAP(MFXAddEditTypedTable) MFXAddEditTypedTableMap[]={
-            FXMAPFUNC(SEL_CLICKED,0,MFXAddEditTypedTable::onClicked),
-            FXMAPFUNC(SEL_DOUBLECLICKED,0,MFXAddEditTypedTable::onDoubleClicked),
-            FXMAPFUNC(SEL_LEFTBUTTONRELEASE,0,MFXAddEditTypedTable::onLeftBtnRelease),
-            FXMAPFUNC(SEL_LEFTBUTTONPRESS,0,MFXAddEditTypedTable::onLeftBtnPress),
-        };
+    FXMAPFUNC(SEL_CLICKED,0,MFXAddEditTypedTable::onClicked),
+    FXMAPFUNC(SEL_DOUBLECLICKED,0,MFXAddEditTypedTable::onDoubleClicked),
+    FXMAPFUNC(SEL_LEFTBUTTONRELEASE,0,MFXAddEditTypedTable::onLeftBtnRelease),
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,0,MFXAddEditTypedTable::onLeftBtnPress),
+};
 // Object implementation
 FXIMPLEMENT(MFXAddEditTypedTable,FXTable,MFXAddEditTypedTableMap,ARRAYNUMBER(MFXAddEditTypedTableMap))
 

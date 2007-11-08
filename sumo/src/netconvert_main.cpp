@@ -82,7 +82,7 @@ main(int argc, char **argv)
         XMLSubSys::init();
         NIOptionsIO::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
-        if(oc.processMetaOptions(argc < 2)) {
+        if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }

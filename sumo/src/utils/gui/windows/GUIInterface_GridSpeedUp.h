@@ -42,16 +42,13 @@
 class GUIInterface_GridSpeedUp
 {
 public:
-    GUIInterface_GridSpeedUp()
-    { }
+    GUIInterface_GridSpeedUp() { }
 
-    virtual ~GUIInterface_GridSpeedUp()
-    { }
+    virtual ~GUIInterface_GridSpeedUp() { }
 
     virtual void get(int what,
-                         SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff,
-                         size_t *setEdges, size_t *setJunctions, size_t *setAdditional)
-    { }
+                     SUMOReal x, SUMOReal y, SUMOReal xoff, SUMOReal yoff,
+                     size_t *setEdges, size_t *setJunctions, size_t *setAdditional) { }
 
     /// returns the number of cells in x-direction
     int getNoXCells() const;

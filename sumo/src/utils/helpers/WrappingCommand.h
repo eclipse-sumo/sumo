@@ -60,12 +60,10 @@ public:
      * @return Pointer to the created WrappingCommand.
      */
     WrappingCommand(T* receiver, Operation operation)
-            : myReceiver(receiver), myOperation(operation)
-    {}
+            : myReceiver(receiver), myOperation(operation) {}
 
     /// Destructor.
-    ~WrappingCommand()
-    {}
+    ~WrappingCommand() {}
 
     /**
      * Execute the command and return an offset in steps for recurring
@@ -75,8 +73,7 @@ public:
      * in steps for recurring commands and 0 for single-execution
      * commands.
      */
-    SUMOTime execute(SUMOTime currentTime)
-    {
+    SUMOTime execute(SUMOTime currentTime) {
         return (myReceiver->*myOperation)(currentTime);
     }
 

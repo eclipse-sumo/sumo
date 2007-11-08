@@ -44,7 +44,7 @@ class GUIRunThread;
 // class definitions
 // ===========================================================================
 /**
- * @class GUIThreadFactory 
+ * @class GUIThreadFactory
  */
 class GUIThreadFactory
 {

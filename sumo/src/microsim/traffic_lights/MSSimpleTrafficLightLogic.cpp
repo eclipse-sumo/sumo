@@ -175,7 +175,7 @@ MSSimpleTrafficLightLogic::maskYellowLinks() const
 }
 
 
-MSPhaseDefinition 
+MSPhaseDefinition
 MSSimpleTrafficLightLogic::getCurrentPhaseDef() const
 {
     return *myPhases[myStep];

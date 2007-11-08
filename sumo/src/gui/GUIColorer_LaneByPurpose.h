@@ -51,14 +51,11 @@ template<class T>
 class GUIColorer_LaneByPurpose : public GUIBaseColorer<T>
 {
 public:
-    GUIColorer_LaneByPurpose()
-    { }
+    GUIColorer_LaneByPurpose() { }
 
-    virtual ~GUIColorer_LaneByPurpose()
-    { }
+    virtual ~GUIColorer_LaneByPurpose() { }
 
-    void setGlColor(const T& i) const
-    {
+    void setGlColor(const T& i) const {
         switch (i.getPurpose()) {
         case MSEdge::EDGEFUNCTION_NORMAL:
             glColor3f(0, 0, 0);
@@ -79,13 +76,11 @@ public:
         }
     }
 
-    void setGlColor(SUMOReal val) const
-    {
+    void setGlColor(SUMOReal val) const {
         glColor3d(val, val, val);
     }
 
-    virtual ColorSetType getSetType() const
-    {
+    virtual ColorSetType getSetType() const {
         return CST_STATIC; // !!! (should be "set")
     }
 

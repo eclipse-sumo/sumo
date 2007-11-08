@@ -58,13 +58,11 @@ protected:
     MSDensity(SUMOReal lengthInMeters,
               const Container& counter);
 
-    virtual ~MSDensity(void)
-    {}
+    virtual ~MSDensity(void) {}
 
     DetectorAggregate getDetectorAggregate(void);
 
-    static std::string getDetectorName(void)
-    {
+    static std::string getDetectorName(void) {
         return "density";
     }
 

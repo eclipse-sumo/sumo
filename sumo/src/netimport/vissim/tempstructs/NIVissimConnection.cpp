@@ -98,8 +98,8 @@ NIVissimConnection::dictionary(int id, const std::string &name,
                                const NIVissimClosedLanesVector &clv)
 {
     NIVissimConnection *o = new NIVissimConnection(id, name, from_def, to_def,
-                            geom, direction, dxnothalt, dxeinordnen, zuschlag1, zuschlag2,
-                            seglength, assignedVehicles, clv);
+            geom, direction, dxnothalt, dxeinordnen, zuschlag1, zuschlag2,
+            seglength, assignedVehicles, clv);
     if (!dictionary(id, o)) {
         delete o;
         return false;

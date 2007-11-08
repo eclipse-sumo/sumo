@@ -58,8 +58,7 @@ class OutputDevice;
  * @enum RORODFDetectorType
  * @brief Numerical representation of different detector types
  */
-enum RORODFDetectorType
-{
+enum RORODFDetectorType {
     /// A not yet defined detector
     TYPE_NOT_DEFINED = 0,
 
@@ -86,23 +85,19 @@ class RODFDetector
 {
 public:
     RODFDetector(const std::string &Id, const std::string &laneId,
-               SUMOReal pos, const RORODFDetectorType type);
+                 SUMOReal pos, const RORODFDetectorType type);
     RODFDetector(const std::string &Id, const RODFDetector &f);
     ~RODFDetector();
-    const std::string &getID() const
-    {
+    const std::string &getID() const {
         return myID;
     };
-    const std::string &getLaneID() const
-    {
+    const std::string &getLaneID() const {
         return myLaneID;
     };
-    SUMOReal getPos() const
-    {
+    SUMOReal getPos() const {
         return myPosition;
     };
-    RORODFDetectorType getType() const
-    {
+    RORODFDetectorType getType() const {
         return myType;
     };
     void setType(RORODFDetectorType type);
@@ -128,7 +123,7 @@ public:
     const std::vector<RODFDetector*> &getPriorDetectors() const;
     const std::vector<RODFDetector*> &getFollowerDetectors() const;
     SUMOReal getUsage(const RODFDetectorCon &detectors,DFRORouteDesc*route, DFRORouteCont::RoutesMap *curr,
-                     SUMOTime time, const RODFDetectorFlows &flows) const;
+                      SUMOTime time, const RODFDetectorFlows &flows) const;
 
 protected:
     void buildDestinationDistribution(const RODFDetectorCon &detectors,

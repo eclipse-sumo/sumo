@@ -44,22 +44,18 @@ class ReferencedItem
 {
 public:
     /// Constructor
-    ReferencedItem() : myWasSaved(false)
-    { }
+    ReferencedItem() : myWasSaved(false) { }
 
     /// Destructor
-    virtual ~ReferencedItem()
-    { }
+    virtual ~ReferencedItem() { }
 
     /// Returns the information whether this item was already saved
-    bool isSaved() const
-    {
+    bool isSaved() const {
         return myWasSaved;
     }
 
     /// Marks the item as saved
-    void markSaved()
-    {
+    void markSaved() {
         myWasSaved = true;
     }
 

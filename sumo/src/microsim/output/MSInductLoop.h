@@ -273,8 +273,7 @@ public:
      *
      * @see vehicleDataContM
      */
-    struct VehicleData
-    {
+    struct VehicleData {
         /// Use this constructor if the vehicle has passed the induct loop completely
         VehicleData(SUMOReal vehLength,
                     SUMOReal entryTimestep,
@@ -284,8 +283,7 @@ public:
                 leaveTimeM(MSNet::getSeconds(leaveTimestep)),
                 speedM(lengthM / (leaveTimeM - entryTimeM)),
                 speedSquareM(speedM * speedM),
-                occupancyM(leaveTimeM - entryTimeM)
-        {}
+                occupancyM(leaveTimeM - entryTimeM) {}
 
         SUMOReal lengthM;         /**< Length of the vehicle. */
         SUMOReal entryTimeM;      /**< Entry-time of the vehicle in [s]. */
@@ -345,11 +343,9 @@ protected:
      *
      */
 struct leaveTimeLesser :
-                public std::binary_function< VehicleData, SUMOReal, bool >
-    {
+                public std::binary_function< VehicleData, SUMOReal, bool > {
         bool operator()(const VehicleData& firstVData,
-                        const VehicleData& secondVData) const
-        {
+                        const VehicleData& secondVData) const {
             return firstVData.leaveTimeM < secondVData.leaveTimeM;
         }
     };

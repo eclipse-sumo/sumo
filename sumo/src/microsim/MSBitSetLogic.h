@@ -42,7 +42,7 @@
 // ===========================================================================
 /**
  * @class MSBitSetLogic
- * 
+ *
  * N is sum of the number of links of the junction's inLanes.
  */
 template< size_t N >
@@ -70,13 +70,11 @@ public:
                   Foes *foes,
                   std::bitset<64> conts)
             : MSJunctionLogic(nLinks, nInLanes), myLogic(logic),
-            myInternalLinksFoes(foes), myConts(conts)
-    {}
+            myInternalLinksFoes(foes), myConts(conts) {}
 
 
     /// Destructor.
-    ~MSBitSetLogic()
-    {
+    ~MSBitSetLogic() {
         delete myLogic;
         delete myInternalLinksFoes;
     }
@@ -85,8 +83,7 @@ public:
     /// Modifies the passed respond according to the request.
     void respond(const MSLogicJunction::Request& request,
                  const MSLogicJunction::InnerState& /*innerState*/,
-                 MSLogicJunction::Respond& respond) const
-    {
+                 MSLogicJunction::Respond& respond) const {
         size_t i;
         // calculate respond
         for (i = 0; i < myNLinks; ++i) {
@@ -98,13 +95,11 @@ public:
     }
 
 
-    const Foes &getInternalFoes() const
-    {
+    const Foes &getInternalFoes() const {
         return *myInternalLinksFoes;
     }
 
-    const std::bitset<64> &getInternalConts() const
-    {
+    const std::bitset<64> &getInternalConts() const {
         return myConts;
     }
 

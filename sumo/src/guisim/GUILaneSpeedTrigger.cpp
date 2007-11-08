@@ -87,11 +87,10 @@ using namespace std;
  * GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu - mapping
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu)
-GUILaneSpeedTriggerPopupMenuMap[]=
-    {
-        FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::onCmdOpenManip),
+GUILaneSpeedTriggerPopupMenuMap[]= {
+    FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu::onCmdOpenManip),
 
-    };
+};
 
 // Object implementation
 FXIMPLEMENT(GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu, GUIGLObjectPopupMenu, GUILaneSpeedTriggerPopupMenuMap, ARRAYNUMBER(GUILaneSpeedTriggerPopupMenuMap))
@@ -100,15 +99,14 @@ FXIMPLEMENT(GUILaneSpeedTrigger::GUILaneSpeedTriggerPopupMenu, GUIGLObjectPopupM
 /* -------------------------------------------------------------------------
  * GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger - mapping
  * ----------------------------------------------------------------------- */
-FXDEFMAP(GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger) GUIManip_LaneSpeedTriggerMap[]=
-    {
-        FXMAPFUNC(SEL_COMMAND,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_USER_DEF, GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdUserDef),
-        FXMAPFUNC(SEL_UPDATE,   GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_USER_DEF, GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdUserDef),
-        FXMAPFUNC(SEL_COMMAND,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_PRE_DEF,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdPreDef),
-        FXMAPFUNC(SEL_UPDATE,   GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_PRE_DEF,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdPreDef),
-        FXMAPFUNC(SEL_COMMAND,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_OPTION,   GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdChangeOption),
-        FXMAPFUNC(SEL_COMMAND,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_CLOSE,    GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdClose),
-    };
+FXDEFMAP(GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger) GUIManip_LaneSpeedTriggerMap[]= {
+    FXMAPFUNC(SEL_COMMAND,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_USER_DEF, GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdUserDef),
+    FXMAPFUNC(SEL_UPDATE,   GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_USER_DEF, GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdUserDef),
+    FXMAPFUNC(SEL_COMMAND,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_PRE_DEF,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdPreDef),
+    FXMAPFUNC(SEL_UPDATE,   GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_PRE_DEF,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onUpdPreDef),
+    FXMAPFUNC(SEL_COMMAND,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_OPTION,   GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdChangeOption),
+    FXMAPFUNC(SEL_COMMAND,  GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::MID_CLOSE,    GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger::onCmdClose),
+};
 
 FXIMPLEMENT(GUILaneSpeedTrigger::GUIManip_LaneSpeedTrigger, GUIManipulator, GUIManip_LaneSpeedTriggerMap, ARRAYNUMBER(GUIManip_LaneSpeedTriggerMap))
 

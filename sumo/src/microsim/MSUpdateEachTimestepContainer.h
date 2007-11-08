@@ -58,21 +58,18 @@ template< class UpdateEachTimestep >
 class MSUpdateEachTimestepContainer
 {
 public:
-    static MSUpdateEachTimestepContainer* getInstance(void)
-    {
+    static MSUpdateEachTimestepContainer* getInstance(void) {
         if (instanceM == 0) {
             instanceM = new MSUpdateEachTimestepContainer();
         }
         return instanceM;
     }
 
-    void addItemToUpdate(UpdateEachTimestep* item)
-    {
+    void addItemToUpdate(UpdateEachTimestep* item) {
         containerM.push_back(item);
     }
 
-    void removeItemToUpdate(UpdateEachTimestep* item)
-    {
+    void removeItemToUpdate(UpdateEachTimestep* item) {
         typename std::vector< UpdateEachTimestep* >::iterator i =
             std::find(containerM.begin(), containerM.end(), item);
         if (i!=containerM.end()) {
@@ -80,20 +77,17 @@ public:
         }
     }
 
-    void updateAll(void)
-    {
+    void updateAll(void) {
         std::for_each(containerM.begin(), containerM.end(),
                       std::mem_fun(&UpdateEachTimestep::updateEachTimestep));
     }
 
-    ~MSUpdateEachTimestepContainer(void)
-    {
+    ~MSUpdateEachTimestepContainer(void) {
         containerM.clear();
         instanceM = 0;
     }
 
-    void clear()
-    {
+    void clear() {
         for (typename std::vector< UpdateEachTimestep* >::iterator i=containerM.begin(); i!=containerM.end(); ++i) {
             delete(*i);
         }
@@ -102,8 +96,7 @@ public:
 
 private:
     MSUpdateEachTimestepContainer(void)
-            : containerM()
-    {}
+            : containerM() {}
 
     std::vector< UpdateEachTimestep* > containerM;
 

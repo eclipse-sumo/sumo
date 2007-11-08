@@ -53,16 +53,13 @@ protected:
     typedef Container::InnerContainer VehicleCont;
 
     MSSpaceMeanSpeed(SUMOReal, const Container& vehicleCont)
-            : containerM(vehicleCont.containerM)
-    {}
+            : containerM(vehicleCont.containerM) {}
 
-    virtual ~MSSpaceMeanSpeed(void)
-    {}
+    virtual ~MSSpaceMeanSpeed(void) {}
 
     DetectorAggregate getDetectorAggregate(void);   // [m/s]
 
-    static std::string getDetectorName(void)
-    {
+    static std::string getDetectorName(void) {
         return "spaceMeanSpeed";
     }
 

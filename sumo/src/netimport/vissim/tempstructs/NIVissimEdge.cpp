@@ -664,9 +664,9 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     avgSpeed *= OptionsCont::getOptions().getFloat("vissim.speed-norm");
 
     NBEdge *buildEdge = new NBEdge(
-                            toString<int>(myID), myName, fromNode, toNode, myType,
-                            avgSpeed/(SUMOReal) 3.6, myNoLanes, -1, myGeom,
-                            NBEdge::LANESPREAD_CENTER, NBEdge::EDGEFUNCTION_NORMAL);
+        toString<int>(myID), myName, fromNode, toNode, myType,
+        avgSpeed/(SUMOReal) 3.6, myNoLanes, -1, myGeom,
+        NBEdge::LANESPREAD_CENTER, NBEdge::EDGEFUNCTION_NORMAL);
     for (i=0; i<(int) myNoLanes; i++) {
         if ((int) myLaneSpeeds.size()<=i||myLaneSpeeds[i]==-1) {
             buildEdge->setLaneSpeed(i,
@@ -920,9 +920,9 @@ NIVissimEdge::resolveSameNode(NBNodeCont &nc, SUMOReal offset,
         // no end node given
         if (c->around(myGeom.getBegin(), offset) && !c->around(myGeom.getEnd(), offset)) {
             NBNode *end = new NBNode(
-                              toString<int>(myID) + "-End",
-                              myGeom.getEnd(),
-                              NBNode::NODETYPE_NOJUNCTION);
+                toString<int>(myID) + "-End",
+                myGeom.getEnd(),
+                NBNode::NODETYPE_NOJUNCTION);
             if (!nc.insert(end)) {
                 throw 1;
             }
@@ -932,9 +932,9 @@ NIVissimEdge::resolveSameNode(NBNodeCont &nc, SUMOReal offset,
         // no begin node given
         if (!c->around(myGeom.getBegin(), offset) && c->around(myGeom.getEnd(), offset)) {
             NBNode *beg = new NBNode(
-                              toString<int>(myID) + "-Begin",
-                              myGeom.getBegin(),
-                              NBNode::NODETYPE_NOJUNCTION);
+                toString<int>(myID) + "-Begin",
+                myGeom.getBegin(),
+                NBNode::NODETYPE_NOJUNCTION);
             if (!nc.insert(beg)) {
                 cout << "nope, NIVissimDisturbance" << endl;
                 throw 1;

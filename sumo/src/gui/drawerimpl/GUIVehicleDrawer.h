@@ -49,7 +49,7 @@ class GUIEdge;
 // ===========================================================================
 /**
  *@class GUIVehicleDrawer
- * 
+ *
  *Draws vehicles as coloured triangles
  */
 class GUIVehicleDrawer

@@ -82,12 +82,10 @@ public:
     {
     public:
         /// Constructor
-        EdgeFloatTimeLineRetriever()
-        { }
+        EdgeFloatTimeLineRetriever() { }
 
         /// Destructor
-        virtual ~EdgeFloatTimeLineRetriever()
-        { }
+        virtual ~EdgeFloatTimeLineRetriever() { }
 
         /// Adds a weight for a given edge and time period
         virtual void addEdgeWeight(const std::string &id,

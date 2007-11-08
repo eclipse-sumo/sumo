@@ -47,8 +47,7 @@ class InvalidArgument : public std::runtime_error
 public:
     /** constructor */
     InvalidArgument(const std::string &message)
-            : std::runtime_error(message)
-    {}
+            : std::runtime_error(message) {}
 
 };
 
@@ -64,13 +63,11 @@ class ProcessError : public std::runtime_error
 public:
     /** constructor */
     ProcessError()
-            : std::runtime_error("Process Error")
-    {}
+            : std::runtime_error("Process Error") {}
 
     /** constructor */
     ProcessError(const std::string &msg)
-            : std::runtime_error(msg)
-    {}
+            : std::runtime_error(msg) {}
 
 };
 
@@ -84,8 +81,7 @@ class EmptyData : public std::runtime_error
 public:
     /** constructor */
     EmptyData()
-            : std::runtime_error("Empty Data")
-    {}
+            : std::runtime_error("Empty Data") {}
 
 };
 
@@ -101,8 +97,7 @@ class NumberFormatException : public std::runtime_error
 public:
     /** constructor */
     NumberFormatException()
-            : std::runtime_error("Number Format")
-    {}
+            : std::runtime_error("Number Format") {}
 
 };
 
@@ -117,8 +112,7 @@ class BoolFormatException : public std::runtime_error
 public:
     /** constructor */
     BoolFormatException()
-            : std::runtime_error("Bool Format")
-    {}
+            : std::runtime_error("Bool Format") {}
 
 };
 
@@ -133,8 +127,7 @@ class OutOfBoundsException : public std::runtime_error
 public:
     /** constructor */
     OutOfBoundsException()
-            : std::runtime_error("Out Of Bounds")
-    {}
+            : std::runtime_error("Out Of Bounds") {}
 
 };
 
@@ -149,13 +142,11 @@ class UnknownElement : public std::runtime_error
 public:
     /** constructor */
     UnknownElement()
-            : std::runtime_error("Unknown Element")
-    {}
+            : std::runtime_error("Unknown Element") {}
 
     /** constructor */
     UnknownElement(const std::string &msg)
-            : std::runtime_error(msg)
-    {}
+            : std::runtime_error(msg) {}
 
 };
 
@@ -165,8 +156,7 @@ class IOError : public ProcessError
 public:
     /** constructor */
     IOError(const std::string &message)
-            : ProcessError(message)
-    {}
+            : ProcessError(message) {}
 
 };
 

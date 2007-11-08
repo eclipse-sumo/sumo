@@ -123,8 +123,7 @@ protected:
     bool hasSourceDetector(ROEdge *edge,
                            const RODFDetectorCon &detectors) const;
 
-    struct IterationEdge
-    {
+    struct IterationEdge {
         int depth;
         ROEdge *edge;
     };
@@ -134,16 +133,13 @@ protected:
     {
     public:
         /// Constructor
-        explicit DFRouteDescByTimeComperator()
-        { }
+        explicit DFRouteDescByTimeComperator() { }
 
         /// Destructor
-        ~DFRouteDescByTimeComperator()
-        { }
+        ~DFRouteDescByTimeComperator() { }
 
         /// Comparing method
-        bool operator()(const DFRORouteDesc *nod1, const DFRORouteDesc *nod2) const
-        {
+        bool operator()(const DFRORouteDesc *nod1, const DFRORouteDesc *nod2) const {
             return nod1->duration_2>nod2->duration_2;
         }
     };

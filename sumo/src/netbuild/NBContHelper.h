@@ -79,8 +79,7 @@ public:
     {
     public:
         /// constructor
-        explicit edge_by_junction_angle_sorter(NBNode *n) : myNode(n)
-        {}
+        explicit edge_by_junction_angle_sorter(NBNode *n) : myNode(n) {}
 
         /// comparing operation
         int operator()(NBEdge *e1, NBEdge *e2) const;
@@ -108,13 +107,11 @@ public:
     public:
         /// constructor
         explicit relative_edge_sorter(NBEdge *e, NBNode *n)
-                : myEdge(e), myNode(n)
-        {}
+                : myEdge(e), myNode(n) {}
 
     public:
         /// comparing operation
-        int operator()(NBEdge *e1, NBEdge *e2) const
-        {
+        int operator()(NBEdge *e1, NBEdge *e2) const {
             SUMOReal relAngle1 = NBHelpers::normRelAngle(
                                      myEdge->getAngle(), e1->getAngle());
             SUMOReal relAngle2 = NBHelpers::normRelAngle(
@@ -140,13 +137,11 @@ public:
     public:
         /// constructor
         explicit relative_edgelane_sorter(NBEdge *e, NBNode *n)
-                : myEdge(e), myNode(n)
-        {}
+                : myEdge(e), myNode(n) {}
 
     public:
         /// comparing operation
-        int operator()(EdgeLane e1, EdgeLane e2) const
-        {
+        int operator()(EdgeLane e1, EdgeLane e2) const {
             SUMOReal relAngle1 = NBHelpers::normRelAngle(
                                      myEdge->getAngle(), e1.edge->getAngle());
             SUMOReal relAngle2 = NBHelpers::normRelAngle(
@@ -171,8 +166,7 @@ public:
     {
     public:
         /// comparing operator
-        int operator()(NBEdge *e1, NBEdge *e2) const
-        {
+        int operator()(NBEdge *e1, NBEdge *e2) const {
             if (e1->getPriority()!=e2->getPriority()) {
                 return e1->getPriority() > e2->getPriority();
             }
@@ -194,13 +188,11 @@ public:
     public:
         /// constructor
         explicit edge_opposite_direction_sorter(NBEdge *e)
-                : myAngle(e->getAngle()), myEdge(e)
-        {}
+                : myAngle(e->getAngle()), myEdge(e) {}
 
     public:
         /// comparing operation
-        int operator()(NBEdge *e1, NBEdge *e2) const
-        {
+        int operator()(NBEdge *e1, NBEdge *e2) const {
             SUMOReal d1 = getDiff(e1);
             SUMOReal d2 = getDiff(e2);
             return d1 < d2;
@@ -209,8 +201,7 @@ public:
         /** helping method for the computation of the absolut difference
          * between the edges' angles
          */
-        SUMOReal getDiff(NBEdge *e) const
-        {
+        SUMOReal getDiff(NBEdge *e) const {
             SUMOReal d = e->getAngle()+180;
             if (d>=360) {
                 d -= 360;
@@ -238,12 +229,10 @@ public:
     public:
         /// constructor
         explicit edge_similar_direction_sorter(NBEdge *e)
-                : myAngle(e->getAngle())
-        {}
+                : myAngle(e->getAngle()) {}
 
         /// comparing operation
-        int operator()(NBEdge *e1, NBEdge *e2) const
-        {
+        int operator()(NBEdge *e1, NBEdge *e2) const {
             SUMOReal d1 = getDiff(e1);
             SUMOReal d2 = getDiff(e2);
             return d1 < d2;
@@ -252,8 +241,7 @@ public:
         /** helping method for the computation of the absolut difference
          * between the edges' angles
          */
-        SUMOReal getDiff(NBEdge *e) const
-        {
+        SUMOReal getDiff(NBEdge *e) const {
             SUMOReal d = e->getAngle();
             return MIN2(GeomHelper::getCCWAngleDiff(d, myAngle), GeomHelper::getCWAngleDiff(d, myAngle));
         }
@@ -350,15 +338,13 @@ public:
     {
     public:
         /// constructor
-        explicit same_connection_edge_sorter()
-        { }
+        explicit same_connection_edge_sorter() { }
 
         /// comparing operation
-        int operator()(NBEdge *e1, NBEdge *e2) const
-        {
+        int operator()(NBEdge *e1, NBEdge *e2) const {
             std::pair<SUMOReal, SUMOReal> mm1 = getMinMaxRelAngles(e1);
             std::pair<SUMOReal, SUMOReal> mm2 = getMinMaxRelAngles(e2);
-            if(mm1.first==mm2.first && mm1.second==mm2.second) {
+            if (mm1.first==mm2.first && mm1.second==mm2.second) {
                 // ok, let's simply sort them arbitrarily
                 return e1->getID() < e2->getID();
             }
@@ -373,8 +359,7 @@ public:
         /**
          *
          */
-        std::pair<SUMOReal, SUMOReal> getMinMaxRelAngles(NBEdge *e) const
-        {
+        std::pair<SUMOReal, SUMOReal> getMinMaxRelAngles(NBEdge *e) const {
             SUMOReal min = 360;
             SUMOReal max = 360;
             const EdgeVector &ev = e->getConnected();
@@ -409,11 +394,9 @@ public:
     public:
         /// constructor
         opposite_finder(NBEdge *edge, const NBNode *n)
-                : myReferenceEdge(edge), myAtNode(n)
-        { }
+                : myReferenceEdge(edge), myAtNode(n) { }
 
-        bool operator()(NBEdge *e) const
-        {
+        bool operator()(NBEdge *e) const {
             return e->isTurningDirectionAt(myAtNode, myReferenceEdge)||
                    myReferenceEdge->isTurningDirectionAt(myAtNode, e);
         }

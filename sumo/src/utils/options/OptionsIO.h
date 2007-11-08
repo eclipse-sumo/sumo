@@ -57,7 +57,7 @@ class OptionsIO
 {
 public:
     /** loads the configuration and parses the command line arguments */
-    static void getOptions(bool loadConfig, 
+    static void getOptions(bool loadConfig,
                            int argv, char **argc) throw(ProcessError);
 
     /** loads and parses the configuration */

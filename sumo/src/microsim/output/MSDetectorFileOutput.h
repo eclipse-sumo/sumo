@@ -55,8 +55,7 @@ class MSDetectorFileOutput
 {
 public:
     /// (virtual) destructor
-    virtual ~MSDetectorFileOutput()
-    { }
+    virtual ~MSDetectorFileOutput() { }
 
     /**
      * Get the XML-formatted output of the concrete detector.

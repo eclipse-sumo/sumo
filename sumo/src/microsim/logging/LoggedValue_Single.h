@@ -47,34 +47,29 @@ class LoggedValue_Single
 public:
     /// Constructor
     LoggedValue_Single(size_t dummy)
-            : LoggedValue<T>(dummy)
-    {}
+            : LoggedValue<T>(dummy) {}
 
     /// Destructor
-    ~LoggedValue_Single()
-    { }
+    ~LoggedValue_Single() { }
 
 
     /** @brief Adds a new value
         Simply sets the current value */
-    void add(T value)
-    {
+    void add(T value) {
         this->myCurrentValue = value;
     }
 
 
     /** returns the average of previously set values
         (for and over the given sample interval) */
-    T getAvg() const
-    {
+    T getAvg() const {
         return this->myCurrentValue;
     }
 
 
     /** returns the sum of previously set values
         (for the given sample interval) */
-    T getAbs() const
-    {
+    T getAbs() const {
         return this->myCurrentValue;
     }
 

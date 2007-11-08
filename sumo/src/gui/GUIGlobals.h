@@ -48,10 +48,8 @@ class GUINet;
 /**
  * @class GUIGlobals
  */
-struct GUISimInfo
-{
-    GUISimInfo(GUINet &netArg) : net(netArg)
-    { }
+struct GUISimInfo {
+    GUISimInfo(GUINet &netArg) : net(netArg) { }
     GUINet &net;
 };
 

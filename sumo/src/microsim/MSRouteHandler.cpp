@@ -175,10 +175,10 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         // get the standing duration
         stop.until = -1;
         stop.duration = -1;
-        if(!hasAttribute(attrs, SUMO_ATTR_DURATION) && !hasAttribute(attrs, SUMO_ATTR_UNTIL)) {
+        if (!hasAttribute(attrs, SUMO_ATTR_DURATION) && !hasAttribute(attrs, SUMO_ATTR_UNTIL)) {
             MsgHandler::getErrorInstance()->inform("The duration of a stop is not defined.");
             return;
-        } else if(hasAttribute(attrs, SUMO_ATTR_DURATION)) {
+        } else if (hasAttribute(attrs, SUMO_ATTR_DURATION)) {
             try {
                 stop.duration = (SUMOTime) getFloat(attrs, SUMO_ATTR_DURATION); // time-parser
             } catch (EmptyData&) {
@@ -305,7 +305,7 @@ MSRouteHandler::addRouteElements(const std::string &chars)
         // check whether the edge exists
         if (edge==0) {
             throw ProcessError("The edge '" + set + "' within route '" + myActiveRouteID + "' is not known."
-                                   + "\n The route can not be build.");
+                               + "\n The route can not be build.");
         }
         myActiveRoute.push_back(edge);
     }

@@ -108,7 +108,7 @@ public:
 
     /** @brief Returns the information whether the described flow must let any other flow pass
      *
-     * If the from/to connection passes only one junction (from is incoming into 
+     * If the from/to connection passes only one junction (from is incoming into
      *  same node as to outgoes from) the node is asked whether the flow must brake-
      * Otherwise true is returned (recheck!)
      * "from" must be an incoming edge into one of the participating nodes!

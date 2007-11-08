@@ -98,7 +98,7 @@ OptionsCont::doRegister(const string &name, Option *v) throw(InvalidArgument)
     if (i==myAddresses.end()) {
         myAddresses.push_back(v);
     }
-    if(myValues.find(name)!=myValues.end()) {
+    if (myValues.find(name)!=myValues.end()) {
         throw InvalidArgument(name + " is an already used option name.");
     }
     myValues[name] = v;
@@ -341,7 +341,7 @@ OptionsCont::isUsableFileList(const std::string &name) const
         MsgHandler::getErrorInstance()->inform("The file list for '" + name + "' is empty.");
         ok = false;
     }
-    for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+    for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         if (!FileHelpers::exists(*fileIt)) {
             if (*fileIt!="") {
                 MsgHandler::getErrorInstance()->inform("File '" + *fileIt + "' does not exist.");
@@ -413,14 +413,14 @@ OptionsCont::isWriteable(const std::string &name)
 void
 OptionsCont::clear()
 {
-	ItemAddressContType::iterator i;
+    ItemAddressContType::iterator i;
     for (i=myAddresses.begin(); i!=myAddresses.end(); i++) {
-        delete (*i);
+        delete(*i);
     }
     myAddresses.clear();
     myValues.clear();
-	mySubTopics.clear();
-	mySubTopicEntries.clear();
+    mySubTopics.clear();
+    mySubTopicEntries.clear();
 }
 
 
@@ -430,14 +430,14 @@ OptionsCont::addDescription(const std::string &name,
                             const std::string &description) throw(InvalidArgument)
 {
     Option *o = getSecure(name);
-    if(o==0) {
+    if (o==0) {
         throw InvalidArgument("Trying to describe the unknown option '" + name + "'.");
     }
     if (o->myDescription!="") {
         throw InvalidArgument("The description was set before");
     }
     o->myDescription = description;
-    if(find(mySubTopics.begin(), mySubTopics.end(), subtopic)==mySubTopics.end()) {
+    if (find(mySubTopics.begin(), mySubTopics.end(), subtopic)==mySubTopics.end()) {
         throw InvalidArgument("The subtopic '" + subtopic + "' is not known.");
     }
     mySubTopicEntries[subtopic].push_back(name);
@@ -723,7 +723,7 @@ OptionsCont::writeXMLHeader(std::ostream &os, const bool writeConfig)
 
     os << "<?xml version=\"1.0\"?>\n\n";
     time(&rawtime);
-    strftime(buffer, 80, "<!-- generated on %c by ", localtime (&rawtime));
+    strftime(buffer, 80, "<!-- generated on %c by ", localtime(&rawtime));
     os << buffer << myFullName << "\n";
     if (writeConfig) {
         writeConfiguration(os, true, false, false);

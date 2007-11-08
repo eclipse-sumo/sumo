@@ -52,26 +52,22 @@ protected:
 
     MSHaltingDurationSum(Container& toObserve)
             :
-            toObserveM(toObserve)
-    {
+            toObserveM(toObserve) {
         toObserveM.attach(this);
     }
 
-    virtual ~MSHaltingDurationSum()
-    {
+    virtual ~MSHaltingDurationSum() {
         toObserveM.detach(this);
     }
 
     virtual void update(ParameterType aObserved) = 0;
 
-    DetectorAggregate getValue(ParameterType aObserved)
-    {
+    DetectorAggregate getValue(ParameterType aObserved) {
         return MSUnit::getInstance()->getSeconds(
                    aObserved.haltingDurationM);
     }
 
-    static std::string getDetectorName(void)
-    {
+    static std::string getDetectorName(void) {
         return "haltDurationSum";
     }
 

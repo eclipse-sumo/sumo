@@ -45,7 +45,7 @@ RGBColor
 GfxConvHelper::parseColor(const std::string &coldef)
 {
     StringTokenizer st(coldef, ",");
-    if(st.size()<3) {
+    if (st.size()<3) {
         throw EmptyData();
     }
     SUMOReal r = TplConvert<char>::_2SUMOReal(st.next().c_str());

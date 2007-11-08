@@ -94,8 +94,7 @@ public:
      * The information about a lane's neighbours speed up the computation
      *  of the lane changing.
      */
-    struct LaneUsage
-    {
+    struct LaneUsage {
         MSLane *lane;
         size_t noVehicles;
         SUMOReal vehLenSum;

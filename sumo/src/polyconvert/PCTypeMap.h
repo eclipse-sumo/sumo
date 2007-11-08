@@ -57,8 +57,7 @@ public:
      * @struct TypeDef
      * @brief a single definition of values resulting from a type
      */
-    struct TypeDef
-    {
+    struct TypeDef {
         /// The new type id to use
         std::string id;
         /// The color to use
@@ -76,7 +75,7 @@ public:
 
     /// Adds a type definition
     bool add(const std::string &id, const std::string &newid, const std::string &color,
-                 const std::string &prefix, int layer, bool discard, bool allowFill);
+             const std::string &prefix, int layer, bool discard, bool allowFill);
 
     /** @brief Returns a type definition
      *

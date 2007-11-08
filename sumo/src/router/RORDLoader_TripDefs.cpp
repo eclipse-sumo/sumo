@@ -168,7 +168,7 @@ RORDLoader_TripDefs::getVehicleID(const Attributes &attrs)
         }
     }
     // and save this vehicle id
-   myNet.addVehicleID(id); // !!! what for?
+    myNet.addVehicleID(id); // !!! what for?
     return id;
 }
 
@@ -212,8 +212,7 @@ RORDLoader_TripDefs::getOptionalFloat(const Attributes &attrs,
     }
     try {
         return getFloat(attrs, SUMO_ATTR_POS);
-    } catch (EmptyData &) {}
-    catch (NumberFormatException &) {
+    } catch (EmptyData &) {} catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The value of '" + name + "' should be numeric but is not.");
         if (place.length()!=0)
             MsgHandler::getErrorInstance()->inform(" Route id='" + place + "')");
@@ -369,8 +368,7 @@ RORDLoader_TripDefs::getRGBColorReporting(const Attributes &attrs,
 {
     try {
         return GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR));
-    } catch (EmptyData &) {}
-    catch (NumberFormatException &) {
+    } catch (EmptyData &) {} catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Color in vehicle '" + id + "' is not numeric.");
     }
     return RGBColor(-1, -1, -1);

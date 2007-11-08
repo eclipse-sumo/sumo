@@ -40,8 +40,7 @@
  * @see GenericSAXHandler
  * @see SUMOSAXHandler
  */
-enum SumoXMLTag
-{
+enum SumoXMLTag {
     /** invalid tag */
     SUMO_TAG_NOTHING,
     /** begin/end of the simulation description */
@@ -184,8 +183,7 @@ enum SumoXMLTag
  * @see GenericSAXHandler
  * @see SUMOSAXHandler
  */
-enum SumoXMLAttr
-{
+enum SumoXMLAttr {
     /** invalid attribute */
     SUMO_ATTR_NOTHING,
     /* common attributes */

@@ -136,12 +136,12 @@ NBEdge::MainDirections::MainDirections(const std::vector<NBEdge*> &outgoing,
         }
     }
     // check whether the forward direction has a higher priority
-        //  try to get the forward direction
+    //  try to get the forward direction
     vector<NBEdge*> tmp(outgoing);
     sort(tmp.begin(), tmp.end(),
          NBContHelper::edge_similar_direction_sorter(parent));
     NBEdge *edge = *(tmp.begin());
-        // check whether it has a higher priority and is going straight
+    // check whether it has a higher priority and is going straight
     if (edge->getJunctionPriority(to)==1 && to->getMMLDirection(parent, edge)==MMLDIR_STRAIGHT) {
         myDirs.push_back(MainDirections::DIR_FORWARD);
     }
@@ -190,9 +190,9 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         throw std::exception();
     }
     myAngle = NBHelpers::angle(
-                 myFrom->getPosition().x(), myFrom->getPosition().y(),
-                 myTo->getPosition().x(), myTo->getPosition().y()
-             );
+                  myFrom->getPosition().x(), myFrom->getPosition().y(),
+                  myTo->getPosition().x(), myTo->getPosition().y()
+              );
     myFrom->addOutgoingEdge(this);
     myTo->addIncomingEdge(this);
     // prepare container
@@ -238,15 +238,15 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     myGeom.push_back_noDoublePos(to->getPosition());
     myGeom.push_front_noDoublePos(from->getPosition());
     myAngle = NBHelpers::angle(
-                 myFrom->getPosition().x(), myFrom->getPosition().y(),
-                 myTo->getPosition().x(), myTo->getPosition().y()
-             );
+                  myFrom->getPosition().x(), myFrom->getPosition().y(),
+                  myTo->getPosition().x(), myTo->getPosition().y()
+              );
     myFrom->addOutgoingEdge(this);
     myTo->addIncomingEdge(this);
     // prepare container
     myReachable.resize(myNolanes, EdgeLaneVector());
     myLength = GeomHelper::distance(
-                      myFrom->getPosition(), myTo->getPosition());
+                   myFrom->getPosition(), myTo->getPosition());
     assert(myGeom.size()>=2);
     computeLaneShapes();
     for (size_t i=0; i<myNolanes; i++) {
@@ -537,7 +537,7 @@ NBEdge::writeLane(OutputDevice &into, size_t lane)
 
     }
     SUMOReal length = myLength;
-    if(myLoadedLength>0) {
+    if (myLoadedLength>0) {
         length = myLoadedLength;
     }
     into << " maxspeed=\"" << myLaneSpeeds[lane] << "\" length=\"" << length << "\">";
@@ -751,8 +751,8 @@ NBEdge::writeSingleSucceeding(OutputDevice &into, size_t fromlane, size_t destid
     }
     // write information whether the connection yields
     if (!myTo->mustBrake(this,
-                        myReachable[fromlane][destidx].edge,
-                        myReachable[fromlane][destidx].lane)) {
+                         myReachable[fromlane][destidx].edge,
+                         myReachable[fromlane][destidx].lane)) {
         into << " yield=\"0\"";
     } else {
         into << " yield=\"1\"";
@@ -2474,7 +2474,7 @@ NBEdge::getMaxConnectedLane(NBEdge *of) const
 }
 
 
-void 
+void
 NBEdge::setLoadedLength(SUMOReal val)
 {
     myLoadedLength = val;

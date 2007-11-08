@@ -98,8 +98,7 @@ public:
     virtual ~GUISUMOAbstractView();
 
     /// builds the view toolbars
-    virtual void buildViewToolBars(GUIGlChildWindow &)
-    { }
+    virtual void buildViewToolBars(GUIGlChildWindow &) { }
 
     /// recenters the view
     void recenterView();
@@ -179,18 +178,15 @@ public:
     void showViewportEditor();
     virtual void showViewschemeEditor() = 0;
     void showToolTips(bool val);
-    virtual void setColorScheme(char* data)
-    { }
+    virtual void setColorScheme(char* data) { }
 
     void drawShapes(const ShapeContainer &sc, int maxLayer, SUMOReal width);
 
-    void remove(GUIDialog_EditViewport *)
-    {
+    void remove(GUIDialog_EditViewport *) {
         myViewportChooser = 0;
     }
 
-    void remove(GUIDialog_ViewSettings *)
-    {
+    void remove(GUIDialog_ViewSettings *) {
         myVisualizationChanger = 0;
     }
 
@@ -199,23 +195,17 @@ public:
     SUMOReal getGridHeight() const;
 
     /// shows a vehicle route
-    virtual void showRoute(GUIVehicle * /*v*/, int /*index=-1*/)
-    { }
+    virtual void showRoute(GUIVehicle * /*v*/, int /*index=-1*/) { }
 
     /// hides a vehicle route
-    virtual void hideRoute(GUIVehicle * /*v*/, int /*index=-1*/)
-    { }
+    virtual void hideRoute(GUIVehicle * /*v*/, int /*index=-1*/) { }
 
-    virtual void startTrack(int /*id*/)
-    { }
-    virtual void stopTrack()
-    { }
-    virtual int getTrackedID() const
-    {
+    virtual void startTrack(int /*id*/) { }
+    virtual void stopTrack() { }
+    virtual int getTrackedID() const {
         return -1;
     }
-    virtual bool amShowingRouteFor(GUIVehicle * /*v*/, int /*index=-1*/)
-    {
+    virtual bool amShowingRouteFor(GUIVehicle * /*v*/, int /*index=-1*/) {
         return false;
     }
 
@@ -229,8 +219,7 @@ public:
         VCS_BY_TYPE = 0
     };
 
-    struct Decal
-    {
+    struct Decal {
         std::string filename;
         SUMOReal left;
         SUMOReal top;
@@ -275,8 +264,7 @@ public:
      * @struct VisualizationSettings
      * @brief This class stores the information about how to visualize the structures
      */
-    struct VisualizationSettings
-    {
+    struct VisualizationSettings {
         /// The name of this setting
         std::string name;
 
@@ -286,7 +274,7 @@ public:
         bool dither;
 
         /// @name background visualization settings
-        //@{ 
+        //@{
         /// The background color to use
         RGBColor backgroundColor;
         /// Information whether background decals (textures) shall be used
@@ -298,7 +286,7 @@ public:
         //@}
 
         /// @name lane visualization settings
-        //@{ 
+        //@{
         /// The lane visualization scheme
         int laneEdgeMode;
         /// The map if used colors (scheme->used colors)
@@ -325,7 +313,7 @@ public:
         //@}
 
         /// @name vehicle visualization settings
-        //@{ 
+        //@{
         /// The vehicle visualization scheme
         int vehicleMode;
         /// The minimum size of vehicles to let them be drawn
@@ -349,7 +337,7 @@ public:
         //@}
 
         /// @name junction visualization settings
-        //@{ 
+        //@{
         /// The junction visualization scheme
         int junctionMode;
         /// Information whether a link's tls index shall be drawn
@@ -368,7 +356,7 @@ public:
         bool showLane2Lane;
 
         /// @name additional structures visualization settings
-        //@{ 
+        //@{
         /// The additional structures visualization scheme
         int addMode;
         /// The minimum size of additional structures to let them be drawn
@@ -384,7 +372,7 @@ public:
         //@}
 
         /// @name shapes visualization settings
-        //@{ 
+        //@{
         /// The minimum size of shapes to let them be drawn
         float minPOISize;
         /// The additional shapes (upscale)
@@ -426,11 +414,9 @@ protected:
 
     void drawShapesLayer(const ShapeContainer &sc, int layer, SUMOReal width);
 
-    virtual void doPaintGL(int /*mode*/, SUMOReal /*scale*/)
-    { }
+    virtual void doPaintGL(int /*mode*/, SUMOReal /*scale*/) { }
 
-    virtual void doInit()
-    { }
+    virtual void doInit() { }
 
     /// paints a grid
     void paintGLGrid();
@@ -520,8 +506,7 @@ protected:
         VO_SHOW_ROUTE
     };
 
-    struct VehicleOps
-    {
+    struct VehicleOps {
         VehicleOperationType type;
         GUIVehicle *vehicle;
         int routeNo;
@@ -538,12 +523,10 @@ protected:
     public:
         /** constructor */
         explicit vehicle_in_ops_finder(const GUIVehicle * const v)
-                : myVehicle(v)
-        { }
+                : myVehicle(v) { }
 
         /** the comparing function */
-        bool operator()(const VehicleOps &vo)
-        {
+        bool operator()(const VehicleOps &vo) {
             return vo.vehicle == myVehicle;
         }
 
@@ -554,8 +537,7 @@ protected:
     };
 
 protected:
-    GUISUMOAbstractView()
-    { }
+    GUISUMOAbstractView() { }
 
 };
 

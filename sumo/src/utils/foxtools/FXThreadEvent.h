@@ -121,8 +121,7 @@ protected:
     FXThreadEvent& operator=(const FXThreadEvent&);
 
 public:
-    enum
-    {
+    enum {
         ID_THREAD_EVENT=FXBaseObject::ID_LAST,
         ID_LAST
     };

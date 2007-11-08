@@ -59,8 +59,7 @@ public:
 
 protected:
     /// FOX needs this
-    GUIManipulator()
-    { }
+    GUIManipulator() { }
 
 };
 

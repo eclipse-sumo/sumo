@@ -49,20 +49,16 @@ public:
 
     FunctionBinding(T* source, Operation operation) :
             mySource(source),
-            myOperation(operation)
-    {}
+            myOperation(operation) {}
 
     /// Destructor.
-    ~FunctionBinding()
-    {}
+    ~FunctionBinding() {}
 
-    R getValue() const
-    {
+    R getValue() const {
         return (mySource->*myOperation)();
     }
 
-    ValueSource<R> *copy() const
-    {
+    ValueSource<R> *copy() const {
         return new FunctionBinding<T, R>(mySource, myOperation);
     }
 

@@ -29,8 +29,7 @@ private:
     FXSingleEventThread& operator=(const FXSingleEventThread&);
 
 public:
-    enum
-    {
+    enum {
         ID_THREAD_EVENT
     };
 
@@ -45,8 +44,7 @@ public:
 
     void signal(FXuint seltype);
 
-    virtual FXint run()
-    {
+    virtual FXint run() {
         return 0;
     }
 
@@ -59,8 +57,7 @@ private:
     MFXInterThreadEventClient *myClient;
 
 protected:
-    FXSingleEventThread()
-    { }
+    FXSingleEventThread() { }
 };
 
 

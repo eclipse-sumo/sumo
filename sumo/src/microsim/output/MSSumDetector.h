@@ -65,8 +65,7 @@ public:
     typedef typename DetectorType::AggregatesContIter AggregatesContIter;
     typedef typename DetectorType::Container DetectorContainer;
 
-    DetAggregate getAggregate(MSUnit::Seconds lastNSeconds)
-    {
+    DetAggregate getAggregate(MSUnit::Seconds lastNSeconds) {
         // returns the sum of the lastNSeconds
         AggregatesContIter startIt =
             this->getAggrContStartIterator(
@@ -83,8 +82,7 @@ protected:
                   const DetectorContainer& container)
             : DetectorType(id, lengthInMeters,
                            deleteDataAfterSeconds,
-                           container)
-    {
+                           container) {
         if (this->detNameM == "") {
             this->detNameM = this->getDetectorName() + "Sum";
         }
@@ -97,8 +95,7 @@ protected:
                   const TD::MSDetectorInterface& helperDetector)
             : DetectorType(id, lengthInMeters,
                            deleteDataAfterSeconds,
-                           helperDetector)
-    {
+                           helperDetector) {
         if (this->detNameM == "") {
             this->detNameM = this->getDetectorName() + "Sum";
         }
@@ -110,8 +107,7 @@ protected:
                   DetectorContainer& container)
             : DetectorType(id,
                            deleteDataAfterSeconds,
-                           container)
-    {
+                           container) {
         if (this->detNameM == "") {
             this->detNameM = this->getDetectorName() + "Sum";
         }
@@ -123,8 +119,7 @@ protected:
                   const DetectorContainer& container)
             : DetectorType(id,
                            deleteDataAfterSeconds,
-                           container)
-    {
+                           container) {
         if (this->detNameM == "") {
             this->detNameM = this->getDetectorName() + "Sum";
         }
@@ -133,13 +128,11 @@ protected:
     // E* ctors follow here
 
 
-    virtual ~MSSumDetector(void)
-    {}
+    virtual ~MSSumDetector(void) {}
 
     DetAggregate getSum(MSUnit::Seconds,
                         AggregatesContIter startIt,
-                        Loki::Int2Type< false >)
-    {
+                        Loki::Int2Type< false >) {
         // returns the sum of the lastNSeconds
         return std::accumulate(startIt , this->aggregatesM.end(),
                                static_cast< DetAggregate >(0));
@@ -147,8 +140,7 @@ protected:
 
     DetAggregate getSum(MSUnit::Seconds,
                         AggregatesContIter startIt,
-                        Loki::Int2Type< true >)
-    {
+                        Loki::Int2Type< true >) {
         // returns the sum of the lastNSeconds
         DetAggregate retVal = 0;
         for (; startIt != this->aggregatesM.end(); ++startIt) {

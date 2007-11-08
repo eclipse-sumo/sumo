@@ -232,7 +232,7 @@ public:
         /// The device the detector shall use
         OutputDevice& myDevice;
         /// @name further detector descriptions
-        //@{ 
+        //@{
         MSUnit::MetersPerSecond myHaltingSpeedThreshold;
         E3MeasuresVector myMeasures;
         CrossSectionVector myEntries;

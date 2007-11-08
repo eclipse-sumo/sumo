@@ -28,8 +28,7 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 
 template <int v>
-struct Int2Type
-{
+struct Int2Type {
     enum { value = v };
 };
 
@@ -41,8 +40,7 @@ struct Int2Type
 ////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-struct Type2Type
-{
+struct Type2Type {
     typedef T OriginalType;
 };
 
@@ -57,13 +55,11 @@ struct Type2Type
 ////////////////////////////////////////////////////////////////////////////////
 
 template <bool flag, typename T, typename U>
-struct Select
-{
+struct Select {
     typedef T Result;
 };
 template <typename T, typename U>
-struct Select<false, T, U>
-{
+struct Select<false, T, U> {
     typedef U Result;
 };
 
@@ -71,14 +67,11 @@ struct Select<false, T, U>
 // Helper types Small and Big - guarantee that sizeof(Small) < sizeof(Big)
 ////////////////////////////////////////////////////////////////////////////////
 
-namespace Private
-{
+namespace Private {
 template <class T, class U>
-struct ConversionHelper
-{
+struct ConversionHelper {
     typedef char Small;
-    struct Big
-    {
+    struct Big {
         char dummy[2];
     };
     static Big   Test(...);
@@ -104,8 +97,7 @@ struct ConversionHelper
 ////////////////////////////////////////////////////////////////////////////////
 
 template <class T, class U>
-struct Conversion
-{
+struct Conversion {
     typedef Private::ConversionHelper<T, U> H;
 #ifndef __MWERKS__
     enum { exists = sizeof(typename H::Small) == sizeof(H::Test(H::MakeT())) };
@@ -117,20 +109,17 @@ struct Conversion
 };
 
 template <class T>
-struct Conversion<T, T>
-{
+struct Conversion<T, T> {
     enum { exists = 1, exists2Way = 1, sameType = 1 };
 };
 
 template <class T>
-struct Conversion<void, T>
-{
+struct Conversion<void, T> {
     enum { exists = 0, exists2Way = 0, sameType = 0 };
 };
 
 template <class T>
-struct Conversion<T, void>
-{
+struct Conversion<T, void> {
     enum { exists = 1, exists2Way = 0, sameType = 0 };
 };
 

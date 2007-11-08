@@ -108,8 +108,7 @@ public:
     SUMOReal getProb() const;
     virtual void prepareStep();
 
-    SUMOReal getChangeProbability() const
-    {
+    SUMOReal getChangeProbability() const {
         return myChangeProbability;
     }
 
@@ -125,28 +124,22 @@ protected:
 
 //    void addToBlocking(MSVehicle *veh);
 
-    inline bool amBlockingLeader()
-    {
+    inline bool amBlockingLeader() {
         return (myState&LCA_AMBLOCKINGLEADER)!=0;
     }
-    inline bool amBlockingFollower()
-    {
+    inline bool amBlockingFollower() {
         return (myState&LCA_AMBLOCKINGFOLLOWER)!=0;
     }
-    inline bool amBlockingFollowerNB()
-    {
+    inline bool amBlockingFollowerNB() {
         return (myState&LCA_AMBLOCKINGFOLLOWER_DONTBRAKE)!=0;
     }
-    inline bool amBlockingFollowerPlusNB()
-    {
+    inline bool amBlockingFollowerPlusNB() {
         return (myState&(LCA_AMBLOCKINGFOLLOWER|LCA_AMBLOCKINGFOLLOWER_DONTBRAKE))!=0;
     }
-    inline bool currentDistDisallows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist)
-    {
+    inline bool currentDistDisallows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist) {
         return dist/(abs(laneOffset)+1)<lookForwardDist;
     }
-    inline bool currentDistAllows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist)
-    {
+    inline bool currentDistAllows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist) {
         return dist/abs(laneOffset)>lookForwardDist;
     }
 

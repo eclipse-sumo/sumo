@@ -106,7 +106,7 @@ void
 MsgHandler::inform(string msg, bool addType)
 {
     if (myLock!=0) {
-        myLock->lock ();
+        myLock->lock();
     }
     msg = build(msg, addType);
     // report to cout if wished
@@ -140,7 +140,7 @@ void
 MsgHandler::progressMsg(string msg, bool addType)
 {
     if (myLock!=0) {
-        myLock->lock ();
+        myLock->lock();
     }
     msg = build(msg, addType);
     // report to cout if wished
@@ -174,7 +174,7 @@ void
 MsgHandler::beginProcessMsg(std::string msg, bool addType)
 {
     if (myLock!=0) {
-        myLock->lock ();
+        myLock->lock();
     }
     msg = build(msg, addType);
     // report to cout if wished
@@ -206,7 +206,7 @@ void
 MsgHandler::endProcessMsg(std::string msg)
 {
     if (myLock!=0) {
-        myLock->lock ();
+        myLock->lock();
     }
     // report to cout if wished
     if (myReport2COUT) {
@@ -235,11 +235,11 @@ void
 MsgHandler::clear()
 {
     if (myLock!=0) {
-        myLock->lock ();
+        myLock->lock();
     }
     myWasInformed = false;
     if (myLock!=0) {
-        myLock->unlock ();
+        myLock->unlock();
     }
 }
 
@@ -248,7 +248,7 @@ void
 MsgHandler::addRetriever(MsgRetriever *retriever)
 {
     if (myLock!=0) {
-        myLock->lock ();
+        myLock->lock();
     }
     RetrieverVector::iterator i =
         find(myRetrievers.begin(), myRetrievers.end(), retriever);
@@ -264,7 +264,7 @@ MsgHandler::addRetriever(MsgRetriever *retriever)
         gSuppressMessages = false;
     }
     if (myLock!=0) {
-        myLock->unlock ();
+        myLock->unlock();
     }
 }
 
@@ -273,7 +273,7 @@ void
 MsgHandler::removeRetriever(MsgRetriever *retriever)
 {
     if (myLock!=0) {
-        myLock->lock ();
+        myLock->lock();
     }
     RetrieverVector::iterator i =
         find(myRetrievers.begin(), myRetrievers.end(), retriever);
@@ -289,7 +289,7 @@ MsgHandler::removeRetriever(MsgRetriever *retriever)
         gSuppressMessages = !(myRetrievers.size()==0||myReport2COUT);
     }
     if (myLock!=0) {
-        myLock->unlock ();
+        myLock->unlock();
     }
 }
 
@@ -298,7 +298,7 @@ void
 MsgHandler::report2cout(bool value)
 {
     if (myLock!=0) {
-        myLock->lock ();
+        myLock->lock();
     }
     myReport2COUT = value;
     if (myType==MT_WARNING) {
@@ -310,7 +310,7 @@ MsgHandler::report2cout(bool value)
     }
     cout.setf(ios::fixed ,ios::floatfield);
     if (myLock!=0) {
-        myLock->unlock ();
+        myLock->unlock();
     }
 }
 
@@ -319,7 +319,7 @@ void
 MsgHandler::report2cerr(bool value)
 {
     if (myLock!=0) {
-        myLock->lock ();
+        myLock->lock();
     }
     myReport2CERR = value;
     if (myType==MT_WARNING) {
@@ -331,7 +331,7 @@ MsgHandler::report2cerr(bool value)
     }
     cerr.setf(ios::fixed ,ios::floatfield);
     if (myLock!=0) {
-        myLock->unlock ();
+        myLock->unlock();
     }
 }
 
@@ -361,7 +361,7 @@ void
 MsgHandler::cleanupOnEnd()
 {
     if (myLock!=0) {
-        myLock->lock ();
+        myLock->lock();
     }
     delete myLogFile;
     myLogFile = 0;
@@ -372,7 +372,7 @@ MsgHandler::cleanupOnEnd()
     delete myErrorInstance;
     myErrorInstance = 0;
     if (myLock!=0) {
-        myLock->unlock ();
+        myLock->unlock();
     }
 }
 

@@ -72,11 +72,11 @@ GUIRunThread::GUIRunThread(MFXInterThreadEventClient *parent,
         mySimDelay(simDelay), myEventQue(eq), myEventThrow(ev)
 {
     myErrorRetriever = new MsgRetrievingFunction<GUIRunThread>(this,
-                       &GUIRunThread::retrieveError);
+            &GUIRunThread::retrieveError);
     myMessageRetriever = new MsgRetrievingFunction<GUIRunThread>(this,
-                         &GUIRunThread::retrieveMessage);
+            &GUIRunThread::retrieveMessage);
     myWarningRetreiver = new MsgRetrievingFunction<GUIRunThread>(this,
-                         &GUIRunThread::retrieveWarning);
+            &GUIRunThread::retrieveWarning);
 }
 
 
@@ -177,7 +177,7 @@ GUIRunThread::makeStep()
         // stop the simulation when the last step has been reached
         if (myStep==mySimEndTime) {
             e = new GUIEvent_SimulationEnded(
-                    GUIEvent_SimulationEnded::ER_END_STEP_REACHED, myStep);
+                GUIEvent_SimulationEnded::ER_END_STEP_REACHED, myStep);
             myEventQue.add(e);
             myEventThrow.signal();
             myHalting = true;
@@ -193,7 +193,7 @@ GUIRunThread::makeStep()
         if (myNet->getVehicleControl().haveAllVehiclesQuit()) {
             myHalting = true;
             e = new GUIEvent_SimulationEnded(
-                    GUIEvent_SimulationEnded::ER_NO_VEHICLES, myStep-1);
+                GUIEvent_SimulationEnded::ER_NO_VEHICLES, myStep-1);
             myEventQue.add(e);
             myEventThrow.signal();
         }
@@ -205,7 +205,7 @@ GUIRunThread::makeStep()
         mySimulationLock.unlock();
         mySimulationInProgress = false;
         e = new GUIEvent_SimulationEnded(
-                GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, myStep);
+            GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, myStep);
         myEventQue.add(e);
         myEventThrow.signal();
         myHalting = true;
@@ -215,7 +215,7 @@ GUIRunThread::makeStep()
         mySimulationLock.unlock();
         mySimulationInProgress = false;
         e = new GUIEvent_SimulationEnded(
-                GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, myStep);
+            GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, myStep);
         myEventQue.add(e);
         myEventThrow.signal();
         myHalting = true;
@@ -229,7 +229,7 @@ GUIRunThread::makeStep()
         if (rtf<myNet->getTooSlowRTF()) {
             myHalting = true;
             e = new GUIEvent_SimulationEnded(
-                    GUIEvent_SimulationEnded::ER_NO_VEHICLES, myStep-1);
+                GUIEvent_SimulationEnded::ER_NO_VEHICLES, myStep-1);
             myEventQue.add(e);
             myEventThrow.signal();
         }
@@ -267,7 +267,7 @@ GUIRunThread::begin()
         myOk = false;
         mySimulationInProgress = false;
         GUIEvent_SimulationEnded *e = new GUIEvent_SimulationEnded(
-                                          GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, myStep);
+            GUIEvent_SimulationEnded::ER_ERROR_IN_SIM, myStep);
         myEventQue.add(e);
         myEventThrow.signal();
         myHalting = true;

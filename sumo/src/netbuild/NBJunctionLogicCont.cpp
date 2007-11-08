@@ -72,7 +72,7 @@ NBJunctionLogicCont::exists(const string &key)
 
 void
 NBJunctionLogicCont::add(const std::string &key,
-                             const std::string &xmlDescription)
+                         const std::string &xmlDescription)
 {
     LogicMap::iterator i=myMap.find(key);
     if (i!=myMap.end()) {

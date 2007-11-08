@@ -43,50 +43,41 @@
 class MSVehicle;
 
 struct MSDetectorCounterContainerWrapper
-            : public MSDetectorContainerWrapperBase
-{
+            : public MSDetectorContainerWrapperBase {
     typedef SUMOReal Container;
 
-    void enterDetectorByMove(MSVehicle*)
-    {
+    void enterDetectorByMove(MSVehicle*) {
         ++vehicleCountM;
     }
 
-    void enterDetectorByEmitOrLaneChange(MSVehicle*)
-    {
+    void enterDetectorByEmitOrLaneChange(MSVehicle*) {
         ++vehicleCountM;
     }
 
-    void leaveDetectorByMove(MSVehicle*)
-    {
+    void leaveDetectorByMove(MSVehicle*) {
         --vehicleCountM;
     }
 
-    void leaveDetectorByLaneChange(MSVehicle*)
-    {
+    void leaveDetectorByLaneChange(MSVehicle*) {
         --vehicleCountM;
     }
 
-    void removeOnTripEnd(MSVehicle*)
-    {
+    void removeOnTripEnd(MSVehicle*) {
         --vehicleCountM;
     }
 
 
     MSDetectorCounterContainerWrapper()
             : MSDetectorContainerWrapperBase(),
-            vehicleCountM(0)
-    {}
+            vehicleCountM(0) {}
 
 
     MSDetectorCounterContainerWrapper(
         const MSDetectorOccupancyCorrection& occupancyCorrection)
             : MSDetectorContainerWrapperBase(occupancyCorrection),
-            vehicleCountM(0)
-    {}
+            vehicleCountM(0) {}
 
-    virtual ~MSDetectorCounterContainerWrapper(void)
-    {}
+    virtual ~MSDetectorCounterContainerWrapper(void) {}
 
     Container vehicleCountM;
 };

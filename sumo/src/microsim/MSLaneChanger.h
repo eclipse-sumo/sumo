@@ -65,8 +65,7 @@ public:
         know four vehicles, the change-candidate veh and it's follower
         and leader. Further, information about the last vehicle that changed
         into this lane is needed */
-    struct ChangeElem
-    {
+    struct ChangeElem {
         /// the vehicle following the current vehicle
         MSVehicle*                follow;
         /// the vehicle in front of the current vehicle
@@ -98,8 +97,7 @@ protected:
 
     /** @brief Check if there is a single change-candidate in the changer.
         Returns true if there is one. */
-    virtual bool vehInChanger()
-    {
+    virtual bool vehInChanger() {
         // If there is at least one valid vehicle under the veh's in myChanger
         // return true.
         for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
@@ -112,8 +110,7 @@ protected:
 
     /** Returns a pointer to the changer-element-iterator vehicle, or 0 if
         there is none. */
-    virtual MSVehicle* veh(ChangerIt ce)
-    {
+    virtual MSVehicle* veh(ChangerIt ce) {
         // If ce has a valid vehicle, return it. Otherwise return 0.
         if (ce->veh != ce->lane->myVehicles.rend()) {
             return *(ce->veh);
@@ -139,8 +136,7 @@ protected:
 
     /** Returns true if the target's lane is an allowed lane
         for the candidate's vehicle . */
-    virtual bool candiOnAllowed(ChangerIt target)
-    {
+    virtual bool candiOnAllowed(ChangerIt target) {
         assert(veh(myCandi) != 0);
         return veh(myCandi)->onAllowed(target->lane);
     }
@@ -199,8 +195,7 @@ protected:
 
     /** Returns true if candidate overlaps with a vehicle, that
         already changed the lane.*/
-    virtual bool overlapWithHopped(ChangerIt target)
-    {
+    virtual bool overlapWithHopped(ChangerIt target) {
         MSVehicle *v1 = target->hoppedVeh;
         MSVehicle *v2 = veh(myCandi);
         if (v1!=0 && v2!=0) {

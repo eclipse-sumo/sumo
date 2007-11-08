@@ -129,17 +129,17 @@ std::string StringTokenizer::front()
 }
 
 std::string StringTokenizer::get(size_t pos) const
-    {
-        if (pos>=myStarts.size()) {
-            throw OutOfBoundsException();
-        }
-        if (myLengths[pos]==0) {
-            return "";
-        }
-        size_t start = myStarts[pos];
-        size_t length = myLengths[pos];
-        return myTosplit.substr(start, length);
+{
+    if (pos>=myStarts.size()) {
+        throw OutOfBoundsException();
     }
+    if (myLengths[pos]==0) {
+        return "";
+    }
+    size_t start = myStarts[pos];
+    size_t length = myLengths[pos];
+    return myTosplit.substr(start, length);
+}
 
 
 size_t StringTokenizer::size() const

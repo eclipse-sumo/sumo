@@ -51,31 +51,26 @@ class GUIColorer_SingleColor : public GUIBaseColorer<T>
 {
 public:
     /// Constructor
-    GUIColorer_SingleColor(const RGBColor &c) : myColor(c)
-    { }
+    GUIColorer_SingleColor(const RGBColor &c) : myColor(c) { }
 
     /// Destructor
-    virtual ~GUIColorer_SingleColor()
-    { }
+    virtual ~GUIColorer_SingleColor() { }
 
 
     /// @name inherited from GUIBaseColorer
     //@{
     /// Sets the color using a value from the given instance of T
-    void setGlColor(const T&) const
-    {
+    void setGlColor(const T&) const {
         glColor3d(myColor.red(), myColor.green(), myColor.blue());
     }
 
     /// Sets the color using the given value
-    void setGlColor(SUMOReal) const
-    {
+    void setGlColor(SUMOReal) const {
         glColor3d(myColor.red(), myColor.green(), myColor.blue());
     }
 
     /// Returns the type of this class (CST_SINGLE)
-    virtual ColorSetType getSetType() const
-    {
+    virtual ColorSetType getSetType() const {
         return CST_SINGLE;
     }
     //@}
@@ -84,14 +79,12 @@ public:
     /// @name inherited from from GUIBaseColorerInterface
     //@{
     /// Sets the given color as the colors to use
-    virtual void resetColor(const RGBColor &c)
-    {
+    virtual void resetColor(const RGBColor &c) {
         myColor = c;
     }
 
     /// Returns the single color used
-    virtual const RGBColor &getSingleColor() const
-    {
+    virtual const RGBColor &getSingleColor() const {
         return myColor;
     }
     //@}

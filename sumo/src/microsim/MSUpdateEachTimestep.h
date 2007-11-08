@@ -57,14 +57,12 @@ template < class ToUpdate >
 class MSUpdateEachTimestep
 {
 public:
-    MSUpdateEachTimestep(void)
-    {
+    MSUpdateEachTimestep(void) {
         MSUpdateEachTimestepContainer< MSUpdateEachTimestep<
         ToUpdate > >::getInstance()->addItemToUpdate(this);
     }
 
-    virtual ~MSUpdateEachTimestep(void)
-    {
+    virtual ~MSUpdateEachTimestep(void) {
         MSUpdateEachTimestepContainer< MSUpdateEachTimestep<
         ToUpdate > >::getInstance()->removeItemToUpdate(this);
     }

@@ -60,21 +60,18 @@ public:
                                     const RGBColor &minC, const RGBColor &maxC,
                                     Operation operation)
             : myMin(min), myMax(max), myMinColor(minC), myMaxColor(maxC),
-            myOperation(operation)
-    {
+            myOperation(operation) {
         myScale = (SUMOReal) 1.0 / (myMax-myMin);
     }
 
     /// Destructor
-    virtual ~GUIColorer_ShadeByFunctionValue()
-    { }
+    virtual ~GUIColorer_ShadeByFunctionValue() { }
 
 
     /// @name inherited from GUIBaseColorer
     //@{
     /// Sets the color using a value from the given instance of T
-    void setGlColor(const T& i) const
-    {
+    void setGlColor(const T& i) const {
         SUMOReal val = (i.*myOperation)() - myMin;
         if (val==-1) {
             glColor3f(0.8f, 0.8f, 0.8f);
@@ -91,8 +88,7 @@ public:
     }
 
     /// Sets the color using the given value
-    void setGlColor(SUMOReal val) const
-    {
+    void setGlColor(SUMOReal val) const {
         if (val==-1) {
             glColor3f(0.8f, 0.8f, 0.8f);
         } else {
@@ -108,8 +104,7 @@ public:
     }
 
     /// Returns the type of this class (CST_MINMAX)
-    virtual ColorSetType getSetType() const
-    {
+    virtual ColorSetType getSetType() const {
         return CST_MINMAX;
     }
     //@}
@@ -118,21 +113,18 @@ public:
     /// @name inherited from from GUIBaseColorerInterface
     //@{
     /// Sets the given color as the colors to use
-    virtual void resetColor(const RGBColor &min, const RGBColor &max)
-    {
+    virtual void resetColor(const RGBColor &min, const RGBColor &max) {
         myMinColor = min;
         myMaxColor = max;
     }
 
     /// Returns the color used for minimum values
-    virtual const RGBColor &getMinColor() const
-    {
+    virtual const RGBColor &getMinColor() const {
         return myMinColor;
     }
 
     /// Returns the color used for maximum values
-    virtual const RGBColor &getMaxColor() const
-    {
+    virtual const RGBColor &getMaxColor() const {
         return myMaxColor;
     }
     //@}

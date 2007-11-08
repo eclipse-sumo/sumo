@@ -85,17 +85,17 @@ public:
     MSInductLoop *findInductLoop(const std::string &id);
 
     void add(MSInductLoop *il, OutputDevice& device,
-                 int splInterval);
+             int splInterval);
 #ifdef HAVE_MESOSIM
     void add(MEInductLoop *il, OutputDevice& device,
-                 int splInterval);
+             int splInterval);
 #endif
 
     void add(MSE2Collector *e2, OutputDevice& device,
-                 int splInterval);
+             int splInterval);
 
     void add(MS_E2_ZS_CollectorOverLanes *e2ol, OutputDevice& device,
-                 int splInterval);
+             int splInterval);
 
     /// adds an e2 detector coupled to an extern output impulse giver
     void add(MSE2Collector *e2);
@@ -104,7 +104,7 @@ public:
     void add(MS_E2_ZS_CollectorOverLanes *e2ol);
 
     void add(MSE3Collector *e3, OutputDevice& device,
-                 int splInterval);
+             int splInterval);
 
     MSDetector2File &getDet2File();
 

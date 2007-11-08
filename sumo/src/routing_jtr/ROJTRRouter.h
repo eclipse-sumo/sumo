@@ -75,7 +75,7 @@ private:
 
     bool myAcceptAllDestination;
 
-	bool myIgnoreClasses;
+    bool myIgnoreClasses;
 
 };
 

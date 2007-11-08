@@ -323,7 +323,7 @@ MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice &dev,
         SUMOTime startTime, SUMOTime stopTime)
 {
     dev<<"<interval begin=\""<<toString(startTime)<<"\" end=\""<<
-        toString(stopTime)<<"\" "<<"id=\""<<myID<<"\" ";
+    toString(stopTime)<<"\" "<<"id=\""<<myID<<"\" ";
     if (hasDetector(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
         dev<<"collQueueLengthAheadOfTrafficLightsInVehiclesMax=\"";
         dev<<toString(getCurrent(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES));
@@ -339,24 +339,24 @@ void
 MS_E2_ZS_CollectorOverLanes::writeXMLDetectorProlog(OutputDevice &dev) const
 {
     dev.writeXMLHeader("detector", true, "type=\"E2_ZS_Collector\" id=\""+myID+
-                                         "\" startlane=\""+myStartLaneID+
-                                         "\" startpos=\""+toString(startPosM)+
-                                         "\" length=\""+toString(myLength)+"\"",
-                                         "<!--\n"
-                                         "- densityMean [veh/km]\n"
-                                         "- maxJamLengthInVehiclesMean [veh]\n"
-                                         "- maxJamLengthInMetersMean [m]\n"
-                                         "- jamLengthSumInVehiclesMean [veh]\n"
-                                         "- jamLengthSumInMetersMean [m]\n"
-                                         "- queueLengthAheadOfTrafficLightsInVehiclesMean [veh]\n"
-                                         "- queueLengthAheadOfTrafficLightsInMetersMean [m]\n"
-                                         "- nE2VehiclesMean [veh]\n"
-                                         "- occupancyDegreeMean [0,1]\n"
-                                         "- spaceMeanSpeedMean [m/s]\n"
-                                         "- currentHaltingDurationSumPerVehicleMean [s]\n"
-                                         "- nStartedHalts [n]\n"
-                                         "- haltingDurationMean [s]\n"
-                                         "-->\n\n");
+                       "\" startlane=\""+myStartLaneID+
+                       "\" startpos=\""+toString(startPosM)+
+                       "\" length=\""+toString(myLength)+"\"",
+                       "<!--\n"
+                       "- densityMean [veh/km]\n"
+                       "- maxJamLengthInVehiclesMean [veh]\n"
+                       "- maxJamLengthInMetersMean [m]\n"
+                       "- jamLengthSumInVehiclesMean [veh]\n"
+                       "- jamLengthSumInMetersMean [m]\n"
+                       "- queueLengthAheadOfTrafficLightsInVehiclesMean [veh]\n"
+                       "- queueLengthAheadOfTrafficLightsInMetersMean [m]\n"
+                       "- nE2VehiclesMean [veh]\n"
+                       "- occupancyDegreeMean [0,1]\n"
+                       "- spaceMeanSpeedMean [m/s]\n"
+                       "- currentHaltingDurationSumPerVehicleMean [s]\n"
+                       "- nStartedHalts [n]\n"
+                       "- haltingDurationMean [s]\n"
+                       "-->\n\n");
 }
 
 

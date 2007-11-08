@@ -43,7 +43,7 @@
  * @brief A map of named object pointers
  *
  * An associative storage (map) for objects (pointers to them to be exact),
- *  which do have a name. In order to get the stored objects as a list, 
+ *  which do have a name. In order to get the stored objects as a list,
  *  each insertion/deletion sets the internal state value "myHaveChanged"
  *  to true, indicating the list must be rebuild.
  */
@@ -52,13 +52,11 @@ class NamedObjectCont
 {
 public:
     /// @brief Constructor
-    NamedObjectCont() : myHaveChanged(false)
-    { }
+    NamedObjectCont() : myHaveChanged(false) { }
 
 
     ///@brief  Destructor
-    virtual ~NamedObjectCont()
-    {
+    virtual ~NamedObjectCont() {
         for (typename IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
             delete(*i).second;
         }
@@ -69,13 +67,12 @@ public:
      *
      * If another item with the same name is already known, false is reported
      *  and the item is not added.
-     * 
+     *
      * @param[in] id The id of the item to add
      * @param[in] iitem The item to add
      * @return If the item could be added (no item with the same id was within the container before)
      */
-    virtual bool add(const std::string &id, T item)
-    {
+    virtual bool add(const std::string &id, T item) {
         if (myMap.find(id)!=myMap.end()) {
             return false;
         }
@@ -86,14 +83,13 @@ public:
 
 
     /** @brief Retrieves an item
-     * 
-     * Returns 0 when no item with the given id is stored within the container 
+     *
+     * Returns 0 when no item with the given id is stored within the container
      *
      * @param[in] id The id of the item to retrieve
      * @return The item stored under the given id, or 0 if no such item exists
      */
-    T get(const std::string &id) const
-    {
+    T get(const std::string &id) const {
         typename std::map<std::string, T>::const_iterator i = myMap.find(id);
         if (i==myMap.end()) {
             return 0;
@@ -103,8 +99,7 @@ public:
 
 
     /** @brief Removes all items from the container (deletes them, too) */
-    void clear()
-    {
+    void clear() {
         for (typename IDMap::iterator i=myMap.begin(); i!=myMap.end(); i++) {
             delete(*i).second;
         }
@@ -118,8 +113,7 @@ public:
      *
      * @return The number of stored items
      */
-    size_t size() const
-    {
+    size_t size() const {
         return myMap.size();
     }
 
@@ -127,14 +121,13 @@ public:
     /** @brief Removes the named item from the container
      *
      * If the named object exists, it is deleted, the key is
-     *  removed from the map, and true is returned. If the id was not 
+     *  removed from the map, and true is returned. If the id was not
      *  known, false is returned.
      *
      * @param[in] id The id of the item to delete
      * @return Whether the object could be deleted (was within the map)
      */
-    bool erase(const std::string &id)
-    {
+    bool erase(const std::string &id) {
         typename IDMap::iterator i=myMap.find(id);
         if (i==myMap.end()) {
             return false;
@@ -155,15 +148,14 @@ public:
 
     /* @brief Returns the reference to a vector that contains all objects.
      *
-     * This method returns the reference to a vector which is stored within 
+     * This method returns the reference to a vector which is stored within
      *  this class and contains all known objects stored within the map.
-     * This vector is rebuild in prior if "myHaveChanged" indicates 
+     * This vector is rebuild in prior if "myHaveChanged" indicates
      *  a change has taken place.
      *
      * @return Reference to a saved vector of objects within the map
      */
-    const std::vector<T> &buildAndGetStaticVector() const
-    {
+    const std::vector<T> &buildAndGetStaticVector() const {
         if (myHaveChanged) {
             myVector.clear();
             typename IDMap::const_iterator i;
@@ -178,13 +170,12 @@ public:
 
     /* @brief Returns a vector that contains all objects.
      *
-     * This method builds and returns a vector which contains all known 
+     * This method builds and returns a vector which contains all known
      *  objects stored within the map.
      *
      * @return A vector of objects within the map
      */
-    std::vector<T> getTempVector() const
-    {
+    std::vector<T> getTempVector() const {
         std::vector<T> ret;
         typename IDMap::const_iterator i;
         for (i=myMap.begin(); i!=myMap.end(); ++i) {
@@ -198,8 +189,7 @@ public:
      *
      * @return A reference to the internal map
      */
-    const std::map<std::string, T> &getMyMap() const
-    {
+    const std::map<std::string, T> &getMyMap() const {
         return myMap;
     }
 

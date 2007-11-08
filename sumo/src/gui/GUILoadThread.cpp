@@ -93,13 +93,13 @@ GUILoadThread::run()
 
     // remove old options
     OptionsCont::getOptions().clear();
-        // within gui-based applications, nothing is reported to the console
-        MsgHandler::getErrorInstance()->report2cout(false);
-        MsgHandler::getErrorInstance()->report2cerr(false);
-        MsgHandler::getWarningInstance()->report2cout(false);
-        MsgHandler::getWarningInstance()->report2cerr(false);
-        MsgHandler::getMessageInstance()->report2cout(false);
-        MsgHandler::getMessageInstance()->report2cerr(false);
+    // within gui-based applications, nothing is reported to the console
+    MsgHandler::getErrorInstance()->report2cout(false);
+    MsgHandler::getErrorInstance()->report2cerr(false);
+    MsgHandler::getWarningInstance()->report2cout(false);
+    MsgHandler::getWarningInstance()->report2cerr(false);
+    MsgHandler::getMessageInstance()->report2cout(false);
+    MsgHandler::getMessageInstance()->report2cerr(false);
     // register message callbacks
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
@@ -118,7 +118,7 @@ GUILoadThread::run()
         return 0;
     }
 
- 
+
 
     RandHelper::initRandGlobal();
     // try to load

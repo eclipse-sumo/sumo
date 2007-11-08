@@ -51,8 +51,7 @@ class MSDetectorOccupancyCorrection :
 {
 public:
     void setOccupancyEntryCorrection(const MSVehicle& veh,
-                                     SUMOReal occupancyFractionOnDet)
-    {
+                                     SUMOReal occupancyFractionOnDet) {
         assert(occupancyFractionOnDet >= 0 &&
                occupancyFractionOnDet <= 1);
         occupancyEntryCorrectionM = occupancyFractionOnDet;
@@ -60,16 +59,14 @@ public:
     }
 
     void setOccupancyLeaveCorrection(const MSVehicle& veh,
-                                     SUMOReal occupancyFractionOnDet)
-    {
+                                     SUMOReal occupancyFractionOnDet) {
         assert(occupancyFractionOnDet >= 0 &&
                occupancyFractionOnDet <= 1);
         occupancyLeaveCorrectionM = occupancyFractionOnDet;
         leaveCorrectionVehM = &veh;
     }
 
-    void dismissOccupancyCorrection(const MSVehicle& veh)
-    {
+    void dismissOccupancyCorrection(const MSVehicle& veh) {
         // Necessary for leaveDetByLaneChange
         if (&veh == entryCorrectionVehM) {
             occupancyEntryCorrectionM = 0;
@@ -81,19 +78,16 @@ public:
         }
     }
 
-    bool updateEachTimestep(void)
-    {
+    bool updateEachTimestep(void) {
         resetOccupancyCorrection();
         return false;
     }
 
-    SUMOReal getOccupancyEntryCorrection(void) const
-    {
+    SUMOReal getOccupancyEntryCorrection(void) const {
         return occupancyEntryCorrectionM;
     }
 
-    SUMOReal getOccupancyLeaveCorrection(void) const
-    {
+    SUMOReal getOccupancyLeaveCorrection(void) const {
         return occupancyLeaveCorrectionM;
     }
 
@@ -102,11 +96,9 @@ public:
             occupancyEntryCorrectionM(0),
             occupancyLeaveCorrectionM(0),
             entryCorrectionVehM(0),
-            leaveCorrectionVehM(0)
-    {}
+            leaveCorrectionVehM(0) {}
 
-    virtual ~MSDetectorOccupancyCorrection(void)
-    {}
+    virtual ~MSDetectorOccupancyCorrection(void) {}
 
 private:
     SUMOReal occupancyEntryCorrectionM;
@@ -118,8 +110,7 @@ private:
     MSDetectorOccupancyCorrection& operator=(
         const MSDetectorOccupancyCorrection&);
 
-    void resetOccupancyCorrection(void)
-    {
+    void resetOccupancyCorrection(void) {
         occupancyEntryCorrectionM = 0;
         occupancyLeaveCorrectionM = 0;
         entryCorrectionVehM = 0;

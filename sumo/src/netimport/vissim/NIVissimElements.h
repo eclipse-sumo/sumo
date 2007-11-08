@@ -31,8 +31,7 @@
 #endif
 
 
-enum NIVissimElement
-{
+enum NIVissimElement {
     VE_Kennungszeile,
     VE_Startzufallszahl,
     VE_Simdauer,

@@ -65,25 +65,21 @@ class GUILaneDrawer
 public:
     /// constructor
     GUILaneDrawer(const std::vector<E1*> &edges)
-            : myEdges(edges)
-    { }
+            : myEdges(edges) { }
 
 
     /// destructor
-    virtual ~GUILaneDrawer()
-    { }
+    virtual ~GUILaneDrawer() { }
 
     /// Sets the information whether the gl-id shall be set
-    void setGLID(bool val)
-    {
+    void setGLID(bool val) {
         myShowToolTips = val;
     }
 
     /// Draws the lanes
     virtual void drawGLLanes(size_t *which, size_t maxEdges,
                              SUMOReal width, GUIBaseColorer<L1> &colorer,
-                             GUISUMOAbstractView::VisualizationSettings &settings)
-    {
+                             GUISUMOAbstractView::VisualizationSettings &settings) {
         // initialise drawing
         initStep();
         // go through edges
@@ -166,8 +162,7 @@ public:
 
     /// Draws all lanes' names
     virtual void drawGLLaneNames(size_t *which, size_t maxEdges,
-                                 SUMOReal width, GUISUMOAbstractView::VisualizationSettings &settings)
-    {
+                                 SUMOReal width, GUISUMOAbstractView::VisualizationSettings &settings) {
         // set name colors
         glColor3f(settings.edgeNameColor.red(), settings.edgeNameColor.green(), settings.edgeNameColor.blue());
         // initialise drawing
@@ -209,15 +204,13 @@ public:
 
 protected:
     /// initialises the drawing
-    virtual void initStep()
-    {
+    virtual void initStep() {
         glLineWidth(1);
         glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
     }
 
     /// draws a single lane as a box list
-    void drawLane(const L1 &lane, SUMOReal mult) const
-    {
+    void drawLane(const L1 &lane, SUMOReal mult) const {
         if (myShowToolTips) {
             glPushName(lane.getGlID());
         }
@@ -228,8 +221,7 @@ protected:
     }
 
     /// draws a single edge as a box list
-    void drawEdge(const E2 &edge, SUMOReal mult) const
-    {
+    void drawEdge(const E2 &edge, SUMOReal mult) const {
         if (myShowToolTips) {
             glPushName(edge.getGlID());
         }
@@ -242,8 +234,7 @@ protected:
     }
 
     /// draws a lane as a line
-    void drawLine(const L1 &lane) const
-    {
+    void drawLine(const L1 &lane) const {
         if (myShowToolTips) {
             glPushName(lane.getGlID());
         }
@@ -259,8 +250,7 @@ protected:
     }
 
     /// draws an edge as a line
-    void drawLine(const E2 &edge) const
-    {
+    void drawLine(const E2 &edge) const {
         if (myShowToolTips) {
             glPushName(edge.getGlID());
         }

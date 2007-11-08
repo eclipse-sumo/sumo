@@ -70,13 +70,13 @@ void
 RORunningVehicle::xmlOut(OutputDevice &dev) const
 {
     dev << "<vehicle id=\"" << myID << "\""
-        << " type=\"" << myType->getID() << "\""
-        << " route=\"" << myRoute->getID() << "\""
-        << " depart=\"" << myDepartTime << "\""
-        << " lane=\"" << myLane << "\""
-        << " pos=\"" << myPos << "\""
-        << " speed=\"" << mySpeed << "\""
-        << "/>\n";
+    << " type=\"" << myType->getID() << "\""
+    << " route=\"" << myRoute->getID() << "\""
+    << " depart=\"" << myDepartTime << "\""
+    << " lane=\"" << myLane << "\""
+    << " pos=\"" << myPos << "\""
+    << " speed=\"" << mySpeed << "\""
+    << "/>\n";
 }
 
 

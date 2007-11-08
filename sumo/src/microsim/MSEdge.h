@@ -171,25 +171,21 @@ public:
 
     std::vector<MSEdge*> getIncomingEdges() const;
 
-    const std::string &getID()
-    {
+    const std::string &getID() {
         return myID;
     }
 
     SUMOReal getEffort(const MSVehicle * const v, SUMOTime time) const;
 
-    size_t getNumericalID() const
-    {
+    size_t getNumericalID() const {
         return myNumericalID;
     }
 
-    size_t getNoFollowing() const
-    {
+    size_t getNoFollowing() const {
         return myAllowed->size();
     }
 
-    const MSEdge *getFollower(size_t num) const
-    {
+    const MSEdge *getFollower(size_t num) const {
         AllowedLanesCont::const_iterator i = myAllowed->begin();
         while (num!=0) {
             ++i;
@@ -198,8 +194,7 @@ public:
         return (*i).first;
     }
 
-    virtual bool prohibits(const MSVehicle *) const
-    {
+    virtual bool prohibits(const MSVehicle *) const {
         return false;
     }
 

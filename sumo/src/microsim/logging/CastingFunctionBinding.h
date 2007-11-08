@@ -48,20 +48,16 @@ public:
 
     CastingFunctionBinding(T* source, Operation operation) :
             mySource(source),
-            myOperation(operation)
-    {}
+            myOperation(operation) {}
 
     /// Destructor.
-    ~CastingFunctionBinding()
-    {}
+    ~CastingFunctionBinding() {}
 
-    R getValue() const
-    {
+    R getValue() const {
         return (R)(mySource->*myOperation)();
     }
 
-    ValueSource<R> *copy() const
-    {
+    ValueSource<R> *copy() const {
         return new CastingFunctionBinding<T, R, O>(mySource, myOperation);
     }
 

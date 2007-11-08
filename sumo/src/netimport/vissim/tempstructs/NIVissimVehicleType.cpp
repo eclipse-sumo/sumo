@@ -56,7 +56,7 @@ NIVissimVehicleType::dictionary(int id,
                                 const RGBColor &color, SUMOReal amax, SUMOReal dmax)
 {
     NIVissimVehicleType *o = new NIVissimVehicleType(id, name, category,
-                             length, color, amax, dmax);
+            length, color, amax, dmax);
     if (!dictionary(id, o)) {
         delete o;
         return false;

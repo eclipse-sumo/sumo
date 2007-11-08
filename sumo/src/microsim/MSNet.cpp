@@ -169,14 +169,14 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     if (OptionsCont::getOptions().isSet("ss2-cell-output")||OptionsCont::getOptions().isSet("ss2-sql-cell-output")) {
         // start old-data removal through MSEventControl
         Command* writeDate = new WrappingCommand< MSPhoneNet >(
-                                 myMSPhoneNet, &MSPhoneNet::writeCellOutput);
+            myMSPhoneNet, &MSPhoneNet::writeCellOutput);
         getEndOfTimestepEvents().addEvent(
             writeDate, (myStep)%300+300, MSEventControl::NO_CHANGE);
     }
     if (OptionsCont::getOptions().isSet("ss2-la-output")||OptionsCont::getOptions().isSet("ss2-sql-la-output")) {
         // start old-data removal through MSEventControl
         Command* writeDate = new WrappingCommand< MSPhoneNet >(
-                                 myMSPhoneNet, &MSPhoneNet::writeLAOutput);
+            myMSPhoneNet, &MSPhoneNet::writeLAOutput);
         getEndOfTimestepEvents().addEvent(
             writeDate, (myStep)%300+300, MSEventControl::NO_CHANGE);
     }
@@ -322,10 +322,10 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
         << " Duration: " << mySimDuration << "ms" << "\n"
         << " Real time factor: " << ((SUMOReal)(stop-start)*1000./(SUMOReal)mySimDuration) << "\n"
         << " UPS: " << ((SUMOReal) myVehiclesMoved / (SUMOReal) mySimDuration * 1000.) << "\n"
-		<< "Vehicles: " << "\n"
-		<< " Emitted: " << myVehicleControl->getEmittedVehicleNo() << "\n"
-		<< " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
-		<< " Waiting: " << myEmitter->getWaitingVehicleNo() << "\n";
+        << "Vehicles: " << "\n"
+        << " Emitted: " << myVehicleControl->getEmittedVehicleNo() << "\n"
+        << " Running: " << myVehicleControl->getRunningVehicleNo() << "\n"
+        << " Waiting: " << myEmitter->getWaitingVehicleNo() << "\n";
         WRITE_MESSAGE(msg.str());
     }
 }
@@ -523,7 +523,7 @@ MSNet::computeCar2Car(void)
     // send information
     {
         std::vector<MSVehicle*>::iterator q;
-        for (q= myClusterHeaders.begin();q!=myClusterHeaders.end();q++){
+        for (q= myClusterHeaders.begin();q!=myClusterHeaders.end();q++) {
             (*q)->sendInfos(myStep);
         }
     }
@@ -531,7 +531,7 @@ MSNet::computeCar2Car(void)
     // Rerouting?
     {
         std::vector<MSVehicle*>::iterator q1;
-        for (q1 = myConnected.begin();q1!=myConnected.end();q1++){
+        for (q1 = myConnected.begin();q1!=myConnected.end();q1++) {
             (*q1)->checkReroute(myStep);
         }
     }
@@ -716,7 +716,7 @@ MSNet::getPersonControl() const
 }
 
 
-void 
+void
 MSNet::preSimStepOutput() const
 {
     cout << std::setprecision(OUTPUT_ACCURACY);
@@ -724,7 +724,7 @@ MSNet::preSimStepOutput() const
 }
 
 
-void 
+void
 MSNet::postSimStepOutput() const
 {
     if (myLogExecutionTime) {

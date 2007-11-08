@@ -48,7 +48,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 LogFile::LogFile(const std::string &name)
-    : myOutput(OutputDevice::getDevice(name))
+        : myOutput(OutputDevice::getDevice(name))
 {
 }
 

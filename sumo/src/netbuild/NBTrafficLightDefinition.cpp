@@ -67,7 +67,7 @@ using namespace std;
 // ===========================================================================
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
         const std::set<NBNode*> &junctions)
-            : Named(id), myType("static"), myControlledNodes(junctions)
+        : Named(id), myType("static"), myControlledNodes(junctions)
 {
     for (NodeCont::const_iterator i=junctions.begin(); i!=junctions.end(); i++) {
         (*i)->addTrafficLight(this);
@@ -387,7 +387,7 @@ bool
 NBTrafficLightDefinition::foes(NBEdge *from1, NBEdge *to1,
                                NBEdge *from2, NBEdge *to2) const
 {
-    if(to1==0||to2==0) {
+    if (to1==0||to2==0) {
         return false;
     }
     // retrieve both nodes (it is possible that a connection

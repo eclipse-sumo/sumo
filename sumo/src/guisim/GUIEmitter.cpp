@@ -85,12 +85,11 @@ using namespace std;
  * GUIEmitter::GUIEmitterPopupMenu - mapping
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUIEmitter::GUIEmitterPopupMenu)
-GUIEmitterPopupMenuMap[]=
-    {
-        FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUIEmitter::GUIEmitterPopupMenu::onCmdOpenManip),
-        FXMAPFUNC(SEL_COMMAND,  MID_DRAWROUTE,     GUIEmitter::GUIEmitterPopupMenu::onCmdDrawRoute),
+GUIEmitterPopupMenuMap[]= {
+    FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUIEmitter::GUIEmitterPopupMenu::onCmdOpenManip),
+    FXMAPFUNC(SEL_COMMAND,  MID_DRAWROUTE,     GUIEmitter::GUIEmitterPopupMenu::onCmdDrawRoute),
 
-    };
+};
 
 // Object implementation
 FXIMPLEMENT(GUIEmitter::GUIEmitterPopupMenu, GUIGLObjectPopupMenu, GUIEmitterPopupMenuMap, ARRAYNUMBER(GUIEmitterPopupMenuMap))
@@ -99,13 +98,12 @@ FXIMPLEMENT(GUIEmitter::GUIEmitterPopupMenu, GUIGLObjectPopupMenu, GUIEmitterPop
 /* -------------------------------------------------------------------------
  * GUIEmitter::GUIManip_TriggeredEmitter - mapping
  * ----------------------------------------------------------------------- */
-FXDEFMAP(GUIEmitter::GUIManip_TriggeredEmitter) GUIManip_TriggeredEmitterMap[]=
-    {
-        FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_USER_DEF, GUIEmitter::GUIManip_TriggeredEmitter::onCmdUserDef),
-        FXMAPFUNC(SEL_UPDATE,   GUIEmitter::GUIManip_TriggeredEmitter::MID_USER_DEF, GUIEmitter::GUIManip_TriggeredEmitter::onUpdUserDef),
-        FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_OPTION,   GUIEmitter::GUIManip_TriggeredEmitter::onCmdChangeOption),
-        FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_CLOSE,    GUIEmitter::GUIManip_TriggeredEmitter::onCmdClose),
-    };
+FXDEFMAP(GUIEmitter::GUIManip_TriggeredEmitter) GUIManip_TriggeredEmitterMap[]= {
+    FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_USER_DEF, GUIEmitter::GUIManip_TriggeredEmitter::onCmdUserDef),
+    FXMAPFUNC(SEL_UPDATE,   GUIEmitter::GUIManip_TriggeredEmitter::MID_USER_DEF, GUIEmitter::GUIManip_TriggeredEmitter::onUpdUserDef),
+    FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_OPTION,   GUIEmitter::GUIManip_TriggeredEmitter::onCmdChangeOption),
+    FXMAPFUNC(SEL_COMMAND,  GUIEmitter::GUIManip_TriggeredEmitter::MID_CLOSE,    GUIEmitter::GUIManip_TriggeredEmitter::onCmdClose),
+};
 
 FXIMPLEMENT(GUIEmitter::GUIManip_TriggeredEmitter, GUIManipulator, GUIManip_TriggeredEmitterMap, ARRAYNUMBER(GUIManip_TriggeredEmitterMap))
 
@@ -352,8 +350,8 @@ GUIEmitter::GUIEmitter(const std::string &id,
 
     myUserEmitChild =
         new GUIEmitterChild_UserTriggeredChild(
-            static_cast<MSEmitter_FileTriggeredChild&>(*myFileBasedEmitter),
-            *this, net.getVehicleControl(), 0);
+        static_cast<MSEmitter_FileTriggeredChild&>(*myFileBasedEmitter),
+        *this, net.getVehicleControl(), 0);
 }
 
 
@@ -370,8 +368,8 @@ GUIEmitter::setUserFlow(SUMOReal factor)
         delete myUserEmitChild;
         myUserEmitChild =
             new GUIEmitterChild_UserTriggeredChild(
-                static_cast<MSEmitter_FileTriggeredChild&>(*myFileBasedEmitter),
-                *this, myNet.getVehicleControl(), factor);
+            static_cast<MSEmitter_FileTriggeredChild&>(*myFileBasedEmitter),
+            *this, myNet.getVehicleControl(), factor);
     }
 }
 

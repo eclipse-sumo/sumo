@@ -70,7 +70,7 @@ public:
     /** @brief Adds a district to the dictionary
      *
      * @param[in] district The district to add
-     * @return false if the districts already was in the dictionary 
+     * @return false if the districts already was in the dictionary
      */
     bool insert(NBDistrict * const district) throw();
 

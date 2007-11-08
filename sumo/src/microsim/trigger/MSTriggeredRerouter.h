@@ -103,8 +103,7 @@ class Setter : public MSMoveReminder
      * @struct RerouteInterval
      * Describes the rerouting definitions valid for an interval
      */
-    struct RerouteInterval
-    {
+    struct RerouteInterval {
         /// The begin time these definitions are valid
         SUMOTime begin;
         /// The end time these definitions are valid

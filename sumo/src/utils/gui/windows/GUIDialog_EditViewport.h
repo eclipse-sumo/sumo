@@ -92,8 +92,7 @@ protected:
 
 protected:
     /// FOX needs this
-    GUIDialog_EditViewport()
-    { }
+    GUIDialog_EditViewport() { }
 
 };
 

@@ -56,19 +56,19 @@ typedef std::vector<int> IntVector;
  * The base class for a single program option. All options which hold values
  *  are derived from this class as the type of stored values may differ.
  *
- * Most of the getter-methods throw exceptions because this base class is not meant 
- *  to hold any values by itself. Instead, the derived classes implement the 
- *  appropriate method (Option_Integer implements getInt, f.e.). So, when one 
- *  tries to retrieve a value which is not of the type of the option, an 
+ * Most of the getter-methods throw exceptions because this base class is not meant
+ *  to hold any values by itself. Instead, the derived classes implement the
+ *  appropriate method (Option_Integer implements getInt, f.e.). So, when one
+ *  tries to retrieve a value which is not of the type of the option, an
  *  exception will be thrown. This behaviour is meant to be valid, because
  *  errors like this one only occur when building and testing the application.
  *
- * Due to described behaviour, this class has no public constructors. Only 
+ * Due to described behaviour, this class has no public constructors. Only
  *  construction of derived, value and type holding, classes is allowed.
  *
  *  At the begin (after being constructed) an Option either has a default value or not.
  *   In dependance to this, myHaveTheDefaultValue is set. Also, myAmSet is set to
- *   true if a default value was supported. myAmWritable is set to true, 
+ *   true if a default value was supported. myAmWritable is set to true,
  *   indicating that a new value may be set.
  *
  * Each option may have a description about its purpose stored. Furthermore, it
@@ -87,8 +87,8 @@ public:
     bool isSet() const throw();
 
 
-    /** @brief Returns the stored SUMOReal value 
-     * 
+    /** @brief Returns the stored SUMOReal value
+     *
      * Option_Float returns the stored real number in this method's reimplementation.
      *  All other option classes do not override this method which throws an InvalidArgument-exception.
      *
@@ -98,8 +98,8 @@ public:
     virtual SUMOReal getFloat() const throw(InvalidArgument);
 
 
-    /** @brief Returns the stored long value 
-     * 
+    /** @brief Returns the stored long value
+     *
      * Option_Long returns the stored long number in this method's reimplementation.
      *  All other option classes do not override this method which throws an InvalidArgument-exception.
      *
@@ -109,8 +109,8 @@ public:
     virtual long getLong() const throw(InvalidArgument);
 
 
-    /** @brief Returns the stored integer value 
-     * 
+    /** @brief Returns the stored integer value
+     *
      * Option_Integer returns the stored integer number in this method's reimplementation.
      *  All other option classesdo not override this method which throws an InvalidArgument-exception.
      *
@@ -120,8 +120,8 @@ public:
     virtual int getInt() const throw(InvalidArgument);
 
 
-    /** @brief Returns the stored string value 
-     * 
+    /** @brief Returns the stored string value
+     *
      * Option_String and Option_FileName return the stored string in this method's reimplementation.
      *  All other option classes do not override this method which throws an InvalidArgument-exception.
      *
@@ -131,8 +131,8 @@ public:
     virtual std::string getString() const throw(InvalidArgument);
 
 
-    /** @brief Returns the stored boolean value 
-     * 
+    /** @brief Returns the stored boolean value
+     *
      * Option_Bool returns the stored boolean in this method's reimplementation.
      *  All other option classes do not override this method which throws an InvalidArgument-exception.
      *
@@ -143,7 +143,7 @@ public:
 
 
     /** @brief Returns the stored integer vector
-     * 
+     *
      * Option_IntVector returns the stored integer vector in this method's reimplementation.
      *  All other option classes do not override this method which throws an InvalidArgument-exception.
      *
@@ -153,10 +153,10 @@ public:
     virtual const IntVector &getIntVector() const throw(InvalidArgument);
 
 
-    /** @brief Stores the given value (used for non-bool options) 
+    /** @brief Stores the given value (used for non-bool options)
      *
-     * This method is overriden by all option classes but Option_Bool. 
-     *  The value is converted into the proper type and stored in "myValue". 
+     * This method is overriden by all option classes but Option_Bool.
+     *  The value is converted into the proper type and stored in "myValue".
      *  Then, "markSet" is called in order to know that a value has been set.
      *
      * The method defined in Option throws an exception, because all derived
@@ -164,7 +164,7 @@ public:
      *  position whether to use this method or bool set(bool).
      *
      * The method returns whether the value could be set (the return value from
-     *  "markSet"). 
+     *  "markSet").
      *
      * If the string could not be converted into the type, an InvalidArgument
      *  is thrown.
@@ -182,16 +182,16 @@ public:
     virtual bool set(bool v) throw(InvalidArgument);
 
 
-    /** @brief Returns the string-representation of the value 
+    /** @brief Returns the string-representation of the value
      *
      * The stored value is encoded into a string and returned.
-     * 
+     *
      * @return The stored value encoded into a string-
      */
     virtual std::string getValueString() const throw(InvalidArgument);
 
 
-    /** @brief Returns the information whether the option is a bool option 
+    /** @brief Returns the information whether the option is a bool option
      *
      * Returns false. Only Option_Bool overrides this method returning true.
      *
@@ -218,7 +218,7 @@ public:
 
     /** @brief Returns the information whether the option may be set a further time
      *
-     * This method returns whether the option was not already set using command line 
+     * This method returns whether the option was not already set using command line
      *  options / configuration. This is done by returning the value of myAmWritable.
      *
      * @return Whether the option may be set from the command line / configuration
@@ -249,7 +249,7 @@ public:
 
 protected:
     /** @brief Marks the information as set
-     * 
+     *
      * Sets the "myAmSet" - information. Returns whether the option was writeable before.
      *
      * @return Whether the option was not set before.
@@ -257,9 +257,9 @@ protected:
     bool markSet() throw();
 
 protected:
-    /** @brief Constructor 
-     * 
-     * This constructor should be used by derived classes. 
+    /** @brief Constructor
+     *
+     * This constructor should be used by derived classes.
      * The boolean value indicates whether a default value was supplied or not.
      *
      * @param[in] set A default value was supplied
@@ -290,7 +290,7 @@ private:
     /** @brief information whether the value may be changed */
     bool myAmWritable;
 
-    /// @brief The description what this option does 
+    /// @brief The description what this option does
     std::string myDescription;
 
 };
@@ -310,7 +310,7 @@ public:
      *
      * Calls Option(false)
      */
-     Option_Integer() throw();
+    Option_Integer() throw();
 
 
     /** @brief Constructor for an option with a default value
@@ -334,20 +334,20 @@ public:
     Option_Integer &operator=(const Option_Integer &s) throw();
 
 
-    /** @brief Returns the stored integer value 
+    /** @brief Returns the stored integer value
      * @see Option::getInt()
      * @return Returns the stored integer number
      */
     int getInt() const throw(InvalidArgument);
 
 
-    /** @brief Stores the given value after parsing it into an integer 
+    /** @brief Stores the given value after parsing it into an integer
      *
-     *  The value is converted into an integer and stored in "myValue". 
+     *  The value is converted into an integer and stored in "myValue".
      *  Then, "markSet" is called in order to know that a value has been set.
      *
      * The method returns whether the value could be set (the return value from
-     *  "markSet"). 
+     *  "markSet").
      *
      * If the string could not be converted into an integer, an InvalidArgument
      *  is thrown.
@@ -359,10 +359,10 @@ public:
     bool set(const std::string &v) throw(InvalidArgument);
 
 
-    /** @brief Returns the string-representation of the value 
+    /** @brief Returns the string-representation of the value
      *
      * The stored value is encoded into a string and returned.
-     * 
+     *
      * @see std::string Option::getValueString()
      * @return The stored value encoded into a string
      */
@@ -410,20 +410,20 @@ public:
     Option_Long &operator=(const Option_Long &s) throw();
 
 
-    /** @brief Returns the stored long value 
+    /** @brief Returns the stored long value
      * @see long Option::getLong()
-     * @return Returns the stored long number 
+     * @return Returns the stored long number
      */
     long getLong() const throw(InvalidArgument);
 
 
-    /** @brief Stores the given value after parsing it into a long 
+    /** @brief Stores the given value after parsing it into a long
      *
-     *  The value is converted into a long and stored in "myValue". 
+     *  The value is converted into a long and stored in "myValue".
      *  Then, "markSet" is called in order to know that a value has been set.
      *
      * The method returns whether the value could be set (the return value from
-     *  "markSet"). 
+     *  "markSet").
      *
      * If the string could not be converted into a long, an InvalidArgument
      *  is thrown.
@@ -435,10 +435,10 @@ public:
     bool set(const std::string &v) throw(InvalidArgument);
 
 
-    /** @brief Returns the string-representation of the value 
+    /** @brief Returns the string-representation of the value
      *
      * The stored value is encoded into a string and returned.
-     * 
+     *
      * @see std::string Option::getValueString()
      * @return The stored value encoded into a string
      */
@@ -486,20 +486,20 @@ public:
     Option_String &operator=(const Option_String &s) throw();
 
 
-    /** @brief Returns the stored string value 
+    /** @brief Returns the stored string value
      * @see std::string Option::getString()
-     * @return Returns the stored string 
+     * @return Returns the stored string
      */
     std::string getString() const throw(InvalidArgument);
 
 
     /** @brief Stores the given value
      *
-     *  The value is stored in "myValue". 
+     *  The value is stored in "myValue".
      *  Then, "markSet" is called in order to know that a value has been set.
      *
      * The method returns whether the value could be set (the return value from
-     *  "markSet"). 
+     *  "markSet").
      *
      * @see bool Option::set(std::string v)
      * @return Whether the new value could be set
@@ -507,10 +507,10 @@ public:
     bool set(const std::string &v) throw(InvalidArgument);
 
 
-    /** @brief Returns the string-representation of the value 
+    /** @brief Returns the string-representation of the value
      *
      * The stored value is encoded into a string and returned.
-     * 
+     *
      * @see std::string Option::getValueString()
      * @return The stored value encoded into a string
      */
@@ -558,20 +558,20 @@ public:
     Option_Float &operator=(const Option_Float &s) throw();
 
 
-    /** @brief Returns the stored SUMOReal value 
+    /** @brief Returns the stored SUMOReal value
      * @see SUMOReal Option::getFloat()
      * @return Returns the stored real number
      */
     SUMOReal getFloat() const throw(InvalidArgument);
 
 
-    /** @brief Stores the given value after parsing it into a SUMOReal 
+    /** @brief Stores the given value after parsing it into a SUMOReal
      *
-     *  The value is converted into a SUMOReal and stored in "myValue". 
+     *  The value is converted into a SUMOReal and stored in "myValue".
      *  Then, "markSet" is called in order to know that a value has been set.
      *
      * The method returns whether the value could be set (the return value from
-     *  "markSet"). 
+     *  "markSet").
      *
      * If the string could not be converted into a SUMOReal, an InvalidArgument
      *  is thrown.
@@ -583,10 +583,10 @@ public:
     bool set(const std::string &v) throw(InvalidArgument);
 
 
-    /** @brief Returns the string-representation of the value 
+    /** @brief Returns the string-representation of the value
      *
      * The stored value is encoded into a string and returned.
-     * 
+     *
      * @see std::string Option::getValueString()
      * @return The stored value encoded into a string
      */
@@ -634,9 +634,9 @@ public:
     Option_Bool &operator=(const Option_Bool &s) throw();
 
 
-    /** @brief Returns the stored boolean value 
+    /** @brief Returns the stored boolean value
      * @see bool Option::getBool()
-     * @return Returns the stored boolean 
+     * @return Returns the stored boolean
      */
     bool getBool() const throw(InvalidArgument);
 
@@ -644,19 +644,19 @@ public:
     bool set(bool v) throw(InvalidArgument);
 
 
-    /** @brief Returns the string-representation of the value 
+    /** @brief Returns the string-representation of the value
      *
      * If myValue is true, "true" is returned, "false" otherwise.
-     * 
+     *
      * @see std::string Option::getValueString()
      * @return The stored value encoded into a string
      */
     std::string getValueString() const throw(InvalidArgument);
 
 
-    /** @brief Returns true, the information whether the option is a bool option 
+    /** @brief Returns true, the information whether the option is a bool option
      *
-     * Returns true. 
+     * Returns true.
      *
      * @see bool Option::isBool()
      * @return true
@@ -743,18 +743,18 @@ public:
 
     /** @brief Returns the stored integer vector
      * @see const IntVector &Option::getIntVector()
-     * @return Returns the stored integer vector 
+     * @return Returns the stored integer vector
      */
     const IntVector &getIntVector() const throw(InvalidArgument);
 
 
-    /** @brief Stores the given value after parsing it into a vector of integers 
+    /** @brief Stores the given value after parsing it into a vector of integers
      *
-     *  The value is converted into a vector of integers and stored in "myValue". 
+     *  The value is converted into a vector of integers and stored in "myValue".
      *  Then, "markSet" is called in order to know that a value has been set.
      *
      * The method returns whether the value could be set (the return value from
-     *  "markSet"). 
+     *  "markSet").
      *
      * If the string could not be converted into a vector of integers, an InvalidArgument
      *  is thrown.
@@ -766,10 +766,10 @@ public:
     bool set(const std::string &v) throw(InvalidArgument);
 
 
-    /** @brief Returns the string-representation of the value 
+    /** @brief Returns the string-representation of the value
      *
      * The stored value is encoded into a string and returned.
-     * 
+     *
      * @see std::string Option::getValueString()
      * @return The stored value encoded into a string
      */

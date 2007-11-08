@@ -59,9 +59,9 @@ FXint fxexecute(FXString link)
 
 
 FXDEFMAP(FXLinkLabel) FXLinkLabelMap[]={
-                                           FXMAPFUNC(SEL_LEFTBUTTONPRESS,0,FXLinkLabel::onLeftBtnPress),
-                                           FXMAPFUNC(SEL_TIMEOUT,FXLinkLabel::ID_TIMER,FXLinkLabel::onTimer),
-                                       };
+    FXMAPFUNC(SEL_LEFTBUTTONPRESS,0,FXLinkLabel::onLeftBtnPress),
+    FXMAPFUNC(SEL_TIMEOUT,FXLinkLabel::ID_TIMER,FXLinkLabel::onTimer),
+};
 FXIMPLEMENT(FXLinkLabel,FXLabel,FXLinkLabelMap,ARRAYNUMBER(FXLinkLabelMap))
 
 

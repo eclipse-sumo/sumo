@@ -83,12 +83,10 @@ public:
     static void closeAll();
 
     /// Constructor
-    OutputDevice()
-    { }
+    OutputDevice() { }
 
     /// Destructor
-    virtual ~OutputDevice()
-    { }
+    virtual ~OutputDevice() { }
 
     /// returns the information whether one can write into the device
     virtual bool ok();
@@ -117,8 +115,7 @@ public:
      *
      * If the boolean marker was not set before, false is returned
      */
-    bool getBoolMarker(const std::string &name) const
-    {
+    bool getBoolMarker(const std::string &name) const {
         if (myBoolMarkers.find(name)==myBoolMarkers.end()) {
             return false;
         }
@@ -129,15 +126,13 @@ public:
      *
      * The previous value will be overwritten
      */
-    void setBoolMarker(const std::string &name, bool value)
-    {
+    void setBoolMarker(const std::string &name, bool value) {
         myBoolMarkers[name] = value;
     }
     //@}
 
     template <class T>
-    OutputDevice &operator<<(const T &t)
-    {
+    OutputDevice &operator<<(const T &t) {
         getOStream() << t;
         postWriteHook();
         return *this;

@@ -80,7 +80,7 @@ MFXMutex::~MFXMutex()
 
 // lock_ is safe because we dont increment it until we
 // have entered the locked state - cha-ching, correct
-void MFXMutex::lock ()
+void MFXMutex::lock()
 {
 #if !defined(WIN32)
     pthread_mutex_lock((pthread_mutex_t*)mutexHandle);

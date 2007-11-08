@@ -82,7 +82,7 @@ XMLSubSys::init() throw(ProcessError)
         setFeature(*myReader,
                    "http://apache.org/xml/features/validation/dynamic" , false);
     } catch (const XMLException& e) {
-        throw ProcessError ("Error during XML-initialization:\n " + TplConvert<XMLCh>::_2str(e.getMessage()));
+        throw ProcessError("Error during XML-initialization:\n " + TplConvert<XMLCh>::_2str(e.getMessage()));
     }
 }
 

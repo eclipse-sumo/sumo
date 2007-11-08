@@ -45,8 +45,7 @@ class DiscreteCommand
 {
 public:
     /// Destructor.
-    virtual ~DiscreteCommand(void)
-    {};
+    virtual ~DiscreteCommand(void) {};
 
     virtual bool execute() = 0;
 };

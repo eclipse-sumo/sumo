@@ -255,8 +255,7 @@ protected:
     size_t myAbsDuration;
 
     /// A definition of junction initialisation
-    struct TLInitInfo
-    {
+    struct TLInitInfo {
         MSTrafficLightLogic *logic;
         std::map<std::string, std::string> params;
     };

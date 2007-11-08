@@ -166,8 +166,7 @@ class GUITLLogicPhasesTrackerPanel : public FXGLCanvas
 
     protected:
         /// protected constructor for FOX
-        GUITLLogicPhasesTrackerPanel()
-        { }
+        GUITLLogicPhasesTrackerPanel() { }
 
     };
 
@@ -231,8 +230,7 @@ private:
 
 protected:
     /// protected constructor for FOX
-    GUITLLogicPhasesTrackerWindow()
-    { }
+    GUITLLogicPhasesTrackerWindow() { }
 
 };
 

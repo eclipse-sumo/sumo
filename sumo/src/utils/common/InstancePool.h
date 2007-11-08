@@ -45,10 +45,8 @@ template<typename T>
 class InstancePool
 {
 public:
-    InstancePool(bool deleteOnQuit) : myDeleteOnQuit(deleteOnQuit)
-    { }
-    ~InstancePool()
-    {
+    InstancePool(bool deleteOnQuit) : myDeleteOnQuit(deleteOnQuit) { }
+    ~InstancePool() {
         typedef typename std::vector<T*>::iterator It;
         if (myDeleteOnQuit) {
             for (It i=myFreeInstances.begin(); i!=myFreeInstances.end(); i++) {
@@ -57,8 +55,7 @@ public:
         }
     }
 
-    T* getFreeInstance()
-    {
+    T* getFreeInstance() {
         if (myFreeInstances.size()==0) {
             return 0;
         } else {
@@ -68,13 +65,11 @@ public:
         }
     }
 
-    void addFreeInstance(T *instance)
-    {
+    void addFreeInstance(T *instance) {
         myFreeInstances.push_back(instance);
     }
 
-    void addFreeInstances(const std::vector<T*> instances)
-    {
+    void addFreeInstances(const std::vector<T*> instances) {
         std::copy(instances.begin(), instances.end(),
                   std::back_inserter(myFreeInstances));
     }

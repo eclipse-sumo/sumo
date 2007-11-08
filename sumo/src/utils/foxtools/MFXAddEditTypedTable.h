@@ -54,8 +54,7 @@ public:
     ~MFXAddEditTypedTable();
 
 public:
-    struct NumberCellParams
-    {
+    struct NumberCellParams {
         int pos;
         double min;
         double max;
@@ -65,8 +64,7 @@ public:
         std::string format;
     };
 
-    struct EditedTableItem
-    {
+    struct EditedTableItem {
         FXTableItem *item;
         int row;
         int col;
@@ -137,8 +135,7 @@ public:
         };
     */
 
-    enum
-    {
+    enum {
         ID_TEXT_CHANGED = FXTable::ID_LAST,
         ID_LAST
     };
@@ -161,8 +158,7 @@ protected:
     std::vector<std::vector<std::string> > myEnums;
 
 protected:
-    MFXAddEditTypedTable()
-    { }
+    MFXAddEditTypedTable() { }
 
 };
 

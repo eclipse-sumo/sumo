@@ -59,10 +59,10 @@ class NBEdge;
  * @class NIVisumLoader
  * @brief A VISUM networks importer
  *
- * This class build an internal list of those VISUM-db entries which are 
+ * This class build an internal list of those VISUM-db entries which are
  *  supported, first. This list is sorted in a way that the parsed dbs can
- *  build upon each other as their related structures within the XML-input. 
- *  So, nodes are loaded first, then edges, etc. 
+ *  build upon each other as their related structures within the XML-input.
+ *  So, nodes are loaded first, then edges, etc.
  *
  * Because these structures may have a different order within the VISUM-file
  *  than we need, at first the file is scanned and any occurence of one of the
@@ -87,7 +87,7 @@ public:
      * @param[in] useVisumPrio Information whether the VISUM type's priority shall be used
      */
     NIVisumLoader(NBNetBuilder &nb, const std::string &file,
-        NBCapacity2Lanes capacity2Lanes, bool useVisumPrio) throw();
+                  NBCapacity2Lanes capacity2Lanes, bool useVisumPrio) throw();
 
 
     /// @brief destructor
@@ -98,8 +98,8 @@ public:
      *
      * At first, it is checked whether the file can be opened. A ProcessError is thrown
      *  if not. Otherwise, the file is scanned for occurences of db table begins. For each found
-     *  db, its position within the file, and the column names are stored in the according 
-     *  TypeParser. After this, the sorted list of type parsers is one through and each 
+     *  db, its position within the file, and the column names are stored in the according
+     *  TypeParser. After this, the sorted list of type parsers is one through and each
      *  found is used to parse the entries at the found positions using the found column names.
      *
      * @exception ProcessError If the file could not be opened
@@ -107,7 +107,7 @@ public:
     void load() throw(ProcessError);
 
 private:
-    /** @brief Returns the value from the named column as a float 
+    /** @brief Returns the value from the named column as a float
      *
      * @param[in] fieldName Name of the column to extract the float from
      * @return The parsed real
@@ -144,11 +144,11 @@ private:
      * @param[in] defaultValue The default to return in the case of an error
      * @return The parsed real or the default value if an error while parsing occured
      */
-    SUMOReal getNamedFloat(const std::string &fieldName1, const std::string &fieldName2, 
-        SUMOReal defaultValue) throw();
+    SUMOReal getNamedFloat(const std::string &fieldName1, const std::string &fieldName2,
+                           SUMOReal defaultValue) throw();
 
 
-    /** @brief Returns the value from the named column as a normalised string 
+    /** @brief Returns the value from the named column as a normalised string
      *
      * "Normalised" means herein that the leading '0' (zeros) are prunned.
      *
@@ -198,7 +198,7 @@ private:
 
     /** @brief Tries to get the node which name is stored in the given field
      *
-     * If the field can not be parsed, an exception is thrown. Prints an error if the 
+     * If the field can not be parsed, an exception is thrown. Prints an error if the
      *  node could not be found, returning 0. Otherwise, if the field could be parsed
      *  and the node was found, this node is returned.
      *
@@ -210,7 +210,7 @@ private:
      */
     NBNode *getNamedNode(const std::string &fieldName) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
 
-    /** @brief The same, but two different names for the field are allowed 
+    /** @brief The same, but two different names for the field are allowed
      *
      * @param[in] fieldName1 Name of the first column to extract the node's name from
      * @param[in] fieldName2 Name of the second column to extract the node's name from
@@ -224,7 +224,7 @@ private:
 
     /** @brief Tries to get the edge which name is stored in the given field
      *
-     * If the field can not be parsed, an exception is thrown. Prints an error if the 
+     * If the field can not be parsed, an exception is thrown. Prints an error if the
      *  edge could not be found, returning 0. Otherwise, if the field could be parsed
      *  and the edge was found, this edge is returned.
      *
@@ -251,7 +251,7 @@ private:
     /** @brief Tries to get the edge which name is stored in the given field
      * continuating the search for a subedge that ends at the given node
      *
-     * If the field can not be parsed, an exception is thrown. Prints an error if the 
+     * If the field can not be parsed, an exception is thrown. Prints an error if the
      *  edge could not be found, returning 0. Otherwise, if the field could be parsed
      *  and the edge was found, this edge is returned.
      *
@@ -275,7 +275,7 @@ private:
      * @exception UnknownElement If the named data field is not in the line
      */
     NBEdge *getNamedEdgeContinuating(const std::string &fieldName1, const std::string &fieldName2,
-        NBNode *node) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
+                                     NBNode *node) throw(OutOfBoundsException, NumberFormatException, UnknownElement);
 
     /** @brief The same, but for an already given edge
      *
@@ -287,11 +287,11 @@ private:
 
 
     /** @brief Returns the edge that connects both nodes
-     * 
+     *
      * @param[in] FromNode Name of the node the edge shall start at
      * @param[in] ToNode Name of the node the edge shall end at
      * @return The edge connecting both nodes, 0 if no such edge exists
-     */     
+     */
     NBEdge *getEdge(NBNode *FromNode, NBNode *ToNode) throw();
 
 
@@ -300,7 +300,7 @@ private:
      * Because the opposite direction edge may be split, not the the plain opposite
      *  edge, the one which name is obtained by adding/removing the leading '-', is returned,
      *  but its continuation until the named node.
-     * 
+     *
      * @param[in] edge Name of the edge to find the opposite of
      * @param[in] node Name of the node the opposite edge's continuation must end at
      * @return The found opposite edge's continuation, 0 if not found
@@ -325,7 +325,7 @@ private:
 
     /** @brief Returns whether both nodes are a valid combination of from/to-nodes
      *
-     * They are valid if both are !=0 and differ. 
+     * They are valid if both are !=0 and differ.
      *
      * @param[in] from The from-node
      * @param[in] from The to-node
@@ -337,7 +337,7 @@ private:
 private:
     /**
      * @brief Definition of a function for parsing a single line from a certain db
-     * 
+     *
      * This function may assume that both the LineParser is initialised
      *  with the current line.
      */
@@ -348,17 +348,17 @@ private:
      * @brief A complete call description for parsing a single db.
      */
     struct TypeParser {
-        /** @brief The name of the db 
+        /** @brief The name of the db
          *
          * Initialised in the constructor */
         std::string name;
 
-        /** @brief  Pointer to the function used for parsing 
+        /** @brief  Pointer to the function used for parsing
          *
          * Initialised in the constructor */
         ParsingFunction function;
 
-        /** @brief Position of the according db within the file 
+        /** @brief Position of the according db within the file
          *
          * Set to -1 in the constructor, and reset to the position while
          *  scaning the file if the according db was found */
@@ -396,7 +396,7 @@ private:
     /** @brief Parses FLAECHENELEMENT */
     void parse_Kante();
 
-    
+
     /** @brief Parses ANBINDUNG */
     void parse_Connectors();
 
@@ -436,7 +436,7 @@ private:
 
     /**
      * @brief Adds a parser into the sorted list of parsers to use
-     * 
+     *
      * @param[in] name db name to assign the parser to
      * @param[in] function The function to use for parsing the named db
      */

@@ -41,13 +41,10 @@ class PointOfInterest :
 public:
     PointOfInterest(const std::string &id, const std::string &type,
                     const Position2D &p, const RGBColor &c)
-            : RGBColor(c), Position2D(p), Named(id), myType(type)
-    { }
-    virtual ~PointOfInterest()
-    { }
+            : RGBColor(c), Position2D(p), Named(id), myType(type) { }
+    virtual ~PointOfInterest() { }
 
-    const std::string &getType() const
-    {
+    const std::string &getType() const {
         return myType;
     }
 

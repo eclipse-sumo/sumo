@@ -49,14 +49,11 @@ protected:
 
     MSMaxJamLengthInVehicles(SUMOReal,
                              const Container& container)
-            : containerM(container)
-    {}
+            : containerM(container) {}
 
-    virtual ~MSMaxJamLengthInVehicles(void)
-    {}
+    virtual ~MSMaxJamLengthInVehicles(void) {}
 
-    DetectorAggregate getDetectorAggregate(void)
-    {
+    DetectorAggregate getDetectorAggregate(void) {
         SUMOReal maxNVeh = 0.0;
         SUMOReal vehCount = 0.0;
         int pos = 0;
@@ -87,8 +84,7 @@ protected:
         return maxNVeh;
     }
 
-    static std::string getDetectorName(void)
-    {
+    static std::string getDetectorName(void) {
         return "maxJamLengthInVehicles";
     }
 private:
@@ -106,14 +102,11 @@ protected:
 
     MSMaxJamLengthInMeters(SUMOReal,
                            const Container& container)
-            : containerM(container)
-    {}
+            : containerM(container) {}
 
-    virtual ~MSMaxJamLengthInMeters(void)
-    {}
+    virtual ~MSMaxJamLengthInMeters(void) {}
 
-    DetectorAggregate getDetectorAggregate(void)
-    {
+    DetectorAggregate getDetectorAggregate(void) {
         SUMOReal maxDist = 0.0;
         const MSVehicle* startVeh = 0;
         const MSVehicle* stopVeh = 0;
@@ -148,8 +141,7 @@ protected:
         return maxDist;
     }
 
-    static std::string getDetectorName(void)
-    {
+    static std::string getDetectorName(void) {
         return "maxJamLengthInMeters";
     }
 

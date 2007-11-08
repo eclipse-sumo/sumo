@@ -51,16 +51,13 @@ public:
     public:
         VehicleState(SUMOReal gap2DetectorEnd,
                      MSUnit::CellsPerStep speed)
-                : gap2DetectorEndM(gap2DetectorEnd), speedM(MSUnit::getInstance()->getMetersPerSecond(speed))
-        {}
+                : gap2DetectorEndM(gap2DetectorEnd), speedM(MSUnit::getInstance()->getMetersPerSecond(speed)) {}
 
-        SUMOReal getGap2DetectorEnd(void) const
-        {
+        SUMOReal getGap2DetectorEnd(void) const {
             return gap2DetectorEndM;
         }
 
-        MSUnit::MetersPerSecond getSpeed(void) const
-        {
+        MSUnit::MetersPerSecond getSpeed(void) const {
             return speedM;
         }
 
@@ -82,16 +79,13 @@ protected:
                                 const Container& vehicleCont)
             : detectorEndPosM(detectorEndPos),
             containerM(vehicleCont.containerM),
-            statesM()
-    {}
+            statesM() {}
 
-    virtual ~MSApproachingVehiclesStates(void)
-    {
+    virtual ~MSApproachingVehiclesStates(void) {
         statesM.clear();
     }
 
-    const DetectorAggregate& getDetectorAggregate(unsigned nApproachingVeh)
-    {
+    const DetectorAggregate& getDetectorAggregate(unsigned nApproachingVeh) {
         statesM.clear();
 
         VehicleCont::const_iterator vehIt = containerM.begin();
@@ -115,8 +109,7 @@ protected:
         return statesM;
     }
 
-    static std::string getDetectorName(void)
-    {
+    static std::string getDetectorName(void) {
         return "approachingVehiclesStates";
     }
 

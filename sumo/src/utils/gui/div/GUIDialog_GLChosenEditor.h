@@ -91,8 +91,7 @@ private:
 
 protected:
     /// FOX needs this
-    GUIDialog_GLChosenEditor()
-    { }
+    GUIDialog_GLChosenEditor() { }
 
 };
 

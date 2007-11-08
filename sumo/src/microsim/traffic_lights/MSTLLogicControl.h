@@ -62,13 +62,12 @@ public:
      *
      * The currently used program is additionally stored in defaultTLS.
      */
-    struct TLSLogicVariants
-    {
+    struct TLSLogicVariants {
         /// The currently used program
         MSTrafficLightLogic *defaultTL;
         /// A map of subkeys to programs
         std::map<std::string, MSTrafficLightLogic*> ltVariants;
-        /// Originally loaded link states 
+        /// Originally loaded link states
         std::map<MSLink*, std::pair<MSLink::LinkState, bool> > originalLinkStates;
     };
 
@@ -82,7 +81,7 @@ public:
 
 
     /** @brief Lets MSTLLogicControl know that the network has been loaded
-     * 
+     *
      * This method must be called after the network (including the initial tls
      *  definitions) was loaded. The MSTLLogicControl is informed in order
      *  to know that link information is known for the tls programs loaded
@@ -122,7 +121,7 @@ public:
 
 
     /** @brief Returns a single program (variant) defined by the tls id and the program subid
-     * 
+     *
      * @param[in] id The id of the tls to get program of
      * @param[in] subid The program id of the tls program to get
      * @return The defined tls program if existing, 0 otherwise
@@ -131,7 +130,7 @@ public:
 
 
     /** @brief Returns the active program of a named tls
-     * 
+     *
      * @param[in] id The id of the tls to get the active program of
      * @return The current program of the defined tls if existing, 0 otherwise
      */
@@ -153,7 +152,7 @@ public:
      *  default program of this tls. This means that an existing tls program for this
      *  tls is replaced within the according TLSLogicVariants structure and within
      *  myActiveLogics.
-     * 
+     *
      * @param[in] id The id of the tls (program) to add
      * @param[in] subID The program id of the tls (program) to add
      * @param[in] logic The tls logic to insert
@@ -161,7 +160,7 @@ public:
      * @return true if the tls program could be added, false otherwise
      */
     bool add(const std::string &id, const std::string &subID,
-                 MSTrafficLightLogic *logic, bool newDefault=true) throw(ProcessError);
+             MSTrafficLightLogic *logic, bool newDefault=true) throw(ProcessError);
 
 
     /// Returns the information whether the named tls is stored
@@ -210,37 +209,32 @@ protected:
      * This command is reused. The index of the WAUT-switch is incremented at each
      *  call to the control.
      */
-    class SwitchInitCommand : public Command
+class SwitchInitCommand : public Command
     {
     public:
         // / Constructor
         SwitchInitCommand(MSTLLogicControl &p, const std::string &wautid)
-                : myParent(p), myWAUTID(wautid), myIndex(0)
-        { }
+                : myParent(p), myWAUTID(wautid), myIndex(0) { }
 
         /// Destructor
-        ~SwitchInitCommand()
-        { }
+        ~SwitchInitCommand() { }
 
         /** @brief Executes the command what forces the logic control to
          * initialise a switch process
          *
          * The control will ask for the index and increment it.
          */
-        SUMOTime execute(SUMOTime)
-        {
+        SUMOTime execute(SUMOTime) {
             return myParent.initWautSwitch(*this);
         }
 
         /// Returns the WAUT-id
-        const std::string &getWAUTID() const
-        {
+        const std::string &getWAUTID() const {
             return myWAUTID;
         }
 
         /// Returns a reference to the index
-        int &getIndex()
-        {
+        int &getIndex() {
             return myIndex;
         }
 
@@ -269,8 +263,7 @@ protected:
      * @struct WAUTSwitch
      * @brief Storage for a WAUTs switch point
      */
-    struct WAUTSwitch
-    {
+    struct WAUTSwitch {
         /// The time the WAUT shall switch the TLS
         SUMOTime when;
         /// The program name the WAUT shall switch the TLS to
@@ -281,8 +274,7 @@ protected:
      * @struct WAUTJunction
      * @brief Storage for a junction assigned to a WAUT
      */
-    struct WAUTJunction
-    {
+    struct WAUTJunction {
         /// The junction name
         std::string junction;
         /// The procedure to switch the junction with
@@ -295,8 +287,7 @@ protected:
      * @struct WAUT
      * @brief A WAUT definition
      */
-    struct WAUT
-    {
+    struct WAUT {
         /// The id of the WAUT
         std::string id;
         /// The name of the start program
@@ -320,12 +311,10 @@ protected:
         WAUTSwitchProcedure(MSTLLogicControl &control, WAUT &waut,
                             MSTrafficLightLogic *from, MSTrafficLightLogic *to,
                             bool synchron)
-                : myFrom(from), myTo(to), mySwitchSynchron(synchron), myWAUT(waut), myControl(control)
-        { }
+                : myFrom(from), myTo(to), mySwitchSynchron(synchron), myWAUT(waut), myControl(control) { }
 
         /// Destructor
-        virtual ~WAUTSwitchProcedure()
-        { }
+        virtual ~WAUTSwitchProcedure() { }
 
         /** @brief Determines whether a switch is possible.
          *
@@ -446,8 +435,7 @@ class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure
         /** @struct StretchBereichDef
          * @brief A definition of a stretch - Bereich
          */
-        struct StretchBereichDef
-        {
+        struct StretchBereichDef {
             /// The begin of a Bereich (?)
             SUMOReal begin;
             /// The end of a Bereich (?)
@@ -473,8 +461,7 @@ class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure
      * @struct WAUTSwitchProcess
      * @brief An initialised switch process
      */
-    struct WAUTSwitchProcess
-    {
+    struct WAUTSwitchProcess {
         /// The id of the junction to switch
         std::string junction;
         /// The current program of the tls

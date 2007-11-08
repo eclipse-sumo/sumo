@@ -41,10 +41,8 @@ template<typename T>
 class ValueRetriever
 {
 public:
-    ValueRetriever()
-    { }
-    virtual ~ValueRetriever()
-    { }
+    ValueRetriever() { }
+    virtual ~ValueRetriever() { }
     virtual void addValue(T value) = 0;
 
 };

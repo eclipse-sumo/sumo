@@ -376,11 +376,12 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
     if (true) {
         std::vector<DFRORouteDesc*>::iterator i;
         for (i=toDiscard.begin(); i!=toDiscard.end(); ++i) {
-            /*bool ok = */into.removeRouteDesc(*i);
+            /*bool ok = */
+            into.removeRouteDesc(*i);
 //!!!            assert(ok);
         }
     }
-    while(!toSolve.empty()) {
+    while (!toSolve.empty()) {
         DFRORouteDesc *d = toSolve.top();
         toSolve.pop();
         delete d;
@@ -815,8 +816,7 @@ RODFNet::removeEmptyDetectors(RODFDetectorCon &detectors,
             flows.removeFlow((*i)->getID());
             detectors.removeDetector((*i)->getID());
             i = dets.begin();
-        }
-        else {
+        } else {
             i++;
         }
     }

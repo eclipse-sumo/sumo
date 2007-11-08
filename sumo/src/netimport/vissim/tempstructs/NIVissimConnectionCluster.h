@@ -84,8 +84,7 @@ public:
 
     friend class NIVissimEdge; // !!! debug
 
-    const IntVector &getConnections() const
-    {
+    const IntVector &getConnections() const {
         return myConnections;
     }
 
@@ -149,13 +148,11 @@ private:
     public:
         /// constructor
         explicit same_direction_sorter(SUMOReal angle)
-                : myAngle(angle)
-        { }
+                : myAngle(angle) { }
 
     public:
         /// comparing operation
-        int operator()(NIVissimConnection *c1, NIVissimConnection *c2) const
-        {
+        int operator()(NIVissimConnection *c1, NIVissimConnection *c2) const {
             return
                 fabs(c1->getGeometry().beginEndAngle()-myAngle)
                 <

@@ -141,7 +141,7 @@ public:
         }
     }
 
-    static void add2All(std::vector<T> &v, T what){
+    static void add2All(std::vector<T> &v, T what) {
         for (typename std::vector<T>::iterator j=v.begin(); j!=v.end(); j++) {
             (*j) += what;
         }
@@ -163,7 +163,8 @@ public:
 };
 
 template<class T>
-std::ostream &operator<<(std::ostream &os, const std::vector<T> &v) {
+std::ostream &operator<<(std::ostream &os, const std::vector<T> &v)
+{
     for (typename std::vector<T>::const_iterator i=v.begin(); i!=v.end(); i++) {
         if (i!=v.begin()) {
             os << ", ";

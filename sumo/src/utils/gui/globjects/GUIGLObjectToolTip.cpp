@@ -49,8 +49,8 @@ using namespace std;
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIGLObjectToolTip) GUIGLObjectToolTipMap[]={
-            FXMAPFUNC(SEL_PAINT, 0, GUIGLObjectToolTip::onPaint),
-        };
+    FXMAPFUNC(SEL_PAINT, 0, GUIGLObjectToolTip::onPaint),
+};
 
 FXIMPLEMENT(GUIGLObjectToolTip,FXToolTip,GUIGLObjectToolTipMap,ARRAYNUMBER(GUIGLObjectToolTipMap))
 

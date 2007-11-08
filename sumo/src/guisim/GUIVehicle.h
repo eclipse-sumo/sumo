@@ -67,8 +67,7 @@ public:
     /// destructor
     ~GUIVehicle();
 
-    inline void setOwnDefinedColor() const
-    {
+    inline void setOwnDefinedColor() const {
         if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
             RGBColor *col = (RGBColor *)getCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL);
             glColor3d(col->red(), col->green(), col ->blue());
@@ -77,12 +76,10 @@ public:
         glColor3d(1,1,0);
     }
 
-    inline void setOwnTypeColor() const
-    {
+    inline void setOwnTypeColor() const {
         static_cast<const GUIVehicleType&>(getVehicleType()).setColor();
     }
-    inline void setOwnRouteColor() const
-    {
+    inline void setOwnRouteColor() const {
         static_cast<const GUIRoute&>(getRoute()).setColor();
     }
 
@@ -165,8 +162,7 @@ class GUIVehiclePopupMenu : public GUIGLObjectPopupMenu
         long onCmdStopTrack(FXObject*,FXSelector,void*);
 
     protected:
-        GUIVehiclePopupMenu()
-        { }
+        GUIVehiclePopupMenu() { }
 
     };
 

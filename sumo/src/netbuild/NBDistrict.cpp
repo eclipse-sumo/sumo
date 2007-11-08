@@ -226,14 +226,14 @@ NBDistrict::removeFromSinksAndSources(NBEdge * const e) throw()
 }
 
 
-void 
+void
 NBDistrict::addShape(const Position2DVector &p) throw()
 {
     myShape = p;
 }
 
 
-void 
+void
 NBDistrict::normalisePositions() throw()
 {
     myPosition.add(GeoConvHelper::getOffset());

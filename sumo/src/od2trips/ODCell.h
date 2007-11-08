@@ -45,8 +45,7 @@
  *
  * @todo Check whether the vehicle type is used and makes sense herein
  */
-struct ODCell
-{
+struct ODCell {
     /// The number of vehicles
     SUMOReal vehicleNumber;
 

@@ -84,8 +84,7 @@ private:
     ValueSource<SUMOReal> *mySource;
 
 protected:
-    GUIParam_PopupMenu()
-    { }
+    GUIParam_PopupMenu() { }
 
 };
 

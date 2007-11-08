@@ -47,7 +47,7 @@ class GUINet;
 // ===========================================================================
 /**
  * @class  GUIEvent_SimulationLoaded
- * 
+ *
  * Throw to GUIApplicationWindow from GUILoadThread after a simulation has
  * been loaded or the loading process failed
  */
@@ -60,12 +60,10 @@ public:
                               const std::string &file)
             : GUIEvent(EVENT_SIMULATION_LOADED),
             myNet(net), myBegin(startTime), myEnd(endTime),
-            myFile(file)
-    { }
+            myFile(file) { }
 
     /// destructor
-    ~GUIEvent_SimulationLoaded()
-    { }
+    ~GUIEvent_SimulationLoaded() { }
 
 public:
     /// the loaded net

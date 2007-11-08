@@ -59,12 +59,10 @@ public:
     void computeBounding();
     bool addToNode(NBNode *node, NBDistrictCont &dc,
                    NBNodeCont &nc, NBEdgeCont &ec);
-    int getEdgeID() const
-    {
+    int getEdgeID() const {
         return myEdge.getEdgeID();
     }
-    int getDisturbanceID() const
-    {
+    int getDisturbanceID() const {
         return myDisturbance.getEdgeID();
     }
     NBConnection getConnection(NBNode *node, int aedgeid);

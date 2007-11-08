@@ -207,8 +207,7 @@ protected:
     /// Speed-theshold to determine if a vehicle is halting.
     MSUnit::MetersPerSecond haltingSpeedThresholdM;
 
-    struct E3Values
-    {
+    struct E3Values {
         SUMOReal entryTime;
         SUMOReal leaveTime;
         SUMOReal speedSum;

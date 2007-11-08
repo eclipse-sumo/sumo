@@ -77,8 +77,7 @@ public:
 
 public:
     /** default constructor */
-    StringTokenizer()
-    { }
+    StringTokenizer() { }
 
     /** @brief constructor
         same as StringTokenizer(tosplit, StringTokenizer.WHITECHARS)

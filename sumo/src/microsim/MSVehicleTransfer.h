@@ -84,8 +84,7 @@ private:
      * @struct VehicleInformation
      * Holds the information needed to move the vehicle over the network
      */
-    struct VehicleInformation
-    {
+    struct VehicleInformation {
         /// The vehicle itself
         MSVehicle *myVeh;
 
@@ -97,8 +96,7 @@ private:
 
         /// Constructor
         VehicleInformation(MSVehicle *veh, SUMOTime insertTime)
-                : myVeh(veh), myInsertTime(insertTime), myProceedTime(insertTime)
-        { }
+                : myVeh(veh), myInsertTime(insertTime), myProceedTime(insertTime) { }
 
     };
 

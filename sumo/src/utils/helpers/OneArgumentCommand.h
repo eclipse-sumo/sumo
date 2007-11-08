@@ -63,12 +63,10 @@ public:
      * @return Pointer to the created OneArgumentCommand.
      */
     OneArgumentCommand(T* receiver, Operation operation, Arg argument)
-            : myReceiver(receiver), myOperation(operation), myArgument(argument)
-    {}
+            : myReceiver(receiver), myOperation(operation), myArgument(argument) {}
 
     /// Destructor.
-    ~OneArgumentCommand()
-    {}
+    ~OneArgumentCommand() {}
 
     /**
      * Execute the command and return an offset in steps for recurring
@@ -78,8 +76,7 @@ public:
      * in steps for recurring commands and 0 for single-execution
      * commands.
      */
-    SUMOTime execute(SUMOTime)
-    {
+    SUMOTime execute(SUMOTime) {
         return (myReceiver->*myOperation)(myArgument);
     }
 

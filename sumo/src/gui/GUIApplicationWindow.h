@@ -172,8 +172,7 @@ public:
     FXCursor *getDefaultCursor();
 
 protected:
-    virtual void addToWindowsMenu(FXMenuPane *)
-    { }
+    virtual void addToWindowsMenu(FXMenuPane *) { }
 
 private:
     /** starts to load a simulation */
@@ -187,8 +186,7 @@ private:
 
 protected:
     /// FOX needs this for static members
-    GUIApplicationWindow()
-    { }
+    GUIApplicationWindow() { }
 
 protected:
     /// Builds the menu bar

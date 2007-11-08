@@ -25,17 +25,13 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 
 template<int> struct CompileTimeError;
-template<> struct CompileTimeError<true>
-    {};
+template<> struct CompileTimeError<true> {};
 
-namespace Private
-{
-template<int x> struct static_assert_test
-    {};
+namespace Private {
+template<int x> struct static_assert_test {};
 template <bool x> struct SizeError;
 
-template <> struct SizeError<true>
-    {};
+template <> struct SizeError<true> {};
 }
 }
 

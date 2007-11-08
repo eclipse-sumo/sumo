@@ -86,8 +86,7 @@ public:
     bool operator!=(const RGBColor &c) const;
 
 private:
-    static inline SUMOReal check(const SUMOReal &c)
-    {
+    static inline SUMOReal check(const SUMOReal &c) {
         if (c<0) {
             return 0;
         } else if (c>1.0) {
@@ -97,23 +96,19 @@ private:
         }
     }
 
-    static inline SUMOReal addChecking(const SUMOReal &c1, const SUMOReal &c2)
-    {
+    static inline SUMOReal addChecking(const SUMOReal &c1, const SUMOReal &c2) {
         return check(c1+c2);
     }
 
-    static inline SUMOReal subChecking(const SUMOReal &c1, const SUMOReal &c2)
-    {
+    static inline SUMOReal subChecking(const SUMOReal &c1, const SUMOReal &c2) {
         return check(c1-c2);
     }
 
-    static inline SUMOReal mulChecking(const SUMOReal &c1, const SUMOReal &c2)
-    {
+    static inline SUMOReal mulChecking(const SUMOReal &c1, const SUMOReal &c2) {
         return check(c1*c2);
     }
 
-    static inline SUMOReal divChecking(const SUMOReal &c1, const SUMOReal &c2)
-    {
+    static inline SUMOReal divChecking(const SUMOReal &c1, const SUMOReal &c2) {
         return check(c1/c2);
     }
 

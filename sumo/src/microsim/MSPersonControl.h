@@ -111,11 +111,9 @@ private:
 class my_greater : public std::unary_function<SameDepartureTimeCont, bool>
     {
     public:
-        my_greater(SUMOTime value) : m_value(value)
-        {}
+        my_greater(SUMOTime value) : m_value(value) {}
 
-        bool operator()(SameDepartureTimeCont arg) const
-        {
+        bool operator()(SameDepartureTimeCont arg) const {
             return m_value > arg.getTime();
         }
 
@@ -132,10 +130,8 @@ private:
 class equal : public std::unary_function<SameDepartureTimeCont, bool>
     {
     public:
-        equal(SUMOTime value) : m_value(value)
-        {}
-        bool operator()(SameDepartureTimeCont arg) const
-        {
+        equal(SUMOTime value) : m_value(value) {}
+        bool operator()(SameDepartureTimeCont arg) const {
             return m_value == arg.getTime();
         }
     private:

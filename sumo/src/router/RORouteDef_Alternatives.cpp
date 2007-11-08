@@ -175,7 +175,7 @@ RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *cur
             // recompute the costs for old routes
             SUMOReal oldCosts = alt->getCosts();
             SUMOReal newCosts = alt->recomputeCosts(veh, begin);
-            if(newCosts<0) {
+            if (newCosts<0) {
                 throw ProcessError("Route '" + current->getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
             }
             alt->setCosts(myGawronBeta * newCosts + ((SUMOReal) 1.0 - myGawronBeta) * oldCosts);
@@ -264,7 +264,7 @@ RORouteDef *
 RORouteDef_Alternatives::copy(const std::string &id) const
 {
     RORouteDef_Alternatives *ret = new RORouteDef_Alternatives(id,
-                                   myColor, myLastUsed, myGawronBeta, myGawronA, myMaxRouteNumber);
+            myColor, myLastUsed, myGawronBeta, myGawronA, myMaxRouteNumber);
     for (std::vector<RORoute*>::const_iterator i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
         ret->addLoadedAlternative(new RORoute(*(*i)));
     }

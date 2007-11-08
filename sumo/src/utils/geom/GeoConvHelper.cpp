@@ -159,7 +159,7 @@ GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary)
     myOrigBoundary.add(from);
     if (myDisableProjection) {
         from.add(myOffset);
-        if(includeInBoundary) {
+        if (includeInBoundary) {
             myConvBoundary.add(from);
         }
         return;
@@ -167,7 +167,7 @@ GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary)
 #ifdef HAVE_PROJ
     if (myProjection!=0) {
         projUV p;
-        if(!myUseInverseProjection) {
+        if (!myUseInverseProjection) {
             p.u = from.x() / 100000.0 * DEG_TO_RAD;
             p.v = from.y() / 100000.0 * DEG_TO_RAD;
             p = pj_fwd(p, myProjection);
@@ -200,7 +200,7 @@ GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary)
 #ifdef HAVE_PROJ
     }
 #endif
-    if(includeInBoundary) {
+    if (includeInBoundary) {
         myConvBoundary.add(from);
     }
 }

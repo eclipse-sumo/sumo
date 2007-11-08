@@ -35,10 +35,8 @@
 class FXThreadMessageRetriever : public FXEX::FXBaseObject
 {
 public:
-    FXThreadMessageRetriever()
-    { }
-    ~FXThreadMessageRetriever()
-    { }
+    FXThreadMessageRetriever() { }
+    ~FXThreadMessageRetriever() { }
 
 private:
 };

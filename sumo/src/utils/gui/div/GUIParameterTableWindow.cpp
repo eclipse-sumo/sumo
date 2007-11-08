@@ -53,13 +53,12 @@ using namespace std;
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GUIParameterTableWindow) GUIParameterTableWindowMap[]=
-    {
-        FXMAPFUNC(SEL_COMMAND,          MID_SIMSTEP,    GUIParameterTableWindow::onSimStep),
-        FXMAPFUNC(SEL_SELECTED,         MID_TABLE,      GUIParameterTableWindow::onTableSelected),
-        FXMAPFUNC(SEL_DESELECTED,       MID_TABLE,      GUIParameterTableWindow::onTableDeselected),
-        FXMAPFUNC(SEL_RIGHTBUTTONPRESS, MID_TABLE,      GUIParameterTableWindow::onRightButtonPress),
-    };
+FXDEFMAP(GUIParameterTableWindow) GUIParameterTableWindowMap[]= {
+    FXMAPFUNC(SEL_COMMAND,          MID_SIMSTEP,    GUIParameterTableWindow::onSimStep),
+    FXMAPFUNC(SEL_SELECTED,         MID_TABLE,      GUIParameterTableWindow::onTableSelected),
+    FXMAPFUNC(SEL_DESELECTED,       MID_TABLE,      GUIParameterTableWindow::onTableDeselected),
+    FXMAPFUNC(SEL_RIGHTBUTTONPRESS, MID_TABLE,      GUIParameterTableWindow::onRightButtonPress),
+};
 
 FXIMPLEMENT(GUIParameterTableWindow, FXMainWindow, GUIParameterTableWindowMap, ARRAYNUMBER(GUIParameterTableWindowMap))
 
@@ -166,7 +165,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
                                 ValueSource<SUMOReal> *src)
 {
     GUIParameterTableItem *i = new GUIParameterTableItem(
-                                   myTable, myCurrentPos++, name, dynamic, src);
+        myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
 }
 
@@ -176,7 +175,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
                                 std::string value)
 {
     GUIParameterTableItem *i = new GUIParameterTableItem(
-                                   myTable, myCurrentPos++, name, dynamic, value);
+        myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
 
@@ -186,7 +185,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
                                 SUMOReal value)
 {
     GUIParameterTableItem *i = new GUIParameterTableItem(
-                                   myTable, myCurrentPos++, name, dynamic, value);
+        myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
 

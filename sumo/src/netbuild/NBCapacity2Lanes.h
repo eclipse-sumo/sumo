@@ -43,16 +43,13 @@ class NBCapacity2Lanes
 {
 public:
     /// constructor
-    NBCapacity2Lanes(SUMOReal divider) : myDivider(divider)
-    { }
+    NBCapacity2Lanes(SUMOReal divider) : myDivider(divider) { }
 
     /// destructor
-    ~NBCapacity2Lanes()
-    { }
+    ~NBCapacity2Lanes() { }
 
     /// returns the number of lanes computed from the given capacity
-    int get(SUMOReal capacity)
-    {
+    int get(SUMOReal capacity) {
         capacity /= myDivider;
         if (capacity>(int) capacity) {
             capacity += 1;

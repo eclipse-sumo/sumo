@@ -137,14 +137,14 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
         if (route == 0) {
             throw ProcessError(
                 "MSTriggeredSource " + myParent.getID() + ": Route '" + routeStr + "' does not exist.");
-            
+
         }
         // check frequency
         SUMOReal freq = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
         if (freq<0) {
             throw ProcessError(
                 "MSTriggeredSource " + myParent.getID() + ": Attribute \"probability\" has value < 0.");
-            
+
         }
         // Attributes ok, add to routeDist
         myRouteDist.add(freq, route);

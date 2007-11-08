@@ -24,8 +24,7 @@ namespace Loki
 ////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-struct IsCustomUnsignedInt
-{
+struct IsCustomUnsignedInt {
     enum { value = 0 };
 };
 
@@ -42,8 +41,7 @@ struct IsCustomUnsignedInt
 ////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-struct IsCustomSignedInt
-{
+struct IsCustomSignedInt {
     enum { value = 0 };
 };
 
@@ -59,8 +57,7 @@ struct IsCustomSignedInt
 ////////////////////////////////////////////////////////////////////////////////
 
 template <typename T>
-struct IsCustomFloat
-{
+struct IsCustomFloat {
     enum { value = 0 };
 };
 
@@ -68,8 +65,7 @@ struct IsCustomFloat
 // Helper types for class template TypeTraits defined below
 ////////////////////////////////////////////////////////////////////////////////
 
-namespace Private
-{
+namespace Private {
 typedef TYPELIST_4(unsigned char, unsigned short int,
                    unsigned int, unsigned long int) StdUnsignedInts;
 typedef TYPELIST_4(signed char, short int,
@@ -135,134 +131,109 @@ template <typename T>
 class TypeTraits
 {
 private:
-    template <class U> struct PointerTraits
-    {
+    template <class U> struct PointerTraits {
         enum { result = false };
         typedef NullType PointeeType;
     };
 
-    template <class U> struct PointerTraits<U*>
-    {
+    template <class U> struct PointerTraits<U*> {
         enum { result = true };
         typedef U PointeeType;
     };
 
-    template <class U> struct ReferenceTraits
-    {
+    template <class U> struct ReferenceTraits {
         enum { result = false };
         typedef U ReferredType;
     };
 
-    template <class U> struct ReferenceTraits<U&>
-    {
+    template <class U> struct ReferenceTraits<U&> {
         enum { result = true };
         typedef U ReferredType;
     };
 
-    template <class U> struct PToMTraits
-    {
+    template <class U> struct PToMTraits {
         enum { result = false };
     };
 
     template <class U, class V>
-    struct PToMTraits<U V::*>
-    {
+    struct PToMTraits<U V::*> {
         enum { result = true };
     };
 
-    template <class U> struct UnConst
-    {
+    template <class U> struct UnConst {
         typedef U Result;
         enum { isConst = 0 };
     };
 
-    template <class U> struct UnConst<const U>
-    {
+    template <class U> struct UnConst<const U> {
         typedef U Result;
         enum { isConst = 1 };
     };
 
-    template <class U> struct UnVolatile
-    {
+    template <class U> struct UnVolatile {
         typedef U Result;
         enum { isVolatile = 0 };
     };
 
-    template <class U> struct UnVolatile<volatile U>
-    {
+    template <class U> struct UnVolatile<volatile U> {
         typedef U Result;
         enum { isVolatile = 1 };
     };
 
 public:
-    enum
-    {
+    enum {
         isPointer = PointerTraits<T>::result
     };
     typedef typename PointerTraits<T>::PointeeType PointeeType;
 
-    enum
-    {
+    enum {
         isReference = ReferenceTraits<T>::result
     };
     typedef typename ReferenceTraits<T>::ReferredType ReferredType;
 
-    enum
-    {
+    enum {
         isMemberPointer = PToMTraits<T>::result
     };
 
-    enum
-    {
+    enum {
         isStdUnsignedInt =
-            TL::IndexOf<Private::StdUnsignedInts, T>::value >= 0
+        TL::IndexOf<Private::StdUnsignedInts, T>::value >= 0
     };
-    enum
-    {
+    enum {
         isStdSignedInt =
-            TL::IndexOf<Private::StdSignedInts, T>::value >= 0
+        TL::IndexOf<Private::StdSignedInts, T>::value >= 0
     };
-    enum
-    {
+    enum {
         isStdIntegral = isStdUnsignedInt || isStdSignedInt ||
-                        TL::IndexOf<Private::StdOtherInts, T>::value >= 0
+        TL::IndexOf<Private::StdOtherInts, T>::value >= 0
     };
-    enum
-    {
+    enum {
         isStdFloat = TL::IndexOf<Private::StdFloats, T>::value >= 0
     };
-    enum
-    {
+    enum {
         isStdArith = isStdIntegral || isStdFloat
     };
-    enum
-    {
+    enum {
         isStdFundamental = isStdArith || isStdFloat ||
-                           Conversion<T, void>::sameType
+        Conversion<T, void>::sameType
     };
 
-    enum
-    {
+    enum {
         isUnsignedInt = isStdUnsignedInt || IsCustomUnsignedInt<T>::value
     };
-    enum
-    {
+    enum {
         isSignedInt = isStdSignedInt || IsCustomSignedInt<T>::value
     };
-    enum
-    {
+    enum {
         isIntegral = isStdIntegral || isUnsignedInt || isSignedInt
     };
-    enum
-    {
+    enum {
         isFloat = isStdFloat || IsCustomFloat<T>::value
     };
-    enum
-    {
+    enum {
         isArith = isIntegral || isFloat
     };
-    enum
-    {
+    enum {
         isFundamental = isStdFundamental || isArith || isFloat
     };
 
@@ -270,13 +241,11 @@ public:
     T, ReferredType&>::Result
     ParameterType;
 
-    enum
-    {
+    enum {
         isConst = UnConst<T>::isConst
     };
     typedef typename UnConst<T>::Result NonConstType;
-    enum
-    {
+    enum {
         isVolatile = UnVolatile<T>::isVolatile
     };
     typedef typename UnVolatile<T>::Result NonVolatileType;

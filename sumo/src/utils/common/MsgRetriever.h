@@ -46,13 +46,11 @@ public:
     virtual void inform(const std::string &error) = 0;
 
     /// destructor
-    virtual ~MsgRetriever()
-    { }
+    virtual ~MsgRetriever() { }
 
 protected:
     /// standard constructor
-    MsgRetriever()
-    { }
+    MsgRetriever() { }
 
 };
 

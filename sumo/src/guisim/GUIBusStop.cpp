@@ -80,11 +80,10 @@ using namespace std;
  * GUIBusStop::GUIBusStopPopupMenu - mapping
  * ----------------------------------------------------------------------- */
 FXDEFMAP(GUIBusStop::GUIBusStopPopupMenu)
-GUIBusStopPopupMenuMap[]=
-    {
-        FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUIBusStop::GUIBusStopPopupMenu::onCmdOpenManip),
+GUIBusStopPopupMenuMap[]= {
+    FXMAPFUNC(SEL_COMMAND,  MID_MANIP,         GUIBusStop::GUIBusStopPopupMenu::onCmdOpenManip),
 
-    };
+};
 
 // Object implementation
 FXIMPLEMENT(GUIBusStop::GUIBusStopPopupMenu, GUIGLObjectPopupMenu, GUIBusStopPopupMenuMap, ARRAYNUMBER(GUIBusStopPopupMenuMap))

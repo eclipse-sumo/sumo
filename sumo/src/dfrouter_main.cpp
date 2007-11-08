@@ -110,14 +110,14 @@ readDetectors(OptionsCont &oc, RODFNet *optNet)
     // read definitions stored in XML-format
     {
         vector<string> files = oc.getStringVector("detector-files");
-        for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
             if (!FileHelpers::exists(*fileIt)) {
                 delete cont;
                 throw ProcessError("Could not open detector file '" + *fileIt + "'");
             }
             MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + *fileIt + "'... ");
             RODFDetectorHandler handler(oc, *cont, *fileIt);
-            if(XMLSubSys::runParser(handler, *fileIt)) {
+            if (XMLSubSys::runParser(handler, *fileIt)) {
                 MsgHandler::getMessageInstance()->endProcessMsg("done.");
             } else {
                 MsgHandler::getMessageInstance()->endProcessMsg("failed.");
@@ -133,7 +133,7 @@ readDetectors(OptionsCont &oc, RODFNet *optNet)
             delete cont;
             throw ProcessError("You need a network in order to read elmar definitions.");
         }
-        for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
             if (!FileHelpers::exists(*fileIt)) {
                 delete cont;
                 throw ProcessError("Could not open elmar detector file '" + *fileIt + "'");
@@ -208,7 +208,7 @@ readDetectorFlows(OptionsCont &oc, RODFDetectorCon &dc)
     }
     // check whether the file exists
     vector<string> files = oc.getStringVector("detector-flow-files");
-    for(vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+    for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
         if (!FileHelpers::exists(*fileIt)) {
             throw ProcessError("The detector-flow-file '" + *fileIt + "' can not be opened.");
         }
@@ -369,7 +369,7 @@ main(int argc, char **argv)
         XMLSubSys::init();
         RODFFrame::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
-        if(oc.processMetaOptions(argc < 2)) {
+        if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }
@@ -384,7 +384,7 @@ main(int argc, char **argv)
         // build routes
         startComputation(net, oc);
     } catch (ProcessError &e) {
-        if(string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);

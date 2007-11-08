@@ -112,8 +112,7 @@ public:
     long onMotion(FXObject*,FXSelector,void*);
     //long onDefault(FXObject*,FXSelector,void*);
 public:
-    enum
-    {
+    enum {
         ID_DIAL=FXPacker::ID_LAST,
         ID_INCREMENT,
         ID_DECREMENT,
@@ -175,8 +174,7 @@ public:
     virtual void setValue(FXdouble value);
 
     /// Return current value
-    FXdouble getValue() const
-    {
+    FXdouble getValue() const {
         return pos;
     }
 
@@ -184,8 +182,7 @@ public:
     void setRange(FXdouble lo,FXdouble hi);
 
     /// Get the spinner's current range
-    void getRange(FXdouble& lo,FXdouble& hi) const
-    {
+    void getRange(FXdouble& lo,FXdouble& hi) const {
         lo=range[0];
         hi=range[1];
     }
@@ -200,18 +197,15 @@ public:
     void setCoarseIncrement(FXdouble increment);
 
     /// Return spinner increment
-    FXdouble getIncrement() const
-    {
+    FXdouble getIncrement() const {
         return incr[1];
     }
     /// Return spinner increment
-    FXdouble getFineIncrement() const
-    {
+    FXdouble getFineIncrement() const {
         return incr[0];
     }
     /// Return spinner increment
-    FXdouble getCoarseIncrement() const
-    {
+    FXdouble getCoarseIncrement() const {
         return incr[-1];
     }
 

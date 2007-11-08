@@ -153,8 +153,7 @@ class GUIParameterTrackerPanel : public FXGLCanvas
 
     protected:
         /// FOX needs this
-        GUIParameterTrackerPanel()
-        { }
+        GUIParameterTrackerPanel() { }
     };
 
 public:
@@ -199,8 +198,7 @@ protected:
 
 protected:
     /// Fox needs this
-    GUIParameterTracker()
-    { }
+    GUIParameterTracker() { }
 
 };
 

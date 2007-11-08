@@ -283,86 +283,86 @@ GUIGrid::removeFrom(GridCell &cont, int x, int y)
 
 void
 GUIGrid::get(int what,
-                 SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax,
-                 size_t *setEdges, size_t *setJunctions, size_t *setAdditional) const
-    {
-        xmax += myXCellSize;
-        ymax += myYCellSize;
-        // compute bounderies
-        /*
-           SUMOReal xmin = x - xoff - myXCellSize;
-           SUMOReal xmax = x + xoff + myXCellSize;
-           SUMOReal ymin = y - yoff - myYCellSize;
-           SUMOReal ymax = y + yoff + myYCellSize;
-        */
-        for (size_t i=0; i<myXSize*myYSize; i++) {
-            myVisHelper[i] = GPS_NOT_DRAWN;// = new bool[myXSize*myYSize];
-        }
+             SUMOReal xmin, SUMOReal ymin, SUMOReal xmax, SUMOReal ymax,
+             size_t *setEdges, size_t *setJunctions, size_t *setAdditional) const
+{
+    xmax += myXCellSize;
+    ymax += myYCellSize;
+    // compute bounderies
+    /*
+       SUMOReal xmin = x - xoff - myXCellSize;
+       SUMOReal xmax = x + xoff + myXCellSize;
+       SUMOReal ymin = y - yoff - myYCellSize;
+       SUMOReal ymax = y + yoff + myYCellSize;
+    */
+    for (size_t i=0; i<myXSize*myYSize; i++) {
+        myVisHelper[i] = GPS_NOT_DRAWN;// = new bool[myXSize*myYSize];
+    }
 
-        // loop over bounderies
-        SUMOReal yrun= ymin;//(yur >= 0 ? yur : 0);
-        int ypos = (int)((ymin/*+myBoundary.ymin()*/)/myYCellSize);
-        if (ypos<0) {
-            ypos = 0;
+    // loop over bounderies
+    SUMOReal yrun= ymin;//(yur >= 0 ? yur : 0);
+    int ypos = (int)((ymin/*+myBoundary.ymin()*/)/myYCellSize);
+    if (ypos<0) {
+        ypos = 0;
+    }
+    size_t yidx = 0;
+    for (; yrun<ymax&&ypos<(int) myYSize; yrun+=myYCellSize, ypos++, yidx++) {
+        SUMOReal xrun=xmin;//(xur >= 0 ? xur : 0);
+        int xpos = (int)((xmin/*+myBoundary.xmin()*/)/myXCellSize);
+        if (xpos<0) {
+            xpos = 0;
         }
-        size_t yidx = 0;
-        for (; yrun<ymax&&ypos<(int) myYSize; yrun+=myYCellSize, ypos++, yidx++) {
-            SUMOReal xrun=xmin;//(xur >= 0 ? xur : 0);
-            int xpos = (int)((xmin/*+myBoundary.xmin()*/)/myXCellSize);
-            if (xpos<0) {
-                xpos = 0;
-            }
-            size_t xidx = 0;
-            for (; xrun<xmax&&xpos<(int) myXSize; xrun+=myXCellSize, xpos++, xidx++) {
-                int offs = ypos*myXSize+xpos;
-                if (xidx==0&&yidx==0) {
-                    if ((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
-                        myGrid[offs].setEdges(setEdges);
-                    }
-                    if ((what&GLO_JUNCTION)!=0) {
-                        myGrid[offs].setJunctions(setJunctions);
-                    }
-                    if ((what&GLO_DETECTOR)!=0) {
-                        myGrid[offs].setAdditional(setAdditional);
-                    }
-                    myVisHelper[offs] = GPS_FULL_DRAWN;
-                } else if (yidx!=0 && xidx!=0) {
-                    if ((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
-                        myRelations[2][offs].setEdges(setEdges);
-                    }
-                    if ((what&GLO_JUNCTION)!=0) {
-                        myRelations[2][offs].setJunctions(setJunctions);
-                    }
-                    if ((what&GLO_DETECTOR)!=0) {
-                        myRelations[2][offs].setAdditional(setAdditional);
-                    }
-                    myVisHelper[offs] = GPS_ADD_DRAWN;
-                } else if (yidx==0) {
-                    if ((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
-                        myRelations[1][offs].setEdges(setEdges);
-                    }
-                    if ((what&GLO_JUNCTION)!=0) {
-                        myRelations[1][offs].setJunctions(setJunctions);
-                    }
-                    if ((what&GLO_DETECTOR)!=0) {
-                        myRelations[1][offs].setAdditional(setAdditional);
-                    }
-                    myVisHelper[offs] = GPS_ADD_DRAWN;
-                } else {
-                    if ((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
-                        myRelations[0][offs].setEdges(setEdges);
-                    }
-                    if ((what&GLO_JUNCTION)!=0) {
-                        myRelations[0][offs].setJunctions(setJunctions);
-                    }
-                    if ((what&GLO_DETECTOR)!=0) {
-                        myRelations[0][offs].setAdditional(setAdditional);
-                    }
-                    myVisHelper[offs] = GPS_ADD_DRAWN;
+        size_t xidx = 0;
+        for (; xrun<xmax&&xpos<(int) myXSize; xrun+=myXCellSize, xpos++, xidx++) {
+            int offs = ypos*myXSize+xpos;
+            if (xidx==0&&yidx==0) {
+                if ((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
+                    myGrid[offs].setEdges(setEdges);
                 }
+                if ((what&GLO_JUNCTION)!=0) {
+                    myGrid[offs].setJunctions(setJunctions);
+                }
+                if ((what&GLO_DETECTOR)!=0) {
+                    myGrid[offs].setAdditional(setAdditional);
+                }
+                myVisHelper[offs] = GPS_FULL_DRAWN;
+            } else if (yidx!=0 && xidx!=0) {
+                if ((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
+                    myRelations[2][offs].setEdges(setEdges);
+                }
+                if ((what&GLO_JUNCTION)!=0) {
+                    myRelations[2][offs].setJunctions(setJunctions);
+                }
+                if ((what&GLO_DETECTOR)!=0) {
+                    myRelations[2][offs].setAdditional(setAdditional);
+                }
+                myVisHelper[offs] = GPS_ADD_DRAWN;
+            } else if (yidx==0) {
+                if ((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
+                    myRelations[1][offs].setEdges(setEdges);
+                }
+                if ((what&GLO_JUNCTION)!=0) {
+                    myRelations[1][offs].setJunctions(setJunctions);
+                }
+                if ((what&GLO_DETECTOR)!=0) {
+                    myRelations[1][offs].setAdditional(setAdditional);
+                }
+                myVisHelper[offs] = GPS_ADD_DRAWN;
+            } else {
+                if ((what&GLO_LANE)!=0||(what&GLO_EDGE)!=0) {
+                    myRelations[0][offs].setEdges(setEdges);
+                }
+                if ((what&GLO_JUNCTION)!=0) {
+                    myRelations[0][offs].setJunctions(setJunctions);
+                }
+                if ((what&GLO_DETECTOR)!=0) {
+                    myRelations[0][offs].setAdditional(setAdditional);
+                }
+                myVisHelper[offs] = GPS_ADD_DRAWN;
             }
         }
     }
+}
 
 
 int

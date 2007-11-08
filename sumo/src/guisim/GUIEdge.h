@@ -143,12 +143,10 @@ private:
     {
     public:
         /** constructor */
-        explicit lane_wrapper_finder(const MSLane &lane) : myLane(lane)
-        { }
+        explicit lane_wrapper_finder(const MSLane &lane) : myLane(lane) { }
 
         /** the comparing function */
-        bool operator()(const GUILaneWrapper * const wrapper)
-        {
+        bool operator()(const GUILaneWrapper * const wrapper) {
             return wrapper->forLane(myLane);
         }
 

@@ -59,7 +59,7 @@ GUISourceLane::~GUISourceLane()
 {
     // just to quit cleanly on a failure
     if (myLock.locked()) {
-       myLock.unlock();
+        myLock.unlock();
     }
 }
 

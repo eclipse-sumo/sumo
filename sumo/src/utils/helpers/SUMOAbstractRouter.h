@@ -54,12 +54,10 @@ public:
     {
     public:
         /// Constructor
-        ROAbstractEdgeEffortRetriever()
-        { }
+        ROAbstractEdgeEffortRetriever() { }
 
         /// Destructor
-        virtual ~ROAbstractEdgeEffortRetriever()
-        { }
+        virtual ~ROAbstractEdgeEffortRetriever() { }
 
         /// This function should return the effort to use
         virtual SUMOReal getEffort(const V *const, SUMOTime time, const E * const edge,
@@ -73,12 +71,10 @@ public:
 
 public:
     /// Constructor
-    SUMOAbstractRouter()
-    { }
+    SUMOAbstractRouter() { }
 
     /// Destructor
-    virtual ~SUMOAbstractRouter()
-    { }
+    virtual ~SUMOAbstractRouter() { }
 
     /** @brief Builds the route between the given edges using the minimum afford at the given time
         The definition of the afford depends on the wished routing scheme */

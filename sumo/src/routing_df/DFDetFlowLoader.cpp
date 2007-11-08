@@ -167,8 +167,7 @@ DFDetFlowLoader::report(const std::string &result)
             }
             myStorage.addFlow(detName, time, fd);
             return true;
-        } catch (UnknownElement &) {}
-        catch (OutOfBoundsException &) {}
+        } catch (UnknownElement &) {} catch (OutOfBoundsException &) {}
         throw ProcessError("The detector-flow-file '" + myReader.getFileName() + "' is corrupt;\n"
                            + " The following values must be supplied : 'Detector', 'Time', 'qPKW', 'vPKW'\n"
                            + " The according column names must be given in the first line of the file.");

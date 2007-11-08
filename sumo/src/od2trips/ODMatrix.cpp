@@ -69,27 +69,27 @@ ODMatrix::~ODMatrix() throw()
 
 void
 ODMatrix::add(SUMOReal vehicleNumber, SUMOTime begin,
-		SUMOTime end, const std::string &origin, const std::string &destination,
-		const std::string &vehicleType) throw()
+              SUMOTime end, const std::string &origin, const std::string &destination,
+              const std::string &vehicleType) throw()
 {
     myNoLoaded += vehicleNumber;
-    if(myDistricts.get(origin)==0&&myDistricts.get(destination)==0) {
+    if (myDistricts.get(origin)==0&&myDistricts.get(destination)==0) {
         MsgHandler::getWarningInstance()->inform("Missing origin '" + origin + "' and destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
-    } else if(myDistricts.get(origin)==0&&vehicleNumber>0) {
+    } else if (myDistricts.get(origin)==0&&vehicleNumber>0) {
         MsgHandler::getErrorInstance()->inform("Missing origin '" + origin + "' (" + toString(vehicleNumber) + " vehicles).");
         myNoDiscarded += vehicleNumber;
-    } else if(myDistricts.get(destination)==0&&vehicleNumber>0) {
+    } else if (myDistricts.get(destination)==0&&vehicleNumber>0) {
         MsgHandler::getErrorInstance()->inform("Missing destination '" + destination + "' (" + toString(vehicleNumber) + " vehicles).");
         myNoDiscarded += vehicleNumber;
     } else {
-        if(myDistricts.get(origin)->sourceNumber()==0) {
+        if (myDistricts.get(origin)->sourceNumber()==0) {
             MsgHandler::getErrorInstance()->inform("District '" + origin + "' has no source.");
             myNoDiscarded += vehicleNumber;
-        } else if(myDistricts.get(destination)->sinkNumber()==0) {
+        } else if (myDistricts.get(destination)->sinkNumber()==0) {
             MsgHandler::getErrorInstance()->inform("District '" + destination + "' has no sink.");
             myNoDiscarded += vehicleNumber;
         } else {
-    		ODCell *cell = new ODCell();
+            ODCell *cell = new ODCell();
             cell->begin = begin;
             cell->end = end;
             cell->origin = origin;
@@ -115,7 +115,7 @@ ODMatrix::computeEmissions(ODCell *cell,
         vehicles2emit++;
     }
 
-    SUMOReal offset = (SUMOReal) (cell->end - cell->begin) / (SUMOReal) vehicles2emit / (SUMOReal) 2.;
+    SUMOReal offset = (SUMOReal)(cell->end - cell->begin) / (SUMOReal) vehicles2emit / (SUMOReal) 2.;
     for (int i=0; i<vehicles2emit; ++i) {
         ODVehicle veh;
         veh.id = prefix + toString(vehName++);
@@ -140,7 +140,7 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
                 OutputDevice &dev, bool uniform,
                 const std::string &prefix) throw()
 {
-    if(myContainer.size()==0) {
+    if (myContainer.size()==0) {
         return;
     }
     std::map<std::pair<std::string, std::string>, SUMOReal> fractionLeft;
@@ -189,8 +189,8 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
         for (; i!=vehicles.rend()&&(*i).depart==t; ++i) {
             myNoWritten++;
             dev << "   <tripdef id=\"" << (*i).id << "\" depart=\"" << t << "\" "
-                << "from=\"" << (*i).from << "\" "
-                << "to=\"" << (*i).to << "\"";
+            << "from=\"" << (*i).from << "\" "
+            << "to=\"" << (*i).to << "\"";
             if ((*i).type.length()!=0) {
                 dev << " type=\"" << (*i).type << "\"";
             }

@@ -57,7 +57,7 @@ NIVissimClosures::dictionary(const std::string &id,
                              IntVector &overEdges)
 {
     NIVissimClosures *o = new NIVissimClosures(id, from_node, to_node,
-                          overEdges);
+            overEdges);
     if (!dictionary(id, o)) {
         delete o;
         return false;

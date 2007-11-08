@@ -720,7 +720,7 @@ NBNodeShapeComputer::computeUniqueDirectionList(
     bool changed = true;
     while (changed) {
         changed = false;
-        for (i2=newAll.begin(); !changed&&i2!=newAll.end(); ) {
+        for (i2=newAll.begin(); !changed&&i2!=newAll.end();) {
             if ((*i2)->getBasicType()!=NBEdge::EDGEFUNCTION_NORMAL) {
                 newAll.erase(i2);
                 changed = true;
@@ -735,8 +735,7 @@ NBNodeShapeComputer::computeUniqueDirectionList(
                     find(newAll.begin(), newAll.end(), *j);
                 if (k!=newAll.end()) {
                     if (myNode.hasIncoming(*i2)) {
-                        if (myNode.hasIncoming(*j)) {}
-                        else {
+                        if (myNode.hasIncoming(*j)) {} else {
                             geomsCW[*i2] = geomsCW[*j];
                             cwBoundary[*i2] = *j;
                             computeSameEnd(geomsCW[*i2], geomsCCW[*i2]);
@@ -752,7 +751,7 @@ NBNodeShapeComputer::computeUniqueDirectionList(
                     changed = true;
                 }
             }
-            if(!changed) {
+            if (!changed) {
                 ++i2;
             }
         }

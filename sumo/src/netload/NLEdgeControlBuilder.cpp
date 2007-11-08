@@ -88,7 +88,7 @@ NLEdgeControlBuilder::prepare(unsigned int no)
 MSEdge *
 NLEdgeControlBuilder::addEdge(const string &id)
 {
-    if(m_pEdges==0) {
+    if (m_pEdges==0) {
         throw ProcessError();
     }
     MSEdge *edge = new MSEdge(id, myCurrentNumericalEdgeID++);
@@ -260,7 +260,7 @@ NLEdgeControlBuilder::getActiveEdge() const
 size_t
 NLEdgeControlBuilder::getEdgeCapacity() const
 {
-	return m_pEdges==0 ? 0 : m_pEdges->capacity();
+    return m_pEdges==0 ? 0 : m_pEdges->capacity();
 }
 
 

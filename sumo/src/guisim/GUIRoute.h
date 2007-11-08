@@ -60,8 +60,7 @@ public:
     const RGBColor &getColor() const;
 
     /// Sets the color in openGL
-    inline void setColor() const
-    {
+    inline void setColor() const {
         mglColor(myColor);
     }
 

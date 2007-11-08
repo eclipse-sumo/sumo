@@ -67,11 +67,11 @@ GUIAbstractLoadThread::GUIAbstractLoadThread(MFXInterThreadEventClient *mw,
         myEventThrow(ev)
 {
     myErrorRetriever = new MsgRetrievingFunction<GUIAbstractLoadThread>(this,
-                       &GUIAbstractLoadThread::retrieveError);
+            &GUIAbstractLoadThread::retrieveError);
     myMessageRetriever = new MsgRetrievingFunction<GUIAbstractLoadThread>(this,
-                         &GUIAbstractLoadThread::retrieveMessage);
+            &GUIAbstractLoadThread::retrieveMessage);
     myWarningRetreiver = new MsgRetrievingFunction<GUIAbstractLoadThread>(this,
-                         &GUIAbstractLoadThread::retrieveWarning);
+            &GUIAbstractLoadThread::retrieveWarning);
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
 }
 

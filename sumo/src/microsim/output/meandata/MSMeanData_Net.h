@@ -91,8 +91,7 @@ protected:
         const MSLaneMeanDataValues &values, SUMOTime period,
         SUMOReal laneLength, SUMOReal laneVMax,
         SUMOReal &traveltime, SUMOReal &meanSpeed,
-        SUMOReal &meanDensity, SUMOReal &meanOccupancy)
-    {
+        SUMOReal &meanDensity, SUMOReal &meanOccupancy) {
 
         if (values.nSamples==0) {
             assert(laneVMax>=0);

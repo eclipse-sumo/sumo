@@ -65,8 +65,7 @@ public:
 
     /** possible types of removeing a link from regardation during the
         building of the traffic light logic */
-    enum LinkRemovalType
-    {
+    enum LinkRemovalType {
         /// all links will be regarded
         LRT_NO_REMOVAL,
         /** all left-movers which are together with other direction on the same

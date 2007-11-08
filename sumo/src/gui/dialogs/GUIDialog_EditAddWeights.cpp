@@ -73,16 +73,15 @@ using namespace std;
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GUIDialog_EditAddWeights) GUIDialog_EditAddWeightsMap[]=
-    {
-        FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,                   GUIDialog_EditAddWeights::onCmdLoad),
-        FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,                   GUIDialog_EditAddWeights::onCmdSave),
-        FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,                  GUIDialog_EditAddWeights::onCmdClear),
-        FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,                         GUIDialog_EditAddWeights::onCmdClose),
-        FXMAPFUNC(SEL_CHANGED,  MFXAddEditTypedTable::ID_TEXT_CHANGED,  GUIDialog_EditAddWeights::onCmdEditTable),
+FXDEFMAP(GUIDialog_EditAddWeights) GUIDialog_EditAddWeightsMap[]= {
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_LOAD,                   GUIDialog_EditAddWeights::onCmdLoad),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_SAVE,                   GUIDialog_EditAddWeights::onCmdSave),
+    FXMAPFUNC(SEL_COMMAND,  MID_CHOOSEN_CLEAR,                  GUIDialog_EditAddWeights::onCmdClear),
+    FXMAPFUNC(SEL_COMMAND,  MID_CANCEL,                         GUIDialog_EditAddWeights::onCmdClose),
+    FXMAPFUNC(SEL_CHANGED,  MFXAddEditTypedTable::ID_TEXT_CHANGED,  GUIDialog_EditAddWeights::onCmdEditTable),
 
-        FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_SAVE,       GUIDialog_EditAddWeights::onUpdSave),
-    };
+    FXMAPFUNC(SEL_UPDATE,   MID_CHOOSEN_SAVE,       GUIDialog_EditAddWeights::onUpdSave),
+};
 
 
 FXIMPLEMENT(GUIDialog_EditAddWeights, FXMainWindow, GUIDialog_EditAddWeightsMap, ARRAYNUMBER(GUIDialog_EditAddWeightsMap))
@@ -221,7 +220,7 @@ GUIDialog_EditAddWeights::GUIDialog_EditAddWeights(GUIMainWindow *parent)
     rebuildList();
     // build the layout
     FXVerticalFrame *layout = new FXVerticalFrame(hbox, LAYOUT_TOP,0,0,0,0,
-                              4,4,4,4);
+            4,4,4,4);
     // "Load"
     new FXButton(layout, "Load\t\t", 0, this, MID_CHOOSEN_LOAD,
                  ICON_BEFORE_TEXT|LAYOUT_FILL_X|FRAME_THICK|FRAME_RAISED,

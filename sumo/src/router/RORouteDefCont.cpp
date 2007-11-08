@@ -68,8 +68,7 @@ RORouteDefCont::add(RORouteDef *def)
     if (known(id)) {
         if (def==get(id)) {
             delete def;
-        }
-        else {
+        } else {
             while (known(id)) {
                 id = TextHelpers::version(id);
             }

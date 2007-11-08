@@ -40,10 +40,10 @@ class NBEdge;
 // ===========================================================================
 // container definitions
 // ===========================================================================
-/** 
+/**
  * @class NBCont
  *
- * structure specifying a certain lane on a certain edge 
+ * structure specifying a certain lane on a certain edge
  */
 class EdgeLane
 {
@@ -61,8 +61,7 @@ public:
     size_t tlLinkNo;
 
     /// output operator
-    friend bool operator==(const EdgeLane &lhs, const EdgeLane &rhs)
-    {
+    friend bool operator==(const EdgeLane &lhs, const EdgeLane &rhs) {
         return lhs.edge==rhs.edge && lhs.lane==rhs.lane;
     }
 

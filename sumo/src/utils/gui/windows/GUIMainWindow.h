@@ -73,8 +73,7 @@ public:
 
     virtual void loadSelection(const std::string &file) const = 0;
 
-    virtual void setStatusBarText(const std::string &)
-    { }
+    virtual void setStatusBarText(const std::string &) { }
 
     FXLabel &getCartesianLabel();
     FXLabel &getGeoLabel();
@@ -110,8 +109,7 @@ protected:
     bool myRunAtBegin;
 
 protected:
-    GUIMainWindow()
-    { }
+    GUIMainWindow() { }
 
 };
 

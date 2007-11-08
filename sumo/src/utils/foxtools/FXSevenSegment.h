@@ -61,8 +61,7 @@ private:
     void checkSize();
 
 protected:
-    FXSevenSegment()
-    {}
+    FXSevenSegment() {}
 
     // Draws the individual segment types
     void drawTopSegment(FXDCWindow &dc,FXshort x,FXshort y);
@@ -97,50 +96,43 @@ public:
     void setText(const FXchar val);
 
     /// get the text on the display
-    FXchar getText() const
-    {
+    FXchar getText() const {
         return value;
     }
 
     /// get/set foreground color
     void setFgColor(const FXColor clr);
-    FXColor getFgColor() const
-    {
+    FXColor getFgColor() const {
         return fgcolor;
     }
 
     /// get/set background color
     void setBgColor(const FXColor clr);
-    FXColor getBgColor() const
-    {
+    FXColor getBgColor() const {
         return bgcolor;
     }
 
     /// get/set horizontal segment length
     void setHorizontal(const FXint len);
-    FXint getHorizontal() const
-    {
+    FXint getHorizontal() const {
         return hsl;
     }
 
     /// get/set vertical segment length
     void setVertical(const FXint len);
-    FXint getVertical() const
-    {
+    FXint getVertical() const {
         return vsl;
     }
 
     /// get/set segment thickness
     void setThickness(const FXint width);
-    FXint getThickness() const
-    {
+    FXint getThickness() const {
         return st;
     }
 
     /// get/set groove thickness
     void setGroove(const FXint width);
-    FXint getGroove() const
-    {
+    FXint getGroove() const {
         return groove;
     }
 
@@ -157,8 +149,7 @@ public:
     virtual void load(FXStream &store);
 
     /// dtor
-    virtual ~FXSevenSegment()
-    {}
+    virtual ~FXSevenSegment() {}
 };
 
 } // namespace FXEX

@@ -54,16 +54,13 @@ protected:
 
     MSOccupancyDegree(SUMOReal lengthInMeters, const Container& vehicleCont)
             : detectorLengthM(lengthInMeters),
-            containerWrapperM(vehicleCont)
-    {}
+            containerWrapperM(vehicleCont) {}
 
-    virtual ~MSOccupancyDegree(void)
-    {}
+    virtual ~MSOccupancyDegree(void) {}
 
     DetectorAggregate getDetectorAggregate(void);   // [0,1]
 
-    static std::string getDetectorName(void)
-    {
+    static std::string getDetectorName(void) {
         return "occupancyDegree";
     }
 

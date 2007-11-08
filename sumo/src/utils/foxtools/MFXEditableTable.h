@@ -33,8 +33,7 @@
 #include <fx.h>
 #include <set>
 
-struct MFXEditedTableItem
-{
+struct MFXEditedTableItem {
     FXTableItem *item;
     int row;
     int col;
@@ -142,8 +141,7 @@ protected:
     FXString myPreviousText;
 
 protected:
-    MFXEditableTable()
-{ }
+    MFXEditableTable() { }
 
 };
 

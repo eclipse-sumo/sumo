@@ -105,8 +105,7 @@ class MyWrapper : public GUIDetectorWrapper
         GUIE3Collector &getDetector();
 
     public:
-        struct SingleCrossingDefinition
-        {
+        struct SingleCrossingDefinition {
             /// The position in full-geometry mode
             Position2D myFGPosition;
             /// The rotation in full-geometry mode
@@ -153,22 +152,18 @@ class MyWrapper : public GUIDetectorWrapper
             /// Constructor
             MyValueRetriever(GUIE3Collector &det,
                              MSE3Collector::Value v)
-                    : myDetector(det), myValue(v)
-            { }
+                    : myDetector(det), myValue(v) { }
 
             /// Destructor
-            ~MyValueRetriever()
-            { }
+            ~MyValueRetriever() { }
 
             /// Returns the current value
-            SUMOReal getValue() const
-            {
+            SUMOReal getValue() const {
                 return myDetector.getValue(myValue);
             }
 
             /// Returns a copy of this instance
-            ValueSource<SUMOReal> *copy() const
-            {
+            ValueSource<SUMOReal> *copy() const {
                 return new MyValueRetriever(myDetector, myValue);
             }
 

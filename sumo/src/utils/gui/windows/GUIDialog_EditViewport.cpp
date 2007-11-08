@@ -43,10 +43,10 @@
 // FOX callback mapping
 // ===========================================================================
 FXDEFMAP(GUIDialog_EditViewport) GUIDialog_EditViewportMap[]={
-            FXMAPFUNC(SEL_COMMAND, GUIDialog_EditViewport::MID_CHANGED, GUIDialog_EditViewport::onCmdChanged),
-            FXMAPFUNC(SEL_COMMAND, MID_OK,                              GUIDialog_EditViewport::onCmdOk),
-            FXMAPFUNC(SEL_COMMAND, MID_CANCEL,                          GUIDialog_EditViewport::onCmdCancel),
-        };
+    FXMAPFUNC(SEL_COMMAND, GUIDialog_EditViewport::MID_CHANGED, GUIDialog_EditViewport::onCmdChanged),
+    FXMAPFUNC(SEL_COMMAND, MID_OK,                              GUIDialog_EditViewport::onCmdOk),
+    FXMAPFUNC(SEL_COMMAND, MID_CANCEL,                          GUIDialog_EditViewport::onCmdCancel),
+};
 
 
 // Object implementation

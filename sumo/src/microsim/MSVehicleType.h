@@ -80,19 +80,16 @@ public:
 
 
     /**  */
-    virtual SUMOReal brakeGap(SUMOReal speed) const
-    {
+    virtual SUMOReal brakeGap(SUMOReal speed) const {
         return speed * speed * myInverseTwoDecel + speed * myTau;
     }
 
-    virtual SUMOReal approachingBrakeGap(SUMOReal speed) const
-    {
+    virtual SUMOReal approachingBrakeGap(SUMOReal speed) const {
         return speed * speed * myInverseTwoDecel;
     }
 
     /** */
-    virtual SUMOReal interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const
-    {
+    virtual SUMOReal interactionGap(SUMOReal vF, SUMOReal laneMaxSpeed, SUMOReal vL) const {
         // Resolve the vsafe equation to gap. Assume predecessor has
         // speed != 0 and that vsafe will be the current speed plus acceleration,
         // i.e that with this gap there will be no interaction.
@@ -106,8 +103,7 @@ public:
     }
 
     /**  */
-    bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const
-    {
+    bool hasSafeGap(SUMOReal speed, SUMOReal gap, SUMOReal predSpeed, SUMOReal laneMaxSpeed) const {
         SUMOReal vSafe = ffeV(speed, gap, predSpeed);
         SUMOReal vNext = MIN3(maxNextSpeed(speed), laneMaxSpeed, vSafe);
         return (vNext>=getSpeedAfterMaxDecel(speed)
@@ -117,8 +113,7 @@ public:
 
     /** Returns the minimum gap between this driving vehicle and a
      * possibly emitted vehicle with speed 0. */
-    SUMOReal safeEmitGap(SUMOReal speed) const
-    {
+    SUMOReal safeEmitGap(SUMOReal speed) const {
         SUMOReal vNextMin = getSpeedAfterMaxDecel(speed); // ok, minimum next speed
         SUMOReal safeGap  = vNextMin * (speed * myInverseTwoDecel + myTau);
         return MAX2(safeGap, timeHeadWayGap(speed)) + ACCEL2DIST(getMaxAccel(speed));
@@ -126,8 +121,7 @@ public:
 
 
     /** Dawdle according the vehicles dawdle parameter. Return value >= 0 */
-    SUMOReal dawdle(SUMOReal speed) const
-    {
+    SUMOReal dawdle(SUMOReal speed) const {
         // generate random number out of [0,1]
         SUMOReal random = RandHelper::rand();
         // Dawdle.
@@ -142,28 +136,23 @@ public:
         return MAX2(SUMOReal(0), speed);
     }
 
-    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const
-    {
+    SUMOReal getSpeedAfterMaxDecel(SUMOReal v) const {
         return MAX2((SUMOReal) 0, v - ACCEL2SPEED(myDecel));
     }
 
-    SUMOReal maxNextSpeed(SUMOReal v) const
-    {
+    SUMOReal maxNextSpeed(SUMOReal v) const {
         return MIN2(v+ACCEL2SPEED(getMaxAccel(v)), myMaxSpeed);
     }
 
-    SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const
-    {
+    SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const {
         return MIN2(_vsafe(speed, myDecel, gap2pred, predSpeed), maxNextSpeed(speed));
     }
 
-    SUMOReal ffeS(SUMOReal speed, SUMOReal gap2pred) const
-    {
+    SUMOReal ffeS(SUMOReal speed, SUMOReal gap2pred) const {
         return MIN2(_vsafe(speed, myDecel, gap2pred, 0), maxNextSpeed(speed));
     }
 
-    SUMOReal getSecureGap(SUMOReal speed, SUMOReal predSpeed, SUMOReal predLength) const
-    {
+    SUMOReal getSecureGap(SUMOReal speed, SUMOReal predSpeed, SUMOReal predLength) const {
         SUMOReal safeSpace2 = brakeGap(speed);
         SUMOReal vSafe = ffeV(0, 0, predSpeed);
         SUMOReal safeSpace3 =
@@ -177,15 +166,13 @@ public:
         return safeSpace;
     }
 
-    SUMOReal decelAbility() const
-    {
+    SUMOReal decelAbility() const {
         return ACCEL2SPEED(myDecel); // !!! really the speed?
     }
 
 
     /** */
-    SUMOReal timeHeadWayGap(SUMOReal speed) const
-    {
+    SUMOReal timeHeadWayGap(SUMOReal speed) const {
         assert(speed >= 0);
         return SPEED2DIST(speed);
     }
@@ -202,31 +189,26 @@ public:
 
 
     /// Get vehicle's length [m].
-    SUMOReal getLength() const
-    {
+    SUMOReal getLength() const {
         return myLength;
     }
 
     /// Get vehicle's maximum speed [m/s].
-    SUMOReal getMaxSpeed() const
-    {
+    SUMOReal getMaxSpeed() const {
         return myMaxSpeed;
     }
 
     /// Get the vehicle's maximum acceleration [m/s^2]
-    inline SUMOReal getMaxAccel(SUMOReal v) const
-    {
+    inline SUMOReal getMaxAccel(SUMOReal v) const {
         return (SUMOReal)(myAccel *(1.0 - (v/myMaxSpeed)));
     }
 
     /// Get the vehicle's maximum deceleration [m/s^2]
-    SUMOReal getMaxDecel() const
-    {
+    SUMOReal getMaxDecel() const {
         return myDecel;
     }
 
-    SUMOReal getTau() const
-    {
+    SUMOReal getTau() const {
         return myTau;
     }
 
@@ -236,8 +218,7 @@ public:
 
 
     /// Returns the minimum deceleration-ability of all vehicle-types.
-    static SUMOReal getMinVehicleDecel()
-    {
+    static SUMOReal getMinVehicleDecel() {
         return myMinDecel;
     }
 
@@ -245,8 +226,7 @@ public:
     /// Saves the states of a vehicle
     void saveState(std::ostream &os);
 
-    SUMOVehicleClass getVehicleClass() const
-    {
+    SUMOVehicleClass getVehicleClass() const {
         return myVehicleClass;
     }
 
@@ -254,8 +234,7 @@ public:
 protected:
     /** Returns the SK-vsafe. */
     SUMOReal _vsafe(SUMOReal currentSpeed, SUMOReal /*decelAbility*/,
-                    SUMOReal gap2pred, SUMOReal predSpeed) const
-    {
+                    SUMOReal gap2pred, SUMOReal predSpeed) const {
         if (predSpeed==0&&gap2pred<0.01) {
             return 0;
         }
