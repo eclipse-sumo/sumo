@@ -79,7 +79,7 @@
 <hr class="thin"/>
 
 <p>
-New to SUMO?<br/>
+<b>New to SUMO?</b><br/>
 <ul>
 <li>If You have problems installing it, You may find help at <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/Main_Page#Build_instructions">wiki/BuildInstructions</a><br/>
 <li>If You have problems using it, You may find a tutorial at <a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/Tutorial">wiki/Tutorial</a>. 
