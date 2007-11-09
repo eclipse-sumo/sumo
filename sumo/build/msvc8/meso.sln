@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 9.00
 # Visual Studio 2005
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "guisim", "guisim\guisim.vcproj", "{F1904C42-F231-4B9D-AD80-E2971969AFA0}"
@@ -67,7 +67,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "y_libnetload", "y_libnetloa
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_output", "z_libmicrosim_output\z_libmicrosim_output.vcproj", "{CC278DE5-D3D8-4BD8-B8A4-BD76CB8FB4F1}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_tls", "z_libmicrosim_tls\z_libmicrosim_tls.vcproj", "{AF2015D2-2412-4355-87FB-E0D88B0A5FBA}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libmicrosim_traffic_lights", "z_libmicrosim_traffic_lights\z_libmicrosim_traffic_lights.vcproj", "{AF2015D2-2412-4355-87FB-E0D88B0A5FBA}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_common", "z_libutils_common\z_libutils_common.vcproj", "{72CDB11A-EC19-4BE2-BBE9-1FA33DECCB20}"
 EndProject
@@ -99,7 +99,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_div", "z_lib
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_drawer", "z_libutils_gui_drawer\z_libutils_gui_drawer.vcproj", "{8C2F733C-1C8E-45C9-A546-17EF0146718D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_helpers", "z_libutils_helpers\z_libutils_helpers.vcproj", "{0260ED24-AF55-4233-87A3-34AD73E8D665}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_helpers", "z_libutils_helpers\z_liutils_helpers.vcproj", "{0260ED24-AF55-4233-87A3-34AD73E8D665}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_images", "z_libutils_gui_images\z_libutils_gui_images.vcproj", "{5F818AF6-963E-40B3-93F3-35E145FDE30B}"
 EndProject
@@ -154,7 +154,7 @@ Global
 		{3CD3D44A-7809-485C-B7A9-D5FDE0C31684}.Debug|x64.ActiveCfg = Debug|x64
 		{3CD3D44A-7809-485C-B7A9-D5FDE0C31684}.Release|Win32.ActiveCfg = Release|Win32
 		{3CD3D44A-7809-485C-B7A9-D5FDE0C31684}.Release|Win32.Build.0 = Release|Win32
-		{3CD3D44A-7809-485C-B7A9-D5FDE0C31684}.Release|x64.ActiveCfg = Release|x64
+		{3CD3D44A-7809-485C-B7A9-D5FDE0C31684}.Release|x64.ActiveCfg  Release|x64
 		{308BEB29-142B-4088-BD41-80E273E20D3A}.Debug|Win32.ActiveCfg = Debug|Win32
 		{308BEB29-142B-4088-BD41-80E273E20D3A}.Debug|Win32.Build.0 = Debug|Win32
 		{308BEB29-142B-4088-BD41-80E273E20D3A}.Debug|x64.ActiveCfg = Debug|x64
@@ -206,7 +206,7 @@ Global
 		{ECAEBBBD-18B0-4E40-9507-4AD2B018C1CD}.Debug|Win32.ActiveCfg = Debug|Win32
 		{ECAEBBBD-18B0-4E40-9507-4AD2B018C1CD}.Debug|Win32.Build.0 = Debug|Win32
 		{ECAEBBBD-18B0-4E40-9507-4AD2B018C1CD}.Debug|x64.ActiveCfg = Debug|x64
-		{ECAEBBBD-18B0-4E40-9507-4AD2B018C1CD}.Release|Win32.ActiveCfg = Release|Win32
+		{ECAEBBBD-18B0-4E40-9507-4AD2B018C1CD}.Release|Win32.ActieCfg = Release|Win32
 		{ECAEBBBD-18B0-4E40-9507-4AD2B018C1CD}.Release|Win32.Build.0 = Release|Win32
 		{ECAEBBBD-18B0-4E40-9507-4AD2B018C1CD}.Release|x64.ActiveCfg = Release|x64
 		{334DF447-D0B3-4CEA-9693-F755EB11C18F}.Debug|Win32.ActiveCfg = Debug|Win32
@@ -259,7 +259,7 @@ Global
 		{508F0BFF-83FE-444C-9509-A359BCA83BC4}.Debug|x64.Build.0 = Debug|x64
 		{508F0BFF-83FE-444C-9509-A359BCA83BC4}.Release|Win32.ActiveCfg = Release|Win32
 		{508F0BFF-83FE-444C-9509-A359BCA83BC4}.Release|Win32.Build.0 = Release|Win32
-		{508F0BFF-83FE-444C-9509-A359BCA83BC4}.Release|x64.ActiveCfg = Release|x64
+		{508F0BFF-83FE-444C-9509-359BCA83BC4}.Release|x64.ActiveCfg = Release|x64
 		{508F0BFF-83FE-444C-9509-A359BCA83BC4}.Release|x64.Build.0 = Release|x64
 		{9FCF1CAF-0189-4242-88BA-47706E741119}.Debug|Win32.ActiveCfg = Debug|Win32
 		{9FCF1CAF-0189-4242-88BA-47706E741119}.Debug|Win32.Build.0 = Debug|Win32
@@ -311,7 +311,7 @@ Global
 		{0260ED24-AF55-4233-87A3-34AD73E8D665}.Debug|x64.Build.0 = Debug|x64
 		{0260ED24-AF55-4233-87A3-34AD73E8D665}.Release|Win32.ActiveCfg = Release|Win32
 		{0260ED24-AF55-4233-87A3-34AD73E8D665}.Release|Win32.Build.0 = Release|Win32
-		{0260ED24-AF55-4233-87A3-34AD73E8D665}.Release|x64.ActiveCfg = Release|x64
+		{0260ED24-AF55-4233-87A3-34AD73E8D665}.Release|64.ActiveCfg = Release|x64
 		{0260ED24-AF55-4233-87A3-34AD73E8D665}.Release|x64.Build.0 = Release|x64
 		{5F818AF6-963E-40B3-93F3-35E145FDE30B}.Debug|Win32.ActiveCfg = Debug|Win32
 		{5F818AF6-963E-40B3-93F3-35E145FDE30B}.Debug|Win32.Build.0 = Debug|Win32

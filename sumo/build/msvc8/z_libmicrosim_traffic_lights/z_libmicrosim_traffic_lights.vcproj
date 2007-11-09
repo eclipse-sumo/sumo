@@ -2,7 +2,7 @@
 <VisualStudioProject
 	ProjectType="Visual C++"
 	Version="8.00"
-	Name="z_libmicrosim_tls"
+	Name="z_libmicrosim_traffic_lights"
 	ProjectGUID="{AF2015D2-2412-4355-87FB-E0D88B0A5FBA}"
 	>
 	<Platforms>
@@ -70,7 +70,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\z_libmicrosim_tls.lib"
+				OutputFile=".\Release\z_libmicrosim_traffic_lights.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -144,7 +144,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Release\z_libmicrosim_tls.lib"
+				OutputFile=".\Release\z_libmicrosim_traffic_lights.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -212,7 +212,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\z_libmicrosim_tls.lib"
+				OutputFile=".\Debug\z_libmicrosim_traffic_lights.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
@@ -281,7 +281,7 @@
 			/>
 			<Tool
 				Name="VCLibrarianTool"
-				OutputFile=".\Debug\z_libmicrosim_tls.lib"
+				OutputFile=".\Debug\z_libmicrosim_traffic_lights.lib"
 				SuppressStartupBanner="true"
 			/>
 			<Tool
