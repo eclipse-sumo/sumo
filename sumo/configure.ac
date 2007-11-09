@@ -375,16 +375,9 @@ src/microsim/trigger/Makefile
 src/netbuild/Makefile
 src/netgen/Makefile
 src/netimport/Makefile
-src/netimport/arcview/Makefile
-src/netimport/elmar/Makefile
-src/netimport/elmar2/Makefile
-src/netimport/sumo/Makefile
-src/netimport/tiger/Makefile
 src/netimport/vissim/Makefile
 src/netimport/vissim/tempstructs/Makefile
 src/netimport/vissim/typeloader/Makefile
-src/netimport/visum/Makefile
-src/netimport/xml/Makefile
 src/netload/Makefile
 src/od2trips/Makefile
 src/polyconvert/Makefile

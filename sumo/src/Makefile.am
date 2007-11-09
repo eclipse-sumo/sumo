@@ -68,13 +68,6 @@ sumo_netconvert_SOURCES = netconvert_main.cpp
 sumo_netconvert_LDFLAGS = $(XERCES_LDFLAGS) $(GDAL_LDFLAGS) $(PROJ_LDFLAGS)
 
 sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
-./netimport/sumo/libsumoimport.a \
-./netimport/visum/libvisumimport.a \
-./netimport/xml/libxmlimport.a \
-./netimport/arcview/libarcviewimport.a \
-./netimport/elmar/libelmarimport.a \
-./netimport/elmar2/libelmar2import.a \
-./netimport/tiger/libtigerimport.a \
 ./netimport/vissim/libvissimimport.a \
 ./netimport/vissim/typeloader/libvissimtypeload.a \
 ./netimport/vissim/tempstructs/libvissimtmpstr.a \
