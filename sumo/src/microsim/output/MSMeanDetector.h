@@ -34,10 +34,9 @@
 #include <string>
 #include <microsim/MSUnit.h>
 #include "MSSumDetector.h"
-#ifdef WIN32
+#ifdef _MSC_VER
 #include <utils/helpers/msvc6_TypeManip.h>
-#endif
-#ifndef WIN32
+#else
 #include <utils/helpers/gcc_TypeManip.h>
 #endif
 

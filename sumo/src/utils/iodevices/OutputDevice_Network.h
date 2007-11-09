@@ -28,7 +28,7 @@
 #include <windows_config.h>
 #else
 #include <config.h>
-#endif // #ifdef WIN32
+#endif // #ifdef _MSC_VER
 
 #include "foreign/tcpip/socket.h"
 #include "foreign/tcpip/storage.h"

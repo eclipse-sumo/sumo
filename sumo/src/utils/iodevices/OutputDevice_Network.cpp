@@ -26,7 +26,7 @@
 #include <windows_config.h>
 #else
 #include <config.h>
-#endif // #ifdef WIN32
+#endif // #ifdef _MSC_VER
 
 #include <vector>
 #include "OutputDevice_Network.h"
