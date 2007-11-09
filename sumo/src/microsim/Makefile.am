@@ -12,6 +12,7 @@ MSInternalJunction.cpp MSInternalJunction.h \
 MSInternalLane.cpp MSInternalLane.h MSJunction.cpp MSJunction.h \
 MSJunctionControl.cpp MSJunctionControl.h \
 MSJunctionLogic.cpp MSJunctionLogic.h MSLane.cpp MSLane.h \
+MSLCM_DK2004.cpp MSLCM_DK2004.h \
 MSLaneChanger.cpp MSLaneChanger.h \
 MSLink.cpp MSLink.h MSLinkCont.cpp MSLinkCont.h \
 MSLogicJunction.cpp MSLogicJunction.h MSMoveReminder.h \
@@ -32,4 +33,4 @@ MSVehicleQuitReminded.h \
 MSVehicleTransfer.cpp MSVehicleTransfer.h \
 MSVehicleType.cpp MSVehicleType.h 
 
-SUBDIRS = actions devices lanechanging logging output traffic_lights trigger
+SUBDIRS = actions devices logging output traffic_lights trigger

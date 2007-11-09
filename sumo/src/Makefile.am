@@ -52,7 +52,6 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/output/e3_detectors/libmicrosimoutpute3.a \
 ./microsim/output/meandata/libmicrosimoutputmeanoutput.a \
 ./microsim/actions/libmsactions.a \
-./microsim/lanechanging/libmicrosimlanechange.a \
 ./microsim/traffic_lights/libmicrosimtls.a \
 $(MESO_LIBS) \
 ./sumo_only/libsumoonly.a \

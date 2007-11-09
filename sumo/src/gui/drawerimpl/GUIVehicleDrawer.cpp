@@ -35,7 +35,7 @@
 #include <guisim/GUIEdge.h>
 #include "GUIVehicleDrawer.h"
 #include <microsim/MSAbstractLaneChangeModel.h>
-#include <microsim/lanechanging/MSLCM_DK2004.h>
+#include <microsim/MSLCM_DK2004.h>
 #include <utils/glutils/GLHelper.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/devices/MSDevice_CPhone.h>

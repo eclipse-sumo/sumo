@@ -49,7 +49,7 @@
 #include <map>
 #include "MSMoveReminder.h"
 #include <utils/options/OptionsCont.h>
-#include "lanechanging/MSLCM_DK2004.h"
+#include "MSLCM_DK2004.h"
 #include <utils/common/ToString.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/iodevices/OutputDevice.h>

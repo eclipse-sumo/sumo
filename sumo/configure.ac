@@ -365,7 +365,6 @@ src/icons/Makefile
 src/microsim/Makefile
 src/microsim/actions/Makefile
 src/microsim/devices/Makefile
-src/microsim/lanechanging/Makefile
 src/microsim/logging/Makefile
 src/microsim/output/Makefile
 src/microsim/output/e2_detectors/Makefile
