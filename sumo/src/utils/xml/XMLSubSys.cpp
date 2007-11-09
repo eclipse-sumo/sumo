@@ -91,6 +91,7 @@ void
 XMLSubSys::close() throw()
 {
     delete myReader;
+    myReader = 0;
     XMLPlatformUtils::Terminate();
 }
 
