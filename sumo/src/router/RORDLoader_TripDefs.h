@@ -32,7 +32,7 @@
 
 #include <string>
 #include <utils/options/OptionsCont.h>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/common/IDSupplier.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "ROTypedXMLRoutesLoader.h"

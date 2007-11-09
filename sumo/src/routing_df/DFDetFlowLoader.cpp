@@ -40,7 +40,7 @@
 #include <fstream>
 #include <sstream>
 #include <utils/importio/LineHandler.h>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/IDSupplier.h>
 #include <utils/common/StringTokenizer.h>

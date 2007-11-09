@@ -28,7 +28,7 @@
 
 #include <string>
 #include <vector>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 //#include <guisim/GUINet.h>
 #include "TrackerValueDesc.h"

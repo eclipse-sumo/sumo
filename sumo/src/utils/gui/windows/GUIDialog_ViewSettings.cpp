@@ -35,7 +35,7 @@
 #include <utils/gui/images/GUIImageGlobals.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/foxtools/MFXUtils.h>
-#include <utils/gfx/GfxConvHelper.h>
+#include <utils/common/GfxConvHelper.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/common/ToString.h>

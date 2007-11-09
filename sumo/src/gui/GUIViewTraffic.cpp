@@ -39,7 +39,7 @@
 #include <microsim/MSLane.h>
 #include <microsim/MSCORN.h>
 #include <microsim/MSJunctionControl.h>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/shapes/Polygon2D.h>
 #include "GUISUMOViewParent.h"

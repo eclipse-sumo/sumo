@@ -38,7 +38,7 @@
 #include "MSDebugHelper.h"
 #include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSGlobals.h>
 #include <iostream>

@@ -32,7 +32,7 @@
 #endif
 
 #include <vector>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/gui/drawer/GUIGradientStorage.h>
 // ===========================================================================
 // variable declarations

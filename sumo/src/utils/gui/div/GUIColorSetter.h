@@ -38,7 +38,7 @@
 
 #include <GL/gl.h>
 
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 
 
 inline

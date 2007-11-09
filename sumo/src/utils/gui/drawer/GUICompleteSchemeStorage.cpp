@@ -31,7 +31,7 @@
 #include "GUICompleteSchemeStorage.h"
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
-#include <utils/gfx/GfxConvHelper.h>
+#include <utils/common/GfxConvHelper.h>
 #include <utils/foxtools/MFXUtils.h>
 
 #ifdef CHECK_MEMORY_LEAKS

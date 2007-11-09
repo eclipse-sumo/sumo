@@ -2,7 +2,7 @@
 /// @file    GfxConvHelper.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2003
-/// @version $Id$
+/// @version $Id:GfxConvHelper.h 4695 2007-11-09 13:29:49Z dkrajzew $
 ///
 // Some helper functions to help when parsing graphical information
 /****************************************************************************/
@@ -31,7 +31,7 @@
 #endif
 
 #include <string>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 
 
 // ===========================================================================

@@ -32,7 +32,7 @@
 
 #include <iostream>
 #include <string>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include "ReferencedItem.h"
 #include <utils/common/SUMOVehicleClass.h>
 

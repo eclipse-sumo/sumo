@@ -41,10 +41,10 @@
 #include <utils/options/Option.h>
 #include <utils/importio/LineReader.h>
 #include <utils/common/StdDefs.h>
-#include <utils/gfx/GfxConvHelper.h>
+#include <utils/common/GfxConvHelper.h>
 #include <polyconvert/PCPolyContainer.h>
 #include "PCVisumPoints.h"
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>

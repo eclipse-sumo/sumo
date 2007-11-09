@@ -32,7 +32,7 @@
 
 #include <string>
 #include "ROTypedXMLRoutesLoader.h"
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/SUMOBaseRouteHandler.h>
 

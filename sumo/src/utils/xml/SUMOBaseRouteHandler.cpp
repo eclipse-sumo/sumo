@@ -30,7 +30,7 @@
 
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/gfx/GfxConvHelper.h>
+#include <utils/common/GfxConvHelper.h>
 #include "SUMOBaseRouteHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS

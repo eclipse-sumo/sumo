@@ -34,7 +34,7 @@
 #include <set>
 #include <string>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <microsim/MSVehicle.h>
 #include "GUIVehicleType.h"
 #include "GUIRoute.h"

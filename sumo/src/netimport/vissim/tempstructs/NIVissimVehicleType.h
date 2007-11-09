@@ -31,7 +31,7 @@
 #endif
 
 
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <string>
 #include <map>
 

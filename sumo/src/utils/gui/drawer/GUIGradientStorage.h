@@ -34,7 +34,7 @@
 #include <fx.h>
 #include <FXGradientBar.h>
 
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 
 
 // ===========================================================================

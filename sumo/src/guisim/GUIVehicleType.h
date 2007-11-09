@@ -33,7 +33,7 @@
 #include <map>
 #include <string>
 #include <microsim/MSVehicleType.h>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/gui/div/GUIColorSetter.h>
 
 

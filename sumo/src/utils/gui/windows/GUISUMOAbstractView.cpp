@@ -32,7 +32,7 @@
 #include <utility>
 #include <cmath>
 #include <cassert>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/common/ToString.h>
 #include <utils/common/StringUtils.h>
 #include <utils/gui/globjects/GUIGLObjectToolTip.h>

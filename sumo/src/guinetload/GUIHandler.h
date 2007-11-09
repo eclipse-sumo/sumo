@@ -31,7 +31,7 @@
 #endif
 
 #include <netload/NLHandler.h>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 
 
 // ===========================================================================

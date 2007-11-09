@@ -33,7 +33,7 @@
 #include <fx.h>
 #include <fx3d.h>
 #include <map>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/glutils/GLHelper.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/div/GUIGlobalSelection.h>

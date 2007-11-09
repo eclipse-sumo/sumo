@@ -32,7 +32,7 @@
 
 #include <string>
 #include <utils/common/IDSupplier.h>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include "ROAbstractRouteDefLoader.h"
 
 

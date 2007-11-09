@@ -32,7 +32,7 @@
 
 #include <string>
 #include <microsim/MSRouteHandler.h>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 
 
 // ===========================================================================

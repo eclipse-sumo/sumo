@@ -37,7 +37,7 @@
 #include <netload/NLHandler.h>
 #include <utils/common/TplConvert.h>
 #include <utils/geom/GeomConvHelper.h>
-#include <utils/gfx/GfxConvHelper.h>
+#include <utils/common/GfxConvHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>

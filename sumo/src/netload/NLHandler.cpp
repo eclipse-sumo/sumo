@@ -52,8 +52,8 @@
 #include <utils/common/TplConvert.h>
 #include <utils/common/TplConvertSec.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/gfx/RGBColor.h>
-#include <utils/gfx/GfxConvHelper.h>
+#include <utils/common/RGBColor.h>
+#include <utils/common/GfxConvHelper.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSBitSetLogic.h>

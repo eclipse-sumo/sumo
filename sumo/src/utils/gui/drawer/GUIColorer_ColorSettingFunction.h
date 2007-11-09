@@ -31,7 +31,7 @@
 #endif
 
 #include "GUIBaseColorer.h"
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 
 #ifdef _WIN32
 #include <windows.h>

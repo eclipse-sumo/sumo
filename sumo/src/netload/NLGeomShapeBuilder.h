@@ -31,7 +31,7 @@
 #endif
 
 #include <string>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
 

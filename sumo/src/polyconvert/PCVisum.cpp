@@ -39,7 +39,7 @@
 #include <polyconvert/PCPolyContainer.h>
 #include "PCVisum.h"
 #include <utils/geom/GeoConvHelper.h>
-#include <utils/gfx/GfxConvHelper.h>
+#include <utils/common/GfxConvHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

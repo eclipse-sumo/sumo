@@ -5,11 +5,11 @@ EXTRA_DIST = StdDefs.h VectorHelper.h
 libcommon_a_SOURCES = AbstractMutex.h \
 FileErrorReporter.cpp FileErrorReporter.h FileHelpers.cpp FileHelpers.h \
 FloatValueTimeLine.h InstancePool.h \
-IDSupplier.h IDSupplier.cpp \
+GfxConvHelper.cpp GfxConvHelper.h IDSupplier.h IDSupplier.cpp \
 Named.h StringTokenizer.cpp StringTokenizer.h \
 StringUtils.cpp StringUtils.h UtilExceptions.h \
 MsgHandler.h MsgHandler.cpp MsgRetriever.h \
-RandHelper.h RandHelper.cpp \
+RGBColor.cpp RGBColor.h RandHelper.h RandHelper.cpp \
 SUMOTime.cpp SUMOTime.h \
 SystemFrame.cpp SystemFrame.h SysUtils.h SysUtils.cpp \
 LogFile.cpp LogFile.h \

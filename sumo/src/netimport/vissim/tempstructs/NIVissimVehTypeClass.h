@@ -32,7 +32,7 @@
 
 #include <string>
 #include <map>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/common/VectorHelper.h>
 
 

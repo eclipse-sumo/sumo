@@ -49,7 +49,7 @@
 #include <microsim/MSJunctionControl.h>
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <utils/shapes/ShapeContainer.h>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include "GUINetWrapper.h"
 #include <guisim/GLObjectValuePassConnector.h>
 #include <guisim/GUIEdge.h>

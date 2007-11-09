@@ -34,7 +34,7 @@
 #include <map>
 #include <vector>
 #include <microsim/MSRoute.h>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/gui/div/GUIColorSetter.h>
 
 

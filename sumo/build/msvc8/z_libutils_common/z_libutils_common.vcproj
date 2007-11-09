@@ -320,6 +320,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\GfxConvHelper.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\IDSupplier.cpp"
 				>
 			</File>
@@ -333,6 +337,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\RandHelper.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\RGBColor.cpp"
 				>
 			</File>
 			<File
@@ -385,6 +393,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\GfxConvHelper.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\IDSupplier.h"
 				>
 			</File>
@@ -418,6 +430,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\RandHelper.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\RGBColor.h"
 				>
 			</File>
 			<File

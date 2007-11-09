@@ -36,7 +36,7 @@
 #include <fx3d.h>
 #include <utils/geom/Boundary.h>
 #include <utils/geom/Position2D.h>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/shapes/Polygon2D.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 #include "GUIGrid.h"

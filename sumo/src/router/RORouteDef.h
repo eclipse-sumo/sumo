@@ -33,7 +33,7 @@
 #include <string>
 #include <iostream>
 #include <utils/common/Named.h>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include "ReferencedItem.h"
 #include "ROAbstractRouter.h"
 

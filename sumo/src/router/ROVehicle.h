@@ -32,7 +32,7 @@
 
 #include <string>
 #include <iostream>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include "ROVehicleBuilder.h"
 
 

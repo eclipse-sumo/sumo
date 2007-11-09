@@ -34,7 +34,6 @@ sumo-od2trips sumo-polyconvert $(GUI_APPS)
 COMMON_LIBS = ./utils/options/liboptions.a \
 ./utils/common/libcommon.a \
 ./utils/xml/libxml.a \
-./utils/gfx/libgfx.a \
 ./utils/importio/libimportio.a \
 ./utils/iodevices/libiodevices.a \
 ./foreign/tcpip/libtcpip.a

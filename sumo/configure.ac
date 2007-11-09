@@ -397,7 +397,6 @@ src/utils/common/Makefile
 src/utils/distribution/Makefile
 src/utils/foxtools/Makefile
 src/utils/geom/Makefile
-src/utils/gfx/Makefile
 src/utils/glutils/Makefile
 src/utils/gui/Makefile
 src/utils/gui/div/Makefile

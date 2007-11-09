@@ -34,7 +34,7 @@
 #include <map>
 #include <utils/common/FileErrorReporter.h>
 #include <utils/common/VectorHelper.h>
-#include <utils/gfx/RGBColor.h>
+#include <utils/common/RGBColor.h>
 #include <utils/geom/Position2D.h>
 #include "tempstructs/NIVissimExtendedEdgePoint.h"
 #include "NIVissimElements.h"
