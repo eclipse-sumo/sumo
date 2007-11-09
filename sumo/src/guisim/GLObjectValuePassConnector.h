@@ -32,8 +32,8 @@
 
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <microsim/MSUpdateEachTimestep.h>
-#include <utils/helpers/ValueSource.h>
-#include <utils/helpers/ValueRetriever.h>
+#include <utils/common/ValueSource.h>
+#include <utils/common/ValueRetriever.h>
 
 
 // ===========================================================================

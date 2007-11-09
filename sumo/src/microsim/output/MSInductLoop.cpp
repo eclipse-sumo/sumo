@@ -32,7 +32,7 @@
 #include <cassert>
 #include <numeric>
 #include <utility>
-#include <utils/helpers/WrappingCommand.h>
+#include <utils/common/WrappingCommand.h>
 #include <utils/common/ToString.h>
 #include <microsim/MSEventControl.h>
 #include <microsim/MSLane.h>

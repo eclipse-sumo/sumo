@@ -43,7 +43,7 @@
 #include <router/ROEdgeVector.h>
 #include <router/RONet.h>
 #include <router/ROVehicleType_Krauss.h>
-#include <utils/helpers/SUMODijkstraRouter.h>
+#include <utils/common/SUMODijkstraRouter.h>
 #include <routing_dua/RODUAEdgeBuilder.h>
 #include <router/ROFrame.h>
 #include <utils/common/MsgHandler.h>

@@ -36,9 +36,9 @@
 #include <vector>
 #include <cassert>
 #ifdef _MSC_VER
-#include <utils/helpers/msvc6_TypeTraits.h>
+#include <utils/common/msvc6_TypeTraits.h>
 #else
-#include <utils/helpers/gcc_TypeTraits.h>
+#include <utils/common/gcc_TypeTraits.h>
 #endif
 
 

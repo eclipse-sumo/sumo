@@ -40,8 +40,8 @@
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXLCDLabel.h>
 #include <utils/gui/windows/GUIMainWindow.h>
-#include <utils/helpers/ValueRetriever.h>
-#include <utils/helpers/ValueSource.h>
+#include <utils/common/ValueRetriever.h>
+#include <utils/common/ValueSource.h>
 #include "GUISUMOViewParent.h"
 
 

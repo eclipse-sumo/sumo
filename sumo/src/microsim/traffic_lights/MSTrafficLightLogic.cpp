@@ -36,7 +36,7 @@
 #include "MSTrafficLightLogic.h"
 #include <microsim/MSEventControl.h>
 #include "MSTLLogicControl.h"
-#include <utils/helpers/DiscreteCommand.h>
+#include <utils/common/DiscreteCommand.h>
 #include <microsim/MSJunctionLogic.h>
 
 #ifdef CHECK_MEMORY_LEAKS

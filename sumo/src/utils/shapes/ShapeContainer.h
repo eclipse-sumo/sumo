@@ -31,7 +31,7 @@
 #endif
 
 #include <string>
-#include <utils/helpers/NamedObjectCont.h>
+#include <utils/common/NamedObjectCont.h>
 #include <utils/shapes/Polygon2D.h>
 #include "PointOfInterest.h"
 

@@ -381,6 +381,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\Command.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\DiscreteCommand.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\FileErrorReporter.h"
 				>
 			</File>
@@ -390,6 +398,22 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\FloatValueTimeLine.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\gcc_NullType.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\gcc_Typelist.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\gcc_TypeManip.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\gcc_TypeTraits.h"
 				>
 			</File>
 			<File
@@ -421,7 +445,31 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\msvc6_NullType.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\msvc6_static_check.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\msvc6_Typelist.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\msvc6_TypeManip.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\msvc6_TypeTraits.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\Named.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\NamedObjectCont.h"
 				>
 			</File>
 			<File
@@ -429,7 +477,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\OneArgumentCommand.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\RandHelper.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\RandomDistributor.h"
 				>
 			</File>
 			<File
@@ -453,7 +509,15 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\SUMOAbstractRouter.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\helpers\SUMODijkstraRouter.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\SUMODijkstraRouter.h"
 				>
 			</File>
 			<File
@@ -493,11 +557,23 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\common\ValueRetriever.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\ValueSource.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\common\ValueTimeLine.h"
 				>
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\VectorHelper.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\common\WrappingCommand.h"
 				>
 			</File>
 		</Filter>

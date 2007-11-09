@@ -34,7 +34,7 @@
 #include <map>
 #include "MSTrafficLightLogic.h"
 #include "MSSimpleTrafficLightLogic.h"
-#include <utils/helpers/Command.h>
+#include <utils/common/Command.h>
 #include <utils/common/UtilExceptions.h>
 
 

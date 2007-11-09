@@ -33,7 +33,7 @@
 #ifdef ONLINE_CALIBRATION
 
 #include <string>
-#include <utils/helpers/WrappingCommand.h>
+#include <utils/common/WrappingCommand.h>
 #include <microsim/MSLane.h>
 #include <utils/iodevices/OutputDevice.h>
 

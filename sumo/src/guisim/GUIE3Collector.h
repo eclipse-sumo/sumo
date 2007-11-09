@@ -35,7 +35,7 @@
 #include <microsim/output/e3_detectors/MSE3Collector.h>
 #include "GUIDetectorWrapper.h"
 #include <utils/geom/Position2DVector.h>
-#include <utils/helpers/ValueSource.h>
+#include <utils/common/ValueSource.h>
 
 
 // ===========================================================================

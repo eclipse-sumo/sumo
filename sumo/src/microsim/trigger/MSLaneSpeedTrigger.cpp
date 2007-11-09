@@ -30,7 +30,7 @@
 
 #include <string>
 #include <utils/common/MsgHandler.h>
-#include <utils/helpers/WrappingCommand.h>
+#include <utils/common/WrappingCommand.h>
 #include <microsim/MSLane.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/UtilExceptions.h>

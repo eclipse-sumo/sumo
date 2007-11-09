@@ -55,7 +55,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include "trigger/MSBusStop.h"
-#include <utils/helpers/SUMODijkstraRouter.h>
+#include <utils/common/SUMODijkstraRouter.h>
 #include "MSPerson.h"
 #include <utils/common/RandHelper.h>
 

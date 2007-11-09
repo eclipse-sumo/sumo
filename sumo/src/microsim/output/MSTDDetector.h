@@ -33,7 +33,7 @@
 #include "MSPredicates.h"
 #include "MSTDDetectorInterface.h"
 #include <microsim/MSEventControl.h>
-#include <utils/helpers/WrappingCommand.h>
+#include <utils/common/WrappingCommand.h>
 #include <deque>
 #include <string>
 #include <algorithm>

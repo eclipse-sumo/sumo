@@ -33,7 +33,7 @@
 #include "ODDistrictCont.h"
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/helpers/NamedObjectCont.h>
+#include <utils/common/NamedObjectCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

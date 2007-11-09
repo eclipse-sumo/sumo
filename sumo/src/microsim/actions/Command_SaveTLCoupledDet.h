@@ -32,7 +32,7 @@
 
 #include <string>
 #include <microsim/MSNet.h>
-#include <utils/helpers/DiscreteCommand.h>
+#include <utils/common/DiscreteCommand.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 
 

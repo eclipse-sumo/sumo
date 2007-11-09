@@ -34,7 +34,7 @@
 #include <map>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/RGBColor.h>
-#include <utils/helpers/RandomDistributor.h>
+#include <utils/common/RandomDistributor.h>
 
 
 // ===========================================================================

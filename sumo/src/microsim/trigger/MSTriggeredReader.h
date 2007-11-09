@@ -32,7 +32,7 @@
 
 #include <string>
 #include <microsim/MSNet.h>
-#include <utils/helpers/Command.h>
+#include <utils/common/Command.h>
 #include <utils/common/FileErrorReporter.h>
 
 

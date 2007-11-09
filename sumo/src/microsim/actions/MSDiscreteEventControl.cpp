@@ -29,7 +29,7 @@
 #endif
 
 #include "MSDiscreteEventControl.h"
-#include <utils/helpers/Command.h>
+#include <utils/common/Command.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

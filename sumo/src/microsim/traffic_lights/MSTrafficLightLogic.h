@@ -33,7 +33,7 @@
 #include <map>
 #include <string>
 #include <bitset>
-#include <utils/helpers/Command.h>
+#include <utils/common/Command.h>
 #include <microsim/MSLogicJunction.h>
 #include <microsim/MSLink.h>
 #include "MSPhaseDefinition.h"

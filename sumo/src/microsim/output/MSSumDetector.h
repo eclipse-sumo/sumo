@@ -34,9 +34,9 @@
 #include <string>
 #include <microsim/MSUnit.h>
 #ifdef _MSC_VER
-#include <utils/helpers/msvc6_TypeManip.h>
+#include <utils/common/msvc6_TypeManip.h>
 #else
-#include <utils/helpers/gcc_TypeManip.h>
+#include <utils/common/gcc_TypeManip.h>
 #endif
 
 

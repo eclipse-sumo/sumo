@@ -29,7 +29,7 @@
 #endif
 
 #include <string>
-#include <utils/helpers/NamedObjectCont.h>
+#include <utils/common/NamedObjectCont.h>
 #include <queue>
 #include "ROVehicle.h"
 #include "ROHelper.h"

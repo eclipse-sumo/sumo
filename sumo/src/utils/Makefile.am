@@ -3,4 +3,4 @@ GUI_DIRS = foxtools gui
 endif
 
 SUBDIRS = common distribution  \
-geom helpers importio iodevices options shapes xml $(GUI_DIRS)
+geom importio iodevices options shapes xml $(GUI_DIRS)

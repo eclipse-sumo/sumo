@@ -39,7 +39,7 @@
 #include <cassert>
 #include <utility>
 #include <iostream>
-#include <utils/helpers/OneArgumentCommand.h>
+#include <utils/common/OneArgumentCommand.h>
 #include <sstream>
 
 #ifdef CHECK_MEMORY_LEAKS

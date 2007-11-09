@@ -30,7 +30,7 @@
 #include <config.h>
 #endif
 
-#include <utils/helpers/SUMOAbstractRouter.h>
+#include <utils/common/SUMOAbstractRouter.h>
 #include <string>
 #include <functional>
 #include <vector>

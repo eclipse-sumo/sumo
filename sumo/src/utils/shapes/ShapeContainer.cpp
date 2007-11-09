@@ -34,7 +34,7 @@
 #include <utility>
 #include <string>
 #include <cmath>
-#include <utils/helpers/NamedObjectCont.h>
+#include <utils/common/NamedObjectCont.h>
 #include <utils/shapes/Polygon2D.h>
 #include <utils/shapes/ShapeContainer.h>
 #include <utils/common/MsgHandler.h>

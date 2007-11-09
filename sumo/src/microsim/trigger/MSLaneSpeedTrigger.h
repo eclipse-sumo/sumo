@@ -32,7 +32,7 @@
 
 #include <string>
 #include <vector>
-#include <utils/helpers/Command.h>
+#include <utils/common/Command.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include "MSTrigger.h"
 

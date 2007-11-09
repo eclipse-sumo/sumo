@@ -405,7 +405,6 @@ src/utils/gui/globjects/Makefile
 src/utils/gui/images/Makefile
 src/utils/gui/tracker/Makefile
 src/utils/gui/windows/Makefile
-src/utils/helpers/Makefile
 src/utils/importio/Makefile
 src/utils/iodevices/Makefile
 src/utils/options/Makefile

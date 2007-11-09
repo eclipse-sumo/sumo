@@ -31,7 +31,7 @@
 #include <string>
 #include <algorithm>
 #include <utils/common/MsgHandler.h>
-#include <utils/helpers/Command.h>
+#include <utils/common/Command.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
@@ -41,7 +41,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/TplConvert.h>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <utils/helpers/SUMODijkstraRouter.h>
+#include <utils/common/SUMODijkstraRouter.h>
 #include <utils/common/RandHelper.h>
 
 #ifdef HAVE_MESOSIM

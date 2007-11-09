@@ -32,7 +32,7 @@
 
 #include <string>
 #include <map>
-#include <utils/helpers/Command.h>
+#include <utils/common/Command.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 
 

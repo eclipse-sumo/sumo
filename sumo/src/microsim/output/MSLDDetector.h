@@ -34,7 +34,7 @@
 #include <microsim/MSUnit.h>
 #include "MSLDDetectorInterface.h"
 #include <microsim/MSEventControl.h>
-#include <utils/helpers/WrappingCommand.h>
+#include <utils/common/WrappingCommand.h>
 #include <string>
 #include <algorithm>
 

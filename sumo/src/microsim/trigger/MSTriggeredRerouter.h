@@ -32,11 +32,11 @@
 
 #include <string>
 #include <vector>
-#include <utils/helpers/Command.h>
+#include <utils/common/Command.h>
 #include <microsim/MSMoveReminder.h>
 #include "MSTrigger.h"
 #include <utils/xml/SUMOSAXHandler.h>
-#include <utils/helpers/RandomDistributor.h>
+#include <utils/common/RandomDistributor.h>
 
 
 // ===========================================================================

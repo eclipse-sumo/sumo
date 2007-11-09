@@ -32,7 +32,7 @@
 
 #include <vector>
 #include <string>
-#include <utils/helpers/Command.h>
+#include <utils/common/Command.h>
 #include <microsim/trigger/MSLaneSpeedTrigger.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>

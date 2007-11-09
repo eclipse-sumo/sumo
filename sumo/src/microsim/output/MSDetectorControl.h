@@ -32,7 +32,7 @@
 
 #include <string>
 #include <vector>
-#include <utils/helpers/NamedObjectCont.h>
+#include <utils/common/NamedObjectCont.h>
 #include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
 //#include <microsim/output/e3_detectors/MSE3Collector.h>

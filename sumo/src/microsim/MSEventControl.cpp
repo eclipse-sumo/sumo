@@ -31,7 +31,7 @@
 #include <cassert>
 #include "MSEventControl.h"
 #include <utils/common/MsgHandler.h>
-#include <utils/helpers/Command.h>
+#include <utils/common/Command.h>
 #include "MSNet.h"
 
 #ifdef CHECK_MEMORY_LEAKS

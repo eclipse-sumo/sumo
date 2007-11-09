@@ -30,7 +30,7 @@
 #include <config.h>
 #endif
 
-#include <utils/helpers/ValueSource.h>
+#include <utils/common/ValueSource.h>
 
 
 // ===========================================================================

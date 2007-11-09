@@ -31,7 +31,7 @@
 #endif
 
 #include "ROEdge.h"
-#include <utils/helpers/NamedObjectCont.h>
+#include <utils/common/NamedObjectCont.h>
 
 
 // ===========================================================================

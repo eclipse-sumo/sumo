@@ -36,7 +36,7 @@
 #include "DFRORouteDesc.h"
 #include "DFRORouteCont.h"
 #include "RODFDetectorFlow.h"
-#include <utils/helpers/RandomDistributor.h>
+#include <utils/common/RandomDistributor.h>
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeomHelper.h>
 #include "RODFNet.h"

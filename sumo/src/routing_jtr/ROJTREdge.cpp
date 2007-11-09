@@ -33,7 +33,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RandHelper.h>
 #include "ROJTREdge.h"
-#include <utils/helpers/RandomDistributor.h>
+#include <utils/common/RandomDistributor.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

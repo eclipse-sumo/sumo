@@ -36,7 +36,7 @@
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/common/VectorHelper.h>
-#include <utils/helpers/ValueSource.h>
+#include <utils/common/ValueSource.h>
 #include "GUI_E2_ZS_Collector.h"
 #include "GUIDetectorWrapper.h"
 
