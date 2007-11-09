@@ -45,7 +45,7 @@
 #include <utils/options/OptionsIO.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXEventQue.h>
-#include <sumo_only/SUMOFrame.h>
+#include <microsim/MSFrame.h>
 #include <utils/common/MsgRetrievingFunction.h>
 #include "GUIApplicationWindow.h"
 #include "GUILoadThread.h"
@@ -112,7 +112,7 @@ GUILoadThread::run()
         return 0;
     }
     MsgHandler::initOutputOptions(true);
-    if (!SUMOFrame::checkOptions()) {
+    if (!MSFrame::checkOptions()) {
         // the options are not valid
         submitEndAndCleanup(net, simStartTime, simEndTime);
         return 0;
@@ -123,7 +123,7 @@ GUILoadThread::run()
     RandHelper::initRandGlobal();
     // try to load
     OptionsCont &oc = OptionsCont::getOptions();
-    SUMOFrame::setMSGlobals(oc);
+    MSFrame::setMSGlobals(oc);
     net = new GUINet(buildVehicleControl());
     GUIEdgeControlBuilder *eb = buildEdgeBuilder();
     GUIJunctionControlBuilder jb(*net, oc);
@@ -210,7 +210,7 @@ GUILoadThread::initOptions()
     try {
         OptionsCont &oc = OptionsCont::getOptions();
         oc.clear();
-        SUMOFrame::fillOptions();
+        MSFrame::fillOptions();
         if (myLoadNet) {
             oc.set("net-file", myFile);
         } else {

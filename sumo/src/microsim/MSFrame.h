@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    SUMOFrame.h
+/// @file    MSFrame.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id:SUMOFrame.h 4686 2007-11-09 13:04:13Z dkrajzew $
+/// @version $Id$
 ///
 // Some helping methods for usage within sumo and sumo-gui
 /****************************************************************************/
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef SUMOFrame_h
-#define SUMOFrame_h
+#ifndef MSFrame_h
+#define MSFrame_h
 
 
 // ===========================================================================
@@ -43,11 +43,11 @@ class OutputDevice;
 // class definitions
 // ===========================================================================
 /**
- * @class SUMOFrame
+ * @class MSFrame
  * This class holds some helping methods needed both by the sumo and the
  * sumo-gui module.
  */
-class SUMOFrame
+class MSFrame
 {
 public:
     /// Builds the simulation options

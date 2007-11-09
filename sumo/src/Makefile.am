@@ -54,7 +54,6 @@ sumo_LDADD   = ./netload/libnetload.a \
 ./microsim/actions/libmsactions.a \
 ./microsim/traffic_lights/libmicrosimtls.a \
 $(MESO_LIBS) \
-./sumo_only/libsumoonly.a \
 ./utils/geom/libgeom.a \
 ./utils/shapes/libshapes.a \
 $(COMMON_LIBS) \
@@ -202,7 +201,7 @@ endif
 
 
 SUBDIRS = foreign microsim netbuild netgen netimport netload \
-od2trips polyconvert router routing_df routing_dua routing_jtr sumo_only \
+od2trips polyconvert router routing_df routing_dua routing_jtr \
 utils $(GUI_DIRS) $(MESO_DIRS) $(TRACI_DIRS)
 
 EXTRA_DIST = config.h config.h.in \

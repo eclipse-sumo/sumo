@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    SUMOFrame.cpp
+/// @file    MSFrame.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id:SUMOFrame.cpp 4686 2007-11-09 13:04:13Z dkrajzew $
+/// @version $Id$
 ///
 // Some helping methods for usage within sumo and sumo-gui
 /****************************************************************************/
@@ -42,7 +42,7 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
 #include <utils/common/RandHelper.h>
-#include "SUMOFrame.h"
+#include "MSFrame.h"
 #include <utils/common/SystemFrame.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -60,7 +60,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-SUMOFrame::fillOptions()
+MSFrame::fillOptions()
 {
     OptionsCont &oc = OptionsCont::getOptions();
     oc.addCallExample("-b 0 -e 1000 -n net.xml -r routes.xml");
@@ -379,7 +379,7 @@ SUMOFrame::fillOptions()
 
 
 void
-SUMOFrame::buildStreams()
+MSFrame::buildStreams()
 {
     // standard outputs
     OutputDevice::createDeviceByOption("netstate-dump", "sumo-netstate");
@@ -459,7 +459,7 @@ SUMOFrame::buildStreams()
 
 
 bool
-SUMOFrame::checkOptions()
+MSFrame::checkOptions()
 {
     OptionsCont &oc = OptionsCont::getOptions();
     bool ok = true;
@@ -502,7 +502,7 @@ SUMOFrame::checkOptions()
 
 
 void
-SUMOFrame::setMSGlobals(OptionsCont &oc)
+MSFrame::setMSGlobals(OptionsCont &oc)
 {
     // pre-initialise the network
     // set whether empty edges shall be printed on dump

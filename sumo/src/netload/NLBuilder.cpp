@@ -60,7 +60,7 @@
 #include <utils/xml/XMLSubSys.h>
 #include <microsim/output/MSDetector2File.h>
 #include <microsim/output/MSDetectorControl.h>
-#include <sumo_only/SUMOFrame.h>
+#include <microsim/MSFrame.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include "NLGeomShapeBuilder.h"
 
@@ -210,7 +210,7 @@ NLBuilder::buildNet()
 {
     myJunctionBuilder.closeJunctions(myDetectorBuilder, myXMLHandler.getContinuations());
     MSEdgeControl *edges = myEdgeBuilder.build();
-    SUMOFrame::buildStreams();
+    MSFrame::buildStreams();
     MSMeanData_Net_Cont meanData = MSMeanData_Net_Utils::buildList(
                                        myNet.getDetectorControl().getDet2File(), *edges,
                                        m_pOptions.getIntVector("dump-intervals"),

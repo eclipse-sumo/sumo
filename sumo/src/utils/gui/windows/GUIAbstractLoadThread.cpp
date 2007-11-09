@@ -35,7 +35,6 @@
 #include <utils/options/OptionsIO.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/foxtools/MFXEventQue.h>
-#include <sumo_only/SUMOFrame.h>
 #include <utils/common/MsgRetrievingFunction.h>
 #include "GUIAbstractLoadThread.h"
 #include <utils/gui/events/GUIEvent_Message.h>
