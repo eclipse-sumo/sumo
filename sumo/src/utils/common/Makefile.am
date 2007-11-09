@@ -4,7 +4,8 @@ EXTRA_DIST = StdDefs.h VectorHelper.h
 
 libcommon_a_SOURCES = AbstractMutex.h \
 FileErrorReporter.cpp FileErrorReporter.h FileHelpers.cpp FileHelpers.h \
-InstancePool.h \
+FloatValueTimeLine.h InstancePool.h \
+IDSupplier.h IDSupplier.cpp \
 Named.h StringTokenizer.cpp StringTokenizer.h \
 StringUtils.cpp StringUtils.h UtilExceptions.h \
 MsgHandler.h MsgHandler.cpp MsgRetriever.h \
@@ -14,5 +15,8 @@ SystemFrame.cpp SystemFrame.h SysUtils.h SysUtils.cpp \
 LogFile.cpp LogFile.h \
 MsgRetrievingFunction.h \
 SUMOVehicleClass.cpp SUMOVehicleClass.h \
-ToString.h TplConvert.h TplConvertSec.h 
+TextHelpers.cpp TextHelpers.h \
+ToString.h TplConvert.h TplConvertSec.h  \
+ValueTimeLine.h
+
 

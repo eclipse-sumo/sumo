@@ -32,7 +32,7 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <utils/router/TextHelpers.h>
+#include <utils/common/TextHelpers.h>
 #include "RORouteDef_OrigDest.h"
 #include "RORouteDefCont.h"
 

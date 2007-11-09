@@ -31,7 +31,7 @@
 #endif
 
 #include <string>
-#include <utils/router/IDSupplier.h>
+#include <utils/common/IDSupplier.h>
 #include <utils/gfx/RGBColor.h>
 #include "ROAbstractRouteDefLoader.h"
 

@@ -29,7 +29,7 @@
 #endif
 
 #include <map>
-#include <utils/router/TextHelpers.h>
+#include <utils/common/TextHelpers.h>
 #include "ROEdgeVector.h"
 #include "RORouteDef_OrigDest.h"
 #include "RORouteSnippletCont.h"

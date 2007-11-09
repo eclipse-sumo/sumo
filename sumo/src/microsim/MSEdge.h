@@ -37,7 +37,7 @@
 #include "MSLinkCont.h"
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
-#include <utils/router/FloatValueTimeLine.h>
+#include <utils/common/FloatValueTimeLine.h>
 
 
 // ===========================================================================

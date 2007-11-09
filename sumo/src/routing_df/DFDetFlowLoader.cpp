@@ -42,7 +42,7 @@
 #include <utils/importio/LineHandler.h>
 #include <utils/gfx/RGBColor.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/router/IDSupplier.h>
+#include <utils/common/IDSupplier.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/FileHelpers.h>
