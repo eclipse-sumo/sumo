@@ -56,7 +56,7 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
-#include <sumo_only/SUMOFrame.h>
+#include <microsim/MSFrame.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <utils/iodevices/OutputDevice.h>
 
@@ -86,7 +86,7 @@ using namespace std;
 MSNet *
 load(OptionsCont &oc)
 {
-    SUMOFrame::setMSGlobals(oc);
+    MSFrame::setMSGlobals(oc);
     MSNet *net = new MSNet(new MSVehicleControl());
     NLEdgeControlBuilder eb;
     NLJunctionControlBuilder jb(*net, oc);
@@ -122,14 +122,14 @@ main(int argc, char **argv)
     try {
         // initialise subsystems
         XMLSubSys::init();
-        SUMOFrame::fillOptions();
+        MSFrame::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
         if (oc.processMetaOptions(argc < 2)) {
             SystemFrame::close();
             return 0;
         }
         MsgHandler::initOutputOptions();
-        if (!SUMOFrame::checkOptions()) throw ProcessError();
+        if (!MSFrame::checkOptions()) throw ProcessError();
         RandHelper::initRandGlobal();
         // load the net
         net = load(oc);
