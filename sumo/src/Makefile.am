@@ -104,7 +104,6 @@ sumo_duarouter_LDFLAGS = $(XERCES_LDFLAGS)
 
 sumo_duarouter_LDADD   = ./routing_dua/libduarouting.a \
 ./router/librouter.a \
-./utils/router/librouter.a \
 $(COMMON_LIBS) \
 $(MEM_LIBS) \
 $(XERCES_LIBS)
@@ -117,7 +116,6 @@ sumo_dfrouter_LDFLAGS = $(XERCES_LDFLAGS)
 
 sumo_dfrouter_LDADD   = ./routing_df/libdfrouting.a \
 ./router/librouter.a \
-./utils/router/librouter.a \
 ./utils/geom/libgeom.a \
 $(COMMON_LIBS) \
 $(MEM_LIBS) \
@@ -131,7 +129,6 @@ sumo_jtrrouter_LDFLAGS = $(XERCES_LDFLAGS)
 
 sumo_jtrrouter_LDADD   = ./routing_jtr/libjtrrouting.a \
 ./router/librouter.a \
-./utils/router/librouter.a \
 $(COMMON_LIBS) \
 $(MEM_LIBS) \
 $(XERCES_LIBS)
