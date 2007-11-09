@@ -392,7 +392,6 @@ src/router/Makefile
 src/routing_df/Makefile
 src/routing_dua/Makefile
 src/routing_jtr/Makefile
-src/sumo_only/Makefile
 src/utils/Makefile
 src/utils/common/Makefile
 src/utils/distribution/Makefile

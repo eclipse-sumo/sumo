@@ -633,6 +633,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSFrame.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSGlobals.cpp"
 				>
 			</File>
@@ -949,6 +953,10 @@
 				>
 			</File>
 		</Filter>
+		<File
+			RelativePath="..\..\..\src\microsim\MSFrame.h"
+			>
+		</File>
 		<File
 			RelativePath="..\..\..\src\microsim\MSLCM_DK2004.h"
 			>
