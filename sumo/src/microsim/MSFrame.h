@@ -2,7 +2,7 @@
 /// @file    SUMOFrame.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id:SUMOFrame.h 4686 2007-11-09 13:04:13Z dkrajzew $
 ///
 // Some helping methods for usage within sumo and sumo-gui
 /****************************************************************************/
