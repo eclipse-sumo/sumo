@@ -33,8 +33,8 @@
 #include <algorithm>
 #include <cassert>
 #include "NBEdgeCont.h"
-#include "nodes/NBNode.h"
-#include "nodes/NBNodeCont.h"
+#include "NBNode.h"
+#include "NBNodeCont.h"
 #include "NBContHelper.h"
 #include "NBHelpers.h"
 #include <cmath>

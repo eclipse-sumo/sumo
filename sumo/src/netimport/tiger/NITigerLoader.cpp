@@ -37,8 +37,8 @@
 #include <utils/options/OptionsCont.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
-#include <netbuild/nodes/NBNode.h>
-#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/GeoConvHelper.h>
 #include "NITigerLoader.h"

@@ -31,7 +31,7 @@
 #include <cmath>
 #include <string>
 #include <sstream>
-#include "nodes/NBNode.h"
+#include "NBNode.h"
 #include "NBHelpers.h"
 #include <utils/common/StringTokenizer.h>
 #include <utils/geom/Position2D.h>

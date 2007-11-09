@@ -36,8 +36,8 @@
 #include <utils/common/VectorHelper.h>
 #include <netbuild/NBDistrictCont.h>
 #include <netbuild/NBDistrict.h>
-#include <netbuild/nodes/NBNode.h>
-#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include "../NIVissimLoader.h"
 #include "../tempstructs/NIVissimDistrictConnection.h"
 #include "NIVissimSingleTypeParser_Parkplatzdefinition.h"

@@ -38,9 +38,9 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/geom/Boundary.h>
 #include <netbuild/NBEdge.h>
-#include <netbuild/nodes/NBNode.h>
+#include <netbuild/NBNode.h>
 #include <netbuild/NBEdgeCont.h>
-#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/NBNodeCont.h>
 #include "NIVissimEdge.h"
 #include "NIVissimConnection.h"
 #include "NIVissimNodeDef.h"

@@ -42,8 +42,8 @@
 #include "NIVissimEdge.h"
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
-#include <netbuild/nodes/NBNode.h>
-#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBDistrict.h>
 #include <netbuild/NBDistrictCont.h>
 #include "NIVissimDistrictConnection.h"

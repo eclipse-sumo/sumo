@@ -31,7 +31,7 @@
 #include <string>
 #include <fstream>
 #include "NBNetBuilder.h"
-#include "nodes/NBNodeCont.h"
+#include "NBNodeCont.h"
 #include "NBEdgeCont.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBJunctionLogicCont.h"

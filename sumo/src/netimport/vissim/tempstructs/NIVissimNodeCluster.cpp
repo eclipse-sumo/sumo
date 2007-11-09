@@ -35,8 +35,8 @@
 #include <utils/common/VectorHelper.h>
 #include <utils/common/ToString.h>
 #include <utils/geom/Position2DVector.h>
-#include <netbuild/nodes/NBNode.h>
-#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include "NIVissimTL.h"
 #include "NIVissimDisturbance.h"
 #include "NIVissimConnection.h"

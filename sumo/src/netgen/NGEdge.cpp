@@ -29,8 +29,8 @@
 #endif
 
 #include <algorithm>
-#include <netbuild/nodes/NBNode.h>
-#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBOwnTLDef.h>
 #include <netbuild/NBTypeCont.h>

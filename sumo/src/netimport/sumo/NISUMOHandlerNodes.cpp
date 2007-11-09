@@ -31,8 +31,8 @@
 #include <string>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <netbuild/nodes/NBNode.h>
-#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "NISUMOHandlerNodes.h"
 #include <utils/common/MsgHandler.h>

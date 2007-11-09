@@ -51,15 +51,15 @@
 #include "NBNode.h"
 #include "NBNodeCont.h"
 #include "NBNodeShapeComputer.h"
-#include <netbuild/NBEdgeCont.h>
-#include <netbuild/NBTypeCont.h>
-#include <netbuild/NBJunctionLogicCont.h>
-#include <netbuild/NBHelpers.h>
-#include <netbuild/NBDistrict.h>
-#include <netbuild/NBContHelper.h>
-#include <netbuild/NBRequest.h>
-#include <netbuild/NBOwnTLDef.h>
-#include <netbuild/NBTrafficLightLogicCont.h>
+#include "NBEdgeCont.h"
+#include "NBTypeCont.h"
+#include "NBJunctionLogicCont.h"
+#include "NBHelpers.h"
+#include "NBDistrict.h"
+#include "NBContHelper.h"
+#include "NBRequest.h"
+#include "NBOwnTLDef.h"
+#include "NBTrafficLightLogicCont.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

@@ -38,7 +38,7 @@
 #include "NIXMLEdgesHandler.h"
 #include <cmath>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBTypeCont.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>

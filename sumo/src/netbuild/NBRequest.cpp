@@ -44,7 +44,7 @@
 #include "NBTrafficLightLogic.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBTrafficLightLogicVector.h"
-#include "nodes/NBNode.h"
+#include "NBNode.h"
 #include "NBRequest.h"
 #include <utils/options/OptionsCont.h>
 

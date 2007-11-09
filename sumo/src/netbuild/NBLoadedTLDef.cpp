@@ -37,7 +37,7 @@
 #include "NBTrafficLightDefinition.h"
 #include "NBTrafficLightLogicVector.h"
 #include "NBLoadedTLDef.h"
-#include "nodes/NBNode.h"
+#include "NBNode.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

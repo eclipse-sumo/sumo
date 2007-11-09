@@ -34,7 +34,7 @@
 #include <iostream>
 #include "NBEdgeCont.h"
 #include "NBTypeCont.h"
-#include "nodes/NBNodeCont.h"
+#include "NBNodeCont.h"
 #include "NBTrafficLightLogicCont.h"
 #include "NBJunctionLogicCont.h"
 #include "NBDistrictCont.h"

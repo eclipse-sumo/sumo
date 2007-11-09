@@ -34,7 +34,7 @@
 #include <map>
 #include <string>
 #include <netbuild/NBConnectionDefs.h>
-#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/NBNodeCont.h>
 #include <utils/common/SUMOTime.h>
 
 class NBTrafficLightLogicCont;

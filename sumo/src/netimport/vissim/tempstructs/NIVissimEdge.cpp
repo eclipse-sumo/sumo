@@ -40,8 +40,8 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/distribution/Distribution.h>
 #include <netbuild/NBDistribution.h>
-#include <netbuild/nodes/NBNode.h>
-#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include <utils/options/OptionsCont.h>
 #include "NIVissimNodeCluster.h"
 #include "NIVissimDistrictConnection.h"

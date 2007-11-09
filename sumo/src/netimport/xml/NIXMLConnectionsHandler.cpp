@@ -37,7 +37,7 @@
 #include "NIXMLConnectionsHandler.h"
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
-#include <netbuild/nodes/NBNode.h>
+#include <netbuild/NBNode.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>

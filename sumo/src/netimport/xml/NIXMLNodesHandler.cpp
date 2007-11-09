@@ -36,7 +36,7 @@
 #include <xercesc/sax/SAXException.hpp>
 #include "NIXMLNodesHandler.h"
 #include <utils/xml/SUMOSAXHandler.h>
-#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/NBNodeCont.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>

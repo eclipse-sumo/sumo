@@ -34,7 +34,7 @@
 #include <string>
 #include <set>
 #include "NBTrafficLightDefinition.h"
-#include "nodes/NBNode.h"
+#include "NBNode.h"
 #include <utils/common/SUMOTime.h>
 
 

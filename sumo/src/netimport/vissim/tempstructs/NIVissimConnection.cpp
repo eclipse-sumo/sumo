@@ -40,7 +40,7 @@
 #include <utils/geom/Boundary.h>
 #include <utils/geom/GeomHelper.h>
 #include <netbuild/NBEdge.h>
-#include <netbuild/nodes/NBNode.h>
+#include <netbuild/NBNode.h>
 #include <netbuild/NBEdgeCont.h>
 #include "NIVissimEdge.h"
 #include "NIVissimClosedLanesVector.h"

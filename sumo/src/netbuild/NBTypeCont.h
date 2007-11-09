@@ -32,7 +32,7 @@
 
 #include <string>
 #include <map>
-#include "nodes/NBNode.h"
+#include "NBNode.h"
 #include "NBType.h"
 #include "NBJunctionTypesMatrix.h"
 

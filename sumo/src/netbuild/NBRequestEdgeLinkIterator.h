@@ -32,7 +32,7 @@
 
 #include <bitset>
 #include <vector>
-#include "nodes/NBNode.h"
+#include "NBNode.h"
 #include "NBOwnTLDef.h"
 #include "NBContHelper.h"
 

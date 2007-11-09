@@ -83,7 +83,6 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./netimport/vissim/tempstructs/libvissimtmpstr.a \
 ./netimport/NINavTeqHelper.o \
 ./netbuild/libnetbuild.a \
-./netbuild/nodes/libnodesnetbuild.a \
 ./utils/distribution/libdistribution.a \
 ./utils/geom/libgeom.a \
 $(COMMON_LIBS) \

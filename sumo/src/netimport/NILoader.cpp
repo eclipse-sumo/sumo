@@ -42,7 +42,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/ToString.h>
 #include <netbuild/NBTypeCont.h>
-#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNetBuilder.h>
 #include <utils/xml/SUMOSAXHandler.h>

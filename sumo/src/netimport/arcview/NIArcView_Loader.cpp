@@ -42,8 +42,8 @@
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBTypeCont.h>
-#include <netbuild/nodes/NBNode.h>
-#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/NBNode.h>
+#include <netbuild/NBNodeCont.h>
 #include "NIArcView_Loader.h"
 #include <netimport/NINavTeqHelper.h>
 #include <utils/geom/GeoConvHelper.h>

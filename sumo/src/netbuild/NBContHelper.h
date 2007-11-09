@@ -38,7 +38,7 @@
 #include "NBHelpers.h"
 #include "NBCont.h"
 #include "NBEdge.h"
-#include "nodes/NBNode.h"
+#include "NBNode.h"
 #include <utils/common/StdDefs.h>
 #include <utils/geom/GeomHelper.h>
 

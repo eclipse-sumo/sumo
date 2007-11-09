@@ -34,7 +34,7 @@
 #include "NBTrafficLightLogicVector.h"
 #include "NBRequestEdgeLinkIterator.h"
 #include "NBLinkCliqueContainer.h"
-#include "nodes/NBNode.h"
+#include "NBNode.h"
 #include "NBOwnTLDef.h"
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>

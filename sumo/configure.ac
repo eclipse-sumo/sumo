@@ -374,7 +374,6 @@ src/microsim/output/meandata/Makefile
 src/microsim/traffic_lights/Makefile
 src/microsim/trigger/Makefile
 src/netbuild/Makefile
-src/netbuild/nodes/Makefile
 src/netgen/Makefile
 src/netimport/Makefile
 src/netimport/arcview/Makefile

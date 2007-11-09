@@ -33,8 +33,8 @@
 #include <string>
 #include <map>
 #include <utils/geom/Position2D.h>
-#include <netbuild/NBEdgeCont.h>
-#include <netbuild/NBJunctionLogicCont.h>
+#include "NBEdgeCont.h"
+#include "NBJunctionLogicCont.h"
 #include "NBNode.h"
 
 

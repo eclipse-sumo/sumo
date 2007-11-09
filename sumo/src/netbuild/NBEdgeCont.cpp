@@ -40,7 +40,7 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include "NBEdgeCont.h"
-#include "nodes/NBNodeCont.h"
+#include "NBNodeCont.h"
 #include "NBHelpers.h"
 #include "NBCont.h"
 #include "NBTrafficLightLogicCont.h"

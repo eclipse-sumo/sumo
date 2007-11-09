@@ -40,12 +40,12 @@
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Line2D.h>
 #include <utils/geom/Position2DVector.h>
-#include <netbuild/NBEdge.h>
-#include <netbuild/NBJunctionLogicCont.h>
-#include <netbuild/NBConnection.h>
-#include <netbuild/NBConnectionDefs.h>
-#include <netbuild/NBContHelper.h>
-#include <netbuild/NBMMLDirections.h>
+#include "NBEdge.h"
+#include "NBJunctionLogicCont.h"
+#include "NBConnection.h"
+#include "NBConnectionDefs.h"
+#include "NBContHelper.h"
+#include "NBMMLDirections.h"
 #include <utils/geom/Bresenham.h>
 
 

@@ -39,7 +39,7 @@
 #include <netimport/NILoader.h>
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBEdgeCont.h>
-#include <netbuild/nodes/NBNodeCont.h>
+#include <netbuild/NBNodeCont.h>
 #include <netbuild/NBTypeCont.h>
 #include <netbuild/NBDistrictCont.h>
 #include <netbuild/NBTrafficLightLogicCont.h>
