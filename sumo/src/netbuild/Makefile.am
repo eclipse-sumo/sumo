@@ -8,7 +8,9 @@ NBEdgeCont.cpp NBEdgeCont.h NBHelpers.cpp NBHelpers.h \
 NBJunctionLogicCont.cpp NBJunctionLogicCont.h \
 NBJunctionTypesMatrix.cpp NBJunctionTypesMatrix.h \
 NBLinkCliqueContainer.cpp NBLinkCliqueContainer.h \
-NBLinkPossibilityMatrix.h \
+NBLinkPossibilityMatrix.h NBNode.cpp NBNode.h \
+NBNodeCont.cpp NBNodeCont.h \
+NBNodeShapeComputer.cpp NBNodeShapeComputer.h \
 NBRequest.cpp NBRequest.h \
 NBRequestEdgeLinkIterator.cpp NBRequestEdgeLinkIterator.h \
 NBTrafficLightDefinition.cpp NBTrafficLightDefinition.h \
@@ -21,7 +23,5 @@ NBOwnTLDef.cpp NBOwnTLDef.h \
 NBLoadedTLDef.cpp NBLoadedTLDef.h \
 NBNetBuilder.cpp NBNetBuilder.h \
 NBJoinedEdgesMap.cpp NBJoinedEdgesMap.h
-
-SUBDIRS = nodes
 
 EXTRA_DIST = NBMMLDirections.h
