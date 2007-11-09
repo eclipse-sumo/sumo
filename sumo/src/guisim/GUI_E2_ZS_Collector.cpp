@@ -32,7 +32,7 @@
 #include <utils/geom/Position2DVector.h>
 #include "GUILaneWrapper.h"
 #include "GUI_E2_ZS_Collector.h"
-#include <utils/glutils/GLHelper.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/geom/Line2D.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>

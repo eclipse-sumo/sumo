@@ -1,5 +1,5 @@
 if WITH_GUI
-GUI_DIRS = foxtools gui glutils
+GUI_DIRS = foxtools gui
 endif
 
 SUBDIRS = common distribution  \

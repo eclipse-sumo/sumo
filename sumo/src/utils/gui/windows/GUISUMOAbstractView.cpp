@@ -43,7 +43,7 @@
 #include <utils/foxtools/MFXCheckableButton.h>
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <utils/gui/div/GUIGlobalSelection.h>
-#include <utils/glutils/GLHelper.h>
+#include <utils/gui/div/GLHelper.h>
 #include "GUIMainWindow.h"
 #include "GUIGlChildWindow.h"
 #include <utils/gui/globjects/GUIGlObjectStorage.h>

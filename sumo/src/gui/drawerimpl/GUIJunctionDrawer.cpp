@@ -30,7 +30,7 @@
 
 #include <vector>
 #include <guisim/GUIJunctionWrapper.h>
-#include <utils/glutils/GLHelper.h>
+#include <utils/gui/div/GLHelper.h>
 #include "GUIJunctionDrawer.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <foreign/polyfonts/polyfonts.h>

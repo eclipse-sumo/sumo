@@ -33,7 +33,7 @@
 #include <vector>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
-#include <utils/glutils/GLHelper.h>
+#include <utils/gui/div/GLHelper.h>
 
 
 // ===========================================================================

@@ -34,7 +34,7 @@
 #include <guisim/GUIVehicle.h>
 #include <guisim/GUIEdge.h>
 #include <guisim/GUILaneWrapper.h>
-#include <utils/glutils/GLHelper.h>
+#include <utils/gui/div/GLHelper.h>
 #include "GUIROWDrawer.h"
 #include <utils/gui/images/GUITexturesHelper.h>
 #include <foreign/polyfonts/polyfonts.h>

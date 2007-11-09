@@ -36,7 +36,7 @@
 #include "GUIVehicleDrawer.h"
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <microsim/MSLCM_DK2004.h>
-#include <utils/glutils/GLHelper.h>
+#include <utils/gui/div/GLHelper.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/devices/MSDevice_CPhone.h>
 #include <foreign/polyfonts/polyfonts.h>

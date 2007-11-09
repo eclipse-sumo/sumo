@@ -33,7 +33,7 @@
 #include <utils/geom/Position2DVector.h>
 #include "GUILaneWrapper.h"
 #include "GUIInductLoop.h"
-#include <utils/glutils/GLHelper.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/geom/Line2D.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <microsim/logging/FuncBinding_IntParam.h>

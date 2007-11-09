@@ -34,7 +34,7 @@
 #include "GUI_E2_ZS_CollectorOverLanes.h"
 #include <utils/gui/globjects/GUIGlObjectStorage.h>
 #include <guisim/GUIEdge.h>
-#include <utils/glutils/GLHelper.h>
+#include <utils/gui/div/GLHelper.h>
 #include <utils/geom/Line2D.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>

@@ -34,7 +34,7 @@
 #include <utils/common/RGBColor.h>
 #include <microsim/MSLink.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
-#include <utils/glutils/GLHelper.h>
+#include <utils/gui/div/GLHelper.h>
 
 
 // ===========================================================================
