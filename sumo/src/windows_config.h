@@ -32,7 +32,7 @@
 #define OUTPUT_ACCURACY 2
 
 /* Define if auto-generated version.h should be used. */
-//#define HAVE_VERSION_H 1
+#define HAVE_VERSION_H 1
 
 /* Version number of package */
 #ifndef HAVE_VERSION_H
