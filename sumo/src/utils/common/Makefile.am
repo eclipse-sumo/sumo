@@ -11,7 +11,7 @@ msvc6_TypeTraits.h
 libcommon_a_SOURCES = AbstractMutex.h \
 FileErrorReporter.cpp FileErrorReporter.h FileHelpers.cpp FileHelpers.h \
 FloatValueTimeLine.h InstancePool.h \
-GfxConvHelper.cpp GfxConvHelper.h IDSupplier.h IDSupplier.cpp \
+IDSupplier.h IDSupplier.cpp \
 Named.h StringTokenizer.cpp StringTokenizer.h \
 StringUtils.cpp StringUtils.h UtilExceptions.h \
 MsgHandler.h MsgHandler.cpp MsgRetriever.h \

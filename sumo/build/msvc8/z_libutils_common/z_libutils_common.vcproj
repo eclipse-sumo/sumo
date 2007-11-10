@@ -320,10 +320,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\common\GfxConvHelper.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\IDSupplier.cpp"
 				>
 			</File>
@@ -414,10 +410,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\gcc_TypeTraits.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\GfxConvHelper.h"
 				>
 			</File>
 			<File

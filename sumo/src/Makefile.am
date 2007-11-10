@@ -36,7 +36,10 @@ COMMON_LIBS = ./utils/options/liboptions.a \
 ./utils/xml/libxml.a \
 ./utils/importio/libimportio.a \
 ./utils/iodevices/libiodevices.a \
-./foreign/tcpip/libtcpip.a
+./foreign/tcpip/libtcpip.a \
+$(MEM_LIBS) \
+$(XERCES_LIBS)
+
 
 sumo_SOURCES = sumo_main.cpp
 
@@ -56,9 +59,7 @@ $(MESO_LIBS) \
 ./utils/geom/libgeom.a \
 ./utils/shapes/libshapes.a \
 $(COMMON_LIBS) \
-$(MEM_LIBS) \
 $(TRACI_LIBS) \
-$(XERCES_LIBS) \
 $(PROJ_LIBS)
 
 
@@ -76,8 +77,6 @@ sumo_netconvert_LDADD   = ./netimport/libnetimport.a \
 ./utils/distribution/libdistribution.a \
 ./utils/geom/libgeom.a \
 $(COMMON_LIBS) \
-$(MEM_LIBS) \
-$(XERCES_LIBS) \
 $(GDAL_LIBS) \
 $(PROJ_LIBS)
 
@@ -91,8 +90,6 @@ sumo_netgen_LDADD   = ./netgen/libnetgen.a \
 ./netbuild/libnetbuild.a \
 ./utils/geom/libgeom.a \
 $(COMMON_LIBS) \
-$(MEM_LIBS) \
-$(XERCES_LIBS) \
 $(PROJ_LIBS)
 
 
@@ -103,10 +100,7 @@ sumo_duarouter_LDFLAGS = $(XERCES_LDFLAGS)
 
 sumo_duarouter_LDADD   = ./routing_dua/libduarouting.a \
 ./router/librouter.a \
-$(COMMON_LIBS) \
-$(MEM_LIBS) \
-$(XERCES_LIBS)
-
+$(COMMON_LIBS)
 
 
 sumo_dfrouter_SOURCES = dfrouter_main.cpp
@@ -116,10 +110,7 @@ sumo_dfrouter_LDFLAGS = $(XERCES_LDFLAGS)
 sumo_dfrouter_LDADD   = ./routing_df/libdfrouting.a \
 ./router/librouter.a \
 ./utils/geom/libgeom.a \
-$(COMMON_LIBS) \
-$(MEM_LIBS) \
-$(XERCES_LIBS)
-
+$(COMMON_LIBS)
 
 
 sumo_jtrrouter_SOURCES = jtrrouter_main.cpp
@@ -128,10 +119,7 @@ sumo_jtrrouter_LDFLAGS = $(XERCES_LDFLAGS)
 
 sumo_jtrrouter_LDADD   = ./routing_jtr/libjtrrouting.a \
 ./router/librouter.a \
-$(COMMON_LIBS) \
-$(MEM_LIBS) \
-$(XERCES_LIBS)
-
+$(COMMON_LIBS)
 
 
 sumo_od2trips_SOURCES = od2trips_main.cpp
@@ -142,9 +130,7 @@ sumo_od2trips_LDADD   = ./od2trips/libod2trips.a \
 ./utils/options/liboptions.a \
 ./utils/distribution/libdistribution.a \
 ./utils/geom/libgeom.a \
-$(COMMON_LIBS) \
-$(MEM_LIBS) \
-$(XERCES_LIBS)
+$(COMMON_LIBS)
 
 
 sumo_polyconvert_SOURCES = polyconvert_main.cpp
@@ -156,8 +142,6 @@ sumo_polyconvert_LDADD   = ./polyconvert/libpolyconvert.a \
 ./utils/geom/libgeom.a \
 ./utils/shapes/libshapes.a \
 $(COMMON_LIBS) \
-$(MEM_LIBS) \
-$(XERCES_LIBS) \
 $(PROJ_LIBS)
 
 

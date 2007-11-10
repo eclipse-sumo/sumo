@@ -41,7 +41,6 @@
 #include <utils/options/Option.h>
 #include <utils/importio/LineReader.h>
 #include <utils/common/StdDefs.h>
-#include <utils/common/GfxConvHelper.h>
 #include <polyconvert/PCPolyContainer.h>
 #include "PCVisumPoints.h"
 #include <utils/common/RGBColor.h>
@@ -77,7 +76,7 @@ PCVisumPoints::~PCVisumPoints()
 void
 PCVisumPoints::load(OptionsCont &oc)
 {
-    RGBColor c = GfxConvHelper::parseColor(oc.getString("color"));
+    RGBColor c = RGBColor::parseColor(oc.getString("color"));
     std::string file = oc.getString("visum-points");
     map<string, string> typemap;
     // load the pois
@@ -137,7 +136,7 @@ PCVisumPoints::load(OptionsCont &oc)
                 const PCTypeMap::TypeDef &def = myTypeMap.get(type);
                 name = def.prefix + name;
                 type = def.id;
-                color = GfxConvHelper::parseColor(def.color);
+                color = RGBColor::parseColor(def.color);
                 discard = def.discard;
                 layer = def.layer;
             } else {

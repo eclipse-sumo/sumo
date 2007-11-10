@@ -35,7 +35,6 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
-#include <utils/common/GfxConvHelper.h>
 #include <utils/common/ToString.h>
 #include "ROVehicleType_Krauss.h"
 #include "ROVehicleBuilder.h"

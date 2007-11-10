@@ -29,6 +29,9 @@
 #endif
 
 #include <cmath>
+#include <string>
+#include <utils/common/StringTokenizer.h>
+#include <utils/common/TplConvert.h>
 #include "RGBColor.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -79,36 +82,6 @@ RGBColor::blue() const
 }
 
 
-void
-RGBColor::brighten(SUMOReal by)
-{
-    SUMOReal r = myRed + by;
-    SUMOReal g = myGreen + by;
-    SUMOReal b = myBlue + by;
-    if (r>1.0) r = 1.0;
-    if (g>1.0) g = 1.0;
-    if (b>1.0) b = 1.0;
-    myRed = r;
-    myGreen = g;
-    myBlue = b;
-}
-
-
-void
-RGBColor::darken(SUMOReal by)
-{
-    SUMOReal r = myRed - by;
-    SUMOReal g = myGreen - by;
-    SUMOReal b = myBlue - by;
-    if (r<0) r = 0;
-    if (g<0) g = 0;
-    if (b<0) b = 0;
-    myRed = r;
-    myGreen = g;
-    myBlue = b;
-}
-
-
 std::ostream &
 operator<<(std::ostream &os, const RGBColor &col)
 {
@@ -117,46 +90,6 @@ operator<<(std::ostream &os, const RGBColor &col)
     << col.myGreen << ","
     << col.myBlue;
     return os;
-}
-
-
-RGBColor
-operator+(const RGBColor &c1, const RGBColor &c2)
-{
-    return RGBColor(
-               RGBColor::addChecking(c1.myRed, c2.myRed),
-               RGBColor::addChecking(c1.myGreen, c2.myGreen),
-               RGBColor::addChecking(c1.myBlue, c2.myBlue));
-}
-
-
-RGBColor
-operator-(const RGBColor &c1, const RGBColor &c2)
-{
-    return RGBColor(
-               RGBColor::subChecking(c1.myRed, c2.myRed),
-               RGBColor::subChecking(c1.myGreen, c2.myGreen),
-               RGBColor::subChecking(c1.myBlue, c2.myBlue));
-}
-
-
-RGBColor
-operator*(const RGBColor &c, const SUMOReal &v)
-{
-    return RGBColor(
-               RGBColor::mulChecking(c.myRed, v),
-               RGBColor::mulChecking(c.myGreen, v),
-               RGBColor::mulChecking(c.myBlue, v));
-}
-
-
-RGBColor
-operator/(const RGBColor &c, const SUMOReal &v)
-{
-    return RGBColor(
-               RGBColor::divChecking(c.myRed, v),
-               RGBColor::divChecking(c.myGreen, v),
-               RGBColor::divChecking(c.myBlue, v));
 }
 
 
@@ -176,6 +109,18 @@ RGBColor::operator!=(const RGBColor &c) const
 }
 
 
+RGBColor
+RGBColor::parseColor(const std::string &coldef)
+{
+    StringTokenizer st(coldef, ",");
+    if (st.size()<3) {
+        throw EmptyData();
+    }
+    SUMOReal r = TplConvert<char>::_2SUMOReal(st.next().c_str());
+    SUMOReal g = TplConvert<char>::_2SUMOReal(st.next().c_str());
+    SUMOReal b = TplConvert<char>::_2SUMOReal(st.next().c_str());
+    return RGBColor(r, g, b);
+}
 
 /****************************************************************************/
 

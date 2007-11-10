@@ -40,7 +40,6 @@
 #include <utils/options/Option.h>
 #include <utils/importio/LineReader.h>
 #include <utils/common/StdDefs.h>
-#include <utils/common/GfxConvHelper.h>
 #include <polyconvert/PCPolyContainer.h>
 #include "PCXMLPoints.h"
 #include <utils/common/RGBColor.h>
@@ -112,13 +111,13 @@ PCXMLPoints::myStartElement(SumoXMLTag element,
         const PCTypeMap::TypeDef &def = myTypeMap.get(type);
         id = def.prefix + id;
         type = def.id;
-        color = GfxConvHelper::parseColor(def.color);
+        color = RGBColor::parseColor(def.color);
         discard = def.discard;
         layer = def.layer;
     } else {
         id = myOptions.getString("prefix") + id;
         type = myOptions.getString("type");
-        color = GfxConvHelper::parseColor(myOptions.getString("color"));
+        color = RGBColor::parseColor(myOptions.getString("color"));
     }
     if (!discard) {
         bool ignorePrunning = false;

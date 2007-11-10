@@ -72,7 +72,7 @@ protected:
     /**
      * @brief Parses the color definition (if given)
      *
-     * When given, the color definition is parsed using GfxConvHelper::parseColor.
+     * When given, the color definition is parsed using RGBColor::parseColor.
      *  Exceptions occuring within this process are catched and reported.
      *
      * If no color definition is available in the attributes, the invalid color (-1,-1,-1)

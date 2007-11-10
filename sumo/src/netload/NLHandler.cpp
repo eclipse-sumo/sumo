@@ -18,15 +18,6 @@
 //
 /****************************************************************************/
 // ===========================================================================
-// compiler pragmas
-// ===========================================================================
-#ifdef _MSC_VER
-#pragma warning(disable: 4786)
-#pragma warning(disable: 4503)
-#endif
-
-
-// ===========================================================================
 // included modules
 // ===========================================================================
 #ifdef _MSC_VER
@@ -53,7 +44,6 @@
 #include <utils/common/TplConvertSec.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/RGBColor.h>
-#include <utils/common/GfxConvHelper.h>
 #include <utils/geom/GeomConvHelper.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/MSBitSetLogic.h>
@@ -820,7 +810,7 @@ NLHandler::addPOI(const Attributes &attrs)
             myShapeBuilder.addPoint(name,
                                     getIntSecure(attrs, SUMO_ATTR_LAYER, 1),
                                     getStringSecure(attrs, SUMO_ATTR_TYPE, ""),
-                                    GfxConvHelper::parseColor(getStringSecure(attrs, SUMO_ATTR_COLOR, "1,0,0")),
+                                    RGBColor::parseColor(getStringSecure(attrs, SUMO_ATTR_COLOR, "1,0,0")),
                                     getFloatSecure(attrs, SUMO_ATTR_X, INVALID_POSITION),
                                     getFloatSecure(attrs, SUMO_ATTR_Y, INVALID_POSITION),
                                     getStringSecure(attrs, SUMO_ATTR_LANE, ""),
@@ -849,7 +839,7 @@ NLHandler::addPoly(const Attributes &attrs)
             myShapeBuilder.polygonBegin(name,
                                         getIntSecure(attrs, SUMO_ATTR_LAYER, -1),
                                         getStringSecure(attrs, SUMO_ATTR_TYPE, ""),
-                                        GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
+                                        RGBColor::parseColor(getString(attrs, SUMO_ATTR_COLOR)),
                                         getBoolSecure(attrs, SUMO_ATTR_FILL, false));
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("The color of polygon '" + name + "' could not be parsed.");

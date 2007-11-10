@@ -38,7 +38,6 @@
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/RGBColor.h>
-#include <utils/common/GfxConvHelper.h>
 #include "RORouteDef.h"
 #include "RONet.h"
 #include "RORouteDef_OrigDest.h"

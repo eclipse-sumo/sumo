@@ -40,7 +40,6 @@
 #include <utils/options/Option.h>
 #include <utils/importio/LineReader.h>
 #include <utils/common/StdDefs.h>
-#include <utils/common/GfxConvHelper.h>
 #include <polyconvert/PCPolyContainer.h>
 #include "PCElmar.h"
 #include <utils/common/RGBColor.h>
@@ -76,7 +75,7 @@ PCElmar::~PCElmar()
 void
 PCElmar::load(OptionsCont &oc)
 {
-    RGBColor c = GfxConvHelper::parseColor(oc.getString("color"));
+    RGBColor c = RGBColor::parseColor(oc.getString("color"));
     std::string file = oc.getString("elmar");
     // load the polygons
     ifstream out(file.c_str());
@@ -157,7 +156,7 @@ PCElmar::load(OptionsCont &oc)
             const PCTypeMap::TypeDef &def = myTypeMap.get(type);
             name = def.prefix + name;
             type = def.id;
-            color = GfxConvHelper::parseColor(def.color);
+            color = RGBColor::parseColor(def.color);
             fill = fill && def.allowFill;
             discard = def.discard;
             layer = def.layer;

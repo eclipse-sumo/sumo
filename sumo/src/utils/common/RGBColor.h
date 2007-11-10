@@ -68,49 +68,13 @@ public:
     /// Writes the color to the given stream
     friend std::ostream &operator<<(std::ostream &os, const RGBColor &col);
 
-    /// Increases the color's brightness
-    void brighten(SUMOReal by=0.25);
-
-    /// Decreases the color's brightness
-    void darken(SUMOReal by=0.25);
-
-    friend RGBColor operator+(const RGBColor &c1, const RGBColor &c2);
-
-    friend RGBColor operator-(const RGBColor &c1, const RGBColor &c2);
-
-    friend RGBColor operator*(const RGBColor &c, const SUMOReal &v);
-
-    friend RGBColor operator/(const RGBColor &c, const SUMOReal &v);
-
     bool operator==(const RGBColor &c) const;
     bool operator!=(const RGBColor &c) const;
 
-private:
-    static inline SUMOReal check(const SUMOReal &c) {
-        if (c<0) {
-            return 0;
-        } else if (c>1.0) {
-            return 1;
-        } else {
-            return c;
-        }
-    }
-
-    static inline SUMOReal addChecking(const SUMOReal &c1, const SUMOReal &c2) {
-        return check(c1+c2);
-    }
-
-    static inline SUMOReal subChecking(const SUMOReal &c1, const SUMOReal &c2) {
-        return check(c1-c2);
-    }
-
-    static inline SUMOReal mulChecking(const SUMOReal &c1, const SUMOReal &c2) {
-        return check(c1*c2);
-    }
-
-    static inline SUMOReal divChecking(const SUMOReal &c1, const SUMOReal &c2) {
-        return check(c1/c2);
-    }
+    /** @brief parses a color information
+        It is assumed that the color is stored as "<RED>,<GREEN>,<BLUE>"
+        And each color is represented as a SUMOReal. */
+    static RGBColor parseColor(const std::string &coldef);
 
 private:
     /// The color amounts

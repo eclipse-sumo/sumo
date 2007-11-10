@@ -30,7 +30,7 @@
 
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/GfxConvHelper.h>
+#include <utils/common/RGBColor.h>
 #include "SUMOBaseRouteHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -81,7 +81,7 @@ SUMOBaseRouteHandler::parseColor(SUMOSAXHandler &helper,
 {
     RGBColor col;
     try {
-        col = GfxConvHelper::parseColor(helper.getStringSecure(attrs, SUMO_ATTR_COLOR, "-1,-1,-1"));
+        col = RGBColor::parseColor(helper.getStringSecure(attrs, SUMO_ATTR_COLOR, "-1,-1,-1"));
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The color definition for " + type + " '" + id + "' is malicious.");
     } catch (NumberFormatException &) {

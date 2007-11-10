@@ -34,7 +34,6 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/RGBColor.h>
-#include <utils/common/GfxConvHelper.h>
 #include "RORouteDef.h"
 #include "RONet.h"
 #include "RORouteDef_OrigDest.h"
@@ -123,7 +122,7 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
             string colordef = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
             if (colordef!="") {
                 try {
-                    col = GfxConvHelper::parseColor(colordef);
+                    col = RGBColor::parseColor(colordef);
                 } catch (NumberFormatException &) {
                     MsgHandler::getErrorInstance()->inform("The color information for vehicle type '" + id + "' is not numeric.");
                 } catch (...) {
@@ -367,7 +366,7 @@ RORDLoader_TripDefs::getRGBColorReporting(const Attributes &attrs,
         const std::string &id)
 {
     try {
-        return GfxConvHelper::parseColor(getString(attrs, SUMO_ATTR_COLOR));
+        return RGBColor::parseColor(getString(attrs, SUMO_ATTR_COLOR));
     } catch (EmptyData &) {} catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Color in vehicle '" + id + "' is not numeric.");
     }

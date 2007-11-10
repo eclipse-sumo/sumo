@@ -35,7 +35,7 @@
 #include <utils/gui/images/GUIImageGlobals.h>
 #include <utils/gui/windows/GUISUMOAbstractView.h>
 #include <utils/foxtools/MFXUtils.h>
-#include <utils/common/GfxConvHelper.h>
+#include <utils/common/RGBColor.h>
 #include <utils/gui/drawer/GUIColoringSchemesMap.h>
 #include <utils/foxtools/MFXAddEditTypedTable.h>
 #include <utils/common/ToString.h>
@@ -982,7 +982,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string &file)
         if (name=="antialiase") setting.antialiase = TplConvert<char>::_2bool(val.c_str());
         if (name=="dither") setting.dither = TplConvert<char>::_2bool(val.c_str());
 
-        if (name=="backgroundColor") setting.backgroundColor = GfxConvHelper::parseColor(val);
+        if (name=="backgroundColor") setting.backgroundColor = RGBColor::parseColor(val);
         if (name=="showGrid") setting.showGrid = TplConvert<char>::_2bool(val.c_str());
         if (name=="gridXSize") setting.gridXSize = TplConvert<char>::_2SUMOReal(val.c_str());
         if (name=="gridYSize") setting.gridYSize = TplConvert<char>::_2SUMOReal(val.c_str());
@@ -995,7 +995,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string &file)
         if (name=="maxExagg") setting.maxExagg = TplConvert<char>::_2SUMOReal(val.c_str());
         if (name=="showRails") setting.name = TplConvert<char>::_2bool(val.c_str());
         if (name=="edgeNameSize") setting.edgeNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
-        if (name=="edgeNameColor") setting.edgeNameColor = GfxConvHelper::parseColor(val);
+        if (name=="edgeNameColor") setting.edgeNameColor = RGBColor::parseColor(val);
         if (name=="nlcC") {
             string iS = val.substr(0, val.find(' '));
             string vS = StringUtils::prune(val.substr(val.find(' ')));
@@ -1003,7 +1003,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string &file)
             if (setting.laneColorings.find(index)==setting.laneColorings.end()) {
                 setting.laneColorings[index] = vector<RGBColor>();
             }
-            setting.laneColorings[index].push_back(GfxConvHelper::parseColor(vS));
+            setting.laneColorings[index].push_back(RGBColor::parseColor(vS));
         }
 
         if (name=="vehicleMode") setting.vehicleMode = TplConvert<char>::_2int(val.c_str());
@@ -1014,7 +1014,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string &file)
         if (name=="drawLaneChangePreference") setting.drawLaneChangePreference = TplConvert<char>::_2bool(val.c_str());
         if (name=="drawVehicleName") setting.drawVehicleName = TplConvert<char>::_2bool(val.c_str());
         if (name=="vehicleNameSize") setting.vehicleNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
-        if (name=="vehicleNameColor") setting.vehicleNameColor = GfxConvHelper::parseColor(val);
+        if (name=="vehicleNameColor") setting.vehicleNameColor = RGBColor::parseColor(val);
         if (name=="nvcC") {
             string iS = val.substr(0, val.find(' '));
             string vS = StringUtils::prune(val.substr(val.find(' ')));
@@ -1022,7 +1022,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string &file)
             if (setting.vehicleColorings.find(index)==setting.vehicleColorings.end()) {
                 setting.vehicleColorings[index] = vector<RGBColor>();
             }
-            setting.vehicleColorings[index].push_back(GfxConvHelper::parseColor(vS));
+            setting.vehicleColorings[index].push_back(RGBColor::parseColor(vS));
         }
 
         if (name=="junctionMode") setting.junctionMode = TplConvert<char>::_2int(val.c_str());
@@ -1030,7 +1030,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string &file)
         if (name=="drawLinkJunctionIndex") setting.drawLinkJunctionIndex = TplConvert<char>::_2bool(val.c_str());
         if (name=="drawJunctionName") setting.drawJunctionName = TplConvert<char>::_2bool(val.c_str());
         if (name=="junctionNameSize") setting.junctionNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
-        if (name=="junctionNameColor") setting.junctionNameColor = GfxConvHelper::parseColor(val);
+        if (name=="junctionNameColor") setting.junctionNameColor = RGBColor::parseColor(val);
 
         if (name=="showLane2Lane") setting.showLane2Lane = TplConvert<char>::_2bool(val.c_str());
 
@@ -1044,7 +1044,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string &file)
         if (name=="minPOISize") setting.minPOISize = TplConvert<char>::_2SUMOReal(val.c_str());
         if (name=="drawPOIName") setting.drawPOIName = TplConvert<char>::_2bool(val.c_str());
         if (name=="poiNameSize") setting.poiNameSize = TplConvert<char>::_2SUMOReal(val.c_str());
-        if (name=="poiNameColor") setting.poiNameColor = GfxConvHelper::parseColor(val);
+        if (name=="poiNameColor") setting.poiNameColor = RGBColor::parseColor(val);
 
         if (name=="showSizeLegend") setting.showSizeLegend = TplConvert<char>::_2bool(val.c_str());
 

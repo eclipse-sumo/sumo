@@ -39,7 +39,7 @@
 #include <polyconvert/PCPolyContainer.h>
 #include "PCVisum.h"
 #include <utils/geom/GeoConvHelper.h>
-#include <utils/common/GfxConvHelper.h>
+#include <utils/common/RGBColor.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -72,7 +72,7 @@ PCVisum::load(OptionsCont &oc)
     if (!out) {
         throw ProcessError("Can not open visum-file '" + file + "'.");
     }
-    RGBColor c = GfxConvHelper::parseColor(oc.getString("color"));
+    RGBColor c = RGBColor::parseColor(oc.getString("color"));
     // Polygon's Attributes
     std::string id, index, xKoord, yKoord;
     Position2DVector vec;
@@ -111,7 +111,7 @@ PCVisum::load(OptionsCont &oc)
                         const PCTypeMap::TypeDef &def = myTypeMap.get(type);
                         id = def.prefix + id;
                         type = def.id;
-                        color = GfxConvHelper::parseColor(def.color);
+                        color = RGBColor::parseColor(def.color);
                         discard = def.discard;
                         layer = def.layer;
                     } else {

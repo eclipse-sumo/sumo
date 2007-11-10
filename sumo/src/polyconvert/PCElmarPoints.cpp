@@ -40,7 +40,6 @@
 #include <utils/options/Option.h>
 #include <utils/importio/LineReader.h>
 #include <utils/common/StdDefs.h>
-#include <utils/common/GfxConvHelper.h>
 #include <polyconvert/PCPolyContainer.h>
 #include "PCElmarPoints.h"
 #include <utils/common/RGBColor.h>
@@ -82,7 +81,7 @@ PCElmarPoints::load(OptionsCont &oc)
     if (!out) {
         throw ProcessError("Can not open elmar-file '" + file + "'.");
     }
-    RGBColor c = GfxConvHelper::parseColor(oc.getString("color"));
+    RGBColor c = RGBColor::parseColor(oc.getString("color"));
 
     // Attributes of the poi
     std::string name, desc, type, ort;
@@ -140,7 +139,7 @@ PCElmarPoints::load(OptionsCont &oc)
             const PCTypeMap::TypeDef &def = myTypeMap.get(type);
             name = def.prefix + name;
             type = def.id;
-            color = GfxConvHelper::parseColor(def.color);
+            color = RGBColor::parseColor(def.color);
             discard = def.discard;
             layer = def.layer;
         } else {
