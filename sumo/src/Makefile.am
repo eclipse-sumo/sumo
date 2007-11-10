@@ -88,7 +88,6 @@ sumo_netgen_SOURCES = netgen_main.cpp
 sumo_netgen_LDFLAGS = $(XERCES_LDFLAGS) $(PROJ_LDFLAGS)
 
 sumo_netgen_LDADD   = ./netgen/libnetgen.a \
-./netbuild/nodes/libnodesnetbuild.a \
 ./netbuild/libnetbuild.a \
 ./utils/geom/libgeom.a \
 $(COMMON_LIBS) \
