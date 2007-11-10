@@ -76,6 +76,11 @@ public:
         And each color is represented as a SUMOReal. */
     static RGBColor parseColor(const std::string &coldef);
 
+    /** @brief interpolates between two colors
+        The interpolated color is calculated as a weighted average of the RGB values of minColor and
+        maxColor, giving weight to maxColor and 1-weight to minColor. */
+    static RGBColor interpolate(const RGBColor &minColor, const RGBColor &maxColor, SUMOReal weight);
+
 private:
     /// The color amounts
     SUMOReal myRed, myGreen, myBlue;

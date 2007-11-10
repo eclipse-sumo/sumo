@@ -122,5 +122,16 @@ RGBColor::parseColor(const std::string &coldef)
     return RGBColor(r, g, b);
 }
 
+RGBColor
+RGBColor::interpolate(const RGBColor &minColor, const RGBColor &maxColor, SUMOReal weight)
+{
+    if (weight < 0) weight = 0;
+    if (weight > 1) weight = 1;
+    SUMOReal r = minColor.myRed + (maxColor.myRed - minColor.myRed) * weight;
+    SUMOReal g = minColor.myGreen + (maxColor.myGreen - minColor.myGreen) * weight;
+    SUMOReal b = minColor.myBlue + (maxColor.myBlue - minColor.myBlue) * weight;
+    return RGBColor(r, g, b);
+}
+
 /****************************************************************************/
 

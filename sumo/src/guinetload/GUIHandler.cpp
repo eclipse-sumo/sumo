@@ -37,7 +37,7 @@
 #include <netload/NLHandler.h>
 #include <utils/common/TplConvert.h>
 #include <utils/geom/GeomConvHelper.h>
-#include <utils/common/GfxConvHelper.h>
+#include <utils/common/RGBColor.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
@@ -131,7 +131,7 @@ void
 GUIHandler::addVehicleType(const Attributes &attrs)
 {
     RGBColor col =
-        GfxConvHelper::parseColor(
+        RGBColor::parseColor(
             getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
     // !!! unsecure
     try {
@@ -184,7 +184,7 @@ void
 GUIHandler::openRoute(const Attributes &attrs)
 {
     myColor =
-        GfxConvHelper::parseColor(
+        RGBColor::parseColor(
             getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
     MSRouteHandler::openRoute(attrs);
 }

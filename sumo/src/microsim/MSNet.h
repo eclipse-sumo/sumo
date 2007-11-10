@@ -177,7 +177,8 @@ public:
 
     friend class MSTriggeredSource;
 
-    bool haveAllVehiclesQuit();
+    /// Returns the number of vehicles that wait for being emitted
+    size_t getWaitingVehicleNo() const;
 
     size_t getMeanDataSize() const;
     MSEdgeControl &getEdgeControl();

@@ -91,9 +91,6 @@ public:
     /// Returns the number of emitted vehicles
     size_t getEmittedVehicleNo() const;
 
-    /// Returns the number of vehicles that wait for being emitted
-    size_t getWaitingVehicleNo() const;
-
     /// Return the meaning waiting time of vehicles (corn-dependent value)
     SUMOReal getMeanWaitingTime() const;
 

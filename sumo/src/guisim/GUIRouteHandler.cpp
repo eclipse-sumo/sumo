@@ -46,7 +46,6 @@
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/RGBColor.h>
-#include <utils/common/GfxConvHelper.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSGlobals.h>
 
@@ -81,7 +80,7 @@ void
 GUIRouteHandler::addVehicleType(const Attributes &attrs)
 {
     RGBColor col =
-        GfxConvHelper::parseColor(
+        RGBColor::parseColor(
             getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
     // !!! unsecure
     try {
@@ -166,7 +165,7 @@ void
 GUIRouteHandler::openRoute(const Attributes &attrs)
 {
     myColor =
-        GfxConvHelper::parseColor(
+        RGBColor::parseColor(
             getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
     MSRouteHandler::openRoute(attrs);
 }

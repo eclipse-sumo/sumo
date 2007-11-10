@@ -92,8 +92,7 @@ public:
             } else if (val>myMax) {
                 val = myMax;
             }
-            val = val * myScale;
-            RGBColor c = (myMinColor * ((SUMOReal) 1.0 - val)) + (myMaxColor * val);
+            RGBColor c = RGBColor::interpolate(myMinColor, myMaxColor, val * myScale);
             glColor3d(c.red(), c.green(), c.blue());
         }
     }
@@ -105,8 +104,7 @@ public:
         } else if (val>myMax) {
             val = myMax;
         }
-        val = val * myScale;
-        RGBColor c = (myMinColor * ((SUMOReal) 1.0 - val)) + (myMaxColor * val);
+        RGBColor c = RGBColor::interpolate(myMinColor, myMaxColor, val * myScale);
         glColor3d(c.red(), c.green(), c.blue());
     }
 

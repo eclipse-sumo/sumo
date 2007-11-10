@@ -597,10 +597,10 @@ MSNet::writeOutput()
 }
 
 
-bool
-MSNet::haveAllVehiclesQuit()
+size_t
+MSNet::getWaitingVehicleNo() const
 {
-    return myVehicleControl->haveAllVehiclesQuit();
+    return myEmitter->getWaitingVehicleNo();
 }
 
 

@@ -247,13 +247,6 @@ MSVehicleControl::getEmittedVehicleNo() const
 }
 
 
-size_t
-MSVehicleControl::getWaitingVehicleNo() const
-{
-    return myLoadedVehNo - myEmittedVehNo;
-}
-
-
 SUMOReal
 MSVehicleControl::getMeanWaitingTime() const
 {

@@ -97,7 +97,7 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
     ret->mkItem("vehicles loaded [#]", true,
                 new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getLoadedVehicleNo));
     ret->mkItem("vehicles waiting [#]", true,
-                new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getWaitingVehicleNo));
+                new CastingFunctionBinding<GUINet, SUMOReal, size_t>(&(getNet()), &GUINet::getWaitingVehicleNo));
     ret->mkItem("end time [s]", false,
                 (SUMOReal) OptionsCont::getOptions().getInt("end"));
     ret->mkItem("begin time [s]", false,
