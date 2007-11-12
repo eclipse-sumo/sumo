@@ -565,6 +565,7 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
             //  than vsafe to the next vehicle
             vBeg = MIN2(vBeg, vSafe);
         }
+        vBeg = MAX2(vBeg, myType->getSpeedAfterMaxDecel(myState.mySpeed));
         // check whether the driver wants to let someone in
         // set next links, computing possible speeds
         vsafeCriticalCont(vBeg);
@@ -854,7 +855,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
         // compute the velocity to use when the link is not blocked by oter vehicles
         // the vehicle shall be not fastern when reaching the next lane than allowed
         SUMOReal vmaxNextLane =
-            myType->ffeV(myState.mySpeed, seen, nextLane->maxSpeed());
+            MAX2(myType->ffeV(myState.mySpeed, seen, nextLane->maxSpeed()), nextLane->maxSpeed());
 
         // the vehicle shall keep a secure distance to its predecessor
         //  (or approach the lane end if the predeccessor is too near)
@@ -994,6 +995,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
         // compute the velocity to use when the link may be used
         vLinkPass =
             MIN3(vLinkPass, vmaxNextLane, vsafePredNextLane/*, vsafeNextLaneEnd*/);
+        vLinkPass = MAX2(vLinkPass, myType->getSpeedAfterMaxDecel(myState.mySpeed)); // should not be necessary !!!
 
         // if the link may not be used (is blocked by another vehicle) then let the
         //  vehicle decelerate until the end of the street
@@ -1020,7 +1022,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
             }
         }
         myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait));
-        if (vsafePredNextLane>0&&dist-seen>0) {
+        if (vLinkPass>0&&dist-seen>0) {
             (*link)->setApproaching(this);
         } else {
             return;

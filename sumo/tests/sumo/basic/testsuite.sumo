@@ -8,3 +8,5 @@ tls
 # tests for vehicle type handling
 vtypes
 
+# tests whether vehicles move properly
+dynamics
