@@ -117,13 +117,13 @@ public:
 
 public:
     /// constructor
-    NBEdge(std::string id, std::string name,
+    NBEdge(const std::string &id, const std::string &name,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, size_t nolanes, int priority,
            LaneSpreadFunction spread=LANESPREAD_RIGHT,
            EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
 
-    NBEdge(std::string id, std::string name,
+    NBEdge(const std::string &id, const std::string &name,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, size_t nolanes, int priority,
            Position2DVector geom, LaneSpreadFunction spread=LANESPREAD_RIGHT,

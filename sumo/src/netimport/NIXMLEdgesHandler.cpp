@@ -2,7 +2,7 @@
 /// @file    NIXMLEdgesHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
+/// @version $Id:NIXMLEdgesHandler.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
 // Realises the loading of the edges given in a
 /****************************************************************************/
@@ -139,10 +139,11 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                 myCurrentEdge->setLoadedLength(myLength);
             }
             // insert the edge
+        } catch (InvalidArgument &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+            throw;
         } catch (...) {
-            MsgHandler::getErrorInstance()->inform(
-                "Important information (probably the source or the destination node) missing in edge '"
-                + myCurrentID + "'.");
+            MsgHandler::getErrorInstance()->inform("An important information is missing in edge '" + myCurrentID + "'.");
         }
     }
     if (element==SUMO_TAG_LANE) {
@@ -639,10 +640,11 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
                 MsgHandler::getErrorInstance()->inform("Duplicate edge occured. ID='" + myCurrentID + "'");
                 delete myCurrentEdge;
             }
+        } catch (InvalidArgument &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+            throw;
         } catch (...) {
-            MsgHandler::getErrorInstance()->inform(
-                "Important information (probably the source or the destination node) missing in edge '"
-                + myCurrentID + "'.");
+            MsgHandler::getErrorInstance()->inform("An important information is missing in edge '" + myCurrentID + "'.");
         }
         if (myExpansions.size()!=0) {
             std::vector<Expansion>::iterator i, i2;

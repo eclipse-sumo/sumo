@@ -393,7 +393,7 @@ NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
         no += (*i).second->eraseDummies(dc, ec, tc);
     }
     if (no!=0) {
-        WRITE_WARNING(toString<int>(no) + " dummy edges removed.");
+        WRITE_WARNING(toString<int>(no) + " dummy edge(s) removed.");
     }
 }
 

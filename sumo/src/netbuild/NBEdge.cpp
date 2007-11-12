@@ -170,7 +170,7 @@ NBEdge::MainDirections::includes(Direction d) const
 /* -------------------------------------------------------------------------
  * NBEdge-methods
  * ----------------------------------------------------------------------- */
-NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
+NBEdge::NBEdge(const string &id, const string &name, NBNode *from, NBNode *to,
                string type, SUMOReal speed, size_t nolanes,
                int priority, LaneSpreadFunction spread,
                EdgeBasicFunction basic) :
@@ -185,9 +185,11 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
         myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0)
 {
-    assert(myNolanes!=0);
+    if(myNolanes==0) {
+        throw InvalidArgument("Edge '" + id + "' has no lanes (must have at least one).");
+    }
     if (myFrom==0||myTo==0) {
-        throw std::exception();
+        throw InvalidArgument("At least one of edge's '" + id + "' nodes is not known.");
     }
     myAngle = NBHelpers::angle(
                   myFrom->getPosition().x(), myFrom->getPosition().y(),
@@ -198,7 +200,9 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
     // prepare container
     myReachable.resize(myNolanes, EdgeLaneVector());
     myLength = GeomHelper::distance(myFrom->getPosition(), myTo->getPosition());
-    assert(myFrom->getPosition()!=myTo->getPosition());
+    if(myFrom->getPosition().almostSame(myTo->getPosition())) {
+        throw InvalidArgument("Edge '" + id + "' starts at the same position as it ends on (must not).");
+    }
     myGeom.push_back(myFrom->getPosition());
     myGeom.push_back(myTo->getPosition());
 #ifdef _DEBUG
@@ -216,7 +220,7 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
 }
 
 
-NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
+NBEdge::NBEdge(const string &id, const string &name, NBNode *from, NBNode *to,
                string type, SUMOReal speed, size_t nolanes,
                int priority,
                Position2DVector geom, LaneSpreadFunction spread,
@@ -231,9 +235,14 @@ NBEdge::NBEdge(string id, string name, NBNode *from, NBNode *to,
         myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
         myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0)
 {
-    assert(myNolanes!=0);
+    if(myNolanes==0) {
+        throw InvalidArgument("Edge '" + id + "' has no lanes (must have at least one).");
+    }
     if (myFrom==0||myTo==0) {
-        throw std::exception();
+        throw InvalidArgument("At least one of edge's '" + id + "' nodes is not known.");
+    }
+    if(myFrom->getPosition().almostSame(myTo->getPosition())) {
+        throw InvalidArgument("Edge '" + id + "' starts at the same position as it ends on (must not).");
     }
     myGeom.push_back_noDoublePos(to->getPosition());
     myGeom.push_front_noDoublePos(from->getPosition());

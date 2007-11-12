@@ -8,4 +8,7 @@
 # testing bug 1821668 (false link direction computation)
 1821668
 
+# testing bug 1639436 (Zero length edges give strange error)
+1639436
+
 

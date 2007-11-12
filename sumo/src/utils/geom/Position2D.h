@@ -144,6 +144,10 @@ public:
     }
 
 
+    bool almostSame(const Position2D &p2, SUMOReal maxDiv=POSITION_EPS) const {
+        return fabs(myX-p2.myX)<maxDiv && fabs(myY-p2.myY)<maxDiv;
+    }
+
 
 private:
     /// The x-position
