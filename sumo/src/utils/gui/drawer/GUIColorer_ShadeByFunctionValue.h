@@ -46,14 +46,14 @@
 // ===========================================================================
 /**
  * @class GUIColorer_ShadeByFunctionValue
- * @brief Colors by using a retrieved value; the function must return a SUMOReal
+ * @brief Colors by using a retrieved value which is casted to SUMOReal
  */
-template<class T>
+template<class T, class D>
 class GUIColorer_ShadeByFunctionValue : public GUIBaseColorer<T>
 {
 public:
     /// Type of the function to execute.
-    typedef SUMOReal(T::* Operation)() const;
+    typedef D(T::* Operation)() const;
 
     /// Constructor
     GUIColorer_ShadeByFunctionValue(SUMOReal min, SUMOReal max,
@@ -61,7 +61,6 @@ public:
                                     Operation operation)
             : myMin(min), myMax(max), myMinColor(minC), myMaxColor(maxC),
             myOperation(operation) {
-        myScale = (SUMOReal) 1.0 / (myMax-myMin);
     }
 
     /// Destructor
@@ -72,31 +71,11 @@ public:
     //@{
     /// Sets the color using a value from the given instance of T
     void setGlColor(const T& i) const {
-        SUMOReal val = (i.*myOperation)() - myMin;
+        SUMOReal val = (SUMOReal)(i.*myOperation)();
         if (val==-1) {
             glColor3f(0.8f, 0.8f, 0.8f);
         } else {
-            if (val<myMin) {
-                val = myMin;
-            } else if (val>myMax) {
-                val = myMax;
-            }
-            RGBColor c = RGBColor::interpolate(myMinColor, myMaxColor, val * myScale);
-            glColor3d(c.red(), c.green(), c.blue());
-        }
-    }
-
-    /// Sets the color using the given value
-    void setGlColor(SUMOReal val) const {
-        if (val==-1) {
-            glColor3f(0.8f, 0.8f, 0.8f);
-        } else {
-            if (val<myMin) {
-                val = myMin;
-            } else if (val>myMax) {
-                val = myMax;
-            }
-            RGBColor c = RGBColor::interpolate(myMinColor, myMaxColor, val * myScale);
+            RGBColor c = RGBColor::interpolate(myMinColor, myMaxColor, (val-myMin)/(myMax-myMin));
             glColor3d(c.red(), c.green(), c.blue());
         }
     }
@@ -129,7 +108,7 @@ public:
 
 protected:
     /// The ranges and the resulting scale
-    SUMOReal myMin, myMax, myScale;
+    SUMOReal myMin, myMax;
 
     /// The colors to use
     RGBColor myMinColor, myMaxColor;

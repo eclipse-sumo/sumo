@@ -73,7 +73,6 @@
 #include <gui/GUIColorer_LaneNeighEdges.h>
 #include <utils/gui/drawer/GUIColorer_SingleColor.h>
 #include <utils/gui/drawer/GUIColorer_ShadeByFunctionValue.h>
-#include <utils/gui/drawer/GUIColorer_ShadeByCastedFunctionValue.h>
 #include <utils/gui/drawer/GUIColorer_ColorSettingFunction.h>
 #include <utils/gui/drawer/GUIColorer_ByDeviceNumber.h>
 #include <utils/gui/drawer/GUIColorer_ByOptCORNValue.h>
@@ -120,19 +119,19 @@ initVehicleColoringSchemes()
                (void(GUIVehicle::*)() const) &GUIVehicle::setOwnRouteColor));
     // from a vehicle's standard values
     sm.add("by speed",
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle>(
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
                0, (SUMOReal)(150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getSpeed));
     sm.add("by waiting time",
-           new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, size_t>(
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, size_t>(
                0, (SUMOReal)(5*60), RGBColor(0, 0, 1), RGBColor(1, 0, 0),
                (size_t(GUIVehicle::*)() const) &GUIVehicle::getWaitingTime));
     sm.add("by time since last lanechange",
-           new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, size_t>(
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, size_t>(
                0, (SUMOReal)(5*60), RGBColor(1, 1, 1), RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5),
                (size_t(GUIVehicle::*)() const) &GUIVehicle::getLastLaneChangeOffset));
     sm.add("by max speed",
-           new GUIColorer_ShadeByFunctionValue<GUIVehicle>(
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
                0, (SUMOReal)(150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUIVehicle::*)() const) &GUIVehicle::getMaxSpeed));
     // ... and some not always used values
@@ -172,28 +171,28 @@ initVehicleColoringSchemes()
             */
     // using C2C extensions
     sm.add("C2C: by having a device",
-           new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, bool>(
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, bool>(
                0, 1, RGBColor((SUMOReal) .8, (SUMOReal) .8, (SUMOReal) .8), RGBColor(1, 1, 0),
                (bool(GUIVehicle::*)() const) &GUIVehicle::isEquipped));
     sm.add("C2C: by number of all information",
-           new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, int>(
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, int>(
                0, (SUMOReal)(10), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (int(GUIVehicle::*)() const) &GUIVehicle::getTotalInformationNumber));  // !!!
     sm.add("C2C: by information number",
-           new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, size_t>(
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, size_t>(
                0, (SUMOReal)(200), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (size_t(GUIVehicle::*)() const) &GUIVehicle::getInformationNumber));
     sm.add("C2C: by connections number",
-           new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, size_t>(
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, size_t>(
                0, (SUMOReal)(3), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (size_t(GUIVehicle::*)() const) &GUIVehicle::getConnectionsNumber));
     sm.add("C2C: by having a route information",
-           new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, bool>(
+           new GUIColorer_ShadeByFunctionValue<GUIVehicle, bool>(
                0, 1, RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5), RGBColor(1, 1, 1),
                (bool(GUIVehicle::*)() const) &GUIVehicle::hasRouteInformation));
     /*
     sm.add("C2C: by last information time",
-        new GUIColorer_ShadeByCastedFunctionValue<GUIVehicle, bool>(
+        new GUIColorer_ShadeByFunctionValue<GUIVehicle, bool>(
             0, 1, RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5), RGBColor(1, 1, 1),
             (bool (GUIVehicle::*)() const) &GUIVehicle::getLastInfoTime));
             */
@@ -203,16 +202,16 @@ initVehicleColoringSchemes()
             vehColMap[i] = vector<RGBColor>();
             switch (sm.getColorSetType(i)) {
             case CST_SINGLE:
-                vehColMap[i].push_back(sm.getColorerInterface(i)->getSingleColor());
+                vehColMap[i].push_back(sm.getColorer(i)->getSingleColor());
                 break;
             case CST_MINMAX:
-                vehColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
-                vehColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
+                vehColMap[i].push_back(sm.getColorer(i)->getMinColor());
+                vehColMap[i].push_back(sm.getColorer(i)->getMaxColor());
                 break;
             case CST_MINMAX_OPT:
-                vehColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
-                vehColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
-                vehColMap[i].push_back(sm.getColorerInterface(i)->getFallbackColor());
+                vehColMap[i].push_back(sm.getColorer(i)->getMinColor());
+                vehColMap[i].push_back(sm.getColorer(i)->getMaxColor());
+                vehColMap[i].push_back(sm.getColorer(i)->getFallbackColor());
                 break;
             default:
                 break;
@@ -239,22 +238,22 @@ initLaneColoringSchemes()
            new GUIColorer_LaneByPurpose<GUILaneWrapper>());
     // from a lane's standard values
     sm.add("by allowed speed (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
                0, (SUMOReal)(150.0/3.6),
                RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::maxSpeed));
     sm.add("by current density (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
                0, (SUMOReal) .95,
                RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getDensity));
     sm.add("by first vehicle waiting time (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
                0, 200,
                RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::firstWaitingTime));
     sm.add("by lane number (streetwise)",
-           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper>(
+           new GUIColorer_ShadeByFunctionValue<GUILaneWrapper, SUMOReal>(
                0, (SUMOReal) 5,
                RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUILaneWrapper::*)() const) &GUILaneWrapper::getEdgeLaneNumber));
@@ -314,12 +313,12 @@ initEdgeColoringSchemes()
            new GUIColorer_LaneByPurpose<GUIEdge>());
     // from a lane's standard values
     sm.add("by allowed speed (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUIEdge>(
+           new GUIColorer_ShadeByFunctionValue<GUIEdge, SUMOReal>(
                0, (SUMOReal)(150.0/3.6),
                RGBColor(1, 0, 0), RGBColor(0, 0, 1),
                (SUMOReal(GUIEdge::*)() const) &GUIEdge::getAllowedSpeed));
     sm.add("by current density (lanewise)",
-           new GUIColorer_ShadeByFunctionValue<GUIEdge>(
+           new GUIColorer_ShadeByFunctionValue<GUIEdge, SUMOReal>(
                0, (SUMOReal) .95,
                RGBColor(0, 1, 0), RGBColor(1, 0, 0),
                (SUMOReal(GUIEdge::*)() const) &GUIEdge::getDensity));
