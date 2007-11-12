@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/02/07 10:39:41 by SUMO sumo Version dev-SVN-r4635
+<!-- generated on 11/12/07 10:40:59 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -38,7 +38,7 @@
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal05" emittedAt="100" endedAt="338">
+   <vehicle id="horizontal05" emittedAt="100" endedAt="337">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 

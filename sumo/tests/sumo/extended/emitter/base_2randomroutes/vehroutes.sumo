@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/05/07 14:34:45 by SUMO sumo Version 0.9.6
+<!-- generated on 11/12/07 10:40:57 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -21,7 +21,7 @@
 -->
 
 <vehicleroutes>
-   <vehicle id="emitter_1_1" emittedAt="3" endedAt="117">
+   <vehicle id="emitter_1_1" emittedAt="3" endedAt="116">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
@@ -29,7 +29,7 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_2_2" emittedAt="6" endedAt="120">
+   <vehicle id="emitter_2_2" emittedAt="6" endedAt="119">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
@@ -37,11 +37,11 @@
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_4_4" emittedAt="12" endedAt="126">
+   <vehicle id="emitter_4_4" emittedAt="12" endedAt="125">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_6_6" emittedAt="18" endedAt="132">
+   <vehicle id="emitter_6_6" emittedAt="18" endedAt="131">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
@@ -49,7 +49,7 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_8_8" emittedAt="24" endedAt="139">
+   <vehicle id="emitter_8_8" emittedAt="24" endedAt="138">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
