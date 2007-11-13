@@ -165,7 +165,6 @@ sumo_guisim_LDADD =  ./gui/libgui.a \
 ./utils/foxtools/libfoxtools.a \
 $(MESOGUI_LIBS) \
 $(sumo_LDADD) \
-./utils/glutils/libglutils.a \
 ./foreign/polyfonts/libpolyfonts.a \
 ./gui/GUIManipulator.o \
 -l$(LIB_FOX)
