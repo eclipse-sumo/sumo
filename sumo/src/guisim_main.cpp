@@ -78,12 +78,6 @@
 #include <utils/gui/drawer/GUIColorer_ByOptCORNValue.h>
 #include <guisim/GUIVehicle.h>
 
-
-#ifdef _WIN32
-#include <windows.h>
-#include <GL/gl.h>
-#endif
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif
