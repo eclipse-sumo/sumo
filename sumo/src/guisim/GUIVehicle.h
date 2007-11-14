@@ -83,6 +83,8 @@ public:
         static_cast<const GUIRoute&>(getRoute()).setColor();
     }
 
+    void setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue);
+
     /// @name inherited from GUIGlObject
     //@{
     /// returns the popup-menu for vehicles

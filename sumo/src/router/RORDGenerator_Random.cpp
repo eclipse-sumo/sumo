@@ -64,20 +64,9 @@ RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
         : ROAbstractRouteDefLoader(vb, net, begin, end), myIDSupplier("Rand"),
         myCurrentTime(0), myRemoveFirst(removeFirst)
 {
-    if (!OptionsCont::getOptions().isSet("random-route-color")) {
-        myColor = RGBColor(-1, -1, -1);
-        return;
-    }
-    string color =
-        OptionsCont::getOptions().getString("random-route-color");
-    StringTokenizer st(color, ";");
-    try {
-        SUMOReal r = TplConvert<char>::_2SUMOReal(st.next().c_str());
-        SUMOReal g = TplConvert<char>::_2SUMOReal(st.next().c_str());
-        SUMOReal b = TplConvert<char>::_2SUMOReal(st.next().c_str());
-        myColor = RGBColor(r, g, b);
-    } catch (...) {
-        MsgHandler::getErrorInstance()->inform("Something is wrong with the color definition for random routes\n Option: 'random-route-color'");
+    myColor = "";
+    if (OptionsCont::getOptions().isSet("random-route-color")) {
+        myColor = OptionsCont::getOptions().getString("random-route-color");
     }
 }
 
@@ -128,11 +117,7 @@ RORDGenerator_Random::myReadRoutesAtLeastUntil(SUMOTime time)
         string id = myIDSupplier.getNext();
         RORouteDef *route =
             new RORouteDef_OrigDest(id, myColor, from, to, myRemoveFirst);
-        myNet.addVehicle(id,
-                         myVehicleBuilder.buildVehicle(
-                             id, route, time, 0,
-                             RGBColor(RandHelper::rand((SUMOReal) .5, (SUMOReal) 1.), RandHelper::rand((SUMOReal) .5, (SUMOReal) 1.), RandHelper::rand((SUMOReal) .5, (SUMOReal) 1.)),
-                             -1, 0));
+        myNet.addVehicle(id, myVehicleBuilder.buildVehicle(id, route, time, 0, "", -1, 0));
         myNet.addRouteDef(route);
         myReadNewRoute = true;
         // decrement counter

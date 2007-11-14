@@ -33,6 +33,7 @@
 #include <vector>
 #include <microsim/MSRoute.h>
 #include <microsim/MSEdge.h>
+#include <guisim/GUIVehicle.h>
 #include <guisim/GUIVehicleType.h>
 #include <guisim/GUIRoute.h>
 #include <microsim/MSVehicle.h>
@@ -68,7 +69,7 @@ GUIRouteHandler::GUIRouteHandler(const std::string &file,
                                  bool addVehiclesDirectly,
                                  int incDUABase,
                                  int incDUAStage)
-        : MSRouteHandler(file, vc, addVehiclesDirectly, true, incDUABase, incDUAStage)
+        : MSRouteHandler(file, vc, addVehiclesDirectly, incDUABase, incDUAStage)
 {}
 
 
@@ -171,6 +172,30 @@ GUIRouteHandler::openRoute(const Attributes &attrs)
 }
 
 
+bool
+GUIRouteHandler::parseVehicleColor(SUMOSAXHandler &helper,
+                                   const Attributes &attrs) throw()
+{
+    try {
+        myCurrentVehicleColor = RGBColor::parseColor(helper.getStringSecure(attrs, SUMO_ATTR_COLOR, "-1,-1,-1"));
+    } catch (EmptyData &) {
+        return false;
+    } catch (NumberFormatException &) {
+        return false;
+    }
+    return true;
+}
+
+
+void
+GUIRouteHandler::closeVehicle() throw(ProcessError)
+{
+    MSRouteHandler::closeVehicle();
+    GUIVehicle *vehicle = (GUIVehicle*)myVehicleControl.getVehicle(myActiveVehicleID);
+    if (vehicle!=0&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
+        vehicle->setCORNColor(myCurrentVehicleColor.red(), myCurrentVehicleColor.green(), myCurrentVehicleColor.blue());
+    }
+}
+
 
 /****************************************************************************/
-

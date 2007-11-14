@@ -158,7 +158,11 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
 
 
 GUIVehicle::~GUIVehicle()
-{}
+{
+    if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
+        delete(RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
+    }
+}
 
 
 SUMOReal
@@ -171,21 +175,22 @@ GUIVehicle::getTimeSinceLastLaneChangeAsReal() const
 MSVehicle *
 GUIVehicle::getNextPeriodical() const
 {
-    // check whether another one shall be repated
-    if (myRepetitionNumber<=0) {
-        return 0;
-    }
-    MSVehicle *ret = MSNet::getInstance()->getVehicleControl().buildVehicle(
-                         StringUtils::version1(myID), myRoute, myDesiredDepart+myPeriod,
-                         myType, myRepetitionNumber-1, myPeriod);
-    for (std::list<Stop>::const_iterator i=myStops.begin(); i!=myStops.end(); ++i) {
-        ret->myStops.push_back(*i);
-    }
+	GUIVehicle *ret = (GUIVehicle*)MSVehicle::getNextPeriodical();
     if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
         RGBColor *col = (RGBColor *)getCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL);
         ret->setCORNColor(col->red(), col->green(), col->blue());
     }
     return ret;
+}
+
+
+void
+GUIVehicle::setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue)
+{
+    if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
+        delete(RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
+    }
+    myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL] = new RGBColor(red, green, blue);
 }
 
 

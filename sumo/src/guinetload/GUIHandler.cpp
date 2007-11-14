@@ -50,6 +50,7 @@
 #include "GUIJunctionControlBuilder.h"
 #include "GUIDetectorBuilder.h"
 #include "GUIHandler.h"
+#include <guisim/GUIVehicle.h>
 #include <guisim/GUIVehicleType.h>
 #include <guisim/GUIRoute.h>
 #include <microsim/MSGlobals.h>
@@ -78,7 +79,7 @@ GUIHandler::GUIHandler(const std::string &file,
                        int incDUABase,
                        int incDUAStage)
         : NLHandler(file, net, detBuilder, triggerBuilder,
-                    edgeBuilder, junctionBuilder, shapeBuilder, true, incDUABase, incDUAStage) // wants vehicle color
+                    edgeBuilder, junctionBuilder, shapeBuilder, incDUABase, incDUAStage)
 {}
 
 
@@ -181,16 +182,6 @@ GUIHandler::addParsedVehicleType(const string &id, const SUMOReal length,
 
 
 void
-GUIHandler::openRoute(const Attributes &attrs)
-{
-    myColor =
-        RGBColor::parseColor(
-            getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
-    MSRouteHandler::openRoute(attrs);
-}
-
-
-void
 GUIHandler::closeRoute() throw(ProcessError)
 {
     int size = myActiveRoute.size();
@@ -219,6 +210,42 @@ GUIHandler::closeRoute() throw(ProcessError)
             }
             return;
         }
+    }
+}
+
+
+void
+GUIHandler::openRoute(const Attributes &attrs)
+{
+    myColor =
+        RGBColor::parseColor(
+            getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
+    MSRouteHandler::openRoute(attrs);
+}
+
+
+bool
+GUIHandler::parseVehicleColor(SUMOSAXHandler &helper,
+                              const Attributes &attrs) throw()
+{
+    try {
+        myCurrentVehicleColor = RGBColor::parseColor(helper.getStringSecure(attrs, SUMO_ATTR_COLOR, "-1,-1,-1"));
+    } catch (EmptyData &) {
+        return false;
+    } catch (NumberFormatException &) {
+        return false;
+    }
+    return true;
+}
+
+
+void
+GUIHandler::closeVehicle() throw(ProcessError)
+{
+    MSRouteHandler::closeVehicle();
+    GUIVehicle *vehicle = (GUIVehicle*)myVehicleControl.getVehicle(myActiveVehicleID);
+    if (vehicle!=0&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
+        vehicle->setCORNColor(myCurrentVehicleColor.red(), myCurrentVehicleColor.green(), myCurrentVehicleColor.blue());
     }
 }
 

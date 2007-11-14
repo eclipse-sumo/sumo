@@ -30,7 +30,6 @@
 
 #include <iostream>
 #include <string>
-#include <utils/common/RGBColor.h>
 #include "ReferencedItem.h"
 #include "ROVehicleType.h"
 
@@ -42,7 +41,7 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROVehicleType::ROVehicleType(const std::string &id, const RGBColor &col,
+ROVehicleType::ROVehicleType(const std::string &id, const std::string &col,
                              SUMOReal length, SUMOVehicleClass vclass)
         : ReferencedItem(), myID(id), myColor(col), myLength(length),
         myClass(vclass)

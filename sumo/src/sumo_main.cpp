@@ -93,7 +93,7 @@ load(OptionsCont &oc)
     NLDetectorBuilder db(*net);
     NLTriggerBuilder tb;
     NLGeomShapeBuilder sb(*net);
-    NLHandler handler("", *net, db, tb, eb, jb, sb, false, oc.getInt("incremental-dua-base"), oc.getInt("incremental-dua-step"));
+    NLHandler handler("", *net, db, tb, eb, jb, sb, oc.getInt("incremental-dua-base"), oc.getInt("incremental-dua-step"));
     NLBuilder builder(oc, *net, eb, jb, db, tb, sb, handler);
     if (!builder.build()) {
         delete net;

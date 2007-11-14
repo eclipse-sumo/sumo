@@ -31,8 +31,6 @@
 #endif
 
 #include <string>
-#include "MSRoute.h"
-#include "MSEmitControl.h"
 #include "MSVehicle.h"
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOBaseRouteHandler.h>
@@ -44,7 +42,6 @@
 // ===========================================================================
 class MSEdge;
 class MSVehicleType;
-class RGBColor;
 
 
 // ===========================================================================
@@ -63,8 +60,7 @@ class MSRouteHandler : public SUMOSAXHandler, public SUMOBaseRouteHandler
 public:
     /// standard constructor
     MSRouteHandler(const std::string &file, MSVehicleControl &vc,
-                   bool addVehiclesDirectly, bool wantsVehicleColor,
-                   int incDUABase, int incDUAStage);
+                   bool addVehiclesDirectly, int incDUABase, int incDUAStage);
 
     /// standard destructor
     virtual ~MSRouteHandler() throw();
@@ -122,7 +118,7 @@ protected:
     void addRouteElements(const std::string &chars);
 
     /// Ends the processing of a vehicle
-    void closeVehicle() throw(ProcessError);
+    virtual void closeVehicle() throw(ProcessError);
 
 protected:
     /// The vehicle control to use for vehicle building
@@ -143,9 +139,6 @@ protected:
     /** information whether vehicles shall be directly added to the network
         or kept within the buffer */
     bool myAddVehiclesDirectly;
-
-    /** information whether colors of vehicles shall be loaded */
-    bool myWantVehicleColor;
 
     /// List of the stops the vehicle will make
     std::vector<MSVehicle::Stop> myVehicleStops;

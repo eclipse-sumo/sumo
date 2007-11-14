@@ -695,7 +695,7 @@ MSNet::buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage
     //  a) not adding the vehicles directly
     //  b) not using colors
     // (overridden in GUINet)
-    return new MSRouteLoader(*this, new MSRouteHandler(file, *myVehicleControl, false, false, incDUABase, incDUAStage));
+    return new MSRouteLoader(*this, new MSRouteHandler(file, *myVehicleControl, false, incDUABase, incDUAStage));
 }
 
 

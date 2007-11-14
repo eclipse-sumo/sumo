@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/12/07 09:54:14 by SUMO duarouter Version 0.9.6
+<!-- generated on 11/14/07 10:37:08 by SUMO duarouter Version dev-SVN-r4717
 <configuration>
 
    <input>
@@ -20,7 +20,7 @@
 -->
 
 <routes>
-   <vtype model="SUMO_KRAUSS" id="0" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00" color="1.00,1.00,0.00"/>
+   <vtype model="SUMO_KRAUSS" id="0" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00" color="1,1,0"/>
    <vehicle id="8" type="0" depart="1">
       <route>beg middle end rend</route>
    </vehicle>

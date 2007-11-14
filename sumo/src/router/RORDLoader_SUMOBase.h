@@ -32,17 +32,8 @@
 
 #include <string>
 #include "ROTypedXMLRoutesLoader.h"
-#include <utils/common/RGBColor.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/xml/SUMOBaseRouteHandler.h>
-
-
-// ===========================================================================
-// xerces 2.2 compatibility
-// ===========================================================================
-#if defined(XERCES_HAS_CPP_NAMESPACE)
-using namespace XERCES_CPP_NAMESPACE;
-#endif
 
 
 // ===========================================================================
@@ -121,13 +112,19 @@ protected:
 
     void closeVehicle() throw();
 
+    /// Stores color from the attributes
+	bool parseVehicleColor(SUMOSAXHandler &helper, const Attributes &attrs) throw();
+
 
 protected:
     /// The type of the parsed file to allow a distinction
     std::string myDataName;
 
     /// The color of the current route
-    RGBColor myCurrentColor;
+	std::string myColorString;
+
+    /// The color of the current vehicle
+	std::string myVehicleColorString;
 
     /** @brief Information whether the current route shall not be processed
         This may occure on errors */

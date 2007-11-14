@@ -32,7 +32,6 @@
 
 #include <string>
 #include <utils/common/IDSupplier.h>
-#include <utils/common/RGBColor.h>
 #include "ROAbstractRouteDefLoader.h"
 
 
@@ -96,7 +95,7 @@ private:
     IDSupplier myIDSupplier;
 
     /// The color random routes shall have
-    RGBColor myColor;
+	std::string myColor;
 
     /// The (pseudo) information about the current time
     SUMOTime myCurrentTime;

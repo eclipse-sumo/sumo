@@ -49,7 +49,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 ROVehicleType_ID::ROVehicleType_ID(const std::string &id)
-        : ROVehicleType(id, RGBColor(-1, -1, -1), 1, SVC_UNKNOWN)
+        : ROVehicleType(id, "", 1, SVC_UNKNOWN)
 {}
 
 

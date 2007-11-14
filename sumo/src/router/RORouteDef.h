@@ -33,7 +33,6 @@
 #include <string>
 #include <iostream>
 #include <utils/common/Named.h>
-#include <utils/common/RGBColor.h>
 #include "ReferencedItem.h"
 #include "ROAbstractRouter.h"
 
@@ -63,8 +62,7 @@ class RORouteDef : public ReferencedItem,
 {
 public:
     /// Constructor
-    RORouteDef(const std::string &id,
-               const RGBColor &color);
+    RORouteDef(const std::string &id, const std::string &color);
 
     /// Destructor
     virtual ~RORouteDef();
@@ -109,11 +107,11 @@ public:
     virtual size_t getAlternativesSize() const;
 
     /// Returns the color of the route
-    const RGBColor &getColor() const;
+	const std::string &getColor() const;
 
 protected:
     /// The color the route shall have
-    RGBColor myColor;
+	std::string myColor;
 
 };
 

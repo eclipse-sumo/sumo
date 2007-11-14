@@ -33,7 +33,6 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/RGBColor.h>
 #include "RORouteDef.h"
 #include "RONet.h"
 #include "RORouteDef_OrigDest.h"
@@ -94,7 +93,7 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
         myPeriodTime = getPeriod(attrs, myID);
         myNumberOfRepetitions = getRepetitionNumber(attrs, myID);
         myLane = getLane(attrs);
-        myColor = getRGBColorReporting(attrs, myID);
+        myColor = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
         // recheck attributes
         if (myDepartureTime<0) {
             MsgHandler::getErrorInstance()->inform("The departure time must be positive.");
@@ -118,17 +117,7 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
             SUMOReal eps = getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA);
             SUMOReal tau = getFloatSecure(attrs, SUMO_ATTR_TAU, DEFAULT_VEH_TAU);
 
-            RGBColor col(-1,-1,-1);
-            string colordef = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
-            if (colordef!="") {
-                try {
-                    col = RGBColor::parseColor(colordef);
-                } catch (NumberFormatException &) {
-                    MsgHandler::getErrorInstance()->inform("The color information for vehicle type '" + id + "' is not numeric.");
-                } catch (...) {
-                    MsgHandler::getErrorInstance()->inform("The color information for vehicle type '" + id + "' is malicious.");
-                }
-            }
+            string col = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
 
             SUMOVehicleClass vclass = SVC_UNKNOWN;
             string classdef = getStringSecure(attrs, SUMO_ATTR_VCLASS, "");
@@ -359,20 +348,6 @@ RORDLoader_TripDefs::getDataName() const
 {
     return "XML-trip definitions";
 }
-
-
-RGBColor
-RORDLoader_TripDefs::getRGBColorReporting(const Attributes &attrs,
-        const std::string &id)
-{
-    try {
-        return RGBColor::parseColor(getString(attrs, SUMO_ATTR_COLOR));
-    } catch (EmptyData &) {} catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Color in vehicle '" + id + "' is not numeric.");
-    }
-    return RGBColor(-1, -1, -1);
-}
-
 
 
 bool

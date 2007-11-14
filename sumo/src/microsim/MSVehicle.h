@@ -483,8 +483,6 @@ public:
 
     const MSVehicleType &getVehicleType() const;
 
-    void setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue);
-
     enum MoveOnReminderMode {
         BOTH, CURRENT
     };
@@ -671,6 +669,8 @@ protected:
     mutable const MSEdge *myLastBestLanesEdge;
     mutable std::vector<std::vector<LaneQ> > myBestLanes;
 
+    std::map<MSCORN::Pointer, void*> myPointerCORNMap;
+
 private:
 
     /** Iterator to current route-edge.  */
@@ -716,7 +716,6 @@ private:
     QuitRemindedVector myQuitReminded;
 
     std::map<MSCORN::Function, int> myIntCORNMap;
-    std::map<MSCORN::Pointer, void*> myPointerCORNMap;
 
     size_t myNoGot, myNoSent, myNoGotRelevant;
 

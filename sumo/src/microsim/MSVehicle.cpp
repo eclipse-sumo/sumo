@@ -38,7 +38,6 @@
 #include "MSDebugHelper.h"
 #include <utils/common/StringUtils.h>
 #include <utils/common/StdDefs.h>
-#include <utils/common/RGBColor.h>
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSGlobals.h>
 #include <iostream>
@@ -192,9 +191,6 @@ MSVehicle::~MSVehicle()
             delete(*i).second;
         }
         infoCont.clear();
-    }
-    if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
-        delete(RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
     }
     // persons
     if (hasCORNPointerValue(MSCORN::CORN_VEH_PASSENGER)) {
@@ -1955,16 +1951,6 @@ MSVehicle::writeXMLRoute(OutputDevice &os, int index) const
     // write the route
     route2Write->writeEdgeIDs(os);
     os << "</route>" << "\n";
-}
-
-
-void
-MSVehicle::setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue)
-{
-    if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
-        delete(RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
-    }
-    myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL] = new RGBColor(red, green, blue);
 }
 
 

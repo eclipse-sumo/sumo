@@ -34,6 +34,7 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <string>
 #include <iostream>
+#include "ROVehicleBuilder.h"
 #include "ROVehicleType.h"
 #include "RORouteDef.h"
 #include "ROVehicle.h"
@@ -57,7 +58,7 @@ using namespace std;
 ROVehicle::ROVehicle(ROVehicleBuilder &,
                      const std::string &id, RORouteDef *route,
                      unsigned int depart, ROVehicleType *type,
-                     const RGBColor &color,
+					 const std::string &color,
                      int period, int repNo)
         : myID(id), myColor(color), myType(type), myRoute(route),
         myDepartTime(depart),
@@ -104,7 +105,7 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const
         dev << " type=\"" << myType->getID() << "\"";
     }
     dev << " depart=\"" << myDepartTime << "\"";
-    if (myColor!=RGBColor(-1,-1,-1)) {
+    if (myColor!="") {
         dev << " color=\"" << myColor << "\"";
     }
     if (myRepetitionPeriod!=-1) {
@@ -143,15 +144,15 @@ ROVehicle::saveAllAsXML(OutputDevice &os,
         // write the route
         const ROEdgeVector &routee = route->getCurrentEdgeVector();
         os << "      <route";
-        const RGBColor &c = route->getColor();
-        if (c!=RGBColor(-1,-1,-1)) {
+		const std::string &c = route->getColor();
+        if (c!="") {
             os << " color=\"" << c << "\"";
         }
         os << ">" << routee << "</route>\n";
         // check whether the alternatives shall be written
         if (altos!=0) {
             (*altos) << "      <routealt last=\"" << myRoute->getLastUsedIndex() << "\"";
-            if (c!=RGBColor(-1,-1,-1)) {
+            if (c!="") {
                 (*altos) << " color=\"" << c << "\"";
             }
             (*altos) << ">\n";

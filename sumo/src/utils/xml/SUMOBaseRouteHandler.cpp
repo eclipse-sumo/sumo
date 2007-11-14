@@ -30,7 +30,6 @@
 
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <utils/common/RGBColor.h>
 #include "SUMOBaseRouteHandler.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -73,21 +72,11 @@ SUMOBaseRouteHandler::getVehicleDepartureTime(SUMOSAXHandler &helper,
 }
 
 
-RGBColor
-SUMOBaseRouteHandler::parseColor(SUMOSAXHandler &helper,
-                                 const Attributes &attrs,
-                                 const std::string &type,
-                                 const std::string &id) throw()
+bool
+SUMOBaseRouteHandler::parseVehicleColor(SUMOSAXHandler &helper,
+                                        const Attributes &attrs) throw()
 {
-    RGBColor col;
-    try {
-        col = RGBColor::parseColor(helper.getStringSecure(attrs, SUMO_ATTR_COLOR, "-1,-1,-1"));
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("The color definition for " + type + " '" + id + "' is malicious.");
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The color definition for " + type + " '" + id + "' is malicious.");
-    }
-    return col;
+	return true;
 }
 
 
@@ -113,8 +102,7 @@ SUMOBaseRouteHandler::parseVehicleClass(SUMOSAXHandler &helper,
 
 bool
 SUMOBaseRouteHandler::openVehicle(SUMOSAXHandler &helper,
-                                  const Attributes &attrs,
-                                  bool wantsVehicleColor) throw()
+                                  const Attributes &attrs) throw()
 {
     myAmInEmbeddedMode = true;
     try {
@@ -130,9 +118,8 @@ SUMOBaseRouteHandler::openVehicle(SUMOSAXHandler &helper,
     myRepNumber = helper.getIntSecure(attrs, SUMO_ATTR_REPNUMBER, -1);
     // the vehicle's route name
     myCurrentRouteName = helper.getStringSecure(attrs, SUMO_ATTR_ROUTE, "");
-    if (wantsVehicleColor) {
-        myCurrentVehicleColor =
-            parseColor(helper, attrs, "vehicle", myActiveVehicleID);
+    if (!parseVehicleColor(helper, attrs)) {
+        MsgHandler::getErrorInstance()->inform("Incorrect color definition for vehicle " + myActiveVehicleID);
     }
 
 

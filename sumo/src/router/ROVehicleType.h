@@ -32,7 +32,6 @@
 
 #include <iostream>
 #include <string>
-#include <utils/common/RGBColor.h>
 #include "ReferencedItem.h"
 #include <utils/common/SUMOVehicleClass.h>
 
@@ -54,7 +53,7 @@ class ROVehicleType : public ReferencedItem
 {
 public:
     /// Constructor
-    ROVehicleType(const std::string &id, const RGBColor &col,
+	ROVehicleType(const std::string &id, const std::string &col,
                   SUMOReal length, SUMOVehicleClass vclass);
 
     /// Destructor
@@ -78,7 +77,7 @@ protected:
     std::string myID;
 
     /// The color of the type
-    RGBColor myColor;
+	std::string myColor;
 
     /// The length of the vehicle
     SUMOReal myLength;

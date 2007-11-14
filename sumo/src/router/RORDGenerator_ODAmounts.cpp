@@ -37,13 +37,13 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/RandHelper.h>
-#include <utils/common/RGBColor.h>
 #include "RORouteDef.h"
 #include "RONet.h"
 #include "RORouteDef_OrigDest.h"
 #include "RORDGenerator_ODAmounts.h"
 #include "RORouteDefList.h"
 #include "ROVehicle.h"
+#include "ROVehicleBuilder.h"
 #include "RORunningVehicle.h"
 #include "RORouteDef_Complete.h"
 #include "ROAbstractRouteDefLoader.h"
@@ -272,7 +272,7 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const Attributes &attrs)
     myPeriodTime = -1;
     myNumberOfRepetitions = -1;
     myLane = getLane(attrs);
-    myColor = getRGBColorReporting(attrs, myID);
+    myColor = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
 }
 
 

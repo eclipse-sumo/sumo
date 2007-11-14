@@ -32,13 +32,13 @@
 
 #include <string>
 #include <iostream>
-#include <utils/common/RGBColor.h>
-#include "ROVehicleBuilder.h"
+#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
+class ROVehicleBuilder;
 class ROVehicleType;
 class RORouteDef;
 class OutputDevice;
@@ -58,7 +58,7 @@ public:
     /// Constructor
     ROVehicle(ROVehicleBuilder &vb,
               const std::string &id, RORouteDef *route, unsigned int depart,
-              ROVehicleType *type, const RGBColor &color, int period, int repNo);
+			  ROVehicleType *type, const std::string &color, int period, int repNo);
 
     /// Destructor
     virtual ~ROVehicle();
@@ -98,7 +98,7 @@ protected:
     std::string myID;
 
     /// The color of the vehicle
-    RGBColor myColor;
+	std::string myColor;
 
     /// The type of the vehicle
     ROVehicleType *myType;

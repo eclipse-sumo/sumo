@@ -34,7 +34,6 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <utils/common/SUMOTime.h>
-#include <utils/common/RGBColor.h>
 #include <utils/common/SUMOVehicleClass.h>
 
 
@@ -70,19 +69,6 @@ protected:
     /// @name parse helper (reporting errors)
     //@{
     /**
-     * @brief Parses the color definition (if given)
-     *
-     * When given, the color definition is parsed using RGBColor::parseColor.
-     *  Exceptions occuring within this process are catched and reported.
-     *
-     * If no color definition is available in the attributes, the invalid color (-1,-1,-1)
-     *  is returned.
-     */
-    RGBColor parseColor(SUMOSAXHandler &helper, const Attributes &attrs,
-                        const std::string &type, const std::string &id) throw();
-
-
-    /**
      * @brief Parses the vehicle class
      *
      * When given, the vehicle class is parsed using getVehicleClassID.
@@ -107,21 +93,28 @@ protected:
 
 
     /**
+     * @brief Parses the vehicle color
+     *
+     * This is to be overriden in subclasses which really need the color.
+     * Default implementation does nothing and returns true.
+     */
+    virtual bool parseVehicleColor(SUMOSAXHandler &helper, const Attributes &attrs) throw();
+
+
+    /**
      * @brief Parses the information from the vehicle-element; Returns whether it succeeded
      *
-     * Tries to parse: the vehicle id, the repetition number oand offset, the route
-     *  name, optionally the color (if wantsVehicleColor==true), the name of the vehicle
-     *  type and the departure time.
+     * Tries to parse: the vehicle id, the repetition number and offset, the route
+     *  name, the name of the vehicle type and the departure time.
      *
      * Error messages are generated if something fails. The method returns false if one
-     *  of the mandatory values is missing: the vehicle id, the pearture time and if
+     *  of the mandatory values is missing: the vehicle id, the departure time and if
      *  the vehicle type is given but empty.
      *
      * The method also sets myAmInEmbeddedMode to true which allows starting to process
      *  additional, embedded values.
      */
-    bool openVehicle(SUMOSAXHandler &helper, const Attributes &attrs,
-                     bool wantsVehicleColor) throw();
+    bool openVehicle(SUMOSAXHandler &helper, const Attributes &attrs) throw();
 
 
     /** @brief Closes the processing of a vehicle
@@ -156,9 +149,6 @@ protected:
 
     /// infomration whether the route is read in vehicle-embedded mode
     bool myAmInEmbeddedMode;
-
-    /// The vehicle's color
-    RGBColor myCurrentVehicleColor;
     //@}
 
     /// information whether an error occured

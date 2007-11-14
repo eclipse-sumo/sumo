@@ -45,7 +45,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/StringTokenizer.h>
 #include <utils/common/UtilExceptions.h>
-#include <utils/common/RGBColor.h>
 #include <utils/options/OptionsCont.h>
 #include "MSNet.h"
 
@@ -70,14 +69,12 @@ using namespace std;
 MSRouteHandler::MSRouteHandler(const std::string &file,
                                MSVehicleControl &vc,
                                bool addVehiclesDirectly,
-                               bool wantsVehicleColor,
                                int incDUABase,
                                int incDUAStage)
         : SUMOSAXHandler(file),
         myVehicleControl(vc),
         myLastDepart(0), myLastReadVehicle(0),
         myAddVehiclesDirectly(addVehiclesDirectly),
-        myWantVehicleColor(wantsVehicleColor),
         myAmUsingIncrementalDUA(incDUAStage>0),
         myRunningVehicleNumber(0),
         myIncrementalBase(incDUABase),
@@ -113,7 +110,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
 {
     switch (element) {
     case SUMO_TAG_VEHICLE:
-        openVehicle(*this, attrs, myWantVehicleColor);
+        openVehicle(*this, attrs);
         break;
     case SUMO_TAG_VTYPE:
         addVehicleType(attrs);
@@ -408,10 +405,6 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
             vehicle =
                 MSNet::getInstance()->getVehicleControl().buildVehicle(myActiveVehicleID,
                         route, myCurrentDepart, vtype, myRepNumber, myRepOffset);
-            // check whether the color information shall be set
-            if (myWantVehicleColor&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
-                vehicle->setCORNColor(myCurrentVehicleColor.red(), myCurrentVehicleColor.green(), myCurrentVehicleColor.blue());
-            }
             // add the vehicle to the vehicle control
             myVehicleControl.addVehicle(myActiveVehicleID, vehicle);
         }

@@ -39,7 +39,6 @@
 class RORouteDef;
 class ROVehicle;
 class RORunningVehicle;
-class RGBColor;
 class ROVehicleType;
 
 // ===========================================================================
@@ -57,12 +56,12 @@ public:
 
     virtual ROVehicle *buildVehicle(const std::string &id, RORouteDef *route,
                                     unsigned int depart, ROVehicleType *type,
-                                    const RGBColor &color, int period, int repNo);
+									const std::string &color, int period, int repNo);
 
     virtual RORunningVehicle *buildRunningVehicle(const std::string &id,
             RORouteDef *route, SUMOTime time, ROVehicleType *type,
             const std::string &lane, SUMOReal pos, SUMOReal speed,
-            const RGBColor &col, int period, int repNo);
+			const std::string &col, int period, int repNo);
 
 
 };

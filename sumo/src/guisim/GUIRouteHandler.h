@@ -69,9 +69,18 @@ protected:
     /// Starts route processing
     void openRoute(const Attributes &attrs);
 
+    /// Parses color from the attributes and stores it in myCurrentVehicleColor
+	bool parseVehicleColor(SUMOSAXHandler &helper, const Attributes &attrs) throw();
+
+    /// Ends the processing of a vehicle
+    void closeVehicle() throw(ProcessError);
+
 private:
     /// The currently parsed route's color
     RGBColor myColor;
+
+    /// The vehicle's color
+    RGBColor myCurrentVehicleColor;
 
 private:
     /** invalid copy constructor */

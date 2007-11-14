@@ -85,7 +85,7 @@ public:
               NLEdgeControlBuilder &edgeBuilder,
               NLJunctionControlBuilder &junctionBuilder,
               NLGeomShapeBuilder &shapeBuilder,
-              bool wantsVehicleColor, int incDUABase, int incDUAStage);
+              int incDUABase, int incDUAStage);
 
     /// Destructor
     virtual ~NLHandler() throw();

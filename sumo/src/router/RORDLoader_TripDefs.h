@@ -32,7 +32,6 @@
 
 #include <string>
 #include <utils/options/OptionsCont.h>
-#include <utils/common/RGBColor.h>
 #include <utils/common/IDSupplier.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "ROTypedXMLRoutesLoader.h"
@@ -115,9 +114,6 @@ protected:
         This value is optional */
     std::string getLane(const Attributes &attrs);
 
-    RGBColor getRGBColorReporting(const Attributes &attrs,
-                                  const std::string &id);
-
 protected:
     /// generates numerical ids
     IDSupplier myIdSupplier;
@@ -161,7 +157,7 @@ protected:
     ROEdgeVector myEdges;
 
     /// The color of the vehicle
-    RGBColor myColor;
+	std::string myColor;
 
     /// The information whether the next route was read
     bool myNextRouteRead;

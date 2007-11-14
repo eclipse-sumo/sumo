@@ -62,7 +62,6 @@ class MSJunctionControl;
 class MSEmitControl;
 class MSRouteLoaderControl;
 class Event;
-class RGBColor;
 class MSVehicle;
 class MSRoute;
 class MSVehicleType;

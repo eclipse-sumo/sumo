@@ -57,7 +57,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORouteDef::RORouteDef(const std::string &id, const RGBColor &color)
+RORouteDef::RORouteDef(const std::string &id, const std::string &color)
         : ReferencedItem(), Named(StringUtils::convertUmlaute(id)),
         myColor(color)
 {}
@@ -99,7 +99,7 @@ RORouteDef::getAlternativesSize() const
 }
 
 
-const RGBColor &
+const std::string &
 RORouteDef::getColor() const
 {
     return myColor;
