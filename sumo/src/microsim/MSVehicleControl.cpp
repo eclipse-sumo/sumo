@@ -300,139 +300,119 @@ MSVehicleControl::vehicleMoves(MSVehicle *)
 void
 MSVehicleControl::saveState(std::ostream &os)
 {
-    FileHelpers::writeUInt(os, myLoadedVehNo);
-    FileHelpers::writeUInt(os, myEmittedVehNo);
     FileHelpers::writeUInt(os, myRunningVehNo);
     FileHelpers::writeUInt(os, myEndedVehNo);
 
     FileHelpers::writeInt(os, myAbsVehWaitingTime);
     FileHelpers::writeInt(os, myAbsVehTravelTime);
     // save vehicle types
-    {
-        FileHelpers::writeUInt(os, myVTypeDict.size());
-        for (VehTypeDictType::iterator it=myVTypeDict.begin(); it!=myVTypeDict.end(); ++it) {
-            (*it).second->saveState(os);
-        }
+    FileHelpers::writeUInt(os, myVTypeDict.size());
+    for (VehTypeDictType::iterator it=myVTypeDict.begin(); it!=myVTypeDict.end(); ++it) {
+        (*it).second->saveState(os);
     }
     MSRoute::dict_saveState(os);
     // save vehicles
-    {
-        FileHelpers::writeUInt(os, myVehicleDict.size());
-        for (VehicleDictType::iterator it = myVehicleDict.begin(); it!=myVehicleDict.end(); ++it) {
-            if ((*it).second->hasCORNIntValue(MSCORN::CORN_VEH_REALDEPART)) {
-                (*it).second->saveState(os);
-            }
+    FileHelpers::writeUInt(os, myVehicleDict.size());
+    for (VehicleDictType::iterator it = myVehicleDict.begin(); it!=myVehicleDict.end(); ++it) {
+        if ((*it).second->hasCORNIntValue(MSCORN::CORN_VEH_REALDEPART)) {
+            (*it).second->saveState(os);
         }
-        FileHelpers::writeString(os, "-----------------end---------------");
     }
 }
 
 void
 MSVehicleControl::loadState(BinaryInputDevice &bis)
 {
-    bis >> myLoadedVehNo;
-    bis >> myEmittedVehNo;
     bis >> myRunningVehNo;
     bis >> myEndedVehNo;
+    myLoadedVehNo = myEndedVehNo;
+    myEmittedVehNo = myRunningVehNo + myEndedVehNo;
 
     bis >> myAbsVehWaitingTime;
     bis >> myAbsVehTravelTime;
 
-//    long t;
-    //os >> t;
     // load vehicle types
-    {
-        unsigned int size;
-        bis >> size;
-        while (size-->0) {
-            string id;
-            SUMOReal length, maxSpeed, accel, decel, dawdle, tau;
-            int vclass;
-            bis >> id;
-            bis >> length;
-            bis >> maxSpeed;
-            bis >> accel;
-            bis >> decel;
-            bis >> dawdle;
-            bis >> tau;
-            bis >> vclass;
-            MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, tau, (SUMOVehicleClass) vclass);
-            addVType(t, 1.); // !!!
-        }
+    unsigned int size;
+    bis >> size;
+    while (size-->0) {
+        string id;
+        SUMOReal length, maxSpeed, accel, decel, dawdle, tau;
+        int vclass;
+        bis >> id;
+        bis >> length;
+        bis >> maxSpeed;
+        bis >> accel;
+        bis >> decel;
+        bis >> dawdle;
+        bis >> tau;
+        bis >> vclass;
+        MSVehicleType *t = new MSVehicleType(id, length, maxSpeed, accel, decel, dawdle, tau, (SUMOVehicleClass) vclass);
+        addVType(t, 1.); // !!!
     }
     MSRoute::dict_loadState(bis);
-    {
-        // load vehicles
-        unsigned int size;
-        bis >> size;
+    // load vehicles
+    bis >> size;
+    while (size-->0) {
         string id;
-        do {
-            bis >> id;
-            if (id!="-----------------end---------------") {
-                SUMOTime lastLaneChangeOffset;
-                bis >> lastLaneChangeOffset; // !!! check type= FileHelpers::readInt(os);
-                unsigned int waitingTime;
-                bis >> waitingTime;
-                int repetitionNumber;
-                bis >> repetitionNumber;
-                int period;
-                bis >> period;
-                string routeID;
-                bis >> routeID;
-                MSRoute* route;
-                unsigned int desiredDepart;
-                bis >> desiredDepart;
-                string typeID;
-                bis >> typeID;
-                const MSVehicleType* type;
-                unsigned int routeOffset;
-                bis >> routeOffset;
-                unsigned int wasEmitted;
-                bis >> wasEmitted;
+        bis >> id;
+        SUMOTime lastLaneChangeOffset;
+        bis >> lastLaneChangeOffset; // !!! check type= FileHelpers::readInt(os);
+        unsigned int waitingTime;
+        bis >> waitingTime;
+        int repetitionNumber;
+        bis >> repetitionNumber;
+        int period;
+        bis >> period;
+        string routeID;
+        bis >> routeID;
+        MSRoute* route;
+        unsigned int desiredDepart;
+        bis >> desiredDepart;
+        string typeID;
+        bis >> typeID;
+        const MSVehicleType* type;
+        unsigned int routeOffset;
+        bis >> routeOffset;
+        unsigned int wasEmitted;
+        bis >> wasEmitted;
 #ifdef HAVE_MESOSIM
-                unsigned int segIndex;
-                bis >> segIndex;
-                SUMOReal tEvent;
-                bis >> tEvent;
-                SUMOReal tLastEntry;
-                bis >> tLastEntry;
-                bool inserted;
-                bis >> inserted;
+        unsigned int segIndex;
+        bis >> segIndex;
+        SUMOReal tEvent;
+        bis >> tEvent;
+        SUMOReal tLastEntry;
+        bis >> tLastEntry;
+        bool inserted;
+        bis >> inserted;
 #endif
-                route = MSRoute::dictionary(routeID);
-                assert(route!=0);
-                type = getVType(typeID);
-                assert(type!=0);
-                if (getVehicle(id)!=0) {
-                    MsgHandler::getErrorInstance()->inform("Error: Vehicle " + id + " was already added!");
-                    continue;
-                }
+        route = MSRoute::dictionary(routeID);
+        assert(route!=0);
+        type = getVType(typeID);
+        assert(type!=0);
+        assert(getVehicle(id)==0);
 
-                MSVehicle *v = buildVehicle(id, route, desiredDepart, type, repetitionNumber, period);
-                v->myIntCORNMap[MSCORN::CORN_VEH_REALDEPART] = wasEmitted;
-                while (routeOffset>0) {
-                    v->myCurrEdge++;
-                    routeOffset--;
-                }
+        MSVehicle *v = buildVehicle(id, route, desiredDepart, type, repetitionNumber, period);
+        v->myIntCORNMap[MSCORN::CORN_VEH_REALDEPART] = wasEmitted;
+        while (routeOffset>0) {
+            v->myCurrEdge++;
+            routeOffset--;
+        }
 #ifdef HAVE_MESOSIM
-                if (MSGlobals::gUseMesoSim) {
-                    v->seg = MSGlobals::gMesoNet->getSegmentForEdge(*(v->myCurrEdge));
-                    while (v->seg->get_index()!=segIndex) {
-                        v->seg = MSGlobals::gMesoNet->next_segment(v->seg, v);
-                    }
-                    v->tEvent = tEvent;
-                    v->tLastEntry = tLastEntry;
-                    v->inserted = inserted!=0;
-                }
-#endif
-                if (!addVehicle(id, v)) {
-                    MsgHandler::getErrorInstance()->inform("Error: Could not build vehicle " + id + "!");
-                }
-                size--;
+        if (MSGlobals::gUseMesoSim) {
+            v->seg = MSGlobals::gMesoNet->getSegmentForEdge(*(v->myCurrEdge));
+            while (v->seg->get_index()!=segIndex) {
+                v->seg = MSGlobals::gMesoNet->next_segment(v->seg, v);
             }
-        } while (id!="-----------------end---------------");
-        DEBUG_OUT << myVehicleDict.size() << " vehicles loaded."; // !!! verbose
+            v->tEvent = tEvent;
+            v->tLastEntry = tLastEntry;
+            v->inserted = inserted!=0;
+        }
+#endif
+        if (!addVehicle(id, v)) {
+            MsgHandler::getErrorInstance()->inform("Error: Could not build vehicle " + id + "!");
+        }
     }
+    DEBUG_OUT << myVehicleDict.size() << " vehicles loaded."; // !!! verbose
 }
 
 
