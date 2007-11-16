@@ -63,7 +63,7 @@ using namespace std;
 // member method definitions
 // ===========================================================================
 MSVehicleControl::MSVehicleControl()
-        : myLoadedVehNo(0), myEmittedVehNo(0), myRunningVehNo(0), myEndedVehNo(0),
+        : myLoadedVehNo(0), myRunningVehNo(0), myEndedVehNo(0),
         myAbsVehWaitingTime(0), myAbsVehTravelTime(0), myHaveDefaultVTypeOnly(true)
 {
     // add a default vehicle type (probability to choose=1)
@@ -243,17 +243,17 @@ MSVehicleControl::getRunningVehicleNo() const
 size_t
 MSVehicleControl::getEmittedVehicleNo() const
 {
-    return myEmittedVehNo;
+    return myRunningVehNo + myEndedVehNo;
 }
 
 
 SUMOReal
 MSVehicleControl::getMeanWaitingTime() const
 {
-    if (myEmittedVehNo==0) {
+    if (getEmittedVehicleNo()==0) {
         return -1;
     }
-    return (SUMOReal) myAbsVehWaitingTime / (SUMOReal) myEmittedVehNo;
+    return (SUMOReal) myAbsVehWaitingTime / (SUMOReal) getEmittedVehicleNo();
 }
 
 
@@ -270,7 +270,6 @@ MSVehicleControl::getMeanTravelTime() const
 void
 MSVehicleControl::vehiclesEmitted(size_t no)
 {
-    myEmittedVehNo += no;
     myRunningVehNo += no;
 }
 
@@ -326,7 +325,6 @@ MSVehicleControl::loadState(BinaryInputDevice &bis)
     bis >> myRunningVehNo;
     bis >> myEndedVehNo;
     myLoadedVehNo = myEndedVehNo;
-    myEmittedVehNo = myRunningVehNo + myEndedVehNo;
 
     bis >> myAbsVehWaitingTime;
     bis >> myAbsVehTravelTime;

@@ -135,9 +135,6 @@ protected:
     /// The number of build vehicles
     unsigned int myLoadedVehNo;
 
-    /// The number of emitted vehicles
-    unsigned int myEmittedVehNo;
-
     /// The number of vehicles within the network (build and emitted but not removed)
     unsigned int myRunningVehNo;
 
