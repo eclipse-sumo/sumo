@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/19/07 14:18:35 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <additional-files>input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml</additional-files>
+   </input>
+
+   <time>
+      <begin>0</begin>
+      <end>1000</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<detector>
+   <interval begin="0" end="99" id="3/1to2/1" queueLengthAheadOfTrafficLightsInVehiclesMax="0.00" densityMean="2.13" maxJamLengthInVehiclesMean="0.00" maxJamLengthInMetersMean="0.00" jamLengthSumInVehiclesMean="0.00" jamLengthSumInMetersMean="0.00" queueLengthAheadOfTrafficLightsInVehiclesMean="0.00" queueLengthAheadOfTrafficLightsInMetersMean="0.00" nE2VehiclesMean="0.43" occupancyDegreeMean="0.01" spaceMeanSpeedMean="3.03" currentHaltingDurationSumPerVehicleMean="0.00" nStartedHaltsSum="0.00" haltDurationMean="0.00" />
+   <interval begin="0" end="99" id="4/1to3/1" queueLengthAheadOfTrafficLightsInVehiclesMax="0.00" densityMean="11.75" maxJamLengthInVehiclesMean="0.00" maxJamLengthInMetersMean="0.00" jamLengthSumInVehiclesMean="0.00" jamLengthSumInMetersMean="0.00" queueLengthAheadOfTrafficLightsInVehiclesMean="0.00" queueLengthAheadOfTrafficLightsInMetersMean="0.00" nE2VehiclesMean="2.35" occupancyDegreeMean="0.06" spaceMeanSpeedMean="9.42" currentHaltingDurationSumPerVehicleMean="0.00" nStartedHaltsSum="0.00" haltDurationMean="0.00" />
+   <interval begin="100" end="126" id="3/1to2/1" queueLengthAheadOfTrafficLightsInVehiclesMax="0.00" densityMean="0.00" maxJamLengthInVehiclesMean="0.00" maxJamLengthInMetersMean="0.00" jamLengthSumInVehiclesMean="0.00" jamLengthSumInMetersMean="0.00" queueLengthAheadOfTrafficLightsInVehiclesMean="0.00" queueLengthAheadOfTrafficLightsInMetersMean="0.00" nE2VehiclesMean="0.00" occupancyDegreeMean="0.00" spaceMeanSpeedMean="0.00" currentHaltingDurationSumPerVehicleMean="0.00" nStartedHaltsSum="0.00" haltDurationMean="0.00" />
+   <interval begin="100" end="126" id="4/1to3/1" queueLengthAheadOfTrafficLightsInVehiclesMax="0.00" densityMean="10.00" maxJamLengthInVehiclesMean="0.00" maxJamLengthInMetersMean="0.00" jamLengthSumInVehiclesMean="0.00" jamLengthSumInMetersMean="0.00" queueLengthAheadOfTrafficLightsInVehiclesMean="0.00" queueLengthAheadOfTrafficLightsInMetersMean="0.00" nE2VehiclesMean="2.00" occupancyDegreeMean="0.05" spaceMeanSpeedMean="9.50" currentHaltingDurationSumPerVehicleMean="0.00" nStartedHaltsSum="0.00" haltDurationMean="0.00" />
+</detector>
