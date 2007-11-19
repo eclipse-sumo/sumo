@@ -216,7 +216,6 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "off",            SUMO_ATTR_OFF },
     { "friendly_pos",   SUMO_ATTR_FRIENDLY_POS },
     { "uncontrolled",   SUMO_ATTR_UNCONTROLLED },
-    { "vehtype",        SUMO_ATTR_VEHTYPE },
     { "pass",           SUMO_ATTR_PASS },
     { "forceLength",    SUMO_ATTR_FORCE_LENGTH },
     { "bus_stop",       SUMO_ATTR_BUS_STOP },

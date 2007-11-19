@@ -8442,7 +8442,7 @@ myDet1;0;10;2;100;80
 
       <para>We will now describe the emitters more deeply.</para>
 
-      <sect2 id="user_chp06-vehicle_handling-emitter" revision="0.9.5">
+      <sect2 id="user_chp06-vehicle_handling-emitter" revision="0.10">
         <title>Emitter</title>
 
         <para>Emitters may be used to define flows using induction loops as
@@ -8464,6 +8464,11 @@ myDet1;0;10;2;100;80
             <para>Although emitters are available for a long time already,
             their description has been added while working on version
             0.9.5</para>
+          </listitem>
+
+          <listitem>
+            <para>The attribute vehtype was renamed to type while working on
+            version 0.10</para>
           </listitem>
         </itemizedlist>
 
@@ -8526,9 +8531,9 @@ myDet1;0;10;2;100;80
           explicitely:</para>
 
           <programlisting><sgmltag>&lt;triggeredsource&gt;
-   &lt;emit id="veh1" time="0" vehtype="my_type" route="my_route" speed="13.9"/&gt;
-   &lt;emit id="veh2" time="4" vehtype="my_type" route="my_route" speed="13.9"/&gt;
-   &lt;emit id="veh3" time="8" vehtype="my_type" route="my_route" speed="13.9"/&gt;
+   &lt;emit id="veh1" time="0" type="my_type" route="my_route" speed="13.9"/&gt;
+   &lt;emit id="veh2" time="4" type="my_type" route="my_route" speed="13.9"/&gt;
+   &lt;emit id="veh3" time="8" type="my_type" route="my_route" speed="13.9"/&gt;
 &lt;/triggeredsource&gt;
 </sgmltag></programlisting>
 
@@ -8546,7 +8551,7 @@ myDet1;0;10;2;100;80
           seconds 0, 4, and 8. To summarize, a vehicle emission within an
           Emitter definition is described as following: <sgmltag>&lt;emit
           [id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>"]
-          [vehtype="<replaceable>&lt;VEHICLE_TYPE&gt;</replaceable>"]
+          [type="<replaceable>&lt;VEHICLE_TYPE&gt;</replaceable>"]
           time="<replaceable>&lt;EMISSION_TIME&gt;</replaceable>"
           [route="<replaceable>&lt;VEHICLE_ROUTE&gt;</replaceable>"]
           [speed="<replaceable>&lt;INITIAL_SPEED&gt;</replaceable>"]/&gt;</sgmltag>.
@@ -8559,7 +8564,7 @@ myDet1;0;10;2;100;80
             </listitem>
 
             <listitem>
-              <para><sgmltag>vehtype</sgmltag>: Name of the vehicle type the
+              <para><sgmltag>type</sgmltag>: Name of the vehicle type the
               vehicle to emit shall have</para>
             </listitem>
 
@@ -8606,8 +8611,8 @@ myDet1;0;10;2;100;80
    &lt;routedistelem id="my_route1" probability=".2"/&gt;
    &lt;routedistelem id="my_route2" probability=".8"/&gt;
 
-   &lt;emit id="veh1" time="0" vehtype="my_type" speed="13.9"/&gt;
-   &lt;emit id="veh2" time="4" vehtype="my_type" speed="13.9"/&gt;
+   &lt;emit id="veh1" time="0" type="my_type" speed="13.9"/&gt;
+   &lt;emit id="veh2" time="4" type="my_type" speed="13.9"/&gt;
 &lt;/triggeredsource&gt;
 </sgmltag></programlisting>
 

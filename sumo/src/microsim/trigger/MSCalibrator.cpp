@@ -342,7 +342,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
             }
         }
         // check and assign vehicle type
-        string emitType = getStringSecure(attrs, SUMO_ATTR_VEHTYPE, "");
+        string emitType = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
         MSVehicleType* aVehType = MSNet::getInstance()->getVehicleControl().getVType(emitType);
         if (aVehType == 0) {
             if (myVTypeDist.getOverallProb()!=0) {

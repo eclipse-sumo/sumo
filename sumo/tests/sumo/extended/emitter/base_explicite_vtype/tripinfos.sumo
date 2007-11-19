@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+
+<!-- generated on 11/19/07 13:25:30 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <additional-files>input_routes.rou.xml,input_additional.add.xml</additional-files>
+   </input>
+
+   <output>
+      <tripinfo-output>tripinfos.xml</tripinfo-output>
+   </output>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<tripinfos>
+   <tripinfo vehicle_id="emitter_0_0" start="0" wished="0" end="118" duration="118" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="emitter_2_2" start="6" wished="2" end="171" duration="165" waited="4" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="emitter_4_4" start="12" wished="4" end="178" duration="166" waited="8" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="emitter_6_6" start="19" wished="6" end="184" duration="165" waited="13" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="emitter_8_8" start="25" wished="8" end="190" duration="165" waited="17" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="emitter_1_1" start="3" wished="1" end="196" duration="193" waited="2" reroutes="0" devices="" vtype="t2"/>
+   <tripinfo vehicle_id="emitter_3_3" start="9" wished="3" end="202" duration="193" waited="6" reroutes="0" devices="" vtype="t2"/>
+   <tripinfo vehicle_id="emitter_5_5" start="15" wished="5" end="209" duration="194" waited="10" reroutes="0" devices="" vtype="t2"/>
+   <tripinfo vehicle_id="emitter_7_7" start="22" wished="7" end="215" duration="193" waited="15" reroutes="0" devices="" vtype="t2"/>
+   <tripinfo vehicle_id="emitter_9_9" start="29" wished="9" end="222" duration="193" waited="20" reroutes="0" devices="" vtype="t2"/>
+</tripinfos>
