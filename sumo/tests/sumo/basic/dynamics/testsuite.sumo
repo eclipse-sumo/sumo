@@ -1,3 +1,7 @@
 
 # One vehicle moving along not yielding edges (achived through tls); should move constantly with 10m/s
 one_vehicle_10m_per_s_high_prio
+
+# Same as one_vehicle_10m_per_s_high_prio but two vehicles are moving (5 seconds time between emissions)
+two_vehicles_10m_per_s_high_prio
+
