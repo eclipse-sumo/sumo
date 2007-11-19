@@ -81,7 +81,7 @@ RODFDetectorHandler::myStartElement(SumoXMLTag element,
         }
         SUMOReal pos;
         try {
-            pos = getFloat(attrs, SUMO_ATTR_POS);
+            pos = getFloat(attrs, SUMO_ATTR_POSITION);
         } catch (EmptyData&) {
             throw ProcessError("A detector without a lane position occured within '" + getFileName() + "' (detector id='" + id + ").");
         } catch (NumberFormatException&) {

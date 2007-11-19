@@ -43,8 +43,6 @@
 enum SumoXMLTag {
     /** invalid tag */
     SUMO_TAG_NOTHING,
-    /** begin/end of the simulation description */
-    SUMO_TAG_SIMULATION,
     /** begin/end of the description of an edge */
     SUMO_TAG_EDGE,
     /** begin/end of the description of a single lane */
@@ -83,8 +81,6 @@ enum SumoXMLTag {
     SUMO_TAG_SUCCLANE,
     /** begin/end of the key of a junction */
     SUMO_TAG_KEY,
-    /** begin/end of the list of junction logic parts */
-    SUMO_TAG_JUNCTIONLOGIC,
     /** begin of a right-of-way logic */
     SUMO_TAG_ROWLOGIC,
     /** the request size (of a junction logic) */
@@ -109,10 +105,6 @@ enum SumoXMLTag {
     SUMO_TAG_TLLOGIC,
     /** the time offset from the first switch */
     SUMO_TAG_OFFSET,
-    /** the initial step of the traffic light */
-    SUMO_TAG_INITSTEP,
-    /** the number of phases of the traffic light */
-    SUMO_TAG_PHASENO,
     /** a single phase description */
     SUMO_TAG_PHASE,
     /** the route alternatives */
@@ -144,8 +136,6 @@ enum SumoXMLTag {
     /// Sink(s) specification
     SUMO_TAG_SINK,
     SUMO_TAG_SUPPLEMENTARY_WEIGHTS,
-    SUMO_TAG_WEIGHT,
-    SUMO_TAG_REROUTE_AGENT,
     SUMO_TAG_PARAM,
     SUMO_TAG_WAUT,
     SUMO_TAG_WAUT_SWITCH,
@@ -169,11 +159,6 @@ enum SumoXMLTag {
     SUMO_TAG_NODE,
     SUMO_TAG_TYPE,
     SUMO_TAG_DETECTOR_DEFINITION,
-    SUMO_TAG_ROUTE_INTERVAL,
-    SUMO_TAG_VTYPE_INTERVAL,
-    SUMO_TAG_STATE_INTERVAL,
-    SUMO_TAG_ROUTE_DIST,
-    SUMO_TAG_VTYPE_DIST
 };
 
 
@@ -225,15 +210,14 @@ enum SumoXMLAttr {
     SUMO_ATTR_COST,
     SUMO_ATTR_PROB,
     /* trip definition attributes */
-    SUMO_ATTR_POS,
     SUMO_ATTR_LANE,
     SUMO_ATTR_FROM,
     SUMO_ATTR_TO,
     SUMO_ATTR_PERIOD,
     /* source definitions */
-    SUMO_ATTR_FUNC,
+    SUMO_ATTR_FUNCTION,
     SUMO_ATTR_POSITION,
-    SUMO_ATTR_SPLINTERVAL,
+    SUMO_ATTR_FREQUENCY,
     SUMO_ATTR_STYLE,
     SUMO_ATTR_FILE,
     SUMO_ATTR_JUNCTION,
@@ -252,10 +236,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_OBJECTID,
     /** trigger: the time of the step */
     SUMO_ATTR_TIME,
-    /** routes: information whether not only one vehicle uses the route */
-    SUMO_ATTR_MULTIR,
-    /** weights: one possible value */
-    SUMO_ATTR_TRAVELTIME,
     /** weights: time range begin */
     SUMO_ATTR_BEGIN,
     /** weights: time range end */
@@ -265,7 +245,7 @@ enum SumoXMLAttr {
     /** link: the index of the link within the traffic light */
     SUMO_ATTR_TLLINKNO,
     /** edge: the shape in xml-definition */
-    SUMO_ATTR_SHAPE ,
+    SUMO_ATTR_SHAPE,
     /// The information about how to spread the lanes from the given position
     SUMO_ATTR_SPREADFUNC,
     /// A color information
@@ -303,28 +283,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_JAM_DIST_THRESHOLD,
     SUMO_ATTR_DELETE_DATA_AFTER_SECONDS,
     SUMO_ATTR_DET_OFFSET,
-    /// The number of vehicles to emit (od-amount
-    SUMO_ATTR_VEHNO,
-    /// The percentage of something
-    SUMO_ATTR_PERC,
-    SUMO_ATTR_EDGE_ID,
-    SUMO_ATTR_ABSOLUT,
-    SUMO_ATTR_MULT,
-    SUMO_ATTR_ADD,
-
-    SUMO_ATTR_DIST,
-    SUMO_ATTR_ONEDGES,
-    SUMO_ATTR_SEESEDGES,
-    SUMO_ATTR_PERIODBEGIN,
-    SUMO_ATTR_VIEWDIST,
-    SUMO_ATTR_ONESHOT,
-
-    // IP host name as string or dotted IP address (aaa.bbb.ccc.ddd)
-    SUMO_ATTR_HOST,
-    // IP port number (1..65535)
-    SUMO_ATTR_PORT,
-    // IP protocol (either 'udp', 'tcp-client' or 'tcp-server')
-    SUMO_ATTR_PROTOCOL,
 
     SUMO_ATTR_WAUT_ID,
     SUMO_ATTR_JUNCTION_ID,
@@ -348,8 +306,6 @@ enum SumoXMLAttr {
     SUMO_ATTR_ALLOW,
     SUMO_ATTR_DISALLOW,
     SUMO_ATTR_CONTROLLED_INNER,
-    SUMO_ATTR_V,
-    SUMO_ATTR_Q,
     SUMO_ATTR_RFILE,
 
     SUMO_ATTR_ENTERING

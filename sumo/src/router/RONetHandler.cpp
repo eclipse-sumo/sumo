@@ -123,7 +123,7 @@ RONetHandler::parseEdge(const Attributes &attrs)
 
     // get the type of the edge
     try {
-        string type = getString(attrs, SUMO_ATTR_FUNC);
+        string type = getString(attrs, SUMO_ATTR_FUNCTION);
         myProcess = true;
         if (type=="normal") {
             myCurrentEdge->setType(ROEdge::ET_NORMAL);

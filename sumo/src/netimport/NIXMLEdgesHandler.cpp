@@ -318,7 +318,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_EXPANSION) {
         try {
             Expansion e;
-            e.pos = getFloat(attrs, SUMO_ATTR_POS);
+            e.pos = getFloat(attrs, SUMO_ATTR_POSITION);
             if (myCurrentEdge==0) {
                 if (!OptionsCont::getOptions().isInStringVector("remove-edges", myCurrentID)) {
                     MsgHandler::getErrorInstance()->inform("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
@@ -447,11 +447,11 @@ NIXMLEdgesHandler::setGivenPriority(const Attributes &attrs)
 void
 NIXMLEdgesHandler::setGivenType(const Attributes &attrs)
 {
-    if (!hasAttribute(attrs, SUMO_ATTR_FUNC)) {
+    if (!hasAttribute(attrs, SUMO_ATTR_FUNCTION)) {
         return;
     }
     // try to get the tpe
-    string func = getStringSecure(attrs, SUMO_ATTR_FUNC, "");
+    string func = getStringSecure(attrs, SUMO_ATTR_FUNCTION, "");
     if (func=="") {
         MsgHandler::getErrorInstance()->inform("Empty edge function in edge '" + myCurrentID + "'.");
         return;

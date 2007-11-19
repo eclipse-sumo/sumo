@@ -2,7 +2,7 @@
 /// @file    NIXMLTypesHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
+/// @version $Id:NIXMLTypesHandler.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
 // Used to parse the XML-descriptions of types given in a XML-format
 /****************************************************************************/
@@ -100,7 +100,7 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
             }
             // get the function
             NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_NORMAL;
-            string functionS = getStringSecure(attrs, SUMO_ATTR_FUNC, "normal");
+            string functionS = getStringSecure(attrs, SUMO_ATTR_FUNCTION, "normal");
             if (functionS=="source") {
                 function = NBEdge::EDGEFUNCTION_SOURCE;
             } else if (functionS=="sink") {

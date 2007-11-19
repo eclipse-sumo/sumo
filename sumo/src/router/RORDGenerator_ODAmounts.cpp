@@ -250,7 +250,7 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const Attributes &attrs)
     myEndEdge = getEdge(attrs, "destination",
                         SUMO_ATTR_TO, myID, myEmptyDestinationsAllowed);
     myType = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
-    myPos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POS, myID);
+    myPos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POSITION, myID);
     mySpeed = getOptionalFloat(attrs, "speed", SUMO_ATTR_SPEED, myID);
     try {
         myIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, myUpperIntervalBegin);

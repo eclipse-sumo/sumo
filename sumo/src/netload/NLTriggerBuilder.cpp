@@ -104,7 +104,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
         if (helper.getInt(attrs, SUMO_ATTR_TYPE) == 3) {
             unsigned int cell_id   = helper.getInt(attrs, SUMO_ATTR_ID);
             unsigned int interval  = helper.getInt(attrs, SUMO_ATTR_OBJECTID);
-            unsigned int statcount = helper.getInt(attrs, SUMO_ATTR_POS);
+            unsigned int statcount = helper.getInt(attrs, SUMO_ATTR_POSITION);
 //			unsigned int dyncount  = helper.getInt( attrs, SUMO_ATTR_TO );
             //insert in MSPhoneNet
             MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
@@ -114,7 +114,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
             /*this is the trigger for the duration for an interval for an hour*/
             unsigned int cell_id   = helper.getInt(attrs, SUMO_ATTR_ID);
             unsigned int interval  = helper.getInt(attrs, SUMO_ATTR_OBJECTID);
-            unsigned int count = helper.getInt(attrs, SUMO_ATTR_POS);
+            unsigned int count = helper.getInt(attrs, SUMO_ATTR_POSITION);
             float duration = helper.getFloat(attrs, SUMO_ATTR_TO);
             float deviation  = helper.getFloat(attrs, SUMO_ATTR_XTO);
             unsigned int entering  = (unsigned int) helper.getFloat(attrs, SUMO_ATTR_ENTERING);
@@ -279,7 +279,7 @@ NLTriggerBuilder::parseAndBuildVTypeProbe(MSNet &net,
     string outputFile = getFileName(attrs, base, helper);
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     string vType = helper.getString(attrs, SUMO_ATTR_TYPE);
-    int freq = helper.getInt(attrs, SUMO_ATTR_SPLINTERVAL);
+    int freq = helper.getInt(attrs, SUMO_ATTR_FREQUENCY);
 
     return buildVTypeProbe(net, id, outputFile, vType, freq);
 }
@@ -528,7 +528,7 @@ NLTriggerBuilder::getPosition(const Attributes &attrs, const NLHandler &helper,
                               const std::string &tt, const std::string &tid)
 {
 
-    SUMOReal pos = helper.getFloat(attrs, SUMO_ATTR_POS);
+    SUMOReal pos = helper.getFloat(attrs, SUMO_ATTR_POSITION);
     bool friendly_pos = helper.getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false);
     if (pos<0) {
         pos = lane->length() + pos;

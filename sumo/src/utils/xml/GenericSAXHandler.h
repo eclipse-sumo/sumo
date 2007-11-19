@@ -269,6 +269,19 @@ public:
 
 
     /**
+     * @brief Returns the string-value of the named attribute
+     *
+     * Tries to retrieve the attribute from the the attribute list. The retrieved
+     *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2strSec.
+     *  If the attribute is ==0, TplConvert<XMLCh>::_2strSec returns the default value.
+     *
+     * @exception EmptyData If the attribute is not known or the attribute value is an empty string
+     */
+    std::string getStringSecure(const Attributes &attrs, const XMLCh * const id,
+                                const std::string &str) const throw(EmptyData);
+
+
+    /**
      * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved

@@ -40,7 +40,6 @@
 // definitions
 // ===========================================================================
 GenericSAXHandler::Tag sumotags[] = {
-    { "simulation",       SUMO_TAG_SIMULATION },
     { "edge",             SUMO_TAG_EDGE },
     { "lane",             SUMO_TAG_LANE },
     { "poi",              SUMO_TAG_POI },
@@ -60,7 +59,6 @@ GenericSAXHandler::Tag sumotags[] = {
     { "succ",             SUMO_TAG_SUCC },
     { "succlane",         SUMO_TAG_SUCCLANE },
     { "key",              SUMO_TAG_KEY },
-    { "junctionlogic",    SUMO_TAG_JUNCTIONLOGIC },
     { "requestsize",      SUMO_TAG_REQUESTSIZE },
     { "lanenumber",       SUMO_TAG_LANENUMBER },
     { "logicitem",        SUMO_TAG_LOGICITEM },
@@ -73,8 +71,6 @@ GenericSAXHandler::Tag sumotags[] = {
     { "node_count",       SUMO_TAG_NODECOUNT },
     { "tl-logic",         SUMO_TAG_TLLOGIC },
     { "offset",           SUMO_TAG_OFFSET },
-    { "initstep",         SUMO_TAG_INITSTEP },
-    { "phaseno",          SUMO_TAG_PHASENO },
     { "phase",            SUMO_TAG_PHASE },
     { "routealt",         SUMO_TAG_ROUTEALT },
     { "tripdef",          SUMO_TAG_TRIPDEF },
@@ -91,8 +87,6 @@ GenericSAXHandler::Tag sumotags[] = {
     { "toedge",           SUMO_TAG_TOEDGE },
     { "sink",             SUMO_TAG_SINK },
     { "supplementary-weights", SUMO_TAG_SUPPLEMENTARY_WEIGHTS },
-    { "weight",           SUMO_TAG_WEIGHT },
-    { "reroute-agent",	  SUMO_TAG_REROUTE_AGENT },
     { "param",	          SUMO_TAG_PARAM },
     { "WAUT",	          SUMO_TAG_WAUT },
     { "wautSwitch",       SUMO_TAG_WAUT_SWITCH },
@@ -116,11 +110,6 @@ GenericSAXHandler::Tag sumotags[] = {
     { "node",             SUMO_TAG_NODE },
     { "type",             SUMO_TAG_TYPE },
     { "detector_definition", SUMO_TAG_DETECTOR_DEFINITION },
-    { "route-interval",   SUMO_TAG_ROUTE_INTERVAL },
-    { "vtype-interval",   SUMO_TAG_VTYPE_INTERVAL },
-    { "state-interval",   SUMO_TAG_STATE_INTERVAL },
-    { "route-dist",       SUMO_TAG_ROUTE_DIST },
-    { "vtype-dist",       SUMO_TAG_VTYPE_DIST },
     { "",                 SUMO_TAG_NOTHING }
 };
 
@@ -164,15 +153,14 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "cost",           SUMO_ATTR_COST },
     { "probability",    SUMO_ATTR_PROB },
 
-    { "pos",            SUMO_ATTR_POS },
     { "lane",           SUMO_ATTR_LANE },
     { "from",           SUMO_ATTR_FROM },
     { "to",             SUMO_ATTR_TO },
     { "period",         SUMO_ATTR_PERIOD },
 
-    { "function",       SUMO_ATTR_FUNC },
+    { "function",       SUMO_ATTR_FUNCTION },
     { "pos",            SUMO_ATTR_POSITION },
-    { "freq",           SUMO_ATTR_SPLINTERVAL },
+    { "freq",           SUMO_ATTR_FREQUENCY },
     { "style",          SUMO_ATTR_STYLE },
     { "file",           SUMO_ATTR_FILE },
     { "junction",       SUMO_ATTR_JUNCTION },
@@ -188,8 +176,6 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "attr",           SUMO_ATTR_ATTR },
     { "objectid",       SUMO_ATTR_OBJECTID },
     { "time",           SUMO_ATTR_TIME },
-    { "multi_ref",      SUMO_ATTR_MULTIR },
-    { "traveltime",     SUMO_ATTR_TRAVELTIME },
     { "begin",          SUMO_ATTR_BEGIN },
     { "end",            SUMO_ATTR_END },
     { "tl",             SUMO_ATTR_TLID },
@@ -221,23 +207,6 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "keep_for",       SUMO_ATTR_DELETE_DATA_AFTER_SECONDS },
     { "det_offset",     SUMO_ATTR_DET_OFFSET },
 
-    { "vehno",          SUMO_ATTR_VEHNO },
-    { "perc",           SUMO_ATTR_PERC },
-    { "edge-id",        SUMO_ATTR_EDGE_ID },
-    { "absolut",        SUMO_ATTR_ABSOLUT },
-    { "mult",           SUMO_ATTR_MULT },
-    { "add",            SUMO_ATTR_ADD },
-
-    { "dist",           SUMO_ATTR_DIST },
-    { "onEdges",        SUMO_ATTR_ONEDGES },
-    { "seesEdges",      SUMO_ATTR_SEESEDGES },
-    { "periodBegin",    SUMO_ATTR_PERIODBEGIN },
-    { "viewDist",       SUMO_ATTR_VIEWDIST },
-    { "oneShot",        SUMO_ATTR_ONESHOT },
-
-    { "host",			SUMO_ATTR_HOST },
-    { "port",			SUMO_ATTR_PORT },
-    { "protocol",		SUMO_ATTR_PROTOCOL },
     { "wautID",		    SUMO_ATTR_WAUT_ID },
     { "junctionID",     SUMO_ATTR_JUNCTION_ID },
     { "procedure",	    SUMO_ATTR_PROCEDURE },
@@ -259,8 +228,6 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "allow",          SUMO_ATTR_ALLOW },
     { "disallow",       SUMO_ATTR_DISALLOW },
     { "controlled_inner", SUMO_ATTR_CONTROLLED_INNER },
-    { "v",              SUMO_ATTR_V },
-    { "q",              SUMO_ATTR_Q },
     { "rfile",          SUMO_ATTR_RFILE },
 
     { "entering",       SUMO_ATTR_ENTERING },

@@ -105,8 +105,7 @@ GenericSAXHandler::getBool(const Attributes &attrs, SumoXMLAttr id) const throw(
 bool
 GenericSAXHandler::getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool val) const throw(EmptyData)
 {
-    return TplConvertSec<XMLCh>::_2boolSec(
-               getAttributeValueSecure(attrs, id), val);
+    return TplConvertSec<XMLCh>::_2boolSec(getAttributeValueSecure(attrs, id), val);
 }
 
 
@@ -121,8 +120,7 @@ int
 GenericSAXHandler::getIntSecure(const Attributes &attrs, SumoXMLAttr id,
                                 int def) const throw(EmptyData, NumberFormatException)
 {
-    return TplConvertSec<XMLCh>::_2intSec(
-               getAttributeValueSecure(attrs, id), def);
+    return TplConvertSec<XMLCh>::_2intSec(getAttributeValueSecure(attrs, id), def);
 }
 
 
@@ -137,8 +135,15 @@ std::string
 GenericSAXHandler::getStringSecure(const Attributes &attrs, SumoXMLAttr id,
                                    const std::string &str) const throw(EmptyData)
 {
-    return TplConvertSec<XMLCh>::_2strSec(
-               getAttributeValueSecure(attrs, id), str);
+    return TplConvertSec<XMLCh>::_2strSec(getAttributeValueSecure(attrs, id), str);
+}
+
+
+std::string
+GenericSAXHandler::getStringSecure(const Attributes &attrs, const XMLCh * const id,
+                                   const std::string &str) const throw(EmptyData)
+{
+    return TplConvertSec<XMLCh>::_2strSec(attrs.getValue(id), str);
 }
 
 
@@ -153,8 +158,7 @@ SUMOReal
 GenericSAXHandler::getFloatSecure(const Attributes &attrs, SumoXMLAttr id,
                                   SUMOReal def) const throw(EmptyData, NumberFormatException)
 {
-    return TplConvertSec<XMLCh>::_2SUMORealSec(
-               getAttributeValueSecure(attrs, id), def);
+    return TplConvertSec<XMLCh>::_2SUMORealSec(getAttributeValueSecure(attrs, id), def);
 }
 
 

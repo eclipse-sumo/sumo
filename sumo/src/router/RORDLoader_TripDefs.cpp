@@ -88,7 +88,7 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
         myEndEdge = getEdge(attrs, "destination",
                             SUMO_ATTR_TO, myID, myEmptyDestinationsAllowed);
         myType = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
-        myPos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POS, myID);
+        myPos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POSITION, myID);
         mySpeed = getOptionalFloat(attrs, "speed", SUMO_ATTR_SPEED, myID);
         myPeriodTime = getPeriod(attrs, myID);
         myNumberOfRepetitions = getRepetitionNumber(attrs, myID);
@@ -199,7 +199,7 @@ RORDLoader_TripDefs::getOptionalFloat(const Attributes &attrs,
         return -1;
     }
     try {
-        return getFloat(attrs, SUMO_ATTR_POS);
+        return getFloat(attrs, SUMO_ATTR_POSITION);
     } catch (EmptyData &) {} catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The value of '" + name + "' should be numeric but is not.");
         if (place.length()!=0)

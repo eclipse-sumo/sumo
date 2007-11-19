@@ -158,7 +158,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
             }
             // get the position
             try {
-                stop.pos = getFloat(attrs, SUMO_ATTR_POS);
+                stop.pos = getFloat(attrs, SUMO_ATTR_POSITION);
             } catch (EmptyData&) {
                 MsgHandler::getErrorInstance()->inform("The position of a stop is not defined.");
                 return;

@@ -436,7 +436,7 @@ NLHandler::chooseEdge(const Attributes &attrs)
     // get the function
     string func;
     try {
-        func = getString(attrs, SUMO_ATTR_FUNC);
+        func = getString(attrs, SUMO_ATTR_FUNCTION);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing function of an edge-object.");
         myCurrentIsBroken = true;
@@ -813,7 +813,7 @@ NLHandler::addPOI(const Attributes &attrs)
                                     getFloatSecure(attrs, SUMO_ATTR_X, INVALID_POSITION),
                                     getFloatSecure(attrs, SUMO_ATTR_Y, INVALID_POSITION),
                                     getStringSecure(attrs, SUMO_ATTR_LANE, ""),
-                                    getFloatSecure(attrs, SUMO_ATTR_POS, INVALID_POSITION));
+                                    getFloatSecure(attrs, SUMO_ATTR_POSITION, INVALID_POSITION));
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
         } catch (OutOfBoundsException &) {
@@ -1061,7 +1061,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
         myDetectorBuilder.buildInductLoop(id,
                                           getString(attrs, SUMO_ATTR_LANE),
                                           getFloat(attrs, SUMO_ATTR_POSITION),
-                                          getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+                                          getInt(attrs, SUMO_ATTR_FREQUENCY),
                                           OutputDevice::getDevice(getString(attrs, SUMO_ATTR_FILE),
                                                                   getFileName()),
                                           getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false),
@@ -1154,7 +1154,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                               getFloat(attrs, SUMO_ATTR_POSITION),
                                               getFloat(attrs, SUMO_ATTR_LENGTH),
                                               getBoolSecure(attrs, SUMO_ATTR_CONT, false),
-                                              getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+                                              getInt(attrs, SUMO_ATTR_FREQUENCY),
                                               getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
                                               OutputDevice::getDevice(file, getFileName()),
                                               getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
@@ -1193,7 +1193,7 @@ NLHandler::beginE3Detector(const Attributes &attrs)
         myDetectorBuilder.beginE3Detector(id,
                                           OutputDevice::getDevice(getString(attrs, SUMO_ATTR_FILE),
                                                                   getFileName()),
-                                          getInt(attrs, SUMO_ATTR_SPLINTERVAL),
+                                          getInt(attrs, SUMO_ATTR_FREQUENCY),
                                           getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                           getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f));
     } catch (InvalidArgument &e) {
