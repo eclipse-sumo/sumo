@@ -233,7 +233,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             aVehicleId = myParent.getID() +  "_" + toString(aEmitTime) +  "_" + toString(myRunningID++);
             if (myVehicleControl.getVehicle(aVehicleId)!=0) {
                 WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + aVehicleId + " already exists.\n Continuing with next element.");
-                return;// false;
+                return;
             }
         }
         // check and assign vehicle type
@@ -246,9 +246,8 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             if (aVehType==0) {
                 aVehType = MSNet::getInstance()->getVehicleControl().getRandomVType();
                 if (aVehType==0) {
-                    WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid vehicle type exists.");
-                    WRITE_WARNING("Continuing with next element.");
-                    return;// false;
+                    WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid vehicle type exists.\n Continuing with next element.");
+                    return;
                 }
             }
         }
@@ -262,7 +261,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             if (aEmitRoute==0) {
                 WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid route exsists.");
                 WRITE_WARNING("Continuing with next element.");
-                return;// false;
+                return;
             }
         }
         // build vehicle
