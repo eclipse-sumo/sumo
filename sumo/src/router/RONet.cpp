@@ -248,8 +248,7 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
         //  unbuild routes due to missing connections are reported within the
         //  router
         if (current->size()!=0) {
-            mh->inform("The route '" + routeDef->getID() + "' is too short, probably ending at the starting edge.");
-            WRITE_WARNING("Skipping...");
+            mh->inform("The route '" + routeDef->getID() + "' is too short, probably ending at the starting edge.\n Skipping...");
         }
         delete current;
         return 0;
@@ -258,14 +257,13 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
     //  (the edge must be longer than the vehicle)
     SUMOReal vehLength = veh->getType()!=0 ? veh->getType()->getLength() : (SUMOReal) DEFAULT_VEH_LENGTH;
     while (current->getFirst()->getLength()<=vehLength) {
-        mh->inform("The vehicle '" + veh->getID() + "' is too long to start at edge '" + current->getFirst()->getID() + "'.");
         if (!options.getBool("move-on-short")||current->size()<3) {
-            mh->inform(" Discarded.");
+            mh->inform("Vehicle '" + veh->getID() + "' was discarded due being too long to start at edge '" + current->getFirst()->getID() + "'.");
             delete current;
             return 0;
         }
         current->pruneFirst();
-        mh->inform(" Prunned (now starting at '" + current->getFirst()->getID() + "').");
+        mh->inform("Vehicle '" + veh->getID() + "' is too long to start at edge '" + current->getFirst()->getID() + "'.\n The route was prunned (now starting at '" + current->getFirst()->getID() + "').");
     }
     // add build route
     routeDef->addAlternative(veh, current, veh->getDepartureTime());
