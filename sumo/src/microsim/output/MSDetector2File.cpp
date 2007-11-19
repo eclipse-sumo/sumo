@@ -69,12 +69,12 @@ MSDetector2File::close()
 {
     // flush the last values
     Intervals::iterator it;
-    for (it = intervalsM.begin(); it != intervalsM.end(); ++it) {
+    for (it = myIntervals.begin(); it != myIntervals.end(); ++it) {
         write2file((*it).first);
     }
     // [...] files are closed on another place [...]
     //
-    intervalsM.clear();
+    myIntervals.clear();
 }
 
 
@@ -85,26 +85,22 @@ MSDetector2File::addDetectorAndInterval(MSDetectorFileOutput* det,
                                         bool reinsert)
 {
     IntervalsKey key = interval;
-    Intervals::iterator it = intervalsM.find(key);
-    if (it == intervalsM.end()) {
+    Intervals::iterator it = myIntervals.find(key);
+    // Add command for given key only once to MSEventControl...
+    if (it == myIntervals.end()) {
+        // set the 
         DetectorFileVec detAndFileVec;
         detAndFileVec.push_back(make_pair(det, device));
-        intervalsM.insert(make_pair(key, detAndFileVec));
-        // Add command for given key only once to MSEventControl
+        myIntervals.insert(make_pair(key, detAndFileVec));
         Command* writeData =
-            new OneArgumentCommand< MSDetector2File, IntervalsKey >
-        (this, &MSDetector2File::write2file, key);
+            new OneArgumentCommand< MSDetector2File, IntervalsKey >(this, &MSDetector2File::write2file, key);
+        SUMOTime simBeginTime = OptionsCont::getOptions().getInt("begin");
         MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
-            writeData,
-            OptionsCont::getOptions().getInt("begin") + interval,
-            MSEventControl::ADAPT_AFTER_EXECUTION);
-        myLastCalls[interval] =
-            OptionsCont::getOptions().getInt("begin");
+            writeData, simBeginTime + interval - 1, MSEventControl::ADAPT_AFTER_EXECUTION);
+        myLastCalls[interval] = simBeginTime;
     } else {
         DetectorFileVec& detAndFileVec = it->second;
-        if (find_if(detAndFileVec.begin(), detAndFileVec.end(),
-                    bind2nd(detectorEquals(), det))
-                == detAndFileVec.end()) {
+        if (find_if(detAndFileVec.begin(), detAndFileVec.end(), bind2nd(detectorEquals(), det)) == detAndFileVec.end()) {
             detAndFileVec.push_back(make_pair(det, device));
         } else {
             // detector already in container. Don't add several times
@@ -121,23 +117,18 @@ MSDetector2File::addDetectorAndInterval(MSDetectorFileOutput* det,
 MSUnit::IntSteps
 MSDetector2File::write2file(IntervalsKey key)
 {
-    Intervals::iterator iIt = intervalsM.find(key);
-    assert(iIt != intervalsM.end());
+    Intervals::iterator iIt = myIntervals.find(key);
+    assert(iIt != myIntervals.end());
     DetectorFileVec dfVec = iIt->second;
     MSUnit::IntSteps interval = key;
-    SUMOTime stopTime = MSNet::getInstance()->simSeconds();
+    SUMOTime stopTime = MSNet::getInstance()->getCurrentTimeStep();
     SUMOTime startTime = myLastCalls[interval];
     // check whether at the end the output was already generated
-    if (stopTime==startTime) {
-        return 0; // a dummy value only; this should only be the case
-        // when this container is destroyed
-    }
-    for (DetectorFileVec::iterator it = dfVec.begin();
-            it != dfVec.end(); ++it) {
+    for (DetectorFileVec::iterator it = dfVec.begin(); it!=dfVec.end(); ++it) {
         MSDetectorFileOutput* det = it->first;
-        det->writeXMLOutput(*(it->second), startTime, stopTime-1);
+        det->writeXMLOutput(*(it->second), startTime, stopTime);
     }
-    myLastCalls[interval] = MSNet::getInstance()->simSeconds();
+    myLastCalls[interval] = stopTime + 1;
     return interval;
 }
 
@@ -147,15 +138,14 @@ void
 MSDetector2File::resetInterval(MSDetectorFileOutput* det,
                                SUMOTime newinterval)
 {
-    for (Intervals::iterator i=intervalsM.begin(); i!=intervalsM.end(); ++i) {
+    for (Intervals::iterator i=myIntervals.begin(); i!=myIntervals.end(); ++i) {
         DetectorFileVec &dets = (*i).second;
         for (DetectorFileVec::iterator j=dets.begin(); j!=dets.end(); ++j) {
             DetectorFilePair &dvp = *j;
             if (dvp.first==det) {
                 DetectorFilePair dvpu = *j;
                 dets.erase(j);
-                addDetectorAndInterval(dvpu.first, dvpu.second,
-                                       newinterval, true);
+                addDetectorAndInterval(dvpu.first, dvpu.second, newinterval, true);
                 return;
             }
         }

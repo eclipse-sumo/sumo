@@ -149,17 +149,14 @@ struct detectorEquals :
 
 
 private:
-    Intervals intervalsM;       /**< Map that hold DetectorFileVec for
-                                                 * given intervals. */
-
-    //static MSDetector2File* instanceM; /**< The sole instance of this
-    //                                  * class. */
+    /** Map that hold DetectorFileVec for given intervals. */
+    Intervals myIntervals; 
 
     /// A map from sample intervals to the times the interval was called the last time
     typedef std::map<SUMOTime, SUMOTime> LastCallsMap;
 
     /// The map that holds the last call for each sample interval
-    LastCallsMap myLastCalls; // !!! ok, we don not have an offset by now, if one is introduced, both the sample interval and the offset must be used as key
+    LastCallsMap myLastCalls;
 
 };
 

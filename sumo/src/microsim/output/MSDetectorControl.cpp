@@ -72,7 +72,6 @@ MSDetectorControl::MSDetectorControl()
 
 MSDetectorControl::~MSDetectorControl()
 {
-    myDetector2File.close();
 #ifdef HAVE_MESOSIM
     myMesoLoops.clear();
 #endif
@@ -86,6 +85,13 @@ MSDetectorControl::~MSDetectorControl()
     delete MSUpdateEachTimestepContainer< Detector::UpdateOccupancyCorrections >::getInstance();
     delete MSUpdateEachTimestepContainer< MSE3Collector >::getInstance();
     delete MSUnit::getInstance();
+}
+
+
+void
+MSDetectorControl::close()
+{
+    myDetector2File.close();
 }
 
 

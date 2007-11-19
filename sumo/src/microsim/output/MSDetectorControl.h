@@ -82,6 +82,8 @@ public:
 
     ~MSDetectorControl();
 
+    void close();
+
     MSInductLoop *findInductLoop(const std::string &id);
 
     void add(MSInductLoop *il, OutputDevice& device,
