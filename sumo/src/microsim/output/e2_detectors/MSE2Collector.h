@@ -45,6 +45,7 @@
 #include <cassert>
 #include <vector>
 #include <limits>
+#include <set>
 #include <microsim/output/MSApproachingVehiclesStates.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/MsgHandler.h>
@@ -365,12 +366,14 @@ public:
             return true;
         }
         if (oldPos <= startPosM && newPos > startPosM) {
-            // vehicle will enter detectors
-            for (ContainerContIter it = containersM.begin();
-                    it != containersM.end(); ++it) {
-                if (*it != 0) {
-                    (*it)->enterDetectorByMove(&veh);
+            if(myKnownVehicles.find(&veh)==myKnownVehicles.end()) {
+                // vehicle will enter detectors
+                for (ContainerContIter it = containersM.begin(); it != containersM.end(); ++it) {
+                    if (*it != 0) {
+                        (*it)->enterDetectorByMove(&veh);
+                    }
                 }
+                myKnownVehicles.insert(&veh);
             }
         }
         if (newPos - veh.getLength() < startPosM) {
@@ -386,18 +389,17 @@ public:
         }
         if (newPos - veh.getLength() > endPosM) {
             // vehicle will leave detector
-            for (ContainerContIter it = containersM.begin();
-                    it != containersM.end(); ++it) {
+            for (ContainerContIter it = containersM.begin(); it != containersM.end(); ++it) {
                 if (*it != 0) {
                     (*it)->leaveDetectorByMove(&veh);
                 }
             }
-            for (DetLDContIter ld = detectorsLDM.begin();
-                    ld != detectorsLDM.end(); ++ld) {
+            for (DetLDContIter ld = detectorsLDM.begin(); ld != detectorsLDM.end(); ++ld) {
                 if (*ld != 0) {
                     (*ld)->leave(veh);
                 }
             }
+            myKnownVehicles.erase(&veh);
             return false;
         }
         return true;
@@ -412,12 +414,11 @@ public:
     void dismissByLaneChange(MSVehicle& veh) {
         if (veh.getPositionOnLane() >= startPosM && veh.getPositionOnLane() - veh.getLength() < endPosM) {
             // vehicle is on detector
-            for (ContainerContIter it = containersM.begin();
-                    it != containersM.end(); ++it) {
-                if (*it != 0) {
-                    (*it)->leaveDetectorByLaneChange(&veh);
+                for (ContainerContIter it = containersM.begin(); it != containersM.end(); ++it) {
+                    if (*it != 0) {
+                        (*it)->leaveDetectorByLaneChange(&veh);
+                    }
                 }
-            }
             if (veh.getPositionOnLane() - veh.getLength() < startPosM ||
                     veh.getPositionOnLane()>endPosM && veh.getPositionOnLane()-veh.getLength()<=endPosM) {
                 // vehicle partially on det
@@ -462,6 +463,7 @@ public:
                     veh, (endPosM - (veh.getPositionOnLane() - veh.getLength())) /
                     veh.getLength());
             }
+                myKnownVehicles.insert(&veh);
             return true;
         }
         if (veh.getPositionOnLane() - veh.getLength() > endPosM) {
@@ -484,8 +486,8 @@ public:
     /// APPROACHING_VEHICLES_STATES.
     ///
     void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) {
-        dev<<"   <interval begin=\""<<toString(startTime)<<"\" end=\""<<
-        toString(stopTime)<<"\" "<<"id=\""<<getID()<<"\" ";
+        dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
+        stopTime<<"\" "<<"id=\""<<getID()<<"\" ";
         if (hasDetector(
                     E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
             dev<<"queueLengthAheadOfTrafficLightsInVehiclesMax=\"";
@@ -597,6 +599,8 @@ private:
     /// handled in the way the TD, ED and LD detectors can.
     MSApproachingVehiclesStates* approachingVehStatesDetectorM;
 
+    std::set<MSVehicle*> myKnownVehicles;
+
     DetectorUsage myUsage;      ///< ???
 
     /// Create a "vehicle"-container out of E2::Containers. They may
@@ -654,9 +658,6 @@ private:
             }
         } else if (hasDetector(type)) {
             return;
-// ===========================================================================
-// used namespaces
-// ===========================================================================
         }
         using namespace Detector;
         switch (type) {
