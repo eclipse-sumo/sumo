@@ -358,12 +358,15 @@ void
 NLDetectorBuilder::addE3Entry(const std::string &lane,
                               SUMOReal pos)
 {
-    MSLane *clane = getLaneChecking(lane, myE3Definition->myID);
     if (myE3Definition==0) {
-        throw InvalidArgument("Something is wrong with a detector description.");
+        return;
     }
+    MSLane *clane = getLaneChecking(lane, myE3Definition->myID);
     if (pos<0) {
         pos = clane->length() + pos;
+    }
+    if (pos>clane->length()) {
+        throw InvalidArgument("The position of detector '" + myE3Definition->myID + "' lies beyond the lane's '" + lane + "' length.");
     }
     myE3Definition->myEntries.push_back(MSCrossSection(clane, pos));
 }
@@ -373,12 +376,15 @@ void
 NLDetectorBuilder::addE3Exit(const std::string &lane,
                              SUMOReal pos)
 {
-    MSLane *clane = getLaneChecking(lane, myE3Definition->myID);
     if (myE3Definition==0) {
-        throw InvalidArgument("Something is wrong with a detector description.");
+        return;
     }
+    MSLane *clane = getLaneChecking(lane, myE3Definition->myID);
     if (pos<0) {
         pos = clane->length() + pos;
+    }
+    if (pos>clane->length()) {
+        throw InvalidArgument("The position of detector '" + myE3Definition->myID + "' lies beyond the lane's '" + lane + "' length.");
     }
     myE3Definition->myExits.push_back(MSCrossSection(clane, pos));
 }
@@ -398,7 +404,7 @@ void
 NLDetectorBuilder::endE3Detector()
 {
     if (myE3Definition==0) {
-        throw InvalidArgument("Something is wrong with a detector description.");
+        return;
     }
     MSE3Collector *det = createE3Detector(
                              myE3Definition->myID,

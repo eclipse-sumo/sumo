@@ -1182,17 +1182,20 @@ void
 NLHandler::beginE3Detector(const Attributes &attrs)
 {
     // try to get the id first
-    string id;
-    try {
-        id = getString(attrs, SUMO_ATTR_ID);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing id of a detector-object.");
+    string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
+    if (id=="") {
+        MsgHandler::getErrorInstance()->inform("Missing id of a e3-detector-object.");
+        return;
+    }
+    // get the file name; it should not be empty
+    string file = getStringSecure(attrs, SUMO_ATTR_FILE, "");
+    if (file=="") {
+        MsgHandler::getErrorInstance()->inform("Missing output definition for detector '" + id + "'.");
         return;
     }
     try {
         myDetectorBuilder.beginE3Detector(id,
-                                          OutputDevice::getDevice(getString(attrs, SUMO_ATTR_FILE),
-                                                                  getFileName()),
+                                          OutputDevice::getDevice(file, getFileName()),
                                           getInt(attrs, SUMO_ATTR_FREQUENCY),
                                           getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                           getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f));
