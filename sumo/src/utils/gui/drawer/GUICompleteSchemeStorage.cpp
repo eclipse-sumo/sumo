@@ -161,8 +161,8 @@ GUICompleteSchemeStorage::init(FXApp *app,
         vs.minVehicleSize = 1;
         vs.vehicleExaggeration = 1;
         vs.showBlinker = true;
-        vs.drawcC2CRadius = true;
-        vs.drawLaneChangePreference = true;
+        vs.drawcC2CRadius = false;
+        vs.drawLaneChangePreference = false;
         vs.drawVehicleName = false;
         vs.vehicleNameSize = 50;
         vs.vehicleNameColor = RGBColor((SUMOReal) .8, (SUMOReal) .6, (SUMOReal) 0);
@@ -225,7 +225,7 @@ GUICompleteSchemeStorage::init(FXApp *app,
         vs.minVehicleSize = 1;
         vs.vehicleExaggeration = 1;
         vs.showBlinker = true;
-        vs.drawcC2CRadius = true;
+        vs.drawcC2CRadius = false;
         vs.drawLaneChangePreference = false;
         vs.drawVehicleName = false;
         vs.vehicleNameSize = 50;
@@ -294,7 +294,7 @@ GUICompleteSchemeStorage::init(FXApp *app,
         vs.maxVehicleColor = RGBColor(0,1,0);
         */
         vs.showBlinker = true;
-        vs.drawcC2CRadius = true;
+        vs.drawcC2CRadius = false;
         vs.drawLaneChangePreference = false;
         vs.drawVehicleName = false;
         vs.vehicleNameSize = 50;
