@@ -104,6 +104,7 @@ MSSimpleTrafficLightLogic::getStepNo() const
     return myStep;
 }
 
+
 void
 MSSimpleTrafficLightLogic::setLinkPriorities() const
 {
@@ -115,6 +116,7 @@ MSSimpleTrafficLightLogic::setLinkPriorities() const
         }
     }
 }
+
 
 bool
 MSSimpleTrafficLightLogic::maskRedLinks() const
@@ -192,12 +194,13 @@ MSSimpleTrafficLightLogic::getCycleTime()
     return myCycleTime;
 }
 
+
 size_t
 MSSimpleTrafficLightLogic::getPosition(SUMOTime simStep)
 {
     size_t position = 0;
     if (myStep > 0)	{
-        for (size_t i=0; i < myStep; i++)	{
+        for (size_t i=0; i < myStep; i++) {
             position = position + getPhaseFromStep(i).duration;
         }
     }
@@ -205,6 +208,7 @@ MSSimpleTrafficLightLogic::getPosition(SUMOTime simStep)
     assert(position <= myCycleTime);
     return position;
 }
+
 
 size_t
 MSSimpleTrafficLightLogic::getStepFromPos(size_t position)
@@ -231,6 +235,7 @@ MSSimpleTrafficLightLogic::getStepFromPos(size_t position)
     return 0;
 }
 
+
 size_t
 MSSimpleTrafficLightLogic::getPosFromStep(size_t step)
 {
@@ -255,6 +260,7 @@ MSSimpleTrafficLightLogic::getPhases() const
 {
     return myPhases;
 }
+
 
 const MSPhaseDefinition &
 MSSimpleTrafficLightLogic::getPhaseFromStep(size_t givenStep) const

@@ -64,7 +64,6 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * method definitions for the Switching Procedures
  * ----------------------------------------------------------------------- */
-
 SUMOReal
 MSTLLogicControl::WAUTSwitchProcedure::getGSPValue(MSTrafficLightLogic *from) const
 {
@@ -74,6 +73,7 @@ MSTLLogicControl::WAUTSwitchProcedure::getGSPValue(MSTrafficLightLogic *from) co
     }
     return TplConvert<char>::_2SUMOReal(val.c_str());
 }
+
 
 bool
 MSTLLogicControl::WAUTSwitchProcedure::isPosAtGSP(SUMOTime step, MSSimpleTrafficLightLogic *testLogic)
@@ -95,6 +95,7 @@ MSTLLogicControl::WAUTSwitchProcedure::isPosAtGSP(SUMOTime step, MSSimpleTraffic
     }
 }
 
+
 size_t
 MSTLLogicControl::WAUTSwitchProcedure::getDiffToStartOfPhase(MSSimpleTrafficLightLogic *givenLogic, size_t pos)
 {
@@ -110,6 +111,7 @@ MSTLLogicControl::WAUTSwitchProcedure::getDiffToStartOfPhase(MSSimpleTrafficLigh
     assert(diff <= durOfPhase);
     return diff;
 }
+
 
 void
 MSTLLogicControl::WAUTSwitchProcedure::switchToPos(SUMOTime simStep, MSSimpleTrafficLightLogic *givenLogic, size_t pos)

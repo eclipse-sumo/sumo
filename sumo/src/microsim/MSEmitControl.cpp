@@ -80,14 +80,17 @@ MSEmitControl::emitVehicles(SUMOTime time)
         return 0;
     }
     size_t noEmitted = 0;
-    // we use SUMOReal-buffering for the refused emits to save time
+    // we use buffering for the refused emits to save time
+    //  for this, we have two lists; one contains previously refused emits, the second
+    //  will be used to append those vehicles that will not be able to depart in this 
+    //  time step
     assert(myRefusedEmits1.size()==0||myRefusedEmits2.size()==0);
     MSVehicleContainer::VehicleVector &refusedEmits =
         myRefusedEmits1.size()==0 ? myRefusedEmits1 : myRefusedEmits2;
     MSVehicleContainer::VehicleVector &previousRefused =
         myRefusedEmits2.size()==0 ? myRefusedEmits1 : myRefusedEmits2;
-    //
-    // go through the list of previously refused first
+
+    // go through the list of previously refused vehicles, first
     MSVehicleContainer::VehicleVector::const_iterator veh;
     for (veh=previousRefused.begin(); veh!=previousRefused.end(); veh++) {
         noEmitted += tryEmit(time, *veh, refusedEmits);
@@ -95,9 +98,9 @@ MSEmitControl::emitVehicles(SUMOTime time)
     // clear previously refused vehicle container
     previousRefused.clear();
 
-    // Insert vehicles from myTrips into the net until the vehicles
-    // departure time is greater than time.
-    // retrieve the list of vehicles to emit within this time step
+    // Insert vehicles from myTrips into the net until the next vehicle's
+    //  departure time is greater than the current time.
+    // Retrieve the list of vehicles to emit within this time step
     if (myAllVeh.anyWaitingFor(time)) {
         const MSVehicleContainer::VehicleVector &next = myAllVeh.top();
         // go through the list and try to emit
@@ -107,10 +110,14 @@ MSEmitControl::emitVehicles(SUMOTime time)
         // let the MSVehicleContainer clear the vehicles
         myAllVeh.pop();
     }
+    // During "tryEmit" done in previous steps, vehicles may have been added
+    //  to "myNewPeriodicalAdds"; Schedule them within the normal emission container
     for (MSVehicleContainer::VehicleVector::iterator i=myNewPeriodicalAdds.begin(); i!=myNewPeriodicalAdds.end(); ++i) {
         add(*i);
     }
+        // and clear the list
     myNewPeriodicalAdds.clear();
+    // Return the number of emitted vehicles
     return noEmitted;
 }
 
