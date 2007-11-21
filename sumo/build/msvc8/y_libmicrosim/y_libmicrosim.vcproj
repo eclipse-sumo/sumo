@@ -813,6 +813,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\MSFrame.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSGlobals.h"
 				>
 			</File>
@@ -842,6 +846,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSLaneChanger.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\MSLCM_DK2004.h"
 				>
 			</File>
 			<File
@@ -953,14 +961,6 @@
 				>
 			</File>
 		</Filter>
-		<File
-			RelativePath="..\..\..\src\microsim\MSFrame.h"
-			>
-		</File>
-		<File
-			RelativePath="..\..\..\src\microsim\MSLCM_DK2004.h"
-			>
-		</File>
 	</Files>
 	<Globals>
 	</Globals>
