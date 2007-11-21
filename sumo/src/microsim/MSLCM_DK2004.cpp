@@ -2,7 +2,7 @@
 /// @file    MSLCM_DK2004.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 29.05.2005
-/// @version $Id$
+/// @version $Id:MSLCM_DK2004.cpp 4683 2007-11-09 12:54:04Z dkrajzew $
 ///
 //  missingDescription
 /****************************************************************************/
@@ -171,22 +171,15 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     }
 
     // we try to estimate the distance which is necessary to get on a lane
-    //  we have to get on in order to kep our route
+    //  we have to get on in order to keep our route
     // we assume we need something that depends on our velocity
     // and compare this with the free space on our wished lane
     //
     // if the free space is somehow less than the space we need, we should
     //  definitely try to get to the desired lane
     //
-    // this rule forces our vehicle to change the lane if a lane chaning is necessary soon
-    SUMOReal rv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
-                                ? neighLead.first->speed()+20.0
-                                :*/
-        //myVehicle.getLane().maxSpeed() * 5;
-        myVehicle.getLane().maxSpeed() > LOOK_FORWARD_SPEED_DIVIDER
-        ? myVehicle.getLane().maxSpeed() * (SUMOReal) LOOK_FORWARD_FAR
-        : myVehicle.getLane().maxSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
-    rv =         myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
+    // this rule forces our vehicle to change the lane if a lane changing is necessary soon
+    SUMOReal rv = myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
                  ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
                  : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     rv += myVehicle.getLength() * (SUMOReal) 2.;
@@ -410,20 +403,13 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     // if the free space is somehow less than the space we need, we should
     //  definitely try to get to the desired lane
     //
-    // this rule forces our vehicle to change the lane if a lane chaning is necessary soon
-    SUMOReal lv = /*neighLead.first!=0&&myVehicle.speed()>myVehicle.accelAbility()
-                                ? neighLead.first->speed()+20.0
-                                : */
-        //myVehicle.getLane().maxSpeed() * 5;
-        myVehicle.getLane().maxSpeed() > LOOK_FORWARD_SPEED_DIVIDER
-        ? myVehicle.getLane().maxSpeed() * (SUMOReal) LOOK_FORWARD_FAR
-        : myVehicle.getLane().maxSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
-    lv =         myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
+    // this rule forces our vehicle to change the lane if a lane changing is necessary soon
+    SUMOReal lv = myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
                  ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
                  : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     lv += myVehicle.getLength() * (SUMOReal) 2.;
 
-
+    
     SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos * (SUMOReal) JAM_FACTOR2;
     /*
     if(bestLaneOffset>0) {

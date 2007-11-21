@@ -234,12 +234,7 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
 
     void setApproaching(SUMOReal dist, MSVehicle *veh);
 
-//    VehCont::const_iterator findNextVehicleByPosition(SUMOReal pos) const;
-    /*
-        VehCont::const_iterator findPrevVehicleByPosition(
-            const VehCont::const_iterator &beginAt,
-            SUMOReal pos) const;
-    */
+
     typedef std::vector< MSMoveReminder* > MoveReminderCont;
     /// Add a move-reminder to move-reminder container
     virtual void addMoveReminder(MSMoveReminder* rem);
