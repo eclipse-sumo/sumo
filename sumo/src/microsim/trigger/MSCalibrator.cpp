@@ -311,7 +311,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
         if (end==-1||end>=MSNet::getInstance()->getCurrentTimeStep()) {
             if (myFlow>0) {
                 buildAndScheduleFlowVehicle();
-                MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+                MSNet::getInstance()->getEmissionEvents().addEvent(
                     new WrappingCommand<MSCalibrator::MSCalibrator_FileTriggeredChild>(this, &MSCalibrator::MSCalibrator_FileTriggeredChild::execute),
                     (SUMOTime)(1. / (myFlow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
                     MSEventControl::ADAPT_AFTER_EXECUTION);
@@ -390,7 +390,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
 
         WRITE_WARNING("FOUND calib Tag!!!");
         /*
-        		  MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+        		  MSNet::getInstance()->getEmissionEvents().addEvent(
                             new WrappingCommand<MSCalibrator::MSCalibrator_FileTriggeredChild>(this, &MSCalibrator::MSCalibrator_FileTriggeredChild::execute2),
                             //MSNet::getInstance()->getCurrentTimeStep() + 5,
         					10,
@@ -422,7 +422,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::inputEndReached()
 {
     if (myFlow>0&&!myHaveInitialisedFlow) {
         buildAndScheduleFlowVehicle();
-        MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+        MSNet::getInstance()->getEmissionEvents().addEvent(
             new WrappingCommand<MSCalibrator::MSCalibrator_FileTriggeredChild>(this, &MSCalibrator::MSCalibrator_FileTriggeredChild::execute),
             (SUMOTime)(1. / (myFlow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
@@ -456,7 +456,7 @@ MSCalibrator::MSCalibrator(const std::string &id,
     std::string ilId = "Calib_InductLoopOn_" + myDestLane->getID();
     myIL = myDb.createInductLoop(ilId, myDestLane, myPos, 6000);
 
-    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+    MSNet::getInstance()->getEmissionEvents().addEvent(
         new WrappingCommand<MSCalibrator>(this, &MSCalibrator::execute),
         //MSNet::getInstance()->getCurrentTimeStep() + 5,
         0,

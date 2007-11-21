@@ -206,7 +206,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
         if (end==-1||end>=MSNet::getInstance()->getCurrentTimeStep()) {
             if (myFlow>0) {
                 buildAndScheduleFlowVehicle();
-                MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
+                MSNet::getInstance()->getEmissionEvents().addEvent(
                     new WrappingCommand<MSEmitter::MSEmitter_FileTriggeredChild>(this, &MSEmitter::MSEmitter_FileTriggeredChild::execute),
                     (SUMOTime)(1. / (myFlow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
                     MSEventControl::ADAPT_AFTER_EXECUTION);
@@ -300,7 +300,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::inputEndReached()
 {
     if (myFlow>0&&!myHaveInitialisedFlow) {
         buildAndScheduleFlowVehicle();
-        MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
+        MSNet::getInstance()->getEmissionEvents().addEvent(
             new WrappingCommand<MSEmitter::MSEmitter_FileTriggeredChild>(this, &MSEmitter::MSEmitter_FileTriggeredChild::execute),
             (SUMOTime)(1. / (myFlow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);

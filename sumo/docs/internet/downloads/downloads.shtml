@@ -93,7 +93,7 @@
 
 
 							<p>
-								<h2>SUMO - Latest Release (Version 0.9.6)</h2>
+								<h2>SUMO - Latest Release (Version 0.9.7)</h2>
 								<br>
 								<b>Release date: 23.05.2007</b><br>
 								Please report bugs to 
@@ -119,26 +119,26 @@
 										The latest MS Windows binaries.
 										<br>
 										Contains the binaries, all dlls needed, the examples, tools, and documentation in pdf format.<br>
-										Download as: <a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-winbin-0.9.6.zip?download">[sumo-winbin-0.9.6.zip,
+										Download as: <a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-winbin-0.9.7.zip?download">[sumo-winbin-0.9.7.zip,
 											~6.8MB]</a><br>
 										<br>
 									<li>
 										The latest source-tarball. Includes sources, examples, Linux-Makefiles and project workspaces for MSVC++ 6.0, 7.0, and 8.0.<br>
 										Does not contain tests.<br/>
 										Download as:
-											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-src-0.9.6.tar.gz?download">[sumo-src-0.9.6.tar.gz, ~3.5MB]</a>
-											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-src-0.9.6.zip?download">[sumo-src-0.9.6.zip, ~5.0MB]</a><br>
+											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-src-0.9.7.tar.gz?download">[sumo-src-0.9.7.tar.gz, ~3.5MB]</a>
+											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-src-0.9.7.zip?download">[sumo-src-0.9.7.zip, ~5.0MB]</a><br>
 										<br>
 									<li>
 										The latest documentation-tarball. Includes generated pdfs.<br>
 										Download as:
-											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-docs-0.9.6.tar.gz?download">[sumo-docs-0.9.6.tar.gz, ~1MB]</a>
-											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-docs-0.9.6.zip?download">[sumo-docs-0.9.6.zip, ~1MB]</a><br>
+											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-docs-0.9.7.tar.gz?download">[sumo-docs-0.9.7.tar.gz, ~1MB]</a>
+											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-docs-0.9.7.zip?download">[sumo-docs-0.9.7.zip, ~1MB]</a><br>
 										<br>
 									<li>
 										The latest tests-tarball. These tests run with <a class="SUMOInLineLink" href="http://www.texttest.org">TextTest</a>.<br>
 										Download as:
-											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-tests-0.9.6.tar.gz?download">[sumo-tests-0.9.6.tar.gz, ~3.5MB]</a><br>
+											<a class="SUMOInLineLink" href="http://prdownloads.sourceforge.net/sumo/sumo-tests-0.9.7.tar.gz?download">[sumo-tests-0.9.7.tar.gz, ~3.5MB]</a><br>
 										<br>
 
 									<li>

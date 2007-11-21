@@ -123,7 +123,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::GUIEmitterChild_UserTriggeredChi
         myVehicle(0), mySource(s), myDescheduleVehicle(false)
 {
     if (myUserFlow>0) {
-        MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+        MSNet::getInstance()->getEmissionEvents().addEvent(
             this, (SUMOTime)(1. / (flow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
         MSNet::getInstance()->getVehicleControl().newUnbuildVehicleLoaded();

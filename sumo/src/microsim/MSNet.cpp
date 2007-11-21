@@ -404,6 +404,8 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
         myEdges->detectCollisions(step);
     }
     MSVehicleTransfer::getInstance()->checkEmissions(myStep);
+    // execute endOfTimestepEvents
+    myEmissionEvents.execute(myStep);
 
     if (MSGlobals::gUsingC2C) {
         computeCar2Car();

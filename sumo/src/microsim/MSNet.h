@@ -224,6 +224,10 @@ public:
         return myEndOfTimestepEvents;
     }
 
+    MSEventControl &getEmissionEvents() {
+        return myEmissionEvents;
+    }
+
     /////////////////////////////////////////////
     MSPhoneNet * getMSPhoneNet() {
         return myMSPhoneNet;
@@ -280,6 +284,7 @@ protected:
     MSTriggerControl *myTriggerControl;
     MSEventControl myBeginOfTimestepEvents;
     MSEventControl myEndOfTimestepEvents;
+    MSEventControl myEmissionEvents;
     ShapeContainer *myShapeContainer; // could be a direct member
 
     //{@ data needed for computing performance values
