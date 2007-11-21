@@ -165,7 +165,6 @@ GUILane::push(MSVehicle* veh)
         veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
         veh->_assertPos();
         myLock.unlock();
-//        setApproaching(veh->pos(), veh);
         return false;
     } else {
         veh->onTripEnd(/* *this */);
