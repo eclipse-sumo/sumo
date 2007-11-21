@@ -66,7 +66,6 @@ SAXWeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string 
 
 SAXWeightsHandler::ToRetrieveDefinition::~ToRetrieveDefinition()
 {
-//    delete[] myAttributeName;
 }
 
 
