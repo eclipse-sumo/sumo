@@ -222,8 +222,8 @@ MSVehicle::MSVehicle(string id,
         myRoute(route),
         myDesiredDepart(departTime),
         myState(0, 0), //
-        myIndividualMaxSpeed(0.0),
-        myIsIndividualMaxSpeedSet(false),
+        myIndividualMaxSpeed( 0.0 ),
+        myIsIndividualMaxSpeedSet( false ),
         equipped(false),
         lastUp(0),
         clusterId(-1),
@@ -253,60 +253,60 @@ void
 MSVehicle::initDevices(int vehicleIndex)
 {
     OptionsCont &oc = OptionsCont::getOptions();
-    /*
-        // cell phones
-        if (myType->getID().compare("SBahn")== 0) {
-            int noCellPhones = 1;
-            if ((28800 <= myDesiredDepart && 32400 >= myDesiredDepart) || (61200 <= myDesiredDepart && 64800 >= myDesiredDepart))//40% 8 -9;17-18
-                noCellPhones = 154;
-            else if ((46800 <= myDesiredDepart && 61200 >= myDesiredDepart) || (64800 <= myDesiredDepart && 68400 >= myDesiredDepart)) //35% 13-17;18-19
-                noCellPhones = 134;
-            else if ((21600 <= myDesiredDepart && 28800 >= myDesiredDepart) || (32400 <= myDesiredDepart && 46800 >= myDesiredDepart) //25% 6-8;9-13;19-24
-                     || (68400 <= myDesiredDepart && 86400 >= myDesiredDepart))
-                noCellPhones = 96;
-            else if ((0 <= myDesiredDepart && 5400 >= myDesiredDepart) || (14400 <= myDesiredDepart && 21600 >= myDesiredDepart)) //10% 0-1:30;4-6
-                noCellPhones = 38;
-            vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
-            for (int np=0; np<noCellPhones; np++) {
-                string phoneid = getID() + "_cphone#" + toString(np);
-                v->push_back(new MSDevice_CPhone(*this, phoneid));
-            }
-            myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
-        } else if (myType->getID().substr(0, 3)=="PKW") {
-            int noCellPhones = 1;
-            vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
-            for (int np=0; np<noCellPhones; np++) {
-                string phoneid = getID() + "_cphone#" + toString(np);
-                v->push_back(new MSDevice_CPhone(*this, phoneid));
-            }
-            myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
+/*
+    // cell phones
+    if (myType->getID().compare("SBahn")== 0) {
+        int noCellPhones = 1;
+        if ((28800 <= myDesiredDepart && 32400 >= myDesiredDepart) || (61200 <= myDesiredDepart && 64800 >= myDesiredDepart))//40% 8 -9;17-18
+            noCellPhones = 154;
+        else if ((46800 <= myDesiredDepart && 61200 >= myDesiredDepart) || (64800 <= myDesiredDepart && 68400 >= myDesiredDepart)) //35% 13-17;18-19
+            noCellPhones = 134;
+        else if ((21600 <= myDesiredDepart && 28800 >= myDesiredDepart) || (32400 <= myDesiredDepart && 46800 >= myDesiredDepart) //25% 6-8;9-13;19-24
+                 || (68400 <= myDesiredDepart && 86400 >= myDesiredDepart))
+            noCellPhones = 96;
+        else if ((0 <= myDesiredDepart && 5400 >= myDesiredDepart) || (14400 <= myDesiredDepart && 21600 >= myDesiredDepart)) //10% 0-1:30;4-6
+            noCellPhones = 38;
+        vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
+        for (int np=0; np<noCellPhones; np++) {
+            string phoneid = getID() + "_cphone#" + toString(np);
+            v->push_back(new MSDevice_CPhone(*this, phoneid));
         }
-        else if (oc.getBool("device.cell-phone.percent-of-activity")) {
-            /*myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE] = 1;
+        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
+    } else if (myType->getID().substr(0, 3)=="PKW") {
+        int noCellPhones = 1;
+        vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
+        for (int np=0; np<noCellPhones; np++) {
+            string phoneid = getID() + "_cphone#" + toString(np);
+            v->push_back(new MSDevice_CPhone(*this, phoneid));
+        }
+        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
+    }
+    else if (oc.getBool("device.cell-phone.percent-of-activity")) {
+        /*myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE] = 1;
+        string phoneid = getID() + "_cphone#0";
+        MSDevice_CPhone* pdcp  = new MSDevice_CPhone(*this, phoneid);
+        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*)pdcp;/
+        if (RandHelper::rand()<=oc.getFloat("device.cell-phone.probability")) {
+            vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
             string phoneid = getID() + "_cphone#0";
-            MSDevice_CPhone* pdcp  = new MSDevice_CPhone(*this, phoneid);
-            myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*)pdcp;/
-            if (RandHelper::rand()<=oc.getFloat("device.cell-phone.probability")) {
-                vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
-                string phoneid = getID() + "_cphone#0";
-                v->push_back(new MSDevice_CPhone(*this, phoneid));
-                myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
-            }
-        } else if (oc.getFloat("device.cell-phone.probability")!=0||oc.isSet("device.cell-phone.knownveh")) {
-            bool t1 = RandHelper::rand()<=oc.getFloat("device.cell-phone.probability");
-            bool t2 = oc.isSet("device.cell-phone.knownveh") && OptionsCont::getOptions().isInStringVector("device.cell-phone.knownveh", myID);
-            if (t1||t2) {
-                int noCellPhones = (int)RandHelper::rand(oc.getFloat("device.cell-phone.amount.min"),
-                                                         oc.getFloat("device.cell-phone.amount.max"));
-                vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
-                for (int np=0; np<noCellPhones; np++) {
-                    string phoneid = getID() + "_cphone#" + toString(np);
-                    v->push_back(new MSDevice_CPhone(*this, phoneid));
-                }
-                myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
-            }
+            v->push_back(new MSDevice_CPhone(*this, phoneid));
+            myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
         }
-    */
+    } else if (oc.getFloat("device.cell-phone.probability")!=0||oc.isSet("device.cell-phone.knownveh")) {
+        bool t1 = RandHelper::rand()<=oc.getFloat("device.cell-phone.probability");
+        bool t2 = oc.isSet("device.cell-phone.knownveh") && OptionsCont::getOptions().isInStringVector("device.cell-phone.knownveh", myID);
+        if (t1||t2) {
+            int noCellPhones = (int)RandHelper::rand(oc.getFloat("device.cell-phone.amount.min"),
+                                                     oc.getFloat("device.cell-phone.amount.max"));
+            vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
+            for (int np=0; np<noCellPhones; np++) {
+                string phoneid = getID() + "_cphone#" + toString(np);
+                v->push_back(new MSDevice_CPhone(*this, phoneid));
+            }
+            myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
+        }
+    }
+*/
     // c2c communication
     if (oc.getFloat("device.c2x.probability")!=0||oc.isSet("device.c2x.knownveh")) {
         bool t1 = false;
@@ -460,7 +460,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
                 }
                 if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                     bstop.reached = true;
-                    if (bstop.duration==-1) {
+                    if(bstop.duration==-1) {
                         assert(bstop.until>=0);
                         bstop.duration = bstop.until - MSNet::getInstance()->getCurrentTimeStep();
                     }
@@ -474,8 +474,8 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
         }
     }
 
-    SUMOReal maxNextSpeed = MIN2(myType->maxNextSpeed(myState.mySpeed), getMaxSpeed());
-
+    SUMOReal maxNextSpeed = MIN2( myType->maxNextSpeed(myState.mySpeed), getMaxSpeed() );
+    
     SUMOReal vNext = myType->dawdle(MIN3(lane->maxSpeed(), myType->maxNextSpeed(myState.mySpeed), vSafe));
     vNext =
         myLaneChangeModel->patchSpeed(
@@ -653,7 +653,7 @@ MSVehicle::moveFirstChecked()
                 }
                 if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                     bstop.reached = true;
-                    if (bstop.duration==-1) {
+                    if(bstop.duration==-1) {
                         assert(bstop.until>=0);
                         bstop.duration = bstop.until - MSNet::getInstance()->getCurrentTimeStep();
                     }
@@ -683,8 +683,8 @@ MSVehicle::moveFirstChecked()
     }
     // call reminders after vNext is set
     SUMOReal pos = myState.myPos;
-
-    vNext = MIN2(vNext, getMaxSpeed());
+    
+    vNext = MIN2( vNext, getMaxSpeed() );
 
     // update position
     myState.myPos += SPEED2DIST(vNext);
@@ -693,10 +693,13 @@ MSVehicle::moveFirstChecked()
     MSLane *approachedLane = myLane;
     approachedLane->addMean2(*this, vNext, oldV, -1);
 
-
     // move the vehicle forward
     size_t no = 0;
-    SUMOReal driven = approachedLane->length() - pos;
+    SUMOReal driven = 
+        myState.myPos>approachedLane->length()
+        ? approachedLane->length() - pos
+        : myState.myPos - pos;
+    SUMOReal tmpPos = approachedLane->length() + myType->brakeGap(myState.mySpeed);
     for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()
             &&
             myState.myPos>approachedLane->length();
@@ -711,6 +714,7 @@ MSVehicle::moveFirstChecked()
         //  approach on the following lanes when a lane changing is performed
         assert(approachedLane!=0);
         myState.myPos -= approachedLane->length();
+        tmpPos -= approachedLane->length();
         assert(myState.myPos>0);
         if (approachedLane!=myLane) {
             enterLaneAtMove(approachedLane, driven, true);
@@ -736,13 +740,12 @@ MSVehicle::moveFirstChecked()
     //  next steps
     MSLane *tmpApproached = approachedLane;
     SUMOReal dist = myType->brakeGap(myState.mySpeed) - driven;
-    SUMOReal tmpPos = myState.myPos + dist;
     for (; dist>0&&tmpApproached->length()<tmpPos&&i!=myLFLinkLanes.end(); i++) {
         MSLink *link = (*i).myLink;
         if (link==0) {
             break;
         }
-        tmpPos -= tmpApproached->length();//approachedLane->length();
+        tmpPos += tmpApproached->length();//approachedLane->length();
 #ifdef HAVE_INTERNAL_LANES
         tmpApproached = link->getViaLane();
         if (tmpApproached==0) {
@@ -1847,12 +1850,6 @@ MSVehicle::getBestLanes() const
                     for (std::vector<LaneQ>::iterator l=next.begin(); l!=next.end()&&!oneFound; ++l) {
                         if ((*l).lane==c/*&&curr[j].t1*/&&(*l).t1) {
                             gotOne = true;
-                            /*
-                            (*l).length += next[j].length;
-                            (*l).v += next[j].v;
-                            (*l).wish++;
-                            (*l).alllength += next[j].alllength;
-                            */
                             oneFound = true;
                             curr[j].length += (*l).length;
                             curr[j].v += (*l).v;
@@ -1880,18 +1877,7 @@ MSVehicle::getBestLanes() const
                     for (MSLinkCont::const_iterator k=lc.begin(); k!=lc.end()&&!oneFound; ++k) {
                         MSLane *c = (*k)->getLane();
                         for (std::vector<LaneQ>::iterator l=next.begin(); l!=next.end(); ++l) {
-                            if ((*l).lane==c/*&&curr[j].t1&&(*l).t1*/) {
-                                /*
-                                cout << "c3111 " << "\n";
-                                (*l).length += next[j].lane->length();//.length;
-                                cout << "c3112 " << "\n";
-                                (*l).v += next[j].lane->getDensity();//;
-                                cout << "c3113 " << "\n";
-                                (*l).wish++;
-                                cout << "c3114 " << "\n";
-                                (*l).alllength += next[j].lane->length();//.alllength;
-                                cout << "c3115 " << "\n";
-                                */
+                            if ((*l).lane==c) {
                                 curr[j].length += (*l).lane->length();//.length;
                                 curr[j].v += (*l).lane->getDensity();//.v;
                                 curr[j].wish++;// += (*l).length;
@@ -2172,7 +2158,7 @@ MSVehicle::buildMyCluster(int myStep, int clId)
     {
         clusterId = clId;
         std::map<MSVehicle * const, C2CConnection*>::iterator i;
-        for (i=myNeighbors.begin(); i!=myNeighbors.end(); i++) {
+        for (i=myNeighbors.begin(); i!=myNeighbors.end(); i++){
             if ((*i).first->getClusterId()<0) {
                 count++;
                 (*i).second->connectedVeh->setClusterId(clId);
