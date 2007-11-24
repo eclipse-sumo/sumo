@@ -113,6 +113,8 @@ private:
 
     void commandChangeLane(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
+	void commandChangeRoute(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+
     void commandCloseConnection(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
     void commandSimulationParameter(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);

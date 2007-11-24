@@ -36,6 +36,9 @@
 // command: set lane
 #define CMD_CHANGELANE 0x13
 
+// command: change route
+#define CMD_CHANGEROUTE 0x30
+
 // command: change target
 #define CMD_CHANGETARGET 0x31
 

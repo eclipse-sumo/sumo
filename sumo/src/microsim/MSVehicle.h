@@ -570,6 +570,21 @@ public:
         void send(SUMOTime time);
     */
 
+	/**
+	 * Used by TraCIServer to change the weight of an edge locally for a specific vehicle
+	 * @param edgeID: ID of the edge to change
+	 * @param travelTime: the new time to be set for the edge
+	 * @param currentTime: the current simulation time
+	 */
+	bool changeEdgeWeightLocally(std::string edgeID, double travelTime, SUMOTime currentTime);
+
+	/**
+	 * Used by TraCIServer to restore the weight of an edge that was changed previously 
+	 * via "changeRoute" command
+	 * @param edgeID: ID of the edge to restore
+	 */
+	bool restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime);
+
 protected:
     /// Use this constructor only.
     MSVehicle(std::string id, MSRoute* route, SUMOTime departTime,
@@ -751,6 +766,20 @@ private:
 
     /// Definition of the vector which stores information about replaced routes
     typedef std::vector<RouteReplaceInfo> ReplacedRoutesVector;
+
+	/** 
+	 * if true, indicates that a TraCI message "changeRoute" was sent to this vehicle,
+	 * thus it checks for a new route when the next simulation step is performed
+	 */
+	bool myWeightChangedViaTraci;
+
+	/**
+	 * all edges in this list are marked as "changed by TracI", this means infoCont data
+	 * of this edge must not be changed except by a TraCI "changeRoute" message.
+	 * The corresponding Information value of the map holds the Information data
+	 * related to an edge before it was changed by TraCI
+	 */
+	InfoCont edgesChangedByTraci;
 
 };
 

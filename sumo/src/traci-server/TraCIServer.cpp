@@ -164,6 +164,9 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
     case CMD_CHANGELANE:
         commandChangeLane(requestMsg, respMsg);
         break;
+	case CMD_CHANGEROUTE:
+			commandChangeRoute(requestMsg, respMsg);
+			break;
     case CMD_CLOSE:
         commandCloseConnection(requestMsg, respMsg);
         break;
@@ -216,6 +219,15 @@ void
 TraCIServer::commandSimulationStep(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
 throw(TraCIException)
 {
+	// for each vehicle, try to reroute in case of previous "changeRoute" messages
+	for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin(); 
+			iter != equippedVehicles_.end() && (*iter).second != -1; iter++) {
+		MSVehicle* veh = getVehicleByExtId((*iter).second);
+		if (veh != NULL) {
+			veh->checkReroute(MSNet::getInstance()->getCurrentTimeStep());
+		}
+	}
+
     // TargetTime
     SUMOTime targetTime = static_cast<SUMOTime>(requestMsg.readDouble());
     if (targetTime > endTime_) {
@@ -375,6 +387,44 @@ throw(TraCIException)
 
     return;
 }
+
+/*****************************************************************************/
+void
+	TraCIServer::commandChangeRoute(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+	throw (TraCIException)
+{
+	// NodeId
+    MSVehicle* veh = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
+	// edgeID
+	std::string edgeID = requestMsg.readString();
+	// travelTime
+	double travelTime = requestMsg.readDouble();
+
+	if ( veh == NULL )
+    {
+        writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve node with given ID");
+        return;
+    }
+
+	if (travelTime < 0) {
+		//restore last travel time
+		veh->restoreEdgeWeightLocally(edgeID, MSNet::getInstance()->getCurrentTimeStep());
+	} else {
+		// change edge weight for the vehicle
+		bool result = veh->changeEdgeWeightLocally(edgeID, travelTime, 
+													MSNet::getInstance()->getCurrentTimeStep());
+		if (!result) {
+			writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Could not set new travel time properly");
+			return;
+		}
+	}
+
+	// create a reply message
+    writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_OK, "");
+
+    return;
+}
+
 
 /*****************************************************************************/
 

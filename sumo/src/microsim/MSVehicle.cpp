@@ -192,6 +192,13 @@ MSVehicle::~MSVehicle()
         }
         infoCont.clear();
     }
+	{
+		// edges changed by TraCI
+		for (InfoCont::iterator i=edgesChangedByTraci.begin(); i!=edgesChangedByTraci.end(); ++i) {
+				delete(*i).second;
+		}	
+		edgesChangedByTraci.clear();
+	}
     // persons
     if (hasCORNPointerValue(MSCORN::CORN_VEH_PASSENGER)) {
         std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_VEH_PASSENGER];
@@ -240,7 +247,8 @@ MSVehicle::MSVehicle(string id,
         myMoveReminders(0),
         myOldLaneMoveReminders(0),
         myOldLaneMoveReminderOffsets(0),
-        myNoGot(0), myNoSent(0), myNoGotRelevant(0)
+        myNoGot(0), myNoSent(0), myNoGotRelevant(0),
+		myWeightChangedViaTraci(false)
 {
     rebuildAllowedLanes();
     myLaneChangeModel = new MSLCM_DK2004(*this);
@@ -2387,6 +2395,85 @@ size_t
 MSVehicle::getNoGotRelevant() const
 {
     return myNoGotRelevant;
+}
+
+/****************************************************************************/
+
+bool 
+MSVehicle::changeEdgeWeightLocally(std::string edgeID, double travelTime, SUMOTime currentTime)
+{
+	MSEdge* edgeToChange = MSEdge::dictionary(edgeID);
+	double oldNeededTime = -1;
+	SUMOTime oldTime = -1;
+
+	if (edgeToChange == NULL || travelTime <= 0) {
+		return false;
+	}
+
+	InfoCont::iterator infoToChange = infoCont.find(edgeToChange);
+	
+	if (infoToChange == infoCont.end()) {
+		// if the edge is not already stored in infoCont, create a new key
+		infoCont[edgeToChange] = new Information(travelTime, currentTime);
+	} else {
+		// otherwise, alter the existing information
+		oldNeededTime = (*infoToChange).second->neededTime;
+		oldTime = (*infoToChange).second->time;
+		(*infoToChange).second->time = currentTime;
+		(*infoToChange).second->neededTime = travelTime;
+	}
+
+	// check wether this edge has not been changed by TraCI before, if so, save the old data
+	// and lock this edge, so that it's weight will not be changed in the future except by 
+	// another "changeRoute" TraCI message
+	InfoCont::iterator iter = edgesChangedByTraci.find(edgeToChange);
+	if (iter == edgesChangedByTraci.end()) {
+		edgesChangedByTraci[edgeToChange] = new Information(oldNeededTime, oldTime);
+	}
+
+	myWeightChangedViaTraci = true;
+
+	// if the edge is on the vehicle's route, mark that a relevant information has been added
+    bool bWillPass = willPass(edgeToChange);
+    if (bWillPass) {
+        myHaveRouteInfo = true;
+    }
+
+	return true;
+}
+
+/****************************************************************************/
+
+bool
+MSVehicle::restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime)
+{
+	MSEdge *edgeToRestore = MSEdge::dictionary(edgeID);
+
+	if (edgeToRestore == NULL) {
+		return false;
+	}
+
+	InfoCont::iterator infoToRestore;
+
+	if (edgesChangedByTraci.end() != (infoToRestore = edgesChangedByTraci.find(edgeToRestore))) {
+		if (infoToRestore->second->time == -1) {
+
+			// the edge was not known to the vehicle before any TraCI message, so it is
+			// deleted now
+			infoCont.erase(infoCont.find(edgeToRestore));
+		} else {
+
+			// the edge was already known to the vehicle, so it's original data (before any TraCI message
+			// was sent) is restored
+			infoCont[edgeToRestore]->neededTime = (*infoToRestore).second->neededTime;
+			infoCont[edgeToRestore]->time = (*infoToRestore).second->time;	
+		}
+		edgesChangedByTraci.erase(infoToRestore);
+	} else {
+		return false;
+	}
+
+	return true;
 }
 
 
