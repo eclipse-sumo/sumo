@@ -2,6 +2,9 @@
 # Tests whether the router works
 function
 
+# testing random route generation
+random
+
 # testing meta processing
 meta
 

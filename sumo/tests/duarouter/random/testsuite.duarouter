@@ -1,0 +1,7 @@
+# Plain computation (should report errors)
+plain
+
+# Asserting all vehicles
+continue_on_unbuild
+
+
