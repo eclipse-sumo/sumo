@@ -39,6 +39,7 @@
 #include "microsim/MSRouteHandler.h"
 #include "microsim/MSRouteLoaderControl.h"
 #include "microsim/MSRouteLoader.h"
+#include "microsim/traffic_lights/MSTLLogicControl.h"
 
 #include "microsim/MSEdgeControl.h"
 #include "microsim/MSLane.h"
@@ -165,8 +166,11 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
         commandChangeLane(requestMsg, respMsg);
         break;
 	case CMD_CHANGEROUTE:
-			commandChangeRoute(requestMsg, respMsg);
-			break;
+		commandChangeRoute(requestMsg, respMsg);
+		break;
+	case CMD_GETALLTLIDS:
+		commandGetAllTLIds(requestMsg, respMsg);
+		break;
     case CMD_CLOSE:
         commandCloseConnection(requestMsg, respMsg);
         break;
@@ -423,6 +427,140 @@ void
     writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_OK, "");
 
     return;
+}
+
+/*****************************************************************************/
+void
+	TraCIServer::commandGetAllTLIds(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+	throw (TraCIException)
+{
+	tcpip::Storage tempMsg;
+
+	// get the TLLogicControl
+	MSTLLogicControl tlsControl = MSNet::getInstance()->getTLSControl();
+	// get the ids
+	std::vector<std::string> idList = tlsControl.getAllTLIds();
+
+	if (idList.size() == 0) {
+		// create negative response message
+		writeStatusCmd(respMsg, CMD_GETALLTLIDS, RTYPE_ERR, "Could not retrieve any traffic light id");	
+		return;
+	} 
+
+	// create positive response message 
+	writeStatusCmd(respMsg, CMD_GETALLTLIDS, RTYPE_OK, "");
+
+	// create a response command for each string id
+	for (std::vector<std::string>::iterator iter = idList.begin(); iter != idList.end(); iter++)
+	{
+		// command length
+		respMsg.writeByte(2 + (*iter).size());
+		// command type
+		respMsg.writeByte(CMD_TLIDLIST);
+		// id string
+		respMsg.writeString((*iter));
+	}
+}
+
+/*****************************************************************************/
+void
+	TraCIServer::commandGetTLStatus(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+	throw (TraCIException)
+{
+	tcpip::Storage tempMsg;
+
+	// trafic light id
+	std::string id = requestMsg.readString();
+	// start of time interval
+	double timeFrom = requestMsg.readDouble();
+	// end of time interval
+	double timeTo = requestMsg.readDouble();
+
+	// get the running programm of the traffic light
+	MSTLLogicControl tlsControl = MSNet::getInstance()->getTLSControl();
+	// TODO: remove dynamic cast
+	MSSimpleTrafficLightLogic* const tlLogic = dynamic_cast<MSSimpleTrafficLightLogic*>(tlsControl.get(id).defaultTL);
+	
+	// error checking
+	if (tlLogic == NULL) {
+		writeStatusCmd(respMsg, CMD_GETTLSTATUS, RTYPE_ERR, "Could not retrieve traffic light with given id");	
+		return;
+	}
+	if ((timeTo < timeFrom) || (timeTo < 0) || (timeFrom < 0)) {
+		writeStatusCmd(respMsg, CMD_GETALLTLIDS, RTYPE_ERR, "The given time interval is not valid");	
+		return;
+	}
+	
+	std::vector<MSLink::LinkState> linkStates;
+	std::vector<double> yellowTimes;
+	size_t lastStep = tlLogic->getStepNo();
+	MSPhaseDefinition phase = tlLogic->getCurrentPhaseDef();
+	MSTrafficLightLogic::LinkVectorVector affectedLinks = tlLogic->getLinks();
+	
+	// save the current link states
+	for (int i = 0; i < affectedLinks.size(); i++) {
+		linkStates.push_back(phase.getLinkState(i));
+		yellowTimes.push_back(0);
+	}
+
+	// check every second of the given time interval for a switch in the traffic light's phases
+	for (int time = timeFrom; time <= timeTo; time++) {
+		size_t position = tlLogic->getPositionFromSimTime(time);
+		size_t currentStep = tlLogic->getStepFromPos(position);
+
+		if (currentStep != lastStep) {
+			lastStep = currentStep;
+			phase = tlLogic->getPhaseFromStep(currentStep);
+
+			// for every link of the tl's junction, compare the actual and the last red/green state
+			for (int i = 0; i < linkStates.size(); i++) {
+				MSLink::LinkState nextLinkState = phase.getLinkState(i);
+
+				if (nextLinkState != linkStates[i]) {
+					linkStates[i] = nextLinkState;
+
+					// get the group of links that is affected by the changed light status
+					MSTrafficLightLogic::LinkVector linkGroup = affectedLinks[i];
+					// get the group of preceding lanes of the link group
+					MSTrafficLightLogic::LaneVector laneGroup = tlLogic->getLanesAt(i);
+
+					if (nextLinkState == MSLink::LINKSTATE_TL_YELLOW) {
+						yellowTimes[i]++;
+					} else {
+
+						// for each link with new red/green status, write a TLSWITCH command
+						for (int j = 0; j < linkGroup.size(); j++) {
+
+							// time of the switch
+							tempMsg.writeDouble(time);	
+							// preceding edeg id
+							tempMsg.writeString(laneGroup[j]->getEdge()->getID());
+							// succeeding edge id
+							tempMsg.writeString(linkGroup[j]->getLane()->getEdge()->getID());	
+							// new status
+							if (nextLinkState == MSLink::LINKSTATE_TL_RED) {
+								tempMsg.writeString("red");	
+							} else {
+								tempMsg.writeString("green");	
+							}
+							//yellow time
+							tempMsg.writeDouble(yellowTimes[i]);	
+
+							// command length
+							respMsg.writeByte(2 + tempMsg.size());	
+							// command type
+							respMsg.writeByte(CMD_TLSWITCH);	
+							// command content
+							respMsg.writeStorage(tempMsg);		
+						}
+
+						yellowTimes[i] = 0;
+					}
+				}
+			}
+		}
+	}
+
 }
 
 

@@ -51,8 +51,20 @@
 // command: close sumo
 #define CMD_CLOSE   0x7F
 
-// command: close sumo
+// command: 
 #define CMD_UPDATECALIBRATOR 0x50
+
+// command: get all traffic light ids
+#define CMD_GETALLTLIDS 0x40
+
+// command: get traffic light status
+#define CMD_GETTLSTATUS 0x41
+
+// command: traffic light id
+#define CMD_TLIDLIST 0x90
+
+// command: traffic light status switch
+#define CMD_TLSWITCH 0x91
 
 // ****************************************
 // POSITION REPRESENTATIONS

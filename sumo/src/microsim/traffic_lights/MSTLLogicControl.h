@@ -136,6 +136,13 @@ public:
      */
     MSTrafficLightLogic * const getActive(const std::string &id) const;
 
+	/**
+	 * Returns the ids of all existing variants-structures, wich are the ids of their 
+	 * contained tls logics (not the logic's programm-ids)
+	 * @return the list of ids
+	 */
+	std::vector<std::string> getAllTLIds() const;
+
 
     /** @brief Adds a tls program to the container
      *
