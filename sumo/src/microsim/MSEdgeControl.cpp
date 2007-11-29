@@ -101,10 +101,6 @@ void
 MSEdgeControl::moveNonCritical()
 {
     LaneUsageVector::iterator i;
-    // reset the approaching vehicle distance, first
-    for (i=myLanes.begin(); i!=myLanes.end(); ++i) {
-        (*i).lane->resetApproacherDistance();
-    }
     // move non-critical vehicles
     for (i=myLanes.begin(); i!=myLanes.end(); ++i) {
         if ((*i).noVehicles!=0) {

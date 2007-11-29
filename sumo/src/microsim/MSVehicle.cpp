@@ -740,29 +740,8 @@ MSVehicle::moveFirstChecked()
 #endif
         }
         // set information about approaching
-        approachedLane->setApproaching(myState.pos(), this);
         approachedLane->addMean2(*this, vNext, oldV, -1);
         no++;
-    }
-    // set approaching information for consecutive lanes the vehicle may reach in the
-    //  next steps
-    MSLane *tmpApproached = approachedLane;
-    SUMOReal dist = myType->brakeGap(myState.mySpeed) - driven;
-    for (; dist>0&&tmpApproached->length()<tmpPos&&i!=myLFLinkLanes.end(); i++) {
-        MSLink *link = (*i).myLink;
-        if (link==0) {
-            break;
-        }
-        tmpPos += tmpApproached->length();//approachedLane->length();
-#ifdef HAVE_INTERNAL_LANES
-        tmpApproached = link->getViaLane();
-        if (tmpApproached==0) {
-            tmpApproached = link->getLane();
-        }
-#else
-        tmpApproached = link->getLane();
-#endif
-        tmpApproached->setApproaching(tmpPos, this);
     }
 
     // enter lane herein if no push occures (otherwise, do it there)
@@ -875,7 +854,6 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
         } else {
             r_dist2Pred = r_dist2Pred + nextLane->length();
         }
-//        +nextLane->myLastState.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! the real length of the car
 
 #ifdef HAVE_INTERNAL_LANES
         if (MSGlobals::gUsingInternalLanes) {
@@ -895,10 +873,6 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                 } else {
                     dist2Pred = dist2Pred + nl->length();
                 }
-//                seen+nextLanePred.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! the real length of the car
-//            if(nl->length()<dist2Pred&&nl->length()<MSVehicleType::getMaxVehicleLength()) { // @!!! the real length of the car
-
-
                 if (dist2Pred>=0) {
                     // leading vehicle is not overlapping
                     vsafePredNextLane =
@@ -981,23 +955,6 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
 #ifdef HAVE_INTERNAL_LANES
         }
 #endif
-        /*
-        } else {
-        if(dist2Pred>=0) {
-            // leading vehicle is not overlapping
-            vsafePredNextLane =
-                MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, dist2Pred, nextLanePred.speed()));
-            SUMOReal predDec = MAX2((SUMOReal) 0, nextLanePred.speed()-myType->decelAbility() / !!! decelAbility of leader! /);
-            if(myType->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->brakeGap(predDec) + dist2Pred) {
-
-                vsafePredNextLane = MIN2(vsafePredNextLane, DIST2SPEED(dist2Pred));
-            }
-        } else {
-            // leading vehicle is overlapping (stands within the junction)
-            vsafePredNextLane = MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, 0, 0));//dist2Pred/MAX2((SUMOReal) 0, seen-dist2Pred, 0);
-        }
-        }
-        */
 
         // compute the velocity to use when the link may be used
         vLinkPass =
@@ -1493,26 +1450,6 @@ MSVehicle::onTripEnd(bool /*wasAlreadySet*/)
             delete(*i).second;
         }
         infoCont.clear();
-    }
-}
-
-
-void
-MSVehicle::removeApproachingInformationOnKill()
-{
-    DriveItemVector::iterator i = myLFLinkLanes.begin();
-    while (i!=myLFLinkLanes.end()&&(*i).myLink!=0/*&&(*i).myLink->getLane()!=begin&&(*i).myLink->getViaLane()!=begin*/) {
-        MSLane *tmp = (*i).myLink->getLane();
-        if (tmp!=0) {
-            tmp->resetApproacherDistance(this);
-        }
-#ifdef HAVE_INTERNAL_LANES
-        tmp = (*i).myLink->getViaLane();
-        if (tmp!=0) {
-            tmp->resetApproacherDistance(this);
-        }
-#endif
-        ++i;
     }
 }
 

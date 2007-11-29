@@ -136,11 +136,29 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
 #else
     MSLink *link = new MSLink(lane, yield, dir, state);
 #endif
+    if(MSLane::dictionary(m_CurrentLane)!=0) {
+#ifdef HAVE_INTERNAL_LANES
+        if(via!=0) {
+            // from a normal in to a normal out via
+            //  --> via incomes in out
+            lane->addIncomingLane(via, link);
+            //  --> in incomes in via
+            via->addIncomingLane(MSLane::dictionary(m_CurrentLane), link);
+        } else {
+            if(m_CurrentLane[0]!=':') {
+                // internal not wished; other case already set
+                lane->addIncomingLane(MSLane::dictionary(m_CurrentLane), link);
+            }
+        }
+#else
+        lane->addIncomingLane(MSLane::dictionary(m_CurrentLane), link);
+#endif
+    }
     // if a traffic light is responsible for it, inform the traffic light
     if (logics.ltVariants.size()!=0) {
         MSLane *current = MSLane::dictionary(m_CurrentLane);
         if (current==0) {
-            throw InvalidArgument("An unknown lane ('" + m_CurrentLane + "') should be assigned t a tl-logic.");
+            throw InvalidArgument("An unknown lane ('" + m_CurrentLane + "') should be assigned to a tl-logic.");
         }
         std::map<std::string, MSTrafficLightLogic *>::iterator i;
         for (i=logics.ltVariants.begin(); i!=logics.ltVariants.end(); ++i) {

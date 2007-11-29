@@ -175,7 +175,6 @@ MSLaneChanger::change()
     std::pair<MSVehicle*, SUMOReal> leader = getRealThisLeader(myCandi);
     int state1 =
         change2right(leader, rLead, rFollow, preb);
-//            changePreference.first, changePreference.second, currentLaneDist);
     bool changingAllowed =
         (state1&(LCA_BLOCKEDBY_LEADER|LCA_BLOCKEDBY_FOLLOWER))==0;
     if ((state1&LCA_URGENT)!=0||(state1&LCA_SPEEDGAIN)!=0) {
@@ -386,24 +385,56 @@ MSLaneChanger::getRealLeader(const ChangerIt &target)
     }
 
     if (neighLead==0) {
+        SUMOReal seen = myCandi->lane->length() - veh(myCandi)->getPositionOnLane();
+        SUMOReal speed = veh(myCandi)->getSpeed();
+        SUMOReal dist = veh(myCandi)->getVehicleType().brakeGap(speed); 
+        if (seen>dist) {
+            return std::pair<MSVehicle *, SUMOReal>(0, -1);
+        }
+        size_t view = 1;
+        // loop over following lanes
         MSLane* targetLane = target->lane;
-        MSLinkCont::const_iterator link =
-            targetLane->succLinkSec(*veh(myCandi), 1, *targetLane);
-        if (targetLane->isLinkEnd(link)) {
-            return std::pair<MSVehicle *, SUMOReal>(0, -1);
+        MSLane *nextLane = targetLane;
+        while (true) {
+            // get the next link used
+            MSLinkCont::const_iterator link =
+                targetLane->succLinkSec(*veh(myCandi), view, *nextLane);
+            if (nextLane->isLinkEnd(link) || !(*link)->havePriority() || (*link)->getState()==MSLink::LINKSTATE_TL_RED) {
+                return std::pair<MSVehicle *, SUMOReal>(0, -1);
+            }
+#ifdef HAVE_INTERNAL_LANES
+            bool nextInternal = false;
+            nextLane = (*link)->getViaLane();
+            if (nextLane==0) {
+                nextLane = (*link)->getLane();
+            } else {
+                nextInternal = true;
+            }
+#else
+            nextLane = (*link)->getLane();
+#endif
+            if (nextLane==0) {
+                return std::pair<MSVehicle *, SUMOReal>(0, -1);
+            }
+            neighLead = nextLane->getLastVehicle(*this);
+            if (neighLead!=0) {
+                return std::pair<MSVehicle *, SUMOReal>(neighLead, seen+neighLead->getPositionOnLane()-neighLead->getLength());
+            }
+            if(nextLane->maxSpeed()<speed) {
+                dist = veh(myCandi)->getVehicleType().brakeGap(nextLane->maxSpeed());
+            }
+            seen += nextLane->length();
+            if (seen>dist) {
+                return std::pair<MSVehicle *, SUMOReal>(0, -1);
+            }
+#ifdef HAVE_INTERNAL_LANES
+            if (!nextInternal) {
+                view++;
+            }
+#else
+            view++;
+#endif
         }
-        MSLane *nextLane = (*link)->getLane();
-        if (nextLane==0) {
-            return std::pair<MSVehicle *, SUMOReal>(0, -1);
-        }
-        neighLead = nextLane->getLastVehicle(*this);
-        if (neighLead==0) {
-            return std::pair<MSVehicle *, SUMOReal>(0, -1);
-        }
-        return std::pair<MSVehicle *, SUMOReal>(neighLead,
-                                                neighLead->getPositionOnLane()-neighLead->getLength()
-                                                +
-                                                (myCandi->lane->length()-veh(myCandi)->getPositionOnLane()));
     } else {
         MSVehicle *candi = veh(myCandi);
         return std::pair<MSVehicle *, SUMOReal>(neighLead,
@@ -450,14 +481,12 @@ MSLaneChanger::getRealFollower(const ChangerIt &target)
         }
     }
     if (neighFollow==0) {
-        neighFollow = target->lane->myApproaching;
-        if (neighFollow==0) {
-            return std::pair<MSVehicle *, SUMOReal>(0, -1);
-        }
-        MSVehicle *candi = veh(myCandi);
-        SUMOReal gap = candi->getPositionOnLane()-candi->getLength()
-                       + target->lane->myBackDistance;
-        return std::pair<MSVehicle *, SUMOReal>(neighFollow, gap);
+            SUMOReal speed = target->lane->maxSpeed();
+            SUMOReal dist = speed * speed * SUMOReal(1./2.*4) + speed; 
+            dist = MIN2(dist, (SUMOReal) 500.);
+            MSVehicle *candi = veh(myCandi);
+            SUMOReal seen = candi->getPositionOnLane()-candi->getLength();
+            return target->lane->getApproaching(dist, seen, candi->getSpeed());
     } else {
         MSVehicle *candi = veh(myCandi);
         return std::pair<MSVehicle *, SUMOReal>(neighFollow,

@@ -450,7 +450,6 @@ public:
         runs in ms */
     size_t getWaitingTime() const;
 
-    void removeApproachingInformationOnKill();
 
     void rebuildAllowedLanes();
 

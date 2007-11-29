@@ -110,8 +110,6 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
         above all the pointers to other lanes, so we have to
         initialize later. */
     void initialize(MSLinkCont* succs);
-    void resetApproacherDistance();
-    void resetApproacherDistance(MSVehicle *v);
 
     virtual void moveNonCritical();
 
@@ -134,17 +132,14 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     /// Insert buffered vehicle into the real lane.
     virtual void integrateNewVehicle();
 
-    //--------------- Methods used by Vehicles  ---------------------
     /** Returns the information whether this lane may be used to continue
         the current route */
     virtual bool appropriate(const MSVehicle *veh);
 
-    //--------------- Methods used by Junctions  ---------------------
 
     /// returns the container with all links !!!
     const MSLinkCont &getLinkCont() const;
 
-    //-------------- End of junction-used methods --------------------------------
 
     /// Returns true if there is not a single vehicle on the lane.
     bool empty() const {
@@ -231,7 +226,6 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
 
     size_t getVehicleNumber() const;
 
-    void setApproaching(SUMOReal dist, MSVehicle *veh);
 
 
     typedef std::vector< MSMoveReminder* > MoveReminderCont;
@@ -244,7 +238,6 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
 
     MSVehicle *removeFirstVehicle();
     MSVehicle *removeVehicle(MSVehicle *remVehicle);
-    MSVehicle *myApproaching;
 
     size_t getNumericalID() const;
 
@@ -276,6 +269,21 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     const std::vector<SUMOVehicleClass> &getAllowedClasses() const;
     const std::vector<SUMOVehicleClass> &getNotAllowedClasses() const;
     bool allowsVehicleClass(SUMOVehicleClass vclass) const;
+
+    void addIncomingLane(MSLane *lane, MSLink *viaLink);
+
+    struct IncomingLaneInfo {
+        MSLane *lane;
+        SUMOReal length;
+        MSLink *viaLink;
+    };
+
+    const std::vector<IncomingLaneInfo> &getIncomingLanes() const {
+        return myIncomingLanes;
+    }
+
+    std::pair<MSVehicle *, SUMOReal> getApproaching(SUMOReal dist, SUMOReal seen, SUMOReal leaderSpeed) const;
+
 
 
 protected:
@@ -375,6 +383,8 @@ protected:
     /// The list of disallowed vehicle classes
     std::vector<SUMOVehicleClass> myNotAllowedClasses;
 
+    std::vector<IncomingLaneInfo> myIncomingLanes;
+
 
 protected:
 
@@ -392,13 +402,8 @@ protected:
         right-of-way rule, i.e. blocked or not blocked. */
     MSLinkCont myLinks;
 
-//----------- Declarations for mean-data calculation
-
-
     /** Container of MeanDataValues, one element for each intervall. */
     mutable std::vector< MSLaneMeanDataValues > myMeanData;
-
-    //----------- End of declarations for mean-data calculation
 
     /// definition of the tatic dictionary type
     typedef std::map< std::string, MSLane* > DictType;
