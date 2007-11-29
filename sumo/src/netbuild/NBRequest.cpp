@@ -515,12 +515,6 @@ int
 NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
                              int fromLane, int pos)
 {
-    if (from->getID()=="1si"&&fromLane==2) {
-        int bla = 0;
-    }
-    if (from->getID()=="2si"&&fromLane==0) {
-        int bla = 0;
-    }
     const EdgeLaneVector &connected = from->getEdgeLanesFromLane(fromLane);
     for (EdgeLaneVector::const_iterator j=connected.begin(); j!=connected.end(); j++) {
         os << "         <logicitem request=\"" << pos++ << "\" response=\"";
