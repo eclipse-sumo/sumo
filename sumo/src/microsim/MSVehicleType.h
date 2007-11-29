@@ -241,9 +241,12 @@ protected:
         assert(currentSpeed     >= SUMOReal(0));
         assert(gap2pred  >= SUMOReal(0));
         assert(predSpeed >= SUMOReal(0));
-        SUMOReal vsafe = predSpeed +
-                         ((gap2pred - predSpeed * myTau) /
-                          (((predSpeed + currentSpeed) * myInverseTwoDecel) + myTau));
+        SUMOReal vsafe = (SUMOReal) (-1. * myTau * myDecel
+            + sqrt( 
+                (myTau * myDecel)*(myTau * myDecel) 
+                + (predSpeed*predSpeed)
+                + (2. * myDecel * gap2pred)
+                ));
         assert(vsafe >= 0);
         return vsafe;
     }

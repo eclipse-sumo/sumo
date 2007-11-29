@@ -482,7 +482,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
         }
     }
 
-    SUMOReal maxNextSpeed = MIN2( myType->maxNextSpeed(myState.mySpeed), getMaxSpeed() );
+    SUMOReal maxNextSpeed = myType->maxNextSpeed(myState.mySpeed);
     
     SUMOReal vNext = myType->dawdle(MIN3(lane->maxSpeed(), myType->maxNextSpeed(myState.mySpeed), vSafe));
     vNext =
@@ -499,7 +499,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
         vNext = MIN2(vNext, DIST2SPEED(gap));
     }
 
-    vNext = MAX2((SUMOReal) 0, vNext);
+    vNext = MAX3((SUMOReal) 0, vNext, myType->getSpeedAfterMaxDecel(oldV));
     if (vNext<=0.1) {
         myWaitingTime += DELTA_T;
     } else {
@@ -682,7 +682,7 @@ MSVehicle::moveFirstChecked()
             vNext,
             MIN3(vSafe, myType->maxNextSpeed(myState.mySpeed), myLane->maxSpeed()), //vaccel(myState.mySpeed, myLane->maxSpeed())),
             vSafe);
-
+    vNext = MAX3(vNext, myType->getSpeedAfterMaxDecel(oldV), (SUMOReal) 0.);
     // visit waiting time
     if (vNext<=0.1) {
         myWaitingTime += DELTA_T;
@@ -785,7 +785,8 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
     MSLane *nextLane = myLane;
     // compute the way the vehicle would drive if it would use the current speed and then
     //  decelerate
-    SUMOReal dist = SPEED2DIST(boundVSafe) + myType->brakeGap(myState.mySpeed);
+    SUMOReal maxV = myType->maxNextSpeed(myState.mySpeed);
+    SUMOReal dist = SPEED2DIST(maxV) + myType->brakeGap(maxV);//myState.mySpeed);
     SUMOReal vLinkPass = boundVSafe;
     SUMOReal vLinkWait = vLinkPass;
     if (seen>dist) {
@@ -881,17 +882,13 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                     if (myType->brakeGap(vsafePredNextLane)+vsafePredNextLane*myType->getTau() > myType->brakeGap(predDec) + dist2Pred) {
 
                         vsafePredNextLane = MIN2(vsafePredNextLane, DIST2SPEED(dist2Pred));
+                        // !!! break? next vehicle was already seen!
                     }
                 } else {
                     // leading vehicle is overlapping (stands within the junction)
-                    vsafePredNextLane = MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, 0, 0));//dist2Pred/*MAX2((SUMOReal) 0, seen-dist2Pred, 0);
+                    vsafePredNextLane = MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, 0, 0)); // ==0?
                     // we have to wait in any case
                     break;
-                }
-
-//                if(MSGlobals::gUsingInternalLanes) {
-                if (nextLanePred.pos()>9000) {
-                    dist2Pred = seen + nl->length();
                 }
 
                 const MSLinkCont &lc2 = nl->getLinkCont();
@@ -904,7 +901,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                         continue;
                     }
                     const State &nextLanePred2 = nl2->myLastState;
-                    SUMOReal dist2Pred2 = dist2Pred;//dist2Pred+nextLanePred2.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! the real length of the car
+                    SUMOReal dist2Pred2 = dist2Pred;// @!!! the real length of the car
                     if (nl2->getLastVehicle()!=0) {
                         dist2Pred2 = dist2Pred2 + nextLanePred2.pos() - nl2->getLastVehicle()->getLength();
                     } else {
@@ -921,7 +918,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                         }
                     } else {
                         // leading vehicle is overlapping (stands within the junction)
-                        vsafePredNextLane = MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, 0, 0));//dist2Pred/*MAX2((SUMOReal) 0, seen-dist2Pred, 0);
+                        vsafePredNextLane = MIN2(vsafePredNextLane, myType->ffeV(myState.mySpeed, 0, 0)); // ==0?
                         break;
                     }
                 }
@@ -935,9 +932,6 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
             } else {
                 dist2Pred = dist2Pred + nextLane->length();
             }
-//                seen+nextLanePred.pos()-MSVehicleType::getMaxVehicleLength(); // @!!! the real length of the car
-//            if(nl->length()<dist2Pred&&nl->length()<MSVehicleType::getMaxVehicleLength()) { // @!!! the real length of the car
-
 
             if (dist2Pred>=0) {
                 // leading vehicle is not overlapping
@@ -977,7 +971,8 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
             //  and when the distance to the vehicle on the next lane allows moving
             //  (the check whether other incoming vehicles may stop this one is done later)
             // then let it pass
-            if (seen>=myType->approachingBrakeGap(myState.mySpeed)&&r_dist2Pred>0) {
+            if (//seen>=myType->approachingBrakeGap(myState.mySpeed)&&r_dist2Pred>0) {
+                (myState.mySpeed<ACCEL2SPEED(myType->getMaxDecel())||seen<myType->approachingBrakeGap(myState.mySpeed))&&r_dist2Pred>0) {
                 vLinkPass = MIN3(vLinkPass, myType->maxNextSpeed(myState.mySpeed), myLane->maxSpeed());
                 (*link)->setApproaching(this);
             } else {
