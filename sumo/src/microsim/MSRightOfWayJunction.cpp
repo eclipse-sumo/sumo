@@ -116,8 +116,7 @@ MSRightOfWayJunction::postloadInit()
     requestPos = 0;
     for (i=myInternalLanes.begin(); i!=myInternalLanes.end(); ++i) {
         // ... set information about participation
-        static_cast<MSInternalLane*>(*i)->setParentJunctionInformation(
-            &myInnerState, requestPos++);
+        static_cast<MSInternalLane*>(*i)->setParentJunctionInformation(&myInnerState, requestPos++);
     }
 #endif
 }
@@ -145,7 +144,7 @@ MSRightOfWayJunction::setAllowed()
             if (lc.size()==1) {
                 MSLink *link = lc[0];
                 if (link->getViaLane()!=0) {
-                    // thisis a split left-mover
+                    // this is a split left-mover
                     link->resetInternalPriority();
                 }
             }
