@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/05/07 14:34:47 by SUMO sumo Version 0.9.6
+<!-- generated on 11/28/07 13:54:58 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -24,7 +24,7 @@
    <tripinfo vehicle_id="emitter_1_1" start="3" wished="1" end="168" duration="165" waited="2" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
    <tripinfo vehicle_id="emitter_3_3" start="9" wished="3" end="174" duration="165" waited="6" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
    <tripinfo vehicle_id="emitter_4_4" start="12" wished="4" end="179" duration="167" waited="8" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
-   <tripinfo vehicle_id="emitter_6_6" start="18" wished="6" end="184" duration="166" waited="12" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="emitter_6_6" start="18" wished="6" end="183" duration="165" waited="12" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
    <tripinfo vehicle_id="emitter_8_8" start="24" wished="8" end="190" duration="166" waited="16" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
    <tripinfo vehicle_id="emitter_0_0" start="0" wished="0" end="193" duration="193" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT2"/>
    <tripinfo vehicle_id="emitter_2_2" start="6" wished="2" end="199" duration="193" waited="4" reroutes="0" devices="" vtype="KRAUSS_DEFAULT2"/>

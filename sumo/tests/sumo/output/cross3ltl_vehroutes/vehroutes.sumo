@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/21/07 15:06:28 by SUMO sumo Version 0.9.7
+<!-- generated on 11/28/07 13:54:46 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -26,19 +26,19 @@
 -->
 
 <vehicleroutes>
-   <vehicle id="horizontal" emittedAt="100" endedAt="332">
+   <vehicle id="horizontal" emittedAt="100" endedAt="331">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_0" emittedAt="110" endedAt="334">
+   <vehicle id="horizontal_0" emittedAt="110" endedAt="333">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_1" emittedAt="120" endedAt="336">
+   <vehicle id="horizontal_1" emittedAt="120" endedAt="335">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_2" emittedAt="130" endedAt="338">
+   <vehicle id="horizontal_2" emittedAt="130" endedAt="337">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
@@ -70,15 +70,15 @@
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_4" emittedAt="150" endedAt="397">
+   <vehicle id="horizontal_4" emittedAt="150" endedAt="396">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_5" emittedAt="160" endedAt="399">
+   <vehicle id="horizontal_5" emittedAt="160" endedAt="398">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_6" emittedAt="170" endedAt="400">
+   <vehicle id="horizontal_6" emittedAt="170" endedAt="401">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
@@ -90,15 +90,15 @@
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_9" emittedAt="200" endedAt="405">
+   <vehicle id="horizontal_9" emittedAt="200" endedAt="406">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="vertical_5" emittedAt="160" endedAt="424">
+   <vehicle id="vertical_5" emittedAt="160" endedAt="426">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_6" emittedAt="170" endedAt="427">
+   <vehicle id="vertical_6" emittedAt="170" endedAt="428">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
@@ -122,15 +122,15 @@
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_10" emittedAt="210" endedAt="457">
+   <vehicle id="horizontal_10" emittedAt="210" endedAt="456">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_11" emittedAt="220" endedAt="459">
+   <vehicle id="horizontal_11" emittedAt="220" endedAt="458">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_13" emittedAt="240" endedAt="461">
+   <vehicle id="horizontal_13" emittedAt="240" endedAt="460">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
@@ -138,19 +138,15 @@
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_14" emittedAt="250" endedAt="464">
-      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
-   </vehicle>
-
    <vehicle id="vertical_12" emittedAt="230" endedAt="487">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_13" emittedAt="240" endedAt="489">
+   <vehicle id="vertical_13" emittedAt="240" endedAt="490">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_14" emittedAt="250" endedAt="491">
+   <vehicle id="vertical_14" emittedAt="250" endedAt="492">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
@@ -158,7 +154,7 @@
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_16" emittedAt="270" endedAt="494">
+   <vehicle id="vertical_16" emittedAt="270" endedAt="495">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
@@ -166,7 +162,7 @@
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="always_right" emittedAt="100" endedAt="505">
+   <vehicle id="always_right" emittedAt="100" endedAt="504">
       <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
    </vehicle>
 
@@ -178,7 +174,7 @@
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="always_left_1" emittedAt="120" endedAt="514">
+   <vehicle id="always_left_1" emittedAt="120" endedAt="515">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
@@ -186,7 +182,7 @@
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_15" emittedAt="260" endedAt="518">
+   <vehicle id="horizontal_14" emittedAt="250" endedAt="518">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
@@ -194,19 +190,19 @@
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="always_left_4" emittedAt="150" endedAt="519">
+   <vehicle id="horizontal_15" emittedAt="260" endedAt="520">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="always_left_4" emittedAt="150" endedAt="520">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_16" emittedAt="270" endedAt="520">
+   <vehicle id="horizontal_16" emittedAt="270" endedAt="522">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_17" emittedAt="280" endedAt="521">
-      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
-   </vehicle>
-
-   <vehicle id="horizontal_19" emittedAt="300" endedAt="523">
+   <vehicle id="horizontal_17" emittedAt="280" endedAt="524">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
@@ -218,99 +214,103 @@
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="vertical_18" emittedAt="290" endedAt="550">
-      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="vertical_19" emittedAt="300" endedAt="553">
-      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="vertical_20" emittedAt="310" endedAt="555">
-      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="vertical_21" emittedAt="320" endedAt="557">
-      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="vertical_22" emittedAt="330" endedAt="558">
-      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="vertical_23" emittedAt="340" endedAt="560">
-      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="always_right_0" emittedAt="110" endedAt="565">
-      <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
-   </vehicle>
-
-   <vehicle id="always_right_1" emittedAt="120" endedAt="566">
-      <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
-   </vehicle>
-
-   <vehicle id="always_left_5" emittedAt="160" endedAt="574">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="always_left_6" emittedAt="170" endedAt="576">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="always_left_7" emittedAt="180" endedAt="577">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="always_left_8" emittedAt="190" endedAt="579">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="horizontal_22" emittedAt="330" endedAt="580">
+   <vehicle id="horizontal_19" emittedAt="300" endedAt="529">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_9" emittedAt="200" endedAt="581">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   <vehicle id="vertical_18" emittedAt="290" endedAt="549">
+      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_21" emittedAt="320" endedAt="582">
+   <vehicle id="vertical_19" emittedAt="300" endedAt="552">
+      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="vertical_20" emittedAt="310" endedAt="554">
+      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="vertical_21" emittedAt="320" endedAt="556">
+      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="vertical_22" emittedAt="330" endedAt="557">
+      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="vertical_23" emittedAt="340" endedAt="559">
+      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="always_right_0" emittedAt="110" endedAt="568">
+      <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
+   </vehicle>
+
+   <vehicle id="always_right_1" emittedAt="120" endedAt="570">
+      <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal_21" emittedAt="320" endedAt="579">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_10" emittedAt="210" endedAt="582">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   <vehicle id="horizontal_22" emittedAt="330" endedAt="582">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
    <vehicle id="horizontal_23" emittedAt="340" endedAt="583">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
+   <vehicle id="always_left_5" emittedAt="160" endedAt="583">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
    <vehicle id="horizontal_24" emittedAt="350" endedAt="585">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_25" emittedAt="360" endedAt="587">
+   <vehicle id="always_left_6" emittedAt="170" endedAt="585">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="always_left_7" emittedAt="180" endedAt="586">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal_26" emittedAt="370" endedAt="587">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_27" emittedAt="380" endedAt="589">
+   <vehicle id="always_left_8" emittedAt="190" endedAt="588">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal_25" emittedAt="360" endedAt="589">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_26" emittedAt="370" endedAt="591">
-      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   <vehicle id="always_left_9" emittedAt="200" endedAt="590">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_26" emittedAt="370" endedAt="611">
+   <vehicle id="always_left_10" emittedAt="210" endedAt="591">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="always_left_11" emittedAt="220" endedAt="593">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="vertical_24" emittedAt="350" endedAt="611">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_24" emittedAt="350" endedAt="613">
+   <vehicle id="vertical_25" emittedAt="360" endedAt="613">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_25" emittedAt="360" endedAt="615">
+   <vehicle id="vertical_26" emittedAt="370" endedAt="615">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
@@ -326,47 +326,35 @@
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_30" emittedAt="410" endedAt="622">
-      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="always_right_2" emittedAt="130" endedAt="629">
+   <vehicle id="always_right_2" emittedAt="130" endedAt="627">
       <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
    </vehicle>
 
-   <vehicle id="always_right_3" emittedAt="140" endedAt="630">
+   <vehicle id="always_right_3" emittedAt="140" endedAt="629">
       <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
    </vehicle>
 
-   <vehicle id="always_right_4" emittedAt="150" endedAt="632">
-      <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
-   </vehicle>
-
-   <vehicle id="horizontal_28" emittedAt="390" endedAt="642">
+   <vehicle id="horizontal_27" emittedAt="380" endedAt="642">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_29" emittedAt="400" endedAt="644">
+   <vehicle id="horizontal_28" emittedAt="390" endedAt="644">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_11" emittedAt="220" endedAt="644">
+   <vehicle id="always_left_12" emittedAt="230" endedAt="644">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="always_left_12" emittedAt="230" endedAt="645">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="horizontal_30" emittedAt="410" endedAt="646">
+   <vehicle id="horizontal_29" emittedAt="400" endedAt="646">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_13" emittedAt="240" endedAt="647">
+   <vehicle id="always_left_13" emittedAt="240" endedAt="646">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_31" emittedAt="420" endedAt="648">
+   <vehicle id="horizontal_30" emittedAt="410" endedAt="648">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
@@ -374,119 +362,135 @@
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_33" emittedAt="440" endedAt="650">
+   <vehicle id="always_left_15" emittedAt="260" endedAt="649">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal_31" emittedAt="420" endedAt="650">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_32" emittedAt="430" endedAt="651">
+   <vehicle id="horizontal_33" emittedAt="440" endedAt="651">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="vertical_31" emittedAt="420" endedAt="673">
+   <vehicle id="always_left_16" emittedAt="270" endedAt="651">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="always_left_17" emittedAt="280" endedAt="652">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal_32" emittedAt="430" endedAt="653">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="vertical_30" emittedAt="410" endedAt="672">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_32" emittedAt="430" endedAt="676">
+   <vehicle id="vertical_32" emittedAt="430" endedAt="674">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_33" emittedAt="440" endedAt="678">
+   <vehicle id="vertical_31" emittedAt="420" endedAt="677">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_34" emittedAt="450" endedAt="679">
+   <vehicle id="vertical_33" emittedAt="440" endedAt="679">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_37" emittedAt="480" endedAt="682">
+   <vehicle id="vertical_34" emittedAt="450" endedAt="681">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_36" emittedAt="470" endedAt="683">
+   <vehicle id="vertical_36" emittedAt="470" endedAt="682">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="always_right_5" emittedAt="160" endedAt="694">
+   <vehicle id="vertical_35" emittedAt="460" endedAt="684">
+      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="always_right_4" emittedAt="150" endedAt="691">
       <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
    </vehicle>
 
-   <vehicle id="always_right_6" emittedAt="170" endedAt="696">
+   <vehicle id="always_right_5" emittedAt="160" endedAt="692">
       <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
    </vehicle>
 
-   <vehicle id="always_left_15" emittedAt="260" endedAt="699">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   <vehicle id="always_right_6" emittedAt="170" endedAt="694">
+      <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
    </vehicle>
 
-   <vehicle id="always_left_16" emittedAt="270" endedAt="701">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="always_left_17" emittedAt="280" endedAt="703">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="horizontal_35" emittedAt="460" endedAt="705">
+   <vehicle id="horizontal_35" emittedAt="460" endedAt="703">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_18" emittedAt="290" endedAt="705">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="always_left_19" emittedAt="300" endedAt="706">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="horizontal_34" emittedAt="450" endedAt="707">
+   <vehicle id="horizontal_34" emittedAt="450" endedAt="706">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_20" emittedAt="310" endedAt="708">
+   <vehicle id="always_left_18" emittedAt="290" endedAt="707">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_36" emittedAt="470" endedAt="709">
+   <vehicle id="horizontal_36" emittedAt="470" endedAt="708">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_21" emittedAt="320" endedAt="710">
+   <vehicle id="always_left_19" emittedAt="300" endedAt="708">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_37" emittedAt="480" endedAt="711">
+   <vehicle id="horizontal_37" emittedAt="480" endedAt="710">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_38" emittedAt="490" endedAt="713">
+   <vehicle id="always_left_20" emittedAt="310" endedAt="710">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal_38" emittedAt="490" endedAt="712">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="vertical_35" emittedAt="460" endedAt="734">
-      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
+   <vehicle id="always_left_21" emittedAt="320" endedAt="712">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="always_left_22" emittedAt="330" endedAt="713">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal_39" emittedAt="500" endedAt="714">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
    <vehicle id="always_right_7" emittedAt="180" endedAt="736">
       <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
    </vehicle>
 
-   <vehicle id="vertical_38" emittedAt="490" endedAt="738">
+   <vehicle id="vertical_38" emittedAt="490" endedAt="736">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="always_right_8" emittedAt="190" endedAt="740">
-      <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
+   <vehicle id="vertical_37" emittedAt="480" endedAt="737">
+      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="vertical_40" emittedAt="510" endedAt="739">
+      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
    <vehicle id="vertical_39" emittedAt="500" endedAt="740">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_40" emittedAt="511" endedAt="741">
-      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="vertical_42" emittedAt="531" endedAt="743">
+   <vehicle id="vertical_43" emittedAt="540" endedAt="743">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
@@ -494,71 +498,67 @@
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_40" emittedAt="510" endedAt="766">
-      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   <vehicle id="always_right_8" emittedAt="190" endedAt="753">
+      <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_39" emittedAt="500" endedAt="768">
-      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
-   </vehicle>
-
-   <vehicle id="always_left_22" emittedAt="330" endedAt="768">
+   <vehicle id="always_left_23" emittedAt="340" endedAt="758">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_41" emittedAt="520" endedAt="769">
-      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
-   </vehicle>
-
-   <vehicle id="always_left_23" emittedAt="340" endedAt="770">
+   <vehicle id="always_left_24" emittedAt="350" endedAt="760">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_42" emittedAt="530" endedAt="772">
-      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
-   </vehicle>
-
-   <vehicle id="always_left_24" emittedAt="350" endedAt="772">
+   <vehicle id="always_left_25" emittedAt="360" endedAt="762">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_43" emittedAt="540" endedAt="773">
-      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
-   </vehicle>
-
-   <vehicle id="always_left_26" emittedAt="370" endedAt="773">
+   <vehicle id="always_left_26" emittedAt="370" endedAt="763">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_46" emittedAt="570" endedAt="775">
-      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
-   </vehicle>
-
-   <vehicle id="always_left_25" emittedAt="360" endedAt="775">
+   <vehicle id="always_left_27" emittedAt="380" endedAt="765">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_45" emittedAt="560" endedAt="777">
+   <vehicle id="horizontal_41" emittedAt="520" endedAt="766">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_27" emittedAt="380" endedAt="777">
+   <vehicle id="always_left_28" emittedAt="390" endedAt="766">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="always_left_28" emittedAt="390" endedAt="778">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="horizontal_44" emittedAt="550" endedAt="779">
+   <vehicle id="horizontal_40" emittedAt="510" endedAt="768">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="vertical_44" emittedAt="550" endedAt="797">
+   <vehicle id="always_left_29" emittedAt="400" endedAt="768">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal_42" emittedAt="530" endedAt="770">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal_43" emittedAt="540" endedAt="772">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal_45" emittedAt="560" endedAt="773">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal_44" emittedAt="550" endedAt="775">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="vertical_42" emittedAt="530" endedAt="797">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_43" emittedAt="540" endedAt="799">
+   <vehicle id="vertical_44" emittedAt="550" endedAt="799">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
@@ -566,39 +566,35 @@
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_47" emittedAt="580" endedAt="804">
+   <vehicle id="vertical_46" emittedAt="570" endedAt="802">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_46" emittedAt="570" endedAt="806">
+   <vehicle id="vertical_48" emittedAt="590" endedAt="804">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_48" emittedAt="590" endedAt="808">
+   <vehicle id="vertical_47" emittedAt="580" endedAt="806">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="always_right_9" emittedAt="200" endedAt="813">
+   <vehicle id="vertical_49" emittedAt="600" endedAt="808">
+      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="always_right_9" emittedAt="200" endedAt="816">
       <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
    </vehicle>
 
-   <vehicle id="always_right_11" emittedAt="220" endedAt="815">
+   <vehicle id="always_right_10" emittedAt="210" endedAt="818">
       <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
    </vehicle>
 
-   <vehicle id="always_right_10" emittedAt="210" endedAt="817">
+   <vehicle id="always_right_11" emittedAt="220" endedAt="819">
       <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
    </vehicle>
 
-   <vehicle id="always_right_12" emittedAt="230" endedAt="819">
-      <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
-   </vehicle>
-
-   <vehicle id="always_left_29" emittedAt="400" endedAt="828">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="horizontal_48" emittedAt="590" endedAt="829">
+   <vehicle id="horizontal_46" emittedAt="570" endedAt="828">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
@@ -610,20 +606,20 @@
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
+   <vehicle id="horizontal_48" emittedAt="590" endedAt="832">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
    <vehicle id="always_left_31" emittedAt="420" endedAt="832">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_50" emittedAt="610" endedAt="833">
-      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   <vehicle id="always_left_32" emittedAt="430" endedAt="833">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
    <vehicle id="horizontal_49" emittedAt="600" endedAt="834">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
-   </vehicle>
-
-   <vehicle id="always_left_32" emittedAt="430" endedAt="834">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
    <vehicle id="always_left_33" emittedAt="440" endedAt="835">
@@ -634,27 +630,35 @@
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
+   <vehicle id="always_left_34" emittedAt="450" endedAt="836">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal_50" emittedAt="610" endedAt="837">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="always_left_35" emittedAt="460" endedAt="838">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
    <vehicle id="vertical_50" emittedAt="610" endedAt="859">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="always_right_13" emittedAt="240" endedAt="860">
-      <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
-   </vehicle>
-
-   <vehicle id="vertical_49" emittedAt="600" endedAt="860">
+   <vehicle id="vertical_51" emittedAt="620" endedAt="860">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_51" emittedAt="620" endedAt="862">
+   <vehicle id="vertical_53" emittedAt="640" endedAt="863">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_53" emittedAt="641" endedAt="865">
+   <vehicle id="vertical_52" emittedAt="630" endedAt="865">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_52" emittedAt="630" endedAt="866">
+   <vehicle id="vertical_54" emittedAt="650" endedAt="867">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
@@ -662,35 +666,43 @@
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_54" emittedAt="650" endedAt="870">
-      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
+   <vehicle id="always_right_12" emittedAt="230" endedAt="879">
+      <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
    </vehicle>
 
-   <vehicle id="always_left_34" emittedAt="450" endedAt="886">
+   <vehicle id="always_right_13" emittedAt="240" endedAt="881">
+      <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
+   </vehicle>
+
+   <vehicle id="always_left_36" emittedAt="470" endedAt="884">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="always_left_35" emittedAt="460" endedAt="888">
+   <vehicle id="always_left_37" emittedAt="480" endedAt="886">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="always_left_38" emittedAt="490" endedAt="889">
+   <vehicle id="always_left_38" emittedAt="490" endedAt="888">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_53" emittedAt="640" endedAt="890">
+   <vehicle id="always_left_39" emittedAt="500" endedAt="889">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal_52" emittedAt="630" endedAt="890">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_37" emittedAt="480" endedAt="891">
+   <vehicle id="always_left_40" emittedAt="510" endedAt="891">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_52" emittedAt="630" endedAt="892">
+   <vehicle id="horizontal_53" emittedAt="640" endedAt="892">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_36" emittedAt="470" endedAt="892">
+   <vehicle id="always_left_41" emittedAt="520" endedAt="892">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
@@ -698,7 +710,11 @@
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_40" emittedAt="510" endedAt="894">
+   <vehicle id="always_left_43" emittedAt="540" endedAt="894">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="always_left_42" emittedAt="530" endedAt="895">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
@@ -706,39 +722,23 @@
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_39" emittedAt="500" endedAt="896">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
    <vehicle id="horizontal_56" emittedAt="670" endedAt="897">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
-   </vehicle>
-
-   <vehicle id="always_left_42" emittedAt="530" endedAt="897">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
    <vehicle id="horizontal_58" emittedAt="690" endedAt="899">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_57" emittedAt="680" endedAt="901">
-      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
-   </vehicle>
-
-   <vehicle id="vertical_57" emittedAt="680" endedAt="921">
+   <vehicle id="vertical_56" emittedAt="670" endedAt="922">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_56" emittedAt="670" endedAt="923">
+   <vehicle id="vertical_57" emittedAt="680" endedAt="926">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_58" emittedAt="690" endedAt="925">
-      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="vertical_59" emittedAt="701" endedAt="926">
+   <vehicle id="vertical_58" emittedAt="690" endedAt="927">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
@@ -746,67 +746,71 @@
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_61" emittedAt="720" endedAt="931">
+   <vehicle id="vertical_59" emittedAt="700" endedAt="930">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="always_right_14" emittedAt="250" endedAt="937">
+   <vehicle id="always_right_14" emittedAt="250" endedAt="936">
       <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
    </vehicle>
 
-   <vehicle id="always_right_16" emittedAt="270" endedAt="938">
+   <vehicle id="always_right_15" emittedAt="260" endedAt="939">
       <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
    </vehicle>
 
-   <vehicle id="always_left_41" emittedAt="520" endedAt="950">
+   <vehicle id="always_right_17" emittedAt="280" endedAt="941">
+      <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
+   </vehicle>
+
+   <vehicle id="always_left_44" emittedAt="550" endedAt="947">
       <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_60" emittedAt="710" endedAt="952">
+   <vehicle id="always_left_45" emittedAt="560" endedAt="949">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="always_left_46" emittedAt="570" endedAt="951">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="horizontal_57" emittedAt="680" endedAt="952">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
+   </vehicle>
+
+   <vehicle id="always_left_47" emittedAt="580" endedAt="952">
+      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
    </vehicle>
 
    <vehicle id="horizontal_59" emittedAt="700" endedAt="954">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal_61" emittedAt="720" endedAt="956">
+   <vehicle id="horizontal_60" emittedAt="710" endedAt="956">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_43" emittedAt="540" endedAt="956">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="horizontal_62" emittedAt="730" endedAt="958">
+   <vehicle id="horizontal_61" emittedAt="720" endedAt="958">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_44" emittedAt="550" endedAt="958">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="horizontal_63" emittedAt="740" endedAt="959">
+   <vehicle id="horizontal_62" emittedAt="730" endedAt="960">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_45" emittedAt="560" endedAt="959">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
+   <vehicle id="horizontal_63" emittedAt="740" endedAt="961">
+      <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="always_left_47" emittedAt="580" endedAt="961">
-      <route>3fi 3si 2o 2fi 2si 4o 4fi 4si 1o 1fi 1si 3o 3fi</route>
-   </vehicle>
-
-   <vehicle id="vertical_62" emittedAt="730" endedAt="983">
+   <vehicle id="vertical_61" emittedAt="720" endedAt="984">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_63" emittedAt="740" endedAt="985">
+   <vehicle id="vertical_62" emittedAt="730" endedAt="986">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_64" emittedAt="750" endedAt="987">
+   <vehicle id="vertical_63" emittedAt="740" endedAt="987">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
@@ -814,12 +818,16 @@
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="vertical_66" emittedAt="770" endedAt="991">
+   <vehicle id="vertical_64" emittedAt="750" endedAt="991">
       <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
-   <vehicle id="always_right_15" emittedAt="260" endedAt="998">
-      <route>1fi 1si 4o 4fi 4si 2o 2fi 2si 3o 3fi 3si 1o 1fi</route>
+   <vehicle id="vertical_66" emittedAt="770" endedAt="992">
+      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
+   </vehicle>
+
+   <vehicle id="vertical_67" emittedAt="780" endedAt="994">
+      <route>3fi 3si 4o 4fi 4si 3o 3fi</route>
    </vehicle>
 
 </vehicleroutes>

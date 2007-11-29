@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/05/07 16:20:43 by SUMO sumo Version 0.9.6
+<!-- generated on 11/29/07 10:13:48 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -26,44 +26,4 @@
 -->
 
 <physical-states>
-   <vphys id="always_left" t="101" v="0.52" a="0.52" g="10.30"/>
-   <vphys id="always_right" t="101" v="0.78" a="0.78" g="-1.00"/>
-   <vphys id="horizontal" t="101" v="0.61" a="0.61" g="-1.00"/>
-   <vphys id="vertical" t="101" v="0.57" a="0.57" g="-1.00"/>
-   <vphys id="always_left" t="102" v="1.30" a="0.78" g="10.35"/>
-   <vphys id="always_right" t="102" v="1.28" a="0.50" g="-1.00"/>
-   <vphys id="horizontal" t="102" v="1.30" a="0.70" g="-1.00"/>
-   <vphys id="vertical" t="102" v="1.15" a="0.58" g="-1.00"/>
-   <vphys id="always_left" t="103" v="1.79" a="0.50" g="10.20"/>
-   <vphys id="always_right" t="103" v="2.07" a="0.78" g="-1.00"/>
-   <vphys id="horizontal" t="103" v="1.83" a="0.52" g="-1.00"/>
-   <vphys id="vertical" t="103" v="1.75" a="0.61" g="-1.00"/>
-   <vphys id="always_left" t="104" v="2.40" a="0.61" g="10.16"/>
-   <vphys id="always_right" t="104" v="2.62" a="0.56" g="-1.00"/>
-   <vphys id="horizontal" t="104" v="2.50" a="0.68" g="-1.00"/>
-   <vphys id="vertical" t="104" v="2.51" a="0.76" g="-1.00"/>
-   <vphys id="always_left" t="105" v="2.83" a="0.44" g="10.27"/>
-   <vphys id="always_right" t="105" v="3.27" a="0.65" g="-1.00"/>
-   <vphys id="horizontal" t="105" v="3.01" a="0.51" g="-1.00"/>
-   <vphys id="vertical" t="105" v="3.26" a="0.75" g="-1.00"/>
-   <vphys id="always_left" t="106" v="3.41" a="0.57" g="10.70"/>
-   <vphys id="always_right" t="106" v="3.92" a="0.65" g="-1.00"/>
-   <vphys id="horizontal" t="106" v="3.54" a="0.53" g="-1.00"/>
-   <vphys id="vertical" t="106" v="3.67" a="0.41" g="-1.00"/>
-   <vphys id="always_left" t="107" v="3.86" a="0.45" g="10.96"/>
-   <vphys id="always_right" t="107" v="4.34" a="0.42" g="-1.00"/>
-   <vphys id="horizontal" t="107" v="4.15" a="0.61" g="-1.00"/>
-   <vphys id="vertical" t="107" v="4.23" a="0.55" g="-1.00"/>
-   <vphys id="always_left" t="108" v="4.53" a="0.67" g="11.33"/>
-   <vphys id="always_right" t="108" v="5.08" a="0.74" g="-1.00"/>
-   <vphys id="horizontal" t="108" v="4.79" a="0.64" g="-1.00"/>
-   <vphys id="vertical" t="108" v="4.69" a="0.47" g="-1.00"/>
-   <vphys id="always_left" t="109" v="5.22" a="0.69" g="11.50"/>
-   <vphys id="always_right" t="109" v="5.47" a="0.39" g="-1.00"/>
-   <vphys id="horizontal" t="109" v="5.52" a="0.73" g="-1.00"/>
-   <vphys id="vertical" t="109" v="5.19" a="0.49" g="-1.00"/>
-   <vphys id="always_left" t="110" v="5.83" a="0.62" g="11.47"/>
-   <vphys id="always_right" t="110" v="6.16" a="0.69" g="-1.00"/>
-   <vphys id="horizontal" t="110" v="6.22" a="0.69" g="-1.00"/>
-   <vphys id="vertical" t="110" v="5.78" a="0.59" g="-1.00"/>
 </physical-states>

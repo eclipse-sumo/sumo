@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/12/07 10:40:58 by SUMO sumo Version 0.9.7
+<!-- generated on 11/28/07 13:54:58 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -25,7 +25,7 @@
    <tripinfo vehicle_id="foo1" start="3" wished="1" end="122" duration="119" waited="2" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
    <tripinfo vehicle_id="bar1" start="6" wished="2" end="124" duration="118" waited="4" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
    <tripinfo vehicle_id="bar2" start="9" wished="3" end="127" duration="118" waited="6" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="emitter_4_0" start="12" wished="4" end="132" duration="120" waited="8" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+   <tripinfo vehicle_id="emitter_4_0" start="12" wished="4" end="131" duration="119" waited="8" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
    <tripinfo vehicle_id="emitter_5_1" start="15" wished="5" end="133" duration="118" waited="10" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
    <tripinfo vehicle_id="emitter_6_2" start="19" wished="6" end="138" duration="119" waited="13" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
    <tripinfo vehicle_id="emitter_7_3" start="22" wished="7" end="141" duration="119" waited="15" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>

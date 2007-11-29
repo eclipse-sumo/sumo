@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/12/07 10:40:55 by SUMO sumo Version 0.9.7
+<!-- generated on 11/28/07 13:54:55 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -42,7 +42,7 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_5_5" emittedAt="15" endedAt="134">
+   <vehicle id="emitter_5_5" emittedAt="15" endedAt="133">
       <route>beg middle end rend</route>
    </vehicle>
 

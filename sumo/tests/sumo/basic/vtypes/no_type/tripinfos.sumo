@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/12/07 10:40:23 by SUMO sumo Version 0.9.7
+<!-- generated on 11/28/07 13:54:01 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -26,14 +26,14 @@
 -->
 
 <tripinfos>
-   <tripinfo vehicle_id="0" start="0" wished="0" end="123" duration="123" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+   <tripinfo vehicle_id="0" start="0" wished="0" end="127" duration="127" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
    <tripinfo vehicle_id="1" start="10" wished="10" end="133" duration="123" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="2" start="20" wished="20" end="143" duration="123" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+   <tripinfo vehicle_id="2" start="20" wished="20" end="142" duration="122" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
    <tripinfo vehicle_id="3" start="30" wished="30" end="147" duration="117" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="4" start="40" wished="40" end="150" duration="110" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="5" start="50" wished="50" end="158" duration="108" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="6" start="60" wished="60" end="184" duration="124" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="7" start="70" wished="70" end="194" duration="124" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="8" start="80" wished="80" end="200" duration="120" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="9" start="90" wished="90" end="204" duration="114" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+   <tripinfo vehicle_id="4" start="40" wished="40" end="154" duration="114" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+   <tripinfo vehicle_id="5" start="50" wished="50" end="159" duration="109" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+   <tripinfo vehicle_id="6" start="60" wished="60" end="189" duration="129" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+   <tripinfo vehicle_id="7" start="70" wished="70" end="193" duration="123" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+   <tripinfo vehicle_id="8" start="80" wished="80" end="201" duration="121" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+   <tripinfo vehicle_id="9" start="90" wished="90" end="208" duration="118" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
 </tripinfos>
