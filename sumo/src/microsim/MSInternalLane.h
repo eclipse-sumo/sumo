@@ -90,6 +90,9 @@ public:
          corresponding junction about the fact that a vehicle uses them */
     virtual void moveNonCritical();
 
+    virtual void moveCritical();
+
+
     bool emit(MSVehicle&) {
         throw 1;
     }

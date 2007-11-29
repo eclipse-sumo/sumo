@@ -103,6 +103,17 @@ MSInternalLane::moveNonCritical()
 
 
 void
+MSInternalLane::moveCritical()
+{
+    assert(myVehicles.size()>0);
+    if (myFoesIndex>=0) {
+        (*myFoesCont)[myFoesIndex] = true;
+    }
+    MSLane::moveCritical();
+}
+
+
+void
 MSInternalLane::setPassPosition(SUMOReal passPos)
 {
     myPassPosition = passPos;
