@@ -108,14 +108,15 @@ MSXMLRawOut::writeLane(OutputDevice &of, const MSLane &lane,
                        unsigned int intend)
 {
     string indent(intend , ' ');
-    if (lane.myVehicles.empty() == true && lane.myVehBuffer == 0) {
+    if (lane.myVehicles.empty() == true && lane.myVehBuffer.size() == 0) {
         of << indent << "<lane id=\"" << lane.myID
         << "\"/>" << "\n";
     } else { // not empty
         of << indent << "<lane id=\"" << lane.myID << "\">"
         << "\n";
-        if (lane.myVehBuffer != 0) {
-            writeVehicle(of, *(lane.myVehBuffer), intend+3);
+        for (vector<MSVehicle*>::const_iterator veh = lane.myVehBuffer.begin();
+                veh != lane.myVehBuffer.end(); ++veh) {
+            writeVehicle(of, **veh, intend+3);
         }
         for (MSLane::VehCont::const_iterator veh = lane.myVehicles.begin();
                 veh != lane.myVehicles.end(); ++veh) {

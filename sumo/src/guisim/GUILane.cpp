@@ -131,34 +131,11 @@ bool
 GUILane::push(MSVehicle* veh)
 {
     myLock.lock();
-#ifdef ABS_DEBUG
-    if (myVehBuffer!=0) {
-        DEBUG_OUT << MSNet::globaltime << ":Push Failed on Lane:" << myID << endl;
-        DEBUG_OUT << myVehBuffer->getID() << ", " << myVehBuffer->pos() << ", " << myVehBuffer->speed() << endl;
-        DEBUG_OUT << veh->getID() << ", " << veh->pos() << ", " << veh->speed() << endl;
-    }
-#endif
-    MSVehicle *last = myVehicles.size()!=0
-                      ? myVehicles.front()
-                      : 0;
-
     // Insert vehicle only if it's destination isn't reached.
     //  and it does not collide with previous
-    if (myVehBuffer != 0 || (last!=0 && last->getPositionOnLane() < veh->getPositionOnLane())) {
-        MSVehicle *prev = myVehBuffer!=0
-                          ? myVehBuffer : last;
-        WRITE_WARNING("Vehicle '" + veh->getID() + "' beamed due to a collision on push!\n" + "  Lane: '" + getID() + "', previous vehicle: '" + prev->getID() + "', time: " + toString<SUMOTime>(MSNet::getInstance()->getCurrentTimeStep()) + ".");
-        veh->onTripEnd();
-        resetApproacherDistance(); // !!! correct? is it (both lines) really necessary during this simulation part?
-        veh->removeApproachingInformationOnKill();
-        MSVehicleTransfer::getInstance()->addVeh(veh);
-        // !!! maybe the vehicle is being tracked; mark as not within the simulation any longer
-        myLock.unlock();
-        return true;
-    }
     // check whether the vehicle has ended his route
     if (! veh->destReached(myEdge)) {     // adjusts vehicles routeIterator
-        myVehBuffer = veh;
+        myVehBuffer.push_back(veh);
         veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
         SUMOReal pspeed = veh->getSpeed();
         SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
@@ -167,9 +144,7 @@ GUILane::push(MSVehicle* veh)
         myLock.unlock();
         return false;
     } else {
-        veh->onTripEnd(/* *this */);
-        resetApproacherDistance();
-        veh->removeApproachingInformationOnKill(/*this*/);
+        veh->onTripEnd();
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         myLock.unlock();
         return true;

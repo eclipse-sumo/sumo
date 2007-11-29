@@ -109,8 +109,7 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     /** Not all lane-members are known at the time the lane is born,
         above all the pointers to other lanes, so we have to
         initialize later. */
-    void initialize(/*MSJunction* backJunction,*/
-        MSLinkCont* succs);
+    void initialize(MSLinkCont* succs);
     void resetApproacherDistance();
     void resetApproacherDistance(MSVehicle *v);
 
@@ -149,7 +148,7 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
 
     /// Returns true if there is not a single vehicle on the lane.
     bool empty() const {
-        assert(myVehBuffer == 0);
+        assert(myVehBuffer.size()==0);
         return myVehicles.empty();
     }
 
@@ -366,7 +365,7 @@ protected:
         junction. The  buffer is neccessary, because of competing
         push- and pop-operations on myVehicles during
         Junction::moveFirst() */
-    MSVehicle* myVehBuffer;
+    std::vector<MSVehicle*> myVehBuffer;
 
     MSEdgeControl::LaneUsage *myUseDefinition;
 
@@ -418,6 +417,27 @@ private:
     MSLane& operator=(const MSLane&);
 
     MoveReminderCont moveRemindersM;
+
+    /**
+     * @class vehicle_position_sorter
+     * @brief !!!!
+     */
+    class vehicle_position_sorter
+    {
+    public:
+        /// constructor
+        explicit vehicle_position_sorter() { }
+
+
+        /** @brief Comparing operator
+         */
+        int operator()(MSVehicle *v1, MSVehicle *v2) const {
+            return v1->getPositionOnLane()>v2->getPositionOnLane();
+        }
+
+    };
+
+
 
 };
 

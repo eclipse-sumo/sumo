@@ -125,7 +125,6 @@ MSLane::MSLane(string id, SUMOReal maxSpeed, SUMOReal length, MSEdge* edge,
         myLength(length),
         myEdge(edge),
         myMaxSpeed(maxSpeed),
-        myVehBuffer(0),
         myAllowedClasses(allowed),
         myNotAllowedClasses(disallowed),
         myFirstUnsafe(0)
@@ -653,32 +652,11 @@ MSLane::clear()
 bool
 MSLane::push(MSVehicle* veh)
 {
-#ifdef ABS_DEBUG
-    if (myVehBuffer!=0) {
-        DEBUG_OUT << "Push Failed on Lane:" << myID << "\n";
-        DEBUG_OUT << myVehBuffer->getID() << ", " << myVehBuffer->getPositionOnLane() << ", " << myVehBuffer->getSpeed() << "\n";
-        DEBUG_OUT << veh->getID() << ", " << veh->getPositionOnLane() << ", " << veh->getSpeed() << "\n";
-    }
-#endif
-    MSVehicle *last = myVehicles.size()!=0
-                      ? myVehicles.front()
-                      : 0;
-
     // Insert vehicle only if it's destination isn't reached.
     //  and it does not collide with previous
-    if (myVehBuffer != 0 || (last!=0 && last->getPositionOnLane() < veh->getPositionOnLane())) {
-        MSVehicle *prev = myVehBuffer!=0
-                          ? myVehBuffer : last;
-        WRITE_WARNING("Vehicle '" + veh->getID()+ "' beamed due to a collision on push!\n" + "  Lane: '" + myID + "', previous vehicle: '" + prev->getID() +"', time: " + toString<SUMOTime>(MSNet::getInstance()->getCurrentTimeStep())+ ".");
-        veh->onTripEnd(/* *this*/);
-        resetApproacherDistance();
-        veh->removeApproachingInformationOnKill(/*this*/);
-        MSVehicleTransfer::getInstance()->addVeh(veh);
-        return true;
-    }
     // check whether the vehicle has ended his route
     if (! veh->destReached(myEdge)) {     // adjusts vehicles routeIterator
-        myVehBuffer = veh;
+        myVehBuffer.push_back(veh);
         veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
         SUMOReal pspeed = veh->getSpeed();
         SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
@@ -730,14 +708,16 @@ MSLane::appropriate(const MSVehicle *veh)
 void
 MSLane::integrateNewVehicle()
 {
-    if (myVehBuffer) {
+    sort(myVehBuffer.begin(), myVehBuffer.end(), vehicle_position_sorter());
+    for(std::vector<MSVehicle*>::const_iterator i=myVehBuffer.begin(); i!=myVehBuffer.end(); ++i) {
+        MSVehicle *veh = *i;
         assert(myUseDefinition->noVehicles==myVehicles.size());
-        myVehicles.push_front(myVehBuffer);
-        myUseDefinition->vehLenSum += myVehBuffer->getLength();
-        myVehBuffer = 0;
+        myVehicles.push_front(veh);
+        myUseDefinition->vehLenSum += veh->getLength();
         myUseDefinition->noVehicles++;
         assert(myUseDefinition->noVehicles==myVehicles.size());
     }
+    myVehBuffer.clear();
 }
 
 /////////////////////////////////////////////////////////////////////////////
