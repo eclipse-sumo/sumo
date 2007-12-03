@@ -91,25 +91,25 @@ MSInternalLane::setParentJunctionInformation(
 }
 
 
-void
+bool
 MSInternalLane::moveNonCritical()
 {
     assert(myVehicles.size()>0);
     if (myFoesIndex>=0) {
         (*myFoesCont)[myFoesIndex] = true;
     }
-    MSLane::moveNonCritical();
+    return MSLane::moveNonCritical();
 }
 
 
-void
+bool
 MSInternalLane::moveCritical()
 {
     assert(myVehicles.size()>0);
     if (myFoesIndex>=0) {
         (*myFoesCont)[myFoesIndex] = true;
     }
-    MSLane::moveCritical();
+    return MSLane::moveCritical();
 }
 
 
