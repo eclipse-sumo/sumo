@@ -28,6 +28,6 @@ texttest.py -b %SUMO_REPORT% -coll
 mkdir %REMOTE_DIR%\%SUMO_REPORT%
 xcopy /Y /E %SUMO_REPORT% %REMOTE_DIR%\%SUMO_REPORT%
 cd ..\tools\build
-status.py %REMOTE_DIR%\%MAKELOG% %REMOTE_DIR%\%MAKEALLLOG% %TEXTTEST_TMP% ..\..\tests\config_all > %REMOTE_DIR%\%STATUSLOG%
+status.py %REMOTE_DIR%\%MAKELOG% %REMOTE_DIR%\%MAKEALLLOG% %TEXTTEST_TMP% %SMTP_SERVER% > %REMOTE_DIR%\%STATUSLOG%
 
 WinSCP3.com behrisch@shell.sf.net /privatekey=%REMOTE_DIR%\..\key.ppk /command "option batch on" "option confirm off" "cd sumo-www" "cd daily" "put %REMOTE_DIR%\*.*" "exit"

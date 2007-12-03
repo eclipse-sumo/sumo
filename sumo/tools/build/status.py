@@ -50,26 +50,16 @@ if errors:
     failed += "make debug failed\n\n"
 print "--"
 
-if failed and len(sys.argv) > 4 and exists(sys.argv[4]):
-    config = open(sys.argv[4])
-    smtp_server = None
-    to_addrs = None        
-    for line in config:
-        option = line.split(":")
-        if option[0] == "smtp_server":
-            smtp_server = expandvars(option[1]).strip()
-        if option[0] == "batch_recipients":
-            to_addrs = [a.strip() for a in expandvars(option[1]).split(",")]
-    config.close()
-    if smtp_server and to_addrs:
-        from_addr = "michael.behrisch@dlr.de"
-        message = """\
+if failed and len(sys.argv) > 4:
+    fromAddr = "michael.behrisch@dlr.de"
+    toAddr = "delphi-dev@dlr.de"
+    message = """\
 From: %s
 To: %s
-Subject: Error occured while building.
+Subject: Error occured while building SUMO.
 
 %s
-""" % (from_addr, ", ".join(to_addrs), failed)
-        server = smtplib.SMTP(smtp_server)        
-        server.sendmail(from_addr, to_addrs, message)
-        server.quit()
+""" % (fromAddr, toAddr, failed)
+    server = smtplib.SMTP(sys.argv[4])        
+    server.sendmail(fromAddr, toAddr, message)
+    server.quit()
