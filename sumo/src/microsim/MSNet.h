@@ -119,7 +119,9 @@ public:
     void simulationStep(SUMOTime start, SUMOTime step);
 
     /// compute the distance between equipped vehicle
+#ifdef HAVE_BOYOM_C2C
     void computeCar2Car(void);
+#endif
 
     /** Clears all dictionaries */
     static void clearAll();

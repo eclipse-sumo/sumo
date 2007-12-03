@@ -77,7 +77,7 @@ MSVehicleControl::~MSVehicleControl()
 {
     {
         // delete vehicles
-        for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); i++) {
+        for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
             delete(*i).second;
         }
     }
@@ -143,6 +143,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
                 addSem = true;
             }
         }
+#ifdef HAVE_BOYOM_C2C
         if (v->isEquipped()) {
             if (addSem) {
                 od << ';';
@@ -150,6 +151,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
             od << "c2c";
             addSem = true;
         }
+#endif
         od << "\" vtype=\"" << v->getVehicleType().getID() << "\"/>\n";
     }
 
@@ -167,7 +169,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
         << "\">" << "\n";
         if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
             int noReroutes = v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
-            for (int i=0; i<noReroutes; i++) {
+            for (int i=0; i<noReroutes; ++i) {
                 v->writeXMLRoute(od, i);
                 od << "\n";
             }
@@ -176,6 +178,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
         od << "   </vehicle>\n\n";
     }
 
+#ifdef HAVE_BOYOM_C2C
     // check whether to save c2c info output
     MSNet *net = MSNet::getInstance();
     if (OptionsCont::getOptions().isSet("c2x.saved-info-freq")) {
@@ -191,6 +194,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
         << "\" reroutes=\"" << noReroutes
         << "\"/>\n";
     }
+#endif
 
     // check whether to save information about the vehicle's trip
     if (MSCORN::wished(MSCORN::CORN_MEAN_VEH_TRAVELTIME)) {

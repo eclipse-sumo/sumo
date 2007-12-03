@@ -648,9 +648,11 @@ MSLane::setCritical(std::vector<MSLane*> &into)
 
             MSVehicleTransfer *vt = MSVehicleTransfer::getInstance();
             MSVehicle *veh = removeFirstVehicle();
+#ifdef HAVE_BOYOM_C2C
             if (veh->isEquipped()) {
                 veh->getEdge()->removeEquippedVehicle(veh->getID());
             }
+#endif
             vt->addVeh(veh);
         }
     }

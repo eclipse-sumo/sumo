@@ -1,3 +1,4 @@
+#ifdef TRACI
 /****************************************************************************/
 /// @file    TraCIServer.cpp
 /// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
@@ -790,6 +791,8 @@ TraCIServer::getNetBoundary()
     return *netBoundary_;
 }
 
+
 /*****************************************************************************/
 }
 
+#endif

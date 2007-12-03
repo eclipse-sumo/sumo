@@ -357,11 +357,11 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
 #endif
         myJunctions->resetRequests();
 
-        // move Vehicles
-        // move vehicles which do not interact with the lane end
+        // move vehicles
+        //  move vehicles which do not interact with the lane end
         myEdges->moveNonCritical();
-        // precompute possible positions for vehicles that do interact with
-        // their lane's end
+        //  precompute possible positions for vehicles that do interact with
+        //   their lane's end
         myEdges->moveCritical();
 
         // set information about which vehicles may drive at all
@@ -407,9 +407,11 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     // execute endOfTimestepEvents
     myEmissionEvents.execute(myStep);
 
+#ifdef HAVE_BOYOM_C2C
     if (MSGlobals::gUsingC2C) {
         computeCar2Car();
     }
+#endif
     // persons
     if (myPersonControl!=0) {
         if (myPersonControl->hasWaitingPersons(myStep)) {
@@ -446,6 +448,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     }
 }
 
+#ifdef HAVE_BOYOM_C2C
 // Compute Car2Car-Communication
 void
 MSNet::computeCar2Car(void)
@@ -539,7 +542,7 @@ MSNet::computeCar2Car(void)
         }
     }
 }
-
+#endif
 
 void
 MSNet::clearAll()

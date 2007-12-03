@@ -196,7 +196,7 @@ drawAction_drawVehicleName(const GUIVehicle &veh, SUMOReal size)
 }
 
 
-
+#ifdef HAVE_BOYOM_C2C
 inline void
 drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh)
 {
@@ -219,7 +219,7 @@ drawAction_C2CdrawVehicleRadius(const GUIVehicle &veh)
         GLHelper::drawOutlineCircle(MSGlobals::gLANRange, MSGlobals::gLANRange-2, 24);
     }
 }
-
+#endif
 
 
 
@@ -280,9 +280,11 @@ GUIVehicleDrawer::drawLanesVehicles(GUILaneWrapper &lane,
             drawAction_drawVehicleBlinker(*veh);
         }
         // draw the c2c-circle
+#ifdef HAVE_BOYOM_C2C
         if (settings.drawcC2CRadius) {
             drawAction_C2CdrawVehicleRadius(*veh);
         }
+#endif
         // draw the wish to change the lane
         if (settings.drawLaneChangePreference) {
             MSLCM_DK2004 &m = static_cast<MSLCM_DK2004&>(veh->getLaneChangeModel());

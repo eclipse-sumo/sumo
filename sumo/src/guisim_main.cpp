@@ -164,6 +164,7 @@ initVehicleColoringSchemes()
             MSCORN::CORN_VEH_DEV_NO_CPHONE));
             */
     // using C2C extensions
+#ifdef HAVE_BOYOM_C2C
     sm.add("C2C: by having a device",
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, bool>(
                0, 1, RGBColor((SUMOReal) .8, (SUMOReal) .8, (SUMOReal) .8), RGBColor(1, 1, 0),
@@ -190,6 +191,7 @@ initVehicleColoringSchemes()
             0, 1, RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5), RGBColor(1, 1, 1),
             (bool (GUIVehicle::*)() const) &GUIVehicle::getLastInfoTime));
             */
+#endif
     // build the colors map
     {
         for (size_t i=0; i<sm.size(); i++) {

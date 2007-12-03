@@ -151,6 +151,7 @@ MSVehicle::~MSVehicle()
     }
     // delete values in CORN
     // prior routes
+#ifdef HAVE_BOYOM_C2C
     if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)!=myPointerCORNMap.end()) {
         ReplacedRoutesVector *v = (ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE];
         for (ReplacedRoutesVector::iterator i=v->begin(); i!=v->end(); ++i) {
@@ -158,6 +159,7 @@ MSVehicle::~MSVehicle()
         }
         delete v;
     }
+#endif
     // devices
     {
         // cell phones
@@ -173,6 +175,7 @@ MSVehicle::~MSVehicle()
         }
     }
     delete myLaneChangeModel;
+#ifdef HAVE_BOYOM_C2C
     delete akt;
     {
         for (VehCont::iterator i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
@@ -192,6 +195,8 @@ MSVehicle::~MSVehicle()
         }
         infoCont.clear();
     }
+#endif
+#ifdef TRACI
 	{
 		// edges changed by TraCI
 		for (InfoCont::iterator i=edgesChangedByTraci.begin(); i!=edgesChangedByTraci.end(); ++i) {
@@ -199,6 +204,7 @@ MSVehicle::~MSVehicle()
 		}	
 		edgesChangedByTraci.clear();
 	}
+#endif
     // persons
     if (hasCORNPointerValue(MSCORN::CORN_VEH_PASSENGER)) {
         std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_VEH_PASSENGER];
@@ -231,6 +237,7 @@ MSVehicle::MSVehicle(string id,
         myState(0, 0), //
         myIndividualMaxSpeed( 0.0 ),
         myIsIndividualMaxSpeedSet( false ),
+#ifdef HAVE_BOYOM_C2C
         equipped(false),
         lastUp(0),
         clusterId(-1),
@@ -239,6 +246,7 @@ MSVehicle::MSVehicle(string id,
         akt(0),
         myLastInfoTime(0),
         myHaveRouteInfo(false),
+#endif
         myLane(0),
         myType(type),
         myLastBestLanesEdge(0),
@@ -246,9 +254,13 @@ MSVehicle::MSVehicle(string id,
         myAllowedLanes(0),
         myMoveReminders(0),
         myOldLaneMoveReminders(0),
-        myOldLaneMoveReminderOffsets(0),
-        myNoGot(0), myNoSent(0), myNoGotRelevant(0),
-		myWeightChangedViaTraci(false)
+        myOldLaneMoveReminderOffsets(0)
+#ifdef HAVE_BOYOM_C2C
+        , myNoGot(0), myNoSent(0), myNoGotRelevant(0)
+#endif
+#ifdef TRACI
+		,myWeightChangedViaTraci(false)
+#endif
 {
     rebuildAllowedLanes();
     myLaneChangeModel = new MSLCM_DK2004(*this);
@@ -315,6 +327,7 @@ MSVehicle::initDevices(int vehicleIndex)
         }
     }
 */
+#ifdef HAVE_BOYOM_C2C
     // c2c communication
     if (oc.getFloat("device.c2x.probability")!=0||oc.isSet("device.c2x.knownveh")) {
         bool t1 = false;
@@ -328,6 +341,7 @@ MSVehicle::initDevices(int vehicleIndex)
             equipped = true;
         }
     }
+#endif
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -606,7 +620,7 @@ MSVehicle::moveFirstChecked()
     DriveItemVector::iterator i;
     MSLane *currentLane = myLane;
     bool cont = true;
-    for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()&&cont; i++) {
+    for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()&&cont; ++i) {
         MSLink *link = (*i).myLink;
         bool onLinkEnd = link==0;
         // the vehicle must change the lane on one of the next lanes
@@ -1029,12 +1043,13 @@ MSVehicle::getID() const
 
 /////////////////////////////////////////////////////////////////////////////
 
+#ifdef HAVE_BOYOM_C2C
 bool
 MSVehicle::isEquipped() const
 {
     return equipped;
 }
-
+#endif
 /////////////////////////////////////////////////////////////////////////////
 
 bool
@@ -1099,7 +1114,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool inBetweenJ
     // add the information about the new offset to the old lane reminders
     SUMOReal oldLaneLength = myLane->length();
     OffsetVector::iterator i;
-    for (i=myOldLaneMoveReminderOffsets.begin(); i!=myOldLaneMoveReminderOffsets.end(); i++) {
+    for (i=myOldLaneMoveReminderOffsets.begin(); i!=myOldLaneMoveReminderOffsets.end(); ++i) {
         (*i) += oldLaneLength;
     }
     for (size_t j=0; j<myMoveReminders.size(); j++) {
@@ -1130,11 +1145,13 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool inBetweenJ
         myCurrEdge = edgeIt;
     }
 
+#ifdef HAVE_BOYOM_C2C
     if (isEquipped()) {
         (*myCurrEdge)->addEquippedVehicle(getID(), this);
         delete akt;
         akt = new Information(0, MSNet::getInstance()->getCurrentTimeStep());
     }
+#endif
     if (MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleMoves(this);
     }
@@ -1168,12 +1185,14 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, const State &state)
     myMoveReminders = enteredLane->getMoveReminders();
     activateRemindersByEmitOrLaneChange();
 
+#ifdef HAVE_BOYOM_C2C
     // for Car2Car
     if (isEquipped()) {
         delete akt;
         (*myCurrEdge)->addEquippedVehicle(getID(), this);
         akt = new Information(0, MSNet::getInstance()->getCurrentTimeStep());
     }
+#endif
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -1186,6 +1205,7 @@ MSVehicle::leaveLaneAtMove(SUMOReal /*driven*/)
         int blb = 0;
     }
 #endif
+#ifdef HAVE_BOYOM_C2C
     if (isEquipped()) {
         // leave the c2c-edge
         (*myCurrEdge)->removeEquippedVehicle(getID());
@@ -1217,7 +1237,7 @@ MSVehicle::leaveLaneAtMove(SUMOReal /*driven*/)
         delete akt;
         akt = 0;
     }
-
+#endif
     if (!myAllowedLanes.empty()) {
         myAllowedLanes.pop_front();
     }
@@ -1427,6 +1447,7 @@ MSVehicle::onTripEnd(bool /*wasAlreadySet*/)
         (*i)->removeOnTripEnd(this);
     }
     myQuitReminded.clear();
+#ifdef HAVE_BOYOM_C2C
     // remove c2c connections // !!! delete them ,too!!!
     {
         for (VehCont::iterator i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
@@ -1446,6 +1467,7 @@ MSVehicle::onTripEnd(bool /*wasAlreadySet*/)
         }
         infoCont.clear();
     }
+#endif
 }
 
 
@@ -1724,7 +1746,7 @@ MSVehicle::getBestLanes() const
         std::vector<LaneQ> &curr = *(myBestLanes.end()-1);
         bool gotOne = false;
         size_t i;
-        for (i=0; i<lanes->size(); i++) {
+        for (i=0; i<lanes->size(); ++i) {
             curr.push_back(LaneQ());
             LaneQ &currQ = *(curr.end()-1);
             if ((ce+1)!=myRoute->end()) {
@@ -1917,6 +1939,7 @@ MSVehicle::saveState(std::ostream &os)
 
 
 
+#ifdef HAVE_BOYOM_C2C
 void
 MSVehicle::addVehNeighbors(MSVehicle *veh, SUMOTime time)
 {
@@ -2049,19 +2072,22 @@ MSVehicle::updateInfos(SUMOTime time)
         infoCont.erase(infoCont.find(*k));
     }
 }
-
+#endif
 
 void
 MSVehicle::removeOnTripEnd(MSVehicle *veh)
 {
+#ifdef HAVE_BOYOM_C2C
     assert(myNeighbors.find(veh)!=myNeighbors.end());
     std::map<MSVehicle * const, C2CConnection*>::iterator i = myNeighbors.find(veh);
     delete(*i).second;
     myNeighbors.erase(i);
+#endif
     quitRemindedLeft(veh);
 }
 
 
+#ifdef HAVE_BOYOM_C2C
 bool
 MSVehicle::knowsEdgeTest(MSEdge &edge) const
 {
@@ -2098,7 +2124,7 @@ MSVehicle::buildMyCluster(int myStep, int clId)
     {
         clusterId = clId;
         std::map<MSVehicle * const, C2CConnection*>::iterator i;
-        for (i=myNeighbors.begin(); i!=myNeighbors.end(); i++){
+        for (i=myNeighbors.begin(); i!=myNeighbors.end(); ++i){
             if ((*i).first->getClusterId()<0) {
                 count++;
                 (*i).second->connectedVeh->setClusterId(clId);
@@ -2204,7 +2230,7 @@ MSVehicle::numOfInfos(MSVehicle *veh1, MSVehicle* veh2)
     SUMOReal x = (SUMOReal)(((-2.3*distance + 1650.)*MSGlobals::gNumberOfSendingPos)/1500.);  //approximation function
     return (int)(x*MSGlobals::gInfoPerPaket);
 }
-
+#endif
 
 bool
 MSVehicle::willPass(const MSEdge * const edge) const
@@ -2212,7 +2238,7 @@ MSVehicle::willPass(const MSEdge * const edge) const
     return find(myCurrEdge, myRoute->end(), edge)!=myRoute->end();
 }
 
-
+#ifdef HAVE_BOYOM_C2C
 void
 MSVehicle::transferInformation(const std::string &senderID, const InfoCont &infos,
                                int NofP, SUMOTime currentTime)
@@ -2257,8 +2283,9 @@ MSVehicle::getC2CEffort(const MSEdge * const e, SUMOTime /*t*/) const
     }
     return infoCont.find(e)->second->neededTime;
 }
+#endif
 
-
+#ifdef HAVE_BOYOM_C2C
 void
 MSVehicle::checkReroute(SUMOTime t)
 {
@@ -2288,8 +2315,8 @@ MSVehicle::checkReroute(SUMOTime t)
         MSRouteIterator ri = myCurrEdge;
         std::vector<const MSEdge*>::iterator ri2 = edges.begin();
         while (ri!=myRoute->end()&&ri2!=edges.end()&&*ri==*ri2) {
-            ri++;
-            ri2++;
+            ++ri;
+            ++ri2;
         }
         if (ri!=myRoute->end()||ri2!=edges.end()) {
             int rerouteIndex = 0;
@@ -2328,9 +2355,9 @@ MSVehicle::getNoGotRelevant() const
 {
     return myNoGotRelevant;
 }
-
+#endif
 /****************************************************************************/
-
+#ifdef TRACI
 bool 
 MSVehicle::changeEdgeWeightLocally(std::string edgeID, double travelTime, SUMOTime currentTime)
 {
@@ -2407,7 +2434,7 @@ MSVehicle::restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime)
 
 	return true;
 }
-
+#endif
 
 
 /****************************************************************************/

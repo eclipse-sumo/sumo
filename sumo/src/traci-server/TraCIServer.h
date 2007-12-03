@@ -1,3 +1,4 @@
+#ifdef TRACI
 /****************************************************************************/
 /// @file    TraCIServer.h
 /// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
@@ -170,3 +171,4 @@ private:
 
 #endif
 
+#endif

@@ -347,8 +347,10 @@ public:
     }
 
 
+#ifdef HAVE_BOYOM_C2C
     /// return true if the vehicle is eqquiped with WLAN
     bool isEquipped() const;
+#endif
 
 
     /// Returns the name of the vehicle
@@ -514,7 +516,6 @@ public:
     }
     bool knowsEdgeTest(MSEdge &edge) const;
 
-
     class Information
     {
     public:
@@ -524,6 +525,7 @@ public:
         SUMOTime time; // the Time, when the Info was saved
     };
 
+#ifdef HAVE_BOYOM_C2C
     // enumeration for all type of Connection
     enum C2CConnectionState {
         dialing, connected, sending, receiving, disconnected
@@ -561,13 +563,14 @@ public:
     size_t getNoGot() const;
     size_t getNoSent() const;
     size_t getNoGotRelevant() const;
-
+#endif
 
     /*
         SUMOTime getSendingTimeEnd() const;
         bool maySend() const;
         void send(SUMOTime time);
     */
+#ifdef TRACI
 
 	/**
 	 * Used by TraCIServer to change the weight of an edge locally for a specific vehicle
@@ -583,6 +586,7 @@ public:
 	 * @param edgeID: ID of the edge to restore
 	 */
 	bool restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime);
+#endif
 
 protected:
     /// Use this constructor only.
@@ -635,6 +639,7 @@ protected:
     /// is true if there has an individual speed been set
     bool myIsIndividualMaxSpeedSet;
 
+#ifdef HAVE_BOYOM_C2C
     /// is true, if the vehicle is abble to send Informations to another vehicle
     bool equipped;
 
@@ -652,6 +657,7 @@ protected:
 
     // count how much Informations this vehicle have saved during the simulation
     int totalNrOfSavedInfos;
+#endif
 
     /// The lane the vehicle is on
     MSLane* myLane;
@@ -660,25 +666,29 @@ protected:
 
     const MSVehicleType * const myType;
 
-
-    VehCont myNeighbors;
-
+#if defined(HAVE_BOYOM_C2C) || defined(TRACI)
     typedef std::map<const MSEdge * const, Information *> InfoCont;
-    InfoCont infoCont;
+    typedef std::vector<C2CConnection*> ClusterCont;
+#endif
+
+#ifdef HAVE_BOYOM_C2C
+    VehCont myNeighbors;
 
     typedef std::vector<C2CConnection*> ClusterCont;
     ClusterCont clusterCont;
+#endif
 
     bool willPass(const MSEdge * const edge) const;
 
+#ifdef HAVE_BOYOM_C2C
     // transfert the N Information in infos into my own InformationsContainer
     void transferInformation(const std::string &senderID, const InfoCont &infos, int N,
                              SUMOTime currentTime);
 
     //compute accordant the distance, the Number of Infos that can be transmit
     size_t numOfInfos(MSVehicle *veh1, MSVehicle* veh2);
+#endif
 
-    //InfoCont getInfosToSend(void);
 
     mutable const MSEdge *myLastBestLanesEdge;
     mutable std::vector<std::vector<LaneQ> > myBestLanes;
@@ -731,7 +741,10 @@ private:
 
     std::map<MSCORN::Function, int> myIntCORNMap;
 
+
+#ifdef HAVE_BOYOM_C2C
     size_t myNoGot, myNoSent, myNoGotRelevant;
+#endif
 
     /**
      * @class RouteReplaceInfo
@@ -766,6 +779,7 @@ private:
     /// Definition of the vector which stores information about replaced routes
     typedef std::vector<RouteReplaceInfo> ReplacedRoutesVector;
 
+#ifdef TRACI
 	/** 
 	 * if true, indicates that a TraCI message "changeRoute" was sent to this vehicle,
 	 * thus it checks for a new route when the next simulation step is performed
@@ -779,6 +793,7 @@ private:
 	 * related to an edge before it was changed by TraCI
 	 */
 	InfoCont edgesChangedByTraci;
+#endif
 
 };
 

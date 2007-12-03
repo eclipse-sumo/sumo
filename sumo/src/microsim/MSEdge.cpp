@@ -569,12 +569,14 @@ MSEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd)
 SUMOReal
 MSEdge::getC2CEffort(const MSVehicle * const v, SUMOTime t) const
 {
+#ifdef HAVE_BOYOM_C2C
     if (v->isEquipped()) {
         SUMOReal teffort = v->getC2CEffort(this, t);
         if (teffort>0) {
             return teffort;
         }
     }
+#endif
     return getEffort(v, t);
 }
 
