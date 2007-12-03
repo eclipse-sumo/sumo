@@ -80,30 +80,33 @@ GUIInternalLane::~GUIInternalLane()
 }
 
 
-void
+bool
 GUIInternalLane::moveNonCritical()
 {
     myLock.lock();
-    MSInternalLane::moveNonCritical();
+    bool ret = MSInternalLane::moveNonCritical();
     myLock.unlock();
+    return ret;
 }
 
 
-void
+bool
 GUIInternalLane::moveCritical()
 {
     myLock.lock();
-    MSInternalLane::moveCritical();
+    bool ret = MSInternalLane::moveCritical();
     myLock.unlock();
+    return ret;
 }
 
 
-void
-GUIInternalLane::setCritical()
+bool
+GUIInternalLane::setCritical(std::vector<MSLane*> &into)
 {
     myLock.lock();
-    MSInternalLane::setCritical();
+    bool ret = MSInternalLane::setCritical(into);
     myLock.unlock();
+    return ret;
 }
 
 
@@ -172,12 +175,13 @@ GUIInternalLane::swapAfterLaneChange()
 }
 
 
-void
+bool
 GUIInternalLane::integrateNewVehicle()
 {
     myLock.lock();
-    MSLane::integrateNewVehicle();
+    bool ret = MSLane::integrateNewVehicle();
     myLock.unlock();
+    return ret;
 }
 
 

@@ -64,30 +64,33 @@ GUISourceLane::~GUISourceLane()
 }
 
 
-void
+bool
 GUISourceLane::moveNonCritical()
 {
     myLock.lock();
-    MSSourceLane::moveNonCritical();
+    bool ret = MSSourceLane::moveNonCritical();
     myLock.unlock();
+    return ret;
 }
 
 
-void
+bool
 GUISourceLane::moveCritical()
 {
     myLock.lock();
-    MSSourceLane::moveCritical();
+    bool ret = MSSourceLane::moveCritical();
     myLock.unlock();
+    return ret;
 }
 
 
-void
-GUISourceLane::setCritical()
+bool
+GUISourceLane::setCritical(std::vector<MSLane*> &into)
 {
     myLock.lock();
-    MSSourceLane::setCritical();
+    bool ret = MSSourceLane::setCritical(into);
     myLock.unlock();
+    return ret;
 }
 
 
@@ -144,12 +147,13 @@ GUISourceLane::swapAfterLaneChange()
 }
 
 
-void
+bool
 GUISourceLane::integrateNewVehicle()
 {
     myLock.lock();
-    MSLane::integrateNewVehicle();
+    bool ret = MSLane::integrateNewVehicle();
     myLock.unlock();
+    return ret;
 }
 
 

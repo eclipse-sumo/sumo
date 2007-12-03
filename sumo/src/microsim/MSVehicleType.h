@@ -4,7 +4,7 @@
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
-// parameters.
+// The car-following model and parameter
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -51,18 +51,31 @@ class BinaryInputDevice;
 // ===========================================================================
 /**
  * @class MSVehicleType
- * @brief Storage for parameters of vehicles of the same abstract type
+ * @brief The car-following model and parameter
  *
- * The vehicle type stores the parameter of a single vehicle type.
+ * MSVehicleType stores the parameter of a single vehicle type and methods
+ *  that use these for computing the vehicle's car-following behavior
+ *
  * It is assumed that within the simulation many vehicles are using the same
  *  vehicle type, quite common is using only one vehicle type for all vehicles.
+ *
  * You can think of it like of having a vehicle type for each VW Golf or
  *  Ford Mustang in your simulation while the car instances just refer to it.
  */
 class MSVehicleType
 {
 public:
-    /// Constructor.
+    /** @brief Constructor.
+     *
+     * @param[in] id The vehicle type's id
+     * @param[in] length The length of vehicles that are of this type
+     * @param[in] maxSpeed The maximum velocity vehicles of this type may drive with
+     * @param[in] accel The maximum acceleration of vehicles of this type
+     * @param[in] decel The maximum deceleration of vehicles of this type
+     * @param[in] dawdle The driver imperfection used by this vehicle type
+     * @param[in] tau The driver's reaction time used by this vehicle type
+     * @param[in] vclass The class vehicles of this type belong to
+     */
     MSVehicleType(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
                   SUMOReal accel, SUMOReal decel, SUMOReal dawdle,
                   SUMOReal tau,
@@ -241,9 +254,9 @@ protected:
         assert(currentSpeed     >= SUMOReal(0));
         assert(gap2pred  >= SUMOReal(0));
         assert(predSpeed >= SUMOReal(0));
-        SUMOReal vsafe = (SUMOReal) (-1. * myTau * myDecel
+        SUMOReal vsafe = (SUMOReal) (-1. * myTauDecel
             + sqrt( 
-                (myTau * myDecel)*(myTau * myDecel) 
+                myTauDecel*myTauDecel 
                 + (predSpeed*predSpeed)
                 + (2. * myDecel * gap2pred)
                 ));
@@ -271,20 +284,31 @@ private:
     /// The vehicle's dawdle-parameter. 0 for no dawdling, 1 for max.
     SUMOReal myDawdle;
 
+    /// The driver's reaction time [s]
+    SUMOReal myTau;
+
+    /// The vehicle's class
+    SUMOVehicleClass myVehicleClass;
+
+
+    /// @name some precomputed values for faster computation
+    /// @{
     /// The precomputed value for 1/(2*d)
     SUMOReal myInverseTwoDecel;
 
+    /// The precomputed value for myDecel*myTau
+    SUMOReal myTauDecel;
+    /// @}
 
 
-    SUMOReal myTau;
-    SUMOVehicleClass myVehicleClass;
-
+    /// @name some static values (needed?)
+    /// @{
     /// Minimum deceleration-ability of all vehicle-types.
     static SUMOReal myMinDecel;
+    /// @}
 
-    /// Maximum length of all vehicle-types.
-    static SUMOReal myMaxLength;
 
+private:
     /// Invalidated copy constructor
     MSVehicleType(const MSVehicleType&);
 

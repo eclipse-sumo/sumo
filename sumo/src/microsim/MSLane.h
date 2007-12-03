@@ -111,9 +111,9 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
         initialize later. */
     void initialize(MSLinkCont* succs);
 
-    virtual void moveNonCritical();
+    virtual bool moveNonCritical();
 
-    virtual void moveCritical();
+    virtual bool moveCritical();
 
     /// Check if vehicles are too close.
     virtual void detectCollisions(SUMOTime timestep);
@@ -127,10 +127,10 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
 
     /** Moves the critical vehicles
         This step is done after the responds have been set */
-    virtual void setCritical();
+    virtual bool setCritical(std::vector<MSLane*> &into);
 
     /// Insert buffered vehicle into the real lane.
-    virtual void integrateNewVehicle();
+    virtual bool integrateNewVehicle();
 
     /** Returns the information whether this lane may be used to continue
         the current route */
@@ -271,6 +271,10 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     bool allowsVehicleClass(SUMOVehicleClass vclass) const;
 
     void addIncomingLane(MSLane *lane, MSLink *viaLink);
+
+    const MSEdgeControl::LaneUsage &getLaneUsage() const {
+        return *myUseDefinition;
+    }
 
     struct IncomingLaneInfo {
         MSLane *lane;

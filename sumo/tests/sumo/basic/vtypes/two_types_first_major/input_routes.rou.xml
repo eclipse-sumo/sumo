@@ -1,7 +1,7 @@
 <routes>
    <route id="0" multi_ref="x">beg middle end rend</route>
-   <vtype id="t1" probability=".7"/>
-   <vtype id="t2" probability=".3"/>
+   <vtype id="t1" probability=".7" sigma="0"/>
+   <vtype id="t2" probability=".3" sigma="0"/>
 
    <vehicle id="0" route="0" depart="0"/>
    <vehicle id="1" route="0" depart="10"/>

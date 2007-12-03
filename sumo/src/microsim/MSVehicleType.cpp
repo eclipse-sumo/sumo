@@ -4,7 +4,7 @@
 /// @date    Tue, 06 Mar 2001
 /// @version $Id$
 ///
-// parameters.
+// The car-following model and parameter
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -50,7 +50,6 @@ using namespace std;
 // static member definitions
 // ===========================================================================
 SUMOReal MSVehicleType::myMinDecel  = 0;
-SUMOReal MSVehicleType::myMaxLength = 0;
 
 
 // ===========================================================================
@@ -76,10 +75,8 @@ MSVehicleType::MSVehicleType(const string &id, SUMOReal length,
     if (myMinDecel==0 || myDecel<myMinDecel) {
         myMinDecel = myDecel;
     }
-    if (myLength>myMaxLength) {
-        myMaxLength = myLength;
-    }
     myInverseTwoDecel = SUMOReal(1) / (SUMOReal(2) * myDecel);
+    myTauDecel = myDecel * myTau;
 }
 
 

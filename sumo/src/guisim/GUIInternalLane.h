@@ -71,15 +71,15 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void moveNonCritical();
+    bool moveNonCritical();
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void moveCritical();
+    bool moveCritical();
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void setCritical();
+    bool setCritical(std::vector<MSLane*> &into);
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
@@ -91,7 +91,7 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    void integrateNewVehicle();
+    bool integrateNewVehicle();
 
     /// allows the processing of vehicles for threads
     void releaseVehicles();

@@ -144,7 +144,7 @@ MSLane::initialize(MSLinkCont* links)
 /////////////////////////////////////////////////////////////////////////////
 
 
-void
+bool
 MSLane::moveNonCritical()
 {
     assert(myVehicles.size()!=0);
@@ -202,10 +202,11 @@ MSLane::moveNonCritical()
         assert(&predec->getLane()==this);
     }
     assert(myVehicles.size()==myUseDefinition->noVehicles);
+    return myUseDefinition->noVehicles==0;
 }
 
 
-void
+bool
 MSLane::moveCritical()
 {
     assert(myVehicles.size()!=0);
@@ -229,6 +230,7 @@ MSLane::moveCritical()
     assert((*veh)->getPositionOnLane() <= myLength);
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     assert(&(*veh)->getLane()==this);
+    return myUseDefinition->noVehicles==0;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -274,7 +276,7 @@ MSLane::detectCollisions(SUMOTime timestep)
                 throw ProcessError();
             } else {
                 vehV->leaveLaneAtLaneChange();
-                vehV->onTripEnd(/* *this*/);
+                vehV->onTripEnd();
                 MSVehicleTransfer::getInstance()->addVeh(vehV);
             }
             veh = myVehicles.erase(veh); // remove current vehicle
@@ -364,15 +366,23 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
 
         // emit
         myVehicles.insert(predIt, aVehicle);
+        bool wasInactive = myUseDefinition->noVehicles==0;
         myUseDefinition->noVehicles++;
         myUseDefinition->vehLenSum += aVehicle->getLength();
+            if(wasInactive) {
+                MSNet::getInstance()->getEdgeControl().gotActive(this);
+            }
         assert(myVehicles.size()==myUseDefinition->noVehicles);
         return true;
     }
     // emit
     myVehicles.push_back(aVehicle);
+        bool wasInactive = myUseDefinition->noVehicles==0;
     myUseDefinition->vehLenSum += aVehicle->getLength();
     myUseDefinition->noVehicles++;
+            if(wasInactive) {
+                MSNet::getInstance()->getEdgeControl().gotActive(this);
+            }
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     return true;
 }
@@ -394,8 +404,12 @@ MSLane::emitTry(MSVehicle& veh)
         MSVehicle::State state(safeSpace, 0);
         veh.enterLaneAtEmit(this, state);
         myVehicles.push_front(&veh);
+        bool wasInactive = myUseDefinition->noVehicles==0;
         myUseDefinition->noVehicles++;
         myUseDefinition->vehLenSum += veh.getLength();
+            if(wasInactive) {
+                MSNet::getInstance()->getEdgeControl().gotActive(this);
+            }
         assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
@@ -436,8 +450,12 @@ MSLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
             MSVehicle::State state(frontMax, 0);
             veh.enterLaneAtEmit(this, state);
             myVehicles.push_front(&veh);
+        bool wasInactive = myUseDefinition->noVehicles==0;
             myUseDefinition->noVehicles++;
             myUseDefinition->vehLenSum += veh.getLength();
+            if(wasInactive) {
+                MSNet::getInstance()->getEdgeControl().gotActive(this);
+            }
             assert(myUseDefinition->noVehicles==myVehicles.size());
 
 #ifdef ABS_DEBUG
@@ -468,8 +486,12 @@ MSLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
             MSVehicle::State state((frontMax+backMin)/(SUMOReal) 2.0, 0);
             veh.enterLaneAtEmit(this, state);
             myVehicles.insert(leaderIt, &veh);
+        bool wasInactive = myUseDefinition->noVehicles==0;
             myUseDefinition->noVehicles++;
             myUseDefinition->vehLenSum += veh.getLength();
+            if(wasInactive) {
+                MSNet::getInstance()->getEdgeControl().gotActive(this);
+            }
             assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
             if (debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
@@ -502,8 +524,12 @@ MSLane::emitTry(VehCont::iterator followIt, MSVehicle& veh)
         MSVehicle::State state(backMin, 0);
         veh.enterLaneAtEmit(this, state);
         myVehicles.push_back(&veh);
+        bool wasInactive = myUseDefinition->noVehicles==0;
         myUseDefinition->noVehicles++;
         myUseDefinition->vehLenSum += veh.getLength();
+            if(wasInactive) {
+                MSNet::getInstance()->getEdgeControl().gotActive(this);
+            }
         assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
         if (debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
@@ -539,8 +565,12 @@ MSLane::emitTry(VehCont::iterator followIt, MSVehicle& veh,
         MSVehicle::State state((frontMax + backMin) / (SUMOReal) 2.0, 0);
         veh.enterLaneAtEmit(this, state);
         myVehicles.insert(leaderIt, &veh);
+        bool wasInactive = myUseDefinition->noVehicles==0;
         myUseDefinition->noVehicles++;
         myUseDefinition->vehLenSum += veh.getLength();
+           if(wasInactive) {
+                MSNet::getInstance()->getEdgeControl().gotActive(this);
+            }
         assert(myUseDefinition->noVehicles==myVehicles.size());
 #ifdef ABS_DEBUG
         if (debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
@@ -553,8 +583,8 @@ MSLane::emitTry(VehCont::iterator followIt, MSVehicle& veh,
     return false;
 }
 
-void
-MSLane::setCritical()
+bool
+MSLane::setCritical(std::vector<MSLane*> &into)
 {
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     // move critical vehicles
@@ -602,13 +632,14 @@ MSLane::setCritical()
         }
         if(target!=0&&p->getInTransit()) {
             target->push(p);
+            into.push_back(target);
         }
     }
     assert(myVehicles.size()==myUseDefinition->noVehicles);
     // check whether the lane is free
     if (myVehicles.size()==0) {
         myLastState = MSVehicle::State(10000, 10000);
-        myFirstUnsafe = 0;//myVehicles.size();
+        myFirstUnsafe = 0;
     }
     if (myVehicles.size()>0) {
         if (MSGlobals::gTimeToGridlock>0
@@ -623,6 +654,7 @@ MSLane::setCritical()
             vt->addVeh(veh);
         }
     }
+    return myUseDefinition->noVehicles==0;
 }
 
 /////////////////////////////////////////////////////////////////////////////
@@ -719,9 +751,10 @@ MSLane::appropriate(const MSVehicle *veh)
 
 //////////////////////////////////////////////////////////////////////////
 
-void
+bool
 MSLane::integrateNewVehicle()
 {
+    bool wasInactive = myUseDefinition->noVehicles==0;
     sort(myVehBuffer.begin(), myVehBuffer.end(), vehicle_position_sorter());
     for(std::vector<MSVehicle*>::const_iterator i=myVehBuffer.begin(); i!=myVehBuffer.end(); ++i) {
         MSVehicle *veh = *i;
@@ -732,6 +765,7 @@ MSLane::integrateNewVehicle()
         assert(myUseDefinition->noVehicles==myVehicles.size());
     }
     myVehBuffer.clear();
+    return wasInactive&&myUseDefinition->noVehicles!=0;
 }
 
 /////////////////////////////////////////////////////////////////////////////

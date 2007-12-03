@@ -34,6 +34,8 @@
 #include <map>
 #include <string>
 #include <iostream>
+#include <list>
+#include <set>
 #include "MSEdge.h"
 #include <microsim/output/meandata/MSMeanData_Net.h>
 
@@ -58,7 +60,7 @@ public:
     typedef std::vector< MSEdge* > EdgeCont;
 
     /// Use thic constructor only.
-    MSEdgeControl(/*std::string id, */EdgeCont *singleLane, EdgeCont *multiLane);
+    MSEdgeControl(EdgeCont *singleLane, EdgeCont *multiLane);
 
     /// Destructor.
     ~MSEdgeControl();
@@ -85,6 +87,8 @@ public:
 
     std::vector<std::string> getEdgeNames() const;
 
+    void gotActive(MSLane *l);
+
 public:
     /**
      * @struct LaneUsage
@@ -100,24 +104,16 @@ public:
         SUMOReal vehLenSum;
         MSEdge::LaneCont::const_iterator firstNeigh;
         MSEdge::LaneCont::const_iterator lastNeigh;
+        int index;
+        bool amActive;
     };
 
 private:
-    /// Unique ID.
-    //std::string myID;
-
     /// Single lane edges.
     EdgeCont* mySingleLaneEdges;
 
     /// Multi lane edges.
     EdgeCont* myMultiLaneEdges;
-
-    /*
-    /// definitions of the static dictionary type
-    typedef std::map< std::string, MSEdgeControl* > DictType;
-    /// Static dictionary to associate string-ids with objects.
-    static DictType myDict;
-    */
 
     /// Default constructor.
     MSEdgeControl();
@@ -134,6 +130,12 @@ private:
 
     /// Information about lanes' number of vehicles and neighbors
     LaneUsageVector myLanes;
+
+    std::list<MSLane*> myActiveLanes;
+
+    std::vector<MSLane*> myWithVehicles2Integrate;
+
+    std::set<MSLane*> myChangedStateLanes;
 
 };
 
