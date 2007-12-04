@@ -4,7 +4,7 @@
 /// @date    Mon, 17 Dec 2001
 /// @version $Id$
 ///
-// Loads the configuration file using "OptionsLoader"
+// Helper for parsing command line arguments and reading configuration files
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -44,24 +44,44 @@ class OptionsCont;
 // ===========================================================================
 /**
  * @class OptionsIO
- * A wrapper for the complete IO of options containing the reading of a
- * configuration file and the parsing of the command line arguments.
- * The only accessable method returns fale, when something failed during the
- * process. This may happen when the configuration file is broken or its
- * or the command line arguments syntax is invalid. This may also happen
- * when the configuration or the command line arguments do specify a value
- * more than once (independent of each other as the command line arguments
- * may overwrite the configuration settings)
+ *
+ * Helping methods for parsing of command line arguments and reading a
+ *  configuration file.
+ * Any errors are reported by throwing a ProcessError exception which
+ *  contains a description about the failure.
  */
 class OptionsIO
 {
 public:
-    /** loads the configuration and parses the command line arguments */
+    /** @brief Parses the command line arguments and loads the configuration optionally 
+     * 
+     * Command line arguments are parsed, first, throwing a ProcessError
+     *  if something fails. If loadConfig is false, the method returns
+     *  after this. Otherwise, options are reset to being writeable and the
+     *  configuration is loaded using "loadConfiguration". After this,
+     *  the options are reset again and the command line arguments are 
+     *  reparsed.
+     *
+     * This workflow allows to read the name of a configuration file from
+     *  command line arguments, first, then to load values from this configuration
+     *  file and reset them by other values from the command line.
+     *
+     * @param[in] loadConfig Whether the configuration shall be loaded
+     * @param[in] argv number of arguments given at the command line
+     * @param[in] argc arguments given at the command line
+     */
     static void getOptions(bool loadConfig,
                            int argv, char **argc) throw(ProcessError);
 
-    /** loads and parses the configuration */
+
+    /** @brief Loads and parses the configuration
+     *
+     * The name of the configuration file is extracted from the global
+     *  OptionsCont ("configuration-file" is used as the name of the option to get
+     *  the name of the configuration).
+     */
     static void loadConfiguration() throw(ProcessError);
+
 
 };
 

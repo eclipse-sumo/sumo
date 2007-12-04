@@ -50,7 +50,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 bool
-OptionsParser::parse(int argc, char **argv)
+OptionsParser::parse(int argc, char **argv) throw()
 {
     bool ok = true;
     for (int i=1; i<argc;) {
@@ -74,7 +74,7 @@ OptionsParser::parse(int argc, char **argv)
 
 
 int
-OptionsParser::check(char *arg1, bool &ok)
+OptionsParser::check(char *arg1, bool &ok) throw()
 {
     // the last stand-alone argument should be a switch
     if (!checkParameter(arg1)) return 1;
@@ -107,7 +107,7 @@ OptionsParser::check(char *arg1, bool &ok)
 
 
 int
-OptionsParser::check(char *arg1, char *arg2, bool &ok)
+OptionsParser::check(char *arg1, char *arg2, bool &ok) throw()
 {
     // the first argument should be an option
     // (only the second may be a free string)
@@ -180,7 +180,7 @@ OptionsParser::check(char *arg1, char *arg2, bool &ok)
 
 
 bool
-OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg)
+OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg) throw()
 {
     if (arg[1]=='=') {
         if (strlen(arg)<3) {
@@ -201,11 +201,10 @@ OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg)
 
 
 bool
-OptionsParser::checkParameter(char *arg1)
+OptionsParser::checkParameter(char *arg1) throw()
 {
     if (arg1[0]!='-') {
-        MsgHandler::getErrorInstance()->inform("The parameter '" + string(arg1) + "' is not allowed in this context");
-        MsgHandler::getErrorInstance()->inform("Switch or parameter name expected.");
+        MsgHandler::getErrorInstance()->inform("The parameter '" + string(arg1) + "' is not allowed in this context.\n Switch or parameter name expected.");
         return false;
     }
     return true;
@@ -213,14 +212,14 @@ OptionsParser::checkParameter(char *arg1)
 
 
 bool
-OptionsParser::isAbbreviation(char *arg1)
+OptionsParser::isAbbreviation(char *arg1) throw()
 {
     return arg1[1]!='-';
 }
 
 
 string
-OptionsParser::convert(char *arg)
+OptionsParser::convert(char *arg) throw()
 {
     string s(arg);
     return s;
@@ -228,7 +227,7 @@ OptionsParser::convert(char *arg)
 
 
 string
-OptionsParser::convert(char abbr)
+OptionsParser::convert(char abbr) throw()
 {
     char buf[2];
     buf[0] = abbr;

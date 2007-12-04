@@ -4,7 +4,7 @@
 /// @date    Mon, 17 Dec 2001
 /// @version $Id$
 ///
-// Loads a configuration (XML) using a SAX-Parser
+// A SAX-Handler for loading options
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -43,11 +43,6 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-/*
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-*/
 
 
 // ===========================================================================
@@ -59,13 +54,13 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OptionsLoader::OptionsLoader(const char *file, bool verbose)
-        : myError(false), myFile(file), myVerbose(verbose),
+OptionsLoader::OptionsLoader(const std::string &file) throw()
+        : myError(false), myFile(file), 
         myOptions(OptionsCont::getOptions()), myItem()
 {}
 
 
-OptionsLoader::~OptionsLoader()
+OptionsLoader::~OptionsLoader() throw()
 {}
 
 
@@ -73,14 +68,6 @@ void OptionsLoader::startElement(const XMLCh* const name,
                                  AttributeList& /*attributes*/)
 {
     myItem = TplConvert<XMLCh>::_2str(name);
-    /*
-    if( myItem=="configuration" ||
-        myItem=="files" ||
-        myItem=="defaults" ||
-        myItem=="reports") {
-        myItem = "";
-    }
-    */
 }
 
 
@@ -136,7 +123,8 @@ void OptionsLoader::characters(const XMLCh* const chars,
 
 
 bool
-OptionsLoader::setSecure(const std::string &name, bool value)
+OptionsLoader::setSecure(const std::string &name, 
+                         bool value) const throw()
 {
     if (myOptions.isWriteable(name)) {
         myOptions.set(name, value);
@@ -147,7 +135,8 @@ OptionsLoader::setSecure(const std::string &name, bool value)
 
 
 bool
-OptionsLoader::setSecure(const std::string &name, const std::string &value)
+OptionsLoader::setSecure(const std::string &name, 
+                         const std::string &value) const throw()
 {
     if (myOptions.isWriteable(name)) {
         myOptions.set(name, value);
@@ -203,7 +192,7 @@ OptionsLoader::fatalError(const SAXParseException& exception)
 
 
 bool
-OptionsLoader::errorOccured()
+OptionsLoader::errorOccured() const throw()
 {
     return myError;
 }

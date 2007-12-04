@@ -167,7 +167,7 @@ OptionsCont::isDefault(const std::string &name) const throw(InvalidArgument)
 
 
 Option *
-OptionsCont::getSecure(const string &name) const
+OptionsCont::getSecure(const string &name) const throw(InvalidArgument)
 {
     KnownContType::const_iterator i = myValues.find(name);
     if (i==myValues.end()) {
@@ -186,7 +186,7 @@ OptionsCont::getString(const string &name) const throw(InvalidArgument)
 
 
 SUMOReal
-OptionsCont::getFloat(const string &name) const
+OptionsCont::getFloat(const string &name) const throw(InvalidArgument)
 {
     Option *o = getSecure(name);
     return o->getFloat();
@@ -194,23 +194,15 @@ OptionsCont::getFloat(const string &name) const
 
 
 int
-OptionsCont::getInt(const string &name) const
+OptionsCont::getInt(const string &name) const throw(InvalidArgument)
 {
     Option *o = getSecure(name);
     return o->getInt();
 }
 
 
-long
-OptionsCont::getLong(const string &name) const
-{
-    Option *o = getSecure(name);
-    return o->getLong();
-}
-
-
 bool
-OptionsCont::getBool(const string &name) const
+OptionsCont::getBool(const string &name) const throw(InvalidArgument)
 {
     Option *o = getSecure(name);
     return o->getBool();
@@ -218,7 +210,7 @@ OptionsCont::getBool(const string &name) const
 
 
 const IntVector &
-OptionsCont::getIntVector(const std::string &name) const
+OptionsCont::getIntVector(const std::string &name) const throw(InvalidArgument)
 {
     Option *o = getSecure(name);
     return o->getIntVector();
@@ -246,7 +238,7 @@ OptionsCont::set(const string &name, const string &value)
 
 
 bool
-OptionsCont::set(const string &name, bool value)
+OptionsCont::set(const string &name, bool value) throw(InvalidArgument)
 {
     Option *o = getSecure(name);
     if (!o->isBool()) {
@@ -269,7 +261,7 @@ OptionsCont::set(const string &name, bool value)
 
 
 vector<string>
-OptionsCont::getSynonymes(const string &name) const
+OptionsCont::getSynonymes(const string &name) const throw(InvalidArgument)
 {
     Option *o = getSecure(name);
     vector<string> v(0);
@@ -318,7 +310,7 @@ operator<<(ostream& os, const OptionsCont& oc)
 
 
 bool
-OptionsCont::isFileName(const std::string &name) const
+OptionsCont::isFileName(const std::string &name) const throw(InvalidArgument)
 {
     Option *o = getSecure(name);
     return o->isFileName();
@@ -356,13 +348,11 @@ OptionsCont::isUsableFileList(const std::string &name) const
 
 
 void
-OptionsCont::reportDoubleSetting(const string &arg) const
+OptionsCont::reportDoubleSetting(const string &arg) const throw()
 {
     vector<string> synonymes = getSynonymes(arg);
-    MsgHandler::getErrorInstance()->inform(
-        "A value for the option '" + arg + "' was already set.");
     ostringstream s;
-    s << "  Possible synonymes: ";
+    s << "A value for the option '" + arg + "' was already set.\n Possible synonymes: ";
     for (vector<string>::iterator i=synonymes.begin(); i!=synonymes.end();) {
         s << (*i);
         i++;
@@ -375,7 +365,7 @@ OptionsCont::reportDoubleSetting(const string &arg) const
 
 
 string
-OptionsCont::convertChar(char abbr) const
+OptionsCont::convertChar(char abbr) const throw()
 {
     char buf[2];
     buf[0] = abbr;
@@ -386,7 +376,7 @@ OptionsCont::convertChar(char abbr) const
 
 
 bool
-OptionsCont::isBool(const string &name) const
+OptionsCont::isBool(const string &name) const throw(InvalidArgument)
 {
     Option *o = getSecure(name);
     return o->isBool();
@@ -394,7 +384,7 @@ OptionsCont::isBool(const string &name) const
 
 
 void
-OptionsCont::resetWritable()
+OptionsCont::resetWritable() throw()
 {
     for (ItemAddressContType::iterator i=myAddresses.begin(); i!=myAddresses.end(); i++) {
         (*i)->myAmWritable = true;
@@ -403,7 +393,7 @@ OptionsCont::resetWritable()
 
 
 bool
-OptionsCont::isWriteable(const std::string &name)
+OptionsCont::isWriteable(const std::string &name) throw(InvalidArgument)
 {
     Option *o = getSecure(name);
     return o->isWriteable();
@@ -411,7 +401,7 @@ OptionsCont::isWriteable(const std::string &name)
 
 
 void
-OptionsCont::clear()
+OptionsCont::clear() throw()
 {
     ItemAddressContType::iterator i;
     for (i=myAddresses.begin(); i!=myAddresses.end(); i++) {
@@ -445,7 +435,8 @@ OptionsCont::addDescription(const std::string &name,
 
 
 void
-OptionsCont::setApplicationName(const std::string &appName, const std::string &fullName)
+OptionsCont::setApplicationName(const std::string &appName, 
+                                const std::string &fullName) throw()
 {
     myAppName = appName;
     myFullName = fullName;
@@ -453,28 +444,28 @@ OptionsCont::setApplicationName(const std::string &appName, const std::string &f
 
 
 void
-OptionsCont::setApplicationDescription(const std::string &appDesc)
+OptionsCont::setApplicationDescription(const std::string &appDesc) throw()
 {
     myAppDescription = appDesc;
 }
 
 
 void
-OptionsCont::addCallExample(const std::string &example)
+OptionsCont::addCallExample(const std::string &example) throw()
 {
     myCallExamples.push_back(example);
 }
 
 
 void
-OptionsCont::setAdditionalHelpMessage(const std::string &add)
+OptionsCont::setAdditionalHelpMessage(const std::string &add) throw()
 {
     myAdditionalMessage = add;
 }
 
 
 void
-OptionsCont::addOptionSubTopic(const std::string &topic)
+OptionsCont::addOptionSubTopic(const std::string &topic) throw()
 {
     mySubTopics.push_back(topic);
     mySubTopicEntries[topic] = vector<string>();
@@ -483,7 +474,7 @@ OptionsCont::addOptionSubTopic(const std::string &topic)
 
 void
 OptionsCont::splitLines(std::ostream &os, std::string what,
-                        size_t offset, size_t nextOffset)
+                        size_t offset, size_t nextOffset) throw()
 {
     while (what.length()>0) {
         if (what.length()>79-offset) {
@@ -514,7 +505,7 @@ OptionsCont::splitLines(std::ostream &os, std::string what,
 
 
 bool
-OptionsCont::processMetaOptions(bool missingOptions)
+OptionsCont::processMetaOptions(bool missingOptions) throw()
 {
     if (missingOptions) {
         // no options are given
@@ -566,7 +557,7 @@ OptionsCont::processMetaOptions(bool missingOptions)
 }
 
 void
-OptionsCont::printHelp(std::ostream &os)
+OptionsCont::printHelp(std::ostream &os) throw()
 {
     vector<string>::const_iterator i, j;
     // print application description
@@ -663,7 +654,7 @@ OptionsCont::printHelp(std::ostream &os)
 
 void
 OptionsCont::writeConfiguration(std::ostream &os, bool filled,
-                                bool complete, bool addComments)
+                                bool complete, bool addComments) throw()
 {
     vector<string>::const_iterator i, j;
     os << "<configuration>" << endl << endl;
@@ -716,7 +707,7 @@ OptionsCont::writeConfiguration(std::ostream &os, bool filled,
 
 
 void
-OptionsCont::writeXMLHeader(std::ostream &os, const bool writeConfig)
+OptionsCont::writeXMLHeader(std::ostream &os, const bool writeConfig) throw()
 {
     time_t rawtime;
     char buffer [80];
@@ -733,7 +724,7 @@ OptionsCont::writeXMLHeader(std::ostream &os, const bool writeConfig)
 
 
 std::vector<std::string>
-OptionsCont::getStringVector(const std::string &name) const
+OptionsCont::getStringVector(const std::string &name) const throw(InvalidArgument)
 {
     vector<string> ret;
     Option *o = getSecure(name);
@@ -752,7 +743,7 @@ OptionsCont::getStringVector(const std::string &name) const
 
 bool
 OptionsCont::isInStringVector(const std::string &optionName,
-                              const std::string &itemName)
+                              const std::string &itemName) throw(InvalidArgument)
 {
     if (isSet(optionName)) {
         vector<string> values = getStringVector(optionName);

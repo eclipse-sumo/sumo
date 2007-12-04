@@ -96,13 +96,6 @@ Option::getFloat() const throw(InvalidArgument)
 }
 
 
-long
-Option::getLong() const throw(InvalidArgument)
-{
-    throw InvalidArgument("This is not a long-option");
-}
-
-
 int
 Option::getInt() const throw(InvalidArgument)
 {
@@ -267,76 +260,6 @@ Option_Integer::set(const std::string &v) throw(InvalidArgument)
 
 string
 Option_Integer::getValueString() const throw(InvalidArgument)
-{
-    ostringstream s;
-    s << myValue;
-    return s.str();
-}
-
-
-
-/* -------------------------------------------------------------------------
- * Option_Long - methods
- * ----------------------------------------------------------------------- */
-Option_Long::Option_Long() throw()
-        : Option()
-{
-    myTypeName = "LONG";
-}
-
-
-Option_Long::Option_Long(long value) throw()
-        : Option(true), myValue(value)
-{
-    myTypeName = "LONG";
-}
-
-
-Option_Long::~Option_Long() throw()
-{}
-
-
-Option_Long::Option_Long(const Option_Long &s) throw()
-        : Option(s)
-{
-    myValue = s.myValue;
-}
-
-
-Option_Long &
-Option_Long::operator=(const Option_Long &s) throw()
-{
-    if (this==&s) {
-        return *this;
-    }
-    Option::operator=(s);
-    myValue = s.myValue;
-    return *this;
-}
-
-
-long
-Option_Long::getLong() const throw(InvalidArgument)
-{
-    return myValue;
-}
-
-
-bool
-Option_Long::set(const std::string &v) throw(InvalidArgument)
-{
-    try {
-        myValue = TplConvert<char>::_2long(v.c_str());
-        return markSet();
-    } catch (...) {
-        string s = "'" + v + "' is not a valid long (should be).";
-        throw InvalidArgument(s);
-    }
-}
-
-
-string
-Option_Long::getValueString() const throw(InvalidArgument)
 {
     ostringstream s;
     s << myValue;

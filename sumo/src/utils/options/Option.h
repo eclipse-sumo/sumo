@@ -98,17 +98,6 @@ public:
     virtual SUMOReal getFloat() const throw(InvalidArgument);
 
 
-    /** @brief Returns the stored long value
-     *
-     * Option_Long returns the stored long number in this method's reimplementation.
-     *  All other option classes do not override this method which throws an InvalidArgument-exception.
-     *
-     * @return Returns the stored long number if being an instance of Option_Long
-     * @exception InvalidArgument If the class is not an instance of Option_Long
-     */
-    virtual long getLong() const throw(InvalidArgument);
-
-
     /** @brief Returns the stored integer value
      *
      * Option_Integer returns the stored integer number in this method's reimplementation.
@@ -247,6 +236,7 @@ public:
      */
     virtual const std::string &getTypeName() const throw();
 
+
 protected:
     /** @brief Marks the information as set
      *
@@ -255,6 +245,7 @@ protected:
      * @return Whether the option was not set before.
      */
     bool markSet() throw();
+
 
 protected:
     /** @brief Constructor
@@ -372,82 +363,6 @@ public:
 private:
     /** the value, valid only when the base-classes "myAmSet"-member is true */
     int      myValue;
-
-};
-
-
-/* -------------------------------------------------------------------------
- * Option_Long
- * ----------------------------------------------------------------------- */
-class Option_Long : public Option
-{
-public:
-    /** @brief Constructor for an option with no default value
-     *
-     * Calls Option(false)
-     */
-    Option_Long() throw();
-
-
-    /** @brief Constructor for an option with a default value
-     *
-     * Calls Option(true)
-     *
-     * @param[in] value This option's default value
-     */
-    Option_Long(long value) throw();
-
-
-    /** @brief Copy constructor */
-    Option_Long(const Option_Long &s) throw();
-
-
-    /** @brief Destructor */
-    ~Option_Long() throw();
-
-
-    /** @brief Assignment operator */
-    Option_Long &operator=(const Option_Long &s) throw();
-
-
-    /** @brief Returns the stored long value
-     * @see long Option::getLong()
-     * @return Returns the stored long number
-     */
-    long getLong() const throw(InvalidArgument);
-
-
-    /** @brief Stores the given value after parsing it into a long
-     *
-     *  The value is converted into a long and stored in "myValue".
-     *  Then, "markSet" is called in order to know that a value has been set.
-     *
-     * The method returns whether the value could be set (the return value from
-     *  "markSet").
-     *
-     * If the string could not be converted into a long, an InvalidArgument
-     *  is thrown.
-     *
-     * @see bool Option::set(std::string v)
-     * @return Whether the new value could be set
-     * @exception InvalidArgument If the value could not be converted into a long
-     */
-    bool set(const std::string &v) throw(InvalidArgument);
-
-
-    /** @brief Returns the string-representation of the value
-     *
-     * The stored value is encoded into a string and returned.
-     *
-     * @see std::string Option::getValueString()
-     * @return The stored value encoded into a string
-     */
-    std::string getValueString() const throw(InvalidArgument);
-
-
-private:
-    /** the value, valid only when the base-classes "myAmSet"-member is true */
-    long      myValue;
 
 };
 

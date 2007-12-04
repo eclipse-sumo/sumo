@@ -4,7 +4,7 @@
 /// @date    Mon, 17 Dec 2001
 /// @version $Id$
 ///
-// Loads the configuration file using "OptionsLoader"
+// Helper for parsing command line arguments and reading configuration files
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -99,7 +99,7 @@ OptionsIO::loadConfiguration() throw(ProcessError)
     parser.setDoNamespaces(false);
     parser.setDoSchema(false);
     // start the parsing
-    OptionsLoader handler(path.c_str(), oc.getBool("verbose"));
+    OptionsLoader handler(path.c_str());
     try {
         parser.setDocumentHandler(&handler);
         parser.setErrorHandler(&handler);

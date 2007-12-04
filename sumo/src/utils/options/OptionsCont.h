@@ -64,7 +64,7 @@
  * OptionsCont &oc = OptionsCont::getOptions();
  * // give some application descriptions
  * oc.setApplicationDescription(<ONE_LINE_DESCRIPTION>);
- * oc.setApplicationName(<APPLICATION_NAME>, "SUMO netconvert Version " + (string)VERSION_STRING);
+ * oc.setApplicationName(<APPLICATION_NAME>, "SUMO <APPLICATION_NAME> Version " + (string)VERSION_STRING);
  * @endcode
  * @see setApplicationDescription
  * @see setApplicationName
@@ -116,7 +116,87 @@ public:
     /** @brief Destructor */
     ~OptionsCont() throw();
 
+    
 
+    /// @name Methods setting and getting information about the appplication and currently set options
+    /// @{
+    /** @brief Sets the application name
+     *
+     * @param[in] name The name of the excutable
+     * @param[in] v The name of the executable with version information
+     */
+    void setApplicationName(const std::string &appName, const std::string &fullName) throw();
+
+
+    /** @brief Sets the application description
+     *
+     * @param[in] appDesc A description of the application
+     */
+    void setApplicationDescription(const std::string &appDesc) throw();
+
+
+    /** @brief Add a call example
+     *
+     * @param[in] example A call example (without the app name)
+     */
+    void addCallExample(const std::string &example) throw();
+
+
+    /** @brief Sets an additional message to be printed at the begin of the help screen
+     *
+     * @param[in] example Some additional information about how to use the application
+     */
+    void setAdditionalHelpMessage(const std::string &add) throw();
+
+
+    /** @brief Adds an option subtopic
+     *
+     * Sub-topics are used to join several options into one thematic field.
+     *  They are used on writing the help screen and the configuration. They have
+     *  no further meaning besides making the outputs better readable.
+     *
+     * @param[in] topic The options sub topic
+     */
+    void addOptionSubTopic(const std::string &topic) throw();
+
+
+    /** @brief Prints the help
+     *
+     * @param[in] os The stream to write the help into
+     */
+    void printHelp(std::ostream &os) throw();
+
+
+    /** @brief Writes the configuration
+     *
+     * The configuration is written as XML into the given stream, allowing
+     *  to reload it on a next run.
+     *
+     * @param[in] os The stream to write the configuration into
+     * @param[in] filled Whether only set (and not default) options shall be written
+     * @param[in] complete Whether all options shall be written
+     * @param[in] addComments Whether comments (option descriptions) shall be written
+     */
+    void writeConfiguration(std::ostream &os, bool filled,
+                            bool complete, bool addComments) throw();
+
+
+    /** @brief Writes a standard XML header, optionally including the configuration
+     *
+     * The header consists of the xml-declaration, followed by a remark which contains
+     *  the current date and time and optionally the application configuration (set values).
+     *
+     * @param[in] os The stream to write the header into
+     * @param[in] writeConfig Whether the current configuration shall be written, too
+     */
+    void writeXMLHeader(std::ostream &os, const bool writeConfig=true) throw();
+    /// @}
+
+
+
+
+    /// @name Methods for registering options
+    /// @{
     /** @brief Adds an option under the given name
      * @param[in] name The (long) name of the option
      * @param[in] v The option (typed value storage)
@@ -170,8 +250,13 @@ public:
      */
     void addDescription(const std::string &name, const std::string &subtopic,
                         const std::string &description) throw(InvalidArgument);
+    /// @}
 
 
+
+
+    /// @name Methods for retrieving information about options
+    /// @{
     /** @brief Returns the information whether the named option is known
      * @return true if an option has been added before under the given name, false otherwise
      */
@@ -210,113 +295,320 @@ public:
     bool isDefault(const std::string &name) const throw(InvalidArgument);
 
 
+    /** @brief Returns the information whether the option is a boolean option 
+     *
+     * The option is retrieved from the container, first, what may cause an InvalidArgument
+     *  exception if it is not known. Otherwise, this option's isBool-method is called.
+     *
+     * @param[in] name The name of the option to check
+     * @return Whether the existing named option is a bool option
+     * @exception InvalidArgument If the option does not exist
+     */
+    bool isBool(const std::string &name) const throw(InvalidArgument);
+
+
+    /** @brief Checks whether the named option is usable as a file list (with at least a single file)
+     *
+     * The method returns true, if the named option is set with entries containing
+     *  names of accessable files.
+     *
+     * Throw an InvalidArgument exception if the option is not known. If the option
+     *  is not set, false is returned. Also, if the list is empty (conatins delimiters only) 
+     *  or if one of the named files (obtained using getStringVector) does not exist, 
+     *  false is returned. Additionally, an error is sent to MsgHandler in both cases.
+     *
+     * In the case two delimiters were placed in the option value directly after
+     *  each other, a warning is generated.
+     *
+     * @param[in] name The name of the option to check
+     * @return Whether the option contains names of files which can be accessed (for reading)
+     * @exception InvalidArgument If the option does not exist or is not a string-option
+     */
+    bool isUsableFileList(const std::string &name) const throw(InvalidArgument);
+
+
+    /** @brief Returns the information whether the named item is a file name
+     *
+     * The method throws an InvalidArgument if the named option does not exits.
+     *  Otherwise the value returned by the option's method isFileName
+     *  is returned.
+     *
+     * @param[in] name The name of the option to check
+     * @return Whether the option is a filename-option
+     * @exception InvalidArgument If the option does not exist 
+     */
+    bool isFileName(const std::string &name) const throw(InvalidArgument);
+
+
+    /** @brief Returns the synonymes of an option name
+     *
+     * The named option is extracted, first. An InvalidArgument is thrown if it
+     *  does not exist. Otherwise, other names for the named option are searched
+     *  and returned (the original name is not in the list).
+     * @param[in] name The name of the option to return synonymes of
+     * @return List of existing synonymes
+     * @exception InvalidArgument If the named option does not exist
+     **/
+    std::vector<std::string> getSynonymes(const std::string &name) const throw(InvalidArgument);
+
+
+    /** @brief Returns the information whether the named option may be set
+     *
+     * An option is writable after initialisation, but as soon as it gets set,
+     *  it is no longer writeable. This method returns whether the named option
+     *  is writeable. If the named option is not known, an InvalidArgument
+     *  is thrown.
+     *
+     * @param[in] name The name of the option to check
+     * @return Whether the value can be set
+     * @exception InvalidArgument If the option does not exist 
+     */
+    bool isWriteable(const std::string &name) throw(InvalidArgument);
+    /// @}
+
+
+
+
+    /// @name Methods for retrieving values from options
+    /// @{
     /** @brief Returns the string-value of the named option (only for Option_String)
      *
+     * This method returns the string-value of an existing string-option. 
+     * If the named option does not exist or is not a string-option, an 
+     *  InvalidArgument is thrown.
+     *
+     * @param[in] name The name of the option to return the string-value of
+     * @return The string-value of the named, existing string-option
+     * @exception InvalidArgument If the option does not exist or is not a string-option
      */
     std::string getString(const std::string &name) const throw(InvalidArgument);
 
-    /** returns the SUMOReal-value of the named option (only for Option_Float) */
-    SUMOReal getFloat(const std::string &name) const;
 
-    /** returns the int-value of the named option (only for Option_Intger) */
-    int getInt(const std::string &name) const;
+    /** @brief Returns the SUMOReal-value of the named option (only for Option_Float) 
+     *
+     * This method returns the SUMOReal-value of an existing SUMOReal-option. 
+     * If the named option does not exist or is not a SUMOReal-option, an 
+     *  InvalidArgument is thrown.
+     *
+     * @param[in] name The name of the option to return the SUMOReal-value of
+     * @return The SUMOReal-value of the named, existing SUMOReal-option
+     * @exception InvalidArgument If the option does not exist or is not a SUMOReal-option
+     */
+    SUMOReal getFloat(const std::string &name) const throw(InvalidArgument);
 
-    /** returns the long-value of the named option (only for Option_Long) */
-    long getLong(const std::string &name) const;
 
-    /** returns the boolean-value of the named option
-        (only for Option_Bool) */
-    bool getBool(const std::string &name) const;
+    /** @brief Returns the int-value of the named option (only for Option_Integer)
+     *
+     * This method returns the int-value of an existing int-option. 
+     * If the named option does not exist or is not a int-option, an 
+     *  InvalidArgument is thrown.
+     *
+     * @param[in] name The name of the option to return the int-value of
+     * @return The int-value of the named, existing int-option
+     * @exception InvalidArgument If the option does not exist or is not a int-option
+     */
+    int getInt(const std::string &name) const throw(InvalidArgument);
 
-    /** returns the list of integer-value of the named option
-        (only for Option_IntVector) */
-    const IntVector &getIntVector(const std::string &name) const;
 
-    /** returns the list of string-value of the named option
-        (only for Option_String) */
-    std::vector<std::string> getStringVector(const std::string &name) const;
+    /** @brief Returns the boolean-value of the named option (only for Option_Bool)
+     *
+     * This method returns the boolean-value of an existing boolean-option. 
+     * If the named option does not exist or is not a boolean-option, an 
+     *  InvalidArgument is thrown.
+     *
+     * @param[in] name The name of the option to return the boolean-value of
+     * @return The boolean-value of the named, existing boolean-option
+     * @exception InvalidArgument If the option does not exist or is not a boolean-option
+     */
+    bool getBool(const std::string &name) const throw(InvalidArgument);
 
-    /** returns the named option is a list of string values containing a specified item */
+
+    /** @brief Returns the list of integer-value of the named option (only for Option_IntVector)
+     *
+     * This method returns the int-vector-value of an existing int-vector-option. 
+     * If the named option does not exist or is not a int-vector-option, an 
+     *  InvalidArgument is thrown.
+     *
+     * @param[in] name The name of the option to return the int-vector-value of
+     * @return The int-vector-value of the named, existing int-vector-option
+     * @exception InvalidArgument If the option does not exist or is not a int-vector-option
+     */
+    const IntVector &getIntVector(const std::string &name) const throw(InvalidArgument);
+
+
+    /** @brief Returns the list of string-vector-value of the named option (only for Option_String)
+     *
+     * This method returns the string-vector-value of an existing string-option. 
+     * If the named option does not exist or is not a string-option, an 
+     *  InvalidArgument is thrown.
+     *
+     * The string-value is determined, first. If the legacy-divider ';' is found 
+     *  within the string, a warning is generated. The retrieved string is splitted
+     *  at ',' and ';'.
+     *
+     * @param[in] name The name of the option to return the string-vector-value of
+     * @return The string-vector-value of the named, existing string-option
+     * @exception InvalidArgument If the option does not exist or is not a string-option
+     * @todo Why is the string not retrieved using getString()
+     * @todo Is it possible to retrieve a const-reference of the string?
+     * @see getString()
+     */
+    std::vector<std::string> getStringVector(const std::string &name) const throw(InvalidArgument);
+
+
+    /** @brief Returns the named option is a list of string values containing the specified item 
+     * 
+     * If the named option is not set, false is returned. Otherwise, the string-vector
+     *  of this option is retrieved using getStringVector what may throw an
+     *  InvalidArgument exception if the named option is not a string option or not
+     *  existing at all.
+     *
+     * The given itemName is searched in the obtained string-vector and the
+     *  method returns whether it is stored in the list or not.
+     *  
+     * @param[in] optionName The name of the option to evaluate entries of
+     * @param[in] itemName The item to be searched for in the entries of the named option
+     * @return Whether the named item is set in the named string-option
+     * @exception InvalidArgument If the option does not exist or is not a string-option
+     * @see getStringVector()
+     * @todo Try to optimize - at each call, the vector is rebuilt
+     */
     bool isInStringVector(const std::string &optionName,
-                          const std::string &itemName);
+                          const std::string &itemName) throw(InvalidArgument);
+    /// @}
 
-    /** returns the information whether the option is a boolean option */
-    bool isBool(const std::string &name) const;
 
-    /** checks whether the named option is usable as a file list
-        (with at least a single file)
-        returns true if yes, false if the list is not set and throws
-        a ProcessError when the list is not empty but contains only
-        delimiters */
-    bool isUsableFileList(const std::string &name) const;
 
-    /** sets the given value for the named option */
-    bool set(const std::string &name, const std::string &value);
 
-    /** sets the given boolean value for the named option
-        (Option_Bool only) */
-    bool set(const std::string &name, bool value);
+    /// @name Methods for setting values into options
+    /// @{
+    /** @brief Sets the given value for the named option 
+     * 
+     * The option is retrieved from the container, first, what yields in a InvalidArgument
+     *  exception for not known options.
+     *
+     * If the option is not writable (was set before), an error is generated using 
+     *  reportDoubleSetting, and false is returned. Otherwise, the option is
+     *  told to set the given value using Option::set. Possible problems herein
+     *  are caught and reported to the error-handler, yielding in returning false.
+     *
+     * If the new value could be set, true is returned.
+     *
+     * @param[in] name The name of the option to set
+     * @param[in] value The value to set
+     * @return Whether the value could be set
+     * @exception InvalidArgument If the option does not exist 
+     * @see reportDoubleSetting
+     * @see Option::set(const std::string &)
+     */
+    bool set(const std::string &name, const std::string &value) throw(InvalidArgument);
 
-    /** returns the synonymes of an option name */
-    std::vector<std::string> getSynonymes(const std::string &name) const;
 
-    /** resets all options to be the default value */
-    void resetWritable();
+    /** @brief Sets the given boolean value for the named option (Option_Bool only)
+     * 
+     * The option is retrieved from the container, first, what yields in an InvalidArgument
+     *  exception for not known options.
+     *
+     * If the option is not writable (was set before), an error is generated using 
+     *  reportDoubleSetting, and false is returned. Otherwise, the option is
+     *  told to set the given value using Option::set(bool). Possible problems herein
+     *  are caught and reported to the error-handler, yielding in returning false.
+     *
+     * If the new value could be set, true is returned.
+     *
+     * @param[in] name The name of the option to set
+     * @param[in] value The value to set
+     * @return Whether the value could be set
+     * @exception InvalidArgument If the option does not exist 
+     * @see reportDoubleSetting
+     * @see Option::set(const std::string &)
+     */
+    bool set(const std::string &name, bool value) throw(InvalidArgument);
+    /// @}
 
-    /** Returns the infomration whether the named option may be set */
-    bool isWriteable(const std::string &name);
 
-    /// returns the information whether the named item is a file name
-    bool isFileName(const std::string &name) const;
+    /** @brief Resets all options to be writeable
+     *
+     * An option is writable after initialisation, but as soon as it gets set,
+     *  it is no longer writeable. This method resets the writable-flag of all
+     *  known options.
+     */
+    void resetWritable() throw();
 
-    /** output operator */
+    /** @brief Output operator 
+     *
+     * Generates the output used when current option values shall be printed.
+     *
+     * @param[in] os The stream to write into
+     * @param[in] oc The options to print
+     * @return The stream to write into
+     */
     friend std::ostream& operator<<(std::ostream& os, const OptionsCont& oc);
 
-    /** removes all previous information from the container */
-    void clear();
 
-    /// Sets the application name
-    void setApplicationName(const std::string &appName, const std::string &fullName);
+    /** @brief Removes all information from the container */
+    void clear() throw();
 
-    /// Sets the application description
-    void setApplicationDescription(const std::string &appDesc);
 
-    /// Add a call example
-    void addCallExample(const std::string &example);
+    /** @brief Checks for help and configuration output, returns whether we should exit
+     * 
+     * Returns false if no error was detected and the application may be executed
+     *  (at least from this point of view). If missingOptions is true, the user is 
+     *  informed that they should be supplied (returns true). Otherwise it is checked 
+     *  whether help shall be printed what is done if so, returning true. Also, it
+     *  is checked whether the set options shall be printed and the configuration
+     *  template or the current configuration shall be written.
+     *
+     * @param[in] missingOptions Whether no options have been given
+     * @return Whether the application shall stop
+     */
+    bool processMetaOptions(bool missingOptions) throw();
 
-    /// Sets an additional message to be printed at the begin of the help screen
-    void setAdditionalHelpMessage(const std::string &add);
-
-    /// Adds an option subtopic
-    void addOptionSubTopic(const std::string &topic);
-
-    /// Prints the help
-    void printHelp(std::ostream &os);
-
-    /// Writes the configuration
-    void writeConfiguration(std::ostream &os, bool filled,
-                            bool complete, bool addComments);
-
-    /// Writes a standard XML header, optionally including the configuration
-    void writeXMLHeader(std::ostream &os, const bool writeConfig=true);
-
-    /// Checks for help and configuration output, returns whether we should exit
-    bool processMetaOptions(bool missingOptions);
 
 private:
-    /** returns the named option */
-    Option *getSecure(const std::string &name) const;
+    /** @brief Returns the named option
+     *
+     * If the named option does not exist, an InvalidArgument is thrown.
+     *
+     * @param[in] name The name of the option to return
+     * @return The named option
+     */
+    Option *getSecure(const std::string &name) const throw(InvalidArgument);
 
-    /** writes the warning about SUMOReal setting to cout */
-    void reportDoubleSetting(const std::string &arg) const;
 
-    /** converts an abbreviation into a name */
-    std::string convertChar(char abbr) const;
+    /** @brief Reports an error that the option has already been set
+     *
+     * Using the given option name, an error string is generated and reported to
+     *  MsgHandler-error instance.
+     *
+     * @param[in] name The name of the option that was already set
+     */
+    void reportDoubleSetting(const std::string &arg) const throw();
 
-    /** @brief writes the given string 'formatted' meaning that it will
-     * be wrapped at ';' or ' ' whenever it is longer than a line */
+
+    /** @brief Converts an abbreviation into a name 
+     *
+     * Build and returns the string which consists of the given character only.
+     *
+     * @param[in] abbr The abbreviation to convert into a string
+     * @return The abbreviation converted into a string
+     */
+    std::string convertChar(char abbr) const throw();
+
+
+    /** @brief Writes the given string 'formatted'
+     * 
+     * The given string is split so that no word-wrapping occures at line ends.
+     *  The text is wrapped at ';' or ' '.
+     *
+     * @param[in] os The stream to write the text into
+     * @param[in] what The text to write
+     * @param[in] offset ?
+     * @param[in] nextOffset ?
+     * @todo Describe parameter
+     */
     void splitLines(std::ostream &os, std::string what,
-                    size_t offset, size_t nextOffset);
+                    size_t offset, size_t nextOffset) throw();
 
 
 private:
@@ -347,6 +639,7 @@ private:
     /// Information whether a warning a deprecated divider
     mutable bool myHaveInformedAboutDeprecatedDivider;
 
+
 private:
     /**
      * @class abbreviation_finder
@@ -358,7 +651,11 @@ private:
         /** constructor */
         explicit abbreviation_finder() { }
 
-        /** the comparing function */
+        /** @brief The comparing function
+         * 
+         * @param[in] The option name
+         * @return Whether the length of the option name is 1
+         */
         bool operator()(const std::string &s) {
             return s.length()==1;
         }
