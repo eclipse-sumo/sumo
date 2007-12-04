@@ -30,7 +30,6 @@
 
 #include <utils/options/Option.h>
 #include <utils/options/OptionsCont.h>
-#include <utils/options/OptionsParser.h>
 #include <utils/common/MsgHandler.h>
 #include "GUIFrame.h"
 
