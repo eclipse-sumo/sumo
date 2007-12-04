@@ -2,7 +2,7 @@
 /// @file    NITigerLoader.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 29 Jun 2004
-/// @version $Id$
+/// @version $Id:NITigerLoader.h 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
 // A loader tiger-files
 /****************************************************************************/
@@ -32,7 +32,6 @@
 
 #include <string>
 #include <map>
-#include <netbuild/NBCapacity2Lanes.h>
 #include <utils/importio/LineHandler.h>
 #include <utils/importio/LineReader.h>
 #include <utils/importio/NamedColumnsParser.h>

@@ -2,7 +2,7 @@
 /// @file    NIElmar2EdgesHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sun, 16 May 2004
-/// @version $Id$
+/// @version $Id:NIElmar2EdgesHandler.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
 // A LineHandler-derivate to load edges form a elmar-edges-file
 /****************************************************************************/
@@ -39,7 +39,6 @@
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBTypeCont.h>
-#include <netbuild/NBCapacity2Lanes.h>
 #include "NIElmar2EdgesHandler.h"
 #include <netimport/NINavTeqHelper.h>
 
