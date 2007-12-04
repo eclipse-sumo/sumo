@@ -93,27 +93,6 @@ NBHelpers::normRelAngle(SUMOReal angle1, SUMOReal angle2)
 }
 
 
-long
-NBHelpers::computeLogicSize(string key)
-{
-    long size = 1;
-    size_t index = key.find('_');
-    while (index<key.size()-1) {
-        if (key[index+1]=='+') {
-            int nolanes = key[index+2] - '0';
-            int pos = index + 4;
-            for (int i=0; i<nolanes; i++) {
-                int noconn = key[pos] - 'a';
-                size *= (noconn+1);
-                pos += noconn * 2 + 1;
-            }
-        }
-        index = key.find('_', index+1);
-    }
-    return size;
-}
-
-
 std::string
 NBHelpers::normalIDRepresentation(const std::string &id)
 {

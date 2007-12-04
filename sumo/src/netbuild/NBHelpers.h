@@ -67,11 +67,6 @@ public:
         "relAngle" */
     static SUMOReal normRelAngle(SUMOReal angle1, SUMOReal angle2);
 
-    /** computes number of a logic's setting possibilities for the given key
-        In other words: how many permutation of vehicle wishes are possible on
-        this junction */
-    static long computeLogicSize(std::string key);
-
     /** converts the numerical id to its "normal" string representation */
     static std::string normalIDRepresentation(const std::string &id);
 
