@@ -4,7 +4,7 @@
 /// @date    Fri, 19 Jul 2002
 /// @version $Id$
 ///
-// A helper class for the computation of the number of lanes an
+// A helper class which computes the lane number from given capacity
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,20 +36,36 @@
 // ===========================================================================
 /**
  * @class NBCapacity2Lanes
+ * @brief A helper class which computes the lane number from given capacity
+ *
  * A helper class for the computation of the number of lanes an edge has
- * in dependence to this edge's capacity
+ *  in dependence to this edge's capacity. The computation is done by the 
+ *  (trivial) assumption, the number of lanes increases linear with the 
+ *  number of lanes.
  */
 class NBCapacity2Lanes
 {
 public:
-    /// constructor
-    NBCapacity2Lanes(SUMOReal divider) : myDivider(divider) { }
+    /** @brief constructor
+     *
+     * @param[in] divider Value for the norming divider
+     */
+    NBCapacity2Lanes(SUMOReal divider) throw() : myDivider(divider) { }
+
 
     /// destructor
-    ~NBCapacity2Lanes() { }
+    ~NBCapacity2Lanes() throw() { }
 
-    /// returns the number of lanes computed from the given capacity
-    int get(SUMOReal capacity) {
+
+    /** @brief Returns the number of lanes computed from the given capacity
+     *
+     * Returns the esimtaed number of lanes by returning the given capacity
+     *  divided by the norming divider given in the constructor.
+     *
+     * @param[in] capacity The capacity to convert
+     * @return The capacity converted to the number of lanes
+     */
+     int get(SUMOReal capacity) const throw() {
         capacity /= myDivider;
         if (capacity>(int) capacity) {
             capacity += 1;
@@ -62,8 +78,9 @@ public:
     }
 
 private:
-    /// the norming factor
+    /// the norming divider
     SUMOReal myDivider;
+
 };
 
 
