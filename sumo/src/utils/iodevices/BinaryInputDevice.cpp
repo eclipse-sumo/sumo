@@ -4,7 +4,7 @@
 /// @date    2005-09-15
 /// @version $Id: BinaryInputDevice.cpp 4389 2007-08-28 10:21:00Z behrisch $
 ///
-// missing_desc
+// Encapsulates binary reading operations on a file
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -42,38 +42,32 @@
 
 
 // ===========================================================================
-// static member definitions
-// ===========================================================================
-char gBinaryInputDeviceBuf[BUF_MAX];
-
-// ===========================================================================
 // used namespaces
 // ===========================================================================
-
 using namespace std;
 
 
-
-BinaryInputDevice::BinaryInputDevice(const std::string &name,
-                                     bool fliporder)
-        : myFlipOrder(fliporder),
-        myStream(name.c_str(), fstream::in|fstream::binary)
+// ===========================================================================
+// method definitions
+// ===========================================================================
+BinaryInputDevice::BinaryInputDevice(const std::string &name) throw()
+        : myStream(name.c_str(), fstream::in|fstream::binary)
 {}
 
 
-BinaryInputDevice::~BinaryInputDevice()
+BinaryInputDevice::~BinaryInputDevice() throw()
 {}
 
 
 bool
-BinaryInputDevice::good() const
+BinaryInputDevice::good() const throw()
 {
     return myStream.good();
 }
 
 
 BinaryInputDevice &
-operator>>(BinaryInputDevice &os, int &i)
+operator>>(BinaryInputDevice &os, int &i) throw()
 {
     os.myStream.read((char*) &i, sizeof(int));
     return os;
@@ -81,7 +75,7 @@ operator>>(BinaryInputDevice &os, int &i)
 
 
 BinaryInputDevice &
-operator>>(BinaryInputDevice &os, unsigned int &i)
+operator>>(BinaryInputDevice &os, unsigned int &i) throw()
 {
     os.myStream.read((char*) &i, sizeof(unsigned int));
     return os;
@@ -89,7 +83,7 @@ operator>>(BinaryInputDevice &os, unsigned int &i)
 
 
 BinaryInputDevice &
-operator>>(BinaryInputDevice &os, SUMOReal &f)
+operator>>(BinaryInputDevice &os, SUMOReal &f) throw()
 {
     os.myStream.read((char*) &f, sizeof(SUMOReal));
     return os;
@@ -97,7 +91,7 @@ operator>>(BinaryInputDevice &os, SUMOReal &f)
 
 
 BinaryInputDevice &
-operator>>(BinaryInputDevice &os, bool &b)
+operator>>(BinaryInputDevice &os, bool &b) throw()
 {
     b = 0;
     os.myStream.read((char*) &b, sizeof(char));
@@ -106,22 +100,22 @@ operator>>(BinaryInputDevice &os, bool &b)
 
 
 BinaryInputDevice &
-operator>>(BinaryInputDevice &os, std::string &s)
+operator>>(BinaryInputDevice &os, std::string &s) throw()
 {
     unsigned int size;
     os >> size;
     if (size<BUF_MAX) {
-        os.myStream.read((char*) &gBinaryInputDeviceBuf, sizeof(char)*size);
-        gBinaryInputDeviceBuf[size] = 0;
-        s = std::string(gBinaryInputDeviceBuf);
+        os.myStream.read((char*) &os.myBuffer, sizeof(char)*size);
+        os.myBuffer[size] = 0;
+        s = std::string(os.myBuffer);
         return os;
     }
-    throw 1;
+    return os;
 }
 
 
 BinaryInputDevice &
-operator>>(BinaryInputDevice &os, long &l)
+operator>>(BinaryInputDevice &os, long &l) throw()
 {
     os.myStream.read((char*) &l, sizeof(long));
     return os;

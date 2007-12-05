@@ -4,7 +4,7 @@
 /// @date    2004
 /// @version $Id$
 ///
-// missing_desc
+// An output device that encapsulates an ofstream
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -45,12 +45,12 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_File::OutputDevice_File(std::ofstream *strm)
+OutputDevice_File::OutputDevice_File(std::ofstream *strm) throw(IOError)
         : myFileStream(strm)
 {}
 
 
-OutputDevice_File::~OutputDevice_File()
+OutputDevice_File::~OutputDevice_File() throw()
 {
     myFileStream->close();
     delete myFileStream;
@@ -58,7 +58,7 @@ OutputDevice_File::~OutputDevice_File()
 
 
 std::ostream &
-OutputDevice_File::getOStream()
+OutputDevice_File::getOStream() throw()
 {
     return *myFileStream;
 }

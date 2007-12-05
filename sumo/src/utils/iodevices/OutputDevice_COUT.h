@@ -43,15 +43,24 @@
 class OutputDevice_COUT : public OutputDevice
 {
 public:
-    /// Constructor
-    OutputDevice_COUT();
+    /** @brief Constructor
+     * @exception IOError Should not be thrown by this implementation
+     */
+    OutputDevice_COUT() throw(IOError);
 
-    /// Destructor
-    ~OutputDevice_COUT();
+
+    /// @brief Destructor
+    ~OutputDevice_COUT() throw();
+
 
 protected:
-    /// Returns the associated ostream
-    std::ostream &getOStream();
+    /// @name Methods that override/implement OutputDevice-methods
+    /// @{
+    /** @brief Returns the associated ostream
+     * @return cout
+     */
+    std::ostream &getOStream() throw();
+    /// @}
 
 };
 

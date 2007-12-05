@@ -4,7 +4,7 @@
 /// @date    2004
 /// @version $Id$
 ///
-// An output device
+// An output device that encapsulates cout
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -45,16 +45,16 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_COUT::OutputDevice_COUT()
+OutputDevice_COUT::OutputDevice_COUT() throw(IOError)
 {}
 
 
-OutputDevice_COUT::~OutputDevice_COUT()
+OutputDevice_COUT::~OutputDevice_COUT() throw()
 {}
 
 
 std::ostream &
-OutputDevice_COUT::getOStream()
+OutputDevice_COUT::getOStream() throw()
 {
     return cout;
 }

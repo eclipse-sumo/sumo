@@ -4,7 +4,7 @@
 /// @date    2004
 /// @version $Id$
 ///
-// The holder/builder of output devices
+// Static storage of an output device and its base (abstract) implementation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -64,7 +64,8 @@ OutputDevice::DeviceMap OutputDevice::myOutputDevices;
 // static method definitions
 // ===========================================================================
 OutputDevice&
-OutputDevice::getDevice(const std::string &name, const std::string &base)
+OutputDevice::getDevice(const std::string &name, 
+                        const std::string &base) throw(IOError)
 {
     // check whether the device has already been aqcuired
     if (myOutputDevices.find(name)!=myOutputDevices.end()) {
@@ -76,8 +77,14 @@ OutputDevice::getDevice(const std::string &name, const std::string &base)
     if (name=="stdout" || name=="-") {
         dev = new OutputDevice_COUT();
     } else if (FileHelpers::isSocket(name)) {
-        int port = TplConvert<char>::_2int(name.substr(name.find(":")+1).c_str());
-        dev = new OutputDevice_Network(name.substr(0, name.find(":")), port);
+        try {
+            int port = TplConvert<char>::_2int(name.substr(name.find(":")+1).c_str());
+            dev = new OutputDevice_Network(name.substr(0, name.find(":")), port);
+        } catch(NumberFormatException &) {
+            throw IOError("Given port number '" + name.substr(name.find(":")+1) + "' is not numeric.");
+        } catch(EmptyData &) {
+            throw IOError("Given port number is not empty.");
+        }
     } else {
         std::string fullName = FileHelpers::checkForRelativity(name, base);
         std::ofstream *strm = new std::ofstream(fullName.c_str());
@@ -96,7 +103,7 @@ OutputDevice::getDevice(const std::string &name, const std::string &base)
 
 bool
 OutputDevice::createDeviceByOption(const std::string &optionName,
-                                   const std::string &rootElement)
+                                   const std::string &rootElement) throw(IOError)
 {
     if (!OptionsCont::getOptions().isSet(optionName)) {
         return false;
@@ -110,7 +117,7 @@ OutputDevice::createDeviceByOption(const std::string &optionName,
 
 
 OutputDevice&
-OutputDevice::getDeviceByOption(const std::string &optionName)
+OutputDevice::getDeviceByOption(const std::string &optionName) throw(IOError, InvalidArgument)
 {
     string devName = OptionsCont::getOptions().getString(optionName);
     if (myOutputDevices.find(devName)==myOutputDevices.end()) {
@@ -121,7 +128,7 @@ OutputDevice::getDeviceByOption(const std::string &optionName)
 
 
 void
-OutputDevice::closeAll()
+OutputDevice::closeAll() throw()
 {
     while (myOutputDevices.size()!=0) {
         myOutputDevices.begin()->second->close();
@@ -130,17 +137,18 @@ OutputDevice::closeAll()
 }
 
 
+
 // ===========================================================================
 // member method definitions
 // ===========================================================================
 bool
-OutputDevice::ok()
+OutputDevice::ok() throw()
 {
     return getOStream().good();
 }
 
 void
-OutputDevice::close()
+OutputDevice::close() throw()
 {
     while (closeTag());
     for (DeviceMap::iterator i=myOutputDevices.begin(); i!=myOutputDevices.end(); ++i) {
@@ -154,7 +162,7 @@ OutputDevice::close()
 
 
 void
-OutputDevice::setPrecision(unsigned int precision)
+OutputDevice::setPrecision(unsigned int precision) throw()
 {
     getOStream() << setprecision(precision);
 }
@@ -162,7 +170,7 @@ OutputDevice::setPrecision(unsigned int precision)
 
 bool
 OutputDevice::writeXMLHeader(const string &rootElement, const bool writeConfig,
-                             const string &attrs, const string &comment)
+                             const string &attrs, const string &comment) throw()
 {
     if (myXMLStack.empty()) {
         OptionsCont::getOptions().writeXMLHeader(getOStream(), writeConfig);
@@ -181,7 +189,7 @@ OutputDevice::writeXMLHeader(const string &rootElement, const bool writeConfig,
 
 
 OutputDevice&
-OutputDevice::openTag(const string &xmlElement)
+OutputDevice::openTag(const string &xmlElement) throw()
 {
     string indent(3*myXMLStack.size(), ' ');
     myXMLStack.push_back(xmlElement);
@@ -192,7 +200,7 @@ OutputDevice::openTag(const string &xmlElement)
 
 
 bool
-OutputDevice::closeTag()
+OutputDevice::closeTag() throw()
 {
     if (!myXMLStack.empty()) {
         string indent(3*(myXMLStack.size()-1), ' ');
@@ -206,8 +214,24 @@ OutputDevice::closeTag()
 
 
 void
-OutputDevice::postWriteHook()
+OutputDevice::postWriteHook() throw()
 {}
+
+
+bool 
+OutputDevice::getBoolMarker(const std::string &name) const  throw(){
+    if (myBoolMarkers.find(name)==myBoolMarkers.end()) {
+        return false;
+    }
+    return myBoolMarkers.find(name)->second;
+}
+
+
+void 
+OutputDevice::setBoolMarker(const std::string &name, bool value)  throw(){
+    myBoolMarkers[name] = value;
+}
+
 
 
 /****************************************************************************/
