@@ -218,7 +218,7 @@ OptionsCont::getIntVector(const std::string &name) const throw(InvalidArgument)
 
 
 bool
-OptionsCont::set(const string &name, const string &value)
+OptionsCont::set(const string &name, const string &value) throw(InvalidArgument)
 {
     Option *o = getSecure(name);
     if (!o->isWriteable()) {
@@ -318,7 +318,7 @@ OptionsCont::isFileName(const std::string &name) const throw(InvalidArgument)
 
 
 bool
-OptionsCont::isUsableFileList(const std::string &name) const
+OptionsCont::isUsableFileList(const std::string &name) const throw(InvalidArgument)
 {
     Option *o = getSecure(name);
     // check whether the option is set
