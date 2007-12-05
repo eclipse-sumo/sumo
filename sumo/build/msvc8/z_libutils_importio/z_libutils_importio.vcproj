@@ -311,10 +311,6 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\src\utils\importio\CSVHelpers.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\importio\LineReader.cpp"
 				>
 			</File>
@@ -327,10 +323,6 @@
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
-			<File
-				RelativePath="..\..\..\src\utils\importio\CSVHelpers.h"
-				>
-			</File>
 			<File
 				RelativePath="..\..\..\src\utils\importio\LineHandler.h"
 				>

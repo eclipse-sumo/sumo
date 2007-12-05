@@ -5,5 +5,5 @@ EXTRA_DIST = LineHandler.h
 libimportio_a_SOURCES = LineReader.cpp \
 NamedColumnsParser.cpp \
 LineReader.h \
-NamedColumnsParser.h \
-CSVHelpers.cpp CSVHelpers.h
+NamedColumnsParser.h 
+

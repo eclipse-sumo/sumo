@@ -32,11 +32,11 @@
 #include <string>
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
-#include <utils/importio/CSVHelpers.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/TplConvert.h>
+#include <utils/importio/LineReader.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include <router/RONet.h>
 #include "ROJTREdge.h"
@@ -78,7 +78,10 @@ ROJTRTurnDefLoader::load(const std::string &file)
         }
         break;
     case FileHelpers::CSV:
-        CSVHelpers::runParser(*this, file);
+        {
+            LineReader lr(file);
+            lr.readAll(*this);
+        }
         break;
     default:
         throw 1;
