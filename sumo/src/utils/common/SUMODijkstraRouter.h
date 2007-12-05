@@ -2,7 +2,7 @@
 /// @file    SUMODijkstraRouter.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 25 July 2005
-/// @version $Id$
+/// @version $Id:SUMODijkstraRouter.h 4699 2007-11-09 14:05:13Z dkrajzew $
 ///
 // The dijkstra-router
 /****************************************************************************/
@@ -90,7 +90,7 @@ public:
  * @param EC The class to retrieve the effort for an edge from
  *
  * The router is edge-based. It must know the number of edges for internal reasons
- *  and whether a missing connection between two given edge (unbuild route) shall
+ *  and whether a missing connection between two given edges (unbuild route) shall
  *  be reported as an error or as a warning.
  *
  */
@@ -148,7 +148,7 @@ public:
      * @class EdgeInfoByEffortComperator
      * Class to compare (and so sort) nodes by their effort
      */
-    class EdgeInfoByEffortComperator /*: public std::less<ROEdge*>*/
+    class EdgeInfoByEffortComperator
     {
     public:
         /// Constructor
@@ -175,7 +175,7 @@ public:
             visited = new std::vector<bool>(myNoE, false);
         } else {
             for (size_t i=0; i<myNoE; i++) {
-                (*visited)[i] = false; // !!!
+                (*visited)[i] = false; // too slow? !!!
             }
         }
         EdgeInfoCont *storage = myReusableEdgeInfoLists.getFreeInstance();
@@ -212,7 +212,6 @@ public:
                 clearTemporaryStorages(visited, storage);
                 return;
             }
-            //assert(minEdge->getNumericalID()<9);
             (*visited)[minEdge->getNumericalID()] = true;
             SUMOReal effort = (SUMOReal)(minimumKnot->effort
                                          + (minEdge->*myOperation)(vehicle, (SUMOTime)(time + minimumKnot->effort)));
@@ -244,7 +243,6 @@ public:
 public:
     /// Builds the path from marked edges
     void buildPathFrom(EdgeInfo *rbegin, std::vector<const E *> &edges) {
-//        B ret;
         std::deque<const E*> tmp;
         while (rbegin!=0) {
             tmp.push_front((E *) rbegin->edge); // !!!
