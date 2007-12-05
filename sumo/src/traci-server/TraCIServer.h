@@ -1,4 +1,3 @@
-#ifdef TRACI
 /****************************************************************************/
 /// @file    TraCIServer.h
 /// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
@@ -31,6 +30,8 @@
 #include <config.h>
 #endif
 
+#ifdef TRACI
+
 #define BUILD_TCPIP
 #include "foreign/tcpip/storage.h"
 #include "utils/common/SUMOTime.h"
@@ -41,7 +42,6 @@
 
 #include <map>
 #include <string>
-
 
 // ===========================================================================
 // class declarations

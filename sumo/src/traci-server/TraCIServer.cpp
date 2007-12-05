@@ -1,4 +1,3 @@
-#ifdef TRACI
 /****************************************************************************/
 /// @file    TraCIServer.cpp
 /// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
@@ -29,6 +28,9 @@
 // ===========================================================================
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
+
+#ifdef TRACI
+
 #include "foreign/tcpip/socket.h"
 #include "foreign/tcpip/storage.h"
 #include "utils/common/SUMOTime.h"

@@ -668,7 +668,7 @@ protected:
 
 #if defined(HAVE_BOYOM_C2C) || defined(TRACI)
     typedef std::map<const MSEdge * const, Information *> InfoCont;
-    typedef std::vector<C2CConnection*> ClusterCont;
+	InfoCont infoCont;
 #endif
 
 #ifdef HAVE_BOYOM_C2C
