@@ -36,10 +36,6 @@
 #include <cassert>
 #include <cmath>
 
-#ifdef ABS_DEBUG
-#include "MSDebugHelper.h"
-#endif
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -49,12 +45,6 @@
 // used namespaces
 // ===========================================================================
 using namespace std;
-
-
-// ===========================================================================
-// some definitions (debugging only)
-// ===========================================================================
-#define DEBUG_OUT cout
 
 
 // ===========================================================================
@@ -112,12 +102,6 @@ MSInternalJunction::postloadInit()
 bool
 MSInternalJunction::setAllowed()
 {
-#ifdef ABS_DEBUG
-    if (debug_globaltime>debug_searchedtime&&myID==debug_searchedJunction) {
-        DEBUG_OUT << "Request: " << myRequest << endl;
-        DEBUG_OUT << "InnerSt: " << myInnerState<< endl;
-    }
-#endif
     // Get myRespond from logic and check for deadlocks.
     myRespond.set(0, true);
     LaneCont::iterator i;
@@ -176,11 +160,6 @@ MSInternalJunction::setAllowed()
             return true;
         }
     }
-#ifdef ABS_DEBUG
-    if (debug_globaltime>debug_searchedtime&&myID==debug_searchedJunction) {
-        DEBUG_OUT << "Respond: " << myRespond << endl;
-    }
-#endif
     return true;
 }
 

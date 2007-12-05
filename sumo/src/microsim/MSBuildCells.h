@@ -47,6 +47,7 @@ class GUIEdge;
 class MSEdgeControl;
 class MSNet;
 class OutputDevice;
+class Position2DVector;
 
 
 // ===========================================================================

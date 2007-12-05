@@ -39,10 +39,6 @@
 #include <microsim/MSAbstractLaneChangeModel.h>
 #include <utils/common/MsgHandler.h>
 
-#ifdef ABS_DEBUG
-#include "MSDebugHelper.h"
-#endif
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -52,12 +48,6 @@
 // used namespaces
 // ===========================================================================
 using namespace std;
-
-
-// ===========================================================================
-// some definitions (debugging only)
-// ===========================================================================
-#define DEBUG_OUT cout
 
 
 // ===========================================================================
@@ -132,11 +122,6 @@ MSLaneChanger::initChanger()
 }
 
 //-------------------------------------------------------------------------//
-#ifdef GUI_DEBUG
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <guisim/GUIVehicle.h>
-#endif
-
 
 bool
 MSLaneChanger::change()
@@ -150,16 +135,6 @@ MSLaneChanger::change()
     // priority.
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
-#ifdef GUI_DEBUG
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle*>(vehicle)->getGlID())) {
-        int blb = 0;
-    }
-#endif
-#ifdef ABS_DEBUG
-    if (debug_globaltime>=debug_searchedtime && (vehicle->getID()==debug_searched1||vehicle->getID()==debug_searched2)) {
-        DEBUG_OUT << "change:" << vehicle->getID() << ": " << vehicle->getPositionOnLane() << ", " << vehicle->getSpeed() << endl;
-    }
-#endif
     const std::vector<std::vector<MSVehicle::LaneQ> > &preb = vehicle->getBestLanes();
     assert(preb[0].size()==myChanger.size());
     for (int i=0; i<(int) myChanger.size(); ++i) {
@@ -189,11 +164,6 @@ MSLaneChanger::change()
         vehicle->enterLaneAtLaneChange((myCandi - 1)->lane);
         (myCandi - 1)->lane->myUseDefinition->vehLenSum += veh(myCandi)->getLength();
         vehicle->myLastLaneChangeOffset = 0;
-#ifdef ABS_DEBUG
-        if (debug_globaltime>debug_searchedtime && (vehicle->getID()==debug_searched1||vehicle->getID()==debug_searched2)) {
-            DEBUG_OUT << "changed2right" << endl;
-        }
-#endif
         vehicle->getLaneChangeModel().changed();
         (myCandi - 1)->dens += (myCandi - 1)->hoppedVeh->getLength();
         return true;
@@ -220,11 +190,6 @@ MSLaneChanger::change()
         vehicle->enterLaneAtLaneChange((myCandi + 1)->lane);
         (myCandi + 1)->lane->myUseDefinition->vehLenSum += veh(myCandi)->getLength();
         vehicle->myLastLaneChangeOffset = 0;
-#ifdef ABS_DEBUG
-        if (debug_globaltime>debug_searchedtime-5 && (vehicle->getID()==debug_searched1||vehicle->getID()==debug_searched2)) {
-            DEBUG_OUT << "changed2left" << endl;
-        }
-#endif
         vehicle->getLaneChangeModel().changed();
         (myCandi + 1)->dens += (myCandi + 1)->hoppedVeh->getLength();
         return true;
@@ -242,11 +207,6 @@ MSLaneChanger::change()
     // Candidate didn't change lane.
     myCandi->lane->myTmpVehicles.push_front(veh(myCandi));
     vehicle->myLastLaneChangeOffset++;
-#ifdef ABS_DEBUG
-    if (debug_globaltime>debug_searchedtime-5 && (vehicle->getID()==debug_searched1||vehicle->getID()==debug_searched2)) {
-        DEBUG_OUT << "kept" << endl;
-    }
-#endif
     (myCandi)->dens += vehicle->getLength();
     return false;
 }

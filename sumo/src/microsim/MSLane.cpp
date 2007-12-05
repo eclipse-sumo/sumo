@@ -54,15 +54,6 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 
-#ifdef GUI_DEBUG
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <guisim/GUIVehicle.h>
-#endif
-
-#ifdef ABS_DEBUG
-#include "MSDebugHelper.h"
-#endif
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -72,12 +63,6 @@
 // used namespaces
 // ===========================================================================
 using namespace std;
-
-
-// ===========================================================================
-// some definitions (debugging only)
-// ===========================================================================
-#define DEBUG_OUT cout
 
 
 // ===========================================================================
@@ -249,17 +234,7 @@ MSLane::detectCollisions(SUMOTime timestep)
 
         VehCont::iterator pred = veh + 1;
         SUMOReal gap = (*pred)->getPositionOnLane() - (*pred)->getLength() - (*veh)->getPositionOnLane();
-#ifdef ABS_DEBUG
-        if (debug_globaltime>=21868 && ((*veh)->getID()==debug_searched1||(*veh)->getID()==debug_searched2)) {
-            DEBUG_OUT << gap << "\n";
-        }
-#endif
         if (gap < 0) {
-#ifdef ABS_DEBUG
-            if (debug_globaltime>debug_searchedtime-5 && ((*veh)->getID()==debug_searched1||(*veh)->getID()==debug_searched2)) {
-                int blb = 0;
-            }
-#endif
             MSVehicle *predV = *pred;
             MSVehicle *vehV = *veh;
             MsgHandler *handler = 0;
@@ -270,8 +245,6 @@ MSLane::detectCollisions(SUMOTime timestep)
             }
             handler->inform(
                 "MSLane::detectCollision: Collision of " + vehV->getID() + " with " + predV->getID() + " on MSLane " + myID +" during timestep " + toString<int>(timestep));
-//            DEBUG_OUT << ( *veh )->getID() << ":" << ( *veh )->pos() << ", " << ( *veh )->speed() << "\n";
-//            DEBUG_OUT << ( *pred )->getID() << ":" << ( *pred )->pos() << ", " << ( *pred )->speed() << "\n";
             if (OptionsCont::getOptions().getBool("quit-on-accident")) {
                 throw ProcessError();
             } else {
@@ -411,13 +384,6 @@ MSLane::emitTry(MSVehicle& veh)
                 MSNet::getInstance()->getEdgeControl().gotActive(this);
             }
         assert(myUseDefinition->noVehicles==myVehicles.size());
-
-#ifdef ABS_DEBUG
-        if (debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
-            DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << debug_globaltime << "\n";
-        }
-#endif
-
         return true;
     }
     return false;
@@ -457,13 +423,6 @@ MSLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
                 MSNet::getInstance()->getEdgeControl().gotActive(this);
             }
             assert(myUseDefinition->noVehicles==myVehicles.size());
-
-#ifdef ABS_DEBUG
-            if (debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
-                DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << debug_globaltime << "\n";
-            }
-#endif
-
             return true;
         }
         return false;
@@ -493,12 +452,6 @@ MSLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
                 MSNet::getInstance()->getEdgeControl().gotActive(this);
             }
             assert(myUseDefinition->noVehicles==myVehicles.size());
-#ifdef ABS_DEBUG
-            if (debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
-                DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/2:" << debug_globaltime << "\n";
-            }
-#endif
-
             return true;
         }
         return false;
@@ -531,12 +484,6 @@ MSLane::emitTry(VehCont::iterator followIt, MSVehicle& veh)
                 MSNet::getInstance()->getEdgeControl().gotActive(this);
             }
         assert(myUseDefinition->noVehicles==myVehicles.size());
-#ifdef ABS_DEBUG
-        if (debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
-            DEBUG_OUT << "Using emitTry( VehCont::iterator followIt, MSVehicle& veh )/1:" << debug_globaltime << "\n";
-        }
-#endif
-
         return true;
     }
     return false;
@@ -572,12 +519,6 @@ MSLane::emitTry(VehCont::iterator followIt, MSVehicle& veh,
                 MSNet::getInstance()->getEdgeControl().gotActive(this);
             }
         assert(myUseDefinition->noVehicles==myVehicles.size());
-#ifdef ABS_DEBUG
-        if (debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
-            DEBUG_OUT << "Using emitTry( followIt, veh, leaderIt )/1:" << debug_globaltime << "\n";
-        }
-#endif
-
         return true;
     }
     return false;
@@ -820,11 +761,6 @@ MSLinkCont::const_iterator
 MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
                     const MSLane& succLinkSource) const
 {
-#ifdef GUI_DEBUG
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<const GUIVehicle&>(veh).getGlID())) {
-        int blb = 0;
-    }
-#endif
     const MSEdge* nRouteEdge = veh.succEdge(nRouteSuccs);
     // check whether the vehicle tried to look beyond its route
     if (nRouteEdge==0) {

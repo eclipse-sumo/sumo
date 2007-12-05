@@ -54,12 +54,6 @@ using namespace std;
 
 
 // ===========================================================================
-// some definitions (debugging only)
-// ===========================================================================
-#define DEBUG_OUT cout
-
-
-// ===========================================================================
 // member method definitions
 // ===========================================================================
 MSVehicleControl::MSVehicleControl()
@@ -414,7 +408,6 @@ MSVehicleControl::loadState(BinaryInputDevice &bis)
             MsgHandler::getErrorInstance()->inform("Error: Could not build vehicle " + id + "!");
         }
     }
-    DEBUG_OUT << myVehicleDict.size() << " vehicles loaded."; // !!! verbose
 }
 
 

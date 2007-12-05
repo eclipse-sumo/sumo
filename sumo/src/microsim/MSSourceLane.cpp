@@ -45,10 +45,6 @@
 #include <exception>
 #include <climits>
 
-#ifdef ABS_DEBUG
-#include "MSDebugHelper.h"
-#endif
-
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -58,12 +54,6 @@
 // used namespaces
 // ===========================================================================
 using namespace std;
-
-
-// ===========================================================================
-// some definitions (debugging only)
-// ===========================================================================
-#define DEBUG_OUT cout
 
 
 // ===========================================================================
@@ -135,12 +125,6 @@ MSSourceLane::emitTry(MSVehicle& veh)
     MSVehicle::State state(myLength>1 ? (SUMOReal)(myLength - 1.) : 0, 0);
     veh.enterLaneAtEmit(this, state);
     assert(myUseDefinition->noVehicles==myVehicles.size());
-#ifdef ABS_DEBUG
-    if (debug_searched2==veh.getID()||debug_searched2==veh.getID()) {
-        DEBUG_OUT << "Using emitTry( MSVehicle& veh )/2:" << debug_globaltime << endl;
-    }
-#endif
-
     return true;
 }
 
@@ -170,57 +154,10 @@ MSSourceLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
                 MSNet::getInstance()->getEdgeControl().gotActive(this);
             }
         assert(myUseDefinition->noVehicles==myVehicles.size());
-
-#ifdef ABS_DEBUG
-        if (debug_searched1==veh.getID()||debug_searched2==veh.getID()) {
-            DEBUG_OUT << "Using emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1:" << debug_globaltime << endl;
-        }
-#endif
-
         return true;
     }
     return false;
 }
-/*
-bool
-MSSourceLane::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )
-{
-    // on sources, no vehicles may arrive from the back
-    if(!veh.overlap(&veh, *leaderIt) &&
-        veh.gap2pred(*(*leaderIt))>veh.vaccel(this) ) { // !!!
-
-        veh.enterLaneAtEmit( this );
-        myVehicles.push_front( &veh );
-
-#ifdef ABS_DEBUG
-    if(debug_searched1==veh.id()||debug_searched2==veh.id()) {
-        cout << "Using source::emitTry( MSVehicle& veh, VehCont::iterator leaderIt )/1" << veh.pos() << ", " <<veh.speed() <<  endl;
-    }
-#endif
-
-        return true;
-    }
-    return false;
-}
-
-/////////////////////////////////////////////////////////////////////////////
-
-bool
-MSSourceLane::enoughSpace( MSVehicle& veh,
-                     SUMOReal followPos, SUMOReal leaderPos, SUMOReal safeSpace )
-{
-    SUMOReal free = leaderPos - followPos - safeSpace;
-    if ( free >= 0.01 ) {
-
-        // prepare vehicle with it's position
-        MSVehicle::State state;
-        state.setPos( followPos + safeSpace + free / 2 );
-        veh.moveSetState( state );
-        return true;
-    }
-    return false;
-}*/
-
 
 
 /****************************************************************************/
