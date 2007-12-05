@@ -50,7 +50,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 bool
-OptionsParser::parse(int argc, char **argv) throw()
+OptionsParser::parse(int argc, char **argv) throw(InvalidArgument)
 {
     bool ok = true;
     for (int i=1; i<argc;) {
@@ -74,7 +74,7 @@ OptionsParser::parse(int argc, char **argv) throw()
 
 
 int
-OptionsParser::check(char *arg1, bool &ok) throw()
+OptionsParser::check(char *arg1, bool &ok) throw(InvalidArgument)
 {
     // the last stand-alone argument should be a switch
     if (!checkParameter(arg1)) return 1;
@@ -107,7 +107,7 @@ OptionsParser::check(char *arg1, bool &ok) throw()
 
 
 int
-OptionsParser::check(char *arg1, char *arg2, bool &ok) throw()
+OptionsParser::check(char *arg1, char *arg2, bool &ok) throw(InvalidArgument)
 {
     // the first argument should be an option
     // (only the second may be a free string)
@@ -180,7 +180,7 @@ OptionsParser::check(char *arg1, char *arg2, bool &ok) throw()
 
 
 bool
-OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg) throw()
+OptionsParser::processNonBooleanSingleSwitch(OptionsCont &oc, char *arg) throw(InvalidArgument)
 {
     if (arg[1]=='=') {
         if (strlen(arg)<3) {

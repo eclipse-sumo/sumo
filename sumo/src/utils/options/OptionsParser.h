@@ -60,8 +60,9 @@ public:
      * @param[in] argc The number of given command line arguments
      * @param[in] argv The command line arguments
      * @return Whether the parsing was successfull
+     * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static bool parse(int argc, char **argv) throw();
+    static bool parse(int argc, char **argv) throw(InvalidArgument);
 
 private:
     /** @brief parses the last argument
@@ -69,8 +70,9 @@ private:
      * @param[in] arg1 The token to parse
      * @param[in, out] ok Whether the parsing was successfull
      * @return Number of read tokens (always 1)
+     * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static int check(char *arg1, bool &ok) throw();
+    static int check(char *arg1, bool &ok) throw(InvalidArgument);
 
 
     /** @brief parses the previous arguments 
@@ -79,8 +81,9 @@ private:
      * @param[in] arg2 The second token to parse 
      * @param[in, out] ok Whether the parsing was successfull
      * @return Number of read tokens (1 or 2)
+     * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static int check(char *arg1, char *arg2, bool &ok) throw();
+    static int check(char *arg1, char *arg2, bool &ok) throw(InvalidArgument);
 
 
     /** @brief Returns the whether the given token is an option
@@ -126,8 +129,9 @@ private:
      *
      * @param[in] oc The container to store the result into
      * @param[in] arg The token to parse
+     * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
      */
-    static bool processNonBooleanSingleSwitch(OptionsCont &oc, char *arg) throw();
+    static bool processNonBooleanSingleSwitch(OptionsCont &oc, char *arg) throw(InvalidArgument);
 
 
 };
