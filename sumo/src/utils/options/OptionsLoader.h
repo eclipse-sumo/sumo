@@ -71,7 +71,7 @@ public:
 
 
     /** destructor */
-    ~OptionsLoader();
+    ~OptionsLoader() throw();
 
 
 
