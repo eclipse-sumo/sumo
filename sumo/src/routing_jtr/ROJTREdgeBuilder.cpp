@@ -66,7 +66,7 @@ void
 ROJTREdgeBuilder::setTurningDefinitions(RONet &net,
                                         const std::vector<SUMOReal> &turn_defs)
 {
-    for (vector<string>::iterator i=myNames.begin(); i!=myNames.end(); i++) {
+    for (vector<string>::iterator i=myNames.begin(); i!=myNames.end(); ++i) {
         ROJTREdge *edge = static_cast<ROJTREdge*>(net.getEdge((*i)));
         edge->setTurnDefaults(turn_defs);
     }
