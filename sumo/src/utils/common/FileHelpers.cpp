@@ -63,6 +63,9 @@ char gBuf[BUF_MAX];
 // ===========================================================================
 // method definitions
 // ===========================================================================
+// ---------------------------------------------------------------------------
+// file access functions
+// ---------------------------------------------------------------------------
 bool
 FileHelpers::exists(string path)
 {
@@ -81,6 +84,27 @@ FileHelpers::exists(string path)
 }
 
 
+FileHelpers::FileType
+FileHelpers::checkFileType(const std::string &filename)
+{
+    ifstream strm(filename.c_str());
+    if (!strm.good()) {
+        MsgHandler::getErrorInstance()->inform("File '" + filename + "' could not be found.");
+        return INVALID;
+    }
+    string l;
+    strm >> l;
+    if (l[0]=='<') {
+        return XML;
+    } else {
+        return CSV;
+    }
+}
+
+
+// ---------------------------------------------------------------------------
+// file path evaluating functions
+// ---------------------------------------------------------------------------
 std::string
 FileHelpers::removeFile(const std::string &path)
 {
@@ -104,7 +128,7 @@ FileHelpers::getConfigurationRelative(const std::string &configPath,
 bool
 FileHelpers::isSocket(const std::string &name)
 {
-    int colonPos = name.find(":");
+    size_t colonPos = name.find(":");
     return (colonPos != string::npos) && (colonPos > 1);
 }
 
@@ -127,6 +151,20 @@ FileHelpers::isAbsolute(const std::string &path)
 }
 
 
+std::string
+FileHelpers::checkForRelativity(std::string filename,
+                                const std::string &basePath)
+{
+    if (!isAbsolute(filename)) {
+        filename = getConfigurationRelative(basePath, filename);
+    }
+    return filename;
+}
+
+
+// ---------------------------------------------------------------------------
+// binary reading/writing functions
+// ---------------------------------------------------------------------------
 std::ostream &
 FileHelpers::writeInt(std::ostream &strm, int value)
 {
@@ -168,36 +206,6 @@ FileHelpers::writeString(std::ostream &strm, const std::string &value)
     strm.write((char*) cstr, sizeof(char)*size);
     return strm;
 }
-
-
-FileHelpers::FileType
-FileHelpers::checkFileType(const std::string &filename)
-{
-    ifstream strm(filename.c_str());
-    if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("File '" + filename + "' could not be found.");
-        return INVALID;
-    }
-    string l;
-    strm >> l;
-    if (l[0]=='<') {
-        return XML;
-    } else {
-        return CSV;
-    }
-}
-
-
-std::string
-FileHelpers::checkForRelativity(std::string filename,
-                                const std::string &basePath)
-{
-    if (!isAbsolute(filename)) {
-        filename = getConfigurationRelative(basePath, filename);
-    }
-    return filename;
-}
-
 
 
 /****************************************************************************/

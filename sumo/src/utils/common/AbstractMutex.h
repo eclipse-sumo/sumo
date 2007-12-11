@@ -4,7 +4,7 @@
 /// @date    2005-07-12
 /// @version $Id$
 ///
-// missing_desc
+// An abstract class for encapsulating mutex implementations
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -31,12 +31,35 @@
 #endif
 
 
+// ===========================================================================
+// class definitions
+// ===========================================================================
+/**
+ * @class AbstractMutex
+ * @brief An abstract class for encapsulating mutex implementations
+ *
+ * This class defines access to a mutex. The implementation may differ.
+ * Within gui-applications, FXMutexes may be used while this is improper 
+ *  for command-line applications. Normally, they do not need mutexes unless
+ *  a synchronized communication with an external application is established.
+ *  In these cases, a further class should be implemented.
+ */
 class AbstractMutex
 {
 public:
+    /// @brief Constructor
     AbstractMutex() { }
+
+
+    /// @brief Destructor
     virtual ~AbstractMutex() { }
-    virtual void lock() = 0;
+
+
+    /// @brief Locks the mutex
+    virtual void lock () = 0;
+
+
+    /// @brief Unlocks the mutex
     virtual void unlock() = 0;
 
 };

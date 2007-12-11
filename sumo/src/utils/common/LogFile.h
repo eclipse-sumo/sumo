@@ -52,20 +52,40 @@ class OutputDevice;
  * being made between messages, warnings and errors beside appending the
  * texts "Warning: " or "Error:" to the front of the message (done in
  * MsgHandler).
- * A log-file is build within the SystemFrame if a filename was supplied
- * using the "log-file"-option. It is also deleted within the SystemFrame.
+ *
+ * A log-file is build within MsgHandler::initOutputOptions if a filename 
+ *  was supplied using the "log-file"-option. It is also deleted within the 
+ *  MsgHandler.
  */
 class LogFile : public MsgRetriever
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     *
+     * Opens the internal output device using OutputDevice::getDevice(name) and 
+     *  the given name.
+     *
+     * @param[in] name Name of the device to open
+     */
     LogFile(const std::string &name);
 
-    /// Destructor
+
+    /** @brief Destructor
+     * 
+     * The device is not closed herein as it may be used by different outputs.
+     *  It is closed within the device handler.
+     */
     ~LogFile();
 
-    /// Retrieves the message to log
+
+    /** @brief Retrieves the message to log
+     *
+     * Writes the given message to the output device.
+     *
+     * @param[in] msg The msg to write to the device 
+     */
     void inform(const std::string &msg);
+
 
 private:
     /// The used file

@@ -4,7 +4,7 @@
 /// @date    Tue, 17 Jun 2003
 /// @version $Id$
 ///
-// Retrieves messages about the process
+// Abstract class that defines the behaviour of a message retriever
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -37,19 +37,32 @@
 // class definitions
 // ===========================================================================
 /**
- * MsgRetriever
+ * @class MsgRetriever
+ * @brief Abstract class that defines the behaviour of a message retriever
+ * 
+ * This abstract class defines the interfaces to something capable to retrieve
+ *  messages reported to the MsgHandler. MsgRetriever may be added to MsgHandler
+ *  and retrieve information from the application. An example usage is passing
+ *  information (and warnings, errors) to the text output in guisim.
+ *
+ * Basically, only one method has to be implemented, "inform".
  */
 class MsgRetriever
 {
 public:
-    /// adds a new error to the list
-    virtual void inform(const std::string &error) = 0;
+    /** @brief Add a new message to process
+     *
+     * @param[in] msg The message to process
+     */
+    virtual void inform(const std::string &msg) = 0;
 
-    /// destructor
+
+    /// @brief Destructor
     virtual ~MsgRetriever() { }
 
+
 protected:
-    /// standard constructor
+    /// @brief Standard constructor
     MsgRetriever() { }
 
 };

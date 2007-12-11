@@ -4,7 +4,7 @@
 /// @date    Mon, 24 Oct 2003
 /// @version $Id$
 ///
-// Encapsulates an object's method in order to use it as a MsgRetriever
+// Encapsulates an object's method for using it as a MsgRetriever
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,35 +39,49 @@
 // ===========================================================================
 /**
  * @class MsgRetrievingFunction
- * A class that encapsulates an object with a given method to be usable as
- *  a retriever of messages.
+ * @brief Encapsulates an object's method for using it as a MsgRetriever
+ *
+ * You may find an example for this class' usage in GUIRunThread.
  */
 template< class T >
 class MsgRetrievingFunction : public MsgRetriever
 {
 public:
-    /// Type of the function to execute.
+    /// @brief Type of the function to execute.
     typedef void(T::* Operation)(const std::string &);
 
-    /// Constructor
+
+    /** @brief Constructor
+     *
+     * @param[in] object The object to call the method of
+     * @param[in] operation The method to call
+     */
     MsgRetrievingFunction(T* object, Operation operation) :
             myObject(object),
             myOperation(operation) {}
 
-    /// Destructor.
+
+    /// @brief Destructor.
     ~MsgRetrievingFunction() {}
 
-    /// Called to inform the object about a new message
+
+    /** @brief Called to inform the object about a new message
+     *
+     * @param[in] msg The message to process
+     * @see MsgRetriever::inform
+     */
     void inform(const std::string &msg) {
         (myObject->*myOperation)(msg);
     }
 
+
 private:
-    /// The object the action is directed to.
+    /// @brief The object the action is directed to.
     T* myObject;
 
-    /// The object's operation to perform.
+    /// @brief The object's operation to perform.
     Operation myOperation;
+
 
 };
 
