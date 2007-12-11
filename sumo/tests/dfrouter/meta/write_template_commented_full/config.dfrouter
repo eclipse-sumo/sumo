@@ -79,6 +79,15 @@
       <!-- Writes only emission times -->
       <emissions-only>false</emissions-only>
 
+      <!-- Do not route on these edges -->
+      <disallowed-edges></disallowed-edges>
+
+      <!-- Allow turnarounds as route continuations -->
+      <keep-turnarounds>false</keep-turnarounds>
+
+      <!-- According sink must be at least that far away -->
+      <min-distance>-1</min-distance>
+
       <!-- Assumes flows to be stored in a less complex format -->
       <fast-flows>false</fast-flows>
 

@@ -31,6 +31,9 @@
       <keep-longer-routes>false</keep-longer-routes>
       <max-nodet-follower>30</max-nodet-follower>
       <emissions-only>false</emissions-only>
+      <disallowed-edges></disallowed-edges>
+      <keep-turnarounds>false</keep-turnarounds>
+      <min-distance>-1</min-distance>
       <fast-flows>false</fast-flows>
       <time-offset>0</time-offset>
       <write-calibrators>false</write-calibrators>

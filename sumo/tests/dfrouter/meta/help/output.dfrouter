@@ -1,4 +1,4 @@
-SUMO dfrouter Version 0.9.6
+SUMO dfrouter Version 0.9.7
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Builds vehicle routes for SUMO using detector values.
@@ -51,6 +51,10 @@ Usage: dfrouter.exe [OPTION]*
   --max-nodet-follower INT           Number of edges until which a route is
                                        followed
   --emissions-only                   Writes only emission times
+  --disallowed-edges STR             Do not route on these edges
+  --keep-turnarounds                 Allow turnarounds as route continuations
+  --min-distance FLOAT               According sink must be at least that far
+                                       away
   --fast-flows                       Assumes flows to be stored in a less
                                        complex format
   --time-offset INT                  Subtracts INT from flow times
