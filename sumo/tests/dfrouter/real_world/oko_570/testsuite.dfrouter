@@ -1,0 +1,22 @@
+# Plain test
+plain
+
+# disturbing edges are defined as sinks
+with_sinks
+
+
+# plain with turnarounds kept (matching earlier version because --keep-turnarounds is set)
+plain__keeping_turnarounds
+
+# with_sinks with turnarounds kept (matching earlier version because --keep-turnarounds is set)
+with_sinks__keeping_turnarounds
+
+
+# plain with using a minimum distance
+plain__min_dist_100
+
+# with_sinks using a minimum distance
+with_sinks__min_dist_100
+
+
+

@@ -1,0 +1,46 @@
+<nodes>
+	<!-- main direction nodes -->
+	<node id="00" x="0" y="-0"/>
+	<node id="01" x="0" y="-10"/>
+
+	<node id="10" x="100" y="-0"/>
+	<node id="11" x="100" y="-10"/>
+
+	<node id="20" x="300" y="-0"/>
+	<node id="21" x="300" y="-10"/>
+
+
+	<node id="30" x="500" y="-0"/>
+	<node id="31" x="500" y="-10"/>
+
+	<node id="40" x="510" y="-0"/>
+	<node id="41" x="510" y="-10"/>
+
+
+	<node id="50" x="710" y="-0"/>
+	<node id="51" x="710" y="-10"/>
+
+	<node id="60" x="910" y="-0"/>
+	<node id="61" x="910" y="-10"/>
+
+	<node id="70" x="1010" y="-0"/>
+	<node id="71" x="1010" y="-10"/>
+
+	<!-- second direction nodes -->
+	<node id="a0" x="500" y="-110"/>
+	<node id="a1" x="510" y="-110"/>
+
+	<node id="a2" x="510" y="-210"/>
+
+	<node id="a3" x="510" y="-310"/>
+
+	<node id="a4" x="510" y="-410"/>
+
+	<node id="a5" x="510" y="-510"/>
+
+
+	<!-- additional disturbance -->
+	<node id="b1" x="200" y="-210"/>
+
+
+</nodes>

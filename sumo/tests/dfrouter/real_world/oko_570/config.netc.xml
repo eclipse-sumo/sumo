@@ -1,0 +1,12 @@
+<configuration>
+
+   <input>
+      <xml-node-files>nodes.nod.xml</xml-node-files>
+      <xml-edge-files>edges.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>input_net.net.xml</output-file>
+   </output>
+
+</configuration>
