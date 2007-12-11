@@ -4,7 +4,7 @@
 /// @date    Mon, 22 Oct 2001
 /// @version $Id$
 ///
-// Container for the succeding lanes of a lane during their building
+// Container for the succeeding lanes of a lane during their building
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -58,7 +58,7 @@ public:
     /// Destructor
     ~NLSucceedingLaneBuilder();
 
-    /** opens the computation of a container holding the succeding lanes of
+    /** opens the computation of a container holding the succeeding lanes of
         a lane */
     void openSuccLane(const std::string &laneId);
 

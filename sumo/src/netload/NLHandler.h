@@ -213,10 +213,10 @@ private:
     /// adds a trigger
     void addTrigger(const Attributes &attrs);
 
-    /// opens the container of succeding lanes for processing
+    /// opens the container of succeeding lanes for processing
     void openSucc(const Attributes &attrs);
 
-    /// adds a succeding lane
+    /// adds a succeeding lane
     void addSuccLane(const Attributes &attrs);
 
 

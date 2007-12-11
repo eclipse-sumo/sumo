@@ -75,9 +75,9 @@ enum SumoXMLTag {
     SUMO_TAG_VTYPE,
     /** begin/end of the description of a route */
     SUMO_TAG_ROUTE,
-    /** begin/end of the description of succeding lanes */
+    /** begin/end of the description of succeeding lanes */
     SUMO_TAG_SUCC,
-    /** description of a single succeding lane */
+    /** description of a single succeeding lane */
     SUMO_TAG_SUCCLANE,
     /** begin/end of the key of a junction */
     SUMO_TAG_KEY,

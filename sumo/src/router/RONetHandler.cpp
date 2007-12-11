@@ -265,10 +265,10 @@ RONetHandler::parseConnEdge(const Attributes &attrs)
             // connect edge
             myCurrentEdge->addFollower(succ);
         } else {
-            MsgHandler::getErrorInstance()->inform("At edge '" + myCurrentName + "': succeding edge '" + succID + "' does not exist.");
+            MsgHandler::getErrorInstance()->inform("At edge '" + myCurrentName + "': succeeding edge '" + succID + "' does not exist.");
         }
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("At edge '" + myCurrentName + "': a succeding edge has no id.");
+        MsgHandler::getErrorInstance()->inform("At edge '" + myCurrentName + "': a succeeding edge has no id.");
     }
 }
 
