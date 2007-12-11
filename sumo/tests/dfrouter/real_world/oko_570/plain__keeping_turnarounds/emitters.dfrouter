@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!-- generated on 12/11/07 08:14:37 by SUMO dfrouter Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <detector-files>input_detectors.det.xml</detector-files>
+      <detector-flow-files>input_flows.txt</detector-flow-files>
+   </input>
+
+   <output>
+      <routes-output>routes.rou.xml</routes-output>
+      <detectors-output>detectors_def.det.xml</detectors-output>
+      <emitters-output>emitters.add.xml</emitters-output>
+   </output>
+
+   <processing>
+      <keep-turnarounds>true</keep-turnarounds>
+   </processing>
+
+   <time>
+      <end>60</end>
+   </time>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
+<additional>
+   <trigger id="source_LI" objecttype="emitter" pos="100.00" objectid="11_21_0" friendly_pos="x" file="emitter_LI.def.xml"/>
+   <trigger id="source_RI" objecttype="emitter" pos="100.00" objectid="60_50_0" friendly_pos="x" file="emitter_RI.def.xml"/>
+</additional>
