@@ -183,9 +183,6 @@ protected:
     /** builds the junction logic catching occuring errors */
     MSJunctionLogic *getJunctionLogicSecure();
 
-    /** builds the junction's list of lanes catching occuring errors */
-    MSRightOfWayJunction::LaneCont getInLaneContSecure();
-
     /// Compute the initial step of a tls-logic from the given offset
     SUMOTime computeInitTLSStep() const;
 
