@@ -152,7 +152,7 @@ private:
      * @param[in] chomp Whether the tokens shall be prunned
      */
     void reinitMap(std::string def, const std::string &delim=";",
-                   bool chomp=false) throw(UnknownElement, OutOfBoundsException);
+                   bool chomp=false) throw();
 
 
     /** @brief Prunes the given string if it shall be done

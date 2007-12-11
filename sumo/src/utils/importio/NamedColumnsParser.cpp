@@ -55,7 +55,7 @@ NamedColumnsParser::NamedColumnsParser() throw()
 NamedColumnsParser::NamedColumnsParser(const std::string &def,
                                        const std::string &defDelim,
                                        const std::string &lineDelim,
-                                       bool prune, bool ignoreCase)
+                                       bool prune, bool ignoreCase) throw()
     : myLineDelimiter(lineDelim), myAmCaseInsensitive(ignoreCase)
 {
     reinitMap(def, defDelim, prune);
