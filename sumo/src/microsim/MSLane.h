@@ -236,8 +236,8 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     // valid for gui-version only
     virtual GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
 
-    MSVehicle *removeFirstVehicle();
-    MSVehicle *removeVehicle(MSVehicle *remVehicle);
+    virtual MSVehicle *removeFirstVehicle();
+    virtual MSVehicle *removeVehicle(MSVehicle *remVehicle);
 
     size_t getNumericalID() const;
 

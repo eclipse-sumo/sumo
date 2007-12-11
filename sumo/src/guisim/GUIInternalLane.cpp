@@ -144,6 +144,26 @@ GUIInternalLane::push(MSVehicle* veh)
 }
 
 
+MSVehicle *
+GUIInternalLane::removeFirstVehicle()
+{
+    myLock.lock();
+    MSVehicle *ret = MSLane::removeFirstVehicle();
+    myLock.unlock();
+    return ret;
+}
+
+
+MSVehicle *
+GUIInternalLane::removeVehicle(MSVehicle * remVehicle)
+{
+    myLock.lock();
+    MSVehicle *ret = MSLane::removeVehicle(remVehicle);
+    myLock.unlock();
+    return ret;
+}
+
+
 void
 GUIInternalLane::releaseVehicles()
 {

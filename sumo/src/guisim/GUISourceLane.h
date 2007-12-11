@@ -105,6 +105,8 @@ public:
     SUMOReal getVehLenSum() const;
 
     void detectCollisions(SUMOTime timestep);
+    MSVehicle *removeFirstVehicle();
+    MSVehicle *removeVehicle(MSVehicle *remVehicle);
 
 protected:
     /** the same as in MSLane, but locks the access for the visualisation

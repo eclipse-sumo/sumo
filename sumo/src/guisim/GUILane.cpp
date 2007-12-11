@@ -149,6 +149,26 @@ GUILane::push(MSVehicle* veh)
 }
 
 
+MSVehicle *
+GUILane::removeFirstVehicle()
+{
+    myLock.lock();
+    MSVehicle *ret = MSLane::removeFirstVehicle();
+    myLock.unlock();
+    return ret;
+}
+
+
+MSVehicle *
+GUILane::removeVehicle(MSVehicle * remVehicle)
+{
+    myLock.lock();
+    MSVehicle *ret = MSLane::removeVehicle(remVehicle);
+    myLock.unlock();
+    return ret;
+}
+
+
 void
 GUILane::releaseVehicles()
 {
