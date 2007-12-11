@@ -41,38 +41,41 @@
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
 
+
 // ===========================================================================
 // used namespaces
 // ===========================================================================
 using namespace std;
 
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
-LineReader::LineReader()
+LineReader::LineReader() throw()
 {}
 
 
-LineReader::LineReader(const std::string &file)
+LineReader::LineReader(const std::string &file) throw()
         : myFileName(file),
         myRead(0)
 {
-    myStrm.unsetf(ios::skipws);
-    setFileName(file);
+    setFile(file);
 }
 
-LineReader::~LineReader()
+
+LineReader::~LineReader() throw()
 {}
 
+
 bool
-LineReader::hasMore() const
+LineReader::hasMore() const throw()
 {
     return myRread<myAvailable;
 }
 
 
 void
-LineReader::readAll(LineHandler &lh)
+LineReader::readAll(LineHandler &lh) throw()
 {
     while (myRread<myAvailable) {
         if (!readLine(lh)) {
@@ -83,7 +86,7 @@ LineReader::readAll(LineHandler &lh)
 
 
 bool
-LineReader::readLine(LineHandler &lh)
+LineReader::readLine(LineHandler &lh) throw()
 {
     string toReport;
     bool moreAvailable = true;
@@ -136,7 +139,7 @@ LineReader::readLine(LineHandler &lh)
 
 
 std::string
-LineReader::readLine()
+LineReader::readLine() throw()
 {
     string toReport;
     bool moreAvailable = true;
@@ -163,7 +166,7 @@ LineReader::readLine()
                 myRead += 1024;
             } else {
                 toReport = myStrBuffer;
-                myRread += 1024; // toReport.length()
+                myRread += 1024;
                 moreAvailable = false;
                 if (toReport=="") {
                     return toReport;
@@ -190,18 +193,18 @@ LineReader::readLine()
 
 
 std::string
-LineReader::getFileName() const
+LineReader::getFileName() const throw()
 {
     return myFileName;
 }
 
+
 bool
-LineReader::setFile(const std::string &file)
+LineReader::setFile(const std::string &file) throw()
 {
     if (myStrm.is_open()) {
         myStrm.close();
     }
-//    myStrm.clear();
     myFileName = file;
     myStrm.open(file.c_str(), ios::binary);
     myStrm.unsetf(ios::skipws);
@@ -214,14 +217,16 @@ LineReader::setFile(const std::string &file)
     return myStrm.good();
 }
 
+
 unsigned long
-LineReader::getPosition()
+LineReader::getPosition() throw()
 {
     return myRread;
 }
 
+
 void
-LineReader::reinit()
+LineReader::reinit() throw()
 {
     if (myStrm.is_open()) {
         myStrm.close();
@@ -236,8 +241,9 @@ LineReader::reinit()
     myStrBuffer = "";
 }
 
+
 void
-LineReader::setPos(unsigned long pos)
+LineReader::setPos(unsigned long pos) throw()
 {
     myStrm.seekg(pos, ios::beg);
     myRead = pos;
@@ -245,8 +251,9 @@ LineReader::setPos(unsigned long pos)
     myStrBuffer = "";
 }
 
+
 bool
-LineReader::good() const
+LineReader::good() const throw()
 {
     return myStrm.good();
 }

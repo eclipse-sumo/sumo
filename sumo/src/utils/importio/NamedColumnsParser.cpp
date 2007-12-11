@@ -48,22 +48,21 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NamedColumnsParser::NamedColumnsParser()
+NamedColumnsParser::NamedColumnsParser() throw()
 {}
 
 
 NamedColumnsParser::NamedColumnsParser(const std::string &def,
                                        const std::string &defDelim,
                                        const std::string &lineDelim,
-                                       bool /*prune !!!*/, bool ignoreCase)
+                                       bool prune, bool ignoreCase)
+    : myLineDelimiter(lineDelim), myAmCaseInsensitive(ignoreCase)
 {
-    reinitMap(def, defDelim);
-    myLineDelimiter = lineDelim;
-    myAmCaseInsensitive = ignoreCase;
+    reinitMap(def, defDelim, prune);
 }
 
 
-NamedColumnsParser::~NamedColumnsParser()
+NamedColumnsParser::~NamedColumnsParser() throw()
 {}
 
 
@@ -71,7 +70,7 @@ void
 NamedColumnsParser::reinit(const std::string &def,
                            const std::string &defDelim,
                            const std::string &lineDelim,
-                           bool prune, bool ignoreCase)
+                           bool prune, bool ignoreCase) throw()
 {
     myAmCaseInsensitive = ignoreCase;
     reinitMap(def, defDelim, prune);
@@ -80,14 +79,14 @@ NamedColumnsParser::reinit(const std::string &def,
 
 
 void
-NamedColumnsParser::parseLine(const std::string &line)
+NamedColumnsParser::parseLine(const std::string &line) throw()
 {
     myLineParser = StringTokenizer(line, myLineDelimiter);
 }
 
 
 std::string
-NamedColumnsParser::get(const std::string &name, bool prune) const
+NamedColumnsParser::get(const std::string &name, bool prune) const throw(UnknownElement, OutOfBoundsException)
 {
     PosMap::const_iterator i = myDefinitionsMap.find(name);
     if (i==myDefinitionsMap.end()) {
@@ -109,7 +108,7 @@ NamedColumnsParser::get(const std::string &name, bool prune) const
 
 
 bool
-NamedColumnsParser::know(const std::string &name) const
+NamedColumnsParser::know(const std::string &name) const throw()
 {
     PosMap::const_iterator i = myDefinitionsMap.find(name);
     if (i==myDefinitionsMap.end()) {
@@ -127,7 +126,8 @@ NamedColumnsParser::know(const std::string &name) const
 
 void
 NamedColumnsParser::reinitMap(std::string s,
-                              const std::string &delim, bool prune)
+                              const std::string &delim, 
+                              bool prune) throw()
 {
     if (myAmCaseInsensitive) {
         s = StringUtils::to_lower_case(s);
@@ -144,7 +144,7 @@ NamedColumnsParser::reinitMap(std::string s,
 
 
 void
-NamedColumnsParser::checkPrune(std::string &str, bool prune) const
+NamedColumnsParser::checkPrune(std::string &str, bool prune) const throw()
 {
     if (!prune) {
         return;

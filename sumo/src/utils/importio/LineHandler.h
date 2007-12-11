@@ -4,7 +4,7 @@
 /// @date    Fri, 19 Jul 2002
 /// @version $Id$
 ///
-// An interface definition for a class which retrieves
+// Interface definition for a class which retrieves lines from a LineHandler
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -38,23 +38,33 @@
 // ===========================================================================
 /**
  * @class LineHandler
+ * @brief Interface definition for a class which retrieves lines from a LineHandler
+ *
  * The LineHandler is an interface for a class which retrieves information
- * from a file linewise. The lines are suppoted to this class using the
- * "report"-method. The LineHandler is used together with the LineReader
- * which reads the lines from a file.
+ *  from a file linewise. The lines are suppoted to this class using the
+ *  "report"-method. The LineHandler is used together with the LineReader
+ *  which reads the lines from a file.
+ * @see LineReader
  */
 class LineHandler
 {
 public:
-    /// constructor
-    LineHandler() { }
+    /// @brief constructor
+    LineHandler() throw() { }
 
-    /// virtual destructor
-    virtual ~LineHandler() { }
 
-    /** real virtual interface method (to LineReader)
-        retrieves lines from a file */
-    virtual bool report(const std::string &result) = 0;
+    /// @brief (virtual) destructor
+    virtual ~LineHandler() throw() { }
+
+
+    /** @brief Method that obatins a line read by the LineReader
+     *
+     * Real interface method, used by a LineReader, which retrieves lines from a file 
+     *
+     * @param[in] result The read line
+     * @return Whether the caller shall continue with reading
+     */
+    virtual bool report(const std::string &result) throw() = 0;
 
 };
 

@@ -45,77 +45,130 @@ class LineHandler;
 // ===========================================================================
 /**
  * @class LineReader
+ * @brief Retrieves a file linewise and reports the lines to a handler.
+ *
  * This class reads the contents from a file line by line and report them to
- * a LineHandler-derivate.
+ *  a LineHandler-derivate.
+ * @see LineHandler
+ * @todo No checks are done so far during reading/setting position etc. 
+ * @todo Should not IOError be thrown if something fails?
  */
 class LineReader
 {
 public:
-    /// constructor
-    LineReader();
+    /// @brief Constructor
+    LineReader() throw();
 
-    /// constructor; initialises the reading
-    LineReader(const std::string &file);
 
-    /// destructor
-    ~LineReader();
+    /** @brief Constructor
+     *
+     * Initialises reading from the file with the given name using setFile.
+     * 
+     * @param[in] file The name of the file to open
+     * @see setFile
+     */
+    LineReader(const std::string &file) throw();
 
-    /// returns the information whether another line may be read
-    bool hasMore() const;
 
-    /** reads the whole file linewise, reporting every line to the
-        given LineHandler;
-        When the LineHandler returns false, the reading will be aborted */
-    void readAll(LineHandler &lh);
+    /// @brief Destructor
+    ~LineReader() throw();
 
-    /** reads a single (the next) line from the file */
-    bool readLine(LineHandler &lh);
 
-    /** reads a single (the next) line from the file and returns it */
-    std::string readLine();
+    /** @brief Returns whether another line may be read (the file was not read completely)
+     * @return Whether further reading is possible
+     */
+    bool hasMore() const throw();
 
-    /// closes the reading
-    void close();
 
-    /// returns the name of the used file
-    std::string getFileName() const;
+    /** @brief Reads the whole file linewise, reporting every line to the given LineHandler
+     *
+     * When the LineHandler returns false, the reading will be aborted 
+     *
+     * @param[in] lh The LineHandler to report read lines to
+     */
+    void readAll(LineHandler &lh) throw();
 
-    /** reinitialises the reader for reading from the given file
-        return false when the file is not readable */
-    bool setFile(const std::string &file);
 
-    /// returns the current position within the file
-    unsigned long getPosition();
+    /** @brief Reads a single (the next) line from the file and reports it to the given LineHandler
+     *
+     * When the LineHandler returns false, the reading will be aborted 
+     *
+     * @param[in] lh The LineHandler to report read lines to
+     * @return Whether a further line exists
+     */
+    bool readLine(LineHandler &lh) throw();
 
-    /// reinitialises the reading (of the previous file)
-    void reinit();
 
-    /// sets the current position within the file to the given value
-    void setPos(unsigned long pos);
+    /** @brief Reads a single (the next) line from the file and returns it 
+     *
+     * @return The next line in the file
+     */
+    std::string readLine() throw();
 
-    /// Returns the information whether the stream is readable
-    bool good() const;
+
+    /// @brief Closes the reading
+    void close() throw();
+
+
+    /** @brief Returns the name of the used file
+     * @return The name of the opened file
+     */
+    std::string getFileName() const throw();
+
+
+    /** @brief Reinitialises the reader for reading from the given file
+     *
+     * Returns false when the file is not readable 
+     *
+     * @param[in] file The name of the file to open
+     * @return Whether the file could be opened
+     */
+    bool setFile(const std::string &file) throw();
+
+
+    /** @brief Returns the current position within the file
+     * @return The current position within the opened file
+     */
+    unsigned long getPosition() throw();
+
+
+    /// @brief Reinitialises the reading (of the previous file)
+    void reinit() throw();
+
+
+    /** @brief Sets the current position within the file to the given value
+     *
+     * @param[in] pos The new position within the file
+     */
+    void setPos(unsigned long pos) throw();
+
+
+    /** @brief Returns the information whether the stream is readable
+     * @return Whether the file is usable (good())
+     */
+    bool good() const throw();
+
 
 private:
-    /// the name of the file to read the contents from
-    std::string     myFileName;
+    /// @brief the name of the file to read the contents from
+    std::string myFileName;
 
-    /// the stream used
-    std::ifstream    myStrm;
+    /// @brief the stream used
+    std::ifstream myStrm;
 
-    /// ha ha, to override MSVC++-bugs, we use an own getline which uses this buffer
+    /// @brief To override MSVC++-bugs, we use an own getline which uses this buffer
     char myBuffer[1024];
 
-    /// a string-buffer
+    /// @brief a string-buffer
     std::string myStrBuffer;
 
-    /// Information about how many characters were supplied to the LineHandler
+    /// @brief Information about how many characters were supplied to the LineHandler
     size_t myRead;
 
-    /// Information how many bytes are available within the used file
+    /// @brief Information how many bytes are available within the used file
     size_t myAvailable;
 
-    /// Information how many bytes were read by the reader from the file
+    /// @brief Information how many bytes were read by the reader from the file
     size_t myRread;
 
 };
