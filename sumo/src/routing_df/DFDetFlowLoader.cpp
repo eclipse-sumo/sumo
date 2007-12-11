@@ -84,7 +84,7 @@ DFDetFlowLoader::read(const std::string &file, bool fast)
         parseFast(file);
     } else {
         myFirstLine = true;
-        myReader.setFileName(file);
+        myReader.setFile(file);
         myReader.readAll(*this);
     }
 }

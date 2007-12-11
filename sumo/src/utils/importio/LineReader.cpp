@@ -196,7 +196,7 @@ LineReader::getFileName() const
 }
 
 bool
-LineReader::setFileName(const std::string &file)
+LineReader::setFile(const std::string &file)
 {
     if (myStrm.is_open()) {
         myStrm.close();

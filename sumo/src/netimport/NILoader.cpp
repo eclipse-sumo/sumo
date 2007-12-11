@@ -231,7 +231,7 @@ NILoader::useLineReader(LineReader &lr, const std::string &file,
                         LineHandler &lh)
 {
     // check opening
-    if (!lr.setFileName(file)) {
+    if (!lr.setFile(file)) {
         MsgHandler::getErrorInstance()->inform("The file '" + file + "' could not be opened.");
         return false;
     }

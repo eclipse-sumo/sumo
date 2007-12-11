@@ -82,7 +82,7 @@ public:
 
     /** reinitialises the reader for reading from the given file
         return false when the file is not readable */
-    bool setFileName(const std::string &file);
+    bool setFile(const std::string &file);
 
     /// returns the current position within the file
     unsigned long getPosition();

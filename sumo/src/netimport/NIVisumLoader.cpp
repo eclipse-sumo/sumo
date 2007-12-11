@@ -2,7 +2,7 @@
 /// @file    NIVisumLoader.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 19 Jul 2002
-/// @version $Id$
+/// @version $Id:NIVisumLoader.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
 // A VISUM networks importer
 /****************************************************************************/
@@ -137,7 +137,7 @@ void
 NIVisumLoader::load() throw(ProcessError)
 {
     // open the file
-    if (!myLineReader.setFileName(getFileName())) {
+    if (!myLineReader.setFile(getFileName())) {
         throw ProcessError("Can not open visum-file '" + getFileName() + "'.");
     }
     // scan the file for data positions
