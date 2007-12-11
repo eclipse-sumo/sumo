@@ -176,7 +176,7 @@ MSVehicle *
 GUIVehicle::getNextPeriodical() const
 {
 	GUIVehicle *ret = (GUIVehicle*)MSVehicle::getNextPeriodical();
-    if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
+    if (ret!=0 && hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
         RGBColor *col = (RGBColor *)getCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL);
         ret->setCORNColor(col->red(), col->green(), col->blue());
     }
