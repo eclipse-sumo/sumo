@@ -559,10 +559,14 @@ public:
      *  is checked whether the set options shall be printed and the configuration
      *  template or the current configuration shall be written.
      *
+     * This method throws a ProcessError if the configuration should be saved,
+     *  but the file is not accessable. An error message is supplied.
+     *
      * @param[in] missingOptions Whether no options have been given
      * @return Whether the application shall stop
+     * @exception ProcessError If the configuration file could not be saved
      */
-    bool processMetaOptions(bool missingOptions) throw();
+    bool processMetaOptions(bool missingOptions) throw(ProcessError);
 
 
 private:
