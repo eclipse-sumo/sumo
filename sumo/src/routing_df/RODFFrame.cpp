@@ -156,6 +156,16 @@ RODFFrame::fillOptions()
     oc.doRegister("emissions-only", new Option_Bool(false));
     oc.addDescription("emissions-only", "Processing", "Writes only emission times");
 
+    oc.doRegister("disallowed-edges", new Option_String(""));
+    oc.addDescription("disallowed-edges", "Processing", "Do not route on these edges");
+
+    oc.doRegister("keep-turnarounds", new Option_Bool(false));
+    oc.addDescription("keep-turnarounds", "Processing", "Allow turnarounds as route continuations");
+
+    oc.doRegister("min-distance", new Option_Float(-1));
+    oc.addSynonyme("min-distance", "min-dist");
+    oc.addDescription("min-distance", "Processing", "According sink must be at least that far away");
+
 
     // flow reading
     oc.doRegister("fast-flows", new Option_Bool(false));

@@ -96,22 +96,6 @@ DFRORouteCont::DFRORouteCont(const RODFNet &net)
         : myNet(net)
 {}
 
-/*
-DFRORouteCont::DFRORouteCont(const DFRORouteCont &s)
-{
-    {
-    	for(std::vector<DFRORouteDesc*>::const_iterator j=s.myRoutes.begin(); j!=s.myRoutes.end(); ++j) {
-	    	DFRORouteDesc *desc = new DFRORouteDesc(*(*j));
-		    myRoutes.push_back(desc);
-	    }
-    }
-    {
-    	for(std::map<ROEdge*, std::vector<ROEdge*> >::const_iterator j=s.myDets2Follow.begin(); j!=s.myDets2Follow.end(); ++j) {
-		    myDets2Follow[(*j).first] = (*j).second;
-	    }
-    }
-}
-*/
 
 DFRORouteCont::~DFRORouteCont()
 {
@@ -178,10 +162,6 @@ DFRORouteCont::save(std::vector<std::string> &saved,
         out << "</route>\n";
         haveSavedOnAtLeast = true;
     }
-    /*        strm << endl;
-      //  }
-        //strm << "</routes>" << endl;
-        return true;*/
     return haveSavedOnAtLeast;
 }
 
@@ -258,7 +238,6 @@ DFRORouteCont::determineEndDetector(const RODFNet &net, DFRORouteCont::RoutesMap
             if (net.hasDetector(*i)) {
                 rmap->lastDetectors = net.getDetectorList(*i);
                 rmap->lastDetectorEdge = *i;
-//                cout << (*i)->getID() << endl;
                 break;
             }
         }
@@ -363,9 +342,6 @@ DFRORouteCont::getRouteMap(const RODFNet &net) const
         }
     }
     determineEndDetector(net, ret);
-//    cout << *ret << endl;
-    //
-    //
     return ret;
 }
 

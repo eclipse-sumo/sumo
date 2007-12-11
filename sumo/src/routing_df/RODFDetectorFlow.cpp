@@ -120,20 +120,6 @@ RODFDetectorFlows::removeFlow(const std::string &detector_id)
     }
 }
 
-/*
-const FlowDef &
-RODFDetectorFlows::getFlowDef( const std::string &id, int t ) const
-{
-	return myCurrFlows.find(id)->second.find(t)->second;
-}
-
-
-const std::map< int, FlowDef > &
-RODFDetectorFlows::getFlowDefs( const std::string &id ) const
-{
-	return myCurrFlows.find(id)->second;
-}
-*/
 
 bool
 RODFDetectorFlows::knows(const std::string &det_id) const
@@ -151,37 +137,6 @@ RODFDetectorFlows::knows(const std::string &det_id, SUMOTime /*time*/) const
     return true;//!!!
 }
 
-/*
-void
-RODFDetectorFlows::buildFastAccess(SUMOTime startTime, SUMOTime endTime,
-                                 SUMOTime stepOffset)
-{
-    myBeginTime = startTime;
-    myEndTime = endTime;
-    myStepOffset = stepOffset;
-    size_t noItems = (size_t) ((endTime-startTime)/stepOffset);
-    std::map<std::string, std::map<SUMOTime, FlowDef> >::iterator j;
-    // go through detectors
-    for(j=myCurrentFlows.begin(); j!=myCurrentFlows.end(); ++j) {
-        myFastAccessFlows[(*j).first] = std::vector<FlowDef>(noItems);
-        std::vector<FlowDef> cflows = myFastAccessFlows.find((*j).first)->second;
-        // initialise
-        for(size_t k=0; k<noItems; k++) {
-            cflows[k].qPKW = 0;
-            cflows[k].qLKW = 0;
-            cflows[k].vPKW = 0;
-            cflows[k].vLKW = 0;
-            cflows[k].fLKW = 0;
-            cflows[k].isLKW = 0;
-        }
-        // build
-        std::map<SUMOTime, FlowDef> &prev = myCurrentFlows.find((*j).first)->second;
-        for(std::map<SUMOTime, FlowDef>::iterator i=prev.begin(); i!=prev.end(); i++) {
-            cflows[(*i).first - myBeginTime] = (*i).second;
-        }
-    }
-}
-*/
 
 const std::vector<FlowDef> &
 RODFDetectorFlows::getFlowDefs(const std::string &id) const

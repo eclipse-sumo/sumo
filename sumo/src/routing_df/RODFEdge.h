@@ -59,9 +59,6 @@ public:
     /// Desturctor
     ~RODFEdge();
 
-    /// Adds information about a connected edge
-    void addFollower(ROEdge *s);
-
     void setFlows(const std::vector<FlowDef> &flows);
 
     const std::vector<FlowDef> &getFlows() const;

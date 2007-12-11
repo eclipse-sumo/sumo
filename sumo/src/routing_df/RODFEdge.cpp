@@ -57,13 +57,6 @@ RODFEdge::~RODFEdge()
 
 
 void
-RODFEdge::addFollower(ROEdge *s)
-{
-    ROEdge::addFollower(s);
-}
-
-
-void
 RODFEdge::setFlows(const std::vector<FlowDef> &flows)
 {
     myFlows = flows;

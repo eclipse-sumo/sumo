@@ -47,6 +47,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/geom/GeomHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -66,6 +67,8 @@ RODFNet::RODFNet(bool amInHighwayMode)
         : RONet(true), myAmInHighwayMode(amInHighwayMode),
         mySourceNumber(0), mySinkNumber(0), myInBetweenNumber(0), myInvalidNumber(0)
 {
+    mySinks = OptionsCont::getOptions().getStringVector("disallowed-edges");
+    myKeepTurnarounds = OptionsCont::getOptions().getBool("keep-turnarounds");
 }
 
 
@@ -84,6 +87,14 @@ RODFNet::buildApproachList()
         size_t length_size = (*rit)->getNoFollowing();
         for (i=0; i<length_size; i++) {
             ROEdge *help = (*rit)->getFollower(i);
+            if(find(mySinks.begin(), mySinks.end(), help->getID())!=mySinks.end()) {
+                // edges in sinks will not be used
+                continue;
+            }
+            if(!myKeepTurnarounds && help->getToNode()==(*rit)->getFromNode()) {
+                // do not use turnarounds
+                continue;
+            }
             // add the connection help->*rit to myApproachingEdges
             if (myApproachingEdges.find(help)==myApproachingEdges.end()) {
                 myApproachingEdges[help] = std::vector<ROEdge*>();
@@ -94,35 +105,8 @@ RODFNet::buildApproachList()
                 myApproachedEdges[(*rit)] = std::vector<ROEdge*>();
             }
             myApproachedEdges[(*rit)].push_back(help);
-
         }
     }
-
-    //debug
-    /*
-    std::cout << "approaching" << std::endl;
-    std::map<std::string, std::vector<std::string> >::iterator it;
-    for ( it = myApproachingEdges.begin(); it != myApproachingEdges.end(); it++ )
-    {
-    std::cout << it->first << std::endl;
-    std::vector<std::string>::iterator ti;
-    for ( ti = it->second.begin(); ti != it->second.end(); ti++ )
-    {
-    std::cout << "\t" << (*ti) << std::endl;
-    }
-    }
-    std::cout << "approached" << std::endl;
-    //std::map<std::string, std::vector<std::string> >::iterator it;
-    for ( it = myApproachedEdges.begin(); it != myApproachedEdges.end(); it++ )
-    {
-    std::cout << it->first << std::endl;
-    std::vector<std::string>::iterator ti;
-    for ( ti = it->second.begin(); ti != it->second.end(); ti++ )
-    {
-    std::cout << "\t" << (*ti) << std::endl;
-    }
-    }
-    */
 }
 
 
@@ -243,6 +227,7 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
     std::map<ROEdge*, std::vector<ROEdge*> > dets2Follow;
     dets2Follow[edge] = std::vector<ROEdge*>();
     base->passedNo = 0;
+    SUMOReal minDist = OptionsCont::getOptions().getFloat("min-distance");
     toSolve.push(base);
     while (!toSolve.empty()) {
         DFRORouteDesc *current = toSolve.top();
@@ -269,7 +254,12 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
         if (!hasApproached(last)) {
             // ok, no further connections to follow
             current->factor = 1.;
-            into.addRouteDesc(current);
+            SUMOReal cdist = GeomHelper::distance(
+                static_cast<RODFEdge*>(current->edges2Pass[0])->getFromPosition(), 
+                static_cast<RODFEdge*>(current->edges2Pass[current->edges2Pass.size()-1])->getToPosition());
+            if(minDist<cdist) {
+                into.addRouteDesc(current);
+            }
             continue;
         }
         // check for passing detectors:
@@ -290,7 +280,12 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
 ///!!!                        //toDiscard.push_back(current);
                     }
                     current->factor = 1.;
-                    into.addRouteDesc(current);
+                    SUMOReal cdist = GeomHelper::distance(
+                        static_cast<RODFEdge*>(current->edges2Pass[0])->getFromPosition(), 
+                        static_cast<RODFEdge*>(current->edges2Pass[current->edges2Pass.size()-1])->getToPosition());
+                    if(minDist<cdist) {
+                        into.addRouteDesc(current);
+                    }
                     continue;
                 } else {
                     // ... if it's an in-between-detector
@@ -323,7 +318,12 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
                 MsgHandler::getWarningInstance()->inform("Could not close route for '" + det.getID() + "'");
                 unfoundEnds.push_back(current);
                 current->factor = 1.;
-                into.addRouteDesc(current);
+                SUMOReal cdist = GeomHelper::distance(
+                    static_cast<RODFEdge*>(current->edges2Pass[0])->getFromPosition(), 
+                    static_cast<RODFEdge*>(current->edges2Pass[current->edges2Pass.size()-1])->getToPosition());
+                if(minDist<cdist) {
+                    into.addRouteDesc(current);
+                }
                 continue; // !!!
             }
         }
@@ -344,12 +344,13 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
                 toSolve.push(t);
             } else {
                 if (!hadOne||allEndFollower) {
-//a                    if(allEndFollower) {
                     t->factor = (SUMOReal) 1. / (SUMOReal) appr.size();
-                    /*a                    } else {
-                                            t->factor = (SUMOReal) 1.;
-                                        }*/
-                    into.addRouteDesc(t);
+                    SUMOReal cdist = GeomHelper::distance(
+                        static_cast<RODFEdge*>(t->edges2Pass[0])->getFromPosition(), 
+                        static_cast<RODFEdge*>(t->edges2Pass[current->edges2Pass.size()-1])->getToPosition());
+                    if(minDist<cdist) {
+                        into.addRouteDesc(t);
+                    }
                     hadOne = true;
                 }
             }
@@ -368,17 +369,13 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
                 assert(ok);
             }
         }
-
-//        forunfoundEnds;
     } else {
         // !!! patch the factors
     }
     if (true) {
         std::vector<DFRORouteDesc*>::iterator i;
         for (i=toDiscard.begin(); i!=toDiscard.end(); ++i) {
-            /*bool ok = */
             into.removeRouteDesc(*i);
-//!!!            assert(ok);
         }
     }
     while (!toSolve.empty()) {
@@ -386,119 +383,6 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
         toSolve.pop();
         delete d;
     }
-
-    /*
-    // ok, we have built the routes;
-    //  now, we have to compute the relationships between them
-    const std::vector<DFRORouteDesc*> &routes = into.get();
-    if(routes.empty()) {
-        return;
-    }
-        // build a tree of routes
-    tree<ROEdge*> routesTree;
-    map<ROEdge*, std::vector<DFRORouteDesc*> > edges2Routes;
-    {
-        routesTree.insert(routes[0]->edges2Pass[0]);
-        edges2Routes[routes[0]->edges2Pass[0]] = std::vector<DFRORouteDesc*>();
-        for(std::vector<DFRORouteDesc*>::const_iterator i=routes.begin(); i!=routes.end(); ++i) {
-            DFRORouteDesc *c = *i;
-            tree<ROEdge*>::iterator k = routesTree.begin();
-            edges2Routes[routes[0]->edges2Pass[0]].push_back(c);
-            for(std::vector<ROEdge*>::const_iterator j=c->edges2Pass.begin()+1; j!=c->edges2Pass.end(); ++j) {
-                tree<ROEdge*>::iterator l = (*k).find(*j);
-                if(l==(*k).end()) {
-                    k = (*k).insert(*j);
-                } else {
-                    k = l;
-                }
-                if(edges2Routes.find(*j)==edges2Routes.end()) {
-                    edges2Routes[*j] = std::vector<DFRORouteDesc*>();
-                }
-                edges2Routes[*j].push_back(*i);
-            }
-        }
-    }
-        // travel the tree and compute the distributions of routes
-            // mark first detectors on edges?
-    {
-        std::vector<ROEdge*> solved;
-        std::vector<tree<ROEdge*>::iterator> toSolve;
-        std::map<ROEdge*, std::vector<ROEdge*> > split2Dets;
-        toSolve.push_back(routesTree.begin());
-        while(!toSolve.empty()) {
-            tree<ROEdge*>::iterator i = toSolve.back();
-            toSolve.pop_back();
-            if((*i).size()==1) {
-                toSolve.push_back((*i).begin());
-                continue;
-            }
-            if((*i).size()==0) {
-                // ok, we have found the end, let's move backwards
-                ROEdge *lastWithDetector = 0;
-                tree<ROEdge*> *parent = (*i).parent();
-                tree<ROEdge*> *current = &(*i);
-                while(parent!=0) {
-                    ROEdge *currentEdge = *(current->get());
-                    if(hasDetector(currentEdge)) {
-                        lastWithDetector = currentEdge;
-                    }
-                    current = parent;
-                    parent = current->parent();
-                    if(parent->size()>1) {
-                        if(split2Dets.find(*(parent->get()))==split2Dets.end()) {
-                            split2Dets[*(parent->get())] = std::vector<ROEdge*>();
-                        }
-                        split2Dets[*(parent->get())].push_back(currentEdge);
-                    }
-                }
-            }
-            if((*i).size()>1) {
-                tree<ROEdge*>::iterator j;
-                for(j=(*i).begin(); j!=(*i).end(); ++j) {
-                    toSolve.push_back(j);
-                }
-            }
-        }
-        /
-        std::vector<tree<ROEdge*>::iterator> toSolve;
-        // a map of (unsolved) edges to the list of solving edges
-        std::map<ROEdge*, std::vector<std::pair<ROEdge*, bool> > > split2Dets;
-        std::map<ROEdge*, ROEdge*> dets2Split;
-        toSolve.push_back(routesTree.begin());
-        while(!toSolve.empty()) {
-            tree<ROEdge*>::iterator i = toSolve.back();
-            ROEdge *c = *(i->get());
-            if(dets2Split.find(c)!=dets2Split.end()&&hasDetector(c)) {
-                std::vector<std::pair<ROEdge*, bool> >::iterator l;
-                for(l=split2Dets[dets2Split[c]].begin(); l!=split2Dets[dets2Split[c]].end(); ++l) {
-                    if((*l).first==c) {
-                        (*l).second = true;
-                        break;
-                    }
-                }
-            }
-            toSolve.pop_back();
-            if((*i).size()==1) {
-                toSolve.push_back((*i).begin());
-                continue;
-            }
-            if((*i).size()==0) {
-                // !!!
-            }
-            if((*i).size()>1) {
-                // ok, a split; check what to do
-                split2Dets[*(i->get())] = std::vector<std::pair<ROEdge*, bool> >();
-                tree<ROEdge*>::iterator j;
-                for(j=(*i).begin(); j!=(*i).end(); ++j) {
-                    toSolve.push_back(j);
-                    split2Dets[*(i->get())].push_back(make_pair(*(j->get()), false) );
-                    dets2Split[*(j->get())] = *(i->get());
-                }
-            }
-        }
-        /
-    }
-    */
 }
 
 
@@ -507,6 +391,7 @@ RODFNet::buildRoutes(RODFDetectorCon &detcont, bool allEndFollower,
                      bool keepUnfoundEnds, bool includeInBetween,
                      bool keepShortestOnly, int maxFollowingLength) const
 {
+    /*
     std::vector<std::vector<ROEdge*> > illegals;
     std::vector<ROEdge*> i1;
     i1.push_back(getEdge("-51140604"));
@@ -544,6 +429,7 @@ RODFNet::buildRoutes(RODFDetectorCon &detcont, bool allEndFollower,
     i6.push_back(getEdge("51066830"));
     i6.push_back(getEdge("51066846"));
     illegals.push_back(i6);
+    */
     // build needed information first
     buildDetectorEdgeDependencies(detcont);
     // then build the routes
@@ -554,13 +440,6 @@ RODFNet::buildRoutes(RODFDetectorCon &detcont, bool allEndFollower,
             // do not build routes for other than sources
             continue;
         }
-        /*
-                // !!! maybe (optional) routes for between-detectors also should not be build
-                if((*i)->getType()==BETWEEN_DETECTOR) {
-                    // do not build routes for sinks
-                    continue;
-                }
-        		*/
         ROEdge *e = getDetectorEdge(**i);
         if (doneEdges.find(e)!=doneEdges.end()) {
             // use previously build routes
@@ -585,9 +464,8 @@ RODFNet::buildRoutes(RODFDetectorCon &detcont, bool allEndFollower,
         visited.push_back(e);
         computeRoutesFor(e, rd, 0, allEndFollower, keepUnfoundEnds, keepShortestOnly,
                          visited, **i, *routes, detcont, maxFollowingLength, seen);
-        routes->removeIllegal(illegals);
+        //!!!routes->removeIllegal(illegals);
         (*i)->addRoutes(routes);
-        //cout << (*i)->getID() << " : " << routes->get().size() << endl;
 
         // add routes to in-between detectors if wished
         if (includeInBetween) {
@@ -1097,7 +975,6 @@ RODFNet::isDestination(const RODFDetector &det, ROEdge *edge, std::vector<ROEdge
     size_t no = 0;
     seen.push_back(edge);
     for (size_t i=0; i<appr.size()&&isall; i++) {
-        //printf("checking %s->\n", appr[i].c_str());
         bool had = std::find(seen.begin(), seen.end(), appr[i])!=seen.end();
         if (!had) {
             if (!isDestination(det, appr[i], seen, detectors)) {
@@ -1106,7 +983,7 @@ RODFNet::isDestination(const RODFDetector &det, ROEdge *edge, std::vector<ROEdge
             }
         }
     }
-    return isall;//no==appr.size();//isall;
+    return isall;
 }
 
 bool

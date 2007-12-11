@@ -157,6 +157,10 @@ private:
 
     bool myAmInHighwayMode;
     mutable size_t mySourceNumber, mySinkNumber, myInBetweenNumber, myInvalidNumber;
+
+    std::vector<std::string> mySinks;
+    bool myKeepTurnarounds;
+
 };
 
 
