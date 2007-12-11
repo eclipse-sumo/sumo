@@ -1,0 +1,12 @@
+Loading net... done.
+Loading detector definitions from 'input_detectors.det.xml'...  done.
+Loading flows from 'input_flows.txt'...  done.
+Computing detector types... done.
+Computed detector types:
+ 6 source detectors
+ 3 sink detectors
+ 0 in-between detectors
+ 0 invalid detectors
+Computing routes... done.
+Writing emitters... done.
+Success.
