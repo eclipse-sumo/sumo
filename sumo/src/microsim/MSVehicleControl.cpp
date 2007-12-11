@@ -311,9 +311,7 @@ MSVehicleControl::saveState(std::ostream &os)
     // save vehicles
     FileHelpers::writeUInt(os, myVehicleDict.size());
     for (VehicleDictType::iterator it = myVehicleDict.begin(); it!=myVehicleDict.end(); ++it) {
-        if ((*it).second->hasCORNIntValue(MSCORN::CORN_VEH_REALDEPART)) {
-            (*it).second->saveState(os);
-        }
+        (*it).second->saveState(os);
     }
 }
 
@@ -369,7 +367,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis)
         const MSVehicleType* type;
         unsigned int routeOffset;
         bis >> routeOffset;
-        unsigned int wasEmitted;
+        int wasEmitted;
         bis >> wasEmitted;
 #ifdef HAVE_MESOSIM
         unsigned int segIndex;
@@ -388,7 +386,9 @@ MSVehicleControl::loadState(BinaryInputDevice &bis)
         assert(getVehicle(id)==0);
 
         MSVehicle *v = buildVehicle(id, route, desiredDepart, type, repetitionNumber, period);
-        v->myIntCORNMap[MSCORN::CORN_VEH_REALDEPART] = wasEmitted;
+        if (wasEmitted != -1) { 
+            v->myIntCORNMap[MSCORN::CORN_VEH_REALDEPART] = wasEmitted;
+        }
         while (routeOffset>0) {
             v->myCurrEdge++;
             routeOffset--;

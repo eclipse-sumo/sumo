@@ -1920,7 +1920,11 @@ MSVehicle::saveState(std::ostream &os)
     FileHelpers::writeUInt(os, myDesiredDepart);
     FileHelpers::writeString(os, myType->getID());
     FileHelpers::writeUInt(os, myRoute->posInRoute(myCurrEdge));
-    FileHelpers::writeUInt(os, (unsigned int) getCORNIntValue(MSCORN::CORN_VEH_REALDEPART));
+    if (hasCORNIntValue(MSCORN::CORN_VEH_REALDEPART)) {
+        FileHelpers::writeInt(os, getCORNIntValue(MSCORN::CORN_VEH_REALDEPART));
+    } else {
+        FileHelpers::writeInt(os, -1);
+    }
 #ifdef HAVE_MESOSIM
     // !!! several things may be missing
     if (seg==0) {
