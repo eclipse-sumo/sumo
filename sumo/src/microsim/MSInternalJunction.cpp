@@ -81,7 +81,7 @@ MSInternalJunction::postloadInit()
         // ... set information for every link
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
             (*j)->setRequestInformation(&myRequest, requestPos,
-                                        &myRespond, requestPos/*, clearInfo*/);
+                                        &myRespond, requestPos);
             requestPos++;
         }
     }
@@ -105,7 +105,6 @@ MSInternalJunction::setAllowed()
     // Get myRespond from logic and check for deadlocks.
     myRespond.set(0, true);
     LaneCont::iterator i;
-
     if (myIncomingLanes.size()==0) {
         return true;
     }
@@ -142,13 +141,10 @@ MSInternalJunction::setAllowed()
     }
     // do not move if the destination lane is full
     // get the next lane
+    // - recheck whether this is really needed !!!
     MSLane *l = myIncomingLanes[0];
     const MSLinkCont &lc1 = l->getLinkCont();
     MSLink *link = lc1[0];
-    l = link->getLane();
-    // get the destination lane
-    const MSLinkCont &lc2 = l->getLinkCont();
-    link = lc2[0];
     MSLane *dest = link->getLane();
     if (dest==0) {
         return true;
