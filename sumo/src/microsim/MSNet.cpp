@@ -336,7 +336,6 @@ void
 MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
 {
     myStep = step;
-    debug_globaltime = step;
     // execute beginOfTimestepEvents
     if (myLogExecutionTime) {
         mySimStepBegin = SysUtils::getCurrentMillis();

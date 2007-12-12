@@ -31,9 +31,9 @@
 #include "MSLCM_DK2004.h"
 #include <iostream>
 
-#ifdef ABS_DEBUG
-#include "../MSDebugHelper.h"
-#endif
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================
@@ -43,23 +43,8 @@ using namespace std;
 
 
 // ===========================================================================
-// some definitions (debugging only)
-// ===========================================================================
-#define DEBUG_OUT cout
-
-
-// ===========================================================================
 // variable definitions
 // ===========================================================================
-#ifdef GUI_DEBUG
-#include <utils/gui/div/GUIGlobalSelection.h>
-#include <guisim/GUIVehicle.h>
-#endif
-
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 // 80km/h will be the swell for dividing between long/short foresight
 #define LOOK_FORWARD_SPEED_DIVIDER 14.
 
@@ -123,16 +108,6 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     }
 
 
-#ifdef GUI_DEBUG
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
-        int blb = 0;
-    }
-#endif
-#ifdef ABS_DEBUG
-    if (debug_globaltime>=debug_searchedtime && (myVehicle.getID()==debug_searched1||myVehicle.getID()==debug_searched2)) {
-        DEBUG_OUT << "bla" << endl;
-    }
-#endif
     // keep information about being a leader/follower
     int ret = (myState&0x00ffff00);
 
@@ -347,16 +322,6 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         }
     }
 
-#ifdef GUI_DEBUG
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
-        int blb = 0;
-    }
-#endif
-#ifdef ABS_DEBUG
-    if (debug_globaltime>=debug_searchedtime && (myVehicle.getID()==debug_searched1||myVehicle.getID()==debug_searched2)) {
-        DEBUG_OUT << "bla" << endl;
-    }
-#endif
     // keep information about being a leader/follower
     int ret = (myState&0x00ffff00);
 
@@ -538,11 +503,6 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 SUMOReal
 MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /*vsafe*/)
 {
-#ifdef GUI_DEBUG
-    if (gSelected.isSelected(GLO_VEHICLE, static_cast<GUIVehicle&>(myVehicle).getGlID())) {
-        int blb= 0;
-    }
-#endif
     SUMOReal vSafe = myVSafe;
     int state = myState;
     myState = 0;
