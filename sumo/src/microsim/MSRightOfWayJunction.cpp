@@ -97,7 +97,7 @@ MSRightOfWayJunction::postloadInit()
         // ... set information for every link
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
             (*j)->setRequestInformation(&myRequest, requestPos,
-                                        &myRespond, requestPos/*, clearInfo*/);
+                                        &myRespond, requestPos);
             requestPos++;
         }
     }
@@ -115,6 +115,27 @@ MSRightOfWayJunction::postloadInit()
 bool
 MSRightOfWayJunction::setAllowed()
 {
+    /*
+    LaneCont::iterator i;
+    size_t requestPos = 0;
+    // going through the incoming lanes...
+    for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
+        const MSLinkCont &links = (*i)->getLinkCont();
+        // check whether the next lane is free
+        for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
+            MSLane *dest = (*j)->getLane();
+            if (dest!=0) {
+                const MSVehicle * const lastOnDest = dest->getLastVehicle();
+                if (lastOnDest!=0) {
+                    if (lastOnDest->getPositionOnLane()-lastOnDest->getLength()<5) { // !!! explcite vehicle length
+                        myRequest.set(requestPos, false);
+                    }
+                }
+            }
+            requestPos++;
+        }
+    }
+    */
     // Get myRespond from logic and check for deadlocks.
     myLogic->respond(myRequest, myInnerState, myRespond);
     deadlockKiller();
@@ -135,6 +156,7 @@ MSRightOfWayJunction::setAllowed()
         }
     }
 #endif
+    myInnerState.reset(false);
     return true;
 }
 
