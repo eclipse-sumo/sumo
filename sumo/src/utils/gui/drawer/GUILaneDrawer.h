@@ -94,7 +94,7 @@ public:
                     size_t noLanes = edge->nLanes();
 
                     // check whether lane boundaries shall be drawn
-                    if (settings.laneShowBorders&&width>1.) {
+                    if (settings.laneShowBorders&&width>1.&& edge->getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
                         if (myShowToolTips) {
                             glPushName(edge->getGlID());
                         }
@@ -120,8 +120,8 @@ public:
                                     glBegin(GL_QUADS);
                                     glVertex2d(-1.8, -t);
                                     glVertex2d(-1.8, -t-3.);
-                                    glVertex2d(1.8, -t-3.);
-                                    glVertex2d(1.8, -t);
+                                    glVertex2d(1.0, -t-3.);
+                                    glVertex2d(1.0, -t);
                                     glEnd();
                                 }
                                 glPopMatrix();
@@ -137,16 +137,11 @@ public:
                         for (size_t k=0; k<noLanes; k++) {
                             const L1 &lane = edge->getLaneGeometry(k);
                             colorer.setGlColor(lane);
-//			        		      if(lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-                            if (width>1.) {//&&lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
-//                                if(width>1.&&lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+                            if (width>1.) {
                                 drawLane(lane, 1.);
                             } else {
                                 drawLine(lane);
                             }
-                            /*                          } else {
-                                                   drawLane(lane, scheme, 0.1);
-                               	            }*/
                         }
                     } else {
                         if (width>1.) {
@@ -214,7 +209,11 @@ protected:
         if (myShowToolTips) {
             glPushName(lane.getGlID());
         }
-        GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), SUMO_const_halfLaneWidth*mult);
+        if(lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+            GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), SUMO_const_halfLaneWidth*mult);
+        } else {
+            GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), SUMO_const_quarterLaneWidth*mult);
+        }
         if (myShowToolTips) {
             glPopName();
         }
