@@ -329,7 +329,7 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 void
 MSRouteHandler::closeRoute() throw(ProcessError)
 {
-    MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, !myAmInEmbeddedMode);
+    MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, !myAmInEmbeddedMode||myRepNumber>=1);
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
