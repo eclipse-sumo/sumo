@@ -520,7 +520,7 @@ NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
         os << "         <logicitem request=\"" << pos++ << "\" response=\"";
         writeResponse(os, from, (*j).edge, fromLane, (*j).lane);
         os << "\" foes=\"";
-        writeAreFoes(os, from, (*j).edge);
+        writeAreFoes(os, from, (*j).edge, myJunction->getCrossingPosition(from, fromLane, (*j).edge, (*j).lane).first>=0);
         os << "\"";
         if (OptionsCont::getOptions().getBool("add-internal-links")) {
             if (myJunction->getCrossingPosition(from, fromLane, (*j).edge, (*j).lane).first>=0) {
@@ -584,7 +584,7 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
 
 
 void
-NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to)
+NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to, bool isInnerEnd)
 {
     // remember the case when the lane is a "dead end" in the meaning that
     // vehicles must choose another lane to move over the following
@@ -605,7 +605,7 @@ NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to)
                 if (to==0) {
                     os << '0';
                 } else {
-                    if (foes(from, to, (*i), connected[k].edge)) {
+                    if (foes(from, to, (*i), connected[k].edge) && !isInnerEnd) {
                         os << '1';
                     } else {
                         os << '0';

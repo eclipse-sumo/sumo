@@ -1127,9 +1127,10 @@ NBNode::writeXMLInternalNodes(OutputDevice &into)
 
 
 void
-writeinternal(EdgeVector *myIncomingEdges, OutputDevice &into, const std::string &id)
+NBNode::writeinternal(EdgeVector *myIncomingEdges, OutputDevice &into, const std::string &id)
 {
     size_t l = 0;
+    size_t o = countInternalLanes(false);
     for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for (size_t j=0; j<noLanesEdge; j++) {
@@ -1141,7 +1142,13 @@ writeinternal(EdgeVector *myIncomingEdges, OutputDevice &into, const std::string
                 if (l!=0) {
                     into << ' ';
                 }
-                into << ':' << id << '_' << l << "_0";
+                std::pair<SUMOReal, std::vector<size_t> > cross = getCrossingPosition(*i, j, (*k).edge, (*k).lane);
+                if (cross.first<=0) {
+                    into << ':' << id << '_' << l << "_0";
+                } else {
+                    into << ':' << id << '_' << o << "_0";
+                    o++;
+                }
                 l++;
             }
         }

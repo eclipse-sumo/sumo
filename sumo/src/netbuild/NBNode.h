@@ -366,6 +366,7 @@ private:
     Position2DVector computeInternalLaneShape(NBEdge *fromE,
             size_t fromL, NBEdge *toE, size_t toL);
 
+    void writeinternal(EdgeVector *myIncomingEdges, OutputDevice &into, const std::string &id);
 
 private:
     /** the name of the node */

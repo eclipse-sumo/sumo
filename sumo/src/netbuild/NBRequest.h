@@ -128,7 +128,8 @@ private:
                        int fromLane, int toLane);
 
     /** writes which participating links are foes to the given */
-    void writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to);
+    void writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to,
+        bool isInnerEnd);
 
     /** returns the index to the internal combination container */
     int getIndex(NBEdge *from, NBEdge *to) const;
