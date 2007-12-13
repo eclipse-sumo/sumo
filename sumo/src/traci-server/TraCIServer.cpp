@@ -43,6 +43,7 @@
 #include "microsim/MSRouteLoaderControl.h"
 #include "microsim/MSRouteLoader.h"
 #include "microsim/traffic_lights/MSTLLogicControl.h"
+#include <utils/common/SUMODijkstraRouter.h>
 
 #include "microsim/MSEdgeControl.h"
 #include "microsim/MSLane.h"
@@ -434,6 +435,48 @@ void
 
 /*****************************************************************************/
 void
+	TraCIServer::commandChangeTarget(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+	throw (TraCIException)
+{
+	// NodeId
+    MSVehicle* veh = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
+	// EdgeId
+	std::string edgeID = requestMsg.readString();
+
+	// destination edge
+	const MSEdge* destEdge = MSEdge::dictionary(edgeID);
+
+	if ( veh == NULL )
+    {
+		writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve node with given ID");
+        return;
+    }
+
+	if ( destEdge == NULL )
+    {
+		writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve road with given ID");
+        return;
+    }
+	
+	// build a new route between the vehicle's current edge and destination edge
+	//std::vector<const MSEdge*> newRoute;
+	MSEdgeVector newRoute;
+	const MSEdge* currentEdge = veh->getEdge();
+	SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getC2CEffort);
+	router.compute(currentEdge, destEdge, (const MSVehicle* const) veh, 
+					MSNet::getInstance()->getCurrentTimeStep(), newRoute);
+
+	// replace the vehicle's route by the new one
+	veh->replaceRoute(newRoute, MSNet::getInstance()->getCurrentTimeStep());
+
+	// create a reply message
+	writeStatusCmd(respMsg, CMD_CHANGETARGET, RTYPE_OK, "");
+
+	return;
+}
+
+/*****************************************************************************/
+void
 	TraCIServer::commandGetAllTLIds(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
 	throw (TraCIException)
 {
@@ -481,9 +524,8 @@ void
 
 	// get the running programm of the traffic light
 	MSTLLogicControl tlsControl = MSNet::getInstance()->getTLSControl();
-	// TODO: remove dynamic cast
-	MSSimpleTrafficLightLogic* const tlLogic = dynamic_cast<MSSimpleTrafficLightLogic*>(tlsControl.get(id).defaultTL);
-	
+	MSTrafficLightLogic* const tlLogic = tlsControl.get(id).defaultTL;
+
 	// error checking
 	if (tlLogic == NULL) {
 		writeStatusCmd(respMsg, CMD_GETTLSTATUS, RTYPE_ERR, "Could not retrieve traffic light with given id");	
@@ -493,6 +535,9 @@ void
 		writeStatusCmd(respMsg, CMD_GETALLTLIDS, RTYPE_ERR, "The given time interval is not valid");	
 		return;
 	}
+
+	// acknowledge the request
+	writeStatusCmd(respMsg, CMD_GETTLSTATUS, RTYPE_OK, "");
 	
 	std::vector<MSLink::LinkState> linkStates;
 	std::vector<double> yellowTimes;
@@ -508,7 +553,7 @@ void
 
 	// check every second of the given time interval for a switch in the traffic light's phases
 	for (int time = timeFrom; time <= timeTo; time++) {
-		size_t position = tlLogic->getPositionFromSimTime(time);
+		size_t position = tlLogic->getPosition(time);
 		size_t currentStep = tlLogic->getStepFromPos(position);
 
 		if (currentStep != lastStep) {
@@ -566,6 +611,40 @@ void
 
 }
 
+/*****************************************************************************/
+
+void 
+TraCIServer::commandSlowDown(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
+throw(TraCIException)
+{
+	// NodeId
+    MSVehicle* veh = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
+	// speed
+	float newSpeed = requestMsg.readFloat();
+	// time interval
+	double duration = requestMsg.readDouble();
+
+	if (veh == NULL) {
+		writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Can not retrieve node with given ID");
+        return;
+	}
+	if (newSpeed < 0) {
+		writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Negative speed value");
+        return;
+	}
+	if (duration < 0) {
+		writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Invalid time interval");
+        return;
+	}
+
+	if (!veh->startSpeedAdaption(newSpeed, duration, MSNet::getInstance()->getCurrentTimeStep())) {
+		writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Not slowing down");
+        return;
+	}
+
+	// create positive response message 
+	writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_OK, "");
+}
 
 /*****************************************************************************/
 

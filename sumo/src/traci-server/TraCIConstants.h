@@ -60,10 +60,13 @@
 // command: get traffic light status
 #define CMD_GETTLSTATUS 0x41
 
-// command: traffic light id
+// command: slow down
+#define CMD_SLOWDOWN 0x60
+
+// command: report traffic light id
 #define CMD_TLIDLIST 0x90
 
-// command: traffic light status switch
+// command: report traffic light status switch
 #define CMD_TLSWITCH 0x91
 
 // ****************************************

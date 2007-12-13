@@ -542,8 +542,13 @@ public:
     const VehCont &getConnections() const;
 
     SUMOReal getC2CEffort(const MSEdge * const e, SUMOTime t) const;
-    void checkReroute(SUMOTime t);
+#endif
 
+#if defined(HAVE_BOYOM_C2C) || defined(TRACI)
+    void checkReroute(SUMOTime t);
+#endif
+
+#ifdef HAVE_BOYOM_C2C
     int getTotalInformationNumber() const {
         return totalNrOfSavedInfos;
     }
@@ -586,6 +591,21 @@ public:
 	 * @param edgeID: ID of the edge to restore
 	 */
 	bool restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime);
+
+	/**
+	 * The vehicle will slow down to newSpeed within the time interval duration.
+	 * This is done by limiting the maximum speed every time a simulation step
+	 * is performed by TraCI. Speed reduction is linear.
+	 * @param newSpeed speed to reduce to 
+	 * @param duration time intervall for the speed adaption
+	 * @param currentTime current simulation time
+	 */
+	bool startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime currentTime);
+
+	/**
+	 * called by TraCI at each simulation step
+	 */
+	void adaptSpeed();
 #endif
 
 protected:
@@ -652,9 +672,14 @@ protected:
     //recent information
     //is saved when the vehicle leaves the lane!!!
     Information *akt;
+#endif
+
+#if defined(HAVE_BOYOM_C2C) || defined(TRACI)
     SUMOTime myLastInfoTime;
     bool myHaveRouteInfo;
+#endif
 
+#ifdef HAVE_BOYOM_C2C
     // count how much Informations this vehicle have saved during the simulation
     int totalNrOfSavedInfos;
 #endif
@@ -782,7 +807,7 @@ private:
 #ifdef TRACI
 	/** 
 	 * if true, indicates that a TraCI message "changeRoute" was sent to this vehicle,
-	 * thus it checks for a new route when the next simulation step is performed
+	 * thus it checks for a new route when the next simulation step is performed by TraCI
 	 */
 	bool myWeightChangedViaTraci;
 
@@ -793,6 +818,16 @@ private:
 	 * related to an edge before it was changed by TraCI
 	 */
 	InfoCont edgesChangedByTraci;
+
+	/* indicates whether the vehicle is adapting its speed caused by the TraCI command slowDown*/
+	bool adaptingSpeed;
+	bool isLastAdaption;
+
+	SUMOReal speedBeforeAdaption;
+	SUMOReal speedReduction;
+	SUMOTime timeBeforeAdaption;
+	SUMOTime adaptDuration;
+
 #endif
 
 };

@@ -259,7 +259,13 @@ MSVehicle::MSVehicle(string id,
         , myNoGot(0), myNoSent(0), myNoGotRelevant(0)
 #endif
 #ifdef TRACI
-		,myWeightChangedViaTraci(false)
+		,myWeightChangedViaTraci(false),
+		adaptingSpeed(false),
+		isLastAdaption(false),
+		speedBeforeAdaption(0),
+		timeBeforeAdaption(0),
+		speedReduction(0),
+		adaptDuration(0)
 #endif
 {
     rebuildAllowedLanes();
@@ -432,6 +438,9 @@ MSVehicle::endsOn(const MSLane &lane) const
 void
 MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
 {
+#ifdef TRACI
+	adaptSpeed();
+#endif
     // reset move information
     myTarget = 0;
 #ifdef ABS_DEBUG
@@ -556,6 +565,9 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
     if (debug_globaltime>debug_searchedtime && (myID==debug_searched1||myID==debug_searched2)) {
         DEBUG_OUT << "moveb/1:" << debug_globaltime << ": " << myID << " at " << myLane->getID() << ": " << getPositionOnLane() << ", " << getSpeed() << "\n";
     }
+#endif
+#ifdef TRACI
+	adaptSpeed();
 #endif
     myLFLinkLanes.clear();
     // check whether the vehicle is not on an appropriate lane
@@ -2289,12 +2301,13 @@ MSVehicle::getC2CEffort(const MSEdge * const e, SUMOTime /*t*/) const
 }
 #endif
 
-#ifdef HAVE_BOYOM_C2C
+#if defined(HAVE_BOYOM_C2C) || defined(TRACI)
 void
 MSVehicle::checkReroute(SUMOTime t)
 {
     // do not try to reroute when no new information is available
-    if (myLastInfoTime!=t) {
+	// always reroute if an edge weight was changed via TraCI command changeRoute
+    if (myLastInfoTime!=t && !myWeightChangedViaTraci) {
         return;
     }
     // do not try to reroute when no information about the own route is available
@@ -2338,8 +2351,9 @@ MSVehicle::checkReroute(SUMOTime t)
         }
     }
 }
+#endif
 
-
+#ifdef HAVE_BOYOM_C2C
 size_t
 MSVehicle::getNoGot() const
 {
@@ -2438,6 +2452,55 @@ MSVehicle::restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime)
 
 	return true;
 }
+
+/****************************************************************************/
+
+bool
+MSVehicle::startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime currentTime)
+{
+	if (newSpeed < 0 || duration <= 0 || newSpeed >= getSpeed()) {
+		return false;
+	}
+
+	speedBeforeAdaption = getSpeed();
+	timeBeforeAdaption = currentTime;
+	adaptDuration = duration;
+	speedReduction = speedBeforeAdaption - newSpeed;
+
+	adaptingSpeed = true;
+
+	return true;
+}
+
+/****************************************************************************/
+
+void 
+MSVehicle::adaptSpeed() 
+{
+	SUMOReal maxSpeed = 0;
+	SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
+
+	if (!adaptingSpeed) {
+		return;
+	}
+
+	if (isLastAdaption) {
+		unsetIndividualMaxSpeed();
+		adaptingSpeed = false;
+		return;
+	}
+
+	if (currentTime <= timeBeforeAdaption + adaptDuration) {
+		maxSpeed = speedBeforeAdaption - (speedReduction / adaptDuration) 
+					* (currentTime - timeBeforeAdaption);
+	} else {
+		maxSpeed = speedBeforeAdaption - speedReduction;
+		isLastAdaption = true;
+	}
+
+	setIndividualMaxSpeed(maxSpeed);
+}
+
 #endif
 
 

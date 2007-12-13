@@ -86,6 +86,16 @@ public:
     /// Returns the current step
     virtual size_t getStepNo() const = 0;
 
+	/// returns the position of the logic at the actual step of the simulation
+    virtual size_t getPosition(SUMOTime simStep) = 0;
+
+	 /// returns the step (the phasenumber) of a given position of the cycle
+    virtual size_t getStepFromPos(size_t position) = 0;
+
+	/// Returns the phase of a given step
+    virtual const MSPhaseDefinition &getPhaseFromStep(size_t givenstep) const = 0;
+
+
     /** @brief Sets the priorities of incoming lanes
         This must be done as they change when the light changes */
     virtual void setLinkPriorities() const = 0;

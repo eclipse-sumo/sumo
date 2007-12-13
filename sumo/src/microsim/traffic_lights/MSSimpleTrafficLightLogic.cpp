@@ -205,24 +205,25 @@ MSSimpleTrafficLightLogic::getPosition(SUMOTime simStep)
         }
     }
     position = position + simStep - getPhaseFromStep(myStep).myLastSwitch;
+	position = position % myCycleTime;
     assert(position <= myCycleTime);
     return position;
 }
 
-size_t
-MSSimpleTrafficLightLogic::getPositionFromSimTime(SUMOTime time)
-{
-    int position = 0;
-    if (myStep > 0)	{
-        for (int i=0; i < myStep; i++) {
-            position = position + getPhaseFromStep(i).duration;
-        }
-    }
-    position = position + time - getPhaseFromStep(myStep).myLastSwitch;
-	position = position % myCycleTime;
-    
-    return abs(position);
-}
+//size_t
+//MSSimpleTrafficLightLogic::getPositionFromSimTime(SUMOTime time)
+//{
+//    int position = 0;
+//    if (myStep > 0)	{
+//        for (int i=0; i < myStep; i++) {
+//            position = position + getPhaseFromStep(i).duration;
+//        }
+//    }
+//    position = position + time - getPhaseFromStep(myStep).myLastSwitch;
+//	position = position % myCycleTime;
+//    
+//    return abs(position);
+//}
 
 
 size_t

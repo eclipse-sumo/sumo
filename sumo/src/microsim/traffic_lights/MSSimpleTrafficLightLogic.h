@@ -87,7 +87,7 @@ public:
 	 * Returns the position of the logic at any given simulation time
 	 * @return: the position of the logic
 	 */
-	size_t getPositionFromSimTime(SUMOTime time);
+	//size_t getPositionFromSimTime(SUMOTime time);
 
     /// returns the step (the phasenumber) of a given position of the cycle
     size_t getStepFromPos(size_t position);
