@@ -87,8 +87,6 @@ class MSInductLoop
             public Named
 {
 public:
-    /// Type of the dictionary where all MSInductLoop are registered.
-
     /**
      * Constructor. Adds object into a SingletonDictionary. Sets old-data
      * removal event. Adds reminder to MSLane.

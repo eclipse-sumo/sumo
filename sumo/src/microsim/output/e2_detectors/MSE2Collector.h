@@ -51,6 +51,8 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/Named.h>
+#include <microsim/MSEventControl.h>
+#include <utils/common/Command.h>
 
 ///
 /// Introduces some enums and consts for use in MSE2Collector.
@@ -126,10 +128,7 @@ Containers& operator++(Containers& cont);
 /// MSDetectorFileOutput there is the possibility to get file output
 /// by calling MSDetector2File::addDetectorAndInterval().
 ///
-class
-            MSE2Collector : public Named,
-            public MSMoveReminder,
-            public MSDetectorFileOutput
+class MSE2Collector : public Named, public MSMoveReminder, public MSDetectorFileOutput, public Command
 {
 public:
 
@@ -176,6 +175,9 @@ public:
         SUMOReal jamDistThreshold,
         SUMOTime deleteDataAfterSeconds)
             : Named(id), MSMoveReminder(lane),
+            myJamHaltingSpeedThreshold(haltingSpeedThreshold),
+            myJamHaltingTimeThreshold(haltingTimeThreshold),
+            myJamDistanceThreshold(jamDistThreshold),
             startPosM(startPos),
             endPosM(startPos + detLength),
             deleteDataAfterSecondsM(deleteDataAfterSeconds),
@@ -196,15 +198,10 @@ public:
         assert(startPosM >= 0 &&
                startPosM < laneLength);
         assert(endPosM - startPosM > 0 && endPosM < laneLength);
-        /*
-                    // insert object into dictionary
-                    if ( ! E2Dictionary::getInstance()->isInsertSuccess(
-                             idM, this ) ) {
-                        MsgHandler::getErrorInstance()->inform(
-                            "e2-detector '" + idM + "' could not be build;");
-                        MsgHandler::getErrorInstance()->inform(
-                            " (declared twice?)");
-                        throw ProcessError();            }*/
+        reset();
+        MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
+            this, MSNet::getInstance()->getCurrentTimeStep(),
+            MSEventControl::ADAPT_AFTER_EXECUTION);
     }
 
     /// Dtor. Deletes the created detectors.
@@ -366,14 +363,14 @@ public:
             return true;
         }
         if (oldPos <= startPosM && newPos > startPosM) {
-            if(myKnownVehicles.find(&veh)==myKnownVehicles.end()) {
+            if(find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh)==myKnownVehicles.end()) {
                 // vehicle will enter detectors
                 for (ContainerContIter it = containersM.begin(); it != containersM.end(); ++it) {
                     if (*it != 0) {
                         (*it)->enterDetectorByMove(&veh);
                     }
                 }
-                myKnownVehicles.insert(&veh);
+                myKnownVehicles.push_back(&veh);
             }
         }
         if (newPos - veh.getLength() < startPosM) {
@@ -399,7 +396,7 @@ public:
                     (*ld)->leave(veh);
                 }
             }
-            myKnownVehicles.erase(&veh);
+            myKnownVehicles.erase(find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh));
             return false;
         }
         return true;
@@ -463,7 +460,7 @@ public:
                     veh, (endPosM - (veh.getPositionOnLane() - veh.getLength())) /
                     veh.getLength());
             }
-                myKnownVehicles.insert(&veh);
+                myKnownVehicles.push_back(&veh);
             return true;
         }
         if (veh.getPositionOnLane() - veh.getLength() > endPosM) {
@@ -474,6 +471,189 @@ public:
         return true;
     }
     /// @}
+
+    struct JamInfo {
+        std::list<MSVehicle*>::const_iterator firstStandingVehicle;
+        std::list<MSVehicle*>::const_iterator lastStandingVehicle;
+    };
+
+    class by_vehicle_position_sorter
+    {
+    public:
+        /// constructor
+        explicit by_vehicle_position_sorter() { }
+
+        int operator()(const MSVehicle *v1, const MSVehicle *v2) {
+            return v1->getPositionOnLane()<v2->getPositionOnLane();
+        }
+    };
+
+    SUMOReal myJamHaltingSpeedThreshold;
+    SUMOReal myJamHaltingTimeThreshold;
+    SUMOReal myJamDistanceThreshold;
+
+    SUMOReal mySpeedSum;
+    SUMOTime myMaxHaltingDuration;
+    SUMOReal myStartedHalts;
+    SUMOReal myJamLengthInMetersSum;
+    unsigned myJamLengthInVehiclesSum;
+    unsigned myVehicleSamples;
+    unsigned myTimeSamples;
+    SUMOReal myOccupancySum;
+    SUMOReal myMaxOccupancy;
+    SUMOTime myHaltingDurationSum;
+    unsigned myMeanMaxJamInVehicles;
+    SUMOReal myMeanMaxJamInMeters;
+    unsigned myMaxJamInVehicles;
+    SUMOReal myMaxJamInMeters;
+    unsigned myJamInVehiclesSum;
+    SUMOReal myJamInMetersSum;
+
+    std::map<MSVehicle*, SUMOTime> myHaltingVehicleDurations;
+
+    void reset() {
+        mySpeedSum = 0;
+        myMaxHaltingDuration = 0;
+        myStartedHalts = 0;
+        myJamLengthInMetersSum = 0;
+        myJamLengthInVehiclesSum = 0;
+        myVehicleSamples = 0;
+        myOccupancySum = 0;
+        myMaxOccupancy = 0;
+        myHaltingDurationSum = 0;
+        myMeanMaxJamInVehicles = 0;
+        myMeanMaxJamInMeters = 0;
+        myMaxJamInVehicles = 0;
+        myMaxJamInMeters = 0;
+        myJamInVehiclesSum = 0;
+        myJamInMetersSum = 0;
+        mySpeedSum = 0;
+        myTimeSamples = 0;
+    }
+
+    SUMOTime execute(SUMOTime currentTime) {
+        JamInfo *currentJam = 0;
+        SUMOReal distSinceLastJamBegin = 0;
+        std::map<MSVehicle*, SUMOTime> haltingVehicles;
+        std::vector<JamInfo*> jams;
+
+        SUMOReal lengthSum = 0;
+        SUMOTime haltingDurationSum = 0;
+
+        // go through the (sorted) list of vehicles positioned on the detector
+        //  sum up values and prepare the list of jams
+        myKnownVehicles.sort(by_vehicle_position_sorter());
+        for(std::list<MSVehicle*>::const_iterator i=myKnownVehicles.begin(); i!=myKnownVehicles.end(); ++i) {
+            MSVehicle *veh = *i;
+
+            SUMOReal length = veh->getLength();
+            if (veh->getPositionOnLane() - veh->getLength() < startPosM) {
+                // vehicle entered detector partially
+                length -= (veh->getLength() - (veh->getPositionOnLane()-startPosM));
+            }
+            if (veh->getPositionOnLane()>endPosM && veh->getPositionOnLane()-veh->getLength()<=endPosM) {
+                // vehicle left detector partially
+                length -= (veh->getPositionOnLane()-endPosM);
+            }
+            assert(length>=0);
+
+            mySpeedSum += veh->getSpeed();
+            lengthSum += length;
+
+            // jam-checking begins
+            bool isInJam = false;
+            // first, check whether the vehicle is slow enough to be states as halting
+            if(veh->getSpeed()<myJamHaltingSpeedThreshold) {
+                // we have to track the time it was halting; 
+                //  so let's look up whether it was halting before and compute the overall halting time
+                bool wasHalting = myHaltingVehicleDurations.find(veh)!=myHaltingVehicleDurations.end();
+                if(wasHalting) {
+                    haltingVehicles[veh] = myHaltingVehicleDurations[veh] + 1;
+                } else {
+                    haltingVehicles[veh] = 1;
+                }
+                // we now check whether the halting time is large enough 
+                if(haltingVehicles[veh]>myJamHaltingTimeThreshold) {
+                    // yep --> the vehicle is a part of a jam
+                    isInJam = true;
+                    // save the halting duration for further statistics
+                    haltingDurationSum += haltingVehicles[veh];
+                    myMaxHaltingDuration = MAX2(myMaxHaltingDuration, haltingVehicles[veh]);
+                    // now, we have to check whether it has started this time...
+                    if(haltingVehicles[veh]-1<=myJamHaltingTimeThreshold) {
+                        myStartedHalts++;
+                    }
+                }
+            }
+            
+            // jam-building
+            if(isInJam) {
+                // the vehicle is in a jam; 
+                //  it may be a new one or already an existing one
+                if(currentJam==0) {
+                    // the vehicle is the first vehicle in a jam
+                    currentJam = new JamInfo;
+                    currentJam->firstStandingVehicle = i;
+                } else {
+                    // ok, we have a jam already. But - maybe it is too far away
+                    //  ... honestly, I can hardly find a reason for doing this,
+                    //  but jams were defined this way in an earlier version...
+                    if(veh->getPositionOnLane()-(*currentJam->lastStandingVehicle)->getPositionOnLane()>myJamDistanceThreshold) {
+                        // yep, yep, yep - it's a new one...
+                        //  close the frist, build a new
+                        jams.push_back(currentJam);
+                        currentJam = new JamInfo;
+                        currentJam->firstStandingVehicle = i;
+                    }
+                }
+                currentJam->lastStandingVehicle = i;
+            } else {
+                // the vehicle is not part of a jam...
+                //  maybe we have to close an already computed jam
+                if(currentJam!=0) {
+                    jams.push_back(currentJam);
+                    currentJam = 0;
+                }
+            }
+        }
+
+        SUMOReal maxJamLengthInMeters = 0;
+        unsigned maxJamLengthInVehicles = 0;
+        // process jam information
+        for(std::vector<JamInfo*>::iterator i=jams.begin(); i!=jams.end(); ++i) {
+            // compute current jam's values
+            SUMOReal jamLengthInMeters = 
+                (*(*i)->lastStandingVehicle)->getPositionOnLane() 
+                - (*(*i)->firstStandingVehicle)->getPositionOnLane() 
+                + (*(*i)->lastStandingVehicle)->getLength();
+            unsigned jamLengthInVehicles = distance((*i)->firstStandingVehicle, (*i)->lastStandingVehicle);
+            // apply them to the statistics
+            maxJamLengthInMeters = MAX2(maxJamLengthInMeters, jamLengthInMeters);
+            maxJamLengthInVehicles = MAX2(maxJamLengthInVehicles, jamLengthInVehicles);
+            myJamLengthInMetersSum += jamLengthInMeters;
+            myJamLengthInVehiclesSum += jamLengthInVehicles;
+        }
+
+
+        unsigned noVehicles = myKnownVehicles.size();
+        myVehicleSamples += noVehicles;
+        myTimeSamples += 1;
+        // compute occupancy values
+        SUMOReal currentOccupancy = lengthSum / (endPosM-startPosM);
+        myOccupancySum += currentOccupancy;
+        myMaxOccupancy = MAX2(myMaxOccupancy, currentOccupancy);
+        // compute halting duration values
+        myHaltingDurationSum += haltingDurationSum;
+        // compute jam values
+        myMeanMaxJamInVehicles += maxJamLengthInVehicles;
+        myMeanMaxJamInMeters += maxJamLengthInMeters;
+        myMaxJamInVehicles = MAX2(myMaxJamInVehicles, maxJamLengthInVehicles);
+        myMaxJamInMeters = MAX2(myMaxJamInMeters, maxJamLengthInMeters);
+        // save information about halting vehicles
+        myHaltingVehicleDurations = haltingVehicles;
+        // repeat in next time step
+        return 1;
+    }
 
     /// Get the XML-formatted output of the concrete detector.  Calls
     /// resetQueueLengthAheadOfTrafficLights() if the detector
@@ -486,8 +666,30 @@ public:
     /// APPROACHING_VEHICLES_STATES.
     ///
     void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) {
-        dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
-        stopTime<<"\" "<<"id=\""<<getID()<<"\" ";
+        dev<<"   <interval begin=\""<<startTime<<"\" end=\""<< stopTime<<"\" "<<"id=\""<<getID()<<"\" ";
+        SUMOReal meanSpeed = myVehicleSamples!=0 ? mySpeedSum / (SUMOReal) myVehicleSamples : -1;
+        SUMOReal meanOccupancy = myTimeSamples!=0 ? myOccupancySum / (SUMOReal) myTimeSamples : 0;
+        SUMOReal meanHaltingDuration = myVehicleSamples!=0 ? myHaltingDurationSum / (SUMOReal) myVehicleSamples : 0;
+        SUMOReal meanJamLengthInMeters = myTimeSamples!=0 ? myMeanMaxJamInMeters / (SUMOReal) myTimeSamples : 0;
+        SUMOReal meanJamLengthInVehicles = myTimeSamples!=0 ? myMeanMaxJamInVehicles / (SUMOReal) myTimeSamples : 0;
+        dev << " nSamples=\"" << myVehicleSamples << "\" "
+            << " meanSpeed=\"" << meanSpeed << "\" "
+            << " meanOccupancy=\"" << meanOccupancy << "\" "
+            << " maxOccupancy=\"" << myMaxOccupancy << "\" "
+            << " meanMaxJamLengthInVehicles=\"" << meanJamLengthInVehicles << "\" "
+            << " meanMaxJamLengthInMeters=\"" << meanJamLengthInMeters << "\" "
+            << " maxJamLengthInVehicles=\"" << myMaxJamInVehicles << "\" "
+            << " maxJamLengthInMeters=\"" << myMaxJamInMeters << "\" "
+            << " jamLengthInVehiclesSum=\"" << myJamInVehiclesSum << "\" "
+            << " jamLengthInMetersSum=\"" << myJamInMetersSum << "\" "
+            << " meanHaltingDuration=\"" << meanHaltingDuration << "\" "
+            << " maxHaltingDuration=\"" << myMaxHaltingDuration << "\" "
+            << " haltingDurationSum=\"" << myHaltingDurationSum << "\" "
+            << " startedHalts=\"" << myStartedHalts << "\" "
+            << "/>\n";
+        reset();
+
+        /*
         if (hasDetector(
                     E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
             dev<<"queueLengthAheadOfTrafficLightsInVehiclesMax=\"";
@@ -499,6 +701,7 @@ public:
         writeXMLOutput(dev, detectorsEDM, startTime, stopTime);
         writeXMLOutput(dev, detectorsLDM, startTime, stopTime);
         dev<<"/>\n";
+        */
     }
 
     /// Get an opening XML-tag containing information about the detector.
@@ -599,7 +802,7 @@ private:
     /// handled in the way the TD, ED and LD detectors can.
     MSApproachingVehiclesStates* approachingVehStatesDetectorM;
 
-    std::set<MSVehicle*> myKnownVehicles;
+    std::list<MSVehicle*> myKnownVehicles;
 
     DetectorUsage myUsage;      ///< ???
 
