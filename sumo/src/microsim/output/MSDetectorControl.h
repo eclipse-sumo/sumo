@@ -35,7 +35,7 @@
 #include <utils/common/NamedObjectCont.h>
 #include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
-//#include <microsim/output/e3_detectors/MSE3Collector.h>
+#include <microsim/output/e3_detectors/MSE3Collector.h>
 #include <microsim/output/MSInductLoop.h>
 #include "meandata/MSMeanData_Net_Cont.h"
 #include "MSDetector2File.h"
@@ -43,13 +43,6 @@
 #ifdef HAVE_MESOSIM
 #include <mesosim/MEInductLoop.h>
 #endif
-
-
-//class MSE2Collector;
-//class MS_E2_ZS_CollectorOverLanes;
-class MSE3Collector;
-//class MSLaneState;
-//class MSInductLoop;
 
 
 // ===========================================================================
@@ -82,7 +75,7 @@ public:
 
     ~MSDetectorControl();
 
-    void close();
+    void close(SUMOTime step);
 
     MSInductLoop *findInductLoop(const std::string &id);
 
@@ -116,6 +109,8 @@ public:
     E2Vect getE2Vector() const;
     E3Vect getE3Vector() const;
     E2ZSOLVect getE2OLVector() const;
+
+    void writeOutput(SUMOTime step);
 
 
 protected:

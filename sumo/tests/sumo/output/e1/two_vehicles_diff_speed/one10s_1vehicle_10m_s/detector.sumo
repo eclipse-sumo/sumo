@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/19/07 13:32:44 by SUMO sumo Version 0.9.7
+<!-- generated on 12/14/07 13:50:18 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -34,5 +34,5 @@
    <interval begin="90" end="99" id="3/1to2/1" nVehContrib="0.00" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehCrossed="0"/>
    <interval begin="100" end="109" id="3/1to2/1" nVehContrib="0.00" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehCrossed="0"/>
    <interval begin="110" end="119" id="3/1to2/1" nVehContrib="0.00" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehCrossed="0"/>
-   <interval begin="120" end="126" id="3/1to2/1" nVehContrib="0.00" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehCrossed="0"/>
+   <interval begin="120" end="125" id="3/1to2/1" nVehContrib="0.00" flow="0.00" occupancy="0.00" speed="-1.00" length="-1.00" nVehCrossed="0"/>
 </detector>

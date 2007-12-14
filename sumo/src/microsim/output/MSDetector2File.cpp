@@ -65,12 +65,12 @@ MSDetector2File::~MSDetector2File(void)
 
 
 void
-MSDetector2File::close()
+MSDetector2File::close(SUMOTime step)
 {
     // flush the last values
     Intervals::iterator it;
     for (it = myIntervals.begin(); it != myIntervals.end(); ++it) {
-        write2file((*it).first);
+        writeOutput(step, true);
     }
     // [...] files are closed on another place [...]
     //
@@ -92,12 +92,7 @@ MSDetector2File::addDetectorAndInterval(MSDetectorFileOutput* det,
         DetectorFileVec detAndFileVec;
         detAndFileVec.push_back(make_pair(det, device));
         myIntervals.insert(make_pair(key, detAndFileVec));
-        Command* writeData =
-            new OneArgumentCommand< MSDetector2File, IntervalsKey >(this, &MSDetector2File::write2file, key);
-        SUMOTime simBeginTime = OptionsCont::getOptions().getInt("begin");
-        MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
-            writeData, simBeginTime + interval - 1, MSEventControl::ADAPT_AFTER_EXECUTION);
-        myLastCalls[interval] = simBeginTime;
+        myLastCalls[interval] = OptionsCont::getOptions().getInt("begin");
     } else {
         DetectorFileVec& detAndFileVec = it->second;
         if (find_if(detAndFileVec.begin(), detAndFileVec.end(), bind2nd(detectorEquals(), det)) == detAndFileVec.end()) {
@@ -114,24 +109,24 @@ MSDetector2File::addDetectorAndInterval(MSDetectorFileOutput* det,
 }
 
 
-MSUnit::IntSteps
-MSDetector2File::write2file(IntervalsKey key)
+void 
+MSDetector2File::writeOutput(SUMOTime step, bool closing)
 {
-    Intervals::iterator iIt = myIntervals.find(key);
-    assert(iIt != myIntervals.end());
-    DetectorFileVec dfVec = iIt->second;
-    MSUnit::IntSteps interval = key;
-    SUMOTime stopTime = MSNet::getInstance()->getCurrentTimeStep();
-    SUMOTime startTime = myLastCalls[interval];
-    // check whether at the end the output was already generated
-    for (DetectorFileVec::iterator it = dfVec.begin(); it!=dfVec.end(); ++it) {
-        MSDetectorFileOutput* det = it->first;
-        det->writeXMLOutput(*(it->second), startTime, stopTime);
+    for(Intervals::iterator i=myIntervals.begin(); i!=myIntervals.end(); ++i) {
+        MSUnit::IntSteps interval = (*i).first;
+        if(myLastCalls[interval]+interval-1<=step || (closing && myLastCalls[interval]<step) ) {
+            DetectorFileVec dfVec = (*i).second;
+            SUMOTime stopTime = step;
+            SUMOTime startTime = myLastCalls[interval];
+            // check whether at the end the output was already generated
+            for (DetectorFileVec::iterator it = dfVec.begin(); it!=dfVec.end(); ++it) {
+                MSDetectorFileOutput* det = it->first;
+                det->writeXMLOutput(*(it->second), startTime, stopTime);
+            }
+            myLastCalls[interval] = stopTime + 1;
+        }
     }
-    myLastCalls[interval] = stopTime + 1;
-    return interval;
 }
-
 
 
 void

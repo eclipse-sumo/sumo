@@ -34,8 +34,6 @@
 #include "MSInductLoop.h"
 #include <microsim/MSUnit.h>
 #include <microsim/MSUpdateEachTimestepContainer.h>
-#include "MSDetectorHaltingContainerWrapper.h"
-#include "MSDetectorOccupancyCorrection.h"
 #include "e2_detectors/MS_E2_ZS_CollectorOverLanes.h"
 #include "meandata/MSMeanData_Net.h"
 #include "meandata/MSMeanData_Net_Utils.h"
@@ -80,18 +78,15 @@ MSDetectorControl::~MSDetectorControl()
     myE3Detectors.clear();
     myE2OverLanesDetectors.clear();
 
-    delete MSUpdateEachTimestepContainer< DetectorContainer::UpdateHaltings >::getInstance();
-    delete MSUpdateEachTimestepContainer< Detector::UpdateE2Detectors >::getInstance();
-    delete MSUpdateEachTimestepContainer< Detector::UpdateOccupancyCorrections >::getInstance();
     delete MSUpdateEachTimestepContainer< MSE3Collector >::getInstance();
     delete MSUnit::getInstance();
 }
 
 
 void
-MSDetectorControl::close()
+MSDetectorControl::close(SUMOTime step)
 {
-    myDetector2File.close();
+    myDetector2File.close(step);
 }
 
 
@@ -238,6 +233,12 @@ MSDetectorControl::resetInterval(MSDetectorFileOutput *il,
     myDetector2File.resetInterval(il, interval);
 }
 
+
+void 
+MSDetectorControl::writeOutput(SUMOTime step)
+{
+    myDetector2File.writeOutput(step, false);
+}
 
 
 /****************************************************************************/

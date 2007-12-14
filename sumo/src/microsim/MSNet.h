@@ -4,7 +4,7 @@
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
-// Holds all necessary objects for micro-simulation.
+// The simulated network and simulation perfomer
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -24,14 +24,10 @@
 // ===========================================================================
 // included modules
 // ===========================================================================
-#ifdef _SPEEDCHECK
 #ifdef _MSC_VER
 #include <windows_config.h>
 #else
 #include <config.h>
-#endif
-
-#include <ctime>
 #endif
 
 #include <typeinfo>
@@ -94,7 +90,7 @@ public:
     /** Get a pointer to the unique instance of MSNet (singleton).
      * @return Pointer to the unique MSNet-instance.
      */
-    static MSNet* getInstance(void);
+    static MSNet* getInstance();
 
     MSNet(MSVehicleControl *vc);
 

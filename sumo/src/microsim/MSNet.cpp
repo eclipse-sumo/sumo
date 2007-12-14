@@ -4,7 +4,7 @@
 /// @date    Tue, 06 Mar 2001
 /// @version $Id$
 ///
-// object. Holds all necessary objects for
+// The simulated network and simulation perfomer
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -26,10 +26,6 @@
 #include <windows_config.h>
 #else
 #include <config.h>
-#endif
-
-#ifdef _SPEEDCHECK
-#include <ctime>
 #endif
 
 #include <iostream>
@@ -70,6 +66,7 @@
 #include "output/MSXMLRawOut.h"
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/SysUtils.h>
+#include <utils/common/WrappingCommand.h>
 #include <utils/options/OptionsCont.h>
 #include "trigger/MSTriggerControl.h"
 #include "MSGlobals.h"
@@ -328,7 +325,7 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
         << " Waiting: " << myEmitter->getWaitingVehicleNo() << "\n";
         WRITE_MESSAGE(msg.str());
     }
-    myDetectorControl->close();
+    myDetectorControl->close(myStep-DELTA_T);
 }
 
 
@@ -377,10 +374,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
             myEdges->detectCollisions(step);
         }
 
-        MSUpdateEachTimestepContainer< DetectorContainer::UpdateHaltings >::getInstance()->updateAll();
         MSUpdateEachTimestepContainer< MSE3Collector >::getInstance()->updateAll();
-        MSUpdateEachTimestepContainer< Detector::UpdateE2Detectors >::getInstance()->updateAll();
-        MSUpdateEachTimestepContainer< Detector::UpdateOccupancyCorrections >::getInstance()->updateAll();
 
         // Vehicles change Lanes (maybe)
         myEdges->changeLanes();
@@ -599,6 +593,7 @@ MSNet::writeOutput()
         }
         OutputDevice::getDeviceByOption("emissions-output") << "/>\n";
     }
+    myDetectorControl->writeOutput(myStep);
 }
 
 

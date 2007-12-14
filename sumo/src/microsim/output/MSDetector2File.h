@@ -89,9 +89,9 @@ public:
      * and clears the interval-DetectorFilePair map.
      *
      */
-    ~MSDetector2File(void);
+    ~MSDetector2File();
 
-    void close();
+    void close(SUMOTime step);
 
 
     /**
@@ -113,24 +113,9 @@ public:
     void resetInterval(MSDetectorFileOutput* det,
                        SUMOTime newinterval);
 
+    void writeOutput(SUMOTime step, bool closing);
+
 protected:
-    /**
-     * When interval is over, search interval in map and write data of
-     * all detectors that are associated to this interval to
-     * file. This method is called by an instance of
-     * OneArgumentCommand via MSEventControl.
-     *
-     * @see MSEventControl
-     * @see OneArgumentCommand
-     *
-     * @param interval The interval that is due.
-     *
-     * @return intervalInSteps to reactivate the event.
-     */
-    MSUnit::IntSteps write2file(IntervalsKey key);
-
-
-
     /**
      * Binary predicate that compares the passed DetectorFilePair's
      * detector to a fixed one. Returns true if detectors are
