@@ -427,6 +427,7 @@ public:
                     (*ld)->leave(veh);
                 }
             }
+            myKnownVehicles.erase(find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh));
         }
     }
 

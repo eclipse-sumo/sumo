@@ -490,6 +490,7 @@ public:
 
     void workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed,
                              MoveOnReminderMode = BOTH);
+    bool willPass(const MSEdge * const edge) const;
 
     void onDepart();
 
@@ -703,7 +704,6 @@ protected:
     ClusterCont clusterCont;
 #endif
 
-    bool willPass(const MSEdge * const edge) const;
 
 #ifdef HAVE_BOYOM_C2C
     // transfert the N Information in infos into my own InformationsContainer
