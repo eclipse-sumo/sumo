@@ -76,7 +76,7 @@ bool
 SUMOBaseRouteHandler::parseVehicleColor(SUMOSAXHandler &helper,
                                         const Attributes &attrs) throw()
 {
-	return true;
+    return true;
 }
 
 

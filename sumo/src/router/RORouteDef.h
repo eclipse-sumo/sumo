@@ -107,11 +107,11 @@ public:
     virtual size_t getAlternativesSize() const;
 
     /// Returns the color of the route
-	const std::string &getColor() const;
+    const std::string &getColor() const;
 
 protected:
     /// The color the route shall have
-	std::string myColor;
+    std::string myColor;
 
 };
 

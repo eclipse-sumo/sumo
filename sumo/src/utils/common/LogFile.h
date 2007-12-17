@@ -53,8 +53,8 @@ class OutputDevice;
  * texts "Warning: " or "Error:" to the front of the message (done in
  * MsgHandler).
  *
- * A log-file is build within MsgHandler::initOutputOptions if a filename 
- *  was supplied using the "log-file"-option. It is also deleted within the 
+ * A log-file is build within MsgHandler::initOutputOptions if a filename
+ *  was supplied using the "log-file"-option. It is also deleted within the
  *  MsgHandler.
  */
 class LogFile : public MsgRetriever
@@ -62,7 +62,7 @@ class LogFile : public MsgRetriever
 public:
     /** @brief Constructor
      *
-     * Opens the internal output device using OutputDevice::getDevice(name) and 
+     * Opens the internal output device using OutputDevice::getDevice(name) and
      *  the given name.
      *
      * @param[in] name Name of the device to open
@@ -71,7 +71,7 @@ public:
 
 
     /** @brief Destructor
-     * 
+     *
      * The device is not closed herein as it may be used by different outputs.
      *  It is closed within the device handler.
      */
@@ -82,7 +82,7 @@ public:
      *
      * Writes the given message to the output device.
      *
-     * @param[in] msg The msg to write to the device 
+     * @param[in] msg The msg to write to the device
      */
     void inform(const std::string &msg);
 

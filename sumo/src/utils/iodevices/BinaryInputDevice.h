@@ -42,7 +42,7 @@
  * @brief Encapsulates binary reading operations on a file
  *
  * This class opens a binary file stream for reading and offers read access
- *  functions on it. 
+ *  functions on it.
  *
  * Please remark that the byte order is undefined. Also the length of each
  *  type is not defined on a global scale and may differ across compilers or
@@ -74,7 +74,7 @@ public:
 
 
     /** @brief Reads an int from the file (input operator)
-     * 
+     *
      * @param[in, out] os The BinaryInputDevice to read the int from
      * @param[in] i The int to store the read value into
      * @return The used BinaryInputDevice for further processing
@@ -83,7 +83,7 @@ public:
 
 
     /** @brief Reads an unsigned int from the file (input operator)
-     * 
+     *
      * @param[in, out] os The BinaryInputDevice to read the unsigned int from
      * @param[in] i The unsigned int to store the read value into
      * @return The used BinaryInputDevice for further processing
@@ -92,7 +92,7 @@ public:
 
 
     /** @brief Reads a SUMOReal from the file (input operator)
-     * 
+     *
      * @param[in, out] os The BinaryInputDevice to read the SUMOReal from
      * @param[in] i The SUMOReal to store the read value into
      * @return The used BinaryInputDevice for further processing
@@ -101,7 +101,7 @@ public:
 
 
     /** @brief Reads a bool from the file (input operator)
-     * 
+     *
      * @param[in, out] os The BinaryInputDevice to read the bool from
      * @param[in] i The bool to store the read value into
      * @return The used BinaryInputDevice for further processing
@@ -110,8 +110,8 @@ public:
 
 
     /** @brief Reads a string from the file (input operator)
-     * 
-     * Reads the length of the string as an unsigned int, first. 
+     *
+     * Reads the length of the string as an unsigned int, first.
      *  Reads then the specified number of chars into "myBuffer".
      * Please note that the buffer has a fixed size - longer strings
      *  will cause an error.
@@ -125,7 +125,7 @@ public:
 
 
     /** @brief Reads a long from the file (input operator)
-     * 
+     *
      * @param[in, out] os The BinaryInputDevice to read the long from
      * @param[in] i The int to store the read value into
      * @return The used BinaryInputDevice for further processing

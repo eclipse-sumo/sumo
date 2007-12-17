@@ -41,8 +41,8 @@
 // ==========================================================================
 // method definitions
 // ==========================================================================
-OutputDevice_Network::OutputDevice_Network(const std::string &host, 
-                                           const int port) throw(IOError)
+OutputDevice_Network::OutputDevice_Network(const std::string &host,
+        const int port) throw(IOError)
 {
     mySocket = new tcpip::Socket(host, port);
     try {

@@ -435,7 +435,7 @@ OptionsCont::addDescription(const std::string &name,
 
 
 void
-OptionsCont::setApplicationName(const std::string &appName, 
+OptionsCont::setApplicationName(const std::string &appName,
                                 const std::string &fullName) throw()
 {
     myAppName = appName;

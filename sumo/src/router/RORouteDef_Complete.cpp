@@ -52,7 +52,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 RORouteDef_Complete::RORouteDef_Complete(const std::string &id,
-										 const std::string &color,
+        const std::string &color,
         const ROEdgeVector &edges)
         : RORouteDef(id, color), myEdges(edges)
 {}

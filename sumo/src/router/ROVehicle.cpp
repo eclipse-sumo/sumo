@@ -58,7 +58,7 @@ using namespace std;
 ROVehicle::ROVehicle(ROVehicleBuilder &,
                      const std::string &id, RORouteDef *route,
                      unsigned int depart, ROVehicleType *type,
-					 const std::string &color,
+                     const std::string &color,
                      int period, int repNo)
         : myID(id), myColor(color), myType(type), myRoute(route),
         myDepartTime(depart),
@@ -144,7 +144,7 @@ ROVehicle::saveAllAsXML(OutputDevice &os,
         // write the route
         const ROEdgeVector &routee = route->getCurrentEdgeVector();
         os << "      <route";
-		const std::string &c = route->getColor();
+        const std::string &c = route->getColor();
         if (c!="") {
             os << " color=\"" << c << "\"";
         }

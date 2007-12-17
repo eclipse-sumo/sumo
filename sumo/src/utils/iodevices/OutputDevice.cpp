@@ -64,7 +64,7 @@ OutputDevice::DeviceMap OutputDevice::myOutputDevices;
 // static method definitions
 // ===========================================================================
 OutputDevice&
-OutputDevice::getDevice(const std::string &name, 
+OutputDevice::getDevice(const std::string &name,
                         const std::string &base) throw(IOError)
 {
     // check whether the device has already been aqcuired
@@ -80,9 +80,9 @@ OutputDevice::getDevice(const std::string &name,
         try {
             int port = TplConvert<char>::_2int(name.substr(name.find(":")+1).c_str());
             dev = new OutputDevice_Network(name.substr(0, name.find(":")), port);
-        } catch(NumberFormatException &) {
+        } catch (NumberFormatException &) {
             throw IOError("Given port number '" + name.substr(name.find(":")+1) + "' is not numeric.");
-        } catch(EmptyData &) {
+        } catch (EmptyData &) {
             throw IOError("Given port number is not empty.");
         }
     } else {
@@ -218,8 +218,9 @@ OutputDevice::postWriteHook() throw()
 {}
 
 
-bool 
-OutputDevice::getBoolMarker(const std::string &name) const  throw(){
+bool
+OutputDevice::getBoolMarker(const std::string &name) const throw()
+{
     if (myBoolMarkers.find(name)==myBoolMarkers.end()) {
         return false;
     }
@@ -227,8 +228,9 @@ OutputDevice::getBoolMarker(const std::string &name) const  throw(){
 }
 
 
-void 
-OutputDevice::setBoolMarker(const std::string &name, bool value)  throw(){
+void
+OutputDevice::setBoolMarker(const std::string &name, bool value) throw()
+{
     myBoolMarkers[name] = value;
 }
 

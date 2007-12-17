@@ -56,7 +56,7 @@ class RORouteDef_Complete :
 {
 public:
     /// Constructor
-	RORouteDef_Complete(const std::string &id, const std::string &color,
+    RORouteDef_Complete(const std::string &id, const std::string &color,
                         const ROEdgeVector &edges);
 
     /// Destructor

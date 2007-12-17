@@ -113,7 +113,7 @@ protected:
     void closeVehicle() throw();
 
     /// Stores color from the attributes
-	bool parseVehicleColor(SUMOSAXHandler &helper, const Attributes &attrs) throw();
+    bool parseVehicleColor(SUMOSAXHandler &helper, const Attributes &attrs) throw();
 
 
 protected:
@@ -121,10 +121,10 @@ protected:
     std::string myDataName;
 
     /// The color of the current route
-	std::string myColorString;
+    std::string myColorString;
 
     /// The color of the current vehicle
-	std::string myVehicleColorString;
+    std::string myVehicleColorString;
 
     /** @brief Information whether the current route shall not be processed
         This may occure on errors */

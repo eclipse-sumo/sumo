@@ -77,12 +77,11 @@ ROJTRTurnDefLoader::load(const std::string &file)
             throw ProcessError();
         }
         break;
-    case FileHelpers::CSV:
-        {
-            LineReader lr(file);
-            lr.readAll(*this);
-        }
-        break;
+    case FileHelpers::CSV: {
+        LineReader lr(file);
+        lr.readAll(*this);
+    }
+    break;
     default:
         throw 1;
     }

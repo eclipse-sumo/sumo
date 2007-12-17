@@ -43,8 +43,8 @@
  * @class OutputDevice
  * @brief Static storage of an output device and its base (abstract) implementation
  *
- * OutputDevices are basically a capsule around an std::ostream, which give a 
- *  unified access to sockets, files and stdout. 
+ * OutputDevices are basically a capsule around an std::ostream, which give a
+ *  unified access to sockets, files and stdout.
  *
  * Usually, an application builds as many output devices as needed. Each
  *  output device may also be used to save outputs from several sources
@@ -80,8 +80,8 @@ public:
      * @return The corresponding (built or existing) device
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      */
-    static OutputDevice& getDevice(const std::string &name, 
-        const std::string &base="") throw(IOError);
+    static OutputDevice& getDevice(const std::string &name,
+                                   const std::string &base="") throw(IOError);
 
 
     /** @brief Creates the device using the output definition stored in the named option
@@ -96,8 +96,8 @@ public:
      * @todo The application base is not handled!!!
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      */
-    static bool createDeviceByOption(const std::string &optionName, 
-        const std::string &rootElement="") throw(IOError);
+    static bool createDeviceByOption(const std::string &optionName,
+                                     const std::string &rootElement="") throw(IOError);
 
 
     /** @brief Returns the device described by the option
@@ -174,7 +174,7 @@ public:
 
     /** @brief Closes the most recently opened tag
      *
-     * The topmost xml-element from the stack is written into the stream 
+     * The topmost xml-element from the stack is written into the stream
      *  as a closing element ("</" + element + ">") and is then removed from
      *  the stack.
 
@@ -221,7 +221,7 @@ protected:
     virtual std::ostream &getOStream() throw() = 0;
 
 
-    /** @brief Called after every write access. 
+    /** @brief Called after every write access.
      *
      * Default implementation does nothing.
      */

@@ -53,7 +53,7 @@ class ROVehicleType : public ReferencedItem
 {
 public:
     /// Constructor
-	ROVehicleType(const std::string &id, const std::string &col,
+    ROVehicleType(const std::string &id, const std::string &col,
                   SUMOReal length, SUMOVehicleClass vclass);
 
     /// Destructor
@@ -77,7 +77,7 @@ protected:
     std::string myID;
 
     /// The color of the type
-	std::string myColor;
+    std::string myColor;
 
     /// The length of the vehicle
     SUMOReal myLength;

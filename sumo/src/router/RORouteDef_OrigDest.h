@@ -53,7 +53,7 @@ class RORouteDef_OrigDest
 {
 public:
     /// Constructor
-	RORouteDef_OrigDest(const std::string &id, const std::string &color,
+    RORouteDef_OrigDest(const std::string &id, const std::string &color,
                         const ROEdge *from, const ROEdge *to, bool removeFirst=false);
 
     /// Destructor

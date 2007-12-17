@@ -95,7 +95,7 @@ private:
     IDSupplier myIDSupplier;
 
     /// The color random routes shall have
-	std::string myColor;
+    std::string myColor;
 
     /// The (pseudo) information about the current time
     SUMOTime myCurrentTime;

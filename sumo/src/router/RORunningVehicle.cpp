@@ -54,7 +54,7 @@ RORunningVehicle::RORunningVehicle(ROVehicleBuilder &vb,
                                    SUMOTime time, ROVehicleType *type,
                                    const std::string &lane, SUMOReal pos,
                                    SUMOReal speed,
-								   const std::string &col,
+                                   const std::string &col,
                                    int period, int repNo)
         : ROVehicle(vb, id, route, time, type, col, period, repNo),
         myLane(lane), myPos(pos), mySpeed(speed)

@@ -57,8 +57,8 @@ class SUMOSAXHandler;
  * Closing and initialising the XML subsystem is necessary. Still, we never
  *  encountered any problems with it. Once, after some modifications, SUMO
  *  crashed when closing the XML sub system. The reason was a memory leak
- *  within the microsim-module. On initialisation, a SAX2XMLReader is built 
- *  which can be used during later process. It is destroyed when the subsystem 
+ *  within the microsim-module. On initialisation, a SAX2XMLReader is built
+ *  which can be used during later process. It is destroyed when the subsystem
  *  is closed.
  *
  * In addition to initialisation and shutdown, this module allows to build
@@ -74,7 +74,7 @@ public:
      * @brief Initialises the xml-subsystem, returns whether the initialisation succeeded.
      *
      * Calls XMLPlatformUtils::Initialize(). If this fails, the exception is
-     *  caught and its content is reported using a ProcessError. Otheriwse, a 
+     *  caught and its content is reported using a ProcessError. Otheriwse, a
      *  static SAX2XMLReader is built (stored in myReader)
      */
     static void init() throw(ProcessError);
@@ -107,7 +107,7 @@ public:
     /**
      * @brief Runs the given handler on the given file; returns if everything's ok
      *
-     * Uses the reader built on init() which is stored in myReader to parse the given 
+     * Uses the reader built on init() which is stored in myReader to parse the given
      *  file.
      *
      * All exceptions are catched and reported to the error-instance of the MsgHandler.

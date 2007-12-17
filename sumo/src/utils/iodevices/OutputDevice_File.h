@@ -41,7 +41,7 @@
  * @class OutputDevice_File
  * @brief An output device that encapsulates an ofstream
  *
- * Please remark that the device gots responsible for the stream and deletes 
+ * Please remark that the device gots responsible for the stream and deletes
  *  it (it should not be deleted elsewhere).
  * @todo Recheck whether supplying a file name would be a better solution
  */

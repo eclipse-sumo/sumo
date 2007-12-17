@@ -58,7 +58,7 @@ public:
     /// Constructor
     ROVehicle(ROVehicleBuilder &vb,
               const std::string &id, RORouteDef *route, unsigned int depart,
-			  ROVehicleType *type, const std::string &color, int period, int repNo);
+              ROVehicleType *type, const std::string &color, int period, int repNo);
 
     /// Destructor
     virtual ~ROVehicle();
@@ -98,7 +98,7 @@ protected:
     std::string myID;
 
     /// The color of the vehicle
-	std::string myColor;
+    std::string myColor;
 
     /// The type of the vehicle
     ROVehicleType *myType;

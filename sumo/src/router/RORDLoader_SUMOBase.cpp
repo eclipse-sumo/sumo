@@ -313,7 +313,7 @@ RORDLoader_SUMOBase::closeVehicle() throw()
 
 bool
 RORDLoader_SUMOBase::parseVehicleColor(SUMOSAXHandler &helper,
-                              const Attributes &attrs) throw()
+                                       const Attributes &attrs) throw()
 {
     myVehicleColorString = helper.getStringSecure(attrs, SUMO_ATTR_COLOR, "");
     return true;
@@ -347,7 +347,7 @@ RORDLoader_SUMOBase::startVehType(const Attributes &attrs)
         SUMOReal decel = getFloatSecure(attrs, SUMO_ATTR_DECEL, DEFAULT_VEH_B);
         SUMOReal sigma = getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA);
         SUMOReal tau = getFloatSecure(attrs, SUMO_ATTR_TAU, DEFAULT_VEH_TAU);
-		std::string color = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
+        std::string color = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
         SUMOVehicleClass vclass = parseVehicleClass(*this, attrs, "vehicle type", id);
         // build the vehicle type
         //  by now, only vehicles using the krauss model are supported

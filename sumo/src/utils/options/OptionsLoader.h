@@ -61,7 +61,7 @@ class OptionsCont;
 class OptionsLoader : public HandlerBase
 {
 public:
-    /** @brief Constructor 
+    /** @brief Constructor
      *
      * @param[in] file The name of the file to parse
      * @param[in] verbose Whether the parsing shall been done verbose
@@ -147,7 +147,7 @@ private:
 
 
     /** @brief Tries to set the named option to the given value
-     * 
+     *
      * Checks the item whether it was default before setting it.
      * Returns the information whether the item was set before (was not a default value)
      *

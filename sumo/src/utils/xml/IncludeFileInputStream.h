@@ -61,7 +61,7 @@ public :
 
     virtual unsigned int readBytes
     (
-                XMLByte* const      toFill
+        XMLByte* const      toFill
         , const unsigned int        maxToRead
     );
 
@@ -71,7 +71,7 @@ private :
     //  Unimplemented constructors and operators
     // -----------------------------------------------------------------------
     IncludeFileInputStream(const IncludeFileInputStream&);
-    IncludeFileInputStream& operator=(const IncludeFileInputStream&);   
+    IncludeFileInputStream& operator=(const IncludeFileInputStream&);
 
     // -----------------------------------------------------------------------
     //  Private data members

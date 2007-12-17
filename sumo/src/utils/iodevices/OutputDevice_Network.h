@@ -56,13 +56,13 @@ class OutputDevice_Network : public OutputDevice
 {
 public:
     /** @brief Constructor
-     * 
+     *
      * @param[in] host The host to connect
      * @param[in] port The port to connect
      * @exception IOError If the connection could not been established
      */
-    OutputDevice_Network(const std::string &host, 
-        const int port) throw(IOError);
+    OutputDevice_Network(const std::string &host,
+                         const int port) throw(IOError);
 
 
     /// @brief Destructor
@@ -73,10 +73,10 @@ protected:
     /// @name Methods that override/implement OutputDevice-methods
     /// @{
     /** @brief Returns the associated ostream
-     * 
+     *
      * The stream is an ostringstream, actually, into which the message
      *  is written. It is sent when postWriteHook is called.
-     * 
+     *
      * @return The used stream
      * @see postWriteHook
      */

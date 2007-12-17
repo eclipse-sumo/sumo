@@ -39,7 +39,7 @@
  * @brief An abstract class for encapsulating mutex implementations
  *
  * This class defines access to a mutex. The implementation may differ.
- * Within gui-applications, FXMutexes may be used while this is improper 
+ * Within gui-applications, FXMutexes may be used while this is improper
  *  for command-line applications. Normally, they do not need mutexes unless
  *  a synchronized communication with an external application is established.
  *  In these cases, a further class should be implemented.
@@ -56,7 +56,7 @@ public:
 
 
     /// @brief Locks the mutex
-    virtual void lock () = 0;
+    virtual void lock() = 0;
 
 
     /// @brief Unlocks the mutex

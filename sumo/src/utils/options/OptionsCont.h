@@ -116,7 +116,7 @@ public:
     /** @brief Destructor */
     ~OptionsCont() throw();
 
-    
+
 
     /// @name Methods setting and getting information about the appplication and currently set options
     /// @{
@@ -295,7 +295,7 @@ public:
     bool isDefault(const std::string &name) const throw(InvalidArgument);
 
 
-    /** @brief Returns the information whether the option is a boolean option 
+    /** @brief Returns the information whether the option is a boolean option
      *
      * The option is retrieved from the container, first, what may cause an InvalidArgument
      *  exception if it is not known. Otherwise, this option's isBool-method is called.
@@ -313,8 +313,8 @@ public:
      *  names of accessable files.
      *
      * Throw an InvalidArgument exception if the option is not known. If the option
-     *  is not set, false is returned. Also, if the list is empty (conatins delimiters only) 
-     *  or if one of the named files (obtained using getStringVector) does not exist, 
+     *  is not set, false is returned. Also, if the list is empty (conatins delimiters only)
+     *  or if one of the named files (obtained using getStringVector) does not exist,
      *  false is returned. Additionally, an error is sent to MsgHandler in both cases.
      *
      * In the case two delimiters were placed in the option value directly after
@@ -335,7 +335,7 @@ public:
      *
      * @param[in] name The name of the option to check
      * @return Whether the option is a filename-option
-     * @exception InvalidArgument If the option does not exist 
+     * @exception InvalidArgument If the option does not exist
      */
     bool isFileName(const std::string &name) const throw(InvalidArgument);
 
@@ -361,7 +361,7 @@ public:
      *
      * @param[in] name The name of the option to check
      * @return Whether the value can be set
-     * @exception InvalidArgument If the option does not exist 
+     * @exception InvalidArgument If the option does not exist
      */
     bool isWriteable(const std::string &name) throw(InvalidArgument);
     /// @}
@@ -373,8 +373,8 @@ public:
     /// @{
     /** @brief Returns the string-value of the named option (only for Option_String)
      *
-     * This method returns the string-value of an existing string-option. 
-     * If the named option does not exist or is not a string-option, an 
+     * This method returns the string-value of an existing string-option.
+     * If the named option does not exist or is not a string-option, an
      *  InvalidArgument is thrown.
      *
      * @param[in] name The name of the option to return the string-value of
@@ -384,10 +384,10 @@ public:
     std::string getString(const std::string &name) const throw(InvalidArgument);
 
 
-    /** @brief Returns the SUMOReal-value of the named option (only for Option_Float) 
+    /** @brief Returns the SUMOReal-value of the named option (only for Option_Float)
      *
-     * This method returns the SUMOReal-value of an existing SUMOReal-option. 
-     * If the named option does not exist or is not a SUMOReal-option, an 
+     * This method returns the SUMOReal-value of an existing SUMOReal-option.
+     * If the named option does not exist or is not a SUMOReal-option, an
      *  InvalidArgument is thrown.
      *
      * @param[in] name The name of the option to return the SUMOReal-value of
@@ -399,8 +399,8 @@ public:
 
     /** @brief Returns the int-value of the named option (only for Option_Integer)
      *
-     * This method returns the int-value of an existing int-option. 
-     * If the named option does not exist or is not a int-option, an 
+     * This method returns the int-value of an existing int-option.
+     * If the named option does not exist or is not a int-option, an
      *  InvalidArgument is thrown.
      *
      * @param[in] name The name of the option to return the int-value of
@@ -412,8 +412,8 @@ public:
 
     /** @brief Returns the boolean-value of the named option (only for Option_Bool)
      *
-     * This method returns the boolean-value of an existing boolean-option. 
-     * If the named option does not exist or is not a boolean-option, an 
+     * This method returns the boolean-value of an existing boolean-option.
+     * If the named option does not exist or is not a boolean-option, an
      *  InvalidArgument is thrown.
      *
      * @param[in] name The name of the option to return the boolean-value of
@@ -425,8 +425,8 @@ public:
 
     /** @brief Returns the list of integer-value of the named option (only for Option_IntVector)
      *
-     * This method returns the int-vector-value of an existing int-vector-option. 
-     * If the named option does not exist or is not a int-vector-option, an 
+     * This method returns the int-vector-value of an existing int-vector-option.
+     * If the named option does not exist or is not a int-vector-option, an
      *  InvalidArgument is thrown.
      *
      * @param[in] name The name of the option to return the int-vector-value of
@@ -438,11 +438,11 @@ public:
 
     /** @brief Returns the list of string-vector-value of the named option (only for Option_String)
      *
-     * This method returns the string-vector-value of an existing string-option. 
-     * If the named option does not exist or is not a string-option, an 
+     * This method returns the string-vector-value of an existing string-option.
+     * If the named option does not exist or is not a string-option, an
      *  InvalidArgument is thrown.
      *
-     * The string-value is determined, first. If the legacy-divider ';' is found 
+     * The string-value is determined, first. If the legacy-divider ';' is found
      *  within the string, a warning is generated. The retrieved string is splitted
      *  at ',' and ';'.
      *
@@ -456,8 +456,8 @@ public:
     std::vector<std::string> getStringVector(const std::string &name) const throw(InvalidArgument);
 
 
-    /** @brief Returns the named option is a list of string values containing the specified item 
-     * 
+    /** @brief Returns the named option is a list of string values containing the specified item
+     *
      * If the named option is not set, false is returned. Otherwise, the string-vector
      *  of this option is retrieved using getStringVector what may throw an
      *  InvalidArgument exception if the named option is not a string option or not
@@ -465,7 +465,7 @@ public:
      *
      * The given itemName is searched in the obtained string-vector and the
      *  method returns whether it is stored in the list or not.
-     *  
+     *
      * @param[in] optionName The name of the option to evaluate entries of
      * @param[in] itemName The item to be searched for in the entries of the named option
      * @return Whether the named item is set in the named string-option
@@ -482,12 +482,12 @@ public:
 
     /// @name Methods for setting values into options
     /// @{
-    /** @brief Sets the given value for the named option 
-     * 
+    /** @brief Sets the given value for the named option
+     *
      * The option is retrieved from the container, first, what yields in a InvalidArgument
      *  exception for not known options.
      *
-     * If the option is not writable (was set before), an error is generated using 
+     * If the option is not writable (was set before), an error is generated using
      *  reportDoubleSetting, and false is returned. Otherwise, the option is
      *  told to set the given value using Option::set. Possible problems herein
      *  are caught and reported to the error-handler, yielding in returning false.
@@ -497,7 +497,7 @@ public:
      * @param[in] name The name of the option to set
      * @param[in] value The value to set
      * @return Whether the value could be set
-     * @exception InvalidArgument If the option does not exist 
+     * @exception InvalidArgument If the option does not exist
      * @see reportDoubleSetting
      * @see Option::set(const std::string &)
      */
@@ -505,11 +505,11 @@ public:
 
 
     /** @brief Sets the given boolean value for the named option (Option_Bool only)
-     * 
+     *
      * The option is retrieved from the container, first, what yields in an InvalidArgument
      *  exception for not known options.
      *
-     * If the option is not writable (was set before), an error is generated using 
+     * If the option is not writable (was set before), an error is generated using
      *  reportDoubleSetting, and false is returned. Otherwise, the option is
      *  told to set the given value using Option::set(bool). Possible problems herein
      *  are caught and reported to the error-handler, yielding in returning false.
@@ -519,7 +519,7 @@ public:
      * @param[in] name The name of the option to set
      * @param[in] value The value to set
      * @return Whether the value could be set
-     * @exception InvalidArgument If the option does not exist 
+     * @exception InvalidArgument If the option does not exist
      * @see reportDoubleSetting
      * @see Option::set(const std::string &)
      */
@@ -535,7 +535,7 @@ public:
      */
     void resetWritable() throw();
 
-    /** @brief Output operator 
+    /** @brief Output operator
      *
      * Generates the output used when current option values shall be printed.
      *
@@ -551,10 +551,10 @@ public:
 
 
     /** @brief Checks for help and configuration output, returns whether we should exit
-     * 
+     *
      * Returns false if no error was detected and the application may be executed
-     *  (at least from this point of view). If missingOptions is true, the user is 
-     *  informed that they should be supplied (returns true). Otherwise it is checked 
+     *  (at least from this point of view). If missingOptions is true, the user is
+     *  informed that they should be supplied (returns true). Otherwise it is checked
      *  whether help shall be printed what is done if so, returning true. Also, it
      *  is checked whether the set options shall be printed and the configuration
      *  template or the current configuration shall be written.
@@ -590,7 +590,7 @@ private:
     void reportDoubleSetting(const std::string &arg) const throw();
 
 
-    /** @brief Converts an abbreviation into a name 
+    /** @brief Converts an abbreviation into a name
      *
      * Build and returns the string which consists of the given character only.
      *
@@ -601,7 +601,7 @@ private:
 
 
     /** @brief Writes the given string 'formatted'
-     * 
+     *
      * The given string is split so that no word-wrapping occures at line ends.
      *  The text is wrapped at ';' or ' '.
      *
@@ -656,7 +656,7 @@ private:
         explicit abbreviation_finder() { }
 
         /** @brief The comparing function
-         * 
+         *
          * @param[in] The option name
          * @return Whether the length of the option name is 1
          */

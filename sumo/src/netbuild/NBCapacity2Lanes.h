@@ -39,8 +39,8 @@
  * @brief A helper class which computes the lane number from given capacity
  *
  * A helper class for the computation of the number of lanes an edge has
- *  in dependence to this edge's capacity. The computation is done by the 
- *  (trivial) assumption, the number of lanes increases linear with the 
+ *  in dependence to this edge's capacity. The computation is done by the
+ *  (trivial) assumption, the number of lanes increases linear with the
  *  number of lanes.
  */
 class NBCapacity2Lanes
@@ -65,7 +65,7 @@ public:
      * @param[in] capacity The capacity to convert
      * @return The capacity converted to the number of lanes
      */
-     int get(SUMOReal capacity) const throw() {
+    int get(SUMOReal capacity) const throw() {
         capacity /= myDivider;
         if (capacity>(int) capacity) {
             capacity += 1;

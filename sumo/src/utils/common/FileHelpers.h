@@ -60,7 +60,7 @@ public:
 public:
     /// @name file access functions
     //@{
-    /** @brief Checks whether the given file exists 
+    /** @brief Checks whether the given file exists
      *
      * @param[in] path The path to the file that shall be examined
      * @return Whether the named file exists
@@ -97,8 +97,8 @@ public:
      *
      * Given the position of the configuration file, and the information where a second
      *  file is relative to the configuration file's position, we want to known where
-     *  this second file can be found. This method gets the path to the configuration file 
-     *  (including the configuration file name) and the path to get the relative position 
+     *  this second file can be found. This method gets the path to the configuration file
+     *  (including the configuration file name) and the path to get the relative position
      *  of and returns this relative position.
      *
      * @param[in] configPath The path the configuration file (including the config's file name)
@@ -137,7 +137,7 @@ public:
      *
      * If the path is absolute, it is returned. Otherwise, the file's position
      *  is computed regarding the configuration path (see getConfigurationRelative).
-     * 
+     *
      * @see isAbsolute
      * @see getConfigurationRelative
      * @param[in] filename The path to the file to be examined
@@ -153,7 +153,7 @@ public:
     /// @name binary reading/writing functions
     //@{
     /** @brief Writes an integer binary
-     * 
+     *
      * Issues:
      * @arg An "int" is always assumed to be 4 bytes long
      *
@@ -165,7 +165,7 @@ public:
 
 
     /** @brief Writes an unsigned integer binary
-     * 
+     *
      * Issues:
      * @arg An "unsigned int" is always assumed to be 4 bytes long
      *
@@ -177,7 +177,7 @@ public:
 
 
     /** @brief Writes a float binary
-     * 
+     *
      * Issues:
      * @arg A "float" is always assumed to be 4 bytes long
      *
@@ -189,7 +189,7 @@ public:
 
 
     /** @brief Writes a byte binary
-     * 
+     *
      * @param[in, out] strm The stream to write into
      * @param[in] value The byte to write
      * @return Reference to the stream
@@ -201,7 +201,7 @@ public:
      *
      * Writes the length of the string, first, using writeInt. Writes then the string's
      *  characters.
-     * 
+     *
      * @see writeInt
      * @param[in, out] strm The stream to write into
      * @param[in] value The string to write

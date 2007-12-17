@@ -39,7 +39,7 @@
 /**
  * @class MsgRetriever
  * @brief Abstract class that defines the behaviour of a message retriever
- * 
+ *
  * This abstract class defines the interfaces to something capable to retrieve
  *  messages reported to the MsgHandler. MsgRetriever may be added to MsgHandler
  *  and retrieve information from the application. An example usage is passing

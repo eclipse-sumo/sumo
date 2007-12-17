@@ -55,7 +55,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 OptionsLoader::OptionsLoader(const std::string &file) throw()
-        : myError(false), myFile(file), 
+        : myError(false), myFile(file),
         myOptions(OptionsCont::getOptions()), myItem()
 {}
 
@@ -123,7 +123,7 @@ void OptionsLoader::characters(const XMLCh* const chars,
 
 
 bool
-OptionsLoader::setSecure(const std::string &name, 
+OptionsLoader::setSecure(const std::string &name,
                          bool value) const throw()
 {
     if (myOptions.isWriteable(name)) {
@@ -135,7 +135,7 @@ OptionsLoader::setSecure(const std::string &name,
 
 
 bool
-OptionsLoader::setSecure(const std::string &name, 
+OptionsLoader::setSecure(const std::string &name,
                          const std::string &value) const throw()
 {
     if (myOptions.isWriteable(name)) {

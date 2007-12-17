@@ -49,7 +49,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 ROVehicleType_Krauss::ROVehicleType_Krauss(const std::string &id,
-										   const std::string &col, SUMOReal length, SUMOVehicleClass vclass,
+        const std::string &col, SUMOReal length, SUMOVehicleClass vclass,
         SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed,
         SUMOReal tau)
         : ROVehicleType(id, col, length, vclass), myA(a), myB(b), myEps(eps),

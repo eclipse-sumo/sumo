@@ -21,7 +21,7 @@
 /*
  * The following is an example of code which already works with Xerces
  * and should be replaced by the include element
- 
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE routes [
   <!ENTITY route0 SYSTEM "hello.inc.xml">
@@ -55,9 +55,9 @@
 // ---------------------------------------------------------------------------
 IncludeFileInputStream::IncludeFileInputStream(const XMLCh* const fileName) :
 
-    mySource(XMLPlatformUtils::openFile(fileName)),
-    myBytesAvail(0),
-    myBufIndex(0)
+        mySource(XMLPlatformUtils::openFile(fileName)),
+        myBytesAvail(0),
+        myBufIndex(0)
 {
 }
 
@@ -86,21 +86,21 @@ IncludeFileInputStream::readBytes(XMLByte* const toFill, const unsigned int maxT
     if (bytesLeft < 500) {
         for (unsigned int index = 0; index < bytesLeft; index++) {
             myByteBuf[index] = myByteBuf[myBufIndex + index];
-	}
+        }
         myBufIndex = 0;
         myBytesAvail = XMLPlatformUtils::readFileBuffer(fSource, myBufSize - bytesLeft,
-                                                        &myByteBuf[bytesLeft]) + bytesLeft;
-	bytesLeft = myBytesAvail;
+                       &myByteBuf[bytesLeft]) + bytesLeft;
+        bytesLeft = myBytesAvail;
     }
     if (bytesLeft == 0) {
         return 0;
     }
     for (unsigned int i = 0; i < bytesLeft; i++) {
         if (&myByteBuf[myBufIndex] == "<inc") {
-	    std::cout << "Hello\n";
-	} else {
-	    toFill[i] = myByteBuf[myBufIndex];
-	}
-	myBufIndex++;
+            std::cout << "Hello\n";
+        } else {
+            toFill[i] = myByteBuf[myBufIndex];
+        }
+        myBufIndex++;
     }
 }

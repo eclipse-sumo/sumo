@@ -87,11 +87,11 @@ RODFNet::buildApproachList()
         size_t length_size = (*rit)->getNoFollowing();
         for (i=0; i<length_size; i++) {
             ROEdge *help = (*rit)->getFollower(i);
-            if(find(mySinks.begin(), mySinks.end(), help->getID())!=mySinks.end()) {
+            if (find(mySinks.begin(), mySinks.end(), help->getID())!=mySinks.end()) {
                 // edges in sinks will not be used
                 continue;
             }
-            if(!myKeepTurnarounds && help->getToNode()==(*rit)->getFromNode()) {
+            if (!myKeepTurnarounds && help->getToNode()==(*rit)->getFromNode()) {
                 // do not use turnarounds
                 continue;
             }
@@ -255,9 +255,9 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
             // ok, no further connections to follow
             current->factor = 1.;
             SUMOReal cdist = GeomHelper::distance(
-                static_cast<RODFEdge*>(current->edges2Pass[0])->getFromPosition(), 
-                static_cast<RODFEdge*>(current->edges2Pass[current->edges2Pass.size()-1])->getToPosition());
-            if(minDist<cdist) {
+                                 static_cast<RODFEdge*>(current->edges2Pass[0])->getFromPosition(),
+                                 static_cast<RODFEdge*>(current->edges2Pass[current->edges2Pass.size()-1])->getToPosition());
+            if (minDist<cdist) {
                 into.addRouteDesc(current);
             }
             continue;
@@ -281,9 +281,9 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
                     }
                     current->factor = 1.;
                     SUMOReal cdist = GeomHelper::distance(
-                        static_cast<RODFEdge*>(current->edges2Pass[0])->getFromPosition(), 
-                        static_cast<RODFEdge*>(current->edges2Pass[current->edges2Pass.size()-1])->getToPosition());
-                    if(minDist<cdist) {
+                                         static_cast<RODFEdge*>(current->edges2Pass[0])->getFromPosition(),
+                                         static_cast<RODFEdge*>(current->edges2Pass[current->edges2Pass.size()-1])->getToPosition());
+                    if (minDist<cdist) {
                         into.addRouteDesc(current);
                     }
                     continue;
@@ -319,9 +319,9 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
                 unfoundEnds.push_back(current);
                 current->factor = 1.;
                 SUMOReal cdist = GeomHelper::distance(
-                    static_cast<RODFEdge*>(current->edges2Pass[0])->getFromPosition(), 
-                    static_cast<RODFEdge*>(current->edges2Pass[current->edges2Pass.size()-1])->getToPosition());
-                if(minDist<cdist) {
+                                     static_cast<RODFEdge*>(current->edges2Pass[0])->getFromPosition(),
+                                     static_cast<RODFEdge*>(current->edges2Pass[current->edges2Pass.size()-1])->getToPosition());
+                if (minDist<cdist) {
                     into.addRouteDesc(current);
                 }
                 continue; // !!!
@@ -346,9 +346,9 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int /*no*/,
                 if (!hadOne||allEndFollower) {
                     t->factor = (SUMOReal) 1. / (SUMOReal) appr.size();
                     SUMOReal cdist = GeomHelper::distance(
-                        static_cast<RODFEdge*>(t->edges2Pass[0])->getFromPosition(), 
-                        static_cast<RODFEdge*>(t->edges2Pass[current->edges2Pass.size()-1])->getToPosition());
-                    if(minDist<cdist) {
+                                         static_cast<RODFEdge*>(t->edges2Pass[0])->getFromPosition(),
+                                         static_cast<RODFEdge*>(t->edges2Pass[current->edges2Pass.size()-1])->getToPosition());
+                    if (minDist<cdist) {
                         into.addRouteDesc(t);
                     }
                     hadOne = true;

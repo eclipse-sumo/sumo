@@ -157,7 +157,7 @@ protected:
     ROEdgeVector myEdges;
 
     /// The color of the vehicle
-	std::string myColor;
+    std::string myColor;
 
     /// The information whether the next route was read
     bool myNextRouteRead;

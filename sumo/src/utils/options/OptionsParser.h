@@ -75,10 +75,10 @@ private:
     static int check(char *arg1, bool &ok) throw(InvalidArgument);
 
 
-    /** @brief parses the previous arguments 
+    /** @brief parses the previous arguments
      *
      * @param[in] arg1 The first token to parse
-     * @param[in] arg2 The second token to parse 
+     * @param[in] arg2 The second token to parse
      * @param[in, out] ok Whether the parsing was successfull
      * @return Number of read tokens (1 or 2)
      * @exception InvalidArgument If a performed setting of an option failed (see Option::set)
@@ -106,7 +106,7 @@ private:
     static bool isAbbreviation(char *arg1) throw();
 
 
-    /** @brief Converts char* to string 
+    /** @brief Converts char* to string
      *
      * @param[in] arg The c-string to convert
      * @return The string converted into a std::string
@@ -114,7 +114,7 @@ private:
     static std::string convert(char *arg) throw();
 
 
-    /** @brief converts char to string 
+    /** @brief converts char to string
      *
      * @param[in] abbr The char to convert
      * @return The char converted into a std::string
@@ -122,7 +122,7 @@ private:
     static std::string convert(char abbr) throw();
 
 
-    /** @brief Extracts the parameter directly attached to an option 
+    /** @brief Extracts the parameter directly attached to an option
      *
      * Parses single tokens which contain an option and the parameter
      *  (like -c=myconfig.cfg)

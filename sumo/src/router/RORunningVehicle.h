@@ -59,7 +59,7 @@ public:
                      const std::string &id, RORouteDef *route,
                      SUMOTime time, ROVehicleType *type, const std::string &lane,
                      SUMOReal pos, SUMOReal speed,
-					 const std::string &col, int period, int repNo);
+                     const std::string &col, int period, int repNo);
 
     /// Destructor
     ~RORunningVehicle();

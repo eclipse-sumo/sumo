@@ -46,7 +46,7 @@ class ROVehicleType_Krauss : public ROVehicleType
 {
 public:
     /// Parametrised constructor
-	ROVehicleType_Krauss(const std::string &id, const std::string &col,
+    ROVehicleType_Krauss(const std::string &id, const std::string &col,
                          SUMOReal length, SUMOVehicleClass vclass,
                          SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed,
                          SUMOReal tau);

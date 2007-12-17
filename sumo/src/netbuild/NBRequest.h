@@ -129,7 +129,7 @@ private:
 
     /** writes which participating links are foes to the given */
     void writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to,
-        bool isInnerEnd);
+                      bool isInnerEnd);
 
     /** returns the index to the internal combination container */
     int getIndex(NBEdge *from, NBEdge *to) const;

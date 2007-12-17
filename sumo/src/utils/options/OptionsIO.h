@@ -53,13 +53,13 @@ class OptionsCont;
 class OptionsIO
 {
 public:
-    /** @brief Parses the command line arguments and loads the configuration optionally 
-     * 
+    /** @brief Parses the command line arguments and loads the configuration optionally
+     *
      * Command line arguments are parsed, first, throwing a ProcessError
      *  if something fails. If loadConfig is false, the method returns
      *  after this. Otherwise, options are reset to being writeable and the
      *  configuration is loaded using "loadConfiguration". After this,
-     *  the options are reset again and the command line arguments are 
+     *  the options are reset again and the command line arguments are
      *  reparsed.
      *
      * This workflow allows to read the name of a configuration file from
