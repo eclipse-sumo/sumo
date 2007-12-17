@@ -4,7 +4,7 @@
 /// @date    Mon, 10.05.2004
 /// @version $Id$
 ///
-//	Utilities for building the lanes' mean data output
+// Utilities for building mean data output
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -47,7 +47,7 @@ class MSDetector2File;
 // ===========================================================================
 /**
  * @class MSMeanData_Net_Utils
- * Some helping functions for usage of mean data outputs
+ * @brief Utilities for building mean data output
  */
 class MSMeanData_Net_Utils
 {

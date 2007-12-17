@@ -22,9 +22,6 @@
 
 
 // ===========================================================================
-// imported modules
-// ===========================================================================
-// ===========================================================================
 // included modules
 // ===========================================================================
 #ifdef _MSC_VER
@@ -79,9 +76,12 @@ public:
 
     friend class MSMeanData_Net_Utils;
 
+    /// @name Methods inherited from MSDetectorFileOutput.
+    /// @{
     virtual void writeXMLOutput(OutputDevice &dev,
                                 SUMOTime startTime, SUMOTime stopTime);
     void writeXMLDetectorProlog(OutputDevice &dev) const;
+    /// @}
 
 protected:
     void resetOnly(SUMOTime stopTime);

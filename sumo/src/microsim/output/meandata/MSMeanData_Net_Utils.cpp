@@ -4,7 +4,7 @@
 /// @date    Mon, 10.05.2004
 /// @version $Id$
 ///
-// Utilities for building the lanes' mean data output
+// Utilities for building mean data output
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -116,37 +116,6 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
 
             string fileName   = baseNameDumpFiles + "_" + toString(*it) + ".xml";
             OutputDevice* dev = &OutputDevice::getDevice(fileName);
-            // Write xml-comment
-            /*
-            dev << "<!--\n"
-                "- noVehContrib is the number of vehicles have been on the lane for\n"
-                "  at least one timestep during the current intervall.\n"
-                "  They contribute to speed, speedsquare and density.\n"
-                "  They may not have passed the entire lane.\n"
-                "- noVehEntireLane is the number of vehicles that have passed the\n"
-                "  entire lane and left the lane during the current intervall. They\n"
-                "  may have started their journey on this lane in a previous intervall.\n"
-                "  Only those vehicles contribute to traveltime. \n"
-                "- noVehEntered is the number of vehicles that entered this lane\n"
-                "  during the current intervall either by move, emit or lanechange.\n"
-                "  Note that noVehEntered might be high if vehicles are emitted on\n"
-                "  this lane.\n"
-                "- noVehLeft is the number of vehicles that left this lane during\n"
-                "  the current intervall by move.\n"
-                "- traveltime [s]\n"
-                "  If noVehContrib==0 then traveltime is set to laneLength / laneMaxSpeed. \n"
-                "  If noVehContrib!=0 && noVehEntireLane==0 then traveltime is set to\n"
-                "  laneLength / speed.\n"
-                "  Else traveltime is calculated from the data of the vehicles that\n"
-                "  passed the entire lane.\n"
-                "- speed [m/s]\n"
-                "  If noVehContrib==0 then speed is set to laneMaxSpeed.\n"
-                "- speedsquare [(m/s)^2]\n"
-                "  If noVehContrib==0 then speedsquare is set to -1.\n"
-                "- density [veh/km]\n"
-                "  If noVehContrib==0 then density is set to 0.\n"
-                "-->\n" ;
-            */
             MSMeanData_Net *det =
                 new MSMeanData_Net(*it, ret.size(), ec,
                                    dumpBegins, dumpEnds, useLanes, true);
