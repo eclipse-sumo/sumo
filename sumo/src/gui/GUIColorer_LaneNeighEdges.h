@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-// »missingDescription«
+// ï¿½missingDescriptionï¿½
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -65,12 +65,12 @@ public:
                 return;
             }
             const MSEdge *vehicleEdge = o->getLane().getEdge();
-            const std::vector<MSEdge*> &neigh = vehicleEdge->getNeighborEdges();
-            if (find(neigh.begin(), neigh.end(), i.getMSEdge()) != neigh.end()) {
-                glColor3d(0,1,0);
-            } else {
+//            const std::vector<MSEdge*> &neigh = vehicleEdge->getNeighborEdges();
+//            if (find(neigh.begin(), neigh.end(), i.getMSEdge()) != neigh.end()) {
+//                glColor3d(0,1,0);
+//            } else {
                 glColor3d(.4,0,.4);
-            }
+//            }
         } else {
             glColor3d(0,0,0);
         }

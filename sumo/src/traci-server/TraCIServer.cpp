@@ -462,7 +462,7 @@ void
 	//std::vector<const MSEdge*> newRoute;
 	MSEdgeVector newRoute;
 	const MSEdge* currentEdge = veh->getEdge();
-	SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getC2CEffort);
+	SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
 	router.compute(currentEdge, destEdge, (const MSVehicle* const) veh, 
 					MSNet::getInstance()->getCurrentTimeStep(), newRoute);
 

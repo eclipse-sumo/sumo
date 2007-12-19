@@ -386,11 +386,9 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     // execute endOfTimestepEvents
     myEmissionEvents.execute(myStep);
 
-#ifdef HAVE_DEVICES
     if (MSGlobals::gUsingC2C) {
         MSDevice_C2C::computeCar2Car(myStep);
     }
-#endif
 	// persons
     if (myPersonControl!=0) {
         if (myPersonControl->hasWaitingPersons(myStep)) {

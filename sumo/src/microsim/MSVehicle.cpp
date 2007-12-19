@@ -154,12 +154,10 @@ MSVehicle::~MSVehicle()
         }
     }
     delete myLaneChangeModel;
-#ifdef HAVE_DEVICES
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
     	delete (*dev);
     	myDevices.clear();
     }
-#endif
 #ifdef TRACI
 	{
 		// edges changed by TraCI
@@ -220,10 +218,8 @@ MSVehicle::MSVehicle(string id,
 {
     rebuildAllowedLanes();
     myLaneChangeModel = new MSLCM_DK2004(*this);
-#ifdef HAVE_DEVICES
     // init devices
     MSDevice_C2C::buildVehicleDevices(*this, myDevices);
-#endif
 }
 
 
@@ -1010,11 +1006,9 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool inBetweenJ
         myCurrEdge = edgeIt;
     }
 
-#ifdef HAVE_DEVICES
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
     	(*dev)->enterLaneAtMove(enteredLane, driven, inBetweenJump);
     }
-#endif
 	if (MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleMoves(this);
     }
@@ -1031,11 +1025,9 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane)
     myAllowedLanes.clear();
     rebuildAllowedLanes();
     activateRemindersByEmitOrLaneChange();
-#ifdef HAVE_DEVICES
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
     	(*dev)->enterLaneAtLaneChange(enteredLane);
     }
-#endif
 }
 
 
@@ -1050,22 +1042,18 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, const State &state)
     // set and activate the new lane's reminders
     myMoveReminders = enteredLane->getMoveReminders();
     activateRemindersByEmitOrLaneChange();
-#ifdef HAVE_DEVICES
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
     	(*dev)->enterLaneAtEmit(enteredLane, state);
     }
-#endif
 }
 
 
 void
 MSVehicle::leaveLaneAtMove(SUMOReal driven)
 {
-#ifdef HAVE_DEVICES
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->leaveLaneAtMove(driven);
     }
-#endif
 	if (!myAllowedLanes.empty()) {
         myAllowedLanes.pop_front();
     }
@@ -1075,11 +1063,9 @@ MSVehicle::leaveLaneAtMove(SUMOReal driven)
 void
 MSVehicle::leaveLaneAtLaneChange(void)
 {
-#ifdef HAVE_DEVICES
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
     	(*dev)->leaveLaneAtLaneChange();
     }
-#endif
 	// dismiss the old lane's reminders
     SUMOReal savePos = myState.myPos; // have to do this due to SUMOReal-precision errors
     vector< MSMoveReminder* >::iterator rem;
@@ -1270,11 +1256,9 @@ MSVehicle::onTripEnd()
         (*i)->removeOnTripEnd(this);
     }
     myQuitReminded.clear();
-#ifdef HAVE_DEVICES
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
     	(*dev)->onTripEnd();
     }
-#endif
 }
 
 
@@ -1754,7 +1738,12 @@ MSVehicle::reroute(SUMOTime t)
 SUMOReal
 MSVehicle::getEffort(const MSEdge * const e, SUMOTime t) const
 {
-    for (vector< MSDevice* >::const_iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
+#ifdef TRACI
+    if (infoCont.find(e)!=infoCont.end()) {
+	    return infoCont.find(e)->second->neededTime;
+    }
+#endif
+	for (vector< MSDevice* >::const_iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         SUMOReal deviceEffort = (*dev)->getEffort(e, t);
         if (deviceEffort >= 0) {
         	return deviceEffort; // the first device wins 
