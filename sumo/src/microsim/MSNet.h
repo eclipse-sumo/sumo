@@ -72,7 +72,6 @@ class MSTriggerControl;
 class ShapeContainer;
 class BinaryInputDevice;
 class MSRouteLoader;
-class MSBuildCells;
 
 
 // ===========================================================================
@@ -113,11 +112,6 @@ public:
 
     /// performs a single simulation step
     void simulationStep(SUMOTime start, SUMOTime step);
-
-    /// compute the distance between equipped vehicle
-#ifdef HAVE_BOYOM_C2C
-    void computeCar2Car(void);
-#endif
 
     /** Clears all dictionaries */
     static void clearAll();
@@ -259,9 +253,6 @@ protected:
     /** route loader for dynamic loading of routes */
     MSRouteLoaderControl *myRouteLoaders;
 
-    // cells Builder
-    MSBuildCells *myCellsBuilder;
-
     /// Timestep [sec]
     static SUMOReal myDeltaT;
 
@@ -306,10 +297,6 @@ protected:
     std::string myStateDumpFiles;
 
     SUMOReal myTooSlowRTF;
-
-    std::vector<MSVehicle*> myConnected;
-    std::vector<MSVehicle*> myClusterHeaders;
-    std::vector<MSEdge*> myAllEdges;
 
 private:
     /// Copy constructor.

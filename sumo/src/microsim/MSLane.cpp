@@ -824,6 +824,7 @@ MSLane::addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal ga
             }
         }
     }
+    /*
     // Add to phys state
     if (OptionsCont::getOptions().isSet("physical-states-output")) {
         OutputDevice::getDeviceByOption("physical-states-output") << "   <vphys id=\"" << veh.getID()
@@ -833,6 +834,7 @@ MSLane::addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal ga
         << "\" g=\"" << gap
         << "\"/>" << "\n";
     }
+    */
 }
 
 

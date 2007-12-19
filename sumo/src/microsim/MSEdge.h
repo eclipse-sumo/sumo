@@ -4,7 +4,7 @@
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
-// »missingDescription«
+// ï¿½missingDescriptionï¿½
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -199,27 +199,10 @@ public:
     }
 
 
-    /// add a new neighborsEdge to this Edge
-    void addNeighborEdge(MSEdge *edge);
-
-    /// return  neighborsEdge
-    const std::vector<MSEdge*> & getNeighborEdges() const;
-
-
-    // add a new vehicle into the container
-    void addEquippedVehicle(std::string id, MSVehicle *vehicle) const;
-
-    //remove a vehicle with this id from the container
-    void removeEquippedVehicle(std::string id) const;
-
-    /// definition the dictionary of ids to vehicles
-    typedef std::map<std::string, MSVehicle*> DictTypeVeh;
-
-    const DictTypeVeh &getEquippedVehs() const;
 
     void addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd);
 
-    SUMOReal getC2CEffort(const MSVehicle * const v, SUMOTime t) const;
+    SUMOReal getVehicleEffort(const MSVehicle * const v, SUMOTime t) const;
 
 
 protected:
@@ -268,17 +251,6 @@ protected:
     mutable SUMOTime myShortCutBegin, myShortCutEnd, myShortCutInterval;
     mutable size_t myLastPackedIndex;
     bool myUseBoundariesOnOverride;
-
-
-    // the Container of equipped vehicle driving on this Lane
-    mutable DictTypeVeh myEquippedVeh;
-
-    /// Definition of the Edge vector
-    typedef std::vector<MSEdge*> EdgeCont;
-    /// the list of all neighborsEdge of this Edge
-    EdgeCont myNeighborEdges;
-
-
 
 private:
     /// Default constructor.

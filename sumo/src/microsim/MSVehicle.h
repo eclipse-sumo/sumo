@@ -61,6 +61,7 @@ class MSVehicleTransfer;
 class MSAbstractLaneChangeModel;
 class MSBusStop;
 class OutputDevice;
+class MSDevice;
 
 
 // ===========================================================================
@@ -90,9 +91,6 @@ public:
     public:
         /// Constructor.
         State(SUMOReal pos, SUMOReal speed);
-
-        /// Default constructor. Members are initialized to 0.
-        //State();
 
         /// Copy constructor.
         State(const State& state);
@@ -166,9 +164,6 @@ public:
      */
     int buildMyCluster(int myStep, int clId);
 
-    // set the Actual sender in my Cluster
-    //void setActSender(MSVehicle* actS);
-
     void removeOnTripEnd(MSVehicle *veh);
 
 
@@ -235,7 +230,9 @@ public:
     }
 
 
+    bool willPass(const MSEdge * const edge) const;
 
+	void reroute(SUMOTime t);
 
     /// @name retrieval and setting of CORN values
     //@{
@@ -347,20 +344,11 @@ public:
     }
 
 
-#ifdef HAVE_BOYOM_C2C
-    /// return true if the vehicle is eqquiped with WLAN
-    bool isEquipped() const;
-#endif
-
-
     /// Returns the name of the vehicle
     const std::string &getID() const;
 
     /** Return true if the lane is allowed */
     bool onAllowed(const MSLane* lane) const;
-
-    /** Return true if the lane is allowed */
-    //bool onAllowed( const MSLane* lane, size_t offset ) const;
 
     /** Return true if vehicle is on an allowed lane. */
     bool onAllowed() const;
@@ -462,7 +450,6 @@ public:
     MSAbstractLaneChangeModel &getLaneChangeModel();
     const MSAbstractLaneChangeModel &getLaneChangeModel() const;
     typedef std::deque<const MSEdge::LaneCont*> NextAllowedLanes;
-    const NextAllowedLanes &getAllowedLanes(MSLaneChanger &lc);
 
     struct LaneQ {
         MSLane *lane;
@@ -490,11 +477,10 @@ public:
 
     void workOnMoveReminders(SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed,
                              MoveOnReminderMode = BOTH);
-    bool willPass(const MSEdge * const edge) const;
 
     void onDepart();
 
-    void onTripEnd(/*MSLane &caller, */bool wasAlreadySet=false);
+    void onTripEnd();
     void writeXMLRoute(OutputDevice &os, int index=-1) const;
 
     struct Stop {
@@ -512,6 +498,10 @@ public:
         myStops.push_back(stop);
     }
 
+    bool hasStops() {
+        return !myStops.empty();
+    }
+
     SUMOVehicleClass getVehicleClass() const {
         return myType->getVehicleClass();
     }
@@ -526,57 +516,10 @@ public:
         SUMOTime time; // the Time, when the Info was saved
     };
 
-#ifdef HAVE_BOYOM_C2C
-    // enumeration for all type of Connection
-    enum C2CConnectionState {
-        dialing, connected, sending, receiving, disconnected
-    };
+    SUMOReal getEffort(const MSEdge * const e, SUMOTime t) const;
 
-    // structure for Car2Car Connection
-    struct C2CConnection {
-        MSVehicle  *connectedVeh;
-        C2CConnectionState state;
-        SUMOTime lastTimeSeen;
-    };
-    typedef std::map<MSVehicle * const, C2CConnection *> VehCont;
-
-    const VehCont &getConnections() const;
-
-    SUMOReal getC2CEffort(const MSEdge * const e, SUMOTime t) const;
-#endif
-
-#if defined(HAVE_BOYOM_C2C) || defined(TRACI)
-    void checkReroute(SUMOTime t);
-#endif
-
-#ifdef HAVE_BOYOM_C2C
-    int getTotalInformationNumber() const {
-        return totalNrOfSavedInfos;
-    }
-    bool hasRouteInformation() const {
-        return myHaveRouteInfo;
-    }
-    SUMOTime getLastInfoTime() const {
-        return myLastInfoTime;
-    }
-    size_t getConnectionsNumber() const {
-        return clusterCont.size();
-    }
-    size_t getInformationNumber() const {
-        return infoCont.size();
-    }
-
-    size_t getNoGot() const;
-    size_t getNoSent() const;
-    size_t getNoGotRelevant() const;
-#endif
-
-    /*
-        SUMOTime getSendingTimeEnd() const;
-        bool maySend() const;
-        void send(SUMOTime time);
-    */
 #ifdef TRACI
+    void checkReroute(SUMOTime t);
 
 	/**
 	 * Used by TraCIServer to change the weight of an edge locally for a specific vehicle
@@ -614,8 +557,6 @@ protected:
     MSVehicle(std::string id, MSRoute* route, SUMOTime departTime,
               const MSVehicleType* type,
               int repNo, int repOffset, int vehicleIndex);
-
-    void initDevices(int vehicleIndex);
 
     /// information how long ago the vehicle has performed a lane-change
     SUMOTime myLastLaneChangeOffset;
@@ -660,31 +601,6 @@ protected:
     /// is true if there has an individual speed been set
     bool myIsIndividualMaxSpeedSet;
 
-#ifdef HAVE_BOYOM_C2C
-    /// is true, if the vehicle is abble to send Informations to another vehicle
-    bool equipped;
-
-    // for save the time
-    int lastUp;
-
-    // the Id of the Cluster
-    int clusterId;
-
-    //recent information
-    //is saved when the vehicle leaves the lane!!!
-    Information *akt;
-#endif
-
-#if defined(HAVE_BOYOM_C2C) || defined(TRACI)
-    SUMOTime myLastInfoTime;
-    bool myHaveRouteInfo;
-#endif
-
-#ifdef HAVE_BOYOM_C2C
-    // count how much Informations this vehicle have saved during the simulation
-    int totalNrOfSavedInfos;
-#endif
-
     /// The lane the vehicle is on
     MSLane* myLane;
 
@@ -692,40 +608,18 @@ protected:
 
     const MSVehicleType * const myType;
 
-#if defined(HAVE_BOYOM_C2C) || defined(TRACI)
-    typedef std::map<const MSEdge * const, Information *> InfoCont;
-	InfoCont infoCont;
-#endif
-
-#ifdef HAVE_BOYOM_C2C
-    VehCont myNeighbors;
-
-    typedef std::vector<C2CConnection*> ClusterCont;
-    ClusterCont clusterCont;
-#endif
-
-
-#ifdef HAVE_BOYOM_C2C
-    // transfert the N Information in infos into my own InformationsContainer
-    void transferInformation(const std::string &senderID, const InfoCont &infos, int N,
-                             SUMOTime currentTime);
-
-    //compute accordant the distance, the Number of Infos that can be transmit
-    size_t numOfInfos(MSVehicle *veh1, MSVehicle* veh2);
-#endif
-
-
     mutable const MSEdge *myLastBestLanesEdge;
     mutable std::vector<std::vector<LaneQ> > myBestLanes;
 
     std::map<MSCORN::Pointer, void*> myPointerCORNMap;
 
 private:
+    std::vector<MSDevice*> myDevices;
 
     /** Iterator to current route-edge.  */
     MSRouteIterator myCurrEdge;
 
-    /** The vehicle's allowed lanes on it'S current edge to drive
+    /** The vehicle's allowed lanes on it's current edge to drive
         according to it's route. */
     NextAllowedLanes myAllowedLanes;
 
@@ -767,10 +661,6 @@ private:
     std::map<MSCORN::Function, int> myIntCORNMap;
 
 
-#ifdef HAVE_BOYOM_C2C
-    size_t myNoGot, myNoSent, myNoGotRelevant;
-#endif
-
     /**
      * @class RouteReplaceInfo
      * @brief Information about a replaced route
@@ -805,6 +695,10 @@ private:
     typedef std::vector<RouteReplaceInfo> ReplacedRoutesVector;
 
 #ifdef TRACI
+    bool myHaveRouteInfo;
+    typedef std::map<const MSEdge * const, Information *> InfoCont;
+	InfoCont infoCont;
+
 	/** 
 	 * if true, indicates that a TraCI message "changeRoute" was sent to this vehicle,
 	 * thus it checks for a new route when the next simulation step is performed by TraCI

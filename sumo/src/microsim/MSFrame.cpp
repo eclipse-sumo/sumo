@@ -41,6 +41,7 @@
 #include <microsim/MSJunction.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
+#include <microsim/devices/MSDevice_C2C.h>
 #include <utils/common/RandHelper.h>
 #include "MSFrame.h"
 #include <utils/common/SystemFrame.h>
@@ -74,7 +75,6 @@ MSFrame::fillOptions()
     oc.addOptionSubTopic("Time");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("TLS Defaults");
-    oc.addOptionSubTopic("C2C");
     oc.addOptionSubTopic("Cellular");
     oc.addOptionSubTopic("Report");
 #ifdef TRACI
@@ -212,42 +212,7 @@ MSFrame::fillOptions()
 
 
     // devices
-    // c2x
-    oc.doRegister("device.c2x.probability", new Option_Float(0.));//!!! describe
-    oc.addDescription("device.c2x.probability", "C2C", "The probability for a vehicle to have c2c");
-
-    oc.doRegister("device.c2x.knownveh", new Option_String());//!!! describe
-    oc.addDescription("device.c2x.knownveh", "C2C", "Assign a device to named vehicles");
-
-    oc.doRegister("device.c2x.deterministic", new Option_Bool(false)); //!!! describe
-    oc.addDescription("device.c2x.deterministic", "C2C", "The devices are set deterministoc using a fraction of 1000");
-
-    oc.doRegister("device.c2x.range", new Option_Float(100.));//!!! describe
-    oc.addDescription("device.c2x.range", "C2C", "The range of the c2c device");
-
-    oc.doRegister("device.c2x.keep-duration", new Option_Integer(30 * 60));//!!! describe
-    oc.addDescription("device.c2x.keep-duration", "C2C", "Duration of keeping messages");
-
-    oc.doRegister("device.c2x.insert-info-factor", new Option_Float((SUMOReal) 1.2));//!!! describe
-    oc.addDescription("device.c2x.insert-info-factor", "C2C", "Factor for adding messages");
-
-    oc.doRegister("c2x.cluster-info", new Option_FileName());//!!! describe
-    oc.addDescription("c2x.cluster-info", "C2C", "Save cluster information into FILE");
-
-    oc.doRegister("c2x.edge-near-info", new Option_FileName());//!!! describe
-    oc.addDescription("c2x.edge-near-info", "C2C", "Save 'connected' edges into FILE");
-
-    oc.doRegister("c2x.saved-info", new Option_FileName());//!!! describe
-    oc.addDescription("c2x.saved-info", "C2C", "");
-
-    oc.doRegister("c2x.saved-info-freq", new Option_FileName());//!!! describe
-    oc.addDescription("c2x.saved-info-freq", "C2C", "");
-
-    oc.doRegister("c2x.transmitted-info", new Option_FileName());//!!! describe
-    oc.addDescription("c2x.transmitted-info", "C2C", "Save transmitted information into FILE");
-
-    oc.doRegister("c2x.vehicle-in-range", new Option_FileName());//!!! describe
-    oc.addDescription("c2x.vehicle-in-range", "C2C", "Save names of connected vehicles into FILE");
+    MSDevice_C2C::insertOptions();
 
 
     // cell-phones

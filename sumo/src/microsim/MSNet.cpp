@@ -55,6 +55,7 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <microsim/output/MSDetectorControl.h>
+#include <microsim/devices/MSDevice_C2C.h>
 #include <microsim/MSVehicleTransfer.h>
 #include "traffic_lights/MSTrafficLightLogic.h"
 #include <microsim/output/MSDetectorHaltingContainerWrapper.h>
@@ -70,10 +71,8 @@
 #include <utils/options/OptionsCont.h>
 #include "trigger/MSTriggerControl.h"
 #include "MSGlobals.h"
-#include "MSDebugHelper.h"
 #include "MSRouteHandler.h"
 #include "MSRouteLoader.h"
-#include "MSBuildCells.h"
 #include <utils/geom/GeoConvHelper.h>
 #include <ctime>
 #include "MSPerson.h"
@@ -131,7 +130,6 @@ MSNet::MSNet(MSVehicleControl *vc)
     myJunctions = 0;
     myRouteLoaders = 0;
     myLogics = 0;
-    myCellsBuilder = 0;
     myPersonControl = 0;
     myMSPhoneNet = 0;
     myTriggerControl = new MSTriggerControl();
@@ -182,16 +180,6 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
     // we may add it before the network is loaded
     if (myEdges!=0) {
         myEdges->insertMeanData(myMeanData.size());
-        // check whether the c2c is used
-        if (MSGlobals::gUsingC2C) {
-            // build the speed-up grid
-            myCellsBuilder = new MSBuildCells(*this, GeoConvHelper::getConvBoundary());
-            myCellsBuilder->build();
-            // print some debug stuff if wished
-            if (OptionsCont::getOptions().isSet("c2x.edge-near-info")) {
-                myCellsBuilder->writeNearEdges(OutputDevice::getDeviceByOption("c2x.edge-near-info"));
-            }
-        }
     }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -232,7 +220,6 @@ MSNet::~MSNet()
     }
 #endif
     delete myTriggerControl;
-    delete myCellsBuilder;
     clearAll();
     GeoConvHelper::close();
     OutputDevice::closeAll();
@@ -342,7 +329,6 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     if (myMSPhoneNet!=0) {
         myMSPhoneNet->setDynamicCalls(myStep);
     }
-
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(step);
     }
@@ -400,12 +386,12 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     // execute endOfTimestepEvents
     myEmissionEvents.execute(myStep);
 
-#ifdef HAVE_BOYOM_C2C
+#ifdef HAVE_DEVICES
     if (MSGlobals::gUsingC2C) {
-        computeCar2Car();
+        MSDevice_C2C::computeCar2Car(myStep);
     }
 #endif
-    // persons
+	// persons
     if (myPersonControl!=0) {
         if (myPersonControl->hasWaitingPersons(myStep)) {
             const MSPersonControl::PersonVector &persons = myPersonControl->getWaitingPersons(myStep);
@@ -441,101 +427,6 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     }
 }
 
-#ifdef HAVE_BOYOM_C2C
-// Compute Car2Car-Communication
-void
-MSNet::computeCar2Car(void)
-{
-    if (myAllEdges.size()==0) {
-        myAllEdges = myEdges->getMultiLaneEdges();
-        const std::vector<MSEdge*> &add = myEdges->getSingleLaneEdges();
-        copy(add.begin(), add.end(), back_inserter(myAllEdges));
-    }
-    myConnected.clear();
-    myClusterHeaders.clear();
-
-    for (std::vector<MSEdge*>::iterator i=myAllEdges.begin(); i!=myAllEdges.end(); ++i) {
-        MSEdge *e = *i;
-        const MSEdge::DictTypeVeh &eEquipped = e->getEquippedVehs();
-        if (eEquipped.size()>0) {
-            std::map<std::string, MSVehicle*>::const_iterator k = eEquipped.begin();
-            // above all Equipped vehicle of this Edge
-            for (; k!=eEquipped.end(); ++k) {
-                // update own information
-                // a) insert the current edge if the vehicle is standing for a long period
-                // b) remove information older then a specified amount of time (MSGlobals::gLANRefuseOldInfosOffset)
-                (*k).second->updateInfos(myStep);
-
-                // go through the neighbors of this vehicle's edge
-                const std::vector<MSEdge*> &neighborEdges = e->getNeighborEdges();
-                for (std::vector<MSEdge*>::const_iterator l=neighborEdges.begin(); l!=neighborEdges.end(); ++l) {
-                    const MSEdge::DictTypeVeh &nEquipped = (*l)->getEquippedVehs();
-                    if (nEquipped.size()>0) {
-                        std::map<std::string, MSVehicle*>::const_iterator m = nEquipped.begin();
-                        // go through all vehicles on neighbor edge
-                        for (; m!=nEquipped.end(); ++m) {
-                            if ((*k).second != (*m).second) {
-                                // update connection state
-                                (*k).second->addVehNeighbors((*m).second, myStep);
-                            }
-                        }
-                    }
-                }
-
-                // remove connections to vehicles which are no longer in range
-                (*k).second->cleanUpConnections(myStep);
-
-                // ...reset the cluster id
-                (*k).second->setClusterId(-1);
-                // for each vehicle with communication partners...
-                if ((*k).second->getConnections().size()!=0) {
-                    // ...add the vehicle to list of connected vehicles
-                    myConnected.push_back((*k).second);
-                }
-            }
-        }
-    }
-
-    // build the clusters
-    {
-        int clusterId = 1;
-        std::vector<MSVehicle*>::iterator q1;//, q1, q2;
-        for (q1=myConnected.begin(); q1!=myConnected.end(); q1++) {
-            if ((*q1)->getClusterId()<0) {
-                /*
-                q = q1;
-                for(q2=myConnected.begin(); q2!=connected.end(); q2++) {
-                    int size1 = (*q1)->getConnections().size();
-                    int size2 = (*q2)->getConnections().size();
-                if((*q2)->getClusterId() < 0 && size1 < size2){
-                q = q2;
-                }
-                }
-                */
-                myClusterHeaders.push_back(*q1);
-                (*q1)->buildMyCluster(myStep, clusterId);
-                clusterId++;
-            }
-        }
-    }
-
-    // send information
-    {
-        std::vector<MSVehicle*>::iterator q;
-        for (q= myClusterHeaders.begin();q!=myClusterHeaders.end();q++) {
-            (*q)->sendInfos(myStep);
-        }
-    }
-
-    // Rerouting?
-    {
-        std::vector<MSVehicle*>::iterator q1;
-        for (q1 = myConnected.begin();q1!=myConnected.end();q1++) {
-            (*q1)->checkReroute(myStep);
-        }
-    }
-}
-#endif
 
 void
 MSNet::clearAll()

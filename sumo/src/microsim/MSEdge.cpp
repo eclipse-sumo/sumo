@@ -4,7 +4,7 @@
 /// @date    Tue, 06 Mar 2001
 /// @version $Id$
 ///
-//  »missingDescription«
+//  ï¿½missingDescriptionï¿½
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -512,54 +512,6 @@ MSEdge::getEffort(const MSVehicle * const , SUMOTime t) const
     return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();
 }
 
-
-// add a new vehicle into the container
-void
-MSEdge::addEquippedVehicle(string id, MSVehicle *vehicle) const
-{
-    map<std::string, MSVehicle *>::const_iterator cur  = myEquippedVeh.find(id);
-    assert(cur==myEquippedVeh.end());
-    if (cur==myEquippedVeh.end()) {
-        myEquippedVeh[id]=vehicle;
-    }
-}
-
-//remove a vehicle with this id from the container
-void
-MSEdge::removeEquippedVehicle(string id) const
-{
-    map<std::string, MSVehicle *>::iterator cur  = myEquippedVeh.find(id);
-    assert(cur!=myEquippedVeh.end());
-    if (cur!=myEquippedVeh.end()) {
-        myEquippedVeh.erase(cur);
-    }
-}
-
-
-const MSEdge::DictTypeVeh &
-MSEdge::getEquippedVehs() const
-{
-    return myEquippedVeh;
-}
-
-
-void
-MSEdge::addNeighborEdge(MSEdge *edge)
-{
-    std::vector<MSEdge*>::iterator i = find(myNeighborEdges.begin(), myNeighborEdges.end(), edge);
-    if (i==myNeighborEdges.end()) {
-        myNeighborEdges.push_back(edge);
-    }
-}
-
-
-const std::vector<MSEdge*> &
-MSEdge::getNeighborEdges() const
-{
-    return myNeighborEdges;
-}
-
-
 void
 MSEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd)
 {
@@ -567,16 +519,12 @@ MSEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd)
 }
 
 SUMOReal
-MSEdge::getC2CEffort(const MSVehicle * const v, SUMOTime t) const
+MSEdge::getVehicleEffort(const MSVehicle * const v, SUMOTime t) const
 {
-#ifdef HAVE_BOYOM_C2C
-    if (v->isEquipped()) {
-        SUMOReal teffort = v->getC2CEffort(this, t);
-        if (teffort>0) {
-            return teffort;
-        }
+    SUMOReal teffort = v->getEffort(this, t);
+    if (teffort>0) {
+        return teffort;
     }
-#endif
     return getEffort(v, t);
 }
 
