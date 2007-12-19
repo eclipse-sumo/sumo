@@ -150,45 +150,6 @@
 
    </tls_defaults>
 
-   <c2c>
-      <!-- The probability for a vehicle to have c2c -->
-      <device.c2x.probability>0</device.c2x.probability>
-
-      <!-- Assign a device to named vehicles -->
-      <device.c2x.knownveh></device.c2x.knownveh>
-
-      <!-- The devices are set deterministoc using a fraction of 1000 -->
-      <device.c2x.deterministic>false</device.c2x.deterministic>
-
-      <!-- The range of the c2c device -->
-      <device.c2x.range>100</device.c2x.range>
-
-      <!-- Duration of keeping messages -->
-      <device.c2x.keep-duration>1800</device.c2x.keep-duration>
-
-      <!-- Factor for adding messages -->
-      <device.c2x.insert-info-factor>1.2</device.c2x.insert-info-factor>
-
-      <!-- Save cluster information into FILE -->
-      <c2x.cluster-info></c2x.cluster-info>
-
-      <!-- Save 'connected' edges into FILE -->
-      <c2x.edge-near-info></c2x.edge-near-info>
-
-      <!--  -->
-      <c2x.saved-info></c2x.saved-info>
-
-      <!--  -->
-      <c2x.saved-info-freq></c2x.saved-info-freq>
-
-      <!-- Save transmitted information into FILE -->
-      <c2x.transmitted-info></c2x.transmitted-info>
-
-      <!-- Save names of connected vehicles into FILE -->
-      <c2x.vehicle-in-range></c2x.vehicle-in-range>
-
-   </c2c>
-
    <cellular>
       <!--  -->
       <device.cell-phone.percent-of-activity>false</device.cell-phone.percent-of-activity>
@@ -263,6 +224,45 @@
       <log-file></log-file>
 
    </report>
+
+   <c2c>
+      <!-- The probability for a vehicle to have c2c -->
+      <device.c2x.probability>0</device.c2x.probability>
+
+      <!-- Assign a device to named vehicles -->
+      <device.c2x.knownveh></device.c2x.knownveh>
+
+      <!-- The devices are set deterministoc using a fraction of 1000 -->
+      <device.c2x.deterministic>false</device.c2x.deterministic>
+
+      <!-- The range of the c2c device -->
+      <device.c2x.range>100</device.c2x.range>
+
+      <!-- Duration of keeping messages -->
+      <device.c2x.keep-duration>1800</device.c2x.keep-duration>
+
+      <!-- Factor for adding messages -->
+      <device.c2x.insert-info-factor>1.2</device.c2x.insert-info-factor>
+
+      <!-- Save cluster information into FILE -->
+      <c2x.cluster-info></c2x.cluster-info>
+
+      <!-- Save 'connected' edges into FILE -->
+      <c2x.edge-near-info></c2x.edge-near-info>
+
+      <!--  -->
+      <c2x.saved-info></c2x.saved-info>
+
+      <!--  -->
+      <c2x.saved-info-freq></c2x.saved-info-freq>
+
+      <!-- Save transmitted information into FILE -->
+      <c2x.transmitted-info></c2x.transmitted-info>
+
+      <!-- Save names of connected vehicles into FILE -->
+      <c2x.vehicle-in-range></c2x.vehicle-in-range>
+
+   </c2c>
 
    <random_number>
       <!-- Initialises the random number generator with the given value -->

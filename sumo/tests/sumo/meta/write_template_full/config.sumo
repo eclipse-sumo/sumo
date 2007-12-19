@@ -60,21 +60,6 @@
       <actuated-tl.passing-time>1.9</actuated-tl.passing-time>
    </tls_defaults>
 
-   <c2c>
-      <device.c2x.probability>0</device.c2x.probability>
-      <device.c2x.knownveh></device.c2x.knownveh>
-      <device.c2x.deterministic>false</device.c2x.deterministic>
-      <device.c2x.range>100</device.c2x.range>
-      <device.c2x.keep-duration>1800</device.c2x.keep-duration>
-      <device.c2x.insert-info-factor>1.2</device.c2x.insert-info-factor>
-      <c2x.cluster-info></c2x.cluster-info>
-      <c2x.edge-near-info></c2x.edge-near-info>
-      <c2x.saved-info></c2x.saved-info>
-      <c2x.saved-info-freq></c2x.saved-info-freq>
-      <c2x.transmitted-info></c2x.transmitted-info>
-      <c2x.vehicle-in-range></c2x.vehicle-in-range>
-   </c2c>
-
    <cellular>
       <device.cell-phone.percent-of-activity>false</device.cell-phone.percent-of-activity>
       <device.cell-phone.knownveh></device.cell-phone.knownveh>
@@ -103,6 +88,21 @@
       <help>false</help>
       <log-file></log-file>
    </report>
+
+   <c2c>
+      <device.c2x.probability>0</device.c2x.probability>
+      <device.c2x.knownveh></device.c2x.knownveh>
+      <device.c2x.deterministic>false</device.c2x.deterministic>
+      <device.c2x.range>100</device.c2x.range>
+      <device.c2x.keep-duration>1800</device.c2x.keep-duration>
+      <device.c2x.insert-info-factor>1.2</device.c2x.insert-info-factor>
+      <c2x.cluster-info></c2x.cluster-info>
+      <c2x.edge-near-info></c2x.edge-near-info>
+      <c2x.saved-info></c2x.saved-info>
+      <c2x.saved-info-freq></c2x.saved-info-freq>
+      <c2x.transmitted-info></c2x.transmitted-info>
+      <c2x.vehicle-in-range></c2x.vehicle-in-range>
+   </c2c>
 
    <random_number>
       <srand>23423</srand>
