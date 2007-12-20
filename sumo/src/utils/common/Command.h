@@ -2,7 +2,7 @@
 /// @file    Command.h
 /// @author  Christian Roessel
 /// @date    Thu, 20 Dec 2001
-/// @version $Id$
+/// @version $Id:Command.h 4699 2007-11-09 14:05:13Z dkrajzew $
 ///
 // -------------------
 /****************************************************************************/
@@ -46,7 +46,6 @@
  *
  * @see Design Patterns, Gamma et al.
  * @see WrappingCommand
- * @see OneArgumentCommand
  * @see MSEventControl
  */
 class Command

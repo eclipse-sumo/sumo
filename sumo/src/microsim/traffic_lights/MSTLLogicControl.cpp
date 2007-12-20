@@ -521,14 +521,14 @@ MSTLLogicControl::get(const std::string &id, const std::string &subid) const
 std::vector<std::string>
 MSTLLogicControl::getAllTLIds() const
 {
-	std::vector<std::string> ret;
+    std::vector<std::string> ret;
 
-	std::map<std::string, TLSLogicVariants>::const_iterator i;
-	for (i=myLogics.begin(); i!=myLogics.end(); ++i) {
-		ret.push_back((*i).first);
-	}
+    std::map<std::string, TLSLogicVariants>::const_iterator i;
+    for (i=myLogics.begin(); i!=myLogics.end(); ++i) {
+        ret.push_back((*i).first);
+    }
 
-	return ret;
+    return ret;
 }
 
 
