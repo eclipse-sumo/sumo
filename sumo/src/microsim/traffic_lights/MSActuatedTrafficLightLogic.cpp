@@ -90,7 +90,7 @@ MSActuatedTrafficLightLogic::init(NLDetectorBuilder &nb,
             std::string id = "TLS" + myID + "_" + mySubID + "_InductLoopOn_" + lane->getID();
             if (myInductLoops.find(lane)==myInductLoops.end()) {
                 myInductLoops[lane] =
-                    nb.createInductLoop(id, lane, ilpos, inductLoopInterval);
+                    nb.createInductLoop(id, lane, ilpos);
             }
         }
         // build the lane state-detectors
@@ -158,7 +158,7 @@ MSActuatedTrafficLightLogic::duration() const
             }
             for (LaneVector::const_iterator j=lanes.begin(); j!=lanes.end();j++) {
                 InductLoopMap::const_iterator k = myInductLoops.find(*j);
-                SUMOReal waiting = (SUMOReal)(*k).second->getNVehContributed(0/* !!! */);
+                SUMOReal waiting = (SUMOReal)(*k).second->getNVehContributed();
                 SUMOReal tmpdur =  myPassingTime * waiting;
                 if (tmpdur > newduration) {
                     // here we cut the decimal places, because we have to return an integer

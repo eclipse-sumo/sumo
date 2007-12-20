@@ -128,11 +128,11 @@ protected:
 
     /// Returns the definition of the current phase
     MSActuatedPhaseDefinition * currentPhaseDef() const;
-
-    /// Returns the value of the detector defined by the given lane and type
-    SUMOReal currentForLane(E2::DetType what,
-                            MSLane *lane) const;
-
+    /*
+        /// Returns the value of the detector defined by the given lane and type
+        SUMOReal currentForLane(E2::DetType what,
+                                MSLane *lane) const;
+    */
 protected:
     /// A map from lanes to E2-detectors lying on them
     E2DetectorMap myE2Detectors;

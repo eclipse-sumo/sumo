@@ -86,8 +86,7 @@ MSAgentbasedTrafficLightLogic::init(
                                            DU_TL_CONTROL, lane, 0, det_offset,
                                            /*haltingTimeThreshold!!!*/ 1,
                                            /*haltingSpeedThreshold!!!*/(SUMOReal)(5.0/3.6),
-                                           /*jamDistThreshold!!!*/ 10,
-                                           /*deleteDataAfterSeconds!!!*/ 1800);
+                                           /*jamDistThreshold!!!*/ 10);
                 myE2Detectors[lane] = det;
             }
         }
@@ -286,12 +285,14 @@ MSAgentbasedTrafficLightLogic::collectData()
                 if ((*j)->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
                     continue;
                 }
+                /*!!!
                 SUMOReal tmp = currentForLane(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES, *j);
                 if (maxPerBit < tmp)  {
                     maxPerBit = tmp;
                 }
                 E2DetectorMap::const_iterator it=myE2Detectors.find(*j);
                 (*it).second->resetQueueLengthAheadOfTrafficLights();
+                */
             }
             if (maxPerPhase < maxPerBit) {
                 maxPerPhase = maxPerBit;
@@ -422,7 +423,7 @@ MSAgentbasedTrafficLightLogic::isGreenPhase(const size_t testStep) const
     return true;
 }
 
-
+/*
 SUMOReal
 MSAgentbasedTrafficLightLogic::currentForLane(E2::DetType what,
         MSLane *lane) const
@@ -431,7 +432,7 @@ MSAgentbasedTrafficLightLogic::currentForLane(E2::DetType what,
     E2DetectorMap::const_iterator i=myE2Detectors.find(lane);
     return (*i).second->getCurrent(what);
 }
-
+*/
 
 
 /****************************************************************************/
