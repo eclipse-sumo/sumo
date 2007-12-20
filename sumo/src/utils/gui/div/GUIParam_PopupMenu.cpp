@@ -53,49 +53,30 @@ using namespace std;
 // ===========================================================================
 // FOX callback mapping
 // ===========================================================================
-FXDEFMAP(GUIParam_PopupMenu) GUIParam_PopupMenuMap[]= {
-    FXMAPFUNC(SEL_COMMAND,  MID_OPENTRACKER, GUIParam_PopupMenu::onCmdOpenTracker),
+FXDEFMAP(GUIParam_PopupMenuInterface) GUIParam_PopupMenuInterfaceMap[]= {
+    FXMAPFUNC(SEL_COMMAND,  MID_OPENTRACKER, GUIParam_PopupMenuInterface::onCmdOpenTracker),
 };
 
 // Object implementation
-FXIMPLEMENT(GUIParam_PopupMenu, FXMenuPane, GUIParam_PopupMenuMap, ARRAYNUMBER(GUIParam_PopupMenuMap))
+FXIMPLEMENT_ABSTRACT(GUIParam_PopupMenuInterface, FXMenuPane, GUIParam_PopupMenuInterfaceMap, ARRAYNUMBER(GUIParam_PopupMenuInterfaceMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIParam_PopupMenu::GUIParam_PopupMenu(GUIMainWindow &app,
-                                       //                                 GUIParameterTable &parent,
-                                       GUIParameterTableWindow &parentWindow,
-                                       GUIGlObject &o,
-                                       const std::string &varName,
-                                       ValueSource<SUMOReal> *src)
-        : FXMenuPane(&parentWindow), myObject(&o), //myParent(&parent),
-        myParentWindow(&parentWindow), myApplication(&app), myVarName(varName),
-        mySource(src)
-{}
-
-
-GUIParam_PopupMenu::~GUIParam_PopupMenu()
-{
-    delete mySource;
-}
-
-
 long
-GUIParam_PopupMenu::onCmdOpenTracker(FXObject*,FXSelector,void*)
+GUIParam_PopupMenuInterface::onCmdOpenTracker(FXObject*,FXSelector,void*)
 {
     string trackerName = myVarName + " from " + myObject->getFullName();
     GUIParameterTracker *tr = new GUIParameterTracker(*myApplication,
             trackerName, *myObject, 0, 0);
     TrackerValueDesc *newTracked = new TrackerValueDesc(
         myVarName, RGBColor(0, 0, 0), myObject, myApplication->getCurrentSimTime());
-    tr->addTracked(*myObject, mySource->copy(), newTracked);
+    tr->addTracked(*myObject, getSUMORealSourceCopy(), newTracked);
     tr->create();
     tr->show();
     return 1;
 }
-
 
 
 /****************************************************************************/

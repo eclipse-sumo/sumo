@@ -89,33 +89,33 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
         new GUIParameterTableWindow(app, *this, 13);
     // add items
     ret->mkItem("vehicles running [#]", true,
-                new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getRunningVehicleNo));
+                new FunctionBinding<MSVehicleControl, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getRunningVehicleNo));
     ret->mkItem("vehicles ended [#]", true,
-                new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getEndedVehicleNo));
+                new FunctionBinding<MSVehicleControl, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getEndedVehicleNo));
     ret->mkItem("vehicles emitted [#]", true,
-                new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getEmittedVehicleNo));
+                new FunctionBinding<MSVehicleControl, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getEmittedVehicleNo));
     ret->mkItem("vehicles loaded [#]", true,
-                new CastingFunctionBinding<MSVehicleControl, SUMOReal, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getLoadedVehicleNo));
+                new FunctionBinding<MSVehicleControl, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getLoadedVehicleNo));
     ret->mkItem("vehicles waiting [#]", true,
-                new CastingFunctionBinding<GUINet, SUMOReal, size_t>(&(getNet()), &GUINet::getWaitingVehicleNo));
+                new FunctionBinding<GUINet, size_t>(&(getNet()), &GUINet::getWaitingVehicleNo));
     ret->mkItem("end time [s]", false,
-                (SUMOReal) OptionsCont::getOptions().getInt("end"));
+                OptionsCont::getOptions().getInt("end"));
     ret->mkItem("begin time [s]", false,
-                (SUMOReal) OptionsCont::getOptions().getInt("begin"));
+                OptionsCont::getOptions().getInt("begin"));
     ret->mkItem("time step [s]", true,
-                new CastingFunctionBinding<GUINet, SUMOReal, int>(&(getNet()), &GUINet::getCurrentTimeStep));
+                new FunctionBinding<GUINet, SUMOTime>(&(getNet()), &GUINet::getCurrentTimeStep));
     if (getNet().logSimulationDuration()) {
         ret->mkItem("step duration [ms]", true,
-                    new CastingFunctionBinding<GUINet, SUMOReal, int>(&(getNet()), &GUINet::getWholeDuration));
+                    new FunctionBinding<GUINet, int>(&(getNet()), &GUINet::getWholeDuration));
         ret->mkItem("simulation duration [ms]", true,
-                    new CastingFunctionBinding<GUINet, SUMOReal, int>(&(getNet()), &GUINet::getSimDuration));
+                    new FunctionBinding<GUINet, int>(&(getNet()), &GUINet::getSimDuration));
         /*
         ret->mkItem("visualisation duration [ms]", true,
             new CastingFunctionBinding<GUINet, SUMOReal, int>(
                 &(getNet()), &GUINet::getVisDuration));
         */
         ret->mkItem("idle duration [ms]", true,
-                    new CastingFunctionBinding<GUINet, SUMOReal, int>(&(getNet()), &GUINet::getIdleDuration));
+                    new FunctionBinding<GUINet, int>(&(getNet()), &GUINet::getIdleDuration));
         ret->mkItem("duration factor []", true,
                     new FunctionBinding<GUINet, SUMOReal>(&(getNet()), &GUINet::getRTFactor));
         /*

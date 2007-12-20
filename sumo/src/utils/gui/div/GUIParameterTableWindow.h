@@ -34,7 +34,7 @@
 #include <string>
 #include <fx.h>
 #include <utils/common/ValueSource.h>
-#include "GUIParameterTableItem.h"
+#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================
@@ -42,6 +42,7 @@
 // ===========================================================================
 class GUIGlObject;
 class GUIMainWindow;
+class GUIParameterTableItemInterface;
 
 
 // ===========================================================================
@@ -60,11 +61,19 @@ public:
 
     void closeBuilding();
 
+    void mkItem(const char *name, bool dynamic, ValueSource<unsigned> *src);
+
     void mkItem(const char *name, bool dynamic, ValueSource<SUMOReal> *src);
+
+    void mkItem(const char *name, bool dynamic, ValueSource<SUMOTime> *src);
 
     void mkItem(const char *name, bool dynamic, std::string value);
 
+    void mkItem(const char *name, bool dynamic, unsigned value);
+
     void mkItem(const char *name, bool dynamic, SUMOReal value);
+
+    void mkItem(const char *name, bool dynamic, SUMOTime value);
 
     long onSimStep(FXObject*,FXSelector,void*);
     long onTableSelected(FXObject*,FXSelector,void*);
@@ -86,7 +95,7 @@ protected:
     /// The main application
     GUIMainWindow *myApplication;
 
-    std::vector<GUIParameterTableItem*> myItems;
+    std::vector<GUIParameterTableItemInterface*> myItems;
 
     size_t myCurrentPos;
 

@@ -34,13 +34,12 @@
 
 #include <fx.h>
 #include <utils/common/ValueSource.h>
+#include <utils/gui/div/GUIParameterTableWindow.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
-//class GUIParameterTable;
-class GUIParameterTableWindow;
 class GUIGlObject;
 class GUIMainWindow;
 
@@ -48,29 +47,25 @@ class GUIMainWindow;
 // ===========================================================================
 // class declarataions
 // ===========================================================================
-/**
- * @class GUIParam_PopupMenu
- * A popup menu holding the context of a parameter table entry
- */
-class GUIParam_PopupMenu : public FXMenuPane
+class GUIParam_PopupMenuInterface : public FXMenuPane
 {
-    FXDECLARE(GUIParam_PopupMenu)
+    FXDECLARE(GUIParam_PopupMenuInterface)
 public:
-    /// Constructor
-    GUIParam_PopupMenu(GUIMainWindow &app,
-                       /*GUIParameterTable &parent, */GUIParameterTableWindow &parentWindow,
-                       GUIGlObject &o, const std::string &varName, ValueSource<SUMOReal> *src);
+    GUIParam_PopupMenuInterface(GUIMainWindow &app,
+                                GUIParameterTableWindow &parentWindow,
+                                GUIGlObject &o, const std::string &varName) : FXMenuPane(&parentWindow),
+            myObject(&o), //myParent(&parent),
+            myParentWindow(&parentWindow), myApplication(&app), myVarName(varName) { }
 
-    /// Destructor
-    ~GUIParam_PopupMenu();
+    virtual ~GUIParam_PopupMenuInterface() {}
 
     long onCmdOpenTracker(FXObject*,FXSelector,void*);
 
-private:
+    virtual ValueSource<SUMOReal> *getSUMORealSourceCopy() = 0;
+
+protected:
     /// The object the table displays
     GUIGlObject *myObject;
-
-//    GUIParameterTable *myParent;
 
     GUIParameterTableWindow *myParentWindow;
 
@@ -81,7 +76,36 @@ private:
     std::string myVarName;
 
 
-    ValueSource<SUMOReal> *mySource;
+};
+
+
+/**
+ * @class GUIParam_PopupMenu
+ * A popup menu holding the context of a parameter table entry
+ */
+template<class T>
+class GUIParam_PopupMenu : public GUIParam_PopupMenuInterface
+{
+public:
+    /// Constructor
+    GUIParam_PopupMenu(GUIMainWindow &app,
+                       GUIParameterTableWindow &parentWindow,
+                       GUIGlObject &o, const std::string &varName, ValueSource<T> *src)
+            : GUIParam_PopupMenuInterface(app, parentWindow, o, varName),
+            mySource(src) {}
+
+    /// Destructor
+    ~GUIParam_PopupMenu() {
+        delete mySource;
+    }
+
+    ValueSource<SUMOReal> *getSUMORealSourceCopy() {
+        return mySource->makeSUMORealReturningCopy();
+    }
+
+
+private:
+    ValueSource<T> *mySource;
 
 protected:
     GUIParam_PopupMenu() { }

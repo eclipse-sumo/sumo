@@ -2,7 +2,7 @@
 /// @file    ValueSource.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 29.04.2005
-/// @version $Id$
+/// @version $Id:ValueSource.h 4699 2007-11-09 14:05:13Z dkrajzew $
 ///
 //
 /****************************************************************************/
@@ -45,6 +45,7 @@ public:
     virtual ~ValueSource() { }
     virtual T getValue() const = 0;
     virtual ValueSource *copy() const = 0;
+    virtual ValueSource<SUMOReal> *makeSUMORealReturningCopy() const = 0;
 
 };
 

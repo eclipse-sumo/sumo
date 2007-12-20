@@ -66,6 +66,9 @@ public:
                    mySource, myOperation, myParam);
     }
 
+    ValueSource<SUMOReal> *makeSUMORealReturningCopy() const {
+        return new CastingFunctionBinding<T, SUMOReal, R>(mySource, myOperation);
+    }
 
 protected:
 

@@ -175,7 +175,7 @@ GUIVehicle::getTimeSinceLastLaneChangeAsReal() const
 MSVehicle *
 GUIVehicle::getNextPeriodical() const
 {
-	GUIVehicle *ret = (GUIVehicle*)MSVehicle::getNextPeriodical();
+    GUIVehicle *ret = (GUIVehicle*)MSVehicle::getNextPeriodical();
     if (ret!=0 && hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
         RGBColor *col = (RGBColor *)getCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL);
         ret->setCORNColor(col->red(), col->green(), col->blue());
@@ -236,13 +236,13 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
         new GUIParameterTableWindow(app, *this, 9);
     // add items
     ret->mkItem("type [NAME]", false, myType->getID());
-    ret->mkItem("left same route [#]", false, (SUMOReal) getRepetitionNo());
-    ret->mkItem("emission period [s]", false, (SUMOReal) getPeriod());
+    ret->mkItem("left same route [#]", false, getRepetitionNo());
+    ret->mkItem("emission period [s]", false, getPeriod());
     ret->mkItem("waiting time [s]", true,
                 new CastingFunctionBinding<MSVehicle, SUMOReal, size_t>(this, &MSVehicle::getWaitingTime));
     ret->mkItem("last lane change [s]", true,
                 new CastingFunctionBinding<GUIVehicle, SUMOReal, size_t>(this, &GUIVehicle::getLastLaneChangeOffset));
-    ret->mkItem("desired depart [s]", false, (SUMOReal) getDesiredDepart());
+    ret->mkItem("desired depart [s]", false, getDesiredDepart());
     ret->mkItem("position [m]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getPositionOnLane));
     ret->mkItem("speed [m/s]", true,

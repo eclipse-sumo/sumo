@@ -33,52 +33,122 @@
 #include <string>
 #include <fx.h>
 #include <utils/common/ValueSource.h>
+#include <utils/gui/div/GUIParam_PopupMenu.h>
 
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
+class GUIParameterTableItemInterface
+{
+public:
+    virtual ~GUIParameterTableItemInterface() {}
+    virtual GUIParam_PopupMenuInterface *buildPopupMenu(GUIMainWindow *, GUIParameterTableWindow *, GUIGlObject *) const = 0;
+    virtual bool dynamic() const = 0;
+    virtual void update() = 0;
+};
+
 /**
  * @class GUIParameterTableItem
  * This class represents a single item of a parameter table.
  * As some values may change over the simulation, this class holds the
  * information whether they change and how to ask for new values if they do
  */
-class GUIParameterTableItem
+template<class T>
+class GUIParameterTableItem : public GUIParameterTableItemInterface
 {
 public:
     /// Constructor for changing values (SUMOReal-typed)
     GUIParameterTableItem(FXTable *table, size_t pos,
-                          const std::string &name, bool dynamic, ValueSource<SUMOReal> *src);
+                          const std::string &name, bool dynamic, ValueSource<T> *src) : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(src),
+            myValue(src->getValue()), myTable(table) {
+        init(dynamic, toString<T>(src->getValue()));
+    }
+
 
     /// Constructor for SUMOReal-typed, non-changing values
     GUIParameterTableItem(FXTable *table, size_t pos,
-                          const std::string &name, bool dynamic, SUMOReal value);
+                          const std::string &name, bool dynamic, T value): myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
+            myValue(value), myTable(table) {
+        init(dynamic, toString<T>(value));
+    }
+
 
     /// Constructor for string-typed, non-changing values
     GUIParameterTableItem(FXTable *table, size_t pos,
-                          const std::string &name, bool dynamic, std::string value);
+                          const std::string &name, bool dynamic, std::string value): myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
+            myValue(0), myTable(table) {
+        init(dynamic, value);
+    }
 
-    void init(bool dynamic, std::string value);
+
+    void init(bool dynamic, std::string value) {
+        myTable->setItemText(myTablePosition, 0, myName.c_str());
+        myTable->setItemText(myTablePosition, 1, value.c_str());
+        if (dynamic) {
+            myTable->setItemIcon(myTablePosition, 2,
+                                 GUIIconSubSys::getIcon(ICON_YES));
+        } else {
+            myTable->setItemIcon(myTablePosition, 2,
+                                 GUIIconSubSys::getIcon(ICON_NO));
+        }
+        myTable->setItemJustify(myTablePosition, 2,
+                                FXTableItem::CENTER_X|FXTableItem::CENTER_Y);
+    }
+
 
 
     /// Destructor
-    ~GUIParameterTableItem();
+    ~GUIParameterTableItem() {
+        delete mySource;
+    }
+
 
     /// Returns the infomration whether this item may change
-    bool dynamic() const;
+    bool dynamic() const {
+        return myAmDynamic;
+    }
+
 
     /// Returns the name of this item
-    const std::string &getName() const;
+    const std::string &getName() const {
+        return myName;
+    }
 
-    /// Returns the position within the table
-    size_t getTablePosition() const;
 
     /// Resets the value if it's dynamic
-    void update();
+    void update() {
+        if (!dynamic()||mySource==0) {
+            return;
+        }
+        T value = mySource->getValue();
+        if (value!=myValue) {
+            myValue = value;
+            myTable->setItemText(myTablePosition, 1,
+                                 toString<T>(myValue).c_str());
+        }
+    }
+
+
 
     /// Returns a copy of the source - if the value is dynamic
-    ValueSource<SUMOReal> *getSourceCopy() const;
+    ValueSource<T> *getSourceCopy() const {
+        if (mySource==0) {
+            return 0;
+        }
+        return mySource->copy();
+    }
+
+
+    GUIParam_PopupMenuInterface *buildPopupMenu(GUIMainWindow *w, GUIParameterTableWindow *p, GUIGlObject *o) const {
+        GUIParam_PopupMenuInterface *ret =
+            new GUIParam_PopupMenu<T>(*w, *p, *o, getName(), getSourceCopy());
+        if (dynamic()) {
+            new FXMenuCommand(ret, "Open in new Tracker", 0, p, MID_OPENTRACKER);
+        }
+        return ret;
+    }
+
 
 private:
     /// Information whether the value may change
@@ -92,10 +162,10 @@ private:
 
     /** @brief The source to gain new values from
         This source is==0 if the values are not dynamic */
-    ValueSource<SUMOReal> *mySource;
+    ValueSource<T> *mySource;
 
     /// A backup of the value to avoid the redrawing when nothing has changed
-    SUMOReal myValue;
+    T myValue;
 
     FXTable *myTable;
 

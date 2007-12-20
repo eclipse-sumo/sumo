@@ -65,6 +65,10 @@ public:
                    mySource, myOperation, myParam);
     }
 
+    ValueSource<SUMOReal> *makeSUMORealReturningCopy() const {
+        throw 1;
+    }
+
 
 protected:
 

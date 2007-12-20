@@ -454,7 +454,7 @@ MSCalibrator::MSCalibrator(const std::string &id,
 
 
     std::string ilId = "Calib_InductLoopOn_" + myDestLane->getID();
-    myIL = myDb.createInductLoop(ilId, myDestLane, myPos, 6000);
+    myIL = myDb.createInductLoop(ilId, myDestLane, myPos);
 
     MSNet::getInstance()->getEmissionEvents().addEvent(
         new WrappingCommand<MSCalibrator>(this, &MSCalibrator::execute),

@@ -38,6 +38,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/div/GUIParameterTableItem.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -98,7 +99,7 @@ GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow &app,
 GUIParameterTableWindow::~GUIParameterTableWindow()
 {
     myApplication->removeChild(this);
-    for (std::vector<GUIParameterTableItem*>::iterator i=myItems.begin(); i!=myItems.end(); ++i) {
+    for (std::vector<GUIParameterTableItemInterface*>::iterator i=myItems.begin(); i!=myItems.end(); ++i) {
         delete(*i);
     }
 }
@@ -138,14 +139,16 @@ GUIParameterTableWindow::onRightButtonPress(FXObject*sender,
     if (row==-1) {
         return 1;
     }
-    GUIParameterTableItem *i = myItems[row];
+    GUIParameterTableItemInterface *i = myItems[row];
     if (!i->dynamic()) {
         return 1;
     }
 
-    GUIParam_PopupMenu *p =
+    GUIParam_PopupMenuInterface *p = i->buildPopupMenu(myApplication, this, myObject);
+    /*
         new GUIParam_PopupMenu(*myApplication, *this,
                                *myObject, i->getName(), i->getSourceCopy());
+                               */
     if (i->dynamic()) {
         new FXMenuCommand(p, "Open in new Tracker", 0, p, MID_OPENTRACKER);
     }
@@ -162,9 +165,29 @@ GUIParameterTableWindow::onRightButtonPress(FXObject*sender,
 
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
+                                ValueSource<unsigned> *src)
+{
+    GUIParameterTableItemInterface *i = new GUIParameterTableItem<unsigned>(
+        myTable, myCurrentPos++, name, dynamic, src);
+    myItems.push_back(i);
+}
+
+
+void
+GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
                                 ValueSource<SUMOReal> *src)
 {
-    GUIParameterTableItem *i = new GUIParameterTableItem(
+    GUIParameterTableItemInterface *i = new GUIParameterTableItem<SUMOReal>(
+        myTable, myCurrentPos++, name, dynamic, src);
+    myItems.push_back(i);
+}
+
+
+void
+GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
+                                ValueSource<SUMOTime> *src)
+{
+    GUIParameterTableItemInterface *i = new GUIParameterTableItem<SUMOTime>(
         myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
 }
@@ -174,7 +197,7 @@ void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
                                 std::string value)
 {
-    GUIParameterTableItem *i = new GUIParameterTableItem(
+    GUIParameterTableItemInterface *i = new GUIParameterTableItem<SUMOReal>(
         myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -184,7 +207,27 @@ void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
                                 SUMOReal value)
 {
-    GUIParameterTableItem *i = new GUIParameterTableItem(
+    GUIParameterTableItemInterface *i = new GUIParameterTableItem<SUMOReal>(
+        myTable, myCurrentPos++, name, dynamic, value);
+    myItems.push_back(i);
+}
+
+
+void
+GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
+                                unsigned value)
+{
+    GUIParameterTableItemInterface *i = new GUIParameterTableItem<unsigned>(
+        myTable, myCurrentPos++, name, dynamic, value);
+    myItems.push_back(i);
+}
+
+
+void
+GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
+                                SUMOTime value)
+{
+    GUIParameterTableItemInterface *i = new GUIParameterTableItem<SUMOTime>(
         myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
@@ -193,7 +236,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
 void
 GUIParameterTableWindow::updateTable()
 {
-    for (std::vector<GUIParameterTableItem*>::iterator i=myItems.begin(); i!=myItems.end(); i++) {
+    for (std::vector<GUIParameterTableItemInterface*>::iterator i=myItems.begin(); i!=myItems.end(); i++) {
         (*i)->update();
     }
 }

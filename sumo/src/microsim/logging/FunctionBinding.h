@@ -32,6 +32,7 @@
 #endif
 
 #include <utils/common/ValueSource.h>
+#include "CastingFunctionBinding.h"
 
 
 // ===========================================================================
@@ -60,6 +61,10 @@ public:
 
     ValueSource<R> *copy() const {
         return new FunctionBinding<T, R>(mySource, myOperation);
+    }
+
+    ValueSource<SUMOReal> *makeSUMORealReturningCopy() const {
+        return new CastingFunctionBinding<T, SUMOReal, R>(mySource, myOperation);
     }
 
 private:

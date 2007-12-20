@@ -322,9 +322,9 @@ GUIE1VehicleActor::getParameterWindow(GUIMainWindow &app,
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 9);
     // add items
-    ret->mkItem("_ActorType", false, (SUMOReal) myLAId);
-    ret->mkItem("LA-ID", false, (SUMOReal) myLAId);
-    ret->mkItem("Area-ID", false, (SUMOReal) myAreaId);
+    ret->mkItem("_ActorType", false, myLAId);
+    ret->mkItem("LA-ID", false, myLAId);
+    ret->mkItem("Area-ID", false, myAreaId);
     ret->mkItem("passed vehicles [#]", true,
                 new CastingFunctionBinding<MSE1VehicleActor, SUMOReal, unsigned int>(this, &MSE1VehicleActor::getPassedVehicleNumber));
     ret->mkItem("passed cphones [#]", true,

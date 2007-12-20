@@ -193,8 +193,8 @@ GUIEdge::getParameterWindow(GUIMainWindow &app,
 #ifdef HAVE_MESOSIM
     ret = new GUIParameterTableWindow(app, *this, 5);
     // add items
-    ret->mkItem("length [m]", false, (SUMOReal) myLaneGeoms[0]->getLength());
-    ret->mkItem("allowed speed [m/s]", false, (SUMOReal) getAllowedSpeed());
+    ret->mkItem("length [m]", false, myLaneGeoms[0]->getLength());
+    ret->mkItem("allowed speed [m/s]", false, getAllowedSpeed());
     ret->mkItem("occupancy [%]", true,
                 new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getDensity));
     ret->mkItem("mean vehicle speed [m/s]", true,

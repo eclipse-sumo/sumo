@@ -41,6 +41,29 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
+/*
+GUIParameterTableItem::GUIParameterTableItem(FXTable *table, size_t pos,
+        const std::string &name,
+        bool dynamic,
+        ValueSource<SUMOReal> *src)
+        : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(src),
+        myValue(src->getValue()), myTable(table)
+{
+    init(dynamic, toString<SUMOReal>(src->getValue()));
+}
+
+
+GUIParameterTableItem::GUIParameterTableItem(FXTable *table, size_t pos,
+        const std::string &name,
+        bool dynamic,
+        ValueSource<unsigned> *src)
+        : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(src),
+        myValue(src->getValue()), myTable(table)
+{
+    init(dynamic, toString<SUMOReal>(src->getValue()));
+}
+
+
 GUIParameterTableItem::GUIParameterTableItem(FXTable *table, size_t pos,
         const std::string &name,
         bool dynamic,
@@ -136,7 +159,7 @@ GUIParameterTableItem::getSourceCopy() const
     return mySource->copy();
 }
 
-
+*/
 
 /****************************************************************************/
 
