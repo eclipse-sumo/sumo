@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!-- generated on 12/20/07 14:29:29 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <additional-files>input_routes.rou.xml,input_additional2.add.xml</additional-files>
+   </input>
+
+   <output>
+      <tripinfo-output>tripinfos.xml</tripinfo-output>
+   </output>
+
+   <time>
+      <begin>0</begin>
+      <end>1000</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<tripinfos>
+   <tripinfo vehicle_id="emitter_0_0" start="0" wished="0" end="108" duration="108" waited="0" reroutes="0" devices="" vtype="t1"/>
+</tripinfos>

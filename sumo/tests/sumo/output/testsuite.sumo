@@ -11,11 +11,11 @@ e3
 # Tests for emission-dump
 emissions
 
+# Tests for tripinfo-dump
+tripinfo
 
 
 
-# Tests whether emission output works
-cross3ltl_emissions
 
 # Tests whether edge meandata output works
 cross3ltl_meandata_edges
@@ -34,9 +34,6 @@ cross3ltl_rawdump
 
 # Tests whether rawdump output without prunning works
 cross3ltl_rawdump_withempty
-
-# Tests whether tripinfo output works
-cross3ltl_tripinfo
 
 # Tests whether vehroutes output works
 cross3ltl_vehroutes
