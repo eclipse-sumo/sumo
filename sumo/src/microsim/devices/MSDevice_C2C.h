@@ -65,13 +65,12 @@ public:
         SUMOTime time; // the Time, when the Info was saved
     };
 
-    enum C2CConnectionState {
-        dialing, connected, sending, receiving, disconnected
-    };
-
-    struct C2CConnection {
+    class C2CConnection
+    {
+    public:
+    	C2CConnection(MSDevice_C2C  *connectedVeh_, SUMOTime lastTimeSeen_)
+                : connectedVeh(connectedVeh_), lastTimeSeen(lastTimeSeen_) { }
         MSDevice_C2C  *connectedVeh;
-        C2CConnectionState state;
         SUMOTime lastTimeSeen;
     };
     typedef std::map<MSDevice_C2C*, C2CConnection*> ConnectionCont;

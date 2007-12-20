@@ -147,6 +147,7 @@ MSDevice_C2C::computeCar2Car(SUMOTime t)
 			(*device)->addNeighbors(myCells->getNeighbor(cell, 0, 1), t);
 			(*device)->addNeighbors(myCells->getNeighbor(cell, 1, 0), t);
 			(*device)->addNeighbors(myCells->getNeighbor(cell, 1, 1), t);
+			(*device)->addNeighbors(myCells->getNeighbor(cell, -1, 1), t);
 	        (*device)->cleanUpConnections(t);
 			(*device)->setClusterId(-1);
 			if ((*device)->getConnections().size()!=0) {
@@ -284,23 +285,24 @@ MSDevice_C2C::addNeighbors(vector<MSDevice_C2C*>* devices, SUMOTime time)
 		if (&(*other)->getHolder().getLane()==0 && isInDistance(&getHolder(), &(*other)->getHolder())) {
 			Position2D pos1 = getHolder().getPosition();
 			Position2D pos2 = (*other)->getHolder().getPosition();
-			std::map<MSDevice_C2C*, C2CConnection*>::iterator i = myNeighbors.find((*other));
-			if (i==myNeighbors.end()) {
-				// the vehicles will establish a new connection
-				C2CConnection *con = new C2CConnection;
-				con->connectedVeh = (*other);
-				con->state = disconnected;
-				con->lastTimeSeen = time;
-				myNeighbors[(*other)] = con;
-				// the other car must inform THIS vehicle if it's removed from the network
-				(*other)->getHolder().quitRemindedEntered(this);
-			} else {
-				// ok, the vehicles already interact
-				//  increment the connection time
-				(*i).second->lastTimeSeen = time;
+			if (pos1.x() < pos2.x()) {
+				std::map<MSDevice_C2C*, C2CConnection*>::iterator i = myNeighbors.find(*other);
+				if (i==myNeighbors.end()) {
+					// the vehicles will establish a new connection
+					myNeighbors[*other] = new C2CConnection(*other, time);
+					(*other)->myNeighbors[this] = new C2CConnection(this, time);
+					// the cara must inform each other if removed from the network
+					(*other)->getHolder().quitRemindedEntered(this);
+					getHolder().quitRemindedEntered(*other);
+				} else {
+					// ok, the vehicles already interact
+					//  increment the connection time
+					(*i).second->lastTimeSeen = time;
+					(*other)->myNeighbors[this]->lastTimeSeen = time;
+				}
+				MSCORN::saveVehicleInRangeData(time, getID(), (*other)->getID(),
+											   pos1.x(),pos1.y(), pos2.x(),pos2.y());
 			}
-			MSCORN::saveVehicleInRangeData(time, getID(), (*other)->getID(),
-										   pos1.x(),pos1.y(), pos2.x(),pos2.y());
 		}
 	}
 }
