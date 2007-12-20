@@ -23,8 +23,8 @@ MSRightOfWayJunction.cpp MSRightOfWayJunction.h \
 MSRoute.cpp MSRoute.h MSRouteHandler.cpp MSRouteHandler.h \
 MSRouteLoader.cpp MSRouteLoader.h \
 MSRouteLoaderControl.cpp MSRouteLoaderControl.h \
-MSSourceLane.cpp MSSourceLane.h MSTravelcostDetector.h \
-MSUnit.cpp MSUnit.h MSUpdateEachTimestep.h MSUpdateEachTimestepContainer.h \
+MSSourceLane.cpp MSSourceLane.h \
+MSUpdateEachTimestep.h MSUpdateEachTimestepContainer.h \
 MSVehicle.cpp MSVehicle.h \
 MSVehicleContainer.cpp MSVehicleContainer.h \
 MSVehicleControl.cpp MSVehicleControl.h \

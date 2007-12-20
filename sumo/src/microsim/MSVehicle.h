@@ -33,7 +33,6 @@
 #include "MSEdge.h"
 #include "MSNet.h"
 #include "MSRoute.h"
-#include "MSUnit.h"
 #include "MSCORN.h"
 #include <list>
 #include <deque>
@@ -589,7 +588,7 @@ private:
     /** Iterator to current route-edge.  */
     MSRouteIterator myCurrEdge;
 
-    /** The vehicle's allowed lanes on it's current edge to drive
+    /** The vehicle's allowed lanes on it'S current edge to drive
         according to it's route. */
     NextAllowedLanes myAllowedLanes;
 
