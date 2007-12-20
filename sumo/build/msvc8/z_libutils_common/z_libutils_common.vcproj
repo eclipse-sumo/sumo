@@ -433,10 +433,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\common\OneArgumentCommand.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\RandHelper.h"
 				>
 			</File>
