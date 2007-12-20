@@ -1,5 +1,5 @@
 # no traffic, just plain output
-no_vehicles
+#no_vehicles
 
 # one vehicle is moving
 one_vehicle
