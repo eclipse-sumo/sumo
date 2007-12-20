@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-//	»missingDescription«
+//	ï¿½missingDescriptionï¿½
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -67,7 +67,7 @@ public:
     }
 
     ValueSource<SUMOReal> *makeSUMORealReturningCopy() const {
-        return new CastingFunctionBinding<T, SUMOReal, R>(mySource, myOperation);
+        return new FuncBinding_IntParam<T, SUMOReal>(mySource, myOperation, myParam);
     }
 
 protected:

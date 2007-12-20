@@ -33,7 +33,10 @@
 #include <string>
 #include <fx.h>
 #include <utils/common/ValueSource.h>
+#include <utils/common/ToString.h>
 #include <utils/gui/div/GUIParam_PopupMenu.h>
+#include <utils/gui/images/GUIIconSubSys.h>
+#include <utils/gui/windows/GUIAppEnum.h>
 
 
 // ===========================================================================
