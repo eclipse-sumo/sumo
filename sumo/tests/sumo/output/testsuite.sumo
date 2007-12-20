@@ -36,15 +36,6 @@ cross3ltl_tripinfo
 # Tests whether vehroutes output works
 cross3ltl_vehroutes
 
-# Tests whether e2-detectors work
-cross3ltl_e2
-
-# Tests whether e2-detectors can be written into one file
-cross3ltl_e2_joined
-
-# Tests whether e3-detectors work
-cross3ltl_e3
-
 # Tests whether physical-states-output work
 cross3ltl_physical_states
 
