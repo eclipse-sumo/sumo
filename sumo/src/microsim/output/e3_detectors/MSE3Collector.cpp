@@ -128,10 +128,10 @@ MSE3Collector::MSE3LeaveReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh)
 MSE3Collector::MSE3Collector(const std::string &id,
                              const CrossSectionVector &entries,
                              const CrossSectionVector &exits,
-                             MSUnit::MetersPerSecond haltingSpeedThreshold)
+                             MetersPerSecond haltingSpeedThreshold)
         : idM(id), entriesM(entries), exitsM(exits),
         // !dk! kept for later use: haltingTimeThresholdM(MSUnit::getInstance()->getSteps(haltingTimeThreshold)),
-        haltingSpeedThresholdM(MSUnit::getInstance()->getCellsPerStep(haltingSpeedThreshold))
+        myHaltingSpeedThreshold(haltingSpeedThreshold)
 {
     // Set MoveReminders to entries and exits
     for (CrossSectionVectorConstIt crossSec1 = entries.begin(); crossSec1!=entries.end(); ++crossSec1) {

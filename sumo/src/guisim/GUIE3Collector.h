@@ -32,6 +32,7 @@
 
 #include <string>
 #include <vector>
+#include <utils/common/PhysicalTypeDefs.h>
 #include <microsim/output/e3_detectors/MSE3Collector.h>
 #include "GUIDetectorWrapper.h"
 #include <utils/geom/Position2DVector.h>
@@ -53,7 +54,7 @@ public:
     /// Constructor
     GUIE3Collector(const std::string &id,
                    const CrossSectionVector &entries, const CrossSectionVector &exits,
-                   MSUnit::MetersPerSecond haltingSpeedThreshold);
+                   MetersPerSecond haltingSpeedThreshold);
 
     /// Destructor
     ~GUIE3Collector();

@@ -30,13 +30,14 @@
 #include <config.h>
 #endif
 
+#include <utils/common/PhysicalTypeDefs.h>
 #include <microsim/MSMoveReminder.h>
 #include <microsim/output/MSDetectorFileOutput.h>
+#include <microsim/output/MSCrossSection.h>
 #include <string>
 #include <cassert>
 #include <vector>
 #include <limits>
-#include <microsim/output/MSCrossSection.h>
 #include <microsim/MSVehicleQuitReminded.h>
 #include <microsim/MSUpdateEachTimestep.h>
 #include <utils/common/ToString.h>
@@ -155,7 +156,7 @@ class MSE3LeaveReminder : public MSMoveReminder
     ///
     MSE3Collector(const std::string &id,
                   const CrossSectionVector &entries, const CrossSectionVector &exits,
-                  MSUnit::MetersPerSecond haltingSpeedThreshold);
+                  MetersPerSecond haltingSpeedThreshold);
 
     /// Dtor. Deletes the created detectors.
     virtual ~MSE3Collector(void);
@@ -204,8 +205,8 @@ protected:
     //MSUnit::Steps haltingTimeThresholdM;
     // !dk! kept for later use
 
-    /// Speed-theshold to determine if a vehicle is halting.
-    MSUnit::MetersPerSecond haltingSpeedThresholdM;
+    /// @brief Speed-theshold to determine if a vehicle is halting.
+    MetersPerSecond myHaltingSpeedThreshold;
 
     struct E3Values {
         SUMOReal entryTime;
