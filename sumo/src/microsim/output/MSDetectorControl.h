@@ -37,7 +37,6 @@
 #include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/output/e3_detectors/MSE3Collector.h>
 #include <microsim/output/MSInductLoop.h>
-#include "meandata/MSMeanData_Net_Cont.h"
 #include "MSDetector2File.h"
 
 #ifdef HAVE_MESOSIM
