@@ -386,7 +386,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis)
         assert(getVehicle(id)==0);
 
         MSVehicle *v = buildVehicle(id, route, desiredDepart, type, repetitionNumber, period);
-        if (wasEmitted != -1) { 
+        if (wasEmitted != -1) {
             v->myIntCORNMap[MSCORN::CORN_VEH_REALDEPART] = wasEmitted;
         }
         while (routeOffset>0) {

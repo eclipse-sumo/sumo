@@ -77,7 +77,6 @@ public:
      * @param id Unique id.
      * @param lane Lane where detector woks on.
      * @param position Position of the detector within the lane.
-     * @param deleteDataAfterSeconds Dismiss-time for collected data.
      */
     MSE1VehicleActor(const std::string& id, MSLane* lane,
                      SUMOReal positionInMeters, unsigned int laid, unsigned int cellid, unsigned int type);
@@ -87,14 +86,8 @@ public:
     ~MSE1VehicleActor();
 
 
-    /**
-     * @name MSMoveReminder methods.
-     *
-     * Methods in this group are inherited from MSMoveReminder. They are
-     * called by the moving, entering and leaving vehicles.
-     *
-     */
-    //@{
+    /// @name Methods inherited from MSMoveReminder.
+    /// @{
     /**
      * Indicator if the reminders is still active for the passed
      * vehicle/parameters. If false, the vehicle will erase this
@@ -110,6 +103,8 @@ public:
      *
      * @return True if vehicle hasn't passed the detector completely.
      *
+     * @see MSMoveReminder
+     * @see MSMoveReminder::isStillActive
      * @see enterDetectorByMove
      * @see leaveDetectorByMove
      */
@@ -139,7 +134,7 @@ public:
      * @return True if vehicle is on or in front of the detector.
      */
     bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
-    //@}
+    /// @}
 
     /// Returns the number of vehicles that have passed this actor
     unsigned int getPassedVehicleNumber() const {

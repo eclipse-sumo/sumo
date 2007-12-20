@@ -159,13 +159,13 @@ MSVehicle::~MSVehicle()
     	myDevices.clear();
     }
 #ifdef TRACI
-	{
-		// edges changed by TraCI
-		for (InfoCont::iterator i=edgesChangedByTraci.begin(); i!=edgesChangedByTraci.end(); ++i) {
-				delete(*i).second;
-		}	
-		edgesChangedByTraci.clear();
-	}
+    {
+        // edges changed by TraCI
+        for (InfoCont::iterator i=edgesChangedByTraci.begin(); i!=edgesChangedByTraci.end(); ++i) {
+            delete(*i).second;
+        }
+        edgesChangedByTraci.clear();
+    }
 #endif
     // persons
     if (hasCORNPointerValue(MSCORN::CORN_VEH_PASSENGER)) {
@@ -196,8 +196,8 @@ MSVehicle::MSVehicle(string id,
         myRoute(route),
         myDesiredDepart(departTime),
         myState(0, 0), //
-        myIndividualMaxSpeed( 0.0 ),
-        myIsIndividualMaxSpeedSet( false ),
+        myIndividualMaxSpeed(0.0),
+        myIsIndividualMaxSpeedSet(false),
         myLane(0),
         myType(type),
         myLastBestLanesEdge(0),
@@ -359,7 +359,6 @@ MSVehicle::endsOn(const MSLane &lane) const
     return lane.inEdge(myRoute->getLastEdge());
 }
 
-/////////////////////////////////////////////////////////////////////////////
 
 void
 MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
@@ -412,7 +411,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
                 }
                 if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                     bstop.reached = true;
-                    if(bstop.duration==-1) {
+                    if (bstop.duration==-1) {
                         assert(bstop.until>=0);
                         bstop.duration = bstop.until - MSNet::getInstance()->getCurrentTimeStep();
                     }
@@ -427,7 +426,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     }
 
     SUMOReal maxNextSpeed = myType->maxNextSpeed(myState.mySpeed);
-    
+
     SUMOReal vNext = myType->dawdle(MIN3(lane->maxSpeed(), myType->maxNextSpeed(myState.mySpeed), vSafe));
     vNext =
         myLaneChangeModel->patchSpeed(
@@ -583,7 +582,7 @@ MSVehicle::moveFirstChecked()
                 }
                 if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                     bstop.reached = true;
-                    if(bstop.duration==-1) {
+                    if (bstop.duration==-1) {
                         assert(bstop.until>=0);
                         bstop.duration = bstop.until - MSNet::getInstance()->getCurrentTimeStep();
                     }
@@ -613,8 +612,8 @@ MSVehicle::moveFirstChecked()
     }
     // call reminders after vNext is set
     SUMOReal pos = myState.myPos;
-    
-    vNext = MIN2( vNext, getMaxSpeed() );
+
+    vNext = MIN2(vNext, getMaxSpeed());
 
     // update position
     myState.myPos += SPEED2DIST(vNext);
@@ -625,7 +624,7 @@ MSVehicle::moveFirstChecked()
 
     // move the vehicle forward
     size_t no = 0;
-    SUMOReal driven = 
+    SUMOReal driven =
         myState.myPos>approachedLane->length()
         ? approachedLane->length() - pos
         : myState.myPos - pos;
@@ -1009,7 +1008,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool inBetweenJ
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
     	(*dev)->enterLaneAtMove(enteredLane, driven, inBetweenJump);
     }
-	if (MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
+    if (MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleMoves(this);
     }
 }
@@ -1054,7 +1053,7 @@ MSVehicle::leaveLaneAtMove(SUMOReal driven)
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->leaveLaneAtMove(driven);
     }
-	if (!myAllowedLanes.empty()) {
+    if (!myAllowedLanes.empty()) {
         myAllowedLanes.pop_front();
     }
 }
@@ -1066,7 +1065,7 @@ MSVehicle::leaveLaneAtLaneChange(void)
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
     	(*dev)->leaveLaneAtLaneChange();
     }
-	// dismiss the old lane's reminders
+    // dismiss the old lane's reminders
     SUMOReal savePos = myState.myPos; // have to do this due to SUMOReal-precision errors
     vector< MSMoveReminder* >::iterator rem;
     for (rem=myMoveReminders.begin(); rem != myMoveReminders.end(); ++rem) {

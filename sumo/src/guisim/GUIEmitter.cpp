@@ -128,6 +128,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::GUIEmitterChild_UserTriggeredChi
             MSEventControl::ADAPT_AFTER_EXECUTION);
         MSNet::getInstance()->getVehicleControl().newUnbuildVehicleLoaded();
         myDescheduleVehicle = true;
+        // !!! check whether adding this to eventhandler is ok
     }
 }
 

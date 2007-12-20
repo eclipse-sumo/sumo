@@ -83,6 +83,8 @@ class Setter : public MSMoveReminder
         /// Destructor
         ~Setter();
 
+        /// @name Methods inherited from MSMoveReminder.
+        /// @{
         /// Returns whether the vehicle has to be aware of this setter in the next step
         bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
                            SUMOReal newSpeed);
@@ -92,6 +94,7 @@ class Setter : public MSMoveReminder
 
         /// Returns whether the vehicle shall be aware of this move reminder
         bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
+        /// @}
 
     private:
         /// The rerouter used for rerouting the vehicle

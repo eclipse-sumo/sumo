@@ -82,7 +82,7 @@ MSEmitControl::emitVehicles(SUMOTime time)
     size_t noEmitted = 0;
     // we use buffering for the refused emits to save time
     //  for this, we have two lists; one contains previously refused emits, the second
-    //  will be used to append those vehicles that will not be able to depart in this 
+    //  will be used to append those vehicles that will not be able to depart in this
     //  time step
     assert(myRefusedEmits1.size()==0||myRefusedEmits2.size()==0);
     MSVehicleContainer::VehicleVector &refusedEmits =
@@ -115,7 +115,7 @@ MSEmitControl::emitVehicles(SUMOTime time)
     for (MSVehicleContainer::VehicleVector::iterator i=myNewPeriodicalAdds.begin(); i!=myNewPeriodicalAdds.end(); ++i) {
         add(*i);
     }
-        // and clear the list
+    // and clear the list
     myNewPeriodicalAdds.clear();
     // Return the number of emitted vehicles
     return noEmitted;

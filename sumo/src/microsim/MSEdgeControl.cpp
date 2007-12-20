@@ -106,16 +106,16 @@ MSEdgeControl::moveNonCritical()
 {
     for (set<MSLane*>::iterator i=myChangedStateLanes.begin(); i!=myChangedStateLanes.end(); ++i) {
         const LaneUsage &lu = (*i)->getLaneUsage();
-        if(lu.noVehicles>0 && !lu.amActive) {
+        if (lu.noVehicles>0 && !lu.amActive) {
             myActiveLanes.push_back(*i);
-            ((LaneUsage &) (*i)->getLaneUsage()).amActive = true;
+            ((LaneUsage &)(*i)->getLaneUsage()).amActive = true;
         }
     }
     myChangedStateLanes.clear();
     // move non-critical vehicles
-    for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end(); ) {
-        if((*i)->getVehicleNumber()==0 || (*i)->moveNonCritical()) {
-            ((LaneUsage &) (*i)->getLaneUsage()).amActive = false;
+    for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
+        if ((*i)->getVehicleNumber()==0 || (*i)->moveNonCritical()) {
+            ((LaneUsage &)(*i)->getLaneUsage()).amActive = false;
             i = myActiveLanes.erase(i);
         } else {
             ++i;
@@ -127,9 +127,9 @@ MSEdgeControl::moveNonCritical()
 void
 MSEdgeControl::moveCritical()
 {
-    for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end(); ) {
-        if((*i)->getVehicleNumber()==0 || (*i)->moveCritical()) {
-            ((LaneUsage &) (*i)->getLaneUsage()).amActive = false;
+    for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
+        if ((*i)->getVehicleNumber()==0 || (*i)->moveCritical()) {
+            ((LaneUsage &)(*i)->getLaneUsage()).amActive = false;
             i = myActiveLanes.erase(i);
         } else {
             ++i;
@@ -142,19 +142,19 @@ void
 MSEdgeControl::moveFirst()
 {
     myWithVehicles2Integrate.clear();
-    for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end(); ) {
-        if((*i)->getVehicleNumber()==0 || (*i)->setCritical(myWithVehicles2Integrate)) {
-            ((LaneUsage &) (*i)->getLaneUsage()).amActive = false;
+    for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
+        if ((*i)->getVehicleNumber()==0 || (*i)->setCritical(myWithVehicles2Integrate)) {
+            ((LaneUsage &)(*i)->getLaneUsage()).amActive = false;
             i = myActiveLanes.erase(i);
         } else {
             ++i;
         }
     }
     for (vector<MSLane*>::iterator i=myWithVehicles2Integrate.begin(); i!=myWithVehicles2Integrate.end(); ++i) {
-        if((*i)->integrateNewVehicle()) {
-            if(!(*i)->getLaneUsage().amActive) {
+        if ((*i)->integrateNewVehicle()) {
+            if (!(*i)->getLaneUsage().amActive) {
                 myActiveLanes.push_back(*i);
-                ((LaneUsage &) (*i)->getLaneUsage()).amActive = true;
+                ((LaneUsage &)(*i)->getLaneUsage()).amActive = true;
             }
         }
     }
@@ -168,10 +168,10 @@ MSEdgeControl::changeLanes()
         assert((*edge)->getLanes()->size()>1);
         (*edge)->changeLanes();
         const MSEdge::LaneCont *lanes = (*edge)->getLanes();
-        for(MSEdge::LaneCont::const_iterator i=lanes->begin(); i!=lanes->end(); ++i) {
-            if((*i)->getVehicleNumber()>0 && !(*i)->getLaneUsage().amActive) {
+        for (MSEdge::LaneCont::const_iterator i=lanes->begin(); i!=lanes->end(); ++i) {
+            if ((*i)->getVehicleNumber()>0 && !(*i)->getLaneUsage().amActive) {
                 myActiveLanes.push_back(*i);
-                ((LaneUsage &) (*i)->getLaneUsage()).amActive = true;
+                ((LaneUsage &)(*i)->getLaneUsage()).amActive = true;
             }
         }
     }
@@ -226,7 +226,7 @@ MSEdgeControl::getEdgeNames() const
 }
 
 
-void 
+void
 MSEdgeControl::gotActive(MSLane *l)
 {
     myChangedStateLanes.insert(l);

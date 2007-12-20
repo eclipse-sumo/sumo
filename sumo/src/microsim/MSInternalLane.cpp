@@ -77,8 +77,8 @@ MSInternalLane::~MSInternalLane()
 
 
 void
-MSInternalLane::setParentJunctionInformation(MSLogicJunction::InnerState *foescont, 
-                                             size_t foesIdx)
+MSInternalLane::setParentJunctionInformation(MSLogicJunction::InnerState *foescont,
+        size_t foesIdx)
 {
     myFoesCont = foescont;
     myFoesIndex = foesIdx;

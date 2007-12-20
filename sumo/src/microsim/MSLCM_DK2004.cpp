@@ -155,8 +155,8 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     //
     // this rule forces our vehicle to change the lane if a lane changing is necessary soon
     SUMOReal rv = myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
-                 ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
-                 : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
+                  ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
+                  : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     rv += myVehicle.getLength() * (SUMOReal) 2.;
 
     SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos * (SUMOReal) JAM_FACTOR2;
@@ -370,11 +370,11 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     //
     // this rule forces our vehicle to change the lane if a lane changing is necessary soon
     SUMOReal lv = myVehicle.getSpeed() > LOOK_FORWARD_SPEED_DIVIDER
-                 ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
-                 : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
+                  ? myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_FAR
+                  : myVehicle.getSpeed() * (SUMOReal) LOOK_FORWARD_NEAR;
     lv += myVehicle.getLength() * (SUMOReal) 2.;
 
-    
+
     SUMOReal tdist = currentDist/*best.lane->length()*/-myVehicle.getPositionOnLane() - best.hindernisPos * (SUMOReal) JAM_FACTOR2;
     /*
     if(bestLaneOffset>0) {

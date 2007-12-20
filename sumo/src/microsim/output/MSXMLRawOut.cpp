@@ -4,7 +4,7 @@
 /// @date    Mon, 10.05.2004
 /// @version $Id$
 ///
-//  missingDescription
+// Realises dumping the complete network state
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -50,14 +50,6 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSXMLRawOut::MSXMLRawOut()
-{}
-
-
-MSXMLRawOut::~MSXMLRawOut()
-{}
-
-
 void
 MSXMLRawOut::write(OutputDevice &of, const MSEdgeControl &ec,
                    SUMOTime timestep,
