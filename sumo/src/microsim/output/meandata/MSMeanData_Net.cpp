@@ -61,9 +61,8 @@ MSMeanData_Net::MSMeanData_Net(unsigned int t, unsigned int index,
                                MSEdgeControl &edges,
                                const std::vector<int> &dumpBegins,
                                const std::vector<int> &dumpEnds,
-                               bool useLanes,
-                               bool addHeaderTail)
-        : myInterval(t), myUseHeader(addHeaderTail), myIndex(index),
+                               bool useLanes)
+        : myInterval(t), myIndex(index),
         myEdges(edges), myAmEdgeBased(!useLanes),
         myDumpBegins(dumpBegins), myDumpEnds(dumpEnds)
 {}
@@ -74,7 +73,7 @@ MSMeanData_Net::~MSMeanData_Net()
 
 
 void
-MSMeanData_Net::resetOnly(const MSEdge &edge, SUMOTime /*stopTime*/)
+MSMeanData_Net::resetOnly(const MSEdge &edge)
 {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -99,19 +98,19 @@ MSMeanData_Net::resetOnly(const MSEdge &edge, SUMOTime /*stopTime*/)
 
 
 void
-MSMeanData_Net::resetOnly(SUMOTime stopTime)
+MSMeanData_Net::resetOnly()
 {
     // reset data
     MSEdgeControl::EdgeCont::const_iterator edg;
     // single lane edges
     const MSEdgeControl::EdgeCont &ec1 = myEdges.getSingleLaneEdges();
     for (edg = ec1.begin(); edg != ec1.end(); ++edg) {
-        resetOnly(*(*edg), stopTime);
+        resetOnly(*(*edg));
     }
     // multi lane edges
     const MSEdgeControl::EdgeCont &ec2 = myEdges.getMultiLaneEdges();
     for (edg = ec2.begin(); edg != ec2.end(); ++edg) {
-        resetOnly(*(*edg), stopTime);
+        resetOnly(*(*edg));
     }
 }
 
@@ -131,7 +130,7 @@ MSMeanData_Net::write(OutputDevice &dev,
         }
     }
     if (!found) {
-        resetOnly(stopTime);
+        resetOnly();
         return;
     }
     // interval begin

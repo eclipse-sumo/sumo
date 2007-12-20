@@ -766,10 +766,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\output\meandata\MSMeanData_Net_Cont.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\output\meandata\MSMeanData_Net_Utils.h"
 				>
 			</File>

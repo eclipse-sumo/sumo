@@ -54,12 +54,12 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSMeanData_Net_Cont
+std::vector<MSMeanData_Net*>
 MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
                                 MSEdgeControl &ec,
-                                std::vector<int> dumpMeanDataIntervalls,
+                                std::vector<int> dumpMeanDataIntervals,
                                 std::string baseNameDumpFiles,
-                                std::vector<int> laneDumpMeanDataIntervalls,
+                                std::vector<int> laneDumpMeanDataIntervals,
                                 std::string baseNameLaneDumpFiles,
                                 const std::vector<int> &dumpBegins,
                                 const std::vector<int> &dumpEnds)
@@ -75,50 +75,41 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
         }
     }
     // build mean data
-    MSMeanData_Net_Cont ret;
-    if (dumpMeanDataIntervalls.size() > 0) {
-        MSMeanData_Net_Cont tmp =
-            buildList(det2file, ec,
-                      dumpMeanDataIntervalls, baseNameDumpFiles,
-                      dumpBegins, dumpEnds, false);
+    std::vector<MSMeanData_Net*> ret;
+    if (dumpMeanDataIntervals.size() > 0) {
+        std::vector<MSMeanData_Net*> tmp =
+            buildList(det2file, ec, dumpMeanDataIntervals, baseNameDumpFiles, dumpBegins, dumpEnds, false);
         copy(tmp.begin(), tmp.end(), back_inserter(ret));
     }
-    if (laneDumpMeanDataIntervalls.size() > 0) {
-        MSMeanData_Net_Cont tmp =
-            buildList(det2file, ec,
-                      laneDumpMeanDataIntervalls, baseNameLaneDumpFiles,
-                      dumpBegins, dumpEnds, true);
+    if (laneDumpMeanDataIntervals.size() > 0) {
+        std::vector<MSMeanData_Net*> tmp =
+            buildList(det2file, ec, laneDumpMeanDataIntervals, baseNameLaneDumpFiles, dumpBegins, dumpEnds, true);
         copy(tmp.begin(), tmp.end(), back_inserter(ret));
     }
     return ret;
 }
 
 
-MSMeanData_Net_Cont
+std::vector<MSMeanData_Net*>
 MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
                                 MSEdgeControl &ec,
-                                std::vector<int> dumpMeanDataIntervalls,
+                                std::vector<int> dumpMeanDataIntervals,
                                 std::string baseNameDumpFiles,
                                 const std::vector<int> &dumpBegins,
                                 const std::vector<int> &dumpEnds,
                                 bool useLanes)
 {
-    MSMeanData_Net_Cont ret;
-    if (dumpMeanDataIntervalls.size() > 0) {
-        dumpMeanDataIntervalls = buildUniqueList(dumpMeanDataIntervalls);
-        sort(dumpMeanDataIntervalls.begin(),
-             dumpMeanDataIntervalls.end());
+    std::vector<MSMeanData_Net*> ret;
+    if (dumpMeanDataIntervals.size() > 0) {
+        dumpMeanDataIntervals = buildUniqueList(dumpMeanDataIntervals);
+        sort(dumpMeanDataIntervals.begin(), dumpMeanDataIntervals.end());
 
         // Prepare MeanData container, e.g. assign intervals and open files.
-        for (std::vector<int>::iterator it =
-                    dumpMeanDataIntervalls.begin();
-                it != dumpMeanDataIntervalls.end(); ++it) {
-
+        for (std::vector<int>::iterator it = dumpMeanDataIntervals.begin(); it != dumpMeanDataIntervals.end(); ++it) {
             string fileName   = baseNameDumpFiles + "_" + toString(*it) + ".xml";
             OutputDevice* dev = &OutputDevice::getDevice(fileName);
             MSMeanData_Net *det =
-                new MSMeanData_Net(*it, ret.size(), ec,
-                                   dumpBegins, dumpEnds, useLanes, true);
+                new MSMeanData_Net(*it, ret.size(), ec, dumpBegins, dumpEnds, useLanes);
             ret.push_back(det);
             det2file.addDetectorAndInterval(det, dev, *it);
         }
@@ -128,15 +119,13 @@ MSMeanData_Net_Utils::buildList(MSDetector2File &det2file,
 
 
 std::vector<int>
-MSMeanData_Net_Utils::buildUniqueList(
-    std::vector<int> dumpMeanDataIntervalls)
+MSMeanData_Net_Utils::buildUniqueList(std::vector<int> dumpMeanDataIntervals)
 {
     vector<int> ret;
     set<int> u;
-    copy(dumpMeanDataIntervalls.begin(), dumpMeanDataIntervalls.end(),
-         inserter(u, u.begin()));
-    if (dumpMeanDataIntervalls.size()!=u.size()) {
-        WRITE_WARNING("Removed duplicate dump-intervalls");
+    copy(dumpMeanDataIntervals.begin(), dumpMeanDataIntervals.end(), inserter(u, u.begin()));
+    if (dumpMeanDataIntervals.size()!=u.size()) {
+        WRITE_WARNING("Removed duplicate dump-Intervals");
     }
     copy(u.begin(), u.end(), back_inserter(ret));
     return ret;

@@ -38,8 +38,6 @@
 #include <iostream>
 #include <cmath>
 #include <iomanip>
-
-#include "output/meandata/MSMeanData_Net_Cont.h"
 #include "MSVehicleControl.h"
 #include "MSPersonControl.h"
 #include "MSEventControl.h"
@@ -47,6 +45,7 @@
 #include <utils/geom/Position2D.h>
 #include <utils/common/SUMOTime.h>
 #include "MSPhoneNet.h"
+#include <microsim/output/meandata/MSMeanData_Net.h>
 
 
 // ===========================================================================
@@ -182,7 +181,7 @@ public:
     virtual void closeBuilding(MSEdgeControl *edges,
                                MSJunctionControl *junctions, MSRouteLoaderControl *routeLoaders,
                                MSTLLogicControl *tlc,
-                               const MSMeanData_Net_Cont &meanData,
+                               const std::vector<MSMeanData_Net*> &meanData,
                                std::vector<int> stateDumpTimes, std::string stateDumpFiles);
 
     bool logSimulationDuration() const {
@@ -229,7 +228,7 @@ public:
 protected:
     MSPhoneNet * myMSPhoneNet;
     /** initialises the MeanData-container */
-    static void initMeanData(std::vector<int> dumpMeanDataIntervalls,
+    static void initMeanData(std::vector<int> dumpMeanDataIntervals,
                              std::string baseNameDumpFiles);
 
     /// Unique instance of MSNet
@@ -264,7 +263,7 @@ protected:
     /** @brief List of intervals and filehandles.
         At the end of each intervall the mean data (flow, density, speed ...)
         of each lane is calculated and written to file. */
-    MSMeanData_Net_Cont myMeanData;
+    std::vector<MSMeanData_Net*> myMeanData;
 
     /** @brief An instance responsible for vehicle */
     MSVehicleControl *myVehicleControl;

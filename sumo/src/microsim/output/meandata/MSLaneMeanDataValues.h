@@ -4,7 +4,7 @@
 /// @date    Mon, 10.05.2004
 /// @version $Id$
 ///
-// »missingDescription«
+// Data structure for mean (aggregated) edge/lane values
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -35,22 +35,25 @@
 // class definitions
 // ===========================================================================
 /**
- * @class MSLaneMeanDataValues
  * @struct MSLaneMeanDataValues
+ * @brief Data structure for mean (aggregated) edge/lane values
+ *
  * Structure holding values that describe the flow and other physical
- * properties aggregated over some seconds and normalised by the
- * aggregation period
+ *  properties aggregated over some seconds and normalised by the
+ *  aggregation period.
+ *
+ * @todo Check whether the haltings-information is used and how
  */
 struct MSLaneMeanDataValues {
+    /** @brief Constructor */
     MSLaneMeanDataValues()
-            : nVehEntireLane(0),
-            nSamples(0),
-            nVehLeftLane(0),
-            nVehEnteredLane(0),
-            speedSum(0),
-            haltSum(0),
-            vehLengthSum(0) {}
+        : nVehEntireLane(0), nSamples(0), nVehLeftLane(0), nVehEnteredLane(0),
+        speedSum(0), haltSum(0), vehLengthSum(0) 
+    {}
 
+
+    /** @brief Resets values so they may be used for the next interval
+     */
     void reset() {
         nVehEntireLane = 0;
         nSamples = 0;
@@ -61,26 +64,26 @@ struct MSLaneMeanDataValues {
         vehLengthSum = 0;
     }
 
-    /// the number of vehicles that passed the entire lane
+
+    /// @brief The number of vehicles that passed the entire lane
     unsigned nVehEntireLane;
 
-    /// the number of samples (vehicle hits) that made up the aggregated data
+    /// @brief The number of samples (vehicle hits) that made up the aggregated data
     SUMOReal nSamples;
 
-    /// the number of vehicles that left this lane within the
-    /// sample intervall
+    /// @brief The number of vehicles that left this lane within the sample intervall
     unsigned nVehLeftLane;
 
-    /// the number of vehicles that entered this lane within the
-    /// sample intervall
+    /// @brief The number of vehicles that entered this lane within the sample intervall
     unsigned nVehEnteredLane;
 
-    /// the sum of the speeds the vehicles had
+    /// @brief The sum of the speeds the vehicles had
     SUMOReal speedSum;
 
+    /// @brief !!!
     unsigned haltSum;
 
-    /// the sum of the lengths the vehicles had
+    /// @brief The sum of the lengths the vehicles had
     SUMOReal vehLengthSum;
 
 };

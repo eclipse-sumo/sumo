@@ -149,7 +149,7 @@ void
 MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
                      MSRouteLoaderControl *routeLoaders,
                      MSTLLogicControl *tlc, // ShapeContainer *sc,
-                     const MSMeanData_Net_Cont &meanData,
+                     const std::vector<MSMeanData_Net*> &meanData,
                      vector<int> stateDumpTimes,
                      std::string stateDumpFiles)
 {
@@ -202,7 +202,7 @@ MSNet::~MSNet()
     delete myJunctions;
     delete myDetectorControl;
     // delete mean data
-    for (MSMeanData_Net_Cont::iterator i1=myMeanData.begin(); i1!=myMeanData.end(); ++i1) {
+    for (std::vector<MSMeanData_Net*>::iterator i1=myMeanData.begin(); i1!=myMeanData.end(); ++i1) {
         delete *i1;
     }
     myMeanData.clear();

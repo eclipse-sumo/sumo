@@ -31,6 +31,7 @@
 #endif
 
 #include <vector>
+#include <cassert>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include "MSLaneMeanDataValues.h"
 #include <limits>
@@ -50,45 +51,134 @@ class MSLane;
 // ===========================================================================
 /**
  * @class MSMeanData_Net
+ * @brief Redirector for mean data output (net->edgecontrol)
+ *
+ * This structure does not contain the data itself, it is stored within lanes
+ *  (within edges in mesosim?). It is used to collected the data from each lane
+ *  of the network's edges and for generating the output, optionally, in the case
+ *  of edge-based dump aggregated over the edge's lanes.
+ *
+ * @todo check where mean data is stored in mesosim.
  */
 class MSMeanData_Net : public MSDetectorFileOutput
 {
 public:
-    /// constructor
+    /** @brief Constructor
+     *
+     * @param[in] t The interval in [s]
+     * @param[in] index Network-wide running counter of this mean data
+     * @param[in] edges Control containing the edges to use
+     * @param[in] dumpBegins Begin times of dumps
+     * @param[in] dumpEnds End times of dumps
+     * @param[in] useLanes Information whether lane-based or edge-based dump shall be generated
+     */
     MSMeanData_Net(unsigned int t, unsigned int index,
                    MSEdgeControl &edges, const std::vector<int> &dumpBegins,
-                   const std::vector<int> &dumpEnds, bool useLanes,
-                   bool addHeaderTail = true);
+                   const std::vector<int> &dumpEnds, bool useLanes);
 
-    /// destructor
+    /// @brief Destructor
     virtual ~MSMeanData_Net();
 
-    virtual void write(OutputDevice &dev,
-                       SUMOTime startTime, SUMOTime stopTime);
 
-    virtual void writeEdge(OutputDevice &dev,
-                           const MSEdge &edge,
+    /// @name Methods inherited from MSDetectorFileOutput.
+    /// @{
+    /** @brief Writes collected values into the given stream
+     *
+     * This method writes only the interval time into the stream. The interval's
+     *  contents are then written (if wanted) using write.
+     *
+     * @param[in] dev The output device to write the data into
+     * @param[in] startTime First time step the data were gathered
+     * @param[in] stopTime Last time step the data were gathered
+     * @see MSDetectorFileOutput::writeXMLOutput
+     * @see write
+     */
+    virtual void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime);
+
+
+    /** @brief Opens the XML-output using "netstats" as root element
+     *
+     * @param[in] dev The output device to write the root into
+     * @see MSDetectorFileOutput::writeXMLDetectorProlog
+     */
+    void writeXMLDetectorProlog(OutputDevice &dev) const;
+    /// @}
+
+
+protected:
+    /** @brief Writes network values into the given stream
+     *
+     * At first, it is checked whether the values for the current interval shall be written.
+     *  If not, a reset is performed, only, using "resetOnly". Otherwise,
+     *  both the list of single-lane edges and the list of multi-lane edges
+     *  are gone through and each edge is written using "writeEdge".
+     *
+     * @param[in] dev The output device to write the data into
+     * @param[in] startTime First time step the data were gathered
+     * @param[in] stopTime Last time step the data were gathered
+     */
+    virtual void write(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime);
+
+
+    /** @brief Writes edge values into the given stream
+     *
+     * microsim: It is checked whether the dump shall be generated edge-
+     *  or lane-wise. In the first case, the lane-data are collected
+     *  and aggregated and written directly. In the second case, "writeLane"
+     *  is used to write each lane's state.
+     *
+     * @param[in] dev The output device to write the data into
+     * @param[in] edge The edge to write the dump of
+     * @param[in] startTime First time step the data were gathered
+     * @param[in] stopTime Last time step the data were gathered
+     */
+    virtual void writeEdge(OutputDevice &dev, const MSEdge &edge,
                            SUMOTime startTime, SUMOTime stopTime);
 
+
+    /** @brief Writes lane values into the given stream
+     *
+     * @param[in] dev The output device to write the data into
+     * @param[in] lane The lane to write the dump of
+     * @param[in] startTime First time step the data were gathered
+     * @param[in] stopTime Last time step the data were gathered
+     */
     virtual void writeLane(OutputDevice &dev,
                            const MSLane &lane,
                            SUMOTime startTime, SUMOTime stopTime);
 
-    friend class MSMeanData_Net_Utils;
 
-    /// @name Methods inherited from MSDetectorFileOutput.
-    /// @{
-    virtual void writeXMLOutput(OutputDevice &dev,
-                                SUMOTime startTime, SUMOTime stopTime);
-    void writeXMLDetectorProlog(OutputDevice &dev) const;
-    /// @}
+    /** @brief Resets network value in order to allow processing of the next interval
+     *
+     * Goes through the lists of edges and starts "resetOnly" for each edge.
+     */
+    void resetOnly();
 
-protected:
-    void resetOnly(SUMOTime stopTime);
-    void resetOnly(const MSEdge &edge, SUMOTime stopTime);
 
-    inline void conv(
-        const MSLaneMeanDataValues &values, SUMOTime period,
+    /** @brief Resets edge value in order to allow processing of the next interval
+     *
+     * @param [in] edge The edge to reset the value of
+     */
+    void resetOnly(const MSEdge &edge);
+
+
+    /** @brief Inline function for value conversion
+     *
+     * Uses the given values to compute proper results regarding that
+     *  some lanes may be unused (empty). This method is an inline
+     *  method, because it is used in several places, and is assumed
+     *  to be critical in speed.
+     *
+     * @param [in] values The edge to reset the value of
+     * @param [in] period The edge to reset the value of
+     * @param [in] laneLength The edge to reset the value of
+     * @param [in] laneVMax The edge to reset the value of
+     * @param [out] traveltime The edge to reset the value of
+     * @param [out] meanSpeed The edge to reset the value of
+     * @param [out] meanDensity The edge to reset the value of
+     * @param [out] meanOccupancy The edge to reset the value of
+     */
+    inline void conv(const MSLaneMeanDataValues &values, SUMOTime period,
         SUMOReal laneLength, SUMOReal laneVMax,
         SUMOReal &traveltime, SUMOReal &meanSpeed,
         SUMOReal &meanDensity, SUMOReal &meanOccupancy) {
@@ -116,22 +206,19 @@ protected:
     }
 
 protected:
-    /// the time interval the data shall be aggregated over (in s)
+    /// @brief The time interval the data shall be aggregated over (in s)
     unsigned int myInterval;
 
-    /// Information whether the header information shall be printed
-    bool myUseHeader;
-
-    /// The mean data index of this output
+    /// @brief The mean data index of this output
     unsigned int myIndex;
 
-    /// The edgecontrol to use
+    /// @brief The edgecontrol to use
     MSEdgeControl &myEdges;
 
-    /// Information whether the output shall be edge-based (not lane-based)
+    /// @brief Information whether the output shall be edge-based (not lane-based)
     bool myAmEdgeBased;
 
-    /// first and last time step to write information (-1 indicates always)
+    /// @brief The first and the last time steps to write information (-1 indicates always)
     std::vector<int> myDumpBegins, myDumpEnds;
 
 };

@@ -31,7 +31,6 @@
 #endif
 
 #include <vector>
-#include "MSMeanData_Net_Cont.h"
 #include <utils/common/SUMOTime.h>
 
 
@@ -52,29 +51,63 @@ class MSDetector2File;
 class MSMeanData_Net_Utils
 {
 public:
-    /// Builds the list of mean data outputs (files) as described by the parameter
-    static MSMeanData_Net_Cont buildList(MSDetector2File &det2file,
-                                         MSEdgeControl &ec,
-                                         std::vector<int> dumpMeanDataIntervalls,
-                                         std::string baseNameDumpFiles,
-                                         std::vector<int> laneDumpMeanDataIntervalls,
-                                         std::string baseNameLaneDumpFiles,
-                                         const std::vector<int> &dumpBegins,
-                                         const std::vector<int> &dumpEnds);
+    /** @brief Checks the given parameter for validity and builds the network's mean data container
+     *
+     * At first, some constraints are checked, whether the number of dump begin
+     *  steps and end steps are the same or whether each begin is before the
+     *  according end. If not, a ProcessError is thrown.
+     * 
+     * Otherwise, both the edge-based and the lane-based mean data container are built
+     *  using buildList and returned.
+     *
+     * @param[in] det2file The MSDetectorControl to add the mean data as output to
+     * @param[in] ec The edge control containing the edges to be dumped
+     * @param[in] dumpMeanDataIntervals Intervals to use for edge-dumps [s]
+     * @param[in] baseNameDumpFiles The base name of the edge-dumps
+     * @param[in] laneDumpMeanDataIntervals Intervals to use for lane-dumps [s]
+     * @param[in] baseNameLaneDumpFiles The base name of the lane-dumps
+     * @param[in] dumpBegins Begin times of dumps
+     * @param[in] dumpEnds End times of dumps
+     * @return The built list of network-wide mean data containers
+     * @see buildList
+     */
+    static std::vector<MSMeanData_Net*> buildList(MSDetector2File &det2file, MSEdgeControl &ec, 
+        std::vector<int> dumpMeanDataIntervals, std::string baseNameDumpFiles,
+        std::vector<int> laneDumpMeanDataIntervals, std::string baseNameLaneDumpFiles,
+        const std::vector<int> &dumpBegins, const std::vector<int> &dumpEnds);
+
 
 protected:
-    /// Builds the list of mean data outputs (files) as described by the parameter
-    static MSMeanData_Net_Cont buildList(MSDetector2File &det2file,
+    /** @brief Builds the list of mean data outputs (files) as described by the parameter
+     *
+     * At first, it is asserted that the intervals are unque using buildUniqueList.
+     *
+     * @param[in] det2file The MSDetectorControl to add the mean data as output to
+     * @param[in] ec The edge control containing the edges to be dumped
+     * @param[in] dumpMeanDataIntervals Intervals to use [s]
+     * @param[in] baseNameDumpFiles The base name to use
+     * @param[in] dumpBegins Begin times of dumps
+     * @param[in] dumpEnds End times of dumps
+     * @param[in] useLanes Information whether lane-based or edge-based container shall be built
+     * @return The built list of network-wide mean data containers
+     * @see buildUniqueList
+     */
+    static std::vector<MSMeanData_Net*> buildList(MSDetector2File &det2file,
                                          MSEdgeControl &ec,
-                                         std::vector<int> dumpMeanDataIntervalls,
+                                         std::vector<int> dumpMeanDataIntervals,
                                          std::string baseNameDumpFiles,
                                          const std::vector<int> &dumpBegins,
                                          const std::vector<int> &dumpEnds,
                                          bool useLanes);
 
-    /// Builds a list with unique aggregation times
-    static std::vector<int> buildUniqueList(
-        std::vector<int> dumpMeanDataIntervalls);
+
+    /** @brief Builds a list with unique aggregation times
+     *
+     * @param[in] dumpMeanDataIntervals
+     * @return A list where each interval appears only once
+     */
+    static std::vector<int> buildUniqueList(std::vector<int> dumpMeanDataIntervals);
+
 
 };
 
