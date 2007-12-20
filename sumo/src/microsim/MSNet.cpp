@@ -58,9 +58,6 @@
 #include <microsim/devices/MSDevice_C2C.h>
 #include <microsim/MSVehicleTransfer.h>
 #include "traffic_lights/MSTrafficLightLogic.h"
-#include <microsim/output/MSDetectorHaltingContainerWrapper.h>
-#include <microsim/output/MSTDDetectorInterface.h>
-#include <microsim/output/MSDetectorOccupancyCorrection.h>
 #include <utils/shapes/Polygon2D.h>
 #include <utils/shapes/ShapeContainer.h>
 #include "output/meandata/MSMeanData_Net.h"

@@ -397,22 +397,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\common\gcc_NullType.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\gcc_Typelist.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\gcc_TypeManip.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\gcc_TypeTraits.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\IDSupplier.h"
 				>
 			</File>
@@ -434,26 +418,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\MsgRetrievingFunction.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\msvc6_NullType.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\msvc6_static_check.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\msvc6_Typelist.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\msvc6_TypeManip.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\msvc6_TypeTraits.h"
 				>
 			</File>
 			<File

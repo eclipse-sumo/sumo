@@ -597,10 +597,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\output\MSDensity.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\output\MSDetectorControl.cpp"
 				>
 			</File>
@@ -625,10 +621,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\output\MSNVehicles.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\output\MSXMLRawOut.cpp"
 				>
 			</File>
@@ -642,27 +634,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\output\MSApproachingVehiclesStates.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\output\MSCrossSection.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSCurrentHaltingDurationSumPerVehicle.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSDensity.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSDetectorContainerWrapper.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSDetectorContainerWrapperBase.h"
 				>
 			</File>
 			<File
@@ -670,31 +642,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\output\MSDetectorCounterContainerWrapper.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\output\MSDetectorFileOutput.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSDetectorHaltingContainerWrapper.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSDetectorInterfaceCommon.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSDetectorOccupancyCorrection.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSDetectorSubSys.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSDetectorTypedefs.h"
 				>
 			</File>
 			<File
@@ -706,51 +654,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\output\e3_detectors\MSE3MoveReminder.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSEDDetector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSEDDetectorInterface.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSHaltDuration.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSHaltingDurationSum.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\output\MSInductLoop.h"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\output\MSJamLengthAheadOfTrafficLights.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSJamLengthSum.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\output\meandata\MSLaneMeanDataValues.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSLDDetector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSLDDetectorInterface.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSMaxJamLength.h"
 				>
 			</File>
 			<File
@@ -759,54 +667,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\output\meandata\MSMeanData_Net_Utils.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSMeanDetector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSNStartedHalts.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSNVehicles.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSObserver.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSOccupancyDegree.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSPredicates.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSQueueLengthAheadOfTrafficLights.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSSpaceMeanSpeed.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSSubject.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSSumDetector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSTDDetector.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSTDDetectorInterface.h"
 				>
 			</File>
 			<File
