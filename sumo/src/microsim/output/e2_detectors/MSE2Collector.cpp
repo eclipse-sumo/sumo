@@ -56,10 +56,6 @@ MSE2Collector::MSE2Collector(const std::string &id, DetectorUsage usage,
         myCurrentJamLengthInMeters(0), myCurrentJamLengthInVehicles(0), myCurrentStartedHalts(0)
 
 {
-
-    if(id=="E2_1_SO_20") {
-        int bla = 0;
-    }
     assert(laneM != 0);
     SUMOReal laneLength = laneM->length();
     assert(myStartPos >= 0 &&
@@ -297,7 +293,7 @@ MSE2Collector::writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime st
 {
     dev<<"   <interval begin=\""<<startTime<<"\" end=\""<< stopTime<<"\" "<<"id=\""<<getID()<<"\" ";
     SUMOReal meanSpeed = myVehicleSamples!=0 ? mySpeedSum / (SUMOReal) myVehicleSamples : -1;
-    SUMOReal meanOccupancy = myTimeSamples!=0 ? myOccupancySum / (SUMOReal) myTimeSamples : 0;
+    SUMOReal meanOccupancy = myTimeSamples!=0 ? myOccupancySum / (SUMOReal) myTimeSamples * (SUMOReal) 100.: 0;
     SUMOReal meanHaltingDuration = myVehicleSamples!=0 ? myHaltingDurationSum / (SUMOReal) myVehicleSamples : 0;
     SUMOReal meanJamLengthInMeters = myTimeSamples!=0 ? myMeanMaxJamInMeters / (SUMOReal) myTimeSamples : 0;
     SUMOReal meanJamLengthInVehicles = myTimeSamples!=0 ? myMeanMaxJamInVehicles / (SUMOReal) myTimeSamples : 0;
@@ -337,7 +333,7 @@ MSE2Collector::getCurrentVehicleNumber() const
 SUMOReal 
 MSE2Collector::getCurrentOccupancy() const
 {
-    return myCurrentOccupancy;
+    return myCurrentOccupancy * (SUMOReal) 100.;
 }
 
 
