@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!-- generated on 12/20/07 14:24:17 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+      <additional-files>input_additional.add.xml,input_additional2.add.xml</additional-files>
+   </input>
+
+   <output>
+      <emissions-output>emissions.xml</emissions-output>
+   </output>
+
+   <time>
+      <begin>0</begin>
+      <end>1000</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<emissions>
+</emissions>

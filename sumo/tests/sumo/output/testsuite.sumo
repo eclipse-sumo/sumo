@@ -8,6 +8,11 @@ e2
 e3
 
 
+# Tests for emission-dump
+emissions
+
+
+
 
 # Tests whether emission output works
 cross3ltl_emissions
