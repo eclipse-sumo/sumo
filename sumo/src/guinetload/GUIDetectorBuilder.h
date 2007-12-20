@@ -61,7 +61,7 @@ public:
 protected:
     /// Creates the instance of an induct loop (gui-version)
     virtual MSInductLoop *createInductLoop(const std::string &id,
-                                           MSLane *lane, SUMOReal pos, int splInterval);
+                                           MSLane *lane, SUMOReal pos);
 
     /// Creates the instance of a single-lane-e2-detector (gui-version)
     virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,

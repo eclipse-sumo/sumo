@@ -168,6 +168,11 @@ class MyWrapper : public GUIDetectorWrapper
                 return new MyValueRetriever(myDetector, myValue);
             }
 
+            /// Returns a copy of this instance
+            ValueSource<SUMOReal> *makeSUMORealReturningCopy() const {
+                return new MyValueRetriever(myDetector, myValue);
+            }
+
         private:
             /// The detctor to get the value from
             GUIE3Collector &myDetector;

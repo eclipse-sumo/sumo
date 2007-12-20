@@ -67,10 +67,9 @@ GUIDetectorBuilder::~GUIDetectorBuilder()
 
 MSInductLoop *
 GUIDetectorBuilder::createInductLoop(const std::string &id,
-                                     MSLane *lane, SUMOReal pos,
-                                     int splInterval)
+                                     MSLane *lane, SUMOReal pos)
 {
-    return new GUIInductLoop(id, lane, pos, splInterval);
+    return new GUIInductLoop(id, lane, pos);
 }
 
 

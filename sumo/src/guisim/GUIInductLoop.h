@@ -55,8 +55,7 @@ class GUIInductLoop : public MSInductLoop
 {
 public:
     /// Construtor
-    GUIInductLoop(const std::string &id, MSLane* lane, SUMOReal position,
-                  SUMOTime deleteDataAfterSeconds);
+    GUIInductLoop(const std::string &id, MSLane* lane, SUMOReal position);
 
     /// Destructor
     ~GUIInductLoop();

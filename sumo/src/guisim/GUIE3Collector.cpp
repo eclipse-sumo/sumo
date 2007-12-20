@@ -86,8 +86,8 @@ GUIE3Collector::MyWrapper::SingleCrossingDefinition
 GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section,
         bool /*exit!!!*/)
 {
-    const MSLane *lane = section.laneM;
-    SUMOReal pos = section.posM;
+    const MSLane *lane = section.myLane;
+    SUMOReal pos = section.myPosition;
     const Position2DVector &v =
         static_cast<const GUIEdge * const>(lane->getEdge())->getLaneGeometry(static_cast<const MSLane*>(lane)).getShape();
     Line2D l(v.getBegin(), v.getEnd());
@@ -214,7 +214,7 @@ GUIE3Collector::MyWrapper::getDetector()
  * ----------------------------------------------------------------------- */
 GUIE3Collector::GUIE3Collector(const std::string &id,
                                const CrossSectionVector &entries,  const CrossSectionVector &exits,
-                               MSUnit::MetersPerSecond haltingSpeedThreshold)
+                               MetersPerSecond haltingSpeedThreshold)
         : MSE3Collector(id, entries,  exits, haltingSpeedThreshold)
 {}
 
@@ -226,14 +226,14 @@ GUIE3Collector::~GUIE3Collector()
 const CrossSectionVector &
 GUIE3Collector::getEntries() const
 {
-    return entriesM;
+    return myEntries;
 }
 
 
 const CrossSectionVector &
 GUIE3Collector::getExits() const
 {
-    return exitsM;
+    return myExits;
 }
 
 

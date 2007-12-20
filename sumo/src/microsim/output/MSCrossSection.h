@@ -4,7 +4,7 @@
 /// @date    Tue Nov 25 15:23:28 2003
 /// @version $Id$
 ///
-//	»missingDescription«
+// A simple description of a position on a lane (crossing of a lane)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -30,30 +30,40 @@
 #include <config.h>
 #endif
 
-#include <microsim/MSUnit.h>
 #include <vector>
+
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-
 class MSLane;
+
 
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class MSCrossSection
+ * @brief A simple description of a position on a lane (crossing of a lane)
  */
 class MSCrossSection
 {
 public:
-    MSCrossSection(MSLane* lane, SUMOReal pos)
-            : laneM(lane)
-            , posM(pos) {}
+    /** @brief Constructor
+     *
+     * @param[in] lane The lane to cross
+     * @param[in] pos The position at the lane
+     */
+    MSCrossSection(MSLane* lane, SUMOReal pos) : myLane(lane) , myPosition(pos) {}
 
-    MSLane* laneM;
-    SUMOReal posM;
+
+public:
+    /// @brief The lane to cross
+    MSLane* myLane;
+
+    /// @brief The position at the lane
+    SUMOReal myPosition;
+
 };
 
 

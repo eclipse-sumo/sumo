@@ -4,7 +4,7 @@
 /// @date    2004-11-23
 /// @version $Id$
 ///
-//	missingDescription
+// An unextended detector measuring at a fixed position on a fixed lane. 
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -56,40 +56,32 @@ class GUILaneWrapper;
 // ===========================================================================
 /**
  * @class MSInductLoop
+ * @brief An unextended detector measuring at a fixed position on a fixed lane. 
  *
- * An unextended detector that measures at a fixed position on a fixed
- * lane. Only vehicles that passed the entire detector are counted. We
- * ignore vehicles that are emitted onto the detector and vehicles
- * that change their lane while they are on the detector, because we
- * cannot determine a meaningful enter/leave-times.
+ * Only vehicles that passed the entire detector are counted. We
+ *  ignore vehicles that are emitted onto the detector and vehicles
+ *  that change their lane while they are on the detector, because we
+ *  cannot determine a meaningful enter/leave-times.
  *
  * This detector uses the MSMoveReminder mechanism, i.e. the vehicles
- * call the detector if they pass it.
- *
- * This detector inserts itself into a SingletonDictionary so that you
- * can access all MSInductLoop instances globally. Use this dictionary
- * to delete the detectors.
- *
- * See the get*-methods to learn about what is measured. You can vary
- * the sample-intervall during runtime.
+ *  call the detector if they pass it.
  *
  * Due to the inheritance from MSDetectorFileOutput this detector can
- * print data to a file at fixed intervals via MSDetector2File.
+ *  print data to a file at fixed intervals via MSDetector2File.
  *
  * @see MSDetector2File
  * @see MSMoveReminder
- * @see SingletonDictionary
  * @see MSDetectorFileOutput
  */
 class MSInductLoop
-            : public MSMoveReminder,
-            public MSDetectorFileOutput,
-            public Named
+            : public MSMoveReminder, public MSDetectorFileOutput, 
+            public MSVehicleQuitReminded, public Named
 {
 public:
     /**
-     * Constructor. Adds object into a SingletonDictionary. Sets old-data
-     * removal event. Adds reminder to MSLane.
+     * @brief Constructor. 
+     *
+     * Adds reminder to MSLane.
      *
      * @param id Unique id.
      * @param lane Lane where detector woks on.
@@ -98,356 +90,290 @@ public:
      */
     MSInductLoop(const std::string& id,
                  MSLane* lane,
-                 SUMOReal positionInMeters,
-                 SUMOTime deleteDataAfterSeconds);
+                 SUMOReal positionInMeters);
 
 
-    /// Destructor. Clears containers.
+    /// @brief Destructor
     ~MSInductLoop();
 
 
-    /**
-     * @name MSMoveReminder methods.
-     *
-     * Methods in this group are inherited from MSMoveReminder. They are
-     * called by the moving, entering and leaving vehicles.
-     *
+    /** @brief Resets all generated values to allow computation of next interval
      */
-    //@{
-    /**
-     * Indicator if the reminders is still active for the passed
-     * vehicle/parameters. If false, the vehicle will erase this
-     * reminder from it's reminder-container. This method will
-     * determine the entry- and leave-time of the counted vehicle and
-     * pass this information to the methods enterDetectorByMove() and
-     * eaveDetectorByMove().
+    void reset();
+
+
+    /// @name Methods inherited from MSMoveReminder.
+    /// @{
+    /** @brief Checks whether the vehicle shall be counted and/or shall still touch this MSMoveReminder
      *
-     * @param veh Vehicle that asks this remider.
-     * @param oldPos Position before move.
-     * @param newPos Position after move with newSpeed.
-     * @param newSpeed Moving speed.
+     * As soon a vehicle enters the detector, its entry time is computed and stored
+     *  in myVehiclesOnDet via enterDetectorByMove. If it passes the detector, the 
+     *  according leaving time is computed and stored, too, using leaveDetectorByMove.
      *
+     * @param[in] veh Vehicle that asks this remider.
+     * @param[in] oldPos Position before move.
+     * @param[in] newPos Position after move with newSpeed.
+     * @param[in] newSpeed Moving speed.
      * @return True if vehicle hasn't passed the detector completely.
-     *
+     * @see MSMoveReminder
+     * @see MSMoveReminder::isStillActive
      * @see enterDetectorByMove
      * @see leaveDetectorByMove
      */
-    bool isStillActive(MSVehicle& veh,
-                       SUMOReal oldPos,
-                       SUMOReal newPos,
-                       SUMOReal newSpeed);
+    bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
 
 
-    /**
-     *  Informs corresponding detector via leaveDetectorByLaneChange()
-     *  if vehicle leaves by lanechange.
+    /** @brief Dismisses the vehicle if it is on the detector due to a lane change
+     *
+     * If the vehicle is on the detector, it will be dismissed by incrementing
+     *  myDismissedVehicleNumber and removing this vehicle's entering time from 
+     *  myVehiclesOnDet.
      *
      * @param veh The leaving vehicle.
-     *
      * @see leaveDetectorByLaneChange
+     * @see MSMoveReminder
+     * @see MSMoveReminder::dismissByLaneChange
      */
     void dismissByLaneChange(MSVehicle& veh);
 
-    /**
-     * Informs corresponding detector if vehicle enters the reminder
-     * by emit or lanechange. Only vehicles that are completely in
-     * front of the detector will return true.
+
+    /** @brief Returns whether the detector may has to be concerned during the vehicle's further movement
+     *
+     * If the detector is in front of the vehicle, true is returned. If
+     *  the vehicle's front has passed the detector, false, because
+     *  the vehicle is no longer relevant for the detector.
      *
      * @param veh The entering vehilcle.
-     *
      * @return True if vehicle is on or in front of the detector.
+     * @see MSMoveReminder
+     * @see MSMoveReminder::isActivatedByEmitOrLaneChange
      */
     bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
     //@}
 
-    /**
-     * @name Get-methods. These are the methods to access the
-     * collected vehicle-data.
-     *
-     */
-    //@{
-    /**
-     * Calculates the flow in [veh/h] over the given interval.
-     *
-     * @param lastNTimesteps take data out of the interval
-     * (now-lastNTimesteps, now].
-     *
-     * @return Flow in [veh/h].
-     */
-    SUMOReal getFlow(SUMOTime lastNTimesteps) const;
 
-    /**
-     * Calculates the mean-speed in [m/s] over the given interval.
-     *
-     * @param lastNTimesteps take data out of the interval
-     * (now-lastNTimesteps, now].
-     *
-     * @return Mean-speed in [m/s] averaged over the vehicles that
-     * passed during the lastNTimesteps.
-     */
-    SUMOReal getMeanSpeed(SUMOTime lastNTimesteps) const;
 
-    /**
-     * Calculates the occupancy in [%], where 100% means lastNTimesteps.
+    /// @name Methods returning current values
+    /// @{
+    /** @brief Returns the speed of the vehicle on the detector
+     * 
+     * If no vehicle is on the detector, -1 is returned, otherwise
+     *  this vehicle's current speed.
      *
-     * @param lastNTimesteps take data out of the interval
-     * (now-lastNTimesteps, now].
-     *
-     * @return Occupancy in [%].
+     * @return The speed [m/s] of the vehicle if one is on the detector, -1 otherwise
      */
-    SUMOReal getOccupancy(SUMOTime lastNTimesteps) const;
+    SUMOReal getCurrentSpeed() const;
 
-    /**
-     * Calculate the mean-vehicle-length in [m] averaged over the
-     * vehicles that passed during the lastNTimesteps.
+
+    /** @brief Returns the length of the vehicle on the detector
+     * 
+     * If no vehicle is on the detector, -1 is returned, otherwise
+     *  this vehicle's length.
      *
-     * @param lastNTimesteps take data out of the interval
-     * (now-lastNTimesteps, now].
-     *
-     * @return Mean vehicle-length in [m] averaged over the vehicles
-     * that passed during the lastNTimesteps.
+     * @return The length [m] of the vehicle if one is on the detector, -1 otherwise
      */
-    SUMOReal getMeanVehicleLength(SUMOTime lastNTimesteps) const;
+    SUMOReal getCurrentLength() const;
 
-    /**
-     * Counts the timesteps from the last leaving of the detector to
-     * now. If the detector is currently occupied, we return 0.
+
+    /** @brief Returns the current occupancy
+     * 
+     * If a vehicle is on the detector, 1 is returned. If a vehicle has passed the detector
+     *  in this timestep, its occupancy value is returned. If no vehicle has passed,
+     *  0 is returned.
+     *
+     * @return This detector's current occupancy
+     * @todo recheck (especially if more than one vehicle has passed)
+     */
+    SUMOReal getCurrentOccupancy() const;
+
+
+    /** @brief Returns the number of vehicles that have passed the detector
+     * 
+     * If a vehicle is on the detector, 1 is returned. If a vehicle has passed the detector
+     *  in this timestep, 1 is returned. If no vehicle has passed,
+     *  0 is returned.
+     *
+     * @return The number of vehicles that have passed the detector
+     * @todo recheck (especially if more than one vehicle has passed)
+     */
+    SUMOReal getCurrentPassedNumber() const;
+
+
+    /** @brief Returns the time since the last vehicle left the detector
      *
      * @return Timesteps from last leaving (detection) of the detector
-     * to now or 0 if detector is occupied.
      */
     SUMOReal getTimestepsSinceLastDetection() const;
-
-    /**
-     * How many vehicles passed the detector completely over the
-     * lastNTimesteps.
-     *
-     * @param lastNTimesteps take data out of the interval
-     * (now-lastNTimesteps, now].
-     *
-     * @return Number of vehicles that passed the detector completely
-     * over the lastNTimesteps.
-     */
-    SUMOReal getNVehContributed(SUMOTime lastNTimesteps) const;
     //@}
 
-    /**
-     * @name Inherited MSDetectorFileOutput methods.
-     *
-     * @see MSDetectorFileOutput
-     */
-    //@{
-    /**
-     * Get the XML-formatted output of all the get*-methods except
-     * getTimestepsSinceLastDetection.
-     *
-     * @param lastNTimesteps take data out of the interval
-     * (now-lastNTimesteps, now].
-     *
-     * @return XML-formatted output of all the get*-methods except
-     * getTimestepsSinceLastDetection.
-     *
-     * @see MSDetector2File
-     */
-    void writeXMLOutput(OutputDevice &dev,
-                        SUMOTime startTime, SUMOTime stopTime);
 
-    /**
-     * Get an opening XML-element containing information about the detector.
+
+    /// @name Methods returning aggregated values
+    /// @{
+    unsigned getNVehContributed() const;
+    //@}
+
+
+
+    /// @name Methods inherited from MSDetectorFileOutput.
+    /// @{
+    /** @brief Writes collected values into the given stream
      *
-     * @return <detector type="inductionloop" id="det_id"
-     * lane="lane_id" pos="det_pos">
+     * @param[in] dev The output device to write the data into
+     * @param[in] startTime First time step the data were gathered
+     * @param[in] stopTime Last time step the data were gathered
+     * @see MSDetectorFileOutput::writeXMLOutput
+     */
+    void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime);
+
+
+    /** @brief Opens the XML-output using "detector" as root element
      *
-     * @see MSDetector2File
-     * @see getXMLDetectorInfoEnd
+     * @param[in] dev The output device to write the root into
+     * @see MSDetectorFileOutput::writeXMLDetectorProlog
      */
     void writeXMLDetectorProlog(OutputDevice &dev) const;
-    //@}
+    /// @}
 
-    /**
-     * Struct to store the data of the counted vehicle
-     * internally. These data is fed into a container on which the
-     * get*-methods work.
+
+
+    /// @name Methods inherited from MSVehicleQuitReminded.
+    /// @{
+    /** @brief Removes the information that the vehicle is on the detector
      *
-     * @see vehicleDataContM
+     * @param[in] veh The vehicle that was on the detector and leaves the simuation
      */
-    struct VehicleData {
-        /// Use this constructor if the vehicle has passed the induct loop completely
-        VehicleData(SUMOReal vehLength,
-                    SUMOReal entryTimestep,
-                    SUMOReal leaveTimestep)
-                : lengthM(vehLength),
-                entryTimeM(MSNet::getSeconds(entryTimestep)),
-                leaveTimeM(MSNet::getSeconds(leaveTimestep)),
-                speedM(lengthM / (leaveTimeM - entryTimeM)),
-                speedSquareM(speedM * speedM),
-                occupancyM(leaveTimeM - entryTimeM) {}
+    void removeOnTripEnd(MSVehicle *veh);
+    /// @}
 
-        SUMOReal lengthM;         /**< Length of the vehicle. */
-        SUMOReal entryTimeM;      /**< Entry-time of the vehicle in [s]. */
-        SUMOReal leaveTimeM;      /**< Leave-time of the vehicle in [s]. */
-        SUMOReal speedM;          /**< Speed of the vehicle in [m/s]. */
-        SUMOReal speedSquareM;    /**< SpeedSquare of the vehicle in [m/(s^2)].*/
-        SUMOReal occupancyM;      /**< Occupancy of the detector in [s]. */
-    };
-
-
-    typedef std::vector<SUMOReal> DismissedCont;
 
 protected:
-    /**
-     * @name Methods called by Reminder methods.
-     *
-     * Methods in this group are called by the MSMoveReminder methods
-     * only. They collect data to calculate the get* values.
-     *
-     *  @see isStillActive
-     *  @see dismissByLaneChange
-     *  @see isActivatedByEmitOrLaneChange
-     */
-    //@{
-    /**
-     * Introduces a vehicle to the detector's map vehiclesOnDetM.
-     *
+    /// @name Methods that add and remove vehicles from internal container
+    /// @{
+    /** @brief Introduces a vehicle to the detector's map myVehiclesOnDet.
      * @param veh The entering vehicle.
      * @param entryTimestep Timestep (not neccessary integer) of entrance.
      */
-    void enterDetectorByMove(MSVehicle& veh,
-                             SUMOReal entryTimestep);
+    void enterDetectorByMove(MSVehicle& veh, SUMOReal entryTimestep);
 
-    /**
-     * Removes a vehicle from the detector's map vehiclesOnDetM and
-     * adds the vehicle data to the internal vehicleDataContM.
+
+    /** @brief Processes a vehicle that leaves the detector
+     *
+     * Removes a vehicle from the detector's map myVehiclesOnDet and
+     * adds the vehicle data to the internal myVehicleDataCont.
      *
      * @param veh The leaving vehicle.
      * @param leaveTimestep Timestep (not neccessary integer) of leaving.
      */
-    void leaveDetectorByMove(MSVehicle& veh,
-                             SUMOReal leaveTimestep);
+    void leaveDetectorByMove(MSVehicle& veh, SUMOReal leaveTimestep);
 
-    /**
-     * Removes a vehicle from the detector's map vehiclesOnDetM.
-     *
+
+    /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
      * @param veh The leaving vehicle.
      */
     void leaveDetectorByLaneChange(MSVehicle& veh);
-    //@}
+    /// @}
 
-    /**
-     * Binary predicate that compares the passed VehicleData's
-     * leaveTime to a fixed leaveTimeBound and returns true if the
-     * passed value is lesser than the fixed bound. Used by
-     * deleteOldData and getStartIterator.
+
+protected:
+    /** @brief Struct to store the data of the counted vehicle internally. 
      *
+     * These data is fed into a container.
+     *
+     * @see myVehicleDataCont
      */
-struct leaveTimeLesser :
-                public std::binary_function< VehicleData, SUMOReal, bool > {
-        bool operator()(const VehicleData& firstVData,
-                        const VehicleData& secondVData) const {
-            return firstVData.leaveTimeM < secondVData.leaveTimeM;
-        }
+    struct VehicleData {
+        /** @brief Constructor 
+         *
+         * Used if the vehicle has passed the induct loop completely
+         * 
+         * @param[in] vehLength The length of the vehicle
+         * @param[in] entryTimestep The time at which the vehicle entered the detector
+         * @param[in] leaveTimestep The time at which the vehicle left the detector
+         */
+        VehicleData(SUMOReal vehLength, SUMOReal entryTimestep, SUMOReal leaveTimestep)
+                : lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
+                speedM(lengthM / (leaveTimeM - entryTimeM)), 
+                occupancyM(leaveTimeM - entryTimeM) {}
+
+        /** @brief Length of the vehicle. */
+        SUMOReal lengthM;         
+        /** @brief Entry-time of the vehicle in [s]. */
+        SUMOReal entryTimeM;      
+        /** @brief Leave-time of the vehicle in [s]. */
+        SUMOReal leaveTimeM;      
+        /** @brief Speed of the vehicle in [m/s]. */
+        SUMOReal speedM;          
+        /** @brief Occupancy of the detector in [s]. */
+        SUMOReal occupancyM;      
     };
 
-    /**
-     * Deletes data from vehicleDataContM if deleteDataAfterStepsM
-     * is over. Is called via MSEventControl.
-     *
-     * @return deleteDataAfterStepsM to recur the event.
-     *
-     * @see MSEventControl
-     */
-    SUMOTime deleteOldData(SUMOTime currentTime);
 
-    typedef std::deque< VehicleData > VehicleDataCont; /**< Type of
-                                                                        * vehicleDataContM. */
+protected:
+    /// @name Function for summing up values
+    ///@{
+    /// @brief Adds up VehicleData::speedM
+    static inline SUMOReal speedSum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data)
+    {
+        return sumSoFar + data.speedM;
+    }
+    
+    /// @brief Adds up VehicleData::occupancyM
+    static inline SUMOReal occupancySum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data)
+    {
+        return sumSoFar + data.occupancyM;
+    }
 
-    /**
-     * Get the iterator to vehicleDataContM that corresponds to the
-     * first element with a leaveTime that is greater than now -
-     * lastNTimesteps.
-     *
-     * @param lastNTimesteps Time-bound to search in is now - lastNTimesteps.
-     *
-     * @return Iterator to vehicleDataContM.
-     */
-    VehicleDataCont::const_iterator getStartIterator(
-        SUMOTime lastNTimesteps) const;
-
-    DismissedCont::const_iterator getDismissedStartIterator(
-        SUMOTime lastNTimesteps) const;
+    /// @brief Adds up VehicleData::lengthM
+    static inline SUMOReal lengthSum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data)
+    {
+        return sumSoFar + data.lengthM;
+    }
+    ///@}
 
 
-    const SUMOReal posM;          /**< Detector's position on lane [cells]. */
+protected:
+    /// @brief The vehicle that is currently on the detector
+    MSVehicle *myCurrentVehicle;
 
-    SUMOTime deleteDataAfterStepsM; /**< Deletion interval. */
+    /// @brief Detector's position on lane [m]
+    const SUMOReal myPosition;          
 
-    SUMOReal lastLeaveTimestepM;  /**< Leave-timestep of the last
-                                                 * vehicle detected. */
+    /// @brief Leave-timestep of the last vehicle detected.
+    SUMOReal myLastLeaveTimestep;
 
-    typedef std::map< MSVehicle*, SUMOReal > VehicleMap; /**< Type of
-                                                                        * vehiclesOnDetM. */
+    /// @brief Occupancy by the last vehicle detected.
+    SUMOReal myLastOccupancy;
 
-    VehicleMap vehiclesOnDetM;  /**< Map that holds the vehicles that
-                                                 * are currently on the detector. */
+    /// @brief The number of dismissed vehicles
+    unsigned myDismissedVehicleNumber;
 
-    DismissedCont dismissedContM;
 
-    /**
-     * Container that hold the data of the counted vehicles. It is
-     * used to calculate the get* values. After
-     * deleteDataAfterSecondsM this container is cleared partially.
-     */
-    VehicleDataCont vehicleDataContM;
+    /// @brief Type of myVehicleDataCont.
+    typedef std::deque< VehicleData > VehicleDataCont;
+
+    /// @brief Data of vehicles that have completely passed the detector
+    VehicleDataCont myVehicleDataCont;
+
+
+    /// @brief Type of myVehiclesOnDet
+    typedef std::map< MSVehicle*, SUMOReal > VehicleMap;
+
+    /// @brief Data for vehicles that have entered the detector
+    VehicleMap myVehiclesOnDet;
+
 
 private:
-
-    /// Hidden default constructor.
+    /// @brief Hidden default constructor.
     MSInductLoop();
 
-    /// Hidden copy constructor.
+    /// @brief Hidden copy constructor.
     MSInductLoop(const MSInductLoop&);
 
-    /// Hidden assignment operator.
+    /// @brief Hidden assignment operator.
     MSInductLoop& operator=(const MSInductLoop&);
+
 };
-
-namespace
-{
-
-/**
- * @name Binary-functions to use with std::accumulate.
- *
- */
-//@{
-/// Adds up VehicleData::speedM
-inline SUMOReal speedSum(SUMOReal sumSoFar,
-                         const MSInductLoop::VehicleData& data)
-{
-    return sumSoFar + data.speedM;
-}
-
-/// Adds up VehicleData::speedSquareM
-inline SUMOReal speedSquareSum(SUMOReal sumSoFar,
-                               const MSInductLoop::VehicleData& data)
-{
-    return sumSoFar + data.speedSquareM;
-}
-
-/// Adds up VehicleData::occupancyM
-inline SUMOReal occupancySum(SUMOReal sumSoFar,
-                             const MSInductLoop::VehicleData& data)
-{
-    return sumSoFar + data.occupancyM;
-}
-
-/// Adds up VehicleData::lengthM
-inline SUMOReal lengthSum(SUMOReal sumSoFar,
-                          const MSInductLoop::VehicleData& data)
-{
-    return sumSoFar + data.lengthM;
-}
-//@}
-}
 
 
 #endif

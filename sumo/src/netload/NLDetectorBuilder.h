@@ -115,7 +115,7 @@ public:
     void beginE3Detector(const std::string &id,
                          OutputDevice& device, int splInterval,
                          const std::string &measures,
-                         MSUnit::MetersPerSecond haltingSpeedThreshold);
+                         MetersPerSecond haltingSpeedThreshold);
 
     /// builds an entry point of an e3 detector
     void addE3Entry(const std::string &lane, SUMOReal pos);
@@ -164,7 +164,7 @@ public:
 
     /// Creates the instance of an induct loop (overwritten by gui version)
     virtual MSInductLoop *createInductLoop(const std::string &id,
-                                           MSLane *lane, SUMOReal pos, int splInterval);
+                                           MSLane *lane, SUMOReal pos);
 
 #ifdef HAVE_MESOSIM
     /// Creates the instance of an induct loop (overwritten by gui version)
@@ -190,7 +190,7 @@ public:
     virtual MSE3Collector *createE3Detector(const std::string &id,
                                             const CrossSectionVector &entries,
                                             const CrossSectionVector &exits,
-                                            MSUnit::MetersPerSecond haltingSpeedThreshold);
+                                            MetersPerSecond haltingSpeedThreshold);
 
     // converts the name of an output style into it's enumeration value
     /*     static MSDetector::OutputStyle convertStyle(const std::string &id,
@@ -207,7 +207,7 @@ public:
         /// Constructor
         E3DetectorDefinition(const std::string &id,
                              OutputDevice& device,
-                             MSUnit::MetersPerSecond haltingSpeedThreshold,
+                             MetersPerSecond haltingSpeedThreshold,
                              const E3MeasuresVector &measures,
                              int splInterval);
 
@@ -220,7 +220,7 @@ public:
         OutputDevice& myDevice;
         /// @name further detector descriptions
         //@{
-        MSUnit::MetersPerSecond myHaltingSpeedThreshold;
+        MetersPerSecond myHaltingSpeedThreshold;
         E3MeasuresVector myMeasures;
         CrossSectionVector myEntries;
         CrossSectionVector myExits;

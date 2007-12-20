@@ -69,7 +69,7 @@ using namespace std;
 NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(
     const std::string &id,
     OutputDevice& device,
-    MSUnit::MetersPerSecond haltingSpeedThreshold,
+    MetersPerSecond haltingSpeedThreshold,
     const E3MeasuresVector &measures,
     int splInterval) :
         myID(id), myDevice(device),
@@ -123,7 +123,7 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
             }
         }
         // build the loop
-        MSInductLoop *loop = createInductLoop(id, clane, pos, splInterval);
+        MSInductLoop *loop = createInductLoop(id, clane, pos);
         // add the file output
         myNet.getDetectorControl().add(loop, device, splInterval);
 #ifdef HAVE_MESOSIM
@@ -332,7 +332,7 @@ void
 NLDetectorBuilder::beginE3Detector(const std::string &id,
                                    OutputDevice& device, int splInterval,
                                    const std::string &measures,
-                                   MSUnit::MetersPerSecond haltingSpeedThreshold)
+                                   MetersPerSecond haltingSpeedThreshold)
 {
     if (splInterval<0) {
         throw InvalidArgument("Negative sampling frequency (in detector '" + id + "').");
@@ -479,10 +479,9 @@ NLDetectorBuilder::parseE3Measures(const std::string &measures)
 
 MSInductLoop *
 NLDetectorBuilder::createInductLoop(const std::string &id,
-                                    MSLane *lane, SUMOReal pos,
-                                    int splInterval)
+                                    MSLane *lane, SUMOReal pos)
 {
-    return new MSInductLoop(id, lane, pos, splInterval);
+    return new MSInductLoop(id, lane, pos);
 }
 
 
@@ -528,7 +527,7 @@ MSE3Collector *
 NLDetectorBuilder::createE3Detector(const std::string &id,
                                     const CrossSectionVector &entries,
                                     const CrossSectionVector &exits,
-                                    MSUnit::MetersPerSecond haltingSpeedThreshold)
+                                    MetersPerSecond haltingSpeedThreshold)
 {
     return new MSE3Collector(id, entries, exits, haltingSpeedThreshold);
 }

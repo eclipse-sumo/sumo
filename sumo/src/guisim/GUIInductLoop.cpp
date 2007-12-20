@@ -63,9 +63,8 @@ using namespace std;
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string &id, MSLane* lane,
-                             SUMOReal position,
-                             SUMOTime deleteDataAfterSeconds)
-        : MSInductLoop(id, lane, position, deleteDataAfterSeconds)
+                             SUMOReal position)
+        : MSInductLoop(id, lane, position)
 {}
 
 
@@ -77,7 +76,7 @@ GUIDetectorWrapper *
 GUIInductLoop::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
                                     GUILaneWrapper &wrapper)
 {
-    return new MyWrapper(*this, idStorage, wrapper, posM);
+    return new MyWrapper(*this, idStorage, wrapper, myPosition);
 }
 
 
@@ -116,22 +115,22 @@ GUIParameterTableWindow *
 GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
         GUISUMOAbstractView &/*parent !!! recheck this - never needed?*/)
 {
-    GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this, 7);
+    GUIParameterTableWindow *ret = new GUIParameterTableWindow(app, *this, 7);
     // add items
-    ret->mkItem("flow [veh/h]", true,
-                new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getFlow, 1));
-    ret->mkItem("mean speed [m/s]", true,
-                new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getMeanSpeed, 1));
-    ret->mkItem("occupancy [%]", true,
-                new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getOccupancy, 1));
-    ret->mkItem("mean vehicle length [m]", true,
-                new FuncBinding_IntParam<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getMeanVehicleLength, 1));
-    ret->mkItem("empty time [s]", true,
-                new FunctionBinding<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getTimestepsSinceLastDetection));
-    //
+        // parameter
     ret->mkItem("position [m]", false, myPosition);
     ret->mkItem("lane", false, myDetector.getLane()->getID());
+        // values
+    ret->mkItem("passed vehicles [#]", true,
+                new FunctionBinding<GUIInductLoop, SUMOReal>(&myDetector, &GUIInductLoop::getCurrentPassedNumber));
+    ret->mkItem("speed [m/s]", true,
+                new FunctionBinding<GUIInductLoop, SUMOReal>(&myDetector, &GUIInductLoop::getCurrentSpeed));
+    ret->mkItem("occupancy [%]", true,
+                new FunctionBinding<GUIInductLoop, SUMOReal>(&myDetector, &GUIInductLoop::getCurrentOccupancy));
+    ret->mkItem("vehicle length [m]", true,
+                new FunctionBinding<GUIInductLoop, SUMOReal>(&myDetector, &GUIInductLoop::getCurrentLength));
+    ret->mkItem("empty time [s]", true,
+                new FunctionBinding<GUIInductLoop, SUMOReal>(&(getLoop()), &GUIInductLoop::getTimestepsSinceLastDetection));
     // close building
     ret->closeBuilding();
     return ret;
