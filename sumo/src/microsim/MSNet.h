@@ -78,6 +78,8 @@ class MSRouteLoader;
 // ===========================================================================
 /**
  * @class MSNet
+ * @brief The simulated network and simulation perfomer
+ *
  * The main simulation class. Holds the network and indirectly vehicles which
  * are stored within a MSEmitControl - emitter which itself is a part of
  * MSNet.
@@ -115,22 +117,11 @@ public:
     /** Clears all dictionaries */
     static void clearAll();
 
-    /// Returns the timestep-length in seconds.
-    static SUMOReal deltaT() {
-        return myDeltaT;
-    }
 
-    /** @brief Returns the current simulation time in seconds.
-        Current means start-time plus runtime. */
-    SUMOTime simSeconds() {
-        return (SUMOTime)(myStep * myDeltaT);
-    }
-
-
-    /** @brief Returns the number of unique mean-data-dump-intervalls.
+    /** @brief Returns the number of unique mean-data-dump-intervals.
         In vehicles and lanes you will need one element more for the
         GUI-dump. */
-    unsigned getNDumpIntervalls(void);
+    unsigned getNDumpIntervals(void);
 
     long getSimStepDurationInMillis() const;
 
@@ -139,33 +130,10 @@ public:
 
     SUMOTime getCurrentTimeStep() const;
 
-    static SUMOReal getSeconds(SUMOReal steps) {
-        return steps * myDeltaT;
-    }
-
-    static SUMOTime getSteps(SUMOReal seconds) {
-        return static_cast< SUMOTime >(
-                   floor(seconds / myDeltaT));
-    }
-
-    static SUMOReal getMeterPerSecond(SUMOReal cellsPerTimestep) {
-        return cellsPerTimestep / myDeltaT;
-    }
-
-    static SUMOReal getVehPerKm(SUMOReal vehPerCell) {
-        return (SUMOReal)(vehPerCell * 1000.0);
-    }
-
-    static SUMOReal getVehPerHour(SUMOReal vehPerStep) {
-        return (SUMOReal)(vehPerStep / myDeltaT * 3600.0);
-    }
-
     MSVehicleControl &getVehicleControl() const;
     MSPersonControl &getPersonControl() const;
 
     void writeOutput();
-
-    friend class MSTriggeredSource;
 
     /// Returns the number of vehicles that wait for being emitted
     size_t getWaitingVehicleNo() const;
@@ -251,9 +219,6 @@ protected:
 
     /** route loader for dynamic loading of routes */
     MSRouteLoaderControl *myRouteLoaders;
-
-    /// Timestep [sec]
-    static SUMOReal myDeltaT;
 
     /// Current time step.
     SUMOTime myStep;

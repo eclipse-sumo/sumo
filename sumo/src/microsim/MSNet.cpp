@@ -94,7 +94,6 @@ using namespace std;
 // static member definitions
 // ===========================================================================
 MSNet* MSNet::myInstance = 0;
-SUMOReal MSNet::myDeltaT = 1;
 
 
 // ===========================================================================
@@ -326,6 +325,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     if (myMSPhoneNet!=0) {
         myMSPhoneNet->setDynamicCalls(myStep);
     }
+
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(step);
     }
@@ -384,7 +384,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     if (MSGlobals::gUsingC2C) {
         MSDevice_C2C::computeCar2Car(myStep);
     }
-	// persons
+    // persons
     if (myPersonControl!=0) {
         if (myPersonControl->hasWaitingPersons(myStep)) {
             const MSPersonControl::PersonVector &persons = myPersonControl->getWaitingPersons(myStep);
@@ -433,7 +433,7 @@ MSNet::clearAll()
 
 
 unsigned
-MSNet::getNDumpIntervalls(void)
+MSNet::getNDumpIntervals(void)
 {
     return myMeanData.size();
 }
