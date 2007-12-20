@@ -68,16 +68,17 @@ MSCells::~MSCells()
 }
 
 
-vector<MSCells::Cell*>::const_iterator
-MSCells::getCellsIteratorBegin() {
+MSCells::CellsIterator
+MSCells::begin() {
 	return myCellsCont.begin();
 }
 
 
-vector<MSCells::Cell*>::const_iterator
-MSCells::getCellsIteratorEnd() {
+MSCells::CellsIterator
+MSCells::end() {
 	return myCellsCont.end();
 }
+
 
 void
 MSCells::update() {
@@ -90,6 +91,7 @@ MSCells::update() {
 	}
 }
 
+
 void
 MSCells::add(MSDevice_C2C* device) {
 	MSCells::Cell* cell = getCellByPosition(device);
@@ -99,6 +101,7 @@ MSCells::add(MSDevice_C2C* device) {
 		cell->push_back(device);
 	}
 }
+
 
 void
 MSCells::remove(MSDevice_C2C* device) {
@@ -110,17 +113,19 @@ MSCells::remove(MSDevice_C2C* device) {
 	}
 }
 
+
 MSCells::Cell*
 MSCells::getNeighbor(std::vector<Cell*>::const_iterator center, int xOffset, int yOffset) {
 	int offset = yOffset*myXsize + xOffset;
-	if (offset < 0 && distance(getCellsIteratorBegin(), center) < -offset) {
+	if (offset < 0 && distance(begin(), center) < -offset) {
 		return 0;
 	}
-	if (distance(center, getCellsIteratorEnd()) < offset) {
+	if (distance(center, end()) < offset) {
 		return 0;
 	}
 	return *(center + offset);
 }
+
 
 MSCells::Cell*
 MSCells::getCellByPosition(MSDevice_C2C* device) {
@@ -136,4 +141,3 @@ MSCells::getCellByPosition(MSDevice_C2C* device) {
 
 
 /****************************************************************************/
-

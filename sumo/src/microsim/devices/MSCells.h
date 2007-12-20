@@ -61,9 +61,9 @@ public:
 	typedef std::vector<Cell*>::const_iterator CellsIterator;
 
     /// Get iterator over the cells
-	CellsIterator getCellsIteratorBegin();
+	CellsIterator begin();
 
-	CellsIterator getCellsIteratorEnd();
+	CellsIterator end();
 
     /// Add a device
     void add(MSDevice_C2C* device);

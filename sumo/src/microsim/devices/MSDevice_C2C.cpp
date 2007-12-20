@@ -140,7 +140,7 @@ MSDevice_C2C::computeCar2Car(SUMOTime t)
 	std::vector<MSDevice_C2C*> clusterHeaders;
 	myCells->update();
 
-	for (MSCells::CellsIterator cell = myCells->getCellsIteratorBegin(); cell!=myCells->getCellsIteratorEnd(); ++cell) {
+	for (MSCells::CellsIterator cell = myCells->begin(); cell!=myCells->end(); ++cell) {
 	    for (vector<MSDevice_C2C*>::const_iterator device = (*cell)->begin(); device!=(*cell)->end(); ++device) {
 	        (*device)->updateInfos(t);
 			(*device)->addNeighbors(*cell, t);
