@@ -491,7 +491,7 @@ NLDetectorBuilder::createMEInductLoop(const std::string &id,
                                       MESegment *s, SUMOReal pos,
                                       int splInterval)
 {
-    return new MEInductLoop(id, s, pos, splInterval);
+    return new MEInductLoop(id, s, pos);
 }
 #endif
 
