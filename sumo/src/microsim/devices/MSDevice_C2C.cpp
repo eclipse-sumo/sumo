@@ -53,9 +53,7 @@ using namespace std;
 // static member variables
 // ===========================================================================
 int MSDevice_C2C::myVehicleIndex = 0;
-#ifdef HAVE_DEVICES
-MSCells MSDevice_C2C::myCells(MSGlobals::gLANRange);
-#endif
+MSCells* MSDevice_C2C::myCells = 0;
 
 // ===========================================================================
 // method definitions
@@ -125,9 +123,10 @@ MSDevice_C2C::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) th
     if (haveByNumber||haveByName) {
 		MSDevice_C2C* device = new MSDevice_C2C(v);
         into.push_back(device);
-#ifdef HAVE_DEVICES
-		myCells.add(device);
-#endif
+        if (myCells == 0) {
+        	myCells = new MSCells(MSGlobals::gLANRange);
+        }
+		myCells->add(device);
     }
     myVehicleIndex++;
 }
@@ -139,16 +138,15 @@ MSDevice_C2C::computeCar2Car(SUMOTime t)
 {
 	std::vector<MSDevice_C2C*> connected;
 	std::vector<MSDevice_C2C*> clusterHeaders;
-#ifdef HAVE_DEVICES
-	myCells.update();
+	myCells->update();
 
-	for (MSCells::CellsIterator cell = myCells.getCellsIteratorBegin(); cell!=myCells.getCellsIteratorEnd(); ++cell) {
+	for (MSCells::CellsIterator cell = myCells->getCellsIteratorBegin(); cell!=myCells->getCellsIteratorEnd(); ++cell) {
 	    for (vector<MSDevice_C2C*>::const_iterator device = (*cell)->begin(); device!=(*cell)->end(); ++device) {
 	        (*device)->updateInfos(t);
 			(*device)->addNeighbors(*cell, t);
-			(*device)->addNeighbors(myCells.getNeighbor(cell, 0, 1), t);
-			(*device)->addNeighbors(myCells.getNeighbor(cell, 1, 0), t);
-			(*device)->addNeighbors(myCells.getNeighbor(cell, 1, 1), t);
+			(*device)->addNeighbors(myCells->getNeighbor(cell, 0, 1), t);
+			(*device)->addNeighbors(myCells->getNeighbor(cell, 1, 0), t);
+			(*device)->addNeighbors(myCells->getNeighbor(cell, 1, 1), t);
 	        (*device)->cleanUpConnections(t);
 			(*device)->setClusterId(-1);
 			if ((*device)->getConnections().size()!=0) {
@@ -156,7 +154,6 @@ MSDevice_C2C::computeCar2Car(SUMOTime t)
 			}
         }
     }
-#endif
 	// build the clusters
     int clusterId = 1;
     for (vector<MSDevice_C2C*>::const_iterator device=connected.begin(); device!=connected.end(); ++device) {
@@ -185,9 +182,7 @@ MSDevice_C2C::MSDevice_C2C(MSVehicle &holder)
 
 MSDevice_C2C::~MSDevice_C2C()
 {
-#ifdef HAVE_DEVICES
-	myCells.remove(this);
-#endif
+	myCells->remove(this);
 	delete akt;
     for (ConnectionCont::iterator i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
         delete(*i).second;

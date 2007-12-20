@@ -223,9 +223,8 @@ private:
 
 
     static int myVehicleIndex;
-#ifdef HAVE_DEVICES
-    static MSCells myCells;
-#endif
+    static MSCells* myCells;
+
 protected:
     std::string buildID();
 

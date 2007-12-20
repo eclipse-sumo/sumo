@@ -134,36 +134,6 @@ public:
     SUMOTime desiredDepart() const;
     //@}
 
-    // add a new Vehicle
-    void addVehNeighbors(MSVehicle *veh, SUMOTime time);
-
-    /// update the list of neighbors
-    void cleanUpConnections(SUMOTime time);
-
-    /// compute the distance between two equipped vehicle
-    bool computeDistance(MSVehicle* veh1, MSVehicle* veh2);
-
-    /** C2C: update own information
-     * a) insert the current edge if the vehicle is standing for a long period
-     * b) remove information older then a specified amount of time (MSGlobals::gLANRefuseOldInfosOffset)
-     */
-    void updateInfos(SUMOTime time);
-
-    // set the Id of the Cluster to them the vehicle belong
-    void setClusterId(int Id);
-
-    // get the Id of the Cluster
-    int getClusterId(void) const;
-
-    void sendInfos(SUMOTime time);
-
-    // Build a Cluster for the WLAN simulation
-    /* A Cluster is a set of vehicles, where all vehicles or the Neighbor of this Vehicle
-     * other the Neighbor of the Neighbor of this Vehicle.
-     * A Vehicle cannot belong to two different cluster
-     */
-    int buildMyCluster(int myStep, int clId);
-
     void removeOnTripEnd(MSVehicle *veh);
 
 
