@@ -601,10 +601,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSDebugHelper.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_C2C.cpp"
 				>
 			</File>
@@ -737,10 +733,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSUnit.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSVehicle.cpp"
 				>
 			</File>
@@ -778,10 +770,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSCORN.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSDebugHelper.h"
 				>
 			</File>
 			<File
@@ -926,10 +914,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSSourceLane.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSUnit.h"
 				>
 			</File>
 			<File
