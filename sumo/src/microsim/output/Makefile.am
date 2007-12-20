@@ -3,7 +3,7 @@ noinst_LIBRARIES = libmicrosimoutput.a
 libmicrosimoutput_a_SOURCES = \
 MSApproachingVehiclesStates.h MSCrossSection.h \
 MSCurrentHaltingDurationSumPerVehicle.h \
-MSDensity.cpp MSDensity.h MSDetector2File.cpp MSDetector2File.h \
+MSDensity.cpp MSDensity.h \
 MSDetectorContainerWrapper.h MSDetectorContainerWrapperBase.h \
 MSDetectorControl.cpp MSDetectorControl.h \
 MSDetectorCounterContainerWrapper.h \

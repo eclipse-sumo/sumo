@@ -58,7 +58,6 @@
 #include <utils/common/SysUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
-#include <microsim/output/MSDetector2File.h>
 #include <microsim/output/MSDetectorControl.h>
 #include <microsim/MSFrame.h>
 #include <utils/iodevices/BinaryInputDevice.h>
@@ -211,13 +210,11 @@ NLBuilder::buildNet()
     myJunctionBuilder.closeJunctions(myDetectorBuilder, myXMLHandler.getContinuations());
     MSEdgeControl *edges = myEdgeBuilder.build();
     MSFrame::buildStreams();
-    MSMeanData_Net_Cont meanData = MSMeanData_Net_Utils::buildList(
-                                       myNet.getDetectorControl().getDet2File(), *edges,
-                                       m_pOptions.getIntVector("dump-intervals"),
-                                       m_pOptions.getString("dump-basename"),
-                                       m_pOptions.getIntVector("lanedump-intervals"),
-                                       m_pOptions.getString("lanedump-basename"),
-                                       m_pOptions.getIntVector("dump-begins"), m_pOptions.getIntVector("dump-ends"));
+    std::vector<MSMeanData_Net*> meanData = MSMeanData_Net_Utils::buildList(
+        myNet.getDetectorControl(), *edges,
+        m_pOptions.getIntVector("dump-intervals"), m_pOptions.getString("dump-basename"),
+        m_pOptions.getIntVector("lanedump-intervals"), m_pOptions.getString("lanedump-basename"),
+        m_pOptions.getIntVector("dump-begins"), m_pOptions.getIntVector("dump-ends"));
     myNet.closeBuilding(
         edges,
         myJunctionBuilder.build(),

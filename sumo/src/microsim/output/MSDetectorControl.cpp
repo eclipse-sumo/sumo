@@ -4,7 +4,7 @@
 /// @date    2005-09-15
 /// @version $Id$
 ///
-//  missingDescription
+// Detectors container; responsible for string and output generation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -30,10 +30,7 @@
 
 #include <iostream>
 #include "MSDetectorControl.h"
-#include "MSDetector2File.h"
 #include "MSInductLoop.h"
-#include <microsim/MSUnit.h>
-#include <microsim/MSUpdateEachTimestepContainer.h>
 #include "e2_detectors/MS_E2_ZS_CollectorOverLanes.h"
 #include "meandata/MSMeanData_Net.h"
 #include "meandata/MSMeanData_Net_Utils.h"
@@ -41,8 +38,8 @@
 #include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/output/e3_detectors/MSE3Collector.h>
 #include <microsim/output/MSInductLoop.h>
-
-#include "MSInductLoop.h"
+#include <utils/options/OptionsCont.h>
+#include <utils/options/Option.h>
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MEInductLoop.h>
@@ -64,7 +61,6 @@ using namespace std;
 // ===========================================================================
 MSDetectorControl::MSDetectorControl()
 {
-    MSUnit::create(1.0, 1.0);
 }
 
 
@@ -77,38 +73,33 @@ MSDetectorControl::~MSDetectorControl()
     myE2Detectors.clear();
     myE3Detectors.clear();
     myE2OverLanesDetectors.clear();
-
-    delete MSUpdateEachTimestepContainer< MSE3Collector >::getInstance();
-    delete MSUnit::getInstance();
 }
 
 
 void
 MSDetectorControl::close(SUMOTime step)
 {
-    myDetector2File.close(step);
+    // flush the last values
+    Intervals::iterator it;
+    for (it = myIntervals.begin(); it != myIntervals.end(); ++it) {
+        writeOutput(step, true);
+    }
+    // [...] files are closed on another place [...]
+    //
+    myIntervals.clear();
 }
 
-
-MSInductLoop *
-MSDetectorControl::findInductLoop(const std::string &id)
-{
-    return myLoops.get(id);
-}
 
 
 void
-MSDetectorControl::add(MSInductLoop *il,
-                       OutputDevice& device,
-                       int splInterval)
+MSDetectorControl::add(MSInductLoop *il, OutputDevice& device, int splInterval)
 {
     // insert object into dictionary
     if (! myLoops.add(il->getID(), il)) {
         throw ProcessError("induct loop '" + il->getID() + "' could not be build;"
                            + "\n (declared twice?)");
     }
-    myDetector2File.addDetectorAndInterval(il, &device, splInterval); // !!! test
-    // !!!! a command may have been added
+    addDetectorAndInterval(il, &device, splInterval);
 }
 
 
@@ -122,7 +113,7 @@ MSDetectorControl::add(MSE2Collector *e2,
         throw ProcessError("e2-detector '" + e2->getID() + "' could not be build;"
                            + "\n (declared twice?)");
     }
-    myDetector2File.addDetectorAndInterval(e2, &device, splInterval); // !!! test
+    addDetectorAndInterval(e2, &device, splInterval);
 }
 
 
@@ -136,7 +127,7 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol,
         throw ProcessError("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;"
                            + "\n (declared twice?)");
     }
-    myDetector2File.addDetectorAndInterval(e2ol, &device, splInterval); // !!! test
+    addDetectorAndInterval(e2ol, &device, splInterval);
 }
 
 
@@ -163,40 +154,30 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol)
 
 
 void
-MSDetectorControl::add(MSE3Collector *e3,
-                       OutputDevice& device,
-                       int splInterval)
+MSDetectorControl::add(MSE3Collector *e3, OutputDevice& device, int splInterval)
 {
     // insert object into dictionary
     if (! myE3Detectors.add(e3->getID(), e3)) {
         throw ProcessError("e3-detector '" + e3->getID() + "' could not be build;"
                            + "\n (declared twice?)");
     }
-    myDetector2File.addDetectorAndInterval(e3, &device, splInterval); // !!! test
+    addDetectorAndInterval(e3, &device, splInterval);
 }
 
 
 #ifdef HAVE_MESOSIM
 void
-MSDetectorControl::add(MEInductLoop *meil,
-                       OutputDevice& device,
-                       int splInterval)
+MSDetectorControl::add(MEInductLoop *meil, OutputDevice& device, int splInterval)
 {
     // insert object into dictionary
     if (! myMesoLoops.add(meil->getID(), meil)) {
         throw ProcessError("meso-induct loop '" + meil->getID() + "' could not be build;"
                            + "\n (declared twice?)");
     }
-    myDetector2File.addDetectorAndInterval(meil, &device, splInterval); // !!! test
+    addDetectorAndInterval(meil, &device, splInterval);
 }
 #endif
 
-
-MSDetector2File &
-MSDetectorControl::getDet2File()
-{
-    return myDetector2File;
-}
 
 MSDetectorControl::LoopVect
 MSDetectorControl::getLoopVector() const
@@ -227,18 +208,76 @@ MSDetectorControl::getE2OLVector() const
 
 
 void
-MSDetectorControl::resetInterval(MSDetectorFileOutput *il,
-                                 SUMOTime interval)
+MSDetectorControl::resetInterval(MSDetectorFileOutput *det,
+                                 SUMOTime newinterval)
 {
-    myDetector2File.resetInterval(il, interval);
+    for (Intervals::iterator i=myIntervals.begin(); i!=myIntervals.end(); ++i) {
+        DetectorFileVec &dets = (*i).second;
+        for (DetectorFileVec::iterator j=dets.begin(); j!=dets.end(); ++j) {
+            DetectorFilePair &dvp = *j;
+            if (dvp.first==det) {
+                DetectorFilePair dvpu = *j;
+                dets.erase(j);
+                addDetectorAndInterval(dvpu.first, dvpu.second, newinterval, true);
+                return;
+            }
+        }
+    }
 }
 
 
-void 
-MSDetectorControl::writeOutput(SUMOTime step)
+void
+MSDetectorControl::writeOutput(SUMOTime step, bool closing)
 {
-    myDetector2File.writeOutput(step, false);
+    for (Intervals::iterator i=myIntervals.begin(); i!=myIntervals.end(); ++i) {
+        int interval = (*i).first;
+        if (myLastCalls[interval]+interval-1<=step || (closing && myLastCalls[interval]<step)) {
+            DetectorFileVec dfVec = (*i).second;
+            SUMOTime stopTime = step;
+            SUMOTime startTime = myLastCalls[interval];
+            // check whether at the end the output was already generated
+            for (DetectorFileVec::iterator it = dfVec.begin(); it!=dfVec.end(); ++it) {
+                MSDetectorFileOutput* det = it->first;
+                det->writeXMLOutput(*(it->second), startTime, stopTime);
+            }
+            myLastCalls[interval] = stopTime + 1;
+        }
+    }
 }
+
+
+void
+MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
+                                        OutputDevice *device,
+                                        SUMOTime interval,
+                                        bool reinsert)
+{
+    IntervalsKey key = interval;
+    Intervals::iterator it = myIntervals.find(key);
+    // Add command for given key only once to MSEventControl...
+    if (it == myIntervals.end()) {
+        // set the
+        DetectorFileVec detAndFileVec;
+        detAndFileVec.push_back(make_pair(det, device));
+        myIntervals.insert(make_pair(key, detAndFileVec));
+        myLastCalls[interval] = OptionsCont::getOptions().getInt("begin");
+    } else {
+        DetectorFileVec& detAndFileVec = it->second;
+        if (find_if(detAndFileVec.begin(), detAndFileVec.end(), bind2nd(detectorEquals(), det)) == detAndFileVec.end()) {
+            detAndFileVec.push_back(make_pair(det, device));
+        } else {
+            // detector already in container. Don't add several times
+            WRITE_WARNING("MSDetector2File::addDetectorAndInterval: detector already in container. Ignoring.");
+            return;
+        }
+    }
+    if (!reinsert) {
+        det->writeXMLDetectorProlog(*device);
+    }
+}
+
+
+
 
 
 /****************************************************************************/

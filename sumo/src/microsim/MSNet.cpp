@@ -482,7 +482,7 @@ MSNet::writeOutput()
         }
         OutputDevice::getDeviceByOption("emissions-output") << "/>\n";
     }
-    myDetectorControl->writeOutput(myStep);
+    myDetectorControl->writeOutput(myStep, false);
 }
 
 

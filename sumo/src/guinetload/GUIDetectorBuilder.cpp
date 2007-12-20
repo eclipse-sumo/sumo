@@ -36,7 +36,6 @@
 #include <guisim/GUI_E2_ZS_Collector.h>
 #include <guisim/GUI_E2_ZS_CollectorOverLanes.h>
 #include <guisim/GUIE3Collector.h>
-#include <microsim/output/MSDetector2File.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/FileHelpers.h>
 #include <microsim/logging/LoggedValue_Single.h>

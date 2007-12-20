@@ -601,10 +601,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\output\MSDetector2File.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\output\MSDetectorControl.cpp"
 				>
 			</File>
@@ -659,10 +655,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\output\MSDensity.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\output\MSDetector2File.h"
 				>
 			</File>
 			<File

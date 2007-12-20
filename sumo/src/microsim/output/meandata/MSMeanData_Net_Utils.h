@@ -38,7 +38,7 @@
 // class declarations
 // ===========================================================================
 class MSEdgeControl;
-class MSDetector2File;
+class MSDetectorControl;
 
 
 // ===========================================================================
@@ -71,7 +71,7 @@ public:
      * @return The built list of network-wide mean data containers
      * @see buildList
      */
-    static std::vector<MSMeanData_Net*> buildList(MSDetector2File &det2file, MSEdgeControl &ec, 
+    static std::vector<MSMeanData_Net*> buildList(MSDetectorControl &det2file, MSEdgeControl &ec, 
         std::vector<int> dumpMeanDataIntervals, std::string baseNameDumpFiles,
         std::vector<int> laneDumpMeanDataIntervals, std::string baseNameLaneDumpFiles,
         const std::vector<int> &dumpBegins, const std::vector<int> &dumpEnds);
@@ -92,7 +92,7 @@ protected:
      * @return The built list of network-wide mean data containers
      * @see buildUniqueList
      */
-    static std::vector<MSMeanData_Net*> buildList(MSDetector2File &det2file,
+    static std::vector<MSMeanData_Net*> buildList(MSDetectorControl &det2file,
                                          MSEdgeControl &ec,
                                          std::vector<int> dumpMeanDataIntervals,
                                          std::string baseNameDumpFiles,

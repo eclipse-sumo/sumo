@@ -4,7 +4,7 @@
 /// @date    2005-09-15
 /// @version $Id$
 ///
-//	missingDescription
+// Detectors container; responsible for string and output generation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -37,7 +37,6 @@
 #include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/output/e3_detectors/MSE3Collector.h>
 #include <microsim/output/MSInductLoop.h>
-#include "MSDetector2File.h"
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MEInductLoop.h>
@@ -49,78 +48,329 @@
 // ===========================================================================
 /**
  * @class MSDetectorControl
+ * @brief Detectors container; responsible for string and output generation
  */
 class MSDetectorControl
 {
 public:
+    /// @name Definitions of containers for different detector types
+    /// @{
+    /// @brief Map of MSInductLoop by ID
     typedef NamedObjectCont< MSInductLoop*> LoopDict;
+    /// @brief Map of MSE2Collector by ID
+    typedef NamedObjectCont< MSE2Collector*> E2Dict;
+    /// @brief Map of MSE3Collector by ID
+    typedef NamedObjectCont< MSE3Collector*> E3Dict;
+    /// @brief Map of MS_E2_ZS_CollectorOverLanes by ID
+    typedef NamedObjectCont< MS_E2_ZS_CollectorOverLanes* > E2ZSOLDict;
 #ifdef HAVE_MESOSIM
+    /// @brief Map of MEInductLoop by ID
     typedef NamedObjectCont< MEInductLoop*> MELoopDict;
 #endif
-    typedef NamedObjectCont< MSE2Collector*> E2Dict;
-    typedef NamedObjectCont< MSE3Collector*> E3Dict;
-    typedef NamedObjectCont< MS_E2_ZS_CollectorOverLanes* > E2ZSOLDict;
 
+    /// @brief Vector of MSInductLoop
     typedef std::vector< MSInductLoop*> LoopVect;
+    /// @brief Vector of MSE2Collector
+    typedef std::vector< MSE2Collector*> E2Vect;
+    /// @brief Vector of MSE3Collector
+    typedef std::vector< MSE3Collector*> E3Vect;
+    /// @brief Vector of MS_E2_ZS_CollectorOverLanes
+    typedef std::vector< MS_E2_ZS_CollectorOverLanes* > E2ZSOLVect;
 #ifdef HAVE_MESOSIM
+    /// @brief Vector of MEInductLoop
     typedef std::vector< MEInductLoop*> MELoopVect;
 #endif
-    typedef std::vector< MSE2Collector*> E2Vect;
-    typedef std::vector< MSE3Collector*> E3Vect;
-    typedef std::vector< MS_E2_ZS_CollectorOverLanes* > E2ZSOLVect;
+    /// @}
+
 
 public:
+    /** @brief Constructor
+     */
     MSDetectorControl();
 
+
+    /** @brief Destructor
+     *
+     * Deletes all stored detectors.
+     */
     ~MSDetectorControl();
 
+
+    /** @brief Closes the detector outputs
+     *
+     * Goes through the intervals to write and writes the last step using
+     *  the current simulation time as end.
+     *
+     * @param[in] step The time step (the simulation has ended at)
+     */
     void close(SUMOTime step);
 
-    MSInductLoop *findInductLoop(const std::string &id);
 
-    void add(MSInductLoop *il, OutputDevice& device,
-             int splInterval);
-#ifdef HAVE_MESOSIM
-    void add(MEInductLoop *il, OutputDevice& device,
-             int splInterval);
-#endif
+    /// @name Methods for adding detectors that are coupled to an own OutputDevice
+    /// @{
+    /** @brief Adds a induction loop into the containers
+     *
+     * The detector is tried to be added into "myLoops". If the detector 
+     *  is already known (the id was already used for a similar detector), 
+     *  a ProcessError is thrown.
+     *
+     * Otherwise, the Detector2File-mechanism is instantiated for the detector.
+     *
+     * Please note, that the detector control gets responsible for the detector.
+     *
+     * @param[in] il The induction loop to add
+     * @param[in] device The device the loop uses
+     * @param[in] splInterval The sample interval of the loop
+     * @exception ProcessError If the detector is already known
+     */
+    void add(MSInductLoop *il, OutputDevice& device, int splInterval);
 
-    void add(MSE2Collector *e2, OutputDevice& device,
-             int splInterval);
 
+    /** @brief Adds a e2-detector into the containers
+     *
+     * The detector is tried to be added into "myE2Detectors". If the detector 
+     *  is already known (the id was already used for a similar detector), 
+     *  a ProcessError is thrown.
+     *
+     * Otherwise, the Detector2File-mechanism is instantiated for the detector.
+     *
+     * Please note, that the detector control gets responsible for the detector.
+     *
+     * @param[in] e2 The e2-detector to add
+     * @param[in] device The device the e2-detector uses
+     * @param[in] splInterval The sample interval of the e2-detector
+     * @exception ProcessError If the detector is already known
+     */
+    void add(MSE2Collector *e2, OutputDevice& device, int splInterval);
+
+
+    /** @brief Adds a e2ol-detector into the containers
+     *
+     * The detector is tried to be added into "myE2OverLanesDetectors". 
+     *  If the detector is already known (the id was already used for a 
+     *  similar detector), a ProcessError is thrown.
+     *
+     * Otherwise, the Detector2File-mechanism is instantiated for the detector.
+     *
+     * Please note, that the detector control gets responsible for the detector.
+     *
+     * @param[in] e2ol The e2ol-detector to add
+     * @param[in] device The device the e2ol-detector uses
+     * @param[in] splInterval The sample interval of the e2ol-detector
+     * @exception ProcessError If the detector is already known
+     */
     void add(MS_E2_ZS_CollectorOverLanes *e2ol, OutputDevice& device,
              int splInterval);
 
-    /// adds an e2 detector coupled to an extern output impulse giver
+    /** @brief Adds a e3-detector into the containers
+     *
+     * The detector is tried to be added into "myE3Detectors". If the detector 
+     *  is already known (the id was already used for a similar detector), 
+     *  a ProcessError is thrown.
+     *
+     * Otherwise, the Detector2File-mechanism is instantiated for the detector.
+     *
+     * Please note, that the detector control gets responsible for the detector.
+     *
+     * @param[in] e3 The e3-detector to add
+     * @param[in] device The device the e3-detector uses
+     * @param[in] splInterval The sample interval of the e3-detector
+     * @exception ProcessError If the detector is already known
+     */
+    void add(MSE3Collector *e3, OutputDevice& device, int splInterval);
+
+
+#ifdef HAVE_MESOSIM
+    /** @brief Adds a mesoscopic induction loop into the containers
+     *
+     * The detector is tried to be added into "myMesoLoops". If the detector 
+     *  is already known (the id was already used for a similar detector), 
+     *  a ProcessError is thrown.
+     *
+     * Otherwise, the Detector2File-mechanism is instantiated for the detector.
+     *
+     * Please note, that the detector control gets responsible for the detector.
+     *
+     * @param[in] il The induction loop to add
+     * @param[in] device The device the loop uses
+     * @param[in] splInterval The sample interval of the loop
+     * @exception ProcessError If the detector is already known
+     */
+    void add(MEInductLoop *il, OutputDevice& device, int splInterval);
+#endif
+    /// @}
+
+
+
+    /// @name Methods for adding detectors that are coupled to an own OutputDevice
+    /// @{
+    /** @brief Adds a e2-detector coupled to an extern output impulse giver
+     *
+     * The detector is tried to be added into "myE2Detectors". If the detector 
+     *  is already known (the id was already used for a similar detector), 
+     *  a ProcessError is thrown.
+     *
+     * Please note, that the detector control gets responsible for the detector.
+     *
+     * @param[in] e2 The e2-detector to add
+     * @exception ProcessError If the detector is already known
+     */
     void add(MSE2Collector *e2);
 
-    /// adds an e2ol detector coupled to an extern output impulse giver
+
+    /** @brief Adds a e2ol-detector coupled to an extern output impulse giver
+     *
+     * The detector is tried to be added into "myE2OverLanesDetectors". If the detector 
+     *  is already known (the id was already used for a similar detector), 
+     *  a ProcessError is thrown.
+     *
+     * Please note, that the detector control gets responsible for the detector.
+     *
+     * @param[in] e2ol The e2ol-detector to add
+     * @exception ProcessError If the detector is already known
+     */
     void add(MS_E2_ZS_CollectorOverLanes *e2ol);
+    /// @}
 
-    void add(MSE3Collector *e3, OutputDevice& device,
-             int splInterval);
 
-    MSDetector2File &getDet2File();
+    /** @brief Resets the interval of an output device
+     *
+     * This method is used within the TrafficTower-extension of SUMO
+     *
+     * @param[in] il The detector to reset the interval of
+     * @param[in] newinterval The new interval to assign
+     */
+    void resetInterval(MSDetectorFileOutput *il, SUMOTime newinterval);
 
-    void resetInterval(MSDetectorFileOutput *il, SUMOTime interval);
 
+    /** @brief Adds one of the detectors as a new MSDetectorFileOutput
+     *
+     * This method is used within the TrafficTower-extension of SUMO
+     *
+     * @param[in] det The generator to add
+     * @param[in] device The device to use
+     * @param[in] interval The sample interval to use
+     * @param[in] reinsert Used to determine whether the prolog shall be written
+     * @tode Recheck whether this method could be made private/protected
+     */
+    void addDetectorAndInterval(MSDetectorFileOutput* det,
+        OutputDevice *device, SUMOTime interval, bool reinsert=false);
+
+
+
+    /// @name Methods for retrieving detectors
+    /// @{
+    /** @brief Returns the list of known MSInductLoops
+     *
+     * !!! Attention! This method is highly insecure and should be replaced.
+     * @return The list of known MSInductLoops
+     * @todo Rework!
+     */
     LoopVect getLoopVector() const;
-    E2Vect getE2Vector() const;
-    E3Vect getE3Vector() const;
-    E2ZSOLVect getE2OLVector() const;
 
-    void writeOutput(SUMOTime step);
+
+    /** @brief Returns the list of known MSE2Collectors
+     *
+     * !!! Attention! This method is highly insecure and should be replaced.
+     * @return The list of known MSE2Collectors
+     * @todo Rework!
+     */
+    E2Vect getE2Vector() const;
+
+
+    /** @brief Returns the list of known MSE3Collectors
+     *
+     * !!! Attention! This method is highly insecure and should be replaced.
+     * @return The list of known MSE3Collectors
+     * @todo Rework!
+     */
+    E3Vect getE3Vector() const;
+
+
+    /** @brief Returns the list of known MS_E2_ZS_CollectorOverLanes-detectors
+     *
+     * !!! Attention! This method is highly insecure and should be replaced.
+     * @return The list of known MS_E2_ZS_CollectorOverLanes-detectors
+     * @todo Rework!
+     */
+    E2ZSOLVect getE2OLVector() const;
+    /// @}
+
+
+    /** @brief Writes the output to be generated within the given time step
+     *
+     * Goes through the list of intervals. If one interval has ended within the
+     *  given step or if the closing-flag is set and the output was not
+     *  written in this step already, the writeXMLOutput method is called
+     *  for all MSDetectorFileOutputs within this interval.
+     *
+     * @param[in] step The current time step
+     * @param[in] closing Whether the device is closed
+     */
+    void writeOutput(SUMOTime step, bool closing);
 
 
 protected:
+    /// @name Structures needed for assigning detectors to intervals
+    /// @{
+    /// @brief A pair of a Detector with it's associated file-stream.
+    typedef std::pair< MSDetectorFileOutput*, OutputDevice* > DetectorFilePair;
+
+    /// @brief Container holding DetectorFilePair (with the same interval).
+    typedef std::vector< DetectorFilePair > DetectorFileVec;
+
+    /// @brief Definition of the interval key
+    typedef SUMOTime IntervalsKey;
+
+    /// @brief Association of intervals to DetectorFilePair containers.
+    typedef std::map< IntervalsKey, DetectorFileVec > Intervals;
+    /// @}
+
+    /**
+     * @struct detectorEquals
+     * @brief Returns true if detectors are equal.
+     *
+     * Binary predicate that compares the passed DetectorFilePair's
+     * detector to a fixed one. Returns true if detectors are
+     * equal. (Used to prevent multiple inclusion of a detector for
+     * the same interval.)
+     *
+     * @see addDetectorAndInterval
+     */
+    struct detectorEquals : public std::binary_function< DetectorFilePair, MSDetectorFileOutput*, bool > {
+        /** @brief Returns true if detectors are equal. */
+        bool operator()(const DetectorFilePair& pair, const MSDetectorFileOutput* det) const {
+            return pair.first == det;
+        }
+    };
+
+protected:
+    /// @name Vectors of different detector types
+    /// @{
+    /// @brief Vector of MSInductLoop
     LoopDict myLoops;
+
+    /// @brief Vector of MSE2Collector
+    E2Dict myE2Detectors;
+
+    /// @brief Vector of MSE3Collector
+    E3Dict myE3Detectors;
+
+    /// @brief Vector of MS_E2_ZS_CollectorOverLanes
+    E2ZSOLDict myE2OverLanesDetectors;
+
 #ifdef HAVE_MESOSIM
+    /// @brief Vector of MEInductLoop
     MELoopDict myMesoLoops;
 #endif
-    E2Dict myE2Detectors;
-    E3Dict myE3Detectors;
-    E2ZSOLDict myE2OverLanesDetectors;
-    MSDetector2File myDetector2File;
+    /// @}
+
+    /** @brief Map that hold DetectorFileVec for given intervals. */
+    Intervals myIntervals;
+
+    /// @brief The map that holds the last call for each sample interval
+    std::map<SUMOTime, SUMOTime> myLastCalls;
+
 
 };
 
