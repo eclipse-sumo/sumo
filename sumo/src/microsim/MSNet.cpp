@@ -357,8 +357,6 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
             myEdges->detectCollisions(step);
         }
 
-        MSUpdateEachTimestepContainer< MSE3Collector >::getInstance()->updateAll();
-
         // Vehicles change Lanes (maybe)
         myEdges->changeLanes();
 
