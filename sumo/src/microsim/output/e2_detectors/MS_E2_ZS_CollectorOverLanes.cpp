@@ -49,12 +49,10 @@ using namespace std;
 MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
     std::string id, DetectorUsage usage, MSLane* lane,
     SUMOReal startPos,
-    SUMOReal haltingTimeThreshold,
-    MSUnit::MetersPerSecond haltingSpeedThreshold,
-    SUMOReal jamDistThreshold,
-    SUMOTime deleteDataAfterSeconds)
+    SUMOTime haltingTimeThreshold,
+    MetersPerSecond haltingSpeedThreshold,
+    SUMOReal jamDistThreshold)
         : startPosM(startPos),
-        deleteDataAfterSecondsM(deleteDataAfterSeconds),
         haltingTimeThresholdM(haltingTimeThreshold),
         haltingSpeedThresholdM(haltingSpeedThreshold),
         jamDistThresholdM(jamDistThreshold),
@@ -230,10 +228,10 @@ MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
     }
     return new MSE2Collector(id, myUsage,
                              l, start, end, haltingTimeThresholdM,
-                             haltingSpeedThresholdM, jamDistThresholdM, deleteDataAfterSecondsM);
+                             haltingSpeedThresholdM, jamDistThresholdM);
 }
 
-
+/*
 SUMOReal
 MS_E2_ZS_CollectorOverLanes::getCurrent(E2::DetType type)
 {
@@ -316,12 +314,13 @@ MS_E2_ZS_CollectorOverLanes::addDetector(E2::DetType type,
         c++;
     }
 }
-
+*/
 
 void
 MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice &dev,
         SUMOTime startTime, SUMOTime stopTime)
 {
+    /*
     dev<<"<interval begin=\""<<toString(startTime)<<"\" end=\""<<
     toString(stopTime)<<"\" "<<"id=\""<<myID<<"\" ";
     if (hasDetector(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES)) {
@@ -332,6 +331,7 @@ MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice &dev,
     }
     myDetectorCombinations[0][0]->writeXMLOutput(dev, startTime, stopTime);
     dev<<"/>\n";
+    */
 }
 
 
@@ -398,7 +398,7 @@ MS_E2_ZS_CollectorOverLanes::getStartLaneID() const
     return myStartLaneID;
 }
 
-
+/*
 void
 MS_E2_ZS_CollectorOverLanes::resetQueueLengthAheadOfTrafficLights(void)
 {
@@ -408,7 +408,7 @@ MS_E2_ZS_CollectorOverLanes::resetQueueLengthAheadOfTrafficLights(void)
         }
     }
 }
-
+*/
 
 
 /****************************************************************************/

@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libcommon.a
 
 EXTRA_DIST = StdDefs.h VectorHelper.h Command.h DiscreteCommand.h \
-NamedObjectCont.h OneArgumentCommand.h \
+NamedObjectCont.h OneArgumentCommand.h PhysicalTypeDefs.h \
 RandomDistributor.h SUMOAbstractRouter.h SUMODijkstraRouter.h \
 WrappingCommand.h ValueRetriever.h ValueSource.h \
 gcc_NullType.h gcc_Typelist.h gcc_TypeManip.h gcc_TypeTraits.h \

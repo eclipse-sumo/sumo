@@ -160,10 +160,9 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                                    const std::string &/*style*/,
                                    OutputDevice& device,
                                    const std::string &measures,
-                                   SUMOReal haltingTimeThreshold,
-                                   MSUnit::MetersPerSecond haltingSpeedThreshold,
-                                   SUMOReal jamDistThreshold,
-                                   SUMOTime deleteDataAfterSeconds)
+                                   SUMOTime haltingTimeThreshold,
+                                   MetersPerSecond haltingSpeedThreshold,
+                                   SUMOReal jamDistThreshold)
 {
     if (splInterval<0) {
         throw InvalidArgument("Negative sampling frequency (in detector '" + id + "').");
@@ -176,8 +175,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
                                    clane, pos, length,
                                    haltingTimeThreshold, haltingSpeedThreshold,
-                                   jamDistThreshold, deleteDataAfterSeconds,
-                                   measures);
+                                   jamDistThreshold, measures);
         myNet.getDetectorControl().add(
             static_cast<MSE2Collector*>(det), device, splInterval);
     } else {
@@ -185,8 +183,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         det = buildMultiLaneE2Det(edgeContinuations, id, DU_USER_DEFINED,
                                   clane, pos, length,
                                   haltingTimeThreshold, haltingSpeedThreshold,
-                                  jamDistThreshold, deleteDataAfterSeconds,
-                                  measures);
+                                  jamDistThreshold, measures);
         myNet.getDetectorControl().add(
             static_cast<MS_E2_ZS_CollectorOverLanes*>(det), device, splInterval);
     }
@@ -201,10 +198,9 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                                    const MSTLLogicControl::TLSLogicVariants &tlls,
                                    const std::string &/*style*/, OutputDevice& device,
                                    const std::string &measures,
-                                   SUMOReal haltingTimeThreshold,
-                                   MSUnit::MetersPerSecond haltingSpeedThreshold,
-                                   SUMOReal jamDistThreshold,
-                                   SUMOTime deleteDataAfterSeconds)
+                                   SUMOTime haltingTimeThreshold,
+                                   MetersPerSecond haltingSpeedThreshold,
+                                   SUMOReal jamDistThreshold)
 {
     MSLane *clane = getLaneChecking(lane, id);
     // check whether the detector may lie over more than one lane
@@ -214,8 +210,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
                                    clane, pos, length,
                                    haltingTimeThreshold, haltingSpeedThreshold,
-                                   jamDistThreshold, deleteDataAfterSeconds,
-                                   measures);
+                                   jamDistThreshold, measures);
         myNet.getDetectorControl().add(
             static_cast<MSE2Collector*>(det));
     } else {
@@ -223,8 +218,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         det = buildMultiLaneE2Det(edgeContinuations, id, DU_USER_DEFINED,
                                   clane, pos, length,
                                   haltingTimeThreshold, haltingSpeedThreshold,
-                                  jamDistThreshold, deleteDataAfterSeconds,
-                                  measures);
+                                  jamDistThreshold, measures);
         myNet.getDetectorControl().add(
             static_cast<MS_E2_ZS_CollectorOverLanes*>(det));
     }
@@ -243,10 +237,9 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                                    const std::string &tolane,
                                    const std::string &/*style*/, OutputDevice& device,
                                    const std::string &measures,
-                                   SUMOReal haltingTimeThreshold,
-                                   MSUnit::MetersPerSecond haltingSpeedThreshold,
-                                   SUMOReal jamDistThreshold,
-                                   SUMOTime deleteDataAfterSeconds)
+                                   SUMOTime haltingTimeThreshold,
+                                   MetersPerSecond haltingSpeedThreshold,
+                                   SUMOReal jamDistThreshold)
 {
     MSLane *clane = getLaneChecking(lane, id);
     MSLane *ctoLane = getLaneChecking(tolane, id);
@@ -266,8 +259,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
                                    clane, pos, length,
                                    haltingTimeThreshold, haltingSpeedThreshold,
-                                   jamDistThreshold, deleteDataAfterSeconds,
-                                   measures);
+                                   jamDistThreshold, measures);
         myNet.getDetectorControl().add(
             static_cast<MSE2Collector*>(det));
     } else {
@@ -275,8 +267,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         det = buildMultiLaneE2Det(edgeContinuations, id, DU_USER_DEFINED,
                                   clane, pos, length,
                                   haltingTimeThreshold, haltingSpeedThreshold,
-                                  jamDistThreshold, deleteDataAfterSeconds,
-                                  measures);
+                                  jamDistThreshold, measures);
         myNet.getDetectorControl().add(
             static_cast<MS_E2_ZS_CollectorOverLanes*>(det));
     }
@@ -430,20 +421,14 @@ MSE2Collector *
 NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
                                         DetectorUsage usage,
                                         MSLane *lane, SUMOReal pos, SUMOReal length,
-                                        SUMOReal haltingTimeThreshold,
-                                        MSUnit::MetersPerSecond haltingSpeedThreshold,
+                                        SUMOTime haltingTimeThreshold,
+                                        MetersPerSecond haltingSpeedThreshold,
                                         SUMOReal jamDistThreshold,
-                                        SUMOTime deleteDataAfterSeconds,
                                         const std::string &measures)
 {
-    MSE2Collector *ret = createSingleLaneE2Detector(id, usage, lane, pos,
-                         length, haltingTimeThreshold, haltingSpeedThreshold,
-                         jamDistThreshold, deleteDataAfterSeconds);
-    E2MeasuresVector toAdd = parseE2Measures(measures);
-    for (E2MeasuresVector::iterator i=toAdd.begin(); i!=toAdd.end(); i++) {
-        ret->addDetector(*i);
-    }
-    return ret;
+    return createSingleLaneE2Detector(id, usage, lane, pos,
+                                      length, haltingTimeThreshold, haltingSpeedThreshold,
+                                      jamDistThreshold);
 }
 
 
@@ -451,20 +436,15 @@ MS_E2_ZS_CollectorOverLanes *
 NLDetectorBuilder::buildMultiLaneE2Det(const MSEdgeContinuations &edgeContinuations,
                                        const std::string &id, DetectorUsage usage,
                                        MSLane *lane, SUMOReal pos, SUMOReal length,
-                                       SUMOReal haltingTimeThreshold,
-                                       MSUnit::MetersPerSecond haltingSpeedThreshold,
+                                       SUMOTime haltingTimeThreshold,
+                                       MetersPerSecond haltingSpeedThreshold,
                                        SUMOReal jamDistThreshold ,
-                                       SUMOTime deleteDataAfterSeconds,
                                        const std::string &measures)
 {
     MS_E2_ZS_CollectorOverLanes *ret = createMultiLaneE2Detector(id, usage,
                                        lane, pos, haltingTimeThreshold, haltingSpeedThreshold,
-                                       jamDistThreshold, deleteDataAfterSeconds);
+                                       jamDistThreshold);
     ret->init(lane, length, edgeContinuations);
-    E2MeasuresVector toAdd = parseE2Measures(measures);
-    for (E2MeasuresVector::iterator i=toAdd.begin(); i!=toAdd.end(); i++) {
-        ret->addDetector(*i);
-    }
     return ret;
 }
 
@@ -581,14 +561,13 @@ NLDetectorBuilder::createMEInductLoop(const std::string &id,
 MSE2Collector *
 NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
-        SUMOReal haltingTimeThreshold,
-        MSUnit::MetersPerSecond haltingSpeedThreshold,
-        SUMOReal jamDistThreshold,
-        SUMOTime deleteDataAfterSeconds)
+        SUMOTime haltingTimeThreshold,
+        MetersPerSecond haltingSpeedThreshold,
+        SUMOReal jamDistThreshold)
 {
     return new MSE2Collector(id, usage, lane, pos, length,
                              haltingTimeThreshold, haltingSpeedThreshold,
-                             jamDistThreshold, deleteDataAfterSeconds);
+                             jamDistThreshold);
 
 }
 
@@ -596,14 +575,13 @@ NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
 MS_E2_ZS_CollectorOverLanes *
 NLDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
         DetectorUsage usage, MSLane *lane, SUMOReal pos,
-        SUMOReal haltingTimeThreshold,
-        MSUnit::MetersPerSecond haltingSpeedThreshold,
-        SUMOReal jamDistThreshold,
-        SUMOTime deleteDataAfterSeconds)
+        SUMOTime haltingTimeThreshold,
+        MetersPerSecond haltingSpeedThreshold,
+        SUMOReal jamDistThreshold)
 {
     return new MS_E2_ZS_CollectorOverLanes(id, usage, lane, pos,
                                            haltingTimeThreshold, haltingSpeedThreshold,
-                                           jamDistThreshold, deleteDataAfterSeconds);
+                                           jamDistThreshold);
 }
 
 

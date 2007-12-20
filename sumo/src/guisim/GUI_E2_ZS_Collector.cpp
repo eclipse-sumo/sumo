@@ -36,6 +36,7 @@
 #include <utils/geom/Line2D.h>
 #include <utils/geom/GeomHelper.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
+#include <microsim/logging/FunctionBinding.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -60,14 +61,12 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * GUI_E2_ZS_Collector-methods
  * ----------------------------------------------------------------------- */
-GUI_E2_ZS_Collector::GUI_E2_ZS_Collector(std::string id, DetectorUsage usage,
+GUI_E2_ZS_Collector::GUI_E2_ZS_Collector(const std::string &id, DetectorUsage usage,
         MSLane* lane, SUMOReal startPos, SUMOReal detLength,
-        SUMOReal haltingTimeThreshold,
-        MSUnit::MetersPerSecond haltingSpeedThreshold,
-        SUMOReal jamDistThreshold,
-        SUMOTime deleteDataAfterSeconds)
+        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
+        SUMOReal jamDistThreshold)
         : MSE2Collector(id, usage, lane, startPos, detLength, haltingTimeThreshold,
-                        haltingSpeedThreshold, jamDistThreshold, deleteDataAfterSeconds)
+                        haltingSpeedThreshold, jamDistThreshold)
 {}
 
 
@@ -155,40 +154,36 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
         GUISUMOAbstractView &)
 {
     GUIParameterTableWindow *ret =
-        new GUIParameterTableWindow(app, *this, 14);
+        new GUIParameterTableWindow(app, *this, 13);
     // add items
-    myMkExistingItem(*ret, "density [?]", E2::DENSITY);
-    myMkExistingItem(*ret, "jam lengths [veh]", E2::MAX_JAM_LENGTH_IN_VEHICLES);
-    myMkExistingItem(*ret, "jam length [m]", E2::MAX_JAM_LENGTH_IN_METERS);
-    myMkExistingItem(*ret, "jam len sum [veh]", E2::JAM_LENGTH_SUM_IN_VEHICLES);
-    myMkExistingItem(*ret, "jam len sum [m]", E2::JAM_LENGTH_SUM_IN_METERS);
-    myMkExistingItem(*ret, "queue length [veh]", E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES);
-    myMkExistingItem(*ret, "queue length [m]", E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS);
-    myMkExistingItem(*ret, "vehicles [veh]", E2::N_VEHICLES);
-    myMkExistingItem(*ret, "occupancy degree [?]", E2::OCCUPANCY_DEGREE);
-    myMkExistingItem(*ret, "space mean speed [?]", E2::SPACE_MEAN_SPEED);
-    myMkExistingItem(*ret, "halting duration [?]", E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE);
-    //
+        // parameter
     ret->mkItem("length [m]", false, myDetector.getEndPos()-myDetector.getStartPos());
     ret->mkItem("position [m]", false, myDetector.getStartPos());
     ret->mkItem("lane", false, myDetector.getLane()->getID());
+        // values
+    ret->mkItem("vehicles [#]", true,
+                new FunctionBinding<MSE2Collector, unsigned>(&myDetector, &MSE2Collector::getCurrentVehicleNumber));
+    ret->mkItem("occupancy [%]", true,
+                new FunctionBinding<MSE2Collector, SUMOReal>(&myDetector, &MSE2Collector::getCurrentOccupancy));
+    ret->mkItem("mean speed [m/s]", true,
+                new FunctionBinding<MSE2Collector, SUMOReal>(&myDetector, &MSE2Collector::getCurrentMeanSpeed));
+    ret->mkItem("mean vehicle length [m]", true,
+                new FunctionBinding<MSE2Collector, SUMOReal>(&myDetector, &MSE2Collector::getCurrentMeanLength));
+    ret->mkItem("jam number [#]", true,
+                new FunctionBinding<MSE2Collector, unsigned>(&myDetector, &MSE2Collector::getCurrentJamNumber));
+    ret->mkItem("max jam length [veh]", true,
+                new FunctionBinding<MSE2Collector, unsigned>(&myDetector, &MSE2Collector::getCurrentMaxJamLengthInVehicles));
+    ret->mkItem("max jam length [m]", true,
+                new FunctionBinding<MSE2Collector, SUMOReal>(&myDetector, &MSE2Collector::getCurrentMaxJamLengthInMeters));
+    ret->mkItem("jam length sum [veh]", true,
+                new FunctionBinding<MSE2Collector, unsigned>(&myDetector, &MSE2Collector::getCurrentJamLengthInVehicles));
+    ret->mkItem("jam length sum [m]", true,
+                new FunctionBinding<MSE2Collector, SUMOReal>(&myDetector, &MSE2Collector::getCurrentJamLengthInMeters));
+    ret->mkItem("started halts [#]", true,
+                new FunctionBinding<MSE2Collector, unsigned>(&myDetector, &MSE2Collector::getCurrentStartedHalts));
     // close building
     ret->closeBuilding();
     return ret;
-}
-
-
-void
-GUI_E2_ZS_Collector::MyWrapper::myMkExistingItem(GUIParameterTableWindow &ret,
-        const std::string &name,
-        E2::DetType type)
-{
-    if (!myDetector.hasDetector(type)) {
-        return;
-    }
-    MyValueRetriever *binding =
-        new MyValueRetriever(myDetector, type, 1);
-    ret.mkItem(name.c_str(), true, binding);
 }
 
 

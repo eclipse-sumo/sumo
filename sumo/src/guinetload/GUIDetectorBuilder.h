@@ -31,6 +31,7 @@
 #endif
 
 #include <string>
+#include <utils/common/PhysicalTypeDefs.h>
 #include <microsim/MSNet.h>
 #include <netload/NLDetectorBuilder.h>
 
@@ -65,18 +66,16 @@ protected:
     /// Creates the instance of a single-lane-e2-detector (gui-version)
     virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,
             DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
-            SUMOReal haltingTimeThreshold,
-            MSUnit::MetersPerSecond haltingSpeedThreshold,
-            SUMOReal jamDistThreshold,
-            SUMOTime deleteDataAfterSeconds);
+            SUMOTime haltingTimeThreshold,
+            MetersPerSecond haltingSpeedThreshold,
+            SUMOReal jamDistThreshold);
 
     /// Creates the instance of a multi-lane-e2-detector (gui-version)
     virtual MS_E2_ZS_CollectorOverLanes *createMultiLaneE2Detector(
         const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos,
-        SUMOReal haltingTimeThreshold,
-        MSUnit::MetersPerSecond haltingSpeedThreshold,
-        SUMOReal jamDistThreshold,
-        SUMOTime deleteDataAfterSeconds);
+        SUMOTime haltingTimeThreshold,
+        MetersPerSecond haltingSpeedThreshold,
+        SUMOReal jamDistThreshold);
 
     /// Creates the instance of an e3-detector (gui version)
     virtual MSE3Collector *createE3Detector(const std::string &id,

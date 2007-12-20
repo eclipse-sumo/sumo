@@ -1125,10 +1125,9 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                                   getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
                                                   OutputDevice::getDevice(file, getFileName()),
                                                   getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
-                                                  getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
+                                                  (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
-                                                  getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
-                                                  GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                                                  getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f)
                                                  );
             } else {
                 myDetectorBuilder.buildE2Detector(myContinuations,
@@ -1141,10 +1140,9 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                                   getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
                                                   OutputDevice::getDevice(file, getFileName()),
                                                   getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
-                                                  getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
+                                                  (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
-                                                  getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
-                                                  GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                                                  getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f)
                                                  );
             }
         } else {
@@ -1158,10 +1156,9 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                               getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
                                               OutputDevice::getDevice(file, getFileName()),
                                               getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
-                                              getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
+                                              (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                               getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
-                                              getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
-                                              GET_XML_SUMO_TIME_SECURE(attrs, SUMO_ATTR_DELETE_DATA_AFTER_SECONDS, 1800)
+                                              getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f)
                                              );
         }
     } catch (InvalidArgument &e) {

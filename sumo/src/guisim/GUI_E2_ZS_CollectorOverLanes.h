@@ -30,9 +30,9 @@
 #include <config.h>
 #endif
 
+#include <utils/common/PhysicalTypeDefs.h>
 #include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/MSNet.h>
-#include <microsim/MSUnit.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/common/VectorHelper.h>
@@ -67,10 +67,9 @@ public:
     /// Constructor
     GUI_E2_ZS_CollectorOverLanes(std::string id, DetectorUsage usage,
                                  MSLane* lane, SUMOReal startPos,
-                                 SUMOReal haltingTimeThreshold,
-                                 MSUnit::MetersPerSecond haltingSpeedThreshold,
-                                 SUMOReal jamDistThreshold,
-                                 SUMOTime deleteDataAfterSeconds);
+                                 SUMOTime haltingTimeThreshold,
+                                 MetersPerSecond haltingSpeedThreshold,
+                                 SUMOReal jamDistThreshold);
 
     /// Destructor
     ~GUI_E2_ZS_CollectorOverLanes();
@@ -132,8 +131,10 @@ class MyWrapper : public GUIDetectorWrapper
 
     protected:
         /// Builds a view within the parameter table if the according type is available
+        /*
         void myMkExistingItem(GUIParameterTableWindow &ret,
                               const std::string &name, E2::DetType type);
+                              */
 
     private:
         /// The wrapped detector
@@ -149,7 +150,8 @@ class MyWrapper : public GUIDetectorWrapper
          * This class realises the retrieval of a certain value
          * with a certain interval specification from the detector
          */
-    class MyValueRetriever : public ValueSource<SUMOReal>
+        /*
+        class MyValueRetriever : public ValueSource<SUMOReal>
         {
         public:
             /// Constructor
@@ -180,7 +182,7 @@ class MyWrapper : public GUIDetectorWrapper
             /// The aggregation interval
             MSUnit::Seconds myNSec;
         };
-
+        */
     };
 
 };

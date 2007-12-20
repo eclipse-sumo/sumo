@@ -30,9 +30,9 @@
 #include <config.h>
 #endif
 
+#include <utils/common/PhysicalTypeDefs.h>
 #include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/MSNet.h>
-#include <microsim/MSUnit.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/common/VectorHelper.h>
@@ -63,12 +63,10 @@ class GUI_E2_ZS_Collector : public MSE2Collector
 {
 public:
     /// Constructor
-    GUI_E2_ZS_Collector(std::string id, DetectorUsage usage, MSLane* lane,
-                        SUMOReal startPos, SUMOReal detLength,
-                        SUMOReal haltingTimeThreshold,
-                        MSUnit::MetersPerSecond haltingSpeedThreshold,
-                        SUMOReal jamDistThreshold,
-                        SUMOTime deleteDataAfterSeconds);
+    GUI_E2_ZS_Collector(const std::string &id, DetectorUsage usage,
+                        MSLane* lane, SUMOReal startPos, SUMOReal detLength,
+                        SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
+                        SUMOReal jamDistThreshold);
 
     /// Destructor
     ~GUI_E2_ZS_Collector();
@@ -127,10 +125,6 @@ class MyWrapper : public GUIDetectorWrapper
         /// Returns the detector itself
         GUI_E2_ZS_Collector &getDetector();
 
-    protected:
-        /// Builds a view within the parameter table if the according type is available
-        void myMkExistingItem(GUIParameterTableWindow &ret,
-                              const std::string &name, E2::DetType type);
 
     private:
         void myConstruct(GUI_E2_ZS_Collector &detector,
@@ -151,43 +145,6 @@ class MyWrapper : public GUIDetectorWrapper
 
         /// A sequence of rotations in full-geometry mode
         DoubleVector myShapeRotations;
-
-        /**
-         * @class GUI_E2_ZS_Collector::MyWrapper::ValueRetriever
-         * This class realises the retrieval of a certain value
-         * with a certain interval specification from the detector
-         */
-    class MyValueRetriever : public ValueSource<SUMOReal>
-        {
-        public:
-            /// Constructor
-            MyValueRetriever(GUI_E2_ZS_Collector &det,
-                             E2::DetType type, MSUnit::Seconds nSec)
-                    : myDetector(det), myType(type), myNSec(nSec) { }
-
-            /// Destructor
-            ~MyValueRetriever() { }
-
-            /// Returns the current value
-            SUMOReal getValue() const {
-                return myDetector.getAggregate(myType, myNSec);
-            }
-
-            /// Returns a copy of this instance
-            ValueSource<SUMOReal> *copy() const {
-                return new MyValueRetriever(myDetector, myType, myNSec);
-            }
-
-        private:
-            /// The detctor to get the value from
-            GUI_E2_ZS_Collector &myDetector;
-
-            /// The type of the value to retrieve
-            E2::DetType myType;
-
-            /// The aggregation interval
-            MSUnit::Seconds myNSec;
-        };
 
     };
 

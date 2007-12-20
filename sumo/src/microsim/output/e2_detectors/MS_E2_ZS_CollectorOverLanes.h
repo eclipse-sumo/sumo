@@ -30,10 +30,9 @@
 #include <config.h>
 #endif
 
+#include <utils/common/PhysicalTypeDefs.h>
 #include "MSE2Collector.h"
 #include <utils/iodevices/OutputDevice.h>
-
-
 
 class MSEdgeContinuations;
 
@@ -62,10 +61,9 @@ public:
     /// Constructor
     MS_E2_ZS_CollectorOverLanes(std::string id,
                                 DetectorUsage usage, MSLane* lane, SUMOReal startPos,
-                                SUMOReal haltingTimeThreshold,
-                                MSUnit::MetersPerSecond haltingSpeedThreshold,
-                                SUMOReal jamDistThreshold,
-                                SUMOTime deleteDataAfterSeconds);
+                                SUMOTime haltingTimeThreshold,
+                                MetersPerSecond haltingSpeedThreshold,
+                                SUMOReal jamDistThreshold);
 
     /** @brief Builds the consecutive E2-detectors
     	This is not done within the constructor to allow overriding of
@@ -76,19 +74,19 @@ public:
 
     /// Destructor
     virtual ~MS_E2_ZS_CollectorOverLanes(void);
+    /*
+        /// Returns this detector's current value for the measure of the given type
+        SUMOReal getCurrent(E2::DetType type);
 
-    /// Returns this detector's current value for the measure of the given type
-    SUMOReal getCurrent(E2::DetType type);
+        /// Returns this detector's aggregated value for the given measure
+        SUMOReal getAggregate(E2::DetType type, SUMOReal lastNSeconds);
 
-    /// Returns this detector's aggregated value for the given measure
-    SUMOReal getAggregate(E2::DetType type, SUMOReal lastNSeconds);
+        /// Returns the information whether the given type is computed
+        bool hasDetector(E2::DetType type);
 
-    /// Returns the information whether the given type is computed
-    bool hasDetector(E2::DetType type);
-
-    /// Adds the measure of the given type
-    void addDetector(E2::DetType type, std::string detId = "");
-
+        /// Adds the measure of the given type
+        void addDetector(E2::DetType type, std::string detId = "");
+    */
     /// Returns this detector's id
     const std::string &getID() const;
 
@@ -96,21 +94,32 @@ public:
     const std::string &getStartLaneID() const;
 
     /// ... have to override this method
-    void resetQueueLengthAheadOfTrafficLights(void);
+    ///!!!!void resetQueueLengthAheadOfTrafficLights(void);
 
-    /**
-     * Get the XML-formatted output of the concrete detector.
+
+
+    /// @name Methods inherited from MSDetectorFileOutput.
+    /// @{
+    /** @brief Writes collected values into the given stream
      *
-     * @param lastNTimesteps Generate data out of the interval
-     * (now-lastNTimesteps, now].
+     * @param[in] dev The output device to write the data into
+     * @param[in] startTime First time step the data were gathered
+     * @param[in] stopTime Last time step the data were gathered
+     * @see MSDetectorFileOutput::writeXMLOutput
      */
     void writeXMLOutput(OutputDevice &dev,
                         SUMOTime startTime, SUMOTime stopTime);
 
-    /**
-     * Get an opening XML-element containing information about the detector.
+
+    /** @brief Opens the XML-output using "detector" as root element
+     *
+     * @param[in] dev The output device to write the root into
+     * @see MSDetectorFileOutput::writeXMLDetectorProlog
      */
     void writeXMLDetectorProlog(OutputDevice &dev) const;
+    /// @}
+
+
 
     /// Returns this detector's length
     SUMOReal getLength() const {
@@ -143,14 +152,11 @@ protected:
     /// The length of the collector
     SUMOReal myLength;
 
-    /// The information for how many seconds data shall be saved
-    SUMOTime deleteDataAfterSecondsM;
-
     /// Describes how long a vehicle shall stay before being assigned to a jam
-    MSUnit::Steps haltingTimeThresholdM;
+    SUMOTime haltingTimeThresholdM;
 
     /// Describes how slow a vehicle must be before being assigned to a jam
-    MSUnit::CellsPerStep haltingSpeedThresholdM;
+    MetersPerSecond haltingSpeedThresholdM;
 
     /// Describes how long a jam must be before being recognized
     SUMOReal jamDistThresholdM;

@@ -31,6 +31,7 @@
 #endif
 
 #include <string>
+#include <utils/common/PhysicalTypeDefs.h>
 #include <microsim/MSNet.h>
 #include <microsim/output/e2_detectors/MSE2Collector.h>
 #include <microsim/output/e3_detectors/MSE3Collector.h>
@@ -83,10 +84,9 @@ public:
                          bool cont, int splInterval,
                          const std::string &/*style*/, OutputDevice& device,
                          const std::string &measures,
-                         MSUnit::Seconds haltingTimeThreshold,
-                         MSUnit::MetersPerSecond haltingSpeedThreshold,
-                         SUMOReal jamDistThreshold,
-                         SUMOTime deleteDataAfterSeconds);
+                         SUMOTime haltingTimeThreshold,
+                         MetersPerSecond haltingSpeedThreshold,
+                         SUMOReal jamDistThreshold);
 
     /// builds a lane-based areal (E2-) detector connected to a lsa
     void buildE2Detector(const MSEdgeContinuations &edgeContinuations,
@@ -95,10 +95,9 @@ public:
                          bool cont, const MSTLLogicControl::TLSLogicVariants &tlls,
                          const std::string &/*style*/, OutputDevice& device,
                          const std::string &measures,
-                         MSUnit::Seconds haltingTimeThreshold,
-                         MSUnit::MetersPerSecond haltingSpeedThreshold,
-                         SUMOReal jamDistThreshold,
-                         SUMOTime deleteDataAfterSeconds);
+                         SUMOTime haltingTimeThreshold,
+                         MetersPerSecond haltingSpeedThreshold,
+                         SUMOReal jamDistThreshold);
 
     /// builds a lane-based areal (E2-) detector connected to a link's state
     void buildE2Detector(const MSEdgeContinuations &edgeContinuations,
@@ -108,10 +107,9 @@ public:
                          const std::string &tolane,
                          const std::string &style, OutputDevice& device,
                          const std::string &measures,
-                         MSUnit::Seconds haltingTimeThreshold,
-                         MSUnit::MetersPerSecond haltingSpeedThreshold,
-                         SUMOReal jamDistThreshold,
-                         SUMOTime deleteDataAfterSeconds);
+                         SUMOTime haltingTimeThreshold,
+                         MetersPerSecond haltingSpeedThreshold,
+                         SUMOReal jamDistThreshold);
 
     /// builds a multi-od (E3-) detector
     void beginE3Detector(const std::string &id,
@@ -136,36 +134,27 @@ public:
                                   const std::string &lane, SUMOReal pos, SUMOReal length, bool cont,
                                   const std::string &/*style*/, std::string filename,
                                   const std::string &basePath, const std::string &measures,
-                                  SUMOReal haltingTimeThreshold,
-                                  MSUnit::MetersPerSecond haltingSpeedThreshold,
-                                  SUMOReal jamDistThreshold,
-                                  SUMOTime deleteDataAfterSeconds);
+                                  SUMOTime haltingTimeThreshold,
+                                  MetersPerSecond haltingSpeedThreshold,
+                                  SUMOReal jamDistThreshold);
 
 
     /// Builds an e2-detector that lies on only one lane
     MSE2Collector *buildSingleLaneE2Det(const std::string &id,
                                         DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
-                                        SUMOReal haltingTimeThreshold,
-                                        MSUnit::MetersPerSecond haltingSpeedThreshold,
+                                        SUMOTime haltingTimeThreshold,
+                                        MetersPerSecond haltingSpeedThreshold,
                                         SUMOReal jamDistThreshold,
-                                        SUMOTime deleteDataAfterSeconds,
                                         const std::string &measures);
 
     /// Builds an e2-detector that continues on preceeding lanes
     MS_E2_ZS_CollectorOverLanes *buildMultiLaneE2Det(const MSEdgeContinuations &edgeContinuations,
             const std::string &id,
             DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
-            SUMOReal haltingTimeThreshold,
-            MSUnit::MetersPerSecond haltingSpeedThreshold,
+            SUMOTime haltingTimeThreshold,
+            MetersPerSecond haltingSpeedThreshold,
             SUMOReal jamDistThreshold,
-            SUMOTime deleteDataAfterSeconds,
             const std::string &measures="all");
-
-    /// Definition of an E2-measures vector
-    typedef std::vector<E2::DetType> E2MeasuresVector;
-
-    /// Parses the measures an E2-detector shall compute
-    E2MeasuresVector parseE2Measures(const std::string &measures);
 
     /// Definition of an E2-measures vector
     typedef std::vector<MSE3Collector::Value> E3MeasuresVector;
@@ -186,18 +175,16 @@ public:
     /// Creates the instance of a single-lane-e2-detector (overwritten by gui version)
     virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,
             DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
-            SUMOReal haltingTimeThreshold,
-            MSUnit::MetersPerSecond haltingSpeedThreshold,
-            SUMOReal jamDistThreshold,
-            SUMOTime deleteDataAfterSeconds);
+            SUMOTime haltingTimeThreshold,
+            MetersPerSecond haltingSpeedThreshold,
+            SUMOReal jamDistThreshold);
 
     /// Creates the instance of a multi-lane-e2-detector (overwritten by gui version)
     virtual MS_E2_ZS_CollectorOverLanes *createMultiLaneE2Detector(
         const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos,
-        SUMOReal haltingTimeThreshold,
-        MSUnit::MetersPerSecond haltingSpeedThreshold,
-        SUMOReal jamDistThreshold,
-        SUMOTime deleteDataAfterSeconds);
+        SUMOTime haltingTimeThreshold,
+        MetersPerSecond haltingSpeedThreshold,
+        SUMOReal jamDistThreshold);
 
     /// Creates the instance of an e3-detector (overwritten by gui version)
     virtual MSE3Collector *createE3Detector(const std::string &id,
