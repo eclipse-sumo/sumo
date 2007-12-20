@@ -449,67 +449,6 @@ NLDetectorBuilder::buildMultiLaneE2Det(const MSEdgeContinuations &edgeContinuati
 }
 
 
-
-
-NLDetectorBuilder::E2MeasuresVector
-NLDetectorBuilder::parseE2Measures(const std::string &measures)
-{
-    string my = measures;
-    StringUtils::upper(my);
-    E2MeasuresVector ret;
-    if (my.find("DENSITY")!=string::npos) {
-        ret.push_back(E2::DENSITY);
-    }
-    if (my.find("MAX_JAM_LENGTH_IN_VEHICLES")!=string::npos) {
-        ret.push_back(E2::MAX_JAM_LENGTH_IN_VEHICLES);
-    }
-    if (my.find("MAX_JAM_LENGTH_IN_METERS")!=string::npos) {
-        ret.push_back(E2::MAX_JAM_LENGTH_IN_METERS);
-    }
-    if (my.find("JAM_LENGTH_SUM_IN_VEHICLES")!=string::npos) {
-        ret.push_back(E2::JAM_LENGTH_SUM_IN_VEHICLES);
-    }
-    if (my.find("JAM_LENGTH_SUM_IN_METERS")!=string::npos) {
-        ret.push_back(E2::JAM_LENGTH_SUM_IN_METERS);
-    }
-    if (my.find("QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES")!=string::npos) {
-        ret.push_back(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES);
-    }
-    if (my.find("QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS")!=string::npos) {
-        ret.push_back(E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS);
-    }
-    if (my.find("N_VEHICLES")!=string::npos) {
-        ret.push_back(E2::N_VEHICLES);
-    }
-    if (my.find("OCCUPANCY_DEGREE")!=string::npos) {
-        ret.push_back(E2::OCCUPANCY_DEGREE);
-    }
-    if (my.find("SPACE_MEAN_SPEED")!=string::npos) {
-        ret.push_back(E2::SPACE_MEAN_SPEED);
-    }
-    if (my.find("CURRENT_HALTING_DURATION_SUM_PER_VEHICLE")!=string::npos) {
-        ret.push_back(E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE);
-    }
-    if (my.find("N_STARTED_HALTS")!=string::npos) {
-        ret.push_back(E2::N_STARTED_HALTS);
-    }
-    if (my.find("HALTING_DURATION_SUM")!=string::npos) {
-        ret.push_back(E2::HALTING_DURATION_SUM);
-    }
-    if (my.find("HALTING_DURATION_MEAN")!=string::npos) {
-        ret.push_back(E2::HALTING_DURATION_MEAN);
-    }
-    if (my.find("APPROACHING_VEHICLES_STATES")!=string::npos) {
-        ret.push_back(E2::APPROACHING_VEHICLES_STATES);
-    }
-    if (my.find("ALL")!=string::npos) {
-        ret.push_back(E2::ALL);
-    }
-    return ret;
-}
-
-
-
 NLDetectorBuilder::E3MeasuresVector
 NLDetectorBuilder::parseE3Measures(const std::string &measures)
 {
