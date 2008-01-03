@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!-- generated on 01/02/08 14:55:22 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+      <additional-files>input_additional2.add.xml</additional-files>
+   </input>
+
+   <output>
+      <vehroute-output>vehroutes.xml</vehroute-output>
+   </output>
+
+   <time>
+      <begin>0</begin>
+      <end>100</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<vehicleroutes>
+</vehicleroutes>
