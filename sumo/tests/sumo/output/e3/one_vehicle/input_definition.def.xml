@@ -1,0 +1,6 @@
+<triggeredsource>
+	<routedistelem id="r1" probability="1"/>
+
+	<emit time="0" speed="10"/>
+
+</triggeredsource>

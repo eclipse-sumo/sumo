@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/20/07 09:51:56 by SUMO sumo Version 0.9.7
+<!-- generated on 01/02/08 13:58:06 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -23,6 +23,4 @@
 -->
 
 <e3-detector>
-   <entry lane="3/1to2/1_0" pos="100.00"/>
-   <exit lane="3/1to2/1_0" pos="300.00"/>
 </e3-detector>
