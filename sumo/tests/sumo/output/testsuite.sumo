@@ -8,11 +8,17 @@ e2
 e3
 
 
-# Tests for emission-dump
+# Tests for emission-output
 emissions
 
-# Tests for tripinfo-dump
+# Tests for tripinfo-output
 tripinfo
+
+# Tests for vehroutes-output
+vehroutes
+
+# Tests for rawdump-output
+rawdump
 
 
 
@@ -34,9 +40,6 @@ cross3ltl_rawdump
 
 # Tests whether rawdump output without prunning works
 cross3ltl_rawdump_withempty
-
-# Tests whether vehroutes output works
-cross3ltl_vehroutes
 
 # Tests whether physical-states-output work
 cross3ltl_physical_states
