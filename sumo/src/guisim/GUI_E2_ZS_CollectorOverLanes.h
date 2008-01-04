@@ -4,7 +4,7 @@
 /// @date    Okt 2003
 /// @version $Id$
 ///
-// The gui-version of the MS_E2_ZS_CollectorOverLanes, together with the according
+// The gui-version of a MS_E2_ZS_CollectorOverLanes.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -53,11 +53,12 @@ class GUILaneWrapper;
 // ===========================================================================
 /**
  * @class GUI_E2_ZS_CollectorOverLanes
- * The gui-version of the MS_E2_ZS_CollectorOverLanes.
+ * @brief The gui-version of a MS_E2_ZS_CollectorOverLanes.
+ *
  * Allows the building of a wrapper (also declared herein) which draws the
- * detector on the gl-canvas. Beside this, the method "amVisible" is
- * overridden to signalise that this detector is not used for simulation-
- * -internal reasons, but is placed over the simulation by the user.
+ *  detector on the gl-canvas. Beside this, the method "amVisible" is
+ *  overridden to signalise that this detector is not used for simulation-
+ *  -internal reasons, but is placed over the simulation by the user.
  */
 class GUI_E2_ZS_CollectorOverLanes : public MS_E2_ZS_CollectorOverLanes
 {
@@ -140,7 +141,7 @@ class MyWrapper : public GUIDetectorWrapper
         /// The wrapped detector
         GUI_E2_ZS_CollectorOverLanes &myDetector;
 
-        /// The detector's boundary //!!!what about SG/FG
+        /// The detector's boundary
         Boundary myBoundary;
 
         std::vector<GUIDetectorWrapper*> mySubWrappers;

@@ -83,7 +83,7 @@ public:
     /// Computes the costs to pass the edges beginning at the given time
     SUMOReal recomputeCosts(const ROVehicle *const, SUMOTime time) const;
 
-    /** @brief Returns the infomration whether both lists are equal
+    /** @brief Returns the information whether both lists are equal
         @deprecated (Should be a comparison operator */
     bool equals(const ROEdgeVector &vc) const;
 

@@ -4,7 +4,7 @@
 /// @date    Okt 2003
 /// @version $Id$
 ///
-// The gui-version of the MS_E2_ZS_Collector, together with the according
+// The gui-version of a MS_E2_ZS_CollectorOverLanes.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

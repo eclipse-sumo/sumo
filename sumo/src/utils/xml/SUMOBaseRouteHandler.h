@@ -147,7 +147,7 @@ protected:
     /// The currently read vehicle's depart
     SUMOTime myCurrentDepart;
 
-    /// infomration whether the route is read in vehicle-embedded mode
+    /// information whether the route is read in vehicle-embedded mode
     bool myAmInEmbeddedMode;
     //@}
 

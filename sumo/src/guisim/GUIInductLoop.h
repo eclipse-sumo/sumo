@@ -106,7 +106,7 @@ class MyWrapper : public GUIDetectorWrapper
         /// The wrapped detector
         GUIInductLoop &myDetector;
 
-        /// The detector's boundary //!!!what about SG/FG
+        /// The detector's boundary
         Boundary myBoundary;
 
         /// The position in full-geometry mode

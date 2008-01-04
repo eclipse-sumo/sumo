@@ -134,7 +134,7 @@ class MyWrapper : public GUIDetectorWrapper
         /// The wrapped detector
         GUI_E2_ZS_Collector &myDetector;
 
-        /// The detector's boundary //!!!what about SG/FG
+        /// The detector's boundary
         Boundary myBoundary;
 
         /// A sequence of positions in full-geometry mode
