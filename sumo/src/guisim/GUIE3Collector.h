@@ -4,7 +4,7 @@
 /// @date    Jan 2004
 /// @version $Id$
 ///
-// The gui-version of the MSE3Collector, together with the according
+// The gui-version of a MSE3Collector
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -44,7 +44,8 @@
 // ===========================================================================
 /**
  * @class GUIE3Collector
- * The gui-version of the MSE3Collector.
+ * @brief The gui-version of the MSE3Collector.
+ *
  * Allows the building of a wrapper (also declared herein) which draws the
  * detector on the gl-canvas.
  */
@@ -105,7 +106,7 @@ class MyWrapper : public GUIDetectorWrapper
         /// Returns the detector itself
         GUIE3Collector &getDetector();
 
-    public:
+    protected:
         struct SingleCrossingDefinition {
             /// The position in full-geometry mode
             Position2D myFGPosition;
@@ -114,13 +115,8 @@ class MyWrapper : public GUIDetectorWrapper
         };
 
     protected:
-        /// Builds a view within the parameter table if the according type is available
-        void myMkExistingItem(GUIParameterTableWindow &ret,
-                              const std::string &name, MSE3Collector::Value type);
-
         /// Builds the description about the position of the entry/exit point
-        SingleCrossingDefinition buildDefinition(const MSCrossSection &section,
-                bool exit);
+        SingleCrossingDefinition buildDefinition(const MSCrossSection &section);
 
         /// Draws a single entry/exit point
         void drawSingleCrossing(const Position2D &pos, SUMOReal rot,
@@ -130,7 +126,7 @@ class MyWrapper : public GUIDetectorWrapper
         /// The wrapped detector
         GUIE3Collector &myDetector;
 
-        /// The detector's boundary //!!!what about SG/FG
+        /// The detector's boundary
         Boundary myBoundary;
 
         /// Definition of a list of cross (entry/exit-point) positions
@@ -141,46 +137,6 @@ class MyWrapper : public GUIDetectorWrapper
 
         /// The list of exit positions
         CrossingDefinitions myExitDefinitions;
-
-        /**
-         * @class GUI_E2_ZS_Collector::MyWrapper::ValueRetriever
-         * This class realises the retrieval of a certain value
-         * with a certain interval specification from the detector
-         */
-    class MyValueRetriever : public ValueSource<SUMOReal>
-        {
-        public:
-            /// Constructor
-            MyValueRetriever(GUIE3Collector &det,
-                             MSE3Collector::Value v)
-                    : myDetector(det), myValue(v) { }
-
-            /// Destructor
-            ~MyValueRetriever() { }
-
-            /// Returns the current value
-            SUMOReal getValue() const {
-                return myDetector.getValue(myValue);
-            }
-
-            /// Returns a copy of this instance
-            ValueSource<SUMOReal> *copy() const {
-                return new MyValueRetriever(myDetector, myValue);
-            }
-
-            /// Returns a copy of this instance
-            ValueSource<SUMOReal> *makeSUMORealReturningCopy() const {
-                return new MyValueRetriever(myDetector, myValue);
-            }
-
-        private:
-            /// The detctor to get the value from
-            GUIE3Collector &myDetector;
-
-            /// The type of the value to retrieve
-            MSE3Collector::Value myValue;
-
-        };
 
     };
 

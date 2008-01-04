@@ -4,7 +4,7 @@
 /// @date    Jan 2004
 /// @version $Id$
 ///
-// The gui-version of the MSE3Collector, together with the according
+// The gui-version of a MSE3Collector
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -33,6 +33,7 @@
 #include <utils/geom/Line2D.h>
 #include <utils/gui/div/GUIParameterTableWindow.h>
 #include <utils/gui/images/GUITexturesHelper.h>
+#include <microsim/logging/FunctionBinding.h>
 
 #ifdef _WIN32
 #include <windows.h>
@@ -66,12 +67,12 @@ GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector &detector,
     const CrossSectionVector &exits = detector.getExits();
     CrossSectionVectorConstIt i;
     for (i=entries.begin(); i!=entries.end(); ++i) {
-        SingleCrossingDefinition def = buildDefinition(*i, false);
+        SingleCrossingDefinition def = buildDefinition(*i);
         myBoundary.add(def.myFGPosition);
         myEntryDefinitions.push_back(def);
     }
     for (i=exits.begin(); i!=exits.end(); ++i) {
-        SingleCrossingDefinition def = buildDefinition(*i, true);
+        SingleCrossingDefinition def = buildDefinition(*i);
         myBoundary.add(def.myFGPosition);
         myExitDefinitions.push_back(def);
     }
@@ -83,8 +84,7 @@ GUIE3Collector::MyWrapper::~MyWrapper()
 
 
 GUIE3Collector::MyWrapper::SingleCrossingDefinition
-GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section,
-        bool /*exit!!!*/)
+GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section)
 {
     const MSLane *lane = section.myLane;
     SUMOReal pos = section.myPosition;
@@ -113,27 +113,16 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 3);
     // add items
-    myMkExistingItem(*ret, "mean travel time [s]", MSE3Collector::MEAN_TRAVELTIME);
-    myMkExistingItem(*ret, "mean halting number [n]", MSE3Collector::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE);
-    myMkExistingItem(*ret, "vehicle number [n]", MSE3Collector::NUMBER_OF_VEHICLES);
+        // values
+    ret->mkItem("touched vehicles [#]", true,
+                new FunctionBinding<MSE3Collector, SUMOReal>(&myDetector, &MSE3Collector::getCurrentTouchedVehicles));
+    ret->mkItem("mean speed [m/s]", true,
+                new FunctionBinding<MSE3Collector, SUMOReal>(&myDetector, &MSE3Collector::getCurrentMeanSpeed));
+    ret->mkItem("haltings [#]", true,
+                new FunctionBinding<MSE3Collector, SUMOReal>(&myDetector, &MSE3Collector::getCurrentHaltingNumber));
     // close building
     ret->closeBuilding();
     return ret;
-}
-
-
-void
-GUIE3Collector::MyWrapper::myMkExistingItem(GUIParameterTableWindow &ret,
-        const std::string &name,
-        MSE3Collector::Value v)
-{
-    /*
-    if (!myDetector.hasDetector(type)) {
-        return;
-    }
-    */
-    MyValueRetriever *binding = new MyValueRetriever(myDetector, v);
-    ret.mkItem(name.c_str(), true, binding);
 }
 
 

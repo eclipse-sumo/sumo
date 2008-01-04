@@ -70,11 +70,10 @@ NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(
     const std::string &id,
     OutputDevice& device,
     MetersPerSecond haltingSpeedThreshold,
-    const E3MeasuresVector &measures,
     int splInterval) :
         myID(id), myDevice(device),
         myHaltingSpeedThreshold(haltingSpeedThreshold),
-        myMeasures(measures), mySampleInterval(splInterval)
+        mySampleInterval(splInterval)
 {}
 
 
@@ -337,10 +336,9 @@ NLDetectorBuilder::beginE3Detector(const std::string &id,
     if (splInterval<0) {
         throw InvalidArgument("Negative sampling frequency (in detector '" + id + "').");
     }
-    E3MeasuresVector toAdd = parseE3Measures(measures);
     myE3Definition = new E3DetectorDefinition(id, device,
             haltingSpeedThreshold,
-            toAdd, splInterval);
+            splInterval);
 }
 
 
@@ -401,12 +399,6 @@ NLDetectorBuilder::endE3Detector()
                              myE3Definition->myEntries,
                              myE3Definition->myExits,
                              myE3Definition->myHaltingSpeedThreshold);
-    /*
-    E3MeasuresVector &toAdd = myE3Definition->myMeasures;
-    for (E3MeasuresVector::iterator i=toAdd.begin(); i!=toAdd.end(); i++) {
-        det->addDetector(*i);
-    }
-    */
     // add to net
     myNet.getDetectorControl().add(
         static_cast<MSE3Collector*>(det), myE3Definition->myDevice, myE3Definition->mySampleInterval);
@@ -445,34 +437,6 @@ NLDetectorBuilder::buildMultiLaneE2Det(const MSEdgeContinuations &edgeContinuati
                                        lane, pos, haltingTimeThreshold, haltingSpeedThreshold,
                                        jamDistThreshold);
     ret->init(lane, length, edgeContinuations);
-    return ret;
-}
-
-
-NLDetectorBuilder::E3MeasuresVector
-NLDetectorBuilder::parseE3Measures(const std::string &measures)
-{
-    string my = measures;
-    StringUtils::upper(my);
-    E3MeasuresVector ret;
-    if (my.find("MEAN_TRAVELTIME")!=string::npos) {
-        ret.push_back(MSE3Collector::MEAN_TRAVELTIME);
-    }
-    if (my.find("MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE")!=string::npos) {
-        ret.push_back(MSE3Collector::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE);
-    }
-    if (my.find("NUMBER_OF_VEHICLES")!=string::npos) {
-        ret.push_back(MSE3Collector::NUMBER_OF_VEHICLES);
-    }
-    if (my.find("MEAN_SPEED")!=string::npos) {
-        ret.push_back(MSE3Collector::MEAN_SPEED);
-    }
-    if (my.find("ALL")!=string::npos) {
-        ret.push_back(MSE3Collector::MEAN_TRAVELTIME);
-        ret.push_back(MSE3Collector::MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE);
-        ret.push_back(MSE3Collector::NUMBER_OF_VEHICLES);
-        ret.push_back(MSE3Collector::MEAN_SPEED);
-    }
     return ret;
 }
 

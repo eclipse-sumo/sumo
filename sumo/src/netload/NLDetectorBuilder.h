@@ -156,12 +156,6 @@ public:
             SUMOReal jamDistThreshold,
             const std::string &measures="all");
 
-    /// Definition of an E2-measures vector
-    typedef std::vector<MSE3Collector::Value> E3MeasuresVector;
-
-    /// Parses the measures an E3-detector shall compute
-    E3MeasuresVector parseE3Measures(const std::string &measures);
-
     /// Creates the instance of an induct loop (overwritten by gui version)
     virtual MSInductLoop *createInductLoop(const std::string &id,
                                            MSLane *lane, SUMOReal pos);
@@ -192,10 +186,6 @@ public:
                                             const CrossSectionVector &exits,
                                             MetersPerSecond haltingSpeedThreshold);
 
-    // converts the name of an output style into it's enumeration value
-    /*     static MSDetector::OutputStyle convertStyle(const std::string &id,
-             const std::string &style);*/
-
     /**
      * @class E3DetectorDefinition
      * This class holds the incoming definitions of an e3 detector unless
@@ -208,7 +198,7 @@ public:
         E3DetectorDefinition(const std::string &id,
                              OutputDevice& device,
                              MetersPerSecond haltingSpeedThreshold,
-                             const E3MeasuresVector &measures,
+                             //const E3MeasuresVector &measures,
                              int splInterval);
 
         /// Destructor
@@ -221,7 +211,6 @@ public:
         /// @name further detector descriptions
         //@{
         MetersPerSecond myHaltingSpeedThreshold;
-        E3MeasuresVector myMeasures;
         CrossSectionVector myEntries;
         CrossSectionVector myExits;
         int mySampleInterval;
