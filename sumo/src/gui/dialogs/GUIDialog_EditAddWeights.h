@@ -70,9 +70,6 @@ public:
     /// Called when the user presses the Save-button
     long onCmdSave(FXObject*,FXSelector,void*);
 
-    /// Called when the user presses the Deselect-button
-    long onCmdDeselect(FXObject*,FXSelector,void*);
-
     /// Called when the user presses the Clear-button
     long onCmdClear(FXObject*,FXSelector,void*);
 

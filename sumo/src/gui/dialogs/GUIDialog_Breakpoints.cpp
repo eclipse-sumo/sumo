@@ -259,33 +259,6 @@ GUIDialog_Breakpoints::encode2TXT()
 
 
 long
-GUIDialog_Breakpoints::onCmdDeselect(FXObject*,FXSelector,void*)
-{
-    /*
-    size_t no = myList->getNumItems();
-    vector<size_t> selected;
-    size_t i;
-    // remove items from list
-    std::vector<size_t> chosen = gSelected.getAllSelected();
-    std::vector<size_t>::iterator j = chosen.begin();
-    for(i=0; i<no; ++i) {
-        if(myList->getItem(i)->isSelected()) {
-            gSelected.deselect(-1, *j);
-            selected.push_back(i);
-        } else {
-            j++;
-        }
-    }
-    // rebuild list
-    rebuildList();
-    myParent->update();
-    */
-    return 1;
-}
-
-
-
-long
 GUIDialog_Breakpoints::onCmdClear(FXObject*,FXSelector,void*)
 {
     gBreakpoints.clear();
