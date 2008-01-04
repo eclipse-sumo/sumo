@@ -402,14 +402,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     // execute endOfTimestepEvents
     myEndOfTimestepEvents.execute(myStep);
 
-    // check state dumps
-    if (find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
-        string name = myStateDumpFiles + '_' + toString(myStep) + ".bin";
-        ofstream strm(name.c_str(), fstream::out|fstream::binary);
-        saveState(strm);
-    }
-
-    // Check if mean-lane-data is due
+    // update and write (if needed) detector values
     writeOutput();
 
     if (myLogExecutionTime) {
@@ -456,7 +449,9 @@ MSNet::getVehicleControl() const
 void
 MSNet::writeOutput()
 {
-    // netstate output.
+    // update detector values
+    myDetectorControl->updateDetectors(myStep);
+    // check state dumps
     if (OptionsCont::getOptions().isSet("netstate-dump")) {
         MSXMLRawOut::write(OutputDevice::getDeviceByOption("netstate-dump"), *myEdges, myStep, 3);
     }
@@ -477,7 +472,14 @@ MSNet::writeOutput()
         }
         OutputDevice::getDeviceByOption("emissions-output") << "/>\n";
     }
+    // write detector values
     myDetectorControl->writeOutput(myStep, false);
+    // netstate output.
+    if (find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
+        string name = myStateDumpFiles + '_' + toString(myStep) + ".bin";
+        ofstream strm(name.c_str(), fstream::out|fstream::binary);
+        saveState(strm);
+    }
 }
 
 

@@ -29,7 +29,6 @@
 #endif
 
 #include "MSE2Collector.h"
-#include <utils/common/WrappingCommand.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -62,10 +61,6 @@ MSE2Collector::MSE2Collector(const std::string &id, DetectorUsage usage,
            myStartPos < laneLength);
     assert(myEndPos - myStartPos > 0 && myEndPos <= laneLength);
     reset();
-    MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
-        new WrappingCommand<MSE2Collector>(this, &MSE2Collector::execute), 
-        MSNet::getInstance()->getCurrentTimeStep(),
-        MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 
 
@@ -145,8 +140,8 @@ MSE2Collector::reset()
 
 
 
-SUMOTime 
-MSE2Collector::execute(SUMOTime currentTime)
+void
+MSE2Collector::update(SUMOTime currentTime)
 {
     JamInfo *currentJam = 0;
     SUMOReal distSinceLastJamBegin = 0;
@@ -283,7 +278,6 @@ MSE2Collector::execute(SUMOTime currentTime)
     myCurrentMeanSpeed = noVehicles!=0 ? myCurrentMeanSpeed / (SUMOReal) noVehicles : -1;
     myCurrentMeanLength = noVehicles!=0 ? myCurrentMeanLength / (SUMOReal) noVehicles : -1;
     // repeat in next time step
-    return 1;
 }
 
 

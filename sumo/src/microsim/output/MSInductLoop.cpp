@@ -88,14 +88,14 @@ MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
         // detector not reached yet
         return true;
     }
-    SUMOReal entryTimestep = (SUMOReal) MSNet::getInstance()->getCurrentTimeStep();
-    SUMOReal leaveTimestep = entryTimestep;
     if (myVehiclesOnDet.find(&veh) == myVehiclesOnDet.end()) {
         // entered the detector by move
-        entryTimestep -= 1 - (myPosition - oldPos) / newSpeed;
+        SUMOReal entryTimestep = (SUMOReal) 
+            ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos) / newSpeed));
         if (newPos - veh.getLength() > myPosition) {
             // entered and passed detector in a single timestep
-            leaveTimestep -= (newPos - veh.getLength() - myPosition) / newSpeed;
+            SUMOReal leaveTimestep = (SUMOReal) 
+                ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos + veh.getLength()) / newSpeed));
             enterDetectorByMove(veh, entryTimestep);
             leaveDetectorByMove(veh, leaveTimestep);
             return false;
@@ -107,7 +107,8 @@ MSInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
         // vehicle has been on the detector the previous timestep
         if (newPos - veh.getLength() >= myPosition) {
             // vehicle passed the detector
-            leaveTimestep -= (newPos - veh.getLength() - myPosition) / newSpeed;
+            SUMOReal leaveTimestep = (SUMOReal) 
+                ((SUMOReal) MSNet::getInstance()->getCurrentTimeStep() + ((myPosition - oldPos + veh.getLength()) / newSpeed));
             leaveDetectorByMove(veh, leaveTimestep);
             return false;
         }

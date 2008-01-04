@@ -31,7 +31,6 @@
 #endif
 
 #include <microsim/MSMoveReminder.h>
-
 #include <microsim/MSLane.h>
 #include <microsim/output/MSDetectorFileOutput.h>
 #include <utils/common/ToString.h>
@@ -44,8 +43,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/Named.h>
-#include <microsim/MSEventControl.h>
-#include <utils/common/Command.h>
 
 
 // ===========================================================================
@@ -74,7 +71,7 @@
  * @see MSDetectorFileOutput
  * @see Command
  */
-class MSE2Collector : public Named, public MSMoveReminder, public MSDetectorFileOutput, public Command
+class MSE2Collector : public Named, public MSMoveReminder, public MSDetectorFileOutput
 {
 public:
     /** @brief Constructor
@@ -158,20 +155,15 @@ public:
 
 
 
-    /// @name Methods inherited from Command.
-    /// @{
     /** @brief Computes the detector values in each time step
      *
      * This method should be called at the end of a simulation step, when
      *  all vehicles have moved. The current values are computed and
      *  summed up with the previous.
      *
-     * @param[in] veh The current simulation time (unused)
-     * @return Always 1, this method must be recalled every time step
-     * @see Command::execute
+     * @param[in] currentTime The current simulation time
      */
-    SUMOTime execute(SUMOTime currentTime);
-    /// @}
+    void update(SUMOTime currentTime);
 
 
 
@@ -290,7 +282,7 @@ protected:
          * @return Whether the position of the first vehicles is smaller than the one of the second
          */
         int operator()(const MSVehicle *v1, const MSVehicle *v2) {
-            return v1->getPositionOnLane()<v2->getPositionOnLane();
+            return v1->getPositionOnLane()>v2->getPositionOnLane();
         }
     };
 

@@ -46,26 +46,22 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(
-    std::string id, DetectorUsage usage, MSLane* lane,
-    SUMOReal startPos,
-    SUMOTime haltingTimeThreshold,
-    MetersPerSecond haltingSpeedThreshold,
-    SUMOReal jamDistThreshold)
-        : startPosM(startPos),
-        haltingTimeThresholdM(haltingTimeThreshold),
-        haltingSpeedThresholdM(haltingSpeedThreshold),
-        jamDistThresholdM(jamDistThreshold),
-        myID(id), myStartLaneID(lane->getID()),
-        myUsage(usage)
+MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(const std::string &id, 
+                                                         DetectorUsage usage, 
+                                                         MSLane* lane,
+                                                         SUMOReal startPos,
+                                                         SUMOTime haltingTimeThreshold,
+                                                         MetersPerSecond haltingSpeedThreshold,
+                                                         SUMOReal jamDistThreshold)
+        : startPosM(startPos), haltingTimeThresholdM(haltingTimeThreshold),
+        haltingSpeedThresholdM(haltingSpeedThreshold), jamDistThresholdM(jamDistThreshold),
+        myID(id), myStartLaneID(lane->getID()), myUsage(usage)
 {}
 
 
 void
-MS_E2_ZS_CollectorOverLanes::init(
-    MSLane *lane,
-    SUMOReal detLength,
-    const MSEdgeContinuations &edgeContinuations)
+MS_E2_ZS_CollectorOverLanes::init(MSLane *lane, SUMOReal detLength,
+                                  const MSEdgeContinuations &edgeContinuations)
 {
     myLength = detLength;
     if (startPosM==0) {
@@ -88,14 +84,13 @@ MS_E2_ZS_CollectorOverLanes::init(
 }
 
 
-MS_E2_ZS_CollectorOverLanes::~MS_E2_ZS_CollectorOverLanes(void)
+MS_E2_ZS_CollectorOverLanes::~MS_E2_ZS_CollectorOverLanes()
 {}
 
 
 void
-MS_E2_ZS_CollectorOverLanes::extendTo(
-    SUMOReal length,
-    const MSEdgeContinuations &edgeContinuations)
+MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length,
+                                      const MSEdgeContinuations &edgeContinuations)
 {
     bool done = false;
     while (!done) {
@@ -184,7 +179,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(
 
 std::vector<MSLane*>
 MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
-        const MSEdgeContinuations &edgeContinuations)
+                                                      const MSEdgeContinuations &edgeContinuations)
 {
     string eid = l->getEdge()->getID();
     // check whether any exist
@@ -220,7 +215,7 @@ MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
 
 MSE2Collector *
 MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
-        SUMOReal start, SUMOReal end)
+                                            SUMOReal start, SUMOReal end)
 {
     string id = makeID(l->getID(), c, r);
     if (start+end<l->length()) {
@@ -231,90 +226,6 @@ MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
                              haltingSpeedThresholdM, jamDistThresholdM);
 }
 
-/*
-SUMOReal
-MS_E2_ZS_CollectorOverLanes::getCurrent(E2::DetType type)
-{
-    switch (type) {
-    case E2::DENSITY:
-    case E2::MAX_JAM_LENGTH_IN_VEHICLES:
-    case E2::MAX_JAM_LENGTH_IN_METERS:
-    case E2::JAM_LENGTH_SUM_IN_VEHICLES:
-    case E2::JAM_LENGTH_SUM_IN_METERS:
-    case E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES:
-    case E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS:
-    case E2::N_VEHICLES:
-    case E2::OCCUPANCY_DEGREE:
-    case E2::SPACE_MEAN_SPEED:
-    case E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE:
-    default:
-        SUMOReal myMax = 0;
-        for (DetectorVectorVector::iterator i=myDetectorCombinations.begin(); i!=myDetectorCombinations.end(); i++) {
-            SUMOReal value = 0;
-            for (DetectorVector::iterator j=(*i).begin(); j!=(*i).end(); j++) {
-                value += (*j)->getCurrent(type);
-            }
-            if (myMax<value) {
-                myMax = value;
-            }
-        }
-        return myMax;
-    }
-    return -1;
-}
-
-
-SUMOReal
-MS_E2_ZS_CollectorOverLanes::getAggregate(E2::DetType type,
-        MSUnit::Seconds lastNSeconds)
-{
-    switch (type) {
-    case E2::DENSITY:
-    case E2::MAX_JAM_LENGTH_IN_VEHICLES:
-    case E2::MAX_JAM_LENGTH_IN_METERS:
-    case E2::JAM_LENGTH_SUM_IN_VEHICLES:
-    case E2::JAM_LENGTH_SUM_IN_METERS:
-    case E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES:
-    case E2::QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS:
-    case E2::N_VEHICLES:
-    case E2::OCCUPANCY_DEGREE:
-    case E2::SPACE_MEAN_SPEED:
-    case E2::CURRENT_HALTING_DURATION_SUM_PER_VEHICLE:
-    default:
-        SUMOReal myMax = 0;
-        for (DetectorVectorVector::iterator i=myDetectorCombinations.begin(); i!=myDetectorCombinations.end(); i++) {
-            SUMOReal value = 0;
-            for (DetectorVector::iterator j=(*i).begin(); j!=(*i).end(); j++) {
-                value += (*j)->getAggregate(type, lastNSeconds);
-            }
-            if (value>myMax) {
-                myMax = value;
-            }
-        }
-        return myMax;
-    }
-    return -1;
-}
-
-
-bool
-MS_E2_ZS_CollectorOverLanes::hasDetector(E2::DetType type)
-{
-    return myDetectorCombinations[0][0]->hasDetector(type);
-}
-
-
-void
-MS_E2_ZS_CollectorOverLanes::addDetector(E2::DetType type,
-        std::string detId)
-{
-    size_t c = 0;
-    for (LaneDetMap::iterator i=myAlreadyBuild.begin(); i!=myAlreadyBuild.end(); i++) {
-        (*i).second->addDetector(type, makeID(detId, c, c));
-        c++;
-    }
-}
-*/
 
 void
 MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice &dev,
@@ -338,25 +249,7 @@ MS_E2_ZS_CollectorOverLanes::writeXMLOutput(OutputDevice &dev,
 void
 MS_E2_ZS_CollectorOverLanes::writeXMLDetectorProlog(OutputDevice &dev) const
 {
-    dev.writeXMLHeader("detector", true, "type=\"E2_ZS_Collector\" id=\""+myID+
-                       "\" startlane=\""+myStartLaneID+
-                       "\" startpos=\""+toString(startPosM)+
-                       "\" length=\""+toString(myLength)+"\"",
-                       "<!--\n"
-                       "- densityMean [veh/km]\n"
-                       "- maxJamLengthInVehiclesMean [veh]\n"
-                       "- maxJamLengthInMetersMean [m]\n"
-                       "- jamLengthSumInVehiclesMean [veh]\n"
-                       "- jamLengthSumInMetersMean [m]\n"
-                       "- queueLengthAheadOfTrafficLightsInVehiclesMean [veh]\n"
-                       "- queueLengthAheadOfTrafficLightsInMetersMean [m]\n"
-                       "- nE2VehiclesMean [veh]\n"
-                       "- occupancyDegreeMean [0,1]\n"
-                       "- spaceMeanSpeedMean [m/s]\n"
-                       "- currentHaltingDurationSumPerVehicleMean [s]\n"
-                       "- nStartedHalts [n]\n"
-                       "- haltingDurationMean [s]\n"
-                       "-->\n\n");
+    dev.writeXMLHeader("detector");
 }
 
 
@@ -397,18 +290,6 @@ MS_E2_ZS_CollectorOverLanes::getStartLaneID() const
 {
     return myStartLaneID;
 }
-
-/*
-void
-MS_E2_ZS_CollectorOverLanes::resetQueueLengthAheadOfTrafficLights(void)
-{
-    for (DetectorVectorVector::iterator i=myDetectorCombinations.begin(); i!=myDetectorCombinations.end(); i++) {
-        for (DetectorVector::iterator j=(*i).begin(); j!=(*i).end(); j++) {
-            (*j)->resetQueueLengthAheadOfTrafficLights();
-        }
-    }
-}
-*/
 
 
 /****************************************************************************/

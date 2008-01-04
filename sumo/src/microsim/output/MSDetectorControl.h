@@ -297,6 +297,20 @@ public:
     /// @}
 
 
+    /** @brief Computes detector values
+     *
+     * Some detectors need to be touched each time step in order to compute
+     *  values from the vehicles stored in their containers. This method
+     *  goes through all of these detectors and forces a recomputation of
+     *  the values.
+     *
+     * The following detector types need an update:
+     * @arg MSE2Collector
+     * @arg MSE3Collector
+     */
+    void updateDetectors(SUMOTime step);
+
+
     /** @brief Writes the output to be generated within the given time step
      *
      * Goes through the list of intervals. If one interval has ended within the
@@ -345,22 +359,22 @@ protected:
     };
 
 protected:
-    /// @name Vectors of different detector types
+    /// @name Dictionaries of different detector types
     /// @{
-    /// @brief Vector of MSInductLoop
+    /// @brief MSInductLoop dictionary
     LoopDict myLoops;
 
-    /// @brief Vector of MSE2Collector
+    /// @brief MSE2Collector dictionary
     E2Dict myE2Detectors;
 
-    /// @brief Vector of MSE3Collector
+    /// @brief MSE3Collector dictionary
     E3Dict myE3Detectors;
 
-    /// @brief Vector of MS_E2_ZS_CollectorOverLanes
+    /// @brief MS_E2_ZS_CollectorOverLanes dictionary
     E2ZSOLDict myE2OverLanesDetectors;
 
 #ifdef HAVE_MESOSIM
-    /// @brief Vector of MEInductLoop
+    /// @brief MEInductLoop dictionary
     MELoopDict myMesoLoops;
 #endif
     /// @}

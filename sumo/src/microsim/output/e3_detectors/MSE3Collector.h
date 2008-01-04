@@ -63,8 +63,7 @@
  *  MSDetector2File::addDetectorAndInterval().
  */
 class MSE3Collector : public MSDetectorFileOutput,
-            public MSVehicleQuitReminded,
-            public Command
+            public MSVehicleQuitReminded
 {
 public:
     /**
@@ -199,22 +198,6 @@ public:
     };
 
 
-    /**
-     * @enum Value
-     * @brief An enumeration of measures the e3-collector collects
-     */
-    enum Value {
-        /// Mean travel time [s]
-        MEAN_TRAVELTIME = 0,
-        /// Mean number of haltings per vehicles [#]
-        MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE,
-        /// The number of vehicles [#]
-        NUMBER_OF_VEHICLES,
-        /// Mean speed [m/s]
-        MEAN_SPEED
-    };
-
-
     /** @brief Constructor
      * 
      * Sets reminder objects on entry- and leave-lanes 
@@ -279,6 +262,36 @@ public:
 
 
 
+    /// @name Methods returning current values
+    /// @{
+    /** @brief Returns the mean speed within the area
+     * 
+     * If no vehicle is within the area, -1 is returned.
+     *
+     * @return The mean speed [m/s] of all vehicles within the area, -1 if there is none
+     */
+    SUMOReal getCurrentMeanSpeed() const;
+
+
+    /** @brief Returns the number of current haltings within the area
+     * 
+     * If no vehicle is within the area, 0 is returned.
+     *
+     * @return The mean number of haltings within the area
+     */
+    SUMOReal getCurrentHaltingNumber() const;
+
+
+    /** @brief Returns the number of touched vehicles (vehicles within the area)
+     * 
+     * Please note, that vehicles that enter the area are given as a fraction.
+     *
+     * @return The number of touched vehicles
+     */
+    SUMOReal getCurrentTouchedVehicles() const;
+    /// @}
+
+
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
     /** @brief Writes collected values into the given stream
@@ -303,30 +316,20 @@ public:
 
 
 
-    /// @name Methods inherited from Command.
-    /// @{
     /** @brief Computes the detector values in each time step
      *
      * This method should be called at the end of a simulation step, when
      *  all vehicles have moved. The current values are computed and
      *  summed up with the previous.
      *
-     * @param[in] veh The current simulation time (unused)
-     * @return Always 1, this method must be recalled every time step
-     * @see Command::execute
+     * @param[in] currentTime The current simulation time (unused)
      */
-    SUMOTime execute(SUMOTime currentTime);
-    /// @}
-
-
-
-    SUMOReal getValue(Value which) const;
+    void update(SUMOTime currentTime);
 
 
 protected:
     /// @brief The detector's id
     std::string myID;
-
 
     /// @brief The detector's entries
     CrossSectionVector myEntries;
@@ -357,10 +360,16 @@ protected:
      *  within this structure.
      */ 
     struct E3Values {
+        /// @brief The vehicle's entry time
         SUMOReal entryTime;
+        /// @brief The vehicle's leaving time
         SUMOReal leaveTime;
+        /// @brief The sum of registered speeds the vehicle has/had inside the area
         SUMOReal speedSum;
-        size_t haltings;
+        /// @brief The sum of haltings the vehicle has/had within the area
+        unsigned haltings;
+        /// @brief Number of times the vehicle was touched when being within the conatiner
+        unsigned samples;
     };
 
     /// @brief Container for vehicles that have entered the area
@@ -368,6 +377,23 @@ protected:
 
     /// @brief Container for vehicles that have left the area
     std::map<MSVehicle*, E3Values> myLeftContainer;
+
+
+    /// @name Storages for current values
+    /// @{
+    /// @brief The current mean speed of known vehicles (inside)
+    SUMOReal myCurrentMeanSpeed;
+
+    /// @brief The current number of haltings (inside)
+    SUMOReal myCurrentHaltingsNumber;
+
+    /** @brief The current number of vehicles inside; 
+     *
+     * Please note, that vehicles that enter the area are given as a fraction
+     * @see execute
+     */
+    SUMOReal myCurrentTouchedVehicles;
+    /// @}
 
 };
 

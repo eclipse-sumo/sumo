@@ -72,6 +72,9 @@ public:
 
     /** @brief Open the XML-output
      *
+     * The implementing function should open an xml element using
+     *  OutputDevice::writeXMLHeader.
+     *
      * @param[in] dev The output device to write the root into
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
      */
