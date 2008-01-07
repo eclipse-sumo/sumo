@@ -30,12 +30,17 @@
 #include <config.h>
 #endif
 
+#ifdef WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
+
 #include <string>
 #include <map>
 #include <vector>
 #include <microsim/MSRoute.h>
 #include <utils/common/RGBColor.h>
-#include <utils/gui/div/GUIColorSetter.h>
 
 
 // ===========================================================================
@@ -61,7 +66,7 @@ public:
 
     /// Sets the color in openGL
     inline void setColor() const {
-        mglColor(myColor);
+        glColor3d(myColor.red(), myColor.green(), myColor.blue());
     }
 
 private:

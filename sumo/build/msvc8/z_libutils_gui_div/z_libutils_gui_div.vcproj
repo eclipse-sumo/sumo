@@ -325,10 +325,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\div\GUIColorSetter.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUIDialog_GLChosenEditor.h"
 				>
 			</File>

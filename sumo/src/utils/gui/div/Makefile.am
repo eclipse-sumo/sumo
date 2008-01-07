@@ -1,6 +1,6 @@
 noinst_LIBRARIES = libguiutilsdiv.a
 
-libguiutilsdiv_a_SOURCES = GUIColorSetter.h \
+libguiutilsdiv_a_SOURCES = \
 GUIDialog_GLChosenEditor.cpp GUIDialog_GLChosenEditor.h \
 GUIFrame.cpp GUIFrame.h GUIGlobalSelection.cpp GUIGlobalSelection.h \
 GUIIOGlobals.cpp GUIIOGlobals.h GUIMessageWindow.cpp GUIMessageWindow.h \
