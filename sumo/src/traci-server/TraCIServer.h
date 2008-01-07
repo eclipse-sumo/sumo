@@ -147,7 +147,8 @@ private:
     // port on which server is listening on
     int port_;
 
-    // simulation end time
+    // simulation begin and end time
+    SUMOTime beginTime_;
     SUMOTime endTime_;
 
     // penetration rate, measurement of equipped vehicles in simulation

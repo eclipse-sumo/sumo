@@ -81,6 +81,7 @@ TraCIServer::TraCIServer()
     OptionsCont &oc = OptionsCont::getOptions();
 
     port_ = oc.getInt("remote-port");
+    beginTime_ = oc.getInt("begin");
     endTime_ = oc.getInt("end");
     penetration_ = oc.getFloat("penetration");
     routeFile_ = oc.getString("route-files");
@@ -227,17 +228,20 @@ void
 TraCIServer::commandSimulationStep(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
 throw(TraCIException)
 {
+    MSNet *net = MSNet::getInstance();
+    SUMOTime currentTime = net->getCurrentTimeStep();
+
 	// for each vehicle, try to reroute in case of previous "changeRoute" messages
 	for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin(); 
 			iter != equippedVehicles_.end() && (*iter).second != -1; iter++) {
-		MSVehicle* veh = getVehicleByExtId((*iter).second);
+		MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
 		if (veh != NULL) {
-			veh->checkReroute(MSNet::getInstance()->getCurrentTimeStep());
+			veh->checkReroute(currentTime);
 		}
 	}
 
     // TargetTime
-    SUMOTime targetTime = static_cast<SUMOTime>(requestMsg.readDouble());
+    SUMOTime targetTime = static_cast<SUMOTime>(requestMsg.readDouble()) + beginTime_;
     if (targetTime > endTime_) {
         targetTime = endTime_;
     }
@@ -251,8 +255,6 @@ throw(TraCIException)
 
 
     // do simulation step
-    MSNet *net = MSNet::getInstance();
-    SUMOTime currentTime = net->getCurrentTimeStep();
     if (targetTime - currentTime > 0) {
         net->simulate(currentTime, targetTime);
         isMapChanged_ = true;

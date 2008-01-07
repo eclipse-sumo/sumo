@@ -139,7 +139,9 @@ main(int argc, char **argv)
             if (oc.getInt("remote-port") != 0) {
                 WRITE_MESSAGE("waiting for request on port " + toString<int>(oc.getInt("remote-port")));
                 traci::TraCIServer rs;
-                WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("begin")));
+                WRITE_MESSAGE("Run simulation up to start time: " + toString<int>(oc.getInt("begin")));
+                net->simulate(0, oc.getInt("begin"));
+                WRITE_MESSAGE("Simulation started with time offset: " + toString<int>(oc.getInt("begin")));
                 rs.run();
                 WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
             } else
