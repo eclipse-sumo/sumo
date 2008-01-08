@@ -145,6 +145,7 @@ GUIDialog_GLChosenEditor::rebuildList()
             gIDStorage.unblockObject(*i);
         }
     }
+    update();
 }
 
 
@@ -163,7 +164,6 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*,FXSelector,void*)
         string file = opendialog.getFilename().text();
         myParent->loadSelection(file);
         rebuildList();
-        update();
     }
     return 1;
 }
@@ -210,7 +210,7 @@ GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*)
     }
     // rebuild list
     rebuildList();
-    myParent->update();
+    myParent->updateChildren();
     return 1;
 }
 
@@ -221,6 +221,7 @@ GUIDialog_GLChosenEditor::onCmdClear(FXObject*,FXSelector,void*)
 {
     myList->clearItems();
     gSelected.clear();
+    myParent->updateChildren();
     return 1;
 }
 
