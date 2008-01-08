@@ -605,7 +605,8 @@ NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to, bool isInner
                 if (to==0) {
                     os << '0';
                 } else {
-                    if (foes(from, to, (*i), connected[k].edge) && !isInnerEnd) {
+//                    if (foes(from, to, (*i), connected[k].edge) && !isInnerEnd) {
+                    if (foes(from, to, (*i), connected[k].edge)) {
                         os << '1';
                     } else {
                         os << '0';
