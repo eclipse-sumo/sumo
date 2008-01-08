@@ -156,8 +156,8 @@ MSVehicle::~MSVehicle()
     delete myLaneChangeModel;
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
     	delete (*dev);
-    	myDevices.clear();
     }
+    myDevices.clear();
 #ifdef TRACI
     {
         // edges changed by TraCI
