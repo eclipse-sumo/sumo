@@ -66,6 +66,10 @@ MSE2Collector::MSE2Collector(const std::string &id, DetectorUsage usage,
 
 MSE2Collector::~MSE2Collector()
 {
+    for(std::list<MSVehicle*>::iterator i=myKnownVehicles.begin(); i!=myKnownVehicles.end(); ++i) {
+        (*i)->quitRemindedLeft(this);
+    }
+    myKnownVehicles.clear();
 }
 
 
@@ -80,9 +84,11 @@ MSE2Collector::isStillActive(MSVehicle& veh, SUMOReal oldPos,
     if (oldPos <= myStartPos && newPos > myStartPos) {
         if (find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh)==myKnownVehicles.end()) {
             myKnownVehicles.push_back(&veh);
+            veh.quitRemindedEntered(this);
         }
     }
     if (newPos - veh.getLength() > myEndPos) {
+        veh.quitRemindedLeft(this);
         myKnownVehicles.erase(find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh));
         return false;
     }
@@ -95,6 +101,7 @@ MSE2Collector::dismissByLaneChange(MSVehicle& veh)
 {
     if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getLength() < myEndPos) {
         myKnownVehicles.erase(find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh));
+        veh.quitRemindedLeft(this);
     }
 }
 
@@ -104,6 +111,7 @@ MSE2Collector::isActivatedByEmitOrLaneChange(MSVehicle& veh)
 {
     if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getLength() < myEndPos) {
         // vehicle is on detector
+        veh.quitRemindedEntered(this);
         myKnownVehicles.push_back(&veh);
         return true;
     }
@@ -384,6 +392,13 @@ unsigned
 MSE2Collector::getCurrentStartedHalts() const
 {
     return myCurrentStartedHalts;
+}
+
+
+void 
+MSE2Collector::removeOnTripEnd(MSVehicle *veh)
+{
+    myKnownVehicles.erase(find(myKnownVehicles.begin(), myKnownVehicles.end(), veh));
 }
 
 

@@ -71,7 +71,7 @@
  * @see MSDetectorFileOutput
  * @see Command
  */
-class MSE2Collector : public Named, public MSMoveReminder, public MSDetectorFileOutput
+class MSE2Collector : public Named, public MSMoveReminder, public MSDetectorFileOutput, public MSVehicleQuitReminded
 {
 public:
     /** @brief Constructor
@@ -187,6 +187,16 @@ public:
     void writeXMLDetectorProlog(OutputDevice &dev) const;
     /// @}
 
+
+
+    /// @name Methods inherited from MSVehicleQuitReminded.
+    /// @{
+    /** @brief Removes the information that the vehicle is on the detector
+     *
+     * @param[in] veh The vehicle that was on the detector and leaves the simuation
+     */
+    void removeOnTripEnd(MSVehicle *veh);
+    /// @}
 
 
     /** @brief Returns the begin position of the detector

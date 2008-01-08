@@ -69,6 +69,10 @@ MSInductLoop::MSInductLoop(const string& id,
 
 MSInductLoop::~MSInductLoop()
 {
+    if(myCurrentVehicle!=0) {
+        myCurrentVehicle->quitRemindedLeft(this);
+    }
+    myCurrentVehicle = 0;
 }
 
 
