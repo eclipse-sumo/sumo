@@ -226,7 +226,7 @@ NBOwnTLDef::setParticipantsInformation()
 {
     // assign participating nodes to the request
     collectNodes();
-    // collect the infomration about participating edges and links
+    // collect the information about participating edges and links
     collectEdges();
     collectLinks();
 }
