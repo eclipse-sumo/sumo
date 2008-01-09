@@ -2,7 +2,7 @@
 /// @file    MSDevice_C2C.h
 /// @author  Michael Behrisch, Daniel Krajzewicz
 /// @date    Tue, 04 Dec 2007
-/// @version $Id: MSDevice_C2C.h 4768 2007-12-03 11:29:30Z dkrajzew $
+/// @version $Id$
 ///
 // C2C communication and rerouting device
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    MSCells.cpp
 /// @author  Danilot Teta Boyom, Michael Behrisch
 /// @date    Jul 2006
-/// @version $Id: MSCells.cpp 4589 2007-10-18 07:13:23Z dkrajzew $
+/// @version $Id$
 ///
 // }
 /****************************************************************************/
