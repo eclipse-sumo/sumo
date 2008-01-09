@@ -233,11 +233,14 @@ throw(TraCIException)
 
 	// for each vehicle, try to reroute in case of previous "changeRoute" messages
 	for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin(); 
-			iter != equippedVehicles_.end() && (*iter).second != -1; iter++) {
-		MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
-		if (veh != NULL) {
-			veh->checkReroute(currentTime);
-		}
+			iter != equippedVehicles_.end(); ++iter) {
+      if ((*iter).second != -1) 
+      {  // Look only at equipped vehicles
+		   MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
+		   if (veh != NULL) {
+   			veh->checkReroute(currentTime);
+		   }
+      }
 	}
 
     // TargetTime
