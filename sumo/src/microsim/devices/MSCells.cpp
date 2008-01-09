@@ -83,9 +83,13 @@ MSCells::end() {
 void
 MSCells::update() {
 	for (vector<Cell*>::const_iterator cell = myCellsCont.begin(); cell != myCellsCont.end(); ++cell) {
-		for (MSCells::Cell::const_iterator device = (*cell)->begin(); device != (*cell)->end(); ++device) {
+		for (MSCells::Cell::iterator device = (*cell)->begin(); device != (*cell)->end();) {
 			MSCells::Cell* target = getCellByPosition(*device);
 			if (target != *cell) {
+				device = (*cell)->erase(device);
+	        } else {
+				add(*device);
+		        ++device;
 			}
 		}
 	}
@@ -94,28 +98,26 @@ MSCells::update() {
 
 void
 MSCells::add(MSDevice_C2C* device) {
-    /*
 	MSCells::Cell* cell = getCellByPosition(device);
 	if (cell == 0) {
 		myUndetermined.push_back(device);
 	} else {
 		cell->push_back(device);
 	}
-    */
 }
 
 
 void
 MSCells::remove(MSDevice_C2C* device) {
-    /*
 	MSCells::Cell* cell = getCellByPosition(device);
 	if (cell == 0) {
 		myUndetermined.erase(find(myUndetermined.begin(), myUndetermined.end(), device));
 	} else {
-        getCellByPosition(device);
-		cell->erase(find(cell->begin(), cell->end(), device));
+		Cell::iterator contain = find(cell->begin(), cell->end(), device);
+		if (contain != cell->end()) {
+			cell->erase(contain);
+		}
 	}
-    */
 }
 
 
