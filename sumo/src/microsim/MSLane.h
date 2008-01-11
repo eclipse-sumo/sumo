@@ -189,9 +189,10 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
         the succeeding link could not be found;
         Returns the myLinks.end() instead; Further, the number of edges to
         look forward may be given */
-    MSLinkCont::const_iterator succLinkSec(const MSVehicle& veh,
+    virtual MSLinkCont::const_iterator succLinkSec(const MSVehicle& veh,
                                            unsigned int nRouteSuccs,
-                                           const MSLane& succLinkSource) const;
+                                           const MSLane& succLinkSource,
+                                           const std::vector<MSLane*> &conts) const;
 
 
     /** Returns the information whether the given link shows at the end

@@ -75,6 +75,9 @@
 using namespace std;
 
 
+vector<MSLane*> MSVehicle::myEmptyLaneVector;
+
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
@@ -701,6 +704,8 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
         return;
     }
 
+    const std::vector<MSLane*> &bestLaneConts = getBestLanesContinuation();
+
     size_t view = 1;
     // loop over following lanes
     while (true) {
@@ -712,8 +717,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
         }
 
         // get the next link used
-        MSLinkCont::const_iterator link =
-            myLane->succLinkSec(*this, view, *nextLane);
+        MSLinkCont::const_iterator link = myLane->succLinkSec(*this, view, *nextLane, bestLaneConts);
 
         // check whether the lane is a dead end
         //  (should be valid only on further loop iterations
@@ -1685,6 +1689,16 @@ MSVehicle::getEffort(const MSEdge * const e, SUMOTime t) const
         }
     }
     return -1;
+}
+
+
+const std::vector<MSLane*> &
+MSVehicle::getBestLanesContinuation() const
+{
+    if(myBestLanes.empty()||myBestLanes[0].empty()) {
+        return myEmptyLaneVector;
+    }
+    return (*myCurrentLaneInBestLanes).joined;
 }
 
 

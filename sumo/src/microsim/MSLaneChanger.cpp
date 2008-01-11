@@ -219,8 +219,8 @@ MSLaneChanger::getRealThisLeader(const ChangerIt &target)
     MSVehicle* leader = target->lead;
     if (leader==0) {
         MSLane* targetLane = target->lane;
-        MSLinkCont::const_iterator link =
-            targetLane->succLinkSec(*veh(myCandi), 1, *targetLane);
+        const std::vector<MSLane*> &bestLaneConts = (*veh(myCandi)).getBestLanesContinuation();
+        MSLinkCont::const_iterator link = targetLane->succLinkSec(*veh(myCandi), 1, *targetLane, bestLaneConts);
         if (targetLane->isLinkEnd(link)) {
             return std::pair<MSVehicle *, SUMOReal>(0, -1);
         }
@@ -271,10 +271,10 @@ MSLaneChanger::getRealLeader(const ChangerIt &target)
         // loop over following lanes
         MSLane* targetLane = target->lane;
         MSLane *nextLane = targetLane;
+        const std::vector<MSLane*> &bestLaneConts = (*veh(myCandi)).getBestLanesContinuation();
         while (true) {
             // get the next link used
-            MSLinkCont::const_iterator link =
-                targetLane->succLinkSec(*veh(myCandi), view, *nextLane);
+            MSLinkCont::const_iterator link = targetLane->succLinkSec(*veh(myCandi), view, *nextLane, bestLaneConts);
             if (nextLane->isLinkEnd(link) || !(*link)->havePriority() || (*link)->getState()==MSLink::LINKSTATE_TL_RED) {
                 return std::pair<MSVehicle *, SUMOReal>(0, -1);
             }

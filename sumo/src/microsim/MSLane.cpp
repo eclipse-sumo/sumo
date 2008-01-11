@@ -687,8 +687,7 @@ MSLane::appropriate(const MSVehicle *veh)
     if (myEdge->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
         return true;
     }
-
-    MSLinkCont::const_iterator link = succLinkSec(*veh, 1, *this);
+    MSLinkCont::const_iterator link = succLinkSec(*veh, 1, *this, veh->getBestLanesContinuation());
     return (link != myLinks.end());
 }
 
@@ -759,42 +758,67 @@ MSLane::getFirstVehicle() const
 
 MSLinkCont::const_iterator
 MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
-                    const MSLane& succLinkSource) const
+                    const MSLane& succLinkSource, const std::vector<MSLane*> &conts) const
 {
     const MSEdge* nRouteEdge = veh.succEdge(nRouteSuccs);
     // check whether the vehicle tried to look beyond its route
     if (nRouteEdge==0) {
+        // return end (no succeeding link) if so
         return succLinkSource.myLinks.end();
     }
-
-    std::vector<MSLinkCont::const_iterator> valid;
-    // the link must be from a lane to the right or left from the current lane
-    //  we have to do it via the edge
+    // a link may be used if
+    //  1) there is a destination lane ((*link)->getLane()!=0)
+    //  2) the destination lane belongs to the next edge in route ((*link)->getLane()->myEdge == nRouteEdge)
+    //  3) the destination lane allows the vehicle's class ((*link)->getLane()->allowsVehicleClass(veh.getVehicleClass()))
+    
+    // at first, we'll assume we have the continuations of our route in "conts" (built in "getBestLanes")
+    //  "conts" stores the best continuations of our current lane
     MSLinkCont::const_iterator link;
+    if(nRouteSuccs>0&&conts.size()>=nRouteSuccs&&nRouteSuccs>0) {
+        // we go through the links in our list and return the matching one
+        for (link=succLinkSource.myLinks.begin(); link!=succLinkSource.myLinks.end() ; ++link) {
+            if ((*link)->getLane()!=0 && (*link)->getLane()->myEdge == nRouteEdge && (*link)->getLane()->allowsVehicleClass(veh.getVehicleClass())) {
+                // we should use the link if it connects us to the best lane
+                if((*link)->getLane()==conts[nRouteSuccs-1]) {
+                    return link;
+                }
+            }
+        }
+    }
+
+    // ok, we were not able to use the conts for any reason 
+    //  we will now collect allowed links, at first
+    // collect allowed links
+    std::vector<MSLinkCont::const_iterator> valid;
     for (link=succLinkSource.myLinks.begin(); link!=succLinkSource.myLinks.end() ; ++link) {
         if ((*link)->getLane()!=0 && (*link)->getLane()->myEdge == nRouteEdge && (*link)->getLane()->allowsVehicleClass(veh.getVehicleClass())) {
             valid.push_back(link);
         }
     }
+    // if no valid link was found...
     if (valid.size()==0) {
+        // ... return end (no succeeding link)
         return succLinkSource.myLinks.end();
     }
+    // if there is only one valid link, let's use it...
+    if (valid.size()==1) {
+        return *(valid.begin());
+    }
+    // if the next edge is the route end, then we may return an arbitary link
+    // also, if there is no allowed lane on the edge following the current one (recheck?)
     const MSEdge* nRouteEdge2 = veh.succEdge(nRouteSuccs+1);
     const MSEdge::LaneCont *next_allowed = nRouteEdge->allowedLanes(*nRouteEdge2, veh.getVehicleClass());
     if (nRouteEdge2==0||next_allowed==0) {
         return *(valid.begin());
     }
-    /*
-    size_t best = 0;
-    SUMOReal bestdist = 0;
-    */
+    // now let's determine which link is the best
+    // in fact, we do not know it, here...
     for (std::vector<MSLinkCont::const_iterator>::iterator i=valid.begin(); i!=valid.end(); ++i) {
         if (find(next_allowed->begin(), next_allowed->end(), (**i)->getLane())!=next_allowed->end()) {
             return *i;
         }
     }
     return *(valid.begin());
-//    return succLinkSource.myLinks.end();
 }
 
 

@@ -411,6 +411,7 @@ public:
 
 
     void rebuildAllowedLanes(bool reinit=true);
+    const std::vector<MSLane*> &getBestLanesContinuation() const;
 
     void quitRemindedEntered(MSVehicleQuitReminded *r);
     void quitRemindedLeft(MSVehicleQuitReminded *r);
@@ -430,6 +431,17 @@ public:
         int dir;
         bool t1;
         std::vector<MSLane*> joined;
+
+        /*
+        MSLane *lane;
+        std::vector<LaneQ> follower;
+        bool allowed2;
+        SUMOReal laneLength2;
+        SUMOReal seenLength2;
+        SUMOReal seenVehicles2;
+        SUMOReal leftDistance2;
+        int dir2;
+        */
     };
 
     virtual const std::vector<LaneQ> &getBestLanes() const;
@@ -581,6 +593,8 @@ protected:
 
     mutable const MSEdge *myLastBestLanesEdge;
     mutable std::vector<std::vector<LaneQ> > myBestLanes;
+    mutable std::vector<LaneQ>::iterator myCurrentLaneInBestLanes;
+    static std::vector<MSLane*> myEmptyLaneVector;
 
     std::map<MSCORN::Pointer, void*> myPointerCORNMap;
 
