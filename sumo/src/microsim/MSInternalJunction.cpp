@@ -139,6 +139,7 @@ MSInternalJunction::setAllowed()
             }
         }
     }
+    /*
     // do not move if the destination lane is full
     // get the next lane
     // - recheck whether this is really needed !!!
@@ -156,6 +157,7 @@ MSInternalJunction::setAllowed()
             return true;
         }
     }
+    */
     return true;
 }
 
