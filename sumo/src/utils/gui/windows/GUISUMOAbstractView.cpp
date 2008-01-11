@@ -816,7 +816,7 @@ GUISUMOAbstractView::onLeftBtnPress(FXObject *,FXSelector ,void *data)
         if (makeCurrent()) {
             unsigned int id = getObjectUnderCursor();
             if (id!=0) {
-                gSelected.addObjectChecking(id, e->state&SHIFTMASK);
+                gSelected.toggleSelection(id);
             }
             makeNonCurrent();
             if (id!=0) {

@@ -2,7 +2,7 @@
 /// @file    GLHelper.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id:GLHelper.cpp 4697 2007-11-09 13:41:34Z dkrajzew $
 ///
 // Some methods which help to draw certain geometrical objects in openGL
 /****************************************************************************/
@@ -47,14 +47,13 @@
 // static member definitions
 // ===========================================================================
 std::vector<std::pair<SUMOReal, SUMOReal> > GLHelper::myCircleCoords;
-int GLHelper::myStippleTexture = 1;
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 void
-GLHelper::drawFilledPoly(const Position2DVector &v, bool close)
+GLHelper::drawFilledPoly(const Position2DVector &v, bool close) throw()
 {
     if (v.size()==0) {
         return;
@@ -76,7 +75,7 @@ GLHelper::drawFilledPoly(const Position2DVector &v, bool close)
 
 void
 GLHelper::drawBoxLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength,
-                      SUMOReal width)
+                      SUMOReal width) throw()
 {
     glPushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
@@ -94,14 +93,14 @@ GLHelper::drawBoxLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength,
     glPopMatrix();
 }
 
+
 void
 GLHelper::drawBoxLine(const Position2D &beg1, const Position2D &beg2,
                       SUMOReal rot, SUMOReal visLength,
-                      SUMOReal width)
+                      SUMOReal width) throw()
 {
     glPushMatrix();
     glTranslated((beg2.x()+beg1.x())*.5, (beg2.y()+beg1.y())*.5, 0);
-//    glTranslated(beg1.x(), beg1.y(), 0);
     glRotated(rot, 0, 0, 1);
     glBegin(GL_QUADS);
     glVertex2d(-width, 0);
@@ -116,35 +115,12 @@ GLHelper::drawBoxLine(const Position2D &beg1, const Position2D &beg2,
     glPopMatrix();
 }
 
-/*
-void
-GLHelper::drawBoxLine(const Position2D &beg1, const Position2D &beg2,
-                      SUMOReal rot, SUMOReal visLength)
-{
-    SUMOReal width = GeomHelper::distance(beg1, beg2);
-    glPushMatrix();
-    glTranslated(beg1.x(), beg1.y(), 0);
-    glRotated( rot, 0, 0, 1 );
-    glBegin(GL_QUADS);
-    glVertex2d(-width, 0);
-    glVertex2d(-width, -visLength);
-    glVertex2d(width, -visLength);
-    glVertex2d(width, 0);
-    glEnd();
-    glBegin(GL_LINES);
-    glVertex2d(0, 0);
-    glVertex2d(0, -visLength);
-    glEnd();
-    glPopMatrix();
-}
-*/
-
 
 void
 GLHelper::drawBoxLines(const Position2DVector &geom,
                        const std::vector<SUMOReal> &rots,
                        const std::vector<SUMOReal> &lengths,
-                       SUMOReal width)
+                       SUMOReal width) throw()
 {
     for (size_t i=0; i<geom.size()-1; i++) {
         drawBoxLine(geom[i], rots[i], lengths[i], width);
@@ -157,7 +133,7 @@ GLHelper::drawBoxLines(const Position2DVector &geom1,
                        const Position2DVector &geom2,
                        const std::vector<SUMOReal> &rots,
                        const std::vector<SUMOReal> &lengths,
-                       SUMOReal width)
+                       SUMOReal width) throw()
 {
     size_t minS = MIN4(rots.size(), lengths.size(), geom1.size(), geom2.size());
     for (size_t i=0; i<minS; i++) {
@@ -167,29 +143,7 @@ GLHelper::drawBoxLines(const Position2DVector &geom1,
 
 
 void
-GLHelper::drawStippleBoxLines(const Position2DVector &geom1,
-                              const std::vector<SUMOReal> &rots,
-                              const std::vector<SUMOReal> &lengths,
-                              SUMOReal width)
-{
-    /*
-    if(myStippleTexture<0) {
-        FXImage *img = MFXImageHelper::loadimage(getApp(), "D:\\bild.bmp");
-        myStippleTexture = GUITexturesHelper::add(img);
-    }
-    for(size_t i=0; i<geom1.size()-1; i++) {
-        glPushMatrix();
-        glTranslated(beg.x(), beg.y(), 0);
-        glRotated( rot, 0, 0, 1 );
-        GUITexturesHelper::drawTexturedBox(myStippleTexture, -.75, 0, .75, lengths[i]);
-        glPopMatrix();
-    }
-    */
-}
-
-
-void
-GLHelper::drawBoxLines(const Position2DVector &geom, SUMOReal width)
+GLHelper::drawBoxLines(const Position2DVector &geom, SUMOReal width) throw()
 {
     for (size_t i=0; i<geom.size()-1; i++) {
         const Position2D &f = geom[i];
@@ -203,7 +157,7 @@ GLHelper::drawBoxLines(const Position2DVector &geom, SUMOReal width)
 
 
 void
-GLHelper::drawLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength)
+GLHelper::drawLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength) throw()
 {
     glPushMatrix();
     glTranslated(beg.x(), beg.y(), 0);
@@ -218,7 +172,7 @@ GLHelper::drawLine(const Position2D &beg, SUMOReal rot, SUMOReal visLength)
 
 void
 GLHelper::drawLine(const Position2D &beg1, const Position2D &beg2,
-                   SUMOReal rot, SUMOReal visLength)
+                   SUMOReal rot, SUMOReal visLength) throw()
 {
     glPushMatrix();
     glTranslated((beg2.x()+beg1.x())*.5, (beg2.y()+beg1.y())*.5, 0);
@@ -233,14 +187,38 @@ GLHelper::drawLine(const Position2D &beg1, const Position2D &beg2,
 
 
 void
-GLHelper::drawFilledCircle(SUMOReal width, int steps)
+GLHelper::drawLine(const Position2DVector &v) throw()
+{
+    glBegin(GL_LINES);
+    for(size_t i=0; i<v.size()-1; ++i) {
+        glVertex2d(v[i].x(), v[i].y());
+        glVertex2d(v[i+1].x(), v[i+1].y());
+    }
+    glEnd();
+}
+
+
+
+void
+GLHelper::drawLine(const Position2D &beg, const Position2D &end) throw()
+{
+    glBegin(GL_LINES);
+    glVertex2d(beg.x(), end.y());
+    glVertex2d(beg.x(), end.y());
+    glEnd();
+}
+
+
+
+void
+GLHelper::drawFilledCircle(SUMOReal width, int steps) throw()
 {
     drawFilledCircle(width, steps, 0, 360);
 }
 
 
 void
-GLHelper::drawFilledCircle(SUMOReal width, int steps, SUMOReal beg, SUMOReal end)
+GLHelper::drawFilledCircle(SUMOReal width, int steps, SUMOReal beg, SUMOReal end) throw()
 {
     if (myCircleCoords.size()==0) {
         for (int i=0; i<360; i+=10) {
@@ -273,14 +251,15 @@ GLHelper::drawFilledCircle(SUMOReal width, int steps, SUMOReal beg, SUMOReal end
 
 
 void
-GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps)
+GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps) throw()
 {
     drawOutlineCircle(width, iwidth, steps, 0, 360);
 }
 
 
 void
-GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps, SUMOReal beg, SUMOReal end)
+GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps, 
+                            SUMOReal beg, SUMOReal end) throw()
 {
     if (myCircleCoords.size()==0) {
         for (int i=0; i<360; i+=10) {
@@ -322,7 +301,7 @@ GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps, SUMOReal
 
 void
 GLHelper::drawTriangleAtEnd(const Line2D &l, float tLength,
-                            float tWidth)
+                            float tWidth) throw()
 {
     if (l.length()<tLength) {
         tWidth = tWidth * l.length() / tLength;

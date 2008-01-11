@@ -4,7 +4,7 @@
 /// @date    Tue, 29.04.2005
 /// @version $Id$
 ///
-//
+// Options-IO for gui-applications
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -30,14 +30,31 @@
 #include <config.h>
 #endif
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class GUIFrame
+ * @brief Options-IO for gui-applications
+ *
+ * This class holds methods for initialising and checking options of gui-
+ *  applications.
+ *
+ * @todo What about throw-declarations in methods?
+ */
 class GUIFrame
 {
 public:
+    /** @brief Fills the options container Singleton with gui-options
+    */
     static void fillInitOptions();
 
+
+    /** @brief Checks the options stored in the options container Singleton for being valid gui-options
+    *
+    * @return False, if the options are not valid
+    */
     static bool checkInitOptions();
 
 };

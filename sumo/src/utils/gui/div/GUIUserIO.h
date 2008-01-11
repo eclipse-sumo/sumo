@@ -40,15 +40,26 @@
 /**
  * @class GUIUserIO
  * @brief Some OS-dependant functions to ease cliboard manipulation
+ *
+ * This helper contains only one function by now. It is used to store a text
+ *  snipplet permanently within Windows-clipboard. This method is necessary,
+ *  because FOX only implements the Linux/UNIX-text copying scheme where
+ *  a marked text is copied. This does not work as soon as the widget with
+ *  the marked text is destroyed or when the selection is lost. Because this
+ *  scheme differs very much from the way the clipboard is handled in windows,
+ *  is is implemented "from scratch" herein.
  */
 class GUIUserIO
 {
 public:
     /** @brief Copies the given text to clipboard
      *
-     * !!! This method is only implemented for MS Windows
+     * This method is only implemented for MS Windows.
+     *
+     * @param[in] app The application to use
+     * @param[in] text The text to copy
      */
-    static void copyToClipboard(FXApp *app, const std::string &text);
+    static void copyToClipboard(const FXApp &app, const std::string &text) throw();
 
 };
 

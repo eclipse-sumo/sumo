@@ -4,7 +4,7 @@
 /// @date    Jun 2004
 /// @version $Id$
 ///
-// Storage for object selections
+// Storage for "selected" objects
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -35,6 +35,7 @@
 #include "GUISelectedStorage.h"
 #include "GUIDialog_GLChosenEditor.h"
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/common/ToString.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -53,16 +54,16 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * for GUISelectedStorage::SingleTypeSelections
  * ----------------------------------------------------------------------- */
-GUISelectedStorage::SingleTypeSelections::SingleTypeSelections()
+GUISelectedStorage::SingleTypeSelections::SingleTypeSelections() throw()
 {}
 
 
-GUISelectedStorage::SingleTypeSelections::~SingleTypeSelections()
+GUISelectedStorage::SingleTypeSelections::~SingleTypeSelections() throw()
 {}
 
 
 bool
-GUISelectedStorage::SingleTypeSelections::isSelected(size_t id)
+GUISelectedStorage::SingleTypeSelections::isSelected(size_t id) throw()
 {
     std::vector<size_t>::iterator i=
         find(mySelected.begin(), mySelected.end(), id);
@@ -71,7 +72,7 @@ GUISelectedStorage::SingleTypeSelections::isSelected(size_t id)
 
 
 void
-GUISelectedStorage::SingleTypeSelections::select(size_t id)
+GUISelectedStorage::SingleTypeSelections::select(size_t id) throw()
 {
     std::vector<size_t>::iterator i=
         find(mySelected.begin(), mySelected.end(), id);
@@ -82,7 +83,7 @@ GUISelectedStorage::SingleTypeSelections::select(size_t id)
 
 
 void
-GUISelectedStorage::SingleTypeSelections::deselect(size_t id)
+GUISelectedStorage::SingleTypeSelections::deselect(size_t id) throw()
 {
     std::vector<size_t>::iterator i=
         find(mySelected.begin(), mySelected.end(), id);
@@ -93,14 +94,14 @@ GUISelectedStorage::SingleTypeSelections::deselect(size_t id)
 
 
 void
-GUISelectedStorage::SingleTypeSelections::clear()
+GUISelectedStorage::SingleTypeSelections::clear() throw()
 {
     mySelected.clear();
 }
 
 
 void
-GUISelectedStorage::SingleTypeSelections::load(const std::string &filename)
+GUISelectedStorage::SingleTypeSelections::load(const std::string &filename) throw(IOError)
 {
     ifstream strm(filename.c_str());
     while (strm.good()) {
@@ -127,7 +128,7 @@ GUISelectedStorage::SingleTypeSelections::save(const std::string &filename) thro
 
 
 const std::vector<size_t> &
-GUISelectedStorage::SingleTypeSelections::getSelected() const
+GUISelectedStorage::SingleTypeSelections::getSelected() const throw()
 {
     return mySelected;
 }
@@ -137,16 +138,16 @@ GUISelectedStorage::SingleTypeSelections::getSelected() const
 /* -------------------------------------------------------------------------
  * for GUISelectedStorage
  * ----------------------------------------------------------------------- */
-GUISelectedStorage::GUISelectedStorage()
+GUISelectedStorage::GUISelectedStorage() throw()
 {}
 
 
-GUISelectedStorage::~GUISelectedStorage()
+GUISelectedStorage::~GUISelectedStorage() throw()
 {}
 
 
 bool
-GUISelectedStorage::isSelected(int type, size_t id)
+GUISelectedStorage::isSelected(int type, size_t id) throw(ProcessError)
 {
     if (type==-1) {
         GUIGlObject *object =
@@ -155,8 +156,7 @@ GUISelectedStorage::isSelected(int type, size_t id)
             type = object->getType();
             gIDStorage.unblockObject(id);
         } else {
-            // !!! error message (could not be selected)
-            return false;
+            throw ProcessError("Unkown object in GUISelectedStorage::isSelected (id=" + toString(id) + ").");
         }
     }
     switch (type) {
@@ -186,13 +186,13 @@ GUISelectedStorage::isSelected(int type, size_t id)
             | mySelectedEmitters.isSelected(id)
             | mySelectedDetectors.isSelected(id);
     default:
-        throw 1;
+        throw ProcessError("Unkown object type in GUISelectedStorage::isSelected (type=" + toString(type) + ").");
     }
 }
 
 
 void
-GUISelectedStorage::select(int type, size_t id, bool update)
+GUISelectedStorage::select(int type, size_t id, bool update) throw(ProcessError)
 {
     if (type==-1) {
         GUIGlObject *object =
@@ -201,8 +201,7 @@ GUISelectedStorage::select(int type, size_t id, bool update)
             type = object->getType();
             gIDStorage.unblockObject(id);
         } else {
-            // !!! error message (could not be selected)
-            return;
+            throw ProcessError("Unkown object in GUISelectedStorage::select (id=" + toString(id) + ").");
         }
     }
     switch (type) {
@@ -234,7 +233,7 @@ GUISelectedStorage::select(int type, size_t id, bool update)
         mySelectedShapes.select(id);
         break;
     default:
-        throw 1;
+        throw ProcessError("Unkown object type in GUISelectedStorage::select (type=" + toString(type) + ").");
     }
     std::vector<size_t>::iterator i=
         find(mySelected.begin(), mySelected.end(), id);
@@ -249,47 +248,7 @@ GUISelectedStorage::select(int type, size_t id, bool update)
 
 
 void
-GUISelectedStorage::addObjectChecking(size_t id, long /*withShift !!!*/)
-{
-    GUIGlObject *o =
-        gIDStorage.getObjectBlocking(id);
-    if (o==0) {
-        return;
-    }
-    bool selected = isSelected(-1, id);
-    if (!selected) {
-        select(o->getType(), id);
-    } else {
-        deselect(o->getType(), id);
-    }
-    /*
-    //
-    if(o->getType()==GLO_LANE&&withShift!=0) {
-    throw 1;
-    /
-        string name = o->microsimID();
-        const GUIEdge &e =
-            static_cast<const GUIEdge&>(MSLane::dictionary(name)->edge());
-        for(size_t i=0; i<e.nLanes(); i++) {
-            const GUILaneWrapper &l = e.getLaneGeometry(i);
-            if(!selected) {
-                select(GLO_LANE, l.getGlID());
-            } else {
-                deselect(GLO_LANE, l.getGlID());
-            }
-        }
-    }
-    */
-    gIDStorage.unblockObject(id);
-    if (my2Update!=0) {
-        my2Update->rebuildList();
-        my2Update->update();
-    }
-}
-
-
-void
-GUISelectedStorage::deselect(int type, size_t id)
+GUISelectedStorage::deselect(int type, size_t id) throw(ProcessError)
 {
     if (type==-1) {
         GUIGlObject *object =
@@ -298,8 +257,7 @@ GUISelectedStorage::deselect(int type, size_t id)
             type = object->getType();
             gIDStorage.unblockObject(id);
         } else {
-            // !!! error message (could not be selected)
-            return;
+            throw ProcessError("Unkown object in GUISelectedStorage::deselect (id=" + toString(id) + ").");
         }
     }
     switch (type) {
@@ -331,7 +289,7 @@ GUISelectedStorage::deselect(int type, size_t id)
         mySelectedShapes.deselect(id);
         break;
     default:
-        throw 1;
+        throw ProcessError("Unkown object type in GUISelectedStorage::deselect (type=" + toString(type) + ").");
     }
     std::vector<size_t>::iterator i=
         find(mySelected.begin(), mySelected.end(), id);
@@ -345,15 +303,60 @@ GUISelectedStorage::deselect(int type, size_t id)
 }
 
 
+void
+GUISelectedStorage::toggleSelection(size_t id) throw(ProcessError)
+{
+    GUIGlObject *o =
+        gIDStorage.getObjectBlocking(id);
+    if (o==0) {
+        throw ProcessError("Unkown object in GUISelectedStorage::toggleSelection (id=" + toString(id) + ").");
+    }
+    bool selected = isSelected(-1, id);
+    if (!selected) {
+        select(o->getType(), id);
+    } else {
+        deselect(o->getType(), id);
+    }
+    gIDStorage.unblockObject(id);
+}
+
+
 const std::vector<size_t> &
-GUISelectedStorage::getAllSelected() const
+GUISelectedStorage::getSelected() const throw()
 {
     return mySelected;
 }
 
 
+const std::vector<size_t> &
+GUISelectedStorage::getSelected(GUIGlObjectType type) const throw(ProcessError)
+{
+    switch (type) {
+    case GLO_VEHICLE:
+        return mySelectedVehicles.getSelected();
+    case GLO_TLLOGIC:
+        return mySelectedTLLogics.getSelected();
+    case GLO_DETECTOR:
+        return mySelectedDetectors.getSelected();
+    case GLO_EMITTER:
+        return mySelectedEmitters.getSelected();
+    case GLO_LANE:
+        return mySelectedLanes.getSelected();
+    case GLO_EDGE:
+        return mySelectedEdges.getSelected();
+    case GLO_JUNCTION:
+        return mySelectedJunctions.getSelected();
+    case GLO_TRIGGER:
+        return mySelectedTriggers.getSelected();
+    case GLO_SHAPE:
+        return mySelectedShapes.getSelected();
+    }
+    throw ProcessError("Unkown object type in GUISelectedStorage::getSelected (type=" + toString(type) + ").");
+}
+
+
 void
-GUISelectedStorage::clear()
+GUISelectedStorage::clear() throw()
 {
     mySelectedVehicles.clear();
     mySelectedTLLogics.clear();
@@ -373,7 +376,7 @@ GUISelectedStorage::clear()
 
 
 void
-GUISelectedStorage::load(int type, const std::string &filename)
+GUISelectedStorage::load(int type, const std::string &filename) throw(IOError)
 {
     if (type!=-1) {
         switch (type) {
@@ -405,7 +408,7 @@ GUISelectedStorage::load(int type, const std::string &filename)
             mySelectedShapes.load(filename);
             break;
         default:
-            throw 1;
+            throw ProcessError("Unkown object type in GUISelectedStorage::load (type=" + toString(type) + ").");
         }
         return;
     }
@@ -446,7 +449,7 @@ GUISelectedStorage::save(int type, const std::string &filename) throw(IOError)
             mySelectedShapes.save(filename);
             break;
         default:
-            throw 1;
+            throw ProcessError("Unkown object type in GUISelectedStorage::load (type=" + toString(type) + ").");
         }
         return;
     }
@@ -464,42 +467,15 @@ GUISelectedStorage::save(int type, const std::string &filename) throw(IOError)
 }
 
 
-const std::vector<size_t> &
-GUISelectedStorage::getSelected(int type) const
-{
-    switch (type) {
-    case GLO_VEHICLE:
-        return mySelectedVehicles.getSelected();
-    case GLO_TLLOGIC:
-        return mySelectedTLLogics.getSelected();
-    case GLO_DETECTOR:
-        return mySelectedDetectors.getSelected();
-    case GLO_EMITTER:
-        return mySelectedEmitters.getSelected();
-    case GLO_LANE:
-        return mySelectedLanes.getSelected();
-    case GLO_EDGE:
-        return mySelectedEdges.getSelected();
-    case GLO_JUNCTION:
-        return mySelectedJunctions.getSelected();
-    case GLO_TRIGGER:
-        return mySelectedTriggers.getSelected();
-    case GLO_SHAPE:
-        return mySelectedShapes.getSelected();
-    }
-    throw 1;
-}
-
-
 void
-GUISelectedStorage::add2Update(GUIDialog_GLChosenEditor *ed)
+GUISelectedStorage::add2Update(GUIDialog_GLChosenEditor *ed) throw()
 {
     my2Update = ed;
 }
 
 
 void
-GUISelectedStorage::remove2Update(GUIDialog_GLChosenEditor *)
+GUISelectedStorage::remove2Update(GUIDialog_GLChosenEditor *) throw()
 {
     my2Update = 0;
 }

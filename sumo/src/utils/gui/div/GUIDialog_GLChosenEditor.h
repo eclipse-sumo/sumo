@@ -48,45 +48,94 @@ class GUISelectedStorage;
 /**
  * @class GUIDialog_GLChosenEditor
  * @brief Editor for the list of chosen objects
+ *
+ * @see GUIMainWindow
+ * @see GUISelectedStorage
  */
 class GUIDialog_GLChosenEditor : public FXMainWindow
 {
     // FOX-declarations
     FXDECLARE(GUIDialog_GLChosenEditor)
+
 public:
-    /// constructor
+    /** @brief Constructor
+     *
+     * Notifies both the parent and the storage about being initialised.
+     *
+     * @param[in] parent The parent window
+     * @param[in] str The storage of object selections to use
+     */
     GUIDialog_GLChosenEditor(GUIMainWindow *parent,
-                             GUISelectedStorage *str);
+                             GUISelectedStorage *str) throw();
 
-    /// destructor
-    ~GUIDialog_GLChosenEditor();
 
-    /// Called when the user presses the Load-button
+    /** @brief Destructor
+     *
+     * Notifies both the parent and the storage about being destroyed.
+     */
+    ~GUIDialog_GLChosenEditor() throw();
+
+
+    /** @brief Rebuilds the entire list
+     */
+    void rebuildList() throw();
+
+
+    /// @name FOX-callbacks
+    /// @{
+    /** @brief Called when the user presses the Load-button
+     *
+     * Opens a file dialog and forces the parent to load the list of selected
+     *  objects when a file was chosen. Rebuilds the list, then, and redraws 
+     *  itself.
+     *
+     * @todo Recheck loading/saving of selections
+     */
     long onCmdLoad(FXObject*,FXSelector,void*);
 
-    /// Called when the user presses the Save-button
+
+    /** @brief Called when the user presses the Save-button
+     *
+     * Opens a file dialog and forces the selection container to save the list 
+     *  of selected objects when a file was chosen.
+     *
+     * If the saveing failed, a message window is shown.
+     *
+     * @todo Recheck loading/saving of selections
+     */
     long onCmdSave(FXObject*,FXSelector,void*);
 
-    /// Called when the user presses the Deselect-button
+    /** @brief Called when the user presses the Deselect-button
+     *
+     * Determines which items were chosen and calls GUISelectedStorage::deselect
+     *  for each.
+     */
     long onCmdDeselect(FXObject*,FXSelector,void*);
 
-    /// Called when the user presses the Clear-button
+    /** @brief Called when the user presses the Clear-button
+     *
+     * Clear the internal list and calls GUISelectedStorage::clear.
+     * Repaints itself
+     */
     long onCmdClear(FXObject*,FXSelector,void*);
 
-    /// Called when the user presses the Close-button
-    long onCmdClose(FXObject*,FXSelector,void*);
 
-    /// Rebuilds the entire list
-    void rebuildList();
+    /** @brief Called when the user presses the Close-button
+     *
+     * Closes itself.
+     */
+    long onCmdClose(FXObject*,FXSelector,void*);
+    /// @}
+
 
 private:
-    /// the list that holds the ids
+    /// @brief The list that holds the ids
     FXList *myList;
 
-    /// the parent window
+    /// @brief The parent window
     GUIMainWindow *myParent;
 
-    /// the storage
+    /// @brief The storage
     GUISelectedStorage *myStorage;
 
 protected:

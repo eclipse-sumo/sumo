@@ -45,7 +45,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIMessageWindow::GUIMessageWindow(FXComposite *parent)
+GUIMessageWindow::GUIMessageWindow(FXComposite *parent) throw()
         : FXText(parent, 0, 0, 0, 0, 0, 0, 50),
         myStyles(0)
 {
@@ -53,38 +53,38 @@ GUIMessageWindow::GUIMessageWindow(FXComposite *parent)
     setEditable(false);
     myStyles = new FXHiliteStyle[4];
     // set separator style
-    myStyles[0].normalForeColor = FXRGB(0x00, 0x00, 0x88); //
+    myStyles[0].normalForeColor = FXRGB(0x00, 0x00, 0x88);
     myStyles[0].normalBackColor = FXRGB(0xff, 0xff, 0xff);
     myStyles[0].selectForeColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[0].selectBackColor = FXRGB(0x00, 0x00, 0x88); //
-    myStyles[0].hiliteForeColor = FXRGB(0x00, 0x00, 0x88); //
+    myStyles[0].selectBackColor = FXRGB(0x00, 0x00, 0x88);
+    myStyles[0].hiliteForeColor = FXRGB(0x00, 0x00, 0x88);
     myStyles[0].hiliteBackColor = FXRGB(0xff, 0xff, 0xff);
     myStyles[0].activeBackColor = FXRGB(0xff, 0xff, 0xff);
     myStyles[0].style = 0;
     // set message text style
-    myStyles[1].normalForeColor = FXRGB(0x00, 0x88, 0x00); //
+    myStyles[1].normalForeColor = FXRGB(0x00, 0x88, 0x00);
     myStyles[1].normalBackColor = FXRGB(0xff, 0xff, 0xff);
     myStyles[1].selectForeColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[1].selectBackColor = FXRGB(0x00, 0x88, 0x00); //
-    myStyles[1].hiliteForeColor = FXRGB(0x00, 0x88, 0x00); //
+    myStyles[1].selectBackColor = FXRGB(0x00, 0x88, 0x00);
+    myStyles[1].hiliteForeColor = FXRGB(0x00, 0x88, 0x00);
     myStyles[1].hiliteBackColor = FXRGB(0xff, 0xff, 0xff);
     myStyles[1].activeBackColor = FXRGB(0xff, 0xff, 0xff);
     myStyles[1].style = 0;
     // set error text style
-    myStyles[2].normalForeColor = FXRGB(0x88, 0x00, 0x00); //
+    myStyles[2].normalForeColor = FXRGB(0x88, 0x00, 0x00);
     myStyles[2].normalBackColor = FXRGB(0xff, 0xff, 0xff);
     myStyles[2].selectForeColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[2].selectBackColor = FXRGB(0x88, 0x00, 0x00); //
-    myStyles[2].hiliteForeColor = FXRGB(0x88, 0x00, 0x00); //
+    myStyles[2].selectBackColor = FXRGB(0x88, 0x00, 0x00);
+    myStyles[2].hiliteForeColor = FXRGB(0x88, 0x00, 0x00);
     myStyles[2].hiliteBackColor = FXRGB(0xff, 0xff, 0xff);
     myStyles[2].activeBackColor = FXRGB(0xff, 0xff, 0xff);
     myStyles[2].style = 0;
     // set warning text style
-    myStyles[3].normalForeColor = FXRGB(0xe6, 0x98, 0x00); //
+    myStyles[3].normalForeColor = FXRGB(0xe6, 0x98, 0x00);
     myStyles[3].normalBackColor = FXRGB(0xff, 0xff, 0xff);
     myStyles[3].selectForeColor = FXRGB(0xff, 0xff, 0xff);
-    myStyles[3].selectBackColor = FXRGB(0xe6, 0x98, 0x00); //
-    myStyles[3].hiliteForeColor = FXRGB(0xe6, 0x98, 0x00); //
+    myStyles[3].selectBackColor = FXRGB(0xe6, 0x98, 0x00);
+    myStyles[3].hiliteForeColor = FXRGB(0xe6, 0x98, 0x00);
     myStyles[3].hiliteBackColor = FXRGB(0xff, 0xff, 0xff);
     myStyles[3].activeBackColor = FXRGB(0xff, 0xff, 0xff);
     myStyles[3].style = 0;
@@ -93,14 +93,14 @@ GUIMessageWindow::GUIMessageWindow(FXComposite *parent)
 }
 
 
-GUIMessageWindow::~GUIMessageWindow()
+GUIMessageWindow::~GUIMessageWindow() throw()
 {
     delete[] myStyles;
 }
 
 
 void
-GUIMessageWindow::appendText(GUIEventType eType, const std::string &msg)
+GUIMessageWindow::appendText(GUIEventType eType, const std::string &msg) throw()
 {
     if (!isEnabled()) {
         show();
@@ -124,8 +124,8 @@ GUIMessageWindow::appendText(GUIEventType eType, const std::string &msg)
         assert(false);
     }
     // continue message building
-    // insert message to buffer
     std::string mmsg = msg + "\n";
+    // insert message to buffer
     FXText::appendStyledText(mmsg.c_str(), mmsg.length(), style+1, true);
     FXText::setCursorPos(getLength()-1);
     FXText::setBottomLine(getLength()-1);
@@ -137,7 +137,7 @@ GUIMessageWindow::appendText(GUIEventType eType, const std::string &msg)
 
 
 void
-GUIMessageWindow::addSeparator()
+GUIMessageWindow::addSeparator() throw()
 {
     std::string msg = "----------------------------------------------------------------------------------------\n";
     FXText::appendStyledText(msg.c_str(), msg.length(), 1, true);
@@ -151,7 +151,7 @@ GUIMessageWindow::addSeparator()
 
 
 void
-GUIMessageWindow::clear()
+GUIMessageWindow::clear() throw()
 {
     if (getLength()==0) {
         return;

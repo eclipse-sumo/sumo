@@ -99,7 +99,7 @@ GUIGLObjectPopupMenu::onCmdCenter(FXObject*,FXSelector,void*)
 long
 GUIGLObjectPopupMenu::onCmdCopyName(FXObject*,FXSelector,void*)
 {
-    GUIUserIO::copyToClipboard(myParent->getApp(), myObject->microsimID());
+    GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->microsimID());
     return 1;
 }
 
@@ -107,7 +107,7 @@ GUIGLObjectPopupMenu::onCmdCopyName(FXObject*,FXSelector,void*)
 long
 GUIGLObjectPopupMenu::onCmdCopyTypedName(FXObject*,FXSelector,void*)
 {
-    GUIUserIO::copyToClipboard(myParent->getApp(), myObject->getFullName());
+    GUIUserIO::copyToClipboard(*myParent->getApp(), myObject->getFullName());
     return 1;
 }
 

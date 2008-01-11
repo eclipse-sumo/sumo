@@ -4,7 +4,7 @@
 /// @date
 /// @version $Id$
 ///
-// A single line in the parameter window
+// A single line in a parameter window
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -42,50 +42,163 @@
 // ===========================================================================
 // class definitions
 // ===========================================================================
+// ---------------------------------------------------------------------------
+// GUIParameterTableItemInterface
+// ---------------------------------------------------------------------------
+/**
+ * @class GUIParameterTableItemInterface
+ * @brief Interface to a single line in a parameter window
+ *
+ * Because a single line in a parameter window may display different kinds of
+ *  information (different value types, dynamic or static information), an
+ *  interface is needed in order to allow a common access to the functions of
+ *  a line - basically the possibility to open a tracker (GUIParameterTracker)
+ *  for the stored, dynamic value.
+ *
+ * The implementation is done by GUIParameterTableItem.
+ *
+ * @see GUIParameterTracker
+ * @see GUIParameterTableItem
+ */
 class GUIParameterTableItemInterface
 {
 public:
-    virtual ~GUIParameterTableItemInterface() {}
-    virtual GUIParam_PopupMenuInterface *buildPopupMenu(GUIMainWindow *, GUIParameterTableWindow *, GUIGlObject *) const = 0;
-    virtual bool dynamic() const = 0;
-    virtual void update() = 0;
+    /// @brief Destructor
+    virtual ~GUIParameterTableItemInterface()  throw()
+    {}
+
+
+    /// @name Methods to be implemented by derived classes
+    /// @{
+    /** @brief Returns the information whether the value changes over simulation time
+     *
+     * @return Whether the value changes over simulation time
+     */
+    virtual bool dynamic() const throw() = 0;
+
+
+    /** @brief Forces an update of the value
+     */
+    virtual void update() throw() = 0;
+
+
+    /** @brief Returns a SUMOReal-typed copy of the value-source
+     *
+     * @return A SUMOReal-typed copy of the value-source
+     */
+    virtual ValueSource<SUMOReal> *getSUMORealSourceCopy() const throw() = 0;
+
+
+    /** @brief Returns the name of the value
+     *
+     * @return The name of the value
+     */
+    virtual const std::string &getName() const throw() = 0;
+    /// @}
+
 };
 
+
+// ---------------------------------------------------------------------------
+// GUIParameterTableItem
+// ---------------------------------------------------------------------------
 /**
  * @class GUIParameterTableItem
- * This class represents a single item of a parameter table.
+ * @brief Instance of a single line in a parameter window
+ *
+ * This class represents a single item of a parameter table and is an 
+ *  implementation of the GUIParameterTableItemInterface that allows different
+ *  value-types.
+ *
  * As some values may change over the simulation, this class holds the
- * information whether they change and how to ask for new values if they do
+ * information whether they change and how to ask for new values if they do.
+ *
+ * @see GUIParameterTracker
+ * @see GUIParameterTableItemInterface
  */
 template<class T>
 class GUIParameterTableItem : public GUIParameterTableItemInterface
 {
 public:
-    /// Constructor for changing values (SUMOReal-typed)
+    /** @brief Constructor for changing (dynamic) values
+     *
+     * @param[in] table The table this item belongs to
+     * @param[in] pos The row of the table this item fills
+     * @param[in] name The name of the represented value
+     * @param[in] dynamic Information whether this value changes over time
+     * @param[in] src The value source
+     * @todo Consider using a reference to the table
+     * @todo Check whether the name should be stored in GUIParameterTableItemInterface
+     */
     GUIParameterTableItem(FXTable *table, size_t pos,
-                          const std::string &name, bool dynamic, ValueSource<T> *src) : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(src),
-            myValue(src->getValue()), myTable(table) {
+                          const std::string &name, bool dynamic, 
+                          ValueSource<T> *src) throw() 
+        : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(src),
+        myValue(src->getValue()), myTable(table) 
+    {
         init(dynamic, toString<T>(src->getValue()));
     }
 
 
-    /// Constructor for SUMOReal-typed, non-changing values
+    /** @brief Constructor for non-changing (static) values
+     *
+     * @param[in] table The table this item belongs to
+     * @param[in] pos The row of the table this item fills
+     * @param[in] name The name of the represented value
+     * @param[in] dynamic Information whether this value changes over time
+     * @param[in] value The value
+     * @todo Consider using a reference to the table
+     * @todo Check whether the name should be stored in GUIParameterTableItemInterface
+     * @todo Should never be dynamic!?
+     */
     GUIParameterTableItem(FXTable *table, size_t pos,
-                          const std::string &name, bool dynamic, T value): myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
-            myValue(value), myTable(table) {
+                          const std::string &name, bool dynamic, 
+                          T value) throw()
+        : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
+        myValue(value), myTable(table) 
+    {
         init(dynamic, toString<T>(value));
     }
 
 
-    /// Constructor for string-typed, non-changing values
+    /** @brief Constructor for string-typed, non-changing (static) values
+     *
+     * @param[in] table The table this item belongs to
+     * @param[in] pos The row of the table this item fills
+     * @param[in] name The name of the represented value
+     * @param[in] dynamic Information whether this value changes over time
+     * @param[in] value The value
+     * @todo Consider using a reference to the table
+     * @todo Check whether the name should be stored in GUIParameterTableItemInterface
+     * @todo Should never be dynamic!?
+     */
     GUIParameterTableItem(FXTable *table, size_t pos,
-                          const std::string &name, bool dynamic, std::string value): myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
-            myValue(0), myTable(table) {
+                          const std::string &name, bool dynamic, 
+                          std::string value) throw()
+        : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
+        myValue(0), myTable(table) 
+    {
         init(dynamic, value);
     }
 
 
-    void init(bool dynamic, std::string value) {
+    /// @brief Destructor
+    ~GUIParameterTableItem() throw()
+    {
+        delete mySource;
+    }
+
+
+    /** @brief Initialises the line
+     *
+     * Fills the line using the name, the current value, and the information 
+     *  whether the value changes over time.
+     *
+     * @param[in] dynamic Information whether this value changes over time
+     * @param[in] value The current (initial) value
+     */
+    void init(bool dynamic, std::string value) throw()
+    {
         myTable->setItemText(myTablePosition, 0, myName.c_str());
         myTable->setItemText(myTablePosition, 1, value.c_str());
         if (dynamic) {
@@ -101,26 +214,35 @@ public:
 
 
 
-    /// Destructor
-    ~GUIParameterTableItem() {
-        delete mySource;
-    }
-
-
-    /// Returns the infomration whether this item may change
-    bool dynamic() const {
+    /** @brief Returns the information whether this item may change
+     *
+     * @return Whether this item changes over time
+     */
+    bool dynamic() const throw()
+    {
         return myAmDynamic;
     }
 
 
-    /// Returns the name of this item
-    const std::string &getName() const {
+    /** @brief Returns the name of this value
+     *
+     * @return The name of this value
+     */
+    const std::string &getName() const throw()
+    {
         return myName;
     }
 
 
-    /// Resets the value if it's dynamic
-    void update() {
+    /** @brief Resets the value if it's dynamic
+     *
+     * If the value is dynamic, the current value is retrieved from the value
+     *  source. If it is different from the previous one (stored in myValue), 
+     *  it is stored in myValue and set as the current value text within the 
+     *  according table cell.
+     */
+    void update() throw()
+    {
         if (!dynamic()||mySource==0) {
             return;
         }
@@ -133,9 +255,12 @@ public:
     }
 
 
-
-    /// Returns a copy of the source - if the value is dynamic
-    ValueSource<T> *getSourceCopy() const {
+    /** @brief Returns a copy of the source if the value is dynamic
+     *
+     * @return A copy of the value source
+     */
+    ValueSource<T> *getSourceCopy() const throw()
+    {
         if (mySource==0) {
             return 0;
         }
@@ -143,33 +268,36 @@ public:
     }
 
 
-    GUIParam_PopupMenuInterface *buildPopupMenu(GUIMainWindow *w, GUIParameterTableWindow *p, GUIGlObject *o) const {
-        GUIParam_PopupMenuInterface *ret =
-            new GUIParam_PopupMenu<T>(*w, *p, *o, getName(), getSourceCopy());
-        if (dynamic()) {
-            new FXMenuCommand(ret, "Open in new Tracker", 0, p, MID_OPENTRACKER);
+    /** @brief Returns a SUMOReal-typed copy of the source if the value is dynamic
+     *
+     * @return A SUMOReal-typed copy of the value source
+     */
+    ValueSource<SUMOReal> *getSUMORealSourceCopy() const throw()
+    {
+        if (mySource==0) {
+            return 0;
         }
-        return ret;
+        return mySource->makeSUMORealReturningCopy();
     }
 
 
 private:
-    /// Information whether the value may change
+    /// @brief Information whether the value may change
     bool myAmDynamic;
 
-    /// The name of this entry
+    /// @brief The name of this value
     std::string myName;
 
-    /// The position within the table
+    /// @brief The position within the table
     size_t myTablePosition;
 
-    /** @brief The source to gain new values from
-        This source is==0 if the values are not dynamic */
+    /** @brief The source to gain new values from; this source is==0 if the values are not dynamic */
     ValueSource<T> *mySource;
 
-    /// A backup of the value to avoid the redrawing when nothing has changed
+    /// @brief A backup of the value to avoid the redrawing when nothing has changed
     T myValue;
 
+    /// @brief The table this entry belongs to
     FXTable *myTable;
 
 };

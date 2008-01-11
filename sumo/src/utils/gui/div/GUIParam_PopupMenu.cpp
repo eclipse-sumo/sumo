@@ -4,7 +4,7 @@
 /// @date    Mai 2003
 /// @version $Id$
 ///
-// The popup-menu which appears hen pressing right mouse button over a
+// A popup-menu for dynamic patameter table entries
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -58,12 +58,28 @@ FXDEFMAP(GUIParam_PopupMenuInterface) GUIParam_PopupMenuInterfaceMap[]= {
 };
 
 // Object implementation
-FXIMPLEMENT_ABSTRACT(GUIParam_PopupMenuInterface, FXMenuPane, GUIParam_PopupMenuInterfaceMap, ARRAYNUMBER(GUIParam_PopupMenuInterfaceMap))
+FXIMPLEMENT(GUIParam_PopupMenuInterface, FXMenuPane, GUIParam_PopupMenuInterfaceMap, ARRAYNUMBER(GUIParam_PopupMenuInterfaceMap))
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
+GUIParam_PopupMenuInterface::GUIParam_PopupMenuInterface(GUIMainWindow &app,
+                                GUIParameterTableWindow &parentWindow,
+                                GUIGlObject &o, const std::string &varName, 
+                                ValueSource<SUMOReal> *src)  throw()
+    : FXMenuPane(&parentWindow), myObject(&o), myParentWindow(&parentWindow), 
+    myApplication(&app), myVarName(varName), mySource(src) 
+{ 
+}
+
+
+GUIParam_PopupMenuInterface::~GUIParam_PopupMenuInterface() 
+{
+    delete mySource;
+}
+
+
 long
 GUIParam_PopupMenuInterface::onCmdOpenTracker(FXObject*,FXSelector,void*)
 {
@@ -72,7 +88,7 @@ GUIParam_PopupMenuInterface::onCmdOpenTracker(FXObject*,FXSelector,void*)
             trackerName, *myObject, 0, 0);
     TrackerValueDesc *newTracked = new TrackerValueDesc(
         myVarName, RGBColor(0, 0, 0), myObject, myApplication->getCurrentSimTime());
-    tr->addTracked(*myObject, getSUMORealSourceCopy(), newTracked);
+    tr->addTracked(*myObject, mySource->copy(), newTracked);
     tr->create();
     tr->show();
     return 1;

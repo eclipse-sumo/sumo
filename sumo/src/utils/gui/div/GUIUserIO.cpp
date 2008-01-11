@@ -4,7 +4,7 @@
 /// @date    2006-10-12
 /// @version $Id$
 ///
-// missing_desc
+// Some OS-dependant functions to ease cliboard manipulation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -44,9 +44,9 @@
 // ===========================================================================
 #ifdef WIN32
 void
-GUIUserIO::copyToClipboard(FXApp *app, const std::string &text)
+GUIUserIO::copyToClipboard(const FXApp &app, const std::string &text) throw()
 {
-    OpenClipboard((HWND) app->getRootWindow()->getFirst()->id());
+    OpenClipboard((HWND) app.getRootWindow()->getFirst()->id());
     ::EmptyClipboard();
     HGLOBAL clipBuffer = GlobalAlloc(GMEM_DDESHARE, text.length()+1);
     char *buff = (char*)GlobalLock(clipBuffer);

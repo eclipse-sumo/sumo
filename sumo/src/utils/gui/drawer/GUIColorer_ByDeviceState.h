@@ -60,9 +60,9 @@ public:
     void setGlColor(const T& i) const {
         if (!(i.*myHasOperation)((P) myHasParameter)) {
             if (myCatchNo) {
-                mglColor(myNoColor);
+                glColor3d(myNoColor.red(), myNoColor.green(), myNoColor.blue());
             } else {
-                mglColor(myMinColor);
+                glColor3d(myMinColor.red(), myMinColor.green(), myMinColor.blue());
             }
         } else {
             const MSDevice_CPhone * const phone =

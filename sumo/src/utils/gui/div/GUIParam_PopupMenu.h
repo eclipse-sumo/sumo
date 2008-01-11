@@ -4,7 +4,7 @@
 /// @date    Mai 2003
 /// @version $Id$
 ///
-// missing_desc
+// A popup-menu for dynamic patameter table entries
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -47,68 +47,63 @@ class GUIMainWindow;
 // ===========================================================================
 // class declarataions
 // ===========================================================================
+/**
+ * @class GUIParam_PopupMenuInterface
+ * @brief A popup-menu for dynamic patameter table entries
+ *
+ */
 class GUIParam_PopupMenuInterface : public FXMenuPane
 {
     FXDECLARE(GUIParam_PopupMenuInterface)
 public:
+    /** @brief Constructor
+     *
+     * @param[in] app The main application window
+     * @param[in] parentWindow The parent window (the table the popup belongs to)
+     * @param[in] o The object represented by the table
+     * @param[in] varName The name of the value
+     * @param[in] src The value source
+     */
     GUIParam_PopupMenuInterface(GUIMainWindow &app,
                                 GUIParameterTableWindow &parentWindow,
-                                GUIGlObject &o, const std::string &varName) : FXMenuPane(&parentWindow),
-            myObject(&o), //myParent(&parent),
-            myParentWindow(&parentWindow), myApplication(&app), myVarName(varName) { }
+                                GUIGlObject &o, const std::string &varName, 
+                                ValueSource<SUMOReal> *src) throw();
 
-    virtual ~GUIParam_PopupMenuInterface() {}
 
+    /// @brief Destructor
+    ~GUIParam_PopupMenuInterface() throw();
+
+
+    /// @name FOX-callbacks
+    /// @{
+    /** @brief Called when a tracker for the value shall be opened
+     *
+     * Builds a new GUIParameterTracker adding the stored value to it.
+     * Initialises this tracker, then.
+     */
     long onCmdOpenTracker(FXObject*,FXSelector,void*);
+    /// @}
 
-    virtual ValueSource<SUMOReal> *getSUMORealSourceCopy() = 0;
 
 protected:
-    /// The object the table displays
+    /// @brief The object the table displays
     GUIGlObject *myObject;
 
+    /// @brief The parameter window this popup was initiated by
     GUIParameterTableWindow *myParentWindow;
 
-    /** @brief The main application window
-        holder of some needed values */
+    /** @brief The main application window; holder of some needed values */
     GUIMainWindow *myApplication;
 
+    /// @brief The name of the value
     std::string myVarName;
 
-
-};
-
-
-/**
- * @class GUIParam_PopupMenu
- * A popup menu holding the context of a parameter table entry
- */
-template<class T>
-class GUIParam_PopupMenu : public GUIParam_PopupMenuInterface
-{
-public:
-    /// Constructor
-    GUIParam_PopupMenu(GUIMainWindow &app,
-                       GUIParameterTableWindow &parentWindow,
-                       GUIGlObject &o, const std::string &varName, ValueSource<T> *src)
-            : GUIParam_PopupMenuInterface(app, parentWindow, o, varName),
-            mySource(src) {}
-
-    /// Destructor
-    ~GUIParam_PopupMenu() {
-        delete mySource;
-    }
-
-    ValueSource<SUMOReal> *getSUMORealSourceCopy() {
-        return mySource->makeSUMORealReturningCopy();
-    }
-
-
-private:
-    ValueSource<T> *mySource;
+    /// @brief The source of the value
+    ValueSource<SUMOReal> *mySource;
 
 protected:
-    GUIParam_PopupMenu() { }
+    /// @brief FOX needs this
+    GUIParam_PopupMenuInterface() { }
 
 };
 

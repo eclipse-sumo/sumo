@@ -4,7 +4,7 @@
 /// @date    Jun 2004
 /// @version $Id$
 ///
-// Just an information that a global storage for object selections exists
+// A global holder of selected objects
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -34,8 +34,12 @@
 
 
 // ===========================================================================
-// global variable definitions
+// global variable declarations
 // ===========================================================================
+/** @brief A global holder of selected objects
+ * 
+ * @todo Check whether this should be replaced by a Singleton
+ */
 extern GUISelectedStorage gSelected;
 
 

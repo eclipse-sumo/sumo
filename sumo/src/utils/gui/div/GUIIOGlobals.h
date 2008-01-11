@@ -4,7 +4,7 @@
 /// @date    2004-11-23
 /// @version $Id$
 ///
-// missing_desc
+// The folder used as last
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -21,7 +21,6 @@
 #define GUIIOGlobals_h
 
 
-
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -33,7 +32,15 @@
 
 #include <string>
 
-/// The folder used as last
+
+// ===========================================================================
+// global variable declarations
+// ===========================================================================
+/** @brief The folder used as last
+ * 
+ * This value is loaded and stored within the registry on startup/shutdown
+ *  of the application. It is changed after a file was loaded/saved.
+ */
 extern std::string gCurrentFolder;
 
 
