@@ -936,35 +936,18 @@ MSVehicle::onAllowed(const MSLane* lane) const
     if (lane->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
         return true;
     }
-    if (myAllowedLanes.size()==0) {
-        return false; // check (was assertion only)!!!
-    }
     if (!lane->allowsVehicleClass(myType->getVehicleClass())) {
         return false;
     }
     assert(myAllowedLanes.size()!=0);
-    MSEdge::LaneCont::const_iterator compare =
-        find(myAllowedLanes[0]->begin(), myAllowedLanes[0]->end(), lane);
-    return (compare != myAllowedLanes[0]->end());
+    return (find(myAllowedLanes[0]->begin(), myAllowedLanes[0]->end(), lane) != myAllowedLanes[0]->end());
 }
 
 
 bool
 MSVehicle::onAllowed() const
 {
-    if (myLane->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
-        return true;
-    }
-    if (myAllowedLanes.size()==0) {
-        return false; // check (was assertion only)!!!
-    }
-    if (!myLane->allowsVehicleClass(myType->getVehicleClass())) {
-        return false;
-    }
-    assert(myAllowedLanes.size()!=0);
-    MSEdge::LaneCont::const_iterator compare =
-        find(myAllowedLanes[0]->begin(), myAllowedLanes[0]->end(), myLane);
-    return (compare != myAllowedLanes[0]->end());
+    return onAllowed(myLane);
 }
 
 
