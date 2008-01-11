@@ -28,6 +28,7 @@
 #endif
 
 #include "MSLink.h"
+#include "MSLane.h"
 #include <iostream>
 #include <cassert>
 
@@ -184,6 +185,15 @@ void
 MSLink::resetInternalPriority()
 {
     myPrio = opened();
+    if (myJunctionInlane!=0&&myLane!=0) {
+        if (myState==MSLink::LINKSTATE_TL_GREEN) {
+            if (myIsInternalEnd&&myJunctionInlane->getID()[0]==':') {
+                if (myRequest->test(myRequestIdx)) {
+                    myRespond->set(myRespondIdx, true);
+                }
+            }
+        }
+    }
 }
 #endif
 
