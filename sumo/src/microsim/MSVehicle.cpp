@@ -1547,8 +1547,6 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
                 best.hindernisPos = next->getVehLenSum();
                 best.length = next->length();
             }
-        } else {
-            cout << endl << endl << "Not found" << endl << endl;
         }
     }
     oq.alllength += best.alllength;
