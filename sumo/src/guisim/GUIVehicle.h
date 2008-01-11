@@ -45,6 +45,7 @@
 #include "GUIVehicleType.h"
 #include "GUIRoute.h"
 #include <utils/gui/globjects/GUIGLObjectPopupMenu.h>
+#include <utils/foxtools/MFXMutex.h>
 
 
 // ===========================================================================
@@ -133,6 +134,7 @@ public:
     int getPeriod() const;
     size_t getLastLaneChangeOffset() const;
     size_t getDesiredDepart() const;
+    const std::vector<LaneQ> &getBestLanes() const;
 
     /**
      * @class GUIVehiclePopupMenu
@@ -163,6 +165,12 @@ class GUIVehiclePopupMenu : public GUIGLObjectPopupMenu
         /// Called if the current route of the vehicle shall be hidden
         long onCmdHideCurrentRoute(FXObject*,FXSelector,void*);
 
+        /// Called if the current route of the vehicle shall be shown
+        long onCmdShowBestLanes(FXObject*,FXSelector,void*);
+
+        /// Called if the current route of the vehicle shall be hidden
+        long onCmdHideBestLanes(FXObject*,FXSelector,void*);
+
         /// Called if the vehicle shall be tracked
         long onCmdStartTrack(FXObject*,FXSelector,void*);
 
@@ -181,6 +189,9 @@ protected:
                std::string id, MSRoute* route, SUMOTime departTime,
                const MSVehicleType* type, int repNo, int repOffset,
                int vehicleIndex);
+private:
+    /// The mutex used to avoid concurrent updates of the vehicle buffer
+    mutable MFXMutex myLock;
 
 };
 

@@ -386,6 +386,11 @@ GUIViewTraffic::doPaintGL(int mode, SUMOReal scale)
             }
         }
         break;
+        case VO_SHOW_BEST_LANES: {
+            drawBestLanes(vo);
+            break;
+        }
+        break;
         default:
             break;
         }
@@ -473,6 +478,49 @@ GUIViewTraffic::drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken)
 
 
 void
+GUIViewTraffic::drawBestLanes(const VehicleOps &vo)
+{
+    if (myUseToolTips) {
+        glPushName(vo.vehicle->getGlID());
+    }
+    const std::vector<MSVehicle::LaneQ> &lanes = vo.vehicle->getBestLanes();
+    SUMOReal gmax = -1;
+    SUMOReal rmax = -1;
+    for (std::vector<MSVehicle::LaneQ>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+        gmax = MAX2((*i).length, gmax);
+        rmax = MAX2((*i).hindernisPos, rmax);
+    }
+    for (std::vector<MSVehicle::LaneQ>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
+        const Position2DVector &shape = (*i).lane->getShape();
+        SUMOReal g = (*i).length / gmax;
+        SUMOReal r = (*i).hindernisPos / rmax;
+        glColor3d(r, g, 0);
+        GLHelper::drawBoxLines(shape, 0.5);
+
+        Position2DVector s1 = shape;
+        s1.move2side(.1);
+        glColor3d(r, 0, 0);
+        GLHelper::drawLine(s1);
+        s1.move2side(-.2);
+        glColor3d(0, g, 0);
+        GLHelper::drawLine(s1);
+
+        glColor3d(r, g, 0);
+        Position2D lastPos = shape[-1];
+        for (std::vector<MSLane*>::const_iterator j=(*i).joined.begin(); j!=(*i).joined.end(); ++j) {
+            const Position2DVector &shape = (*j)->getShape();
+            GLHelper::drawLine(lastPos, shape[0]);
+            GLHelper::drawBoxLines(shape, 0.2);
+            lastPos = shape[-1];
+        }
+    }
+    if (myUseToolTips) {
+        glPopName();
+    }
+}
+
+
+void
 GUIViewTraffic::draw(const MSRoute &r)
 {
     MSRouteIterator i = r.begin();
@@ -498,12 +546,40 @@ GUIViewTraffic::showRoute(GUIVehicle *v, int index)
 
 
 void
+GUIViewTraffic::showBestLanes(GUIVehicle *v)
+{
+    VehicleOps vo;
+    vo.vehicle = v;
+    vo.type = VO_SHOW_BEST_LANES;
+    myVehicleOps.push_back(vo);
+    update();
+}
+
+
+void
 GUIViewTraffic::hideRoute(GUIVehicle *v, int index)
 {
     std::vector<VehicleOps>::iterator i =
         find_if(myVehicleOps.begin(), myVehicleOps.end(), vehicle_in_ops_finder(v));
     while (i!=myVehicleOps.end()) {
         if ((*i).type==VO_SHOW_ROUTE&&(*i).routeNo==index) {
+            i = myVehicleOps.erase(i);
+            update();
+            return;
+        }
+        i = find_if(i+1, myVehicleOps.end(), vehicle_in_ops_finder(v));
+    }
+    update();
+}
+
+
+void
+GUIViewTraffic::hideBestLanes(GUIVehicle *v)
+{
+    std::vector<VehicleOps>::iterator i =
+        find_if(myVehicleOps.begin(), myVehicleOps.end(), vehicle_in_ops_finder(v));
+    while (i!=myVehicleOps.end()) {
+        if ((*i).type==VO_SHOW_BEST_LANES) {
             i = myVehicleOps.erase(i);
             update();
             return;
@@ -527,6 +603,22 @@ GUIViewTraffic::amShowingRouteFor(GUIVehicle *v, int index)
     }
     return false;
 }
+
+
+bool
+GUIViewTraffic::amShowingBestLanesFor(GUIVehicle *v)
+{
+    std::vector<VehicleOps>::iterator i =
+        find_if(myVehicleOps.begin(), myVehicleOps.end(), vehicle_in_ops_finder(v));
+    while (i!=myVehicleOps.end()) {
+        if ((*i).type==VO_SHOW_BEST_LANES) {
+            return true;
+        }
+        i = find_if(i+1, myVehicleOps.end(), vehicle_in_ops_finder(v));
+    }
+    return false;
+}
+
 
 
 void

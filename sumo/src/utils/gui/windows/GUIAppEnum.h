@@ -260,6 +260,10 @@ enum {
     MID_SHOW_CURRENTROUTE,
     /// Hide vehicle's current route
     MID_HIDE_CURRENTROUTE,
+    /// Show vehicle's best lanes
+    MID_SHOW_BEST_LANES,
+    /// Hide vehicle's best lanes
+    MID_HIDE_BEST_LANES,
     /// Show all vehicle's routes
     MID_SHOW_ALLROUTES,
     /// Hide all vehicle's routes

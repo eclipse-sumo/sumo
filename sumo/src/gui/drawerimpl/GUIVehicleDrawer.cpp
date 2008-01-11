@@ -152,7 +152,7 @@ drawAction_drawVehicleBlinker(const GUIVehicle &veh)
         GLHelper::drawFilledCircle(.5, 6);
         glTranslated(1, +BLINKER_POS_BACK-veh.getLength(), 0);
     } else {
-        MSLinkCont::const_iterator link = veh.getLane().succLinkSec(veh, 1, veh.getLane());
+        MSLinkCont::const_iterator link = veh.getLane().succLinkSec(veh, 1, veh.getLane(), std::vector<MSLane*>());
         if (link!=veh.getLane().getLinkCont().end()) {
             switch ((*link)->getDirection()) {
             case MSLink::LINKDIR_TURN:

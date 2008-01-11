@@ -197,8 +197,14 @@ public:
     /// shows a vehicle route
     virtual void showRoute(GUIVehicle * /*v*/, int /*index=-1*/) { }
 
+    /// shows
+    virtual void showBestLanes(GUIVehicle * /*v*/) { }
+
     /// hides a vehicle route
     virtual void hideRoute(GUIVehicle * /*v*/, int /*index=-1*/) { }
+
+    /// hides
+    virtual void hideBestLanes(GUIVehicle * /*v*/) { }
 
     virtual void startTrack(int /*id*/) { }
     virtual void stopTrack() { }
@@ -206,6 +212,10 @@ public:
         return -1;
     }
     virtual bool amShowingRouteFor(GUIVehicle * /*v*/, int /*index=-1*/) {
+        return false;
+    }
+
+    virtual bool amShowingBestLanesFor(GUIVehicle * /*v*/) {
         return false;
     }
 
@@ -503,6 +513,7 @@ protected:
 
     enum VehicleOperationType {
         VO_TRACK,
+        VO_SHOW_BEST_LANES,
         VO_SHOW_ROUTE
     };
 

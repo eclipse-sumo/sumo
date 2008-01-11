@@ -67,6 +67,8 @@ FXDEFMAP(GUIVehicle::GUIVehiclePopupMenu) GUIVehiclePopupMenuMap[]= {
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_ALLROUTES, GUIVehicle::GUIVehiclePopupMenu::onCmdHideAllRoutes),
     FXMAPFUNC(SEL_COMMAND, MID_SHOW_CURRENTROUTE, GUIVehicle::GUIVehiclePopupMenu::onCmdShowCurrentRoute),
     FXMAPFUNC(SEL_COMMAND, MID_HIDE_CURRENTROUTE, GUIVehicle::GUIVehiclePopupMenu::onCmdHideCurrentRoute),
+    FXMAPFUNC(SEL_COMMAND, MID_SHOW_BEST_LANES, GUIVehicle::GUIVehiclePopupMenu::onCmdShowBestLanes),
+    FXMAPFUNC(SEL_COMMAND, MID_HIDE_BEST_LANES, GUIVehicle::GUIVehiclePopupMenu::onCmdHideBestLanes),
     FXMAPFUNC(SEL_COMMAND, MID_START_TRACK, GUIVehicle::GUIVehiclePopupMenu::onCmdStartTrack),
     FXMAPFUNC(SEL_COMMAND, MID_STOP_TRACK, GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack),
 };
@@ -120,10 +122,27 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdShowCurrentRoute(FXObject*,FXSelector,void
 
 
 long
+GUIVehicle::GUIVehiclePopupMenu::onCmdShowBestLanes(FXObject*,FXSelector,void*)
+{
+    assert(myObject->getType()==GLO_VEHICLE);
+    myParent->showBestLanes(static_cast<GUIVehicle*>(myObject));
+    return 1;
+}
+
+
+long
 GUIVehicle::GUIVehiclePopupMenu::onCmdHideCurrentRoute(FXObject*,FXSelector,void*)
 {
     assert(myObject->getType()==GLO_VEHICLE);
     myParent->hideRoute(static_cast<GUIVehicle*>(myObject), 0);
+    return 1;
+}
+
+long
+GUIVehicle::GUIVehiclePopupMenu::onCmdHideBestLanes(FXObject*,FXSelector,void*)
+{
+    assert(myObject->getType()==GLO_VEHICLE);
+    myParent->hideBestLanes(static_cast<GUIVehicle*>(myObject));
     return 1;
 }
 
@@ -161,6 +180,10 @@ GUIVehicle::~GUIVehicle()
 {
     if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
         delete(RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
+    }
+    // just to quit cleanly on a failure
+    if (myLock.locked()) {
+        myLock.unlock();
     }
 }
 
@@ -213,6 +236,11 @@ GUIVehicle::getPopUpMenu(GUIMainWindow &app,
         new FXMenuCommand(ret, "Hide All Routes", 0, ret, MID_HIDE_ALLROUTES);
     } else {
         new FXMenuCommand(ret, "Show All Routes", 0, ret, MID_SHOW_ALLROUTES);
+    }
+    if (parent.amShowingBestLanesFor(this)) {
+        new FXMenuCommand(ret, "Hide Best Lanes", 0, ret, MID_HIDE_BEST_LANES);
+    } else {
+        new FXMenuCommand(ret, "Show Best Lanes", 0, ret, MID_SHOW_BEST_LANES);
     }
     new FXMenuSeparator(ret);
     int trackedID = parent.getTrackedID();
@@ -316,6 +344,16 @@ GUIVehicle::getCenteringBoundary() const
     b.add(getPosition());
     b.grow(20);
     return b;
+}
+
+
+const std::vector<MSVehicle::LaneQ> &
+GUIVehicle::getBestLanes() const
+{
+    myLock.lock();
+    const std::vector<MSVehicle::LaneQ> &ret = MSVehicle::getBestLanes();
+    myLock.unlock();
+    return ret;
 }
 
 

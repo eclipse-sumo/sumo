@@ -111,14 +111,24 @@ public:
     /// shows a vehicle route
     void showRoute(GUIVehicle *v, int index=-1);
 
+    /// 
+    void showBestLanes(GUIVehicle *v);
+
     /// hides a vehicle route
     void hideRoute(GUIVehicle *v, int index=-1);
+    
+    /// 
+    void hideBestLanes(GUIVehicle *v);
+
     void showViewschemeEditor();
 
 
 
     /// Returns the information whether the route of the given vehicle is shown
     bool amShowingRouteFor(GUIVehicle *v, int index=-1);
+
+    /// Returns the information whether the route of the given vehicle is shown
+    bool amShowingBestLanesFor(GUIVehicle *v);
 
     /// Returns the list of available vehicle coloring schemes
     static GUIColoringSchemesMap<GUIVehicle> &getVehiclesSchemesMap();
@@ -136,6 +146,7 @@ protected:
     RGBColor getEdgeColor(GUIEdge *edge) const;
 
     void drawRoute(const VehicleOps &vo, int routeNo, SUMOReal darken);
+    void drawBestLanes(const VehicleOps &vo);
 
     void setPointToMove(PointOfInterest *p);
     void setIdToMove(unsigned int id);
