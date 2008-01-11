@@ -2,7 +2,7 @@
 /// @file    MSLCM_DK2004.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 29.04.2005
-/// @version $Id$
+/// @version $Id:MSLCM_DK2004.h 4683 2007-11-09 12:54:04Z dkrajzew $
 ///
 //	»missingDescription«
 /****************************************************************************/
@@ -74,7 +74,7 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighLead,
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
-        const std::vector<std::vector<MSVehicle::LaneQ> > &preb,
+        const std::vector<MSVehicle::LaneQ> &preb,
         /*
         int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
         SUMOReal currentDist,
@@ -90,7 +90,7 @@ public:
         const std::pair<MSVehicle*, SUMOReal> &neighLead,
         const std::pair<MSVehicle*, SUMOReal> &neighFollow,
         const MSLane &neighLane,
-        const std::vector<std::vector<MSVehicle::LaneQ> > &preb,
+        const std::vector<MSVehicle::LaneQ> &preb,
         /*
         //        bool congested, bool predInteraction,
         int bestLaneOffset, SUMOReal bestDist, SUMOReal neighDist,
@@ -151,6 +151,9 @@ protected:
 protected:
     SUMOReal myChangeProbability;
     SUMOReal myVSafe;
+    MSVehicle *myBlockingLeader;
+    MSVehicle *myBlockingFollower;
+    SUMOReal myUrgency;
 };
 
 

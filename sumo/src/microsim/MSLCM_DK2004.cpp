@@ -29,6 +29,7 @@
 #endif
 
 #include "MSLCM_DK2004.h"
+#include <utils/common/RandHelper.h>
 #include <iostream>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -63,7 +64,8 @@ using namespace std;
 MSLCM_DK2004::MSLCM_DK2004(MSVehicle &v)
         : MSAbstractLaneChangeModel(v),
         myChangeProbability(0),
-        myVSafe(0)
+        myVSafe(0), myBlockingLeader(0), myBlockingFollower(0),
+        myUrgency(0)
 {}
 
 MSLCM_DK2004::~MSLCM_DK2004()
@@ -78,7 +80,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                                  const std::pair<MSVehicle*, SUMOReal> &neighLead,
                                  const std::pair<MSVehicle*, SUMOReal> &neighFollow,
                                  const MSLane &neighLane,
-                                 const std::vector<std::vector<MSVehicle::LaneQ> > &preb,
+                                 const std::vector<MSVehicle::LaneQ> &preb,
                                  /*
                                  int bestLaneOffset, SUMOReal bestDist,
                                  SUMOReal neighDist,
@@ -86,7 +88,6 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
                                  */
                                  MSVehicle **lastBlocked)
 {
-    const std::vector<MSVehicle::LaneQ> &currE = *(preb.begin());
     MSVehicle::LaneQ curr, best;
     int bestLaneOffset = 0;
     SUMOReal currentDist = 0;
@@ -94,15 +95,15 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     SUMOReal neighExtDist = 0;
     SUMOReal currExtDist = 0;
     int currIdx = 0;
-    for (int p=0; p<(int) currE.size(); ++p) {
-        if (currE[p].lane==&myVehicle.getLane()) {
-            curr = currE[p];
+    for (int p=0; p<(int) preb.size(); ++p) {
+        if (preb[p].lane==&myVehicle.getLane()) {
+            curr = preb[p];
             bestLaneOffset = curr.dir;
             currentDist = curr.length;
             currExtDist = curr.lane->length();//alllength;
-            neighDist = currE[p-1].length;
-            neighExtDist = currE[p-1].lane->length();//.alllength;
-            best = currE[p+bestLaneOffset];
+            neighDist = preb[p-1].length;
+            neighExtDist = preb[p-1].lane->length();//.alllength;
+            best = preb[p+bestLaneOffset];
             currIdx = p;
         }
     }
@@ -171,6 +172,9 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
             myVSafe = myVehicle.ffeV(myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed())
                       - (SUMOReal) 0.5;
         }
+        myBlockingLeader = neighLead.first;
+        myBlockingFollower = neighFollow.first;
+        myUrgency = tdist;
         return ret|LCA_RIGHT|LCA_URGENT|blocked;
     }
 
@@ -181,7 +185,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     // this rule prevents the vehicle from moving in opposite direction of the best lane
     //  unless the way till the end where the vehicle has to be on the best lane
     //  is long enough
-    SUMOReal maxJam = MAX2(currE[currIdx-1].hindernisPos, currE[currIdx].hindernisPos);
+    SUMOReal maxJam = MAX2(preb[currIdx-1].hindernisPos, preb[currIdx].hindernisPos);
     SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist-myVehicle.getPositionOnLane()-maxJam);
     if (bestLaneOffset>0&&currentDistDisallows(neighLeftPlace, bestLaneOffset, rv)/*&&currentDist!=neighDist*/) {
         // ...we will not change the lane if not
@@ -206,7 +210,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     //  in this case, we do not want to get to the dead-end of an on-ramp
     //
     // THIS RULE APPLIES ONLY TO CHANGING TO THE RIGHT LANE
-    if (bestLaneOffset==0&&currE[currIdx-1].dir!=0&&myVehicle.getLane().maxSpeed()>80./3.6) {
+    if (bestLaneOffset==0&&preb[currIdx-1].dir!=0&&myVehicle.getLane().maxSpeed()>80./3.6) {
         return ret;
     }
 
@@ -293,7 +297,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
                                 const std::pair<MSVehicle*, SUMOReal> &neighLead,
                                 const std::pair<MSVehicle*, SUMOReal> &neighFollow,
                                 const MSLane &neighLane,
-                                const std::vector<std::vector<MSVehicle::LaneQ> > &preb,
+                                const std::vector<MSVehicle::LaneQ> &preb,
                                 /*
                                 int bestLaneOffset, SUMOReal bestDist,
                                 SUMOReal neighDist,
@@ -301,7 +305,6 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
                                 */
                                 MSVehicle **lastBlocked)
 {
-    const std::vector<MSVehicle::LaneQ> &currE = *(preb.begin());
     MSVehicle::LaneQ curr, best;
     int bestLaneOffset = 0;
     SUMOReal currentDist = 0;
@@ -309,15 +312,15 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     SUMOReal neighExtDist = 0;
     SUMOReal currExtDist = 0;
     int currIdx = 0;
-    for (int p=0; p<(int) currE.size(); ++p) {
-        if (currE[p].lane==&myVehicle.getLane()) {
-            curr = currE[p];
+    for (int p=0; p<(int) preb.size(); ++p) {
+        if (preb[p].lane==&myVehicle.getLane()) {
+            curr = preb[p];
             bestLaneOffset = curr.dir;
             currentDist = curr.length;
             currExtDist = curr.lane->length();//.alllength;
-            neighDist = currE[p+1].length;
-            neighExtDist = currE[p+1].lane->length();//.alllength;
-            best = currE[p+bestLaneOffset];
+            neighDist = preb[p+1].length;
+            neighExtDist = preb[p+1].lane->length();//.alllength;
+            best = preb[p+bestLaneOffset];
             currIdx = p;
         }
     }
@@ -388,6 +391,9 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         if (neighLead.second>0&&neighLead.second>leader.second) {
             myVSafe = myVehicle.ffeV(myVehicle.getSpeed(), neighLead.second, neighLead.first->getSpeed()) - (SUMOReal) 0.5;
         }
+        myBlockingLeader = neighLead.first;
+        myBlockingFollower = neighFollow.first;
+        myUrgency = tdist;
         return ret|LCA_LEFT|LCA_URGENT|blocked;
     }
 
@@ -398,7 +404,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     // this rule prevents the vehicle from moving in opposite direction of the best lane
     //  unless the way till the end where the vehicle has to be on the best lane
     //  is long enough
-    SUMOReal maxJam = MAX2(currE[currIdx+1].hindernisPos, currE[currIdx].hindernisPos);
+    SUMOReal maxJam = MAX2(preb[currIdx+1].hindernisPos, preb[currIdx].hindernisPos);
     SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist-myVehicle.getPositionOnLane()-maxJam);
     if (bestLaneOffset<0&&currentDistDisallows(neighLeftPlace, bestLaneOffset, lv)/*&&currentDist!=neighDist*/) {
         // ...we will not change the lane if not
@@ -431,7 +437,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 
     /*
     // if the current lane is the
-    if(bestLaneOffset==0&&(neighDist==0||curr.hindernisPos*JAM_FACTOR>=neighExtDist-curr.length)) {
+    if(bestLaneOffset==0&&(neighDist==0||curr.seenVehicles2*JAM_FACTOR>=neighExtDist-curr.length)) {
         return ret;
     }
     */
@@ -511,6 +517,7 @@ MSLCM_DK2004::patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max, SUMOReal /
     if (myVehicle.getLane().getEdge()->nLanes()==1) {
         // remove chaning information if on a road with a single lane
         changed();
+        return wanted;
     }
 
     // check whether the vehicle is blocked

@@ -432,7 +432,7 @@ public:
         std::vector<MSLane*> joined;
     };
 
-    const std::vector<std::vector<LaneQ> > &getBestLanes() const;
+    virtual const std::vector<LaneQ> &getBestLanes() const;
 
     SUMOReal getMovedDistance(void) const {
         return SPEED2DIST(myState.mySpeed);
@@ -522,6 +522,8 @@ public:
 #endif
 
 protected:
+    void rebuildContinuationsFor(LaneQ &q, MSLane *l, MSRouteIterator ce, int seen) const;
+
     /// Use this constructor only.
     MSVehicle(std::string id, MSRoute* route, SUMOTime departTime,
               const MSVehicleType* type,

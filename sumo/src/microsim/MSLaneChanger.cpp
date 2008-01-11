@@ -135,10 +135,10 @@ MSLaneChanger::change()
     // priority.
     myCandi = findCandidate();
     MSVehicle* vehicle = veh(myCandi);
-    const std::vector<std::vector<MSVehicle::LaneQ> > &preb = vehicle->getBestLanes();
-    assert(preb[0].size()==myChanger.size());
+    const std::vector<MSVehicle::LaneQ> &preb = vehicle->getBestLanes();
+    assert(preb.size()==myChanger.size());
     for (int i=0; i<(int) myChanger.size(); ++i) {
-        ((std::vector<std::vector<MSVehicle::LaneQ> >&) preb)[0][i].hindernisPos = myChanger[i].dens + preb[0][i].v;
+        ((std::vector<MSVehicle::LaneQ>&) preb)[i].hindernisPos = myChanger[i].dens + preb[i].v;
     }
 
     vehicle->getLaneChangeModel().prepareStep();
@@ -475,7 +475,7 @@ int
 MSLaneChanger::change2right(const std::pair<MSVehicle*, SUMOReal> &leader,
                             const std::pair<MSVehicle*, SUMOReal> &rLead,
                             const std::pair<MSVehicle*, SUMOReal> &rFollow,
-                            const std::vector<std::vector<MSVehicle::LaneQ> > &preb)
+                            const std::vector<MSVehicle::LaneQ> &preb)
 {
     // Try to change to the right-lane if there is one. If this lane isn't
     // an allowed one, cancel the try. Otherwise, check some conditions. If
@@ -509,7 +509,7 @@ int
 MSLaneChanger::change2left(const std::pair<MSVehicle*, SUMOReal> &leader,
                            const std::pair<MSVehicle*, SUMOReal> &rLead,
                            const std::pair<MSVehicle*, SUMOReal> &rFollow,
-                           const std::vector<std::vector<MSVehicle::LaneQ> > &preb)
+                           const std::vector<MSVehicle::LaneQ> &preb)
 {
     // Try to change to the left-lane, if there is one. If this lane isn't
     // an allowed one, cancel the try. Otherwise, check some conditions.
@@ -640,7 +640,7 @@ MSLaneChanger::advan2right(const std::pair<MSVehicle*, SUMOReal> &leader,
                            const std::pair<MSVehicle*, SUMOReal> &neighLead,
                            const std::pair<MSVehicle*, SUMOReal> &neighFollow,
                            int blocked,
-                           const std::vector<std::vector<MSVehicle::LaneQ> > &preb)
+                           const std::vector<MSVehicle::LaneQ> &preb)
 {
     MSAbstractLaneChangeModel::MSLCMessager
     msg(leader.first, neighLead.first, neighFollow.first);
@@ -658,7 +658,7 @@ MSLaneChanger::advan2left(const std::pair<MSVehicle*, SUMOReal> &leader,
                           const std::pair<MSVehicle*, SUMOReal> &neighLead,
                           const std::pair<MSVehicle*, SUMOReal> &neighFollow,
                           int blocked,
-                          const std::vector<std::vector<MSVehicle::LaneQ> > &preb)
+                          const std::vector<MSVehicle::LaneQ> &preb)
 {
     MSAbstractLaneChangeModel::MSLCMessager
     msg(leader.first, neighLead.first, neighFollow.first);

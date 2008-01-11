@@ -145,13 +145,13 @@ protected:
         const std::pair<MSVehicle*, SUMOReal> &leader,
         const std::pair<MSVehicle*, SUMOReal> &rLead,
         const std::pair<MSVehicle*, SUMOReal> &rFollow,
-        const std::vector<std::vector<MSVehicle::LaneQ> > &preb);
+        const std::vector<MSVehicle::LaneQ> &preb);
 
     virtual int change2left(
         const std::pair<MSVehicle*, SUMOReal> &leader,
         const std::pair<MSVehicle*, SUMOReal> &rLead,
         const std::pair<MSVehicle*, SUMOReal> &rFollow,
-        const std::vector<std::vector<MSVehicle::LaneQ> > &preb);
+        const std::vector<MSVehicle::LaneQ> &preb);
 
     /** If candidate isn't on an allowed lane, we need to find target-
         lane that takes it closer to an allowed one. */
@@ -172,7 +172,7 @@ protected:
         const std::pair<MSVehicle*, SUMOReal> &rLead,
         const std::pair<MSVehicle*, SUMOReal> &rFollow,
         int blocked,
-        const std::vector<std::vector<MSVehicle::LaneQ> > &preb);
+        const std::vector<MSVehicle::LaneQ> &preb);
 
     /** Returns true, if candidate has an advantage by changing to the
         left. */
@@ -181,7 +181,7 @@ protected:
         const std::pair<MSVehicle*, SUMOReal> &rLead,
         const std::pair<MSVehicle*, SUMOReal> &rFollow,
         int blocked,
-        const std::vector<std::vector<MSVehicle::LaneQ> > &preb);
+        const std::vector<MSVehicle::LaneQ> &preb);
 
     /** Returns true if candidate overlaps with a vehicle, that
         already changed the lane.*/
