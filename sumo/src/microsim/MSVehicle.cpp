@@ -1447,42 +1447,109 @@ MSVehicle::rebuildAllowedLanes(bool reinit)
 void 
 MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int seen) const
 {
-    const MSEdge::LaneCont *allowed = 0;
     // check whether the end of iteration was reached
     ++ce;
+    // we end if one of the following cases is true:
+    // a) we have examined the next edges for 3000m (foresight distance) 
+    //     but only if we have at least examined the next edge
+    // b) if we have examined 8 edges in front (!!! this may be shorted)
+    // c) if the route does not continue after the seen edges
     if((seen>2 && oq.length+l->length()>3000) || seen>8 || ce==myRoute->end()) {
         // ok, we have rebuilt this so far... do not have to go any further
         return;
     }
-    // we must go further
+    // we must go further...
+    // get the list of allowed lanes
+    const MSEdge::LaneCont *allowed = 0;
     if(ce!=myRoute->end()&&ce+1!=myRoute->end()) {
         allowed = (*ce)->allowedLanes(**(ce+1), myType->getVehicleClass());
     }
+    // determined recursively what the best lane is
+    //  save the best lane for later usage
     LaneQ best;
     best.length = 0;
     const MSEdge::LaneCont * const lanes = (*ce)->getLanes();
     const MSLinkCont &lc = l->getLinkCont();
+    bool gotOne = false;
+        // we go through all connections of the lane to examine
     for (MSLinkCont::const_iterator k=lc.begin(); k!=lc.end(); ++k) {
-    //for(MSEdge::LaneCont::const_iterator i=lanes->begin(); i!=lanes->end(); ++i) {
-//        if (allowed==0||find(allowed->begin(), allowed->end(), (*k)->getLane())!=allowed->end()) {
-            LaneQ q;
-            MSLane *qqq = (*k)->getLane();
-            q.hindernisPos = qqq->getVehLenSum();
-            q.length = qqq->length();
-            q.alllength = 0;
-            q.joined.push_back(qqq);
-            if (allowed==0||find(allowed->begin(), allowed->end(), (*k)->getLane())!=allowed->end()) {
-                rebuildContinuationsFor(q, qqq, ce, seen+1);
+        // prese values
+        LaneQ q;
+        MSLane *qqq = (*k)->getLane();
+        q.hindernisPos = qqq->getVehLenSum();
+        q.length = qqq->length();
+        q.alllength = 0;
+        q.joined.push_back(qqq);
+        // check whether the lane is allowed for route continuation (has a link to the next
+        //  edge in route)
+        if (allowed==0||find(allowed->begin(), allowed->end(), (*k)->getLane())!=allowed->end()) {
+            // yes -> compute the best lane combination for consecutive lanes
+            gotOne = true;
+            rebuildContinuationsFor(q, qqq, ce, seen+1);
+        } else {
+            // no -> if the lane belongs to an edge not in our route, 
+            //  reset values to zero (otherwise the lane but not its continuations)
+            //  will still be regarded
+            if((*k)->getLane()->getEdge()!=*(ce)) {
+                q.hindernisPos = 0;
+                q.length = 0;
+            }
+        }
+        // set best lane information
+        if(q.length>best.length) {
+            best = q;
+        }
+    }
+    // check whether we need to change the lane on this edge in any case
+    if(!gotOne) {
+        // yes, that's the case - we are on an edge on which we have to change
+        //  the lane no matter which lanes we are using so far.
+        // we have to tell the vehicle the best lane so far...
+        // the assumption is that we only have to find the first one
+        //  - because the vehicle has to change lanes, it will do this into
+        //  the proper direction as the lanes moving the the proper edge are
+        //  lying side by side
+        const MSEdge::LaneCont * const lanes = (*ce)->getLanes();
+        bool oneFound = false;
+        int bestPos = 0;
+        MSLane *next = 0;
+        for(MSEdge::LaneCont::const_iterator i=lanes->begin(); !oneFound&&i!=lanes->end();) {
+            if(find(allowed->begin(), allowed->end(), *i)!=allowed->end()) {
+                oneFound = true;
+                next = *i;
             } else {
-                if((*k)->getLane()->getEdge()!=*(ce)) {
-                    q.hindernisPos = 0;
-                    q.length = 0;
+                ++i;
+                ++bestPos;
+            }
+        }
+        if(oneFound) {
+            // ok, we have found a best one
+            //  (in fact, this should be the case if the route is valid, nonetheless...)
+            // now let's say that the best lane is the one next to the found
+            // go through the links
+            int bestDistance = -1;
+            MSLane *bestL = 0;
+            const MSEdge::LaneCont * const clanes = l->getEdge()->getLanes();
+            for(MSEdge::LaneCont::const_iterator i=clanes->begin(); i!=clanes->end(); ++i) {
+                for (MSLinkCont::const_iterator k=lc.begin(); k!=lc.end(); ++k) {
+                    // the best lane must be on the proper edge
+                    if((*k)->getLane()->getEdge()==*(ce)) {
+                        int pos = distance(lanes->begin(), find(lanes->begin(), lanes->end(), (*k)->getLane()));
+                        int cdist = abs(pos-bestPos);
+                        if(bestDistance==-1||bestDistance>cdist) {
+                            bestDistance = cdist;
+                            bestL = *i;
+                        }
+                    }
                 }
             }
-            if(q.length>best.length) {
-                best = q;
+            if(bestL==l) {
+                best.hindernisPos = next->getVehLenSum();
+                best.length = next->length();
             }
-  //      }
+        } else {
+            cout << endl << endl << "Not found" << endl << endl;
+        }
     }
     oq.alllength += best.alllength;
     oq.length += best.length;
