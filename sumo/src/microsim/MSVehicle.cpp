@@ -347,7 +347,7 @@ MSVehicle::destReached(const MSEdge* targetEdge)
     if (myCurrEdge == destination) {
         return true;
     } else {
-        rebuildAllowedLanes();
+        rebuildAllowedLanes(false);
         return false;
     }
 }
@@ -1021,7 +1021,6 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane)
     // switch to and activate the new lane's reminders
     // keep OldLaneReminders
     myMoveReminders = enteredLane->getMoveReminders();
-    myAllowedLanes.clear();
     rebuildAllowedLanes();
     activateRemindersByEmitOrLaneChange();
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
@@ -1213,7 +1212,6 @@ bool
 MSVehicle::proceedVirtualReturnWhetherEnded(const MSEdge *const newEdge)
 {
     bool myDestReached = destReached(newEdge);
-    myAllowedLanes.clear(); // !!! not really necessary!?
     rebuildAllowedLanes();
     return myDestReached;
 }
@@ -1364,7 +1362,6 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
     if (replaced) {
         // rebuild in-vehicle route information
         myCurrEdge = myRoute->find(currentEdge);
-        myAllowedLanes.clear();
         rebuildAllowedLanes();
         myLastBestLanesEdge = 0;
         // save information that the vehicle was rerouted
@@ -1380,7 +1377,6 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
         myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
         myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] =
             myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
-        myAllowedLanes.clear();
         rebuildAllowedLanes();
     }
     return replaced;
@@ -1403,7 +1399,6 @@ MSVehicle::replaceRoute(MSRoute *newRoute, SUMOTime simTime)
     myRoute = newRoute;
     // rebuild in-vehicle route information
     myCurrEdge = myRoute->find(currentEdge);
-    myAllowedLanes.clear();
     rebuildAllowedLanes();
     myLastBestLanesEdge = 0;
     // save information that the vehicle was rerouted
@@ -1432,8 +1427,11 @@ MSVehicle::getVehicleType() const
 
 
 void
-MSVehicle::rebuildAllowedLanes()
+MSVehicle::rebuildAllowedLanes(bool reinit)
 {
+    if(reinit) {
+        myAllowedLanes.clear();
+    }
     SUMOReal dist = 0;
     // check what was already computed
     for (NextAllowedLanes::const_iterator i=myAllowedLanes.begin(); i!=myAllowedLanes.end(); ++i) {

@@ -410,7 +410,7 @@ public:
     size_t getWaitingTime() const;
 
 
-    void rebuildAllowedLanes();
+    void rebuildAllowedLanes(bool reinit=true);
 
     void quitRemindedEntered(MSVehicleQuitReminded *r);
     void quitRemindedLeft(MSVehicleQuitReminded *r);
