@@ -299,10 +299,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\gui\div\GUIParameterTableItem.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\gui\div\GUIParameterTableWindow.cpp"
 				>
 			</File>
