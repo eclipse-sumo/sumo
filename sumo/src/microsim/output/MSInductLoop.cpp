@@ -281,6 +281,7 @@ void
 MSInductLoop::removeOnTripEnd(MSVehicle *veh)
 {
     myCurrentVehicle = 0;
+    myVehiclesOnDet.erase(veh);
 }
 
 
