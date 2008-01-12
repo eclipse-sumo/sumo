@@ -74,7 +74,7 @@ GUIParam_PopupMenuInterface::GUIParam_PopupMenuInterface(GUIMainWindow &app,
 }
 
 
-GUIParam_PopupMenuInterface::~GUIParam_PopupMenuInterface() 
+GUIParam_PopupMenuInterface::~GUIParam_PopupMenuInterface() throw()
 {
     delete mySource;
 }
