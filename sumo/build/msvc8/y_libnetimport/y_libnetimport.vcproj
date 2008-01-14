@@ -337,6 +337,14 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\NIOSMEdgesHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\NIOSMNodesHandler.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NISUMOHandlerDepth.cpp"
 				>
 			</File>
@@ -411,6 +419,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIOptionsIO.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\NIOSMEdgesHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\NIOSMNodesHandler.h"
 				>
 			</File>
 			<File

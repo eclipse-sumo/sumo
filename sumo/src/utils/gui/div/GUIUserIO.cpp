@@ -59,7 +59,7 @@ GUIUserIO::copyToClipboard(const FXApp &app, const std::string &text) throw()
 #else
 
 void
-GUIUserIO::copyToClipboard(FXApp &, const std::string &)
+GUIUserIO::copyToClipboard(const FXApp &, const std::string &)
 {}
 
 #endif

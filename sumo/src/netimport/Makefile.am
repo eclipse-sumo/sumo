@@ -6,6 +6,8 @@ NIElmarEdgesHandler.cpp NIElmarEdgesHandler.h \
 NIElmarNodesHandler.cpp NIElmarNodesHandler.h \
 NIElmar2EdgesHandler.cpp NIElmar2EdgesHandler.h \
 NIElmar2NodesHandler.cpp NIElmar2NodesHandler.h \
+NIOSMEdgesHandler.cpp NIOSMEdgesHandler.h \
+NIOSMNodesHandler.cpp NIOSMNodesHandler.h \
 NISUMOHandlerDepth.cpp NISUMOHandlerEdges.cpp NISUMOHandlerNodes.cpp \
 NISUMOHandlerDepth.h NISUMOHandlerEdges.h NISUMOHandlerNodes.h \
 NITigerLoader.cpp NITigerLoader.h \
