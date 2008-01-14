@@ -115,6 +115,11 @@ GenericSAXHandler::Tag sumotags[] = {
     { "state-interval",   SUMO_TAG_STATE_INTERVAL },
     { "route-dist",       SUMO_TAG_ROUTE_DIST },
     { "vtype-dist",       SUMO_TAG_VTYPE_DIST },
+
+    { "way",              SUMO_TAG_WAY },
+    { "nd",               SUMO_TAG_ND },
+    { "tag",              SUMO_TAG_TAG },
+
     { "",                 SUMO_TAG_NOTHING }
 };
 
@@ -164,6 +169,7 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "period",         SUMO_ATTR_PERIOD },
 
     { "function",       SUMO_ATTR_FUNCTION },
+    { "inner",          SUMO_ATTR_INNER },
     { "pos",            SUMO_ATTR_POSITION },
     { "freq",           SUMO_ATTR_FREQUENCY },
     { "style",          SUMO_ATTR_STYLE },
@@ -237,6 +243,12 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "rfile",          SUMO_ATTR_RFILE },
 
     { "entering",       SUMO_ATTR_ENTERING },
+
+    { "lon",            SUMO_ATTR_LON },
+    { "lat",            SUMO_ATTR_LAT },
+    { "k",              SUMO_ATTR_K },
+    { "ref",            SUMO_ATTR_REF },
+
 
     { "",               SUMO_ATTR_NOTHING }
 };
