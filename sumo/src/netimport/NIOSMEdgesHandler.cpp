@@ -108,7 +108,7 @@ NIOSMEdgesHandler::~NIOSMEdgesHandler() throw()
         std::vector<int> passed;
         for(std::vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
             passed.push_back(*j);
-            if(nodeUsage[*j]>1) {
+            if(nodeUsage[*j]>1&&j!=e->myCurrentNodes.end()-1&&j!=e->myCurrentNodes.begin()) {
                 NBNode *currentTo = insertNodeChecking(*j);
                 insertEdge(e, running, currentFrom, currentTo, passed);
                 currentFrom = currentTo;
@@ -213,6 +213,7 @@ NIOSMEdgesHandler::insertEdge(NIOSMEdgesHandler::Edge *e, int index, NBNode *fro
         }
 
         if(from->getPosition().almostSame(to->getPosition())) {
+            cout << e->id << " " << shape.size() << " ";
             cout << from->getPosition() << " " << to->getPosition() << endl;
             WRITE_WARNING("Same position");
             return;
