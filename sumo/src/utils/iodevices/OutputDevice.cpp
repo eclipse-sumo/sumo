@@ -55,7 +55,7 @@ using namespace std;
 
 
 // ===========================================================================
-// static member defintions
+// static member definitions
 // ===========================================================================
 OutputDevice::DeviceMap OutputDevice::myOutputDevices;
 
