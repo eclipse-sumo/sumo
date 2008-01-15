@@ -16,9 +16,6 @@ connections
 # tests whether definig function works
 function
 
-# tests whether internal lanes are computed properly
-internal
-
 # tests whether lane expansions work
 lane_expansion
 
