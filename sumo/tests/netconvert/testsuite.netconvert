@@ -11,6 +11,9 @@ elmar
 # Tests for nodes building
 node_building
 
+# Tests for building inner lanes
+inner_lanes
+
 # testing meta processing
 meta
 
