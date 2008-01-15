@@ -85,19 +85,29 @@ protected:
     //@}
 
 private:
+    struct Edge {
+        std::string id;
+        std::string myHighWayType;
+        std::string  myIsOneWay;
+        std::vector<int> myCurrentNodes;
+        bool myCurrentIsRoad;
+    };
+
+
+private:
+    NBNode *insertNodeChecking(int id) ;
+    void insertEdge(NIOSMEdgesHandler::Edge *e, int index, NBNode *from, NBNode *to,
+                              const std::vector<int> &passed) ;
+
+private:
     /// A reference to the program's options
     OptionsCont &myOptions;
 
     //
-    const std::map<int, NIOSMNode*>&myOSMNodes;
+    const std::map<int, NIOSMNode*> &myOSMNodes;
 
-    /// The current edge's id
-    std::string myCurrentID;
 
-    bool myCurrentIsRoad;
 
-    std::vector<NIOSMNode*> myCurrentNodes;
-    std::string myHighWayType, myIsOneWay, myCurrentName;
 
     /// The current edge's maximum speed
     //SUMOReal myCurrentSpeed;
@@ -135,6 +145,9 @@ private:
     NBDistrictCont &myDistrictCont;
 
     std::vector<SumoXMLTag> myParentElements;
+
+    std::map<std::string, Edge*> myEdgeMap;
+    Edge*myCurrentEdge;
 
 private:
     /** invalid copy constructor */
