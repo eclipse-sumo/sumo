@@ -167,7 +167,7 @@ enum SumoXMLTag {
 
     SUMO_TAG_WAY,
     SUMO_TAG_ND,
-    SUMO_TAG_TAG,
+    SUMO_TAG_TAG
 
 };
 
