@@ -698,12 +698,6 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
     SUMOReal dist = SPEED2DIST(maxV) + myType->brakeGap(maxV);//myState.mySpeed);
     SUMOReal vLinkPass = boundVSafe;
     SUMOReal vLinkWait = vLinkPass;
-    if (seen>dist) {
-        // just for the case the vehicle is still very far away from the lane end
-        myLFLinkLanes.push_back(DriveProcessItem(0, vLinkPass, vLinkPass));
-        return;
-    }
-
     const std::vector<MSLane*> &bestLaneConts = getBestLanesContinuation();
 
     size_t view = 1;
@@ -838,9 +832,32 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
             const State &nextLanePred = nextLane->myLastState;
             SUMOReal dist2Pred = seen;
             if (nextLane->getLastVehicle()!=0) {
-                dist2Pred = dist2Pred + nextLanePred.pos() - nextLane->getLastVehicle()->getLength();
+                SUMOReal nextVehicleLength = nextLane->getLastVehicle()->getLength();
+                if(nextLanePred.pos() - nextVehicleLength < 0) {
+                    // the end of pred is beyond his lane's end
+                    if(nextVehicleLength>=(*link)->getLength()) {
+                        // the end is on our lane -> we may drive up to the min of
+                        // a) pred's end
+                        // b) lane's end
+                        dist2Pred = MIN2(seen, dist2Pred + nextLanePred.pos() - nextVehicleLength + (*link)->getLength());
+                    }
+                } else {
+                    // the end of pred is on his lane
+                    dist2Pred = dist2Pred + nextLanePred.pos() - nextVehicleLength;
+                }
+                /*
+                if(nextLanePred.pos() - nextVehicleLength < 0 && nextVehicleLength<(*link)->getLength()) {
+                    // the end of pred is beyond his lane's end, but not yet on our 
+                    //  we may drive until the end of the lane
+                    dist2Pred = -1;//dist2Pred;//MAX2(dist2Pred, dist2Pred + nextLanePred.pos() - nextVehicleLength + (*link)->getLength());
+                } else {
+                    // either pred's end is not beyond his lane, or, 
+                    //  it is beyond his lane and 
+                    dist2Pred = dist2Pred + nextLanePred.pos() - nextVehicleLength;
+                }
+                */
             } else {
-                dist2Pred = dist2Pred + nextLane->length();
+                dist2Pred = dist2Pred + nextLane->length();// + (*link)->getLength();
             }
 
             if (dist2Pred>=0) {
