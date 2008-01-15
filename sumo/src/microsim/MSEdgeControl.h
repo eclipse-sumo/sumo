@@ -4,7 +4,7 @@
 /// @date    Mon, 09 Apr 2001
 /// @version $Id$
 ///
-// operations.
+// Stores edges and lanes, performs moving of vehicle
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -52,89 +52,216 @@ class BinaryInputDevice;
 // ===========================================================================
 /**
  * @class MSEdgeControl
+ * @brief Stores edges and lanes, performs moving of vehicle
+ *
+ * In order to avoid touching all lanes, even the empty ones, this class stores
+ *  and updates the information about "active" lanes, those that have at least
+ *  one vehicle on them. During longitudinal movement, this can be simply
+ *  achieved through return values of the MSLane-methods, signalling either
+ *  that the lane got active or inactive. This is but not possible when 
+ *  changing lanes, we have to go through the lanes, here. Also, we have to
+ *  add lanes on which a vehicle was emitted, separately, doing this into 
+ *  ("myChangedStateLanes") which entries are integrated at the begin of is step
+ *  in "patchActiveLanes".
  */
 class MSEdgeControl
 {
 public:
-    /// Container for edges.
+    /// @brief Container for edges.
     typedef std::vector< MSEdge* > EdgeCont;
 
-    /// Use thic constructor only.
-    MSEdgeControl(EdgeCont *singleLane, EdgeCont *multiLane);
+public:
+    /** @brief Constructor
+     *
+     * Builds LaneUsage information for each lane and assigns them to lanes.
+     *
+     * @param[in] singleLane Container of single lane edge
+     * @param[in] multiLane Container of multi lane edge
+     * @todo Assure both containers are not 0
+     */
+    MSEdgeControl(EdgeCont *singleLane, EdgeCont *multiLane) throw();
 
-    /// Destructor.
-    ~MSEdgeControl();
 
-    /** Moves (i.e. makes v- and x-updates) all vehicles currently on
-        the net, except the first ones on each lane. They will by
-        moved by the junctions. */
-    void moveNonCritical();
-    void moveCritical();
-    void moveFirst();
+    /// @brief Destructor.
+    ~MSEdgeControl() throw();
 
-    /// Try to change lanes in multilane edges.
-    void changeLanes();
 
-    /** Detect collisions. Shouldn't be necessary if
-        model-implementation is correct. */
-    void detectCollisions(SUMOTime timestep);
+    /** @brief Resets information whether a lane is active for all lanes
+     *
+     * For each lane in "myChangedStateLanes": if the lane has at least one vehicle
+     *  and is not marked as being active, it is added to the list og active lanes 
+     *  and marked as being active.
+     */
+    void patchActiveLanes() throw();
 
-    void insertMeanData(unsigned int number);
 
-    const EdgeCont &getSingleLaneEdges() const;
+    /// @name Interfaces for longitudinal vehicle movement
+    /// @{
+    /** @brief Moves non critical vehicles
+     *
+     * "Non-critical" are those vehicles that are so far away from the lane
+     *  end that they do not reach it within the brake gap (and always the
+     *  first one on a lane).
+     *
+     * This method goes through all active lanes calling their "moveNonCritical"
+     *  implementation. If this call returns true, the lane is removed from the 
+     *  list of active lanes.
+     *
+     * @see MSLane::moveNonCritical
+     */
+    void moveNonCritical() throw();
 
-    const EdgeCont &getMultiLaneEdges() const;
 
+    /** @brief Moves (precomputes) critical vehicles
+     *
+     * "Critical" are those vehicles that interact with the next junction and
+     *  all first vehicles. They are not moved, in fact, but their speed along
+     *  the next path is precomputed.
+     *
+     * This method goes through all active lanes calling their "moveCritical"
+     *  implementation. If this call returns true, the lane is removed from the 
+     *  list of active lanes.
+     *
+     * @see MSLane::moveCritical
+     */
+    void moveCritical() throw();
+
+
+    /** @brief Really moves critical vehicles
+     *
+     * "Critical" are those vehicles that interact with the next junction and
+     *  all first vehicles.
+     *
+     * At first, this method goes through all active lanes calling their 
+     *  "setCritical" implementation. If this call returns true, the lane is removed 
+     *  from the list of active lanes. During this call, "myWithVehicles2Integrate"
+     *  is filled with lanes that obtain new vehicles.
+     *
+     * Then, myWithVehicles2Integrate is gone through, calling "integrateNewVehicle"
+     *  of each of the stored instances. If this call returns true and the lane
+     *  was not active before, it is added to the list of active lanes.
+     *
+     * @see MSLane::setCritical
+     * @see MSLane::integrateNewVehicle
+     * @todo When moving to parallel processing, the usage of myWithVehicles2Integrate would get insecure!!
+     */
+    void moveFirst() throw();
+    /// @}
+
+
+    /** @brief Moves (precomputes) critical vehicles
+     *
+     * Calls "changeLanes" of each of the multi-lane edges. Check then for this
+     *  edge whether a lane got active, adding it to "myActiveLanes" and marking
+     *  it as active in such cases.
+     *
+     * @see MSEdge::changeLanes
+     */
+    void changeLanes() throw();
+
+
+    /** @brief Detect collisions
+     *
+     * Calls "detectCollisions" of each lane. 
+     * Shouldn't be necessary if model-implementation is correct. 
+     * The parameter is simply passed to the lane-instance for reporting.
+     *
+     * @param[in] timestep The current time step
+     */
+    void detectCollisions(SUMOTime timestep) throw();
+
+
+    /** @brief Inserts new mean data container to all lanes
+     *
+     * Calls "insertMeanData" of each lane. 
+     *
+     * @param[in] number The number of container to add
+     */
+    void insertMeanData(unsigned int number) throw();
+
+
+    /** @brief Returns edges with only one lane
+     *
+     * @return the container storing one-lane edges
+     * @todo Check: Is this secure?
+     */
+    const EdgeCont &getSingleLaneEdges() const throw();
+
+
+    /** @brief Returns edges with more than one lane
+     *
+     * @return the container storing multi-lane edges
+     * @todo Check: Is this secure?
+     */
+    const EdgeCont &getMultiLaneEdges() const throw();
+
+/// @todo: describe
     std::vector<std::string> getEdgeNames() const;
 
-    void gotActive(MSLane *l);
+    /** @brief Informs the control that the given lane got active
+     *
+     * @param[in] l The activated lane
+     * @todo Check for l==0?
+     */
+    void gotActive(MSLane *l) throw();
+
 
 public:
     /**
      * @struct LaneUsage
+     * @brief A structure holding some basic information about a simulated lane
+     *
      * To fasten up speed, this structure holds the number of vehicles using
      *  a lane and the lane's neighbours. Only lanes that are occupied are
      *  forced to compute the vehicles longitunidal movement.
+     *
      * The information about a lane's neighbours speed up the computation
      *  of the lane changing.
      */
     struct LaneUsage {
+        /// The described lane
         MSLane *lane;
+        /// The current number of vehicles on this lane
         size_t noVehicles;
+        /// The current length of all vehicles on this lane
         SUMOReal vehLenSum;
+        /// The lane left to the described lane (==lastNeigh if none) 
         MSEdge::LaneCont::const_iterator firstNeigh;
+        /// The end of this lane's edge's lane container
         MSEdge::LaneCont::const_iterator lastNeigh;
+        /// The numerical index of the described lane
         int index;
+        /// Information whether this lane is active
         bool amActive;
     };
 
 private:
-    /// Single lane edges.
+    /// @brief Single lane edges.
     EdgeCont* mySingleLaneEdges;
 
-    /// Multi lane edges.
+    /// @brief Multi lane edges.
     EdgeCont* myMultiLaneEdges;
 
-    /// Default constructor.
-    MSEdgeControl();
-
-    /// Copy constructor.
+    /// @brief Copy constructor.
     MSEdgeControl(const MSEdgeControl&);
 
-    /// Assignment operator.
+    /// @brief Assignment operator.
     MSEdgeControl& operator=(const MSEdgeControl&);
 
 private:
-    /// Definition of a container about a lane's number of vehicles and neighbors
+    /// @brief Definition of a container about a lane's number of vehicles and neighbors
     typedef std::vector<LaneUsage> LaneUsageVector;
 
-    /// Information about lanes' number of vehicles and neighbors
+    /// @brief Information about lanes' number of vehicles and neighbors
     LaneUsageVector myLanes;
 
+    /// The list of active (not empty) lanes
     std::list<MSLane*> myActiveLanes;
 
+    /// A storage for lanes which shall be integrated because vehicles have moved onto them
     std::vector<MSLane*> myWithVehicles2Integrate;
 
+    /// Lanes which changed the state without informing the control
     std::set<MSLane*> myChangedStateLanes;
 
 };

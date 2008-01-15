@@ -336,6 +336,9 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
 #endif
         myJunctions->resetRequests();
 
+        // assure all lanes with vehicles are 'active'
+        myEdges->patchActiveLanes();
+
         // move vehicles
         //  move vehicles which do not interact with the lane end
         myEdges->moveNonCritical();

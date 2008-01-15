@@ -4,7 +4,7 @@
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
-// Holds the edges while they are build
+// Interface for building edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -57,9 +57,9 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NLEdgeControlBuilder::NLEdgeControlBuilder(unsigned int storageSize)
-        : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), m_pEdges(0)
+        : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0)
 {
-    m_pActiveEdge = (MSEdge*) 0;
+    myActiveEdge = (MSEdge*) 0;
     m_pLaneStorage = new MSEdge::LaneCont();
     m_pLaneStorage->reserve(storageSize);
     m_pLanes = (MSEdge::LaneCont*) 0;
@@ -72,7 +72,7 @@ NLEdgeControlBuilder::NLEdgeControlBuilder(unsigned int storageSize)
 NLEdgeControlBuilder::~NLEdgeControlBuilder()
 {
     delete m_pLaneStorage;
-    delete m_pEdges;
+    delete myEdges;
     delete m_pLanes;
 }
 
@@ -80,22 +80,22 @@ NLEdgeControlBuilder::~NLEdgeControlBuilder()
 void
 NLEdgeControlBuilder::prepare(unsigned int no)
 {
-    m_pEdges = new EdgeCont();
-    m_pEdges->reserve(no);
+    myEdges = new EdgeCont();
+    myEdges->reserve(no);
 }
 
 
 MSEdge *
 NLEdgeControlBuilder::addEdge(const string &id)
 {
-    if (m_pEdges==0) {
+    if (myEdges==0) {
         throw ProcessError();
     }
     MSEdge *edge = new MSEdge(id, myCurrentNumericalEdgeID++);
     if (!MSEdge::dictionary(id, edge)) {
         throw InvalidArgument("Another edge with the id '" + id + "' exists.");
     }
-    m_pEdges->push_back(edge);
+    myEdges->push_back(edge);
     return edge;
 }
 
@@ -103,14 +103,22 @@ NLEdgeControlBuilder::addEdge(const string &id)
 void
 NLEdgeControlBuilder::chooseEdge(const string &id,
                                  MSEdge::EdgeBasicFunction function)
+/* @extension: no lane changing on inner lanes
+                                 bool inner)
 {
-    m_pActiveEdge = MSEdge::dictionary(id);
-    if (m_pActiveEdge==0) {
+    myActiveEdge = MSEdge::dictionary(id);
+    if (myActiveEdge==0) {
         throw InvalidArgument("Trying to define a not declared edge ('" + id + "').");
     }
     m_pDepartLane = (MSLane*) 0;
     m_pAllowedLanes = new MSEdge::AllowedLanesCont();
     m_Function = function;
+/* @extension: no lane changing on inner lanes
+    if(inner) {
+        m_Function = MSEdge::EDGEFUNCTION_INNERJUNCTION;
+    }
+    myIsInner = inner;
+*/
 }
 
 
@@ -129,16 +137,19 @@ NLEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
     MSLane *lane = 0;
     switch (m_Function) {
     case MSEdge::EDGEFUNCTION_SOURCE:
-        lane = new MSSourceLane(/*net, */id, maxSpeed, length, m_pActiveEdge,
+        lane = new MSSourceLane(/*net, */id, maxSpeed, length, myActiveEdge,
                                          myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     case MSEdge::EDGEFUNCTION_INTERNAL:
-        lane = new MSInternalLane(/*net, */id, maxSpeed, length, m_pActiveEdge,
+        lane = new MSInternalLane(/*net, */id, maxSpeed, length, myActiveEdge,
                                            myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_SINK:
-        lane = new MSLane(/*net, */id, maxSpeed, length, m_pActiveEdge,
+/* @extension: no lane changing on inner lanes
+    case MSEdge::EDGEFUNCTION_INNERJUNCTION:
+*/
+        lane = new MSLane(/*net, */id, maxSpeed, length, myActiveEdge,
                                    myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     default:
@@ -223,12 +234,12 @@ MSEdge *
 NLEdgeControlBuilder::closeEdge()
 {
     if (m_pAllowedLanes==0 || /*m_pDepartLane==0 ||*/ m_pLanes==0) {
-        throw InvalidArgument("Something is corrupt within the definition of lanes for the edge '" + m_pActiveEdge->getID() + "'.");
+        throw InvalidArgument("Something is corrupt within the definition of lanes for the edge '" + myActiveEdge->getID() + "'.");
     }
-    m_pActiveEdge->initialize(m_pAllowedLanes, m_pDepartLane,
+    myActiveEdge->initialize(m_pAllowedLanes, m_pDepartLane,
                               m_pLanes, m_Function);
     m_pLanes = 0;
-    return m_pActiveEdge;
+    return myActiveEdge;
 }
 
 
@@ -239,7 +250,7 @@ NLEdgeControlBuilder::build()
     MSEdgeControl::EdgeCont *multiLanes = new MSEdgeControl::EdgeCont();
     singleLanes->reserve(m_iNoSingle);
     multiLanes->reserve(m_iNoMulti);
-    for (EdgeCont::iterator i1=m_pEdges->begin(); i1!=m_pEdges->end(); i1++) {
+    for (EdgeCont::iterator i1=myEdges->begin(); i1!=myEdges->end(); i1++) {
         if ((*i1)->nLanes()==1) {
             singleLanes->push_back(*i1);
         } else {
@@ -253,14 +264,14 @@ NLEdgeControlBuilder::build()
 MSEdge *
 NLEdgeControlBuilder::getActiveEdge() const
 {
-    return m_pActiveEdge;
+    return myActiveEdge;
 }
 
 
 size_t
 NLEdgeControlBuilder::getEdgeCapacity() const
 {
-    return m_pEdges==0 ? 0 : m_pEdges->capacity();
+    return myEdges==0 ? 0 : myEdges->capacity();
 }
 
 

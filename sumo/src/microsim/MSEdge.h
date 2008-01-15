@@ -80,6 +80,10 @@ public:
         EDGEFUNCTION_SINK = 2,
         /// the edge is an internal edge
         EDGEFUNCTION_INTERNAL = 3
+/* @extension: no lane changing on inner lanes
+        /// the edge is an within a junction
+        EDGEFUNCTION_INNERJUNCTION = 4,
+*/
     };
 
 public:

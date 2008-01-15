@@ -4,7 +4,7 @@
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
-// Holds the edges while they are build
+// Interface for building edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -49,17 +49,19 @@ class MSNet;
 // ===========================================================================
 /**
  * @class NLEdgeControlBuilder
- * This class is the container for MSEdge-instances while they are build.
- * As instances of the MSEdge-class contain references to other instances of
- * this class which may not yet be known at their generation, they are
- * prebuild first and initialised with their correct values in a second step.
+ * @brief Interface for building edges
  *
- * While building an intialisation of the MSEdge, the value are stored in a
- * preallocated list to avoid memory fraction. For the same reason, the list
- * of edges, later splitted into two lists, one containing single-lane-edges
- * and one containing multi-lane-edges, is preallocated to the size that was
- * previously computed by counting the edges in the first parser step.
- * As a result, the build MSEdgeControlBuilder is returned.
+ * This class is the container for MSEdge-instances while they are build.
+ *
+ * As instances of the MSEdge-class contain references to other instances of
+ *  this class which may not yet be known at their generation, they are
+ *  prebuild first and initialised with their correct values in a second step.
+ *
+ * While building instances of MSEdge, these are stored in a preallocated list to 
+ *  avoid memory fraction. For the same reason, the list of edges, later split
+ *  into two lists, one containing single-lane-edges and one containing multi-lane-edges,
+ *  is preallocated to the size that was previously computed by counting the edges 
+ *  in the first parser step.
  */
 class NLEdgeControlBuilder
 {
@@ -87,6 +89,9 @@ public:
     /// chooses the previously added edge as the current edge
     void chooseEdge(const std::string &id,
                     MSEdge::EdgeBasicFunction function);
+/* @extension: no lane changing on inner lanes
+                    bool inner);
+*/
 
     /** @brief Adds a lane to the current edge;
         This method throws an ProcessError when the
@@ -128,28 +133,31 @@ public:
 
 
 protected:
-    /// A running numer for lane numbering
+    /// @brief A running numer for lane numbering
     size_t myCurrentNumericalLaneID;
 
-    /// A running numer for edge numbering
+    /// @brief A running numer for edge numbering
     size_t myCurrentNumericalEdgeID;
 
-    /** storage for edges; to allow the splitting of edges after their number
-        is known, they are hold inside this vector and laterly moved into two
-        vectors, one for single-lane-edges and one for multi-lane-edges
-        respectively */
-    EdgeCont                  *m_pEdges;
+    /** @brief storage for edges
+     *
+     * to allow the splitting of edges after their number is known, they are hold inside this vector 
+     *  and laterly moved into two vectors, one for single-lane-edges and one for multi-lane-edges
+     *  respectively.
+     * @todo Check whether this can be a plain vector, too, not a pointer to one
+     */
+    EdgeCont *myEdges;
 
-    /// pointer to the currently chosen edge
-    MSEdge                    *m_pActiveEdge;
+    /// @brief pointer to the currently chosen edge
+    MSEdge *myActiveEdge;
 
-    /// pointer to a temporary lane storage
+    /// @brief pointer to a temporary lane storage
     MSEdge::LaneCont          *m_pLaneStorage;
 
-    /// list of the lanes that belong to the current edge
+    /// @brief list of the lanes that belong to the current edge
     MSEdge::LaneCont          *m_pLanes;
 
-    /// pointer to the following edge the structure is currently working on
+    /// @brief pointer to the following edge the structure is currently working on
     MSEdge                    *m_pCurrentDestination;
 
     /// connection to following edges from the current edge
@@ -166,6 +174,11 @@ protected:
 
     /// the function of the current edge
     MSEdge::EdgeBasicFunction m_Function;
+
+/* @extension: no lane changing on inner lanes
+    // 
+    bool myIsInner;
+*/
 
 private:
     /** invalidated copy constructor */

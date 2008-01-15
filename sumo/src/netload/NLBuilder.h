@@ -4,7 +4,7 @@
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
-// Container for MSNet during its building
+// The main interface for loading a microsim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -74,19 +74,31 @@ class GNEImageProcWindow;
 // ===========================================================================
 /**
  * @class NLBuilder
- * @brief The class is the main interface to load simulations.
+ * @brief The main interface for loading a microsim
  *
  * It is a black-box where only the options and factories must be supplied
- * on the constructor call
+ *  on the constructor call. An (empty) instance of the network must be 
+ *  supplied, too, and is filled during loading.
  */
 class NLBuilder
 {
 public:
-    /// constructor
+    /** @brief constructor
+     * 
+     * @param[in] oc The options to use
+     * @param[in, out] net The network to fill
+     * @param[in] eb The builder of edges to use
+     * @param[in] jb The builder of junctions to use
+     * @param[in] db The detector builder to use
+     * @param[in] tb The trigger builder to use
+     * @param[in] sb The geometric shapes builder to use
+     * @param[in] xmlHandler The xml handler to use
+     */
     NLBuilder(const OptionsCont &oc, MSNet &net,
               NLEdgeControlBuilder &eb, NLJunctionControlBuilder &jb,
               NLDetectorBuilder &db, NLTriggerBuilder &tb,
               NLGeomShapeBuilder &sb, NLHandler &xmlHandler);
+
 
     /// Destructor
     virtual ~NLBuilder();

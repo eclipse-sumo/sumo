@@ -358,12 +358,18 @@ NBNodeCont::recheckEdges(NBDistrictCont &dc, NBTrafficLightLogicCont &tlc,
                 }
                 // check the lists of really joinable edges
                 bool wasPushed = false;
-                for (EdgeVV::iterator m=geometryCombinations.begin(); !wasPushed&&m!=geometryCombinations.end(); ++m) {
-                    for (EdgeVector::iterator n=(*m).begin(); !wasPushed&&n!=(*m).end(); ++n) {
+                for (EdgeVV::iterator m=geometryCombinations.begin(); !wasPushed&&m!=geometryCombinations.end(); ) {
+                    for (EdgeVector::iterator n=(*m).begin(); !wasPushed&&n!=(*m).end();) {
                         if ((*n)->isNearEnough2BeJoined2(*l)) {
                             (*m).push_back(*l);
                             wasPushed = true;
                         }
+                        if(!wasPushed) {
+                            ++n;
+                        }
+                    }
+                    if(!wasPushed) {
+                        ++m;
                     }
                 }
                 if (!wasPushed) {

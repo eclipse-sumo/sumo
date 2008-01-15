@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A builder for edges during the loading derived from the
+// Derivation of NLEdgeControlBuilder which build gui-edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -48,8 +48,7 @@ class MSJunction;
 // ===========================================================================
 /**
  * @class GUIEdgeControlBuilder
- *
- * This class is reponsible for building GUIEdge-objects
+ * @brief Derivation of NLEdgeControlBuilder which build gui-edges
  */
 class GUIEdgeControlBuilder : public NLEdgeControlBuilder
 {
@@ -78,6 +77,7 @@ public:
 private:
     /// The gl-object id giver
     GUIGlObjectStorage &myGlObjectIDStorage;
+
 
 private:
     /** invalid copy constructor */

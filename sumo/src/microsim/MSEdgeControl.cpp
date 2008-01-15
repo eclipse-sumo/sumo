@@ -4,7 +4,7 @@
 /// @date    Mon, 09 Apr 2001
 /// @version $Id$
 ///
-// operations.
+// Stores edges and lanes, performs moving of vehicle
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -48,18 +48,14 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSEdgeControl::MSEdgeControl()
-{}
-
-
 MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane)
         :
         mySingleLaneEdges(singleLane),
         myMultiLaneEdges(multiLane),
         myLanes(MSLane::dictSize())
 {
-    // build the usage defintions for lanes
-    // for lanes with no neighbors
+    // build the usage definitions for lanes
+        // for lanes with no neighbors
     size_t pos = 0;
     EdgeCont::iterator i;
     for (i=singleLane->begin(); i!=singleLane->end(); ++i) {
@@ -73,7 +69,7 @@ MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane)
         myLanes[pos].amActive = false;
         pos++;
     }
-    // for lanes with neighbors
+        // for lanes with neighbors
     for (i=multiLane->begin(); i!=multiLane->end(); ++i) {
         const MSEdge::LaneCont * const lanes = (*i)->getLanes();
         for (MSEdge::LaneCont::const_iterator j=lanes->begin(); j!=lanes->end(); j++) {
@@ -94,7 +90,7 @@ MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane)
 }
 
 
-MSEdgeControl::~MSEdgeControl()
+MSEdgeControl::~MSEdgeControl() throw()
 {
     delete mySingleLaneEdges;
     delete myMultiLaneEdges;
@@ -102,7 +98,7 @@ MSEdgeControl::~MSEdgeControl()
 
 
 void
-MSEdgeControl::moveNonCritical()
+MSEdgeControl::patchActiveLanes() throw()
 {
     for (set<MSLane*>::iterator i=myChangedStateLanes.begin(); i!=myChangedStateLanes.end(); ++i) {
         const LaneUsage &lu = (*i)->getLaneUsage();
@@ -112,6 +108,12 @@ MSEdgeControl::moveNonCritical()
         }
     }
     myChangedStateLanes.clear();
+}
+
+
+void
+MSEdgeControl::moveNonCritical() throw()
+{
     // move non-critical vehicles
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
         if ((*i)->getVehicleNumber()==0 || (*i)->moveNonCritical()) {
@@ -125,7 +127,7 @@ MSEdgeControl::moveNonCritical()
 
 
 void
-MSEdgeControl::moveCritical()
+MSEdgeControl::moveCritical() throw()
 {
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
         if ((*i)->getVehicleNumber()==0 || (*i)->moveCritical()) {
@@ -139,7 +141,7 @@ MSEdgeControl::moveCritical()
 
 
 void
-MSEdgeControl::moveFirst()
+MSEdgeControl::moveFirst() throw()
 {
     myWithVehicles2Integrate.clear();
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
@@ -162,9 +164,14 @@ MSEdgeControl::moveFirst()
 
 
 void
-MSEdgeControl::changeLanes()
+MSEdgeControl::changeLanes() throw()
 {
     for (EdgeCont::iterator edge = myMultiLaneEdges->begin(); edge != myMultiLaneEdges->end(); ++edge) {
+/* @extension: no lane changing on inner lanes
+        if((*edge)->getPurpose()==MSEdge::EDGEFUNCTION_INNERJUNCTION) {
+            continue;
+        }
+*/
         assert((*edge)->getLanes()->size()>1);
         (*edge)->changeLanes();
         const MSEdge::LaneCont *lanes = (*edge)->getLanes();
@@ -179,7 +186,7 @@ MSEdgeControl::changeLanes()
 
 
 void
-MSEdgeControl::detectCollisions(SUMOTime timestep)
+MSEdgeControl::detectCollisions(SUMOTime timestep) throw()
 {
     // Detections is made by the edge's lanes, therefore hand over.
     for (list<MSLane*>::iterator i = myActiveLanes.begin(); i != myActiveLanes.end(); ++i) {
@@ -189,7 +196,7 @@ MSEdgeControl::detectCollisions(SUMOTime timestep)
 
 
 void
-MSEdgeControl::insertMeanData(unsigned int number)
+MSEdgeControl::insertMeanData(unsigned int number) throw()
 {
     for (LaneUsageVector::iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
         (*i).lane->insertMeanData(number);
@@ -198,14 +205,14 @@ MSEdgeControl::insertMeanData(unsigned int number)
 
 
 const MSEdgeControl::EdgeCont &
-MSEdgeControl::getSingleLaneEdges() const
+MSEdgeControl::getSingleLaneEdges() const throw()
 {
     return *mySingleLaneEdges;
 }
 
 
 const MSEdgeControl::EdgeCont &
-MSEdgeControl::getMultiLaneEdges() const
+MSEdgeControl::getMultiLaneEdges() const throw()
 {
     return *myMultiLaneEdges;
 }
@@ -227,7 +234,7 @@ MSEdgeControl::getEdgeNames() const
 
 
 void
-MSEdgeControl::gotActive(MSLane *l)
+MSEdgeControl::gotActive(MSLane *l) throw()
 {
     myChangedStateLanes.insert(l);
 }

@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A builder for edges during the loading derived from the
+// Derivation of NLEdgeControlBuilder which build gui-edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -74,7 +74,7 @@ GUIEdgeControlBuilder::addEdge(const string &id)
     if (!MSEdge::dictionary(id, edge)) {
         throw InvalidArgument("Another edge with the id '" + id + "' exists.");
     }
-    m_pEdges->push_back(edge);
+    myEdges->push_back(edge);
     return edge;
 }
 
@@ -103,16 +103,19 @@ GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
     MSLane *lane = 0;
     switch (m_Function) {
     case MSEdge::EDGEFUNCTION_SOURCE:
-        lane = new GUISourceLane(/*net, */id, maxSpeed, length, m_pActiveEdge,
+        lane = new GUISourceLane(/*net, */id, maxSpeed, length, myActiveEdge,
                                           myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     case MSEdge::EDGEFUNCTION_INTERNAL:
-        lane = new GUIInternalLane(/*net, */id, maxSpeed, length, m_pActiveEdge,
+        lane = new GUIInternalLane(/*net, */id, maxSpeed, length, myActiveEdge,
                                             myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_SINK:
-        lane = new GUILane(/*net, */id, maxSpeed, length, m_pActiveEdge,
+/* @extension: no lane changing on inner lanes
+    case MSEdge::EDGEFUNCTION_INNERJUNCTION:
+*/
+        lane = new GUILane(/*net, */id, maxSpeed, length, myActiveEdge,
                                     myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     default:

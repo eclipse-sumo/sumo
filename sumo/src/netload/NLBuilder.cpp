@@ -4,7 +4,7 @@
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
-// Container for MSNet during its building
+// The main interface for loading a microsim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -127,7 +127,6 @@ NLBuilder::~NLBuilder()
 {}
 
 
-
 bool
 NLBuilder::build()
 {
@@ -225,6 +224,7 @@ NLBuilder::buildNet()
         m_pOptions.getString("save-state.prefix"));
 }
 
+
 bool
 NLBuilder::load(const std::string &mmlWhat,
                 NLLoadFilter what,
@@ -275,7 +275,6 @@ NLBuilder::buildRouteLoaderControl(const OptionsCont &oc)
     // build the route control
     return new MSRouteLoaderControl(myNet, oc.getInt("route-steps"), loaders);
 }
-
 
 
 /****************************************************************************/
