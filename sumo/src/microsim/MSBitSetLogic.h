@@ -87,13 +87,17 @@ public:
         size_t i;
         // calculate respond
         for (i = 0; i < myNLinks; ++i) {
-            bool linkPermit = request.test(i)
-                              &&
-                              ((request&(*myLogic)[i]).none() || myConts.test(i));
+            if(myConts.test(i)) {
+                respond.set(i, request.test(i));
+            } else {
+                bool linkPermit = request.test(i)
+                                  &&
+                                  ((request&(*myLogic)[i]).none() || myConts.test(i));
 #ifdef HAVE_INTERNAL_LANES
-            linkPermit &= (innerState&(*myInternalLinksFoes)[i]).none();
+                linkPermit &= (innerState&(*myInternalLinksFoes)[i]).none();
 #endif
-            respond.set(i, linkPermit);
+                respond.set(i, linkPermit);
+            }
         }
     }
 

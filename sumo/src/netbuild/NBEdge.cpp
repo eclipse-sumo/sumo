@@ -801,6 +801,10 @@ NBEdge::writeSingleSucceeding(OutputDevice &into, size_t fromlane, size_t destid
         into << "state=\""
         << myTo->stateCode(this, myReachable[fromlane][destidx].edge, myReachable[fromlane][destidx].lane);
     }
+    if(myTo->getCrossingPosition(this, fromlane, myReachable[fromlane][destidx].edge, myReachable[fromlane][destidx].lane).first>=0) {
+        into << "\" int_end=\"x";
+    }
+
     // close
     into << "\"/>\n";
 }

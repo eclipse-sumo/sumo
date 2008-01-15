@@ -1048,7 +1048,7 @@ NBNode::writeXMLInternalSuccInfos(OutputDevice &into)
                     << "\" tl=\"" << "" << "\" linkno=\""
                     << "" << "\" yield=\"0\" dir=\"s\" state=\"M\"";
                 }
-                into << " int_end=\"x\"/>\n";
+                into << "/>\n";
                 into << "   </succ>\n";
 
                 if (cross.first>=0) {
@@ -1059,7 +1059,7 @@ NBNode::writeXMLInternalSuccInfos(OutputDevice &into)
                     << (*k).edge->getID() << "_" << (*k).lane
                     << "\" tl=\"" << "" << "\" linkno=\""
                     << "0" << "\" yield=\"0\" dir=\"s\" state=\"M\"";
-                    into << " int_end=\"x\"/>\n";
+                    into << "/>\n";
                     into << "   </succ>\n";
                     splitNo++;
                 }
