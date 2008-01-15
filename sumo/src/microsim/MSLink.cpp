@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The link between two lanes
+// A connnection between lanes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -42,35 +42,35 @@
 // ===========================================================================
 #ifndef HAVE_INTERNAL_LANES
 MSLink::MSLink(MSLane* succLane, bool yield,
-               LinkDirection dir, LinkState state) // !!! subclass
+               LinkDirection dir, LinkState state,
+               SUMOReal length) throw()
         :
         myLane(succLane),
         myPrio(!yield), myApproaching(0),
         myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
-        myState(state), myDirection(dir)
+        myState(state), myDirection(dir),  myLength(length)
 {}
 #else
 MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
-               LinkDirection dir, LinkState state, bool internalEnd)  // !!! subclass
+               LinkDirection dir, LinkState state, bool internalEnd,
+               SUMOReal length) throw()
         :
-        myLane(succLane), myJunctionInlane(via),
+        myLane(succLane), 
         myPrio(!yield), myApproaching(0),
         myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
-        myState(state), myDirection(dir),
-        myIsInternalEnd(internalEnd)
+        myState(state), myDirection(dir), myLength(length),
+        myJunctionInlane(via),myIsInternalEnd(internalEnd)
 {}
 #endif
 
 
-MSLink::~MSLink()
+MSLink::~MSLink() throw()
 {}
 
 
 void
-MSLink::setRequestInformation(
-    MSLogicJunction::Request *request,
-    size_t requestIdx, MSLogicJunction::Respond *respond,
-    size_t respondIdx)
+MSLink::setRequestInformation(MSLogicJunction::Request *request, size_t requestIdx, 
+                              MSLogicJunction::Respond *respond, size_t respondIdx) throw()
 {
     assert(myRequest==0);
     assert(myRespond==0);
@@ -82,7 +82,7 @@ MSLink::setRequestInformation(
 
 
 void
-MSLink::setApproaching(MSVehicle *approaching)
+MSLink::setApproaching(MSVehicle *approaching) throw()
 {
     if (myRequest==0) {
         return;
@@ -92,17 +92,15 @@ MSLink::setApproaching(MSVehicle *approaching)
 }
 
 
-/////////////////////////////////////////////////////////////////////////////
-
 void
-MSLink::setPriority(bool prio)
+MSLink::setPriority(bool prio) throw()
 {
     myPrio = prio;
 }
 
 
 bool
-MSLink::opened() const
+MSLink::opened() const throw()
 {
     if (myRespond==0) {
         // this is the case for internal lanes ending at a junction's end
@@ -114,7 +112,7 @@ MSLink::opened() const
 
 
 void
-MSLink::deleteRequest()
+MSLink::deleteRequest() throw()
 {
     if (myRequest==0) {
         std::cout << "Buggy" << std::endl;
@@ -130,35 +128,35 @@ MSLink::deleteRequest()
 
 
 MSLink::LinkState
-MSLink::getState() const
+MSLink::getState() const throw()
 {
     return myState;
 }
 
 
 MSLink::LinkDirection
-MSLink::getDirection() const
+MSLink::getDirection() const throw()
 {
     return myDirection;
 }
 
 
 void
-MSLink::setTLState(LinkState state)
+MSLink::setTLState(LinkState state) throw()
 {
     myState = state;
 }
 
 
 MSLane *
-MSLink::getLane() const
+MSLink::getLane() const throw()
 {
     return myLane;
 }
 
 
 bool
-MSLink::havePriority() const
+MSLink::havePriority() const throw()
 {
     return myPrio;
 }
@@ -166,23 +164,16 @@ MSLink::havePriority() const
 
 #ifdef HAVE_INTERNAL_LANES
 MSLane * const
-MSLink::getViaLane() const
+MSLink::getViaLane() const throw()
 {
     return myJunctionInlane;
 }
 #endif
 
 
-bool
-MSLink::isApproached() const
-{
-    return myApproaching!=0;
-}
-
-
 #ifdef HAVE_INTERNAL_LANES
 void
-MSLink::resetInternalPriority()
+MSLink::resetInternalPriority() throw()
 {
     myPrio = opened();
     if (myJunctionInlane!=0&&myLane!=0) {
@@ -199,7 +190,7 @@ MSLink::resetInternalPriority()
 
 
 size_t
-MSLink::getRespondIndex() const
+MSLink::getRespondIndex() const throw()
 {
     return myRespondIdx;
 }

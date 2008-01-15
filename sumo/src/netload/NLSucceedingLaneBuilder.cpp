@@ -35,12 +35,14 @@
 #include <microsim/MSInternalLane.h>
 #include <microsim/MSLink.h>
 #include <microsim/MSLinkCont.h>
+#include <microsim/MSGlobals.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include "NLBuilder.h"
 #include "NLSucceedingLaneBuilder.h"
 #include "NLJunctionControlBuilder.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/geom/GeomHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -92,12 +94,13 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     if (laneId=="SUMO_NO_DESTINATION") {
         // build the dead link and add it to the container
 #ifdef HAVE_INTERNAL_LANES
-        m_SuccLanes->push_back(new MSLink(0, 0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, false));
+        m_SuccLanes->push_back(new MSLink(0, 0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, false, 0.));
 #else
-        m_SuccLanes->push_back(new MSLink(0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND));
+        m_SuccLanes->push_back(new MSLink(0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, 0.));
 #endif
         return;
     }
+
     // get the lane the link belongs to
     MSLane *lane = MSLane::dictionary(laneId);
     if (lane==0) {
@@ -115,6 +118,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
         static_cast<MSInternalLane*>(lane)->setPassPosition(pass);
     }
 #endif
+
     // check whether this link is controlled by a traffic light
     MSTLLogicControl::TLSLogicVariants logics;
     if (tlid!="") {
@@ -123,19 +127,26 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
             throw InvalidArgument("A link of lane '" + m_CurrentLane + "' wanted to use an unknown tl-logic ('" + tlid + "').");
         }
     }
+
+    MSLane *orig = MSLane::dictionary(m_CurrentLane);
+    if (orig==0) {
+        return;
+    }
+
+
     // build the link
-    // if internal lanes are used, the next lane of a normal edge
-    // will be an internal lane
-    /*    if(via!=0&&OptionsCont::getOptions().getBool("use-internal-links")) {
-            lane = via;
-        } else {
-            via = 0;
-        }*/
+    SUMOReal length = orig!=0&&lane!=0
+        ? GeomHelper::distance(orig->getShape()[-1], lane->getShape()[0])
+        : 0;
 #ifdef HAVE_INTERNAL_LANES
-    MSLink *link = new MSLink(lane, via, yield, dir, state, internalEnd);
+    if(via!=0) {
+        length = via->length();
+    }
+    MSLink *link = new MSLink(lane, via, yield, dir, state, internalEnd, length);
 #else
-    MSLink *link = new MSLink(lane, yield, dir, state);
+    MSLink *link = new MSLink(lane, yield, dir, state, length);
 #endif
+
     if (MSLane::dictionary(m_CurrentLane)!=0) {
 #ifdef HAVE_INTERNAL_LANES
         if (via!=0) {
