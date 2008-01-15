@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/18/07 11:08:10 by SUMO netgen Version 0.9.6
+<!-- generated on 01/15/08 15:30:51 by SUMO netgen Version 0.9.7
 <configuration>
 
    <grid_network>
@@ -461,7 +461,7 @@
 
    <succ edge="0/1to0/0" lane="0/1to0/0_0" junction="0/0">
       <succlane lane="0/0to1/0_0" tl="0/0" linkno="0" yield="1" dir="l" state="t"/>
-      <succlane lane="0/0to0/1_0" tl="0/0" linkno="1" yield="1" dir="t" state="t"/>
+      <succlane lane="0/0to0/1_0" tl="0/0" linkno="1" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
 
    <succ edge="0/1to0/2" lane="0/1to0/2_0" junction="0/2">
@@ -490,7 +490,7 @@
 
    <succ edge="1/0to0/0" lane="1/0to0/0_0" junction="0/0">
       <succlane lane="0/0to0/1_0" tl="0/0" linkno="2" yield="1" dir="r" state="t"/>
-      <succlane lane="0/0to1/0_0" tl="0/0" linkno="3" yield="1" dir="t" state="t"/>
+      <succlane lane="0/0to1/0_0" tl="0/0" linkno="3" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
 
    <succ edge="1/0to1/1" lane="1/0to1/1_0" junction="1/1">
