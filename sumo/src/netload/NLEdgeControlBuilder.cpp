@@ -105,6 +105,7 @@ NLEdgeControlBuilder::chooseEdge(const string &id,
                                  MSEdge::EdgeBasicFunction function)
 /* @extension: no lane changing on inner lanes
                                  bool inner)
+                                 */
 {
     myActiveEdge = MSEdge::dictionary(id);
     if (myActiveEdge==0) {
