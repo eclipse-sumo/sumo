@@ -1,4 +1,4 @@
-SUMO netconvert Version 0.9.6
+SUMO netconvert Version 0.9.7
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -29,6 +29,7 @@ Usage: netconvert.exe [OPTION]*
   --elmar2 FILE                        Read unsplitted Elmar-network from path
                                          'FILE'
   --tiger FILE                         Read Tiger-network from path 'FILE'
+  --osm-files FILE                     Read OSM-network from path 'FILE(s)'
   --visum-file FILE                    Read VISUM-net from FILE
   --vissim-file FILE                   Read VISSIM-net from FILE
 

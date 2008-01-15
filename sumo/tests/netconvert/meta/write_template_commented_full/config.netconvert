@@ -28,6 +28,9 @@
       <!-- Read Tiger-network from path 'FILE' -->
       <tiger></tiger>
 
+      <!-- Read OSM-network from path 'FILE(s)' -->
+      <osm-files></osm-files>
+
       <!-- Read VISUM-net from FILE -->
       <visum-file></visum-file>
 

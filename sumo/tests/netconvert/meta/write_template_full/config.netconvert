@@ -10,6 +10,7 @@
       <elmar></elmar>
       <elmar2></elmar2>
       <tiger></tiger>
+      <osm-files></osm-files>
       <visum-file></visum-file>
       <vissim-file></vissim-file>
    </input>
