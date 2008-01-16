@@ -48,7 +48,7 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane)
+MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane) throw()
         :
         mySingleLaneEdges(singleLane),
         myMultiLaneEdges(multiLane),
@@ -219,7 +219,7 @@ MSEdgeControl::getMultiLaneEdges() const throw()
 
 
 std::vector<std::string>
-MSEdgeControl::getEdgeNames() const
+MSEdgeControl::getEdgeNames() const throw()
 {
     std::vector<std::string> ret;
     EdgeCont::const_iterator i;

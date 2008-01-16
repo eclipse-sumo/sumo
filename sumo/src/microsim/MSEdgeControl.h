@@ -195,8 +195,13 @@ public:
      */
     const EdgeCont &getMultiLaneEdges() const throw();
 
-/// @todo: describe
-    std::vector<std::string> getEdgeNames() const;
+
+    /** @brief Returns the list of names of all known edges
+     *
+     * @return a vector of names of all known edges
+     */
+    std::vector<std::string> getEdgeNames() const throw();
+
 
     /** @brief Informs the control that the given lane got active
      *
