@@ -1,0 +1,5 @@
+# tests for errors in route distribution
+routedist
+
+# tests for errors in vtype distribution
+vtypedist

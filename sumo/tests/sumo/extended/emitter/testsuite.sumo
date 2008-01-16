@@ -38,6 +38,9 @@ default_vtype
 # checks whether a loaded vehicle type may be used without a distribution
 vehtype2from2_nodist
 
+# tests for false input handling
+errors
+
 
 
 
