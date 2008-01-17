@@ -141,10 +141,11 @@ SUMOBaseRouteHandler::openVehicle(SUMOSAXHandler &helper,
 }
 
 
-void
+bool
 SUMOBaseRouteHandler::closeVehicle() throw(ProcessError)
 {
     myAmInEmbeddedMode = false;
+    return true;
 }
 
 

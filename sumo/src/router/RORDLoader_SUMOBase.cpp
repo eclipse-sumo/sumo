@@ -274,14 +274,16 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
 }
 
 
-void
+bool
 RORDLoader_SUMOBase::closeVehicle() throw()
 {
-    SUMOBaseRouteHandler::closeVehicle();
+    if(!SUMOBaseRouteHandler::closeVehicle()) {
+        return false;
+    }
     // get the vehicle id
     if (myCurrentDepart<myBegin||myCurrentDepart>=myEnd) {
         mySkipCurrent = true;
-        return;
+        return false;
     }
     // get vehicle type
     ROVehicleType *type = myNet.getVehicleTypeSecure(myCurrentVType);
@@ -292,7 +294,7 @@ RORDLoader_SUMOBase::closeVehicle() throw()
     }
     if (route==0) {
         getErrorHandlerMarkInvalid()->inform("The route of the vehicle '" + myActiveVehicleID + "' is not known.");
-        return;
+        return false;
     }
     // get the vehicle color
     // build the vehicle
@@ -301,13 +303,15 @@ RORDLoader_SUMOBase::closeVehicle() throw()
         if (myCurrentDepart<myBegin||myCurrentDepart>=myEnd) {
             myNet.removeRouteSecure(route);
             // !!! was ist mit type?
-            return;
+            return false;
         }
         ROVehicle *veh = myVehicleBuilder.buildVehicle(
                              myActiveVehicleID, route, myCurrentDepart, type, myVehicleColorString,
                              myRepOffset, myRepNumber);
         myNet.addVehicle(myActiveVehicleID, veh);
+        return true;
     }
+    return false;
 }
 
 

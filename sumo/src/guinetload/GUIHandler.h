@@ -99,7 +99,7 @@ protected:
     bool parseVehicleColor(SUMOSAXHandler &helper, const Attributes &attrs) throw();
 
     /// Ends the processing of a vehicle
-    void closeVehicle() throw(ProcessError);
+    bool closeVehicle() throw(ProcessError);
 
 private:
     /// parses the shape of a junction

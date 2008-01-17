@@ -187,14 +187,17 @@ GUIRouteHandler::parseVehicleColor(SUMOSAXHandler &helper,
 }
 
 
-void
+bool
 GUIRouteHandler::closeVehicle() throw(ProcessError)
 {
-    MSRouteHandler::closeVehicle();
-    GUIVehicle *vehicle = (GUIVehicle*)myVehicleControl.getVehicle(myActiveVehicleID);
-    if (vehicle!=0&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
-        vehicle->setCORNColor(myCurrentVehicleColor.red(), myCurrentVehicleColor.green(), myCurrentVehicleColor.blue());
+    if(MSRouteHandler::closeVehicle()) {
+        GUIVehicle *vehicle = (GUIVehicle*)myVehicleControl.getVehicle(myActiveVehicleID);
+        if (vehicle!=0&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
+            vehicle->setCORNColor(myCurrentVehicleColor.red(), myCurrentVehicleColor.green(), myCurrentVehicleColor.blue());
+        }
+        return true;
     }
+    return false;
 }
 
 

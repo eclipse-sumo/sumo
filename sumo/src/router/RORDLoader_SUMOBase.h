@@ -110,7 +110,7 @@ protected:
 
     MsgHandler *getErrorHandlerMarkInvalid();
 
-    void closeVehicle() throw();
+    bool closeVehicle() throw();
 
     /// Stores color from the attributes
     bool parseVehicleColor(SUMOSAXHandler &helper, const Attributes &attrs) throw();

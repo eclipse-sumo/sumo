@@ -86,7 +86,7 @@ MSVehicleContainer::MSVehicleContainer(size_t capacity)
 
 MSVehicleContainer::~MSVehicleContainer()
 {
-    // vehicles are deleted in MSVehicle
+    // !!! vehicles are deleted in MSVehicle
 }
 
 
