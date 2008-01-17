@@ -1,3 +1,12 @@
 # Tests whether routes can be parsed
 parsing
 
+# Tests whether simulation time is regarded using explicite vehicles
+simtime_explicite
+
+# Tests whether simulation time is regarded using vehicle repetition
+simtime_same
+
+
+
+

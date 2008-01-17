@@ -1,0 +1,14 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+
+# Tests whether the old-style routes can be handled
+old_style
+
+# Tests whether the new-style routes can be handled
+nested
+
+# Tests whether the new-style routes can be handled
+nested_ref
+
+# Test repeated vehicle creation
+repeat
