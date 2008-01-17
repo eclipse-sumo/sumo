@@ -498,10 +498,10 @@ GUIViewTraffic::drawBestLanes(const VehicleOps &vo)
         GLHelper::drawBoxLines(shape, 0.5);
 
         Position2DVector s1 = shape;
-        s1.move2side(.1);
+        s1.move2side((SUMOReal) .1);
         glColor3d(r, 0, 0);
         GLHelper::drawLine(s1);
-        s1.move2side(-.2);
+        s1.move2side((SUMOReal) -.2);
         glColor3d(0, g, 0);
         GLHelper::drawLine(s1);
 
@@ -510,7 +510,7 @@ GUIViewTraffic::drawBestLanes(const VehicleOps &vo)
         for (std::vector<MSLane*>::const_iterator j=(*i).joined.begin(); j!=(*i).joined.end(); ++j) {
             const Position2DVector &shape = (*j)->getShape();
             GLHelper::drawLine(lastPos, shape[0]);
-            GLHelper::drawBoxLines(shape, 0.2);
+            GLHelper::drawBoxLines(shape, (SUMOReal) 0.2);
             lastPos = shape[-1];
         }
     }
