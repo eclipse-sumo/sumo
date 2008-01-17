@@ -131,50 +131,55 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
 {
     if (element==SUMO_TAG_ROUTEDISTELEM) {
         // parse route distribution
-        // check if route exists
+            // check if route exists
         string routeStr = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        if(routeStr=="") {
+            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": No route id given.");
+        }
         MSRoute* route = MSRoute::dictionary(routeStr);
         if (route == 0) {
-            throw ProcessError(
-                "MSTriggeredSource " + myParent.getID() + ": Route '" + routeStr + "' does not exist.");
-
+            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Route '" + routeStr + "' does not exist.");
         }
-        // check frequency
-        SUMOReal freq = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
-        if (freq<0) {
-            throw ProcessError(
-                "MSTriggeredSource " + myParent.getID() + ": Attribute \"probability\" has value < 0.");
-
-        }
-        // Attributes ok, add to routeDist
-        myRouteDist.add(freq, route);
-        return;
-    }
-    // vehicle-type distributions
-    if (element==SUMO_TAG_VTYPEDISTELEM) {
+            // check probability
         SUMOReal prob;
         try {
-            prob = getFloatSecure(attrs, SUMO_ATTR_PROB, 1.);
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("False probability while parsing calibrator '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + ").");
-            return;
+            prob = getFloat(attrs, SUMO_ATTR_PROB);
+            if (prob<0) {
+                throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for route '" + routeStr + "' is negative (must not).");
+            }
+        } catch (EmptyData&) {
+            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for route '" + routeStr + "' is not given.");
+        } catch (NumberFormatException&) {
+            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for route '" + routeStr + "' is not numeric.");
         }
-        if (prob<=0) {
-            MsgHandler::getErrorInstance()->inform("Non-positive probability while parsing calibrator '" + myParent.getID() + "' (" + toString(prob) + ").");
-            return;
+            // atributes ok, add to routeDist
+        myRouteDist.add(prob, route);
+        return;
+
+    }
+
+    if (element==SUMO_TAG_VTYPEDISTELEM) {
+        // vehicle-type distributions
+            // check if vtype exists
+        string vtypeStr = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        if(vtypeStr=="") {
+            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": No vehicle type id given.");
         }
-        // get the id
-        string id;
-        try {
-            id = getString(attrs, SUMO_ATTR_ID);
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Missing id of a vtype-object.");
-            return;
-        }
-        MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(id);
+        MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(vtypeStr);
         if (vtype==0) {
-            MsgHandler::getErrorInstance()->inform("Unknown vtype-object '" + id + "'.");
-            return;
+            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Vehicle type '" + vtypeStr + "' does not exist.");
+        }
+            // check probability
+        SUMOReal prob;
+        try {
+            prob = getFloat(attrs, SUMO_ATTR_PROB);
+            if (prob<0) {
+                throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for vehicle type '" + vtypeStr + "' is negative (must not).");
+            }
+        } catch (EmptyData&) {
+            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for vehicle type '" + vtypeStr + "' is not given.");
+        } catch (NumberFormatException&) {
+            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for vehicle type '" + vtypeStr + "' is not numeric.");
         }
         myVTypeDist.add(prob, vtype);
     }
@@ -185,12 +190,10 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
         try {
             no = getFloatSecure(attrs, SUMO_ATTR_NO, -1);
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Non-numeric flow in emitter '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_NO, "") + ").");
-            return;
+            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Non-numeric flow in emitter '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_NO, "") + ").");
         }
         if (no<0) {
-            MsgHandler::getErrorInstance()->inform("Negative flow in emitter '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_NO, "") + ").");
-            return;
+            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Negative flow in emitter '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_NO, "") + ").");
         }
         // get the end of this def
         SUMOTime end = -1;

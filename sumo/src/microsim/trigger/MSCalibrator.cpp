@@ -248,7 +248,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
         SUMOReal freq = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
         if (freq<0) {
             throw ProcessError(
-                "MSTriggeredSource " + myParent.getID() + ": Attribute \"probability\" has value < 0.");
+                "MSTriggeredSource " + myParent.getID() + ": Attribute \"probability\" is negative (must not).");
 
         }
         // Attributes ok, add to routeDist
