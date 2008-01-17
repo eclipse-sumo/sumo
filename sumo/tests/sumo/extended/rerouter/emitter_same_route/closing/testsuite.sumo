@@ -1,0 +1,15 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+
+# Closure begins at 0, simulation at 0
+closing_b0_off0
+
+# Closure begins at 100, simulation at 0
+closing_b0_off100
+
+# Closure begins at 0, simulation at 100
+closing_b100_off0
+
+
+
+
