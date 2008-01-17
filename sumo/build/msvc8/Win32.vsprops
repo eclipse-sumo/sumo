@@ -5,6 +5,7 @@
 	Name="Win32"
 	OutputDirectory="$(ConfigurationName)"
 	IntermediateDirectory="$(ConfigurationName)"
+	InheritedPropertySheets=".\defaults.vsprops"
 	>
 	<Tool
 		Name="VCCLCompilerTool"

@@ -5,11 +5,16 @@
 	Name="x64"
 	OutputDirectory="$(PlatformName)\$(ConfigurationName)"
 	IntermediateDirectory="$(PlatformName)\$(ConfigurationName)"
+	InheritedPropertySheets=".\defaults.vsprops"
 	>
 	<Tool
 		Name="VCCLCompilerTool"
 		AdditionalIncludeDirectories="$(XERCES_64)\include,..\..\..\src"
 		PreprocessorDefinitions=""
+	/>
+	<Tool
+		Name="VCLinkerTool"
+		TargetMachine="17"
 	/>
 	<UserMacro
 		Name="XERCES_LIB"

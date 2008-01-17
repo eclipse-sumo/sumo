@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="polyconvert"
 	ProjectGUID="{CEBAFD4D-0E92-4DEB-9CC9-BBCF78EBE1B5}"
 	>
@@ -19,14 +19,10 @@
 		<Configuration
 			Name="Debug|Win32"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\Win32.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="2"
+			InheritedPropertySheets="..\Win32.vsprops;..\exe.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -39,26 +35,15 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\Debug/polyconvert.tlb"
-				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="0"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\Debug/polyconvert.pch"
-				WarningLevel="3"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="4"
-				CompileAs="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions=""
 				Culture="1031"
 			/>
 			<Tool
@@ -68,11 +53,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) $(XERCES_DEBUG_LIB) ws2_32.lib"
 				OutputFile=".\Debug/polyconvertD.exe"
-				LinkIncremental="1"
-				SuppressStartupBanner="true"
-				GenerateDebugInformation="true"
-				SubSystem="1"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -97,20 +77,15 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="xcopy /Y $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Debug|x64"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\x64.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="2"
+			InheritedPropertySheets="..\x64.vsprops;..\exe.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -123,27 +98,15 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TargetEnvironment="3"
-				TypeLibraryName=".\Debug/polyconvert.tlb"
-				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="0"
-				BasicRuntimeChecks="3"
-				RuntimeLibrary="3"
-				PrecompiledHeaderFile=".\Debug/polyconvert.pch"
-				WarningLevel="3"
-				SuppressStartupBanner="true"
-				DebugInformationFormat="3"
-				CompileAs="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions=""
 				Culture="1031"
 			/>
 			<Tool
@@ -153,11 +116,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_DEBUG_LIB) ws2_32.lib"
 				OutputFile=".\Debug/polyconvert64D.exe"
-				LinkIncremental="1"
-				SuppressStartupBanner="true"
-				GenerateDebugInformation="true"
-				SubSystem="1"
-				TargetMachine="17"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -182,21 +140,15 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="xcopy /Y $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|Win32"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\Release.vsprops;..\Win32.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="2"
-			WholeProgramOptimization="1"
+			InheritedPropertySheets="..\Win32.vsprops;..\Release.vsprops;..\exe.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -209,30 +161,15 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TypeLibraryName=".\Release/polyconvert.tlb"
-				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
-				WholeProgramOptimization="true"
-				StringPooling="true"
-				RuntimeLibrary="2"
-				EnableFunctionLevelLinking="true"
-				PrecompiledHeaderFile=".\Release/polyconvert.pch"
-				WarningLevel="3"
-				SuppressStartupBanner="true"
-				CompileAs="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions=""
 				Culture="1031"
 			/>
 			<Tool
@@ -242,11 +179,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) $(XERCES_LIB) ws2_32.lib"
 				OutputFile=".\Release/polyconvert.exe"
-				LinkIncremental="1"
-				SuppressStartupBanner="true"
-				SubSystem="1"
 				LinkTimeCodeGeneration="1"
-				TargetMachine="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -271,21 +204,15 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="xcopy /Y $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 		<Configuration
 			Name="Release|x64"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\Release.vsprops;..\x64.vsprops"
-			UseOfMFC="0"
-			ATLMinimizesCRunTimeLibraryUsage="false"
-			CharacterSet="2"
-			WholeProgramOptimization="1"
+			InheritedPropertySheets="..\x64.vsprops;..\Release.vsprops;..\exe.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
-				CommandLine="..\..\..\tools\build\version.bat"
 			/>
 			<Tool
 				Name="VCCustomBuildTool"
@@ -298,31 +225,15 @@
 			/>
 			<Tool
 				Name="VCMIDLTool"
-				TargetEnvironment="3"
-				TypeLibraryName=".\Release/polyconvert.tlb"
-				HeaderFileName=""
 			/>
 			<Tool
 				Name="VCCLCompilerTool"
-				Optimization="2"
-				InlineFunctionExpansion="2"
-				EnableIntrinsicFunctions="true"
-				FavorSizeOrSpeed="1"
-				WholeProgramOptimization="true"
-				StringPooling="true"
-				RuntimeLibrary="2"
-				EnableFunctionLevelLinking="true"
-				PrecompiledHeaderFile=".\Release/polyconvert.pch"
-				WarningLevel="3"
-				SuppressStartupBanner="true"
-				CompileAs="0"
 			/>
 			<Tool
 				Name="VCManagedResourceCompilerTool"
 			/>
 			<Tool
 				Name="VCResourceCompilerTool"
-				PreprocessorDefinitions=""
 				Culture="1031"
 			/>
 			<Tool
@@ -332,11 +243,7 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) ws2_32.lib"
 				OutputFile=".\Release/polyconvert64.exe"
-				LinkIncremental="1"
-				SuppressStartupBanner="true"
-				SubSystem="1"
 				LinkTimeCodeGeneration="1"
-				TargetMachine="17"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -361,7 +268,6 @@
 			/>
 			<Tool
 				Name="VCPostBuildEventTool"
-				CommandLine="xcopy /Y $(TargetPath) ..\..\..\bin\"
 			/>
 		</Configuration>
 	</Configurations>
