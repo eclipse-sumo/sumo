@@ -166,8 +166,6 @@ public:
     /// Replaces the current route by the given edges
     bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime);
 
-    /// Replaces the current route by the given route
-    bool replaceRoute(MSRoute *r, SUMOTime simTime);
     //@}
 
 

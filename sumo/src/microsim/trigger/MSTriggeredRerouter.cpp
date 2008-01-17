@@ -152,66 +152,72 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
         myCurrentIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, -1);
         myCurrentIntervalEnd = getIntSecure(attrs, SUMO_ATTR_END, -1);
     }
-    // maybe by giving probabilities of new destinations
+
     if (element==SUMO_TAG_DEST_PROB_REROUTE) {
+        // by giving probabilities of new destinations
+            // get the destination edge
         string dest = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        if(dest=="") {
+            throw ProcessError("MSTriggeredRerouter " + getID() + ": No destination edge id given.");
+        }
         MSEdge *to = MSEdge::dictionary(dest);
         if (to==0) {
-            MsgHandler::getErrorInstance()->inform("Could not find edge '" + dest + "' to reroute in '" + getFileName() + "'.");
-            return;
+            throw ProcessError("MSTriggeredRerouter " + getID() + ": Destination edge '" + dest + "' is not known.");
         }
-        SUMOReal prob = -1;
+            // get the probability to reroute
+        SUMOReal prob;
         try {
-            prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
+            prob = getFloatSecure(attrs, SUMO_ATTR_PROB, 1.);
         } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Missing probability in '" + getFileName() + "'.");
-            return;
+            throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for destination '" + dest + "' is empty.");
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("No numeric probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + getFileName() + "'.");
-            return;
+            throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for destination '" + dest + "' is not numeric.");
         }
         if (prob<0) {
-            MsgHandler::getErrorInstance()->inform("Negative probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + getFileName() + "'.");
-            return;
+            throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for destination '" + dest + "' is negative (must not).");
         }
+            // add
         myCurrentEdgeProb.add(prob, to);
     }
-    // maybe by closing
+
     if (element==SUMO_TAG_CLOSING_REROUTE) {
+        // by closing
         string closed_id = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        if(closed_id=="") {
+            throw ProcessError("MSTriggeredRerouter " + getID() + ": closed edge id given.");
+        }
         MSEdge *closed = MSEdge::dictionary(closed_id);
         if (closed==0) {
-            MsgHandler::getErrorInstance()->inform("Could not find edge '" + closed_id + "' to reroute in '" + getFileName() + "'.");
-            return;
+            throw ProcessError("MSTriggeredRerouter " + getID() + ": Edge '" + closed_id + "' to close is not known.");
         }
         myCurrentClosed.push_back(closed);
-        /*
-        string destid = getStringSecure(attrs, SUMO_ATTR_TO, "");
-        MSEdge *dest = MSEdge::dictionary(destid);
-        */
     }
-    // maybe by giving probabilities of new routes
+
     if (element==SUMO_TAG_ROUTE_PROB_REROUTE) {
-        string routeID = getStringSecure(attrs, SUMO_ATTR_ID, "");
-        MSRoute *route = MSRoute::dictionary(routeID);
-        if (route==0) {
-            MsgHandler::getErrorInstance()->inform("Could not find route '" + routeID + "' to reroute in '" + getFileName() + "'.");
-            return;
+        // by explicite rerouting using routes
+            // check if route exists
+        string routeStr = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        if(routeStr=="") {
+            throw ProcessError("MSTriggeredRerouter " + getID() + ": No route id given.");
         }
-        SUMOReal prob = -1;
+        MSRoute* route = MSRoute::dictionary(routeStr);
+        if (route == 0) {
+            throw ProcessError("MSTriggeredRerouter " + getID() + ": Route '" + routeStr + "' does not exist.");
+        }
+
+            // get the probability to reroute
+        SUMOReal prob;
         try {
-            prob = getFloatSecure(attrs, SUMO_ATTR_PROB, -1);
+            prob = getFloatSecure(attrs, SUMO_ATTR_PROB, 1.);
         } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Missing probability in '" + getFileName() + "'.");
-            return;
+            throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for route '" + routeStr + "' is empty.");
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("No numeric probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + getFileName() + "'.");
-            return;
+            throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for route '" + routeStr + "' is not numeric.");
         }
         if (prob<0) {
-            MsgHandler::getErrorInstance()->inform("Negative probability '" + getStringSecure(attrs, SUMO_ATTR_PROB, "") + "' " + getFileName() + "'.");
-            return;
+            throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for route '" + routeStr + "' is negative (must not).");
         }
+            // add
         myCurrentRouteProb.add(prob, route);
     }
 }
@@ -325,7 +331,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
     MSRoute *newRoute = rerouteDef.routeProbs.getOverallProb()>0 ? rerouteDef.routeProbs.get() : 0;
     // we will use the route if given rather than calling our own dijsktra...
     if (newRoute!=0) {
-        veh.replaceRoute(newRoute, time);
+        veh.replaceRoute(newRoute->getEdges(), time);
         return;
     }
     // ok, try using a new destination
@@ -335,31 +341,11 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
     }
 
     // we have a new destination, let's replace the vehicle route
-    if (route.inFurtherUse()) {
-        string nid = myID + "_re_" + src->getID() + "_" + route.getID();
-        if (MSRoute::dictionary(nid)!=0) {
-            MSRoute *rep = MSRoute::dictionary(nid);
-            veh.replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());
-        } else {
-            SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getEffort);
-            router.prohibit(rerouteDef.closed);
-            std::vector<const MSEdge*> edges;
-            router.compute(src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
-            MSRoute *rep = new MSRoute(nid, edges, true);
-            if (!MSRoute::dictionary(nid, rep)) {
-                cout << "Error: Could not insert route ''" << endl;
-                return;
-            }
-            veh.replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());
-        }
-    } else {
-        // we can simply replace the vehicle route
-        SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getEffort);
-        router.prohibit(rerouteDef.closed);
-        MSEdgeVector edges;
-        router.compute(src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
-        veh.replaceRoute(edges, time);
-    }
+    SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getEffort);
+    router.prohibit(rerouteDef.closed);
+    std::vector<const MSEdge*> edges;
+    router.compute(src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);
+    veh.replaceRoute(edges, MSNet::getInstance()->getCurrentTimeStep());
 }
 
 

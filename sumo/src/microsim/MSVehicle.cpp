@@ -130,7 +130,7 @@ MSVehicle::~MSVehicle()
         (*i)->removeOnTripEnd(this);
     }
     // delete the route
-    if (!myRoute->inFurtherUse() && myRepetitionNumber <= 0) {
+    if (!myRoute->inFurtherUse()) {
         MSRoute::erase(myRoute->getID());
     }
     // delete values in CORN
@@ -138,7 +138,9 @@ MSVehicle::~MSVehicle()
     if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)!=myPointerCORNMap.end()) {
         ReplacedRoutesVector *v = (ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE];
         for (ReplacedRoutesVector::iterator i=v->begin(); i!=v->end(); ++i) {
-            delete(*i).route;
+            if(!(*i).route->inFurtherUse()) {
+                delete(*i).route;
+            }
         }
         delete v;
     }
@@ -1130,8 +1132,14 @@ MSVehicle::getNextPeriodical() const
     if (myRepetitionNumber<=0) {
         return 0;
     }
+    MSRoute *route = myRoute;
+    // in the case the vehicle was rerouted, give the next one the original route
+    if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE)!=myPointerCORNMap.end()) {
+        route = (MSRoute*) myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE)->second;
+//!!!        myPointerCORNMap.erase(MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE);
+    }
     MSVehicle *ret = MSNet::getInstance()->getVehicleControl().buildVehicle(
-                         StringUtils::version1(myID), myRoute, myDesiredDepart+myPeriod,
+                         StringUtils::version1(myID), route, myDesiredDepart+myPeriod,
                          myType, myRepetitionNumber-1, myPeriod);
     for (std::list<Stop>::const_iterator i=myStops.begin(); i!=myStops.end(); ++i) {
         ret->myStops.push_back(*i);
@@ -1355,70 +1363,60 @@ MSVehicle::getRoute(int index) const
 bool
 MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
 {
-    MSRoute *otherr = 0;
-    const MSEdge *currentEdge = *myCurrEdge;
-    // check whether the information shall be saved
-    if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
-        otherr = new MSRoute(*myRoute);
-    }
-    // try to replace the current route
-    bool replaced = myRoute->replaceBy(edges, myCurrEdge);
-    if (replaced) {
-        // rebuild in-vehicle route information
-        myCurrEdge = myRoute->find(currentEdge);
-        rebuildAllowedLanes();
-        myLastBestLanesEdge = 0;
-        // save information that the vehicle was rerouted
-        myIntCORNMap[MSCORN::CORN_VEH_WASREROUTED] = 1;
-        // ... maybe the route information shall be saved for output?
-        if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
-            RouteReplaceInfo rri(*myCurrEdge, simTime, otherr);
-            if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)==myPointerCORNMap.end()) {
-                myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE] = new ReplacedRoutesVector();
-            }
-            ((ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE])->push_back(rri);
-        }
-        myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
-        myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] =
-            myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
-        rebuildAllowedLanes();
-    }
-    return replaced;
-}
-
-
-bool
-MSVehicle::replaceRoute(MSRoute *newRoute, SUMOTime simTime)
-{
-    MSRoute *otherr = 0;
-    const MSEdge *currentEdge = *myCurrEdge;
-    if (newRoute->find(currentEdge)==newRoute->end()) {
+    // assert the vehicle may continue (must not be "teleported" or whatever to another position)
+    if(find(edges.begin(), edges.end(), *myCurrEdge)==edges.end()) {
         return false;
     }
-    // check whether the information shall be saved
-    if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
-        otherr = new MSRoute(*myRoute);
+
+    // build a new one 
+        // build a new id, first
+    string id = getID();
+    if(id[0]!='!') {
+        id = "!" + id;
     }
-    // try to replace the current route
-    myRoute = newRoute;
-    // rebuild in-vehicle route information
-    myCurrEdge = myRoute->find(currentEdge);
-    rebuildAllowedLanes();
-    myLastBestLanesEdge = 0;
-    // save information that the vehicle was rerouted
-    myIntCORNMap[MSCORN::CORN_VEH_WASREROUTED] = 1;
+    if(id.find("!var#")!=string::npos) {
+        id = id.substr(0, id.rfind("!var#")+4) + toString(myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1);
+    } else {
+        id = id + "!var#1";
+    }
+        // build the route
+    MSRoute *newRoute = new MSRoute(id, edges, false);
+        // and add it to the container (!!!what for? It will never be used again!?)
+    if(!MSRoute::dictionary(id, newRoute)) {
+        delete newRoute;
+        return false;
+    }
+
+    // save information about the current edge
+    const MSEdge *currentEdge = *myCurrEdge;
+
     // ... maybe the route information shall be saved for output?
     if (MSCORN::wished(MSCORN::CORN_VEH_SAVEREROUTING)) {
-        RouteReplaceInfo rri(*myCurrEdge, simTime, otherr);
+        RouteReplaceInfo rri(*myCurrEdge, simTime, new MSRoute(*myRoute));//new MSRoute("!", myRoute->getEdges(), false));
         if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)==myPointerCORNMap.end()) {
             myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE] = new ReplacedRoutesVector();
         }
         ((ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE])->push_back(rri);
-        myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
-        myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] =
-            myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
     }
-    assert((MSEdge*)succEdge(1)!=0);
+
+    // check whether the old route may be deleted (is not used by anyone else)
+    if (!myRoute->inFurtherUse()) {
+        MSRoute::erase(myRoute->getID());
+    } else {
+        myPointerCORNMap[MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE] = myRoute;
+    }
+    
+    // assign new route
+    myRoute = newRoute;
+    // rebuild in-vehicle route information
+    myCurrEdge = myRoute->find(currentEdge);
+    myLastBestLanesEdge = 0;
+    // save information that the vehicle was rerouted
+    //  !!! refactor the CORN-stuff
+    myIntCORNMap[MSCORN::CORN_VEH_WASREROUTED] = 1;
+    myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
+    myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] = myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
+    rebuildAllowedLanes();
     return true;
 }
 
@@ -1741,18 +1739,7 @@ MSVehicle::reroute(SUMOTime t)
         ++ri2;
     }
     if (ri!=myRoute->end()||ri2!=edges.end()) {
-        int rerouteIndex = 0;
-        if (myIntCORNMap.find(MSCORN::CORN_VEH_NUMBERROUTE)!=myIntCORNMap.end()) {
-            rerouteIndex = (int) myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE];
-        }
-        string nid = myRoute->getID() + "#" + toString(rerouteIndex);
-        MSRoute *rep = new MSRoute(nid, edges, true);
-        if (!MSRoute::dictionary(nid, rep)) {
-            //cout << "Error: Could not insert route ''" << "\n";
-        } else {
-            MSCORN::setWished(MSCORN::CORN_VEH_SAVEREROUTING);
-            replaceRoute(rep, MSNet::getInstance()->getCurrentTimeStep());
-        }
+        replaceRoute(edges, MSNet::getInstance()->getCurrentTimeStep());
     }
 }
 

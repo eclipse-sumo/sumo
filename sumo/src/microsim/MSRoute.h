@@ -94,6 +94,10 @@ public:
 
     unsigned posInRoute(const MSRouteIterator &currentEdge) const;
 
+    const MSEdgeVector &getEdges() const {
+        return myEdges;
+    }
+
 public:
     /** @brief Adds a route to the dictionary
         Returns true if the route could be added, fals if a route with the same name already exists */
