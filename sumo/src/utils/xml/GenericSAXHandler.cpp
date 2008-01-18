@@ -218,12 +218,12 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
     SumoXMLTag element = convertTag(name);
     // collect characters
     size_t len = 0;
-    size_t i;
+    unsigned i;
     for (i=0; i<myCharactersVector.size(); ++i) {
         len += myCharactersVector[i].length();
     }
     char *buf = new char[len+1];
-    int pos = 0;
+    size_t pos = 0;
     for (i=0; i<myCharactersVector.size(); ++i) {
         memcpy((unsigned char*) buf+pos, (unsigned char*) myCharactersVector[i].c_str(),
                sizeof(char)*myCharactersVector[i].length());

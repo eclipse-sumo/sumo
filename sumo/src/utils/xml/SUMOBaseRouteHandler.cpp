@@ -73,8 +73,8 @@ SUMOBaseRouteHandler::getVehicleDepartureTime(SUMOSAXHandler &helper,
 
 
 bool
-SUMOBaseRouteHandler::parseVehicleColor(SUMOSAXHandler &helper,
-                                        const Attributes &attrs) throw()
+SUMOBaseRouteHandler::parseVehicleColor(SUMOSAXHandler &,
+                                        const Attributes &) throw()
 {
     return true;
 }

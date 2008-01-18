@@ -129,6 +129,13 @@ public:
         /// Information whether the attribute has been found for the current edge
         bool myHadAttribute;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        ToRetrieveDefinition(const ToRetrieveDefinition&);
+
+        /// @brief Invalidated assignment operator.
+        ToRetrieveDefinition& operator=(const ToRetrieveDefinition&);
+
     };
 
     /**
