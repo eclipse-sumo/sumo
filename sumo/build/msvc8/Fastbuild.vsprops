@@ -13,5 +13,7 @@
 		RuntimeLibrary="2"
 		BufferSecurityCheck="false"
 		FloatingPointExceptions="false"
+		WarningLevel="2"
+		Detect64BitPortabilityProblems="false"
 	/>
 </VisualStudioPropertySheet>
