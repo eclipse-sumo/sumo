@@ -139,9 +139,6 @@ OptionsParser::check(char *arg1, char *arg2, bool &ok) throw(InvalidArgument)
                 }
                 return 2;
             }
-            // an error occured
-            ok = false;
-            return 1;
         }
     }
     // process abbreviated switches
