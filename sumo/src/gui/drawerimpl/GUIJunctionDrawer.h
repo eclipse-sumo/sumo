@@ -77,6 +77,13 @@ protected:
     /// Information whether the gl-id shall be set
     bool myShowToolTips;
 
+private:
+    /// @brief Invalidated copy constructor.
+    GUIJunctionDrawer(const GUIJunctionDrawer&);
+
+    /// @brief Invalidated assignment operator.
+    GUIJunctionDrawer& operator=(const GUIJunctionDrawer&);
+
 };
 
 

@@ -188,6 +188,13 @@ class SwitchCommand : public Command
         /// Information whether this switch command is still valid
         bool myAmValid;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        SwitchCommand(const SwitchCommand&);
+
+        /// @brief Invalidated assignment operator.
+        SwitchCommand& operator=(const SwitchCommand&);
+
     };
 
 protected:

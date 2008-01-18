@@ -93,6 +93,13 @@ protected:
     /// The list of edges to consider at drawing
     std::vector<GUIEdge*> &myEdges;
 
+private:
+    /// @brief Invalidated copy constructor.
+    GUIROWDrawer(const GUIROWDrawer&);
+
+    /// @brief Invalidated assignment operator.
+    GUIROWDrawer& operator=(const GUIROWDrawer&);
+
 };
 
 

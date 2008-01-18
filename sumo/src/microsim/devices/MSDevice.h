@@ -92,6 +92,13 @@ protected:
 private:
     std::string myID;
 
+private:
+    /// @brief Invalidated copy constructor.
+    MSDevice(const MSDevice&);
+
+    /// @brief Invalidated assignment operator.
+    MSDevice& operator=(const MSDevice&);
+
 };
 
 

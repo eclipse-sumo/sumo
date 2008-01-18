@@ -73,6 +73,13 @@ public:
         void addError(const std::string &error) const;
     protected:
         FileErrorReporter &myParent;
+    private:
+        /// @brief Invalidated copy constructor.
+        Child(const Child&);
+
+        /// @brief Invalidated assignment operator.
+        Child& operator=(const Child&);
+
     };
 protected:
     /** the file currently parsed */

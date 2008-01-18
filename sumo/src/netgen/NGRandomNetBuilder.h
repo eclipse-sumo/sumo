@@ -189,8 +189,12 @@ private:
     /// @brief The distrubtion of number of neighbours
     TNeighbourDistribution myNeighbourDistribution;
 
+private:
+    /// @brief Invalidated copy constructor.
+    NGRandomNetBuilder(const NGRandomNetBuilder&);
 
-
+    /// @brief Invalidated assignment operator.
+    NGRandomNetBuilder& operator=(const NGRandomNetBuilder&);
 
 };
 

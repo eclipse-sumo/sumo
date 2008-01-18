@@ -255,6 +255,13 @@ class SwitchInitCommand : public Command
         /// The current index within the WAUT switch table
         int myIndex;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        SwitchInitCommand(const SwitchInitCommand&);
+
+        /// @brief Invalidated assignment operator.
+        SwitchInitCommand& operator=(const SwitchInitCommand&);
+
     };
 
 public:
@@ -357,6 +364,13 @@ protected:
         /// Returns the GSP-value which should be within the tls program definition
         SUMOReal getGSPValue(MSTrafficLightLogic *from) const;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        WAUTSwitchProcedure(const WAUTSwitchProcedure&);
+
+        /// @brief Invalidated assignment operator.
+        WAUTSwitchProcedure& operator=(const WAUTSwitchProcedure&);
+
     };
 
 
@@ -380,6 +394,13 @@ class WAUTSwitchProcedure_JustSwitch : public WAUTSwitchProcedure
          * This implementation alsways returns true
          */
         bool trySwitch(SUMOTime step);
+
+    private:
+        /// @brief Invalidated copy constructor.
+        WAUTSwitchProcedure_JustSwitch(const WAUTSwitchProcedure_JustSwitch&);
+
+        /// @brief Invalidated assignment operator.
+        WAUTSwitchProcedure_JustSwitch& operator=(const WAUTSwitchProcedure_JustSwitch&);
 
     };
 
@@ -405,14 +426,19 @@ class WAUTSwitchProcedure_GSP : public WAUTSwitchProcedure
 
         void adaptLogic(SUMOTime step);
 
-    protected:
+    private:
+        /// @brief Invalidated copy constructor.
+        WAUTSwitchProcedure_GSP(const WAUTSwitchProcedure_GSP&);
+
+        /// @brief Invalidated assignment operator.
+        WAUTSwitchProcedure_GSP& operator=(const WAUTSwitchProcedure_GSP&);
 
     };
 
 
     /**
      * @class WAUTSwitchProcedure_Stretch
-     * @brief This class switches using the GSP algorithm.
+     * @brief This class switches using the Stretch algorithm.
      */
 class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure
     {
@@ -460,6 +486,13 @@ class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure
          * The first bereich has normally the number "1", not "0"!
          */
         StretchBereichDef getStretchBereichDef(MSTrafficLightLogic *from, int index) const;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        WAUTSwitchProcedure_Stretch(const WAUTSwitchProcedure_Stretch&);
+
+        /// @brief Invalidated assignment operator.
+        WAUTSwitchProcedure_Stretch& operator=(const WAUTSwitchProcedure_Stretch&);
 
     };
 

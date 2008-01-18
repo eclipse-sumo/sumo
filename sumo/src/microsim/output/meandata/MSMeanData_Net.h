@@ -221,6 +221,13 @@ protected:
     /// @brief The first and the last time steps to write information (-1 indicates always)
     std::vector<int> myDumpBegins, myDumpEnds;
 
+private:
+    /// @brief Invalidated copy constructor.
+    MSMeanData_Net(const MSMeanData_Net&);
+
+    /// @brief Invalidated assignment operator.
+    MSMeanData_Net& operator=(const MSMeanData_Net&);
+
 };
 
 

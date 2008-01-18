@@ -188,6 +188,13 @@ protected:
     /// The maximum velocity over all lanes
     static SUMOReal myAllMaxSpeed;
 
+private:
+    /// @brief Invalidated copy constructor.
+    GUILaneWrapper(const GUILaneWrapper&);
+
+    /// @brief Invalidated assignment operator.
+    GUILaneWrapper& operator=(const GUILaneWrapper&);
+
 };
 
 

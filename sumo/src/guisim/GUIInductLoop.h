@@ -118,6 +118,13 @@ class MyWrapper : public GUIDetectorWrapper
         /// The position on the lane
         SUMOReal myPosition;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        MyWrapper(const MyWrapper&);
+
+        /// @brief Invalidated assignment operator.
+        MyWrapper& operator=(const MyWrapper&);
+
     };
 
 };

@@ -83,6 +83,13 @@ protected:
     /// The last time the values were written
     unsigned int myStartTime;
 
+private:
+    /// @brief Invalidated copy constructor.
+    Command_SaveTLCoupledDet(const Command_SaveTLCoupledDet&);
+
+    /// @brief Invalidated assignment operator.
+    Command_SaveTLCoupledDet& operator=(const Command_SaveTLCoupledDet&);
+
 };
 
 

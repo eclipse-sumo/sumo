@@ -146,6 +146,13 @@ class MyWrapper : public GUIDetectorWrapper
         /// A sequence of rotations in full-geometry mode
         DoubleVector myShapeRotations;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        MyWrapper(const MyWrapper&);
+
+        /// @brief Invalidated assignment operator.
+        MyWrapper& operator=(const MyWrapper&);
+
     };
 
 };

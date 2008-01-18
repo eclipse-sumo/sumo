@@ -184,6 +184,13 @@ class MyWrapper : public GUIDetectorWrapper
             MSUnit::Seconds myNSec;
         };
         */
+    private:
+        /// @brief Invalidated copy constructor.
+        MyWrapper(const MyWrapper&);
+
+        /// @brief Invalidated assignment operator.
+        MyWrapper& operator=(const MyWrapper&);
+
     };
 
 };

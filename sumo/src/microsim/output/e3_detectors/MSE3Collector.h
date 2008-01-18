@@ -129,6 +129,13 @@ public:
         /// @brief The position on the lane
         SUMOReal myPosition;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        MSE3EntryReminder(const MSE3EntryReminder&);
+
+        /// @brief Invalidated assignment operator.
+        MSE3EntryReminder& operator=(const MSE3EntryReminder&);
+
     };
 
 
@@ -194,6 +201,13 @@ public:
 
         /// @brief The position on the lane
         SUMOReal myPosition;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        MSE3LeaveReminder(const MSE3LeaveReminder&);
+
+        /// @brief Invalidated assignment operator.
+        MSE3LeaveReminder& operator=(const MSE3LeaveReminder&);
 
     };
 

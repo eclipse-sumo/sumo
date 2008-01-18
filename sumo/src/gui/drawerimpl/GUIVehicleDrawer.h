@@ -87,6 +87,13 @@ protected:
     /// Information whether the gl-id shall be set
     bool myShowToolTips;
 
+private:
+    /// @brief Invalidated copy constructor.
+    GUIVehicleDrawer(const GUIVehicleDrawer&);
+
+    /// @brief Invalidated assignment operator.
+    GUIVehicleDrawer& operator=(const GUIVehicleDrawer&);
+
 };
 
 

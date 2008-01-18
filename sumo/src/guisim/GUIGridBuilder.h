@@ -89,6 +89,13 @@ private:
     /// The network the grid is assigned to
     GUIGrid &myGrid;
 
+private:
+    /// @brief Invalidated copy constructor.
+    GUIGridBuilder(const GUIGridBuilder&);
+
+    /// @brief Invalidated assignment operator.
+    GUIGridBuilder& operator=(const GUIGridBuilder&);
+
 };
 
 

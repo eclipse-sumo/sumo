@@ -108,6 +108,13 @@ protected:
     /// The junction's shape
     Position2DVector myShape;
 
+private:
+    /// @brief Invalidated copy constructor.
+    GUIJunctionWrapper(const GUIJunctionWrapper&);
+
+    /// @brief Invalidated assignment operator.
+    GUIJunctionWrapper& operator=(const GUIJunctionWrapper&);
+
 };
 
 

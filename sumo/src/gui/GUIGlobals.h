@@ -51,6 +51,13 @@ class GUINet;
 struct GUISimInfo {
     GUISimInfo(GUINet &netArg) : net(netArg) { }
     GUINet &net;
+private:
+    /// @brief Invalidated copy constructor.
+    GUISimInfo(const GUISimInfo&);
+
+    /// @brief Invalidated assignment operator.
+    GUISimInfo& operator=(const GUISimInfo&);
+
 };
 
 

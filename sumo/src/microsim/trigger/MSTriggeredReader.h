@@ -89,6 +89,14 @@ class MSTriggerCommand : public Command
     private:
         /// The parent reader
         MSTriggeredReader &myParent;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        MSTriggerCommand(const MSTriggerCommand&);
+
+        /// @brief Invalidated assignment operator.
+        MSTriggerCommand& operator=(const MSTriggerCommand&);
+
     };
 
 public:

@@ -133,6 +133,14 @@ class MyCommand : public Command
 
         bool myAmActive;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        MyCommand(const MyCommand&);
+
+        /// @brief Invalidated assignment operator.
+        MyCommand& operator=(const MyCommand&);
+
+
     };
 
 private:
@@ -193,8 +201,12 @@ private:
     /*if this */
     bool notTriggeredByCell;
 
-    //const static SUMOTime callDurationStdev=6000;
-    //const static SUMOTime callDurationMean=60;
+private:
+    /// @brief Invalidated copy constructor.
+    MSDevice_CPhone(const MSDevice_CPhone&);
+
+    /// @brief Invalidated assignment operator.
+    MSDevice_CPhone& operator=(const MSDevice_CPhone&);
 
 };
 

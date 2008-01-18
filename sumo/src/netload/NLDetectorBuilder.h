@@ -216,6 +216,13 @@ public:
         int mySampleInterval;
         //@}
 
+    private:
+        /// @brief Invalidated copy constructor.
+        E3DetectorDefinition(const E3DetectorDefinition&);
+
+        /// @brief Invalidated assignment operator.
+        E3DetectorDefinition& operator=(const E3DetectorDefinition&);
+
     };
 
 protected:
@@ -239,6 +246,13 @@ protected:
 private:
     /// definition of the currently parsed e3-detector
     E3DetectorDefinition *myE3Definition;
+
+private:
+    /// @brief Invalidated copy constructor.
+    NLDetectorBuilder(const NLDetectorBuilder&);
+
+    /// @brief Invalidated assignment operator.
+    NLDetectorBuilder& operator=(const NLDetectorBuilder&);
 
 };
 

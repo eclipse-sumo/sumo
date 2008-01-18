@@ -210,6 +210,13 @@ private:
     /// @brief The list of links
     NGEdgeList myEdgeList;
 
+private:
+    /// @brief Invalidated copy constructor.
+    NGNet(const NGNet&);
+
+    /// @brief Invalidated assignment operator.
+    NGNet& operator=(const NGNet&);
+
 };
 
 

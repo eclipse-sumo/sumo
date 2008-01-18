@@ -83,6 +83,13 @@ public:
         /// the next edge to reach (either by walking or driving)
         const MSEdge &m_pDestination;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        MSPersonStage(const MSPersonStage&);
+
+        /// @brief Invalidated assignment operator.
+        MSPersonStage& operator=(const MSPersonStage&);
+
     };
 
     /**
@@ -113,6 +120,13 @@ class MSPersonStage_Walking : MSPersonStage
     private:
         /// the time the person is walking
         SUMOTime m_uiWalkingTime;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        MSPersonStage_Walking(const MSPersonStage_Walking&);
+
+        /// @brief Invalidated assignment operator.
+        MSPersonStage_Walking& operator=(const MSPersonStage_Walking&);
 
     };
 
@@ -146,6 +160,13 @@ class MSPersonStage_PublicVehicle : MSPersonStage
     private:
         /// the line of the public traffic the person is using
         std::string m_LineId;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        MSPersonStage_PublicVehicle(const MSPersonStage_PublicVehicle&);
+
+        /// @brief Invalidated assignment operator.
+        MSPersonStage_PublicVehicle& operator=(const MSPersonStage_PublicVehicle&);
 
     };
 
@@ -191,6 +212,13 @@ class MSPersonStage_PrivateVehicle : MSPersonStage
         /// the type of the vehicle
         std::string m_VehicleType;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        MSPersonStage_PrivateVehicle(const MSPersonStage_PrivateVehicle&);
+
+        /// @brief Invalidated assignment operator.
+        MSPersonStage_PrivateVehicle& operator=(const MSPersonStage_PrivateVehicle&);
+
     };
 
     /**
@@ -220,6 +248,13 @@ class MSPersonStage_Waiting : MSPersonStage
     private:
         /// the time the person is waiting
         SUMOTime m_uiWaitingTime;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        MSPersonStage_Waiting(const MSPersonStage_Waiting&);
+
+        /// @brief Invalidated assignment operator.
+        MSPersonStage_Waiting& operator=(const MSPersonStage_Waiting&);
 
     };
 
@@ -269,6 +304,13 @@ private:
     typedef std::map<std::string, MSPerson*> DictType;
 
     static DictType myDict;
+
+private:
+    /// @brief Invalidated copy constructor.
+    MSPerson(const MSPerson&);
+
+    /// @brief Invalidated assignment operator.
+    MSPerson& operator=(const MSPerson&);
 
 };
 

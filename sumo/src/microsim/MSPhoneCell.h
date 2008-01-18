@@ -136,6 +136,13 @@ class SetStatParamsCommand : public Command
         /// The control to call
         MSPhoneCell &myParent;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        SetStatParamsCommand(const SetStatParamsCommand&);
+
+        /// @brief Invalidated assignment operator.
+        SetStatParamsCommand& operator=(const SetStatParamsCommand&);
+
     };
 
 
@@ -161,6 +168,13 @@ class SetDynParamsCommand : public Command
     protected:
         /// The control to call
         MSPhoneCell &myParent;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        SetDynParamsCommand(const SetDynParamsCommand&);
+
+        /// @brief Invalidated assignment operator.
+        SetDynParamsCommand& operator=(const SetDynParamsCommand&);
 
     };
 
