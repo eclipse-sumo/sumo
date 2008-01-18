@@ -124,7 +124,7 @@ public:
      * @param[in] width The width of the lines
      * @see drawBoxLine
      */
-    static void drawBoxLines(const Position2DVector &geom, SUMOReal width);
+    static void drawBoxLines(const Position2DVector &geom, SUMOReal width) throw();
 
 
     /** @brief Draws a thin line
