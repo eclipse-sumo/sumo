@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/07/07 11:38:54 by SUMO netconvert Version 0.9.6
+<!-- generated on 01/21/08 09:24:56 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -684,124 +684,124 @@
 
 
    <succ edge=":1_0" lane=":1_0_0" junction="1">
-      <succlane lane="a1_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a1_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":1_1" lane=":1_1_0" junction="1">
-      <succlane lane="b1_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b1_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":1_2" lane=":1_2_0" junction="1">
-      <succlane lane="b1_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b1_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":1_3" lane=":1_3_0" junction="1">
-      <succlane lane="a1_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a1_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":2_0" lane=":2_0_0" junction="2">
-      <succlane lane="a2_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a2_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":2_1" lane=":2_1_0" junction="2">
-      <succlane lane="b8_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b8_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":2_2" lane=":2_2_0" junction="2">
-      <succlane lane="b8_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b8_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":2_3" lane=":2_3_0" junction="2">
-      <succlane lane="a2_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a2_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":3_0" lane=":3_0_0" junction="3">
-      <succlane lane="b7_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b7_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":3_1" lane=":3_1_0" junction="3">
-      <succlane lane="a3_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a3_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":3_2" lane=":3_2_0" junction="3">
-      <succlane lane="a3_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a3_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":3_3" lane=":3_3_0" junction="3">
-      <succlane lane="b7_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b7_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_0" lane=":4_0_0" junction="4">
-      <succlane lane="a8_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a8_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_1" lane=":4_1_0" junction="4">
-      <succlane lane="b6_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b6_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_2" lane=":4_2_0" junction="4">
-      <succlane lane="b2_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b2_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_3" lane=":4_3_0" junction="4">
-      <succlane lane="a4_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a4_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_4" lane=":4_4_0" junction="4">
-      <succlane lane="a4_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a4_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_5" lane=":4_5_0" junction="4">
-      <succlane lane="a8_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a8_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_6" lane=":4_6_0" junction="4">
-      <succlane lane="b6_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b6_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_7" lane=":4_7_0" junction="4">
-      <succlane lane="b2_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b2_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_8" lane=":4_8_0" junction="4">
-      <succlane lane="b2_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b2_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_9" lane=":4_9_0" junction="4">
-      <succlane lane="a4_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a4_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_10" lane=":4_10_0" junction="4">
-      <succlane lane="a8_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a8_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_11" lane=":4_11_0" junction="4">
-      <succlane lane="b6_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b6_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_12" lane=":4_12_0" junction="4">
-      <succlane lane="b6_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b6_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_13" lane=":4_13_0" junction="4">
-      <succlane lane="b2_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b2_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_14" lane=":4_14_0" junction="4">
-      <succlane lane="a4_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a4_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_15" lane=":4_15_0" junction="4">
-      <succlane lane="a8_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a8_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":5_0" lane=":5_0_0" junction="5">
-      <succlane lane="b5_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b5_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":5_1" lane=":5_1_0" junction="5">
-      <succlane lane="a5_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a5_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":5_2" lane=":5_2_0" junction="5">
-      <succlane lane="a5_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a5_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":5_3" lane=":5_3_0" junction="5">
-      <succlane lane="b5_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b5_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":6_0" lane=":6_0_0" junction="6">
-      <succlane lane="b4_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b4_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":6_1" lane=":6_1_0" junction="6">
-      <succlane lane="a6_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a6_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":6_2" lane=":6_2_0" junction="6">
-      <succlane lane="a6_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a6_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":6_3" lane=":6_3_0" junction="6">
-      <succlane lane="b4_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b4_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":7_0" lane=":7_0_0" junction="7">
-      <succlane lane="a7_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a7_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":7_1" lane=":7_1_0" junction="7">
-      <succlane lane="b3_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b3_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":7_2" lane=":7_2_0" junction="7">
-      <succlane lane="b3_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="b3_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":7_3" lane=":7_3_0" junction="7">
-      <succlane lane="a7_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="a7_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
 
 </net>

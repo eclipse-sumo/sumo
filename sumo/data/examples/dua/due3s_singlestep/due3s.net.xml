@@ -1,3 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- generated on 01/21/08 09:24:51 by SUMO netconvert Version 0.9.7
+<configuration>
+
+   <input>
+      <xml-node-files>../data/examples\dua\due3s_singlestep\due3s.nod.xml</xml-node-files>
+      <xml-edge-files>../data/examples\dua\due3s_singlestep\due3s.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>../data/examples\dua\due3s_singlestep\due3s.net.xml</output-file>
+   </output>
+
+   <processing>
+      <add-internal-links>true</add-internal-links>
+   </processing>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
 <net>
 
    <net-offset>50.000000,400.000000</net-offset>
@@ -80,7 +105,7 @@
    <node_count>8</node_count>
 
 
-   <edge id="beg" from="absBeg" to="beg" priority="-1" type="19" function="normal">
+   <edge id="beg" from="absBeg" to="beg" priority="-1" type="" function="normal">
       <lanes>
          <lane id="beg_0" depart="1" vclasses="" maxspeed="36.00" length="195.25">51.65,0.00 51.65,195.25</lane>
       </lanes>
@@ -89,55 +114,55 @@
       <cedge id="beg2left">beg_0</cedge>
    </edge>
 
-   <edge id="beg2left" from="beg" to="begleft" priority="-1" type="19" function="normal">
+   <edge id="beg2left" from="beg" to="begleft" priority="-1" type="" function="normal">
       <lanes>
          <lane id="beg2left_0" depart="1" vclasses="" maxspeed="36.00" length="45.30">48.55,201.65 3.25,201.65</lane>
       </lanes>
       <cedge id="left">beg2left_0</cedge>
    </edge>
 
-   <edge id="beg2right" from="beg" to="begright" priority="-1" type="19" function="normal">
+   <edge id="beg2right" from="beg" to="begright" priority="-1" type="" function="normal">
       <lanes>
          <lane id="beg2right_0" depart="1" vclasses="" maxspeed="36.00" length="45.30">54.75,198.35 100.05,198.35</lane>
       </lanes>
       <cedge id="right">beg2right_0</cedge>
    </edge>
 
-   <edge id="end" from="end" to="absEnd" priority="-1" type="19" function="normal">
+   <edge id="end" from="end" to="absEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="end_0" depart="1" vclasses="" maxspeed="36.00" length="195.25">51.65,604.75 51.65,800.00</lane>
       </lanes>
    </edge>
 
-   <edge id="left" from="begleft" to="endleft" priority="-1" type="19" function="normal">
+   <edge id="left" from="begleft" to="endleft" priority="-1" type="" function="normal">
       <lanes>
          <lane id="left_0" depart="1" vclasses="" maxspeed="36.00" length="393.50">1.65,203.25 1.65,596.75</lane>
       </lanes>
       <cedge id="left2end">left_0</cedge>
    </edge>
 
-   <edge id="left2end" from="endleft" to="end" priority="-1" type="19" function="normal">
+   <edge id="left2end" from="endleft" to="end" priority="-1" type="" function="normal">
       <lanes>
          <lane id="left2end_0" depart="1" vclasses="" maxspeed="36.00" length="45.30">3.25,598.35 48.55,598.35</lane>
       </lanes>
       <cedge id="end">left2end_0</cedge>
    </edge>
 
-   <edge id="middle" from="beg" to="end" priority="-1" type="19" function="normal">
+   <edge id="middle" from="beg" to="end" priority="-1" type="" function="normal">
       <lanes>
          <lane id="middle_0" depart="1" vclasses="" maxspeed="36.00" length="390.50">51.65,204.75 51.65,595.25</lane>
       </lanes>
       <cedge id="end">middle_0</cedge>
    </edge>
 
-   <edge id="right" from="begright" to="endright" priority="-1" type="19" function="normal">
+   <edge id="right" from="begright" to="endright" priority="-1" type="" function="normal">
       <lanes>
          <lane id="right_0" depart="1" vclasses="" maxspeed="36.00" length="400.10">101.65,199.95 101.65,600.05</lane>
       </lanes>
       <cedge id="right2end">right_0</cedge>
    </edge>
 
-   <edge id="right2end" from="endright" to="end" priority="-1" type="19" function="normal">
+   <edge id="right2end" from="endright" to="end" priority="-1" type="" function="normal">
       <lanes>
          <lane id="right2end_0" depart="1" vclasses="" maxspeed="36.00" length="45.30">100.05,601.65 54.75,601.65</lane>
       </lanes>
@@ -308,34 +333,34 @@
 
 
    <succ edge=":beg_0" lane=":beg_0_0" junction="beg">
-      <succlane lane="beg2right_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="beg2right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_1" lane=":beg_1_0" junction="beg">
-      <succlane lane="middle_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="middle_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_2" lane=":beg_2_0" junction="beg">
-      <succlane lane="beg2left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="beg2left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":begleft_0" lane=":begleft_0_0" junction="begleft">
-      <succlane lane="left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":begright_0" lane=":begright_0_0" junction="begright">
-      <succlane lane="right_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_0" lane=":end_0_0" junction="end">
-      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_1" lane=":end_1_0" junction="end">
-      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_2" lane=":end_2_0" junction="end">
-      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":endleft_0" lane=":endleft_0_0" junction="endleft">
-      <succlane lane="left2end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="left2end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":endright_0" lane=":endright_0_0" junction="endright">
-      <succlane lane="right2end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="right2end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
 
 </net>

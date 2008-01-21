@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/07/07 11:38:45 by SUMO netconvert Version 0.9.6
+<!-- generated on 01/21/08 09:24:50 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -333,34 +333,34 @@
 
 
    <succ edge=":beg_0" lane=":beg_0_0" junction="beg">
-      <succlane lane="beg2right_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="beg2right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_1" lane=":beg_1_0" junction="beg">
-      <succlane lane="middle_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="middle_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_2" lane=":beg_2_0" junction="beg">
-      <succlane lane="beg2left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="beg2left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":begleft_0" lane=":begleft_0_0" junction="begleft">
-      <succlane lane="left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":begright_0" lane=":begright_0_0" junction="begright">
-      <succlane lane="right_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_0" lane=":end_0_0" junction="end">
-      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_1" lane=":end_1_0" junction="end">
-      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_2" lane=":end_2_0" junction="end">
-      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":endleft_0" lane=":endleft_0_0" junction="endleft">
-      <succlane lane="left2end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="left2end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":endright_0" lane=":endright_0_0" junction="endright">
-      <succlane lane="right2end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="right2end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
 
 </net>

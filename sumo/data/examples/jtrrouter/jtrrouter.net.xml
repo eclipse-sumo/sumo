@@ -1,3 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- generated on 01/21/08 09:24:52 by SUMO netconvert Version 0.9.7
+<configuration>
+
+   <input>
+      <xml-node-files>../data/examples\jtrrouter\jtrrouter.nod.xml</xml-node-files>
+      <xml-edge-files>../data/examples\jtrrouter\jtrrouter.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>../data/examples\jtrrouter\jtrrouter.net.xml</output-file>
+   </output>
+
+   <processing>
+      <add-internal-links>true</add-internal-links>
+   </processing>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
 <net>
 
    <net-offset>50.000000,400.000000</net-offset>
@@ -22,7 +47,7 @@
 
    <edge id=":beg_0" function="internal">
       <lanes>
-         <lane id=":beg_0_0" depart="0" maxspeed="36.00" length="5.00" >48.35,204.75 48.16,203.39 47.57,202.42 46.61,201.84 45.25,201.65</lane>
+         <lane id=":beg_0_0" depart="0" maxspeed="36.00" length="5.00" >48.35,204.75 48.16,203.39 47.58,202.42 46.61,201.84 45.25,201.65</lane>
       </lanes>
       <cedge id="beg2left">:beg_0_0</cedge>
    </edge>
@@ -106,7 +131,7 @@
 
    <edge id=":beg_12" function="internal">
       <lanes>
-         <lane id=":beg_12_0" depart="0" maxspeed="36.00" length="5.00" >45.25,198.35 46.61,198.16 47.57,197.58 48.16,196.61 48.35,195.25</lane>
+         <lane id=":beg_12_0" depart="0" maxspeed="36.00" length="5.00" >45.25,198.35 46.61,198.16 47.58,197.58 48.16,196.61 48.35,195.25</lane>
       </lanes>
       <cedge id="-beg">:beg_12_0</cedge>
    </edge>
@@ -134,14 +159,14 @@
 
    <edge id=":begleft_0" function="internal">
       <lanes>
-         <lane id=":begleft_0_0" depart="0" maxspeed="36.00" length="7.90" >-1.65,203.25 -1.34,201.11 -0.42,199.58 1.11,198.66 3.25,198.35</lane>
+         <lane id=":begleft_0_0" depart="0" maxspeed="36.00" length="7.90" >-1.65,203.25 -1.34,201.11 -0.43,199.58 1.11,198.66 3.25,198.35</lane>
       </lanes>
       <cedge id="-beg2left">:begleft_0_0</cedge>
    </edge>
 
    <edge id=":begleft_1" function="internal">
       <lanes>
-         <lane id=":begleft_1_0" depart="0" maxspeed="36.00" length="4.82" >-1.65,203.25 -0.82,202.01 0.00,201.60 0.82,202.01 1.65,203.25</lane>
+         <lane id=":begleft_1_0" depart="0" maxspeed="36.00" length="4.82" >-1.65,203.25 -0.82,202.01 0.00,201.60 0.83,202.01 1.65,203.25</lane>
       </lanes>
       <cedge id="left">:begleft_1_0</cedge>
    </edge>
@@ -190,7 +215,7 @@
 
    <edge id=":end_0" function="internal">
       <lanes>
-         <lane id=":end_0_0" depart="0" maxspeed="36.00" length="5.00" >48.35,604.75 48.16,603.39 47.57,602.43 46.61,601.84 45.25,601.65</lane>
+         <lane id=":end_0_0" depart="0" maxspeed="36.00" length="5.00" >48.35,604.75 48.16,603.39 47.58,602.43 46.61,601.84 45.25,601.65</lane>
       </lanes>
       <cedge id="-left2end">:end_0_0</cedge>
    </edge>
@@ -316,7 +341,7 @@
 
    <edge id=":end_12" function="internal">
       <lanes>
-         <lane id=":end_12_0" depart="0" maxspeed="36.00" length="5.00" >45.25,598.35 46.61,598.16 47.57,597.57 48.16,596.61 48.35,595.25</lane>
+         <lane id=":end_12_0" depart="0" maxspeed="36.00" length="5.00" >45.25,598.35 46.61,598.16 47.58,597.57 48.16,596.61 48.35,595.25</lane>
       </lanes>
       <cedge id="-middle">:end_12_0</cedge>
    </edge>
@@ -358,7 +383,7 @@
 
    <edge id=":endleft_0" function="internal">
       <lanes>
-         <lane id=":endleft_0_0" depart="0" maxspeed="36.00" length="7.90" >3.25,601.65 1.11,601.34 -0.42,600.43 -1.34,598.89 -1.65,596.75</lane>
+         <lane id=":endleft_0_0" depart="0" maxspeed="36.00" length="7.90" >3.25,601.65 1.11,601.34 -0.43,600.43 -1.34,598.89 -1.65,596.75</lane>
       </lanes>
       <cedge id="-left">:endleft_0_0</cedge>
    </edge>
@@ -379,7 +404,7 @@
 
    <edge id=":endleft_3" function="internal">
       <lanes>
-         <lane id=":endleft_3_0" depart="0" maxspeed="36.00" length="4.82" >1.65,596.75 0.82,597.99 0.00,598.40 -0.82,597.99 -1.65,596.75</lane>
+         <lane id=":endleft_3_0" depart="0" maxspeed="36.00" length="4.82" >1.65,596.75 0.82,597.99 -0.00,598.40 -0.83,597.99 -1.65,596.75</lane>
       </lanes>
       <cedge id="-left">:endleft_3_0</cedge>
    </edge>
@@ -416,14 +441,14 @@
    <node_count>8</node_count>
 
 
-   <edge id="-beg" from="beg" to="absBeg" priority="-1" type="19" function="normal">
+   <edge id="-beg" from="beg" to="absBeg" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-beg_0" depart="1" vclasses="" maxspeed="36.00" length="195.25">48.35,195.25 48.35,0.00</lane>
       </lanes>
       <cedge id="beg">-beg_0</cedge>
    </edge>
 
-   <edge id="-beg2left" from="begleft" to="beg" priority="-1" type="19" function="normal">
+   <edge id="-beg2left" from="begleft" to="beg" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-beg2left_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">3.25,198.35 45.25,198.35</lane>
       </lanes>
@@ -433,7 +458,7 @@
       <cedge id="beg2left">-beg2left_0</cedge>
    </edge>
 
-   <edge id="-beg2right" from="begright" to="beg" priority="-1" type="19" function="normal">
+   <edge id="-beg2right" from="begright" to="beg" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-beg2right_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">96.75,201.65 54.75,201.65</lane>
       </lanes>
@@ -443,7 +468,7 @@
       <cedge id="beg2right">-beg2right_0</cedge>
    </edge>
 
-   <edge id="-end" from="absEnd" to="end" priority="-1" type="19" function="normal">
+   <edge id="-end" from="absEnd" to="end" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-end_0" depart="1" vclasses="" maxspeed="36.00" length="195.25">48.35,800.00 48.35,604.75</lane>
       </lanes>
@@ -453,7 +478,7 @@
       <cedge id="end">-end_0</cedge>
    </edge>
 
-   <edge id="-left" from="endleft" to="begleft" priority="-1" type="19" function="normal">
+   <edge id="-left" from="endleft" to="begleft" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-left_0" depart="1" vclasses="" maxspeed="36.00" length="393.50">-1.65,596.75 -1.65,203.25</lane>
       </lanes>
@@ -461,7 +486,7 @@
       <cedge id="left">-left_0</cedge>
    </edge>
 
-   <edge id="-left2end" from="end" to="endleft" priority="-1" type="19" function="normal">
+   <edge id="-left2end" from="end" to="endleft" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-left2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">45.25,601.65 3.25,601.65</lane>
       </lanes>
@@ -469,7 +494,7 @@
       <cedge id="left2end">-left2end_0</cedge>
    </edge>
 
-   <edge id="-middle" from="end" to="beg" priority="-1" type="19" function="normal">
+   <edge id="-middle" from="end" to="beg" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-middle_0" depart="1" vclasses="" maxspeed="36.00" length="390.50">48.35,595.25 48.35,204.75</lane>
       </lanes>
@@ -479,7 +504,7 @@
       <cedge id="middle">-middle_0</cedge>
    </edge>
 
-   <edge id="-right" from="endright" to="begright" priority="-1" type="19" function="normal">
+   <edge id="-right" from="endright" to="begright" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-right_0" depart="1" vclasses="" maxspeed="36.00" length="393.50">98.35,596.75 98.35,203.25</lane>
       </lanes>
@@ -487,7 +512,7 @@
       <cedge id="right">-right_0</cedge>
    </edge>
 
-   <edge id="-right2end" from="end" to="endright" priority="-1" type="19" function="normal">
+   <edge id="-right2end" from="end" to="endright" priority="-1" type="" function="normal">
       <lanes>
          <lane id="-right2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">54.75,598.35 96.75,598.35</lane>
       </lanes>
@@ -495,7 +520,7 @@
       <cedge id="right2end">-right2end_0</cedge>
    </edge>
 
-   <edge id="beg" from="absBeg" to="beg" priority="-1" type="19" function="normal">
+   <edge id="beg" from="absBeg" to="beg" priority="-1" type="" function="normal">
       <lanes>
          <lane id="beg_0" depart="1" vclasses="" maxspeed="36.00" length="195.25">51.65,0.00 51.65,195.25</lane>
       </lanes>
@@ -505,7 +530,7 @@
       <cedge id="-beg">beg_0</cedge>
    </edge>
 
-   <edge id="beg2left" from="beg" to="begleft" priority="-1" type="19" function="normal">
+   <edge id="beg2left" from="beg" to="begleft" priority="-1" type="" function="normal">
       <lanes>
          <lane id="beg2left_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">45.25,201.65 3.25,201.65</lane>
       </lanes>
@@ -513,7 +538,7 @@
       <cedge id="-beg2left">beg2left_0</cedge>
    </edge>
 
-   <edge id="beg2right" from="beg" to="begright" priority="-1" type="19" function="normal">
+   <edge id="beg2right" from="beg" to="begright" priority="-1" type="" function="normal">
       <lanes>
          <lane id="beg2right_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">54.75,198.35 96.75,198.35</lane>
       </lanes>
@@ -521,14 +546,14 @@
       <cedge id="-beg2right">beg2right_0</cedge>
    </edge>
 
-   <edge id="end" from="end" to="absEnd" priority="-1" type="19" function="normal">
+   <edge id="end" from="end" to="absEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="end_0" depart="1" vclasses="" maxspeed="36.00" length="195.25">51.65,604.75 51.65,800.00</lane>
       </lanes>
       <cedge id="-end">end_0</cedge>
    </edge>
 
-   <edge id="left" from="begleft" to="endleft" priority="-1" type="19" function="normal">
+   <edge id="left" from="begleft" to="endleft" priority="-1" type="" function="normal">
       <lanes>
          <lane id="left_0" depart="1" vclasses="" maxspeed="36.00" length="393.50">1.65,203.25 1.65,596.75</lane>
       </lanes>
@@ -536,7 +561,7 @@
       <cedge id="-left">left_0</cedge>
    </edge>
 
-   <edge id="left2end" from="endleft" to="end" priority="-1" type="19" function="normal">
+   <edge id="left2end" from="endleft" to="end" priority="-1" type="" function="normal">
       <lanes>
          <lane id="left2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">3.25,598.35 45.25,598.35</lane>
       </lanes>
@@ -546,7 +571,7 @@
       <cedge id="-left2end">left2end_0</cedge>
    </edge>
 
-   <edge id="middle" from="beg" to="end" priority="-1" type="19" function="normal">
+   <edge id="middle" from="beg" to="end" priority="-1" type="" function="normal">
       <lanes>
          <lane id="middle_0" depart="1" vclasses="" maxspeed="36.00" length="390.50">51.65,204.75 51.65,595.25</lane>
       </lanes>
@@ -556,7 +581,7 @@
       <cedge id="-middle">middle_0</cedge>
    </edge>
 
-   <edge id="right" from="begright" to="endright" priority="-1" type="19" function="normal">
+   <edge id="right" from="begright" to="endright" priority="-1" type="" function="normal">
       <lanes>
          <lane id="right_0" depart="1" vclasses="" maxspeed="36.00" length="393.50">101.65,203.25 101.65,596.75</lane>
       </lanes>
@@ -564,7 +589,7 @@
       <cedge id="-right">right_0</cedge>
    </edge>
 
-   <edge id="right2end" from="endright" to="end" priority="-1" type="19" function="normal">
+   <edge id="right2end" from="endright" to="end" priority="-1" type="" function="normal">
       <lanes>
          <lane id="right2end_0" depart="1" vclasses="" maxspeed="36.00" length="42.00">96.75,601.65 54.75,601.65</lane>
       </lanes>
@@ -738,7 +763,7 @@
 
    <junction id="end" type="priority" x="50.00" y="600.00">
       <inclanes>-end_0 right2end_0 middle_0 left2end_0</inclanes>
-      <intlanes>:end_0_0 :end_1_0 :end_2_0 :end_3_0 :end_4_0 :end_5_0 :end_6_0 :end_7_0 :end_8_0 :end_9_0 :end_10_0 :end_11_0 :end_12_0 :end_13_0 :end_14_0 :end_15_0</intlanes>
+      <intlanes>:end_0_0 :end_1_0 :end_16_0 :end_17_0 :end_4_0 :end_5_0 :end_18_0 :end_19_0 :end_8_0 :end_9_0 :end_20_0 :end_21_0 :end_12_0 :end_13_0 :end_22_0 :end_23_0</intlanes>
       <shape>46.75,604.75 53.25,604.75 54.75,603.25 54.75,596.75 53.25,595.25 46.75,595.25 45.25,596.75 45.25,603.25</shape>
    </junction>
 
@@ -825,8 +850,8 @@
    <succ edge="-end" lane="-end_0" junction="end">
       <succlane lane="-left2end_0" via=":end_0_0" tl="end" linkno="0" yield="1" dir="r" state="t"/>
       <succlane lane="-middle_0" via=":end_1_0" tl="end" linkno="1" yield="1" dir="s" state="t"/>
-      <succlane lane="-right2end_0" via=":end_2_0" tl="end" linkno="2" yield="1" dir="l" state="t"/>
-      <succlane lane="end_0" via=":end_3_0" tl="end" linkno="3" yield="1" dir="t" state="t"/>
+      <succlane lane="-right2end_0" via=":end_2_0" tl="end" linkno="2" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="end_0" via=":end_3_0" tl="end" linkno="3" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
 
    <succ edge="-left" lane="-left_0" junction="begleft">
@@ -885,15 +910,15 @@
    <succ edge="left2end" lane="left2end_0" junction="end">
       <succlane lane="-middle_0" via=":end_12_0" tl="end" linkno="12" yield="1" dir="r" state="t"/>
       <succlane lane="-right2end_0" via=":end_13_0" tl="end" linkno="13" yield="1" dir="s" state="t"/>
-      <succlane lane="end_0" via=":end_14_0" tl="end" linkno="14" yield="1" dir="l" state="t"/>
-      <succlane lane="-left2end_0" via=":end_15_0" tl="end" linkno="15" yield="1" dir="t" state="t"/>
+      <succlane lane="end_0" via=":end_14_0" tl="end" linkno="14" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="-left2end_0" via=":end_15_0" tl="end" linkno="15" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
 
    <succ edge="middle" lane="middle_0" junction="end">
       <succlane lane="-right2end_0" via=":end_8_0" tl="end" linkno="8" yield="1" dir="r" state="t"/>
       <succlane lane="end_0" via=":end_9_0" tl="end" linkno="9" yield="1" dir="s" state="t"/>
-      <succlane lane="-left2end_0" via=":end_10_0" tl="end" linkno="10" yield="1" dir="l" state="t"/>
-      <succlane lane="-middle_0" via=":end_11_0" tl="end" linkno="11" yield="1" dir="t" state="t"/>
+      <succlane lane="-left2end_0" via=":end_10_0" tl="end" linkno="10" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="-middle_0" via=":end_11_0" tl="end" linkno="11" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
 
    <succ edge="right" lane="right_0" junction="endright">
@@ -904,184 +929,184 @@
    <succ edge="right2end" lane="right2end_0" junction="end">
       <succlane lane="end_0" via=":end_4_0" tl="end" linkno="4" yield="1" dir="r" state="t"/>
       <succlane lane="-left2end_0" via=":end_5_0" tl="end" linkno="5" yield="1" dir="s" state="t"/>
-      <succlane lane="-middle_0" via=":end_6_0" tl="end" linkno="6" yield="1" dir="l" state="t"/>
-      <succlane lane="-right2end_0" via=":end_7_0" tl="end" linkno="7" yield="1" dir="t" state="t"/>
+      <succlane lane="-middle_0" via=":end_6_0" tl="end" linkno="6" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="-right2end_0" via=":end_7_0" tl="end" linkno="7" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
 
 
    <succ edge=":absBeg_0" lane=":absBeg_0_0" junction="absBeg">
-      <succlane lane="beg_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="beg_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":absEnd_0" lane=":absEnd_0_0" junction="absEnd">
-      <succlane lane="-end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_0" lane=":beg_0_0" junction="beg">
-      <succlane lane="beg2left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="beg2left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_1" lane=":beg_1_0" junction="beg">
-      <succlane lane="-beg_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-beg_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_2" lane=":beg_2_0" junction="beg">
-      <succlane lane="beg2right_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="beg2right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_3" lane=":beg_3_0" junction="beg">
-      <succlane lane="middle_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="middle_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_4" lane=":beg_4_0" junction="beg">
-      <succlane lane="middle_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="middle_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_5" lane=":beg_5_0" junction="beg">
-      <succlane lane="beg2left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="beg2left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_6" lane=":beg_6_0" junction="beg">
-      <succlane lane="-beg_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-beg_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_7" lane=":beg_7_0" junction="beg">
-      <succlane lane="beg2right_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="beg2right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_8" lane=":beg_8_0" junction="beg">
-      <succlane lane="beg2right_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="beg2right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_9" lane=":beg_9_0" junction="beg">
-      <succlane lane="middle_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="middle_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_10" lane=":beg_10_0" junction="beg">
-      <succlane lane="beg2left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="beg2left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_11" lane=":beg_11_0" junction="beg">
-      <succlane lane="-beg_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-beg_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_12" lane=":beg_12_0" junction="beg">
-      <succlane lane="-beg_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-beg_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_13" lane=":beg_13_0" junction="beg">
-      <succlane lane="beg2right_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="beg2right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_14" lane=":beg_14_0" junction="beg">
-      <succlane lane="middle_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="middle_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_15" lane=":beg_15_0" junction="beg">
-      <succlane lane="beg2left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="beg2left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":begleft_0" lane=":begleft_0_0" junction="begleft">
-      <succlane lane="-beg2left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-beg2left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":begleft_1" lane=":begleft_1_0" junction="begleft">
-      <succlane lane="left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":begleft_2" lane=":begleft_2_0" junction="begleft">
-      <succlane lane="left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":begleft_3" lane=":begleft_3_0" junction="begleft">
-      <succlane lane="-beg2left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-beg2left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":begright_0" lane=":begright_0_0" junction="begright">
-      <succlane lane="-beg2right_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-beg2right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":begright_1" lane=":begright_1_0" junction="begright">
-      <succlane lane="right_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":begright_2" lane=":begright_2_0" junction="begright">
-      <succlane lane="right_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":begright_3" lane=":begright_3_0" junction="begright">
-      <succlane lane="-beg2right_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-beg2right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_0" lane=":end_0_0" junction="end">
-      <succlane lane="-left2end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-left2end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_1" lane=":end_1_0" junction="end">
-      <succlane lane="-middle_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-middle_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_2" lane=":end_2_0" junction="end">
-      <succlane lane="-right2end_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_16_0" int_end="x"/>
+      <succlane lane="-right2end_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_16_0"/>
    </succ>
    <succ edge=":end_16" lane=":end_16_0" junction=":end_16">
-      <succlane lane="-right2end_0" tl="" linkno="0" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-right2end_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_3" lane=":end_3_0" junction="end">
-      <succlane lane="end_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_17_0" int_end="x"/>
+      <succlane lane="end_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_17_0"/>
    </succ>
    <succ edge=":end_17" lane=":end_17_0" junction=":end_17">
-      <succlane lane="end_0" tl="" linkno="0" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="end_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_4" lane=":end_4_0" junction="end">
-      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_5" lane=":end_5_0" junction="end">
-      <succlane lane="-left2end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-left2end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_6" lane=":end_6_0" junction="end">
-      <succlane lane="-middle_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_18_0" int_end="x"/>
+      <succlane lane="-middle_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_18_0"/>
    </succ>
    <succ edge=":end_18" lane=":end_18_0" junction=":end_18">
-      <succlane lane="-middle_0" tl="" linkno="0" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-middle_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_7" lane=":end_7_0" junction="end">
-      <succlane lane="-right2end_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_19_0" int_end="x"/>
+      <succlane lane="-right2end_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_19_0"/>
    </succ>
    <succ edge=":end_19" lane=":end_19_0" junction=":end_19">
-      <succlane lane="-right2end_0" tl="" linkno="0" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-right2end_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_8" lane=":end_8_0" junction="end">
-      <succlane lane="-right2end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-right2end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_9" lane=":end_9_0" junction="end">
-      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_10" lane=":end_10_0" junction="end">
-      <succlane lane="-left2end_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_20_0" int_end="x"/>
+      <succlane lane="-left2end_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_20_0"/>
    </succ>
    <succ edge=":end_20" lane=":end_20_0" junction=":end_20">
-      <succlane lane="-left2end_0" tl="" linkno="0" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-left2end_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_11" lane=":end_11_0" junction="end">
-      <succlane lane="-middle_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_21_0" int_end="x"/>
+      <succlane lane="-middle_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_21_0"/>
    </succ>
    <succ edge=":end_21" lane=":end_21_0" junction=":end_21">
-      <succlane lane="-middle_0" tl="" linkno="0" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-middle_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_12" lane=":end_12_0" junction="end">
-      <succlane lane="-middle_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-middle_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_13" lane=":end_13_0" junction="end">
-      <succlane lane="-right2end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-right2end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_14" lane=":end_14_0" junction="end">
-      <succlane lane="end_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_22_0" int_end="x"/>
+      <succlane lane="end_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_22_0"/>
    </succ>
    <succ edge=":end_22" lane=":end_22_0" junction=":end_22">
-      <succlane lane="end_0" tl="" linkno="0" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="end_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_15" lane=":end_15_0" junction="end">
-      <succlane lane="-left2end_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_23_0" int_end="x"/>
+      <succlane lane="-left2end_0" tl="" linkno="" yield="1" dir="s" state="M" via=":end_23_0"/>
    </succ>
    <succ edge=":end_23" lane=":end_23_0" junction=":end_23">
-      <succlane lane="-left2end_0" tl="" linkno="0" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-left2end_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":endleft_0" lane=":endleft_0_0" junction="endleft">
-      <succlane lane="-left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":endleft_1" lane=":endleft_1_0" junction="endleft">
-      <succlane lane="left2end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="left2end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":endleft_2" lane=":endleft_2_0" junction="endleft">
-      <succlane lane="left2end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="left2end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":endleft_3" lane=":endleft_3_0" junction="endleft">
-      <succlane lane="-left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":endright_0" lane=":endright_0_0" junction="endright">
-      <succlane lane="right2end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="right2end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":endright_1" lane=":endright_1_0" junction="endright">
-      <succlane lane="-right_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":endright_2" lane=":endright_2_0" junction="endright">
-      <succlane lane="-right_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="-right_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":endright_3" lane=":endright_3_0" junction="endright">
-      <succlane lane="right2end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="right2end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
 
 </net>

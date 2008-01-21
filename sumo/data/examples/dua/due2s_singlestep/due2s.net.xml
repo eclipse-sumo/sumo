@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/07/07 11:38:45 by SUMO netconvert Version 0.9.6
+<!-- generated on 01/21/08 09:24:50 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -426,7 +426,7 @@
 
    <junction id="mid" type="priority" x="1000.00" y="20.00">
       <inclanes>fmax_0 fmin_0 middle1_0</inclanes>
-      <intlanes>:mid_0_0 :mid_1_0 :mid_2_0 :mid_3_0 :mid_4_0 :mid_5_0 :mid_6_0 :mid_7_0 :mid_8_0</intlanes>
+      <intlanes>:mid_0_0 :mid_9_0 :mid_10_0 :mid_3_0 :mid_4_0 :mid_11_0 :mid_6_0 :mid_7_0 :mid_12_0</intlanes>
       <shape>996.75,21.45 1003.25,21.45 1004.75,19.95 1004.75,16.75 1003.25,15.25 996.75,15.25 995.25,16.75 995.25,19.95</shape>
    </junction>
 
@@ -496,14 +496,14 @@
 
    <succ edge="fmax" lane="fmax_0" junction="mid">
       <succlane lane="tmin_0" via=":mid_0_0" tl="mid" linkno="0" yield="1" dir="s" state="t"/>
-      <succlane lane="middle2_0" via=":mid_1_0" tl="mid" linkno="1" yield="1" dir="l" state="t"/>
-      <succlane lane="tmax_0" via=":mid_2_0" tl="mid" linkno="2" yield="1" dir="t" state="t"/>
+      <succlane lane="middle2_0" via=":mid_1_0" tl="mid" linkno="1" yield="1" dir="l" state="t" int_end="x"/>
+      <succlane lane="tmax_0" via=":mid_2_0" tl="mid" linkno="2" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
 
    <succ edge="fmin" lane="fmin_0" junction="mid">
       <succlane lane="middle2_0" via=":mid_3_0" tl="mid" linkno="3" yield="1" dir="r" state="t"/>
       <succlane lane="tmax_0" via=":mid_4_0" tl="mid" linkno="4" yield="1" dir="s" state="t"/>
-      <succlane lane="tmin_0" via=":mid_5_0" tl="mid" linkno="5" yield="1" dir="t" state="t"/>
+      <succlane lane="tmin_0" via=":mid_5_0" tl="mid" linkno="5" yield="1" dir="t" state="t" int_end="x"/>
    </succ>
 
    <succ edge="left" lane="left_0" junction="endleft">
@@ -517,7 +517,7 @@
    <succ edge="middle1" lane="middle1_0" junction="mid">
       <succlane lane="tmin_0" via=":mid_6_0" tl="mid" linkno="6" yield="1" dir="r" state="t"/>
       <succlane lane="middle2_0" via=":mid_7_0" tl="mid" linkno="7" yield="1" dir="s" state="t"/>
-      <succlane lane="tmax_0" via=":mid_8_0" tl="mid" linkno="8" yield="1" dir="l" state="t"/>
+      <succlane lane="tmax_0" via=":mid_8_0" tl="mid" linkno="8" yield="1" dir="l" state="t" int_end="x"/>
    </succ>
 
    <succ edge="middle2" lane="middle2_0" junction="end">
@@ -542,73 +542,73 @@
 
 
    <succ edge=":absEnd_0" lane=":absEnd_0_0" junction="absEnd">
-      <succlane lane="rend_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="rend_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":absEnd_1" lane=":absEnd_1_0" junction="absEnd">
-      <succlane lane="rend_1" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="rend_1" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_0" lane=":beg_0_0" junction="beg">
-      <succlane lane="middle1_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="middle1_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":beg_1" lane=":beg_1_0" junction="beg">
-      <succlane lane="beg2left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="beg2left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":begleft_0" lane=":begleft_0_0" junction="begleft">
-      <succlane lane="left_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="left_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_0" lane=":end_0_0" junction="end">
-      <succlane lane="end_1" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="end_1" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":end_1" lane=":end_1_0" junction="end">
-      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":endleft_0" lane=":endleft_0_0" junction="endleft">
-      <succlane lane="left2end_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="left2end_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":mid_0" lane=":mid_0_0" junction="mid">
-      <succlane lane="tmin_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="tmin_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":mid_1" lane=":mid_1_0" junction="mid">
-      <succlane lane="middle2_0" tl="" linkno="" yield="1" dir="s" state="M" via=":mid_9_0" int_end="x"/>
+      <succlane lane="middle2_0" tl="" linkno="" yield="1" dir="s" state="M" via=":mid_9_0"/>
    </succ>
    <succ edge=":mid_9" lane=":mid_9_0" junction=":mid_9">
-      <succlane lane="middle2_0" tl="" linkno="0" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="middle2_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":mid_2" lane=":mid_2_0" junction="mid">
-      <succlane lane="tmax_0" tl="" linkno="" yield="1" dir="s" state="M" via=":mid_10_0" int_end="x"/>
+      <succlane lane="tmax_0" tl="" linkno="" yield="1" dir="s" state="M" via=":mid_10_0"/>
    </succ>
    <succ edge=":mid_10" lane=":mid_10_0" junction=":mid_10">
-      <succlane lane="tmax_0" tl="" linkno="0" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="tmax_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":mid_3" lane=":mid_3_0" junction="mid">
-      <succlane lane="middle2_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="middle2_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":mid_4" lane=":mid_4_0" junction="mid">
-      <succlane lane="tmax_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="tmax_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":mid_5" lane=":mid_5_0" junction="mid">
-      <succlane lane="tmin_0" tl="" linkno="" yield="1" dir="s" state="M" via=":mid_11_0" int_end="x"/>
+      <succlane lane="tmin_0" tl="" linkno="" yield="1" dir="s" state="M" via=":mid_11_0"/>
    </succ>
    <succ edge=":mid_11" lane=":mid_11_0" junction=":mid_11">
-      <succlane lane="tmin_0" tl="" linkno="0" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="tmin_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":mid_6" lane=":mid_6_0" junction="mid">
-      <succlane lane="tmin_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="tmin_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":mid_7" lane=":mid_7_0" junction="mid">
-      <succlane lane="middle2_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="middle2_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":mid_8" lane=":mid_8_0" junction="mid">
-      <succlane lane="tmax_0" tl="" linkno="" yield="1" dir="s" state="M" via=":mid_12_0" int_end="x"/>
+      <succlane lane="tmax_0" tl="" linkno="" yield="1" dir="s" state="M" via=":mid_12_0"/>
    </succ>
    <succ edge=":mid_12" lane=":mid_12_0" junction=":mid_12">
-      <succlane lane="tmax_0" tl="" linkno="0" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="tmax_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":midmax_0" lane=":midmax_0_0" junction="midmax">
-      <succlane lane="fmax_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="fmax_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":midmin_0" lane=":midmin_0_0" junction="midmin">
-      <succlane lane="fmin_0" tl="" linkno="" yield="0" dir="s" state="M" int_end="x"/>
+      <succlane lane="fmin_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
 
 </net>
