@@ -19,7 +19,7 @@
 		<Configuration
 			Name="Debug|Win32"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\Win32.vsprops"
+			InheritedPropertySheets="..\Win32.vsprops;..\meso.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -73,7 +73,7 @@
 		<Configuration
 			Name="Debug|x64"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\x64.vsprops"
+			InheritedPropertySheets="..\x64.vsprops;..\meso.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -127,7 +127,7 @@
 		<Configuration
 			Name="Release|Win32"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\Win32.vsprops;..\Release.vsprops"
+			InheritedPropertySheets="..\Win32.vsprops;..\Release.vsprops;..\meso.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -181,7 +181,7 @@
 		<Configuration
 			Name="Release|x64"
 			ConfigurationType="4"
-			InheritedPropertySheets="..\x64.vsprops;..\Release.vsprops"
+			InheritedPropertySheets="..\x64.vsprops;..\Release.vsprops;..\meso.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"

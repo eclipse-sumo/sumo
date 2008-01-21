@@ -280,7 +280,7 @@
 		<Configuration
 			Name="MesoRelease|Win32"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\Win32.vsprops;..\Release.vsprops;..\exe.vsprops"
+			InheritedPropertySheets="..\Win32.vsprops;..\Release.vsprops;..\exe.vsprops;..\meso.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -345,7 +345,7 @@
 		<Configuration
 			Name="MesoRelease|x64"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\x64.vsprops;..\Release.vsprops;..\exe.vsprops"
+			InheritedPropertySheets="..\x64.vsprops;..\Release.vsprops;..\exe.vsprops;..\meso.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -410,7 +410,7 @@
 		<Configuration
 			Name="MesoDebug|Win32"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\Win32.vsprops;..\exe.vsprops"
+			InheritedPropertySheets="..\Win32.vsprops;..\exe.vsprops;..\meso.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
@@ -475,7 +475,7 @@
 		<Configuration
 			Name="MesoDebug|x64"
 			ConfigurationType="1"
-			InheritedPropertySheets="..\x64.vsprops;..\exe.vsprops"
+			InheritedPropertySheets="..\x64.vsprops;..\exe.vsprops;..\meso.vsprops"
 			>
 			<Tool
 				Name="VCPreBuildEventTool"
