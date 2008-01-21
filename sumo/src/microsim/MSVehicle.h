@@ -421,11 +421,11 @@ public:
 
     struct LaneQ {
         MSLane *lane;
-        float length;
-        float alllength;
-        float v;
-        float hindernisPos;
-        float wish;
+        SUMOReal length;
+        SUMOReal alllength;
+        SUMOReal v;
+        SUMOReal hindernisPos;
+        SUMOReal wish;
         int dir;
         bool t1;
         std::vector<MSLane*> joined;
