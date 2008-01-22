@@ -9194,28 +9194,24 @@ myDet1;0;10;2;100;80
         <filename>"data/examples/extended/variable_speed_signs"</filename>.</para>
       </sect2>
 
-      <sect2 id="user_chp06-management-rerouter">
+      <sect2 id="user_chp06-management-rerouter" revision="0.9.8">
         <title>Rerouter</title>
 
-        <para>Rerouter change the route of vehicles as soon as a vehicle moves
-        on a specified edge. Although implemented earlier, were firstly
-        described and tested within version 0.9.5.</para>
+        <para>Rerouter change the route of a vehicle as soon as the vehicle
+        moves onto a specified edge.</para>
 
-        <para>A rerouter is set into the simulated by adding the following
-        line to an "additional file": <sgmltag>&lt;trigger
+        <para>A rerouter is set into the simulated network by adding the
+        following declaration line to an "additional file":
+        <sgmltag>&lt;trigger
         id="<replaceable>&lt;REROUTER_ID&gt;</replaceable>"
         objecttype="rerouter"
         objectid="<replaceable>&lt;EDGE_ID&gt;</replaceable>[;<replaceable>&lt;EDGE_ID&gt;</replaceable>]"
         file="<replaceable>&lt;DEFINITION_FILE&gt;</replaceable>"
         [probability="<replaceable>&lt;PROBABILITY&gt;</replaceable>"]/&gt;</sgmltag>.
         As you may see, rerouter may be placed on several edges, at least one
-        edge is necessary. Furthermore, you may already give within this
-        definition how many vehicles shall be rerouted by giving a number
-        between 0 (none) and 1 (all). In addition to this definition a
-        description file
-        (<sgmltag><replaceable>&lt;DEFINITION_FILE&gt;</replaceable></sgmltag>)
-        must be given which describes the behaviour of the rerouter over time.
-        The definition values are</para>
+        edge is necessary. Furthermore, you may already define the probability
+        for rerouting a vehicle by giving a number between 0 (none) and 1
+        (all). The declaration values are</para>
 
         <itemizedlist>
           <listitem>
@@ -9242,7 +9238,10 @@ myDet1;0;10;2;100;80
           </listitem>
         </itemizedlist>
 
-        <para>Each definition of what a rerouter shall do is embedded in an
+        <para>In addition to this declaration a definition file (stored in
+        <sgmltag><replaceable>&lt;DEFINITION_FILE&gt;</replaceable></sgmltag>)
+        must be given which describes the behaviour of the rerouter over time.
+        Each description of what a rerouter shall do is embedded in an
         interval definition which describes within which time period the
         rerouter shall work. This is set up as following:</para>
 
@@ -9258,9 +9257,8 @@ myDet1;0;10;2;100;80
         <para>A rerouter may work in several different ways. Within a time
         period you may close an edge, or assign new destinations or pregiven
         routes to vehicles. The next subchapters will describe these
-        possibilities and how to describe them in detail.</para>
-
-        <para>Examples:</para>
+        possibilities and how to describe them within the rerouter's
+        definition file in detail.</para>
 
         <para>Recent changes:</para>
 
@@ -9269,22 +9267,27 @@ myDet1;0;10;2;100;80
             <para>A complete description of rerouters was added in version
             0.9.5; in accordace, definitions of rerouters have changed</para>
           </listitem>
+
+          <listitem>
+            <para>The description was reworked for version 0.9.8</para>
+          </listitem>
         </itemizedlist>
 
         <sect3 id="user_chp06-management-rerouter-closing">
           <title>Closing a Street</title>
 
-          <para>A "<sgmltag>closing_reroute</sgmltag>" forces the rerouter to
+          <para>A "<literal>closing_reroute</literal>" forces the rerouter to
           close the edge
           <sgmltag><replaceable>&lt;EDGE_ID&gt;</replaceable></sgmltag>.
           Vehicles which normally would pass this edge will get a new route as
           soon as they reach one of the edges given in the
           <sgmltag>objectid</sgmltag>-attribute of the rerouter's declaration.
-          A definition may look like this:</para>
+          a <literal>closing_reroute</literal> definition may look like
+          this:</para>
 
           <programlisting><sgmltag>&lt;rerouter&gt;</sgmltag>
    <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"/&gt;</sgmltag>
-      &lt;closing_reroute id="<replaceable>&lt;EDGE_ID&gt;</replaceable>"/&gt;
+      <sgmltag>&lt;closing_reroute id="<replaceable>&lt;EDGE_ID&gt;</replaceable>"/&gt;</sgmltag>
    <sgmltag>&lt;/interval&gt;</sgmltag>
 
    ... further intervals ...
@@ -9305,16 +9308,16 @@ myDet1;0;10;2;100;80
         <sect3 id="user_chp06-management-rerouter-dest_prob">
           <title>Assigning a new Destination</title>
 
-          <para>A "<sgmltag>dest_prob_reroute</sgmltag>" forces the rerouter
-          to assign a new route to vehicles which pass one of the edges
-          defined in the <sgmltag>objectid</sgmltag>-attribute of the
-          rerouter's declaration. A new route destination is used, defined by
-          the name of a new destination in the according element:</para>
+          <para>A "<literal>dest_prob_reroute</literal>" forces the rerouter
+          to assign a new route to vehicles that pass one of the edges defined
+          in the <sgmltag>objectid</sgmltag>-attribute of the rerouter's
+          declaration. A new route destination is used, defined by the name of
+          a new destination in the according element:</para>
 
           <programlisting><sgmltag>&lt;rerouter&gt;</sgmltag>
    <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"/&gt;</sgmltag>
-      &lt;dest_prob_reroute id="<replaceable>&lt;EDGE_ID1&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY1&gt;</replaceable>"/&gt;
-      &lt;dest_prob_reroute id="<replaceable>&lt;EDGE_ID2&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY2&gt;</replaceable>"/&gt;
+      <sgmltag>&lt;dest_prob_reroute id="<replaceable>&lt;EDGE_ID1&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY1&gt;</replaceable>"/&gt;</sgmltag>
+      <sgmltag>&lt;dest_prob_reroute id="<replaceable>&lt;EDGE_ID2&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY2&gt;</replaceable>"/&gt;</sgmltag>
    <sgmltag>&lt;/interval&gt;</sgmltag>
 
    ... further intervals ...
@@ -9323,9 +9326,11 @@ myDet1;0;10;2;100;80
 
           <para>The route is computed automatically using the
           Dijkstra-algorithm and starting at the edge the vehicle is located
-          at and ending at the new destination.</para>
+          at and ending at the new destination. The new route will be the
+          fastest route in the empty network.</para>
 
-          <para>The attributes used within such definitions are:</para>
+          <para>The attributes used within a
+          <literal>dest_prob_reroute</literal> are:</para>
 
           <itemizedlist>
             <listitem>
@@ -9338,7 +9343,7 @@ myDet1;0;10;2;100;80
               <para><sgmltag>probability</sgmltag>: the probability with which
               a vehicle will use the given edge as destination; mandatory
               float, should be between 0 and 1; the sum of the probabilities
-              should be 1</para>
+              should be 1 (but this is not necessary)</para>
             </listitem>
           </itemizedlist>
         </sect3>
@@ -9346,16 +9351,16 @@ myDet1;0;10;2;100;80
         <sect3 id="user_chp06-management-rerouter-route_prob">
           <title>Assigning a new Route</title>
 
-          <para>A "<sgmltag>route_prob_reroute</sgmltag>" forces the rerouter
+          <para>A "<literal>route_prob_reroute</literal>" forces the rerouter
           to assign a new route to vehicles which pass one of the edges
           defined in the <sgmltag>objectid</sgmltag>-attribute of the
           rerouter's declaration. In this case, the id of a complete route
-          shall be supplied instead of a new destination:</para>
+          must be supplied instead of a new destination:</para>
 
           <programlisting><sgmltag>&lt;rerouter&gt;</sgmltag>
    <sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>"/&gt;</sgmltag>
-      &lt;route_prob_reroute id="<replaceable>&lt;ROUTE_ID1&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY1&gt;</replaceable>"/&gt;
-      &lt;route_prob_reroute id="<replaceable>&lt;ROUTE_ID2&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY2&gt;</replaceable>"/&gt;
+      <sgmltag>&lt;route_prob_reroute id="<replaceable>&lt;ROUTE_ID1&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY1&gt;</replaceable>"/&gt;</sgmltag>
+      <sgmltag>&lt;route_prob_reroute id="<replaceable>&lt;ROUTE_ID2&gt;</replaceable>" probability="<replaceable>&lt;PROBABILITY2&gt;</replaceable>"/&gt;</sgmltag>
    <sgmltag>&lt;/interval&gt;</sgmltag>
 
    ... further intervals ...
