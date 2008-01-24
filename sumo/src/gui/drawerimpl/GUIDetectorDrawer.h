@@ -71,6 +71,7 @@ protected:
     /// Information whether the gl-id shall be set
     bool myShowToolTips;
 
+
 };
 
 
