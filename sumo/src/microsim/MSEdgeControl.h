@@ -224,20 +224,16 @@ public:
      *  of the lane changing.
      */
     struct LaneUsage {
-        /// The described lane
+        /// @brief The described lane
         MSLane *lane;
-        /// The current number of vehicles on this lane
-        size_t noVehicles;
-        /// The current length of all vehicles on this lane
-        SUMOReal vehLenSum;
-        /// The lane left to the described lane (==lastNeigh if none) 
+        /// @brief The lane left to the described lane (==lastNeigh if none) 
         MSEdge::LaneCont::const_iterator firstNeigh;
-        /// The end of this lane's edge's lane container
+        /// @brief The end of this lane's edge's lane container
         MSEdge::LaneCont::const_iterator lastNeigh;
-        /// The numerical index of the described lane
-        int index;
-        /// Information whether this lane is active
+        /// @brief Information whether this lane is active
         bool amActive;
+        /// @brief Information whether this lane belongs to a multi-lane edge
+        bool haveNeighbors;
     };
 
 private:
@@ -260,14 +256,17 @@ private:
     /// @brief Information about lanes' number of vehicles and neighbors
     LaneUsageVector myLanes;
 
-    /// The list of active (not empty) lanes
+    /// @brief The list of active (not empty) lanes
     std::list<MSLane*> myActiveLanes;
 
-    /// A storage for lanes which shall be integrated because vehicles have moved onto them
+    /// @brief A storage for lanes which shall be integrated because vehicles have moved onto them
     std::vector<MSLane*> myWithVehicles2Integrate;
 
-    /// Lanes which changed the state without informing the control
+    /// @brief Lanes which changed the state without informing the control
     std::set<MSLane*> myChangedStateLanes;
+
+    /// @brief The list of active (not empty) lanes
+    std::vector<SUMOTime> myLastLaneChange;
 
 };
 

@@ -160,9 +160,9 @@ MSLaneChanger::change()
         (myCandi - 1)->hoppedVeh = veh(myCandi);
         (myCandi - 1)->lane->myTmpVehicles.push_front(veh(myCandi));
         vehicle->leaveLaneAtLaneChange();
-        myCandi->lane->myUseDefinition->vehLenSum -= veh(myCandi)->getLength();
+        myCandi->lane->leftByLaneChange(vehicle);
         vehicle->enterLaneAtLaneChange((myCandi - 1)->lane);
-        (myCandi - 1)->lane->myUseDefinition->vehLenSum += veh(myCandi)->getLength();
+        (myCandi - 1)->lane->enteredByLaneChange(vehicle);
         vehicle->myLastLaneChangeOffset = 0;
         vehicle->getLaneChangeModel().changed();
         (myCandi - 1)->dens += (myCandi - 1)->hoppedVeh->getLength();
@@ -186,9 +186,9 @@ MSLaneChanger::change()
         (myCandi + 1)->hoppedVeh = veh(myCandi);
         (myCandi + 1)->lane->myTmpVehicles.push_front(veh(myCandi));
         vehicle->leaveLaneAtLaneChange();
-        myCandi->lane->myUseDefinition->vehLenSum -= veh(myCandi)->getLength();
+        myCandi->lane->leftByLaneChange(vehicle);
         vehicle->enterLaneAtLaneChange((myCandi + 1)->lane);
-        (myCandi + 1)->lane->myUseDefinition->vehLenSum += veh(myCandi)->getLength();
+        (myCandi + 1)->lane->enteredByLaneChange(vehicle);
         vehicle->myLastLaneChangeOffset = 0;
         vehicle->getLaneChangeModel().changed();
         (myCandi + 1)->dens += (myCandi + 1)->hoppedVeh->getLength();

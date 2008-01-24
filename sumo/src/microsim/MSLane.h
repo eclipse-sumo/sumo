@@ -215,7 +215,7 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     MSVehicle::State myLastState;
 
 
-    void init(MSEdgeControl &ctrl, MSEdgeControl::LaneUsage *useDefinition);
+    void init(MSEdgeControl &, MSEdge::LaneCont::const_iterator firstNeigh, MSEdge::LaneCont::const_iterator lastNeigh);
 
 
     /** does nothing; needed for GUI-versions where vehicles are locked
@@ -260,8 +260,12 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
         return myShape;
     }
 
-    virtual SUMOReal getDensity() const;
-    virtual SUMOReal getVehLenSum() const;
+    SUMOReal getDensity() const;
+    SUMOReal getVehLenSum() const;
+
+
+    void leftByLaneChange(MSVehicle *v);
+    void enteredByLaneChange(MSVehicle *v);
 
 
     MSLane * const getLeftLane() const;
@@ -272,10 +276,6 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     bool allowsVehicleClass(SUMOVehicleClass vclass) const;
 
     void addIncomingLane(MSLane *lane, MSLink *viaLink);
-
-    const MSEdgeControl::LaneUsage &getLaneUsage() const {
-        return *myUseDefinition;
-    }
 
     struct IncomingLaneInfo {
         MSLane *lane;
@@ -375,12 +375,10 @@ protected:
     SUMOReal myBackDistance;
 
     /** Vehicle-buffer for vehicle that was put onto this lane by a
-        junction. The  buffer is neccessary, because of competing
+        junction. The  buffer is necessary, because of competing
         push- and pop-operations on myVehicles during
         Junction::moveFirst() */
     std::vector<MSVehicle*> myVehBuffer;
-
-    MSEdgeControl::LaneUsage *myUseDefinition;
 
     /// The list of allowed vehicle classes
     std::vector<SUMOVehicleClass> myAllowedClasses;
@@ -389,6 +387,16 @@ protected:
     std::vector<SUMOVehicleClass> myNotAllowedClasses;
 
     std::vector<IncomingLaneInfo> myIncomingLanes;
+
+    /// @brief The current length of all vehicles on this lane
+    SUMOReal myVehicleLengthSum;
+
+
+    /// @brief The lane left to the described lane (==lastNeigh if none) 
+    MSEdge::LaneCont::const_iterator myFirstNeigh;
+    
+    /// @brief The end of this lane's edge's lane container
+    MSEdge::LaneCont::const_iterator myLastNeigh;
 
 
 protected:

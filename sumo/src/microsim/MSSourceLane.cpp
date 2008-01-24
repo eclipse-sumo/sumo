@@ -115,16 +115,14 @@ bool
 MSSourceLane::emitTry(MSVehicle& veh)
 {
     // on sources, no vehicles may arrive from the back
+    bool wasInactive = myVehicles.size()==0;
     myVehicles.push_front(&veh);
-    bool wasInactive = myUseDefinition->noVehicles==0;
-    myUseDefinition->noVehicles++;
-    myUseDefinition->vehLenSum += veh.getLength();
+    myVehicleLengthSum += veh.getLength();
     if (wasInactive) {
         MSNet::getInstance()->getEdgeControl().gotActive(this);
     }
     MSVehicle::State state(myLength>1 ? (SUMOReal)(myLength - 1.) : 0, 0);
     veh.enterLaneAtEmit(this, state);
-    assert(myUseDefinition->noVehicles==myVehicles.size());
     return true;
 }
 
@@ -146,14 +144,12 @@ MSSourceLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
         // emit vehicle if so
         MSVehicle::State state(frontMax, 0);
         veh.enterLaneAtEmit(this, state);
+        bool wasInactive = myVehicles.size()==0;
         myVehicles.push_front(&veh);
-        bool wasInactive = myUseDefinition->noVehicles==0;
-        myUseDefinition->noVehicles++;
-        myUseDefinition->vehLenSum += veh.getLength();
+        myVehicleLengthSum += veh.getLength();
         if (wasInactive) {
             MSNet::getInstance()->getEdgeControl().gotActive(this);
         }
-        assert(myUseDefinition->noVehicles==myVehicles.size());
         return true;
     }
     return false;
