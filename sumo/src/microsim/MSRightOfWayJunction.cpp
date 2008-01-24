@@ -115,27 +115,38 @@ MSRightOfWayJunction::postloadInit()
 bool
 MSRightOfWayJunction::setAllowed()
 {
-    /*
-    LaneCont::iterator i;
-    size_t requestPos = 0;
-    // going through the incoming lanes...
-    for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
-        const MSLinkCont &links = (*i)->getLinkCont();
-        // check whether the next lane is free
-        for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
-            MSLane *dest = (*j)->getLane();
-            if (dest!=0) {
-                const MSVehicle * const lastOnDest = dest->getLastVehicle();
-                if (lastOnDest!=0) {
-                    if (lastOnDest->getPositionOnLane()-lastOnDest->getLength()<5) { // !!! explcite vehicle length
-                        myRequest.set(requestPos, false);
+#ifdef HAVE_INTERNAL_LANES
+    // lets reset the yield information on internal, split
+    //  left-moving links
+    if (MSGlobals::gUsingInternalLanes) {
+        LaneCont::iterator i;
+        size_t requestPos = 0;
+        // going through the incoming lanes...
+        for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
+            const MSLinkCont &links = (*i)->getLinkCont();
+            // check whether the next lane is free
+            for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
+                if(myRequest.test(requestPos)) {
+                    MSLane *dest = (*j)->getLane();
+                    if (dest!=0) {
+                        SUMOReal approachingLength = 0;
+                        MSLane *via = 0;
+                        if(via!=0) {
+                            approachingLength = via->getVehLenSum();
+                        }
+                        const MSVehicle * const lastOnDest = dest->getLastVehicle();
+                        if (lastOnDest!=0) {
+                            if (lastOnDest->getPositionOnLane()-lastOnDest->getLength()-approachingLength<0) {
+                                myRequest.set(requestPos, false);
+                            }
+                        }
                     }
                 }
+                requestPos++;
             }
-            requestPos++;
         }
     }
-    */
+#endif
     // Get myRespond from logic and check for deadlocks.
     myLogic->respond(myRequest, myInnerState, myRespond);
     deadlockKiller();
@@ -173,7 +184,7 @@ MSRightOfWayJunction::deadlockKiller()
     if (myRespond.none() && myInnerState.none()) {
         // Handle deadlock: Create randomly a deadlock-free request out of
         // myRequest, i.e. a "single bit" request. Then again, send it
-        // through myLogic (this is neccessary because we don't have a
+        // through myLogic (this is necessary because we don't have a
         // mapping between requests and lanes.) !!! (we do now!!)
         vector< unsigned > trueRequests;
         trueRequests.reserve(myRespond.size());
