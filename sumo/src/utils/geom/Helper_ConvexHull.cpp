@@ -63,7 +63,7 @@ simpleHull_2D(const Position2DVector &V)
     }
     // initialize a deque D[] from bottom to top so that the
     // 1st three vertices of V[] are a counterclockwise triangle
-    int n = V.size();
+    int n = (int) V.size();
     std::vector<Position2D> D(2*n+1);
     int bot = n-2, top = bot+3;   // initial bottom and top deque indices
     D[bot] = D[top] = V[2];       // 3rd vertex is at both bot and top

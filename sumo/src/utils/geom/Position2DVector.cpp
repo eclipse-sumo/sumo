@@ -912,7 +912,7 @@ void
 Position2DVector::move2side(SUMOReal amount, int index)
 {
     if (index<0) {
-        index = myCont.size() + index;
+        index = (int) myCont.size() + index;
     }
     if (/*i==myGeom.size()-2||*/index==0) {
         Position2D from = myCont[index];
