@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
-// A class for the initialisation, input and veryfying of the
+// Perfoms initialisation and verification of netimport-options
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -110,6 +110,10 @@ NIOptionsIO::fillOptions()
 
     oc.doRegister("tiger", new Option_FileName());
     oc.addDescription("tiger", "Input", "Read Tiger-network from path 'FILE'");
+
+    oc.doRegister("osm-files", new Option_FileName());
+    oc.addSynonyme("osm-files", "osm");
+    oc.addDescription("osm-files", "Input", "Read OSM-network from path 'FILE(s)'");
 
     oc.doRegister("visum-file", new Option_FileName());
     oc.addSynonyme("visum-file", "visum");

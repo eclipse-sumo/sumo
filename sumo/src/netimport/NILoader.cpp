@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
-// An interface to the loading operations of the
+// Perfoms network import
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -61,6 +61,8 @@
 #include <netimport/NISUMOHandlerEdges.h>
 #include <netimport/NISUMOHandlerDepth.h>
 #include <netimport/NITigerLoader.h>
+#include <netimport/NIOSMEdgesHandler.h>
+#include <netimport/NIOSMNodesHandler.h>
 #include <utils/xml/XMLSubSys.h>
 #include "NILoader.h"
 #include <netbuild/NLLoadFilter.h>
@@ -79,7 +81,7 @@ using namespace std;
 
 
 // ===========================================================================
-// method defintions
+// method definitions
 // ===========================================================================
 NILoader::NILoader(NBNetBuilder &nb)
         : myNetBuilder(nb)
@@ -114,6 +116,7 @@ NILoader::load(OptionsCont &oc)
     loadVissim(oc);
     loadElmar(oc);
     loadTiger(oc);
+    loadOSM(oc);
     loadXML(oc);
     // check the loaded structures
     if (myNetBuilder.getNodeCont().size()==0) {
@@ -367,6 +370,27 @@ NILoader::loadTiger(OptionsCont &oc)
     NITigerLoader l(myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont(),
                     oc.getString("tiger"));
     l.load(oc);
+}
+
+
+void
+NILoader::loadOSM(OptionsCont &oc)
+{
+    if (!oc.isSet("osm-files")) {
+        return;
+    }
+    std::map<int, NIOSMNode*> tmpNodes;
+    // load nodes
+    loadXMLType(new NIOSMNodesHandler(tmpNodes, oc),
+                oc.getStringVector("osm-files"), "nodes");
+    // load the edges
+    loadXMLType(new NIOSMEdgesHandler(tmpNodes,
+        myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
+        myNetBuilder.getTypeCont(), myNetBuilder.getDistrictCont(), oc),
+                oc.getStringVector("osm-files"), "edges");
+    for(std::map<int, NIOSMNode*>::const_iterator i=tmpNodes.begin(); i!=tmpNodes.end(); ++i) {
+        delete (*i).second;
+    }
 }
 
 

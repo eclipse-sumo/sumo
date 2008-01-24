@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
-// An interface to the loading operations of the
+// Perfoms network import
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -57,7 +57,9 @@ class NBNetBuilder;
 // class declarations
 // ===========================================================================
 /**
- * NILoader
+ * @class NILoader
+ * @brief Perfoms network import
+ *
  * This class loads the specified data using a loading method that accords
  * to the data type specified by the user.
  * Subclasses may be used for the loading process, too, as it is done while
@@ -105,8 +107,17 @@ private:
 
     void loadTiger(OptionsCont &oc);
 
+    void loadOSM(OptionsCont &oc);
+
 private:
     NBNetBuilder &myNetBuilder;
+
+private:
+    /// @brief Invalidated copy constructor.
+    NILoader(const NILoader&);
+
+    /// @brief Invalidated assignment operator.
+    NILoader& operator=(const NILoader&);
 
 };
 

@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
-// A class for the initialisation, input and veryfying of the
+// Perfoms initialisation and verification of netimport-options
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -35,7 +35,9 @@
 // class declarations
 // ===========================================================================
 /**
- * NIOptionsIO
+ * @class NIOptionsIO
+ * @brief Perfoms initialisation and verification of netimport-options
+ *
  * This class is used to build the container of possible commands
  * (OptionsCont-typed) and process reading of options from the command
  * line and the configuration file. The options are also veryfied inside
