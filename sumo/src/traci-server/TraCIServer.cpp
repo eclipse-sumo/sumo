@@ -103,9 +103,12 @@ TraCIServer::~TraCIServer()
 void
 TraCIServer::run()
 {
+   // Prepare simulation
+   MSNet::getInstance()->initialiseSimulation();
+
     try {
         // Opens listening socket
-        std::cout << "***Starting server on port " << port_  << "***" << std::endl;
+        std::cout << "***Starting server on port " << port_  << " ***" << std::endl;
         Socket socket(port_);
         socket.accept();
 
@@ -119,31 +122,24 @@ TraCIServer::run()
             Storage storIn;
             Storage storOut;
             // Read a message
-            try {
-                socket.receiveExact(storIn);
-            } catch (...) {
-                std::cerr << "Error while receiving command via Mobility Interface" << std::endl;
-                exit(1);
-            }
+            socket.receiveExact(storIn);
 
             while (storIn.valid_pos() && !closeConnection_) {
                 // dispatch each command
                 if (! dispatchCommand(storIn, storOut)) closeConnection_ = true;
             }
 
-            try {
-                // send out all answers as one storage
-                socket.sendExact(storOut);
-            } catch (...) {
-                std::cerr << "Error while sending command via Mobility Interface" << std::endl;
-                exit(1);
-            }
+            // send out all answers as one storage
+            socket.sendExact(storOut);
         }
     } catch (TraCIException e) {
         cerr << e.what() << endl;
     } catch (SocketException e) {
         cerr << e.what() << endl;
     }
+
+    MSNet::getInstance()->closeSimulation(beginTime_, endTime_);
+    
 }
 
 /*****************************************************************************/
@@ -258,11 +254,12 @@ throw(TraCIException)
 
 
     // do simulation step
-    if (targetTime - currentTime > 0) {
-        net->simulate(currentTime, targetTime);
+    while (targetTime > currentTime) {
+        net->simulationStep(currentTime, currentTime + DELTA_T);
+        currentTime += DELTA_T;
         isMapChanged_ = true;
+        cout << "Step #" << currentTime << (char) 13;
     }
-    currentTime = net->getCurrentTimeStep();
 
     // prepare output
     try {
@@ -407,7 +404,8 @@ void
 	throw (TraCIException)
 {
 	// NodeId
-    MSVehicle* veh = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
+   int vehId = requestMsg.readInt();
+    MSVehicle* veh = getVehicleByExtId( vehId ); // external node id (equipped vehicle number)
 	// edgeID
 	std::string edgeID = requestMsg.readString();
 	// travelTime
@@ -415,7 +413,9 @@ void
 
 	if ( veh == NULL )
     {
-        writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve node with given ID");
+        std::ostringstream os;
+        os << "Can not retrieve node with ID " << vehId;
+        writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, os.str());
         return;
     }
 
