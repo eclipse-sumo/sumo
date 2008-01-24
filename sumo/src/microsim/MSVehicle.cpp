@@ -1583,7 +1583,6 @@ MSVehicle::getBestLanes() const
             for (std::vector<MSLane*>::const_iterator j=(*i).joined.begin(); j!=(*i).joined.end(); ++j) {
                 v += (*j)->getVehLenSum();
             }
-            v += (*lanes.begin()).lane->getVehLenSum();
             (*i).v = v;
             if((*i).lane==myLane) {
                 myCurrentLaneInBestLanes = i;
