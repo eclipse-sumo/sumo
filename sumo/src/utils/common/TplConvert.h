@@ -108,7 +108,7 @@ public:
     /** converts a char-type array into std::string considering the given
             length
         throws an EmptyData - exception if the given string is empty */
-    static std::string _2str(const E * const data, int length) {
+    static std::string _2str(const E * const data, unsigned length) {
         if (data==0) {
             throw EmptyData();
         }
@@ -116,7 +116,7 @@ public:
             return "";
         }
         char *buf = new char[length+1];
-        int i = 0;
+        unsigned i = 0;
         for (i=0; i<length; i++) {
             buf[i] = (char) data[i];
         }
@@ -132,12 +132,12 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain an integer */
-    static int _2int(const E * const data, int length) {
+    static int _2int(const E * const data, unsigned length) {
         if (data==0||length==0||data[0]==0) {
             throw EmptyData();
         }
         int sgn = 1;
-        int i=0;
+        unsigned i=0;
         if (data[0]=='+') {
             i++;
         }
@@ -166,12 +166,12 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a long */
-    static long _2long(const E * const data, int length) {
+    static long _2long(const E * const data, unsigned length) {
         if (data==0||length==0||data[0]==0) {
             throw EmptyData();
         }
         long sgn = 1;
-        int i=0;
+        unsigned i=0;
         if (data[0]=='+') {
             i++;
         }
@@ -200,12 +200,12 @@ public:
         throws an EmptyData - exception if the given string is empty
         throws a NumberFormatException - exception when the string does
             not contain a SUMOReal */
-    static SUMOReal _2SUMOReal(const E * const data, int length) {
+    static SUMOReal _2SUMOReal(const E * const data, unsigned length) {
         if (data==0||length==0||data[0]==0) {
             throw EmptyData();
         }
         SUMOReal ret = 0;
-        int i = 0;
+        unsigned i = 0;
         SUMOReal sgn = 1;
         if (data[0]=='+') {
             i++;
@@ -273,7 +273,7 @@ public:
         returns true when the first char is one of the following: '1',
             'x', 't', 'T'
         throws an EmptyData - exception if the given string is empty */
-    static bool _2bool(const E * const data, int length) {
+    static bool _2bool(const E * const data, unsigned length) {
         if (data==0||length==0||data[0]==0) {
             throw EmptyData();
         }
@@ -296,7 +296,7 @@ public:
             throw EmptyData();
         }
         char *ret = new char[length+1];
-        int i = 0;
+        unsigned i = 0;
         for (; i<length; i++) {
             ret[i] = (char) data[i];
         }
@@ -307,7 +307,7 @@ public:
 
     /** duplicates the given string */
     static E *duplicate(const E * const s) {
-        int i=0;
+        unsigned i=0;
         for (;s[i]!=0; i++);
         char *ret = new E[i+1];
         for (i=0; s[i]!=0; i++) {
@@ -319,11 +319,11 @@ public:
 
 
     /** returns the length of the string (the position of the 0-character) */
-    static size_t getLength(const E * const data) {
+    static unsigned getLength(const E * const data) {
         if (data==0) {
             return 0;
         }
-        size_t i = 0;
+        unsigned i = 0;
         for (; data[i]!=0; i++);
         return i;
     }

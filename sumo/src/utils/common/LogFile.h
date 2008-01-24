@@ -91,6 +91,13 @@ private:
     /// The used file
     OutputDevice &myOutput;
 
+private:
+    /// Copy constructor.
+    LogFile(const LogFile&);
+
+    /// Assignment operator.
+    LogFile& operator=(const LogFile&);
+
 };
 
 

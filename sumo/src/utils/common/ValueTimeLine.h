@@ -2,7 +2,7 @@
 /// @file    ValueTimeLine.h
 /// @author  Christian Roessel
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id:ValueTimeLine.h 4690 2007-11-09 13:19:45Z dkrajzew $
 ///
 // A list of time ranges with SUMOReal values
 /****************************************************************************/
@@ -469,7 +469,7 @@ private:
 
     /// Predicates for (binary) ordering and searching in a
     /// TimedValueVector. The first value of TimeRange is used for
-    /// ordering and searching. If neccessary, check for the second
+    /// ordering and searching. If necessary, check for the second
     /// one yourself.
 struct TimeRangeLess :
                 std::binary_function< unsigned, ValuedTimeRange, bool > {

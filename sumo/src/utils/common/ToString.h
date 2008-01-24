@@ -43,7 +43,7 @@
  * (when supplied by c++/the stl)
  */
 template <class T>
-inline std::string toString(const T& t, size_t accuracy=OUTPUT_ACCURACY)
+inline std::string toString(const T& t, std::streamsize accuracy=OUTPUT_ACCURACY)
 {
     std::ostringstream oss;
     oss.setf(std::ios::fixed , std::ios::floatfield);

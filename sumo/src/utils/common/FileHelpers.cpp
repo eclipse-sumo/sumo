@@ -200,10 +200,10 @@ FileHelpers::writeByte(std::ostream &strm, unsigned char value)
 std::ostream &
 FileHelpers::writeString(std::ostream &strm, const std::string &value)
 {
-    int size = value.length();
+    size_t size = value.length();
     const char *cstr = value.c_str();
-    writeUInt(strm, size);
-    strm.write((char*) cstr, sizeof(char)*size);
+    writeUInt(strm, (unsigned int) size);
+    strm.write((char*) cstr, (std::streamsize) (sizeof(char)*size));
     return strm;
 }
 

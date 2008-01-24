@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// An object that has a name
+// Base class for objects which do have an id.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -38,24 +38,33 @@
 // ===========================================================================
 /**
  * @class Named
- * The base class for objects which do have a name (an id).
+ * @brief Base class for objects which do have an id.
  */
 class Named
 {
 public:
-    /// Constructor
-    Named(const std::string &id) : myID(id) { }
+    /** @brief Constructor
+     *
+     * @param[in] id The id of the object
+     */
+    Named(const std::string &id) throw() : myID(id) { }
 
-    /// Destructor
-    virtual ~Named() { }
 
-    /// Returns the name
-    const std::string &getID() const {
+    /// @brief Destructor
+    virtual ~Named() throw() { }
+
+
+    /** @brief Returns the id
+     *
+     * @return The stored id
+     */
+    const std::string &getID() const throw() {
         return myID;
     }
 
+
 protected:
-    /// The name of the object
+    /// @brief The name of the object
     std::string myID;
 
 };
