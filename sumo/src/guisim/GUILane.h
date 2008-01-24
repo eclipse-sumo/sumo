@@ -102,9 +102,6 @@ public:
     const VehCont &getVehiclesSecure();
 
 
-    SUMOReal getDensity() const;
-    SUMOReal getVehLenSum() const;
-
     void detectCollisions(SUMOTime timestep);
 
 

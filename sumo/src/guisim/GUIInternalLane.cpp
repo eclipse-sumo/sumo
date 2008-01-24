@@ -206,26 +206,6 @@ GUIInternalLane::buildLaneWrapper(GUIGlObjectStorage &idStorage)
 }
 
 
-SUMOReal
-GUIInternalLane::getDensity() const
-{
-    myLock.lock();
-    SUMOReal ret = MSLane::getDensity();
-    myLock.unlock();
-    return ret;
-}
-
-
-SUMOReal
-GUIInternalLane::getVehLenSum() const
-{
-    myLock.lock();
-    SUMOReal ret = MSLane::getVehLenSum();
-    myLock.unlock();
-    return ret;
-}
-
-
 void
 GUIInternalLane::detectCollisions(SUMOTime timestep)
 {

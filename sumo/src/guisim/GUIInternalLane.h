@@ -100,8 +100,6 @@ public:
     const VehCont &getVehiclesSecure();
 
     GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
-    SUMOReal getDensity() const;
-    SUMOReal getVehLenSum() const;
 
     void detectCollisions(SUMOTime timestep);
     MSVehicle *removeFirstVehicle();
