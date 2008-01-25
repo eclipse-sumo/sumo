@@ -146,7 +146,7 @@ drawAction_drawVehicleBlinker(const GUIVehicle &veh)
         GLHelper::drawFilledCircle(.5, 6);
         glTranslated(-1, +BLINKER_POS_BACK-veh.getLength(), 0);
     } else if ((state&LCA_RIGHT)!=0) {
-        glTranslated(-1, .5, 0);
+        glTranslated(-1, BLINKER_POS_FRONT, 0);
         GLHelper::drawFilledCircle(.5, 6);
         glTranslated(0, -BLINKER_POS_FRONT-BLINKER_POS_BACK+veh.getLength(), 0);
         GLHelper::drawFilledCircle(.5, 6);
