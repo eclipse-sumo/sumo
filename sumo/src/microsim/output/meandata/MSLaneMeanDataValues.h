@@ -46,7 +46,7 @@
  */
 struct MSLaneMeanDataValues {
     /** @brief Constructor */
-    MSLaneMeanDataValues()
+    MSLaneMeanDataValues() throw()
         : nVehEntireLane(0), nSamples(0), nVehLeftLane(0), nVehEnteredLane(0),
         speedSum(0), haltSum(0), vehLengthSum(0) 
     {}
@@ -54,7 +54,7 @@ struct MSLaneMeanDataValues {
 
     /** @brief Resets values so they may be used for the next interval
      */
-    void reset() {
+    void reset() throw() {
         nVehEntireLane = 0;
         nSamples = 0;
         nVehLeftLane = 0;

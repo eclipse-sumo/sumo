@@ -86,14 +86,14 @@ public:
 public:
     /** @brief Constructor
      */
-    MSDetectorControl();
+    MSDetectorControl() throw();
 
 
     /** @brief Destructor
      *
      * Deletes all stored detectors.
      */
-    ~MSDetectorControl();
+    ~MSDetectorControl() throw();
 
 
     /** @brief Closes the detector outputs
@@ -102,8 +102,9 @@ public:
      *  the current simulation time as end.
      *
      * @param[in] step The time step (the simulation has ended at)
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    void close(SUMOTime step);
+    void close(SUMOTime step) throw(IOError);
 
 
     /// @name Methods for adding detectors that are coupled to an own OutputDevice
@@ -123,7 +124,7 @@ public:
      * @param[in] splInterval The sample interval of the loop
      * @exception ProcessError If the detector is already known
      */
-    void add(MSInductLoop *il, OutputDevice& device, int splInterval);
+    void add(MSInductLoop *il, OutputDevice& device, int splInterval) throw(ProcessError);
 
 
     /** @brief Adds a e2-detector into the containers
@@ -141,7 +142,7 @@ public:
      * @param[in] splInterval The sample interval of the e2-detector
      * @exception ProcessError If the detector is already known
      */
-    void add(MSE2Collector *e2, OutputDevice& device, int splInterval);
+    void add(MSE2Collector *e2, OutputDevice& device, int splInterval) throw(ProcessError);
 
 
     /** @brief Adds a e2ol-detector into the containers
@@ -160,7 +161,7 @@ public:
      * @exception ProcessError If the detector is already known
      */
     void add(MS_E2_ZS_CollectorOverLanes *e2ol, OutputDevice& device,
-             int splInterval);
+             int splInterval) throw(ProcessError);
 
     /** @brief Adds a e3-detector into the containers
      *
@@ -177,7 +178,7 @@ public:
      * @param[in] splInterval The sample interval of the e3-detector
      * @exception ProcessError If the detector is already known
      */
-    void add(MSE3Collector *e3, OutputDevice& device, int splInterval);
+    void add(MSE3Collector *e3, OutputDevice& device, int splInterval) throw(ProcessError);
 
 
 #ifdef HAVE_MESOSIM
@@ -196,7 +197,7 @@ public:
      * @param[in] splInterval The sample interval of the loop
      * @exception ProcessError If the detector is already known
      */
-    void add(MEInductLoop *il, OutputDevice& device, int splInterval);
+    void add(MEInductLoop *il, OutputDevice& device, int splInterval) throw(ProcessError);
 #endif
     /// @}
 
@@ -215,7 +216,7 @@ public:
      * @param[in] e2 The e2-detector to add
      * @exception ProcessError If the detector is already known
      */
-    void add(MSE2Collector *e2);
+    void add(MSE2Collector *e2) throw(ProcessError);
 
 
     /** @brief Adds a e2ol-detector coupled to an extern output impulse giver
@@ -229,7 +230,7 @@ public:
      * @param[in] e2ol The e2ol-detector to add
      * @exception ProcessError If the detector is already known
      */
-    void add(MS_E2_ZS_CollectorOverLanes *e2ol);
+    void add(MS_E2_ZS_CollectorOverLanes *e2ol) throw(ProcessError);
     /// @}
 
 
@@ -240,7 +241,7 @@ public:
      * @param[in] il The detector to reset the interval of
      * @param[in] newinterval The new interval to assign
      */
-    void resetInterval(MSDetectorFileOutput *il, SUMOTime newinterval);
+    void resetInterval(MSDetectorFileOutput *il, SUMOTime newinterval) throw();
 
 
     /** @brief Adds one of the detectors as a new MSDetectorFileOutput
@@ -254,7 +255,7 @@ public:
      * @tode Recheck whether this method could be made private/protected
      */
     void addDetectorAndInterval(MSDetectorFileOutput* det,
-        OutputDevice *device, SUMOTime interval, bool reinsert=false);
+        OutputDevice *device, SUMOTime interval, bool reinsert=false) throw();
 
 
 
@@ -266,7 +267,7 @@ public:
      * @return The list of known MSInductLoops
      * @todo Rework!
      */
-    LoopVect getLoopVector() const;
+    LoopVect getLoopVector() const throw();
 
 
     /** @brief Returns the list of known MSE2Collectors
@@ -275,7 +276,7 @@ public:
      * @return The list of known MSE2Collectors
      * @todo Rework!
      */
-    E2Vect getE2Vector() const;
+    E2Vect getE2Vector() const throw();
 
 
     /** @brief Returns the list of known MSE3Collectors
@@ -284,7 +285,7 @@ public:
      * @return The list of known MSE3Collectors
      * @todo Rework!
      */
-    E3Vect getE3Vector() const;
+    E3Vect getE3Vector() const throw();
 
 
     /** @brief Returns the list of known MS_E2_ZS_CollectorOverLanes-detectors
@@ -293,7 +294,7 @@ public:
      * @return The list of known MS_E2_ZS_CollectorOverLanes-detectors
      * @todo Rework!
      */
-    E2ZSOLVect getE2OLVector() const;
+    E2ZSOLVect getE2OLVector() const throw();
     /// @}
 
 
@@ -308,7 +309,7 @@ public:
      * @arg MSE2Collector
      * @arg MSE3Collector
      */
-    void updateDetectors(SUMOTime step);
+    void updateDetectors(SUMOTime step) throw();
 
 
     /** @brief Writes the output to be generated within the given time step
@@ -320,8 +321,9 @@ public:
      *
      * @param[in] step The current time step
      * @param[in] closing Whether the device is closed
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    void writeOutput(SUMOTime step, bool closing);
+    void writeOutput(SUMOTime step, bool closing) throw(IOError);
 
 
 protected:
@@ -353,7 +355,7 @@ protected:
      */
     struct detectorEquals : public std::binary_function< DetectorFilePair, MSDetectorFileOutput*, bool > {
         /** @brief Returns true if detectors are equal. */
-        bool operator()(const DetectorFilePair& pair, const MSDetectorFileOutput* det) const {
+        bool operator()(const DetectorFilePair& pair, const MSDetectorFileOutput* det) const throw() {
             return pair.first == det;
         }
     };

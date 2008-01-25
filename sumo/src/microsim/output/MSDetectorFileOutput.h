@@ -58,7 +58,8 @@ class MSDetectorFileOutput
 {
 public:
     /// @brief (virtual) destructor
-    virtual ~MSDetectorFileOutput() { }
+    virtual ~MSDetectorFileOutput() throw() { }
+
 
     /// @name Virtual methods to implement by derived classes
     /// @{
@@ -66,9 +67,11 @@ public:
      * @param[in] dev The output device to write the data into
      * @param[in] startTime First time step the data were gathered
      * @param[in] stopTime Last time step the data were gathered
+     * @exception IOError If an error on writing occures
      */
     virtual void writeXMLOutput(OutputDevice &dev,
-                                SUMOTime startTime, SUMOTime stopTime) = 0;
+                                SUMOTime startTime, SUMOTime stopTime) throw(IOError) = 0;
+
 
     /** @brief Open the XML-output
      *
@@ -77,8 +80,9 @@ public:
      *
      * @param[in] dev The output device to write the root into
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
+     * @exception IOError If an error on writing occures
      */
-    virtual void writeXMLDetectorProlog(OutputDevice &dev) const = 0;
+    virtual void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) = 0;
 
 
 };

@@ -4,7 +4,7 @@
 /// @date    2004-02-05
 /// @version $Id$
 ///
-//	»missingDescription«
+// Abstract thing that shall be informed about a certain vehicle's quitting
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -42,7 +42,7 @@ class MSVehicle;
 // ===========================================================================
 /**
  * @class MSVehicleQuitReminded
- * @brief Abstract class for things that shall be informed about a certain vehicle's quitting
+ * @brief Abstract thing that shall be informed about a certain vehicle's quitting
  *
  * Because several classes track vehicles using own containers, it is necessary
  *  to inform them as soon one of these tracked vehicles disappears from
@@ -60,7 +60,7 @@ class MSVehicleQuitReminded
 {
 public:
     /// @brief (Virtual) destructor
-    virtual ~MSVehicleQuitReminded() {}
+    virtual ~MSVehicleQuitReminded() throw() {}
 
 
     /// @name Abstract Methods to be implemented by derived classes
@@ -69,7 +69,7 @@ public:
      * 
      * @param[in] veh The vehicle that quits the simulation
      */
-    virtual void removeOnTripEnd(MSVehicle *veh) = 0;
+    virtual void removeOnTripEnd(MSVehicle *veh) throw() = 0;
     /// @}
 
 };

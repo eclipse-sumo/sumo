@@ -78,7 +78,7 @@ public:
          * @param[in] crossSection The position at which the entry lies
          * @param[in] collector The detectort he entry belongs to
          */
-        MSE3EntryReminder(const MSCrossSection &crossSection, MSE3Collector& collector);
+        MSE3EntryReminder(const MSCrossSection &crossSection, MSE3Collector& collector) throw();
 
 
         /// @name Methods inherited from MSMoveReminder.
@@ -98,7 +98,7 @@ public:
          * @see MSMoveReminder::isStillActive
          * @see MSE3Collector::enter
          */
-        bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
+        bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
 
 
         /** @brief Nothing is done, here
@@ -106,7 +106,7 @@ public:
          * @param[in] veh The leaving vehicle.
          * @see MSMoveReminder::dismissByLaneChange
          */
-        void dismissByLaneChange(MSVehicle& veh);
+        void dismissByLaneChange(MSVehicle& veh) throw();
 
 
         /** @brief Returns whether the vehicle shall be aware of this entry
@@ -118,7 +118,7 @@ public:
          * @see MSMoveReminder::isActivatedByEmitOrLaneChange
          * @return False, if vehicle passed the entry, else true.
          */
-        bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
+        bool isActivatedByEmitOrLaneChange(MSVehicle& veh) throw();
         /// @}
 
 
@@ -152,7 +152,7 @@ public:
          * @param[in] crossSection The position at which the exit lies
          * @param[in] collector The detector the exit belongs to
          */
-        MSE3LeaveReminder(const MSCrossSection &crossSection, MSE3Collector& collector);
+        MSE3LeaveReminder(const MSCrossSection &crossSection, MSE3Collector& collector) throw();
 
 
         /// @name methods from MSMoveReminder
@@ -172,7 +172,7 @@ public:
          * @see MSMoveReminder::isStillActive
          * @see MSE3Collector::leave
          */
-        bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal);
+        bool isStillActive(MSVehicle& veh, SUMOReal , SUMOReal newPos, SUMOReal) throw();
 
 
         /** @brief Nothing is done, here
@@ -180,7 +180,7 @@ public:
          * @param[in] veh The leaving vehicle.
          * @see MSMoveReminder::dismissByLaneChange
          */
-        void dismissByLaneChange(MSVehicle& veh);
+        void dismissByLaneChange(MSVehicle& veh) throw();
 
 
         /** @brief Returns whether the vehicle shall be aware of this entry
@@ -192,7 +192,7 @@ public:
          * @see MSMoveReminder::isActivatedByEmitOrLaneChange
          * @return False, if vehicle passed the exit completely, else true.
          */
-        bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
+        bool isActivatedByEmitOrLaneChange(MSVehicle& veh) throw();
         //@}
 
     private:
@@ -223,16 +223,16 @@ public:
      */
     MSE3Collector(const std::string &id,
                   const CrossSectionVector &entries, const CrossSectionVector &exits,
-                  MetersPerSecond haltingSpeedThreshold);
+                  MetersPerSecond haltingSpeedThreshold) throw();
 
 
     /** @brief Destructor */
-    virtual ~MSE3Collector();
+    virtual ~MSE3Collector() throw();
 
 
     /** @brief Resets all generated values to allow computation of next interval
      */
-    void reset();
+    void reset() throw();
 
 
     /** @brief Called if a vehicle touches an entry-cross-section.
@@ -242,7 +242,7 @@ public:
      *  @param[in] veh The vehicle that entered the area
      *  @param[in] entryTimestep The time step the vehicle entered the area
      */
-    void enter(MSVehicle& veh, SUMOReal entryTimestep);
+    void enter(MSVehicle& veh, SUMOReal entryTimestep) throw();
 
 
     /** @brief Called if a vehicle passes a leave-cross-section.
@@ -252,13 +252,13 @@ public:
      *  @param[in] veh The vehicle that left the area
      *  @param[in] entryTimestep The time step the vehicle left the area
      */
-    void leave(MSVehicle& veh, SUMOReal leaveTimestep);
+    void leave(MSVehicle& veh, SUMOReal leaveTimestep) throw();
 
 
     /** @brief Returns the id of the detector
      * @return The id of the detector
      */
-    const std::string& getID() const;
+    const std::string& getID() const throw();
 
 
 
@@ -271,7 +271,7 @@ public:
      *
      * @param[in] veh The vehicle to remove
      */
-    void removeOnTripEnd(MSVehicle *veh);
+    void removeOnTripEnd(MSVehicle *veh) throw();
     /// @}
 
 
@@ -284,7 +284,7 @@ public:
      *
      * @return The mean speed [m/s] of all vehicles within the area, -1 if there is none
      */
-    SUMOReal getCurrentMeanSpeed() const;
+    SUMOReal getCurrentMeanSpeed() const throw();
 
 
     /** @brief Returns the number of current haltings within the area
@@ -293,7 +293,7 @@ public:
      *
      * @return The mean number of haltings within the area
      */
-    SUMOReal getCurrentHaltingNumber() const;
+    SUMOReal getCurrentHaltingNumber() const throw();
 
 
     /** @brief Returns the number of touched vehicles (vehicles within the area)
@@ -302,7 +302,7 @@ public:
      *
      * @return The number of touched vehicles
      */
-    SUMOReal getCurrentTouchedVehicles() const;
+    SUMOReal getCurrentTouchedVehicles() const throw();
     /// @}
 
 
@@ -314,8 +314,9 @@ public:
      * @param[in] startTime First time step the data were gathered
      * @param[in] stopTime Last time step the data were gathered
      * @see MSDetectorFileOutput::writeXMLOutput
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime);
+    void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
     /** @brief Opens the XML-output using "e3-detector" as root element
@@ -324,8 +325,9 @@ public:
      *
      * @param[in] dev The output device to write the root into
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice &dev) const;
+    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
     /// @}
 
 
@@ -338,7 +340,7 @@ public:
      *
      * @param[in] currentTime The current simulation time (unused)
      */
-    void update(SUMOTime currentTime);
+    void update(SUMOTime currentTime) throw();
 
 
 protected:

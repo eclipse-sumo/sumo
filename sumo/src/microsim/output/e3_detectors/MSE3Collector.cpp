@@ -41,7 +41,7 @@
  * MSE3Collector::MSE3EntryReminder - definitions
  * ----------------------------------------------------------------------- */
 MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
-    const MSCrossSection &crossSection, MSE3Collector& collector)
+    const MSCrossSection &crossSection, MSE3Collector& collector) throw()
         : MSMoveReminder(crossSection.myLane),
         myCollector(collector), myPosition(crossSection.myPosition)
 {}
@@ -49,7 +49,7 @@ MSE3Collector::MSE3EntryReminder::MSE3EntryReminder(
 
 bool
 MSE3Collector::MSE3EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
-        SUMOReal newPos, SUMOReal newSpeed)
+        SUMOReal newPos, SUMOReal newSpeed) throw()
 {
     if (newPos <= myPosition) {
         // crossSection not yet reached
@@ -63,14 +63,14 @@ MSE3Collector::MSE3EntryReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 
 void
-MSE3Collector::MSE3EntryReminder::dismissByLaneChange(MSVehicle&)
+MSE3Collector::MSE3EntryReminder::dismissByLaneChange(MSVehicle&) throw()
 {
     // nothing to do for E3
 }
 
 
 bool
-MSE3Collector::MSE3EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh)
+MSE3Collector::MSE3EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw()
 {
     return veh.getPositionOnLane() <= myPosition;
 }
@@ -81,7 +81,7 @@ MSE3Collector::MSE3EntryReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh)
  * MSE3Collector::MSE3LeaveReminder - definitions
  * ----------------------------------------------------------------------- */
 MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(
-    const MSCrossSection &crossSection, MSE3Collector& collector)
+    const MSCrossSection &crossSection, MSE3Collector& collector) throw()
         : MSMoveReminder(crossSection.myLane),
         myCollector(collector), myPosition(crossSection.myPosition)
 {}
@@ -89,7 +89,7 @@ MSE3Collector::MSE3LeaveReminder::MSE3LeaveReminder(
 
 bool
 MSE3Collector::MSE3LeaveReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
-        SUMOReal newPos, SUMOReal newSpeed)
+        SUMOReal newPos, SUMOReal newSpeed) throw()
 {
     if (newPos <= myPosition) {
         // crossSection not yet reached
@@ -104,14 +104,14 @@ MSE3Collector::MSE3LeaveReminder::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 
 void
-MSE3Collector::MSE3LeaveReminder::dismissByLaneChange(MSVehicle&)
+MSE3Collector::MSE3LeaveReminder::dismissByLaneChange(MSVehicle&) throw()
 {
     // nothing to do for E3
 }
 
 
 bool
-MSE3Collector::MSE3LeaveReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh)
+MSE3Collector::MSE3LeaveReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw()
 {
     return veh.getPositionOnLane() - veh.getLength() <= myPosition;
 }
@@ -124,7 +124,7 @@ MSE3Collector::MSE3LeaveReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh)
 MSE3Collector::MSE3Collector(const std::string &id,
                              const CrossSectionVector &entries,
                              const CrossSectionVector &exits,
-                             MetersPerSecond haltingSpeedThreshold)
+                             MetersPerSecond haltingSpeedThreshold) throw()
         : myID(id), myEntries(entries), myExits(exits),
         // !dk! kept for later use: haltingTimeThresholdM(MSUnit::getInstance()->getSteps(haltingTimeThreshold)),
         myHaltingSpeedThreshold(haltingSpeedThreshold),
@@ -142,7 +142,7 @@ MSE3Collector::MSE3Collector(const std::string &id,
 }
 
 
-MSE3Collector::~MSE3Collector(void)
+MSE3Collector::~MSE3Collector(void) throw()
 {
     for (std::map<MSVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
         pair->first->quitRemindedLeft(this);
@@ -151,7 +151,7 @@ MSE3Collector::~MSE3Collector(void)
 
 
 void 
-MSE3Collector::reset()
+MSE3Collector::reset() throw()
 {
     myLeftContainer.clear();
 }
@@ -159,7 +159,7 @@ MSE3Collector::reset()
 
 
 void
-MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep)
+MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep) throw()
 {
     veh.quitRemindedEntered(this);
     E3Values v;
@@ -176,7 +176,7 @@ MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep)
 
 
 void
-MSE3Collector::leave(MSVehicle& veh, SUMOReal leaveTimestep)
+MSE3Collector::leave(MSVehicle& veh, SUMOReal leaveTimestep) throw()
 {
     if (myEnteredContainer.find(&veh)==myEnteredContainer.end()) {
         MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' left E3-detector '" + getID() + "' before entering it.");
@@ -196,14 +196,14 @@ MSE3Collector::leave(MSVehicle& veh, SUMOReal leaveTimestep)
 
 
 const std::string&
-MSE3Collector::getID() const
+MSE3Collector::getID() const throw()
 {
     return myID;
 }
 
 
 void
-MSE3Collector::removeOnTripEnd(MSVehicle *veh)
+MSE3Collector::removeOnTripEnd(MSVehicle *veh) throw()
 {
     if (myEnteredContainer.find(veh)==myEnteredContainer.end()) {
         MsgHandler::getWarningInstance()->inform("Vehicle '" + veh->getID() + "' left E3-detector '" + getID() + "' before entering it.");
@@ -215,7 +215,7 @@ MSE3Collector::removeOnTripEnd(MSVehicle *veh)
 
 void
 MSE3Collector::writeXMLOutput(OutputDevice &dev,
-                              SUMOTime startTime, SUMOTime stopTime)
+                              SUMOTime startTime, SUMOTime stopTime) throw(IOError)
 {
     dev<<"   <interval begin=\""<<startTime<<"\" end=\""<< stopTime<<"\" "<<"id=\""<<myID<<"\" ";
     // collect values
@@ -243,14 +243,14 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
 
 
 void
-MSE3Collector::writeXMLDetectorProlog(OutputDevice &dev) const
+MSE3Collector::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError)
 {
     dev.writeXMLHeader("e3-detector");
 }
 
 
 void
-MSE3Collector::update(SUMOTime execTime)
+MSE3Collector::update(SUMOTime execTime) throw()
 {
     myCurrentMeanSpeed = 0;
     myCurrentHaltingsNumber = 0;
@@ -301,21 +301,21 @@ MSE3Collector::update(SUMOTime execTime)
 
 
 SUMOReal 
-MSE3Collector::getCurrentMeanSpeed() const
+MSE3Collector::getCurrentMeanSpeed() const throw()
 {
     return myCurrentMeanSpeed;
 }
 
 
 SUMOReal 
-MSE3Collector::getCurrentHaltingNumber() const
+MSE3Collector::getCurrentHaltingNumber() const throw()
 {
     return myCurrentHaltingsNumber;
 }
 
 
 SUMOReal 
-MSE3Collector::getCurrentTouchedVehicles() const
+MSE3Collector::getCurrentTouchedVehicles() const throw()
 {
     return myCurrentTouchedVehicles;
 }

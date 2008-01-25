@@ -59,6 +59,7 @@ class MSLane;
  *  of edge-based dump aggregated over the edge's lanes.
  *
  * @todo check where mean data is stored in mesosim.
+ * @todo consider error-handling on write (using IOError)
  */
 class MSMeanData_Net : public MSDetectorFileOutput
 {
@@ -74,10 +75,11 @@ public:
      */
     MSMeanData_Net(unsigned int t, unsigned int index,
                    MSEdgeControl &edges, const std::vector<int> &dumpBegins,
-                   const std::vector<int> &dumpEnds, bool useLanes);
+                   const std::vector<int> &dumpEnds, bool useLanes) throw();
+
 
     /// @brief Destructor
-    virtual ~MSMeanData_Net();
+    virtual ~MSMeanData_Net() throw();
 
 
     /// @name Methods inherited from MSDetectorFileOutput.
@@ -92,16 +94,18 @@ public:
      * @param[in] stopTime Last time step the data were gathered
      * @see MSDetectorFileOutput::writeXMLOutput
      * @see write
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    virtual void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime);
+    virtual void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
     /** @brief Opens the XML-output using "netstats" as root element
      *
      * @param[in] dev The output device to write the root into
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice &dev) const;
+    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
     /// @}
 
 
@@ -116,8 +120,9 @@ protected:
      * @param[in] dev The output device to write the data into
      * @param[in] startTime First time step the data were gathered
      * @param[in] stopTime Last time step the data were gathered
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    virtual void write(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime);
+    virtual void write(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
     /** @brief Writes edge values into the given stream
@@ -131,9 +136,10 @@ protected:
      * @param[in] edge The edge to write the dump of
      * @param[in] startTime First time step the data were gathered
      * @param[in] stopTime Last time step the data were gathered
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
     virtual void writeEdge(OutputDevice &dev, const MSEdge &edge,
-                           SUMOTime startTime, SUMOTime stopTime);
+                           SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
     /** @brief Writes lane values into the given stream
@@ -142,24 +148,25 @@ protected:
      * @param[in] lane The lane to write the dump of
      * @param[in] startTime First time step the data were gathered
      * @param[in] stopTime Last time step the data were gathered
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
     virtual void writeLane(OutputDevice &dev,
                            const MSLane &lane,
-                           SUMOTime startTime, SUMOTime stopTime);
+                           SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
     /** @brief Resets network value in order to allow processing of the next interval
      *
      * Goes through the lists of edges and starts "resetOnly" for each edge.
      */
-    void resetOnly();
+    void resetOnly() throw();
 
 
     /** @brief Resets edge value in order to allow processing of the next interval
      *
      * @param [in] edge The edge to reset the value of
      */
-    void resetOnly(const MSEdge &edge);
+    void resetOnly(const MSEdge &edge) throw();
 
 
     /** @brief Inline function for value conversion
@@ -181,7 +188,7 @@ protected:
     inline void conv(const MSLaneMeanDataValues &values, SUMOTime period,
         SUMOReal laneLength, SUMOReal laneVMax,
         SUMOReal &traveltime, SUMOReal &meanSpeed,
-        SUMOReal &meanDensity, SUMOReal &meanOccupancy) {
+        SUMOReal &meanDensity, SUMOReal &meanOccupancy) throw() {
 
         if (values.nSamples==0) {
             assert(laneVMax>=0);

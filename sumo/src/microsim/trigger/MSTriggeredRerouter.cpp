@@ -66,18 +66,18 @@ using namespace std;
  * MSTriggeredRerouter::Setter - methods
  * ----------------------------------------------------------------------- */
 MSTriggeredRerouter::Setter::Setter(MSTriggeredRerouter *parent,
-                                    MSLane *lane)
+                                    MSLane *lane) throw()
         : MSMoveReminder(lane), myParent(parent)
 {}
 
 
-MSTriggeredRerouter::Setter::~Setter()
+MSTriggeredRerouter::Setter::~Setter() throw()
 {}
 
 
 bool
 MSTriggeredRerouter::Setter::isStillActive(MSVehicle& veh, SUMOReal /*oldPos*/,
-        SUMOReal /*newPos*/, SUMOReal /*newSpeed*/)
+        SUMOReal /*newPos*/, SUMOReal /*newSpeed*/) throw()
 {
     myParent->reroute(veh, laneM->getEdge());
     return false;
@@ -85,12 +85,12 @@ MSTriggeredRerouter::Setter::isStillActive(MSVehicle& veh, SUMOReal /*oldPos*/,
 
 
 void
-MSTriggeredRerouter::Setter::dismissByLaneChange(MSVehicle&)
+MSTriggeredRerouter::Setter::dismissByLaneChange(MSVehicle&) throw()
 {}
 
 
 bool
-MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange(MSVehicle& veh)
+MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw()
 {
     myParent->reroute(veh, laneM->getEdge());
     return false;

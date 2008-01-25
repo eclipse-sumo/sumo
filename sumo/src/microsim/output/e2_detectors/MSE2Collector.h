@@ -89,12 +89,12 @@ public:
     MSE2Collector(const std::string &id, DetectorUsage usage,
                   MSLane* lane, SUMOReal startPos, SUMOReal detLength,
                   SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-                  SUMOReal jamDistThreshold);
+                  SUMOReal jamDistThreshold) throw();
 
 
     /** @brief Destructor
      */
-    virtual ~MSE2Collector();
+    virtual ~MSE2Collector() throw();
 
 
     /** @brief Returns the detector's usage type
@@ -102,7 +102,7 @@ public:
      * @see DetectorUsage
      * @return How the detector is used.
      */
-    virtual DetectorUsage getUsageType() const {
+    virtual DetectorUsage getUsageType() const throw() {
         return myUsage;
     }
 
@@ -126,7 +126,7 @@ public:
      * @see MSMoveReminder::isStillActive
      */
     bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
-                       SUMOReal newSpeed);
+                       SUMOReal newSpeed) throw();
 
 
     /** @brief Removes a known vehicle due to its lane-change
@@ -137,7 +137,7 @@ public:
      * @param[in] veh The leaving vehicle.
      * @see MSMoveReminder::dismissByLaneChange
      */
-    void dismissByLaneChange(MSVehicle& veh);
+    void dismissByLaneChange(MSVehicle& veh) throw();
 
 
     /** @brief Adds the vehicle to known vehicles if not beyond the dector
@@ -150,7 +150,7 @@ public:
      * @see MSMoveReminder::isActivatedByEmitOrLaneChange
      * @return False, if vehicle passed the detector entierly, else true.
      */
-    bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
+    bool isActivatedByEmitOrLaneChange(MSVehicle& veh) throw();
     /// @}
 
 
@@ -163,7 +163,7 @@ public:
      *
      * @param[in] currentTime The current simulation time
      */
-    void update(SUMOTime currentTime);
+    void update(SUMOTime currentTime) throw();
 
 
 
@@ -175,16 +175,18 @@ public:
      * @param[in] startTime First time step the data were gathered
      * @param[in] stopTime Last time step the data were gathered
      * @see MSDetectorFileOutput::writeXMLOutput
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime);
+    void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
     /** @brief Opens the XML-output using "detector" as root element
      *
      * @param[in] dev The output device to write the root into
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice &dev) const;
+    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
     /// @}
 
 
@@ -195,7 +197,7 @@ public:
      *
      * @param[in] veh The vehicle that was on the detector and leaves the simuation
      */
-    void removeOnTripEnd(MSVehicle *veh);
+    void removeOnTripEnd(MSVehicle *veh) throw();
     /// @}
 
 
@@ -203,7 +205,7 @@ public:
      *
      * @return The detector's begin position
      */
-    SUMOReal getStartPos() const {
+    SUMOReal getStartPos() const throw() {
         return myStartPos;
     }
 
@@ -212,7 +214,7 @@ public:
      *
      * @return The detector's end position
      */
-    SUMOReal getEndPos() const {
+    SUMOReal getEndPos() const throw() {
         return myEndPos;
     }
 
@@ -223,41 +225,42 @@ public:
      *  were written. Values for the next interval may be collected, then.
      * The list of known vehicles stays untouched.
      */
-    void reset();
+    void reset() throw();
 
 
     /// @name Methods returning current values
     /// @{
     /** @brief Returns the number of vehicles currently on the detector */
-    unsigned getCurrentVehicleNumber() const;
+    unsigned getCurrentVehicleNumber() const throw();
 
     /** @brief Returns the curent detector occupancy */
-    SUMOReal getCurrentOccupancy() const;
+    SUMOReal getCurrentOccupancy() const throw();
 
     /** @brief Returns the mean vehicle speed of vehicles currently on the detector*/
-    SUMOReal getCurrentMeanSpeed() const;
+    SUMOReal getCurrentMeanSpeed() const throw();
 
     /** @brief Returns the mean vehicle length of vehicles currently on the detector*/
-    SUMOReal getCurrentMeanLength() const;
+    SUMOReal getCurrentMeanLength() const throw();
 
     /** @brief Returns the current number of jams */
-    unsigned getCurrentJamNumber() const;
+    unsigned getCurrentJamNumber() const throw();
 
     /** @brief Returns the length in vehicles of the currently largest jam */
-    unsigned getCurrentMaxJamLengthInVehicles() const;
+    unsigned getCurrentMaxJamLengthInVehicles() const throw();
 
     /** @brief Returns the length in meters of the currently largest jam */
-    SUMOReal getCurrentMaxJamLengthInMeters() const;
+    SUMOReal getCurrentMaxJamLengthInMeters() const throw();
 
     /** @brief Returns the length of all jams in vehicles */
-    unsigned getCurrentJamLengthInVehicles() const;
+    unsigned getCurrentJamLengthInVehicles() const throw();
 
     /** @brief Returns the length of all jams in meters */
-    SUMOReal getCurrentJamLengthInMeters() const;
+    SUMOReal getCurrentJamLengthInMeters() const throw();
 
     /** @brief Returns the length of all jams in meters */
-    unsigned getCurrentStartedHalts() const;
+    unsigned getCurrentStartedHalts() const throw();
     /// @}
+
 
 protected:
     /** @brief Internal representation of a jam
@@ -283,7 +286,7 @@ protected:
     {
     public:
         /// @brief constructor
-        explicit by_vehicle_position_sorter() { }
+        explicit by_vehicle_position_sorter() throw() { }
 
         /** @brief Comparison funtcion
          *
@@ -291,7 +294,7 @@ protected:
          * @param[in] v2 Second vehicle to compare
          * @return Whether the position of the first vehicles is smaller than the one of the second
          */
-        int operator()(const MSVehicle *v1, const MSVehicle *v2) {
+        int operator()(const MSVehicle *v1, const MSVehicle *v2) throw() {
             return v1->getPositionOnLane()>v2->getPositionOnLane();
         }
     };

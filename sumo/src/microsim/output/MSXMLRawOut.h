@@ -51,6 +51,8 @@ class MSLane;
  *
  * The class offers a static method, which writes the complete dump of
  *  the given network into the given OutputDevice.
+ *
+ * @todo consider error-handling on write (using IOError)
  */
 class MSXMLRawOut
 {
@@ -64,9 +66,10 @@ public:
      * @param[in] ec The EdgeControl which holds the edges to write
      * @param[in] timestep The current time step
      * @param[in] intend The intendation width to use
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
     static void write(OutputDevice &of, const MSEdgeControl &ec,
-                      SUMOTime timestep, unsigned int intend);
+                      SUMOTime timestep, unsigned int intend) throw(IOError);
 
 
 private:
@@ -79,9 +82,10 @@ private:
      * @param[in] edge The edge to dump
      * @param[in] intend The intendation width to use
      * @todo MSGlobals::gOmitEmptyEdgesOnDump should not be used; rather the according option read in write
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
     static void writeEdge(OutputDevice &of, const MSEdge &edge,
-                          unsigned int intend);
+                          unsigned int intend) throw(IOError);
 
 
     /** @brief Writes the dump of the given lane into the given device
@@ -92,9 +96,10 @@ private:
      * @param[in] of The output device to use
      * @param[in] lane The lane to dump
      * @param[in] intend The intendation width to use
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
     static void writeLane(OutputDevice &of, const MSLane &lane,
-                          unsigned int intend);
+                          unsigned int intend) throw(IOError);
 
 
     /** @brief Writes the dump of the given vehicle into the given device
@@ -102,13 +107,14 @@ private:
      * @param[in] of The output device to use
      * @param[in] veh The vehicle to dump
      * @param[in] intend The intendation width to use
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
     static void writeVehicle(OutputDevice &of, const MSVehicle &veh,
-                             unsigned int intend);
+                             unsigned int intend) throw(IOError);
 
 private:
     /// @brief (Invalidated) Constructor
-    MSXMLRawOut();
+    MSXMLRawOut() throw();
 
 };
 

@@ -91,7 +91,7 @@ bool
 MSE1VehicleActor::isStillActive(MSVehicle& veh,
                                 SUMOReal oldPos,
                                 SUMOReal newPos,
-                                SUMOReal /*newSpeed*/)
+                                SUMOReal /*newSpeed*/) throw()
 {
     if (newPos < posM) {
         // detector not reached yet
@@ -238,12 +238,12 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
 
 
 void
-MSE1VehicleActor::dismissByLaneChange(MSVehicle&)
+MSE1VehicleActor::dismissByLaneChange(MSVehicle&) throw()
 {}
 
 
 bool
-MSE1VehicleActor::isActivatedByEmitOrLaneChange(MSVehicle& veh)
+MSE1VehicleActor::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw()
 {
     if (veh.getPositionOnLane()-veh.getLength() > posM) {
         // vehicle-end is beyond detector. Ignore

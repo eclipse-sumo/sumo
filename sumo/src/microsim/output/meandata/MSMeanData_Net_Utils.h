@@ -69,12 +69,13 @@ public:
      * @param[in] dumpBegins Begin times of dumps
      * @param[in] dumpEnds End times of dumps
      * @return The built list of network-wide mean data containers
+     * @exception ProcessError If dump begins / ends are not valid
      * @see buildList
      */
     static std::vector<MSMeanData_Net*> buildList(MSDetectorControl &det2file, MSEdgeControl &ec, 
         std::vector<int> dumpMeanDataIntervals, std::string baseNameDumpFiles,
         std::vector<int> laneDumpMeanDataIntervals, std::string baseNameLaneDumpFiles,
-        const std::vector<int> &dumpBegins, const std::vector<int> &dumpEnds);
+        const std::vector<int> &dumpBegins, const std::vector<int> &dumpEnds) throw(ProcessError);
 
 
 protected:
@@ -98,7 +99,7 @@ protected:
                                          std::string baseNameDumpFiles,
                                          const std::vector<int> &dumpBegins,
                                          const std::vector<int> &dumpEnds,
-                                         bool useLanes);
+                                         bool useLanes) throw();
 
 
     /** @brief Builds a list with unique aggregation times
@@ -106,7 +107,7 @@ protected:
      * @param[in] dumpMeanDataIntervals
      * @return A list where each interval appears only once
      */
-    static std::vector<int> buildUniqueList(std::vector<int> dumpMeanDataIntervals);
+    static std::vector<int> buildUniqueList(std::vector<int> dumpMeanDataIntervals) throw();
 
 
 };

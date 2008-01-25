@@ -111,7 +111,7 @@ public:
     bool isStillActive(MSVehicle& veh,
                        SUMOReal oldPos,
                        SUMOReal newPos,
-                       SUMOReal newSpeed);
+                       SUMOReal newSpeed) throw();
 
 
     /**
@@ -122,7 +122,7 @@ public:
      *
      * @see leaveDetectorByLaneChange
      */
-    void dismissByLaneChange(MSVehicle& veh);
+    void dismissByLaneChange(MSVehicle& veh) throw();
 
     /**
      * Informs corresponding detector if vehicle enters the reminder
@@ -133,7 +133,7 @@ public:
      *
      * @return True if vehicle is on or in front of the detector.
      */
-    bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
+    bool isActivatedByEmitOrLaneChange(MSVehicle& veh) throw();
     /// @}
 
     /// Returns the number of vehicles that have passed this actor

@@ -62,7 +62,7 @@ MSMeanData_Net_Utils::buildList(MSDetectorControl &det2file,
                                 std::vector<int> laneDumpMeanDataIntervals,
                                 std::string baseNameLaneDumpFiles,
                                 const std::vector<int> &dumpBegins,
-                                const std::vector<int> &dumpEnds)
+                                const std::vector<int> &dumpEnds) throw(ProcessError)
 {
     // check constraints
     if (dumpBegins.size()!=dumpEnds.size()) {
@@ -97,7 +97,7 @@ MSMeanData_Net_Utils::buildList(MSDetectorControl &det2file,
                                 std::string baseNameDumpFiles,
                                 const std::vector<int> &dumpBegins,
                                 const std::vector<int> &dumpEnds,
-                                bool useLanes)
+                                bool useLanes) throw()
 {
     std::vector<MSMeanData_Net*> ret;
     if (dumpMeanDataIntervals.size() > 0) {
@@ -119,7 +119,7 @@ MSMeanData_Net_Utils::buildList(MSDetectorControl &det2file,
 
 
 std::vector<int>
-MSMeanData_Net_Utils::buildUniqueList(std::vector<int> dumpMeanDataIntervals)
+MSMeanData_Net_Utils::buildUniqueList(std::vector<int> dumpMeanDataIntervals) throw()
 {
     vector<int> ret;
     set<int> u;

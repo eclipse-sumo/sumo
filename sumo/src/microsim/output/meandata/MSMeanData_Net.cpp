@@ -61,19 +61,19 @@ MSMeanData_Net::MSMeanData_Net(unsigned int t, unsigned int index,
                                MSEdgeControl &edges,
                                const std::vector<int> &dumpBegins,
                                const std::vector<int> &dumpEnds,
-                               bool useLanes)
+                               bool useLanes) throw()
         : myInterval(t), myIndex(index),
         myEdges(edges), myAmEdgeBased(!useLanes),
         myDumpBegins(dumpBegins), myDumpEnds(dumpEnds)
 {}
 
 
-MSMeanData_Net::~MSMeanData_Net()
+MSMeanData_Net::~MSMeanData_Net() throw()
 {}
 
 
 void
-MSMeanData_Net::resetOnly(const MSEdge &edge)
+MSMeanData_Net::resetOnly(const MSEdge &edge) throw()
 {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -98,7 +98,7 @@ MSMeanData_Net::resetOnly(const MSEdge &edge)
 
 
 void
-MSMeanData_Net::resetOnly()
+MSMeanData_Net::resetOnly() throw()
 {
     // reset data
     MSEdgeControl::EdgeCont::const_iterator edg;
@@ -117,7 +117,7 @@ MSMeanData_Net::resetOnly()
 
 void
 MSMeanData_Net::write(OutputDevice &dev,
-                      SUMOTime startTime, SUMOTime stopTime)
+                      SUMOTime startTime, SUMOTime stopTime) throw(IOError)
 {
     // the folowing may happen on closure
     if (stopTime==startTime) {
@@ -153,7 +153,7 @@ MSMeanData_Net::write(OutputDevice &dev,
 void
 MSMeanData_Net::writeEdge(OutputDevice &dev,
                           const MSEdge &edge,
-                          SUMOTime startTime, SUMOTime stopTime)
+                          SUMOTime startTime, SUMOTime stopTime) throw(IOError)
 {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -256,7 +256,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
 void
 MSMeanData_Net::writeLane(OutputDevice &dev,
                           const MSLane &lane,
-                          SUMOTime startTime, SUMOTime stopTime)
+                          SUMOTime startTime, SUMOTime stopTime) throw(IOError)
 {
     assert(lane.myMeanData.size()>myIndex);
     MSLaneMeanDataValues& meanData = lane.getMeanData(myIndex);
@@ -282,7 +282,7 @@ MSMeanData_Net::writeLane(OutputDevice &dev,
 
 void
 MSMeanData_Net::writeXMLOutput(OutputDevice &dev,
-                               SUMOTime startTime, SUMOTime stopTime)
+                               SUMOTime startTime, SUMOTime stopTime) throw(IOError)
 {
     dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
     stopTime<<"\" "<<"id=\"dump_"<<myInterval<<"\">\n";
@@ -292,7 +292,7 @@ MSMeanData_Net::writeXMLOutput(OutputDevice &dev,
 
 
 void
-MSMeanData_Net::writeXMLDetectorProlog(OutputDevice &dev) const
+MSMeanData_Net::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError)
 {
     dev.writeXMLHeader("netstats");
 }

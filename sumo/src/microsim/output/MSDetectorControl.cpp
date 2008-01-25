@@ -59,12 +59,12 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSDetectorControl::MSDetectorControl()
+MSDetectorControl::MSDetectorControl() throw()
 {
 }
 
 
-MSDetectorControl::~MSDetectorControl()
+MSDetectorControl::~MSDetectorControl() throw()
 {
 #ifdef HAVE_MESOSIM
     myMesoLoops.clear();
@@ -77,7 +77,7 @@ MSDetectorControl::~MSDetectorControl()
 
 
 void
-MSDetectorControl::close(SUMOTime step)
+MSDetectorControl::close(SUMOTime step) throw(IOError)
 {
     // flush the last values
     Intervals::iterator it;
@@ -92,7 +92,7 @@ MSDetectorControl::close(SUMOTime step)
 
 
 void
-MSDetectorControl::add(MSInductLoop *il, OutputDevice& device, int splInterval)
+MSDetectorControl::add(MSInductLoop *il, OutputDevice& device, int splInterval) throw(ProcessError)
 {
     // insert object into dictionary
     if (! myLoops.add(il->getID(), il)) {
@@ -104,9 +104,7 @@ MSDetectorControl::add(MSInductLoop *il, OutputDevice& device, int splInterval)
 
 
 void
-MSDetectorControl::add(MSE2Collector *e2,
-                       OutputDevice& device,
-                       int splInterval)
+MSDetectorControl::add(MSE2Collector *e2, OutputDevice& device, int splInterval) throw(ProcessError)
 {
     // insert object into dictionary
     if (! myE2Detectors.add(e2->getID(), e2)) {
@@ -118,9 +116,7 @@ MSDetectorControl::add(MSE2Collector *e2,
 
 
 void
-MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol,
-                       OutputDevice& device,
-                       int splInterval)
+MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol, OutputDevice& device, int splInterval) throw(ProcessError)
 {
     // insert object into dictionary
     if (! myE2OverLanesDetectors.add(e2ol->getID(), e2ol)) {
@@ -132,7 +128,7 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol,
 
 
 void
-MSDetectorControl::add(MSE2Collector *e2)
+MSDetectorControl::add(MSE2Collector *e2) throw(ProcessError)
 {
     // insert object into dictionary
     if (! myE2Detectors.add(e2->getID(), e2)) {
@@ -143,7 +139,7 @@ MSDetectorControl::add(MSE2Collector *e2)
 
 
 void
-MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol)
+MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol) throw(ProcessError)
 {
     // insert object into dictionary
     if (! myE2OverLanesDetectors.add(e2ol->getID(), e2ol)) {
@@ -154,7 +150,7 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol)
 
 
 void
-MSDetectorControl::add(MSE3Collector *e3, OutputDevice& device, int splInterval)
+MSDetectorControl::add(MSE3Collector *e3, OutputDevice& device, int splInterval) throw(ProcessError)
 {
     // insert object into dictionary
     if (! myE3Detectors.add(e3->getID(), e3)) {
@@ -167,7 +163,7 @@ MSDetectorControl::add(MSE3Collector *e3, OutputDevice& device, int splInterval)
 
 #ifdef HAVE_MESOSIM
 void
-MSDetectorControl::add(MEInductLoop *meil, OutputDevice& device, int splInterval)
+MSDetectorControl::add(MEInductLoop *meil, OutputDevice& device, int splInterval) throw(ProcessError)
 {
     // insert object into dictionary
     if (! myMesoLoops.add(meil->getID(), meil)) {
@@ -180,7 +176,7 @@ MSDetectorControl::add(MEInductLoop *meil, OutputDevice& device, int splInterval
 
 
 void 
-MSDetectorControl::updateDetectors(SUMOTime step)
+MSDetectorControl::updateDetectors(SUMOTime step) throw()
 {
     // update all detectors with inner containers
         // e2-detectors
@@ -198,28 +194,28 @@ MSDetectorControl::updateDetectors(SUMOTime step)
 
 
 MSDetectorControl::LoopVect
-MSDetectorControl::getLoopVector() const
+MSDetectorControl::getLoopVector() const throw()
 {
     return myLoops.getTempVector();
 }
 
 
 MSDetectorControl::E2Vect
-MSDetectorControl::getE2Vector() const
+MSDetectorControl::getE2Vector() const throw()
 {
     return myE2Detectors.getTempVector();
 }
 
 
 MSDetectorControl::E3Vect
-MSDetectorControl::getE3Vector() const
+MSDetectorControl::getE3Vector() const throw()
 {
     return myE3Detectors.getTempVector();
 }
 
 
 MSDetectorControl::E2ZSOLVect
-MSDetectorControl::getE2OLVector() const
+MSDetectorControl::getE2OLVector() const throw()
 {
     return myE2OverLanesDetectors.getTempVector();
 }
@@ -227,7 +223,7 @@ MSDetectorControl::getE2OLVector() const
 
 void
 MSDetectorControl::resetInterval(MSDetectorFileOutput *det,
-                                 SUMOTime newinterval)
+                                 SUMOTime newinterval) throw()
 {
     for (Intervals::iterator i=myIntervals.begin(); i!=myIntervals.end(); ++i) {
         DetectorFileVec &dets = (*i).second;
@@ -245,7 +241,7 @@ MSDetectorControl::resetInterval(MSDetectorFileOutput *det,
 
 
 void
-MSDetectorControl::writeOutput(SUMOTime step, bool closing)
+MSDetectorControl::writeOutput(SUMOTime step, bool closing) throw(IOError)
 {
     for (Intervals::iterator i=myIntervals.begin(); i!=myIntervals.end(); ++i) {
         int interval = (*i).first;
@@ -268,7 +264,7 @@ void
 MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
                                         OutputDevice *device,
                                         SUMOTime interval,
-                                        bool reinsert)
+                                        bool reinsert) throw()
 {
     IntervalsKey key = interval;
     Intervals::iterator it = myIntervals.find(key);

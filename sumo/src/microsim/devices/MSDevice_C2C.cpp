@@ -181,7 +181,7 @@ MSDevice_C2C::MSDevice_C2C(MSVehicle &holder)
 {}
 
 
-MSDevice_C2C::~MSDevice_C2C()
+MSDevice_C2C::~MSDevice_C2C() throw()
 {
 	myCells->remove(this);
 	delete akt;
@@ -395,7 +395,7 @@ MSDevice_C2C::updateInfos(SUMOTime time)
 }
 
 void
-MSDevice_C2C::removeOnTripEnd(MSVehicle *veh)
+MSDevice_C2C::removeOnTripEnd(MSVehicle *veh) throw()
 {
     MSDevice_C2C *dev = myVehiclesToDevicesMap[veh];
     assert(myNeighbors.find(dev)!=myNeighbors.end());

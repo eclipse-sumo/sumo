@@ -80,7 +80,7 @@ public:
     MS_E2_ZS_CollectorOverLanes(const std::string &id,
         DetectorUsage usage, MSLane* lane, SUMOReal startPos,
         SUMOTime haltingTimeThreshold, MetersPerSecond haltingSpeedThreshold,
-        SUMOReal jamDistThreshold);
+        SUMOReal jamDistThreshold) throw();
 
 
     /** @brief Builds the consecutive E2-detectors
@@ -94,18 +94,18 @@ public:
      * @see MSEdgeContinuations
      */
     void init(MSLane *lane, SUMOReal detLength,
-              const MSEdgeContinuations &edgeContinuations);
+              const MSEdgeContinuations &edgeContinuations) throw();
 
 
     /// @brief Destructor
-    virtual ~MS_E2_ZS_CollectorOverLanes();
+    virtual ~MS_E2_ZS_CollectorOverLanes() throw();
 
 
     /** @brief Returns this detector's id
      *
      * @return The id of this detector
      */
-    const std::string &getID() const;
+    const std::string &getID() const throw();
 
 
     /** @brief Returns the id of the lane this detector starts at
@@ -113,7 +113,7 @@ public:
      * @return The id of the lane this detector starts at
      * @todo Check whether this is needed
      */
-    const std::string &getStartLaneID() const;
+    const std::string &getStartLaneID() const throw();
 
 
 
@@ -125,9 +125,10 @@ public:
      * @param[in] startTime First time step the data were gathered
      * @param[in] stopTime Last time step the data were gathered
      * @see MSDetectorFileOutput::writeXMLOutput
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
     void writeXMLOutput(OutputDevice &dev,
-                        SUMOTime startTime, SUMOTime stopTime);
+                        SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
     /** @brief Opens the XML-output using "detector" as root element
@@ -137,8 +138,9 @@ public:
      * @param[in] dev The output device to write the root into
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
      * @todo What happens with the additional information if several detectors use the same output?
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice &dev) const;
+    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
     /// @}
 
 
@@ -147,7 +149,7 @@ public:
      *
      * @return This detector's length in meters
      */
-    SUMOReal getLength() const {
+    SUMOReal getLength() const  throw(){
         return myLength;
     }
 
@@ -162,7 +164,7 @@ protected:
      * @todo Describe length's usage
      */
     void extendTo(SUMOReal length,
-                  const MSEdgeContinuations &edgeContinuations);
+                  const MSEdgeContinuations &edgeContinuations) throw();
 
 
     /** @brief Builds an id for one of the E2-collectors this detector uses
@@ -173,7 +175,7 @@ protected:
      * @todo Describe!
      */
     std::string  makeID(const std::string &baseID,
-                        size_t c, size_t r) const;
+                        size_t c, size_t r) const throw();
 
 
     /** @brief Builds a single collector
@@ -185,7 +187,7 @@ protected:
      * @todo Describe!
      */
     virtual MSE2Collector *buildCollector(size_t c, size_t r,
-                                          MSLane *l, SUMOReal start, SUMOReal end);
+                                          MSLane *l, SUMOReal start, SUMOReal end) throw();
 
 
     /** @brief Returns the list of lanes predecessing the given one
@@ -197,7 +199,7 @@ protected:
      * @todo Maybe this should be moved to MSEdgeContinuations
      */
     std::vector<MSLane*> getLanePredeccessorLanes(MSLane *l,
-            const MSEdgeContinuations &edgeContinuations);
+            const MSEdgeContinuations &edgeContinuations) throw();
 
 protected:
     /// @brief The position the collector starts at

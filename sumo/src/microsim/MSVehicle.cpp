@@ -1708,7 +1708,7 @@ MSVehicle::saveState(std::ostream &os)
 
 
 void
-MSVehicle::removeOnTripEnd(MSVehicle *veh)
+MSVehicle::removeOnTripEnd(MSVehicle *veh) throw()
 {
     quitRemindedLeft(veh);
 }

@@ -53,7 +53,7 @@ using namespace std;
 void
 MSXMLRawOut::write(OutputDevice &of, const MSEdgeControl &ec,
                    SUMOTime timestep,
-                   unsigned int intend)
+                   unsigned int intend) throw(IOError)
 {
     of << "   <timestep time=\"" << timestep << "\">" << "\n";
     const MSEdgeControl::EdgeCont &ec1 = ec.getSingleLaneEdges();
@@ -71,7 +71,7 @@ MSXMLRawOut::write(OutputDevice &of, const MSEdgeControl &ec,
 
 void
 MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge,
-                       unsigned int intend)
+                       unsigned int intend) throw(IOError)
 {
     //en
     bool dump = !MSGlobals::gOmitEmptyEdgesOnDump;
@@ -97,7 +97,7 @@ MSXMLRawOut::writeEdge(OutputDevice &of, const MSEdge &edge,
 
 void
 MSXMLRawOut::writeLane(OutputDevice &of, const MSLane &lane,
-                       unsigned int intend)
+                       unsigned int intend) throw(IOError)
 {
     string indent(intend , ' ');
     if (lane.myVehicles.empty() == true && lane.myVehBuffer.size() == 0) {
@@ -122,7 +122,7 @@ MSXMLRawOut::writeLane(OutputDevice &of, const MSLane &lane,
 
 void
 MSXMLRawOut::writeVehicle(OutputDevice &of, const MSVehicle &veh,
-                          unsigned int intend)
+                          unsigned int intend) throw(IOError)
 {
     string indent(intend , ' ');
     of << indent << "<vehicle id=\"" << veh.getID() << "\" pos=\""

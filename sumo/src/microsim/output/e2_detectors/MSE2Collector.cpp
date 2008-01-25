@@ -42,7 +42,7 @@ MSE2Collector::MSE2Collector(const std::string &id, DetectorUsage usage,
                              MSLane* lane, SUMOReal startPos, SUMOReal detLength,
                              SUMOTime haltingTimeThreshold,
                              SUMOReal haltingSpeedThreshold,
-                             SUMOReal jamDistThreshold)
+                             SUMOReal jamDistThreshold) throw()
         : Named(id), MSMoveReminder(lane),
         myJamHaltingSpeedThreshold(haltingSpeedThreshold),
         myJamHaltingTimeThreshold(haltingTimeThreshold),
@@ -64,7 +64,7 @@ MSE2Collector::MSE2Collector(const std::string &id, DetectorUsage usage,
 }
 
 
-MSE2Collector::~MSE2Collector()
+MSE2Collector::~MSE2Collector() throw()
 {
     for(std::list<MSVehicle*>::iterator i=myKnownVehicles.begin(); i!=myKnownVehicles.end(); ++i) {
         (*i)->quitRemindedLeft(this);
@@ -75,7 +75,7 @@ MSE2Collector::~MSE2Collector()
 
 bool
 MSE2Collector::isStillActive(MSVehicle& veh, SUMOReal oldPos,
-                             SUMOReal newPos, SUMOReal)
+                             SUMOReal newPos, SUMOReal) throw()
 {
     if (newPos <= myStartPos) {
         // detector not yet reached
@@ -97,7 +97,7 @@ MSE2Collector::isStillActive(MSVehicle& veh, SUMOReal oldPos,
 
 
 void 
-MSE2Collector::dismissByLaneChange(MSVehicle& veh)
+MSE2Collector::dismissByLaneChange(MSVehicle& veh) throw()
 {
     if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getLength() < myEndPos) {
         myKnownVehicles.erase(find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh));
@@ -107,7 +107,7 @@ MSE2Collector::dismissByLaneChange(MSVehicle& veh)
 
 
 bool 
-MSE2Collector::isActivatedByEmitOrLaneChange(MSVehicle& veh)
+MSE2Collector::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw()
 {
     if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getLength() < myEndPos) {
         // vehicle is on detector
@@ -125,7 +125,7 @@ MSE2Collector::isActivatedByEmitOrLaneChange(MSVehicle& veh)
 
 
 void 
-MSE2Collector::reset()
+MSE2Collector::reset() throw()
 {
     mySpeedSum = 0;
     myMaxHaltingDuration = 0;
@@ -149,7 +149,7 @@ MSE2Collector::reset()
 
 
 void
-MSE2Collector::update(SUMOTime currentTime)
+MSE2Collector::update(SUMOTime currentTime) throw()
 {
     JamInfo *currentJam = 0;
     SUMOReal distSinceLastJamBegin = 0;
@@ -291,7 +291,7 @@ MSE2Collector::update(SUMOTime currentTime)
 
 
 void 
-MSE2Collector::writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime)
+MSE2Collector::writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError)
 {
     dev<<"   <interval begin=\""<<startTime<<"\" end=\""<< stopTime<<"\" "<<"id=\""<<getID()<<"\" ";
     SUMOReal meanSpeed = myVehicleSamples!=0 ? mySpeedSum / (SUMOReal) myVehicleSamples : -1;
@@ -319,84 +319,84 @@ MSE2Collector::writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime st
 
 
 void 
-MSE2Collector::writeXMLDetectorProlog(OutputDevice &dev) const
+MSE2Collector::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError)
 {
     dev.writeXMLHeader("detector");
 }
 
 
 unsigned 
-MSE2Collector::getCurrentVehicleNumber() const
+MSE2Collector::getCurrentVehicleNumber() const throw()
 {
     return myKnownVehicles.size();
 }
 
     
 SUMOReal 
-MSE2Collector::getCurrentOccupancy() const
+MSE2Collector::getCurrentOccupancy() const throw()
 {
     return myCurrentOccupancy * (SUMOReal) 100.;
 }
 
 
 SUMOReal 
-MSE2Collector::getCurrentMeanSpeed() const
+MSE2Collector::getCurrentMeanSpeed() const throw()
 {
     return myCurrentMeanSpeed;
 }
 
 
 SUMOReal 
-MSE2Collector::getCurrentMeanLength() const
+MSE2Collector::getCurrentMeanLength() const throw()
 {
     return myCurrentMeanLength;
 }
 
 
 unsigned 
-MSE2Collector::getCurrentJamNumber() const
+MSE2Collector::getCurrentJamNumber() const throw()
 {
     return myCurrentJamNo;
 }
 
 
 unsigned 
-MSE2Collector::getCurrentMaxJamLengthInVehicles() const
+MSE2Collector::getCurrentMaxJamLengthInVehicles() const throw()
 {
     return myCurrentMaxJamLengthInVehicles;
 }
 
 
 SUMOReal 
-MSE2Collector::getCurrentMaxJamLengthInMeters() const
+MSE2Collector::getCurrentMaxJamLengthInMeters() const throw()
 {
     return myCurrentMaxJamLengthInMeters;
 }
 
 
 unsigned 
-MSE2Collector::getCurrentJamLengthInVehicles() const
+MSE2Collector::getCurrentJamLengthInVehicles() const throw()
 {
     return myCurrentJamLengthInVehicles;
 }
 
 
 SUMOReal 
-MSE2Collector::getCurrentJamLengthInMeters() const
+MSE2Collector::getCurrentJamLengthInMeters() const throw()
 {
     return myCurrentJamLengthInMeters;
 }
 
 
 unsigned 
-MSE2Collector::getCurrentStartedHalts() const
+MSE2Collector::getCurrentStartedHalts() const throw()
 {
     return myCurrentStartedHalts;
 }
 
 
 void 
-MSE2Collector::removeOnTripEnd(MSVehicle *veh)
+MSE2Collector::removeOnTripEnd(MSVehicle *veh) throw()
 {
     myKnownVehicles.erase(find(myKnownVehicles.begin(), myKnownVehicles.end(), veh));
 }

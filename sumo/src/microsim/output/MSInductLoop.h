@@ -90,16 +90,16 @@ public:
      */
     MSInductLoop(const std::string& id,
                  MSLane* lane,
-                 SUMOReal positionInMeters);
+                 SUMOReal positionInMeters) throw();
 
 
     /// @brief Destructor
-    ~MSInductLoop();
+    ~MSInductLoop() throw();
 
 
     /** @brief Resets all generated values to allow computation of next interval
      */
-    void reset();
+    void reset() throw();
 
 
     /// @name Methods inherited from MSMoveReminder.
@@ -120,7 +120,7 @@ public:
      * @see enterDetectorByMove
      * @see leaveDetectorByMove
      */
-    bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed);
+    bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos, SUMOReal newSpeed) throw();
 
 
     /** @brief Dismisses the vehicle if it is on the detector due to a lane change
@@ -134,7 +134,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::dismissByLaneChange
      */
-    void dismissByLaneChange(MSVehicle& veh);
+    void dismissByLaneChange(MSVehicle& veh) throw();
 
 
     /** @brief Returns whether the detector may has to be concerned during the vehicle's further movement
@@ -148,7 +148,7 @@ public:
      * @see MSMoveReminder
      * @see MSMoveReminder::isActivatedByEmitOrLaneChange
      */
-    bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
+    bool isActivatedByEmitOrLaneChange(MSVehicle& veh) throw();
     //@}
 
 
@@ -162,7 +162,7 @@ public:
      *
      * @return The speed [m/s] of the vehicle if one is on the detector, -1 otherwise
      */
-    SUMOReal getCurrentSpeed() const;
+    SUMOReal getCurrentSpeed() const throw();
 
 
     /** @brief Returns the length of the vehicle on the detector
@@ -172,7 +172,7 @@ public:
      *
      * @return The length [m] of the vehicle if one is on the detector, -1 otherwise
      */
-    SUMOReal getCurrentLength() const;
+    SUMOReal getCurrentLength() const throw();
 
 
     /** @brief Returns the current occupancy
@@ -184,7 +184,7 @@ public:
      * @return This detector's current occupancy
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    SUMOReal getCurrentOccupancy() const;
+    SUMOReal getCurrentOccupancy() const throw();
 
 
     /** @brief Returns the number of vehicles that have passed the detector
@@ -196,21 +196,21 @@ public:
      * @return The number of vehicles that have passed the detector
      * @todo recheck (especially if more than one vehicle has passed)
      */
-    SUMOReal getCurrentPassedNumber() const;
+    SUMOReal getCurrentPassedNumber() const throw();
 
 
     /** @brief Returns the time since the last vehicle left the detector
      *
      * @return Timesteps from last leaving (detection) of the detector
      */
-    SUMOReal getTimestepsSinceLastDetection() const;
+    SUMOReal getTimestepsSinceLastDetection() const throw();
     //@}
 
 
 
     /// @name Methods returning aggregated values
     /// @{
-    unsigned getNVehContributed() const;
+    unsigned getNVehContributed() const throw();
     //@}
 
 
@@ -223,16 +223,18 @@ public:
      * @param[in] startTime First time step the data were gathered
      * @param[in] stopTime Last time step the data were gathered
      * @see MSDetectorFileOutput::writeXMLOutput
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime);
+    void writeXMLOutput(OutputDevice &dev, SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
     /** @brief Opens the XML-output using "detector" as root element
      *
      * @param[in] dev The output device to write the root into
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
-    void writeXMLDetectorProlog(OutputDevice &dev) const;
+    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
     /// @}
 
 
@@ -243,7 +245,7 @@ public:
      *
      * @param[in] veh The vehicle that was on the detector and leaves the simuation
      */
-    void removeOnTripEnd(MSVehicle *veh);
+    void removeOnTripEnd(MSVehicle *veh) throw();
     /// @}
 
 
@@ -252,9 +254,9 @@ protected:
     /// @{
     /** @brief Introduces a vehicle to the detector's map myVehiclesOnDet.
      * @param veh The entering vehicle.
-     * @param entryTimestep Timestep (not neccessary integer) of entrance.
+     * @param entryTimestep Timestep (not necessary integer) of entrance.
      */
-    void enterDetectorByMove(MSVehicle& veh, SUMOReal entryTimestep);
+    void enterDetectorByMove(MSVehicle& veh, SUMOReal entryTimestep) throw();
 
 
     /** @brief Processes a vehicle that leaves the detector
@@ -263,15 +265,15 @@ protected:
      * adds the vehicle data to the internal myVehicleDataCont.
      *
      * @param veh The leaving vehicle.
-     * @param leaveTimestep Timestep (not neccessary integer) of leaving.
+     * @param leaveTimestep Timestep (not necessary integer) of leaving.
      */
-    void leaveDetectorByMove(MSVehicle& veh, SUMOReal leaveTimestep);
+    void leaveDetectorByMove(MSVehicle& veh, SUMOReal leaveTimestep) throw();
 
 
     /** @brief Removes a vehicle from the detector's map myVehiclesOnDet.
      * @param veh The leaving vehicle.
      */
-    void leaveDetectorByLaneChange(MSVehicle& veh);
+    void leaveDetectorByLaneChange(MSVehicle& veh) throw();
     /// @}
 
 
@@ -291,7 +293,7 @@ protected:
          * @param[in] entryTimestep The time at which the vehicle entered the detector
          * @param[in] leaveTimestep The time at which the vehicle left the detector
          */
-        VehicleData(SUMOReal vehLength, SUMOReal entryTimestep, SUMOReal leaveTimestep)
+        VehicleData(SUMOReal vehLength, SUMOReal entryTimestep, SUMOReal leaveTimestep) throw()
                 : lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
                 speedM(lengthM / (leaveTimeM - entryTimeM)), 
                 occupancyM(leaveTimeM - entryTimeM) {}
@@ -313,19 +315,19 @@ protected:
     /// @name Function for summing up values
     ///@{
     /// @brief Adds up VehicleData::speedM
-    static inline SUMOReal speedSum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data)
+    static inline SUMOReal speedSum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data) throw()
     {
         return sumSoFar + data.speedM;
     }
     
     /// @brief Adds up VehicleData::occupancyM
-    static inline SUMOReal occupancySum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data)
+    static inline SUMOReal occupancySum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data) throw()
     {
         return sumSoFar + data.occupancyM;
     }
 
     /// @brief Adds up VehicleData::lengthM
-    static inline SUMOReal lengthSum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data)
+    static inline SUMOReal lengthSum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data) throw()
     {
         return sumSoFar + data.lengthM;
     }

@@ -110,7 +110,7 @@ private:
     MSDevice_C2C(MSVehicle &holder);
 
     /// Destructor.
-    ~MSDevice_C2C();
+    ~MSDevice_C2C() throw();
 
 
     // add new neighborhood
@@ -143,7 +143,7 @@ private:
      */
     int buildMyCluster(int myStep, int clId);
 
-    void removeOnTripEnd(MSVehicle *veh);
+    void removeOnTripEnd(MSVehicle *veh) throw();
 
 
 

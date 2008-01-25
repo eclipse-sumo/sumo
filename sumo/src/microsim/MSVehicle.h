@@ -118,7 +118,7 @@ public:
     };
 
     /// Destructor.
-    virtual ~MSVehicle();
+    virtual ~MSVehicle() throw();
 
 
     /// @name needed during the emission
@@ -133,7 +133,7 @@ public:
     SUMOTime desiredDepart() const;
     //@}
 
-    void removeOnTripEnd(MSVehicle *veh);
+    void removeOnTripEnd(MSVehicle *veh) throw();
 
 
     /// @name interaction with the route

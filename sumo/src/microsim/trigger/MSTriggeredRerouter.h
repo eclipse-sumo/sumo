@@ -78,22 +78,22 @@ class Setter : public MSMoveReminder
     {
     public:
         /// Constructor
-        Setter(MSTriggeredRerouter *parent, MSLane *lane);
+        Setter(MSTriggeredRerouter *parent, MSLane *lane) throw();
 
         /// Destructor
-        ~Setter();
+        ~Setter() throw();
 
         /// @name Methods inherited from MSMoveReminder.
         /// @{
         /// Returns whether the vehicle has to be aware of this setter in the next step
         bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
-                           SUMOReal newSpeed);
+                           SUMOReal newSpeed) throw();
 
         /// Removes from the list of move reminders to be aware of
-        void dismissByLaneChange(MSVehicle& veh);
+        void dismissByLaneChange(MSVehicle& veh) throw();
 
         /// Returns whether the vehicle shall be aware of this move reminder
-        bool isActivatedByEmitOrLaneChange(MSVehicle& veh);
+        bool isActivatedByEmitOrLaneChange(MSVehicle& veh) throw();
         /// @}
 
     private:
