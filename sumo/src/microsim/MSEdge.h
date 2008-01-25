@@ -79,11 +79,9 @@ public:
         /// the edge is only used for vehicle deletion (end of trips)
         EDGEFUNCTION_SINK = 2,
         /// the edge is an internal edge
-        EDGEFUNCTION_INTERNAL = 3
-/* @extension: no lane changing on inner lanes
+        EDGEFUNCTION_INTERNAL = 3,
         /// the edge is an within a junction
-        EDGEFUNCTION_INNERJUNCTION = 4,
-*/
+        EDGEFUNCTION_INNERJUNCTION = 4
     };
 
 public:

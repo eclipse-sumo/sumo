@@ -88,10 +88,9 @@ public:
 
     /// chooses the previously added edge as the current edge
     void chooseEdge(const std::string &id,
-                    MSEdge::EdgeBasicFunction function);
-/* @extension: no lane changing on inner lanes
+                    MSEdge::EdgeBasicFunction function,
                     bool inner);
-*/
+
 
     /** @brief Adds a lane to the current edge;
         This method throws an ProcessError when the
@@ -175,10 +174,8 @@ protected:
     /// the function of the current edge
     MSEdge::EdgeBasicFunction m_Function;
 
-/* @extension: no lane changing on inner lanes
     // 
     bool myIsInner;
-*/
 
 private:
     /** invalidated copy constructor */

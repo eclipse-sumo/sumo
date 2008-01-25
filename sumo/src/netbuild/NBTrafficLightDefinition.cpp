@@ -160,7 +160,8 @@ NBTrafficLightDefinition::collectEdges()
         if (k!=myOutgoing.end()) {
             if (find(myControlledInnerEdges.begin(), myControlledInnerEdges.end(), edge->getID())==myControlledInnerEdges.end()) {
                 myEdgesWithin.push_back(edge);
-                myIncomingEdges.erase(j);
+                (*j)->setIsInnerEdge();
+                j = myIncomingEdges.erase(j);
                 continue;
             }
         }

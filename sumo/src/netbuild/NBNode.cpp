@@ -1129,6 +1129,25 @@ NBNode::writeXMLInternalNodes(OutputDevice &into)
 void
 NBNode::writeinternal(EdgeVector *myIncomingEdges, OutputDevice &into, const std::string &id)
 {
+    /*
+    size_t l = 0;
+    for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
+        size_t noLanesEdge = (*i)->getNoLanes();
+        for (size_t j=0; j<noLanesEdge; j++) {
+            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
+            for (EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
+                if ((*k).edge==0) {
+                    continue;
+                }
+                if (l!=0) {
+                    into << ' ';
+                }
+                into << ':' << id << '_' << l << "_0";
+                l++;
+            }
+        }
+    }
+    */
     size_t l = 0;
     size_t o = countInternalLanes(false);
     for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
@@ -1449,6 +1468,19 @@ NBNode::computeLanes2Lanes()
             currentIncoming->addAdditionalConnections();
         }
     }
+/*
+    // ... it seems like this should also be done on traffic light controlled junctions
+    if (myTrafficLights.size()!=0) {
+        if(this->getID()=="15031315") {
+            int bla = 0;
+        }
+        vector<NBEdge*>::iterator i2;
+        for (i2=myIncomingEdges->begin(); i2!=myIncomingEdges->end(); i2++) {
+            NBEdge *currentIncoming = *i2;
+            currentIncoming->addAdditionalConnections();
+        }
+    }
+*/
 }
 
 
@@ -2080,7 +2112,7 @@ NBNode::stateCode(NBEdge *incoming, NBEdge *outgoing, int fromlane)
     if (myType==NODETYPE_RIGHT_BEFORE_LEFT) {
         return '='; // all the same
     }
-    if (mustBrake(incoming, outgoing, fromlane)) {
+    if (!incoming->isInnerEdge()&&mustBrake(incoming, outgoing, fromlane)) {
         return 'm'; // minor road
     }
     // traffic lights are not regardedm here

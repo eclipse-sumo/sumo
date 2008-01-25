@@ -361,6 +361,13 @@ public:
 
     void setTurningDestination(NBEdge *e);
 
+    void setIsInnerEdge() {
+        myAmInnerEdge = true;
+    }
+
+    bool isInnerEdge() const {
+        return myAmInnerEdge;
+    }
 
 private:
     /**
@@ -389,7 +396,16 @@ class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack
 
         /// executes a bresenham - step
         void execute(SUMOReal lane, SUMOReal virtEdge);
+
+    private:
+        /// @brief Invalidated copy constructor.
+        ToEdgeConnectionsAdder(const ToEdgeConnectionsAdder&);
+
+        /// @brief Invalidated assignment operator.
+        ToEdgeConnectionsAdder& operator=(const ToEdgeConnectionsAdder&);
+
     };
+
 
     /**
      * MainDirections
@@ -423,6 +439,14 @@ class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack
         /** returns the information whether the street in the given direction
             has a higher priority */
         bool includes(Direction d) const;
+
+    private:
+        /// @brief Invalidated copy constructor.
+        MainDirections(const MainDirections&);
+
+        /// @brief Invalidated assignment operator.
+        MainDirections& operator=(const MainDirections&);
+
     };
 
     /// Computes the shape for the given lane
@@ -512,6 +536,7 @@ private:
 
     SUMOReal myAmTurningWithAngle;
     NBEdge *myAmTurningOf;
+    bool myAmInnerEdge;
 
     struct TLSDisabledConnection {
         int fromLane;

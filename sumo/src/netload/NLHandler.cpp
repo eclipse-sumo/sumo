@@ -461,13 +461,11 @@ NLHandler::chooseEdge(const Attributes &attrs)
         myCurrentIsBroken = true;
         return;
     }
-/* @extension: no lane changing on inner lanes
     // check is inner
     bool isInner = getBoolSecure(attrs, SUMO_ATTR_INNER, false);
-*/
     //
     try {
-        myEdgeControlBuilder.chooseEdge(id, funcEnum);
+        myEdgeControlBuilder.chooseEdge(id, funcEnum, isInner);
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         myCurrentIsBroken = true;

@@ -102,10 +102,8 @@ NLEdgeControlBuilder::addEdge(const string &id)
 
 void
 NLEdgeControlBuilder::chooseEdge(const string &id,
-                                 MSEdge::EdgeBasicFunction function)
-/* @extension: no lane changing on inner lanes
+                                 MSEdge::EdgeBasicFunction function,
                                  bool inner)
-                                 */
 {
     myActiveEdge = MSEdge::dictionary(id);
     if (myActiveEdge==0) {
@@ -114,12 +112,10 @@ NLEdgeControlBuilder::chooseEdge(const string &id,
     m_pDepartLane = (MSLane*) 0;
     m_pAllowedLanes = new MSEdge::AllowedLanesCont();
     m_Function = function;
-/* @extension: no lane changing on inner lanes
     if(inner) {
         m_Function = MSEdge::EDGEFUNCTION_INNERJUNCTION;
     }
     myIsInner = inner;
-*/
 }
 
 
@@ -147,9 +143,7 @@ NLEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
         break;
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_SINK:
-/* @extension: no lane changing on inner lanes
     case MSEdge::EDGEFUNCTION_INNERJUNCTION:
-*/
         lane = new MSLane(/*net, */id, maxSpeed, length, myActiveEdge,
                                    myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;

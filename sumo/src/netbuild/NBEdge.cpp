@@ -183,7 +183,8 @@ NBEdge::NBEdge(const string &id, const string &name, NBNode *from, NBNode *to,
         myFromJunctionPriority(-1), myToJunctionPriority(-1),
         myBasicType(basic), myLaneSpreadFunction(spread),
         myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
-        myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0)
+        myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0),
+        myAmInnerEdge(false)
 {
     if (myNolanes==0) {
         throw InvalidArgument("Edge '" + id + "' has no lanes (must have at least one).");
@@ -233,7 +234,8 @@ NBEdge::NBEdge(const string &id, const string &name, NBNode *from, NBNode *to,
         myFromJunctionPriority(-1), myToJunctionPriority(-1),
         myBasicType(basic), myGeom(geom), myLaneSpreadFunction(spread),
         myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
-        myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0)
+        myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0),
+        myAmInnerEdge(false)
 {
     if (myNolanes==0) {
         throw InvalidArgument("Edge '" + id + "' has no lanes (must have at least one).");
@@ -471,6 +473,9 @@ NBEdge::writeXMLStep1(OutputDevice &into)
         break;
     default:
         throw 1;
+    }
+    if(myAmInnerEdge) {
+        into << "\" inner=\"x";
     }
     into << "\">\n";
     // write the lanes
@@ -759,7 +764,7 @@ NBEdge::writeSingleSucceeding(OutputDevice &into, size_t fromlane, size_t destid
         into << " linkno=\"" << myReachable[fromlane][destidx].tlLinkNo << "\"";
     }
     // write information whether the connection yields
-    if (!myTo->mustBrake(this,
+    if (myAmInnerEdge||!myTo->mustBrake(this,
                          myReachable[fromlane][destidx].edge,
                          myReachable[fromlane][destidx].lane)) {
         into << " yield=\"0\"";
