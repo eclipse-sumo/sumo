@@ -152,7 +152,7 @@ ROJTRTurnDefLoader::myEndElement(SumoXMLTag element) throw(ProcessError)
 
 
 bool
-ROJTRTurnDefLoader::report(const std::string &line)
+ROJTRTurnDefLoader::report(const std::string &line) throw(ProcessError)
 {
     if (!myAmInitialised) {
         myColumnsParser.reinit(line, ";");

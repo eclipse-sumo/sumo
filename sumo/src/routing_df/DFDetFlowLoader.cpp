@@ -66,14 +66,14 @@ using namespace std;
 DFDetFlowLoader::DFDetFlowLoader(RODFDetectorCon &dets,
                                  RODFDetectorFlows &into,
                                  SUMOTime startTime, SUMOTime endTime,
-                                 int timeOffset)
+                                 int timeOffset) throw()
         : myStorage(into), myTimeOffset(timeOffset),
         myStartTime(startTime), myEndTime(endTime), myDetectorContainer(dets)
 {}
 
 
 
-DFDetFlowLoader::~DFDetFlowLoader()
+DFDetFlowLoader::~DFDetFlowLoader() throw()
 {}
 
 
@@ -126,7 +126,7 @@ DFDetFlowLoader::parseFast(const std::string &file)
 
 
 bool
-DFDetFlowLoader::report(const std::string &result)
+DFDetFlowLoader::report(const std::string &result) throw(ProcessError)
 {
     // parse the flows
     if (myFirstLine) {

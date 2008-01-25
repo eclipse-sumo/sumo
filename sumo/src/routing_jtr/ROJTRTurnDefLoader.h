@@ -67,7 +67,7 @@ public:
     void load(const std::string &file);
 
     /** @brief used when csv instead of xml-descriptions are used */
-    bool report(const std::string &line);
+    bool report(const std::string &line) throw(ProcessError);
 
 protected:
     /// @name inherited from GenericSAXHandler

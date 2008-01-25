@@ -61,10 +61,10 @@ public:
     ///!!!DFDetFlowLoader();
     DFDetFlowLoader(RODFDetectorCon &dets, RODFDetectorFlows &into,
                     SUMOTime startTime, SUMOTime endTime,
-                    int timeOffset);
+                    int timeOffset) throw();
 
     /// Destructor
-    ~DFDetFlowLoader();
+    ~DFDetFlowLoader() throw();
 
     void read(const std::string &file, bool fast);
 
@@ -73,7 +73,7 @@ public:
         Here, either input from the route file or from the route index file
         (when existing) is received. In the first case, the list of route
         indices is build - and read in the second case */
-    bool report(const std::string &result);
+    bool report(const std::string &result) throw(ProcessError);
 
 protected:
     bool parseFast(const std::string &file);
