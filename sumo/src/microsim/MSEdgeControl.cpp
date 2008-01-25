@@ -182,13 +182,15 @@ void
 MSEdgeControl::changeLanes() throw()
 {
     SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
+    std::vector<MSLane*> toAdd;
     for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end(); ) {
         LaneUsage &lu = myLanes[(*i)->getNumericalID()];
-/* @extension: no lane changing on inner lanes
-        if((*edge)->getPurpose()==MSEdge::EDGEFUNCTION_INNERJUNCTION) {
+        /*
+        if((*i)->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INNERJUNCTION) {
+            ++i;
             continue;
         }
-*/
+        */
         if(lu.haveNeighbors) {
             const MSEdge * const edge = (*i)->getEdge();
             if(myLastLaneChange[edge->getNumericalID()]!=step) {
@@ -198,7 +200,7 @@ MSEdgeControl::changeLanes() throw()
                 for (MSEdge::LaneCont::const_iterator i=lanes->begin(); i!=lanes->end(); ++i) {
                     LaneUsage &lu = myLanes[(*i)->getNumericalID()];
                     if ((*i)->getVehicleNumber()>0 && !lu.amActive) {
-                        myActiveLanes.push_back(*i);
+                        toAdd.push_back(*i);
                         lu.amActive = true;
                     }
                 }
@@ -207,6 +209,9 @@ MSEdgeControl::changeLanes() throw()
         } else {
             i = myActiveLanes.end();
         }
+    }
+    for (vector<MSLane*>::iterator i=toAdd.begin(); i!=toAdd.end(); ++i) {
+        myActiveLanes.push_front(*i);
     }
 }
 
