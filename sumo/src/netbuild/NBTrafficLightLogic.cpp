@@ -98,28 +98,13 @@ NBTrafficLightLogic::writeXML(OutputDevice &into, size_t no, SUMOReal /*distance
     into << "      <phaseno>" << myPhases.size() << "</phaseno>\n";
     int offset = getOffset();
     into << "      <offset>" << offset << "</offset>\n";
-    // write the inlanes
-    /*
-    std::set<string>::const_iterator j;
-    into << "      <inclanes>";
-    //    bool first = true;
-    for(j=inLanes.begin(); j!=inLanes.end(); j++) {
-        if(j!=inLanes.begin()) {
-            into << " ";
-        }
-    //        first = false;
-        into << (*j);
-    }
-    into << "</inclanes>\n";
-    */
     // write the phases
-    for (PhaseDefinitionVector::const_iterator i=myPhases.begin();
-            i!=myPhases.end(); i++) {
+    for (PhaseDefinitionVector::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
         std::bitset<64> mask = (*i).driveMask;
         stringstream tmp1;
         tmp1 << mask;
         into << "      <phase duration=\"" << (*i).duration
-        << "\" phase=\"" << tmp1.str().substr(64-myNoLinks) << "\"";
+            << "\" phase=\"" << tmp1.str().substr(64-myNoLinks) << "\"";
         // by now, only the vehicles that are not allowed to drive are
         //  breaking; later the right-arrow - rule should be concerned
         stringstream tmp2;
