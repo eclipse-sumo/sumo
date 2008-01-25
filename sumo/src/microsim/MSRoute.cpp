@@ -58,13 +58,13 @@ MSRoute::RouteDict MSRoute::myDict;
 // ===========================================================================
 MSRoute::MSRoute(const std::string &id,
                  const MSEdgeVector &edges,
-                 bool multipleReferenced)
+                 bool multipleReferenced) throw()
         : Named(id), myEdges(edges),
         myMultipleReferenced(multipleReferenced)
 {}
 
 
-MSRoute::~MSRoute()
+MSRoute::~MSRoute() throw()
 {}
 
 MSRouteIterator

@@ -59,10 +59,10 @@ class MSRoute : public Named
 public:
     /// Constructor
     MSRoute(const std::string &id, const MSEdgeVector &edges,
-            bool multipleReferenced);
+            bool multipleReferenced) throw();
 
     /// Destructor
-    virtual ~MSRoute();
+    virtual ~MSRoute() throw();
 
     /// Returns the begin of the list of edges to pass
     MSRouteIterator begin() const;

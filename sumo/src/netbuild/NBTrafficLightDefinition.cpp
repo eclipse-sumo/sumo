@@ -66,7 +66,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
-        const std::set<NBNode*> &junctions)
+        const std::set<NBNode*> &junctions) throw()
         : Named(id), myType("static"), myControlledNodes(junctions)
 {
     for (NodeCont::const_iterator i=junctions.begin(); i!=junctions.end(); i++) {
@@ -76,7 +76,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
 
 
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
-        NBNode *junction)
+        NBNode *junction) throw()
         : Named(id), myType("static")
 {
     addNode(junction);
@@ -85,8 +85,7 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
 
 
 NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
-        std::string type,
-        NBNode *junction)
+        std::string type, NBNode *junction) throw()
         : Named(id), myType(type)
 {
     addNode(junction);
@@ -94,12 +93,12 @@ NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id,
 }
 
 
-NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id)
+NBTrafficLightDefinition::NBTrafficLightDefinition(const std::string &id) throw()
         : Named(id), myType("static")
 {}
 
 
-NBTrafficLightDefinition::~NBTrafficLightDefinition()
+NBTrafficLightDefinition::~NBTrafficLightDefinition() throw()
 {}
 
 

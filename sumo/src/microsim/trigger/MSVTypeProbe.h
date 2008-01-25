@@ -60,9 +60,9 @@ public:
 
     MSVTypeProbe(const std::string &id, MSNet &net,
                  const std::string &fileName, const std::string &vType,
-                 SUMOTime probeFreq);
+                 SUMOTime probeFreq) throw();
 
-    virtual ~MSVTypeProbe();
+    virtual ~MSVTypeProbe() throw();
 
 protected:
     SUMOTime execute(SUMOTime currentTime);

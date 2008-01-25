@@ -79,11 +79,11 @@ public:
      * @param position Position of the detector within the lane.
      */
     MSE1VehicleActor(const std::string& id, MSLane* lane,
-                     SUMOReal positionInMeters, unsigned int laid, unsigned int cellid, unsigned int type);
+                     SUMOReal positionInMeters, unsigned int laid, unsigned int cellid, unsigned int type) throw();
 
 
     /// Destructor. Clears containers.
-    ~MSE1VehicleActor();
+    ~MSE1VehicleActor() throw();
 
 
     /// @name Methods inherited from MSMoveReminder.

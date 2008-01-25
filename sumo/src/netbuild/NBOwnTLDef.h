@@ -48,20 +48,20 @@ class NBOwnTLDef : public NBTrafficLightDefinition
 public:
     /// Constructor
     NBOwnTLDef(const std::string &id,
-               const std::set<NBNode*> &junctions);
+               const std::set<NBNode*> &junctions) throw();
 
     /// Constructor
-    NBOwnTLDef(const std::string &id, NBNode *junction);
+    NBOwnTLDef(const std::string &id, NBNode *junction) throw();
 
     /// Constructor
     NBOwnTLDef(const std::string &id, std::string type,
-               NBNode *junction);
+               NBNode *junction) throw();
 
     /// Constructor
-    NBOwnTLDef(const std::string &id);
+    NBOwnTLDef(const std::string &id) throw();
 
     /// Destructor
-    ~NBOwnTLDef();
+    ~NBOwnTLDef() throw();
 
     /** possible types of removeing a link from regardation during the
         building of the traffic light logic */

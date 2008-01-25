@@ -318,7 +318,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::inputEndReached()
 MSEmitter::MSEmitter(const std::string &id,
                      MSNet &net,
                      MSLane* destLane, SUMOReal pos,
-                     const std::string &aXMLFilename)
+                     const std::string &aXMLFilename) throw()
         : MSTrigger(id), myNet(net),
         myDestLane(destLane), myPos((SUMOReal) pos)
 {
@@ -329,16 +329,12 @@ MSEmitter::MSEmitter(const std::string &id,
 }
 
 
-MSEmitter::~MSEmitter()
+MSEmitter::~MSEmitter() throw()
 {
-    {
-        delete myFileBasedEmitter;
-    }
-    {
-        std::map<MSEmitterChild*, std::pair<MSVehicle*, SUMOReal> >::iterator i;
-        for (i=myToEmit.begin(); i!=myToEmit.end(); ++i) {
-            delete(*i).second.first;
-        }
+    delete myFileBasedEmitter;
+    std::map<MSEmitterChild*, std::pair<MSVehicle*, SUMOReal> >::iterator i;
+    for (i=myToEmit.begin(); i!=myToEmit.end(); ++i) {
+        delete(*i).second.first;
     }
 }
 

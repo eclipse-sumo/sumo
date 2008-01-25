@@ -61,7 +61,7 @@ using namespace std;
 MSE1VehicleActor::MSE1VehicleActor(const std::string& id, MSLane* lane,
                                    SUMOReal positionInMeters,
                                    unsigned int laid, unsigned int cellid,
-                                   unsigned int type)
+                                   unsigned int type) throw()
         : MSMoveReminder(lane), MSTrigger(id), posM(positionInMeters),
         myLAId(laid), myAreaId(cellid), myActorType(type),
         myPassedVehicleNo(0), myPassedCPhonesNo(0), myPassedConnectedCPhonesNo(0)
@@ -82,7 +82,7 @@ MSE1VehicleActor::MSE1VehicleActor(const std::string& id, MSLane* lane,
 }
 
 
-MSE1VehicleActor::~MSE1VehicleActor()
+MSE1VehicleActor::~MSE1VehicleActor() throw()
 {}
 
 map<MSVehicle *, MSPhoneCell*> LastCells;

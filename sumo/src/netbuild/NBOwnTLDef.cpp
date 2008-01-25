@@ -49,29 +49,29 @@
 // member method definitions
 // ===========================================================================
 NBOwnTLDef::NBOwnTLDef(const std::string &id,
-                       const std::set<NBNode*> &junctions)
+                       const std::set<NBNode*> &junctions) throw()
         : NBTrafficLightDefinition(id, junctions)
 {}
 
 
-NBOwnTLDef::NBOwnTLDef(const std::string &id, NBNode *junction)
+NBOwnTLDef::NBOwnTLDef(const std::string &id, NBNode *junction) throw()
         : NBTrafficLightDefinition(id, junction)
 {}
 
 
 NBOwnTLDef::NBOwnTLDef(const std::string &id,
                        std::string type,
-                       NBNode *junction)
+                       NBNode *junction) throw()
         : NBTrafficLightDefinition(id, type, junction)
 {}
 
 
-NBOwnTLDef::NBOwnTLDef(const std::string &id)
+NBOwnTLDef::NBOwnTLDef(const std::string &id) throw()
         : NBTrafficLightDefinition(id)
 {}
 
 
-NBOwnTLDef::~NBOwnTLDef()
+NBOwnTLDef::~NBOwnTLDef() throw()
 {}
 
 

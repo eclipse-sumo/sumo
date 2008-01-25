@@ -82,21 +82,21 @@ public:
 
     /// Constructor
     NBTrafficLightDefinition(const std::string &id,
-                             const std::set<NBNode*> &junctions);
+                             const std::set<NBNode*> &junctions) throw();
 
     /// Constructor
     NBTrafficLightDefinition(const std::string &id,
-                             NBNode *junction);
+                             NBNode *junction) throw();
 
     /// Constructor
     NBTrafficLightDefinition(const std::string &id, std::string type,
-                             NBNode *junction);
+                             NBNode *junction) throw();
 
     /// Constructor
-    NBTrafficLightDefinition(const std::string &id);
+    NBTrafficLightDefinition(const std::string &id) throw();
 
     /// Destructor
-    virtual ~NBTrafficLightDefinition();
+    virtual ~NBTrafficLightDefinition() throw();
 
     /** @brief Computes the traffic light logic
         Does some initialisation at first, then calls myCompute to finally build the tl-logic */

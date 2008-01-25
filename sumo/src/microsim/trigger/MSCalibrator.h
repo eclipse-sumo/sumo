@@ -63,9 +63,9 @@ class MSCalibrator : public MSTrigger
 {
 public:
     MSCalibrator(const std::string &id, MSNet &net, MSLane* destLane,
-                 SUMOReal pos, const std::string &aXMLFilename);
+                 SUMOReal pos, const std::string &aXMLFilename) throw();
 
-    virtual ~MSCalibrator();
+    virtual ~MSCalibrator() throw();
 
 
 public:

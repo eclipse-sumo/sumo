@@ -43,7 +43,7 @@
 MSBusStop::MSBusStop(const std::string &id,
                      const std::vector<std::string> &lines,
                      MSLane &lane,
-                     SUMOReal begPos, SUMOReal endPos)
+                     SUMOReal begPos, SUMOReal endPos) throw()
         : MSTrigger(id), myLines(lines), myLane(lane),
         myBegPos(begPos), myEndPos(endPos), myLastFreePos(endPos)
 {
@@ -51,7 +51,7 @@ MSBusStop::MSBusStop(const std::string &id,
 }
 
 
-MSBusStop::~MSBusStop()
+MSBusStop::~MSBusStop() throw()
 {}
 
 

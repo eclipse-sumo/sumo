@@ -56,7 +56,7 @@ using namespace std;
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
                                        MSNet &net,
                                        const std::vector<MSLane*> &destLanes,
-                                       const std::string &aXMLFilename)
+                                       const std::string &aXMLFilename) throw()
         : MSTrigger(id), SUMOSAXHandler(aXMLFilename),
         myDestLanes(destLanes), /*myHaveNext(false), */myAmOverriding(false)
         /*    ,

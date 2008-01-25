@@ -64,7 +64,7 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 MSCalibrator::MSCalibrator_FileTriggeredChild::MSCalibrator_FileTriggeredChild(
     MSNet &net, const std::string &aXMLFilename,
-    MSCalibrator &parent, MSVehicleControl &vc)
+    MSCalibrator &parent, MSVehicleControl &vc) throw()
         : MSTriggeredXMLReader(net, aXMLFilename), MSCalibratorChild(parent, vc),
         myHaveNext(false), myFlow(-1), myHaveInitialisedFlow(false), myRunningID(0)
 {
@@ -437,7 +437,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::inputEndReached()
 MSCalibrator::MSCalibrator(const std::string &id,
                            MSNet &net,
                            MSLane* destLane, SUMOReal pos,
-                           const std::string &aXMLFilename)
+                           const std::string &aXMLFilename) throw()
         : MSTrigger(id), myNet(net),
         myDestLane(destLane), myPos((SUMOReal) pos), myDb(net),
         myDebugLevel(0), myDebugFilesBaseName("x:\\temp\\dbg_")
@@ -472,7 +472,7 @@ MSCalibrator::MSCalibrator(const std::string &id,
 }
 
 
-MSCalibrator::~MSCalibrator()
+MSCalibrator::~MSCalibrator() throw()
 {
     {
         delete myFileBasedCalibrator;

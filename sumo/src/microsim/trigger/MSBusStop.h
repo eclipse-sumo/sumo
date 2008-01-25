@@ -55,10 +55,10 @@ public:
     /// Constructor
     MSBusStop(const std::string &id,
               const std::vector<std::string> &lines, MSLane &lane,
-              SUMOReal begPos, SUMOReal endPos);
+              SUMOReal begPos, SUMOReal endPos) throw();
 
     /// Destructor
-    virtual ~MSBusStop();
+    virtual ~MSBusStop() throw();
 
     /// Returns the lane this bus stop is located at
     const MSLane &getLane() const;

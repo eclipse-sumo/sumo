@@ -59,7 +59,7 @@ public:
     /** constructor */
     MSLaneSpeedTrigger(const std::string &id,
                        MSNet &net, const std::vector<MSLane*> &destLanes,
-                       const std::string &aXMLFilename);
+                       const std::string &aXMLFilename) throw();
 
     /** destructor */
     virtual ~MSLaneSpeedTrigger() throw();

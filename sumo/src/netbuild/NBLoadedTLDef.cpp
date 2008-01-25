@@ -52,11 +52,11 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * NBLoadedTLDef::SignalGroup-methods
  * ----------------------------------------------------------------------- */
-NBLoadedTLDef::SignalGroup::SignalGroup(const std::string &id)
+NBLoadedTLDef::SignalGroup::SignalGroup(const std::string &id) throw()
         : Named(id)
 {}
 
-NBLoadedTLDef::SignalGroup::~SignalGroup()
+NBLoadedTLDef::SignalGroup::~SignalGroup() throw()
 {}
 
 void
@@ -334,12 +334,12 @@ NBLoadedTLDef::SignalGroup::remap(NBEdge *removed, int removedLane,
 /* -------------------------------------------------------------------------
  * NBLoadedTLDef::Phase-methods
  * ----------------------------------------------------------------------- */
-NBLoadedTLDef::Phase::Phase(const std::string &id, SUMOTime begin, SUMOTime end)
+NBLoadedTLDef::Phase::Phase(const std::string &id, SUMOTime begin, SUMOTime end) throw()
         : Named(id), myBegin(begin), myEnd(end)
 {}
 
 
-NBLoadedTLDef::Phase::~Phase()
+NBLoadedTLDef::Phase::~Phase() throw()
 {}
 
 
@@ -347,22 +347,22 @@ NBLoadedTLDef::Phase::~Phase()
  * NBLoadedTLDef::Phase-methods
  * ----------------------------------------------------------------------- */
 NBLoadedTLDef::NBLoadedTLDef(const std::string &id,
-                             const std::set<NBNode*> &junctions)
+                             const std::set<NBNode*> &junctions) throw()
         : NBTrafficLightDefinition(id, junctions)
 {}
 
 
-NBLoadedTLDef::NBLoadedTLDef(const std::string &id, NBNode *junction)
+NBLoadedTLDef::NBLoadedTLDef(const std::string &id, NBNode *junction) throw()
         : NBTrafficLightDefinition(id, junction)
 {}
 
 
-NBLoadedTLDef::NBLoadedTLDef(const std::string &id)
+NBLoadedTLDef::NBLoadedTLDef(const std::string &id) throw()
         : NBTrafficLightDefinition(id)
 {}
 
 
-NBLoadedTLDef::~NBLoadedTLDef()
+NBLoadedTLDef::~NBLoadedTLDef() throw()
 {
     {
         for (SignalGroupCont::iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); ++i) {

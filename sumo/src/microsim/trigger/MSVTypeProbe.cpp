@@ -51,7 +51,7 @@ using namespace std;
 
 MSVTypeProbe::MSVTypeProbe(const string &id, MSNet &net,
                            const string &fileName, const string &vType,
-                           SUMOTime probeFreq)
+                           SUMOTime probeFreq) throw()
         : MSTrigger(id), myNet(net), myFileName(fileName), myVType(vType),
         myProbeFreq(probeFreq), myOutDev(OutputDevice::getDevice(myFileName))
 {
@@ -64,7 +64,7 @@ MSVTypeProbe::MSVTypeProbe(const string &id, MSNet &net,
         MSEventControl::ADAPT_AFTER_EXECUTION);
 }
 
-MSVTypeProbe::~MSVTypeProbe()
+MSVTypeProbe::~MSVTypeProbe() throw()
 {
     writeXMLEpilog();
 }

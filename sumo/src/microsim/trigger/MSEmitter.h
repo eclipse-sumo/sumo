@@ -62,10 +62,10 @@ class MSEmitter : public MSTrigger
 public:
     /** constructor for file-based emission */
     MSEmitter(const std::string &id, MSNet &net, MSLane* destLane,
-              SUMOReal pos, const std::string &aXMLFilename);
+              SUMOReal pos, const std::string &aXMLFilename) throw();
 
     /** destructor */
-    virtual ~MSEmitter();
+    virtual ~MSEmitter() throw();
 
 
 public:

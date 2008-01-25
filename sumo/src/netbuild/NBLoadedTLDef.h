@@ -50,8 +50,8 @@ public:
 class SignalGroup : public Named
     {
     public:
-        SignalGroup(const std::string &id);
-        ~SignalGroup();
+        SignalGroup(const std::string &id) throw();
+        ~SignalGroup() throw();
         void addConnection(const NBConnection &c);
         void addPhaseBegin(SUMOTime time, TLColor color);
         void setYellowTimes(SUMOTime tRedYellowe, SUMOTime tYellow);
@@ -107,8 +107,8 @@ class SignalGroup : public Named
                 : public Named
     {
     public:
-        Phase(const std::string &id, SUMOTime begin, SUMOTime end);
-        ~Phase();
+        Phase(const std::string &id, SUMOTime begin, SUMOTime end) throw();
+        ~Phase() throw();
     private:
         std::string mySignalGroup;
         SUMOTime myBegin, myEnd;
@@ -121,16 +121,16 @@ class SignalGroup : public Named
 
     /// Constructor
     NBLoadedTLDef(const std::string &id,
-                  const std::set<NBNode*> &junctions);
+                  const std::set<NBNode*> &junctions) throw();
 
     /// Constructor
-    NBLoadedTLDef(const std::string &id, NBNode *junction);
+    NBLoadedTLDef(const std::string &id, NBNode *junction) throw();
 
     /// Constructor
-    NBLoadedTLDef(const std::string &id);
+    NBLoadedTLDef(const std::string &id) throw();
 
     /// Destructor
-    ~NBLoadedTLDef();
+    ~NBLoadedTLDef() throw();
 
     /// Returns the signal group which is responsible for the given connection
     SignalGroup *findGroup(NBEdge *from, NBEdge *to) const;
