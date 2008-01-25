@@ -2,9 +2,9 @@
 /// @file    NIElmarNodesHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Sun, 16 May 2004
-/// @version $Id$
+/// @version $Id:NIElmarNodesHandler.h 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// A LineHandler-derivate to load nodes form a elmar-nodes-file
+// Importer of nodes stored in split elmar format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,7 +39,9 @@
 // class definitions
 // ===========================================================================
 /**
- * NIElmarNodesHandler
+ * @class NIElmarNodesHandler
+ * @brief Importer of nodes stored in split elmar format
+ *
  * Being a LineHandler, this class retrieves each line from a LineReader
  * and parses these information assuming they contain node definitions
  * in Cell-format
@@ -49,15 +51,15 @@ class NIElmarNodesHandler : public LineHandler,
 {
 public:
     /// constructor
-    NIElmarNodesHandler(NBNodeCont &nc, const std::string &file);
+    NIElmarNodesHandler(NBNodeCont &nc, const std::string &file) throw();
 
     /// destructor
-    ~NIElmarNodesHandler();
+    ~NIElmarNodesHandler() throw();
 
     /** implementation of the LineHandler-interface called by a LineReader
         interprets the retrieved information and stores it into the global
         NBNodeCont */
-    bool report(const std::string &result);
+    bool report(const std::string &result) throw(ProcessError);
 
 protected:
     SUMOReal myInitX, myInitY;

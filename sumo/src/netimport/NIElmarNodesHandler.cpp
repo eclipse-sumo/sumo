@@ -2,9 +2,9 @@
 /// @file    NIElmarNodesHandler.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sun, 16 May 2004
-/// @version $Id$
+/// @version $Id:NIElmarNodesHandler.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// A LineHandler-derivate to load nodes form a elmar-nodes-file
+// Importer of nodes stored in split elmar format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -55,19 +55,19 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIElmarNodesHandler::NIElmarNodesHandler(NBNodeCont &nc,
-        const std::string &file)
+        const std::string &file) throw()
         : FileErrorReporter("elmar-nodes", file),
         myInitX(-1), myInitY(-1),
         myNodeCont(nc)
 {}
 
 
-NIElmarNodesHandler::~NIElmarNodesHandler()
+NIElmarNodesHandler::~NIElmarNodesHandler() throw()
 {}
 
 
 bool
-NIElmarNodesHandler::report(const std::string &result)
+NIElmarNodesHandler::report(const std::string &result) throw(ProcessError)
 {
     if (result[0]=='#') {
         return true;
@@ -79,7 +79,6 @@ NIElmarNodesHandler::report(const std::string &result)
     // check
     if (st.size()<3) {
         throw ProcessError("Something is wrong with the following data line\n" + result);
-
     }
     // parse
     id = st.next();
@@ -87,13 +86,11 @@ NIElmarNodesHandler::report(const std::string &result)
         x = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
         throw ProcessError("Non-numerical value for node-x-position occured.");
-
     }
     try {
         y = (SUMOReal) TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
         throw ProcessError("Non-numerical value for node-y-position occured.");
-
     }
     // geo->metric
     Position2D pos(x, y);
@@ -102,7 +99,6 @@ NIElmarNodesHandler::report(const std::string &result)
     if (!myNodeCont.insert(n)) {
         delete n;
         throw ProcessError("Could not add node '" + id + "'.");
-
     }
     return true;
 }

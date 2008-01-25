@@ -4,7 +4,7 @@
 /// @date    Sun, 16 May 2004
 /// @version $Id:NIElmarEdgesHandler.h 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// A LineHandler-derivate to load edges form a elmar-edges-file
+// Importer of edges stored in split elmar format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,7 +39,9 @@
 // class declarations
 // ===========================================================================
 /**
- * NIElmarEdgesHandler
+ * @class NIElmarEdgesHandler
+ * @brief Importer of edges stored in split elmar format
+ *
  * Being a LineHandler, this class retrieves each line from a LineReader
  * and parses these information assuming they contain edge definitions
  * in Cell-format
@@ -56,20 +58,27 @@ class NIElmarEdgesHandler : public LineHandler,
 public:
     /// constructor
     NIElmarEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-                        const std::string &file, bool useNewLaneNumberInfoPlain);
+                        const std::string &file, bool useNewLaneNumberInfoPlain) throw();
 
     /// destructor
-    ~NIElmarEdgesHandler();
+    ~NIElmarEdgesHandler() throw();
 
     /** implementation of the LineHandler-interface called by a LineReader
         interprets the retrieved information and stores it into the global
         NBEdgeCont */
-    bool report(const std::string &result);
+    bool report(const std::string &result) throw(ProcessError);
 
 protected:
     NBNodeCont &myNodeCont;
     NBEdgeCont &myEdgeCont;
     bool myUseNewLaneNumberInfoPlain;
+
+private:
+    /// @brief Invalidated copy constructor.
+    NIElmarEdgesHandler(const NIElmarEdgesHandler&);
+
+    /// @brief Invalidated assignment operator.
+    NIElmarEdgesHandler& operator=(const NIElmarEdgesHandler&);
 
 };
 

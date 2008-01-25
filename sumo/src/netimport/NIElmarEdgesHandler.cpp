@@ -4,7 +4,7 @@
 /// @date    Sun, 16 May 2004
 /// @version $Id:NIElmarEdgesHandler.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// A LineHandler-derivate to load edges form a elmar-edges-file
+// Importer of edges stored in split elmar format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -58,17 +58,17 @@ using namespace std;
 // ===========================================================================
 NIElmarEdgesHandler::NIElmarEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
         const std::string &file,
-        bool useNewLaneNumberInfoPlain)
+        bool useNewLaneNumberInfoPlain) throw()
         : FileErrorReporter("elmar-edges", file),
         myNodeCont(nc), myEdgeCont(ec),
         myUseNewLaneNumberInfoPlain(useNewLaneNumberInfoPlain)
 {}
 
-NIElmarEdgesHandler::~NIElmarEdgesHandler()
+NIElmarEdgesHandler::~NIElmarEdgesHandler() throw()
 {}
 
 bool
-NIElmarEdgesHandler::report(const std::string &result)
+NIElmarEdgesHandler::report(const std::string &result) throw(ProcessError)
 {
 // 00: KANTEN_ID Knoten_ID_FROM Knoten_ID_TO length vehicle_type
 // 05: form_of_way brunnel_type street_type speed_category number_of_lanes
@@ -91,7 +91,6 @@ NIElmarEdgesHandler::report(const std::string &result)
         length = TplConvert<char>::_2SUMOReal(st.next().c_str());
     } catch (NumberFormatException &) {
         throw ProcessError("Non-numerical value for an edge's length occured (edge '" + id + "'.");
-
     }
     string veh_type = st.next();
     string form_of_way = st.next();
@@ -105,11 +104,9 @@ NIElmarEdgesHandler::report(const std::string &result)
     NBNode *to = myNodeCont.retrieve(toID);
     if (from==0) {
         throw ProcessError("The from-node '" + fromID + "' of edge '" + id + "' could not be found");
-
     }
     if (to==0) {
         throw ProcessError("The to-node '" + toID + "' of edge '" + id + "' could not be found");
-
     }
     // build the edge
     NBEdge *e =
@@ -120,7 +117,6 @@ NIElmarEdgesHandler::report(const std::string &result)
     if (!myEdgeCont.insert(e)) {
         delete e;
         throw ProcessError("Could not add edge '" + id + "'.");
-
     }
     return true;
 }

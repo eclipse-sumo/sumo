@@ -4,7 +4,7 @@
 /// @date    Sun, 16 May 2004
 /// @version $Id:NIElmar2EdgesHandler.h 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// A LineHandler-derivate to load edges form a elmar-edges-file
+// Importer of edges stored in unsplit elmar format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,7 +39,9 @@
 // class declarations
 // ===========================================================================
 /**
- * NIElmar2EdgesHandler
+ * @class NIElmar2EdgesHandler
+ * @brief Importer of edges stored in unsplit elmar format
+ *
  * Being a LineHandler, this class retrieves each line from a LineReader
  * and parses these information assuming they contain edge definitions
  * in Cell-format
@@ -57,21 +59,28 @@ public:
     /// constructor
     NIElmar2EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
                          const std::string &file, std::map<std::string, Position2DVector> &geoms,
-                         bool useNewLaneNumberInfoPlain);
+                         bool useNewLaneNumberInfoPlain) throw();
 
     /// destructor
-    ~NIElmar2EdgesHandler();
+    ~NIElmar2EdgesHandler() throw();
 
     /** implementation of the LineHandler-interface called by a LineReader
         interprets the retrieved information and stores it into the global
         NBEdgeCont */
-    bool report(const std::string &result);
+    bool report(const std::string &result) throw(ProcessError);
 
 protected:
     NBNodeCont &myNodeCont;
     NBEdgeCont &myEdgeCont;
     std::map<std::string, Position2DVector> &myGeoms;
     bool myUseNewLaneNumberInfoPlain;
+
+private:
+    /// @brief Invalidated copy constructor.
+    NIElmar2EdgesHandler(const NIElmar2EdgesHandler&);
+
+    /// @brief Invalidated assignment operator.
+    NIElmar2EdgesHandler& operator=(const NIElmar2EdgesHandler&);
 
 };
 
