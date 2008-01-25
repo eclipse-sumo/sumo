@@ -40,12 +40,12 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RONode::RONode(const std::string &id)
+RONode::RONode(const std::string &id) throw()
         : Named(id)
 {}
 
 
-RONode::~RONode()
+RONode::~RONode() throw()
 {}
 
 

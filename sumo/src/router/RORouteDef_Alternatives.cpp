@@ -70,13 +70,13 @@ RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string &id,
         size_t lastUsed,
         SUMOReal gawronBeta,
         SUMOReal gawronA,
-        int maxRoutes)
+        int maxRoutes) throw()
         : RORouteDef(id, color), myLastUsed(lastUsed),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRoutes)
 {}
 
 
-RORouteDef_Alternatives::~RORouteDef_Alternatives()
+RORouteDef_Alternatives::~RORouteDef_Alternatives() throw()
 {
     for (AlternativesVector::iterator i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
         delete *i;

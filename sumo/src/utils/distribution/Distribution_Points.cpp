@@ -44,13 +44,13 @@
 // ===========================================================================
 Distribution_Points::Distribution_Points(const std::string &id,
         const Position2DVector &points,
-        bool interpolating)
+        bool interpolating) throw()
         : Distribution(id), myPoints(points), myProbabilitiesAreComputed(false),
         myInterpolateDist(interpolating)
 {}
 
 
-Distribution_Points::~Distribution_Points()
+Distribution_Points::~Distribution_Points() throw()
 {}
 
 

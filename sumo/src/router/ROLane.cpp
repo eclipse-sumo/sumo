@@ -41,13 +41,13 @@
 // ===========================================================================
 ROLane::ROLane(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
                const std::vector<SUMOVehicleClass> &allowed,
-               const std::vector<SUMOVehicleClass> &disallowed)
+               const std::vector<SUMOVehicleClass> &disallowed) throw()
         : Named(id), myLength(length), myMaxSpeed(maxSpeed),
         myAllowedClasses(allowed), myNotAllowedClasses(disallowed)
 {}
 
 
-ROLane::~ROLane()
+ROLane::~ROLane() throw()
 {}
 
 

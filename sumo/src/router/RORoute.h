@@ -54,14 +54,14 @@ class RORoute : public Named
 public:
     /// Constructor
     RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
-            const ROEdgeVector &route);
+            const ROEdgeVector &route) throw();
 
     /// Constructor
     RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
-            const std::vector<const ROEdge*> &route);
+            const std::vector<const ROEdge*> &route) throw();
 
     /// Destructor
-    ~RORoute();
+    ~RORoute() throw();
 
     /// Adds an edge to the end of the route
     void add(ROEdge *id);

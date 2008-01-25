@@ -54,10 +54,10 @@ class RORouteDef_Alternatives : public RORouteDef
 public:
     /// Constructor
     RORouteDef_Alternatives(const std::string &id, const std::string &color,
-                            size_t lastUsed, SUMOReal gawronBeta, SUMOReal gawronA, int maxRoutes);
+                            size_t lastUsed, SUMOReal gawronBeta, SUMOReal gawronA, int maxRoutes) throw();
 
     /// Destructor
-    virtual ~RORouteDef_Alternatives();
+    virtual ~RORouteDef_Alternatives() throw();
 
     /** @brief Adds an alternative loaded from the file
         An alternative may also be generated whicle DUA */

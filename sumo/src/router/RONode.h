@@ -47,10 +47,10 @@ class RONode : public Named
 {
 public:
     /// Constructor
-    RONode(const std::string &id);
+    RONode(const std::string &id) throw();
 
     /// Destructor
-    ~RONode();
+    ~RONode() throw();
 
 };
 

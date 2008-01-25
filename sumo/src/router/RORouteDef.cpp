@@ -57,13 +57,13 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORouteDef::RORouteDef(const std::string &id, const std::string &color)
+RORouteDef::RORouteDef(const std::string &id, const std::string &color) throw()
         : ReferencedItem(), Named(StringUtils::convertUmlaute(id)),
         myColor(color)
 {}
 
 
-RORouteDef::~RORouteDef()
+RORouteDef::~RORouteDef() throw()
 {}
 
 

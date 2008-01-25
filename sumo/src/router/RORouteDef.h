@@ -62,10 +62,10 @@ class RORouteDef : public ReferencedItem,
 {
 public:
     /// Constructor
-    RORouteDef(const std::string &id, const std::string &color);
+    RORouteDef(const std::string &id, const std::string &color) throw();
 
     /// Destructor
-    virtual ~RORouteDef();
+    virtual ~RORouteDef() throw();
 
     /// Returns the route's origin edge
     virtual const ROEdge * const getFrom() const = 0;

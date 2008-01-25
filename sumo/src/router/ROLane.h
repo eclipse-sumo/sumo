@@ -50,10 +50,10 @@ public:
     /// Constructor
     ROLane(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
            const std::vector<SUMOVehicleClass> &allowed,
-           const std::vector<SUMOVehicleClass> &disallowed);
+           const std::vector<SUMOVehicleClass> &disallowed) throw();
 
     /// Destructor
-    ~ROLane();
+    ~ROLane() throw();
 
     /// Returns the length of the lane
     SUMOReal getLength() const;

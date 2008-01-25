@@ -57,10 +57,10 @@ class RORouteDef_Complete :
 public:
     /// Constructor
     RORouteDef_Complete(const std::string &id, const std::string &color,
-                        const ROEdgeVector &edges);
+                        const ROEdgeVector &edges) throw();
 
     /// Destructor
-    virtual ~RORouteDef_Complete();
+    virtual ~RORouteDef_Complete() throw();
 
     /// returns the begin of the trip
     const ROEdge * const getFrom() const;

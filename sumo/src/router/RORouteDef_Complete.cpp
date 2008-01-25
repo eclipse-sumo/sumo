@@ -53,12 +53,12 @@ using namespace std;
 // ===========================================================================
 RORouteDef_Complete::RORouteDef_Complete(const std::string &id,
         const std::string &color,
-        const ROEdgeVector &edges)
+        const ROEdgeVector &edges) throw()
         : RORouteDef(id, color), myEdges(edges)
 {}
 
 
-RORouteDef_Complete::~RORouteDef_Complete()
+RORouteDef_Complete::~RORouteDef_Complete() throw()
 {}
 
 

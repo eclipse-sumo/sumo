@@ -54,10 +54,10 @@ class RORouteDef_OrigDest
 public:
     /// Constructor
     RORouteDef_OrigDest(const std::string &id, const std::string &color,
-                        const ROEdge *from, const ROEdge *to, bool removeFirst=false);
+                        const ROEdge *from, const ROEdge *to, bool removeFirst=false) throw();
 
     /// Destructor
-    virtual ~RORouteDef_OrigDest();
+    virtual ~RORouteDef_OrigDest() throw();
 
     /// Returns the begin of the trip
     const ROEdge * const getFrom() const;
