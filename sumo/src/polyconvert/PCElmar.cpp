@@ -60,7 +60,7 @@ using namespace std;
 
 
 // ===========================================================================
-// method defintions
+// method definitions
 // ===========================================================================
 PCElmar::PCElmar(PCPolyContainer &toFill,
                  PCTypeMap &tm)

@@ -53,7 +53,7 @@ using namespace std;
 
 
 // ===========================================================================
-// method defintions
+// method definitions
 // ===========================================================================
 PCVisum::PCVisum(PCPolyContainer &toFill, PCTypeMap &tm)
         : myCont(toFill), myTypeMap(tm)

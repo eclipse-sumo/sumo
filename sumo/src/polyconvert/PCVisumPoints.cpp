@@ -61,7 +61,7 @@ using namespace std;
 
 
 // ===========================================================================
-// method defintions
+// method definitions
 // ===========================================================================
 PCVisumPoints::PCVisumPoints(PCPolyContainer &toFill,
                              PCTypeMap &tm)

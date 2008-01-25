@@ -61,7 +61,7 @@ using namespace std;
 
 
 // ===========================================================================
-// method defintions
+// method definitions
 // ===========================================================================
 PCXMLPoints::PCXMLPoints(PCPolyContainer &toFill,
                          PCTypeMap &tm, OptionsCont &oc)
