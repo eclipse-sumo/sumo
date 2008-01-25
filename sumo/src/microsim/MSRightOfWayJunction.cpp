@@ -118,6 +118,7 @@ MSRightOfWayJunction::setAllowed()
 #ifdef HAVE_INTERNAL_LANES
     // lets reset the yield information on internal, split
     //  left-moving links
+    /*
     if (MSGlobals::gUsingInternalLanes) {
         LaneCont::iterator i;
         size_t requestPos = 0;
@@ -146,6 +147,7 @@ MSRightOfWayJunction::setAllowed()
             }
         }
     }
+    */
 #endif
     // Get myRespond from logic and check for deadlocks.
     myLogic->respond(myRequest, myInnerState, myRespond);
