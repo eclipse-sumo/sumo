@@ -2,9 +2,9 @@
 /// @file    NIXMLNodesHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
+/// @version $Id:NIXMLNodesHandler.h 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// Used to load the XML-description of the nodes given in a
+// Importer for network nodes stored in XML
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -47,8 +47,8 @@ class NBTrafficLightLogicCont;
 // class definitions
 // ===========================================================================
 /**
- * @class NIXMLNodesHandler
- * A class that parses nodes from XML-files
+ * @class NIArcView_Loader
+ * @brief Importer for network nodes stored in XML
  */
 class NIXMLNodesHandler
             : public SUMOSAXHandler

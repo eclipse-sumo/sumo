@@ -2,9 +2,9 @@
 /// @file    NIVisumLoader.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 19 Jul 2002
-/// @version $Id$
+/// @version $Id:NIVisumLoader.h 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// A VISUM networks importer
+// A VISUM network importer
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -57,7 +57,7 @@ class NBEdge;
 // ===========================================================================
 /**
  * @class NIVisumLoader
- * @brief A VISUM networks importer
+ * @brief A VISUM network importer
  *
  * This class build an internal list of those VISUM-db entries which are
  *  supported, first. This list is sorted in a way that the parsed dbs can

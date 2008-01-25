@@ -2,9 +2,9 @@
 /// @file    NIXMLTypesHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
+/// @version $Id:NIXMLTypesHandler.h 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// Used to parse the XML-descriptions of types given in a XML-format
+// Importer for edge type information stored in XML
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -42,6 +42,10 @@ class NBTypeCont;
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class NIArcView_Loader
+ * @brief Importer for edge type information stored in XML
+ */
 class NIXMLTypesHandler : public SUMOSAXHandler
 {
 public:

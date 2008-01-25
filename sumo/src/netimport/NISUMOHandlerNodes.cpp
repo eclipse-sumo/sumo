@@ -2,9 +2,9 @@
 /// @file    NISUMOHandlerNodes.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id:NISUMOHandlerNodes.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// A handler for SUMO nodes
+// Importer for SUMO nodes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

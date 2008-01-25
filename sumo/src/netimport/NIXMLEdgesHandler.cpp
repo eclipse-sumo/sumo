@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id:NIXMLEdgesHandler.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// Realises the loading of the edges given in a
+// Importer for network edges stored in XML
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

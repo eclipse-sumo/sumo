@@ -2,9 +2,9 @@
 /// @file    NIXMLEdgesHandler.h
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 20 Nov 2001
-/// @version $Id$
+/// @version $Id:NIXMLEdgesHandler.h 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// Realises the loading of the edges given in a XML-format
+// Importer for network edges stored in XML
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -52,8 +52,8 @@ class MsgHandler;
 // class definitions
 // ===========================================================================
 /**
- * @class NIXMLEdgesHandler
- * A class that parses edges from XML-files
+ * @class NIArcView_Loader
+ * @brief Importer for network edges stored in XML
  */
 class NIXMLEdgesHandler : public SUMOSAXHandler
 {

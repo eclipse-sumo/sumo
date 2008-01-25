@@ -4,7 +4,7 @@
 /// @date    Fri, 19 Jul 2002
 /// @version $Id:NIVisumLoader.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// A VISUM networks importer
+// A VISUM network importer
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

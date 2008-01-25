@@ -2,9 +2,9 @@
 /// @file    NITigerLoader.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Tue, 29 Jun 2004
-/// @version $Id$
+/// @version $Id:NITigerLoader.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// A loader tiger-files
+// Importer for TIGER networks
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

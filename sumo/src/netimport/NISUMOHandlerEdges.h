@@ -2,9 +2,9 @@
 /// @file    NISUMOHandlerEdges.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id:NISUMOHandlerEdges.h 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// A handler for SUMO edges
+// Importer for SUMO edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -40,11 +40,15 @@
 // ===========================================================================
 class NBNode;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
+ * @class NISUMOHandlerEdges
+ * @brief Importer for SUMO edges
  *
+ * @todo rework!
  */
 class NISUMOHandlerEdges : public SUMOSAXHandler
 {

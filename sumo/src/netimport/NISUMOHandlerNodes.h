@@ -2,9 +2,9 @@
 /// @file    NISUMOHandlerNodes.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id:NISUMOHandlerNodes.h 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// A handler for SUMO nodes
+// Importer for SUMO nodes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -40,7 +40,10 @@
 // class definitions
 // ===========================================================================
 /**
+ * @class NISUMOHandlerNodes
+ * @brief Importer for SUMO nodes
  *
+ * @todo rework!
  */
 class NISUMOHandlerNodes : public SUMOSAXHandler
 {

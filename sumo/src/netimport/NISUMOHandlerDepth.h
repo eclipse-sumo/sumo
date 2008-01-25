@@ -2,9 +2,9 @@
 /// @file    NISUMOHandlerDepth.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id:NISUMOHandlerDepth.h 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// A handler for deeper SUMO-import (connections and logics)
+// Importer of deeper SUMO-structures (connections and logics)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,7 +39,10 @@
 // class definitions
 // ===========================================================================
 /**
+ * @class NISUMOHandlerEdges
+ * @brief Importer of deeper SUMO-structures (connections and logics)
  *
+ * @todo rework!
  */
 class NISUMOHandlerDepth : public SUMOSAXHandler
 {

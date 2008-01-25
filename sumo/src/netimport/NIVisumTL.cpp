@@ -2,9 +2,9 @@
 /// @file    NIVisumTL.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thr, 08 May 2003
-/// @version $Id$
+/// @version $Id:NIVisumTL.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// Intermediate class for importing Visum traffic lights
+// Intermediate class for storing visum traffic lights during their import
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

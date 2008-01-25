@@ -2,9 +2,9 @@
 /// @file    NIVisumTL.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 07 May 2003
-/// @version $Id$
+/// @version $Id:NIVisumTL.h 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// Intermediate class for importing Visum traffic lights
+// Intermediate class for storing visum traffic lights during their import
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -45,7 +45,7 @@ class NBTrafficLightLogicCont;
 // ===========================================================================
 /**
  * @class NIVisumTL
- * NIViusumTL is an intermediate class for importing visum traffic lights
+ * @brief Intermediate class for storing visum traffic lights during their import
  */
 class NIVisumTL
 {
