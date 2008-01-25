@@ -77,7 +77,7 @@ public:
      * @param[in] ignoreCase Whether the case shall be ignored when parsing the definitions
      */
     NamedColumnsParser(const std::string &def, const std::string &defDelim=";",
-                       const std::string &lineDelim=";", bool chomp=false, 
+                       const std::string &lineDelim=";", bool chomp=false,
                        bool ignoreCase=true) throw();
 
 
@@ -106,7 +106,7 @@ public:
      * Parses the line by tokenizing it using a StringTokenizer and the set
      *  line delimiter ("myLineDelimiter"). Stores the tokenized line into
      *  "myLineParser"
-     * 
+     *
      * @param[in] line The line to parse
      */
     void parseLine(const std::string &line) throw();
@@ -115,8 +115,8 @@ public:
     /** @brief Returns the named information
      *
      * Tries to find the given variable name within the parsed definition line
-     *  ("myDefinitionsMap"). If the value was not within the definition, an 
-     *  UnknownElement exception is thrown. Otherwise, the method tries to return 
+     *  ("myDefinitionsMap"). If the value was not within the definition, an
+     *  UnknownElement exception is thrown. Otherwise, the method tries to return
      *  the element from the parsed value line that is at the obtained position.
      *  If the value line had less tokens than the position assumes, an OutOfBoundsException
      *  is thrown, otherwise the value at the position returned (optionally prunned).
@@ -126,8 +126,8 @@ public:
      * @return The obtained value
      * @exception UnknownElement when the element was not named during the initialisation
      * @exception OutOfBoundsException when the line was too short and did not contain the item */
-    std::string get(const std::string &name, 
-        bool prune=false) const throw(UnknownElement, OutOfBoundsException);
+    std::string get(const std::string &name,
+                    bool prune=false) const throw(UnknownElement, OutOfBoundsException);
 
 
     /** @brief Returns the information whether the named column is known
@@ -139,7 +139,7 @@ public:
 
 
 private:
-    /** @brief Rebuilds the map of attribute names to their positions in a table 
+    /** @brief Rebuilds the map of attribute names to their positions in a table
      *
      * The given definition string is split using the given delimiter. The obtained
      *  tokens are stired in "" together with their positions within the tokenized

@@ -32,6 +32,8 @@
 
 #include <vector>
 #include <string>
+#include <utils/common/UtilExceptions.h>
+
 
 // ===========================================================================
 // class definitions
@@ -54,17 +56,17 @@ public:
 
 
     /// @brief (virtual) destructor
-    virtual ~LineHandler() { }
+    virtual ~LineHandler() throw() { }
 
 
     /** @brief Method that obatins a line read by the LineReader
      *
-     * Real interface method, used by a LineReader, which retrieves lines from a file 
+     * Real interface method, used by a LineReader, which retrieves lines from a file
      *
      * @param[in] result The read line
      * @return Whether the caller shall continue with reading
      */
-    virtual bool report(const std::string &result) = 0;
+    virtual bool report(const std::string &result) throw(ProcessError) = 0;
 
 };
 

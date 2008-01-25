@@ -50,7 +50,7 @@ class LineHandler;
  * This class reads the contents from a file line by line and report them to
  *  a LineHandler-derivate.
  * @see LineHandler
- * @todo No checks are done so far during reading/setting position etc. 
+ * @todo No checks are done so far during reading/setting position etc.
  * @todo Should not IOError be thrown if something fails?
  */
 class LineReader
@@ -63,7 +63,7 @@ public:
     /** @brief Constructor
      *
      * Initialises reading from the file with the given name using setFile.
-     * 
+     *
      * @param[in] file The name of the file to open
      * @see setFile
      */
@@ -82,7 +82,7 @@ public:
 
     /** @brief Reads the whole file linewise, reporting every line to the given LineHandler
      *
-     * When the LineHandler returns false, the reading will be aborted 
+     * When the LineHandler returns false, the reading will be aborted
      *
      * @param[in] lh The LineHandler to report read lines to
      */
@@ -91,7 +91,7 @@ public:
 
     /** @brief Reads a single (the next) line from the file and reports it to the given LineHandler
      *
-     * When the LineHandler returns false, the reading will be aborted 
+     * When the LineHandler returns false, the reading will be aborted
      *
      * @param[in] lh The LineHandler to report read lines to
      * @return Whether a further line exists
@@ -99,7 +99,7 @@ public:
     bool readLine(LineHandler &lh) throw();
 
 
-    /** @brief Reads a single (the next) line from the file and returns it 
+    /** @brief Reads a single (the next) line from the file and returns it
      *
      * @return The next line in the file
      */
@@ -118,7 +118,7 @@ public:
 
     /** @brief Reinitialises the reader for reading from the given file
      *
-     * Returns false when the file is not readable 
+     * Returns false when the file is not readable
      *
      * @param[in] file The name of the file to open
      * @return Whether the file could be opened
