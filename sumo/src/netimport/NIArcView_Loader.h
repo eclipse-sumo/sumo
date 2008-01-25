@@ -2,9 +2,9 @@
 /// @file    NIArcView_Loader.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id:NIArcView_Loader.h 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// The loader of arcview-files
+// Importer for networks stored in ArcView-shape format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -43,9 +43,19 @@
 class OptionsCont;
 class OGRFeature;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
+/**
+ * @class NIArcView_Loader
+ * @brief Importer for networks stored in ArcView-shape format
+ *
+ * The current importer works only if SUMO was compiled with GDAL-support.
+ *  If not, an error message is generated.
+ *
+ * @todo reinsert import vial shapelib
+ */
 class NIArcView_Loader :
             public FileErrorReporter
 {
@@ -79,10 +89,6 @@ private:
 private:
     OptionsCont &myOptions;
 
-    /// parser of the dbf-file columns
-    NamedColumnsParser myColumnsParser;
-
-    std::string myDBFName;
     std::string mySHPName;
     int myNameAddition;
     NBNodeCont &myNodeCont;
@@ -93,6 +99,13 @@ private:
 
     int myRunningNodeID;
 
+
+private:
+    /// @brief Invalidated copy constructor.
+    NIArcView_Loader(const NIArcView_Loader&);
+
+    /// @brief Invalidated assignment operator.
+    NIArcView_Loader& operator=(const NIArcView_Loader&);
 
 };
 

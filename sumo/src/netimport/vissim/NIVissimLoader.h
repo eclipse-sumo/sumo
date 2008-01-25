@@ -155,6 +155,13 @@ private:
 
     NBNetBuilder &myNetBuilder;
 
+private:
+    /// @brief Invalidated copy constructor.
+    NIVissimLoader(const NIVissimLoader&);
+
+    /// @brief Invalidated assignment operator.
+    NIVissimLoader& operator=(const NIVissimLoader&);
+
 };
 
 

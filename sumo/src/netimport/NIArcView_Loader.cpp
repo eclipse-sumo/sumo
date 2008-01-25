@@ -2,9 +2,9 @@
 /// @file    NIArcView_Loader.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id:NIArcView_Loader.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
 ///
-// The loader of arcview-files
+// Importer for networks stored in ArcView-shape format
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -75,7 +75,7 @@ NIArcView_Loader::NIArcView_Loader(OptionsCont &oc,
                                    bool speedInKMH,
                                    bool useNewLaneNumberInfoPlain)
         : FileErrorReporter("Navtech Edge description", dbf_name),
-        myOptions(oc), myDBFName(dbf_name), mySHPName(shp_name),
+        myOptions(oc), mySHPName(shp_name),
         myNameAddition(0),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc),
         mySpeedInKMH(speedInKMH),
