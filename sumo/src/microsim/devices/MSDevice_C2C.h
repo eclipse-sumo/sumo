@@ -107,7 +107,7 @@ private:
 
     /** @brief Constructor
      */
-    MSDevice_C2C(MSVehicle &holder);
+    MSDevice_C2C(MSVehicle &holder) throw();
 
     /// Destructor.
     ~MSDevice_C2C() throw();

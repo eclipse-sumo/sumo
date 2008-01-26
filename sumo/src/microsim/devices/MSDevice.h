@@ -49,7 +49,7 @@ public:
     }
 
 
-    virtual ~MSDevice() { }
+    virtual ~MSDevice() throw() { }
 
     MSVehicle &getHolder() const throw() { return myHolder; }
 

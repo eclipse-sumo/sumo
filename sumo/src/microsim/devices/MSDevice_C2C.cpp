@@ -176,7 +176,7 @@ MSDevice_C2C::computeCar2Car(SUMOTime t)
 }
 
 
-MSDevice_C2C::MSDevice_C2C(MSVehicle &holder)
+MSDevice_C2C::MSDevice_C2C(MSVehicle &holder) throw()
     : MSDevice(holder), akt(0)
 {}
 

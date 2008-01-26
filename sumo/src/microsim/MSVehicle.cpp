@@ -123,7 +123,7 @@ MSVehicle::State::State(SUMOReal pos, SUMOReal speed) :
 /* -------------------------------------------------------------------------
  * MSVehicle-methods
  * ----------------------------------------------------------------------- */
-MSVehicle::~MSVehicle()
+MSVehicle::~MSVehicle() throw()
 {
     // remove move reminder
     for (QuitRemindedVector::iterator i=myQuitReminded.begin(); i!=myQuitReminded.end(); ++i) {
