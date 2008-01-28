@@ -49,8 +49,8 @@ using namespace std;
 // 80km/h will be the swell for dividing between long/short foresight
 #define LOOK_FORWARD_SPEED_DIVIDER 14.
 
-#define LOOK_FORWARD_FAR  5.
-#define LOOK_FORWARD_NEAR 15.
+#define LOOK_FORWARD_FAR  15.
+#define LOOK_FORWARD_NEAR 5.
 
 
 
@@ -72,6 +72,7 @@ MSLCM_DK2004::~MSLCM_DK2004()
 {
     changed();
 }
+
 
 int
 MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPass,
@@ -107,7 +108,6 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
             currIdx = p;
         }
     }
-
 
     // keep information about being a leader/follower
     int ret = (myState&0x00ffff00);
@@ -187,11 +187,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     //  is long enough
     SUMOReal maxJam = MAX2(preb[currIdx-1].hindernisPos, preb[currIdx].hindernisPos);
     SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist-myVehicle.getPositionOnLane()-maxJam);
-    if (bestLaneOffset>0&&currentDistDisallows(neighLeftPlace, bestLaneOffset, rv)/*&&currentDist!=neighDist*/) {
-        // ...we will not change the lane if not
-        return ret;
-    }
-    if (bestLaneOffset==0&&currentDistDisallows(neighLeftPlace, 1, rv)/*&&currentDist!=neighDist*/) {
+    if (bestLaneOffset>=0&&(currentDistDisallows(neighLeftPlace, bestLaneOffset+2, rv))) {
         // ...we will not change the lane if not
         return ret;
     }
@@ -324,7 +320,6 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
             currIdx = p;
         }
     }
-
     // keep information about being a leader/follower
     int ret = (myState&0x00ffff00);
 
@@ -406,11 +401,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     //  is long enough
     SUMOReal maxJam = MAX2(preb[currIdx+1].hindernisPos, preb[currIdx].hindernisPos);
     SUMOReal neighLeftPlace = MAX2((SUMOReal) 0, neighDist-myVehicle.getPositionOnLane()-maxJam);
-    if (bestLaneOffset<0&&currentDistDisallows(neighLeftPlace, bestLaneOffset, lv)/*&&currentDist!=neighDist*/) {
-        // ...we will not change the lane if not
-        return ret;
-    }
-    if (bestLaneOffset==0&&currentDistDisallows(neighLeftPlace, 1, lv)/*&&currentDist!=neighDist*/) {
+    if (bestLaneOffset<=0&&(currentDistDisallows(neighLeftPlace, bestLaneOffset-2, lv))) {
         // ...we will not change the lane if not
         return ret;
     }

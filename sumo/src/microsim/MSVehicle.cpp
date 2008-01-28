@@ -1528,6 +1528,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
         bool oneFound = false;
         int bestPos = 0;
         MSLane *next = 0;
+        // we go over the next edge's lanes and determine the first that may be used
         for(MSEdge::LaneCont::const_iterator i=lanes->begin(); !oneFound&&i!=lanes->end();) {
             if(find(allowed->begin(), allowed->end(), *i)!=allowed->end()) {
                 oneFound = true;
@@ -1537,23 +1538,28 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
                 ++bestPos;
             }
         }
+        // ... it is now stored in next and its position in bestPos
         if(oneFound) {
-            // ok, we have found a best one
+            // ok, we have found a best lane
             //  (in fact, this should be the case if the route is valid, nonetheless...)
-            // now let's say that the best lane is the one next to the found
-            // go through the links
-            int bestDistance = -1;
+            // now let's say that the best lane is the nearest one to the found
+            int bestDistance = -100;
             MSLane *bestL = 0;
+            // go over all lanes of current edge
             const MSEdge::LaneCont * const clanes = l->getEdge()->getLanes();
             for(MSEdge::LaneCont::const_iterator i=clanes->begin(); i!=clanes->end(); ++i) {
+                // go over all connected lanes
                 for (MSLinkCont::const_iterator k=lc.begin(); k!=lc.end(); ++k) {
                     // the best lane must be on the proper edge
                     if((*k)->getLane()->getEdge()==*(ce)) {
-                        int pos = distance(lanes->begin(), find(lanes->begin(), lanes->end(), (*k)->getLane()));
-                        int cdist = abs(pos-bestPos);
-                        if(bestDistance==-1||bestDistance>cdist) {
-                            bestDistance = cdist;
-                            bestL = *i;
+                        MSEdge::LaneCont::const_iterator l=find(lanes->begin(), lanes->end(), (*k)->getLane());
+                        if(l!=lanes->end()) {
+                            int pos = distance(lanes->begin(), l);
+                            int cdist = abs(pos-bestPos);
+                            if(bestDistance==-100||bestDistance>cdist) {
+                                bestDistance = cdist;
+                                bestL = *i;
+                            }
                         }
                     }
                 }
@@ -1561,6 +1567,11 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
             if(bestL==l) {
                 best.hindernisPos = next->getVehLenSum();
                 best.length = next->length();
+            } else {
+                best.hindernisPos = 0;
+                best.length = 0;
+                best.joined.clear();
+                best.alllength = 0;
             }
         }
     }
@@ -1614,10 +1625,10 @@ MSVehicle::getBestLanes() const
         for(std::vector<MSVehicle::LaneQ>::iterator i=myBestLanes.begin()->begin(); i!=myBestLanes.begin()->end(); ++i) {
             if((*i).t1) {
                 rebuildContinuationsFor((*i), (*i).lane, ce, seen);
+                (*i).length += (*i).lane->length();
+                (*i).hindernisPos += (*i).lane->getVehLenSum();
+                (*i).alllength = (*i).lane->length();
             }
-            (*i).length += (*i).lane->length();
-            (*i).hindernisPos += (*i).lane->getVehLenSum();
-            (*i).alllength = (*i).lane->length();
         }
     }
     SUMOReal best = 0;
