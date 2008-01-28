@@ -55,13 +55,13 @@ GUIPointOfInterest::GUIPointOfInterest(GUIGlObjectStorage &idStorage,
                                        const std::string &id,
                                        const std::string &type,
                                        const Position2D &p,
-                                       const RGBColor &c)
+                                       const RGBColor &c) throw()
         : PointOfInterest(id, type, p, c),
         GUIGlObject(idStorage, "poi:"+id), myLayer(layer)
 {}
 
 
-GUIPointOfInterest::~GUIPointOfInterest()
+GUIPointOfInterest::~GUIPointOfInterest() throw()
 {}
 
 

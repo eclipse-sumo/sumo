@@ -53,9 +53,9 @@ class GUIPointOfInterest : public PointOfInterest, public GUIGlObject
 public:
     GUIPointOfInterest(GUIGlObjectStorage &idStorage, int layer,
                        const std::string &id, const std::string &type,
-                       const Position2D &p, const RGBColor &c);
+                       const Position2D &p, const RGBColor &c) throw();
 
-    virtual ~GUIPointOfInterest();
+    virtual ~GUIPointOfInterest() throw();
 
 
     /// @name inherited from GUIGlObject
