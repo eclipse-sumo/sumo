@@ -65,14 +65,14 @@ GUI_E2_ZS_CollectorOverLanes::GUI_E2_ZS_CollectorOverLanes(std::string id,
         DetectorUsage usage, MSLane* lane, SUMOReal startPos,
         SUMOTime haltingTimeThreshold,
         MetersPerSecond haltingSpeedThreshold,
-        SUMOReal jamDistThreshold)
+        SUMOReal jamDistThreshold) throw()
         : MS_E2_ZS_CollectorOverLanes(id, usage, lane, startPos,
                                       haltingTimeThreshold, haltingSpeedThreshold, jamDistThreshold)
 {}
 
 
 
-GUI_E2_ZS_CollectorOverLanes::~GUI_E2_ZS_CollectorOverLanes() throw ()
+GUI_E2_ZS_CollectorOverLanes::~GUI_E2_ZS_CollectorOverLanes() throw()
 {}
 
 
@@ -93,7 +93,7 @@ GUI_E2_ZS_CollectorOverLanes::buildDetectorWrapper(GUIGlObjectStorage &idStorage
 
 MSE2Collector *
 GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
-        SUMOReal start, SUMOReal end) throw ()
+        SUMOReal start, SUMOReal end) throw()
 {
     string id = makeID(myID, c, r);
     if (start+end<l->length()) {

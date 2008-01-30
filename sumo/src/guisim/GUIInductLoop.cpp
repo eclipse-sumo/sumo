@@ -63,12 +63,12 @@ using namespace std;
  * GUIInductLoop-methods
  * ----------------------------------------------------------------------- */
 GUIInductLoop::GUIInductLoop(const std::string &id, MSLane* lane,
-                             SUMOReal position)
+                             SUMOReal position) throw()
         : MSInductLoop(id, lane, position)
 {}
 
 
-GUIInductLoop::~GUIInductLoop() throw ()
+GUIInductLoop::~GUIInductLoop() throw()
 {}
 
 

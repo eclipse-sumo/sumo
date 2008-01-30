@@ -66,10 +66,10 @@ public:
     GUI_E2_ZS_Collector(const std::string &id, DetectorUsage usage,
                         MSLane* lane, SUMOReal startPos, SUMOReal detLength,
                         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-                        SUMOReal jamDistThreshold);
+                        SUMOReal jamDistThreshold) throw();
 
     /// Destructor
-    ~GUI_E2_ZS_Collector() throw ();
+    ~GUI_E2_ZS_Collector() throw();
 
     // valid for gui-version only
     virtual GUIDetectorWrapper *buildDetectorWrapper(

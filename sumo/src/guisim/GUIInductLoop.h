@@ -55,10 +55,10 @@ class GUIInductLoop : public MSInductLoop
 {
 public:
     /// Construtor
-    GUIInductLoop(const std::string &id, MSLane* lane, SUMOReal position);
+    GUIInductLoop(const std::string &id, MSLane* lane, SUMOReal position) throw();
 
     /// Destructor
-    ~GUIInductLoop() throw ();
+    ~GUIInductLoop() throw();
 
     /** @brief Returns this detector's visualisation-wrapper
         valid for gui-version only */

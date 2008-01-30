@@ -64,14 +64,14 @@ using namespace std;
 GUI_E2_ZS_Collector::GUI_E2_ZS_Collector(const std::string &id, DetectorUsage usage,
         MSLane* lane, SUMOReal startPos, SUMOReal detLength,
         SUMOTime haltingTimeThreshold, SUMOReal haltingSpeedThreshold,
-        SUMOReal jamDistThreshold)
+        SUMOReal jamDistThreshold) throw()
         : MSE2Collector(id, usage, lane, startPos, detLength, haltingTimeThreshold,
                         haltingSpeedThreshold, jamDistThreshold)
 {}
 
 
 
-GUI_E2_ZS_Collector::~GUI_E2_ZS_Collector() throw ()
+GUI_E2_ZS_Collector::~GUI_E2_ZS_Collector() throw()
 {}
 
 
