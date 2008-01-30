@@ -301,7 +301,7 @@ GUIBusStop::GUIBusStop(const std::string &id, MSNet &,
 }
 
 
-GUIBusStop::~GUIBusStop()
+GUIBusStop::~GUIBusStop() throw ()
 {}
 
 

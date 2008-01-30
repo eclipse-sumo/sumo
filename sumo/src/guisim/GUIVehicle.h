@@ -72,7 +72,7 @@ class GUIVehicle :
 {
 public:
     /// destructor
-    ~GUIVehicle();
+    ~GUIVehicle() throw ();
 
     inline void setOwnDefinedColor() const {
         if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {

@@ -51,7 +51,7 @@ GUIRoute::GUIRoute(const RGBColor &c, const std::string &id,
 {}
 
 
-GUIRoute::~GUIRoute()
+GUIRoute::~GUIRoute() throw ()
 {}
 
 

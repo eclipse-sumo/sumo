@@ -68,7 +68,7 @@ GUIInductLoop::GUIInductLoop(const std::string &id, MSLane* lane,
 {}
 
 
-GUIInductLoop::~GUIInductLoop()
+GUIInductLoop::~GUIInductLoop() throw ()
 {}
 
 

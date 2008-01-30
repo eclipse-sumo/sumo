@@ -69,7 +69,7 @@ public:
                const std::string &aXMLFilename);
 
     /** destructor */
-    ~GUIEmitter();
+    ~GUIEmitter() throw ();
 
     /// @name inherited from GUIGlObject
     //@{

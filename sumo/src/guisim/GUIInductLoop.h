@@ -58,7 +58,7 @@ public:
     GUIInductLoop(const std::string &id, MSLane* lane, SUMOReal position);
 
     /// Destructor
-    ~GUIInductLoop();
+    ~GUIInductLoop() throw ();
 
     /** @brief Returns this detector's visualisation-wrapper
         valid for gui-version only */

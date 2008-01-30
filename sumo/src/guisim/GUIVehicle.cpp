@@ -176,7 +176,7 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
 {}
 
 
-GUIVehicle::~GUIVehicle()
+GUIVehicle::~GUIVehicle() throw ()
 {
     if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
         delete(RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];

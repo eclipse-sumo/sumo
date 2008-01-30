@@ -68,7 +68,7 @@ public:
                       SUMOReal positionInMeters, unsigned int laid, unsigned int cellid, unsigned int type);
 
     /** destructor */
-    ~GUIE1VehicleActor();
+    ~GUIE1VehicleActor() throw ();
 
     /// @name inherited from GUIGlObject
     //@{

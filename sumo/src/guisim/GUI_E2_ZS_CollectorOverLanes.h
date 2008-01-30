@@ -73,7 +73,7 @@ public:
                                  SUMOReal jamDistThreshold);
 
     /// Destructor
-    ~GUI_E2_ZS_CollectorOverLanes();
+    ~GUI_E2_ZS_CollectorOverLanes() throw ();
 
     // invalid in fact, as collectors do not need a lane
     virtual GUIDetectorWrapper *buildDetectorWrapper(
@@ -86,7 +86,7 @@ public:
 
 protected:
     MSE2Collector *buildCollector(size_t c, size_t r,
-                                  MSLane *l, SUMOReal start, SUMOReal end);
+                                  MSLane *l, SUMOReal start, SUMOReal end) throw ();
 
 
 public:

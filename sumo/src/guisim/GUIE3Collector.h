@@ -58,7 +58,7 @@ public:
                    MetersPerSecond haltingSpeedThreshold);
 
     /// Destructor
-    ~GUIE3Collector();
+    ~GUIE3Collector() throw ();
 
     /// Returns the list of entry points
     const CrossSectionVector &getEntries() const;

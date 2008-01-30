@@ -59,7 +59,7 @@ public:
              bool multipleReferenced);
 
     /// Destructor
-    ~GUIRoute();
+    ~GUIRoute() throw ();
 
     /// Returns the color
     const RGBColor &getColor() const;

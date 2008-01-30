@@ -69,7 +69,7 @@ public:
                SUMOReal frompos, SUMOReal topos);
 
     /** destructor */
-    ~GUIBusStop();
+    ~GUIBusStop() throw ();
 
     /// @name inherited from GUIGlObject
     //@{

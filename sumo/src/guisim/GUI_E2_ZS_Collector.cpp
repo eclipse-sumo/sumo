@@ -71,7 +71,7 @@ GUI_E2_ZS_Collector::GUI_E2_ZS_Collector(const std::string &id, DetectorUsage us
 
 
 
-GUI_E2_ZS_Collector::~GUI_E2_ZS_Collector()
+GUI_E2_ZS_Collector::~GUI_E2_ZS_Collector() throw ()
 {}
 
 

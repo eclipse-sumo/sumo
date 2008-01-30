@@ -356,7 +356,7 @@ GUIEmitter::GUIEmitter(const std::string &id,
 }
 
 
-GUIEmitter::~GUIEmitter()
+GUIEmitter::~GUIEmitter() throw ()
 {}
 
 

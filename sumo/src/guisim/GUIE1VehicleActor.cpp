@@ -297,7 +297,7 @@ GUIE1VehicleActor::GUIE1VehicleActor(const std::string& id, MSLane* lane,
 }
 
 
-GUIE1VehicleActor::~GUIE1VehicleActor()
+GUIE1VehicleActor::~GUIE1VehicleActor() throw ()
 {}
 
 

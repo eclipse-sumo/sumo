@@ -208,7 +208,7 @@ GUIE3Collector::GUIE3Collector(const std::string &id,
 {}
 
 
-GUIE3Collector::~GUIE3Collector()
+GUIE3Collector::~GUIE3Collector() throw ()
 {}
 
 

@@ -69,7 +69,7 @@ public:
                         SUMOReal jamDistThreshold);
 
     /// Destructor
-    ~GUI_E2_ZS_Collector();
+    ~GUI_E2_ZS_Collector() throw ();
 
     // valid for gui-version only
     virtual GUIDetectorWrapper *buildDetectorWrapper(
