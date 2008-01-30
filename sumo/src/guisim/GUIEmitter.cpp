@@ -4,7 +4,7 @@
 /// @date    Thu, 21.07.2005
 /// @version $Id$
 ///
-// The gui-version of MSEmitter
+// A vehicle emitting device (gui version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -334,8 +334,8 @@ GUIEmitter::GUIEmitterPopupMenu::onCmdDrawRoute(FXObject*,
  * ----------------------------------------------------------------------- */
 GUIEmitter::GUIEmitter(const std::string &id,
                        MSNet &net, MSLane *destLanes, SUMOReal pos,
-                       const std::string &aXMLFilename)
-        : MSEmitter(id, net, destLanes, pos, aXMLFilename),
+                       const std::string &file) throw()
+        : MSEmitter(id, net, destLanes, pos, file),
         GUIGlObject_AbstractAdd(gIDStorage,
                                 "emitter:" + id, GLO_TRIGGER), myUserFlow(-1), myDrawRoutes(false)
 {
@@ -356,7 +356,7 @@ GUIEmitter::GUIEmitter(const std::string &id,
 }
 
 
-GUIEmitter::~GUIEmitter() throw ()
+GUIEmitter::~GUIEmitter() throw()
 {}
 
 
@@ -469,7 +469,7 @@ GUIEmitter::getEdgeProbs() const
 
 
 void
-GUIEmitter::drawGL(SUMOReal scale, SUMOReal upscale)
+GUIEmitter::drawGL(SUMOReal , SUMOReal upscale)
 {
     glPushMatrix();
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);

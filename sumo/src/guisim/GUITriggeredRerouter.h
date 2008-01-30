@@ -4,7 +4,7 @@
 /// @date    Mon, 25.07.2005
 /// @version $Id$
 ///
-// The gui-version of MSTriggeredRerouter
+// Reroutes vehicles passing an edge (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -56,7 +56,7 @@ class GUIManipulator;
 // ===========================================================================
 /**
  * @class GUITriggeredRerouter
- * This is the gui-version of the MSTriggeredSource-object
+ * @brief Reroutes vehicles passing an edge
  */
 class GUITriggeredRerouter
             : public MSTriggeredRerouter,

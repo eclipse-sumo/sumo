@@ -4,7 +4,7 @@
 /// @date    Mon, 26.04.2004
 /// @version $Id$
 ///
-// Class that realises the setting of a lane's maximum speed triggered by
+// Changes the speed allowed on a set of lanes (gui version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

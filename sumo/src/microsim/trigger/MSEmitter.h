@@ -60,9 +60,16 @@ class MSLane;
 class MSEmitter : public MSTrigger
 {
 public:
-    /** constructor for file-based emission */
+    /** @brief Constructor
+     *
+     * @param[in] id The id of the emitter
+     * @param[in] net The net the emitter belongs to
+     * @param[in] destLane The lane the emitter is placed on
+     * @param[in] pos Position of the emitter on the given lane
+     * @param[in] file Name of the file to read the emission definitions from
+     */
     MSEmitter(const std::string &id, MSNet &net, MSLane* destLane,
-              SUMOReal pos, const std::string &aXMLFilename) throw();
+              SUMOReal pos, const std::string &file) throw();
 
     /** destructor */
     virtual ~MSEmitter() throw();
@@ -191,8 +198,13 @@ protected:
     protected:
         /// @name inherited from GenericSAXHandler
         //@{
-        /** the implementation of the SAX-handler interface for reading
-            element begins */
+        /** @brief Called on the opening of a tag; 
+         *
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
         virtual void myStartElement(SumoXMLTag element,
                                     const Attributes &attrs) throw(ProcessError);
         //@}

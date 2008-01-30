@@ -4,7 +4,7 @@
 /// @date    Thu, 21.07.2005
 /// @version $Id$
 ///
-// The gui-version of MSEmitter
+// A vehicle emitting device (gui version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -56,20 +56,27 @@ class GUIManipulator;
 // ===========================================================================
 /**
  * @class GUIEmitter
- * This is the gui-version of the MSTriggeredSource-object
+ * @brief A vehicle emitting device (gui version)
  */
 class GUIEmitter
             : public MSEmitter,
             public GUIGlObject_AbstractAdd
 {
 public:
-    /** constructor */
+    /** @brief Constructor
+     *
+     * @param[in] id The id of the emitter
+     * @param[in] net The net the emitter belongs to
+     * @param[in] destLane The lane the emitter is placed on
+     * @param[in] pos Position of the emitter on the given lane
+     * @param[in] file Name of the file to read the emission definitions from
+     */
     GUIEmitter(const std::string &id, MSNet &net,
                MSLane* destLanes, SUMOReal pos,
-               const std::string &aXMLFilename);
+               const std::string &file) throw();
 
     /** destructor */
-    ~GUIEmitter() throw ();
+    ~GUIEmitter() throw();
 
     /// @name inherited from GUIGlObject
     //@{

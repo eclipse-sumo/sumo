@@ -46,12 +46,12 @@ using namespace std;
 // ===========================================================================
 GUIRoute::GUIRoute(const RGBColor &c, const std::string &id,
                    const MSEdgeVector &edges,
-                   bool multipleReferenced)
+                   bool multipleReferenced) throw()
         : MSRoute(id, edges, multipleReferenced), myColor(c)
 {}
 
 
-GUIRoute::~GUIRoute() throw ()
+GUIRoute::~GUIRoute() throw()
 {}
 
 

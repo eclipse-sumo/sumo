@@ -277,7 +277,9 @@ GUIE1VehicleActor::GUIE1VehicleActorPopupMenu::onCmdOpenManip(FXObject*, FXSelec
  * GUIE1VehicleActor - methods
  * ----------------------------------------------------------------------- */
 GUIE1VehicleActor::GUIE1VehicleActor(const std::string& id, MSLane* lane,
-                                     SUMOReal positionInMeters, unsigned int laid, unsigned int cellid, unsigned int type)
+                                     SUMOReal positionInMeters, 
+                                     unsigned int laid, unsigned int cellid, 
+                                     unsigned int type) throw()
         : MSE1VehicleActor(id, lane, positionInMeters, laid, cellid, type),
         GUIGlObject_AbstractAdd(gIDStorage, "actor:" + id, GLO_TRIGGER)
 {
@@ -297,7 +299,7 @@ GUIE1VehicleActor::GUIE1VehicleActor(const std::string& id, MSLane* lane,
 }
 
 
-GUIE1VehicleActor::~GUIE1VehicleActor() throw ()
+GUIE1VehicleActor::~GUIE1VehicleActor() throw()
 {}
 
 

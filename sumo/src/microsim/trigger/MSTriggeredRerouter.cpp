@@ -4,7 +4,7 @@
 /// @date    Mon, 25 July 2005
 /// @version $Id$
 ///
-// Allows the triggered rerouting of vehicles within the simulation
+// Reroutes vehicles passing an edge
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -101,14 +101,13 @@ MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw
  * MSTriggeredRerouter - methods
  * ----------------------------------------------------------------------- */
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
-        const std::vector<MSEdge*> &edges,
-        SUMOReal prob,
-        const std::string &aXMLFilename)
-        : MSTrigger(id), SUMOSAXHandler(aXMLFilename),
+                                         const std::vector<MSEdge*> &edges,
+                                         SUMOReal prob, const std::string &file)
+        : MSTrigger(id), SUMOSAXHandler(file),
         myProbability(prob), myUserProbability(prob), myAmInUserMode(false)
 {
     // read in the trigger description
-    if (!XMLSubSys::runParser(*this, aXMLFilename)) {
+    if (!XMLSubSys::runParser(*this, file)) {
         throw ProcessError();
     }
     // build actors

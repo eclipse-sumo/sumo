@@ -56,10 +56,10 @@ public:
     /// Constructor
     GUIRoute(const RGBColor &c,
              const std::string &id, const MSEdgeVector &edges,
-             bool multipleReferenced);
+             bool multipleReferenced) throw();
 
     /// Destructor
-    ~GUIRoute() throw ();
+    ~GUIRoute() throw();
 
     /// Returns the color
     const RGBColor &getColor() const;

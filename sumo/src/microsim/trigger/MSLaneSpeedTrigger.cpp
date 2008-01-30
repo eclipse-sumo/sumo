@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Class that realises the setting of a lane's maximum speed triggered by
+// Changes the speed allowed on a set of lanes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -56,15 +56,15 @@ using namespace std;
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
                                        MSNet &net,
                                        const std::vector<MSLane*> &destLanes,
-                                       const std::string &aXMLFilename) throw()
-        : MSTrigger(id), SUMOSAXHandler(aXMLFilename),
+                                       const std::string &file) throw()
+        : MSTrigger(id), SUMOSAXHandler(file),
         myDestLanes(destLanes), /*myHaveNext(false), */myAmOverriding(false)
         /*    ,
             myNextOffset(0)*/
 {
     myCurrentSpeed = destLanes[0]->maxSpeed();
     // read in the trigger description
-    if (!XMLSubSys::runParser(*this, aXMLFilename)) {
+    if (!XMLSubSys::runParser(*this, file)) {
         throw ProcessError();
     }
     // set it to the right value

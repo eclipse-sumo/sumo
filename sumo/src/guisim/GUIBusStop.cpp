@@ -4,7 +4,7 @@
 /// @date    Wed, 07.12.2005
 /// @version $Id$
 ///
-// Class that realises the setting of a lane's maximum speed triggered by
+// A lane area vehicles can halt at (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -277,7 +277,7 @@ GUIBusStop::GUIBusStopPopupMenu::onCmdOpenManip(FXObject*, FXSelector, void*)
  * ----------------------------------------------------------------------- */
 GUIBusStop::GUIBusStop(const std::string &id, MSNet &,
                        const std::vector<std::string> &lines, MSLane &lane,
-                       SUMOReal frompos, SUMOReal topos)
+                       SUMOReal frompos, SUMOReal topos) throw()
         : MSBusStop(id, lines, lane, frompos, topos),
         GUIGlObject_AbstractAdd(gIDStorage, "bus_stop:" + id, GLO_TRIGGER)
 {
@@ -301,7 +301,7 @@ GUIBusStop::GUIBusStop(const std::string &id, MSNet &,
 }
 
 
-GUIBusStop::~GUIBusStop() throw ()
+GUIBusStop::~GUIBusStop() throw()
 {}
 
 

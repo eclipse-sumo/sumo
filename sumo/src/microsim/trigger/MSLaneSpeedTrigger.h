@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Class that realises the setting of a lane's maximum speed triggered by
+// Changes the speed allowed on a set of lanes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -49,6 +49,8 @@ class MSLane;
 // ===========================================================================
 /**
  * @class MSLaneSpeedTrigger
+ * @brief Changes the speed allowed on a set of lanes
+ *
  * This trigger reads the next maximum velocity of the lane he is
  * responsible for from a file and sets it.
  * Lanes with variable speeds are so possible.
@@ -56,10 +58,16 @@ class MSLane;
 class MSLaneSpeedTrigger : public MSTrigger, public SUMOSAXHandler
 {
 public:
-    /** constructor */
+    /** @brief Constructor
+     *
+     * @param[in] id The id of the lane speed trigger
+     * @param[in] net The net the lane speed trigger belongs to
+     * @param[in] destLanes List of lanes affected by this speed trigger
+     * @param[in] file Name of the file to read the speeds to set from
+     */
     MSLaneSpeedTrigger(const std::string &id,
                        MSNet &net, const std::vector<MSLane*> &destLanes,
-                       const std::string &aXMLFilename) throw();
+                       const std::string &file) throw();
 
     /** destructor */
     virtual ~MSLaneSpeedTrigger() throw();
@@ -82,8 +90,13 @@ public:
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
-    /** the implementation of the SAX-handler interface for reading
-        element begins */
+    /** @brief Called on the opening of a tag; 
+     *
+     * @param[in] element ID of the currently opened element
+     * @param[in] attrs Attributes within the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myStartElement
+     */
     virtual void myStartElement(SumoXMLTag element,
                                 const Attributes &attrs) throw(ProcessError);
     //@}

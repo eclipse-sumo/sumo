@@ -4,7 +4,7 @@
 /// @date    Mon, 26.04.2004
 /// @version $Id$
 ///
-// Class that realises the setting of a lane's maximum speed triggered by
+// Changes the speed allowed on a set of lanes (gui version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -56,6 +56,8 @@ class GUIManipulator;
 // ===========================================================================
 /**
  * @class GUILaneSpeedTrigger
+ * @brief Changes the speed allowed on a set of lanes (gui version)
+ *
  * This is the gui-version of the MSLaneSpeedTrigger-object
  */
 class GUILaneSpeedTrigger
@@ -63,10 +65,16 @@ class GUILaneSpeedTrigger
             public GUIGlObject_AbstractAdd
 {
 public:
-    /** constructor */
+    /** @brief Constructor
+     *
+     * @param[in] id The id of the lane speed trigger
+     * @param[in] net The net the lane speed trigger belongs to
+     * @param[in] destLanes List of lanes affected by this speed trigger
+     * @param[in] file Name of the file to read the speeds to set from
+     */
     GUILaneSpeedTrigger(const std::string &id, MSNet &net,
                         const std::vector<MSLane*> &destLanes,
-                        const std::string &aXMLFilename);
+                        const std::string &file);
 
     /** destructor */
     ~GUILaneSpeedTrigger() throw();

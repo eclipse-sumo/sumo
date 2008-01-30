@@ -72,7 +72,7 @@ class GUIVehicle :
 {
 public:
     /// destructor
-    ~GUIVehicle() throw ();
+    ~GUIVehicle() throw();
 
     inline void setOwnDefinedColor() const {
         if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
@@ -188,7 +188,7 @@ protected:
     GUIVehicle(GUIGlObjectStorage &idStorage,
                std::string id, MSRoute* route, SUMOTime departTime,
                const MSVehicleType* type, int repNo, int repOffset,
-               int vehicleIndex);
+               int vehicleIndex) throw();
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable MFXMutex myLock;

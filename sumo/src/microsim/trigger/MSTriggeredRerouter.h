@@ -4,7 +4,7 @@
 /// @date    Mon, 25 July 2005
 /// @version $Id$
 ///
-// Allows the triggered rerouting of vehicles within the simulation
+// Reroutes vehicles passing an edge
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -51,6 +51,8 @@ class MSLane;
 // ===========================================================================
 /**
  * @class MSTriggeredRerouter
+ * @brief Reroutes vehicles passing an edge
+ * 
  * A rerouter can be positioned on a list of edges and gives vehicles which
  *  arrive one of these edges a new route.
  * The new route may be either chosen from a set of routes where each is
@@ -62,10 +64,16 @@ class MSTriggeredRerouter :
             public SUMOSAXHandler
 {
 public:
-    /** constructor */
+    /** @brief Constructor
+     *
+     * @param[in] id The id of the rerouter
+     * @param[in] edges The edges the rerouter is placed at
+     * @param[in] prob The probability the rerouter reoutes vehicles with
+     * @param[in] file The file to read the reroute definitions from
+     */
     MSTriggeredRerouter(const std::string &id,
                         const std::vector<MSEdge*> &edges,
-                        SUMOReal prob, const std::string &aXMLFilename);
+                        SUMOReal prob, const std::string &file);
 
     /** destructor */
     virtual ~MSTriggeredRerouter() throw();
@@ -152,13 +160,23 @@ class Setter : public MSMoveReminder
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
-    /** the implementation of the SAX-handler interface for reading
-        element begins */
+    /** @brief Called on the opening of a tag; 
+     *
+     * @param[in] element ID of the currently opened element
+     * @param[in] attrs Attributes within the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myStartElement
+     */
     virtual void myStartElement(SumoXMLTag element,
                                 const Attributes &attrs) throw(ProcessError);
 
-    /** the implementation of the SAX-handler interface for reading
-        element ends */
+
+    /** @brief Called when a closing tag occures
+     *
+     * @param[in] element ID of the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
+     */
     void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 

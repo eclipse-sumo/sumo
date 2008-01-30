@@ -4,7 +4,7 @@
 /// @date    Mon, 13.12.2005
 /// @version $Id$
 ///
-// A point vehicles can halt at.
+// A lane area vehicles can halt at
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -47,12 +47,20 @@ class MSLane;
 // ===========================================================================
 /**
  * @class MSBusStop
- * @brief A point vehicles can halt at.
+ * @brief A lane area vehicles can halt at
  */
 class MSBusStop : public MSTrigger
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     *
+     * @param[in] id The id of the bus stop
+     * @param[in] net The net the bus stop belongs to
+     * @param[in] lines Names of the bus lines that halt on this bus stop
+     * @param[in] lane The lane the bus stop is placed on
+     * @param[in] begPos Begin position of the bus stop on the lane
+     * @param[in] endPos End position of the bus stop on the lane
+     */
     MSBusStop(const std::string &id,
               const std::vector<std::string> &lines, MSLane &lane,
               SUMOReal begPos, SUMOReal endPos) throw();

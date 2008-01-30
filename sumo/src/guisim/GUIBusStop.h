@@ -4,7 +4,7 @@
 /// @date    Wed, 07.12.2005
 /// @version $Id$
 ///
-// GUI-version of MSBusStop
+// A lane area vehicles can halt at (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -56,20 +56,28 @@ class GUIManipulator;
 // ===========================================================================
 /**
  * @class GUIBusStop
- * This is the gui-version of the MSLaneSpeedTrigger-object
+ * @brief A lane area vehicles can halt at (gui-version)
  */
 class GUIBusStop
             : public MSBusStop,
             public GUIGlObject_AbstractAdd
 {
 public:
-    /** constructor */
+    /** @brief Constructor
+     *
+     * @param[in] id The id of the bus stop
+     * @param[in] net The net the bus stop belongs to
+     * @param[in] lines Names of the bus lines that halt on this bus stop
+     * @param[in] lane The lane the bus stop is placed on
+     * @param[in] begPos Begin position of the bus stop on the lane
+     * @param[in] endPos End position of the bus stop on the lane
+     */
     GUIBusStop(const std::string &id, MSNet &net,
                const std::vector<std::string> &lines, MSLane &lane,
-               SUMOReal frompos, SUMOReal topos);
+               SUMOReal frompos, SUMOReal topos) throw();
 
     /** destructor */
-    ~GUIBusStop() throw ();
+    ~GUIBusStop() throw();
 
     /// @name inherited from GUIGlObject
     //@{

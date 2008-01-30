@@ -4,7 +4,7 @@
 /// @date    Mon, 13.12.2005
 /// @version $Id$
 ///
-// A point vehicles can halt at.
+// A lane area vehicles can halt at
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

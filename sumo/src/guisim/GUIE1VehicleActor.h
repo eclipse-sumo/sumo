@@ -65,10 +65,11 @@ class GUIE1VehicleActor
 public:
     /** constructor */
     GUIE1VehicleActor(const std::string& id, MSLane* lane,
-                      SUMOReal positionInMeters, unsigned int laid, unsigned int cellid, unsigned int type);
+                      SUMOReal positionInMeters, unsigned int laid, 
+                      unsigned int cellid, unsigned int type) throw();
 
     /** destructor */
-    ~GUIE1VehicleActor() throw ();
+    ~GUIE1VehicleActor() throw();
 
     /// @name inherited from GUIGlObject
     //@{

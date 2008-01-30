@@ -170,13 +170,13 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
                        std::string id, MSRoute* route,
                        SUMOTime departTime,
                        const MSVehicleType* type,
-                       int repNo, int repOffset, int vehicleIndex)
+                       int repNo, int repOffset, int vehicleIndex) throw()
         : MSVehicle(id, route, departTime, type, repNo, repOffset, vehicleIndex),
         GUIGlObject(idStorage, "vehicle:"+id)
 {}
 
 
-GUIVehicle::~GUIVehicle() throw ()
+GUIVehicle::~GUIVehicle() throw()
 {
     if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
         delete(RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
