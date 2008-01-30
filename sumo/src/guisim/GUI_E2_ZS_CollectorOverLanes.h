@@ -31,7 +31,7 @@
 #endif
 
 #include <utils/common/PhysicalTypeDefs.h>
-#include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
+#include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/MSNet.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/Position2DVector.h>

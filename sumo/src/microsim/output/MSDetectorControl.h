@@ -33,9 +33,9 @@
 #include <string>
 #include <vector>
 #include <utils/common/NamedObjectCont.h>
-#include <microsim/output/e2_detectors/MSE2Collector.h>
-#include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
-#include <microsim/output/e3_detectors/MSE3Collector.h>
+#include <microsim/output/MSE2Collector.h>
+#include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
+#include <microsim/output/MSE3Collector.h>
 #include <microsim/output/MSInductLoop.h>
 
 #ifdef HAVE_MESOSIM

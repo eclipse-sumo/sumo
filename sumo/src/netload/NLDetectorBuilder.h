@@ -33,8 +33,8 @@
 #include <string>
 #include <utils/common/PhysicalTypeDefs.h>
 #include <microsim/MSNet.h>
-#include <microsim/output/e2_detectors/MSE2Collector.h>
-#include <microsim/output/e3_detectors/MSE3Collector.h>
+#include <microsim/output/MSE2Collector.h>
+#include <microsim/output/MSE3Collector.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 
 

@@ -50,8 +50,8 @@
 #include <microsim/MSJunctionLogic.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
 #include <microsim/output/MSInductLoop.h>
-#include <microsim/output/e2_detectors/MSE2Collector.h>
-#include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
+#include <microsim/output/MSE2Collector.h>
+#include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/traffic_lights/MSAgentbasedTrafficLightLogic.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
 #include <utils/iodevices/OutputDevice.h>

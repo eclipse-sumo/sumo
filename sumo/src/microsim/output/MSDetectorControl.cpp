@@ -30,13 +30,11 @@
 
 #include <iostream>
 #include "MSDetectorControl.h"
-#include "MSInductLoop.h"
-#include "e2_detectors/MS_E2_ZS_CollectorOverLanes.h"
-#include "meandata/MSMeanData_Net.h"
-#include "meandata/MSMeanData_Net_Utils.h"
-#include <microsim/output/e2_detectors/MSE2Collector.h>
-#include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
-#include <microsim/output/e3_detectors/MSE3Collector.h>
+#include "MSMeanData_Net.h"
+#include "MSMeanData_Net_Utils.h"
+#include <microsim/output/MSE2Collector.h>
+#include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
+#include <microsim/output/MSE3Collector.h>
 #include <microsim/output/MSInductLoop.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>

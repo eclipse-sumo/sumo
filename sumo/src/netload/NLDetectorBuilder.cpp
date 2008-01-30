@@ -32,8 +32,8 @@
 #include <iostream>
 #include <microsim/MSNet.h>
 #include <microsim/output/MSInductLoop.h>
-#include <microsim/output/e2_detectors/MSE2Collector.h>
-#include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
+#include <microsim/output/MSE2Collector.h>
+#include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/actions/Command_SaveTLCoupledDet.h>
 #include <microsim/actions/Command_SaveTLCoupledLaneDet.h>

@@ -45,7 +45,7 @@
 #include <utils/geom/Position2D.h>
 #include <utils/common/SUMOTime.h>
 #include "MSPhoneNet.h"
-#include <microsim/output/meandata/MSMeanData_Net.h>
+#include <microsim/output/MSMeanData_Net.h>
 
 
 // ===========================================================================

@@ -37,7 +37,7 @@
 #include <list>
 #include <set>
 #include "MSEdge.h"
-#include <microsim/output/meandata/MSMeanData_Net.h>
+#include <microsim/output/MSMeanData_Net.h>
 
 
 // ===========================================================================

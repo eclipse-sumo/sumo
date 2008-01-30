@@ -38,7 +38,7 @@
 #include "MSTrafficLightLogic.h"
 #include "MSActuatedPhaseDefinition.h"
 #include "MSSimpleTrafficLightLogic.h"
-#include <microsim/output/e2_detectors/MS_E2_ZS_CollectorOverLanes.h>
+#include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include "MSSimpleTrafficLightLogic.h"
 
 

@@ -46,7 +46,7 @@
 #include <microsim/MSVehicleControl.h>
 #include <microsim/MSVehicleTransfer.h>
 #include <microsim/trigger/MSTriggerControl.h>
-#include <microsim/output/meandata/MSMeanData_Net_Utils.h>
+#include <microsim/output/MSMeanData_Net_Utils.h>
 #include <microsim/MSRouteLoaderControl.h>
 #include <microsim/MSRouteLoader.h>
 #include <utils/common/MsgHandler.h>

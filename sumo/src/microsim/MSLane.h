@@ -42,7 +42,7 @@
 #include <string>
 #include <iostream>
 #include "MSNet.h"
-#include "output/meandata/MSLaneMeanDataValues.h"
+#include "output/MSLaneMeanDataValues.h"
 #include <utils/geom/Position2DVector.h>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>

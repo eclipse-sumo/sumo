@@ -35,7 +35,7 @@
 #include <utility>
 #include <microsim/MSEdge.h>
 #include <microsim/MSLane.h>
-#include <microsim/output/e2_detectors/MSE2Collector.h>
+#include <microsim/output/MSE2Collector.h>
 #include <microsim/MSLink.h>
 #include <utils/geom/Position2D.h>
 #include <microsim/logging/LoggedValue_TimeFloating.h>
