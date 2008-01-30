@@ -57,9 +57,17 @@
 class MSVTypeProbe : public MSTrigger
 {
 public:
-
+    /** @brief Constructor
+     *
+     * @param[in] id The id of the vehicle type probe
+     * @param[in] net The net the vehicle type probe belongs to
+     * @param[in] file Name of the file to read the definitions from
+     * @param[in] vType !!!describe
+     * @param[in] probeFreq !!!describe
+     * @todo Recheck and describe parameter
+     */
     MSVTypeProbe(const std::string &id, MSNet &net,
-                 const std::string &fileName, const std::string &vType,
+                 const std::string &file, const std::string &vType,
                  SUMOTime probeFreq) throw();
 
     virtual ~MSVTypeProbe() throw();

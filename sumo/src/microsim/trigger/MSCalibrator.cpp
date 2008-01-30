@@ -28,7 +28,6 @@
 #include <config.h>
 #endif
 
-#ifdef ONLINE_CALIBRATION
 
 #include <string>
 #include <utils/common/MsgHandler.h>
@@ -111,9 +110,9 @@ MSCalibrator::execute(SUMOTime timestep)
     */
 
     //positive diff=too many vehicles, negative diff=not enough vehicles
-    SUMOReal veh_cnt = myIL->getNVehContributed(2);
+    SUMOReal veh_cnt = myIL->getNVehContributed();
     SUMOReal diff =  veh_cnt - vehPerInterval + myToCalibrate;
-    SUMOReal meanSpeed = myIL->getMeanSpeed(2);
+    SUMOReal meanSpeed = myIL->getCurrentSpeed();
 
     if (diff > 0) {
 
@@ -593,8 +592,6 @@ MSCalibrator::updateCalibrator(std::string name, int time, SUMOReal count)
 
 }
 
-
-#endif //ONLINE_CALIBRATION
 
 /****************************************************************************/
 

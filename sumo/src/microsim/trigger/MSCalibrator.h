@@ -4,7 +4,7 @@
 /// @date    Wed, 24.10.2007
 /// @version $Id: $
 ///
-// A vehicle emitting device
+// Calibrates the number of vehicles on a lane
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,9 +39,6 @@
 
 #include <netload/NLDetectorBuilder.h>
 
-//#define protected public
-//#define private public
-
 
 // ===========================================================================
 // class declarations
@@ -51,19 +48,29 @@ class MSLane;
 class NLDetectorBuilder;
 class MSInductLoop;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class MSCalibrator
- * @brief A device to calibrate the number of vehicles on a lane
+ * @brief Calibrates the number of vehicles on a lane
  *
  */
 class MSCalibrator : public MSTrigger
 {
 public:
+    /** @brief Constructor
+     *
+     * @param[in] id The id of the calibrator
+     * @param[in] net The net the calibrator belongs to
+     * @param[in] destLane The lane the calibrator is placed on
+     * @param[in] pos Position of the calibrator on the given lane
+     * @param[in] file Name of the file to read the calibration definitions from
+     * @todo Recheck and describe parameter
+     */
     MSCalibrator(const std::string &id, MSNet &net, MSLane* destLane,
-                 SUMOReal pos, const std::string &aXMLFilename) throw();
+                 SUMOReal pos, const std::string &file) throw();
 
     virtual ~MSCalibrator() throw();
 
@@ -174,7 +181,7 @@ protected:
     public:
         /// Constructor
         MSCalibrator_FileTriggeredChild(MSNet &net,
-                                        const std::string &aXMLFilename, MSCalibrator &parent, MSVehicleControl &vc);
+                                        const std::string &aXMLFilename, MSCalibrator &parent, MSVehicleControl &vc) throw();
 
         /// Destructor
         ~MSCalibrator_FileTriggeredChild() throw();
@@ -191,8 +198,13 @@ protected:
     protected:
         /// @name inherited from GenericSAXHandler
         //@{
-        /** the implementation of the SAX-handler interface for reading
-            element begins */
+        /** @brief Called on the opening of a tag; 
+         *
+         * @param[in] element ID of the currently opened element
+         * @param[in] attrs Attributes within the currently opened element
+         * @exception ProcessError If something fails
+         * @see GenericSAXHandler::myStartElement
+         */
         virtual void myStartElement(SumoXMLTag element,
                                     const Attributes &attrs) throw(ProcessError);
         //@}

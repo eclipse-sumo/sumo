@@ -30,8 +30,6 @@
 #include <config.h>
 #endif
 
-#ifdef ONLINE_CALIBRATION
-
 #include <string>
 #include <utils/common/WrappingCommand.h>
 #include <microsim/MSLane.h>
@@ -120,4 +118,3 @@ MSVTypeProbe::writeXMLEpilog()
     myOutDev << "</vehicle-type-probes>" << "\n";
 }
 
-#endif //ONLINE_CALIBRATION
