@@ -78,6 +78,7 @@ protected:
      * @param[in] element The enum of the currently opened element
      * @param[in] attrs Attributes of the currently opened element
      * @exception ProcessError If an error within the parsed file occurs
+     * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(SumoXMLTag element,
                         const Attributes &attrs) throw(ProcessError);
@@ -87,7 +88,7 @@ protected:
      *
      * Processes district elements via closeDistrict.
      *
-     * @param[in] element The enum of the currently closed element
+     * @param[in] element ID of the currently opened element
      * @exception ProcessError If an error within the parsed file occurs
      */
     void myEndElement(SumoXMLTag element) throw(ProcessError);

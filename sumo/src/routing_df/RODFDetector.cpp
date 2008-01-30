@@ -775,7 +775,7 @@ RODFDetectorCon::writeValidationDetectors(const std::string &file,
             out << "   <detector id=\"validation_" << det->getID() << "\" "
             << "lane=\"" << det->getLaneID() << "\" "
             << "pos=\"" << pos << "\" "
-            << "freq=\"60\" style=\"CSV\" ";
+            << "freq=\"60\" ";
             if (friendly) {
                 out << "friendly_pos=\"x\" ";
             }

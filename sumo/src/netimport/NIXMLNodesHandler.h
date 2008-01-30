@@ -47,60 +47,99 @@ class NBTrafficLightLogicCont;
 // class definitions
 // ===========================================================================
 /**
- * @class NIArcView_Loader
+ * @class NIXMLNodesHandler
  * @brief Importer for network nodes stored in XML
+ *
+ * This SAX-handler parses node information and stores it in the given
+ *  container. Additionally, the given tls-container may be filled with
+ *  additional information.
  */
-class NIXMLNodesHandler
-            : public SUMOSAXHandler
+class NIXMLNodesHandler : public SUMOSAXHandler
 {
 
 public:
-    /// standard constructor
+    /** @brief Constructor
+     *
+     * @param[in, filled] nc The node container to fill
+     * @param[in, filled] tlc The traffic lights container to fill
+     * @param[in] options The options to use
+     * @todo Options are only given to determine whether "flip-y" is set; maybe this should be done by giving a bool
+     * @todo Why are options not const?
+     */
     NIXMLNodesHandler(NBNodeCont &nc, NBTrafficLightLogicCont &tlc,
                       OptionsCont &options);
 
-    /// Destructor
+
+    /// @brief Destructor
     ~NIXMLNodesHandler() throw();
+
 
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
-    /// The method called by the SAX-handler to parse start tags
+    /** @brief Called on the opening of a tag; Parses node information
+     *
+     * Tries to parse a node. If the node can be parsed, it is stored within
+     *  "myNodeCont". Otherwise an error is generated. Then, if givenm 
+     *  the tls information is parsed and inserted into "myTLLogicCont".
+     *
+     * @param[in] element ID of the currently opened element
+     * @param[in] attrs Attributes within the currently opened element
+     * @exception ProcessError If something fails (not used herein)
+     * @recheck-policy No exception in order to allow further processing
+     * @todo ProcessErrors are thrown when parsing traffic lights!?
+     */
     void myStartElement(SumoXMLTag element,
                         const Attributes &attrs) throw(ProcessError);
     //@}
 
+
 private:
     /** @brief Sets the position of the node
-        Returns false when the information about the node's position was not valid */
+     *
+     * Returns false when the information about the node's position was not valid,
+     *  an error message is generated in this case.
+     *
+     * @param[in] attrs Attributes within the currently opened node
+     * @return Whether the node's position information was valid
+     */
     bool setPosition(const Attributes &attrs);
 
-    /** @brief Builds the defined traffic light or adds a node to it */
+
+    /** @brief Builds the defined traffic light or adds a node to it
+     *
+     * @param[in] attrs Attributes within the currently opened node
+     * @param[in] currentNode The built node to add the tls information to
+     */
     void processTrafficLightDefinitions(const Attributes &attrs,
                                         NBNode *currentNode);
 
+
 private:
-    /// A reference to the program's options
+    /// @brief A reference to the program's options
     OptionsCont &myOptions;
 
-    /// The id of the currently parsed node
+    /// @brief The id of the currently parsed node
     std::string myID;
 
-    /// The position of the currently parsed node
+    /// @brief The position of the currently parsed node
     Position2D myPosition;
 
-    /// The (optional) type of the node currently parsed
+    /// @brief The (optional) type of the node currently parsed
     std::string myType;
 
+    /// @brief The node container to add built nodes to
     NBNodeCont &myNodeCont;
 
+    /// @brief The traffic lights container to add built tls to
     NBTrafficLightLogicCont &myTLLogicCont;
 
+
 private:
-    /** invalid copy constructor */
+    /** @brief invalid copy constructor */
     NIXMLNodesHandler(const NIXMLNodesHandler &s);
 
-    /** invalid assignment operator */
+    /** @brief invalid assignment operator */
     NIXMLNodesHandler &operator=(const NIXMLNodesHandler &s);
 
 };

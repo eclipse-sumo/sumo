@@ -87,15 +87,34 @@ public:
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
-    /** implementation of the GenericSAXHandler-myStartElement - interface */
+    /** @brief Called on the opening of a tag; 
+     *
+     * @param[in] element ID of the currently opened element
+     * @param[in] attrs Attributes within the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myStartElement
+     */
     virtual void myStartElement(SumoXMLTag element,
                                 const Attributes &attrs) throw(ProcessError);
 
-    /** implementation of the GenericSAXHandler-myCharacters - interface */
+
+    /** @brief Called when characters occure
+     *
+     * @param[in] element ID of the last opened element
+     * @param[in] chars The read characters (complete)
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myCharacters
+     */
     virtual void myCharacters(SumoXMLTag element,
                               const std::string &chars) throw(ProcessError);
 
-    /** implementation of the GenericSAXHandler-myEndElement - interface */
+
+    /** @brief Called when a closing tag occures
+     *
+     * @param[in] element ID of the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
+     */
     virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 

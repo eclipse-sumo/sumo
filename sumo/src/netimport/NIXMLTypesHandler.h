@@ -45,33 +45,53 @@ class NBTypeCont;
 /**
  * @class NIArcView_Loader
  * @brief Importer for edge type information stored in XML
+ *
+ * This SAX-handler parses edge type information and stores it in the given
+ *  container.
  */
 class NIXMLTypesHandler : public SUMOSAXHandler
 {
 public:
-    /// standard constructor
+    /** @brief Constructor
+     *
+     * @param[in, filled] tc The type container to fill
+     */
     NIXMLTypesHandler(NBTypeCont &tc);
 
-    /// destructor
+
+    /// @brief Destructor
     ~NIXMLTypesHandler() throw();
+
 
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
-    /// called on the opening of a tag; inherited
+    /** @brief Called on the opening of a tag; Parses edge type information
+     *
+     * Tries to parse a type. If the type can be parsed, it is stored within
+     *  "myTypeCont". Otherwise an error is generated. No exception is thrown
+     *  so that the parsing continues and further errors can be reported.
+     *
+     * @param[in] element ID of the currently opened element
+     * @param[in] attrs Attributes within the currently opened element
+     * @exception ProcessError If something fails (not used herein)
+     * @policy No exception in order to allow further processing
+     */
     void myStartElement(SumoXMLTag element,
                         const Attributes &attrs) throw(ProcessError);
     //@}
 
+
 private:
-    /// The type container to fill
+    /// @brief The type container to fill
     NBTypeCont &myTypeCont;
 
+
 private:
-    /** invalid copy constructor */
+    /** @brief invalid copy constructor */
     NIXMLTypesHandler(const NIXMLTypesHandler &s);
 
-    /** invalid assignment operator */
+    /** @brief invalid assignment operator */
     NIXMLTypesHandler &operator=(const NIXMLTypesHandler &s);
 
 };

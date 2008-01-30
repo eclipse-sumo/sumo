@@ -74,7 +74,6 @@ NIXMLNodesHandler::~NIXMLNodesHandler() throw()
 {}
 
 
-
 void
 NIXMLNodesHandler::myStartElement(SumoXMLTag element,
                                   const Attributes &attrs) throw(ProcessError)

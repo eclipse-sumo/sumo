@@ -54,11 +54,15 @@ class MsgHandler;
 /**
  * @class NIArcView_Loader
  * @brief Importer for network edges stored in XML
+ *
+ * This SAX-handler parses edge information and stores it in the given
+ *  container.
  */
 class NIXMLEdgesHandler : public SUMOSAXHandler
 {
 public:
-    /// standard constructor
+    /** @brief Constructor
+     */
     NIXMLEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
                       NBTypeCont &tc, NBDistrictCont &dc, OptionsCont &options);
 
@@ -68,15 +72,34 @@ public:
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
-    /// The method called by the SAX-handler to parse start tags
+    /** @brief Called on the opening of a tag; 
+     *
+     * @param[in] element ID of the currently opened element
+     * @param[in] attrs Attributes within the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myStartElement
+     */
     void myStartElement(SumoXMLTag element,
                         const Attributes &attrs) throw(ProcessError);
 
-    /// The method called by the SAX-handler to parse characters
+
+    /** @brief Called when characters occure
+     *
+     * @param[in] element ID of the last opened element
+     * @param[in] chars The read characters (complete)
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myCharacters
+     */
     void myCharacters(SumoXMLTag element,
                       const std::string &chars) throw(ProcessError);
 
-    /// The method called by the SAX-handler to parse end tags
+
+    /** @brief Called when a closing tag occures
+     *
+     * @param[in] element ID of the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
+     */
     void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 

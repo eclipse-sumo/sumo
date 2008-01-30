@@ -60,7 +60,13 @@ public:
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
-    /// The method called by the SAX-handler to parse start tags
+    /** @brief Called on the opening of a tag; 
+     *
+     * @param[in] element ID of the currently opened element
+     * @param[in] attrs Attributes within the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myStartElement
+     */
     void myStartElement(SumoXMLTag element,
                         const Attributes &attrs) throw(ProcessError);
     //@}

@@ -72,17 +72,37 @@ public:
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
-    /// SAX-callback for tag start
+    /** @brief Called on the opening of a tag; 
+     *
+     * @param[in] element ID of the currently opened element
+     * @param[in] attrs Attributes within the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myStartElement
+     */
     void myStartElement(SumoXMLTag element,
                         const Attributes &attrs) throw(ProcessError);
 
-    /// SAX-callback for characters section
+
+    /** @brief Called when characters occure
+     *
+     * @param[in] element ID of the last opened element
+     * @param[in] chars The read characters (complete)
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myCharacters
+     */
     void myCharacters(SumoXMLTag element,
                       const std::string &chars) throw(ProcessError);
 
-    /// SAX-callback for tag end
+
+    /** @brief Called when a closing tag occures
+     *
+     * @param[in] element ID of the currently opened element
+     * @exception ProcessError If something fails
+     * @see GenericSAXHandler::myEndElement
+     */
     void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
+
 
 private:
     /// Begins the processing of an interval
