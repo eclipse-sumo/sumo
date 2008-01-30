@@ -193,7 +193,7 @@ MSInductLoop::getCurrentPassedNumber() const throw()
 unsigned 
 MSInductLoop::getNVehContributed() const throw()
 {
-    return myVehicleDataCont.size();
+    return (unsigned) myVehicleDataCont.size();
 }
 
 
@@ -220,7 +220,7 @@ MSInductLoop::writeXMLOutput(OutputDevice &dev,
                              SUMOTime startTime, SUMOTime stopTime) throw(IOError)
 {
     SUMOTime t(stopTime-startTime+1);
-    unsigned nVehCrossed = myVehicleDataCont.size() + myDismissedVehicleNumber;
+    unsigned nVehCrossed = (unsigned) myVehicleDataCont.size() + myDismissedVehicleNumber;
     SUMOReal flow = ((SUMOReal) myVehicleDataCont.size() / (SUMOReal) t) / DELTA_T * (SUMOReal) 3600.0;
     SUMOReal occupancy = accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, occupancySum) / (SUMOReal) t;
     SUMOReal meanSpeed = myVehicleDataCont.size()!=0
