@@ -247,6 +247,9 @@ public:
     }
     //@}
 
+
+    SUMOReal getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const;
+
     SUMOReal getLength() const {
         return myType->getLength();
     }

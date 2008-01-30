@@ -1781,6 +1781,24 @@ MSVehicle::getBestLanesContinuation() const
 }
 
 
+SUMOReal 
+MSVehicle::getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const
+{
+    if(searchedLane==myLane) {
+        return myState.myPos;
+    }
+    vector< MSMoveReminder* >::const_iterator rem = myOldLaneMoveReminders.begin();
+    std::vector<SUMOReal>::const_iterator off = myOldLaneMoveReminderOffsets.begin();
+    for (; rem!=myOldLaneMoveReminders.end()&&off!=myOldLaneMoveReminderOffsets.end(); ++rem, ++off) {
+        if((*rem)->getLane()==searchedLane) {
+            return (*off) + myState.myPos;
+        }
+    }
+    return -1;
+}
+
+
+
 /****************************************************************************/
 #ifdef TRACI
 void
