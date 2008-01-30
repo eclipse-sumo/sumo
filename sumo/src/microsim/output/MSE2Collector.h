@@ -281,12 +281,30 @@ protected:
      *
      * Sorting is needed, because the order may change if a vehicle has
      *  entered the lane by lane changing.
+     *
+     * We need to have the lane, because the vehicle's position - used
+     *  for the sorting - may be beyond the lane's end (the vehicle may
+     *  be on a new lane) and we have to ask for the vehicle's position
+     *  using this information.
      */
     class by_vehicle_position_sorter
     {
     public:
-        /// @brief constructor
-        explicit by_vehicle_position_sorter() throw() { }
+        /** @brief constructor
+         *
+         * @param[in] lane The lane the detector is placed at
+         */
+        by_vehicle_position_sorter(const MSLane * const lane) throw() 
+            : myLane(lane) { }
+
+
+        /** @brief copy constructor
+         *
+         * @param[in] s The instance to copy
+         */
+        by_vehicle_position_sorter(const by_vehicle_position_sorter &s) throw() 
+            : myLane(s.myLane) { }
+
 
         /** @brief Comparison funtcion
          *
@@ -295,8 +313,12 @@ protected:
          * @return Whether the position of the first vehicles is smaller than the one of the second
          */
         int operator()(const MSVehicle *v1, const MSVehicle *v2) throw() {
-            return v1->getPositionOnLane()>v2->getPositionOnLane();
+            return v1->getPositionOnActiveMoveReminderLane(myLane)>v2->getPositionOnActiveMoveReminderLane(myLane);
         }
+
+    private:
+        /// @brief The lane the detector is placed at
+        const MSLane * const myLane;
     };
 
 
@@ -324,13 +346,18 @@ private:
     /// @brief Storage for halting durations of known vehicles (for halting vehicles)
     std::map<MSVehicle*, SUMOTime> myHaltingVehicleDurations;
 
+    /// @brief Storage for halting durations of known vehicles (current interval)
+    std::map<MSVehicle*, SUMOTime> myIntervalHaltingVehicleDurations;
+
 
     /// @name Values generated for aggregated file output
     /// @{
     /// @brief The sum of collected vehicle speeds [m/s]
     SUMOReal mySpeedSum;
-    /// @brief The maximum halting duration so far [s]
+    /// @brief The maximum halting duration of a vehicle on detector [s]
     SUMOTime myMaxHaltingDuration;
+    /// @brief The maximum halting duration (current interval) [s]
+    SUMOTime myIntervalMaxHaltingDuration;
     /// @brief The number of started halts [#]
     SUMOReal myStartedHalts;
     /// @brief The sum of jam lengths [m]
@@ -345,8 +372,10 @@ private:
     SUMOReal myOccupancySum;
     /// @brief The maximum occupancy [%]
     SUMOReal myMaxOccupancy;
-    /// @brief The sum of halting durations
+    /// @brief The sum of halting durations [s]
     SUMOTime myHaltingDurationSum;
+    /// @brief The sum of halting durations (current interval) [s]
+    SUMOTime myIntervalHaltingDurationSum;
     /// @brief The mean jam length [#veh]
     unsigned myMeanMaxJamInVehicles;
     /// @brief The mean jam length [m]
@@ -355,10 +384,10 @@ private:
     unsigned myMaxJamInVehicles;
     /// @brief The max jam length [m]
     SUMOReal myMaxJamInMeters;
-    /// @brief The sum of jam length [#veh]
-    unsigned myJamInVehiclesSum;
-    /// @brief The sum of jam length [m]
-    SUMOReal myJamInMetersSum;
+    /// @brief The mean number of vehicles [#veh]
+    unsigned myMeanVehicleNumber;
+    /// @brief The max number of vehicles [#veh]
+    unsigned myMaxVehicleNumber;
     /// @}
 
     /// @name Values generated describing the current state
