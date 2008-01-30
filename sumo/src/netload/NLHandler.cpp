@@ -1058,16 +1058,17 @@ NLHandler::addE1Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing output definition for detector '" + id + "'.");
         return;
     }
-
+    // inform the user about deprecated values
+    if(getStringSecure(attrs, SUMO_ATTR_STYLE, "<invalid>")!="<invalid>") {
+        MsgHandler::getWarningInstance()->inform("While parsing E1-detector '" + id + "': 'style' is deprecated.");
+    }
     try {
         myDetectorBuilder.buildInductLoop(id,
                                           getString(attrs, SUMO_ATTR_LANE),
                                           getFloat(attrs, SUMO_ATTR_POSITION),
                                           getInt(attrs, SUMO_ATTR_FREQUENCY),
-                                          OutputDevice::getDevice(getString(attrs, SUMO_ATTR_FILE),
-                                                                  getFileName()),
-                                          getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false),
-                                          getStringSecure(attrs, SUMO_ATTR_STYLE, ""));
+                                          OutputDevice::getDevice(getString(attrs, SUMO_ATTR_FILE), getFileName()),
+                                          getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false));
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData &) {
@@ -1113,6 +1114,13 @@ NLHandler::addE2Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing output definition for detector '" + id + "'.");
         return;
     }
+    // inform the user about deprecated values
+    if(getStringSecure(attrs, SUMO_ATTR_MEASURES, "<invalid>")!="<invalid>") {
+        MsgHandler::getWarningInstance()->inform("While parsing E2-detector '" + id + "': 'measures' is deprecated.");
+    }
+    if(getStringSecure(attrs, SUMO_ATTR_STYLE, "<invalid>")!="<invalid>") {
+        MsgHandler::getWarningInstance()->inform("While parsing E2-detector '" + id + "': 'style' is deprecated.");
+    }
     //
     try {
         if (tll.ltVariants.size()!=0) {
@@ -1124,9 +1132,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                                   getFloat(attrs, SUMO_ATTR_LENGTH),
                                                   getBoolSecure(attrs, SUMO_ATTR_CONT, false),
                                                   tll,
-                                                  getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
                                                   OutputDevice::getDevice(file, getFileName()),
-                                                  getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                                   (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
                                                   getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f)
@@ -1139,9 +1145,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                                   getFloat(attrs, SUMO_ATTR_LENGTH),
                                                   getBoolSecure(attrs, SUMO_ATTR_CONT, false),
                                                   tll, toLane,
-                                                  getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
                                                   OutputDevice::getDevice(file, getFileName()),
-                                                  getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                                   (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
                                                   getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f)
@@ -1155,9 +1159,7 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                               getFloat(attrs, SUMO_ATTR_LENGTH),
                                               getBoolSecure(attrs, SUMO_ATTR_CONT, false),
                                               getInt(attrs, SUMO_ATTR_FREQUENCY),
-                                              getStringSecure(attrs, SUMO_ATTR_STYLE, ""),
                                               OutputDevice::getDevice(file, getFileName()),
-                                              getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
                                               (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                               getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
                                               getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f)
@@ -1192,12 +1194,20 @@ NLHandler::beginE3Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing output definition for detector '" + id + "'.");
         return;
     }
+    // inform the user about deprecated values
+    if(getStringSecure(attrs, SUMO_ATTR_MEASURES, "<invalid>")!="<invalid>") {
+        MsgHandler::getWarningInstance()->inform("While parsing E3-detector '" + id + "': 'measures' is deprecated.");
+    }
+    if(getStringSecure(attrs, SUMO_ATTR_STYLE, "<invalid>")!="<invalid>") {
+        MsgHandler::getWarningInstance()->inform("While parsing E3-detector '" + id + "': 'style' is deprecated.");
+    }
+    // build the detector
     try {
         myDetectorBuilder.beginE3Detector(id,
                                           OutputDevice::getDevice(file, getFileName()),
                                           getInt(attrs, SUMO_ATTR_FREQUENCY),
-                                          getStringSecure(attrs, SUMO_ATTR_MEASURES, "ALL"),
-                                          getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f));
+                                          getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
+                                          getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.f));
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (BoolFormatException &) {

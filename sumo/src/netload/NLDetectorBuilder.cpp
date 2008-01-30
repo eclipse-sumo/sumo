@@ -98,8 +98,7 @@ NLDetectorBuilder::~NLDetectorBuilder()
 void
 NLDetectorBuilder::buildInductLoop(const std::string &id,
                                    const std::string &lane, SUMOReal pos, int splInterval,
-                                   OutputDevice& device, bool friendly_pos,
-                                   const std::string &/*style*/)
+                                   OutputDevice& device, bool friendly_pos)
 {
     if (splInterval<0) {
         throw InvalidArgument("Negative sampling frequency (in detector '" + id + "').");
@@ -112,9 +111,6 @@ NLDetectorBuilder::buildInductLoop(const std::string &id,
 #ifdef HAVE_MESOSIM
     if (!MSGlobals::gUseMesoSim) {
 #endif
-        // get the output style
-//   MSDetector::OutputStyle cstyle = convertStyle(id, style);
-        // check whether the file must be converted into a relative path
         // compute position
         if (pos>clane->length()) {
             if (friendly_pos) {
@@ -158,9 +154,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                                    const std::string &id,
                                    const std::string &lane, SUMOReal pos, SUMOReal length,
                                    bool cont, int splInterval,
-                                   const std::string &/*style*/,
                                    OutputDevice& device,
-                                   const std::string &measures,
                                    SUMOTime haltingTimeThreshold,
                                    MetersPerSecond haltingSpeedThreshold,
                                    SUMOReal jamDistThreshold)
@@ -176,7 +170,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
                                    clane, pos, length,
                                    haltingTimeThreshold, haltingSpeedThreshold,
-                                   jamDistThreshold, measures);
+                                   jamDistThreshold);
         myNet.getDetectorControl().add(
             static_cast<MSE2Collector*>(det), device, splInterval);
     } else {
@@ -184,7 +178,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         det = buildMultiLaneE2Det(edgeContinuations, id, DU_USER_DEFINED,
                                   clane, pos, length,
                                   haltingTimeThreshold, haltingSpeedThreshold,
-                                  jamDistThreshold, measures);
+                                  jamDistThreshold);
         myNet.getDetectorControl().add(
             static_cast<MS_E2_ZS_CollectorOverLanes*>(det), device, splInterval);
     }
@@ -197,8 +191,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                                    const std::string &lane, SUMOReal pos, SUMOReal length,
                                    bool cont,
                                    const MSTLLogicControl::TLSLogicVariants &tlls,
-                                   const std::string &/*style*/, OutputDevice& device,
-                                   const std::string &measures,
+                                   OutputDevice& device,
                                    SUMOTime haltingTimeThreshold,
                                    MetersPerSecond haltingSpeedThreshold,
                                    SUMOReal jamDistThreshold)
@@ -211,7 +204,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
                                    clane, pos, length,
                                    haltingTimeThreshold, haltingSpeedThreshold,
-                                   jamDistThreshold, measures);
+                                   jamDistThreshold);
         myNet.getDetectorControl().add(
             static_cast<MSE2Collector*>(det));
     } else {
@@ -219,7 +212,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         det = buildMultiLaneE2Det(edgeContinuations, id, DU_USER_DEFINED,
                                   clane, pos, length,
                                   haltingTimeThreshold, haltingSpeedThreshold,
-                                  jamDistThreshold, measures);
+                                  jamDistThreshold);
         myNet.getDetectorControl().add(
             static_cast<MS_E2_ZS_CollectorOverLanes*>(det));
     }
@@ -236,8 +229,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                                    bool cont,
                                    const MSTLLogicControl::TLSLogicVariants &tlls,
                                    const std::string &tolane,
-                                   const std::string &/*style*/, OutputDevice& device,
-                                   const std::string &measures,
+                                   OutputDevice& device,
                                    SUMOTime haltingTimeThreshold,
                                    MetersPerSecond haltingSpeedThreshold,
                                    SUMOReal jamDistThreshold)
@@ -260,7 +252,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         det = buildSingleLaneE2Det(id, DU_USER_DEFINED,
                                    clane, pos, length,
                                    haltingTimeThreshold, haltingSpeedThreshold,
-                                   jamDistThreshold, measures);
+                                   jamDistThreshold);
         myNet.getDetectorControl().add(
             static_cast<MSE2Collector*>(det));
     } else {
@@ -268,7 +260,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
         det = buildMultiLaneE2Det(edgeContinuations, id, DU_USER_DEFINED,
                                   clane, pos, length,
                                   haltingTimeThreshold, haltingSpeedThreshold,
-                                  jamDistThreshold, measures);
+                                  jamDistThreshold);
         myNet.getDetectorControl().add(
             static_cast<MS_E2_ZS_CollectorOverLanes*>(det));
     }
@@ -415,8 +407,7 @@ NLDetectorBuilder::buildSingleLaneE2Det(const std::string &id,
                                         MSLane *lane, SUMOReal pos, SUMOReal length,
                                         SUMOTime haltingTimeThreshold,
                                         MetersPerSecond haltingSpeedThreshold,
-                                        SUMOReal jamDistThreshold,
-                                        const std::string &measures)
+                                        SUMOReal jamDistThreshold)
 {
     return createSingleLaneE2Detector(id, usage, lane, pos,
                                       length, haltingTimeThreshold, haltingSpeedThreshold,
@@ -430,8 +421,7 @@ NLDetectorBuilder::buildMultiLaneE2Det(const MSEdgeContinuations &edgeContinuati
                                        MSLane *lane, SUMOReal pos, SUMOReal length,
                                        SUMOTime haltingTimeThreshold,
                                        MetersPerSecond haltingSpeedThreshold,
-                                       SUMOReal jamDistThreshold ,
-                                       const std::string &measures)
+                                       SUMOReal jamDistThreshold)
 {
     MS_E2_ZS_CollectorOverLanes *ret = createMultiLaneE2Detector(id, usage,
                                        lane, pos, haltingTimeThreshold, haltingSpeedThreshold,
@@ -496,20 +486,6 @@ NLDetectorBuilder::createE3Detector(const std::string &id,
 {
     return new MSE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold);
 }
-
-
-
-/*
-MSDetector::OutputStyle NLDetectorBuilder::convertStyle(const std::string &id,
-const std::string &style)
-{
-if(style=="GNUPLOT" || style=="GPLOT")
-return MSDetector::GNUPLOT;
-if(style=="CSV")
-return MSDetector::CSV;
-throw InvalidArgument("Unknown output style '" + style + "' while parsing the detector '" + id + "' occured.");
-}
-*/
 
 
 MSLane *

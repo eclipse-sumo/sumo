@@ -60,7 +60,7 @@ class MESegment;
 // ===========================================================================
 /**
  * @class NLDetectorBuilder
- * This class builds detectors and stores them within the given net
+ * @brief A building helper for detectors
  */
 class NLDetectorBuilder
 {
@@ -75,15 +75,14 @@ public:
     /// builds an induct loop
     void buildInductLoop(const std::string &id,
                          const std::string &lane, SUMOReal pos, int splInterval,
-                         OutputDevice& device, bool friendly_pos, const std::string &style="");
+                         OutputDevice& device, bool friendly_pos);
 
     /// builds a lane-based areal (E2-) detector with a fixed interval
     void buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                          const std::string &id,
                          const std::string &lane, SUMOReal pos, SUMOReal length,
                          bool cont, int splInterval,
-                         const std::string &/*style*/, OutputDevice& device,
-                         const std::string &measures,
+                         OutputDevice& device,
                          SUMOTime haltingTimeThreshold,
                          MetersPerSecond haltingSpeedThreshold,
                          SUMOReal jamDistThreshold);
@@ -93,8 +92,7 @@ public:
                          const std::string &id,
                          const std::string &lane, SUMOReal pos, SUMOReal length,
                          bool cont, const MSTLLogicControl::TLSLogicVariants &tlls,
-                         const std::string &/*style*/, OutputDevice& device,
-                         const std::string &measures,
+                         OutputDevice& device,
                          SUMOTime haltingTimeThreshold,
                          MetersPerSecond haltingSpeedThreshold,
                          SUMOReal jamDistThreshold);
@@ -105,8 +103,7 @@ public:
                          const std::string &lane, SUMOReal pos, SUMOReal length,
                          bool cont, const MSTLLogicControl::TLSLogicVariants &tlls,
                          const std::string &tolane,
-                         const std::string &style, OutputDevice& device,
-                         const std::string &measures,
+                         OutputDevice& device,
                          SUMOTime haltingTimeThreshold,
                          MetersPerSecond haltingSpeedThreshold,
                          SUMOReal jamDistThreshold);
@@ -129,23 +126,12 @@ public:
     /// Returns the id of the currently built e3-detector
     std::string getCurrentE3ID() const;
 
-    /// Makes some data conversion and calls the propriate building function
-    MSDetectorFileOutput* buildE2(const std::string &id,
-                                  const std::string &lane, SUMOReal pos, SUMOReal length, bool cont,
-                                  const std::string &/*style*/, std::string filename,
-                                  const std::string &basePath, const std::string &measures,
-                                  SUMOTime haltingTimeThreshold,
-                                  MetersPerSecond haltingSpeedThreshold,
-                                  SUMOReal jamDistThreshold);
-
-
     /// Builds an e2-detector that lies on only one lane
     MSE2Collector *buildSingleLaneE2Det(const std::string &id,
                                         DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
                                         SUMOTime haltingTimeThreshold,
                                         MetersPerSecond haltingSpeedThreshold,
-                                        SUMOReal jamDistThreshold,
-                                        const std::string &measures);
+                                        SUMOReal jamDistThreshold);
 
     /// Builds an e2-detector that continues on preceeding lanes
     MS_E2_ZS_CollectorOverLanes *buildMultiLaneE2Det(const MSEdgeContinuations &edgeContinuations,
@@ -153,8 +139,7 @@ public:
             DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
             SUMOTime haltingTimeThreshold,
             MetersPerSecond haltingSpeedThreshold,
-            SUMOReal jamDistThreshold,
-            const std::string &measures="all");
+            SUMOReal jamDistThreshold);
 
     /// Creates the instance of an induct loop (overwritten by gui version)
     virtual MSInductLoop *createInductLoop(const std::string &id,
