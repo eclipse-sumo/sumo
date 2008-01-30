@@ -4,7 +4,7 @@
 /// @date    Mon, 22 Oct 2001
 /// @version $Id$
 ///
-// }
+// Temporary storage for a lanes succeeding lanes while parsing them
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -58,24 +58,24 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NLSucceedingLaneBuilder::NLSucceedingLaneBuilder(NLJunctionControlBuilder &jb)
+NLSucceedingLaneBuilder::NLSucceedingLaneBuilder(NLJunctionControlBuilder &jb) throw()
         : myJunctionControlBuilder(jb)
 {
-    m_SuccLanes = new MSLinkCont();
-    m_SuccLanes->reserve(10);
+    mySuccLanes = new MSLinkCont();
+    mySuccLanes->reserve(10);
 }
 
 
-NLSucceedingLaneBuilder::~NLSucceedingLaneBuilder()
+NLSucceedingLaneBuilder::~NLSucceedingLaneBuilder() throw()
 {
-    delete m_SuccLanes;
+    delete mySuccLanes;
 }
 
 
 void
-NLSucceedingLaneBuilder::openSuccLane(const string &laneId)
+NLSucceedingLaneBuilder::openSuccLane(const string &laneId) throw()
 {
-    m_CurrentLane = laneId;
+    myCurrentLane = laneId;
 }
 
 
@@ -88,15 +88,15 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
                                      MSLink::LinkDirection dir,
                                      MSLink::LinkState state,
                                      bool internalEnd,
-                                     const std::string &tlid, size_t linkNo)
+                                     const std::string &tlid, size_t linkNo) throw(InvalidArgument)
 {
     // check whether the link is a dead link
     if (laneId=="SUMO_NO_DESTINATION") {
         // build the dead link and add it to the container
 #ifdef HAVE_INTERNAL_LANES
-        m_SuccLanes->push_back(new MSLink(0, 0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, false, 0.));
+        mySuccLanes->push_back(new MSLink(0, 0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, false, 0.));
 #else
-        m_SuccLanes->push_back(new MSLink(0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, 0.));
+        mySuccLanes->push_back(new MSLink(0, yield, MSLink::LINKDIR_NODIR, MSLink::LINKSTATE_DEADEND, 0.));
 #endif
         return;
     }
@@ -104,14 +104,14 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     // get the lane the link belongs to
     MSLane *lane = MSLane::dictionary(laneId);
     if (lane==0) {
-        throw InvalidArgument("An unknown lane ('" + laneId + "') should be set as a follower for lane '" + m_CurrentLane + "'.");
+        throw InvalidArgument("An unknown lane ('" + laneId + "') should be set as a follower for lane '" + myCurrentLane + "'.");
     }
 #ifdef HAVE_INTERNAL_LANES
     MSLane *via = 0;
     if (viaID!="" && OptionsCont::getOptions().getBool("use-internal-links")) {
         via = MSLane::dictionary(viaID);
         if (via==0) {
-            throw InvalidArgument("An unknown lane ('" + viaID + "') should be set as a via-lane for lane '" + m_CurrentLane + "'.");
+            throw InvalidArgument("An unknown lane ('" + viaID + "') should be set as a via-lane for lane '" + myCurrentLane + "'.");
         }
     }
     if (pass>=0) {
@@ -124,11 +124,11 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     if (tlid!="") {
         logics = myJunctionControlBuilder.getTLLogic(tlid);
         if (logics.ltVariants.size()==0) {
-            throw InvalidArgument("A link of lane '" + m_CurrentLane + "' wanted to use an unknown tl-logic ('" + tlid + "').");
+            throw InvalidArgument("A link of lane '" + myCurrentLane + "' wanted to use an unknown tl-logic ('" + tlid + "').");
         }
     }
 
-    MSLane *orig = MSLane::dictionary(m_CurrentLane);
+    MSLane *orig = MSLane::dictionary(myCurrentLane);
     if (orig==0) {
         return;
     }
@@ -147,29 +147,29 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     MSLink *link = new MSLink(lane, yield, dir, state, length);
 #endif
 
-    if (MSLane::dictionary(m_CurrentLane)!=0) {
+    if (MSLane::dictionary(myCurrentLane)!=0) {
 #ifdef HAVE_INTERNAL_LANES
         if (via!=0) {
             // from a normal in to a normal out via
             //  --> via incomes in out
             lane->addIncomingLane(via, link);
             //  --> in incomes in via
-            via->addIncomingLane(MSLane::dictionary(m_CurrentLane), link);
+            via->addIncomingLane(MSLane::dictionary(myCurrentLane), link);
         } else {
-            if (m_CurrentLane[0]!=':') {
+            if (myCurrentLane[0]!=':') {
                 // internal not wished; other case already set
-                lane->addIncomingLane(MSLane::dictionary(m_CurrentLane), link);
+                lane->addIncomingLane(MSLane::dictionary(myCurrentLane), link);
             }
         }
 #else
-        lane->addIncomingLane(MSLane::dictionary(m_CurrentLane), link);
+        lane->addIncomingLane(MSLane::dictionary(myCurrentLane), link);
 #endif
     }
     // if a traffic light is responsible for it, inform the traffic light
     if (logics.ltVariants.size()!=0) {
-        MSLane *current = MSLane::dictionary(m_CurrentLane);
+        MSLane *current = MSLane::dictionary(myCurrentLane);
         if (current==0) {
-            throw InvalidArgument("An unknown lane ('" + m_CurrentLane + "') should be assigned to a tl-logic.");
+            throw InvalidArgument("An unknown lane ('" + myCurrentLane + "') should be assigned to a tl-logic.");
         }
         std::map<std::string, MSTrafficLightLogic *>::iterator i;
         for (i=logics.ltVariants.begin(); i!=logics.ltVariants.end(); ++i) {
@@ -177,29 +177,29 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
         }
     }
     // add the link to the container
-    m_SuccLanes->push_back(link);
+    mySuccLanes->push_back(link);
 }
 
 
 void
-NLSucceedingLaneBuilder::closeSuccLane()
+NLSucceedingLaneBuilder::closeSuccLane() throw(InvalidArgument)
 {
-    MSLane *current = MSLane::dictionary(m_CurrentLane);
+    MSLane *current = MSLane::dictionary(myCurrentLane);
     if (current==0) {
-        throw InvalidArgument("Trying to close connections of an unknown lane ('" + m_CurrentLane + "').");
+        throw InvalidArgument("Trying to close connections of an unknown lane ('" + myCurrentLane + "').");
     }
     MSLinkCont *cont = new MSLinkCont();
-    cont->reserve(m_SuccLanes->size());
-    copy(m_SuccLanes->begin(), m_SuccLanes->end(), back_inserter(*cont));
-    current->initialize(/*m_Junction, */cont);
-    m_SuccLanes->clear();
+    cont->reserve(mySuccLanes->size());
+    copy(mySuccLanes->begin(), mySuccLanes->end(), back_inserter(*cont));
+    current->initialize(cont);
+    mySuccLanes->clear();
 }
 
 
-std::string
-NLSucceedingLaneBuilder::getSuccingLaneName() const
+const std::string &
+NLSucceedingLaneBuilder::getCurrentLaneName() const throw()
 {
-    return m_CurrentLane;
+    return myCurrentLane;
 }
 
 

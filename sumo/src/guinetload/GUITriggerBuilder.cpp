@@ -4,7 +4,7 @@
 /// @date    Mon, 26.04.2004
 /// @version $Id$
 ///
-// A building helper for triggers
+// Builds trigger objects for guisim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -30,16 +30,11 @@
 
 #include <string>
 #include <fstream>
-#include <microsim/MSEventControl.h>
-#include <microsim/MSLane.h>
-#include <microsim/trigger/MSTrigger.h>
 #include <guisim/GUILaneSpeedTrigger.h>
 #include <guisim/GUIEmitter.h>
 #include <guisim/GUITriggeredRerouter.h>
 #include <guisim/GUIE1VehicleActor.h>
 #include <guisim/GUIBusStop.h>
-#include <utils/common/FileHelpers.h>
-#include <utils/common/UtilExceptions.h>
 #include "GUITriggerBuilder.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -56,23 +51,21 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUITriggerBuilder::GUITriggerBuilder()
+GUITriggerBuilder::GUITriggerBuilder() throw()
 {}
 
 
-GUITriggerBuilder::~GUITriggerBuilder()
+GUITriggerBuilder::~GUITriggerBuilder() throw()
 {}
 
 
 MSLaneSpeedTrigger *
 GUITriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
         const std::string &id, const std::vector<MSLane*> &destLanes,
-        const std::string &file)
+        const std::string &file) throw()
 {
     return new GUILaneSpeedTrigger(id, net, destLanes, file);
 }
-
-
 
 
 MSEmitter *
@@ -80,17 +73,16 @@ GUITriggerBuilder::buildLaneEmitTrigger(MSNet &net,
                                         const std::string &id,
                                         MSLane *destLane,
                                         SUMOReal pos,
-                                        const std::string &file)
+                                        const std::string &file) throw()
 {
     return new GUIEmitter(id, net, destLane, pos, file);
 }
 
 
-
 MSTriggeredRerouter *
 GUITriggerBuilder::buildRerouter(MSNet &, const std::string &id,
                                  std::vector<MSEdge*> &edges,
-                                 SUMOReal prob, const std::string &file)
+                                 SUMOReal prob, const std::string &file) throw()
 {
     return new GUITriggeredRerouter(id, edges, prob, file);
 }
@@ -99,7 +91,7 @@ GUITriggerBuilder::buildRerouter(MSNet &, const std::string &id,
 MSE1VehicleActor *
 GUITriggerBuilder::buildVehicleActor(MSNet &, const std::string &id,
                                      MSLane *lane, SUMOReal pos, unsigned int la,
-                                     unsigned int cell, unsigned int type)
+                                     unsigned int cell, unsigned int type) throw()
 {
     return new GUIE1VehicleActor(id, lane, pos, la, cell, type);
 }
@@ -109,11 +101,10 @@ MSBusStop*
 GUITriggerBuilder::buildBusStop(MSNet &net, const std::string &id,
                                 const std::vector<std::string> &lines,
                                 MSLane *lane,
-                                SUMOReal frompos, SUMOReal topos)
+                                SUMOReal frompos, SUMOReal topos) throw()
 {
     return new GUIBusStop(id, net, lines, *lane, frompos, topos);
 }
-
 
 
 /****************************************************************************/

@@ -1354,13 +1354,13 @@ NLHandler::addSuccLane(const Attributes &attrs)
                 getBoolSecure(attrs, SUMO_ATTR_INTERNALEND, false));
         }
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing attribute in a succlane-object of lane '" + mySucceedingLaneBuilder.getSuccingLaneName() + "'.");
+        MsgHandler::getErrorInstance()->inform("Missing attribute in a succlane-object of lane '" + mySucceedingLaneBuilder.getCurrentLaneName() + "'.");
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Something is wrong with the definition of a link of lane '" + mySucceedingLaneBuilder.getSuccingLaneName() + "'.");
+        MsgHandler::getErrorInstance()->inform("Something is wrong with the definition of a link of lane '" + mySucceedingLaneBuilder.getCurrentLaneName() + "'.");
     } catch (BoolFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Something is wrong with the definition of a link of lane '" + mySucceedingLaneBuilder.getSuccingLaneName() + "'.");
+        MsgHandler::getErrorInstance()->inform("Something is wrong with the definition of a link of lane '" + mySucceedingLaneBuilder.getCurrentLaneName() + "'.");
     }
 }
 

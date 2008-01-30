@@ -4,7 +4,7 @@
 /// @date    Mon, 15 Apr 2002
 /// @version $Id$
 ///
-// missing_desc
+// Describes which types of data shall be loaded
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,23 +36,23 @@
 // ===========================================================================
 /**
  * @enum NLLoadFilter
- * The load filter is an information given to the handler to describe which
- * types of data shall be loaded.
+ * @brief Describes which types of data shall be loaded
+ * @todo Somehow deprecated; should not be used any longer!?
  */
 enum NLLoadFilter {
-    /** load all known data */
+    /** @brief load all known data */
     LOADFILTER_ALL = 255,
 
-    /** load only the junction logics */
+    /** @brief load only the junction logics */
     LOADFILTER_LOGICS = 1,
 
-    /** load detectors only */
+    /** @brief load detectors only */
     LOADFILTER_NETADD = 2,
 
-    /** load only vehicles, their routes and theri types */
+    /** @brief load only vehicles, their routes and theri types */
     LOADFILTER_DYNAMIC = 4,
 
-    /** load static net elements only */
+    /** @brief load static net elements only */
     LOADFILTER_NET = 1 | 2 | 8
 };
 

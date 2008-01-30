@@ -4,7 +4,7 @@
 /// @date    Thu, 17 Oct 2002
 /// @version $Id$
 ///
-// A building helper for triggers
+// Builds trigger objects for microsim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -46,11 +46,8 @@
 #include "NLTriggerBuilder.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
 
-#ifdef ONLINE_CALIBRATION
 #include <microsim/trigger/MSCalibrator.h>
 #include <microsim/trigger/MSVTypeProbe.h>
-// FIXME #include <utils/xml/SUMOSAXHandler.h>
-#endif //ONLINE_CALIBRATION
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/METriggeredCalibrator.h>
@@ -73,11 +70,11 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NLTriggerBuilder::NLTriggerBuilder()
+NLTriggerBuilder::NLTriggerBuilder() throw()
 {}
 
 
-NLTriggerBuilder::~NLTriggerBuilder()
+NLTriggerBuilder::~NLTriggerBuilder() throw()
 {}
 
 
@@ -85,7 +82,7 @@ MSTrigger *
 NLTriggerBuilder::buildTrigger(MSNet &net,
                                const Attributes &attrs,
                                const std::string &base,
-                               const NLHandler &helper)
+                               const NLHandler &helper) throw(InvalidArgument)
 {
     string type = helper.getString(attrs, SUMO_ATTR_OBJECTTYPE);
     string attr = helper.getStringSecure(attrs, SUMO_ATTR_ATTR, "");
@@ -98,15 +95,13 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
     } else if (type=="rerouter") {
         t = parseAndBuildRerouter(net, attrs, base, helper);
     } else if (type=="bus_stop") {
-        t = parseAndBuildBusStop(net, attrs, base, helper);
+        t = parseAndBuildBusStop(net, attrs, helper);
     } else if (type=="vehicle_actor") {
         /*first check, that the depending lane realy exist. if not just forget this VehicleActor. */
         if (helper.getInt(attrs, SUMO_ATTR_TYPE) == 3) {
             unsigned int cell_id   = helper.getInt(attrs, SUMO_ATTR_ID);
             unsigned int interval  = helper.getInt(attrs, SUMO_ATTR_OBJECTID);
             unsigned int statcount = helper.getInt(attrs, SUMO_ATTR_POSITION);
-//			unsigned int dyncount  = helper.getInt( attrs, SUMO_ATTR_TO );
-            //insert in MSPhoneNet
             MSPhoneNet* pPhone = MSNet::getInstance()->getMSPhoneNet();
             if (pPhone->getMSPhoneCell(cell_id) != 0)
                 pPhone->getMSPhoneCell(cell_id)->setStatParams(interval, statcount);
@@ -126,16 +121,14 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
             /*check that the depending lane realy exist. if not just forget this VehicleActor. */
             MSLane *tlane = MSLane::dictionary(helper.getString(attrs, SUMO_ATTR_OBJECTID));
             if (tlane!=0)
-                t = parseAndBuildVehicleActor(net, attrs, base, helper);
+                t = parseAndBuildVehicleActor(net, attrs, helper);
         }
     }
-#ifdef ONLINE_CALIBRATION
     else if (type=="calibrator") {
         t = parseAndBuildCalibrator(net, attrs, base, helper);
     }	else if (type=="vtype_probe") {
         t = parseAndBuildVTypeProbe(net, attrs, base, helper);
     }
-#endif //ONLINE_CALIBRATION
 
 #ifdef HAVE_MESOSIM
     else if (type=="calibrator"&&MSGlobals::gUseMesoSim) {
@@ -154,10 +147,9 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
 
 
 MSLaneSpeedTrigger *
-NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net,
-        const Attributes &attrs,
-        const std::string &base,
-        const NLHandler &helper)
+NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const Attributes &attrs,
+                                                const std::string &base, 
+                                                const NLHandler &helper) throw(InvalidArgument)
 {
     // get the file name to read further definitions from
     string file = getFileName(attrs, base, helper);
@@ -170,23 +162,20 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net,
         MSLane *lane = MSLane::dictionary(st.next());
         if (lane==0) {
             throw InvalidArgument("The lane to use within MSLaneSpeedTrigger '" + id + "' is not known.");
-
         }
         lanes.push_back(lane);
     }
     if (lanes.size()==0) {
         throw InvalidArgument("No lane defined for MSLaneSpeedTrigger '" + id + "'.");
-
     }
     return buildLaneSpeedTrigger(net, id, lanes, file);
 }
 
 
 MSEmitter *
-NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net,
-        const Attributes &attrs,
-        const std::string &base,
-        const NLHandler &helper)
+NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net, const Attributes &attrs,
+                                               const std::string &base,
+                                               const NLHandler &helper) throw(InvalidArgument)
 {
     // get the file name to read further definitions from
     string file = getFileName(attrs, base, helper);
@@ -198,10 +187,8 @@ NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net,
 
 
 MSBusStop *
-NLTriggerBuilder::parseAndBuildBusStop(MSNet &net,
-                                       const Attributes &attrs,
-                                       const std::string &/*base*/,
-                                       const NLHandler &helper)
+NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const Attributes &attrs,
+                                       const NLHandler &helper) throw(InvalidArgument)
 {
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     // get the lane
@@ -214,10 +201,8 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net,
         topos = helper.getFloat(attrs, SUMO_ATTR_TO);
     } catch (EmptyData&) {
         throw InvalidArgument("Either the begin or the end position of busstop '" + id + "' is not given.");
-
     } catch (NumberFormatException&) {
         throw InvalidArgument("Either the begin or the end position of busstop '" + id + "' is not numeric.");
-
     }
     if (frompos<0) {
         frompos = lane->length() + frompos;
@@ -238,10 +223,8 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net,
 
 
 MSE1VehicleActor *
-NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net,
-        const Attributes &attrs,
-        const std::string &/*base*/,
-        const NLHandler &helper)
+NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net, const Attributes &attrs,
+                                            const NLHandler &helper) throw(InvalidArgument)
 {
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     MSLane *lane = getLane(attrs, helper, "vehicle_actor", id);
@@ -253,58 +236,49 @@ NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net,
 }
 
 
-#ifdef ONLINE_CALIBRATION
 
 MSCalibrator *
-NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
-        const Attributes &attrs,
-        const std::string &base,
-        const NLHandler &helper)
+NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const Attributes &attrs,
+                                          const std::string &base, 
+                                          const NLHandler &helper) throw(InvalidArgument)
 {
     // get the file name to read further definitions (route distributions) from
     string file = getFileName(attrs, base, helper);
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     MSLane *lane = getLane(attrs, helper, "calibrator", id);
     SUMOReal pos = getPosition(attrs, helper, lane, "calibrator", id);
-
     return buildLaneCalibrator(net, id, lane, pos, file);
 }
 
+
 MSVTypeProbe *
-NLTriggerBuilder::parseAndBuildVTypeProbe(MSNet &net,
-        const Attributes &attrs,
-        const std::string &base,
-        const NLHandler &helper)
+NLTriggerBuilder::parseAndBuildVTypeProbe(MSNet &net, const Attributes &attrs,
+                                          const std::string &base, 
+                                          const NLHandler &helper) throw(InvalidArgument)
 {
     string outputFile = getFileName(attrs, base, helper);
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     string vType = helper.getString(attrs, SUMO_ATTR_TYPE);
     int freq = helper.getInt(attrs, SUMO_ATTR_FREQUENCY);
-
     return buildVTypeProbe(net, id, outputFile, vType, freq);
 }
-#endif //ONLINE_CALIBRATION
+
 
 #ifdef HAVE_MESOSIM
 METriggeredCalibrator *
-NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
-        const Attributes &attrs,
-        const std::string &base,
-        const NLHandler &helper)
+NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const Attributes &attrs,
+                                          const std::string &base, 
+                                          const NLHandler &helper) throw(InvalidArgument)
 {
     // get the file name to read further definitions from
     string file = getFileName(attrs, base, helper);
-
     string rfile = helper.getStringSecure(attrs, SUMO_ATTR_RFILE, "");
     if (rfile.length()!=0&&!FileHelpers::isAbsolute(rfile)) {
         rfile = FileHelpers::getConfigurationRelative(base, rfile);
     }
-
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     MSLane *lane = getLane(attrs, helper, "calibrator", id);
     SUMOReal pos = getPosition(attrs, helper, lane, "calibrator", id);
-
-
     MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge());
     MESegment *prev = s;
     SUMOReal cpos = 0;
@@ -314,21 +288,17 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net,
         s = s->getNextSegment();
     }
     SUMOReal rpos = pos-cpos-prev->getLength();
-
     return buildCalibrator(net, id, prev, rpos, rfile, file);
 }
 
 
 METriggeredScaler *
-NLTriggerBuilder::parseAndBuildScaler(MSNet &net,
-                                      const Attributes &attrs,
-                                      const std::string &/*base*/,
-                                      const NLHandler &helper)
+NLTriggerBuilder::parseAndBuildScaler(MSNet &net, const Attributes &attrs,
+                                      const NLHandler &helper) throw(InvalidArgument)
 {
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     MSLane *lane = getLane(attrs, helper, "scaler", id);
     SUMOReal pos = getPosition(attrs, helper, lane, "scaler", id);
-
     SUMOReal scale;
     try {
         scale = helper.getFloatSecure(attrs, SUMO_ATTR_WEIGHT, (SUMOReal)1);
@@ -336,7 +306,6 @@ NLTriggerBuilder::parseAndBuildScaler(MSNet &net,
         throw InvalidArgument("Invalid scale in definition of METriggeredScaler '" + id + "'.");
 
     }
-
     MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge());
     MESegment *prev = s;
     SUMOReal cpos = 0;
@@ -346,21 +315,18 @@ NLTriggerBuilder::parseAndBuildScaler(MSNet &net,
         s = s->getNextSegment();
     }
     SUMOReal rpos = pos-cpos-prev->getLength();
-
     return buildScaler(net, id, prev, rpos, scale);
 }
 #endif
 
 
 MSTriggeredRerouter *
-NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
-                                        const Attributes &attrs,
-                                        const std::string &base,
-                                        const NLHandler &helper)
+NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const Attributes &attrs,
+                                        const std::string &base, 
+                                        const NLHandler &helper) throw(InvalidArgument)
 {
     // get the file name to read further definitions from
     string file = getFileName(attrs, base, helper);
-
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
     std::vector<MSEdge*> edges;
@@ -369,13 +335,11 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
         MSEdge *edge = MSEdge::dictionary(st.next());
         if (edge==0) {
             throw InvalidArgument("The edge to use within MSTriggeredRerouter '" + id + "' is not known.");
-
         }
         edges.push_back(edge);
     }
     if (edges.size()==0) {
         throw InvalidArgument("No edges found for MSTriggeredRerouter '" + id + "'.");
-
     }
 
     SUMOReal prob;
@@ -383,7 +347,6 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
         prob = helper.getFloatSecure(attrs, SUMO_ATTR_PROB, 1);
     } catch (NumberFormatException &) {
         throw InvalidArgument("Invalid probability in definition of MSTriggeredRerouter '" + id + "'.");
-
     }
     MSTriggeredRerouter *ret = buildRerouter(net, id, edges, prob, file);
     if (helper.getBoolSecure(attrs, SUMO_ATTR_OFF, false)) {
@@ -398,33 +361,27 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net,
 
 
 MSLaneSpeedTrigger *
-NLTriggerBuilder::buildLaneSpeedTrigger(MSNet &net,
-                                        const std::string &id,
+NLTriggerBuilder::buildLaneSpeedTrigger(MSNet &net, const std::string &id,
                                         const std::vector<MSLane*> &destLanes,
-                                        const std::string &file)
+                                        const std::string &file) throw()
 {
     return new MSLaneSpeedTrigger(id, net, destLanes, file);
 }
 
 
 MSEmitter *
-NLTriggerBuilder::buildLaneEmitTrigger(MSNet &net,
-                                       const std::string &id,
-                                       MSLane *destLane,
-                                       SUMOReal pos,
-                                       const std::string &file)
+NLTriggerBuilder::buildLaneEmitTrigger(MSNet &net, const std::string &id,
+                                       MSLane *destLane, SUMOReal pos,
+                                       const std::string &file) throw()
 {
     return new MSEmitter(id, net, destLane, pos, file);
 }
 
-#ifdef ONLINE_CALIBRATION
 
 MSCalibrator *
-NLTriggerBuilder::buildLaneCalibrator(MSNet &net,
-                                      const std::string &id,
-                                      MSLane *destLane,
-                                      SUMOReal pos,
-                                      const std::string &file)
+NLTriggerBuilder::buildLaneCalibrator(MSNet &net, const std::string &id,
+                                      MSLane *destLane, SUMOReal pos,
+                                      const std::string &file) throw()
 {
     return new MSCalibrator(id, net, destLane, pos, file);
 }
@@ -432,29 +389,26 @@ NLTriggerBuilder::buildLaneCalibrator(MSNet &net,
 MSVTypeProbe *
 NLTriggerBuilder::buildVTypeProbe(MSNet &net,
                                   const std::string &id, const std::string &file,
-                                  const std::string &vType, int freq)
+                                  const std::string &vType, int freq) throw()
 {
     return new MSVTypeProbe(id, net, file, vType, freq);
 }
-#endif //ONLINE_CALIBRATION
+
 
 #ifdef HAVE_MESOSIM
 METriggeredCalibrator *
-NLTriggerBuilder::buildCalibrator(MSNet &net,
-                                  const std::string &id,
+NLTriggerBuilder::buildCalibrator(MSNet &net, const std::string &id,
                                   MESegment *edge, SUMOReal pos,
-                                  const std::string &rfile,
-                                  const std::string &file)
+                                  const std::string &rfile, const std::string &file) throw()
 {
     return new METriggeredCalibrator(id, net, edge, rfile, file);
 }
 
 
 METriggeredScaler *
-NLTriggerBuilder::buildScaler(MSNet &net,
-                              const std::string &id,
+NLTriggerBuilder::buildScaler(MSNet &net, const std::string &id,
                               MESegment *edge, SUMOReal pos,
-                              SUMOReal scale)
+                              SUMOReal scale) throw()
 {
     return new METriggeredScaler(id, edge, scale);
 }
@@ -464,7 +418,7 @@ NLTriggerBuilder::buildScaler(MSNet &net,
 MSTriggeredRerouter *
 NLTriggerBuilder::buildRerouter(MSNet &, const std::string &id,
                                 std::vector<MSEdge*> &edges,
-                                SUMOReal prob, const std::string &file)
+                                SUMOReal prob, const std::string &file) throw()
 {
     return new MSTriggeredRerouter(id, edges, prob, file);
 }
@@ -472,18 +426,17 @@ NLTriggerBuilder::buildRerouter(MSNet &, const std::string &id,
 
 MSBusStop*
 NLTriggerBuilder::buildBusStop(MSNet &, const std::string &id,
-                               const std::vector<std::string> &/*lines*/,
-                               MSLane *lane,
-                               SUMOReal frompos, SUMOReal topos)
+                               const std::vector<std::string> &lines,
+                               MSLane *lane, SUMOReal frompos, SUMOReal topos) throw()
 {
-    return new MSBusStop(id, std::vector<std::string>(), *lane, frompos, topos);
+    return new MSBusStop(id, lines, *lane, frompos, topos);
 }
 
 
 MSE1VehicleActor *
 NLTriggerBuilder::buildVehicleActor(MSNet &, const std::string &id,
                                     MSLane *lane, SUMOReal pos, unsigned int la,
-                                    unsigned int cell, unsigned int type)
+                                    unsigned int cell, unsigned int type) throw()
 {
     return new MSE1VehicleActor(id, lane, pos, la, cell, type);
 }
@@ -494,7 +447,7 @@ NLTriggerBuilder::buildVehicleActor(MSNet &, const std::string &id,
 std::string
 NLTriggerBuilder::getFileName(const Attributes &attrs,
                               const std::string &base,
-                              const NLHandler &helper)
+                              const NLHandler &helper) throw()
 {
     // get the file name to read further definitions from
     string file = helper.getString(attrs, SUMO_ATTR_FILE);
@@ -510,13 +463,12 @@ MSLane *
 NLTriggerBuilder::getLane(const Attributes &attrs,
                           const NLHandler &helper,
                           const std::string &tt,
-                          const std::string &tid)
+                          const std::string &tid) throw(InvalidArgument)
 {
     string objectid = helper.getString(attrs, SUMO_ATTR_OBJECTID);
     MSLane *lane = MSLane::dictionary(objectid);
     if (lane==0) {
         throw InvalidArgument("The lane " + objectid + " to use within the " + tt + " '" + tid + "' is not known.");
-
     }
     return lane;
 }
@@ -525,7 +477,7 @@ NLTriggerBuilder::getLane(const Attributes &attrs,
 SUMOReal
 NLTriggerBuilder::getPosition(const Attributes &attrs, const NLHandler &helper,
                               MSLane *lane,
-                              const std::string &tt, const std::string &tid)
+                              const std::string &tt, const std::string &tid) throw(InvalidArgument)
 {
 
     SUMOReal pos = helper.getFloat(attrs, SUMO_ATTR_POSITION);

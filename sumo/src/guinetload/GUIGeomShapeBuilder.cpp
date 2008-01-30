@@ -4,7 +4,7 @@
 /// @date    2005-09-15
 /// @version $Id$
 ///
-// »missingDescription«
+// Factory for building geometry objects (gui version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -48,17 +48,17 @@
 // method definitions
 // ===========================================================================
 GUIGeomShapeBuilder::GUIGeomShapeBuilder(MSNet &net,
-        GUIGlObjectStorage &idStorage)
+        GUIGlObjectStorage &idStorage) throw()
         : NLGeomShapeBuilder(net), myIdStorage(idStorage)
 {}
 
 
-GUIGeomShapeBuilder::~GUIGeomShapeBuilder()
+GUIGeomShapeBuilder::~GUIGeomShapeBuilder() throw()
 {}
 
 
 void
-GUIGeomShapeBuilder::polygonEnd(const Position2DVector &shape)
+GUIGeomShapeBuilder::polygonEnd(const Position2DVector &shape) throw(InvalidArgument)
 {
     GUIPolygon2D *p =
         new GUIPolygon2D(myIdStorage, myCurrentLayer, myCurrentName, myCurrentType,
@@ -69,13 +69,12 @@ GUIGeomShapeBuilder::polygonEnd(const Position2DVector &shape)
     }
 }
 
+
 void
-GUIGeomShapeBuilder::addPoint(const std::string &name,
-                              int layer,
-                              const std::string &type,
-                              const RGBColor &c,
+GUIGeomShapeBuilder::addPoint(const std::string &name, int layer,
+                              const std::string &type, const RGBColor &c,
                               SUMOReal x, SUMOReal y,
-                              const std::string &lane, SUMOReal posOnLane)
+                              const std::string &lane, SUMOReal posOnLane) throw(InvalidArgument)
 {
     Position2D pos = getPointPosition(x, y, lane, posOnLane);
     GUIPointOfInterest *p = new GUIPointOfInterest(myIdStorage, layer, name, type, pos, c);

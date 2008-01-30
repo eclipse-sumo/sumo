@@ -4,7 +4,7 @@
 /// @date    Mon, 1 Jul 2003
 /// @version $Id$
 ///
-// A MSJunctionControlBuilder that builds GUIJunctions instead of MSJunctions
+// Builder of guisim-junctions and tls
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -45,31 +45,70 @@ class Position2DVector;
 // ===========================================================================
 /**
  * @class GUIJunctionControlBuilder
- * A class that build junctions with their graphical representation
+ * @brief Builder of guisim-junctions and tls
+ *
+ * @see NLJunctionControlBuilder
  */
 class GUIJunctionControlBuilder
             : public NLJunctionControlBuilder
 {
 public:
-    /// Constructor
-    GUIJunctionControlBuilder(MSNet &net, OptionsCont &oc);
+    /** @brief Constructor
+     * @param[in] net The network to fill
+     * @param[in] oc The options to use
+     * @todo Why are options not const?
+     */
+    GUIJunctionControlBuilder(MSNet &net, OptionsCont &oc) throw();
 
-    /// Destructor
-    ~GUIJunctionControlBuilder();
 
-    /// Stores temporary the information about the current junction's shape
-    void addJunctionShape(const Position2DVector &shape);
+    /** @brief Destructor
+     */
+    ~GUIJunctionControlBuilder() throw();
+
+
+    /** @brief Stores the information about the current junction's shape
+     *
+     * @param[in] shape The shape of the current junction
+     */
+    void addJunctionShape(const Position2DVector &shape) throw();
+
 
 protected:
-    /** builds a junction that does not use a logic */
-    virtual MSJunction *buildNoLogicJunction();
+    /// @name Factory methods, overwrite NLJunctionControlBuilder methods
+    /// @{
+    /** @brief Builds a junction that does not use a logic
+     * 
+     * Builds a GUINoLogicJunction
+     * 
+     * @return The built junction
+     */
+    virtual MSJunction *buildNoLogicJunction() throw();
 
-    /** builds a junction with a logic */
-    virtual MSJunction *buildLogicJunction();
+
+    /** @brief Builds a junction with a logic
+     * 
+     * Builds a GUIRightOfWayJunction. Throws an exception if the logic was not built
+     *  (see getJunctionLogicSecure).
+     * 
+     * @return The built junction
+     * @exception InvalidArgument If the logic of the junction was not built before
+     */
+    virtual MSJunction *buildLogicJunction() throw(InvalidArgument);
+    /// @}
+
 
 private:
-    /// The shape of the current junction
+    /// @brief The shape of the current junction
     Position2DVector myShape;
+
+
+private:
+    /** @brief invalid copy operator */
+    GUIJunctionControlBuilder(const GUIJunctionControlBuilder &s);
+
+    /** @brief invalid assignment operator */
+    GUIJunctionControlBuilder &operator=(const GUIJunctionControlBuilder &s);
+
 
 };
 

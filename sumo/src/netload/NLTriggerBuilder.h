@@ -4,7 +4,7 @@
 /// @date    Thu, 17 Oct 2002
 /// @version $Id$
 ///
-// A building helper for triggers
+// Builds trigger objects for microsim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -47,11 +47,8 @@ class MSLane;
 class MSEdge;
 class MSBusStop;
 class MSE1VehicleActor;
-
-#ifdef ONLINE_CALIBRATION
 class MSCalibrator;
 class MSVTypeProbe;
-#endif //ONLINE_CALIBRATION
 
 #ifdef HAVE_MESOSIM
 class METriggeredCalibrator;
@@ -65,21 +62,48 @@ class METriggeredScaler;
 // ===========================================================================
 /**
  * @class NLTriggerBuilder
- * This class builds trigger objects in their non-gui version
+ * @brief Builds trigger objects for microsim
+ *
+ * Called on the occurence of a "trigger"-element, "buildTrigger" parses what
+ *  kind of a trigger object shall be built and calls an appropriate parsing 
+ *  and building method.
+ *
+ * This parsing/building method retrieves the parameter needed to build the trigger,
+ *  checks them, and, if they are ok, calls the appropriate building method.
+ *
+ * The building methods may be overridden, to build guisim-instances of the triggers,
+ *  for example.
+ *
  */
 class NLTriggerBuilder
 {
 public:
-    /// Constructor
-    NLTriggerBuilder();
+    /// @brief Constructor
+    NLTriggerBuilder() throw();
 
-    /// Destructor
-    virtual ~NLTriggerBuilder();
+
+    /// @brief Destructor
+    virtual ~NLTriggerBuilder() throw();
+
 
     /** @brief builds the specified trigger
-        The certain type and purpose of the trigger is not yet known */
+     *
+     * Determines the type of the trigger to build using a combination 
+     *  of "objecttype" and "attr" - attributes from the supplied attributes, first.
+     *
+     * Build the proper trigger using protected member helper methods.
+     *
+     * @param[in] net The network the trigger shall belong to
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @param[in] base The base path
+     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
+     * @return The built trigger
+     * @exception InvalidArgument If a parameter is not valid
+     * @todo Recheck behaviour if the "objecttype" attribute is not supported or one of the asked parameter is meaningless
+     * @todo Recheck usage of the helper class
+     */
     MSTrigger *buildTrigger(MSNet &net, const Attributes &attrs,
-                            const std::string &base, const NLHandler &helper);
+                            const std::string &base, const NLHandler &helper) throw(InvalidArgument);
 
 protected:
     /// @name parsing methods
@@ -87,139 +111,348 @@ protected:
     /// These methods parse the attributes for each of the described trigger
     ///  and call the according methods to build the trigger
     //@{
-    /// builds a lane speed trigger
+    /** @brief Parses his values and builds a lane speed trigger
+     *
+     * @param[in] net The network the lane speed trigger belongs to
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @param[in] base The base path
+     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
+     * @return The built lane speed trigger
+     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     */
     MSLaneSpeedTrigger *parseAndBuildLaneSpeedTrigger(MSNet &net,
             const Attributes &attrs, const std::string &base,
-            const NLHandler &helper);
+            const NLHandler &helper) throw(InvalidArgument);
 
-    /// builds an emitter
+
+    /** @brief Parses his values and builds an emitter
+     *
+     * @param[in] net The network the emitter belongs to
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @param[in] base The base path
+     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
+     * @return The built emitter
+     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     */
     MSEmitter *parseAndBuildLaneEmitTrigger(MSNet &net,
-                                            const Attributes &attrs, const std::string &base,
-                                            const NLHandler &helper);
+        const Attributes &attrs, const std::string &base, const NLHandler &helper) throw(InvalidArgument);
 
-    /// builds a rerouter
+
+    /** @brief Parses his values and builds a rerouter
+     *
+     * @param[in] net The network the rerouter belongs to
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @param[in] base The base path
+     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
+     * @return The built rerouter
+     * @exception InvalidArgument If a parameter (edge) is not valid
+     */
     MSTriggeredRerouter *parseAndBuildRerouter(MSNet &net,
             const Attributes &attrs, const std::string &base,
-            const NLHandler &helper);
+            const NLHandler &helper) throw(InvalidArgument);
 
-    /// builds a busstop
+
+    /** @brief Parses his values and builds a bus stop
+     *
+     * @param[in] net The network the bus stop belongs to
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
+     * @return The built bus stop
+     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     */
     MSBusStop *parseAndBuildBusStop(MSNet &net,
-                                    const Attributes &attrs, const std::string &base,
-                                    const NLHandler &helper);
+                                    const Attributes &attrs, 
+                                    const NLHandler &helper) throw(InvalidArgument);
 
-    /// builds a vehicle actor
+
+    /** @brief Parses his values and builds a vehicle actor
+     *
+     * @param[in] net The network the vehicle actor belongs to
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
+     * @return The built vehicle actor
+     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     */
     MSE1VehicleActor *parseAndBuildVehicleActor(MSNet &net,
-            const Attributes &attrs, const std::string &base,
-            const NLHandler &helper);
+            const Attributes &attrs, 
+            const NLHandler &helper) throw(InvalidArgument);
 
-#ifdef ONLINE_CALIBRATION
-    /// builds a calibrator for online simulation
+
+    /** @brief Parses his values and builds a microscopic calibrator for online simulation
+     *
+     * @param[in] net The network the calibrator belongs to
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @param[in] base The base path
+     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
+     * @return The built calibrator
+     * @exception InvalidArgument If a parameter is not valid
+     */
     MSCalibrator *parseAndBuildCalibrator(MSNet &net,
-                                          const Attributes &attrs, const std::string &base,
-                                          const NLHandler &helper);
+        const Attributes &attrs, const std::string &base,
+        const NLHandler &helper) throw(InvalidArgument);
 
-    /// builds a vehicle type probe
-    MSVTypeProbe * parseAndBuildVTypeProbe(MSNet &net,
-                                           const Attributes &attrs, const std::string &base,
-                                           const NLHandler &helper);
-#endif //ONLINE_CALIBRATION
+
+    /** @brief Parses his values and builds a vehicle type probe
+     *
+     * @param[in] net The network the vehicle type probe belongs to
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @param[in] base The base path
+     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
+     * @return The built vehicle type probe
+     * @exception InvalidArgument If a parameter is not valid
+     */
+    MSVTypeProbe *parseAndBuildVTypeProbe(MSNet &net,
+        const Attributes &attrs, const std::string &base, const NLHandler &helper) throw(InvalidArgument);
+
 
 #ifdef HAVE_MESOSIM
-    /// Builds a mesoscopic calibrator
+    /** @brief Parses his values and builds a mesoscopic calibrator
+     *
+     * @param[in] net The network the calibrator belongs to
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @param[in] base The base path
+     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
+     * @return The built calibrator
+     * @exception InvalidArgument If a parameter (edge/position) is not valid
+     */
     METriggeredCalibrator *parseAndBuildCalibrator(MSNet &net,
             const Attributes &attrs, const std::string &base,
-            const NLHandler &helper);
+            const NLHandler &helper) throw(InvalidArgument);
 
-    /// Builds a mesoscopic scaler
+
+    /** @brief Parses his values and builds a mesoscopic flow scaler
+     *
+     * @param[in] net The network the flow scaler belongs to
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
+     * @return The built flow scaler
+     * @exception InvalidArgument If a parameter (edge/position) is not valid
+     */
     METriggeredScaler *parseAndBuildScaler(MSNet &net,
-                                           const Attributes &attrs, const std::string &base,
-                                           const NLHandler &helper);
+        const Attributes &attrs, 
+        const NLHandler &helper) throw(InvalidArgument);
 #endif
     //@}
+
 
 protected:
     /// @name building methods
     ///
     /// Called with parsed values, these methods build the trigger.
+    /// 
     /// These methods should be overriden for the gui loader in order
-    ///  to build visualizable versions of the triggers
+    ///  to build visualizable versions of the triggers.
+    ///
     /// In most cases, these methods only call the constructor and
-    ///  return the so build trigger
+    ///  return the so build trigger.
     //@{
-    /// builds a lane speed trigger
+    /** @brief Builds a lane speed trigger
+     *
+     * Simply calls the MSLaneSpeedTrigger constructor. 
+     *
+     * @param[in] net The net the lane speed trigger belongs to
+     * @param[in] id The id of the lane speed trigger
+     * @param[in] destLanes List of lanes affected by this speed trigger
+     * @param[in] file Name of the file to read the speeds to set from
+     * @return The built lane speed trigger
+     */
     virtual MSLaneSpeedTrigger *buildLaneSpeedTrigger(MSNet &net,
             const std::string &id, const std::vector<MSLane*> &destLanes,
-            const std::string &file);
+            const std::string &file) throw();
 
-    /// builds an emitter
+
+    /** @brief Builds an emitter
+     *
+     * Simply calls the MSEmitter constructor. 
+     *
+     * @param[in] net The net the emitter belongs to
+     * @param[in] id The id of the emitter
+     * @param[in] destLane The lane the emitter is placed on
+     * @param[in] pos Position of the emitter on the given lane
+     * @param[in] file Name of the file to read the emission definitions from
+     * @return The built emitter
+     */
     virtual MSEmitter *buildLaneEmitTrigger(MSNet &net,
-                                            const std::string &id, MSLane *destLane, SUMOReal pos,
-                                            const std::string &file);
+        const std::string &id, MSLane *destLane, SUMOReal pos,
+        const std::string &file) throw();
 
-    /// builds a bus stop
+
+    /** @brief Builds a bus stop
+     *
+     * Simply calls the MSBusStop constructor. 
+     *
+     * @param[in] net The net the bus stop belongs to
+     * @param[in] id The id of the bus stop
+     * @param[in] lines Names of the bus lines that halt on this bus stop
+     * @param[in] lane The lane the bus stop is placed on
+     * @param[in] frompos Begin position of the bus stop on the lane
+     * @param[in] topos End position of the bus stop on the lane
+     * @return The built bus stop
+     */
     virtual MSBusStop* buildBusStop(MSNet &net,
-                                    const std::string &id, const std::vector<std::string> &lines,
-                                    MSLane *lane, SUMOReal frompos, SUMOReal topos);
+        const std::string &id, const std::vector<std::string> &lines,
+        MSLane *lane, SUMOReal frompos, SUMOReal topos) throw();
 
-#ifdef ONLINE_CALIBRATION
-    /// builds a calibrator for online simulation
+
+    /** @brief builds a calibrator for online simulation
+     *
+     * Simply calls the MSCalibrator constructor. 
+     *
+     * @param[in] net The net the calibrator belongs to
+     * @param[in] id The id of the calibrator
+     * @param[in] destLane The lane the calibrator is placed on
+     * @param[in] pos Position of the calibrator on the given lane
+     * @param[in] file Name of the file to read the calibration definitions from
+     * @return The built calibrator
+     * @todo Recheck and describe parameter
+     */
     virtual MSCalibrator *buildLaneCalibrator(MSNet &net,
             const std::string &id, MSLane *destLane, SUMOReal pos,
-            const std::string &file);
+            const std::string &file) throw();
 
-    /// builds a vehicle type probe
+
+    /** @brief builds a vehicle type probe
+     *
+     * Simply calls the MSVTypeProbe constructor. 
+     *
+     * @param[in] net The net the vehicle type probe belongs to
+     * @param[in] id The id of the vehicle type probe
+     * @param[in] file Name of the file to read the definitions from
+     * @param[in] vType !!!describe
+     * @param[in] freq !!!describe
+     * @return The built vehicle prob
+     * @todo Recheck and describe parameter
+     */
     virtual MSVTypeProbe *buildVTypeProbe(MSNet &net,
-                                          const std::string &id, const std::string &file,
-                                          const std::string &vType, int freq);
-#endif //ONLINE_CALIBRATION
+        const std::string &id, const std::string &file,
+        const std::string &vType, int freq) throw();
+
 
 #ifdef HAVE_MESOSIM
-    /// builds a calibrator
+    /** @brief builds a mesoscopic calibrator
+     *
+     * Simply calls the METriggeredCalibrator constructor. 
+     *
+     * @param[in] net The net the calibrator belongs to
+     * @param[in] id The id of the calibrator
+     * @param[in] edge The edge the calibrator is placed at
+     * @param[in] pos The position on the edge the calibrator lies at
+     * @param[in] rfile The file to read routes from
+     * @param[in] file The file to read the flows from
+     * @return The built mesoscopic calibrator
+     * @todo Is the position correct/needed
+     * @todo Is the route file still necessary?
+     */
     virtual METriggeredCalibrator *buildCalibrator(MSNet &net,
             const std::string &id, MESegment *edge, SUMOReal pos,
-            const std::string &rfile, const std::string &file);
+            const std::string &rfile, const std::string &file) throw();
 
-    /// builds a scaler
+    /** @brief builds a scaler
+     *
+     * Simply calls the METriggeredScaler constructor. 
+     *
+     * @param[in] net The net the scaler belongs to
+     * @param[in] id The id of the scaler
+     * @param[in] edge The edge the scaler is placed at
+     * @param[in] pos The position on the edge the scaler lies at
+     * @param[in] scale The scaling amount
+     * @return The built mesoscopic scaler
+     * @todo Is the position correct/needed
+     * @todo Is the route file still necessary?
+     */
     virtual METriggeredScaler *buildScaler(MSNet &net,
-                                           const std::string &id, MESegment *edge, SUMOReal pos,
-                                           SUMOReal scale);
+        const std::string &id, MESegment *edge, SUMOReal pos,
+        SUMOReal scale) throw();
 #endif
 
-    /// builds an emitter
+
+    /** @brief builds an rerouter
+     *
+     * Simply calls the MSTriggeredRerouter constructor. 
+     *
+     * @param[in] net The net the rerouter belongs to
+     * @param[in] id The id of the rerouter
+     * @param[in] edges The edges the rerouter is placed at
+     * @param[in] prob The probability the rerouter reoutes vehicles with
+     * @param[in] file The file to read the reroute definitions from
+     * @return The built rerouter
+     */
     virtual MSTriggeredRerouter *buildRerouter(MSNet &net,
             const std::string &id, std::vector<MSEdge*> &edges,
-            SUMOReal prob, const std::string &file);
+            SUMOReal prob, const std::string &file) throw();
 
-    /// builds a vehicle actor
+
+    /** @brief builds a vehicle actor
+     *
+     * Simply calls the MSE1VehicleActor constructor. 
+     *
+     * @param[in] net The net the actor belongs to
+     * @param[in] id The id of the actor
+     * @param[in] edges The edges the rerouter is placed at
+     * @param[in] prob The probability the rerouter reoutes vehicles with
+     * @param[in] file The file to read the reroute definitions from
+     * @return The built vehicle actor
+     * @todo Recheck usage of TOL-actors
+     */
     virtual MSE1VehicleActor *buildVehicleActor(MSNet &net,
             const std::string &id, MSLane *lane, SUMOReal pos,
-            unsigned int la, unsigned int cell, unsigned int type);
+            unsigned int la, unsigned int cell, unsigned int type) throw();
     //@}
 
-protected:
-    /// Helper method to obtain the filename
-    std::string getFileName(const Attributes &attrs,
-                            const std::string &base, const NLHandler &helper);
 
-    /** @brief returns the lane defined by objectid
+protected:
+    /// @name helper method for obtaining and checking values
+    /// @{
+    /** @brief Helper method to obtain the filename
      *
-     * Writes an error and throws a ProcessException if the lane does not exist.
-     * The last strings given as parameter define the object type and id for
-     *  building the error string.
+     * Retrieves "file" from attributes, checks whether it is absolute
+     *  and extends it by the given base path if not. Returns this 
+     *  information.
+     *
+     * @param[in] attrs The attributes to obtain the file name from
+     * @param[in] base The base path (the path the loaded additional file lies in)
+     * @param[in] helper Helper class used to get typed values from atributes
+     * @return The (expanded) path to the named file
+     * @todo Recheck usage of the helper class
+     */
+    std::string getFileName(const Attributes &attrs,
+                            const std::string &base, const NLHandler &helper) throw();
+
+
+    /** @brief Returns the lane defined by objectid
+     *
+     * Retrieves the lane id from the given attrs. Tries to retrieve the lane,
+     *  throws an InvalidArgument if it does not exist.
+     *
+     * @param[in] attrs The attributes to obtain the lane id from
+     * @param[in] helper Helper class used to get typed values from atributes
+     * @param[in] tt The trigger type (for user output)
+     * @param[in] tid The trigger id (for user output)
+     * @return The named lane if it is known
+     * @exception InvalidArgument If the named lane does not exist or a lane is not named
      */
     MSLane *getLane(const Attributes &attrs, const NLHandler &helper,
-                    const std::string &tt, const std::string &tid);
+                    const std::string &tt, const std::string &tid) throw(InvalidArgument);
+
 
     /** @brief returns the position on the lane checking it
      *
      * This method extracts the position, checks whether it shall be mirrored
      *  and checks whether it is within the lane. If not, an error is reported
      *  and a InvalidArgument is thrown.
-     * The last strings given as parameter define the object type and id for
-     *  building the error string.
+     *
+     * @param[in] attrs The attributes to obtain the position from
+     * @param[in] helper Helper class used to get typed values from atributes
+     * @param[in] lane The lane the position shall be valid for
+     * @param[in] tt The trigger type (for user output)
+     * @param[in] tid The trigger id (for user output)
+     * @return The position on the lane
+     * @exception InvalidArgument If the position is beyond the lane
      */
     SUMOReal getPosition(const Attributes &attrs, const NLHandler &helper,
-                         MSLane *lane, const std::string &tt, const std::string &tid);
+                         MSLane *lane, const std::string &tt, const std::string &tid) throw(InvalidArgument);
+    /// @}
+
 
 };
 

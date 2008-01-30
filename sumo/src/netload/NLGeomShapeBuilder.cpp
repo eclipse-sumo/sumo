@@ -4,7 +4,7 @@
 /// @date    Sep 2005
 /// @version $Id$
 ///
-// }
+// Factory for building geometry objects
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -54,12 +54,12 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NLGeomShapeBuilder::NLGeomShapeBuilder(MSNet &net)
+NLGeomShapeBuilder::NLGeomShapeBuilder(MSNet &net) throw()
         : myShapeContainer(net.getShapeContainer())
 {}
 
 
-NLGeomShapeBuilder::~NLGeomShapeBuilder()
+NLGeomShapeBuilder::~NLGeomShapeBuilder() throw()
 {}
 
 
@@ -68,7 +68,7 @@ NLGeomShapeBuilder::polygonBegin(const std::string &name,
                                  int layer,
                                  const std::string &type,
                                  const RGBColor &c,
-                                 bool fill)
+                                 bool fill) throw()
 {
     myCurrentName = name;
     myCurrentType = type;
@@ -79,7 +79,7 @@ NLGeomShapeBuilder::polygonBegin(const std::string &name,
 
 
 void
-NLGeomShapeBuilder::polygonEnd(const Position2DVector &shape)
+NLGeomShapeBuilder::polygonEnd(const Position2DVector &shape) throw(InvalidArgument)
 {
     Polygon2D *p =
         new Polygon2D(myCurrentName, myCurrentType, myCurrentColor, shape, myFillPoly);
@@ -96,7 +96,7 @@ NLGeomShapeBuilder::addPoint(const std::string &name,
                              const std::string &type,
                              const RGBColor &c,
                              SUMOReal x, SUMOReal y,
-                             const std::string &lane, SUMOReal posOnLane)
+                             const std::string &lane, SUMOReal posOnLane) throw(InvalidArgument)
 {
     Position2D pos = getPointPosition(x, y, lane, posOnLane);
     PointOfInterest *p = new PointOfInterest(name, type, pos, c);
@@ -110,7 +110,7 @@ NLGeomShapeBuilder::addPoint(const std::string &name,
 Position2D
 NLGeomShapeBuilder::getPointPosition(SUMOReal x, SUMOReal y,
                                      const std::string &laneID,
-                                     SUMOReal posOnLane) const
+                                     SUMOReal posOnLane) const throw(InvalidArgument)
 {
     if (x!=INVALID_POSITION&&y!=INVALID_POSITION) {
         return Position2D(x,y);

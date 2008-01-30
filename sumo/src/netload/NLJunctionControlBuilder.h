@@ -4,7 +4,7 @@
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
-// Container for MSJunctionControl-structures during
+// Builder of microsim-junctions and tls
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -55,272 +55,566 @@ class MSEdgeContinuations;
 // ===========================================================================
 /**
  * @class NLJunctionControlBuilder
- * NLJunctionControlBuilder is a factory for MSJunction-instances while
- * their building until they are transfered into a MSJunctionControl-instance
- * at last.
- * To avoid memory fraction, the list of the MSJunction-instances is
- * preallocated to the counted number of MSJunctions int he XML-file.
- * The result is a MSJunctionControl-instance holding the parsed MSJunction-
- * -instances.
+ * @brief Builder of microsim-junctions and tls
+ *
+ * NLJunctionControlBuilder is a factory for MSJunction, MSJunctionLogic, WAUT,
+ *  and MSTRafficLightLogic-instances.
+ *
+ * @todo Refactor this class - it's too large
+ * @todo Resort method by one of the topics.
  */
 class NLJunctionControlBuilder
 {
 private:
-    /// Definition of a lane vector
+    /// @brief Definition of a lane vector
     typedef std::vector<MSLane*> LaneVector;
 
 public:
-    /// standard constructor
-    NLJunctionControlBuilder(MSNet &net, OptionsCont &oc);
+    /** @brief Constructor
+     *
+     * Stores default values for extended tls reading them from the given 
+     *  options. Builds a MSTLLogicControl instance for myLogicControl.
+     *
+     * @param[in] net The network to fill
+     * @param[in] oc The options to use
+     * @todo Why are options not const?
+     */
+    NLJunctionControlBuilder(MSNet &net, OptionsCont &oc) throw();
 
-    /// Destructor
-    virtual ~NLJunctionControlBuilder();
 
-    /// preallocates space for the found number of junctions
-    void prepare(unsigned int no);
+    /** @brief Destructor
+     *
+     * Deletes previously allocated "myLogicControl" and "myJunctions" if
+     *  they were not previously returned (this may happen if an error occured).
+     */
+    virtual ~NLJunctionControlBuilder() throw();
 
-    /// begins the processing of the named junction
+
+    /** @brief Preallocates space for the found number of junctions
+     * 
+     * unused!
+     * @param[in] no The number of junctions within the net
+     * @todo This method is completely useless; the built structure does not take the parameter, may be built in the constructor
+     */
+    void prepare(unsigned int no) throw();
+
+
+    /** @brief Begins the processing of the named junction
+     *
+     * @param[in] id The ID of the junction
+     * @param[in] key unused?!
+     * @param[in] type The type of the junction
+     * @param[in] x x-position of the junction
+     * @param[in] y y-position of the junction
+     * @exception InvalidArgument If the junction type is not known
+     * @todo Check why "key" is given
+     */
     void openJunction(const std::string &id, const std::string &key,
-                      const std::string &type, SUMOReal x, SUMOReal y);
+                      const std::string &type, SUMOReal x, SUMOReal y) throw(InvalidArgument);
 
-    /// Adds an incoming lane to the previously chosen junction
-    void addIncomingLane(MSLane *lane);
+
+    /** @brief Adds an incoming lane to the previously chosen junction
+     *
+     * @param[in] lane The lane to add to the junction as being an incoming lane
+     */
+    void addIncomingLane(MSLane *lane) throw();
+
 
 #ifdef HAVE_INTERNAL_LANES
-    /// Adds an internal lane to the previously chosen junction
-    void addInternalLane(MSLane *lane);
+    /** @brief Adds an internal lane to the previously chosen junction
+     *
+     * @param[in] lane The lane to add to the junction as being an internal lane
+     */
+    void addInternalLane(MSLane *lane) throw();
 #endif
 
-    /** @brief Closes (ends) the processing of the current junction;
-        This method may throw a ProcessError when a junction
-        with the same id as the current was already added */
-    void closeJunction();
 
-    /** Builds the MSJunctionControl which holds all of the simulations
-        junctions */
-    MSJunctionControl *build() const;
+    /** @brief Closes (ends) the processing of the current junction
+     *
+     * This method throws an InvalidArgument when a junction with the same id 
+     *  as the current was already added or if the junction type stored in "myType"
+     *  is invalid. It throws a ProcessError if the container to store the
+     *  junction in was not built before.
+     *
+     * @exception InvalidArgument If the current id is already used or the junction type was invalid
+     * @exception ProcessError If the container to store the junction in was not built before
+     * @todo Throwing ProcessError would get unneeded if the container would be built by default (see prepare)
+     * @todo The type of the junctions shoould probably be checked when supprted (in openJunction)
+     */
+    void closeJunction() throw(InvalidArgument, ProcessError);
 
-    /** Returns the current inlane - container */
-    const LaneVector &getIncomingLanes() const;
 
-    /// clears the inlanes-container
-    void initIncomingLanes();
+    /** @brief Builds the MSJunctionControl which holds all of the simulations junctions 
+     *
+     * Returns the previously built junction control ("myJunctions"). "myJunctions" is
+     *  set to 0, so that it will not be destroyed by the destructor.
+     *
+     * @return The built junction control
+     */
+    MSJunctionControl *build() const throw();
 
-    /// initialises a junction logic
-    void initJunctionLogic();
 
-    /// adds a logic item
+    /** @brief Clears the inlanes-container
+     *
+     * @todo It seems as the container would be used in several ways; Recheck!
+     */
+    void initIncomingLanes() throw();
+
+    
+    /** @brief Initialises a junction logic
+     *
+     * Resets all internal values that describe a junction logic to allow resetting them from
+     *  read values.
+     */
+    void initJunctionLogic() throw();
+
+
+    /** @brief Adds a logic item
+     *
+     * Adds a logic item to the current processed logic. Throws an InvalidArgument
+     *  if the current request size (myRequestSize) is 0 or lower.
+     *
+     * @param[in] request The request (~link) index
+     * @param[in] response The response (list of higher priorised links)
+     * @param[in] foes List of foes to the request
+     * @param[in] cont Whether the request is followed by an internal end
+     * @todo Recheck "cont"; is the description correct?
+     */
     void addLogicItem(int request, const std::string &response,
-                      const std::string &foes, bool cont);
+                      const std::string &foes, bool cont) throw(InvalidArgument);
 
-    /// begins the reading of a traffic lights logic
+
+    /** @brief Begins the reading of a traffic lights logic
+     *
+     * Resets all internal values that describe a traffic lights logic to allow
+     *  resetting them from read values.
+     *
+     * @param[in] type The type of the tls 
+     * @param[in] absDuration The absolute duration (cycle time)
+     * @param[in] requestSize The size of the tls request 
+     * @param[in] detectorOffset The offset of the detectors to build
+     * @todo Why is the type not verified?
+     * @todo Recheck, describe usage of absDuration (where does the information come from?)
+     * @todo Recheck, describe usage of requestSize (where does the information come from?)
+     * @todo Recheck, describe usage of detectorOffset (where does the information come from?)
+     * @todo detectorOffset is used only by one junction type. Is it not possible, to remove this from the call?
+     */
     void initTrafficLightLogic(const std::string &type,
-                               size_t absDuration, int requestSize, SUMOReal detectorOffset);
+                               size_t absDuration, int requestSize, 
+                               SUMOReal detectorOffset) throw();
 
-    /// adds a phase to the traffic lights logic currently build
+
+    /** @brief Adds a phase to the currently built traffic lights logic
+     *
+     * @param[in] duration The duration of the phase
+     * @param[in] phase The green lights definition of the phase
+     * @param[in] prios The priority (halting) definition of the phase
+     * @param[in] yellow The yellow lights definition of the phase
+     * @param[in] min The minimum duration of the phase
+     * @param[in] max The maximum duration of the phase
+     * @todo min/max is used only by one junction type. Recheck
+     * @todo min/max: maybe only one type of a phase definition should be built
+     * @todo Check why the duration is not SUMOTime
+     */
     void addPhase(size_t duration, const std::bitset<64> &phase,
                   const std::bitset<64> &prios, const std::bitset<64> &yellow,
-                  int min, int max);
+                  int min, int max) throw();
 
-    /// Sets the size of the request
-    void setRequestSize(int size);
 
-    /// Sets the lane number the parsed logic will be responsible for
-    void setLaneNumber(int size);
+    /** @brief Sets the size of the request
+     *
+     * @param[in] size The size of the request
+     * @todo Where does this information come from?
+     */
+    void setRequestSize(int size) throw();
 
-    /// Set the key of the logic
-    void setKey(const std::string &key);
 
-    /// Set the subkey of the logic
-    void setSubKey(const std::string &key);
+    /** @brief Sets the lane number the parsed logic will be responsible for
+     *
+     * @param[in] size The number of lanes controlled by the junction
+     * @todo This information is not used anymore!
+     */
+    void setLaneNumber(int size) throw();
 
-    /// Set the offset with which the logic shall start
-    void setOffset(int val);
 
-    /// Returns a previously build logic
-    const MSTLLogicControl::TLSLogicVariants &getTLLogic(const std::string &id) const throw(InvalidArgument);
+    /** @brief Set the key of the logic
+     *
+     * @param[in] key The key of the logic
+     */
+    void setKey(const std::string &key) throw();
 
-    /// Returns the complete tls-logic control
-    MSTLLogicControl *buildTLLogics() const;
 
-    /// ends the building of a traffic lights logic
-    virtual void closeTrafficLightLogic();
+    /** @brief Set the subkey of the logic
+     *
+     * @param[in] subkey The subkey of the logic
+     */
+    void setSubKey(const std::string &subkey) throw();
 
-    /// ends the building of a junction logic (row-logic)
-    void closeJunctionLogic();
 
-    /// closes the building of the junction control
+    /** @brief Set the offset with which the logic shall start
+     *
+     * @param[in] val The offset with which the logic shall start
+     * @todo Check why the offset is not SUMOTime
+     */
+    void setOffset(int val) throw();
+
+
+    /** @brief Returns a previously build tls logic
+     *
+     * @param[in] id The ID of the tls logic to return
+     * @return The named logic
+     * @exception InvalidArgument If the named tls logic was not built before
+     */
+    const MSTLLogicControl::TLSLogicVariants &getTLLogic(const std::string &id) 
+        const throw(InvalidArgument);
+
+
+    /** @brief Returns the built tls-logic control
+     *
+     * Returns the previously built junction control ("myLogicControl"). "myLogicControl" is
+     *  set to 0, so that it will not be destroyed by the destructor.
+     *
+     * @return The built tls-logic control
+     */
+    MSTLLogicControl *buildTLLogics() const throw();
+
+
+    /** @brief Ends the building of a traffic lights logic
+     *
+     * Builds the correct type of a MSTrafficLightLogic using the stored information.
+     *  Tries to add it to the used tls control. Throws an InvalidArgument if 
+     *  this is not possible (another tls logic with the same name exists).
+     * 
+     * @exception InvalidArgument If another tls logic with the same name as the currently built was loaded before
+     */
+    virtual void closeTrafficLightLogic() throw(InvalidArgument);
+
+
+    /** @brief Ends the building of a junction logic (row-logic)
+     *
+     * Rechecks values for the request and builds a MSJunctionLogic using these values.
+     *  Throws and InvalidArgument if the values are invalid (error message is
+     *  included). 
+     * Tries to add the built logic to the internal container "myLogics". If another
+     *  logic with the same id exists, an InvalidArgument is thrown.
+     *
+     * @exception InvalidArgument If the logic's values are false or another logic with the same id was built before
+     */
+    void closeJunctionLogic() throw(InvalidArgument);
+
+
+    /** @brief Closes the building of the junction control
+     *
+     * Sets loaded junction parameter into all tls logics.
+     *
+     * @param[in] db The detector builder to use (unused!)
+     * @param[in] edgeContinuations Edge continuations to use (unused!)
+     * @todo Really nasty! Both parameter are not used herein.
+     * @todo Where do extended tl build their detectors, what value are set herein?
+     * @todo May the called method throw something?
+     */
     void closeJunctions(NLDetectorBuilder &db,
-                        const MSEdgeContinuations &edgeContinuations);
+                        const MSEdgeContinuations &edgeContinuations) throw();
 
-    void addParam(const std::string &key, const std::string &value);
 
-    void addWAUT(SUMOTime refTime, const std::string &id, const std::string &startProg);
-    void addWAUTSwitch(const std::string &wautid, SUMOTime when, const std::string &to);
-    void addWAUTJunction(const std::string &wautid, const std::string &junc,
-                         const std::string &proc, bool synchron);
+    /** @brief Adds a parameter
+     *
+     * @param[in] key The key of the parameter
+     * @param[in] value The value of the parameter
+     * @todo Where are these parameter used? Describe!
+     * @todo Can a parameter be overwritten?
+     */
+    void addParam(const std::string &key, const std::string &value) throw();
 
-    const std::string &getActiveID() const;
-    const std::string &getActiveKey() const;
-    const std::string &getActiveSubKey() const;
+
+    /** @brief Adds a WAUT definition
+     *
+     * Passes the values directly to the used tls control. This throws an InvalidArgument
+     *  if the given id is already in use.
+     *
+     * @param[in] refTime The reference time of the WAUT
+     * @param[in] id The ID of the WAUT
+     * @param[in] startProg The begin program of the WAUT
+     * @exception InvalidArgument If the id is already used by another WAUT
+     */
+    void addWAUT(SUMOTime refTime, const std::string &id, 
+        const std::string &startProg) throw(InvalidArgument);
+
+
+    /** @brief Adds a WAUT switch step to a previously built WAUT
+     *
+     * Passes the values directly to the used tls control. This throws an InvalidArgument
+     *  if the given WAUT id is not known.
+     *
+     * @param[in] wautid The ID of the WAUT
+     * @param[in] when The switch procedure begin
+     * @param[in] to The program the WAUT shall start to switch to at the given time
+     * @exception InvalidArgument If the named WAUT is not known
+     */
+    void addWAUTSwitch(const std::string &wautid, SUMOTime when, 
+        const std::string &to) throw(InvalidArgument);
+
+
+    /** @brief Adds a tls to the list of tls to be switched by the named WAUT
+     *
+     * Passes the values directly to the used tls control. This throws an InvalidArgument
+     *  if the given WAUT id or the given junction id is not known.
+     *
+     * @param[in] wautid The ID of the WAUT
+     * @param[in] tls The id of the tls to be switched
+     * @param[in] proc The switching procedure to use
+     * @param[in] synchron Whether the switching shall be done in synchron mode
+     * @exception InvalidArgument If the named WAUT or the named tls are not known
+     */
+    void addWAUTJunction(const std::string &wautid, const std::string &tls,
+                         const std::string &proc, bool synchron) throw(InvalidArgument);
+
+
+    /** @brief Returns the active name
+     * @return The active id
+     */
+    const std::string &getActiveID() const throw();
+
+
+    /** @brief Returns the active key
+     * @return The active key
+     */
+    const std::string &getActiveKey() const throw();
+
+
+    /** @brief Returns the active sub key
+     * @return The active sub key
+     */
+    const std::string &getActiveSubKey() const throw();
+
 
 protected:
-    /** @brief adds an information about the initialisation of a tls
-        The initialisation is done during the closing of junctions */
-    void addJunctionInitInfo(MSTrafficLightLogic *key);
+    /** @brief Adds an information about the initialisation of a tls
+     *
+     * The initialisation is done during the closing of junctions
+     *
+     * @param[in] key The tls logic to add a new initialisation info for
+     * @todo Why is this a separate method? It's only used in one place
+     * @todo No checks/exceptions?
+     */
+    void addJunctionInitInfo(MSTrafficLightLogic *key) throw();
 
-    /** builds a junction that does not use a logic */
-    virtual MSJunction *buildNoLogicJunction();
 
-    /** builds a junction with a logic */
-    virtual MSJunction *buildLogicJunction();
+    /** @brief Returns the current junction logic
+     *
+     * "Current" means the one with "myActiveID". If it is not built yet 
+     *  (not within "myLogics") an InvalidArgument is thrown.
+     * 
+     * @return The current tls logic
+     * @exception InvalidArgument If the logic was not built before
+     * @todo Where is this used?
+     */
+    MSJunctionLogic *getJunctionLogicSecure() throw(InvalidArgument);
+
+
+    /** @brief Computes the initial step of a tls-logic from the stored offset and duration
+     *
+     * @return The step the current tls has to begin with given current values (including simulation begin time)
+     */
+    SUMOTime computeInitTLSStep() const throw();
+
+
+    /** @brief Computes the time offset the tls shall for the first time
+     *
+     * @return The time to first switch of the current tls, given current values (including simulation begin time)
+     */
+    SUMOTime computeInitTLSEventOffset() const throw();
+
+
+    /** @brief Returns the used tls control
+     *
+     * This may be either the internal one ("myLogicControl"), or, if the network has
+     *  been already loaded and we are loading additional tls programs, the net's logic control.
+     *
+     * @return The tls control to use
+     */
+    MSTLLogicControl &getTLLogicControlToUse() const throw();
+
+
+protected:
+    /// @name Factory methods, virtual so that other versions of the structures can be built
+    /// @{
+    /** @brief Builds a junction that does not use a logic
+     * 
+     * Builds a MSNoLogicJunction
+     * 
+     * @return The built junction
+     */
+    virtual MSJunction *buildNoLogicJunction() throw();
+
+
+    /** @brief Builds a junction with a logic
+     * 
+     * Builds a MSRightOfWayJunction. Throws an exception if the logic was not built
+     *  (see getJunctionLogicSecure).
+     * 
+     * @return The built junction
+     * @exception InvalidArgument If the logic of the junction was not built before
+     */
+    virtual MSJunction *buildLogicJunction() throw(InvalidArgument);
+
 
 #ifdef HAVE_INTERNAL_LANES
-    /** builds an internal junction */
-    virtual MSJunction *buildInternalJunction();
+    /** @brief Builds an internal junction
+     * 
+     * Builds a MSInternalJunction
+     * 
+     * @return The built junction
+     */
+    virtual MSJunction *buildInternalJunction() throw();
 #endif
+    /// @}
 
-    /** builds the junction logic catching occuring errors */
-    MSJunctionLogic *getJunctionLogicSecure();
-
-    /// Compute the initial step of a tls-logic from the given offset
-    SUMOTime computeInitTLSStep() const;
-
-    /// Compute the time offset the tls shall for the first time
-    SUMOTime computeInitTLSEventOffset() const;
-
-    MSTLLogicControl &getTLLogicControlToUse() const;
 
 protected:
+    /// @brief The net to use
     MSNet &myNet;
 
-    /// The offset within the junction
+    /// @brief The switch offset within the tls
     SUMOTime myOffset;
 
-    /// The current logic type
+    /// @brief The current logic type
     std::string myLogicType;
 
-    /// the right-of-way-logic of the currently chosen bitset-logic
+    /// @brief The right-of-way-logic of the currently chosen bitset-logic
     MSBitsetLogic::Logic *myActiveLogic;
 
-    /// the description about which in-junction lanes disallow other passing the junction
+    /// @brief The description about which lanes disallow other passing the junction simultaneously
     MSBitsetLogic::Foes *myActiveFoes;
 
+    /// @brief The description about which lanes have an internal follower
     std::bitset<64> myActiveConts;
 
-    /// the current phase definitions for a simple traffic light
+    /// @brief The current phase definitions for a simple traffic light
     MSSimpleTrafficLightLogic::Phases myActivePhases;
 
-    /// the size of the request
+    /// @brief The size of the request
     int myRequestSize;
 
-    /// the number of lanes
+    /// @brief The number of lanes
     int myLaneNumber;
 
-    /// counter for the inserted items
+    /// @brief Counter for the inserted items
     int myRequestItemNumber;
 
-
-    /// the list of the simulations junctions
+    /// @brief The junctions controls
     mutable MSJunctionControl *myJunctions;
 
-    /// the list of the incoming lanes of the currently chosen junction
+    /// @brief The list of the incoming lanes of the currently chosen junction
     LaneVector myActiveIncomingLanes;
 
 #ifdef HAVE_INTERNAL_LANES
-    /// the list of the internal lanes of the currently chosen junction
+    /// @brief The list of the internal lanes of the currently chosen junction
     LaneVector myActiveInternalLanes;
 #endif
 
-    /// the id of the currently chosen junction
+    /// @brief The id of the currently chosen junction
     std::string myActiveID;
 
-    /// the key of the currently chosen junction
+    /// @brief The key of the currently chosen junction
     std::string myActiveKey, myActiveSubKey;
 
-    /// the type of the currently chosen junction
+    /// @brief The type of the currently chosen junction
     int myType;
 
-    /// the position of the junction
+    /// @brief The position of the junction
     Position2D myPosition;
 
-    /* the junction's traffic lights' first phase index
-        (when the current junction has traffic lights) */
-    //size_t m_InitStep;
-
-    /// The absolute duration of a tls-control loop
+    /// @brief The absolute duration of a tls-control loop
     size_t myAbsDuration;
 
-    /// A definition of junction initialisation
+    /// @brief A definition of junction initialisation
     struct TLInitInfo {
+        /// @brief The logic to initialise
         MSTrafficLightLogic *logic;
+        /// @brief The loaded logic's parameter
         std::map<std::string, std::string> params;
     };
 
-    /// The container for information which junctions shall be initialised using which values
+    /// @brief The container for information which junctions shall be initialised using which values
     std::vector<TLInitInfo> myJunctions2PostLoadInit;
 
-    /// Default detector offset
+    /// @name Default parameter for extended tls
+    /// @todo Recheck, move to somewhere else
+    /// @{
+    /// @brief Default detector offset
     SUMOReal myDetectorOffset;
 
-    /// Default detector positions
+    /// @brief Default detector positions
     SUMOReal myStdDetectorPositions;
 
-    /// Default detector lengths (agentbased)
+    /// @brief Default detector lengths (agentbased)
     SUMOReal myStdDetectorLengths;
 
-    /// Default learning horizon (agentbased)
+    /// @brief Default learning horizon (agentbased)
     int myStdLearnHorizon;
 
-    /// Default decision horizon (agentbased)
+    /// @brief Default decision horizon (agentbased)
     int myStdDecisionHorizon;
 
-    /// Default difference minimum (agentbased)
+    /// @brief Default difference minimum (agentbased)
     SUMOReal myStdDeltaLimit;
 
-    /// The loaded default cycle time
+    /// @brief The loaded default cycle time
     int myStdTCycle;
 
-    // Default maximum gap  (actuated)
+    // @brief Default maximum gap  (actuated)
     SUMOReal myStdActuatedMaxGap;
 
-    // Default passing time (actuated)
+    // @brief Default passing time (actuated)
     SUMOReal myStdActuatedPassingTime;
 
-    // Default maximum gap actuated)
+    // @brief Default maximum gap (actuated)
     SUMOReal myStdActuatedDetectorGap;
+    /// @}
 
+
+    /// @brief The tls control to use (0 if net's tls control shall be used)
     mutable MSTLLogicControl *myLogicControl;
 
+
+    /// @brief Definition of a parameter map (key->value)
     typedef std::map<std::string, std::string> StringParameterMap;
+
+    /// @brief Parameter map (key->value)
     StringParameterMap myAdditionalParameter;
 
-    /// Map of loaded junction logics
+
+    /// @brief Map of loaded junction logics
     std::map<std::string, MSJunctionLogic*> myLogics;
 
+
 protected:
-    /// numerical representation for a junction with no purpose
+    /// @name numerical representations of junction types
+    /// @todo What? Use an enum!
+    /// @{ 
+    /// @brief numerical representation for a junction with no purpose
     static const int TYPE_NOJUNCTION;
 
-    /** numerical representation for a junction where vehicles cominng
-        from the right side may drive as first */
+    /** @brief numerical representation for a junction where vehicles coming from the right side may drive as first */
     static const int TYPE_RIGHT_BEFORE_LEFT;
 
-    /** numerical representation of a junction where a street has a
-        higher priority */
+    /** @brief numerical representation of a junction where a street has a higher priority */
     static const int TYPE_PRIORITY_JUNCTION;
 
-    /** a dead end (all roads end here) */
+    /** @brief a dead end (all roads end here) */
     static const int TYPE_DEAD_END;
 
-    /** an internal junction */
+    /** @brief an internal junction */
     static const int TYPE_INTERNAL;
+    /// @}
+
 
 private:
-    /** invalid copy operator */
+    /** @brief invalid copy operator */
     NLJunctionControlBuilder(const NLJunctionControlBuilder &s);
 
-    /** invalid assignment operator */
+    /** @brief invalid assignment operator */
     NLJunctionControlBuilder &operator=(const NLJunctionControlBuilder &s);
 
 };

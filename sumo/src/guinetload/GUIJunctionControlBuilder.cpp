@@ -4,7 +4,7 @@
 /// @date    Mon, 1 Jul 2003
 /// @version $Id$
 ///
-// A MSJunctionControlBuilder that builds GUIJunctions instead of MSJunctions
+// Builder of guisim-junctions and tls
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -44,24 +44,24 @@
 // member method definitions
 // ===========================================================================
 GUIJunctionControlBuilder::GUIJunctionControlBuilder(MSNet &net,
-        OptionsCont &oc)
+        OptionsCont &oc) throw()
         : NLJunctionControlBuilder(net, oc)
 {}
 
 
-GUIJunctionControlBuilder::~GUIJunctionControlBuilder()
+GUIJunctionControlBuilder::~GUIJunctionControlBuilder() throw()
 {}
 
 
 void
-GUIJunctionControlBuilder::addJunctionShape(const Position2DVector &shape)
+GUIJunctionControlBuilder::addJunctionShape(const Position2DVector &shape) throw()
 {
     myShape = shape;
 }
 
 
 MSJunction *
-GUIJunctionControlBuilder::buildNoLogicJunction()
+GUIJunctionControlBuilder::buildNoLogicJunction() throw()
 {
     return new GUINoLogicJunction(myActiveID, myPosition, myActiveIncomingLanes,
 #ifdef HAVE_INTERNAL_LANES
@@ -73,7 +73,7 @@ GUIJunctionControlBuilder::buildNoLogicJunction()
 
 
 MSJunction *
-GUIJunctionControlBuilder::buildLogicJunction()
+GUIJunctionControlBuilder::buildLogicJunction() throw(InvalidArgument)
 {
     MSJunctionLogic *jtype = getJunctionLogicSecure();
     // build the junction

@@ -4,7 +4,7 @@
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
-// Container for MSJunctionControl-structures during
+// Builder of microsim-junctions and tls
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -73,7 +73,7 @@ const int NLJunctionControlBuilder::TYPE_INTERNAL = 4;
 // method definitions
 // ===========================================================================
 NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet &net,
-        OptionsCont &oc)
+        OptionsCont &oc) throw()
         : myNet(net), myOffset(0), myJunctions(0)
 {
     myStdDetectorPositions = oc.getFloat("actuated-tl.detector-pos");
@@ -85,19 +85,18 @@ NLJunctionControlBuilder::NLJunctionControlBuilder(MSNet &net,
     myStdActuatedMaxGap = oc.getFloat("actuated-tl.max-gap");
     myStdActuatedPassingTime = oc.getFloat("actuated-tl.passing-time");
     myStdActuatedDetectorGap = oc.getFloat("actuated-tl.detector-gap");
-
     myLogicControl = new MSTLLogicControl();
 }
 
 
-NLJunctionControlBuilder::~NLJunctionControlBuilder()
+NLJunctionControlBuilder::~NLJunctionControlBuilder() throw()
 {
     delete myLogicControl;
     delete myJunctions;
 }
 
 void
-NLJunctionControlBuilder::prepare(unsigned int no)
+NLJunctionControlBuilder::prepare(unsigned int no) throw()
 {
     myJunctions = new MSJunctionControl();
 }
@@ -107,7 +106,7 @@ void
 NLJunctionControlBuilder::openJunction(const std::string &id,
                                        const std::string &key,
                                        const std::string &type,
-                                       SUMOReal x, SUMOReal y)
+                                       SUMOReal x, SUMOReal y) throw(InvalidArgument)
 {
 #ifdef HAVE_INTERNAL_LANES
     myActiveInternalLanes.clear();
@@ -129,7 +128,6 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
     }
     if (myType<0) {
         throw InvalidArgument("An unknown junction type occured: '" + type + "' on junction '" + id + "'.");
-
     }
     myPosition.set(x, y);
 }
@@ -137,7 +135,7 @@ NLJunctionControlBuilder::openJunction(const std::string &id,
 
 #ifdef HAVE_INTERNAL_LANES
 void
-NLJunctionControlBuilder::addInternalLane(MSLane *lane)
+NLJunctionControlBuilder::addInternalLane(MSLane *lane) throw()
 {
     myActiveInternalLanes.push_back(lane);
 }
@@ -145,14 +143,14 @@ NLJunctionControlBuilder::addInternalLane(MSLane *lane)
 
 
 void
-NLJunctionControlBuilder::addIncomingLane(MSLane *lane)
+NLJunctionControlBuilder::addIncomingLane(MSLane *lane) throw()
 {
     myActiveIncomingLanes.push_back(lane);
 }
 
 
 void
-NLJunctionControlBuilder::closeJunction()
+NLJunctionControlBuilder::closeJunction() throw(InvalidArgument, ProcessError)
 {
     if (myJunctions==0) {
         throw ProcessError("Information about the number of nodes was missing.");
@@ -177,8 +175,7 @@ NLJunctionControlBuilder::closeJunction()
 #endif
         break;
     default:
-        throw InvalidArgument("False junction type.");
-
+        throw InvalidArgument("False junction logic type.");
     }
     if (junction!=0) {
         if (!myJunctions->add(myActiveID, junction)) {
@@ -189,7 +186,7 @@ NLJunctionControlBuilder::closeJunction()
 
 
 MSJunctionControl *
-NLJunctionControlBuilder::build() const
+NLJunctionControlBuilder::build() const throw()
 {
     MSJunctionControl *js = myJunctions;
     myJunctions = 0;
@@ -198,7 +195,7 @@ NLJunctionControlBuilder::build() const
 
 
 MSJunction *
-NLJunctionControlBuilder::buildNoLogicJunction()
+NLJunctionControlBuilder::buildNoLogicJunction() throw()
 {
     return new MSNoLogicJunction(myActiveID, myPosition, myActiveIncomingLanes
 #ifdef HAVE_INTERNAL_LANES
@@ -209,7 +206,7 @@ NLJunctionControlBuilder::buildNoLogicJunction()
 
 
 MSJunction *
-NLJunctionControlBuilder::buildLogicJunction()
+NLJunctionControlBuilder::buildLogicJunction() throw(InvalidArgument)
 {
     MSJunctionLogic *jtype = getJunctionLogicSecure();
     // build the junction
@@ -223,7 +220,7 @@ NLJunctionControlBuilder::buildLogicJunction()
 
 #ifdef HAVE_INTERNAL_LANES
 MSJunction *
-NLJunctionControlBuilder::buildInternalJunction()
+NLJunctionControlBuilder::buildInternalJunction() throw()
 {
     // build the junction
     return new MSInternalJunction(myActiveID, myPosition, myActiveIncomingLanes,
@@ -233,7 +230,7 @@ NLJunctionControlBuilder::buildInternalJunction()
 
 
 MSJunctionLogic *
-NLJunctionControlBuilder::getJunctionLogicSecure()
+NLJunctionControlBuilder::getJunctionLogicSecure() throw(InvalidArgument)
 {
     // get and check the junction logic
     if (myLogics.find(myActiveID)==myLogics.end()) {
@@ -243,15 +240,8 @@ NLJunctionControlBuilder::getJunctionLogicSecure()
 }
 
 
-const NLJunctionControlBuilder::LaneVector &
-NLJunctionControlBuilder::getIncomingLanes() const
-{
-    return myActiveIncomingLanes;
-}
-
-
 void
-NLJunctionControlBuilder::initIncomingLanes()
+NLJunctionControlBuilder::initIncomingLanes() throw()
 {
     myActiveIncomingLanes.clear();
 }
@@ -265,7 +255,7 @@ NLJunctionControlBuilder::getTLLogic(const std::string &id) const throw(InvalidA
 
 
 void
-NLJunctionControlBuilder::addJunctionInitInfo(MSTrafficLightLogic *tl)
+NLJunctionControlBuilder::addJunctionInitInfo(MSTrafficLightLogic *tl) throw()
 {
     TLInitInfo ii;
     ii.logic = tl;
@@ -276,7 +266,7 @@ NLJunctionControlBuilder::addJunctionInitInfo(MSTrafficLightLogic *tl)
 
 
 void
-NLJunctionControlBuilder::closeTrafficLightLogic()
+NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument)
 {
     // compute the initial step of the tls-logic
     size_t step = computeInitTLSStep();
@@ -320,7 +310,7 @@ NLJunctionControlBuilder::closeTrafficLightLogic()
 
 
 SUMOTime
-NLJunctionControlBuilder::computeInitTLSStep()  const
+NLJunctionControlBuilder::computeInitTLSStep() const throw()
 {
     assert(myActivePhases.size()!=0);
     SUMOTime offset = myOffset % myAbsDuration;
@@ -338,7 +328,7 @@ NLJunctionControlBuilder::computeInitTLSStep()  const
 
 
 SUMOTime
-NLJunctionControlBuilder::computeInitTLSEventOffset()  const
+NLJunctionControlBuilder::computeInitTLSEventOffset() const throw()
 {
     assert(myActivePhases.size()!=0);
     SUMOTime offset = myOffset % myAbsDuration;
@@ -353,9 +343,8 @@ NLJunctionControlBuilder::computeInitTLSEventOffset()  const
 }
 
 
-
 void
-NLJunctionControlBuilder::initJunctionLogic()
+NLJunctionControlBuilder::initJunctionLogic() throw()
 {
     myActiveKey = "";
     myActiveSubKey = "";
@@ -372,10 +361,10 @@ void
 NLJunctionControlBuilder::addLogicItem(int request,
                                        const string &response,
                                        const std::string &foes,
-                                       bool cont)
+                                       bool cont) throw(InvalidArgument)
 {
     if (myRequestSize<=0) {
-        throw InvalidArgument("The request size,  the response size or the number of lanes is not given! Contact your net supplier");
+        throw InvalidArgument("The request size, the response size or the number of lanes is not given! Contact your net supplier");
     }
     // add the read response for the given request index
     bitset<64> use(response);
@@ -396,7 +385,7 @@ void
 NLJunctionControlBuilder::initTrafficLightLogic(const std::string &type,
         size_t absDuration,
         int requestSize,
-        SUMOReal detectorOffset)
+        SUMOReal detectorOffset) throw()
 {
     myActiveKey = "";
     myActiveSubKey = "";
@@ -424,7 +413,7 @@ void
 NLJunctionControlBuilder::addPhase(size_t duration, const std::bitset<64> &phase,
                                    const std::bitset<64> &prios,
                                    const std::bitset<64> &yellow,
-                                   int min, int max)
+                                   int min, int max) throw()
 {
     // build and add the phase definition to the list
     if (myLogicType=="actuated"||myLogicType=="agentbased") {
@@ -442,7 +431,7 @@ NLJunctionControlBuilder::addPhase(size_t duration, const std::bitset<64> &phase
 
 
 void
-NLJunctionControlBuilder::setRequestSize(int size)
+NLJunctionControlBuilder::setRequestSize(int size) throw()
 {
     myRequestSize = size;
     myActiveLogic->resize(myRequestSize);
@@ -452,35 +441,35 @@ NLJunctionControlBuilder::setRequestSize(int size)
 
 
 void
-NLJunctionControlBuilder::setLaneNumber(int val)
+NLJunctionControlBuilder::setLaneNumber(int val) throw()
 {
     myLaneNumber = val;
 }
 
 
 void
-NLJunctionControlBuilder::setOffset(int val)
+NLJunctionControlBuilder::setOffset(int val) throw()
 {
     myOffset = val;
 }
 
 
 void
-NLJunctionControlBuilder::setKey(const std::string &key)
+NLJunctionControlBuilder::setKey(const std::string &key) throw()
 {
     myActiveKey = key;
 }
 
 
 void
-NLJunctionControlBuilder::setSubKey(const std::string &key)
+NLJunctionControlBuilder::setSubKey(const std::string &subkey) throw()
 {
-    myActiveSubKey = key;
+    myActiveSubKey = subkey;
 }
 
 
 void
-NLJunctionControlBuilder::closeJunctionLogic()
+NLJunctionControlBuilder::closeJunctionLogic() throw(InvalidArgument)
 {
     if (myRequestItemNumber!=myRequestSize) {
         throw InvalidArgument("The description for the junction logic '" + myActiveKey + "' is malicious.");
@@ -496,7 +485,7 @@ NLJunctionControlBuilder::closeJunctionLogic()
 
 void
 NLJunctionControlBuilder::closeJunctions(NLDetectorBuilder &db,
-        const MSEdgeContinuations &edgeContinuations)
+        const MSEdgeContinuations &edgeContinuations) throw()
 {
     for (std::vector<TLInitInfo>::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
         (*i).logic->setParameter((*i).params);
@@ -505,7 +494,7 @@ NLJunctionControlBuilder::closeJunctions(NLDetectorBuilder &db,
 
 
 MSTLLogicControl *
-NLJunctionControlBuilder::buildTLLogics() const
+NLJunctionControlBuilder::buildTLLogics() const throw()
 {
     MSTLLogicControl *ret = myLogicControl;
     myLogicControl = 0;
@@ -516,14 +505,14 @@ NLJunctionControlBuilder::buildTLLogics() const
 
 void
 NLJunctionControlBuilder::addParam(const std::string &key,
-                                   const std::string &value)
+                                   const std::string &value) throw()
 {
     myAdditionalParameter[key] = value;
 }
 
 
 MSTLLogicControl &
-NLJunctionControlBuilder::getTLLogicControlToUse() const
+NLJunctionControlBuilder::getTLLogicControlToUse() const throw()
 {
     if (myLogicControl!=0) {
         return *myLogicControl;
@@ -535,7 +524,7 @@ NLJunctionControlBuilder::getTLLogicControlToUse() const
 
 void
 NLJunctionControlBuilder::addWAUT(SUMOTime refTime, const std::string &id,
-                                  const std::string &startProg)
+                                  const std::string &startProg) throw(InvalidArgument)
 {
     getTLLogicControlToUse().addWAUT(refTime, id, startProg);
 }
@@ -543,7 +532,7 @@ NLJunctionControlBuilder::addWAUT(SUMOTime refTime, const std::string &id,
 
 void
 NLJunctionControlBuilder::addWAUTSwitch(const std::string &wautid,
-                                        SUMOTime when, const std::string &to)
+                                        SUMOTime when, const std::string &to) throw(InvalidArgument)
 {
     getTLLogicControlToUse().addWAUTSwitch(wautid, when, to);
 }
@@ -551,29 +540,29 @@ NLJunctionControlBuilder::addWAUTSwitch(const std::string &wautid,
 
 void
 NLJunctionControlBuilder::addWAUTJunction(const std::string &wautid,
-        const std::string &junc,
-        const std::string &proc, bool sync)
+                                          const std::string &tls,
+                                          const std::string &proc, bool sync) throw(InvalidArgument)
 {
-    getTLLogicControlToUse().addWAUTJunction(wautid, junc, proc, sync);
+    getTLLogicControlToUse().addWAUTJunction(wautid, tls, proc, sync);
 }
 
 
 const string &
-NLJunctionControlBuilder::getActiveID() const
+NLJunctionControlBuilder::getActiveID() const throw()
 {
     return myActiveID;
 }
 
 
 const string &
-NLJunctionControlBuilder::getActiveKey() const
+NLJunctionControlBuilder::getActiveKey() const throw()
 {
     return myActiveKey;
 }
 
 
 const string &
-NLJunctionControlBuilder::getActiveSubKey() const
+NLJunctionControlBuilder::getActiveSubKey() const throw()
 {
     return myActiveSubKey;
 }
