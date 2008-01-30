@@ -651,7 +651,7 @@ MSTLLogicControl::switchTo(const std::string &id, const std::string &subid)
 
 void
 MSTLLogicControl::addWAUT(SUMOTime refTime, const std::string &id,
-                          const std::string &startProg)
+                          const std::string &startProg) throw(InvalidArgument)
 {
     // check whether the waut was already defined
     if (myWAUTs.find(id)!=myWAUTs.end()) {
@@ -668,7 +668,7 @@ MSTLLogicControl::addWAUT(SUMOTime refTime, const std::string &id,
 
 void
 MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
-                                SUMOTime when, const std::string &to)
+                                SUMOTime when, const std::string &to) throw(InvalidArgument)
 {
     // try to get the waut
     if (myWAUTs.find(wautid)==myWAUTs.end()) {
@@ -706,9 +706,9 @@ MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
 
 void
 MSTLLogicControl::addWAUTJunction(const std::string &wautid,
-                                  const std::string &junc,
+                                  const std::string &tls,
                                   const std::string &proc,
-                                  bool synchron)
+                                  bool synchron) throw(InvalidArgument)
 {
     // try to get the waut
     if (myWAUTs.find(wautid)==myWAUTs.end()) {
@@ -716,17 +716,17 @@ MSTLLogicControl::addWAUTJunction(const std::string &wautid,
         throw InvalidArgument("Waut '" + wautid + "' was not yet defined.");
     }
     // try to get the tls to switch
-    if (myLogics.find(junc)==myLogics.end()) {
+    if (myLogics.find(tls)==myLogics.end()) {
         // report an error if the tls is not known
-        throw InvalidArgument("TLS '" + junc + "' to switch in WAUT '" + wautid + "' was not yet defined.");
+        throw InvalidArgument("TLS '" + tls + "' to switch in WAUT '" + wautid + "' was not yet defined.");
     }
     WAUTJunction j;
-    j.junction = junc;
+    j.junction = tls;
     j.procedure = proc;
     j.synchron = synchron;
     myWAUTs[wautid]->junctions.push_back(j);
     // set the current program
-    TLSLogicVariants &vars = myLogics.find(junc)->second;
+    TLSLogicVariants &vars = myLogics.find(tls)->second;
     switchTo(vars.defaultTL->getID(), myWAUTs[wautid]->startProg);
 }
 

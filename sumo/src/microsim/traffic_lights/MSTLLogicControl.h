@@ -183,18 +183,49 @@ public:
      */
     bool switchTo(const std::string &id, const std::string &subid);
 
-    /** @brief Adds a WAUT to the control
-     */
-    void addWAUT(SUMOTime refTime, const std::string &id, const std::string &startProg);
 
-    /** @brief Adds a timestep at which the named WAUT shall switch to another program
+    /// @name WAUT definition methods 
+    /// @{
+    /** @brief Adds a WAUT definition
+     *
+     * Throws an InvalidArgument if the given id is already in use.
+     *
+     * @param[in] refTime The reference time of the WAUT
+     * @param[in] id The ID of the WAUT
+     * @param[in] startProg The begin program of the WAUT
+     * @exception InvalidArgument If the id is already used by another WAUT
      */
-    void addWAUTSwitch(const std::string &wautid, SUMOTime when, const std::string &to);
+    void addWAUT(SUMOTime refTime, const std::string &id, 
+        const std::string &startProg) throw(InvalidArgument);
 
-    /** @brief Assigns the named junction to be controlled by the named WAUT
+
+    /** @brief Adds a WAUT switch step to a previously built WAUT
+     *
+     * Throws an InvalidArgument if the given WAUT id is not known.
+     *
+     * @param[in] wautid The ID of the WAUT
+     * @param[in] when The switch procedure begin
+     * @param[in] to The program the WAUT shall start to switch to at the given time
+     * @exception InvalidArgument If the named WAUT is not known
      */
-    void addWAUTJunction(const std::string &wautid, const std::string &junc,
-                         const std::string &proc, bool synchron);
+    void addWAUTSwitch(const std::string &wautid, SUMOTime when, 
+        const std::string &to) throw(InvalidArgument);
+
+
+    /** @brief Adds a tls to the list of tls to be switched by the named WAUT
+     *
+     * Passes the values directly to the used tls control. This throws an InvalidArgument
+     *  if the given WAUT id or the given junction id is not known.
+     *
+     * @param[in] wautid The ID of the WAUT
+     * @param[in] tls The id of the tls to be switched
+     * @param[in] proc The switching procedure to use
+     * @param[in] synchron Whether the switching shall be done in synchron mode
+     * @exception InvalidArgument If the named WAUT or the named tls are not known
+     */
+    void addWAUTJunction(const std::string &wautid, const std::string &tls,
+                         const std::string &proc, bool synchron) throw(InvalidArgument);
+    /// @}
 
     /** @brief Checks whether any WAUT is trying to switch a tls into another program
      *
