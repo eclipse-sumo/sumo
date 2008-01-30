@@ -4,7 +4,7 @@
 /// @date    Mon, 15 Apr 2002
 /// @version $Id$
 ///
-// A building helper for the detectors
+// A building helper for detectors
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -70,9 +70,11 @@ NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(
     const std::string &id,
     OutputDevice& device,
     MetersPerSecond haltingSpeedThreshold,
+    SUMOTime haltingTimeThreshold,
     int splInterval) :
         myID(id), myDevice(device),
-        myHaltingSpeedThreshold(haltingSpeedThreshold),
+        myHaltingSpeedThreshold(haltingSpeedThreshold), 
+        myHaltingTimeThreshold(haltingTimeThreshold),
         mySampleInterval(splInterval)
 {}
 
@@ -330,14 +332,14 @@ NLDetectorBuilder::convContE2PosLength(const std::string &id,
 void
 NLDetectorBuilder::beginE3Detector(const std::string &id,
                                    OutputDevice& device, int splInterval,
-                                   const std::string &measures,
-                                   MetersPerSecond haltingSpeedThreshold)
+                                   MetersPerSecond haltingSpeedThreshold,
+                                   SUMOTime haltingTimeThreshold)
 {
     if (splInterval<0) {
         throw InvalidArgument("Negative sampling frequency (in detector '" + id + "').");
     }
     myE3Definition = new E3DetectorDefinition(id, device,
-            haltingSpeedThreshold,
+            haltingSpeedThreshold, haltingTimeThreshold,
             splInterval);
 }
 
@@ -394,11 +396,9 @@ NLDetectorBuilder::endE3Detector()
     if (myE3Definition==0) {
         return;
     }
-    MSE3Collector *det = createE3Detector(
-                             myE3Definition->myID,
-                             myE3Definition->myEntries,
-                             myE3Definition->myExits,
-                             myE3Definition->myHaltingSpeedThreshold);
+    MSE3Collector *det = createE3Detector(myE3Definition->myID,
+        myE3Definition->myEntries, myE3Definition->myExits,
+        myE3Definition->myHaltingSpeedThreshold, myE3Definition->myHaltingTimeThreshold);
     // add to net
     myNet.getDetectorControl().add(
         static_cast<MSE3Collector*>(det), myE3Definition->myDevice, myE3Definition->mySampleInterval);
@@ -491,9 +491,10 @@ MSE3Collector *
 NLDetectorBuilder::createE3Detector(const std::string &id,
                                     const CrossSectionVector &entries,
                                     const CrossSectionVector &exits,
-                                    MetersPerSecond haltingSpeedThreshold)
+                                    MetersPerSecond haltingSpeedThreshold,
+                                    SUMOTime haltingTimeThreshold)
 {
-    return new MSE3Collector(id, entries, exits, haltingSpeedThreshold);
+    return new MSE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold);
 }
 
 

@@ -55,10 +55,11 @@ public:
     /// Constructor
     GUIE3Collector(const std::string &id,
                    const CrossSectionVector &entries, const CrossSectionVector &exits,
-                   MetersPerSecond haltingSpeedThreshold);
+                   MetersPerSecond haltingSpeedThreshold,
+                   SUMOTime haltingTimeThreshold) throw();
 
     /// Destructor
-    ~GUIE3Collector() throw ();
+    ~GUIE3Collector() throw();
 
     /// Returns the list of entry points
     const CrossSectionVector &getEntries() const;

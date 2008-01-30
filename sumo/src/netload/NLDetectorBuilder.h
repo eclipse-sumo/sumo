@@ -4,7 +4,7 @@
 /// @date    Mon, 15 Apr 2002
 /// @version $Id$
 ///
-// A building helper for the detectors
+// A building helper for detectors
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -114,8 +114,8 @@ public:
     /// builds a multi-od (E3-) detector
     void beginE3Detector(const std::string &id,
                          OutputDevice& device, int splInterval,
-                         const std::string &measures,
-                         MetersPerSecond haltingSpeedThreshold);
+                         MetersPerSecond haltingSpeedThreshold,
+                         SUMOTime haltingTimeThreshold);
 
     /// builds an entry point of an e3 detector
     void addE3Entry(const std::string &lane, SUMOReal pos);
@@ -184,7 +184,8 @@ public:
     virtual MSE3Collector *createE3Detector(const std::string &id,
                                             const CrossSectionVector &entries,
                                             const CrossSectionVector &exits,
-                                            MetersPerSecond haltingSpeedThreshold);
+                                            MetersPerSecond haltingSpeedThreshold,
+                                            SUMOTime haltingTimeThreshold);
 
     /**
      * @class E3DetectorDefinition
@@ -198,7 +199,7 @@ public:
         E3DetectorDefinition(const std::string &id,
                              OutputDevice& device,
                              MetersPerSecond haltingSpeedThreshold,
-                             //const E3MeasuresVector &measures,
+                             SUMOTime haltingTimeThreshold,
                              int splInterval);
 
         /// Destructor
@@ -211,6 +212,7 @@ public:
         /// @name further detector descriptions
         //@{
         MetersPerSecond myHaltingSpeedThreshold;
+        SUMOTime myHaltingTimeThreshold;
         CrossSectionVector myEntries;
         CrossSectionVector myExits;
         int mySampleInterval;

@@ -124,10 +124,10 @@ MSE3Collector::MSE3LeaveReminder::isActivatedByEmitOrLaneChange(MSVehicle& veh) 
 MSE3Collector::MSE3Collector(const std::string &id,
                              const CrossSectionVector &entries,
                              const CrossSectionVector &exits,
-                             MetersPerSecond haltingSpeedThreshold) throw()
+                             MetersPerSecond haltingSpeedThreshold,
+                             SUMOTime haltingTimeThreshold) throw()
         : myID(id), myEntries(entries), myExits(exits),
-        // !dk! kept for later use: haltingTimeThresholdM(MSUnit::getInstance()->getSteps(haltingTimeThreshold)),
-        myHaltingSpeedThreshold(haltingSpeedThreshold),
+        myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
         myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myCurrentTouchedVehicles(0)
 
 {
@@ -168,6 +168,7 @@ MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep) throw()
     v.speedSum = 0;
     v.haltings = 0;
     v.samples = 0;
+    v.haltingBegin = -1;
     if (myEnteredContainer.find(&veh)!=myEnteredContainer.end()) {
         MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' reentered E3-detector '" + getID() + "'.");
     }
@@ -181,15 +182,15 @@ MSE3Collector::leave(MSVehicle& veh, SUMOReal leaveTimestep) throw()
     if (myEnteredContainer.find(&veh)==myEnteredContainer.end()) {
         MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' left E3-detector '" + getID() + "' before entering it.");
     } else {
-        E3Values v = myEnteredContainer[&veh];
-        v.leaveTime = leaveTimestep;
+        E3Values values = myEnteredContainer[&veh];
+        values.leaveTime = leaveTimestep;
         SUMOReal leaveTimestepFraction = leaveTimestep - (SUMOReal) ((int) leaveTimestep);
-        v.speedSum += (veh.getSpeed() * leaveTimestepFraction);
-        if (veh.getSpeed() < myHaltingSpeedThreshold) {
-            v.haltings++;
+        values.speedSum += (veh.getSpeed() * leaveTimestepFraction);
+        if (veh.getSpeed() < myHaltingSpeedThreshold && values.haltingBegin!=-1 && leaveTimestep-values.haltingBegin>myHaltingTimeThreshold) {
+            values.haltings++;
         }
         myEnteredContainer.erase(&veh);
-        myLeftContainer[&veh] = v;
+        myLeftContainer[&veh] = values;
     }
     veh.quitRemindedLeft(this);
 }
@@ -269,33 +270,18 @@ MSE3Collector::update(SUMOTime execTime) throw()
             myCurrentTouchedVehicles += entryTimestepFraction;
         }
         if (veh->getSpeed() < myHaltingSpeedThreshold) {
-            values.haltings++;
-            myCurrentHaltingsNumber++;
+            if(values.haltingBegin==-1) {
+                values.haltingBegin = execTime;
+            }
+            if(execTime-values.haltingBegin>myHaltingTimeThreshold) {
+                values.haltings++;
+                myCurrentHaltingsNumber++;
+            }
+        } else {
+             values.haltingBegin = -1;
         }
         values.samples++;
         myCurrentMeanSpeed /= myCurrentTouchedVehicles;
-        /*
-        halting.myPosition += veh->getMovedDistance();
-        if (veh->getSpeed() >= speedThresholdM) {
-            halting.timeBelowSpeedThresholdM = 0;
-            halting.isHaltingM = false;
-            halting.haltingDurationM = 0.0;
-        } else {
-            halting.timeBelowSpeedThresholdM++;
-            if (halting.timeBelowSpeedThresholdM > timeThresholdM) {
-                if (! halting.isHaltingM) {
-                    // beginning of new halt detected
-                    halting.isHaltingM = true;
-                    // time to detect halting contributes to
-                    // halting-duration
-                    halting.haltingDurationM = halting.timeBelowSpeedThresholdM++;
-                    halting.nHalts++;
-                } else {
-                    halting.haltingDurationM++;
-                }
-            }
-        }
-        */
     }
 }
 

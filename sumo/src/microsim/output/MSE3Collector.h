@@ -223,7 +223,8 @@ public:
      */
     MSE3Collector(const std::string &id,
                   const CrossSectionVector &entries, const CrossSectionVector &exits,
-                  MetersPerSecond haltingSpeedThreshold) throw();
+                  MetersPerSecond haltingSpeedThreshold,
+                  SUMOTime haltingTimeThreshold) throw();
 
 
     /** @brief Destructor */
@@ -360,11 +361,10 @@ protected:
     std::vector<MSE3LeaveReminder*> myLeaveReminders;
 
 
-    // Time-theshold to determine if a vehicle is halting.
-    //MSUnit::Steps haltingTimeThresholdM;
-    // !dk! kept for later use
+    // @brief Time-threshold to determine if a vehicle is halting.
+    SUMOTime myHaltingTimeThreshold;
 
-    /// @brief Speed-theshold to determine if a vehicle is halting.
+    /// @brief Speed-threshold to determine if a vehicle is halting.
     MetersPerSecond myHaltingSpeedThreshold;
 
     /**
@@ -386,6 +386,8 @@ protected:
         unsigned haltings;
         /// @brief Number of times the vehicle was touched when being within the conatiner
         unsigned samples;
+        /// @brief Begin time of last halt begin
+        SUMOTime haltingBegin;
     };
 
     /// @brief Container for vehicles that have entered the area
