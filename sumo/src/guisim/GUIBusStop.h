@@ -111,73 +111,7 @@ public:
     GUIManipulator *openManipulator(GUIMainWindow &app,
                                     GUISUMOAbstractView &parent);
 
-public:
-class GUIBusStopPopupMenu : public GUIGLObjectPopupMenu
-    {
-        FXDECLARE(GUIBusStopPopupMenu)
-    public:
 
-        GUIBusStopPopupMenu(GUIMainWindow &app,
-                            GUISUMOAbstractView &parent, GUIGlObject &o);
-
-        ~GUIBusStopPopupMenu();
-
-        /** @brief Called if the object's manipulator shall be shown */
-        long onCmdOpenManip(FXObject*,FXSelector,void*);
-
-    protected:
-        GUIBusStopPopupMenu() { }
-
-    };
-    /*
-        class GUIManip_LaneSpeedTrigger : public GUIManipulator {
-            FXDECLARE(GUIManip_LaneSpeedTrigger)
-        public:
-            enum {
-                MID_USER_DEF = FXDialogBox::ID_LAST,
-                MID_PRE_DEF,
-                MID_OPTION,
-                MID_CLOSE,
-                ID_LAST
-            };
-            /// Constructor
-            GUIManip_LaneSpeedTrigger(GUIMainWindow &app,
-                const std::string &name, GUIBusStop &o,
-                int xpos, int ypos);
-
-            /// Destructor
-            virtual ~GUIManip_LaneSpeedTrigger();
-
-            long onCmdOverride(FXObject*,FXSelector,void*);
-            long onCmdClose(FXObject*,FXSelector,void*);
-            long onCmdUserDef(FXObject*,FXSelector,void*);
-            long onUpdUserDef(FXObject*,FXSelector,void*);
-            long onCmdPreDef(FXObject*,FXSelector,void*);
-            long onUpdPreDef(FXObject*,FXSelector,void*);
-            long onCmdChangeOption(FXObject*,FXSelector,void*);
-
-        private:
-            GUIMainWindow *myParent;
-
-            FXRealSpinDial *myUserDefinedSpeed;
-
-            FXComboBox *myPredefinedValues;
-
-            FXint myChosenValue;
-
-            FXDataTarget myChosenTarget;
-
-            FXDataTarget mySpeedTarget;
-
-            SUMOReal mySpeed;
-
-            GUIBusStop *myObject;
-
-        protected:
-            GUIManip_LaneSpeedTrigger() { }
-
-        };
-    */
 private:
     /// The rotations of the shape parts (for full geometry)
     DoubleVector myFGShapeRotations;
