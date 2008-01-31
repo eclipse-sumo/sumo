@@ -250,7 +250,7 @@ GUISUMOViewParent::onCmdLocateJunction(FXObject *,FXSelector,void*)
 
 
 long
-GUISUMOViewParent::onCmdLocateEdge(FXObject *sender,FXSelector,void*)
+GUISUMOViewParent::onCmdLocateEdge(FXObject *,FXSelector,void*)
 {
     showLocator(GLO_EDGE);
     return 1;
@@ -258,7 +258,7 @@ GUISUMOViewParent::onCmdLocateEdge(FXObject *sender,FXSelector,void*)
 
 
 long
-GUISUMOViewParent::onCmdLocateVehicle(FXObject *sender,FXSelector,void*)
+GUISUMOViewParent::onCmdLocateVehicle(FXObject *,FXSelector,void*)
 {
     showLocator(GLO_VEHICLE);
     return 1;
@@ -266,7 +266,7 @@ GUISUMOViewParent::onCmdLocateVehicle(FXObject *sender,FXSelector,void*)
 
 
 long
-GUISUMOViewParent::onCmdLocateTLS(FXObject *sender,FXSelector,void*)
+GUISUMOViewParent::onCmdLocateTLS(FXObject *,FXSelector,void*)
 {
     showLocator(GLO_TLLOGIC);
     return 1;
@@ -274,7 +274,7 @@ GUISUMOViewParent::onCmdLocateTLS(FXObject *sender,FXSelector,void*)
 
 
 long
-GUISUMOViewParent::onCmdLocateAdd(FXObject *sender,FXSelector,void*)
+GUISUMOViewParent::onCmdLocateAdd(FXObject *,FXSelector,void*)
 {
     showLocator(GLO_ADDITIONAL);
     return 1;
