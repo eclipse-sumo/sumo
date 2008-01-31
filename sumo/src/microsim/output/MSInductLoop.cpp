@@ -222,7 +222,7 @@ MSInductLoop::writeXMLOutput(OutputDevice &dev,
     SUMOTime t(stopTime-startTime+1);
     unsigned nVehCrossed = (unsigned) myVehicleDataCont.size() + myDismissedVehicleNumber;
     SUMOReal flow = ((SUMOReal) myVehicleDataCont.size() / (SUMOReal) t) / DELTA_T * (SUMOReal) 3600.0;
-    SUMOReal occupancy = accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, occupancySum) / (SUMOReal) t;
+    SUMOReal occupancy = accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, occupancySum) / (SUMOReal) t * (SUMOReal) 100.;
     SUMOReal meanSpeed = myVehicleDataCont.size()!=0
         ? accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, speedSum) / (SUMOReal) myVehicleDataCont.size()
         : -1;
@@ -234,7 +234,7 @@ MSInductLoop::writeXMLOutput(OutputDevice &dev,
     dev<<"nVehContrib=\""<<myVehicleDataCont.size()<<"\" flow=\""<<flow<<
     "\" occupancy=\""<<occupancy<<"\" speed=\""<<meanSpeed<<
     "\" length=\""<<meanLength<<
-    "\" nVehCrossed=\""<<nVehCrossed<<"\"/>\n";
+    "\" nVehEntered=\""<<nVehCrossed<<"\"/>\n";
     reset();
 }
 
