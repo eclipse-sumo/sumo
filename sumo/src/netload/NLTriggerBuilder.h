@@ -178,6 +178,7 @@ protected:
             const NLHandler &helper) throw(InvalidArgument);
 
 
+#ifndef HAVE_MESOSIM
     /** @brief Parses his values and builds a microscopic calibrator for online simulation
      *
      * @param[in] net The network the calibrator belongs to
@@ -190,6 +191,7 @@ protected:
     MSCalibrator *parseAndBuildCalibrator(MSNet &net,
         const Attributes &attrs, const std::string &base,
         const NLHandler &helper) throw(InvalidArgument);
+#endif
 
 
     /** @brief Parses his values and builds a vehicle type probe

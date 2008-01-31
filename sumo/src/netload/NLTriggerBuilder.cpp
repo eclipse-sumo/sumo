@@ -124,9 +124,12 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
                 t = parseAndBuildVehicleActor(net, attrs, helper);
         }
     }
+#ifndef HAVE_MESOSIM
     else if (type=="calibrator") {
         t = parseAndBuildCalibrator(net, attrs, base, helper);
-    }	else if (type=="vtype_probe") {
+    }
+#endif
+    else if (type=="vtype_probe") {
         t = parseAndBuildVTypeProbe(net, attrs, base, helper);
     }
 
@@ -134,7 +137,7 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
     else if (type=="calibrator"&&MSGlobals::gUseMesoSim) {
         t = parseAndBuildCalibrator(net, attrs, base, helper);
     } else if (type=="scaler"&&MSGlobals::gUseMesoSim) {
-        t = parseAndBuildScaler(net, attrs, base, helper);
+        t = parseAndBuildScaler(net, attrs, helper);
     }
 #endif
     if (t!=0) {
@@ -236,7 +239,7 @@ NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net, const Attributes &attrs,
 }
 
 
-
+#ifndef HAVE_MESOSIM
 MSCalibrator *
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const Attributes &attrs,
                                           const std::string &base, 
@@ -249,6 +252,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const Attributes &attrs,
     SUMOReal pos = getPosition(attrs, helper, lane, "calibrator", id);
     return buildLaneCalibrator(net, id, lane, pos, file);
 }
+#endif
 
 
 MSVTypeProbe *
