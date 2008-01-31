@@ -6127,12 +6127,12 @@
 
       <para>Since version 0.9.5, the SUMO-package contains a further routing
       module named <application>DFROUTER</application>. The idea behind this
-      router is that nowadays, most highways are well equipped with induct
+      router is that nowadays, most highways are well equipped with induction
       loops, measuring each of the highways' entering and leaving flows. Given
       this information one may assume that the flows on the highway are
       completely known. <application>DFROUTER</application> uses directly the
-      information collected from induct loops to rebuild the vehicle amounts
-      and routes. This is done in several steps, being mainly:</para>
+      information collected from induction loops to rebuild the vehicle
+      amounts and routes. This is done in several steps, being mainly:</para>
 
       <procedure>
         <step>
@@ -6572,9 +6572,9 @@ myDet1;0;10;2;100;80
         found within the simulation as within the reality, the option
         <option>--validation-output
         <replaceable>&lt;SUMO_DETECTORS_OUTPUT&gt;</replaceable></option> may
-        be helpful. It generates a list of detector definitions (E1/induct
+        be helpful. It generates a list of detector definitions (E1/induction
         loops, see "<link
-        linkend="user_chp06-output-detectors-e1">E1-Detectors (Induct
+        linkend="user_chp06-output-detectors-e1">E1-Detectors (Induction
         Loops)</link>") placed at the positions of sink and in-between
         detectors. Their output will be saved into files named
         "<filename>validation_det_<replaceable>&lt;DETECTOR_ID&gt;</replaceable>.xml</filename>"
@@ -6831,44 +6831,32 @@ myDet1;0;10;2;100;80
     some more questions to answer about inserting vehicles into the
     net.</para>
 
-    <sect1 id="user_chp06-output">
+    <sect1 id="user_chp06-output" revision="0.9.8">
       <title>Output Generation</title>
 
       <para>Due to its scientific purpose, SUMO tasks lie beyond simple
       visualisation of traffic. The results of a simulation must be available
-      and one must be able to process them and furthermore possibilities to
-      influence the simulation are necessary to make it more variable in use.
-      Detectors, artifacts used to gain more or less processed results from
-      the simulation and some further structures used are described in the
-      next subchapters.</para>
-
-      <para>To supply the definitions of these structures to the simulation,
-      we use an additional file normally and pass it to "SUMO" using the
-      <option>--additional-files</option> (<option>-a</option>) - option. Each
-      of these files may contain all the definitions about additional
-      structures such as detectors, emitters etc. in random order.</para>
+      and one must be able to process them. In the next subchapters,
+      possibilities to generate output are described.</para>
 
       <sect2 id="user_chp06-output-detectors">
         <title>Detectors</title>
 
-        <para>The results are obtained from the simulation using simulated
-        detectors. You will find detectors one knows from the real world such
-        as induct loops, but also some virtual ones that allow gaining values
-        one can work with more easily.</para>
-
-        <para>Basically, the main distinction between detectors SUMO offers is
-        their dimension. The next list shows all available detector types,
-        some of which are still under development. The type names "E*" have
-        their origin in the German word "Erfassungsbereich" meaning "detection
-        area".</para>
+        <para>One possibility to generate output is to use so called
+        "detectors". You will find detectors one knows from the real world
+        such as induction loops but also some virtual ones. Basically, the
+        main distinction between detector types SUMO offers is their
+        dimension. The next list shows all available detector types. Their
+        type names "E*" have their origin in the German word
+        "Erfassungsbereich" meaning "detection area".</para>
 
         <itemizedlist>
           <listitem>
-            <para>E1: Induct loops</para>
+            <para>E1: Induction loops</para>
 
-            <para>Induct loops have a position only and no dimensions. They
-            are meant to be a slice plane through a single lane and measure
-            only the vehicles passing them.</para>
+            <para>Induction loops have a position only and no areal
+            dimensions. They are meant to be a slice plane through a single
+            lane and measure only the vehicles passing them.</para>
           </listitem>
 
           <listitem>
@@ -6882,12 +6870,6 @@ myDet1;0;10;2;100;80
           </listitem>
 
           <listitem>
-            <para>E23: Route-dependent Origin/Destination detectors</para>
-
-            <para>... not yet implemented ...</para>
-          </listitem>
-
-          <listitem>
             <para>E3: Multi-Origin/Multi-Destination detectors</para>
 
             <para>E3-detectors measure vehicles passing a set of entry and an
@@ -6896,26 +6878,15 @@ myDet1;0;10;2;100;80
             movements of vehicles between any of the entry and any of the exit
             points.</para>
           </listitem>
-
-          <listitem>
-            <para>E41: Destination based detectors</para>
-
-            <para>... not yet implemented ...</para>
-          </listitem>
-
-          <listitem>
-            <para>E42: Edgebased detectors</para>
-
-            <para>... not yet implemented ...</para>
-          </listitem>
         </itemizedlist>
 
-        <para>We will not replicate the exact computation of the detector's
-        values. A document describing this should be found on our pages within
-        the <ulink
-        url="http://sumo.sourceforge.net/docs/documentation.html">documentation</ulink>
-        part. The next subchapters hold the information about how to set
-        detectors onto a network only.</para>
+        <para>To supply the definitions of these structures to the simulation,
+        we use an additional file and pass it to
+        <application>SUMO</application> or <application>GUISIM</application>
+        using the <option>--additional-files</option> (<option>-a</option>) -
+        option. Each of these files may contain all the definitions about
+        additional structures such as detectors, emitters, etc., in random
+        order. </para>
 
         <para>To ease the usage and for backward compatibility, all detectors
         may be defined in two ways. The first one is by using the following
@@ -6923,59 +6894,46 @@ myDet1;0;10;2;100;80
         id="<replaceable>&lt;ID&gt;</replaceable>"
         type="<replaceable>&lt;TYPE&gt;</replaceable>" ...further
         attributes.../&gt;</sgmltag>. Herein, the detector type is determined
-        by the type-attribute which is "induct_loop" as default. The second
-        possibility is: : <sgmltag>&lt;<replaceable>XX</replaceable>-detector
+        by the type-attribute which is "induction_loop" as default. The second
+        possibility is: <sgmltag>&lt;<replaceable>XX</replaceable>-detector
         id="<replaceable>&lt;ID&gt;</replaceable>" ...further
-        attributes.../&gt;</sgmltag> where the tag name already defines the
-        detector to build. Possible values for <sgmltag><replaceable>XX
+        attributes.../&gt;</sgmltag> where the element name already defines
+        the detector to build. Possible values for <sgmltag><replaceable>XX
         </replaceable></sgmltag>within the tag name and attributes needed to
         describe each detector are described in the following
         subchapters.</para>
 
+        <caution>
+          <para>Please note that all output have not yet been verified for sub
+          second simulation.</para>
+        </caution>
+
         <sect3 id="user_chp06-output-detectors-e1">
-          <title>E1-Detectors (Induct Loops)</title>
+          <title>E1-Detectors (Induction Loops)</title>
 
-          <para>An induct loop is defined either this way:</para>
-
-          <programlisting><sgmltag>&lt;detector id="<replaceable>&lt;ID&gt;</replaceable>" type="(induct_loop|E1)" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>"
-   freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [friendly_pos="x"]/&gt;</sgmltag></programlisting>
-
-          <para>or this way:</para>
+          <para>An induction loop is defined this way:</para>
 
           <programlisting><sgmltag>&lt;e1-detector id="<replaceable>&lt;ID&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>"
-   freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [friendly_pos="x"]/&gt;</sgmltag></programlisting>
+   freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [friendly_pos="x"]/&gt;</sgmltag></programlisting>
 
-          <para>The id is any string that let's you know which detector is
-          meant. The type indicates that a induct loop shall be build, here.
-          The attributes "<sgmltag>lane</sgmltag>" and
+          <para>The "<sgmltag>id</sgmltag>" is any string by which you can
+          name the detector. The attributes "<sgmltag>lane</sgmltag>" and
           "<sgmltag>pos</sgmltag>" describe on which lane and at which
-          position on him the detector shall lay. As induct loop detectors may
-          aggregate the values they collect, the freq-attribute describes this
-          period. The style-parameter is obsolete by now as the earlier
-          possibility to use either "xml" or "cvs"-output is now not
-          supported, the values are stored in xml-files only. The file
+          position on this lane the detector shall lay. The
+          "<sgmltag>freq</sgmltag>"-attribute describes the period over which
+          collected values shalle be aggregated. The "<sgmltag>file</sgmltag>"
           attribute tells the simulation to which file the detector shall
           write his results into. The file will be generated, does not have to
           exist earlier and will be overwritten if existing without any
-          warning.</para>
+          warning. The folder the output file shall be generated in must
+          exist.</para>
 
-          <para><caution>
-              <para>The folder the output file shall be generated in must
-              exist.</para>
-            </caution></para>
-
-          <para>Let's review the attributes:</para>
+          <para>The attributes:</para>
 
           <itemizedlist spacing="compact">
             <listitem>
               <para><sgmltag>id</sgmltag>: A string holding the id of the
               detector</para>
-            </listitem>
-
-            <listitem>
-              <para><sgmltag>type</sgmltag>: Always "induct_loop" or "E1" for
-              this type of detectors ("induct_loop" is the default
-              value)</para>
             </listitem>
 
             <listitem>
@@ -6999,11 +6957,6 @@ myDet1;0;10;2;100;80
             </listitem>
 
             <listitem>
-              <para><sgmltag>style</sgmltag>: Obsolete/deprecated; Always
-              "xml" by now</para>
-            </listitem>
-
-            <listitem>
               <para><sgmltag>file</sgmltag>: The path to the output file. The
               path may be relative.</para>
             </listitem>
@@ -7011,16 +6964,145 @@ myDet1;0;10;2;100;80
             <listitem>
               <para><sgmltag>friendly_pos</sgmltag>: If set, no error will be
               reported if the detector is placed behind the lane. Instead, the
-              detector will be place 0.1 meters from the lane's end.</para>
+              detector will be placed 0.1 meters from the lane's end.</para>
             </listitem>
           </itemizedlist>
+
+          <para>A single data line within the output of a simulated
+          e1-detector looks as following (the line is not broken within the
+          output):</para>
+
+          <programlisting><sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>" id="<replaceable>&lt;DETECTOR_ID&gt;</replaceable>" \
+   nVehContrib="<replaceable>&lt;MEASURED_VEHICLES&gt;</replaceable>" flow="<replaceable>&lt;FLOW&gt;</replaceable>" \
+   occupancy="<replaceable>&lt;OCCUPANCY&gt;</replaceable>" speed="<replaceable>&lt;MEAN_SPEED&gt;</replaceable>" length="<replaceable>&lt;MEAN_LENGTH&gt;</replaceable>" \
+   nVehEntered="<replaceable>&lt;ENTERED_VEHICLES&gt;</replaceable>"/&gt;</sgmltag></programlisting>
+
+          <para>The values are described in the following table.</para>
+
+          <table>
+            <title>Definition of values generated by e1-detectors</title>
+
+            <tgroup cols="3">
+              <thead>
+                <row>
+                  <entry>Name</entry>
+
+                  <entry>Measure</entry>
+
+                  <entry>Description</entry>
+                </row>
+              </thead>
+
+              <tbody>
+                <row>
+                  <entry><sgmltag>begin</sgmltag></entry>
+
+                  <entry><literal>seconds</literal></entry>
+
+                  <entry>The first time step the values were collected
+                  in</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>end</sgmltag></entry>
+
+                  <entry><literal>seconds</literal></entry>
+
+                  <entry>The last time step the values were collected in (may
+                  be equal to begin)</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>id</sgmltag></entry>
+
+                  <entry><literal>-</literal></entry>
+
+                  <entry>The id of the detector (needed if several detectors
+                  share an output file)</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>nVehContrib</sgmltag></entry>
+
+                  <entry><literal>#vehicles</literal></entry>
+
+                  <entry>The number of vehicles that have completely passed
+                  the detector within the interval</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>flow</sgmltag></entry>
+
+                  <entry><literal>vehicles/hour</literal></entry>
+
+                  <entry>The number of contributing vehicles extrpolated to an
+                  hour</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>occupancy</sgmltag></entry>
+
+                  <entry><literal>%</literal></entry>
+
+                  <entry>The percentage (0-100%) of the time a vehicle was at
+                  the detector.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>speed</sgmltag></entry>
+
+                  <entry><literal>m/s</literal></entry>
+
+                  <entry>The mean velocity of all completely collected
+                  vehicles.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>length</sgmltag></entry>
+
+                  <entry><literal>m</literal></entry>
+
+                  <entry>The mean length of all completely collected
+                  vehicles.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>nVehEntered</sgmltag></entry>
+
+                  <entry><literal>#vehicles</literal></entry>
+
+                  <entry>All vehicles that have touched the detector. Includes
+                  vehicles which have not passed the vehicle completely (and
+                  which do not contribute to collected values).</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
 
           <para>Recent changes:</para>
 
           <itemizedlist spacing="compact">
             <listitem>
-              <para>The attribute <sgmltag>friendly_pos</sgmltag> is available
-              since version 0.9.4</para>
+              <para>The attribute "<sgmltag>friendly_pos</sgmltag>" is
+              available since version 0.9.4.</para>
+            </listitem>
+
+            <listitem>
+              <para>As detectors have been reworked for version 0.9.8, some
+              used measures may have changed. Please consult the table
+              above.</para>
+            </listitem>
+
+            <listitem>
+              <para>Since version 0.9.8, the attribute
+              "<sgmltag>style</sgmltag>" is marked as deprecated, a warning is
+              generated</para>
+            </listitem>
+
+            <listitem>
+              <para>Using element name "<sgmltag>detector</sgmltag>" together
+              with a <sgmltag>type</sgmltag> is marked as deprecated since
+              version 0.9.8, a warning is generated</para>
             </listitem>
           </itemizedlist>
         </sect3>
@@ -7028,37 +7110,22 @@ myDet1;0;10;2;100;80
         <sect3 id="user_chp06-output-detectors-e2">
           <title>E2-Detectors (Areal, lane-based Detectors)</title>
 
-          <para>An induct loop is defined the following way:</para>
-
-          <programlisting><sgmltag>&lt;detector id="<replaceable>&lt;ID&gt;</replaceable>" type="(areal|lane_based|E2)" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>"
-   pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>" length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>"
-   [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
-   [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [jam_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]/&gt;</sgmltag></programlisting>
-
-          <para>or:</para>
+          <para>An e2-detector is defined the following way:</para>
 
           <programlisting><sgmltag>&lt;e2-detector id="<replaceable>&lt;ID&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>"
-   length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"]
-   file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
-   [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [jam_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]/&gt;</sgmltag></programlisting>
+   length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" 
+   file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
+   [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [jam_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]/&gt;</sgmltag></programlisting>
 
-          <para>Most of the attributes have the same meaning as for induct
-          loops. As an areal detector has a certain length, this length must
-          be supplied as a further parameter. It may also be a negative number
-          which lets the detector be extended upstream to the given beginning
-          position. The type must be set to either "<sgmltag>areal</sgmltag>",
-          "<sgmltag>lane_based</sgmltag>" or "<sgmltag>E2</sgmltag>" to let
-          the simulation know what's desired to build. The optional parameter
-          "cont" let's the detector continue over the current lane onto this
-          lane's predecessors when the detector's length plus his position is
-          larger than the place available on the lane. The attribute
-          "<sgmltag>measures</sgmltag>" describes which values the detector
-          shall compute. The optional values are described below.</para>
-
-          <para><caution>
-              <para>The folder the output file shall be generated in must
-              exist.</para>
-            </caution></para>
+          <para>Most of the attributes have the same meaning as for induction
+          loops. As an areal detector has a certain length,
+          "<sgmltag>length</sgmltag>" must be supplied as a further parameter.
+          It may be a negative number which lets the detector be extended
+          upstream to the given beginning position. The optional parameter
+          "<sgmltag>cont</sgmltag>" let's the detector continue over the
+          current lane onto this lane's predecessors when the detector's
+          length plus his position is larger than the place available on the
+          lane.</para>
 
           <para><caution>
               <para>For detectors that span over more than a single edge, only
@@ -7066,172 +7133,12 @@ myDet1;0;10;2;100;80
               is defined all other may return strange values.</para>
             </caution></para>
 
-          <para>But there is also a further possibility to use E2-detectors.
-          If you place them in front of a traffic light, you can use the
-          traffic light to describe the intervals (aggregation) time instead
-          of giving a fixed aggregation time. In this case, output will be
-          generated every time the traffic light switches. To use this
-          feature, simply replace the freq-attribute within the description of
-          your detector by the id of the traffic light that should steer it
-          (use the attribute "<sgmltag>tl</sgmltag>" to specify the id)
-          :</para>
-
-          <programlisting><sgmltag>&lt;detector id="<replaceable>&lt;ID&gt;</replaceable>" type="[(areal|lane_based|E2)" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" \
-   pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>" length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>" tl="<replaceable>&lt;TL-ID&gt;</replaceable>"
-   freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"] file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>"
-   [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
-   [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [jam_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]/&gt;</sgmltag></programlisting>
-
-          <para>or:</para>
-
-          <programlisting><sgmltag>&lt;e2-detector id="<replaceable>&lt;ID&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>"
-   length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>"  tl="<replaceable>&lt;TL-ID&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [style="xml"]
-   file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
-   [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [jam_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]/&gt;</sgmltag></programlisting>
-
-          <para>A further feature allows you to output values not for all
-          switches of the traffic light the detector is attached to, but only
-          when the light turns red for the assigned link (connection between
-          the incoming and the outgoing lane). This should allow you to
-          measure the maximum jam length in front of a red traffic light for
-          this link. To switch on this feature, you have to add the name of
-          the following lane:<sgmltag>
-          to="<replaceable>&lt;LANE_ID&gt;</replaceable>"</sgmltag>. The
-          incoming lane is already given by the
-          "<sgmltag>lane</sgmltag>"-attribute.</para>
-
-          <para>E2-detectors may compute many different measures and the user
-          has the possibility to describe which measures he actually wants to
-          be generated. The "measures"-attribute must contain the measures
-          divided by a ' ' (blank) in the case he does not want to compute all
-          parameters. Computing all parameters is the default case but may
-          also be set using '<sgmltag>measures="ALL"</sgmltag>' . The
-          available measures are:</para>
-
-          <itemizedlist spacing="compact">
-            <listitem>
-              <para>DENSITY: The density on the detector in vehicles/hour
-              averaged over the requested interval.</para>
-            </listitem>
-
-            <listitem>
-              <para>MAX_JAM_LENGTH_IN_VEHICLES: Every timestep, the maximum
-              number of consecutivly jamming vehicles is detected. These
-              values are averaged over the requested interval.</para>
-            </listitem>
-
-            <listitem>
-              <para>MAX_JAM_LENGTH_IN_METERS: Every timestep, the maximum
-              length demand of consecutivly jamming vehicles in meters is
-              detected. These values are averaged over the requested
-              interval.</para>
-            </listitem>
-
-            <listitem>
-              <para>JAM_LENGTH_SUM_IN_VEHICLES: Every timestep, the sum of the
-              lengths of all jams on the detector is measured (in vehicles).
-              These values are averaged over the requested interval.</para>
-            </listitem>
-
-            <listitem>
-              <para>JAM_LENGTH_SUM_IN_METERS: Every timestep, the sum of the
-              lengths of all jams on the detector is measured (in meters).
-              These values are averaged over the requested interval.</para>
-            </listitem>
-
-            <listitem>
-              <para>QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES: This
-              detector uses a MAX_JAM_LENGTH_IN_VEHICLES one as a helper.
-              Every timestep, the "maximum-jam-length" (in vehicles) from
-              MAX_JAM_LENGTH_IN_VEHICLES will be compared to the maximum of
-              "maximum-jam-lengths" that occured since the last reset. If the
-              new value is larger, the maximum of "maximum-jam-lengths" is
-              updated. Between two resets, this detector records a monoton
-              growing set of "maximum-jam-lengths". These values are averaged
-              over the requested interval. The reset is performed by a traffic
-              light.</para>
-            </listitem>
-
-            <listitem>
-              <para>QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_METERS: As
-              QUEUE_LENGTH_AHEAD_OF_TRAFFIC_LIGHTS_IN_VEHICLES, but in meters,
-              not in vehicles.</para>
-            </listitem>
-
-            <listitem>
-              <para>N_VEHICLES: Every timestep, the number of vehicles that
-              populate the detector is recorded. These values are averaged
-              over the requested interval.</para>
-            </listitem>
-
-            <listitem>
-              <para>OCCUPANCY_DEGREE: Every timestep the length of the
-              vehicles populating the detector is summed up. We divide this
-              length by the detectorlength to get a value out of [0,1]. These
-              values are averaged over the requested interval.</para>
-            </listitem>
-
-            <listitem>
-              <para>SPACE_MEAN_SPEED: Every timestep, the mean-speed of the
-              vehicles on the detector is calculated. These values are
-              averaged over the requested interval.</para>
-            </listitem>
-
-            <listitem>
-              <para>CURRENT_HALTING_DURATION_SUM_PER_VEHICLE: Every timestep,
-              the halting-time of the vehicles on the detector is summed up
-              and then averaged over the number of vehicles. These values are
-              averaged over the requested interval.</para>
-            </listitem>
-
-            <listitem>
-              <para>N_STARTED_HALTS: A vehicle on the detector that just
-              started halting, will report the time when this event took place
-              to the detector. All events during the requested interval are
-              summed up.</para>
-            </listitem>
-
-            <listitem>
-              <para>HALTING_DURATION_SUM: A vehicle that starts moving after a
-              halt will report it's halting-duration (in seconds) and the time
-              when this event took place to the detector. The
-              halting-durations of all events during the requested interval
-              are summed up.</para>
-            </listitem>
-
-            <listitem>
-              <para>HALTING_DURATION_MEAN: Every vehicle sums up it's
-              halting-durations (in seconds) during it's stay on the detector.
-              When a vehicle leaves the detector, it's halting-duration-sum is
-              stored by the detector. These values are averaged over the
-              requested interval.Only vehicles that moved through the entire
-              detector contribute.</para>
-            </listitem>
-
-            <listitem>
-              <para>APPROACHING_VEHICLES_STATES: This detector is a special
-              kind of E2 detector. It doesn't return a single value but a
-              container of vehicle states. Here, a vehicle state is a tuple
-              consisting of the distance from the vehicle front to the
-              detector end and the vehicle's speed. There is no averaging or
-              summing up but current output is provided. This detector is
-              intended for internal use, e.g. as input to
-              traffic-light-controls.</para>
-            </listitem>
-          </itemizedlist>
-
           <para>Again, the explicit list of available attributes:</para>
 
           <itemizedlist spacing="compact">
             <listitem>
               <para><sgmltag>id</sgmltag>: A string holding the id of the
               detector</para>
-            </listitem>
-
-            <listitem>
-              <para><sgmltag>type</sgmltag>: Always "lane_based" or "E2" for
-              this type of detectors ("induct_loop" is the default
-              value)</para>
             </listitem>
 
             <listitem>
@@ -7265,27 +7172,16 @@ myDet1;0;10;2;100;80
               <para><sgmltag>file</sgmltag>: The path to the output file. The
               path may be relative.</para>
             </listitem>
-
-            <listitem>
-              <para><sgmltag>measures</sgmltag>: Should contain the list of
-              measures to compute (see above) or "ALL" to compute all
-              measures.</para>
-            </listitem>
           </itemizedlist>
 
           <para>And the optional ones:</para>
 
           <itemizedlist spacing="compact">
             <listitem>
-              <para><sgmltag>style</sgmltag>: Obsolete/deprecated; Always xml
-              by now</para>
-            </listitem>
-
-            <listitem>
-              <para>cont: Holds the information whether detectors longer than
-              a lane shall be cut off or continued (set it to true for the
-              second case) default: false (detector lies on one lane
-              only).</para>
+              <para><sgmltag>cont</sgmltag>: Holds the information whether
+              detectors longer than a lane shall be cut off or continued (set
+              it to true for the second case) default: false (detector lies on
+              one lane only).</para>
             </listitem>
 
             <listitem>
@@ -7305,16 +7201,318 @@ myDet1;0;10;2;100;80
               the next standing vehicle in order to make this vehicle count as
               a participant to the jam (in m, default: 10m).</para>
             </listitem>
+          </itemizedlist>
 
+          <para>A single data line within the output of a simulated
+          e2-detector looks as following (the line is not broken within the
+          output):</para>
+
+          <programlisting><sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>" id="<replaceable>&lt;DETECTOR_ID&gt;</replaceable>"  \
+   nSamples="<replaceable>&lt;DATA_SAMPLES&gt;</replaceable>" meanSpeed="<replaceable>&lt;MEAN_SPEED&gt;</replaceable>"  \
+   meanOccupancy="<replaceable>&lt;MEAN_OCCUPANCY&gt;</replaceable>" maxOccupancy="<replaceable>&lt;MAX_OCCUPANCY&gt;</replaceable>" \
+   meanMaxJamLengthInVehicles="<replaceable>&lt;VAL&gt;</replaceable>" meanMaxJamLengthInMeters="<replaceable>&lt;VAL&gt;</replaceable>"  \
+   maxJamLengthInVehicles="<replaceable>&lt;VAL&gt;</replaceable>" maxJamLengthInMeters="<replaceable>&lt;VAL&gt;</replaceable>"  \
+   jamLengthInVehiclesSum="<replaceable>&lt;VAL&gt;</replaceable>" jamLengthInMetersSum="<replaceable>&lt;VAL&gt;</replaceable>" \
+   meanHaltingDuration="<replaceable>&lt;VAL&gt;</replaceable>" maxHaltingDuration="<replaceable>&lt;VAL&gt;</replaceable>" haltingDurationSum="<replaceable>&lt;VAL&gt;</replaceable>" \
+   meanIntervalHaltingDuration="<replaceable>&lt;VAL&gt;</replaceable>" maxIntervalHaltingDuration="<replaceable>&lt;VAL&gt;</replaceable>"
+   intervalHaltingDurationSum="<replaceable>&lt;VAL&gt;</replaceable>" startedHalts="<replaceable>&lt;VAL&gt;</replaceable>" \
+   meanVehicleNumber="<replaceable>&lt;VAL&gt;</replaceable>" maxVehicleNumber="<replaceable>&lt;VAL&gt;</replaceable>" /&gt;
+</sgmltag></programlisting>
+
+          <para>To explain this vast amount of measures, a short note about
+          how an e2-detector works is needfull. An e2-detector takes note
+          about each vehicle that enters the area. As long as the vehicle does
+          not leave the area completely, its state is collected in each time
+          step during the interval. Each vehicle state in this case is called
+          a "data sample" and the output of an e2-detector is made up from all
+          data samples of all vehicles within the are during the complete data
+          collection ("<sgmltag>freq</sgmltag>") interval.</para>
+
+          <para>As an e2-detector covers a lane and vehicles are sorted on
+          these, it is possible to recognize jams along the detector's area
+          and measure them. Because more than one jam may take place at the
+          area at one time, the values cover as well averaged measures of all
+          jams ("<sgmltag>jamLengthIn...Sum</sgmltag>") as explicite measures
+          of the longest (maximum) jam. For the longest jam, both averaged
+          ("<sgmltag>meanMaxJamLengthIn...</sgmltag>") and maximum
+          ("<sgmltag>maxJamLengthIn...</sgmltag>") values are written.</para>
+
+          <note>
+            <para>The jam length in meters may be more than a sum of the
+            vehicles lengths, because the place between vehicle is also taken
+            into account.</para>
+          </note>
+
+          <para>Besides jam computation, the durations vehicles are halting
+          are collected. They are both collected over the whole time span a
+          vehicle is on the detector area
+          ("<sgmltag>...HaltingDuration</sgmltag>" and
+          "<sgmltag>haltingDurationSum</sgmltag>"), and explicite for each
+          interval ("<sgmltag>...IntervalHaltingDuration</sgmltag>" and
+          "<sgmltag>intervalHaltingDurationSum</sgmltag>").</para>
+
+          <para>The values are described in the following table.</para>
+
+          <table>
+            <title>Definition of values generated by e1-detectors</title>
+
+            <tgroup cols="3">
+              <thead>
+                <row>
+                  <entry>Name</entry>
+
+                  <entry>Measure</entry>
+
+                  <entry>Description</entry>
+                </row>
+              </thead>
+
+              <tbody>
+                <row>
+                  <entry><sgmltag>begin</sgmltag></entry>
+
+                  <entry><literal>seconds</literal></entry>
+
+                  <entry>The first time step the values were collected
+                  in</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>end</sgmltag></entry>
+
+                  <entry><literal>seconds</literal></entry>
+
+                  <entry>The last time step the values were collected in (may
+                  be equal to begin)</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>id</sgmltag></entry>
+
+                  <entry><literal>-</literal></entry>
+
+                  <entry>The id of the detector (needed if several detectors
+                  share an output file)</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>nSamples</sgmltag></entry>
+
+                  <entry><literal>#</literal></entry>
+
+                  <entry>The number of data samples that could be collected. A
+                  "data sample" means the state of a vehicle that was on the
+                  detector area during one of the simulation steps of the
+                  interval described by this data line.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>meanSpeed</sgmltag></entry>
+
+                  <entry><literal>m/s</literal></entry>
+
+                  <entry>The mean velocity over all collected data
+                  samples.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>meanOccupancy</sgmltag></entry>
+
+                  <entry><literal>%</literal></entry>
+
+                  <entry>The percentage (0-100%) of the detector's place that
+                  was occupied by vehicles, summed up for each time step and
+                  averaged by the interval duration.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>maxOccupancy</sgmltag></entry>
+
+                  <entry><literal>%</literal></entry>
+
+                  <entry>The maximum percentage (0-100%) of the detector's
+                  place that was occupied by vehicles during the
+                  interval.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>meanMaxJamLengthInVehicles</sgmltag></entry>
+
+                  <entry><literal>#vehicles</literal></entry>
+
+                  <entry>The length of the longest jams recognized during each
+                  step, averaged over the interval duration. In vehicles that
+                  have contributed to these jams.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>meanMaxJamLengthInMeters</sgmltag></entry>
+
+                  <entry><literal>m</literal></entry>
+
+                  <entry>As prior, but in meters (see notes)</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>maxJamLengthInVehicles</sgmltag></entry>
+
+                  <entry><literal>#vehicles</literal></entry>
+
+                  <entry>The length of the longest jam recognized during the
+                  interval duration. In vehicles that have contributed to this
+                  jams.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>maxJamLengthInMeters</sgmltag></entry>
+
+                  <entry><literal>m</literal></entry>
+
+                  <entry>As prior, but in meters (see notes)</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>jamLengthInVehiclesSum</sgmltag></entry>
+
+                  <entry><literal>#vehicles</literal></entry>
+
+                  <entry>The sum of all lengths of all jams recognized during
+                  the interval. In vehicles that have contributed to these
+                  jams.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>jamLengthInMetersSum</sgmltag></entry>
+
+                  <entry><literal>m</literal></entry>
+
+                  <entry>As prior, but in meters (see notes)</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>meanHaltingDuration</sgmltag></entry>
+
+                  <entry><literal>s</literal></entry>
+
+                  <entry>The mean halting duration of vehicles that entered
+                  the area and are still inside.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>maxHaltingDuration</sgmltag></entry>
+
+                  <entry><literal>s</literal></entry>
+
+                  <entry>The maximum halting duration of vehicles that entered
+                  the area and are still inside.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>haltingDurationSum</sgmltag></entry>
+
+                  <entry><literal>s</literal></entry>
+
+                  <entry>The sum of all halting durations of vehicles that
+                  entered the area and are still inside.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>meanIntervalHaltingDuration</sgmltag></entry>
+
+                  <entry><literal>s</literal></entry>
+
+                  <entry>The mean halting duration of vehicles that entered
+                  the area and are still inside, counted from the interval's
+                  begin.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>maxIntervalHaltingDuration</sgmltag></entry>
+
+                  <entry><literal>s</literal></entry>
+
+                  <entry>The maximum halting duration of vehicles that entered
+                  the area and are still inside, counted from the interval's
+                  begin.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>intervalHaltingDurationSum</sgmltag></entry>
+
+                  <entry><literal>s</literal></entry>
+
+                  <entry>The sum of all halting durations of vehicles that
+                  entered the area and are still inside, counted from the
+                  interval's begin.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>startedHalts</sgmltag></entry>
+
+                  <entry><literal>#</literal></entry>
+
+                  <entry>The number of strated halts. Please note that during
+                  an interval a vehicle may stop halting and enter a new
+                  halting state.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>meanVehicleNumber</sgmltag></entry>
+
+                  <entry><literal>#</literal></entry>
+
+                  <entry>The mean number of vehicles that were on the detector
+                  (averaged over the interval duration).</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>maxVehicleNumber</sgmltag></entry>
+
+                  <entry><literal>#</literal></entry>
+
+                  <entry>The maximum number of vehicles that were on the
+                  detector area during the interval.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+
+          <para>Recent changes:</para>
+
+          <itemizedlist spacing="compact">
             <listitem>
-              <para><sgmltag>keep_for</sgmltag>: Information for how long the
-              memory of the detector has to be (in s, default: 1800s).</para>
+              <para>As detectors have been reworked for version 0.9.8, some
+              used measures may have changed. Please consult the table
+              above.</para>
             </listitem>
 
             <listitem>
-              <para><sgmltag>measures</sgmltag>: Should contain the list of
-              measures to compute (see above) or "ALL" to compute all measures
-              (default: ALL).</para>
+              <para>Since version 0.9.8, the attribute
+              "<sgmltag>style</sgmltag>" is marked as deprecated, a warning is
+              generated.</para>
+            </listitem>
+
+            <listitem>
+              <para>Using element name "<sgmltag>detector</sgmltag>" together
+              with a <sgmltag>type</sgmltag> is marked as deprecated since
+              version 0.9.8, a warning is generated.</para>
+            </listitem>
+
+            <listitem>
+              <para>The parameter "<sgmltag>measures</sgmltag>" is no longer
+              supported since version 0.9.8, the detector writes always all
+              values. A warning is generated.</para>
+            </listitem>
+
+            <listitem>
+              <para>The parameter "keep_for" is no longer supported since
+              version 0.9.8, a warning is generated.</para>
+            </listitem>
+
+            <listitem>
+              <para>E2-detectors coupled to traffic lights are now described
+              in "<ulink url="#user_chp06-output-tls-e2">Coupled
+              E2-Output</ulink>".</para>
             </listitem>
           </itemizedlist>
         </sect3>
@@ -7332,17 +7530,10 @@ myDet1;0;10;2;100;80
             <listitem>
               <para>A beginning tag that describes some global attributes of
               the detector just as the descriptions of e1- and e2-detectors
-              do. The format is either:</para>
-
-              <programlisting><sgmltag>&lt;detector id="<replaceable>&lt;ID&gt;</replaceable>" type="(multi_od|E3)" file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>"
-   freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
-   [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]&gt;</sgmltag></programlisting>
-
-              <para>or:</para>
+              do. The format is:</para>
 
               <programlisting><sgmltag>&lt;e3-detector id="<replaceable>&lt;ID&gt;</replaceable>" file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>"
-   [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
-   [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]&gt;</sgmltag></programlisting>
+   [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]&gt;</sgmltag></programlisting>
 
               <para>As one can see, no information about the detector's
               position is stored herein. They are stored in embedded tags
@@ -7370,11 +7561,7 @@ myDet1;0;10;2;100;80
             <listitem>
               <para>A closing tag that must match the opening tag (1.):</para>
 
-              <para>a) <sgmltag>&lt;/detector&gt;</sgmltag></para>
-
-              <para>or</para>
-
-              <para>b) <sgmltag>&lt;/e3-detector&gt;</sgmltag></para>
+              <para><sgmltag>&lt;/e3-detector&gt;</sgmltag></para>
             </listitem>
           </orderedlist>
 
@@ -7395,42 +7582,128 @@ myDet1;0;10;2;100;80
           folder the configuration was read in/the program has been started
           within.</para>
 
-          <para>Most of the values have been discussed in the previous
-          subchapters. The only thing that differs from e1/e2-detectors are
-          the measures e3-detectors are able to compute. Possible values
-          are:</para>
+          <para>A single data line within the output of a simulated
+          e3-detector looks as following (the line is not broken within the
+          output):</para>
+
+          <programlisting><sgmltag>&lt;interval begin="<replaceable>&lt;BEGIN_TIME&gt;</replaceable>" end="<replaceable>&lt;END_TIME&gt;</replaceable>" id="<replaceable>&lt;ID&gt;</replaceable>" \
+   meanTravelTime="<replaceable>&lt;MEAN_TT&gt;</replaceable>" meanSpeed="<replaceable>&lt;MEAN_SPEED&gt;</replaceable>" \
+   meanHaltsPerVehicle="<replaceable>&lt;MEAN_HALT_NUMBER&gt;</replaceable>" vehicleSum="<replaceable>&lt;#VEHICLES&gt;</replaceable>"/&gt;
+</sgmltag></programlisting>
+
+          <para>The values are described in the following table. Please note,
+          that only those vehicles are taken into account that have left the
+          detector area within the interval.</para>
+
+          <table>
+            <title>Definition of values generated by e1-detectors</title>
+
+            <tgroup cols="3">
+              <thead>
+                <row>
+                  <entry>Name</entry>
+
+                  <entry>Measure</entry>
+
+                  <entry>Description</entry>
+                </row>
+              </thead>
+
+              <tbody>
+                <row>
+                  <entry><sgmltag>begin</sgmltag></entry>
+
+                  <entry><literal>seconds</literal></entry>
+
+                  <entry>The first time step the values were collected
+                  in</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>end</sgmltag></entry>
+
+                  <entry><literal>seconds</literal></entry>
+
+                  <entry>The last time step the values were collected in (may
+                  be equal to begin)</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>id</sgmltag></entry>
+
+                  <entry><literal>-</literal></entry>
+
+                  <entry>The id of the detector (needed if several detectors
+                  share an output file)</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>meanTravelTime</sgmltag></entry>
+
+                  <entry><literal>s</literal></entry>
+
+                  <entry>The time vehicles needed to pass the area. Averaged
+                  over all vehicles that have left the detector during the
+                  interval duration.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>meanSpeed</sgmltag></entry>
+
+                  <entry><literal>m/s</literal></entry>
+
+                  <entry>The mean speed of vehicles that have passed the
+                  area.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>meanHaltsPerVehicle</sgmltag></entry>
+
+                  <entry><literal>%</literal></entry>
+
+                  <entry>The number of halts of vehicles that have passed the
+                  area. Averaged over all vehicles that have left the detector
+                  during the interval duration.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>vehicleSum</sgmltag></entry>
+
+                  <entry><literal>#</literal></entry>
+
+                  <entry>The number of vehicles that have left the area during
+                  the interval.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+
+          <para>Recent changes:</para>
 
           <itemizedlist spacing="compact">
             <listitem>
-              <para>MEAN_TRAVELTIME: A vehicle that entered the detector
-              through an entry-cross-section and leaves it through a
-              leave-cross-section will store it's traveltime (in seconds) and
-              the leaving-time into the detector. These traveltimes of the
-              vehicles that left during the requested interval are
-              averaged.</para>
+              <para>As detectors have been reworked for version 0.9.8, some
+              used measures may have changed. Please consult the table
+              above.</para>
             </listitem>
 
             <listitem>
-              <para>MEAN_NUMBER_OF_HALTINGS_PER_VEHICLE: A vehicle that
-              entered the detector through an entry-cross-section and leaves
-              it through a leave-cross-section will store it's number of
-              haltings and the leaving-time into the detector. The
-              halting-values of the vehicles that left during the requested
-              interval are averaged.</para>
+              <para>Using element name "<sgmltag>detector</sgmltag>" together
+              with a <sgmltag>type</sgmltag> is marked as deprecated since
+              version 0.9.8, a warning is generated</para>
             </listitem>
 
             <listitem>
-              <para>NUMBER_OF_VEHICLES: A vehicle that entered the detector
-              through an entry-cross-section and leaves it through a
-              leave-cross-section will store it's leaving-time into the
-              detector. The vehicles that left the detector during the
-              requested interval will be summed up.</para>
+              <para>The parameter "<sgmltag>measures</sgmltag>" is no longer
+              supported since version 0.9.8, the detector writes always all
+              values. A warning is generated.</para>
+            </listitem>
+
+            <listitem>
+              <para>The parameter "keep_for" is no longer supported since
+              version 0.9.8, a warning is generated.</para>
             </listitem>
           </itemizedlist>
-
-          <para>As for e2-detectors, you can use the value "ALL" for the
-          attribute measures to compute all values. This is also this
-          attributes default value.</para>
         </sect3>
       </sect2>
 
@@ -8394,6 +8667,45 @@ myDet1;0;10;2;100;80
               </itemizedlist>
             </listitem>
           </itemizedlist>
+        </sect3>
+
+        <sect3 id="user_chp06-output-tls-e2">
+          <title>Coupled E2-Output</title>
+
+          <para>!!!</para>
+
+          <para>There is a further possibility to use E2-detectors. If you
+          place them in front of a traffic light, you can use the traffic
+          light to describe the intervals (aggregation) time instead of giving
+          a fixed aggregation time. In this case, output will be generated
+          every time the traffic light switches. To use this feature, simply
+          replace the freq-attribute within the description of your detector
+          by the id of the traffic light that should steer it (use the
+          attribute "<sgmltag>tl</sgmltag>" to specify the id) :</para>
+
+          <programlisting><sgmltag>&lt;detector id="<replaceable>&lt;ID&gt;</replaceable>" type="[(areal|lane_based|E2)" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" \
+   pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>" length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>" tl="<replaceable>&lt;TL-ID&gt;</replaceable>"
+   freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>"
+   [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
+   [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [jam_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]/&gt;</sgmltag></programlisting>
+
+          <para>or:</para>
+
+          <programlisting><sgmltag>&lt;e2-detector id="<replaceable>&lt;ID&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>"
+   length="<replaceable>&lt;DETECTOR_LENGTH&gt;</replaceable>"  tl="<replaceable>&lt;TL-ID&gt;</replaceable>" freq="<replaceable>&lt;AGGREGATION_TIME&gt;</replaceable>" 
+   file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>" [measures="<replaceable>&lt;MEASURES&gt;</replaceable>"] [time_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"]
+   [speed_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [jam_treshold="<replaceable>&lt;FLOAT&gt;</replaceable>"] [keep_for="<replaceable>&lt;FLOAT&gt;</replaceable>"]/&gt;</sgmltag></programlisting>
+
+          <para>A further feature allows you to output values not for all
+          switches of the traffic light the detector is attached to, but only
+          when the light turns red for the assigned link (connection between
+          the incoming and the outgoing lane). This should allow you to
+          measure the maximum jam length in front of a red traffic light for
+          this link. To switch on this feature, you have to add the name of
+          the following lane:<sgmltag>
+          to="<replaceable>&lt;LANE_ID&gt;</replaceable>"</sgmltag>. The
+          incoming lane is already given by the
+          "<sgmltag>lane</sgmltag>"-attribute.</para>
         </sect3>
       </sect2>
     </sect1>
