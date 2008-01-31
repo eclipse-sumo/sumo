@@ -128,8 +128,8 @@ MSE3Collector::MSE3Collector(const std::string &id,
                              SUMOTime haltingTimeThreshold) throw()
         : myID(id), myEntries(entries), myExits(exits),
         myHaltingTimeThreshold(haltingTimeThreshold), myHaltingSpeedThreshold(haltingSpeedThreshold),
-        myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myCurrentTouchedVehicles(0)
-
+        myCurrentMeanSpeed(0), myCurrentHaltingsNumber(0), myCurrentTouchedVehicles(0),
+        myLastResetTime(-1)
 {
     // Set MoveReminders to entries and exits
     for (CrossSectionVectorConstIt crossSec1 = entries.begin(); crossSec1!=entries.end(); ++crossSec1) {
@@ -169,6 +169,8 @@ MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep) throw()
     v.haltings = 0;
     v.samples = 0;
     v.haltingBegin = -1;
+    v.intervalSpeedSum = 0;
+    v.intervalHaltings = 0;
     if (myEnteredContainer.find(&veh)!=myEnteredContainer.end()) {
         MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' reentered E3-detector '" + getID() + "'.");
     }
@@ -185,9 +187,12 @@ MSE3Collector::leave(MSVehicle& veh, SUMOReal leaveTimestep) throw()
         E3Values values = myEnteredContainer[&veh];
         values.leaveTime = leaveTimestep;
         SUMOReal leaveTimestepFraction = leaveTimestep - (SUMOReal) ((int) leaveTimestep);
-        values.speedSum += (veh.getSpeed() * leaveTimestepFraction);
+        SUMOReal speedFraction = (veh.getSpeed() * leaveTimestepFraction);
+        values.speedSum += speedFraction;
+        values.intervalSpeedSum += speedFraction;
         if (veh.getSpeed() < myHaltingSpeedThreshold && values.haltingBegin!=-1 && leaveTimestep-values.haltingBegin>myHaltingTimeThreshold) {
             values.haltings++;
+            values.intervalHaltings++;
         }
         myEnteredContainer.erase(&veh);
         myLeftContainer[&veh] = values;
@@ -219,27 +224,73 @@ MSE3Collector::writeXMLOutput(OutputDevice &dev,
                               SUMOTime startTime, SUMOTime stopTime) throw(IOError)
 {
     dev<<"   <interval begin=\""<<startTime<<"\" end=\""<< stopTime<<"\" "<<"id=\""<<myID<<"\" ";
-    // collect values
-    unsigned vehicleSum = myLeftContainer.size();
+    // collect values about vehicles that have left the area
+    unsigned vehicleSum = (unsigned) myLeftContainer.size();
     SUMOReal meanTravelTime = 0.;
     SUMOReal meanSpeed = 0.;
     SUMOReal meanHaltsPerVehicle = 0.;
-    //
     for (std::map<MSVehicle*, E3Values>::iterator i=myLeftContainer.begin(); i!=myLeftContainer.end(); ++i) {
         meanHaltsPerVehicle += (SUMOReal) (*i).second.haltings;
         SUMOReal steps = (*i).second.leaveTime-(*i).second.entryTime;
         meanTravelTime += steps;
-        meanSpeed += (SUMOReal)((*i).second.speedSum / steps);
+        meanSpeed += ((*i).second.speedSum / steps);
     }
     meanTravelTime = vehicleSum!=0 ? meanTravelTime / (SUMOReal) vehicleSum : -1;
     meanSpeed = vehicleSum!=0 ?  meanSpeed / (SUMOReal) vehicleSum : -1;
     meanHaltsPerVehicle = vehicleSum!=0 ? meanHaltsPerVehicle / (SUMOReal) vehicleSum : -1;
-    // write values
-    dev<<"meanTravelTime=\""<<meanTravelTime<<"\" meanSpeed=\""<<meanSpeed<<
-    "\" meanHaltsPerVehicle=\""<<meanHaltsPerVehicle<<
-    "\" vehicleSum=\""<<vehicleSum<<"\"/>\n";
-    // clear container
+        // clear container
     myLeftContainer.clear();
+
+    // collect values about vehicles within the container
+    unsigned vehicleSumWithin = (unsigned) myEnteredContainer.size();
+    SUMOReal meanSpeedWithin = 0.;
+    SUMOReal meanDurationWithin = 0.;
+    SUMOReal meanHaltsPerVehicleWithin = 0.;
+    SUMOReal meanIntervalSpeedWithin = 0.;
+    SUMOReal meanIntervalHaltsPerVehicleWithin = 0.;
+    SUMOReal meanIntervalDurationWithin = 0.;
+    for (std::map<MSVehicle*, E3Values>::iterator i=myEnteredContainer.begin(); i!=myEnteredContainer.end(); ++i) {
+        meanHaltsPerVehicleWithin += (SUMOReal) (*i).second.haltings;
+        meanIntervalHaltsPerVehicleWithin += (SUMOReal) (*i).second.intervalHaltings;
+        SUMOReal steps = (SUMOReal) stopTime - (*i).second.entryTime + 1.;
+        SUMOReal stepsWithin = (*i).second.entryTime>startTime ? steps : (stopTime - startTime + 1.);
+        meanSpeedWithin += ((*i).second.speedSum / steps);
+        meanIntervalSpeedWithin += ((*i).second.intervalSpeedSum / stepsWithin);
+        meanDurationWithin += steps;
+        meanIntervalDurationWithin += stepsWithin;
+        /*
+        if(myLastResetTime<0||(*i).second.entryTime>startTime) {
+            // ok, its the first time this value is computed...
+            meanIntervalDurationWithin += steps;
+        } else {
+            meanIntervalDurationWithin += (SUMOReal) (stopTime - startTime + 1.);
+        }
+        */
+        // reset interval values
+        (*i).second.intervalHaltings = 0;
+        (*i).second.intervalSpeedSum = 0;
+    }
+    myLastResetTime = stopTime;
+    meanSpeedWithin = vehicleSumWithin!=0 ?  meanSpeedWithin / (SUMOReal) vehicleSumWithin : -1;
+    meanHaltsPerVehicleWithin = vehicleSumWithin!=0 ? meanHaltsPerVehicleWithin / (SUMOReal) vehicleSumWithin : -1;
+    meanDurationWithin = vehicleSumWithin!=0 ? meanDurationWithin / (SUMOReal) vehicleSumWithin : -1;
+    meanIntervalSpeedWithin = vehicleSumWithin!=0 ?  meanIntervalSpeedWithin / (SUMOReal) vehicleSumWithin : -1;
+    meanIntervalHaltsPerVehicleWithin = vehicleSumWithin!=0 ? meanIntervalHaltsPerVehicleWithin / (SUMOReal) vehicleSumWithin : -1;
+    meanIntervalDurationWithin = vehicleSumWithin!=0 ? meanIntervalDurationWithin / (SUMOReal) vehicleSumWithin : -1;
+
+    // write values
+    dev<<"meanTravelTime=\""<<meanTravelTime
+        <<"\" meanSpeed=\""<<meanSpeed
+        <<"\" meanHaltsPerVehicle=\""<<meanHaltsPerVehicle
+        <<"\" vehicleSum=\""<<vehicleSum
+        <<"\" meanSpeedWithin=\""<<meanSpeedWithin
+        <<"\" meanHaltsPerVehicleWithin=\""<<meanHaltsPerVehicleWithin
+        <<"\" meanDurationWithin=\""<<meanDurationWithin
+        <<"\" vehicleSumWithin=\""<<vehicleSumWithin
+        <<"\" meanIntervalSpeedWithin=\""<<meanIntervalSpeedWithin
+        <<"\" meanIntervalHaltsPerVehicleWithin=\""<<meanIntervalHaltsPerVehicleWithin
+        <<"\" meanIntervalDurationWithin=\""<<meanIntervalDurationWithin
+        <<"\"/>\n";
 }
 
 
@@ -261,11 +312,13 @@ MSE3Collector::update(SUMOTime execTime) throw()
         E3Values& values = pair->second;
         if(values.samples!=0) {
             values.speedSum += veh->getSpeed();
+            values.intervalSpeedSum += veh->getSpeed();
             myCurrentMeanSpeed += veh->getSpeed();
             myCurrentTouchedVehicles += 1;
         } else {
             SUMOReal entryTimestepFraction = (SUMOReal) ((int) values.entryTime) + 1 - values.entryTime;
             values.speedSum += (veh->getSpeed() * entryTimestepFraction);
+            values.intervalSpeedSum += (veh->getSpeed() * entryTimestepFraction);
             myCurrentMeanSpeed += (veh->getSpeed() * entryTimestepFraction);
             myCurrentTouchedVehicles += entryTimestepFraction;
         }
@@ -275,6 +328,7 @@ MSE3Collector::update(SUMOTime execTime) throw()
             }
             if(execTime-values.haltingBegin>myHaltingTimeThreshold) {
                 values.haltings++;
+                values.intervalHaltings++;
                 myCurrentHaltingsNumber++;
             }
         } else {

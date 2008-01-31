@@ -388,6 +388,10 @@ protected:
         unsigned samples;
         /// @brief Begin time of last halt begin
         SUMOTime haltingBegin;
+        /// @brief The sum of registered speeds the vehicle has/had inside the area during the current interval
+        SUMOReal intervalSpeedSum;
+        /// @brief The sum of haltings the vehicle has/had within the area during the current interval
+        unsigned intervalHaltings;
     };
 
     /// @brief Container for vehicles that have entered the area
@@ -412,6 +416,10 @@ protected:
      */
     SUMOReal myCurrentTouchedVehicles;
     /// @}
+
+
+    /// @brief Information when the last reset has been done
+    SUMOTime myLastResetTime;
 
 };
 
