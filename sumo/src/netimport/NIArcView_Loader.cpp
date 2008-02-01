@@ -211,8 +211,15 @@ NIArcView_Loader::load(OptionsCont &)
         } else {
             to = myNodeCont.retrieve(to_pos);
         }
-        // retrieve length
-        SUMOReal length = (SUMOReal) cgeom->get_Length();
+
+        if(from==to) {
+            WRITE_WARNING("Edge '" + id + "' connects same nodes; skipping.");
+            continue;
+        }
+        if(from->getPosition().almostSame(to->getPosition())) {
+            WRITE_WARNING("Edge '" + id + "' is too short; skipping.");
+            continue;
+        }
 
         // retrieve the information whether the street is bi-directional
         string dir;
