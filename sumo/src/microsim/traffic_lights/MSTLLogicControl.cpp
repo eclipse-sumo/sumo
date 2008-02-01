@@ -150,6 +150,7 @@ MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl &t
 void 
 MSTLLogicControl::TLSLogicVariants::addSwitchCommand(DiscreteCommand *c)
 {
+    onSwitchActions.push_back(c);
 }
 
 
@@ -228,6 +229,7 @@ MSTLLogicControl::TLSLogicVariants::executeOnSwitchActions() const
             i++;
         }
         */
+        ++i;
     }
 }
 
