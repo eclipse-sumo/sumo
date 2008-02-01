@@ -97,6 +97,7 @@ public:
 
     /// @name Interfaces for longitudinal vehicle movement
     /// @{
+
     /** @brief Moves non critical vehicles
      *
      * "Non-critical" are those vehicles that are so far away from the lane

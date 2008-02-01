@@ -56,6 +56,7 @@ public:
 protected:
     /// @name Methods that override/implement OutputDevice-methods
     /// @{
+
     /** @brief Returns the associated ostream
      * @return cout
      */

@@ -78,6 +78,7 @@ public:
 
     /// @name Handlers for the SAX DocumentHandler interface
     /// @{
+
     /** @brief Called on the occurence of the beginning of a tag
      *
      * Sets the name of the last item
@@ -106,6 +107,7 @@ public:
 
     /// @name Handlers for the SAX ErrorHandler interface
     /// @{
+
     /** @brief Called on an XML-warning
      *
      * The warning is reported to the the warning-instance of MsgHandler

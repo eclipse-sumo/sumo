@@ -66,6 +66,7 @@ public:
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
+
     /** @brief Called on the opening of a tag; Parses edge type information
      *
      * Tries to parse a type. If the type can be parsed, it is stored within

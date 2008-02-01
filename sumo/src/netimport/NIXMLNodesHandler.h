@@ -77,6 +77,7 @@ public:
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
+
     /** @brief Called on the opening of a tag; Parses node information
      *
      * Tries to parse a node. If the node can be parsed, it is stored within

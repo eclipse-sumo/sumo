@@ -198,6 +198,7 @@ protected:
     protected:
         /// @name inherited from GenericSAXHandler
         //@{
+
         /** @brief Called on the opening of a tag; 
          *
          * @param[in] element ID of the currently opened element

@@ -164,6 +164,7 @@ public:
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
+
     /** the user-implemented handler method for an opening tag */
     void myStartElement(SumoXMLTag element,
                         const Attributes &attrs) throw(ProcessError);

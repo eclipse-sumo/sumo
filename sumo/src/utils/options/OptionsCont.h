@@ -120,6 +120,7 @@ public:
 
     /// @name Methods setting and getting information about the appplication and currently set options
     /// @{
+
     /** @brief Sets the application name
      *
      * @param[in] name The name of the excutable
@@ -197,6 +198,7 @@ public:
 
     /// @name Methods for registering options
     /// @{
+
     /** @brief Adds an option under the given name
      * @param[in] name The (long) name of the option
      * @param[in] v The option (typed value storage)
@@ -257,6 +259,7 @@ public:
 
     /// @name Methods for retrieving information about options
     /// @{
+
     /** @brief Returns the information whether the named option is known
      * @return true if an option has been added before under the given name, false otherwise
      */
@@ -371,6 +374,7 @@ public:
 
     /// @name Methods for retrieving values from options
     /// @{
+
     /** @brief Returns the string-value of the named option (only for Option_String)
      *
      * This method returns the string-value of an existing string-option.
@@ -482,6 +486,7 @@ public:
 
     /// @name Methods for setting values into options
     /// @{
+
     /** @brief Sets the given value for the named option
      *
      * The option is retrieved from the container, first, what yields in a InvalidArgument

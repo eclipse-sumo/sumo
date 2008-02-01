@@ -65,6 +65,7 @@ public:
 
     /// @name Abstract Methods to be implemented by derived classes
     /// @{
+
     /** @brief Called when the observed vehicle leaves the simulation
      * 
      * @param[in] veh The vehicle that quits the simulation

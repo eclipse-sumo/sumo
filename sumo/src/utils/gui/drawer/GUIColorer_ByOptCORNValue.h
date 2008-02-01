@@ -72,6 +72,7 @@ public:
 
     /// @name inherited from GUIBaseColorer
     //@{
+
     /// Sets the color using a value from the given instance of myT
     void setGlColor(const myT& i) const {
         // check whether a value can be retrieved...
@@ -117,6 +118,7 @@ public:
 
     /// @name inherited from from GUIBaseColorerInterface
     //@{
+
     /// Sets the given color as the colors to use
     virtual void resetColor(const RGBColor &minC,
                             const RGBColor &maxC, const RGBColor &fallBackC) {

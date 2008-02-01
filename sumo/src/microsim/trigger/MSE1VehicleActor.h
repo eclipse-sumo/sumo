@@ -88,6 +88,7 @@ public:
 
     /// @name Methods inherited from MSMoveReminder.
     /// @{
+
     /**
      * Indicator if the reminders is still active for the passed
      * vehicle/parameters. If false, the vehicle will erase this

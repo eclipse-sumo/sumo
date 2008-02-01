@@ -67,6 +67,7 @@ public:
 
     /// @name SAX ErrorHandler callbacks
     //@{
+
     /**
      * @brief Handler for XML-warnings
      *

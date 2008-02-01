@@ -99,6 +99,7 @@ public:
 
     /// @name inherited from GUIGlObject
     //@{
+
     /// Returns a popup-menu
     virtual GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
             GUISUMOAbstractView &parent);

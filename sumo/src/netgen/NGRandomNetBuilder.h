@@ -166,6 +166,7 @@ private:
 
     /// @name restrictions
     //@{
+
     /// @brief Minimum angle allowed between two links
     SUMOReal myMinLinkAngle;
 

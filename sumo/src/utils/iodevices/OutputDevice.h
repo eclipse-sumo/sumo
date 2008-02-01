@@ -66,8 +66,9 @@
 class OutputDevice
 {
 public:
-    /// @name static acces methods to OutputDevices
+    /// @name static access methods to OutputDevices
     /// @{
+
     /** @brief Returns the described OutputDevice
      *
      * Creates and returns the named device. "stdout" and "-" refer to standard out,
@@ -123,6 +124,7 @@ public:
 
     /// @name OutputDevice member methods
     /// @{
+
     /// @brief Constructor
     OutputDevice() throw(IOError) { }
 
@@ -185,6 +187,7 @@ public:
 
     /// @name methods for saving/reading an abstract state
     //@{
+
     /** @brief Returns the value of the named boolean marker
      *
      * If the boolean marker was not set before, false is returned.
@@ -231,6 +234,7 @@ protected:
 private:
     /// @name static members
     /// @{
+
     /// @brief Definition of a map from names to output devices
     typedef std::map<std::string, OutputDevice*> DeviceMap;
 
@@ -242,6 +246,7 @@ private:
 private:
     /// @name Non-static members of each OutputDevice
     /// @{
+
     /// @brief The stack of begun xml elements
     std::vector<std::string> myXMLStack;
 

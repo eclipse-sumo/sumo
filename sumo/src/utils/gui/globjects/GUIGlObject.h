@@ -74,6 +74,7 @@ public:
 
     /// @name interfaces to be implemented by derived classes
     //@{
+
     /// Returns the popup-menu
     virtual GUIGLObjectPopupMenu *getPopUpMenu(
         GUIMainWindow &app, GUISUMOAbstractView &parent) = 0;
@@ -98,6 +99,7 @@ public:
 protected:
     /// @name helper methods for building popup-menus
     //@{
+
     /// Builds the header
     void buildPopupHeader(GUIGLObjectPopupMenu *ret,
                           GUIMainWindow &app, bool addSeparator=true);

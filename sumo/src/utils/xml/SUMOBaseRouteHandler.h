@@ -68,6 +68,7 @@ public:
 protected:
     /// @name parse helper (reporting errors)
     //@{
+
     /**
      * @brief Parses the vehicle class
      *
@@ -129,6 +130,7 @@ protected:
 protected:
     /// @name variables used during parsing of vehicles
     //@{
+
     /// the id of the current vehicle
     std::string myActiveVehicleID;
 

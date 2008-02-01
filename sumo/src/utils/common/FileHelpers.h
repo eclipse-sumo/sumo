@@ -60,6 +60,7 @@ public:
 public:
     /// @name file access functions
     //@{
+
     /** @brief Checks whether the given file exists
      *
      * @param[in] path The path to the file that shall be examined
@@ -85,6 +86,7 @@ public:
 
     /// @name file path evaluating functions
     //@{
+
     /** @brief Removes the file information from the given path
      *
      * @param[in] path The path to the file to return the folder it is located in
@@ -152,6 +154,7 @@ public:
 
     /// @name binary reading/writing functions
     //@{
+
     /** @brief Writes an integer binary
      *
      * Issues:

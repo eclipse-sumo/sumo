@@ -151,6 +151,7 @@ public:
 
     /// @name locator-methods
     //@{
+
     /// Returns the gl-ids of all junctions within the net
     std::vector<size_t> getJunctionIDs() const;
 

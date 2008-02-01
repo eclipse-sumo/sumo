@@ -59,6 +59,7 @@ public:
 
     /// @name inherited from GUIBaseColorer
     //@{
+
     /// Sets the color using a value from the given instance of T
     void setGlColor(const T&) const {
         glColor3d(myColor.red(), myColor.green(), myColor.blue());
@@ -78,6 +79,7 @@ public:
 
     /// @name inherited from from GUIBaseColorerInterface
     //@{
+
     /// Sets the given color as the colors to use
     virtual void resetColor(const RGBColor &c) {
         myColor = c;

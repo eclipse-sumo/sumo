@@ -69,6 +69,7 @@ public:
 
     /// @name inherited from GUIBaseColorer
     //@{
+
     /// Sets the color using a value from the given instance of T
     void setGlColor(const T& i) const {
         SUMOReal val = (SUMOReal)(i.*myOperation)();
@@ -89,6 +90,7 @@ public:
 
     /// @name inherited from from GUIBaseColorerInterface
     //@{
+
     /// Sets the given color as the colors to use
     virtual void resetColor(const RGBColor &min, const RGBColor &max) {
         myMinColor = min;

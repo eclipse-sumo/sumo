@@ -386,6 +386,7 @@ private:
 private:
     /// @name attributes parsing
     //@{
+
     // the type of the map from ids to their unicode-string representation
     typedef std::map<SumoXMLAttr, XMLCh*> AttrMap;
 
@@ -396,6 +397,7 @@ private:
 
     /// @name elements parsing
     //@{
+
     // the type of the map that maps tag names to ints
     typedef std::map<std::string, SumoXMLTag> TagMap;
 

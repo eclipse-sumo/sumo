@@ -78,6 +78,7 @@ public:
 
     /// @name inherited from GUIGlObject
     //@{
+
     /// Returns a popup-menu for lanes
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent);
@@ -134,6 +135,7 @@ public:
 
     /// @name access to a lane's links
     //@{
+
     /// Returns the number of links
     size_t getLinkNumber() const;
 

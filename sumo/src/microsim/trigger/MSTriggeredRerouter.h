@@ -93,6 +93,7 @@ class Setter : public MSMoveReminder
 
         /// @name Methods inherited from MSMoveReminder.
         /// @{
+
         /// Returns whether the vehicle has to be aware of this setter in the next step
         bool isStillActive(MSVehicle& veh, SUMOReal oldPos, SUMOReal newPos,
                            SUMOReal newSpeed) throw();
@@ -160,6 +161,7 @@ class Setter : public MSMoveReminder
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
+
     /** @brief Called on the opening of a tag; 
      *
      * @param[in] element ID of the currently opened element
@@ -195,6 +197,7 @@ protected:
 
     /// @name members used during loading
     //@{
+
     /// The first and the last time steps of the interval
     SUMOTime myCurrentIntervalBegin, myCurrentIntervalEnd;
     /// List of closed edges
