@@ -158,11 +158,11 @@ public:
     }
 
     SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const {
-        return MIN2(_vsafe(speed, myDecel, gap2pred, predSpeed), maxNextSpeed(speed));
+        return MIN2(_vsafe(gap2pred, predSpeed), maxNextSpeed(speed));
     }
 
     SUMOReal ffeS(SUMOReal speed, SUMOReal gap2pred) const {
-        return MIN2(_vsafe(speed, myDecel, gap2pred, 0), maxNextSpeed(speed));
+        return MIN2(_vsafe(gap2pred, 0), maxNextSpeed(speed));
     }
 
     SUMOReal getSecureGap(SUMOReal speed, SUMOReal predSpeed, SUMOReal predLength) const {
@@ -246,12 +246,10 @@ public:
 
 protected:
     /** Returns the SK-vsafe. */
-    SUMOReal _vsafe(SUMOReal currentSpeed, SUMOReal /*decelAbility*/,
-                    SUMOReal gap2pred, SUMOReal predSpeed) const {
+    SUMOReal _vsafe(SUMOReal gap2pred, SUMOReal predSpeed) const {
         if (predSpeed==0&&gap2pred<0.01) {
             return 0;
         }
-        assert(currentSpeed     >= SUMOReal(0));
         assert(gap2pred  >= SUMOReal(0));
         assert(predSpeed >= SUMOReal(0));
         SUMOReal vsafe = (SUMOReal)(-1. * myTauDecel
@@ -293,6 +291,7 @@ private:
 
     /// @name some precomputed values for faster computation
     /// @{
+
     /// The precomputed value for 1/(2*d)
     SUMOReal myInverseTwoDecel;
 
@@ -303,6 +302,7 @@ private:
 
     /// @name some static values (needed?)
     /// @{
+
     /// Minimum deceleration-ability of all vehicle-types.
     static SUMOReal myMinDecel;
     /// @}
