@@ -66,7 +66,6 @@ class NLJunctionControlBuilder;
 class NLDetectorBuilder;
 class NLTriggerBuilder;
 class MSRouteLoader;
-class GNEImageProcWindow;
 
 
 // ===========================================================================
@@ -83,7 +82,7 @@ class GNEImageProcWindow;
 class NLBuilder
 {
 public:
-    /** @brief constructor
+    /** @brief Constructor
      * 
      * @param[in] oc The options to use
      * @param[in, out] net The network to fill
@@ -100,13 +99,12 @@ public:
               NLGeomShapeBuilder &sb, NLHandler &xmlHandler);
 
 
-    /// Destructor
+    /// @brief Destructor
     virtual ~NLBuilder();
+
 
     /// the net loading method
     virtual bool build();
-
-    friend class GNEImageProcWindow;
 
 protected:
     /// loads a described subpart form the given list of files
@@ -123,14 +121,16 @@ protected:
     /**
      * @class EdgeFloatTimeLineRetriever_EdgeWeight
      * @brief Obtains edge weights from a weights handler and stores them within the edges
+     *
+     * @todo Why is the network not a reference?
      */
 class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloatTimeLineRetriever
     {
     public:
-        /// Constructor
+        /// @brief Constructor
         EdgeFloatTimeLineRetriever_EdgeWeight(MSNet *net);
 
-        /// Destructor
+        /// @brief Destructor
         ~EdgeFloatTimeLineRetriever_EdgeWeight();
 
         /// Sets the given value as the edge weight for the given period
@@ -138,42 +138,42 @@ class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloa
                            SUMOReal val, SUMOTime beg, SUMOTime end);
 
     private:
-        /// The network edges shall be obtained from
+        /// @brief The network edges shall be obtained from
         MSNet *myNet;
 
     };
 
 
 protected:
-    /// the options to get the names from
+    /// @brief The options to get the names of the files to load and further information from
     const OptionsCont &m_pOptions;
 
-    /// The edge control builder to use
+    /// @brief The edge control builder to use
     NLEdgeControlBuilder &myEdgeBuilder;
 
-    /// The junction control builder to use
+    /// @brief The junction control builder to use
     NLJunctionControlBuilder &myJunctionBuilder;
 
-    /// The detector control builder to use
+    /// @brief The detector control builder to use
     NLDetectorBuilder &myDetectorBuilder;
 
-    /// The trigger control builder to use
+    /// @brief The trigger control builder to use
     NLTriggerBuilder &myTriggerBuilder;
 
     /// The geometry shapes builder to use
     NLGeomShapeBuilder &myShapeBuilder;
 
-    /// The net to fill
+    /// @brief The net to fill
     MSNet &myNet;
 
-    /// The handler used to parse the net
+    /// @brief The handler used to parse the net
     NLHandler &myXMLHandler;
 
 private:
-    /** invalidated copy operator */
+    /** @brief invalidated copy operator */
     NLBuilder(const NLBuilder &s);
 
-    /** invalidated assignment operator */
+    /** @brief invalidated assignment operator */
     NLBuilder &operator=(const NLBuilder &s);
 
 };

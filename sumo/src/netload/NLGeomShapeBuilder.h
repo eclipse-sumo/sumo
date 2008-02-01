@@ -145,6 +145,7 @@ protected:
 protected:
     /// @name Temporary stored values of the currently parsed polygon
     /// @{
+
     /// @brief The current polygon's name
     std::string myCurrentName;
 
