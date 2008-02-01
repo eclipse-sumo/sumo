@@ -60,7 +60,7 @@ class Command_SaveTLCoupledDet : public DiscreteCommand
 public:
     /// Constructor
     Command_SaveTLCoupledDet(
-        const MSTLLogicControl::TLSLogicVariants &tlls,
+        MSTLLogicControl::TLSLogicVariants &tlls,
         MSDetectorFileOutput *dtf, unsigned int begin,
         OutputDevice& device);
 

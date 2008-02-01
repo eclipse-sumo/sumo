@@ -265,7 +265,7 @@ public:
      * @return The named logic
      * @exception InvalidArgument If the named tls logic was not built before
      */
-    const MSTLLogicControl::TLSLogicVariants &getTLLogic(const std::string &id) 
+    MSTLLogicControl::TLSLogicVariants &getTLLogic(const std::string &id) 
         const throw(InvalidArgument);
 
 
@@ -439,6 +439,7 @@ protected:
 protected:
     /// @name Factory methods, virtual so that other versions of the structures can be built
     /// @{
+
     /** @brief Builds a junction that does not use a logic
      * 
      * Builds a MSNoLogicJunction
@@ -542,6 +543,7 @@ protected:
     /// @name Default parameter for extended tls
     /// @todo Recheck, move to somewhere else
     /// @{
+
     /// @brief Default detector offset
     SUMOReal myDetectorOffset;
 
@@ -593,6 +595,7 @@ protected:
     /// @name numerical representations of junction types
     /// @todo What? Use an enum!
     /// @{ 
+
     /// @brief numerical representation for a junction with no purpose
     static const int TYPE_NOJUNCTION;
 

@@ -106,8 +106,6 @@ public:
     /// Clears all incoming vehicle information on links that have yellow
     virtual bool maskYellowLinks() const = 0;
 
-    friend class NLSucceedingLaneBuilder;
-
     /// Builds a string that contains the states of the signals
     virtual std::string buildStateList() const = 0;
 
@@ -129,12 +127,6 @@ public:
     /// Returns this tl-logic's id
     const std::string &getSubID() const;
 
-    /// Adds an action that shall be executed if the tls switched
-    void addSwitchAction(DiscreteCommand *a);
-
-    /// Executes commands if the tls switched (!!! should be protected/private)
-    void onSwitch();
-
     void adaptLinkInformationFrom(const MSTrafficLightLogic &logic);
 
     void setParameter(const std::map<std::string, std::string> &params);
@@ -154,10 +146,10 @@ public:
 
     virtual MSPhaseDefinition getCurrentPhaseDef() const = 0;
 
-
-protected:
     /// Adds a link on building
     void addLink(MSLink *link, MSLane *lane, size_t pos);
+
+protected:
 
     /**
      * @class SwitchCommand
@@ -209,9 +201,6 @@ protected:
 
     /// The list of links which do participate in this traffic light
     LaneVectorVector myLanes;
-
-    /// The list of actions/commands to execute on switch
-    std::vector<DiscreteCommand*> myOnSwitchActions;
 
     /// A list of duration overrides
     std::vector<SUMOTime> myOverridingTimes;

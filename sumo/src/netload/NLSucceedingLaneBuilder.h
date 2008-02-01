@@ -87,7 +87,7 @@ public:
      * @param[in] tlid (optional) ID of the tls that controls the link
      * @param[in] linkNo (optional) index of the link within the controlling tls
      * @todo Recheck usage of "pass"
-     * @exception InvalidArgument If one of the references structures was not found or is invalid
+     * @exception InvalidArgument If one of the referenced structures was not found or is invalid
      * @see MSLink::LinkDirection
      * @see MSLink::LinkState
      * @see MSLink

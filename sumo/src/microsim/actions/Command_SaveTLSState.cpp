@@ -70,9 +70,9 @@ SUMOTime
 Command_SaveTLSState::execute(SUMOTime currentTime)
 {
     myOutputDevice << "   <tlsstate time=\"" << currentTime
-    << "\" id=\"" << myLogics.defaultTL->getID()
-    << "\" subid=\"" << myLogics.defaultTL->getSubID() << "\">"
-    << myLogics.defaultTL->buildStateList() << "</tlsstate>" << "\n";
+    << "\" id=\"" << myLogics.getActive()->getID()
+    << "\" subid=\"" << myLogics.getActive()->getSubID() << "\">"
+    << myLogics.getActive()->buildStateList() << "</tlsstate>" << "\n";
     return 1;
 }
 

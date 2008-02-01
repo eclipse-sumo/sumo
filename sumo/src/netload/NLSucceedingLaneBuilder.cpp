@@ -118,16 +118,6 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
         static_cast<MSInternalLane*>(lane)->setPassPosition(pass);
     }
 #endif
-
-    // check whether this link is controlled by a traffic light
-    MSTLLogicControl::TLSLogicVariants logics;
-    if (tlid!="") {
-        logics = myJunctionControlBuilder.getTLLogic(tlid);
-        if (logics.ltVariants.size()==0) {
-            throw InvalidArgument("A link of lane '" + myCurrentLane + "' wanted to use an unknown tl-logic ('" + tlid + "').");
-        }
-    }
-
     MSLane *orig = MSLane::dictionary(myCurrentLane);
     if (orig==0) {
         return;
@@ -166,15 +156,14 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
 #endif
     }
     // if a traffic light is responsible for it, inform the traffic light
-    if (logics.ltVariants.size()!=0) {
+    // check whether this link is controlled by a traffic light
+    if (tlid!="") {
+        MSTLLogicControl::TLSLogicVariants &logics = myJunctionControlBuilder.getTLLogic(tlid);
         MSLane *current = MSLane::dictionary(myCurrentLane);
         if (current==0) {
             throw InvalidArgument("An unknown lane ('" + myCurrentLane + "') should be assigned to a tl-logic.");
         }
-        std::map<std::string, MSTrafficLightLogic *>::iterator i;
-        for (i=logics.ltVariants.begin(); i!=logics.ltVariants.end(); ++i) {
-            (*i).second->addLink(link, current, linkNo);
-        }
+        logics.addLink(link, current, linkNo);
     }
     // add the link to the container
     mySuccLanes->push_back(link);

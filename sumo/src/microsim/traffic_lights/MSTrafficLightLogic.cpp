@@ -80,8 +80,11 @@ MSTrafficLightLogic::SwitchCommand::execute(SUMOTime)
     SUMOTime next = myTLLogic->trySwitch(isActive);
     size_t step2 = myTLLogic->getStepNo();
     if (step1!=step2) {
-        myTLLogic->onSwitch();
         if (isActive) {
+            // execute any action connected to this tls
+            const MSTLLogicControl::TLSLogicVariants &vars = myTLControl.get(myTLLogic->getID());
+            vars.executeOnSwitchActions();
+            // set link priorities
             myTLLogic->setLinkPriorities();
         }
     }
@@ -116,9 +119,6 @@ MSTrafficLightLogic::MSTrafficLightLogic(
 
 MSTrafficLightLogic::~MSTrafficLightLogic()
 {
-    for (std::vector<DiscreteCommand*>::iterator i=myOnSwitchActions.begin(); i!=myOnSwitchActions.end(); ++i) {
-        delete *i;
-    }
 }
 
 
@@ -179,27 +179,6 @@ const MSTrafficLightLogic::LinkVectorVector &
 MSTrafficLightLogic::getLinks() const
 {
     return myLinks;
-}
-
-
-void
-MSTrafficLightLogic::addSwitchAction(DiscreteCommand *a)
-{
-    myOnSwitchActions.push_back(a);
-}
-
-
-void
-MSTrafficLightLogic::onSwitch()
-{
-    for (std::vector<DiscreteCommand*>::iterator i=myOnSwitchActions.begin(); i!=myOnSwitchActions.end();) {
-        if (!(*i)->execute()) {
-            i = myOnSwitchActions.erase(i);
-            // !!! delete???
-        } else {
-            i++;
-        }
-    }
 }
 
 

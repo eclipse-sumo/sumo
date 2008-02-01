@@ -50,7 +50,7 @@ class Command_SaveTLCoupledLaneDet : public Command_SaveTLCoupledDet
 public:
     /// Constructor
     Command_SaveTLCoupledLaneDet(
-        const MSTLLogicControl::TLSLogicVariants &tlls,
+        MSTLLogicControl::TLSLogicVariants &tlls,
         MSDetectorFileOutput *dtf,
         unsigned int begin, OutputDevice& device, MSLink *link);
 
@@ -58,7 +58,7 @@ public:
     ~Command_SaveTLCoupledLaneDet();
 
     /// Executes the command (see above)
-    bool execute(SUMOTime currentTime);
+    bool execute();
 
 private:
     /// The link to check

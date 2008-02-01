@@ -57,18 +57,58 @@ class MSTLLogicControl
 {
 public:
     /**
-     * @struct TLSLogicVariants
+     * @class TLSLogicVariants
      * @brief Storage for all programs of a single tls
      *
-     * The currently used program is additionally stored in defaultTLS.
+     * This class joins all programs of a single tls.
      */
-    struct TLSLogicVariants {
+    class TLSLogicVariants {
+    public:
+        /** @brief Constructor */
+        TLSLogicVariants();
+
+
+        /** @brief Destructor */
+        ~TLSLogicVariants();
+
+        /** @brief Adds a logic (program)
+         *
+         * @param[in] subID The sub-id of this program
+         * @param[in] logic The logic to add
+         * @param[in] netWasLoaded Whether the network has already been loaded (the links have been assigned)
+         * @param[in] isNewDefault Whether this logic shall be treated as the currently active logic
+         */
+        bool addLogic(const std::string &subID, MSTrafficLightLogic*logic, bool netWasLoaded,
+            bool isNewDefault=true);
+
+
+
+        MSTrafficLightLogic* getLogic(const std::string &subid) const;
+        void addSwitchCommand(DiscreteCommand *c);
+        std::vector<MSTrafficLightLogic*> getAllLogics() const;
+        void saveInitialStates();
+        bool isActive(const MSTrafficLightLogic *tl) const;
+        MSTrafficLightLogic* getActive() const;
+        bool switchTo(const std::string &subid);
+        bool maskRedLinks();
+        bool maskYellowLinks();
+        MSTrafficLightLogic*getLogicInstantiatingOff(MSTLLogicControl &tlc, 
+                                                             const std::string &subid);
+        void executeOnSwitchActions() const;
+        void addLink(MSLink *link, MSLane *lane, size_t pos);
+
+
+
+    private:
         /// The currently used program
         MSTrafficLightLogic *defaultTL;
         /// A map of subkeys to programs
         std::map<std::string, MSTrafficLightLogic*> ltVariants;
         /// Originally loaded link states
         std::map<MSLink*, std::pair<MSLink::LinkState, bool> > originalLinkStates;
+        /// The list of actions/commands to execute on switch
+        std::vector<DiscreteCommand*> onSwitchActions;
+
     };
 
 
@@ -117,7 +157,7 @@ public:
      * @param[in] id The id of the tls to get variants of
      * @return The variants of the named tls
      */
-    const TLSLogicVariants &get(const std::string &id) const throw(InvalidArgument);
+    TLSLogicVariants &get(const std::string &id) throw(InvalidArgument);
 
 
     /** @brief Returns a single program (variant) defined by the tls id and the program subid
@@ -157,8 +197,7 @@ public:
      *
      * The parameter newDefault defines whether this program will be used as the new
      *  default program of this tls. This means that an existing tls program for this
-     *  tls is replaced within the according TLSLogicVariants structure and within
-     *  myActiveLogics.
+     *  tls is replaced within the according TLSLogicVariants structure.
      *
      * @param[in] id The id of the tls (program) to add
      * @param[in] subID The program id of the tls (program) to add
@@ -186,6 +225,7 @@ public:
 
     /// @name WAUT definition methods 
     /// @{
+
     /** @brief Adds a WAUT definition
      *
      * Throws an InvalidArgument if the given id is already in use.
@@ -550,10 +590,7 @@ class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure
     std::vector<WAUTSwitchProcess> myCurrentlySwitched;
 
     /// A map from ids to the corresponding variants
-    std::map<std::string, TLSLogicVariants> myLogics;
-
-    /// A list of active logics
-    std::vector<MSTrafficLightLogic*> myActiveLogics;
+    std::map<std::string, TLSLogicVariants*> myLogics;
 
     /// Information whether the net was completely loaded
     bool myNetWasLoaded;

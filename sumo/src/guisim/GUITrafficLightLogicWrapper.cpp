@@ -156,12 +156,13 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
     buildCenterPopupEntry(ret);
     //
     const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.getID());
-    if (vars.ltVariants.size()>1) {
-        std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
+    std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
+    if (logics.size()>1) {
+        std::vector<MSTrafficLightLogic*>::const_iterator i;
         size_t index = 0;
-        for (i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
-            if ((*i).second!=vars.defaultTL) {
-                new FXMenuCommand(ret, ("Switch to '" + (*i).second->getSubID() + "'").c_str(),
+        for (i=logics.begin(); i!=logics.end(); ++i, ++index) {
+            if (!vars.isActive(*i)) {
+                new FXMenuCommand(ret, ("Switch to '" + (*i)->getSubID() + "'").c_str(),
                                   GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, MID_SWITCH+index);
             }
         }
@@ -255,14 +256,8 @@ GUITrafficLightLogicWrapper::switchTLSLogic(int to)
         return;
     }
     const MSTLLogicControl::TLSLogicVariants &vars = myTLLogicControl.get(myTLLogic.getID());
-    std::map<std::string, MSTrafficLightLogic*>::const_iterator i;
-    int index = 0;
-    for (i=vars.ltVariants.begin(); i!=vars.ltVariants.end(); ++i, ++index) {
-        if (index==to) {
-            myTLLogicControl.switchTo(myTLLogic.getID(), (*i).second->getSubID());
-            return;
-        }
-    }
+    std::vector<MSTrafficLightLogic*> logics = vars.getAllLogics();
+    myTLLogicControl.switchTo(myTLLogic.getID(), logics[to]->getSubID());
 }
 
 

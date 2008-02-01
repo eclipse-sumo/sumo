@@ -52,15 +52,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(
-    const MSTLLogicControl::TLSLogicVariants &tlls,
+    MSTLLogicControl::TLSLogicVariants &tlls,
     MSDetectorFileOutput *dtf, unsigned int begin,
     OutputDevice& device)
         : myDevice(device), myLogics(tlls), myDetector(dtf),
         myStartTime(begin)
 {
-    for (std::map<std::string, MSTrafficLightLogic*>::const_iterator i=tlls.ltVariants.begin(); i!=tlls.ltVariants.end(); ++i) {
-        (*i).second->addSwitchAction(this);
-    }
+    tlls.addSwitchCommand(this);
+    dtf->writeXMLDetectorProlog(device);
 }
 
 

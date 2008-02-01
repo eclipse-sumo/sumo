@@ -69,14 +69,14 @@ Command_SaveTLSSwitchStates::~Command_SaveTLSSwitchStates()
 SUMOTime
 Command_SaveTLSSwitchStates::execute(SUMOTime currentTime)
 {
-    string state = myLogics.defaultTL->buildStateList();
-    if (state!=myPreviousState||myLogics.defaultTL->getSubID()!=myPreviousSubID) {
+    string state = myLogics.getActive()->buildStateList();
+    if (state!=myPreviousState||myLogics.getActive()->getSubID()!=myPreviousSubID) {
         myOutputDevice << "   <tlsstate time=\"" << currentTime
-        << "\" id=\"" << myLogics.defaultTL->getID()
-        << "\" subid=\"" << myLogics.defaultTL->getSubID() << "\">"
-        << myLogics.defaultTL->buildStateList() << "</tlsstate>" << "\n";
+        << "\" id=\"" << myLogics.getActive()->getID()
+        << "\" subid=\"" << myLogics.getActive()->getSubID() << "\">"
+        << myLogics.getActive()->buildStateList() << "</tlsstate>" << "\n";
         myPreviousState = state;
-        myPreviousSubID = myLogics.defaultTL->getSubID();
+        myPreviousSubID = myLogics.getActive()->getSubID();
     }
     return 1;
 }
