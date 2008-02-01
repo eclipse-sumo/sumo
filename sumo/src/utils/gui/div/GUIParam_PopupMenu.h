@@ -76,6 +76,7 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+
     /** @brief Called when a tracker for the value shall be opened
      *
      * Builds a new GUIParameterTracker adding the stored value to it.

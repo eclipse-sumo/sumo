@@ -70,6 +70,7 @@ public:
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
+
     /** @brief Called when an opening-tag occures
      *
      * Processes district elements via openDistrict, their sinks (via

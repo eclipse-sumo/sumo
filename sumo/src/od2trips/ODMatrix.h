@@ -311,6 +311,13 @@ protected:
 
     };
 
+private:
+    /** @brief invalid copy constructor */
+    ODMatrix(const ODMatrix &s);
+
+    /** @brief invalid assignment operator */
+    ODMatrix &operator=(const ODMatrix &s);
+
 };
 
 

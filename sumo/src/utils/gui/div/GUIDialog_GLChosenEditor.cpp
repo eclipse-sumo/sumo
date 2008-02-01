@@ -196,8 +196,8 @@ GUIDialog_GLChosenEditor::onCmdSave(FXObject*,FXSelector,void*)
 long
 GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*)
 {
-    size_t no = myList->getNumItems();
-    size_t i;
+    FXint no = myList->getNumItems();
+    FXint i;
     vector<size_t> selected;
     for (i=0; i<no; ++i) {
         if (myList->getItem(i)->isSelected()) {
@@ -205,7 +205,7 @@ GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*)
         }
     }
     // remove items from list
-    for (i=0; i<selected.size(); ++i) {
+    for (i=0; i<(FXint) selected.size(); ++i) {
         gSelected.deselect(-1, selected[i]);
     }
     // rebuild list

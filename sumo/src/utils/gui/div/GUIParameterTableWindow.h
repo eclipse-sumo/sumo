@@ -93,6 +93,7 @@ public:
 
     /// @name Row adding functions
     /// @{
+
     /** @brief Adds a row which obtains its value from an unsigned-ValueSource
      *
      * @param[in] name The name of the row entry
@@ -164,6 +165,7 @@ public:
 
     /// @name FOX-callbacks
     /// @{
+
     /** @brief Updates the table due to a simulation step */
     long onSimStep(FXObject*,FXSelector,void*);
 
@@ -214,7 +216,7 @@ private:
     std::vector<GUIParameterTableItemInterface*> myItems;
 
     /// @brief The index of the next row to add - used while building
-    size_t myCurrentPos;
+    unsigned myCurrentPos;
 
 
 protected:

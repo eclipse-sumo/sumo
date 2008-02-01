@@ -70,6 +70,7 @@ public:
 
     /// @name Methods to be implemented by derived classes
     /// @{
+
     /** @brief Returns the information whether the value changes over simulation time
      *
      * @return Whether the value changes over simulation time
@@ -130,10 +131,10 @@ public:
      * @todo Consider using a reference to the table
      * @todo Check whether the name should be stored in GUIParameterTableItemInterface
      */
-    GUIParameterTableItem(FXTable *table, size_t pos,
+    GUIParameterTableItem(FXTable *table, unsigned pos,
                           const std::string &name, bool dynamic, 
                           ValueSource<T> *src) throw() 
-        : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(src),
+        : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(src),
         myValue(src->getValue()), myTable(table) 
     {
         init(dynamic, toString<T>(src->getValue()));
@@ -151,10 +152,10 @@ public:
      * @todo Check whether the name should be stored in GUIParameterTableItemInterface
      * @todo Should never be dynamic!?
      */
-    GUIParameterTableItem(FXTable *table, size_t pos,
+    GUIParameterTableItem(FXTable *table, unsigned pos,
                           const std::string &name, bool dynamic, 
                           T value) throw()
-        : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
+        : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
         myValue(value), myTable(table) 
     {
         init(dynamic, toString<T>(value));
@@ -172,10 +173,10 @@ public:
      * @todo Check whether the name should be stored in GUIParameterTableItemInterface
      * @todo Should never be dynamic!?
      */
-    GUIParameterTableItem(FXTable *table, size_t pos,
+    GUIParameterTableItem(FXTable *table, unsigned pos,
                           const std::string &name, bool dynamic, 
                           std::string value) throw()
-        : myAmDynamic(dynamic), myName(name), myTablePosition(pos), mySource(0),
+        : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
         myValue(0), myTable(table) 
     {
         init(dynamic, value);
@@ -249,8 +250,7 @@ public:
         T value = mySource->getValue();
         if (value!=myValue) {
             myValue = value;
-            myTable->setItemText(myTablePosition, 1,
-                                 toString<T>(myValue).c_str());
+            myTable->setItemText(myTablePosition, 1, toString<T>(myValue).c_str());
         }
     }
 
@@ -289,7 +289,7 @@ private:
     std::string myName;
 
     /// @brief The position within the table
-    size_t myTablePosition;
+    FXint myTablePosition;
 
     /** @brief The source to gain new values from; this source is==0 if the values are not dynamic */
     ValueSource<T> *mySource;

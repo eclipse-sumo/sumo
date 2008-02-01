@@ -90,14 +90,14 @@ ODDistrict::getRandomSink() const throw(OutOfBoundsException)
 unsigned int
 ODDistrict::sinkNumber() const
 {
-    return mySinks.getVals().size();
+    return (unsigned int) mySinks.getVals().size();
 }
 
 
 unsigned int
 ODDistrict::sourceNumber() const
 {
-    return mySources.getVals().size();
+    return (unsigned int) mySources.getVals().size();
 }
 
 
