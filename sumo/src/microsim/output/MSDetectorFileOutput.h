@@ -63,6 +63,7 @@ public:
 
     /// @name Virtual methods to implement by derived classes
     /// @{
+
     /** @brief Write the generated output to the given device
      * @param[in] dev The output device to write the data into
      * @param[in] startTime First time step the data were gathered

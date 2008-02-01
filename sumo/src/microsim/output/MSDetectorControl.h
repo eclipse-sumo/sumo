@@ -55,6 +55,7 @@ class MSDetectorControl
 public:
     /// @name Definitions of containers for different detector types
     /// @{
+
     /// @brief Map of MSInductLoop by ID
     typedef NamedObjectCont< MSInductLoop*> LoopDict;
     /// @brief Map of MSE2Collector by ID
@@ -109,6 +110,7 @@ public:
 
     /// @name Methods for adding detectors that are coupled to an own OutputDevice
     /// @{
+
     /** @brief Adds a induction loop into the containers
      *
      * The detector is tried to be added into "myLoops". If the detector 
@@ -205,6 +207,7 @@ public:
 
     /// @name Methods for adding detectors that are coupled to an own OutputDevice
     /// @{
+
     /** @brief Adds a e2-detector coupled to an extern output impulse giver
      *
      * The detector is tried to be added into "myE2Detectors". If the detector 
@@ -261,6 +264,7 @@ public:
 
     /// @name Methods for retrieving detectors
     /// @{
+
     /** @brief Returns the list of known MSInductLoops
      *
      * !!! Attention! This method is highly insecure and should be replaced.
@@ -329,6 +333,7 @@ public:
 protected:
     /// @name Structures needed for assigning detectors to intervals
     /// @{
+
     /// @brief A pair of a Detector with it's associated file-stream.
     typedef std::pair< MSDetectorFileOutput*, OutputDevice* > DetectorFilePair;
 
@@ -363,6 +368,7 @@ protected:
 protected:
     /// @name Dictionaries of different detector types
     /// @{
+
     /// @brief MSInductLoop dictionary
     LoopDict myLoops;
 

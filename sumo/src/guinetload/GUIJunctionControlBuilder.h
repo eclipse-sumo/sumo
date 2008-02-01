@@ -76,6 +76,7 @@ public:
 protected:
     /// @name Factory methods, overwrite NLJunctionControlBuilder methods
     /// @{
+
     /** @brief Builds a junction that does not use a logic
      * 
      * Builds a GUINoLogicJunction

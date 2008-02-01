@@ -2,7 +2,7 @@
 /// @file    MSMeanData_Net.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 10.05.2004
-/// @version $Id$
+/// @version $Id:MSMeanData_Net.h 4976 2008-01-30 14:23:39Z dkrajzew $
 ///
 // Redirector for mean data output (net->edgecontrol)
 /****************************************************************************/
@@ -84,6 +84,7 @@ public:
 
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
+
     /** @brief Writes collected values into the given stream
      *
      * This method writes only the interval time into the stream. The interval's

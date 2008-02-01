@@ -110,6 +110,7 @@ public:
 
     /// @name Methods inherited from MSMoveReminder.
     /// @{
+
     /** @brief Adds/removes vehicles from the list of vehicles to regard
      *
      * As soon as the reported vehicle enters the detector area (position>myStartPos)
@@ -169,6 +170,7 @@ public:
 
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
+
     /** @brief Writes collected values into the given stream
      *
      * @param[in] dev The output device to write the data into
@@ -193,6 +195,7 @@ public:
 
     /// @name Methods inherited from MSVehicleQuitReminded.
     /// @{
+
     /** @brief Removes the information that the vehicle is on the detector
      *
      * @param[in] veh The vehicle that was on the detector and leaves the simuation
@@ -230,6 +233,7 @@ public:
 
     /// @name Methods returning current values
     /// @{
+
     /** @brief Returns the number of vehicles currently on the detector */
     unsigned getCurrentVehicleNumber() const throw();
 
@@ -325,6 +329,7 @@ protected:
 private:
     /// @name Detector parameter
     /// @{
+
     /// @brief A vehicle must driver slower than this to be counted as a part of a jam
     SUMOReal myJamHaltingSpeedThreshold;
     /// @brief A vehicle must be that long beyond myJamHaltingSpeedThreshold to be counted as a part of a jam
@@ -352,6 +357,7 @@ private:
 
     /// @name Values generated for aggregated file output
     /// @{
+
     /// @brief The sum of collected vehicle speeds [m/s]
     SUMOReal mySpeedSum;
     /// @brief The maximum halting duration of a vehicle on detector [s]
@@ -390,8 +396,10 @@ private:
     unsigned myMaxVehicleNumber;
     /// @}
 
+
     /// @name Values generated describing the current state
     /// @{
+
     /// @brief The current occupancy
     SUMOReal myCurrentOccupancy;
     /// @brief The current mean speed 

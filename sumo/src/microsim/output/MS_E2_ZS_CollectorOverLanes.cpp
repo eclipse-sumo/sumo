@@ -2,7 +2,7 @@
 /// @file    MS_E2_ZS_CollectorOverLanes.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Oct 2003
-/// @version $Id$
+/// @version $Id:MS_E2_ZS_CollectorOverLanes.cpp 4976 2008-01-30 14:23:39Z dkrajzew $
 ///
 // A detector which joins E2Collectors over consecutive lanes (backward)
 /****************************************************************************/
@@ -121,8 +121,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length,
                     int off = 1;
                     const MSEdge * const e = toExtend->getEdge();
                     const std::vector<MSLane*> *lanes = e->getLanes();
-                    int idx =
-                        distance(lanes->begin(), find(lanes->begin(), lanes->end(), toExtend));
+                    int idx = (int) distance(lanes->begin(), find(lanes->begin(), lanes->end(), toExtend));
                     while (predeccessors.size()==0) {
                         if (idx-off>=0) {
                             MSLane *tryMe = (*lanes)[idx-off];

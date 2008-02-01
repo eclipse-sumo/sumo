@@ -155,7 +155,6 @@ void
 MSE2Collector::update(SUMOTime ) throw()
 {
     JamInfo *currentJam = 0;
-    SUMOReal distSinceLastJamBegin = 0;
     std::map<MSVehicle*, SUMOTime> haltingVehicles;
     std::map<MSVehicle*, SUMOTime> intervalHaltingVehicles;
     std::vector<JamInfo*> jams;
@@ -273,7 +272,7 @@ MSE2Collector::update(SUMOTime ) throw()
             (*(*i)->firstStandingVehicle)->getPositionOnActiveMoveReminderLane(getLane())
             - (*(*i)->lastStandingVehicle)->getPositionOnActiveMoveReminderLane(getLane())
             + (*(*i)->lastStandingVehicle)->getLength();
-        unsigned jamLengthInVehicles = distance((*i)->firstStandingVehicle, (*i)->lastStandingVehicle) + 1;
+        unsigned jamLengthInVehicles = (unsigned) distance((*i)->firstStandingVehicle, (*i)->lastStandingVehicle) + 1;
         // apply them to the statistics
         myCurrentMaxJamLengthInMeters = MAX2(myCurrentMaxJamLengthInMeters, jamLengthInMeters);
         myCurrentMaxJamLengthInVehicles = MAX2(myCurrentMaxJamLengthInVehicles, jamLengthInVehicles);

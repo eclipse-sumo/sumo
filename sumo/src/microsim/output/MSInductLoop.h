@@ -104,6 +104,7 @@ public:
 
     /// @name Methods inherited from MSMoveReminder.
     /// @{
+
     /** @brief Checks whether the vehicle shall be counted and/or shall still touch this MSMoveReminder
      *
      * As soon a vehicle enters the detector, its entry time is computed and stored
@@ -155,6 +156,7 @@ public:
 
     /// @name Methods returning current values
     /// @{
+
     /** @brief Returns the speed of the vehicle on the detector
      * 
      * If no vehicle is on the detector, -1 is returned, otherwise
@@ -210,6 +212,7 @@ public:
 
     /// @name Methods returning aggregated values
     /// @{
+
     unsigned getNVehContributed() const throw();
     //@}
 
@@ -217,6 +220,7 @@ public:
 
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
+
     /** @brief Writes collected values into the given stream
      *
      * @param[in] dev The output device to write the data into
@@ -241,6 +245,7 @@ public:
 
     /// @name Methods inherited from MSVehicleQuitReminded.
     /// @{
+
     /** @brief Removes the information that the vehicle is on the detector
      *
      * @param[in] veh The vehicle that was on the detector and leaves the simuation
@@ -252,6 +257,7 @@ public:
 protected:
     /// @name Methods that add and remove vehicles from internal container
     /// @{
+
     /** @brief Introduces a vehicle to the detector's map myVehiclesOnDet.
      * @param veh The entering vehicle.
      * @param entryTimestep Timestep (not necessary integer) of entrance.
@@ -314,6 +320,7 @@ protected:
 protected:
     /// @name Function for summing up values
     ///@{
+
     /// @brief Adds up VehicleData::speedM
     static inline SUMOReal speedSum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data) throw()
     {

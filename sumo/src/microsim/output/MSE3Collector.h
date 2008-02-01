@@ -83,6 +83,7 @@ public:
 
         /// @name Methods inherited from MSMoveReminder.
         /// @{
+
         /** @brief Checks whether the vehicle enters
          *
          * As soon as the reported vehicle enters the detector area (position>myPosition)
@@ -157,6 +158,7 @@ public:
 
         /// @name methods from MSMoveReminder
         //@{
+
         /** @brief Checks whether the vehicle leaves
          *
          * As soon as the reported vehicle leaves the detector area (position-length>myPosition)
@@ -265,6 +267,7 @@ public:
 
     /// @name Methods inherited from MSVehicleQuitReminded.
     /// @{
+
     /** @brief Removes a vehicle which entered the area but quitted before leaving it
      *
      * Remove vehicles that entered the detector but reached their destination before 
@@ -279,6 +282,7 @@ public:
 
     /// @name Methods returning current values
     /// @{
+
     /** @brief Returns the mean speed within the area
      * 
      * If no vehicle is within the area, -1 is returned.
@@ -309,6 +313,7 @@ public:
 
     /// @name Methods inherited from MSDetectorFileOutput.
     /// @{
+
     /** @brief Writes collected values into the given stream
      *
      * @param[in] dev The output device to write the data into
@@ -403,6 +408,7 @@ protected:
 
     /// @name Storages for current values
     /// @{
+
     /// @brief The current mean speed of known vehicles (inside)
     SUMOReal myCurrentMeanSpeed;
 

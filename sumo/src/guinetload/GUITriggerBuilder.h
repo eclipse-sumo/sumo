@@ -67,6 +67,7 @@ protected:
     /// Override NLTriggerBuilder-methods for building guisim-objects
     /// @see NLTriggerBuilder
     //@{
+
     /** @brief Builds a lane speed trigger
      *
      * Simply calls the GUILaneSpeedTrigger constructor. 

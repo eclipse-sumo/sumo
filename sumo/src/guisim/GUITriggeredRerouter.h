@@ -73,6 +73,7 @@ public:
 
     /// @name inherited from GUIGlObject
     //@{
+
     /// Returns the popup-menu
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
                                        GUISUMOAbstractView &parent);
@@ -91,6 +92,7 @@ public:
 
     /// @name inherited from GUIAbstractAddGlObject
     //@{
+
     /// Draws the detector in full-geometry mode
     void drawGL(SUMOReal scale, SUMOReal upscale);
 
