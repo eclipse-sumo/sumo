@@ -4,7 +4,7 @@
 /// @date    Tue, 22 Jul 2003
 /// @version $Id$
 ///
-// A building helper for the detectors
+// Builds detectors for guisim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -56,18 +56,18 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIDetectorBuilder::GUIDetectorBuilder(MSNet &net)
+GUIDetectorBuilder::GUIDetectorBuilder(MSNet &net) throw()
         : NLDetectorBuilder(net)
 {}
 
 
-GUIDetectorBuilder::~GUIDetectorBuilder()
+GUIDetectorBuilder::~GUIDetectorBuilder() throw()
 {}
 
 
 MSInductLoop *
 GUIDetectorBuilder::createInductLoop(const std::string &id,
-                                     MSLane *lane, SUMOReal pos)
+                                     MSLane *lane, SUMOReal pos) throw()
 {
     return new GUIInductLoop(id, lane, pos);
 }
@@ -75,10 +75,10 @@ GUIDetectorBuilder::createInductLoop(const std::string &id,
 
 MSE2Collector *
 GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
-        SUMOTime haltingTimeThreshold,
-        MetersPerSecond haltingSpeedThreshold,
-        SUMOReal jamDistThreshold)
+            DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
+            SUMOTime haltingTimeThreshold,
+            MetersPerSecond haltingSpeedThreshold,
+            SUMOReal jamDistThreshold) throw()
 {
     return new GUI_E2_ZS_Collector(id, usage, lane, pos, length,
                                    haltingTimeThreshold, haltingSpeedThreshold,
@@ -89,10 +89,10 @@ GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
 
 MS_E2_ZS_CollectorOverLanes *
 GUIDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
-        DetectorUsage usage, MSLane *lane, SUMOReal pos,
-        SUMOTime haltingTimeThreshold,
-        MetersPerSecond haltingSpeedThreshold,
-        SUMOReal jamDistThreshold)
+            DetectorUsage usage, MSLane *lane, SUMOReal pos,
+            SUMOTime haltingTimeThreshold,
+            MetersPerSecond haltingSpeedThreshold,
+            SUMOReal jamDistThreshold) throw()
 {
     return new GUI_E2_ZS_CollectorOverLanes(id, usage, lane, pos,
                                             haltingTimeThreshold, haltingSpeedThreshold,
@@ -105,7 +105,7 @@ GUIDetectorBuilder::createE3Detector(const std::string &id,
                                      const CrossSectionVector &entries,
                                      const CrossSectionVector &exits,
                                      MetersPerSecond haltingSpeedThreshold,
-                                     SUMOTime haltingTimeThreshold)
+                                     SUMOTime haltingTimeThreshold) throw()
 {
     return new GUIE3Collector(id, entries, exits, haltingSpeedThreshold, haltingTimeThreshold);
 }

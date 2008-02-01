@@ -4,7 +4,7 @@
 /// @date    Tue, 22 Jul 2003
 /// @version $Id$
 ///
-// A building helper for the detectors
+// Builds detectors for guisim
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -47,42 +47,99 @@ class MSDetectorControl;
 // ===========================================================================
 /**
  * @class GUIDetectorBuilder
- * This class builds gui-versions of detectors from their descriptions
+ * @brief Builds detectors for guisim
+ *
+ * This class overrides NLDetectorBuilder's detector creation methods in order
+ *  to build guisim-classes instead of microsim-classes.
+ *
+ * @see NLDetectorBuilder
  */
 class GUIDetectorBuilder : public NLDetectorBuilder
 {
 public:
-    /// Constructor
-    GUIDetectorBuilder(MSNet &net);
+    /** @brief Constructor
+     *
+     * @param[in] net The network to which's detector control built detector shall be added
+     */
+    GUIDetectorBuilder(MSNet &net) throw();
 
-    /// Destructor
-    ~GUIDetectorBuilder();
 
-protected:
-    /// Creates the instance of an induct loop (gui-version)
+    /// @brief Destructor
+    ~GUIDetectorBuilder() throw();
+
+
+    /// @name Detector creating methods
+    /// 
+    /// Override NLDetectorBuilder methods.
+    /// @{
+
+    /** @brief Creates an instance of an e1-detector using the given values
+     *
+     * Simply calls the GUIInductLoop constructor
+     *
+     * @param[in] id The id the detector shall have
+     * @param[in] lane The lane the detector is placed at
+     * @param[in] pos The position on the lane the detector is placed at
+     */
     virtual MSInductLoop *createInductLoop(const std::string &id,
-                                           MSLane *lane, SUMOReal pos);
+                                           MSLane *lane, SUMOReal pos) throw();
 
-    /// Creates the instance of a single-lane-e2-detector (gui-version)
+
+    /** @brief Creates an instance of an e2-detector using the given values
+     *
+     * Simply calls the GUI_E2_ZS_Collector constructor
+     *
+     * @param[in] id The id the detector shall have
+     * @param[in] lane The lane the detector is placed at
+     * @param[in] pos The position on the lane the detector is placed at
+     * @param[in] length The length the detector has
+     * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
+     * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
+     * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
+     */
     virtual MSE2Collector *createSingleLaneE2Detector(const std::string &id,
             DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
             SUMOTime haltingTimeThreshold,
             MetersPerSecond haltingSpeedThreshold,
-            SUMOReal jamDistThreshold);
+            SUMOReal jamDistThreshold) throw();
 
-    /// Creates the instance of a multi-lane-e2-detector (gui-version)
+
+    /** @brief Creates an instance of an e2ol-detector using the given values
+     *
+     * Simply calls the GUI_E2_ZS_CollectorOverLanes constructor. After this call,
+     *  the detector must be initialised.
+     *
+     * @param[in] id The id the detector shall have
+     * @param[in] lane The lane the detector is placed at
+     * @param[in] pos The position on the lane the detector is placed at
+     * @param[in] length The length the detector has
+     * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
+     * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
+     * @param[in] jamDistThreshold Detector parameter: the distance between two vehicles in order to not count them to one jam
+     */
     virtual MS_E2_ZS_CollectorOverLanes *createMultiLaneE2Detector(
         const std::string &id, DetectorUsage usage, MSLane *lane, SUMOReal pos,
         SUMOTime haltingTimeThreshold,
         MetersPerSecond haltingSpeedThreshold,
-        SUMOReal jamDistThreshold);
+        SUMOReal jamDistThreshold) throw();
 
-    /// Creates the instance of an e3-detector (gui version)
+
+    /** @brief Creates an instance of an e3-detector using the given values
+     *
+     * Simply calls the GUIE3Collector constructor.
+     *
+     * @param[in] id The id the detector shall have
+     * @param[in] entries The list of this detector's entries
+     * @param[in] exits The list of this detector's exits
+     * @param[in] haltingSpeedThreshold Detector parameter: the speed a vehicle's speed must be below to be assigned as jammed
+     * @param[in] haltingTimeThreshold Detector parameter: the time a vehicle's speed must be below haltingSpeedThreshold to be assigned as jammed
+     */
     virtual MSE3Collector *createE3Detector(const std::string &id,
                                             const CrossSectionVector &entries,
                                             const CrossSectionVector &exits,
                                             MetersPerSecond haltingSpeedThreshold,
-                                            SUMOTime haltingTimeThreshold);
+                                            SUMOTime haltingTimeThreshold) throw();
+    /// @}
 
 
 };

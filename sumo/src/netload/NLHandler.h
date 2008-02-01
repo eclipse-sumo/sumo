@@ -75,39 +75,59 @@ class NLGeomShapeBuilder;
 class NLHandler : public MSRouteHandler
 {
 public:
-    /// Definition of a lane vector
+    /// @brief Definition of a lane vector
     typedef std::vector<MSLane*> LaneVector;
 
 public:
-    /// standard constructor
+    /** @brief Constructor
+     * 
+     * @param[in] file Name of the parsed file
+     * @param[in, out] net The network to fill
+     * @param[in] detBuilder The detector builder to use
+     * @param[in] triggerBuilder The trigger builder to use
+     * @param[in] edgeBuilder The builder of edges to use
+     * @param[in] junctionBuilder The builder of junctions to use
+     * @param[in] shapeBuilder The geometric shapes builder to use
+     * @param[in] incDUABase Base of incremented vehicle loading
+     * @param[in] incDUAStage Stage of incremented vehicle loading
+     * @todo Describe incDUA; check whether another API would be more appropriate (maybe this should be moved into VehicleControl)
+     */
     NLHandler(const std::string &file, MSNet &net,
               NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
               NLEdgeControlBuilder &edgeBuilder,
               NLJunctionControlBuilder &junctionBuilder,
               NLGeomShapeBuilder &shapeBuilder,
-              int incDUABase, int incDUAStage);
+              int incDUABase, int incDUAStage) throw();
 
-    /// Destructor
+
+    /// @brief Destructor
     virtual ~NLHandler() throw();
 
-    /// returns a message about the processing
-    //std::string getMessage() const;
 
-    /// sets the data type filter
+    /// @brief sets the data type filter
+    /// @todo Remove load filter functionality
     void setWanted(NLLoadFilter filter);
 
-    /// Returns the information about lane continuations
+
+    /** @brief Returns the information about lane continuations
+     *
+     * @return Edge continuations
+     * @todo This should probably be a part of the network
+     */
     const MSEdgeContinuations &getContinuations() const;
+
 
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
+
     /** @brief Called on the opening of a tag; 
      *
      * @param[in] element ID of the currently opened element
      * @param[in] attrs Attributes within the currently opened element
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myStartElement
+     * @todo Refactor/describe
      */
     virtual void myStartElement(SumoXMLTag element,
                                 const Attributes &attrs) throw(ProcessError);
@@ -119,6 +139,7 @@ protected:
      * @param[in] chars The read characters (complete)
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myCharacters
+     * @todo Refactor/describe
      */
     virtual void myCharacters(SumoXMLTag element,
                               const std::string &chars) throw(ProcessError);
@@ -129,10 +150,13 @@ protected:
      * @param[in] element ID of the currently opened element
      * @exception ProcessError If something fails
      * @see GenericSAXHandler::myEndElement
+     * @todo Refactor/describe
      */
     virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 
+
+protected:
     void addParam(const Attributes &attrs);
 
     /** @brief adds a detector
@@ -337,6 +361,7 @@ protected:
 
     /// @name Information about a lane
     //@{
+
     /// The id of the current lane
     std::string myCurrentLaneID;
 

@@ -84,7 +84,7 @@ NLHandler::NLHandler(const std::string &file, MSNet &net,
                      NLEdgeControlBuilder &edgeBuilder,
                      NLJunctionControlBuilder &junctionBuilder,
                      NLGeomShapeBuilder &shapeBuilder,
-                     int incDUABase, int incDUAStage)
+                     int incDUABase, int incDUAStage) throw()
         : MSRouteHandler(file, net.getVehicleControl(), true, incDUABase, incDUAStage),
         myNet(net), myActionBuilder(net),
         myCurrentIsInternalToSkip(false),
@@ -1092,22 +1092,9 @@ NLHandler::addE2Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing id of a e2-detector-object.");
         return;
     }
-    // check whether this is a lsa-based detector or one that uses a sample
-    //  interval
-    MSTLLogicControl::TLSLogicVariants tll;
-    try {
-        string lsaid = getString(attrs, SUMO_ATTR_TLID);
-        try {
-            tll = myJunctionControlBuilder.getTLLogic(lsaid);
-        } catch (InvalidArgument &) {
-        }
-        if (tll.ltVariants.size()==0) {
-            MsgHandler::getErrorInstance()->inform("The detector '" + id + "' refers to the unknown lsa '" + lsaid + "'.");
-            return;
-        }
-    } catch (EmptyData &) {}
-    // check whether this is a detector connected to a link
-    std::string toLane = getStringSecure(attrs, SUMO_ATTR_TO, "");
+    // check whether this is a detector connected to a tls an optionally to a link
+    std::string lsaid = getStringSecure(attrs, SUMO_ATTR_TLID, "<invalid>");
+    std::string toLane = getStringSecure(attrs, SUMO_ATTR_TO, "<invalid>");
     // get the file name; it should not be empty
     string file = getStringSecure(attrs, SUMO_ATTR_FILE, "");
     if (file=="") {
@@ -1123,19 +1110,20 @@ NLHandler::addE2Detector(const Attributes &attrs)
     }
     //
     try {
-        if (tll.ltVariants.size()!=0) {
-            if (toLane.length()==0) {
+        if (lsaid!="<invalid>") {
+            if (toLane=="<invalid>") {
                 myDetectorBuilder.buildE2Detector(myContinuations,
                                                   id,
                                                   getString(attrs, SUMO_ATTR_LANE),
                                                   getFloat(attrs, SUMO_ATTR_POSITION),
                                                   getFloat(attrs, SUMO_ATTR_LENGTH),
                                                   getBoolSecure(attrs, SUMO_ATTR_CONT, false),
-                                                  tll,
+                                                  myJunctionControlBuilder.getTLLogic(lsaid),
                                                   OutputDevice::getDevice(file, getFileName()),
                                                   (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
-                                                  getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f)
+                                                  getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
+                                                  getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false)
                                                  );
             } else {
                 myDetectorBuilder.buildE2Detector(myContinuations,
@@ -1144,11 +1132,12 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                                   getFloat(attrs, SUMO_ATTR_POSITION),
                                                   getFloat(attrs, SUMO_ATTR_LENGTH),
                                                   getBoolSecure(attrs, SUMO_ATTR_CONT, false),
-                                                  tll, toLane,
+                                                  myJunctionControlBuilder.getTLLogic(lsaid), toLane,
                                                   OutputDevice::getDevice(file, getFileName()),
                                                   (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                                   getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
-                                                  getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f)
+                                                  getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
+                                                  getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false)
                                                  );
             }
         } else {
@@ -1162,7 +1151,8 @@ NLHandler::addE2Detector(const Attributes &attrs)
                                               OutputDevice::getDevice(file, getFileName()),
                                               (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_HALTING_TIME_THRESHOLD, 1.0f),
                                               getFloatSecure(attrs, SUMO_ATTR_HALTING_SPEED_THRESHOLD, 5.0f/3.6f),
-                                              getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f)
+                                              getFloatSecure(attrs, SUMO_ATTR_JAM_DIST_THRESHOLD, 10.0f),
+                                              getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false)
                                              );
         }
     } catch (InvalidArgument &e) {
@@ -1228,7 +1218,8 @@ NLHandler::addE3Entry(const Attributes &attrs)
     try {
         myDetectorBuilder.addE3Entry(
             getString(attrs, SUMO_ATTR_LANE),
-            getFloat(attrs, SUMO_ATTR_POSITION));
+            getFloat(attrs, SUMO_ATTR_POSITION),
+            getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false));
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Position of an entry of detector '" + myDetectorBuilder.getCurrentE3ID() + "' is not numeric.");
     } catch (InvalidArgument &e) {
@@ -1245,7 +1236,8 @@ NLHandler::addE3Exit(const Attributes &attrs)
     try {
         myDetectorBuilder.addE3Exit(
             getString(attrs, SUMO_ATTR_LANE),
-            getFloat(attrs, SUMO_ATTR_POSITION));
+            getFloat(attrs, SUMO_ATTR_POSITION),
+            getBoolSecure(attrs, SUMO_ATTR_FRIENDLY_POS, false));
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Position of an exit of detector '" + myDetectorBuilder.getCurrentE3ID() + "' is not numeric.");
     } catch (InvalidArgument &e) {
