@@ -529,7 +529,7 @@ void
 
 	// get the running programm of the traffic light
 	MSTLLogicControl tlsControl = MSNet::getInstance()->getTLSControl();
-	MSTrafficLightLogic* const tlLogic = tlsControl.get(id).defaultTL;
+	MSTrafficLightLogic* const tlLogic = tlsControl.get(id).getActive();
 
 	// error checking
 	if (tlLogic == NULL) {
