@@ -86,7 +86,7 @@ public:
      *
      * @param[in] lh The LineHandler to report read lines to
      */
-    void readAll(LineHandler &lh) throw();
+    void readAll(LineHandler &lh) throw(ProcessError);
 
 
     /** @brief Reads a single (the next) line from the file and reports it to the given LineHandler
@@ -96,7 +96,7 @@ public:
      * @param[in] lh The LineHandler to report read lines to
      * @return Whether a further line exists
      */
-    bool readLine(LineHandler &lh) throw();
+    bool readLine(LineHandler &lh) throw(ProcessError);
 
 
     /** @brief Reads a single (the next) line from the file and returns it

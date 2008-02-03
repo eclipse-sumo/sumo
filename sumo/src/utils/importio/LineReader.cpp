@@ -75,7 +75,7 @@ LineReader::hasMore() const throw()
 
 
 void
-LineReader::readAll(LineHandler &lh) throw()
+LineReader::readAll(LineHandler &lh) throw(ProcessError)
 {
     while (myRread<myAvailable) {
         if (!readLine(lh)) {
@@ -86,7 +86,7 @@ LineReader::readAll(LineHandler &lh) throw()
 
 
 bool
-LineReader::readLine(LineHandler &lh) throw()
+LineReader::readLine(LineHandler &lh) throw(ProcessError)
 {
     string toReport;
     bool moreAvailable = true;
