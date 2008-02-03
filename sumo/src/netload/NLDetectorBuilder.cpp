@@ -432,7 +432,7 @@ NLDetectorBuilder::createInductLoop(const std::string &id,
 #ifdef HAVE_MESOSIM
 MEInductLoop *
 NLDetectorBuilder::createMEInductLoop(const std::string &id,
-                                      MESegment *s, SUMOReal pos)
+                                      MESegment *s, SUMOReal pos) throw()
 {
     return new MEInductLoop(id, s, pos);
 }

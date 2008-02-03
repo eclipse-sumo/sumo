@@ -45,7 +45,6 @@ class MSInductLoop;
 class MS_E2_ZS_CollectorOverLanes;
 class MSTrafficLightLogic;
 class MSDetectorControl;
-class MELoop;
 class MSLane;
 class MSEdgeContinuations;
 
