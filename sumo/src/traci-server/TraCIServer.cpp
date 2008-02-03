@@ -349,10 +349,48 @@ void
 TraCIServer::commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
 throw(TraCIException)
 {
+	std::string roadID;
+	std::string laneID = "";
+	float lanePos;
+	unsigned char laneIDNum;
+
     // NodeId
     MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
+
     // StopPosition
-    // Todo
+	unsigned char posType = requestMsg.readUnsignedByte();	// position type
+	if (posType == POSITION_ROADMAP) {
+		// road-id
+		roadID = requestMsg.readString();
+		// position on lane
+		lanePos = requestMsg.readFloat();
+		// numerical lane-id
+		laneIDNum = requestMsg.readUnsignedByte();
+
+		if (lanePos < 0) {
+			writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
+		}
+
+		// search for corresponding string-lane-id
+		MSEdge* road = MSEdge::dictionary(roadID);
+		if (road == NULL) {
+			writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Unable to retrieve road with given id");
+		}
+		const MSEdge::LaneCont* const lanes = road->getLanes();
+		//for (int i=0; i < lanes->size(); i++) {
+		for (MSEdge::LaneCont::const_iterator iter = lanes->begin(); iter != lanes->end(); iter++) {
+			//if (lanes[i] getNumericalID == laneIDNum) {
+			if ((*iter)->getNumericalID() == laneIDNum) {
+				laneID = (*iter)->getID();
+			}
+		}
+		if (laneID == "") {
+			writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Unable to retrieve lane with given id");
+		}
+	} else {
+		writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Currently not supported or unknown Position Format");
+	}
+
     // Radius
     float radius = requestMsg.readFloat();
     // waitTime
@@ -364,7 +402,18 @@ throw(TraCIException)
     }
 
     // Forward command to vehicle
-    // Todo
+	if (posType == POSITION_ROADMAP) {
+		// add a new stop to the vehicle
+		MSVehicle::Stop newStop;
+		newStop.busstop = NULL;
+		newStop.duration = waitTime;
+		newStop.lane = MSLane::dictionary(laneID);
+		newStop.pos = lanePos;
+		newStop.reached = false;
+		newStop.until = 0;
+
+		veh->addStop(newStop);
+	}
 
     // create a reply message
     writeStatusCmd(respMsg, CMD_STOP, RTYPE_OK, "");
