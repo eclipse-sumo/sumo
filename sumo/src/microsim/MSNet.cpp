@@ -110,7 +110,8 @@ MSNet::getInstance(void)
 }
 
 
-MSNet::MSNet(MSVehicleControl *vc)
+MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents, 
+             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents)
 {
     MSCORN::init();
     MSVehicleTransfer::setInstance(new MSVehicleTransfer());
@@ -130,6 +131,11 @@ MSNet::MSNet(MSVehicleControl *vc)
     myMSPhoneNet = 0;
     myTriggerControl = new MSTriggerControl();
     myShapeContainer = new ShapeContainer();
+
+    myBeginOfTimestepEvents = beginOfTimestepEvents;
+    myEndOfTimestepEvents = endOfTimestepEvents;
+    myEmissionEvents = emissionEvents;
+
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         MSGlobals::gMesoNet = new MELoop();
@@ -320,7 +326,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     if (myLogExecutionTime) {
         mySimStepBegin = SysUtils::getCurrentMillis();
     }
-    myBeginOfTimestepEvents.execute(myStep);
+    myBeginOfTimestepEvents->execute(myStep);
 
     if (myMSPhoneNet!=0) {
         myMSPhoneNet->setDynamicCalls(myStep);
@@ -382,7 +388,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     }
     MSVehicleTransfer::getInstance()->checkEmissions(myStep);
     // execute endOfTimestepEvents
-    myEmissionEvents.execute(myStep);
+    myEmissionEvents->execute(myStep);
 
     if (MSGlobals::gUsingC2C) {
         MSDevice_C2C::computeCar2Car(myStep);
@@ -403,7 +409,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     }
 
     // execute endOfTimestepEvents
-    myEndOfTimestepEvents.execute(myStep);
+    myEndOfTimestepEvents->execute(myStep);
 
     // update and write (if needed) detector values
     writeOutput();

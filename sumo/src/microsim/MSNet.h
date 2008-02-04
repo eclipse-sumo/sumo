@@ -92,7 +92,8 @@ public:
      */
     static MSNet* getInstance();
 
-    MSNet(MSVehicleControl *vc);
+    MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents, 
+             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents);
 
 
     /// Destructor.
@@ -176,15 +177,15 @@ public:
     SUMOReal getTooSlowRTF() const;
 
     MSEventControl &getBeginOfTimestepEvents() {
-        return myBeginOfTimestepEvents;
+        return *myBeginOfTimestepEvents;
     }
 
     MSEventControl &getEndOfTimestepEvents() {
-        return myEndOfTimestepEvents;
+        return *myEndOfTimestepEvents;
     }
 
     MSEventControl &getEmissionEvents() {
-        return myEmissionEvents;
+        return *myEmissionEvents;
     }
 
     /////////////////////////////////////////////
@@ -235,9 +236,9 @@ protected:
     mutable MSPersonControl *myPersonControl;
     MSDetectorControl *myDetectorControl;
     MSTriggerControl *myTriggerControl;
-    MSEventControl myBeginOfTimestepEvents;
-    MSEventControl myEndOfTimestepEvents;
-    MSEventControl myEmissionEvents;
+    MSEventControl *myBeginOfTimestepEvents;
+    MSEventControl *myEndOfTimestepEvents;
+    MSEventControl *myEmissionEvents;
     ShapeContainer *myShapeContainer; // could be a direct member
 
     //{@ data needed for computing performance values

@@ -30,6 +30,7 @@
 
 #include <iostream>
 #include <guisim/GUINet.h>
+#include <guisim/GUIEventControl.h>
 #include <netload/NLBuilder.h>
 #include <guinetload/GUIEdgeControlBuilder.h>
 #include <guinetload/GUIJunctionControlBuilder.h>
@@ -124,7 +125,8 @@ GUILoadThread::run()
     // try to load
     OptionsCont &oc = OptionsCont::getOptions();
     MSFrame::setMSGlobals(oc);
-    net = new GUINet(buildVehicleControl());
+    net = new GUINet(buildVehicleControl(), new GUIEventControl(), 
+        new GUIEventControl(), new GUIEventControl());
     GUIEdgeControlBuilder *eb = buildEdgeBuilder();
     GUIJunctionControlBuilder jb(*net, oc);
     GUIDetectorBuilder db(*net);

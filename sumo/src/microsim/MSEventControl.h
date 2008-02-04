@@ -4,7 +4,7 @@
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
-// time-dependant events
+// Stores time-dependant events and executes them at the proper time
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -49,68 +49,101 @@ class Command;
 // ===========================================================================
 /**
  * @class MSEventControl
- * Class which holds incoming events and executes them at the time they shall
- * be executed at.
+ * @brief Stores time-dependant events and executes them at the proper time
  */
 class MSEventControl
 {
 public:
-    /// Default constructor.
-    MSEventControl();
-
-    /// Events that should be executed at time.
+    /// @brief Combination of an event and the time it shall be executed at
     typedef std::pair< Command*, SUMOTime > Event;
+
 
     /**
      * @enum AdaptType
-     * Defines what to do if the insertion time lies before the current simulation
-     *  time
+     * @brief Defines what to do if the insertion time lies before the current simulation time
      */
     enum AdaptType {
-        /// Patch the time in a way that it is at least as high as the simulation begin time
+        /// @brief Patch the time in a way that it is at least as high as the simulation begin time
         ADAPT_AFTER_EXECUTION = 1,
-        /// Do nothing
+        /// @brief Do nothing
         NO_CHANGE = 2
     };
 
-    /// Sort-criterion for events.
+
+public:
+    /// @brief Default constructor.
+    MSEventControl() throw();
+
+
+    /// @brief Destructor.
+    virtual ~MSEventControl() throw();
+
+
+    /** @brief Adds an Event.
+     *
+     * If the given execution time step lies before the current and ADAPT_AFTER_EXECUTION
+     *  is passed for adaptation type, the execution time step will be set to the 
+     *  current time step.
+     *
+     * Returns the time the event will be executed, really.
+     *
+     * @param[in] operation The event to add
+     * @param[in] execTimeStep The time the event shall be executed at
+     * @param[in] type The adaptation type
+     * @see Command
+     * @see AdaptType
+     */
+    virtual SUMOTime addEvent(Command* operation, SUMOTime execTimeStep,
+        AdaptType type) throw();
+
+
+    /** @brief Executes time-dependant commands
+     *
+     * Loops over all stored events, continuing until the first event which 
+     *  execution time lies beyond the given time + deltaT. If the event
+     *  had to be executed before the given time, a warning is generated and
+     *  the event deleted. Otherwise (the event is valid), the event is executed.
+     *
+     * Each executed event must return the time that has to pass until it shall 
+     *  be executed again. If the returned time is 0, the event is deleted. 
+     *  Otheriwse it is readded, after the new execution time (returned + current)
+     *  is computed.
+     *  
+     * @param[in] time The current simulation time
+     */
+    virtual void execute(SUMOTime time) throw();
+
+
+protected:
+    /** @brief Sort-criterion for events.
+     *
+     * Sorts events by their execution time
+     */
     class EventSortCrit
     {
     public:
-        /// compares two events
+        /// @brief compares two events
         bool operator()(const Event& e1, const Event& e2) const {
             return e1.second > e2.second;
         }
     };
 
-    /// Destructor.
-    ~MSEventControl();
-
-    /** @brief Adds an Event.
-     *
-     * Returns the time the event will be executed, really */
-    SUMOTime addEvent(Command* operation, SUMOTime execTimeStep,
-                      AdaptType type);
-
-    /** @brief Executes time-dependant commands
-        Events are things such as switching traffic-lights, writing output,
-        etc. */
-    void execute(SUMOTime time);
 
 private:
-    /// Container for time-dependant events, e.g. traffic-light-change.
-    typedef std::priority_queue< Event, std::vector< Event >,
-    EventSortCrit > EventCont;
+    /// @brief Container for time-dependant events, e.g. traffic-light-change.
+    typedef std::priority_queue< Event, std::vector< Event >, EventSortCrit > EventCont;
 
-    /// Event-container, holds executable events.
+    /// @brief Event-container, holds executable events.
     EventCont myEvents;
 
+
 private:
-    /// Copy constructor.
+    /// @brief invalid copy constructor.
     MSEventControl(const MSEventControl&);
 
-    /// Assignment operator.
+    /// @brief invalid assignment operator.
     MSEventControl& operator=(const MSEventControl&);
+
 
 };
 

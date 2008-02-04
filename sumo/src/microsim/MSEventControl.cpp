@@ -4,7 +4,7 @@
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
-// time-dependant events
+// Stores time-dependant events and executes them at the proper time
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -48,17 +48,14 @@ using namespace std;
 // ===========================================================================
 // member definitions
 // ===========================================================================
-/* -------------------------------------------------------------------------
- * methods from MSEventControl
- * ----------------------------------------------------------------------- */
-MSEventControl::MSEventControl() :
-        myEvents()
+MSEventControl::MSEventControl() throw()
+    : myEvents()
 {}
 
 
-MSEventControl::~MSEventControl()
+MSEventControl::~MSEventControl() throw()
 {
-    // Empty the event-container and delete the commands.
+    // delete the events
     while (! myEvents.empty()) {
         Event e = myEvents.top();
         delete e.first;
@@ -70,7 +67,7 @@ MSEventControl::~MSEventControl()
 SUMOTime
 MSEventControl::addEvent(Command* operation,
                          SUMOTime execTimeStep,
-                         AdaptType type)
+                         AdaptType type) throw()
 {
     SUMOTime currTimeStep = MSNet::getInstance()->getCurrentTimeStep();
     if (type == ADAPT_AFTER_EXECUTION && execTimeStep <= currTimeStep) {
@@ -83,15 +80,12 @@ MSEventControl::addEvent(Command* operation,
 
 
 void
-MSEventControl::execute(SUMOTime execTime)
+MSEventControl::execute(SUMOTime execTime) throw()
 {
     // Execute all events that are scheduled for execTime.
     for (;!myEvents.empty();) {
-
         Event currEvent = myEvents.top();
-
         if (currEvent.second == execTime || currEvent.second<execTime+DELTA_T) {
-
             Command *command = currEvent.first;
             myEvents.pop();
             SUMOTime time = 0;

@@ -87,8 +87,9 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUINet::GUINet(MSVehicleControl *vc)
-        : MSNet(vc),
+GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents, 
+             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents)
+        : MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, emissionEvents),
         myGrid(10, 10),
         myWrapper(new GUINetWrapper(gIDStorage, *this)),
         myLastSimDuration(0), /*myLastVisDuration(0),*/ myLastIdleDuration(0),
@@ -476,6 +477,7 @@ GUINet::buildRouteLoader(const std::string &file, int incDUABase, int incDUAStag
     //  b) using colors
     return new MSRouteLoader(*this, new GUIRouteHandler(file, *myVehicleControl, false, incDUABase, incDUAStage));
 }
+
 
 
 
