@@ -8,6 +8,15 @@ e2
 e3
 
 
+# Tests for e2-detectors (lane-areal) couppled to a tls
+e2_tls
+
+# Tests for e2-detectors (lane-areal) couppled to a tls link
+e2_tls_link
+
+
+
+
 # Tests for emission-output
 emissions
 
@@ -22,6 +31,7 @@ rawdump
 
 
 
+
 # Tests whether edge meandata output works
 cross3ltl_meandata_edges
 
@@ -33,6 +43,12 @@ cross3ltl_meandata_edges_constrained
 
 # Tests whether constraining lane meandata output works
 cross3ltl_meandata_lanes_constrained
+
+# Tests whether rawdump output works
+cross3ltl_rawdump
+
+# Tests whether rawdump output without prunning works
+cross3ltl_rawdump_withempty
 
 # Tests whether physical-states-output work
 cross3ltl_physical_states
