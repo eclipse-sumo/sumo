@@ -64,16 +64,21 @@ Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(
 
 
 Command_SaveTLCoupledDet::~Command_SaveTLCoupledDet()
-{}
+{
+}
 
 
 bool
 Command_SaveTLCoupledDet::execute()
 {
+    // !!! we have to do this to have the correct information set
+    myLogics.getActive()->maskRedLinks();
     SUMOTime end =
         MSNet::getInstance()->getCurrentTimeStep();
-    myDetector->writeXMLOutput(myDevice, myStartTime, end);
-    myStartTime = end;
+    if(myStartTime!=end) {
+        myDetector->writeXMLOutput(myDevice, myStartTime, end);
+        myStartTime = end;
+    }
     return true;
 }
 

@@ -45,22 +45,27 @@ enum {
 
     /// @name application specific
     //@{
+
     /// Main window-ID
     MID_WINDOW,
     /// Main window closes
     MID_QUIT,
     //@}
 
+
     /// @name for common buttons
     //@{
+
     /// Ok-button pressed
     MID_OK,
     /// Cancel-button pressed
     MID_CANCEL,
     //@}
 
+
     /// @name Main Window File Menu - IDs
     //@{
+
     /// Open configuration - ID
     MID_OPEN_CONFIG,
     /// Open network - ID
@@ -75,8 +80,10 @@ enum {
     MID_ABOUT,
     //@}
 
+
     /// @name Main Window Simulation Control - IDs
     //@{
+
     /// Start the simulation
     MID_START,
     /// Stop the simulation
@@ -85,8 +92,10 @@ enum {
     MID_STEP,
     //@}
 
+
     /// @name Main window windows control - IDs
     //@{
+
     /// Open a new microscopic view
     MID_NEW_MICROVIEW,
 #ifdef HAVE_MESOSIM
@@ -95,8 +104,10 @@ enum {
 #endif
     //@}
 
+
     /// @name SubThread - IDs
     //@{
+
     /// The loading thread
     ID_LOADTHREAD_EVENT,
     /// The Simulation execution thread
@@ -108,6 +119,7 @@ enum {
 
     /// @name Edit Menu Item - IDs
     //@{
+
     /// Open chosen editor - ID
     MID_EDITCHOSEN,
     /// Edit additional weights - ID
@@ -118,8 +130,10 @@ enum {
     MID_CONNECTIONS,
     //@}
 
+
     /// @name Settings Menu Item - IDs
     //@{
+
     /// Application settings - menu entry
     MID_APPSETTINGS,
     /// Simulation settings - menu entry
@@ -128,8 +142,10 @@ enum {
     MID_SIMDELAY,
     //@}
 
+
     /// @name Image Menu Item - IDs
     //@{
+
     /// Street extraction - menu entry
     MID_EXTRACT_STREETS,
     /// Dilation - menu entry
@@ -156,13 +172,16 @@ enum {
     // Clear simulation settings
     MID_CLEARMESSAGEWINDOW,
 
+
     // Create drawing canvas for an image
     ID_CANVAS,
     // Clear the drawing canvas
     ID_CLEAR,
 
+
     /// @name Graph menu item - IDs
     //@{
+
     ///Show graph on empty bitmap - menu entry
     MID_SHOW_GRAPH_ON_EMPTY_BITMAP,
     ///Show graph on actual bitmap - menu entry
@@ -181,8 +200,10 @@ enum {
     MID_EXPORT_EDGES_XML,
     //@}
 
+
     /// @name Common View Settings - IDs
     //@{
+
     /// Recenter view - button
     MID_RECENTERVIEW,
     /// Allow rotation - button
@@ -213,14 +234,18 @@ enum {
     MID_MAKESNAPSHOT,
     //@}
 
+
     /// @name Common view IDs
     //@{
+
     /// GLCanvas - ID
     MID_GLCANVAS,
     //@}
 
+
     /// @name View settings - IDs
     //@{
+
     /// Change coloring scheme - combo
     MID_COLOURSCHEMECHANGE,
     /// Change the aggregation time value - combo
@@ -232,6 +257,7 @@ enum {
 
     /// @name Object PopUp Entries - IDs
     //@{
+
     /// Center view to object - menu entry
     MID_CENTER,
     /// Center view to object - menu entry
@@ -284,8 +310,10 @@ enum {
     MID_DELETE,
     //@}
 
+
     /// @name IDs used by Trackers
     //@{
+
     /// The Table
     MID_TABLE,
     /// A Simulation step was performed
@@ -294,8 +322,10 @@ enum {
     MID_OPENTRACKER,
     //@}
 
+
     /// @name General Setting Dialogs - IDs
     //@{
+
     /// Ok-button was pushed
     MID_SETTINGS_OK,
     /// Cancel-button was pushed
@@ -304,8 +334,10 @@ enum {
     MID_SETTINGS_SAVE,
     //@}
 
+
     /// @name Application Settings - Dialog IDs
     //@{
+
     /// Close simulation at end - Option
     MID_QUITONSIMEND,
     /// Suppress end message - Option
@@ -314,8 +346,10 @@ enum {
     MID_ALLOWTEXTURES,
     //@}
 
+
     /// @name GLObjChooser - Dialog IDs
     //@{
+
     /// Center object
     MID_CHOOSER_CENTER,
     /// Text entry
@@ -324,8 +358,10 @@ enum {
     MID_CHOOSER_LIST,
     //@}
 
+
     /// @name GLChosenEditor - Dialog IDs
     //@{
+
     /// Load set
     MID_CHOOSEN_LOAD,
     /// Save set
@@ -344,8 +380,10 @@ enum {
     MID_PERIOD,
     MID_TIME_SLIDER,
 
+
     /// @name IDs for netedit
     //@{
+
     /// Import a network - menu entry
     MID_IMPORT_NET,
     /// Open a bitmap file - menu entry
@@ -360,8 +398,10 @@ enum {
     MID_SAVE_NET,
     //@}
 
+
     /// @name IDs for visualization settings - Dialog
     //@{
+
     /// Informs the dialog about a value's change
     MID_SIMPLE_VIEW_COLORCHANGE,
     /// Informs the dialog about switching to another scheme

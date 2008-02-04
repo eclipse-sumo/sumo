@@ -80,10 +80,19 @@ public:
      *  OutputDevice::writeXMLHeader.
      *
      * @param[in] dev The output device to write the root into
-     * @see MSDetectorFileOutput::writeXMLDetectorProlog
      * @exception IOError If an error on writing occures
      */
     virtual void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError) = 0;
+
+
+    /** @brief Resets collected values
+     *
+     * Please note that this is only a "hack" for coupled-tls-outputs.
+     *
+     * @see Command_SaveTLCoupledLaneDet
+     * @todo Reckeck/refactor
+     */
+    virtual void reset() { }
 
 
 };

@@ -83,9 +83,10 @@ MSTrafficLightLogic::SwitchCommand::execute(SUMOTime)
         if (isActive) {
             // execute any action connected to this tls
             const MSTLLogicControl::TLSLogicVariants &vars = myTLControl.get(myTLLogic->getID());
-            vars.executeOnSwitchActions();
             // set link priorities
             myTLLogic->setLinkPriorities();
+            // execute switch actions
+            vars.executeOnSwitchActions();
         }
     }
     return next;

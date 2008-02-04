@@ -67,6 +67,10 @@ private:
     /// The state the link had the last time
     MSLink::LinkState myLastState;
 
+    bool myHadOne;
+
+
+
 };
 
 

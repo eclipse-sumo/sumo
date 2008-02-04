@@ -57,24 +57,35 @@ Command_SaveTLCoupledLaneDet::Command_SaveTLCoupledLaneDet(
     MSDetectorFileOutput *dtf,
     unsigned int begin, OutputDevice& device, MSLink *link)
         : Command_SaveTLCoupledDet(tlls, dtf, begin, device),
-        myLink(link), myLastState(MSLink::LINKSTATE_DEADEND)
+        myLink(link), myLastState(MSLink::LINKSTATE_TL_RED),
+        myHadOne(false)
 {}
 
 
 Command_SaveTLCoupledLaneDet::~Command_SaveTLCoupledLaneDet()
-{}
+{
+}
 
 
 bool
 Command_SaveTLCoupledLaneDet::execute()
 {
-    if (myLink->getState()==myLastState) {
+    // !!! we have to do this to have the correct information set
+    myLogics.getActive()->maskRedLinks();
+    if (myLink->getState()==myLastState&&myHadOne) {
         return true;
     }
-    if (myLink->getState()==MSLink::LINKSTATE_TL_RED) {
+    myHadOne = true;
+    if (myLastState==MSLink::LINKSTATE_TL_RED&&myLink->getState()!=MSLink::LINKSTATE_TL_RED) {
         SUMOTime end = MSNet::getInstance()->getCurrentTimeStep();
-        myDetector->writeXMLOutput(myDevice, myStartTime, end);
-        myStartTime = end;
+        if(myStartTime!=end) {
+            myDetector->writeXMLOutput(myDevice, myStartTime, end);
+            myStartTime = end;
+        }
+    }
+    if(myLink->getState()!=MSLink::LINKSTATE_TL_RED) {
+        myDetector->reset();
+        myStartTime = MSNet::getInstance()->getCurrentTimeStep();
     }
     myLastState = myLink->getState();
     return true;
