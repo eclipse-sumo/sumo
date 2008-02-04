@@ -4,7 +4,7 @@
 /// @date    06 Jul 2006
 /// @version $Id$
 ///
-// Writes the switch times of a tls into a file
+// Writes information about the green durations of a tls
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -52,10 +52,9 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Command_SaveTLSSwitches::Command_SaveTLSSwitches(
-    const MSTLLogicControl::TLSLogicVariants &logics,
-    OutputDevice &od)
-        : myOutputDevice(od), myLogics(logics)
+Command_SaveTLSSwitches::Command_SaveTLSSwitches(const MSTLLogicControl::TLSLogicVariants &logics,
+                                                 OutputDevice &od) throw()
+    : myOutputDevice(od), myLogics(logics)
 {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
             0, MSEventControl::ADAPT_AFTER_EXECUTION);
@@ -63,13 +62,13 @@ Command_SaveTLSSwitches::Command_SaveTLSSwitches(
 }
 
 
-Command_SaveTLSSwitches::~Command_SaveTLSSwitches()
+Command_SaveTLSSwitches::~Command_SaveTLSSwitches() throw()
 {
 }
 
 
 SUMOTime
-Command_SaveTLSSwitches::execute(SUMOTime currentTime)
+Command_SaveTLSSwitches::execute(SUMOTime currentTime) throw()
 {
     MSTrafficLightLogic *light = myLogics.getActive();
     const MSTrafficLightLogic::LinkVectorVector &links = light->getLinks();

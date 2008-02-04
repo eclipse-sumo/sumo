@@ -4,7 +4,7 @@
 /// @date    15 Feb 2004
 /// @version $Id$
 ///
-// Writes the state of the tls to a file
+// Writes the state of the tls to a file (in each second)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -48,27 +48,50 @@ class OutputDevice;
 // ===========================================================================
 /**
  * @class Command_SaveTLSState
- * This action's execute command writes the state of the tls into a file
+ * @brief Writes the state of the tls to a file (in each second)
  */
 class Command_SaveTLSState : public Command
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     *
+     * @param[in] tlls The logic to write state of
+     * @param[in] od The output device to write the state into
+     */
     Command_SaveTLSState(const MSTLLogicControl::TLSLogicVariants &logics,
-                         OutputDevice &od);
+                         OutputDevice &od) throw();
 
-    /// Destructor
-    ~Command_SaveTLSState();
 
-    /// Executes the action
-    SUMOTime execute(SUMOTime currentTime);
+    /// @brief Destructor
+    ~Command_SaveTLSState() throw();
+
+
+    /** @brief Executes the command
+     *
+     * Builds the current state of the tls using "buildStateList" and writes
+     *  it to the output device.
+     *
+     * Returns always 1
+     *
+     * @return Always 1 (will be executed in next time step)
+     */
+    SUMOTime execute(SUMOTime currentTime) throw();
+
 
 private:
-    /// The device to write to
+    /// @brief The device to write to
     OutputDevice &myOutputDevice;
 
-    /// The traffic light logic to use
+    /// @brief The traffic light logic to use
     const MSTLLogicControl::TLSLogicVariants &myLogics;
+
+
+private:
+    /// @brief Invalidated copy constructor.
+    Command_SaveTLSState(const Command_SaveTLSState&);
+
+    /// @brief Invalidated assignment operator.
+    Command_SaveTLSState& operator=(const Command_SaveTLSState&);
 
 };
 

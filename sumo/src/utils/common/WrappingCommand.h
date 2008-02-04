@@ -2,7 +2,7 @@
 /// @file    WrappingCommand.h
 /// @author  Christian Roessel
 /// @date    Thu, 20 Dec 2001
-/// @version $Id$
+/// @version $Id:WrappingCommand.h 4699 2007-11-09 14:05:13Z dkrajzew $
 ///
 // simple commands, that need no parameters and no
 /****************************************************************************/
@@ -59,11 +59,11 @@ public:
      *
      * @return Pointer to the created WrappingCommand.
      */
-    WrappingCommand(T* receiver, Operation operation)
+    WrappingCommand(T* receiver, Operation operation) throw()
             : myReceiver(receiver), myOperation(operation) {}
 
     /// Destructor.
-    ~WrappingCommand() {}
+    ~WrappingCommand() throw() {}
 
     /**
      * Execute the command and return an offset in steps for recurring
@@ -73,7 +73,7 @@ public:
      * in steps for recurring commands and 0 for single-execution
      * commands.
      */
-    SUMOTime execute(SUMOTime currentTime) {
+    SUMOTime execute(SUMOTime currentTime) throw() {
         return (myReceiver->*myOperation)(currentTime);
     }
 

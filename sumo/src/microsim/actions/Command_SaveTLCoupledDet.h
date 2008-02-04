@@ -4,7 +4,7 @@
 /// @date    15 Feb 2004
 /// @version $Id$
 ///
-// Realises the output of a tls values on each switch
+// Writes e2-state on each tls switch
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -50,38 +50,57 @@ class OutputDevice;
 // ===========================================================================
 /**
  * @class Command_SaveTLCoupledDet
- * Called on every tls-switch, the "execute" writes the current detector
- *  values into a file.
- * This action is build only if the user wants and describes it within the
- *  additional-files.
+ * @brief Writes e2-state on each tls switch
+ *
+ * @todo Check whether there may be a better solution than calling "maskRedLinks" directly
+ * @todo Problem: The detector may not save the last state (on simulation end)
+ * @todo Basically, this does not have to be a DiscreteCommand; its called by the tls (is THIS ok?)
  */
 class Command_SaveTLCoupledDet : public DiscreteCommand
 {
 public:
-    /// Constructor
-    Command_SaveTLCoupledDet(
-        MSTLLogicControl::TLSLogicVariants &tlls,
-        MSDetectorFileOutput *dtf, unsigned int begin,
-        OutputDevice& device);
+    /** @brief Constructor
+     *
+     * @param[in] tlls The logic to observe
+     * @param[in] dtf The detector used to generate the values
+     * @param[in] begin The begin simulation time
+     * @param[in] device The output device to write the detector values into
+     */
+    Command_SaveTLCoupledDet(MSTLLogicControl::TLSLogicVariants &tlls,
+        MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice& device) throw();
 
-    /// Destructor
-    virtual ~Command_SaveTLCoupledDet();
 
-    /// Executes the command (see above)
-    virtual bool execute();
+    /// @brief Destructor
+    virtual ~Command_SaveTLCoupledDet() throw();
+
+
+    /** @brief Executes the command
+     *
+     * Called when an active tls program switches, this method calls 
+     *  "writeXMLOutput" of its detector (e2; the values are resetted there).
+     *
+     * Returns always true
+     *
+     * @return Always true (do not remove)
+     * @see MSDetectorFileOutput::writeXMLOutput
+     * @see MSE2Collector::writeXMLOutput
+     */
+    virtual bool execute() throw();
+
 
 protected:
-    /// The file to write the output to
+    /// @brief The file to write the output to
     OutputDevice& myDevice;
 
-    /// The logic to use
+    /// @brief The logic to use
     const MSTLLogicControl::TLSLogicVariants &myLogics;
 
-    /// The detector to use
+    /// @brief The detector to use
     MSDetectorFileOutput *myDetector;
 
-    /// The last time the values were written
+    /// @brief The last time the values were written
     unsigned int myStartTime;
+
 
 private:
     /// @brief Invalidated copy constructor.

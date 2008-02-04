@@ -4,7 +4,7 @@
 /// @date    15 Feb 2004
 /// @version $Id$
 ///
-// Realises the output of a tls values on each switch
+// Writes e2-state on each tls switch
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -51,30 +51,29 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(
-    MSTLLogicControl::TLSLogicVariants &tlls,
-    MSDetectorFileOutput *dtf, unsigned int begin,
-    OutputDevice& device)
-        : myDevice(device), myLogics(tlls), myDetector(dtf),
-        myStartTime(begin)
+Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(MSTLLogicControl::TLSLogicVariants &tlls,
+                                                   MSDetectorFileOutput *dtf, 
+                                                   unsigned int begin,
+                                                   OutputDevice& device) throw()
+    : myDevice(device), myLogics(tlls), myDetector(dtf),
+    myStartTime(begin)
 {
     tlls.addSwitchCommand(this);
     dtf->writeXMLDetectorProlog(device);
 }
 
 
-Command_SaveTLCoupledDet::~Command_SaveTLCoupledDet()
+Command_SaveTLCoupledDet::~Command_SaveTLCoupledDet() throw()
 {
 }
 
 
 bool
-Command_SaveTLCoupledDet::execute()
+Command_SaveTLCoupledDet::execute() throw()
 {
     // !!! we have to do this to have the correct information set
     myLogics.getActive()->maskRedLinks();
-    SUMOTime end =
-        MSNet::getInstance()->getCurrentTimeStep();
+    SUMOTime end = MSNet::getInstance()->getCurrentTimeStep();
     if(myStartTime!=end) {
         myDetector->writeXMLOutput(myDevice, myStartTime, end);
         myStartTime = end;

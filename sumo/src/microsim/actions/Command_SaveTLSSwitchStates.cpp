@@ -4,7 +4,7 @@
 /// @date    08.05.2007
 /// @version $Id$
 ///
-// Writes the state of the tls to a file when it switches
+// Writes the switch times of a tls into a file when the tls switches
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -50,10 +50,9 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Command_SaveTLSSwitchStates::Command_SaveTLSSwitchStates(
-    const MSTLLogicControl::TLSLogicVariants &logics,
-    OutputDevice &od)
-        : myOutputDevice(od), myLogics(logics)
+Command_SaveTLSSwitchStates::Command_SaveTLSSwitchStates(const MSTLLogicControl::TLSLogicVariants &logics,
+                                                         OutputDevice &od) throw()
+    : myOutputDevice(od), myLogics(logics)
 {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
             0, MSEventControl::ADAPT_AFTER_EXECUTION);
@@ -61,13 +60,13 @@ Command_SaveTLSSwitchStates::Command_SaveTLSSwitchStates(
 }
 
 
-Command_SaveTLSSwitchStates::~Command_SaveTLSSwitchStates()
+Command_SaveTLSSwitchStates::~Command_SaveTLSSwitchStates() throw()
 {
 }
 
 
 SUMOTime
-Command_SaveTLSSwitchStates::execute(SUMOTime currentTime)
+Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) throw()
 {
     string state = myLogics.getActive()->buildStateList();
     if (state!=myPreviousState||myLogics.getActive()->getSubID()!=myPreviousSubID) {

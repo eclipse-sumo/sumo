@@ -4,7 +4,7 @@
 /// @date    15 Feb 2004
 /// @version $Id$
 ///
-// Realises the output of a lane's detector values if the lane has green light
+// Writes e2-state of a link for the time the link has yellow/red
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -52,23 +52,24 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Command_SaveTLCoupledLaneDet::Command_SaveTLCoupledLaneDet(
-    MSTLLogicControl::TLSLogicVariants &tlls,
-    MSDetectorFileOutput *dtf,
-    unsigned int begin, OutputDevice& device, MSLink *link)
-        : Command_SaveTLCoupledDet(tlls, dtf, begin, device),
-        myLink(link), myLastState(MSLink::LINKSTATE_TL_RED),
-        myHadOne(false)
+Command_SaveTLCoupledLaneDet::Command_SaveTLCoupledLaneDet(MSTLLogicControl::TLSLogicVariants &tlls,
+                                                           MSDetectorFileOutput *dtf,
+                                                           unsigned int begin, 
+                                                           OutputDevice& device, 
+                                                           MSLink *link) throw()
+    : Command_SaveTLCoupledDet(tlls, dtf, begin, device),
+    myLink(link), myLastState(MSLink::LINKSTATE_TL_RED),
+    myHadOne(false)
 {}
 
 
-Command_SaveTLCoupledLaneDet::~Command_SaveTLCoupledLaneDet()
+Command_SaveTLCoupledLaneDet::~Command_SaveTLCoupledLaneDet() throw()
 {
 }
 
 
 bool
-Command_SaveTLCoupledLaneDet::execute()
+Command_SaveTLCoupledLaneDet::execute() throw()
 {
     // !!! we have to do this to have the correct information set
     myLogics.getActive()->maskRedLinks();

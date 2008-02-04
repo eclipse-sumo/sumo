@@ -51,10 +51,10 @@
 class Command
 {
 public:
-    Command() { }
+    Command() throw() { }
 
     /// Destructor.
-    virtual ~Command() { }
+    virtual ~Command() throw() { }
 
     /**
      * @brief Executes the command.
@@ -65,7 +65,7 @@ public:
      * in steps for recurring commands and 0 for single-execution
      * commands.
      */
-    virtual SUMOTime execute(SUMOTime currentTime) = 0;
+    virtual SUMOTime execute(SUMOTime currentTime) throw() = 0;
 
 };
 

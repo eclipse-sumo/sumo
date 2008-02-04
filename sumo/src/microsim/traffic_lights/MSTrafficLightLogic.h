@@ -160,14 +160,14 @@ class SwitchCommand : public Command
     public:
         /// Constructor
         SwitchCommand(MSTLLogicControl &tlcontrol,
-                      MSTrafficLightLogic *tlLogic);
+                      MSTrafficLightLogic *tlLogic) throw();
 
         /// Destructor
-        ~SwitchCommand();
+        ~SwitchCommand() throw();
 
         /** @brief Executes this event
             Executes the regarded junction's "trySwitch"- method */
-        SUMOTime execute(SUMOTime currentTime);
+        SUMOTime execute(SUMOTime currentTime) throw();
 
         void deschedule(MSTrafficLightLogic *tlLogic);
 

@@ -72,7 +72,7 @@ public:
     /** destructor */
     virtual ~MSLaneSpeedTrigger() throw();
 
-    SUMOTime execute(SUMOTime currentTime);
+    SUMOTime execute(SUMOTime currentTime) throw();
 
     SUMOTime processCommand(bool move2next);
 

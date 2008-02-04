@@ -172,12 +172,12 @@ SUMOReal tolDefaultProb = -1;
 /* -------------------------------------------------------------------------
 * MSDevice_CPhone::Command-methods
 * ----------------------------------------------------------------------- */
-MSDevice_CPhone::MyCommand::MyCommand(MSDevice_CPhone &parent)
+MSDevice_CPhone::MyCommand::MyCommand(MSDevice_CPhone &parent) throw()
         : myParent(parent), myAmActive(true)
 {}
 
 
-MSDevice_CPhone::MyCommand::~MyCommand(void)
+MSDevice_CPhone::MyCommand::~MyCommand() throw()
 {
     if (myAmActive)
         myParent.invalidateCommand();
@@ -185,7 +185,7 @@ MSDevice_CPhone::MyCommand::~MyCommand(void)
 
 
 SUMOTime
-MSDevice_CPhone::MyCommand::execute(SUMOTime)
+MSDevice_CPhone::MyCommand::execute(SUMOTime) throw()
 {
     SUMOTime ret = 0;
     if (myAmActive) {

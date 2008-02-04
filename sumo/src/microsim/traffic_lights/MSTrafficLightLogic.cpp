@@ -57,18 +57,18 @@ using namespace std;
  * member method definitions
  * ----------------------------------------------------------------------- */
 MSTrafficLightLogic::SwitchCommand::SwitchCommand(MSTLLogicControl &tlcontrol,
-        MSTrafficLightLogic *tlLogic)
+        MSTrafficLightLogic *tlLogic) throw()
         : myTLControl(tlcontrol), myTLLogic(tlLogic), myAmValid(true)
 {}
 
 
-MSTrafficLightLogic::SwitchCommand::~SwitchCommand()
+MSTrafficLightLogic::SwitchCommand::~SwitchCommand() throw()
 {}
 
 
 
 SUMOTime
-MSTrafficLightLogic::SwitchCommand::execute(SUMOTime)
+MSTrafficLightLogic::SwitchCommand::execute(SUMOTime) throw()
 {
     // check whether this command has been descheduled
     if (!myAmValid) {

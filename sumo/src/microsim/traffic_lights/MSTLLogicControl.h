@@ -71,6 +71,7 @@ public:
         /** @brief Destructor */
         ~TLSLogicVariants();
 
+
         /** @brief Adds a logic (program)
          *
          * @param[in] subID The sub-id of this program
@@ -100,14 +101,26 @@ public:
 
 
     private:
-        /// The currently used program
+        /// @brief The currently used program
         MSTrafficLightLogic *defaultTL;
-        /// A map of subkeys to programs
+
+        /// @brief A map of subkeys to programs
         std::map<std::string, MSTrafficLightLogic*> ltVariants;
-        /// Originally loaded link states
+
+        /// @brief Originally loaded link states
         std::map<MSLink*, std::pair<MSLink::LinkState, bool> > originalLinkStates;
-        /// The list of actions/commands to execute on switch
+
+        /// @brief The list of actions/commands to execute on switch
         std::vector<DiscreteCommand*> onSwitchActions;
+
+
+    private:
+        /// @brief Invalidated copy constructor.
+        TLSLogicVariants(const TLSLogicVariants&);
+
+        /// @brief Invalidated assignment operator.
+        TLSLogicVariants& operator=(const TLSLogicVariants&);
+
 
     };
 
@@ -291,18 +304,18 @@ class SwitchInitCommand : public Command
     {
     public:
         // / Constructor
-        SwitchInitCommand(MSTLLogicControl &p, const std::string &wautid)
+        SwitchInitCommand(MSTLLogicControl &p, const std::string &wautid) throw()
                 : myParent(p), myWAUTID(wautid), myIndex(0) { }
 
         /// Destructor
-        ~SwitchInitCommand() { }
+        ~SwitchInitCommand() throw() { }
 
         /** @brief Executes the command what forces the logic control to
          * initialise a switch process
          *
          * The control will ask for the index and increment it.
          */
-        SUMOTime execute(SUMOTime) {
+        SUMOTime execute(SUMOTime) throw() {
             return myParent.initWautSwitch(*this);
         }
 
@@ -594,6 +607,14 @@ class WAUTSwitchProcedure_Stretch : public WAUTSwitchProcedure
 
     /// Information whether the net was completely loaded
     bool myNetWasLoaded;
+
+
+private:
+    /// @brief Invalidated copy constructor.
+    MSTLLogicControl(const MSTLLogicControl&);
+
+    /// @brief Invalidated assignment operator.
+    MSTLLogicControl& operator=(const MSTLLogicControl&);
 
 };
 

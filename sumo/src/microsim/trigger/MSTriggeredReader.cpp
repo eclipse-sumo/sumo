@@ -42,17 +42,17 @@
 /* -------------------------------------------------------------------------
  * MSTriggeredReader::MSTriggerCommand-methods
  * ----------------------------------------------------------------------- */
-MSTriggeredReader::MSTriggerCommand::MSTriggerCommand(MSTriggeredReader &parent)
+MSTriggeredReader::MSTriggerCommand::MSTriggerCommand(MSTriggeredReader &parent) throw()
         : myParent(parent)
 {}
 
 
-MSTriggeredReader::MSTriggerCommand::~MSTriggerCommand(void)
+MSTriggeredReader::MSTriggerCommand::~MSTriggerCommand() throw()
 {}
 
 
 SUMOTime
-MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current)
+MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current) throw()
 {
     if (!myParent.isInitialised()) {
         myParent.init();

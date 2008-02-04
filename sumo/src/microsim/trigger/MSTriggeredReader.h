@@ -77,14 +77,14 @@ class MSTriggerCommand : public Command
     {
     public:
         /// Constructor
-        MSTriggerCommand(MSTriggeredReader &parent);
+        MSTriggerCommand(MSTriggeredReader &parent) throw();
 
         /// virtual destructor
-        virtual ~MSTriggerCommand(void);
+        virtual ~MSTriggerCommand() throw();
 
         /** Execute the command and return an offset for recurring commands
             or 0 for single-execution commands. */
-        virtual SUMOTime execute(SUMOTime currentTime);
+        virtual SUMOTime execute(SUMOTime currentTime) throw();
 
     private:
         /// The parent reader

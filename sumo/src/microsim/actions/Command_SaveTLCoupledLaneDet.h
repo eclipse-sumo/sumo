@@ -4,7 +4,7 @@
 /// @date    15 Feb 2004
 /// @version $Id$
 ///
-// Realises the output of a lane's detector values if the lane has green light
+// Writes e2-state of a link for the time the link has yellow/red
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,37 +39,65 @@
 // ===========================================================================
 /**
  * @class Command_SaveTLCoupledLaneDet
- * Called on every tls-switch, the "execute" checks whether the state of the
- *  assigned link is green. If so, the detector values of the assigned lane
- *  detectors are written to a file.
- * This action is build only if the user wants and describes it within the
- *  additional-files.
+ * @brief Writes e2-state of a link for the time the link has yellow/red
+ *
+ * @todo Check whether there may be a better solution than calling "maskRedLinks" directly
+ * @todo Problem: The detector may not save the last state (on simulation end)
+ * @todo Basically, this does not have to be a DiscreteCommand; its called by the tls (is THIS ok?)
  */
 class Command_SaveTLCoupledLaneDet : public Command_SaveTLCoupledDet
 {
 public:
-    /// Constructor
-    Command_SaveTLCoupledLaneDet(
-        MSTLLogicControl::TLSLogicVariants &tlls,
-        MSDetectorFileOutput *dtf,
-        unsigned int begin, OutputDevice& device, MSLink *link);
+    /** @brief Constructor
+     *
+     * @param[in] tlls The logic to observe
+     * @param[in] dtf The detector used to generate the values
+     * @param[in] begin The begin simulation time
+     * @param[in] device The output device to write the detector values into
+     * @param[in] link The link that shall be observed
+     */
+    Command_SaveTLCoupledLaneDet(MSTLLogicControl::TLSLogicVariants &tlls,
+        MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice& device, 
+        MSLink *link) throw();
 
-    /// Destructor
-    ~Command_SaveTLCoupledLaneDet();
 
-    /// Executes the command (see above)
-    bool execute();
+    /// @brief Destructor
+    ~Command_SaveTLCoupledLaneDet() throw();
+
+
+    /** @brief Executes the command
+     *
+     * Called when an active tls program switches, this method checks whether the
+     *  tls signal responsible for the link has switched to green. If so, the 
+     *  values collected so far are written using "writeXMLOutput". 
+     *  Otherwise, the values are reset.
+     *
+     * Returns always true
+     *
+     * @return Always true (do not remove)
+     * @see MSDetectorFileOutput::writeXMLOutput
+     * @see MSE2Collector::writeXMLOutput
+     */
+    bool execute() throw();
+
 
 private:
-    /// The link to check
+    /// @brief The link to observe
     MSLink *myLink;
 
-    /// The state the link had the last time
+    /// @brief The state the link had the last time
     MSLink::LinkState myLastState;
 
+    /// @brief Whether the last link state was already saved
     bool myHadOne;
 
 
+private:
+    /// @brief Invalidated copy constructor.
+    Command_SaveTLCoupledLaneDet(const Command_SaveTLCoupledLaneDet&);
+
+    /// @brief Invalidated assignment operator.
+    Command_SaveTLCoupledLaneDet& operator=(const Command_SaveTLCoupledLaneDet&);
 
 };
 

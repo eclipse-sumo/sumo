@@ -118,7 +118,7 @@ FXIMPLEMENT(GUIEmitter::GUIManip_TriggeredEmitter, GUIManipulator, GUIManip_Trig
 GUIEmitter::GUIEmitterChild_UserTriggeredChild::GUIEmitterChild_UserTriggeredChild(
     MSEmitter_FileTriggeredChild &s,
     MSEmitter &parent, MSVehicleControl &vc,
-    SUMOReal flow)
+    SUMOReal flow) throw()
         : MSEmitter::MSEmitterChild(parent, vc), myUserFlow(flow),
         myVehicle(0), mySource(s), myDescheduleVehicle(false)
 {
@@ -133,7 +133,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::GUIEmitterChild_UserTriggeredChi
 }
 
 
-GUIEmitter::GUIEmitterChild_UserTriggeredChild::~GUIEmitterChild_UserTriggeredChild()
+GUIEmitter::GUIEmitterChild_UserTriggeredChild::~GUIEmitterChild_UserTriggeredChild() throw()
 {
     if (myDescheduleVehicle) {
         MSNet::getInstance()->getVehicleControl().newUnbuildVehicleBuild();
@@ -142,7 +142,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::~GUIEmitterChild_UserTriggeredCh
 
 
 SUMOTime
-GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute(SUMOTime currentTime)
+GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute(SUMOTime currentTime) throw()
 {
     if (myUserFlow<=0) {
         return 0;

@@ -2,7 +2,7 @@
 /// @file    DiscreteCommand.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 23 Jan 2004
-/// @version $Id$
+/// @version $Id:DiscreteCommand.h 4699 2007-11-09 14:05:13Z dkrajzew $
 ///
 // -------------------
 /****************************************************************************/
@@ -45,9 +45,9 @@ class DiscreteCommand
 {
 public:
     /// Destructor.
-    virtual ~DiscreteCommand(void) {};
+    virtual ~DiscreteCommand(void) throw() {};
 
-    virtual bool execute() = 0;
+    virtual bool execute() throw() = 0;
 };
 
 

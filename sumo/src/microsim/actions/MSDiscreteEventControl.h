@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-//	»missingDescription«
+// (theoretically) A control for described events
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -46,7 +46,15 @@ class Command;
 // class definitions
 // ===========================================================================
 /**
- * @class MSDiscreteEventControls
+ * @class MSDiscreteEventControl
+ * @brief (theoretically) A control for described events
+ *
+ * This class was meant to trigger events if an abstract object is in an
+ *  abstract state. In fact, this is never used; the only events that could
+ *  be used herein (Command_SaveTLCoupledDet and Command_SaveTLCoupledLaneDet), 
+ *  are triggered directly by tls.
+ *
+ * @todo Remove or make this needful
  */
 class MSDiscreteEventControl
 {
@@ -81,6 +89,14 @@ private:
     typedef std::vector<Command*> CommandVector;
     typedef std::map<EventType, CommandVector> TypedEvents;
     TypedEvents myEventsForAll;
+
+
+private:
+    /// @brief Invalidated copy constructor.
+    MSDiscreteEventControl(const MSDiscreteEventControl&);
+
+    /// @brief Invalidated assignment operator.
+    MSDiscreteEventControl& operator=(const MSDiscreteEventControl&);
 
 };
 

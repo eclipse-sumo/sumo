@@ -57,7 +57,7 @@ using namespace std;
  * ----------------------------------------------------------------------- */
 MSEmitter::MSEmitter_FileTriggeredChild::MSEmitter_FileTriggeredChild(
     MSNet &net, const std::string &aXMLFilename,
-    MSEmitter &parent, MSVehicleControl &vc)
+    MSEmitter &parent, MSVehicleControl &vc) throw()
         : MSTriggeredXMLReader(net, aXMLFilename), MSEmitterChild(parent, vc),
         myHaveNext(false), myFlow(-1), myHaveInitialisedFlow(false), myRunningID(0)
 {
@@ -70,7 +70,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::~MSEmitter_FileTriggeredChild() throw()
 
 
 SUMOTime
-MSEmitter::MSEmitter_FileTriggeredChild::execute(SUMOTime)
+MSEmitter::MSEmitter_FileTriggeredChild::execute(SUMOTime) throw()
 {
     if (myParent.childCheckEmit(this)) {
         buildAndScheduleFlowVehicle();

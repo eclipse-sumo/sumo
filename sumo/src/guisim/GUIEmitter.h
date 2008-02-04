@@ -126,9 +126,9 @@ protected:
     public:
         GUIEmitterChild_UserTriggeredChild(
             MSEmitter_FileTriggeredChild &s, MSEmitter &parent,
-            MSVehicleControl &vc, SUMOReal flow);
-        virtual ~GUIEmitterChild_UserTriggeredChild();
-        SUMOTime execute(SUMOTime currentTime);
+            MSVehicleControl &vc, SUMOReal flow) throw();
+        virtual ~GUIEmitterChild_UserTriggeredChild() throw();
+        SUMOTime execute(SUMOTime currentTime) throw();
         SUMOReal getUserFlow() const;
 
     protected:

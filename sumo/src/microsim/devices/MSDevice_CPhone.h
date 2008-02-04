@@ -116,14 +116,14 @@ class MyCommand : public Command
     {
     public:
         /// Constructor
-        MyCommand(MSDevice_CPhone &parent);
+        MyCommand(MSDevice_CPhone &parent) throw();
 
         /// virtual destructor
-        virtual ~MyCommand(void);
+        virtual ~MyCommand(void) throw();
 
         /** Execute the command and return an offset for recurring commands
             or 0 for single-execution commands. */
-        virtual SUMOTime execute(SUMOTime currentTime);
+        virtual SUMOTime execute(SUMOTime currentTime) throw();
 
         void setInactivated();
 

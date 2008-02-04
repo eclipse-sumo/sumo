@@ -181,7 +181,7 @@ protected:
     public:
         /// Constructor
         MSEmitter_FileTriggeredChild(MSNet &net,
-                                     const std::string &aXMLFilename, MSEmitter &parent, MSVehicleControl &vc);
+                                     const std::string &aXMLFilename, MSEmitter &parent, MSVehicleControl &vc) throw();
 
         /// Destructor
         ~MSEmitter_FileTriggeredChild() throw();
@@ -190,7 +190,7 @@ protected:
         bool processNextEntryReaderTriggered();
 
         /// Builds a vehicle and tries to emit it
-        SUMOTime execute(SUMOTime currentTime);
+        SUMOTime execute(SUMOTime currentTime) throw();
 
         /// Returns the loaded flow
         SUMOReal getLoadedFlow() const;

@@ -4,7 +4,7 @@
 /// @date    15 Feb 2004
 /// @version $Id$
 ///
-// Writes the state of the tls to a file
+// Writes the state of the tls to a file (in each second)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -50,10 +50,9 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-Command_SaveTLSState::Command_SaveTLSState(
-    const MSTLLogicControl::TLSLogicVariants &logics,
-    OutputDevice &od)
-        : myOutputDevice(od), myLogics(logics)
+Command_SaveTLSState::Command_SaveTLSState(const MSTLLogicControl::TLSLogicVariants &logics,
+                                           OutputDevice &od) throw()
+    : myOutputDevice(od), myLogics(logics)
 {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
             0, MSEventControl::ADAPT_AFTER_EXECUTION);
@@ -61,13 +60,13 @@ Command_SaveTLSState::Command_SaveTLSState(
 }
 
 
-Command_SaveTLSState::~Command_SaveTLSState()
+Command_SaveTLSState::~Command_SaveTLSState() throw()
 {
 }
 
 
 SUMOTime
-Command_SaveTLSState::execute(SUMOTime currentTime)
+Command_SaveTLSState::execute(SUMOTime currentTime) throw()
 {
     myOutputDevice << "   <tlsstate time=\"" << currentTime
     << "\" id=\"" << myLogics.getActive()->getID()

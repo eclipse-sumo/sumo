@@ -117,18 +117,18 @@ class SetStatParamsCommand : public Command
     {
     public:
         // / Constructor
-        SetStatParamsCommand(MSPhoneCell &p)
+        SetStatParamsCommand(MSPhoneCell &p) throw()
                 : myParent(p) { }
 
         /// Destructor
-        ~SetStatParamsCommand() { }
+        ~SetStatParamsCommand()  throw(){ }
 
         /** @brief Executes the command what forces the logic control to
          * initialise a switch process
          *
          * The control will ask for the index and increment it.
          */
-        SUMOTime execute(SUMOTime time) {
+        SUMOTime execute(SUMOTime time)  throw(){
             return myParent.nextStatPeriod(time);
         }
 
@@ -150,18 +150,18 @@ class SetDynParamsCommand : public Command
     {
     public:
         // / Constructor
-        SetDynParamsCommand(MSPhoneCell &p)
+        SetDynParamsCommand(MSPhoneCell &p) throw()
                 : myParent(p) { }
 
         /// Destructor
-        ~SetDynParamsCommand() { }
+        ~SetDynParamsCommand()  throw(){ }
 
         /** @brief Executes the command what forces the logic control to
          * initialise a switch process
          *
          * The control will ask for the index and increment it.
          */
-        SUMOTime execute(SUMOTime time) {
+        SUMOTime execute(SUMOTime time)  throw(){
             return myParent.nextDynPeriod(time);
         }
 
