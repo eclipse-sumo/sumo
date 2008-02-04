@@ -1138,8 +1138,13 @@ MSVehicle::getNextPeriodical() const
         route = (MSRoute*) myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE)->second;
 //!!!        myPointerCORNMap.erase(MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE);
     }
-    MSVehicle *ret = MSNet::getInstance()->getVehicleControl().buildVehicle(
-                         StringUtils::version1(myID), route, myDesiredDepart+myPeriod,
+    MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();
+    string nid = StringUtils::version1(myID);
+    while(vc.getVehicle(nid)!=0) {
+        nid = StringUtils::version1(nid);
+    }
+    MSVehicle *ret = vc.buildVehicle(
+                         nid, route, myDesiredDepart+myPeriod,
                          myType, myRepetitionNumber-1, myPeriod);
     for (std::list<Stop>::const_iterator i=myStops.begin(); i!=myStops.end(); ++i) {
         ret->myStops.push_back(*i);
