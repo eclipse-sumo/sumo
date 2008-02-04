@@ -115,9 +115,10 @@ public:
      * @param[in] numY The number of nodes in y-direction
      * @param[in] spaceX The space between nodes in x-direction
      * @param[in] spaceY The space between nodes in y-direction
+     * @param[in] attachLength The length of streets attached at the border
      * @see NGNet::connect
      */
-    void createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY) throw();
+    void createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, SUMOReal attachLength) throw();
 
 
     /** @brief Creates a spider network

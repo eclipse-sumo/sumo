@@ -97,27 +97,55 @@ NGNet::findNode(int xID, int yID) throw()
 
 
 void
-NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY) throw()
+NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, SUMOReal attachLength) throw()
 {
-    int ix, iy;
-    NGNode *Node;
-    for (ix=0; ix<numX; ix++) {
-        for (iy=0; iy<numY; iy++) {
+	for (int ix=0; ix<numX; ix++) {
+        for (int iy=0; iy<numY; iy++) {
             // create Node
             string nodeID = toString<int>(ix) + "/" + toString<int>(iy);
-            Node = new NGNode(nodeID, ix, iy);
-            Node->setX(ix * spaceX);
-            Node->setY(iy * spaceY);
-            myNodeList.push_back(Node);
+            NGNode *node = new NGNode(nodeID, ix, iy);
+            node->setX(ix * spaceX + attachLength);
+            node->setY(iy * spaceY + attachLength);
+            myNodeList.push_back(node);
             // create Links
             if (ix > 0) {
-                connect(Node, findNode(ix-1, iy));
+                connect(node, findNode(ix-1, iy));
             }
             if (iy > 0) {
-                connect(Node, findNode(ix, iy-1));
+                connect(node, findNode(ix, iy-1));
             }
         }
     }
+	if (attachLength > 0.0) {
+		for (int ix=0; ix<numX; ix++) {
+            // create nodes
+            NGNode *topNode = new NGNode("top" + toString<int>(ix), ix, numY);
+            NGNode *bottomNode = new NGNode("bottom" + toString<int>(ix), ix, numY+1);
+            topNode->setX(ix * spaceX + attachLength);
+            bottomNode->setX(ix * spaceX + attachLength);
+            topNode->setY((numY-1) * spaceY + 2 * attachLength);
+            bottomNode->setY(0);
+            myNodeList.push_back(topNode);
+            myNodeList.push_back(bottomNode);
+            // create links
+            connect(topNode, findNode(ix, numY-1));
+            connect(bottomNode, findNode(ix, 0));
+		}
+		for (int iy=0; iy<numY; iy++) {
+            // create nodes
+            NGNode *leftNode = new NGNode("left" + toString<int>(iy), numX, iy);
+            NGNode *rightNode = new NGNode("right" + toString<int>(iy), numX+1, iy);
+            leftNode->setX(0);
+            rightNode->setX((numX-1) * spaceX + 2 * attachLength);
+            leftNode->setY(iy * spaceY + attachLength);
+            rightNode->setY(iy * spaceY + attachLength);
+            myNodeList.push_back(leftNode);
+            myNodeList.push_back(rightNode);
+            // create links
+            connect(leftNode, findNode(0, iy));
+            connect(rightNode, findNode(numX-1, iy));
+		}
+	}
 }
 
 
