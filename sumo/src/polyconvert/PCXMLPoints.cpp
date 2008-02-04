@@ -94,8 +94,6 @@ PCXMLPoints::myStartElement(SumoXMLTag element,
     string type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
     SUMOReal x = getFloatSecure(attrs, SUMO_ATTR_X, -1);
     SUMOReal y = getFloatSecure(attrs, SUMO_ATTR_Y, -1);
-    x *= 100000.0;
-    y *= 100000.0;
     Position2D pos(y, x); // !!! reverse!
     GeoConvHelper::x2cartesian(pos);
     // check the poi

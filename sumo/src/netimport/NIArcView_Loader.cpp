@@ -188,7 +188,6 @@ NIArcView_Loader::load(OptionsCont &)
         Position2DVector shape;
         for (int j=0; j<cgeom->getNumPoints(); j++) {
             Position2D pos((SUMOReal) cgeom->getX(j), (SUMOReal) cgeom->getY(j));
-            pos.mul(100000.0);
             GeoConvHelper::x2cartesian(pos);
             shape.push_back_noDoublePos(pos);
         }
@@ -210,6 +209,11 @@ NIArcView_Loader::load(OptionsCont &)
             myNodeCont.insert(to);
         } else {
             to = myNodeCont.retrieve(to_pos);
+        }
+
+        if(from==0||to==0) {
+            WRITE_WARNING("Could not insert one of the nodes edge '" + id + "' shall connect; skipping.");
+            continue;
         }
 
         if(from==to) {

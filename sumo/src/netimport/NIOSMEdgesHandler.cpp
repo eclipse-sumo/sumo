@@ -133,7 +133,7 @@ NIOSMEdgesHandler::insertNodeChecking(int id)
     NBNode *from = myNodeCont.retrieve(toString(id));
     if(from==0) {
         NIOSMNode *n = myOSMNodes.find(id)->second;
-        Position2D pos(n->lon*100000.0, n->lat*100000.0);
+        Position2D pos(n->lon, n->lat);
         GeoConvHelper::x2cartesian(pos);
         from = new NBNode(toString(id), pos);
         if(!myNodeCont.insert(from)) {
@@ -159,7 +159,7 @@ NIOSMEdgesHandler::insertEdge(NIOSMEdgesHandler::Edge *e, int index, NBNode *fro
     Position2DVector shape;
     for(std::vector<int>::const_iterator i=passed.begin(); i!=passed.end(); ++i) {
         NIOSMNode *n = myOSMNodes.find(*i)->second;
-        Position2D pos(n->lon*100000.0, n->lat*100000.0);
+        Position2D pos(n->lon, n->lat);
         GeoConvHelper::x2cartesian(pos);
         shape.push_back_noDoublePos(pos);
     }

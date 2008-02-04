@@ -168,8 +168,14 @@ GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary)
     if (myProjection!=0) {
         projUV p;
         if (!myUseInverseProjection) {
-            p.u = from.x() / 100000.0 * DEG_TO_RAD;
-            p.v = from.y() / 100000.0 * DEG_TO_RAD;
+            // small, tiny method to norm the values properly
+            if(from.x()>360.&&from.y()>360.) {
+                p.u = from.x() / 100000.0 * DEG_TO_RAD;
+                p.v = from.y() / 100000.0 * DEG_TO_RAD;
+            } else {
+                p.u = from.x() * DEG_TO_RAD;
+                p.v = from.y() * DEG_TO_RAD;
+            }
             p = pj_fwd(p, myProjection);
         } else {
             p = pj_inv(p, myProjection);
