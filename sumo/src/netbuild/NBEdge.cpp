@@ -75,7 +75,7 @@ using namespace std;
  * NBEdge::ToEdgeConnectionsAdder-methods
  * ----------------------------------------------------------------------- */
 void
-NBEdge::ToEdgeConnectionsAdder::execute(SUMOReal lane, SUMOReal virtEdge)
+NBEdge::ToEdgeConnectionsAdder::execute(SUMOReal lane, SUMOReal virtEdge) throw()
 {
     // check
     assert(virtEdge>=0);

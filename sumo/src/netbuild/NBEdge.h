@@ -388,14 +388,14 @@ class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack
         /// constructor
         ToEdgeConnectionsAdder(std::map<NBEdge*,
                                std::vector<size_t> > *connections,
-                               const std::vector<NBEdge*> &transitions)
+                               const std::vector<NBEdge*> &transitions) throw()
                 : myConnections(connections), myTransitions(transitions) { }
 
         /// destructor
-        ~ToEdgeConnectionsAdder() { }
+        ~ToEdgeConnectionsAdder() throw() { }
 
         /// executes a bresenham - step
-        void execute(SUMOReal lane, SUMOReal virtEdge);
+        void execute(SUMOReal lane, SUMOReal virtEdge) throw();
 
     private:
         /// @brief Invalidated copy constructor.

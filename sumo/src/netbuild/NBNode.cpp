@@ -96,7 +96,7 @@ int NBNode::myNoRightBeforeLeftJunctions = 0;
  * NBNode::ApproachingDivider-methods
  * ----------------------------------------------------------------------- */
 NBNode::ApproachingDivider::ApproachingDivider(
-    std::vector<NBEdge*> *approaching, NBEdge *currentOutgoing)
+    std::vector<NBEdge*> *approaching, NBEdge *currentOutgoing) throw()
         : myApproaching(approaching), myCurrentOutgoing(currentOutgoing)
 {
     // check whether origin lanes have been given
@@ -104,12 +104,12 @@ NBNode::ApproachingDivider::ApproachingDivider(
 }
 
 
-NBNode::ApproachingDivider::~ApproachingDivider()
+NBNode::ApproachingDivider::~ApproachingDivider() throw()
 {}
 
 
 void
-NBNode::ApproachingDivider::execute(SUMOReal src, SUMOReal dest)
+NBNode::ApproachingDivider::execute(SUMOReal src, SUMOReal dest) throw()
 {
     assert(myApproaching->size()>src);
     // get the origin edge

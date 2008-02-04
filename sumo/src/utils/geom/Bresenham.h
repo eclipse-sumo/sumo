@@ -52,13 +52,13 @@ public:
     {
     public:
         /** constuctor */
-        BresenhamCallBack() { }
+        BresenhamCallBack() throw() { }
 
         /** destructor */
-        virtual ~BresenhamCallBack() { }
+        virtual ~BresenhamCallBack() throw() { }
 
         /** called when a bresenham step has been computed */
-        virtual void execute(SUMOReal val1, SUMOReal val2) = 0;
+        virtual void execute(SUMOReal val1, SUMOReal val2) throw() = 0;
     };
 
 public:
