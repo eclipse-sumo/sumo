@@ -32,6 +32,7 @@
 #include <config.h>
 #endif
 
+#include <fx.h>
 #include <utils/common/AbstractMutex.h>
 
 #ifndef WIN32
