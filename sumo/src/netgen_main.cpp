@@ -163,6 +163,9 @@ fillOptions()
     oc.addSynonyme("grid-y-length", "y-length");
     oc.addDescription("grid-y-length", "Grid Network", "The length of vertical streets; Overrides --grid-length");
 
+    oc.doRegister("attach-length", new Option_Float(0));
+    oc.addDescription("attach-length", "Grid Network", "The length of streets attached at the boundary; 0 means no streets are attached");
+
 
     // register spider-net options
     oc.doRegister("spider-net", 's', new Option_Bool(false));
@@ -292,6 +295,7 @@ buildNetwork(NBNetBuilder &nb)
         int yNo = oc.getInt("y-no");
         SUMOReal xLength = oc.getFloat("x-length");
         SUMOReal yLength = oc.getFloat("y-length");
+        SUMOReal attachLength = oc.getFloat("attach-length");
         if (oc.isDefault("x-no")&&!oc.isDefault("number")) {
             xNo = oc.getInt("number");
         }
@@ -314,11 +318,15 @@ buildNetwork(NBNetBuilder &nb)
             MsgHandler::getErrorInstance()->inform("The distance between nodes must be at least 10m in both directions.");
             hadError = true;
         }
+        if (attachLength != 0.0 && attachLength<10.) {
+            MsgHandler::getErrorInstance()->inform("The length of attached streets must be at least 10m.");
+            hadError = true;
+        }
         if (hadError) {
             throw ProcessError();
         }
         // build if everything's ok
-        net->createChequerBoard(xNo, yNo, xLength, yLength);
+        net->createChequerBoard(xNo, yNo, xLength, yLength, attachLength);
         return net;
     }
     // random net

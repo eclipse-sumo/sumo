@@ -420,16 +420,10 @@ OptionsCont::addDescription(const std::string &name,
                             const std::string &description) throw(InvalidArgument)
 {
     Option *o = getSecure(name);
-    if (o==0) {
-        throw ProcessError("Trying to describe the unknown option '" + name + "'.");
-    }
-    if (o->myDescription!="") {
-        throw ProcessError("The description was set before");
-    }
+    assert(o!=0);
+    assert(o->myDescription=="");
+    assert(find(mySubTopics.begin(), mySubTopics.end(), subtopic)!=mySubTopics.end());
     o->myDescription = description;
-    if (find(mySubTopics.begin(), mySubTopics.end(), subtopic)==mySubTopics.end()) {
-        throw ProcessError("The subtopic '" + subtopic + "' is not known.");
-    }
     mySubTopicEntries[subtopic].push_back(name);
 }
 

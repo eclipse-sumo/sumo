@@ -22,6 +22,9 @@
       <!-- The length of vertical streets; Overrides --grid-length -->
       <grid-y-length>100</grid-y-length>
 
+      <!-- The length of streets attached at the boundary; 0 means no streets are attached -->
+      <attach-length>0</attach-length>
+
    </grid_network>
 
    <spider_network>

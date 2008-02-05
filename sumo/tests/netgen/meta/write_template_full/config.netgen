@@ -8,6 +8,7 @@
       <grid-y-number>5</grid-y-number>
       <grid-x-length>100</grid-x-length>
       <grid-y-length>100</grid-y-length>
+      <attach-length>0</attach-length>
    </grid_network>
 
    <spider_network>
