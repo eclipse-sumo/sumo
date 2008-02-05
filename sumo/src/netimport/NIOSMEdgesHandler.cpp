@@ -257,6 +257,7 @@ NIOSMEdgesHandler::myStartElement(SumoXMLTag element,
         try {
             // retrieve the id of the edge
             myCurrentEdge->id = getString(attrs, SUMO_ATTR_ID);
+            myCurrentEdge->myCurrentIsRoad = false;
         } catch (EmptyData &) {
             WRITE_WARNING("No edge id given... Skipping.");
             return;
@@ -343,7 +344,11 @@ NIOSMEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
     myParentElements.pop_back();
     if (element==SUMO_TAG_WAY) {
-        myEdgeMap[myCurrentEdge->id] = myCurrentEdge;
+        if(myCurrentEdge->myCurrentIsRoad) {
+            myEdgeMap[myCurrentEdge->id] = myCurrentEdge;
+        } else {
+            delete myCurrentEdge;
+        }
         myCurrentEdge = 0;
     }
 }
