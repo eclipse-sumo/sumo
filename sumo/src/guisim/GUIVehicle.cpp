@@ -47,6 +47,7 @@
 #include <guisim/GUIVehicleType.h>
 #include <guisim/GUIRoute.h>
 #include <utils/common/RandHelper.h>
+#include <microsim/MSAbstractLaneChangeModel.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -87,7 +88,8 @@ GUIVehicle::GUIVehiclePopupMenu::GUIVehiclePopupMenu(
     GUIMainWindow &app, GUISUMOAbstractView &parent,
     GUIGlObject &o)
         : GUIGLObjectPopupMenu(app, parent, o)
-{}
+{
+}
 
 
 GUIVehicle::GUIVehiclePopupMenu::~GUIVehiclePopupMenu()
@@ -173,7 +175,9 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
                        int repNo, int repOffset, int vehicleIndex) throw()
         : MSVehicle(id, route, departTime, type, repNo, repOffset, vehicleIndex),
         GUIGlObject(idStorage, "vehicle:"+id)
-{}
+{
+    myIntCORNMap[MSCORN::CORN_VEH_BLINKER] = 0;
+}
 
 
 GUIVehicle::~GUIVehicle() throw()
@@ -355,6 +359,42 @@ GUIVehicle::getBestLanes() const
     myLock.unlock();
     return ret;
 }
+
+
+void
+GUIVehicle::setBlinkerInformation()
+{
+    if (hasCORNIntValue(MSCORN::CORN_VEH_BLINKER)) {
+        int blinker = 0;
+        int state = getLaneChangeModel().getState();
+        if ((state&LCA_LEFT)!=0) {
+            blinker = 1;
+        } else if ((state&LCA_RIGHT)!=0) {
+            blinker = -1;
+        } else {
+            const MSLane &lane = getLane();
+            MSLinkCont::const_iterator link = lane.succLinkSec(*this, 1, lane, getBestLanesContinuation());
+            if (link!=lane.getLinkCont().end()&&lane.length()-getPositionOnLane()<lane.maxSpeed()*(SUMOReal) 7.) {
+                switch ((*link)->getDirection()) {
+                case MSLink::LINKDIR_TURN:
+                case MSLink::LINKDIR_LEFT:
+                case MSLink::LINKDIR_PARTLEFT:
+                    blinker = 1;
+                    break;
+                case MSLink::LINKDIR_RIGHT:
+                case MSLink::LINKDIR_PARTRIGHT:
+                    blinker = -1;
+                    break;
+                default:
+                    break;
+                }
+            }
+        }
+        myIntCORNMap[MSCORN::CORN_VEH_BLINKER] = blinker;
+    }
+}
+
+
 
 
 /****************************************************************************/

@@ -542,6 +542,8 @@ public:
 
 protected:
     void rebuildContinuationsFor(LaneQ &q, MSLane *l, MSRouteIterator ce, int seen) const;
+    virtual void setBlinkerInformation() { }
+
 
     /// Use this constructor only.
     MSVehicle(std::string id, MSRoute* route, SUMOTime departTime,
@@ -604,6 +606,7 @@ protected:
     static std::vector<MSLane*> myEmptyLaneVector;
 
     std::map<MSCORN::Pointer, void*> myPointerCORNMap;
+    std::map<MSCORN::Function, int> myIntCORNMap;
 
 private:
     std::vector<MSDevice*> myDevices;
@@ -650,7 +653,6 @@ private:
     typedef std::vector<MSVehicleQuitReminded*> QuitRemindedVector;
     QuitRemindedVector myQuitReminded;
 
-    std::map<MSCORN::Function, int> myIntCORNMap;
 
 
     /**

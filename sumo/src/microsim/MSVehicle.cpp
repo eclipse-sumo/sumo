@@ -468,6 +468,8 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     }
     //@ to be optimized (move to somewhere else)
     myLane->addMean2(*this, vNext, oldV, gap);
+    //
+    setBlinkerInformation();
 }
 
 
@@ -677,6 +679,7 @@ MSVehicle::moveFirstChecked()
     myTarget = approachedLane;
     assert(myTarget!=0);
     assert(myTarget->length()>=myState.myPos);
+    setBlinkerInformation();
 }
 
 

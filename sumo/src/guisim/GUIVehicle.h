@@ -190,6 +190,9 @@ protected:
                std::string id, MSRoute* route, SUMOTime departTime,
                const MSVehicleType* type, int repNo, int repOffset,
                int vehicleIndex) throw();
+
+    void setBlinkerInformation();
+
 private:
     /// The mutex used to avoid concurrent updates of the vehicle buffer
     mutable MFXMutex myLock;

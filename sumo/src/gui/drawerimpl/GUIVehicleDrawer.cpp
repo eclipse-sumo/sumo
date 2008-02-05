@@ -132,51 +132,18 @@ drawAction_drawVehicleAsTrianglePlus(const GUIVehicle &veh, SUMOReal upscale)
 #define BLINKER_POS_BACK 1.
 
 inline void
-drawAction_drawVehicleBlinker(const GUIVehicle &veh)
+drawAction_drawVehicleBlinker(GUIVehicle &veh)
 {
-    int state = veh.getLaneChangeModel().getState();
-    glColor3f(1, .5, 0);
-    if ((state&LCA_URGENT)==0) {
-        glColor3f(.8f, .4f, 0);
+    int dir = veh.getCORNIntValue(MSCORN::CORN_VEH_BLINKER);
+    if(dir==0) {
+        return;
     }
-    if ((state&LCA_LEFT)!=0) {
-        glTranslated(1, BLINKER_POS_FRONT, 0);
-        GLHelper::drawFilledCircle(.5, 6);
-        glTranslated(0, -BLINKER_POS_FRONT-BLINKER_POS_BACK+veh.getLength(), 0);
-        GLHelper::drawFilledCircle(.5, 6);
-        glTranslated(-1, +BLINKER_POS_BACK-veh.getLength(), 0);
-    } else if ((state&LCA_RIGHT)!=0) {
-        glTranslated(-1, BLINKER_POS_FRONT, 0);
-        GLHelper::drawFilledCircle(.5, 6);
-        glTranslated(0, -BLINKER_POS_FRONT-BLINKER_POS_BACK+veh.getLength(), 0);
-        GLHelper::drawFilledCircle(.5, 6);
-        glTranslated(1, +BLINKER_POS_BACK-veh.getLength(), 0);
-    } else {
-        MSLinkCont::const_iterator link = veh.getLane().succLinkSec(veh, 1, veh.getLane(), std::vector<MSLane*>());
-        if (link!=veh.getLane().getLinkCont().end()) {
-            switch ((*link)->getDirection()) {
-            case MSLink::LINKDIR_TURN:
-            case MSLink::LINKDIR_LEFT:
-            case MSLink::LINKDIR_PARTLEFT:
-                glTranslated(1, BLINKER_POS_FRONT, 0);
-                GLHelper::drawFilledCircle(.5, 6);
-                glTranslated(0, -BLINKER_POS_FRONT-BLINKER_POS_BACK+veh.getLength(), 0);
-                GLHelper::drawFilledCircle(.5, 6);
-                glTranslated(-1, +BLINKER_POS_BACK-veh.getLength(), 0);
-                break;
-            case MSLink::LINKDIR_RIGHT:
-            case MSLink::LINKDIR_PARTRIGHT:
-                glTranslated(-1, BLINKER_POS_FRONT, 0);
-                GLHelper::drawFilledCircle(.5, 6);
-                glTranslated(0, -BLINKER_POS_FRONT-BLINKER_POS_BACK+veh.getLength(), 0);
-                GLHelper::drawFilledCircle(.5, 6);
-                glTranslated(1, +BLINKER_POS_BACK-veh.getLength(), 0);
-                break;
-            default:
-                break;
-            }
-        }
-    }
+    glColor3f(.8, .5, 0);
+    glTranslated(dir, BLINKER_POS_FRONT, 0);
+    GLHelper::drawFilledCircle(.5, 6);
+    glTranslated(0, -BLINKER_POS_FRONT-BLINKER_POS_BACK+veh.getLength(), 0);
+    GLHelper::drawFilledCircle(.5, 6);
+    glTranslated(-dir, +BLINKER_POS_BACK-veh.getLength(), 0);
 }
 
 
