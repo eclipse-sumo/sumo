@@ -311,7 +311,7 @@ buildNetwork(NBNetBuilder &nb)
         // check values
         bool hadError = false;
         if (xNo<2 || yNo<2) {
-            MsgHandler::getErrorInstance()->inform("The number of edges must be larger than 2 in both directions.");
+            MsgHandler::getErrorInstance()->inform("The number of nodes must be at least 2 in both directions.");
             hadError = true;
         }
         if (xLength<10. || yLength<10.) {
