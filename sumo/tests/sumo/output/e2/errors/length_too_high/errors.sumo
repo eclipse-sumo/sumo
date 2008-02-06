@@ -1,2 +1,2 @@
-Error: Detector's '4/1to3/1' end lies beyond lane's '4/1to3/1_0' end.
+Error: The length of detector '4/1to3/1' lies beyond the lane's '4/1to3/1_0' length.
 Quitting (on error).
