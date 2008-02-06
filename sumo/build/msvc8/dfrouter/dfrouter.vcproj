@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="dfrouter"
 	ProjectGUID="{171F8F50-AC6B-4FBC-9F6C-32C65F0A310C}"
 	RootNamespace="dfrouter"
@@ -303,7 +303,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Fastbuild/dfrouter.exe"
+				OutputFile=".\Fastbuild/dfrouterF.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"

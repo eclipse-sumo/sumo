@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="od2trips"
 	ProjectGUID="{39392259-4561-44C0-98F1-64CA4396C025}"
 	>
@@ -308,7 +308,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Fastbuild/od2trips.exe"
+				OutputFile=".\Fastbuild/od2tripsF.exe"
 				LinkTimeCodeGeneration="1"
 			/>
 			<Tool

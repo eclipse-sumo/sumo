@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="sumo"
 	ProjectGUID="{08C90F3F-95F3-46C7-8D87-63AF6DF5558C}"
 	RootNamespace="sumo"
@@ -575,7 +575,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Fastbuild/meso.exe"
+				OutputFile=".\Fastbuild/sumoF.exe"
 				AdditionalLibraryDirectories=""
 				LinkTimeCodeGeneration="1"
 			/>

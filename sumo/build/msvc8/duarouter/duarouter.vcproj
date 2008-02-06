@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="duarouter"
 	ProjectGUID="{90205628-51D7-4194-9FC0-7D74C35A3471}"
 	Keyword="MFCProj"
@@ -302,7 +302,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Fastbuild/duarouter.exe"
+				OutputFile=".\Fastbuild/duarouterF.exe"
 			/>
 			<Tool
 				Name="VCALinkTool"

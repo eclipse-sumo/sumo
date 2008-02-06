@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="jtrrouter"
 	ProjectGUID="{43569450-FB3D-46EA-B9AB-CE92295C5570}"
 	>
@@ -308,7 +308,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
-				OutputFile=".\Fastbuild/jtrrouter.exe"
+				OutputFile=".\Fastbuild/jtrrouterF.exe"
 				LinkTimeCodeGeneration="1"
 			/>
 			<Tool

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="polyconvert"
 	ProjectGUID="{CEBAFD4D-0E92-4DEB-9CC9-BBCF78EBE1B5}"
 	>
@@ -308,7 +308,7 @@
 			<Tool
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) $(XERCES_LIB) ws2_32.lib"
-				OutputFile=".\Fastbuild/polyconvert.exe"
+				OutputFile=".\Fastbuild/polyconvertF.exe"
 				LinkTimeCodeGeneration="1"
 			/>
 			<Tool
