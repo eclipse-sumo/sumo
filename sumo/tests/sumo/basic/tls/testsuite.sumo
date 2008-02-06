@@ -7,6 +7,3 @@ cross3ltl_savetlsswitches
 
 # Plain test for a basic example with a simple tls switch state output
 cross3ltl_savetlsswitchstates
-
-# Plain test for a basic example with an e2-detector coupled to a tls
-cross3ltl_save_tls_e2
