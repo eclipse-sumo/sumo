@@ -1,0 +1,50 @@
+<districts>
+   <district id="0">
+      <dsource id="top0to2/0" weight="100.0000"/>
+      <dsink id="2/0totop0" weight="100.0000"/>
+   </district>
+   <district id="1">
+      <dsource id="top1to2/1" weight="100.0000"/>
+      <dsink id="2/1totop1" weight="100.0000"/>
+   </district>
+   <district id="2">
+      <dsource id="top2to2/2" weight="100.0000"/>
+      <dsink id="2/2totop2" weight="100.0000"/>
+   </district>
+   <district id="3">
+      <dsource id="right0to2/0" weight="100.0000"/>
+      <dsink id="2/0toright0" weight="100.0000"/>
+   </district>
+   <district id="4">
+      <dsource id="right1to2/1" weight="100.0000"/>
+      <dsink id="2/1toright1" weight="100.0000"/>
+   </district>
+   <district id="5">
+      <dsource id="right2to2/2" weight="100.0000"/>
+      <dsink id="2/2toright2" weight="100.0000"/>
+   </district>
+   <district id="6">
+      <dsource id="bottom0to0/0" weight="100.0000"/>
+      <dsink id="0/0tobottom0" weight="100.0000"/>
+   </district>
+   <district id="7">
+      <dsource id="bottom1to0/1" weight="100.0000"/>
+      <dsink id="0/1tobottom1" weight="100.0000"/>
+   </district>
+   <district id="8">
+      <dsource id="bottom2to0/2" weight="100.0000"/>
+      <dsink id="0/2tobottom2" weight="100.0000"/>
+   </district>
+   <district id="9">
+      <dsource id="left0to0/0" weight="100.0000"/>
+      <dsink id="0/0toleft0" weight="100.0000"/>
+   </district>
+   <district id="10">
+      <dsource id="left1to0/1" weight="100.0000"/>
+      <dsink id="0/1toleft1" weight="100.0000"/>
+   </district>
+   <district id="11">
+      <dsource id="left2to0/2" weight="100.0000"/>
+      <dsink id="0/2toleft2" weight="100.0000"/>
+   </district>
+</districts>

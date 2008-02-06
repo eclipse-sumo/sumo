@@ -380,8 +380,11 @@ readV(LineReader &lr, ODMatrix &into, SUMOReal scale,
             } catch (NumberFormatException &) {
                 throw ProcessError("Not numeric vehicle number in line '" + line + "'.");
             }
+			if (!lr.hasMore()) {
+				break;
+			}
             line = lr.readLine();
-        } while (line[0]!='*'&&lr.hasMore());
+        } while (line[0]!='*');
     }
     MsgHandler::getMessageInstance()->endProcessMsg("done.");
 }
