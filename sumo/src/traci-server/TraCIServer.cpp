@@ -537,7 +537,7 @@ void
 	tcpip::Storage tempMsg;
 
 	// get the TLLogicControl
-	MSTLLogicControl tlsControl = MSNet::getInstance()->getTLSControl();
+	MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
 	// get the ids
 	std::vector<std::string> idList = tlsControl.getAllTLIds();
 
@@ -577,7 +577,7 @@ void
 	double timeTo = requestMsg.readDouble();
 
 	// get the running programm of the traffic light
-	MSTLLogicControl tlsControl = MSNet::getInstance()->getTLSControl();
+	MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
 	MSTrafficLightLogic* const tlLogic = tlsControl.get(id).getActive();
 
 	// error checking
