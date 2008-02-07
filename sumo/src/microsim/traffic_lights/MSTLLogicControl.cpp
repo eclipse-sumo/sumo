@@ -66,7 +66,7 @@ using namespace std;
  * MSTLLogicControl::TLSLogicVariants - methods
  * ----------------------------------------------------------------------- */
 MSTLLogicControl::TLSLogicVariants::TLSLogicVariants()
-    : defaultTL(0)
+        : defaultTL(0)
 {
 }
 
@@ -75,26 +75,26 @@ MSTLLogicControl::TLSLogicVariants::~TLSLogicVariants()
 {
     std::map<std::string, MSTrafficLightLogic *>::const_iterator j;
     for (std::map<std::string, MSTrafficLightLogic *>::iterator j=ltVariants.begin(); j!=ltVariants.end(); ++j) {
-        delete (*j).second;
+        delete(*j).second;
     }
     for (std::vector<DiscreteCommand*>::iterator i=onSwitchActions.begin(); i!=onSwitchActions.end(); ++i) {
         delete *i;
-    }   
+    }
 }
 
 
-void 
+void
 MSTLLogicControl::TLSLogicVariants::saveInitialStates()
 {
     originalLinkStates = defaultTL->collectLinkStates();
 }
 
 
-bool 
-MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &subID, 
-                                             MSTrafficLightLogic*logic, 
-                                             bool netWasLoaded,
-                                             bool isNewDefault)
+bool
+MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &subID,
+        MSTrafficLightLogic*logic,
+        bool netWasLoaded,
+        bool isNewDefault)
 {
     if (ltVariants.find(subID)!=ltVariants.end()) {
         return false;
@@ -117,19 +117,19 @@ MSTLLogicControl::TLSLogicVariants::addLogic(const std::string &subID,
 }
 
 
-MSTrafficLightLogic* 
+MSTrafficLightLogic*
 MSTLLogicControl::TLSLogicVariants::getLogic(const std::string &subid) const
 {
-    if(ltVariants.find(subid)==ltVariants.end()) {
+    if (ltVariants.find(subid)==ltVariants.end()) {
         return 0;
     }
     return ltVariants.find(subid)->second;
 }
 
 
-MSTrafficLightLogic* 
-MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl &tlc, 
-                                                             const std::string &subid)
+MSTrafficLightLogic*
+MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl &tlc,
+        const std::string &subid)
 {
     if (ltVariants.find(subid)==ltVariants.end()) {
         if (subid=="off") {
@@ -147,7 +147,7 @@ MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl &t
 }
 
 
-void 
+void
 MSTLLogicControl::TLSLogicVariants::addSwitchCommand(DiscreteCommand *c)
 {
     onSwitchActions.push_back(c);
@@ -166,14 +166,14 @@ MSTLLogicControl::TLSLogicVariants::getAllLogics() const
 }
 
 
-bool 
+bool
 MSTLLogicControl::TLSLogicVariants::isActive(const MSTrafficLightLogic *tl) const
 {
     return tl==defaultTL;
 }
 
 
-MSTrafficLightLogic* 
+MSTrafficLightLogic*
 MSTLLogicControl::TLSLogicVariants::getActive() const
 {
     return defaultTL;
@@ -181,7 +181,7 @@ MSTLLogicControl::TLSLogicVariants::getActive() const
 
 
 bool
-MSTLLogicControl::TLSLogicVariants::switchTo(const std::string &subid) 
+MSTLLogicControl::TLSLogicVariants::switchTo(const std::string &subid)
 {
     if (ltVariants.find(subid)==ltVariants.end()) {
         // we'll inform the user about the missing tls program
@@ -190,7 +190,7 @@ MSTLLogicControl::TLSLogicVariants::switchTo(const std::string &subid)
     // try to get the program to switch to
     MSTrafficLightLogic *touse = ltVariants[subid];
     // switch to the wished program
-        // set the found wished sub-program as this tls' current one
+    // set the found wished sub-program as this tls' current one
     defaultTL = touse;
     // in the case we have switched to an off-state, we'll reset the links
     if (subid=="off") {
@@ -200,7 +200,7 @@ MSTLLogicControl::TLSLogicVariants::switchTo(const std::string &subid)
 }
 
 
-bool 
+bool
 MSTLLogicControl::TLSLogicVariants::maskRedLinks()
 {
     defaultTL->maskRedLinks();
@@ -208,7 +208,7 @@ MSTLLogicControl::TLSLogicVariants::maskRedLinks()
 }
 
 
-bool 
+bool
 MSTLLogicControl::TLSLogicVariants::maskYellowLinks()
 {
     defaultTL->maskYellowLinks();
@@ -644,7 +644,7 @@ MSTLLogicControl::~MSTLLogicControl()
 void
 MSTLLogicControl::maskRedLinks()
 {
-    for(std::map<std::string, TLSLogicVariants*>::iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
+    for (std::map<std::string, TLSLogicVariants*>::iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
         (*i).second->maskRedLinks();
     }
 }
@@ -653,7 +653,7 @@ MSTLLogicControl::maskRedLinks()
 void
 MSTLLogicControl::maskYellowLinks()
 {
-    for(std::map<std::string, TLSLogicVariants*>::iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
+    for (std::map<std::string, TLSLogicVariants*>::iterator i=myLogics.begin(); i!=myLogics.end(); ++i) {
         (*i).second->maskYellowLinks();
     }
 }

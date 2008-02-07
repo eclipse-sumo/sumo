@@ -92,8 +92,8 @@ public:
      */
     static MSNet* getInstance();
 
-    MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents, 
-             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents);
+    MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
+          MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents);
 
 
     /// Destructor.

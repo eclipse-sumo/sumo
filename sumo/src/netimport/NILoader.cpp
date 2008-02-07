@@ -385,11 +385,11 @@ NILoader::loadOSM(OptionsCont &oc)
                 oc.getStringVector("osm-files"), "nodes");
     // load the edges
     loadXMLType(new NIOSMEdgesHandler(tmpNodes,
-        myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
-        myNetBuilder.getTypeCont(), myNetBuilder.getDistrictCont(), oc),
+                                      myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
+                                      myNetBuilder.getTypeCont(), myNetBuilder.getDistrictCont(), oc),
                 oc.getStringVector("osm-files"), "edges");
-    for(std::map<int, NIOSMNode*>::const_iterator i=tmpNodes.begin(); i!=tmpNodes.end(); ++i) {
-        delete (*i).second;
+    for (std::map<int, NIOSMNode*>::const_iterator i=tmpNodes.begin(); i!=tmpNodes.end(); ++i) {
+        delete(*i).second;
     }
 }
 

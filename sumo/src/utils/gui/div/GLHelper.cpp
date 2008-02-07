@@ -190,7 +190,7 @@ void
 GLHelper::drawLine(const Position2DVector &v) throw()
 {
     glBegin(GL_LINES);
-    for(size_t i=0; i<v.size()-1; ++i) {
+    for (size_t i=0; i<v.size()-1; ++i) {
         glVertex2d(v[i].x(), v[i].y());
         glVertex2d(v[i+1].x(), v[i+1].y());
     }
@@ -258,7 +258,7 @@ GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps) throw()
 
 
 void
-GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps, 
+GLHelper::drawOutlineCircle(SUMOReal width, SUMOReal iwidth, int steps,
                             SUMOReal beg, SUMOReal end) throw()
 {
     if (myCircleCoords.size()==0) {

@@ -242,7 +242,7 @@ GUIHandler::parseVehicleColor(SUMOSAXHandler &helper,
 bool
 GUIHandler::closeVehicle() throw(ProcessError)
 {
-    if(MSRouteHandler::closeVehicle()) {
+    if (MSRouteHandler::closeVehicle()) {
         GUIVehicle *vehicle = (GUIVehicle*)myVehicleControl.getVehicle(myActiveVehicleID);
         if (vehicle!=0&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
             vehicle->setCORNColor(myCurrentVehicleColor.red(), myCurrentVehicleColor.green(), myCurrentVehicleColor.blue());

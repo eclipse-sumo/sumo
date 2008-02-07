@@ -211,16 +211,16 @@ NIArcView_Loader::load(OptionsCont &)
             to = myNodeCont.retrieve(to_pos);
         }
 
-        if(from==0||to==0) {
+        if (from==0||to==0) {
             WRITE_WARNING("Could not insert one of the nodes edge '" + id + "' shall connect; skipping.");
             continue;
         }
 
-        if(from==to) {
+        if (from==to) {
             WRITE_WARNING("Edge '" + id + "' connects same nodes; skipping.");
             continue;
         }
-        if(from->getPosition().almostSame(to->getPosition())) {
+        if (from->getPosition().almostSame(to->getPosition())) {
             WRITE_WARNING("Edge '" + id + "' is too short; skipping.");
             continue;
         }

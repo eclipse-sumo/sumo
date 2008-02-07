@@ -81,34 +81,34 @@ NIOSMEdgesHandler::~NIOSMEdgesHandler() throw()
 {
     std::map<int, int> nodeUsage;
     // mark which nodes are used
-    for(std::map<std::string, Edge*>::iterator i=myEdgeMap.begin(); i!=myEdgeMap.end(); ++i) {
+    for (std::map<std::string, Edge*>::iterator i=myEdgeMap.begin(); i!=myEdgeMap.end(); ++i) {
         Edge *e = (*i).second;
-        if(!e->myCurrentIsRoad) {
+        if (!e->myCurrentIsRoad) {
             continue;
         }
-        for(std::vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
-            if(nodeUsage.find(*j)==nodeUsage.end()) {
+        for (std::vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
+            if (nodeUsage.find(*j)==nodeUsage.end()) {
                 nodeUsage[*j] = 0;
             }
             nodeUsage[*j] = nodeUsage[*j] + 1;
         }
     }
     // instatiate edges
-    for(std::map<std::string, Edge*>::iterator i=myEdgeMap.begin(); i!=myEdgeMap.end(); ++i) {
+    for (std::map<std::string, Edge*>::iterator i=myEdgeMap.begin(); i!=myEdgeMap.end(); ++i) {
         Edge *e = (*i).second;
-        if(!e->myCurrentIsRoad) {
+        if (!e->myCurrentIsRoad) {
             continue;
         }
-        // build nodes; 
+        // build nodes;
         //  the from- and to-nodes must be built in any case
         //  the geometry nodes are only built if more than one edge references them
         NBNode *currentFrom = insertNodeChecking(*e->myCurrentNodes.begin());
         NBNode *last = insertNodeChecking(*(e->myCurrentNodes.end()-1));
         int running = 0;
         std::vector<int> passed;
-        for(std::vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
+        for (std::vector<int>::iterator j=e->myCurrentNodes.begin(); j!=e->myCurrentNodes.end(); ++j) {
             passed.push_back(*j);
-            if(nodeUsage[*j]>1&&j!=e->myCurrentNodes.end()-1&&j!=e->myCurrentNodes.begin()) {
+            if (nodeUsage[*j]>1&&j!=e->myCurrentNodes.end()-1&&j!=e->myCurrentNodes.begin()) {
                 NBNode *currentTo = insertNodeChecking(*j);
                 insertEdge(e, running, currentFrom, currentTo, passed);
                 currentFrom = currentTo;
@@ -116,27 +116,27 @@ NIOSMEdgesHandler::~NIOSMEdgesHandler() throw()
                 passed.clear();
             }
         }
-        if(running==0) {
+        if (running==0) {
             running = -1;
         }
         insertEdge(e, running, currentFrom, last, passed);
     }
-    for(std::map<std::string, Edge*>::iterator i=myEdgeMap.begin(); i!=myEdgeMap.end(); ++i) {
-        delete (*i).second;
+    for (std::map<std::string, Edge*>::iterator i=myEdgeMap.begin(); i!=myEdgeMap.end(); ++i) {
+        delete(*i).second;
     }
 }
 
 
 NBNode *
-NIOSMEdgesHandler::insertNodeChecking(int id) 
+NIOSMEdgesHandler::insertNodeChecking(int id)
 {
     NBNode *from = myNodeCont.retrieve(toString(id));
-    if(from==0) {
+    if (from==0) {
         NIOSMNode *n = myOSMNodes.find(id)->second;
         Position2D pos(n->lon, n->lat);
         GeoConvHelper::x2cartesian(pos);
         from = new NBNode(toString(id), pos);
-        if(!myNodeCont.insert(from)) {
+        if (!myNodeCont.insert(from)) {
             MsgHandler::getErrorInstance()->inform("Could not insert node '" + toString(id) + "').");
             delete from;
             return 0;
@@ -148,102 +148,102 @@ NIOSMEdgesHandler::insertNodeChecking(int id)
 
 void
 NIOSMEdgesHandler::insertEdge(NIOSMEdgesHandler::Edge *e, int index, NBNode *from, NBNode *to,
-                              const std::vector<int> &passed) 
+                              const std::vector<int> &passed)
 {
     // patch the id
     string id = e->id;
-    if(index>=0) {
+    if (index>=0) {
         id = id + toString(index);
     }
     // convert the shape
     Position2DVector shape;
-    for(std::vector<int>::const_iterator i=passed.begin(); i!=passed.end(); ++i) {
+    for (std::vector<int>::const_iterator i=passed.begin(); i!=passed.end(); ++i) {
         NIOSMNode *n = myOSMNodes.find(*i)->second;
         Position2D pos(n->lon, n->lat);
         GeoConvHelper::x2cartesian(pos);
         shape.push_back_noDoublePos(pos);
     }
-        int noLanes = 0;
-        SUMOReal speed = 0;
-        vector<SUMOVehicleClass> allowedClasses;
-        vector<SUMOVehicleClass> disallowedClasses;
-        bool allowBothDirs = false;
-        string myHighWayType = e->myHighWayType;
-        if(e->myCurrentIsRoad) {
-            if(myHighWayType=="motorway"||myHighWayType=="motorway_link") {
-                noLanes = 2;
-                speed = (SUMOReal) (80/3.6);
-            } else if(myHighWayType=="residential") {
-                noLanes = 1;
-                speed = (SUMOReal) (30./3.6);
-                allowBothDirs = true;
-            } else if(myHighWayType=="primary"||myHighWayType=="primary_link"||myHighWayType=="cycleway") {
-                // !!! not sure about "cycleway"!
-                noLanes = 2;
-                speed = (SUMOReal) (50./3.6);
-            } else if(myHighWayType=="secondary"||myHighWayType=="secondary_link"||myHighWayType=="unclassified") {
-                noLanes = 1;
-                speed = (SUMOReal) (50./3.6);
-            } else if(myHighWayType=="tertiary"||myHighWayType=="trunk"||myHighWayType=="trunk_link") {
-                noLanes = 1;
-                speed = (SUMOReal) (30./3.6);
-                allowBothDirs = true;
-            } else if(myHighWayType=="service"||myHighWayType=="servcie"||myHighWayType=="services") { // !!!
-                noLanes = 1;
-                speed = (SUMOReal) (30./3.6);
-                allowedClasses.push_back(SVC_PEDESTRIAN);
-                allowedClasses.push_back(SVC_BICYCLE);
-                allowedClasses.push_back(SVC_DELIVERY);
-                allowBothDirs = true;
-            } else if(myHighWayType=="bicycle") {
-                noLanes = 1;
-                speed = (SUMOReal) (25./3.6);
-                allowedClasses.push_back(SVC_BICYCLE);
-                allowBothDirs = true;
-            } else if(myHighWayType=="footway"||myHighWayType=="pedestrian"||myHighWayType=="steps"||myHighWayType=="stairs") {
-                noLanes = 1;
-                speed = (SUMOReal) (5./3.6);
-                allowedClasses.push_back(SVC_PEDESTRIAN);
-                allowBothDirs = true;
-            } else {
-                WRITE_WARNING("New value for 'motorway' found: " + myHighWayType);
-                noLanes = 1;
-                speed = (SUMOReal) (50./3.6);
-            }
+    int noLanes = 0;
+    SUMOReal speed = 0;
+    vector<SUMOVehicleClass> allowedClasses;
+    vector<SUMOVehicleClass> disallowedClasses;
+    bool allowBothDirs = false;
+    string myHighWayType = e->myHighWayType;
+    if (e->myCurrentIsRoad) {
+        if (myHighWayType=="motorway"||myHighWayType=="motorway_link") {
+            noLanes = 2;
+            speed = (SUMOReal)(80/3.6);
+        } else if (myHighWayType=="residential") {
+            noLanes = 1;
+            speed = (SUMOReal)(30./3.6);
+            allowBothDirs = true;
+        } else if (myHighWayType=="primary"||myHighWayType=="primary_link"||myHighWayType=="cycleway") {
+            // !!! not sure about "cycleway"!
+            noLanes = 2;
+            speed = (SUMOReal)(50./3.6);
+        } else if (myHighWayType=="secondary"||myHighWayType=="secondary_link"||myHighWayType=="unclassified") {
+            noLanes = 1;
+            speed = (SUMOReal)(50./3.6);
+        } else if (myHighWayType=="tertiary"||myHighWayType=="trunk"||myHighWayType=="trunk_link") {
+            noLanes = 1;
+            speed = (SUMOReal)(30./3.6);
+            allowBothDirs = true;
+        } else if (myHighWayType=="service"||myHighWayType=="servcie"||myHighWayType=="services") { // !!!
+            noLanes = 1;
+            speed = (SUMOReal)(30./3.6);
+            allowedClasses.push_back(SVC_PEDESTRIAN);
+            allowedClasses.push_back(SVC_BICYCLE);
+            allowedClasses.push_back(SVC_DELIVERY);
+            allowBothDirs = true;
+        } else if (myHighWayType=="bicycle") {
+            noLanes = 1;
+            speed = (SUMOReal)(25./3.6);
+            allowedClasses.push_back(SVC_BICYCLE);
+            allowBothDirs = true;
+        } else if (myHighWayType=="footway"||myHighWayType=="pedestrian"||myHighWayType=="steps"||myHighWayType=="stairs") {
+            noLanes = 1;
+            speed = (SUMOReal)(5./3.6);
+            allowedClasses.push_back(SVC_PEDESTRIAN);
+            allowBothDirs = true;
+        } else {
+            WRITE_WARNING("New value for 'motorway' found: " + myHighWayType);
+            noLanes = 1;
+            speed = (SUMOReal)(50./3.6);
         }
+    }
 
-        if(from->getPosition().almostSame(to->getPosition())) {
-            cout << e->id << " " << shape.size() << " ";
-            cout << from->getPosition() << " " << to->getPosition() << endl;
-            WRITE_WARNING("Same position");
-            return;
+    if (from->getPosition().almostSame(to->getPosition())) {
+        cout << e->id << " " << shape.size() << " ";
+        cout << from->getPosition() << " " << to->getPosition() << endl;
+        WRITE_WARNING("Same position");
+        return;
+    }
+    if (noLanes!=0&&speed!=0) {
+        bool addSecond = true;
+        if (e->myIsOneWay=="true"||e->myIsOneWay=="yes"||!allowBothDirs) {
+            addSecond = false;
         }
-        if(noLanes!=0&&speed!=0) {
-            bool addSecond = true;
-            if(e->myIsOneWay=="true"||e->myIsOneWay=="yes"||!allowBothDirs) {
-                addSecond = false;
-            }
-            if(e->myIsOneWay!=""&&e->myIsOneWay!="false"&&e->myIsOneWay!="no"&&e->myIsOneWay!="true"&&e->myIsOneWay!="yes") {
-                WRITE_WARNING("New value for oneway found: " + e->myIsOneWay);
-            }
-            NBEdge::LaneSpreadFunction lsf = addSecond 
-                ? NBEdge::LANESPREAD_RIGHT
-                : NBEdge::LANESPREAD_CENTER;
-            NBEdge *nbe = new NBEdge(id, e->id, from, to, myHighWayType,
-                speed, noLanes, -1, shape, lsf);
+        if (e->myIsOneWay!=""&&e->myIsOneWay!="false"&&e->myIsOneWay!="no"&&e->myIsOneWay!="true"&&e->myIsOneWay!="yes") {
+            WRITE_WARNING("New value for oneway found: " + e->myIsOneWay);
+        }
+        NBEdge::LaneSpreadFunction lsf = addSecond
+                                         ? NBEdge::LANESPREAD_RIGHT
+                                         : NBEdge::LANESPREAD_CENTER;
+        NBEdge *nbe = new NBEdge(id, e->id, from, to, myHighWayType,
+                                 speed, noLanes, -1, shape, lsf);
+        if (!myEdgeCont.insert(nbe)) {
+            delete nbe;
+            throw ProcessError("Could not add edge '" + id + "'.");
+        }
+        if (addSecond) {
+            nbe = new NBEdge("-" + id, e->id, to, from, myHighWayType,
+                             speed, noLanes, -1, shape.reverse(), lsf);
             if (!myEdgeCont.insert(nbe)) {
                 delete nbe;
-                throw ProcessError("Could not add edge '" + id + "'.");
-            }
-            if(addSecond) {
-                nbe = new NBEdge("-" + id, e->id, to, from, myHighWayType,
-                    speed, noLanes, -1, shape.reverse(), lsf);
-                if (!myEdgeCont.insert(nbe)) {
-                    delete nbe;
-                    throw ProcessError("Could not add edge '-" + id + "'.");
-                }
+                throw ProcessError("Could not add edge '-" + id + "'.");
             }
         }
+    }
 }
 
 
@@ -267,7 +267,7 @@ NIOSMEdgesHandler::myStartElement(SumoXMLTag element,
         try {
             // retrieve the id of the (geometry) node
             int ref = getInt(attrs, SUMO_ATTR_REF);
-            if(myOSMNodes.find(ref)==myOSMNodes.end()) {
+            if (myOSMNodes.find(ref)==myOSMNodes.end()) {
                 MsgHandler::getErrorInstance()->inform("The referenced geometry information (ref='" + toString(ref) + "') is not known");
                 return;
             }
@@ -293,35 +293,35 @@ NIOSMEdgesHandler::myStartElement(SumoXMLTag element,
             WRITE_WARNING("'value' in edge '" + myCurrentEdge->id + "' misses a value.");
             return;
         }
-        if(key=="highway") {
+        if (key=="highway") {
             myCurrentEdge->myHighWayType = value;
             myCurrentEdge->myCurrentIsRoad = true;
-        } else if(key=="oneway") {
+        } else if (key=="oneway") {
             myCurrentEdge->myIsOneWay = value;
-        } else if(key=="name") {
+        } else if (key=="name") {
 //            myCurrentEdge->myCurrentName = value;
             /*
-        } else if(key=="ele") {
+            } else if(key=="ele") {
             // !!! elevation; later use?
-        } else if(key=="barrier") {
+            } else if(key=="barrier") {
             // !!! barrier information; later use?
-        } else if(key=="amenity") {
+            } else if(key=="amenity") {
             // !!! some kind of a poi; later use?
-        } else if(key=="tourism") {
+            } else if(key=="tourism") {
             // !!! some kind of a poi; later use?
-        } else if(key=="armitary") {
+            } else if(key=="armitary") {
             // !!! some kind of a poi; later use?
-        } else if(key=="leisure") {
+            } else if(key=="leisure") {
             // !!! some kind of a poi; later use?
-        } else if(key=="man_made") {
+            } else if(key=="man_made") {
             // !!! some kind of a poi; later use?
-        } else if(key=="historic") {
+            } else if(key=="historic") {
             // !!! some kind of a poi; later use?
-        } else if(key=="shop") {
+            } else if(key=="shop") {
             // !!! some kind of a poi; later use?
-        } else if(key=="sport") {
+            } else if(key=="sport") {
             // !!! information about halts/stations; later use?
-        } else if(key!="notes"&&key!="uic_ref"&&key!="glass_bottles"&&key!="source"&&key!="denomination"&&key!="note"&&key!="created_by"&&key!="ref"&&key!="converted_by"&&key!="time"&&key!="place"&&key!="is_in"&&key!="layer"&&key!="religion") {
+            } else if(key!="notes"&&key!="uic_ref"&&key!="glass_bottles"&&key!="source"&&key!="denomination"&&key!="note"&&key!="created_by"&&key!="ref"&&key!="converted_by"&&key!="time"&&key!="place"&&key!="is_in"&&key!="layer"&&key!="religion") {
             WRITE_WARNING("New key found: " + key);
             if(key=="junction") {
                 int bla = 0;
@@ -344,7 +344,7 @@ NIOSMEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
     myParentElements.pop_back();
     if (element==SUMO_TAG_WAY) {
-        if(myCurrentEdge->myCurrentIsRoad) {
+        if (myCurrentEdge->myCurrentIsRoad) {
             myEdgeMap[myCurrentEdge->id] = myCurrentEdge;
         } else {
             delete myCurrentEdge;
@@ -360,7 +360,7 @@ NIOSMEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
             GeoConvHelper::x2cartesian(p);
             shape.push_back_noDoublePos(p);
         }
-        // 
+        //
         int noLanes = 0;
         SUMOReal speed = 0;
         vector<SUMOVehicleClass> allowedClasses;
@@ -436,7 +436,7 @@ NIOSMEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
             if(myIsOneWay!=""&&myIsOneWay!="false"&&myIsOneWay!="no"&&myIsOneWay!="true"&&myIsOneWay!="yes") {
                 WRITE_WARNING("New value for oneway found: " + myIsOneWay);
             }
-            NBEdge::LaneSpreadFunction lsf = addSecond 
+            NBEdge::LaneSpreadFunction lsf = addSecond
                 ? NBEdge::LANESPREAD_RIGHT
                 : NBEdge::LANESPREAD_CENTER;
             e = new NBEdge(myCurrentID, myCurrentID, from, to, myHighWayType,

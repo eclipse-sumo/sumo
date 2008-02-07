@@ -1468,19 +1468,19 @@ NBNode::computeLanes2Lanes()
             currentIncoming->addAdditionalConnections();
         }
     }
-/*
-    // ... it seems like this should also be done on traffic light controlled junctions
-    if (myTrafficLights.size()!=0) {
-        if(this->getID()=="15031315") {
-            int bla = 0;
+    /*
+        // ... it seems like this should also be done on traffic light controlled junctions
+        if (myTrafficLights.size()!=0) {
+            if(this->getID()=="15031315") {
+                int bla = 0;
+            }
+            vector<NBEdge*>::iterator i2;
+            for (i2=myIncomingEdges->begin(); i2!=myIncomingEdges->end(); i2++) {
+                NBEdge *currentIncoming = *i2;
+                currentIncoming->addAdditionalConnections();
+            }
         }
-        vector<NBEdge*>::iterator i2;
-        for (i2=myIncomingEdges->begin(); i2!=myIncomingEdges->end(); i2++) {
-            NBEdge *currentIncoming = *i2;
-            currentIncoming->addAdditionalConnections();
-        }
-    }
-*/
+    */
 }
 
 

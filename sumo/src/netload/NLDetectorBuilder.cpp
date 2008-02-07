@@ -67,12 +67,12 @@ using namespace std;
  * NLDetectorBuilder::E3DetectorDefinition-methods
  * ----------------------------------------------------------------------- */
 NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(const std::string &id,
-            OutputDevice& device, MetersPerSecond haltingSpeedThreshold,
-            SUMOTime haltingTimeThreshold, int splInterval) throw() 
-    : myID(id), myDevice(device),
-    myHaltingSpeedThreshold(haltingSpeedThreshold), 
-    myHaltingTimeThreshold(haltingTimeThreshold),
-    mySampleInterval(splInterval)
+        OutputDevice& device, MetersPerSecond haltingSpeedThreshold,
+        SUMOTime haltingTimeThreshold, int splInterval) throw()
+        : myID(id), myDevice(device),
+        myHaltingSpeedThreshold(haltingSpeedThreshold),
+        myHaltingTimeThreshold(haltingTimeThreshold),
+        mySampleInterval(splInterval)
 {}
 
 
@@ -197,7 +197,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                                    MetersPerSecond haltingSpeedThreshold,
                                    SUMOReal jamDistThreshold, bool friendlyPos) throw(InvalidArgument)
 {
-    if(tlls.getActive()==0) {
+    if (tlls.getActive()==0) {
         throw InvalidArgument("The detector '" + id + "' refers to the unknown lsa.");
     }
     MSLane *clane = getLaneChecking(lane, id);
@@ -238,7 +238,7 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
                                    MetersPerSecond haltingSpeedThreshold,
                                    SUMOReal jamDistThreshold, bool friendlyPos) throw(InvalidArgument)
 {
-    if(tlls.getActive()==0) {
+    if (tlls.getActive()==0) {
         throw InvalidArgument("The detector '" + id + "' refers to the unknown lsa.");
     }
     MSLane *clane = getLaneChecking(lane, id);
@@ -277,8 +277,8 @@ NLDetectorBuilder::buildE2Detector(const MSEdgeContinuations &edgeContinuations,
 
 void
 NLDetectorBuilder::convUncontE2PosLength(const std::string &id, MSLane *clane,
-                                         SUMOReal &pos, SUMOReal &length,
-                                         bool friendlyPos) throw(InvalidArgument)
+        SUMOReal &pos, SUMOReal &length,
+        bool friendlyPos) throw(InvalidArgument)
 {
     // get and check the position
     pos = getPositionChecking(pos, clane, friendlyPos, id);
@@ -379,8 +379,8 @@ NLDetectorBuilder::endE3Detector() throw(InvalidArgument)
         return;
     }
     MSE3Collector *det = createE3Detector(myE3Definition->myID,
-        myE3Definition->myEntries, myE3Definition->myExits,
-        myE3Definition->myHaltingSpeedThreshold, myE3Definition->myHaltingTimeThreshold);
+                                          myE3Definition->myEntries, myE3Definition->myExits,
+                                          myE3Definition->myHaltingSpeedThreshold, myE3Definition->myHaltingTimeThreshold);
     // add to net
     myNet.getDetectorControl().add(
         static_cast<MSE3Collector*>(det), myE3Definition->myDevice, myE3Definition->mySampleInterval);
@@ -441,10 +441,10 @@ NLDetectorBuilder::createMEInductLoop(const std::string &id,
 
 MSE2Collector *
 NLDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
-            DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
-            SUMOTime haltingTimeThreshold,
-            MetersPerSecond haltingSpeedThreshold,
-            SUMOReal jamDistThreshold) throw()
+        DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
+        SUMOTime haltingTimeThreshold,
+        MetersPerSecond haltingSpeedThreshold,
+        SUMOReal jamDistThreshold) throw()
 {
     return new MSE2Collector(id, usage, lane, pos, length,
                              haltingTimeThreshold, haltingSpeedThreshold,
@@ -492,7 +492,7 @@ NLDetectorBuilder::getLaneChecking(const std::string &id,
 
 SUMOReal
 NLDetectorBuilder::getPositionChecking(SUMOReal pos, MSLane *lane, bool friendlyPos,
-                                      const std::string &detid) throw(InvalidArgument)
+                                       const std::string &detid) throw(InvalidArgument)
 {
     // check whether it is given from the end
     if (pos<0) {

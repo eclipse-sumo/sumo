@@ -80,7 +80,7 @@ public:
 
 public:
     /** @brief Constructor
-     * 
+     *
      * @param[in] file Name of the parsed file
      * @param[in, out] net The network to fill
      * @param[in] detBuilder The detector builder to use
@@ -121,7 +121,7 @@ protected:
     /// @name inherited from GenericSAXHandler
     //@{
 
-    /** @brief Called on the opening of a tag; 
+    /** @brief Called on the opening of a tag;
      *
      * @param[in] element ID of the currently opened element
      * @param[in] attrs Attributes within the currently opened element

@@ -110,7 +110,7 @@ MSNet::getInstance(void)
 }
 
 
-MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents, 
+MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
              MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents)
 {
     MSCORN::init();

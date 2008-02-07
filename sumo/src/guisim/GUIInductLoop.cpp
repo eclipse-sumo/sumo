@@ -117,10 +117,10 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
 {
     GUIParameterTableWindow *ret = new GUIParameterTableWindow(app, *this, 7);
     // add items
-        // parameter
+    // parameter
     ret->mkItem("position [m]", false, myPosition);
     ret->mkItem("lane", false, myDetector.getLane()->getID());
-        // values
+    // values
     ret->mkItem("passed vehicles [#]", true,
                 new FunctionBinding<GUIInductLoop, SUMOReal>(&myDetector, &GUIInductLoop::getCurrentPassedNumber));
     ret->mkItem("speed [m/s]", true,

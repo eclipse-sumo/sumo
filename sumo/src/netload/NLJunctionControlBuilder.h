@@ -72,7 +72,7 @@ private:
 public:
     /** @brief Constructor
      *
-     * Stores default values for extended tls reading them from the given 
+     * Stores default values for extended tls reading them from the given
      *  options. Builds a MSTLLogicControl instance for myLogicControl.
      *
      * @param[in] net The network to fill
@@ -91,7 +91,7 @@ public:
 
 
     /** @brief Preallocates space for the found number of junctions
-     * 
+     *
      * unused!
      * @param[in] no The number of junctions within the net
      * @todo This method is completely useless; the built structure does not take the parameter, may be built in the constructor
@@ -131,7 +131,7 @@ public:
 
     /** @brief Closes (ends) the processing of the current junction
      *
-     * This method throws an InvalidArgument when a junction with the same id 
+     * This method throws an InvalidArgument when a junction with the same id
      *  as the current was already added or if the junction type stored in "myType"
      *  is invalid. It throws a ProcessError if the container to store the
      *  junction in was not built before.
@@ -144,7 +144,7 @@ public:
     void closeJunction() throw(InvalidArgument, ProcessError);
 
 
-    /** @brief Builds the MSJunctionControl which holds all of the simulations junctions 
+    /** @brief Builds the MSJunctionControl which holds all of the simulations junctions
      *
      * Returns the previously built junction control ("myJunctions"). "myJunctions" is
      *  set to 0, so that it will not be destroyed by the destructor.
@@ -160,7 +160,7 @@ public:
      */
     void initIncomingLanes() throw();
 
-    
+
     /** @brief Initialises a junction logic
      *
      * Resets all internal values that describe a junction logic to allow resetting them from
@@ -189,9 +189,9 @@ public:
      * Resets all internal values that describe a traffic lights logic to allow
      *  resetting them from read values.
      *
-     * @param[in] type The type of the tls 
+     * @param[in] type The type of the tls
      * @param[in] absDuration The absolute duration (cycle time)
-     * @param[in] requestSize The size of the tls request 
+     * @param[in] requestSize The size of the tls request
      * @param[in] detectorOffset The offset of the detectors to build
      * @todo Why is the type not verified?
      * @todo Recheck, describe usage of absDuration (where does the information come from?)
@@ -200,7 +200,7 @@ public:
      * @todo detectorOffset is used only by one junction type. Is it not possible, to remove this from the call?
      */
     void initTrafficLightLogic(const std::string &type,
-                               size_t absDuration, int requestSize, 
+                               size_t absDuration, int requestSize,
                                SUMOReal detectorOffset) throw();
 
 
@@ -265,8 +265,8 @@ public:
      * @return The named logic
      * @exception InvalidArgument If the named tls logic was not built before
      */
-    MSTLLogicControl::TLSLogicVariants &getTLLogic(const std::string &id) 
-        const throw(InvalidArgument);
+    MSTLLogicControl::TLSLogicVariants &getTLLogic(const std::string &id)
+    const throw(InvalidArgument);
 
 
     /** @brief Returns the built tls-logic control
@@ -282,9 +282,9 @@ public:
     /** @brief Ends the building of a traffic lights logic
      *
      * Builds the correct type of a MSTrafficLightLogic using the stored information.
-     *  Tries to add it to the used tls control. Throws an InvalidArgument if 
+     *  Tries to add it to the used tls control. Throws an InvalidArgument if
      *  this is not possible (another tls logic with the same name exists).
-     * 
+     *
      * @exception InvalidArgument If another tls logic with the same name as the currently built was loaded before
      */
     virtual void closeTrafficLightLogic() throw(InvalidArgument);
@@ -294,7 +294,7 @@ public:
      *
      * Rechecks values for the request and builds a MSJunctionLogic using these values.
      *  Throws and InvalidArgument if the values are invalid (error message is
-     *  included). 
+     *  included).
      * Tries to add the built logic to the internal container "myLogics". If another
      *  logic with the same id exists, an InvalidArgument is thrown.
      *
@@ -337,8 +337,8 @@ public:
      * @param[in] startProg The begin program of the WAUT
      * @exception InvalidArgument If the id is already used by another WAUT
      */
-    void addWAUT(SUMOTime refTime, const std::string &id, 
-        const std::string &startProg) throw(InvalidArgument);
+    void addWAUT(SUMOTime refTime, const std::string &id,
+                 const std::string &startProg) throw(InvalidArgument);
 
 
     /** @brief Adds a WAUT switch step to a previously built WAUT
@@ -351,8 +351,8 @@ public:
      * @param[in] to The program the WAUT shall start to switch to at the given time
      * @exception InvalidArgument If the named WAUT is not known
      */
-    void addWAUTSwitch(const std::string &wautid, SUMOTime when, 
-        const std::string &to) throw(InvalidArgument);
+    void addWAUTSwitch(const std::string &wautid, SUMOTime when,
+                       const std::string &to) throw(InvalidArgument);
 
 
     /** @brief Adds a tls to the list of tls to be switched by the named WAUT
@@ -402,9 +402,9 @@ protected:
 
     /** @brief Returns the current junction logic
      *
-     * "Current" means the one with "myActiveID". If it is not built yet 
+     * "Current" means the one with "myActiveID". If it is not built yet
      *  (not within "myLogics") an InvalidArgument is thrown.
-     * 
+     *
      * @return The current tls logic
      * @exception InvalidArgument If the logic was not built before
      * @todo Where is this used?
@@ -441,19 +441,19 @@ protected:
     /// @{
 
     /** @brief Builds a junction that does not use a logic
-     * 
+     *
      * Builds a MSNoLogicJunction
-     * 
+     *
      * @return The built junction
      */
     virtual MSJunction *buildNoLogicJunction() throw();
 
 
     /** @brief Builds a junction with a logic
-     * 
+     *
      * Builds a MSRightOfWayJunction. Throws an exception if the logic was not built
      *  (see getJunctionLogicSecure).
-     * 
+     *
      * @return The built junction
      * @exception InvalidArgument If the logic of the junction was not built before
      */
@@ -462,9 +462,9 @@ protected:
 
 #ifdef HAVE_INTERNAL_LANES
     /** @brief Builds an internal junction
-     * 
+     *
      * Builds a MSInternalJunction
-     * 
+     *
      * @return The built junction
      */
     virtual MSJunction *buildInternalJunction() throw();
@@ -594,7 +594,7 @@ protected:
 protected:
     /// @name numerical representations of junction types
     /// @todo What? Use an enum!
-    /// @{ 
+    /// @{
 
     /// @brief numerical representation for a junction with no purpose
     static const int TYPE_NOJUNCTION;

@@ -65,12 +65,12 @@ FXIMPLEMENT(GUIParam_PopupMenuInterface, FXMenuPane, GUIParam_PopupMenuInterface
 // method definitions
 // ===========================================================================
 GUIParam_PopupMenuInterface::GUIParam_PopupMenuInterface(GUIMainWindow &app,
-                                GUIParameterTableWindow &parentWindow,
-                                GUIGlObject &o, const std::string &varName, 
-                                ValueSource<SUMOReal> *src)  throw()
-    : FXMenuPane(&parentWindow), myObject(&o), myParentWindow(&parentWindow), 
-    myApplication(&app), myVarName(varName), mySource(src) 
-{ 
+        GUIParameterTableWindow &parentWindow,
+        GUIGlObject &o, const std::string &varName,
+        ValueSource<SUMOReal> *src)  throw()
+        : FXMenuPane(&parentWindow), myObject(&o), myParentWindow(&parentWindow),
+        myApplication(&app), myVarName(varName), mySource(src)
+{
 }
 
 

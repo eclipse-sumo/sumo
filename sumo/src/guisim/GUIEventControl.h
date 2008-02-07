@@ -66,14 +66,14 @@ public:
      * @see MSEventControl::addEvent
      */
     SUMOTime addEvent(Command* operation, SUMOTime execTimeStep,
-        AdaptType type) throw();
+                      AdaptType type) throw();
 
 
     /** @brief Executes time-dependant commands
      *
      * Locks itself before calling MSEventControl::execute. Unlock itself
      *  after the call.
-     *  
+     *
      * @param[in] time The current simulation time
      * @exception ProcessError From an executed Command
      * @see MSEventControl::execute

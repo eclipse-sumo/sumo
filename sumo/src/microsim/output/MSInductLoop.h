@@ -4,7 +4,7 @@
 /// @date    2004-11-23
 /// @version $Id$
 ///
-// An unextended detector measuring at a fixed position on a fixed lane. 
+// An unextended detector measuring at a fixed position on a fixed lane.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -56,7 +56,7 @@ class GUILaneWrapper;
 // ===========================================================================
 /**
  * @class MSInductLoop
- * @brief An unextended detector measuring at a fixed position on a fixed lane. 
+ * @brief An unextended detector measuring at a fixed position on a fixed lane.
  *
  * Only vehicles that passed the entire detector are counted. We
  *  ignore vehicles that are emitted onto the detector and vehicles
@@ -74,12 +74,12 @@ class GUILaneWrapper;
  * @see MSDetectorFileOutput
  */
 class MSInductLoop
-            : public MSMoveReminder, public MSDetectorFileOutput, 
+            : public MSMoveReminder, public MSDetectorFileOutput,
             public MSVehicleQuitReminded, public Named
 {
 public:
     /**
-     * @brief Constructor. 
+     * @brief Constructor.
      *
      * Adds reminder to MSLane.
      *
@@ -108,7 +108,7 @@ public:
     /** @brief Checks whether the vehicle shall be counted and/or shall still touch this MSMoveReminder
      *
      * As soon a vehicle enters the detector, its entry time is computed and stored
-     *  in myVehiclesOnDet via enterDetectorByMove. If it passes the detector, the 
+     *  in myVehiclesOnDet via enterDetectorByMove. If it passes the detector, the
      *  according leaving time is computed and stored, too, using leaveDetectorByMove.
      *
      * @param[in] veh Vehicle that asks this remider.
@@ -127,7 +127,7 @@ public:
     /** @brief Dismisses the vehicle if it is on the detector due to a lane change
      *
      * If the vehicle is on the detector, it will be dismissed by incrementing
-     *  myDismissedVehicleNumber and removing this vehicle's entering time from 
+     *  myDismissedVehicleNumber and removing this vehicle's entering time from
      *  myVehiclesOnDet.
      *
      * @param veh The leaving vehicle.
@@ -158,7 +158,7 @@ public:
     /// @{
 
     /** @brief Returns the speed of the vehicle on the detector
-     * 
+     *
      * If no vehicle is on the detector, -1 is returned, otherwise
      *  this vehicle's current speed.
      *
@@ -168,7 +168,7 @@ public:
 
 
     /** @brief Returns the length of the vehicle on the detector
-     * 
+     *
      * If no vehicle is on the detector, -1 is returned, otherwise
      *  this vehicle's length.
      *
@@ -178,7 +178,7 @@ public:
 
 
     /** @brief Returns the current occupancy
-     * 
+     *
      * If a vehicle is on the detector, 1 is returned. If a vehicle has passed the detector
      *  in this timestep, its occupancy value is returned. If no vehicle has passed,
      *  0 is returned.
@@ -190,7 +190,7 @@ public:
 
 
     /** @brief Returns the number of vehicles that have passed the detector
-     * 
+     *
      * If a vehicle is on the detector, 1 is returned. If a vehicle has passed the detector
      *  in this timestep, 1 is returned. If no vehicle has passed,
      *  0 is returned.
@@ -284,36 +284,36 @@ protected:
 
 
 protected:
-    /** @brief Struct to store the data of the counted vehicle internally. 
+    /** @brief Struct to store the data of the counted vehicle internally.
      *
      * These data is fed into a container.
      *
      * @see myVehicleDataCont
      */
     struct VehicleData {
-        /** @brief Constructor 
+        /** @brief Constructor
          *
          * Used if the vehicle has passed the induct loop completely
-         * 
+         *
          * @param[in] vehLength The length of the vehicle
          * @param[in] entryTimestep The time at which the vehicle entered the detector
          * @param[in] leaveTimestep The time at which the vehicle left the detector
          */
         VehicleData(SUMOReal vehLength, SUMOReal entryTimestep, SUMOReal leaveTimestep) throw()
                 : lengthM(vehLength), entryTimeM(entryTimestep), leaveTimeM(leaveTimestep),
-                speedM(lengthM / (leaveTimeM - entryTimeM)), 
+                speedM(lengthM / (leaveTimeM - entryTimeM)),
                 occupancyM(leaveTimeM - entryTimeM) {}
 
         /** @brief Length of the vehicle. */
-        SUMOReal lengthM;         
+        SUMOReal lengthM;
         /** @brief Entry-time of the vehicle in [s]. */
-        SUMOReal entryTimeM;      
+        SUMOReal entryTimeM;
         /** @brief Leave-time of the vehicle in [s]. */
-        SUMOReal leaveTimeM;      
+        SUMOReal leaveTimeM;
         /** @brief Speed of the vehicle in [m/s]. */
-        SUMOReal speedM;          
+        SUMOReal speedM;
         /** @brief Occupancy of the detector in [s]. */
-        SUMOReal occupancyM;      
+        SUMOReal occupancyM;
     };
 
 
@@ -322,20 +322,17 @@ protected:
     ///@{
 
     /// @brief Adds up VehicleData::speedM
-    static inline SUMOReal speedSum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data) throw()
-    {
+    static inline SUMOReal speedSum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data) throw() {
         return sumSoFar + data.speedM;
     }
-    
+
     /// @brief Adds up VehicleData::occupancyM
-    static inline SUMOReal occupancySum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data) throw()
-    {
+    static inline SUMOReal occupancySum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data) throw() {
         return sumSoFar + data.occupancyM;
     }
 
     /// @brief Adds up VehicleData::lengthM
-    static inline SUMOReal lengthSum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data) throw()
-    {
+    static inline SUMOReal lengthSum(SUMOReal sumSoFar, const MSInductLoop::VehicleData& data) throw() {
         return sumSoFar + data.lengthM;
     }
     ///@}
@@ -346,7 +343,7 @@ protected:
     MSVehicle *myCurrentVehicle;
 
     /// @brief Detector's position on lane [m]
-    const SUMOReal myPosition;          
+    const SUMOReal myPosition;
 
     /// @brief Leave-timestep of the last vehicle detected.
     SUMOReal myLastLeaveTimestep;

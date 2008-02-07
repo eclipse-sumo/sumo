@@ -104,7 +104,7 @@ NBTrafficLightLogic::writeXML(OutputDevice &into, size_t no, SUMOReal /*distance
         stringstream tmp1;
         tmp1 << mask;
         into << "      <phase duration=\"" << (*i).duration
-            << "\" phase=\"" << tmp1.str().substr(64-myNoLinks) << "\"";
+        << "\" phase=\"" << tmp1.str().substr(64-myNoLinks) << "\"";
         // by now, only the vehicles that are not allowed to drive are
         //  breaking; later the right-arrow - rule should be concerned
         stringstream tmp2;

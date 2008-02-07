@@ -81,7 +81,7 @@ protected:
     /** @brief Called on the opening of a tag; Parses node information
      *
      * Tries to parse a node. If the node can be parsed, it is stored within
-     *  "myNodeCont". Otherwise an error is generated. Then, if givenm 
+     *  "myNodeCont". Otherwise an error is generated. Then, if givenm
      *  the tls information is parsed and inserted into "myTLLogicCont".
      *
      * @param[in] element ID of the currently opened element

@@ -86,13 +86,13 @@ public:
     /// Returns the current step
     virtual size_t getStepNo() const = 0;
 
-	/// returns the position of the logic at the actual step of the simulation
+    /// returns the position of the logic at the actual step of the simulation
     virtual size_t getPosition(SUMOTime simStep) = 0;
 
-	 /// returns the step (the phasenumber) of a given position of the cycle
+    /// returns the step (the phasenumber) of a given position of the cycle
     virtual size_t getStepFromPos(size_t position) = 0;
 
-	/// Returns the phase of a given step
+    /// Returns the phase of a given step
     virtual const MSPhaseDefinition &getPhaseFromStep(size_t givenstep) const = 0;
 
 

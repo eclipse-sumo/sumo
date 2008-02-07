@@ -67,7 +67,7 @@ public:
      * @param[in] device The output device to write the detector values into
      */
     Command_SaveTLCoupledDet(MSTLLogicControl::TLSLogicVariants &tlls,
-        MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice& device) throw();
+                             MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice& device) throw();
 
 
     /// @brief Destructor
@@ -76,7 +76,7 @@ public:
 
     /** @brief Executes the command
      *
-     * Called when an active tls program switches, this method calls 
+     * Called when an active tls program switches, this method calls
      *  "writeXMLOutput" of its detector (e2; the values are resetted there).
      *
      * Returns always true

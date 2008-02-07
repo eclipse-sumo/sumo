@@ -187,9 +187,9 @@ protected:
      * @param [out] meanOccupancy The edge to reset the value of
      */
     inline void conv(const MSLaneMeanDataValues &values, SUMOTime period,
-        SUMOReal laneLength, SUMOReal laneVMax,
-        SUMOReal &traveltime, SUMOReal &meanSpeed,
-        SUMOReal &meanDensity, SUMOReal &meanOccupancy) throw() {
+                     SUMOReal laneLength, SUMOReal laneVMax,
+                     SUMOReal &traveltime, SUMOReal &meanSpeed,
+                     SUMOReal &meanDensity, SUMOReal &meanOccupancy) throw() {
 
         if (values.nSamples==0) {
             assert(laneVMax>=0);

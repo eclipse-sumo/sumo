@@ -70,14 +70,14 @@ FXIMPLEMENT(GUIParameterTableWindow, FXMainWindow, GUIParameterTableWindowMap, A
 GUIParameterTableWindow::GUIParameterTableWindow(GUIMainWindow &app,
         GUIGlObject &o, size_t noRows) throw()
         : FXMainWindow(app.getApp(), (o.getFullName() + " Parameter").c_str(),
-            NULL,NULL,DECOR_ALL,20,20,300,(FXint) (noRows*20+60)),
+                       NULL,NULL,DECOR_ALL,20,20,300,(FXint)(noRows*20+60)),
         myObject(&o),
         myApplication(&app), myCurrentPos(0)
 {
     myTable = new FXTable(this, this, MID_TABLE, TABLE_COL_SIZABLE|TABLE_ROW_SIZABLE|LAYOUT_FILL_X|LAYOUT_FILL_Y);
-    myTable->setVisibleRows((FXint) (noRows+1));
+    myTable->setVisibleRows((FXint)(noRows+1));
     myTable->setVisibleColumns(3);
-    myTable->setTableSize((FXint) (noRows+1), 3);
+    myTable->setTableSize((FXint)(noRows+1), 3);
     myTable->setBackColor(FXRGB(255,255,255));
     myTable->setColumnText(0, "Name");
     myTable->setColumnText(1, "Value");
@@ -144,7 +144,7 @@ GUIParameterTableWindow::onRightButtonPress(FXObject*sender,
 
     GUIParam_PopupMenuInterface *p =
         new GUIParam_PopupMenuInterface(*myApplication, *this,
-                               *myObject, i->getName(), i->getSUMORealSourceCopy());
+                                        *myObject, i->getName(), i->getSUMORealSourceCopy());
     new FXMenuCommand(p, "Open in new Tracker", 0, p, MID_OPENTRACKER);
     // set geometry
     p->setX(static_cast<FXEvent*>(data)->root_x);

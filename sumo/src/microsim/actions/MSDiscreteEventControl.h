@@ -51,7 +51,7 @@ class Command;
  *
  * This class was meant to trigger events if an abstract object is in an
  *  abstract state. In fact, this is never used; the only events that could
- *  be used herein (Command_SaveTLCoupledDet and Command_SaveTLCoupledLaneDet), 
+ *  be used herein (Command_SaveTLCoupledDet and Command_SaveTLCoupledLaneDet),
  *  are triggered directly by tls.
  *
  * @todo Remove or make this needful

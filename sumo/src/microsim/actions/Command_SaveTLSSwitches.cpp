@@ -53,8 +53,8 @@ using namespace std;
 // method definitions
 // ===========================================================================
 Command_SaveTLSSwitches::Command_SaveTLSSwitches(const MSTLLogicControl::TLSLogicVariants &logics,
-                                                 OutputDevice &od) throw()
-    : myOutputDevice(od), myLogics(logics)
+        OutputDevice &od) throw()
+        : myOutputDevice(od), myLogics(logics)
 {
     MSNet::getInstance()->getEndOfTimestepEvents().addEvent(this,
             0, MSEventControl::ADAPT_AFTER_EXECUTION);

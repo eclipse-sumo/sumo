@@ -64,8 +64,7 @@ class GUIParameterTableItemInterface
 {
 public:
     /// @brief Destructor
-    virtual ~GUIParameterTableItemInterface()  throw()
-    {}
+    virtual ~GUIParameterTableItemInterface()  throw() {}
 
 
     /// @name Methods to be implemented by derived classes
@@ -107,7 +106,7 @@ public:
  * @class GUIParameterTableItem
  * @brief Instance of a single line in a parameter window
  *
- * This class represents a single item of a parameter table and is an 
+ * This class represents a single item of a parameter table and is an
  *  implementation of the GUIParameterTableItemInterface that allows different
  *  value-types.
  *
@@ -132,11 +131,10 @@ public:
      * @todo Check whether the name should be stored in GUIParameterTableItemInterface
      */
     GUIParameterTableItem(FXTable *table, unsigned pos,
-                          const std::string &name, bool dynamic, 
-                          ValueSource<T> *src) throw() 
-        : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(src),
-        myValue(src->getValue()), myTable(table) 
-    {
+                          const std::string &name, bool dynamic,
+                          ValueSource<T> *src) throw()
+            : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(src),
+            myValue(src->getValue()), myTable(table) {
         init(dynamic, toString<T>(src->getValue()));
     }
 
@@ -153,11 +151,10 @@ public:
      * @todo Should never be dynamic!?
      */
     GUIParameterTableItem(FXTable *table, unsigned pos,
-                          const std::string &name, bool dynamic, 
+                          const std::string &name, bool dynamic,
                           T value) throw()
-        : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
-        myValue(value), myTable(table) 
-    {
+            : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
+            myValue(value), myTable(table) {
         init(dynamic, toString<T>(value));
     }
 
@@ -174,32 +171,29 @@ public:
      * @todo Should never be dynamic!?
      */
     GUIParameterTableItem(FXTable *table, unsigned pos,
-                          const std::string &name, bool dynamic, 
+                          const std::string &name, bool dynamic,
                           std::string value) throw()
-        : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
-        myValue(0), myTable(table) 
-    {
+            : myAmDynamic(dynamic), myName(name), myTablePosition((FXint) pos), mySource(0),
+            myValue(0), myTable(table) {
         init(dynamic, value);
     }
 
 
     /// @brief Destructor
-    ~GUIParameterTableItem() throw()
-    {
+    ~GUIParameterTableItem() throw() {
         delete mySource;
     }
 
 
     /** @brief Initialises the line
      *
-     * Fills the line using the name, the current value, and the information 
+     * Fills the line using the name, the current value, and the information
      *  whether the value changes over time.
      *
      * @param[in] dynamic Information whether this value changes over time
      * @param[in] value The current (initial) value
      */
-    void init(bool dynamic, std::string value) throw()
-    {
+    void init(bool dynamic, std::string value) throw() {
         myTable->setItemText(myTablePosition, 0, myName.c_str());
         myTable->setItemText(myTablePosition, 1, value.c_str());
         if (dynamic) {
@@ -219,8 +213,7 @@ public:
      *
      * @return Whether this item changes over time
      */
-    bool dynamic() const throw()
-    {
+    bool dynamic() const throw() {
         return myAmDynamic;
     }
 
@@ -229,8 +222,7 @@ public:
      *
      * @return The name of this value
      */
-    const std::string &getName() const throw()
-    {
+    const std::string &getName() const throw() {
         return myName;
     }
 
@@ -238,12 +230,11 @@ public:
     /** @brief Resets the value if it's dynamic
      *
      * If the value is dynamic, the current value is retrieved from the value
-     *  source. If it is different from the previous one (stored in myValue), 
-     *  it is stored in myValue and set as the current value text within the 
+     *  source. If it is different from the previous one (stored in myValue),
+     *  it is stored in myValue and set as the current value text within the
      *  according table cell.
      */
-    void update() throw()
-    {
+    void update() throw() {
         if (!dynamic()||mySource==0) {
             return;
         }
@@ -259,8 +250,7 @@ public:
      *
      * @return A copy of the value source
      */
-    ValueSource<T> *getSourceCopy() const throw()
-    {
+    ValueSource<T> *getSourceCopy() const throw() {
         if (mySource==0) {
             return 0;
         }
@@ -272,8 +262,7 @@ public:
      *
      * @return A SUMOReal-typed copy of the value source
      */
-    ValueSource<SUMOReal> *getSUMORealSourceCopy() const throw()
-    {
+    ValueSource<SUMOReal> *getSUMORealSourceCopy() const throw() {
         if (mySource==0) {
             return 0;
         }

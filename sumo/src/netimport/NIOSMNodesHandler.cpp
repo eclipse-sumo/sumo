@@ -116,7 +116,7 @@ NIOSMNodesHandler::myStartElement(SumoXMLTag element,
         delete toAdd;
         return;
     }
-    if(myToFill.find(id)!=myToFill.end()) {
+    if (myToFill.find(id)!=myToFill.end()) {
         MsgHandler::getErrorInstance()->inform("Node id '" + toString(id) + "' is duplicate.");
         delete toAdd;
         return;

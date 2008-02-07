@@ -58,7 +58,7 @@ MSCells* MSDevice_C2C::myCells = 0;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-void 
+void
 MSDevice_C2C::insertOptions() throw()
 {
     OptionsCont &oc = OptionsCont::getOptions();
@@ -121,12 +121,12 @@ MSDevice_C2C::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) th
     }
     bool haveByName = oc.isSet("device.c2x.knownveh") && OptionsCont::getOptions().isInStringVector("device.c2x.knownveh", v.getID());
     if (haveByNumber||haveByName) {
-		MSDevice_C2C* device = new MSDevice_C2C(v);
+        MSDevice_C2C* device = new MSDevice_C2C(v);
         into.push_back(device);
         if (myCells == 0) {
-        	myCells = new MSCells(MSGlobals::gLANRange);
+            myCells = new MSCells(MSGlobals::gLANRange);
         }
-		myCells->add(device);
+        myCells->add(device);
     }
     myVehicleIndex++;
 }
@@ -136,26 +136,26 @@ MSDevice_C2C::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) th
 void
 MSDevice_C2C::computeCar2Car(SUMOTime t)
 {
-	std::vector<MSDevice_C2C*> connected;
-	std::vector<MSDevice_C2C*> clusterHeaders;
-	myCells->update();
+    std::vector<MSDevice_C2C*> connected;
+    std::vector<MSDevice_C2C*> clusterHeaders;
+    myCells->update();
 
-	for (MSCells::CellsIterator cell = myCells->begin(); cell!=myCells->end(); ++cell) {
-	    for (vector<MSDevice_C2C*>::const_iterator device = (*cell)->begin(); device!=(*cell)->end(); ++device) {
-	        (*device)->updateInfos(t);
-			(*device)->addNeighbors(*cell, t);
-			(*device)->addNeighbors(myCells->getNeighbor(cell, 0, 1), t);
-			(*device)->addNeighbors(myCells->getNeighbor(cell, 1, 0), t);
-			(*device)->addNeighbors(myCells->getNeighbor(cell, 1, 1), t);
-			(*device)->addNeighbors(myCells->getNeighbor(cell, -1, 1), t);
-	        (*device)->cleanUpConnections(t);
-			(*device)->setClusterId(-1);
-			if ((*device)->getConnections().size()!=0) {
-				connected.push_back(*device);
-			}
+    for (MSCells::CellsIterator cell = myCells->begin(); cell!=myCells->end(); ++cell) {
+        for (vector<MSDevice_C2C*>::const_iterator device = (*cell)->begin(); device!=(*cell)->end(); ++device) {
+            (*device)->updateInfos(t);
+            (*device)->addNeighbors(*cell, t);
+            (*device)->addNeighbors(myCells->getNeighbor(cell, 0, 1), t);
+            (*device)->addNeighbors(myCells->getNeighbor(cell, 1, 0), t);
+            (*device)->addNeighbors(myCells->getNeighbor(cell, 1, 1), t);
+            (*device)->addNeighbors(myCells->getNeighbor(cell, -1, 1), t);
+            (*device)->cleanUpConnections(t);
+            (*device)->setClusterId(-1);
+            if ((*device)->getConnections().size()!=0) {
+                connected.push_back(*device);
+            }
         }
     }
-	// build the clusters
+    // build the clusters
     int clusterId = 1;
     for (vector<MSDevice_C2C*>::const_iterator device=connected.begin(); device!=connected.end(); ++device) {
         if ((*device)->getClusterId()<0) {
@@ -177,14 +177,14 @@ MSDevice_C2C::computeCar2Car(SUMOTime t)
 
 
 MSDevice_C2C::MSDevice_C2C(MSVehicle &holder) throw()
-    : MSDevice(holder), akt(0)
+        : MSDevice(holder), akt(0)
 {}
 
 
 MSDevice_C2C::~MSDevice_C2C() throw()
 {
-	myCells->remove(this);
-	delete akt;
+    myCells->remove(this);
+    delete akt;
     for (ConnectionCont::iterator i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
         delete(*i).second;
     }
@@ -200,7 +200,7 @@ MSDevice_C2C::~MSDevice_C2C() throw()
 }
 
 
-std::string 
+std::string
 MSDevice_C2C::buildID()
 {
     return string("c2c_") + getHolder().getID();
@@ -243,7 +243,7 @@ MSDevice_C2C::leaveLaneAtMove(SUMOReal /*driven*/)
         }
         // save the information
         MSCORN::saveSavedInformationData(MSNet::getInstance()->getCurrentTimeStep(),
-            getID(),getHolder().getEdge()->getID(),"congestion",(*i).second->time,nt);
+                                         getID(),getHolder().getEdge()->getID(),"congestion",(*i).second->time,nt);
         totalNrOfSavedInfos++;
     } else if (infoCont.find(getHolder().getEdge())!=infoCont.end()) {
         // ok, we could pass the edge faster than assumed; remove the information
@@ -280,31 +280,31 @@ MSDevice_C2C::addNeighbors(vector<MSDevice_C2C*>* devices, SUMOTime time)
         return;
     }
 
-	for (vector<MSDevice_C2C*>::const_iterator other = devices->begin(); other != devices->end(); ++other) {
-		// check whether the other vehicle is in range
-		if (&(*other)->getHolder().getLane()==0 && isInDistance(&getHolder(), &(*other)->getHolder())) {
-			Position2D pos1 = getHolder().getPosition();
-			Position2D pos2 = (*other)->getHolder().getPosition();
-			if (pos1.x() < pos2.x()) {
-				std::map<MSDevice_C2C*, C2CConnection*>::iterator i = myNeighbors.find(*other);
-				if (i==myNeighbors.end()) {
-					// the vehicles will establish a new connection
-					myNeighbors[*other] = new C2CConnection(*other, time);
-					(*other)->myNeighbors[this] = new C2CConnection(this, time);
-					// the cara must inform each other if removed from the network
-					(*other)->getHolder().quitRemindedEntered(this);
-					getHolder().quitRemindedEntered(*other);
-				} else {
-					// ok, the vehicles already interact
-					//  increment the connection time
-					(*i).second->lastTimeSeen = time;
-					(*other)->myNeighbors[this]->lastTimeSeen = time;
-				}
-				MSCORN::saveVehicleInRangeData(time, getID(), (*other)->getID(),
-											   pos1.x(),pos1.y(), pos2.x(),pos2.y());
-			}
-		}
-	}
+    for (vector<MSDevice_C2C*>::const_iterator other = devices->begin(); other != devices->end(); ++other) {
+        // check whether the other vehicle is in range
+        if (&(*other)->getHolder().getLane()==0 && isInDistance(&getHolder(), &(*other)->getHolder())) {
+            Position2D pos1 = getHolder().getPosition();
+            Position2D pos2 = (*other)->getHolder().getPosition();
+            if (pos1.x() < pos2.x()) {
+                std::map<MSDevice_C2C*, C2CConnection*>::iterator i = myNeighbors.find(*other);
+                if (i==myNeighbors.end()) {
+                    // the vehicles will establish a new connection
+                    myNeighbors[*other] = new C2CConnection(*other, time);
+                    (*other)->myNeighbors[this] = new C2CConnection(this, time);
+                    // the cara must inform each other if removed from the network
+                    (*other)->getHolder().quitRemindedEntered(this);
+                    getHolder().quitRemindedEntered(*other);
+                } else {
+                    // ok, the vehicles already interact
+                    //  increment the connection time
+                    (*i).second->lastTimeSeen = time;
+                    (*other)->myNeighbors[this]->lastTimeSeen = time;
+                }
+                MSCORN::saveVehicleInRangeData(time, getID(), (*other)->getID(),
+                                               pos1.x(),pos1.y(), pos2.x(),pos2.y());
+            }
+        }
+    }
 }
 
 
@@ -441,7 +441,7 @@ MSDevice_C2C::buildMyCluster(int t, int clId)
     {
         clusterId = clId;
         std::map<MSDevice_C2C *, C2CConnection*>::iterator i;
-        for (i=myNeighbors.begin(); i!=myNeighbors.end(); ++i){
+        for (i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
             if ((*i).first->getClusterId()<0) {
                 count++;
                 (*i).second->connectedVeh->setClusterId(clId);

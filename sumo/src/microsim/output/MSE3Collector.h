@@ -56,7 +56,7 @@
  * E3-detectors are defined by a set of in-cross-sections and out-cross-sections.
  * Vehicles, that pass an in- and out-cross-section are detected when they pass the
  *  out-cross-section. Vehicles passing the out-cross-section without having
- *  passed the in-cross-section are not detected. 
+ *  passed the in-cross-section are not detected.
  *
  * You get a sampled value via getAggregate(). As MSE3Collector inherits from
  *  MSDetectorFileOutput there is the possibility to get file output by calling
@@ -70,11 +70,11 @@ public:
      * @class MSE3EntryReminder
      * @brief A place on the road net (at a certain lane and position on it) where the E3-area begins
      */
-    class MSE3EntryReminder : public MSMoveReminder
+class MSE3EntryReminder : public MSMoveReminder
     {
     public:
         /** @brief Constructor
-         * 
+         *
          * @param[in] crossSection The position at which the entry lies
          * @param[in] collector The detectort he entry belongs to
          */
@@ -145,11 +145,11 @@ public:
      * @class MSE3LeaveReminder
      * @brief A place on the road net (at a certain lane and position on it) where the E3-area ends
      */
-    class MSE3LeaveReminder : public MSMoveReminder
+class MSE3LeaveReminder : public MSMoveReminder
     {
     public:
         /** @brief Constructor
-         * 
+         *
          * @param[in] crossSection The position at which the exit lies
          * @param[in] collector The detector the exit belongs to
          */
@@ -215,8 +215,8 @@ public:
 
 
     /** @brief Constructor
-     * 
-     * Sets reminder objects on entry- and leave-lanes 
+     *
+     * Sets reminder objects on entry- and leave-lanes
      *
      *  @param[in] id The detector's unique id.
      *  @param[in] entries Entry-cross-sections.
@@ -270,7 +270,7 @@ public:
 
     /** @brief Removes a vehicle which entered the area but quitted before leaving it
      *
-     * Remove vehicles that entered the detector but reached their destination before 
+     * Remove vehicles that entered the detector but reached their destination before
      *  passing the leave-cross-section from internal containers.
      *
      * @param[in] veh The vehicle to remove
@@ -284,7 +284,7 @@ public:
     /// @{
 
     /** @brief Returns the mean speed within the area
-     * 
+     *
      * If no vehicle is within the area, -1 is returned.
      *
      * @return The mean speed [m/s] of all vehicles within the area, -1 if there is none
@@ -293,7 +293,7 @@ public:
 
 
     /** @brief Returns the number of current haltings within the area
-     * 
+     *
      * If no vehicle is within the area, 0 is returned.
      *
      * @return The mean number of haltings within the area
@@ -302,7 +302,7 @@ public:
 
 
     /** @brief Returns the number of touched vehicles (vehicles within the area)
-     * 
+     *
      * Please note, that vehicles that enter the area are given as a fraction.
      *
      * @return The number of touched vehicles
@@ -379,7 +379,7 @@ protected:
      * For each vehicle within the area (that entered through an entry point),
      *  this structure is allocated. All values gathered from the vehicle are aggregated
      *  within this structure.
-     */ 
+     */
     struct E3Values {
         /// @brief The vehicle's entry time
         SUMOReal entryTime;
@@ -415,7 +415,7 @@ protected:
     /// @brief The current number of haltings (inside)
     SUMOReal myCurrentHaltingsNumber;
 
-    /** @brief The current number of vehicles inside; 
+    /** @brief The current number of vehicles inside;
      *
      * Please note, that vehicles that enter the area are given as a fraction
      * @see execute

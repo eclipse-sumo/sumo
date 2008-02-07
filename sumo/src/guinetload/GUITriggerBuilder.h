@@ -70,7 +70,7 @@ protected:
 
     /** @brief Builds a lane speed trigger
      *
-     * Simply calls the GUILaneSpeedTrigger constructor. 
+     * Simply calls the GUILaneSpeedTrigger constructor.
      *
      * @param[in] net The net the lane speed trigger belongs to
      * @param[in] id The id of the lane speed trigger
@@ -87,7 +87,7 @@ protected:
 
     /** @brief Builds an emitter
      *
-     * Simply calls the GUIEmitter constructor. 
+     * Simply calls the GUIEmitter constructor.
      *
      * @param[in] net The net the emitter belongs to
      * @param[in] id The id of the emitter
@@ -97,13 +97,13 @@ protected:
      * @return The built emitter
      */
     virtual MSEmitter *buildLaneEmitTrigger(MSNet &net,
-        const std::string &id, MSLane *destLane, SUMOReal pos,
-        const std::string &file) throw();
+                                            const std::string &id, MSLane *destLane, SUMOReal pos,
+                                            const std::string &file) throw();
 
 
     /** @brief builds an rerouter
      *
-     * Simply calls the GUITriggeredRerouter constructor. 
+     * Simply calls the GUITriggeredRerouter constructor.
      *
      * @param[in] net The net the rerouter belongs to
      * @param[in] id The id of the rerouter
@@ -119,7 +119,7 @@ protected:
 
     /** @brief builds a vehicle actor
      *
-     * Simply calls the GUIE1VehicleActor constructor. 
+     * Simply calls the GUIE1VehicleActor constructor.
      *
      * @param[in] net The net the actor belongs to
      * @param[in] id The id of the actor
@@ -136,7 +136,7 @@ protected:
 
     /** @brief Builds a bus stop
      *
-     * Simply calls the GUIBusStop constructor. 
+     * Simply calls the GUIBusStop constructor.
      *
      * @param[in] net The net the bus stop belongs to
      * @param[in] id The id of the bus stop
@@ -146,9 +146,9 @@ protected:
      * @param[in] topos End position of the bus stop on the lane
      * @return The built bus stop
      */
-    virtual MSBusStop* buildBusStop(MSNet &net, const std::string &id, 
-        const std::vector<std::string> &lines, MSLane *lane, 
-        SUMOReal frompos, SUMOReal topos) throw();
+    virtual MSBusStop* buildBusStop(MSNet &net, const std::string &id,
+                                    const std::vector<std::string> &lines, MSLane *lane,
+                                    SUMOReal frompos, SUMOReal topos) throw();
     /// @}
 
 };

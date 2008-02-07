@@ -69,7 +69,7 @@ public:
 
 
     /// @name Detector creating methods
-    /// 
+    ///
     /// Override NLDetectorBuilder methods.
     /// @{
 

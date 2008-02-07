@@ -56,7 +56,7 @@ MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane) throw()
         myLastLaneChange(MSEdge::dictSize())
 {
     // build the usage definitions for lanes
-        // for lanes with no neighbors
+    // for lanes with no neighbors
     EdgeCont::iterator i;
     for (i=singleLane->begin(); i!=singleLane->end(); ++i) {
         // build lane information
@@ -71,7 +71,7 @@ MSEdgeControl::MSEdgeControl(EdgeCont* singleLane, EdgeCont *multiLane) throw()
         pos = (*i)->getNumericalID();
         myLastLaneChange[pos] = -1;
     }
-        // for lanes with neighbors
+    // for lanes with neighbors
     for (i=multiLane->begin(); i!=multiLane->end(); ++i) {
         // build lane information
         const MSEdge::LaneCont * const lanes = (*i)->getLanes();
@@ -109,7 +109,7 @@ MSEdgeControl::patchActiveLanes() throw()
         // if the lane was inactive but is now...
         if (!lu.amActive && (*i)->getVehicleNumber()>0) {
             // ... add to active lanes and mark as such
-            if(lu.haveNeighbors) {
+            if (lu.haveNeighbors) {
                 myActiveLanes.push_front(*i);
             } else {
                 myActiveLanes.push_back(*i);
@@ -166,7 +166,7 @@ MSEdgeControl::moveFirst() throw()
         if ((*i)->integrateNewVehicle()) {
             LaneUsage &lu = myLanes[(*i)->getNumericalID()];
             if (!lu.amActive) {
-                if(lu.haveNeighbors) {
+                if (lu.haveNeighbors) {
                     myActiveLanes.push_front(*i);
                 } else {
                     myActiveLanes.push_back(*i);
@@ -183,7 +183,7 @@ MSEdgeControl::changeLanes() throw()
 {
     SUMOTime step = MSNet::getInstance()->getCurrentTimeStep();
     std::vector<MSLane*> toAdd;
-    for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end(); ) {
+    for (list<MSLane*>::iterator i=myActiveLanes.begin(); i!=myActiveLanes.end();) {
         LaneUsage &lu = myLanes[(*i)->getNumericalID()];
         /*
         if((*i)->getEdge()->getPurpose()==MSEdge::EDGEFUNCTION_INNERJUNCTION) {
@@ -191,9 +191,9 @@ MSEdgeControl::changeLanes() throw()
             continue;
         }
         */
-        if(lu.haveNeighbors) {
+        if (lu.haveNeighbors) {
             const MSEdge * const edge = (*i)->getEdge();
-            if(myLastLaneChange[edge->getNumericalID()]!=step) {
+            if (myLastLaneChange[edge->getNumericalID()]!=step) {
                 myLastLaneChange[edge->getNumericalID()] = step;
                 ((MSEdge*) edge)->changeLanes();
                 const MSEdge::LaneCont *lanes = edge->getLanes();

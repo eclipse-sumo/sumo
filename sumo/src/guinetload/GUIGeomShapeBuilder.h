@@ -50,7 +50,7 @@ class GUIGlObjectStorage;
  * The main distinction to NLGeomShapeBuilder is that objects in gui-mode
  *  need an additional gl-id in order to make them clickable. This is retrieved
  *  from the stored GUIGlObjectStorage.
- * 
+ *
  * @see NLGeomShapeBuilder
  */
 class GUIGeomShapeBuilder : public NLGeomShapeBuilder
@@ -70,7 +70,7 @@ public:
 
     /** @brief Ends the parsing of the polygon allocating it.
      *
-     * Builds a GUIPolygon2D. Tries to add it to the container and throws an 
+     * Builds a GUIPolygon2D. Tries to add it to the container and throws an
      *  InvalidArgument if a polygon with the same id already exists therein.
      *
      * @param[in] shape The shape of the polygon
@@ -81,9 +81,9 @@ public:
 
     /** @brief Adds the described PointOfInterest to the geometry container
      *
-     * Determines the position to use using "getPointPosition" throwing an 
+     * Determines the position to use using "getPointPosition" throwing an
      *  InvalidArgument if this fails.
-     * Builds a GUIPointOfInterest. Tries to add it to the container and throws an 
+     * Builds a GUIPointOfInterest. Tries to add it to the container and throws an
      *  InvalidArgument if a pos with the same id already exists therein.
      *
      * @param[in] name The name (ID) of the poi

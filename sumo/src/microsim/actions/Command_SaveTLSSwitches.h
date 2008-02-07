@@ -76,7 +76,7 @@ public:
      *
      * Information whether a link had green and since when is stored in
      *  "myPreviousLinkStates".
-     * 
+     *
      * @param[in] currentTime The simulation time of the call
      * @return Always 1 (will be executed in the next step)
      */

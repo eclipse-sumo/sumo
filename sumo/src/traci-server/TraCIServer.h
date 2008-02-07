@@ -114,29 +114,29 @@ private:
 
     void commandChangeLane(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
-	void commandChangeRoute(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+    void commandChangeRoute(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
-	void commandChangeTarget(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+    void commandChangeTarget(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
     void commandCloseConnection(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
     void commandSimulationParameter(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
-	// process command getTLStatus
-	// The traffic light with the given id is asked for all state transitions, that will occur  within 
-	// a given time interval. Each status change is returned by a TLSwitch command.
-	void commandGetTLStatus(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+    // process command getTLStatus
+    // The traffic light with the given id is asked for all state transitions, that will occur  within
+    // a given time interval. Each status change is returned by a TLSwitch command.
+    void commandGetTLStatus(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
-	// process command slowDown
-	// Tell the node given by nodeID to slow down to the given speed (float) within the time intervall 
-	// given by duration. This simulates different methods of slowing down, like instant braking, coasting...
-	// It's assumed that the speed reduction is linear
-	// @param in contains nodeID(integer), speed (float), duration(double) 
-	void commandSlowDown(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+    // process command slowDown
+    // Tell the node given by nodeID to slow down to the given speed (float) within the time intervall
+    // given by duration. This simulates different methods of slowing down, like instant braking, coasting...
+    // It's assumed that the speed reduction is linear
+    // @param in contains nodeID(integer), speed (float), duration(double)
+    void commandSlowDown(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
-	// command getAllTLIds
-	// Returns a list of strings representing the ids of all traffic lights in the simulation
-	void commandGetAllTLIds(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+    // command getAllTLIds
+    // Returns a list of strings representing the ids of all traffic lights in the simulation
+    void commandGetAllTLIds(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
 #ifdef ONLINE_CALIBRATION
     void commandUpdateCalibrator(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);

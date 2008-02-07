@@ -86,8 +86,8 @@ public:
      *
      * If the type is ==-1, it is determined, first. If it could not be obtained,
      *  or if the type is not covered by any selection container, a ProcessError is thrown.
-     * 
-     * Otherwise, the container holding objects of the determined type is 
+     *
+     * Otherwise, the container holding objects of the determined type is
      *  asked whether the given id is stored using SingleTypeSelections::isSelected().
      *
      * @param[in] type The type of the object (GUIGlObjectType or -1)
@@ -105,7 +105,7 @@ public:
      *
      * If the type is ==-1, it is determined, first. If it could not be obtained,
      *  or if the type is not covered by any selection container, a ProcessError is thrown.
-     * 
+     *
      * Otherwise, the id of the object is added to the sub-container that is
      *  responsible for objects of the determined type using SingleTypeSelections::select
      *  and to the global list of chosen items if it is not already there.
@@ -127,7 +127,7 @@ public:
      *
      * If the type is ==-1, it is determined, first. If it could not be obtained,
      *  or if the type is not covered by any selection container, a ProcessError is thrown.
-     * 
+     *
      * Otherwise, the id of the object is removed from the sub-container that is
      *  responsible for objects of the determined type using SingleTypeSelections::deselect
      *  and from the global list of chosen items if it is there.
@@ -146,9 +146,9 @@ public:
 
 
     /** @brief Toggles selection of an object
-     * 
+     *
      * If the object can not be obtained a ProcessError is thrown.
-     * 
+     *
      * Otherwise, it is determined whether the object is already selected or not.
      *  If so, it is deselected by calling "deselect", otherwise it is selected
      *  via "select".
@@ -172,7 +172,7 @@ public:
 
 
     /**  @brief Returns the list of ids of all selected objects' of a certain type
-     * 
+     *
      * The list of selected items is returned from the appropriate sub-container
      *  using SingleTypeSelections::getSelected.
      *
@@ -196,7 +196,7 @@ public:
 
 
     /** @brief Loads a selection list
-     * 
+     *
      * @param[in] type The type of the objects to load
      * @param[in] filename The name of the file to load the list of selected objects from
      * @exception IOError recheck!!!
@@ -207,7 +207,7 @@ public:
 
 
     /** @brief Saves a selection list
-     * 
+     *
      * @param[in] type The type of the objects to save
      * @param[in] filename The name of the file to save the list of selected objects into
      * @exception IOError recheck!!!

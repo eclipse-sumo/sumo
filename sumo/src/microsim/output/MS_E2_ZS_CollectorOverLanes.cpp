@@ -46,13 +46,13 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(const std::string &id, 
-                                                         DetectorUsage usage, 
-                                                         MSLane* lane,
-                                                         SUMOReal startPos,
-                                                         SUMOTime haltingTimeThreshold,
-                                                         MetersPerSecond haltingSpeedThreshold,
-                                                         SUMOReal jamDistThreshold) throw()
+MS_E2_ZS_CollectorOverLanes::MS_E2_ZS_CollectorOverLanes(const std::string &id,
+        DetectorUsage usage,
+        MSLane* lane,
+        SUMOReal startPos,
+        SUMOTime haltingTimeThreshold,
+        MetersPerSecond haltingSpeedThreshold,
+        SUMOReal jamDistThreshold) throw()
         : startPosM(startPos), haltingTimeThresholdM(haltingTimeThreshold),
         haltingSpeedThresholdM(haltingSpeedThreshold), jamDistThresholdM(jamDistThreshold),
         myID(id), myStartLaneID(lane->getID()), myUsage(usage)
@@ -178,7 +178,7 @@ MS_E2_ZS_CollectorOverLanes::extendTo(SUMOReal length,
 
 std::vector<MSLane*>
 MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
-                                                      const MSEdgeContinuations &edgeContinuations) throw()
+        const MSEdgeContinuations &edgeContinuations) throw()
 {
     string eid = l->getEdge()->getID();
     // check whether any exist
@@ -214,7 +214,7 @@ MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
 
 MSE2Collector *
 MS_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
-                                            SUMOReal start, SUMOReal end) throw()
+        SUMOReal start, SUMOReal end) throw()
 {
     string id = makeID(l->getID(), c, r);
     if (start+end<l->length()) {

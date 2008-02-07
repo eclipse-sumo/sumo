@@ -111,13 +111,13 @@ public:
     /// shows a vehicle route
     void showRoute(GUIVehicle *v, int index=-1);
 
-    /// 
+    ///
     void showBestLanes(GUIVehicle *v);
 
     /// hides a vehicle route
     void hideRoute(GUIVehicle *v, int index=-1);
-    
-    /// 
+
+    ///
     void hideBestLanes(GUIVehicle *v);
 
     void showViewschemeEditor();

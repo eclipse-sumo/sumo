@@ -49,7 +49,7 @@ class MSVehicle;
  *  the simulation. So it's besically a listener...
  *
  * For this, each vehicle holds a list of structures to be informed about its
- *  leaving from the net. Each element of this list has to be derived from 
+ *  leaving from the net. Each element of this list has to be derived from
  *  MSVehicleQuitReminded and will be informed about the vehicle's leaving
  *  via removeOnTripEnd.
  *
@@ -67,7 +67,7 @@ public:
     /// @{
 
     /** @brief Called when the observed vehicle leaves the simulation
-     * 
+     *
      * @param[in] veh The vehicle that quits the simulation
      */
     virtual void removeOnTripEnd(MSVehicle *veh) throw() = 0;

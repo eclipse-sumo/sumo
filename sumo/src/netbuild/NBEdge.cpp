@@ -474,7 +474,7 @@ NBEdge::writeXMLStep1(OutputDevice &into)
     default:
         throw 1;
     }
-    if(myAmInnerEdge) {
+    if (myAmInnerEdge) {
         into << "\" inner=\"x";
     }
     into << "\">\n";
@@ -765,8 +765,8 @@ NBEdge::writeSingleSucceeding(OutputDevice &into, size_t fromlane, size_t destid
     }
     // write information whether the connection yields
     if (myAmInnerEdge||!myTo->mustBrake(this,
-                         myReachable[fromlane][destidx].edge,
-                         myReachable[fromlane][destidx].lane)) {
+                                        myReachable[fromlane][destidx].edge,
+                                        myReachable[fromlane][destidx].lane)) {
         into << " yield=\"0\"";
     } else {
         into << " yield=\"1\"";
@@ -806,7 +806,7 @@ NBEdge::writeSingleSucceeding(OutputDevice &into, size_t fromlane, size_t destid
         into << "state=\""
         << myTo->stateCode(this, myReachable[fromlane][destidx].edge, myReachable[fromlane][destidx].lane);
     }
-    if(myTo->getCrossingPosition(this, fromlane, myReachable[fromlane][destidx].edge, myReachable[fromlane][destidx].lane).first>=0) {
+    if (myTo->getCrossingPosition(this, fromlane, myReachable[fromlane][destidx].edge, myReachable[fromlane][destidx].lane).first>=0) {
         into << "\" int_end=\"x";
     }
 

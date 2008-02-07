@@ -121,7 +121,7 @@ class SetStatParamsCommand : public Command
                 : myParent(p) { }
 
         /// Destructor
-        ~SetStatParamsCommand()  throw(){ }
+        ~SetStatParamsCommand()  throw() { }
 
         /** @brief Executes the command what forces the logic control to
          * initialise a switch process
@@ -154,7 +154,7 @@ class SetDynParamsCommand : public Command
                 : myParent(p) { }
 
         /// Destructor
-        ~SetDynParamsCommand() throw(){ }
+        ~SetDynParamsCommand() throw() { }
 
         /** @brief Executes the command what forces the logic control to
          * initialise a switch process

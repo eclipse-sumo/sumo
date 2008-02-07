@@ -57,10 +57,10 @@ class MSNet;
  *  this class which may not yet be known at their generation, they are
  *  prebuild first and initialised with their correct values in a second step.
  *
- * While building instances of MSEdge, these are stored in a preallocated list to 
+ * While building instances of MSEdge, these are stored in a preallocated list to
  *  avoid memory fraction. For the same reason, the list of edges, later split
  *  into two lists, one containing single-lane-edges and one containing multi-lane-edges,
- *  is preallocated to the size that was previously computed by counting the edges 
+ *  is preallocated to the size that was previously computed by counting the edges
  *  in the first parser step.
  */
 class NLEdgeControlBuilder
@@ -140,7 +140,7 @@ protected:
 
     /** @brief storage for edges
      *
-     * to allow the splitting of edges after their number is known, they are hold inside this vector 
+     * to allow the splitting of edges after their number is known, they are hold inside this vector
      *  and laterly moved into two vectors, one for single-lane-edges and one for multi-lane-edges
      *  respectively.
      * @todo Check whether this can be a plain vector, too, not a pointer to one
@@ -174,7 +174,7 @@ protected:
     /// the function of the current edge
     MSEdge::EdgeBasicFunction m_Function;
 
-    // 
+    //
     bool myIsInner;
 
 private:

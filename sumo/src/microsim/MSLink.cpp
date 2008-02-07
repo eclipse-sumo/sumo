@@ -55,7 +55,7 @@ MSLink::MSLink(MSLane* succLane, MSLane *via, bool yield,
                LinkDirection dir, LinkState state, bool internalEnd,
                SUMOReal length) throw()
         :
-        myLane(succLane), 
+        myLane(succLane),
         myPrio(!yield), myApproaching(0),
         myRequest(0), myRequestIdx(0), myRespond(0), myRespondIdx(0),
         myState(state), myDirection(dir), myLength(length),
@@ -69,7 +69,7 @@ MSLink::~MSLink() throw()
 
 
 void
-MSLink::setRequestInformation(MSLogicJunction::Request *request, size_t requestIdx, 
+MSLink::setRequestInformation(MSLogicJunction::Request *request, size_t requestIdx,
                               MSLogicJunction::Respond *respond, size_t respondIdx) throw()
 {
     assert(myRequest==0);

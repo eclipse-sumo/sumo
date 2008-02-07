@@ -59,8 +59,8 @@ GUIEventControl::~GUIEventControl() throw()
 
 SUMOTime
 GUIEventControl::addEvent(Command* operation,
-                         SUMOTime execTimeStep,
-                         AdaptType type) throw()
+                          SUMOTime execTimeStep,
+                          AdaptType type) throw()
 {
     myLock.lock();
     SUMOTime ret = MSEventControl::addEvent(operation, execTimeStep, type);

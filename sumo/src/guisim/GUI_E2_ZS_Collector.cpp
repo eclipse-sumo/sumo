@@ -156,11 +156,11 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 13);
     // add items
-        // parameter
+    // parameter
     ret->mkItem("length [m]", false, myDetector.getEndPos()-myDetector.getStartPos());
     ret->mkItem("position [m]", false, myDetector.getStartPos());
     ret->mkItem("lane", false, myDetector.getLane()->getID());
-        // values
+    // values
     ret->mkItem("vehicles [#]", true,
                 new FunctionBinding<MSE2Collector, unsigned>(&myDetector, &MSE2Collector::getCurrentVehicleNumber));
     ret->mkItem("occupancy [%]", true,

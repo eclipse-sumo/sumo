@@ -83,7 +83,7 @@ public:
     /** @brief Adds an Event.
      *
      * If the given execution time step lies before the current and ADAPT_AFTER_EXECUTION
-     *  is passed for adaptation type, the execution time step will be set to the 
+     *  is passed for adaptation type, the execution time step will be set to the
      *  current time step.
      *
      * Returns the time the event will be executed, really.
@@ -95,23 +95,23 @@ public:
      * @see AdaptType
      */
     virtual SUMOTime addEvent(Command* operation, SUMOTime execTimeStep,
-        AdaptType type) throw();
+                              AdaptType type) throw();
 
 
     /** @brief Executes time-dependant commands
      *
-     * Loops over all stored events, continuing until the first event which 
+     * Loops over all stored events, continuing until the first event which
      *  execution time lies beyond the given time + deltaT. If the event
      *  had to be executed before the given time, a warning is generated and
      *  the event deleted. Otherwise (the event is valid), the event is executed.
      *
-     * Each executed event must return the time that has to pass until it shall 
-     *  be executed again. If the returned time is 0, the event is deleted. 
+     * Each executed event must return the time that has to pass until it shall
+     *  be executed again. If the returned time is 0, the event is deleted.
      *  Otheriwse it is readded, after the new execution time (returned + current)
      *  is computed.
      *
      * ProcessErrors thrown by executed commands are rethrown.
-     *  
+     *
      * @param[in] time The current simulation time
      * @exception ProcessError From an executed Command
      */

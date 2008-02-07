@@ -58,12 +58,12 @@ public:
      */
     NLSucceedingLaneBuilder(NLJunctionControlBuilder &jb) throw();
 
-    
+
     /// @brief Destructor
     ~NLSucceedingLaneBuilder() throw();
 
 
-    /** @brief Begins the computation of a container holding the succeeding lanes of a lane 
+    /** @brief Begins the computation of a container holding the succeeding lanes of a lane
      *
      * @param[in] laneId The id of the lane from which connections will be built
      * @todo Why is the ID kept, not already the lane itself?
@@ -101,9 +101,9 @@ public:
                      const std::string &tlid="", size_t linkNo=0) throw(InvalidArgument);
 
 
-    /** @brief Ends the computation of a container holding the succeeding lanes of a lane 
+    /** @brief Ends the computation of a container holding the succeeding lanes of a lane
      *
-     * The current lane is determined and the parsed connections are added to it. 
+     * The current lane is determined and the parsed connections are added to it.
      * If the lane is not known, an InvalidArgument is thrown.
      *
      * @exception InvalidArgument If the current lane is not known

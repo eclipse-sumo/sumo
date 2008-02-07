@@ -1059,7 +1059,7 @@ NLHandler::addE1Detector(const Attributes &attrs)
         return;
     }
     // inform the user about deprecated values
-    if(getStringSecure(attrs, SUMO_ATTR_STYLE, "<invalid>")!="<invalid>") {
+    if (getStringSecure(attrs, SUMO_ATTR_STYLE, "<invalid>")!="<invalid>") {
         MsgHandler::getWarningInstance()->inform("While parsing E1-detector '" + id + "': 'style' is deprecated.");
     }
     try {
@@ -1102,10 +1102,10 @@ NLHandler::addE2Detector(const Attributes &attrs)
         return;
     }
     // inform the user about deprecated values
-    if(getStringSecure(attrs, SUMO_ATTR_MEASURES, "<invalid>")!="<invalid>") {
+    if (getStringSecure(attrs, SUMO_ATTR_MEASURES, "<invalid>")!="<invalid>") {
         MsgHandler::getWarningInstance()->inform("While parsing E2-detector '" + id + "': 'measures' is deprecated.");
     }
-    if(getStringSecure(attrs, SUMO_ATTR_STYLE, "<invalid>")!="<invalid>") {
+    if (getStringSecure(attrs, SUMO_ATTR_STYLE, "<invalid>")!="<invalid>") {
         MsgHandler::getWarningInstance()->inform("While parsing E2-detector '" + id + "': 'style' is deprecated.");
     }
     //
@@ -1185,10 +1185,10 @@ NLHandler::beginE3Detector(const Attributes &attrs)
         return;
     }
     // inform the user about deprecated values
-    if(getStringSecure(attrs, SUMO_ATTR_MEASURES, "<invalid>")!="<invalid>") {
+    if (getStringSecure(attrs, SUMO_ATTR_MEASURES, "<invalid>")!="<invalid>") {
         MsgHandler::getWarningInstance()->inform("While parsing E3-detector '" + id + "': 'measures' is deprecated.");
     }
-    if(getStringSecure(attrs, SUMO_ATTR_STYLE, "<invalid>")!="<invalid>") {
+    if (getStringSecure(attrs, SUMO_ATTR_STYLE, "<invalid>")!="<invalid>") {
         MsgHandler::getWarningInstance()->inform("While parsing E3-detector '" + id + "': 'style' is deprecated.");
     }
     // build the detector

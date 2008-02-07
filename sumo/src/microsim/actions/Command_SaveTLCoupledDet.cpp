@@ -52,11 +52,11 @@ using namespace std;
 // method definitions
 // ===========================================================================
 Command_SaveTLCoupledDet::Command_SaveTLCoupledDet(MSTLLogicControl::TLSLogicVariants &tlls,
-                                                   MSDetectorFileOutput *dtf, 
-                                                   unsigned int begin,
-                                                   OutputDevice& device) throw()
-    : myDevice(device), myLogics(tlls), myDetector(dtf),
-    myStartTime(begin)
+        MSDetectorFileOutput *dtf,
+        unsigned int begin,
+        OutputDevice& device) throw()
+        : myDevice(device), myLogics(tlls), myDetector(dtf),
+        myStartTime(begin)
 {
     tlls.addSwitchCommand(this);
     dtf->writeXMLDetectorProlog(device);
@@ -74,7 +74,7 @@ Command_SaveTLCoupledDet::execute() throw()
     // !!! we have to do this to have the correct information set
     myLogics.getActive()->maskRedLinks();
     SUMOTime end = MSNet::getInstance()->getCurrentTimeStep();
-    if(myStartTime!=end) {
+    if (myStartTime!=end) {
         myDetector->writeXMLOutput(myDevice, myStartTime, end);
         myStartTime = end;
     }

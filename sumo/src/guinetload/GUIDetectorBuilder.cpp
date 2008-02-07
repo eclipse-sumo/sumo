@@ -75,10 +75,10 @@ GUIDetectorBuilder::createInductLoop(const std::string &id,
 
 MSE2Collector *
 GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
-            DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
-            SUMOTime haltingTimeThreshold,
-            MetersPerSecond haltingSpeedThreshold,
-            SUMOReal jamDistThreshold) throw()
+        DetectorUsage usage, MSLane *lane, SUMOReal pos, SUMOReal length,
+        SUMOTime haltingTimeThreshold,
+        MetersPerSecond haltingSpeedThreshold,
+        SUMOReal jamDistThreshold) throw()
 {
     return new GUI_E2_ZS_Collector(id, usage, lane, pos, length,
                                    haltingTimeThreshold, haltingSpeedThreshold,
@@ -89,10 +89,10 @@ GUIDetectorBuilder::createSingleLaneE2Detector(const std::string &id,
 
 MS_E2_ZS_CollectorOverLanes *
 GUIDetectorBuilder::createMultiLaneE2Detector(const std::string &id,
-            DetectorUsage usage, MSLane *lane, SUMOReal pos,
-            SUMOTime haltingTimeThreshold,
-            MetersPerSecond haltingSpeedThreshold,
-            SUMOReal jamDistThreshold) throw()
+        DetectorUsage usage, MSLane *lane, SUMOReal pos,
+        SUMOTime haltingTimeThreshold,
+        MetersPerSecond haltingSpeedThreshold,
+        SUMOReal jamDistThreshold) throw()
 {
     return new GUI_E2_ZS_CollectorOverLanes(id, usage, lane, pos,
                                             haltingTimeThreshold, haltingSpeedThreshold,

@@ -540,8 +540,8 @@ NLJunctionControlBuilder::addWAUTSwitch(const std::string &wautid,
 
 void
 NLJunctionControlBuilder::addWAUTJunction(const std::string &wautid,
-                                          const std::string &tls,
-                                          const std::string &proc, bool sync) throw(InvalidArgument)
+        const std::string &tls,
+        const std::string &proc, bool sync) throw(InvalidArgument)
 {
     getTLLogicControlToUse().addWAUTJunction(wautid, tls, proc, sync);
 }

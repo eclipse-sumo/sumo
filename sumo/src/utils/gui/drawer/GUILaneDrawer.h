@@ -209,7 +209,7 @@ protected:
         if (myShowToolTips) {
             glPushName(lane.getGlID());
         }
-        if(lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+        if (lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
             GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), SUMO_const_halfLaneWidth*mult);
         } else {
             GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), SUMO_const_quarterLaneWidth*mult);

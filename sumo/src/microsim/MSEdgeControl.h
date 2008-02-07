@@ -58,9 +58,9 @@ class BinaryInputDevice;
  *  and updates the information about "active" lanes, those that have at least
  *  one vehicle on them. During longitudinal movement, this can be simply
  *  achieved through return values of the MSLane-methods, signalling either
- *  that the lane got active or inactive. This is but not possible when 
+ *  that the lane got active or inactive. This is but not possible when
  *  changing lanes, we have to go through the lanes, here. Also, we have to
- *  add lanes on which a vehicle was emitted, separately, doing this into 
+ *  add lanes on which a vehicle was emitted, separately, doing this into
  *  ("myChangedStateLanes") which entries are integrated at the begin of is step
  *  in "patchActiveLanes".
  */
@@ -89,7 +89,7 @@ public:
     /** @brief Resets information whether a lane is active for all lanes
      *
      * For each lane in "myChangedStateLanes": if the lane has at least one vehicle
-     *  and is not marked as being active, it is added to the list og active lanes 
+     *  and is not marked as being active, it is added to the list og active lanes
      *  and marked as being active.
      */
     void patchActiveLanes() throw();
@@ -105,7 +105,7 @@ public:
      *  first one on a lane).
      *
      * This method goes through all active lanes calling their "moveNonCritical"
-     *  implementation. If this call returns true, the lane is removed from the 
+     *  implementation. If this call returns true, the lane is removed from the
      *  list of active lanes.
      *
      * @see MSLane::moveNonCritical
@@ -120,7 +120,7 @@ public:
      *  the next path is precomputed.
      *
      * This method goes through all active lanes calling their "moveCritical"
-     *  implementation. If this call returns true, the lane is removed from the 
+     *  implementation. If this call returns true, the lane is removed from the
      *  list of active lanes.
      *
      * @see MSLane::moveCritical
@@ -133,8 +133,8 @@ public:
      * "Critical" are those vehicles that interact with the next junction and
      *  all first vehicles.
      *
-     * At first, this method goes through all active lanes calling their 
-     *  "setCritical" implementation. If this call returns true, the lane is removed 
+     * At first, this method goes through all active lanes calling their
+     *  "setCritical" implementation. If this call returns true, the lane is removed
      *  from the list of active lanes. During this call, "myWithVehicles2Integrate"
      *  is filled with lanes that obtain new vehicles.
      *
@@ -163,8 +163,8 @@ public:
 
     /** @brief Detect collisions
      *
-     * Calls "detectCollisions" of each lane. 
-     * Shouldn't be necessary if model-implementation is correct. 
+     * Calls "detectCollisions" of each lane.
+     * Shouldn't be necessary if model-implementation is correct.
      * The parameter is simply passed to the lane-instance for reporting.
      *
      * @param[in] timestep The current time step
@@ -174,7 +174,7 @@ public:
 
     /** @brief Inserts new mean data container to all lanes
      *
-     * Calls "insertMeanData" of each lane. 
+     * Calls "insertMeanData" of each lane.
      *
      * @param[in] number The number of container to add
      */
@@ -227,7 +227,7 @@ public:
     struct LaneUsage {
         /// @brief The described lane
         MSLane *lane;
-        /// @brief The lane left to the described lane (==lastNeigh if none) 
+        /// @brief The lane left to the described lane (==lastNeigh if none)
         MSEdge::LaneCont::const_iterator firstNeigh;
         /// @brief The end of this lane's edge's lane container
         MSEdge::LaneCont::const_iterator lastNeigh;

@@ -52,7 +52,7 @@ class MSLane;
 /**
  * @class MSTriggeredRerouter
  * @brief Reroutes vehicles passing an edge
- * 
+ *
  * A rerouter can be positioned on a list of edges and gives vehicles which
  *  arrive one of these edges a new route.
  * The new route may be either chosen from a set of routes where each is
@@ -162,7 +162,7 @@ protected:
     /// @name inherited from GenericSAXHandler
     //@{
 
-    /** @brief Called on the opening of a tag; 
+    /** @brief Called on the opening of a tag;
      *
      * @param[in] element ID of the currently opened element
      * @param[in] attrs Attributes within the currently opened element

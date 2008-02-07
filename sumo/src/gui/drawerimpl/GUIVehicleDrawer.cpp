@@ -135,7 +135,7 @@ inline void
 drawAction_drawVehicleBlinker(GUIVehicle &veh)
 {
     int dir = veh.getCORNIntValue(MSCORN::CORN_VEH_BLINKER);
-    if(dir==0) {
+    if (dir==0) {
         return;
     }
     glColor3f(1., .8, 0);

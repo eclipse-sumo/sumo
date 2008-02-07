@@ -57,8 +57,8 @@ public:
      * @param[in] link The link that shall be observed
      */
     Command_SaveTLCoupledLaneDet(MSTLLogicControl::TLSLogicVariants &tlls,
-        MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice& device, 
-        MSLink *link) throw();
+                                 MSDetectorFileOutput *dtf, unsigned int begin, OutputDevice& device,
+                                 MSLink *link) throw();
 
 
     /// @brief Destructor
@@ -68,8 +68,8 @@ public:
     /** @brief Executes the command
      *
      * Called when an active tls program switches, this method checks whether the
-     *  tls signal responsible for the link has switched to green. If so, the 
-     *  values collected so far are written using "writeXMLOutput". 
+     *  tls signal responsible for the link has switched to green. If so, the
+     *  values collected so far are written using "writeXMLOutput".
      *  Otherwise, the values are reset.
      *
      * Returns always true

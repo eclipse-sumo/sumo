@@ -151,7 +151,7 @@ MSLane::moveNonCritical()
 
     for (veh = myVehicles.begin();
             !(*veh)->reachingCritical(myLength) && veh != lastBeforeEnd;
-            ) {
+        ) {
 
         // get the leader
         //  ... there must be one, because the first vehicle is moved
@@ -194,7 +194,7 @@ MSLane::moveCritical()
     VehCont::iterator lastBeforeEnd = myVehicles.end() - 1;
     VehCont::iterator veh;
     // Move all next vehicles beside the first
-    for (veh=myVehicles.begin()+myFirstUnsafe;veh != lastBeforeEnd; ) {
+    for (veh=myVehicles.begin()+myFirstUnsafe;veh != lastBeforeEnd;) {
         VehCont::const_iterator pred(veh + 1);
         (*veh)->moveRegardingCritical(this, *pred, 0);
         // Check for timeheadway < deltaT
@@ -330,18 +330,18 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
         bool wasInactive = myVehicles.size()==0;
         myVehicles.insert(predIt, aVehicle);
         myVehicleLengthSum += aVehicle->getLength();
-            if(wasInactive) {
-                MSNet::getInstance()->getEdgeControl().gotActive(this);
-            }
+        if (wasInactive) {
+            MSNet::getInstance()->getEdgeControl().gotActive(this);
+        }
         return true;
     }
     // emit
-        bool wasInactive = myVehicles.size()==0;
+    bool wasInactive = myVehicles.size()==0;
     myVehicles.push_back(aVehicle);
     myVehicleLengthSum += aVehicle->getLength();
-            if(wasInactive) {
-                MSNet::getInstance()->getEdgeControl().gotActive(this);
-            }
+    if (wasInactive) {
+        MSNet::getInstance()->getEdgeControl().gotActive(this);
+    }
     return true;
 }
 
@@ -350,7 +350,7 @@ bool
 MSLane::emitTry(MSVehicle& veh)
 {
     SUMOReal speed = maxSpeed();
-    SUMOReal dist = speed * speed * SUMOReal(1./2.*4) + speed; 
+    SUMOReal dist = speed * speed * SUMOReal(1./2.*4) + speed;
     std::pair<MSVehicle *, SUMOReal> approaching = getApproaching(dist, 0, veh.getSpeed());
     SUMOReal safeSpace =
         approaching.first==0
@@ -363,9 +363,9 @@ MSLane::emitTry(MSVehicle& veh)
         bool wasInactive = myVehicles.size()==0;
         myVehicles.push_front(&veh);
         myVehicleLengthSum += veh.getLength();
-            if(wasInactive) {
-                MSNet::getInstance()->getEdgeControl().gotActive(this);
-            }
+        if (wasInactive) {
+            MSNet::getInstance()->getEdgeControl().gotActive(this);
+        }
         return true;
     }
     return false;
@@ -376,7 +376,7 @@ bool
 MSLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
 {
     SUMOReal speed = maxSpeed();
-    SUMOReal dist = speed * speed * SUMOReal(1./2.*4) + speed; 
+    SUMOReal dist = speed * speed * SUMOReal(1./2.*4) + speed;
     std::pair<MSVehicle *, SUMOReal> approaching = getApproaching(dist, 0, veh.getSpeed());
     SUMOReal safeSpace =
         approaching.first==0
@@ -396,10 +396,10 @@ MSLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
             // emit vehicle if so
             MSVehicle::State state(frontMax, 0);
             veh.enterLaneAtEmit(this, state);
-        bool wasInactive = myVehicles.size()==0;
+            bool wasInactive = myVehicles.size()==0;
             myVehicles.push_front(&veh);
             myVehicleLengthSum += veh.getLength();
-            if(wasInactive) {
+            if (wasInactive) {
                 MSNet::getInstance()->getEdgeControl().gotActive(this);
             }
             return true;
@@ -423,10 +423,10 @@ MSLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
             // emit vehicle if so
             MSVehicle::State state((frontMax+backMin)/(SUMOReal) 2.0, 0);
             veh.enterLaneAtEmit(this, state);
-        bool wasInactive = myVehicles.size()==0;
+            bool wasInactive = myVehicles.size()==0;
             myVehicles.insert(leaderIt, &veh);
             myVehicleLengthSum += veh.getLength();
-            if(wasInactive) {
+            if (wasInactive) {
                 MSNet::getInstance()->getEdgeControl().gotActive(this);
             }
             return true;
@@ -455,9 +455,9 @@ MSLane::emitTry(VehCont::iterator followIt, MSVehicle& veh)
         bool wasInactive = myVehicles.size()==0;
         myVehicles.push_back(&veh);
         myVehicleLengthSum += veh.getLength();
-            if(wasInactive) {
-                MSNet::getInstance()->getEdgeControl().gotActive(this);
-            }
+        if (wasInactive) {
+            MSNet::getInstance()->getEdgeControl().gotActive(this);
+        }
         return true;
     }
     return false;
@@ -487,9 +487,9 @@ MSLane::emitTry(VehCont::iterator followIt, MSVehicle& veh,
         bool wasInactive = myVehicles.size()==0;
         myVehicles.insert(leaderIt, &veh);
         myVehicleLengthSum += veh.getLength();
-           if(wasInactive) {
-                MSNet::getInstance()->getEdgeControl().gotActive(this);
-            }
+        if (wasInactive) {
+            MSNet::getInstance()->getEdgeControl().gotActive(this);
+        }
         return true;
     }
     return false;
@@ -507,42 +507,42 @@ MSLane::setCritical(std::vector<MSLane*> &into)
     bool hadProblem = false;
     bool hadPopped = false;
     VehCont::iterator i;
-    for (i=myVehicles.begin() + myFirstUnsafe; i!=myVehicles.end(); ) {
+    for (i=myVehicles.begin() + myFirstUnsafe; i!=myVehicles.end();) {
         (*i)->moveFirstChecked();
         MSLane *target = (*i)->getTargetLane();
         if (target!=this) {
             hadPopped = true;
-            if(!(to_pop==0||lastPopped)) {
+            if (!(to_pop==0||lastPopped)) {
                 hadProblem = true;
             }
             lastPopped = true;
             to_pop++;
-                to_pop2 = running;//++;
+            to_pop2 = running;//++;
         } else {
             lastPopped = false;
         }
         ++i;
-        if(hadPopped) {
+        if (hadPopped) {
             ++running;
         }
     }
-     if(to_pop!=to_pop2) {
-         hadProblem = true;
+    if (to_pop!=to_pop2) {
+        hadProblem = true;
     }
     for (int j = 0; j<to_pop2; j++) {
         MSVehicle *v = *(myVehicles.end() - 1);
         MSVehicle *p = pop();
         assert(v==p);
         MSLane *target = p->getTargetLane();
-        if(target==this) {
-                MsgHandler::getWarningInstance()->inform("Vehicle '" + v->getID() + "' will be teleported due to false leaving order.");
-                v->leaveLaneAtLaneChange();
-                v->onTripEnd();
-                MSVehicleTransfer::getInstance()->addVeh(v);
-                hadProblem = true;
-                continue;
+        if (target==this) {
+            MsgHandler::getWarningInstance()->inform("Vehicle '" + v->getID() + "' will be teleported due to false leaving order.");
+            v->leaveLaneAtLaneChange();
+            v->onTripEnd();
+            MSVehicleTransfer::getInstance()->addVeh(v);
+            hadProblem = true;
+            continue;
         }
-        if(target!=0&&p->getInTransit()) {
+        if (target!=0&&p->getInTransit()) {
             target->push(p);
             into.push_back(target);
         }
@@ -659,7 +659,7 @@ MSLane::integrateNewVehicle()
 {
     bool wasInactive = myVehicles.size()==0;
     sort(myVehBuffer.begin(), myVehBuffer.end(), vehicle_position_sorter());
-    for(std::vector<MSVehicle*>::const_iterator i=myVehBuffer.begin(); i!=myVehBuffer.end(); ++i) {
+    for (std::vector<MSVehicle*>::const_iterator i=myVehBuffer.begin(); i!=myVehBuffer.end(); ++i) {
         MSVehicle *veh = *i;
         myVehicles.push_front(veh);
         myVehicleLengthSum += veh->getLength();
@@ -724,23 +724,23 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
     //  1) there is a destination lane ((*link)->getLane()!=0)
     //  2) the destination lane belongs to the next edge in route ((*link)->getLane()->myEdge == nRouteEdge)
     //  3) the destination lane allows the vehicle's class ((*link)->getLane()->allowsVehicleClass(veh.getVehicleClass()))
-    
+
     // at first, we'll assume we have the continuations of our route in "conts" (built in "getBestLanes")
     //  "conts" stores the best continuations of our current lane
     MSLinkCont::const_iterator link;
-    if(nRouteSuccs>0&&conts.size()>=nRouteSuccs&&nRouteSuccs>0) {
+    if (nRouteSuccs>0&&conts.size()>=nRouteSuccs&&nRouteSuccs>0) {
         // we go through the links in our list and return the matching one
         for (link=succLinkSource.myLinks.begin(); link!=succLinkSource.myLinks.end() ; ++link) {
             if ((*link)->getLane()!=0 && (*link)->getLane()->myEdge == nRouteEdge && (*link)->getLane()->allowsVehicleClass(veh.getVehicleClass())) {
                 // we should use the link if it connects us to the best lane
-                if((*link)->getLane()==conts[nRouteSuccs-1]) {
+                if ((*link)->getLane()==conts[nRouteSuccs-1]) {
                     return link;
                 }
             }
         }
     }
 
-    // ok, we were not able to use the conts for any reason 
+    // ok, we were not able to use the conts for any reason
     //  we will now collect allowed links, at first
     // collect allowed links
     std::vector<MSLinkCont::const_iterator> valid;
@@ -1018,7 +1018,7 @@ MSLane::allowsVehicleClass(SUMOVehicleClass vclass) const
 }
 
 
-void 
+void
 MSLane::addIncomingLane(MSLane *lane, MSLink *viaLink)
 {
     IncomingLaneInfo ili;
@@ -1028,7 +1028,8 @@ MSLane::addIncomingLane(MSLane *lane, MSLink *viaLink)
     myIncomingLanes.push_back(ili);
 }
 
-class by_second_sorter {
+class by_second_sorter
+{
 public:
     inline int operator()(const std::pair<MSVehicle * , SUMOReal> &p1, const std::pair<MSVehicle * , SUMOReal> &p2) const {
         return p1.second<p2.second;
@@ -1038,60 +1039,60 @@ public:
 std::pair<MSVehicle *, SUMOReal>
 MSLane::getApproaching(SUMOReal dist, SUMOReal seen, SUMOReal leaderSpeed) const
 {
-            // ok, a vehicle has not noticed the lane about itself;
-            //  iterate as long as necessary to search for an approaching one
-            set<MSLane*> visited;
-            visited.insert((MSLane*) this);
-            std::vector<std::pair<MSVehicle * , SUMOReal> > possible;
-            std::vector<MSLane::IncomingLaneInfo> newFound;
-            std::vector<MSLane::IncomingLaneInfo> toExamine = myIncomingLanes;
-            while(toExamine.size()!=0) {
-                for(std::vector<MSLane::IncomingLaneInfo>::iterator i=toExamine.begin(); i!=toExamine.end(); ++i) {
-                    if((*i).viaLink->getState()==MSLink::LINKSTATE_TL_RED) {
-                        continue;
-                    }
-                    MSLane *next = (*i).lane;
-                    if(next->getFirstVehicle()!=0) {
-                        MSVehicle * v = (MSVehicle*) next->getFirstVehicle();
-                        SUMOReal igap = v->interactionGap(v->getSpeed(), myMaxSpeed, leaderSpeed);
-                        if(igap>(*i).length-v->getPositionOnLane()+seen) {
-                            possible.push_back(make_pair(v, (*i).length-v->getPositionOnLane()+seen));
-                        }
-                    } else {
-                        if((*i).length+seen<dist) {
-                            const std::vector<MSLane::IncomingLaneInfo> &followers = next->getIncomingLanes();
-                            for(std::vector<MSLane::IncomingLaneInfo>::const_iterator j=followers.begin(); j!=followers.end(); ++j) {
-                                if(visited.find((*j).lane)==visited.end()) {
-                                    visited.insert((*j).lane);
-                                    MSLane::IncomingLaneInfo ili;
-                                    ili.lane = (*j).lane;
-                                    ili.length = (*j).length + (*i).length;
-                                    ili.viaLink = (*j).viaLink;
-                                    newFound.push_back(ili);
-                                }
-                            }
+    // ok, a vehicle has not noticed the lane about itself;
+    //  iterate as long as necessary to search for an approaching one
+    set<MSLane*> visited;
+    visited.insert((MSLane*) this);
+    std::vector<std::pair<MSVehicle * , SUMOReal> > possible;
+    std::vector<MSLane::IncomingLaneInfo> newFound;
+    std::vector<MSLane::IncomingLaneInfo> toExamine = myIncomingLanes;
+    while (toExamine.size()!=0) {
+        for (std::vector<MSLane::IncomingLaneInfo>::iterator i=toExamine.begin(); i!=toExamine.end(); ++i) {
+            if ((*i).viaLink->getState()==MSLink::LINKSTATE_TL_RED) {
+                continue;
+            }
+            MSLane *next = (*i).lane;
+            if (next->getFirstVehicle()!=0) {
+                MSVehicle * v = (MSVehicle*) next->getFirstVehicle();
+                SUMOReal igap = v->interactionGap(v->getSpeed(), myMaxSpeed, leaderSpeed);
+                if (igap>(*i).length-v->getPositionOnLane()+seen) {
+                    possible.push_back(make_pair(v, (*i).length-v->getPositionOnLane()+seen));
+                }
+            } else {
+                if ((*i).length+seen<dist) {
+                    const std::vector<MSLane::IncomingLaneInfo> &followers = next->getIncomingLanes();
+                    for (std::vector<MSLane::IncomingLaneInfo>::const_iterator j=followers.begin(); j!=followers.end(); ++j) {
+                        if (visited.find((*j).lane)==visited.end()) {
+                            visited.insert((*j).lane);
+                            MSLane::IncomingLaneInfo ili;
+                            ili.lane = (*j).lane;
+                            ili.length = (*j).length + (*i).length;
+                            ili.viaLink = (*j).viaLink;
+                            newFound.push_back(ili);
                         }
                     }
                 }
-                toExamine.clear();
-                swap(newFound, toExamine);
             }
-            if(possible.size()==0) {
-                return std::pair<MSVehicle *, SUMOReal>(0, -1);
-            }
-            sort(possible.begin(), possible.end(), by_second_sorter());
-            return *(possible.begin());
+        }
+        toExamine.clear();
+        swap(newFound, toExamine);
+    }
+    if (possible.size()==0) {
+        return std::pair<MSVehicle *, SUMOReal>(0, -1);
+    }
+    sort(possible.begin(), possible.end(), by_second_sorter());
+    return *(possible.begin());
 }
 
 
-void 
+void
 MSLane::leftByLaneChange(MSVehicle *v)
 {
     myVehicleLengthSum -= v->getLength();
 }
 
 
-void 
+void
 MSLane::enteredByLaneChange(MSVehicle *v)
 {
     myVehicleLengthSum += v->getLength();

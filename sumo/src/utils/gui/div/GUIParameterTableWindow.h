@@ -82,7 +82,7 @@ public:
     /** @brief Closes the building of the table
      *
      * Adds the table to the list of child windows of the applications also
-     *  telling the application that the window should be updated in each 
+     *  telling the application that the window should be updated in each
      *  simulation step. Shows the table.
      *
      * @see GUIMainWindow::addChild
@@ -180,7 +180,7 @@ public:
     long onTableDeselected(FXObject*,FXSelector,void*);
 
     /** @brief Shows a popup
-     * 
+     *
      * Callback for right-mouse-button pressing event. Obtains the selected row
      *  and determines whether it is dynamic. If so, a popup-menu which allows
      *  to open a tracker for this value is built and shown.

@@ -42,7 +42,7 @@
 /**
  * @class GLHelper
  * @brief Some methods which help to draw certain geometrical objects in openGL
- * 
+ *
  * This class offers some static methods for drawing primitives in openGL.
  */
 class GLHelper
@@ -83,7 +83,7 @@ public:
                             SUMOReal rot, SUMOReal visLength, SUMOReal width) throw();
 
 
-    /** @brief Draws thick lines 
+    /** @brief Draws thick lines
      *
      * Each line is drawn using drawBoxLine.
      *
@@ -115,11 +115,11 @@ public:
                              SUMOReal width) throw();
 
 
-    /** @brief Draws thick lines 
+    /** @brief Draws thick lines
      *
-     * Widths and length are computed internally by this method, each line is then 
+     * Widths and length are computed internally by this method, each line is then
      *  drawn using drawBoxLine.
-     * 
+     *
      * @param[in] geom The list of begin positions of the lines
      * @param[in] width The width of the lines
      * @see drawBoxLine

@@ -138,7 +138,7 @@ MSVehicle::~MSVehicle() throw()
     if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)!=myPointerCORNMap.end()) {
         ReplacedRoutesVector *v = (ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE];
         for (ReplacedRoutesVector::iterator i=v->begin(); i!=v->end(); ++i) {
-            if(!(*i).route->inFurtherUse()) {
+            if (!(*i).route->inFurtherUse()) {
                 delete(*i).route;
             }
         }
@@ -160,7 +160,7 @@ MSVehicle::~MSVehicle() throw()
     }
     delete myLaneChangeModel;
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-    	delete (*dev);
+        delete(*dev);
     }
     myDevices.clear();
 #ifdef TRACI
@@ -212,13 +212,13 @@ MSVehicle::MSVehicle(string id,
         myOldLaneMoveReminders(0),
         myOldLaneMoveReminderOffsets(0)
 #ifdef TRACI
-		,myWeightChangedViaTraci(false),
-		adaptingSpeed(false),
-		isLastAdaption(false),
-		speedBeforeAdaption(0),
-		timeBeforeAdaption(0),
-		speedReduction(0),
-		adaptDuration(0)
+        ,myWeightChangedViaTraci(false),
+        adaptingSpeed(false),
+        isLastAdaption(false),
+        speedBeforeAdaption(0),
+        timeBeforeAdaption(0),
+        speedReduction(0),
+        adaptDuration(0)
 #endif
 {
     rebuildAllowedLanes();
@@ -369,7 +369,7 @@ void
 MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
 {
 #ifdef TRACI
-	adaptSpeed();
+    adaptSpeed();
 #endif
     // reset move information
     myTarget = 0;
@@ -479,7 +479,7 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
                                  const MSVehicle* /*neigh*/)
 {
 #ifdef TRACI
-	adaptSpeed();
+    adaptSpeed();
 #endif
     myLFLinkLanes.clear();
     // check whether the vehicle is not on an appropriate lane
@@ -838,9 +838,9 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
             SUMOReal dist2Pred = seen;
             if (nextLane->getLastVehicle()!=0) {
                 SUMOReal nextVehicleLength = nextLane->getLastVehicle()->getLength();
-                if(nextLanePred.pos() - nextVehicleLength < 0) {
+                if (nextLanePred.pos() - nextVehicleLength < 0) {
                     // the end of pred is beyond his lane's end
-                    if(nextVehicleLength>=(*link)->getLength()) {
+                    if (nextVehicleLength>=(*link)->getLength()) {
                         // the end is on our lane -> we may drive up to the min of
                         // a) pred's end
                         // b) lane's end
@@ -852,12 +852,12 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                 }
                 /*
                 if(nextLanePred.pos() - nextVehicleLength < 0 && nextVehicleLength<(*link)->getLength()) {
-                    // the end of pred is beyond his lane's end, but not yet on our 
+                    // the end of pred is beyond his lane's end, but not yet on our
                     //  we may drive until the end of the lane
                     dist2Pred = -1;//dist2Pred;//MAX2(dist2Pred, dist2Pred + nextLanePred.pos() - nextVehicleLength + (*link)->getLength());
                 } else {
-                    // either pred's end is not beyond his lane, or, 
-                    //  it is beyond his lane and 
+                    // either pred's end is not beyond his lane, or,
+                    //  it is beyond his lane and
                     dist2Pred = dist2Pred + nextLanePred.pos() - nextVehicleLength;
                 }
                 */
@@ -1015,7 +1015,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool inBetweenJ
     }
 
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-    	(*dev)->enterLaneAtMove(enteredLane, driven, inBetweenJump);
+        (*dev)->enterLaneAtMove(enteredLane, driven, inBetweenJump);
     }
     if (MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleMoves(this);
@@ -1033,7 +1033,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane)
     rebuildAllowedLanes();
     activateRemindersByEmitOrLaneChange();
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-    	(*dev)->enterLaneAtLaneChange(enteredLane);
+        (*dev)->enterLaneAtLaneChange(enteredLane);
     }
 }
 
@@ -1050,7 +1050,7 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, const State &state)
     myMoveReminders = enteredLane->getMoveReminders();
     activateRemindersByEmitOrLaneChange();
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-    	(*dev)->enterLaneAtEmit(enteredLane, state);
+        (*dev)->enterLaneAtEmit(enteredLane, state);
     }
 }
 
@@ -1071,7 +1071,7 @@ void
 MSVehicle::leaveLaneAtLaneChange(void)
 {
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-    	(*dev)->leaveLaneAtLaneChange();
+        (*dev)->leaveLaneAtLaneChange();
     }
     // dismiss the old lane's reminders
     SUMOReal savePos = myState.myPos; // have to do this due to SUMOReal-precision errors
@@ -1143,7 +1143,7 @@ MSVehicle::getNextPeriodical() const
     }
     MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();
     string nid = StringUtils::version1(myID);
-    while(vc.getVehicle(nid)!=0) {
+    while (vc.getVehicle(nid)!=0) {
         nid = StringUtils::version1(nid);
     }
     MSVehicle *ret = vc.buildVehicle(
@@ -1274,7 +1274,7 @@ MSVehicle::onTripEnd()
     }
     myQuitReminded.clear();
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-    	(*dev)->onTripEnd();
+        (*dev)->onTripEnd();
     }
 }
 
@@ -1372,25 +1372,25 @@ bool
 MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
 {
     // assert the vehicle may continue (must not be "teleported" or whatever to another position)
-    if(find(edges.begin(), edges.end(), *myCurrEdge)==edges.end()) {
+    if (find(edges.begin(), edges.end(), *myCurrEdge)==edges.end()) {
         return false;
     }
 
-    // build a new one 
-        // build a new id, first
+    // build a new one
+    // build a new id, first
     string id = getID();
-    if(id[0]!='!') {
+    if (id[0]!='!') {
         id = "!" + id;
     }
-    if(id.find("!var#")!=string::npos) {
+    if (id.find("!var#")!=string::npos) {
         id = id.substr(0, id.rfind("!var#")+4) + toString(myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1);
     } else {
         id = id + "!var#1";
     }
-        // build the route
+    // build the route
     MSRoute *newRoute = new MSRoute(id, edges, false);
-        // and add it to the container (!!!what for? It will never be used again!?)
-    if(!MSRoute::dictionary(id, newRoute)) {
+    // and add it to the container (!!!what for? It will never be used again!?)
+    if (!MSRoute::dictionary(id, newRoute)) {
         delete newRoute;
         return false;
     }
@@ -1413,7 +1413,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
     } else {
         myPointerCORNMap[MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE] = myRoute;
     }
-    
+
     // assign new route
     myRoute = newRoute;
     // rebuild in-vehicle route information
@@ -1439,7 +1439,7 @@ MSVehicle::getVehicleType() const
 void
 MSVehicle::rebuildAllowedLanes(bool reinit)
 {
-    if(reinit) {
+    if (reinit) {
         myAllowedLanes.clear();
     }
     SUMOReal dist = 0;
@@ -1467,24 +1467,24 @@ MSVehicle::rebuildAllowedLanes(bool reinit)
     }
 }
 
-void 
+void
 MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int seen) const
 {
     // check whether the end of iteration was reached
     ++ce;
     // we end if one of the following cases is true:
-    // a) we have examined the next edges for 3000m (foresight distance) 
+    // a) we have examined the next edges for 3000m (foresight distance)
     //     but only if we have at least examined the next edge
     // b) if we have examined 8 edges in front (!!! this may be shorted)
     // c) if the route does not continue after the seen edges
-    if((seen>4 && oq.length+l->length()>3000) || seen>8 || ce==myRoute->end()) {
+    if ((seen>4 && oq.length+l->length()>3000) || seen>8 || ce==myRoute->end()) {
         // ok, we have rebuilt this so far... do not have to go any further
         return;
     }
     // we must go further...
     // get the list of allowed lanes
     const MSEdge::LaneCont *allowed = 0;
-    if(ce!=myRoute->end()&&ce+1!=myRoute->end()) {
+    if (ce!=myRoute->end()&&ce+1!=myRoute->end()) {
         allowed = (*ce)->allowedLanes(**(ce+1), myType->getVehicleClass());
     }
     // determined recursively what the best lane is
@@ -1494,7 +1494,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
     const MSEdge::LaneCont * const lanes = (*ce)->getLanes();
     const MSLinkCont &lc = l->getLinkCont();
     bool gotOne = false;
-        // we go through all connections of the lane to examine
+    // we go through all connections of the lane to examine
     for (MSLinkCont::const_iterator k=lc.begin(); k!=lc.end(); ++k) {
         // prese values
         LaneQ q;
@@ -1510,21 +1510,21 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
             gotOne = true;
             rebuildContinuationsFor(q, qqq, ce, seen+1);
         } else {
-            // no -> if the lane belongs to an edge not in our route, 
+            // no -> if the lane belongs to an edge not in our route,
             //  reset values to zero (otherwise the lane but not its continuations)
             //  will still be regarded
-            if((*k)->getLane()->getEdge()!=*(ce)) {
+            if ((*k)->getLane()->getEdge()!=*(ce)) {
                 q.hindernisPos = 0;
                 q.length = 0;
             }
         }
         // set best lane information
-        if(q.length>best.length) {
+        if (q.length>best.length) {
             best = q;
         }
     }
     // check whether we need to change the lane on this edge in any case
-    if(!gotOne) {
+    if (!gotOne) {
         // yes, that's the case - we are on an edge on which we have to change
         //  the lane no matter which lanes we are using so far.
         // we have to tell the vehicle the best lane so far...
@@ -1537,8 +1537,8 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
         int bestPos = 0;
         MSLane *next = 0;
         // we go over the next edge's lanes and determine the first that may be used
-        for(MSEdge::LaneCont::const_iterator i=lanes->begin(); !oneFound&&i!=lanes->end();) {
-            if(find(allowed->begin(), allowed->end(), *i)!=allowed->end()) {
+        for (MSEdge::LaneCont::const_iterator i=lanes->begin(); !oneFound&&i!=lanes->end();) {
+            if (find(allowed->begin(), allowed->end(), *i)!=allowed->end()) {
                 oneFound = true;
                 next = *i;
             } else {
@@ -1547,7 +1547,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
             }
         }
         // ... it is now stored in next and its position in bestPos
-        if(oneFound) {
+        if (oneFound) {
             // ok, we have found a best lane
             //  (in fact, this should be the case if the route is valid, nonetheless...)
             // now let's say that the best lane is the nearest one to the found
@@ -1555,16 +1555,16 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
             MSLane *bestL = 0;
             // go over all lanes of current edge
             const MSEdge::LaneCont * const clanes = l->getEdge()->getLanes();
-            for(MSEdge::LaneCont::const_iterator i=clanes->begin(); i!=clanes->end(); ++i) {
+            for (MSEdge::LaneCont::const_iterator i=clanes->begin(); i!=clanes->end(); ++i) {
                 // go over all connected lanes
                 for (MSLinkCont::const_iterator k=lc.begin(); k!=lc.end(); ++k) {
                     // the best lane must be on the proper edge
-                    if((*k)->getLane()->getEdge()==*(ce)) {
+                    if ((*k)->getLane()->getEdge()==*(ce)) {
                         MSEdge::LaneCont::const_iterator l=find(lanes->begin(), lanes->end(), (*k)->getLane());
-                        if(l!=lanes->end()) {
+                        if (l!=lanes->end()) {
                             int pos = distance(lanes->begin(), l);
                             int cdist = abs(pos-bestPos);
-                            if(bestDistance==-100||bestDistance>cdist) {
+                            if (bestDistance==-100||bestDistance>cdist) {
                                 bestDistance = cdist;
                                 bestL = *i;
                             }
@@ -1572,7 +1572,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
                     }
                 }
             }
-            if(bestL==l) {
+            if (bestL==l) {
                 best.hindernisPos = next->getVehLenSum();
                 best.length = next->length();
             } else {
@@ -1603,7 +1603,7 @@ MSVehicle::getBestLanes() const
                 v += (*j)->getVehLenSum();
             }
             (*i).v = v;
-            if((*i).lane==myLane) {
+            if ((*i).lane==myLane) {
                 myCurrentLaneInBestLanes = i;
             }
         }
@@ -1616,10 +1616,10 @@ MSVehicle::getBestLanes() const
     MSRouteIterator ce = myCurrEdge;
     int seen = 0;
     const MSEdge::LaneCont *allowed = 0;
-    if(ce!=myRoute->end()&&ce+1!=myRoute->end()) {
+    if (ce!=myRoute->end()&&ce+1!=myRoute->end()) {
         allowed = (*ce)->allowedLanes(**(ce+1), myType->getVehicleClass());
     }
-    for(MSEdge::LaneCont::const_iterator i=lanes->begin(); i!=lanes->end(); ++i) {
+    for (MSEdge::LaneCont::const_iterator i=lanes->begin(); i!=lanes->end(); ++i) {
         LaneQ q;
         q.lane = *i;
         //q.laneLength2 = 0;//q.lane->length();
@@ -1629,9 +1629,9 @@ MSVehicle::getBestLanes() const
         q.t1 = allowed==0||find(allowed->begin(), allowed->end(), q.lane)!=allowed->end();
         myBestLanes[0].push_back(q);
     }
-    if(ce!=myRoute->end()) {
-        for(std::vector<MSVehicle::LaneQ>::iterator i=myBestLanes.begin()->begin(); i!=myBestLanes.begin()->end(); ++i) {
-            if((*i).t1) {
+    if (ce!=myRoute->end()) {
+        for (std::vector<MSVehicle::LaneQ>::iterator i=myBestLanes.begin()->begin(); i!=myBestLanes.begin()->end(); ++i) {
+            if ((*i).t1) {
                 rebuildContinuationsFor((*i), (*i).lane, ce, seen);
                 (*i).length += (*i).lane->length();
                 (*i).hindernisPos += (*i).lane->getVehLenSum();
@@ -1642,17 +1642,17 @@ MSVehicle::getBestLanes() const
     SUMOReal best = 0;
     int index = 0;
     int run = 0;
-    for(std::vector<MSVehicle::LaneQ>::iterator i=myBestLanes.begin()->begin(); i!=myBestLanes.begin()->end(); ++i, ++run) {
-        if(best<(*i).length) {
+    for (std::vector<MSVehicle::LaneQ>::iterator i=myBestLanes.begin()->begin(); i!=myBestLanes.begin()->end(); ++i, ++run) {
+        if (best<(*i).length) {
             best = (*i).length;
             index = run;
         }
-        if((*i).lane==myLane) {
+        if ((*i).lane==myLane) {
             myCurrentLaneInBestLanes = i;
         }
     }
     run = 0;
-    for(std::vector<MSVehicle::LaneQ>::iterator i=myBestLanes.begin()->begin(); i!=myBestLanes.begin()->end(); ++i, ++run) {
+    for (std::vector<MSVehicle::LaneQ>::iterator i=myBestLanes.begin()->begin(); i!=myBestLanes.begin()->end(); ++i, ++run) {
         (*i).dir =  index - run;
     }
 
@@ -1766,13 +1766,13 @@ MSVehicle::getEffort(const MSEdge * const e, SUMOTime t) const
 {
 #ifdef TRACI
     if (infoCont.find(e)!=infoCont.end()) {
-	    return infoCont.find(e)->second->neededTime;
+        return infoCont.find(e)->second->neededTime;
     }
 #endif
-	for (vector< MSDevice* >::const_iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
+    for (vector< MSDevice* >::const_iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         SUMOReal deviceEffort = (*dev)->getEffort(e, t);
         if (deviceEffort >= 0) {
-        	return deviceEffort; // the first device wins 
+            return deviceEffort; // the first device wins
         }
     }
     return -1;
@@ -1782,23 +1782,23 @@ MSVehicle::getEffort(const MSEdge * const e, SUMOTime t) const
 const std::vector<MSLane*> &
 MSVehicle::getBestLanesContinuation() const
 {
-    if(myBestLanes.empty()||myBestLanes[0].empty()) {
+    if (myBestLanes.empty()||myBestLanes[0].empty()) {
         return myEmptyLaneVector;
     }
     return (*myCurrentLaneInBestLanes).joined;
 }
 
 
-SUMOReal 
+SUMOReal
 MSVehicle::getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane) const
 {
-    if(searchedLane==myLane) {
+    if (searchedLane==myLane) {
         return myState.myPos;
     }
     vector< MSMoveReminder* >::const_iterator rem = myOldLaneMoveReminders.begin();
     std::vector<SUMOReal>::const_iterator off = myOldLaneMoveReminderOffsets.begin();
     for (; rem!=myOldLaneMoveReminders.end()&&off!=myOldLaneMoveReminderOffsets.end(); ++rem, ++off) {
-        if((*rem)->getLane()==searchedLane) {
+        if ((*rem)->getLane()==searchedLane) {
             return (*off) + myState.myPos;
         }
     }
@@ -1814,51 +1814,51 @@ MSVehicle::checkReroute(SUMOTime t)
 {
     if (myWeightChangedViaTraci && myHaveRouteInfo && myStops.size()==0) {
         myHaveRouteInfo = false;
-		reroute(t);
+        reroute(t);
     }
 }
 
-bool 
+bool
 MSVehicle::changeEdgeWeightLocally(std::string edgeID, double travelTime, SUMOTime currentTime)
 {
-	MSEdge* edgeToChange = MSEdge::dictionary(edgeID);
-	double oldNeededTime = -1;
-	SUMOTime oldTime = -1;
+    MSEdge* edgeToChange = MSEdge::dictionary(edgeID);
+    double oldNeededTime = -1;
+    SUMOTime oldTime = -1;
 
-	if (edgeToChange == NULL || travelTime <= 0) {
-		return false;
-	}
+    if (edgeToChange == NULL || travelTime <= 0) {
+        return false;
+    }
 
-	InfoCont::iterator infoToChange = infoCont.find(edgeToChange);
-	
-	if (infoToChange == infoCont.end()) {
-		// if the edge is not already stored in infoCont, create a new key
-		infoCont[edgeToChange] = new Information(travelTime, currentTime);
-	} else {
-		// otherwise, alter the existing information
-		oldNeededTime = (*infoToChange).second->neededTime;
-		oldTime = (*infoToChange).second->time;
-		(*infoToChange).second->time = currentTime;
-		(*infoToChange).second->neededTime = travelTime;
-	}
+    InfoCont::iterator infoToChange = infoCont.find(edgeToChange);
 
-	// check wether this edge has not been changed by TraCI before, if so, save the old data
-	// and lock this edge, so that it's weight will not be changed in the future except by 
-	// another "changeRoute" TraCI message
-	InfoCont::iterator iter = edgesChangedByTraci.find(edgeToChange);
-	if (iter == edgesChangedByTraci.end()) {
-		edgesChangedByTraci[edgeToChange] = new Information(oldNeededTime, oldTime);
-	}
+    if (infoToChange == infoCont.end()) {
+        // if the edge is not already stored in infoCont, create a new key
+        infoCont[edgeToChange] = new Information(travelTime, currentTime);
+    } else {
+        // otherwise, alter the existing information
+        oldNeededTime = (*infoToChange).second->neededTime;
+        oldTime = (*infoToChange).second->time;
+        (*infoToChange).second->time = currentTime;
+        (*infoToChange).second->neededTime = travelTime;
+    }
 
-	myWeightChangedViaTraci = true;
+    // check wether this edge has not been changed by TraCI before, if so, save the old data
+    // and lock this edge, so that it's weight will not be changed in the future except by
+    // another "changeRoute" TraCI message
+    InfoCont::iterator iter = edgesChangedByTraci.find(edgeToChange);
+    if (iter == edgesChangedByTraci.end()) {
+        edgesChangedByTraci[edgeToChange] = new Information(oldNeededTime, oldTime);
+    }
 
-	// if the edge is on the vehicle's route, mark that a relevant information has been added
+    myWeightChangedViaTraci = true;
+
+    // if the edge is on the vehicle's route, mark that a relevant information has been added
     bool bWillPass = willPass(edgeToChange);
     if (bWillPass) {
         myHaveRouteInfo = true;
     }
 
-	return true;
+    return true;
 }
 
 /****************************************************************************/
@@ -1866,33 +1866,33 @@ MSVehicle::changeEdgeWeightLocally(std::string edgeID, double travelTime, SUMOTi
 bool
 MSVehicle::restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime)
 {
-	MSEdge *edgeToRestore = MSEdge::dictionary(edgeID);
+    MSEdge *edgeToRestore = MSEdge::dictionary(edgeID);
 
-	if (edgeToRestore == NULL) {
-		return false;
-	}
+    if (edgeToRestore == NULL) {
+        return false;
+    }
 
-	InfoCont::iterator infoToRestore;
+    InfoCont::iterator infoToRestore;
 
-	if (edgesChangedByTraci.end() != (infoToRestore = edgesChangedByTraci.find(edgeToRestore))) {
-		if (infoToRestore->second->time == -1) {
+    if (edgesChangedByTraci.end() != (infoToRestore = edgesChangedByTraci.find(edgeToRestore))) {
+        if (infoToRestore->second->time == -1) {
 
-			// the edge was not known to the vehicle before any TraCI message, so it is
-			// deleted now
-			infoCont.erase(infoCont.find(edgeToRestore));
-		} else {
+            // the edge was not known to the vehicle before any TraCI message, so it is
+            // deleted now
+            infoCont.erase(infoCont.find(edgeToRestore));
+        } else {
 
-			// the edge was already known to the vehicle, so it's original data (before any TraCI message
-			// was sent) is restored
-			infoCont[edgeToRestore]->neededTime = (*infoToRestore).second->neededTime;
-			infoCont[edgeToRestore]->time = (*infoToRestore).second->time;	
-		}
-		edgesChangedByTraci.erase(infoToRestore);
-	} else {
-		return false;
-	}
+            // the edge was already known to the vehicle, so it's original data (before any TraCI message
+            // was sent) is restored
+            infoCont[edgeToRestore]->neededTime = (*infoToRestore).second->neededTime;
+            infoCont[edgeToRestore]->time = (*infoToRestore).second->time;
+        }
+        edgesChangedByTraci.erase(infoToRestore);
+    } else {
+        return false;
+    }
 
-	return true;
+    return true;
 }
 
 /****************************************************************************/
@@ -1900,47 +1900,47 @@ MSVehicle::restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime)
 bool
 MSVehicle::startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime currentTime)
 {
-	if (newSpeed < 0 || duration <= 0 || newSpeed >= getSpeed()) {
-		return false;
-	}
+    if (newSpeed < 0 || duration <= 0 || newSpeed >= getSpeed()) {
+        return false;
+    }
 
-	speedBeforeAdaption = getSpeed();
-	timeBeforeAdaption = currentTime;
-	adaptDuration = duration;
-	speedReduction = speedBeforeAdaption - newSpeed;
+    speedBeforeAdaption = getSpeed();
+    timeBeforeAdaption = currentTime;
+    adaptDuration = duration;
+    speedReduction = speedBeforeAdaption - newSpeed;
 
-	adaptingSpeed = true;
+    adaptingSpeed = true;
 
-	return true;
+    return true;
 }
 
 /****************************************************************************/
 
-void 
-MSVehicle::adaptSpeed() 
+void
+MSVehicle::adaptSpeed()
 {
-	SUMOReal maxSpeed = 0;
-	SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
+    SUMOReal maxSpeed = 0;
+    SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
 
-	if (!adaptingSpeed) {
-		return;
-	}
+    if (!adaptingSpeed) {
+        return;
+    }
 
-	if (isLastAdaption) {
-		unsetIndividualMaxSpeed();
-		adaptingSpeed = false;
-		return;
-	}
+    if (isLastAdaption) {
+        unsetIndividualMaxSpeed();
+        adaptingSpeed = false;
+        return;
+    }
 
-	if (currentTime <= timeBeforeAdaption + adaptDuration) {
-		maxSpeed = speedBeforeAdaption - (speedReduction / adaptDuration) 
-					* (currentTime - timeBeforeAdaption);
-	} else {
-		maxSpeed = speedBeforeAdaption - speedReduction;
-		isLastAdaption = true;
-	}
+    if (currentTime <= timeBeforeAdaption + adaptDuration) {
+        maxSpeed = speedBeforeAdaption - (speedReduction / adaptDuration)
+                   * (currentTime - timeBeforeAdaption);
+    } else {
+        maxSpeed = speedBeforeAdaption - speedReduction;
+        isLastAdaption = true;
+    }
 
-	setIndividualMaxSpeed(maxSpeed);
+    setIndividualMaxSpeed(maxSpeed);
 }
 
 #endif

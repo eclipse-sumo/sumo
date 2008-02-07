@@ -112,7 +112,7 @@ NLEdgeControlBuilder::chooseEdge(const string &id,
     m_pDepartLane = (MSLane*) 0;
     m_pAllowedLanes = new MSEdge::AllowedLanesCont();
     m_Function = function;
-    if(inner) {
+    if (inner) {
         m_Function = MSEdge::EDGEFUNCTION_INNERJUNCTION;
     }
     myIsInner = inner;
@@ -232,7 +232,7 @@ NLEdgeControlBuilder::closeEdge()
         throw InvalidArgument("Something is corrupt within the definition of lanes for the edge '" + myActiveEdge->getID() + "'.");
     }
     myActiveEdge->initialize(m_pAllowedLanes, m_pDepartLane,
-                              m_pLanes, m_Function);
+                             m_pLanes, m_Function);
     m_pLanes = 0;
     return myActiveEdge;
 }

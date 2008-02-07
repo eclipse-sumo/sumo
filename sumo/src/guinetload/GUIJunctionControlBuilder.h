@@ -78,19 +78,19 @@ protected:
     /// @{
 
     /** @brief Builds a junction that does not use a logic
-     * 
+     *
      * Builds a GUINoLogicJunction
-     * 
+     *
      * @return The built junction
      */
     virtual MSJunction *buildNoLogicJunction() throw();
 
 
     /** @brief Builds a junction with a logic
-     * 
+     *
      * Builds a GUIRightOfWayJunction. Throws an exception if the logic was not built
      *  (see getJunctionLogicSecure).
-     * 
+     *
      * @return The built junction
      * @exception InvalidArgument If the logic of the junction was not built before
      */

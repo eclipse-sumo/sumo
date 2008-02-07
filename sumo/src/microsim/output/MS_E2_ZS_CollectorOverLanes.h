@@ -66,7 +66,7 @@ public:
     typedef std::vector< MSE2Collector* > CollectorCont;
 
     /** @brief Constructor
-     * 
+     *
      * @param[in] id The id of the detector
      * @param[in] usage Information how the detector is used
      * @param[in] lane The lane the detector starts at
@@ -78,16 +78,16 @@ public:
      * @todo The lane should not be given as a pointer
      */
     MS_E2_ZS_CollectorOverLanes(const std::string &id,
-        DetectorUsage usage, MSLane* lane, SUMOReal startPos,
-        SUMOTime haltingTimeThreshold, MetersPerSecond haltingSpeedThreshold,
-        SUMOReal jamDistThreshold) throw();
+                                DetectorUsage usage, MSLane* lane, SUMOReal startPos,
+                                SUMOTime haltingTimeThreshold, MetersPerSecond haltingSpeedThreshold,
+                                SUMOReal jamDistThreshold) throw();
 
 
     /** @brief Builds the consecutive E2-detectors
      *
      * This is not done within the constructor to allow overriding of
      *  most functions but the building of detectors itself which in fact
-     *  is depending on whether the normal or the gui-version is used 
+     *  is depending on whether the normal or the gui-version is used
      * @param[in] lane The lane the detector starts at
      * @param[in] startPos Begin position of the detector
      * @param[in] edgeContinuations Information about how the lanes are continued
@@ -150,14 +150,14 @@ public:
      *
      * @return This detector's length in meters
      */
-    SUMOReal getLength() const  throw(){
+    SUMOReal getLength() const  throw() {
         return myLength;
     }
 
 protected:
     /** @brief This method extends the current length up to the given
      *
-     * This method is called consecutively until all paths have the desired length 
+     * This method is called consecutively until all paths have the desired length
      *
      * @param[in] length !!!
      * @param[in] edgeContinuations Information about how the lanes are continued

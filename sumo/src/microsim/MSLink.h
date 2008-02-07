@@ -47,11 +47,11 @@ class MSTrafficLightLogic;
  * @class MSLinks
  * @brief A connnection between lanes
  *
- * Each link lies within a junction. 
+ * Each link lies within a junction.
  *
  * A link is basically a connection between two lanes, stored within the
- *  originating (the one that is being left) lane and pointing to the 
- *  approached lane. When using inner-junction simulation, additionally 
+ *  originating (the one that is being left) lane and pointing to the
+ *  approached lane. When using inner-junction simulation, additionally
  *  a "via-lane" is stored, the one that is used to cross the junction
  *  and which represents the links shape.
  *
@@ -61,7 +61,7 @@ class MSTrafficLightLogic;
  *  vehicle really may drive (the "respond").
  *
  * Because a link is a connection over a junction, it basically also has a
- *  length. This length is needed to assure that vehicles have the correct halting 
+ *  length. This length is needed to assure that vehicles have the correct halting
  *  distance before approaching the link.
  *
  * @todo Check whether links with via-lanes should be subclassed
@@ -72,9 +72,9 @@ public:
     /**
      * @enum LinkState
      * @brief The right-of-way state of this link
-     * 
+     *
      * This enumerations holds the possible right-of-way rules a link
-     *  may have. Beyond the righ-of-way rules, this enumeration also 
+     *  may have. Beyond the righ-of-way rules, this enumeration also
      *  holds the possible traffic light states.
      */
     enum LinkState {
@@ -123,7 +123,7 @@ public:
 
 #ifndef HAVE_INTERNAL_LANES
     /** @brief Constructor for simulation not using internal lanes
-     * 
+     *
      * @param[in] succLane The lane approached by this link
      * @param[in] yield Information whether vehicles have to decelerate in front of this link
      * @param[in] dir The direction of this link
@@ -133,16 +133,16 @@ public:
            bool yield, LinkDirection dir, LinkState state, SUMOReal length) throw();
 #else
     /** @brief Constructor for simulation which uses internal lanes
-     * 
-     * @param[in] succLane The lane approached by this link
-     * @param[in] via The lane to use within the junction
-     * @param[in] yield Information whether vehicles have to decelerate in front of this link
-     * @param[in] dir The direction of this link
-     * @param[in] state The state of this link
-     * @param[in] internalEnd Information whether this link is followed by a second junction-internal link
-     */
+    *
+    * @param[in] succLane The lane approached by this link
+    * @param[in] via The lane to use within the junction
+    * @param[in] yield Information whether vehicles have to decelerate in front of this link
+    * @param[in] dir The direction of this link
+    * @param[in] state The state of this link
+    * @param[in] internalEnd Information whether this link is followed by a second junction-internal link
+    */
     MSLink(MSLane* succLane, MSLane *via,
-           bool yield, LinkDirection dir, LinkState state, bool internalEnd, 
+           bool yield, LinkDirection dir, LinkState state, bool internalEnd,
            SUMOReal length) throw();
 #endif
 
@@ -208,7 +208,7 @@ public:
 
     /** @brief Removes the incoming vehicle's request
      *
-     * Necessary to mask out vehicles having yellow or red. 
+     * Necessary to mask out vehicles having yellow or red.
      */
     void deleteRequest() throw();
 
@@ -272,7 +272,7 @@ public:
     MSLane * const getViaLane() const throw();
 
 
-    /** @brief Checks whether the link may drive 
+    /** @brief Checks whether the link may drive
      *
      * Use for inner-lane simulation. Has to be rechecked/described
      *

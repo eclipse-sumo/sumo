@@ -103,8 +103,8 @@ TraCIServer::~TraCIServer()
 void
 TraCIServer::run()
 {
-   // Prepare simulation
-   MSNet::getInstance()->initialiseSimulation();
+    // Prepare simulation
+    MSNet::getInstance()->initialiseSimulation();
 
     try {
         // Opens listening socket
@@ -139,7 +139,7 @@ TraCIServer::run()
     }
 
     MSNet::getInstance()->closeSimulation(beginTime_, endTime_);
-    
+
 }
 
 /*****************************************************************************/
@@ -166,12 +166,12 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
     case CMD_CHANGELANE:
         commandChangeLane(requestMsg, respMsg);
         break;
-	case CMD_CHANGEROUTE:
-		commandChangeRoute(requestMsg, respMsg);
-		break;
-	case CMD_GETALLTLIDS:
-		commandGetAllTLIds(requestMsg, respMsg);
-		break;
+    case CMD_CHANGEROUTE:
+        commandChangeRoute(requestMsg, respMsg);
+        break;
+    case CMD_GETALLTLIDS:
+        commandGetAllTLIds(requestMsg, respMsg);
+        break;
     case CMD_CLOSE:
         commandCloseConnection(requestMsg, respMsg);
         break;
@@ -227,17 +227,16 @@ throw(TraCIException)
     MSNet *net = MSNet::getInstance();
     SUMOTime currentTime = net->getCurrentTimeStep();
 
-	// for each vehicle, try to reroute in case of previous "changeRoute" messages
-	for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin(); 
-			iter != equippedVehicles_.end(); ++iter) {
-      if ((*iter).second != -1) 
-      {  // Look only at equipped vehicles
-		   MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
-		   if (veh != NULL) {
-   			veh->checkReroute(currentTime);
-		   }
-      }
-	}
+    // for each vehicle, try to reroute in case of previous "changeRoute" messages
+    for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin();
+            iter != equippedVehicles_.end(); ++iter) {
+        if ((*iter).second != -1) { // Look only at equipped vehicles
+            MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
+            if (veh != NULL) {
+                veh->checkReroute(currentTime);
+            }
+        }
+    }
 
     // TargetTime
     SUMOTime targetTime = static_cast<SUMOTime>(requestMsg.readDouble()) + beginTime_;
@@ -349,47 +348,47 @@ void
 TraCIServer::commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
 throw(TraCIException)
 {
-	std::string roadID;
-	std::string laneID = "";
-	float lanePos;
-	unsigned char laneIDNum;
+    std::string roadID;
+    std::string laneID = "";
+    float lanePos;
+    unsigned char laneIDNum;
 
     // NodeId
     MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
 
     // StopPosition
-	unsigned char posType = requestMsg.readUnsignedByte();	// position type
-	if (posType == POSITION_ROADMAP) {
-		// road-id
-		roadID = requestMsg.readString();
-		// position on lane
-		lanePos = requestMsg.readFloat();
-		// numerical lane-id
-		laneIDNum = requestMsg.readUnsignedByte();
+    unsigned char posType = requestMsg.readUnsignedByte();	// position type
+    if (posType == POSITION_ROADMAP) {
+        // road-id
+        roadID = requestMsg.readString();
+        // position on lane
+        lanePos = requestMsg.readFloat();
+        // numerical lane-id
+        laneIDNum = requestMsg.readUnsignedByte();
 
-		if (lanePos < 0) {
-			writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
-		}
+        if (lanePos < 0) {
+            writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
+        }
 
-		// search for corresponding string-lane-id
-		MSEdge* road = MSEdge::dictionary(roadID);
-		if (road == NULL) {
-			writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Unable to retrieve road with given id");
-		}
-		const MSEdge::LaneCont* const lanes = road->getLanes();
-		//for (int i=0; i < lanes->size(); i++) {
-		for (MSEdge::LaneCont::const_iterator iter = lanes->begin(); iter != lanes->end(); iter++) {
-			//if (lanes[i] getNumericalID == laneIDNum) {
-			if ((*iter)->getNumericalID() == laneIDNum) {
-				laneID = (*iter)->getID();
-			}
-		}
-		if (laneID == "") {
-			writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Unable to retrieve lane with given id");
-		}
-	} else {
-		writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Currently not supported or unknown Position Format");
-	}
+        // search for corresponding string-lane-id
+        MSEdge* road = MSEdge::dictionary(roadID);
+        if (road == NULL) {
+            writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Unable to retrieve road with given id");
+        }
+        const MSEdge::LaneCont* const lanes = road->getLanes();
+        //for (int i=0; i < lanes->size(); i++) {
+        for (MSEdge::LaneCont::const_iterator iter = lanes->begin(); iter != lanes->end(); iter++) {
+            //if (lanes[i] getNumericalID == laneIDNum) {
+            if ((*iter)->getNumericalID() == laneIDNum) {
+                laneID = (*iter)->getID();
+            }
+        }
+        if (laneID == "") {
+            writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Unable to retrieve lane with given id");
+        }
+    } else {
+        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Currently not supported or unknown Position Format");
+    }
 
     // Radius
     float radius = requestMsg.readFloat();
@@ -402,18 +401,18 @@ throw(TraCIException)
     }
 
     // Forward command to vehicle
-	if (posType == POSITION_ROADMAP) {
-		// add a new stop to the vehicle
-		MSVehicle::Stop newStop;
-		newStop.busstop = NULL;
-		newStop.duration = waitTime;
-		newStop.lane = MSLane::dictionary(laneID);
-		newStop.pos = lanePos;
-		newStop.reached = false;
-		newStop.until = 0;
+    if (posType == POSITION_ROADMAP) {
+        // add a new stop to the vehicle
+        MSVehicle::Stop newStop;
+        newStop.busstop = NULL;
+        newStop.duration = waitTime;
+        newStop.lane = MSLane::dictionary(laneID);
+        newStop.pos = lanePos;
+        newStop.reached = false;
+        newStop.until = 0;
 
-		veh->addStop(newStop);
-	}
+        veh->addStop(newStop);
+    }
 
     // create a reply message
     writeStatusCmd(respMsg, CMD_STOP, RTYPE_OK, "");
@@ -449,39 +448,38 @@ throw(TraCIException)
 
 /*****************************************************************************/
 void
-	TraCIServer::commandChangeRoute(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-	throw (TraCIException)
+TraCIServer::commandChangeRoute(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+throw(TraCIException)
 {
-	// NodeId
-   int vehId = requestMsg.readInt();
-    MSVehicle* veh = getVehicleByExtId( vehId ); // external node id (equipped vehicle number)
-	// edgeID
-	std::string edgeID = requestMsg.readString();
-	// travelTime
-	double travelTime = requestMsg.readDouble();
+    // NodeId
+    int vehId = requestMsg.readInt();
+    MSVehicle* veh = getVehicleByExtId(vehId);   // external node id (equipped vehicle number)
+    // edgeID
+    std::string edgeID = requestMsg.readString();
+    // travelTime
+    double travelTime = requestMsg.readDouble();
 
-	if ( veh == NULL )
-    {
+    if (veh == NULL) {
         std::ostringstream os;
         os << "Can not retrieve node with ID " << vehId;
         writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, os.str());
         return;
     }
 
-	if (travelTime < 0) {
-		//restore last travel time
-		veh->restoreEdgeWeightLocally(edgeID, MSNet::getInstance()->getCurrentTimeStep());
-	} else {
-		// change edge weight for the vehicle
-		bool result = veh->changeEdgeWeightLocally(edgeID, travelTime, 
-													MSNet::getInstance()->getCurrentTimeStep());
-		if (!result) {
-			writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Could not set new travel time properly");
-			return;
-		}
-	}
+    if (travelTime < 0) {
+        //restore last travel time
+        veh->restoreEdgeWeightLocally(edgeID, MSNet::getInstance()->getCurrentTimeStep());
+    } else {
+        // change edge weight for the vehicle
+        bool result = veh->changeEdgeWeightLocally(edgeID, travelTime,
+                      MSNet::getInstance()->getCurrentTimeStep());
+        if (!result) {
+            writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Could not set new travel time properly");
+            return;
+        }
+    }
 
-	// create a reply message
+    // create a reply message
     writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_OK, "");
 
     return;
@@ -489,215 +487,212 @@ void
 
 /*****************************************************************************/
 void
-	TraCIServer::commandChangeTarget(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-	throw (TraCIException)
-{
-	// NodeId
-    MSVehicle* veh = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
-	// EdgeId
-	std::string edgeID = requestMsg.readString();
-
-	// destination edge
-	const MSEdge* destEdge = MSEdge::dictionary(edgeID);
-
-	if ( veh == NULL )
-    {
-		writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve node with given ID");
-        return;
-    }
-
-	if ( destEdge == NULL )
-    {
-		writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve road with given ID");
-        return;
-    }
-	
-	// build a new route between the vehicle's current edge and destination edge
-	//std::vector<const MSEdge*> newRoute;
-	MSEdgeVector newRoute;
-	const MSEdge* currentEdge = veh->getEdge();
-	SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
-	router.compute(currentEdge, destEdge, (const MSVehicle* const) veh, 
-					MSNet::getInstance()->getCurrentTimeStep(), newRoute);
-
-	// replace the vehicle's route by the new one
-	veh->replaceRoute(newRoute, MSNet::getInstance()->getCurrentTimeStep());
-
-	// create a reply message
-	writeStatusCmd(respMsg, CMD_CHANGETARGET, RTYPE_OK, "");
-
-	return;
-}
-
-/*****************************************************************************/
-void
-	TraCIServer::commandGetAllTLIds(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-	throw (TraCIException)
-{
-	tcpip::Storage tempMsg;
-
-	// get the TLLogicControl
-	MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
-	// get the ids
-	std::vector<std::string> idList = tlsControl.getAllTLIds();
-
-	if (idList.size() == 0) {
-		// create negative response message
-		writeStatusCmd(respMsg, CMD_GETALLTLIDS, RTYPE_ERR, "Could not retrieve any traffic light id");	
-		return;
-	} 
-
-	// create positive response message 
-	writeStatusCmd(respMsg, CMD_GETALLTLIDS, RTYPE_OK, "");
-
-	// create a response command for each string id
-	for (std::vector<std::string>::iterator iter = idList.begin(); iter != idList.end(); iter++)
-	{
-		// command length
-		respMsg.writeByte(2 + (*iter).size());
-		// command type
-		respMsg.writeByte(CMD_TLIDLIST);
-		// id string
-		respMsg.writeString((*iter));
-	}
-}
-
-/*****************************************************************************/
-void
-	TraCIServer::commandGetTLStatus(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-	throw (TraCIException)
-{
-	tcpip::Storage tempMsg;
-
-	// trafic light id
-	std::string id = requestMsg.readString();
-	// start of time interval
-	double timeFrom = requestMsg.readDouble();
-	// end of time interval
-	double timeTo = requestMsg.readDouble();
-
-	// get the running programm of the traffic light
-	MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
-	MSTrafficLightLogic* const tlLogic = tlsControl.get(id).getActive();
-
-	// error checking
-	if (tlLogic == NULL) {
-		writeStatusCmd(respMsg, CMD_GETTLSTATUS, RTYPE_ERR, "Could not retrieve traffic light with given id");	
-		return;
-	}
-	if ((timeTo < timeFrom) || (timeTo < 0) || (timeFrom < 0)) {
-		writeStatusCmd(respMsg, CMD_GETALLTLIDS, RTYPE_ERR, "The given time interval is not valid");	
-		return;
-	}
-
-	// acknowledge the request
-	writeStatusCmd(respMsg, CMD_GETTLSTATUS, RTYPE_OK, "");
-	
-	std::vector<MSLink::LinkState> linkStates;
-	std::vector<double> yellowTimes;
-	size_t lastStep = tlLogic->getStepNo();
-	MSPhaseDefinition phase = tlLogic->getCurrentPhaseDef();
-	MSTrafficLightLogic::LinkVectorVector affectedLinks = tlLogic->getLinks();
-	
-	// save the current link states
-	for (int i = 0; i < affectedLinks.size(); i++) {
-		linkStates.push_back(phase.getLinkState(i));
-		yellowTimes.push_back(0);
-	}
-
-	// check every second of the given time interval for a switch in the traffic light's phases
-	for (int time = timeFrom; time <= timeTo; time++) {
-		size_t position = tlLogic->getPosition(time);
-		size_t currentStep = tlLogic->getStepFromPos(position);
-
-		if (currentStep != lastStep) {
-			lastStep = currentStep;
-			phase = tlLogic->getPhaseFromStep(currentStep);
-
-			// for every link of the tl's junction, compare the actual and the last red/green state
-			for (int i = 0; i < linkStates.size(); i++) {
-				MSLink::LinkState nextLinkState = phase.getLinkState(i);
-
-				if (nextLinkState != linkStates[i]) {
-					linkStates[i] = nextLinkState;
-
-					// get the group of links that is affected by the changed light status
-					MSTrafficLightLogic::LinkVector linkGroup = affectedLinks[i];
-					// get the group of preceding lanes of the link group
-					MSTrafficLightLogic::LaneVector laneGroup = tlLogic->getLanesAt(i);
-
-					if (nextLinkState == MSLink::LINKSTATE_TL_YELLOW) {
-						yellowTimes[i]++;
-					} else {
-
-						// for each link with new red/green status, write a TLSWITCH command
-						for (int j = 0; j < linkGroup.size(); j++) {
-
-							// time of the switch
-							tempMsg.writeDouble(time);	
-							// preceding edeg id
-							tempMsg.writeString(laneGroup[j]->getEdge()->getID());
-							// succeeding edge id
-							tempMsg.writeString(linkGroup[j]->getLane()->getEdge()->getID());	
-							// new status
-							if (nextLinkState == MSLink::LINKSTATE_TL_RED) {
-								tempMsg.writeString("red");	
-							} else {
-								tempMsg.writeString("green");	
-							}
-							//yellow time
-							tempMsg.writeDouble(yellowTimes[i]);	
-
-							// command length
-							respMsg.writeByte(2 + tempMsg.size());	
-							// command type
-							respMsg.writeByte(CMD_TLSWITCH);	
-							// command content
-							respMsg.writeStorage(tempMsg);		
-						}
-
-						yellowTimes[i] = 0;
-					}
-				}
-			}
-		}
-	}
-
-}
-
-/*****************************************************************************/
-
-void 
-TraCIServer::commandSlowDown(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
+TraCIServer::commandChangeTarget(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
 throw(TraCIException)
 {
-	// NodeId
-    MSVehicle* veh = getVehicleByExtId( requestMsg.readInt() ); // external node id (equipped vehicle number)
-	// speed
-	float newSpeed = requestMsg.readFloat();
-	// time interval
-	double duration = requestMsg.readDouble();
+    // NodeId
+    MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
+    // EdgeId
+    std::string edgeID = requestMsg.readString();
 
-	if (veh == NULL) {
-		writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Can not retrieve node with given ID");
-        return;
-	}
-	if (newSpeed < 0) {
-		writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Negative speed value");
-        return;
-	}
-	if (duration < 0) {
-		writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Invalid time interval");
-        return;
-	}
+    // destination edge
+    const MSEdge* destEdge = MSEdge::dictionary(edgeID);
 
-	if (!veh->startSpeedAdaption(newSpeed, duration, MSNet::getInstance()->getCurrentTimeStep())) {
-		writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Not slowing down");
+    if (veh == NULL) {
+        writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve node with given ID");
         return;
-	}
+    }
 
-	// create positive response message 
-	writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_OK, "");
+    if (destEdge == NULL) {
+        writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve road with given ID");
+        return;
+    }
+
+    // build a new route between the vehicle's current edge and destination edge
+    //std::vector<const MSEdge*> newRoute;
+    MSEdgeVector newRoute;
+    const MSEdge* currentEdge = veh->getEdge();
+    SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
+    router.compute(currentEdge, destEdge, (const MSVehicle* const) veh,
+                   MSNet::getInstance()->getCurrentTimeStep(), newRoute);
+
+    // replace the vehicle's route by the new one
+    veh->replaceRoute(newRoute, MSNet::getInstance()->getCurrentTimeStep());
+
+    // create a reply message
+    writeStatusCmd(respMsg, CMD_CHANGETARGET, RTYPE_OK, "");
+
+    return;
+}
+
+/*****************************************************************************/
+void
+TraCIServer::commandGetAllTLIds(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+throw(TraCIException)
+{
+    tcpip::Storage tempMsg;
+
+    // get the TLLogicControl
+    MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
+    // get the ids
+    std::vector<std::string> idList = tlsControl.getAllTLIds();
+
+    if (idList.size() == 0) {
+        // create negative response message
+        writeStatusCmd(respMsg, CMD_GETALLTLIDS, RTYPE_ERR, "Could not retrieve any traffic light id");
+        return;
+    }
+
+    // create positive response message
+    writeStatusCmd(respMsg, CMD_GETALLTLIDS, RTYPE_OK, "");
+
+    // create a response command for each string id
+    for (std::vector<std::string>::iterator iter = idList.begin(); iter != idList.end(); iter++) {
+        // command length
+        respMsg.writeByte(2 + (*iter).size());
+        // command type
+        respMsg.writeByte(CMD_TLIDLIST);
+        // id string
+        respMsg.writeString((*iter));
+    }
+}
+
+/*****************************************************************************/
+void
+TraCIServer::commandGetTLStatus(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+throw(TraCIException)
+{
+    tcpip::Storage tempMsg;
+
+    // trafic light id
+    std::string id = requestMsg.readString();
+    // start of time interval
+    double timeFrom = requestMsg.readDouble();
+    // end of time interval
+    double timeTo = requestMsg.readDouble();
+
+    // get the running programm of the traffic light
+    MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
+    MSTrafficLightLogic* const tlLogic = tlsControl.get(id).getActive();
+
+    // error checking
+    if (tlLogic == NULL) {
+        writeStatusCmd(respMsg, CMD_GETTLSTATUS, RTYPE_ERR, "Could not retrieve traffic light with given id");
+        return;
+    }
+    if ((timeTo < timeFrom) || (timeTo < 0) || (timeFrom < 0)) {
+        writeStatusCmd(respMsg, CMD_GETALLTLIDS, RTYPE_ERR, "The given time interval is not valid");
+        return;
+    }
+
+    // acknowledge the request
+    writeStatusCmd(respMsg, CMD_GETTLSTATUS, RTYPE_OK, "");
+
+    std::vector<MSLink::LinkState> linkStates;
+    std::vector<double> yellowTimes;
+    size_t lastStep = tlLogic->getStepNo();
+    MSPhaseDefinition phase = tlLogic->getCurrentPhaseDef();
+    MSTrafficLightLogic::LinkVectorVector affectedLinks = tlLogic->getLinks();
+
+    // save the current link states
+    for (int i = 0; i < affectedLinks.size(); i++) {
+        linkStates.push_back(phase.getLinkState(i));
+        yellowTimes.push_back(0);
+    }
+
+    // check every second of the given time interval for a switch in the traffic light's phases
+    for (int time = timeFrom; time <= timeTo; time++) {
+        size_t position = tlLogic->getPosition(time);
+        size_t currentStep = tlLogic->getStepFromPos(position);
+
+        if (currentStep != lastStep) {
+            lastStep = currentStep;
+            phase = tlLogic->getPhaseFromStep(currentStep);
+
+            // for every link of the tl's junction, compare the actual and the last red/green state
+            for (int i = 0; i < linkStates.size(); i++) {
+                MSLink::LinkState nextLinkState = phase.getLinkState(i);
+
+                if (nextLinkState != linkStates[i]) {
+                    linkStates[i] = nextLinkState;
+
+                    // get the group of links that is affected by the changed light status
+                    MSTrafficLightLogic::LinkVector linkGroup = affectedLinks[i];
+                    // get the group of preceding lanes of the link group
+                    MSTrafficLightLogic::LaneVector laneGroup = tlLogic->getLanesAt(i);
+
+                    if (nextLinkState == MSLink::LINKSTATE_TL_YELLOW) {
+                        yellowTimes[i]++;
+                    } else {
+
+                        // for each link with new red/green status, write a TLSWITCH command
+                        for (int j = 0; j < linkGroup.size(); j++) {
+
+                            // time of the switch
+                            tempMsg.writeDouble(time);
+                            // preceding edeg id
+                            tempMsg.writeString(laneGroup[j]->getEdge()->getID());
+                            // succeeding edge id
+                            tempMsg.writeString(linkGroup[j]->getLane()->getEdge()->getID());
+                            // new status
+                            if (nextLinkState == MSLink::LINKSTATE_TL_RED) {
+                                tempMsg.writeString("red");
+                            } else {
+                                tempMsg.writeString("green");
+                            }
+                            //yellow time
+                            tempMsg.writeDouble(yellowTimes[i]);
+
+                            // command length
+                            respMsg.writeByte(2 + tempMsg.size());
+                            // command type
+                            respMsg.writeByte(CMD_TLSWITCH);
+                            // command content
+                            respMsg.writeStorage(tempMsg);
+                        }
+
+                        yellowTimes[i] = 0;
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+/*****************************************************************************/
+
+void
+TraCIServer::commandSlowDown(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+throw(TraCIException)
+{
+    // NodeId
+    MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
+    // speed
+    float newSpeed = requestMsg.readFloat();
+    // time interval
+    double duration = requestMsg.readDouble();
+
+    if (veh == NULL) {
+        writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Can not retrieve node with given ID");
+        return;
+    }
+    if (newSpeed < 0) {
+        writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Negative speed value");
+        return;
+    }
+    if (duration < 0) {
+        writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Invalid time interval");
+        return;
+    }
+
+    if (!veh->startSpeedAdaption(newSpeed, duration, MSNet::getInstance()->getCurrentTimeStep())) {
+        writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Not slowing down");
+        return;
+    }
+
+    // create positive response message
+    writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_OK, "");
 }
 
 /*****************************************************************************/

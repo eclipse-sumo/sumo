@@ -190,9 +190,9 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
         Returns the myLinks.end() instead; Further, the number of edges to
         look forward may be given */
     virtual MSLinkCont::const_iterator succLinkSec(const MSVehicle& veh,
-                                           unsigned int nRouteSuccs,
-                                           const MSLane& succLinkSource,
-                                           const std::vector<MSLane*> &conts) const;
+            unsigned int nRouteSuccs,
+            const MSLane& succLinkSource,
+            const std::vector<MSLane*> &conts) const;
 
 
     /** Returns the information whether the given link shows at the end
@@ -392,9 +392,9 @@ protected:
     SUMOReal myVehicleLengthSum;
 
 
-    /// @brief The lane left to the described lane (==lastNeigh if none) 
+    /// @brief The lane left to the described lane (==lastNeigh if none)
     MSEdge::LaneCont::const_iterator myFirstNeigh;
-    
+
     /// @brief The end of this lane's edge's lane container
     MSEdge::LaneCont::const_iterator myLastNeigh;
 

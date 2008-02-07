@@ -87,7 +87,7 @@ public:
     /** @brief Called when the user presses the Load-button
      *
      * Opens a file dialog and forces the parent to load the list of selected
-     *  objects when a file was chosen. Rebuilds the list, then, and redraws 
+     *  objects when a file was chosen. Rebuilds the list, then, and redraws
      *  itself.
      *
      * @todo Recheck loading/saving of selections
@@ -97,7 +97,7 @@ public:
 
     /** @brief Called when the user presses the Save-button
      *
-     * Opens a file dialog and forces the selection container to save the list 
+     * Opens a file dialog and forces the selection container to save the list
      *  of selected objects when a file was chosen.
      *
      * If the saveing failed, a message window is shown.

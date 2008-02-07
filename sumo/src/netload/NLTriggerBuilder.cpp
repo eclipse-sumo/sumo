@@ -151,8 +151,8 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
 
 MSLaneSpeedTrigger *
 NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const Attributes &attrs,
-                                                const std::string &base, 
-                                                const NLHandler &helper) throw(InvalidArgument)
+        const std::string &base,
+        const NLHandler &helper) throw(InvalidArgument)
 {
     // get the file name to read further definitions from
     string file = getFileName(attrs, base, helper);
@@ -181,8 +181,8 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const Attributes &at
 
 MSEmitter *
 NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net, const Attributes &attrs,
-                                               const std::string &base,
-                                               const NLHandler &helper) throw(InvalidArgument)
+        const std::string &base,
+        const NLHandler &helper) throw(InvalidArgument)
 {
     // get the file name to read further definitions from
     string file = getFileName(attrs, base, helper);
@@ -231,7 +231,7 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const Attributes &attrs,
 
 MSE1VehicleActor *
 NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net, const Attributes &attrs,
-                                            const NLHandler &helper) throw(InvalidArgument)
+        const NLHandler &helper) throw(InvalidArgument)
 {
     string id = helper.getString(attrs, SUMO_ATTR_ID);
     MSLane *lane = getLane(attrs, helper, "vehicle_actor", id);
@@ -246,8 +246,8 @@ NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net, const Attributes &attrs,
 #ifndef HAVE_MESOSIM
 MSCalibrator *
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const Attributes &attrs,
-                                          const std::string &base, 
-                                          const NLHandler &helper) throw(InvalidArgument)
+        const std::string &base,
+        const NLHandler &helper) throw(InvalidArgument)
 {
     // get the file name to read further definitions (route distributions) from
     string file = getFileName(attrs, base, helper);
@@ -261,8 +261,8 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const Attributes &attrs,
 
 MSVTypeProbe *
 NLTriggerBuilder::parseAndBuildVTypeProbe(MSNet &net, const Attributes &attrs,
-                                          const std::string &base, 
-                                          const NLHandler &helper) throw(InvalidArgument)
+        const std::string &base,
+        const NLHandler &helper) throw(InvalidArgument)
 {
     string outputFile = getFileName(attrs, base, helper);
     string id = helper.getString(attrs, SUMO_ATTR_ID);
@@ -275,8 +275,8 @@ NLTriggerBuilder::parseAndBuildVTypeProbe(MSNet &net, const Attributes &attrs,
 #ifdef HAVE_MESOSIM
 METriggeredCalibrator *
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const Attributes &attrs,
-                                          const std::string &base, 
-                                          const NLHandler &helper) throw(InvalidArgument)
+        const std::string &base,
+        const NLHandler &helper) throw(InvalidArgument)
 {
     // get the file name to read further definitions from
     string file = getFileName(attrs, base, helper);
@@ -330,7 +330,7 @@ NLTriggerBuilder::parseAndBuildScaler(MSNet &net, const Attributes &attrs,
 
 MSTriggeredRerouter *
 NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const Attributes &attrs,
-                                        const std::string &base, 
+                                        const std::string &base,
                                         const NLHandler &helper) throw(InvalidArgument)
 {
     // get the file name to read further definitions from

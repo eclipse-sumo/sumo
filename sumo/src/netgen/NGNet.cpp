@@ -99,7 +99,7 @@ NGNet::findNode(int xID, int yID) throw()
 void
 NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, SUMOReal attachLength) throw()
 {
-	for (int ix=0; ix<numX; ix++) {
+    for (int ix=0; ix<numX; ix++) {
         for (int iy=0; iy<numY; iy++) {
             // create Node
             string nodeID = toString<int>(ix) + "/" + toString<int>(iy);
@@ -116,8 +116,8 @@ NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, 
             }
         }
     }
-	if (attachLength > 0.0) {
-		for (int ix=0; ix<numX; ix++) {
+    if (attachLength > 0.0) {
+        for (int ix=0; ix<numX; ix++) {
             // create nodes
             NGNode *topNode = new NGNode("top" + toString<int>(ix), ix, numY);
             NGNode *bottomNode = new NGNode("bottom" + toString<int>(ix), ix, numY+1);
@@ -130,8 +130,8 @@ NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, 
             // create links
             connect(topNode, findNode(ix, numY-1));
             connect(bottomNode, findNode(ix, 0));
-		}
-		for (int iy=0; iy<numY; iy++) {
+        }
+        for (int iy=0; iy<numY; iy++) {
             // create nodes
             NGNode *leftNode = new NGNode("left" + toString<int>(iy), numX, iy);
             NGNode *rightNode = new NGNode("right" + toString<int>(iy), numX+1, iy);
@@ -144,8 +144,8 @@ NGNet::createChequerBoard(int numX, int numY, SUMOReal spaceX, SUMOReal spaceY, 
             // create links
             connect(leftNode, findNode(0, iy));
             connect(rightNode, findNode(numX-1, iy));
-		}
-	}
+        }
+    }
 }
 
 

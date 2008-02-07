@@ -87,7 +87,7 @@ public:
         size_t i;
         // calculate respond
         for (i = 0; i < myNLinks; ++i) {
-            if(myConts.test(i)) {
+            if (myConts.test(i)) {
                 respond.set(i, request.test(i));
             } else {
                 bool linkPermit = request.test(i)

@@ -69,7 +69,7 @@ public:
 //            if (find(neigh.begin(), neigh.end(), i.getMSEdge()) != neigh.end()) {
 //                glColor3d(0,1,0);
 //            } else {
-                glColor3d(.4,0,.4);
+            glColor3d(.4,0,.4);
 //            }
         } else {
             glColor3d(0,0,0);

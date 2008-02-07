@@ -68,7 +68,7 @@ public:
     class C2CConnection
     {
     public:
-    	C2CConnection(MSDevice_C2C  *connectedVeh_, SUMOTime lastTimeSeen_)
+        C2CConnection(MSDevice_C2C  *connectedVeh_, SUMOTime lastTimeSeen_)
                 : connectedVeh(connectedVeh_), lastTimeSeen(lastTimeSeen_) { }
         MSDevice_C2C  *connectedVeh;
         SUMOTime lastTimeSeen;
@@ -91,8 +91,8 @@ public:
      *  for the given vehicle.
      * Before the first device is built, this implementation builds the list of
      *  neighbor edges, first.
-     * For each seen vehicle, the global vehicle index is increased. 
-     * The built device is stored in the given vector. 
+     * For each seen vehicle, the global vehicle index is increased.
+     * The built device is stored in the given vector.
      *
      * @param[in] v The vehicle for which a device may be built
      * @param[in] into The vector to store the built device in
@@ -103,7 +103,7 @@ public:
     static void computeCar2Car(SUMOTime t);
 
 private:
-	std::map<MSVehicle*, MSDevice_C2C*> myVehiclesToDevicesMap;
+    std::map<MSVehicle*, MSDevice_C2C*> myVehiclesToDevicesMap;
 
     /** @brief Constructor
      */
@@ -114,7 +114,7 @@ private:
 
 
     // add new neighborhood
-	void addNeighbors(std::vector<MSDevice_C2C*>* devices, SUMOTime time);
+    void addNeighbors(std::vector<MSDevice_C2C*>* devices, SUMOTime time);
 
     /// update the list of neighbors
     void cleanUpConnections(SUMOTime time);

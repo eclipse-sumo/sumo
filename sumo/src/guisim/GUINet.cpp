@@ -87,8 +87,8 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents, 
-             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents)
+GUINet::GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
+               MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents)
         : MSNet(vc, beginOfTimestepEvents, endOfTimestepEvents, emissionEvents),
         myGrid(10, 10),
         myWrapper(new GUINetWrapper(gIDStorage, *this)),

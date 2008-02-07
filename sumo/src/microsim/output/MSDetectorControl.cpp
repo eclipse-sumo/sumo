@@ -173,18 +173,18 @@ MSDetectorControl::add(MEInductLoop *meil, OutputDevice& device, int splInterval
 #endif
 
 
-void 
+void
 MSDetectorControl::updateDetectors(SUMOTime step) throw()
 {
     // update all detectors with inner containers
-        // e2-detectors
+    // e2-detectors
     const std::vector<MSE2Collector*> &e2s = myE2Detectors.buildAndGetStaticVector();
-    for(E2Vect::const_iterator i=e2s.begin(); i!=e2s.end(); ++i) {
+    for (E2Vect::const_iterator i=e2s.begin(); i!=e2s.end(); ++i) {
         (*i)->update(step);
     }
-        // e3-detectors
+    // e3-detectors
     const std::vector<MSE3Collector*> &e3s = myE3Detectors.buildAndGetStaticVector();
-    for(E3Vect::const_iterator i=e3s.begin(); i!=e3s.end(); ++i) {
+    for (E3Vect::const_iterator i=e3s.begin(); i!=e3s.end(); ++i) {
         (*i)->update(step);
     }
     // induct loops do not need to be updated...
@@ -260,9 +260,9 @@ MSDetectorControl::writeOutput(SUMOTime step, bool closing) throw(IOError)
 
 void
 MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
-                                        OutputDevice *device,
-                                        SUMOTime interval,
-                                        bool reinsert) throw()
+        OutputDevice *device,
+        SUMOTime interval,
+        bool reinsert) throw()
 {
     IntervalsKey key = interval;
     Intervals::iterator it = myIntervals.find(key);

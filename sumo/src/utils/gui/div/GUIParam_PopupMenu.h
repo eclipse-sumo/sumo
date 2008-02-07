@@ -66,7 +66,7 @@ public:
      */
     GUIParam_PopupMenuInterface(GUIMainWindow &app,
                                 GUIParameterTableWindow &parentWindow,
-                                GUIGlObject &o, const std::string &varName, 
+                                GUIGlObject &o, const std::string &varName,
                                 ValueSource<SUMOReal> *src) throw();
 
 

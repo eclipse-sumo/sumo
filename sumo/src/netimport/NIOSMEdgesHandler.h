@@ -63,8 +63,8 @@ class NIOSMEdgesHandler : public SUMOSAXHandler
 public:
     /// standard constructor
     NIOSMEdgesHandler(const std::map<int, NIOSMNode*> &osmNodes,
-        NBNodeCont &nc, NBEdgeCont &ec,
-        NBTypeCont &tc, NBDistrictCont &dc, OptionsCont &options);
+                      NBNodeCont &nc, NBEdgeCont &ec,
+                      NBTypeCont &tc, NBDistrictCont &dc, OptionsCont &options);
 
     /// Destructor
     ~NIOSMEdgesHandler() throw();
@@ -73,7 +73,7 @@ protected:
     /// @name inherited from GenericSAXHandler
     //@{
 
-    /** @brief Called on the opening of a tag; 
+    /** @brief Called on the opening of a tag;
      *
      * @param[in] element ID of the currently opened element
      * @param[in] attrs Attributes within the currently opened element
@@ -110,7 +110,7 @@ private:
 private:
     NBNode *insertNodeChecking(int id) ;
     void insertEdge(NIOSMEdgesHandler::Edge *e, int index, NBNode *from, NBNode *to,
-                              const std::vector<int> &passed) ;
+                    const std::vector<int> &passed) ;
 
 private:
     /// A reference to the program's options

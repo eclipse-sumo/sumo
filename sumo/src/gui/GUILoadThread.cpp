@@ -125,8 +125,8 @@ GUILoadThread::run()
     // try to load
     OptionsCont &oc = OptionsCont::getOptions();
     MSFrame::setMSGlobals(oc);
-    net = new GUINet(buildVehicleControl(), new GUIEventControl(), 
-        new GUIEventControl(), new GUIEventControl());
+    net = new GUINet(buildVehicleControl(), new GUIEventControl(),
+                     new GUIEventControl(), new GUIEventControl());
     GUIEdgeControlBuilder *eb = buildEdgeBuilder();
     GUIJunctionControlBuilder jb(*net, oc);
     GUIDetectorBuilder db(*net);

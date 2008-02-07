@@ -56,14 +56,14 @@ public:
     /// Update the network cell contents
     void update();
 
-	typedef std::vector<MSDevice_C2C*> Cell;
+    typedef std::vector<MSDevice_C2C*> Cell;
 
-	typedef std::vector<Cell*>::const_iterator CellsIterator;
+    typedef std::vector<Cell*>::const_iterator CellsIterator;
 
     /// Get iterator over the cells
-	CellsIterator begin();
+    CellsIterator begin();
 
-	CellsIterator end();
+    CellsIterator end();
 
     /// Add a device
     void add(MSDevice_C2C* device);
@@ -76,7 +76,7 @@ public:
 
 private:
 
-	/// Get the (target) cell for a device
+    /// Get the (target) cell for a device
     Cell* getCellByPosition(MSDevice_C2C* device);
 
     /// The container saves the cells

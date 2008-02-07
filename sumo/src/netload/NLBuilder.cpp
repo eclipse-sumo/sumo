@@ -210,10 +210,10 @@ NLBuilder::buildNet()
     MSEdgeControl *edges = myEdgeBuilder.build();
     MSFrame::buildStreams();
     std::vector<MSMeanData_Net*> meanData = MSMeanData_Net_Utils::buildList(
-        myNet.getDetectorControl(), *edges,
-        m_pOptions.getIntVector("dump-intervals"), m_pOptions.getString("dump-basename"),
-        m_pOptions.getIntVector("lanedump-intervals"), m_pOptions.getString("lanedump-basename"),
-        m_pOptions.getIntVector("dump-begins"), m_pOptions.getIntVector("dump-ends"));
+                                                myNet.getDetectorControl(), *edges,
+                                                m_pOptions.getIntVector("dump-intervals"), m_pOptions.getString("dump-basename"),
+                                                m_pOptions.getIntVector("lanedump-intervals"), m_pOptions.getString("lanedump-basename"),
+                                                m_pOptions.getIntVector("dump-begins"), m_pOptions.getIntVector("dump-ends"));
     myNet.closeBuilding(
         edges,
         myJunctionBuilder.build(),

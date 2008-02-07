@@ -131,16 +131,16 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
 {
     if (element==SUMO_TAG_ROUTEDISTELEM) {
         // parse route distribution
-            // check if route exists
+        // check if route exists
         string routeStr = getStringSecure(attrs, SUMO_ATTR_ID, "");
-        if(routeStr=="") {
+        if (routeStr=="") {
             throw ProcessError("MSTriggeredSource " + myParent.getID() + ": No route id given.");
         }
         MSRoute* route = MSRoute::dictionary(routeStr);
         if (route == 0) {
             throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Route '" + routeStr + "' does not exist.");
         }
-            // check probability
+        // check probability
         SUMOReal prob;
         try {
             prob = getFloat(attrs, SUMO_ATTR_PROB);
@@ -152,7 +152,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
         } catch (NumberFormatException&) {
             throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for route '" + routeStr + "' is not numeric.");
         }
-            // atributes ok, add to routeDist
+        // atributes ok, add to routeDist
         myRouteDist.add(prob, route);
         return;
 
@@ -160,16 +160,16 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
 
     if (element==SUMO_TAG_VTYPEDISTELEM) {
         // vehicle-type distributions
-            // check if vtype exists
+        // check if vtype exists
         string vtypeStr = getStringSecure(attrs, SUMO_ATTR_ID, "");
-        if(vtypeStr=="") {
+        if (vtypeStr=="") {
             throw ProcessError("MSTriggeredSource " + myParent.getID() + ": No vehicle type id given.");
         }
         MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(vtypeStr);
         if (vtype==0) {
             throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Vehicle type '" + vtypeStr + "' does not exist.");
         }
-            // check probability
+        // check probability
         SUMOReal prob;
         try {
             prob = getFloat(attrs, SUMO_ATTR_PROB);
@@ -356,7 +356,7 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
     }
     // get the vehicle and the speed the child has read/generated
     MSVehicle *veh = myToEmit[child].first;
-    if(veh->desiredDepart()>MSNet::getInstance()->getCurrentTimeStep()) {
+    if (veh->desiredDepart()>MSNet::getInstance()->getCurrentTimeStep()) {
         return false;
     }
     SUMOReal speed = myToEmit[child].second;

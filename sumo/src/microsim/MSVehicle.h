@@ -201,7 +201,7 @@ public:
 
     bool willPass(const MSEdge * const edge) const;
 
-	void reroute(SUMOTime t);
+    void reroute(SUMOTime t);
 
     /// @name retrieval and setting of CORN values
     //@{
@@ -509,35 +509,35 @@ public:
 #ifdef TRACI
     void checkReroute(SUMOTime t);
 
-	/**
-	 * Used by TraCIServer to change the weight of an edge locally for a specific vehicle
-	 * @param edgeID: ID of the edge to change
-	 * @param travelTime: the new time to be set for the edge
-	 * @param currentTime: the current simulation time
-	 */
-	bool changeEdgeWeightLocally(std::string edgeID, double travelTime, SUMOTime currentTime);
+    /**
+     * Used by TraCIServer to change the weight of an edge locally for a specific vehicle
+     * @param edgeID: ID of the edge to change
+     * @param travelTime: the new time to be set for the edge
+     * @param currentTime: the current simulation time
+     */
+    bool changeEdgeWeightLocally(std::string edgeID, double travelTime, SUMOTime currentTime);
 
-	/**
-	 * Used by TraCIServer to restore the weight of an edge that was changed previously 
-	 * via "changeRoute" command
-	 * @param edgeID: ID of the edge to restore
-	 */
-	bool restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime);
+    /**
+     * Used by TraCIServer to restore the weight of an edge that was changed previously
+     * via "changeRoute" command
+     * @param edgeID: ID of the edge to restore
+     */
+    bool restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime);
 
-	/**
-	 * The vehicle will slow down to newSpeed within the time interval duration.
-	 * This is done by limiting the maximum speed every time a simulation step
-	 * is performed by TraCI. Speed reduction is linear.
-	 * @param newSpeed speed to reduce to 
-	 * @param duration time intervall for the speed adaption
-	 * @param currentTime current simulation time
-	 */
-	bool startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime currentTime);
+    /**
+     * The vehicle will slow down to newSpeed within the time interval duration.
+     * This is done by limiting the maximum speed every time a simulation step
+     * is performed by TraCI. Speed reduction is linear.
+     * @param newSpeed speed to reduce to
+     * @param duration time intervall for the speed adaption
+     * @param currentTime current simulation time
+     */
+    bool startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime currentTime);
 
-	/**
-	 * called by TraCI at each simulation step
-	 */
-	void adaptSpeed();
+    /**
+     * called by TraCI at each simulation step
+     */
+    void adaptSpeed();
 #endif
 
 protected:
@@ -691,30 +691,30 @@ private:
 #ifdef TRACI
     bool myHaveRouteInfo;
     typedef std::map<const MSEdge * const, Information *> InfoCont;
-	InfoCont infoCont;
+    InfoCont infoCont;
 
-	/** 
-	 * if true, indicates that a TraCI message "changeRoute" was sent to this vehicle,
-	 * thus it checks for a new route when the next simulation step is performed by TraCI
-	 */
-	bool myWeightChangedViaTraci;
+    /**
+     * if true, indicates that a TraCI message "changeRoute" was sent to this vehicle,
+     * thus it checks for a new route when the next simulation step is performed by TraCI
+     */
+    bool myWeightChangedViaTraci;
 
-	/**
-	 * all edges in this list are marked as "changed by TracI", this means infoCont data
-	 * of this edge must not be changed except by a TraCI "changeRoute" message.
-	 * The corresponding Information value of the map holds the Information data
-	 * related to an edge before it was changed by TraCI
-	 */
-	InfoCont edgesChangedByTraci;
+    /**
+     * all edges in this list are marked as "changed by TracI", this means infoCont data
+     * of this edge must not be changed except by a TraCI "changeRoute" message.
+     * The corresponding Information value of the map holds the Information data
+     * related to an edge before it was changed by TraCI
+     */
+    InfoCont edgesChangedByTraci;
 
-	/* indicates whether the vehicle is adapting its speed caused by the TraCI command slowDown*/
-	bool adaptingSpeed;
-	bool isLastAdaption;
+    /* indicates whether the vehicle is adapting its speed caused by the TraCI command slowDown*/
+    bool adaptingSpeed;
+    bool isLastAdaption;
 
-	SUMOReal speedBeforeAdaption;
-	SUMOReal speedReduction;
-	SUMOTime timeBeforeAdaption;
-	SUMOTime adaptDuration;
+    SUMOReal speedBeforeAdaption;
+    SUMOReal speedReduction;
+    SUMOTime timeBeforeAdaption;
+    SUMOTime adaptDuration;
 
 #endif
 

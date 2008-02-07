@@ -51,7 +51,7 @@
 // command: close sumo
 #define CMD_CLOSE   0x7F
 
-// command: 
+// command:
 #define CMD_UPDATECALIBRATOR 0x50
 
 // command: get all traffic light ids

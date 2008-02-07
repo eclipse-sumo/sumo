@@ -76,14 +76,14 @@ class MSRouteLoader;
  * @brief The main interface for loading a microsim
  *
  * It is a black-box where only the options and factories must be supplied
- *  on the constructor call. An (empty) instance of the network must be 
+ *  on the constructor call. An (empty) instance of the network must be
  *  supplied, too, and is filled during loading.
  */
 class NLBuilder
 {
 public:
     /** @brief Constructor
-     * 
+     *
      * @param[in] oc The options to use
      * @param[in, out] net The network to fill
      * @param[in] eb The builder of edges to use

@@ -56,7 +56,7 @@ public:
      * At first, some constraints are checked, whether the number of dump begin
      *  steps and end steps are the same or whether each begin is before the
      *  according end. If not, a ProcessError is thrown.
-     * 
+     *
      * Otherwise, both the edge-based and the lane-based mean data container are built
      *  using buildList and returned.
      *
@@ -72,10 +72,10 @@ public:
      * @exception ProcessError If dump begins / ends are not valid
      * @see buildList
      */
-    static std::vector<MSMeanData_Net*> buildList(MSDetectorControl &det2file, MSEdgeControl &ec, 
-        std::vector<int> dumpMeanDataIntervals, std::string baseNameDumpFiles,
-        std::vector<int> laneDumpMeanDataIntervals, std::string baseNameLaneDumpFiles,
-        const std::vector<int> &dumpBegins, const std::vector<int> &dumpEnds) throw(ProcessError);
+    static std::vector<MSMeanData_Net*> buildList(MSDetectorControl &det2file, MSEdgeControl &ec,
+            std::vector<int> dumpMeanDataIntervals, std::string baseNameDumpFiles,
+            std::vector<int> laneDumpMeanDataIntervals, std::string baseNameLaneDumpFiles,
+            const std::vector<int> &dumpBegins, const std::vector<int> &dumpEnds) throw(ProcessError);
 
 
 protected:
@@ -94,12 +94,12 @@ protected:
      * @see buildUniqueList
      */
     static std::vector<MSMeanData_Net*> buildList(MSDetectorControl &det2file,
-                                         MSEdgeControl &ec,
-                                         std::vector<int> dumpMeanDataIntervals,
-                                         std::string baseNameDumpFiles,
-                                         const std::vector<int> &dumpBegins,
-                                         const std::vector<int> &dumpEnds,
-                                         bool useLanes) throw();
+            MSEdgeControl &ec,
+            std::vector<int> dumpMeanDataIntervals,
+            std::string baseNameDumpFiles,
+            const std::vector<int> &dumpBegins,
+            const std::vector<int> &dumpEnds,
+            bool useLanes) throw();
 
 
     /** @brief Builds a list with unique aggregation times

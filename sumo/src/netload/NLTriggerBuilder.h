@@ -65,7 +65,7 @@ class METriggeredScaler;
  * @brief Builds trigger objects for microsim
  *
  * Called on the occurence of a "trigger"-element, "buildTrigger" parses what
- *  kind of a trigger object shall be built and calls an appropriate parsing 
+ *  kind of a trigger object shall be built and calls an appropriate parsing
  *  and building method.
  *
  * This parsing/building method retrieves the parameter needed to build the trigger,
@@ -88,7 +88,7 @@ public:
 
     /** @brief builds the specified trigger
      *
-     * Determines the type of the trigger to build using a combination 
+     * Determines the type of the trigger to build using a combination
      *  of "objecttype" and "attr" - attributes from the supplied attributes, first.
      *
      * Build the proper trigger using protected member helper methods.
@@ -114,9 +114,9 @@ protected:
     /** @brief Parses his values and builds a lane speed trigger
      *
      * If one of the declaration values is errornous, an InvalidArgument is thrown.
-     * 
-     * If the XML-file parsed during initialisation is errornous, and the 
-     *  MSLaneSpeedTrigger-constructor throws a ProcessError due to this, this 
+     *
+     * If the XML-file parsed during initialisation is errornous, and the
+     *  MSLaneSpeedTrigger-constructor throws a ProcessError due to this, this
      *  exception is catched and an InvalidArgument with the message given in the
      *  ProcessError is thrown.
      *
@@ -143,7 +143,7 @@ protected:
      * @exception InvalidArgument If a parameter (lane/position) is not valid
      */
     MSEmitter *parseAndBuildLaneEmitTrigger(MSNet &net,
-        const Attributes &attrs, const std::string &base, const NLHandler &helper) throw(InvalidArgument);
+                                            const Attributes &attrs, const std::string &base, const NLHandler &helper) throw(InvalidArgument);
 
 
     /** @brief Parses his values and builds a rerouter
@@ -169,7 +169,7 @@ protected:
      * @exception InvalidArgument If a parameter (lane/position) is not valid
      */
     MSBusStop *parseAndBuildBusStop(MSNet &net,
-                                    const Attributes &attrs, 
+                                    const Attributes &attrs,
                                     const NLHandler &helper) throw(InvalidArgument);
 
 
@@ -182,7 +182,7 @@ protected:
      * @exception InvalidArgument If a parameter (lane/position) is not valid
      */
     MSE1VehicleActor *parseAndBuildVehicleActor(MSNet &net,
-            const Attributes &attrs, 
+            const Attributes &attrs,
             const NLHandler &helper) throw(InvalidArgument);
 
 
@@ -197,8 +197,8 @@ protected:
      * @exception InvalidArgument If a parameter is not valid
      */
     MSCalibrator *parseAndBuildCalibrator(MSNet &net,
-        const Attributes &attrs, const std::string &base,
-        const NLHandler &helper) throw(InvalidArgument);
+                                          const Attributes &attrs, const std::string &base,
+                                          const NLHandler &helper) throw(InvalidArgument);
 #endif
 
 
@@ -212,7 +212,7 @@ protected:
      * @exception InvalidArgument If a parameter is not valid
      */
     MSVTypeProbe *parseAndBuildVTypeProbe(MSNet &net,
-        const Attributes &attrs, const std::string &base, const NLHandler &helper) throw(InvalidArgument);
+                                          const Attributes &attrs, const std::string &base, const NLHandler &helper) throw(InvalidArgument);
 
 
 #ifdef HAVE_MESOSIM
@@ -239,8 +239,8 @@ protected:
      * @exception InvalidArgument If a parameter (edge/position) is not valid
      */
     METriggeredScaler *parseAndBuildScaler(MSNet &net,
-        const Attributes &attrs, 
-        const NLHandler &helper) throw(InvalidArgument);
+                                           const Attributes &attrs,
+                                           const NLHandler &helper) throw(InvalidArgument);
 #endif
     //@}
 
@@ -249,7 +249,7 @@ protected:
     /// @name building methods
     ///
     /// Called with parsed values, these methods build the trigger.
-    /// 
+    ///
     /// These methods should be overriden for the gui loader in order
     ///  to build visualizable versions of the triggers.
     ///
@@ -258,7 +258,7 @@ protected:
     //@{
     /** @brief Builds a lane speed trigger
      *
-     * Simply calls the MSLaneSpeedTrigger constructor. 
+     * Simply calls the MSLaneSpeedTrigger constructor.
      *
      * @param[in] net The net the lane speed trigger belongs to
      * @param[in] id The id of the lane speed trigger
@@ -275,7 +275,7 @@ protected:
 
     /** @brief Builds an emitter
      *
-     * Simply calls the MSEmitter constructor. 
+     * Simply calls the MSEmitter constructor.
      *
      * @param[in] net The net the emitter belongs to
      * @param[in] id The id of the emitter
@@ -285,13 +285,13 @@ protected:
      * @return The built emitter
      */
     virtual MSEmitter *buildLaneEmitTrigger(MSNet &net,
-        const std::string &id, MSLane *destLane, SUMOReal pos,
-        const std::string &file) throw();
+                                            const std::string &id, MSLane *destLane, SUMOReal pos,
+                                            const std::string &file) throw();
 
 
     /** @brief Builds a bus stop
      *
-     * Simply calls the MSBusStop constructor. 
+     * Simply calls the MSBusStop constructor.
      *
      * @param[in] net The net the bus stop belongs to
      * @param[in] id The id of the bus stop
@@ -302,13 +302,13 @@ protected:
      * @return The built bus stop
      */
     virtual MSBusStop* buildBusStop(MSNet &net,
-        const std::string &id, const std::vector<std::string> &lines,
-        MSLane *lane, SUMOReal frompos, SUMOReal topos) throw();
+                                    const std::string &id, const std::vector<std::string> &lines,
+                                    MSLane *lane, SUMOReal frompos, SUMOReal topos) throw();
 
 
     /** @brief builds a calibrator for online simulation
      *
-     * Simply calls the MSCalibrator constructor. 
+     * Simply calls the MSCalibrator constructor.
      *
      * @param[in] net The net the calibrator belongs to
      * @param[in] id The id of the calibrator
@@ -325,7 +325,7 @@ protected:
 
     /** @brief builds a vehicle type probe
      *
-     * Simply calls the MSVTypeProbe constructor. 
+     * Simply calls the MSVTypeProbe constructor.
      *
      * @param[in] net The net the vehicle type probe belongs to
      * @param[in] id The id of the vehicle type probe
@@ -336,14 +336,14 @@ protected:
      * @todo Recheck and describe parameter
      */
     virtual MSVTypeProbe *buildVTypeProbe(MSNet &net,
-        const std::string &id, const std::string &file,
-        const std::string &vType, int freq) throw();
+                                          const std::string &id, const std::string &file,
+                                          const std::string &vType, int freq) throw();
 
 
 #ifdef HAVE_MESOSIM
     /** @brief builds a mesoscopic calibrator
      *
-     * Simply calls the METriggeredCalibrator constructor. 
+     * Simply calls the METriggeredCalibrator constructor.
      *
      * @param[in] net The net the calibrator belongs to
      * @param[in] id The id of the calibrator
@@ -361,7 +361,7 @@ protected:
 
     /** @brief builds a scaler
      *
-     * Simply calls the METriggeredScaler constructor. 
+     * Simply calls the METriggeredScaler constructor.
      *
      * @param[in] net The net the scaler belongs to
      * @param[in] id The id of the scaler
@@ -373,14 +373,14 @@ protected:
      * @todo Is the route file still necessary?
      */
     virtual METriggeredScaler *buildScaler(MSNet &net,
-        const std::string &id, MESegment *edge, SUMOReal pos,
-        SUMOReal scale) throw();
+                                           const std::string &id, MESegment *edge, SUMOReal pos,
+                                           SUMOReal scale) throw();
 #endif
 
 
     /** @brief builds an rerouter
      *
-     * Simply calls the MSTriggeredRerouter constructor. 
+     * Simply calls the MSTriggeredRerouter constructor.
      *
      * @param[in] net The net the rerouter belongs to
      * @param[in] id The id of the rerouter
@@ -396,7 +396,7 @@ protected:
 
     /** @brief builds a vehicle actor
      *
-     * Simply calls the MSE1VehicleActor constructor. 
+     * Simply calls the MSE1VehicleActor constructor.
      *
      * @param[in] net The net the actor belongs to
      * @param[in] id The id of the actor
@@ -418,7 +418,7 @@ protected:
     /** @brief Helper method to obtain the filename
      *
      * Retrieves "file" from attributes, checks whether it is absolute
-     *  and extends it by the given base path if not. Returns this 
+     *  and extends it by the given base path if not. Returns this
      *  information.
      *
      * @param[in] attrs The attributes to obtain the file name from

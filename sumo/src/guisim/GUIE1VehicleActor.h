@@ -65,7 +65,7 @@ class GUIE1VehicleActor
 public:
     /** constructor */
     GUIE1VehicleActor(const std::string& id, MSLane* lane,
-                      SUMOReal positionInMeters, unsigned int laid, 
+                      SUMOReal positionInMeters, unsigned int laid,
                       unsigned int cellid, unsigned int type) throw();
 
     /** destructor */

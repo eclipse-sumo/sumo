@@ -37,7 +37,7 @@
 // global variable declarations
 // ===========================================================================
 /** @brief The folder used as last
- * 
+ *
  * This value is loaded and stored within the registry on startup/shutdown
  *  of the application. It is changed after a file was loaded/saved.
  */

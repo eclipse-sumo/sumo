@@ -113,8 +113,8 @@ public:
 
     /** @brief Adds a induction loop into the containers
      *
-     * The detector is tried to be added into "myLoops". If the detector 
-     *  is already known (the id was already used for a similar detector), 
+     * The detector is tried to be added into "myLoops". If the detector
+     *  is already known (the id was already used for a similar detector),
      *  a ProcessError is thrown.
      *
      * Otherwise, the Detector2File-mechanism is instantiated for the detector.
@@ -131,8 +131,8 @@ public:
 
     /** @brief Adds a e2-detector into the containers
      *
-     * The detector is tried to be added into "myE2Detectors". If the detector 
-     *  is already known (the id was already used for a similar detector), 
+     * The detector is tried to be added into "myE2Detectors". If the detector
+     *  is already known (the id was already used for a similar detector),
      *  a ProcessError is thrown.
      *
      * Otherwise, the Detector2File-mechanism is instantiated for the detector.
@@ -149,8 +149,8 @@ public:
 
     /** @brief Adds a e2ol-detector into the containers
      *
-     * The detector is tried to be added into "myE2OverLanesDetectors". 
-     *  If the detector is already known (the id was already used for a 
+     * The detector is tried to be added into "myE2OverLanesDetectors".
+     *  If the detector is already known (the id was already used for a
      *  similar detector), a ProcessError is thrown.
      *
      * Otherwise, the Detector2File-mechanism is instantiated for the detector.
@@ -167,8 +167,8 @@ public:
 
     /** @brief Adds a e3-detector into the containers
      *
-     * The detector is tried to be added into "myE3Detectors". If the detector 
-     *  is already known (the id was already used for a similar detector), 
+     * The detector is tried to be added into "myE3Detectors". If the detector
+     *  is already known (the id was already used for a similar detector),
      *  a ProcessError is thrown.
      *
      * Otherwise, the Detector2File-mechanism is instantiated for the detector.
@@ -186,8 +186,8 @@ public:
 #ifdef HAVE_MESOSIM
     /** @brief Adds a mesoscopic induction loop into the containers
      *
-     * The detector is tried to be added into "myMesoLoops". If the detector 
-     *  is already known (the id was already used for a similar detector), 
+     * The detector is tried to be added into "myMesoLoops". If the detector
+     *  is already known (the id was already used for a similar detector),
      *  a ProcessError is thrown.
      *
      * Otherwise, the Detector2File-mechanism is instantiated for the detector.
@@ -210,8 +210,8 @@ public:
 
     /** @brief Adds a e2-detector coupled to an extern output impulse giver
      *
-     * The detector is tried to be added into "myE2Detectors". If the detector 
-     *  is already known (the id was already used for a similar detector), 
+     * The detector is tried to be added into "myE2Detectors". If the detector
+     *  is already known (the id was already used for a similar detector),
      *  a ProcessError is thrown.
      *
      * Please note, that the detector control gets responsible for the detector.
@@ -224,8 +224,8 @@ public:
 
     /** @brief Adds a e2ol-detector coupled to an extern output impulse giver
      *
-     * The detector is tried to be added into "myE2OverLanesDetectors". If the detector 
-     *  is already known (the id was already used for a similar detector), 
+     * The detector is tried to be added into "myE2OverLanesDetectors". If the detector
+     *  is already known (the id was already used for a similar detector),
      *  a ProcessError is thrown.
      *
      * Please note, that the detector control gets responsible for the detector.
@@ -258,7 +258,7 @@ public:
      * @tode Recheck whether this method could be made private/protected
      */
     void addDetectorAndInterval(MSDetectorFileOutput* det,
-        OutputDevice *device, SUMOTime interval, bool reinsert=false) throw();
+                                OutputDevice *device, SUMOTime interval, bool reinsert=false) throw();
 
 
 
@@ -358,7 +358,7 @@ protected:
      *
      * @see addDetectorAndInterval
      */
-    struct detectorEquals : public std::binary_function< DetectorFilePair, MSDetectorFileOutput*, bool > {
+struct detectorEquals : public std::binary_function< DetectorFilePair, MSDetectorFileOutput*, bool > {
         /** @brief Returns true if detectors are equal. */
         bool operator()(const DetectorFilePair& pair, const MSDetectorFileOutput* det) const throw() {
             return pair.first == det;

@@ -101,8 +101,8 @@ MSTriggeredRerouter::Setter::isActivatedByEmitOrLaneChange(MSVehicle& veh) throw
  * MSTriggeredRerouter - methods
  * ----------------------------------------------------------------------- */
 MSTriggeredRerouter::MSTriggeredRerouter(const std::string &id,
-                                         const std::vector<MSEdge*> &edges,
-                                         SUMOReal prob, const std::string &file)
+        const std::vector<MSEdge*> &edges,
+        SUMOReal prob, const std::string &file)
         : MSTrigger(id), SUMOSAXHandler(file),
         myProbability(prob), myUserProbability(prob), myAmInUserMode(false)
 {
@@ -154,16 +154,16 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
 
     if (element==SUMO_TAG_DEST_PROB_REROUTE) {
         // by giving probabilities of new destinations
-            // get the destination edge
+        // get the destination edge
         string dest = getStringSecure(attrs, SUMO_ATTR_ID, "");
-        if(dest=="") {
+        if (dest=="") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No destination edge id given.");
         }
         MSEdge *to = MSEdge::dictionary(dest);
         if (to==0) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Destination edge '" + dest + "' is not known.");
         }
-            // get the probability to reroute
+        // get the probability to reroute
         SUMOReal prob;
         try {
             prob = getFloatSecure(attrs, SUMO_ATTR_PROB, 1.);
@@ -175,14 +175,14 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
         if (prob<0) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for destination '" + dest + "' is negative (must not).");
         }
-            // add
+        // add
         myCurrentEdgeProb.add(prob, to);
     }
 
     if (element==SUMO_TAG_CLOSING_REROUTE) {
         // by closing
         string closed_id = getStringSecure(attrs, SUMO_ATTR_ID, "");
-        if(closed_id=="") {
+        if (closed_id=="") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": closed edge id given.");
         }
         MSEdge *closed = MSEdge::dictionary(closed_id);
@@ -194,9 +194,9 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
 
     if (element==SUMO_TAG_ROUTE_PROB_REROUTE) {
         // by explicite rerouting using routes
-            // check if route exists
+        // check if route exists
         string routeStr = getStringSecure(attrs, SUMO_ATTR_ID, "");
-        if(routeStr=="") {
+        if (routeStr=="") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No route id given.");
         }
         MSRoute* route = MSRoute::dictionary(routeStr);
@@ -204,7 +204,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Route '" + routeStr + "' does not exist.");
         }
 
-            // get the probability to reroute
+        // get the probability to reroute
         SUMOReal prob;
         try {
             prob = getFloatSecure(attrs, SUMO_ATTR_PROB, 1.);
@@ -216,7 +216,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
         if (prob<0) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for route '" + routeStr + "' is negative (must not).");
         }
-            // add
+        // add
         myCurrentRouteProb.add(prob, route);
     }
 }

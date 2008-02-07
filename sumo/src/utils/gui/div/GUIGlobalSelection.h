@@ -37,7 +37,7 @@
 // global variable declarations
 // ===========================================================================
 /** @brief A global holder of selected objects
- * 
+ *
  * @todo Check whether this should be replaced by a Singleton
  */
 extern GUISelectedStorage gSelected;

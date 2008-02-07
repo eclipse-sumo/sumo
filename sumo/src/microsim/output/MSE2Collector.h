@@ -298,16 +298,16 @@ protected:
          *
          * @param[in] lane The lane the detector is placed at
          */
-        by_vehicle_position_sorter(const MSLane * const lane) throw() 
-            : myLane(lane) { }
+        by_vehicle_position_sorter(const MSLane * const lane) throw()
+                : myLane(lane) { }
 
 
         /** @brief copy constructor
          *
          * @param[in] s The instance to copy
          */
-        by_vehicle_position_sorter(const by_vehicle_position_sorter &s) throw() 
-            : myLane(s.myLane) { }
+        by_vehicle_position_sorter(const by_vehicle_position_sorter &s) throw()
+                : myLane(s.myLane) { }
 
 
         /** @brief Comparison funtcion
@@ -402,7 +402,7 @@ private:
 
     /// @brief The current occupancy
     SUMOReal myCurrentOccupancy;
-    /// @brief The current mean speed 
+    /// @brief The current mean speed
     SUMOReal myCurrentMeanSpeed;
     /// @brief The current mean length
     SUMOReal myCurrentMeanLength;

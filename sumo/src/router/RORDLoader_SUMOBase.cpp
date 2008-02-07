@@ -277,7 +277,7 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
 bool
 RORDLoader_SUMOBase::closeVehicle() throw()
 {
-    if(!SUMOBaseRouteHandler::closeVehicle()) {
+    if (!SUMOBaseRouteHandler::closeVehicle()) {
         return false;
     }
     // get the vehicle id

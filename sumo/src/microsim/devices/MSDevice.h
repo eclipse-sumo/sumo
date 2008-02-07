@@ -41,23 +41,25 @@
  * @class MSDevice
  * @brief Abstract in-vehicle device
  */
-class MSDevice 
+class MSDevice
 {
 public:
-    MSDevice(MSVehicle &holder) throw() 
-        : myHolder(holder) { 
+    MSDevice(MSVehicle &holder) throw()
+            : myHolder(holder) {
     }
 
 
     virtual ~MSDevice() throw() { }
 
-    MSVehicle &getHolder() const throw() { return myHolder; }
+    MSVehicle &getHolder() const throw() {
+        return myHolder;
+    }
 
-    const std::string &getID() { 
-        if(myID=="") {
+    const std::string &getID() {
+        if (myID=="") {
             buildID();
         }
-        return myID; 
+        return myID;
     }
 
     /** Update of members if vehicle enters a new lane in the move step.
@@ -82,13 +84,15 @@ public:
 
     virtual void onTripEnd() { }
 
-    SUMOReal getEffort(const MSEdge * const e, SUMOTime t) const { return -1; }
+    SUMOReal getEffort(const MSEdge * const e, SUMOTime t) const {
+        return -1;
+    }
 
 protected:
     virtual std::string buildID() = 0;
 
     MSVehicle &myHolder;
-    
+
 private:
     std::string myID;
 

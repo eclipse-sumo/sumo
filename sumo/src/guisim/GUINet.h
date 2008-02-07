@@ -81,8 +81,8 @@ class MSVehicleControl;
 class GUINet : public MSNet
 {
 public:
-    GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents, 
-             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents);
+    GUINet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
+           MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents);
 
     /// destructor
     ~GUINet();

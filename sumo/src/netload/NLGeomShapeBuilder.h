@@ -90,7 +90,7 @@ public:
 
     /** @brief Ends the parsing of the polygon allocating it.
      *
-     * Builds a Polygon2D. Tries to add it to the container and throws an 
+     * Builds a Polygon2D. Tries to add it to the container and throws an
      *  InvalidArgument if a polygon with the same id already exists therein.
      *
      * @param[in] shape The shape of the polygon
@@ -101,9 +101,9 @@ public:
 
     /** @brief Adds the described PointOfInterest to the geometry container
      *
-     * Determines the position to use using "getPointPosition" throwing an 
+     * Determines the position to use using "getPointPosition" throwing an
      *  InvalidArgument if this fails.
-     * Builds a PointOfInterest. Tries to add it to the container and throws an 
+     * Builds a PointOfInterest. Tries to add it to the container and throws an
      *  InvalidArgument if a pos with the same id already exists therein.
      *
      * @param[in] name The name (ID) of the poi
@@ -118,8 +118,8 @@ public:
      * @exception InvalidArgument If a poi with the same id already exists or the position of the poi is invalid
      */
     virtual void addPoint(const std::string &name, int layer,
-        const std::string &type, const RGBColor &c, SUMOReal x, SUMOReal y, 
-        const std::string &lane, SUMOReal posOnLane) throw(InvalidArgument);
+                          const std::string &type, const RGBColor &c, SUMOReal x, SUMOReal y,
+                          const std::string &lane, SUMOReal posOnLane) throw(InvalidArgument);
 
 
 protected:
@@ -127,7 +127,7 @@ protected:
      *
      * If x- and y-positions are not INVALID_POSITION, then this position is returned.
      * Otherwise, the lane is tried to be obtained and the position
-     *  resulting from the lane's geometry and the lane position information 
+     *  resulting from the lane's geometry and the lane position information
      *  is computed. Throws an InvalidArgument if the lane is not known.
      *
      * @param[in] x The x-position of the poi
@@ -140,7 +140,7 @@ protected:
      * @todo Using defined INVALID_POSITION is not very pretty...
      */
     Position2D getPointPosition(SUMOReal x, SUMOReal y,
-        const std::string &laneID,  SUMOReal posOnLane) const throw(InvalidArgument);
+                                const std::string &laneID,  SUMOReal posOnLane) const throw(InvalidArgument);
 
 protected:
     /// @name Temporary stored values of the currently parsed polygon

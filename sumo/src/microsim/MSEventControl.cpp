@@ -49,7 +49,7 @@ using namespace std;
 // member definitions
 // ===========================================================================
 MSEventControl::MSEventControl() throw()
-    : myEvents()
+        : myEvents()
 {}
 
 

@@ -62,7 +62,8 @@ public:
      *
      * This class joins all programs of a single tls.
      */
-    class TLSLogicVariants {
+    class TLSLogicVariants
+    {
     public:
         /** @brief Constructor */
         TLSLogicVariants();
@@ -80,7 +81,7 @@ public:
          * @param[in] isNewDefault Whether this logic shall be treated as the currently active logic
          */
         bool addLogic(const std::string &subID, MSTrafficLightLogic*logic, bool netWasLoaded,
-            bool isNewDefault=true);
+                      bool isNewDefault=true);
 
 
 
@@ -93,8 +94,8 @@ public:
         bool switchTo(const std::string &subid);
         bool maskRedLinks();
         bool maskYellowLinks();
-        MSTrafficLightLogic*getLogicInstantiatingOff(MSTLLogicControl &tlc, 
-                                                             const std::string &subid);
+        MSTrafficLightLogic*getLogicInstantiatingOff(MSTLLogicControl &tlc,
+                const std::string &subid);
         void executeOnSwitchActions() const;
         void addLink(MSLink *link, MSLane *lane, size_t pos);
 
@@ -236,7 +237,7 @@ public:
     bool switchTo(const std::string &id, const std::string &subid);
 
 
-    /// @name WAUT definition methods 
+    /// @name WAUT definition methods
     /// @{
 
     /** @brief Adds a WAUT definition
@@ -248,8 +249,8 @@ public:
      * @param[in] startProg The begin program of the WAUT
      * @exception InvalidArgument If the id is already used by another WAUT
      */
-    void addWAUT(SUMOTime refTime, const std::string &id, 
-        const std::string &startProg) throw(InvalidArgument);
+    void addWAUT(SUMOTime refTime, const std::string &id,
+                 const std::string &startProg) throw(InvalidArgument);
 
 
     /** @brief Adds a WAUT switch step to a previously built WAUT
@@ -261,8 +262,8 @@ public:
      * @param[in] to The program the WAUT shall start to switch to at the given time
      * @exception InvalidArgument If the named WAUT is not known
      */
-    void addWAUTSwitch(const std::string &wautid, SUMOTime when, 
-        const std::string &to) throw(InvalidArgument);
+    void addWAUTSwitch(const std::string &wautid, SUMOTime when,
+                       const std::string &to) throw(InvalidArgument);
 
 
     /** @brief Adds a tls to the list of tls to be switched by the named WAUT

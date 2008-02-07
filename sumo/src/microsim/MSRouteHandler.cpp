@@ -353,20 +353,20 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
 {
     myLastDepart = myCurrentDepart;
     // let's check whether this vehicle had to be emitted before the simulation starts
-    if(myCurrentDepart<OptionsCont::getOptions().getInt("begin")) {
+    if (myCurrentDepart<OptionsCont::getOptions().getInt("begin")) {
         // yes, but maybe it's a repeating vehicle...
-        if(myRepNumber>=0&&myRepOffset>=0) {
-            while(myCurrentDepart<OptionsCont::getOptions().getInt("begin") && myRepNumber>=0) {
+        if (myRepNumber>=0&&myRepOffset>=0) {
+            while (myCurrentDepart<OptionsCont::getOptions().getInt("begin") && myRepNumber>=0) {
                 --myRepNumber;
                 myCurrentDepart += myRepOffset;
             }
         }
-        if(myCurrentDepart<OptionsCont::getOptions().getInt("begin")) {
+        if (myCurrentDepart<OptionsCont::getOptions().getInt("begin")) {
             myVehicleStops.clear();
             return false;
         }
     }
-    if(!SUMOBaseRouteHandler::closeVehicle()) {
+    if (!SUMOBaseRouteHandler::closeVehicle()) {
         return false;
     }
     // get the vehicle's type

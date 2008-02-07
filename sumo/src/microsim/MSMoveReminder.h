@@ -53,7 +53,7 @@ class MSVehicle;
  *  they pass during one step). If a vehicle enters the lane the reminder is
  *  positioned at during emit or lanechange isActivatedByEmitOrLaneChange() is
  *  called. If a vehicle leaves the reminder lane by lanechange it calls
- *  dismissByLaneChange(). 
+ *  dismissByLaneChange().
  *
  * The reminder knows whom to tell about move, emit and lanechange. The
  * vehicles will remove the reminder that is not isStillActive() from
@@ -67,7 +67,7 @@ public:
      * @param[in] lane Lane on which the reminder will work.
      * @todo Why is the lane not given as a reference?
      */
-    MSMoveReminder(MSLane* lane) throw() 
+    MSMoveReminder(MSLane* lane) throw()
             : laneM(lane) {
         // add reminder to lane
         laneM->addMoveReminder(this);
@@ -108,7 +108,7 @@ public:
 
 
     /** @brief Checks whether the reminder is activated by the vehicle's emission on lane change
-     * 
+     *
      * Lane change means in this case that the vehicle changes to the lane
      *  the reminder is placed at.
      *
