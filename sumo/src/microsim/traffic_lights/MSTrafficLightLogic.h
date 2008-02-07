@@ -167,7 +167,7 @@ class SwitchCommand : public Command
 
         /** @brief Executes this event
             Executes the regarded junction's "trySwitch"- method */
-        SUMOTime execute(SUMOTime currentTime) throw();
+        SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
 
         void deschedule(MSTrafficLightLogic *tlLogic);
 

@@ -315,7 +315,7 @@ class SwitchInitCommand : public Command
          *
          * The control will ask for the index and increment it.
          */
-        SUMOTime execute(SUMOTime) throw() {
+        SUMOTime execute(SUMOTime) throw(ProcessError) {
             return myParent.initWautSwitch(*this);
         }
 

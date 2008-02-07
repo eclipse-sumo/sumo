@@ -142,7 +142,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::~GUIEmitterChild_UserTriggeredCh
 
 
 SUMOTime
-GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute(SUMOTime currentTime) throw()
+GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute(SUMOTime currentTime) throw(ProcessError)
 {
     if (myUserFlow<=0) {
         return 0;

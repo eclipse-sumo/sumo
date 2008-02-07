@@ -36,6 +36,7 @@
 #include <map>
 #include <string>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -108,10 +109,13 @@ public:
      *  be executed again. If the returned time is 0, the event is deleted. 
      *  Otheriwse it is readded, after the new execution time (returned + current)
      *  is computed.
+     *
+     * ProcessErrors thrown by executed commands are rethrown.
      *  
      * @param[in] time The current simulation time
+     * @exception ProcessError From an executed Command
      */
-    virtual void execute(SUMOTime time) throw();
+    virtual void execute(SUMOTime time) throw(ProcessError);
 
 
 protected:

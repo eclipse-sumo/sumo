@@ -73,7 +73,7 @@ public:
     virtual ~MSVTypeProbe() throw();
 
 protected:
-    SUMOTime execute(SUMOTime currentTime) throw();
+    SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
 
     void writeXMLProlog();
     void writeXMLEpilog();

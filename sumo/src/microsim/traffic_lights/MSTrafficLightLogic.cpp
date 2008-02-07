@@ -68,7 +68,7 @@ MSTrafficLightLogic::SwitchCommand::~SwitchCommand() throw()
 
 
 SUMOTime
-MSTrafficLightLogic::SwitchCommand::execute(SUMOTime) throw()
+MSTrafficLightLogic::SwitchCommand::execute(SUMOTime) throw(ProcessError)
 {
     // check whether this command has been descheduled
     if (!myAmValid) {

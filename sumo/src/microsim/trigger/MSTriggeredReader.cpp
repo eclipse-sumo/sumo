@@ -52,7 +52,7 @@ MSTriggeredReader::MSTriggerCommand::~MSTriggerCommand() throw()
 
 
 SUMOTime
-MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current) throw()
+MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current) throw(ProcessError)
 {
     if (!myParent.isInitialised()) {
         myParent.init();

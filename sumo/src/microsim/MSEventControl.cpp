@@ -80,7 +80,7 @@ MSEventControl::addEvent(Command* operation,
 
 
 void
-MSEventControl::execute(SUMOTime execTime) throw()
+MSEventControl::execute(SUMOTime execTime) throw(ProcessError)
 {
     // Execute all events that are scheduled for execTime.
     for (;!myEvents.empty();) {

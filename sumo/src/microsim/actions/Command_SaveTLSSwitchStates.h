@@ -78,7 +78,7 @@ public:
      * @return Always 1 (will be executed in next time step)
      * @todo Here, a discrete even (on switch / program change) would be appropriate
      */
-    SUMOTime execute(SUMOTime currentTime) throw();
+    SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
 
 
 private:

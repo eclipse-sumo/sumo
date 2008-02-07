@@ -89,7 +89,7 @@ MSLaneSpeedTrigger::~MSLaneSpeedTrigger() throw()
 
 
 SUMOTime
-MSLaneSpeedTrigger::execute(SUMOTime) throw()
+MSLaneSpeedTrigger::execute(SUMOTime) throw(ProcessError)
 {
     return processCommand(true);
 }

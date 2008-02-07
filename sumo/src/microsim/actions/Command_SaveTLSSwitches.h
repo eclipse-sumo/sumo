@@ -80,7 +80,7 @@ public:
      * @param[in] currentTime The simulation time of the call
      * @return Always 1 (will be executed in the next step)
      */
-    SUMOTime execute(SUMOTime currentTime) throw();
+    SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
 
 
 private:

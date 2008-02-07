@@ -70,10 +70,15 @@ GUIEventControl::addEvent(Command* operation,
 
 
 void
-GUIEventControl::execute(SUMOTime execTime) throw()
+GUIEventControl::execute(SUMOTime execTime) throw(ProcessError)
 {
     myLock.lock();
-    MSEventControl::execute(execTime);
+    try {
+        MSEventControl::execute(execTime);
+    } catch (ProcessError &) {
+        myLock.unlock();
+        throw;
+    }
     myLock.unlock();
 }
 

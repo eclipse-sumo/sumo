@@ -69,7 +69,7 @@ MSVTypeProbe::~MSVTypeProbe() throw()
 
 
 SUMOTime
-MSVTypeProbe::execute(SUMOTime timestep) throw()
+MSVTypeProbe::execute(SUMOTime timestep) throw(ProcessError)
 {
     const std::string indent("   ");
 

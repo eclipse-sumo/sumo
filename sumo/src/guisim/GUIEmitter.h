@@ -128,7 +128,7 @@ protected:
             MSEmitter_FileTriggeredChild &s, MSEmitter &parent,
             MSVehicleControl &vc, SUMOReal flow) throw();
         virtual ~GUIEmitterChild_UserTriggeredChild() throw();
-        SUMOTime execute(SUMOTime currentTime) throw();
+        SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
         SUMOReal getUserFlow() const;
 
     protected:

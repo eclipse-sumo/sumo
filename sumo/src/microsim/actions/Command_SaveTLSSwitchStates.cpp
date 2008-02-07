@@ -66,7 +66,7 @@ Command_SaveTLSSwitchStates::~Command_SaveTLSSwitchStates() throw()
 
 
 SUMOTime
-Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) throw()
+Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) throw(ProcessError)
 {
     string state = myLogics.getActive()->buildStateList();
     if (state!=myPreviousState||myLogics.getActive()->getSubID()!=myPreviousSubID) {

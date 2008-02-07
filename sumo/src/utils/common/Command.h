@@ -31,6 +31,7 @@
 #endif
 
 #include <utils/common/SUMOTime.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -65,7 +66,7 @@ public:
      * in steps for recurring commands and 0 for single-execution
      * commands.
      */
-    virtual SUMOTime execute(SUMOTime currentTime) throw() = 0;
+    virtual SUMOTime execute(SUMOTime currentTime) throw(ProcessError) = 0;
 
 };
 

@@ -70,7 +70,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::~MSEmitter_FileTriggeredChild() throw()
 
 
 SUMOTime
-MSEmitter::MSEmitter_FileTriggeredChild::execute(SUMOTime) throw()
+MSEmitter::MSEmitter_FileTriggeredChild::execute(SUMOTime) throw(ProcessError)
 {
     if (myParent.childCheckEmit(this)) {
         buildAndScheduleFlowVehicle();

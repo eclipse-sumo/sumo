@@ -76,7 +76,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::~MSCalibrator_FileTriggeredChild(
 
 
 SUMOTime
-MSCalibrator::MSCalibrator_FileTriggeredChild::execute(SUMOTime) throw()
+MSCalibrator::MSCalibrator_FileTriggeredChild::execute(SUMOTime) throw(ProcessError)
 {
     if (myParent.childCheckEmit(this)) {
         buildAndScheduleFlowVehicle();
@@ -88,7 +88,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::execute(SUMOTime) throw()
 
 
 SUMOTime
-MSCalibrator::execute(SUMOTime timestep) throw()
+MSCalibrator::execute(SUMOTime timestep) throw(ProcessError)
 {
 
     if (timestep == 0) {

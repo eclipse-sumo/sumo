@@ -68,7 +68,7 @@ Command_SaveTLSSwitches::~Command_SaveTLSSwitches() throw()
 
 
 SUMOTime
-Command_SaveTLSSwitches::execute(SUMOTime currentTime) throw()
+Command_SaveTLSSwitches::execute(SUMOTime currentTime) throw(ProcessError)
 {
     MSTrafficLightLogic *light = myLogics.getActive();
     const MSTrafficLightLogic::LinkVectorVector &links = light->getLinks();

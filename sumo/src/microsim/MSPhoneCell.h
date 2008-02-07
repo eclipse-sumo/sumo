@@ -128,7 +128,7 @@ class SetStatParamsCommand : public Command
          *
          * The control will ask for the index and increment it.
          */
-        SUMOTime execute(SUMOTime time)  throw(){
+        SUMOTime execute(SUMOTime time) throw(ProcessError) {
             return myParent.nextStatPeriod(time);
         }
 
@@ -154,14 +154,14 @@ class SetDynParamsCommand : public Command
                 : myParent(p) { }
 
         /// Destructor
-        ~SetDynParamsCommand()  throw(){ }
+        ~SetDynParamsCommand() throw(){ }
 
         /** @brief Executes the command what forces the logic control to
          * initialise a switch process
          *
          * The control will ask for the index and increment it.
          */
-        SUMOTime execute(SUMOTime time)  throw(){
+        SUMOTime execute(SUMOTime time) throw(ProcessError) {
             return myParent.nextDynPeriod(time);
         }
 

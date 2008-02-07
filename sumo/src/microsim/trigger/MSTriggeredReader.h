@@ -84,7 +84,7 @@ class MSTriggerCommand : public Command
 
         /** Execute the command and return an offset for recurring commands
             or 0 for single-execution commands. */
-        virtual SUMOTime execute(SUMOTime currentTime) throw();
+        virtual SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
 
     private:
         /// The parent reader

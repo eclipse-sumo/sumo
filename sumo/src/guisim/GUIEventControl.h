@@ -75,9 +75,10 @@ public:
      *  after the call.
      *  
      * @param[in] time The current simulation time
+     * @exception ProcessError From an executed Command
      * @see MSEventControl::execute
      */
-    void execute(SUMOTime time) throw();
+    void execute(SUMOTime time) throw(ProcessError);
 
 
 private:

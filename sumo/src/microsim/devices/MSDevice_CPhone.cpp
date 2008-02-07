@@ -185,7 +185,7 @@ MSDevice_CPhone::MyCommand::~MyCommand() throw()
 
 
 SUMOTime
-MSDevice_CPhone::MyCommand::execute(SUMOTime) throw()
+MSDevice_CPhone::MyCommand::execute(SUMOTime) throw(ProcessError)
 {
     SUMOTime ret = 0;
     if (myAmActive) {

@@ -190,7 +190,7 @@ protected:
         bool processNextEntryReaderTriggered();
 
         /// Builds a vehicle and tries to emit it
-        SUMOTime execute(SUMOTime currentTime) throw();
+        SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
 
         /// Returns the loaded flow
         SUMOReal getLoadedFlow() const;
@@ -279,7 +279,7 @@ protected:
 
 
     /// TM
-    SUMOTime execute(SUMOTime currentTime) throw();
+    SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
     static std::map<std::string, MSCalibrator*> calibratorMap;
 
 
