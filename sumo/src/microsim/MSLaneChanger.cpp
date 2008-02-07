@@ -204,6 +204,81 @@ MSLaneChanger::change()
         state2 = 0;
         vehicle->getLaneChangeModel().setState(state1);
     }
+    // check whether the vehicles should be swapped
+    if ((state1&(LCA_URGENT))!=0||(state2&(LCA_URGENT))!=0) {
+        // get the direction ...
+        ChangerIt target;
+        if ((state1&(LCA_URGENT))!=0) {
+            // ... wants to go right
+            target = myCandi - 1;
+        }
+        if ((state2&(LCA_URGENT))!=0) {
+            // ... wants to go left
+            target = myCandi + 1;
+        }
+        MSVehicle *prohibitor = target->lead;
+        if (target->hoppedVeh!=0) {
+            SUMOReal hoppedPos = target->hoppedVeh->getPositionOnLane();
+            if (prohibitor==0||(
+                        hoppedPos>vehicle->getPositionOnLane() && prohibitor->getPositionOnLane()>hoppedPos)) {
+
+                prohibitor = 0;// !!! vehicles should not jump over more than one lanetarget->hoppedVeh;
+            }
+        }
+        if (prohibitor!=0
+                &&
+                ((prohibitor->getLaneChangeModel().getState()&(LCA_URGENT/*|LCA_SPEEDGAIN*/))!=0
+                 &&
+                 (prohibitor->getLaneChangeModel().getState()&(LCA_LEFT|LCA_RIGHT))
+                 !=
+                 (vehicle->getLaneChangeModel().getState()&(LCA_LEFT|LCA_RIGHT))
+                )
+           ) {
+
+            // check for position and speed
+            if (prohibitor->getLength()-vehicle->getLength()==0) {
+                // ok, may be swapped
+                // remove vehicle to swap with
+                MSLane::VehCont::iterator i =
+                    find(
+                        target->lane->myTmpVehicles.begin(),
+                        target->lane->myTmpVehicles.end(),
+                        prohibitor);
+                if (i!=target->lane->myTmpVehicles.end()) {
+                    MSVehicle *bla = *i;
+                    assert(bla==prohibitor);
+                    target->lane->myTmpVehicles.erase(i);
+                    // set this vehicle
+                    target->hoppedVeh = vehicle;
+                    target->lane->myTmpVehicles.push_front(vehicle);
+                    myCandi->hoppedVeh = prohibitor;
+                    myCandi->lane->myTmpVehicles.push_front(prohibitor);
+
+                    // leave lane and detectors
+                    vehicle->leaveLaneAtLaneChange();
+                    prohibitor->leaveLaneAtLaneChange();
+                    // patch position and speed
+                    SUMOReal p1 = vehicle->getPositionOnLane();
+                    vehicle->myState.myPos = prohibitor->myState.myPos;
+                    prohibitor->myState.myPos = p1;
+                    p1 = vehicle->getSpeed();
+                    vehicle->myState.mySpeed = prohibitor->myState.mySpeed;
+                    prohibitor->myState.mySpeed = p1;
+                    // enter lane and detectors
+                    vehicle->enterLaneAtLaneChange(target->lane);
+                    prohibitor->enterLaneAtLaneChange(myCandi->lane);
+                    // mark lane change
+                    vehicle->getLaneChangeModel().changed();
+                    vehicle->myLastLaneChangeOffset = 0;
+                    prohibitor->getLaneChangeModel().changed();
+                    prohibitor->myLastLaneChangeOffset = 0;
+                    (myCandi)->dens += prohibitor->getLength();
+                    (target)->dens += vehicle->getLength();
+                    return true;
+                }
+            }
+        }
+    }
     // Candidate didn't change lane.
     myCandi->lane->myTmpVehicles.push_front(veh(myCandi));
     vehicle->myLastLaneChangeOffset++;
