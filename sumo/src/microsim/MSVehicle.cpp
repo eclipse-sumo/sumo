@@ -1477,7 +1477,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
     //     but only if we have at least examined the next edge
     // b) if we have examined 8 edges in front (!!! this may be shorted)
     // c) if the route does not continue after the seen edges
-    if((seen>2 && oq.length+l->length()>3000) || seen>8 || ce==myRoute->end()) {
+    if((seen>4 && oq.length+l->length()>3000) || seen>8 || ce==myRoute->end()) {
         // ok, we have rebuilt this so far... do not have to go any further
         return;
     }
