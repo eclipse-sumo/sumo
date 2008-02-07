@@ -1,2 +1,2 @@
-Error: The number of edges must be larger than 2 in both directions.
+Error: The number of nodes must be at least 2 in both directions.
 Quitting (on error).
