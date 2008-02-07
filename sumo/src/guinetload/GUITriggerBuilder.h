@@ -77,10 +77,12 @@ protected:
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
      * @return The built lane speed trigger
+     * @see MSLaneSpeedTrigger
+     * @exception ProcessError If the XML definition file is errornous
      */
     virtual MSLaneSpeedTrigger *buildLaneSpeedTrigger(MSNet &net,
             const std::string &id, const std::vector<MSLane*> &destLanes,
-            const std::string &file) throw();
+            const std::string &file) throw(ProcessError);
 
 
     /** @brief Builds an emitter

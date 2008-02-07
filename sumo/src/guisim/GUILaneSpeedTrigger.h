@@ -74,7 +74,7 @@ public:
      */
     GUILaneSpeedTrigger(const std::string &id, MSNet &net,
                         const std::vector<MSLane*> &destLanes,
-                        const std::string &file);
+                        const std::string &file) throw(ProcessError);
 
     /** destructor */
     ~GUILaneSpeedTrigger() throw();

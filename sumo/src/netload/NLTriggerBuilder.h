@@ -113,12 +113,20 @@ protected:
     //@{
     /** @brief Parses his values and builds a lane speed trigger
      *
+     * If one of the declaration values is errornous, an InvalidArgument is thrown.
+     * 
+     * If the XML-file parsed during initialisation is errornous, and the 
+     *  MSLaneSpeedTrigger-constructor throws a ProcessError due to this, this 
+     *  exception is catched and an InvalidArgument with the message given in the
+     *  ProcessError is thrown.
+     *
      * @param[in] net The network the lane speed trigger belongs to
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] base The base path
      * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
      * @return The built lane speed trigger
-     * @exception InvalidArgument If a parameter (lane/position) is not valid
+     * @exception InvalidArgument If a parameter (lane/position) is not valid or the read definition is errornous
+     * @see buildLaneSpeedTrigger
      */
     MSLaneSpeedTrigger *parseAndBuildLaneSpeedTrigger(MSNet &net,
             const Attributes &attrs, const std::string &base,
@@ -257,10 +265,12 @@ protected:
      * @param[in] destLanes List of lanes affected by this speed trigger
      * @param[in] file Name of the file to read the speeds to set from
      * @return The built lane speed trigger
+     * @see MSLaneSpeedTrigger
+     * @exception ProcessError If the XML definition file is errornous
      */
     virtual MSLaneSpeedTrigger *buildLaneSpeedTrigger(MSNet &net,
             const std::string &id, const std::vector<MSLane*> &destLanes,
-            const std::string &file) throw();
+            const std::string &file) throw(ProcessError);
 
 
     /** @brief Builds an emitter

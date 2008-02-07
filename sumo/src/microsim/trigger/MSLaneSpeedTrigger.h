@@ -33,6 +33,7 @@
 #include <string>
 #include <vector>
 #include <utils/common/Command.h>
+#include <utils/common/UtilExceptions.h>
 #include <utils/xml/SUMOSAXHandler.h>
 #include "MSTrigger.h"
 
@@ -67,7 +68,7 @@ public:
      */
     MSLaneSpeedTrigger(const std::string &id,
                        MSNet &net, const std::vector<MSLane*> &destLanes,
-                       const std::string &file) throw();
+                       const std::string &file) throw(ProcessError);
 
     /** destructor */
     virtual ~MSLaneSpeedTrigger() throw();

@@ -56,11 +56,9 @@ using namespace std;
 MSLaneSpeedTrigger::MSLaneSpeedTrigger(const std::string &id,
                                        MSNet &net,
                                        const std::vector<MSLane*> &destLanes,
-                                       const std::string &file) throw()
+                                       const std::string &file) throw(ProcessError)
         : MSTrigger(id), SUMOSAXHandler(file),
-        myDestLanes(destLanes), /*myHaveNext(false), */myAmOverriding(false)
-        /*    ,
-            myNextOffset(0)*/
+        myDestLanes(destLanes), myAmOverriding(false)
 {
     myCurrentSpeed = destLanes[0]->maxSpeed();
     // read in the trigger description

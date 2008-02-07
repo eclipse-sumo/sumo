@@ -171,7 +171,11 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const Attributes &at
     if (lanes.size()==0) {
         throw InvalidArgument("No lane defined for MSLaneSpeedTrigger '" + id + "'.");
     }
-    return buildLaneSpeedTrigger(net, id, lanes, file);
+    try {
+        return buildLaneSpeedTrigger(net, id, lanes, file);
+    } catch (ProcessError &e) {
+        throw InvalidArgument(e.what());
+    }
 }
 
 
@@ -367,7 +371,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const Attributes &attrs,
 MSLaneSpeedTrigger *
 NLTriggerBuilder::buildLaneSpeedTrigger(MSNet &net, const std::string &id,
                                         const std::vector<MSLane*> &destLanes,
-                                        const std::string &file) throw()
+                                        const std::string &file) throw(ProcessError)
 {
     return new MSLaneSpeedTrigger(id, net, destLanes, file);
 }
