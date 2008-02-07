@@ -36,7 +36,7 @@
 
 /* Version number of package */
 #ifndef HAVE_VERSION_H
-#define VERSION_STRING "0.9.7"
+#define VERSION_STRING "0.9.8"
 #endif
 
 #define HAVE_INTERNAL_LANES 1
