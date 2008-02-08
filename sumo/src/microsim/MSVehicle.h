@@ -535,9 +535,28 @@ public:
     bool startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime currentTime);
 
     /**
-     * called by TraCI at each simulation step
+     * called each simulation step to slow down if necessary (see above)
      */
     void adaptSpeed();
+
+	/**
+	 * Checks if the sticky time for a "changelane" command has passed already
+	 */
+	void checkLaneChangeConstraint();
+
+	/**
+	 * Forces the vehicle to change the given number of lanes to the right side
+	 * @param numLanes number of lanes that shall be passed
+	 * @param stickyTime duration for wich the lane change constraint takes effect
+	 */
+	void forceLaneChangeRight(int numLanes, SUMOTime stickyTime);
+
+	/**
+	 * Forces the vehicle to change the given number of lanes to the left side
+	 * @param numLanes number of lanes that shall be passed
+	 * @param stickyTime duration for wich the lane change constraint takes effect
+	 */
+	void forceLaneChangeLeft(int numLanes, SUMOTime stickyTime);
 #endif
 
 protected:
@@ -711,10 +730,23 @@ private:
     bool adaptingSpeed;
     bool isLastAdaption;
 
+	/* speed of the vehicle before any speed adaption began */
     SUMOReal speedBeforeAdaption;
+
+	/* the amount by wich the speed shall be reduced */
     SUMOReal speedReduction;
+
+	/* simulation time, when the last speed adaption started */
     SUMOTime timeBeforeAdaption;
+
+	/* duratíon of the last speed adaption */
     SUMOTime adaptDuration;
+
+	/* simulation time when the last lane change was forced */
+	SUMOTime timeBeforeLaneChange;
+
+	/* duration for which the forced lane change will be in effect */
+	SUMOTime laneChangeStickyTime;
 
 #endif
 

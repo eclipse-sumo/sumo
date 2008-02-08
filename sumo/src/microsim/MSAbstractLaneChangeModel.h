@@ -49,6 +49,15 @@ enum LaneChangeAction {
     LCA_MAX = 128
 };
 
+#ifdef TRACI
+enum TraciLaneChangeAction {
+	TLCA_REQUEST_RIGHT = 0,
+	TLCA_REQUEST_LEFT = 2,
+	TLCA_HAS_CHANGEDRIGHT = 4,
+	TLCA_HAS_CHANGEDLEFT = 8
+};
+#endif
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
@@ -91,7 +100,11 @@ public:
 
 
     MSAbstractLaneChangeModel(MSVehicle &v)
-            : myVehicle(v), myState(0) { }
+            : myVehicle(v), myState(0)
+#ifdef TRACI
+			, myTraciState(0) 
+#endif
+	{ }
 
     virtual ~MSAbstractLaneChangeModel() { }
 
@@ -102,6 +115,16 @@ public:
     void setState(int state) {
         myState = state;
     }
+
+#ifdef TRACI
+	int getTraciState() const {
+        return myTraciState;
+    }
+
+    void setTraciState(int state) {
+        myTraciState = state;
+    }
+#endif
 
     virtual void prepareStep() { }
 
@@ -172,6 +195,7 @@ protected:
 protected:
     MSVehicle &myVehicle;
     int myState;
+	int myTraciState;
 
 };
 

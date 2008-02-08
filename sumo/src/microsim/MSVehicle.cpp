@@ -218,7 +218,9 @@ MSVehicle::MSVehicle(string id,
         speedBeforeAdaption(0),
         timeBeforeAdaption(0),
         speedReduction(0),
-        adaptDuration(0)
+        adaptDuration(0),
+		timeBeforeLaneChange(0),
+		laneChangeStickyTime(0)
 #endif
 {
     rebuildAllowedLanes();
@@ -1941,6 +1943,48 @@ MSVehicle::adaptSpeed()
     }
 
     setIndividualMaxSpeed(maxSpeed);
+}
+
+/****************************************************************************/
+
+void 
+MSVehicle::checkLaneChangeConstraint() {
+	SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
+	if ((currentTime - timeBeforeLaneChange) >= laneChangeStickyTime) {
+		myLaneChangeModel->setTraciState(0);
+	}
+}
+
+/****************************************************************************/
+void 
+MSVehicle::forceLaneChangeRight(int numLanes, SUMOTime stickyTime) {
+	int newState = 0;
+
+	if (numLanes <= 0) {
+		return;
+	}
+
+	newState = TLCA_REQUEST_RIGHT & !TLCA_HAS_CHANGEDRIGHT;
+	myLaneChangeModel->setTraciState(newState);
+
+	timeBeforeLaneChange = MSNet::getInstance()->getCurrentTimeStep();
+	laneChangeStickyTime = stickyTime;
+}
+
+/****************************************************************************/
+void 
+MSVehicle::forceLaneChangeLeft(int numLanes, SUMOTime stickyTime) {
+	int newState = 0;
+
+	if (numLanes <= 0) {
+		return;
+	}
+
+	newState = TLCA_REQUEST_LEFT & !TLCA_HAS_CHANGEDLEFT;
+	myLaneChangeModel->setTraciState(newState);
+
+	timeBeforeLaneChange = MSNet::getInstance()->getCurrentTimeStep();
+	laneChangeStickyTime = stickyTime;
 }
 
 #endif

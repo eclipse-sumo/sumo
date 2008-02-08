@@ -227,13 +227,17 @@ throw(TraCIException)
     MSNet *net = MSNet::getInstance();
     SUMOTime currentTime = net->getCurrentTimeStep();
 
-    // for each vehicle, try to reroute in case of previous "changeRoute" messages
+    
     for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin();
             iter != equippedVehicles_.end(); ++iter) {
         if ((*iter).second != -1) { // Look only at equipped vehicles
             MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
             if (veh != NULL) {
+				// for each vehicle, try to reroute in case of previous "changeRoute" messages
                 veh->checkReroute(currentTime);
+
+				// check for applied lane changing constraints
+				veh->checkLaneChangeConstraint();
             }
         }
     }
@@ -349,9 +353,10 @@ TraCIServer::commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
 throw(TraCIException)
 {
     std::string roadID;
-    std::string laneID = "";
+    //std::string laneID = "";
     float lanePos;
-    unsigned char laneIDNum;
+    unsigned char laneIndex;
+	MSLane* actLane;
 
     // NodeId
     MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
@@ -363,29 +368,40 @@ throw(TraCIException)
         roadID = requestMsg.readString();
         // position on lane
         lanePos = requestMsg.readFloat();
-        // numerical lane-id
-        laneIDNum = requestMsg.readUnsignedByte();
+        // lane-id
+        laneIndex = requestMsg.readUnsignedByte();
 
         if (lanePos < 0) {
             writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
         }
 
-        // search for corresponding string-lane-id
+        // get the actual lane that is referenced by laneIndex
         MSEdge* road = MSEdge::dictionary(roadID);
         if (road == NULL) {
             writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Unable to retrieve road with given id");
         }
-        const MSEdge::LaneCont* const lanes = road->getLanes();
-        //for (int i=0; i < lanes->size(); i++) {
-        for (MSEdge::LaneCont::const_iterator iter = lanes->begin(); iter != lanes->end(); iter++) {
-            //if (lanes[i] getNumericalID == laneIDNum) {
-            if ((*iter)->getNumericalID() == laneIDNum) {
-                laneID = (*iter)->getID();
-            }
+
+        const MSEdge::LaneCont* const allLanes = road->getLanes();
+		if (laneIndex >= allLanes->size()) {
+            writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "No lane existing with such id on the given road");
         }
-        if (laneID == "") {
-            writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Unable to retrieve lane with given id");
-        }
+
+		actLane = (*allLanes)[0];
+		int index = 0;
+		while (road->rightLane(actLane) != NULL) {
+			actLane = road->rightLane(actLane);
+			index++;
+		}
+		actLane = (*allLanes)[0];
+		if (index < laneIndex) {
+			for (int i=0; i < (laneIndex - index); i++) {
+				actLane = road->leftLane(actLane);
+			}
+		} else {
+			for (int i=0; i < (index - laneIndex); i++) {
+				actLane = road->rightLane(actLane);
+			}
+		}
     } else {
         writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Currently not supported or unknown Position Format");
     }
@@ -406,7 +422,8 @@ throw(TraCIException)
         MSVehicle::Stop newStop;
         newStop.busstop = NULL;
         newStop.duration = waitTime;
-        newStop.lane = MSLane::dictionary(laneID);
+        //newStop.lane = MSLane::dictionary(laneID);
+		newStop.lane = actLane;
         newStop.pos = lanePos;
         newStop.reached = false;
         newStop.until = 0;
@@ -427,8 +444,8 @@ throw(TraCIException)
 {
     // NodeId
     MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
-    // Lane
-    int lane = requestMsg.readInt();
+    // Lane ID
+    int laneIndex = requestMsg.readInt();
     // stickyTime
     double stickyTime = requestMsg.readDouble();
 
@@ -437,8 +454,25 @@ throw(TraCIException)
         return;
     }
 
-    // Forward command to vehicle
-    // Todo
+	// Forward command to vehicle
+	const MSEdge* const road = veh->getEdge();
+    const MSEdge::LaneCont* const allLanes = road->getLanes();
+	if (laneIndex >= allLanes->size()) {
+        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "No lane existing with such id on the current road");
+    }
+
+	int index = 0;
+	MSLane* actLane = (*allLanes)[0];
+	while (road->rightLane(actLane) != NULL) {
+		actLane = road->rightLane(actLane);
+		index++;
+	}
+	
+	if (index < laneIndex) {
+		veh->forceLaneChangeLeft(laneIndex - index, stickyTime);
+	} else {
+		veh->forceLaneChangeRight(index - laneIndex, stickyTime);
+	}
 
     // create a reply message
     writeStatusCmd(respMsg, CMD_CHANGELANE, RTYPE_OK, "");
