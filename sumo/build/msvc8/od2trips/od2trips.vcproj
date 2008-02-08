@@ -53,7 +53,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/od2trips.exe"
-				LinkTimeCodeGeneration="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -117,7 +116,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/od2trips64.exe"
-				LinkTimeCodeGeneration="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -309,7 +307,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Fastbuild/od2tripsF.exe"
-				LinkTimeCodeGeneration="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -376,7 +373,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Fastbuild/od2trips64.exe"
-				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
 			/>
 			<Tool

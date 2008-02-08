@@ -179,7 +179,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) $(XERCES_LIB) ws2_32.lib"
 				OutputFile=".\Release/polyconvert.exe"
-				LinkTimeCodeGeneration="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -243,7 +242,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) ws2_32.lib"
 				OutputFile=".\Release/polyconvert64.exe"
-				LinkTimeCodeGeneration="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -309,7 +307,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) $(XERCES_LIB) ws2_32.lib"
 				OutputFile=".\Fastbuild/polyconvertF.exe"
-				LinkTimeCodeGeneration="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -376,7 +373,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) ws2_32.lib"
 				OutputFile=".\Fastbuild/polyconvert64.exe"
-				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
 			/>
 			<Tool

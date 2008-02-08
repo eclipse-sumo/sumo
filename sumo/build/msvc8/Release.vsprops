@@ -18,11 +18,13 @@
                 RuntimeLibrary="2"
 		BufferSecurityCheck="false"
 		FloatingPointExceptions="false"
+                WarningLevel="3"
 		DebugInformationFormat="0"
 	/>
 	<Tool
 		Name="VCLinkerTool"
 		LinkIncremental="1"
 		GenerateDebugInformation="false"
+                LinkTimeCodeGeneration="1"
 	/>
 </VisualStudioPropertySheet>

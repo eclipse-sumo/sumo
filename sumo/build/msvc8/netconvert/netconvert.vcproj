@@ -181,7 +181,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) $(XERCES_LIB) $(GDAL_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/netconvert.exe"
-				LinkTimeCodeGeneration="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -245,7 +244,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Release/netconvert64.exe"
-				LinkTimeCodeGeneration="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -311,7 +309,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) $(XERCES_LIB) $(GDAL_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Fastbuild/netconvertF.exe"
-				LinkTimeCodeGeneration="1"
 			/>
 			<Tool
 				Name="VCALinkTool"
@@ -378,7 +375,6 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(XERCES_LIB) $(NOINHERIT) ws2_32.lib"
 				OutputFile=".\Fastbuild/netconvert64.exe"
-				LinkTimeCodeGeneration="1"
 				TargetMachine="17"
 			/>
 			<Tool
