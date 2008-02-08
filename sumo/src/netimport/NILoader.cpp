@@ -218,6 +218,8 @@ NILoader::loadXMLType(SUMOSAXHandler *handler, const vector<string> &files,
     } catch (const XMLException& toCatch) {
         exceptMsg = TplConvert<XMLCh>::_2str(toCatch.getMessage())
                     + "\n  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
+    } catch (const ProcessError& toCatch) {
+        exceptMsg = string(toCatch.what()) + "\n  The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
     } catch (...) {
         exceptMsg = "The " + type  + " could not be loaded from '" + handler->getFileName() + "'.";
     }

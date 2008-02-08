@@ -77,7 +77,7 @@ NGEdge::~NGEdge() throw()
 
 
 NBEdge *
-NGEdge::buildNBEdge(NBNetBuilder &nb) const throw()
+NGEdge::buildNBEdge(NBNetBuilder &nb) const throw(ProcessError)
 {
     return new NBEdge(
                myID, // id

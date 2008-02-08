@@ -35,6 +35,7 @@
 #include <string>
 #include <set>
 #include "NBCont.h"
+#include <utils/common/UtilExceptions.h>
 #include <utils/common/VectorHelper.h>
 #include <utils/geom/Bresenham.h>
 #include <utils/geom/Position2DVector.h>
@@ -121,13 +122,13 @@ public:
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, size_t nolanes, int priority,
            LaneSpreadFunction spread=LANESPREAD_RIGHT,
-           EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
+           EdgeBasicFunction basic=EDGEFUNCTION_NORMAL) throw(ProcessError);
 
     NBEdge(const std::string &id, const std::string &name,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, size_t nolanes, int priority,
            Position2DVector geom, LaneSpreadFunction spread=LANESPREAD_RIGHT,
-           EdgeBasicFunction basic=EDGEFUNCTION_NORMAL);
+           EdgeBasicFunction basic=EDGEFUNCTION_NORMAL) throw(ProcessError);
 
     /// destructor
     ~NBEdge();
@@ -575,6 +576,9 @@ private:
 
 
 private:
+    /** initialization routines common to all constructors */
+    void init() throw(ProcessError);
+
     /** divides the lanes on the outgoing edges */
     void divideOnEdges(const std::vector<NBEdge*> *outgoing);
 

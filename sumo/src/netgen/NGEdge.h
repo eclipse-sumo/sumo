@@ -31,6 +31,7 @@
 #endif
 
 #include <list>
+#include <utils/common/UtilExceptions.h>
 #include <utils/geom/Position2D.h>
 #include <utils/geom/GeomHelper.h>
 
@@ -112,7 +113,7 @@ public:
      * @param[in] nb The netbuilder to retrieve the referenced nodes from
      * @return The built edge
      */
-    NBEdge *buildNBEdge(NBNetBuilder &nb) const throw();
+    NBEdge *buildNBEdge(NBNetBuilder &nb) const throw(ProcessError);
 
 
 private:

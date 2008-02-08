@@ -173,7 +173,7 @@ NBEdge::MainDirections::includes(Direction d) const
 NBEdge::NBEdge(const string &id, const string &name, NBNode *from, NBNode *to,
                string type, SUMOReal speed, size_t nolanes,
                int priority, LaneSpreadFunction spread,
-               EdgeBasicFunction basic) :
+               EdgeBasicFunction basic) throw(ProcessError) :
         myStep(INIT), myID(StringUtils::convertUmlaute(id)),
         myType(StringUtils::convertUmlaute(type)),
         myNolanes(nolanes), myFrom(from), myTo(to), myAngle(0),
@@ -186,38 +186,7 @@ NBEdge::NBEdge(const string &id, const string &name, NBNode *from, NBNode *to,
         myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0),
         myAmInnerEdge(false)
 {
-    if (myNolanes==0) {
-        throw InvalidArgument("Edge '" + id + "' has no lanes (must have at least one).");
-    }
-    if (myFrom==0||myTo==0) {
-        throw InvalidArgument("At least one of edge's '" + id + "' nodes is not known.");
-    }
-    myAngle = NBHelpers::angle(
-                  myFrom->getPosition().x(), myFrom->getPosition().y(),
-                  myTo->getPosition().x(), myTo->getPosition().y()
-              );
-    myFrom->addOutgoingEdge(this);
-    myTo->addIncomingEdge(this);
-    // prepare container
-    myReachable.resize(myNolanes, EdgeLaneVector());
-    myLength = GeomHelper::distance(myFrom->getPosition(), myTo->getPosition());
-    if (myFrom->getPosition().almostSame(myTo->getPosition())) {
-        throw InvalidArgument("Edge '" + id + "' starts at the same position as it ends on (must not).");
-    }
-    myGeom.push_back(myFrom->getPosition());
-    myGeom.push_back(myTo->getPosition());
-#ifdef _DEBUG
-#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
-    if (!myGeom.assertNonEqual()) {
-        DEBUG_OUT << getID() << "in constructor\n";
-        throw 1;
-    }
-#endif
-#endif
-    computeLaneShapes();
-    for (size_t i=0; i<myNolanes; i++) {
-        myLaneSpeeds.push_back(speed);
-    }
+	init();
 }
 
 
@@ -225,7 +194,7 @@ NBEdge::NBEdge(const string &id, const string &name, NBNode *from, NBNode *to,
                string type, SUMOReal speed, size_t nolanes,
                int priority,
                Position2DVector geom, LaneSpreadFunction spread,
-               EdgeBasicFunction basic) :
+               EdgeBasicFunction basic) throw(ProcessError) :
         myStep(INIT), myID(StringUtils::convertUmlaute(id)),
         myType(StringUtils::convertUmlaute(type)),
         myNolanes(nolanes), myFrom(from), myTo(to), myAngle(0),
@@ -237,17 +206,24 @@ NBEdge::NBEdge(const string &id, const string &name, NBNode *from, NBNode *to,
         myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0),
         myAmInnerEdge(false)
 {
+	init();
+}
+
+
+void
+NBEdge::init() throw(ProcessError)
+{
     if (myNolanes==0) {
-        throw InvalidArgument("Edge '" + id + "' has no lanes (must have at least one).");
+        throw ProcessError("Edge '" + myID + "' needs at least one lane.");
     }
     if (myFrom==0||myTo==0) {
-        throw InvalidArgument("At least one of edge's '" + id + "' nodes is not known.");
+        throw ProcessError("At least one of edge's '" + myID + "' nodes is not known.");
     }
     if (myFrom->getPosition().almostSame(myTo->getPosition())) {
-        throw InvalidArgument("Edge '" + id + "' starts at the same position as it ends on (must not).");
+        throw ProcessError("Edge '" + myID + "' starts at the same position it ends on.");
     }
-    myGeom.push_back_noDoublePos(to->getPosition());
-    myGeom.push_front_noDoublePos(from->getPosition());
+    myGeom.push_back_noDoublePos(myTo->getPosition());
+    myGeom.push_front_noDoublePos(myFrom->getPosition());
     myAngle = NBHelpers::angle(
                   myFrom->getPosition().x(), myFrom->getPosition().y(),
                   myTo->getPosition().x(), myTo->getPosition().y()
@@ -261,7 +237,7 @@ NBEdge::NBEdge(const string &id, const string &name, NBNode *from, NBNode *to,
     assert(myGeom.size()>=2);
     computeLaneShapes();
     for (size_t i=0; i<myNolanes; i++) {
-        myLaneSpeeds.push_back(speed);
+        myLaneSpeeds.push_back(mySpeed);
     }
 #ifdef _DEBUG
 #ifdef CHECK_UNIQUE_POINTS_GEOMETRY

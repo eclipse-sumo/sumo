@@ -116,34 +116,26 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         // compute the edge's length
         setLength(attrs);
         /// insert the parsed edge into the edges map
-        try {
-            myCurrentEdge = 0;
-            // the edge must be allocated in dependence to whether a shape
-            //  is given
-            if (myShape.size()==0) {
-                myCurrentEdge = new NBEdge(
-                    myCurrentID, myCurrentName,
-                    myFromNode, myToNode,
-                    myCurrentType, myCurrentSpeed,
-                    myCurrentLaneNo, myCurrentPriority, myLanesSpread,
-                    myCurrentEdgeFunction);
-                myCurrentEdge->setLoadedLength(myLength);
-            } else {
-                myCurrentEdge = new NBEdge(
-                    myCurrentID, myCurrentName,
-                    myFromNode, myToNode,
-                    myCurrentType, myCurrentSpeed,
-                    myCurrentLaneNo, myCurrentPriority,
-                    myShape, myLanesSpread,
-                    myCurrentEdgeFunction);
-                myCurrentEdge->setLoadedLength(myLength);
-            }
-            // insert the edge
-        } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-            throw;
-        } catch (...) {
-            MsgHandler::getErrorInstance()->inform("An important information is missing in edge '" + myCurrentID + "'.");
+        myCurrentEdge = 0;
+        // the edge must be allocated in dependence to whether a shape
+        //  is given
+        if (myShape.size()==0) {
+            myCurrentEdge = new NBEdge(
+                myCurrentID, myCurrentName,
+                myFromNode, myToNode,
+                myCurrentType, myCurrentSpeed,
+                myCurrentLaneNo, myCurrentPriority, myLanesSpread,
+                myCurrentEdgeFunction);
+            myCurrentEdge->setLoadedLength(myLength);
+        } else {
+            myCurrentEdge = new NBEdge(
+                myCurrentID, myCurrentName,
+                myFromNode, myToNode,
+                myCurrentType, myCurrentSpeed,
+                myCurrentLaneNo, myCurrentPriority,
+                myShape, myLanesSpread,
+                myCurrentEdgeFunction);
+            myCurrentEdge->setLoadedLength(myLength);
         }
     }
     if (element==SUMO_TAG_LANE) {
