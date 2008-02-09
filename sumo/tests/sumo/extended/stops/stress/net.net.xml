@@ -1,0 +1,78 @@
+<?xml version="1.0"?>
+
+<!-- generated on Fri Feb  8 01:00:41 2008 by SUMO netconvert Version dev-SVN-r5051
+<configuration>
+
+   <input>
+      <xml-edge-files>../data/tutorial/hello_stop/hello_redux.edg.xml</xml-edge-files>
+   </input>
+
+   <output>
+      <output-file>../data/tutorial/hello_stop/hello.net.xml</output-file>
+   </output>
+
+</configuration>
+-->
+
+<net>
+
+   <net-offset>0.000000,0.000000</net-offset>
+   <conv-boundary>0.000000,0.000000,1000000.000000,0.000000</conv-boundary>
+   <orig-boundary>0.000000,0.000000,1000000.000000,0.000000</orig-boundary>
+   <orig-proj>!</orig-proj>
+
+   <edges no="2">1to2 out</edges>
+   <node_count>3</node_count>
+
+
+   <edge id="1to2" from="SUMOGenerated0" to="SUMOGenerated1" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="1000000.00">1000000.00,1.65 0.00,1.65</lane>
+      </lanes>
+      <cedge id="out">1to2_0</cedge>
+   </edge>
+
+   <edge id="out" from="SUMOGenerated1" to="SUMOGenerated2" priority="-1" type="" function="normal">
+      <lanes>
+         <lane id="out_0" depart="1" vclasses="" maxspeed="13.90" length="1.00">0.00,-1.65 1.00,-1.65</lane>
+      </lanes>
+   </edge>
+
+
+   <row-logic>
+      <key>SUMOGenerated1</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+
+
+   <junction id="SUMOGenerated0" type="DEAD_END" x="1000000.00" y="0.00">
+      <inclanes></inclanes>
+      <shape>1000000.00,0.05 1000000.00,3.25</shape>
+   </junction>
+
+   <junction id="SUMOGenerated1" type="priority" x="0.00" y="0.00">
+      <inclanes>1to2_0</inclanes>
+      <shape>-0.00,-0.05 -0.00,-3.25 0.00,3.25 0.00,0.05</shape>
+   </junction>
+
+   <junction id="SUMOGenerated2" type="DEAD_END" x="1.00" y="0.00">
+      <inclanes>out_0</inclanes>
+      <shape>1.00,-3.25 1.00,-0.05</shape>
+   </junction>
+
+
+   <succ edge="1to2" lane="1to2_0" junction="SUMOGenerated1">
+      <succlane lane="out_0" yield="0" dir="t" state="M"/>
+   </succ>
+
+   <succ edge="out" lane="out_0" junction="SUMOGenerated2">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+
+</net>

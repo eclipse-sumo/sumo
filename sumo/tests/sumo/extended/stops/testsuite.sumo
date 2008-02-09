@@ -3,3 +3,6 @@ simple_stop
 
 # Tests whether max-depart-delay can be handled
 max_delay
+
+# Tests whether 20000 cars may wait
+stress
