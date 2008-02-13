@@ -35,6 +35,7 @@
 #include <utils/common/StringUtils.h>
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/options/OptionsCont.h>
+#include <utils/common/WrappingCommand.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -178,31 +179,33 @@ MSPhoneCell::remCPhone(const std::string &device_id)
     }
 }
 
+
+SUMOTime 
+MSPhoneCell::wrappedSetStatParamsExecute(SUMOTime time) throw(ProcessError)
+{
+    return nextStatPeriod(time);
+}
+
+
+
 void
 MSPhoneCell::setStatParams(int interval, int statcallcount)
 {
     if (myExpectedStaticCalls.size()==0) {
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-            new SetStatParamsCommand(*this),
+            new WrappingCommand< MSPhoneCell >(this, &MSPhoneCell::wrappedSetStatParamsExecute),
             interval, MSEventControl::NO_CHANGE);
         myExpectedStaticCalls.push_back(make_pair(interval, (int)((SUMOReal) statcallcount*myStaticCallCountScaleFactor)));
     } else {
-        /*
-        while((*(myExpectedStaticCalls.end()-1)).first + 300!=interval) {
-            myExpectedStaticCalls.push_back(make_pair((*(myExpectedStaticCalls.end()-1)).first + 300, 0));
-        }
-        */
         myExpectedStaticCalls.push_back(make_pair(interval, (int)((SUMOReal) statcallcount*myStaticCallCountScaleFactor)));
     }
-    /*
-    if(myCellId==2503) {
-        cout << "------------" << "\n";
-        for(size_t i=0; i<myExpectedStaticCalls.size(); ++i) {
-            cout << myExpectedStaticCalls[i].first << ", " << myExpectedStaticCalls[i].second << "\n";
-        }
-        int bla = 0;
-    }
-    */
+}
+
+
+SUMOTime 
+MSPhoneCell::wrappedSetDynParamsExecute(SUMOTime time) throw(ProcessError) 
+{
+    return nextDynPeriod(time);
 }
 
 
@@ -217,7 +220,7 @@ MSPhoneCell::setDynParams(int interval, int count, SUMOReal duration, SUMOReal d
     p.entering = (int)((SUMOReal) entering*myDynamicCallCountScaleFactor);
     if (myExpectedDynamicCalls.size()==0) {
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-            new SetDynParamsCommand(*this),
+            new WrappingCommand< MSPhoneCell >(this, &MSPhoneCell::wrappedSetDynParamsExecute),
             interval, MSEventControl::NO_CHANGE);
         myExpectedDynamicCalls.push_back(make_pair(interval, p));
     } else {

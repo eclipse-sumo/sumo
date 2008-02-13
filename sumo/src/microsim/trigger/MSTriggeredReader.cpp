@@ -39,55 +39,6 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-/* -------------------------------------------------------------------------
- * MSTriggeredReader::MSTriggerCommand-methods
- * ----------------------------------------------------------------------- */
-MSTriggeredReader::MSTriggerCommand::MSTriggerCommand(MSTriggeredReader &parent) throw()
-        : myParent(parent)
-{}
-
-
-MSTriggeredReader::MSTriggerCommand::~MSTriggerCommand() throw()
-{}
-
-
-SUMOTime
-MSTriggeredReader::MSTriggerCommand::execute(SUMOTime current) throw(ProcessError)
-{
-    if (!myParent.isInitialised()) {
-        myParent.init();
-    }
-    SUMOTime next = current;
-    // loop until the next action lies in the future
-    while (current==next) {
-        // run the next action
-        //  if it could be accomplished...
-        if (myParent.processNextEntryReaderTriggered()) {
-            // read the next one
-            if (myParent.readNextTriggered()) {
-                // set the time for comparison if a next one exists
-                next = myParent.myOffset;
-            } else {
-                // leave if no further exists
-                return 0;
-            }
-        } else {
-            // action could not been accomplished; try next time step
-            return 1;
-        }
-    }
-    // come back if the next action shall be executed
-    if (myParent.myOffset - current<=0) {
-        // current is delayed;
-        return 1;
-    }
-    return myParent.myOffset - current;
-}
-
-
-/* -------------------------------------------------------------------------
- * MSTriggeredReader-methods
- * ----------------------------------------------------------------------- */
 MSTriggeredReader::MSTriggeredReader(MSNet &)
         : myOffset(0), myWasInitialised(false)
 {}
@@ -109,6 +60,40 @@ bool
 MSTriggeredReader::isInitialised() const
 {
     return myWasInitialised;
+}
+
+
+SUMOTime
+MSTriggeredReader::wrappedExecute(SUMOTime current) throw(ProcessError)
+{
+    if (!isInitialised()) {
+        init();
+    }
+    SUMOTime next = current;
+    // loop until the next action lies in the future
+    while (current==next) {
+        // run the next action
+        //  if it could be accomplished...
+        if (processNextEntryReaderTriggered()) {
+            // read the next one
+            if (readNextTriggered()) {
+                // set the time for comparison if a next one exists
+                next = myOffset;
+            } else {
+                // leave if no further exists
+                return 0;
+            }
+        } else {
+            // action could not been accomplished; try next time step
+            return 1;
+        }
+    }
+    // come back if the next action shall be executed
+    if (myOffset - current<=0) {
+        // current is delayed;
+        return 1;
+    }
+    return myOffset - current;
 }
 
 

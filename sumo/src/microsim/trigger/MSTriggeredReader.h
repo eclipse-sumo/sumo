@@ -52,6 +52,7 @@ public:
 
     void init();
     bool isInitialised() const;
+    SUMOTime wrappedExecute(SUMOTime current) throw(ProcessError);
 
 protected:
     /// Constructor (for an abstract class)
@@ -69,41 +70,7 @@ protected:
 
     virtual void inputEndReached() = 0;
 
-protected:
-    /**
-     * Event type to trigger the execution of the derived strctures
-     */
-class MSTriggerCommand : public Command
-    {
-    public:
-        /// Constructor
-        MSTriggerCommand(MSTriggeredReader &parent) throw();
-
-        /// virtual destructor
-        virtual ~MSTriggerCommand() throw();
-
-        /** Execute the command and return an offset for recurring commands
-            or 0 for single-execution commands. */
-        virtual SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
-
-    private:
-        /// The parent reader
-        MSTriggeredReader &myParent;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        MSTriggerCommand(const MSTriggerCommand&);
-
-        /// @brief Invalidated assignment operator.
-        MSTriggerCommand& operator=(const MSTriggerCommand&);
-
-    };
-
-public:
-    /** @brief The trigger command executes private methods
-        both the "processNext" and the "readNextTriggered" are executed where
-        one of them must set "_offset" */
-    friend class MSTriggeredReader::MSTriggerCommand;
+    SUMOTime warppedExecute(SUMOTime currentTime) throw(ProcessError);
 
 protected:
     /// The offset to the next event

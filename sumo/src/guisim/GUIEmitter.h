@@ -120,15 +120,14 @@ public:
     void toggleDrawRoutes();
 
 protected:
-    class GUIEmitterChild_UserTriggeredChild
-                : public MSEmitter::MSEmitterChild, public Command
+    class GUIEmitterChild_UserTriggeredChild : public MSEmitter::MSEmitterChild
     {
     public:
         GUIEmitterChild_UserTriggeredChild(
             MSEmitter_FileTriggeredChild &s, MSEmitter &parent,
             MSVehicleControl &vc, SUMOReal flow) throw();
         virtual ~GUIEmitterChild_UserTriggeredChild() throw();
-        SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
+        SUMOTime wrappedExecute(SUMOTime currentTime) throw(ProcessError);
         SUMOReal getUserFlow() const;
 
     protected:

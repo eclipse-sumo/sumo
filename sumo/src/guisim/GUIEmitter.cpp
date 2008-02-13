@@ -48,7 +48,6 @@
 #include <utils/geom/Boundary.h>
 #include <utils/gui/div/GLHelper.h>
 #include <utils/common/ToString.h>
-#include <utils/common/Command.h>
 #include <microsim/MSNet.h>
 #include <microsim/MSLane.h>
 #include <microsim/MSEdge.h>
@@ -66,6 +65,7 @@
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <foreign/polyfonts/polyfonts.h>
+#include <utils/common/WrappingCommand.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -123,12 +123,12 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::GUIEmitterChild_UserTriggeredChi
         myVehicle(0), mySource(s), myDescheduleVehicle(false)
 {
     if (myUserFlow>0) {
+        Command* c = new WrappingCommand< GUIEmitterChild_UserTriggeredChild >(this, &GUIEmitterChild_UserTriggeredChild::wrappedExecute);
         MSNet::getInstance()->getEmissionEvents().addEvent(
-            this, (SUMOTime)(1. / (flow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
+            c, (SUMOTime)(1. / (flow / 3600.))+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
         MSNet::getInstance()->getVehicleControl().newUnbuildVehicleLoaded();
         myDescheduleVehicle = true;
-        // !!! check whether adding this to eventhandler is ok
     }
 }
 
@@ -142,7 +142,7 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::~GUIEmitterChild_UserTriggeredCh
 
 
 SUMOTime
-GUIEmitter::GUIEmitterChild_UserTriggeredChild::execute(SUMOTime currentTime) throw(ProcessError)
+GUIEmitter::GUIEmitterChild_UserTriggeredChild::wrappedExecute(SUMOTime currentTime) throw(ProcessError)
 {
     if (myUserFlow<=0) {
         return 0;

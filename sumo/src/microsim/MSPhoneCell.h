@@ -111,76 +111,10 @@ public:
 
     void incVehiclesEntered(MSVehicle& veh, SUMOTime t);
     void removeVehicle(MSVehicle& veh, SUMOTime t);
+    SUMOTime wrappedSetDynParamsExecute(SUMOTime time) throw(ProcessError);
+    SUMOTime wrappedSetStatParamsExecute(SUMOTime time) throw(ProcessError);
 
 private:
-class SetStatParamsCommand : public Command
-    {
-    public:
-        // / Constructor
-        SetStatParamsCommand(MSPhoneCell &p) throw()
-                : myParent(p) { }
-
-        /// Destructor
-        ~SetStatParamsCommand()  throw() { }
-
-        /** @brief Executes the command what forces the logic control to
-         * initialise a switch process
-         *
-         * The control will ask for the index and increment it.
-         */
-        SUMOTime execute(SUMOTime time) throw(ProcessError) {
-            return myParent.nextStatPeriod(time);
-        }
-
-    protected:
-        /// The control to call
-        MSPhoneCell &myParent;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        SetStatParamsCommand(const SetStatParamsCommand&);
-
-        /// @brief Invalidated assignment operator.
-        SetStatParamsCommand& operator=(const SetStatParamsCommand&);
-
-    };
-
-
-class SetDynParamsCommand : public Command
-    {
-    public:
-        // / Constructor
-        SetDynParamsCommand(MSPhoneCell &p) throw()
-                : myParent(p) { }
-
-        /// Destructor
-        ~SetDynParamsCommand() throw() { }
-
-        /** @brief Executes the command what forces the logic control to
-         * initialise a switch process
-         *
-         * The control will ask for the index and increment it.
-         */
-        SUMOTime execute(SUMOTime time) throw(ProcessError) {
-            return myParent.nextDynPeriod(time);
-        }
-
-    protected:
-        /// The control to call
-        MSPhoneCell &myParent;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        SetDynParamsCommand(const SetDynParamsCommand&);
-
-        /// @brief Invalidated assignment operator.
-        SetDynParamsCommand& operator=(const SetDynParamsCommand&);
-
-    };
-
-    friend class SetStatParamsCommand;
-    friend class SetDynParamsCommand;
-
     SUMOTime nextStatPeriod(SUMOTime time);
     SUMOTime nextDynPeriod(SUMOTime time);
 

@@ -39,6 +39,7 @@
 #include <microsim/MSEventControl.h>
 #include "MSTriggeredReader.h"
 #include "MSTriggeredXMLReader.h"
+#include <utils/common/WrappingCommand.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -60,9 +61,9 @@ MSTriggeredXMLReader::MSTriggeredXMLReader(MSNet &net,
         SUMOSAXHandler(filename),
         myParser(0), myHaveMore(true)
 {
+    Command* c = new WrappingCommand< MSTriggeredReader >(this, &MSTriggeredReader::wrappedExecute);
     MSNet::getInstance()->getEmissionEvents().addEvent(
-        new MSTriggerCommand(*this), net.getCurrentTimeStep(),
-        MSEventControl::NO_CHANGE);
+        c, net.getCurrentTimeStep(), MSEventControl::NO_CHANGE);
 }
 
 
