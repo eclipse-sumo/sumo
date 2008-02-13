@@ -1,8 +1,16 @@
-from optparse import OptionParser
 import os
 import sys
-import time
+from datetime import datetime
+from optparse import OptionParser
 
+class TeeFile:
+    """A helper class which allows simultaneous writes to several files"""
+    def __init__(self, *files):
+        self.files = files
+    def write(self, txt):
+        """Writes the text to all files"""
+        for fp in self.files:
+            fp.write(txt)
 
 def writeRouteConf(step, options, file, output):
 	fd = open("iteration_" + str(step) + ".rou.cfg", "w")
@@ -112,18 +120,23 @@ optParser.add_option("-f", "--first-step", dest="firstStep",
 optParser.add_option("-l", "--last-step", dest="lastStep",
                      type="int", default=50, help="Last DUA step")
 optParser.add_option("-p", "--path", dest="path",
-                     default="%SUMO%\\", help="Path to binaries")
+                     default=os.environ.get("SUMO", ""), help="Path to binaries")
 (options, args) = optParser.parse_args()
 
 
+if (sys.platform=="win32"):		
+        duaBinary = os.path.join(options.path, "duarouter.exe")
+        sumoBinary = os.path.join(options.path, "sumo.exe")
+else:
+        duaBinary = os.path.join(options.path, "sumo-duarouter")
+        sumoBinary = os.path.join(options.path, "sumo")
 fdm = open("dua-log.txt", "w")
-fds = open("dua-log-quiet.txt", "w")
-joiner = ","
+sys.stdout = TeeFile(sys.stdout, open("dua-log-quiet.txt", "w"))
 tripFiles = options.trips.split(",")
+starttime = datetime.now()
 for step in range(options.firstStep, options.lastStep):
-	btimeA = time.time()
+	btimeA = datetime.now()
 	print "> Executing step " + str(step)
-	fds.write("> Executing step " + str(step)+ "\n")
 
 	# router
 	files = []
@@ -133,67 +146,45 @@ for step in range(options.firstStep, options.lastStep):
 			file = tripFile[:tripFile.find(".")] + "_" + str(step-1) + ".rou.xml.alt"
 		output = tripFile[:tripFile.find(".")] + "_" + str(step) + ".rou.xml"
 		print ">> Running router with " + file
-		btime = time.localtime()
-		btime2 = time.time()
-		fds.write(">> Running router with " + file + "\n")
-		print ">>> Begin time " + time.asctime(btime) + " (" + str(btime2)  + ")"
-		fds.write(">>> Begin time " + time.asctime(btime) + " (" + str(btime2) + ")\n")
+		btime = datetime.now()
+		print ">>> Begin time %s" % btime
 		writeRouteConf(step, options, file, output)
 		if options.verbose:
-			print "> Call: " + options.path + "duarouter -c " + "iteration_" + str(step) + ".rou.cfg"
-		if(sys.platform=="win32"):		
-			(cin, cout) = os.popen4(options.path + "duarouter -c " + "iteration_" + str(step) + ".rou.cfg")
-		else:
-			(cin, cout) = os.popen4(options.path + "sumo-duarouter -c " + "iteration_" + str(step) + ".rou.cfg")
+			print "> Call: %s -c iteration_%s.rou.cfg" % (duaBinary, step)
+		(cin, cout) = os.popen4("%s -c iteration_%s.rou.cfg" % (duaBinary, step))
 		line = cout.readline()
 		while line:
 			if options.verbose:
 				print line[:-1]
 			fdm.write(line)
 			line = cout.readline()
-		etime = time.localtime()
-		etime2 = time.time()
-		print ">>> End time " + time.asctime(etime) + " (" + str(etime2) + ")"
-		fds.write(">>> End time " + time.asctime(etime) + " (" + str(etime2) + ")\n")
-		print ">>> Duration " + str(etime2-btime2)
-		fds.write(">>> Duration " + str(etime2-btime2) + "\n")
+		etime = datetime.now()
+		print ">>> End time %s" % etime
+		print ">>> Duration %s" % (etime-btime)
 		print "<<"
-		fds.write("<<\n")
-		etime = time.localtime()
 		file = file[:file.find(".")] + "_" + str(step) + ".rou.xml"
 		files.append(output)
 
 	# simulation
 	print ">> Running simulation"
-	btime = time.localtime()
-	btime2 = time.time()
-	fds.write(">> Running simulation\n")
-	print ">>> Begin time " + time.asctime(btime) + " (" + str(btime2) + ")"
-	fds.write(">>> Begin time " + time.asctime(btime) + " (" + str(btime2) + ")\n")
-	writeSUMOConf(step, options, joiner.join(files))
+	btime = datetime.now()
+	print ">>> Begin time %s" % btime
+	writeSUMOConf(step, options, ",".join(files))
 	if options.verbose:
-		print "> Call: " + options.path + "sumo -c " + "iteration_" + str(step) + ".sumo.cfg"
-	(cin, cout) = os.popen4(options.path + "sumo -c " + "iteration_" + str(step) + ".sumo.cfg")
+		print "> Call: %s -c iteration_%s.sumo.cfg" % (sumoBinary, step)
+	(cin, cout) = os.popen4("%s -c iteration_%s.sumo.cfg" % (sumoBinary, step))
 	line = cout.readline()
 	while line:
 		if options.verbose:
 			print line[:-1]
 		fdm.write(line)
 		line = cout.readline()
-	etime = time.localtime()
-	etime2 = time.time()
-	print ">>> End time " + time.asctime(etime) + " (" + str(etime2) + ")"
-	fds.write(">>> End time " + time.asctime(etime) + " (" + str(etime2) + ")\n")
-	print ">>> Duration " + str(etime2-btime2)
-	fds.write(">>> Duration " + str(etime2-btime2) + "\n")
+        etime = datetime.now()
+        print ">>> End time %s" % etime
+        print ">>> Duration %s" % (etime-btime)
 	print "<<"
-
-	btimeA = time.time()
-	print "< Step " + str(step) + " ended (duration: " + str(time.time() - btimeA)
-	fds.write("< Step " + str(step) + " ended (duration: " + str(time.time() - btimeA) + "\n")
+	print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
 	print "------------------\n"
-	fds.write("------------------\n\n")
+print "dua-iterate ended (duration: %s)" % (datetime.now() - starttime)
 
 fdm.close()
-fds.close()
-
