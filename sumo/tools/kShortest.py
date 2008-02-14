@@ -6,9 +6,9 @@ from optparse import OptionParser
 
 class Predecessor:
 
-    def __init__(self, vertex, idx, distance):
-        self.vertex = vertex
-        self.idx = idx
+    def __init__(self, edge, pred, distance):
+        self.edge = edge
+        self.pred = pred
         self.distance = distance
 
 
@@ -20,9 +20,15 @@ class Vertex:
         self.preds = []
         self.wasUpdated = False
 
+    def _addNewPredecessor(self, edge, updatePred, newPreds):
+        for pred in newPreds:
+            if pred.pred == updatePred:
+                return
+        newPreds.append(Predecessor(edge, updatePred,
+                                    updatePred.distance + edge.weight))
+
     def update(self, edge):
-        updateVertex = edge.source
-        updatePreds = updateVertex.preds
+        updatePreds = edge.source.preds
         if len(self.preds) == options.k\
            and updatePreds[0].distance + edge.weight >= self.preds[options.k-1].distance:
             return False
@@ -32,14 +38,20 @@ class Vertex:
         while len(newPreds) < options.k\
               and (updateIndex < len(updatePreds)\
                    or predIndex < len(self.preds)):
-            if predIndex == len(self.preds)\
-               or updatePreds[updateIndex].distance + edge.weight < self.preds[predIndex].distance:
-                newPreds.append(Predecessor(updateVertex, updateIndex,
-                                            updatePreds[updateIndex].distance + edge.weight))
+            if predIndex == len(self.preds):
+                self._addNewPredecessor(edge, updatePreds[updateIndex], newPreds)
+                updateIndex += 1
+            elif updateIndex == len(updatePreds):
+                newPreds.append(self.preds[predIndex])
+                predIndex += 1
+            elif updatePreds[updateIndex].distance + edge.weight < self.preds[predIndex].distance:
+                self._addNewPredecessor(edge, updatePreds[updateIndex], newPreds)
                 updateIndex += 1
             else:
                 newPreds.append(self.preds[predIndex])
                 predIndex += 1
+        if predIndex == len(newPreds): # no new added
+            return False
         self.preds = newPreds
         returnVal = not self.wasUpdated
         self.wasUpdated = True
@@ -94,8 +106,19 @@ class Net:
             vertex = updatedVertices.pop()
             vertex.wasUpdated = False
             for edge in vertex.outEdges:
-                if edge.target.update(edge):
+                if edge.target != startVertex and edge.target.update(edge):
                     updatedVertices.append(edge.target)
+
+        lastVertex = vertex
+        for startPred in lastVertex.preds:
+            vertex = lastVertex  
+            pred = startPred
+            while vertex != startVertex:
+                if pred.edge.kind == "real":
+                    print pred.edge
+                vertex = pred.edge.source
+                pred = pred.pred
+            print
 
 
 class NetReader(handler.ContentHandler):
