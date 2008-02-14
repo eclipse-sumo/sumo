@@ -311,14 +311,28 @@ class SwitchInitCommand : public Command
         /// Destructor
         ~SwitchInitCommand() throw() { }
 
-        /** @brief Executes the command what forces the logic control to
-         * initialise a switch process
+
+        /// @name Derived from Command
+        /// @{
+
+        /** @brief Begins a WAUT switch by executing the command.
          *
-         * The control will ask for the index and increment it.
+         * The parent's "initWautSwitch" method is called supporting
+         *  this command as an argument. The result of "initWautSwitch"
+         *  is returned. 
+         *
+         * "initWautSwitch" may throw an ProcessError if the program
+         *  to switch to is not known.
+         *
+         * @param[in] currentTime The current simulation time (unused)
+         * @return The time after which the command shall be executed again
+         * @exception ProcessError If the program to switch to does not exist
+         * @see MSTLLogicControl::initWautSwitch
          */
         SUMOTime execute(SUMOTime) throw(ProcessError) {
             return myParent.initWautSwitch(*this);
         }
+        /// @}
 
         /// Returns the WAUT-id
         const std::string &getWAUTID() const {

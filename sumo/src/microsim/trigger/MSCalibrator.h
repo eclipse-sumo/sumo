@@ -189,8 +189,20 @@ protected:
         /** the implementation of the MSTriggeredReader-processNextEntryReaderTriggered method */
         bool processNextEntryReaderTriggered();
 
-        /// Builds a vehicle and tries to emit it
+
+        /// @name Derived from Command
+        /// @{
+
+        /** @brief Prcesses the last loaded vehicle
+         *
+         * @param[in] currentTime The current simulation time
+         * @return The time after which the command shall be executed again
+         * @exception ProcessError 
+         * @todo Recheck, describe!!!
+         */
         SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
+        /// @}
+
 
         /// Returns the loaded flow
         SUMOReal getLoadedFlow() const;
