@@ -59,7 +59,7 @@ LineReader::LineReader(const std::string &file) throw()
         : myFileName(file),
         myRead(0)
 {
-    setFile(file);
+    reinit();
 }
 
 
@@ -202,18 +202,8 @@ LineReader::getFileName() const throw()
 bool
 LineReader::setFile(const std::string &file) throw()
 {
-    if (myStrm.is_open()) {
-        myStrm.close();
-    }
     myFileName = file;
-    myStrm.open(file.c_str(), ios::binary);
-    myStrm.unsetf(ios::skipws);
-    myStrm.seekg(0, ios::end);
-    myAvailable = myStrm.tellg();
-    myStrm.seekg(0, ios::beg);
-    myRead = 0;
-    myRread = 0;
-    myStrBuffer = "";
+    reinit();
     return myStrm.good();
 }
 
