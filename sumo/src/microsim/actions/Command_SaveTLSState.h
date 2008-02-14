@@ -66,16 +66,23 @@ public:
     ~Command_SaveTLSState() throw();
 
 
-    /** @brief Executes the command
+    /// @name Derived from Command
+    /// @{
+
+    /** @brief Writes the output
      *
      * Builds the current state of the tls using "buildStateList" and writes
      *  it to the output device.
      *
-     * Returns always 1
+     * Returns always 1.
      *
+     * @param[in] currentTime The current simulation time (unused)
      * @return Always 1 (will be executed in next time step)
+     * @exception ProcessError not here
+     * @see Command
      */
     SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
+    /// @}
 
 
 private:

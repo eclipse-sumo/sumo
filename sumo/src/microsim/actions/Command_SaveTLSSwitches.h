@@ -68,7 +68,10 @@ public:
     ~Command_SaveTLSSwitches() throw();
 
 
-    /** @brief Executes the command
+    /// @name Derived from Command
+    /// @{
+
+    /** @brief Writes the output if a change occured
      *
      * Called in each tme step, this class computes which link have red
      *  since the last tls switch and writes the information about their
@@ -77,10 +80,13 @@ public:
      * Information whether a link had green and since when is stored in
      *  "myPreviousLinkStates".
      *
-     * @param[in] currentTime The simulation time of the call
-     * @return Always 1 (will be executed in the next step)
+     * @param[in] currentTime The current simulation time
+     * @return Always 1 (will be executed in next time step)
+     * @exception ProcessError not here
+     * @see Command
      */
     SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
+    /// @}
 
 
 private:

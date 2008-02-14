@@ -68,17 +68,24 @@ public:
     ~Command_SaveTLSSwitchStates() throw();
 
 
-    /** @brief Executes the command
+    /// @name Derived from Command
+    /// @{
+
+    /** @brief Writes the output if a change occured
      *
      * If the state or the active program has changed, the state is built
      *  using "buildStateList" and writes it to the output device.
      *
-     * Returns always 1
+     * Returns always 1.
      *
+     * @param[in] currentTime The current simulation time
      * @return Always 1 (will be executed in next time step)
+     * @exception ProcessError not here
+     * @see Command
      * @todo Here, a discrete even (on switch / program change) would be appropriate
      */
     SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
+    /// @}
 
 
 private:
