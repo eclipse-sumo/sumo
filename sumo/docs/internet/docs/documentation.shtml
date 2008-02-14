@@ -89,7 +89,7 @@
 		<br/>
 
 	<li><a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki">Wiki</a><br>
-		The Wiki includes some more often updated information. You may find information abou how to build SUMO, there.<br>
+		The Wiki includes some more often updated information. You may find information abou how to build SUMO, there.<br><br>
 
 	<li><a class="SUMOInLineLink" href="moredocs.shtml">More On...</a><br>
 		Some additional information on special subjects (traffic lights, ...).<br><br>
@@ -108,15 +108,10 @@
 		It comes with a <a class="SUMOInLineLink" href="http://www.auto-nomos.de/sumodoku/sumo_doxygen_lastrun.log">Log-file</a> for those who want to add some missing documentation.<br><br>
 
 	<li><a class="SUMOInLineLink" href="http://sumo.sourceforge.net/wiki/index.php/DailyBuild">Make logs</a><br>
-	<ul>
-		<li><a class="SUMOInLineLink" href="http://sumo.sourceforge.net/sumomake.log.gz">SUSE 10.1 make log 
-		<li><a class="SUMOInLineLink" href="http://sumo.sourceforge.net/sumomakeall.log.gz">SUSE 10.1 make log with additional configure options 
-		<li><a class="SUMOInLineLink" href="http://sumo.sourceforge.net/sumologs.log.gz">SUSE 10.1 log files of the examples 
-		<li><a class="SUMOInLineLink" href="http://sumo.sourceforge.net/sumomakecf.log.gz">Debian 3.1 make log (out of date, because the compile farm is not working properly) 
-	</ul><br><br>
+		Nightly compiler output.<br><br>
 	
-	<li><a class="SUMOInLineLink" href="http://sumo.sourceforge.net/sumo_report/">Test Reports (Linux)</a><br>
-		Tests that run at night on a Linux machine...
+	<li><a class="SUMOInLineLink" href="http://sumo.sourceforge.net/daily/">Test Reports</a><br>
+		Tests that run at night.
 
 
 </p>
