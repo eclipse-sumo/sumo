@@ -65,7 +65,6 @@ public:
      *
      * @param[in] file The name of the file to parse
      * @param[in] verbose Whether the parsing shall been done verbose
-     * @todo Why is the file name a c-string?
      */
     OptionsLoader(const std::string &file) throw();
 

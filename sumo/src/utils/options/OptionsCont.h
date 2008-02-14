@@ -453,7 +453,6 @@ public:
      * @param[in] name The name of the option to return the string-vector-value of
      * @return The string-vector-value of the named, existing string-option
      * @exception InvalidArgument If the option does not exist or is not a string-option
-     * @todo Why is the string not retrieved using getString()
      * @todo Is it possible to retrieve a const-reference of the string?
      * @see getString()
      */
