@@ -454,10 +454,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\helpers\NamedObjectCont.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\RandHelper.h"
 				>
 			</File>
@@ -482,15 +478,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\helpers\SUMOAbstractRouter.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\SUMOAbstractRouter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\helpers\SUMODijkstraRouter.h"
 				>
 			</File>
 			<File
