@@ -169,50 +169,13 @@ SUMOReal tolDefaultProb = -1;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-/* -------------------------------------------------------------------------
-* MSDevice_CPhone::Command-methods
-* ----------------------------------------------------------------------- */
-MSDevice_CPhone::MyCommand::MyCommand(MSDevice_CPhone &parent) throw()
-        : myParent(parent), myAmActive(true)
-{}
-
-
-MSDevice_CPhone::MyCommand::~MyCommand() throw()
-{
-    if (myAmActive)
-        myParent.invalidateCommand();
-}
-
-
 SUMOTime
-MSDevice_CPhone::MyCommand::execute(SUMOTime) throw(ProcessError)
+MSDevice_CPhone::stateChangeCommandExecution(SUMOTime) throw(ProcessError)
 {
-    SUMOTime ret = 0;
-    if (myAmActive) {
-        ret = myParent.changeState();
-    } else {
-        // inactivated -> the cell phone is not longer simulated
-        return 0;
-    }
-    // assert that this device is not removed from the event handler
-    //if(ret==0) {
-    //  ret = 1;
-    //}
-    // return the time to next call
-    return ret;
+    return changeState();
 }
 
 
-void
-MSDevice_CPhone::MyCommand::setInactivated()
-{
-    myAmActive = false;
-}
-
-
-/* -------------------------------------------------------------------------
-* MSDevice_CPhone-methods
-* ----------------------------------------------------------------------- */
 inline int getTrainDuration(void)
 {
     int duration=0;
@@ -291,7 +254,7 @@ MSDevice_CPhone::~MSDevice_CPhone()
                                         }*/
     }
     if (myCommand!=0) {
-        myCommand->setInactivated();
+        myCommand->deschedule();
     }
     m_ProvidedCells.clear();
 }
@@ -366,9 +329,9 @@ MSDevice_CPhone::SetState(State s, int dur)
 
     /*erzeuge einen neuen Event, damit das cphone aufhoehrt zu telefonieren*/
     if (myCommand!=0) {
-        myCommand->setInactivated();
+        myCommand->deschedule();
     }
-    myCommand = new MyCommand(*this);
+    myCommand = new WrappingCommand< MSDevice_CPhone >(this, &MSDevice_CPhone::stateChangeCommandExecution);
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
         myCommand, dur + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
     if (OptionsCont::getOptions().isSet("cellphone-dump")) {
@@ -603,7 +566,7 @@ MSDevice_CPhone::onDepart()
             }
         }
         !!! 31.05.2007 - reinsertion*/
-        myCommand = new MyCommand(*this);
+        myCommand = new WrappingCommand< MSDevice_CPhone >(this, &MSDevice_CPhone::stateChangeCommandExecution);
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             myCommand, t1 + MSNet::getInstance()->getCurrentTimeStep(), MSEventControl::ADAPT_AFTER_EXECUTION);
     } else {
@@ -612,11 +575,6 @@ MSDevice_CPhone::onDepart()
 }
 
 
-void
-MSDevice_CPhone::invalidateCommand()
-{
-    this->myCommand = 0;
-}
 
 
 

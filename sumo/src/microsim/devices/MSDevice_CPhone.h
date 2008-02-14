@@ -33,7 +33,7 @@
 #include <vector>
 #include <string>
 #include <math.h>
-#include <utils/common/Command.h>
+#include <utils/common/WrappingCommand.h>
 
 
 // ===========================================================================
@@ -101,8 +101,6 @@ public:
         return myID;
     };
 
-    void invalidateCommand();
-
     void setNotTriggeredByCell() {
         notTriggeredByCell = true;
     };
@@ -111,38 +109,7 @@ public:
         return notTriggeredByCell;
     };
 
-protected:
-class MyCommand : public Command
-    {
-    public:
-        /// Constructor
-        MyCommand(MSDevice_CPhone &parent) throw();
-
-        /// virtual destructor
-        virtual ~MyCommand(void) throw();
-
-        /** Execute the command and return an offset for recurring commands
-            or 0 for single-execution commands. */
-        virtual SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
-
-        void setInactivated();
-
-    private:
-        /// The parent reader
-        MSDevice_CPhone &myParent;
-
-        bool myAmActive;
-
-    private:
-        /// @brief Invalidated copy constructor.
-        MyCommand(const MyCommand&);
-
-        /// @brief Invalidated assignment operator.
-        MyCommand& operator=(const MyCommand&);
-
-
-    };
-
+        SUMOTime stateChangeCommandExecution(SUMOTime currentTime) throw(ProcessError);
 private:
     /*
         inline int getTrainDuration(void)
@@ -188,7 +155,7 @@ private:
 
     static int gCallID;
     int myCallId;
-    MyCommand *myCommand;
+    WrappingCommand< MSDevice_CPhone > *myCommand;
 
     /*this id reminds the cell-id the phone is currently in*/
     /*if it is -1 the car still not cross a cellborder*/
