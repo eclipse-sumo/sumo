@@ -83,16 +83,11 @@ OutputDevice::getDevice(const std::string &name,
         } catch (NumberFormatException &) {
             throw IOError("Given port number '" + name.substr(name.find(":")+1) + "' is not numeric.");
         } catch (EmptyData &) {
-            throw IOError("Given port number is not empty.");
+            throw IOError("No port number given.");
         }
     } else {
         std::string fullName = FileHelpers::checkForRelativity(name, base);
-        std::ofstream *strm = new std::ofstream(fullName.c_str());
-        if (!strm->good()) {
-            delete strm;
-            throw IOError("Could not build output file '" + fullName + "'.");
-        }
-        dev = new OutputDevice_File(strm);
+        dev = new OutputDevice_File(fullName);
     }
     dev->setPrecision();
     dev->getOStream() << setiosflags(ios::fixed);

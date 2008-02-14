@@ -48,7 +48,7 @@
  *  type is not defined on a global scale and may differ across compilers or
  *  platforms.
  *
- * @todo Recheck whether this class could be replaced by a normal OutputDevice
+ * @todo Recheck whether this class could be replaced by a "normal InputDevice"
  * @todo Maybe some kind of a well-defined types should be used (so that they have a well-defined length)
  * @todo Maybe the byte-order should be defined
  */

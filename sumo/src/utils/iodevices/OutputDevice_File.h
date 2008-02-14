@@ -43,7 +43,6 @@
  *
  * Please remark that the device gots responsible for the stream and deletes
  *  it (it should not be deleted elsewhere).
- * @todo Recheck whether supplying a file name would be a better solution
  */
 class OutputDevice_File : public OutputDevice
 {
@@ -52,7 +51,7 @@ public:
      * @param[in] strm The output stream to used
      * @exception IOError Should not be thrown by this implementation
      */
-    OutputDevice_File(std::ofstream *strm) throw(IOError);
+    OutputDevice_File(const std::string &fullName) throw(IOError);
 
 
     /// @brief Destructor

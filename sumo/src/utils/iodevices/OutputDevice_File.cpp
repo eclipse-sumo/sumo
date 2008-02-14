@@ -45,9 +45,15 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-OutputDevice_File::OutputDevice_File(std::ofstream *strm) throw(IOError)
-        : myFileStream(strm)
-{}
+OutputDevice_File::OutputDevice_File(const std::string &fullName) throw(IOError)
+        : myFileStream(0)
+{
+    myFileStream = new std::ofstream(fullName.c_str());
+    if (!myFileStream->good()) {
+        delete myFileStream;
+        throw IOError("Could not build output file '" + fullName + "'.");
+    }
+}
 
 
 OutputDevice_File::~OutputDevice_File() throw()

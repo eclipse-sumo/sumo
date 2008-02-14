@@ -88,13 +88,17 @@ public:
     /** @brief Creates the device using the output definition stored in the named option
      *
      * Creates and returns the device named by the option. Asks whether the option
-     * and retrieves the name from the option if so. Optionally the XML header
-     * gets written as well. Returns whether a device was created (option was set).
+     *  and retrieves the name from the option if so. Optionally the XML header
+     *  gets written as well. Returns whether a device was created (option was set).
      *
-     * @param[in] name The name of the option to use for retrieving the output definition
-     * @param[in] base The root element to use (XML-output)
+     * Please note, that we do not have to consider the "application base" herein,
+     *  because this call is only used to get file names of files referenced
+     *  within XML-declarations of structures which paths already is aware of the
+     *  cwd.
+     *
+     * @param[in] optionName The name of the option to use for retrieving the output definition
+     * @param[in] rootElement The root element to use (XML-output)
      * @return Whether a device was built (the option was set)
-     * @todo The application base is not handled!!!
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      */
     static bool createDeviceByOption(const std::string &optionName,
@@ -106,9 +110,10 @@ public:
      * Returns the device named by the option. If the option is unknown, unset
      * or the device was not created before, IllegalArgument is thrown.
      *
+     * Please note, that we do not have to consider the "application base" herein.
+     *
      * @param[in] name The name of the option to use for retrieving the output definition
      * @return The corresponding (built or existing) device
-     * @todo The application base is not handled!!!
      * @exception IOError If the output could not be built for any reason (error message is supplied)
      * @exception InvalidArgument If the option with the given name does not exist
      */
