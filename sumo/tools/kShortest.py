@@ -1,0 +1,159 @@
+#!/usr/bin/env python
+import os, random, string, sys
+
+from xml.sax import saxutils, make_parser, handler
+from optparse import OptionParser
+
+class Predecessor:
+
+    def __init__(self, vertex, idx, distance):
+        self.vertex = vertex
+        self.idx = idx
+        self.distance = distance
+
+
+class Vertex:
+
+    def __init__(self):
+        self.inEdges = set()
+        self.outEdges = set()
+        self.preds = []
+        self.wasUpdated = False
+
+    def update(self, edge):
+        updateVertex = edge.source
+        updatePreds = updateVertex.preds
+        if len(self.preds) == options.k\
+           and updatePreds[0].distance + edge.weight >= self.preds[options.k-1].distance:
+            return False
+        newPreds = []
+        updateIndex = 0
+        predIndex = 0
+        while len(newPreds) < options.k\
+              and (updateIndex < len(updatePreds)\
+                   or predIndex < len(self.preds)):
+            if predIndex == len(self.preds)\
+               or updatePreds[updateIndex].distance + edge.weight < self.preds[predIndex].distance:
+                newPreds.append(Predecessor(updateVertex, updateIndex,
+                                            updatePreds[updateIndex].distance + edge.weight))
+                updateIndex += 1
+            else:
+                newPreds.append(self.preds[predIndex])
+                predIndex += 1
+        self.preds = newPreds
+        returnVal = not self.wasUpdated
+        self.wasUpdated = True
+        return returnVal
+
+
+class Edge:
+
+    def __init__(self, label, source, target, kind="junction"):
+        self.label = label
+        self.source = source
+        self.target = target
+        self.kind = kind
+        self.weight = 0
+
+    def __repr__(self):
+        return self.kind+"_"+self.label + "<%s>" % self.weight
+
+
+class Net:
+
+    def __init__(self):
+        self._vertices = []
+        self._edges = {}
+
+    def newVertex(self):
+        v = Vertex()
+        self._vertices.append(v)
+        return v
+
+    def getEdge(self, edgeLabel):
+        return self._edges[edgeLabel]
+
+    def addEdge(self, edgeObj):
+        edgeObj.source.outEdges.add(edgeObj)
+        edgeObj.target.inEdges.add(edgeObj)
+        if edgeObj.kind == "real":
+            self._edges[edgeObj.label] = edgeObj
+
+    def addIsolatedRealEdge(self, edgeLabel):
+        self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(),
+                          "real"))
+
+    def calcPaths(self, startEdgeLabel):
+        if startEdgeLabel:
+            startVertex = self._edges[startEdgeLabel].source
+        else:
+            startVertex = self._vertices[0]
+        startVertex.preds.append(Predecessor(None, None, 0))
+        updatedVertices = [startVertex]
+        while len(updatedVertices) > 0:
+            vertex = updatedVertices.pop()
+            vertex.wasUpdated = False
+            for edge in vertex.outEdges:
+                if edge.target.update(edge):
+                    updatedVertices.append(edge.target)
+
+
+class NetReader(handler.ContentHandler):
+
+    def __init__(self, net):
+        self._net = net
+        self._edgeString = ''
+        self._edge = ''
+        self._lane2edge = {}
+
+    def startElement(self, name, attrs):
+        if name == 'edges':
+            self._edgeString = ' '
+        elif name == 'edge' and (not 'function' in attrs or attrs['function'] != 'internal'):
+            self._edge = attrs['id']
+        elif name == 'cedge' and self._edge != '':
+            fromEdge = self._net.getEdge(self._edge)
+            toEdge = self._net.getEdge(attrs['id'])
+            newEdge = Edge(self._edge+"_"+attrs['id'], fromEdge.target, toEdge.source)
+            self._net.addEdge(newEdge)
+        elif name == 'lane' and self._edge != '':
+            self._lane2edge[attrs['id']] = self._edge
+            edgeObj = self._net.getEdge(self._edge)
+            edgeObj.weight = float(attrs['length'])
+
+    def characters(self, content):
+        if self._edgeString != '':
+            self._edgeString += content
+
+    def endElement(self, name):
+        if name == 'edges':
+            for edge in self._edgeString.split():
+                self._net.addIsolatedRealEdge(edge)
+            self._edgeString = ''
+        elif name == 'edge':
+            self._edge = ''
+
+
+optParser = OptionParser()
+optParser.add_option("-n", "--net-file", dest="netfile",
+                     help="read SUMO network from FILE (mandatory)", metavar="FILE")
+optParser.add_option("-k", "--num-paths", type="int", dest="k",
+                     default=3, help="calculate the shortest k paths")
+optParser.add_option("-s", "--start-edge", dest="start", default="",
+                     help="start at the start vertex of this edge")
+optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+                     default=False, help="tell me what you are doing")
+(options, args) = optParser.parse_args()
+if not options.netfile:
+    optParser.print_help()
+    sys.exit()
+parser = make_parser()
+if options.verbose:
+    print "Reading net"
+net = Net()
+reader = NetReader(net)
+parser.setContentHandler(reader)
+parser.parse(options.netfile)
+if options.verbose:
+    print len(net._edges), "edges read"
+net.calcPaths(options.start)
