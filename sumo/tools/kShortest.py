@@ -103,7 +103,7 @@ class Net:
         startVertex.preds.append(Predecessor(None, None, 0))
         updatedVertices = [startVertex]
         while len(updatedVertices) > 0:
-            vertex = updatedVertices.pop()
+            vertex = updatedVertices.pop(0)
             vertex.wasUpdated = False
             for edge in vertex.outEdges:
                 if edge.target != startVertex and edge.target.update(edge):
