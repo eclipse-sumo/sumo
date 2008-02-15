@@ -37,8 +37,6 @@
  * receiver and an operation on the receiver. This operation will be performed
  * when execute() is called.
  * @see Design Patterns, Gamma et al.
- * @see SimpleDiscreteCommand
- * @see OneArgumentDiscreteCommand
  * @see MSEventControl
  */
 class DiscreteCommand
