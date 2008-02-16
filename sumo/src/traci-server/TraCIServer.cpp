@@ -224,23 +224,8 @@ void
 TraCIServer::commandSimulationStep(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
 throw(TraCIException)
 {
-    MSNet *net = MSNet::getInstance();
+	MSNet *net = MSNet::getInstance();
     SUMOTime currentTime = net->getCurrentTimeStep();
-
-    
-    for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin();
-            iter != equippedVehicles_.end(); ++iter) {
-        if ((*iter).second != -1) { // Look only at equipped vehicles
-            MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
-            if (veh != NULL) {
-				// for each vehicle, try to reroute in case of previous "changeRoute" messages
-                veh->checkReroute(currentTime);
-
-				// check for applied lane changing constraints
-				veh->checkLaneChangeConstraint();
-            }
-        }
-    }
 
     // TargetTime
     SUMOTime targetTime = static_cast<SUMOTime>(requestMsg.readDouble()) + beginTime_;
@@ -262,6 +247,17 @@ throw(TraCIException)
         currentTime += DELTA_T;
         isMapChanged_ = true;
         cout << "Step #" << currentTime << (char) 13;
+    }
+
+	// for each vehicle process any active traci command
+	for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin();
+            iter != equippedVehicles_.end(); ++iter) {
+        if ((*iter).second != -1) { // Look only at equipped vehicles
+            MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
+            if (veh != NULL) {
+				veh->processTraCICommands(currentTime);
+            }
+        }
     }
 
     // prepare output
@@ -353,13 +349,13 @@ TraCIServer::commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
 throw(TraCIException)
 {
     std::string roadID;
-    //std::string laneID = "";
     float lanePos;
     unsigned char laneIndex;
 	MSLane* actLane;
 
     // NodeId
-    MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
+	int nodeId = requestMsg.readInt();
+    MSVehicle* veh = getVehicleByExtId(nodeId);   // external node id (equipped vehicle number)
 
     // StopPosition
     unsigned char posType = requestMsg.readUnsignedByte();	// position type
@@ -433,6 +429,18 @@ throw(TraCIException)
 
     // create a reply message
     writeStatusCmd(respMsg, CMD_STOP, RTYPE_OK, "");
+	// add stopnode command containging the actually used road map position
+	int length = 1 + 1 + 4 + 1 + roadID.length() + 4 + 1 + 4 + 8;
+	respMsg.writeByte(length);				// lenght
+	respMsg.writeByte(CMD_STOP);			// command id
+	respMsg.writeInt(nodeId);				// node id
+	respMsg.writeByte(POSITION_ROADMAP);	// pos format
+	respMsg.writeString(roadID);			// road id
+	respMsg.writeFloat(lanePos);			// pos
+	respMsg.writeByte(laneIndex);			// lane id
+	respMsg.writeFloat(radius);				// radius
+	respMsg.writeDouble(waitTime);			// wait time
+
 
     return;
 }

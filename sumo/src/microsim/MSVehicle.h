@@ -541,8 +541,9 @@ public:
 
 	/**
 	 * Checks if the sticky time for a "changelane" command has passed already
+	 * @param time current simulation time
 	 */
-	void checkLaneChangeConstraint();
+	void checkLaneChangeConstraint(SUMOTime time);
 
 	/**
 	 * Forces the vehicle to change the given number of lanes to the right side
@@ -557,6 +558,12 @@ public:
 	 * @param stickyTime duration for wich the lane change constraint takes effect
 	 */
 	void forceLaneChangeLeft(int numLanes, SUMOTime stickyTime);
+
+	/**
+	 * takes all action necessary during a simulation step to process any active command sent by TraCI 
+	 * @param time the current simulation time
+	 */
+	void processTraCICommands(SUMOTime time);
 #endif
 
 protected:

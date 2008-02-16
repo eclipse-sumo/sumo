@@ -370,9 +370,6 @@ MSVehicle::endsOn(const MSLane &lane) const
 void
 MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
 {
-#ifdef TRACI
-    adaptSpeed();
-#endif
     // reset move information
     myTarget = 0;
     // save old v for optional acceleration computation
@@ -480,9 +477,6 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
                                  const MSVehicle* pred,
                                  const MSVehicle* /*neigh*/)
 {
-#ifdef TRACI
-    adaptSpeed();
-#endif
     myLFLinkLanes.clear();
     // check whether the vehicle is not on an appropriate lane
     if (!myLane->appropriate(this)) {
@@ -1948,9 +1942,8 @@ MSVehicle::adaptSpeed()
 /****************************************************************************/
 
 void 
-MSVehicle::checkLaneChangeConstraint() {
-	SUMOTime currentTime = MSNet::getInstance()->getCurrentTimeStep();
-	if ((currentTime - timeBeforeLaneChange) >= laneChangeStickyTime) {
+MSVehicle::checkLaneChangeConstraint(SUMOTime time) {
+	if ((time - timeBeforeLaneChange) >= laneChangeStickyTime) {
 		myLaneChangeModel->setTraciState(0);
 	}
 }
@@ -1985,6 +1978,19 @@ MSVehicle::forceLaneChangeLeft(int numLanes, SUMOTime stickyTime) {
 
 	timeBeforeLaneChange = MSNet::getInstance()->getCurrentTimeStep();
 	laneChangeStickyTime = stickyTime;
+}
+
+/****************************************************************************/
+void
+MSVehicle::processTraCICommands(SUMOTime time) {
+	// try to reroute in case of previous "changeRoute" messages
+	checkReroute(time);
+
+	// check for applied lane changing constraints
+	checkLaneChangeConstraint(time);
+
+	// change speed in case of previous "slowDown" command
+	adaptSpeed();
 }
 
 #endif
