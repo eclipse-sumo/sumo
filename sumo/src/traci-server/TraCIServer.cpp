@@ -169,6 +169,9 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
     case CMD_CHANGEROUTE:
         commandChangeRoute(requestMsg, respMsg);
         break;
+	case CMD_CHANGETARGET
+		commandChangeTarget(requestMsg, respMsg);
+		break;
     case CMD_GETALLTLIDS:
         commandGetAllTLIds(requestMsg, respMsg);
         break;
@@ -429,7 +432,7 @@ throw(TraCIException)
 
     // create a reply message
     writeStatusCmd(respMsg, CMD_STOP, RTYPE_OK, "");
-	// add stopnode command containging the actually used road map position
+	// add a stopnode command containging the actually used road map position to the reply
 	int length = 1 + 1 + 4 + 1 + roadID.length() + 4 + 1 + 4 + 8;
 	respMsg.writeByte(length);				// lenght
 	respMsg.writeByte(CMD_STOP);			// command id
@@ -592,7 +595,7 @@ throw(TraCIException)
     // create a response command for each string id
     for (std::vector<std::string>::iterator iter = idList.begin(); iter != idList.end(); iter++) {
         // command length
-        respMsg.writeByte(2 + (*iter).size());
+        respMsg.writeByte(2 + (4 + (*iter).size()));
         // command type
         respMsg.writeByte(CMD_TLIDLIST);
         // id string

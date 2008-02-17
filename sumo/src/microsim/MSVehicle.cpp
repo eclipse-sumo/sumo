@@ -1952,7 +1952,7 @@ MSVehicle::checkLaneChangeConstraint(SUMOTime time) {
 		myLaneChangeModel->setTraciState(0);
 		laneChangeConstraintActive = false;
 		//std::cerr << "TraCi: lane change constraint reset at " << time << std::endl;
-	  //std::cerr << "TraCi: laneChanger new traciState: " << myLaneChangeModel->getTraciState() << std::endl;
+		//std::cerr << "TraCi: laneChanger new traciState: " << myLaneChangeModel->getTraciState() << std::endl;
 	}
 }
 
