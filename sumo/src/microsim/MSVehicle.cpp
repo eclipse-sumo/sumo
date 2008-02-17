@@ -1953,11 +1953,12 @@ void
 MSVehicle::forceLaneChangeRight(int numLanes, SUMOTime stickyTime) {
 	int newState = 0;
 
+	std::cerr << "TraCI: forceLaneChangeRight: " << numLanes << " lanes for " << stickyTime << "s" << std::endl;
 	if (numLanes <= 0) {
 		return;
 	}
 
-	newState = TLCA_REQUEST_RIGHT & !TLCA_HAS_CHANGEDRIGHT;
+	newState = TLCA_REQUEST_RIGHT;
 	myLaneChangeModel->setTraciState(newState);
 
 	timeBeforeLaneChange = MSNet::getInstance()->getCurrentTimeStep();
@@ -1968,12 +1969,13 @@ MSVehicle::forceLaneChangeRight(int numLanes, SUMOTime stickyTime) {
 void 
 MSVehicle::forceLaneChangeLeft(int numLanes, SUMOTime stickyTime) {
 	int newState = 0;
-
+	
+	std::cerr << "TraCI: forceLaneChangeLeft: " << numLanes << " lanes for " << stickyTime << "s" << std::endl;
 	if (numLanes <= 0) {
 		return;
 	}
 
-	newState = TLCA_REQUEST_LEFT & !TLCA_HAS_CHANGEDLEFT;
+	newState = TLCA_REQUEST_LEFT;
 	myLaneChangeModel->setTraciState(newState);
 
 	timeBeforeLaneChange = MSNet::getInstance()->getCurrentTimeStep();

@@ -478,7 +478,8 @@ throw(TraCIException)
 	
 	if (index < laneIndex) {
 		veh->forceLaneChangeLeft(laneIndex - index, stickyTime);
-	} else {
+	}
+	if (index > laneIndex) {
 		veh->forceLaneChangeRight(index - laneIndex, stickyTime);
 	}
 

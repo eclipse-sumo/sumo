@@ -51,7 +51,7 @@ enum LaneChangeAction {
 
 #ifdef TRACI
 enum TraciLaneChangeAction {
-	TLCA_REQUEST_RIGHT = 0,
+	TLCA_REQUEST_RIGHT = 1,
 	TLCA_REQUEST_LEFT = 2,
 	TLCA_HAS_CHANGEDRIGHT = 4,
 	TLCA_HAS_CHANGEDLEFT = 8
