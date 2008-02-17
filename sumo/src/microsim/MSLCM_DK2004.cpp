@@ -151,15 +151,14 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
 	// be changed in any case. If the requested change was performed already, but the constraint
 	// is still in effect, the lane must not be changed until the constraint is removed 
 	// (e.g. the constraint time has passed)
-	std::cerr << "TraCi: checking for lane change constraint (MSLCM_DK2004::wantsChangeToRight)" << std::endl;
-	std::cerr << "TraCi: laneChanger traciState: " << myTraciState << std::endl;
-	if (myTraciState & TLCA_REQUEST_RIGHT) {
-		std::cerr << "TraCi: TLCA_REQUEST_RIGHT active" << std::endl;
-		if ((myTraciState & TLCA_HAS_CHANGEDRIGHT) == 0) {
-			std::cerr << "TraCi: preparing change" << std::endl;
-			std::cerr << "TraCi: laneChanger traciState: " << myTraciState << std::endl;
+	if ( (myTraciState & TLCA_REQUEST_RIGHT) || (myTraciState & TLCA_REQUEST_LEFT) ) {
+		//std::cerr << "TraCi: TLCA_REQUEST_RIGHT active" << std::endl;
+		//std::cerr << "TraCi: laneChanger traciState: " << myTraciState << std::endl;
+		if ( ((myTraciState & TLCA_HAS_CHANGEDRIGHT) == 0) && (myTraciState & TLCA_REQUEST_RIGHT) ) {
 			ret = LCA_RIGHT;
-			myTraciState &= TLCA_HAS_CHANGEDRIGHT;
+			myTraciState |= TLCA_HAS_CHANGEDRIGHT;
+			//std::cerr << "TraCi: change prepared" << std::endl;
+			//std::cerr << "TraCi: laneChanger new traciState: " << myTraciState << std::endl;
 		}
 
 		return ret;
@@ -383,15 +382,14 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
 	// be changed in any case. If the requested change was performed already, but the constraint
 	// is still in effect, the lane must not be changes until the constraint is removed 
 	// (e.g. the constraint time has passed)
-	std::cerr << "TraCi: checking for lane change constraint (MSLCM_DK2004::wantsChangeToLeft)" << std::endl;
-	std::cerr << "TraCi: laneChanger traciState: " << myTraciState << std::endl;
-	if (myTraciState & TLCA_REQUEST_LEFT) {
-		std::cerr << "TraCi: TLCA_REQUEST_LEFT active" << std::endl;
-		if ((myTraciState & TLCA_HAS_CHANGEDLEFT) == 0) {
-			std::cerr << "TraCi: preparing change" << std::endl;
-			std::cerr << "TraCi: laneChanger traciState: " << myTraciState << std::endl;
+	if ( (myTraciState & TLCA_REQUEST_LEFT) || (myTraciState & TLCA_REQUEST_RIGHT) ) {
+		//std::cerr << "TraCi: TLCA_REQUEST_LEFT active" << std::endl;
+		//std::cerr << "TraCi: laneChanger traciState: " << myTraciState << std::endl;
+		if ( ((myTraciState & TLCA_HAS_CHANGEDLEFT) == 0) && (myTraciState & TLCA_REQUEST_LEFT)) {
 			ret = LCA_LEFT;
-			myTraciState &= TLCA_HAS_CHANGEDLEFT;
+			myTraciState |= TLCA_HAS_CHANGEDLEFT;
+			//std::cerr << "TraCi: change prepared" << std::endl;
+			//std::cerr << "TraCi: laneChanger new traciState: " << myTraciState << std::endl;
 		}
 
 		return ret;

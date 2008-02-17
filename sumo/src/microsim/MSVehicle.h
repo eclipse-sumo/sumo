@@ -754,6 +754,9 @@ private:
 
 	/* duration for which the forced lane change will be in effect */
 	SUMOTime laneChangeStickyTime;
+	
+	/* true if any forced lane change is in effect*/
+	bool laneChangeConstraintActive;
 
 #endif
 

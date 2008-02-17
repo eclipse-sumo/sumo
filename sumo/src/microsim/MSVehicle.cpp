@@ -220,7 +220,8 @@ MSVehicle::MSVehicle(string id,
         speedReduction(0),
         adaptDuration(0),
 		timeBeforeLaneChange(0),
-		laneChangeStickyTime(0)
+		laneChangeStickyTime(0),
+		laneChangeConstraintActive(false)
 #endif
 {
     rebuildAllowedLanes();
@@ -1943,8 +1944,15 @@ MSVehicle::adaptSpeed()
 
 void 
 MSVehicle::checkLaneChangeConstraint(SUMOTime time) {
+  if (!laneChangeConstraintActive) {
+    return;
+  }
+
 	if ((time - timeBeforeLaneChange) >= laneChangeStickyTime) {
 		myLaneChangeModel->setTraciState(0);
+		laneChangeConstraintActive = false;
+		std::cerr << "TraCi: lane change constraint reset at " << time << std::endl;
+	  std::cerr << "TraCi: laneChanger new traciState: " << myLaneChangeModel->getTraciState() << std::endl;
 	}
 }
 
@@ -1953,7 +1961,7 @@ void
 MSVehicle::forceLaneChangeRight(int numLanes, SUMOTime stickyTime) {
 	int newState = 0;
 
-	std::cerr << "TraCI: forceLaneChangeRight: " << numLanes << " lanes for " << stickyTime << "s" << std::endl;
+	//std::cerr << "TraCI: forceLaneChangeRight: " << numLanes << " lanes for " << stickyTime << "s" << std::endl;
 	if (numLanes <= 0) {
 		return;
 	}
@@ -1963,6 +1971,8 @@ MSVehicle::forceLaneChangeRight(int numLanes, SUMOTime stickyTime) {
 
 	timeBeforeLaneChange = MSNet::getInstance()->getCurrentTimeStep();
 	laneChangeStickyTime = stickyTime;
+	
+	laneChangeConstraintActive = true;
 }
 
 /****************************************************************************/
@@ -1970,7 +1980,7 @@ void
 MSVehicle::forceLaneChangeLeft(int numLanes, SUMOTime stickyTime) {
 	int newState = 0;
 	
-	std::cerr << "TraCI: forceLaneChangeLeft: " << numLanes << " lanes for " << stickyTime << "s" << std::endl;
+	//std::cerr << "TraCI: forceLaneChangeLeft: " << numLanes << " lanes for " << stickyTime << "s" << std::endl;
 	if (numLanes <= 0) {
 		return;
 	}
@@ -1980,6 +1990,8 @@ MSVehicle::forceLaneChangeLeft(int numLanes, SUMOTime stickyTime) {
 
 	timeBeforeLaneChange = MSNet::getInstance()->getCurrentTimeStep();
 	laneChangeStickyTime = stickyTime;
+	
+	laneChangeConstraintActive = true;
 }
 
 /****************************************************************************/
