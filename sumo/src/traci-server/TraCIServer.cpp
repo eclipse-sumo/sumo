@@ -169,7 +169,7 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
     case CMD_CHANGEROUTE:
         commandChangeRoute(requestMsg, respMsg);
         break;
-	case CMD_CHANGETARGET
+	case CMD_CHANGETARGET:
 		commandChangeTarget(requestMsg, respMsg);
 		break;
     case CMD_GETALLTLIDS:
