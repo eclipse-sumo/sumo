@@ -453,9 +453,9 @@ throw(TraCIException)
     // NodeId
     MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
     // Lane ID
-    int laneIndex = requestMsg.readInt();
+    char laneIndex = requestMsg.readByte();
     // stickyTime
-    double stickyTime = requestMsg.readDouble();
+    float stickyTime = requestMsg.readFloat();
 
     if (veh == NULL) {
         writeStatusCmd(respMsg, CMD_CHANGELANE, RTYPE_ERR, "Can not retrieve node with given ID");
