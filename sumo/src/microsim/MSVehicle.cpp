@@ -170,6 +170,7 @@ MSVehicle::~MSVehicle() throw()
             delete(*i).second;
         }
         edgesChangedByTraci.clear();
+		myTraciStops.clear();
     }
 #endif
     // persons
@@ -433,18 +434,14 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
 #ifdef TRACI
 	// check for stops requested via TraCI command
 	if (myTraciStops.find(myLane->getID()) != myTraciStops.end()) {
-		//TraciStopList currentStops = myTraciStops[myLane->getID()];
 		if (nextTraciStop != myTraciStops[myLane->getID()].end()) {
-			//TraciStop stop = (*nextTraciStop);
-			SUMOReal intervallBeginn = nextTraciStop->pos - nextTraciStop->radius;
+			//SUMOReal intervallBegin = nextTraciStop->pos - nextTraciStop->radius;
 			if (nextTraciStop->reached) {
 				if (nextTraciStop->remainingTime<=0) {
-					//if (myState.myPos > intervallEnd) {
 						nextTraciStop->remainingTime = nextTraciStop->duration;
 						nextTraciStop->reached = false;
 						nextTraciStop++;
-					//}
-					std::cerr << "leaving tracistop" << std::endl;
+					//std::cerr << "leaving tracistop" << std::endl;
 				} else {
 					nextTraciStop->remainingTime--;
 					myTarget = myLane;
@@ -453,8 +450,8 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
 					return;  
 				}
 			} else {
-				if (myState.myPos >= intervallBeginn) {
-					std::cerr << "tracistop reached" << std::endl;
+				if (myState.myPos >= nextTraciStop->pos - 0.5) {
+					//std::cerr << "tracistop reached" << std::endl;
 					nextTraciStop->reached = true;
 				}
 			}
@@ -636,13 +633,13 @@ MSVehicle::moveFirstChecked()
 	// check for stops requested via TraCI command
 	if (myTraciStops.find(myLane->getID()) != myTraciStops.end()) {
 		if (nextTraciStop != myTraciStops[myLane->getID()].end()) {
-			SUMOReal intervallBeginn = nextTraciStop->pos - nextTraciStop->radius;
+			//SUMOReal intervallBegin = nextTraciStop->pos - nextTraciStop->radius;
 			if (nextTraciStop->reached) {
 				if (nextTraciStop->remainingTime<=0) {
 					nextTraciStop->remainingTime = nextTraciStop->duration;
 					nextTraciStop->reached = false;
 					nextTraciStop++;
-					std::cerr << "leaving tracistop" << std::endl;
+					//std::cerr << "leaving tracistop" << std::endl;
 				} else {
 					nextTraciStop->remainingTime--;
 					myTarget = myLane;
@@ -651,8 +648,8 @@ MSVehicle::moveFirstChecked()
 					return;  
 				}
 			} else {
-				if (myState.myPos >= intervallBeginn) {
-					std::cerr << "tracistop reached" << std::endl;
+				if (myState.myPos >= nextTraciStop->pos - 0.5) {
+					//std::cerr << "tracistop reached" << std::endl;
 					nextTraciStop->reached = true;
 				}
 			}
@@ -2106,12 +2103,12 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOReal du
 	/* if a list of stop associated with the given lane exists, it will be expanded,
 	 * otherwise, a new list of stops associated with the given lane is created.
 	 * all stops are kept sorted by their position*/
-	stopList = myTraciStops[lane->getID()];
 	stopList.push_back(newStop);
 	stopList.sort();
+	myTraciStops[lane->getID()] = stopList;
 
-	std::cerr << "added tracistop:  lane " << newStop.lane->getID() << "  pos " << newStop.pos << "  duration " 
-			<< newStop.duration  <<  "  radius " << newStop.radius << std::endl;
+	/*std::cerr << "added tracistop:  lane " << newStop.lane->getID() << "  pos " << newStop.pos << "  duration " 
+			<< newStop.duration  <<  "  radius " << newStop.radius << std::endl;*/
 }
 
 #endif
