@@ -244,6 +244,8 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
 
     void insertMeanData(unsigned int number);
 
+    SUMOReal getMeanSpeed() const;
+
     const std::string &getID() const;
 
     void addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal gap);
@@ -341,6 +343,9 @@ protected:
 
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     virtual void swapAfterLaneChange();
+
+    void add2MeanDataEmitted();
+
 
 protected:
     /// Unique ID.

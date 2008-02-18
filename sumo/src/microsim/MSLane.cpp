@@ -306,6 +306,17 @@ MSLane::emit(MSVehicle& veh)
 }
 
 
+void
+MSLane::add2MeanDataEmitted()
+{
+    if (myMeanData.size()!=0) {
+        for (size_t i=0; i<myMeanData.size(); ++i) {
+            myMeanData[i].emitted++;
+        }
+    }
+}
+
+
 bool
 MSLane::isEmissionSuccess(MSVehicle* aVehicle,
                           const MSVehicle::State &vstate)
@@ -333,6 +344,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
         if (wasInactive) {
             MSNet::getInstance()->getEdgeControl().gotActive(this);
         }
+        add2MeanDataEmitted();
         return true;
     }
     // emit
@@ -342,6 +354,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     if (wasInactive) {
         MSNet::getInstance()->getEdgeControl().gotActive(this);
     }
+    add2MeanDataEmitted();
     return true;
 }
 
@@ -366,6 +379,7 @@ MSLane::emitTry(MSVehicle& veh)
         if (wasInactive) {
             MSNet::getInstance()->getEdgeControl().gotActive(this);
         }
+        add2MeanDataEmitted();
         return true;
     }
     return false;
@@ -402,6 +416,7 @@ MSLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
             if (wasInactive) {
                 MSNet::getInstance()->getEdgeControl().gotActive(this);
             }
+            add2MeanDataEmitted();
             return true;
         }
         return false;
@@ -429,6 +444,7 @@ MSLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
             if (wasInactive) {
                 MSNet::getInstance()->getEdgeControl().gotActive(this);
             }
+            add2MeanDataEmitted();
             return true;
         }
         return false;
@@ -458,6 +474,7 @@ MSLane::emitTry(VehCont::iterator followIt, MSVehicle& veh)
         if (wasInactive) {
             MSNet::getInstance()->getEdgeControl().gotActive(this);
         }
+        add2MeanDataEmitted();
         return true;
     }
     return false;
@@ -490,6 +507,7 @@ MSLane::emitTry(VehCont::iterator followIt, MSVehicle& veh,
         if (wasInactive) {
             MSNet::getInstance()->getEdgeControl().gotActive(this);
         }
+        add2MeanDataEmitted();
         return true;
     }
     return false;
@@ -612,6 +630,12 @@ MSLane::push(MSVehicle* veh)
     // Insert vehicle only if it's destination isn't reached.
     //  and it does not collide with previous
     // check whether the vehicle has ended his route
+    // Add to mean data (edge/lane state dump)
+    if (myMeanData.size()!=0) {
+        for (size_t i=0; i<myMeanData.size(); ++i) {
+            myMeanData[i].entered++;
+        }
+    }
     if (! veh->destReached(myEdge)) {     // adjusts vehicles routeIterator
         myVehBuffer.push_back(veh);
         veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
@@ -638,6 +662,11 @@ MSLane::pop()
     myVehicleLengthSum -= first->getLength();
     if (myVehicles.size()==0) {
         myLastState = MSVehicle::State(10000, 10000);
+    }
+    if (myMeanData.size()!=0) {
+        for (size_t i=0; i<myMeanData.size(); ++i) {
+            myMeanData[i].left++;
+        }
     }
     return first;
 }
@@ -1096,6 +1125,20 @@ void
 MSLane::enteredByLaneChange(MSVehicle *v)
 {
     myVehicleLengthSum += v->getLength();
+}
+
+
+SUMOReal 
+MSLane::getMeanSpeed() const
+{
+    if(myVehicles.size()==0) {
+        return myMaxSpeed;
+    }
+    SUMOReal v = 0;
+    for(VehCont::const_iterator i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
+        v += (*i)->getSpeed();
+    }
+    return v / (SUMOReal) myVehicles.size();
 }
 
 

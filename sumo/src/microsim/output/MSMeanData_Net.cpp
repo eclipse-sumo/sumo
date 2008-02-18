@@ -2,7 +2,7 @@
 /// @file    MSMeanData_Net.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 10.05.2004
-/// @version $Id$
+/// @version $Id:MSMeanData_Net.cpp 4976 2008-01-30 14:23:39Z dkrajzew $
 ///
 // Redirector for mean data output (net->edgecontrol)
 /****************************************************************************/
@@ -164,6 +164,9 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         SUMOReal meanSpeedS = 0;
         SUMOReal traveltimeS = 0;
         unsigned noStopsS = 0;
+        unsigned noEmissionsS = 0;
+        unsigned noLeftS = 0;
+        unsigned noEnteredS = 0;
         SUMOReal nVehS = 0;
         SUMOReal absLen = 0;
         int noSegments = 0;
@@ -181,6 +184,9 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             meanSpeedS += meanSpeed;
             traveltimeS += traveltime;
             noStopsS += meanData.haltSum;
+            noEmissionsS += meanData.emitted;
+            noLeftS += meanData.left;
+            noEnteredS += meanData.entered;
             nVehS += meanData.nSamples;
             flowS += s->getMeanData(myIndex).nVehEntireLane;
             absLen += s->getLength();
@@ -200,6 +206,9 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         "\" occupancy=\""<<meanOccupancyS<<
         "\" noStops=\""<<noStopsS<<
         "\" speed=\""<<meanSpeedS<<
+        "\" entered=\""<<noEnteredS<<
+        "\" emitted=\""<<noEmissionsS<<
+        "\" left=\""<<noLeftS<<
         "\" flow=\""<<(flowS*3600./((SUMOReal)(stopTime-startTime+1)))<<  //!!!
         "\"/>\n";
     } else {
@@ -219,6 +228,9 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             unsigned noStopsS = 0;
             SUMOReal nVehS = 0;
             SUMOReal meanOccupancyS = 0;
+            unsigned noEmissionsS = 0;
+            unsigned noLeftS = 0;
+            unsigned noEnteredS = 0;
             for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
                 MSLaneMeanDataValues& meanData = (*lane)->getMeanData(myIndex);
                 // calculate mean data
@@ -234,6 +246,9 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
                 meanDensityS += meanDensity;
                 meanOccupancyS += meanOccupancy;
                 noStopsS += meanData.haltSum;
+                noEmissionsS += meanData.emitted;
+                noLeftS += meanData.left;
+                noEnteredS += meanData.entered;
                 nVehS += meanData.nSamples;
                 meanData.reset();
             }
@@ -245,6 +260,9 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             "\" occupancy=\""<<(meanOccupancyS/(SUMOReal) lanes->size())<<
             "\" noStops=\""<<noStopsS<<
             "\" speed=\""<<(meanSpeedS/(SUMOReal) lanes->size())<<
+            "\" entered=\""<<noEnteredS<<
+            "\" emitted=\""<<noEmissionsS<<
+            "\" left=\""<<noLeftS<<
             "\"/>\n";
         }
 #ifdef HAVE_MESOSIM
@@ -275,6 +293,9 @@ MSMeanData_Net::writeLane(OutputDevice &dev,
     "\" occupancy=\""<<meanOccupancy<<
     "\" noStops=\""<<meanData.haltSum<<
     "\" speed=\""<<meanSpeed<<
+    "\" entered=\""<<meanData.entered<<
+    "\" emitted=\""<<meanData.emitted<<
+    "\" left=\""<<meanData.left<<
     "\"/>\n";
     meanData.reset();
 }

@@ -48,7 +48,8 @@ struct MSLaneMeanDataValues {
     /** @brief Constructor */
     MSLaneMeanDataValues() throw()
             : nVehEntireLane(0), nSamples(0), nVehLeftLane(0), nVehEnteredLane(0),
-            speedSum(0), haltSum(0), vehLengthSum(0) {}
+            speedSum(0), haltSum(0), vehLengthSum(0),
+            entered(0), emitted(0), left(0) {}
 
 
     /** @brief Resets values so they may be used for the next interval
@@ -61,6 +62,9 @@ struct MSLaneMeanDataValues {
         speedSum = 0;
         haltSum = 0;
         vehLengthSum = 0;
+        entered = 0;
+        emitted = 0;
+        left = 0;
     }
 
 
@@ -79,11 +83,20 @@ struct MSLaneMeanDataValues {
     /// @brief The sum of the speeds the vehicles had
     SUMOReal speedSum;
 
-    /// @brief !!!
+    /// @brief The number of vehicle probes with v<0.1
     unsigned haltSum;
 
     /// @brief The sum of the lengths the vehicles had
     SUMOReal vehLengthSum;
+
+    /// @brief The number of vehicles that entered the lane (excluding emission)
+    unsigned entered;
+
+    /// @brief The number of vehicles that were emitted on the lane
+    unsigned emitted;
+
+    /// @brief The number of vehicles that left the lane
+    unsigned left;
 
 };
 

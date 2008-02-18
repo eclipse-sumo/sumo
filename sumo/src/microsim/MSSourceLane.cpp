@@ -123,6 +123,7 @@ MSSourceLane::emitTry(MSVehicle& veh)
     }
     MSVehicle::State state(myLength>1 ? (SUMOReal)(myLength - 1.) : 0, 0);
     veh.enterLaneAtEmit(this, state);
+    add2MeanDataEmitted();
     return true;
 }
 
@@ -150,6 +151,7 @@ MSSourceLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
         if (wasInactive) {
             MSNet::getInstance()->getEdgeControl().gotActive(this);
         }
+        add2MeanDataEmitted();
         return true;
     }
     return false;
