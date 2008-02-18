@@ -432,43 +432,34 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
 
 #ifdef TRACI
 	// check for stops requested via TraCI command
-	if (!myTraciStops.empty()) {
-		SUMOReal intervallBegin = 0xFFFFFFFF;
-		//SUMOReal intervallEnd;
-		TraciStop stop;
-		bool stopFound = false;
-		std::list<TraciStop>::iterator iter;
-		for (iter = myTraciStops.begin(); iter != myTraciStops.end(); iter++) {
-			if ( (iter->lane == myLane) 
-				&& ((iter->pos - iter->radius) < intervallBegin) 
-				&& ((iter->pos - iter->radius) > myState.myPos) ) {
-				intervallBegin = iter->pos - iter->radius;	
-				//intervallEnd = stop.pos - stop.radius;
-				stop = (*iter);
-				stopFound = true;
-			}
-		}
-		if (stopFound) {
-			if (stop.reached) {
-				if (stop.remainingTime==0) {
+	if (myTraciStops.find(myLane->getID()) != myTraciStops.end()) {
+		//TraciStopList currentStops = myTraciStops[myLane->getID()];
+		if (nextTraciStop != myTraciStops[myLane->getID()].end()) {
+			//TraciStop stop = (*nextTraciStop);
+			SUMOReal intervallBeginn = nextTraciStop->pos - nextTraciStop->radius;
+			if (nextTraciStop->reached) {
+				if (nextTraciStop->remainingTime<=0) {
 					//if (myState.myPos > intervallEnd) {
-						stop.remainingTime = stop.duration;
-						stop.reached = false;
+						nextTraciStop->remainingTime = nextTraciStop->duration;
+						nextTraciStop->reached = false;
+						nextTraciStop++;
 					//}
+					std::cerr << "leaving tracistop" << std::endl;
 				} else {
-					stop.remainingTime--;
+					nextTraciStop->remainingTime--;
 					myTarget = myLane;
 					myState.mySpeed = 0;
 					myLane->addMean2(*this, 0, oldV, gap);
 					return;  
 				}
 			} else {
-				if (myState.myPos >= intervallBegin) {
-					stop.reached = true;
+				if (myState.myPos >= intervallBeginn) {
+					std::cerr << "tracistop reached" << std::endl;
+					nextTraciStop->reached = true;
 				}
 			}
 
-			vSafe = MIN2(vSafe, myType->ffeS(myState.mySpeed, intervallBegin-myState.pos()));
+			vSafe = MIN2(vSafe, myType->ffeS(myState.mySpeed, nextTraciStop->pos -myState.pos()));
 		}
 	}
 #endif
@@ -643,43 +634,29 @@ MSVehicle::moveFirstChecked()
     }
 #ifdef TRACI
 	// check for stops requested via TraCI command
-	if (!myTraciStops.empty()) {
-		SUMOReal intervallBegin = 0xFFFFFFFF;
-		//SUMOReal intervallEnd;
-		TraciStop stop;
-		bool stopFound = false;
-		std::list<TraciStop>::iterator iter;
-		for (iter = myTraciStops.begin(); iter != myTraciStops.end(); iter++) {
-			if ( (iter->lane == myLane) 
-				&& ((iter->pos - iter->radius) < intervallBegin) 
-				&& ((iter->pos - iter->radius) > myState.myPos) ) {
-				intervallBegin = iter->pos - iter->radius;	
-				//intervallEnd = stop.pos - stop.radius;
-				stop = (*iter);
-				stopFound = true;
-			}
-		}
-		if (stopFound) {
-			if (stop.reached) {
-				if (stop.remainingTime==0) {
-					//if (myState.myPos > intervallEnd) {
-						stop.remainingTime = stop.duration;
-						stop.reached = false;
-					//}
+	if (myTraciStops.find(myLane->getID()) != myTraciStops.end()) {
+		if (nextTraciStop != myTraciStops[myLane->getID()].end()) {
+			SUMOReal intervallBeginn = nextTraciStop->pos - nextTraciStop->radius;
+			if (nextTraciStop->reached) {
+				if (nextTraciStop->remainingTime<=0) {
+					nextTraciStop->remainingTime = nextTraciStop->duration;
+					nextTraciStop->reached = false;
+					nextTraciStop++;
+					std::cerr << "leaving tracistop" << std::endl;
 				} else {
-					stop.remainingTime--;
+					nextTraciStop->remainingTime--;
 					myTarget = myLane;
 					myState.mySpeed = 0;
 					myLane->addMean2(*this, 0, oldV, -1);
 					return;  
 				}
 			} else {
-				if (myState.myPos >= intervallBegin) {
-					stop.reached = true;
+				if (myState.myPos >= intervallBeginn) {
+					std::cerr << "tracistop reached" << std::endl;
+					nextTraciStop->reached = true;
 				}
 			}
-
-			vSafe = MIN2(vSafe, myType->ffeS(myState.mySpeed, intervallBegin-myState.pos()));
+			vSafe = MIN2(vSafe, myType->ffeS(myState.mySpeed, nextTraciStop->pos -myState.pos()));
 		}
 	}
 #endif
@@ -1102,6 +1079,13 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool inBetweenJ
     if (MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleMoves(this);
     }
+
+#ifdef TRACI
+	// point the iterator to the first tracistop on this lane, if any
+	if (myTraciStops.find(enteredLane->getID()) != myTraciStops.end()) {
+		nextTraciStop = myTraciStops[enteredLane->getID()].begin();
+	}
+#endif
 }
 
 
@@ -1117,6 +1101,13 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane)
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtLaneChange(enteredLane);
     }
+
+#ifdef TRACI
+	// point the iterator to the first tracistop on this lane, if any
+	if (myTraciStops.find(enteredLane->getID()) != myTraciStops.end()) {
+		nextTraciStop = myTraciStops[enteredLane->getID()].begin();
+	}
+#endif
 }
 
 
@@ -1134,6 +1125,13 @@ MSVehicle::enterLaneAtEmit(MSLane* enteredLane, const State &state)
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtEmit(enteredLane, state);
     }
+
+#ifdef TRACI
+	// point the iterator to the first tracistop on this lane, if any
+	if (myTraciStops.find(enteredLane->getID()) != myTraciStops.end()) {
+		nextTraciStop = myTraciStops[enteredLane->getID()].begin();
+	}
+#endif
 }
 
 
@@ -2096,6 +2094,7 @@ MSVehicle::processTraCICommands(SUMOTime time) {
 void 
 MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOReal duration) {
 	TraciStop newStop;
+	TraciStopList stopList;
 
 	newStop.lane = lane;
 	newStop.pos = pos;
@@ -2104,7 +2103,15 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOReal du
 	newStop.remainingTime = duration;
 	newStop.reached = false;
 
-    myTraciStops.push_back(newStop);
+	/* if a list of stop associated with the given lane exists, it will be expanded,
+	 * otherwise, a new list of stops associated with the given lane is created.
+	 * all stops are kept sorted by their position*/
+	stopList = myTraciStops[lane->getID()];
+	stopList.push_back(newStop);
+	stopList.sort();
+
+	std::cerr << "added tracistop:  lane " << newStop.lane->getID() << "  pos " << newStop.pos << "  duration " 
+			<< newStop.duration  <<  "  radius " << newStop.radius << std::endl;
 }
 
 #endif

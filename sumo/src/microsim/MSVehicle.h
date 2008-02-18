@@ -733,10 +733,19 @@ private:
 		SUMOTime duration;
 		SUMOTime remainingTime;
 		bool reached;
+
+		/* stops may be sorted by their position */
+		bool operator<(TraciStop arg) {
+			return ( (pos-radius) < (arg.pos - arg.radius) );
+		}
 	};
 
 	/* list of scheduled stops*/
-	std::list<TraciStop> myTraciStops;
+	typedef std::list<TraciStop> TraciStopList;
+	std::map<std::string, TraciStopList> myTraciStops;
+
+	/* iterator pointing to the nearest stop on the current lane, if any*/
+	TraciStopList::iterator nextTraciStop;
 
     bool myHaveRouteInfo;
     typedef std::map<const MSEdge * const, Information *> InfoCont;
