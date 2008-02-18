@@ -41,7 +41,6 @@
 #include <guisim/GUINet.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/common/ToString.h>
-#include <utils/importio/LineReader.h>
 #include <utils/common/TplConvert.h>
 #include "GUIDialog_Breakpoints.h"
 #include <utils/gui/windows/GUISUMOAbstractView.h>

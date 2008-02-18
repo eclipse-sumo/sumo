@@ -52,6 +52,7 @@ class MFXAddEditTypedTable;
  *
  * This dialog shows and lets the user edit the list of breakpoint - simulation
  *  time steps where the simulation halts.
+ * @todo Use a LineReader instead of >> while reading
  */
 class GUIDialog_Breakpoints : public FXMainWindow
 {
