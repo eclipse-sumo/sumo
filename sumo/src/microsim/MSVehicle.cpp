@@ -430,6 +430,49 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
         }
     }
 
+#ifdef TRACI
+	// check for stops requested via TraCI command
+	if (!myTraciStops.empty()) {
+		SUMOReal intervallBegin = 0xFFFFFFFF;
+		//SUMOReal intervallEnd;
+		TraciStop stop;
+		bool stopFound = false;
+		std::list<TraciStop>::iterator iter;
+		for (iter = myTraciStops.begin(); iter != myTraciStops.end(); iter++) {
+			if ( (iter->lane == myLane) 
+				&& ((iter->pos - iter->radius) < intervallBegin) 
+				&& ((iter->pos - iter->radius) > myState.myPos) ) {
+				intervallBegin = iter->pos - iter->radius;	
+				//intervallEnd = stop.pos - stop.radius;
+				stop = (*iter);
+				stopFound = true;
+			}
+		}
+		if (stopFound) {
+			if (stop.reached) {
+				if (stop.remainingTime==0) {
+					//if (myState.myPos > intervallEnd) {
+						stop.remainingTime = stop.duration;
+						stop.reached = false;
+					//}
+				} else {
+					stop.remainingTime--;
+					myTarget = myLane;
+					myState.mySpeed = 0;
+					myLane->addMean2(*this, 0, oldV, gap);
+					return;  
+				}
+			} else {
+				if (myState.myPos >= intervallBegin) {
+					stop.reached = true;
+				}
+			}
+
+			vSafe = MIN2(vSafe, myType->ffeS(myState.mySpeed, intervallBegin-myState.pos()));
+		}
+	}
+#endif
+
     SUMOReal maxNextSpeed = myType->maxNextSpeed(myState.mySpeed);
 
     SUMOReal vNext = myType->dawdle(MIN3(lane->maxSpeed(), myType->maxNextSpeed(myState.mySpeed), vSafe));
@@ -598,6 +641,48 @@ MSVehicle::moveFirstChecked()
             }
         }
     }
+#ifdef TRACI
+	// check for stops requested via TraCI command
+	if (!myTraciStops.empty()) {
+		SUMOReal intervallBegin = 0xFFFFFFFF;
+		//SUMOReal intervallEnd;
+		TraciStop stop;
+		bool stopFound = false;
+		std::list<TraciStop>::iterator iter;
+		for (iter = myTraciStops.begin(); iter != myTraciStops.end(); iter++) {
+			if ( (iter->lane == myLane) 
+				&& ((iter->pos - iter->radius) < intervallBegin) 
+				&& ((iter->pos - iter->radius) > myState.myPos) ) {
+				intervallBegin = iter->pos - iter->radius;	
+				//intervallEnd = stop.pos - stop.radius;
+				stop = (*iter);
+				stopFound = true;
+			}
+		}
+		if (stopFound) {
+			if (stop.reached) {
+				if (stop.remainingTime==0) {
+					//if (myState.myPos > intervallEnd) {
+						stop.remainingTime = stop.duration;
+						stop.reached = false;
+					//}
+				} else {
+					stop.remainingTime--;
+					myTarget = myLane;
+					myState.mySpeed = 0;
+					myLane->addMean2(*this, 0, oldV, -1);
+					return;  
+				}
+			} else {
+				if (myState.myPos >= intervallBegin) {
+					stop.reached = true;
+				}
+			}
+
+			vSafe = MIN2(vSafe, myType->ffeS(myState.mySpeed, intervallBegin-myState.pos()));
+		}
+	}
+#endif
 
     // compute vNext in considering dawdling
     SUMOReal vNext = myType->dawdle(vSafe);
@@ -2005,6 +2090,21 @@ MSVehicle::processTraCICommands(SUMOTime time) {
 
 	// change speed in case of previous "slowDown" command
 	adaptSpeed();
+}
+
+/****************************************************************************/
+void 
+MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOReal duration) {
+	TraciStop newStop;
+
+	newStop.lane = lane;
+	newStop.pos = pos;
+	newStop.radius = radius;
+	newStop.duration = duration;
+	newStop.remainingTime = duration;
+	newStop.reached = false;
+
+    myTraciStops.push_back(newStop);
 }
 
 #endif

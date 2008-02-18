@@ -478,7 +478,7 @@ public:
         SUMOTime duration;
         SUMOTime until;
         bool reached;
-    };
+	};
 
     std::list<Stop> myStops;
 
@@ -507,6 +507,17 @@ public:
     SUMOReal getEffort(const MSEdge * const e, SUMOTime t) const;
 
 #ifdef TRACI
+	/**
+	 * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
+	 * will wait for the given duration before continuing on its route
+	 * @param lane		lane on wich to stop
+	 * @param pos		position on the given lane at wich to stop
+	 * @param radius	the vehicle will stop if it is within the range [pos-radius, pos+radius]
+	 * @duration		after waiting for the time period duration, the vehicle will
+	 *					continue until the stop is reached again
+	 */
+	void addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOReal duration);
+
     void checkReroute(SUMOTime t);
 
     /**
@@ -715,6 +726,18 @@ private:
     typedef std::vector<RouteReplaceInfo> ReplacedRoutesVector;
 
 #ifdef TRACI
+	struct TraciStop {
+		MSLane *lane;
+		SUMOReal pos;
+		SUMOReal radius;
+		SUMOTime duration;
+		SUMOTime remainingTime;
+		bool reached;
+	};
+
+	/* list of scheduled stops*/
+	std::list<TraciStop> myTraciStops;
+
     bool myHaveRouteInfo;
     typedef std::map<const MSEdge * const, Information *> InfoCont;
     InfoCont infoCont;

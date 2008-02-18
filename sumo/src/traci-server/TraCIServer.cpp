@@ -374,8 +374,8 @@ throw(TraCIException)
             writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
         }
 
-        // get the actual lane that is referenced by laneIndex
-        MSEdge* road = MSEdge::dictionary(roadID);
+		// get the actual lane that is referenced by laneIndex
+		MSEdge* road = MSEdge::dictionary(roadID);
         if (road == NULL) {
             writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Unable to retrieve road with given id");
         }
@@ -401,6 +401,7 @@ throw(TraCIException)
 				actLane = road->rightLane(actLane);
 			}
 		}
+		
     } else {
         writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Currently not supported or unknown Position Format");
     }
@@ -416,19 +417,7 @@ throw(TraCIException)
     }
 
     // Forward command to vehicle
-    if (posType == POSITION_ROADMAP) {
-        // add a new stop to the vehicle
-        MSVehicle::Stop newStop;
-        newStop.busstop = NULL;
-        newStop.duration = waitTime;
-        //newStop.lane = MSLane::dictionary(laneID);
-		newStop.lane = actLane;
-        newStop.pos = lanePos;
-        newStop.reached = false;
-        newStop.until = 0;
-
-        veh->addStop(newStop);
-    }
+    veh->addTraciStop(actLane, lanePos, radius, waitTime);
 
     // create a reply message
     writeStatusCmd(respMsg, CMD_STOP, RTYPE_OK, "");
