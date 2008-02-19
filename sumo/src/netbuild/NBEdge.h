@@ -451,13 +451,13 @@ class ToEdgeConnectionsAdder : public Bresenham::BresenhamCallBack
     };
 
     /// Computes the shape for the given lane
-    Position2DVector computeLaneShape(size_t lane);
+    Position2DVector computeLaneShape(size_t lane) throw(InvalidArgument);
 
     /// Computes the offset from the edge shape on the current segment
     std::pair<SUMOReal, SUMOReal> laneOffset(const Position2D &from,
-            const Position2D &to, SUMOReal lanewidth, size_t lane);
+            const Position2D &to, SUMOReal lanewidth, size_t lane) throw(InvalidArgument);
 
-    void computeLaneShapes();
+    void computeLaneShapes() throw(InvalidArgument);
 
     bool splitGeometry(NBEdgeCont &ec, NBNodeCont &nc);
 protected:

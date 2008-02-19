@@ -235,7 +235,11 @@ NBEdge::init() throw(ProcessError)
     myLength = GeomHelper::distance(
                    myFrom->getPosition(), myTo->getPosition());
     assert(myGeom.size()>=2);
-    computeLaneShapes();
+	try {
+		computeLaneShapes();
+	} catch (InvalidArgument &ia) {
+		throw ProcessError(string(ia.what()) + " in edge " + myID + ".");
+	}
     for (size_t i=0; i<myNolanes; i++) {
         myLaneSpeeds.push_back(mySpeed);
     }
@@ -553,7 +557,7 @@ NBEdge::getLaneSpeed(int lane) const
 
 
 void
-NBEdge::computeLaneShapes()
+NBEdge::computeLaneShapes() throw(InvalidArgument)
 {
     // vissim needs this
     if (myFrom==myTo) {
@@ -591,7 +595,7 @@ NBEdge::getLaneShape(size_t i) const
 
 
 Position2DVector
-NBEdge::computeLaneShape(size_t lane)
+NBEdge::computeLaneShape(size_t lane) throw(InvalidArgument)
 {
     Position2DVector shape;
 
@@ -649,13 +653,12 @@ NBEdge::computeLaneShape(size_t lane)
 
 std::pair<SUMOReal, SUMOReal>
 NBEdge::laneOffset(const Position2D &from, const Position2D &to,
-                   SUMOReal lanewidth, size_t lane)
+                   SUMOReal lanewidth, size_t lane) throw(InvalidArgument)
 {
     SUMOReal x1 = from.x();
     SUMOReal y1 = from.y();
     SUMOReal x2 = to.x();
     SUMOReal y2 = to.y();
-    assert(x1!=x2||y1!=y2);
     SUMOReal length = sqrt((x1-x2)*(x1-x2) + (y1-y2)*(y1-y2));
     std::pair<SUMOReal, SUMOReal> offsets =
         GeomHelper::getNormal90D_CW(x1, y1, x2, y2, length, lanewidth);

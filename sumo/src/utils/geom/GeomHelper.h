@@ -32,6 +32,7 @@
 
 #include "Position2D.h"
 #include "Position2DVector.h"
+#include <utils/common/UtilExceptions.h>
 
 
 #ifndef PI
@@ -108,7 +109,7 @@ public:
                                  const Position2DVector &v);
 
     static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(SUMOReal x1, SUMOReal y1,
-            SUMOReal x2, SUMOReal y2, SUMOReal length, SUMOReal wanted_offset);
+            SUMOReal x2, SUMOReal y2, SUMOReal length, SUMOReal wanted_offset) throw(InvalidArgument);
 
     static std::pair<SUMOReal, SUMOReal> getNormal90D_CW(const Position2D &beg,
             const Position2D &end, SUMOReal length, SUMOReal wanted_offset);

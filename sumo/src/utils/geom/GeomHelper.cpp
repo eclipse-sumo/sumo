@@ -463,7 +463,7 @@ GeomHelper::getNormal90D_CW(const Position2D &beg,
 std::pair<SUMOReal, SUMOReal>
 GeomHelper::getNormal90D_CW(SUMOReal x1, SUMOReal y1,
                             SUMOReal x2, SUMOReal y2,
-                            SUMOReal length, SUMOReal wanted_offset)
+                            SUMOReal length, SUMOReal wanted_offset) throw(InvalidArgument)
 {
     SUMOReal dx = x1 - x2;
     SUMOReal dy = y1 - y2;
@@ -497,8 +497,7 @@ GeomHelper::getNormal90D_CW(SUMOReal x1, SUMOReal y1,
             return std::pair<SUMOReal, SUMOReal>
                    (dy*wanted_offset/length, 0);
         } else { // zero !
-            std::cout << "same points" << std::endl;
-            throw 1;
+            throw InvalidArgument("same points");
         }
     }
 }
