@@ -905,8 +905,7 @@
         priority="<replaceable>&lt;UINT&gt;</replaceable>"
         length="<replaceable>&lt;FLOAT&gt;</replaceable>")]
         [shape="<replaceable>&lt;2D_POINT&gt; </replaceable>[
-        <replaceable>&lt;2D_POINT&gt;</replaceable>]*
-        <replaceable>&lt;2D_POINT&gt;</replaceable>"] [spread_type="center"]
+        <replaceable>&lt;2D_POINT&gt;</replaceable>]*"] [spread_type="center"]
         [function=( "source" | "sink" | "normal" ) ]/&gt;</sgmltag>.</para>
 
         <para>What does it mean? Every one who knows how XML-files look like
@@ -1081,10 +1080,12 @@
                 <listitem>
                   <para><sgmltag>shape</sgmltag>: List of positions; each
                   position is encoded in x,y (do not separate the numbers with
-                  a space!) in meters; an edge's shape definition must of
-                  course be at least two positions long; an example:
-                  <sgmltag>shape="0,0 0,100"</sgmltag> describes a vertical
-                  edge of one hundred meters.</para>
+                  a space!) in meters; the start and end node are omitted from
+                  the shape definition; an example: <sgmltag>&lt;edge id="e1"
+                  fromnode="0" tonode="1" shape="0,0 0,100"/&gt;</sgmltag>
+                  describes an edge that after starting at node 0, first
+                  visits position 0,0 than goes one hundred meters to the
+                  right before finally reaching the position of node 1.</para>
                 </listitem>
 
                 <listitem>
@@ -7099,6 +7100,7 @@ myDet1;0;10;2;100;80
               with a <sgmltag>type</sgmltag> is marked as deprecated since
               version 0.9.8, a warning is generated</para>
             </listitem>
+
             <listitem>
               <para>The usage of attribute "<sgmltag>friendly_pos</sgmltag>"
               was reworked for version 0.9.8</para>
@@ -7200,6 +7202,7 @@ myDet1;0;10;2;100;80
               the next standing vehicle in order to make this vehicle count as
               a participant to the jam (in m, default: 10m).</para>
             </listitem>
+
             <listitem>
               <para><sgmltag>friendly_pos</sgmltag>: If set, no error will be
               reported if the detector is placed behind the lane. Instead, the
