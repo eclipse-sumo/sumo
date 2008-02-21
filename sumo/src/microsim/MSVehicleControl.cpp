@@ -126,27 +126,8 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
         } else {
             od << '0';
         }
-        od << "\" ";
-        // write devices
-        od << "devices=\"";
-        bool addSem = false;
-        if (v->hasCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE)) {
-            vector<MSDevice_CPhone*> *phones = (vector<MSDevice_CPhone*>*) v->getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
-            if (phones->size()!=0) {
-                od << "cphones=" << phones->size();
-                addSem = true;
-            }
-        }
-#ifdef HAVE_BOYOM_C2C
-        if (v->isEquipped()) {
-            if (addSem) {
-                od << ';';
-            }
-            od << "c2c";
-            addSem = true;
-        }
-#endif
-        od << "\" vtype=\"" << v->getVehicleType().getID() << "\"/>\n";
+        od << "\" devices=\"" << v->buildDeviceIDList()
+            << "\" vtype=\"" << v->getVehicleType().getID() << "\"/>\n";
     }
 
     // check whether to generate the information about the vehicle's routes

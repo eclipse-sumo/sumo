@@ -30,7 +30,7 @@
 #include <config.h>
 #endif
 
-#include <router/ROAbstractRouter.h>
+#include <utils/common/SUMOAbstractRouter.h>
 #include <router/ROEdgeVector.h>
 
 
@@ -49,7 +49,7 @@ class ROJTREdge;
  * @class ROJTRRouter
  * Lays the given route over the edges using the dijkstra algorithm
  */
-class ROJTRRouter : public ROAbstractRouter
+class ROJTRRouter : public SUMOAbstractRouter<ROEdge,ROVehicle>
 {
 public:
     /// Constructor

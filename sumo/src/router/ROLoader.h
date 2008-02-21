@@ -31,10 +31,10 @@
 #endif
 
 #include <string>
-#include "RORouteDefList.h"
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/common/SUMOTime.h>
-#include "ROAbstractRouter.h"
+#include <utils/common/SUMOAbstractRouter.h>
+#include <utils/common/FloatValueTimeLine.h>
 #include <utils/xml/SAXWeightsHandler.h>
 
 
@@ -56,6 +56,7 @@ class ROAbstractRouteDefLoader;
 class ROAbstractEdgeBuilder;
 class ROVehicleBuilder;
 class GUIRouterRunThread;
+class ROVehicle;
 
 
 // ===========================================================================
@@ -95,18 +96,18 @@ public:
     /** @brief Loads routes stepwise
         This is done for all previously build route loaders */
     virtual void processRoutesStepWise(SUMOTime start, SUMOTime end,
-                                       RONet &net, ROAbstractRouter &router);
+                                       RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router);
 
     /** @brief Loads all routes at once
         This is done for all previously build route loaders */
     virtual void processAllRoutes(SUMOTime start, SUMOTime end,
-                                  RONet &net, ROAbstractRouter &router);
+                                  RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router);
 
     /** @brief Ends route reading
         This is done for all previously build route loaders */
     void closeReading();
 
-    bool makeSingleStep(SUMOTime end, RONet &net, ROAbstractRouter &router);
+    bool makeSingleStep(SUMOTime end, RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router);
 
     friend class GUIRouterRunThread;
 

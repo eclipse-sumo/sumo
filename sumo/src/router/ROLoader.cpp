@@ -47,6 +47,7 @@
 #include "RONet.h"
 #include "RONetHandler.h"
 #include "ROLoader.h"
+#include "ROEdge.h"
 #include "RORDLoader_TripDefs.h"
 #include "RORDLoader_SUMOBase.h"
 #include "RORDGenerator_Random.h"
@@ -295,7 +296,7 @@ ROLoader::skipUntilBegin()
 
 void
 ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
-                                RONet &net, ROAbstractRouter &router)
+                                RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router)
 {
     SUMOTime absNo = end - start;
     // skip routes that begin before the simulation's begin
@@ -328,7 +329,7 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
 
 
 bool
-ROLoader::makeSingleStep(SUMOTime end, RONet &net, ROAbstractRouter &router)
+ROLoader::makeSingleStep(SUMOTime end, RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router)
 {
     RouteLoaderCont::iterator i;
     // go through all handlers
@@ -365,7 +366,7 @@ ROLoader::getMinTimeStep() const
 void
 ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
                            RONet &net,
-                           ROAbstractRouter &router)
+                           SUMOAbstractRouter<ROEdge,ROVehicle> &router)
 {
     long absNo = end - start;
     bool ok = true;

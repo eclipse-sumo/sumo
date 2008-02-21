@@ -69,7 +69,7 @@ public:
     const ROEdge * const getTo() const;
 
     /// Builds the route
-    RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
+    RORoute *buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime begin,
                                const ROVehicle &veh) const;
 
     /** @brief Adds an route alternative (see further comments)

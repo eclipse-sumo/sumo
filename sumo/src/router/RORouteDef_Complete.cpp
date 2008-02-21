@@ -34,7 +34,7 @@
 #include "ROEdge.h"
 #include "RORouteDef.h"
 #include "RORoute.h"
-#include "ROAbstractRouter.h"
+#include <utils/common/SUMOAbstractRouter.h>
 #include "RORouteDef_Complete.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -77,7 +77,7 @@ RORouteDef_Complete::getTo() const
 
 
 RORoute *
-RORouteDef_Complete::buildCurrentRoute(ROAbstractRouter &,
+RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                                        SUMOTime , const ROVehicle &) const
 {
     return new RORoute(myID, 0, 1, myEdges);

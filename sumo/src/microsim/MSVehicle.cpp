@@ -57,6 +57,7 @@
 #include "MSPerson.h"
 #include <utils/common/RandHelper.h>
 #include "devices/MSDevice_C2C.h"
+#include "devices/MSDevice_Routing.h"
 
 
 #include "devices/MSDevice_CPhone.h"
@@ -144,20 +145,6 @@ MSVehicle::~MSVehicle() throw()
         }
         delete v;
     }
-    // devices
-    {
-        // cell phones
-        if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEV_CPHONE)!=myPointerCORNMap.end()) {
-            vector<MSDevice_CPhone*> *v = (vector<MSDevice_CPhone*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEV_CPHONE];
-            for (vector<MSDevice_CPhone*>::iterator i=v->begin(); i!=v->end(); ++i) {
-                delete(*i);
-            }
-            delete v;
-        }
-        if (MSNet::getInstance()->getMSPhoneNet()!=0) {
-            MSNet::getInstance()->getMSPhoneNet()->removeVehicle(*this, MSNet::getInstance()->getCurrentTimeStep());
-        }
-    }
     delete myLaneChangeModel;
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         delete(*dev);
@@ -229,68 +216,12 @@ MSVehicle::MSVehicle(string id,
     myLaneChangeModel = new MSLCM_DK2004(*this);
     // init devices
     MSDevice_C2C::buildVehicleDevices(*this, myDevices);
+    MSDevice_Routing::buildVehicleDevices(*this, myDevices);
+    MSDevice_CPhone::buildVehicleDevices(*this, myDevices);
 }
 
 
-/*
-void
-MSVehicle::initDevices(int vehicleIndex)
-{
-    OptionsCont &oc = OptionsCont::getOptions();
-    // cell phones
-    if (myType->getID().compare("SBahn")== 0) {
-        int noCellPhones = 1;
-        if ((28800 <= myDesiredDepart && 32400 >= myDesiredDepart) || (61200 <= myDesiredDepart && 64800 >= myDesiredDepart))//40% 8 -9;17-18
-            noCellPhones = 154;
-        else if ((46800 <= myDesiredDepart && 61200 >= myDesiredDepart) || (64800 <= myDesiredDepart && 68400 >= myDesiredDepart)) //35% 13-17;18-19
-            noCellPhones = 134;
-        else if ((21600 <= myDesiredDepart && 28800 >= myDesiredDepart) || (32400 <= myDesiredDepart && 46800 >= myDesiredDepart) //25% 6-8;9-13;19-24
-                 || (68400 <= myDesiredDepart && 86400 >= myDesiredDepart))
-            noCellPhones = 96;
-        else if ((0 <= myDesiredDepart && 5400 >= myDesiredDepart) || (14400 <= myDesiredDepart && 21600 >= myDesiredDepart)) //10% 0-1:30;4-6
-            noCellPhones = 38;
-        vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
-        for (int np=0; np<noCellPhones; np++) {
-            string phoneid = getID() + "_cphone#" + toString(np);
-            v->push_back(new MSDevice_CPhone(*this, phoneid));
-        }
-        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
-    } else if (myType->getID().substr(0, 3)=="PKW") {
-        int noCellPhones = 1;
-        vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
-        for (int np=0; np<noCellPhones; np++) {
-            string phoneid = getID() + "_cphone#" + toString(np);
-            v->push_back(new MSDevice_CPhone(*this, phoneid));
-        }
-        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
-    }
-    else if (oc.getBool("device.cell-phone.percent-of-activity")) {
-        /*myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE] = 1;
-        string phoneid = getID() + "_cphone#0";
-        MSDevice_CPhone* pdcp  = new MSDevice_CPhone(*this, phoneid);
-        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*)pdcp;/
-        if (RandHelper::rand()<=oc.getFloat("device.cell-phone.probability")) {
-            vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
-            string phoneid = getID() + "_cphone#0";
-            v->push_back(new MSDevice_CPhone(*this, phoneid));
-            myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
-        }
-    } else if (oc.getFloat("device.cell-phone.probability")!=0||oc.isSet("device.cell-phone.knownveh")) {
-        bool t1 = RandHelper::rand()<=oc.getFloat("device.cell-phone.probability");
-        bool t2 = oc.isSet("device.cell-phone.knownveh") && OptionsCont::getOptions().isInStringVector("device.cell-phone.knownveh", myID);
-        if (t1||t2) {
-            int noCellPhones = (int)RandHelper::rand(oc.getFloat("device.cell-phone.amount.min"),
-                                                     oc.getFloat("device.cell-phone.amount.max"));
-            vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
-            for (int np=0; np<noCellPhones; np++) {
-                string phoneid = getID() + "_cphone#" + toString(np);
-                v->push_back(new MSDevice_CPhone(*this, phoneid));
-            }
-            myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
-        }
-    }
-}
-*/
+
 
 
 const MSEdge &
@@ -709,7 +640,7 @@ MSVehicle::moveFirstChecked()
         tmpPos -= approachedLane->length();
         assert(myState.myPos>0);
         if (approachedLane!=myLane) {
-            enterLaneAtMove(approachedLane, driven, true);
+            enterLaneAtMove(approachedLane, driven);
             driven += approachedLane->length();
         }
         // proceed to the next lane
@@ -1034,7 +965,7 @@ MSVehicle::onAllowed() const
 
 
 void
-MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool inBetweenJump)
+MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven)
 {
     // save the old work reminders, patching the position information
     // add the information about the new offset to the old lane reminders
@@ -1071,7 +1002,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven, bool inBetweenJ
     }
 
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-        (*dev)->enterLaneAtMove(enteredLane, driven, inBetweenJump);
+        (*dev)->enterLaneAtMove(enteredLane, driven);
     }
     if (MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleMoves(this);
@@ -1305,6 +1236,23 @@ MSVehicle::getWaitingTime() const
 }
 
 
+
+std::string 
+MSVehicle::buildDeviceIDList() const
+{
+    ostringstream str;
+    bool addSem = false;
+    for(std::vector<MSDevice*>::const_iterator i=myDevices.begin(); i!=myDevices.end(); ++i) {
+        if(addSem) {
+            str << ';';
+        }
+        addSem = true;
+        str << (*i)->getID();
+    }
+    return str.str();
+}
+
+
 bool
 MSVehicle::proceedVirtualReturnWhetherEnded(const MSEdge *const newEdge)
 {
@@ -1364,16 +1312,6 @@ MSVehicle::onDepart()
     // check whether the vehicle control shall be informed
     if (MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
         MSNet::getInstance()->getVehicleControl().vehicleEmitted(this);
-    }
-    // initialise devices
-    {
-        // cell phones
-        if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEV_CPHONE)!=myPointerCORNMap.end()) {
-            vector<MSDevice_CPhone*> *v = (vector<MSDevice_CPhone*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEV_CPHONE];
-            for (vector<MSDevice_CPhone*>::iterator i=v->begin(); i!=v->end(); ++i) {
-                (*i)->onDepart();
-            }
-        }
     }
 }
 
@@ -1819,10 +1757,9 @@ MSVehicle::willPass(const MSEdge * const edge) const
 
 
 void
-MSVehicle::reroute(SUMOTime t)
+MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, MSVehicle> &router)
 {
     // check whether to reroute
-    SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
     std::vector<const MSEdge*> edges;
     router.compute(*myCurrEdge, myRoute->getLastEdge(), (const MSVehicle * const) this,
                    MSNet::getInstance()->getCurrentTimeStep(), edges);
@@ -1839,7 +1776,7 @@ MSVehicle::reroute(SUMOTime t)
 }
 
 SUMOReal
-MSVehicle::getEffort(const MSEdge * const e, SUMOTime t) const
+MSVehicle::getEffort(const MSEdge * const e, SUMOReal t) const
 {
 #ifdef TRACI
     if (infoCont.find(e)!=infoCont.end()) {
@@ -1847,9 +1784,12 @@ MSVehicle::getEffort(const MSEdge * const e, SUMOTime t) const
     }
 #endif
     for (vector< MSDevice* >::const_iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
-        SUMOReal deviceEffort = (*dev)->getEffort(e, t);
-        if (deviceEffort >= 0) {
-            return deviceEffort; // the first device wins
+        MSDevice_C2C *c2cd = dynamic_cast<MSDevice_C2C*>(*dev);
+        if(c2cd!=0) {
+            SUMOReal deviceEffort = c2cd->getEffort(e, this, t);
+            if (deviceEffort >= 0) {
+                return deviceEffort; // the first device wins
+            }
         }
     }
     return -1;
@@ -1891,7 +1831,9 @@ MSVehicle::checkReroute(SUMOTime t)
 {
     if (myWeightChangedViaTraci && myHaveRouteInfo && myStops.size()==0) {
         myHaveRouteInfo = false;
-        reroute(t);
+        SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> 
+            router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
+        reroute(t, router);
     }
 }
 

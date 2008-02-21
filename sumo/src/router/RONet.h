@@ -134,7 +134,7 @@ public:
 
     /** @brief Computes routes described by their definitions and saves them */
     void saveAndRemoveRoutesUntil(OptionsCont &options,
-                                  ROAbstractRouter &router, SUMOTime time);
+                                  SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime time);
 
     /// Returns the information whether further vehicles are stored
     virtual bool furtherStored();
@@ -160,7 +160,7 @@ public:
 protected:
     /** Saves the given route together with her alternatives */
     const RORouteDef * const computeRoute(OptionsCont &options,
-                                          ROAbstractRouter &router, const ROVehicle * const veh);
+                                          SUMOAbstractRouter<ROEdge,ROVehicle> &router, const ROVehicle * const veh);
 
     /// Initialises the lists of source and destination edges
     void checkSourceAndDestinations();

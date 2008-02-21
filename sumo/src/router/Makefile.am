@@ -5,7 +5,7 @@ EXTRA_DIST = ReferencedItem.h
 librouter_a_SOURCES = \
 ROAbstractEdgeBuilder.h \
 ROAbstractRouteDefLoader.cpp ROAbstractRouteDefLoader.h \
-ROAbstractRouter.h ROEdge.cpp ROEdge.h \
+ROEdge.cpp ROEdge.h \
 ROEdgeCont.h ROEdgeVector.cpp ROEdgeVector.h \
 ROFrame.cpp ROFrame.h ROHelper.h ROLane.cpp ROLane.h \
 ROLoader.cpp ROLoader.h RONet.cpp RONet.h RONetHandler.cpp RONetHandler.h \

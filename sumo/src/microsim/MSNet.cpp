@@ -55,7 +55,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <microsim/output/MSDetectorControl.h>
-#include <microsim/devices/MSDevice_C2C.h>
 #include <microsim/MSVehicleTransfer.h>
 #include "traffic_lights/MSTrafficLightLogic.h"
 #include <utils/shapes/Polygon2D.h>
@@ -150,7 +149,7 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
 void
 MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
                      MSRouteLoaderControl *routeLoaders,
-                     MSTLLogicControl *tlc, // ShapeContainer *sc,
+                     MSTLLogicControl *tlc,
                      const std::vector<MSMeanData_Net*> &meanData,
                      vector<int> stateDumpTimes,
                      std::string stateDumpFiles)
@@ -390,9 +389,6 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     // execute endOfTimestepEvents
     myEmissionEvents->execute(myStep);
 
-    if (MSGlobals::gUsingC2C) {
-        MSDevice_C2C::computeCar2Car(myStep);
-    }
     // persons
     if (myPersonControl!=0) {
         if (myPersonControl->hasWaitingPersons(myStep)) {

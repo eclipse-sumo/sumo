@@ -340,7 +340,7 @@ MSTriggeredRerouter::reroute(MSVehicle &veh, const MSEdge *src)
     }
 
     // we have a new destination, let's replace the vehicle route
-    SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getEffort);
+    SUMODijkstraRouter_Direct<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
     router.prohibit(rerouteDef.closed);
     std::vector<const MSEdge*> edges;
     router.compute(src, newEdge, &veh, MSNet::getInstance()->getCurrentTimeStep(), edges);

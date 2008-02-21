@@ -34,6 +34,7 @@
 #include <string>
 #include <math.h>
 #include <utils/common/WrappingCommand.h>
+#include "MSDevice.h"
 
 
 // ===========================================================================
@@ -49,29 +50,60 @@ class MSVehicle;
  * @class MSDevice_CPhone
  * @brief A cellular phone device
  *
- * class in order to expand the MSVehicle-class concerning the availability
+ * Class in order to expand the MSVehicle-class concerning the availability
  *  and the usage state of cellphones carried along.
  */
-class MSDevice_CPhone
+class MSDevice_CPhone : public MSDevice
 {
 public:
+    /** @brief Inserts MSDevice_CPhone-options
+     */
+    static void insertOptions() throw();
+
+
+    /** @brief Build cellular phone devices for the given vehicle, if needed
+     *
+     * The options are read and evaluated whether cphone-devices shall be built
+     *  for the given vehicle.
+     *
+     * For each seen vehicle, the global vehicle index is increased.
+     * The built device is stored in the given vector.
+     *
+     * @param[in] v The vehicle for which devices may be built
+     * @param[in, filled] into The vector to store the built device(s) in
+     * @todo Recheck setting the number of devices in dependence of the vehicle type
+     */
+    static void buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) throw();
+
+
+public:
+    /** @enum State
+     * @brief The cellular phone's state
+     */
     enum State {
+        /// @brief The phone is switched off
         STATE_OFF,
+        /// @brief The phone is in idle mode
         STATE_IDLE,
+        /// @brief The is called
         STATE_CONNECTED_IN,
+        /// @brief The calls
         STATE_CONNECTED_OUT
     };
 
+
+    /** @struct CPhoneBroadcastCell
+     * @brief Information about one of the cells the phone knows
+     */
     struct CPhoneBroadcastCell {
+        /// @brief The ID of the cell
         int m_CellID;
-        int m_LoS;          //Level of Service
+        /// @brief The cell's level-of-service
+        int m_LoS;
     };
 
-    MSDevice_CPhone(MSVehicle &vehicle, const std::string &id);
-    ~MSDevice_CPhone();
-    const std::vector<CPhoneBroadcastCell> &GetProvidedCells() const;
+
     State GetState() const;
-    int SetProvidedCells(const std::vector<CPhoneBroadcastCell> &ActualCells);
     int SetState(int ActualState);
     int SetState(State s, int Duration);
     int GetCallCellCount() {
@@ -80,7 +112,6 @@ public:
     void IncCallCellCount() {
         ++myCallCellCount;
     }
-    SUMOTime changeState();
     void setCurrentCellId(unsigned int id) {
         mycurrentCellId = id;
     };
@@ -93,12 +124,8 @@ public:
     int getCurrentLAId() {
         return mycurrentLAId;
     };
-    void onDepart();
     int getCallId() {
         return myCallId;
-    };
-    std::string getID() {
-        return myID;
     };
 
     void setNotTriggeredByCell() {
@@ -110,52 +137,47 @@ public:
     };
 
         SUMOTime stateChangeCommandExecution(SUMOTime currentTime) throw(ProcessError);
-private:
-    /*
-        inline int getTrainDuration(void)
-    {
-        int duration=0;
-        double randvalue1=0, randvalue2=0;randvalue2=0;
-        while(randvalue2==0)
-        {
-            randvalue2=double(rand())/double(RAND_MAX);
-        }
-        //Bei 16 % der mobilen Werte gleichverteilte Werte zwischen 30 (minimal)
-        //und 60 (maximale Häufigkeit => ab hier greift die Funktion) Sekunden
-        if(randvalue2 < 0.16)
-            duration=30+300*randvalue2;
-        else
-        {
-            duration=0;
-            //nur Werte über 60 Sekunden simulieren, da die anderen oben abgedeckt sind
-            while (duration < 60) {
-                randvalue1=0;
-                while (randvalue1==0)
-                {
-                    randvalue1=double(rand())/double(RAND_MAX);
-                }
-                duration= (-1)*(235.583)*log(randvalue1)+9.2057;
-            }
-        }
-    //        duration = 1000* duration;
-        return duration;
-    }
-    */
 
-    std::string myparentid;
-    std::string myID;
-    //the State the cellphone (if available) is in
-    //0: no cellphone; 1: turned off; 2: idle ; 3: connected
-    int m_PhoneCount;
+
+    /// @name Methods called on vehicle movement / state change, overwriting MSDevice
+    /// @{
+    /** @brief Update of members if vehicle enters a new lane in the emit step
+     *
+     * !!! describe
+     *
+     * @param[in] enteredLane The lane the vehicle enters (unused)
+     * @param[in] state The vehicle's state during the emission (unused)
+     */
+    void enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &state);
+
+    /// @}
+
+private:
+    /** @brief Constructor
+     * 
+     * @param[in] holder The vehicle that holds this device
+     * @param[in] id The ID of the device
+     */
+    MSDevice_CPhone(MSVehicle &vehicle, const std::string &id) throw();
+
+
+    /// @brief Destructor.
+    ~MSDevice_CPhone() throw();
+
+
+
+
+private:
+    /// @brief The phone's state
     State m_State;
 
     //the best 6 of the available broadcast cells; index "0" represents the actual serving cell
     std::vector<CPhoneBroadcastCell> m_ProvidedCells;
-    MSVehicle &myVehicle;
 
     static int gCallID;
     int myCallId;
     WrappingCommand< MSDevice_CPhone > *myCommand;
+    static int myVehicleIndex;
 
     /*this id reminds the cell-id the phone is currently in*/
     /*if it is -1 the car still not cross a cellborder*/

@@ -45,7 +45,7 @@
 #include "ROVehicle.h"
 #include "ROVehicleType.h"
 #include "ROVehicleType_ID.h"
-#include "ROAbstractRouter.h"
+#include <utils/common/SUMOAbstractRouter.h>
 #include "ROAbstractEdgeBuilder.h"
 #include <utils/options/OptionsCont.h>
 #include <utils/common/UtilExceptions.h>
@@ -215,7 +215,7 @@ RONet::addVehicle(const std::string &id, ROVehicle *veh)
 }
 
 const RORouteDef * const
-RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
+RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                     const ROVehicle * const veh)
 {
     MsgHandler *mh = MsgHandler::getErrorInstance();
@@ -272,7 +272,7 @@ RONet::computeRoute(OptionsCont &options, ROAbstractRouter &router,
 
 
 void
-RONet::saveAndRemoveRoutesUntil(OptionsCont &options, ROAbstractRouter &router,
+RONet::saveAndRemoveRoutesUntil(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                                 SUMOTime time)
 {
     // sort the list of route definitions

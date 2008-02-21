@@ -38,6 +38,7 @@
 #include <microsim/MSEventControl.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSLane.h>
+#include <microsim/MSVehicle.h>
 #include <microsim/MSPhoneNet.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
@@ -113,24 +114,30 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
         cell->incVehiclesEntered(veh, time);
         LastCells[&veh] = cell;
     }
-    // do nothing if no cell phone is on board
-    if (!veh.hasCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE)) {
-        return false;
+
+    //vector<MSDevice_CPhone*> *v = (vector<MSDevice_CPhone*>*) veh.getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
+    const vector<MSDevice*> &devices = veh.getDevices();
+    int deviceNumber = 0;
+    for (vector<MSDevice*>::const_iterator i=devices.begin(); i!=devices.end(); ++i) {
+        MSDevice_CPhone *cp = dynamic_cast<MSDevice_CPhone*>(*i);
+        if(cp==0) {
+            continue;
+        }
+        deviceNumber++;
     }
-
-
-    vector<MSDevice_CPhone*> *v = (vector<MSDevice_CPhone*>*) veh.getCORNPointerValue(MSCORN::CORN_P_VEH_DEV_CPHONE);
     /*get the count of mobiles for the vehicle*/
     int passedNo = 0;
     int currNo = 0;
     bool doBreak = false;
     /*get a pointer to the PhoneNet*/
     MSPhoneNet *pPhone = MSNet::getInstance()->getMSPhoneNet();
-    for (vector<MSDevice_CPhone*>::iterator i=v->begin(); !doBreak&&i!=v->end(); ++i, ++currNo) {
-        MSDevice_CPhone *cp = (*i);
-        assert(cp != 0);
+    for (vector<MSDevice*>::const_iterator i=devices.begin(); !doBreak&&i!=devices.end(); ++i, ++currNo) {
+        MSDevice_CPhone *cp = dynamic_cast<MSDevice_CPhone*>(*i);
+        if(cp==0) {
+            continue;
+        }
         if (veh.getVehicleType().getID()=="SBahn"||veh.getVehicleType().getID()=="BUS"||veh.getVehicleType().getID()=="Zug") {
-            SUMOReal phoneVehPos = (SUMOReal)(veh.getVehicleType().getLength()-2.) / (SUMOReal) v->size() * (SUMOReal) currNo;
+            SUMOReal phoneVehPos = (SUMOReal)(veh.getVehicleType().getLength()-2.) / (SUMOReal) deviceNumber * (SUMOReal) currNo;
             if (oldPos + phoneVehPos<posM) {
                 // ok, was already processed
                 continue;
@@ -233,7 +240,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
         }
     }
     myPassedCPhonesNo += passedNo;
-    return !doBreak && passedNo!=v->size();
+    return !doBreak && passedNo!=deviceNumber;
 }
 
 

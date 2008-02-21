@@ -137,7 +137,7 @@ protected:
         return (myState&(LCA_AMBLOCKINGFOLLOWER|LCA_AMBLOCKINGFOLLOWER_DONTBRAKE))!=0;
     }
     inline bool currentDistDisallows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist) {
-        return dist/(abs(laneOffset)+1)<lookForwardDist;
+        return dist/(abs(laneOffset))<lookForwardDist;
     }
     inline bool currentDistAllows(SUMOReal dist, int laneOffset, SUMOReal lookForwardDist) {
         return dist/abs(laneOffset)>lookForwardDist;

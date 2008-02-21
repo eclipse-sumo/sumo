@@ -88,8 +88,7 @@ public:
         CORN_P_VEH_OLDROUTE,
         CORN_P_VEH_OLD_REPETITION_ROUTE,
         CORN_VEH_PASSENGER,
-        CORN_P_VEH_DEV_CPHONE,
-        CORN_P_MAX = CORN_P_VEH_DEV_CPHONE
+        CORN_P_MAX
     };
 
     static void init();

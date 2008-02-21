@@ -42,6 +42,8 @@
 #include <microsim/MSNet.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/devices/MSDevice_C2C.h>
+#include <microsim/devices/MSDevice_Routing.h>
+#include <microsim/devices/MSDevice_CPhone.h>
 #include <utils/common/RandHelper.h>
 #include "MSFrame.h"
 #include <utils/common/SystemFrame.h>
@@ -75,7 +77,6 @@ MSFrame::fillOptions()
     oc.addOptionSubTopic("Time");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("TLS Defaults");
-    oc.addOptionSubTopic("Cellular");
     oc.addOptionSubTopic("Report");
 #ifdef TRACI
     oc.addOptionSubTopic("Traffic Control Interface (TraCI) Server");
@@ -183,6 +184,9 @@ MSFrame::fillOptions()
     oc.doRegister("too-slow-rtf", new Option_Float(-1));//!!! check, describe
     oc.addDescription("too-slow-rtf", "Processing", "Quit simulation if the rtf gets too small");
 
+    oc.doRegister("too-many-vehicles", new Option_Integer(-1));//!!! check, describe
+    oc.addDescription("too-many-vehicles", "Processing", "Quit simulation if this number of vehicles is exceeded");
+
     oc.doRegister("incremental-dua-step", new Option_Integer(-1));//!!! check, describe
     oc.addDescription("incremental-dua-step", "Processing", "Perform the simulation as a step in incremental DUA");
     oc.doRegister("incremental-dua-base", new Option_Integer(10));//!!! check, describe
@@ -213,62 +217,8 @@ MSFrame::fillOptions()
 
     // devices
     MSDevice_C2C::insertOptions();
-
-
-    // cell-phones
-    oc.doRegister("device.cell-phone.percent-of-activity", new Option_Bool(false));
-    oc.addDescription("device.cell-phone.percent-of-activity", "Cellular", "");
-
-    oc.doRegister("device.cell-phone.knownveh", new Option_String());//!!! check, describe
-    oc.addDescription("device.cell-phone.knownveh", "Cellular", "");
-
-    oc.doRegister("device.cell-phone.probability", new Option_Float(0.));//!!! check, describe
-    oc.addDescription("device.cell-phone.probability", "Cellular", "");
-
-    oc.doRegister("ss2-output", new Option_FileName());//!!! check, describe
-    oc.addDescription("ss2-output", "Cellular", "");
-
-    oc.doRegister("ss2-sql-output", new Option_FileName());//!!! check, describe
-    oc.addDescription("ss2-sql-output", "Cellular", "");
-
-    oc.doRegister("ss2-cell-output", new Option_FileName());
-    oc.addDescription("ss2-cell-output", "Cellular", "");
-
-    oc.doRegister("ss2-sql-cell-output", new Option_FileName());
-    oc.addDescription("ss2-sql-cell-output", "Cellular", "");
-
-    oc.doRegister("ss2-la-output", new Option_FileName());
-    oc.addDescription("ss2-la-output", "Cellular", "");
-
-    oc.doRegister("ss2-sql-la-output", new Option_FileName());
-    oc.addDescription("ss2-sql-la-output", "Cellular", "");
-
-    oc.doRegister("cellphone-dump", new Option_FileName());
-    oc.addDescription("cellphone-dump", "Cellular", "");
-
-    oc.doRegister("cell-dynamic-callcount-scale-factor", new Option_Float(1.));
-    oc.addDescription("cell-dynamic-callcount-scale-factor", "Cellular", "");
-
-    oc.doRegister("cell-static-callcount-scale-factor", new Option_Float(1.));
-    oc.addDescription("cell-static-callcount-scale-factor", "Cellular", "");
-
-    oc.doRegister("cell-dynamic-calldeviation-scale-factor", new Option_Float(1.));
-    oc.addDescription("cell-dynamic-calldeviation-scale-factor", "Cellular", "");
-
-    oc.doRegister("cell-dynamic-callduration-scale-factor", new Option_Float(1.));
-    oc.addDescription("cell-dynamic-callduration-scale-factor", "Cellular", "");
-
-    oc.doRegister("cell-def-prob", new Option_Float(-1));//!!! check, describe
-    oc.addDescription("cell-def-prob", "Cellular", "");
-
-    oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));//!!! check, describe
-    oc.addDescription("device.cell-phone.amount.min", "Cellular", "");
-
-    oc.doRegister("device.cell-phone.amount.max", new Option_Float(1.));//!!! check, describe
-    oc.addDescription("device.cell-phone.amount.max", "Cellular", "");
-
-    oc.doRegister("device.cell-phone.sql-date", new Option_String("1970-01-01"));
-    oc.addDescription("device.cell-phone.sql-date", "Cellular", "Sets the date to use in sql-dumps");
+    MSDevice_Routing::insertOptions();
+    MSDevice_CPhone::insertOptions();
 
 
     // tls
@@ -362,7 +312,6 @@ MSFrame::buildStreams()
     OutputDevice::createDeviceByOption("cellphone-dump");
     // c2x-outputs
     OutputDevice::createDeviceByOption("c2x.cluster-info", "clusterInfos");
-    OutputDevice::createDeviceByOption("c2x.edge-near-info", "edge-neighbors");
     OutputDevice::createDeviceByOption("c2x.saved-info", "savedInfos");
     OutputDevice::createDeviceByOption("c2x.saved-info-freq", "savedInfosFreq");
     OutputDevice::createDeviceByOption("c2x.transmitted-info", "transmittedInfos");

@@ -72,7 +72,8 @@ std::vector<MSEdge*> MSEdge::myEdges;
 MSEdge::MSEdge(const std::string &id, size_t numericalID)
         : myID(id), myLanes(0), myAllowed(0), myLaneChanger(0),
         myLastFailedEmissionTime(-1), myNumericalID(numericalID),
-        myHaveBuildShortCut(false), myPackedValueLine(0), myUseBoundariesOnOverride(true)//!!!
+        myHaveLoadedWeights(false), myHaveBuildShortCut(false), 
+        myPackedValueLine(0), myUseBoundariesOnOverride(true)//!!!
 {}
 
 
@@ -479,55 +480,86 @@ MSEdge::getIncomingEdges() const
 
 bool myHaveWarned; // !!!
 
+
 SUMOReal
-MSEdge::getEffort(const MSVehicle * const , SUMOTime t) const
+MSEdge::getEffort() const
 {
-    if (myHaveBuildShortCut) {
-        if (myShortCutBegin>t||myShortCutEnd<t) {
-            if (myUseBoundariesOnOverride) {
-                if (!myHaveWarned) {
-                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(t)  + " in edge '" + getID() + "'.\n Using first/last entry.");
-                    myHaveWarned = true;
-                }
-                if (myShortCutBegin>t) {
-                    return myPackedValueLine[0];
-                } else {
-                    return myPackedValueLine[myLastPackedIndex];
-                }
-            } else {
-                // value is already set
-                //  warn if wished
-                if (!myHaveWarned) {
-                    WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(t)  + " in edge '" + getID() + "'.\n Using edge's length / edge's speed.");
-                    myHaveWarned = true;
-                }
-            }
-        } else {
-            return myPackedValueLine[(t-myShortCutBegin)/myShortCutInterval];
-        }
-    } else if (!myOwnValueLine.empty()) {
+    if(!myHaveLoadedWeights) {
+        return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();
+    }
+    if (!myHaveBuildShortCut) {
         myPackedValueLine = myOwnValueLine.buildShortCut(myShortCutBegin, myShortCutEnd, myLastPackedIndex, myShortCutInterval);
         myHaveBuildShortCut = true;
     }
-    return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();
+    SUMOTime t = (SUMOTime) time;
+    if (myShortCutBegin>t||myShortCutEnd<t) {
+        if (myUseBoundariesOnOverride) {
+            if (!myHaveWarned) {
+                WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(t)  + " in edge '" + getID() + "'.\n Using first/last entry.");
+                myHaveWarned = true;
+            }
+            if (myShortCutBegin>t) {
+                return myPackedValueLine[0];
+            } else {
+                return myPackedValueLine[myLastPackedIndex];
+            }
+        } else {
+            // value is already set
+            //  warn if wished
+            if (!myHaveWarned) {
+                WRITE_WARNING("No interval matches passed time "+ toString<SUMOTime>(t)  + " in edge '" + getID() + "'.\n Using edge's length / edge's speed.");
+                myHaveWarned = true;
+            }
+        }
+    }
+    return myPackedValueLine[(t-myShortCutBegin)/myShortCutInterval];
 }
+
+
+SUMOReal
+MSEdge::getCurrentEffort() const
+{
+    SUMOReal v = 0;
+    for(LaneCont::iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
+        v += (*i)->getMeanSpeed();
+    }
+    v /= (SUMOReal) myLanes->size();
+    if(v!=0) {
+        return (*myLanes)[0]->length() / v;
+    } else {
+        return 1000000.;
+    }
+}
+
 
 void
 MSEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd)
 {
     myOwnValueLine.add(timeBegin, timeEnd, value);
+    myHaveLoadedWeights = true;
 }
 
+
 SUMOReal
-MSEdge::getVehicleEffort(const MSVehicle * const v, SUMOTime t) const
+MSEdge::getVehicleEffort(const MSVehicle * const v, SUMOReal t) const
 {
     SUMOReal teffort = v->getEffort(this, t);
     if (teffort>0) {
         return teffort;
     }
-    return getEffort(v, t);
+    return MIN2((*myLanes)[0]->length()/v->getMaxSpeed(), getEffort());
 }
 
+
+SUMOReal
+MSEdge::getCurrentVehicleEffort(const MSVehicle * const v, SUMOReal t) const
+{
+    SUMOReal teffort = v->getEffort(this, t);
+    if (teffort>0) {
+        return teffort;
+    }
+    return MIN2((*myLanes)[0]->length()/v->getMaxSpeed(), getCurrentEffort());
+}
 
 
 /****************************************************************************/

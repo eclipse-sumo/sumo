@@ -44,6 +44,7 @@
 #include "MSVehicleQuitReminded.h"
 #include <utils/common/SUMOVehicleClass.h>
 #include "MSVehicleType.h"
+#include <utils/common/SUMOAbstractRouter.h>
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MEVehicle.h>
@@ -201,7 +202,7 @@ public:
 
     bool willPass(const MSEdge * const edge) const;
 
-    void reroute(SUMOTime t);
+    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, MSVehicle> &router);
 
     /// @name retrieval and setting of CORN values
     //@{
@@ -358,25 +359,40 @@ public:
     const MSEdge * const getEdge() const;
 
 
-    /** Update of members if vehicle enters a new lane in the move step.
-        @param Pointer to the entered Lane. */
-    void enterLaneAtMove(MSLane* enteredLane, SUMOReal driven,
-                         bool inBetweenJump=false);
+    /** @brief Update when the vehicle enters a new lane in the move step.
+     *
+     * @param[in] enteredLane The lane the vehicle enters
+     * @param[in] driven The distance driven by the vehicle within this time step
+     */
+    void enterLaneAtMove(MSLane* enteredLane, SUMOReal driven);
 
-    /** Update of members if vehicle enters a new lane in the emit step.
-        @param Pointer to the entered Lane. */
+
+
+    /** @brief Update when the vehicle enters a new lane in the emit step
+     *
+     * @param[in] enteredLane The lane the vehicle enters
+     * @param[in] state The vehicle's state during the emission
+     */
     void enterLaneAtEmit(MSLane* enteredLane, const State &state);
 
-    /** Update of members if vehicle enters a new lane in the laneChange step.
-        @param Pointer to the entered Lane. */
+
+    /** @brief Update when the vehicle enters a new lane in the laneChange step.
+     *
+     * @param[in] enteredLane The lane the vehicle enters
+     */
     void enterLaneAtLaneChange(MSLane* enteredLane);
 
-    /** Update of members if vehicle leaves a new lane in the move step. */
+
+    /** @brief Update when the vehicle leaves a new lane in the move step.
+     *
+     * @param[in] driven The distance driven by the vehicle within this time step
+     */
     void leaveLaneAtMove(SUMOReal driven);
 
-    /** Update of members if vehicle leaves a new lane in the
-        laneChange step. */
-    void leaveLaneAtLaneChange(void);
+
+    /** @brief Update of members if vehicle leaves a new lane in the lane change step. */
+    void leaveLaneAtLaneChange();
+
 
     bool reachingCritical(SUMOReal laneLength) const;
 
@@ -428,6 +444,8 @@ public:
     const MSAbstractLaneChangeModel &getLaneChangeModel() const;
     typedef std::deque<const MSEdge::LaneCont*> NextAllowedLanes;
 
+    std::string buildDeviceIDList() const;
+
     struct LaneQ {
         MSLane *lane;
         SUMOReal length;
@@ -468,6 +486,7 @@ public:
 
     void onDepart();
 
+    /** @brief Called when the vehicle leaves the lane */
     void onTripEnd();
     void writeXMLRoute(OutputDevice &os, int index=-1) const;
 
@@ -478,7 +497,7 @@ public:
         SUMOTime duration;
         SUMOTime until;
         bool reached;
-	};
+    };
 
     std::list<Stop> myStops;
 
@@ -504,7 +523,12 @@ public:
         SUMOTime time; // the Time, when the Info was saved
     };
 
-    SUMOReal getEffort(const MSEdge * const e, SUMOTime t) const;
+    SUMOReal getEffort(const MSEdge * const e, SUMOReal t) const;
+
+
+    const std::vector<MSDevice*> &getDevices() const {
+        return myDevices;
+    }
 
 #ifdef TRACI
 	/**

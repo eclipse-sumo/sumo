@@ -163,17 +163,167 @@ using namespace std;
 // static variables
 // ===========================================================================
 int MSDevice_CPhone::gCallID = 0; // !!! reinit on simulation reload
-
+int MSDevice_CPhone::myVehicleIndex = 0;
 SUMOReal tolDefaultProb = -1;
+
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
-SUMOTime
-MSDevice_CPhone::stateChangeCommandExecution(SUMOTime) throw(ProcessError)
+void
+MSDevice_CPhone::insertOptions() throw()
 {
-    return changeState();
+    OptionsCont &oc = OptionsCont::getOptions();
+    oc.addOptionSubTopic("Cellular");
+
+    // cell-phones
+    oc.doRegister("device.cell-phone.percent-of-activity", new Option_Bool(false));
+    oc.addDescription("device.cell-phone.percent-of-activity", "Cellular", "");
+
+    oc.doRegister("device.cell-phone.knownveh", new Option_String());//!!! check, describe
+    oc.addDescription("device.cell-phone.knownveh", "Cellular", "");
+
+    oc.doRegister("device.cell-phone.probability", new Option_Float(0.));//!!! check, describe
+    oc.addDescription("device.cell-phone.probability", "Cellular", "");
+
+    oc.doRegister("ss2-output", new Option_FileName());//!!! check, describe
+    oc.addDescription("ss2-output", "Cellular", "");
+
+    oc.doRegister("ss2-sql-output", new Option_FileName());//!!! check, describe
+    oc.addDescription("ss2-sql-output", "Cellular", "");
+
+    oc.doRegister("ss2-cell-output", new Option_FileName());
+    oc.addDescription("ss2-cell-output", "Cellular", "");
+
+    oc.doRegister("ss2-sql-cell-output", new Option_FileName());
+    oc.addDescription("ss2-sql-cell-output", "Cellular", "");
+
+    oc.doRegister("ss2-la-output", new Option_FileName());
+    oc.addDescription("ss2-la-output", "Cellular", "");
+
+    oc.doRegister("ss2-sql-la-output", new Option_FileName());
+    oc.addDescription("ss2-sql-la-output", "Cellular", "");
+
+    oc.doRegister("cellphone-dump", new Option_FileName());
+    oc.addDescription("cellphone-dump", "Cellular", "");
+
+    oc.doRegister("cell-dynamic-callcount-scale-factor", new Option_Float(1.));
+    oc.addDescription("cell-dynamic-callcount-scale-factor", "Cellular", "");
+
+    oc.doRegister("cell-static-callcount-scale-factor", new Option_Float(1.));
+    oc.addDescription("cell-static-callcount-scale-factor", "Cellular", "");
+
+    oc.doRegister("cell-dynamic-calldeviation-scale-factor", new Option_Float(1.));
+    oc.addDescription("cell-dynamic-calldeviation-scale-factor", "Cellular", "");
+
+    oc.doRegister("cell-dynamic-callduration-scale-factor", new Option_Float(1.));
+    oc.addDescription("cell-dynamic-callduration-scale-factor", "Cellular", "");
+
+    oc.doRegister("cell-def-prob", new Option_Float(-1));//!!! check, describe
+    oc.addDescription("cell-def-prob", "Cellular", "");
+
+    oc.doRegister("device.cell-phone.amount.min", new Option_Float(1.));//!!! check, describe
+    oc.addDescription("device.cell-phone.amount.min", "Cellular", "");
+
+    oc.doRegister("device.cell-phone.amount.max", new Option_Float(1.));//!!! check, describe
+    oc.addDescription("device.cell-phone.amount.max", "Cellular", "");
+
+    oc.doRegister("device.cell-phone.sql-date", new Option_String("1970-01-01"));
+    oc.addDescription("device.cell-phone.sql-date", "Cellular", "Sets the date to use in sql-dumps");
+
+//    myVehicleIndex = 0;
 }
+
+
+void
+MSDevice_CPhone::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) throw()
+{
+    OptionsCont &oc = OptionsCont::getOptions();
+    if (oc.getFloat("device.cell-phone.probability")==0&&!oc.isSet("device.cell-phone.knownveh")) {
+        // no c2c communication is modelled
+        return;
+    }
+    // c2c communication is enabled
+    bool haveByNumber = false;
+    /*
+    if (oc.getBool("device.cell-phone.deterministic")) {
+        haveByNumber = ((myVehicleIndex%1000) < (int)(oc.getFloat("device.cell-phone.probability")*1000.));
+    } else {
+    !!!
+    */
+        haveByNumber = RandHelper::rand()<=oc.getFloat("device.cell-phone.probability");
+    // !!!}
+    bool haveByName = oc.isSet("device.cell-phone.knownveh") && OptionsCont::getOptions().isInStringVector("device.cell-phone.knownveh", v.getID());
+    if (haveByNumber||haveByName) {
+        int noCellPhones = (int)RandHelper::rand(oc.getFloat("device.cell-phone.amount.min"), oc.getFloat("device.cell-phone.amount.max"));
+        for (int np=0; np<noCellPhones; np++) {
+            string phoneid = v.getID() + "_cphone#" + toString(np);
+            into.push_back(new MSDevice_CPhone(v, phoneid));
+        }
+    }
+    myVehicleIndex++;
+}
+
+
+/*
+void
+MSVehicle::initDevices(int vehicleIndex)
+{
+    OptionsCont &oc = OptionsCont::getOptions();
+    // cell phones
+    if (myType->getID().compare("SBahn")== 0) {
+        int noCellPhones = 1;
+        if ((28800 <= myDesiredDepart && 32400 >= myDesiredDepart) || (61200 <= myDesiredDepart && 64800 >= myDesiredDepart))//40% 8 -9;17-18
+            noCellPhones = 154;
+        else if ((46800 <= myDesiredDepart && 61200 >= myDesiredDepart) || (64800 <= myDesiredDepart && 68400 >= myDesiredDepart)) //35% 13-17;18-19
+            noCellPhones = 134;
+        else if ((21600 <= myDesiredDepart && 28800 >= myDesiredDepart) || (32400 <= myDesiredDepart && 46800 >= myDesiredDepart) //25% 6-8;9-13;19-24
+                 || (68400 <= myDesiredDepart && 86400 >= myDesiredDepart))
+            noCellPhones = 96;
+        else if ((0 <= myDesiredDepart && 5400 >= myDesiredDepart) || (14400 <= myDesiredDepart && 21600 >= myDesiredDepart)) //10% 0-1:30;4-6
+            noCellPhones = 38;
+        vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
+        for (int np=0; np<noCellPhones; np++) {
+            string phoneid = getID() + "_cphone#" + toString(np);
+            v->push_back(new MSDevice_CPhone(*this, phoneid));
+        }
+        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
+    } else if (myType->getID().substr(0, 3)=="PKW") {
+        int noCellPhones = 1;
+        vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
+        for (int np=0; np<noCellPhones; np++) {
+            string phoneid = getID() + "_cphone#" + toString(np);
+            v->push_back(new MSDevice_CPhone(*this, phoneid));
+        }
+        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
+    }
+    else if (oc.getBool("device.cell-phone.percent-of-activity")) {
+        /*myIntCORNMap[MSCORN::CORN_VEH_DEV_NO_CPHONE] = 1;
+        string phoneid = getID() + "_cphone#0";
+        MSDevice_CPhone* pdcp  = new MSDevice_CPhone(*this, phoneid);
+        myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*)pdcp;/
+        if (RandHelper::rand()<=oc.getFloat("device.cell-phone.probability")) {
+            vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
+            string phoneid = getID() + "_cphone#0";
+            v->push_back(new MSDevice_CPhone(*this, phoneid));
+            myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
+        }
+    } else if (oc.getFloat("device.cell-phone.probability")!=0||oc.isSet("device.cell-phone.knownveh")) {
+        bool t1 = RandHelper::rand()<=oc.getFloat("device.cell-phone.probability");
+        bool t2 = oc.isSet("device.cell-phone.knownveh") && OptionsCont::getOptions().isInStringVector("device.cell-phone.knownveh", myID);
+        if (t1||t2) {
+            int noCellPhones = (int)RandHelper::rand(oc.getFloat("device.cell-phone.amount.min"),
+                                                     oc.getFloat("device.cell-phone.amount.max"));
+            vector<MSDevice_CPhone*> *v = new vector<MSDevice_CPhone*>();
+            for (int np=0; np<noCellPhones; np++) {
+                string phoneid = getID() + "_cphone#" + toString(np);
+                v->push_back(new MSDevice_CPhone(*this, phoneid));
+            }
+            myPointerCORNMap[(MSCORN::Pointer)(MSCORN::CORN_P_VEH_DEV_CPHONE)] = (void*) v;
+        }
+    }
+}
+*/
 
 
 inline int getTrainDuration(void)
@@ -205,8 +355,8 @@ inline int getTrainDuration(void)
 
 
 
-MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id)
-        : myVehicle(vehicle), myID(id), myCommand(0)
+MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id) throw()
+        : MSDevice(vehicle, id), myCommand(0)
 {
     OptionsCont &oc = OptionsCont::getOptions();
     mycurrentCellId = -1;
@@ -214,9 +364,9 @@ MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id)
     myCallId = -1;
     m_State = STATE_IDLE;
     myCallCellCount = 0;
-    if (myVehicle.getVehicleType().getID().compare("SBahn") == 0) {
+    if (vehicle.getVehicleType().getID().compare("SBahn") == 0) {
         notTriggeredByCell = true;
-    } else if (myVehicle.getVehicleType().getID().substr(0, 3)=="PKW") {
+    } else if (vehicle.getVehicleType().getID().substr(0, 3)=="PKW") {
         notTriggeredByCell = true;
     } else {
         notTriggeredByCell = false;
@@ -224,14 +374,13 @@ MSDevice_CPhone::MSDevice_CPhone(MSVehicle &vehicle, const std::string &id)
     tolDefaultProb = oc.getFloat("cell-def-prob");
 }
 
-//---------------------------------------------------------------------------
 
-MSDevice_CPhone::~MSDevice_CPhone()
+MSDevice_CPhone::~MSDevice_CPhone() throw()
 {
     /*if registered to a cell then deregist from it*/
     MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
     if (pPhone != 0) {
-        MSPhoneCell * cell = pPhone->getCurrentVehicleCell(myID);
+        MSPhoneCell * cell = pPhone->getCurrentVehicleCell(getID());
         if (cell != 0) {
             if (m_State!=STATE_IDLE && m_State!=STATE_OFF) {
                 cell->remCall(myCallId);
@@ -239,16 +388,16 @@ MSDevice_CPhone::~MSDevice_CPhone()
                     OutputDevice::getDeviceByOption("cellphone-dump")
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << myCallId << ';' << mycurrentCellId << ';'
-                    << 2 << ';' << myID <<"\n";
+                    << 2 << ';' << getID() <<"\n";
                 }
             }
-            cell->remCPhone(myID);
+            cell->remCPhone(getID());
         } /*else {
                                             assert(m_State==STATE_IDLE||m_State==STATE_OFF);
                                         }*/
-        MSPhoneLA * la = pPhone->getCurrentVehicleLA(myID);
+        MSPhoneLA * la = pPhone->getCurrentVehicleLA(getID());
         if (la != 0) {
-            la->remCall(myID);
+            la->remCall(getID());
         }/* else {
                                             assert(m_State==STATE_IDLE||m_State==STATE_OFF);
                                         }*/
@@ -259,15 +408,6 @@ MSDevice_CPhone::~MSDevice_CPhone()
     m_ProvidedCells.clear();
 }
 
-//---------------------------------------------------------------------------
-
-const vector<MSDevice_CPhone::CPhoneBroadcastCell> &
-MSDevice_CPhone::GetProvidedCells() const
-{
-    return m_ProvidedCells;
-}
-
-//---------------------------------------------------------------------------
 
 MSDevice_CPhone::State
 MSDevice_CPhone::GetState() const
@@ -275,25 +415,6 @@ MSDevice_CPhone::GetState() const
     return m_State;
 }
 
-//---------------------------------------------------------------------------
-// the actually provided cells can only be set if a cellphone is existent and in
-// idle/connected mode (m_state=2||3); if it's OK, the function returns 0
-int
-MSDevice_CPhone::SetProvidedCells(const vector<MSDevice_CPhone::CPhoneBroadcastCell> &ActualCells)
-{
-    if (m_State == 0 || m_State == STATE_OFF)
-        return 1;
-    else {
-        for (int i=0;i<7;++i) {
-            m_ProvidedCells[i].m_CellID = ActualCells[i].m_CellID;
-            m_ProvidedCells[i].m_LoS = ActualCells[i].m_LoS;
-        }
-    }
-    return 0;
-}
-//---------------------------------------------------------------------------
-// the state of the cellphone can only be set if one is available,
-// an existing cellphone cannot be set "non-existent"
 
 int
 MSDevice_CPhone::SetState(int ActualState)
@@ -338,15 +459,14 @@ MSDevice_CPhone::SetState(State s, int dur)
         OutputDevice::getDeviceByOption("cellphone-dump")
         << MSNet::getInstance()->getCurrentTimeStep() << ';'
         << myCallId << ';' << mycurrentCellId << ';'
-        << 0 << ';' << myID <<"\n";
+        << 0 << ';' << getID() <<"\n";
     }
     return dur;
 }
-//---------------------------------------------------------------------------
 
-/*stop the current call*/
+
 SUMOTime
-MSDevice_CPhone::changeState()
+MSDevice_CPhone::stateChangeCommandExecution(SUMOTime) throw(ProcessError)
 {
     if (!notTriggeredByCell) {
         throw 1;
@@ -356,7 +476,7 @@ MSDevice_CPhone::changeState()
             OutputDevice::getDeviceByOption("cellphone-dump")
             << MSNet::getInstance()->getCurrentTimeStep() << ';'
             << myCallId << ';' << mycurrentCellId << ';'
-            << 2 << ';' << myID <<"\n";
+            << 2 << ';' << getID() <<"\n";
         }
         MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
         MSPhoneCell * cell = pPhone->getMSPhoneCell(mycurrentCellId);
@@ -458,7 +578,7 @@ MSDevice_CPhone::changeState()
                         OutputDevice::getDeviceByOption("cellphone-dump")
                         << MSNet::getInstance()->getCurrentTimeStep() << ';'
                         << myCallId << ';' << mycurrentCellId << ';'
-                        << 0 << ';' << myID <<"\n";
+                        << 0 << ';' << getID() <<"\n";
                     }
                     //next = (SUMOTime) (rand()/(SUMOReal) RAND_MAX * 60. * 60.);   // telephone some seconds
                     next = (SUMOTime) getTrainDuration();
@@ -471,7 +591,7 @@ MSDevice_CPhone::changeState()
                     OutputDevice::getDeviceByOption("cellphone-dump")
                     << MSNet::getInstance()->getCurrentTimeStep() << ';'
                     << myCallId << ';' << mycurrentCellId << ';'
-                    << 2 << ';' << myID <<"\n";
+                    << 2 << ';' << getID() <<"\n";
                 }
                 MSPhoneNet * pPhone = MSNet::getInstance()->getMSPhoneNet();
                 MSPhoneCell * cell = pPhone->getMSPhoneCell(mycurrentCellId);
@@ -501,11 +621,11 @@ MSDevice_CPhone::changeState()
         }
         return next;
     }
-
 }
 
-void
-MSDevice_CPhone::onDepart()
+
+void 
+MSDevice_CPhone::enterLaneAtEmit(MSLane* , const MSVehicle::State &)
 {
     /*wenn dieses handy nicht von einer zelle getriggert wird, dann setze ihn selber*/
     if (notTriggeredByCell) {
@@ -573,8 +693,6 @@ MSDevice_CPhone::onDepart()
         //throw 1;
     }
 }
-
-
 
 
 

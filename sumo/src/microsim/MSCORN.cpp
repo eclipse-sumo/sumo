@@ -33,7 +33,6 @@
 #include "MSCORN.h"
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/StringUtils.h>
-#include "devices/MSDevice_CPhone.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>

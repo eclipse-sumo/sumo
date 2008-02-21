@@ -177,7 +177,8 @@ public:
         return myID;
     }
 
-    SUMOReal getEffort(const MSVehicle * const v, SUMOTime time) const;
+    SUMOReal getEffort() const;
+    SUMOReal getCurrentEffort() const;
 
     size_t getNumericalID() const {
         return myNumericalID;
@@ -204,7 +205,8 @@ public:
 
     void addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd);
 
-    SUMOReal getVehicleEffort(const MSVehicle * const v, SUMOTime t) const;
+    SUMOReal getVehicleEffort(const MSVehicle * const v, SUMOReal t) const;
+    SUMOReal getCurrentVehicleEffort(const MSVehicle * const v, SUMOReal t) const;
 
 
 protected:
@@ -249,6 +251,7 @@ protected:
 
     FloatValueTimeLine myOwnValueLine;
     mutable bool myHaveBuildShortCut;
+    bool myHaveLoadedWeights;
     mutable SUMOReal *myPackedValueLine;
     mutable SUMOTime myShortCutBegin, myShortCutEnd, myShortCutInterval;
     mutable size_t myLastPackedIndex;

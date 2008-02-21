@@ -34,7 +34,7 @@
 #include <iostream>
 #include <utils/common/Named.h>
 #include "ReferencedItem.h"
-#include "ROAbstractRouter.h"
+#include <utils/common/SUMOAbstractRouter.h>
 
 
 // ===========================================================================
@@ -81,7 +81,7 @@ public:
     /** @brief Builds the complete route
      *
      * (or chooses her from the list of alternatives, when existing) */
-    virtual RORoute *buildCurrentRoute(ROAbstractRouter &router, SUMOTime begin,
+    virtual RORoute *buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime begin,
                                        const ROVehicle &veh) const = 0;
 
     /** @brief Adds an alternative to the list of routes

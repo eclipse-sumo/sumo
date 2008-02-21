@@ -34,67 +34,109 @@
 #include <vector>
 #include <microsim/MSVehicle.h>
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class MSDevice
  * @brief Abstract in-vehicle device
+ *
+ * The MSDevice-interface brings the following interfaces to a vehicle that 
+ *  may be overwritten by real devices:
+ * @arg Retrieval of the vehicle that holds the device
+ * @arg Building and retrieval of a device id
+ * @arg Methods called on vehicle movement / state change
+ *
+ * The "methods called on vehicle movement / state change" are called for each 
+ *  device within the corresponding vehicle methods. MSDevice brings already
+ *  an empty (nothing doing) implementation of these.
  */
 class MSDevice
 {
 public:
-    MSDevice(MSVehicle &holder) throw()
-            : myHolder(holder) {
+    /** @brief Constructor
+     * 
+     * @param[in] holder The vehicle that holds this device
+     * @param[in] id The ID of the device
+     */
+    MSDevice(MSVehicle &holder, const std::string &id) throw()
+            : myHolder(holder), myID(id) {
     }
 
-
+    
+    /// @brief Destructor
     virtual ~MSDevice() throw() { }
 
+
+    /** @brief Returns the vehicle that holds this device
+     *
+     * @return The vehicle that holds this device
+     */
     MSVehicle &getHolder() const throw() {
         return myHolder;
     }
 
+
+    /** @brief Returns the id of this device
+    * @return The device's ID
+    */
     const std::string &getID() {
-        if (myID=="") {
-            buildID();
-        }
         return myID;
     }
 
-    /** Update of members if vehicle enters a new lane in the move step.
-        @param Pointer to the entered Lane. */
-    virtual void enterLaneAtMove(MSLane* enteredLane, SUMOReal driven,
-                                 bool inBetweenJump=false) { }
 
-    /** Update of members if vehicle enters a new lane in the emit step.
-        @param Pointer to the entered Lane. */
+    /// @name Methods called on vehicle movement / state change
+    /// @{
+
+    /** @brief Update if vehicle enters a new lane in the move step.
+     *
+     * @param[in] enteredLane The lane the vehicle enters
+     * @param[in] driven The distance driven by the vehicle within this time step
+     */
+    virtual void enterLaneAtMove(MSLane* enteredLane, SUMOReal driven) { }
+
+
+    /** @brief Update of members if vehicle enters a new lane in the emit step
+     *
+     * @param[in] enteredLane The lane the vehicle enters
+     * @param[in] state The vehicle's state during the emission
+     */
     virtual void enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &state) { }
 
-    /** Update of members if vehicle enters a new lane in the laneChange step.
-        @param Pointer to the entered Lane. */
+
+    /** @brief Update of members if vehicle enters a new lane in the laneChange step.
+     *
+     * @param[in] enteredLane The lane the vehicle enters
+     */
     virtual void enterLaneAtLaneChange(MSLane* enteredLane) { }
 
-    /** Update of members if vehicle leaves a new lane in the move step. */
+
+    /** @brief Update of members if vehicle leaves a new lane in the move step.
+     *
+     * @param[in] driven The distance driven by the vehicle within this time step
+     */
     virtual void leaveLaneAtMove(SUMOReal driven) { }
 
-    /** Update of members if vehicle leaves a new lane in the
-        laneChange step. */
-    virtual void leaveLaneAtLaneChange(void) { }
 
+    /** @brief Update of members if vehicle leaves a new lane in the lane change step. */
+    virtual void leaveLaneAtLaneChange() { }
+
+
+    /** @brief Called when the vehicle leaves the lane */
     virtual void onTripEnd() { }
+    // @}
 
-    SUMOReal getEffort(const MSEdge * const e, SUMOTime t) const {
-        return -1;
-    }
 
 protected:
-    virtual std::string buildID() = 0;
-
+    /// @brief The vehicle that stores the device
     MSVehicle &myHolder;
 
+
 private:
+    /// @brief The built device id
     std::string myID;
+
 
 private:
     /// @brief Invalidated copy constructor.

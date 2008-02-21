@@ -40,7 +40,7 @@
 #include "RORouteDef.h"
 #include "RORoute.h"
 #include "ROVehicle.h"
-#include "ROAbstractRouter.h"
+#include <utils/common/SUMOAbstractRouter.h>
 #include "RORouteDef_Alternatives.h"
 #include <utils/common/StdDefs.h>
 #include <utils/common/RandHelper.h>
@@ -73,7 +73,8 @@ RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string &id,
         int maxRoutes) throw()
         : RORouteDef(id, color), myLastUsed(lastUsed),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRoutes)
-{}
+{
+}
 
 
 RORouteDef_Alternatives::~RORouteDef_Alternatives() throw()
@@ -115,7 +116,7 @@ RORouteDef_Alternatives::getTo() const
 
 
 RORoute *
-RORouteDef_Alternatives::buildCurrentRoute(ROAbstractRouter &router,
+RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
         SUMOTime begin, const ROVehicle &veh) const
 {
     // recompute duration of the last route used

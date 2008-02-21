@@ -94,20 +94,17 @@ public:
  *  be reported as an error or as a warning.
  *
  */
-template<class E, class V, class PF, class EC>
-class SUMODijkstraRouter : public SUMOAbstractRouter<E, V>, public PF
+template<class E, class V, class PF>
+class SUMODijkstraRouterBase : public SUMOAbstractRouter<E, V>, public PF
 {
 public:
-    /// Type of the function that is used to retrieve the edge effort.
-    typedef SUMOReal(EC::* Operation)(const V * const, SUMOTime) const;
-
     /// Constructor
-    SUMODijkstraRouter(size_t noE, bool unbuildIsWarningOnly, Operation operation)
+    SUMODijkstraRouterBase(size_t noE, bool unbuildIsWarningOnly)
             : myNoE(noE), myReusableEdgeLists(true), myReusableEdgeInfoLists(true),
-            myUnbuildIsWarningOnly(unbuildIsWarningOnly), myOperation(operation) { }
+            myUnbuildIsWarningOnly(unbuildIsWarningOnly) { }
 
     /// Destructor
-    virtual ~SUMODijkstraRouter() { }
+    virtual ~SUMODijkstraRouterBase() { }
 
     /**
      * @struct EdgeInfo
@@ -163,6 +160,8 @@ public:
         }
     };
 
+    virtual SUMOReal getEffort(const E * const e, const V * const v, SUMOReal t) = 0;
+
 
     /** @brief Builds the route between the given edges using the minimum afford at the given time
         The definition of the afford depends on the wished routing scheme */
@@ -213,8 +212,8 @@ public:
                 return;
             }
             (*visited)[minEdge->getNumericalID()] = true;
-            SUMOReal effort = (SUMOReal)(minimumKnot->effort
-                                         + (minEdge->*myOperation)(vehicle, (SUMOTime)(time + minimumKnot->effort)));
+            SUMOReal effort = (SUMOReal)(minimumKnot->effort + getEffort(minEdge, vehicle, time + minimumKnot->effort));
+                                         //+ (minEdge->*myOperation)(vehicle, (SUMOTime)(time + minimumKnot->effort)));
             // check all ways from the node with the minimal length
             size_t i = 0;
             size_t length_size = minEdge->getNoFollowing();
@@ -331,6 +330,53 @@ protected:
 
     bool myUnbuildIsWarningOnly;
 
+};
+
+
+template<class E, class V, class PF, class EC>
+class SUMODijkstraRouter_ByProxi : public SUMODijkstraRouterBase<E, V, PF>
+{
+public:
+    /// Type of the function that is used to retrieve the edge effort.
+    typedef SUMOReal(EC::* Operation)(const E * const, const V * const, SUMOReal) const;
+
+    SUMODijkstraRouter_ByProxi(size_t noE, bool unbuildIsWarningOnly, EC* receiver, Operation operation)
+        : SUMODijkstraRouterBase<E, V, PF>(noE, unbuildIsWarningOnly), 
+        myReceiver(receiver), myOperation(operation)
+    {}
+
+    inline SUMOReal getEffort(const E * const e, const V * const v, SUMOReal t) {
+        return (myReceiver->*myOperation)(e, v, t);
+    }
+//                          + (minEdge->*myOperation)(vehicle, (SUMOTime)(time + minimumKnot->effort)));
+
+private:
+    /// @brief The object the action is directed to.
+    EC* myReceiver;
+
+    /// @brief The object's operation to perform.
+    Operation myOperation;
+
+
+};
+
+
+template<class E, class V, class PF>
+class SUMODijkstraRouter_Direct : public SUMODijkstraRouterBase<E, V, PF>
+{
+public:
+    /// Type of the function that is used to retrieve the edge effort.
+    typedef SUMOReal(E::* Operation)(const V * const, SUMOReal) const;
+
+    SUMODijkstraRouter_Direct(size_t noE, bool unbuildIsWarningOnly, Operation operation)
+        : SUMODijkstraRouterBase<E, V, PF>(noE, unbuildIsWarningOnly), myOperation(operation)
+    {}
+
+    inline SUMOReal getEffort(const E * const e, const V * const v, SUMOReal t) {
+        return (e->*myOperation)(v, t);
+    }
+
+private:
     Operation myOperation;
 
 };

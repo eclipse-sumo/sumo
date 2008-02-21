@@ -35,7 +35,7 @@
 #include "RORouteDef.h"
 #include "RORoute.h"
 #include "RORouteDef_OrigDest.h"
-#include "ROAbstractRouter.h"
+#include <utils/common/SUMOAbstractRouter.h>
 #include "ROVehicle.h"
 #include "ROVehicleType.h"
 #include <utils/common/MsgHandler.h>
@@ -85,7 +85,7 @@ RORouteDef_OrigDest::getTo() const
 
 
 RORoute *
-RORouteDef_OrigDest::buildCurrentRoute(ROAbstractRouter &router,
+RORouteDef_OrigDest::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                                        SUMOTime begin, const ROVehicle &veh) const
 {
     std::vector<const ROEdge*> edges;

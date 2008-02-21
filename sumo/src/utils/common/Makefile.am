@@ -1,7 +1,7 @@
 noinst_LIBRARIES = libcommon.a
 
 EXTRA_DIST = StdDefs.h VectorHelper.h Command.h DiscreteCommand.h \
-NamedObjectCont.h PhysicalTypeDefs.h \
+NamedObjectCont.h PhysicalTypeDefs.h StaticCommand.h \
 RandomDistributor.h SUMOAbstractRouter.h SUMODijkstraRouter.h \
 WrappingCommand.h ValueRetriever.h ValueSource.h
 

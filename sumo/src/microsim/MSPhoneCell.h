@@ -34,7 +34,7 @@
 #include <vector>
 #include <map>
 #include "MSCORN.h"
-#include "devices/MSDevice_CPhone.h"
+#include <utils/common/UtilExceptions.h>
 
 enum CallType {
     STATICIN,
@@ -47,6 +47,9 @@ struct Call {
     CallType ct;
 //	std::string id;
 };
+
+
+class MSDevice_CPhone;
 
 
 // ===========================================================================
