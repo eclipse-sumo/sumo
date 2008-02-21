@@ -426,10 +426,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\RORouteSnippletCont.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\router\RORunningVehicle.cpp"
 				>
 			</File>
@@ -461,10 +457,6 @@
 				RelativePath="..\..\..\src\router\ROVehicleType_Krauss.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\router\ROVehTypeCont.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -484,10 +476,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\ROEdge.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\router\ROEdgeCont.h"
 				>
 			</File>
 			<File
@@ -567,14 +555,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\RORouteDefList.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\router\RORouteSnippletCont.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\router\RORunningVehicle.h"
 				>
 			</File>
@@ -604,10 +584,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\ROVehicleType_Krauss.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\router\ROVehTypeCont.h"
 				>
 			</File>
 		</Filter>
