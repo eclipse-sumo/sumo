@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The basic class for loading routes from XML-files
+// Base class for loading routes from XML-files
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -57,54 +57,106 @@ class Options;
 // ===========================================================================
 /**
  * @class ROTypedXMLRoutesLoader
+ * @brief Base class for loading routes from XML-files
+ *
  * Base class for loaders which load route definitions which use XML-derived
- * formats. Some methods as the initialisation and the file processing, together
- * with the need for a parser are common to all such loaders.
+ *  formats. Some methods as the initialisation and the file processing, together
+ *  with the need for a parser are common to all such loaders.
+ *
+ * @todo recheck/refactor
  */
 class ROTypedXMLRoutesLoader : public ROAbstractRouteDefLoader,
             public SUMOSAXHandler
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     *
+     * @param[in] vb The vehicle builder to use
+     * @param[in] net The network to add vehicles to
+     * @param[in] begin The time step import shall start at
+     * @param[in] end The time step import shall stop at
+     * @param[in] file Name of the used input file 
+     */
     ROTypedXMLRoutesLoader(ROVehicleBuilder &vb, RONet &net,
                            SUMOTime begin, SUMOTime end, const std::string &file="");
 
-    /// Destructor
+
+    /// @brief Destructor
     virtual ~ROTypedXMLRoutesLoader() throw();
 
-    /// Closes the reading of routes
-    virtual void closeReading();
 
-    /// called when the document has ended
-    void endDocument();
-
-    /// Returns the information whether no routes are available from this loader anymore
-    bool ended() const;
-
-    /// Initialises the handler for reading
+    /** @brief Initialises the handler for reading
+     * 
+     * Normally, is used to parse the first element.
+     *
+     * @param[in] options Options to use (if needed)
+     * @todo Recheck usage of route loaders; it is not very fine to have one that use a parser and other that do not
+     */
     virtual bool init(OptionsCont &options);
 
+
+    /** @brief Closes reading of routes
+     * 
+     * Normally, the parser is reset; still, both loaders that work on memory 
+     *  (RORDGenerator_Random and RORDGenerator_ODAmounts) do not have a parser
+     *  at all. Due to this, the method may be overridden.
+     *
+     * @todo Recheck usage of route loaders; it is not very fine to have one that use a parser and other that do not
+     */
+    virtual void closeReading();
+
+
+    /** @brief Called when the document has ended
+     *
+     * @todo Recheck usage of route loaders; it is not very fine to have one that use a parser and other that do not
+     */
+    void endDocument();
+
+
+    /** @brief Returns the information whether no routes are available from this loader anymore
+     *
+     * @return Whether all routes have been parsed
+     */
+    bool ended() const;
+
+
 protected:
-    /** @brief Reads the until the specified time is reached
-        Do read the comments on ROAbstractRouteDefLoader::myReadRoutesAtLeastUntil
-        for the modalities! */
+    /** @brief Reads until the specified time is reached
+     *
+     * @param[in] time The time at which the loader shall stop parsing
+     * @todo recheck/refactor
+     */
     bool myReadRoutesAtLeastUntil(SUMOTime time);
 
+
 protected:
-    /// Return the information whether a route was read
+    /// @name Virtual methods to implement by derived classes
+    /// @{
+
+    /** Returns the information whether a route was read
+     *
+     * @return Whether a further route was read
+     * @todo recheck/refactor
+     */
     virtual bool nextRouteRead() = 0;
 
-    /// Initialises the reading of a further route
+
+    /** @brief Returns Initialises the reading of a further route
+     *
+     * @todo recheck/refactor
+     */
     virtual void beginNextRoute() = 0;
+    /// @}
+
 
 protected:
-    /// The parser used
+    /// @brief The parser used
     SAX2XMLReader *myParser;
 
-    /// Information about the current position within the file
+    /// @brief Information about the current position within the file
     XMLPScanToken myToken;
 
-    /// Information whether the whole file has been parsed
+    /// @brief Information whether the whole file has been parsed
     bool myEnded;
 
 };

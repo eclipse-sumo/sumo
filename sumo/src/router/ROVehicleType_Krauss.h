@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Description of parameters of a krauss-modeled vehicle
+// A Krauss vehicle type
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -40,25 +40,51 @@
 // ===========================================================================
 /**
  * @class ROVehicleType_Krauss
- * The parameters of the Krauﬂ-model being a vehicle type.
+ * @brief A Krauss vehicle type
+ *
+ * @todo What about set/unset type parameter?
  */
 class ROVehicleType_Krauss : public ROVehicleType
 {
 public:
-    /// Parametrised constructor
+    /** @brief Constructor
+     * 
+     * @param[in] id The id of the vehicle type
+     * @param[in] col A string storing the vehicle type's color
+     * @param[in] length The length of vehicles of this type
+     * @param[in] vclass The vehicle class of vehicles of this type
+     * @param[in] a The type's maximum acceleration
+     * @param[in] b The type's maximum deceleration
+     * @param[in] eps The type's driver imperfection
+     * @param[in] maxSpeed The type's maximum velocity
+     * @param[in] tau The type's driver reaction time
+     */
     ROVehicleType_Krauss(const std::string &id, const std::string &col,
                          SUMOReal length, SUMOVehicleClass vclass,
                          SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed,
                          SUMOReal tau);
 
-    /// Destructor
+
+    /// @brief Destructor
     ~ROVehicleType_Krauss();
 
-    /// Saves the vehicle type into the given stream using SUMO-XML
+
+    /// @name inherited from ROVehicleType
+    //@{
+
+    /** @brief Saves the type using SUMO-XML
+     *
+     * Writes the definition of the vehicle type.
+     *  The vehicle class is only saved if it is not SVC_UNKNOWN.
+     *
+     * @param[in] dev The device to write the definition into
+     * @return The same device for further usage
+     */
     OutputDevice &xmlOut(OutputDevice &dev) const;
+    //@}
 
 private:
-    /// Krauss-parameter
+    /// @brief Krauss-parameter
     SUMOReal myA, myB, myEps, myMaxSpeed, myTau;
 
 };

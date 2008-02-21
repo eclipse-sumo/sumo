@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The basic class for loading routes from XML-files
+// Base class for loading routes from XML-files
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -17,6 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
+
+
 // ===========================================================================
 // compiler pragmas
 // ===========================================================================

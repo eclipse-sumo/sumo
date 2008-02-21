@@ -4,7 +4,7 @@
 /// @date    Tue, 29.05.2005
 /// @version $Id$
 ///
-//
+// Router vehicles building factory
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -70,7 +70,6 @@ ROVehicleBuilder::buildRunningVehicle(const std::string &id,
     return new RORunningVehicle(*this, id, route, time, type, lane, pos, speed,
                                 col, period, repNo);
 }
-
 
 
 /****************************************************************************/

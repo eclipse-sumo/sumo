@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Base class for vehicle types
+// Base class for routers' representation of vehicle types
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -47,42 +47,82 @@ class OutputDevice;
 // ===========================================================================
 /**
  * @class ROVehicleType
- * @brief The base class for vehicle types.
+ * @brief Base class for routers' representation of vehicle types
+ *
+ * The idea is to let a router use arbitary vehicle types. Due to this, we have
+ *  a base class which holds only the values a router needs (name, length, class,
+ *  and a color). from this class, other vehicle types may be derived which hold
+ *  the real (simulation) model's values.
+ *
+ * Vehicle types are derived from "ReferencedItem" in order to know whether they
+ *  were saved.
+ *
+ * Derivations start with "ROVehicleType_".
+ *
+ * @see ReferencedItem
+ * @todo Check whether the color really has to be stored explicitely
  */
 class ROVehicleType : public ReferencedItem
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     * 
+     * @param[in] id The id of the vehicle type
+     * @param[in] col A string storing the vehicle type's color
+     * @param[in] length The length of vehicles of this type
+     * @param[in] vclass The vehicle class of vehicles of this type
+     */
     ROVehicleType(const std::string &id, const std::string &col,
                   SUMOReal length, SUMOVehicleClass vclass);
 
-    /// Destructor
+
+    /// @brief Destructor
     virtual ~ROVehicleType();
 
-    /// Saves the type using SUMO-XML
+
+    /** @brief Saves the type using SUMO-XML
+     *
+     * Writes the vehicle type definition into the given stream.
+     * To be implemented by real vehicle classes
+     *
+     * @param[in] dev The device to write the definition into
+     * @return The same device for further usage
+     */
     virtual OutputDevice &xmlOut(OutputDevice &dev) const = 0;
 
-    /// Returns the name of the type
+    
+    /** @brief Returns the name of the type
+     *
+     * @return The id of the vehicle type
+     */
     std::string getID() const;
 
-    // Returns the length the vehicles of this type have
+
+    /** @brief Returns the length the vehicles of this type have
+     *
+     * @return the length of vehicles of this type
+     */
     SUMOReal getLength() const;
 
-    /// Returns the class of the vehicle
+    
+    /** @brief Returns the class of the vehicle
+     *
+     * @return The class of vehicles of this type
+     */
     SUMOVehicleClass getClass() const;
 
 
 protected:
-    /// The name of the type
+    /// @brief The id of the type
     std::string myID;
 
-    /// The color of the type
+    /// @brief The color of the type
     std::string myColor;
 
-    /// The length of the vehicle
+    /// @brief The length of vehicles of this type
     SUMOReal myLength;
 
-    /// The class of the vehicle
+    /// @brief The class of vehicles of this type
     SUMOVehicleClass myClass;
 
 };

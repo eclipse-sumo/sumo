@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A single vehicle
+// A vehicle as used by router
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -49,70 +49,125 @@ class OutputDevice;
 // ===========================================================================
 /**
  * @class ROVehicle
- * @brief A single vehicle holding information about his type,
- *  departure time and the route he takes.
+ * @brief A vehicle as used by router
  */
 class ROVehicle
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     *
+     * @param[in] vb The vehicle builder
+     * @param[in] id The id of the vehicle
+     * @param[in] route The definition of the route the vehicle shall use
+     * @param[in] depart The depart time of the vehicle
+     * @param[in] type The type of the vehicle
+     * @param[in] color The color of the vehicle
+     * @param[in] period The repetition period of the vehicle
+     * @param[in] repNo The repetition number of the vehicle
+     *
+     * @todo Why is the vehicle builder given?
+     * @todo Why is the depart time given as an int?
+     */
     ROVehicle(ROVehicleBuilder &vb,
               const std::string &id, RORouteDef *route, unsigned int depart,
               ROVehicleType *type, const std::string &color, int period, int repNo);
 
-    /// Destructor
+
+    /// @brief Destructor
     virtual ~ROVehicle();
 
-    /// Returns the route the vehicle takes
+
+    /** @brief Returns the definition of the route the vehicle takes
+     *
+     * @return The vehicle's route definition
+     *
+     * @todo Why not return a reference?
+     */
     RORouteDef * const getRoute() const;
 
-    /// Returns the type of the vehicle
+
+    /** @brief Returns the type of the vehicle
+     *
+     * @return The vehicle's type
+     *
+     * @todo Why not return a reference?
+     */
     const ROVehicleType * const getType() const;
 
-    /// Returns the id of the vehicle
+
+    /** @brief Returns the id of the vehicle
+     *
+     * @return The id of the vehicle
+     */
     const std::string &getID() const;
 
-    /// Returns the time the vehicle starts his route
+
+    /** @brief Returns the time the vehicle starts at
+     * 
+     * @return The vehicle's depart time
+     */
     SUMOTime getDepartureTime() const;
 
+
     /** @brief Saves the complete vehicle description.
-    *
-    * Saves the vehicle type if it was not saved before.
-    * Saves the vehicle route if it was not saved before.
-    * Saves the vehicle itself.
-    * Use this method polymorph if no route alternatives shall be generated */
+     *
+     * Saves the vehicle type if it was not saved before.
+     * Saves the vehicle route if it was not saved before.
+     * Saves the vehicle itself.
+     *
+     * @param[in] os The routes - output device to store the vehicle's description into
+     * @param[in] altos The route alternatives - output device to store the vehicle's description into
+     * @param[in] route !!!describe
+     * @see saveXMLVehicle
+     *
+     * @todo What is the given route definition?
+     */
     void saveAllAsXML(OutputDevice &os, OutputDevice * const altos,
                       const RORouteDef * const route) const;
 
-    /// Returns a copy of the vehicle using a new id, departure time and route
+
+    /** @brief Returns a copy of the vehicle using a new id, departure time and route
+     *
+     * @param[in] vb The vehicle builder to use
+     * @param[in] id the new id to use
+     * @param[in] depTime The new vehicle's departure time
+     * @param[in] newRoute The new vehicle's route
+     * @return The new vehicle
+     *
+     * @todo Is this used? What for if everything is replaced?
+     */
     virtual ROVehicle *copy(ROVehicleBuilder &vb,
                             const std::string &id, unsigned int depTime, RORouteDef *newRoute);
 
 
 protected:
-    /// Saves the vehicle definition only into the given stream
+    /** @brief Saves the vehicle definition only into the given stream
+     *
+     * @param[in] dev The output device to store the vehicle definition into
+     */
     void saveXMLVehicle(OutputDevice &dev) const;
 
+
 protected:
-    /// The name of the vehicle
+    /// @brief The name of the vehicle
     std::string myID;
 
-    /// The color of the vehicle
+    /// @brief The color of the vehicle
     std::string myColor;
 
-    /// The type of the vehicle
+    /// @brief The type of the vehicle
     ROVehicleType *myType;
 
-    /// The route the vehicle takes
+    /// @brief The route the vehicle takes
     RORouteDef *myRoute;
 
-    /// The time the vehicle shall be emitted at
+    /// @brief The time the vehicle shall be emitted at
     unsigned int myDepartTime;
 
-    /// The repetition period (-1 if only one vehicle shall be emitted)
+    /// @brief The repetition period (-1 if only one vehicle shall be emitted)
     int myRepetitionPeriod;
 
-    /// The number of times such vehicles shall be emitted
+    /// @brief The number of times such vehicles shall be emitted
     int myRepetitionNumber;
 
 };

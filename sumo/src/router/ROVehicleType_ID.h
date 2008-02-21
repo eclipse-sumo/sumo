@@ -40,19 +40,39 @@
 // ===========================================================================
 /**
  * @class ROVehicleType_ID
- * The parameters of the Krauﬂ-model being a vehicle type.
+ * @brief A type which is only described by its id (other values are invalid)
+ *
+ * This is a router representation of types which were not defined. The type
+ *  is not saved, but still can be referenced.
+ *
+ * @todo Check whether this rather should be realised by a boolean marker in ROVehicleType
  */
 class ROVehicleType_ID : public ROVehicleType
 {
 public:
-    /// Parametrised constructor
+    /** @brief Constructor
+     * 
+     * @param[in] id The id of the vehicle type
+     */
     ROVehicleType_ID(const std::string &id);
 
-    /// Destructor
+
+    /// @brief Destructor
     ~ROVehicleType_ID();
 
-    /// Saves the vehicle type into the given stream using SUMO-XML
+
+    /// @name inherited from ROVehicleType
+    //@{
+
+    /** @brief Saves the type using SUMO-XML
+     *
+     * Does nothing.
+     *
+     * @param[in] dev The device to write the definition into
+     * @return The same device for further usage
+     */
     OutputDevice &xmlOut(OutputDevice &dev) const;
+    //@}
 
 };
 
