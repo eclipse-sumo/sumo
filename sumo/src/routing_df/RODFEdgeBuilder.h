@@ -4,7 +4,7 @@
 /// @date    Thu, 16.03.2006
 /// @version $Id$
 ///
-// A builder for edges used by the DFROUTER
+// Interface for building instances of dfrouter-edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -43,19 +43,39 @@ class ROEdge;
 // class definitions
 // ===========================================================================
 /**
- * @class RODUAEdgeBuilder
+ * @class RODFEdgeBuilder
+ * @brief Interface for building instances of dfrouter-edges
+ *
+ * This ROAbstractEdgeBuilder implementation builds edges for the duarouter
+ *  (instances of RODFEdge).
+ *
+ * @see RODFEdge
  */
 class RODFEdgeBuilder : public ROAbstractEdgeBuilder
 {
 public:
-    /// Constructor
-    RODFEdgeBuilder();
+    /// @brief Constructor
+    RODFEdgeBuilder() throw();
 
-    /// Destructor
-    ~RODFEdgeBuilder();
 
-    /// Builds the dua-edge
-    ROEdge *buildEdge(const std::string &name);
+    /// @brief Destructor
+    ~RODFEdgeBuilder() throw();
+
+
+    /// @name Methods to be implemented, inherited from ROAbstractEdgeBuilder
+    /// @{
+
+    /** @brief Builds an edge with the given name
+     *
+     * This implementation builds a RODFEdge.
+     *
+     * @param[in] name The name of the edge
+     * @return A proper instance of the named edge
+     * @see RODFEdge
+     */
+    ROEdge *buildEdge(const std::string &name) throw();
+    /// @}
+
 
 };
 

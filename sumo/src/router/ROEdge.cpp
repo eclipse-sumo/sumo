@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// An edge the router may route through
+// A basic edge for routing applications
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -58,7 +58,7 @@ bool ROEdge::myHaveWarned = false;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROEdge::ROEdge(const std::string &id, int index, bool useBoundariesOnOverride)
+ROEdge::ROEdge(const std::string &id, int index, bool useBoundariesOnOverride) throw()
         : myID(id), myDist(0), mySpeed(-1),
         mySupplementaryWeightAbsolut(0),
         mySupplementaryWeightAdd(0),
@@ -70,7 +70,7 @@ ROEdge::ROEdge(const std::string &id, int index, bool useBoundariesOnOverride)
 {}
 
 
-ROEdge::~ROEdge()
+ROEdge::~ROEdge() throw()
 {
     for (std::vector<ROLane*>::iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
         delete(*i);
@@ -151,8 +151,9 @@ ROEdge::addFollower(ROEdge *s)
 
 
 SUMOReal
-ROEdge::getEffort(const ROVehicle *const, SUMOTime time) const
+ROEdge::getEffort(const ROVehicle *const, SUMOReal t) const
 {
+    SUMOTime time = (SUMOTime) t;
     FloatValueTimeLine::SearchResult searchResult;
     FloatValueTimeLine::SearchResult supplementarySearchResult;
     // check whether an absolute value shalle be used
@@ -232,7 +233,7 @@ ROEdge::getFollower(size_t pos) const
 
 
 bool
-ROEdge::isConnectedTo(ROEdge *e)
+ROEdge::isConnectedTo(const ROEdge * const e) const
 {
     return find(myFollowingEdges.begin(), myFollowingEdges.end(), e)!=myFollowingEdges.end();
 }

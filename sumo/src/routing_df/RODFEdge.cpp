@@ -47,12 +47,12 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODFEdge::RODFEdge(const std::string &id, int index)
+RODFEdge::RODFEdge(const std::string &id, int index) throw()
         : ROEdge(id, index, false)
 {}
 
 
-RODFEdge::~RODFEdge()
+RODFEdge::~RODFEdge() throw()
 {}
 
 

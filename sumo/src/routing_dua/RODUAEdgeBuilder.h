@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Jan 2004
 /// @version $Id$
 ///
-// The builder for due-edges
+// Interface for building instances of duarouter-edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -44,23 +44,45 @@ class ROEdge;
 // ===========================================================================
 /**
  * @class RODUAEdgeBuilder
- * This class builds edges that may be used by the dynamic user assignment-
- *  router.
+ * @brief Interface for building instances of duarouter-edges
+ *
+ * This ROAbstractEdgeBuilder implementation builds edges for the duarouter
+ *  (instances of ROEdge).
+ *
+ * @see ROEdge
  */
 class RODUAEdgeBuilder : public ROAbstractEdgeBuilder
 {
 public:
-    /// Constructor
-    RODUAEdgeBuilder(bool useBoundariesOnOverride);
+    /** @brief Constructor
+     *
+     * @param[in] useBoundariesOnOverride Whether edges shall use a boundary value if the requested is beyond known time scale
+     * @todo useBoundariesOnOverride should not be a member of the edges
+     */
+    RODUAEdgeBuilder(bool useBoundariesOnOverride) throw();
 
-    /// Destructor
-    ~RODUAEdgeBuilder();
 
-    /// Builds the dua-edge
-    ROEdge *buildEdge(const std::string &name);
+    /// @brief Destructor
+    ~RODUAEdgeBuilder() throw();
+
+
+    /// @name Methods to be implemented, inherited from ROAbstractEdgeBuilder
+    /// @{
+
+    /** @brief Builds an edge with the given name
+     *
+     * This implementation builds a ROEdge.
+     *
+     * @param[in] name The name of the edge
+     * @return A proper instance of the named edge
+     * @see ROEdge
+     */
+    ROEdge *buildEdge(const std::string &name) throw();
+    /// @}
+
 
 protected:
-    /// Information whether to use the first/last entry of the time in case it is too short
+    /// @brief Information whether to use the first/last entry of the time in case it is too short
     bool myUseBoundariesOnOverride;
 
 };

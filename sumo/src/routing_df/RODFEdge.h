@@ -54,10 +54,10 @@ class RODFEdge : public ROEdge
 {
 public:
     /// Constructor
-    RODFEdge(const std::string &id, int index);
+    RODFEdge(const std::string &id, int index) throw();
 
-    /// Desturctor
-    ~RODFEdge();
+    /// Destructor
+    ~RODFEdge() throw();
 
     void setFlows(const std::vector<FlowDef> &flows);
 

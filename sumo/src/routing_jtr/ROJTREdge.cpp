@@ -49,12 +49,12 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTREdge::ROJTREdge(const std::string &id, int index)
+ROJTREdge::ROJTREdge(const std::string &id, int index) throw()
         : ROEdge(id, index, false)
 {}
 
 
-ROJTREdge::~ROJTREdge()
+ROJTREdge::~ROJTREdge() throw()
 {
     for (FollowerUsageCont::iterator i=myFollowingDefs.begin(); i!=myFollowingDefs.end(); i++) {
         delete(*i).second;

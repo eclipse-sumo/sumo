@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Jan 2004
 /// @version $Id$
 ///
-// The builder for dua-edges
+// Interface for building instances of duarouter-edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -28,8 +28,8 @@
 #include <config.h>
 #endif
 
-#include <router/ROEdge.h>
 #include "RODUAEdgeBuilder.h"
+#include <router/ROEdge.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -39,21 +39,20 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODUAEdgeBuilder::RODUAEdgeBuilder(bool useBoundariesOnOverride)
+RODUAEdgeBuilder::RODUAEdgeBuilder(bool useBoundariesOnOverride) throw()
         : myUseBoundariesOnOverride(useBoundariesOnOverride)
 {}
 
 
-RODUAEdgeBuilder::~RODUAEdgeBuilder()
+RODUAEdgeBuilder::~RODUAEdgeBuilder() throw()
 {}
 
 
 ROEdge *
-RODUAEdgeBuilder::buildEdge(const std::string &name)
+RODUAEdgeBuilder::buildEdge(const std::string &name) throw()
 {
     return new ROEdge(name, getCurrentIndex(), myUseBoundariesOnOverride);
 }
-
 
 
 /****************************************************************************/

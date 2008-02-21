@@ -80,31 +80,31 @@ RODFNet::~RODFNet()
 void
 RODFNet::buildApproachList()
 {
-    std::vector<ROEdge *> r = getMyEdgeCont()->getTempVector();
-    std::vector<ROEdge *>::iterator rit = r.begin();
-    for (; rit != r.end(); rit++) {
+    const map<string, ROEdge*> &edges = getEdgeMap();
+    for (map<string, ROEdge*>::const_iterator rit = edges.begin(); rit != edges.end(); ++rit) {
+        ROEdge *ce = (*rit).second;
         size_t i = 0;
-        size_t length_size = (*rit)->getNoFollowing();
+        size_t length_size = ce->getNoFollowing();
         for (i=0; i<length_size; i++) {
-            ROEdge *help = (*rit)->getFollower(i);
+            ROEdge *help = ce->getFollower(i);
             if (find(mySinks.begin(), mySinks.end(), help->getID())!=mySinks.end()) {
                 // edges in sinks will not be used
                 continue;
             }
-            if (!myKeepTurnarounds && help->getToNode()==(*rit)->getFromNode()) {
+            if (!myKeepTurnarounds && help->getToNode()==ce->getFromNode()) {
                 // do not use turnarounds
                 continue;
             }
-            // add the connection help->*rit to myApproachingEdges
+            // add the connection help->ce to myApproachingEdges
             if (myApproachingEdges.find(help)==myApproachingEdges.end()) {
                 myApproachingEdges[help] = std::vector<ROEdge*>();
             }
-            myApproachingEdges[help].push_back((*rit));
-            // add the connection *rit->help to myApproachingEdges
-            if (myApproachedEdges.find((*rit))==myApproachedEdges.end()) {
-                myApproachedEdges[(*rit)] = std::vector<ROEdge*>();
+            myApproachingEdges[help].push_back(ce);
+            // add the connection ce->help to myApproachingEdges
+            if (myApproachedEdges.find(ce)==myApproachedEdges.end()) {
+                myApproachedEdges[ce] = std::vector<ROEdge*>();
             }
-            myApproachedEdges[(*rit)].push_back(help);
+            myApproachedEdges[ce].push_back(help);
         }
     }
 }

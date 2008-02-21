@@ -404,10 +404,10 @@ RONet::getEdgeNo() const
 }
 
 
-ROEdgeCont *
-RONet::getMyEdgeCont()
+const std::map<std::string, ROEdge*> &
+RONet::getEdgeMap() const
 {
-    return &myEdges;
+    return myEdges.getMyMap();
 }
 
 

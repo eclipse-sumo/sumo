@@ -61,11 +61,11 @@ public:
      * @param[in] id The id of the edge
      * @param[in] index The numerical id of the edge
      */
-    ROJTREdge(const std::string &id, int index);
+    ROJTREdge(const std::string &id, int index) throw();
 
 
-    /// Desturctor
-    ~ROJTREdge();
+    /// Destructor
+    ~ROJTREdge() throw();
 
 
     /** @brief Adds information about a connected edge

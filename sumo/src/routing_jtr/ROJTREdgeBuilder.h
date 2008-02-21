@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Jan 2004
 /// @version $Id$
 ///
-// The builder for jp-edges
+// Interface for building instances of jtrrouter-edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -37,7 +37,6 @@
 // class declarations
 // ===========================================================================
 class ROEdge;
-class RONet;
 
 
 // ===========================================================================
@@ -45,28 +44,38 @@ class RONet;
 // ===========================================================================
 /**
  * @class ROJTREdgeBuilder
- * This class builds edges that may be used by the junction-percantage
- *  router.
+ * @brief Interface for building instances of jtrrouter-edges
+ *
+ * This ROAbstractEdgeBuilder implementation builds edges for the jtrrouter
+ *  (instances of ROJTREdge).
+ *
+ * @see ROJTREdge
  */
 class ROJTREdgeBuilder : public ROAbstractEdgeBuilder
 {
 public:
-    /// Constructor
-    ROJTREdgeBuilder();
+    /// @brief Constructor
+    ROJTREdgeBuilder() throw();
 
-    /// Destructor
-    ~ROJTREdgeBuilder();
 
-    /** @brief Builds a jp-edge */
-    ROEdge *buildEdge(const std::string &name);
+    /// @brief Destructor
+    ~ROJTREdgeBuilder() throw();
 
-    /** Post process the edges */
-    void setTurningDefinitions(RONet &net,
-                               const std::vector<SUMOReal> &turn_defs);
 
-private:
-    /// The turn definitions
-    std::vector<std::string> myNames;
+    /// @name Methods to be implemented, inherited from ROAbstractEdgeBuilder
+    /// @{
+
+    /** @brief Builds an edge with the given name
+     *
+     * This implementation builds a ROJTREdge.
+     *
+     * @param[in] name The name of the edge
+     * @return A proper instance of the named edge
+     * @see ROJTREdge
+     */
+    ROEdge *buildEdge(const std::string &name) throw();
+    /// @}
+
 
 };
 

@@ -148,7 +148,7 @@ public:
     /// Returns the number of edges thenetwork contains
     unsigned int getEdgeNo() const;
 
-    ROEdgeCont *getMyEdgeCont();
+    const std::map<std::string, ROEdge*> &getEdgeMap() const;
 
     /** @brief Removes the route from the net when no further usage is needed */
     virtual void removeRouteSecure(const RORouteDef * const route); // !!! was protected before

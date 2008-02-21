@@ -28,9 +28,8 @@
 #include <config.h>
 #endif
 
-#include <router/RONet.h>
-#include "ROJTREdge.h"
 #include "ROJTREdgeBuilder.h"
+#include "ROJTREdge.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -46,32 +45,19 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTREdgeBuilder::ROJTREdgeBuilder()
+ROJTREdgeBuilder::ROJTREdgeBuilder() throw()
 {}
 
 
-ROJTREdgeBuilder::~ROJTREdgeBuilder()
+ROJTREdgeBuilder::~ROJTREdgeBuilder() throw()
 {}
 
 
 ROEdge *
-ROJTREdgeBuilder::buildEdge(const std::string &name)
+ROJTREdgeBuilder::buildEdge(const std::string &name) throw()
 {
-    myNames.push_back(name);
     return new ROJTREdge(name, getCurrentIndex());
 }
-
-
-void
-ROJTREdgeBuilder::setTurningDefinitions(RONet &net,
-                                        const std::vector<SUMOReal> &turn_defs)
-{
-    for (vector<string>::iterator i=myNames.begin(); i!=myNames.end(); ++i) {
-        ROJTREdge *edge = static_cast<ROJTREdge*>(net.getEdge((*i)));
-        edge->setTurnDefaults(turn_defs);
-    }
-}
-
 
 
 /****************************************************************************/

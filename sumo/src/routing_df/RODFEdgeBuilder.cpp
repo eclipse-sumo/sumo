@@ -4,7 +4,7 @@
 /// @date    Thu, 16.03.2006
 /// @version $Id$
 ///
-// A builder for edges used by the DFROUTER
+// Interface for building instances of dfrouter-edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -18,7 +18,6 @@
 //
 /****************************************************************************/
 
-
 // ===========================================================================
 // included modules
 // ===========================================================================
@@ -28,7 +27,6 @@
 #include <config.h>
 #endif
 
-#include <router/ROEdge.h>
 #include "RODFEdgeBuilder.h"
 #include "RODFEdge.h"
 
@@ -40,20 +38,19 @@
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODFEdgeBuilder::RODFEdgeBuilder()
+RODFEdgeBuilder::RODFEdgeBuilder() throw()
 {}
 
 
-RODFEdgeBuilder::~RODFEdgeBuilder()
+RODFEdgeBuilder::~RODFEdgeBuilder() throw()
 {}
 
 
 ROEdge *
-RODFEdgeBuilder::buildEdge(const std::string &name)
+RODFEdgeBuilder::buildEdge(const std::string &name) throw()
 {
     return new RODFEdge(name, getCurrentIndex());
 }
-
 
 
 /****************************************************************************/

@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// An edge the router may route through
+// A basic edge for routing applications
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -50,30 +50,30 @@ class ROVehicle;
 // ===========================================================================
 /**
  * @class ROEdge
- * An edge (for routing).
+ * @brief A basic edge for routing applications
  */
 class ROEdge
 {
 public:
     /**
      * @enum EdgeType
-     * Possible types of edges
+     * @brief Possible types of edges
      */
     enum EdgeType {
-        /// A normal edge
+        /// @brief A normal edge
         ET_NORMAL,
-        /// An edge where vehicles are emitted at (no vehicle may come from back)
+        /// @brief An edge where vehicles are emitted at (no vehicle may come from back)
         ET_SOURCE,
-        /// An edge where vehicles disappear (no vehicle may leave this edge)
+        /// @brief An edge where vehicles disappear (no vehicle may leave this edge)
         ET_SINK
     };
 
 
     /// Constructor
-    ROEdge(const std::string &id, int index, bool useBoundariesOnOverride);
+    ROEdge(const std::string &id, int index, bool useBoundariesOnOverride) throw();
 
-    /// Desturctor
-    virtual ~ROEdge();
+    /// Destructor
+    virtual ~ROEdge() throw();
 
     /// Adds a lane to the edge while loading
     virtual void addLane(ROLane *lane);
@@ -84,7 +84,7 @@ public:
     virtual void addFollower(ROEdge *s);
 
     /// returns the information whether this edge is directly connected to the given
-    bool isConnectedTo(ROEdge *e);
+    bool isConnectedTo(const ROEdge * const e) const;
 
     /** @brief Returns the number of edges this edge is connected to
         (size of the list of reachable edges) */
@@ -118,7 +118,7 @@ public:
     size_t getNumericalID() const;
 
     /// returns the effort for this edge only
-    virtual SUMOReal getEffort(const ROVehicle *const, SUMOTime time) const;
+    virtual SUMOReal getEffort(const ROVehicle *const, SUMOReal time) const;
 
     /**
      * Takes pointers to FloatValueTimeLines and assigns them to the classes
