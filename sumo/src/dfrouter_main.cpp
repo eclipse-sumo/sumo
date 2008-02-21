@@ -56,6 +56,7 @@
 #include <routing_df/RODFLoader.h>
 #include <routing_df/RODFFrame.h>
 #include <routing_df/RODFNet.h>
+#include <routing_df/RODFEdge.h>
 #include <routing_df/RODFDetector.h>
 #include <routing_df/RODFDetectorHandler.h>
 #include <routing_df/DFRORouteCont.h>
