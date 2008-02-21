@@ -576,6 +576,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_Routing.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\MSEdge.cpp"
 				>
 			</File>
@@ -749,6 +753,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\devices\MSDevice_CPhone.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\devices\MSDevice_Routing.h"
 				>
 			</File>
 			<File
