@@ -42,6 +42,7 @@
 #include <router/ROLoader.h>
 #include <router/ROEdgeVector.h>
 #include <router/RONet.h>
+#include <router/ROEdge.h>
 #include <router/ROVehicleType_Krauss.h>
 #include <router/ROVehicleBuilder.h>
 #include <utils/common/SUMODijkstraRouter.h>
@@ -112,10 +113,10 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
     SUMOAbstractRouter<ROEdge, ROVehicle> *router;
     if (net.hasRestrictions()) {
-        router = new SUMODijkstraRouter<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle>, ROEdge>(
+        router = new SUMODijkstraRouter_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
             net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
     } else {
-        router = new SUMODijkstraRouter<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle>, ROEdge>(
+        router = new SUMODijkstraRouter_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
             net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
     }
     // build the router
