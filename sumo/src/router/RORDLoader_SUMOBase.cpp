@@ -41,6 +41,7 @@
 #include <utils/options/OptionsCont.h>
 #include "ROVehicle.h"
 #include "RORouteDef_Alternatives.h"
+#include "RORouteDef_Complete.h"
 #include "ROEdgeVector.h"
 #include "RORoute.h"
 

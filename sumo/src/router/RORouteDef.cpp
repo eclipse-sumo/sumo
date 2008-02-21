@@ -37,7 +37,7 @@
 #include <utils/options/OptionsCont.h>
 #include "ROEdge.h"
 #include "RORoute.h"
-#include "ROAbstractRouter.h"
+#include <utils/common/SUMOAbstractRouter.h>
 #include "ReferencedItem.h"
 #include "RORouteDef.h"
 #include "ROVehicle.h"
@@ -65,24 +65,6 @@ RORouteDef::RORouteDef(const std::string &id, const std::string &color) throw()
 
 RORouteDef::~RORouteDef() throw()
 {}
-
-
-void
-RORouteDef::patchID()
-{
-    // patch the name
-    size_t idx = myID.rfind('_');
-    if (idx!=string::npos) {
-        try {
-            int no = TplConvert<char>::_2int(myID.substr(idx+1).c_str());
-            myID = myID.substr(0, idx+1) + toString<int>(no+1);
-        } catch (NumberFormatException &) {
-            myID = myID + "_0";
-        }
-    } else {
-        myID = myID + "_0";
-    }
-}
 
 
 int

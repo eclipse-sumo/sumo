@@ -35,23 +35,20 @@
 #include <fstream>
 #include <deque>
 #include <vector>
+#include "ROEdge.h"
 #include "RONodeCont.h"
-#include "ROEdgeCont.h"
-#include "ROVehTypeCont.h"
 #include "RORouteDefCont.h"
 #include "ROVehicleCont.h"
 #include "ROVehicle.h"
-#include "RORouteSnippletCont.h"
 #include "ROEdgeVector.h"
+#include "ROVehicleType.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class ROEdge;
 class RONode;
 class RORouteDef;
-class ROVehicle;
 class OptionsCont;
 class ROAbstractEdgeBuilder;
 class OutputDevice;
@@ -123,15 +120,6 @@ public:
     /// Adds a completely build vehicle to the net
     virtual void addVehicle(const std::string &id, ROVehicle *veh);
 
-    /// Adds a known route snipplet to the network (!!! somekind of deprecated)
-    bool addRouteSnipplet(const ROEdgeVector &item);
-
-    /// Retrieves the optimal route snipplet between both edges (!!! somekind of deprecated)
-    const ROEdgeVector &getRouteSnipplet(ROEdge *from, ROEdge *to) const;
-
-    /// Returns the information whether the way between the given edges has already been computed (!!! somekind of deprecated)
-    bool knowsRouteSnipplet(ROEdge *from, ROEdge *to) const;
-
     /** @brief Computes routes described by their definitions and saves them */
     void saveAndRemoveRoutesUntil(OptionsCont &options,
                                   SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime time);
@@ -176,19 +164,16 @@ protected:
     RONodeCont myNodes;
 
     /// Known edges
-    ROEdgeCont myEdges;
+    NamedObjectCont<ROEdge*> myEdges;
 
     /// Known vehicle types
-    ROVehTypeCont myVehicleTypes;
+    NamedObjectCont<ROVehicleType*> myVehicleTypes;
 
     /// Known routes
     RORouteDefCont myRoutes;
 
     /// Known vehicles
     ROVehicleCont myVehicles;
-
-    /// Known route sipplets
-    RORouteSnippletCont mySnipplets;
 
     /// List of source edges
     std::vector<ROEdge*> mySourceEdges;

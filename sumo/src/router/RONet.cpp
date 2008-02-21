@@ -34,8 +34,6 @@
 #include <deque>
 #include <queue>
 #include "RONodeCont.h"
-#include "ROEdgeCont.h"
-#include "ROVehTypeCont.h"
 #include "ROEdge.h"
 #include "RONode.h"
 #include "RONet.h"
@@ -318,27 +316,6 @@ RONet::removeRouteSecure(const RORouteDef * const route)
     if (!myRoutes.erase(route->getID())) {
         MsgHandler::getWarningInstance()->inform("Could not remove " + route->getID());
     }
-}
-
-
-bool
-RONet::addRouteSnipplet(const ROEdgeVector &item)
-{
-    return mySnipplets.add(item);
-}
-
-
-const ROEdgeVector &
-RONet::getRouteSnipplet(ROEdge *from, ROEdge *to) const
-{
-    return mySnipplets.get(from, to);
-}
-
-
-bool
-RONet::knowsRouteSnipplet(ROEdge *from, ROEdge *to) const
-{
-    return mySnipplets.knows(from, to);
 }
 
 

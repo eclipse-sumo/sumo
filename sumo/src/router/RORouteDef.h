@@ -73,11 +73,6 @@ public:
     /// Returns the route's destination edge
     virtual const ROEdge * const getTo() const = 0;
 
-    /** @brief Changes the id to a next, hopefully valid
-    *
-     * This is done if the vehicle(s) using this route are emitted periodically */
-    void patchID();
-
     /** @brief Builds the complete route
      *
      * (or chooses her from the list of alternatives, when existing) */
