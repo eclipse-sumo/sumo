@@ -59,6 +59,7 @@ class OptionsCont;
  * Reads pois stored in "pointcollection.txt",
  *  applies the given projection and network offset and stores the so build
  *  pois into the given map.
+ * @todo Use a LineReader instead of getline
  */
 class PCElmarPoints
 {

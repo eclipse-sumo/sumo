@@ -38,7 +38,6 @@
 #include <utils/common/ToString.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
-#include <utils/importio/LineReader.h>
 #include <utils/common/StdDefs.h>
 #include <polyconvert/PCPolyContainer.h>
 #include "PCElmarPoints.h"
