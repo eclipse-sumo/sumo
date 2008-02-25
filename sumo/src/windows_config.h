@@ -47,7 +47,4 @@
 /* define to use TraCI server code */
 //#define TRACI 1
 
-/* define to use calibrators for online simulations */
-//#define ONLINE_CALIBRATION 1
-
 #endif

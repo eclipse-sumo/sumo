@@ -47,10 +47,7 @@
 
 #include "microsim/MSEdgeControl.h"
 #include "microsim/MSLane.h"
-
-#ifdef ONLINE_CALIBRATION
 #include "microsim/trigger/MSCalibrator.h"
-#endif //ONLINE_CALIBRATON
 
 #include <string>
 #include <map>
@@ -178,11 +175,9 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
     case CMD_CLOSE:
         commandCloseConnection(requestMsg, respMsg);
         break;
-#ifdef ONLINE_CALIBRATION
     case CMD_UPDATECALIBRATOR:
         commandUpdateCalibrator(requestMsg, respMsg);
         break;
-#endif //ONLINE_CALIBRATION
     default:
         writeStatusCmd(respMsg, commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
         return false;
@@ -547,7 +542,7 @@ throw(TraCIException)
     //std::vector<const MSEdge*> newRoute;
     MSEdgeVector newRoute;
     const MSEdge* currentEdge = veh->getEdge();
-    SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
+    SUMODijkstraRouter_Direct<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
     router.compute(currentEdge, destEdge, (const MSVehicle* const) veh,
                    MSNet::getInstance()->getCurrentTimeStep(), newRoute);
 
@@ -832,7 +827,6 @@ throw(TraCIException)
 }
 
 /*****************************************************************************/
-#ifdef ONLINE_CALIBRATION
 void
 TraCIServer::commandUpdateCalibrator(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
 throw(TraCIException)
@@ -849,7 +843,6 @@ throw(TraCIException)
 
     return;
 }
-#endif //ONLINE_CALIBRATION
 /*****************************************************************************/
 
 void

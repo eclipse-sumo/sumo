@@ -1831,7 +1831,7 @@ MSVehicle::checkReroute(SUMOTime t)
 {
     if (myWeightChangedViaTraci && myHaveRouteInfo && myStops.size()==0) {
         myHaveRouteInfo = false;
-        SUMODijkstraRouter<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSEdge> 
+        SUMODijkstraRouter_Direct<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > 
             router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
         reroute(t, router);
     }

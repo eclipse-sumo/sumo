@@ -138,9 +138,7 @@ private:
     // Returns a list of strings representing the ids of all traffic lights in the simulation
     void commandGetAllTLIds(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
-#ifdef ONLINE_CALIBRATION
     void commandUpdateCalibrator(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
-#endif //ONLINE_CALIBRATION
 
     void writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description);
 

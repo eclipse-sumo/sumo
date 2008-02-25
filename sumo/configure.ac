@@ -103,15 +103,6 @@ else
    ac_disabled="$ac_disabled TRACI"
 fi
 
-AC_ARG_ENABLE([onlineCalib],[AS_HELP_STRING([--enable-onlinecalib],[enable online calibration / simulation code [default=no].])],
-              [AC_DEFINE(ONLINECALIB, 1, [Define to 1 in order to enable online calibration / simulation code.])])
-AM_CONDITIONAL(ONLINECALIB, test x$enable_onlinecalib = xyes)
-if test x$enable_onlinecalib = xyes; then
-   ac_enabled="$ac_enabled ONLINE_CALIBRATION"
-else
-   ac_disabled="$ac_disabled ONLINE_CALIBRATION"
-fi
-
 AM_CONDITIONAL([WITH_VERSION_H], test -f .svn/entries)	      
 if test -f .svn/entries; then
    AC_DEFINE([HAVE_VERSION_H], [1], [Define if auto-generated version.h should be used.])
