@@ -45,6 +45,8 @@
 // command: Simulation Parameter
 #define CMD_SIMPARAMETER 0x70
 
+#define CMD_POSITIONCONVERSION 0x71
+
 // command: move node
 #define CMD_MOVENODE 0x80
 

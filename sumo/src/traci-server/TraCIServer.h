@@ -37,6 +37,8 @@
 #include "utils/common/SUMOTime.h"
 
 #include "utils/geom/Boundary.h"
+#include "utils/geom/Position2D.h"
+#include "utils/geom/GeomHelper.h"
 #include "utils/options/OptionsCont.h"
 #include "microsim/MSVehicle.h"
 
@@ -75,6 +77,13 @@ public:
 class TraCIServer
 {
 public:
+
+	struct RoadMapPos {
+		std::string roadId;
+		float pos;
+		unsigned char laneId;
+	};
+
     // Constructor
     // Reads the needed parameters out of static OptionsCont
     TraCIServer();
@@ -140,7 +149,17 @@ private:
 
     void commandUpdateCalibrator(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
+	void commandPositionConversion(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+
     void writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description);
+
+	/**
+	 * Converts a cartesian position to the nearest road map position
+	 * 
+	 * @param pos	cartesian position that is to be converted
+	 * @return the nearest road map position to the cartesian position
+	 */
+	TraCIServer::RoadMapPos convertCartesianToRoadMap(Position2D pos);
 
     // port on which server is listening on
     int port_;

@@ -100,6 +100,11 @@ public:
     static SUMOReal DistancePointLine(const Position2D &Point,
                                       const Position2D &LineStart, const Position2D &LineEnd);
 
+	/** return the distance from point to line as well as the intersection point*/
+	static SUMOReal DistancePointLine(const Position2D &Point,
+                                      const Position2D &LineStart, const Position2D &LineEnd,
+									  Position2D& outIntersection);
+
     static Position2D transfer_to_side(Position2D &p,
                                        const Position2D &lineBeg, const Position2D &lineEnd,
                                        SUMOReal amount);

@@ -34,16 +34,15 @@
 #include "foreign/tcpip/socket.h"
 #include "foreign/tcpip/storage.h"
 #include "utils/common/SUMOTime.h"
+#include "utils/common/SUMODijkstraRouter.h"
 #include "microsim/MSNet.h"
 #include "microsim/MSVehicleControl.h"
 #include "microsim/MSVehicle.h"
-#include "utils/geom/Position2D.h"
 #include "microsim/MSEdge.h"
 #include "microsim/MSRouteHandler.h"
 #include "microsim/MSRouteLoaderControl.h"
 #include "microsim/MSRouteLoader.h"
 #include "microsim/traffic_lights/MSTLLogicControl.h"
-#include <utils/common/SUMODijkstraRouter.h>
 
 #include "microsim/MSEdgeControl.h"
 #include "microsim/MSLane.h"
@@ -53,6 +52,7 @@
 #include <map>
 #include <iostream>
 #include <cstdlib>
+#include <cfloat>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -178,6 +178,9 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
     case CMD_UPDATECALIBRATOR:
         commandUpdateCalibrator(requestMsg, respMsg);
         break;
+	case CMD_POSITIONCONVERSION:
+		commandPositionConversion(requestMsg, respMsg);
+		break;
     default:
         writeStatusCmd(respMsg, commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
         return false;
@@ -846,6 +849,24 @@ throw(TraCIException)
 /*****************************************************************************/
 
 void
+TraCIServer::commandPositionConversion(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
+throw(TraCIException)
+{
+
+	unsigned char posType = requestMsg.readUnsignedByte();
+	float x = requestMsg.readFloat();
+	float y = requestMsg.readFloat();
+	float z = requestMsg.readFloat();
+
+	RoadMapPos roadPos = convertCartesianToRoadMap(Position2D(x, y));
+	std::cerr << "TraCI: position conversion from: x=" << x << " y=" << y << " to: roadId=" << roadPos.roadId 
+		<< " pos=" << roadPos.pos << " laneId =" << roadPos.laneId;
+
+	writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_OK, "");	
+}
+/*****************************************************************************/
+
+void
 TraCIServer::writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description)
 {
     if (status == RTYPE_ERR) {
@@ -947,6 +968,70 @@ TraCIServer::getNetBoundary()
     netBoundary_->grow(0.1);
 
     return *netBoundary_;
+}
+
+/*****************************************************************************/
+
+TraCIServer::RoadMapPos
+TraCIServer::convertCartesianToRoadMap(Position2D pos) 
+{
+	RoadMapPos result;
+	std::vector<std::string> allEdgeIds;
+	MSEdge* edge;
+	Position2D lineStart;
+	Position2D lineEnd;
+	double minDistance = DBL_MAX;
+	SUMOReal newDistance;
+	Position2D intersection;
+
+	
+	allEdgeIds = MSNet::getInstance()->getEdgeControl().getEdgeNames();
+
+	// iterate through all known edges
+	for (std::vector<std::string>::iterator itId = allEdgeIds.begin(); itId != allEdgeIds.end(); itId++) {
+		edge = MSEdge::dictionary((*itId));
+		const MSEdge::LaneCont * const allLanes = edge->getLanes();
+
+		// iterate through all lanes of this edge
+		for (MSEdge::LaneCont::const_iterator itLane = allLanes->begin(); itLane != allLanes->end(); itLane++) {
+			Position2DVector shape = (*itLane)->getShape();
+			
+			// iterate through all segments of this lane's shape
+			for (int i = 0; i < shape.size()-1; i++) {
+				lineStart = shape[i];
+				lineEnd = shape[i+1];
+
+				// if this line is no candidate for lying nearer to the cartesian position 
+				// than the line determined so far, skip it
+				if ( (lineStart.y() > (pos.y()+minDistance) && lineEnd.y() > (pos.y()+minDistance))
+					|| (lineStart.y() < (pos.y()-minDistance) && lineEnd.y() < (pos.y()-minDistance))
+					|| (lineStart.x() > (pos.x()+minDistance) && lineEnd.x() > (pos.x()+minDistance))
+					|| (lineStart.x() < (pos.x()-minDistance) && lineEnd.x() < (pos.x()-minDistance)) ) {
+					continue;
+				} else {
+					// else compute the distance and check it
+					newDistance = GeomHelper::DistancePointLine(pos, lineStart, lineEnd, intersection);
+					if (newDistance < minDistance) {
+						// new distance is shorter
+						minDistance = newDistance;
+
+						// save the found road map position
+						result.roadId = (*itId);
+						result.laneId = 0;
+						while ((*itLane)->getRightLane() != NULL) {
+							result.laneId++;
+						}
+						result.pos = GeomHelper::distance(lineStart, intersection);
+						for (int j = 0; j < i; j++) {
+							result.pos += GeomHelper::distance(shape[j], shape[j+1]);
+						}
+					}
+				}
+			}
+		}
+	}
+
+	return result;
 }
 
 

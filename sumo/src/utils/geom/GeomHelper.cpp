@@ -371,6 +371,38 @@ GeomHelper::DistancePointLine(const Position2D &Point,
 
 
 
+SUMOReal 
+GeomHelper::DistancePointLine(const Position2D &Point,
+					const Position2D &LineStart, 
+					const Position2D &LineEnd,
+					Position2D& outIntersection) {
+	SUMOReal LineMag;
+    SUMOReal U;
+
+    LineMag = Magnitude(LineEnd, LineStart);
+
+    U = (((Point.x() - LineStart.x()) * (LineEnd.x() - LineStart.x())) +
+         ((Point.y() - LineStart.y()) * (LineEnd.y() - LineStart.y())) /*+
+                                            ( ( Point->Z - LineStart->Z ) * ( LineEnd->Z - LineStart->Z ) ) )*/
+        )
+        /
+        (LineMag * LineMag);
+
+    if (U < 0.0f || U > 1.0f)
+        return -1;   // closest point does not fall within the line segment
+
+	outIntersection.set(
+        LineStart.x() + U *(LineEnd.x() - LineStart.x()),
+        LineStart.y() + U *(LineEnd.y() - LineStart.y()));
+//    Intersection.Z = LineStart->Z + U * ( LineEnd->Z - LineStart->Z );
+
+    SUMOReal Distance = Magnitude(Point, outIntersection);
+
+    return Distance;
+}
+
+
+
 Position2D
 GeomHelper::transfer_to_side(Position2D &p,
                              const Position2D &lineBeg,
