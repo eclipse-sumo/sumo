@@ -852,17 +852,51 @@ void
 TraCIServer::commandPositionConversion(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
 throw(TraCIException)
 {
+	tcpip::Storage tmpResult;
+	RoadMapPos roadPos;
 
-	unsigned char posType = requestMsg.readUnsignedByte();
-	float x = requestMsg.readFloat();
-	float y = requestMsg.readFloat();
-	float z = requestMsg.readFloat();
+	// destination position type
+	unsigned char destPosType = requestMsg.readUnsignedByte();
 
-	RoadMapPos roadPos = convertCartesianToRoadMap(Position2D(x, y));
-	std::cerr << "TraCI: position conversion from: x=" << x << " y=" << y << " to: roadId=" << roadPos.roadId 
-		<< " pos=" << roadPos.pos << " laneId =" << roadPos.laneId;
+	// actual position type that will be converted
+	unsigned char srcPosType = requestMsg.readUnsignedByte();
 
+	if (srcPosType == POSITION_2D) {
+		// read 2d position
+		float x = requestMsg.readFloat();
+		float y = requestMsg.readFloat();
+		float z = requestMsg.readFloat();
+
+		// convert to destination type
+		switch (destPosType) {
+		case POSITION_ROADMAP:
+			roadPos = convertCartesianToRoadMap(Position2D(x, y));
+			std::cerr << "TraCI: position conversion from: x=" << x << " y=" << y << " to: roadId=" << roadPos.roadId 
+						<< " pos=" << roadPos.pos << " laneId =" << roadPos.laneId;
+
+			// write result that is added to response msg
+			tmpResult.writeUnsignedByte(1+1+1+ (4+roadPos.roadId.length()) +4+1);
+			tmpResult.writeUnsignedByte(CMD_POSITIONCONVERSION);
+			tmpResult.writeUnsignedByte(POSITION_ROADMAP);
+			tmpResult.writeString(roadPos.roadId);
+			tmpResult.writeFloat(roadPos.pos);
+			tmpResult.writeUnsignedByte(roadPos.laneId);
+			break;	
+		default:
+			writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, 
+							"Destination position type not supported");
+			return;
+		}
+	} else {
+		writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, 
+					"Destination position type not supported");
+		return;
+	}
+
+	// write response message
 	writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_OK, "");	
+	// add converted Position to response
+	respMsg.writeStorage(tmpResult);
 }
 /*****************************************************************************/
 
@@ -1002,7 +1036,7 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos)
 				lineStart = shape[i];
 				lineEnd = shape[i+1];
 
-				// if this line is no candidate for lying nearer to the cartesian position 
+				// if this line is no candidate for lying closer to the cartesian position 
 				// than the line determined so far, skip it
 				if ( (lineStart.y() > (pos.y()+minDistance) && lineEnd.y() > (pos.y()+minDistance))
 					|| (lineStart.y() < (pos.y()-minDistance) && lineEnd.y() < (pos.y()-minDistance))

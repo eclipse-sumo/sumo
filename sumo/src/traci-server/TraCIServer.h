@@ -154,10 +154,10 @@ private:
     void writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description);
 
 	/**
-	 * Converts a cartesian position to the nearest road map position
+	 * Converts a cartesian position to the closest road map position
 	 * 
 	 * @param pos	cartesian position that is to be converted
-	 * @return the nearest road map position to the cartesian position
+	 * @return the closest road map position to the cartesian position
 	 */
 	TraCIServer::RoadMapPos convertCartesianToRoadMap(Position2D pos);
 
