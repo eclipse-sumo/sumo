@@ -983,6 +983,7 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos)
 	double minDistance = DBL_MAX;
 	SUMOReal newDistance;
 	Position2D intersection;
+	MSLane* tmpLane;
 
 	
 	allEdgeIds = MSNet::getInstance()->getEdgeControl().getEdgeNames();
@@ -1010,15 +1011,16 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos)
 					continue;
 				} else {
 					// else compute the distance and check it
-					newDistance = GeomHelper::DistancePointLine(pos, lineStart, lineEnd, intersection);
-					if (newDistance < minDistance) {
+					newDistance = GeomHelper::closestDistancePointLine(pos, lineStart, lineEnd, intersection);
+					if (newDistance < minDistance && newDistance != -1.0) {
 						// new distance is shorter
 						minDistance = newDistance;
 
 						// save the found road map position
 						result.roadId = (*itId);
 						result.laneId = 0;
-						while ((*itLane)->getRightLane() != NULL) {
+						tmpLane = (*itLane);
+						while ( (tmpLane =tmpLane->getRightLane()) != NULL) {
 							result.laneId++;
 						}
 						result.pos = GeomHelper::distance(lineStart, intersection);

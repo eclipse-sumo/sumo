@@ -341,10 +341,9 @@ GeomHelper::Magnitude(const Position2D &Point1,
 SUMOReal
 GeomHelper::DistancePointLine(const Position2D &Point,
                               const Position2D &LineStart,
-                              const Position2D &LineEnd
-                              /*SUMOReal &Distance */)
+                              const Position2D &LineEnd)
 {
-    SUMOReal LineMag;
+	SUMOReal LineMag;
     SUMOReal U;
 
     LineMag = Magnitude(LineEnd, LineStart);
@@ -372,29 +371,37 @@ GeomHelper::DistancePointLine(const Position2D &Point,
 
 
 SUMOReal 
-GeomHelper::DistancePointLine(const Position2D &Point,
+GeomHelper::closestDistancePointLine(const Position2D &Point,
 					const Position2D &LineStart, 
 					const Position2D &LineEnd,
 					Position2D& outIntersection) {
-	SUMOReal LineMag;
+	Position2D directVec;
+	SUMOReal sProduct;
     SUMOReal U;
 
-    LineMag = Magnitude(LineEnd, LineStart);
+	directVec.set(LineEnd.x()-LineStart.x(), LineEnd.y()-LineStart.y());
+	sProduct = (directVec.x() * directVec.x() +
+				directVec.y() * directVec.y());
 
-    U = (((Point.x() - LineStart.x()) * (LineEnd.x() - LineStart.x())) +
-         ((Point.y() - LineStart.y()) * (LineEnd.y() - LineStart.y())) /*+
-                                            ( ( Point->Z - LineStart->Z ) * ( LineEnd->Z - LineStart->Z ) ) )*/
+    U = (((Point.x() - LineStart.x()) * directVec.x()) +
+         ((Point.y() - LineStart.y()) * directVec.y())
         )
         /
-        (LineMag * LineMag);
+		sProduct;
 
-    if (U < 0.0f || U > 1.0f)
-        return -1;   // closest point does not fall within the line segment
-
+	// if closest point does not fall within the line segment
+	// return line start or line end
+	if (U < 0.0f) {
+		outIntersection = LineStart;
+	}
+	if (U > 1.0f) {
+		outIntersection = LineEnd;
+		
+	}else {
 	outIntersection.set(
-        LineStart.x() + U *(LineEnd.x() - LineStart.x()),
-        LineStart.y() + U *(LineEnd.y() - LineStart.y()));
-//    Intersection.Z = LineStart->Z + U * ( LineEnd->Z - LineStart->Z );
+        LineStart.x() + U * directVec.x(),
+        LineStart.y() + U * directVec.y());
+	}
 
     SUMOReal Distance = Magnitude(Point, outIntersection);
 

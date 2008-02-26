@@ -100,8 +100,11 @@ public:
     static SUMOReal DistancePointLine(const Position2D &Point,
                                       const Position2D &LineStart, const Position2D &LineEnd);
 
-	/** return the distance from point to line as well as the intersection point*/
-	static SUMOReal DistancePointLine(const Position2D &Point,
+	/** 
+	 * Return the distance from point to line as well as the intersection point.
+	 * If intersection does not lie within the line segment, the  start or end point of the segment is returned
+	 */
+	static SUMOReal closestDistancePointLine(const Position2D &Point,
                                       const Position2D &LineStart, const Position2D &LineEnd,
 									  Position2D& outIntersection);
 
