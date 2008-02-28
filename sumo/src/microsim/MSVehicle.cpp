@@ -348,9 +348,12 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
                 }
                 if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                     bstop.reached = true;
-                    if (bstop.duration==-1) {
-                        assert(bstop.until>=0);
-                        bstop.duration = bstop.until - MSNet::getInstance()->getCurrentTimeStep();
+                    if(bstop.until>=0) {
+                        if (bstop.duration==-1) {
+                            bstop.duration = bstop.until - MSNet::getInstance()->getCurrentTimeStep();
+                        } else {
+                            bstop.duration = MAX2(bstop.duration, bstop.until - MSNet::getInstance()->getCurrentTimeStep());
+                        }
                     }
                     if (bstop.busstop!=0) {
                         bstop.busstop->enter(this, myState.pos(), myState.pos()-myType->getLength());
@@ -548,9 +551,12 @@ MSVehicle::moveFirstChecked()
                 }
                 if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
                     bstop.reached = true;
-                    if (bstop.duration==-1) {
-                        assert(bstop.until>=0);
-                        bstop.duration = bstop.until - MSNet::getInstance()->getCurrentTimeStep();
+                    if(bstop.until>=0) {
+                        if (bstop.duration==-1) {
+                            bstop.duration = bstop.until - MSNet::getInstance()->getCurrentTimeStep();
+                        } else {
+                            bstop.duration = MAX2(bstop.duration, bstop.until - MSNet::getInstance()->getCurrentTimeStep());
+                        }
                     }
                     if (bstop.busstop!=0) {
                         bstop.busstop->enter(this, myState.pos(), myState.pos()-myType->getLength());
@@ -1518,9 +1524,15 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
         q.length = qqq->length();
         q.alllength = 0;
         q.joined.push_back(qqq);
+
+        bool stopForbids = false;
+        if(!myStops.empty()&&myStops.front().lane->getEdge()==qqq->getEdge()) {
+            stopForbids = (myStops.front().lane!=qqq);
+        }
+
         // check whether the lane is allowed for route continuation (has a link to the next
         //  edge in route)
-        if (allowed==0||find(allowed->begin(), allowed->end(), (*k)->getLane())!=allowed->end()) {
+        if (!stopForbids && (allowed==0||find(allowed->begin(), allowed->end(), (*k)->getLane())!=allowed->end())) {
             // yes -> compute the best lane combination for consecutive lanes
             gotOne = true;
             rebuildContinuationsFor(q, qqq, ce, seen+1);
@@ -1642,6 +1654,9 @@ MSVehicle::getBestLanes() const
         //q.alllength = q.lane->length();
         q.hindernisPos = 0;//q.lane->getVehLenSum();
         q.t1 = allowed==0||find(allowed->begin(), allowed->end(), q.lane)!=allowed->end();
+        if(!myStops.empty()&&myStops.front().lane->getEdge()==q.lane->getEdge()) {
+            q.t1 &= (myStops.front().lane==q.lane);
+        }
         myBestLanes[0].push_back(q);
     }
     if (ce!=myRoute->end()) {

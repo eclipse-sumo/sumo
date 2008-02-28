@@ -174,9 +174,9 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         if (!hasAttribute(attrs, SUMO_ATTR_DURATION) && !hasAttribute(attrs, SUMO_ATTR_UNTIL)) {
             MsgHandler::getErrorInstance()->inform("The duration of a stop is not defined.");
             return;
-        } else if (hasAttribute(attrs, SUMO_ATTR_DURATION)) {
+        } else {
             try {
-                stop.duration = (SUMOTime) getFloat(attrs, SUMO_ATTR_DURATION); // time-parser
+                stop.duration = (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_DURATION, -1); // time-parser
             } catch (EmptyData&) {
                 MsgHandler::getErrorInstance()->inform("The duration of a stop is empty.");
                 return;
@@ -184,14 +184,17 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
                 MsgHandler::getErrorInstance()->inform("The duration of a stop is not numeric.");
                 return;
             }
-        } else {
             try {
-                stop.until = (SUMOTime) getFloat(attrs, SUMO_ATTR_UNTIL); // time-parser
+                stop.until = (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_UNTIL, -1); // time-parser
             } catch (EmptyData&) {
-                MsgHandler::getErrorInstance()->inform("The duration of a stop is empty.");
+                MsgHandler::getErrorInstance()->inform("The end time of a stop is empty.");
                 return;
             } catch (NumberFormatException&) {
-                MsgHandler::getErrorInstance()->inform("The duration of a stop is not numeric.");
+                MsgHandler::getErrorInstance()->inform("The end time of a stop is not numeric.");
+                return;
+            }
+            if(stop.duration<0&&stop.until<0) {
+                MsgHandler::getErrorInstance()->inform("Neither the duration nor the end time is given for a stop.");
                 return;
             }
         }
