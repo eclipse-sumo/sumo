@@ -88,7 +88,7 @@ fillOptions()
     oc.addOptionSubTopic("Report");
 
 
-    // register the file i/o options
+    // register the file input options
     oc.doRegister("net-file", 'n', new Option_FileName());
     oc.addSynonyme("net-file", "net");
     oc.addDescription("net-file", "Input", "Loads network (districts) from FILE");
@@ -101,6 +101,7 @@ fillOptions()
     oc.addDescription("vissim", "Input", "Uses FILE to determine which O/D-matrices to load");
 
 
+    // register the file output options
     oc.doRegister("output-file", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "output");
     oc.addDescription("output-file", "Output", "Writes trip definitions into FILE");

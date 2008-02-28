@@ -71,8 +71,12 @@ class OutputDevice;
 class ODMatrix
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     *
+     * @param[in] dc The district container to obtain referenced distrivts from
+     */
     ODMatrix(const ODDistrictCont &dc) throw();
+
 
     /// Destructor
     ~ODMatrix() throw();
