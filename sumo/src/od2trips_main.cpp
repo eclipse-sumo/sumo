@@ -271,7 +271,7 @@ getNextNonCommentLine(LineReader &lr)
     do {
         line = lr.readLine();
         if (line[0]!='*') {
-            return line;
+            return StringUtils::prune(line);
         }
     } while (lr.good());
     throw ProcessError();
