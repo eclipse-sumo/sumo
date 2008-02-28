@@ -1,0 +1,42 @@
+<?xml version="1.0"?>
+
+<!-- generated on 02/14/08 11:20:29 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>three_split.net.xml</net-file>
+      <additional-files>input_routes.rou.xml</additional-files>
+   </input>
+
+   <output>
+      <tripinfo-output>tripinfos.xml</tripinfo-output>
+   </output>
+
+   <time>
+      <begin>0</begin>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+   <routing>
+      <device.routing.knownveh>0,2,4,6,8</device.routing.knownveh>
+   </routing>
+
+</configuration>
+-->
+
+<tripinfos>
+   <tripinfo vehicle_id="0" start="0" wished="0" end="77" duration="77" waited="0" reroutes="1" devices="routing_0" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="2" start="40" wished="40" end="117" duration="77" waited="0" reroutes="1" devices="routing_2" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="4" start="80" wished="80" end="157" duration="77" waited="0" reroutes="1" devices="routing_4" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="1" start="20" wished="20" end="193" duration="173" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="6" start="120" wished="120" end="197" duration="77" waited="0" reroutes="1" devices="routing_6" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="3" start="60" wished="60" end="233" duration="173" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="8" start="160" wished="160" end="237" duration="77" waited="0" reroutes="1" devices="routing_8" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="5" start="100" wished="100" end="273" duration="173" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="7" start="140" wished="140" end="313" duration="173" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="9" start="180" wished="180" end="353" duration="173" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+</tripinfos>

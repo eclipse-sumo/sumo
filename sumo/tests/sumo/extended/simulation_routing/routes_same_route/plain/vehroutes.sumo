@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+
+<!-- generated on 02/14/08 09:32:47 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>three_split.net.xml</net-file>
+      <additional-files>input_routes.rou.xml</additional-files>
+   </input>
+
+   <output>
+      <vehroute-output>vehroutes.xml</vehroute-output>
+   </output>
+
+   <time>
+      <begin>0</begin>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+   <routing>
+      <device.routing.probability>1</device.routing.probability>
+   </routing>
+
+</configuration>
+-->
+
+<vehicleroutes>
+   <vehicle id="0" emittedAt="0" endedAt="77">
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_0" emittedAt="20" endedAt="83">
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_1" emittedAt="40" endedAt="117">
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_2" emittedAt="60" endedAt="123">
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_3" emittedAt="80" endedAt="157">
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_4" emittedAt="100" endedAt="163">
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_5" emittedAt="120" endedAt="197">
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_6" emittedAt="140" endedAt="203">
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_7" emittedAt="160" endedAt="237">
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_8" emittedAt="180" endedAt="243">
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_9" emittedAt="200" endedAt="277">
+      <route>beg middle end rend</route>
+   </vehicle>
+
+</vehicleroutes>

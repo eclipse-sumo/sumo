@@ -1,0 +1,14 @@
+<triggeredsource>
+
+	<emit time="0" speed="10" route="0"/>
+	<emit time="20" speed="10" route="1"/>
+	<emit time="40" speed="10" route="2"/>
+	<emit time="60" speed="10" route="3"/>
+	<emit time="80" speed="10" route="4"/>
+	<emit time="100" speed="10" route="5"/>
+	<emit time="120" speed="10" route="6"/>
+	<emit time="140" speed="10" route="7"/>
+	<emit time="160" speed="10" route="8"/>
+	<emit time="180" speed="10" route="8"/>
+
+</triggeredsource>

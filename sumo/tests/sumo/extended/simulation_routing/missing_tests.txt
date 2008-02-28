@@ -1,0 +1,7 @@
+Tests for
+- device.routing.deterministic
+- device.routing.period
+- device.routing.adaptation-weight
+
+- device.routing.knownveh divided by ';'
+- negative device.routing.probability

@@ -1,0 +1,8 @@
+<routes>
+	<vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0" length="5" maxspeed="70"/>
+
+	<vehicle id="0" depart="0" period="20" repno="10">
+		<route>beg beg2right right right2end end rend</route>
+	</vehicle>
+
+</routes>

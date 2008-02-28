@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+
+<!-- generated on 02/14/08 09:45:11 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>three_split.net.xml</net-file>
+      <additional-files>input_routes.rou.xml</additional-files>
+   </input>
+
+   <output>
+      <vehroute-output>vehroutes.xml</vehroute-output>
+   </output>
+
+   <time>
+      <begin>0</begin>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+   <routing>
+      <device.routing.probability>1</device.routing.probability>
+   </routing>
+
+</configuration>
+-->
+
+<vehicleroutes>
+   <vehicle id="0" emittedAt="0" endedAt="77">
+      <route replacedOnEdge="beg"  replacedAtTime="0">beg beg2right right right2end end rend</route>
+
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_0" emittedAt="20" endedAt="83">
+      <route replacedOnEdge="beg"  replacedAtTime="20">beg beg2right right right2end end rend</route>
+
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_1" emittedAt="40" endedAt="117">
+      <route replacedOnEdge="beg"  replacedAtTime="40">beg beg2right right right2end end rend</route>
+
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_2" emittedAt="60" endedAt="123">
+      <route replacedOnEdge="beg"  replacedAtTime="60">beg beg2right right right2end end rend</route>
+
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_3" emittedAt="80" endedAt="157">
+      <route replacedOnEdge="beg"  replacedAtTime="80">beg beg2right right right2end end rend</route>
+
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_4" emittedAt="100" endedAt="163">
+      <route replacedOnEdge="beg"  replacedAtTime="100">beg beg2right right right2end end rend</route>
+
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_5" emittedAt="120" endedAt="197">
+      <route replacedOnEdge="beg"  replacedAtTime="120">beg beg2right right right2end end rend</route>
+
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_6" emittedAt="140" endedAt="203">
+      <route replacedOnEdge="beg"  replacedAtTime="140">beg beg2right right right2end end rend</route>
+
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_7" emittedAt="160" endedAt="237">
+      <route replacedOnEdge="beg"  replacedAtTime="160">beg beg2right right right2end end rend</route>
+
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_8" emittedAt="180" endedAt="243">
+      <route replacedOnEdge="beg"  replacedAtTime="180">beg beg2right right right2end end rend</route>
+
+      <route>beg middle end rend</route>
+   </vehicle>
+
+   <vehicle id="0_9" emittedAt="200" endedAt="277">
+      <route replacedOnEdge="beg"  replacedAtTime="200">beg beg2right right right2end end rend</route>
+
+      <route>beg middle end rend</route>
+   </vehicle>
+
+</vehicleroutes>
