@@ -18,3 +18,7 @@ wauts
 
 # Tests whether stops work
 stops
+
+# "one shot" in-simulation vehicle routing
+simulation_routing
+
