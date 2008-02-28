@@ -7,6 +7,10 @@ closing_b0_off0
 # Closure begins at 100, simulation at 0
 closing_b0_off100
 
+# Closure begins at 50, simulation at 0, closure ends at 100
+closing_b50_e100_off0
+
+
 # Closure begins at 0, simulation at 100
 closing_b100_off0
 

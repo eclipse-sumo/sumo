@@ -1,0 +1,5 @@
+<rerouter>
+	<interval begin="50" end="100">
+		<closing_reroute id="middle"/>
+	</interval>
+</rerouter>

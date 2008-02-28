@@ -1,8 +1,8 @@
-# Ordered list of tests in test suite. Add as appropriate
-
-
 # Rerouting begins at 0, simulation at 0; two destinations
 dest_b0_off0
+
+# Rerouting begins at 50, ends at 100, simulation begins at 0; two destinations
+dest_b50_e100_off0
 
 # Rerouting begins at 100, simulation at 0; two destinations
 dest_b0_off100
