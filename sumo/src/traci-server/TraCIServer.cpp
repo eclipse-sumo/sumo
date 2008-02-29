@@ -453,25 +453,27 @@ throw(TraCIException)
     }
 
 	// Forward command to vehicle
-	const MSEdge* const road = veh->getEdge();
+	/*const MSEdge* const road = veh->getEdge();
     const MSEdge::LaneCont* const allLanes = road->getLanes();
 	if (laneIndex >= allLanes->size()) {
         writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "No lane existing with such id on the current road");
-    }
+    }*/
 
-	int index = 0;
+	/*int index = 0;
 	MSLane* actLane = (*allLanes)[0];
 	while (road->rightLane(actLane) != NULL) {
 		actLane = road->rightLane(actLane);
 		index++;
-	}
+	}*/
+
+	veh->startLaneChange(laneIndex, stickyTime);
 	
-	if (index < laneIndex) {
+	/*if (index < laneIndex) {
 		veh->forceLaneChangeLeft(laneIndex - index, stickyTime);
 	}
 	if (index > laneIndex) {
 		veh->forceLaneChangeRight(index - laneIndex, stickyTime);
-	}
+	}*/
 
     // create a reply message
     writeStatusCmd(respMsg, CMD_CHANGELANE, RTYPE_OK, "");
@@ -872,7 +874,7 @@ throw(TraCIException)
 		case POSITION_ROADMAP:
 			roadPos = convertCartesianToRoadMap(Position2D(x, y));
 			std::cerr << "TraCI: position conversion from: x=" << x << " y=" << y << " to: roadId=" << roadPos.roadId 
-						<< " pos=" << roadPos.pos << " laneId =" << roadPos.laneId;
+				<< " pos=" << roadPos.pos << " laneId =" << roadPos.laneId << std::endl;
 
 			// write result that is added to response msg
 			tmpResult.writeUnsignedByte(1+1+1+ (4+roadPos.roadId.length()) +4+1);
@@ -889,7 +891,7 @@ throw(TraCIException)
 		}
 	} else {
 		writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, 
-					"Destination position type not supported");
+					"Source position type not supported");
 		return;
 	}
 

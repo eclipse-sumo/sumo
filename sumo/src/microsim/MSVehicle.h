@@ -581,18 +581,31 @@ public:
 	void checkLaneChangeConstraint(SUMOTime time);
 
 	/**
+	 * After each changed lane, check if the lane requested by TraCI command "changeLane"
+	 * is reached and request for more changes if necessary.
+	 */
+	void checkForLaneChanges();
+
+	/**
+	 * Initiate a lane change requested by TraCI command "changeLane".
+	 * @param lane	the lane index within the current edge, that is the destination of the change
+	 * @param stickyTime	duration for wich the constraint takes effect
+	 */ 
+	void startLaneChange(int lane, SUMOTime stickyTime);
+
+	/**
 	 * Forces the vehicle to change the given number of lanes to the right side
 	 * @param numLanes number of lanes that shall be passed
 	 * @param stickyTime duration for wich the lane change constraint takes effect
 	 */
-	void forceLaneChangeRight(int numLanes, SUMOTime stickyTime);
+	//void forceLaneChangeRight(int numLanes, SUMOTime stickyTime);
 
 	/**
 	 * Forces the vehicle to change the given number of lanes to the left side
 	 * @param numLanes number of lanes that shall be passed
 	 * @param stickyTime duration for wich the lane change constraint takes effect
 	 */
-	void forceLaneChangeLeft(int numLanes, SUMOTime stickyTime);
+	//void forceLaneChangeLeft(int numLanes, SUMOTime stickyTime);
 
 	/**
 	 * takes all action necessary during a simulation step to process any active command sent by TraCI 
@@ -758,7 +771,7 @@ private:
 		SUMOTime remainingTime;
 		bool reached;
 
-		/* stops may be sorted by their position */
+		/* stops are sorted by their position */
 		bool operator<(TraciStop arg) {
 			return ( (pos-radius) < (arg.pos - arg.radius) );
 		}
@@ -768,7 +781,7 @@ private:
 	typedef std::list<TraciStop> TraciStopList;
 	std::map<std::string, TraciStopList> myTraciStops;
 
-	/* iterator pointing to the nearest stop on the current lane, if any*/
+	/* iterator pointing to the closest, not yet passed stop on the current lane, if any*/
 	TraciStopList::iterator nextTraciStop;
 
     bool myHaveRouteInfo;
@@ -808,8 +821,11 @@ private:
 	/* simulation time when the last lane change was forced */
 	SUMOTime timeBeforeLaneChange;
 
-	/* duration for which the forced lane change will be in effect */
+	/* duration for which the last lane change will be in effect */
 	SUMOTime laneChangeStickyTime;
+
+	/* lane index of the destination road map position for an active lane change*/
+	int destinationLane;
 	
 	/* true if any forced lane change is in effect*/
 	bool laneChangeConstraintActive;

@@ -112,6 +112,7 @@ public:
         return myChangeProbability;
     }
 
+
 protected:
     /*
     void unblockLeader();

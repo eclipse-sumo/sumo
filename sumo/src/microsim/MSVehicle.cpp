@@ -209,7 +209,8 @@ MSVehicle::MSVehicle(string id,
         adaptDuration(0),
 		timeBeforeLaneChange(0),
 		laneChangeStickyTime(0),
-		laneChangeConstraintActive(false)
+		laneChangeConstraintActive(false),
+		destinationLane(0)
 #endif
 {
     rebuildAllowedLanes();
@@ -1019,6 +1020,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven)
 	if (myTraciStops.find(enteredLane->getID()) != myTraciStops.end()) {
 		nextTraciStop = myTraciStops[enteredLane->getID()].begin();
 	}
+	checkForLaneChanges();
 #endif
 }
 
@@ -1041,6 +1043,8 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane)
 	if (myTraciStops.find(enteredLane->getID()) != myTraciStops.end()) {
 		nextTraciStop = myTraciStops[enteredLane->getID()].begin();
 	}
+	// check if further changes are necessary
+	checkForLaneChanges();
 #endif
 }
 
@@ -1986,7 +1990,7 @@ MSVehicle::checkLaneChangeConstraint(SUMOTime time) {
   }
 
 	if ((time - timeBeforeLaneChange) >= laneChangeStickyTime) {
-		myLaneChangeModel->setTraciState(0);
+		//myLaneChangeModel->setTraciState(0);
 		laneChangeConstraintActive = false;
 		//std::cerr << "TraCi: lane change constraint reset at " << time << std::endl;
 		//std::cerr << "TraCi: laneChanger new traciState: " << myLaneChangeModel->getTraciState() << std::endl;
@@ -1994,42 +1998,83 @@ MSVehicle::checkLaneChangeConstraint(SUMOTime time) {
 }
 
 /****************************************************************************/
-void 
-MSVehicle::forceLaneChangeRight(int numLanes, SUMOTime stickyTime) {
-	int newState = 0;
 
-	//std::cerr << "TraCI: forceLaneChangeRight: " << numLanes << " lanes for " << stickyTime << "s" << std::endl;
-	if (numLanes <= 0) {
+void 
+MSVehicle::startLaneChange(int lane, SUMOTime stickyTime) {
+	if (lane < 0) {
 		return;
 	}
-
-	newState = TLCA_REQUEST_RIGHT;
-	myLaneChangeModel->setTraciState(newState);
-
 	timeBeforeLaneChange = MSNet::getInstance()->getCurrentTimeStep();
 	laneChangeStickyTime = stickyTime;
-	
 	laneChangeConstraintActive = true;
+
+	checkForLaneChanges();
 }
 
 /****************************************************************************/
+
 void 
-MSVehicle::forceLaneChangeLeft(int numLanes, SUMOTime stickyTime) {
-	int newState = 0;
-	
-	//std::cerr << "TraCI: forceLaneChangeLeft: " << numLanes << " lanes for " << stickyTime << "s" << std::endl;
-	if (numLanes <= 0) {
+MSVehicle::checkForLaneChanges() {
+	MSLane* tmpLane;
+	int currentLaneIndex = 0;
+
+	if (!laneChangeConstraintActive) {
+		return;
+	}
+	if ((*myCurrEdge)->nLanes() <= destinationLane) {
+		laneChangeConstraintActive = false;
 		return;
 	}
 
-	newState = TLCA_REQUEST_LEFT;
-	myLaneChangeModel->setTraciState(newState);
-
-	timeBeforeLaneChange = MSNet::getInstance()->getCurrentTimeStep();
-	laneChangeStickyTime = stickyTime;
-	
-	laneChangeConstraintActive = true;
+	tmpLane = myLane;
+	while ( (tmpLane =tmpLane->getRightLane()) != NULL) {
+		currentLaneIndex++;
+	}
+	if (currentLaneIndex > destinationLane) {
+		myLaneChangeModel->requestLaneChange(REQUEST_RIGHT);
+	}
+	if (currentLaneIndex < destinationLane) {
+		myLaneChangeModel->requestLaneChange(REQUEST_LEFT);
+	}
 }
+
+/****************************************************************************/
+//void 
+//MSVehicle::forceLaneChangeRight(int numLanes, SUMOTime stickyTime) {
+//	int newState = 0;
+//
+//	//std::cerr << "TraCI: forceLaneChangeRight: " << numLanes << " lanes for " << stickyTime << "s" << std::endl;
+//	if (numLanes <= 0) {
+//		return;
+//	}
+//
+//	newState = TLCA_REQUEST_RIGHT;
+//	myLaneChangeModel->setTraciState(newState);
+//
+//	timeBeforeLaneChange = MSNet::getInstance()->getCurrentTimeStep();
+//	laneChangeStickyTime = stickyTime;
+//	
+//	laneChangeConstraintActive = true;
+//}
+
+/****************************************************************************/
+//void 
+//MSVehicle::forceLaneChangeLeft(int numLanes, SUMOTime stickyTime) {
+//	int newState = 0;
+//	
+//	//std::cerr << "TraCI: forceLaneChangeLeft: " << numLanes << " lanes for " << stickyTime << "s" << std::endl;
+//	if (numLanes <= 0) {
+//		return;
+//	}
+//
+//	newState = TLCA_REQUEST_LEFT;
+//	myLaneChangeModel->setTraciState(newState);
+//
+//	timeBeforeLaneChange = MSNet::getInstance()->getCurrentTimeStep();
+//	laneChangeStickyTime = stickyTime;
+//	
+//	laneChangeConstraintActive = true;
+//}
 
 /****************************************************************************/
 void

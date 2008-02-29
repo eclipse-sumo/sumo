@@ -146,25 +146,6 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         }
     }
 
-#ifdef TRACI
-	// If a lane change to the right was forced via TraCI command, the current lane must
-	// be changed in any case. If the requested change was performed already, but the constraint
-	// is still in effect, the lane must not be changed until the constraint is removed 
-	// (e.g. the constraint time has passed)
-	if ( (myTraciState & TLCA_REQUEST_RIGHT) || (myTraciState & TLCA_REQUEST_LEFT) ) {
-		//std::cerr << "TraCi: TLCA_REQUEST_RIGHT active" << std::endl;
-		//std::cerr << "TraCi: laneChanger traciState: " << myTraciState << std::endl;
-		if ( ((myTraciState & TLCA_HAS_CHANGEDRIGHT) == 0) && (myTraciState & TLCA_REQUEST_RIGHT) ) {
-			ret = LCA_RIGHT;
-			myTraciState |= TLCA_HAS_CHANGEDRIGHT;
-			//std::cerr << "TraCi: change prepared" << std::endl;
-			//std::cerr << "TraCi: laneChanger new traciState: " << myTraciState << std::endl;
-		}
-
-		return ret;
-	}
-#endif
-
     // we try to estimate the distance which is necessary to get on a lane
     //  we have to get on in order to keep our route
     // we assume we need something that depends on our velocity
@@ -301,6 +282,11 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
         return ret | LCA_RIGHT|LCA_SPEEDGAIN;
     }
     // --------
+
+	// If there is a request, try to change the lane
+	if (myChangeRequest == REQUEST_RIGHT) {
+		return ret | LCA_RIGHT;
+	}
     return ret;
 }
 
@@ -376,25 +362,6 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
             }
         }
     }
-
-#ifdef TRACI
-	// If a lane change to the left was forced via TraCI command, the current lane must
-	// be changed in any case. If the requested change was performed already, but the constraint
-	// is still in effect, the lane must not be changes until the constraint is removed 
-	// (e.g. the constraint time has passed)
-	if ( (myTraciState & TLCA_REQUEST_LEFT) || (myTraciState & TLCA_REQUEST_RIGHT) ) {
-		//std::cerr << "TraCi: TLCA_REQUEST_LEFT active" << std::endl;
-		//std::cerr << "TraCi: laneChanger traciState: " << myTraciState << std::endl;
-		if ( ((myTraciState & TLCA_HAS_CHANGEDLEFT) == 0) && (myTraciState & TLCA_REQUEST_LEFT)) {
-			ret = LCA_LEFT;
-			myTraciState |= TLCA_HAS_CHANGEDLEFT;
-			//std::cerr << "TraCi: change prepared" << std::endl;
-			//std::cerr << "TraCi: laneChanger new traciState: " << myTraciState << std::endl;
-		}
-
-		return ret;
-	}
-#endif
 
     // we try to estimate the distance which is necessary to get on a lane
     //  we have to get on in order to keep our route
@@ -531,6 +498,12 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
         return ret | LCA_LEFT|LCA_SPEEDGAIN|LCA_URGENT;
     }
     // --------
+
+	// If there is a request, try to change the lane
+	if (myChangeRequest == REQUEST_LEFT) {
+		return ret | LCA_LEFT;
+	}
+
     return ret;
 }
 
@@ -697,7 +670,6 @@ MSLCM_DK2004::getProb() const
 {
     return myChangeProbability;
 }
-
 
 
 /****************************************************************************/

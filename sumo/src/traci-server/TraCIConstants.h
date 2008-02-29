@@ -63,7 +63,7 @@
 #define CMD_GETTLSTATUS 0x41
 
 // command: slow down
-#define CMD_SLOWDOWN 0x60
+#define CMD_SLOWDOWN 0x60 // -> 0x14
 
 // command: report traffic light id
 #define CMD_TLIDLIST 0x90

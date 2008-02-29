@@ -166,6 +166,10 @@ MSLaneChanger::change()
         vehicle->myLastLaneChangeOffset = 0;
         vehicle->getLaneChangeModel().changed();
         (myCandi - 1)->dens += (myCandi - 1)->hoppedVeh->getLength();
+#ifdef TRACI
+		// inform model about this change
+		vehicle->getLaneChangeModel().fulfillChangeRequest(REQUEST_RIGHT);
+#endif
         return true;
     }
     if ((state1&LCA_RIGHT)!=0&&(state1&LCA_URGENT)!=0) {
@@ -192,6 +196,10 @@ MSLaneChanger::change()
         vehicle->myLastLaneChangeOffset = 0;
         vehicle->getLaneChangeModel().changed();
         (myCandi + 1)->dens += (myCandi + 1)->hoppedVeh->getLength();
+#ifdef TRACI
+		// inform model about this change
+		vehicle->getLaneChangeModel().fulfillChangeRequest(REQUEST_LEFT);
+#endif
         return true;
     }
     if ((state2&LCA_LEFT)!=0&&(state2&LCA_URGENT)!=0) {

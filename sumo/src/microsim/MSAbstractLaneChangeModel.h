@@ -49,14 +49,11 @@ enum LaneChangeAction {
     LCA_MAX = 128
 };
 
-#ifdef TRACI
-enum TraciLaneChangeAction {
-	TLCA_REQUEST_RIGHT = 1,
-	TLCA_REQUEST_LEFT = 2,
-	TLCA_HAS_CHANGEDRIGHT = 4,
-	TLCA_HAS_CHANGEDLEFT = 8
+enum ChangeRequest {
+	REQUEST_NONE,
+	REQUEST_LEFT,
+	REQUEST_RIGHT
 };
-#endif
 
 // ===========================================================================
 // class definitions
@@ -102,7 +99,7 @@ public:
     MSAbstractLaneChangeModel(MSVehicle &v)
             : myVehicle(v), myState(0)
 #ifdef TRACI
-			, myTraciState(0) 
+			,myChangeRequest(REQUEST_NONE)
 #endif
 	{ }
 
@@ -115,16 +112,6 @@ public:
     void setState(int state) {
         myState = state;
     }
-
-#ifdef TRACI
-	int getTraciState() const {
-        return myTraciState;
-    }
-
-    void setTraciState(int state) {
-        myTraciState = state;
-    }
-#endif
 
     virtual void prepareStep() { }
 
@@ -157,7 +144,31 @@ public:
     virtual SUMOReal patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max,
                                 SUMOReal vsafe) = 0;
 
-    virtual void changed() = 0;
+	virtual void changed() = 0;
+
+#ifdef TRACI
+	/**
+	 * The vehicle is requested to change the lane as soon as possible
+	 * without violating any directives defined by this lane change model
+	 *
+	 * @param request	indicates the requested change
+	 */
+	virtual void requestLaneChange(ChangeRequest request) {
+		myChangeRequest = request;
+	};
+
+	/**
+	 * Inform the model that a certain lane change request has been fulfilled
+	 * by the lane changer, so the request won't be taken into account the next time.
+	 *
+	 * @param request	indicates the request that was fulfilled
+	 */
+	virtual void fulfillChangeRequest(ChangeRequest request) {
+		if (request == myChangeRequest) {
+			myChangeRequest = REQUEST_NONE;
+		}
+	}
+#endif
 
 protected:
     virtual bool congested(const MSVehicle * const neighLeader) {
@@ -195,8 +206,9 @@ protected:
 protected:
     MSVehicle &myVehicle;
     int myState;
-	int myTraciState;
-
+#ifdef TRACI
+	ChangeRequest myChangeRequest;
+#endif
 };
 
 
