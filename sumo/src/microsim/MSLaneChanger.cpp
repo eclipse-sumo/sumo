@@ -157,6 +157,11 @@ MSLaneChanger::change()
     }
     // change if the vehicle wants to and is allowed to change
     if ((state1&LCA_RIGHT)!=0&&changingAllowed) {
+#ifdef TRACI
+		// inform lane change model about this change
+		vehicle->getLaneChangeModel().fulfillChangeRequest(REQUEST_RIGHT);
+		/*std::cout << "TraCI: lane changer fulfilled request for RIGHT |time " << MSNet::getInstance()->getCurrentTimeStep() << "s" << std::endl;*/
+#endif
         (myCandi - 1)->hoppedVeh = veh(myCandi);
         (myCandi - 1)->lane->myTmpVehicles.push_front(veh(myCandi));
         vehicle->leaveLaneAtLaneChange();
@@ -166,10 +171,6 @@ MSLaneChanger::change()
         vehicle->myLastLaneChangeOffset = 0;
         vehicle->getLaneChangeModel().changed();
         (myCandi - 1)->dens += (myCandi - 1)->hoppedVeh->getLength();
-#ifdef TRACI
-		// inform model about this change
-		vehicle->getLaneChangeModel().fulfillChangeRequest(REQUEST_RIGHT);
-#endif
         return true;
     }
     if ((state1&LCA_RIGHT)!=0&&(state1&LCA_URGENT)!=0) {
@@ -187,6 +188,11 @@ MSLaneChanger::change()
     vehicle->getLaneChangeModel().setState(state2|state1);
     // change if the vehicle wants to and is allowed to change
     if ((state2&LCA_LEFT)!=0&&changingAllowed) {
+#ifdef TRACI
+		// inform lane change model about this change
+		vehicle->getLaneChangeModel().fulfillChangeRequest(REQUEST_LEFT);
+		/*std::cout << "TraCI: lane changer fulfilled request for LEFT |time " << MSNet::getInstance()->getCurrentTimeStep() << "s" << std::endl;*/
+#endif
         (myCandi + 1)->hoppedVeh = veh(myCandi);
         (myCandi + 1)->lane->myTmpVehicles.push_front(veh(myCandi));
         vehicle->leaveLaneAtLaneChange();
@@ -196,10 +202,6 @@ MSLaneChanger::change()
         vehicle->myLastLaneChangeOffset = 0;
         vehicle->getLaneChangeModel().changed();
         (myCandi + 1)->dens += (myCandi + 1)->hoppedVeh->getLength();
-#ifdef TRACI
-		// inform model about this change
-		vehicle->getLaneChangeModel().fulfillChangeRequest(REQUEST_LEFT);
-#endif
         return true;
     }
     if ((state2&LCA_LEFT)!=0&&(state2&LCA_URGENT)!=0) {

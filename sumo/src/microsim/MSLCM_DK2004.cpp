@@ -275,7 +275,15 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     SUMOReal vmax = MIN2(myVehicle.getLane().maxSpeed(), myVehicle.getVehicleType().getMaxSpeed());
     vmax -= (SUMOReal)(5./2.6);
     if (neighLaneVSafe>=vmax) {
+#ifdef TRACI
+        /* if there was a request by TraCI for changing to this lane 
+        and holding it, this rule is ignored */
+        if (myChangeRequest != REQUEST_HOLD) {
+#endif
         myChangeProbability -= (SUMOReal)((neighLaneVSafe-vmax) / (vmax));
+#ifdef TRACI
+        }
+#endif
     }
 
     if (myChangeProbability<-2&&neighDist/MAX2((SUMOReal) .1, myVehicle.getSpeed())>20.) {//./MAX2((SUMOReal) .1, myVehicle.getSpeed())) { // -.1
@@ -283,7 +291,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     }
     // --------
 
-	// If there is a request, try to change the lane
+	// If there is a request by TraCI, try to change the lane
 	if (myChangeRequest == REQUEST_RIGHT) {
 		return ret | LCA_RIGHT;
 	}
@@ -499,7 +507,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     }
     // --------
 
-	// If there is a request, try to change the lane
+	// If there is a request by TraCI, try to change the lane
 	if (myChangeRequest == REQUEST_LEFT) {
 		return ret | LCA_LEFT;
 	}

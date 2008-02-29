@@ -50,9 +50,10 @@ enum LaneChangeAction {
 };
 
 enum ChangeRequest {
-	REQUEST_NONE,
-	REQUEST_LEFT,
-	REQUEST_RIGHT
+	REQUEST_NONE,  // vehicle doesn't want to change
+	REQUEST_LEFT,  // vehicle want's to change to left lane
+	REQUEST_RIGHT, // vehicle want's to change to right lane
+	REQUEST_HOLD   // vehicle want's to keep the current lane
 };
 
 // ===========================================================================
