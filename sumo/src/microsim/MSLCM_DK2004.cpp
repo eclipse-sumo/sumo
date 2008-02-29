@@ -291,10 +291,13 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     }
     // --------
 
+#ifdef TRACI
 	// If there is a request by TraCI, try to change the lane
 	if (myChangeRequest == REQUEST_RIGHT) {
 		return ret | LCA_RIGHT;
 	}
+#endif
+
     return ret;
 }
 
@@ -507,10 +510,12 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     }
     // --------
 
+#ifdef TRACI
 	// If there is a request by TraCI, try to change the lane
 	if (myChangeRequest == REQUEST_LEFT) {
 		return ret | LCA_LEFT;
 	}
+#endif
 
     return ret;
 }
