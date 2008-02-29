@@ -2021,6 +2021,7 @@ MSVehicle::checkForLaneChanges() {
 	int currentLaneIndex = 0;
 
 	if (!laneChangeConstraintActive) {
+		myLaneChangeModel->requestLaneChange(REQUEST_NONE);
 		return;
 	}
 	if ((*myCurrEdge)->nLanes() <= destinationLane) {
