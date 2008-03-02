@@ -489,6 +489,7 @@ NLJunctionControlBuilder::closeJunctions(NLDetectorBuilder &db,
 {
     for (std::vector<TLInitInfo>::iterator i=myJunctions2PostLoadInit.begin(); i!=myJunctions2PostLoadInit.end(); i++) {
         (*i).logic->setParameter((*i).params);
+        (*i).logic->init(db, edgeContinuations);
     }
 }
 

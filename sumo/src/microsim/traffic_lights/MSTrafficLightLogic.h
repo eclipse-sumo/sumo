@@ -76,6 +76,10 @@ public:
     MSTrafficLightLogic(MSTLLogicControl &tlcontrol,
                         const std::string &id, const std::string &subid, SUMOTime delay);
 
+    /// Initialises the tls with information about incoming lanes
+    virtual void init(NLDetectorBuilder &nb,
+              const MSEdgeContinuations &edgeContinuations);
+
     /// Destructor
     virtual ~MSTrafficLightLogic();
 
