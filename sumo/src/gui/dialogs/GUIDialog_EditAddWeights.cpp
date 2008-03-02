@@ -51,6 +51,7 @@
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -251,6 +252,7 @@ GUIDialog_EditAddWeights::GUIDialog_EditAddWeights(GUIMainWindow *parent)
                  0, 0, 0, 0, 4, 4, 3, 3);
 
     myParent->addChild(this);
+    setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
 }
 
 
@@ -342,6 +344,7 @@ long
 GUIDialog_EditAddWeights::onCmdLoad(FXObject*,FXSelector,void*)
 {
     FXFileDialog opendialog(this, "Save Additional Weights");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.xml");
     if (gCurrentFolder.length()!=0) {
@@ -368,6 +371,7 @@ GUIDialog_EditAddWeights::onCmdSave(FXObject*,FXSelector,void*)
 {
     // get the new file name
     FXFileDialog opendialog(this, "Save Additional Weights");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.xml");
     if (gCurrentFolder.length()!=0) {

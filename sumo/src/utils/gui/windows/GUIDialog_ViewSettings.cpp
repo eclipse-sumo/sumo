@@ -517,6 +517,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
     initial->setFocus();
 
     rebuildColorMatrices(false);
+    setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
 }
 
 
@@ -1152,6 +1153,7 @@ long
 GUIDialog_ViewSettings::onCmdExportSetting(FXObject*,FXSelector,void*data)
 {
     FXFileDialog opendialog(this, "Export view settings");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.txt");
     if (gCurrentFolder.length()!=0) {
@@ -1180,6 +1182,7 @@ long
 GUIDialog_ViewSettings::onCmdImportSetting(FXObject*,FXSelector,void*data)
 {
     FXFileDialog opendialog(this, "Import view settings");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.txt");
     if (gCurrentFolder.length()!=0) {

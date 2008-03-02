@@ -192,6 +192,7 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*)
 {
     // get the new file name
     FXFileDialog opendialog(this, "Save Snapshot");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList(patterns);
     if (gCurrentFolder.length()!=0) {

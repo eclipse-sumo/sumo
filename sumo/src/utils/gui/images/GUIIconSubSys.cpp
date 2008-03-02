@@ -109,6 +109,14 @@
 #include "cut.xpm"
 #include "ext.xpm"
 
+
+static const char *empty_xpm[] = {
+"    1    1        1            1",
+". c None",
+"."
+};
+
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -127,6 +135,7 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
 {
     // build icons
     myIcons[ICON_APP] = new FXXPMIcon(a, document_xpm);
+    myIcons[ICON_EMPTY] = new FXXPMIcon(a, empty_xpm);
     myIcons[ICON_OPEN_CONFIG] = new FXXPMIcon(a, fileopen_xpm);
     myIcons[ICON_OPEN_NET] = new FXXPMIcon(a, netopen_xpm);
     myIcons[ICON_RELOAD] = new FXXPMIcon(a, reload_xpm);

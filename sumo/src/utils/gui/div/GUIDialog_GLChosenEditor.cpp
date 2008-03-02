@@ -154,6 +154,7 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*,FXSelector,void*)
 {
     // get the new file name
     FXFileDialog opendialog(this,"Open List of Selected Items");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("*.txt");
     if (gCurrentFolder.length()!=0) {
@@ -174,6 +175,7 @@ GUIDialog_GLChosenEditor::onCmdSave(FXObject*,FXSelector,void*)
 {
     // get the new file name
     FXFileDialog opendialog(this,"Save List of selected Items");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.txt");
     if (gCurrentFolder.length()!=0) {

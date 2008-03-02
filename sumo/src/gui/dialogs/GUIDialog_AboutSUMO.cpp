@@ -35,7 +35,7 @@
 #include "GUIDialog_AboutSUMO.h"
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/foxtools/FXLinkLabel.h>
-//#include <gui/GUIGlobals.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -223,6 +223,7 @@ GUIDialog_AboutSUMO::GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
     new FXButton(f1,"OK\t\t", 0, this, ID_ACCEPT,
                  LAYOUT_FIX_WIDTH|LAYOUT_CENTER_X|JUSTIFY_CENTER_X|FRAME_THICK|FRAME_RAISED,
                  0, 0, 50, 30);
+    setIcon(GUIIconSubSys::getIcon(ICON_APP));
 }
 
 

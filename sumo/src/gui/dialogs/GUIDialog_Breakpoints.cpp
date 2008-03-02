@@ -190,6 +190,7 @@ long
 GUIDialog_Breakpoints::onCmdLoad(FXObject*,FXSelector,void*)
 {
     FXFileDialog opendialog(this, "Save Breakpoints");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.txt");
     if (gCurrentFolder.length()!=0) {
@@ -220,6 +221,7 @@ GUIDialog_Breakpoints::onCmdSave(FXObject*,FXSelector,void*)
 {
     // get the new file name
     FXFileDialog opendialog(this, "Save Breakpoints");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.txt");
     if (gCurrentFolder.length()!=0) {
