@@ -1209,19 +1209,13 @@ GUISUMOAbstractView::showToolTips(bool val)
 void
 GUISUMOAbstractView::drawShapesLayer(const ShapeContainer &sc, int layer, SUMOReal width)
 {
-    {
-        const std::vector<Polygon2D*> &pv = sc.getPolygonCont(layer).buildAndGetStaticVector();
-        std::vector<Polygon2D*>::const_iterator pi = pv.begin();
-        for (; pi!=pv.end(); pi++) {
-            drawPolygon2D(**pi);
-        }
+    const std::map<std::string, Polygon2D*> &pol = sc.getPolygonCont(layer).getMyMap();
+    for (std::map<std::string, Polygon2D*>::const_iterator i=pol.begin(); i!=pol.end(); ++i) {
+        drawPolygon2D(*((*i).second));
     }
-    {
-        const std::vector<PointOfInterest*> &pv = sc.getPOICont(layer).buildAndGetStaticVector();
-        std::vector<PointOfInterest*>::const_iterator pi = pv.begin();
-        for (; pi!=pv.end(); pi++) {
-            drawPOI2D(**pi, width);
-        }
+    const std::map<std::string, PointOfInterest*> &poi = sc.getPOICont(layer).getMyMap();
+    for (std::map<std::string, PointOfInterest*>::const_iterator i=poi.begin(); i!=poi.end(); ++i) {
+        drawPOI2D(*((*i).second), width);
     }
 }
 
