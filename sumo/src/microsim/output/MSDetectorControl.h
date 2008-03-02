@@ -265,40 +265,40 @@ public:
     /// @name Methods for retrieving detectors
     /// @{
 
-    /** @brief Returns the list of known MSInductLoops
+    /** @brief Returns the MSInductLoop-container
      *
-     * !!! Attention! This method is highly insecure and should be replaced.
-     * @return The list of known MSInductLoops
-     * @todo Rework!
+     * @return The container of MSInductLoops
      */
-    LoopVect getLoopVector() const throw();
+    const LoopDict &getInductLoops() const throw() {
+        return myLoops;
+    }
 
 
-    /** @brief Returns the list of known MSE2Collectors
+    /** @brief Returns the MSE2Detector-container
      *
-     * !!! Attention! This method is highly insecure and should be replaced.
-     * @return The list of known MSE2Collectors
-     * @todo Rework!
+     * @return The container of MSE2Detector
      */
-    E2Vect getE2Vector() const throw();
+    const E2Dict &getE2Detectors() const throw() {
+        return myE2Detectors;
+    }
 
 
-    /** @brief Returns the list of known MSE3Collectors
+    /** @brief Returns the MSE3Detector-container
      *
-     * !!! Attention! This method is highly insecure and should be replaced.
-     * @return The list of known MSE3Collectors
-     * @todo Rework!
+     * @return The container of MSE3Detector
      */
-    E3Vect getE3Vector() const throw();
+    const E3Dict &getE3Detectors() const throw() {
+        return myE3Detectors;
+    }
 
 
-    /** @brief Returns the list of known MS_E2_ZS_CollectorOverLanes-detectors
+    /** @brief Returns the MS_E2_ZS_CollectorOverLanes-container
      *
-     * !!! Attention! This method is highly insecure and should be replaced.
-     * @return The list of known MS_E2_ZS_CollectorOverLanes-detectors
-     * @todo Rework!
+     * @return The container of MS_E2_ZS_CollectorOverLanes
      */
-    E2ZSOLVect getE2OLVector() const throw();
+    const E2ZSOLDict &getE2OLDetectors() const throw() {
+        return myE2OverLanesDetectors;
+    }
     /// @}
 
 

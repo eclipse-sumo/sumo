@@ -135,60 +135,58 @@ void
 GUINet::initDetectors()
 {
     // e2-detectors
-    {
-        MSDetectorControl::E2Vect loopVec2 = myDetectorControl->getE2Vector();
-        for (MSDetectorControl::E2Vect::const_iterator i2=loopVec2.begin(); i2!=loopVec2.end(); i2++) {
-            const MSLane *lane = (*i2)->getLane();
-            const GUIEdge * const edge = static_cast<const GUIEdge * const>(lane->getEdge());
-            // build the wrapper
+    const map<string, MSE2Collector*> &e2 = myDetectorControl->getE2Detectors().getMyMap();
+    for (map<string, MSE2Collector*>::const_iterator i2=e2.begin(); i2!=e2.end(); i2++) {
+        MSE2Collector *const e2i = (*i2).second;
+        const MSLane *lane = e2i->getLane();
+        const GUIEdge * const edge = static_cast<const GUIEdge * const>(lane->getEdge());
+        /*
+        // build the wrapper
             if ((*i2)->getUsageType()==DU_SUMO_INTERNAL
                     ||
                     (*i2)->getUsageType()==DU_TL_CONTROL) {
                 continue;
             }
-            GUIDetectorWrapper *wrapper =
-                static_cast<GUI_E2_ZS_Collector*>(*i2)->buildDetectorWrapper(
+            */
+        GUIDetectorWrapper *wrapper = 
+            static_cast<GUI_E2_ZS_Collector*>(e2i)->buildDetectorWrapper(
                     gIDStorage, edge->getLaneGeometry(lane));
-            // add to dictionary
-            myDetectorDict[wrapper->microsimID()] = wrapper;
-        }
+        // add to dictionary
+        myDetectorDict[wrapper->microsimID()] = wrapper;
     }
     // e2 over lanes -detectors
-    {
-        MSDetectorControl::E2ZSOLVect loopVec3 = myDetectorControl->getE2OLVector();
-        for (MSDetectorControl::E2ZSOLVect::const_iterator i3=loopVec3.begin(); i3!=loopVec3.end(); i3++) {
-            // build the wrapper
-            GUIDetectorWrapper *wrapper =
-                static_cast<GUI_E2_ZS_CollectorOverLanes*>(*i3)->buildDetectorWrapper(
-                    gIDStorage);
-            // add to dictionary
-            myDetectorDict[wrapper->microsimID()] = wrapper;
-        }
+    const map<string, MS_E2_ZS_CollectorOverLanes*> &e2ol = myDetectorControl->getE2OLDetectors().getMyMap();
+    for (map<string, MS_E2_ZS_CollectorOverLanes*>::const_iterator i2=e2ol.begin(); i2!=e2ol.end(); i2++) {
+        MS_E2_ZS_CollectorOverLanes * const e2oli = (*i2).second;
+        // build the wrapper
+        GUIDetectorWrapper *wrapper =
+            static_cast<GUI_E2_ZS_CollectorOverLanes*>(e2oli)->buildDetectorWrapper(
+                gIDStorage);
+        // add to dictionary
+        myDetectorDict[wrapper->microsimID()] = wrapper;
     }
     // induction loops
-    {
-        MSDetectorControl::LoopVect loopVec = myDetectorControl->getLoopVector();
-        for (MSDetectorControl::LoopVect::const_iterator i=loopVec.begin(); i!=loopVec.end(); ++i) {
-            const MSLane *lane = (*i)->getLane();
-            const GUIEdge * const edge = static_cast<const GUIEdge * const>(lane->getEdge());
-            // build the wrapper
-            GUIDetectorWrapper *wrapper =
-                static_cast<GUIInductLoop*>(*i)->buildDetectorWrapper(
-                    gIDStorage, edge->getLaneGeometry(lane));
-            // add to dictionary
-            myDetectorDict[wrapper->microsimID()] = wrapper;
-        }
+    const map<string, MSInductLoop*> &e1 = myDetectorControl->getInductLoops().getMyMap();
+    for (map<string, MSInductLoop*>::const_iterator i2=e1.begin(); i2!=e1.end(); i2++) {
+        MSInductLoop *const e1i = (*i2).second;
+        const MSLane *lane = e1i->getLane();
+        const GUIEdge * const edge = static_cast<const GUIEdge * const>(lane->getEdge());
+        // build the wrapper
+        GUIDetectorWrapper *wrapper =
+            static_cast<GUIInductLoop*>(e1i)->buildDetectorWrapper(
+                gIDStorage, edge->getLaneGeometry(lane));
+        // add to dictionary
+        myDetectorDict[wrapper->microsimID()] = wrapper;
     }
     // e3-detectors
-    {
-        MSDetectorControl::E3Vect loopVec4 = myDetectorControl->getE3Vector();
-        for (MSDetectorControl::E3Vect::const_iterator i4=loopVec4.begin(); i4!=loopVec4.end(); i4++) {
-            // build the wrapper
-            GUIDetectorWrapper *wrapper =
-                static_cast<GUIE3Collector*>(*i4)->buildDetectorWrapper(gIDStorage);
-            // add to dictionary
-            myDetectorDict[wrapper->microsimID()] = wrapper;
-        }
+    const map<string, MSE3Collector*> &e3 = myDetectorControl->getE3Detectors().getMyMap();
+    for (map<string, MSE3Collector*>::const_iterator i2=e3.begin(); i2!=e3.end(); i2++) {
+        MSE3Collector *const e3i = (*i2).second;
+        // build the wrapper
+        GUIDetectorWrapper *wrapper =
+            static_cast<GUIE3Collector*>(e3i)->buildDetectorWrapper(gIDStorage);
+        // add to dictionary
+        myDetectorDict[wrapper->microsimID()] = wrapper;
     }
 }
 
@@ -327,17 +325,13 @@ GUINet::getShapeIDs() const
         int minLayer = myShapeContainer->getMinLayer();
         int maxLayer = myShapeContainer->getMaxLayer();
         for (int j=minLayer; j<=maxLayer; ++j) {
-            {
-                const vector<Polygon2D*> &pol = myShapeContainer->getPolygonCont(j).buildAndGetStaticVector();
-                for (vector<Polygon2D*>::const_iterator i=pol.begin(); i!=pol.end(); ++i) {
-                    ret.push_back(static_cast<GUIPolygon2D*>(*i)->getGlID());
-                }
+            const std::map<std::string, Polygon2D*> &pol = myShapeContainer->getPolygonCont(j).getMyMap();
+            for (std::map<std::string, Polygon2D*>::const_iterator i=pol.begin(); i!=pol.end(); ++i) {
+                ret.push_back(static_cast<GUIPolygon2D*>((*i).second)->getGlID());
             }
-            {
-                const vector<PointOfInterest*> &pol = myShapeContainer->getPOICont(j).buildAndGetStaticVector();
-                for (vector<PointOfInterest*>::const_iterator i=pol.begin(); i!=pol.end(); ++i) {
-                    ret.push_back(static_cast<GUIPointOfInterest*>(*i)->getGlID());
-                }
+            const std::map<std::string, PointOfInterest*> &poi = myShapeContainer->getPOICont(j).getMyMap();
+            for (std::map<std::string, PointOfInterest*>::const_iterator i=poi.begin(); i!=poi.end(); ++i) {
+                ret.push_back(static_cast<GUIPointOfInterest*>((*i).second)->getGlID());
             }
         }
     }
@@ -355,18 +349,15 @@ GUINet::initGUIStructures()
     // initialise edge storage for gui
     GUIEdge::fill(myEdgeWrapper);
     // initialise junction storage for gui
-    {
-        size_t size = myJunctions->size();
-        myJunctionWrapper.reserve(size);
-        const vector<MSJunction*> &junctions = myJunctions->buildAndGetStaticVector();
-        for (vector<MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); ++i) {
-            GUIJunctionWrapper *wrapper = (*i)->buildJunctionWrapper(gIDStorage);
-            if (wrapper!=0) {
-                myJunctionWrapper.push_back(wrapper);
-            }
+    size_t size = myJunctions->size();
+    myJunctionWrapper.reserve(size);
+    const std::map<std::string, MSJunction*> &junctions = myJunctions->getMyMap();
+    for (std::map<std::string, MSJunction*>::const_iterator i=junctions.begin(); i!=junctions.end(); ++i) {
+        GUIJunctionWrapper *wrapper = ((*i).second)->buildJunctionWrapper(gIDStorage);
+        if (wrapper!=0) {
+            myJunctionWrapper.push_back(wrapper);
         }
     }
-    //GUIHelpingJunction::fill(myJunctionWrapper, gIDStorage);
     // build the grid
     GUIGridBuilder b(*this, myGrid);
     b.build();

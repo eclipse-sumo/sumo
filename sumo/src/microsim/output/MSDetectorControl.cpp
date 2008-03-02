@@ -191,34 +191,6 @@ MSDetectorControl::updateDetectors(SUMOTime step) throw()
 }
 
 
-MSDetectorControl::LoopVect
-MSDetectorControl::getLoopVector() const throw()
-{
-    return myLoops.getTempVector();
-}
-
-
-MSDetectorControl::E2Vect
-MSDetectorControl::getE2Vector() const throw()
-{
-    return myE2Detectors.getTempVector();
-}
-
-
-MSDetectorControl::E3Vect
-MSDetectorControl::getE3Vector() const throw()
-{
-    return myE3Detectors.getTempVector();
-}
-
-
-MSDetectorControl::E2ZSOLVect
-MSDetectorControl::getE2OLVector() const throw()
-{
-    return myE2OverLanesDetectors.getTempVector();
-}
-
-
 void
 MSDetectorControl::resetInterval(MSDetectorFileOutput *det,
                                  SUMOTime newinterval) throw()

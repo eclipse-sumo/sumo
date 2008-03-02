@@ -360,15 +360,16 @@ RONet::checkSourceAndDestinations()
     if (myDestinationEdges.size()!=0||mySourceEdges.size()!=0) {
         return;
     }
-    std::vector<ROEdge*> edges = myEdges.getTempVector();
-    for (std::vector<ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
-        ROEdge::EdgeType type = (*i)->getType();
+    const std::map<std::string, ROEdge*> &edges = myEdges.getMyMap();
+    for (std::map<std::string, ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+        ROEdge *e = (*i).second;
+        ROEdge::EdgeType type = e->getType();
         // !!! add something like "classified edges only" for using only sources or sinks
         if (type!=ROEdge::ET_SOURCE) {
-            myDestinationEdges.push_back(*i);
+            myDestinationEdges.push_back(e);
         }
         if (type!=ROEdge::ET_SINK) {
-            mySourceEdges.push_back(*i);
+            mySourceEdges.push_back(e);
         }
     }
 }
