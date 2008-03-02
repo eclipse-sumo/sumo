@@ -33,6 +33,7 @@
 #include "GUISUMOAbstractView.h"
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/gui/windows/GUIAppEnum.h>
+#include <utils/gui/images/GUIIconSubSys.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -61,7 +62,7 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
         SUMOReal zoom,
         SUMOReal xoff, SUMOReal yoff,
         int x, int y)
-        : FXDialogBox(parent, name, DECOR_CLOSE|DECOR_TITLE, x, y, 0, 0),
+        : FXDialogBox(parent, name, DECOR_TITLE|DECOR_BORDER, x, y, 0, 0),
         myParent(parent), myOldZoom(zoom), myOldXOff(xoff), myOldYOff(yoff)
 {
     FXVerticalFrame *f1 =
@@ -108,6 +109,7 @@ GUIDialog_EditViewport::GUIDialog_EditViewport(GUISUMOAbstractView* parent,
                  FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,
                  0,0,0,0,  4, 4, 3, 3);
     initial->setFocus();
+    setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
 }
 
 
