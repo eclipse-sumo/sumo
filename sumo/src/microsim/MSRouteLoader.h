@@ -32,7 +32,6 @@
 
 #include <xercesc/sax2/XMLReaderFactory.hpp>
 #include <string>
-#include <utils/common/FileErrorReporter.h>
 #include <microsim/MSNet.h>
 #include "MSVehicleContainer.h"
 #include "MSRouteHandler.h"

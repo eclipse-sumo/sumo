@@ -28,7 +28,6 @@
 #endif
 
 #include <string>
-#include <utils/common/FileErrorReporter.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/xml/XMLSubSys.h>
