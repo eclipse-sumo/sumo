@@ -392,15 +392,11 @@ MSDevice_CPhone::~MSDevice_CPhone() throw()
                 }
             }
             cell->remCPhone(getID());
-        } /*else {
-                                            assert(m_State==STATE_IDLE||m_State==STATE_OFF);
-                                        }*/
+        }
         MSPhoneLA * la = pPhone->getCurrentVehicleLA(getID());
         if (la != 0) {
             la->remCall(getID());
-        }/* else {
-                                            assert(m_State==STATE_IDLE||m_State==STATE_OFF);
-                                        }*/
+        }
     }
     if (myCommand!=0) {
         myCommand->deschedule();

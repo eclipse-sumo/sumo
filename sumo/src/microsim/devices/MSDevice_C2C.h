@@ -120,11 +120,12 @@ public:
 
     /// @brief Definition of a container of connections (connected device -> connection information)
     typedef std::map<MSDevice_C2C*, C2CConnection*> ConnectionCont;
+
     /// @brief Definition of a container of edge information (edge -> effort information)
     typedef std::map<const MSEdge * const, Information *> InfoCont;
+
     /// @brief Definition of a container of a connection cluster
     typedef std::vector<C2CConnection*> ClusterCont;
-
 
 
 public:

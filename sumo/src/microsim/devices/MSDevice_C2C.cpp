@@ -391,7 +391,7 @@ MSDevice_C2C::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) th
 SUMOTime
 MSDevice_C2C::computeC2CExecute(SUMOTime t)
 {
-    // clean up previous steps
+    // clean up prior information
     myConnected.clear();
     myClusterHeaders.clear();
     // 

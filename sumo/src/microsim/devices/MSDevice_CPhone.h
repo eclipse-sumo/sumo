@@ -85,9 +85,9 @@ public:
         STATE_OFF,
         /// @brief The phone is in idle mode
         STATE_IDLE,
-        /// @brief The is called
+        /// @brief The phone is called
         STATE_CONNECTED_IN,
-        /// @brief The calls
+        /// @brief The phone calls
         STATE_CONNECTED_OUT
     };
 
@@ -189,6 +189,9 @@ private:
 
     /*if this */
     bool notTriggeredByCell;
+
+
+
 
 private:
     /// @brief Invalidated copy constructor.
