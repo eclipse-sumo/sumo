@@ -68,13 +68,13 @@ Command_SaveTLCoupledLaneDet::~Command_SaveTLCoupledLaneDet() throw()
 }
 
 
-bool
+void
 Command_SaveTLCoupledLaneDet::execute() throw()
 {
     // !!! we have to do this to have the correct information set
     myLogics.getActive()->maskRedLinks();
     if (myLink->getState()==myLastState&&myHadOne) {
-        return true;
+        return;
     }
     myHadOne = true;
     if (myLastState==MSLink::LINKSTATE_TL_RED&&myLink->getState()!=MSLink::LINKSTATE_TL_RED) {
@@ -89,7 +89,6 @@ Command_SaveTLCoupledLaneDet::execute() throw()
         myStartTime = MSNet::getInstance()->getCurrentTimeStep();
     }
     myLastState = myLink->getState();
-    return true;
 }
 
 

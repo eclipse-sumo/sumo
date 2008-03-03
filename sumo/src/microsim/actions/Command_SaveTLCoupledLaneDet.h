@@ -43,7 +43,6 @@
  *
  * @todo Check whether there may be a better solution than calling "maskRedLinks" directly
  * @todo Problem: The detector may not save the last state (on simulation end)
- * @todo Basically, this does not have to be a DiscreteCommand; its called by the tls (is THIS ok?)
  */
 class Command_SaveTLCoupledLaneDet : public Command_SaveTLCoupledDet
 {
@@ -72,13 +71,10 @@ public:
      *  values collected so far are written using "writeXMLOutput".
      *  Otherwise, the values are reset.
      *
-     * Returns always true
-     *
-     * @return Always true (do not remove)
      * @see MSDetectorFileOutput::writeXMLOutput
      * @see MSE2Collector::writeXMLOutput
      */
-    bool execute() throw();
+    void execute() throw();
 
 
 private:

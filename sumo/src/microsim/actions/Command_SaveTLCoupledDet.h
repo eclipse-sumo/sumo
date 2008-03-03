@@ -32,7 +32,6 @@
 
 #include <string>
 #include <microsim/MSNet.h>
-#include <utils/common/DiscreteCommand.h>
 #include <microsim/traffic_lights/MSTLLogicControl.h>
 
 
@@ -54,9 +53,8 @@ class OutputDevice;
  *
  * @todo Check whether there may be a better solution than calling "maskRedLinks" directly
  * @todo Problem: The detector may not save the last state (on simulation end)
- * @todo Basically, this does not have to be a DiscreteCommand; its called by the tls (is THIS ok?)
  */
-class Command_SaveTLCoupledDet : public DiscreteCommand
+class Command_SaveTLCoupledDet : public MSTLLogicControl::OnSwitchAcion
 {
 public:
     /** @brief Constructor
@@ -79,13 +77,10 @@ public:
      * Called when an active tls program switches, this method calls
      *  "writeXMLOutput" of its detector (e2; the values are resetted there).
      *
-     * Returns always true
-     *
-     * @return Always true (do not remove)
      * @see MSDetectorFileOutput::writeXMLOutput
      * @see MSE2Collector::writeXMLOutput
      */
-    virtual bool execute() throw();
+    virtual void execute() throw();
 
 
 protected:

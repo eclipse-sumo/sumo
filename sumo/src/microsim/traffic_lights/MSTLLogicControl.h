@@ -57,6 +57,27 @@ class MSTLLogicControl
 {
 public:
     /**
+     * @class OnSwitchAcion
+     * @brief Base class for things to execute if a tls switches
+     * @see Design Patterns, Gamma et al.
+     */
+    class OnSwitchAcion
+    {
+    public:
+        /// @brief Destructor.
+        virtual ~OnSwitchAcion() throw() {};
+
+
+        /** @brief Executes the action
+         *
+         */
+        virtual void execute() throw() = 0;
+
+    };
+
+
+
+    /**
      * @class TLSLogicVariants
      * @brief Storage for all programs of a single tls
      *
@@ -86,7 +107,7 @@ public:
 
 
         MSTrafficLightLogic* getLogic(const std::string &subid) const;
-        void addSwitchCommand(DiscreteCommand *c);
+        void addSwitchCommand(OnSwitchAcion *c);
         std::vector<MSTrafficLightLogic*> getAllLogics() const;
         void saveInitialStates();
         bool isActive(const MSTrafficLightLogic *tl) const;
@@ -112,7 +133,7 @@ public:
         std::map<MSLink*, std::pair<MSLink::LinkState, bool> > originalLinkStates;
 
         /// @brief The list of actions/commands to execute on switch
-        std::vector<DiscreteCommand*> onSwitchActions;
+        std::vector<OnSwitchAcion*> onSwitchActions;
 
 
     private:

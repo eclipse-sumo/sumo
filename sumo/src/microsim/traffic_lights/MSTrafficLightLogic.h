@@ -44,7 +44,6 @@
 // ===========================================================================
 class MSNet;
 class MSLink;
-class DiscreteCommand;
 class MSTLLogicControl;
 class NLDetectorBuilder;
 class MSEdgeContinuations;

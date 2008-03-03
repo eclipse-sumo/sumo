@@ -46,7 +46,6 @@
 #include <microsim/MSNet.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
-#include <utils/common/DiscreteCommand.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -77,7 +76,7 @@ MSTLLogicControl::TLSLogicVariants::~TLSLogicVariants()
     for (std::map<std::string, MSTrafficLightLogic *>::iterator j=ltVariants.begin(); j!=ltVariants.end(); ++j) {
         delete(*j).second;
     }
-    for (std::vector<DiscreteCommand*>::iterator i=onSwitchActions.begin(); i!=onSwitchActions.end(); ++i) {
+    for (std::vector<OnSwitchAcion*>::iterator i=onSwitchActions.begin(); i!=onSwitchActions.end(); ++i) {
         delete *i;
     }
 }
@@ -148,7 +147,7 @@ MSTLLogicControl::TLSLogicVariants::getLogicInstantiatingOff(MSTLLogicControl &t
 
 
 void
-MSTLLogicControl::TLSLogicVariants::addSwitchCommand(DiscreteCommand *c)
+MSTLLogicControl::TLSLogicVariants::addSwitchCommand(OnSwitchAcion *c)
 {
     onSwitchActions.push_back(c);
 }
@@ -219,7 +218,7 @@ MSTLLogicControl::TLSLogicVariants::maskYellowLinks()
 void
 MSTLLogicControl::TLSLogicVariants::executeOnSwitchActions() const
 {
-    for (std::vector<DiscreteCommand*>::const_iterator i=onSwitchActions.begin(); i!=onSwitchActions.end();) {
+    for (std::vector<OnSwitchAcion*>::const_iterator i=onSwitchActions.begin(); i!=onSwitchActions.end();) {
         (*i)->execute();
         /* !!!
         if (!(*i)->execute()) {

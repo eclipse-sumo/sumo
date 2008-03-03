@@ -68,7 +68,7 @@ Command_SaveTLCoupledDet::~Command_SaveTLCoupledDet() throw()
 }
 
 
-bool
+void
 Command_SaveTLCoupledDet::execute() throw()
 {
     // !!! we have to do this to have the correct information set
@@ -78,7 +78,6 @@ Command_SaveTLCoupledDet::execute() throw()
         myDetector->writeXMLOutput(myDevice, myStartTime, end);
         myStartTime = end;
     }
-    return true;
 }
 
 
