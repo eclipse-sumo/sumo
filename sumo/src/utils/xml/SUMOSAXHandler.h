@@ -32,7 +32,6 @@
 
 #include <string>
 #include <utils/xml/GenericSAXHandler.h>
-#include <utils/common/FileErrorReporter.h>
 
 
 // ===========================================================================

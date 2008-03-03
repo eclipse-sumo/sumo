@@ -34,7 +34,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
-#include <utils/common/FileErrorReporter.h>
 #include "SUMOXMLDefinitions.h"
 #include "SUMOSAXHandler.h"
 
