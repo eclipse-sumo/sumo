@@ -157,8 +157,8 @@ MSDevice_Routing::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &)
         router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
     myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
     // build repetition trigger if routing shall be done more often
-    if(myPeriod>0) {
-        myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::wrappedRerouteCommandExecute);
+    if(myPeriod>0&&myRerouteCommand==0) {
+        myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::wrappedRerouteCommandExecute, getID());
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             myRerouteCommand, myPeriod+MSNet::getInstance()->getCurrentTimeStep(),
             MSEventControl::ADAPT_AFTER_EXECUTION);
