@@ -406,10 +406,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\common\DiscreteCommand.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\common\FileErrorReporter.h"
 				>
 			</File>

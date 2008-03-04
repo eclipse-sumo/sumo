@@ -357,10 +357,6 @@
 				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitchStates.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\MSDiscreteEventControl.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Headerdateien"
@@ -385,10 +381,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\actions\Command_SaveTLSSwitchStates.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\actions\MSDiscreteEventControl.h"
 				>
 			</File>
 		</Filter>
