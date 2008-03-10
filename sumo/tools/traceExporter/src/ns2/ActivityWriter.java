@@ -38,14 +38,14 @@ public class ActivityWriter {
 				double minP =  Double.parseDouble(newId)/wantedVehicle.size();
 				if (hasPenetration) {
 					if (penetration > minP) {
-			            out.println("$ns_ at " + (vehicleFirstOcc.get(id)-begin) + " \"$g(" + newId + ") start\"");
-			            out.println("$ns_ at " + (vehicleLastOcc.get(id)-begin) + " \"$g(" + newId + ") stop\"");
+					    out.println("$ns_ at " + (vehicleFirstOcc.get(id)-begin) + " \"$g(" + newId + ") start\"" + "\t# SUMO-ID: " + id);
+					    out.println("$ns_ at " + (vehicleLastOcc.get(id)-begin) + " \"$g(" + newId + ") stop\"" + "\t# SUMO-ID: " + id);
 					}
 				} else {
 					out.println("if { $opt(penetration) > " + minP  + " } { ");
-		            out.println("  $ns_ at " + (vehicleFirstOcc.get(id)-begin) + " \"$g(" + newId + ") start\"");
-		            out.println("  $ns_ at " + (vehicleLastOcc.get(id)-begin) + " \"$g(" + newId + ") stop\"");
-		            out.println("}");
+					out.println("  $ns_ at " + (vehicleFirstOcc.get(id)-begin) + " \"$g(" + newId + ") start\"" + "\t# SUMO-ID: " + id);
+					out.println("  $ns_ at " + (vehicleLastOcc.get(id)-begin) + " \"$g(" + newId + ") stop\"" + "\t# SUMO-ID: " + id);
+					out.println("}");
 				}
 	        }
 	        out.flush();

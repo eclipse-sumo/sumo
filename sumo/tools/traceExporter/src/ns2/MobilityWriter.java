@@ -21,7 +21,7 @@ import javax.xml.stream.XMLStreamReader;
 public class MobilityWriter {
 	/**
 	 * working method
-	 * @param trace name of ns2 trace file
+	 * @param trace name of sumo netstate-dump file
 	 * @param mobility name of ns2 mobility file
 	 * @param wantedVehicle list of vehicles to be selected for ns2
 	 * @param vehicleNewId list of vehicle ids for ns2
@@ -152,7 +152,8 @@ public class MobilityWriter {
 				if (hasPenetration) {
 					if (penetration > minP) {
 			            out.print("  $node_(" + newId + ") ");
-			            out.println("  set X_ " + initialX.get(id));
+			            out.print("  set X_ " + initialX.get(id));
+			            out.println("\t# SUMO-ID: " + id);
 			            out.print("  $node_(" + newId + ") ");
 			            out.println("  set Y_ " + initialY.get(id) + " ");
 			            out.print("  $node_(" + newId + ") ");
