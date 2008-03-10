@@ -142,9 +142,10 @@ for step in range(options.firstStep, options.lastStep):
 	files = []
 	for tripFile in tripFiles:
 		file = tripFile
+		tripFile = os.path.basename(tripFile)
 		if step>0:
-			file = tripFile[:tripFile.find(".")] + "_" + str(step-1) + ".rou.xml.alt"
-		output = tripFile[:tripFile.find(".")] + "_" + str(step) + ".rou.xml"
+			file = tripFile[:tripFile.find(".")] + "_%s.rou.xml.alt" % (step-1)
+		output = tripFile[:tripFile.find(".")] + "_%s.rou.xml" % step
 		print ">> Running router with " + file
 		btime = datetime.now()
 		print ">>> Begin time %s" % btime
@@ -162,7 +163,6 @@ for step in range(options.firstStep, options.lastStep):
 		print ">>> End time %s" % etime
 		print ">>> Duration %s" % (etime-btime)
 		print "<<"
-		file = file[:file.find(".")] + "_" + str(step) + ".rou.xml"
 		files.append(output)
 
 	# simulation

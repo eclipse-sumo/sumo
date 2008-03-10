@@ -16,21 +16,15 @@ optParser = OptionParser()
 
 optParser.add_option("-c", "--zonalconnection-file", dest="confile",              #  XML file: containing the link information connectings to the respective traffic zone
                      help="read OD Zones from FILE (mandatory)", metavar="FILE")
-#optParser.add_option("-m", "--matrix-file", dest="mtxpsfile",                     # txt file: containing the matrix information for passenger vehicles 
-#                     help="read OD matrix for passenger vehilces(long dist.) from FILE (mandatory)", metavar="FILE")# from the respective VISUM file
-#optParser.add_option("-k", "--matrixpl-file", dest="mtxplfile",                     # txt file: containing the matrix information for trucks from the respective VISUM file
-#                     help="read OD matrix for passenger vehilces(long dist.) from FILE (mandatory)", metavar="FILE")  
-#optParser.add_option("-t", "--matrixt-file", dest="mtxtfile",                     # txt file: containing the matrix information for trucks from the respective VISUM file
-#                     help="read OD matrix for trucks from FILE (mandatory)", metavar="FILE")  
 optParser.add_option("-n", "--net-file", dest="netfile",                          # XML file: containing the network geometric (link-node) information
                      help="read SUMO network from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-x", "--vehinform-file", dest="vehfile",                    # txt file: containing the control paramenter for incremental traffic assignment
                      help="read vehicle information from FILE (mandatory)", metavar="FILE")
-#optParser.add_option("-z", "--district-file", dest="zonefile",                    # txt file: containing the OD zones based on the respective VISUM file
-#                     help="read OD Zones from FILE (mandatory)", metavar="FILE")  
+optParser.add_option("-o", "--output-file", dest="outputfile", default="Global_MOE.txt",
+                     help="write output to FILE", metavar="FILE")  
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
-                                         
+
 (options, args) = optParser.parse_args()
 
 if not options.netfile:
@@ -79,7 +73,7 @@ avetime = Totaltime / Totalveh
 avelength = Totallength / Totalveh
 avespeed = Totalspeed / Totalveh
 
-foutveh = file('Global_MOE.txt', 'w')                                           # initialize the file for recording the routes
+foutveh = file(options.outputfile, 'w')                                           # initialize the file for recording the routes
 foutveh.write('average vehicular travel time(s) = the sum of all vehicular travel time / the number of vehicles\n')
 foutveh.write('average vehicular travel length(m) = the sum of all vehicular travel length / the number of vehicles\n')
 foutveh.write('average vehicular travel speed(m/s) = the sum of all vehicular travel speed / the number of vehicles\n')
