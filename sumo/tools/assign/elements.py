@@ -244,11 +244,6 @@ class Edge:
                     self.actualtime = self.freeflowtime
                 else:
                     if self.estcapacity == 0.0:
-                        print 'edge.label:', self.label
-                        print 'edge.edgetype:', self.edgetype
-                        print 'edge.CRcurve:',self.CRcurve
-                        print 'edge.maxspeed:', self.maxspeed
-                        print 'edge.numberlane:', self.numberlane
                         foutcheck.write('edge.label=%s: estcapacity=0\n' %(self.label))
                     self.actualtime = self.freeflowtime*(1+(float(itemCR[1])*(self.flow/(self.estcapacity*float(itemCR[3])))**float(itemCR[2])))
                     foutcheck.write('edge="%s", act_flow=%f, est,cap="%f", free_time="%f", act_time="%f"\n' %(self.label, self.flow, self.estcapacity, self.freeflowtime, self.actualtime))

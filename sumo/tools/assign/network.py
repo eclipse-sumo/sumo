@@ -16,6 +16,8 @@ class Net:
         self._vertices = []
         self._edges = {}
         self._vehicles = []
+        self._startVertices = []
+        self._endVertices = []
 
     def newVertex(self):
         v = Vertex(len(self._vertices))
@@ -103,6 +105,8 @@ class ZoneConnectionReader(handler.ContentHandler):
             self._StartDTIn.label = attrs['id']
             self._StartDTOut = self._net.newVertex()
             self._StartDTOut.label = self._StartDTIn.label
+            self._net._startVertices.append(self._StartDTIn)
+            self._net._endVertices.append(self._StartDTOut)
 
         elif name == 'dsink':
             sourcelink = self._net.getEdge(attrs['id'])

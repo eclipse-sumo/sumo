@@ -102,6 +102,18 @@ MatrixCounter = 0
 vehID = 0
 MatrixSum = 0.0
 starttime = datetime.datetime.now()
+
+AssignedVeh = {}                                                # initialize the map for recording the number of the assigned vehicles
+AssignedTrip = {}                                               # initialize the map for recording the number of the assigned trips
+
+for startVertex in net._startVertices:
+    AssignedVeh[startVertex] ={}
+    AssignedTrip[startVertex] ={}
+
+    for endVertex in net._endVertices:
+        AssignedVeh[startVertex][endVertex] = 0
+        AssignedTrip[startVertex][endVertex] = 0.
+
     
 for counter in range (0, len(matrices)):                                         # matrix ist im 1. Durchlauf="matrix05-08.fma", im 2.="matrix06-07.fma"
     matrix = matrices[counter]
@@ -120,15 +132,6 @@ for counter in range (0, len(matrices)):                                        
     origins = len(startVertices)                                                    # number of origins
     dests = len(endVertices)                                                        # number of destinations
     ODpairs = origins * dests                                                       # number of the OD pairs
-  
-    AssignedVeh = []                                                # initialize the matrix of the number of the assigned vehicles
-    AssignedTrip = []
-    for i in range (0, len(startVertices)):
-        AssignedVeh.append([])                                                      
-        AssignedTrip.append([])
-        for j in range (0, len(endVertices)):
-            AssignedVeh[-1].append(int(0))
-            AssignedTrip[-1].append(int(0.))
 
 #	 OutputODZone(startVertices, endVertices, Pshort_EffCells, Plong_EffCells, Truck_EffCells)# output the origin and destination zones and the number of effective OD pairs
 #	 OutputODZone(startVertices, endVertices, Pshort_EffCells, MatrixCounter)        # output the origin and destination zones and the number of effective OD pairs

@@ -38,27 +38,19 @@ def DoAssign(net, ODcontrol, iter, endVertices, start, end, startVertex, matrixP
             print 'pathflow:', pathflow
             interval = 3600. / float(ODcontrol[0])
             
-            AssignedTrip[start][end] += pathflow
+            AssignedTrip[startVertex][endVertex] += pathflow
             
-            while AssignedVeh[start][end] < AssignedTrip[start][end] and (AssignedTrip[start][end]-float(AssignedVeh[start][end]) >= 1.):  # VehCounter < pathflow and 
+            while AssignedVeh[startVertex][endVertex] < AssignedTrip[startVertex][endVertex] and (AssignedTrip[startVertex][endVertex]-float(AssignedVeh[startVertex][endVertex]) >= 1.):  # VehCounter < pathflow and 
                 vehID += 1
                 newVehicle = net.addVehicle(str(vehID))
                 newVehicle.route = helpPath
-                newVehicle.traveltime = pathtime
-                newVehicle.travellength = pathlength
-                newVehicle.speed = pathlength / pathtime
-                AssignedVeh[start][end] += 1
-            print 'AssignedTrip[start][end]', AssignedTrip[start][end]
-            print 'AssignedVeh[start][end]', AssignedVeh[start][end]
+#                newVehicle.traveltime = pathtime
+#                newVehicle.travellength = pathlength
+#                newVehicle.speed = pathlength / pathtime
+                AssignedVeh[startVertex][endVertex] += 1
+            print 'AssignedTrip[start][end]', AssignedTrip[startVertex][endVertex]
+            print 'AssignedVeh[start][end]', AssignedVeh[startVertex][endVertex]
 
-            while iter == int(ODcontrol[0]) and (AssignedVeh[start][end] < AssignedTrip[start][end]): # matrixPshort[start][end]):
-                vehID += 1
-                AssignedVeh[start][end] += 1
-                newVehicle = net.addVehicle(str(vehID))
-                newVehicle.route = helpPath
-                newVehicle.traveltime = pathtime
-                newVehicle.travellength = pathlength
-                newVehicle.speed = pathlength / pathtime
             for edge in helpPath:
                 edge.flow += matrixPshort[start][end]* float(ODcontrol[iter])                 
     

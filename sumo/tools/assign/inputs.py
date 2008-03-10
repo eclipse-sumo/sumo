@@ -13,17 +13,9 @@ def getParameter(parfile):
             sum += float(ODcontrol[i])
     sum = sum * 100.0
     print 'percentage of the assigned matrix:', sum, "%" 
-#    if (sum != 1.0):
-#        print 'Error! The sum of the percentages is not equal to 100%.' %sum
-#        print 'Please check the input file - parameter.txt.'
-#        sys.exit(0)
-#    for line in ODcontrol:
-#        print line
         
     return ODcontrol
-#                   # "25-3"
-#                    stem = vertex.label.split("-")[0] # "25"
-#                    if int(stem) == int(l[i]):        
+     
 def getMatrix(net, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     matrixPshort = []
 #    matrixPlong = []
@@ -34,31 +26,7 @@ def getMatrix(net, matrix, MatrixSum):#, mtxplfile, mtxtfile):
 #    Plong_EffCells = 0
 #    Truck_EffCells = 0
 
-#    itemend = -1.0
-#    ODpairs = 0
-
-    
-    print 'matrix:', str(matrix)
-#    for line in open(odzone):
-#        for elem in line.split():
-#            haveStart = False
-#            haveEnd = False
-#            helperVertex = None
-#            if len(elem) > 0:
-#                for vertex in net._vertices:
-#                    if str(vertex.label) == str(elem):
-#                        helperVertex = vertex
-#                        if len(vertex.outEdges) > 0 and len(vertex.inEdges) == 0:
-#                            startVertices.append(vertex)
-#                            haveStart = True
-#                        if len(vertex.inEdges) > 0 and len(vertex.outEdges) == 0:
-#                            endVertices.append(vertex)
-#                            haveEnd = True
-#            if not haveStart:
-#                startVertices.append(helperVertex)
-#            if not haveEnd:
-#                endVertices.append(helperVertex)
-#                                        
+    print 'matrix:', str(matrix)                                 
 
     itemend = -1.0
     ODpairs = 0
@@ -70,10 +38,12 @@ def getMatrix(net, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     for line in open(matrix):                             # read the matrix for passenger vehicles
         if line[0] != '*' and line[0] != '$':
             skipCount += 1
+            print 'skipcount:',skipCount
             if skipCount > 3:
                 if zones == 0:
                     for elem in line.split():
                         zones = int(elem)
+                    print 'zones:', zones
                 elif len(startVertices) < zones:
                     for elem in line.split():
                         haveStart = False
@@ -126,7 +96,7 @@ def getMatrix(net, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                                 Pshort_EffCells += 1
     CurrentMatrixSum = MatrixSum
 
-#    print 'zones:', zones
+    print 'zones:', zones
     print 'Number of origins:', origins
 #    print 'startVertices:', startVertices
     print 'Number of destinations:', dest
