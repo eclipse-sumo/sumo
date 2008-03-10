@@ -11,7 +11,7 @@ def makeAndChangeDir(dirName):
 
 os.chdir("input")
 netFile = "../input/" + glob.glob("*.net.xml")[0]
-mtxNamesList = ",".join(["../input/" + item for item in glob.glob("mtx*.fma")])
+mtxNamesList = ",".join(["../input/" + item for item in glob.glob("*.fma")])
 addFiles = ",".join(["../input/" + item for item in glob.glob("*.add.xml")])
 pyAdds = ""
 sumoAdds = ""
