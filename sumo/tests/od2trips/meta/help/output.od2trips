@@ -1,4 +1,4 @@
-SUMO od2trips Version 0.9.6
+SUMO od2trips Version 0.9.7
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Importer of O/D-matrices for the road traffic simulation SUMO.
@@ -18,11 +18,10 @@ Usage: od2trips.exe [OPTION]*
  Input Options:
   -n, --net-file FILE              Loads network (districts) from FILE
   -d, --od-files FILE              Loads O/D-files from FILE(s)
-  --vissim FILE                    Uses FILE to determine which O/D-matrices to
-                                     load
 
  Output Options:
   -o, --output-file FILE           Writes trip definitions into FILE
+  --no-vtype                       Does not save vtype information
 
  Time Options:
   -b, --begin INT                  Defines the begin time;

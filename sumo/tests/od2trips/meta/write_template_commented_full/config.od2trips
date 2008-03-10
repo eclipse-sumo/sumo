@@ -7,14 +7,14 @@
       <!-- Loads O/D-files from FILE(s) -->
       <od-files></od-files>
 
-      <!-- Uses FILE to determine which O/D-matrices to load -->
-      <vissim></vissim>
-
    </input>
 
    <output>
       <!-- Writes trip definitions into FILE -->
       <output-file></output-file>
+
+      <!-- Does not save vtype information -->
+      <no-vtype>false</no-vtype>
 
    </output>
 

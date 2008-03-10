@@ -97,14 +97,14 @@ fillOptions()
     oc.addSynonyme("od-files", "od");
     oc.addDescription("od-files", "Input", "Loads O/D-files from FILE(s)");
 
-    oc.doRegister("vissim", new Option_FileName());
-    oc.addDescription("vissim", "Input", "Uses FILE to determine which O/D-matrices to load");
-
 
     // register the file output options
     oc.doRegister("output-file", 'o', new Option_FileName());
     oc.addSynonyme("output-file", "output");
     oc.addDescription("output-file", "Output", "Writes trip definitions into FILE");
+
+    oc.doRegister("no-vtype", new Option_Bool(false));
+    oc.addDescription("no-vtype", "Output", "Does not save vtype information");
 
 
     // register the time settings
@@ -200,7 +200,7 @@ checkOptions()
         MsgHandler::getErrorInstance()->inform("No net input file (-n) specified.");
         ok = false;
     }
-    if (!oc.isSet("od-files")&&!oc.isSet("vissim")) {
+    if (!oc.isSet("od-files")) {
         MsgHandler::getErrorInstance()->inform("No input specified.");
         ok = false;
     }
@@ -234,33 +234,6 @@ loadDistricts(ODDistrictCont &districts, OptionsCont &oc)
     } else {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
-}
-
-
-std::vector<std::string>
-getVissimDynUMLMatrices(const std::string file)
-{
-    std::vector<std::string> ret;
-    LineReader lr(file);
-    if (!lr.good()) {
-        throw ProcessError("Could not open vissim-file '" + file + "'.");
-    }
-    bool haveAll = false;
-    while (!haveAll&&lr.hasMore()) {
-        string line = lr.readLine();
-        if (line.find("MATRIXDATEI")!=string::npos) {
-            string name = line.substr(line.find("MATRIXDATEI"));
-            name = name.substr(name.find('"')+1);
-            name = name.substr(0, name.find('"'));
-            ret.push_back(name);
-        } else {
-            // do not process the whole file if we have seen all matrices
-            if (ret.size()!=0&&line.find("--------------------------")!=string::npos) {
-                haveAll = true;
-            }
-        }
-    }
-    return ret;
 }
 
 
@@ -441,15 +414,7 @@ readO(LineReader &lr, ODMatrix &into, SUMOReal scale,
 void
 loadMatrix(OptionsCont &oc, ODMatrix &into)
 {
-    std::vector<std::string> files;
-    // check whether the filenames shall be read from a vissim file
-    if (oc.isSet("vissim")) {
-        files = getVissimDynUMLMatrices(oc.getString("vissim"));
-    } else {
-        files = oc.getStringVector("od-files");
-    }
-
-    // ok, we now should have a list of files to parse
+    std::vector<std::string> files = oc.getStringVector("od-files");
     //  check
     if (files.size()==0) {
         throw ProcessError("No files to parse are given.");
@@ -538,7 +503,7 @@ main(int argc, char **argv)
         }
         OutputDevice& dev = OutputDevice::getDeviceByOption("output");
         matrix.write((SUMOTime) oc.getInt("begin"), (SUMOTime) oc.getInt("end"),
-                     dev, oc.getBool("spread.uniform"), oc.getString("prefix"));
+                     dev, oc.getBool("spread.uniform"), oc.getBool("no-vtype"), oc.getString("prefix"));
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoDiscarded()) + " vehicles discarded.");
         MsgHandler::getMessageInstance()->inform(toString(matrix.getNoWritten()) + " vehicles written.");
     } catch (ProcessError &e) {

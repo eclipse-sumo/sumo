@@ -137,7 +137,7 @@ ODMatrix::computeEmissions(ODCell *cell,
 
 void
 ODMatrix::write(SUMOTime begin, SUMOTime end,
-                OutputDevice &dev, bool uniform,
+                OutputDevice &dev, bool uniform, bool noVtype,
                 const std::string &prefix) throw()
 {
     if (myContainer.size()==0) {
@@ -191,7 +191,7 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             dev << "   <tripdef id=\"" << (*i).id << "\" depart=\"" << t << "\" "
             << "from=\"" << (*i).from << "\" "
             << "to=\"" << (*i).to << "\"";
-            if ((*i).type.length()!=0) {
+            if (!noVtype&&(*i).type.length()!=0) {
                 dev << " type=\"" << (*i).type << "\"";
             }
             dev << "/>\n";

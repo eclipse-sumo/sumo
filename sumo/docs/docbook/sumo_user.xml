@@ -5387,10 +5387,7 @@
         of matrices to <application>OD2TRIPS</application> using the
         <option>--od-files</option> (<option>--od</option> or
         <option>-d</option> for short) option followed by the list of files
-        separated using a ',', or - when importing routes from a Vissim
-        simulation - using <option>--vissim
-        <replaceable>&lt;VISSIM_SIMULATION_FILE&gt;</replaceable></option> to
-        read the matrices referred in this simulation file.</para>
+        separated using a ','.</para>
 
         <para><application>OD2TRIPS</application> reads all matrices and
         generates trip definitions as described in "<link
@@ -5403,12 +5400,14 @@
         <option>-o</option> for short). You can specify a vehicle type to be
         added to the trip definitions using <option>--vtype</option> followed
         by the type name. Please remark that vehicles will have no type unless
-        not given in the O/D-matrices or defined using this option. The
-        command line option overrides type names given in the O/D-matrices.
-        The type itself will not be generated. Vehicles will be generated for
-        the time period between <option>--begin</option> (<option>-b</option>)
-        and <option>--end</option> (<option>-e</option>), having 0 and 86400
-        as default values, respectively. The meaning is the simulation step in
+        not given in the O/D-matrices or defined using this option. If a type
+        is spuulied, but you do not want to include it within the output, set
+        the <option>--no-vtype</option> option. The command line option
+        overrides type names given in the O/D-matrices. The type itself will
+        not be generated. Vehicles will be generated for the time period
+        between <option>--begin</option> (<option>-b</option>) and
+        <option>--end</option> (<option>-e</option>), having 0 and 86400 as
+        default values, respectively. The meaning is the simulation step in
         seconds, as usual.</para>
 
         <para>Because each O/D-matrix cell describes the amount of vehicles to
@@ -5464,17 +5463,6 @@
               <para>Tells <application>OD2TRIPS</application> to use the given
               O/D matrices. <remark>Optional, type:(list of) filename(s),
               default: none</remark></para>
-            </listitem>
-          </varlistentry>
-
-          <varlistentry>
-            <term><option>--vissim
-            <replaceable>&lt;VISSIM_SIMULATION_FILE&gt;</replaceable></option></term>
-
-            <listitem>
-              <para>Forces <application>OD2TRIPS</application> to read the
-              list of matrices to process from the given Vissim file.
-              <remark>Optional, type: filename, default: none</remark></para>
             </listitem>
           </varlistentry>
 
@@ -5540,6 +5528,16 @@
             <listitem>
               <para>Adds a prefix to the vehicle names. <remark>Optional,
               type: string, default: none</remark></para>
+            </listitem>
+          </varlistentry>
+
+          <varlistentry>
+            <term><option>--no-vtype</option></term>
+
+            <listitem>
+              <para>Forces OD2TRIPS not to write the vehicle type into the
+              output. <remark>Optional (pregiven), type: bool, default:
+              false</remark></para>
             </listitem>
           </varlistentry>
 
@@ -5630,6 +5628,22 @@
                   of a ";". In case of not using a timeline for the whole day,
                   the definition of time is separated using a ":" from the
                   probability (earlier: ",")</para>
+                </listitem>
+              </itemizedlist></para>
+          </listitem>
+
+          <listitem>
+            <para>Changes in 0.10.0 (!!!)<itemizedlist>
+                <listitem>
+                  <para>The option <option>--vissim</option> is not longer
+                  supported - the od-tables have to be given at the command
+                  line</para>
+                </listitem>
+
+                <listitem>
+                  <para>Introduced <option>--no-vtype</option> which forces
+                  OD2TRIPS to not write vehicle types into the output
+                  file</para>
                 </listitem>
               </itemizedlist></para>
           </listitem>

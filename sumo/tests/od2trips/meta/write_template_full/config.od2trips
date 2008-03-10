@@ -3,11 +3,11 @@
    <input>
       <net-file></net-file>
       <od-files></od-files>
-      <vissim></vissim>
    </input>
 
    <output>
       <output-file></output-file>
+      <no-vtype>false</no-vtype>
    </output>
 
    <time>

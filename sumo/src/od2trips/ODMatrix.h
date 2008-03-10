@@ -128,10 +128,11 @@ public:
      * @param[in] end The end time to generate vehicles for
      * @param[out] strm The stream to write the generated vehicle trips to
      * @param[in] uniform Information whether departure times shallbe uniformly spread or random
+     * @param[in] noVtype Whether vtype information shall not be written
      * @param[in] prefix A prefix for the vehicle names
      */
     void write(SUMOTime begin, SUMOTime end,
-               OutputDevice &dev, bool uniform,
+               OutputDevice &dev, bool uniform, bool noVtype,
                const std::string &prefix) throw();
 
 
