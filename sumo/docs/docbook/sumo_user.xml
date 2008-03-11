@@ -926,7 +926,7 @@
         "<sgmltag>to</sgmltag>"-node. If a name of one of the nodes can not be
         dereferenced (because they have not been defined within the nodes
         file) an error is generated (see also the documentation on
-        "<option>--omit-corrupt-edges</option>" in subchapter "<link
+        "<option>--dismiss-loading-errors</option>" in subchapter "<link
         linkend="user_chp04-xml_descriptions-running">Building the
         Network</link>").</para>
 
@@ -1150,6 +1150,12 @@
           <listitem>
             <para>The <sgmltag>function</sgmltag>-tag was added for version
             0.9.4 and was revalidated for version 0.9.5</para>
+          </listitem>
+
+          <listitem>
+            <para>11.03.2008: False documentation updated:
+            <option>--omit-corrupt-edges</option> is outdated; use
+            <option>--dismiss-loading-errors</option> instead</para>
           </listitem>
         </itemizedlist>
 
@@ -1640,7 +1646,7 @@
 
         <para>Maybe your edge definitions are incomplete or buggy. If you
         still want to import your network, you can try passing
-        "<option>--omit-corrupt-edges</option>" to
+        "<option>--dismiss-loading-errors</option>" to
         <application>NETCONVERT</application>. In this case, edges which are
         not defined properly, are omitted, but
         <application>NETCONVERT</application> tries to build the network
@@ -1697,7 +1703,7 @@
           </varlistentry>
 
           <varlistentry>
-            <term><option>--omit-corrupt-edges</option></term>
+            <term><option>--dismiss-loading-errors</option></term>
 
             <listitem>
               <para>Continues with parsing although a corrupt edge occurred.
@@ -1820,6 +1826,12 @@
           <listitem>
             <para>An error in this documentation has been removed for version
             0.9.5</para>
+          </listitem>
+
+          <listitem>
+            <para>11.03.2008: False documentation updated:
+            <option>--omit-corrupt-edges</option> is outdated; use
+            <option>--dismiss-loading-errors</option> instead</para>
           </listitem>
         </itemizedlist>
       </sect2>
