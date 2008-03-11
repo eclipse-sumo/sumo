@@ -198,28 +198,28 @@ MSVehicleControl::newUnbuildVehicleBuild()
 
 
 
-size_t
+unsigned int
 MSVehicleControl::getLoadedVehicleNo() const
 {
     return myLoadedVehNo;
 }
 
 
-size_t
+unsigned int
 MSVehicleControl::getEndedVehicleNo() const
 {
     return myEndedVehNo;
 }
 
 
-size_t
+unsigned int
 MSVehicleControl::getRunningVehicleNo() const
 {
     return myRunningVehNo;
 }
 
 
-size_t
+unsigned int
 MSVehicleControl::getEmittedVehicleNo() const
 {
     return myRunningVehNo + myEndedVehNo;

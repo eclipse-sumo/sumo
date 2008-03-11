@@ -79,16 +79,16 @@ public:
     void newUnbuildVehicleBuild();
 
     /// Returns the number of build vehicles
-    size_t getLoadedVehicleNo() const;
+    unsigned int getLoadedVehicleNo() const;
 
     /// Returns the number of removed vehicles
-    size_t getEndedVehicleNo() const;
+    unsigned int getEndedVehicleNo() const;
 
     /// Returns the number of build and emitted, but not yet deleted vehicles
-    size_t getRunningVehicleNo() const;
+    unsigned int getRunningVehicleNo() const;
 
     /// Returns the number of emitted vehicles
-    size_t getEmittedVehicleNo() const;
+    unsigned int getEmittedVehicleNo() const;
 
     /// Return the meaning waiting time of vehicles (corn-dependent value)
     SUMOReal getMeanWaitingTime() const;
