@@ -59,7 +59,6 @@ if options.verbose:
     
 net = Net()                                                             # generate the investigated network from the respective SUMO-network
 
-
 reader = NetDetectorFlowReader(net)
 parser.setContentHandler(reader)
 parser.parse(options.netfile)
@@ -114,8 +113,8 @@ for startVertex in net._startVertices:
         AssignedVeh[startVertex][endVertex] = 0
         AssignedTrip[startVertex][endVertex] = 0.
 
-    
 for counter in range (0, len(matrices)):                                         # matrix ist im 1. Durchlauf="matrix05-08.fma", im 2.="matrix06-07.fma"
+    net._vehicles = []
     matrix = matrices[counter]
     MatrixCounter += 1
     print 'Matrix: ', MatrixCounter
@@ -165,15 +164,16 @@ for counter in range (0, len(matrices)):                                        
 
 # output the generated releasing times and routes of the vehicles based on the current matrix
     SortedVehOutput(net, counter, ODcontrol)
-	
+
+# output the number of vehicles in the given time interval(10 sec) accoding to the Poisson distribution
+    if int(ODcontrol[(len(ODcontrol)-3)]) == 1:
+        VehPoissonDistr(net, ODcontrol, begintime)
+
 # the required time for executing the incremental traffic assignemnt
 assigntime = TimeforAssign(starttime)
 
 # output the average vehicular travel time
 OutputMOE(net, ODcontrol)
-
-# output the number of vehicles in the given time interval(10 sec) accoding to the Poisson distribution
-VehPoissonDistr(net, ODcontrol, begintime)
 
 foutlog.write('- Assignment is completed and the all vehicular information is generated. ')
 foutlog.close()
