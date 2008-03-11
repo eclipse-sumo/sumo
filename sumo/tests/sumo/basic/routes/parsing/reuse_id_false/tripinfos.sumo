@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+
+<!-- generated on 03/11/08 15:08:57 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+   </input>
+
+   <output>
+      <tripinfo-output>tripinfos.xml</tripinfo-output>
+   </output>
+
+   <processing>
+      <route-steps>1</route-steps>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<tripinfos>
+</tripinfos>

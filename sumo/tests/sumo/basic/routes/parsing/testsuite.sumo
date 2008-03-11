@@ -7,8 +7,11 @@ old_style
 # Tests whether the new-style routes can be handled
 nested
 
-# Tests whether reusing vehicle ids in routes can be handled
-reuse_id
+# Tests whether reusing vehicle ids in routes can be handled (first vehicle still runs)
+reuse_id_false
+
+# Tests whether reusing vehicle ids in routes can be handled (first vehicle has left)
+reuse_id_ok
 
 # Tests whether the new-style routes can be handled
 nested_ref
