@@ -5,13 +5,13 @@ import os, string, sys, random, math
 from network import Net
 from elements import Vertex, Edge, Vehicle
 
-def VehRelease(net, ODcontrol, departtime, CurrentMatrixSum):
-    print 'RandomVehRelease:', ODcontrol[(len(ODcontrol)-3)]
+def VehRelease(net, Parcontrol, departtime, CurrentMatrixSum):
+    print 'RandomVehRelease:', Parcontrol[(len(Parcontrol)-3)]
     print 'CurrentMatrixSum:', CurrentMatrixSum
 
 #    foutprob = file('probability.txt', 'w')
 #    foutrelease = file('release.txt', 'w')
-    if int(ODcontrol[(len(ODcontrol)-3)]) == 0:
+    if int(Parcontrol[(len(Parcontrol)-3)]) == 0:
         for veh in net._vehicles:                                                       # generate the departure time for each vehicle uniform randomly
             if veh.depart == 0:
                 veh.depart = random.randint(departtime, departtime + 3600)

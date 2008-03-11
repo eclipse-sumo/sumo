@@ -38,22 +38,22 @@ def OutputNetwork(net):
     net.printNet(foutnet)
     foutnet.close()
 
-def OutputMOE(net, ODcontrol):
+def OutputMOE(net, Parcontrol):
     totaltime = 0.0
     totalflow = 0.0
     foutMOE = file('MOE.txt', 'w')
-    foutMOE.write('Number of analyzed periods(hr):%s' %(int(ODcontrol[(len(ODcontrol)-2)])))
+    foutMOE.write('Number of analyzed periods(hr):%s' %(int(Parcontrol[(len(Parcontrol)-2)])))
     for edgeName, edgeObj in net._edges.iteritems():                                      # generate the output of the link travel times
         if str(edgeObj.source) != str(edgeObj.target) and edgeObj.estcapacity > 0.:
             totaltime += edgeObj.flow * edgeObj.actualtime
             totalflow += edgeObj.flow
-            foutMOE.write('\nedge:%s \t from:%s \t to:%s \t freeflowtime(s):%s \t traveltime(s):%s \t traffic flow(veh):%s \t v/c:%s' \
+            foutMOE.write('\nedge:%s \t from:%s \t to:%s \t freeflowtime(s):%2.2f \t traveltime(s):%2.2f \t traffic flow(veh):%2.2f \t v/c:%2.2f' \
             %(edgeName, edgeObj.source, edgeObj.target, edgeObj.freeflowtime, edgeObj.actualtime, edgeObj.flow, (edgeObj.flow/edgeObj.estcapacity)))    
         if edgeObj.flow > edgeObj.estcapacity and edgeObj.connection == 0:
             foutMOE.write('****overflow!')
 
     avetime = totaltime / totalflow
-    foutMOE.write('\nTotal flow(veh):%s \t average travel time(s):%s\n' %(totalflow, avetime))
+    foutMOE.write('\nTotal flow(veh):%2.2f \t average travel time(s):%2.2f\n' %(totalflow, avetime))
     
     foutMOE.close()
 
@@ -65,7 +65,7 @@ def TimeforAssign(starttime):
     return assigntime
 
     
-def SortedVehOutput(net, counter, ODcontrol):                                   
+def SortedVehOutput(net, counter, Parcontrol):                                   
     net._vehicles.sort(key=operator.attrgetter('depart'))                         # sorting by departure times 
     
     if counter == 0:
@@ -81,13 +81,13 @@ def SortedVehOutput(net, counter, ODcontrol):
             foutroute.write('%s ' %edge.label)
         foutroute.write('</route>\n')
         foutroute.write('</vehicle>\n') 
-    if int(ODcontrol[(len(ODcontrol)-2)]) == (counter - 1):
+    if int(Parcontrol[(len(Parcontrol)-2)]) == (counter - 1):
         foutroute.write('</routes>\n')
     foutroute.close()
     
-def VehPoissonDistr(net, ODcontrol, begintime):
+def VehPoissonDistr(net, Parcontrol, begintime):
     foutpoisson = file('poisson.txt', 'w')                                        # check if the vehicles are distributed according to the poisson distribution
-    if int(ODcontrol[(len(ODcontrol)-3)]) == 1:
+    if int(Parcontrol[(len(Parcontrol)-3)]) == 1:
         zaehler = 0
         interval = 10
         count = 0

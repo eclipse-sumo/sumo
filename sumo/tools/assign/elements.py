@@ -2,20 +2,68 @@
 # This script is to define the required network geometric classes 
 # and the functions for calculating link characteristics, such as capacity, travel time and link cost function.
 
-import os, random, string, sys, datetime
+import os, random, string, sys
 
 # Vertex class which stores incoming and outgoing edges as well as
 # auxiliary data for the flow computation. The members are accessed
 # directly.
+
+class Predecessor:
+
+    def __init__(self, edge, pred, distance):
+        self.edge = edge
+        self.pred = pred
+        self.distance = distance
+        
 class Vertex:
 
     def __init__(self, num):
         self.inEdges = set()
         self.outEdges = set()
         self.label = "temp_%s" % num
+        self.preds = []
+        self.wasUpdated = False
     
     def __repr__(self):
         return self.label
+        
+    def _addNewPredecessor(self, edge, updatePred, newPreds):
+        for pred in newPreds:
+            if pred.pred == updatePred:
+                return
+        newPreds.append(Predecessor(edge, updatePred,
+                                    updatePred.distance + edge.actualtime))
+
+    def update(self, KPaths, edge):
+        updatePreds = edge.source.preds
+        if len(self.preds) == KPaths\
+           and updatePreds[0].distance + edge.actualtime >= self.preds[KPaths-1].distance:
+            return False
+        newPreds = []
+        updateIndex = 0
+        predIndex = 0
+        while len(newPreds) < KPaths\
+              and (updateIndex < len(updatePreds)\
+                   or predIndex < len(self.preds)):
+            if predIndex == len(self.preds):
+                self._addNewPredecessor(edge, updatePreds[updateIndex], newPreds)
+                updateIndex += 1
+            elif updateIndex == len(updatePreds):
+                newPreds.append(self.preds[predIndex])
+                predIndex += 1
+            elif updatePreds[updateIndex].distance + edge.actualtime < self.preds[predIndex].distance:
+                self._addNewPredecessor(edge, updatePreds[updateIndex], newPreds)
+                updateIndex += 1
+            else:
+                newPreds.append(self.preds[predIndex])
+                predIndex += 1
+        if predIndex == len(newPreds): # no new added
+            return False
+        self.preds = newPreds
+        returnVal = not self.wasUpdated
+        self.wasUpdated = True
+        return returnVal
+
 
 # Edge class which stores start and end vertex, type amd label of the edge
 # as well as flow and capacity for the flow computation and some parameters
@@ -33,11 +81,13 @@ class Edge:
         self.numberlane = 0
         self.freeflowtime = 0.0                            
         self.estcapacity = 0.0                             # default value: 1500 vehicles per lane                             
-        self.CRcurve = None
+        self.CRcurve = ''
         self.actualtime = 0.0
         self.weight = 0.0
         self.connection = 0
         self.edgetype = None
+        self.helpflow = 0.0
+        self.Path=[]        
         
     def __repr__(self):
         cap = str(self.capacity)
@@ -46,10 +96,11 @@ class Edge:
         return "%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self.kind, self.label, self.source, self.target,
                                                       self.flow, self.length, self.numberlane,
                                                       self.CRcurve, self.estcapacity, cap, self.weight)
+
     def getFFTT(self):
         if str(self.source) == str(self.target):
             self.freeflowtime = 0.0
-        else:    
+        else:
             self.freeflowtime = self.length / self.maxspeed
         return self.freeflowtime
                 
@@ -57,10 +108,9 @@ class Edge:
         f = file(parfile)
         for line in f:
             p = line.split()
-            periods = int(p[(len(p)-2)])
-            print 'periods_1:', periods
-        self.estcapacity = float(self.numberlane * 1200) * periods            # In the case that there is no information about CRcurve. 
-        
+            periods = int(p[len(p)-2])
+        self.estcapacity = float(self.numberlane * 1500) * periods           # The respective rules will be developed accroding to the HBS. 
+
         return self.estcapacity
 
     # modified CR-curve database defined in the Validate files
@@ -213,7 +263,7 @@ class Edge:
             if self.maxspeed <= 8.0:
                 self.estcapacity = float(self.numberlane * 200) * periods
                 self.edgetype = '94'
-    
+
     def getCRcurve(self):
         self.CRcurve =''
         if self.edgetype != None:
@@ -232,31 +282,28 @@ class Edge:
                     self.CRcurve = 'CR5'
             elif int(self.edgetype) >= 94 and int(self.edgetype) <= 99:
                     self.CRcurve = 'CR6'
-
-    # Function for calculating/updating link travel time
+                    
+# Function for calculating/updating link travel time
     def getACTTT(self, curvefile):        
         foutcheck = file('time_flow.txt', 'a')
         f = file(curvefile)
         for line in f:
             itemCR = line.split()
             if itemCR[0] == self.CRcurve:
-                if self.flow == 0.0 or self.connection == 1 or self.numberlane == 0:         # self.flow = 0: at free-flow speed; self.numberlane =0: connection link
+                if self.flow == 0.0 or self.connection == 1 or self.numberlane == 0 or str(self.source) == str(self.target):         # self.flow = 0: at free-flow speed; self.numberlane =0: connection link
                     self.actualtime = self.freeflowtime
                 else:
                     if self.estcapacity == 0.0:
                         foutcheck.write('edge.label=%s: estcapacity=0\n' %(self.label))
-                    self.actualtime = self.freeflowtime*(1+(float(itemCR[1])*(self.flow/(self.estcapacity*float(itemCR[3])))**float(itemCR[2])))
-                    foutcheck.write('edge="%s", act_flow=%f, est,cap="%f", free_time="%f", act_time="%f"\n' %(self.label, self.flow, self.estcapacity, self.freeflowtime, self.actualtime))
-                if str(self.source) == str(self.target):
-                    self.actualtime = 0.0
+                    else:
+                        self.actualtime = self.freeflowtime*(1+(float(itemCR[1])*(self.flow/(self.estcapacity*float(itemCR[3])))**float(itemCR[2])))
                 if self.flow > self.estcapacity and self.connection != 1 and str(self.source) != str(self.target):
                     self.actualtime = self.actualtime*1.2           # travel time penalty (need to be modified)
                     foutcheck.write('************edge.label="%s": acutaltime is timed by 1.2.\n' %(self.label))
         f.close()
         foutcheck.close()        
         return self.actualtime
-        
-        
+              
 # Vehilce class: the origin, destination, links, path travel time, path length and path flow will be stored in the Path class.
 class Vehicle:
     def __init__(self, label):
@@ -271,12 +318,30 @@ class Vehicle:
     def __repr__(self):
         return "%s_%s_%s_%s_%s_%s<%s>" % (self.label, self.depart, self.arrival, self.speed, self.traveltime, self.travellength, self.route)
         
-#    def depart_compare(x, y):
-#        if x.depart > y.depart:
-#            return 1
-#        elif x.depart == y.depart:
-#            return 0
-#        else: # x.depart<y.depart
-#            return -1
+pathNum = 0
+        
+# Path class: the origin, destination, links, path travel time, path length and path flow will be stored in the Path class.
+class Path:
+    def __init__(self):
+        self.source = None
+        self.target = None
+        self.label = "%s" % pathNum    #Pfad_
+        global pathNum
+        pathNum += 1
+        self.Edges = []
+        self.freepathtime = 0.0
+        self.actpathtime = 0.0
+        self.pathflow = 0.0
+        self.helpflow = 0.0
+        self.commfactor = 0.0
+        self.choiceprob = 0.0
+    
+    def __repr__(self):
+#        return "%s_%s<%s|%s|%s|%s|%s|%s>" % (self.label, self.source, self.target, self.pathflow, 
+#                                             self.actpathtime, self.commfactor, self.choiceprob, self.Edges) 
+        return "%s_%s_%s<%s|%s|%s|%s>" % (self.label, self.source, self.target, self.freepathtime, self.pathflow, self.actpathtime, self.Edges)
 
-
+    def UpdatePathActTime(self, net):
+        self.actpathtime = 0.
+        for edge in self.Edges:
+            self.actpathtime += edge.actualtime

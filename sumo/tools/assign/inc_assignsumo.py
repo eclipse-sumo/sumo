@@ -78,6 +78,8 @@ for edgeID in net._edges:
     edge.getAppCapacity(options.parfile)
     edge.getCRcurve()                                                    # identify the respective cost function curve based on the max. speed and the number of lanes
     edge.getACTTT(options.curvefile)                                     # calculate actual link trave time
+
+getConnectionTravelTime(net._startVertices, net._endVertices) # calculate link travel time for all zone connectors    
     
 foutlog.write('- Initial calculation of link parameters : done.\n')
     
@@ -85,13 +87,13 @@ TimeforInput(inputreaderstart)                                           # the r
     
 # read the control parameters(the number of iterations,  
 # and the assigned percentages of the matrix at each iteration) and the traffic demand 
-ODcontrol = getParameter(options.parfile)
-print 'ODcontrol[number of iterations, n.%, Uni-/PoissonRandomRelease, number of periods, beginning time]:', ODcontrol    # 0: UniRandomRelease; 1: PoissonRandomRelease
+Parcontrol = getParameter(options.parfile)
+print 'Parcontrol[number of iterations, n.%, Uni-/PoissonRandomRelease, number of periods, beginning time]:', Parcontrol    # 0: UniRandomRelease; 1: PoissonRandomRelease
 
 foutlog.write('Reading control parameters: done.\n')
 
-begintime = int(ODcontrol[(len(ODcontrol)-1)])
-iteration = int(ODcontrol[0])                                            # number of iterations in the incremental traffic assignment
+begintime = int(Parcontrol[(len(Parcontrol)-1)])
+iteration = int(Parcontrol[0])                                            # number of iterations in the incremental traffic assignment
 
 print 'number of the analyzed matrices:', len(matrices)
 print 'Begin Time:', begintime, "o'Clock"
@@ -112,9 +114,8 @@ for startVertex in net._startVertices:
     for endVertex in net._endVertices:
         AssignedVeh[startVertex][endVertex] = 0
         AssignedTrip[startVertex][endVertex] = 0.
-
+    
 for counter in range (0, len(matrices)):                                         # matrix ist im 1. Durchlauf="matrix05-08.fma", im 2.="matrix06-07.fma"
-    net._vehicles = []
     matrix = matrices[counter]
     MatrixCounter += 1
     print 'Matrix: ', MatrixCounter
@@ -125,7 +126,6 @@ for counter in range (0, len(matrices)):                                        
 # matrixPshort, matrixPlong, matrixTruck, startVertices, endVertices, Pshort_EffCells, Plong_EffCells, Truck_EffCells = getMatrix(net, options.zonefile, options.mtxpsfile, options.mtxplfile, options.mtxtfile)
     matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum = getMatrix(net, matrix, MatrixSum)
     print 'Matrix und OD Zone already read for Interval', counter
-    edge.actualtime, edge.freeflowtime = getConnectionTravelTime(startVertices, endVertices) # calculate link travel time for all zone connectors    
     foutlog.write('Reading matrix and O-D zones: done.\n')
     
     origins = len(startVertices)                                                    # number of origins
@@ -153,27 +153,26 @@ for counter in range (0, len(matrices)):                                        
             prevehID = vehID                                                        # to all the other nodes will be identified.
             print 'prevehID', prevehID
 # incremental traffic assignment
-            vehID, AssignedVeh, AssignedTrip = DoAssign(net, ODcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)     
+            vehID, AssignedVeh, AssignedTrip = DoAssign(net, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)     
             print 'vehID:', vehID
         
         for edgeID in net._edges:                                                   # the link travel times will be updated according to the latest traffic assingment
             edge = net._edges[edgeID]
             edge.getACTTT(options.curvefile)
 
-    VehRelease(net, ODcontrol, departtime, CurrentMatrixSum)                        # generate vehicular releasing times
+    VehRelease(net, Parcontrol, departtime, CurrentMatrixSum)                        # generate vehicular releasing times
 
 # output the generated releasing times and routes of the vehicles based on the current matrix
-    SortedVehOutput(net, counter, ODcontrol)
-
-# output the number of vehicles in the given time interval(10 sec) accoding to the Poisson distribution
-    if int(ODcontrol[(len(ODcontrol)-3)]) == 1:
-        VehPoissonDistr(net, ODcontrol, begintime)
-
+    SortedVehOutput(net, counter, Parcontrol)
+	
 # the required time for executing the incremental traffic assignemnt
 assigntime = TimeforAssign(starttime)
 
 # output the average vehicular travel time
-OutputMOE(net, ODcontrol)
+OutputMOE(net, Parcontrol)
+
+# output the number of vehicles in the given time interval(10 sec) accoding to the Poisson distribution
+VehPoissonDistr(net, Parcontrol, begintime)
 
 foutlog.write('- Assignment is completed and the all vehicular information is generated. ')
 foutlog.close()

@@ -5,16 +5,12 @@
 import os, random, string, sys, datetime
 
 def getParameter(parfile):
-    ODcontrol = []
+    Parcontrol = []
     sum = 0.
     for line in open(parfile):                                                  # include: default link capacity estimation (0: no; 1: yes)
-        ODcontrol = line.split()                                                        # the number of iterations, procent of matrix at each iteration
-        for i in range (1, (len(ODcontrol)-2)):
-            sum += float(ODcontrol[i])
-    sum = sum * 100.0
-    print 'percentage of the assigned matrix:', sum, "%" 
+        Parcontrol = line.split()                                                        # the number of iterations, procent of matrix at each iteration
         
-    return ODcontrol
+    return Parcontrol
      
 def getMatrix(net, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     matrixPshort = []
@@ -38,7 +34,6 @@ def getMatrix(net, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     for line in open(matrix):                             # read the matrix for passenger vehicles
         if line[0] != '*' and line[0] != '$':
             skipCount += 1
-            print 'skipcount:',skipCount
             if skipCount > 3:
                 if zones == 0:
                     for elem in line.split():
@@ -74,6 +69,7 @@ def getMatrix(net, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                             ODpairs += 1
                             itemend = ODpairs%origins
                             MatrixSum += float(item)                  # calculate the sum of all matrices
+                            CurrentMatrixSum += float(item)           # calculate the sum of the current matrix
                             if float(item) > 0.0:
                                 Pshort_EffCells += 1
                     elif itemend == 0.:
@@ -84,6 +80,7 @@ def getMatrix(net, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                             ODpairs += 1
                             itemend = ODpairs%origins
                             MatrixSum += float(item)                  # calculate the sum of all matrices
+                            CurrentMatrixSum += float(item)           # calculate the sum of the current matrix
                             if float(item) > 0.0:
                                 Pshort_EffCells += 1
                     elif itemend != 0.:
@@ -92,16 +89,14 @@ def getMatrix(net, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                             ODpairs += 1
                             itemend = ODpairs%origins
                             MatrixSum += float(item)                  # calculate the sum of all matrices
+                            CurrentMatrixSum += float(item)           # calculate the sum of the current matrix
                             if float(item) > 0.0:
                                 Pshort_EffCells += 1
-    CurrentMatrixSum = MatrixSum
 
-    print 'zones:', zones
+    print 'Number of zones:', zones
     print 'Number of origins:', origins
-#    print 'startVertices:', startVertices
     print 'Number of destinations:', dest
-#    print 'endVertices:', endVertices 
-#    print 'CurrentMatrixSum:', CurrentMatrixSum        
+    print 'CurrentMatrixSum:', CurrentMatrixSum        
     print 'Effective O-D Cells:', Pshort_EffCells    
     
 #    itemend = -1.0
@@ -171,7 +166,7 @@ def getConnectionTravelTime(startVertices, endVertices):
     sum = 0.0
     for vertex in startVertices:
         sum = 0.0
-        for edge in vertex.outEdges:        
+        for edge in vertex.outEdges:     
             sum += float(edge.weight)
         for edge in vertex.outEdges:
             edge.freeflowtime = (1-float(edge.weight)/sum) * 10        # assumption: all vehilces can reach the access links
@@ -179,7 +174,7 @@ def getConnectionTravelTime(startVertices, endVertices):
             edge.actualtime = edge.freeflowtime
     for vertex in endVertices:
         sum = 0.0
-        for edge in vertex.inEdges:
+        for edge in vertex.inEdges:  
             sum += float(edge.weight)
         for edge in vertex.inEdges:
             edge.freeflowtime = (1-float(edge.weight)/sum) * 10        # assumption: all vehilces can reach the respective traffic zone 

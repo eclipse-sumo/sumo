@@ -4,7 +4,7 @@
 
 import os, random, string, sys, datetime
 from xml.sax import saxutils, make_parser, handler
-from elements import Vertex, Edge, Vehicle
+from elements import Predecessor, Vertex, Edge, Vehicle, Path
 
 # Net class which stores the network (vertex and edge collection)
 # All the algorithmic stuffs and the output generation are also
@@ -18,6 +18,7 @@ class Net:
         self._vehicles = []
         self._startVertices = []
         self._endVertices = []
+        self._paths = {}
 
     def newVertex(self):
         v = Vertex(len(self._vertices))
@@ -41,6 +42,74 @@ class Net:
     def addIsolatedRealEdge(self, edgeLabel):
         self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(),
                           "real"))
+    
+#    def calcPaths(self, startEdgeLabel):
+    def calcPaths(self, NewRoutes, KPaths, startVertices, endVertices, matrixPshort):
+        foutkpath = file('kpaths.txt', 'w')
+#        if startEdgeLabel:
+#            startVertex = self._edges[startEdgeLabel].source
+#        else:
+#            startVertex = self._vertices[0]
+        start = -1
+        for startVertex in startVertices:
+            start += 1
+            end = -1
+            for vertex in self._vertices:
+                vertex.preds = []
+                vertex.wasUpdated = False
+            startVertex.preds.append(Predecessor(None, None, 0))
+            updatedVertices = [startVertex]
+            print 'updatedVertices:', updatedVertices
+
+            while len(updatedVertices) > 0:
+                vertex = updatedVertices.pop(0)
+                vertex.wasUpdated = False
+                for edge in vertex.outEdges:
+                    if edge.target != startVertex and edge.target.update(KPaths, edge):
+                        updatedVertices.append(edge.target)
+    
+            for endVertex in endVertices:
+                end += 1
+                print 'Number of the new Routes:', NewRoutes
+                if str(startVertex) != str(endVertex) and matrixPshort[start][end] != 0.:
+                    for startPred in endVertex.preds:
+                        newpath = Path()
+                        print 'path.pathNum = ', newpath.label
+#                        print 'pathNum', pathNum 
+                        if not startVertex in self._paths:
+                            self._paths[startVertex] = {}
+                        if not endVertex in self._paths[startVertex]:
+                            self._paths[startVertex][endVertex] = []
+                        self._paths[startVertex][endVertex].append(newpath)
+                        newpath.source = startVertex
+                        
+                        print 'endVertex:', endVertex 
+                        newpath.target = endVertex
+#                        newpath.actpathtime = pathcost
+                        
+                        pred = startPred
+                        vertex = endVertex
+                        while vertex != startVertex:
+                            if pred.edge.kind == "real":
+                                newpath.Edges.append(pred.edge)
+                            vertex = pred.edge.source
+                            pred = pred.pred
+#                        print
+                        newpath.Edges.reverse()    
+                        foutkpath.write('\npathID:%s, source:%s, target:%s, Edges:' %(newpath.label, newpath.source, newpath.target))  
+    
+                        for edge in newpath.Edges:
+                            foutkpath.write('%s, ' %(edge.label))
+                            newpath.freepathtime += edge.freeflowtime
+                            
+                        newpath.actpathtime = newpath.freepathtime
+                        print '\npath cost:', newpath.actpathtime
+                        foutkpath.write('Path cost:%s' %newpath.actpathtime) 
+                    NewRoutes += 1
+        foutkpath.close()
+        
+        return NewRoutes
+                        
     def printNet(self, foutnet):
         foutnet.write('Name\t Kind\t FrNode\t ToNode\t length\t MaxSpeed\t Lanes\t CR-Curve\t EstCap.\t Free-Flow TT\t Weight\t Connection\n')
         for edgeName, edgeObj in self._edges.iteritems():
@@ -154,4 +223,4 @@ class VehInformationReader(handler.ContentHandler):
         if name == 'vehicle':
             self._Vehicle.route = self._routeString.split()
             self._routeString = ''
-            self._Vehicle = None            
+            self._Vehicle = None

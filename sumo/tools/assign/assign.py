@@ -6,7 +6,7 @@ import math
 from network import Net
 from elements import Vertex, Edge, Vehicle
 
-def DoAssign(net, ODcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID): # matrixPlong, matrixTruck):
+def DoAssign(net, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID): # matrixPlong, matrixTruck):
 
     for endVertex in endVertices:                                               
         end += 1
@@ -34,9 +34,9 @@ def DoAssign(net, ODcontrol, iter, endVertices, start, end, startVertex, matrixP
                 pathlength += edge.length
                 pathtime += edge.actualtime
 
-            pathflow = float(matrixPshort[start][end]*float(ODcontrol[iter]))  # the amount of the pathflow, which will be released at this iteration
+            pathflow = float(matrixPshort[start][end]*float(Parcontrol[iter]))  # the amount of the pathflow, which will be released at this iteration
             print 'pathflow:', pathflow
-            interval = 3600. / float(ODcontrol[0])
+            interval = 3600. / float(Parcontrol[0])
             
             AssignedTrip[startVertex][endVertex] += pathflow
             
@@ -52,6 +52,6 @@ def DoAssign(net, ODcontrol, iter, endVertices, start, end, startVertex, matrixP
             print 'AssignedVeh[start][end]', AssignedVeh[startVertex][endVertex]
 
             for edge in helpPath:
-                edge.flow += matrixPshort[start][end]* float(ODcontrol[iter])                 
+                edge.flow += matrixPshort[start][end]* float(Parcontrol[iter])                 
     
     return vehID, AssignedVeh, AssignedTrip
