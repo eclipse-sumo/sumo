@@ -81,23 +81,20 @@ GUIBusStop::GUIBusStop(const std::string &id, MSNet &,
         : MSBusStop(id, lines, lane, frompos, topos),
         GUIGlObject_AbstractAdd(gIDStorage, "bus_stop:" + id, GLO_TRIGGER)
 {
-    // full geometry
-    {
-        myFGShape = lane.getShape();
-        myFGShape.move2side((SUMOReal) 1.65);
-        myFGShape = myFGShape.getSubpart(frompos, topos);
-        myFGShapeRotations.reserve(myFGShape.size()-1);
-        myFGShapeLengths.reserve(myFGShape.size()-1);
-        for (size_t i=0; i<myFGShape.size()-1; ++i) {
-            const Position2D &f = myFGShape[i];
-            const Position2D &s = myFGShape[i+1];
-            myFGShapeLengths.push_back(GeomHelper::distance(f, s));
-            myFGShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265);
-        }
-        Position2DVector tmp = myFGShape;
-        tmp.move2side(1.5);
-        myFGSignPos = tmp.center();
+    myFGShape = lane.getShape();
+    myFGShape.move2side((SUMOReal) 1.65);
+    myFGShape = myFGShape.getSubpart(frompos, topos);
+    myFGShapeRotations.reserve(myFGShape.size()-1);
+    myFGShapeLengths.reserve(myFGShape.size()-1);
+    for (size_t i=0; i<myFGShape.size()-1; ++i) {
+        const Position2D &f = myFGShape[i];
+        const Position2D &s = myFGShape[i+1];
+        myFGShapeLengths.push_back(GeomHelper::distance(f, s));
+        myFGShapeRotations.push_back((SUMOReal) atan2((s.x()-f.x()), (f.y()-s.y()))*(SUMOReal) 180.0/(SUMOReal) 3.14159265);
     }
+    Position2DVector tmp = myFGShape;
+    tmp.move2side(1.5);
+    myFGSignPos = tmp.center();
 }
 
 
@@ -107,7 +104,7 @@ GUIBusStop::~GUIBusStop() throw()
 
 GUIGLObjectPopupMenu *
 GUIBusStop::getPopUpMenu(GUIMainWindow &app,
-                         GUISUMOAbstractView &parent)
+                         GUISUMOAbstractView &parent) throw()
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
@@ -120,35 +117,21 @@ GUIBusStop::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIBusStop::getParameterWindow(GUIMainWindow &,
-                               GUISUMOAbstractView &)
+                               GUISUMOAbstractView &) throw()
 {
     return 0;
 }
 
 
 const std::string &
-GUIBusStop::microsimID() const
+GUIBusStop::microsimID() const throw()
 {
     return getID();
 }
 
 
-bool
-GUIBusStop::active() const
-{
-    return true;
-}
-
-
-Position2D
-GUIBusStop::getPosition() const
-{
-    return myFGShape.center(); //!!!!
-}
-
-
 void
-GUIBusStop::drawGL(SUMOReal scale, SUMOReal upscale)
+GUIBusStop::drawGL(SUMOReal scale, SUMOReal upscale) throw()
 {
     // draw the area
     glColor3f((SUMOReal)(76./255.), (SUMOReal)(170./255.), (SUMOReal)(50./255.));
@@ -164,7 +147,6 @@ GUIBusStop::drawGL(SUMOReal scale, SUMOReal upscale)
             glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
             pfSetPosition(0, 0);
             pfSetScale(.5f);
-            //glRotated(180, 0, 1, 0);
             glTranslated(0, -(double)i*.5, 0);
             glScaled(1, -1, 1);
             pfDrawString(myLines[i].c_str());
@@ -176,8 +158,6 @@ GUIBusStop::drawGL(SUMOReal scale, SUMOReal upscale)
     glPushMatrix();
     glScaled(upscale, upscale, upscale);
     glTranslated(myFGSignPos.x(), myFGSignPos.y(), 0);
-    //glRotated( rot, 0, 0, 1 );
-    //glTranslated(0, -1.5, 0);
     int noPoints = 9;
     if (scale>25) {
         noPoints = (int)(9.0 + scale / 10.0);
@@ -212,28 +192,11 @@ GUIBusStop::drawGL(SUMOReal scale, SUMOReal upscale)
 
 
 Boundary
-GUIBusStop::getBoundary() const
+GUIBusStop::getCenteringBoundary() const throw()
 {
-    /* !!! */
-    Position2D pos = getPosition();
-    Boundary ret(pos.x(), pos.y(), pos.x(), pos.y());
-    ret.grow(2.0);
-    return ret;
-}
-
-
-GUIManipulator *
-GUIBusStop::openManipulator(GUIMainWindow &,
-                            GUISUMOAbstractView &)
-{
-    /*
-    GUIManip_LaneSpeedTrigger *gui =
-        new GUIManip_LaneSpeedTrigger(app, getFullName(), *this, 0, 0);
-    gui->create();
-    gui->show();
-    return gui;
-    */
-    return 0;
+    Boundary b = myFGShape.getBoxBoundary();
+    b.grow(20);
+    return b;
 }
 
 

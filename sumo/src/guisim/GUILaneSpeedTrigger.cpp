@@ -318,9 +318,9 @@ GUILaneSpeedTrigger::GUILaneSpeedTrigger(const std::string &id,
     vector<MSLane*>::const_iterator i;
     for (i=destLanes.begin(); i!=destLanes.end(); ++i) {
         const GUIEdge * const edge = static_cast<const GUIEdge * const>((*i)->getEdge());
-        const Position2DVector &v =
-            edge->getLaneGeometry((const MSLane *)(*i)).getShape();
+        const Position2DVector &v = edge->getLaneGeometry((const MSLane *)(*i)).getShape();
         myFGPositions.push_back(v.positionAtLengthPosition(0));
+        myBoundary.add(v.positionAtLengthPosition(0));
         Line2D l(v.getBegin(), v.getEnd());
         myFGRotations.push_back(-v.rotationDegreeAtLengthPosition(0));
         myDefaultSpeed = (*i)->maxSpeed();
@@ -335,7 +335,7 @@ GUILaneSpeedTrigger::~GUILaneSpeedTrigger() throw()
 
 GUIGLObjectPopupMenu *
 GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow &app,
-                                  GUISUMOAbstractView &parent)
+                                  GUISUMOAbstractView &parent) throw()
 {
     GUIGLObjectPopupMenu *ret = new GUILaneSpeedTriggerPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
@@ -350,7 +350,7 @@ GUILaneSpeedTrigger::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow &app,
-                                        GUISUMOAbstractView &)
+                                        GUISUMOAbstractView &) throw()
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 1);
@@ -364,28 +364,14 @@ GUILaneSpeedTrigger::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUILaneSpeedTrigger::microsimID() const
+GUILaneSpeedTrigger::microsimID() const throw()
 {
     return getID();
 }
 
 
-bool
-GUILaneSpeedTrigger::active() const
-{
-    return true;
-}
-
-
-Position2D
-GUILaneSpeedTrigger::getPosition() const
-{
-    return (*(myFGPositions.begin())); // !!!
-}
-
-
 void
-GUILaneSpeedTrigger::drawGL(SUMOReal scale, SUMOReal upscale)
+GUILaneSpeedTrigger::drawGL(SUMOReal scale, SUMOReal upscale) throw()
 {
     for (size_t i=0; i<myFGPositions.size(); ++i) {
         const Position2D &pos = myFGPositions[i];
@@ -452,13 +438,11 @@ GUILaneSpeedTrigger::drawGL(SUMOReal scale, SUMOReal upscale)
 
 
 Boundary
-GUILaneSpeedTrigger::getBoundary() const
+GUILaneSpeedTrigger::getCenteringBoundary() const throw()
 {
-    /* !!! */
-    Position2D pos = getPosition();
-    Boundary ret(pos.x(), pos.y(), pos.x(), pos.y());
-    ret.grow(2.0);
-    return ret;
+    Boundary b(myBoundary);
+    b.grow(20);
+    return b;
 }
 
 

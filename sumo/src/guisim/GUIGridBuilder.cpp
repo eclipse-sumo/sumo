@@ -215,7 +215,7 @@ GUIGridBuilder::setJunction(size_t index, GUIJunctionWrapper *junction)
 void
 GUIGridBuilder::setAdditional(size_t index, GUIGlObject_AbstractAdd *add)
 {
-    std::vector<size_t> cells = myGrid.getCellsContaining(add->getBoundary());
+    std::vector<size_t> cells = myGrid.getCellsContaining(add->getCenteringBoundary());
     for (std::vector<size_t>::iterator i=cells.begin(); i!=cells.end(); ++i) {
         myGrid.myGrid[*i].addAdditional(index);
     }

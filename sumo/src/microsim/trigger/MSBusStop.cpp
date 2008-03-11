@@ -56,44 +56,43 @@ MSBusStop::~MSBusStop() throw()
 
 
 const MSLane &
-MSBusStop::getLane() const
+MSBusStop::getLane() const throw()
 {
     return myLane;
 }
 
 
 SUMOReal
-MSBusStop::getBeginLanePosition() const
+MSBusStop::getBeginLanePosition() const throw()
 {
     return myBegPos;
 }
 
 
 SUMOReal
-MSBusStop::getEndLanePosition() const
+MSBusStop::getEndLanePosition() const throw()
 {
     return myEndPos;
 }
 
 
 void
-MSBusStop::enter(void *what, SUMOReal beg, SUMOReal end)
+MSBusStop::enter(void *what, SUMOReal beg, SUMOReal end) throw()
 {
     myEndPositions[what] = std::pair<SUMOReal, SUMOReal>(beg, end);
     computeLastFreePos();
-//    myLeftPlace = myEndPos - myLastFreePos;
 }
 
 
 SUMOReal
-MSBusStop::getLastFreePos() const
+MSBusStop::getLastFreePos() const throw()
 {
     return myLastFreePos;
 }
 
 
 void
-MSBusStop::leaveFrom(void *what)
+MSBusStop::leaveFrom(void *what) throw()
 {
     assert(myEndPositions.find(what)!=myEndPositions.end());
     myEndPositions.erase(myEndPositions.find(what));
@@ -102,7 +101,7 @@ MSBusStop::leaveFrom(void *what)
 
 
 void
-MSBusStop::computeLastFreePos()
+MSBusStop::computeLastFreePos() throw()
 {
     myLastFreePos = myEndPos;
     std::map<void*, std::pair<SUMOReal, SUMOReal> >::iterator i;

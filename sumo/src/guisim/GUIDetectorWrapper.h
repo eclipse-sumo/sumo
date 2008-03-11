@@ -58,21 +58,21 @@ class GUIDetectorWrapper
 public:
     /// Constructor
     GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
-                       std::string id);
+                       std::string id) throw();
 
     /// Constructor for collectors over somthing
     GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
-                       std::string id, size_t glID);
+                       std::string id, size_t glID) throw();
 
     /// Destructor
-    ~GUIDetectorWrapper();
+    ~GUIDetectorWrapper() throw();
 
     /** @brief Returns the popup-menu of this detector */
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent);
+                                       GUISUMOAbstractView &parent) throw();
 
     /// Returns the type of the object (always GLO_DETECTOR)
-    GUIGlObjectType getType() const;
+    GUIGlObjectType getType() const throw();
 
 };
 

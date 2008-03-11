@@ -52,20 +52,20 @@ GUIPolygon2D::GUIPolygon2D(GUIGlObjectStorage &idStorage,
                            const std::string name, const std::string type,
                            const RGBColor &color,
                            const Position2DVector &Pos,
-                           bool fill)
+                           bool fill) throw()
         : Polygon2D(name, type, color, Pos, fill),
         GUIGlObject(idStorage, "poly:"+name), myLayer(layer)
 {}
 
 
-GUIPolygon2D::~GUIPolygon2D()
+GUIPolygon2D::~GUIPolygon2D() throw()
 {}
 
 
 
 GUIGLObjectPopupMenu *
 GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
-                           GUISUMOAbstractView &parent)
+                           GUISUMOAbstractView &parent) throw()
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
@@ -78,35 +78,28 @@ GUIPolygon2D::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIPolygon2D::getParameterWindow(GUIMainWindow &,
-                                 GUISUMOAbstractView &)
+                                 GUISUMOAbstractView &) throw()
 {
     return 0;
 }
 
 
 GUIGlObjectType
-GUIPolygon2D::getType() const
+GUIPolygon2D::getType() const throw()
 {
     return GLO_SHAPE;
 }
 
 
 const std::string &
-GUIPolygon2D::microsimID() const
+GUIPolygon2D::microsimID() const throw()
 {
     return myName;
 }
 
 
-bool
-GUIPolygon2D::active() const
-{
-    return true;
-}
-
-
 Boundary
-GUIPolygon2D::getCenteringBoundary() const
+GUIPolygon2D::getCenteringBoundary() const throw()
 {
     Boundary b;
     b.add(myPos.getBoxBoundary());

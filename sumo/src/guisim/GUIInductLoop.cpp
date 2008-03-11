@@ -85,7 +85,7 @@ GUIInductLoop::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
  * ----------------------------------------------------------------------- */
 GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
                                     GUIGlObjectStorage &idStorage,
-                                    GUILaneWrapper &wrapper, SUMOReal pos)
+                                    GUILaneWrapper &wrapper, SUMOReal pos) throw()
         : GUIDetectorWrapper(idStorage, "induct loop:"+detector.getID()),
         myDetector(detector), myPosition(pos)
 {
@@ -99,21 +99,23 @@ GUIInductLoop::MyWrapper::MyWrapper(GUIInductLoop &detector,
 }
 
 
-GUIInductLoop::MyWrapper::~MyWrapper()
+GUIInductLoop::MyWrapper::~MyWrapper() throw()
 {}
 
 
 Boundary
-GUIInductLoop::MyWrapper::getBoundary() const
+GUIInductLoop::MyWrapper::getCenteringBoundary() const throw()
 {
-    return myBoundary;
+    Boundary b(myBoundary);
+    b.grow(20);
+    return b;
 }
 
 
 
 GUIParameterTableWindow *
 GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &/*parent !!! recheck this - never needed?*/)
+        GUISUMOAbstractView &/*parent !!! recheck this - never needed?*/) throw()
 {
     GUIParameterTableWindow *ret = new GUIParameterTableWindow(app, *this, 7);
     // add items
@@ -138,22 +140,15 @@ GUIInductLoop::MyWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUIInductLoop::MyWrapper::microsimID() const
+GUIInductLoop::MyWrapper::microsimID() const throw()
 {
     return myDetector.getID();
 }
 
 
 
-bool
-GUIInductLoop::MyWrapper::active() const
-{
-    return true;
-}
-
-
 void
-GUIInductLoop::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale)
+GUIInductLoop::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale) throw()
 {
     SUMOReal width = (SUMOReal) 2.0 * scale;
     glLineWidth(1.0);
@@ -199,13 +194,6 @@ GUIInductLoop::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale)
         glEnd();
     }
     glPopMatrix();
-}
-
-
-Position2D
-GUIInductLoop::MyWrapper::getPosition() const
-{
-    return myFGPosition;
 }
 
 

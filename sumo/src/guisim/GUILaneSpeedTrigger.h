@@ -75,39 +75,65 @@ public:
                         const std::vector<MSLane*> &destLanes,
                         const std::string &file) throw(ProcessError);
 
+
     /** destructor */
     ~GUILaneSpeedTrigger() throw();
+
 
     /// @name inherited from GUIGlObject
     //@{
 
-    /// Returns an own popup-menu
+    /** @brief Returns an own popup-menu
+     *
+     * @param[in] app The application needed to build the popup-menu
+     * @param[in] parent The parent window needed to build the popup-menu
+     * @return The built popup-menu
+     * @see GUIGlObject::getPopUpMenu
+     */
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent);
+                                       GUISUMOAbstractView &parent) throw();
 
-    /// Returns an own parameter window
+
+    /** @brief Returns an own parameter window
+     *
+     * @param[in] app The application needed to build the parameter window
+     * @param[in] parent The parent window needed to build the parameter window
+     * @return The built parameter window
+     * @see GUIGlObject::getParameterWindow
+     */
     GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-            GUISUMOAbstractView &parent);
+            GUISUMOAbstractView &parent) throw();
 
-    /// returns the id of the object as known to microsim
-    const std::string &microsimID() const;
 
-    /// Returns the information whether this object is still active
-    bool active() const;
+    /** @brief Returns the id of the object as known to microsim
+     *
+     * @return The id of the lane speed trigger
+     * @see GUIGlObject::microsimID
+     */
+    const std::string &microsimID() const throw();
+
+
+    /** @brief Returns the boundary to which the view shall be centered in order to show the object
+     *
+     * @return The boundary the object is within
+     * @see GUIGlObject::getCenteringBoundary
+     */
+    Boundary getCenteringBoundary() const throw();
     //@}
 
 
-    /// @name inherited from GUIAbstractAddGlObject
+
+    /// @name inherited from GUIGlObject_AbstractAdd
     //@{
 
-    /// Draws the detector in full-geometry mode
-    void drawGL(SUMOReal scale, SUMOReal upscale);
-
-    /// Returns the detector's coordinates
-    Position2D getPosition() const;
+    /** @brief Draws the object
+     *
+     * @param[in] scale The current scale (meters to pixel) of the view
+     * @param[in] upscale The factor by which the object's size shall be multiplied
+     * @see GUIGlObject_AbstractAdd::drawGL
+     */
+    void drawGL(SUMOReal scale, SUMOReal upscale) throw();
     //@}
-
-    Boundary getBoundary() const;
 
     GUIManipulator *openManipulator(GUIMainWindow &app,
                                     GUISUMOAbstractView &parent);
@@ -193,6 +219,9 @@ private:
 
     /// The rotations in full-geometry mode
     RotCont myFGRotations;
+
+    /// The boundary of this rerouter
+    Boundary myBoundary;
 
     /// The information whether the speed shall be shown in m/s or km/h
     bool myShowAsKMH;

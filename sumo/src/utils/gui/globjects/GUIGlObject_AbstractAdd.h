@@ -45,26 +45,23 @@
  * @class GUIGlObject_AbstractAdd
  */
 class GUIGlObject_AbstractAdd :
-            public GUIGlObject, public HaveBoundary
+            public GUIGlObject
 {
 public:
     GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
-                            std::string fullName, GUIGlObjectType type);
+                            std::string fullName, GUIGlObjectType type) throw();
 
     /// Constructor for objects joining gl-objects
     GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
-                            std::string fullName, size_t glID, GUIGlObjectType type);
+                            std::string fullName, size_t glID, GUIGlObjectType type) throw();
 
-    ~GUIGlObject_AbstractAdd();
+    ~GUIGlObject_AbstractAdd() throw();
 
     /// Returns the type of the object as coded in GUIGlObjectType
-    GUIGlObjectType getType() const;
+    GUIGlObjectType getType() const throw();
 
     /// Draws the detector in full-geometry mode
-    virtual void drawGL(SUMOReal scale, SUMOReal upscale) = 0;
-
-    /// Returns the detector's coordinates
-    virtual Position2D getPosition() const = 0;
+    virtual void drawGL(SUMOReal scale, SUMOReal upscale) throw() = 0;
 
     /// Clears the dictionary (the objects will not be deleted)
     static void clearDictionary();
@@ -77,10 +74,6 @@ public:
 
     /// Retusn the list of gl-ids of all additional objects
     static std::vector<size_t> getIDList();
-
-    //{
-    Boundary getCenteringBoundary() const;
-    //}
 
 protected:
     /// The object's type

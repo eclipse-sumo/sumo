@@ -70,7 +70,7 @@ SUMOReal GUILaneWrapper::myAllMaxSpeed = 0;
 // method definitions
 // ===========================================================================
 GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
-                               MSLane &lane, const Position2DVector &shape)
+                               MSLane &lane, const Position2DVector &shape) throw()
         : GUILaneRepresentation(idStorage, "lane:"+lane.getID()),
         myLane(lane), myShape(shape)
 {
@@ -97,7 +97,7 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
 }
 
 
-GUILaneWrapper::~GUILaneWrapper()
+GUILaneWrapper::~GUILaneWrapper() throw()
 {}
 
 
@@ -145,7 +145,7 @@ GUILaneWrapper::forLane(const MSLane &lane) const
 
 GUIGLObjectPopupMenu *
 GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
-                             GUISUMOAbstractView &parent)
+                             GUISUMOAbstractView &parent) throw()
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
@@ -165,7 +165,7 @@ GUILaneWrapper::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUILaneWrapper::getParameterWindow(GUIMainWindow &app,
-                                   GUISUMOAbstractView &)
+                                   GUISUMOAbstractView &) throw()
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 2);
@@ -179,28 +179,21 @@ GUILaneWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 GUIGlObjectType
-GUILaneWrapper::getType() const
+GUILaneWrapper::getType() const throw()
 {
     return GLO_LANE;
 }
 
 
 const std::string &
-GUILaneWrapper::microsimID() const
+GUILaneWrapper::microsimID() const throw()
 {
     return myLane.getID();
 }
 
 
-bool
-GUILaneWrapper::active() const
-{
-    return true;
-}
-
-
 Boundary
-GUILaneWrapper::getCenteringBoundary() const
+GUILaneWrapper::getCenteringBoundary() const throw()
 {
     Boundary b;
     b.add(myShape[0]);

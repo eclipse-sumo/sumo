@@ -100,32 +100,38 @@ class MyWrapper : public GUIDetectorWrapper
         /// Constructor
         MyWrapper(GUI_E2_ZS_CollectorOverLanes &detector,
                   GUIGlObjectStorage &idStorage,
-                  const LaneDetMap &detectors);
+                  const LaneDetMap &detectors) throw();
 
         /// Destrutor
-        ~MyWrapper();
+        ~MyWrapper() throw();
 
-        /// Returns the boundary of the wrapped detector
-        Boundary getBoundary() const;
+        /** @brief Returns the boundary to which the view shall be centered in order to show the object
+         *
+         * @return The boundary the object is within
+         * @see GUIGlObject::getCenteringBoundary
+         */
+        Boundary getCenteringBoundary() const throw();
 
-        /// Draws the detector in full-geometry mode
-        void drawGL(SUMOReal scale, SUMOReal upscale);
+
+        /** @brief Draws the object
+         *
+         * @param[in] scale The current scale (meters to pixel) of the view
+         * @param[in] upscale The factor by which the object's size shall be multiplied
+         * @see GUIGlObject_AbstractAdd::drawGL
+         */
+        void drawGL(SUMOReal scale, SUMOReal upscale) throw();
 
         /// Draws the detector in full-geometry mode
         GUIParameterTableWindow *getParameterWindow(
-            GUIMainWindow &app, GUISUMOAbstractView &parent);
+            GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
 
         /// returns the id of the object as known to microsim
-        const std::string &microsimID() const;
+        const std::string &microsimID() const throw();
 
         /// Needed to set the id
         friend class GUIGlObjectStorage;
 
-        /// Returns the information whether this detector is still active
-        bool active() const;
 
-        /// Returns the wrapped detector's coordinates
-        Position2D getPosition() const;
 
         /// Returns the detector itself
         GUI_E2_ZS_CollectorOverLanes &getLoop();

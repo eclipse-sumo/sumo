@@ -58,19 +58,19 @@ using namespace std;
 // ===========================================================================
 GUIJunctionWrapper::GUIJunctionWrapper(GUIGlObjectStorage &idStorage,
                                        MSJunction &junction,
-                                       const Position2DVector &shape)
+                                       const Position2DVector &shape) throw()
         : GUIGlObject(idStorage, "junction:"+junction.getID()),
         myJunction(junction), myShape(shape)
 {}
 
 
-GUIJunctionWrapper::~GUIJunctionWrapper()
+GUIJunctionWrapper::~GUIJunctionWrapper() throw()
 {}
 
 
 GUIGLObjectPopupMenu *
 GUIJunctionWrapper::getPopUpMenu(GUIMainWindow &app,
-                                 GUISUMOAbstractView &parent)
+                                 GUISUMOAbstractView &parent) throw()
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
@@ -83,7 +83,7 @@ GUIJunctionWrapper::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIJunctionWrapper::getParameterWindow(GUIMainWindow &app,
-                                       GUISUMOAbstractView &)
+                                       GUISUMOAbstractView &) throw()
 {
     return 0;
 }
@@ -91,23 +91,16 @@ GUIJunctionWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 GUIGlObjectType
-GUIJunctionWrapper::getType() const
+GUIJunctionWrapper::getType() const throw()
 {
     return GLO_JUNCTION;
 }
 
 
 const std::string &
-GUIJunctionWrapper::microsimID() const
+GUIJunctionWrapper::microsimID() const throw()
 {
     return myJunction.getID();
-}
-
-
-bool
-GUIJunctionWrapper::active() const
-{
-    return true;
 }
 
 
@@ -132,7 +125,7 @@ GUIJunctionWrapper::getShape() const
 
 
 Boundary
-GUIJunctionWrapper::getCenteringBoundary() const
+GUIJunctionWrapper::getCenteringBoundary() const throw()
 {
     Boundary b = getBoundary();
     b.grow(20);

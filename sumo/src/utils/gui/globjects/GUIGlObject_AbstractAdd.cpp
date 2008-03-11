@@ -55,7 +55,7 @@ std::vector<GUIGlObject_AbstractAdd*> GUIGlObject_AbstractAdd::myObjectList;
 // ===========================================================================
 GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
         std::string fullName,
-        GUIGlObjectType type)
+        GUIGlObjectType type) throw()
         : GUIGlObject(idStorage, fullName), myGlType(type)
 {
 //!!!    assert(myObjects.find(fullName)==myObjects.end());
@@ -67,7 +67,7 @@ GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
 GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
         std::string fullName,
         size_t glID,
-        GUIGlObjectType type)
+        GUIGlObjectType type) throw()
         : GUIGlObject(idStorage, fullName, glID), myGlType(type)
 {
 //!!!    assert(myObjects.find(fullName)==myObjects.end());
@@ -76,13 +76,13 @@ GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
 }
 
 
-GUIGlObject_AbstractAdd::~GUIGlObject_AbstractAdd()
+GUIGlObject_AbstractAdd::~GUIGlObject_AbstractAdd() throw()
 {}
 
 
 
 GUIGlObjectType
-GUIGlObject_AbstractAdd::getType() const
+GUIGlObject_AbstractAdd::getType() const throw()
 {
     return myGlType;
 }
@@ -127,16 +127,6 @@ GUIGlObject_AbstractAdd::getIDList()
         ret.push_back((*i)->getGlID());
     }
     return ret;
-}
-
-
-Boundary
-GUIGlObject_AbstractAdd::getCenteringBoundary() const
-{
-    Boundary b;
-    b.add(getPosition());
-    b.grow(10);
-    return b;
 }
 
 

@@ -61,13 +61,13 @@ using namespace std;
 // included modules
 // ===========================================================================
 GUIEdge::GUIEdge(const std::string &id, size_t numericalID,
-                 GUIGlObjectStorage &idStorage)
+                 GUIGlObjectStorage &idStorage) throw()
         : MSEdge(id, numericalID),
         GUIGlObject(idStorage, "edge:" + id)
 {}
 
 
-GUIEdge::~GUIEdge()
+GUIEdge::~GUIEdge() throw()
 {
     for (LaneWrapperVector::iterator i=myLaneGeoms.begin(); i!=myLaneGeoms.end(); ++i) {
         delete(*i);
@@ -169,7 +169,7 @@ GUIEdge::fill(std::vector<GUIEdge*> &netsWrappers)
 
 
 GUIGLObjectPopupMenu *
-GUIEdge::getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent)
+GUIEdge::getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent) throw()
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
@@ -187,7 +187,7 @@ GUIEdge::getPopUpMenu(GUIMainWindow &app, GUISUMOAbstractView &parent)
 
 GUIParameterTableWindow *
 GUIEdge::getParameterWindow(GUIMainWindow &app,
-                            GUISUMOAbstractView &)
+                            GUISUMOAbstractView &) throw()
 {
     GUIParameterTableWindow *ret = 0;
 #ifdef HAVE_MESOSIM
@@ -212,28 +212,21 @@ GUIEdge::getParameterWindow(GUIMainWindow &app,
 
 
 GUIGlObjectType
-GUIEdge::getType() const
+GUIEdge::getType() const throw()
 {
     return GLO_EDGE;
 }
 
 
 const std::string &
-GUIEdge::microsimID() const
+GUIEdge::microsimID() const throw()
 {
     return getID();
 }
 
 
-bool
-GUIEdge::active() const
-{
-    return true;
-}
-
-
 Boundary
-GUIEdge::getCenteringBoundary() const
+GUIEdge::getCenteringBoundary() const throw()
 {
     Boundary b = getBoundary();
     b.grow(20);

@@ -387,7 +387,7 @@ GUIEmitter::getUserFlow() const
 
 GUIGLObjectPopupMenu *
 GUIEmitter::getPopUpMenu(GUIMainWindow &app,
-                         GUISUMOAbstractView &parent)
+                         GUISUMOAbstractView &parent) throw()
 {
     GUIGLObjectPopupMenu *ret = new GUIEmitterPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
@@ -410,30 +410,16 @@ GUIEmitter::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIEmitter::getParameterWindow(GUIMainWindow &,
-                               GUISUMOAbstractView &)
+                               GUISUMOAbstractView &) throw()
 {
     return 0;
 }
 
 
 const std::string &
-GUIEmitter::microsimID() const
+GUIEmitter::microsimID() const throw()
 {
     return getID();
-}
-
-
-bool
-GUIEmitter::active() const
-{
-    return true;
-}
-
-
-Position2D
-GUIEmitter::getPosition() const
-{
-    return myFGPosition;
 }
 
 
@@ -469,7 +455,7 @@ GUIEmitter::getEdgeProbs() const
 
 
 void
-GUIEmitter::drawGL(SUMOReal , SUMOReal upscale)
+GUIEmitter::drawGL(SUMOReal , SUMOReal upscale) throw()
 {
     glPushMatrix();
     glTranslated(myFGPosition.x(), myFGPosition.y(), 0);
@@ -519,12 +505,11 @@ GUIEmitter::drawGL(SUMOReal , SUMOReal upscale)
 
 
 Boundary
-GUIEmitter::getBoundary() const
+GUIEmitter::getCenteringBoundary() const throw()
 {
-    Position2D pos = getPosition();
-    Boundary ret(pos.x(), pos.y(), pos.x(), pos.y());
-    ret.grow(2.0);
-    return ret;
+    Boundary b(myFGPosition.x(), myFGPosition.y(), myFGPosition.x(), myFGPosition.y());
+    b.grow(20);
+    return b;
 }
 
 

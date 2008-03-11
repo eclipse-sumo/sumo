@@ -223,7 +223,7 @@ GUIVehicle::setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue)
 
 GUIGLObjectPopupMenu *
 GUIVehicle::getPopUpMenu(GUIMainWindow &app,
-                         GUISUMOAbstractView &parent)
+                         GUISUMOAbstractView &parent) throw()
 {
     GUIGLObjectPopupMenu *ret = new GUIVehiclePopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
@@ -262,7 +262,7 @@ GUIVehicle::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIVehicle::getParameterWindow(GUIMainWindow &app,
-                               GUISUMOAbstractView &)
+                               GUISUMOAbstractView &) throw()
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 9);
@@ -286,21 +286,21 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
 
 
 GUIGlObjectType
-GUIVehicle::getType() const
+GUIVehicle::getType() const throw()
 {
     return GLO_VEHICLE;
 }
 
 
 const std::string &
-GUIVehicle::microsimID() const
+GUIVehicle::microsimID() const throw()
 {
     return getID();
 }
 
 
 bool
-GUIVehicle::active() const
+GUIVehicle::active() const throw()
 {
     return running();
 }
@@ -342,7 +342,7 @@ GUIVehicle::getDesiredDepart() const
 
 
 Boundary
-GUIVehicle::getCenteringBoundary() const
+GUIVehicle::getCenteringBoundary() const throw()
 {
     Boundary b;
     b.add(getPosition());

@@ -136,19 +136,19 @@ GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapperPopupMenu::onCmdSwitchTL
  * ----------------------------------------------------------------------- */
 GUITrafficLightLogicWrapper::GUITrafficLightLogicWrapper(
     GUIGlObjectStorage &idStorage,
-    MSTLLogicControl &control, MSTrafficLightLogic &tll)
+    MSTLLogicControl &control, MSTrafficLightLogic &tll) throw()
         : GUIGlObject(idStorage, "tl-logic:"+tll.getID()),
         myTLLogicControl(control), myTLLogic(tll)
 {}
 
 
-GUITrafficLightLogicWrapper::~GUITrafficLightLogicWrapper()
+GUITrafficLightLogicWrapper::~GUITrafficLightLogicWrapper() throw()
 {}
 
 
 GUIGLObjectPopupMenu *
 GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
-        GUISUMOAbstractView &parent)
+        GUISUMOAbstractView &parent) throw()
 {
     myApp = &app;
     GUIGLObjectPopupMenu *ret = new GUITrafficLightLogicWrapperPopupMenu(app, parent, *this);
@@ -205,35 +205,28 @@ GUITrafficLightLogicWrapper::showPhases()
 
 GUIParameterTableWindow *
 GUITrafficLightLogicWrapper::getParameterWindow(GUIMainWindow &,
-        GUISUMOAbstractView &)
+        GUISUMOAbstractView &) throw()
 {
     return 0;
 }
 
 
 GUIGlObjectType
-GUITrafficLightLogicWrapper::getType() const
+GUITrafficLightLogicWrapper::getType() const throw()
 {
     return GLO_TLLOGIC;
 }
 
 
-bool
-GUITrafficLightLogicWrapper::active() const
-{
-    return true;
-}
-
-
 const std::string &
-GUITrafficLightLogicWrapper::microsimID() const
+GUITrafficLightLogicWrapper::microsimID() const throw()
 {
     return myTLLogic.getID();
 }
 
 
 Boundary
-GUITrafficLightLogicWrapper::getCenteringBoundary() const
+GUITrafficLightLogicWrapper::getCenteringBoundary() const throw()
 {
     Boundary ret;
     const MSTrafficLightLogic::LaneVectorVector &lanes = myTLLogic.getLanes();

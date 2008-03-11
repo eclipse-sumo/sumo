@@ -111,7 +111,7 @@ GUI_E2_ZS_CollectorOverLanes::buildCollector(size_t c, size_t r, MSLane *l,
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
     GUI_E2_ZS_CollectorOverLanes &detector,
     GUIGlObjectStorage &idStorage,
-    const LaneDetMap &detectors)
+    const LaneDetMap &detectors) throw()
         : GUIDetectorWrapper(idStorage, "E2OverLanes detector:"+detector.getID()),
         myDetector(detector)
 {
@@ -125,12 +125,12 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::MyWrapper(
         GUIDetectorWrapper *dw =
             c->buildDetectorWrapper(idStorage, w, detector, glID);
         mySubWrappers.push_back(dw);
-        myBoundary.add(dw->getBoundary());
+        myBoundary.add(dw->getCenteringBoundary());
     }
 }
 
 
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::~MyWrapper()
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::~MyWrapper() throw()
 {
     for (std::vector<GUIDetectorWrapper*>::iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); ++i) {
         delete(*i);
@@ -139,15 +139,16 @@ GUI_E2_ZS_CollectorOverLanes::MyWrapper::~MyWrapper()
 
 
 Boundary
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::getBoundary() const
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::getCenteringBoundary() const throw()
 {
-    return myBoundary;
+    Boundary b(myBoundary);
+    return b;
 }
 
 
 GUIParameterTableWindow *
 GUI_E2_ZS_CollectorOverLanes::MyWrapper::getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &)
+        GUISUMOAbstractView &) throw()
 {
     GUIParameterTableWindow *ret = new GUIParameterTableWindow(app, *this, 12);
     // add items
@@ -193,32 +194,18 @@ ret.mkItem(name.c_str(), true, binding);
 
 
 const std::string &
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::microsimID() const
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::microsimID() const throw()
 {
     return myDetector.getID();
 }
 
 
-bool
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::active() const
-{
-    return true;
-}
-
-
 void
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale)
+GUI_E2_ZS_CollectorOverLanes::MyWrapper::drawGL(SUMOReal scale, SUMOReal upscale) throw()
 {
     for (std::vector<GUIDetectorWrapper*>::const_iterator i=mySubWrappers.begin(); i!=mySubWrappers.end(); ++i) {
         (*i)->drawGL(scale, upscale);
     }
-}
-
-
-Position2D
-GUI_E2_ZS_CollectorOverLanes::MyWrapper::getPosition() const
-{
-    return myBoundary.getCenter();
 }
 
 

@@ -46,25 +46,25 @@
 // member method definitions
 // ===========================================================================
 GUIDetectorWrapper::GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
-                                       std::string id)
+                                       std::string id) throw()
         : GUIGlObject_AbstractAdd(idStorage, id, GLO_DETECTOR)
 {}
 
 
 GUIDetectorWrapper::GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
                                        std::string id,
-                                       size_t glID)
+                                       size_t glID) throw()
         : GUIGlObject_AbstractAdd(idStorage, id, glID, GLO_DETECTOR)
 {}
 
 
-GUIDetectorWrapper::~GUIDetectorWrapper()
+GUIDetectorWrapper::~GUIDetectorWrapper() throw()
 {}
 
 
 GUIGLObjectPopupMenu *
 GUIDetectorWrapper::getPopUpMenu(GUIMainWindow &app,
-                                 GUISUMOAbstractView &parent)
+                                 GUISUMOAbstractView &parent) throw()
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
@@ -77,7 +77,7 @@ GUIDetectorWrapper::getPopUpMenu(GUIMainWindow &app,
 
 
 GUIGlObjectType
-GUIDetectorWrapper::getType() const
+GUIDetectorWrapper::getType() const throw()
 {
     return GLO_DETECTOR;
 }

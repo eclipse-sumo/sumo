@@ -48,6 +48,14 @@ class MSLane;
 /**
  * @class MSBusStop
  * @brief A lane area vehicles can halt at
+ *
+ * The bus stops tracks the last free space a vehicle may halt at by being 
+ *  informed about a vehicle's entering and depart. It keeps the information
+ *  about entered vehicles' begin and end position within an internal 
+ *  container ("myEndPositions") and is so able to compute the last free space.
+ *
+ * Please remark that using the last free space disallows vehicles to enter a
+ *  free space in between other vehicles.
  */
 class MSBusStop : public MSTrigger
 {
@@ -65,49 +73,94 @@ public:
               const std::vector<std::string> &lines, MSLane &lane,
               SUMOReal begPos, SUMOReal endPos) throw();
 
-    /// Destructor
+
+    /// @brief Destructor
     virtual ~MSBusStop() throw();
 
-    /// Returns the lane this bus stop is located at
-    const MSLane &getLane() const;
 
-    /// Returns the begin position of this bus stop
-    SUMOReal getBeginLanePosition() const;
+    /** @brief Returns the lane this bus stop is located at
+     *
+     * @return Reference to the lane the bus stop is located at
+     */
+    const MSLane &getLane() const throw();
 
-    /// Returns the end position of this bus stop
-    SUMOReal getEndLanePosition() const;
 
-    /// Called if a vehicle enters this stop
-    void enter(void *what, SUMOReal beg, SUMOReal end);
+    /** @brief Returns the begin position of this bus stop
+     *
+     * @return The position the bus stop begins at
+     */
+    SUMOReal getBeginLanePosition() const throw();
 
-    /// Called if a vehicle leaves this stop
-    void leaveFrom(void *what);
 
-    /// Returns the last free position on this stop
-    SUMOReal getLastFreePos() const;
+    /** @brief Returns the end position of this bus stop
+     *
+     * @return The position the bus stop ends at
+     */
+    SUMOReal getEndLanePosition() const throw();
+
+
+    /** @brief Called if a vehicle enters this stop
+     *
+     * Stores the position of the entering vehicle in myEndPositions.
+     *
+     * Recomputes the free space using "computeLastFreePos" then.
+     *
+     * @param[in] what The vehicle that enters the bus stop
+     * @param[in] beg The begin halting position of the vehicle
+     * @param[in] what The end halting position of the vehicle
+     * @see computeLastFreePos
+     */
+    void enter(void *what, SUMOReal beg, SUMOReal end) throw();
+
+
+    /** @brief Called if a vehicle leaves this stop
+     *
+     * Removes the position of the vehicle from myEndPositions.
+     *
+     * Recomputes the free space using "computeLastFreePos" then.
+     *
+     * @param[in] what The vehicle that leaves the bus stop
+     * @see computeLastFreePos
+     */
+    void leaveFrom(void *what) throw();
+
+
+    /** @brief Returns the last free position on this stop
+     *
+     * @return The last free position of this bus stop
+     */
+    SUMOReal getLastFreePos() const throw();
+
 
 protected:
-    /// Computes the last free position on this stop
-    void computeLastFreePos();
+    /** @brief Computes the last free position on this stop
+     *
+     * The last free position is the one, the last vehicle ends at.
+     * It is stored in myLastFreePos. If no vehicle halts, the last free
+     *  position gets the value of myEndPos.
+     */
+    void computeLastFreePos() throw();
+
 
 protected:
-    /// The list of lines that are assigned to this stop
+    /// @brief The list of lines that are assigned to this stop
     std::vector<std::string> myLines;
 
-    /// A map from objects (vehicles) to the areas they acquire after entering the stop
+    /// @brief A map from objects (vehicles) to the areas they acquire after entering the stop
     std::map<void*, std::pair<SUMOReal, SUMOReal> > myEndPositions;
 
-    /// The lane this bus stop is located at
+    /// @brief The lane this bus stop is located at
     MSLane &myLane;
 
-    /// The begin position this bus stop is located at
+    /// @brief The begin position this bus stop is located at
     SUMOReal myBegPos;
 
-    /// The end position this bus stop is located at
+    /// @brief The end position this bus stop is located at
     SUMOReal myEndPos;
 
-    /// The last free position at this stop
+    /// @brief The last free position at this stop (variable)
     SUMOReal myLastFreePos;
+
 
 };
 

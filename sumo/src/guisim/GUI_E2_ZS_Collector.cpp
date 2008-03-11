@@ -98,7 +98,7 @@ GUI_E2_ZS_Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
  * ----------------------------------------------------------------------- */
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
         GUIGlObjectStorage &idStorage,
-        GUILaneWrapper &wrapper)
+        GUILaneWrapper &wrapper) throw()
         : GUIDetectorWrapper(idStorage, "E2 detector:"+detector.getID()),
         myDetector(detector)
 {
@@ -109,7 +109,7 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(
     GUI_E2_ZS_Collector &detector, GUIGlObjectStorage &idStorage,
     size_t glID, GUI_E2_ZS_CollectorOverLanes &,
-    GUILaneWrapper &wrapper)
+    GUILaneWrapper &wrapper) throw()
         : GUIDetectorWrapper(idStorage, "E2 detector:"+detector.getID(), glID),
         myDetector(detector)
 {
@@ -138,20 +138,22 @@ GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
 }
 
 
-GUI_E2_ZS_Collector::MyWrapper::~MyWrapper()
+GUI_E2_ZS_Collector::MyWrapper::~MyWrapper() throw()
 {}
 
 
 Boundary
-GUI_E2_ZS_Collector::MyWrapper::getBoundary() const
+GUI_E2_ZS_Collector::MyWrapper::getCenteringBoundary() const throw()
 {
-    return myBoundary;
+    Boundary b(myBoundary);
+    b.grow(20);
+    return b;
 }
 
 
 GUIParameterTableWindow *
 GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &)
+        GUISUMOAbstractView &) throw()
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 13);
@@ -188,21 +190,14 @@ GUI_E2_ZS_Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUI_E2_ZS_Collector::MyWrapper::microsimID() const
+GUI_E2_ZS_Collector::MyWrapper::microsimID() const throw()
 {
     return myDetector.getID();
 }
 
 
-bool
-GUI_E2_ZS_Collector::MyWrapper::active() const
-{
-    return true;
-}
-
-
 void
-GUI_E2_ZS_Collector::MyWrapper::drawGL(SUMOReal /*scale*/, SUMOReal upscale)
+GUI_E2_ZS_Collector::MyWrapper::drawGL(SUMOReal, SUMOReal upscale) throw()
 {
     SUMOReal myWidth = 1;
     if (myDetector.getUsageType()==DU_TL_CONTROL) {
@@ -221,13 +216,6 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL(SUMOReal /*scale*/, SUMOReal upscale)
                                myShapeRotations[i], myShapeLengths[i]);
         }
     }
-}
-
-
-Position2D
-GUI_E2_ZS_Collector::MyWrapper::getPosition() const
-{
-    return myBoundary.getCenter();
 }
 
 

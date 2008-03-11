@@ -86,7 +86,7 @@ GUIDetectorDrawer::drawGLDetectors(size_t *which,
                 // draw name if wished
                 if (settings.drawAddName) {
                     glPushMatrix();
-                    Position2D p = myAdditionals[j+(i<<5)]->getPosition();
+                    Position2D p = myAdditionals[j+(i<<5)]->getCenteringBoundary().getCenter();
                     glTranslated(p.x(), p.y(), 0);
                     glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
                     pfSetPosition(0, 0);

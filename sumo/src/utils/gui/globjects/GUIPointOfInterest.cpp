@@ -67,7 +67,7 @@ GUIPointOfInterest::~GUIPointOfInterest() throw()
 
 GUIGLObjectPopupMenu *
 GUIPointOfInterest::getPopUpMenu(GUIMainWindow &app,
-                                 GUISUMOAbstractView &parent)
+                                 GUISUMOAbstractView &parent) throw()
 {
 
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
@@ -89,35 +89,28 @@ GUIPointOfInterest::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUIPointOfInterest::getParameterWindow(GUIMainWindow &,
-                                       GUISUMOAbstractView &)
+                                       GUISUMOAbstractView &) throw()
 {
     return 0;
 }
 
 
 GUIGlObjectType
-GUIPointOfInterest::getType() const
+GUIPointOfInterest::getType() const throw()
 {
     return GLO_SHAPE;
 }
 
 
 const std::string &
-GUIPointOfInterest::microsimID() const
+GUIPointOfInterest::microsimID() const throw()
 {
     return getID();
 }
 
 
-bool
-GUIPointOfInterest::active() const
-{
-    return true;
-}
-
-
 Boundary
-GUIPointOfInterest::getCenteringBoundary() const
+GUIPointOfInterest::getCenteringBoundary() const throw()
 {
     Boundary b;
     b.add(x(), y());

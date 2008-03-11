@@ -59,19 +59,19 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUINetWrapper::GUINetWrapper(GUIGlObjectStorage &idStorage, GUINet &net)
+GUINetWrapper::GUINetWrapper(GUIGlObjectStorage &idStorage, GUINet &net) throw()
         : GUIGlObject(idStorage, "network"),
         myNet(net)
 {}
 
 
-GUINetWrapper::~GUINetWrapper()
+GUINetWrapper::~GUINetWrapper() throw()
 {}
 
 
 GUIGLObjectPopupMenu *
 GUINetWrapper::getPopUpMenu(GUIMainWindow &app,
-                            GUISUMOAbstractView &parent)
+                            GUISUMOAbstractView &parent) throw()
 {
     GUIGLObjectPopupMenu *ret = new GUIGLObjectPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
@@ -83,19 +83,19 @@ GUINetWrapper::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUINetWrapper::getParameterWindow(GUIMainWindow &app,
-                                  GUISUMOAbstractView &)
+                                  GUISUMOAbstractView &) throw()
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 13);
     // add items
     ret->mkItem("vehicles running [#]", true,
-                new FunctionBinding<MSVehicleControl, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getRunningVehicleNo));
+                new FunctionBinding<MSVehicleControl, unsigned int>(&(getNet().getVehicleControl()), &MSVehicleControl::getRunningVehicleNo));
     ret->mkItem("vehicles ended [#]", true,
-                new FunctionBinding<MSVehicleControl, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getEndedVehicleNo));
+                new FunctionBinding<MSVehicleControl, unsigned int>(&(getNet().getVehicleControl()), &MSVehicleControl::getEndedVehicleNo));
     ret->mkItem("vehicles emitted [#]", true,
-                new FunctionBinding<MSVehicleControl, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getEmittedVehicleNo));
+                new FunctionBinding<MSVehicleControl, unsigned int>(&(getNet().getVehicleControl()), &MSVehicleControl::getEmittedVehicleNo));
     ret->mkItem("vehicles loaded [#]", true,
-                new FunctionBinding<MSVehicleControl, size_t>(&(getNet().getVehicleControl()), &MSVehicleControl::getLoadedVehicleNo));
+                new FunctionBinding<MSVehicleControl, unsigned int>(&(getNet().getVehicleControl()), &MSVehicleControl::getLoadedVehicleNo));
     ret->mkItem("vehicles waiting [#]", true,
                 new FunctionBinding<GUINet, size_t>(&(getNet()), &GUINet::getWaitingVehicleNo));
     ret->mkItem("end time [s]", false,
@@ -136,23 +136,16 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 GUIGlObjectType
-GUINetWrapper::getType() const
+GUINetWrapper::getType() const throw()
 {
     return GLO_NETWORK;
 }
 
 
 const std::string &
-GUINetWrapper::microsimID() const
+GUINetWrapper::microsimID() const throw()
 {
     return StringUtils::emptyString;
-}
-
-
-bool
-GUINetWrapper::active() const
-{
-    return true;
 }
 
 
@@ -170,7 +163,7 @@ GUINetWrapper::getNet() const
 }
 
 Boundary
-GUINetWrapper::getCenteringBoundary() const
+GUINetWrapper::getCenteringBoundary() const throw()
 {
     return getBoundary();
 }

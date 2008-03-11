@@ -275,6 +275,7 @@ GUITriggeredRerouter::GUITriggeredRerouter(const std::string &id,
                 gedge->getLaneGeometry((size_t) i).getShape();
             SUMOReal pos = v.length() - (SUMOReal) 6.;
             myFGPositions.push_back(v.positionAtLengthPosition(pos));
+            myBoundary.add(v.positionAtLengthPosition(pos));
             Line2D l(v.getBegin(), v.getEnd());
             myFGRotations.push_back(-v.rotationDegreeAtLengthPosition(pos));
         }
@@ -288,7 +289,7 @@ GUITriggeredRerouter::~GUITriggeredRerouter() throw()
 
 GUIGLObjectPopupMenu *
 GUITriggeredRerouter::getPopUpMenu(GUIMainWindow &app,
-                                   GUISUMOAbstractView &parent)
+                                   GUISUMOAbstractView &parent) throw()
 {
     GUIGLObjectPopupMenu *ret = new GUITriggeredRerouterPopupMenu(app, parent, *this);
     buildPopupHeader(ret, app);
@@ -303,35 +304,21 @@ GUITriggeredRerouter::getPopUpMenu(GUIMainWindow &app,
 
 GUIParameterTableWindow *
 GUITriggeredRerouter::getParameterWindow(GUIMainWindow &,
-        GUISUMOAbstractView &)
+        GUISUMOAbstractView &) throw()
 {
     return 0;
 }
 
 
 const std::string &
-GUITriggeredRerouter::microsimID() const
+GUITriggeredRerouter::microsimID() const throw()
 {
     return getID();
 }
 
 
-bool
-GUITriggeredRerouter::active() const
-{
-    return true;
-}
-
-
-Position2D
-GUITriggeredRerouter::getPosition() const
-{
-    return (*(myFGPositions.begin())); // !!!
-}
-
-
 void
-GUITriggeredRerouter::drawGL(SUMOReal scale, SUMOReal upscale)
+GUITriggeredRerouter::drawGL(SUMOReal scale, SUMOReal upscale) throw()
 {
     for (size_t i=0; i<myFGPositions.size(); ++i) {
         const Position2D &pos = myFGPositions[i];
@@ -422,13 +409,13 @@ GUITriggeredRerouter::drawGL(SUMOReal scale, SUMOReal upscale)
 
 
 Boundary
-GUITriggeredRerouter::getBoundary() const
+GUITriggeredRerouter::getCenteringBoundary() const throw()
 {
-    Position2D pos = getPosition();
-    Boundary ret(pos.x(), pos.y(), pos.x(), pos.y());
-    ret.grow(2.0);
-    return ret;
+    Boundary b(myBoundary);
+    b.grow(20);
+    return b;
 }
+
 
 
 GUIManipulator *

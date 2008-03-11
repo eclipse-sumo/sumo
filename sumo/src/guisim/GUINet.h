@@ -50,7 +50,6 @@ class MSTrafficLightLogic;
 class MSLink;
 class GUIJunctionWrapper;
 class GUIDetectorWrapper;
-class GUITriggerWrapper;
 class GUINetWrapper;
 class GUITrafficLightLogicWrapper;
 class RGBColor;

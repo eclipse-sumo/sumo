@@ -678,10 +678,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\guisim\GUITriggerWrapper.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\guisim\GUIVehicle.cpp"
 				>
 			</File>
@@ -804,10 +800,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUITriggeredRerouter.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUITriggerWrapper.h"
 				>
 			</File>
 			<File

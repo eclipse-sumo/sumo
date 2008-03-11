@@ -59,7 +59,7 @@ using namespace std;
  * GUIE3Collector::MyWrapper-methods
  * ----------------------------------------------------------------------- */
 GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector &detector,
-                                     GUIGlObjectStorage &idStorage)
+                                     GUIGlObjectStorage &idStorage) throw()
         : GUIDetectorWrapper(idStorage, "E3 detector:"+detector.getID()),
         myDetector(detector)
 {
@@ -79,7 +79,7 @@ GUIE3Collector::MyWrapper::MyWrapper(GUIE3Collector &detector,
 }
 
 
-GUIE3Collector::MyWrapper::~MyWrapper()
+GUIE3Collector::MyWrapper::~MyWrapper() throw()
 {}
 
 
@@ -99,16 +99,9 @@ GUIE3Collector::MyWrapper::buildDefinition(const MSCrossSection &section)
 }
 
 
-Boundary
-GUIE3Collector::MyWrapper::getBoundary() const
-{
-    return myBoundary;
-}
-
-
 GUIParameterTableWindow *
 GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
-        GUISUMOAbstractView &)
+        GUISUMOAbstractView &) throw()
 {
     GUIParameterTableWindow *ret =
         new GUIParameterTableWindow(app, *this, 3);
@@ -127,21 +120,14 @@ GUIE3Collector::MyWrapper::getParameterWindow(GUIMainWindow &app,
 
 
 const std::string &
-GUIE3Collector::MyWrapper::microsimID() const
+GUIE3Collector::MyWrapper::microsimID() const throw()
 {
     return myDetector.getID();
 }
 
 
-bool
-GUIE3Collector::MyWrapper::active() const
-{
-    return true;
-}
-
-
 void
-GUIE3Collector::MyWrapper::drawGL(SUMOReal /*scale*/, SUMOReal upscale)
+GUIE3Collector::MyWrapper::drawGL(SUMOReal, SUMOReal upscale) throw()
 {
     typedef std::vector<SingleCrossingDefinition> CrossingDefinitions;
     CrossingDefinitions::const_iterator i;
@@ -184,10 +170,12 @@ GUIE3Collector::MyWrapper::drawSingleCrossing(const Position2D &pos,
 }
 
 
-Position2D
-GUIE3Collector::MyWrapper::getPosition() const
+Boundary
+GUIE3Collector::MyWrapper::getCenteringBoundary() const throw()
 {
-    return myBoundary.getCenter();
+    Boundary b(myBoundary);
+    b.grow(20);
+    return b;
 }
 
 

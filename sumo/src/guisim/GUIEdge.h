@@ -61,10 +61,10 @@ class GUIEdge : public MSEdge, public GUIGlObject
 public:
     /// constructor
     GUIEdge(const std::string &id, size_t numericalID,
-            GUIGlObjectStorage &idStorage);
+            GUIGlObjectStorage &idStorage) throw();
 
     /// destructor
-    ~GUIEdge();
+    ~GUIEdge() throw();
 
     /// sets the junctions allowing the retrieval of the edge position (!!! why not private with a friend?)
     void initGeometry(GUIGlObjectStorage &idStorage);
@@ -100,25 +100,44 @@ public:
     /// @name inherited from GUIGlObject
     //@{
 
-    /// Returns a popup-menu
+    /** @brief Returns an own popup-menu
+     *
+     * @param[in] app The application needed to build the popup-menu
+     * @param[in] parent The parent window needed to build the popup-menu
+     * @return The built popup-menu
+     * @see GUIGlObject::getPopUpMenu
+     */
     virtual GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-            GUISUMOAbstractView &parent);
+            GUISUMOAbstractView &parent) throw();
 
-    /// Returns the parameter window
+
+    /** @brief Returns an own parameter window
+     *
+     * @param[in] app The application needed to build the parameter window
+     * @param[in] parent The parent window needed to build the parameter window
+     * @return The built parameter window
+     * @see GUIGlObject::getParameterWindow
+     */
     virtual GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-            GUISUMOAbstractView &parent);
+            GUISUMOAbstractView &parent) throw();
+
+
+    /** @brief Returns the id of the object as known to microsim
+     *
+     * @return The id of the edge
+     * @see GUIGlObject::microsimID
+     */
+    const std::string &microsimID() const throw();
 
     /// Returns the type of the object as coded in GUIGlObjectType
-    GUIGlObjectType getType() const;
+    GUIGlObjectType getType() const throw();
 
-    /// returns the id of the object as known to microsim
-    const std::string &microsimID() const;
-
-    /// Returns the information whether this object is still active
-    bool active() const;
-
-    /// Returns the boundary to which the object shall be centered
-    Boundary getCenteringBoundary() const;
+    /** @brief Returns the boundary to which the view shall be centered in order to show the object
+     *
+     * @return The boundary the object is within
+     * @see GUIGlObject::getCenteringBoundary
+     */
+    Boundary getCenteringBoundary() const throw();
     //@}
 
 #ifdef HAVE_MESOSIM

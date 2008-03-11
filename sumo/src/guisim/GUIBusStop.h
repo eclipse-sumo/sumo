@@ -57,10 +57,15 @@ class GUIManipulator;
 /**
  * @class GUIBusStop
  * @brief A lane area vehicles can halt at (gui-version)
+ *
+ * This gui-version of a bus-stop extends MSBusStop by methods for displaying
+ *  and interaction.
+ *
+ * @see MSBusStop
+ * @see GUIGlObject_AbstractAdd
+ * @see GUIGlObject
  */
-class GUIBusStop
-            : public MSBusStop,
-            public GUIGlObject_AbstractAdd
+class GUIBusStop : public MSBusStop, public GUIGlObject_AbstractAdd
 {
 public:
     /** @brief Constructor
@@ -76,68 +81,82 @@ public:
                const std::vector<std::string> &lines, MSLane &lane,
                SUMOReal frompos, SUMOReal topos) throw();
 
-    /** destructor */
+
+    /** @brief Destructor */
     ~GUIBusStop() throw();
+
+
 
     /// @name inherited from GUIGlObject
     //@{
 
-    /// Returns an own popup-menu
+    /** @brief Returns an own popup-menu
+     *
+     * @param[in] app The application needed to build the popup-menu
+     * @param[in] parent The parent window needed to build the popup-menu
+     * @return The built popup-menu
+     * @see GUIGlObject::getPopUpMenu
+     */
     GUIGLObjectPopupMenu *getPopUpMenu(GUIMainWindow &app,
-                                       GUISUMOAbstractView &parent);
+                                       GUISUMOAbstractView &parent) throw();
 
-    /// Returns an own parameter window
+
+    /** @brief Returns an own parameter window
+     *
+     * Bus stops have no parameter windows (yet).
+     *
+     * @param[in] app The application needed to build the parameter window
+     * @param[in] parent The parent window needed to build the parameter window
+     * @return The built parameter window (always 0 in this case)
+     * @see GUIGlObject::getParameterWindow
+     */
     GUIParameterTableWindow *getParameterWindow(GUIMainWindow &app,
-            GUISUMOAbstractView &parent);
+            GUISUMOAbstractView &parent) throw();
 
-    /// returns the id of the object as known to microsim
-    const std::string &microsimID() const;
 
-    /// Returns the information whether this object is still active
-    bool active() const;
+    /** @brief Returns the id of the object as known to microsim
+     *
+     * @return The id of the bus stop
+     * @see GUIGlObject::microsimID
+     */
+    const std::string &microsimID() const throw();
+
+
+    /** @brief Returns the boundary to which the view shall be centered in order to show the object
+     *
+     * @return The boundary the object is within
+     * @see GUIGlObject::getCenteringBoundary
+     */
+    Boundary getCenteringBoundary() const throw();
     //@}
 
 
-    /// @name inherited from GUIAbstractAddGlObject
+
+    /// @name inherited from GUIGlObject_AbstractAdd
     //@{
 
-    /// Draws the detector in full-geometry mode
-    void drawGL(SUMOReal scale, SUMOReal upscale);
-
-    /// Returns the detector's coordinates
-    Position2D getPosition() const;
+    /** @brief Draws the object
+     *
+     * @param[in] scale The current scale (meters to pixel) of the view
+     * @param[in] upscale The factor by which the object's size shall be multiplied
+     * @see GUIGlObject_AbstractAdd::drawGL
+     */
+    void drawGL(SUMOReal scale, SUMOReal upscale) throw();
     //@}
-
-    Boundary getBoundary() const;
-
-    GUIManipulator *openManipulator(GUIMainWindow &app,
-                                    GUISUMOAbstractView &parent);
 
 
 private:
-    /// The rotations of the shape parts (for full geometry)
+    /// @brief The rotations of the shape parts
     DoubleVector myFGShapeRotations;
 
-    /// The lengths of the shape parts (for full geometry)
+    /// @brief The lengths of the shape parts
     DoubleVector myFGShapeLengths;
 
-    /// The shape (for full geometry)
+    /// @brief The shape
     Position2DVector myFGShape;
 
-    /// The position of the sign (for full geometry)
+    /// @brief The position of the sign
     Position2D myFGSignPos;
-
-    /// The rotations of the shape parts (for simple geometry)
-    DoubleVector mySGShapeRotations;
-
-    /// The lengths of the shape parts (for simple geometry)
-    DoubleVector mySGShapeLengths;
-
-    /// The shape (for simple geometry)
-    Position2DVector mySGShape;
-
-    /// The position of the sign (for simple geometry)
-    Position2D mySGSignPos;
 
 };
 
