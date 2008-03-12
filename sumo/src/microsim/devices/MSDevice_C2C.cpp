@@ -968,12 +968,12 @@ MSDevice_C2C::transferInformation(const std::string &senderID, const InfoCont &i
 
 
 SUMOReal
-MSDevice_C2C::getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOReal /*t*/) const
+MSDevice_C2C::getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOReal t) const
 {
     MSDevice_C2C * device = myVehiclesToDevicesMap.find(v)->second;
     InfoCont::iterator i = device->infoCont.find(e);
     if(i==device->infoCont.end()) {
-        return e->getEffort(); // !!!
+        return e->getEffort(t);
     }
     return i->second->neededTime;
 }

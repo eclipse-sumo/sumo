@@ -482,7 +482,7 @@ bool myHaveWarned; // !!!
 
 
 SUMOReal
-MSEdge::getEffort() const
+MSEdge::getEffort(SUMOReal forTime) const
 {
     if(!myHaveLoadedWeights) {
         return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();
@@ -491,7 +491,7 @@ MSEdge::getEffort() const
         myPackedValueLine = myOwnValueLine.buildShortCut(myShortCutBegin, myShortCutEnd, myLastPackedIndex, myShortCutInterval);
         myHaveBuildShortCut = true;
     }
-    SUMOTime t = (SUMOTime) time;
+    SUMOTime t = (SUMOTime) forTime;
     if (myShortCutBegin>t||myShortCutEnd<t) {
         if (myUseBoundariesOnOverride) {
             if (!myHaveWarned) {
@@ -547,7 +547,7 @@ MSEdge::getVehicleEffort(const MSVehicle * const v, SUMOReal t) const
     if (teffort>0) {
         return teffort;
     }
-    return MIN2((*myLanes)[0]->length()/v->getMaxSpeed(), getEffort());
+    return MIN2((*myLanes)[0]->length()/v->getMaxSpeed(), getEffort(t));
 }
 
 

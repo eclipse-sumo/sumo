@@ -177,7 +177,7 @@ public:
         return myID;
     }
 
-    SUMOReal getEffort() const;
+    SUMOReal getEffort(SUMOReal forTime) const;
     SUMOReal getCurrentEffort() const;
 
     size_t getNumericalID() const {
