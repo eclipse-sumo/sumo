@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-// The "About" dialog
+// The application's "About" - dialog
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -38,23 +38,35 @@
 // ===========================================================================
 /**
  * @class GUIDialog_AboutSUMO
- * @brief The "About" dialog
+ * @brief The application's "About" - dialog
  */
 class GUIDialog_AboutSUMO : public FXDialogBox
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     *
+     * @param[in] parent The parent window
+     * @param[in] name The title to show
+     * @param[in] x x-position of the window to use
+     * @param[in] y y-position of the window to use
+     */
     GUIDialog_AboutSUMO(FXWindow* parent,  const char* name,
                         int x, int y);
 
-    /// Destructor
+
+    /// @brief Destructor
     ~GUIDialog_AboutSUMO();
 
-    /// Creates the widget
+
+    /** @brief Creates the widget
+     *
+     * Creates the icons, too.
+     */
     void create();
 
+
 private:
-    /// Icons for the widget
+    /// @brief Icons for the widget
     FXIcon *myDLRIcon, *myZAIKIcon;
 
 };

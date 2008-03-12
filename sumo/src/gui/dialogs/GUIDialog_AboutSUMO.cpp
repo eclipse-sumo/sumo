@@ -4,7 +4,7 @@
 /// @date    Mon, 08.03.2004
 /// @version $Id$
 ///
-// The application's about - dialog
+// The application's "About" - dialog
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
