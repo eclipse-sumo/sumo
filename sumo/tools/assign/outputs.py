@@ -70,6 +70,13 @@ def SortedVehOutput(net, counter, Parcontrol):
     if counter == 0:
         foutroute = file('routes.txt', 'w')                                           # initialize the file for recording the routes
         foutroute.write('<routes>\n')
+        for veh in net._vehicles:                                                     # output the generated routes 
+            foutroute.write('<vehicle id="%s" depart="%d">\n' %(veh.label, veh.depart))
+            foutroute.write('<route>')
+            for edge in veh.route[1:-1]:                       # for generating vehicle routes used in SUMO 
+                foutroute.write('%s ' %edge.label)
+            foutroute.write('</route>\n')
+            foutroute.write('</vehicle>\n') 
     else:
         foutroute = file('routes.txt', 'a')
         for veh in net._vehicles:                                                     # output the generated routes 
