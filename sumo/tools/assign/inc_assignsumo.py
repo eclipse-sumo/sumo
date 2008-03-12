@@ -116,6 +116,7 @@ for startVertex in net._startVertices:
         AssignedTrip[startVertex][endVertex] = 0.
     
 for counter in range (0, len(matrices)):                                         # matrix ist im 1. Durchlauf="matrix05-08.fma", im 2.="matrix06-07.fma"
+    net._vehicles = []
     matrix = matrices[counter]
     MatrixCounter += 1
     print 'Matrix: ', MatrixCounter
@@ -150,8 +151,6 @@ for counter in range (0, len(matrices)):                                        
             print 'begin the route searching from ', startVertex
             D,P = Dijkstra(startVertex)                                             # the information about the shortest paths and    
                                                                                     # the respective travel times from the given "startVertex" 
-            prevehID = vehID                                                        # to all the other nodes will be identified.
-            print 'prevehID', prevehID
 # incremental traffic assignment
             vehID, AssignedVeh, AssignedTrip = DoAssign(net, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)     
             print 'vehID:', vehID
