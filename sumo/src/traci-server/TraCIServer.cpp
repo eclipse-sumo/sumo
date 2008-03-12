@@ -172,6 +172,9 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
     case CMD_GETALLTLIDS:
         commandGetAllTLIds(requestMsg, respMsg);
         break;
+	case CMD_GETTLSTATUS:
+		commandGetTLStatus(requestMsg, respMsg);
+		break;
     case CMD_CLOSE:
         commandCloseConnection(requestMsg, respMsg);
         break;
@@ -349,9 +352,10 @@ void
 TraCIServer::commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
 throw(TraCIException)
 {
-    std::string roadID;
-    float lanePos;
-    unsigned char laneIndex;
+    //std::string roadID;
+    //float lanePos;
+    //unsigned char laneIndex;
+	RoadMapPos roadPos;
 	MSLane* actLane;
 
     // NodeId
@@ -360,77 +364,84 @@ throw(TraCIException)
 
     // StopPosition
     unsigned char posType = requestMsg.readUnsignedByte();	// position type
-    if (posType == POSITION_ROADMAP) {
-        // road-id
-        roadID = requestMsg.readString();
-        // position on lane
-        lanePos = requestMsg.readFloat();
-        // lane-id
-        laneIndex = requestMsg.readUnsignedByte();
-
-        if (lanePos < 0) {
-            writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
-        }
-
-		// get the actual lane that is referenced by laneIndex
-		MSEdge* road = MSEdge::dictionary(roadID);
-        if (road == NULL) {
-            writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Unable to retrieve road with given id");
-        }
-
-        const MSEdge::LaneCont* const allLanes = road->getLanes();
-		if (laneIndex >= allLanes->size()) {
-            writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "No lane existing with such id on the given road");
-        }
-
-		actLane = (*allLanes)[0];
-		int index = 0;
-		while (road->rightLane(actLane) != NULL) {
-			actLane = road->rightLane(actLane);
-			index++;
+	switch (posType) {
+	case POSITION_ROADMAP:
+		// read road map position
+		roadPos.roadId = requestMsg.readString();
+		roadPos.pos = requestMsg.readFloat();
+		roadPos.laneId = requestMsg.readUnsignedByte();
+		break;
+	case POSITION_2D:
+	case POSITION_3D:
+		// convert other position type to road map position
+		roadPos = convertCartesianToRoadMap(Position2D(requestMsg.readFloat(),
+													requestMsg.readFloat()));
+		if (posType == POSITION_3D) {
+			requestMsg.readFloat();	// z value is ignored
 		}
-		actLane = (*allLanes)[0];
-		if (index < laneIndex) {
-			for (int i=0; i < (laneIndex - index); i++) {
-				actLane = road->leftLane(actLane);
-			}
-		} else {
-			for (int i=0; i < (index - laneIndex); i++) {
-				actLane = road->rightLane(actLane);
-			}
-		}
-		
-    } else {
-        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Currently not supported or unknown Position Format");
-    }
+		break;
+	default:
+		writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Not supported or unknown Position Format");
+	}
 
-    // Radius
+	// Radius
     float radius = requestMsg.readFloat();
     // waitTime
     double waitTime = requestMsg.readDouble();
-
-    if (veh == NULL) {
+  
+	if (veh == NULL) {
         writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Can not retrieve node with given ID");
         return;
     }
 
+	if (roadPos.laneId < 0) {
+        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
+    }
+
+	// get the actual lane that is referenced by laneIndex
+	MSEdge* road = MSEdge::dictionary(roadPos.roadId);
+    if (road == NULL) {
+        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Unable to retrieve road with given id");
+    }
+
+    const MSEdge::LaneCont* const allLanes = road->getLanes();
+	if (roadPos.laneId >= allLanes->size()) {
+        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "No lane existing with such id on the given road");
+    }
+
+	actLane = (*allLanes)[0];
+	int index = 0;
+	while (road->rightLane(actLane) != NULL) {
+		actLane = road->rightLane(actLane);
+		index++;
+	}
+	actLane = (*allLanes)[0];
+	if (index < roadPos.laneId) {
+		for (int i=0; i < (roadPos.laneId - index); i++) {
+			actLane = road->leftLane(actLane);
+		}
+	} else {
+		for (int i=0; i < (index - roadPos.laneId); i++) {
+			actLane = road->rightLane(actLane);
+		}
+	}
+
     // Forward command to vehicle
-    veh->addTraciStop(actLane, lanePos, radius, waitTime);
+	veh->addTraciStop(/*MSEdge::dictionary(roadPos.roadId),*/ actLane, roadPos.pos, radius, waitTime);
 
     // create a reply message
     writeStatusCmd(respMsg, CMD_STOP, RTYPE_OK, "");
 	// add a stopnode command containging the actually used road map position to the reply
-	int length = 1 + 1 + 4 + 1 + roadID.length() + 4 + 1 + 4 + 8;
-	respMsg.writeByte(length);				// lenght
-	respMsg.writeByte(CMD_STOP);			// command id
-	respMsg.writeInt(nodeId);				// node id
-	respMsg.writeByte(POSITION_ROADMAP);	// pos format
-	respMsg.writeString(roadID);			// road id
-	respMsg.writeFloat(lanePos);			// pos
-	respMsg.writeByte(laneIndex);			// lane id
-	respMsg.writeFloat(radius);				// radius
-	respMsg.writeDouble(waitTime);			// wait time
-
+	int length = 1 + 1 + 4 + 1 + (4+roadPos.roadId.length()) + 4 + 1 + 4 + 8;
+	respMsg.writeUnsignedByte(length);				// lenght
+	respMsg.writeUnsignedByte(CMD_STOP);			// command id
+	respMsg.writeInt(nodeId);						// node id
+	respMsg.writeUnsignedByte(POSITION_ROADMAP);	// pos format
+	respMsg.writeString(roadPos.roadId);					// road id
+	respMsg.writeFloat(roadPos.pos);					// pos
+	respMsg.writeUnsignedByte(roadPos.laneId);			// lane id
+	respMsg.writeFloat(radius);						// radius
+	respMsg.writeDouble(waitTime);					// wait time
 
     return;
 }
@@ -856,31 +867,45 @@ throw(TraCIException)
 {
 	tcpip::Storage tmpResult;
 	RoadMapPos roadPos;
+	Position2D cartesianPos;
+	float x = 0;
+	float y = 0;
+	float z = 0;
+	unsigned char destPosType;
 
-	// destination position type
-	unsigned char destPosType = requestMsg.readUnsignedByte();
+	static std::stringstream out;
+	std::ofstream file;
 
 	// actual position type that will be converted
 	unsigned char srcPosType = requestMsg.readUnsignedByte();
 
-	if (srcPosType == POSITION_2D) {
-		// read 2d position
-		float x = requestMsg.readFloat();
-		float y = requestMsg.readFloat();
-		float z = requestMsg.readFloat();
+	switch (srcPosType) {
+	case POSITION_2D:
+	case POSITION_3D:
+		x = requestMsg.readFloat();
+		y = requestMsg.readFloat();
+		if (srcPosType == POSITION_3D) {
+			z = requestMsg.readFloat();
+		}
+		// destination position type
+		destPosType = requestMsg.readUnsignedByte();
 
-		// convert to destination type
 		switch (destPosType) {
 		case POSITION_ROADMAP:
+			// convert road map to 3D position
 			roadPos = convertCartesianToRoadMap(Position2D(x, y));
-			std::cerr << "TraCI: position conversion from: x=" << x << " y=" << y << " to: roadId=" << roadPos.roadId 
-				<< " pos=" << roadPos.pos << " laneId =" << roadPos.laneId << std::endl;
+
+			/*out << "TraCI: position conversion from: x=" << x << " y=" << y 
+				<< " to: roadId=" << roadPos.roadId << " pos=" << roadPos.pos 
+				<< " laneId =" << (int)roadPos.laneId << std::endl;
+			std::cerr << out.str();
+			file.open("pos_convert_log.txt");
+			file.write(out.str().c_str(), out.str().size());
+			file.close();*/
 
 			// write result that is added to response msg
-			tmpResult.writeUnsignedByte(1+1+1+ (4+roadPos.roadId.length()) +4+1);
-			tmpResult.writeUnsignedByte(CMD_POSITIONCONVERSION);
-			tmpResult.writeUnsignedByte(POSITION_ROADMAP);
-			tmpResult.writeString(roadPos.roadId);
+			tmpResult.writeUnsignedByte(POSITION_ROADMAP);	
+			tmpResult.writeString(roadPos.roadId);	
 			tmpResult.writeFloat(roadPos.pos);
 			tmpResult.writeUnsignedByte(roadPos.laneId);
 			break;	
@@ -889,7 +914,47 @@ throw(TraCIException)
 							"Destination position type not supported");
 			return;
 		}
-	} else {
+		break;
+	case POSITION_ROADMAP:	
+		roadPos.roadId = requestMsg.readString();
+		roadPos.pos = requestMsg.readFloat();
+		roadPos.laneId = requestMsg.readUnsignedByte();
+
+		// destination position type
+		destPosType = requestMsg.readUnsignedByte();
+
+		switch (destPosType) {
+		case POSITION_3D:
+			//convert 3D to road map position
+			try {
+				Position2D result = convertRoadMapToCartesian(roadPos);
+				x = result.x();
+				y = result.y();
+
+				/*out << "TraCI: position conversion from: roadId=" << roadPos.roadId << " pos=" 
+					<< roadPos.pos << " laneId= " << (int)roadPos.laneId 
+					<< " to: x=" << x << " y=" << y << std::endl;
+				std::cerr << out.str();
+				file.open("pos_convert_log.txt");
+				file.write(out.str().c_str(), out.str().size());
+				file.close();*/
+			} catch (TraCIException e) {
+				writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, e.what());
+			}
+			
+			// write result that is added to response msg
+			tmpResult.writeUnsignedByte(POSITION_3D);	
+			tmpResult.writeFloat(x);	
+			tmpResult.writeFloat(y);
+			tmpResult.writeFloat(z);
+			break;
+		default:
+			writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, 
+						"Destination position type not supported");
+			return;
+		}
+		break;
+	default:
 		writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, 
 					"Source position type not supported");
 		return;
@@ -898,7 +963,10 @@ throw(TraCIException)
 	// write response message
 	writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_OK, "");	
 	// add converted Position to response
-	respMsg.writeStorage(tmpResult);
+	respMsg.writeUnsignedByte(1 + 1 + tmpResult.size() + 1);	// length
+	respMsg.writeUnsignedByte(CMD_POSITIONCONVERSION);	// command id
+	respMsg.writeStorage(tmpResult);	// position dependant part
+	respMsg.writeUnsignedByte(destPosType);	// destination type
 }
 /*****************************************************************************/
 
@@ -1072,6 +1140,49 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos)
 	return result;
 }
 
+/*****************************************************************************/
+
+Position2D
+TraCIServer::convertRoadMapToCartesian(traci::TraCIServer::RoadMapPos roadPos) 
+throw(TraCIException)
+{
+	// get the edge and lane of this road map position
+	if (roadPos.pos < 0) {
+		throw TraCIException("Position on lane must not be negative");
+	}
+
+	MSEdge* road = MSEdge::dictionary(roadPos.roadId);
+    if (road == NULL) {
+		throw TraCIException("Unable to retrieve road with given id");
+    }
+
+    const MSEdge::LaneCont* const allLanes = road->getLanes();
+	if ((roadPos.laneId >= allLanes->size()) || (allLanes->size() == 0)) {
+		throw TraCIException("No lane existing with such id on the given road");
+    }
+
+	MSLane* actLane = (*allLanes)[0];
+	int index = 0;
+	while (actLane->getRightLane() != NULL) {
+		actLane = actLane->getRightLane();
+		index++;
+	}
+	actLane = (*allLanes)[0];
+	if (index < roadPos.laneId) {
+		for (int i=0; i < (roadPos.laneId - index); i++) {
+			actLane = road->leftLane(actLane);
+		}
+	} else {
+		for (int i=0; i < (index - roadPos.laneId); i++) {
+			actLane = road->rightLane(actLane);
+		}
+	}
+
+	// get corresponding x and y coordinates
+	Position2DVector shape = actLane->getShape();
+
+	return shape.positionAtLengthPosition(roadPos.pos);
+}
 
 /*****************************************************************************/
 }

@@ -497,6 +497,10 @@ public:
         SUMOTime duration;
         SUMOTime until;
         bool reached;
+#ifdef TRACI
+		bool isTraciStop;
+		Stop(): isTraciStop(false) {};
+#endif
     };
 
     std::list<Stop> myStops;
@@ -541,6 +545,21 @@ public:
 	 *					continue until the stop is reached again
 	 */
 	void addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOReal duration);
+
+	/**
+	 * Add a stop to the head of the vehicle's stop list to make it the next stop position.
+	 * If a continuous array of stops which are located at the same edge exists at the list's 
+	 * head, the new stop is sorted within the array by increasing position.
+	 */
+	void sortTraCIStopToStopList(Stop traciStop);
+
+	/** 
+	 * Comparison function for vehicle stops. 
+	 * Stops are sorted by their positions, starting with the lowest position.
+	 */
+	//bool compareStop(const Stop& left, const Stop& right);
+
+	
 
     void checkReroute(SUMOTime t);
 
@@ -763,26 +782,27 @@ private:
     typedef std::vector<RouteReplaceInfo> ReplacedRoutesVector;
 
 #ifdef TRACI
-	struct TraciStop {
-		MSLane *lane;
-		SUMOReal pos;
-		SUMOReal radius;
-		SUMOTime duration;
-		SUMOTime remainingTime;
-		bool reached;
+	//struct TraciStop {
+	//	MSLane *lane;
+	//	MSEdge* edge;
+	//	SUMOReal pos;
+	//	SUMOReal radius;
+	//	SUMOTime duration;
+	//	SUMOTime remainingTime;
+	//	bool reached;
 
-		/* stops are sorted by their position */
-		bool operator<(TraciStop arg) {
-			return ( (pos-radius) < (arg.pos - arg.radius) );
-		}
-	};
+	//	/* stops are sorted by their positions */
+	//	bool operator<(TraciStop arg) {
+	//		return ( (pos-radius) < (arg.pos - arg.radius) );
+	//	}
+	//};
 
-	/* list of scheduled stops*/
-	typedef std::list<TraciStop> TraciStopList;
+	typedef std::list<Stop> TraciStopList;
+	/* list of stops scheduled by TraCI*/
 	std::map<std::string, TraciStopList> myTraciStops;
 
 	/* iterator pointing to the closest, not yet passed stop on the current lane, if any*/
-	TraciStopList::iterator nextTraciStop;
+	//TraciStopList::iterator nextTraciStop;
 
     bool myHaveRouteInfo;
     typedef std::map<const MSEdge * const, Information *> InfoCont;
@@ -815,7 +835,7 @@ private:
 	/* simulation time, when the last speed adaption started */
     SUMOTime timeBeforeAdaption;
 
-	/* duratíon of the last speed adaption */
+	/* duration of the last speed adaption */
     SUMOTime adaptDuration;
 
 	/* simulation time when the last lane change was forced */

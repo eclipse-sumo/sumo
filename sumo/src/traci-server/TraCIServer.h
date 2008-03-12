@@ -82,6 +82,8 @@ public:
 		std::string roadId;
 		float pos;
 		unsigned char laneId;
+
+		RoadMapPos(): roadId(""), pos(-1), laneId(-1) {};
 	};
 
     // Constructor
@@ -160,6 +162,14 @@ private:
 	 * @return the closest road map position to the cartesian position
 	 */
 	TraCIServer::RoadMapPos convertCartesianToRoadMap(Position2D pos);
+
+	/**
+	 * Converts a road map position to a cartesian one
+	 *
+	 * @param pos road map position that is to be convertes
+	 * @return closest 2D position 
+	 */
+	Position2D convertRoadMapToCartesian(TraCIServer::RoadMapPos pos) throw(TraCIException);
 
     // port on which server is listening on
     int port_;
