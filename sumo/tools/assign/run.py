@@ -20,7 +20,7 @@ if addFiles:
     sumoAdds = "-a %s" % addFiles
 
 duaDir = makeAndChangeDir("../dua")
-duaProcess = subprocess.Popen("dua-iterate.py -n %s -l 20 -t ../input/trips.trips.xml %s" % (netFile, pyAdds), shell=True)
+duaProcess = subprocess.Popen("dua-iterate.py -C -n %s -l 20 -t ../input/trips.trips.xml %s" % (netFile, pyAdds), shell=True)
 succDir = makeAndChangeDir("../successive")
 os.system("inc_assignsumo.py -c ../input/districts.xml -m %s -n %s -p ../parameter.txt -u ../CRcurve.txt" % (mtxNamesList, netFile))
 while not os.path.exists("%s/trips_0.rou.xml" % duaDir):
