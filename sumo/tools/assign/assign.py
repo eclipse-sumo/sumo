@@ -44,9 +44,6 @@ def DoAssign(net, Parcontrol, iter, endVertices, start, end, startVertex, matrix
                 vehID += 1
                 newVehicle = net.addVehicle(str(vehID))
                 newVehicle.route = helpPath
-#                newVehicle.traveltime = pathtime
-#                newVehicle.travellength = pathlength
-#                newVehicle.speed = pathlength / pathtime
                 AssignedVeh[startVertex][endVertex] += 1
             print 'AssignedTrip[start][end]', AssignedTrip[startVertex][endVertex]
             print 'AssignedVeh[start][end]', AssignedVeh[startVertex][endVertex]
