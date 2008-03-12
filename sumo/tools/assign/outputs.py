@@ -67,7 +67,6 @@ def TimeforAssign(starttime):
     
 def SortedVehOutput(net, counter, Parcontrol):                                   
     net._vehicles.sort(key=operator.attrgetter('depart'))                         # sorting by departure times 
-    
     if counter == 0:
         foutroute = file('routes.txt', 'w')                                           # initialize the file for recording the routes
         foutroute.write('<routes>\n')
@@ -81,7 +80,7 @@ def SortedVehOutput(net, counter, Parcontrol):
             foutroute.write('%s ' %edge.label)
         foutroute.write('</route>\n')
         foutroute.write('</vehicle>\n') 
-    if int(Parcontrol[(len(Parcontrol)-2)]) == (counter - 1):
+    if int(Parcontrol[(len(Parcontrol)-2)]) == int(counter+1):
         foutroute.write('</routes>\n')
     foutroute.close()
     
