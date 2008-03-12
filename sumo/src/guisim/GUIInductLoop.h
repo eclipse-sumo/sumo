@@ -81,12 +81,20 @@ class MyWrapper : public GUIDetectorWrapper
         /// Destructor
         ~MyWrapper() throw();
 
-        /** @brief Returns the boundary to which the view shall be centered in order to show the object
+
+        /// @name inherited from GUIGlObject
+        //@{
+
+        /** @brief Returns an own parameter window
          *
-         * @return The boundary the object is within
-         * @see GUIGlObject::getCenteringBoundary
+         * @param[in] app The application needed to build the parameter window
+         * @param[in] parent The parent window needed to build the parameter window
+         * @return The built parameter window
+         * @see GUIGlObject::getParameterWindow
          */
-        Boundary getCenteringBoundary() const throw();
+        GUIParameterTableWindow *getParameterWindow(
+            GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
+
 
         /** @brief Draws the object
          *
@@ -96,11 +104,24 @@ class MyWrapper : public GUIDetectorWrapper
          */
         void drawGL(SUMOReal scale, SUMOReal upscale) throw();
 
-        GUIParameterTableWindow *getParameterWindow(
-            GUIMainWindow &app, GUISUMOAbstractView &parent) throw();
 
-        /// returns the id of the object as known to microsim
+        /** @brief Returns the id of the object as known to microsim
+         *
+         * @return The id of the induction loop
+         * @see GUIGlObject::microsimID
+         */
         const std::string &microsimID() const throw();
+
+
+        /** @brief Returns the boundary to which the view shall be centered in order to show the object
+         *
+         * @return The boundary the object is within
+         * @see GUIGlObject::getCenteringBoundary
+         */
+        Boundary getCenteringBoundary() const throw();
+        //@}
+
+
 
         /// Returns the detector itself
         GUIInductLoop &getLoop();
