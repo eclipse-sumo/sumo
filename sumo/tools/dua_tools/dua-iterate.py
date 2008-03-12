@@ -1,5 +1,4 @@
-import os
-import sys
+import os, sys, subprocess
 from datetime import datetime
 from optparse import OptionParser
 
@@ -13,67 +12,67 @@ class TeeFile:
             fp.write(txt)
 
 def writeRouteConf(step, options, file, output):
-	fd = open("iteration_" + str(step) + ".rou.cfg", "w")
-	fd.write("<configuration>\n")
-	fd.write("<move-on-short>x</move-on-short>\n") # !!!
-	fd.write("<remove-loops>x</remove-loops>\n") # !!!
-	fd.write("   <files>\n")
-	fd.write("      <net-file>" + options.net + "</net-file>\n")
-	fd.write("      <output>" + output + "</output>\n")
-	if(step==0):
-		fd.write("      <t>" + file + "</t>\n")
-	else:
-		fd.write("      <alternatives>" + file + "</alternatives>\n")
-		fd.write("      <weights>dump_" + str(step-1) + "_" + str(options.aggregation) + ".xml</weights>\n")
-	fd.write("   </files>\n")
-	fd.write("   <process>\n")
-	fd.write("      <begin>" + str(options.begin) + "</begin>\n")
-	fd.write("      <end>" + str(options.end) + "</end>\n")
-	fd.write("   </process>\n")
-	fd.write("   <reports>\n")
-	if options.verbose:
-		fd.write("      <verbose>x</verbose>\n")
-	if options.continueOnUnbuild:
-		fd.write("      <continue-on-unbuild>x</continue-on-unbuild>\n")
-	if not options.withWarnings:
-		fd.write("      <suppress-warnings>x</suppress-warnings>\n")
-	fd.write("   </reports>\n")
-	fd.write("</configuration>\n")
-	fd.close()
+    fd = open("iteration_" + str(step) + ".rou.cfg", "w")
+    fd.write("<configuration>\n")
+    fd.write("<move-on-short>x</move-on-short>\n") # !!!
+    fd.write("<remove-loops>x</remove-loops>\n") # !!!
+    fd.write("   <files>\n")
+    fd.write("      <net-file>" + options.net + "</net-file>\n")
+    fd.write("      <output>" + output + "</output>\n")
+    if(step==0):
+        fd.write("      <t>" + file + "</t>\n")
+    else:
+        fd.write("      <alternatives>" + file + "</alternatives>\n")
+        fd.write("      <weights>dump_" + str(step-1) + "_" + str(options.aggregation) + ".xml</weights>\n")
+    fd.write("   </files>\n")
+    fd.write("   <process>\n")
+    fd.write("      <begin>" + str(options.begin) + "</begin>\n")
+    fd.write("      <end>" + str(options.end) + "</end>\n")
+    fd.write("   </process>\n")
+    fd.write("   <reports>\n")
+    if options.verbose:
+        fd.write("      <verbose>x</verbose>\n")
+    if options.continueOnUnbuild:
+        fd.write("      <continue-on-unbuild>x</continue-on-unbuild>\n")
+    if not options.withWarnings:
+        fd.write("      <suppress-warnings>x</suppress-warnings>\n")
+    fd.write("   </reports>\n")
+    fd.write("</configuration>\n")
+    fd.close()
 
 def writeSUMOConf(step, options, files):
-	fd = open("iteration_" + str(step) + ".sumo.cfg", "w")
-	fd.write("<configuration>\n")
-	fd.write("   <files>\n")
-	fd.write("      <net-file>" + options.net + "</net-file>\n")
-	fd.write("      <route-files>" + files + "</route-files>\n")
-	fd.write("      <dump-basename>dump_" + str(step) + "</dump-basename>\n")
-	fd.write("      <dump-intervals>" + str(options.aggregation) + "</dump-intervals>\n")
-	if not options.noEmissions:
-		fd.write("      <emissions>emissions_" + str(step) + ".xml</emissions>\n")
-	if not options.noTripinfo:
-		fd.write("      <tripinfo>tripinfo_" + str(step) + ".xml</tripinfo>\n")
-	if options.additional!="":
-		fd.write("      <additional-files>" + options.additional + "</additional-files>\n")
-	fd.write("   </files>\n")
-	fd.write("   <process>\n")
-	fd.write("      <begin>" + str(options.begin) + "</begin>\n")
-	fd.write("      <end>" + str(options.end) + "</end>\n")
-	fd.write("      <route-steps>" + str(options.routeSteps) + "</route-steps>\n")
-	if options.incBase>0:
-		fd.write("      <incremental-dua-base>" + str(options.incBase) + "</incremental-dua-base>\n")
-		fd.write("      <incremental-dua-step>" + str(options.incValue*(step+1)) + "</incremental-dua-step>\n")
-	if options.mesosim:
-		fd.write("      <mesosim>x</mesosim>\n")
-	fd.write("   </process>\n")
-	fd.write("   <reports>\n")
-	if options.verbose:
-		fd.write("      <verbose>x</verbose>\n")
-	if not options.withWarnings:
-		fd.write("      <suppress-warnings>x</suppress-warnings>\n")
-	fd.write("   </reports>\n")
-	fd.write("</configuration>\n")
-	fd.close()
+    fd = open("iteration_" + str(step) + ".sumo.cfg", "w")
+    fd.write("<configuration>\n")
+    fd.write("   <files>\n")
+    fd.write("      <net-file>" + options.net + "</net-file>\n")
+    fd.write("      <route-files>" + files + "</route-files>\n")
+    fd.write("      <dump-basename>dump_" + str(step) + "</dump-basename>\n")
+    fd.write("      <dump-intervals>" + str(options.aggregation) + "</dump-intervals>\n")
+    if not options.noEmissions:
+        fd.write("      <emissions>emissions_" + str(step) + ".xml</emissions>\n")
+    if not options.noTripinfo:
+        fd.write("      <tripinfo>tripinfo_" + str(step) + ".xml</tripinfo>\n")
+    if options.additional!="":
+        fd.write("      <additional-files>" + options.additional + "</additional-files>\n")
+    fd.write("   </files>\n")
+    fd.write("   <process>\n")
+    fd.write("      <begin>" + str(options.begin) + "</begin>\n")
+    fd.write("      <end>" + str(options.end) + "</end>\n")
+    fd.write("      <route-steps>" + str(options.routeSteps) + "</route-steps>\n")
+    if options.incBase>0:
+        fd.write("      <incremental-dua-base>" + str(options.incBase) + "</incremental-dua-base>\n")
+        fd.write("      <incremental-dua-step>" + str(options.incValue*(step+1)) + "</incremental-dua-step>\n")
+    if options.mesosim:
+        fd.write("      <mesosim>x</mesosim>\n")
+    fd.write("   </process>\n")
+    fd.write("   <reports>\n")
+    if options.verbose:
+        fd.write("      <verbose>x</verbose>\n")
+    if not options.withWarnings:
+        fd.write("      <suppress-warnings>x</suppress-warnings>\n")
+    fd.write("   </reports>\n")
+    fd.write("</configuration>\n")
+    fd.close()
 
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
@@ -124,67 +123,68 @@ optParser.add_option("-p", "--path", dest="path",
 (options, args) = optParser.parse_args()
 
 
-if (sys.platform=="win32"):		
+if (sys.platform=="win32"):        
         duaBinary = os.path.join(options.path, "duarouter.exe")
         sumoBinary = os.path.join(options.path, "sumo.exe")
 else:
         duaBinary = os.path.join(options.path, "sumo-duarouter")
         sumoBinary = os.path.join(options.path, "sumo")
-fdm = open("dua-log.txt", "w")
-sys.stdout = TeeFile(sys.stdout, open("dua-log-quiet.txt", "w"))
+log = open("dua-log.txt", "w")
+logQuiet = open("dua-log-quiet.txt", "w")
+sys.stdout = TeeFile(sys.stdout, logQuiet)
+sys.stderr = TeeFile(sys.stderr, logQuiet)
 tripFiles = options.trips.split(",")
 starttime = datetime.now()
 for step in range(options.firstStep, options.lastStep):
-	btimeA = datetime.now()
-	print "> Executing step " + str(step)
+    btimeA = datetime.now()
+    print "> Executing step " + str(step)
 
-	# router
-	files = []
-	for tripFile in tripFiles:
-		file = tripFile
-		tripFile = os.path.basename(tripFile)
-		if step>0:
-			file = tripFile[:tripFile.find(".")] + "_%s.rou.xml.alt" % (step-1)
-		output = tripFile[:tripFile.find(".")] + "_%s.rou.xml" % step
-		print ">> Running router with " + file
-		btime = datetime.now()
-		print ">>> Begin time %s" % btime
-		writeRouteConf(step, options, file, output)
-		if options.verbose:
-			print "> Call: %s -c iteration_%s.rou.cfg" % (duaBinary, step)
-		(cin, cout) = os.popen4("%s -c iteration_%s.rou.cfg" % (duaBinary, step))
-		line = cout.readline()
-		while line:
-			if options.verbose:
-				print line[:-1]
-			fdm.write(line)
-			line = cout.readline()
-		etime = datetime.now()
-		print ">>> End time %s" % etime
-		print ">>> Duration %s" % (etime-btime)
-		print "<<"
-		files.append(output)
-
-	# simulation
-	print ">> Running simulation"
-	btime = datetime.now()
-	print ">>> Begin time %s" % btime
-	writeSUMOConf(step, options, ",".join(files))
-	if options.verbose:
-		print "> Call: %s -c iteration_%s.sumo.cfg" % (sumoBinary, step)
-	(cin, cout) = os.popen4("%s -c iteration_%s.sumo.cfg" % (sumoBinary, step))
-	line = cout.readline()
-	while line:
-		if options.verbose:
-			print line[:-1]
-		fdm.write(line)
-		line = cout.readline()
+    # router
+    files = []
+    for tripFile in tripFiles:
+        file = tripFile
+        tripFile = os.path.basename(tripFile)
+        if step>0:
+            file = tripFile[:tripFile.find(".")] + "_%s.rou.xml.alt" % (step-1)
+        output = tripFile[:tripFile.find(".")] + "_%s.rou.xml" % step
+        print ">> Running router with " + file
+        btime = datetime.now()
+        print ">>> Begin time %s" % btime
+        writeRouteConf(step, options, file, output)
+        if options.verbose:
+            print "> Call: %s -c iteration_%s.rou.cfg" % (duaBinary, step)
+            subprocess.call("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
+                            shell=True, stdout=TeeFile(sys.__stdout__, log),
+                            stderr=TeeFile(sys.__stderr__, log))
+        else:
+            subprocess.call("%s -c iteration_%s.rou.cfg" % (duaBinary, step),
+                            shell=True, stdout=log, stderr=log)
         etime = datetime.now()
         print ">>> End time %s" % etime
         print ">>> Duration %s" % (etime-btime)
-	print "<<"
-	print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
-	print "------------------\n"
+        print "<<"
+        files.append(output)
+
+    # simulation
+    print ">> Running simulation"
+    btime = datetime.now()
+    print ">>> Begin time %s" % btime
+    writeSUMOConf(step, options, ",".join(files))
+    if options.verbose:
+        print "> Call: %s -c iteration_%s.sumo.cfg" % (sumoBinary, step)
+        subprocess.call("%s -c iteration_%s.sumo.cfg" % (sumoBinary, step),
+                        shell=True, stdout=TeeFile(sys.__stdout__, log),
+                        stderr=TeeFile(sys.__stderr__, log))
+    else:
+        subprocess.call("%s -c iteration_%s.sumo.cfg" % (sumoBinary, step),
+                        shell=True, stdout=log, stderr=log)
+    etime = datetime.now()
+    print ">>> End time %s" % etime
+    print ">>> Duration %s" % (etime-btime)
+    print "<<"
+    print "< Step %s ended (duration: %s)" % (step, datetime.now() - btimeA)
+    print "------------------\n"
 print "dua-iterate ended (duration: %s)" % (datetime.now() - starttime)
 
-fdm.close()
+log.close()
+logQuiet.close()
