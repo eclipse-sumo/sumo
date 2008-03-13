@@ -51,22 +51,23 @@ def DoSUEAssign(curvefile, Parcontrol, net, startVertices, endVertices, matrixPs
 
 # calculate the path choice probabilities and the path flows for each OD Pair    
 def DoVehAssign(net, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh,  AssignedTrip, vehID):
-    if counter == 0:
-        foutpath = file('paths.txt', 'w')
-    else:
-        foutpath = file('paths.txt', 'a')
-    foutpath.write('the analyzed matrix=%s' %counter)
+#    if counter == 0:
+#        foutpath = file('paths.txt', 'w')
+#    else:
+#        foutpath = file('paths.txt', 'a')
+#    foutpath.write('the analyzed matrix=%s' %counter)
     TotalPath = 0
     start = -1
     for startVertex in startVertices:
         start += 1
         end = -1
-        foutpath.write('\norigin=%s, ' %startVertex)
+#        foutpath.write('\norigin=%s, ' %startVertex)
         for endVertex in endVertices:
             end += 1
             pathcount = 0
+            cumulatedFlow = 0.
             if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
-                foutpath.write('destination=%s' %endVertex)
+#                foutpath.write('destination=%s' %endVertex)
                 ODPaths = net._paths[startVertex][endVertex]
                 for path in ODPaths:                                  # update the path travel times
                     TotalPath += 1
@@ -77,30 +78,27 @@ def DoVehAssign(net, counter, matrixPshort, Parcontrol, startVertices, endVertic
                 for path in ODPaths:
                     pathcount += 1
                     path.choiceprob = math.exp(float(Parcontrol[4])*(-path.actpathtime - path.commfactor))/ sum_exputility  
-                    path.pathflow = matrixPshort[start][end] * path.choiceprob    # + matrixPlong[start][end] + matrixTruck[start][end]
-                    foutpath.write('\npathID= %s, path flow=%2.2f, actpathtime=%2.2f, choiceprob=%2.2f, edges=' %(path.label, path.pathflow, path.actpathtime, path.choiceprob))
-                    for item in path.Edges:
-                        foutpath.write('%s, ' %(item.label))
+                    if pathcount < len(ODPaths):
+                    	path.pathflow = matrixPshort[start][end] * path.choiceprob    # + matrixPlong[start][end] + matrixTruck[start][end]
+                    	cumulatedFlow += path.pathflow
+                    else:
+                    	path.pathflow = matrixPshort[start][end] - cumulatedFlow
+#                  	foutpath.write('\npathID= %s, path flow=%2.2f, actpathtime=%2.2f, choiceprob=%2.2f, edges=' %(path.label, path.pathflow, path.actpathtime, path.choiceprob))
+#                    for item in path.Edges:
+#                        foutpath.write('%s, ' %(item.label))
                     
-                    AssignedTrip[startVertex][endVertex] += path.pathflow                 # generate vehicle list 
-                    while float(AssignedVeh[startVertex][endVertex]) < AssignedTrip[startVertex][endVertex] and (AssignedTrip[startVertex][endVertex]-float(AssignedVeh[startVertex][endVertex]) >= 1.):  # VehCounter < pathflow and 
+                    AssignedTrip[startVertex][endVertex] += path.pathflow
+
+                    while AssignedVeh[startVertex][endVertex] < int(round(AssignedTrip[startVertex][endVertex])): # generate vehicle list
                         vehID += 1
                         newVehicle = net.addVehicle(str(vehID))
                         newVehicle.route = path.Edges
                         AssignedVeh[startVertex][endVertex] += 1
-                    if pathcount == len(ODPaths):
-                        print 'pathcount == len(ODPaths)'
-                        while AssignedVeh[startVertex][endVertex] < int(AssignedTrip[startVertex][endVertex]):
-                            print 'AssignedTrip[start][end]', AssignedTrip[startVertex][endVertex]
-                            print 'AssignedVeh[start][end]', AssignedVeh[startVertex][endVertex]
-                            vehID += 1
-                            newVehicle = net.addVehicle(str(vehID))
-                            newVehicle.route = path.Edges
-                            AssignedVeh[startVertex][endVertex] += 1
-                    print 'AssignedTrip[start][end]', AssignedTrip[startVertex][endVertex]
-                    print 'AssignedVeh[start][end]', AssignedVeh[startVertex][endVertex]
-                    print 'vehID:', vehID
+                        print 'vehID:', vehID
+                        print 'AssignedTrip[start][end]', AssignedTrip[startVertex][endVertex]
+                        print 'AssignedVeh[start][end]', AssignedVeh[startVertex][endVertex]
+                   
     print 'total Number of the used paths for the current matrix:', TotalPath 
-    foutpath.write('\ntotal Number of the used paths for the current matrix:%s' %TotalPath)
-    foutpath.close()
+#    foutpath.write('\ntotal Number of the used paths for the current matrix:%s' %TotalPath)
+#    foutpath.close()
     return AssignedVeh, AssignedTrip, vehID

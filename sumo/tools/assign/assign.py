@@ -40,7 +40,7 @@ def DoAssign(net, Parcontrol, iter, endVertices, start, end, startVertex, matrix
             
             AssignedTrip[startVertex][endVertex] += pathflow
             
-            while AssignedVeh[startVertex][endVertex] < AssignedTrip[startVertex][endVertex] and (AssignedTrip[startVertex][endVertex]-float(AssignedVeh[startVertex][endVertex]) >= 1.):  # VehCounter < pathflow and 
+            while AssignedVeh[startVertex][endVertex] < int(round(AssignedTrip[startVertex][endVertex])):# and (AssignedTrip[startVertex][endVertex]-float(AssignedVeh[startVertex][endVertex]) >= 1.):  # VehCounter < pathflow and 
                 vehID += 1
                 newVehicle = net.addVehicle(str(vehID))
                 newVehicle.route = helpPath

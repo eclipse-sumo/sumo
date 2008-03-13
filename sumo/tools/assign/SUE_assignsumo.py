@@ -227,7 +227,7 @@ for counter in range (0, len(matrices)):                            # matrix ist
     SortedVehOutput(net, counter, Parcontrol)
 
 # the required time for executing the SUE traffic assignemnt
-assigntime = TimeforAssign(starttime) 
+assigntime = TimeforAssign(starttime)
 
 # output the average vehicular travel time
 OutputMOE(net, Parcontrol)
