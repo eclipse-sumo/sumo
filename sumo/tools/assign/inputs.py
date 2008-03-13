@@ -5,12 +5,12 @@
 import os, random, string, sys, datetime
 
 def getParameter(parfile):
-    Parcontrol = []
+    ODcontrol = []
     sum = 0.
     for line in open(parfile):                                                  # include: default link capacity estimation (0: no; 1: yes)
-        Parcontrol = line.split()                                                        # the number of iterations, procent of matrix at each iteration
+        ODcontrol = line.split()                                                        # the number of iterations, procent of matrix at each iteration
         
-    return Parcontrol
+    return ODcontrol
      
 def getMatrix(net, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     matrixPshort = []
