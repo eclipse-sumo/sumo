@@ -4,7 +4,7 @@
 # the link information about the shortest paths and the corresponding travel times   
 # will be stored in the lists P and D respectively.
 
-import os, random, string, sys, datetime
+import os, random, string, sys
 
 from priodict import priorityDictionary
 
@@ -13,10 +13,10 @@ def Dijkstra(start):
     P = {}	# dictionary of predecessors
     Q = priorityDictionary()   # est.dist. of non-final vert.
     Q[start] = 0
-        
+#    print 'start=', start   
     for v in Q:
         D[v] = Q[v]
-          
+#        print 'v=', v           
         for edge in v.outEdges:
             w = edge.target
             vwLength = D[v] + edge.actualtime
@@ -27,4 +27,4 @@ def Dijkstra(start):
             elif w not in Q or vwLength < Q[w]:
                 Q[w] = vwLength
                 P[w] = v
-    return (D,P)
+    return (D, P)
