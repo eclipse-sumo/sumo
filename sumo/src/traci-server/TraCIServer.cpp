@@ -184,6 +184,9 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
 	case CMD_POSITIONCONVERSION:
 		commandPositionConversion(requestMsg, respMsg);
 		break;
+	case CMD_SLOWDOWN:
+		commandSlowDown(requestMsg, respMsg);
+		break;
     default:
         writeStatusCmd(respMsg, commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
         return false;
@@ -715,7 +718,7 @@ throw(TraCIException)
     // NodeId
     MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
     // speed
-    float newSpeed = requestMsg.readFloat();
+    float newSpeed = MAX2(requestMsg.readFloat(), 0.0f);
     // time interval
     double duration = requestMsg.readDouble();
 
@@ -723,17 +726,17 @@ throw(TraCIException)
         writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Can not retrieve node with given ID");
         return;
     }
-    if (newSpeed < 0) {
+    /*if (newSpeed < 0) {
         writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Negative speed value");
         return;
-    }
-    if (duration < 0) {
+    }*/
+    if (duration <= 0) {
         writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Invalid time interval");
         return;
     }
 
     if (!veh->startSpeedAdaption(newSpeed, duration, MSNet::getInstance()->getCurrentTimeStep())) {
-        writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Not slowing down");
+        writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Could not slow down");
         return;
     }
 

@@ -1884,14 +1884,14 @@ MSVehicle::restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime)
 bool
 MSVehicle::startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime currentTime)
 {
-    if (newSpeed < 0 || duration <= 0 || newSpeed >= getSpeed()) {
+    if (newSpeed < 0 || duration <= 0/* || newSpeed >= getSpeed()*/) {
         return false;
     }
 
     speedBeforeAdaption = getSpeed();
     timeBeforeAdaption = currentTime;
     adaptDuration = duration;
-    speedReduction = speedBeforeAdaption - newSpeed;
+    speedReduction = MAX2(0.0f, speedBeforeAdaption - newSpeed);
 
     adaptingSpeed = true;
 
