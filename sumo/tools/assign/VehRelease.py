@@ -5,9 +5,10 @@ import os, string, sys, random, math
 from network import Net
 from elements import Vertex, Edge, Vehicle
 
-def VehRelease(net, Parcontrol, departtime, CurrentMatrixSum):
-    print 'RandomVehRelease:', Parcontrol[(len(Parcontrol)-3)]
-    print 'CurrentMatrixSum:', CurrentMatrixSum
+def VehRelease(net, verbose, Parcontrol, departtime, CurrentMatrixSum):
+    if verbose:
+        print 'RandomVehRelease:', Parcontrol[(len(Parcontrol)-3)]
+        print 'CurrentMatrixSum:', CurrentMatrixSum
 
 #    foutprob = file('probability.txt', 'w')
 #    foutrelease = file('release.txt', 'w')

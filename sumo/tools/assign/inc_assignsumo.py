@@ -12,7 +12,7 @@ from elements import Vertex, Edge, Vehicle                                      
 from network import Net, NetDetectorFlowReader, ZoneConnectionReader                # import characteristices of network and read xml files for retriving netork and zone connectors data
 from dijkstra import Dijkstra                                                       # import the Dijkstra algorithm for searching shortest paths
 from inputs import getParameter, getMatrix, getConnectionTravelTime                 # read control parameters and matrix; calculate the link travel time of zone connectors
-from outputs import TimeforInput, OutputODZone, OutputNetwork, TimeforAssign, SortedVehOutput, OutputMOE, VehPoissonDistr # output the related results
+from outputs import TimeforInput, OutputODZone, OutputNetwork, SortedVehOutput, OutputMOE, VehPoissonDistr # output the related results
 from assign import DoAssign                                                           # import the algorithm of the incremental traffic assignment 
 from VehRelease import VehRelease
 
@@ -88,15 +88,16 @@ TimeforInput(inputreaderstart)                                           # the r
 # read the control parameters(the number of iterations,  
 # and the assigned percentages of the matrix at each iteration) and the traffic demand 
 Parcontrol = getParameter(options.parfile)
-print 'Parcontrol[number of iterations, n.%, Uni-/PoissonRandomRelease, number of periods, beginning time]:', Parcontrol    # 0: UniRandomRelease; 1: PoissonRandomRelease
+if options.verbose:
+    print 'Parcontrol[number of iterations, n.%, Uni-/PoissonRandomRelease, number of periods, beginning time]:', Parcontrol    # 0: UniRandomRelease; 1: PoissonRandomRelease
 
 foutlog.write('Reading control parameters: done.\n')
 
 begintime = int(Parcontrol[(len(Parcontrol)-1)])
 iteration = int(Parcontrol[0])                                            # number of iterations in the incremental traffic assignment
-
-print 'number of the analyzed matrices:', len(matrices)
-print 'Begin Time:', begintime, "o'Clock"
+if options.verbose:
+    print 'number of the analyzed matrices:', len(matrices)
+    print 'Begin Time:', begintime, "o'Clock"
 
 # initialization
 MatrixCounter = 0
@@ -119,14 +120,17 @@ for counter in range (0, len(matrices)):                                        
     net._vehicles = []
     matrix = matrices[counter]
     MatrixCounter += 1
-    print 'Matrix: ', MatrixCounter
+    
     departtime = (begintime + int(counter)) * 3600
-    print 'departtime', departtime                                                # in second
+    if options.verbose:
+        print 'Matrix: ', MatrixCounter
+        print 'departtime', departtime                                                # in second
 #	foutlog.write('the current analyzed matrix: %s \n' % counter)
     
 # matrixPshort, matrixPlong, matrixTruck, startVertices, endVertices, Pshort_EffCells, Plong_EffCells, Truck_EffCells = getMatrix(net, options.zonefile, options.mtxpsfile, options.mtxplfile, options.mtxtfile)
-    matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum = getMatrix(net, matrix, MatrixSum)
-    print 'Matrix und OD Zone already read for Interval', counter
+    matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum = getMatrix(net, options.verbose, matrix, MatrixSum)
+    if options.verbose:
+        print 'Matrix und OD Zone already read for Interval', counter
     foutlog.write('Reading matrix and O-D zones: done.\n')
     
     origins = len(startVertices)                                                    # number of origins
@@ -141,34 +145,28 @@ for counter in range (0, len(matrices)):                                        
     while iter < iteration:
         foutlog.write('- Current iteration(not executed yet):%s\n' %iter)
         iter += 1                                                                   # number of iterations 
-        print 'iter:', iter
         start = -1                                                                  # reset the origin index used in the matrix
         end = -1                                                                    # reset the destination index used in the matrix
 
         for startVertex in startVertices:
             start += 1
             end = -1                                                                # reset the destination index used in the matrix
-            print 'begin the route searching from ', startVertex
             D,P = Dijkstra(startVertex)                                             # the information about the shortest paths and    
                                                                                     # the respective travel times from the given "startVertex" 
 # incremental traffic assignment
-            vehID, AssignedVeh, AssignedTrip = DoAssign(net, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)     
-            print 'vehID:', vehID
+            vehID, AssignedVeh, AssignedTrip = DoAssign(net, options.verbose, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
         
         for edgeID in net._edges:                                                   # the link travel times will be updated according to the latest traffic assingment
             edge = net._edges[edgeID]
             edge.getACTTT(options.curvefile)
 
-    VehRelease(net, Parcontrol, departtime, CurrentMatrixSum)                        # generate vehicular releasing times
+    VehRelease(net, options.verbose, Parcontrol, departtime, CurrentMatrixSum)                        # generate vehicular releasing times
 
 # output the generated releasing times and routes of the vehicles based on the current matrix
     SortedVehOutput(net, counter, Parcontrol)
-	
-# the required time for executing the incremental traffic assignemnt
-assigntime = TimeforAssign(starttime)
 
-# output the average vehicular travel time
-OutputMOE(net, Parcontrol)
+# output the global performance indices
+assigntime= OutputMOE(net, starttime, Parcontrol)
 
 # output the number of vehicles in the given time interval(10 sec) accoding to the Poisson distribution
 VehPoissonDistr(net, Parcontrol, begintime)

@@ -14,7 +14,7 @@ from elements import Predecessor, Vertex, Edge, Path, Vehicle                   
 from network import Net, NetDetectorFlowReader, ZoneConnectionReader                # import characteristices of network and read xml files for retriving netork and zone connectors data
                                                      
 from inputs import getParameter, getMatrix, getConnectionTravelTime                 # read control parameters and matrix; calculate the link travel time of zone connectors
-from outputs import TimeforInput, OutputODZone, OutputNetwork, OutputMOE, TimeforAssign, SortedVehOutput, VehPoissonDistr # output the related results
+from outputs import TimeforInput, OutputODZone, OutputNetwork, OutputMOE, SortedVehOutput, VehPoissonDistr # output the related results
 from SUEassign import DoSUEAssign, DoVehAssign                                      # import the algorithm of the incremental traffic assignment 
 from getPaths import findNewPath
 from VehRelease import VehRelease
@@ -101,7 +101,8 @@ TimeforInput(inputreaderstart)                                           # the r
 #   - SUETolerance: the difference of link flows between the two consequent iterations
 
 Parcontrol = getParameter(options.parfile)
-print 'Control parameters(Parcontrol):', Parcontrol
+if options.verbose:
+    print 'Control parameters(Parcontrol):', Parcontrol
 
 Beta = float(Parcontrol[0])
 Gamma = float(Parcontrol[1])
@@ -119,10 +120,10 @@ KPaths = int(Parcontrol[9])
 
 MatrixCounter = 0
 begintime = int(Parcontrol[(len(Parcontrol)-1)])
-
-print 'number of the analyzed matrices:', len(matrices)
 starttime = datetime.datetime.now()
-print 'Begintime:', begintime, "O'Clock"
+if options.verbose:
+    print 'number of the analyzed matrices:', len(matrices)
+    print 'Begintime:', begintime, "O'Clock"
 
 # initialization
 MatrixCounter = 0
@@ -152,20 +153,22 @@ for counter in range (0, len(matrices)):                            # matrix ist
     net._vehicles = []                                              # delete all vehicle information related to the last matrix for saving the disk space
     matrix = matrices[counter]
     MatrixCounter += 1
-    print 'Matrix: ', MatrixCounter
+    if options.verbose:
+        print 'Matrix: ', MatrixCounter
     departtime = (begintime + int(counter)) * 3600
-    print 'departtime', departtime                                  # in second
+    if options.verbose:
+        print 'departtime', departtime                                  # in second
 #	print 'Begintime:', begintime
 
-    matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum = getMatrix(net, matrix, MatrixSum)
-    print 'Matrix und OD Zone already read for Interval', counter
-    print 'CurrentMatrixSum:', CurrentMatrixSum 
+    matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum = getMatrix(net, options.verbose, matrix, MatrixSum)
+    if options.verbose:
+        print 'Matrix und OD Zone already read for Interval', counter
+        print 'CurrentMatrixSum:', CurrentMatrixSum
+        print 'startVertices:', startVertices
+        print 'endvertices:', endVertices          
 #    getConnectionTravelTime(startVertices, endVertices) # calculate link travel time for all zone connectors
     foutlog.write('Reading matrix and O-D zones: done.\n')
-    
-    print 'startVertices:', startVertices
-    print 'endvertices:', endVertices 
-    
+
     origins = len(startVertices)                                    # number of origins
     dests = len(endVertices)                                        # number of destinations
     ODpairs = origins * dests                                       # number of the OD pairs
@@ -183,29 +186,33 @@ for counter in range (0, len(matrices)):                            # matrix ist
     
 # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
     if counter == 0:
-        NewRoutes = net.calcPaths(NewRoutes, KPaths, startVertices, endVertices, matrixPshort)
+        NewRoutes = net.calcPaths(NewRoutes, options.verbose, KPaths, startVertices, endVertices, matrixPshort)
         foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')   
-    print 'KPaths:', KPaths 
-    print 'number of new routes:', NewRoutes
+    if options.verbose:
+        print 'KPaths:', KPaths 
+        print 'number of new routes:', NewRoutes
     
 # SUE traffic Assignment based on the C-Logit Model
-    while StopIndex > SUETolerance or NewRoutes > 0:
-        print 'iteration:', iter
+    while StopIndex > SUETolerance or NewRoutes > 0:      
         foutlog.write('- SUE iteration:%s\n' %iter)
              
         alpha = SUEk1/float(SUEk2 + iter)                                         # the parameter in the MSA algorithm
-        print 'alpha:', alpha
-        
-        print 'SUETolerance:', SUETolerance
-        TotalTime = DoSUEAssign(options.curvefile, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter)  # , matrixPlong, matrixTruck, 
-        print 'preTotalTime:', preTotalTime
-        print 'TotalTime:', TotalTime
+        if options.verbose:
+            print 'iteration:', iter
+            print 'alpha:', alpha
+            print 'SUETolerance:', SUETolerance
+        TotalTime = DoSUEAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter)  # , matrixPlong, matrixTruck, 
+
         if iter > 1:
             StopIndex = math.fabs((preTotalTime-TotalTime)/TotalTime)                    # Check if the convergence reaches.
-        print 'StopIndex:', StopIndex
+        if options.verbose:
+            print 'preTotalTime:', preTotalTime
+            print 'TotalTime:', TotalTime
+            print 'StopIndex:', StopIndex
         
         NewRoutes = findNewPath(startVertices, endVertices, net, iter, NewRoutes, matrixPshort)
-        print 'number of new routes:', NewRoutes 
+        if options.verbose:
+            print 'number of new routes:', NewRoutes 
         preTotalTime = TotalTime
         iter += 1
         if iter > MaxSUEIteration:
@@ -215,22 +222,16 @@ for counter in range (0, len(matrices)):                            # matrix ist
             StopIndex = 0.
 
 # update the path choice probability and the path flows as well as generate vehicle data 	
-    AssignedVeh, AssignedTrip, vehID = DoVehAssign(net, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID)
+    AssignedVeh, AssignedTrip, vehID = DoVehAssign(net, options.verbose, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID)
                 
 # generate vehicle releasing time            
-    VehRelease(net, Parcontrol, departtime, CurrentMatrixSum)
-                            
-# output path set    
-#    OutputPathSet(net)
+    VehRelease(net, options.verbose, Parcontrol, departtime, CurrentMatrixSum)
 
 # output vehicle releasing time and vehicle route 
     SortedVehOutput(net, counter, Parcontrol)
 
-# the required time for executing the SUE traffic assignemnt
-assigntime = TimeforAssign(starttime)
-
-# output the average vehicular travel time
-OutputMOE(net, Parcontrol)
+    # output the global performance indices
+assigntime = OutputMOE(net, starttime, Parcontrol)
 
 # output the number of vehicles in the given time interval(10 sec) accoding to the Poisson distribution
 VehPoissonDistr(net, Parcontrol, begintime)

@@ -9,7 +9,7 @@ from elements import Vehicle
 import operator
 
 def TimeforInput(inputreaderstart):
-    fouttime = file('processtime.txt', 'w')
+    fouttime = file('timeforinput.txt', 'w')
     inputreadtime = datetime.datetime.now() - inputreaderstart  
     fouttime.write('Time for reading input files:%s\n' %inputreadtime)
     fouttime.close()
@@ -38,9 +38,10 @@ def OutputNetwork(net):
     net.printNet(foutnet)
     foutnet.close()
 
-def OutputMOE(net, Parcontrol):
+def OutputMOE(net, starttime, Parcontrol):
     totaltime = 0.0
     totalflow = 0.0
+    assigntime = datetime.datetime.now() - starttime
     foutMOE = file('MOE.txt', 'w')
     foutMOE.write('Number of analyzed periods(hr):%s' %(int(Parcontrol[(len(Parcontrol)-2)])))
     for edgeName, edgeObj in net._edges.iteritems():                                      # generate the output of the link travel times
@@ -54,16 +55,10 @@ def OutputMOE(net, Parcontrol):
 
     avetime = totaltime / totalflow
     foutMOE.write('\nTotal flow(veh):%2.2f \t average travel time(s):%2.2f\n' %(totalflow, avetime))
+    foutMOE.write('\nTime for the traffic assignment and reading matrices:%s' %assigntime)
     
     foutMOE.close()
-
-def TimeforAssign(starttime):
-    fouttime = file('processtime.txt', 'a')
-    assigntime = datetime.datetime.now() - starttime
-    fouttime.write('\nTime for the traffic assignment and reading matrices:%s' %assigntime)
-    fouttime.close()
     return assigntime
-
     
 def SortedVehOutput(net, counter, Parcontrol):                                   
     net._vehicles.sort(key=operator.attrgetter('depart'))                         # sorting by departure times 

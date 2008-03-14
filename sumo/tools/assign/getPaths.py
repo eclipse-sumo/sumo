@@ -36,23 +36,6 @@ def findNewPath(startVertices, endVertices, net, iter, NewRoutes, matrixPshort):
                     else:
                         pathcost = D[endVertex]
 
-#                if iter < 2:
-#                    newpath = Path()
-#                    print 'path.pathNum = ', newpath.label
-#                    if not startVertex in net._paths:
-#                        net._paths[startVertex] = {}
-#                    if not endVertex in net._paths[startVertex]:
-#                        net._paths[startVertex][endVertex] = []
-#                    net._paths[startVertex][endVertex].append(newpath)
-#                    newpath.source = startVertex
-#                    newpath.target = endVertex
-#                    newpath.actpathtime = pathcost
-#                    newpath.Edges = list(helpPath)
-#                    for edge in newpath.Edges:
-#                        newpath.freepathtime += edge.freeflowtime
-#                    NewRoute += 1
-#                    print 'path:', newpath
-#                else:
                 ODPaths = net._paths[startVertex][endVertex]
                 NewPath = True                    
                 for path in ODPaths:
@@ -75,9 +58,6 @@ def findNewPath(startVertices, endVertices, net, iter, NewRoutes, matrixPshort):
                     for edge in newpath.Edges:
                         newpath.freepathtime += edge.freeflowtime
                     NewRoutes += 1
-#                        print 'path:', newpath
                 else:
                     samePath.actpathtime = pathcost
-#                   print 'path:', samePath
-#    return pathNum
     return NewRoutes

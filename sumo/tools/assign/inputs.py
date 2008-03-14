@@ -12,7 +12,7 @@ def getParameter(parfile):
         
     return ODcontrol
      
-def getMatrix(net, matrix, MatrixSum):#, mtxplfile, mtxtfile):
+def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     matrixPshort = []
 #    matrixPlong = []
 #    matrixTruck = []
@@ -22,7 +22,8 @@ def getMatrix(net, matrix, MatrixSum):#, mtxplfile, mtxtfile):
 #    Plong_EffCells = 0
 #    Truck_EffCells = 0
 
-    print 'matrix:', str(matrix)                                 
+    if verbose:
+        print 'matrix:', str(matrix)                                 
 
     itemend = -1.0
     ODpairs = 0
@@ -38,7 +39,7 @@ def getMatrix(net, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                 if zones == 0:
                     for elem in line.split():
                         zones = int(elem)
-                    print 'zones:', zones
+#                    print 'zones:', zones
                 elif len(startVertices) < zones:
                     for elem in line.split():
                         haveStart = False
@@ -92,12 +93,12 @@ def getMatrix(net, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                             CurrentMatrixSum += float(item)           # calculate the sum of the current matrix
                             if float(item) > 0.0:
                                 Pshort_EffCells += 1
-
-    print 'Number of zones:', zones
-    print 'Number of origins:', origins
-    print 'Number of destinations:', dest
-    print 'CurrentMatrixSum:', CurrentMatrixSum        
-    print 'Effective O-D Cells:', Pshort_EffCells    
+    if verbose:
+        print 'Number of zones:', zones
+        print 'Number of origins:', origins
+        print 'Number of destinations:', dest
+        print 'CurrentMatrixSum:', CurrentMatrixSum        
+        print 'Effective O-D Cells:', Pshort_EffCells    
     
 #    itemend = -1.0
 #    ODpairs = 0

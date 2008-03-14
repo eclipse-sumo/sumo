@@ -44,12 +44,9 @@ class Net:
                           "real"))
     
 #    def calcPaths(self, startEdgeLabel):
-    def calcPaths(self, NewRoutes, KPaths, startVertices, endVertices, matrixPshort):
-        foutkpath = file('kpaths.txt', 'w')
-#        if startEdgeLabel:
-#            startVertex = self._edges[startEdgeLabel].source
-#        else:
-#            startVertex = self._vertices[0]
+    def calcPaths(self, verbose, NewRoutes, KPaths, startVertices, endVertices, matrixPshort):
+        if verbose:
+            foutkpath = file('kpaths.txt', 'w')
         start = -1
         for startVertex in startVertices:
             start += 1
@@ -59,7 +56,8 @@ class Net:
                 vertex.wasUpdated = False
             startVertex.preds.append(Predecessor(None, None, 0))
             updatedVertices = [startVertex]
-            print 'updatedVertices:', updatedVertices
+            if verbose:
+                print 'updatedVertices:', updatedVertices
 
             while len(updatedVertices) > 0:
                 vertex = updatedVertices.pop(0)
@@ -70,22 +68,18 @@ class Net:
     
             for endVertex in endVertices:
                 end += 1
-                print 'Number of the new Routes:', NewRoutes
+                if verbose:
+                    print 'Number of the new Routes:', NewRoutes
                 if str(startVertex) != str(endVertex) and matrixPshort[start][end] != 0.:
                     for startPred in endVertex.preds:
                         newpath = Path()
-                        print 'path.pathNum = ', newpath.label
-#                        print 'pathNum', pathNum 
                         if not startVertex in self._paths:
                             self._paths[startVertex] = {}
                         if not endVertex in self._paths[startVertex]:
                             self._paths[startVertex][endVertex] = []
                         self._paths[startVertex][endVertex].append(newpath)
                         newpath.source = startVertex
-                        
-                        print 'endVertex:', endVertex 
                         newpath.target = endVertex
-#                        newpath.actpathtime = pathcost
                         
                         pred = startPred
                         vertex = endVertex
@@ -96,17 +90,20 @@ class Net:
                             pred = pred.pred
 #                        print
                         newpath.Edges.reverse()    
-                        foutkpath.write('\npathID:%s, source:%s, target:%s, Edges:' %(newpath.label, newpath.source, newpath.target))  
+                        if verbose:
+                            foutkpath.write('\npathID:%s, source:%s, target:%s, Edges:' %(newpath.label, newpath.source, newpath.target))  
     
                         for edge in newpath.Edges:
-                            foutkpath.write('%s, ' %(edge.label))
+                            if verbose:
+                                foutkpath.write('%s, ' %(edge.label))
                             newpath.freepathtime += edge.freeflowtime
                             
                         newpath.actpathtime = newpath.freepathtime
-                        print '\npath cost:', newpath.actpathtime
-                        foutkpath.write('Path cost:%s' %newpath.actpathtime) 
+                        if verbose:
+                            foutkpath.write('Path cost:%s' %newpath.actpathtime) 
                     NewRoutes += 1
-        foutkpath.close()
+        if verbose:
+            foutkpath.close()
         
         return NewRoutes
                         
