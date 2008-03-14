@@ -112,6 +112,10 @@ class NetReader(handler.ContentHandler):
         edge2plotLines = {}
         edge2plotColors = {}
         edge2plotWidth = {}
+        xmin = 10000000.
+        xmax = -10000000.
+        ymin = 10000000.
+        ymax = -10000000.
         for edge in self._edge2from:
            # compute shape
            xs = []
@@ -128,6 +132,16 @@ class NetReader(handler.ContentHandler):
                    p = s.split(",")
                    xs.append(float(p[0]))
                    ys.append(float(p[1]))
+           for x in xs:
+               if x<xmin:
+                   xmin = x
+               if x>xmax:
+                   xmax = x
+           for y in ys:
+               if y<ymin:
+                   ymin = y
+               if y>ymax:
+                   ymax = y
            # save shape
            edge2plotLines[edge] = (xs, ys)
            # compute color
@@ -142,8 +156,6 @@ class NetReader(handler.ContentHandler):
                    c = c / self._edge2speed[edge]
                else:
                    c = (c-self._minValue2) / (self._maxValue2-self._minValue2)
-           print str(self._maxValue2) + " -> " + str(self._minValue2)
-           print str(values2[edge]) + " -> " + str(c)
            edge2plotColors[edge] = toColor(c)
            # compute width
            w = values1[edge]
@@ -153,11 +165,37 @@ class NetReader(handler.ContentHandler):
                edge2plotWidth[edge] = options.min_width
            if edge2plotWidth[edge]>options.max_width:
                edge2plotWidth[edge] = options.max_width
+        print "x-limits: " + str(xmin) + " - " + str(xmax)
+        print "y-limits: " + str(ymin) + " - " + str(ymax)
+        # set figure size
+        if options.size:
+            f = figure(figsize=(options.size.split(",")))
+        else:
+            f = figure()
         for edge in edge2plotLines:
            plot(edge2plotLines[edge][0], edge2plotLines[edge][1], color=edge2plotColors[edge], linewidth=edge2plotWidth[edge])
+        # set axes
+        if options.xticks!="":
+           (xb, xe, xd, xs) = options.xticks.split(",")
+           xticks(arange(xb, xe, xd), size = xs)
+        if options.yticks!="":
+           (yb, ye, yd, ys) = options.yticks.split(",")
+           yticks(arange(yb, ye, yd), size = ys)
+        if options.xlim!="":
+           (xb, xe) = options.xlim.split(",")
+           xlim(xb, xe)
+        else:
+           xlim(xmin, xmax)
+        if options.ylim!="":
+           (yb, ye) = options.ylim.split(",")
+           ylim(yb, ye)
+        else:
+           ylim(ymin, ymax)
+
         if options.show:
            show()
-        savefig();
+        if saveName:
+           savefig(saveName);
 
 
     def plot(self, weights, options):
@@ -279,7 +317,18 @@ optParser.add_option("--percentage-speed", action="store_true", dest="percentage
                      default=False, help="speed is normed to maximum allowed speed on an edge")
 optParser.add_option("--values", dest="values", 
                      type="string", default="entered,speed", help="which values shall be parsed")
-
+    # axes/legend
+optParser.add_option("--xticks", dest="xticks",type="string", default="",
+                     help="defines ticks on x-axis")
+optParser.add_option("--yticks", dest="yticks",type="string",  default="",
+                     help="defines ticks on y-axis")
+optParser.add_option("--xlim", dest="xlim",type="string",  default="",
+                     help="defines x-axis range")
+optParser.add_option("--ylim", dest="ylim",type="string",  default="",
+                     help="defines y-axis range")
+    # output
+optParser.add_option("--size", dest="size",type="string", default="",
+                     help="defines the output size")
     # processing
 optParser.add_option("-s", "--show", action="store_true", dest="show",
                      default=False, help="shows each plot after generating it")
