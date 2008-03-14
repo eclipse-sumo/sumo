@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/14/08 09:32:47 by SUMO sumo Version 0.9.7
+<!-- generated on 03/14/08 13:57:22 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -33,7 +33,7 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_0" emittedAt="20" endedAt="83">
+   <vehicle id="0_0" emittedAt="20" endedAt="97">
       <route>beg middle end rend</route>
    </vehicle>
 
@@ -41,7 +41,7 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_2" emittedAt="60" endedAt="123">
+   <vehicle id="0_2" emittedAt="60" endedAt="137">
       <route>beg middle end rend</route>
    </vehicle>
 
@@ -49,7 +49,7 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_4" emittedAt="100" endedAt="163">
+   <vehicle id="0_4" emittedAt="100" endedAt="177">
       <route>beg middle end rend</route>
    </vehicle>
 
@@ -57,7 +57,7 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_6" emittedAt="140" endedAt="203">
+   <vehicle id="0_6" emittedAt="140" endedAt="217">
       <route>beg middle end rend</route>
    </vehicle>
 
@@ -65,7 +65,7 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_8" emittedAt="180" endedAt="243">
+   <vehicle id="0_8" emittedAt="180" endedAt="257">
       <route>beg middle end rend</route>
    </vehicle>
 

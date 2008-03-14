@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/06/08 16:39:14 by SUMO sumo Version dev-SVN-r5032
+<!-- generated on 03/14/08 13:56:39 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -26,43 +26,43 @@
 -->
 
 <vehicleroutes>
-   <vehicle id="horizontal10" emittedAt="100" endedAt="332">
+   <vehicle id="horizontal01" emittedAt="100" endedAt="333">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal09" emittedAt="100" endedAt="333">
+   <vehicle id="horizontal02" emittedAt="105" endedAt="335">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal08" emittedAt="100" endedAt="335">
+   <vehicle id="horizontal03" emittedAt="110" endedAt="336">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal07" emittedAt="100" endedAt="337">
+   <vehicle id="horizontal04" emittedAt="115" endedAt="338">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal06" emittedAt="100" endedAt="338">
+   <vehicle id="horizontal05" emittedAt="120" endedAt="340">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal05" emittedAt="100" endedAt="340">
+   <vehicle id="horizontal06" emittedAt="125" endedAt="341">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal04" emittedAt="100" endedAt="343">
+   <vehicle id="horizontal07" emittedAt="130" endedAt="394">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal03" emittedAt="100" endedAt="394">
+   <vehicle id="horizontal08" emittedAt="135" endedAt="397">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal02" emittedAt="100" endedAt="397">
+   <vehicle id="horizontal09" emittedAt="140" endedAt="398">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal01" emittedAt="100" endedAt="401">
+   <vehicle id="horizontal10" emittedAt="145" endedAt="400">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 

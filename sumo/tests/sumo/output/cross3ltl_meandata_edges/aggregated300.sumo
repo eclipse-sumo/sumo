@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/18/08 12:52:44 by SUMO sumo Version 0.9.7
+<!-- generated on 03/14/08 14:20:56 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -28,59 +28,59 @@
 
 <netstats>
    <interval begin="0" end="299" id="dump_300">
-      <edge id="1fi" traveltime="32.32" nSamples="732" density="9.75" occupancy="0.05" noStops="0" speed="7.74" entered="11" emitted="20" left="24"/>
-      <edge id="1o" traveltime="50.77" nSamples="605" density="4.14" occupancy="0.02" noStops="0" speed="9.59" entered="15" emitted="0" left="11"/>
-      <edge id="2fi" traveltime="34.63" nSamples="624" density="8.32" occupancy="0.04" noStops="0" speed="7.22" entered="6" emitted="20" left="24"/>
-      <edge id="2o" traveltime="52.78" nSamples="724" density="4.96" occupancy="0.02" noStops="0" speed="9.23" entered="19" emitted="0" left="6"/>
-      <edge id="3fi" traveltime="33.39" nSamples="1144" density="15.24" occupancy="0.08" noStops="0" speed="7.49" entered="0" emitted="40" left="35"/>
+      <edge id="1fi" traveltime="30.08" nSamples="817" density="10.89" occupancy="0.05" noStops="0" speed="8.32" entered="9" emitted="20" left="24"/>
+      <edge id="1o" traveltime="53.01" nSamples="524" density="3.59" occupancy="0.02" noStops="0" speed="9.19" entered="14" emitted="0" left="9"/>
+      <edge id="2fi" traveltime="30.13" nSamples="754" density="10.05" occupancy="0.05" noStops="0" speed="8.30" entered="6" emitted="20" left="23"/>
+      <edge id="2o" traveltime="53.37" nSamples="666" density="4.56" occupancy="0.02" noStops="0" speed="9.13" entered="17" emitted="0" left="6"/>
+      <edge id="3fi" traveltime="32.43" nSamples="1165" density="15.52" occupancy="0.08" noStops="0" speed="7.71" entered="0" emitted="39" left="33"/>
       <edge id="3o" traveltime="43.83" nSamples="0" density="0.00" occupancy="0.00" noStops="0" speed="11.11" entered="0" emitted="0" left="0"/>
-      <edge id="4fi" traveltime="22.88" nSamples="312" density="4.16" occupancy="0.02" noStops="0" speed="10.94" entered="15" emitted="0" left="12"/>
-      <edge id="4o" traveltime="52.67" nSamples="1110" density="7.60" occupancy="0.04" noStops="0" speed="9.25" entered="28" emitted="0" left="15"/>
-      <edge id="1si" traveltime="37.30" nSamples="962" density="13.52" occupancy="0.02" noStops="375" speed="7.04" entered="24" emitted="0" left="14"/>
-      <edge id="2si" traveltime="23.13" nSamples="672" density="9.45" occupancy="0.02" noStops="150" speed="11.14" entered="24" emitted="0" left="21"/>
-      <edge id="3si" traveltime="30.16" nSamples="1244" density="17.49" occupancy="0.03" noStops="422" speed="8.94" entered="35" emitted="0" left="25"/>
-      <edge id="4si" traveltime="32.99" nSamples="380" density="5.34" occupancy="0.01" noStops="129" speed="7.77" entered="12" emitted="0" left="2"/>
+      <edge id="4fi" traveltime="22.89" nSamples="328" density="4.37" occupancy="0.02" noStops="0" speed="10.93" entered="16" emitted="0" left="12"/>
+      <edge id="4o" traveltime="50.49" nSamples="1159" density="7.93" occupancy="0.04" noStops="0" speed="9.65" entered="29" emitted="0" left="16"/>
+      <edge id="1si" traveltime="31.48" nSamples="704" density="9.90" occupancy="0.02" noStops="227" speed="8.00" entered="24" emitted="0" left="14"/>
+      <edge id="2si" traveltime="23.36" nSamples="678" density="9.53" occupancy="0.02" noStops="166" speed="11.18" entered="23" emitted="0" left="20"/>
+      <edge id="3si" traveltime="28.20" nSamples="1094" density="15.38" occupancy="0.03" noStops="330" speed="9.32" entered="33" emitted="0" left="24"/>
+      <edge id="4si" traveltime="34.01" nSamples="400" density="5.62" occupancy="0.01" noStops="150" speed="7.66" entered="12" emitted="0" left="2"/>
    </interval>
    <interval begin="300" end="599" id="dump_300">
-      <edge id="1fi" traveltime="31.09" nSamples="2172" density="28.94" occupancy="0.14" noStops="0" speed="8.05" entered="50" emitted="30" left="77"/>
-      <edge id="1o" traveltime="47.79" nSamples="2641" density="18.08" occupancy="0.09" noStops="0" speed="10.19" entered="58" emitted="0" left="50"/>
-      <edge id="2fi" traveltime="31.95" nSamples="2093" density="27.89" occupancy="0.14" noStops="0" speed="7.83" entered="71" emitted="30" left="72"/>
-      <edge id="2o" traveltime="50.38" nSamples="3486" density="23.86" occupancy="0.12" noStops="0" speed="9.67" entered="71" emitted="0" left="71"/>
-      <edge id="3fi" traveltime="34.85" nSamples="1905" density="25.38" occupancy="0.13" noStops="0" speed="7.18" entered="43" emitted="60" left="64"/>
-      <edge id="3o" traveltime="49.75" nSamples="2373" density="16.24" occupancy="0.08" noStops="0" speed="9.79" entered="53" emitted="0" left="43"/>
-      <edge id="4fi" traveltime="22.87" nSamples="1809" density="24.11" occupancy="0.12" noStops="0" speed="10.94" entered="78" emitted="0" left="72"/>
-      <edge id="4o" traveltime="49.39" nSamples="3917" density="26.81" occupancy="0.13" noStops="0" speed="9.86" entered="76" emitted="0" left="78"/>
-      <edge id="1si" traveltime="81.02" nSamples="6023" density="84.66" occupancy="0.14" noStops="3245" speed="6.26" entered="77" emitted="0" left="62"/>
-      <edge id="2si" traveltime="34.87" nSamples="2252" density="31.65" occupancy="0.05" noStops="658" speed="7.35" entered="72" emitted="0" left="62"/>
-      <edge id="3si" traveltime="31.61" nSamples="2338" density="32.86" occupancy="0.05" noStops="680" speed="7.80" entered="64" emitted="0" left="68"/>
-      <edge id="4si" traveltime="74.69" nSamples="4565" density="64.16" occupancy="0.11" noStops="2426" speed="6.35" entered="72" emitted="0" left="66"/>
+      <edge id="1fi" traveltime="29.67" nSamples="2221" density="29.60" occupancy="0.15" noStops="0" speed="8.43" entered="50" emitted="29" left="72"/>
+      <edge id="1o" traveltime="51.91" nSamples="2868" density="19.63" occupancy="0.10" noStops="0" speed="9.38" entered="58" emitted="0" left="50"/>
+      <edge id="2fi" traveltime="28.95" nSamples="2055" density="27.38" occupancy="0.14" noStops="1" speed="8.64" entered="65" emitted="30" left="67"/>
+      <edge id="2o" traveltime="53.63" nSamples="3413" density="23.36" occupancy="0.12" noStops="2" speed="9.08" entered="67" emitted="0" left="65"/>
+      <edge id="3fi" traveltime="31.51" nSamples="1813" density="24.16" occupancy="0.12" noStops="0" speed="7.94" entered="39" emitted="50" left="56"/>
+      <edge id="3o" traveltime="53.65" nSamples="2302" density="15.76" occupancy="0.08" noStops="1" speed="9.08" entered="47" emitted="0" left="39"/>
+      <edge id="4fi" traveltime="22.86" nSamples="1706" density="22.73" occupancy="0.11" noStops="0" speed="10.94" entered="73" emitted="0" left="69"/>
+      <edge id="4o" traveltime="49.38" nSamples="3568" density="24.42" occupancy="0.12" noStops="0" speed="9.86" entered="72" emitted="0" left="73"/>
+      <edge id="1si" traveltime="70.73" nSamples="5246" density="73.74" occupancy="0.12" noStops="2802" speed="5.59" entered="72" emitted="0" left="55"/>
+      <edge id="2si" traveltime="35.27" nSamples="2203" density="30.96" occupancy="0.05" noStops="655" speed="7.46" entered="67" emitted="0" left="64"/>
+      <edge id="3si" traveltime="30.76" nSamples="1984" density="27.89" occupancy="0.05" noStops="582" speed="8.17" entered="56" emitted="0" left="60"/>
+      <edge id="4si" traveltime="75.94" nSamples="4749" density="66.75" occupancy="0.11" noStops="2529" speed="5.31" entered="69" emitted="0" left="65"/>
    </interval>
    <interval begin="600" end="899" id="dump_300">
-      <edge id="1fi" traveltime="31.07" nSamples="2669" density="35.57" occupancy="0.18" noStops="0" speed="8.05" entered="71" emitted="30" left="92"/>
-      <edge id="1o" traveltime="47.64" nSamples="3459" density="23.68" occupancy="0.12" noStops="0" speed="10.22" entered="71" emitted="0" left="71"/>
-      <edge id="2fi" traveltime="31.13" nSamples="2105" density="28.05" occupancy="0.14" noStops="0" speed="8.04" entered="74" emitted="30" left="71"/>
-      <edge id="2o" traveltime="50.34" nSamples="3653" density="25.00" occupancy="0.13" noStops="1" speed="9.67" entered="70" emitted="0" left="74"/>
-      <edge id="3fi" traveltime="34.96" nSamples="2072" density="27.61" occupancy="0.14" noStops="0" speed="7.16" entered="73" emitted="60" left="74"/>
-      <edge id="3o" traveltime="49.31" nSamples="3692" density="25.27" occupancy="0.13" noStops="0" speed="9.88" entered="72" emitted="0" left="73"/>
-      <edge id="4fi" traveltime="22.87" nSamples="1873" density="24.96" occupancy="0.12" noStops="0" speed="10.94" entered="79" emitted="0" left="82"/>
-      <edge id="4o" traveltime="49.23" nSamples="3845" density="26.32" occupancy="0.13" noStops="0" speed="9.89" entered="76" emitted="0" left="79"/>
-      <edge id="1si" traveltime="151.61" nSamples="10060" density="141.40" occupancy="0.24" noStops="5039" speed="5.92" entered="92" emitted="0" left="71"/>
-      <edge id="2si" traveltime="38.31" nSamples="2522" density="35.45" occupancy="0.06" noStops="834" speed="7.24" entered="71" emitted="0" left="71"/>
-      <edge id="3si" traveltime="32.86" nSamples="2493" density="35.04" occupancy="0.06" noStops="705" speed="7.25" entered="74" emitted="0" left="70"/>
-      <edge id="4si" traveltime="107.51" nSamples="6065" density="85.25" occupancy="0.14" noStops="3563" speed="6.04" entered="82" emitted="0" left="77"/>
+      <edge id="1fi" traveltime="29.30" nSamples="2543" density="33.89" occupancy="0.17" noStops="0" speed="8.54" entered="63" emitted="28" left="85"/>
+      <edge id="1o" traveltime="53.53" nSamples="3452" density="23.63" occupancy="0.12" noStops="2" speed="9.10" entered="62" emitted="0" left="63"/>
+      <edge id="2fi" traveltime="29.20" nSamples="2128" density="28.36" occupancy="0.14" noStops="0" speed="8.57" entered="70" emitted="30" left="70"/>
+      <edge id="2o" traveltime="53.73" nSamples="3887" density="26.61" occupancy="0.13" noStops="5" speed="9.06" entered="70" emitted="0" left="70"/>
+      <edge id="3fi" traveltime="32.10" nSamples="1965" density="26.18" occupancy="0.13" noStops="0" speed="7.79" entered="60" emitted="51" left="59"/>
+      <edge id="3o" traveltime="61.72" nSamples="4136" density="28.31" occupancy="0.14" noStops="7" speed="7.89" entered="66" emitted="0" left="60"/>
+      <edge id="4fi" traveltime="22.87" nSamples="1548" density="20.63" occupancy="0.10" noStops="0" speed="10.94" entered="65" emitted="0" left="68"/>
+      <edge id="4o" traveltime="49.30" nSamples="3237" density="22.16" occupancy="0.11" noStops="0" speed="9.88" entered="62" emitted="0" left="65"/>
+      <edge id="1si" traveltime="135.05" nSamples="8911" density="125.25" occupancy="0.21" noStops="4759" speed="5.09" entered="85" emitted="0" left="73"/>
+      <edge id="2si" traveltime="54.06" nSamples="3247" density="45.64" occupancy="0.08" noStops="1389" speed="6.68" entered="70" emitted="0" left="63"/>
+      <edge id="3si" traveltime="39.83" nSamples="2233" density="31.39" occupancy="0.05" noStops="785" speed="6.09" entered="59" emitted="0" left="58"/>
+      <edge id="4si" traveltime="94.21" nSamples="5077" density="71.36" occupancy="0.12" noStops="2757" speed="5.50" entered="68" emitted="0" left="66"/>
    </interval>
    <interval begin="900" end="1000" id="dump_300">
-      <edge id="1fi" traveltime="31.55" nSamples="934" density="36.97" occupancy="0.18" noStops="0" speed="7.93" entered="22" emitted="11" left="29"/>
-      <edge id="1o" traveltime="48.47" nSamples="1197" density="24.34" occupancy="0.12" noStops="0" speed="10.05" entered="27" emitted="0" left="22"/>
-      <edge id="2fi" traveltime="32.00" nSamples="628" density="24.86" occupancy="0.12" noStops="0" speed="7.82" entered="21" emitted="11" left="21"/>
-      <edge id="2o" traveltime="50.13" nSamples="1234" density="25.09" occupancy="0.13" noStops="0" speed="9.71" entered="23" emitted="0" left="21"/>
-      <edge id="3fi" traveltime="36.03" nSamples="749" density="29.65" occupancy="0.15" noStops="0" speed="6.94" entered="25" emitted="22" left="25"/>
-      <edge id="3o" traveltime="48.21" nSamples="1303" density="26.49" occupancy="0.13" noStops="0" speed="10.10" entered="30" emitted="0" left="25"/>
-      <edge id="4fi" traveltime="22.89" nSamples="604" density="23.91" occupancy="0.12" noStops="0" speed="10.93" entered="24" emitted="0" left="23"/>
-      <edge id="4o" traveltime="49.43" nSamples="1178" density="23.95" occupancy="0.12" noStops="0" speed="9.85" entered="26" emitted="0" left="24"/>
-      <edge id="1si" traveltime="237.69" nSamples="4272" density="178.36" occupancy="0.30" noStops="2553" speed="6.47" entered="29" emitted="0" left="31"/>
-      <edge id="2si" traveltime="31.74" nSamples="791" density="33.02" occupancy="0.06" noStops="203" speed="7.81" entered="21" emitted="0" left="29"/>
-      <edge id="3si" traveltime="53.04" nSamples="1097" density="45.80" occupancy="0.08" noStops="477" speed="4.79" entered="25" emitted="0" left="23"/>
-      <edge id="4si" traveltime="167.39" nSamples="2332" density="97.36" occupancy="0.16" noStops="1513" speed="5.53" entered="23" emitted="0" left="23"/>
+      <edge id="1fi" traveltime="28.61" nSamples="894" density="35.38" occupancy="0.18" noStops="0" speed="8.74" entered="23" emitted="10" left="29"/>
+      <edge id="1o" traveltime="50.20" nSamples="1147" density="23.32" occupancy="0.12" noStops="0" speed="9.70" entered="22" emitted="0" left="23"/>
+      <edge id="2fi" traveltime="29.78" nSamples="651" density="25.77" occupancy="0.13" noStops="0" speed="8.40" entered="23" emitted="10" left="22"/>
+      <edge id="2o" traveltime="55.73" nSamples="1264" density="25.70" occupancy="0.13" noStops="3" speed="8.74" entered="22" emitted="0" left="23"/>
+      <edge id="3fi" traveltime="32.15" nSamples="709" density="28.06" occupancy="0.14" noStops="0" speed="7.78" entered="21" emitted="14" left="22"/>
+      <edge id="3o" traveltime="76.46" nSamples="1790" density="36.39" occupancy="0.18" noStops="0" speed="6.37" entered="26" emitted="0" left="21"/>
+      <edge id="4fi" traveltime="22.88" nSamples="533" density="21.10" occupancy="0.11" noStops="0" speed="10.93" entered="21" emitted="0" left="20"/>
+      <edge id="4o" traveltime="52.28" nSamples="1041" density="21.16" occupancy="0.11" noStops="0" speed="9.31" entered="22" emitted="0" left="21"/>
+      <edge id="1si" traveltime="272.97" nSamples="3912" density="163.33" occupancy="0.27" noStops="2723" speed="6.23" entered="29" emitted="0" left="26"/>
+      <edge id="2si" traveltime="38.83" nSamples="894" density="37.32" occupancy="0.06" noStops="275" speed="6.38" entered="22" emitted="0" left="28"/>
+      <edge id="3si" traveltime="38.37" nSamples="858" density="35.82" occupancy="0.06" noStops="331" speed="6.19" entered="22" emitted="0" left="20"/>
+      <edge id="4si" traveltime="161.18" nSamples="1862" density="77.74" occupancy="0.13" noStops="1240" speed="5.64" entered="20" emitted="0" left="18"/>
    </interval>
 </netstats>

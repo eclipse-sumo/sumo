@@ -384,7 +384,6 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
     } else {
 #endif
         if (myDestLane->isEmissionSuccess(veh, state)) {
-            veh->enterLaneAtEmit(myDestLane, state);
             veh->onDepart();
             myNet.getVehicleControl().vehiclesEmitted(1);
             // insert vehicle into the dictionary

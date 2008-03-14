@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/03/07 10:43:14 by SUMO sumo Version 0.9.7
+<!-- generated on 03/14/08 13:53:05 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -27,13 +27,13 @@
 
 <tripinfos>
    <tripinfo vehicle_id="0" start="0" wished="0" end="127" duration="127" waited="0" reroutes="0" devices="" vtype="t1"/>
-   <tripinfo vehicle_id="1" start="10" wished="10" end="134" duration="124" waited="0" reroutes="0" devices="" vtype="t1"/>
-   <tripinfo vehicle_id="2" start="20" wished="20" end="141" duration="121" waited="0" reroutes="0" devices="" vtype="t1"/>
-   <tripinfo vehicle_id="3" start="30" wished="30" end="148" duration="118" waited="0" reroutes="0" devices="" vtype="t1"/>
-   <tripinfo vehicle_id="4" start="40" wished="40" end="156" duration="116" waited="0" reroutes="0" devices="" vtype="t1"/>
-   <tripinfo vehicle_id="5" start="50" wished="50" end="161" duration="111" waited="0" reroutes="0" devices="" vtype="t1"/>
-   <tripinfo vehicle_id="6" start="60" wished="60" end="189" duration="129" waited="0" reroutes="0" devices="" vtype="t1"/>
-   <tripinfo vehicle_id="7" start="70" wished="70" end="194" duration="124" waited="0" reroutes="0" devices="" vtype="t1"/>
-   <tripinfo vehicle_id="8" start="80" wished="80" end="203" duration="123" waited="0" reroutes="0" devices="" vtype="t1"/>
-   <tripinfo vehicle_id="9" start="90" wished="90" end="208" duration="118" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="1" start="10" wished="10" end="139" duration="129" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="2" start="20" wished="20" end="146" duration="126" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="3" start="30" wished="30" end="158" duration="128" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="4" start="40" wished="40" end="168" duration="128" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="5" start="50" wished="50" end="177" duration="127" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="6" start="60" wished="60" end="187" duration="127" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="7" start="70" wished="70" end="198" duration="128" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="8" start="80" wished="80" end="207" duration="127" waited="0" reroutes="0" devices="" vtype="t1"/>
+   <tripinfo vehicle_id="9" start="90" wished="90" end="218" duration="128" waited="0" reroutes="0" devices="" vtype="t1"/>
 </tripinfos>

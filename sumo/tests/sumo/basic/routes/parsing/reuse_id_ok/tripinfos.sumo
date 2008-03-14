@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/11/08 15:08:57 by SUMO sumo Version 0.9.7
+<!-- generated on 03/14/08 13:52:51 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -22,13 +22,13 @@
 -->
 
 <tripinfos>
-   <tripinfo vehicle_id="6" start="6" wished="6" end="124" duration="118" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
-   <tripinfo vehicle_id="5" start="6" wished="5" end="126" duration="120" waited="1" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
-   <tripinfo vehicle_id="4" start="4" wished="4" end="127" duration="123" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
-   <tripinfo vehicle_id="2" start="2" wished="2" end="130" duration="128" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
-   <tripinfo vehicle_id="1" start="2" wished="1" end="131" duration="129" waited="1" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
-   <tripinfo vehicle_id="0" start="0" wished="0" end="133" duration="133" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
-   <tripinfo vehicle_id="3" start="4" wished="3" end="135" duration="131" waited="1" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="0" start="0" wished="0" end="121" duration="121" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="1" start="3" wished="1" end="126" duration="123" waited="2" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="2" start="6" wished="2" end="128" duration="122" waited="4" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="3" start="9" wished="3" end="131" duration="122" waited="6" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="4" start="12" wished="4" end="136" duration="124" waited="8" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="5" start="15" wished="5" end="137" duration="122" waited="10" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="6" start="18" wished="6" end="140" duration="122" waited="12" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
    <tripinfo vehicle_id="7" start="700" wished="700" end="822" duration="122" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
-   <tripinfo vehicle_id="0" start="800" wished="800" end="922" duration="122" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
+   <tripinfo vehicle_id="0" start="800" wished="800" end="923" duration="123" waited="0" reroutes="0" devices="" vtype="KRAUSS_DEFAULT"/>
 </tripinfos>

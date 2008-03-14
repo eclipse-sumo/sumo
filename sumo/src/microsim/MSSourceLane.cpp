@@ -80,6 +80,8 @@ MSSourceLane::MSSourceLane(string id, SUMOReal maxSpeed,
 bool
 MSSourceLane::emit(MSVehicle& veh)
 {
+    return isEmissionSuccess(&veh, MSVehicle::State(0, 0));
+    /*
     // If this lane is empty, set newVeh on position beyond safePos =
     // brakeGap(laneMaxSpeed) + MaxVehicleLength. (in the hope of that
     // the precening lane hasn't a much higher MaxSpeed)
@@ -89,7 +91,7 @@ MSSourceLane::emit(MSVehicle& veh)
         assert( safePos < myLength ); // Lane has to be longer than safePos,
         // otherwise emission (this kind of emission) makes no sense.
         !!! not in Source lanes
-        */
+        /
 
 
     // Here the emission starts
@@ -107,6 +109,7 @@ MSSourceLane::emit(MSVehicle& veh)
 
     // do not try to push vehicles in between on sources
     return false;
+    */
 }
 
 /////////////////////////////////////////////////////////////////////////////

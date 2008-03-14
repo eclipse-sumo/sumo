@@ -260,6 +260,8 @@ MSLane::detectCollisions(SUMOTime timestep)
 bool
 MSLane::emit(MSVehicle& veh)
 {
+    return isEmissionSuccess(&veh, MSVehicle::State(0, 0));
+    /*
     // Here the emission starts
     if (empty()) {
 
@@ -303,6 +305,7 @@ MSLane::emit(MSVehicle& veh)
         ++leaderIt;
         ++followIt;
     }
+    */
 }
 
 
@@ -323,7 +326,8 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
 {
 //    aVehicle->departLane();
     MSLane::VehCont::iterator predIt =
-        find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), aVehicle->getPositionOnLane()));
+        find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), vstate.pos()));
+    // check predeccessor vehicle (!!! complte: what about vehicles that are on the next lane?
     if (predIt != myVehicles.end()) {
         MSVehicle* pred = *predIt;
         SUMOReal headWay = aVehicle->timeHeadWayGap(pred->getSpeed());   // !!!??
@@ -336,20 +340,44 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
         if (vsafe<brakeWay) {
             return false;
         }
-
-        // emit
-        bool wasInactive = myVehicles.size()==0;
-        myVehicles.insert(predIt, aVehicle);
-        myVehicleLengthSum += aVehicle->getLength();
-        if (wasInactive) {
-            MSNet::getInstance()->getEdgeControl().gotActive(this);
-        }
-        add2MeanDataEmitted();
-        return true;
+    } else {
+        predIt = myVehicles.begin();
     }
-    // emit
+    // check back vehicle
+    if(predIt!=myVehicles.begin()) {
+        MSVehicle *leader = *(predIt-1);
+        SUMOReal headWay = leader->timeHeadWayGap(leader->getSpeed());   // !!!??
+        SUMOReal gap = MSVehicle::gap(vstate.pos(), aVehicle->getLength(), leader->getPositionOnLane());
+        if (gap<headWay) {
+            return false;
+        }
+        SUMOReal vsafe = leader->ffeV(leader->getSpeed(), gap, vstate.speed());
+        SUMOReal brakeWay = SPEED2DIST(leader->getSpeedAfterMaxDecel(vsafe));//vstate.speed() - aVehicle->decelSpeed();
+        if (vsafe<brakeWay) {
+            return false;
+        }
+    }
+    // check approaching vehicle
+    SUMOReal tspeed = maxSpeed();
+    SUMOReal dist = tspeed * tspeed * SUMOReal(1./2.*4) + tspeed;
+    std::pair<MSVehicle *, SUMOReal> approaching = getApproaching(dist, 0, vstate.speed());
+    if(approaching.first!=0) {
+        MSVehicle *leader = approaching.first;
+        SUMOReal headWay = leader->timeHeadWayGap(leader->getSpeed());   // !!!??
+        SUMOReal gap = approaching.second - vstate.pos() - aVehicle->getLength();
+        if (gap<headWay) {
+            return false;
+        }
+        SUMOReal vsafe = leader->ffeV(leader->getSpeed(), gap, vstate.speed());
+        SUMOReal brakeWay = SPEED2DIST(leader->getSpeedAfterMaxDecel(vsafe));//vstate.speed() - aVehicle->decelSpeed();
+        if (vsafe<brakeWay) {
+            return false;
+        }
+    }
+    // check back vehicle
+    aVehicle->enterLaneAtEmit(this, vstate);
     bool wasInactive = myVehicles.size()==0;
-    myVehicles.push_back(aVehicle);
+    myVehicles.insert(predIt, aVehicle);
     myVehicleLengthSum += aVehicle->getLength();
     if (wasInactive) {
         MSNet::getInstance()->getEdgeControl().gotActive(this);

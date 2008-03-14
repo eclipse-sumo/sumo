@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 02/14/08 09:45:12 by SUMO sumo Version 0.9.7
+<!-- generated on 03/14/08 13:57:24 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -35,7 +35,7 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="1" emittedAt="20" endedAt="83">
+   <vehicle id="1" emittedAt="20" endedAt="97">
       <route replacedOnEdge="beg"  replacedAtTime="20">beg beg2right right right2end end rend</route>
 
       <route>beg middle end rend</route>
@@ -47,7 +47,7 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="3" emittedAt="60" endedAt="123">
+   <vehicle id="3" emittedAt="60" endedAt="137">
       <route replacedOnEdge="beg"  replacedAtTime="60">beg beg2right right right2end end rend</route>
 
       <route>beg middle end rend</route>
@@ -59,7 +59,7 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="5" emittedAt="100" endedAt="163">
+   <vehicle id="5" emittedAt="100" endedAt="177">
       <route replacedOnEdge="beg"  replacedAtTime="100">beg beg2right right right2end end rend</route>
 
       <route>beg middle end rend</route>
@@ -71,7 +71,7 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="7" emittedAt="140" endedAt="203">
+   <vehicle id="7" emittedAt="140" endedAt="217">
       <route replacedOnEdge="beg"  replacedAtTime="140">beg beg2right right right2end end rend</route>
 
       <route>beg middle end rend</route>
@@ -83,7 +83,7 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="9" emittedAt="180" endedAt="243">
+   <vehicle id="9" emittedAt="180" endedAt="257">
       <route replacedOnEdge="beg"  replacedAtTime="180">beg beg2right right right2end end rend</route>
 
       <route>beg middle end rend</route>
