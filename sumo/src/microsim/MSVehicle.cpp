@@ -1891,7 +1891,7 @@ MSVehicle::startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime curren
     speedBeforeAdaption = getSpeed();
     timeBeforeAdaption = currentTime;
     adaptDuration = duration;
-    speedReduction = MAX2(0.0f, speedBeforeAdaption - newSpeed);
+    speedReduction = MAX2((SUMOReal) 0.0f, (SUMOReal) (speedBeforeAdaption - newSpeed));
 
     adaptingSpeed = true;
 
