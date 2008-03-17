@@ -1,8 +1,22 @@
-# python
-# This script is for the incremental traffic assignment with a sumo-based traffic network
-# The Dijkstra algorithm is applied for searching the shortest paths.
-# The necessary inputs include:
-# SUMO net (.net.xml), OD-matrix file, zone connectors file, parameter file, OD-zone file and CR-curve file (for defining link cost functions)
+#!/usr/bin/env python
+"""
+@file    incrementalAssignment.py
+@author  Yun-Pang.Wang@dlr.de
+@date    2007-10-25
+@version $Id: correctDetector.py 625 2008-03-08 14:04:01Z behr_mi $
+
+This script is for the incremental traffic assignment with a sumo-based traffic network.
+The Dijkstra algorithm is applied for searching the shortest paths.
+The necessary inputs include:
+- SUMO net (.net.xml),
+- OD-matrix file,
+- districts file,
+- parameter file and
+- CR-curve file (for defining link cost functions)
+
+Copyright (C) 2007 DLR/FS, Germany
+All rights reserved
+"""
 
 import os, string, sys, datetime, random, math
 
@@ -25,33 +39,35 @@ foutlog.write('All vehicular releasing times are determined randomly(uniform).\n
 
 optParser = OptionParser()
 
-optParser.add_option("-c", "--zonalconnection-file", dest="confile",              #  XML file: containing the link information connectings to the respective traffic zone
+# XML file: containing the link information connectings to the respective traffic zone
+optParser.add_option("-c", "--zonalconnection-file", dest="confile",              
                      help="read OD Zones from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-m", "--matrix-file", dest="mtxpsfile",                     # txt file: containing the matrix information for passenger vehicles 
                      help="read OD matrix for passenger vehilces(long dist.) from FILE (mandatory)", metavar="FILE")# from the respective VISUM file
-#optParser.add_option("-k", "--matrixpl-file", dest="mtxplfile",                     # txt file: containing the matrix information for trucks from the respective VISUM file
-#                     help="read OD matrix for passenger vehilces(long dist.) from FILE (mandatory)", metavar="FILE")  
-#optParser.add_option("-t", "--matrixt-file", dest="mtxtfile",                     # txt file: containing the matrix information for trucks from the respective VISUM file
-#                     help="read OD matrix for trucks from FILE (mandatory)", metavar="FILE")  
+optParser.add_option("-k", "--matrixpl-file", dest="mtxplfile",                     # txt file: containing the matrix information for trucks from the respective VISUM file
+                     help="read OD matrix for passenger vehilces(long dist.) from FILE (mandatory)", metavar="FILE")  
+optParser.add_option("-t", "--matrixt-file", dest="mtxtfile",                     # txt file: containing the matrix information for trucks from the respective VISUM file
+                     help="read OD matrix for trucks from FILE (mandatory)", metavar="FILE")  
 optParser.add_option("-n", "--net-file", dest="netfile",                          # XML file: containing the network geometric (link-node) information
                      help="read SUMO network from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-p", "--parameter-file", dest="parfile",                    # txt file: containing the control paramenter for incremental traffic assignment
                      help="read assignment parameters from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-u", "--curve-file", dest="curvefile", default="CRcurve.txt",
                      help="read CRcurve from FILE", metavar="FILE")
-#optParser.add_option("-z", "--district-file", dest="zonefile",                    # txt file: containing the OD zones based on the respective VISUM file
-#                     help="read OD Zones from FILE (mandatory)", metavar="FILE")  
+optParser.add_option("-z", "--district-file", dest="zonefile",                    # txt file: containing the OD zones based on the respective VISUM file
+                     help="read OD Zones from FILE (mandatory)", metavar="FILE")  
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
                      
 (options, args) = optParser.parse_args()
 
 matrices = options.mtxpsfile.split(",")                                # jetzt ist matrices = [ "matrix05-08.fma", "matrix06-07.fma", ...
-#odzones = options.zonefile.split(",")                                  # jetzt ist matrices = [ "matrix05-08.fma", "matrix06-07.fma", ...
-
 if not options.netfile:
     optParser.print_help()
     sys.exit()
+
+
+
 parser = make_parser()
 
 if options.verbose:
@@ -74,7 +90,6 @@ if options.verbose:
 
 for edgeID in net._edges:                                                        
     edge = net._edges[edgeID]
-    edge.getFFTT()                                                       # calculate link trave time at free flow speed
     edge.getAppCapacity(options.parfile)
     edge.getCRcurve()                                                    # identify the respective cost function curve based on the max. speed and the number of lanes
     edge.getACTTT(options.curvefile)                                     # calculate actual link trave time

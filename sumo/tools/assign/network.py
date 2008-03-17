@@ -120,29 +120,32 @@ class NetDetectorFlowReader(handler.ContentHandler):
         self._net = net
         self._edgeString = ''
         self._edge = ''
-        self._lane2edge = {}
+        self._maxSpeed = 0
+        self._laneNumber = 0
+        self._length = 0
+        self._edgeObj = None
 
     def startElement(self, name, attrs):
         if name == 'edges':
             self._edgeString = ' '
         elif name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
             self._edge = attrs['id']
-            edge = self._net.getEdge(self._edge)
-            edge.source.label = attrs['from']
-            edge.target.label = attrs['to']
+            self._edgeObj = self._net.getEdge(self._edge)
+            self._edgeObj.source.label = attrs['from']
+            self._edgeObj.target.label = attrs['to']
+            self._maxSpeed = 0
+            self._laneNumber = 0
+            self._length = 0
         elif name == 'cedge' and self._edge != '':
             fromEdge = self._net.getEdge(self._edge)
             toEdge = self._net.getEdge(attrs['id'])
             newEdge = Edge(self._edge+"_"+attrs['id'], fromEdge.target, toEdge.source)
             self._net.addEdge(newEdge)
             fromEdge.finalizer = attrs['id']
-            
         elif name == 'lane' and self._edge != '':
-            self._lane2edge[attrs['id']] = self._edge
-            edgeObj = self._net.getEdge(self._edge)
-            edgeObj.maxspeed = max(edgeObj.maxspeed, float(attrs['maxspeed']))
-            edgeObj.length = float(attrs['length'])
-            edgeObj.numberlane = edgeObj.numberlane + 1
+            self._maxSpeed = max(self._maxSpeed, float(attrs['maxspeed']))
+            self._laneNumber = self._laneNumber + 1
+            self._length = float(attrs['length'])
       
     def characters(self, content):
         if self._edgeString != '':
@@ -154,6 +157,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
                 self._net.addIsolatedRealEdge(edge)
             self._edgeString = ''
         elif name == 'edge':
+            self._edgeObj.init(self._maxSpeed, self._length, self._laneNumber)
             self._edge = ''
 
 # The class for parsing the XML input file (zone connectors ). The data parsed is

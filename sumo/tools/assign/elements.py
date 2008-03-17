@@ -76,17 +76,26 @@ class Edge:
         self.capacity = sys.maxint
         self.flow = 0.0
         self.kind = kind
-        self.maxspeed = 1.0                                # default value : 14 m/s (50 kmh)
+        self.maxspeed = 1.0
         self.length = 0.0
         self.numberlane = 0
         self.freeflowtime = 0.0                            
-        self.estcapacity = 0.0                             # default value: 1500 vehicles per lane                             
+        self.estcapacity = 0.0                             
         self.CRcurve = ''
         self.actualtime = 0.0
         self.weight = 0.0
         self.connection = 0
         self.edgetype = None
         self.helpflow = 0.0     
+        
+    def init(self, length, speed, laneNumber):
+        self.maxspeed = speed
+        self.length = length
+        self.numberlane = laneNumber
+        if str(self.source) == str(self.target):
+            self.freeflowtime = 0.0
+        else:
+            self.freeflowtime = self.length / self.maxspeed
         
     def __repr__(self):
         cap = str(self.capacity)
@@ -97,10 +106,6 @@ class Edge:
                                                       self.CRcurve, self.estcapacity, cap, self.weight)
 
     def getFFTT(self):
-        if str(self.source) == str(self.target):
-            self.freeflowtime = 0.0
-        else:
-            self.freeflowtime = self.length / self.maxspeed
         return self.freeflowtime
                 
     def getDefaultESTCAP(self, parfile):
@@ -111,6 +116,7 @@ class Edge:
         self.estcapacity = float(self.numberlane * 1500) * periods           # The respective rules will be developed accroding to the HBS. 
 
         return self.estcapacity
+
 
     # modified CR-curve database defined in the Validate files
     def getAppCapacity(self, parfile):
