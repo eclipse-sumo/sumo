@@ -69,7 +69,7 @@ optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
 optParser.add_option("-1", "--dump1", dest="dump1",
                      help="First dump (mandatory)", metavar="FILE")
 optParser.add_option("-2", "--dump2", dest="dump2",
-                     help="Second  dump (mandatory)", metavar="FILE")
+                     help="Second dump (mandatory)", metavar="FILE")
 optParser.add_option("-o", "--output", dest="output",
                      help="Name of the image to generate", metavar="FILE")
 optParser.add_option("--size", dest="size",type="string", default="",
