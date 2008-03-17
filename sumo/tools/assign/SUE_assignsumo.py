@@ -15,7 +15,7 @@ from network import Net, NetDetectorFlowReader, ZoneConnectionReader            
                                                      
 from inputs import getParameter, getMatrix, getConnectionTravelTime                 # read control parameters and matrix; calculate the link travel time of zone connectors
 from outputs import TimeforInput, OutputODZone, OutputNetwork, OutputMOE, SortedVehOutput, VehPoissonDistr # output the related results
-from SUEassign import DoSUEAssign, DoVehAssign                                      # import the algorithm of the incremental traffic assignment 
+from assign import DoSUEAssign, DoVehAssign                                      # import the algorithm of the incremental traffic assignment 
 from getPaths import findNewPath
 from VehRelease import VehRelease
 

@@ -13,7 +13,7 @@ from network import Net, NetDetectorFlowReader, ZoneConnectionReader            
 from dijkstra import Dijkstra                                                       # import the Dijkstra algorithm for searching shortest paths
 from inputs import getParameter, getMatrix, getConnectionTravelTime                 # read control parameters and matrix; calculate the link travel time of zone connectors
 from outputs import TimeforInput, OutputODZone, OutputNetwork, SortedVehOutput, OutputMOE, VehPoissonDistr # output the related results
-from assign import DoAssign                                                           # import the algorithm of the incremental traffic assignment 
+from assign import DoIncAssign                                                           # import the algorithm of the incremental traffic assignment 
 from VehRelease import VehRelease
 
 ## Program execution
@@ -154,7 +154,7 @@ for counter in range (0, len(matrices)):                                        
             D,P = Dijkstra(startVertex)                                             # the information about the shortest paths and    
                                                                                     # the respective travel times from the given "startVertex" 
 # incremental traffic assignment
-            vehID, AssignedVeh, AssignedTrip = DoAssign(net, options.verbose, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
+            vehID, AssignedVeh, AssignedTrip = DoIncAssign(net, options.verbose, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
         
         for edgeID in net._edges:                                                   # the link travel times will be updated according to the latest traffic assingment
             edge = net._edges[edgeID]
