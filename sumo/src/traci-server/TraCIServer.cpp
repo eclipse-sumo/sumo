@@ -35,6 +35,10 @@
 #include "foreign/tcpip/storage.h"
 #include "utils/common/SUMOTime.h"
 #include "utils/common/SUMODijkstraRouter.h"
+#include "utils/common/NamedObjectCont.h"
+#include "utils/shapes/PointOfInterest.h"
+#include "utils/shapes/ShapeContainer.h"
+#include "utils/shapes/Polygon2D.h"
 #include "microsim/MSNet.h"
 #include "microsim/MSVehicleControl.h"
 #include "microsim/MSVehicle.h"
@@ -102,6 +106,17 @@ TraCIServer::run()
 {
     // Prepare simulation
     MSNet::getInstance()->initialiseSimulation();
+
+	// map the internal id of all traffic lights to external id and vice versa
+	int extId = 0;
+	trafficLightsInt2Ext.clear();
+	trafficLightsExt2Int.clear();
+	std::vector<std::string> tllIds = MSNet::getInstance()->getTLSControl().getAllTLIds();
+	for (std::vector<std::string>::iterator it=tllIds.begin(); it != tllIds.end(); it++) {
+		trafficLightsInt2Ext[(*it)] = extId;
+		trafficLightsExt2Int[extId] = (*it);
+		extId++;
+	}
 
     try {
         // Opens listening socket
@@ -186,6 +201,9 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
 		break;
 	case CMD_SLOWDOWN:
 		commandSlowDown(requestMsg, respMsg);
+		break;
+	case CMD_SCENARIO:
+		commandScenario(requestMsg, respMsg);
 		break;
     default:
         writeStatusCmd(respMsg, commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
@@ -685,15 +703,17 @@ throw(TraCIException)
                             tempMsg.writeString(linkGroup[j]->getLane()->getEdge()->getID());
                             // new status
                             if (nextLinkState == MSLink::LINKSTATE_TL_RED) {
-                                tempMsg.writeString("red");
+                                //tempMsg.writeString("red");
+								tempMsg.writeUnsignedByte(TLPHASE_RED);
                             } else {
-                                tempMsg.writeString("green");
+                                //tempMsg.writeString("green");
+								tempMsg.writeUnsignedByte(TLPHASE_GREEN);
                             }
                             //yellow time
                             tempMsg.writeDouble(yellowTimes[i]);
 
                             // command length
-                            respMsg.writeByte(2 + tempMsg.size());
+                            respMsg.writeByte(1 + 1 + tempMsg.size());
                             // command type
                             respMsg.writeByte(CMD_TLSWITCH);
                             // command content
@@ -846,6 +866,7 @@ throw(TraCIException)
 }
 
 /*****************************************************************************/
+
 void
 TraCIServer::commandUpdateCalibrator(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
 throw(TraCIException)
@@ -862,6 +883,7 @@ throw(TraCIException)
 
     return;
 }
+
 /*****************************************************************************/
 
 void
@@ -971,6 +993,81 @@ throw(TraCIException)
 	respMsg.writeStorage(tmpResult);	// position dependant part
 	respMsg.writeUnsignedByte(destPosType);	// destination type
 }
+
+/*****************************************************************************/
+
+void
+TraCIServer::commandScenario(tcpip::Storage &requestMsg, tcpip::Storage &respMsg) {
+	Storage tmpResult;
+	string warning = "";	// additional description for response
+
+	// read/write flag
+	bool isWriteCommand = requestMsg.readUnsignedByte();
+
+	// domain
+	int domain = requestMsg.readUnsignedByte();
+
+	switch (domain) {
+	// road map domain
+	case DOM_ROADMAP:
+		try {
+			warning = handleRoadMapDomain(isWriteCommand, requestMsg, tmpResult);
+		} catch (TraCIException e) {
+			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
+		}
+		break;
+
+	// vehicle domain
+	case DOM_VEHICLE:
+		try {
+			warning = handleVehicleDomain(isWriteCommand, requestMsg, tmpResult);
+		} catch (TraCIException e) {
+			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
+		}
+		break;
+
+	// traffic light domain
+	case DOM_TRAFFICLIGHTS:
+		try {
+			warning = handleTrafficLightDomain(isWriteCommand, requestMsg, tmpResult);
+		} catch (TraCIException e) {
+			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
+		}
+		break;
+
+	// point of interest domain
+	case DOM_POI:
+		try {
+			warning = handlePoiDomain(isWriteCommand, requestMsg, tmpResult);
+		} catch (TraCIException e) {
+			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
+		}
+		break;
+
+	// polygon domain
+	case DOM_POLYGON:
+		try {
+			warning = handlePolygonDomain(isWriteCommand, requestMsg, tmpResult);
+		} catch (TraCIException e) {
+			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
+		}
+		break;
+
+	// unknown domain
+	default:
+		writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, "Unknown domain specified");
+	}
+
+	// write response message
+	writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_OK, warning);
+	// if necessary, add Scenario command containing the read value
+	if (!isWriteCommand) {
+		respMsg.writeUnsignedByte(1 + 1 + tmpResult.size());	// command length
+		respMsg.writeUnsignedByte(CMD_SCENARIO);	// command id
+		respMsg.writeStorage(tmpResult);	// variable dependant part
+	}
+}	
+
 /*****************************************************************************/
 
 void
@@ -1026,6 +1123,28 @@ TraCIServer::getVehicleByExtId(int extId)
     std::string intId;
     convertExt2IntId(extId, intId);
     return MSNet::getInstance()->getVehicleControl().getVehicle(intId);
+}
+
+/*****************************************************************************/
+
+void 
+TraCIServer::convertTLLExt2IntId(int extId, std::string& intId) {
+	std::map<int, std::string>::iterator iter = trafficLightsExt2Int.find(extId);
+	if (iter != trafficLightsExt2Int.end()) {
+		intId = trafficLightsExt2Int[extId];
+	} else {
+		intId = "";
+	}
+}
+
+/*****************************************************************************/
+
+MSTrafficLightLogic*
+TraCIServer::getTLLogicByExtId(int extId) {
+	std::string intId;
+	convertTLLExt2IntId(extId, intId);
+
+	return MSNet::getInstance()->getTLSControl().getActive(intId);
 }
 
 /*****************************************************************************/
@@ -1120,10 +1239,8 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos)
 					// else compute the distance and check it
 					newDistance = GeomHelper::closestDistancePointLine(pos, lineStart, lineEnd, intersection);
 					if (newDistance < minDistance && newDistance != -1.0) {
-						// new distance is shorter
+						// new distance is shorter: save the found road map position
 						minDistance = newDistance;
-
-						// save the found road map position
 						result.roadId = (*itId);
 						result.laneId = 0;
 						tmpLane = (*itLane);
@@ -1149,11 +1266,11 @@ Position2D
 TraCIServer::convertRoadMapToCartesian(traci::TraCIServer::RoadMapPos roadPos) 
 throw(TraCIException)
 {
-	// get the edge and lane of this road map position
 	if (roadPos.pos < 0) {
 		throw TraCIException("Position on lane must not be negative");
 	}
 
+	// get the edge and lane of this road map position
 	MSEdge* road = MSEdge::dictionary(roadPos.roadId);
     if (road == NULL) {
 		throw TraCIException("Unable to retrieve road with given id");
@@ -1183,8 +1300,548 @@ throw(TraCIException)
 
 	// get corresponding x and y coordinates
 	Position2DVector shape = actLane->getShape();
-
 	return shape.positionAtLengthPosition(roadPos.pos);
+}
+
+/*****************************************************************************/
+
+std::string
+TraCIServer::handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) 
+throw(TraCIException)
+{
+	string warning = "";	// additional description for response
+
+	// domain object
+	int objectId = requestMsg.readInt();
+
+	// variable id
+	int variableId = requestMsg.readUnsignedByte();
+
+	// value data type
+	int dataType = requestMsg.readUnsignedByte();
+
+	if (isWriteCommand) {
+		throw TraCIException("Road map domain does not contain writable variables");
+	}
+
+	// write beginning of the answer message
+	response.writeUnsignedByte((isWriteCommand ? 0x01 : 0x00));	// get/set flag
+	response.writeUnsignedByte(DOM_ROADMAP);	// domain
+	response.writeInt(objectId);	// domain object id
+	response.writeUnsignedByte(variableId);		// variable
+
+	switch (variableId) {
+
+	// net boundaries
+	case DOMVAR_NETBOUNDS:
+		response.writeUnsignedByte(TYPE_BOUNDINGBOX);
+		response.writeFloat(0.0);
+		response.writeFloat(0.0);
+		response.writeFloat(getNetBoundary().getWidth());
+		response.writeFloat(getNetBoundary().getHeight());
+		// add a warning to the response if the requested data type was not correct
+		if (dataType != TYPE_BOUNDINGBOX) {
+			warning = "Warning: requested data type could not be used; using boundary box type instead!";
+		}
+		break;
+
+	// unknown variable
+	default:
+		throw TraCIException("Unknown domain variable specified");
+	}
+
+	return warning;
+}
+
+/*****************************************************************************/
+
+std::string
+TraCIServer::handleVehicleDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) 
+throw(TraCIException)
+{
+	MSVehicle* veh = NULL;
+	string warning = "";	// additional description for response
+
+	// domain object
+	int objectId = requestMsg.readInt();
+
+	// variable id
+	int variableId = requestMsg.readUnsignedByte();
+
+	// value data type
+	int dataType = requestMsg.readUnsignedByte();
+
+	if (isWriteCommand) {
+		throw TraCIException("Vehicle domain does not contain writable variables");
+	}
+
+	// write beginning of the answer message
+	response.writeUnsignedByte((isWriteCommand ? 0x01 : 0x00));	// get/set flag
+	response.writeUnsignedByte(DOM_VEHICLE);	// domain
+	response.writeInt(objectId);	// domain object id
+	response.writeUnsignedByte(variableId);		// variable
+
+	switch (variableId) {
+
+	// number of nodes
+	case DOMVAR_COUNT:
+		throw TraCIException("Number of nodes not yet implemented");
+		break;
+
+	// node position
+	case DOMVAR_POSITION:
+		veh = getVehicleByExtId(objectId);	//get node by id
+		if (veh != NULL) {
+			switch (dataType) {
+			case POSITION_3D:
+				response.writeUnsignedByte(POSITION_3D);
+				response.writeFloat(veh->getPosition().x());
+				response.writeFloat(veh->getPosition().y());
+				response.writeFloat(0);
+				break;
+			default:
+				response.writeByte(POSITION_ROADMAP);
+				response.writeString(veh->getEdge()->getID());
+				response.writeFloat(veh->getPositionOnLane());
+				int laneId = 0;
+				MSLane* lane = veh->getLane().getRightLane();
+				while (lane != NULL) {
+					laneId++;
+					lane =lane->getRightLane();
+				}
+				response.writeUnsignedByte(laneId);
+				// add a warning to the response if the requested data type was not correct
+				if (dataType != POSITION_ROADMAP) {
+					warning = "Warning: requested data type could not be used; using road map position instead!";
+				}
+			}
+		} else {
+			throw TraCIException("Unable to retrieve node with given ID");
+		}
+		break;
+
+	// node speed
+	case DOMVAR_SPEED:
+		veh = getVehicleByExtId(objectId);	//get node by id
+		if (veh != NULL) {
+			response.writeUnsignedByte(TYPE_FLOAT);
+			response.writeFloat(veh->getSpeed());
+			// add a warning to the response if the requested data type was not correct
+			if (dataType != TYPE_FLOAT) {
+				warning = "Warning: requested data type could not be used; using float instead!";
+			}
+		} else {
+			throw TraCIException("Unable to retrieve node with given ID");
+		}
+		break;
+
+	// unknown variable
+	default:
+		throw TraCIException("Unknown domain variable specified");
+	}
+
+	return warning;
+}
+
+/*****************************************************************************/
+
+std::string
+TraCIServer::handleTrafficLightDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response)  
+throw(TraCIException)
+{
+	string warning = "";	// additional description for response
+
+	// domain object
+	int objectId = requestMsg.readInt();
+	MSTrafficLightLogic* tlLogic = getTLLogicByExtId(objectId);
+
+	// variable id
+	int variableId = requestMsg.readUnsignedByte();
+
+	// value data type
+	int dataType = requestMsg.readUnsignedByte();
+
+	if (isWriteCommand) {
+		throw TraCIException("Traffic Light domain does not contain writable variables");
+	}
+
+	// write beginning of the answer message
+	response.writeUnsignedByte((isWriteCommand ? 0x01 : 0x00));	// get/set flag
+	response.writeUnsignedByte(DOM_VEHICLE);	// domain
+	response.writeInt(objectId);	// domain object id
+	response.writeUnsignedByte(variableId);		// variable
+
+	switch (variableId) {
+	// current or next traffic light phase
+	case DOMVAR_CURTLPHASE:
+	case DOMVAR_NEXTTLPHASE:
+		if (tlLogic != NULL) {
+			// get the required phase of the tl logic
+			size_t step = tlLogic->getStepNo();
+			if (variableId == DOMVAR_NEXTTLPHASE) {
+				// need phase of the next step instead of current
+				size_t curStep = tlLogic->getStepNo();
+				size_t pos = tlLogic->getPosition(MSNet::getInstance()->getCurrentTimeStep());
+				do {
+					pos++;
+				} while ( (step=tlLogic->getStepFromPos(pos)) == curStep);
+			}
+			MSPhaseDefinition phase = tlLogic->getPhaseFromStep(step);
+			// get the list of link vectors affected by that tl logic
+			MSTrafficLightLogic::LinkVectorVector affectedLinks = tlLogic->getLinks();
+			//write data type
+			response.writeUnsignedByte(TYPE_TLPHASELIST);
+			// write length of the phase list
+			response.writeUnsignedByte(affectedLinks.size());
+			// for each affected link of that tl logic, write the  phase state
+			// to the answer message along with preceding and succeeding lane
+			for (int i=0; i<affectedLinks.size(); i++) {
+				// get list of links controlled by that light
+				MSTrafficLightLogic::LinkVector linkGroup = affectedLinks[i];
+				// get list of preceding lanes to that links
+				MSTrafficLightLogic::LaneVector laneGroup = tlLogic->getLanesAt(i);
+				// get status of the traffic light
+				MSLink::LinkState tlState = phase.getLinkState(i);
+				for (int linkNo=0; linkNo<linkGroup.size(); linkNo++) {
+					// write preceding edge
+					response.writeString(laneGroup[linkNo]->getEdge()->getID());
+					// write succeeding edge
+					response.writeString(linkGroup[linkNo]->getLane()->getEdge()->getID());
+					// write status of the traffic light
+					switch (tlState) {
+					case MSLink::LINKSTATE_TL_GREEN:
+						response.writeUnsignedByte(TLPHASE_GREEN);
+						break;
+					case MSLink::LINKSTATE_TL_YELLOW:
+						response.writeUnsignedByte(TLPHASE_YELLOW);
+						break;
+					case MSLink::LINKSTATE_TL_RED:
+						response.writeUnsignedByte(TLPHASE_RED);
+						break;
+					case MSLink::LINKSTATE_TL_OFF_BLINKING:
+						response.writeUnsignedByte(TLPHASE_BLINKING);
+						break;
+					case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
+						response.writeUnsignedByte(TLPHASE_NOSIGNAL);
+						break;
+					default:
+						response.writeUnsignedByte(TLPHASE_NOSIGNAL);
+					}
+				}
+			}
+			// add a warning to the response if the requested data type was not correct
+			if (dataType != TYPE_TLPHASELIST) {
+				warning = "Warning: requested data type could not be used; using type traffic light phase list instead!";
+			}
+		} else {
+			throw TraCIException("Unable to retrieve traffic light with given id");
+		}
+		break;
+
+	// unknown variable
+	default:
+		throw TraCIException("Unknown domain variable specified");
+	}
+
+	return warning;
+}
+
+/*****************************************************************************/
+
+std::string
+TraCIServer::handlePoiDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) 
+throw(TraCIException)
+{
+/*	int intValue = 0;
+	double realValue = 0;
+	std::string stringValue = "";
+	float posxValue = 0;
+	float posyValue = 0;
+	float poszValue = 0;
+	RoadMapPos roadPosValue;*/
+
+	string warning = "";	// additional description for response
+
+	// domain object
+	int objectId = requestMsg.readInt();
+
+	// variable id
+	int variableId = requestMsg.readUnsignedByte();
+
+	// value data type
+	int dataType = requestMsg.readUnsignedByte();
+
+	// read the value that shall be written
+	if (isWriteCommand) {
+		throw TraCIException("Point of interest domain does not contain writable variables");
+/*		switch (dataType) {
+		case TYPE_UBYTE:
+			intValue = requestMsg.readUnsignedByte();
+			break;
+		case TYPE_BYTE:
+			intValue = requestMsg.readByte();
+			break;
+		case TYPE_INTEGER:
+			intValue = requestMsg.readInt();
+			break;
+		case TYPE_FLOAT:
+			realValue = requestMsg.readFloat();
+			break;
+		case TYPE_DOUBLE:
+			realValue = requestMsg.readDouble();
+			break;
+		case TYPE_STRING:
+			stringValue = requestMsg.readString();
+			break;
+		case POSITION_ROADMAP:
+			roadPosValue.roadId = requestMsg.readString();
+			roadPosValue.pos = requestMsg.readFloat();
+			roadPosValue.laneId = requestMsg.readUnsignedByte();
+			break;
+		case POSITION_2D:
+		case POSITION_3D:
+			posxValue = requestMsg.readFloat();
+			posyValue = requestMsg.readFloat();
+			if (dataType == POSITION_3D) {
+				poszValue = requestMsg.readFloat();
+			}
+			break;
+		default:
+			throw TraCIException("Value data type is unknown or not intended for writing");
+		}*/
+	}
+
+	// write beginning of the answer message
+	response.writeUnsignedByte((isWriteCommand ? 0x01 : 0x00));	// get/set flag
+	response.writeUnsignedByte(DOM_POI);	// domain
+	response.writeInt(objectId);	// domain object id
+	response.writeUnsignedByte(variableId);		// variable
+
+	// get list of shapes
+	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+	PointOfInterest* poi = NULL; 
+	int count = 0;
+	// determine number of poi and try to get a poi by the given id
+	for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
+			NamedObjectCont<PointOfInterest*>& poiCont = shapeCont.getPOICont(i);	
+			count += poiCont.size();
+			if (poi == NULL) {
+				//TODO: get poi by id
+				//poi = poiCont.get();
+			}
+		}
+
+	switch (variableId) {
+	// number of poi
+	case DOMVAR_COUNT:
+		for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
+			NamedObjectCont<PointOfInterest*>& poiCont = shapeCont.getPOICont(i);	
+			count += poiCont.size();
+		}
+		response.writeUnsignedByte(TYPE_INTEGER);
+		response.writeInt(count);
+		// add a warning to the response if the requested data type was not correct
+		if (dataType != TYPE_INTEGER) {
+			warning = "Warning: requested data type could not be used; using integer instead!";
+		}
+		break;
+
+	// position of a poi
+	case DOMVAR_POSITION:
+		if (poi == NULL) {
+			throw TraCIException("Unable to retrieve point of interest with given id");
+		} else {
+			response.writeUnsignedByte(POSITION_3D);
+			response.writeFloat(poi->x());
+			response.writeFloat(poi->y());
+			response.writeFloat(0);
+		}
+		// add a warning to the response if the requested data type was not correct
+		if (dataType != POSITION_3D) {
+			warning = "Warning: requested data type could not be used; using 3D position instead!";
+		}
+		break;
+
+	// type of a poi
+	case DOMVAR_TYPE:
+		if (poi == NULL) {
+			throw TraCIException("Unable to retrieve point of interest with given id");
+		} else {
+			response.writeUnsignedByte(TYPE_STRING);
+			response.writeString(poi->getType());
+		}
+		// add a warning to the response if the requested data type was not correct
+		if (dataType != TYPE_STRING) {
+			warning = "Warning: requested data type could not be used; using string instead!";
+		}
+		break;
+
+	// layer of a poi
+	case DOMVAR_LAYER:
+	// unknown variable
+	default:
+		throw TraCIException("Unknown domain variable specified");
+	}
+
+	return warning;
+}
+
+/*****************************************************************************/
+
+std::string
+TraCIServer::handlePolygonDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) 
+throw(TraCIException)
+{
+/*	int intValue = 0;
+	double realValue = 0;
+	std::string stringValue = "";
+	float posxValue = 0;
+	float posyValue = 0;
+	float poszValue = 0;
+	RoadMapPos roadPosValue;*/
+
+	string warning = "";	// additional description for response
+
+	// domain object
+	int objectId = requestMsg.readInt();
+
+	// variable id
+	int variableId = requestMsg.readUnsignedByte();
+
+	// value data type
+	int dataType = requestMsg.readUnsignedByte();
+
+	// read the value that shall be written
+	if (isWriteCommand) {
+		throw TraCIException("Polygon domain does not contain writable variables");
+/*		switch (dataType) {
+		case TYPE_UBYTE:
+			intValue = requestMsg.readUnsignedByte();
+			break;
+		case TYPE_BYTE:
+			intValue = requestMsg.readByte();
+			break;
+		case TYPE_INTEGER:
+			intValue = requestMsg.readInt();
+			break;
+		case TYPE_FLOAT:
+			realValue = requestMsg.readFloat();
+			break;
+		case TYPE_DOUBLE:
+			realValue = requestMsg.readDouble();
+			break;
+		case TYPE_STRING:
+			stringValue = requestMsg.readString();
+			break;
+		case POSITION_ROADMAP:
+			roadPosValue.roadId = requestMsg.readString();
+			roadPosValue.pos = requestMsg.readFloat();
+			roadPosValue.laneId = requestMsg.readUnsignedByte();
+			break;
+		case POSITION_2D:
+		case POSITION_3D:
+			posxValue = requestMsg.readFloat();
+			posyValue = requestMsg.readFloat();
+			if (dataType == POSITION_3D) {
+				poszValue = requestMsg.readFloat();
+			}
+			break;
+		default:
+			throw TraCIException("Value data type is unknown or not intended for writing");
+		}*/
+	}
+
+	// write beginning of the answer message
+	response.writeUnsignedByte((isWriteCommand ? 0x01 : 0x00));	// get/set flag
+	response.writeUnsignedByte(DOM_POLYGON);	// domain
+	response.writeInt(objectId);	// domain object id
+	response.writeUnsignedByte(variableId);		// variable
+
+	// get list of shapes
+	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+	Polygon2D* poly = NULL; 
+	int count = 0;
+	// determine number of polygons and try to get a polygon by the given id
+	for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
+		NamedObjectCont<Polygon2D*>& polyCont = shapeCont.getPolygonCont(i);	
+		count += polyCont.size();
+		if (poly == NULL) {
+			// TODO: get polygon by id
+			//poly = polyCont.get();
+		}
+	}
+
+	switch (variableId) {
+	// number of polygons
+	case DOMVAR_COUNT:
+		for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
+			NamedObjectCont<PointOfInterest*>& poiCont = shapeCont.getPOICont(i);	
+			count += poiCont.size();
+		}
+		response.writeUnsignedByte(TYPE_INTEGER);
+		response.writeInt(count);
+		// add a warning to the response if the requested data type was not correct
+		if (dataType != TYPE_INTEGER) {
+			warning = "Warning: requested data type could not be used; using integer instead!";
+		}
+		break;
+
+	// position of a polygon
+	case DOMVAR_POSITION:
+		if (poly == NULL) {
+			throw TraCIException("Unable to retrieve polygon with given id");
+		} else {
+			response.writeUnsignedByte(POSITION_3D);
+			response.writeFloat(poly->getPosition2DVector().center().x());
+			response.writeFloat(poly->getPosition2DVector().center().y());
+			response.writeFloat(0);
+		}
+		// add a warning to the response if the requested data type was not correct
+		if (dataType != POSITION_3D) {
+			warning = "Warning: requested data type could not be used; using 3D position instead!";
+		}
+		break;
+
+	// type of a polygon
+	case DOMVAR_TYPE:
+		if (poly == NULL) {
+			throw TraCIException("Unable to retrieve polygon with given id");
+		} else {
+			response.writeUnsignedByte(TYPE_STRING);
+			response.writeString(poly->getType());
+		}
+		// add a warning to the response if the requested data type was not correct
+		if (dataType != TYPE_STRING) {
+			warning = "Warning: requested data type could not be used; using string instead!";
+		}
+		break;
+
+	// shape of a polygon
+	case DOMVAR_POLYSHAPE:
+		if (poly == NULL) {
+			throw TraCIException("Unable to retrieve polygon with given id");
+		} else {
+			response.writeUnsignedByte(TYPE_POLYGON);
+			response.writeUnsignedByte(poly->getPosition2DVector().size());
+			for (int i=0; i < poly->getPosition2DVector().size(); i++) {
+				response.writeFloat(poly->getPosition2DVector()[i].x());
+				response.writeFloat(poly->getPosition2DVector()[i].y());
+			}
+		}
+		// add a warning to the response if the requested data type was not correct
+		if (dataType != TYPE_POLYGON) {
+			warning = "Warning: requested data type could not be used; using polygon type instead!";
+		}
+		break;
+
+	// layer of a polygon
+	case DOMVAR_LAYER:
+	// unknown variable
+	default:
+		throw TraCIException("Unknown domain variable specified");
+	}
+
+	return warning;
 }
 
 /*****************************************************************************/

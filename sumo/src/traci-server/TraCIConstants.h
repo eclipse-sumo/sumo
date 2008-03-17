@@ -36,6 +36,9 @@
 // command: set lane
 #define CMD_CHANGELANE 0x13
 
+// command: slow down
+#define CMD_SLOWDOWN 0x14
+
 // command: change route
 #define CMD_CHANGEROUTE 0x30
 
@@ -45,7 +48,14 @@
 // command: Simulation Parameter
 #define CMD_SIMPARAMETER 0x70
 
+// command: Position Conversion
 #define CMD_POSITIONCONVERSION 0x71
+
+// command: Distance Request
+#define CMD_DISTANCEREQUEST 0x72
+
+// command: Scenario
+#define CMD_SCENARIO 0x73
 
 // command: move node
 #define CMD_MOVENODE 0x80
@@ -61,9 +71,6 @@
 
 // command: get traffic light status
 #define CMD_GETTLSTATUS 0x41
-
-// command: slow down
-#define CMD_SLOWDOWN 0x14
 
 // command: report traffic light id
 #define CMD_TLIDLIST 0x90
@@ -86,6 +93,29 @@
 // Position on road map
 #define POSITION_ROADMAP 0x04
 
+// ****************************************
+// DATA TYPES
+// ****************************************
+
+// Boundary Box
+#define TYPE_BOUNDINGBOX 0x05
+// Polygon
+#define TYPE_POLYGON 0x06
+// unsigned byte
+#define TYPE_UBYTE 0x07
+// signed byte
+#define TYPE_BYTE 0x08
+// 32 bit integer
+#define TYPE_INTEGER 0x09
+// float
+#define TYPE_FLOAT 0x0A
+// double
+#define TYPE_DOUBLE 0x0B
+// 8 bit ASCII string
+#define TYPE_STRING 0x0C
+// list of traffic light phases
+#define TYPE_TLPHASELIST 0x0D
+
 
 // ****************************************
 // RESULT TYPES
@@ -97,6 +127,59 @@
 #define RTYPE_NOTIMPLEMENTED  0x01
 // result type: error
 #define RTYPE_ERR   0xFF
+
+// ****************************************
+// DOMAIN IDs (FOR SCENARIO COMMAND)
+// ****************************************
+
+// road map domain
+#define DOM_ROADMAP 0x00
+// vehicle domain
+#define DOM_VEHICLE 0x01
+// traffic lights domain
+#define DOM_TRAFFICLIGHTS 0x02
+// points of interest domain
+#define DOM_POI 0x03
+// polygon domain
+#define DOM_POLYGON 0x04
+
+// ****************************************
+// VARIABLE IDs (FOR SCENARIO COMMAND)
+// ****************************************
+
+// count of domain objects
+#define DOMVAR_COUNT 0x01
+// position of a domain object
+#define DOMVAR_POSITION 0x02
+// boundaries of simulation net
+#define DOMVAR_NETBOUNDS 0x03
+// speed of a node
+#define DOMVAR_SPEED 0x04
+// actual phase of a traffic light
+#define DOMVAR_CURTLPHASE 0x05
+// next phase of a traffic light
+#define DOMVAR_NEXTTLPHASE 0x06
+// type of a domain object (poi, polygon)
+#define DOMVAR_TYPE 0x07
+// layer a domain object is located at (poi, polygon)
+#define DOMVAR_LAYER 0x08
+// shape of a polygon
+#define DOMVAR_POLYSHAPE 0x09
+
+// ****************************************
+// TRAFFIC LIGHT PHASES
+// ****************************************
+
+// red phase
+#define TLPHASE_RED 0x01
+// yellow phase
+#define TLPHASE_YELLOW 0x02
+// green phase 
+#define TLPHASE_GREEN 0x03
+// tl is blinking
+#define TLPHASE_BLINKING 0x04
+// tl is off and not blinking
+#define TLPHASE_NOSIGNAL 0x05
 
 #endif
 

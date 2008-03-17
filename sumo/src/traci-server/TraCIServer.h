@@ -41,6 +41,7 @@
 #include "utils/geom/GeomHelper.h"
 #include "utils/options/OptionsCont.h"
 #include "microsim/MSVehicle.h"
+#include "microsim/traffic_lights/MSTrafficLightLogic.h"
 
 #include <map>
 #include <string>
@@ -83,7 +84,7 @@ public:
 		float pos;
 		unsigned char laneId;
 
-		RoadMapPos(): roadId(""), pos(-1), laneId(-1) {};
+		RoadMapPos(): roadId(""), pos(-1), laneId(0) {};
 	};
 
     // Constructor
@@ -153,6 +154,8 @@ private:
 
 	void commandPositionConversion(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
+	void commandScenario(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+
     void writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description);
 
 	/**
@@ -164,12 +167,50 @@ private:
 	TraCIServer::RoadMapPos convertCartesianToRoadMap(Position2D pos);
 
 	/**
-	 * Converts a road map position to a cartesian one
+	 * Converts a road map position to a cartesian position
 	 *
 	 * @param pos road map position that is to be convertes
 	 * @return closest 2D position 
 	 */
 	Position2D convertRoadMapToCartesian(TraCIServer::RoadMapPos pos) throw(TraCIException);
+	
+	/**
+	 * Handles the request of a Scenario Command for obtaining information on
+	 * the road map domain.
+	 * 
+	 * @param requestMsg original Scenario command message, the fields flag and 
+	 *						domain have already been read
+	 * @param response storage object that will contain the variable dependant part of the
+	 *					response on this request
+	 * @param isWriteCommand true, if the command wants to write a value
+	 * @return string containig an optional warning (to be added to the response command) if
+	 *			the requested variable type could not be used
+	 */
+	std::string handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) throw(TraCIException);
+
+	/**
+	 * Handles the request of a Scenario Command for obtaining information on
+	 * the vehicle domain.
+	 */
+	std::string handleVehicleDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) throw(TraCIException);
+
+	/**
+	 * Handles  the request of a Scenario Command for obtaining information on
+	 * the traffic light domain.
+	 */
+	std::string handleTrafficLightDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) throw(TraCIException);
+
+	/**
+	 * Handles  the request of a Scenario Command for obtaining information on
+	 * the point of interest domain.
+	 */
+	std::string handlePoiDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) throw(TraCIException);
+
+	/**
+	 * Handles  the request of a Scenario Command for obtaining information on
+	 * the polygon domain.
+	 */
+	std::string handlePolygonDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) throw(TraCIException);
 
     // port on which server is listening on
     int port_;
@@ -194,7 +235,18 @@ private:
     bool isMapChanged_;
     void convertExt2IntId(int extId, std::string& intId);
 
+	// maps all internal traffic light ids to external ids
+	std::map<int, std::string> trafficLightsExt2Int;
+	// maps all external traffic light ids to internal ids
+	std::map<std::string, int> trafficLightsInt2Ext;
+
+	// convert external id of a traffic light logic to internal id
+	void convertTLLExt2IntId(int extId, std::string& intId);
+
     MSVehicle* getVehicleByExtId(int extId);
+	
+	// return traffic light logic that is referenced by the given external id
+	MSTrafficLightLogic* getTLLogicByExtId(int extId);
 
     // hold number of all equipped vehicles
     int numEquippedVehicles_;
