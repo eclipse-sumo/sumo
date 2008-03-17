@@ -86,8 +86,7 @@ class Edge:
         self.weight = 0.0
         self.connection = 0
         self.edgetype = None
-        self.helpflow = 0.0
-        self.Path=[]        
+        self.helpflow = 0.0     
         
     def __repr__(self):
         cap = str(self.capacity)
