@@ -170,8 +170,7 @@ else:
                     (min, max) = updateMinMax(min, max, weights1._edge2value[t][edge])
                     (min, max) = updateMinMax(min, max, weights2._edge2value[t][edge])
      # plot
-print min
-print max
+print "data range: " + str(min) + " - " + str(max)
 if options.verbose:
     print "Plotting..."
 if options.time_coloring and iterable(c):
