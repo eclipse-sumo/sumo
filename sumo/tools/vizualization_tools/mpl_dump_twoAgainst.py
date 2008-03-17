@@ -1,0 +1,205 @@
+#!/usr/bin/env python
+"""
+@file    mpl_dump_twoAgainst.py
+@author  Daniel.Krajzewicz@dlr.de
+@date    2007-10-25
+@version $Id: mpl_dump_twoAgainst.py 625 2008-03-08 14:04:01Z behr_mi $
+
+
+This script reads two dump files and plots one of the values
+ stored therein as an x-/y- plot.
+
+ matplotlib has to be installed for this purpose
+"""
+
+from matplotlib import rcParams
+rcParams['text.fontname'] = 'cmr10'
+from pylab import *
+import os, string, sys, StringIO
+import math
+from optparse import OptionParser
+from xml.sax import saxutils, make_parser, handler
+
+
+
+def toHex(val):
+    """Converts the given value (0-255) into its hexadecimal representation"""
+    hex = "0123456789abcdef"
+    return hex[int(val/16)] + hex[int(val - int(val/16)*16)]
+
+def toColor(val):
+    """Converts the given value (0-1) into a color definition as parseable by matplotlib"""
+    g = 255. * val
+    return "#" + toHex(g) + toHex(g) + toHex(g)
+
+
+
+def updateMinMax(min, max, value):
+    if min==None or min>value:
+        min = value
+    if max==None or max<value:
+        max = value
+    return (min, max)
+
+
+class WeightsReader(handler.ContentHandler):
+    """Reads the dump file"""
+
+    def __init__(self, value):
+        self._id = ''
+        self._edge2value = {}
+        self._edge2no = {}
+        self._value = value
+
+    def startElement(self, name, attrs):
+        if name == 'interval':
+            self._time = int(attrs['begin'])
+            self._edge2value[self._time] = {}
+        if name == 'edge':
+            self._id = attrs['id']
+            if self._id not in self._edge2value[self._time]:
+                self._edge2value[self._time][self._id] = 0.
+            self._edge2value[self._time][self._id] = self._edge2value[self._time][self._id] + float(attrs[self._value])
+
+# initialise 
+optParser = OptionParser()
+optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+                     default=False, help="tell me what you are doing")
+    # i/o
+optParser.add_option("-1", "--dump1", dest="dump1",
+                     help="First dump (mandatory)", metavar="FILE")
+optParser.add_option("-2", "--dump2", dest="dump2",
+                     help="Second  dump (mandatory)", metavar="FILE")
+optParser.add_option("-o", "--output", dest="output",
+                     help="Name of the image to generate", metavar="FILE")
+optParser.add_option("--size", dest="size",type="string", default="",
+                     help="defines the output size")
+    # processing
+optParser.add_option("--value", dest="value", 
+                     type="string", default="speed", help="which value shall be used")
+optParser.add_option("-s", "--show", action="store_true", dest="show",
+                     default=False, help="shows plot after generating it")
+optParser.add_option("-j", "--join", action="store_true", dest="join",
+                     default=False, help="aggregates each edge's values")
+optParser.add_option("-C", "--time-coloring", action="store_true", dest="time_coloring",
+                     default=False, help="colors the points by the time")
+    # axes/legend
+optParser.add_option("--xticks", dest="xticks",type="string", default="",
+                     help="defines ticks on x-axis")
+optParser.add_option("--yticks", dest="yticks",type="string",  default="",
+                     help="defines ticks on y-axis")
+optParser.add_option("--xlim", dest="xlim",type="string",  default="",
+                     help="defines x-axis range")
+optParser.add_option("--ylim", dest="ylim",type="string",  default="",
+                     help="defines y-axis range")
+# parse options
+(options, args) = optParser.parse_args()
+
+
+parser = make_parser()
+# read dump1
+if options.verbose:
+    print "Reading dump1..."
+weights1 = WeightsReader(options.value)
+parser.setContentHandler(weights1)
+parser.parse(options.dump1)
+# read dump2
+if options.verbose:
+    print "Reading dump2..."
+weights2 = WeightsReader(options.value)
+parser.setContentHandler(weights2)
+parser.parse(options.dump2)
+# plot
+if options.verbose:
+    print "Processing data..."
+# set figure size
+if options.size:
+    f = figure(figsize=(options.size.split(",")))
+else:
+    f = figure()
+xs = []
+ys = []
+    # compute values and color(s)
+c = 'k'
+min = None
+max = None
+if options.join:
+    values1 = {}
+    values2 = {}
+    nos1 = {}
+    nos2 = {}
+    for t in weights1._edge2value:
+        for edge in weights1._edge2value[t]:
+            if edge not in values1:
+                nos1[edge] = 0
+                values1[edge] = 0
+            nos1[edge] = nos1[edge] + 1
+            values1[edge] = values1[edge] + weights1._edge2value[t][edge]
+        for edge in weights2._edge2value[t]:
+            if edge not in values2:
+                nos2[edge] = 0
+                values2[edge] = 0
+            nos2[edge] = nos2[edge] + 1
+            values2[edge] = values2[edge] + weights2._edge2value[t][edge]
+    for edge in values1:
+        if edge in values2:
+            xs.append(values1[edge] / nos1[edge])
+            ys.append(values2[edge] / nos2[edge])
+            (min, max) = updateMinMax(min, max, values1[edge] / nos1[edge])
+            (min, max) = updateMinMax(min, max, values2[edge] / nos2[edge])
+else:
+    if options.time_coloring:
+        c = []
+    for t in weights1._edge2value:
+        if options.time_coloring:
+            xs.append([])
+            ys.append([])
+            cc = 1. - ((float(t) / 86400.) * .8 + .2)
+            c.append(toColor(cc))
+            for edge in weights1._edge2value[t]:
+                if edge in weights2._edge2value[t]:
+                    xs[-1].append(weights1._edge2value[t][edge])
+                    ys[-1].append(weights2._edge2value[t][edge])
+                    (min, max) = updateMinMax(min, max, weights1._edge2value[t][edge])
+                    (min, max) = updateMinMax(min, max, weights2._edge2value[t][edge])
+        else:
+            for edge in weights1._edge2value[t]:
+                if edge in weights2._edge2value[t]:
+                    xs.append(weights1._edge2value[t][edge])
+                    ys.append(weights2._edge2value[t][edge])
+                    (min, max) = updateMinMax(min, max, weights1._edge2value[t][edge])
+                    (min, max) = updateMinMax(min, max, weights2._edge2value[t][edge])
+     # plot
+print min
+print max
+if options.verbose:
+    print "Plotting..."
+if options.time_coloring and iterable(c):
+    for i in range(0, len(c)):
+        plot(xs[i], ys[i], linestyle=None, marker='.', color=c[i], mfc=c[i])
+else:
+    plot(xs, ys, marker=',', color=c, linestyle=None)
+# set axes
+if options.xticks!="":
+    (xb, xe, xd, xs) = options.xticks.split(",")
+    xticks(arange(xb, xe, xd), size = xs)
+if options.yticks!="":
+    (yb, ye, yd, ys) = options.yticks.split(",")
+    yticks(arange(yb, ye, yd), size = ys)
+if options.xlim!="":
+    (xb, xe) = options.xlim.split(",")
+    xlim(xb, xe)
+else:
+    xlim(min, max)
+if options.ylim!="":
+    (yb, ye) = options.ylim.split(",")
+    ylim(yb, ye)
+else:
+    ylim(min, max)
+# show/save
+if options.show:
+    show()
+if options.output:
+    savefig(options.output);
+
+
