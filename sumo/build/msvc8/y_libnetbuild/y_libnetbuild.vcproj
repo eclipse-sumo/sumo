@@ -590,10 +590,6 @@
 				RelativePath="..\..\..\src\netbuild\NBTypeCont.h"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\netbuild\NLLoadFilter.h"
-				>
-			</File>
 		</Filter>
 	</Files>
 	<Globals>

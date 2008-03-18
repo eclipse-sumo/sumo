@@ -629,10 +629,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netload\NLLoadFilter.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netload\NLSucceedingLaneBuilder.h"
 				>
 			</File>
