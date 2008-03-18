@@ -74,12 +74,10 @@ def main():
     # generate the investigated network from the respective SUMO-network    
     net = Net()                                                             
     
-    netreader = NetworkReader(net)
-    parser.setContentHandler(netreader)
+    parser.setContentHandler(NetworkReader(net))
     parser.parse(options.netfile)
     
-    zonereader = DistrictsReader(net)
-    parser.setContentHandler(zonereader)
+    parser.setContentHandler(DistrictsReader(net))
     parser.parse(options.confile)
     
     foutlog.write('- Reading network: done.\n')

@@ -16,7 +16,7 @@ import os, string, sys, datetime, random, math
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 from elements import Vertex, Edge, Vehicle
-from network import Net, NetDetectorFlowReader, ZoneConnectionReader, VehInformationReader
+from network import Net, NetworkReader, DistrictsReader, VehInformationReader
 
 
 optParser = OptionParser()
@@ -43,16 +43,13 @@ if options.verbose:
     
 net = Net()
 
-Netreader = NetDetectorFlowReader(net)
-parser.setContentHandler(Netreader)
+parser.setContentHandler(NetworkReader(net))
 parser.parse(options.netfile)
 
-Zonereader = ZoneConnectionReader(net)
-parser.setContentHandler(Zonereader)
+parser.setContentHandler(DistrictsReader(net))
 parser.parse(options.confile)
 
-Vehreader =VehInformationReader(net)
-parser.setContentHandler(Vehreader)
+parser.setContentHandler(VehInformationReader(net))
 parser.parse(options.vehfile)
 
 if options.verbose:
