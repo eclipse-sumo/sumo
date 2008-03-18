@@ -87,6 +87,7 @@ TraCIServer::TraCIServer()
     penetration_ = oc.getFloat("penetration");
     routeFile_ = oc.getString("route-files");
     isMapChanged_ = true;
+	isPolygonMapChanged_ = true;
     numEquippedVehicles_ = 0;
     closeConnection_ = false;
     netBoundary_ = NULL;
@@ -107,15 +108,27 @@ TraCIServer::run()
     // Prepare simulation
     MSNet::getInstance()->initialiseSimulation();
 
-	// map the internal id of all traffic lights to external id and vice versa
-	int extId = 0;
+	// map the internal id of all traffic lights and poi to external id and vice versa
 	trafficLightsInt2Ext.clear();
 	trafficLightsExt2Int.clear();
+	poiExt2Int.clear();
+	poiInt2Ext.clear();
+	int extId = 0;
 	std::vector<std::string> tllIds = MSNet::getInstance()->getTLSControl().getAllTLIds();
 	for (std::vector<std::string>::iterator it=tllIds.begin(); it != tllIds.end(); it++) {
 		trafficLightsInt2Ext[(*it)] = extId;
 		trafficLightsExt2Int[extId] = (*it);
 		extId++;
+	}
+	int poiId = 0;
+	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+	for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
+		std::vector<PointOfInterest*> poiList = shapeCont.getPOICont(i).getTempVector();
+		for (std::vector<PointOfInterest*>::iterator it=poiList.begin(); it != poiList.end(); it++) {
+			poiInt2Ext[(*it)->getID()] = poiId;
+			poiExt2Int[poiId] = (*it)->getID();
+			poiId++;
+		}
 	}
 
     try {
@@ -284,6 +297,21 @@ throw(TraCIException)
             }
         }
     }
+
+	// build map of internal/external ids for polygons
+	isPolygonMapChanged_ = true;
+	polygonExt2Int.clear();
+	polygonInt2Ext.clear();
+	int polyId = 0;
+	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+	for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
+		std::vector<Polygon2D*> polyList = shapeCont.getPolygonCont(i).getTempVector();
+		for (std::vector<Polygon2D*>::iterator it=polyList.begin(); it != polyList.end(); it++) {
+			polygonInt2Ext[(*it)->getName()] = polyId;
+			polygonExt2Int[polyId] = (*it)->getName();
+			polyId++;
+		}
+	}
 
     // prepare output
     try {
@@ -997,7 +1025,9 @@ throw(TraCIException)
 /*****************************************************************************/
 
 void
-TraCIServer::commandScenario(tcpip::Storage &requestMsg, tcpip::Storage &respMsg) {
+TraCIServer::commandScenario(tcpip::Storage &requestMsg, tcpip::Storage &respMsg) 
+throw(TraCIException)
+{
 	Storage tmpResult;
 	string warning = "";	// additional description for response
 
@@ -1127,11 +1157,57 @@ TraCIServer::getVehicleByExtId(int extId)
 
 /*****************************************************************************/
 
-void 
-TraCIServer::convertTLLExt2IntId(int extId, std::string& intId) {
+MSTrafficLightLogic*
+TraCIServer::getTLLogicByExtId(int extId) 
+{
+	std::string intId = "";
 	std::map<int, std::string>::iterator iter = trafficLightsExt2Int.find(extId);
 	if (iter != trafficLightsExt2Int.end()) {
 		intId = trafficLightsExt2Int[extId];
+	}
+
+	return MSNet::getInstance()->getTLSControl().getActive(intId);
+}
+
+/*****************************************************************************/
+
+PointOfInterest*
+TraCIServer::getPoiByExtId(int extId)
+{
+	std::string intId = "";
+	std::map<int, std::string>::iterator iter = poiExt2Int.find(extId);
+	if (iter != poiExt2Int.end()) {
+		intId = poiExt2Int[extId];
+	}
+
+	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+	PointOfInterest* poi = 0;
+	for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
+		if (poi == 0) {
+			poi = shapeCont.getPOICont(i).get(intId);	
+		}
+	}
+
+	return poi;
+}
+
+/*****************************************************************************/
+
+void 
+TraCIServer::convertPolygonExt2Int(int extId, std::string& intId)
+{
+	if (isPolygonMapChanged_) {
+        isPolygonMapChanged_ = false;
+        polygonExt2Int.clear();
+        for (map<std::string, int>::const_iterator iter = polygonInt2Ext.begin(); iter != polygonInt2Ext.end(); ++iter) {
+			polygonExt2Int[iter->second] = iter->first;
+        }
+    }
+
+    // Search for external-Id-int and return internal-Id-string
+    map<int, std::string>::const_iterator it = ext2intId.find(extId);
+	if (it != ext2intId.end()) {
+		intId = it->second;
 	} else {
 		intId = "";
 	}
@@ -1139,12 +1215,21 @@ TraCIServer::convertTLLExt2IntId(int extId, std::string& intId) {
 
 /*****************************************************************************/
 
-MSTrafficLightLogic*
-TraCIServer::getTLLogicByExtId(int extId) {
-	std::string intId;
-	convertTLLExt2IntId(extId, intId);
+Polygon2D*
+TraCIServer::getPolygonByExtId(int extId)
+{
+	std::string intId = "";
+	convertPolygonExt2Int(extId, intId);
 
-	return MSNet::getInstance()->getTLSControl().getActive(intId);
+	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
+	Polygon2D* polygon = NULL;
+	for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
+		if (polygon == NULL) {
+			polygon = shapeCont.getPolygonCont(i).get(intId);	
+		}
+	}
+
+	return polygon;
 }
 
 /*****************************************************************************/
@@ -1479,7 +1564,6 @@ throw(TraCIException)
 			// get the required phase of the tl logic
 			size_t step = tlLogic->getStepNo();
 			if (variableId == DOMVAR_NEXTTLPHASE) {
-				// need phase of the next step instead of current
 				size_t curStep = tlLogic->getStepNo();
 				size_t pos = tlLogic->getPosition(MSNet::getInstance()->getCurrentTimeStep());
 				do {
@@ -1487,48 +1571,84 @@ throw(TraCIException)
 				} while ( (step=tlLogic->getStepFromPos(pos)) == curStep);
 			}
 			MSPhaseDefinition phase = tlLogic->getPhaseFromStep(step);
+
 			// get the list of link vectors affected by that tl logic
 			MSTrafficLightLogic::LinkVectorVector affectedLinks = tlLogic->getLinks();
-			//write data type
-			response.writeUnsignedByte(TYPE_TLPHASELIST);
-			// write length of the phase list
-			response.writeUnsignedByte(affectedLinks.size());
+
 			// for each affected link of that tl logic, write the  phase state
-			// to the answer message along with preceding and succeeding lane
+			// to the answer message along with preceding and succeeding edge
+			Storage phaseList;
+			int listLength = 0;
+			std::map<MSLane*, std::set<const MSEdge*> > connectLane2Edge;
 			for (int i=0; i<affectedLinks.size(); i++) {
-				// get list of links controlled by that light
+				// get the list of links controlled by that light
 				MSTrafficLightLogic::LinkVector linkGroup = affectedLinks[i];
-				// get list of preceding lanes to that links
+				// get the list of preceding lanes to that links
 				MSTrafficLightLogic::LaneVector laneGroup = tlLogic->getLanesAt(i);
 				// get status of the traffic light
 				MSLink::LinkState tlState = phase.getLinkState(i);
+
+				const MSEdge* precEdge = NULL;
+				const MSEdge* succEdge = NULL;
 				for (int linkNo=0; linkNo<linkGroup.size(); linkNo++) {
+					// if multiple lanes of different edges lead to the same lane on another edge,
+					// only write such pair of edges once
+					if ((precEdge == laneGroup[linkNo]->getEdge()) 
+						&& (succEdge == linkGroup[linkNo]->getLane()->getEdge())) {
+						continue;
+					}
+					// remember preceding and succeeding edge
+					precEdge = laneGroup[linkNo]->getEdge();
+					succEdge = linkGroup[linkNo]->getLane()->getEdge();
+
+					// if the current ingoing lane was part of a connection before...
+					std::map<MSLane*, std::set<const MSEdge*> >::iterator itMap = connectLane2Edge.find(laneGroup[linkNo]);
+					if (itMap != connectLane2Edge.end()) {
+						// ...and the succeding edge of this connection is the same as before...
+						std::set<const MSEdge*>::iterator itEdge = itMap->second.find(succEdge);
+						if (itEdge != itMap->second.end()) {
+							// ...then the connection's phase doesn't need to be reported again
+							continue;
+						}
+					}
+					// remember the edge that this lane leads to
+					connectLane2Edge[laneGroup[linkNo]].insert(succEdge);
+
 					// write preceding edge
-					response.writeString(laneGroup[linkNo]->getEdge()->getID());
+					phaseList.writeString(precEdge->getID());
 					// write succeeding edge
-					response.writeString(linkGroup[linkNo]->getLane()->getEdge()->getID());
+					phaseList.writeString(succEdge->getID());
 					// write status of the traffic light
 					switch (tlState) {
 					case MSLink::LINKSTATE_TL_GREEN:
-						response.writeUnsignedByte(TLPHASE_GREEN);
+						phaseList.writeUnsignedByte(TLPHASE_GREEN);
 						break;
 					case MSLink::LINKSTATE_TL_YELLOW:
-						response.writeUnsignedByte(TLPHASE_YELLOW);
+						phaseList.writeUnsignedByte(TLPHASE_YELLOW);
 						break;
 					case MSLink::LINKSTATE_TL_RED:
-						response.writeUnsignedByte(TLPHASE_RED);
+						phaseList.writeUnsignedByte(TLPHASE_RED);
 						break;
 					case MSLink::LINKSTATE_TL_OFF_BLINKING:
-						response.writeUnsignedByte(TLPHASE_BLINKING);
+						phaseList.writeUnsignedByte(TLPHASE_BLINKING);
 						break;
 					case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
-						response.writeUnsignedByte(TLPHASE_NOSIGNAL);
+						phaseList.writeUnsignedByte(TLPHASE_NOSIGNAL);
 						break;
 					default:
-						response.writeUnsignedByte(TLPHASE_NOSIGNAL);
+						phaseList.writeUnsignedByte(TLPHASE_NOSIGNAL);
 					}
+					// increase length of the phase list
+					listLength++;
 				}
 			}
+			//write data type to answer message
+			response.writeUnsignedByte(TYPE_TLPHASELIST);
+			// write length of the phase list to answer message
+			response.writeUnsignedByte(listLength);
+			// write list of phases to answer message
+			response.writeStorage(phaseList);
+
 			// add a warning to the response if the requested data type was not correct
 			if (dataType != TYPE_TLPHASELIST) {
 				warning = "Warning: requested data type could not be used; using type traffic light phase list instead!";
@@ -1617,27 +1737,18 @@ throw(TraCIException)
 	response.writeInt(objectId);	// domain object id
 	response.writeUnsignedByte(variableId);		// variable
 
-	// get list of shapes
-	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-	PointOfInterest* poi = NULL; 
+	// get list of shapes and determine total number of poi
 	int count = 0;
-	// determine number of poi and try to get a poi by the given id
+	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
 	for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
-			NamedObjectCont<PointOfInterest*>& poiCont = shapeCont.getPOICont(i);	
-			count += poiCont.size();
-			if (poi == NULL) {
-				//TODO: get poi by id
-				//poi = poiCont.get();
-			}
-		}
+			count += shapeCont.getPOICont(i).size();
+	}
+	// get poi by external id
+	PointOfInterest* poi = getPoiByExtId(objectId);
 
 	switch (variableId) {
 	// number of poi
 	case DOMVAR_COUNT:
-		for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
-			NamedObjectCont<PointOfInterest*>& poiCont = shapeCont.getPOICont(i);	
-			count += poiCont.size();
-		}
 		response.writeUnsignedByte(TYPE_INTEGER);
 		response.writeInt(count);
 		// add a warning to the response if the requested data type was not correct
@@ -1757,27 +1868,25 @@ throw(TraCIException)
 	response.writeInt(objectId);	// domain object id
 	response.writeUnsignedByte(variableId);		// variable
 
-	// get list of shapes
-	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-	Polygon2D* poly = NULL; 
+	// get list of shapes and determine total number of polygons
 	int count = 0;
-	// determine number of polygons and try to get a polygon by the given id
+	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
 	for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
-		NamedObjectCont<Polygon2D*>& polyCont = shapeCont.getPolygonCont(i);	
-		count += polyCont.size();
-		if (poly == NULL) {
-			// TODO: get polygon by id
-			//poly = polyCont.get();
-		}
+		/*std::vector<Polygon2D*> polygonList = shapeCont.getPolygonCont(i).getTempVector();
+		for (std::vector<Polygon2D*>::iterator it=polygonList.begin(); it != polygonList.end(); it++) {
+			if ((*it)->getName().compare("") != 0) {
+				count++;
+			}
+		}*/	
+		count += shapeCont.getPolygonCont(i).size();
 	}
+	// get polygon by external id
+	Polygon2D* poly = getPolygonByExtId(objectId);
+	
 
 	switch (variableId) {
 	// number of polygons
 	case DOMVAR_COUNT:
-		for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
-			NamedObjectCont<PointOfInterest*>& poiCont = shapeCont.getPOICont(i);	
-			count += poiCont.size();
-		}
 		response.writeUnsignedByte(TYPE_INTEGER);
 		response.writeInt(count);
 		// add a warning to the response if the requested data type was not correct
@@ -1789,7 +1898,13 @@ throw(TraCIException)
 	// position of a polygon
 	case DOMVAR_POSITION:
 		if (poly == NULL) {
-			throw TraCIException("Unable to retrieve polygon with given id");
+			std::stringstream s;
+			if (polygonExt2Int.find(objectId) == polygonExt2Int.end()) {
+				s << "id not existing";
+			} else {
+				s << "Unable to retrieve polygon with given id " << polygonExt2Int[objectId];
+			}
+			throw TraCIException(s.str());
 		} else {
 			response.writeUnsignedByte(POSITION_3D);
 			response.writeFloat(poly->getPosition2DVector().center().x());

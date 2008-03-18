@@ -39,6 +39,8 @@
 #include "utils/geom/Boundary.h"
 #include "utils/geom/Position2D.h"
 #include "utils/geom/GeomHelper.h"
+#include "utils/shapes/Polygon2D.h"
+#include "utils/shapes/PointOfInterest.h"
 #include "utils/options/OptionsCont.h"
 #include "microsim/MSVehicle.h"
 #include "microsim/traffic_lights/MSTrafficLightLogic.h"
@@ -240,13 +242,31 @@ private:
 	// maps all external traffic light ids to internal ids
 	std::map<std::string, int> trafficLightsInt2Ext;
 
-	// convert external id of a traffic light logic to internal id
-	void convertTLLExt2IntId(int extId, std::string& intId);
+	// maps all internal point of interest ids to external ids
+	std::map<int, std::string> poiExt2Int;
+	// maps all external point of interest ids to internal ids
+	std::map<std::string, int> poiInt2Ext;
 
+	// maps all internal polygon ids to external ids
+	std::map<int, std::string> polygonExt2Int;
+	// maps all external polygon ids to internal ids
+	std::map<std::string, int> polygonInt2Ext;
+	bool isPolygonMapChanged_;
+
+	// convert external polygon id to internal
+	void convertPolygonExt2Int(int extId, std::string& intId);
+
+	// return vehicle that is referenced by the given external id
     MSVehicle* getVehicleByExtId(int extId);
 	
 	// return traffic light logic that is referenced by the given external id
 	MSTrafficLightLogic* getTLLogicByExtId(int extId);
+
+	// return point of interest that is referenced by the given external id
+	PointOfInterest* getPoiByExtId(int extId);
+
+	// return polygon that is referenced by the given external id
+	Polygon2D* getPolygonByExtId(int extId);
 
     // hold number of all equipped vehicles
     int numEquippedVehicles_;
