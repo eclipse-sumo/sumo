@@ -1,20 +1,29 @@
 #!/usr/bin/env python
-# This script is to define the required network geometric classes 
-# and the functions for calculating link characteristics, such as capacity, travel time and link cost function.
+"""
+@file    elements.py
+@author  Yun-Pang.Wang@dlr.de
+@date    2007-10-25
+@version $Id: elements.py 2008-03-17 $
+
+This script is to define the required network geometric classes and 
+the functions for calculating link characteristics, such as capacity, travel time and link cost function..
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
+"""
 
 import os, random, string, sys
 
-# Vertex class which stores incoming and outgoing edges as well as
-# auxiliary data for the flow computation. The members are accessed
-# directly.
-
+# This class is used for finding the k shortest paths.
 class Predecessor:
 
     def __init__(self, edge, pred, distance):
         self.edge = edge
         self.pred = pred
         self.distance = distance
-        
+
+# This class is used to build the nodes in the investigated network and 
+# includes the update-function for searching the k shortest paths.
 class Vertex:
 
     def __init__(self, num):
@@ -57,17 +66,16 @@ class Vertex:
             else:
                 newPreds.append(self.preds[predIndex])
                 predIndex += 1
-        if predIndex == len(newPreds): # no new added
+        if predIndex == len(newPreds):
             return False
         self.preds = newPreds
         returnVal = not self.wasUpdated
         self.wasUpdated = True
         return returnVal
 
-
-# Edge class which stores start and end vertex, type amd label of the edge
+# This class is uesed to store link information and estimate 
 # as well as flow and capacity for the flow computation and some parameters
-# read from the net. The members are accessed directly.
+# read from the net.
 class Edge:
     def __init__(self, label, source, target, kind="junction"):
         self.label = label
@@ -105,28 +113,28 @@ class Edge:
                                                       self.flow, self.length, self.numberlane,
                                                       self.CRcurve, self.estcapacity, cap, self.weight)
 
-    def getFFTT(self):
+    def getFreeFlowTravelTime(self):
         return self.freeflowtime
                 
-    def getDefaultESTCAP(self, parfile):
+    def getDefaultCapacity(self, parfile):
         f = file(parfile)
         for line in f:
             p = line.split()
             periods = int(p[len(p)-2])
-        self.estcapacity = float(self.numberlane * 1500) * periods           # The respective rules will be developed accroding to the HBS. 
+        # The respective rules will be developed accroding to the HBS. 
+        self.estcapacity = float(self.numberlane * 1500) * periods           
 
         return self.estcapacity
 
-
-    # modified CR-curve database defined in the Validate files
-    def getAppCapacity(self, parfile):
+    # modified CR-curve database, defined in the PTV-Validate files
+    def getCapacity(self, parfile):
         f = file(parfile)
         for line in f:
             p = line.split()
             periods = int(p[(len(p)-2)])
         if self.numberlane > 0:
             if self.maxspeed > 38.0:
-                self.estcapacity = float(self.numberlane * 1500) * periods     # 16 intervals in the test network in Magdeburg
+                self.estcapacity = float(self.numberlane * 1500) * periods
                 if self.numberlane <= 2:
                     self.edgetype = '14'
                 elif self.numberlane == 3:
@@ -268,7 +276,7 @@ class Edge:
             if self.maxspeed <= 8.0:
                 self.estcapacity = float(self.numberlane * 200) * periods
                 self.edgetype = '94'
-
+    
     def getCRcurve(self):
         self.CRcurve =''
         if self.edgetype != None:
@@ -289,13 +297,14 @@ class Edge:
                     self.CRcurve = 'CR6'
                     
 # Function for calculating/updating link travel time
-    def getACTTT(self, curvefile):        
+    def getActualTravelTime(self, curvefile):        
         foutcheck = file('time_flow.txt', 'a')
         f = file(curvefile)
         for line in f:
             itemCR = line.split()
+            # get the parameters for the respective cost function
             if itemCR[0] == self.CRcurve:
-                if self.flow == 0.0 or self.connection == 1 or self.numberlane == 0 or str(self.source) == str(self.target):         # self.flow = 0: at free-flow speed; self.numberlane =0: connection link
+                if self.flow == 0.0 or self.connection == 1 or self.numberlane == 0 or str(self.source) == str(self.target):
                     self.actualtime = self.freeflowtime
                 else:
                     if self.estcapacity == 0.0:
@@ -303,13 +312,14 @@ class Edge:
                     else:
                         self.actualtime = self.freeflowtime*(1+(float(itemCR[1])*(self.flow/(self.estcapacity*float(itemCR[3])))**float(itemCR[2])))
                 if self.flow > self.estcapacity and self.connection != 1 and str(self.source) != str(self.target):
-                    self.actualtime = self.actualtime*1.2           # travel time penalty (need to be modified)
-                    foutcheck.write('************edge.label="%s": acutaltime is timed by 1.2.\n' %(self.label))
+                    # travel time penalty 20% (can/should be modified)
+                    self.actualtime = self.actualtime*1.2
+                    foutcheck.write('****edge.label="%s": acutaltime is timed by 1.2.\n' %(self.label))
         f.close()
         foutcheck.close()        
         return self.actualtime
               
-# Vehilce class: the origin, destination, links, path travel time, path length and path flow will be stored in the Path class.
+# This class is for storing vehicle information, such as departure time, route and travel time.
 class Vehicle:
     def __init__(self, label):
         self.label = label
@@ -325,12 +335,12 @@ class Vehicle:
         
 pathNum = 0
         
-# Path class: the origin, destination, links, path travel time, path length and path flow will be stored in the Path class.
+# This class is for storing path information which is mainly for the C-logit model.
 class Path:
     def __init__(self):
         self.source = None
         self.target = None
-        self.label = "%s" % pathNum    #Pfad_
+        self.label = "%s" % pathNum
         global pathNum
         pathNum += 1
         self.Edges = []
@@ -342,11 +352,9 @@ class Path:
         self.choiceprob = 0.0
     
     def __repr__(self):
-#        return "%s_%s<%s|%s|%s|%s|%s|%s>" % (self.label, self.source, self.target, self.pathflow, 
-#                                             self.actpathtime, self.commfactor, self.choiceprob, self.Edges) 
         return "%s_%s_%s<%s|%s|%s|%s>" % (self.label, self.source, self.target, self.freepathtime, self.pathflow, self.actpathtime, self.Edges)
 
-    def UpdatePathActTime(self, net):
+    def updatePathActTime(self, net):
         self.actpathtime = 0.
         for edge in self.Edges:
             self.actpathtime += edge.actualtime

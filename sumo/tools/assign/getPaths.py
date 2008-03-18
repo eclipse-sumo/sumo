@@ -1,19 +1,28 @@
-# python
-# execute the incremetal traffic assignment with the given amount of OD demand
-# the path information and the path travel time at each iteration will be stored in the file "path.txt"
+#!/usr/bin/env python
+"""
+@file    getPaths.py
+@author  Yun-Pang.Wang@dlr.de
+@date    2007-02-01
+@version $Id: getPaths.py 2008-03-17 $
+
+This script is find the new paths for all OD pairs.
+The Dijkstra algorithm is applied for searching the shortest paths.
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
+"""
 
 import os, random, string, sys
-from dijkstra import Dijkstra                                                 # import the Dijkstra algorithm for searching shortest paths
+from dijkstra import dijkstra
+from elements import Vertex, Edge, Path, pathNum
 
-from elements import Vertex, Edge, Path, pathNum                              # import the characteristics of Vertices, Edges and paths
-
-def findNewPath(startVertices, endVertices, net, iter, NewRoutes, matrixPshort):
-    NewRoutes = 0
+def findNewPath(startVertices, endVertices, net, iter, newRoutes, matrixPshort):
+    newRoutes = 0
     start = -1
     for startVertex in startVertices:
         start += 1
         end = -1
-        D,P = Dijkstra(startVertex)
+        D,P = dijkstra(startVertex)
         for endVertex in endVertices:
             end += 1
             endnode = endVertex
@@ -26,7 +35,7 @@ def findNewPath(startVertices, endVertices, net, iter, NewRoutes, matrixPshort):
                     if endnode == startVertex: 
                         break
                     endnode = P[endnode]
-                tempPath.reverse()                                              # the path set will be generated regarding to the given destination "endVertex"
+                tempPath.reverse()
                 for i in range(0, len(tempPath)):   
                     if tempPath[i] != endVertex:
                         node = tempPath[i]
@@ -48,7 +57,7 @@ def findNewPath(startVertices, endVertices, net, iter, NewRoutes, matrixPshort):
                         samePath = path
                         NewPath = False
                         break
-                if NewPath:           # add the new path in the path set und update the path flows, path travel times and so on.
+                if NewPath:
                     newpath = Path()
                     ODPaths.append(newpath)
                     newpath.source = startVertex
@@ -57,7 +66,7 @@ def findNewPath(startVertices, endVertices, net, iter, NewRoutes, matrixPshort):
                     newpath.Edges = helpPath
                     for edge in newpath.Edges:
                         newpath.freepathtime += edge.freeflowtime
-                    NewRoutes += 1
+                    newRoutes += 1
                 else:
                     samePath.actpathtime = pathcost
-    return NewRoutes
+    return newRoutes

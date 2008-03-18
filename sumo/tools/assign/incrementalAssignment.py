@@ -3,7 +3,7 @@
 @file    incrementalAssignment.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-10-25
-@version $Id: correctDetector.py 625 2008-03-08 14:04:01Z behr_mi $
+@version $Id: incrementalAssignment.py 2008-03-17 $
 
 This script is for the incremental traffic assignment with a sumo-based traffic network.
 The Dijkstra algorithm is applied for searching the shortest paths.
@@ -12,9 +12,9 @@ The necessary inputs include:
 - OD-matrix file,
 - districts file,
 - parameter file and
-- CR-curve file (for defining link cost functions)
+- CRcurve file (for defining link cost functions)
 
-Copyright (C) 2007 DLR/FS, Germany
+Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
@@ -22,172 +22,179 @@ import os, string, sys, datetime, random, math
 
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
-from elements import Vertex, Edge, Vehicle                                          # import the characteristics of Vertices, Edges and paths
-from network import Net, NetDetectorFlowReader, ZoneConnectionReader                # import characteristices of network and read xml files for retriving netork and zone connectors data
-from dijkstra import Dijkstra                                                       # import the Dijkstra algorithm for searching shortest paths
-from inputs import getParameter, getMatrix, getConnectionTravelTime                 # read control parameters and matrix; calculate the link travel time of zone connectors
-from outputs import TimeforInput, OutputODZone, OutputNetwork, SortedVehOutput, OutputMOE, VehPoissonDistr # output the related results
-from assign import DoIncAssign                                                           # import the algorithm of the incremental traffic assignment 
-from VehRelease import VehRelease
+from elements import Vertex, Edge, Vehicle
+from network import Net, NetworkReader, DistrictsReader
+from dijkstra import dijkstra 
+from inputs import getParameter, getMatrix, getConnectionTravelTime
+from outputs import timeForInput, outputODZone, outputNetwork, sortedVehOutput, outputStatistics, vehPoissonDistr
+from assign import doIncAssign
 
-## Program execution
-inputreaderstart = datetime.datetime.now()                                        # for measuring the required time for reading input files
+# for measuring the required time for reading input files
+inputreaderstart = datetime.datetime.now()                                        
 # initialize the file for recording the process and the errors
-foutlog = file('SUK_log.txt', 'w')
+foutlog = file('incrementalAssign_log.txt', 'w')
 foutlog.write('The traffic assignment will be executed with the incremental assignment.\n')
 foutlog.write('All vehicular releasing times are determined randomly(uniform).\n')
 
 optParser = OptionParser()
 
-# XML file: containing the link information connectings to the respective traffic zone
-optParser.add_option("-c", "--zonalconnection-file", dest="confile",              
-                     help="read OD Zones from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-m", "--matrix-file", dest="mtxpsfile",                     # txt file: containing the matrix information for passenger vehicles 
-                     help="read OD matrix for passenger vehilces(long dist.) from FILE (mandatory)", metavar="FILE")# from the respective VISUM file
-optParser.add_option("-k", "--matrixpl-file", dest="mtxplfile",                     # txt file: containing the matrix information for trucks from the respective VISUM file
+optParser.add_option("-m", "--matrix-file", dest="mtxpsfile",      
+                     help="read OD matrix for passenger vehilces(long dist.) from FILE (mandatory)", metavar="FILE")
+optParser.add_option("-k", "--matrixpl-file", dest="mtxplfile",                    
                      help="read OD matrix for passenger vehilces(long dist.) from FILE (mandatory)", metavar="FILE")  
-optParser.add_option("-t", "--matrixt-file", dest="mtxtfile",                     # txt file: containing the matrix information for trucks from the respective VISUM file
+optParser.add_option("-t", "--matrixt-file", dest="mtxtfile",                     
                      help="read OD matrix for trucks from FILE (mandatory)", metavar="FILE")  
-optParser.add_option("-n", "--net-file", dest="netfile",                          # XML file: containing the network geometric (link-node) information
+optParser.add_option("-n", "--net-file", dest="netfile", 
                      help="read SUMO network from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-p", "--parameter-file", dest="parfile",                    # txt file: containing the control paramenter for incremental traffic assignment
+optParser.add_option("-p", "--parameter-file", dest="parfile",   
                      help="read assignment parameters from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-u", "--curve-file", dest="curvefile", default="CRcurve.txt",
                      help="read CRcurve from FILE", metavar="FILE")
-optParser.add_option("-z", "--district-file", dest="zonefile",                    # txt file: containing the OD zones based on the respective VISUM file
+optParser.add_option("-d", "--district-file", dest="confile",  
                      help="read OD Zones from FILE (mandatory)", metavar="FILE")  
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
+optParser.add_option("-b", "--debug", action="store_true", dest="debug",
+                     default=False, help="debug the program")
                      
 (options, args) = optParser.parse_args()
 
-matrices = options.mtxpsfile.split(",")                                # jetzt ist matrices = [ "matrix05-08.fma", "matrix06-07.fma", ...
 if not options.netfile:
     optParser.print_help()
     sys.exit()
 
-
-
-parser = make_parser()
-
-if options.verbose:
-    print "Reading net"
     
-net = Net()                                                             # generate the investigated network from the respective SUMO-network
-
-reader = NetDetectorFlowReader(net)
-parser.setContentHandler(reader)
-parser.parse(options.netfile)
-
-reader2 = ZoneConnectionReader(net)
-parser.setContentHandler(reader2)
-parser.parse(options.confile)
-
-foutlog.write('- Reading network: done.\n')
-
-if options.verbose:
-    print len(net._edges), "edges read"
-
-for edgeID in net._edges:                                                        
-    edge = net._edges[edgeID]
-    edge.getAppCapacity(options.parfile)
-    edge.getCRcurve()                                                    # identify the respective cost function curve based on the max. speed and the number of lanes
-    edge.getACTTT(options.curvefile)                                     # calculate actual link trave time
-
-getConnectionTravelTime(net._startVertices, net._endVertices) # calculate link travel time for all zone connectors    
+def main():
+    matrices = options.mtxpsfile.split(",")
+    parser = make_parser()
     
-foutlog.write('- Initial calculation of link parameters : done.\n')
-    
-TimeforInput(inputreaderstart)                                           # the required time for reading the network       
-    
-# read the control parameters(the number of iterations,  
-# and the assigned percentages of the matrix at each iteration) and the traffic demand 
-Parcontrol = getParameter(options.parfile)
-if options.verbose:
-    print 'Parcontrol[number of iterations, n.%, Uni-/PoissonRandomRelease, number of periods, beginning time]:', Parcontrol    # 0: UniRandomRelease; 1: PoissonRandomRelease
-
-foutlog.write('Reading control parameters: done.\n')
-
-begintime = int(Parcontrol[(len(Parcontrol)-1)])
-iteration = int(Parcontrol[0])                                            # number of iterations in the incremental traffic assignment
-if options.verbose:
-    print 'number of the analyzed matrices:', len(matrices)
-    print 'Begin Time:', begintime, "o'Clock"
-
-# initialization
-MatrixCounter = 0
-vehID = 0
-MatrixSum = 0.0
-starttime = datetime.datetime.now()
-
-AssignedVeh = {}                                                # initialize the map for recording the number of the assigned vehicles
-AssignedTrip = {}                                               # initialize the map for recording the number of the assigned trips
-
-for startVertex in net._startVertices:
-    AssignedVeh[startVertex] ={}
-    AssignedTrip[startVertex] ={}
-
-    for endVertex in net._endVertices:
-        AssignedVeh[startVertex][endVertex] = 0
-        AssignedTrip[startVertex][endVertex] = 0.
-    
-for counter in range (0, len(matrices)):                                         # matrix ist im 1. Durchlauf="matrix05-08.fma", im 2.="matrix06-07.fma"
-    net._vehicles = []
-    matrix = matrices[counter]
-    MatrixCounter += 1
-    
-    departtime = (begintime + int(counter)) * 3600
     if options.verbose:
-        print 'Matrix: ', MatrixCounter
-        print 'departtime', departtime                                                # in second
-#	foutlog.write('the current analyzed matrix: %s \n' % counter)
-    
-# matrixPshort, matrixPlong, matrixTruck, startVertices, endVertices, Pshort_EffCells, Plong_EffCells, Truck_EffCells = getMatrix(net, options.zonefile, options.mtxpsfile, options.mtxplfile, options.mtxtfile)
-    matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum = getMatrix(net, options.verbose, matrix, MatrixSum)
-    if options.verbose:
-        print 'Matrix und OD Zone already read for Interval', counter
-    foutlog.write('Reading matrix and O-D zones: done.\n')
-    
-    origins = len(startVertices)                                                    # number of origins
-    dests = len(endVertices)                                                        # number of destinations
-    ODpairs = origins * dests                                                       # number of the OD pairs
-
-#	 OutputODZone(startVertices, endVertices, Pshort_EffCells, Plong_EffCells, Truck_EffCells)# output the origin and destination zones and the number of effective OD pairs
-#	 OutputODZone(startVertices, endVertices, Pshort_EffCells, MatrixCounter)        # output the origin and destination zones and the number of effective OD pairs
-#    OutputNetwork(net)                                                             # output the converted network data
-
-    iter = 0
-    while iter < iteration:
-        foutlog.write('- Current iteration(not executed yet):%s\n' %iter)
-        iter += 1                                                                   # number of iterations 
-        start = -1                                                                  # reset the origin index used in the matrix
-        end = -1                                                                    # reset the destination index used in the matrix
-
-        for startVertex in startVertices:
-            start += 1
-            end = -1                                                                # reset the destination index used in the matrix
-            D,P = Dijkstra(startVertex)                                             # the information about the shortest paths and    
-                                                                                    # the respective travel times from the given "startVertex" 
-# incremental traffic assignment
-            vehID, AssignedVeh, AssignedTrip = DoIncAssign(net, options.verbose, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
+        print "Reading net"
         
-        for edgeID in net._edges:                                                   # the link travel times will be updated according to the latest traffic assingment
-            edge = net._edges[edgeID]
-            edge.getACTTT(options.curvefile)
+    # generate the investigated network from the respective SUMO-network    
+    net = Net()                                                             
+    
+    netreader = NetworkReader(net)
+    parser.setContentHandler(netreader)
+    parser.parse(options.netfile)
+    
+    zonereader = DistrictsReader(net)
+    parser.setContentHandler(zonereader)
+    parser.parse(options.confile)
+    
+    foutlog.write('- Reading network: done.\n')
+    
+    if options.verbose:
+        print len(net._edges), "edges read"
+    
+    for edgeID in net._edges:                                                        
+        edge = net._edges[edgeID]
+        edge.getCapacity(options.parfile)
+        edge.getCRcurve() 
+        edge.getActualTravelTime(options.curvefile)
+    # calculate link travel time for all district connectors 
+    getConnectionTravelTime(net._startVertices, net._endVertices)    
+        
+    foutlog.write('- Initial calculation of link parameters : done.\n')
+    
+    # the required time for reading the network     
+    timeForInput(inputreaderstart)
+                                                    
+    if options.debug:
+        outputNetwork(net)
+      
+    # read the control parameters(the number of iterations, the assigned percentages of the matrix at each iteration,
+    # vehicle releasing method( 0: UniRandomRelease; 1: PoissonRandomRelease), the number of the analyzed periods and the beginning time
+    Parcontrol = getParameter(options.parfile)
+    if options.verbose:
+        print 'Parcontrol[number of iterations, n.%, Uni-/PoissonRandomRelease, number of periods, beginning time]:', Parcontrol 
+    
+    foutlog.write('Reading control parameters: done.\n')
+    
+    begintime = int(Parcontrol[(len(Parcontrol)-1)])
+    iteration = int(Parcontrol[0])
+    if options.verbose:
+        print 'number of the analyzed matrices:', len(matrices)
+        print 'Begin Time:', begintime, "o'Clock"
+    
+    # initialization
+    MatrixCounter = 0
+    vehID = 0
+    MatrixSum = 0.0
+    
+    # initialize the map for recording the number of the assigned vehicles
+    AssignedVeh = {}
+    # initialize the map for recording the number of the assigned trips                                                
+    AssignedTrip = {}                                               
+    
+    for startVertex in net._startVertices:
+        AssignedVeh[startVertex] ={}
+        AssignedTrip[startVertex] ={}
+    
+        for endVertex in net._endVertices:
+            AssignedVeh[startVertex][endVertex] = 0
+            AssignedTrip[startVertex][endVertex] = 0.
+            
+    starttime = datetime.datetime.now()    
+    for counter in range (0, len(matrices)):
+        # delete all vehicle information related to the last matrix for saving the disk space
+        net._vehicles = []
+        matrix = matrices[counter]
+        MatrixCounter += 1
+        
+        departtime = (begintime + int(counter)) * 3600
+        if options.verbose:
+            print 'Matrix: ', MatrixCounter
+            print 'departtime', departtime
+        
+        matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum = getMatrix(net, options.verbose, matrix, MatrixSum)
+        if options.verbose:
+            print 'Matrix und OD Zone already read for Interval', counter
+        foutlog.write('Reading matrix and O-D zones: done.\n')
+        
+        # the number of origins, the number of destinations and the number of the OD pairs
+        origins = len(startVertices)                                             
+        dests = len(endVertices)
+        ODpairs = origins * dests
+        
+    # output the origin and destination zones and the number of effective OD pairs
+        if options.debug:
+#            outputODZone(startVertices, endVertices, Pshort_EffCells, Plong_EffCells, Truck_EffCells)
+            outputODZone(startVertices, endVertices, Pshort_EffCells, MatrixCounter) 
+  
+        iter = 0
+        # incremental traffic assignment
+        while iter < iteration:
+            foutlog.write('- Current iteration(not executed yet):%s\n' %iter)
+            iter += 1
+            start = -1
 
-    VehRelease(net, options.verbose, Parcontrol, departtime, CurrentMatrixSum)                        # generate vehicular releasing times
+            for startVertex in startVertices:
+                start += 1
+                end = -1 
+                D,P = dijkstra(startVertex)                                                                      
+                vehID, AssignedVeh, AssignedTrip = doIncAssign(net, options.verbose, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
+            
+            for edgeID in net._edges:                                                   
+                edge = net._edges[edgeID]
+                edge.getActualTravelTime(options.curvefile)
 
-# output the generated releasing times and routes of the vehicles based on the current matrix
-    SortedVehOutput(net, counter, Parcontrol)
+        net.vehRelease(options.verbose, Parcontrol, departtime, CurrentMatrixSum)                        
+    
+        # output the generated vehicular releasing times and routes, based on the current matrix
+        sortedVehOutput(net, counter, Parcontrol)
+    
+    # output the global performance indices
+    assigntime= outputStatistics(net, starttime, Parcontrol)
+    
+    # output the number of vehicles in the given time interval(10 sec) accoding to the Poisson distribution
+    vehPoissonDistr(net, Parcontrol, begintime)
+    
+    foutlog.write('- Assignment is completed and the all vehicular information is generated. ')
+    foutlog.close()
+                                     
+    print 'Total duration for traffic assignment:', assigntime
+    print 'Total assigned vehicles:', vehID
+    print 'Total number of the assigend trips:', MatrixSum
 
-# output the global performance indices
-assigntime= OutputMOE(net, starttime, Parcontrol)
-
-# output the number of vehicles in the given time interval(10 sec) accoding to the Poisson distribution
-VehPoissonDistr(net, Parcontrol, begintime)
-
-foutlog.write('- Assignment is completed and the all vehicular information is generated. ')
-foutlog.close()
-                                 
-print 'Total duration for traffic assignment:', assigntime
-print 'Total number of the assigend trips:', MatrixSum
+main()

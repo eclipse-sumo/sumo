@@ -1,24 +1,38 @@
 #!/usr/bin/env python
-# This script is to retrieve the data about the control parameters, the names of the OD districts and the matrix. 
-# Moreover the link travel time for traffic zone connectors will be estimated.
+"""
+@file    inputs.py
+@author  Yun-Pang.Wang@dlr.de
+@date    2007-10-25
+@version $Id: inputs.py 2008-03-17 $
+
+This script is to retrieve the assignment parameters, the OD districts and the matrix from the input files. 
+Moreover, the link travel time for district connectors will be estimated.
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
+"""
 
 import os, random, string, sys, datetime
 
+# read the assignment parameters and put into the list 'Parcontrol'
 def getParameter(parfile):
-    ODcontrol = []
+    Parcontrol = []
     sum = 0.
-    for line in open(parfile):                                                  # include: default link capacity estimation (0: no; 1: yes)
-        ODcontrol = line.split()                                                        # the number of iterations, procent of matrix at each iteration
+    for line in open(parfile): 
+        Parcontrol = line.split()
         
-    return ODcontrol
-     
+    return Parcontrol
+
+# read the analyzed matrix         
 def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     matrixPshort = []
+# matrixPlong, matrixTruck are for the matrices regarding long-distance trips and truck trips.
 #    matrixPlong = []
 #    matrixTruck = []
     startVertices = []
     endVertices = []
     Pshort_EffCells = 0
+# the numberof OD pairs (demand > 0) in the matrixPlong and the matrixTruck    
 #    Plong_EffCells = 0
 #    Truck_EffCells = 0
 
@@ -32,14 +46,13 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     CurrentMatrixSum = 0.0
     skipCount = 0
     zones = 0
-    for line in open(matrix):                             # read the matrix for passenger vehicles
+    for line in open(matrix):
         if line[0] != '*' and line[0] != '$':
             skipCount += 1
             if skipCount > 3:
                 if zones == 0:
                     for elem in line.split():
                         zones = int(elem)
-#                    print 'zones:', zones
                 elif len(startVertices) < zones:
                     for elem in line.split():
                         haveStart = False
@@ -69,8 +82,10 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                             matrixPshort[-1].append(float(item))
                             ODpairs += 1
                             itemend = ODpairs%origins
-                            MatrixSum += float(item)                  # calculate the sum of all matrices
-                            CurrentMatrixSum += float(item)           # calculate the sum of the current matrix
+                            # calculate the sum of all matrices
+                            MatrixSum += float(item)
+                            # calculate the sum of the current matrix                  
+                            CurrentMatrixSum += float(item)           
                             if float(item) > 0.0:
                                 Pshort_EffCells += 1
                     elif itemend == 0.:
@@ -80,8 +95,8 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                             matrixPshort[-1].append(float(item))
                             ODpairs += 1
                             itemend = ODpairs%origins
-                            MatrixSum += float(item)                  # calculate the sum of all matrices
-                            CurrentMatrixSum += float(item)           # calculate the sum of the current matrix
+                            MatrixSum += float(item)
+                            CurrentMatrixSum += float(item) 
                             if float(item) > 0.0:
                                 Pshort_EffCells += 1
                     elif itemend != 0.:
@@ -89,8 +104,8 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                             matrixPshort[-1].append(float(item))
                             ODpairs += 1
                             itemend = ODpairs%origins
-                            MatrixSum += float(item)                  # calculate the sum of all matrices
-                            CurrentMatrixSum += float(item)           # calculate the sum of the current matrix
+                            MatrixSum += float(item)
+                            CurrentMatrixSum += float(item)
                             if float(item) > 0.0:
                                 Pshort_EffCells += 1
     if verbose:
@@ -162,7 +177,9 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
 #        elif line[0] == '*':
 #            pass   
     return matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum #, matrixPlong, matrixTruck, Plong_EffCells, Truck_EffCells  
-    
+
+# estimate the travel times on the district connectors
+# assumption: all vehilces can reach the access links within 10 min from the respective traffic zone
 def getConnectionTravelTime(startVertices, endVertices):
     sum = 0.0
     for vertex in startVertices:
@@ -170,15 +187,15 @@ def getConnectionTravelTime(startVertices, endVertices):
         for edge in vertex.outEdges:     
             sum += float(edge.weight)
         for edge in vertex.outEdges:
-            edge.freeflowtime = (1-float(edge.weight)/sum) * 10        # assumption: all vehilces can reach the access links
-                                                                       #             within 10 min from the respective traffic zone
+            edge.freeflowtime = (1-float(edge.weight)/sum) * 10        
+                                          
             edge.actualtime = edge.freeflowtime
     for vertex in endVertices:
         sum = 0.0
         for edge in vertex.inEdges:  
             sum += float(edge.weight)
         for edge in vertex.inEdges:
-            edge.freeflowtime = (1-float(edge.weight)/sum) * 10        # assumption: all vehilces can reach the respective traffic zone 
-                                                                       #             within 10 min from the access links   
+            edge.freeflowtime = (1-float(edge.weight)/sum) * 10 
+                                              
             edge.actualtime = edge.freeflowtime
     return edge.actualtime, edge.freeflowtime

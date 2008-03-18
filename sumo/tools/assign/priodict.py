@@ -1,15 +1,20 @@
-# python
-# vim:ts=4:sw=4:softtabstop=4:smarttab:expandtab
-#
-# Priority dictionary using binary heaps
-# David Eppstein, UC Irvine, 8 Mar 2002
+#!/usr/bin/env python
+"""
+@file    priodict.py
+@author  David Eppstein, UC Irvine
+@date    2002-03-08
+@version $Id: priodict.py  2008-03-17 $
+
+This Priority dictionary, using binary heaps, is for the dijkstra algorithm. 
+
+"""
 
 class priorityDictionary(dict):
     def __init__(self):
         '''Initialize priorityDictionary by creating binary heap
-of pairs (value,key).  Note that changing or removing a dict entry will
-not remove the old pair from the heap until it is found by smallest() or
-until the heap is rebuilt.'''
+            of pairs (value,key).  Note that changing or removing a dict entry will
+            not remove the old pair from the heap until it is found by smallest() or
+            until the heap is rebuilt.'''
         self.__heap = []
         dict.__init__(self)
 
@@ -44,8 +49,8 @@ until the heap is rebuilt.'''
 
     def __setitem__(self,key,val):
         '''Change value stored in dictionary and add corresponding
-pair to heap.  Rebuilds the heap if the number of deleted items grows
-too large, to avoid memory leakage.'''
+            pair to heap.  Rebuilds the heap if the number of deleted items grows
+            too large, to avoid memory leakage.'''
         dict.__setitem__(self,key,val)
         heap = self.__heap
         if len(heap) > 2 * len(self):

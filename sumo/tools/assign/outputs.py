@@ -1,21 +1,30 @@
-# python
-# Six outputs can be generated. The outputs include the required time for reading input data,
-# the lists of origins and destinations, the network geometry data, the traffic flows on all links, 
-# the travel times on all links, the required time for executing the incremental traffic assignment.
+#!/usr/bin/env python
+"""
+@file    outputs.py
+@author  Yun-Pang.Wang@dlr.de
+@date    2007-12-25
+@version $Id: outputs.py 2008-03-17  $
+
+This script is for generating the outputs from the choosed traffic assignment.
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
+"""
 
 import os, random, string, sys, datetime
 from network import Net
 from elements import Vehicle
 import operator
 
-def TimeforInput(inputreaderstart):
+# calculate the time for reading the input data (matrix data are excluded.)
+def timeForInput(inputreaderstart):
     fouttime = file('timeforinput.txt', 'w')
     inputreadtime = datetime.datetime.now() - inputreaderstart  
     fouttime.write('Time for reading input files:%s\n' %inputreadtime)
     fouttime.close()
     
-#def OutputODZone(startVertices, endVertices, Pshort_EffCells, Plong_EffCells, Truck_EffCells):
-def OutputODZone(startVertices, endVertices, Pshort_EffCells, MatrixCounter):
+# output the input matrices, origins, destinations and the number of OD pairsdemand > 0)
+def outputODZone(startVertices, endVertices, Pshort_EffCells, MatrixCounter):
     foutmatrixstart = file('origins.txt', 'a')
     foutmatrixend = file('destinations.txt', 'a')
     foutmatrixstart.write('Interval =%s\n' %(MatrixCounter))
@@ -33,12 +42,14 @@ def OutputODZone(startVertices, endVertices, Pshort_EffCells, MatrixCounter):
     foutmatrixstart.close()
     foutmatrixend.close()
 
-def OutputNetwork(net):
+# output the network data which is based on the SUMO-network
+def outputNetwork(net):
     foutnet = file('network.txt', 'w')
     net.printNet(foutnet)
     foutnet.close()
 
-def OutputMOE(net, starttime, Parcontrol):
+# ouput the required CPU time for the assignment and the assignment results (e.g. link flows, link travel times)
+def outputStatistics(net, starttime, Parcontrol):
     totaltime = 0.0
     totalflow = 0.0
     assigntime = datetime.datetime.now() - starttime
@@ -55,12 +66,12 @@ def OutputMOE(net, starttime, Parcontrol):
 
     avetime = totaltime / totalflow
     foutMOE.write('\nTotal flow(veh):%2.2f \t average travel time(s):%2.2f\n' %(totalflow, avetime))
-    foutMOE.write('\nTime for the traffic assignment and reading matrices:%s' %assigntime)
-    
+    foutMOE.write('\nTime for the traffic assignment and reading matrices:%s' %assigntime)    
     foutMOE.close()
     return assigntime
-    
-def SortedVehOutput(net, counter, Parcontrol):                                   
+
+# output the releasing time and the route for each vehicle
+def sortedVehOutput(net, counter, Parcontrol):                                   
     net._vehicles.sort(key=operator.attrgetter('depart'))                         # sorting by departure times 
     if counter == 0:
         foutroute = file('routes.txt', 'w')                                           # initialize the file for recording the routes
@@ -78,8 +89,9 @@ def SortedVehOutput(net, counter, Parcontrol):
         foutroute.write('</routes>\n')
     foutroute.close()
     
-def VehPoissonDistr(net, Parcontrol, begintime):
-    foutpoisson = file('poisson.txt', 'w')                                        # check if the vehicles are distributed according to the poisson distribution
+# ouptut the number of the released vehicles in the defined interval (when the Poisson distribution is used for generating vehicular releasing times)
+def vehPoissonDistr(net, Parcontrol, begintime):
+    foutpoisson = file('poisson.txt', 'w')
     if int(Parcontrol[(len(Parcontrol)-3)]) == 1:
         zaehler = 0
         interval = 10
@@ -97,27 +109,3 @@ def VehPoissonDistr(net, Parcontrol, begintime):
     else:
         foutpoisson.write('The vehicular releasing times are generated randomly(uniform). ')
         foutpoisson.close()
-    
-def AveVehTravelTime(vehID, net):
-    foutroute = file('AveSpeedTimeLength.txt', 'w')                                           # initialize the file for recording the routes
-    foutroute.write('average vehicular travel time(s) = the sum of all vehicular travel time / the number of vehicles\n')
-    foutroute.write('average vehicular travel length(m) = the sum of all vehicular travel length / the number of vehicles\n')
-    foutroute.write('average vehicular travel speed(m/s) = the sum of all vehicular travel speed / the number of vehicles\n')
-    TotalTime = 0.
-    TotalLength = 0.
-    TotalSpeed = 0.
-    for veh in net._vehicles:                                                     # output the generated routes 
-        TotalTime += veh.traveltime
-        TotalLength += veh.travellength
-        TotalSpeed += veh.speed
-
-    avetime = TotalTime / vehID
-    avelength = TotalLength / vehID
-    avespeed = TotalSpeed / vehID
-    foutroute.write('Total number of vehicles:%s\n' %vehID)
-    foutroute.write('Total travel time(s):%s, ' %TotalTime)    
-    foutroute.write('average vehicular travel time(s):%s\n' %avetime)
-    foutroute.write('Total travel length(m):%s, ' %TotalLength)
-    foutroute.write('average vehicular travel length(m):%s\n' %avelength)
-    foutroute.write('average vehicular travel speed(m/s):%s\n' %avespeed)
-    foutroute.close()
