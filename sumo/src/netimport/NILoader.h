@@ -31,7 +31,6 @@
 #endif
 
 #include <string>
-#include <netbuild/NLLoadFilter.h>
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 
 
@@ -79,8 +78,8 @@ private:
     void loadSUMO(OptionsCont &oc);
 
     /** loads net or logics */
-    void loadSUMOFiles(OptionsCont &oc, LoadFilter what,
-                       const std::string &files, const std::string &type);
+    void loadSUMOFiles(OptionsCont &oc, 
+        const std::string &files, const std::string &type);
 
     /** loads data from XML-files */
     void loadXML(OptionsCont &oc);

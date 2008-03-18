@@ -5,7 +5,6 @@ NLDiscreteEventBuilder.h NLDiscreteEventBuilder.cpp \
 NLEdgeControlBuilder.h NLEdgeControlBuilder.cpp \
 NLGeomShapeBuilder.h NLGeomShapeBuilder.cpp \
 NLJunctionControlBuilder.h NLJunctionControlBuilder.cpp \
-NLLoadFilter.h \
 NLBuilder.h NLBuilder.cpp \
 NLHandler.h NLHandler.cpp \
 NLSucceedingLaneBuilder.h NLSucceedingLaneBuilder.cpp \

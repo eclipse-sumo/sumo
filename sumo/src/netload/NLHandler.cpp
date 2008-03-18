@@ -4,7 +4,7 @@
 /// @date    Mon, 9 Jul 2001
 /// @version $Id$
 ///
-// }
+// The XML-Handler for network loading
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -57,7 +57,6 @@
 #include <utils/iodevices/OutputDevice.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/geom/GeoConvHelper.h>
-#include "NLLoadFilter.h"
 #include "NLGeomShapeBuilder.h"
 
 #ifdef HAVE_MESOSIM
@@ -104,7 +103,6 @@ NLHandler::myStartElement(SumoXMLTag element,
                           const Attributes &attrs) throw(ProcessError)
 {
     // check static net information
-    if (wanted(LOADFILTER_NET)) {
         switch (element) {
         case SUMO_TAG_EDGES:
             setEdgeNumber(attrs);
@@ -139,9 +137,6 @@ NLHandler::myStartElement(SumoXMLTag element,
         default:
             break;
         }
-    }
-    // check junction logics
-//    if(wanted(LOADFILTER_LOGICS)) {
     switch (element) {
     case SUMO_TAG_ROWLOGIC:
         myJunctionControlBuilder.initJunctionLogic();
@@ -155,7 +150,6 @@ NLHandler::myStartElement(SumoXMLTag element,
     default:
         break;
     }
-//    }
     // !!!
     if (element == SUMO_TAG_WAUT) {
         openWAUT(attrs);
@@ -168,7 +162,6 @@ NLHandler::myStartElement(SumoXMLTag element,
     }
     // !!!!
     // process detectors when wished
-    if (wanted(LOADFILTER_NETADD)) {
         switch (element) {
         case SUMO_TAG_DETECTOR:
             addDetector(attrs);
@@ -200,10 +193,7 @@ NLHandler::myStartElement(SumoXMLTag element,
         default:
             break;
         }
-    }
-    if (wanted(LOADFILTER_DYNAMIC)) {
-        MSRouteHandler::myStartElement(element, attrs);
-    }
+    MSRouteHandler::myStartElement(element, attrs);
     if (element==SUMO_TAG_PARAM) {
         addParam(attrs);
     }
@@ -215,7 +205,6 @@ NLHandler::myCharacters(SumoXMLTag element,
                         const std::string &chars) throw(ProcessError)
 {
     // check static net information
-    if (wanted(LOADFILTER_NET)) {
         switch (element) {
         case SUMO_TAG_EDGES:
             allocateEdges(chars);
@@ -274,17 +263,13 @@ NLHandler::myCharacters(SumoXMLTag element,
         default:
             break;
         }
-    }
-    if (wanted(LOADFILTER_DYNAMIC)) {
         MSRouteHandler::myCharacters(element, chars);
-    }
 }
 
 
 void
 NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
-    if (wanted(LOADFILTER_NET)) {
         switch (element) {
         case SUMO_TAG_EDGE:
             closeEdge();
@@ -307,8 +292,6 @@ NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
         default:
             break;
         }
-    }
-    if (wanted(LOADFILTER_NET)) {
         switch (element) {
         case SUMO_TAG_ROWLOGIC:
             myJunctionControlBuilder.closeJunctionLogic();
@@ -320,13 +303,10 @@ NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
         default:
             break;
         }
-    }
     // !!!
     if (element==SUMO_TAG_WAUT) {
         closeWAUT();
     }
-    // !!!!
-    if (wanted(LOADFILTER_NETADD)) {
         switch (element) {
         case SUMO_TAG_E3DETECTOR:
             endE3Detector();
@@ -337,10 +317,7 @@ NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
         default:
             break;
         }
-    }
-    if (wanted(LOADFILTER_DYNAMIC)) {
         MSRouteHandler::myEndElement(element);
-    }
 }
 
 
@@ -1642,24 +1619,6 @@ void
 NLHandler::closeWAUT()
 {
     myCurrentWAUTID = "";
-}
-
-
-
-
-
-
-bool
-NLHandler::wanted(NLLoadFilter filter) const
-{
-    return (myLoadFilter&filter)!=0;
-}
-
-
-void
-NLHandler::setWanted(NLLoadFilter filter)
-{
-    myLoadFilter = filter;
 }
 
 

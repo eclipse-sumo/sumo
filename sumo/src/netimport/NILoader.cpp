@@ -65,7 +65,6 @@
 #include <netimport/NIOSMNodesHandler.h>
 #include <utils/xml/XMLSubSys.h>
 #include "NILoader.h"
-#include <netbuild/NLLoadFilter.h>
 #include <utils/common/TplConvert.h>
 #include <utils/geom/GeoConvHelper.h>
 
@@ -149,29 +148,23 @@ NILoader::loadSUMO(OptionsCont &oc)
 {
     // load the network
     if (oc.isUsableFileList("sumo-net")) {
-        loadSUMOFiles(oc, LOADFILTER_ALL, oc.getString("sumo-net"), "sumo-net");
+        loadSUMOFiles(oc, oc.getString("sumo-net"), "sumo-net");
     }
 }
 
 
 void
-NILoader::loadSUMOFiles(OptionsCont &, LoadFilter what, const string &/*files*/,
+NILoader::loadSUMOFiles(OptionsCont &, const string &/*files*/,
                         const string &/*type*/)
 {
     // build the handlers to load the data
     std::vector<SUMOSAXHandler*> handlers;
-    if (what==LOADFILTER_ALL) {
         handlers.push_back(
-            new NISUMOHandlerNodes(myNetBuilder.getNodeCont(), what));
+            new NISUMOHandlerNodes(myNetBuilder.getNodeCont()));
         handlers.push_back(
-            new NISUMOHandlerEdges(myNetBuilder.getEdgeCont(),
-                                   myNetBuilder.getNodeCont(),what));
+            new NISUMOHandlerEdges(myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont()));
         handlers.push_back(
-            new NISUMOHandlerDepth(what));
-    } else {
-        handlers.push_back(new NISUMOHandlerDepth(what));
-    }
-    //
+            new NISUMOHandlerDepth());
 }
 
 

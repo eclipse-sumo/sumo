@@ -32,7 +32,6 @@
 
 #include <string>
 #include <utils/xml/SUMOSAXHandler.h>
-#include <netbuild/NLLoadFilter.h>
 
 
 // ===========================================================================
@@ -46,10 +45,8 @@
  */
 class NISUMOHandlerDepth : public SUMOSAXHandler
 {
-private:
-    LoadFilter myLoading;
 public:
-    NISUMOHandlerDepth(LoadFilter what);
+    NISUMOHandlerDepth();
     ~NISUMOHandlerDepth() throw();
 };
 

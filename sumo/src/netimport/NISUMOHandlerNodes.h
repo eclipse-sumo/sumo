@@ -33,7 +33,6 @@
 #include <string>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include <netbuild/NLLoadFilter.h>
 
 
 // ===========================================================================
@@ -47,10 +46,8 @@
  */
 class NISUMOHandlerNodes : public SUMOSAXHandler
 {
-private:
-    LoadFilter myLoading;
 public:
-    NISUMOHandlerNodes(NBNodeCont &nc, LoadFilter what);
+    NISUMOHandlerNodes(NBNodeCont &nc);
     ~NISUMOHandlerNodes() throw();
 protected:
     /// @name inherited from GenericSAXHandler

@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The XML-Handler for building networks within the gui-version
+// The XML-Handler for network loading (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -77,7 +77,7 @@ GUIHandler::GUIHandler(const std::string &file,
                        NLJunctionControlBuilder &junctionBuilder,
                        NLGeomShapeBuilder &shapeBuilder,
                        int incDUABase,
-                       int incDUAStage)
+                       int incDUAStage) throw()
         : NLHandler(file, net, detBuilder, triggerBuilder,
                     edgeBuilder, junctionBuilder, shapeBuilder, incDUABase, incDUAStage)
 {}
@@ -88,26 +88,16 @@ GUIHandler::~GUIHandler() throw()
 
 
 void
-GUIHandler::myStartElement(SumoXMLTag element,
-                           const Attributes &attrs) throw(ProcessError)
-{
-    NLHandler::myStartElement(element, attrs);
-}
-
-
-void
 GUIHandler::myCharacters(SumoXMLTag element,
                          const std::string &chars) throw(ProcessError)
 {
     NLHandler::myCharacters(element, chars);
-    if (wanted(LOADFILTER_NET)) {
-        switch (element) {
-        case SUMO_TAG_SHAPE:
-            addJunctionShape(chars);
-            break;
-        default:
-            break;
-        }
+    switch (element) {
+    case SUMO_TAG_SHAPE:
+        addJunctionShape(chars);
+        break;
+    default:
+        break;
     }
 }
 

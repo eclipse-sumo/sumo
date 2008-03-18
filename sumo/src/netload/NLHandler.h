@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The XML-Handler for network loading (parses the elements)
+// The XML-Handler for network loading
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -68,9 +68,11 @@ class NLGeomShapeBuilder;
 // ===========================================================================
 /**
  * @class NLNetHandler
+ * @brief The XML-Handler for network loading
+ *
  * The SAX2-handler responsible for parsing networks and routes to load.
  * This is an extension of the MSRouteHandler as routes and vehicles may also
- * be loaded from network descriptions.
+ *  be loaded from network descriptions.
  */
 class NLHandler : public MSRouteHandler
 {
@@ -102,11 +104,6 @@ public:
 
     /// @brief Destructor
     virtual ~NLHandler() throw();
-
-
-    /// @brief sets the data type filter
-    /// @todo Remove load filter functionality
-    void setWanted(NLLoadFilter filter);
 
 
     /** @brief Returns the information about lane continuations
@@ -184,10 +181,6 @@ protected:
 
 
 protected:
-    /** returns the information whether instances belonging to the
-        given class of data shall be extracted during this parsing */
-    bool wanted(NLLoadFilter filter) const;
-
     /// Closes the process of building an edge
     virtual void closeEdge();
 
@@ -205,9 +198,6 @@ protected:
 protected:
     /// The net to fill (preinitialised)
     MSNet &myNet;
-
-    /// the definition of what to load
-    NLLoadFilter myLoadFilter;
 
 
 private:

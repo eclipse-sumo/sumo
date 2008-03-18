@@ -132,7 +132,7 @@ NLBuilder::build()
 {
     SAX2XMLReader* parser = XMLSubSys::getSAXReader(myXMLHandler);
     // try to build the net
-    if (!load("net-file", LOADFILTER_ALL, *parser)) {
+    if (!load("net-file", *parser)) {
         delete parser;
         return false;
     }
@@ -183,16 +183,14 @@ NLBuilder::build()
     }
     // load routes
     if (m_pOptions.isSet("route-files")&&m_pOptions.getInt("route-steps")<=0) {
-        if (!load("route-files", LOADFILTER_DYNAMIC, *parser)) {
+        if (!load("route-files", *parser)) {
             delete parser;
             return false;
         }
     }
     // load additional net elements (sources, detectors, ...)
     if (m_pOptions.isSet("additional-files")) {
-        if (!load("additional-files",
-                  (NLLoadFilter)((int) LOADFILTER_NETADD|(int) LOADFILTER_DYNAMIC),
-                  *parser)) {
+        if (!load("additional-files", *parser)) {
             delete parser;
             return false;
         }
@@ -226,12 +224,8 @@ NLBuilder::buildNet()
 
 
 bool
-NLBuilder::load(const std::string &mmlWhat,
-                NLLoadFilter what,
-                SAX2XMLReader &parser)
+NLBuilder::load(const std::string &mmlWhat, SAX2XMLReader &parser)
 {
-    // initialise the handler for the current type of data
-    myXMLHandler.setWanted(what);
     // start parsing
     parser.setContentHandler(&myXMLHandler);
     parser.setErrorHandler(&myXMLHandler);

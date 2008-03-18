@@ -33,7 +33,6 @@
 #include <string>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include <netbuild/NLLoadFilter.h>
 
 // ===========================================================================
 // class declarations
@@ -52,10 +51,8 @@ class NBNode;
  */
 class NISUMOHandlerEdges : public SUMOSAXHandler
 {
-private:
-    LoadFilter myLoading;
 public:
-    NISUMOHandlerEdges(NBEdgeCont &ec, NBNodeCont &nc, LoadFilter what);
+    NISUMOHandlerEdges(NBEdgeCont &ec, NBNodeCont &nc);
     ~NISUMOHandlerEdges() throw();
 protected:
     /// @name inherited from GenericSAXHandler

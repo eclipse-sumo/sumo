@@ -31,7 +31,6 @@
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include <utils/common/MsgHandler.h>
-#include <netbuild/NLLoadFilter.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
 #include <netbuild/NBNode.h>
@@ -48,10 +47,9 @@
 
 using namespace std;
 
-NISUMOHandlerEdges::NISUMOHandlerEdges(NBEdgeCont &ec, NBNodeCont &nc,
-                                       LoadFilter what)
+NISUMOHandlerEdges::NISUMOHandlerEdges(NBEdgeCont &ec, NBNodeCont &nc)
         : SUMOSAXHandler("sumo-network"),
-        myLoading(what), myEdgeCont(ec), myNodeCont(nc)
+        myEdgeCont(ec), myNodeCont(nc)
 {}
 
 
@@ -63,7 +61,7 @@ void
 NISUMOHandlerEdges::myStartElement(SumoXMLTag element,
                                    const Attributes &attrs) throw(ProcessError)
 {
-    if (element==SUMO_TAG_EDGE&&myLoading==LOADFILTER_ALL) {
+    if (element==SUMO_TAG_EDGE) {
         addEdge(attrs);
     }
 }

@@ -39,7 +39,6 @@
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 #include <utils/xml/SAXWeightsHandler.h>
 #include <microsim/MSNet.h>
-#include "NLLoadFilter.h"
 #include "NLGeomShapeBuilder.h"
 
 
@@ -108,8 +107,7 @@ public:
 
 protected:
     /// loads a described subpart form the given list of files
-    bool load(const std::string &mmlWhat, NLLoadFilter what,
-              SAX2XMLReader &parser);
+    bool load(const std::string &mmlWhat, SAX2XMLReader &parser);
 
     /// Closes the net building process
     void buildNet();

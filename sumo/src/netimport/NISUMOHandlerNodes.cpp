@@ -46,10 +46,8 @@
 
 using namespace std;
 
-NISUMOHandlerNodes::NISUMOHandlerNodes(NBNodeCont &nc, LoadFilter what)
-        : SUMOSAXHandler("sumo-network"),
-        myLoading(what),
-        myNodeCont(nc)
+NISUMOHandlerNodes::NISUMOHandlerNodes(NBNodeCont &nc)
+        : SUMOSAXHandler("sumo-network"), myNodeCont(nc)
 {}
 
 
@@ -63,9 +61,7 @@ NISUMOHandlerNodes::myStartElement(SumoXMLTag element,
 {
     switch (element) {
     case SUMO_TAG_JUNCTION:
-        if (myLoading==LOADFILTER_ALL) {
-            addNode(attrs);
-        }
+        addNode(attrs);
         break;
     default:
         break;

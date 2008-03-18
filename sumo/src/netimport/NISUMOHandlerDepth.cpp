@@ -37,9 +37,8 @@
 #endif // CHECK_MEMORY_LEAKS
 
 
-NISUMOHandlerDepth::NISUMOHandlerDepth(LoadFilter what)
-        : SUMOSAXHandler("sumo-network"),
-        myLoading(what)
+NISUMOHandlerDepth::NISUMOHandlerDepth()
+        : SUMOSAXHandler("sumo-network")
 {}
 
 
