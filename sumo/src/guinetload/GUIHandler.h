@@ -61,7 +61,7 @@ public:
                NLDetectorBuilder &detBuilder, NLTriggerBuilder &triggerBuilder,
                NLEdgeControlBuilder &edgeBuilder,
                NLJunctionControlBuilder &junctionBuilder,
-               NLGeomShapeBuilder &shapeBuilder, int incDUABase, int incDUAStage);
+               NLGeomShapeBuilder &shapeBuilder, int incDUABase, int incDUAStage) throw();
 
     /// standard destructor
     ~GUIHandler() throw();
@@ -69,17 +69,6 @@ public:
 protected:
     /// @name inherited from GenericSAXHandler
     //@{
-
-    /** @brief Called on the opening of a tag;
-     *
-     * @param[in] element ID of the currently opened element
-     * @param[in] attrs Attributes within the currently opened element
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myStartElement
-     */
-    void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw(ProcessError);
-
 
     /** @brief Called when characters occure
      *
