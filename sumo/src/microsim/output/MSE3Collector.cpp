@@ -161,6 +161,10 @@ MSE3Collector::reset() throw()
 void
 MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep) throw()
 {
+    if (myEnteredContainer.find(&veh)!=myEnteredContainer.end()) {
+        MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' reentered E3-detector '" + getID() + "'.");
+        return;
+    }
     veh.quitRemindedEntered(this);
     E3Values v;
     v.entryTime = entryTimestep;
@@ -171,9 +175,6 @@ MSE3Collector::enter(MSVehicle& veh, SUMOReal entryTimestep) throw()
     v.haltingBegin = -1;
     v.intervalSpeedSum = 0;
     v.intervalHaltings = 0;
-    if (myEnteredContainer.find(&veh)!=myEnteredContainer.end()) {
-        MsgHandler::getWarningInstance()->inform("Vehicle '" + veh.getID() + "' reentered E3-detector '" + getID() + "'.");
-    }
     myEnteredContainer[&veh] = v;
 }
 

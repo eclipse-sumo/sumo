@@ -69,21 +69,17 @@ MSVehicleControl::MSVehicleControl()
 
 MSVehicleControl::~MSVehicleControl()
 {
-    {
-        // delete vehicles
-        for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
-            delete(*i).second;
-        }
+    // delete vehicles
+    for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
+        delete(*i).second;
     }
-    {
-        vector<MSVehicleType*>::const_iterator i;
-        for (i=myObsoleteVehicleTypes.begin(); i!=myObsoleteVehicleTypes.end(); ++i) {
-            delete *i;
-        }
-        const vector<MSVehicleType*> &vehs1 = myVehicleTypeDistribution.getVals();
-        for (i=vehs1.begin(); i!=vehs1.end(); ++i) {
-            delete *i;
-        }
+    // delete vehicle types
+    for (vector<MSVehicleType*>::const_iterator i=myObsoleteVehicleTypes.begin(); i!=myObsoleteVehicleTypes.end(); ++i) {
+        delete *i;
+    }
+    const vector<MSVehicleType*> &vehs1 = myVehicleTypeDistribution.getVals();
+    for (vector<MSVehicleType*>::const_iterator i=vehs1.begin(); i!=vehs1.end(); ++i) {
+        delete *i;
     }
     // delete current types
     myVehicleDict.clear();
