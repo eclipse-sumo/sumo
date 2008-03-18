@@ -1,23 +1,29 @@
-# python
-# execute the incremetal traffic assignment with the given amount of OD demand
-# the path information and the path travel time at each iteration will be stored in the file "path.txt"
+#!/usr/bin/env python
+"""
+@file    assign.py
+@author  Yun-Pang.Wang@dlr.de
+@date    2007-11-25
+@version $Id: assign.py 2008-03-17$
 
-#import math
-#from network import Net
-#from elements import Vertex, Edge, Vehicle
+This script is for executing traffic assignment according to the required assignment model.
+The incremental assignment model, the C-Logit assignment model and the Lohse assignment model are included in this script. 
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
+"""
 
 import os, random, string, sys, math
 import elements
-from elements import Vertex, Edge, Path, Vehicle                                    # import the characteristics of Vertices, Edges and paths
+from elements import Vertex, Edge, Path, Vehicle
 from network import Net
-from commonality import CalCommonality
 
-def DoIncAssign(net, verbose, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID): # matrixPlong, matrixTruck):
-
+def doIncAssign(net, verbose, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID): 
+    # matrixPlong and matrixTruck should be added if available.
     for endVertex in endVertices:                                               
         end += 1
         endnode = endVertex
-        if str(startVertex) != str(endVertex) and (matrixPshort[start][end] > 0.0): # or matrixPlong[start][end] > 0.0 or matrixTruck[start][end] > 0.0):
+        if str(startVertex) != str(endVertex) and (matrixPshort[start][end] > 0.0):
+        # if matrixPling and the matrixTruck exist, matrixPlong[start][end] > 0.0 or matrixTruck[start][end] > 0.0): should be added.
             Path = []
             helpPath = []
             pathtime = 0.
@@ -27,27 +33,27 @@ def DoIncAssign(net, verbose, Parcontrol, iter, endVertices, start, end, startVe
                 if endnode == startVertex: 
                     break
                 endnode = P[endnode]
-            Path.reverse()                                                    # the path set (node list) will be generated regarding to the given destination "endVertex"
+            Path.reverse()
 
-            for i in range(0, len(Path)):                                     # generate link list and save it in "helpPath"
+            for i in range(0, len(Path)):
                 if Path[i] != endVertex:
                     node = Path[i]
                     for edge in node.outEdges:
                         if str(Path[i]) != str(Path[i+1]) and str(edge.source) == str(Path[i]) and str(edge.target) == str(Path[i+1]):
-                            helpPath.append(edge)                             # link list of the shortest route
-            
-            for edge in helpPath[1:-1]:                    # for generating vehicle routes used in SUMO  
+                            helpPath.append(edge)
+            # for generating vehicle routes used in SUMO 
+            for edge in helpPath[1:-1]: 
                 pathlength += edge.length
                 pathtime += edge.actualtime
-
-            pathflow = float(matrixPshort[start][end]*float(Parcontrol[iter]))  # the amount of the pathflow, which will be released at this iteration
+            # the amount of the pathflow, which will be released at this iteration
+            pathflow = float(matrixPshort[start][end]*float(Parcontrol[iter]))  
             if verbose:
                 print 'pathflow:', pathflow
             interval = 3600. / float(Parcontrol[0])
             
             AssignedTrip[startVertex][endVertex] += pathflow
             
-            while AssignedVeh[startVertex][endVertex] < int(round(AssignedTrip[startVertex][endVertex])):# and (AssignedTrip[startVertex][endVertex]-float(AssignedVeh[startVertex][endVertex]) >= 1.):  # VehCounter < pathflow and 
+            while AssignedVeh[startVertex][endVertex] < int(round(AssignedTrip[startVertex][endVertex])): 
                 vehID += 1
                 newVehicle = net.addVehicle(str(vehID))
                 newVehicle.route = helpPath
@@ -61,26 +67,28 @@ def DoIncAssign(net, verbose, Parcontrol, iter, endVertices, start, end, startVe
     
     return vehID, AssignedVeh, AssignedTrip
     
-# execute the SUE traffic assignment with the given path set
-
-def DoSUEAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter):  #, matrixPlong, matrixTruck
+# execute the C-Logit model with the given path set
+def doCLogitAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter):
+    # matrixPlong and matrixTruck should be added if available.
     if verbose:
         print 'pathNum', elements.pathNum   
     start = -1                  
-    for startVertex in startVertices:                                                # calculate the overlapping factors between any two paths of a given OD pair
+    # calculate the overlapping factors between any two paths of a given OD pair
+    for startVertex in startVertices: 
         start += 1
         end = -1
         for endVertex in endVertices:
             end += 1
             if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                 ODPaths = net._paths[startVertex][endVertex]
-                for path in ODPaths:                                                # update all path costs of the given OD pair
-                    path.UpdatePathActTime(net)
-                sum_exputility = CalCommonality(net, ODPaths, Parcontrol)
+                for path in ODPaths: 
+                    path.updatePathActTime(net)
+                sum_exputility = calCommonality(net, ODPaths, Parcontrol)
                 
-                for path in ODPaths:                                         # calculate the path choice probabilities and the path flows for the given OD Pair
+                # calculate the path choice probabilities and the path flows for the given OD Pair
+                for path in ODPaths:
                     path.choiceprob = math.exp(float(Parcontrol[4])*(-path.actpathtime - path.commfactor))/ sum_exputility  
-                    path.helpflow = matrixPshort[start][end] * path.choiceprob   #  + matrixPlong[start][end] + matrixTruck[start][end]
+                    path.helpflow = matrixPshort[start][end] * path.choiceprob
                     if iter < 2:    
                         for edge in path.Edges:
                             if str(edge.source) != str(edge.target):
@@ -88,25 +96,61 @@ def DoSUEAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertices,
                     else:
                         for edge in path.Edges:
                             if str(edge.source) != str(edge.target):
-                                edge.helpflow += path.helpflow                 # the path flow cannot be referenced
- 
-    TotalTime = 0.0                                                            # Reset the total link travel times in the network
-      
-    for edge in net._edges.itervalues():                                       # the link travel times will be updated according to the latest traffic assingment
+                                edge.helpflow += path.helpflow
+    
+    # Reset the total link travel times in the network
+    totalTime = 0.0
+                                                           
+    # link travel timess and link flows will be updated according to the latest traffic assingment  
+    for edge in net._edges.itervalues():                                       
         if str(edge.source) != str(edge.target):
             if iter > 1:
                 edge.flow = edge.flow + alpha * (edge.helpflow - edge.flow)
                 
                 if edge.flow < 0.:
                     edge.flow = 0.
-            edge.helpflow = 0.0                                                # reset the edge.helpflow for the next iteration
-            edge.getACTTT(curvefile) 
-            TotalTime += edge.actualtime * edge.flow
+            # reset the edge.helpflow for the next iteration
+            edge.helpflow = 0.0                                                
+            edge.getActualTravelTime(curvefile) 
+            totalTime += edge.actualtime * edge.flow
      
-    return TotalTime
+    return totalTime
+
+# calculate the commonality factors in the C-Logit model
+def calCommonality(net, ODPaths, Parcontrol):
+    # initialize the overlapping matrix
+    mtxOverlap = {}
+    for pathone in ODPaths:
+        mtxOverlap[pathone]={}
+        for pathtwo in ODPaths:
+            mtxOverlap[pathone][pathtwo] = 0.
+    
+    for pathone in ODPaths:
+        for pathtwo in ODPaths:
+            for edgeone in pathone.Edges:
+                for edgetwo in pathtwo.Edges:
+                    if str(edgeone.label) == str(edgetwo.label):
+                        mtxOverlap[pathone][pathtwo] += edgeone.actualtime
+            mtxOverlap[pathtwo][pathone] = mtxOverlap[pathone][pathtwo]
+   
+    sum_exputility = 0.
+    if len(ODPaths) > 1:
+        # calculate the commonality factors (CF) for the given OD pair 
+        for pathone in ODPaths:   
+            sum_overlap = 0.0 
+            for pathtwo in ODPaths:
+                sum_overlap += math.pow(mtxOverlap[pathone][pathtwo]/(math.pow(pathone.actpathtime,0.5) * math.pow(pathtwo.actpathtime,0.5)), float(Parcontrol[1]))
+            pathone.commfactor = float(Parcontrol[0]) * math.log(sum_overlap)
+            sum_exputility += math.exp(float(Parcontrol[4])*(-pathone.actpathtime - pathone.commfactor))
+    else:    
+        for path in ODPaths:
+            path.commfactor = 0.
+            sum_exputility += math.exp(float(Parcontrol[4])*(-path.actpathtime))
+
+    return sum_exputility
 
 # calculate the path choice probabilities and the path flows for each OD Pair    
-def DoVehAssign(net, verbose, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh,  AssignedTrip, vehID):
+def doCLogitVehAssign(net, verbose, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh,  AssignedTrip, vehID):
     if verbose:
         if counter == 0:
             foutpath = file('paths.txt', 'w')
@@ -128,28 +172,30 @@ def DoVehAssign(net, verbose, counter, matrixPshort, Parcontrol, startVertices, 
                 if verbose:
                     foutpath.write('destination=%s' %endVertex)
                 ODPaths = net._paths[startVertex][endVertex]
-                for path in ODPaths:                                  # update the path travel times
+                # update the path travel times
+                for path in ODPaths:
                     TotalPath += 1
-                    path.UpdatePathActTime(net)
+                    path.updatePathActTime(net)
                 
-                sum_exputility = CalCommonality(net, ODPaths, Parcontrol)
+                sum_exputility = calCommonality(net, ODPaths, Parcontrol)
                 
                 for path in ODPaths:
                     pathcount += 1
                     path.choiceprob = math.exp(float(Parcontrol[4])*(-path.actpathtime - path.commfactor))/ sum_exputility  
                     if pathcount < len(ODPaths):
-                        path.pathflow = matrixPshort[start][end] * path.choiceprob    # + matrixPlong[start][end] + matrixTruck[start][end]
+                        path.pathflow = matrixPshort[start][end] * path.choiceprob
                         cumulatedFlow += path.pathflow
                     else:
                         path.pathflow = matrixPshort[start][end] - cumulatedFlow
                     if verbose:
-                        foutpath.write('\npathID= %s, path flow=%2.2f, actpathtime=%2.2f, choiceprob=%2.2f, edges=' %(path.label, path.pathflow, path.actpathtime, path.choiceprob))
+                        foutpath.write('\npathID= %s, path flow=%2.2f, actpathtime=%2.2f, choiceprob=%2.2f, edges=' 
+                                        %(path.label, path.pathflow, path.actpathtime, path.choiceprob))
                         for item in path.Edges:
                             foutpath.write('%s, ' %(item.label))
                     
                     AssignedTrip[startVertex][endVertex] += path.pathflow
 
-                    while AssignedVeh[startVertex][endVertex] < int(round(AssignedTrip[startVertex][endVertex])): # generate vehicle list
+                    while AssignedVeh[startVertex][endVertex] < int(round(AssignedTrip[startVertex][endVertex])):
                         vehID += 1
                         newVehicle = net.addVehicle(str(vehID))
                         newVehicle.route = path.Edges
