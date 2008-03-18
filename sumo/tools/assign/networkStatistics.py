@@ -1,24 +1,30 @@
-# python
-# This script is for the incremental traffic assignment with a sumo-based traffic network
-# The Dijkstra algorithm is applied for searching the shortest paths.
-# The necessary inputs include:
-# SUMO net (.net.xml), OD-matrix file, zone connectors file, parameter file, OD-zone file and CR-curve file (for defining link cost functions)
+#!/usr/bin/env python
+"""
+@file    networkStatistics.py
+@author  Yun-Pang.Wang@dlr.de
+@date    2007-02-27
+@version $Id: networkStatistics.py 2008-03-18 $
+
+This script is to calculate the global performance indices according to the SUMO-based simulation results.
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
+"""
 
 import os, string, sys, datetime, random, math
 
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
-from elements import Vertex, Edge, Vehicle                                          # import the characteristics of Vertices, Edges and paths
-from network import Net, NetDetectorFlowReader, ZoneConnectionReader, VehInformationReader   # import characteristices of network and read xml files for retriving netork and zone connectors data
+from elements import Vertex, Edge, Vehicle
+from network import Net, NetDetectorFlowReader, ZoneConnectionReader, VehInformationReader
 
-## Program execution
+
 optParser = OptionParser()
-
-optParser.add_option("-c", "--zonalconnection-file", dest="confile",              #  XML file: containing the link information connectings to the respective traffic zone
+optParser.add_option("-d", "--district-file", dest="confile",
                      help="read OD Zones from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-n", "--net-file", dest="netfile",                          # XML file: containing the network geometric (link-node) information
+optParser.add_option("-n", "--net-file", dest="netfile",
                      help="read SUMO network from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-x", "--vehinform-file", dest="vehfile",                    # txt file: containing the control paramenter for incremental traffic assignment
+optParser.add_option("-x", "--vehinform-file", dest="vehfile",
                      help="read vehicle information from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-o", "--output-file", dest="outputfile", default="Global_MOE.txt",
                      help="write output to FILE", metavar="FILE")  
@@ -35,7 +41,7 @@ parser = make_parser()
 if options.verbose:
     print "Reading net"
     
-net = Net()                                                                    # generate the investigated network from the respective SUMO-network
+net = Net()
 
 Netreader = NetDetectorFlowReader(net)
 parser.setContentHandler(Netreader)
@@ -63,17 +69,17 @@ for veh in net._vehicles:
   
     for link in veh.route:
         veh.travellength += net.getEdge(link).length
-        
-    veh.speed = veh.travellength / veh.traveltime                              # unit: m/s
-    Totaltime += veh.traveltime                                                # unit: s
-    Totallength += veh.travellength                                            # unit: m
+    # unit: speed - m/s; traveltime - s; travel length - m    
+    veh.speed = veh.travellength / veh.traveltime                              
+    Totaltime += veh.traveltime
+    Totallength += veh.travellength
     Totalspeed += veh.speed
 
 avetime = Totaltime / Totalveh
 avelength = Totallength / Totalveh
 avespeed = Totalspeed / Totalveh
 
-foutveh = file(options.outputfile, 'w')                                           # initialize the file for recording the routes
+foutveh = file(options.outputfile, 'w')
 foutveh.write('average vehicular travel time(s) = the sum of all vehicular travel time / the number of vehicles\n')
 foutveh.write('average vehicular travel length(m) = the sum of all vehicular travel length / the number of vehicles\n')
 foutveh.write('average vehicular travel speed(m/s) = the sum of all vehicular travel speed / the number of vehicles\n')
