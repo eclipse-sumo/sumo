@@ -238,23 +238,23 @@ private:
     void convertExt2IntId(int extId, std::string& intId);
 
 	// maps all internal traffic light ids to external ids
-	std::map<int, std::string> trafficLightsExt2Int;
+	std::map<int, std::string> trafficLightsExt2IntId;
 	// maps all external traffic light ids to internal ids
-	std::map<std::string, int> trafficLightsInt2Ext;
+	std::map<std::string, int> trafficLightsInt2ExtId;
 
 	// maps all internal point of interest ids to external ids
-	std::map<int, std::string> poiExt2Int;
+	std::map<int, std::string> poiExt2IntId;
 	// maps all external point of interest ids to internal ids
-	std::map<std::string, int> poiInt2Ext;
+	std::map<std::string, int> poiInt2ExtId;
 
 	// maps all internal polygon ids to external ids
-	std::map<int, std::string> polygonExt2Int;
+	std::map<int, std::string> polygonExt2IntId;
 	// maps all external polygon ids to internal ids
-	std::map<std::string, int> polygonInt2Ext;
-	bool isPolygonMapChanged_;
+	std::map<std::string, int> polygonInt2ExtId;
+	//bool isPolygonMapChanged_;
 
 	// convert external polygon id to internal
-	void convertPolygonExt2Int(int extId, std::string& intId);
+	//void convertPolygonExt2Int(int extId, std::string& intId);
 
 	// return vehicle that is referenced by the given external id
     MSVehicle* getVehicleByExtId(int extId);

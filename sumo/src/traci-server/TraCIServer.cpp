@@ -87,7 +87,6 @@ TraCIServer::TraCIServer()
     penetration_ = oc.getFloat("penetration");
     routeFile_ = oc.getString("route-files");
     isMapChanged_ = true;
-	isPolygonMapChanged_ = true;
     numEquippedVehicles_ = 0;
     closeConnection_ = false;
     netBoundary_ = NULL;
@@ -108,29 +107,38 @@ TraCIServer::run()
     // Prepare simulation
     MSNet::getInstance()->initialiseSimulation();
 
-	// map the internal id of all traffic lights and poi to external id and vice versa
-	trafficLightsInt2Ext.clear();
-	trafficLightsExt2Int.clear();
-	poiExt2Int.clear();
-	poiInt2Ext.clear();
+	// map the internal id of all traffic lights, polygons and poi to external id and vice versa
+	trafficLightsInt2ExtId.clear();
+	trafficLightsExt2IntId.clear();
+	poiExt2IntId.clear();
+	poiInt2ExtId.clear();
+	polygonExt2IntId.clear();
+	polygonInt2ExtId.clear();
 	int extId = 0;
 	std::vector<std::string> tllIds = MSNet::getInstance()->getTLSControl().getAllTLIds();
 	for (std::vector<std::string>::iterator it=tllIds.begin(); it != tllIds.end(); it++) {
-		trafficLightsInt2Ext[(*it)] = extId;
-		trafficLightsExt2Int[extId] = (*it);
+		trafficLightsInt2ExtId[(*it)] = extId;
+		trafficLightsExt2IntId[extId] = (*it);
 		extId++;
 	}
 	int poiId = 0;
+	int polyId = 0;
 	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
 	for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
 		std::vector<PointOfInterest*> poiList = shapeCont.getPOICont(i).getTempVector();
 		for (std::vector<PointOfInterest*>::iterator it=poiList.begin(); it != poiList.end(); it++) {
-			poiInt2Ext[(*it)->getID()] = poiId;
-			poiExt2Int[poiId] = (*it)->getID();
+			poiInt2ExtId[(*it)->getID()] = poiId;
+			poiExt2IntId[poiId] = (*it)->getID();
 			poiId++;
 		}
+		std::vector<Polygon2D*> polyList = shapeCont.getPolygonCont(i).getTempVector();
+		for (std::vector<Polygon2D*>::iterator it=polyList.begin(); it != polyList.end(); it++) {
+			polygonInt2ExtId[(*it)->getName()] = polyId;
+			polygonExt2IntId[polyId] = (*it)->getName();
+			polyId++;
+		}
 	}
-
+	
     try {
         // Opens listening socket
         std::cout << "***Starting server on port " << port_  << " ***" << std::endl;
@@ -297,21 +305,6 @@ throw(TraCIException)
             }
         }
     }
-
-	// build map of internal/external ids for polygons
-	isPolygonMapChanged_ = true;
-	polygonExt2Int.clear();
-	polygonInt2Ext.clear();
-	int polyId = 0;
-	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
-	for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
-		std::vector<Polygon2D*> polyList = shapeCont.getPolygonCont(i).getTempVector();
-		for (std::vector<Polygon2D*>::iterator it=polyList.begin(); it != polyList.end(); it++) {
-			polygonInt2Ext[(*it)->getName()] = polyId;
-			polygonExt2Int[polyId] = (*it)->getName();
-			polyId++;
-		}
-	}
 
     // prepare output
     try {
@@ -1161,9 +1154,9 @@ MSTrafficLightLogic*
 TraCIServer::getTLLogicByExtId(int extId) 
 {
 	std::string intId = "";
-	std::map<int, std::string>::iterator iter = trafficLightsExt2Int.find(extId);
-	if (iter != trafficLightsExt2Int.end()) {
-		intId = trafficLightsExt2Int[extId];
+	std::map<int, std::string>::iterator iter = trafficLightsExt2IntId.find(extId);
+	if (iter != trafficLightsExt2IntId.end()) {
+		intId = trafficLightsExt2IntId[extId];
 	}
 
 	return MSNet::getInstance()->getTLSControl().getActive(intId);
@@ -1175,9 +1168,9 @@ PointOfInterest*
 TraCIServer::getPoiByExtId(int extId)
 {
 	std::string intId = "";
-	std::map<int, std::string>::iterator iter = poiExt2Int.find(extId);
-	if (iter != poiExt2Int.end()) {
-		intId = poiExt2Int[extId];
+	std::map<int, std::string>::iterator iter = poiExt2IntId.find(extId);
+	if (iter != poiExt2IntId.end()) {
+		intId = poiExt2IntId[extId];
 	}
 
 	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
@@ -1193,25 +1186,25 @@ TraCIServer::getPoiByExtId(int extId)
 
 /*****************************************************************************/
 
-void 
-TraCIServer::convertPolygonExt2Int(int extId, std::string& intId)
-{
-	if (isPolygonMapChanged_) {
-        isPolygonMapChanged_ = false;
-        polygonExt2Int.clear();
-        for (map<std::string, int>::const_iterator iter = polygonInt2Ext.begin(); iter != polygonInt2Ext.end(); ++iter) {
-			polygonExt2Int[iter->second] = iter->first;
-        }
-    }
-
-    // Search for external-Id-int and return internal-Id-string
-    map<int, std::string>::const_iterator it = ext2intId.find(extId);
-	if (it != ext2intId.end()) {
-		intId = it->second;
-	} else {
-		intId = "";
-	}
-}
+//void 
+//TraCIServer::convertPolygonExt2Int(int extId, std::string& intId)
+//{
+//	if (isPolygonMapChanged_) {
+//        isPolygonMapChanged_ = false;
+//        polygonExt2IntId.clear();
+//        for (map<std::string, int>::const_iterator iter = polygonInt2ExtId.begin(); iter != polygonInt2ExtId.end(); ++iter) {
+//			polygonExt2IntId[iter->second] = iter->first;
+//        }
+//    }
+//
+//    // Search for external-Id-int and return internal-Id-string
+//    map<int, std::string>::const_iterator it = ext2intId.find(extId);
+//	if (it != ext2intId.end()) {
+//		intId = it->second;
+//	} else {
+//		intId = "";
+//	}
+//}
 
 /*****************************************************************************/
 
@@ -1219,7 +1212,10 @@ Polygon2D*
 TraCIServer::getPolygonByExtId(int extId)
 {
 	std::string intId = "";
-	convertPolygonExt2Int(extId, intId);
+	map<int, std::string>::const_iterator it = ext2intId.find(extId);
+	if (it != ext2intId.end()) {
+		intId = it->second;
+	}
 
 	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
 	Polygon2D* polygon = NULL;
@@ -1444,11 +1440,13 @@ std::string
 TraCIServer::handleVehicleDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) 
 throw(TraCIException)
 {
-	MSVehicle* veh = NULL;
-	string warning = "";	// additional description for response
+	std::string name;
+	int count = 0;
+	std::string warning = "";	// additional description for response
 
 	// domain object
 	int objectId = requestMsg.readInt();
+	MSVehicle* veh = getVehicleByExtId(objectId);	//get node by id
 
 	// variable id
 	int variableId = requestMsg.readUnsignedByte();
@@ -1467,15 +1465,47 @@ throw(TraCIException)
 	response.writeUnsignedByte(variableId);		// variable
 
 	switch (variableId) {
+	// name string of the object
+	case DOMVAR_NAME:
+		if (veh != NULL) {
+			name = veh->getID();
+			response.writeUnsignedByte(TYPE_STRING);
+			response.writeString(name);
+			// add a warning to the response if the requested data type was not correct
+			if (dataType != TYPE_STRING) {
+				warning = "Warning: requested data type could not be used; using string instead!";
+			}
+		} else {
+			throw TraCIException("Unable to retrieve node with given ID");
+		}
+		break;
 
 	// number of nodes
 	case DOMVAR_COUNT:
 		throw TraCIException("Number of nodes not yet implemented");
 		break;
 
+	// upper bound for number of nodes
+	case DOMVAR_MAXCOUNT:
+		throw TraCIException("Variable not implemented yet");
+		break;
+
+	// number of traci nodes
+	case DOMVAR_EQUIPPEDCOUNT:
+		response.writeUnsignedByte(TYPE_INTEGER);
+		response.writeInt(numEquippedVehicles_);
+		if (dataType != TYPE_INTEGER) {
+			warning = "Warning: requested data type could not be used; using integer instead!";
+		}
+		break;
+
+	// upper bound for number of traci nodes
+	case DOMVAR_EQUIPPEDCOUNTMAX:
+		throw TraCIException("Variable not implemented yet");
+		break;
+
 	// node position
 	case DOMVAR_POSITION:
-		veh = getVehicleByExtId(objectId);	//get node by id
 		if (veh != NULL) {
 			switch (dataType) {
 			case POSITION_3D:
@@ -1507,7 +1537,6 @@ throw(TraCIException)
 
 	// node speed
 	case DOMVAR_SPEED:
-		veh = getVehicleByExtId(objectId);	//get node by id
 		if (veh != NULL) {
 			response.writeUnsignedByte(TYPE_FLOAT);
 			response.writeFloat(veh->getSpeed());
@@ -1534,7 +1563,9 @@ std::string
 TraCIServer::handleTrafficLightDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response)  
 throw(TraCIException)
 {
-	string warning = "";	// additional description for response
+	int count = 0;
+	std::string name;
+	std::string warning = "";	// additional description for response
 
 	// domain object
 	int objectId = requestMsg.readInt();
@@ -1557,10 +1588,41 @@ throw(TraCIException)
 	response.writeUnsignedByte(variableId);		// variable
 
 	switch (variableId) {
+	// name string of the object
+	case DOMVAR_NAME:
+		if (tlLogic != NULL) {
+			name = tlLogic->getID();
+			response.writeUnsignedByte(TYPE_STRING);
+			response.writeString(name);
+			// add a warning to the response if the requested data type was not correct
+			if (dataType != TYPE_STRING) {
+				warning = "Warning: requested data type could not be used; using string instead!";
+			}
+		} else {
+			throw TraCIException("Unable to retrieve traffic light with given id");
+		}
+		break;
+
+	// count of traffic lights
 	case DOMVAR_COUNT:
-	    response.writeUnsignedByte(TYPE_INTEGER);
-	    response.writeInt(42);
-	    break;
+		count = MSNet::getInstance()->getTLSControl().getAllTLIds().size();
+		response.writeUnsignedByte(TYPE_INTEGER);
+		response.writeInt(count);
+		// add a warning to the response if the requested data type was not correct
+		if (dataType != TYPE_INTEGER) {
+			warning = "Warning: requested data type could not be used; using integer instead!";
+		}
+		break;
+
+	// position of a traffic light
+	case DOMVAR_POSITION:
+		if (tlLogic != NULL) {
+			throw TraCIException("Variable not implemented yet");
+		} else {
+			throw TraCIException("Unable to retrieve traffic light with given id");
+		}
+		break;
+
 	// current or next traffic light phase
 	case DOMVAR_CURTLPHASE:
 	case DOMVAR_NEXTTLPHASE:
@@ -1676,18 +1738,12 @@ std::string
 TraCIServer::handlePoiDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) 
 throw(TraCIException)
 {
-/*	int intValue = 0;
-	double realValue = 0;
-	std::string stringValue = "";
-	float posxValue = 0;
-	float posyValue = 0;
-	float poszValue = 0;
-	RoadMapPos roadPosValue;*/
-
-	string warning = "";	// additional description for response
+	std::string name;
+	std::string warning = "";	// additional description for response
 
 	// domain object
 	int objectId = requestMsg.readInt();
+	PointOfInterest* poi = getPoiByExtId(objectId);
 
 	// variable id
 	int variableId = requestMsg.readUnsignedByte();
@@ -1698,41 +1754,6 @@ throw(TraCIException)
 	// read the value that shall be written
 	if (isWriteCommand) {
 		throw TraCIException("Point of interest domain does not contain writable variables");
-/*		switch (dataType) {
-		case TYPE_UBYTE:
-			intValue = requestMsg.readUnsignedByte();
-			break;
-		case TYPE_BYTE:
-			intValue = requestMsg.readByte();
-			break;
-		case TYPE_INTEGER:
-			intValue = requestMsg.readInt();
-			break;
-		case TYPE_FLOAT:
-			realValue = requestMsg.readFloat();
-			break;
-		case TYPE_DOUBLE:
-			realValue = requestMsg.readDouble();
-			break;
-		case TYPE_STRING:
-			stringValue = requestMsg.readString();
-			break;
-		case POSITION_ROADMAP:
-			roadPosValue.roadId = requestMsg.readString();
-			roadPosValue.pos = requestMsg.readFloat();
-			roadPosValue.laneId = requestMsg.readUnsignedByte();
-			break;
-		case POSITION_2D:
-		case POSITION_3D:
-			posxValue = requestMsg.readFloat();
-			posyValue = requestMsg.readFloat();
-			if (dataType == POSITION_3D) {
-				poszValue = requestMsg.readFloat();
-			}
-			break;
-		default:
-			throw TraCIException("Value data type is unknown or not intended for writing");
-		}*/
 	}
 
 	// write beginning of the answer message
@@ -1747,10 +1768,23 @@ throw(TraCIException)
 	for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
 			count += shapeCont.getPOICont(i).size();
 	}
-	// get poi by external id
-	PointOfInterest* poi = getPoiByExtId(objectId);
 
 	switch (variableId) {
+	// name string of the object
+	case DOMVAR_NAME:
+		if (poi != NULL) {
+			name = poi->getID();
+			response.writeUnsignedByte(TYPE_STRING);
+			response.writeString(name);
+			// add a warning to the response if the requested data type was not correct
+			if (dataType != TYPE_STRING) {
+				warning = "Warning: requested data type could not be used; using string instead!";
+			}
+		} else {
+			throw TraCIException("Unable to retrieve point of interest with given id");
+		}
+		break;
+
 	// number of poi
 	case DOMVAR_COUNT:
 		response.writeUnsignedByte(TYPE_INTEGER);
@@ -1807,18 +1841,12 @@ std::string
 TraCIServer::handlePolygonDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) 
 throw(TraCIException)
 {
-/*	int intValue = 0;
-	double realValue = 0;
-	std::string stringValue = "";
-	float posxValue = 0;
-	float posyValue = 0;
-	float poszValue = 0;
-	RoadMapPos roadPosValue;*/
-
-	string warning = "";	// additional description for response
+	std::string name;
+	std::string warning = "";	// additional description for response
 
 	// domain object
 	int objectId = requestMsg.readInt();
+	Polygon2D* poly = getPolygonByExtId(objectId);
 
 	// variable id
 	int variableId = requestMsg.readUnsignedByte();
@@ -1829,41 +1857,6 @@ throw(TraCIException)
 	// read the value that shall be written
 	if (isWriteCommand) {
 		throw TraCIException("Polygon domain does not contain writable variables");
-/*		switch (dataType) {
-		case TYPE_UBYTE:
-			intValue = requestMsg.readUnsignedByte();
-			break;
-		case TYPE_BYTE:
-			intValue = requestMsg.readByte();
-			break;
-		case TYPE_INTEGER:
-			intValue = requestMsg.readInt();
-			break;
-		case TYPE_FLOAT:
-			realValue = requestMsg.readFloat();
-			break;
-		case TYPE_DOUBLE:
-			realValue = requestMsg.readDouble();
-			break;
-		case TYPE_STRING:
-			stringValue = requestMsg.readString();
-			break;
-		case POSITION_ROADMAP:
-			roadPosValue.roadId = requestMsg.readString();
-			roadPosValue.pos = requestMsg.readFloat();
-			roadPosValue.laneId = requestMsg.readUnsignedByte();
-			break;
-		case POSITION_2D:
-		case POSITION_3D:
-			posxValue = requestMsg.readFloat();
-			posyValue = requestMsg.readFloat();
-			if (dataType == POSITION_3D) {
-				poszValue = requestMsg.readFloat();
-			}
-			break;
-		default:
-			throw TraCIException("Value data type is unknown or not intended for writing");
-		}*/
 	}
 
 	// write beginning of the answer message
@@ -1876,19 +1869,24 @@ throw(TraCIException)
 	int count = 0;
 	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
 	for (int i = shapeCont.getMinLayer(); i <= shapeCont.getMaxLayer(); i++) {
-		/*std::vector<Polygon2D*> polygonList = shapeCont.getPolygonCont(i).getTempVector();
-		for (std::vector<Polygon2D*>::iterator it=polygonList.begin(); it != polygonList.end(); it++) {
-			if ((*it)->getName().compare("") != 0) {
-				count++;
-			}
-		}*/	
 		count += shapeCont.getPolygonCont(i).size();
 	}
-	// get polygon by external id
-	Polygon2D* poly = getPolygonByExtId(objectId);
-	
 
 	switch (variableId) {
+	// name string of the object
+	case DOMVAR_NAME:
+		if (poly != NULL) {
+			name = poly->getName();
+			response.writeUnsignedByte(TYPE_STRING);
+			response.writeString(name);
+			if (dataType != TYPE_STRING) {
+			warning = "Warning: requested data type could not be used; using string instead!";
+		}
+		} else {
+			throw TraCIException("Unable to retrieve polygon with given id");
+		}
+		break;
+
 	// number of polygons
 	case DOMVAR_COUNT:
 		response.writeUnsignedByte(TYPE_INTEGER);
@@ -1902,13 +1900,7 @@ throw(TraCIException)
 	// position of a polygon
 	case DOMVAR_POSITION:
 		if (poly == NULL) {
-			std::stringstream s;
-			if (polygonExt2Int.find(objectId) == polygonExt2Int.end()) {
-				s << "id not existing";
-			} else {
-				s << "Unable to retrieve polygon with given id " << polygonExt2Int[objectId];
-			}
-			throw TraCIException(s.str());
+			throw TraCIException("Unable to retrieve polygon with given id");
 		} else {
 			response.writeUnsignedByte(POSITION_3D);
 			response.writeFloat(poly->getPosition2DVector().center().x());

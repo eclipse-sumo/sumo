@@ -165,6 +165,14 @@
 #define DOMVAR_LAYER 0x08
 // shape of a polygon
 #define DOMVAR_POLYSHAPE 0x09
+// max count of vehicles
+#define DOMVAR_MAXCOUNT 0x0A
+// count of TraCI vehicles
+#define DOMVAR_EQUIPPEDCOUNT 0x0B
+// max count of TraCI vehicles
+#define DOMVAR_EQUIPPEDCOUNTMAX 0x0C
+// id string of a domain object
+#define DOMVAR_NAME 0x0D
 
 // ****************************************
 // TRAFFIC LIGHT PHASES
