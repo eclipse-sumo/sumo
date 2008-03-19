@@ -89,7 +89,7 @@ logQuiet = open("one_shot-log-quiet.txt", "w")
 sys.stdout = TeeFile(sys.stdout, logQuiet)
 sys.stderr = TeeFile(sys.stderr, logQuiet)
 starttime = datetime.now()
-for step in [-1, 3600, 1800, 900, 300, 150, 90, 60, 30, 15]:
+for step in [-1, 1800, 300, 15]:
     btimeA = datetime.now()
     print "> Executing step " + str(step)
 
@@ -99,7 +99,7 @@ for step in [-1, 3600, 1800, 900, 300, 150, 90, 60, 30, 15]:
     print ">>> Begin time %s" % btime
     writeSUMOConf(step, options, options.trips)
     if options.verbose:
-        print "> Call: %s -c iteration_%s.sumo.cfg" % (sumoBinary, step)
+        print "> Call: %s -c one_shot_%s.sumo.cfg" % (sumoBinary, step)
         subprocess.call("%s -c one_shot_%s.sumo.cfg" % (sumoBinary, step),
                         shell=True, stdout=TeeFile(sys.__stdout__, log),
                         stderr=TeeFile(sys.__stderr__, log))
