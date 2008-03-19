@@ -80,7 +80,7 @@ public:
     virtual GUIDetectorWrapper *buildDetectorWrapper(
         GUIGlObjectStorage &idStorage,
         GUILaneWrapper &wrapper, GUI_E2_ZS_CollectorOverLanes& p,
-        size_t glID);
+        GLuint glID);
 
 public:
     /**
@@ -96,7 +96,7 @@ class MyWrapper : public GUIDetectorWrapper
 
         /// Constructor for collectors joined over lanes
         MyWrapper(GUI_E2_ZS_Collector &detector,
-                  GUIGlObjectStorage &idStorage, size_t glID,
+                  GUIGlObjectStorage &idStorage, GLuint glID,
                   GUI_E2_ZS_CollectorOverLanes &mustBe,
                   GUILaneWrapper &wrapper) throw();
 

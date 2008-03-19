@@ -58,7 +58,7 @@ GUIGlObject::GUIGlObject(GUIGlObjectStorage &idStorage,
 
 
 GUIGlObject::GUIGlObject(GUIGlObjectStorage &idStorage,
-                         std::string fullName, size_t glID) throw()
+                         std::string fullName, GLuint glID) throw()
         : myFullName(fullName)
 {
     idStorage.registerObject(this, glID);
@@ -76,7 +76,7 @@ GUIGlObject::getFullName() const throw()
 }
 
 
-size_t
+GLuint
 GUIGlObject::getGlID() const throw()
 {
     return myGlID;
@@ -84,7 +84,7 @@ GUIGlObject::getGlID() const throw()
 
 
 void
-GUIGlObject::setGlID(size_t id) throw()
+GUIGlObject::setGlID(GLuint id) throw()
 {
     myGlID = id;
 }

@@ -37,6 +37,12 @@
 #include <utils/geom/Position2D.h>
 #include <utils/gui/windows/GUIGrid.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
+
 
 // ===========================================================================
 // class declarations
@@ -153,16 +159,16 @@ public:
     //@{
 
     /// Returns the gl-ids of all junctions within the net
-    std::vector<size_t> getJunctionIDs() const;
+    std::vector<GLuint> getJunctionIDs() const;
 
     /// Returns the gl-ids of all traffic light logics within the net
-    std::vector<size_t> getTLSIDs() const;
+    std::vector<GLuint> getTLSIDs() const;
 
     /// Returns the gl-ids of all additional things within the net
-    std::vector<size_t> getAdditionalIDs() const;
+    std::vector<GLuint> getAdditionalIDs() const;
 
     /// Returns the gl-ids of all shapes within the net
-    std::vector<size_t> getShapeIDs() const;
+    std::vector<GLuint> getShapeIDs() const;
     //@}
 
 

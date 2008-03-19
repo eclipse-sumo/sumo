@@ -62,7 +62,7 @@ public:
 
     /// Constructor for collectors over somthing
     GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
-                       std::string id, size_t glID) throw();
+                       std::string id, GLuint glID) throw();
 
     /// Destructor
     ~GUIDetectorWrapper() throw();

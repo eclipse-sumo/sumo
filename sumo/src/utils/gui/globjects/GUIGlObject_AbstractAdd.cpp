@@ -66,7 +66,7 @@ GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
 
 GUIGlObject_AbstractAdd::GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
         std::string fullName,
-        size_t glID,
+        GLuint glID,
         GUIGlObjectType type) throw()
         : GUIGlObject(idStorage, fullName, glID), myGlType(type)
 {
@@ -119,10 +119,10 @@ GUIGlObject_AbstractAdd::getObjectList()
 }
 
 
-std::vector<size_t>
+std::vector<GLuint>
 GUIGlObject_AbstractAdd::getIDList()
 {
-    std::vector<size_t> ret;
+    std::vector<GLuint> ret;
     for (std::vector<GUIGlObject_AbstractAdd*>::iterator i=myObjectList.begin(); i!=myObjectList.end(); ++i) {
         ret.push_back((*i)->getGlID());
     }

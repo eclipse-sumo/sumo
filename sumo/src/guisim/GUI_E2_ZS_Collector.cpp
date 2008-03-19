@@ -86,7 +86,7 @@ GUIDetectorWrapper *
 GUI_E2_ZS_Collector::buildDetectorWrapper(GUIGlObjectStorage &idStorage,
         GUILaneWrapper &wrapper,
         GUI_E2_ZS_CollectorOverLanes& p,
-        size_t glID)
+        GLuint glID)
 {
     return new MyWrapper(*this, idStorage, glID, p, wrapper);
 }
@@ -108,7 +108,7 @@ GUI_E2_ZS_Collector::MyWrapper::MyWrapper(GUI_E2_ZS_Collector &detector,
 
 GUI_E2_ZS_Collector::MyWrapper::MyWrapper(
     GUI_E2_ZS_Collector &detector, GUIGlObjectStorage &idStorage,
-    size_t glID, GUI_E2_ZS_CollectorOverLanes &,
+    GLuint glID, GUI_E2_ZS_CollectorOverLanes &,
     GUILaneWrapper &wrapper) throw()
         : GUIDetectorWrapper(idStorage, "E2 detector:"+detector.getID(), glID),
         myDetector(detector)
@@ -127,7 +127,8 @@ GUI_E2_ZS_Collector::MyWrapper::myConstruct(GUI_E2_ZS_Collector &detector,
     //
     myShapeRotations.reserve(myFullGeometry.size()-1);
     myShapeLengths.reserve(myFullGeometry.size()-1);
-    for (size_t i=0; i<myFullGeometry.size()-1; ++i) {
+    int e = (int) myFullGeometry.size() - 1;
+    for (int i=0; i<e; ++i) {
         const Position2D &f = myFullGeometry[i];
         const Position2D &s = myFullGeometry[i+1];
         myShapeLengths.push_back(GeomHelper::distance(f, s));
@@ -211,9 +212,9 @@ GUI_E2_ZS_Collector::MyWrapper::drawGL(SUMOReal, SUMOReal upscale) throw()
         glScaled(upscale, upscale, upscale);
         GLHelper::drawBoxLines(myFullGeometry, myShapeRotations, myShapeLengths, myWidth);
     } else {
-        for (size_t i=0; i<myFullGeometry.size()-1; ++i) {
-            GLHelper::drawLine(myFullGeometry[i],
-                               myShapeRotations[i], myShapeLengths[i]);
+        int e = (int) myFullGeometry.size() - 1;
+        for (int i=0; i<e; ++i) {
+            GLHelper::drawLine(myFullGeometry[i], myShapeRotations[i], myShapeLengths[i]);
         }
     }
 }

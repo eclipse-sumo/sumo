@@ -49,6 +49,12 @@
 #include <microsim/MSEdge.h>
 #include <guisim/GUIEdge.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h> 
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -135,10 +141,10 @@ void
 GUIDialog_GLChosenEditor::rebuildList() throw()
 {
     myList->clearItems();
-    const std::vector<size_t> &chosen = gSelected.getSelected();
-    for (std::vector<size_t>::const_iterator i=chosen.begin(); i!=chosen.end(); ++i) {
+    const std::vector<GLuint> &chosen = gSelected.getSelected();
+    for (std::vector<GLuint>::const_iterator i=chosen.begin(); i!=chosen.end(); ++i) {
         GUIGlObject *object = gIDStorage.getObjectBlocking(*i);
-        if (object!=0) {
+        if (object!=0) { 
             std::string name = object->getFullName();
             FXListItem *item = myList->getItem(myList->appendItem(name.c_str()));
             item->setData((void*) *i);
@@ -200,10 +206,10 @@ GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*)
 {
     FXint no = myList->getNumItems();
     FXint i;
-    vector<size_t> selected;
+    vector<GLuint> selected;
     for (i=0; i<no; ++i) {
         if (myList->getItem(i)->isSelected()) {
-            selected.push_back((size_t) myList->getItem(i)->getData());
+            selected.push_back((GLuint) myList->getItem(i)->getData());
         }
     }
     // remove items from list

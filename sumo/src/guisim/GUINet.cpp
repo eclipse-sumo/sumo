@@ -289,10 +289,10 @@ GUINet::guiSimulationStep()
 }
 
 
-std::vector<size_t>
+std::vector<GLuint>
 GUINet::getJunctionIDs() const
 {
-    std::vector<size_t> ret;
+    std::vector<GLuint> ret;
     for (std::vector<GUIJunctionWrapper*>::const_iterator i=myJunctionWrapper.begin(); i!=myJunctionWrapper.end(); ++i) {
         ret.push_back((*i)->getGlID());
     }
@@ -300,10 +300,10 @@ GUINet::getJunctionIDs() const
 }
 
 
-std::vector<size_t>
+std::vector<GLuint>
 GUINet::getTLSIDs() const
 {
-    std::vector<size_t> ret;
+    std::vector<GLuint> ret;
     std::vector<string> ids;
     for (std::map<MSTrafficLightLogic*, GUITrafficLightLogicWrapper*>::const_iterator i=myLogics2Wrapper.begin(); i!=myLogics2Wrapper.end(); ++i) {
         size_t nid = (*i).second->getGlID();
@@ -317,10 +317,10 @@ GUINet::getTLSIDs() const
 }
 
 
-std::vector<size_t>
+std::vector<GLuint>
 GUINet::getShapeIDs() const
 {
-    std::vector<size_t> ret;
+    std::vector<GLuint> ret;
     if (myShapeContainer!=0) {
         int minLayer = myShapeContainer->getMinLayer();
         int maxLayer = myShapeContainer->getMaxLayer();

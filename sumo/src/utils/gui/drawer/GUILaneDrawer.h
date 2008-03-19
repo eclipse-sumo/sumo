@@ -112,7 +112,8 @@ public:
                             const DoubleVector &rots = lane.getShapeRotations();
                             const DoubleVector &lengths = lane.getShapeLengths();
                             const Position2DVector &geom = lane.getShape();
-                            for (size_t i=0; i<geom.size()-1; i++) {
+                            int e = (int) geom.size() - 1;
+                            for (int i=0; i<e; i++) {
                                 glPushMatrix();
                                 glTranslated(geom[i].x(), geom[i].y(), 0);
                                 glRotated(rots[i], 0, 0, 1);
@@ -209,7 +210,7 @@ protected:
         if (myShowToolTips) {
             glPushName(lane.getGlID());
         }
-        if (lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+        if(lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
             GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), SUMO_const_halfLaneWidth*mult);
         } else {
             GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), SUMO_const_quarterLaneWidth*mult);
@@ -240,7 +241,8 @@ protected:
         const DoubleVector &rots = lane.getShapeRotations();
         const DoubleVector &lengths = lane.getShapeLengths();
         const Position2DVector &geom = lane.getShape();
-        for (size_t i=0; i<geom.size()-1; i++) {
+        int e = (int) geom.size() - 1;
+        for (int i=0; i<e; i++) {
             GLHelper::drawLine(geom[i], rots[i], lengths[i]);
         }
         if (myShowToolTips) {
@@ -259,7 +261,8 @@ protected:
         const DoubleVector &lengths = lane1.getShapeLengths();
         const Position2DVector &geom1 = lane1.getShape();
         const Position2DVector &geom2 = lane2.getShape();
-        for (size_t i=0; i<geom1.size()-1; i++) {
+        int e = (int) geom1.size() - 1;
+        for (int i=0; i<e; i++) {
             GLHelper::drawLine(geom1[i], geom2[i], rots[i], lengths[i]);
         }
         if (myShowToolTips) {

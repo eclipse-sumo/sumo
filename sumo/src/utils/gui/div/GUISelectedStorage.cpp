@@ -63,7 +63,7 @@ GUISelectedStorage::SingleTypeSelections::~SingleTypeSelections() throw()
 
 
 bool
-GUISelectedStorage::SingleTypeSelections::isSelected(size_t id) throw()
+GUISelectedStorage::SingleTypeSelections::isSelected(GLuint id) throw()
 {
     std::vector<size_t>::iterator i=
         find(mySelected.begin(), mySelected.end(), id);
@@ -72,7 +72,7 @@ GUISelectedStorage::SingleTypeSelections::isSelected(size_t id) throw()
 
 
 void
-GUISelectedStorage::SingleTypeSelections::select(size_t id) throw()
+GUISelectedStorage::SingleTypeSelections::select(GLuint id) throw()
 {
     std::vector<size_t>::iterator i=
         find(mySelected.begin(), mySelected.end(), id);
@@ -83,7 +83,7 @@ GUISelectedStorage::SingleTypeSelections::select(size_t id) throw()
 
 
 void
-GUISelectedStorage::SingleTypeSelections::deselect(size_t id) throw()
+GUISelectedStorage::SingleTypeSelections::deselect(GLuint id) throw()
 {
     std::vector<size_t>::iterator i=
         find(mySelected.begin(), mySelected.end(), id);
@@ -127,7 +127,7 @@ GUISelectedStorage::SingleTypeSelections::save(const std::string &filename) thro
 }
 
 
-const std::vector<size_t> &
+const std::vector<GLuint> &
 GUISelectedStorage::SingleTypeSelections::getSelected() const throw()
 {
     return mySelected;
@@ -147,7 +147,7 @@ GUISelectedStorage::~GUISelectedStorage() throw()
 
 
 bool
-GUISelectedStorage::isSelected(int type, size_t id) throw(ProcessError)
+GUISelectedStorage::isSelected(int type, GLuint id) throw(ProcessError)
 {
     if (type==-1) {
         GUIGlObject *object =
@@ -192,7 +192,7 @@ GUISelectedStorage::isSelected(int type, size_t id) throw(ProcessError)
 
 
 void
-GUISelectedStorage::select(int type, size_t id, bool update) throw(ProcessError)
+GUISelectedStorage::select(int type, GLuint id, bool update) throw(ProcessError)
 {
     if (type==-1) {
         GUIGlObject *object =
@@ -248,7 +248,7 @@ GUISelectedStorage::select(int type, size_t id, bool update) throw(ProcessError)
 
 
 void
-GUISelectedStorage::deselect(int type, size_t id) throw(ProcessError)
+GUISelectedStorage::deselect(int type, GLuint id) throw(ProcessError)
 {
     if (type==-1) {
         GUIGlObject *object =
@@ -304,7 +304,7 @@ GUISelectedStorage::deselect(int type, size_t id) throw(ProcessError)
 
 
 void
-GUISelectedStorage::toggleSelection(size_t id) throw(ProcessError)
+GUISelectedStorage::toggleSelection(GLuint id) throw(ProcessError)
 {
     GUIGlObject *o =
         gIDStorage.getObjectBlocking(id);
@@ -321,14 +321,14 @@ GUISelectedStorage::toggleSelection(size_t id) throw(ProcessError)
 }
 
 
-const std::vector<size_t> &
+const std::vector<GLuint> &
 GUISelectedStorage::getSelected() const throw()
 {
     return mySelected;
 }
 
 
-const std::vector<size_t> &
+const std::vector<GLuint> &
 GUISelectedStorage::getSelected(GUIGlObjectType type) const throw(ProcessError)
 {
     switch (type) {

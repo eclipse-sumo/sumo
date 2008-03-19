@@ -53,7 +53,7 @@ public:
 
     /// Constructor for objects joining gl-objects
     GUIGlObject_AbstractAdd(GUIGlObjectStorage &idStorage,
-                            std::string fullName, size_t glID, GUIGlObjectType type) throw();
+                            std::string fullName, GLuint glID, GUIGlObjectType type) throw();
 
     ~GUIGlObject_AbstractAdd() throw();
 
@@ -73,7 +73,7 @@ public:
     static const std::vector<GUIGlObject_AbstractAdd*> &getObjectList();
 
     /// Retusn the list of gl-ids of all additional objects
-    static std::vector<size_t> getIDList();
+    static std::vector<GLuint> getIDList();
 
 protected:
     /// The object's type

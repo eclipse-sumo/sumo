@@ -34,6 +34,12 @@
 #include <fx.h>
 #include <utils/foxtools/MFXMutex.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
+
 
 // ===========================================================================
 // class declarations
@@ -72,25 +78,25 @@ public:
         This done within the constructor of the GUIGlObject;
         this method may be used when several objects shall share the same id.
         The id must be previously retrieved using "getUniqueID" */
-    void registerObject(GUIGlObject *object, size_t id);
+    void registerObject(GUIGlObject *object, GLuint id);
 
     /// retrievs a unique id for an object to display
-    size_t getUniqueID();
+    GLuint getUniqueID();
 
     /** @brief Retunrs the object from the container locking it
         The lock prevents the object from being deleted while it is accessed */
-    GUIGlObject *getObjectBlocking(size_t id);
+    GUIGlObject *getObjectBlocking(GLuint id);
 
     /** @brief Removes the named object from this container
         This function returns true if the object may be deleted;
         otherwise it's kept in an internal storage (for visualisation etc.) and will be removed by this class */
-    bool remove(size_t id);
+    bool remove(GLuint id);
 
     /// Clears this container
     void clear();
 
     /// Marks an object as unblocked
-    void unblockObject(size_t id);
+    void unblockObject(GLuint id);
 
 private:
     /// Definition of an associative container from numerical ids to objects
@@ -107,7 +113,7 @@ private:
 
     /** @brief The next id to give
         Initially zero, increased by one with each object registration */
-    size_t myAktID;
+    GLuint myAktID;
 
     /// A lock to avoid parallel access on the storages
     MFXMutex myLock;

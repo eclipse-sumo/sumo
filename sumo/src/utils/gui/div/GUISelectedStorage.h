@@ -36,6 +36,12 @@
 #include <utils/common/UtilExceptions.h>
 #include <utils/gui/globjects/GUIGlObjectTypes.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
+
 
 // ===========================================================================
 // class declarations
@@ -98,7 +104,7 @@ public:
      * @see GUIGlObjectType
      * @see SingleTypeSelections::isSelected
      */
-    bool isSelected(int type, size_t id) throw(ProcessError);
+    bool isSelected(int type, GLuint id) throw(ProcessError);
 
 
     /** @brief Adds the object with the given type and id to the list of selected objects
@@ -120,7 +126,7 @@ public:
      * @see SingleTypeSelections::select
      * @see GUIDialog_GLChosenEditor
      */
-    void select(int type, size_t id, bool update=true) throw(ProcessError);
+    void select(int type, GLuint id, bool update=true) throw(ProcessError);
 
 
     /** @brief Deselects the object with the given type and id
@@ -142,7 +148,7 @@ public:
      * @see SingleTypeSelections::deselect
      * @see GUIDialog_GLChosenEditor
      */
-    void deselect(int type, size_t id) throw(ProcessError);
+    void deselect(int type, GLuint id) throw(ProcessError);
 
 
     /** @brief Toggles selection of an object
@@ -159,7 +165,7 @@ public:
      * @see deselect
      * @see select
      */
-    void toggleSelection(size_t id) throw(ProcessError);
+    void toggleSelection(GLuint id) throw(ProcessError);
 
 
     /** @brief Returns the list of ids of all selected objects
@@ -168,7 +174,7 @@ public:
      *
      * @return A list containing the ids of all selected objects
      */
-    const std::vector<size_t> &getSelected() const throw();
+    const std::vector<GLuint> &getSelected() const throw();
 
 
     /**  @brief Returns the list of ids of all selected objects' of a certain type
@@ -183,7 +189,7 @@ public:
      * @exception ProcessError If the type is not covered by a sub-container
      * @see SingleTypeSelections::getSelected
      */
-    const std::vector<size_t> &getSelected(GUIGlObjectType type) const throw(ProcessError);
+    const std::vector<GLuint> &getSelected(GUIGlObjectType type) const throw(ProcessError);
 
 
     /** @brief Clears the list of selected objects
@@ -254,19 +260,19 @@ public:
          * @param[in] id The id of the object
          * @return Whether the object is selected
          */
-        bool isSelected(size_t id) throw();
+        bool isSelected(GLuint id) throw();
 
 
         /** @brief Adds the object with the given id to the list of selected objects
          * @param[in] id The id of the object
          */
-        void select(size_t id) throw();
+        void select(GLuint id) throw();
 
 
         /** @brief Deselects the object with the given id from the list of selected objects
          * @param[in] id The id of the object
          */
-        void deselect(size_t id) throw();
+        void deselect(GLuint id) throw();
 
 
         /// @brief Clears the list of selected objects
@@ -294,11 +300,11 @@ public:
         /** @brief Returns the list of selected ids
          * @return A list containing the ids of all selected objects
          */
-        const std::vector<size_t> &getSelected() const throw();
+        const std::vector<GLuint> &getSelected() const throw();
 
     private:
         /// @brief The list of selected ids
-        std::vector<size_t> mySelected;
+        std::vector<GLuint> mySelected;
 
     };
 
@@ -332,7 +338,7 @@ private:
     SingleTypeSelections mySelectedShapes;
 
     /// @brief List of selected objects
-    std::vector<size_t> mySelected;
+    std::vector<GLuint> mySelected;
 
     /// @brief The dialog to be updated
     GUIDialog_GLChosenEditor *my2Update;

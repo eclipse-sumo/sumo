@@ -53,7 +53,7 @@ GUIDetectorWrapper::GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
 
 GUIDetectorWrapper::GUIDetectorWrapper(GUIGlObjectStorage &idStorage,
                                        std::string id,
-                                       size_t glID) throw()
+                                       GLuint glID) throw()
         : GUIGlObject_AbstractAdd(idStorage, id, glID, GLO_DETECTOR)
 {}
 

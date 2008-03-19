@@ -68,7 +68,7 @@ GUIGlObjectStorage::registerObject(GUIGlObject *object)
 
 
 void
-GUIGlObjectStorage::registerObject(GUIGlObject *object, size_t id)
+GUIGlObjectStorage::registerObject(GUIGlObject *object, GLuint id)
 {
     myLock.lock();
     object->setGlID(id);
@@ -77,18 +77,18 @@ GUIGlObjectStorage::registerObject(GUIGlObject *object, size_t id)
 }
 
 
-size_t
+GLuint
 GUIGlObjectStorage::getUniqueID()
 {
     myLock.lock();
-    size_t ret = myAktID++;
+    GLuint ret = myAktID++;
     myLock.unlock();
     return ret;
 }
 
 
 GUIGlObject *
-GUIGlObjectStorage::getObjectBlocking(size_t id)
+GUIGlObjectStorage::getObjectBlocking(GLuint id)
 {
     myLock.lock();
     ObjectMap::iterator i=myMap.find(id);
@@ -111,7 +111,7 @@ GUIGlObjectStorage::getObjectBlocking(size_t id)
 
 
 bool
-GUIGlObjectStorage::remove(size_t id)
+GUIGlObjectStorage::remove(GLuint id)
 {
     myLock.lock();
     ObjectMap::iterator i=myMap.find(id);
@@ -142,7 +142,7 @@ GUIGlObjectStorage::clear()
 
 
 void
-GUIGlObjectStorage::unblockObject(size_t id)
+GUIGlObjectStorage::unblockObject(GLuint id)
 {
     myLock.lock();
     ObjectMap::iterator i=myBlocked.find(id);

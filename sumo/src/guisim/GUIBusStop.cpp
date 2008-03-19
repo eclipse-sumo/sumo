@@ -86,7 +86,8 @@ GUIBusStop::GUIBusStop(const std::string &id, MSNet &,
     myFGShape = myFGShape.getSubpart(frompos, topos);
     myFGShapeRotations.reserve(myFGShape.size()-1);
     myFGShapeLengths.reserve(myFGShape.size()-1);
-    for (size_t i=0; i<myFGShape.size()-1; ++i) {
+    int e = (int) myFGShape.size() - 1;
+    for (int i=0; i<e; ++i) {
         const Position2D &f = myFGShape[i];
         const Position2D &s = myFGShape[i+1];
         myFGShapeLengths.push_back(GeomHelper::distance(f, s));

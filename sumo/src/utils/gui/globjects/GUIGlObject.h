@@ -34,6 +34,12 @@
 #include "GUIGlObjectTypes.h"
 #include <utils/geom/Boundary.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h>
+
 
 // ===========================================================================
 // class declarations
@@ -57,7 +63,7 @@ public:
 
     /// Constructor for objects joining gl-objects
     GUIGlObject(GUIGlObjectStorage &idStorage,
-                std::string fullName, size_t glID) throw();
+                std::string fullName, GLuint glID) throw();
 
     /// Destructor
     virtual ~GUIGlObject() throw();
@@ -66,7 +72,7 @@ public:
     const std::string &getFullName() const throw();
 
     /// Returns the numerical id of the object
-    size_t getGlID() const throw();
+    GLuint getGlID() const throw();
 
     /// Needed to set the id
     friend class GUIGlObjectStorage;
@@ -152,11 +158,11 @@ protected:
 
 private:
     /// Sets the id of the object
-    void setGlID(size_t id) throw();
+    void setGlID(GLuint id) throw();
 
 private:
     /// The numerical id of the object
-    size_t myGlID;
+    GLuint myGlID;
 
     /// The name of the object
     std::string myFullName;

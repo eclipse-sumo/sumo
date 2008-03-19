@@ -40,13 +40,19 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <microsim/MSJunction.h>
 #include <guisim/GUIVehicle.h>
-#include <guisim/GUIEdge.h>
+#include <guisim/GUIEdge.h> 
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicleControl.h>
 #include "GUIDialog_GLObjChooser.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObject_AbstractAdd.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
+
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h> 
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -98,7 +104,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
     myList =
         new FXList(style1, this, MID_CHOOSER_LIST,
                    LAYOUT_FILL_X|LAYOUT_FILL_Y|LIST_SINGLESELECT|FRAME_SUNKEN|FRAME_THICK);
-    std::vector<size_t> ids;
+    std::vector<GLuint> ids;
     // get the ids
     switch (type) {
     case GLO_JUNCTION:
@@ -122,11 +128,11 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
     default:
         break;
     }
-    for (std::vector<size_t>::iterator i=ids.begin(); i!=ids.end(); ++i) {
+    for (std::vector<GLuint>::iterator i=ids.begin(); i!=ids.end(); ++i) {
         GUIGlObject *o = glStorage.getObjectBlocking(*i);
         if (o==0) {
             continue;
-        }
+        } 
         const std::string &name = o->microsimID();
         bool selected = false;
         if (type==GLO_EDGE) {
