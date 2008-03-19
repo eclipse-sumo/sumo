@@ -675,7 +675,6 @@ throw(TraCIException)
 
     // acknowledge the request
     writeStatusCmd(respMsg, CMD_GETTLSTATUS, RTYPE_OK, "");
-
     std::vector<MSLink::LinkState> linkStates;
     std::vector<double> yellowTimes;
     size_t lastStep = tlLogic->getStepNo();
@@ -732,13 +731,13 @@ throw(TraCIException)
                             }
                             //yellow time
                             tempMsg.writeDouble(yellowTimes[i]);
-
                             // command length
-                            respMsg.writeByte(1 + 1 + tempMsg.size());
+                            respMsg.writeUnsignedByte(1 + 1 + tempMsg.size());
                             // command type
-                            respMsg.writeByte(CMD_TLSWITCH);
+                            respMsg.writeUnsignedByte(CMD_TLSWITCH);
                             // command content
                             respMsg.writeStorage(tempMsg);
+                            tempMsg.reset();
                         }
 
                         yellowTimes[i] = 0;
@@ -747,7 +746,6 @@ throw(TraCIException)
             }
         }
     }
-
 }
 
 /*****************************************************************************/
