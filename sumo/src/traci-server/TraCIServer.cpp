@@ -443,7 +443,7 @@ throw(TraCIException)
         return;
     }
 
-	if (roadPos.laneId < 0) {
+	if (roadPos.pos < 0) {
         writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
     }
 
@@ -526,7 +526,7 @@ throw(TraCIException)
 		index++;
 	}*/
 
-	veh->startLaneChange(laneIndex, stickyTime);
+	veh->startLaneChange(static_cast<int>(laneIndex), static_cast<SUMOTime>(stickyTime));
 	
 	/*if (index < laneIndex) {
 		veh->forceLaneChangeLeft(laneIndex - index, stickyTime);
@@ -696,7 +696,7 @@ throw(TraCIException)
     }
 
     // check every second of the given time interval for a switch in the traffic light's phases
-    for (int time = timeFrom; time <= timeTo; time++) {
+    for (SUMOTime time = static_cast<SUMOTime>(timeFrom); time <= static_cast<SUMOTime>(timeTo); time++) {
         size_t position = tlLogic->getPosition(time);
         size_t currentStep = tlLogic->getStepFromPos(position);
 
@@ -783,7 +783,7 @@ throw(TraCIException)
         return;
     }
 
-    if (!veh->startSpeedAdaption(newSpeed, duration, MSNet::getInstance()->getCurrentTimeStep())) {
+    if (!veh->startSpeedAdaption(newSpeed, static_cast<SUMOTime>(duration), MSNet::getInstance()->getCurrentTimeStep())) {
         writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Could not slow down");
         return;
     }
@@ -1552,11 +1552,15 @@ throw(TraCIException)
 
 	// write beginning of the answer message
 	response.writeUnsignedByte((isWriteCommand ? 0x01 : 0x00));	// get/set flag
-	response.writeUnsignedByte(DOM_VEHICLE);	// domain
+	response.writeUnsignedByte(DOM_TRAFFICLIGHTS);	// domain
 	response.writeInt(objectId);	// domain object id
 	response.writeUnsignedByte(variableId);		// variable
 
 	switch (variableId) {
+	case DOMVAR_COUNT:
+	    response.writeUnsignedByte(TYPE_INTEGER);
+	    response.writeInt(42);
+	    break;
 	// current or next traffic light phase
 	case DOMVAR_CURTLPHASE:
 	case DOMVAR_NEXTTLPHASE:
