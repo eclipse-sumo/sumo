@@ -119,6 +119,7 @@ TraCIServer::run()
 	for (std::vector<std::string>::iterator it=tllIds.begin(); it != tllIds.end(); it++) {
 		trafficLightsInt2ExtId[(*it)] = extId;
 		trafficLightsExt2IntId[extId] = (*it);
+//		cerr << "TL int=" << *it << " --> ext=" << extId << endl;
 		extId++;
 	}
 	int poiId = 0;
@@ -252,7 +253,7 @@ throw(TraCIException)
         return;
     }
 
-    if (maxspeed>=0) {
+    if (maxspeed>=0.0) {
         veh->setIndividualMaxSpeed(maxspeed);
     } else {
         veh->unsetIndividualMaxSpeed();
@@ -653,16 +654,15 @@ throw(TraCIException)
     tcpip::Storage tempMsg;
 
     // trafic light id
-    std::string id = requestMsg.readString();
+    int extId = requestMsg.readInt();
     // start of time interval
     double timeFrom = requestMsg.readDouble();
     // end of time interval
     double timeTo = requestMsg.readDouble();
 
     // get the running programm of the traffic light
-    MSTLLogicControl &tlsControl = MSNet::getInstance()->getTLSControl();
-    MSTrafficLightLogic* const tlLogic = tlsControl.get(id).getActive();
-
+    MSTrafficLightLogic* const tlLogic = getTLLogicByExtId(extId);
+    
     // error checking
     if (tlLogic == NULL) {
         writeStatusCmd(respMsg, CMD_GETTLSTATUS, RTYPE_ERR, "Could not retrieve traffic light with given id");
@@ -1156,7 +1156,7 @@ TraCIServer::getTLLogicByExtId(int extId)
 	std::string intId = "";
 	std::map<int, std::string>::iterator iter = trafficLightsExt2IntId.find(extId);
 	if (iter != trafficLightsExt2IntId.end()) {
-		intId = trafficLightsExt2IntId[extId];
+		intId = iter->second;
 	}
 
 	return MSNet::getInstance()->getTLSControl().getActive(intId);
