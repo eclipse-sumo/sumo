@@ -117,6 +117,11 @@ public:
      *
      * The attribute names are converted into XMLCh* and stored within an
      *  internal container. This container is cleared within the destructor.
+     *
+     * @param[in] tags The list of known tags
+     * @param[in] attrs The list of known attributes
+     *
+     * @todo Why are both lists non-const and given as pointers?
      */
     GenericSAXHandler(Tag *tags, Attr *attrs) throw();
 
