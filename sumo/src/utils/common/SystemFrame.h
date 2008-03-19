@@ -31,12 +31,10 @@
 #endif
 
 
-
 // ===========================================================================
 // class declarations
 // ===========================================================================
 class OptionsCont;
-class LogFile;
 
 
 // ===========================================================================
@@ -44,19 +42,41 @@ class LogFile;
 // ===========================================================================
 /**
  * @class SystemFrame
- * As almost all applications within the SUMO-packgae share the same
- * initialisation procedure, it is encapsulated within this class.
- * To leave the command line options variable for each application, they are
- * inserted into an application-global OptionsCont via a method to supply
- * at the call of the "init" method.
+ * @brief A set of actions common to all applications
+ *
+ * As almost all applications within the SUMO-package share the same
+ *  initialisation procedure, it is encapsulated within this class.
+ *
+ * Only two things are done herein, so far. The first is to insert
+ *  options into the given options container that are used for dealing
+ *  with the application's configuration.
+ * 
+ * Additionally, a closing method may be found, which closes all used
+ *  subsystems.
  */
 class SystemFrame
 {
 public:
+    /** @brief Adds configuration options to the given container
+     *
+     * @param[in] oc The options container to add the options to
+     * @todo let the container be retrieved
+     */
     static void addConfigurationOptions(OptionsCont &oc);
 
-    /// Closes all of an applications subsystems
+
+    /** @brief Closes all of an applications subsystems
+     *
+     * Closes (in this order)
+     * @arg The xml subsystem
+     * @arg The options subsystem
+     * @arg The message subsystem
+     * @see XMLSubSys::close()
+     * @see OptionsCont::clear()
+     * @see MsgHandler::cleanupOnEnd()
+     */
     static void close();
+
 
 };
 

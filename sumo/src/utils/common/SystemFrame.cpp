@@ -51,18 +51,6 @@ using namespace std;
 // method definitions
 // ===========================================================================
 void
-SystemFrame::close()
-{
-    // close the xml-subsystem
-    XMLSubSys::close();
-    // delete build program options
-    OptionsCont::getOptions().clear();
-    // delete messages
-    MsgHandler::cleanupOnEnd();
-}
-
-
-void
 SystemFrame::addConfigurationOptions(OptionsCont &oc)
 {
     oc.addOptionSubTopic("Configuration");
@@ -87,6 +75,17 @@ SystemFrame::addConfigurationOptions(OptionsCont &oc)
     oc.addDescription("save-template.commented", "Configuration", "Adds comments to saved template");
 }
 
+
+void
+SystemFrame::close()
+{
+    // close the xml-subsystem
+    XMLSubSys::close();
+    // delete build program options
+    OptionsCont::getOptions().clear();
+    // delete messages
+    MsgHandler::cleanupOnEnd();
+}
 
 
 /****************************************************************************/
