@@ -92,8 +92,8 @@ public:
      */
     static MSNet* getInstance();
 
-    MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
-          MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents);
+    MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents, 
+             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents);
 
 
     /// Destructor.
@@ -105,7 +105,7 @@ public:
         the Vehicles change Lanes.  The method returns true when the
         simulation could be finished without errors, otherwise
         false. */
-    bool simulate(SUMOTime start, SUMOTime stop);
+    int simulate(SUMOTime start, SUMOTime stop);
 
     void initialiseSimulation();
 
@@ -262,7 +262,7 @@ protected:
     std::string myStateDumpFiles;
 
     SUMOReal myTooSlowRTF;
-
+    int myTooManyVehicles;
 private:
     /// Copy constructor.
     MSNet(const MSNet&);

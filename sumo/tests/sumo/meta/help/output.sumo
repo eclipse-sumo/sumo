@@ -1,4 +1,4 @@
-SUMO sumo Version dev-SVN-r4823
+SUMO sumo Version 0.9.7
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -65,6 +65,8 @@ Usage: sumo.exe [OPTION]*
                                          deeply
   --too-slow-rtf FLOAT                 Quit simulation if the rtf gets too
                                          small
+  --too-many-vehicles INT              Quit simulation if this number of
+                                         vehicles is exceeded
   --incremental-dua-step INT           Perform the simulation as a step in
                                          incremental DUA
   --incremental-dua-base INT           Base value for incremental DUA

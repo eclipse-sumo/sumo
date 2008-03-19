@@ -88,7 +88,7 @@ load(OptionsCont &oc)
 {
     MSFrame::setMSGlobals(oc);
     MSNet *net = new MSNet(new MSVehicleControl(), new MSEventControl(),
-                           new MSEventControl(), new MSEventControl());
+        new MSEventControl(), new MSEventControl());
     NLEdgeControlBuilder eb;
     NLJunctionControlBuilder jb(*net, oc);
     NLDetectorBuilder db(*net);
@@ -150,7 +150,7 @@ main(int argc, char **argv)
                 // report the begin when wished
                 WRITE_MESSAGE("Simulation started with time: " + toString<int>(oc.getInt("begin")));
                 // simulate
-                net->simulate(oc.getInt("begin"), oc.getInt("end"));
+                ret = net->simulate(oc.getInt("begin"), oc.getInt("end"));
                 // report the end when wished
                 WRITE_MESSAGE("Simulation ended at time: " + toString<int>(net->getCurrentTimeStep()));
             }

@@ -109,7 +109,7 @@ MSNet::getInstance(void)
 }
 
 
-MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
+MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents, 
              MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents)
 {
     MSCORN::init();
@@ -119,6 +119,7 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
     myTooSlowRTF = oc.getFloat("too-slow-rtf");
+    myTooManyVehicles = oc.getInt("too-many-vehicles");
     myEmitter = new MSEmitControl(*vc, oc.getInt("max-depart-delay"));
     myVehicleControl = vc;
     myDetectorControl = new MSDetectorControl();
@@ -227,12 +228,12 @@ MSNet::~MSNet()
 }
 
 
-bool
+int
 MSNet::simulate(SUMOTime start, SUMOTime stop)
 {
     initialiseSimulation();
     // the simulation loop
-    bool tooSlow = false;
+    int otherQuit = 0;
     myStep = start;
     do {
         if (myLogStepNumber) {
@@ -246,12 +247,19 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
         if (myLogExecutionTime && myTooSlowRTF>0) {
             SUMOReal rtf = ((SUMOReal) 1000./ (SUMOReal) mySimStepDuration);
             if (rtf<myTooSlowRTF) {
-                tooSlow = true;
+                otherQuit = 1;
             }
         }
-    } while (myStep<=stop && !myVehicleControl->haveAllVehiclesQuit() && !tooSlow);
-    if (tooSlow) {
-        WRITE_MESSAGE("Simulation End: The simulation got too slow.");
+        if(myTooManyVehicles>0&&myVehicleControl->getRunningVehicleNo()>myTooManyVehicles) {
+            otherQuit = 2;
+        }
+    } while (myStep<=stop && !myVehicleControl->haveAllVehiclesQuit() && otherQuit==0);
+    if (otherQuit!=0) {
+        if(otherQuit==1) {
+            WRITE_MESSAGE("Simulation End: The simulation got too slow.");
+        } else if(otherQuit==2) {
+            WRITE_MESSAGE("Simulation End: To many vehicles.");
+        }
     } else if (myStep>stop) {
         WRITE_MESSAGE("Simulation End: The final simulation step has been reached.");
     } else {
@@ -259,7 +267,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
     }
     // exit simulation loop
     closeSimulation(start, stop);
-    return true;
+    return otherQuit;
 }
 
 

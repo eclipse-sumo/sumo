@@ -36,6 +36,7 @@
       <quit-on-accident>false</quit-on-accident>
       <check-accidents>false</check-accidents>
       <too-slow-rtf>-1</too-slow-rtf>
+      <too-many-vehicles>-1</too-many-vehicles>
       <incremental-dua-step>-1</incremental-dua-step>
       <incremental-dua-base>10</incremental-dua-base>
       <time-to-teleport>300</time-to-teleport>

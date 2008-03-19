@@ -88,6 +88,9 @@
       <!-- Quit simulation if the rtf gets too small -->
       <too-slow-rtf>-1</too-slow-rtf>
 
+      <!-- Quit simulation if this number of vehicles is exceeded -->
+      <too-many-vehicles>-1</too-many-vehicles>
+
       <!-- Perform the simulation as a step in incremental DUA -->
       <incremental-dua-step>-1</incremental-dua-step>
 
