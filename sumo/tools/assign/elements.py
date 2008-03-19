@@ -96,7 +96,7 @@ class Edge:
         self.edgetype = None
         self.helpflow = 0.0     
         
-    def init(self, length, speed, laneNumber):
+    def init(self, speed, length, laneNumber):
         self.maxspeed = speed
         self.length = length
         self.numberlane = laneNumber
