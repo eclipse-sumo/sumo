@@ -1,4 +1,6 @@
 import glob, os, shutil, subprocess, time
+from optparse import OptionParser
+
 def makeAndChangeDir(dirName):
     runID = 1
     fullName = "%s%03i" % (dirName, runID)
@@ -9,6 +11,13 @@ def makeAndChangeDir(dirName):
     os.chdir(fullName)
     return fullName
 
+optParser = OptionParser()
+optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+                     default=False, help="tell me what you are doing")
+optParser.add_option("-o", "--use-od2trips", action="store_true", dest="od2trips",
+                     default=False, help="use od2trips instead of trips from incremental assignment")
+(options, args) = optParser.parse_args()
+
 os.chdir("input")
 netFile = "../input/" + glob.glob("*.net.xml")[0]
 mtxNamesList = ",".join(["../input/" + item for item in glob.glob("*.fma")])
@@ -18,20 +27,27 @@ sumoAdds = ""
 if addFiles:
     pyAdds = "-+ %s" % addFiles
     sumoAdds = "-a %s" % addFiles
+if options.od2trips:
+    trips = "../input/trips.trips.xml"
+else:
+    trips = "../input/successive.trips.xml"
+routes = "../input/routes.rou.xml"
 
 succDir = makeAndChangeDir("../successive")
 os.system("incrementalAssignment.py -d ../input/districts.xml -m %s -n %s -p ../parameter.txt -u ../CRcurve.txt" % (mtxNamesList, netFile))
-shutil.copy("%s/routes.txt" % succDir, "../input/successive.rou.xml")
-os.system("route2trips.py ../input/successive.rou.xml > ../input/successive.trips.xml")
+if not options.od2trips:
+    shutil.copy("%s/routes.txt" % succDir, routes)
+    os.system("route2trips.py %s > ../input/successive.trips.xml" % routes)
 duaDir = makeAndChangeDir("../dua")
-duaProcess = subprocess.Popen("dua-iterate.py -C -n %s -t ../input/trips.trips.xml %s" % (netFile, pyAdds), shell=True)
+duaProcess = subprocess.Popen("dua-iterate.py -C -n %s -t %s %s" % (netFile, trips, pyAdds), shell=True)
 clogDir = makeAndChangeDir("../clogit")
 os.system("cLogit.py -d ../input/districts.xml -m %s -n %s -p ../clogit_parameter.txt -u ../CRcurve.txt" % (mtxNamesList, netFile))
-while not os.path.exists("%s/trips_0.rou.xml" % duaDir):
-    time.sleep(1)
-shutil.copy("%s/trips_0.rou.xml" % duaDir, "../input/routes.rou.xml")
+if options.od2trips:
+    while not os.path.exists("%s/trips_0.rou.xml" % duaDir):
+        time.sleep(1)
+    shutil.copy("%s/trips_0.rou.xml" % duaDir, routes)
 shotDir = makeAndChangeDir("../oneshot")
-os.system("one-shot.py -n %s -t ../input/routes.rou.xml %s" % (netFile, pyAdds))
+os.system("one-shot.py -n %s -t %s %s" % (netFile, routes, pyAdds))
 
 duaProcess.wait()
 makeAndChangeDir("../routes")
