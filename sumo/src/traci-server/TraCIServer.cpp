@@ -46,6 +46,8 @@
 #include "microsim/MSRouteHandler.h"
 #include "microsim/MSRouteLoaderControl.h"
 #include "microsim/MSRouteLoader.h"
+#include "microsim/MSJunctionControl.h"
+#include "microsim/MSJunction.h"
 #include "microsim/traffic_lights/MSTLLogicControl.h"
 
 #include "microsim/MSEdgeControl.h"
@@ -1615,39 +1617,10 @@ throw(TraCIException)
 	// position of a traffic light
 	case DOMVAR_POSITION:
 		if (tlLogic != NULL) {
-			// compute the center of the area between all controlled lanes of the 
-			// traffic light (=junction), which is considered its position
-			float xMax = FLT_MIN;
-			float xMin = FLT_MAX;
-			float yMax = FLT_MIN;
-			float yMin = FLT_MAX;
-			std::vector<MSLane*> outgoingLanes;
-			MSTrafficLightLogic::LinkVectorVector allLinks = tlLogic->getLinks();
-			MSTrafficLightLogic::LaneVectorVector allLanes = tlLogic->getLanes();
-			for (MSTrafficLightLogic::LinkVectorVector::iterator vec=allLinks.begin(); vec!=allLinks.end(); vec++) {
-				for (MSTrafficLightLogic::LinkVector::iterator link=vec->begin(); link!=vec->end(); link++) {
-					Position2D begPos = (*link)->getLane()->getShape().getBegin();
-					xMax = MAX2(xMax, begPos.x());
-					xMin = MIN2(xMin, begPos.x());
-					yMax = MAX2(yMax, begPos.y());
-					yMin = MIN2(yMin, begPos.y());
-					outgoingLanes.push_back((*link)->getLane());
-				}
-			}
-			for (MSTrafficLightLogic::LaneVectorVector::iterator vec=allLanes.begin(); vec!=allLanes.end(); vec++) {
-				for (MSTrafficLightLogic::LaneVector::iterator lane=vec->begin(); lane!=vec->end(); lane++) {
-					if (find(outgoingLanes.begin(), outgoingLanes.end(), (*lane)) == outgoingLanes.end()) {
-						Position2D endPos = (*lane)->getShape().getEnd();
-						xMax = MAX2(xMax, endPos.x());
-						xMin = MIN2(xMin, endPos.x());
-						yMax = MAX2(yMax, endPos.y());
-						yMin = MIN2(yMin, endPos.y());
-					}
-				}
-			}
+			MSJunction* junc = MSNet::getInstance()->getJunctionControl().get(tlLogic->getID());
 			response.writeUnsignedByte(POSITION_3D);
-			response.writeFloat(xMin + (abs(xMax - xMin) / 2));
-			response.writeFloat(yMin + (abs(yMax - yMin) / 2));
+			response.writeFloat(junc->getPosition().x());
+			response.writeFloat(junc->getPosition().y());
 			response.writeFloat(0);
 			// add a warning to the response if the requested data type was not correct
 			if (dataType != POSITION_3D) {
