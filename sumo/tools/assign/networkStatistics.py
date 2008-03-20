@@ -20,11 +20,7 @@ from network import Net, NetworkReader, DistrictsReader, VehInformationReader
 
 
 optParser = OptionParser()
-optParser.add_option("-d", "--district-file", dest="confile",
-                     help="read OD Zones from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-n", "--net-file", dest="netfile",
-                     help="read SUMO network from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-x", "--vehinform-file", dest="vehfile",
+optParser.add_option("-t", "--tripinfo-file", dest="tripinfofile",
                      help="read vehicle information from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-o", "--output-file", dest="outputfile", default="Global_MOE.txt",
                      help="write output to FILE", metavar="FILE")  
@@ -33,59 +29,39 @@ optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
 
 (options, args) = optParser.parse_args()
 
-if not options.netfile:
+if not options.tripinfofile:
     optParser.print_help()
     sys.exit()
 parser = make_parser()
 
-if options.verbose:
-    print "Reading net"
-    
-net = Net()
+vehicles = []
+parser.setContentHandler(VehInformationReader(vehicles))
+parser.parse(options.tripinfofile)
 
-parser.setContentHandler(NetworkReader(net))
-parser.parse(options.netfile)
+totaltime = 0.
+totallength = 0.
+totalspeed= 0.
+totalwait = 0.
 
-parser.setContentHandler(DistrictsReader(net))
-parser.parse(options.confile)
-
-parser.setContentHandler(VehInformationReader(net))
-parser.parse(options.vehfile)
-
-if options.verbose:
-    print len(net._edges), "edges read"
-
-Totalveh = 0.
-Totaltime = 0.
-Totallength = 0.
-Totalspeed= 0.
-
-for veh in net._vehicles:
-    Totalveh += 1
-    veh.traveltime = float(veh.arrival - veh.depart)
-  
-    for link in veh.route:
-        veh.travellength += net.getEdge(link).length
-    # unit: speed - m/s; traveltime - s; travel length - m    
+for veh in vehicles:
     veh.speed = veh.travellength / veh.traveltime                              
-    Totaltime += veh.traveltime
-    Totallength += veh.travellength
-    Totalspeed += veh.speed
-
-avetime = Totaltime / Totalveh
-avelength = Totallength / Totalveh
-avespeed = Totalspeed / Totalveh
+    totaltime += veh.traveltime
+    totallength += veh.travellength
+    totalspeed += veh.speed
+    totalwait += veh.waittime
 
 foutveh = file(options.outputfile, 'w')
 foutveh.write('average vehicular travel time(s) = the sum of all vehicular travel time / the number of vehicles\n')
 foutveh.write('average vehicular travel length(m) = the sum of all vehicular travel length / the number of vehicles\n')
 foutveh.write('average vehicular travel speed(m/s) = the sum of all vehicular travel speed / the number of vehicles\n')
-foutveh.write('Total number of vehicles:%s\n' %Totalveh)
-foutveh.write('Total travel time(s):%s, ' %Totaltime)    
-foutveh.write('average vehicular travel time(s):%s\n' %avetime)
-foutveh.write('Total travel length(m):%s, ' %Totallength)
-foutveh.write('average vehicular travel length(m):%s\n' %avelength)
-foutveh.write('average vehicular travel speed(m/s):%s\n' %avespeed)
+foutveh.write('Total number of vehicles:%s\n' % len(vehicles))
+foutveh.write('Total waiting time(s):%s, ' % totalwait)    
+foutveh.write('average vehicular waiting time(s):%s\n' % (totalwait / len(vehicles)))
+foutveh.write('Total travel time(s):%s, ' % totaltime)    
+foutveh.write('average vehicular travel time(s):%s\n' % (totaltime / len(vehicles)))
+foutveh.write('Total travel length(m):%s, ' % totallength)
+foutveh.write('average vehicular travel length(m):%s\n' % (totallength / len(vehicles)))
+foutveh.write('average vehicular travel speed(m/s):%s\n' % (totalspeed / len(vehicles)))
 foutveh.close()
         
 print 'Ave travel speed and ave travel time are calculated!'

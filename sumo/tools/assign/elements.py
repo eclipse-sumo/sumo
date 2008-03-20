@@ -329,6 +329,7 @@ class Vehicle:
         self.route = []
         self.traveltime = 0.
         self.travellength = 0.
+        self.waittime = 0.
 
     def __repr__(self):
         return "%s_%s_%s_%s_%s_%s<%s>" % (self.label, self.depart, self.arrival, self.speed, self.traveltime, self.travellength, self.route)

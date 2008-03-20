@@ -58,7 +58,7 @@ if options.stats == 0:
         shutil.copy("%s/routes.txt" % succDir, routes)
         execute("route2trips.py %s > ../input/successive.trips.xml" % routes)
     duaDir = makeAndChangeDir("../dua")
-    duaProcess = subprocess.Popen("dua-iterate.py -C -n %s -t ../input/%s.trips.xml %s" % (netFile, trips, pyAdds), shell=True)
+    duaProcess = subprocess.Popen("dua-iterate.py -e 90000 -C -n %s -t ../input/%s.trips.xml %s" % (netFile, trips, pyAdds), shell=True)
     clogDir = makeAndChangeDir("../clogit")
     execute("cLogit.py -d ../input/districts.xml -m %s -n %s -p ../clogit_parameter.txt -u ../CRcurve.txt" % (mtxNamesList, netFile))
     if options.od2trips:
@@ -66,7 +66,7 @@ if options.stats == 0:
             time.sleep(1)
         shutil.copy("%s/trips_0.rou.xml" % duaDir, routes)
     shotDir = makeAndChangeDir("../oneshot")
-    execute("one-shot.py -n %s -t %s %s" % (netFile, routes, pyAdds))
+    execute("one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds))
     duaProcess.wait()
 else:
     succDir = "../successive%03i" % options.stats
@@ -74,15 +74,15 @@ else:
     clogDir = "../clogit%03i" % options.stats
     shotDir = "../oneshot%03i" % options.stats
     
-makeAndChangeDir("../routes")
+makeAndChangeDir("../statistics")
 for step in [0, 24, 49]:
-    execute("sumo --no-step-log -n %s -e 90000 -r %s/%s_%s.rou.xml --vehroute-output vehroutes_dua_%s.xml %s -l sumo_dua_%s.log" % (netFile, duaDir, trips, step, step, sumoAdds, step))
-    execute("networkStatistics.py -n %s -d ../input/districts.xml -x vehroutes_dua_%s.xml -o networkStatistics_%s_%s.txt" % (netFile, step, os.path.basename(duaDir), step))
+    shutil.copy("%s/tripinfo_%s.xml" % (duaDir, step), "tripinfo_dua_%s.xml" % step)
+    execute("networkStatistics.py -t tripinfo_dua_%s.xml -o networkStatistics_%s_%s.txt" % (step, os.path.basename(duaDir), step))
 for step in [-1, 1800, 300, 15]:
-    shutil.copy("%s/vehroutes_%s.xml" % (shotDir, step), "vehroutes_oneshot%s.xml" % step)
-    execute("networkStatistics.py -n %s -d ../input/districts.xml -x vehroutes_oneshot%s.xml -o networkStatistics_%s_%s.txt" % (netFile, step, os.path.basename(shotDir), step))
-execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.txt --vehroute-output vehroutes_successive.xml %s -l sumo_successive.log" % (netFile, succDir, sumoAdds))
-execute("networkStatistics.py -n %s -d ../input/districts.xml -x vehroutes_successive.xml -o networkStatistics_%s.txt" % (netFile, os.path.basename(succDir)))
-execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.txt --vehroute-output vehroutes_clogit.xml %s -l sumo_clogit.log" % (netFile, clogDir, sumoAdds))
-execute("networkStatistics.py -n %s -d ../input/districts.xml -x vehroutes_clogit.xml -o networkStatistics_%s.txt" % (netFile, os.path.basename(clogDir)))
+    shutil.copy("%s/tripinfo_%s.xml" % (shotDir, step), "tripinfo_oneshot_%s.xml" % step)
+    execute("networkStatistics.py -t tripinfo_oneshot_%s.xml -o networkStatistics_%s_%s.txt" % (step, os.path.basename(shotDir), step))
+execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.txt --tripinfo-output tripinfo_successive.xml %s -l sumo_successive.log" % (netFile, succDir, sumoAdds))
+execute("networkStatistics.py -t tripinfo_successive.xml -o networkStatistics_%s.txt" % os.path.basename(succDir))
+execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.txt --tripinfo-output tripinfo_clogit.xml %s -l sumo_clogit.log" % (netFile, clogDir, sumoAdds))
+execute("networkStatistics.py -t tripinfo_clogit.xml -o networkStatistics_%s.txt" % os.path.basename(clogDir))
 os.chdir("..")
