@@ -32,6 +32,7 @@
 #include "MSVehicleControl.h"
 #include "MSVehicle.h"
 #include "MSGlobals.h"
+#include "MSLane.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/iodevices/BinaryInputDevice.h>
@@ -103,20 +104,62 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
     assert(myRunningVehNo>0);
     // check whether to generate the information about the vehicle's trip
     if (MSCORN::wished(MSCORN::CORN_OUT_TRIPDURATIONS)) {
-        // generate vehicle's trip information
-        MSNet *net = MSNet::getInstance();
         OutputDevice& od = OutputDevice::getDeviceByOption("tripinfo-output");
-        SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART);
-        SUMOTime time = net->getCurrentTimeStep();
-        od
-        << "   <tripinfo vehicle_id=\"" << v->getID() << "\" "
-        << "start=\"" << realDepart << "\" "
-        << "wished=\"" << v->desiredDepart() << "\" "
-        << "end=\"" << time << "\" "
-        << "duration=\"" << time-realDepart << "\" "
-        << "waited=\"" << realDepart-v->desiredDepart() << "\" "
-        // write reroutes
-        << "reroutes=\"";
+        // obtain and generate vehicle's trip information
+        MSVehicle::DepartArrivalInformation *departInfo = v->hasCORNPointerValue(MSCORN::CORN_P_VEH_DEPART_INFO)
+            ? (MSVehicle::DepartArrivalInformation*) v->getCORNPointerValue(MSCORN::CORN_P_VEH_DEPART_INFO)
+            : 0;
+        MSVehicle::DepartArrivalInformation *arrivalInfo = v->hasCORNPointerValue(MSCORN::CORN_P_VEH_ARRIVAL_INFO) 
+            ? (MSVehicle::DepartArrivalInformation*) v->getCORNPointerValue(MSCORN::CORN_P_VEH_ARRIVAL_INFO)
+            : 0;
+        SUMOReal routeLength = v->getRoute().getLength();
+        routeLength = routeLength - departInfo->pos - arrivalInfo->lane->length() + arrivalInfo->pos;
+        // write
+        od << "    <tripinfo id=\"" << v->getID() << "\" ";
+        SUMOTime departTime = -1;
+        if(departInfo!=0) {
+            string laneID = departInfo->lane!=0 ? departInfo->lane->getID() : "";
+            od << "depart=\"" << departInfo->time << "\" "
+                << "departLane=\"" << laneID << "\" "
+                << "departPos=\"" << departInfo->pos << "\" "
+                << "departSpeed=\"" << departInfo->speed << "\" "
+                << "departDelay=\"" << departInfo->time - v->desiredDepart() << "\" ";
+            departTime = departInfo->time;
+        } else {
+            if(v->hasCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)) {
+                departTime = v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME);
+                od << "depart=\"" << departTime << "\" ";
+            } else {
+                od << "depart=\"\" ";
+            }
+            od << "departLane=\"\" "
+                << "departPos=\"\" "
+                << "departSpeed=\"\" "
+                << "departDelay=\"\" ";
+        }
+        SUMOTime arrivalTime = -1;
+        if(departInfo!=0) {
+            string laneID = arrivalInfo->lane!=0 ? arrivalInfo->lane->getID() : "";
+            od << "arrival=\"" << arrivalInfo->time << "\" "
+                << "arrivalLane=\"" << laneID << "\" "
+                << "arrivalPos=\"" << arrivalInfo->pos << "\" "
+                << "arrivalSpeed=\"" << arrivalInfo->speed << "\" ";
+            arrivalTime = arrivalInfo->time;
+        } else {
+            arrivalTime = MSNet::getInstance()->getCurrentTimeStep();
+            od << "arrival=\"" << arrivalTime << "\" "
+                << "arrivalLane=\"\" "
+                << "arrivalPos=\"\" "
+                << "arrivalSpeed=\"\" ";
+        }
+        if(departTime!=-1&&arrivalTime!=-1) {
+            od << "duration=\"" << arrivalTime - departTime << "\" ";
+        } else {
+            od << "duration=\"\" ";
+        }
+        od << "routeLength=\"" << routeLength << "\" "
+            << "waitSteps=\"" << v->getCORNIntValue(MSCORN::CORN_VEH_WAITINGTIME) << "\" "
+            << "rerouteNo=\"";
         if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
             od << v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
         } else {
@@ -131,11 +174,11 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
         // generate vehicle's trip routes
         MSNet *net = MSNet::getInstance();
         OutputDevice& od = OutputDevice::getDeviceByOption("vehroute-output");
-        SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART);
+        SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME);
         SUMOTime time = net->getCurrentTimeStep();
         od
         << "   <vehicle id=\"" << v->getID() << "\" emittedAt=\""
-        << v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART)
+        << v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)
         << "\" endedAt=\"" << MSNet::getInstance()->getCurrentTimeStep()
         << "\">" << "\n";
         if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
@@ -171,7 +214,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
     if (MSCORN::wished(MSCORN::CORN_MEAN_VEH_TRAVELTIME)) {
         myAbsVehTravelTime +=
             (MSNet::getInstance()->getCurrentTimeStep()
-             - v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART));
+             - v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME));
     }
     myRunningVehNo--;
     myEndedVehNo++;
@@ -243,7 +286,7 @@ MSVehicleControl::getMeanTravelTime() const
 
 
 void
-MSVehicleControl::vehiclesEmitted(size_t no)
+MSVehicleControl::vehiclesEmitted(unsigned int no)
 {
     myRunningVehNo += no;
 }
@@ -260,15 +303,9 @@ void
 MSVehicleControl::vehicleEmitted(MSVehicle *v)
 {
     if (MSCORN::wished(MSCORN::CORN_MEAN_VEH_WAITINGTIME)) {
-        myAbsVehWaitingTime +=
-            (v->getCORNIntValue(MSCORN::CORN_VEH_REALDEPART) - v->desiredDepart());
+        myAbsVehWaitingTime += (v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME) - v->desiredDepart());
     }
 }
-
-
-void
-MSVehicleControl::vehicleMoves(MSVehicle *)
-{}
 
 
 void
@@ -280,13 +317,13 @@ MSVehicleControl::saveState(std::ostream &os)
     FileHelpers::writeInt(os, myAbsVehWaitingTime);
     FileHelpers::writeInt(os, myAbsVehTravelTime);
     // save vehicle types
-    FileHelpers::writeUInt(os, myVTypeDict.size());
+    FileHelpers::writeUInt(os, (unsigned) myVTypeDict.size());
     for (VehTypeDictType::iterator it=myVTypeDict.begin(); it!=myVTypeDict.end(); ++it) {
         (*it).second->saveState(os);
     }
     MSRoute::dict_saveState(os);
     // save vehicles
-    FileHelpers::writeUInt(os, myVehicleDict.size());
+    FileHelpers::writeUInt(os, (unsigned) myVehicleDict.size());
     for (VehicleDictType::iterator it = myVehicleDict.begin(); it!=myVehicleDict.end(); ++it) {
         (*it).second->saveState(os);
     }
@@ -364,7 +401,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis)
 
         MSVehicle *v = buildVehicle(id, route, desiredDepart, type, repetitionNumber, period);
         if (wasEmitted != -1) {
-            v->myIntCORNMap[MSCORN::CORN_VEH_REALDEPART] = wasEmitted;
+            v->myIntCORNMap[MSCORN::CORN_VEH_DEPART_TIME] = wasEmitted;
         }
         while (routeOffset>0) {
             v->myCurrEdge++;

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/14/08 13:53:04 by SUMO sumo Version 0.9.7
+<!-- generated on 03/19/08 16:06:07 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -26,14 +26,14 @@
 -->
 
 <tripinfos>
-   <tripinfo vehicle_id="0" start="0" wished="0" end="127" duration="127" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="1" start="10" wished="10" end="138" duration="128" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="2" start="20" wished="20" end="147" duration="127" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="3" start="30" wished="30" end="157" duration="127" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="4" start="40" wished="40" end="167" duration="127" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="5" start="50" wished="50" end="177" duration="127" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="6" start="60" wished="60" end="186" duration="126" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="7" start="70" wished="70" end="197" duration="127" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="8" start="80" wished="80" end="207" duration="127" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
-   <tripinfo vehicle_id="9" start="90" wished="90" end="218" duration="128" waited="0" reroutes="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+    <tripinfo id="0" depart="0" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="127" arrivalLane="end_0" arrivalPos="13.53" arrivalSpeed="27.80" duration="127" routeLength="2002.58" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+    <tripinfo id="1" depart="10" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="138" arrivalLane="end_0" arrivalPos="7.16" arrivalSpeed="27.55" duration="128" routeLength="1996.21" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+    <tripinfo id="2" depart="20" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="147" arrivalLane="end_0" arrivalPos="16.71" arrivalSpeed="27.54" duration="127" routeLength="2005.76" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+    <tripinfo id="3" depart="30" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="157" arrivalLane="end_0" arrivalPos="19.88" arrivalSpeed="27.11" duration="127" routeLength="2008.93" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+    <tripinfo id="4" depart="40" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="167" arrivalLane="end_0" arrivalPos="4.33" arrivalSpeed="27.62" duration="127" routeLength="1993.38" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+    <tripinfo id="5" depart="50" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="177" arrivalLane="end_0" arrivalPos="11.91" arrivalSpeed="27.65" duration="127" routeLength="2000.96" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+    <tripinfo id="6" depart="60" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="186" arrivalLane="end_0" arrivalPos="7.70" arrivalSpeed="27.51" duration="126" routeLength="1996.75" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+    <tripinfo id="7" depart="70" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="197" arrivalLane="end_0" arrivalPos="2.40" arrivalSpeed="27.11" duration="127" routeLength="1991.45" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+    <tripinfo id="8" depart="80" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="207" arrivalLane="end_0" arrivalPos="26.60" arrivalSpeed="27.66" duration="127" routeLength="2015.65" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE"/>
+    <tripinfo id="9" depart="90" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="218" arrivalLane="end_0" arrivalPos="14.48" arrivalSpeed="27.06" duration="128" routeLength="2003.53" waitSteps="0" rerouteNo="0" devices="" vtype="DEFAULT_VEHTYPE"/>
 </tripinfos>

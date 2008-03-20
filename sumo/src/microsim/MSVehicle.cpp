@@ -145,6 +145,15 @@ MSVehicle::~MSVehicle() throw()
         }
         delete v;
     }
+    if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEPART_INFO)!=myPointerCORNMap.end()) {
+        DepartArrivalInformation *i = (DepartArrivalInformation*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_INFO];
+        delete i;
+    }
+    if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_ARRIVAL_INFO)!=myPointerCORNMap.end()) {
+        DepartArrivalInformation *i = (DepartArrivalInformation*) myPointerCORNMap[MSCORN::CORN_P_VEH_ARRIVAL_INFO];
+        delete i;
+    }
+    //
     delete myLaneChangeModel;
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         delete(*dev);
@@ -164,8 +173,8 @@ MSVehicle::~MSVehicle() throw()
     }
 #endif
     // persons
-    if (hasCORNPointerValue(MSCORN::CORN_VEH_PASSENGER)) {
-        std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_VEH_PASSENGER];
+    if (hasCORNPointerValue(MSCORN::CORN_P_VEH_PASSENGER)) {
+        std::vector<MSPerson*> *persons = (std::vector<MSPerson*>*) myPointerCORNMap[MSCORN::CORN_P_VEH_PASSENGER];
         for (std::vector<MSPerson*>::iterator i=persons->begin(); i!=persons->end(); ++i) {
             (*i)->proceed(MSNet::getInstance(), MSNet::getInstance()->getCurrentTimeStep());
         }
@@ -222,6 +231,10 @@ MSVehicle::MSVehicle(string id,
     MSDevice_C2C::buildVehicleDevices(*this, myDevices);
     MSDevice_Routing::buildVehicleDevices(*this, myDevices);
     MSDevice_CPhone::buildVehicleDevices(*this, myDevices);
+    // init CORN containers
+    if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {
+        myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] = 0;
+    }
 }
 
 
@@ -389,6 +402,9 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     vNext = MAX3((SUMOReal) 0, vNext, myType->getSpeedAfterMaxDecel(oldV));
     if (vNext<=0.1) {
         myWaitingTime += DELTA_T;
+        if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {
+            myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] = myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] + 1;
+        }
     } else {
         myWaitingTime = 0;
     }
@@ -553,6 +569,9 @@ MSVehicle::moveFirstChecked()
     // visit waiting time
     if (vNext<=0.1) {
         myWaitingTime += DELTA_T;
+        if (MSCORN::wished(MSCORN::CORN_VEH_WAITINGTIME)) {
+            myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] = myIntCORNMap[MSCORN::CORN_VEH_WAITINGTIME] + 1;
+        }
     } else {
         myWaitingTime = 0;
     }
@@ -956,9 +975,6 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven)
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         (*dev)->enterLaneAtMove(enteredLane, driven);
     }
-    if (MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
-        MSNet::getInstance()->getVehicleControl().vehicleMoves(this);
-    }
 
 #ifdef TRACI
 	// remove all Stops that were added by Traci and were not reached for any reason
@@ -1221,6 +1237,15 @@ MSVehicle::proceedVirtualReturnWhetherEnded(const MSEdge *const newEdge)
 void
 MSVehicle::onTripEnd()
 {
+    // check whether the vehicle's verbose arrival information shall be saved
+    if (MSCORN::wished(MSCORN::CORN_VEH_ARRIVAL_INFO)) {
+        DepartArrivalInformation *i = new DepartArrivalInformation();
+        i->time = MSNet::getInstance()->getCurrentTimeStep();
+        i->lane = myLane;
+        i->pos = myState.pos();
+        i->speed = myState.speed();
+        myPointerCORNMap[MSCORN::CORN_P_VEH_ARRIVAL_INFO] = (void*) i;
+    }
     SUMOReal pspeed = myState.mySpeed;
     SUMOReal pos = myState.myPos;
     SUMOReal oldPos = pos - SPEED2DIST(pspeed);
@@ -1264,11 +1289,20 @@ void
 MSVehicle::onDepart()
 {
     // check whether the vehicle's departure time shall be saved
-    myIntCORNMap[MSCORN::CORN_VEH_REALDEPART] = (int) MSNet::getInstance()->getCurrentTimeStep(); // !!!
-    // check whether the vehicle control shall be informed
-    if (MSCORN::wished(MSCORN::CORN_VEHCONTROL_WANTS_DEPARTURE_INFO)) {
-        MSNet::getInstance()->getVehicleControl().vehicleEmitted(this);
+    if (MSCORN::wished(MSCORN::CORN_VEH_DEPART_TIME)) {
+        myIntCORNMap[MSCORN::CORN_VEH_DEPART_TIME] = (int) MSNet::getInstance()->getCurrentTimeStep();
     }
+    // check whether the vehicle's verbose departure information shall be saved
+    if (MSCORN::wished(MSCORN::CORN_VEH_DEPART_INFO)) {
+        DepartArrivalInformation *i = new DepartArrivalInformation();
+        i->time = MSNet::getInstance()->getCurrentTimeStep();
+        i->lane = myLane;
+        i->pos = myState.pos();
+        i->speed = myState.speed();
+        myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_INFO] = (void*) i;
+    }
+    // inform the vehicle control
+    MSNet::getInstance()->getVehicleControl().vehicleEmitted(this);
 }
 
 
@@ -1392,7 +1426,6 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
     myLastBestLanesEdge = 0;
     // save information that the vehicle was rerouted
     //  !!! refactor the CORN-stuff
-    myIntCORNMap[MSCORN::CORN_VEH_WASREROUTED] = 1;
     myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
     myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] = myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
     rebuildAllowedLanes();
@@ -1683,8 +1716,8 @@ MSVehicle::saveState(std::ostream &os)
     FileHelpers::writeUInt(os, myDesiredDepart);
     FileHelpers::writeString(os, myType->getID());
     FileHelpers::writeUInt(os, myRoute->posInRoute(myCurrEdge));
-    if (hasCORNIntValue(MSCORN::CORN_VEH_REALDEPART)) {
-        FileHelpers::writeInt(os, getCORNIntValue(MSCORN::CORN_VEH_REALDEPART));
+    if (hasCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)) {
+        FileHelpers::writeInt(os, getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME));
     } else {
         FileHelpers::writeInt(os, -1);
     }

@@ -101,7 +101,6 @@ GUIRunThread::init(GUINet *net, SUMOTime start, SUMOTime end)
     mySimStartTime = start;
     mySimEndTime = end;
     myStep = start;
-    myNet->initialiseSimulation();
     // register message callbacks
     MsgHandler::getErrorInstance()->addRetriever(myErrorRetriever);
     MsgHandler::getMessageInstance()->addRetriever(myMessageRetriever);

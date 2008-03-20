@@ -98,6 +98,8 @@ public:
         return myEdges;
     }
 
+    SUMOReal getLength() const;
+
 public:
     /** @brief Adds a route to the dictionary
         Returns true if the route could be added, fals if a route with the same name already exists */

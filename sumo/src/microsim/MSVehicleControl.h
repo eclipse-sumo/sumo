@@ -97,7 +97,7 @@ public:
     SUMOReal getMeanTravelTime() const;
 
     /// Informs this instance about the successfull emission of a vehicle
-    void vehiclesEmitted(size_t no=1);
+    void vehiclesEmitted(unsigned int no=1);
 
     /// Returns the information whether all build vehicles have been removed
     bool haveAllVehiclesQuit() const;
@@ -108,7 +108,6 @@ public:
         is needed.
         Still, we do need this if we want to compute the mean waiting time. */
     virtual void vehicleEmitted(MSVehicle *v);
-    virtual void vehicleMoves(MSVehicle *v);
 
     void saveState(std::ostream &os);
     void loadState(BinaryInputDevice &bis);

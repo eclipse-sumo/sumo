@@ -781,6 +781,14 @@ private:
     /// Definition of the vector which stores information about replaced routes
     typedef std::vector<RouteReplaceInfo> ReplacedRoutesVector;
 
+    struct DepartArrivalInformation {
+        SUMOTime time;
+        MSLane *lane;
+        SUMOReal pos;
+        SUMOReal speed;
+    };
+
+
 #ifdef TRACI
 	//struct TraciStop {
 	//	MSLane *lane;

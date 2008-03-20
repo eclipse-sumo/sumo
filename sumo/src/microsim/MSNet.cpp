@@ -195,6 +195,8 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
 
     // set requests/responses
     myJunctions->postloadInitContainer();
+    // initialise outputs
+    initialiseSimulation();
 }
 
 
@@ -231,7 +233,6 @@ MSNet::~MSNet()
 int
 MSNet::simulate(SUMOTime start, SUMOTime stop)
 {
-    initialiseSimulation();
     // the simulation loop
     int otherQuit = 0;
     myStep = start;

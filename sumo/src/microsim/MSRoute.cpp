@@ -32,6 +32,7 @@
 #include <algorithm>
 #include "MSRoute.h"
 #include "MSEdge.h"
+#include "MSLane.h"
 #include <utils/common/FileHelpers.h>
 #include <utils/iodevices/BinaryInputDevice.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -264,6 +265,17 @@ unsigned
 MSRoute::posInRoute(const MSRouteIterator &currentEdge) const
 {
     return distance(myEdges.begin(), currentEdge);
+}
+
+
+SUMOReal 
+MSRoute::getLength() const
+{
+    SUMOReal ret = 0;
+    for(MSEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
+        ret += (*(*i)->getLanes())[0]->length();
+    }
+    return ret;
 }
 
 

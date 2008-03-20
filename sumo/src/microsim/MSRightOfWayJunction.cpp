@@ -191,9 +191,7 @@ MSRightOfWayJunction::deadlockKiller()
         vector< unsigned > trueRequests;
         trueRequests.reserve(myRespond.size());
         for (unsigned i = 0; i < myRequest.size(); ++i) {
-
             if (myRequest.test(i)) {
-
                 trueRequests.push_back(i);
                 assert(trueRequests.size() <= myRespond.size());
             }
