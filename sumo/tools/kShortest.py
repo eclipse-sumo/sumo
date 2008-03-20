@@ -127,7 +127,6 @@ class NetReader(handler.ContentHandler):
         self._net = net
         self._edgeString = ''
         self._edge = ''
-        self._lane2edge = {}
 
     def startElement(self, name, attrs):
         if name == 'edges':
@@ -140,7 +139,6 @@ class NetReader(handler.ContentHandler):
             newEdge = Edge(self._edge+"_"+attrs['id'], fromEdge.target, toEdge.source)
             self._net.addEdge(newEdge)
         elif name == 'lane' and self._edge != '':
-            self._lane2edge[attrs['id']] = self._edge
             edgeObj = self._net.getEdge(self._edge)
             edgeObj.weight = float(attrs['length'])
 
