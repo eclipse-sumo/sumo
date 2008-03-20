@@ -28,6 +28,7 @@
 // ===========================================================================
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
+#include "TraCIHandler.h"
 
 #ifdef TRACI
 
@@ -39,6 +40,7 @@
 #include "utils/shapes/PointOfInterest.h"
 #include "utils/shapes/ShapeContainer.h"
 #include "utils/shapes/Polygon2D.h"
+#include "utils/xml/XMLSubSys.h"
 #include "microsim/MSNet.h"
 #include "microsim/MSVehicleControl.h"
 #include "microsim/MSVehicle.h"
@@ -53,6 +55,8 @@
 #include "microsim/MSEdgeControl.h"
 #include "microsim/MSLane.h"
 #include "microsim/trigger/MSCalibrator.h"
+
+#include <xercesc/sax2/SAX2XMLReader.hpp>
 
 #include <string>
 #include <map>
@@ -90,6 +94,7 @@ TraCIServer::TraCIServer()
     routeFile_ = oc.getString("route-files");
     isMapChanged_ = true;
     numEquippedVehicles_ = 0;
+	totalNumVehicles_ = 0;
     closeConnection_ = false;
     netBoundary_ = NULL;
 }
@@ -141,6 +146,47 @@ TraCIServer::run()
 			polyId++;
 		}
 	}
+
+	// determine the maximum number of vehicles by searching route and additional input files or "vehicle" tags
+	TraCIHandler xmlHandler;
+	SAX2XMLReader* xmlParser = XMLSubSys::getSAXReader(xmlHandler);
+	xmlParser->setContentHandler(&xmlHandler);
+	xmlParser->setErrorHandler(&xmlHandler);
+	OptionsCont& optCont = OptionsCont::getOptions();
+
+	// parse route files
+	if (optCont.isSet("route-files")) {
+		std::vector<std::string> fileList = optCont.getStringVector("route-files");
+		for (std::vector<std::string>::iterator file=fileList.begin(); file != fileList.end(); file++) {
+			if (optCont.isUsableFileList("route-files")) {
+				xmlHandler.setFileName((*file));
+				xmlHandler.resetTotalVehicleCount();
+				xmlParser->parse(file->c_str());
+
+				if (!MsgHandler::getErrorInstance()->wasInformed()) {
+					totalNumVehicles_ += xmlHandler.getTotalVehicleCount();
+				}
+			}
+		}
+	}
+
+	// parse additional files
+	if (optCont.isSet("additional-files")) {
+		std::vector<std::string> fileList = optCont.getStringVector("additional-files");
+		for (std::vector<std::string>::iterator file = fileList.begin(); file != fileList.end(); file++) {
+			if (optCont.isUsableFileList("additional-files")) {
+				xmlHandler.setFileName((*file));
+				xmlHandler.resetTotalVehicleCount();
+				xmlParser->parse(file->c_str());
+
+				if (!MsgHandler::getErrorInstance()->wasInformed()) {
+					totalNumVehicles_ += xmlHandler.getTotalVehicleCount();
+				}
+			}
+		}
+	}
+	
+	delete xmlParser;
 	
     try {
         // Opens listening socket
@@ -1170,7 +1216,7 @@ TraCIServer::getPoiByExtId(int extId)
 	std::string intId = "";
 	std::map<int, std::string>::iterator iter = poiExt2IntId.find(extId);
 	if (iter != poiExt2IntId.end()) {
-		intId = poiExt2IntId[extId];
+		intId = iter->second;
 	}
 
 	ShapeContainer& shapeCont = MSNet::getInstance()->getShapeContainer();
@@ -1487,7 +1533,11 @@ throw(TraCIException)
 
 	// upper bound for number of nodes
 	case DOMVAR_MAXCOUNT:
-		throw TraCIException("Variable not implemented yet");
+		response.writeUnsignedByte(TYPE_INTEGER);
+		response.writeInt(totalNumVehicles_);
+		if (dataType != TYPE_INTEGER) {
+			warning = "Warning: requested data type could not be used; using integer instead!";
+		}
 		break;
 
 	// number of traci nodes

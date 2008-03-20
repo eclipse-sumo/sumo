@@ -271,6 +271,9 @@ private:
     // hold number of all equipped vehicles
     int numEquippedVehicles_;
 
+	// maximum number of vehicles within the simulation
+	int totalNumVehicles_;
+
     bool closeConnection_;
 
     Boundary* netBoundary_;
