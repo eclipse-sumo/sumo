@@ -8317,7 +8317,7 @@ myDet1;0;10;2;100;80
         </itemizedlist>
       </sect2>
 
-      <sect2 id="user_chp06-output-tripinfo" revision="0.9.6">
+      <sect2 id="user_chp06-output-tripinfo" revision="0.10.0">
         <title>Vehicle-Oriented Trip Information</title>
 
         <para>The simulation is forced to generate this output using:
@@ -8333,14 +8333,15 @@ myDet1;0;10;2;100;80
         as following:</para>
 
         <programlisting><sgmltag>&lt;tripinfos&gt;</sgmltag>
-   <sgmltag>&lt;tripinfo vehicle_id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>" start="<replaceable>&lt;DEPARTURE_TIME&gt;</replaceable>" \
-            wished="<replaceable>&lt;WISHED_DEPARTURE_TIME&gt;</replaceable>" \
-            end="<replaceable>&lt;ARRIVAL_TIME&gt;</replaceable>" \
-            duration="<replaceable>&lt;TRAVEL_TIME&gt;</replaceable>" \
-            waited="<replaceable>&lt;WAITING_TIME&gt;</replaceable>" \
-            reroutes="<replaceable>&lt;REROUTE_NUMBER&gt;</replaceable>" \
-            devices="<replaceable>&lt;DEVICE_LIST&gt;</replaceable>" \
-            vtype="<replaceable>&lt;VEHICLE_TYPE&gt;</replaceable>"/&gt;</sgmltag>
+    <sgmltag>&lt;tripinfo id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>" \
+            depart="<replaceable>&lt;DEPARTURE_TIME&gt;</replaceable>" departLane="<replaceable>&lt;DEPARTURE_LANE_ID&gt;</replaceable>" \
+            departPos="<replaceable>&lt;DEPARTURE_POSITION&gt;</replaceable>" departSpeed="<replaceable>&lt;DEPARTURE_SPEED&gt;</replaceable>" \
+            departDelay="<replaceable>&lt;DEPARTURE_DELAY&gt;</replaceable>" \
+            arrival="<replaceable>&lt;ARRIVAL_TIME&gt;</replaceable>" arrivalLane="<replaceable>&lt;DEPARTURE_LANE_ID&gt;</replaceable>" \
+            arrivalPos="<replaceable>&lt;ARRIVAL_POSITION&gt;</replaceable>" arrivalSpeed="<replaceable>&lt;ARRIVAL_SPEED&gt;</replaceable>" \
+            duration="<replaceable>&lt;TRAVEL_TIME&gt;</replaceable>" routeLength="<replaceable>&lt;ROUTE_LENGTH&gt;</replaceable>" \
+            waitSteps="<replaceable>&lt;STEPS_WITH_HALTS&gt;</replaceable>" rerouteNo="<replaceable>&lt;REROUTE_NUMBER&gt;</replaceable>" \
+            devices="<replaceable>&lt;DEVICE_LIST&gt;</replaceable>" vtype="<replaceable>&lt;VEHICLE_TYPE_ID&gt;</replaceable>"/&gt;</sgmltag>
 
    ... information about further vehicles ...
 
@@ -8367,7 +8368,7 @@ myDet1;0;10;2;100;80
 
             <tbody>
               <row>
-                <entry><sgmltag>vehicle_id</sgmltag></entry>
+                <entry><sgmltag>id</sgmltag></entry>
 
                 <entry><literal>ID</literal></entry>
 
@@ -8376,7 +8377,7 @@ myDet1;0;10;2;100;80
               </row>
 
               <row>
-                <entry><sgmltag>start</sgmltag></entry>
+                <entry><sgmltag>depart</sgmltag></entry>
 
                 <entry><literal>(simulation) seconds</literal></entry>
 
@@ -8385,21 +8386,74 @@ myDet1;0;10;2;100;80
               </row>
 
               <row>
-                <entry><sgmltag>wished</sgmltag></entry>
+                <entry><sgmltag>departLane</sgmltag></entry>
 
-                <entry><literal>(simulation) seconds</literal></entry>
+                <entry><literal>ID</literal></entry>
 
-                <entry>The departure time the vehicles wanted to be emitted
-                into the network</entry>
+                <entry>The id of the lane the vehicle started its
+                journey</entry>
               </row>
 
               <row>
-                <entry><sgmltag>end</sgmltag></entry>
+                <entry><sgmltag>departPos</sgmltag></entry>
+
+                <entry><literal>m</literal></entry>
+
+                <entry>The position on the lane the vehicle started its
+                journey</entry>
+              </row>
+
+              <row>
+                <entry><sgmltag>departSpeed</sgmltag></entry>
+
+                <entry><literal>m/s</literal></entry>
+
+                <entry>The speed with which the vehicle started its
+                journey</entry>
+              </row>
+
+              <row>
+                <entry><sgmltag>departDelay</sgmltag></entry>
 
                 <entry><literal>(simulation) seconds</literal></entry>
 
-                <entry>The time the vehicle was removed from the simulation
-                (due to arriving at the route end)</entry>
+                <entry>The time the vehicle had to wait before it could start
+                his journey</entry>
+              </row>
+
+              <row>
+                <entry><sgmltag>arrival</sgmltag></entry>
+
+                <entry><literal>(simulation) seconds</literal></entry>
+
+                <entry>The time the vehicle reached his destination at</entry>
+              </row>
+
+              <row>
+                <entry><sgmltag>arrivalLane</sgmltag></entry>
+
+                <entry><literal>ID</literal></entry>
+
+                <entry>The id of the lane the vehicle was on when reaching his
+                destination</entry>
+              </row>
+
+              <row>
+                <entry><sgmltag>arrivalPos</sgmltag></entry>
+
+                <entry><literal>m</literal></entry>
+
+                <entry>The position on the lane the vehicle was when reaching
+                the destination</entry>
+              </row>
+
+              <row>
+                <entry><sgmltag>arrivalSpeed</sgmltag></entry>
+
+                <entry><literal>m/s</literal></entry>
+
+                <entry>The speed the vehicle had when reaching the
+                destination</entry>
               </row>
 
               <row>
@@ -8412,16 +8466,24 @@ myDet1;0;10;2;100;80
               </row>
 
               <row>
-                <entry><sgmltag>waited</sgmltag></entry>
+                <entry><sgmltag>routeLength</sgmltag></entry>
 
-                <entry><literal>(simulation) seconds</literal></entry>
+                <entry><literal>m</literal></entry>
 
-                <entry>The time the vehicle has waited until being
-                emitted</entry>
+                <entry>The length of the vehicle's route</entry>
               </row>
 
               <row>
-                <entry><sgmltag>reroutes</sgmltag></entry>
+                <entry><sgmltag>waitSteps</sgmltag></entry>
+
+                <entry><literal>simulation steps</literal></entry>
+
+                <entry>The number of steps in which the vehicle speed was
+                below 0.1m/s</entry>
+              </row>
+
+              <row>
+                <entry><sgmltag>rerouteNo</sgmltag></entry>
 
                 <entry><literal>#</literal></entry>
 
@@ -8485,6 +8547,49 @@ myDet1;0;10;2;100;80
           <listitem>
             <para>The <sgmltag>vtype</sgmltag> attribute was added for version
             0.9.6</para>
+          </listitem>
+
+          <listitem>
+            <para>The <sgmltag>vehicle_id</sgmltag> attribute was renamed to
+            <sgmltag>id</sgmltag> in version 0.10.0</para>
+          </listitem>
+
+          <listitem>
+            <para>The <sgmltag>start</sgmltag> attribute was renamed to
+            <sgmltag>depart</sgmltag> in version 0.10.0</para>
+          </listitem>
+
+          <listitem>
+            <para>The attributes <sgmltag>departLane</sgmltag>,
+            <sgmltag>departPos</sgmltag>, <sgmltag>departSpeed</sgmltag> were
+            added in version 0.10.0</para>
+          </listitem>
+
+          <listitem>
+            <para>The <sgmltag>end</sgmltag> attribute was renamed to
+            <sgmltag>arrival</sgmltag> in version 0.10.0</para>
+          </listitem>
+
+          <listitem>
+            <para>The attributes <sgmltag>arrivalLane</sgmltag>,
+            <sgmltag>arrivalPos</sgmltag>, <sgmltag>arrivalSpeed</sgmltag>
+            were added in version 0.10.0</para>
+          </listitem>
+
+          <listitem>
+            <para>In version 0.10.0, the attribute <sgmltag>waited</sgmltag>
+            was removed; instead <sgmltag>departDelay</sgmltag> was introduced
+            </para>
+          </listitem>
+
+          <listitem>
+            <para>The attributes <sgmltag>routeLength</sgmltag> and
+            <sgmltag>waitSteps</sgmltag> were added in version 0.10.0</para>
+          </listitem>
+
+          <listitem>
+            <para>The <sgmltag>reroutes</sgmltag> attribute was renamed to
+            <sgmltag>rerouteNo</sgmltag> in version 0.10.0</para>
           </listitem>
         </itemizedlist>
       </sect2>
