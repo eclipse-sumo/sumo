@@ -3,7 +3,7 @@
 @file    incrementalAssignment.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-10-25
-@version $Id: incrementalAssignment.py 2008-03-17 $
+@version $Id$
 
 This script is for the incremental traffic assignment with a sumo-based traffic network.
 The Dijkstra algorithm is applied for searching the shortest paths.

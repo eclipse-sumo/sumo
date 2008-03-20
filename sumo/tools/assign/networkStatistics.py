@@ -3,7 +3,7 @@
 @file    networkStatistics.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-02-27
-@version $Id: networkStatistics.py 2008-03-18 $
+@version $Id$
 
 This script is to calculate the global performance indices according to the SUMO-based simulation results.
 

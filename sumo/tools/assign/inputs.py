@@ -3,7 +3,7 @@
 @file    inputs.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-10-25
-@version $Id: inputs.py 2008-03-17 $
+@version $Id$
 
 This script is to retrieve the assignment parameters, the OD districts and the matrix from the input files. 
 Moreover, the link travel time for district connectors will be estimated.

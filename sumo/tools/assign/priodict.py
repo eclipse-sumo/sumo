@@ -3,7 +3,7 @@
 @file    priodict.py
 @author  David Eppstein, UC Irvine
 @date    2002-03-08
-@version $Id: priodict.py  2008-03-17 $
+@version $Id$
 
 This Priority dictionary, using binary heaps, is for the dijkstra algorithm. 
 

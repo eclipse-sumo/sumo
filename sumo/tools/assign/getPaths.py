@@ -3,7 +3,7 @@
 @file    getPaths.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-02-01
-@version $Id: getPaths.py 2008-03-17 $
+@version $Id$
 
 This script is find the new paths for all OD pairs.
 The Dijkstra algorithm is applied for searching the shortest paths.

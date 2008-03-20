@@ -3,7 +3,7 @@
 @file    elements.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-10-25
-@version $Id: elements.py 2008-03-17 $
+@version $Id$
 
 This script is to define the required network geometric classes and 
 the functions for calculating link characteristics, such as capacity, travel time and link cost function..

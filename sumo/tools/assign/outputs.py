@@ -3,7 +3,7 @@
 @file    outputs.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-12-25
-@version $Id: outputs.py 2008-03-17  $
+@version $Id$
 
 This script is for generating the outputs from the choosed traffic assignment.
 
