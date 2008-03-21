@@ -50,12 +50,14 @@ namespace traci
 {
 	
 TraCIHandler::TraCIHandler(const std::string& file)
+throw()
 		:SUMOSAXHandler(file),
 		totalVehicleCount(0),
 		currentVehCount(0)
 {}
 
 TraCIHandler::~TraCIHandler()
+throw()
 {}
 
 void 
