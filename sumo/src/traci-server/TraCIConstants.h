@@ -152,7 +152,7 @@
 // position of a domain object
 #define DOMVAR_POSITION 0x02
 // boundaries of simulation net
-#define DOMVAR_NETBOUNDS 0x03
+#define DOMVAR_BOUNDINGBOX 0x03
 // speed of a node
 #define DOMVAR_SPEED 0x04
 // actual phase of a traffic light

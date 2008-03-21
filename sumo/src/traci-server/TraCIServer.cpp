@@ -1460,7 +1460,7 @@ throw(TraCIException)
 	switch (variableId) {
 
 	// net boundaries
-	case DOMVAR_NETBOUNDS:
+	case DOMVAR_BOUNDINGBOX:
 		response.writeUnsignedByte(TYPE_BOUNDINGBOX);
 		response.writeFloat(0.0);
 		response.writeFloat(0.0);
