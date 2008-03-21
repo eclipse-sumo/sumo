@@ -699,6 +699,8 @@ void
 TraCIServer::commandGetTLStatus(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
 throw(TraCIException)
 {
+    SUMOTime lookback = 60; // Time to look in history for recognizing yellowTimes
+
     tcpip::Storage tempMsg;
 
     // trafic light id
@@ -736,7 +738,8 @@ throw(TraCIException)
     }
 
     // check every second of the given time interval for a switch in the traffic light's phases
-    for (SUMOTime time = static_cast<SUMOTime>(timeFrom); time <= static_cast<SUMOTime>(timeTo); time++) {
+    for (SUMOTime time = static_cast<SUMOTime>(timeFrom) - lookback; time <= static_cast<SUMOTime>(timeTo); time++) {
+        if (time < 0) time = 0;
         size_t position = tlLogic->getPosition(time);
         size_t currentStep = tlLogic->getStepFromPos(position);
 
@@ -750,43 +753,44 @@ throw(TraCIException)
 
                 if (nextLinkState == MSLink::LINKSTATE_TL_YELLOW) {
                     if (yellowTimes[i] < 0) yellowTimes[i] = time;
-                } else if (nextLinkState != linkStates[i]) {
-                    linkStates[i] = nextLinkState;
+                } else {
+                    if (nextLinkState != linkStates[i] && time >= timeFrom) {
+                        linkStates[i] = nextLinkState;
 
-                    // get the group of links that is affected by the changed light status
-                    MSTrafficLightLogic::LinkVector linkGroup = affectedLinks[i];
-                    // get the group of preceding lanes of the link group
-                    MSTrafficLightLogic::LaneVector laneGroup = tlLogic->getLanesAt(i);
+                        // get the group of links that is affected by the changed light status
+                        MSTrafficLightLogic::LinkVector linkGroup = affectedLinks[i];
+                        // get the group of preceding lanes of the link group
+                        MSTrafficLightLogic::LaneVector laneGroup = tlLogic->getLanesAt(i);
 
 
-                    // for each link with new red/green status, write a TLSWITCH command
-                    for (int j = 0; j < linkGroup.size(); j++) {
+                        // for each link with new red/green status, write a TLSWITCH command
+                        for (int j = 0; j < linkGroup.size(); j++) {
 
-                        // time of the switch
-                        tempMsg.writeDouble(time);
-                        // preceding edeg id
-                        tempMsg.writeString(laneGroup[j]->getEdge()->getID());
-                        // succeeding edge id
-                        tempMsg.writeString(linkGroup[j]->getLane()->getEdge()->getID());
-                        // new status
-                        if (nextLinkState == MSLink::LINKSTATE_TL_RED) {
-                            //tempMsg.writeString("red");
-                            tempMsg.writeUnsignedByte(TLPHASE_RED);
-                        } else {
-                            //tempMsg.writeString("green");
-                            tempMsg.writeUnsignedByte(TLPHASE_GREEN);
+                            // time of the switch
+                            tempMsg.writeDouble(time);
+                            // preceding edeg id
+                            tempMsg.writeString(laneGroup[j]->getEdge()->getID());
+                            // succeeding edge id
+                            tempMsg.writeString(linkGroup[j]->getLane()->getEdge()->getID());
+                            // new status
+                            if (nextLinkState == MSLink::LINKSTATE_TL_RED) {
+                                //tempMsg.writeString("red");
+                                tempMsg.writeUnsignedByte(TLPHASE_RED);
+                            } else {
+                                //tempMsg.writeString("green");
+                                tempMsg.writeUnsignedByte(TLPHASE_GREEN);
+                            }
+                            //yellow time
+                            tempMsg.writeDouble(yellowTimes[i]<0 ? 0 : time - yellowTimes[i]);
+                            // command length
+                            respMsg.writeUnsignedByte(1 + 1 + tempMsg.size());
+                            // command type
+                            respMsg.writeUnsignedByte(CMD_TLSWITCH);
+                            // command content
+                            respMsg.writeStorage(tempMsg);
+                            tempMsg.reset();
                         }
-                        //yellow time
-                        tempMsg.writeDouble(yellowTimes[i]<0 ? 0 : time - yellowTimes[i]);
-                        // command length
-                        respMsg.writeUnsignedByte(1 + 1 + tempMsg.size());
-                        // command type
-                        respMsg.writeUnsignedByte(CMD_TLSWITCH);
-                        // command content
-                        respMsg.writeStorage(tempMsg);
-                        tempMsg.reset();
                     }
-
                     yellowTimes[i] = -1;
                 }
             }
