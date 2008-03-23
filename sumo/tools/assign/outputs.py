@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 @file    outputs.py
 @author  Yun-Pang.Wang@dlr.de
@@ -71,25 +70,17 @@ def outputStatistics(net, starttime, Parcontrol):
     return assigntime
 
 # output the releasing time and the route for each vehicle
-def sortedVehOutput(net, counter, Parcontrol):                                   
-    net._vehicles.sort(key=operator.attrgetter('depart'))                         # sorting by departure times 
-    if counter == 0:
-        foutroute = file('routes.txt', 'w')                                           # initialize the file for recording the routes
-        foutroute.write('<routes>\n')
-    else:
-        foutroute = file('routes.txt', 'a')
-    for veh in net._vehicles:                                                     # output the generated routes 
-        foutroute.write('<vehicle id="%s" depart="%d">\n' %(veh.label, veh.depart))
-        foutroute.write('<route>')
+def sortedVehOutput(vehicles, foutroute):                                   
+    vehicles.sort(key=operator.attrgetter('depart'))                         # sorting by departure times 
+    for veh in vehicles:                                                     # output the generated routes 
+        foutroute.write('    <vehicle id="%s" depart="%d">\n' %(veh.label, veh.depart))
+        foutroute.write('        <route>')
         for edge in veh.route[1:-1]:                       # for generating vehicle routes used in SUMO 
-            foutroute.write('%s ' %edge.label)
+            foutroute.write('%s ' % edge.label)
         foutroute.write('</route>\n')
-        foutroute.write('</vehicle>\n') 
-    if int(Parcontrol[(len(Parcontrol)-2)]) == int(counter+1):
-        foutroute.write('</routes>\n')
-    foutroute.close()
+        foutroute.write('    </vehicle>\n') 
     
-# ouptut the number of the released vehicles in the defined interval (when the Poisson distribution is used for generating vehicular releasing times)
+# output the number of the released vehicles in the defined interval (when the Poisson distribution is used for generating vehicular releasing times)
 def vehPoissonDistr(net, Parcontrol, begintime):
     foutpoisson = file('poisson.txt', 'w')
     if int(Parcontrol[(len(Parcontrol)-3)]) == 1:

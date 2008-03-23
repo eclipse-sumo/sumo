@@ -147,8 +147,12 @@ def main():
         for endVertex in net._endVertices:
             AssignedVeh[startVertex][endVertex] = 0
             AssignedTrip[startVertex][endVertex] = 0.
-    
+
     starttime = datetime.datetime.now() 
+    foutroute = open('routes.rou.xml', 'w')                                           # initialize the file for recording the routes
+    print >> foutroute, """<?xml version="1.0"?>
+<!-- generated on %s by $Id: clogit.py 2008-03-17$ -->
+<routes>""" % starttime
     for counter in range (0, len(matrices)):
         # delete all vehicle information related to the last matrix for saving the disk space
         net._vehicles = []                                              
@@ -231,8 +235,11 @@ def main():
         net.vehRelease(options.verbose, Parcontrol, departtime, CurrentMatrixSum)
     
     # output vehicle releasing time and vehicle route 
-        sortedVehOutput(net, counter, Parcontrol)
+        sortedVehOutput(net._vehicles, foutroute)
     
+    foutroute.write('</routes>\n')
+    foutroute.close()
+
     # output the global performance indices
     assigntime = outputStatistics(net, starttime, Parcontrol)
     

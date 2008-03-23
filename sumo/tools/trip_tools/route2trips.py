@@ -1,9 +1,19 @@
-#!/usr/bin/python
-# This script converts SUMO routes back into SUMO trips which serve
-# as input to one of the routing applications.
-# It reads the routes from a file given as first parameter
-# and outputs the trips to stdout.
-import sys
+#!/usr/bin/env python
+"""
+@file    route2trips.py
+@author  Michael.Behrisch@dlr.de
+@date    2008-03-19
+@version $Id: clogit.py 2008-03-17$
+
+This script converts SUMO routes back into SUMO trips which serve
+as input to one of the routing applications.
+It reads the routes from a file given as first parameter
+and outputs the trips to stdout.
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
+"""
+import sys, datetime
 
 from xml.sax import make_parser, handler
 
@@ -30,7 +40,9 @@ class RouteReader(handler.ContentHandler):
                 self._routeID = attrs['id']
             self._routeString = ''
         elif name == 'routes':
-            print "<tripdefs>"
+            print """<?xml version="1.0"?>
+<!-- generated on %s by $Id: clogit.py 2008-03-17$ -->
+<tripdefs>""" % datetime.datetime.now()
 
     def endElement(self, name):
         if name == 'route':
