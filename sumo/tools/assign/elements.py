@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 @file    elements.py
 @author  Yun-Pang.Wang@dlr.de

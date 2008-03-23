@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 @file    getPaths.py
 @author  Yun-Pang.Wang@dlr.de

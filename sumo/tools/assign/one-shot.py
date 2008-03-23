@@ -1,3 +1,15 @@
+#!/usr/bin/env python
+"""
+@file    route2trips.py
+@author  Daniel.Krajzewicz@dlr.de
+@date    2008-03-10
+@version $Id$
+
+This script does multpile sumo runs with different rerouting intervals.
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
+"""
 import os, sys, subprocess
 from datetime import datetime
 from optparse import OptionParser

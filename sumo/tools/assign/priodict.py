@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 @file    priodict.py
 @author  David Eppstein, UC Irvine

@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 @file    network.py
 @author  Yun-Pang.Wang@dlr.de

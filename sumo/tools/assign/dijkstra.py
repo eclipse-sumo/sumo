@@ -1,9 +1,8 @@
-#!/usr/bin/env python
 """
 @file    dijkstra.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-10-25
-@version $Id: dijkstra.py 2008-03-17$
+@version $Id$
 
 This script is based on the script from David Eppstein, UC Irvine.
 This script is to find the shortest path from the given origin 'start' to the other nodes in the investigated network. 
