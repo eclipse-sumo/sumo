@@ -409,6 +409,8 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
         myWaitingTime = 0;
     }
 
+    vNext = MIN2(vNext, getMaxSpeed());
+    
     // call reminders after vNext is set
     workOnMoveReminders(myState.myPos,
                         myState.myPos + SPEED2DIST(vNext), vNext);

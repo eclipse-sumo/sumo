@@ -173,6 +173,11 @@
 #define DOMVAR_EQUIPPEDCOUNTMAX 0x0C
 // id string of a domain object
 #define DOMVAR_NAME 0x0D
+// route, a car plans to drive
+#define DOMVAR_ROUTE 0x0E
+// distance from a certain object to a position
+#define DOMVAR_AIRDISTANCE 0x10
+#define DOMVAR_DRIVINGDISTANCE 0x11
 
 // ****************************************
 // TRAFFIC LIGHT PHASES

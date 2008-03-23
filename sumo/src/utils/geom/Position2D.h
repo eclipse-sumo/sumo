@@ -148,6 +148,10 @@ public:
         return fabs(myX-p2.myX)<maxDiv && fabs(myY-p2.myY)<maxDiv;
     }
 
+    float euclidDistance(const float& x, const float& y) {
+        return sqrtf((myX-x)*(myX-x) + (myY-y)*(myY-y));
+    }
+
 
 private:
     /// The x-position

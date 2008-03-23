@@ -768,8 +768,10 @@ throw(TraCIException)
 
                             // time of the switch
                             tempMsg.writeDouble(time);
-                            // preceding edeg id
+                            // preceeding edge id
                             tempMsg.writeString(laneGroup[j]->getEdge()->getID());
+                            // traffic light's position on preceeding edge
+                            tempMsg.writeFloat(laneGroup[j]->getShape().length());
                             // succeeding edge id
                             tempMsg.writeString(linkGroup[j]->getLane()->getEdge()->getID());
                             // new status
@@ -1133,9 +1135,17 @@ throw(TraCIException)
 	writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_OK, warning);
 	// if necessary, add Scenario command containing the read value
 	if (!isWriteCommand) {
-		respMsg.writeUnsignedByte(1 + 1 + tmpResult.size());	// command length
-		respMsg.writeUnsignedByte(CMD_SCENARIO);	// command id
-		respMsg.writeStorage(tmpResult);	// variable dependant part
+        if (tmpResult.size() <= 253 ) 
+        {
+            respMsg.writeUnsignedByte(1 + 1 + tmpResult.size());	// command length
+		    respMsg.writeUnsignedByte(CMD_SCENARIO);	// command id
+		    respMsg.writeStorage(tmpResult);	// variable dependant part
+        } else {
+            respMsg.writeUnsignedByte(0);	// command length -> extended
+            respMsg.writeInt(1 + 4 + 1 + tmpResult.size());
+            respMsg.writeUnsignedByte(CMD_SCENARIO);	// command id
+		    respMsg.writeStorage(tmpResult);	// variable dependant part
+        }
 	}
 }	
 
@@ -1600,6 +1610,75 @@ throw(TraCIException)
 			throw TraCIException("Unable to retrieve node with given ID");
 		}
 		break;
+
+    // node route
+    case DOMVAR_ROUTE:
+        if (veh != NULL)
+        {
+			response.writeUnsignedByte(TYPE_STRING);
+			MSRoute r = veh->getRoute();
+            string strRoute = "";
+            for (MSRouteIterator it = r.begin(); it != r.end(); ++it)
+            {
+                if (strRoute.length()) strRoute.append(" ");
+                strRoute.append( (*it)->getID() );
+            }
+            response.writeString(strRoute);
+			// add a warning to the response if the requested data type was not correct
+			if (dataType != TYPE_STRING) {
+				warning = "Warning: requested data type could not be used; using string instead!";
+            }
+        } else {
+			throw TraCIException("Unable to retrieve node with given ID");
+		}
+        break;
+
+    case DOMVAR_AIRDISTANCE:
+    case DOMVAR_DRIVINGDISTANCE:
+        if (veh != NULL)
+        {
+			response.writeUnsignedByte(TYPE_FLOAT);
+            switch (dataType) 
+            {
+            case POSITION_ROADMAP:
+                {
+                    string destEdge = requestMsg.readString();
+                    float destPos = requestMsg.readFloat();
+                    int destLane = requestMsg.readUnsignedByte();
+                    MSEdge* edge = MSEdge::dictionary( destEdge );
+                    if (edge == NULL ) throw TraCIException("Unable to retrieve edge wit hgiven id");
+
+                    if (variableId == DOMVAR_AIRDISTANCE) {
+                        const MSEdge::LaneCont lanes = *(edge->getLanes());
+                        Position2D pos = lanes[destLane]->getShape().positionAtLengthPosition(destPos);
+                        response.writeFloat( veh->getPosition().euclidDistance(pos.x(), pos.y()));
+                    } else {
+                        // ToDo -> Friedemann: Abstand Fahrzeug -> RoadmapPosition berechnen
+                        response.writeFloat(0.0);
+                    }
+                }
+                break;
+            case POSITION_2D:
+            case POSITION_2_5D:
+            case POSITION_3D:
+                {
+                    float destX = requestMsg.readFloat();
+                    float destY = requestMsg.readFloat();
+                    if (variableId == DOMVAR_AIRDISTANCE) {
+                        response.writeFloat( veh->getPosition().euclidDistance(destX, destY));
+                    } else {
+                        // ToDo -> Friedemann: Abstand Fahrzeug -> RoadmapPosition berechnen
+                        response.writeFloat(0.0);
+                    }
+                }
+                break;
+            default:
+                throw TraCIException("Distance request to unknown destination");
+            }
+        } else {
+			throw TraCIException("Unable to retrieve node with given ID");
+		}
+        break;
 
 	// unknown variable
 	default:
