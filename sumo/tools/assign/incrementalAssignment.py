@@ -136,7 +136,7 @@ def main():
     starttime = datetime.datetime.now() 
     foutroute = open('routes.rou.xml', 'w')                                           # initialize the file for recording the routes
     print >> foutroute, """<?xml version="1.0"?>
-<!-- generated on %s by $Id: clogit.py 2008-03-17$ -->
+<!-- generated on %s by $Id$ -->
 <routes>""" % starttime
     for counter in range (0, len(matrices)):
         # delete all vehicle information related to the last matrix for saving the disk space

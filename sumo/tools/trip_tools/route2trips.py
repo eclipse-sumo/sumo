@@ -3,7 +3,7 @@
 @file    route2trips.py
 @author  Michael.Behrisch@dlr.de
 @date    2008-03-19
-@version $Id: clogit.py 2008-03-17$
+@version $Id$
 
 This script converts SUMO routes back into SUMO trips which serve
 as input to one of the routing applications.
@@ -41,7 +41,7 @@ class RouteReader(handler.ContentHandler):
             self._routeString = ''
         elif name == 'routes':
             print """<?xml version="1.0"?>
-<!-- generated on %s by $Id: clogit.py 2008-03-17$ -->
+<!-- generated on %s by $Id$ -->
 <tripdefs>""" % datetime.datetime.now()
 
     def endElement(self, name):
