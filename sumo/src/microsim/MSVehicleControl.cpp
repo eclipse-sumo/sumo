@@ -113,11 +113,11 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
             ? (MSVehicle::DepartArrivalInformation*) v->getCORNPointerValue(MSCORN::CORN_P_VEH_ARRIVAL_INFO)
             : 0;
         SUMOReal routeLength = v->getRoute().getLength();
-        routeLength = routeLength - departInfo->pos - arrivalInfo->lane->length() + arrivalInfo->pos;
         // write
         od << "    <tripinfo id=\"" << v->getID() << "\" ";
         SUMOTime departTime = -1;
         if(departInfo!=0) {
+            routeLength -= departInfo->pos;
             string laneID = departInfo->lane!=0 ? departInfo->lane->getID() : "";
             od << "depart=\"" << departInfo->time << "\" "
                 << "departLane=\"" << laneID << "\" "
@@ -138,8 +138,12 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
                 << "departDelay=\"\" ";
         }
         SUMOTime arrivalTime = -1;
-        if(departInfo!=0) {
-            string laneID = arrivalInfo->lane!=0 ? arrivalInfo->lane->getID() : "";
+        if(arrivalInfo!=0) {
+            string laneID = "";
+            if (arrivalInfo->lane!=0) {
+                routeLength -= arrivalInfo->lane->length() - arrivalInfo->pos;
+                laneID = arrivalInfo->lane->getID();
+            }
             od << "arrival=\"" << arrivalInfo->time << "\" "
                 << "arrivalLane=\"" << laneID << "\" "
                 << "arrivalPos=\"" << arrivalInfo->pos << "\" "
