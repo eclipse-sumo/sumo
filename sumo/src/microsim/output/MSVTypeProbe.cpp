@@ -32,6 +32,7 @@
 #include <utils/common/WrappingCommand.h>
 #include <microsim/MSLane.h>
 #include <utils/iodevices/OutputDevice.h>
+#include <utils/geom/GeoConvHelper.h>
 
 #include "MSVTypeProbe.h"
 
@@ -76,15 +77,21 @@ MSVTypeProbe::writeXMLOutput(OutputDevice &dev,
             if (!veh->running()) {
                 continue;
             }
+            Position2D pos = veh->getPosition();
             dev << indent << indent
-            << "<vehicle id=\"" << veh->getID()
-            << "\" edge=\"" << veh->getEdge()->getID()
-            << "\" lane=\"" << veh->getLane().getID()
-            << "\" pos_on_lane=\"" << veh->getPositionOnLane()
-            << "\" x=\"" << veh->getPosition().x()
-            << "\" y=\"" << veh->getPosition().y()
-            << "\" speed=\"" << veh->getSpeed()
-            << "\"/>" << "\n";
+                << "<vehicle id=\"" << veh->getID()
+//                << "\" edge=\"" << veh->getEdge()->getID()
+                << "\" lane=\"" << veh->getLane().getID()
+                << "\" pos=\"" << veh->getPositionOnLane()
+                << "\" x=\"" << pos.x()
+                << "\" y=\"" << pos.y();
+            if (GeoConvHelper::usingGeoProjection()) {
+                GeoConvHelper::cartesian2geo(pos);
+                dev << "\" lat=\"" << pos.y() << "\" lon=\"" << pos.x();
+            } else {
+                dev << "\" lat=\"\" lon=\"";
+            }
+            dev << "\" speed=\"" << veh->getSpeed() << "\"/>" << "\n";
         }
 
     }
