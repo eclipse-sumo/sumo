@@ -34,6 +34,8 @@ optParser.add_option("-o", "--use-od2trips", action="store_true", dest="od2trips
                      default=False, help="use od2trips instead of trips from incremental assignment")
 optParser.add_option("-s", "--statistics", dest="stats", type="int",
                      default=0, help="use od2trips instead of trips from incremental assignment")
+optParser.add_option("-d", "--dua-only", action="store_true", dest="duaonly",
+                     default=False, help="just run dua with current routes from input")
 (options, args) = optParser.parse_args()
 
 os.chdir("input")
@@ -52,21 +54,23 @@ else:
 routes = "../input/routes.rou.xml"
 
 if options.stats == 0:
-    succDir = makeAndChangeDir("../successive")
-    execute("incrementalAssignment.py -d ../input/districts.xml -m %s -n %s -p ../parameter.txt -u ../CRcurve.txt" % (mtxNamesList, netFile))
-    if not options.od2trips:
-        shutil.copy("%s/routes.rou.xml" % succDir, routes)
-        execute("route2trips.py %s > ../input/successive.trips.xml" % routes)
+    if not options.duaonly:
+        succDir = makeAndChangeDir("../successive")
+        execute("incrementalAssignment.py -d ../input/districts.xml -m %s -n %s -p ../parameter.txt -u ../CRcurve.txt" % (mtxNamesList, netFile))
+        if not options.od2trips:
+            shutil.copy("%s/routes.rou.xml" % succDir, routes)
+            execute("route2trips.py %s > ../input/successive.trips.xml" % routes)
     duaDir = makeAndChangeDir("../dua")
     duaProcess = subprocess.Popen("dua-iterate.py -e 90000 -C -n %s -t ../input/%s.trips.xml %s" % (netFile, trips, pyAdds), shell=True)
-    clogDir = makeAndChangeDir("../clogit")
-    execute("cLogit.py -d ../input/districts.xml -m %s -n %s -p ../clogit_parameter.txt -u ../CRcurve.txt" % (mtxNamesList, netFile))
-    if options.od2trips:
-        while not os.path.exists("%s/trips_0.rou.xml" % duaDir):
-            time.sleep(1)
-        shutil.copy("%s/trips_0.rou.xml" % duaDir, routes)
-    shotDir = makeAndChangeDir("../oneshot")
-    execute("one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds))
+    if not options.duaonly:
+        clogDir = makeAndChangeDir("../clogit")
+        execute("cLogit.py -d ../input/districts.xml -m %s -n %s -p ../clogit_parameter.txt -u ../CRcurve.txt" % (mtxNamesList, netFile))
+        if options.od2trips:
+            while not os.path.exists("%s/trips_0.rou.xml" % duaDir):
+                time.sleep(1)
+            shutil.copy("%s/trips_0.rou.xml" % duaDir, routes)
+        shotDir = makeAndChangeDir("../oneshot")
+        execute("one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds))
     duaProcess.wait()
 else:
     succDir = "../successive%03i" % options.stats
@@ -78,11 +82,12 @@ makeAndChangeDir("../statistics")
 for step in [0, 24, 49]:
     shutil.copy("%s/tripinfo_%s.xml" % (duaDir, step), "tripinfo_dua_%s.xml" % step)
     execute("networkStatistics.py -t tripinfo_dua_%s.xml -o networkStatistics_%s_%s.txt" % (step, os.path.basename(duaDir), step))
-for step in [-1, 1800, 300, 15]:
-    shutil.copy("%s/tripinfo_%s.xml" % (shotDir, step), "tripinfo_oneshot_%s.xml" % step)
-    execute("networkStatistics.py -t tripinfo_oneshot_%s.xml -o networkStatistics_%s_%s.txt" % (step, os.path.basename(shotDir), step))
-execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_successive.xml %s -l sumo_successive.log" % (netFile, succDir, sumoAdds))
-execute("networkStatistics.py -t tripinfo_successive.xml -o networkStatistics_%s.txt" % os.path.basename(succDir))
-execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_clogit.xml %s -l sumo_clogit.log" % (netFile, clogDir, sumoAdds))
-execute("networkStatistics.py -t tripinfo_clogit.xml -o networkStatistics_%s.txt" % os.path.basename(clogDir))
+if not options.duaonly:
+    for step in [-1, 1800, 300, 15]:
+        shutil.copy("%s/tripinfo_%s.xml" % (shotDir, step), "tripinfo_oneshot_%s.xml" % step)
+        execute("networkStatistics.py -t tripinfo_oneshot_%s.xml -o networkStatistics_%s_%s.txt" % (step, os.path.basename(shotDir), step))
+    execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_successive.xml %s -l sumo_successive.log" % (netFile, succDir, sumoAdds))
+    execute("networkStatistics.py -t tripinfo_successive.xml -o networkStatistics_%s.txt" % os.path.basename(succDir))
+    execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_clogit.xml %s -l sumo_clogit.log" % (netFile, clogDir, sumoAdds))
+    execute("networkStatistics.py -t tripinfo_clogit.xml -o networkStatistics_%s.txt" % os.path.basename(clogDir))
 os.chdir("..")
