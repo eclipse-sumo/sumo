@@ -103,13 +103,11 @@ MSMeanData_Net_Utils::buildList(MSDetectorControl &det2file,
     if (dumpMeanDataIntervals.size() > 0) {
         dumpMeanDataIntervals = buildUniqueList(dumpMeanDataIntervals);
         sort(dumpMeanDataIntervals.begin(), dumpMeanDataIntervals.end());
-
         // Prepare MeanData container, e.g. assign intervals and open files.
         for (std::vector<int>::iterator it = dumpMeanDataIntervals.begin(); it != dumpMeanDataIntervals.end(); ++it) {
-            string fileName   = baseNameDumpFiles + "_" + toString(*it) + ".xml";
+            string fileName = baseNameDumpFiles + "_" + toString(*it) + ".xml";
             OutputDevice* dev = &OutputDevice::getDevice(fileName);
-            MSMeanData_Net *det =
-                new MSMeanData_Net(*it, (unsigned) ret.size(), ec, dumpBegins, dumpEnds, useLanes);
+            MSMeanData_Net *det = new MSMeanData_Net(*it, (unsigned) ret.size(), ec, dumpBegins, dumpEnds, useLanes);
             ret.push_back(det);
             det2file.addDetectorAndInterval(det, dev, *it);
         }
