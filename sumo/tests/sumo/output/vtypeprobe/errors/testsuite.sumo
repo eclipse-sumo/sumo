@@ -1,4 +1,33 @@
-# The file can not be opened
+# id is missing
+id_missing
+
+# id is empty
+id_empty
+
+
+# freq is missing
+freq_missing
+
+# freq is empty
+freq_empty
+
+# freq is negative
+freq_negative
+
+# freq is 0
+freq0
+
+# freq is not numeric
+freq_false
+
+
+# file is missing
+file_missing
+
+# file is empty
+file_empty
+
+# file can not be built
 file_false
 
 
