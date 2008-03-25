@@ -113,6 +113,8 @@ parser.parse(options.dump2)
 if options.verbose:
     print "Processing data..."
 # set figure size
+if not options.show:
+    rcParams['backend'] = 'Agg'
 if options.size:
     f = figure(figsize=(options.size.split(",")))
 else:
@@ -135,12 +137,13 @@ if options.join:
                 values1[edge] = 0
             nos1[edge] = nos1[edge] + 1
             values1[edge] = values1[edge] + weights1._edge2value[t][edge]
-        for edge in weights2._edge2value[t]:
-            if edge not in values2:
-                nos2[edge] = 0
-                values2[edge] = 0
-            nos2[edge] = nos2[edge] + 1
-            values2[edge] = values2[edge] + weights2._edge2value[t][edge]
+        if t in weights2._edge2value:
+            for edge in weights2._edge2value[t]:
+                if edge not in values2:
+                    nos2[edge] = 0
+                    values2[edge] = 0
+                nos2[edge] = nos2[edge] + 1
+                values2[edge] = values2[edge] + weights2._edge2value[t][edge]
     for edge in values1:
         if edge in values2:
             xs.append(values1[edge] / nos1[edge])
@@ -157,14 +160,14 @@ else:
             cc = 1. - ((float(t) / 86400.) * .8 + .2)
             c.append(toColor(cc))
             for edge in weights1._edge2value[t]:
-                if edge in weights2._edge2value[t]:
+                if t in weights2._edge2value and edge in weights2._edge2value[t]:
                     xs[-1].append(weights1._edge2value[t][edge])
                     ys[-1].append(weights2._edge2value[t][edge])
                     (min, max) = updateMinMax(min, max, weights1._edge2value[t][edge])
                     (min, max) = updateMinMax(min, max, weights2._edge2value[t][edge])
         else:
             for edge in weights1._edge2value[t]:
-                if edge in weights2._edge2value[t]:
+                if t in weights2._edge2value and edge in weights2._edge2value[t]:
                     xs.append(weights1._edge2value[t][edge])
                     ys.append(weights2._edge2value[t][edge])
                     (min, max) = updateMinMax(min, max, weights1._edge2value[t][edge])

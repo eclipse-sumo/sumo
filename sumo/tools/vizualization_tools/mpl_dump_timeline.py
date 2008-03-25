@@ -96,6 +96,8 @@ for dump in options.dumps.split(','):
 if options.verbose:
     print "Processing data..."
 # set figure size
+if not options.show:
+    rcParams['backend'] = 'Agg'
 if options.size:
     f = figure(figsize=(options.size.split(",")))
 else:

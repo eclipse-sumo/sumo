@@ -109,6 +109,8 @@ parser.parse(options.tripinfos2)
 if options.verbose:
     print "Processing data..."
 # set figure size
+if not options.show:
+    rcParams['backend'] = 'Agg'
 if options.size:
     f = figure(figsize=(options.size.split(",")))
 else:
