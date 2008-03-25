@@ -588,6 +588,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\microsim\output\MSVTypeProbe.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\microsim\output\MSXMLRawOut.cpp"
 				>
 			</File>
@@ -634,6 +638,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\output\MSMeanData_Net_Utils.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\microsim\output\MSVTypeProbe.h"
 				>
 			</File>
 			<File

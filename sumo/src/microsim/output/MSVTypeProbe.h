@@ -4,7 +4,7 @@
 /// @date    Wed, 24.10.2007
 /// @version $Id: $
 ///
-// A probe for a specific vehicle type
+// Writes positions of vehicles that have a certain (named) type
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -31,14 +31,9 @@
 #endif
 
 #include <string>
-#include <microsim/trigger/MSTrigger.h>
+#include <microsim/output/MSDetectorFileOutput.h>
 #include <utils/iodevices/OutputDevice.h>
-
-
-// ===========================================================================
-// class declarations
-// ===========================================================================
-
+#include <utils/common/Named.h>
 
 
 // ===========================================================================
@@ -46,45 +41,72 @@
 // ===========================================================================
 /**
  * @class MSVTypeProbe
- * @brief A probe for a specific vehicle type
+ * @brief Writes positions of vehicles that have a certain (named) type
  *
  * This device allows to log the data of all running vehicles of the
- * specified vehicle type, i.e. vehicle id, edge, lane=, position
- * on lane, x/y coordinates and speed. A frquency can be specified to
- * generate the output in certain intervals (e.g. every 10 seconds)
+ *  specified vehicle type, i.e. vehicle id, edge, lane=, position
+ *  on lane, x/y coordinates and speed. 
+ *
+ * A frequency can be specified to generate the output in certain intervals,
+ *  (e.g. every 10 seconds) and is used via the detector control by
+ *  calling the appropriate methods derived from MSDetectorFileOutput.
+ *
+ * @see MSDetectorFileOutput
+ * @see Named
  */
 
-class MSVTypeProbe : public MSTrigger
+class MSVTypeProbe : public MSDetectorFileOutput, public Named
 {
 public:
     /** @brief Constructor
      *
      * @param[in] id The id of the vehicle type probe
-     * @param[in] net The net the vehicle type probe belongs to
-     * @param[in] file Name of the file to read the definitions from
-     * @param[in] vType !!!describe
-     * @param[in] probeFreq !!!describe
-     * @todo Recheck and describe parameter
+     * @param[in] vType The vtype of which vehicles to report must be ("" for all vehicles)
      */
-    MSVTypeProbe(const std::string &id, MSNet &net,
-                 const std::string &file, const std::string &vType,
-                 SUMOTime probeFreq) throw();
+    MSVTypeProbe(const std::string &id, 
+                 const std::string &vType) throw();
 
+
+    /// @brief Destructor
     virtual ~MSVTypeProbe() throw();
 
-protected:
-    SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
 
-    void writeXMLProlog();
-    void writeXMLEpilog();
 
-    MSNet &myNet;
-    SUMOTime myProbeFreq;
-    std::string myId;
-    std::string myFileName;
+    /// @name Methods inherited from MSDetectorFileOutput.
+    /// @{
+
+    /** @brief Writes values into the given stream
+     *
+     * This method goes through all runing vehicles; if a vehicle
+     *  has a type with the same id as the wished one, it is reported.
+     * When the type "" is wished, all vehicles are reported
+     *
+     * @param[in] dev The output device to write the data into
+     * @param[in] startTime First time step the data were gathered
+     * @param[in] stopTime Last time step the data were gathered
+     * @see MSDetectorFileOutput::writeXMLOutput
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     */
+    void writeXMLOutput(OutputDevice &dev,
+        SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+
+
+    /** @brief Opens the XML-output using "detector" as root element
+     *
+     * @param[in] dev The output device to write the root into
+     * @see MSDetectorFileOutput::writeXMLDetectorProlog
+     * @todo What happens with the additional information if several detectors use the same output?
+     * @exception IOError If an error on writing occures (!!! not yet implemented)
+     */
+    void writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError);
+    /// @}
+
+
+private:
+    /// @brief The id of the vehicle type vehicles must have to be reported
     std::string myVType;
-    OutputDevice &myOutDev;
-    std::vector<const MSVehicle *> myVehicles;
+
+
 };
 
 #endif

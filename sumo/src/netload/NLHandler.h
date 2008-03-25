@@ -176,7 +176,13 @@ protected:
     /// Builds of an e3-detector using collected values
     virtual void endE3Detector();
 
-    /// Ends the detector building
+    /// Builds an e1-detector using the given specification
+    virtual void addVTypeProbeDetector(const Attributes &attrs);
+
+
+    /** @brief Ends the detector building
+     * @todo Remove this
+     */
     void endDetector();
 
 

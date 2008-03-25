@@ -37,6 +37,7 @@
 #include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
 #include <microsim/output/MSE3Collector.h>
 #include <microsim/output/MSInductLoop.h>
+#include <microsim/output/MSVTypeProbe.h>
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/MEInductLoop.h>
@@ -58,25 +59,37 @@ public:
 
     /// @brief Map of MSInductLoop by ID
     typedef NamedObjectCont< MSInductLoop*> LoopDict;
+
     /// @brief Map of MSE2Collector by ID
     typedef NamedObjectCont< MSE2Collector*> E2Dict;
+
     /// @brief Map of MSE3Collector by ID
     typedef NamedObjectCont< MSE3Collector*> E3Dict;
+
     /// @brief Map of MS_E2_ZS_CollectorOverLanes by ID
     typedef NamedObjectCont< MS_E2_ZS_CollectorOverLanes* > E2ZSOLDict;
+
+    /// @brief Map of MSVTypeProbe by ID
+    typedef NamedObjectCont< MSVTypeProbe* > VTypeProbeDict;
+
 #ifdef HAVE_MESOSIM
     /// @brief Map of MEInductLoop by ID
     typedef NamedObjectCont< MEInductLoop*> MELoopDict;
 #endif
 
+
     /// @brief Vector of MSInductLoop
     typedef std::vector< MSInductLoop*> LoopVect;
+
     /// @brief Vector of MSE2Collector
     typedef std::vector< MSE2Collector*> E2Vect;
+
     /// @brief Vector of MSE3Collector
     typedef std::vector< MSE3Collector*> E3Vect;
+
     /// @brief Vector of MS_E2_ZS_CollectorOverLanes
     typedef std::vector< MS_E2_ZS_CollectorOverLanes* > E2ZSOLVect;
+
 #ifdef HAVE_MESOSIM
     /// @brief Vector of MEInductLoop
     typedef std::vector< MEInductLoop*> MELoopVect;
@@ -165,6 +178,7 @@ public:
     void add(MS_E2_ZS_CollectorOverLanes *e2ol, OutputDevice& device,
              int splInterval) throw(ProcessError);
 
+
     /** @brief Adds a e3-detector into the containers
      *
      * The detector is tried to be added into "myE3Detectors". If the detector
@@ -181,6 +195,20 @@ public:
      * @exception ProcessError If the detector is already known
      */
     void add(MSE3Collector *e3, OutputDevice& device, int splInterval) throw(ProcessError);
+
+
+    /** @brief Adds a vytpeprobeinto the containers
+     *
+     * The Detector2File-mechanism is instantiated for the detector.
+     *
+     * Please note, that the detector control gets responsible for the detector.
+     *
+     * @param[in] vp The induction loop to add
+     * @param[in] device The device the loop uses
+     * @param[in] frequency The frequency of calling this vtypeprobe
+     * @exception ProcessError If the detector is already known
+     */
+    void add(MSVTypeProbe *vp, OutputDevice& device, int frequency) throw(ProcessError);
 
 
 #ifdef HAVE_MESOSIM
@@ -254,11 +282,14 @@ public:
      * @param[in] det The generator to add
      * @param[in] device The device to use
      * @param[in] interval The sample interval to use
-     * @param[in] reinsert Used to determine whether the prolog shall be written
+     * @param[in] reinsert Used to determine whether the prolog shall be written (if false)
+     * @param[in] onStepBegin If true, writeXMLOutput will be called at interval begin (see writeOutput) 
      * @tode Recheck whether this method could be made private/protected
      */
     void addDetectorAndInterval(MSDetectorFileOutput* det,
-                                OutputDevice *device, SUMOTime interval, bool reinsert=false) throw();
+                                OutputDevice *device, SUMOTime interval, 
+                                bool reinsert=false,
+                                bool onStepBegin=false) throw();
 
 
 
@@ -341,7 +372,7 @@ protected:
     typedef std::vector< DetectorFilePair > DetectorFileVec;
 
     /// @brief Definition of the interval key
-    typedef SUMOTime IntervalsKey;
+    typedef std::pair<SUMOTime, bool> IntervalsKey;
 
     /// @brief Association of intervals to DetectorFilePair containers.
     typedef std::map< IntervalsKey, DetectorFileVec > Intervals;
@@ -381,6 +412,9 @@ protected:
     /// @brief MS_E2_ZS_CollectorOverLanes dictionary
     E2ZSOLDict myE2OverLanesDetectors;
 
+    /// @brief MSVTypeProbe dictionary
+    VTypeProbeDict myVTypeProbeDetectors;
+
 #ifdef HAVE_MESOSIM
     /// @brief MEInductLoop dictionary
     MELoopDict myMesoLoops;
@@ -391,7 +425,7 @@ protected:
     Intervals myIntervals;
 
     /// @brief The map that holds the last call for each sample interval
-    std::map<SUMOTime, SUMOTime> myLastCalls;
+    std::map<IntervalsKey, SUMOTime> myLastCalls;
 
 
 };

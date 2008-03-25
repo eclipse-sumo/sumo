@@ -53,6 +53,7 @@ GenericSAXHandler::Tag sumotags[] = {
     { "e3-detector",      SUMO_TAG_E3DETECTOR },
     { "det_entry",        SUMO_TAG_DET_ENTRY },
     { "det_exit",         SUMO_TAG_DET_EXIT },
+    { "vtypeprobe",       SUMO_TAG_VTYPEPROBE },
     { "vehicle",          SUMO_TAG_VEHICLE },
     { "vtype",            SUMO_TAG_VTYPE },
     { "route",            SUMO_TAG_ROUTE },

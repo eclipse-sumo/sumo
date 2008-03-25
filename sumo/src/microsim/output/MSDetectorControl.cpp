@@ -71,6 +71,7 @@ MSDetectorControl::~MSDetectorControl() throw()
     myE2Detectors.clear();
     myE3Detectors.clear();
     myE2OverLanesDetectors.clear();
+    myVTypeProbeDetectors.clear();
 }
 
 
@@ -94,8 +95,7 @@ MSDetectorControl::add(MSInductLoop *il, OutputDevice& device, int splInterval) 
 {
     // insert object into dictionary
     if (! myLoops.add(il->getID(), il)) {
-        throw ProcessError("induct loop '" + il->getID() + "' could not be build;"
-                           + "\n (declared twice?)");
+        throw ProcessError("induct loop '" + il->getID() + "' could not be build;\n (declared twice?)");
     }
     addDetectorAndInterval(il, &device, splInterval);
 }
@@ -106,8 +106,7 @@ MSDetectorControl::add(MSE2Collector *e2, OutputDevice& device, int splInterval)
 {
     // insert object into dictionary
     if (! myE2Detectors.add(e2->getID(), e2)) {
-        throw ProcessError("e2-detector '" + e2->getID() + "' could not be build;"
-                           + "\n (declared twice?)");
+        throw ProcessError("e2-detector '" + e2->getID() + "' could not be build;\n (declared twice?)");
     }
     addDetectorAndInterval(e2, &device, splInterval);
 }
@@ -118,8 +117,7 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol, OutputDevice& device, 
 {
     // insert object into dictionary
     if (! myE2OverLanesDetectors.add(e2ol->getID(), e2ol)) {
-        throw ProcessError("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;"
-                           + "\n (declared twice?)");
+        throw ProcessError("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;\n (declared twice?)");
     }
     addDetectorAndInterval(e2ol, &device, splInterval);
 }
@@ -130,8 +128,7 @@ MSDetectorControl::add(MSE2Collector *e2) throw(ProcessError)
 {
     // insert object into dictionary
     if (! myE2Detectors.add(e2->getID(), e2)) {
-        throw ProcessError("e2-detector '" + e2->getID() + "' could not be build;"
-                           + "\n (declared twice?)");
+        throw ProcessError("e2-detector '" + e2->getID() + "' could not be build;\n (declared twice?)");
     }
 }
 
@@ -141,8 +138,7 @@ MSDetectorControl::add(MS_E2_ZS_CollectorOverLanes *e2ol) throw(ProcessError)
 {
     // insert object into dictionary
     if (! myE2OverLanesDetectors.add(e2ol->getID(), e2ol)) {
-        throw ProcessError("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;"
-                           + "\n (declared twice?)");
+        throw ProcessError("e2-overlanes-detector '" + e2ol->getID() + "' could not be build;\n (declared twice?)");
     }
 }
 
@@ -152,11 +148,23 @@ MSDetectorControl::add(MSE3Collector *e3, OutputDevice& device, int splInterval)
 {
     // insert object into dictionary
     if (! myE3Detectors.add(e3->getID(), e3)) {
-        throw ProcessError("e3-detector '" + e3->getID() + "' could not be build;"
-                           + "\n (declared twice?)");
+        throw ProcessError("e3-detector '" + e3->getID() + "' could not be build;\n (declared twice?)");
     }
     addDetectorAndInterval(e3, &device, splInterval);
 }
+
+
+void
+MSDetectorControl::add(MSVTypeProbe *vp, OutputDevice& device, int frequency) throw(ProcessError)
+{
+    // insert object into dictionary
+    if (! myVTypeProbeDetectors.add(vp->getID(), vp)) {
+        throw ProcessError("vtypeprobe '" + vp->getID() + "' could not be build;\n (declared twice?)");
+    }
+    addDetectorAndInterval(vp, &device, frequency);
+}
+
+
 
 
 #ifdef HAVE_MESOSIM
@@ -188,6 +196,7 @@ MSDetectorControl::updateDetectors(SUMOTime step) throw()
         (*i)->update(step);
     }
     // induct loops do not need to be updated...
+    // vtypeprobes do not need to be updated...
 }
 
 
@@ -214,8 +223,8 @@ void
 MSDetectorControl::writeOutput(SUMOTime step, bool closing) throw(IOError)
 {
     for (Intervals::iterator i=myIntervals.begin(); i!=myIntervals.end(); ++i) {
-        int interval = (*i).first;
-        if (myLastCalls[interval]+interval-1<=step || (closing && myLastCalls[interval]<step)) {
+        IntervalsKey interval = (*i).first;
+        if (myLastCalls[interval]+interval.first-1<=step || (closing && myLastCalls[interval]<step)) {
             DetectorFileVec dfVec = (*i).second;
             SUMOTime stopTime = step;
             SUMOTime startTime = myLastCalls[interval];
@@ -234,17 +243,19 @@ void
 MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
         OutputDevice *device,
         SUMOTime interval,
-        bool reinsert) throw()
+        bool reinsert,
+        bool onStepBegin) throw()
 {
-    IntervalsKey key = interval;
+    IntervalsKey key = make_pair(interval, onStepBegin);
     Intervals::iterator it = myIntervals.find(key);
     // Add command for given key only once to MSEventControl...
     if (it == myIntervals.end()) {
-        // set the
         DetectorFileVec detAndFileVec;
         detAndFileVec.push_back(make_pair(det, device));
         myIntervals.insert(make_pair(key, detAndFileVec));
-        myLastCalls[interval] = OptionsCont::getOptions().getInt("begin");
+        myLastCalls[key] = onStepBegin 
+            ? OptionsCont::getOptions().getInt("begin") - interval + 1
+            : OptionsCont::getOptions().getInt("begin");
     } else {
         DetectorFileVec& detAndFileVec = it->second;
         if (find_if(detAndFileVec.begin(), detAndFileVec.end(), bind2nd(detectorEquals(), det)) == detAndFileVec.end()) {

@@ -9,6 +9,5 @@ MSTriggerControl.cpp MSTriggerControl.h \
 MSEmitter.cpp MSEmitter.h \
 MSTriggeredReader.cpp MSTriggeredReader.h \
 MSTriggeredRerouter.cpp MSTriggeredRerouter.h \
-MSTriggeredXMLReader.cpp MSTriggeredXMLReader.h \
-MSVTypeProbe.cpp MSVTypeProbe.h
+MSTriggeredXMLReader.cpp MSTriggeredXMLReader.h
 

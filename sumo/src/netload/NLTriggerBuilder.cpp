@@ -45,9 +45,8 @@
 #include "NLHandler.h"
 #include "NLTriggerBuilder.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
-
 #include <microsim/trigger/MSCalibrator.h>
-#include <microsim/trigger/MSVTypeProbe.h>
+
 
 #ifdef HAVE_MESOSIM
 #include <mesosim/METriggeredCalibrator.h>
@@ -129,9 +128,6 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
         t = parseAndBuildCalibrator(net, attrs, base, helper);
     }
 #endif
-    else if (type=="vtype_probe") {
-        t = parseAndBuildVTypeProbe(net, attrs, base, helper);
-    }
 
 #ifdef HAVE_MESOSIM
     else if (type=="calibrator"&&MSGlobals::gUseMesoSim) {
@@ -259,19 +255,6 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const Attributes &attrs,
 #endif
 
 
-MSVTypeProbe *
-NLTriggerBuilder::parseAndBuildVTypeProbe(MSNet &net, const Attributes &attrs,
-        const std::string &base,
-        const NLHandler &helper) throw(InvalidArgument)
-{
-    string outputFile = getFileName(attrs, base, helper);
-    string id = helper.getString(attrs, SUMO_ATTR_ID);
-    string vType = helper.getString(attrs, SUMO_ATTR_TYPE);
-    int freq = helper.getInt(attrs, SUMO_ATTR_FREQUENCY);
-    return buildVTypeProbe(net, id, outputFile, vType, freq);
-}
-
-
 #ifdef HAVE_MESOSIM
 METriggeredCalibrator *
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const Attributes &attrs,
@@ -392,14 +375,6 @@ NLTriggerBuilder::buildLaneCalibrator(MSNet &net, const std::string &id,
                                       const std::string &file) throw()
 {
     return new MSCalibrator(id, net, destLane, pos, file);
-}
-
-MSVTypeProbe *
-NLTriggerBuilder::buildVTypeProbe(MSNet &net,
-                                  const std::string &id, const std::string &file,
-                                  const std::string &vType, int freq) throw()
-{
-    return new MSVTypeProbe(id, net, file, vType, freq);
 }
 
 

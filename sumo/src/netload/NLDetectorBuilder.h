@@ -271,6 +271,24 @@ public:
      * @return The id of the currently processed e3-detector
      */
     std::string getCurrentE3ID() const throw();
+
+
+    /** @brief Builds a vtypeprobe and adds it to the net
+     *
+     * Checks the given values, first. If one of the values is invalid
+     *  (sampling frequency<=0), an InvalidArgument is thrown.
+     *
+     * Otherwise the vtypeprobe is built (directly).
+     *
+     * @param[in] id The id the detector shall have
+     * @param[in] vtype The name of the vehicle type the detector shall oberve
+     * @param[in] frequency The reporting frequency
+     * @param[in] device The output device the detector shall write into
+     * @exception InvalidArgument If one of the values is invalid
+     */
+    void buildVTypeProbe(const std::string &id,
+                         const std::string &vtype, SUMOTime frequency,
+                         OutputDevice& device) throw(InvalidArgument);
     /// @}
 
 

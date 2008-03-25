@@ -34,6 +34,7 @@
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/output/MSE2Collector.h>
 #include <microsim/output/MS_E2_ZS_CollectorOverLanes.h>
+#include <microsim/output/MSVTypeProbe.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/actions/Command_SaveTLCoupledDet.h>
 #include <microsim/actions/Command_SaveTLCoupledLaneDet.h>
@@ -387,6 +388,23 @@ NLDetectorBuilder::endE3Detector() throw(InvalidArgument)
     // clean up
     delete myE3Definition;
     myE3Definition = 0;
+}
+
+
+void
+NLDetectorBuilder::buildVTypeProbe(const std::string &id,
+                         const std::string &vtype, SUMOTime frequency,
+                         OutputDevice& device) throw(InvalidArgument)
+{
+    if (frequency<0) {
+        throw InvalidArgument("Negative frequency (in vtypeprobe '" + id + "').");
+    }
+    if (frequency==0) {
+        throw InvalidArgument("Frequency must not be zero (in vtypeprobe '" + id + "').");
+    }
+    MSVTypeProbe *probe = new MSVTypeProbe(id, vtype);
+    // add the file output
+    myNet.getDetectorControl().add(probe, device, frequency);
 }
 
 // -------------------

@@ -1,0 +1,5 @@
+<additional>
+
+	<vtypeprobe id="test1" type="t1" freq="10" file="vtypeprobe.xml"/>
+
+</additional>

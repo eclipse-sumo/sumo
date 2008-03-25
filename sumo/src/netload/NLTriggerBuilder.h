@@ -48,7 +48,6 @@ class MSEdge;
 class MSBusStop;
 class MSE1VehicleActor;
 class MSCalibrator;
-class MSVTypeProbe;
 
 #ifdef HAVE_MESOSIM
 class METriggeredCalibrator;
@@ -202,19 +201,6 @@ protected:
 #endif
 
 
-    /** @brief Parses his values and builds a vehicle type probe
-     *
-     * @param[in] net The network the vehicle type probe belongs to
-     * @param[in] attrs SAX-attributes which define the trigger
-     * @param[in] base The base path
-     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
-     * @return The built vehicle type probe
-     * @exception InvalidArgument If a parameter is not valid
-     */
-    MSVTypeProbe *parseAndBuildVTypeProbe(MSNet &net,
-                                          const Attributes &attrs, const std::string &base, const NLHandler &helper) throw(InvalidArgument);
-
-
 #ifdef HAVE_MESOSIM
     /** @brief Parses his values and builds a mesoscopic calibrator
      *
@@ -321,23 +307,6 @@ protected:
     virtual MSCalibrator *buildLaneCalibrator(MSNet &net,
             const std::string &id, MSLane *destLane, SUMOReal pos,
             const std::string &file) throw();
-
-
-    /** @brief builds a vehicle type probe
-     *
-     * Simply calls the MSVTypeProbe constructor.
-     *
-     * @param[in] net The net the vehicle type probe belongs to
-     * @param[in] id The id of the vehicle type probe
-     * @param[in] file Name of the file to read the definitions from
-     * @param[in] vType !!!describe
-     * @param[in] freq !!!describe
-     * @return The built vehicle prob
-     * @todo Recheck and describe parameter
-     */
-    virtual MSVTypeProbe *buildVTypeProbe(MSNet &net,
-                                          const std::string &id, const std::string &file,
-                                          const std::string &vType, int freq) throw();
 
 
 #ifdef HAVE_MESOSIM

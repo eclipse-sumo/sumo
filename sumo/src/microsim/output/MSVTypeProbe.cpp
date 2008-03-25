@@ -4,7 +4,7 @@
 /// @date    Wed, 24.10.2007
 /// @version $Id: $
 ///
-// A probe for a specific vehicle type
+// Writes positions of vehicles that have a certain (named) type
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -19,11 +19,9 @@
 /****************************************************************************/
 
 
-
 // ===========================================================================
 // included modules
 // ===========================================================================
-
 #ifdef _MSC_VER
 #include <windows_config.h>
 #else
@@ -47,48 +45,38 @@
 // ===========================================================================
 using namespace std;
 
-MSVTypeProbe::MSVTypeProbe(const string &id, MSNet &net,
-                           const string &fileName, const string &vType,
-                           SUMOTime probeFreq) throw()
-        : MSTrigger(id), myNet(net), myFileName(fileName), myVType(vType),
-        myProbeFreq(probeFreq), myOutDev(OutputDevice::getDevice(myFileName))
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+MSVTypeProbe::MSVTypeProbe(const string &id, 
+                           const string &vType) throw()
+        : Named(id), myVType(vType)
 {
-
-    writeXMLProlog();
-
-    MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-        new WrappingCommand<MSVTypeProbe>(this, &MSVTypeProbe::execute),
-        myProbeFreq,
-        MSEventControl::ADAPT_AFTER_EXECUTION);
 }
+
 
 MSVTypeProbe::~MSVTypeProbe() throw()
 {
-    writeXMLEpilog();
 }
 
 
-SUMOTime
-MSVTypeProbe::execute(SUMOTime timestep) throw(ProcessError)
+void
+MSVTypeProbe::writeXMLOutput(OutputDevice &dev,
+                                SUMOTime startTime, SUMOTime stopTime) throw(IOError)
 {
-    const std::string indent("   ");
-
-    myOutDev << indent << "<timestep time=\"" << timestep << "\">" << "\n";
-
-    std::map<std::string, MSVehicle*>::const_iterator it = MSNet::getInstance()->getVehicleControl().loadedVehBegin();
-
-    for (;it != MSNet::getInstance()->getVehicleControl().loadedVehEnd(); it++) {
-
+    const std::string indent("    ");
+    dev << indent << "<timestep time=\"" << startTime << "\" id=\"" << getID() << "\" vtype=\"" << myVType << "\">" << "\n";
+    MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();
+    std::map<std::string, MSVehicle*>::const_iterator it = vc.loadedVehBegin();
+    std::map<std::string, MSVehicle*>::const_iterator end = vc.loadedVehEnd();
+    for (;it != end; ++it) {
         const MSVehicle *veh=(*it).second;
-        const std::string type = veh->getVehicleType().getID();
-        if (type == myVType) {
-            myVehicles.push_back(veh);
-
+        if (myVType=="" || myVType==veh->getVehicleType().getID()) {
             if (!veh->running()) {
                 continue;
             }
-
-            myOutDev << indent << indent
+            dev << indent << indent
             << "<vehicle id=\"" << veh->getID()
             << "\" edge=\"" << veh->getEdge()->getID()
             << "\" lane=\"" << veh->getLane().getID()
@@ -100,21 +88,14 @@ MSVTypeProbe::execute(SUMOTime timestep) throw(ProcessError)
         }
 
     }
-    myOutDev << indent << "</timestep>" << "\n";
-
-    return myProbeFreq;
+    dev << indent << "</timestep>" << "\n";
 }
 
-void
-MSVTypeProbe::writeXMLProlog()
-{
-    myOutDev << "<?xml version=\"1.0\" standalone=\"yes\"?>" << "\n";
-    myOutDev << "<vehicle-type-probes type=\"" << myVType << "\">" << "\n";
-}
 
 void
-MSVTypeProbe::writeXMLEpilog()
+MSVTypeProbe::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError)
 {
-    myOutDev << "</vehicle-type-probes>" << "\n";
+    dev.writeXMLHeader("vehicle-type-probes");
 }
+
 

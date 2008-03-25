@@ -181,6 +181,9 @@ NLHandler::myStartElement(SumoXMLTag element,
         case SUMO_TAG_DET_EXIT:
             addE3Exit(attrs);
             break;
+        case SUMO_TAG_VTYPEPROBE:
+            addVTypeProbeDetector(attrs);
+            break;
         case SUMO_TAG_SOURCE:
             addSource(attrs);
             break;
@@ -1058,6 +1061,40 @@ NLHandler::addE1Detector(const Attributes &attrs)
         MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
+
+
+void 
+NLHandler::addVTypeProbeDetector(const Attributes &attrs)
+{
+    // try to get the id first
+    string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
+    if (id=="") {
+        MsgHandler::getErrorInstance()->inform("Missing id of a vtypeprobe-object.");
+        return;
+    }
+    string file = getStringSecure(attrs, SUMO_ATTR_FILE, "");
+    if (file=="") {
+        MsgHandler::getErrorInstance()->inform("Missing output definition for vtypeprobe '" + id + "'.");
+        return;
+    }
+    try {
+        myDetectorBuilder.buildVTypeProbe(id,
+                                          getStringSecure(attrs, SUMO_ATTR_TYPE, ""),
+                                          getInt(attrs, SUMO_ATTR_FREQUENCY),
+                                          OutputDevice::getDevice(getString(attrs, SUMO_ATTR_FILE), getFileName()));
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("The description of the vtypeprobe '" + id + "' does not contain a needed value.");
+    } catch (BoolFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The description of the vtypeprobe '" + id + "' contains a broken boolean.");
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The description of the vtypeprobe '" + id + "' contains a broken number.");
+    } catch (IOError &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    }
+}
+
 
 
 void

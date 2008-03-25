@@ -1,0 +1,46 @@
+<?xml version="1.0"?>
+
+<!-- generated on 03/25/08 08:44:41 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+      <additional-files>input_additional.add.xml,input_additional2.add.xml</additional-files>
+   </input>
+
+   <time>
+      <begin>0</begin>
+      <end>100</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<vehicle-type-probes>
+    <timestep time="0" id="test1" vtype="t1">
+    </timestep>
+    <timestep time="10" id="test1" vtype="t1">
+    </timestep>
+    <timestep time="20" id="test1" vtype="t1">
+    </timestep>
+    <timestep time="30" id="test1" vtype="t1">
+    </timestep>
+    <timestep time="40" id="test1" vtype="t1">
+    </timestep>
+    <timestep time="50" id="test1" vtype="t1">
+    </timestep>
+    <timestep time="60" id="test1" vtype="t1">
+    </timestep>
+    <timestep time="70" id="test1" vtype="t1">
+    </timestep>
+    <timestep time="80" id="test1" vtype="t1">
+    </timestep>
+    <timestep time="90" id="test1" vtype="t1">
+    </timestep>
+</vehicle-type-probes>

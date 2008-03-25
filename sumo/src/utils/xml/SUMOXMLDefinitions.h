@@ -69,6 +69,8 @@ enum SumoXMLTag {
     SUMO_TAG_DET_ENTRY,
     /** an e3-exit point */
     SUMO_TAG_DET_EXIT,
+    /** a vtypeprobe detector */
+    SUMO_TAG_VTYPEPROBE,
     /** description of a vehicle */
     SUMO_TAG_VEHICLE,
     /** description of a vehicle type */

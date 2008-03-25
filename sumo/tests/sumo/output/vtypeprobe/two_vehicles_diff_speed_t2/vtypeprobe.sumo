@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+
+<!-- generated on 03/25/08 08:44:43 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <additional-files>input_additional.add.xml,input_routes.rou.xml,input_additional2.add.xml</additional-files>
+   </input>
+
+   <time>
+      <begin>0</begin>
+      <end>1000</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<vehicle-type-probes>
+    <timestep time="0" id="test1" vtype="t2">
+        <vehicle id="emitter_5_1" edge="4/1to3/1" lane="4/1to3/1_0" pos_on_lane="136.00" x="1459.25" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="10" id="test1" vtype="t2">
+        <vehicle id="emitter_5_1" edge="4/1to3/1" lane="4/1to3/1_0" pos_on_lane="226.00" x="1369.25" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="20" id="test1" vtype="t2">
+        <vehicle id="emitter_5_1" edge="4/1to3/1" lane="4/1to3/1_0" pos_on_lane="316.00" x="1279.25" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="30" id="test1" vtype="t2">
+        <vehicle id="emitter_5_1" edge="3/1to2/1" lane="3/1to2/1_0" pos_on_lane="15.50" x="1179.75" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="40" id="test1" vtype="t2">
+        <vehicle id="emitter_5_1" edge="3/1to2/1" lane="3/1to2/1_0" pos_on_lane="105.50" x="1089.75" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="50" id="test1" vtype="t2">
+        <vehicle id="emitter_5_1" edge="3/1to2/1" lane="3/1to2/1_0" pos_on_lane="195.50" x="999.75" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="60" id="test1" vtype="t2">
+        <vehicle id="emitter_5_1" edge="3/1to2/1" lane="3/1to2/1_0" pos_on_lane="285.50" x="909.75" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="70" id="test1" vtype="t2">
+        <vehicle id="emitter_5_1" edge="3/1to2/1" lane="3/1to2/1_0" pos_on_lane="375.50" x="819.75" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="80" id="test1" vtype="t2">
+        <vehicle id="emitter_5_1" edge="2/1to1/1" lane="2/1to1/1_0" pos_on_lane="75.00" x="720.25" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="90" id="test1" vtype="t2">
+        <vehicle id="emitter_5_1" edge="2/1to1/1" lane="2/1to1/1_0" pos_on_lane="165.00" x="630.25" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="100" id="test1" vtype="t2">
+        <vehicle id="emitter_5_1" edge="2/1to1/1" lane="2/1to1/1_0" pos_on_lane="255.00" x="540.25" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="110" id="test1" vtype="t2">
+        <vehicle id="emitter_5_1" edge="2/1to1/1" lane="2/1to1/1_0" pos_on_lane="345.00" x="450.25" y="401.65" speed="9.00"/>
+    </timestep>
+    <timestep time="120" id="test1" vtype="t2">
+    </timestep>
+</vehicle-type-probes>
