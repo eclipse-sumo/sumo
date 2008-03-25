@@ -7955,7 +7955,7 @@ myDet1;0;10;2;100;80
 
                   <entry><literal>m</literal></entry>
 
-                  <entry>The x-position of the vehice within the net</entry>
+                  <entry>The x-position of the vehicle within the net</entry>
                 </row>
 
                 <row>
@@ -7963,7 +7963,7 @@ myDet1;0;10;2;100;80
 
                   <entry><literal>m</literal></entry>
 
-                  <entry>The y-position of the vehice within the net</entry>
+                  <entry>The y-position of the vehicle within the net</entry>
                 </row>
 
                 <row>
@@ -7971,7 +7971,7 @@ myDet1;0;10;2;100;80
 
                   <entry><literal>arcseconds</literal></entry>
 
-                  <entry>The lat-position of the vehice within the net</entry>
+                  <entry>The lat-position of the vehicle within the net</entry>
                 </row>
 
                 <row>
@@ -7979,7 +7979,7 @@ myDet1;0;10;2;100;80
 
                   <entry><literal>arcseconds</literal></entry>
 
-                  <entry>The lon-position of the vehice within the net</entry>
+                  <entry>The lon-position of the vehicle within the net</entry>
                 </row>
 
                 <row>
