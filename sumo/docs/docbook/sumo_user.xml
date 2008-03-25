@@ -6900,6 +6900,22 @@ myDet1;0;10;2;100;80
           </listitem>
         </itemizedlist>
 
+        <para>In addition to this, SUMO offers further detectors, which are
+        not bound to certain places within the network.</para>
+
+        <itemizedlist>
+          <listitem>
+            <para>VTypeProbe: Dumps vehicle states for a given vehicle
+            type</para>
+
+            <para>VTypeProbes write information about all vehicles of a
+            certain, defined type every n seconds. The vehicles' speed and
+            position is written, where position is encoded as the current lane
+            and position on this lane, cartesian x- and y-coordinate, and, if
+            the network contains a projection, as lat-/lon-coordinates.</para>
+          </listitem>
+        </itemizedlist>
+
         <para>To supply the definitions of these structures to the simulation,
         we use an additional file and pass it to
         <application>SUMO</application> or <application>GUISIM</application>
@@ -6907,21 +6923,6 @@ myDet1;0;10;2;100;80
         option. Each of these files may contain all the definitions about
         additional structures such as detectors, emitters, etc., in random
         order.</para>
-
-        <para>To ease the usage and for backward compatibility, all detectors
-        may be defined in two ways. The first one is by using the following
-        notation: <sgmltag>&lt;detector
-        id="<replaceable>&lt;ID&gt;</replaceable>"
-        type="<replaceable>&lt;TYPE&gt;</replaceable>" ...further
-        attributes.../&gt;</sgmltag>. Herein, the detector type is determined
-        by the type-attribute which is "induction_loop" as default. The second
-        possibility is: <sgmltag>&lt;<replaceable>XX</replaceable>-detector
-        id="<replaceable>&lt;ID&gt;</replaceable>" ...further
-        attributes.../&gt;</sgmltag> where the element name already defines
-        the detector to build. Possible values for <sgmltag><replaceable>XX
-        </replaceable></sgmltag>within the tag name and attributes needed to
-        describe each detector are described in the following
-        subchapters.</para>
 
         <caution>
           <para>Please note that all output have not yet been verified for sub
@@ -7827,6 +7828,180 @@ myDet1;0;10;2;100;80
             </listitem>
           </itemizedlist>
         </sect3>
+
+        <sect3 id="user_chp06-output-detectors-vtypeprobe">
+          <title>VTypeProbes</title>
+
+          <para>A vtypeprobe is defined the following way:</para>
+
+          <programlisting><sgmltag>&lt;vtypeprobe id="<replaceable>&lt;ID&gt;</replaceable>" [ type="<replaceable>&lt;VEHICLE_TYPE&gt;</replaceable>" ] freq="<replaceable>&lt;OUTPUT_FREQUENCY&gt;</replaceable>" 
+   file="<replaceable>&lt;OUTPUT_FILE&gt;</replaceable>"/&gt;</sgmltag></programlisting>
+
+          <para><sgmltag>type</sgmltag> names the vehicle type to observe.
+          Only the values of vehicles of this type will be written into the
+          output. If <sgmltag>type</sgmltag> is empty, the information about
+          all vehicles are included. In contrary to the detectors described
+          above, the values are not aggregated. This means that
+          <sgmltag>frequency</sgmltag> does not describe an aggregation
+          interval but the frequency with which the values shall be collected
+          and written.</para>
+
+          <para>Again, the explicit list of available attributes:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para><sgmltag>id</sgmltag>: A string holding the id of the
+              detector</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>type</sgmltag>: The type the vehicles must be of
+              in order to be reported.</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>freq</sgmltag>: The frequency with which
+              information shall be written.</para>
+            </listitem>
+
+            <listitem>
+              <para><sgmltag>file</sgmltag>: The path to the output file. The
+              path may be relative.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>The output is devided into timestep-sections:</para>
+
+          <programlisting>    <sgmltag>&lt;timestep time="<replaceable>&lt;COLLECTION_TIME&gt;</replaceable>" id="<replaceable>&lt;DETECTOR_ID&gt;</replaceable>" vtype="<replaceable>&lt;OBSERVED_TYPE&gt;</replaceable>"&gt;</sgmltag>
+        <sgmltag>&lt;vehicle id="<replaceable>&lt;VEHICLE_ID&gt;</replaceable>" lane="<replaceable>&lt;LANE_ID&gt;</replaceable>" pos="<replaceable>&lt;POSITION_ON_LANE&gt;</replaceable>" \
+            x="<replaceable>&lt;X-COORDINATE&gt;</replaceable>" y="<replaceable>&lt;Y-COORDINATE&gt;</replaceable>" \
+            lat="<replaceable>&lt;LAT-COORDINATE&gt;</replaceable>" lon="<replaceable>&lt;LON-COORDINATE&gt;</replaceable>" \
+            speed="<replaceable>&lt;VEHICLE_SPEED&gt;</replaceable>"/&gt;</sgmltag>
+        ... further vehicles ...
+    <sgmltag>&lt;/timestep&gt;</sgmltag>
+    ... further time steps ...
+</programlisting>
+
+          <para>The values are described in the following table.</para>
+
+          <table>
+            <title>Definition of values generated by e2-detectors</title>
+
+            <tgroup cols="3">
+              <thead>
+                <row>
+                  <entry>Name</entry>
+
+                  <entry>Measure</entry>
+
+                  <entry>Description</entry>
+                </row>
+              </thead>
+
+              <tbody>
+                <row>
+                  <entry><sgmltag>time</sgmltag></entry>
+
+                  <entry><literal>(simulation) seconds</literal></entry>
+
+                  <entry>The time the values were collected at</entry>
+                </row>
+
+                <row>
+                  <entry><para><sgmltag>id</sgmltag> (in
+                  <sgmltag>timestep</sgmltag>)</para></entry>
+
+                  <entry><literal>-</literal></entry>
+
+                  <entry>The id of the detector</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>vtype</sgmltag></entry>
+
+                  <entry><literal>-</literal></entry>
+
+                  <entry>The id of the vytpe observed by this detector</entry>
+                </row>
+
+                <row>
+                  <entry><para><sgmltag>id</sgmltag> (in
+                  <sgmltag>vehicle</sgmltag>)</para></entry>
+
+                  <entry><literal>-</literal></entry>
+
+                  <entry>The id of the described vehicle</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>lane</sgmltag></entry>
+
+                  <entry><literal>-</literal></entry>
+
+                  <entry>The id of the lane the vehicle was on.</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>pos</sgmltag></entry>
+
+                  <entry><literal>m</literal></entry>
+
+                  <entry>The position of the vehicle on
+                  <sgmltag>lane</sgmltag></entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>x</sgmltag></entry>
+
+                  <entry><literal>m</literal></entry>
+
+                  <entry>The x-position of the vehice within the net</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>y</sgmltag></entry>
+
+                  <entry><literal>m</literal></entry>
+
+                  <entry>The y-position of the vehice within the net</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>lat</sgmltag></entry>
+
+                  <entry><literal>arcseconds</literal></entry>
+
+                  <entry>The lat-position of the vehice within the net</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>lon</sgmltag></entry>
+
+                  <entry><literal>arcseconds</literal></entry>
+
+                  <entry>The lon-position of the vehice within the net</entry>
+                </row>
+
+                <row>
+                  <entry><sgmltag>speed</sgmltag></entry>
+
+                  <entry><literal>m/s</literal></entry>
+
+                  <entry>The speed of the vehicle within the time
+                  step.</entry>
+                </row>
+              </tbody>
+            </tgroup>
+          </table>
+
+          <para>Recent changes:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>Integrated in version 0.10.0.</para>
+            </listitem>
+          </itemizedlist>
+        </sect3>
       </sect2>
 
       <sect2 id="user_chp06-output-network_state">
@@ -8578,8 +8753,8 @@ myDet1;0;10;2;100;80
 
           <listitem>
             <para>In version 0.10.0, the attribute <sgmltag>waited</sgmltag>
-            was removed; instead <sgmltag>departDelay</sgmltag> was introduced
-            </para>
+            was removed; instead <sgmltag>departDelay</sgmltag> was
+            introduced</para>
           </listitem>
 
           <listitem>
