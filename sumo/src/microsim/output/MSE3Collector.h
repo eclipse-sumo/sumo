@@ -57,10 +57,6 @@
  * Vehicles, that pass an in- and out-cross-section are detected when they pass the
  *  out-cross-section. Vehicles passing the out-cross-section without having
  *  passed the in-cross-section are not detected.
- *
- * You get a sampled value via getAggregate(). As MSE3Collector inherits from
- *  MSDetectorFileOutput there is the possibility to get file output by calling
- *  MSDetector2File::addDetectorAndInterval().
  */
 class MSE3Collector : public MSDetectorFileOutput,
             public MSVehicleQuitReminded

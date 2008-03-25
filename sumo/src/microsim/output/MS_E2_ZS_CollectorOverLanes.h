@@ -134,8 +134,6 @@ public:
 
     /** @brief Opens the XML-output using "detector" as root element
      *
-     * This stores also some further, additional information.
-     *
      * @param[in] dev The output device to write the root into
      * @see MSDetectorFileOutput::writeXMLDetectorProlog
      * @todo What happens with the additional information if several detectors use the same output?
