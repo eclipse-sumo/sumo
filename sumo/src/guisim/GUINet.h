@@ -164,9 +164,6 @@ public:
     /// Returns the gl-ids of all traffic light logics within the net
     std::vector<GLuint> getTLSIDs() const;
 
-    /// Returns the gl-ids of all additional things within the net
-    std::vector<GLuint> getAdditionalIDs() const;
-
     /// Returns the gl-ids of all shapes within the net
     std::vector<GLuint> getShapeIDs() const;
     //@}
