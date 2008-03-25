@@ -52,6 +52,7 @@ aggregated300:Version
 aggregated900:Version
 rawdump:Version
 tripinfos:Version
+vtypeprobe:Version
 vehroutes:Version
 tls_state:Version
 tls_switch:Version
