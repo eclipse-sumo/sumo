@@ -726,17 +726,17 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
         switch (myLaneColoringInfoSource->getColorSetType(tmpSettings.laneEdgeMode)) {
         case CST_SINGLE:
             if (sender==mySingleLaneColor) {
-                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0] = convert((FXColor) val);
+                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0] = convert((FXColor) (FXuval) val);
                 myLaneColoringInfoSource->getColorerInterface(tmpSettings.laneEdgeMode)->resetColor(
                     tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0]);
             }
             break;
         case CST_MINMAX:
             if (sender==myMinLaneColor) {
-                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0] = convert((FXColor) val);
+                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0] = convert((FXColor) (FXuval) val);
             }
             if (sender==myMaxLaneColor) {
-                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][1] = convert((FXColor) val);
+                tmpSettings.laneColorings[tmpSettings.laneEdgeMode][1] = convert((FXColor) (FXuval) val);
             }
             myLaneColoringInfoSource->getColorerInterface(tmpSettings.laneEdgeMode)->resetColor(
                 tmpSettings.laneColorings[tmpSettings.laneEdgeMode][0],
@@ -751,17 +751,17 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
         switch (myVehicleColoringInfoSource->getColorSetType(tmpSettings.vehicleMode)) {
         case CST_SINGLE:
             if (sender==mySingleVehicleColor) {
-                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0] = convert((FXColor) val);
+                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0] = convert((FXColor) (FXuval) val);
             }
             myVehicleColoringInfoSource->getColorerInterface(tmpSettings.vehicleMode)->resetColor(
                 tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0]);
             break;
         case CST_MINMAX:
             if (sender==myMinVehicleColor) {
-                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0] = convert((FXColor) val);
+                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0] = convert((FXColor) (FXuval) val);
             }
             if (sender==myMaxVehicleColor) {
-                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][1] = convert((FXColor) val);
+                tmpSettings.vehicleColorings[tmpSettings.vehicleMode][1] = convert((FXColor) (FXuval) val);
             }
             myVehicleColoringInfoSource->getColorerInterface(tmpSettings.vehicleMode)->resetColor(
                 tmpSettings.vehicleColorings[tmpSettings.vehicleMode][0],
