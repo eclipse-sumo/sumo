@@ -6,6 +6,8 @@
 import sys, optparse
 from xml.sax import make_parser, handler
 
+SCALE = 10000
+
 class RouteReader(handler.ContentHandler):
 
     def __init__(self, routeMap):
@@ -27,7 +29,7 @@ class RouteReader(handler.ContentHandler):
 
     def endElement(self, name):
         if name == 'route':
-	    self._routes[self._routeID] = self._routeString.split()
+            self._routes[self._routeID] = self._routeString.split()
 
     def characters(self, content):
         if self._routeID != '':
@@ -44,10 +46,17 @@ class DistrictReader(handler.ContentHandler):
         if name == 'district':
             self._districtID = attrs['id']
         elif name == 'dsource':
-	    self._sources[attrs['id']] = self._districtID
+            self._sources[attrs['id']] = self._districtID
         elif name == 'dsink':
-	    self._sinks[attrs['id']] = self._districtID
+            self._sinks[attrs['id']] = self._districtID
 
+
+def compare(first, second):
+    commonEdges = 0
+    for edge in first:
+        if edge in second:
+            commonEdges += SCALE
+    return commonEdges / max(len(first), len(second))
 
 optParser = optparse.OptionParser()
 optParser.add_option("-d", "--districts-file", dest="districts",
@@ -74,29 +83,32 @@ if options.districts:
     parser.setContentHandler(DistrictReader(sources, sinks))
     parser.parse(options.districts)
     for routes, routeMatrix in [(routes1, routeMatrix1), (routes2, routeMatrix2)]:
-	for routeID, route in routes.iteritems():
-    	    source = sources[route[0]]
-	    sink = sinks[route[-1]]
-	    if not source in routeMatrix:
-		routeMatrix[source] = {}
-	    if not sink in routeMatrix[source]:
-		routeMatrix[source][sink] = []
-	    routeMatrix[source][sink].append(routeID)	
+        for routeID, route in routes.iteritems():
+            source = sources[route[0]]
+            sink = sinks[route[-1]]
+            if not source in routeMatrix:
+                routeMatrix[source] = {}
+            if not sink in routeMatrix[source]:
+                routeMatrix[source][sink] = []
+            routeMatrix[source][sink].append(routeID)        
 else:
     for routes, routeMatrix in [(routes1, routeMatrix1), (routes2, routeMatrix2)]:
-	routeMatrix["dummySource"] = {}
-	routeMatrix["dummySource"]["dummySink"] = []
-	for routeID in routes.iterkeys():
-	    routeMatrix["dummySource"]["dummySink"].append(routeID)
+        routeMatrix["dummySource"] = {}
+        routeMatrix["dummySource"]["dummySink"] = list(routes.iterkeys())
 
 for source in routeMatrix1.iterkeys():
     if not source in routeMatrix2:
-	print "Warning! No routes starting at %s in second route set" % source
-	continue
+        print "Warning! No routes starting at %s in second route set" % source
+        continue
     for sink, routeIDs1 in routeMatrix1[source].iteritems():
-	if not sink in routeMatrix2[source]:
-	    print "Warning! No routes starting at %s and ending at %s in second route set" % (source, sink)
-	    continue
-	routeIDs2 = routeMatrix2[source][sink]
-	similarityMatrix = {}
-	print routeIDs1, routeIDs2
+        if not sink in routeMatrix2[source]:
+            print "Warning! No routes starting at %s and ending at %s in second route set" % (source, sink)
+            continue
+        routeIDs2 = routeMatrix2[source][sink]
+        similarityMatrix = {}
+        matched = set()
+        for id1 in routeIDs1:
+            similarityMatrix[id1] = {}
+            for id2 in routeIDs2:
+                similarityMatrix[id1][id2] = compare(routes1[id1], routes2[id2])
+        print routeIDs1, routeIDs2
