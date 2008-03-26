@@ -753,6 +753,8 @@ throw(TraCIException)
             phase = tlLogic->getPhaseFromStep(currentStep);
 
             // for every link of the tl's junction, compare the actual and the last red/green state
+			// for each link with new red/green status, write a TLSWITCH command
+			std::map<const MSEdge*, pair<const MSEdge*, int> > writtenEdgePairs;
             for (int i = 0; i < linkStates.size(); i++) {
                 MSLink::LinkState nextLinkState = phase.getLinkState(i);
 
@@ -767,26 +769,45 @@ throw(TraCIException)
                         // get the group of preceding lanes of the link group
                         MSTrafficLightLogic::LaneVector laneGroup = tlLogic->getLanesAt(i);
 
-
-                        // for each link with new red/green status, write a TLSWITCH command
                         for (int j = 0; j < linkGroup.size(); j++) {
+							const MSEdge* const precEdge = laneGroup[j]->getEdge();
+							const MSEdge* const succEdge = linkGroup[j]->getLane()->getEdge();
+
+							// for each pair of edges and every different tl state, write only one tl switch command
+							std::map<const MSEdge*, pair<const MSEdge*, int> >::iterator itPair = writtenEdgePairs.find(precEdge);
+							if (itPair != writtenEdgePairs.end()) {
+								if (itPair->second.first == succEdge && itPair->second.second == nextLinkState) {
+									continue;
+								}
+							}
+							// remember the current edge pair and tl status
+							writtenEdgePairs[precEdge] = make_pair(succEdge, nextLinkState);
 
                             // time of the switch
                             tempMsg.writeDouble(time);
                             // preceeding edge id
-                            tempMsg.writeString(laneGroup[j]->getEdge()->getID());
+                            tempMsg.writeString(precEdge->getID());
                             // traffic light's position on preceeding edge
                             tempMsg.writeFloat(laneGroup[j]->getShape().length());
                             // succeeding edge id
-                            tempMsg.writeString(linkGroup[j]->getLane()->getEdge()->getID());
+                            tempMsg.writeString(succEdge->getID());
                             // new status
-                            if (nextLinkState == MSLink::LINKSTATE_TL_RED) {
-                                //tempMsg.writeString("red");
-                                tempMsg.writeUnsignedByte(TLPHASE_RED);
-                            } else {
-                                //tempMsg.writeString("green");
-                                tempMsg.writeUnsignedByte(TLPHASE_GREEN);
-                            }
+							switch (nextLinkState) {
+							case MSLink::LINKSTATE_TL_GREEN:
+								tempMsg.writeUnsignedByte(TLPHASE_GREEN);
+								break;
+							case MSLink::LINKSTATE_TL_RED:
+								tempMsg.writeUnsignedByte(TLPHASE_RED);
+								break;
+							case MSLink::LINKSTATE_TL_OFF_BLINKING:
+								tempMsg.writeUnsignedByte(TLPHASE_BLINKING);
+								break;
+							case MSLink::LINKSTATE_TL_OFF_NOSIGNAL:
+								tempMsg.writeUnsignedByte(TLPHASE_NOSIGNAL);
+								break;
+							default:
+								tempMsg.writeUnsignedByte(TLPHASE_NOSIGNAL);
+							}
                             //yellow time
                             tempMsg.writeDouble(yellowTimes[i]<0 ? 0 : time - yellowTimes[i]);
                             // command length
@@ -1643,60 +1664,30 @@ throw(TraCIException)
         break;
 
     case DOMVAR_AIRDISTANCE:
-    case DOMVAR_DRIVINGDISTANCE:
+    case DOMVAR_DRIVINGDISTANCE:		
         if (veh != NULL)
         {
+			Position2D pos(0,0);
+			string destEdge = "";
+			float destPos = 0;
+			int destLane = 0;
+			MSEdge* edge = NULL;
+
 			response.writeUnsignedByte(TYPE_FLOAT);
             switch (dataType) 
             {
             case POSITION_ROADMAP:
                 {
-                    string destEdge = requestMsg.readString();
-                    float destPos = requestMsg.readFloat();
-                    int destLane = requestMsg.readUnsignedByte();
+                    destEdge = requestMsg.readString();
+                    destPos = requestMsg.readFloat();
+                    destLane = requestMsg.readUnsignedByte();
 //                    cerr << " destEdge=" << destEdge << " destPos=" << destPos << " destLane=" << destLane << endl;
-                    MSEdge* edge = MSEdge::dictionary( destEdge );
+                    edge = MSEdge::dictionary( destEdge );
                     if (edge == NULL ) throw TraCIException("Unable to retrieve edge with given id");
 
-                    if (variableId == DOMVAR_AIRDISTANCE) {
-                        const MSEdge::LaneCont& lanes = *(edge->getLanes());
-                        Position2D pos = lanes[destLane]->getShape().positionAtLengthPosition(destPos);
-                        response.writeFloat( veh->getPosition().euclidDistance(pos.x(), pos.y()));
-                    } else {
-                        const MSRoute& route = veh->getRoute();
-                        MSRouteIterator it;
-                        float dist = 0.0;
-                        if (veh->getInTransit() && route.contains(edge))
-                        {
-                            if (veh->getLane().getEdge() == veh->succEdge(0))
-                            {
-                                // vehicle is on a normal edge
-                                dist = -veh->getPositionOnLane();
-                                it = veh->currEdgeIt();
-                            } else {
-                                // vehicle is on inner junction edge
-                                dist = veh->getLane().length() - veh->getPositionOnLane();
-                                it = veh->currEdgeIt() + 1;
-                            }
-                            for (; it!=route.end(); ++it)
-                            {
-                                if ((*it) != edge)
-                                {
-                                    const MSEdge::LaneCont& lanes = *((*it)->getLanes());
-                                    dist += lanes[0]->length();
-//                                    cerr << " edge=" << (*it)->getID() << " " << lanes[0]->length();
-                                } else {
-//                                    cerr << " lastEdge=" << edge->getID() << " " << destPos;
-                                    dist += destPos;
-//                                    cerr << " dist=" << dist << endl;
-                                    response.writeFloat(dist);
-                                    return warning;
-                                }
-                            }
-                        } else {
-                            response.writeFloat(40000000.0);
-                        }
-                    }
+					const MSEdge::LaneCont& lanes = *(edge->getLanes());
+					if (destLane > lanes.size()-1) throw TraCIException("No lane existing with specified id on this edge");
+                    pos = lanes[destLane]->getShape().positionAtLengthPosition(destPos);         
                 }
                 break;
             case POSITION_2D:
@@ -1705,16 +1696,58 @@ throw(TraCIException)
                 {
                     float destX = requestMsg.readFloat();
                     float destY = requestMsg.readFloat();
-                    if (variableId == DOMVAR_AIRDISTANCE) {
-                        response.writeFloat( veh->getPosition().euclidDistance(destX, destY));
-                    } else {
-                        // ToDo -> Friedemann: Abstand Fahrzeug -> RoadmapPosition berechnen
-                        response.writeFloat(0.0);
-                    }
+					if ((dataType == POSITION_3D) || (dataType == POSITION_2_5D)) {
+						requestMsg.readFloat();	// z value is ignored
+					}
+					pos.set(destX, destY);
+
+					RoadMapPos roadPos = convertCartesianToRoadMap(pos);
+					destEdge = roadPos.roadId;
+					destPos = roadPos.pos;
+					destLane = roadPos.laneId;
+					edge = MSEdge::dictionary( destEdge );
                 }
                 break;
             default:
                 throw TraCIException("Distance request to unknown destination");
+            }
+
+			if (variableId == DOMVAR_AIRDISTANCE) {
+                response.writeFloat( veh->getPosition().euclidDistance(pos.x(), pos.y()));
+            } else {
+                const MSRoute& route = veh->getRoute();
+                MSRouteIterator it;
+                float dist = 0.0;
+                if (veh->getInTransit() && route.contains(edge))
+                {
+                    if (veh->getLane().getEdge() == veh->succEdge(0))
+                    {
+                        // vehicle is on a normal edge
+                        dist = -veh->getPositionOnLane();
+                        it = veh->currEdgeIt();
+                    } else {
+                        // vehicle is on inner junction edge
+                        dist = veh->getLane().length() - veh->getPositionOnLane();
+                        it = veh->currEdgeIt() + 1;
+                    }
+                    for (; it!=route.end(); ++it)
+                    {
+                        if ((*it) != edge)
+                        {
+                            const MSEdge::LaneCont& lanes = *((*it)->getLanes());
+                            dist += lanes[0]->length();
+//                                    cerr << " edge=" << (*it)->getID() << " " << lanes[0]->length();
+                        } else {
+//                                    cerr << " lastEdge=" << edge->getID() << " " << destPos;
+                            dist += destPos;
+//                                    cerr << " dist=" << dist << endl;
+                            response.writeFloat(dist);
+                            return warning;
+                        }
+                    }
+                } else {
+                    response.writeFloat(40000000.0);
+                }
             }
         } else {
 			throw TraCIException("Unable to retrieve node with given ID");
@@ -1825,7 +1858,8 @@ throw(TraCIException)
 			// to the answer message along with preceding and succeeding edge
 			Storage phaseList;
 			int listLength = 0;
-			std::map<MSLane*, std::set<const MSEdge*> > connectLane2Edge;
+//			std::map<MSLane*, std::set<const MSEdge*> > connectLane2Edge;
+			std::map<const MSEdge*, pair<const MSEdge*, int> > writtenEdgePairs;
 			for (int i=0; i<affectedLinks.size(); i++) {
 				// get the list of links controlled by that light
 				MSTrafficLightLogic::LinkVector linkGroup = affectedLinks[i];
@@ -1834,12 +1868,12 @@ throw(TraCIException)
 				// get status of the traffic light
 				MSLink::LinkState tlState = phase.getLinkState(i);
 
-				const MSEdge* precEdge = NULL;
-				const MSEdge* succEdge = NULL;
+//				const MSEdge* precEdge = NULL;
+//				const MSEdge* succEdge = NULL;
 				for (int linkNo=0; linkNo<linkGroup.size(); linkNo++) {
 					// if multiple lanes of different edges lead to the same lane on another edge,
 					// only write such pair of edges once
-					if ((precEdge == laneGroup[linkNo]->getEdge()) 
+/*					if ((precEdge == laneGroup[linkNo]->getEdge()) 
 						&& (succEdge == linkGroup[linkNo]->getLane()->getEdge())) {
 						continue;
 					}
@@ -1859,6 +1893,19 @@ throw(TraCIException)
 					}
 					// remember the edge that this lane leads to
 					connectLane2Edge[laneGroup[linkNo]].insert(succEdge);
+*/
+					const MSEdge* const precEdge = laneGroup[linkNo]->getEdge();
+					const MSEdge* const succEdge = linkGroup[linkNo]->getLane()->getEdge();
+
+					// for each pair of edges and every different tl state, write only one tl switch command
+					std::map<const MSEdge*, pair<const MSEdge*, int> >::iterator itPair = writtenEdgePairs.find(precEdge);
+					if (itPair != writtenEdgePairs.end()) {
+						if (itPair->second.first == succEdge && itPair->second.second == tlState) {
+							continue;
+						}
+					}
+					// remember the current edge pair and tl status
+					writtenEdgePairs[precEdge] = make_pair(succEdge, tlState);
 
 					// write preceding edge
 					phaseList.writeString(precEdge->getID());
