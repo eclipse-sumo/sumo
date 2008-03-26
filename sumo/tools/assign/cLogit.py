@@ -3,7 +3,7 @@
 @file    clogit.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-01-25
-@version $Id$
+@version $Id: clogit.py 2008-03-17$
 
 This script is for executing the traffic assignment with the C-Logit model.
 
@@ -68,14 +68,18 @@ def main():
     # generate the investigated network from the respective SUMO-network
     net = Net()                                                             
     
-    parser.setContentHandler(NetworkReader(net))
+    netreader = NetworkReader(net)
+    parser.setContentHandler(netreader)
     parser.parse(options.netfile)
     
-    parser.setContentHandler(DistrictsReader(net))
+    zonereader = DistrictsReader(net)
+    parser.setContentHandler(zonereader)
     parser.parse(options.confile)
     
     foutlog.write('- Reading network: done.\n')
-    
+    foutlog.write('number of total startVertices:%s\n' %len(net._startVertices))
+    foutlog.write('number of total endVertices:%s\n' %len(net._endVertices))
+        
     if options.verbose:
         print len(net._edges), "edges read"
     
@@ -136,7 +140,7 @@ def main():
     MatrixCounter = 0
     vehID = 0
     MatrixSum = 0.0
-    
+    net.initialPathSet()
     # initialize the map for recording the number of the assigned vehicles
     AssignedVeh = {}
     # initialize the map for recording the number of the assigned trips                                                  
@@ -147,12 +151,8 @@ def main():
         for endVertex in net._endVertices:
             AssignedVeh[startVertex][endVertex] = 0
             AssignedTrip[startVertex][endVertex] = 0.
-
+    
     starttime = datetime.datetime.now() 
-    foutroute = open('routes.rou.xml', 'w')                                           # initialize the file for recording the routes
-    print >> foutroute, """<?xml version="1.0"?>
-<!-- generated on %s by $Id$ -->
-<routes>""" % starttime
     for counter in range (0, len(matrices)):
         # delete all vehicle information related to the last matrix for saving the disk space
         net._vehicles = []                                              
@@ -171,6 +171,10 @@ def main():
             print 'startVertices:', startVertices
             print 'endvertices:', endVertices          
         foutlog.write('Reading matrix and O-D zones: done.\n')
+        foutlog.write('Matrix und OD Zone already read for Interval:%s\n' %counter)
+        foutlog.write('CurrentMatrixSum:%s\n' %CurrentMatrixSum)
+        foutlog.write('number of current startVertices:%s\n' %len(startVertices))
+        foutlog.write('number of current endVertices:%s\n' %len(endVertices))
         
         # the number of origins, the umber of destinations and the number of the OD pairs
         origins = len(startVertices)                                    
@@ -184,21 +188,18 @@ def main():
         
         # initialization    
         iter = 1
-        stopIndex = 9999999.
-        preTotalTime = 9999999.0
-        totalTime = 0.0
         newRoutes = 0
-        
+        stable = False
         # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
-        if counter == 0:
-            newRoutes = net.calcPaths(newRoutes, options.verbose, KPaths, startVertices, endVertices, matrixPshort)
-            foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')   
-        if options.verbose:
-            print 'KPaths:', KPaths 
-            print 'number of new routes:', newRoutes
+#        if counter == 0:
+#            newRoutes = net.calcPaths(newRoutes, options.verbose, KPaths, startVertices, endVertices, matrixPshort)
+#            foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
+#        if options.verbose:
+#            print 'KPaths:', KPaths 
+#            print 'number of new routes:', newRoutes
         
         # execute the traffic assignment based on the C-Logit Model 
-        while stopIndex > SUETolerance or newRoutes > 0:      
+        while not stable or newRoutes > 0:
             foutlog.write('- SUE iteration:%s\n' %iter)
             
             # the parameter in the MSA algorithm     
@@ -207,26 +208,25 @@ def main():
                 print 'iteration:', iter
                 print 'alpha:', alpha
                 print 'SUETolerance:', SUETolerance
-            # The matrixPlong and the matrixTruck should be added when considering the long-distance trips and the truck trips.
-            totalTime = doCLogitAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter)
-    
-            if iter > 1:
-                stopIndex = math.fabs((preTotalTime-totalTime)/totalTime)
-            if options.verbose:
-                print 'preTotalTime:', preTotalTime
-                print 'totalTime:', totalTime
-                print 'stopIndex:', stopIndex
-            
+                       
             newRoutes = findNewPath(startVertices, endVertices, net, iter, newRoutes, matrixPshort)
             if options.verbose:
-                print 'number of new routes:', newRoutes 
-            preTotalTime = totalTime
+                print 'number of new routes:', newRoutes                 
+                                 
+            # The matrixPlong and the matrixTruck should be added when considering the long-distance trips and the truck trips.
+            stable = doCLogitAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter)
+            
+            if options.verbose:
+                print 'stable:', stable
+
             iter += 1
             if iter > MaxSUEIteration:
                 print 'The max. number of iterations is reached!'
                 foutlog.write('The max. number of iterations is reached!\n')
-                print 'stopIndex:', stopIndex 
-                stopIndex = 0.
+                foutlog.write('The number of new routes and the parameter stable will be set to zero and True respectively.\n')
+                print 'newRoutes:', newRoutes 
+                stable = True
+                newRoutes = 0
     
     # update the path choice probability and the path flows as well as generate vehicle data 	
         AssignedVeh, AssignedTrip, vehID = doCLogitVehAssign(net, options.verbose, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID)
@@ -235,11 +235,8 @@ def main():
         net.vehRelease(options.verbose, Parcontrol, departtime, CurrentMatrixSum)
     
     # output vehicle releasing time and vehicle route 
-        sortedVehOutput(net._vehicles, foutroute)
+        sortedVehOutput(net, counter, Parcontrol)
     
-    foutroute.write('</routes>\n')
-    foutroute.close()
-
     # output the global performance indices
     assigntime = outputStatistics(net, starttime, Parcontrol)
     

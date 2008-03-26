@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 @file    network.py
 @author  Yun-Pang.Wang@dlr.de
@@ -50,12 +51,19 @@ class Net:
     def addIsolatedRealEdge(self, edgeLabel):
         self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(),
                           "real"))
+                          
+    def initialPathSet(self):
+        for startVertex in self._startVertices:
+            self._paths[startVertex] = {}
+            for endVertex in self._endVertices:
+                self._paths[startVertex][endVertex] = []
     
 #    find the k shortest paths for each OD pair. The "k" is defined by users.
     def calcPaths(self, verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort):
         if verbose:
             foutkpath = file('kpaths.txt', 'w')
         start = -1
+      
         for startVertex in startVertices:
             start += 1
             end = -1
@@ -81,10 +89,6 @@ class Net:
                 if str(startVertex) != str(endVertex) and matrixPshort[start][end] != 0.:
                     for startPred in endVertex.preds:
                         newpath = Path()
-                        if not startVertex in self._paths:
-                            self._paths[startVertex] = {}
-                        if not endVertex in self._paths[startVertex]:
-                            self._paths[startVertex][endVertex] = []
                         self._paths[startVertex][endVertex].append(newpath)
                         newpath.source = startVertex
                         newpath.target = endVertex
@@ -205,7 +209,6 @@ class DistrictsReader(handler.ContentHandler):
             self._StartDTOut.label = self._StartDTIn.label
             self._net._startVertices.append(self._StartDTIn)
             self._net._endVertices.append(self._StartDTOut)
-
         elif name == 'dsink':
             sourcelink = self._net.getEdge(attrs['id'])
             self.I += 1
@@ -226,13 +229,24 @@ class DistrictsReader(handler.ContentHandler):
 # The class is for parsing the XML input file (vehicle information). This class is used in the networkStatistics.py for
 # calculating the gloabal network performances, e.g. avg. travel time and avg. travel speed.
 class VehInformationReader(handler.ContentHandler):
-    def __init__(self, vehicles):
-        self._vehicles = vehicles
+    def __init__(self, net):
+        self._net = net
+        self._Vehicle = None
+        self._routeString = ''
 
     def startElement(self, name, attrs):
-        if name == 'tripinfo':
-            vehicle = Vehicle(attrs['id'])
-            vehicle.traveltime = float(attrs['duration'])
-            vehicle.travellength = float(attrs['routeLength'])
-            vehicle.waittime = float(attrs['departDelay']) + float(attrs['waitSteps']) 
-            self._vehicles.append(vehicle)
+        if name == 'route':
+            self._routeString = ''
+        if name == 'vehicle':
+            self._Vehicle = self._net.addVehicle(str(attrs['id']))
+            self._Vehicle.depart = float(attrs['emittedAt'])
+            self._Vehicle.arrival = float(attrs['endedAt'])
+    def characters(self, content):
+        if self._Vehicle:
+            self._routeString += content
+   
+    def endElement(self, name):
+        if name == 'vehicle':
+            self._Vehicle.route = self._routeString.split()
+            self._routeString = ''
+            self._Vehicle = None

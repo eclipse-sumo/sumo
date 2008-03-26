@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 @file    inputs.py
 @author  Yun-Pang.Wang@dlr.de
@@ -54,23 +55,13 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                         zones = int(elem)
                 elif len(startVertices) < zones:
                     for elem in line.split():
-                        haveStart = False
-                        haveEnd = False
-                        helperVertex = None
                         if len(elem) > 0:
-                            for vertex in net._vertices:
-                                if str(vertex.label) == str(elem):
-                                    helperVertex = vertex
-                                    if len(vertex.outEdges) > 0 and len(vertex.inEdges) == 0:
-                                        startVertices.append(vertex)
-                                        haveStart = True
-                                    if len(vertex.inEdges) > 0 and len(vertex.outEdges) == 0:
-                                        endVertices.append(vertex)
-                                        haveEnd = True
-                        if not haveStart:
-                            startVertices.append(helperVertex)
-                        if not haveEnd:
-                            endVertices.append(helperVertex)
+                            for startVertex in net._startVertices:
+                                if str(startVertex.label) == str(elem):
+                                    startVertices.append(startVertex)
+                            for endVertex in net._endVertices:
+                                if str(endVertex.label) == str(elem):
+                                    endVertices.append(endVertex)
                     origins = len(startVertices)
                     dest = len(endVertices)        
                 elif len(startVertices) == zones:
@@ -112,7 +103,9 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
         print 'Number of origins:', origins
         print 'Number of destinations:', dest
         print 'CurrentMatrixSum:', CurrentMatrixSum        
-        print 'Effective O-D Cells:', Pshort_EffCells    
+        print 'Effective O-D Cells:', Pshort_EffCells
+        print 'len(net._startVertices):', len(net._startVertices)
+        print 'len(net._endVertices):', len(net._endVertices)
     
 #    itemend = -1.0
 #    ODpairs = 0

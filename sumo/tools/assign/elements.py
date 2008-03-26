@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 @file    elements.py
 @author  Yun-Pang.Wang@dlr.de
@@ -106,7 +107,7 @@ class Edge:
         
     def __repr__(self):
         cap = str(self.capacity)
-        if self.capacity == sys.maxint or self.connection == 1:
+        if self.capacity == sys.maxint or self.connection != 0:
             cap = "inf"
         return "%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self.kind, self.label, self.source, self.target,
                                                       self.flow, self.length, self.numberlane,
@@ -140,7 +141,7 @@ class Edge:
                     self.edgetype = '10'
                 elif self.numberlane >= 4:
                     self.edgetype = '6'
-            if self.maxspeed > 34.0 and self.maxspeed <= 38.0:
+            elif self.maxspeed > 34.0 and self.maxspeed <= 38.0:
                 self.estcapacity = float(self.numberlane * 1500) * periods
                 if self.numberlane == 2:
                     self.edgetype = '15'
@@ -148,7 +149,7 @@ class Edge:
                     self.edgetype = '11'
                 elif self.numberlane >= 4:
                     self.edgetype = '7'
-            if self.maxspeed > 33.0 and self.maxspeed <= 34.0:
+            elif self.maxspeed > 33.0 and self.maxspeed <= 34.0:
                 if self.numberlane == 1:
                     self.estcapacity = float(self.numberlane * 1400) * periods
                     self.edgetype = '26'
@@ -158,7 +159,7 @@ class Edge:
                 elif self.numberlane >= 3:
                     self.estcapacity = float(self.numberlane * 1500) * periods
                     self.edgetype = '20'
-            if self.maxspeed > 30.0 and self.maxspeed <= 33.0:
+            elif self.maxspeed > 30.0 and self.maxspeed <= 33.0:
                 self.estcapacity = float(self.numberlane * 1400) * periods
                 if self.numberlane <= 2:        
                     self.edgetype = '16'
@@ -166,7 +167,7 @@ class Edge:
                     self.edgetype = '12'
                 elif self.numberlane >= 3:
                     self.edgetype = '8'
-            if self.maxspeed > 29.0 and self.maxspeed <= 30.0:
+            elif self.maxspeed > 29.0 and self.maxspeed <= 30.0:
                 if self.numberlane == 1:
                     self.estcapacity = float(self.numberlane * 1350) * periods       
                     self.edgetype = '18'
@@ -176,14 +177,14 @@ class Edge:
                 elif self.numberlane >= 3:
                     self.estcapacity = float(self.numberlane * 1500) * periods
                     self.edgetype = '21'
-            if self.maxspeed > 27.0 and self.maxspeed <= 29.0:
+            elif self.maxspeed > 27.0 and self.maxspeed <= 29.0:
                 if self.numberlane == 1:
                     self.estcapacity = float(self.numberlane * 1350) * periods       
                     self.edgetype = '64'
                 if self.numberlane >= 2:
                     self.estcapacity = float(self.numberlane * 1400) * periods
                     self.edgetype = '61'
-            if self.maxspeed >= 25.0 and self.maxspeed <= 27.0:
+            elif self.maxspeed >= 25.0 and self.maxspeed <= 27.0:
                 if self.numberlane == 1:
                     self.estcapacity = float(self.numberlane * 1350) * periods       
                     self.edgetype = '19'
@@ -196,7 +197,7 @@ class Edge:
                 if self.numberlane >= 4:
                     self.estcapacity = float(self.numberlane * 1400) * periods
                     self.edgetype = '9'
-            if self.maxspeed > 22.0 and self.maxspeed < 25.0:
+            elif self.maxspeed > 22.0 and self.maxspeed < 25.0:
                 if self.numberlane == 1:
                     self.estcapacity = float(self.numberlane * 1300) * periods
                     self.edgetype = '29'
@@ -206,7 +207,7 @@ class Edge:
                 if self.numberlane >= 3:
                     self.estcapacity = float(self.numberlane * 1400) * periods
                     self.edgetype = '30'
-            if self.maxspeed > 19.0 and self.maxspeed <= 22.0:
+            elif self.maxspeed > 19.0 and self.maxspeed <= 22.0:
                 if self.numberlane == 1:
                     self.estcapacity = float(self.numberlane * 1200) * periods
                     self.edgetype = '37'
@@ -216,10 +217,10 @@ class Edge:
                 if self.numberlane >= 3:
                     self.estcapacity = float(self.numberlane * 1400) * periods
                     self.edgetype = '31'
-            if self.maxspeed > 18.0 and self.maxspeed <= 19.0:
+            elif self.maxspeed > 18.0 and self.maxspeed <= 19.0:
                 self.estcapacity = float(self.numberlane * 1300) * periods
                 self.edgetype = '84'
-            if self.maxspeed > 16.0 and self.maxspeed <= 18.0:
+            elif self.maxspeed > 16.0 and self.maxspeed <= 18.0:
                 if self.numberlane == 1:
                     self.estcapacity = float(self.numberlane * 1200) * periods
                     self.edgetype = '38'
@@ -232,14 +233,14 @@ class Edge:
                 if self.numberlane >= 4:
                     self.estcapacity = float(self.numberlane * 1100) * periods
                     self.edgetype = '40'
-            if self.maxspeed > 15.0 and self.maxspeed <= 16.0:
+            elif self.maxspeed > 15.0 and self.maxspeed <= 16.0:
                 if self.numberlane == 1:
                     self.estcapacity = float(self.numberlane * 1000) * periods
                     self.edgetype = '47'
                 if self.numberlane >= 2:
                     self.estcapacity = float(self.numberlane * 1100) * periods
                     self.edgetype = '44'
-            if self.maxspeed > 13.0 and self.maxspeed <= 15.0:
+            elif self.maxspeed > 13.0 and self.maxspeed <= 15.0:
                 if self.numberlane == 1:
                     self.estcapacity = float(self.numberlane * 1200) * periods
                     self.edgetype = '39'
@@ -249,30 +250,30 @@ class Edge:
                 if self.numberlane >= 3:
                     self.estcapacity = float(self.numberlane * 1110) * periods
                     self.edgetype = '42'
-            if self.maxspeed > 12.0 and self.maxspeed <= 13.0:
+            elif self.maxspeed > 12.0 and self.maxspeed <= 13.0:
                 self.estcapacity = float(self.numberlane * 800) * periods
                 if self.numberlane == 1: 
                     self.edgetype = '49'
                 if self.numberlane == 2:
                     self.edgetype = '86'
-            if self.maxspeed > 11.0 and self.maxspeed <= 12.0:
+            elif self.maxspeed > 11.0 and self.maxspeed <= 12.0:
                 if self.numberlane == 1: 
                     self.estcapacity = float(self.numberlane * 800) * periods
                     self.edgetype = '83'
                 if self.numberlane >= 2:
                     self.estcapacity = float(self.numberlane * 1000) * periods
                     self.edgetype = '75'
-            if self.maxspeed > 9.0 and self.maxspeed <= 11.0:
+            elif self.maxspeed > 9.0 and self.maxspeed <= 11.0:
                 if self.numberlane == 1:
                     self.estcapacity = float(self.numberlane * 800) * periods
                     self.edgetype = '89'
                 if self.numberlane >= 2:
                     self.estcapacity = float(self.numberlane * 1400) * periods
                     self.edgetype = '87'
-            if self.maxspeed > 8.0 and self.maxspeed <= 9.0:
+            elif self.maxspeed > 8.0 and self.maxspeed <= 9.0:
                 self.estcapacity = float(self.numberlane * 800) * periods
                 self.edgetype = '79'
-            if self.maxspeed <= 8.0:
+            elif self.maxspeed <= 8.0:
                 self.estcapacity = float(self.numberlane * 200) * periods
                 self.edgetype = '94'
     
@@ -303,14 +304,14 @@ class Edge:
             itemCR = line.split()
             # get the parameters for the respective cost function
             if itemCR[0] == self.CRcurve:
-                if self.flow == 0.0 or self.connection == 1 or self.numberlane == 0 or str(self.source) == str(self.target):
+                if self.flow == 0.0 or self.connection > 0 or self.numberlane == 0 or str(self.source) == str(self.target):
                     self.actualtime = self.freeflowtime
                 else:
                     if self.estcapacity == 0.0:
                         foutcheck.write('edge.label=%s: estcapacity=0\n' %(self.label))
                     else:
                         self.actualtime = self.freeflowtime*(1+(float(itemCR[1])*(self.flow/(self.estcapacity*float(itemCR[3])))**float(itemCR[2])))
-                if self.flow > self.estcapacity and self.connection != 1 and str(self.source) != str(self.target):
+                if self.flow > self.estcapacity and self.connection == 0 and str(self.source) != str(self.target):
                     # travel time penalty 20% (can/should be modified)
                     self.actualtime = self.actualtime*1.2
                     foutcheck.write('****edge.label="%s": acutaltime is timed by 1.2.\n' %(self.label))

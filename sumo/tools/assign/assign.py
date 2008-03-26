@@ -1,8 +1,9 @@
+#!/usr/bin/env python
 """
 @file    assign.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-11-25
-@version $Id$
+@version $Id: assign.py 2008-03-17$
 
 This script is for executing traffic assignment according to the required assignment model.
 The incremental assignment model, the C-Logit assignment model and the Lohse assignment model are included in this script. 
@@ -97,23 +98,34 @@ def doCLogitAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertic
                             if str(edge.source) != str(edge.target):
                                 edge.helpflow += path.helpflow
     
-    # Reset the total link travel times in the network
-    totalTime = 0.0
+    # Reset the convergence index
+    notstable = 0
                                                            
     # link travel timess and link flows will be updated according to the latest traffic assingment  
     for edge in net._edges.itervalues():                                       
         if str(edge.source) != str(edge.target):
             if iter > 1:
-                edge.flow = edge.flow + alpha * (edge.helpflow - edge.flow)
+                exflow = edge.flow
+                edge.flow = edge.flow*(1-alpha) + alpha*edge.helpflow
+                
+                if edge.flow > 0.:
+                    if abs((edge.flow-exflow)/edge.flow) > float(Parcontrol[8]):
+                        notstable += 1
+                elif edge.flow < 0.:
+                    notstable += 1
                 
                 if edge.flow < 0.:
                     edge.flow = 0.
             # reset the edge.helpflow for the next iteration
             edge.helpflow = 0.0                                                
             edge.getActualTravelTime(curvefile) 
-            totalTime += edge.actualtime * edge.flow
+    
+    if notstable > 0 or iter == 1:
+        stable = False
+    else:
+        stable = True
      
-    return totalTime
+    return stable
 
 # calculate the commonality factors in the C-Logit model
 def calCommonality(net, ODPaths, Parcontrol):
@@ -186,6 +198,8 @@ def doCLogitVehAssign(net, verbose, counter, matrixPshort, Parcontrol, startVert
                         cumulatedFlow += path.pathflow
                     else:
                         path.pathflow = matrixPshort[start][end] - cumulatedFlow
+                        if path.pathflow < 0.:
+                            print '*********************** the path flow on the path:%s < 0.!!!!', path.label
                     if verbose:
                         foutpath.write('\npathID= %s, path flow=%2.2f, actpathtime=%2.2f, choiceprob=%2.2f, edges=' 
                                         %(path.label, path.pathflow, path.actpathtime, path.choiceprob))
