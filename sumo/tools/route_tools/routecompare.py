@@ -23,7 +23,7 @@ class RouteReader(handler.ContentHandler):
             if 'id' in attrs:
                 self._routeID = attrs['id']
             else:
-                self._routeID = "for vehicle " + self._vID
+                self._routeID = self._vID
                 self._vID = ''
             self._routeString = ''
 
@@ -57,6 +57,24 @@ def compare(first, second):
         if edge in second:
             commonEdges += SCALE
     return commonEdges / max(len(first), len(second))
+
+def matching(routeIDs1, routeIDs2, similarityMatrix, match):
+    matchVal = 0
+    for id1 in routeIDs1:
+        maxMatch = 0
+        matchId = ""
+        for id2 in routeIDs2:
+            if id2 not in match and similarityMatrix[id1][id2] > maxMatch:
+                maxMatch = similarityMatrix[id1][id2]
+                matchId = id2
+        if matchId:
+            match[matchId] = id1
+            matchVal += maxMatch
+        else:
+            print "Warning! No match for %s." % id1
+    print float(matchVal) / len(routeIDs1) / SCALE
+    return matchVal
+
 
 optParser = optparse.OptionParser()
 optParser.add_option("-d", "--districts-file", dest="districts",
@@ -96,6 +114,8 @@ else:
         routeMatrix["dummySource"] = {}
         routeMatrix["dummySource"]["dummySink"] = list(routes.iterkeys())
 
+match = {}
+totalMatch = 0
 for source in routeMatrix1.iterkeys():
     if not source in routeMatrix2:
         print "Warning! No routes starting at %s in second route set" % source
@@ -106,9 +126,9 @@ for source in routeMatrix1.iterkeys():
             continue
         routeIDs2 = routeMatrix2[source][sink]
         similarityMatrix = {}
-        matched = set()
         for id1 in routeIDs1:
             similarityMatrix[id1] = {}
             for id2 in routeIDs2:
                 similarityMatrix[id1][id2] = compare(routes1[id1], routes2[id2])
-        print routeIDs1, routeIDs2
+        totalMatch += matching(routeIDs1, routeIDs2, similarityMatrix, match)
+print float(totalMatch) / len(routes1) / SCALE
