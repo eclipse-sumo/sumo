@@ -1,12 +1,25 @@
-#!/usr/bin/python
-# This script reads in the network given as
-#  first parameter and extracts nodes and edges 
-#  from it which are saved into "nodes.xml" and 
-#  "edges.xml" for their reuse in NETCONVERT
-# todo:
-# - use classes for edges/nodes
-# - parse connections
-# - parse tls information
+#!/usr/bin/env python
+"""
+@file    netextract.py
+@author  Daniel.Krajzewicz@dlr.de
+@date    2007-02-21
+@version $Id: $
+
+
+This script reads in the network given as
+ first parameter and extracts nodes and edges 
+ from it which are saved into "nodes.xml" and 
+ "edges.xml" for their reuse in NETCONVERT
+
+todo:
+- use classes for edges/nodes
+- parse connections
+- parse tls information
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
+"""
+
 
 import os, string, sys, StringIO
 from xml.sax import saxutils, make_parser, handler
@@ -30,8 +43,20 @@ class NetReader(handler.ContentHandler):
         if name == 'edge':
             if not attrs.has_key('function') or attrs['function'] != 'internal':
                 self._id = attrs['id']
-                self._edge2from[attrs['id']] = attrs['from']
-                self._edge2to[attrs['id']] = attrs['to']
+                if attrs.has_key('from'):
+                    self._edge2from[attrs['id']] = attrs['from']
+                elif attrs.has_key('From'):
+                    self._edge2from[attrs['id']] = attrs['From']
+                else:
+                    print "No from-node information for edge '" + self._id + "'?"
+                    exit()
+                if attrs.has_key('to'):
+                    self._edge2to[attrs['id']] = attrs['to']
+                elif attrs.has_key('To'):
+                    self._edge2from[attrs['id']] = attrs['To']
+                else:
+                    print "No to-node information for edge '" + self._id + "'?"
+                    exit()
                 self._edge2lanes[attrs['id']] = 0
                 self._currentShapes = []
             else:
@@ -106,13 +131,16 @@ class NetReader(handler.ContentHandler):
         fd.write("</edges>\n")
 
     
-if len(sys.argv) < 1:
+if len(sys.argv) < 2:
     print "Usage: " + sys.argv[0] + " <net>"
     sys.exit()
+print "Reading net..."
 parser = make_parser()
 net = NetReader()
 parser.setContentHandler(net)
 parser.parse(sys.argv[1])
+print "Writing nodes..."
 net.writeNodes()
+print "Writing edges..."
 net.writeEdges()
 
