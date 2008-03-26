@@ -9,7 +9,10 @@
 This script reads the value of designated edges from
  a set of given dump-files and displays them.
 
- matplotlib has to be installed for this purpose
+matplotlib has to be installed for this purpose
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
 """
 
 from matplotlib import rcParams

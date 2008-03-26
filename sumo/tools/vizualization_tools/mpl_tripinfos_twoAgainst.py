@@ -9,7 +9,10 @@
 This script reads two tripinfos files and plots one of the values
  stored therein as an x-/y- plot.
 
- matplotlib has to be installed for this purpose
+matplotlib has to be installed for this purpose
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
 """
 
 from matplotlib import rcParams
