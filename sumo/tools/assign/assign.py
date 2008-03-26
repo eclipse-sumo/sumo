@@ -1,9 +1,8 @@
-#!/usr/bin/env python
 """
 @file    assign.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-11-25
-@version $Id: assign.py 2008-03-17$
+@version $Id$
 
 This script is for executing traffic assignment according to the required assignment model.
 The incremental assignment model, the C-Logit assignment model and the Lohse assignment model are included in this script. 
