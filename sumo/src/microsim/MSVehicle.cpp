@@ -272,6 +272,11 @@ MSVehicle::succEdge(unsigned int nSuccs) const
     }
 }
 
+const MSRouteIterator& 
+MSVehicle::currEdgeIt() const
+{
+    return myCurrEdge;
+}
 
 bool
 MSVehicle::hasSuccEdge(unsigned int nSuccs) const

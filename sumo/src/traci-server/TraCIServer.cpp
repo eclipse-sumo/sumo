@@ -281,7 +281,11 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
     }
 
     if (requestMsg.position() != commandStart + commandLength) {
-        writeStatusCmd(respMsg, commandId, RTYPE_ERR, "Wrong position in requestMessage after dispatching command");
+        ostringstream msg;
+        msg << "Wrong position in requestMessage after dispatching command.";
+        msg << " Expected command length was " << commandLength;
+        msg << " but " << requestMsg.position() - commandStart << " Bytes were read.";
+        writeStatusCmd(respMsg, commandId, RTYPE_ERR, msg.str() );
         return false;
     }
     return true;
@@ -341,7 +345,8 @@ throw(TraCIException)
         net->simulationStep(currentTime, currentTime + DELTA_T);
         currentTime += DELTA_T;
         isMapChanged_ = true;
-        cout << "Step #" << currentTime << (char) 13;
+        if (!OptionsCont::getOptions().isSet("no-step-log"))
+            cout << "Step #" << currentTime << (char) 13;
     }
 
 	// for each vehicle process any active traci command
@@ -1563,7 +1568,11 @@ throw(TraCIException)
 
 	// upper bound for number of traci nodes
 	case DOMVAR_EQUIPPEDCOUNTMAX:
-		throw TraCIException("Variable not implemented yet");
+		response.writeUnsignedByte(TYPE_INTEGER);
+		response.writeInt(static_cast<int>(0.5 + totalNumVehicles_ * penetration_));
+		if (dataType != TYPE_INTEGER) {
+			warning = "Warning: requested data type could not be used; using integer instead!";
+		}
 		break;
 
 	// node position
@@ -1645,16 +1654,48 @@ throw(TraCIException)
                     string destEdge = requestMsg.readString();
                     float destPos = requestMsg.readFloat();
                     int destLane = requestMsg.readUnsignedByte();
+//                    cerr << " destEdge=" << destEdge << " destPos=" << destPos << " destLane=" << destLane << endl;
                     MSEdge* edge = MSEdge::dictionary( destEdge );
-                    if (edge == NULL ) throw TraCIException("Unable to retrieve edge wit hgiven id");
+                    if (edge == NULL ) throw TraCIException("Unable to retrieve edge with given id");
 
                     if (variableId == DOMVAR_AIRDISTANCE) {
-                        const MSEdge::LaneCont lanes = *(edge->getLanes());
+                        const MSEdge::LaneCont& lanes = *(edge->getLanes());
                         Position2D pos = lanes[destLane]->getShape().positionAtLengthPosition(destPos);
                         response.writeFloat( veh->getPosition().euclidDistance(pos.x(), pos.y()));
                     } else {
-                        // ToDo -> Friedemann: Abstand Fahrzeug -> RoadmapPosition berechnen
-                        response.writeFloat(0.0);
+                        const MSRoute& route = veh->getRoute();
+                        MSRouteIterator it;
+                        float dist = 0.0;
+                        if (veh->getInTransit() && route.contains(edge))
+                        {
+                            if (veh->getLane().getEdge() == veh->succEdge(0))
+                            {
+                                // vehicle is on a normal edge
+                                dist = -veh->getPositionOnLane();
+                                it = veh->currEdgeIt();
+                            } else {
+                                // vehicle is on inner junction edge
+                                dist = veh->getLane().length() - veh->getPositionOnLane();
+                                it = veh->currEdgeIt() + 1;
+                            }
+                            for (; it!=route.end(); ++it)
+                            {
+                                if ((*it) != edge)
+                                {
+                                    const MSEdge::LaneCont& lanes = *((*it)->getLanes());
+                                    dist += lanes[0]->length();
+//                                    cerr << " edge=" << (*it)->getID() << " " << lanes[0]->length();
+                                } else {
+//                                    cerr << " lastEdge=" << edge->getID() << " " << destPos;
+                                    dist += destPos;
+//                                    cerr << " dist=" << dist << endl;
+                                    response.writeFloat(dist);
+                                    return warning;
+                                }
+                            }
+                        } else {
+                            response.writeFloat(40000000.0);
+                        }
                     }
                 }
                 break;

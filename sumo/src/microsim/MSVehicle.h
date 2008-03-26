@@ -145,6 +145,9 @@ public:
         route-edge or 0 if there is no nSucc'th edge. */
     const MSEdge* succEdge(unsigned int nSuccs) const;
 
+    /** Returns the current edge as iterator of the vehicles route vector */
+    const MSRouteIterator& currEdgeIt() const;
+
     /** Returns true if nSuccs'th successor of the vehicles current
         route-edge exists. */
     bool hasSuccEdge(unsigned int nSuccs) const;
