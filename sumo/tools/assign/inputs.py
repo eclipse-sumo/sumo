@@ -38,7 +38,6 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     if verbose:
         print 'matrix:', str(matrix)                                 
 
-    itemend = -1.0
     ODpairs = 0
     origins = 0
     dest= 0
@@ -64,39 +63,15 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                     origins = len(startVertices)
                     dest = len(endVertices)        
                 elif len(startVertices) == zones:
-                    if itemend == -1.0:
+                    if ODpairs % origins == 0:
                         matrixPshort.append([])
-                        L = line.split('\n')
-                        for item in line.split():
-                            matrixPshort[-1].append(float(item))
-                            ODpairs += 1
-                            itemend = ODpairs%origins
-                            # calculate the sum of all matrices
-                            MatrixSum += float(item)
-                            # calculate the sum of the current matrix                  
-                            CurrentMatrixSum += float(item)           
-                            if float(item) > 0.0:
-                                Pshort_EffCells += 1
-                    elif itemend == 0.:
-                        matrixPshort.append([])
-                        L = line.split('\n')
-                        for item in line.split():
-                            matrixPshort[-1].append(float(item))
-                            ODpairs += 1
-                            itemend = ODpairs%origins
-                            MatrixSum += float(item)
-                            CurrentMatrixSum += float(item) 
-                            if float(item) > 0.0:
-                                Pshort_EffCells += 1
-                    elif itemend != 0.:
-                        for item in line.split():
-                            matrixPshort[-1].append(float(item))
-                            ODpairs += 1
-                            itemend = ODpairs%origins
-                            MatrixSum += float(item)
-                            CurrentMatrixSum += float(item)
-                            if float(item) > 0.0:
-                                Pshort_EffCells += 1
+                    for item in line.split():
+                        matrixPshort[-1].append(float(item))
+                        ODpairs += 1
+                        MatrixSum += float(item)
+                        CurrentMatrixSum += float(item) 
+                        if float(item) > 0.0:
+                            Pshort_EffCells += 1
     if verbose:
         print 'Number of zones:', zones
         print 'Number of origins:', origins
