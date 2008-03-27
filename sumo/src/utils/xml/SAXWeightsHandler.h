@@ -109,7 +109,7 @@ public:
 
     public:
         /// The attribute name that shall be parsed
-        XMLCh* myAttributeName;
+        std::string myAttributeName;
 
         /// The class that shall be called when new data is avaiable
         EdgeFloatTimeLineRetriever &myDestination;
@@ -122,9 +122,6 @@ public:
 
         /// The number of lanes read for the current edge
         size_t myNoLanes;
-
-        /// Name of the attribute readbale for humans
-        std::string myMMLAttributeName;
 
         /// Information whether the attribute has been found for the current edge
         bool myHadAttribute;
@@ -167,7 +164,7 @@ protected:
 
     /** the user-implemented handler method for an opening tag */
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
     /** the user-implemented handler method for a closing tag */
@@ -177,7 +174,7 @@ protected:
 
 private:
     /// Parses the efforts of a lane for the previously read times
-    void tryParse(const Attributes &attrs, bool isEdge);
+    void tryParse(const SUMOSAXAttributes &attrs, bool isEdge);
 
 
 private:

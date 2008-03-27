@@ -77,7 +77,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
     /** @brief Called when characters occure
@@ -109,30 +109,30 @@ protected:
 
 protected:
     /// Parses the vehicle id
-    std::string getVehicleID(const Attributes &attrs);
+    std::string getVehicleID(const SUMOSAXAttributes &attrs);
 
     /// Parses a named edge frm the attributes
-    ROEdge *getEdge(const Attributes &attrs, const std::string &purpose,
+    ROEdge *getEdge(const SUMOSAXAttributes &attrs, const std::string &purpose,
                     SumoXMLAttr which, const std::string &id, bool emptyAllowed);
 
     /** @brief Parses a SUMOReal value which is optional;
         Avoids exceptions */
-    SUMOReal getOptionalFloat(const Attributes &attrs,
+    SUMOReal getOptionalFloat(const SUMOSAXAttributes &attrs,
                               const std::string &name, SumoXMLAttr which, const std::string &place);
 
     /// Parses and returns the time the vehicle should start at
-    SUMOTime getTime(const Attributes &attrs, SumoXMLAttr which,
+    SUMOTime getTime(const SUMOSAXAttributes &attrs, SumoXMLAttr which,
                      const std::string &id);
 
     /// Parses and returns the period the trip shall be repeated with
-    SUMOTime getPeriod(const Attributes &attrs, const std::string &id);
+    SUMOTime getPeriod(const SUMOSAXAttributes &attrs, const std::string &id);
 
     /// Parses and returns the number of cars that shall use the same parameter
-    int getRepetitionNumber(const Attributes &attrs, const std::string &id);
+    int getRepetitionNumber(const SUMOSAXAttributes &attrs, const std::string &id);
 
     /** @brief Parses and returns the name of the lane the vehicle starts at
         This value is optional */
-    std::string getLane(const Attributes &attrs);
+    std::string getLane(const SUMOSAXAttributes &attrs);
 
 protected:
     /// generates numerical ids

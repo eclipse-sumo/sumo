@@ -78,8 +78,7 @@ protected:
      * If no vehicle class is available in the attributes, the default class (SVC_UNKNOWN)
      *  is returned.
      */
-    SUMOVehicleClass parseVehicleClass(SUMOSAXHandler &helper,
-                                       const Attributes &attrs, const std::string &type,
+    SUMOVehicleClass parseVehicleClass(const SUMOSAXAttributes &attrs, const std::string &type,
                                        const std::string &id) throw();
 
 
@@ -89,8 +88,7 @@ protected:
      * Tries to parse the vehicle's departure time. If it is not within the attributes,
      *  is empty or not a SUMOTime, a -1 will be returned.
      */
-    SUMOTime getVehicleDepartureTime(SUMOSAXHandler &helper,
-                                     const Attributes &attrs, const std::string &id) throw();
+    SUMOTime getVehicleDepartureTime(const SUMOSAXAttributes &attrs, const std::string &id) throw();
 
 
     /**
@@ -99,7 +97,7 @@ protected:
      * This is to be overriden in subclasses which really need the color.
      * Default implementation does nothing and returns true.
      */
-    virtual bool parseVehicleColor(SUMOSAXHandler &helper, const Attributes &attrs) throw();
+    virtual bool parseVehicleColor(const SUMOSAXAttributes &attrs) throw();
 
 
     /**
@@ -115,7 +113,7 @@ protected:
      * The method also sets myAmInEmbeddedMode to true which allows starting to process
      *  additional, embedded values.
      */
-    bool openVehicle(SUMOSAXHandler &helper, const Attributes &attrs) throw();
+    bool openVehicle(const SUMOSAXAttributes &attrs) throw();
 
 
     /** @brief Closes the processing of a vehicle

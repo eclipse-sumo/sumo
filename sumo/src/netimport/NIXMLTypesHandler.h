@@ -79,7 +79,7 @@ protected:
      * @policy No exception in order to allow further processing
      */
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes &attrs) throw(ProcessError);
     //@}
 
 
@@ -94,6 +94,7 @@ private:
 
     /** @brief invalid assignment operator */
     NIXMLTypesHandler &operator=(const NIXMLTypesHandler &s);
+
 
 };
 

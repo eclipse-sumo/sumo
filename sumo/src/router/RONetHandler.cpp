@@ -71,7 +71,7 @@ RONetHandler::~RONetHandler() throw()
 
 void
 RONetHandler::myStartElement(SumoXMLTag element,
-                             const Attributes &attrs) throw(ProcessError)
+                             const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_EDGE:
@@ -100,12 +100,12 @@ RONetHandler::myStartElement(SumoXMLTag element,
 
 
 void
-RONetHandler::parseEdge(const Attributes &attrs)
+RONetHandler::parseEdge(const SUMOSAXAttributes &attrs)
 {
     // get the id of the edge and the edge
     myCurrentEdge = 0;
     try {
-        myCurrentName = getString(attrs, SUMO_ATTR_ID);
+        myCurrentName = attrs.getString(SUMO_ATTR_ID);
         if (myCurrentName[0]==':') {
             // this is an internal edge - we will not use it
             //  !!! recheck this; internal edges may be of importance during the dua
@@ -123,7 +123,7 @@ RONetHandler::parseEdge(const Attributes &attrs)
 
     // get the type of the edge
     try {
-        string type = getString(attrs, SUMO_ATTR_FUNCTION);
+        string type = attrs.getString(SUMO_ATTR_FUNCTION);
         myProcess = true;
         if (type=="normal") {
             myCurrentEdge->setType(ROEdge::ET_NORMAL);
@@ -144,7 +144,7 @@ RONetHandler::parseEdge(const Attributes &attrs)
     // get the from-junction
     RONode *fromNode = 0;
     try {
-        string from = getString(attrs, SUMO_ATTR_FROM);
+        string from = attrs.getString(SUMO_ATTR_FROM);
         if (from=="") {
             throw EmptyData();
         }
@@ -160,7 +160,7 @@ RONetHandler::parseEdge(const Attributes &attrs)
     // get the to-junction
     RONode *toNode = 0;
     try {
-        string to = getString(attrs, SUMO_ATTR_TO);
+        string to = attrs.getString(SUMO_ATTR_TO);
         if (to=="") {
             throw EmptyData();
         }
@@ -179,7 +179,7 @@ RONetHandler::parseEdge(const Attributes &attrs)
 
 
 void
-RONetHandler::parseLane(const Attributes &attrs)
+RONetHandler::parseLane(const SUMOSAXAttributes &attrs)
 {
     if (myCurrentEdge==0) {
         // was an internal edge to skip or an error occured
@@ -189,14 +189,14 @@ RONetHandler::parseLane(const Attributes &attrs)
     SUMOReal length = -1;
     std::vector<SUMOVehicleClass> allowed, disallowed;
     // get the id
-    string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
+    string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
     if (id.length()==0) {
         MsgHandler::getErrorInstance()->inform("Could not retrieve the id of a lane.");
         return;
     }
     // get the speed
     try {
-        maxSpeed = getFloat(attrs, SUMO_ATTR_MAXSPEED);
+        maxSpeed = attrs.getFloat(SUMO_ATTR_MAXSPEED);
     } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing maxspeed definition in lane '" + id + "'.");
         return;
@@ -206,7 +206,7 @@ RONetHandler::parseLane(const Attributes &attrs)
     }
     // get the length
     try {
-        length = getFloat(attrs, SUMO_ATTR_LENGTH);
+        length = attrs.getFloat(SUMO_ATTR_LENGTH);
     } catch (EmptyData&) {
         MsgHandler::getErrorInstance()->inform("Missing length definition in lane '" + id + "'.");
         return;
@@ -215,7 +215,7 @@ RONetHandler::parseLane(const Attributes &attrs)
         return;
     }
     // get the vehicle classes
-    string allowedS = getStringSecure(attrs, SUMO_ATTR_VCLASSES , "");
+    string allowedS = attrs.getStringSecure(SUMO_ATTR_VCLASSES , "");
     if (allowedS.length()!=0) {
         StringTokenizer st(allowedS, ";");
         while (st.hasNext()) {
@@ -237,10 +237,10 @@ RONetHandler::parseLane(const Attributes &attrs)
 
 
 void
-RONetHandler::parseJunction(const Attributes &attrs)
+RONetHandler::parseJunction(const SUMOSAXAttributes &attrs)
 {
     try {
-        myCurrentName = getString(attrs, SUMO_ATTR_ID);
+        myCurrentName = attrs.getString(SUMO_ATTR_ID);
         if (myCurrentName=="") {
             throw EmptyData();
         }
@@ -251,7 +251,7 @@ RONetHandler::parseJunction(const Attributes &attrs)
 
 
 void
-RONetHandler::parseConnEdge(const Attributes &attrs)
+RONetHandler::parseConnEdge(const SUMOSAXAttributes &attrs)
 {
     if (myCurrentEdge==0) {
         // was an internal edge to skip
@@ -259,7 +259,7 @@ RONetHandler::parseConnEdge(const Attributes &attrs)
     }
     try {
         // get the edge to connect
-        string succID = getString(attrs, SUMO_ATTR_ID);
+        string succID = attrs.getString(SUMO_ATTR_ID);
         ROEdge *succ = myNet.getEdge(succID);
         if (succ!=0) {
             // connect edge

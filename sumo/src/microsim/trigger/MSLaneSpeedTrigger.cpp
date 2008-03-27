@@ -115,7 +115,7 @@ MSLaneSpeedTrigger::processCommand(bool move2next)
 
 void
 MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
-                                   const Attributes &attrs) throw(ProcessError)
+                                   const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     // check whethe the correct tag is read
     if (element!=SUMO_TAG_STEP) {
@@ -123,8 +123,8 @@ MSLaneSpeedTrigger::myStartElement(SumoXMLTag element,
     }
     // extract the values
     try {
-        int next = getIntSecure(attrs, SUMO_ATTR_TIME, -1);
-        SUMOReal speed = getFloatSecure(attrs, SUMO_ATTR_SPEED, -1.0);
+        int next = attrs.getIntSecure(SUMO_ATTR_TIME, -1);
+        SUMOReal speed = attrs.getFloatSecure(SUMO_ATTR_SPEED, -1.0);
         // check the values
         if (next<0) {
             MsgHandler::getErrorInstance()->inform("Wrong time in MSLaneSpeedTrigger in file '" + getFileName() + "'.");

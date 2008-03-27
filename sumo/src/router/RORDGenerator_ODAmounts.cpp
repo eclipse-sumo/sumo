@@ -223,7 +223,7 @@ RORDGenerator_ODAmounts::buildForTimeStep(SUMOTime time)
 
 void
 RORDGenerator_ODAmounts::myStartElement(SumoXMLTag element,
-                                        const Attributes &attrs) throw(ProcessError)
+                                        const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     RORDLoader_TripDefs::myStartElement(element, attrs);
     if (element == SUMO_TAG_FLOW) {
@@ -235,7 +235,7 @@ RORDGenerator_ODAmounts::myStartElement(SumoXMLTag element,
 
 
 void
-RORDGenerator_ODAmounts::parseFlowAmountDef(const Attributes &attrs)
+RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs)
 {
     // get the vehicle id, the edges, the speed and position and
     //  the departure time and other information
@@ -248,17 +248,17 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const Attributes &attrs)
     myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM, myID, false);
     myEndEdge = getEdge(attrs, "destination",
                         SUMO_ATTR_TO, myID, myEmptyDestinationsAllowed);
-    myType = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
+    myType = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
     myPos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POSITION, myID);
     mySpeed = getOptionalFloat(attrs, "speed", SUMO_ATTR_SPEED, myID);
     try {
-        myIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, myUpperIntervalBegin);
+        myIntervalBegin = attrs.getIntSecure(SUMO_ATTR_BEGIN, myUpperIntervalBegin);
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("An interval begin is not numeric.");
         return;
     }
     try {
-        myIntervalEnd = getIntSecure(attrs, SUMO_ATTR_END, myUpperIntervalEnd);
+        myIntervalEnd = attrs.getIntSecure(SUMO_ATTR_END, myUpperIntervalEnd);
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("An interval end is not numeric.");
         return;
@@ -271,21 +271,21 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const Attributes &attrs)
     myPeriodTime = -1;
     myNumberOfRepetitions = -1;
     myLane = getLane(attrs);
-    myColor = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
+    myColor = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
 }
 
 
 void
-RORDGenerator_ODAmounts::parseInterval(const Attributes &attrs)
+RORDGenerator_ODAmounts::parseInterval(const SUMOSAXAttributes &attrs)
 {
     try {
-        myUpperIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, -1);
+        myUpperIntervalBegin = attrs.getIntSecure(SUMO_ATTR_BEGIN, -1);
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("An interval begin is not numeric.");
         return;
     }
     try {
-        myUpperIntervalEnd = getIntSecure(attrs, SUMO_ATTR_END, -1);
+        myUpperIntervalEnd = attrs.getIntSecure(SUMO_ATTR_END, -1);
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("An interval end is not numeric.");
         return;

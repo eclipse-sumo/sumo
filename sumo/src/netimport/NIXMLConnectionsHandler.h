@@ -69,16 +69,16 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes &attrs) throw(ProcessError);
     //@}
 
 private:
     // parses a connection when it describes a edge-2-edge relationship
-    void parseEdgeBound(const Attributes &attrs, NBEdge *from,
+    void parseEdgeBound(const SUMOSAXAttributes &attrs, NBEdge *from,
                         NBEdge *to);
 
     // parses a connection when it describes a lane-2-lane relationship
-    void parseLaneBound(const Attributes &attrs,NBEdge *from,
+    void parseLaneBound(const SUMOSAXAttributes &attrs,NBEdge *from,
                         NBEdge *to);
 
     /** @brief returns the connection described by def

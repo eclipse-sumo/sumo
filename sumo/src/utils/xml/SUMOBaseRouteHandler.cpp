@@ -56,13 +56,13 @@ SUMOBaseRouteHandler::~SUMOBaseRouteHandler() throw()
 
 
 SUMOTime
-SUMOBaseRouteHandler::getVehicleDepartureTime(SUMOSAXHandler &helper,
-        const Attributes &attrs,
+SUMOBaseRouteHandler::getVehicleDepartureTime(
+        const SUMOSAXAttributes &attrs,
         const std::string &id) throw()
 {
     SUMOTime ret = -1;
     try {
-        ret = helper.getInt(attrs, SUMO_ATTR_DEPART); // !!! getSUMOTime
+        ret = attrs.getInt(SUMO_ATTR_DEPART); // !!! getSUMOTime
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing departure time in vehicle '" + id + "'.");
     } catch (NumberFormatException &) {
@@ -73,22 +73,20 @@ SUMOBaseRouteHandler::getVehicleDepartureTime(SUMOSAXHandler &helper,
 
 
 bool
-SUMOBaseRouteHandler::parseVehicleColor(SUMOSAXHandler &,
-                                        const Attributes &) throw()
+SUMOBaseRouteHandler::parseVehicleColor(const SUMOSAXAttributes &) throw()
 {
     return true;
 }
 
 
 SUMOVehicleClass
-SUMOBaseRouteHandler::parseVehicleClass(SUMOSAXHandler &helper,
-                                        const Attributes &attrs,
+SUMOBaseRouteHandler::parseVehicleClass(const SUMOSAXAttributes &attrs,
                                         const std::string &type,
                                         const std::string &id) throw()
 {
     SUMOVehicleClass vclass = SVC_UNKNOWN;
     try {
-        string vclassS = helper.getStringSecure(attrs, SUMO_ATTR_VCLASS, "");
+        string vclassS = attrs.getStringSecure(SUMO_ATTR_VCLASS, "");
         if (vclassS=="") {
             return vclass;
         }
@@ -101,12 +99,11 @@ SUMOBaseRouteHandler::parseVehicleClass(SUMOSAXHandler &helper,
 
 
 bool
-SUMOBaseRouteHandler::openVehicle(SUMOSAXHandler &helper,
-                                  const Attributes &attrs) throw()
+SUMOBaseRouteHandler::openVehicle(const SUMOSAXAttributes &attrs) throw()
 {
     myAmInEmbeddedMode = true;
     try {
-        myActiveVehicleID = helper.getString(attrs, SUMO_ATTR_ID);
+        myActiveVehicleID = attrs.getString(SUMO_ATTR_ID);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing id of a vehicle-object.");
         return false;
@@ -114,25 +111,25 @@ SUMOBaseRouteHandler::openVehicle(SUMOSAXHandler &helper,
 
     // try to get some optional values
     // repetition values
-    myRepOffset = helper.getIntSecure(attrs, SUMO_ATTR_PERIOD, -1);
-    myRepNumber = helper.getIntSecure(attrs, SUMO_ATTR_REPNUMBER, -1);
+    myRepOffset = attrs.getIntSecure(SUMO_ATTR_PERIOD, -1);
+    myRepNumber = attrs.getIntSecure(SUMO_ATTR_REPNUMBER, -1);
     // the vehicle's route name
-    myCurrentRouteName = helper.getStringSecure(attrs, SUMO_ATTR_ROUTE, "");
-    if (!parseVehicleColor(helper, attrs)) {
+    myCurrentRouteName = attrs.getStringSecure(SUMO_ATTR_ROUTE, "");
+    if (!parseVehicleColor(attrs)) {
         MsgHandler::getErrorInstance()->inform("Incorrect color definition for vehicle " + myActiveVehicleID);
     }
 
 
     // try to get the vehicle type
     try {
-        myCurrentVType = helper.getStringSecure(attrs, SUMO_ATTR_TYPE, "");
+        myCurrentVType = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
         // now try to build the rest of the vehicle
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing vehicle type name for vehicle '" + myActiveVehicleID + "'");
         return false;
     }
     // try to get the departure time
-    myCurrentDepart = getVehicleDepartureTime(helper, attrs, myActiveVehicleID);
+    myCurrentDepart = getVehicleDepartureTime(attrs, myActiveVehicleID);
     if (myCurrentDepart==-1) {
         return false;
     }

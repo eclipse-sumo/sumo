@@ -81,7 +81,7 @@ protected:
 	 * @param attributes attributes of the opened element
 	 */
 	virtual void myStartElement(SumoXMLTag element, 
-								const Attributes& attributes) throw(ProcessError);
+								const SUMOSAXAttributes& attributes) throw(ProcessError);
 
 	/**
 	 * @brief Called on the closure of a xml tag.

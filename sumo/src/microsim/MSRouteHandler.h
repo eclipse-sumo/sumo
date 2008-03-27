@@ -96,7 +96,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(SumoXMLTag element,
-                                const Attributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
     /** @brief Called when characters occure
@@ -121,7 +121,7 @@ protected:
 
 
     /** parses an occured vehicle type definition */
-    virtual void addVehicleType(const Attributes &attrs);
+    virtual void addVehicleType(const SUMOSAXAttributes &attrs);
 
     /** adds the parsed vehicle type */
     virtual void addParsedVehicleType(const std::string &id,
@@ -132,7 +132,7 @@ protected:
 
 
     /** opens a route for reading */
-    virtual void openRoute(const Attributes &attrs);
+    virtual void openRoute(const SUMOSAXAttributes &attrs);
 
     /** reads the route elements */
     void addRouteElements(const std::string &chars);

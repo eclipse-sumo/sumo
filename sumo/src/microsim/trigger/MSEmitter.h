@@ -219,7 +219,7 @@ protected:
          * @see GenericSAXHandler::myStartElement
          */
         virtual void myStartElement(SumoXMLTag element,
-                                    const Attributes &attrs) throw(ProcessError);
+                                    const SUMOSAXAttributes &attrs) throw(ProcessError);
         //@}
 
         /// Informs the child that the end of the processed file has been reached

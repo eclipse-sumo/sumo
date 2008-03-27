@@ -39,6 +39,7 @@
 #include <xercesc/sax2/DefaultHandler.hpp>
 #include <utils/common/UtilExceptions.h>
 #include "SUMOXMLDefinitions.h"
+#include "SUMOSAXAttributes.h"
 
 // ===========================================================================
 // xerces 2.2 compatibility
@@ -174,16 +175,16 @@ public:
                     const XMLCh* const qname);
 
 
-
+/*
     //{ methods for retrieving attribute values
     /**
      * @brief Returns the information whether the named (by its enum-value) attribute is within the current list
-     */
+     /
     bool hasAttribute(const Attributes &attrs, SumoXMLAttr id) throw();
 
     /**
      * @brief Returns the information whether the named attribute is within the current list
-     */
+     /
     bool hasAttribute(const Attributes &attrs, const XMLCh * const id) throw();
 
 
@@ -199,7 +200,7 @@ public:
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception BoolFormatException If the attribute value can not be parsed to a bool
-     */
+     /
     bool getBool(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, BoolFormatException);
 
     /**
@@ -212,7 +213,7 @@ public:
      *  returns the default value.
      *
      * @exception EmptyData If the attribute value is an empty string
-     */
+     /
     bool getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool val) const throw(EmptyData);
 
 
@@ -228,7 +229,7 @@ public:
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
-     */
+     /
     int getInt(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException);
 
     /**
@@ -244,7 +245,7 @@ public:
      *
      * @exception EmptyData If the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
-     */
+     /
     int getIntSecure(const Attributes &attrs, SumoXMLAttr id, int def) const throw(EmptyData, NumberFormatException);
 
 
@@ -257,7 +258,7 @@ public:
      *  EmptyData-exception which is passed.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
-     */
+     /
     std::string getString(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData);
 
     /**
@@ -268,7 +269,7 @@ public:
      *  If the attribute is ==0, TplConvert<XMLCh>::_2strSec returns the default value.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
-     */
+     /
     std::string getStringSecure(const Attributes &attrs, SumoXMLAttr id,
                                 const std::string &str) const throw(EmptyData);
 
@@ -281,7 +282,7 @@ public:
      *  If the attribute is ==0, TplConvert<XMLCh>::_2strSec returns the default value.
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
-     */
+     /
     std::string getStringSecure(const Attributes &attrs, const XMLCh * const id,
                                 const std::string &str) const throw(EmptyData);
 
@@ -298,7 +299,7 @@ public:
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
-     */
+     /
     SUMOReal getFloat(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException);
 
     /**
@@ -314,7 +315,7 @@ public:
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
-     */
+     /
     SUMOReal getFloatSecure(const Attributes &attrs, SumoXMLAttr id, SUMOReal def) const throw(EmptyData, NumberFormatException);
 
     /**
@@ -329,9 +330,10 @@ public:
      *
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
-     */
+     /
     SUMOReal getFloat(const Attributes &attrs, const XMLCh * const id) const throw(EmptyData, NumberFormatException);
     //}
+    */
 
 protected:
     /**
@@ -340,7 +342,7 @@ protected:
      * Called by "startElement" (see there).
      */
     virtual void myStartElement(SumoXMLTag element,
-                                const Attributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
     /**
@@ -375,17 +377,6 @@ private:
      *  known, SUMO_TAG_NOTHING is returned.
      */
     SumoXMLTag convertTag(const std::string &tag) const throw();
-
-
-private:
-    /**
-     * @brief returns the xml-value of an attribute-enum value
-     *
-     * It is assumed, that each SumoXMLAttr has a string-representation.
-     */
-    const XMLCh *getAttributeValueSecure(const Attributes &attrs,
-                                         SumoXMLAttr id) const throw();
-
 
 
 private:

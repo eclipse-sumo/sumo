@@ -83,7 +83,7 @@ RORDLoader_SUMOBase::~RORDLoader_SUMOBase() throw()
 
 void
 RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
-                                    const Attributes &attrs) throw(ProcessError)
+                                    const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_ROUTE:
@@ -91,7 +91,7 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_VEHICLE:
         // try to parse the vehicle definition
-        if (!SUMOBaseRouteHandler::openVehicle(*this, attrs)) {
+        if (!SUMOBaseRouteHandler::openVehicle(attrs)) {
             mySkipCurrent = true;
         }
         break;
@@ -109,7 +109,7 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
 
 
 void
-RORDLoader_SUMOBase::startRoute(const Attributes &attrs)
+RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
 {
     mySkipCurrent = false;
     if (myCurrentAlternatives==0) {
@@ -117,11 +117,11 @@ RORDLoader_SUMOBase::startRoute(const Attributes &attrs)
         try {
             mySkipCurrent = false;
             if (myAmInEmbeddedMode) {
-                myCurrentRouteName = getStringSecure(attrs, SUMO_ATTR_ID, "!" + myActiveVehicleID);
+                myCurrentRouteName = attrs.getStringSecure(SUMO_ATTR_ID, "!" + myActiveVehicleID);
             } else {
-                myCurrentRouteName = getString(attrs, SUMO_ATTR_ID);
+                myCurrentRouteName = attrs.getString(SUMO_ATTR_ID);
             }
-            myColorString = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
+            myColorString = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
         } catch (EmptyData &) {
             myCurrentRouteName = "";
             getErrorHandlerMarkInvalid()->inform("Missing id in route.");
@@ -131,10 +131,10 @@ RORDLoader_SUMOBase::startRoute(const Attributes &attrs)
     // parse route alternative...
     // try to get the costs
     try {
-        myCost = getFloat(attrs, SUMO_ATTR_COST);
+        myCost = attrs.getFloat(SUMO_ATTR_COST);
     } catch (NumberFormatException &) {
         getErrorHandlerMarkInvalid()->inform(
-            "Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + getString(attrs, SUMO_ATTR_COST) + ").");
+            "Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + attrs.getString(SUMO_ATTR_COST) + ").");
         mySkipCurrent = true;
         return;
     } catch (EmptyData &) {
@@ -149,7 +149,7 @@ RORDLoader_SUMOBase::startRoute(const Attributes &attrs)
     }
     // try to get the probability
     try {
-        myProbability = getFloatSecure(attrs, SUMO_ATTR_PROB, -10000);
+        myProbability = attrs.getFloatSecure(SUMO_ATTR_PROB, -10000);
     } catch (NumberFormatException &) {
         getErrorHandlerMarkInvalid()->inform("Invalid probability in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myProbability) + ").");
         mySkipCurrent = true;
@@ -168,29 +168,29 @@ RORDLoader_SUMOBase::startRoute(const Attributes &attrs)
 
 
 void
-RORDLoader_SUMOBase::startAlternative(const Attributes &attrs)
+RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs)
 {
     // try to get the id
     string id;
     try {
         mySkipCurrent = false;
         if (myAmInEmbeddedMode) {
-            id = getStringSecure(attrs, SUMO_ATTR_ID, "!" + myActiveVehicleID);
+            id = attrs.getStringSecure(SUMO_ATTR_ID, "!" + myActiveVehicleID);
         } else {
-            id = getString(attrs, SUMO_ATTR_ID);
+            id = attrs.getString(SUMO_ATTR_ID);
         }
     } catch (EmptyData &) {
         getErrorHandlerMarkInvalid()->inform("Missing route alternative name.");
         return;
     }
     // try to get the index of the last element
-    int index = getIntSecure(attrs, SUMO_ATTR_LAST, -1);
+    int index = attrs.getIntSecure(SUMO_ATTR_LAST, -1);
     if (index<0) {
         getErrorHandlerMarkInvalid()->inform("Missing or non-numeric index of a route alternative (id='" + id + "'.");
         return;
     }
     // try to get the color
-    myColorString = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
+    myColorString = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
     // build the alternative cont
     myCurrentAlternatives = new RORouteDef_Alternatives(id, myColorString,
             index, myGawronBeta, myGawronA, myMaxRouteNumber);
@@ -317,10 +317,9 @@ RORDLoader_SUMOBase::closeVehicle() throw()
 
 
 bool
-RORDLoader_SUMOBase::parseVehicleColor(SUMOSAXHandler &helper,
-                                       const Attributes &attrs) throw()
+RORDLoader_SUMOBase::parseVehicleColor(const SUMOSAXAttributes &attrs) throw()
 {
-    myVehicleColorString = helper.getStringSecure(attrs, SUMO_ATTR_COLOR, "");
+    myVehicleColorString = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
     return true;
 }
 
@@ -334,26 +333,26 @@ RORDLoader_SUMOBase::getDataName() const
 
 
 void
-RORDLoader_SUMOBase::startVehType(const Attributes &attrs)
+RORDLoader_SUMOBase::startVehType(const SUMOSAXAttributes &attrs)
 {
     // get the vehicle type id
     string id;
     try {
-        id = getString(attrs, SUMO_ATTR_ID);
+        id = attrs.getString(SUMO_ATTR_ID);
     } catch (EmptyData &) {
         getErrorHandlerMarkInvalid()->inform("Missing id in vtype.");
         return;
     }
     // get the other values
     try {
-        SUMOReal maxspeed = getFloatSecure(attrs, SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED);
-        SUMOReal length = getFloatSecure(attrs, SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH);
-        SUMOReal accel = getFloatSecure(attrs, SUMO_ATTR_ACCEL, DEFAULT_VEH_A);
-        SUMOReal decel = getFloatSecure(attrs, SUMO_ATTR_DECEL, DEFAULT_VEH_B);
-        SUMOReal sigma = getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA);
-        SUMOReal tau = getFloatSecure(attrs, SUMO_ATTR_TAU, DEFAULT_VEH_TAU);
-        std::string color = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
-        SUMOVehicleClass vclass = parseVehicleClass(*this, attrs, "vehicle type", id);
+        SUMOReal maxspeed = attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED);
+        SUMOReal length = attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH);
+        SUMOReal accel = attrs.getFloatSecure(SUMO_ATTR_ACCEL, DEFAULT_VEH_A);
+        SUMOReal decel = attrs.getFloatSecure(SUMO_ATTR_DECEL, DEFAULT_VEH_B);
+        SUMOReal sigma = attrs.getFloatSecure(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA);
+        SUMOReal tau = attrs.getFloatSecure(SUMO_ATTR_TAU, DEFAULT_VEH_TAU);
+        std::string color = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
+        SUMOVehicleClass vclass = parseVehicleClass(attrs, "vehicle type", id);
         // build the vehicle type
         //  by now, only vehicles using the krauss model are supported
         myCurrentVehicleType = new ROVehicleType_Krauss(

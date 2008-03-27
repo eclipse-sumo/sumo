@@ -249,14 +249,14 @@ NIOSMEdgesHandler::insertEdge(NIOSMEdgesHandler::Edge *e, int index, NBNode *fro
 
 void
 NIOSMEdgesHandler::myStartElement(SumoXMLTag element,
-                                  const Attributes &attrs) throw(ProcessError)
+                                  const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     myParentElements.push_back(element);
     if (element==SUMO_TAG_WAY) {
         myCurrentEdge = new Edge();
         try {
             // retrieve the id of the edge
-            myCurrentEdge->id = getString(attrs, SUMO_ATTR_ID);
+            myCurrentEdge->id = attrs.getString(SUMO_ATTR_ID);
             myCurrentEdge->myCurrentIsRoad = false;
         } catch (EmptyData &) {
             WRITE_WARNING("No edge id given... Skipping.");
@@ -266,7 +266,7 @@ NIOSMEdgesHandler::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_ND) {
         try {
             // retrieve the id of the (geometry) node
-            int ref = getInt(attrs, SUMO_ATTR_REF);
+            int ref = attrs.getInt(SUMO_ATTR_REF);
             if (myOSMNodes.find(ref)==myOSMNodes.end()) {
                 MsgHandler::getErrorInstance()->inform("The referenced geometry information (ref='" + toString(ref) + "') is not known");
                 return;
@@ -281,14 +281,14 @@ NIOSMEdgesHandler::myStartElement(SumoXMLTag element,
         string key, value;
         try {
             // retrieve the id of the (geometry) node
-            key = getString(attrs, SUMO_ATTR_K);
+            key = attrs.getString(SUMO_ATTR_K);
         } catch (EmptyData &) {
             WRITE_WARNING("'tag' in edge '" + myCurrentEdge->id + "' misses a value.");
             return;
         }
         try {
             // retrieve the id of the (geometry) node
-            value = getString(attrs, SUMO_ATTR_V);
+            value = attrs.getString(SUMO_ATTR_V);
         } catch (EmptyData &) {
             WRITE_WARNING("'value' in edge '" + myCurrentEdge->id + "' misses a value.");
             return;

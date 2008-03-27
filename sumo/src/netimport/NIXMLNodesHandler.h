@@ -50,7 +50,7 @@ class NBTrafficLightLogicCont;
  * @class NIXMLNodesHandler
  * @brief Importer for network nodes stored in XML
  *
- * This SAX-handler parses node information and stores it in the given
+ * This SAX-handler parses node information and stores it in the given node
  *  container. Additionally, the given tls-container may be filled with
  *  additional information.
  */
@@ -91,7 +91,7 @@ protected:
      * @todo ProcessErrors are thrown when parsing traffic lights!?
      */
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes &attrs) throw(ProcessError);
     //@}
 
 
@@ -104,7 +104,7 @@ private:
      * @param[in] attrs Attributes within the currently opened node
      * @return Whether the node's position information was valid
      */
-    bool setPosition(const Attributes &attrs);
+    bool setPosition(const SUMOSAXAttributes &attrs);
 
 
     /** @brief Builds the defined traffic light or adds a node to it
@@ -112,7 +112,7 @@ private:
      * @param[in] attrs Attributes within the currently opened node
      * @param[in] currentNode The built node to add the tls information to
      */
-    void processTrafficLightDefinitions(const Attributes &attrs,
+    void processTrafficLightDefinitions(const SUMOSAXAttributes &attrs,
                                         NBNode *currentNode);
 
 

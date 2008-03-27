@@ -58,9 +58,8 @@ SAXWeightsHandler::ToRetrieveDefinition::ToRetrieveDefinition(const std::string 
         bool edgeBased,
         EdgeFloatTimeLineRetriever &destination)
         : myDestination(destination), myAmEdgeBased(edgeBased),
-        myMMLAttributeName(attributeName)
+        myAttributeName(attributeName)
 {
-    myAttributeName = XMLString::transcode(attributeName.c_str());
 }
 
 
@@ -99,19 +98,19 @@ SAXWeightsHandler::~SAXWeightsHandler() throw()
 
 
 void SAXWeightsHandler::myStartElement(SumoXMLTag element,
-                                       const Attributes &attrs) throw(ProcessError)
+                                       const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_INTERVAL:
         try {
-            myCurrentTimeBeg = getInt(attrs, SUMO_ATTR_BEGIN);
-            myCurrentTimeEnd = getInt(attrs, SUMO_ATTR_END);
+            myCurrentTimeBeg = attrs.getInt(SUMO_ATTR_BEGIN);
+            myCurrentTimeEnd = attrs.getInt(SUMO_ATTR_END);
         } catch (...) {
             MsgHandler::getErrorInstance()->inform("Timestep value is not numeric.");
         }
         break;
     case SUMO_TAG_EDGE:
-        myCurrentEdgeID = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        myCurrentEdgeID = attrs.getStringSecure(SUMO_ATTR_ID, "");
         tryParse(attrs, true);
         break;
     case SUMO_TAG_LANE:
@@ -124,22 +123,22 @@ void SAXWeightsHandler::myStartElement(SumoXMLTag element,
 
 
 void
-SAXWeightsHandler::tryParse(const Attributes &attrs, bool isEdge)
+SAXWeightsHandler::tryParse(const SUMOSAXAttributes &attrs, bool isEdge)
 {
     std::vector<ToRetrieveDefinition*>::iterator i;
     if (isEdge) {
         // process all that want values directly from the edge
         for (i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
             if ((*i)->myAmEdgeBased) {
-                if (hasAttribute(attrs, (*i)->myAttributeName)) {
+                if (attrs.hasAttribute((*i)->myAttributeName)) {
                     try {
-                        (*i)->myAggValue = getFloat(attrs, (*i)->myAttributeName);
+                        (*i)->myAggValue = attrs.getFloat((*i)->myAttributeName);
                         (*i)->myNoLanes = 1;
                         (*i)->myHadAttribute = true;
                     } catch (EmptyData &) {
-                        MsgHandler::getErrorInstance()->inform("Missing value '" + (*i)->myMMLAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
+                        MsgHandler::getErrorInstance()->inform("Missing value '" + (*i)->myAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
                     } catch (NumberFormatException &) {
-                        MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + getStringSecure(attrs, (*i)->myAttributeName, "") + "'\n In edge '" + myCurrentEdgeID + "' at time step " + toString<long>(myCurrentTimeBeg) + ".");
+                        MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + attrs.getStringSecure((*i)->myAttributeName, "") + "'\n In edge '" + myCurrentEdgeID + "' at time step " + toString<long>(myCurrentTimeBeg) + ".");
                     }
                 } else {
                     (*i)->myHadAttribute = false;
@@ -154,13 +153,13 @@ SAXWeightsHandler::tryParse(const Attributes &attrs, bool isEdge)
         for (i=myDefinitions.begin(); i!=myDefinitions.end(); ++i) {
             if (!(*i)->myAmEdgeBased) {
                 try {
-                    (*i)->myAggValue += getFloat(attrs, (*i)->myAttributeName);
+                    (*i)->myAggValue += attrs.getFloat((*i)->myAttributeName);
                     ++((*i)->myNoLanes);
                     (*i)->myHadAttribute = true;
                 } catch (EmptyData &) {
-                    MsgHandler::getErrorInstance()->inform("Missing value '" + (*i)->myMMLAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
+                    MsgHandler::getErrorInstance()->inform("Missing value '" + (*i)->myAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
                 } catch (NumberFormatException &) {
-                    MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + getStringSecure(attrs, (*i)->myAttributeName, "") + "'\n In edge '" + myCurrentEdgeID + "' at time step " + toString<long>(myCurrentTimeBeg) + ".");
+                    MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + attrs.getStringSecure((*i)->myAttributeName, "") + "'\n In edge '" + myCurrentEdgeID + "' at time step " + toString<long>(myCurrentTimeBeg) + ".");
                 }
             }
         }

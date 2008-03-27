@@ -127,7 +127,7 @@ protected:
      * @todo Refactor/describe
      */
     virtual void myStartElement(SumoXMLTag element,
-                                const Attributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
     /** @brief Called when characters occure
@@ -154,30 +154,30 @@ protected:
 
 
 protected:
-    void addParam(const Attributes &attrs);
+    void addParam(const SUMOSAXAttributes &attrs);
 
     /** @brief adds a detector
         Determines the type of the detector first, and then calls the
          appropriate method */
-    virtual void addDetector(const Attributes &attrs);
+    virtual void addDetector(const SUMOSAXAttributes &attrs);
 
     /// Builds an e1-detector using the given specification
-    virtual void addE1Detector(const Attributes &attrs);
+    virtual void addE1Detector(const SUMOSAXAttributes &attrs);
 
     /// Builds an e2-detector using the given specification
-    virtual void addE2Detector(const Attributes &attrs);
+    virtual void addE2Detector(const SUMOSAXAttributes &attrs);
 
     /// Starts building of an e3-detector using the given specification
-    void beginE3Detector(const Attributes &attrs);
+    void beginE3Detector(const SUMOSAXAttributes &attrs);
 
-    void addE3Entry(const Attributes &attrs);
-    void addE3Exit(const Attributes &attrs);
+    void addE3Entry(const SUMOSAXAttributes &attrs);
+    void addE3Exit(const SUMOSAXAttributes &attrs);
 
     /// Builds of an e3-detector using collected values
     virtual void endE3Detector();
 
     /// Builds an e1-detector using the given specification
-    virtual void addVTypeProbeDetector(const Attributes &attrs);
+    virtual void addVTypeProbeDetector(const SUMOSAXAttributes &attrs);
 
 
     /** @brief Ends the detector building
@@ -211,50 +211,50 @@ private:
     void addLaneShape(const std::string &chars);
 
     /// sets the number of edges the network contains
-    void setEdgeNumber(const Attributes &attrs);
+    void setEdgeNumber(const SUMOSAXAttributes &attrs);
 
     /// begins the processing of an edge
-    void chooseEdge(const Attributes &attrs);
+    void chooseEdge(const SUMOSAXAttributes &attrs);
 
     /// adds a lane to the previously opened edge
-    void addLane(const Attributes &attrs);
+    void addLane(const SUMOSAXAttributes &attrs);
 
     /// adds a polygon
-    void addPOI(const Attributes &attrs);
+    void addPOI(const SUMOSAXAttributes &attrs);
 
     /// adds a polygon
-    void addPoly(const Attributes &attrs);
+    void addPoly(const SUMOSAXAttributes &attrs);
 
     /// add the position to the Polygon
     void addPolyPosition(const std::string &chars);
 
     /// opens the list of next edges for processing
-    void openAllowedEdge(const Attributes &attrs);
+    void openAllowedEdge(const SUMOSAXAttributes &attrs);
 
     /// adds a logic item to the current logic
-    void addLogicItem(const Attributes &attrs);
+    void addLogicItem(const SUMOSAXAttributes &attrs);
 
     /// begins the reading of a traffic lights logic
-    void initTrafficLightLogic(const Attributes &attrs);
+    void initTrafficLightLogic(const SUMOSAXAttributes &attrs);
 
     /// adds a phase to the traffic lights logic currently build
-    void addPhase(const Attributes &attrs);
+    void addPhase(const SUMOSAXAttributes &attrs);
 
 
     /// opens a junction for processing
-    virtual void openJunction(const Attributes &attrs);
+    virtual void openJunction(const SUMOSAXAttributes &attrs);
 
     /// adds a source
-    virtual void addSource(const Attributes &attrs);
+    virtual void addSource(const SUMOSAXAttributes &attrs);
 
     /// adds a trigger
-    void addTrigger(const Attributes &attrs);
+    void addTrigger(const SUMOSAXAttributes &attrs);
 
     /// opens the container of succeeding lanes for processing
-    void openSucc(const Attributes &attrs);
+    void openSucc(const SUMOSAXAttributes &attrs);
 
     /// adds a succeeding lane
-    void addSuccLane(const Attributes &attrs);
+    void addSuccLane(const SUMOSAXAttributes &attrs);
 
 
     /// adds the incoming lanes
@@ -269,9 +269,9 @@ private:
 #endif
 
 
-    virtual void openWAUT(const Attributes &attrs);
-    void addWAUTSwitch(const Attributes &attrs);
-    void addWAUTJunction(const Attributes &attrs);
+    virtual void openWAUT(const SUMOSAXAttributes &attrs);
+    void addWAUTSwitch(const SUMOSAXAttributes &attrs);
+    void addWAUTJunction(const SUMOSAXAttributes &attrs);
 
 
     /// allocates edges from the initial list

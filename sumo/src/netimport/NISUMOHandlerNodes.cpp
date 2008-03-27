@@ -57,7 +57,7 @@ NISUMOHandlerNodes::~NISUMOHandlerNodes() throw()
 
 void
 NISUMOHandlerNodes::myStartElement(SumoXMLTag element,
-                                   const Attributes &attrs) throw(ProcessError)
+                                   const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_JUNCTION:
@@ -70,22 +70,22 @@ NISUMOHandlerNodes::myStartElement(SumoXMLTag element,
 
 
 void
-NISUMOHandlerNodes::addNode(const Attributes &attrs)
+NISUMOHandlerNodes::addNode(const SUMOSAXAttributes &attrs)
 {
     string id;
     try {
         // retrieve the id of the node
-        id = getString(attrs, SUMO_ATTR_ID);
+        id = attrs.getString(SUMO_ATTR_ID);
         /*        string name = id;
                 // retrieve the name of the node
                 try {
-                    name = getString(attrs, SUMO_ATTR_NAME);
+                    name = attrs.getString(SUMO_ATTR_NAME);
                 } catch (EmptyData &) {
                 }*/
         string typestr;
         // get the type of the node
         try {
-            typestr = getString(attrs, SUMO_ATTR_TYPE);
+            typestr = attrs.getString(SUMO_ATTR_TYPE);
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("The type of the junction '" + id + "' is not empty.");
             return;
@@ -108,8 +108,8 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
         }
         // get the position of the node
         SUMOReal x, y;
-        x = getFloatSecure(attrs, SUMO_ATTR_X, -1);
-        y = getFloatSecure(attrs, SUMO_ATTR_Y, -1);
+        x = attrs.getFloatSecure(SUMO_ATTR_X, -1);
+        y = attrs.getFloatSecure(SUMO_ATTR_Y, -1);
         if (x<0||y<0) {
             if (x<0) {
                 MsgHandler::getErrorInstance()->inform("The x-position of the junction '" + id + "' is not valid.");
@@ -122,7 +122,7 @@ NISUMOHandlerNodes::addNode(const Attributes &attrs)
         // get the key
         string key;
         try {
-            key = getString(attrs, SUMO_ATTR_KEY);
+            key = attrs.getString(SUMO_ATTR_KEY);
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("The key is missing for junction '" + id + "'.");
         }

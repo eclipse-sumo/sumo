@@ -67,7 +67,7 @@ NIXMLTypesHandler::~NIXMLTypesHandler() throw()
 
 void
 NIXMLTypesHandler::myStartElement(SumoXMLTag element,
-                                  const Attributes &attrs) throw(ProcessError)
+                                  const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     if (element!=SUMO_TAG_TYPE) {
         return;
@@ -75,31 +75,31 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
     string id;
     try {
         // parse the id
-        id = getString(attrs, SUMO_ATTR_ID);
+        id = attrs.getString(SUMO_ATTR_ID);
         int priority = 0;
         int noLanes = 0;
         SUMOReal speed = 0;
         // get the priority
         try {
-            priority = getIntSecure(attrs, SUMO_ATTR_PRIORITY, myTypeCont.getDefaultPriority());
+            priority = attrs.getIntSecure(SUMO_ATTR_PRIORITY, myTypeCont.getDefaultPriority());
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("Not numeric value for Priority (at tag ID='" + id + "').");
         }
         // get the number of lanes
         try {
-            noLanes = getIntSecure(attrs, SUMO_ATTR_NOLANES, myTypeCont.getDefaultNoLanes());
+            noLanes = attrs.getIntSecure(SUMO_ATTR_NOLANES, myTypeCont.getDefaultNoLanes());
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("Not numeric value for NoLanes (at tag ID='" + id + "').");
         }
         // get the speed
         try {
-            speed = getFloatSecure(attrs, SUMO_ATTR_SPEED, (SUMOReal) myTypeCont.getDefaultSpeed());
+            speed = attrs.getFloatSecure(SUMO_ATTR_SPEED, (SUMOReal) myTypeCont.getDefaultSpeed());
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("Not numeric value for Speed (at tag ID='" + id + "').");
         }
         // get the function
         NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_NORMAL;
-        string functionS = getStringSecure(attrs, SUMO_ATTR_FUNCTION, "normal");
+        string functionS = attrs.getStringSecure(SUMO_ATTR_FUNCTION, "normal");
         if (functionS=="source") {
             function = NBEdge::EDGEFUNCTION_SOURCE;
         } else if (functionS=="sink") {

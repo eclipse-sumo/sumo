@@ -73,7 +73,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(SumoXMLTag element,
-                                const Attributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
     /** @brief Called when characters occure
@@ -89,16 +89,16 @@ protected:
 
 protected:
     /// Parses an edge
-    void parseEdge(const Attributes &attrs);
+    void parseEdge(const SUMOSAXAttributes &attrs);
 
     /// Parses a lane
-    virtual void parseLane(const Attributes &attrs);
+    virtual void parseLane(const SUMOSAXAttributes &attrs);
 
     /// Parses a junction
-    void parseJunction(const Attributes &attrs);
+    void parseJunction(const SUMOSAXAttributes &attrs);
 
     /// Parses edge connections
-    void parseConnEdge(const Attributes &attrs);
+    void parseConnEdge(const SUMOSAXAttributes &attrs);
 
     /// Preallocates edges
     void preallocateEdges(const std::string &chars);

@@ -90,7 +90,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(SumoXMLTag element,
-                                const Attributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
     /** @brief Called when characters occure
@@ -114,10 +114,10 @@ protected:
     //@}
 
     /// Begins the parsing of the next route alternative in the file
-    void startAlternative(const Attributes &attrs);
+    void startAlternative(const SUMOSAXAttributes &attrs);
 
     /// Begins the parsing of a route alternative of the opened route
-    void startRoute(const Attributes &attrs);
+    void startRoute(const SUMOSAXAttributes &attrs);
 
     /// Return the information whether a route was read
     bool nextRouteRead();
@@ -126,14 +126,14 @@ protected:
     void beginNextRoute();
 
     /// Parses a vehicle type
-    void startVehType(const Attributes &attrs);
+    void startVehType(const SUMOSAXAttributes &attrs);
 
     MsgHandler *getErrorHandlerMarkInvalid();
 
     bool closeVehicle() throw();
 
     /// Stores color from the attributes
-    bool parseVehicleColor(SUMOSAXHandler &helper, const Attributes &attrs) throw();
+    bool parseVehicleColor(const SUMOSAXAttributes &attrs) throw();
 
 
 protected:

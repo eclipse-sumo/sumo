@@ -66,11 +66,11 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes &attrs) throw(ProcessError);
     //@}
 private:
-    void addEdge(const Attributes &attrs);
-    NBNode *getNode(const Attributes &attrs, SumoXMLAttr id,
+    void addEdge(const SUMOSAXAttributes &attrs);
+    NBNode *getNode(const SUMOSAXAttributes &attrs, SumoXMLAttr id,
                     const std::string &dir, const std::string &name);
 private:
     NBEdgeCont &myEdgeCont;

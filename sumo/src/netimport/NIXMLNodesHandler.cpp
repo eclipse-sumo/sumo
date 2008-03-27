@@ -76,26 +76,26 @@ NIXMLNodesHandler::~NIXMLNodesHandler() throw()
 
 void
 NIXMLNodesHandler::myStartElement(SumoXMLTag element,
-                                  const Attributes &attrs) throw(ProcessError)
+                                  const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     if (element!=SUMO_TAG_NODE) {
         return;
     }
     try {
         // retrieve the id of the node
-        myID = getString(attrs, SUMO_ATTR_ID);
+        myID = attrs.getString(SUMO_ATTR_ID);
     } catch (EmptyData &) {
         WRITE_WARNING("No node id given... Skipping.");
         return;
     }
     // retrieve the name of the node
-    string name = getStringSecure(attrs, SUMO_ATTR_NAME, myID);
+    string name = attrs.getStringSecure(SUMO_ATTR_NAME, myID);
     // retrieve the position of the node
     if (!setPosition(attrs)) {
         return;
     }
     // get the type
-    myType = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
+    myType = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
     NBNode::BasicNodeType type = NBNode::NODETYPE_UNKNOWN;
     if (myType=="priority") {
         type = NBNode::NODETYPE_PRIORITY_JUNCTION;
@@ -122,12 +122,12 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
 
 
 bool
-NIXMLNodesHandler::setPosition(const Attributes &attrs)
+NIXMLNodesHandler::setPosition(const SUMOSAXAttributes &attrs)
 {
     // retrieve the positions
     try {
-        SUMOReal x = getFloat(attrs, SUMO_ATTR_X);
-        SUMOReal y = getFloat(attrs, SUMO_ATTR_Y);
+        SUMOReal x = attrs.getFloat(SUMO_ATTR_X);
+        SUMOReal y = attrs.getFloat(SUMO_ATTR_Y);
         myPosition.set(x, y);
         GeoConvHelper::x2cartesian(myPosition);
     } catch (NumberFormatException &) {
@@ -146,7 +146,7 @@ NIXMLNodesHandler::setPosition(const Attributes &attrs)
 
 
 void
-NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
+NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs,
         NBNode *currentNode)
 {
     // try to get the tl-id
@@ -154,7 +154,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
     //  if so, we will add the node to it, otherwise allocate a new one with this id
     // if no tl-id exists, we will build a tl with the node's id
     NBTrafficLightDefinition *tlDef = 0;
-    string tlID = getStringSecure(attrs, SUMO_ATTR_TLID, "");
+    string tlID = attrs.getStringSecure(SUMO_ATTR_TLID, "");
     if (tlID!="") {
         // ok, the traffic light has a name
         tlDef = myTLLogicCont.getDefinition(tlID);
@@ -183,7 +183,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const Attributes &attrs,
     }
 
     // process inner edges which shall be controlled
-    string controlledInner = getStringSecure(attrs, SUMO_ATTR_CONTROLLED_INNER, "");
+    string controlledInner = attrs.getStringSecure(SUMO_ATTR_CONTROLLED_INNER, "");
     if (controlledInner!="") {
         StringTokenizer st(controlledInner, ";");
         tlDef->addControlledInnerEdges(st.getVector());

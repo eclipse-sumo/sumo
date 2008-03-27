@@ -78,25 +78,25 @@ GUIRouteHandler::~GUIRouteHandler() throw()
 
 
 void
-GUIRouteHandler::addVehicleType(const Attributes &attrs)
+GUIRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
 {
     RGBColor col =
         RGBColor::parseColor(
-            getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
+            attrs.getStringSecure(SUMO_ATTR_COLOR, "1,1,0"));
     // !!! unsecure
     try {
-        string id = getString(attrs, SUMO_ATTR_ID);
+        string id = attrs.getString(SUMO_ATTR_ID);
         try {
             addParsedVehicleType(id,
-                                 getFloatSecure(attrs, SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
-                                 getFloatSecure(attrs, SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED),
-                                 getFloatSecure(attrs, SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
-                                 getFloatSecure(attrs, SUMO_ATTR_DECEL, DEFAULT_VEH_B),
-                                 getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
-                                 getFloatSecure(attrs, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
-                                 parseVehicleClass(*this, attrs, "vehicle", id),
+                                 attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
+                                 attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED),
+                                 attrs.getFloatSecure(SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
+                                 attrs.getFloatSecure(SUMO_ATTR_DECEL, DEFAULT_VEH_B),
+                                 attrs.getFloatSecure(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
+                                 attrs.getFloatSecure(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
+                                 parseVehicleClass(attrs, "vehicle", id),
                                  col,
-                                 getFloatSecure(attrs, SUMO_ATTR_PROB, 1.));
+                                 attrs.getFloatSecure(SUMO_ATTR_PROB, 1.));
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Missing attribute in a vehicletype-object.");
         } catch (NumberFormatException &) {
@@ -163,21 +163,20 @@ GUIRouteHandler::closeRoute() throw(ProcessError)
 
 
 void
-GUIRouteHandler::openRoute(const Attributes &attrs)
+GUIRouteHandler::openRoute(const SUMOSAXAttributes &attrs)
 {
     myColor =
         RGBColor::parseColor(
-            getStringSecure(attrs, SUMO_ATTR_COLOR, "1,1,0"));
+            attrs.getStringSecure(SUMO_ATTR_COLOR, "1,1,0"));
     MSRouteHandler::openRoute(attrs);
 }
 
 
 bool
-GUIRouteHandler::parseVehicleColor(SUMOSAXHandler &helper,
-                                   const Attributes &attrs) throw()
+GUIRouteHandler::parseVehicleColor(const SUMOSAXAttributes &attrs) throw()
 {
     try {
-        myCurrentVehicleColor = RGBColor::parseColor(helper.getStringSecure(attrs, SUMO_ATTR_COLOR, "-1,-1,-1"));
+        myCurrentVehicleColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, "-1,-1,-1"));
     } catch (EmptyData &) {
         return false;
     } catch (NumberFormatException &) {

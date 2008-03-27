@@ -82,7 +82,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
     /** @brief Called when a closing tag occures
@@ -105,7 +105,7 @@ private:
      *
      * @param[in] attrs Attributes of the currently opened element
      */
-    void openDistrict(const Attributes &attrs) throw();
+    void openDistrict(const SUMOSAXAttributes &attrs) throw();
 
 
     /** @brief Adds a read source to the current district
@@ -119,7 +119,7 @@ private:
      * @param[in] attrs Attributes of the currently opened element
      * @todo Checking whether myCurrentDistrict is valid through getValues is not quite nice
      */
-    void addSource(const Attributes &attrs) throw();
+    void addSource(const SUMOSAXAttributes &attrs) throw();
 
 
     /** @brief Adds a read sink to the current district
@@ -133,7 +133,7 @@ private:
      * @param[in] attrs Attributes of the currently opened element
      * @todo Checking whether myCurrentDistrict is valid through getValues is not quite nice
      */
-    void addSink(const Attributes &attrs) throw();
+    void addSink(const SUMOSAXAttributes &attrs) throw();
 
 
     /** @brief Closes the processing of the current district
@@ -158,7 +158,7 @@ private:
      * @param[in] type The type of the currntly processed connection (sink/source)
      * @return The id and the weight of a connection
      */
-    std::pair<std::string, SUMOReal> parseConnection(const Attributes &attrs,
+    std::pair<std::string, SUMOReal> parseConnection(const SUMOSAXAttributes &attrs,
             const std::string &type) throw();
 
 private:

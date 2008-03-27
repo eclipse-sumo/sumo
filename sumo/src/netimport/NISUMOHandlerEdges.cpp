@@ -59,7 +59,7 @@ NISUMOHandlerEdges::~NISUMOHandlerEdges() throw()
 
 void
 NISUMOHandlerEdges::myStartElement(SumoXMLTag element,
-                                   const Attributes &attrs) throw(ProcessError)
+                                   const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_EDGE) {
         addEdge(attrs);
@@ -68,21 +68,21 @@ NISUMOHandlerEdges::myStartElement(SumoXMLTag element,
 
 
 void
-NISUMOHandlerEdges::addEdge(const Attributes &attrs)
+NISUMOHandlerEdges::addEdge(const SUMOSAXAttributes &attrs)
 {
     string id;
     try {
         // get the id
-        id = getString(attrs, SUMO_ATTR_ID);
+        id = attrs.getString(SUMO_ATTR_ID);
         // get the name
         string name;
         try {
-            name = getString(attrs, SUMO_ATTR_NAME);
+            name = attrs.getString(SUMO_ATTR_NAME);
         } catch (EmptyData &) {}
         // get the type
         string type;
         try {
-            type = getString(attrs, SUMO_ATTR_TYPE);
+            type = attrs.getString(SUMO_ATTR_TYPE);
         } catch (EmptyData &) {}
         // get the origin and the destination node
         NBNode *from = getNode(attrs, SUMO_ATTR_FROMNODE, "from", id);
@@ -91,10 +91,10 @@ NISUMOHandlerEdges::addEdge(const Attributes &attrs)
             return;
         }
         // get some other parameter
-        SUMOReal speed = getFloat(attrs, SUMO_ATTR_SPEED);
-        SUMOReal length = getFloat(attrs, SUMO_ATTR_LENGTH);
-        int nolanes = getInt(attrs, SUMO_ATTR_NOLANES);
-        int priority = getInt(attrs, SUMO_ATTR_PRIORITY);
+        SUMOReal speed = attrs.getFloat(SUMO_ATTR_SPEED);
+        SUMOReal length = attrs.getFloat(SUMO_ATTR_LENGTH);
+        int nolanes = attrs.getInt(SUMO_ATTR_NOLANES);
+        int priority = attrs.getInt(SUMO_ATTR_PRIORITY);
         if (speed>0&&length>0&&nolanes>0&&priority>0) {
             myEdgeCont.insert(new NBEdge(id, name, from, to, type, speed,
                                          nolanes, priority));
@@ -105,11 +105,11 @@ NISUMOHandlerEdges::addEdge(const Attributes &attrs)
 }
 
 NBNode *
-NISUMOHandlerEdges::getNode(const Attributes &attrs, SumoXMLAttr id,
+NISUMOHandlerEdges::getNode(const SUMOSAXAttributes &attrs, SumoXMLAttr id,
                             const std::string &dir, const std::string &name)
 {
     try {
-        string nodename = getString(attrs, id);
+        string nodename = attrs.getString(id);
         NBNode *node = myNodeCont.retrieve(nodename);
         if (node==0) {
             MsgHandler::getErrorInstance()->inform("The " + dir + "-node '" + nodename + "' used within edge '" + name + "' is not known.");

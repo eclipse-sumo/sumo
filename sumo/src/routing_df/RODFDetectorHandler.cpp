@@ -64,30 +64,30 @@ RODFDetectorHandler::~RODFDetectorHandler() throw()
 
 void
 RODFDetectorHandler::myStartElement(SumoXMLTag element,
-                                    const Attributes &attrs) throw(ProcessError)
+                                    const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_DETECTOR_DEFINITION) {
         string id;
         try {
-            id = getString(attrs, SUMO_ATTR_ID);
+            id = attrs.getString(SUMO_ATTR_ID);
         } catch (EmptyData&) {
             throw ProcessError("A detector without an id occured within '" + getFileName() + ".");
         }
         string lane;
         try {
-            lane = getString(attrs, SUMO_ATTR_LANE);
+            lane = attrs.getString(SUMO_ATTR_LANE);
         } catch (EmptyData&) {
             throw ProcessError("A detector without a lane information occured within '" + getFileName() + "' (detector id='" + id + ").");
         }
         SUMOReal pos;
         try {
-            pos = getFloat(attrs, SUMO_ATTR_POSITION);
+            pos = attrs.getFloat(SUMO_ATTR_POSITION);
         } catch (EmptyData&) {
             throw ProcessError("A detector without a lane position occured within '" + getFileName() + "' (detector id='" + id + ").");
         } catch (NumberFormatException&) {
             throw ProcessError("Not numeric lane position within '" + getFileName() + "' (detector id='" + id + ").");
         }
-        string mml_type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
+        string mml_type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
         RORODFDetectorType type = TYPE_NOT_DEFINED;
         if (mml_type=="between") {
             type = BETWEEN_DETECTOR;

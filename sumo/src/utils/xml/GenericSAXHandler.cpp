@@ -32,6 +32,7 @@
 #include "GenericSAXHandler.h"
 #include <utils/common/TplConvert.h>
 #include <utils/common/TplConvertSec.h>
+#include "SUMOSAXAttributesImpl_Xerces.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -75,7 +76,7 @@ GenericSAXHandler::~GenericSAXHandler() throw()
     }
 }
 
-
+/*
 bool
 GenericSAXHandler::hasAttribute(const Attributes &attrs, SumoXMLAttr id) throw()
 {
@@ -178,7 +179,7 @@ GenericSAXHandler::getAttributeValueSecure(const Attributes &attrs,
     assert(i!=myPredefinedTags.end());
     return attrs.getValue((*i).second);
 }
-
+*/
 
 XMLCh*
 GenericSAXHandler::convert(const std::string &name) const throw()
@@ -205,7 +206,7 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
     //myTagTree.push(element);
     //_characters = "";
     myCharactersVector.clear();
-    myStartElement(element, attrs);
+    myStartElement(element, SUMOSAXAttributesImpl_Xerces(attrs, myPredefinedTags));
 }
 
 
@@ -263,7 +264,7 @@ GenericSAXHandler::convertTag(const std::string &tag) const throw()
 
 
 void
-GenericSAXHandler::myStartElement(SumoXMLTag, const Attributes &) throw(ProcessError)
+GenericSAXHandler::myStartElement(SumoXMLTag, const SUMOSAXAttributes &) throw(ProcessError)
 {}
 
 

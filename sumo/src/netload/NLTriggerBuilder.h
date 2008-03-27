@@ -95,14 +95,13 @@ public:
      * @param[in] net The network the trigger shall belong to
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] base The base path
-     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
      * @return The built trigger
      * @exception InvalidArgument If a parameter is not valid
      * @todo Recheck behaviour if the "objecttype" attribute is not supported or one of the asked parameter is meaningless
      * @todo Recheck usage of the helper class
      */
-    MSTrigger *buildTrigger(MSNet &net, const Attributes &attrs,
-                            const std::string &base, const NLHandler &helper) throw(InvalidArgument);
+    MSTrigger *buildTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
+                            const std::string &base) throw(InvalidArgument);
 
 protected:
     /// @name parsing methods
@@ -122,14 +121,12 @@ protected:
      * @param[in] net The network the lane speed trigger belongs to
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] base The base path
-     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
      * @return The built lane speed trigger
      * @exception InvalidArgument If a parameter (lane/position) is not valid or the read definition is errornous
      * @see buildLaneSpeedTrigger
      */
     MSLaneSpeedTrigger *parseAndBuildLaneSpeedTrigger(MSNet &net,
-            const Attributes &attrs, const std::string &base,
-            const NLHandler &helper) throw(InvalidArgument);
+            const SUMOSAXAttributes &attrs, const std::string &base) throw(InvalidArgument);
 
 
     /** @brief Parses his values and builds an emitter
@@ -137,12 +134,11 @@ protected:
      * @param[in] net The network the emitter belongs to
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] base The base path
-     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
      * @return The built emitter
      * @exception InvalidArgument If a parameter (lane/position) is not valid
      */
     MSEmitter *parseAndBuildLaneEmitTrigger(MSNet &net,
-                                            const Attributes &attrs, const std::string &base, const NLHandler &helper) throw(InvalidArgument);
+                                            const SUMOSAXAttributes &attrs, const std::string &base) throw(InvalidArgument);
 
 
     /** @brief Parses his values and builds a rerouter
@@ -150,39 +146,33 @@ protected:
      * @param[in] net The network the rerouter belongs to
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] base The base path
-     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
      * @return The built rerouter
      * @exception InvalidArgument If a parameter (edge) is not valid
      */
     MSTriggeredRerouter *parseAndBuildRerouter(MSNet &net,
-            const Attributes &attrs, const std::string &base,
-            const NLHandler &helper) throw(InvalidArgument);
+            const SUMOSAXAttributes &attrs, const std::string &base) throw(InvalidArgument);
 
 
     /** @brief Parses his values and builds a bus stop
      *
      * @param[in] net The network the bus stop belongs to
      * @param[in] attrs SAX-attributes which define the trigger
-     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
      * @return The built bus stop
      * @exception InvalidArgument If a parameter (lane/position) is not valid
      */
     MSBusStop *parseAndBuildBusStop(MSNet &net,
-                                    const Attributes &attrs,
-                                    const NLHandler &helper) throw(InvalidArgument);
+                                    const SUMOSAXAttributes &attrs) throw(InvalidArgument);
 
 
     /** @brief Parses his values and builds a vehicle actor
      *
      * @param[in] net The network the vehicle actor belongs to
      * @param[in] attrs SAX-attributes which define the trigger
-     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
      * @return The built vehicle actor
      * @exception InvalidArgument If a parameter (lane/position) is not valid
      */
     MSE1VehicleActor *parseAndBuildVehicleActor(MSNet &net,
-            const Attributes &attrs,
-            const NLHandler &helper) throw(InvalidArgument);
+            const SUMOSAXAttributes &attrs) throw(InvalidArgument);
 
 
 #ifndef HAVE_MESOSIM
@@ -191,13 +181,11 @@ protected:
      * @param[in] net The network the calibrator belongs to
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] base The base path
-     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
      * @return The built calibrator
      * @exception InvalidArgument If a parameter is not valid
      */
     MSCalibrator *parseAndBuildCalibrator(MSNet &net,
-                                          const Attributes &attrs, const std::string &base,
-                                          const NLHandler &helper) throw(InvalidArgument);
+                                          const SUMOSAXAttributes &attrs, const std::string &base) throw(InvalidArgument);
 #endif
 
 
@@ -207,26 +195,22 @@ protected:
      * @param[in] net The network the calibrator belongs to
      * @param[in] attrs SAX-attributes which define the trigger
      * @param[in] base The base path
-     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
      * @return The built calibrator
      * @exception InvalidArgument If a parameter (edge/position) is not valid
      */
     METriggeredCalibrator *parseAndBuildCalibrator(MSNet &net,
-            const Attributes &attrs, const std::string &base,
-            const NLHandler &helper) throw(InvalidArgument);
+            const SUMOSAXAttributes &attrs, const std::string &base) throw(InvalidArgument);
 
 
     /** @brief Parses his values and builds a mesoscopic flow scaler
      *
      * @param[in] net The network the flow scaler belongs to
      * @param[in] attrs SAX-attributes which define the trigger
-     * @param[in] helper A helper class for retrieving type-aware values from the given SAX-attributes
      * @return The built flow scaler
      * @exception InvalidArgument If a parameter (edge/position) is not valid
      */
     METriggeredScaler *parseAndBuildScaler(MSNet &net,
-                                           const Attributes &attrs,
-                                           const NLHandler &helper) throw(InvalidArgument);
+                                           const SUMOSAXAttributes &attrs) throw(InvalidArgument);
 #endif
     //@}
 
@@ -392,12 +376,11 @@ protected:
      *
      * @param[in] attrs The attributes to obtain the file name from
      * @param[in] base The base path (the path the loaded additional file lies in)
-     * @param[in] helper Helper class used to get typed values from atributes
      * @return The (expanded) path to the named file
      * @todo Recheck usage of the helper class
      */
-    std::string getFileName(const Attributes &attrs,
-                            const std::string &base, const NLHandler &helper) throw();
+    std::string getFileName(const SUMOSAXAttributes &attrs,
+                            const std::string &base) throw();
 
 
     /** @brief Returns the lane defined by objectid
@@ -406,13 +389,12 @@ protected:
      *  throws an InvalidArgument if it does not exist.
      *
      * @param[in] attrs The attributes to obtain the lane id from
-     * @param[in] helper Helper class used to get typed values from atributes
      * @param[in] tt The trigger type (for user output)
      * @param[in] tid The trigger id (for user output)
      * @return The named lane if it is known
      * @exception InvalidArgument If the named lane does not exist or a lane is not named
      */
-    MSLane *getLane(const Attributes &attrs, const NLHandler &helper,
+    MSLane *getLane(const SUMOSAXAttributes &attrs, 
                     const std::string &tt, const std::string &tid) throw(InvalidArgument);
 
 
@@ -423,14 +405,13 @@ protected:
      *  and a InvalidArgument is thrown.
      *
      * @param[in] attrs The attributes to obtain the position from
-     * @param[in] helper Helper class used to get typed values from atributes
      * @param[in] lane The lane the position shall be valid for
      * @param[in] tt The trigger type (for user output)
      * @param[in] tid The trigger id (for user output)
      * @return The position on the lane
      * @exception InvalidArgument If the position is beyond the lane
      */
-    SUMOReal getPosition(const Attributes &attrs, const NLHandler &helper,
+    SUMOReal getPosition(const SUMOSAXAttributes &attrs, 
                          MSLane *lane, const std::string &tt, const std::string &tid) throw(InvalidArgument);
     /// @}
 

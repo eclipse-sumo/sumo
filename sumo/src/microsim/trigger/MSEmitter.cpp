@@ -127,12 +127,12 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
 
 void
 MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
-        const Attributes &attrs) throw(ProcessError)
+        const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_ROUTEDISTELEM) {
         // parse route distribution
         // check if route exists
-        string routeStr = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        string routeStr = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (routeStr=="") {
             throw ProcessError("MSTriggeredSource " + myParent.getID() + ": No route id given.");
         }
@@ -143,7 +143,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
         // check probability
         SUMOReal prob;
         try {
-            prob = getFloat(attrs, SUMO_ATTR_PROB);
+            prob = attrs.getFloat(SUMO_ATTR_PROB);
             if (prob<0) {
                 throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for route '" + routeStr + "' is negative (must not).");
             }
@@ -161,7 +161,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_VTYPEDISTELEM) {
         // vehicle-type distributions
         // check if vtype exists
-        string vtypeStr = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        string vtypeStr = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (vtypeStr=="") {
             throw ProcessError("MSTriggeredSource " + myParent.getID() + ": No vehicle type id given.");
         }
@@ -172,7 +172,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
         // check probability
         SUMOReal prob;
         try {
-            prob = getFloat(attrs, SUMO_ATTR_PROB);
+            prob = attrs.getFloat(SUMO_ATTR_PROB);
             if (prob<0) {
                 throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Attribute 'probability' for vehicle type '" + vtypeStr + "' is negative (must not).");
             }
@@ -188,19 +188,19 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
         // get the flow information
         SUMOReal no = -1;
         try {
-            no = getFloatSecure(attrs, SUMO_ATTR_NO, -1);
+            no = attrs.getFloatSecure(SUMO_ATTR_NO, -1);
         } catch (NumberFormatException &) {
-            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Non-numeric flow in emitter '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_NO, "") + ").");
+            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Non-numeric flow in emitter '" + myParent.getID() + "' (" + attrs.getStringSecure(SUMO_ATTR_NO, "") + ").");
         }
         if (no<0) {
-            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Negative flow in emitter '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_NO, "") + ").");
+            throw ProcessError("MSTriggeredSource " + myParent.getID() + ": Negative flow in emitter '" + myParent.getID() + "' (" + attrs.getStringSecure(SUMO_ATTR_NO, "") + ").");
         }
         // get the end of this def
         SUMOTime end = -1;
         try {
-            end = (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_END, -1);
+            end = (SUMOTime) attrs.getFloatSecure(SUMO_ATTR_END, -1);
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Non-numeric flow end in emitter '" + myParent.getID() + "' (" + getStringSecure(attrs, SUMO_ATTR_NO, "") + ").");
+            MsgHandler::getErrorInstance()->inform("Non-numeric flow end in emitter '" + myParent.getID() + "' (" + attrs.getStringSecure(SUMO_ATTR_NO, "") + ").");
             return;
         }
 
@@ -221,13 +221,13 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
     // check whethe the correct tag is read
     if (element==SUMO_TAG_EMIT) {
         // check and assign emission time
-        int aEmitTime = getIntSecure(attrs, SUMO_ATTR_TIME, -1);
+        int aEmitTime = attrs.getIntSecure(SUMO_ATTR_TIME, -1);
         if (aEmitTime<myBeginTime) {
             // do not process the vehicle if the emission time is before the simulation begin
             return;
         }
         // check and assign id
-        string aVehicleId = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        string aVehicleId = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (myVehicleControl.getVehicle(aVehicleId)!=0) {
             WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + aVehicleId + " already exists.\n Generating a default id.");
             aVehicleId = "";
@@ -240,7 +240,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             }
         }
         // check and assign vehicle type
-        string emitType = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
+        string emitType = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
         MSVehicleType* aVehType = MSNet::getInstance()->getVehicleControl().getVType(emitType);
         if (aVehType == 0) {
             if (myVTypeDist.getOverallProb()!=0) {
@@ -255,7 +255,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             }
         }
         // check and assign vehicle type
-        string emitRoute = getStringSecure(attrs, SUMO_ATTR_ROUTE, "");
+        string emitRoute = attrs.getStringSecure(SUMO_ATTR_ROUTE, "");
         MSRoute *aEmitRoute = MSRoute::dictionary(emitRoute);
         if (aEmitRoute==0) {
             if (myRouteDist.getOverallProb()!=0) {
@@ -268,7 +268,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             }
         }
         // build vehicle
-        SUMOReal aEmitSpeed = getFloatSecure(attrs, SUMO_ATTR_SPEED, -1);
+        SUMOReal aEmitSpeed = attrs.getFloatSecure(SUMO_ATTR_SPEED, -1);
         MSVehicle *veh =
             MSNet::getInstance()->getVehicleControl().buildVehicle(
                 aVehicleId, aEmitRoute, aEmitTime, aVehType, 0, 0);

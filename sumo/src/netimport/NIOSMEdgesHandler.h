@@ -81,7 +81,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes &attrs) throw(ProcessError);
 
     /// The method called by the SAX-handler to parse characters
     void myCharacters(SumoXMLTag element,

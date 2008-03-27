@@ -121,11 +121,11 @@ NIXMLConnectionsHandler::getNode(const string &def)
 
 void
 NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
-                                        const Attributes &attrs) throw(ProcessError)
+                                        const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_RESET) {
-        string from = getStringSecure(attrs, SUMO_ATTR_FROM, "");
-        string to = getStringSecure(attrs, SUMO_ATTR_TO, "");
+        string from = attrs.getStringSecure(SUMO_ATTR_FROM, "");
+        string to = attrs.getStringSecure(SUMO_ATTR_TO, "");
         if (from.length()==0) {
             MsgHandler::getErrorInstance()->inform("A from-edge is not specified within one of the connections-resets.");
             return;
@@ -148,8 +148,8 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
     }
 
     if (element==SUMO_TAG_CONNECTION) {
-        string from = getStringSecure(attrs, SUMO_ATTR_FROM, "");
-        string to = getStringSecure(attrs, SUMO_ATTR_TO, "");
+        string from = attrs.getStringSecure(SUMO_ATTR_FROM, "");
+        string to = attrs.getStringSecure(SUMO_ATTR_TO, "");
         if (from.length()==0) {
             MsgHandler::getErrorInstance()->inform("A from-edge is not specified within one of the connections");
             return;
@@ -167,8 +167,8 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
             return;
         }
         // parse the id
-        string type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
-        string laneConn = getStringSecure(attrs, SUMO_ATTR_LANE, "");
+        string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+        string laneConn = attrs.getStringSecure(SUMO_ATTR_LANE, "");
         if (type=="edgebound"||laneConn=="") {
             parseEdgeBound(attrs, fromEdge, toEdge);
         } else if (type=="lanebound"||laneConn.size()!=0) {
@@ -178,8 +178,8 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
         }
     }
     if (element==SUMO_TAG_PROHIBITION) {
-        string prohibitor = getStringSecure(attrs, SUMO_ATTR_PROHIBITOR, "");
-        string prohibited = getStringSecure(attrs, SUMO_ATTR_PROHIBITED, "");
+        string prohibitor = attrs.getStringSecure(SUMO_ATTR_PROHIBITOR, "");
+        string prohibited = attrs.getStringSecure(SUMO_ATTR_PROHIBITED, "");
         NBConnection prohibitorC = parseConnection("prohibitor", prohibitor);
         NBConnection prohibitedC = parseConnection("prohibited", prohibited);
         if (prohibitorC.getFrom()==0||prohibitedC.getFrom()==0) {
@@ -192,14 +192,14 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
 }
 
 void
-NIXMLConnectionsHandler::parseEdgeBound(const Attributes &/*attrs*/,
+NIXMLConnectionsHandler::parseEdgeBound(const SUMOSAXAttributes &/*attrs*/,
                                         NBEdge *from,
                                         NBEdge *to)
 {
     from->addEdge2EdgeConnection(to);
     /*    int noLanes;
         try {
-            noLanes = getIntSecure(attrs, SUMO_ATTR_NOLANES, -1);
+            noLanes = attrs.getIntSecure(SUMO_ATTR_NOLANES, -1);
         } catch (NumberFormatException e) {
             addError("Not numeric lane in connection");
             return;
@@ -216,7 +216,7 @@ NIXMLConnectionsHandler::parseEdgeBound(const Attributes &/*attrs*/,
 
 
 void
-NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
+NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
                                         NBEdge *from,
                                         NBEdge *to)
 {
@@ -224,7 +224,7 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
         // do nothing if it's a dead end
         return;
     }
-    string laneConn = getStringSecure(attrs, SUMO_ATTR_LANE, "");
+    string laneConn = attrs.getStringSecure(SUMO_ATTR_LANE, "");
     if (laneConn.length()==0) {
         MsgHandler::getErrorInstance()->inform("Not specified lane to lane connection");
         return;
@@ -269,7 +269,7 @@ NIXMLConnectionsHandler::parseLaneBound(const Attributes &attrs,
         }
         //
         try {
-            bool keepUncontrolled = getBoolSecure(attrs, SUMO_ATTR_UNCONTROLLED, false);
+            bool keepUncontrolled = attrs.getBoolSecure( SUMO_ATTR_UNCONTROLLED, false);
             if (keepUncontrolled) {
                 from->disableConnection4TLS(fromLane, to, toLane);
             }

@@ -106,11 +106,11 @@ MSRouteHandler::retrieveLastReadVehicle()
 
 void
 MSRouteHandler::myStartElement(SumoXMLTag element,
-                               const Attributes &attrs) throw(ProcessError)
+                               const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_VEHICLE:
-        openVehicle(*this, attrs);
+        openVehicle(attrs);
         break;
     case SUMO_TAG_VTYPE:
         addVehicleType(attrs);
@@ -127,7 +127,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         stop.lane = 0;
         stop.busstop = 0;
         // try to parse the assigne bus stop
-        string bus_stop = getStringSecure(attrs, SUMO_ATTR_BUS_STOP, "");
+        string bus_stop = attrs.getStringSecure(SUMO_ATTR_BUS_STOP, "");
         if (bus_stop!="") {
             // ok, we have obviously a bus stop
             MSBusStop *bs =
@@ -144,7 +144,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         } else {
             // no, the lane and the position should be given
             // get the lane
-            string laneS = getStringSecure(attrs, SUMO_ATTR_LANE, "");
+            string laneS = attrs.getStringSecure(SUMO_ATTR_LANE, "");
             if (laneS!="") {
                 MSLane *l = MSLane::dictionary(laneS);
                 if (l==0) {
@@ -158,7 +158,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
             }
             // get the position
             try {
-                stop.pos = getFloat(attrs, SUMO_ATTR_POSITION);
+                stop.pos = attrs.getFloat(SUMO_ATTR_POSITION);
             } catch (EmptyData&) {
                 MsgHandler::getErrorInstance()->inform("The position of a stop is not defined.");
                 return;
@@ -171,12 +171,12 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
         // get the standing duration
         stop.until = -1;
         stop.duration = -1;
-        if (!hasAttribute(attrs, SUMO_ATTR_DURATION) && !hasAttribute(attrs, SUMO_ATTR_UNTIL)) {
+        if (!attrs.hasAttribute(SUMO_ATTR_DURATION) && !attrs.hasAttribute(SUMO_ATTR_UNTIL)) {
             MsgHandler::getErrorInstance()->inform("The duration of a stop is not defined.");
             return;
         } else {
             try {
-                stop.duration = (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_DURATION, -1); // time-parser
+                stop.duration = (SUMOTime) attrs.getFloatSecure(SUMO_ATTR_DURATION, -1); // time-parser
             } catch (EmptyData&) {
                 MsgHandler::getErrorInstance()->inform("The duration of a stop is empty.");
                 return;
@@ -185,7 +185,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
                 return;
             }
             try {
-                stop.until = (SUMOTime) getFloatSecure(attrs, SUMO_ATTR_UNTIL, -1); // time-parser
+                stop.until = (SUMOTime) attrs.getFloatSecure(SUMO_ATTR_UNTIL, -1); // time-parser
             } catch (EmptyData&) {
                 MsgHandler::getErrorInstance()->inform("The end time of a stop is empty.");
                 return;
@@ -205,21 +205,21 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
 
 
 void
-MSRouteHandler::addVehicleType(const Attributes &attrs)
+MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
 {
     // !!! unsecure
     try {
-        string id = getString(attrs, SUMO_ATTR_ID);
+        string id = attrs.getString(SUMO_ATTR_ID);
         try {
             addParsedVehicleType(id,
-                                 getFloatSecure(attrs, SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
-                                 getFloatSecure(attrs, SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED),
-                                 getFloatSecure(attrs, SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
-                                 getFloatSecure(attrs, SUMO_ATTR_DECEL, DEFAULT_VEH_B),
-                                 getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
-                                 getFloatSecure(attrs, SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
-                                 parseVehicleClass(*this, attrs, "vehicle", id),
-                                 getFloatSecure(attrs, SUMO_ATTR_PROB, (SUMOReal) 1.));
+                                 attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
+                                 attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED),
+                                 attrs.getFloatSecure(SUMO_ATTR_ACCEL, DEFAULT_VEH_A),
+                                 attrs.getFloatSecure(SUMO_ATTR_DECEL, DEFAULT_VEH_B),
+                                 attrs.getFloatSecure(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
+                                 attrs.getFloatSecure(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
+                                 parseVehicleClass(attrs, "vehicle", id),
+                                 attrs.getFloatSecure(SUMO_ATTR_PROB, (SUMOReal) 1.));
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Missing attribute in a vehicletype-object.");
         } catch (NumberFormatException &) {
@@ -250,7 +250,7 @@ MSRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
 
 
 void
-MSRouteHandler::openRoute(const Attributes &attrs)
+MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs)
 {
     // get the id
     try {
@@ -260,7 +260,7 @@ MSRouteHandler::openRoute(const Attributes &attrs)
             //  we may use this vehicle's id as default
             myActiveRouteID = "!" + myActiveVehicleID; // !!! document this
         } else {
-            myActiveRouteID = getString(attrs, SUMO_ATTR_ID);
+            myActiveRouteID = attrs.getString(SUMO_ATTR_ID);
         }
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing id of a route-object.");

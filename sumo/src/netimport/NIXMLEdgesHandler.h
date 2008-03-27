@@ -66,7 +66,7 @@ public:
     NIXMLEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
                       NBTypeCont &tc, NBDistrictCont &dc, OptionsCont &options);
 
-    /// Destructor
+    /// @brief Destructor
     ~NIXMLEdgesHandler() throw();
 
 protected:
@@ -81,7 +81,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
     /** @brief Called when characters occure
@@ -105,43 +105,31 @@ protected:
     //@}
 
 private:
-    /// Parses the id from the given attributes
-    void setID(const Attributes &attrs);
-
-    /// Parses the name from the given attributes
-    void setName(const Attributes &attrs);
-
-    /// Sets the type from the given attributes
-    void checkType(const Attributes &attrs);
-
-    /// Sets the speed from the given type or the given attributes
-    void setGivenSpeed(const Attributes &attrs);
-
     /// Sets the number of lanes from the given type or the given attributes
-    void setGivenLanes(const Attributes &attrs);
+    void setGivenLanes(const SUMOSAXAttributes &attrs);
 
     /// Sets the priority from the given type or the given attributes
-    void setGivenPriority(const Attributes &attrs);
+    void setGivenPriority(const SUMOSAXAttributes &attrs);
 
     /// Sets the length of the edge, computing it in prior if necessary
-    void setLength(const Attributes &attrs);
+    void setLength(const SUMOSAXAttributes &attrs);
 
     /// tries to parse the shape definition
-    Position2DVector tryGetShape(const Attributes &attrs);
+    Position2DVector tryGetShape(const SUMOSAXAttributes &attrs);
 
-    void setGivenType(const Attributes &attrs);
+    void setGivenType(const SUMOSAXAttributes &attrs);
 
 
     /// Tries to set information needed by the nodes
-    bool setNodes(const Attributes &attrs);
+    bool setNodes(const SUMOSAXAttributes &attrs);
 
     /** @brief tries to parse one of the node's positions
         Which position has to be parsed is defined by the given call variables */
-    SUMOReal tryGetPosition(const Attributes &attrs, SumoXMLAttr attrID,
+    SUMOReal tryGetPosition(const SUMOSAXAttributes &attrs, SumoXMLAttr attrID,
                             const std::string &attrName);
 
     /// Parses the optional information of how to spread the lanes
-    NBEdge::LaneSpreadFunction getSpreadFunction(const Attributes &attrs);
+    NBEdge::LaneSpreadFunction getSpreadFunction(const SUMOSAXAttributes &attrs);
 
     NBNode * insertNodeChecking(const Position2D &pos,
                                 const std::string &name, const std::string &dir);
@@ -153,9 +141,6 @@ private:
 
     /// The current edge's id
     std::string myCurrentID;
-
-    /// The current edge's name
-    std::string myCurrentName;
 
     /// The current edge's maximum speed
     SUMOReal myCurrentSpeed;
@@ -234,10 +219,10 @@ private:
 
 
 private:
-    /** invalid copy constructor */
+    /** @brief invalid copy constructor */
     NIXMLEdgesHandler(const NIXMLEdgesHandler &s);
 
-    /** invalid assignment operator */
+    /** @brief invalid assignment operator */
     NIXMLEdgesHandler &operator=(const NIXMLEdgesHandler &s);
 
 };

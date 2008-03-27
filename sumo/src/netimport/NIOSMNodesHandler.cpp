@@ -76,7 +76,7 @@ NIOSMNodesHandler::~NIOSMNodesHandler() throw()
 
 void
 NIOSMNodesHandler::myStartElement(SumoXMLTag element,
-                                  const Attributes &attrs) throw(ProcessError)
+                                  const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     if (element!=SUMO_TAG_NODE) {
         return;
@@ -84,7 +84,7 @@ NIOSMNodesHandler::myStartElement(SumoXMLTag element,
     int id;
     try {
         // retrieve the id of the node
-        id = getInt(attrs, SUMO_ATTR_ID);
+        id = attrs.getInt(SUMO_ATTR_ID);
     } catch (EmptyData &) {
         WRITE_WARNING("No node id given... Skipping.");
         return;
@@ -95,7 +95,7 @@ NIOSMNodesHandler::myStartElement(SumoXMLTag element,
     NIOSMNode *toAdd = new NIOSMNode();
     toAdd->id = id;
     try {
-        toAdd->lon = getFloat(attrs, SUMO_ATTR_LON);
+        toAdd->lon = attrs.getFloat(SUMO_ATTR_LON);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Node '" + toString(id) + "' has no lon information.");
         delete toAdd;
@@ -106,7 +106,7 @@ NIOSMNodesHandler::myStartElement(SumoXMLTag element,
         return;
     }
     try {
-        toAdd->lat = getFloat(attrs, SUMO_ATTR_LAT);
+        toAdd->lat = attrs.getFloat(SUMO_ATTR_LAT);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Node '" + toString(id) + "' has no lat information.");
         delete toAdd;

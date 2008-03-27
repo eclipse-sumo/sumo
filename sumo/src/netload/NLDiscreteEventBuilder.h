@@ -79,21 +79,17 @@ public:
     ~NLDiscreteEventBuilder();
 
     /// Builds an action and saves it for further use
-    void addAction(GenericSAXHandler &parser,
-                   const Attributes &attrs, const std::string &basePath);
+    void addAction(const SUMOSAXAttributes &attrs, const std::string &basePath);
 
 private:
     /// Builds an action which saves the state of a certain tls into a file
-    Command *buildSaveTLStateCommand(GenericSAXHandler &parser,
-                                     const Attributes &attrs, const std::string &basePath);
+    Command *buildSaveTLStateCommand(const SUMOSAXAttributes &attrs, const std::string &basePath);
 
     /// Builds an action which saves the switch times of links into a file
-    Command *buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
-                                        const Attributes &attrs, const std::string &basePath);
+    Command *buildSaveTLSwitchesCommand(const SUMOSAXAttributes &attrs, const std::string &basePath);
 
     /// Builds an action which saves the switch times and states of tls into a file
-    Command *buildSaveTLSwitchStatesCommand(GenericSAXHandler &parser,
-                                            const Attributes &attrs, const std::string &basePath);
+    Command *buildSaveTLSwitchStatesCommand(const SUMOSAXAttributes &attrs, const std::string &basePath);
 
 protected:
     /// Definitions of a storage for build actions

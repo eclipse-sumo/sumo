@@ -65,7 +65,7 @@ ODDistrictHandler::~ODDistrictHandler() throw()
 
 void
 ODDistrictHandler::myStartElement(SumoXMLTag element,
-                                  const Attributes &attrs) throw(ProcessError)
+                                  const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_DISTRICT:
@@ -93,11 +93,11 @@ ODDistrictHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 
 
 void
-ODDistrictHandler::openDistrict(const Attributes &attrs) throw()
+ODDistrictHandler::openDistrict(const SUMOSAXAttributes &attrs) throw()
 {
     myCurrentDistrict = 0;
     try {
-        myCurrentDistrict = new ODDistrict(getString(attrs, SUMO_ATTR_ID));
+        myCurrentDistrict = new ODDistrict(attrs.getString(SUMO_ATTR_ID));
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("A district without an id occured.");
     }
@@ -105,7 +105,7 @@ ODDistrictHandler::openDistrict(const Attributes &attrs) throw()
 
 
 void
-ODDistrictHandler::addSource(const Attributes &attrs) throw()
+ODDistrictHandler::addSource(const SUMOSAXAttributes &attrs) throw()
 {
     std::pair<std::string, SUMOReal> vals = parseConnection(attrs, "source");
     if (vals.second>=0) {
@@ -115,7 +115,7 @@ ODDistrictHandler::addSource(const Attributes &attrs) throw()
 
 
 void
-ODDistrictHandler::addSink(const Attributes &attrs) throw()
+ODDistrictHandler::addSink(const SUMOSAXAttributes &attrs) throw()
 {
     std::pair<std::string, SUMOReal> vals = parseConnection(attrs, "sink");
     if (vals.second>=0) {
@@ -126,7 +126,7 @@ ODDistrictHandler::addSink(const Attributes &attrs) throw()
 
 
 std::pair<std::string, SUMOReal>
-ODDistrictHandler::parseConnection(const Attributes &attrs, const std::string &type) throw()
+ODDistrictHandler::parseConnection(const SUMOSAXAttributes &attrs, const std::string &type) throw()
 {
     // check the current district first
     if (myCurrentDistrict==0) {
@@ -135,14 +135,14 @@ ODDistrictHandler::parseConnection(const Attributes &attrs, const std::string &t
     // get the id first
     string id;
     try {
-        id = getString(attrs, SUMO_ATTR_ID);
+        id = attrs.getString(SUMO_ATTR_ID);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("A " + type + " without an id occured within district '" + myCurrentDistrict->getID() + "'.");
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the weight
     try {
-        SUMOReal weight = getFloatSecure(attrs, SUMO_ATTR_WEIGHT, -1);
+        SUMOReal weight = attrs.getFloatSecure(SUMO_ATTR_WEIGHT, -1);
         if (weight==-1) {
             MsgHandler::getErrorInstance()->inform("The weight of the " + type + " '" + id + "' within district '" + myCurrentDistrict->getID() + "' is not given or <0.");
             return std::pair<std::string, SUMOReal>("", -1);

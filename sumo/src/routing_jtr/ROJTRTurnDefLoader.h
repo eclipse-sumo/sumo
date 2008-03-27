@@ -81,7 +81,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
     /** @brief Called when characters occure
@@ -107,14 +107,14 @@ protected:
 
 private:
     /// Begins the processing of an interval
-    void beginInterval(const Attributes &attrs);
+    void beginInterval(const SUMOSAXAttributes &attrs);
 
     /// Begins the processing of a incoming definition
-    void beginFromEdge(const Attributes &attrs);
+    void beginFromEdge(const SUMOSAXAttributes &attrs);
 
     /** @brief Parses the percentage with which an outgoing edge is used
         This is added to the current incoming edge */
-    void addToEdge(const Attributes &attrs);
+    void addToEdge(const SUMOSAXAttributes &attrs);
 
     /// Parses the given string as a list of edge names to declare them as sinks
     void addSink(const std::string &chars);

@@ -74,7 +74,7 @@ RORDLoader_TripDefs::~RORDLoader_TripDefs() throw()
 
 void
 RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
-                                    const Attributes &attrs) throw(ProcessError)
+                                    const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     // check whether a trip definition shall be parsed
     if (element==SUMO_TAG_TRIPDEF) {
@@ -86,13 +86,13 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
                               SUMO_ATTR_FROM, myID, false);
         myEndEdge = getEdge(attrs, "destination",
                             SUMO_ATTR_TO, myID, myEmptyDestinationsAllowed);
-        myType = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
+        myType = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
         myPos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POSITION, myID);
         mySpeed = getOptionalFloat(attrs, "speed", SUMO_ATTR_SPEED, myID);
         myPeriodTime = getPeriod(attrs, myID);
         myNumberOfRepetitions = getRepetitionNumber(attrs, myID);
         myLane = getLane(attrs);
-        myColor = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
+        myColor = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
         // recheck attributes
         if (myDepartureTime<0) {
             MsgHandler::getErrorInstance()->inform("The departure time must be positive.");
@@ -102,24 +102,24 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
     // check whether a vehicle type shall be parsed
     if (element==SUMO_TAG_VTYPE) {
         // get and check the vtype-id
-        string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (id=="") {
             MsgHandler::getErrorInstance()->inform("A vehicle type with an unknown id occured.");
             return;
         }
         // get the rest of the parameter
         try {
-            SUMOReal a = getFloatSecure(attrs, SUMO_ATTR_ACCEL, DEFAULT_VEH_A);
-            SUMOReal b = getFloatSecure(attrs, SUMO_ATTR_DECEL, DEFAULT_VEH_B);
-            SUMOReal vmax = getFloatSecure(attrs, SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED);
-            SUMOReal length = getFloatSecure(attrs, SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH);
-            SUMOReal eps = getFloatSecure(attrs, SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA);
-            SUMOReal tau = getFloatSecure(attrs, SUMO_ATTR_TAU, DEFAULT_VEH_TAU);
+            SUMOReal a = attrs.getFloatSecure(SUMO_ATTR_ACCEL, DEFAULT_VEH_A);
+            SUMOReal b = attrs.getFloatSecure(SUMO_ATTR_DECEL, DEFAULT_VEH_B);
+            SUMOReal vmax = attrs.getFloatSecure(SUMO_ATTR_MAXSPEED, DEFAULT_VEH_MAXSPEED);
+            SUMOReal length = attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH);
+            SUMOReal eps = attrs.getFloatSecure(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA);
+            SUMOReal tau = attrs.getFloatSecure(SUMO_ATTR_TAU, DEFAULT_VEH_TAU);
 
-            string col = getStringSecure(attrs, SUMO_ATTR_COLOR, "");
+            string col = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
 
             SUMOVehicleClass vclass = SVC_UNKNOWN;
-            string classdef = getStringSecure(attrs, SUMO_ATTR_VCLASS, "");
+            string classdef = attrs.getStringSecure(SUMO_ATTR_VCLASS, "");
             if (classdef!="") {
                 try {
                     vclass = getVehicleClassID(classdef);
@@ -141,11 +141,11 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
 
 
 std::string
-RORDLoader_TripDefs::getVehicleID(const Attributes &attrs)
+RORDLoader_TripDefs::getVehicleID(const SUMOSAXAttributes &attrs)
 {
     string id;
     try {
-        id = getString(attrs, SUMO_ATTR_ID);
+        id = attrs.getString(SUMO_ATTR_ID);
     } catch (EmptyData &) {}
     // get a valid vehicle id
     while (id.length()==0) {
@@ -161,7 +161,7 @@ RORDLoader_TripDefs::getVehicleID(const Attributes &attrs)
 
 
 ROEdge *
-RORDLoader_TripDefs::getEdge(const Attributes &attrs,
+RORDLoader_TripDefs::getEdge(const SUMOSAXAttributes &attrs,
                              const std::string &purpose,
                              SumoXMLAttr which, const string &vid,
                              bool emptyAllowed)
@@ -169,7 +169,7 @@ RORDLoader_TripDefs::getEdge(const Attributes &attrs,
     ROEdge *e = 0;
     string id;
     try {
-        id = getString(attrs, which);
+        id = attrs.getString(which);
         e = myNet.getEdge(id);
         if (e!=0) {
             return e;
@@ -189,16 +189,16 @@ RORDLoader_TripDefs::getEdge(const Attributes &attrs,
 
 
 SUMOReal
-RORDLoader_TripDefs::getOptionalFloat(const Attributes &attrs,
+RORDLoader_TripDefs::getOptionalFloat(const SUMOSAXAttributes &attrs,
                                       const std::string &name,
                                       SumoXMLAttr which,
                                       const std::string &place)
 {
-    if (!hasAttribute(attrs, which)) {
+    if (!attrs.hasAttribute(which)) {
         return -1;
     }
     try {
-        return getFloat(attrs, SUMO_ATTR_POSITION);
+        return attrs.getFloat(SUMO_ATTR_POSITION);
     } catch (EmptyData &) {} catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("The value of '" + name + "' should be numeric but is not.");
         if (place.length()!=0)
@@ -209,12 +209,12 @@ RORDLoader_TripDefs::getOptionalFloat(const Attributes &attrs,
 
 
 SUMOTime
-RORDLoader_TripDefs::getTime(const Attributes &attrs, SumoXMLAttr which,
+RORDLoader_TripDefs::getTime(const SUMOSAXAttributes &attrs, SumoXMLAttr which,
                              const std::string &id)
 {
     // get the departure time
     try {
-        return getInt(attrs, which);
+        return attrs.getInt(which);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing time in description of a route.");
         if (id.length()!=0)
@@ -229,15 +229,15 @@ RORDLoader_TripDefs::getTime(const Attributes &attrs, SumoXMLAttr which,
 
 
 SUMOTime
-RORDLoader_TripDefs::getPeriod(const Attributes &attrs,
+RORDLoader_TripDefs::getPeriod(const SUMOSAXAttributes &attrs,
                                const std::string &id)
 {
-    if (!hasAttribute(attrs, SUMO_ATTR_PERIOD)) {
+    if (!attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         return -1;
     }
     // get the repetition period
     try {
-        return getInt(attrs, SUMO_ATTR_PERIOD);
+        return attrs.getInt(SUMO_ATTR_PERIOD);
     } catch (EmptyData &) {
         return -1;
     } catch (NumberFormatException &) {
@@ -250,15 +250,15 @@ RORDLoader_TripDefs::getPeriod(const Attributes &attrs,
 
 
 int
-RORDLoader_TripDefs::getRepetitionNumber(const Attributes &attrs,
+RORDLoader_TripDefs::getRepetitionNumber(const SUMOSAXAttributes &attrs,
         const std::string &id)
 {
-    if (!hasAttribute(attrs, SUMO_ATTR_REPNUMBER)) {
+    if (!attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
         return -1;
     }
     // get the repetition period
     try {
-        return getInt(attrs, SUMO_ATTR_REPNUMBER);
+        return attrs.getInt(SUMO_ATTR_REPNUMBER);
     } catch (EmptyData &) {
         return -1;
     } catch (NumberFormatException &) {
@@ -271,10 +271,10 @@ RORDLoader_TripDefs::getRepetitionNumber(const Attributes &attrs,
 
 
 string
-RORDLoader_TripDefs::getLane(const Attributes &attrs)
+RORDLoader_TripDefs::getLane(const SUMOSAXAttributes &attrs)
 {
     try {
-        return getString(attrs, SUMO_ATTR_LANE);
+        return attrs.getString(SUMO_ATTR_LANE);
     } catch (EmptyData &) {
         return "";
     }

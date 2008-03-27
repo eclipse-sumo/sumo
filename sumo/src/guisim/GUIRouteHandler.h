@@ -54,7 +54,7 @@ public:
 
 protected:
     /** parses an occured vehicle type definition */
-    virtual void addVehicleType(const Attributes &attrs);
+    virtual void addVehicleType(const SUMOSAXAttributes &attrs);
 
     /** adds the parsed vehicle type */
     virtual void addParsedVehicleType(const std::string &id,
@@ -67,10 +67,10 @@ protected:
     void closeRoute() throw(ProcessError);
 
     /// Starts route processing
-    void openRoute(const Attributes &attrs);
+    void openRoute(const SUMOSAXAttributes &attrs);
 
     /// Parses color from the attributes and stores it in myCurrentVehicleColor
-    bool parseVehicleColor(SUMOSAXHandler &helper, const Attributes &attrs) throw();
+    bool parseVehicleColor(const SUMOSAXAttributes &attrs) throw();
 
     /// Ends the processing of a vehicle
     bool closeVehicle() throw(ProcessError);

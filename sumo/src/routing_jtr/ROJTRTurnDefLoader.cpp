@@ -90,7 +90,7 @@ ROJTRTurnDefLoader::load(const std::string &file)
 
 void
 ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
-                                   const Attributes &attrs) throw(ProcessError)
+                                   const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_INTERVAL:
@@ -219,21 +219,21 @@ ROJTRTurnDefLoader::getSecure(const std::string &name)
 
 
 void
-ROJTRTurnDefLoader::beginInterval(const Attributes &attrs)
+ROJTRTurnDefLoader::beginInterval(const SUMOSAXAttributes &attrs)
 {
     try {
-        myIntervalBegin = getInt(attrs, SUMO_ATTR_BEGIN);
+        myIntervalBegin = attrs.getInt(SUMO_ATTR_BEGIN);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The attribute 'from' is not numeric ('" + getString(attrs, SUMO_ATTR_FROM) + "').");
+        MsgHandler::getErrorInstance()->inform("The attribute 'from' is not numeric ('" + attrs.getString(SUMO_ATTR_FROM) + "').");
         return;
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The 'from'-attribute is not given.");
         return;
     }
     try {
-        myIntervalEnd = getInt(attrs, SUMO_ATTR_END);
+        myIntervalEnd = attrs.getInt(SUMO_ATTR_END);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The attribute 'to' is not numeric ('" + getString(attrs, SUMO_ATTR_FROM) + "').");
+        MsgHandler::getErrorInstance()->inform("The attribute 'to' is not numeric ('" + attrs.getString(SUMO_ATTR_FROM) + "').");
         return;
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The 'to'-attribute is not given.");
@@ -243,11 +243,11 @@ ROJTRTurnDefLoader::beginInterval(const Attributes &attrs)
 
 
 void
-ROJTRTurnDefLoader::beginFromEdge(const Attributes &attrs)
+ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs)
 {
     string id;
     try {
-        id = getString(attrs, SUMO_ATTR_ID);
+        id = attrs.getString(SUMO_ATTR_ID);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The id of an edge is missing within a 'from-edge' tag.");
         return;
@@ -263,11 +263,11 @@ ROJTRTurnDefLoader::beginFromEdge(const Attributes &attrs)
 
 
 void
-ROJTRTurnDefLoader::addToEdge(const Attributes &attrs)
+ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs)
 {
     string id;
     try {
-        id = getString(attrs, SUMO_ATTR_ID);
+        id = attrs.getString(SUMO_ATTR_ID);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The id of an edge is missing within a 'to-edge' tag.");
         return;
@@ -279,10 +279,10 @@ ROJTRTurnDefLoader::addToEdge(const Attributes &attrs)
         return;
     }
     try {
-        SUMOReal probability = getFloat(attrs, SUMO_ATTR_PROB);
+        SUMOReal probability = attrs.getFloat(SUMO_ATTR_PROB);
         myEdge->addFollowerProbability(edge, myIntervalBegin, myIntervalEnd, probability);
     } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The attribute 'probability' is not numeric ('" + getString(attrs, SUMO_ATTR_PROB) + "').");
+        MsgHandler::getErrorInstance()->inform("The attribute 'probability' is not numeric ('" + attrs.getString(SUMO_ATTR_PROB) + "').");
         return;
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("The 'probability'-attribute is not given.");

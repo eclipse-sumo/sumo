@@ -61,10 +61,10 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes &attrs) throw(ProcessError);
     //@}
 private:
-    void addNode(const Attributes &attrs);
+    void addNode(const SUMOSAXAttributes &attrs);
 
 protected:
     NBNodeCont &myNodeCont;

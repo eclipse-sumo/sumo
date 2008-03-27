@@ -69,11 +69,10 @@ NLDiscreteEventBuilder::~NLDiscreteEventBuilder()
 
 
 void
-NLDiscreteEventBuilder::addAction(GenericSAXHandler &parser,
-                                  const Attributes &attrs,
+NLDiscreteEventBuilder::addAction(const SUMOSAXAttributes &attrs,
                                   const std::string &basePath)
 {
-    string type = parser.getStringSecure(attrs, SUMO_ATTR_TYPE, "");
+    string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
     // check whether the type was given
     if (type=="") {
         throw InvalidArgument("An action's type is not given.");
@@ -88,13 +87,13 @@ NLDiscreteEventBuilder::addAction(GenericSAXHandler &parser,
     Command *a;
     switch (at) {
     case EV_SAVETLSTATE:
-        a = buildSaveTLStateCommand(parser, attrs, basePath);
+        a = buildSaveTLStateCommand(attrs, basePath);
         break;
     case EV_SAVETLSWITCHES:
-        a = buildSaveTLSwitchesCommand(parser, attrs, basePath);
+        a = buildSaveTLSwitchesCommand(attrs, basePath);
         break;
     case EV_SAVETLSWITCHSTATES:
-        a = buildSaveTLSwitchStatesCommand(parser, attrs, basePath);
+        a = buildSaveTLSwitchStatesCommand(attrs, basePath);
         break;
     default:
         throw InvalidArgument("Unknown trigger type.");
@@ -103,13 +102,12 @@ NLDiscreteEventBuilder::addAction(GenericSAXHandler &parser,
 
 
 Command *
-NLDiscreteEventBuilder::buildSaveTLStateCommand(GenericSAXHandler &parser,
-        const Attributes &attrs,
+NLDiscreteEventBuilder::buildSaveTLStateCommand(const SUMOSAXAttributes &attrs,
         const std::string &basePath)
 {
     // get the parameter
-    string dest = parser.getStringSecure(attrs, SUMO_ATTR_DEST, "");
-    string source = parser.getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
+    string dest = attrs.getStringSecure(SUMO_ATTR_DEST, "");
+    string source = attrs.getStringSecure(SUMO_ATTR_SOURCE, "*");
     // check the parameter
     if (dest==""||source=="") {
         throw InvalidArgument("Incomplete description of an 'SaveTLSState'-action occured.");
@@ -126,13 +124,12 @@ NLDiscreteEventBuilder::buildSaveTLStateCommand(GenericSAXHandler &parser,
 
 
 Command *
-NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
-        const Attributes &attrs,
+NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(const SUMOSAXAttributes &attrs,
         const std::string &basePath)
 {
     // get the parameter
-    string dest = parser.getStringSecure(attrs, SUMO_ATTR_DEST, "");
-    string source = parser.getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
+    string dest = attrs.getStringSecure(SUMO_ATTR_DEST, "");
+    string source = attrs.getStringSecure(SUMO_ATTR_SOURCE, "*");
     // check the parameter
     if (dest==""||source=="") {
         throw InvalidArgument("Incomplete description of an 'SaveTLSState'-action occured.");
@@ -149,13 +146,12 @@ NLDiscreteEventBuilder::buildSaveTLSwitchesCommand(GenericSAXHandler &parser,
 
 
 Command *
-NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(GenericSAXHandler &parser,
-        const Attributes &attrs,
+NLDiscreteEventBuilder::buildSaveTLSwitchStatesCommand(const SUMOSAXAttributes &attrs,
         const std::string &basePath)
 {
     // get the parameter
-    string dest = parser.getStringSecure(attrs, SUMO_ATTR_DEST, "");
-    string source = parser.getStringSecure(attrs, SUMO_ATTR_SOURCE, "*");
+    string dest = attrs.getStringSecure(SUMO_ATTR_DEST, "");
+    string source = attrs.getStringSecure(SUMO_ATTR_SOURCE, "*");
     // check the parameter
     if (dest==""||source=="") {
         throw InvalidArgument("Incomplete description of an 'SaveTLSState'-action occured.");

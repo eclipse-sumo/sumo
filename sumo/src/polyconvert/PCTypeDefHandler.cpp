@@ -65,22 +65,22 @@ PCTypeDefHandler::~PCTypeDefHandler() throw()
 
 void
 PCTypeDefHandler::myStartElement(SumoXMLTag element,
-                                 const Attributes &attrs) throw(ProcessError)
+                                 const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_POLYTYPE) {
         string id;
         try {
-            id = getString(attrs, SUMO_ATTR_ID);
+            id = attrs.getString(SUMO_ATTR_ID);
         } catch (EmptyData&) {
             MsgHandler::getErrorInstance()->inform("A polygon type without an id occured within '" + getFileName() + ".");
             return;
         }
-        string type = getStringSecure(attrs, SUMO_ATTR_NAME, myOptions.getString("type"));
-        string prefix = getStringSecure(attrs, SUMO_ATTR_PREFIX, myOptions.getString("prefix"));
-        int layer = getIntSecure(attrs, SUMO_ATTR_LAYER, myOptions.getInt("layer"));
-        string color = getStringSecure(attrs, SUMO_ATTR_COLOR, myOptions.getString("color"));
-        bool discard = getBoolSecure(attrs, SUMO_ATTR_DISCARD, false);
-        bool allowFill = getBoolSecure(attrs, SUMO_ATTR_FILL, true);
+        string type = attrs.getStringSecure(SUMO_ATTR_NAME, myOptions.getString("type"));
+        string prefix = attrs.getStringSecure(SUMO_ATTR_PREFIX, myOptions.getString("prefix"));
+        int layer = attrs.getIntSecure(SUMO_ATTR_LAYER, myOptions.getInt("layer"));
+        string color = attrs.getStringSecure(SUMO_ATTR_COLOR, myOptions.getString("color"));
+        bool discard = attrs.getBoolSecure( SUMO_ATTR_DISCARD, false);
+        bool allowFill = attrs.getBoolSecure( SUMO_ATTR_FILL, true);
         if (!myContainer.add(id, type, color, prefix, layer, discard, allowFill)) {
             MsgHandler::getErrorInstance()->inform("Could not add polygon type '" + id + "' (probably the id is already used).");
         }

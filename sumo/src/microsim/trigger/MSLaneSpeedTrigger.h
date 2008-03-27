@@ -100,7 +100,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     virtual void myStartElement(SumoXMLTag element,
-                                const Attributes &attrs) throw(ProcessError);
+                                const SUMOSAXAttributes &attrs) throw(ProcessError);
     //@}
 
 

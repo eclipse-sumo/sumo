@@ -145,17 +145,17 @@ MSTriggeredRerouter::~MSTriggeredRerouter() throw()
 // ------------ loading begin
 void
 MSTriggeredRerouter::myStartElement(SumoXMLTag element,
-                                    const Attributes &attrs) throw(ProcessError)
+                                    const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_INTERVAL) {
-        myCurrentIntervalBegin = getIntSecure(attrs, SUMO_ATTR_BEGIN, -1);
-        myCurrentIntervalEnd = getIntSecure(attrs, SUMO_ATTR_END, -1);
+        myCurrentIntervalBegin = attrs.getIntSecure(SUMO_ATTR_BEGIN, -1);
+        myCurrentIntervalEnd = attrs.getIntSecure(SUMO_ATTR_END, -1);
     }
 
     if (element==SUMO_TAG_DEST_PROB_REROUTE) {
         // by giving probabilities of new destinations
         // get the destination edge
-        string dest = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        string dest = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (dest=="") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No destination edge id given.");
         }
@@ -166,7 +166,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
         // get the probability to reroute
         SUMOReal prob;
         try {
-            prob = getFloatSecure(attrs, SUMO_ATTR_PROB, 1.);
+            prob = attrs.getFloatSecure(SUMO_ATTR_PROB, 1.);
         } catch (EmptyData &) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for destination '" + dest + "' is empty.");
         } catch (NumberFormatException &) {
@@ -181,7 +181,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
 
     if (element==SUMO_TAG_CLOSING_REROUTE) {
         // by closing
-        string closed_id = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        string closed_id = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (closed_id=="") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": closed edge id given.");
         }
@@ -195,7 +195,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_ROUTE_PROB_REROUTE) {
         // by explicite rerouting using routes
         // check if route exists
-        string routeStr = getStringSecure(attrs, SUMO_ATTR_ID, "");
+        string routeStr = attrs.getStringSecure(SUMO_ATTR_ID, "");
         if (routeStr=="") {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": No route id given.");
         }
@@ -207,7 +207,7 @@ MSTriggeredRerouter::myStartElement(SumoXMLTag element,
         // get the probability to reroute
         SUMOReal prob;
         try {
-            prob = getFloatSecure(attrs, SUMO_ATTR_PROB, 1.);
+            prob = attrs.getFloatSecure(SUMO_ATTR_PROB, 1.);
         } catch (EmptyData &) {
             throw ProcessError("MSTriggeredRerouter " + getID() + ": Attribute 'probability' for route '" + routeStr + "' is empty.");
         } catch (NumberFormatException &) {

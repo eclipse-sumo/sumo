@@ -85,15 +85,15 @@ PCXMLPoints::load(OptionsCont &oc)
 
 void
 PCXMLPoints::myStartElement(SumoXMLTag element,
-                            const Attributes &attrs) throw(ProcessError)
+                            const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     if (element!=SUMO_TAG_POI) {
         return;
     }
-    string id = getStringSecure(attrs, SUMO_ATTR_ID, "");
-    string type = getStringSecure(attrs, SUMO_ATTR_TYPE, "");
-    SUMOReal x = getFloatSecure(attrs, SUMO_ATTR_X, -1);
-    SUMOReal y = getFloatSecure(attrs, SUMO_ATTR_Y, -1);
+    string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
+    string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+    SUMOReal x = attrs.getFloatSecure(SUMO_ATTR_X, -1);
+    SUMOReal y = attrs.getFloatSecure(SUMO_ATTR_Y, -1);
     Position2D pos(y, x); // !!! reverse!
     GeoConvHelper::x2cartesian(pos);
     // check the poi

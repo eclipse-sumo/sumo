@@ -92,7 +92,7 @@ protected:
      * @see GenericSAXHandler::myStartElement
      */
     void myStartElement(SumoXMLTag element,
-                        const Attributes &attrs) throw(ProcessError);
+                        const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
     /** @brief Called when characters occure
@@ -117,10 +117,10 @@ protected:
 
 protected:
     /// Parses the interval information
-    void parseInterval(const Attributes &attrs);
+    void parseInterval(const SUMOSAXAttributes &attrs);
 
     /// Parses the trip amount definition
-    void parseFlowAmountDef(const Attributes &attrs);
+    void parseFlowAmountDef(const SUMOSAXAttributes &attrs);
 
     /// Closes the current embedding interval
     void myEndInterval();

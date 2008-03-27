@@ -61,7 +61,7 @@ throw()
 {}
 
 void 
-TraCIHandler::myStartElement(SumoXMLTag element, const Attributes& attributes)
+TraCIHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes& attributes)
 throw(ProcessError)
 {
 	if (element == SUMO_TAG_VEHICLE) {
