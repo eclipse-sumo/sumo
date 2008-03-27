@@ -194,6 +194,15 @@
 // tl is off and not blinking
 #define TLPHASE_NOSIGNAL 0x05
 
+// ****************************************
+// DIFFERENT DISTANCE REQUESTS
+// ****************************************
+
+// air distance
+#define REQUEST_AIRDIST 0x00
+// driving distance
+#define REQUEST_DRIVINGDIST 0x01
+
 #endif
 
 

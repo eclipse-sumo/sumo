@@ -275,6 +275,9 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
 	case CMD_SCENARIO:
 		commandScenario(requestMsg, respMsg);
 		break;
+	case CMD_DISTANCEREQUEST:
+		commandDistanceRequest(requestMsg, respMsg);
+		break;
     default:
         writeStatusCmd(respMsg, commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
         return false;
@@ -1113,6 +1116,7 @@ throw(TraCIException)
 			warning = handleRoadMapDomain(isWriteCommand, requestMsg, tmpResult);
 		} catch (TraCIException e) {
 			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
+			return;
 		}
 		break;
 
@@ -1122,6 +1126,7 @@ throw(TraCIException)
 			warning = handleVehicleDomain(isWriteCommand, requestMsg, tmpResult);
 		} catch (TraCIException e) {
 			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
+			return;
 		}
 		break;
 
@@ -1131,6 +1136,7 @@ throw(TraCIException)
 			warning = handleTrafficLightDomain(isWriteCommand, requestMsg, tmpResult);
 		} catch (TraCIException e) {
 			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
+			return;
 		}
 		break;
 
@@ -1140,6 +1146,7 @@ throw(TraCIException)
 			warning = handlePoiDomain(isWriteCommand, requestMsg, tmpResult);
 		} catch (TraCIException e) {
 			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
+			return;
 		}
 		break;
 
@@ -1149,12 +1156,14 @@ throw(TraCIException)
 			warning = handlePolygonDomain(isWriteCommand, requestMsg, tmpResult);
 		} catch (TraCIException e) {
 			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
+			return;
 		}
 		break;
 
 	// unknown domain
 	default:
 		writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, "Unknown domain specified");
+		return;
 	}
 
 	// write response message
@@ -1173,7 +1182,145 @@ throw(TraCIException)
 		    respMsg.writeStorage(tmpResult);	// variable dependant part
         }
 	}
-}	
+}
+
+/*****************************************************************************/
+
+void 
+TraCIServer::commandDistanceRequest(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
+throw(TraCIException)
+{
+	Position2D pos1;
+	Position2D pos2;
+	RoadMapPos roadPos1;
+	RoadMapPos roadPos2;
+	const MSEdge::LaneCont* lanes;
+
+	// read position 1
+	int posType = requestMsg.readUnsignedByte();
+	switch (posType) {
+	case POSITION_ROADMAP:
+		roadPos1.roadId = requestMsg.readString();
+		roadPos1.pos = requestMsg.readFloat();
+		roadPos1.laneId = requestMsg.readUnsignedByte();
+		try {
+			pos1 = convertRoadMapToCartesian(roadPos1);
+		} catch(TraCIException e) {
+			writeStatusCmd(respMsg, CMD_DISTANCEREQUEST, RTYPE_ERR, e.what());
+			return;
+		}
+		break;
+	case POSITION_2D:
+	case POSITION_2_5D:
+	case POSITION_3D:
+		pos1.set(requestMsg.readFloat(), requestMsg.readFloat());
+		if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
+			requestMsg.readFloat();		// z value is ignored
+		}
+		roadPos1 = convertCartesianToRoadMap(pos1);
+		break;
+	default:
+		writeStatusCmd(respMsg, CMD_DISTANCEREQUEST, RTYPE_ERR, "Unknown position format used for distance request");
+		return;
+	}
+
+	// read position 2
+	posType = requestMsg.readUnsignedByte();
+	switch (posType) {
+	case POSITION_ROADMAP:
+		roadPos2.roadId = requestMsg.readString();
+		roadPos2.pos = requestMsg.readFloat();
+		roadPos2.laneId = requestMsg.readUnsignedByte();
+		try {
+			pos2 = convertRoadMapToCartesian(roadPos2);
+		} catch(TraCIException e) {
+			writeStatusCmd(respMsg, CMD_DISTANCEREQUEST, RTYPE_ERR, e.what());
+			return;
+		}
+		break;
+	case POSITION_2D:
+	case POSITION_2_5D:
+	case POSITION_3D:
+		pos2.set(requestMsg.readFloat(), requestMsg.readFloat());
+		if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
+			requestMsg.readFloat();		// z value is ignored
+		}
+		roadPos2 = convertCartesianToRoadMap(pos2);
+		break;
+	default:
+		writeStatusCmd(respMsg, CMD_DISTANCEREQUEST, RTYPE_ERR, "Unknown position format used for distance request");
+		return;
+	}
+
+	// read distance type
+	int distType = requestMsg.readUnsignedByte();
+	
+	// compute distance
+	float distance = FLT_MAX;
+	if (distType == REQUEST_DRIVINGDIST) {
+		EdgeEffort effortStruct;
+		std::vector<const MSEdge*> edges;
+		SUMODijkstraRouter_ByProxi<MSEdge, MSVehicle, prohibited_noRestrictions<MSEdge, MSVehicle>, EdgeEffort > 
+			router(MSEdge::dictSize(), true, &effortStruct, &EdgeEffort::getEffort);
+		MSEdge* startEdge = MSEdge::dictionary(roadPos1.roadId);
+
+		if (roadPos1.roadId.compare(roadPos2.roadId) == 0) {
+			// both positions are on the same edge
+			if (roadPos1.pos <= roadPos2.pos) {
+				distance = roadPos2.pos - roadPos1.pos;
+			} else {
+				// workaround for both positions beeing on the same edge. TODO: use custom router for computation
+				std::vector<MSEdge*> followingEdges = startEdge->getFollowingEdges();
+				if (followingEdges.size() != 0) {
+					for (std::vector<MSEdge*>::iterator it = followingEdges.begin(); it != followingEdges.end(); it++) {						
+						startEdge = (*it);	
+						edges.clear();
+						router.compute(startEdge, MSEdge::dictionary(roadPos2.roadId), NULL,
+							MSNet::getInstance()->getCurrentTimeStep(), edges);
+						float tempDist = FLT_MAX;
+						if (edges.size() != 0) {
+							lanes = startEdge->getLanes();
+							tempDist = (*lanes)[0]->getShape().length() - roadPos1.pos;
+							for (std::vector<const MSEdge*>::iterator edge=edges.begin(); edge!=edges.end(); edge++) {
+								lanes = (*edge)->getLanes();
+								tempDist += (*lanes)[0]->getShape().length();
+							}
+							lanes = MSEdge::dictionary(roadPos2.roadId)->getLanes();
+							tempDist -= ((*lanes)[0]->getShape().length() - roadPos2.pos);
+						}
+						distance = MIN2(distance, tempDist);
+					}
+				}
+			}
+		} else {
+			// positions are on different edges
+			router.compute(startEdge, MSEdge::dictionary(roadPos2.roadId), NULL,
+				MSNet::getInstance()->getCurrentTimeStep(), edges);
+
+			if (edges.size() != 0) {
+				distance = -roadPos1.pos;
+				for (std::vector<const MSEdge*>::iterator edge=edges.begin(); edge!=edges.end(); edge++) {
+					lanes = (*edge)->getLanes();
+					distance += (*lanes)[0]->getShape().length();
+				}
+				lanes = MSEdge::dictionary(roadPos2.roadId)->getLanes();
+				distance -= ((*lanes)[0]->getShape().length() - roadPos2.pos);
+			}
+		}
+	} else {
+		// correct the distance type for response in case it was not valid (air distance is default)
+		distType = REQUEST_AIRDIST;
+		distance = GeomHelper::distance(pos1, pos2);
+	}
+
+	// acknowledge distance request
+	writeStatusCmd(respMsg, CMD_DISTANCEREQUEST, RTYPE_OK, "");
+	// write response command
+	respMsg.writeUnsignedByte(1 + 1 + 1 + 4);	// length
+	respMsg.writeUnsignedByte(CMD_DISTANCEREQUEST);		// command type
+	respMsg.writeUnsignedByte(distType);		// distance type
+	respMsg.writeFloat(distance);	// distance;
+}
 
 /*****************************************************************************/
 
@@ -1267,28 +1414,6 @@ TraCIServer::getPoiByExtId(int extId)
 
 	return poi;
 }
-
-/*****************************************************************************/
-
-//void 
-//TraCIServer::convertPolygonExt2Int(int extId, std::string& intId)
-//{
-//	if (isPolygonMapChanged_) {
-//        isPolygonMapChanged_ = false;
-//        polygonExt2IntId.clear();
-//        for (map<std::string, int>::const_iterator iter = polygonInt2ExtId.begin(); iter != polygonInt2ExtId.end(); ++iter) {
-//			polygonExt2IntId[iter->second] = iter->first;
-//        }
-//    }
-//
-//    // Search for external-Id-int and return internal-Id-string
-//    map<int, std::string>::const_iterator it = ext2intId.find(extId);
-//	if (it != ext2intId.end()) {
-//		intId = it->second;
-//	} else {
-//		intId = "";
-//	}
-//}
 
 /*****************************************************************************/
 
@@ -1446,7 +1571,7 @@ throw(TraCIException)
 		throw TraCIException("No lane existing with such id on the given road");
     }
 
-	MSLane* actLane = (*allLanes)[0];
+	/*MSLane* actLane = (*allLanes)[0];
 	int index = 0;
 	while (actLane->getRightLane() != NULL) {
 		actLane = actLane->getRightLane();
@@ -1461,10 +1586,10 @@ throw(TraCIException)
 		for (int i=0; i < (index - roadPos.laneId); i++) {
 			actLane = road->rightLane(actLane);
 		}
-	}
+	}*/
 
 	// get corresponding x and y coordinates
-	Position2DVector shape = actLane->getShape();
+	Position2DVector shape = (*allLanes)[roadPos.laneId]->getShape();
 	return shape.positionAtLengthPosition(roadPos.pos);
 }
 
@@ -1667,13 +1792,14 @@ throw(TraCIException)
     case DOMVAR_DRIVINGDISTANCE:		
         if (veh != NULL)
         {
-			Position2D pos(0,0);
+			Position2D pos;
 			string destEdge = "";
 			float destPos = 0;
 			int destLane = 0;
 			MSEdge* edge = NULL;
 
 			response.writeUnsignedByte(TYPE_FLOAT);
+			// read destinatin position
             switch (dataType) 
             {
             case POSITION_ROADMAP:
@@ -1711,7 +1837,8 @@ throw(TraCIException)
             default:
                 throw TraCIException("Distance request to unknown destination");
             }
-
+			
+			// compute the distance to destination position
 			if (variableId == DOMVAR_AIRDISTANCE) {
                 response.writeFloat( veh->getPosition().euclidDistance(pos.x(), pos.y()));
             } else {

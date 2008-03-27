@@ -86,7 +86,7 @@ public:
 		float pos;
 		unsigned char laneId;
 
-		RoadMapPos(): roadId(""), pos(-1), laneId(0) {};
+		RoadMapPos(): roadId(""), pos(0), laneId(0) {};
 	};
 
     // Constructor
@@ -101,6 +101,12 @@ public:
     void run();
 
 private:
+
+	struct EdgeEffort {
+		SUMOReal getEffort(const MSEdge* const edge, const MSVehicle* const veh, SUMOReal time) const {
+			return edge->getEffort(time);
+		};
+	};
 
     bool dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg);
 
@@ -157,6 +163,8 @@ private:
 	void commandPositionConversion(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
 	void commandScenario(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+
+	void commandDistanceRequest(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
     void writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description);
 
