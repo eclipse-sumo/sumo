@@ -100,3 +100,28 @@ def vehPoissonDistr(net, Parcontrol, begintime):
     else:
         foutpoisson.write('The vehicular releasing times are generated randomly(uniform). ')
         foutpoisson.close()
+        
+# output the results of the significance tests
+def getSignificanceTestOutput(net, tValueAvg, methods, normal, hValues):
+    foutSGtest = file('SG_Test.txt', 'w')
+    if normal:
+        foutSGtest.write('The significances of the performance averages among the used assignment models are examined with the t test.\n')
+        for A in net._assignments.itervalues():
+            for B in net._assignments.itervalues():
+                if str(A.label) != str(B.label):
+                    foutSGtest.write('\nmethod:%s' %A.label)
+                    foutSGtest.write('\nmethod:%s' %B.label)
+                    foutSGtest.write('\n   t-value for the avg. travel time:%s' %tValueAvg[A][B].avgtraveltime)
+                    foutSGtest.write('\n   t-value for the avg. travel length:%s'%tValueAvg[A][B].avgtravellength)
+                    foutSGtest.write('\n   t-value for the avg.travel speed:%s' %tValueAvg[A][B].avgtravelspeed)
+                    foutSGtest.write('\n   t-value for the avg. stop time:%s\n' %tValueAvg[A][B].avgstoptime)
+    else:
+        foutSGtest.write('The samples are not normal distributed.\n')
+        foutSGtest.write('The significance test among the different assignment methods is therefore done with the Kruskal-Wallis test.\n')
+        for h in hValues:
+            foutSGtest.write('\n\nmethods:%s' %h.label)
+            foutSGtest.write('\nH_traveltime:%s' %h.traveltime)
+            foutSGtest.write('\nH_travelspeed:%s' %h.travelspeed)
+            foutSGtest.write('\nH_travellength:%s' %h.travellength)
+            foutSGtest.write('\nH_stoptime:%s\n' %h.stoptime)
+    foutSGtest.close()

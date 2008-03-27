@@ -4,8 +4,11 @@
 @date    2007-10-25
 @version $Id$
 
-This script is to define the required network geometric classes and 
-the functions for calculating link characteristics, such as capacity, travel time and link cost function..
+This script is to define the classes and functions for
+- reading network geometric, 
+- calculating link characteristics, such as capacity, travel time and link cost function,
+- recording vehicular and path information, and 
+- conducting statistic tests.
 
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
@@ -322,13 +325,15 @@ class Edge:
 class Vehicle:
     def __init__(self, label):
         self.label = label
+        self.method = None
         self.depart = 0.
         self.arrival = 0.       
         self.speed = 0.
         self.route = []
         self.traveltime = 0.
         self.travellength = 0.
-        self.waittime = 0.
+        self.stoptime = 0.
+        self.rank = 0.
 
     def __repr__(self):
         return "%s_%s_%s_%s_%s_%s<%s>" % (self.label, self.depart, self.arrival, self.speed, self.traveltime, self.travellength, self.route)
@@ -358,3 +363,45 @@ class Path:
         self.actpathtime = 0.
         for edge in self.Edges:
             self.actpathtime += edge.actualtime
+            
+# This cloass is used in the significance test.
+class Assign:
+    def __init__(self, method, totalVeh, avgTravelTime, avgTravelLength, avgTravelSpeed, avgStopTime, SDTravelTime, SDLength, SDSpeed, SDStopTime):
+        self.label = method
+        self.totalVeh = totalVeh
+        self.avgTravelTime = avgTravelTime
+        self.avgTravelLength = avgTravelLength
+        self.avgTravelSpeed = avgTravelSpeed
+        self.avgStopTime = avgStopTime
+        self.SDTravelTime = SDTravelTime
+        self.SDLength = SDLength      
+        self.SDSpeed = SDSpeed
+        self.SDStopTime = SDStopTime
+        self.sumrank = 0.
+        
+    def __repr__(self):
+        return "%s_<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self.label, self.totalVeh, self.avgTravelTime, self.avgTravelLength, self.avgTravelSpeed,
+                                                     self.avgStopTime, self.SDTravelTime, self.SDLength, self.SDSpeed, self.SDStopTime)
+
+# This cloass is used for the t test in the significance test.
+class T_Value:
+    def __init__(self, avgtraveltime, avgtravelspeed, avgtravellength, avgstoptime):
+        self.avgtraveltime = avgtraveltime
+        self.avgtravelspeed = avgtravelspeed
+        self.avgtravellength = avgtravellength
+        self.avgstoptime = avgstoptime
+        
+    def __repr__(self):
+        return "%<%s|%s|%s|%s>" % (self.avgtraveltime, self.avgtravelspeed, self.avgtravellength, self.avgstoptime)
+
+# This class is used for the Kruskal-Wallis test in the significance test.
+class H_Value:
+    def __init__(self, label):
+        self.label = label
+        self.traveltime = 0.
+        self.travelspeed = 0.
+        self.travellength = 0.
+        self.stoptime = 0.
+        
+    def __repr__(self):
+        return "%<%s|%s|%s|%s>" % (self.traveltime, self.travelspeed, self.travellength, self.stoptime)

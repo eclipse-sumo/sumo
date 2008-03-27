@@ -27,7 +27,13 @@ class Net:
         self._startVertices = []
         self._endVertices = []
         self._paths = {}
-
+        self._duavehicles = []
+        self._oneshotvehicles = {}
+        self._incremvehicles = []
+        self._clogitvehicles = []
+        self._lohsevehicles = []
+        self._assignments = {}
+        
     def newVertex(self):
         v = Vertex(len(self._vertices))
         self._vertices.append(v)
@@ -50,13 +56,16 @@ class Net:
     def addIsolatedRealEdge(self, edgeLabel):
         self.addEdge(Edge(edgeLabel, self.newVertex(), self.newVertex(),
                           "real"))
-                          
+                                                   
     def initialPathSet(self):
         for startVertex in self._startVertices:
             self._paths[startVertex] = {}
             for endVertex in self._endVertices:
                 self._paths[startVertex][endVertex] = []
     
+    def addAssignment(self, assignObj):
+        self._assignments[assignObj.label] = assignObj
+        
 #    find the k shortest paths for each OD pair. The "k" is defined by users.
     def calcPaths(self, verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort):
         if verbose:
@@ -99,7 +108,7 @@ class Net:
                                 newpath.Edges.append(pred.edge)
                             vertex = pred.edge.source
                             pred = pred.pred
-#                        print
+
                         newpath.Edges.reverse()    
                         if verbose:
                             foutkpath.write('\npathID:%s, source:%s, target:%s, Edges:' %(newpath.label, newpath.source, newpath.target))  
@@ -226,15 +235,28 @@ class DistrictsReader(handler.ContentHandler):
             newEdge.connection = 2
 
 # The class is for parsing the XML input file (vehicle information). This class is used in the networkStatistics.py for
-# calculating the global network performances, e.g. avg. travel time and avg. travel speed.
+# calculating the gloabal network performances, e.g. avg. travel time and avg. travel speed.
 class VehInformationReader(handler.ContentHandler):
-    def __init__(self, vehicles):
-        self._vehicles = vehicles
+    def __init__(self, vehList):
+        self._vehList = vehList
+        self._Vehicle = None
+        self._routeString = ''
 
     def startElement(self, name, attrs):
-        if name == 'tripinfo':
-            vehicle = Vehicle(attrs['id'])
-            vehicle.traveltime = float(attrs['duration'])
-            vehicle.travellength = float(attrs['routeLength'])
-            vehicle.waittime = float(attrs['departDelay']) + float(attrs['waitSteps']) 
-            self._vehicles.append(vehicle)
+        if name == 'route':
+            self._routeString = ''
+        if name == 'vehicle':
+            self._Vehicle = Vehicle(attrs['id'])
+            self._Vehicle.depart = float(attrs['emittedAt'])
+            self._Vehicle.arrival = float(attrs['endedAt'])
+            self._vehList.append(self._Vehicle)
+
+    def characters(self, content):
+        if self._Vehicle:
+            self._routeString += content
+   
+    def endElement(self, name):
+        if name == 'vehicle':
+            self._Vehicle.route = self._routeString.split()
+            self._routeString = ''
+            self._Vehicle = None
