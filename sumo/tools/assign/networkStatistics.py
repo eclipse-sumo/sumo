@@ -55,8 +55,8 @@ foutveh.write('average vehicular travel time(s) = the sum of all vehicular trave
 foutveh.write('average vehicular travel length(m) = the sum of all vehicular travel length / the number of vehicles\n')
 foutveh.write('average vehicular travel speed(m/s) = the sum of all vehicular travel speed / the number of vehicles\n')
 foutveh.write('Total number of vehicles:%s\n' % len(vehicles))
-foutveh.write('Total waiting time(s):%s, ' % totalwait)    
-foutveh.write('average vehicular waiting time(s):%s\n' % (totalwait / len(vehicles)))
+foutveh.write('Total waiting time(s):%s, ' % totalstoptime)    
+foutveh.write('average vehicular waiting time(s):%s\n' % (totalstoptime / len(vehicles)))
 foutveh.write('Total travel time(s):%s, ' % totaltime)    
 foutveh.write('average vehicular travel time(s):%s\n' % (totaltime / len(vehicles)))
 foutveh.write('Total travel length(m):%s, ' % totallength)
@@ -64,4 +64,4 @@ foutveh.write('average vehicular travel length(m):%s\n' % (totallength / len(veh
 foutveh.write('average vehicular travel speed(m/s):%s\n' % (totalspeed / len(vehicles)))
 foutveh.close()
         
-print 'Ave travel speed and ave travel time are calculated!'
+print 'the avg. travel speed and the avg. travel time are calculated!'
