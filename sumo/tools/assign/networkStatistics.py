@@ -41,14 +41,14 @@ parser.parse(options.tripinfofile)
 totaltime = 0.
 totallength = 0.
 totalspeed= 0.
-totalwait = 0.
+totalstoptime = 0.
 
 for veh in vehicles:
     veh.speed = veh.travellength / veh.traveltime                              
     totaltime += veh.traveltime
     totallength += veh.travellength
     totalspeed += veh.speed
-    totalwait += veh.waittime
+    totalstoptime += veh.stoptime
 
 foutveh = file(options.outputfile, 'w')
 foutveh.write('average vehicular travel time(s) = the sum of all vehicular travel time / the number of vehicles\n')
