@@ -124,4 +124,6 @@ def getSignificanceTestOutput(net, tValueAvg, methods, normal, hValues):
             foutSGtest.write('\nH_travelspeed:%s' %h.travelspeed)
             foutSGtest.write('\nH_travellength:%s' %h.travellength)
             foutSGtest.write('\nH_stoptime:%s\n' %h.stoptime)
+            foutSGtest.write('\n95 chi-square value:%s' %h.lowchivalue)
+            foutSGtest.write('\n99 chi-square value:%s\n' %h.highchivalue)
     foutSGtest.close()

@@ -396,12 +396,16 @@ class T_Value:
 
 # This class is used for the Kruskal-Wallis test in the significance test.
 class H_Value:
-    def __init__(self, label):
+    def __init__(self, label, lowvalue, highvalue):
         self.label = label
         self.traveltime = 0.
         self.travelspeed = 0.
         self.travellength = 0.
         self.stoptime = 0.
+        # 95% confidence interval
+        self.lowchivalue = lowvalue 
+        # 99% confidence interval
+        self.highchivalue = highvalue
         
     def __repr__(self):
-        return "%<%s|%s|%s|%s>" % (self.traveltime, self.travelspeed, self.travellength, self.stoptime)
+        return "%<%s|%s|%s|%s|%s|%s>" % (self.traveltime, self.travelspeed, self.travellength, self.stoptime, self.lowchivalue, self.highchivalue)
