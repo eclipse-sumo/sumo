@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 @file    clogit.py
 @author  Yun-Pang.Wang@dlr.de
@@ -155,6 +154,7 @@ def main():
     print >> foutroute, """<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
 <routes>""" % starttime
+    
     for counter in range (0, len(matrices)):
         # delete all vehicle information related to the last matrix for saving the disk space
         net._vehicles = []                                              
@@ -167,11 +167,11 @@ def main():
             print 'departtime', departtime  
     
         matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum = getMatrix(net, options.verbose, matrix, MatrixSum)
+       
         if options.verbose:
             print 'Matrix und OD Zone already read for Interval', counter
             print 'CurrentMatrixSum:', CurrentMatrixSum
-            print 'startVertices:', startVertices
-            print 'endvertices:', endVertices          
+        
         foutlog.write('Reading matrix and O-D zones: done.\n')
         foutlog.write('Matrix und OD Zone already read for Interval:%s\n' %counter)
         foutlog.write('CurrentMatrixSum:%s\n' %CurrentMatrixSum)
@@ -193,12 +193,12 @@ def main():
         newRoutes = 0
         stable = False
         # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
-#        if counter == 0:
-#            newRoutes = net.calcPaths(newRoutes, options.verbose, KPaths, startVertices, endVertices, matrixPshort)
-#            foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
-#        if options.verbose:
-#            print 'KPaths:', KPaths 
-#            print 'number of new routes:', newRoutes
+        if counter == 0:
+            newRoutes = net.calcPaths(newRoutes, options.verbose, KPaths, startVertices, endVertices, matrixPshort)
+            foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
+        if options.verbose:
+            print 'KPaths:', KPaths 
+            print 'number of new routes:', newRoutes
         
         # execute the traffic assignment based on the C-Logit Model 
         while not stable or newRoutes > 0:
