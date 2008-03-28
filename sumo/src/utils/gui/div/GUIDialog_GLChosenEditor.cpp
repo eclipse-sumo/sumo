@@ -209,7 +209,7 @@ GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*)
     vector<GLuint> selected;
     for (i=0; i<no; ++i) {
         if (myList->getItem(i)->isSelected()) {
-            selected.push_back((GLuint) myList->getItem(i)->getData());
+            selected.push_back((GLuint) (FXuval) myList->getItem(i)->getData());
         }
     }
     // remove items from list
