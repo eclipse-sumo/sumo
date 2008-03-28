@@ -164,7 +164,7 @@
 // layer a domain object is located at (poi, polygon)
 #define DOMVAR_LAYER 0x08
 // shape of a polygon
-#define DOMVAR_POLYSHAPE 0x09
+#define DOMVAR_SHAPE 0x09
 // max count of vehicles
 #define DOMVAR_MAXCOUNT 0x0A
 // count of TraCI vehicles
@@ -175,9 +175,12 @@
 #define DOMVAR_NAME 0x0D
 // route, a car plans to drive
 #define DOMVAR_ROUTE 0x0E
-// distance from a certain object to a position
+// air distance from a certain object to a position
 #define DOMVAR_AIRDISTANCE 0x10
+// driving distance from a certain object to a position
 #define DOMVAR_DRIVINGDISTANCE 0x11
+// external integer id of a certain object
+#define DOMVAR_EXTID 0x12
 
 // ****************************************
 // TRAFFIC LIGHT PHASES

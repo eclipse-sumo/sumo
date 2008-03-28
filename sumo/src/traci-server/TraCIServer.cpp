@@ -111,8 +111,15 @@ TraCIServer::~TraCIServer()
 void
 TraCIServer::run()
 {
+	OptionsCont& optCont = OptionsCont::getOptions();
+
     // Prepare simulation
     MSNet::getInstance()->initialiseSimulation();
+
+	// display warning if internal lanes are not used
+	if (!optCont.isSet("use-internal-links")) {
+		std::cout << "Warning: starting TraCI without using internal lanes! (Vehicles will jump over junctions)" << std::endl;
+	}
 
 	// map the internal id of all traffic lights, polygons and poi to external id and vice versa
 	trafficLightsInt2ExtId.clear();
@@ -152,7 +159,6 @@ TraCIServer::run()
 	SAX2XMLReader* xmlParser = XMLSubSys::getSAXReader(xmlHandler);
 	xmlParser->setContentHandler(&xmlHandler);
 	xmlParser->setErrorHandler(&xmlHandler);
-	OptionsCont& optCont = OptionsCont::getOptions();
 
 	// parse route files
 	if (optCont.isSet("route-files")) {
@@ -813,12 +819,19 @@ throw(TraCIException)
 							}
                             //yellow time
                             tempMsg.writeDouble(yellowTimes[i]<0 ? 0 : time - yellowTimes[i]);
-                            // command length
-                            respMsg.writeUnsignedByte(1 + 1 + tempMsg.size());
-                            // command type
-                            respMsg.writeUnsignedByte(CMD_TLSWITCH);
-                            // command content
-                            respMsg.writeStorage(tempMsg);
+
+							if (tempMsg.size() <= 253) {
+								// command length
+								respMsg.writeUnsignedByte(1 + 1 + tempMsg.size());
+							} else {
+								// command length extended
+								respMsg.writeUnsignedByte(0);
+								respMsg.writeInt(1 + 4 + 1 + tempMsg.size());
+							}
+							// command type
+							respMsg.writeUnsignedByte(CMD_TLSWITCH);
+							// command content
+							respMsg.writeStorage(tempMsg);
                             tempMsg.reset();
                         }
                     }
@@ -1571,23 +1584,6 @@ throw(TraCIException)
 		throw TraCIException("No lane existing with such id on the given road");
     }
 
-	/*MSLane* actLane = (*allLanes)[0];
-	int index = 0;
-	while (actLane->getRightLane() != NULL) {
-		actLane = actLane->getRightLane();
-		index++;
-	}
-	actLane = (*allLanes)[0];
-	if (index < roadPos.laneId) {
-		for (int i=0; i < (roadPos.laneId - index); i++) {
-			actLane = road->leftLane(actLane);
-		}
-	} else {
-		for (int i=0; i < (index - roadPos.laneId); i++) {
-			actLane = road->rightLane(actLane);
-		}
-	}*/
-
 	// get corresponding x and y coordinates
 	Position2DVector shape = (*allLanes)[roadPos.laneId]->getShape();
 	return shape.positionAtLengthPosition(roadPos.pos);
@@ -1599,10 +1595,12 @@ std::string
 TraCIServer::handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) 
 throw(TraCIException)
 {
+	string name = "";
 	string warning = "";	// additional description for response
 
 	// domain object
 	int objectId = requestMsg.readInt();
+	MSEdge* edge = MSEdge::dictionary(objectId);
 
 	// variable id
 	int variableId = requestMsg.readUnsignedByte();
@@ -1621,6 +1619,39 @@ throw(TraCIException)
 	response.writeUnsignedByte(variableId);		// variable
 
 	switch (variableId) {
+	// name string of the object
+	case DOMVAR_NAME:
+		if (edge != NULL) {
+			name = edge->getID();
+			response.writeUnsignedByte(TYPE_STRING);
+			response.writeString(name);
+			if (dataType != TYPE_STRING) {
+			warning = "Warning: requested data type could not be used; using string instead!";
+			}
+		} else {
+			throw TraCIException("Unable to retrieve road with given id");
+		}
+		break;
+
+	// numerical id of an edge
+	case DOMVAR_EXTID:
+		if (dataType != TYPE_STRING) {
+			throw TraCIException("Internal id must be given as string value");
+		}
+		name = requestMsg.readString();
+		edge = MSEdge::dictionary(name);
+		if (edge != NULL) {
+			response.writeUnsignedByte(TYPE_INTEGER);
+			response.writeInt(edge->getNumericalID());
+			if (dataType != TYPE_INTEGER) {
+				warning = "Warning: requested data type could not be used; using integer instead!";
+			}
+		} else {
+			std::stringstream msg;
+			msg << "Edge with internal id " << name << " not existing";
+			throw TraCIException(msg.str());
+		}
+		break;
 
 	// net boundaries
 	case DOMVAR_BOUNDINGBOX:
@@ -1632,6 +1663,34 @@ throw(TraCIException)
 		// add a warning to the response if the requested data type was not correct
 		if (dataType != TYPE_BOUNDINGBOX) {
 			warning = "Warning: requested data type could not be used; using boundary box type instead!";
+		}
+		break;
+
+	// number of roads
+	case DOMVAR_COUNT:
+		response.writeUnsignedByte(TYPE_INTEGER);
+		response.writeInt(MSNet::getInstance()->getEdgeControl().getEdgeNames().size());
+		if (dataType != TYPE_INTEGER) {
+			warning = "Warning: requested data type could not be used; using integer instead!";
+		}
+		break;
+
+	// shape of a road
+	case DOMVAR_SHAPE:
+		if (edge != NULL) {			
+			const MSEdge::LaneCont* lanes = edge->getLanes();
+			const Position2DVector shape = (*lanes)[(*lanes).size()/2]->getShape();
+			response.writeUnsignedByte(TYPE_POLYGON);
+			response.writeUnsignedByte(MIN2(static_cast<size_t>(255),shape.size()));
+			for (int iPoint=0; iPoint < MIN2(static_cast<size_t>(255),shape.size()); iPoint++) {
+				response.writeFloat(shape[iPoint].x());
+				response.writeFloat(shape[iPoint].y());
+			}
+			if (dataType != TYPE_POLYGON) {
+				warning = "Warning: requested data type could not be used; using polygon type instead!";
+			}
+		} else {
+			throw TraCIException("Unable to retrieve road with given id");
 		}
 		break;
 
@@ -1651,6 +1710,7 @@ throw(TraCIException)
 {
 	std::string name;
 	int count = 0;
+	MSVehicleControl* vehControl = NULL;
 	std::string warning = "";	// additional description for response
 
 	// domain object
@@ -1689,9 +1749,38 @@ throw(TraCIException)
 		}
 		break;
 
+	// external id of the object
+	case DOMVAR_EXTID:
+		if (dataType != TYPE_STRING) {
+			throw TraCIException("Internal id must be given as string value");
+		}
+		name = requestMsg.readString();
+		if (equippedVehicles_.find(name) != equippedVehicles_.end()) {
+			response.writeUnsignedByte(TYPE_INTEGER);
+			response.writeInt(equippedVehicles_[name]);
+			if (dataType != TYPE_INTEGER) {
+				warning = "Warning: requested data type could not be used; using integer instead!";
+			}
+		} else {
+			std::stringstream msg;
+			msg << "Vehicle with internal id " << name << " not existing or not accessible via TraCI";
+			throw TraCIException(msg.str());
+		}
+		break;
+
 	// number of nodes
 	case DOMVAR_COUNT:
-		throw TraCIException("Number of nodes not yet implemented");
+		vehControl = &MSNet::getInstance()->getVehicleControl();
+		for (MSVehicleControl::constVehIt vehIt = vehControl->loadedVehBegin(); vehIt != vehControl->loadedVehEnd(); vehIt++) {
+			if (vehIt->second->getInTransit()) {
+				count++;
+			}
+		}
+		response.writeUnsignedByte(TYPE_INTEGER);
+		response.writeInt(count);
+		if (dataType != TYPE_INTEGER) {
+			warning = "Warning: requested data type could not be used; using integer instead!";
+		}
 		break;
 
 	// upper bound for number of nodes
@@ -1935,6 +2024,25 @@ throw(TraCIException)
 		}
 		break;
 
+	// external id of the object
+	case DOMVAR_EXTID:
+		if (dataType != TYPE_STRING) {
+			throw TraCIException("Internal id must be given as string value");
+		}
+		name = requestMsg.readString();
+		if (trafficLightsInt2ExtId.find(name) != trafficLightsInt2ExtId.end()) {
+			response.writeUnsignedByte(TYPE_INTEGER);
+			response.writeInt(trafficLightsInt2ExtId[name]);
+			if (dataType != TYPE_INTEGER) {
+				warning = "Warning: requested data type could not be used; using integer instead!";
+			}
+		} else {
+			std::stringstream msg;
+			msg << "Traffic Light with internal id " << name << " not existing";
+			throw TraCIException(msg.str());
+		}
+		break;
+
 	// count of traffic lights
 	case DOMVAR_COUNT:
 		count = MSNet::getInstance()->getTLSControl().getAllTLIds().size();
@@ -2139,6 +2247,25 @@ throw(TraCIException)
 		}
 		break;
 
+	// external id of the object
+	case DOMVAR_EXTID:
+		if (dataType != TYPE_STRING) {
+			throw TraCIException("Internal id must be given as string value");
+		}
+		name = requestMsg.readString();
+		if (poiInt2ExtId.find(name) != poiInt2ExtId.end()) {
+			response.writeUnsignedByte(TYPE_INTEGER);
+			response.writeInt(poiInt2ExtId[name]);
+			if (dataType != TYPE_INTEGER) {
+				warning = "Warning: requested data type could not be used; using integer instead!";
+			}
+		} else {
+			std::stringstream msg;
+			msg << "Point of interest with internal id " << name << " not existing";
+			throw TraCIException(msg.str());
+		}
+		break;
+
 	// number of poi
 	case DOMVAR_COUNT:
 		response.writeUnsignedByte(TYPE_INTEGER);
@@ -2235,9 +2362,28 @@ throw(TraCIException)
 			response.writeString(name);
 			if (dataType != TYPE_STRING) {
 			warning = "Warning: requested data type could not be used; using string instead!";
-		}
+			}
 		} else {
 			throw TraCIException("Unable to retrieve polygon with given id");
+		}
+		break;
+
+	// external id of the object
+	case DOMVAR_EXTID:
+		if (dataType != TYPE_STRING) {
+			throw TraCIException("Internal id must be given as string value");
+		}
+		name = requestMsg.readString();
+		if (polygonInt2ExtId.find(name) != polygonInt2ExtId.end()) {
+			response.writeUnsignedByte(TYPE_INTEGER);
+			response.writeInt(polygonInt2ExtId[name]);
+			if (dataType != TYPE_INTEGER) {
+				warning = "Warning: requested data type could not be used; using integer instead!";
+			}
+		} else {
+			std::stringstream msg;
+			msg << "Polygon with internal id " << name << " not existing";
+			throw TraCIException(msg.str());
 		}
 		break;
 
@@ -2282,13 +2428,13 @@ throw(TraCIException)
 		break;
 
 	// shape of a polygon
-	case DOMVAR_POLYSHAPE:
+	case DOMVAR_SHAPE:
 		if (poly == NULL) {
 			throw TraCIException("Unable to retrieve polygon with given id");
 		} else {
 			response.writeUnsignedByte(TYPE_POLYGON);
-			response.writeUnsignedByte(poly->getPosition2DVector().size());
-			for (int i=0; i < poly->getPosition2DVector().size(); i++) {
+			response.writeUnsignedByte(MIN2(static_cast<size_t>(255),poly->getPosition2DVector().size()));
+			for (int i=0; i < MIN2(static_cast<size_t>(255),poly->getPosition2DVector().size()); i++) {
 				response.writeFloat(poly->getPosition2DVector()[i].x());
 				response.writeFloat(poly->getPosition2DVector()[i].y());
 			}

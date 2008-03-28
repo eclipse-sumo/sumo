@@ -259,10 +259,6 @@ private:
 	std::map<int, std::string> polygonExt2IntId;
 	// maps all external polygon ids to internal ids
 	std::map<std::string, int> polygonInt2ExtId;
-	//bool isPolygonMapChanged_;
-
-	// convert external polygon id to internal
-	//void convertPolygonExt2Int(int extId, std::string& intId);
 
 	// return vehicle that is referenced by the given external id
     MSVehicle* getVehicleByExtId(int extId);
