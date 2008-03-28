@@ -194,7 +194,7 @@ def main():
         stable = False
         # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
         if counter == 0:
-            newRoutes = net.calcPaths(newRoutes, options.verbose, KPaths, startVertices, endVertices, matrixPshort)
+            newRoutes = net.calcPaths(options.verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort)
             foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
         if options.verbose:
             print 'KPaths:', KPaths 

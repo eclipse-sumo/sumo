@@ -71,7 +71,11 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                         MatrixSum += float(item)
                         CurrentMatrixSum += float(item) 
                         if float(item) > 0.0:
-                            Pshort_EffCells += 1
+                            if len(matrixPshort) == len(matrixPshort[-1]):
+                                if verbose:
+                                    print "Warning! Non zero diagonal element for %s will be ignored." % startVertices[len(matrixPshort)-1]
+                            else:
+                                Pshort_EffCells += 1
     if verbose:
         print 'Number of zones:', zones
         print 'Number of origins:', origins
