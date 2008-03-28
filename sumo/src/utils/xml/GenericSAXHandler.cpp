@@ -206,7 +206,8 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
     //myTagTree.push(element);
     //_characters = "";
     myCharactersVector.clear();
-    myStartElement(element, SUMOSAXAttributesImpl_Xerces(attrs, myPredefinedTags));
+    SUMOSAXAttributesImpl_Xerces na(attrs, myPredefinedTags);
+    myStartElement(element, na);
 }
 
 

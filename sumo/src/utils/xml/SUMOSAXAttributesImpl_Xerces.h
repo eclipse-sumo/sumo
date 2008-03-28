@@ -57,10 +57,10 @@ class SUMOSAXAttributesImpl_Xerces : public SUMOSAXAttributes
 {
 public:
     SUMOSAXAttributesImpl_Xerces(const Attributes &attrs,
-        const std::map<SumoXMLAttr, XMLCh*> &predefinedTags);
+        const std::map<SumoXMLAttr, XMLCh*> &predefinedTags) throw();
 
 
-    virtual ~SUMOSAXAttributesImpl_Xerces();
+    virtual ~SUMOSAXAttributesImpl_Xerces() throw();
 
 
     //{ methods for retrieving attribute values

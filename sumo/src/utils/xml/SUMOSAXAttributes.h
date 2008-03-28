@@ -47,10 +47,10 @@
 class SUMOSAXAttributes 
 {
 public:
-    SUMOSAXAttributes() { }
+    SUMOSAXAttributes() throw() { }
 
 
-    virtual ~SUMOSAXAttributes() { }
+    virtual ~SUMOSAXAttributes() throw() { }
 
 
     //{ methods for retrieving attribute values
