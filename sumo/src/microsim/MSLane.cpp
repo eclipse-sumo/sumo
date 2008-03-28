@@ -336,6 +336,9 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
             return false;
         }
         SUMOReal vsafe = aVehicle->ffeV(vstate.speed(), gap, pred->getSpeed());
+        if (vsafe<vstate.speed()) {
+            return false;
+        }
         SUMOReal brakeWay = SPEED2DIST(aVehicle->getSpeedAfterMaxDecel(vsafe));//vstate.speed() - aVehicle->decelSpeed();
         if (vsafe<brakeWay) {
             return false;
