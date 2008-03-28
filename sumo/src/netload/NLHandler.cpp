@@ -504,7 +504,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs)
             MsgHandler::getErrorInstance()->inform("Missing attribute in a lane-object (id='" + id + "').\n Can not build according edge.");
             myCurrentIsBroken = true;
         } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("One of a lane's SUMOSAXAttributes must be numeric but is not (id='" + id + "').\n Can not build according edge.");
+            MsgHandler::getErrorInstance()->inform("One of a lane's attributes must be numeric but is not (id='" + id + "').\n Can not build according edge.");
             myCurrentIsBroken = true;
         } catch (BoolFormatException &) {
             MsgHandler::getErrorInstance()->inform("Value of depart definition of lane '" + id + "' is invalid.\n Can not build according edge.");
