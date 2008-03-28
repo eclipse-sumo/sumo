@@ -79,7 +79,7 @@ throw(ProcessError)
 }
 
 void
-TraCIHandler::openVehicleTag(const Attributes& attributes)
+TraCIHandler::openVehicleTag(const SUMOSAXAttributes& attributes)
 {
 	int repNo;
 	int period;
@@ -93,8 +93,8 @@ TraCIHandler::openVehicleTag(const Attributes& attributes)
 
 	// read value for emit period and number (if any)
 	try {
-		repNo = getInt(attributes, SUMO_ATTR_REPNUMBER);
-		period = getInt(attributes, SUMO_ATTR_PERIOD);
+		repNo = attributes.getInt(SUMO_ATTR_REPNUMBER);
+		period = attributes.getInt( SUMO_ATTR_PERIOD);
 	} catch(...) {
 		repNo = -1;
 		period = -1;
@@ -102,7 +102,7 @@ TraCIHandler::openVehicleTag(const Attributes& attributes)
 
 	// read depart time
 	try {
-		depart = getInt(attributes, SUMO_ATTR_DEPART);
+		depart = attributes.getInt(SUMO_ATTR_DEPART);
 	} catch (...) {
 		// no depart time: error, don't count vehicle
 		currentVehCount = 0;

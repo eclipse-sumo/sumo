@@ -98,7 +98,7 @@ private:
 	/**
      * Count each vehicle and all possibly emitted vehicles defined in each tag.
 	 */
-	void openVehicleTag(const Attributes& attributes);
+	void openVehicleTag(const SUMOSAXAttributes& attributes);
 };
 }
 
