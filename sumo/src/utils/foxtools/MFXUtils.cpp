@@ -56,8 +56,7 @@ MFXUtils::userPermitsOverwritingWhenFileExists(FXWindow * const parent,
         return TRUE;
     }
     int answer =
-        FXMessageBox::question(parent, MBOX_YES_NO, "File Exists",
-                               "Overwrite '%s'?", file);
+        FXMessageBox::question(parent, MBOX_YES_NO, "File Exists", "Overwrite '%s'?", file.text());
     if (answer==MBOX_CLICKED_NO) {
         return FALSE;
     }

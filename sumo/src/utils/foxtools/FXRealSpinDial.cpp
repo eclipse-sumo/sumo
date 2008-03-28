@@ -1264,3 +1264,5 @@ FXRealSpinDial::getDial() const
 {
     return *dial;
 }
+
+
