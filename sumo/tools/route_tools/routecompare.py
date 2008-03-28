@@ -1,12 +1,25 @@
-#!/usr/bin/python
-# This script compares two route sets by calculating
-# a similarity for any two routes based on the number of common edges
-# and determining a maximum weighted matching between the route sets.
-# It needs at least two parameters, which are the route sets to compare.
+#!/usr/bin/env python
+"""
+@file    routecompare.py
+@author  Michael.Behrisch@dlr.de
+@date    2008-03-25
+@version $Id$
+
+This script compares two route sets by calculating
+a similarity for any two routes based on the number of common edges
+and determining a maximum weighted matching between the route sets.
+It needs at least two parameters, which are the route sets to compare.
+Optionally a district file may be given, then only routes with
+the same origin and destination district are matched
+ 
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
+"""
 import sys, optparse
 from xml.sax import make_parser, handler
 
 SCALE = 10000
+INFINITY = 2**30
 
 class RouteReader(handler.ContentHandler):
 
@@ -79,8 +92,8 @@ class Node:
     def __init__(self, routeID, weight):
         self.routeID = routeID
         self.weight = weight
-        self.eps = 2**30
-        self.level = 2**30
+        self.eps = INFINITY
+        self.level = INFINITY
         self.match = None 
 
 def augmentSimultan(vTerm):
@@ -120,21 +133,21 @@ def hungarianDAG(U, V, similarityMatrix):
         Q = []
         vTerm = set()
         for u in U:
-            u.level = 2**30
-            u.eps = 2**30
+            u.level = INFINITY
+            u.eps = INFINITY
             if not u.match:
                 S.add(u)
                 u.level = 0
                 Q.append(u)
         for v in V:
-            v.level = 2**30
-            v.eps = 2**30
+            v.level = INFINITY
+            v.eps = INFINITY
         while len(Q) > 0:
             s = Q.pop(0)
             for t in V:
                 if s.weight + t.weight == similarityMatrix[s.routeID][t.routeID]:
                     if t.level > s.level:
-                        if t.level == 2**30:
+                        if t.level == INFINITY:
                             T.add(t)
                             t.level = s.level + 1
                             t.pre = [s]
@@ -150,11 +163,11 @@ def hungarianDAG(U, V, similarityMatrix):
                     t.eps = min(t.eps, s.weight + t.weight - similarityMatrix[s.routeID][t.routeID])
         if len(vTerm) > 0:
             break
-        epsilon = 2**30
+        epsilon = INFINITY
         for t in V:
             if t.eps < epsilon:
                 epsilon = t.eps
-        if epsilon == 2**30:
+        if epsilon == INFINITY:
             break 
         for x in S:
             x.weight -= epsilon
