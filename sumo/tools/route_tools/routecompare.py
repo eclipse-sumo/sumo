@@ -75,10 +75,126 @@ def matching(routeIDs1, routeIDs2, similarityMatrix, match):
     print float(matchVal) / len(routeIDs1) / SCALE
     return matchVal
 
+class Node:
+    def __init__(self, routeID, weight):
+        self.routeID = routeID
+        self.weight = weight
+        self.eps = 2**30
+        self.level = 2**30
+        self.match = None 
+
+def augmentSimultan(vTerm):
+    dead = set()
+    for v in vTerm:
+        path = [v]
+        l = 0
+        while True:
+            while len(path[l].pre) > 0 and path[l].pre[0] in dead:
+                path[l].pre.pop(0)
+            if len(path[l].pre) == 0:
+                if l == 0:
+                    break
+                dead.add(path[l - 1])
+                l -= 2
+            else:
+                if l == len(path) - 1:
+                    path.append(None)
+                path[l + 1] = path[l].pre.pop(0)
+                dead.add(path[l + 1])
+                l += 1
+                if path[l].level == 0:
+                    for j in range(0, l + 1, 2):
+                        path[j].match = path[j + 1]
+                        path[j + 1].match = path[j]
+                    break
+                else:
+                    if l == len(path) - 1:
+                        path.append(None)
+                    path[l + 1] = path[l].match
+                    l += 1
+        
+def hungarianDAG(U, V, similarityMatrix):
+    while True:
+        S = set()
+        T = set()
+        Q = []
+        vTerm = set()
+        for u in U:
+            u.level = 2**30
+            u.eps = 2**30
+            if not u.match:
+                S.add(u)
+                u.level = 0
+                Q.append(u)
+        for v in V:
+            v.level = 2**30
+            v.eps = 2**30
+        while len(Q) > 0:
+            s = Q.pop(0)
+            for t in V:
+                if s.weight + t.weight == similarityMatrix[s.routeID][t.routeID]:
+                    if t.level > s.level:
+                        if t.level == 2**30:
+                            T.add(t)
+                            t.level = s.level + 1
+                            t.pre = [s]
+                            if not t.match:
+                                vTerm.add(t)
+                            else:
+                                S.add(t.match)
+                                t.match.level = t.level + 1
+                                Q.append(t.match)
+                        else:
+                            t.pre.append(s)
+                else:
+                    t.eps = min(t.eps, s.weight + t.weight - similarityMatrix[s.routeID][t.routeID])
+        if len(vTerm) > 0:
+            break
+        epsilon = 2**30
+        for t in V:
+            if t.eps < epsilon:
+                epsilon = t.eps
+        if epsilon == 2**30:
+            break 
+        for x in S:
+            x.weight -= epsilon
+        for x in T:
+            x.weight += epsilon
+    return vTerm
+
+def maxMatching(routeIDs1, routeIDs2, similarityMatrix, match):
+    maxSimilarity = 0
+    for id1 in routeIDs1:
+        for value in similarityMatrix[id1].itervalues():
+            if value > maxSimilarity:
+                maxSimilarity = value
+    U = []
+    for id1 in routeIDs1:
+        U.append(Node(id1, maxSimilarity))
+    V = []
+    for id2 in routeIDs2:
+        V.append(Node(id2, 0))
+    while True:
+        vTerm = hungarianDAG(U, V, similarityMatrix)
+        if len(vTerm) == 0:
+            break
+        augmentSimultan(vTerm)
+    matchVal = 0
+    for v in V:
+        if v.match:
+            match[v.routeID] = v.match.routeID
+            matchVal += similarityMatrix[v.match.routeID][v.routeID]
+    print float(matchVal) / len(routeIDs1) / SCALE, len(match), len(V)
+    return matchVal
+
 
 optParser = optparse.OptionParser()
 optParser.add_option("-d", "--districts-file", dest="districts",
                      default="", help="read districts from FILE", metavar="FILE")
+optParser.add_option("-s", "--simple-match", action="store_true", dest="simple",
+                     default=False, help="use simple matching algorithm")
+optParser.add_option("-p", "--print-matching", action="store_true", dest="printmatch",
+                     default=False, help="print the resulting matching")
 (options, args) = optParser.parse_args()
 
 
@@ -130,5 +246,11 @@ for source in routeMatrix1.iterkeys():
             similarityMatrix[id1] = {}
             for id2 in routeIDs2:
                 similarityMatrix[id1][id2] = compare(routes1[id1], routes2[id2])
-        totalMatch += matching(routeIDs1, routeIDs2, similarityMatrix, match)
+        if options.simple:
+            totalMatch += matching(routeIDs1, routeIDs2, similarityMatrix, match)
+        else:
+            totalMatch += maxMatching(routeIDs1, routeIDs2, similarityMatrix, match)
+if options.printmatch:
+    for r2, r1 in match.iteritems():
+        print r1, r2
 print float(totalMatch) / len(routes1) / SCALE
