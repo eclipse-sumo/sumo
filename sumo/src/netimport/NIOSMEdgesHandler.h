@@ -100,6 +100,8 @@ protected:
 private:
     struct Edge {
         std::string id;
+        int myNoLanes; /**< number of lanes, or -1 if unknown */
+        double myMaxSpeed; /**< maximum speed in km/h, or -1 if unknown */
         std::string myHighWayType;
         std::string  myIsOneWay;
         std::vector<int> myCurrentNodes;

@@ -30,6 +30,7 @@
 
 #include <string>
 #include <iostream>
+#include <sstream>
 #include <map>
 #include <xercesc/sax/HandlerBase.hpp>
 #include <xercesc/sax/AttributeList.hpp>
@@ -167,49 +168,73 @@ NIOSMEdgesHandler::insertEdge(NIOSMEdgesHandler::Edge *e, int index, NBNode *fro
     SUMOReal speed = 0;
     vector<SUMOVehicleClass> allowedClasses;
     vector<SUMOVehicleClass> disallowedClasses;
-    bool allowBothDirs = false;
+    bool defaultsToOneWay = false;
     string myHighWayType = e->myHighWayType;
+    int myNoLanes = e->myNoLanes;
+    double myMaxSpeed = e->myMaxSpeed;
     if (e->myCurrentIsRoad) {
-        if (myHighWayType=="motorway"||myHighWayType=="motorway_link") {
+
+        // set sensible defaults depending on highway type 
+        if (myHighWayType=="motorway") { // de:Autobahn (A00)
             noLanes = 2;
-            speed = (SUMOReal)(80/3.6);
-        } else if (myHighWayType=="residential") {
+            speed = (SUMOReal)(160./3.6);
+            defaultsToOneWay = true;
+        } else if (myHighWayType=="motorway_link") { // de:Autobahn-Zubringer, -Anschlussstelle
             noLanes = 1;
-            speed = (SUMOReal)(30./3.6);
-            allowBothDirs = true;
-        } else if (myHighWayType=="primary"||myHighWayType=="primary_link"||myHighWayType=="cycleway") {
-            // !!! not sure about "cycleway"!
+            speed = (SUMOReal)(80./3.6);
+            defaultsToOneWay = true;
+        } else if (myHighWayType=="trunk") { // de:Schnellstrasse (B00)
             noLanes = 2;
-            speed = (SUMOReal)(50./3.6);
-        } else if (myHighWayType=="secondary"||myHighWayType=="secondary_link"||myHighWayType=="unclassified") {
+            speed = (SUMOReal)(130./3.6);
+        } else if (myHighWayType=="trunk_link") { // de:Schnellstrassen-Anschlussstelle
             noLanes = 1;
-            speed = (SUMOReal)(50./3.6);
-        } else if (myHighWayType=="tertiary"||myHighWayType=="trunk"||myHighWayType=="trunk_link") {
+            speed = (SUMOReal)(80./3.6);
+        } else if (myHighWayType=="primary") { // de:Bundesstrasse (B00)
+            noLanes = 1;
+            speed = (SUMOReal)(100./3.6);
+        } else if (myHighWayType=="primary_link") { // de:Bundesstrassen-Anschlussstelle
+            noLanes = 1;
+            speed = (SUMOReal)(80./3.6);
+        } else if (myHighWayType=="secondary"||myHighWayType=="secondary_link") { // de:Landstrasse (Fahrbahnmarkierungen)
+            noLanes = 1;
+            speed = (SUMOReal)(100./3.6);
+        } else if (myHighWayType=="tertiary") { // de:Kreisstrasse (keine Fahrbahnmarkierungen)
+            noLanes = 1;
+            speed = (SUMOReal)(80./3.6);
+        } else if (myHighWayType=="unclassified") { //de:Nebenstrasse
+            noLanes = 1;
+            speed = (SUMOReal)(80./3.6);
+        } else if (myHighWayType=="unsurfaced") { // de:Unbefestigte Strasse
             noLanes = 1;
             speed = (SUMOReal)(30./3.6);
-            allowBothDirs = true;
-        } else if (myHighWayType=="service"||myHighWayType=="servcie"||myHighWayType=="services") { // !!!
+        } else if (myHighWayType=="track") { // de:Feldweg
             noLanes = 1;
-            speed = (SUMOReal)(30./3.6);
-            allowedClasses.push_back(SVC_PEDESTRIAN);
-            allowedClasses.push_back(SVC_BICYCLE);
-            allowedClasses.push_back(SVC_DELIVERY);
-            allowBothDirs = true;
+            speed = (SUMOReal)(20./3.6);
+        } else if (myHighWayType=="residential") { //de:Wohngebiet
+            noLanes = 1;
+            speed = (SUMOReal)(50./3.6);
+        } else if (myHighWayType=="service") { // de:Erschliessungsweg (Parkplatz etc.)
+            noLanes = 1;
+            speed = (SUMOReal)(20./3.6);
         } else if (myHighWayType=="bicycle") {
             noLanes = 1;
             speed = (SUMOReal)(25./3.6);
             allowedClasses.push_back(SVC_BICYCLE);
-            allowBothDirs = true;
         } else if (myHighWayType=="footway"||myHighWayType=="pedestrian"||myHighWayType=="steps"||myHighWayType=="stairs") {
             noLanes = 1;
             speed = (SUMOReal)(5./3.6);
             allowedClasses.push_back(SVC_PEDESTRIAN);
-            allowBothDirs = true;
         } else {
             WRITE_WARNING("New value for 'motorway' found: " + myHighWayType);
             noLanes = 1;
             speed = (SUMOReal)(50./3.6);
         }
+
+        // if we had been able to extract the number of lanes, override the highway type default
+        if (myNoLanes >= 0) noLanes = myNoLanes;
+        // if we had been able to extract the maximum speed, override the highway type default
+        if (myMaxSpeed >= 0) speed = myMaxSpeed / 3.6;
+
     }
 
     if (from->getPosition().almostSame(to->getPosition())) {
@@ -220,7 +245,8 @@ NIOSMEdgesHandler::insertEdge(NIOSMEdgesHandler::Edge *e, int index, NBNode *fro
     }
     if (noLanes!=0&&speed!=0) {
         bool addSecond = true;
-        if (e->myIsOneWay=="true"||e->myIsOneWay=="yes"||!allowBothDirs) {
+        // TODO: e->myIsOneWay=="-1" for oneway streets in opposite direction?
+        if (e->myIsOneWay=="true"||e->myIsOneWay=="yes"||e->myIsOneWay=="1"||(defaultsToOneWay && e->myIsOneWay!="no" && e->myIsOneWay!="false" && e->myIsOneWay!="0")) {
             addSecond = false;
         }
         if (e->myIsOneWay!=""&&e->myIsOneWay!="false"&&e->myIsOneWay!="no"&&e->myIsOneWay!="true"&&e->myIsOneWay!="yes") {
@@ -254,6 +280,8 @@ NIOSMEdgesHandler::myStartElement(SumoXMLTag element,
     myParentElements.push_back(element);
     if (element==SUMO_TAG_WAY) {
         myCurrentEdge = new Edge();
+        myCurrentEdge->myNoLanes = -1;
+        myCurrentEdge->myMaxSpeed = -1;
         try {
             // retrieve the id of the edge
             myCurrentEdge->id = attrs.getString(SUMO_ATTR_ID);
@@ -296,6 +324,14 @@ NIOSMEdgesHandler::myStartElement(SumoXMLTag element,
         if (key=="highway") {
             myCurrentEdge->myHighWayType = value;
             myCurrentEdge->myCurrentIsRoad = true;
+        } else if (key=="lanes") {
+            stringstream ss(value);
+            ss >> myCurrentEdge->myNoLanes;
+        } else if (key=="maxspeed") {
+            stringstream ss(value);
+            ss >> myCurrentEdge->myMaxSpeed;
+        } else if (key=="junction") {
+            if ((value == "roundabout") && (myCurrentEdge->myIsOneWay == "")) myCurrentEdge->myIsOneWay = "yes";
         } else if (key=="oneway") {
             myCurrentEdge->myIsOneWay = value;
         } else if (key=="name") {
