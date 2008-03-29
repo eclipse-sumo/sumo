@@ -29,6 +29,7 @@
 #include "TraCIConstants.h"
 #include "TraCIServer.h"
 #include "TraCIHandler.h"
+#include "TraCIDijkstraRouter.h"
 
 #ifdef TRACI
 
@@ -1268,16 +1269,33 @@ throw(TraCIException)
 	// read distance type
 	int distType = requestMsg.readUnsignedByte();
 	
-	// compute distance
 	float distance = FLT_MAX;
 	if (distType == REQUEST_DRIVINGDIST) {
-		EdgeEffort effortStruct;
+		// compute driving distance
+//		EdgeEffort effortStruct;
 		std::vector<const MSEdge*> edges;
-		SUMODijkstraRouter_ByProxi<MSEdge, MSVehicle, prohibited_noRestrictions<MSEdge, MSVehicle>, EdgeEffort > 
-			router(MSEdge::dictSize(), true, &effortStruct, &EdgeEffort::getEffort);
-		MSEdge* startEdge = MSEdge::dictionary(roadPos1.roadId);
+//		SUMODijkstraRouter_ByProxi<MSEdge, MSVehicle, prohibited_noRestrictions<MSEdge, MSVehicle>, EdgeEffort > 
+//			router(MSEdge::dictSize(), true, &effortStruct, &EdgeEffort::getEffort);
+		TraCIDijkstraRouter<MSEdge> router(MSEdge::dictSize());
+//		MSEdge* startEdge = MSEdge::dictionary(roadPos1.roadId);
 
-		if (roadPos1.roadId.compare(roadPos2.roadId) == 0) {
+		if ( (roadPos1.roadId.compare(roadPos2.roadId) == 0) 
+			&& (roadPos1.pos <= roadPos2.pos) ) {
+			distance = roadPos2.pos - roadPos1.pos;
+		} else {
+			router.compute(MSEdge::dictionary(roadPos1.roadId), MSEdge::dictionary(roadPos2.roadId), NULL,
+				MSNet::getInstance()->getCurrentTimeStep(), edges);
+			if (edges.size() != 0) {
+				distance = -roadPos1.pos;
+				for (std::vector<const MSEdge*>::iterator edge=edges.begin(); edge!=edges.end(); edge++) {
+					lanes = (*edge)->getLanes();
+					distance += (*lanes)[0]->getShape().length();
+				}
+				lanes = MSEdge::dictionary(roadPos2.roadId)->getLanes();
+				distance -= ((*lanes)[0]->getShape().length() - roadPos2.pos);
+			}
+		}
+/*		if (roadPos1.roadId.compare(roadPos2.roadId) == 0) {
 			// both positions are on the same edge
 			if (roadPos1.pos <= roadPos2.pos) {
 				distance = roadPos2.pos - roadPos1.pos;
@@ -1319,9 +1337,10 @@ throw(TraCIException)
 				lanes = MSEdge::dictionary(roadPos2.roadId)->getLanes();
 				distance -= ((*lanes)[0]->getShape().length() - roadPos2.pos);
 			}
-		}
+		}	*/
 	} else {
-		// correct the distance type for response in case it was not valid (air distance is default)
+		// compute air distance (default)
+		// correct the distance type in case it was not valid
 		distType = REQUEST_AIRDIST;
 		distance = GeomHelper::distance(pos1, pos2);
 	}

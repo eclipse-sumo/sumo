@@ -207,6 +207,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\traci-server\TraCIDijkstraRouter.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\traci-server\TraCIHandler.h"
 				>
 			</File>
