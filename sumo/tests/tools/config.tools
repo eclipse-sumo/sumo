@@ -1,0 +1,4 @@
+import_config_file:../config_all
+binary:$TEXTTEST_HOME/toolrunner.py
+copy_test_path:routes.rou.xml
+copy_test_path:routes2.rou.xml
