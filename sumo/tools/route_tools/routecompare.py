@@ -10,8 +10,8 @@ a similarity for any two routes based on the number of common edges
 and determining a maximum weighted matching between the route sets.
 It needs at least two parameters, which are the route sets to compare.
 Optionally a district file may be given, then only routes with
-the same origin and destination district are matched
- 
+the same origin and destination district are matched.
+
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
@@ -74,7 +74,7 @@ def compare(first, second):
 def matching(routeIDs1, routeIDs2, similarityMatrix, match):
     matchVal = 0
     for id1 in routeIDs1:
-        maxMatch = 0
+        maxMatch = -1
         matchId = ""
         for id2 in routeIDs2:
             if id2 not in match and similarityMatrix[id1][id2] > maxMatch:
@@ -83,9 +83,6 @@ def matching(routeIDs1, routeIDs2, similarityMatrix, match):
         if matchId:
             match[matchId] = id1
             matchVal += maxMatch
-        else:
-            print "Warning! No match for %s." % id1
-    print float(matchVal) / len(routeIDs1) / SCALE
     return matchVal
 
 class Node:
@@ -197,7 +194,6 @@ def maxMatching(routeIDs1, routeIDs2, similarityMatrix, match):
         if v.match:
             match[v.routeID] = v.match.routeID
             matchVal += similarityMatrix[v.match.routeID][v.routeID]
-    print float(matchVal) / len(routeIDs1) / SCALE, len(match), len(V)
     return matchVal
 
 
@@ -208,6 +204,8 @@ optParser.add_option("-s", "--simple-match", action="store_true", dest="simple",
                      default=False, help="use simple matching algorithm")
 optParser.add_option("-p", "--print-matching", action="store_true", dest="printmatch",
                      default=False, help="print the resulting matching")
+optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+                     default=False, help="print more info")
 (options, args) = optParser.parse_args()
 
 
@@ -237,7 +235,7 @@ if options.districts:
                 routeMatrix[source] = {}
             if not sink in routeMatrix[source]:
                 routeMatrix[source][sink] = []
-            routeMatrix[source][sink].append(routeID)        
+            routeMatrix[source][sink].append(routeID)    
 else:
     for routes, routeMatrix in [(routes1, routeMatrix1), (routes2, routeMatrix2)]:
         routeMatrix["dummySource"] = {}
@@ -247,22 +245,29 @@ match = {}
 totalMatch = 0
 for source in routeMatrix1.iterkeys():
     if not source in routeMatrix2:
-        print "Warning! No routes starting at %s in second route set" % source
+        if options.verbose:
+            print "Warning! No routes starting at %s in second route set" % source
         continue
     for sink, routeIDs1 in routeMatrix1[source].iteritems():
         if not sink in routeMatrix2[source]:
-            print "Warning! No routes starting at %s and ending at %s in second route set" % (source, sink)
+            if options.verbose:
+                print "Warning! No routes starting at %s and ending at %s in second route set" % (source, sink)
             continue
         routeIDs2 = routeMatrix2[source][sink]
+        if options.verbose and len(routeIDs1) != len(routeIDs2):
+            print "Warning! Different route set sizes for start '%s' and end '%s'." % (source, sink)
         similarityMatrix = {}
         for id1 in routeIDs1:
             similarityMatrix[id1] = {}
             for id2 in routeIDs2:
                 similarityMatrix[id1][id2] = compare(routes1[id1], routes2[id2])
         if options.simple:
-            totalMatch += matching(routeIDs1, routeIDs2, similarityMatrix, match)
+            matchVal = matching(routeIDs1, routeIDs2, similarityMatrix, match)
         else:
-            totalMatch += maxMatching(routeIDs1, routeIDs2, similarityMatrix, match)
+            matchVal = maxMatching(routeIDs1, routeIDs2, similarityMatrix, match)
+        totalMatch += matchVal
+        if options.verbose:
+            print source, sink, float(matchVal) / len(routeIDs1) / SCALE
 if options.printmatch:
     for r2, r1 in match.iteritems():
         print r1, r2
