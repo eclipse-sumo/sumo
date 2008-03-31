@@ -485,7 +485,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs)
     }
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("to-edge", id)) {
+    if(!attrs.setIDFromAttribues("lane", id)) {
         myCurrentIsBroken = true;
         return;
     }
