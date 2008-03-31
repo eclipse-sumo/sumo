@@ -123,6 +123,9 @@ def doCLogitAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertic
         stable = False
     else:
         stable = True
+    
+    if notstable < len(net._edges)*0.05 and iter > 20:
+        stable = True
      
     return stable
 

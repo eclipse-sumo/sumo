@@ -193,29 +193,28 @@ def main():
         iter = 1
         newRoutes = 0
         stable = False
-        # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
-        if counter == 0:
-            newRoutes = net.calcPaths(options.verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort)
-            foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
-        if options.verbose:
-            print 'KPaths:', KPaths 
-            print 'number of new routes:', newRoutes
-        
+
         # execute the traffic assignment based on the C-Logit Model 
         while not stable or newRoutes > 0:
             foutlog.write('- SUE iteration:%s\n' %iter)
-            
+            # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
+            if counter == 0 and KPaths > 1:
+                newRoutes = net.calcPaths(options.verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort)
+                foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
+            else:
+                newRoutes = findNewPath(startVertices, endVertices, net, iter, newRoutes, matrixPshort)
+          
+            if options.verbose:
+                print 'KPaths:', KPaths 
+                print 'number of new routes:', newRoutes
+                        
             # the parameter in the MSA algorithm     
             alpha = SUEk1/float(SUEk2 + iter)
             if options.verbose:
                 print 'iteration:', iter
                 print 'alpha:', alpha
                 print 'SUETolerance:', SUETolerance
-                       
-            newRoutes = findNewPath(startVertices, endVertices, net, iter, newRoutes, matrixPshort)
-            if options.verbose:
-                print 'number of new routes:', newRoutes                 
-                                 
+                    
             # The matrixPlong and the matrixTruck should be added when considering the long-distance trips and the truck trips.
             stable = doCLogitAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter)
             
