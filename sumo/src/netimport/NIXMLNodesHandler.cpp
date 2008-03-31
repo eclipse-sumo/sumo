@@ -81,10 +81,8 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
     if (element!=SUMO_TAG_NODE) {
         return;
     }
-    try {
-        // retrieve the id of the node
-        myID = attrs.getString(SUMO_ATTR_ID);
-    } catch (EmptyData &) {
+    // get the id, report a warning if not given or empty...
+    if(!attrs.setIDFromAttribues("node", myID), false) {
         WRITE_WARNING("No node id given... Skipping.");
         return;
     }

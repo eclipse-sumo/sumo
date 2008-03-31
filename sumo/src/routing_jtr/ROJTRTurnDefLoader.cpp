@@ -245,11 +245,9 @@ ROJTRTurnDefLoader::beginInterval(const SUMOSAXAttributes &attrs)
 void
 ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs)
 {
+    // get the id, report an error if not given or empty...
     string id;
-    try {
-        id = attrs.getString(SUMO_ATTR_ID);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("The id of an edge is missing within a 'from-edge' tag.");
+    if(!attrs.setIDFromAttribues("from-edge", id)) {
         return;
     }
     //
@@ -265,11 +263,9 @@ ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs)
 void
 ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs)
 {
+    // get the id, report an error if not given or empty...
     string id;
-    try {
-        id = attrs.getString(SUMO_ATTR_ID);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("The id of an edge is missing within a 'to-edge' tag.");
+    if(!attrs.setIDFromAttribues("to-edge", id)) {
         return;
     }
     //

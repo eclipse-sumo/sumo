@@ -88,10 +88,8 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         // initialise the edge
         myCurrentEdge = 0;
         myExpansions.clear();
-        // retrieve the id of the edge
-        myCurrentID = attrs.getStringSecure(SUMO_ATTR_ID, "");
-        if (myCurrentID=="") {
-            MsgHandler::getErrorInstance()->inform("Missing edge id.");
+        // get the id, report an error if not given or empty...
+        if(!attrs.setIDFromAttribues("edge", myCurrentID)) {
             return;
         }
         // use default values, first

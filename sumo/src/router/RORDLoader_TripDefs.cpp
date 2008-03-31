@@ -101,10 +101,9 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
     }
     // check whether a vehicle type shall be parsed
     if (element==SUMO_TAG_VTYPE) {
-        // get and check the vtype-id
-        string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
-        if (id=="") {
-            MsgHandler::getErrorInstance()->inform("A vehicle type with an unknown id occured.");
+        // get the id, report an error if not given or empty...
+        string id;
+        if(!attrs.setIDFromAttribues("vtype", id)) {
             return;
         }
         // get the rest of the parameter
@@ -143,10 +142,9 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
 std::string
 RORDLoader_TripDefs::getVehicleID(const SUMOSAXAttributes &attrs)
 {
+    // get the id, report an error if not given or empty...
     string id;
-    try {
-        id = attrs.getString(SUMO_ATTR_ID);
-    } catch (EmptyData &) {}
+    attrs.setIDFromAttribues("to-edge", id, false);
     // get a valid vehicle id
     while (id.length()==0) {
         string tmp = myIdSupplier.getNext();

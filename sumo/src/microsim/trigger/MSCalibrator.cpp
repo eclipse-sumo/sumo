@@ -256,6 +256,11 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
     }
     // vehicle-type distributions
     if (element==SUMO_TAG_VTYPEDISTELEM) {
+        // get the id, report an error if not given or empty...
+        string id;
+        if(!attrs.setIDFromAttribues("vtypedistelem", id)) {
+            return;
+        }
         SUMOReal prob = -1;
         try {
             prob = attrs.getFloatSecure(SUMO_ATTR_PROB, -1);
@@ -265,14 +270,6 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
         }
         if (prob<=0) {
             MsgHandler::getErrorInstance()->inform("False probability while parsing calibrator '" + myParent.getID() + "' (" + toString(prob) + ").");
-            return;
-        }
-        // get the id
-        string id;
-        try {
-            id = attrs.getString(SUMO_ATTR_ID);
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Missing id of a vtype-object.");
             return;
         }
         MSVehicleType *vtype = MSNet::getInstance()->getVehicleControl().getVType(id);

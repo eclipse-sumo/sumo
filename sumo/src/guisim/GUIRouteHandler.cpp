@@ -84,8 +84,9 @@ GUIRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
         RGBColor::parseColor(
             attrs.getStringSecure(SUMO_ATTR_COLOR, "1,1,0"));
     // !!! unsecure
-    try {
-        string id = attrs.getString(SUMO_ATTR_ID);
+    // get the id, report an error if not given or empty...
+    string id;
+    if(attrs.setIDFromAttribues("vtype", id)) {
         try {
             addParsedVehicleType(id,
                                  attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
@@ -102,8 +103,6 @@ GUIRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("One of an vehtype's attributes must be numeric but is not.");
         }
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing id of a vehicle-object.");
     }
 }
 

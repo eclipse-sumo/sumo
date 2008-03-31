@@ -362,6 +362,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\utils\xml\SUMOSAXAttributes.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOSAXAttributesImpl_Xerces.cpp"
 				>
 			</File>

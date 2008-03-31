@@ -148,10 +148,14 @@ MSLaneSpeedTrigger *
 NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
         const std::string &base) throw(InvalidArgument)
 {
+    // get the id, throw if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("lane speed trigger", id, false)) {
+        throw InvalidArgument("A lane speed trigger definition does not contain an id");
+    }
     // get the file name to read further definitions from
     string file = getFileName(attrs, base);
     // lane speed trigger
-    string id = attrs.getString(SUMO_ATTR_ID);
     string objectid = attrs.getString(SUMO_ATTR_OBJECTID);
     std::vector<MSLane*> lanes;
     StringTokenizer st(objectid, ";");
@@ -177,9 +181,13 @@ MSEmitter *
 NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
         const std::string &base) throw(InvalidArgument)
 {
+    // get the id, throw if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("emitter", id, false)) {
+        throw InvalidArgument("An emitter does not contain an id");
+    }
     // get the file name to read further definitions from
     string file = getFileName(attrs, base);
-    string id = attrs.getString(SUMO_ATTR_ID);
     MSLane *lane = getLane(attrs, "emitter", id);
     SUMOReal pos = getPosition(attrs, lane, "emitter", id);
     return buildLaneEmitTrigger(net, id, lane, pos, file);
@@ -189,7 +197,11 @@ NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net, const SUMOSAXAttribut
 MSBusStop *
 NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument)
 {
-    string id = attrs.getString(SUMO_ATTR_ID);
+    // get the id, throw if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("bus stop", id, false)) {
+        throw InvalidArgument("A bus stop does not contain an id");
+    }
     // get the lane
     string objectid = attrs.getString(SUMO_ATTR_OBJECTID);
     MSLane *lane = getLane(attrs, "bus_stop", id);
@@ -224,7 +236,11 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
 MSE1VehicleActor *
 NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument)
 {
-    string id = attrs.getString(SUMO_ATTR_ID);
+    // get the id, throw if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("vehicle actor", id, false)) {
+        throw InvalidArgument("A vehicle actor does not contain an id");
+    }
     MSLane *lane = getLane(attrs, "vehicle_actor", id);
     SUMOReal pos = getPosition(attrs, lane, "vehicle_actor", id);
     unsigned int cellid = attrs.getInt(SUMO_ATTR_TO);
@@ -239,9 +255,13 @@ MSCalibrator *
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &attrs,
         const std::string &base) throw(InvalidArgument)
 {
+    // get the id, throw if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("calibrator", id, false)) {
+        throw InvalidArgument("A calibrator does not contain an id");
+    }
     // get the file name to read further definitions (route distributions) from
     string file = getFileName(attrs, base);
-    string id = attrs.getString(SUMO_ATTR_ID);
     MSLane *lane = getLane(attrs, "calibrator", id);
     SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
     return buildLaneCalibrator(net, id, lane, pos, file);
@@ -254,13 +274,17 @@ METriggeredCalibrator *
 NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &attrs,
         const std::string &base) throw(InvalidArgument)
 {
+    // get the id, throw if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("calibrator", id, false)) {
+        throw InvalidArgument("A calibrator does not contain an id");
+    }
     // get the file name to read further definitions from
     string file = getFileName(attrs, base);
     string rfile = attrs.getStringSecure(SUMO_ATTR_RFILE, "");
     if (rfile.length()!=0&&!FileHelpers::isAbsolute(rfile)) {
         rfile = FileHelpers::getConfigurationRelative(base, rfile);
     }
-    string id = attrs.getString(SUMO_ATTR_ID);
     MSLane *lane = getLane(attrs, "calibrator", id);
     SUMOReal pos = getPosition(attrs, lane, "calibrator", id);
     MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(lane->getEdge());
@@ -279,7 +303,11 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
 METriggeredScaler *
 NLTriggerBuilder::parseAndBuildScaler(MSNet &net, const SUMOSAXAttributes &attrs) throw(InvalidArgument)
 {
-    string id = attrs.getString(SUMO_ATTR_ID);
+    // get the id, throw if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("scaler", id, false)) {
+        throw InvalidArgument("A scaler does not contain an id");
+    }
     MSLane *lane = getLane(attrs, "scaler", id);
     SUMOReal pos = getPosition(attrs, lane, "scaler", id);
     SUMOReal scale;
@@ -307,9 +335,13 @@ MSTriggeredRerouter *
 NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &attrs,
                                         const std::string &base) throw(InvalidArgument)
 {
+    // get the id, throw if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("rerouter", id, false)) {
+        throw InvalidArgument("A rerouter does not contain an id");
+    }
     // get the file name to read further definitions from
     string file = getFileName(attrs, base);
-    string id = attrs.getString(SUMO_ATTR_ID);
     string objectid = attrs.getString(SUMO_ATTR_OBJECTID);
     std::vector<MSEdge*> edges;
     StringTokenizer st(objectid, ";");

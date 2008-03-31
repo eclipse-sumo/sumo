@@ -72,51 +72,50 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
     if (element!=SUMO_TAG_TYPE) {
         return;
     }
+    // get the id, report a warning if not given or empty...
     string id;
+    if(!attrs.setIDFromAttribues("node", id), false) {
+        WRITE_WARNING("No type id given... Skipping.");
+        return;
+    }
+    int priority = 0;
+    int noLanes = 0;
+    SUMOReal speed = 0;
+    // get the priority
     try {
-        // parse the id
-        id = attrs.getString(SUMO_ATTR_ID);
-        int priority = 0;
-        int noLanes = 0;
-        SUMOReal speed = 0;
-        // get the priority
-        try {
-            priority = attrs.getIntSecure(SUMO_ATTR_PRIORITY, myTypeCont.getDefaultPriority());
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Not numeric value for Priority (at tag ID='" + id + "').");
+        priority = attrs.getIntSecure(SUMO_ATTR_PRIORITY, myTypeCont.getDefaultPriority());
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("Not numeric value for Priority (at tag ID='" + id + "').");
+    }
+    // get the number of lanes
+    try {
+        noLanes = attrs.getIntSecure(SUMO_ATTR_NOLANES, myTypeCont.getDefaultNoLanes());
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("Not numeric value for NoLanes (at tag ID='" + id + "').");
+    }
+    // get the speed
+    try {
+        speed = attrs.getFloatSecure(SUMO_ATTR_SPEED, (SUMOReal) myTypeCont.getDefaultSpeed());
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("Not numeric value for Speed (at tag ID='" + id + "').");
+    }
+    // get the function
+    NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_NORMAL;
+    string functionS = attrs.getStringSecure(SUMO_ATTR_FUNCTION, "normal");
+    if (functionS=="source") {
+        function = NBEdge::EDGEFUNCTION_SOURCE;
+    } else if (functionS=="sink") {
+        function = NBEdge::EDGEFUNCTION_SINK;
+    } else if (functionS!="normal"&&functionS!="") {
+        MsgHandler::getErrorInstance()->inform("Unknown function '" + functionS + "' occured.");
+    }
+    // build the type
+    if (!MsgHandler::getErrorInstance()->wasInformed()) {
+        NBType *type = new NBType(id, noLanes, speed, priority, function);
+        if (!myTypeCont.insert(type)) {
+            MsgHandler::getErrorInstance()->inform("Duplicate type occured. ID='" + id + "'");
+            delete type;
         }
-        // get the number of lanes
-        try {
-            noLanes = attrs.getIntSecure(SUMO_ATTR_NOLANES, myTypeCont.getDefaultNoLanes());
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Not numeric value for NoLanes (at tag ID='" + id + "').");
-        }
-        // get the speed
-        try {
-            speed = attrs.getFloatSecure(SUMO_ATTR_SPEED, (SUMOReal) myTypeCont.getDefaultSpeed());
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Not numeric value for Speed (at tag ID='" + id + "').");
-        }
-        // get the function
-        NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_NORMAL;
-        string functionS = attrs.getStringSecure(SUMO_ATTR_FUNCTION, "normal");
-        if (functionS=="source") {
-            function = NBEdge::EDGEFUNCTION_SOURCE;
-        } else if (functionS=="sink") {
-            function = NBEdge::EDGEFUNCTION_SINK;
-        } else if (functionS!="normal"&&functionS!="") {
-            MsgHandler::getErrorInstance()->inform("Unknown function '" + functionS + "' occured.");
-        }
-        // build the type
-        if (!MsgHandler::getErrorInstance()->wasInformed()) {
-            NBType *type = new NBType(id, noLanes, speed, priority, function);
-            if (!myTypeCont.insert(type)) {
-                MsgHandler::getErrorInstance()->inform("Duplicate type occured. ID='" + id + "'");
-                delete type;
-            }
-        }
-    } catch (EmptyData &) {
-        WRITE_WARNING("No id given... Skipping.");
     }
 }
 

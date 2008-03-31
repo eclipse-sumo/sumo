@@ -72,66 +72,64 @@ NISUMOHandlerNodes::myStartElement(SumoXMLTag element,
 void
 NISUMOHandlerNodes::addNode(const SUMOSAXAttributes &attrs)
 {
+    // get the id, report an error if not given or empty...
     string id;
-    try {
-        // retrieve the id of the node
-        id = attrs.getString(SUMO_ATTR_ID);
-        /*        string name = id;
-                // retrieve the name of the node
-                try {
-                    name = attrs.getString(SUMO_ATTR_NAME);
-                } catch (EmptyData &) {
-                }*/
-        string typestr;
-        // get the type of the node
-        try {
-            typestr = attrs.getString(SUMO_ATTR_TYPE);
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("The type of the junction '" + id + "' is not empty.");
-            return;
-        }
-        // check whether the type string is valid by converting it to the known
-        //  junction types
-        NBNode::BasicNodeType type = NBNode::NODETYPE_UNKNOWN;
-        if (typestr=="none") {
-            type = NBNode::NODETYPE_NOJUNCTION;
-        } else if (typestr=="priority") {
-            type = NBNode::NODETYPE_PRIORITY_JUNCTION;
-        } else if (typestr=="right_before_left") {
-            type = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
-        } else if (typestr=="DEAD_END") {
-            type = NBNode::NODETYPE_DEAD_END;
-        }
-        if (type<0) {
-            MsgHandler::getErrorInstance()->inform("The type '" + typestr + "' of junction '" + id + "is not known.");
-            return;
-        }
-        // get the position of the node
-        SUMOReal x, y;
-        x = attrs.getFloatSecure(SUMO_ATTR_X, -1);
-        y = attrs.getFloatSecure(SUMO_ATTR_Y, -1);
-        if (x<0||y<0) {
-            if (x<0) {
-                MsgHandler::getErrorInstance()->inform("The x-position of the junction '" + id + "' is not valid.");
-            }
-            if (y<0) {
-                MsgHandler::getErrorInstance()->inform("The y-position of the junction '" + id + "' is not valid.");
-            }
-            return;
-        }
-        // get the key
-        string key;
-        try {
-            key = attrs.getString(SUMO_ATTR_KEY);
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("The key is missing for junction '" + id + "'.");
-        }
-        // build the node
-        throw 1; // !!! deprecated
-        myNodeCont.insert(new NBNode(id, Position2D(x, y), type));
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("A junction without an id occured.");
+    if(!attrs.setIDFromAttribues("junction", id)) {
+        return;
     }
+    /*        string name = id;
+        // retrieve the name of the node
+        try {
+            name = attrs.getString(SUMO_ATTR_NAME);
+        } catch (EmptyData &) {
+        }*/
+    string typestr;
+    // get the type of the node
+    try {
+        typestr = attrs.getString(SUMO_ATTR_TYPE);
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("The type of the junction '" + id + "' is not empty.");
+        return;
+    }
+    // check whether the type string is valid by converting it to the known
+    //  junction types
+    NBNode::BasicNodeType type = NBNode::NODETYPE_UNKNOWN;
+    if (typestr=="none") {
+        type = NBNode::NODETYPE_NOJUNCTION;
+    } else if (typestr=="priority") {
+        type = NBNode::NODETYPE_PRIORITY_JUNCTION;
+    } else if (typestr=="right_before_left") {
+        type = NBNode::NODETYPE_RIGHT_BEFORE_LEFT;
+    } else if (typestr=="DEAD_END") {
+        type = NBNode::NODETYPE_DEAD_END;
+    }
+    if (type<0) {
+        MsgHandler::getErrorInstance()->inform("The type '" + typestr + "' of junction '" + id + "is not known.");
+        return;
+    }
+    // get the position of the node
+    SUMOReal x, y;
+    x = attrs.getFloatSecure(SUMO_ATTR_X, -1);
+    y = attrs.getFloatSecure(SUMO_ATTR_Y, -1);
+    if (x<0||y<0) {
+        if (x<0) {
+            MsgHandler::getErrorInstance()->inform("The x-position of the junction '" + id + "' is not valid.");
+        }
+        if (y<0) {
+            MsgHandler::getErrorInstance()->inform("The y-position of the junction '" + id + "' is not valid.");
+        }
+        return;
+    }
+    // get the key
+    string key;
+    try {
+        key = attrs.getString(SUMO_ATTR_KEY);
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("The key is missing for junction '" + id + "'.");
+    }
+    // build the node
+    throw 1; // !!! deprecated
+    myNodeCont.insert(new NBNode(id, Position2D(x, y), type));
 }
 
 

@@ -207,9 +207,8 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
 void
 MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
 {
-    // !!! unsecure
-    try {
-        string id = attrs.getString(SUMO_ATTR_ID);
+    string id;
+    if(attrs.setIDFromAttribues("vtype", id)) {
         try {
             addParsedVehicleType(id,
                                  attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
@@ -225,8 +224,6 @@ MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
         } catch (NumberFormatException &) {
             MsgHandler::getErrorInstance()->inform("One of an vehtype's attributes must be numeric but is not.");
         }
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing id of a vehicle-object.");
     }
 }
 

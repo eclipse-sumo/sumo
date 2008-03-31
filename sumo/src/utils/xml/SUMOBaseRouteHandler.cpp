@@ -102,10 +102,8 @@ bool
 SUMOBaseRouteHandler::openVehicle(const SUMOSAXAttributes &attrs) throw()
 {
     myAmInEmbeddedMode = true;
-    try {
-        myActiveVehicleID = attrs.getString(SUMO_ATTR_ID);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing id of a vehicle-object.");
+    // get the id, report an error if not given or empty...
+    if(!attrs.setIDFromAttribues("vehicle", myActiveVehicleID)) {
         return false;
     }
 

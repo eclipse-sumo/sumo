@@ -96,11 +96,12 @@ void
 ODDistrictHandler::openDistrict(const SUMOSAXAttributes &attrs) throw()
 {
     myCurrentDistrict = 0;
-    try {
-        myCurrentDistrict = new ODDistrict(attrs.getString(SUMO_ATTR_ID));
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("A district without an id occured.");
+    // get the id, report an error if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("district", id)) {
+        return;
     }
+    myCurrentDistrict = new ODDistrict(id);
 }
 
 
@@ -132,12 +133,9 @@ ODDistrictHandler::parseConnection(const SUMOSAXAttributes &attrs, const std::st
     if (myCurrentDistrict==0) {
         return std::pair<std::string, SUMOReal>("", -1);
     }
-    // get the id first
+    // get the id, report an error if not given or empty...
     string id;
-    try {
-        id = attrs.getString(SUMO_ATTR_ID);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("A " + type + " without an id occured within district '" + myCurrentDistrict->getID() + "'.");
+    if(!attrs.setIDFromAttribues(type.c_str(), id)) {
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the weight

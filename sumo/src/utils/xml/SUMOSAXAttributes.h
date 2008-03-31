@@ -4,7 +4,7 @@
 /// @date    Fri, 30 Mar 2007
 /// @version $Id: SUMOSAXAttributes.h 5002 2008-02-01 13:46:21Z dkrajzew $
 ///
-//
+// Encapsulated SAX-Attributes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -41,23 +41,49 @@
 // ===========================================================================
 /**
  * @class SUMOSAXAttributes
- * @brief 
+ * @brief Encapsulated SAX-Attributes
  *
+ * This class is an interface for using encapsulated SAX-attributes. 
  */
 class SUMOSAXAttributes 
 {
 public:
+    /// @brief Constructor
     SUMOSAXAttributes() throw() { }
 
 
+    /// @brief Destructor
     virtual ~SUMOSAXAttributes() throw() { }
 
 
-    //{ methods for retrieving attribute values
-    /**
-     * @brief Returns the information whether the named (by its enum-value) attribute is within the current list
+    /** @brief Tries to read the id from the attributes, stores it into "id" if given
+     *
+     * If there is no attribute named "id" or it is empty, false is returned.
+     *  An error is reported to error message handler if "report" is true.
+     * Otherwise, the id is stored in the variable "id" and true is returned.
+     *
+     * @param[in] objecttype The name of the parsed object type; used for error message generation
+     * @param[out] id The read id is stored herein (or "" if no id is given)
+     * @param[in] report Whether missing id shall be reported to MsgHandler::getErrorInstance
+     * @return Whether a valid id could be retrieved
+     */
+    bool setIDFromAttribues(const char *objecttype, std::string &id, 
+        bool report=true) const throw();
+
+
+
+    //{ virtual methods for retrieving attribute values
+    /** @brief Returns the information whether the named (by its enum-value) attribute is within the current list
      */
     virtual bool hasAttribute(SumoXMLAttr id) const throw() = 0;
+
+
+    /** @brief Returns the information whether the named attribute is within the current list
+     *
+     * @param[in] id The name of the attribute to search for
+     * @return Whether the named attribute is within the attributes
+     */
+    virtual bool hasAttribute(const std::string &id) const throw() = 0;
 
 
     /**
@@ -104,6 +130,7 @@ public:
      */
     virtual int getInt(SumoXMLAttr id) const throw(EmptyData, NumberFormatException) = 0;
 
+
     /**
      * @brief Returns the int-value of the named (by its enum-value) attribute
      *
@@ -132,6 +159,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
     virtual std::string getString(SumoXMLAttr id) const throw(EmptyData) = 0;
+
 
     /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
@@ -176,11 +204,6 @@ public:
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
      */
     virtual SUMOReal getFloatSecure(SumoXMLAttr id, SUMOReal def) const throw(EmptyData, NumberFormatException) = 0;
-
-    /**
-     * @brief Returns the information whether the named attribute is within the current list
-     */
-    virtual bool hasAttribute(const std::string &id) const throw() = 0;
 
 
     /**

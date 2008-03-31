@@ -394,24 +394,18 @@ void
 NLHandler::chooseEdge(const SUMOSAXAttributes &attrs)
 {
     myCurrentIsBroken = false;
-    // get the id
+    // get the id, report an error if not given or empty...
     string id;
-    try {
-        id = attrs.getString(SUMO_ATTR_ID);
-        if (id=="") {
-            throw EmptyData();
-        }
-        // omit internal edges if not wished
-        if (!MSGlobals::gUsingInternalLanes&&id[0]==':') {
-            myCurrentIsInternalToSkip = true;
-            return;
-        }
-        myCurrentIsInternalToSkip = false;
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing id of an edge-object.");
+    if(!attrs.setIDFromAttribues("edge", id)) {
         myCurrentIsBroken = true;
         return;
     }
+    // omit internal edges if not wished
+    if (!MSGlobals::gUsingInternalLanes&&id[0]==':') {
+        myCurrentIsInternalToSkip = true;
+        return;
+    }
+    myCurrentIsInternalToSkip = false;
 
     // get the function
     string func;
@@ -489,29 +483,26 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs)
     if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
         return;
     }
+    // get the id, report an error if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("to-edge", id)) {
+        myCurrentIsBroken = true;
+        return;
+    }
     try {
-        string id = attrs.getString(SUMO_ATTR_ID);
-        if (id=="") {
-            throw EmptyData();
-        }
-        try {
-            myCurrentLaneID = id;
-            myLaneIsDepart = attrs.getBool( SUMO_ATTR_DEPART);
-            myCurrentMaxSpeed = attrs.getFloat( SUMO_ATTR_MAXSPEED);
-            myCurrentLength = attrs.getFloat( SUMO_ATTR_LENGTH);
-            myVehicleClasses = attrs.getStringSecure(SUMO_ATTR_VCLASSES, "");
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Missing attribute in a lane-object (id='" + id + "').\n Can not build according edge.");
-            myCurrentIsBroken = true;
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("One of a lane's attributes must be numeric but is not (id='" + id + "').\n Can not build according edge.");
-            myCurrentIsBroken = true;
-        } catch (BoolFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Value of depart definition of lane '" + id + "' is invalid.\n Can not build according edge.");
-            myCurrentIsBroken = true;
-        }
+        myCurrentLaneID = id;
+        myLaneIsDepart = attrs.getBool( SUMO_ATTR_DEPART);
+        myCurrentMaxSpeed = attrs.getFloat( SUMO_ATTR_MAXSPEED);
+        myCurrentLength = attrs.getFloat( SUMO_ATTR_LENGTH);
+        myVehicleClasses = attrs.getStringSecure(SUMO_ATTR_VCLASSES, "");
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing id of a lane-object.\n Can not build according edge.");
+        MsgHandler::getErrorInstance()->inform("Missing attribute in a lane-object (id='" + id + "').\n Can not build according edge.");
+        myCurrentIsBroken = true;
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("One of a lane's attributes must be numeric but is not (id='" + id + "').\n Can not build according edge.");
+        myCurrentIsBroken = true;
+    } catch (BoolFormatException &) {
+        MsgHandler::getErrorInstance()->inform("Value of depart definition of lane '" + id + "' is invalid.\n Can not build according edge.");
         myCurrentIsBroken = true;
     }
 }
@@ -574,22 +565,20 @@ NLHandler::openAllowedEdge(const SUMOSAXAttributes &attrs)
     if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
         return;
     }
+    // get the id, report an error if not given or empty...
     string id;
-    try {
-        id = attrs.getString(SUMO_ATTR_ID);
-        MSEdge *edge = MSEdge::dictionary(id);
-        if (edge==0) {
-            MsgHandler::getErrorInstance()->inform("Trying to reference an unknown edge ('" + id + "') in edge '" + myEdgeControlBuilder.getActiveEdge()->getID() + "'.");
-            myCurrentIsBroken = true;
-            return;
-        }
-        myEdgeControlBuilder.openAllowedEdge(edge);
-        // continuation
-        myContinuations.add(edge, myEdgeControlBuilder.getActiveEdge());
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing id of an cedge-object.");
-        myCurrentIsBroken = true;
+    if(!attrs.setIDFromAttribues("cedge", id)) {
+        return;
     }
+    MSEdge *edge = MSEdge::dictionary(id);
+    if (edge==0) {
+        MsgHandler::getErrorInstance()->inform("Trying to reference an unknown edge ('" + id + "') in edge '" + myEdgeControlBuilder.getActiveEdge()->getID() + "'.");
+        myCurrentIsBroken = true;
+        return;
+    }
+    myEdgeControlBuilder.openAllowedEdge(edge);
+    // continuation
+    myContinuations.add(edge, myEdgeControlBuilder.getActiveEdge());
 }
 
 
@@ -609,31 +598,27 @@ NLHandler::closeAllowedEdge()
 void
 NLHandler::openJunction(const SUMOSAXAttributes &attrs)
 {
-    string id;
     myCurrentIsBroken = false;
+    // get the id, report an error if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("junction", id)) {
+        myCurrentIsBroken = true;
+        return;
+    }
     try {
-        id = attrs.getString(SUMO_ATTR_ID);
-        if (id=="") {
-            throw EmptyData();
-        }
-        try {
-            myJunctionControlBuilder.openJunction(id,
-                                                  attrs.getStringSecure(SUMO_ATTR_KEY, ""),
-                                                  attrs.getString(SUMO_ATTR_TYPE),
-                                                  attrs.getFloat( SUMO_ATTR_X),
-                                                  attrs.getFloat( SUMO_ATTR_Y));
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Missing attribute in junction '" + id + "'.\n Can not build according junction.");
-            myCurrentIsBroken = true;
-        } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what() + string("\n Can not build according junction."));
-            myCurrentIsBroken = true;
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Position of junction '" + id + "' is not numeric.\n Can not build according junction.");
-            myCurrentIsBroken = true;
-        }
+        myJunctionControlBuilder.openJunction(id,
+            attrs.getStringSecure(SUMO_ATTR_KEY, ""),
+            attrs.getString(SUMO_ATTR_TYPE),
+            attrs.getFloat( SUMO_ATTR_X),
+            attrs.getFloat( SUMO_ATTR_Y));
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing id of a junction-object.\n Can not build according junction.");
+        MsgHandler::getErrorInstance()->inform("Missing attribute in junction '" + id + "'.\n Can not build according junction.");
+        myCurrentIsBroken = true;
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what() + string("\n Can not build according junction."));
+        myCurrentIsBroken = true;
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("Position of junction '" + id + "' is not numeric.\n Can not build according junction.");
         myCurrentIsBroken = true;
     }
 }
@@ -683,13 +668,13 @@ NLHandler::openWAUT(const SUMOSAXAttributes &attrs)
 {
     myCurrentIsBroken = false;
     SUMOTime t;
-    std::string id, pro;
-    try {
-        id = attrs.getString(SUMO_ATTR_ID);
-    } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing id for a WAUT (attribute 'id').");
+    // get the id, report an error if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("waut", id)) {
         myCurrentIsBroken = true;
+        return;
     }
+    std::string pro;
     try {
         t = attrs.getIntSecure(SUMO_ATTR_REF_TIME, 0);
     } catch (NumberFormatException&) {
@@ -785,28 +770,28 @@ NLHandler::addWAUTJunction(const SUMOSAXAttributes &attrs)
 void
 NLHandler::addPOI(const SUMOSAXAttributes &attrs)
 {
+    // get the id, report an error if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("poi", id)) {
+        return;
+    }
     try {
-        string name = attrs.getString(SUMO_ATTR_ID);
-        try {
-            myShapeBuilder.addPoint(name,
-                                    attrs.getIntSecure(SUMO_ATTR_LAYER, 1),
-                                    attrs.getStringSecure(SUMO_ATTR_TYPE, ""),
-                                    RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, "1,0,0")),
-                                    attrs.getFloatSecure(SUMO_ATTR_X, INVALID_POSITION),
-                                    attrs.getFloatSecure(SUMO_ATTR_Y, INVALID_POSITION),
-                                    attrs.getStringSecure(SUMO_ATTR_LANE, ""),
-                                    attrs.getFloatSecure(SUMO_ATTR_POSITION, INVALID_POSITION));
-        } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-        } catch (OutOfBoundsException &) {
-            MsgHandler::getErrorInstance()->inform("Color definition of POI '" + name + "' seems to be broken.");
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("One of POI's '" + name + "' SUMOSAXAttributes should be numeric but is not.");
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("POI '" + name + "' misses an attribute.");
-        }
-    } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing name of a POI-object.");
+        myShapeBuilder.addPoint(id,
+            attrs.getIntSecure(SUMO_ATTR_LAYER, 1),
+            attrs.getStringSecure(SUMO_ATTR_TYPE, ""),
+            RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, "1,0,0")),
+            attrs.getFloatSecure(SUMO_ATTR_X, INVALID_POSITION),
+            attrs.getFloatSecure(SUMO_ATTR_Y, INVALID_POSITION),
+            attrs.getStringSecure(SUMO_ATTR_LANE, ""),
+            attrs.getFloatSecure(SUMO_ATTR_POSITION, INVALID_POSITION));
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
+    } catch (OutOfBoundsException &) {
+        MsgHandler::getErrorInstance()->inform("Color definition of POI '" + id + "' seems to be broken.");
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("One of POI's '" + id + "' SUMOSAXAttributes should be numeric but is not.");
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("POI '" + id + "' misses an attribute.");
     }
 }
 
@@ -814,23 +799,23 @@ NLHandler::addPOI(const SUMOSAXAttributes &attrs)
 void
 NLHandler::addPoly(const SUMOSAXAttributes &attrs)
 {
+    // get the id, report an error if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("poly", id)) {
+        return;
+    }
     try {
-        string name = attrs.getString(SUMO_ATTR_ID);
-        try {
-            myShapeBuilder.polygonBegin(name,
-                                        attrs.getIntSecure(SUMO_ATTR_LAYER, -1),
-                                        attrs.getStringSecure(SUMO_ATTR_TYPE, ""),
-                                        RGBColor::parseColor(attrs.getString( SUMO_ATTR_COLOR)),
-                                        attrs.getBoolSecure( SUMO_ATTR_FILL, false));
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("The color of polygon '" + name + "' could not be parsed.");
-        } catch (BoolFormatException &) {
-            MsgHandler::getErrorInstance()->inform("The attribute 'fill' of polygon '" + name + "' is not a valid bool.");
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Polygon '" + name + "' misses an attribute.");
-        }
-    } catch (EmptyData&) {
-        MsgHandler::getErrorInstance()->inform("Missing name of a poly-object.");
+        myShapeBuilder.polygonBegin(id,
+            attrs.getIntSecure(SUMO_ATTR_LAYER, -1),
+            attrs.getStringSecure(SUMO_ATTR_TYPE, ""),
+            RGBColor::parseColor(attrs.getString( SUMO_ATTR_COLOR)),
+            attrs.getBoolSecure( SUMO_ATTR_FILL, false));
+    } catch (NumberFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The color of polygon '" + id + "' could not be parsed.");
+    } catch (BoolFormatException &) {
+        MsgHandler::getErrorInstance()->inform("The attribute 'fill' of polygon '" + id + "' is not a valid bool.");
+    } catch (EmptyData &) {
+        MsgHandler::getErrorInstance()->inform("Polygon '" + id + "' misses an attribute.");
     }
 }
 
@@ -992,12 +977,9 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs)
 void
 NLHandler::addDetector(const SUMOSAXAttributes &attrs)
 {
-    // try to get the id first
+    // get the id, report an error if not given or empty...
     string id;
-    try {
-        id = attrs.getString(SUMO_ATTR_ID);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing id of a detector-object.");
+    if(!attrs.setIDFromAttribues("detector", id)) {
         return;
     }
     // try to get the type
@@ -1027,10 +1009,9 @@ NLHandler::addDetector(const SUMOSAXAttributes &attrs)
 void
 NLHandler::addE1Detector(const SUMOSAXAttributes &attrs)
 {
-    // try to get the id first
-    string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
-    if (id=="") {
-        MsgHandler::getErrorInstance()->inform("Missing id of a e1-detector-object.");
+    // get the id, report an error if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("e1-detector", id)) {
         return;
     }
     string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
@@ -1066,10 +1047,9 @@ NLHandler::addE1Detector(const SUMOSAXAttributes &attrs)
 void 
 NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes &attrs)
 {
-    // try to get the id first
-    string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
-    if (id=="") {
-        MsgHandler::getErrorInstance()->inform("Missing id of a vtypeprobe-object.");
+    // get the id, report an error if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("vtypeprobe", id)) {
         return;
     }
     string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
@@ -1100,10 +1080,9 @@ NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes &attrs)
 void
 NLHandler::addE2Detector(const SUMOSAXAttributes &attrs)
 {
-    // try to get the id first
-    string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
-    if (id=="") {
-        MsgHandler::getErrorInstance()->inform("Missing id of a e2-detector-object.");
+    // get the id, report an error if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("e2-detector", id)) {
         return;
     }
     // check whether this is a detector connected to a tls an optionally to a link
@@ -1186,10 +1165,9 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs)
 void
 NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs)
 {
-    // try to get the id first
-    string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
-    if (id=="") {
-        MsgHandler::getErrorInstance()->inform("Missing id of a e3-detector-object.");
+    // get the id, report an error if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("e3-detector", id)) {
         return;
     }
     // get the file name; it should not be empty
@@ -1268,19 +1246,17 @@ NLHandler::addE3Exit(const SUMOSAXAttributes &attrs)
 void
 NLHandler::addSource(const SUMOSAXAttributes &attrs)
 {
+    // get the id, report an error if not given or empty...
     string id;
+    if(!attrs.setIDFromAttribues("source", id)) {
+        return;
+    }
     try {
-        id = attrs.getString(SUMO_ATTR_ID);
-        try {
-            myTriggerBuilder.buildTrigger(myNet, attrs, getFileName());
-            return;
-        } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("The description of trigger '" + id + "' does not contain a needed value.");
-        }
+        myTriggerBuilder.buildTrigger(myNet, attrs, getFileName());
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing id of a detector-object.");
+        MsgHandler::getErrorInstance()->inform("The description of trigger '" + id + "' does not contain a needed value.");
     } catch (IOError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
@@ -1290,21 +1266,20 @@ NLHandler::addSource(const SUMOSAXAttributes &attrs)
 void
 NLHandler::addTrigger(const SUMOSAXAttributes &attrs)
 {
+    // get the id, report an error if not given or empty...
     string id;
+    if(!attrs.setIDFromAttribues("e3-detector", id)) {
+        return;
+    }
     try {
-        id = attrs.getString(SUMO_ATTR_ID);
-        try {
-            myTriggerBuilder.buildTrigger(myNet, attrs, getFileName());
-            return;
-        } catch (InvalidArgument &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("The description of the trigger '" + id + "' does not contain a needed value.");
-        } catch (IOError &e) {
-            MsgHandler::getErrorInstance()->inform(e.what());
-        }
+        myTriggerBuilder.buildTrigger(myNet, attrs, getFileName());
+        return;
+    } catch (InvalidArgument &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
     } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing id of a trigger-object.");
+        MsgHandler::getErrorInstance()->inform("The description of the trigger '" + id + "' does not contain a needed value.");
+    } catch (IOError &e) {
+        MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
 

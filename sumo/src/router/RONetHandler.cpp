@@ -102,17 +102,15 @@ RONetHandler::myStartElement(SumoXMLTag element,
 void
 RONetHandler::parseEdge(const SUMOSAXAttributes &attrs)
 {
-    // get the id of the edge and the edge
+    // get the id, report an error if not given or empty...
+    if(!attrs.setIDFromAttribues("edge", myCurrentName)) {
+        return;
+    }
+    // get the edge
     myCurrentEdge = 0;
-    try {
-        myCurrentName = attrs.getString(SUMO_ATTR_ID);
-        if (myCurrentName[0]==':') {
-            // this is an internal edge - we will not use it
-            //  !!! recheck this; internal edges may be of importance during the dua
-            return;
-        }
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("An edge without an id occured within '" + getFileName() + "'.");
+    if (myCurrentName[0]==':') {
+        // this is an internal edge - we will not use it
+        //  !!! recheck this; internal edges may be of importance during the dua
         return;
     }
     myCurrentEdge = myNet.getEdge(myCurrentName);
@@ -188,10 +186,9 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs)
     SUMOReal maxSpeed = -1;
     SUMOReal length = -1;
     std::vector<SUMOVehicleClass> allowed, disallowed;
-    // get the id
-    string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
-    if (id.length()==0) {
-        MsgHandler::getErrorInstance()->inform("Could not retrieve the id of a lane.");
+    // get the id, report an error if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("lane", id)) {
         return;
     }
     // get the speed
@@ -239,14 +236,8 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs)
 void
 RONetHandler::parseJunction(const SUMOSAXAttributes &attrs)
 {
-    try {
-        myCurrentName = attrs.getString(SUMO_ATTR_ID);
-        if (myCurrentName=="") {
-            throw EmptyData();
-        }
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("A junction without an id occured within '" + getFileName() + "'.");
-    }
+    // get the id, report an error if not given or empty...
+    attrs.setIDFromAttribues("junction", myCurrentName);
 }
 
 
@@ -257,18 +248,17 @@ RONetHandler::parseConnEdge(const SUMOSAXAttributes &attrs)
         // was an internal edge to skip
         return;
     }
-    try {
-        // get the edge to connect
-        string succID = attrs.getString(SUMO_ATTR_ID);
-        ROEdge *succ = myNet.getEdge(succID);
-        if (succ!=0) {
-            // connect edge
-            myCurrentEdge->addFollower(succ);
-        } else {
-            MsgHandler::getErrorInstance()->inform("At edge '" + myCurrentName + "': succeeding edge '" + succID + "' does not exist.");
-        }
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("At edge '" + myCurrentName + "': a succeeding edge has no id.");
+    // get the id, report an error if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("cedge", id)) {
+        return;
+    }
+    ROEdge *succ = myNet.getEdge(id);
+    if (succ!=0) {
+        // connect edge
+        myCurrentEdge->addFollower(succ);
+    } else {
+        MsgHandler::getErrorInstance()->inform("At edge '" + myCurrentName + "': succeeding edge '" + id + "' does not exist.");
     }
 }
 

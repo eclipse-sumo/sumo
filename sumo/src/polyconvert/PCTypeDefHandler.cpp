@@ -68,11 +68,9 @@ PCTypeDefHandler::myStartElement(SumoXMLTag element,
                                  const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_POLYTYPE) {
+        // get the id, report an error if not given or empty...
         string id;
-        try {
-            id = attrs.getString(SUMO_ATTR_ID);
-        } catch (EmptyData&) {
-            MsgHandler::getErrorInstance()->inform("A polygon type without an id occured within '" + getFileName() + ".");
+        if(!attrs.setIDFromAttribues("polytype", id)) {
             return;
         }
         string type = attrs.getStringSecure(SUMO_ATTR_NAME, myOptions.getString("type"));

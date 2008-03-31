@@ -90,17 +90,16 @@ PCXMLPoints::myStartElement(SumoXMLTag element,
     if (element!=SUMO_TAG_POI) {
         return;
     }
-    string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
+    // get the id, report an error if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("poi", id)) {
+        return;
+    }
     string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
     SUMOReal x = attrs.getFloatSecure(SUMO_ATTR_X, -1);
     SUMOReal y = attrs.getFloatSecure(SUMO_ATTR_Y, -1);
     Position2D pos(y, x); // !!! reverse!
     GeoConvHelper::x2cartesian(pos);
-    // check the poi
-    if (id=="") {
-        MsgHandler::getErrorInstance()->inform("The name of a poi is missing.");
-        return;
-    }
     // patch the values
     bool discard = false;
     int layer = myOptions.getInt("layer");

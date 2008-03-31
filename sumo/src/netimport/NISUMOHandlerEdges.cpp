@@ -70,39 +70,37 @@ NISUMOHandlerEdges::myStartElement(SumoXMLTag element,
 void
 NISUMOHandlerEdges::addEdge(const SUMOSAXAttributes &attrs)
 {
+    // get the id, report an error if not given or empty...
     string id;
+    if(!attrs.setIDFromAttribues("edge", id)) {
+        return;
+    }
+    // get the name
+    string name;
     try {
-        // get the id
-        id = attrs.getString(SUMO_ATTR_ID);
-        // get the name
-        string name;
-        try {
-            name = attrs.getString(SUMO_ATTR_NAME);
-        } catch (EmptyData &) {}
-        // get the type
-        string type;
-        try {
-            type = attrs.getString(SUMO_ATTR_TYPE);
-        } catch (EmptyData &) {}
-        // get the origin and the destination node
-        NBNode *from = getNode(attrs, SUMO_ATTR_FROMNODE, "from", id);
-        NBNode *to = getNode(attrs, SUMO_ATTR_TONODE, "to", id);
-        if (from==0||to==0) {
-            return;
-        }
-        // get some other parameter
-        SUMOReal speed = attrs.getFloat(SUMO_ATTR_SPEED);
-        SUMOReal length = attrs.getFloat(SUMO_ATTR_LENGTH);
-        int nolanes = attrs.getInt(SUMO_ATTR_NOLANES);
-        int priority = attrs.getInt(SUMO_ATTR_PRIORITY);
-        if (speed>0&&length>0&&nolanes>0&&priority>0) {
-            myEdgeCont.insert(new NBEdge(id, name, from, to, type, speed,
-                                         nolanes, priority));
-        }
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("An edge with an unknown id occured.");
+        name = attrs.getString(SUMO_ATTR_NAME);
+    } catch (EmptyData &) {}
+    // get the type
+    string type;
+    try {
+        type = attrs.getString(SUMO_ATTR_TYPE);
+    } catch (EmptyData &) {}
+    // get the origin and the destination node
+    NBNode *from = getNode(attrs, SUMO_ATTR_FROMNODE, "from", id);
+    NBNode *to = getNode(attrs, SUMO_ATTR_TONODE, "to", id);
+    if (from==0||to==0) {
+        return;
+    }
+    // get some other parameter
+    SUMOReal speed = attrs.getFloat(SUMO_ATTR_SPEED);
+    SUMOReal length = attrs.getFloat(SUMO_ATTR_LENGTH);
+    int nolanes = attrs.getInt(SUMO_ATTR_NOLANES);
+    int priority = attrs.getInt(SUMO_ATTR_PRIORITY);
+    if (speed>0&&length>0&&nolanes>0&&priority>0) {
+        myEdgeCont.insert(new NBEdge(id, name, from, to, type, speed, nolanes, priority));
     }
 }
+
 
 NBNode *
 NISUMOHandlerEdges::getNode(const SUMOSAXAttributes &attrs, SumoXMLAttr id,
