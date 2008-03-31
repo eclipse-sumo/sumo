@@ -33,7 +33,7 @@ class RouteReader(handler.ContentHandler):
         if name == 'vehicle':
             self._vID = attrs['id']
         elif name == 'route':
-            if 'id' in attrs:
+            if attrs.has_key('id'):
                 self._routeID = attrs['id']
             else:
                 self._routeID = self._vID

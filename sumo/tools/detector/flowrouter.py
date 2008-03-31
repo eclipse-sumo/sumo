@@ -435,7 +435,7 @@ class NetDetectorFlowReader(handler.ContentHandler):
     def startElement(self, name, attrs):
         if name == 'edges':
             self._edgeString = ' '
-        elif name == 'edge' and (not 'function' in attrs or attrs['function'] != 'internal'):
+        elif name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
             self._edge = attrs['id']
         elif name == 'cedge' and self._edge != '':
             fromEdge = self._net.getEdge(self._edge)

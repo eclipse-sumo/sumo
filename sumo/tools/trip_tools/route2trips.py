@@ -29,11 +29,11 @@ class RouteReader(handler.ContentHandler):
         
     def startElement(self, name, attrs):
         if name == 'vehicle':
-            if 'type' in attrs:
+            if attrs.has_key('type'):
                 self._vType = ' type="%s"' % attrs['type']
             self._vID = attrs['id']
             self._vDepart = attrs['depart']
-            if 'route' in attrs:
+            if attrs.has_key('route'):
                 self._routeString = self._routes[attrs['route']]
         elif name == 'route':
             if not self._vID:

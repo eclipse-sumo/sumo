@@ -26,7 +26,7 @@ class NetReader(handler.ContentHandler):
         self._edgeL = {}
 
     def startElement(self, name, attrs):
-        if name == 'edge' and (not 'function' in attrs or attrs['function'] != 'internal'):
+        if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
             self._edge = attrs['id']
             self._nb[self._edge] = set()
             self._edgeL[self._edge] = float(attrs['Length'])
@@ -121,13 +121,13 @@ class RouteReader(handler.ContentHandler):
             self._fileOut = None
 
     def startElement(self, name, attrs):
-        if name == 'vehicle' and not 'route' in attrs:
+        if name == 'vehicle' and not attrs.has_key('route'):
             self.condOutputRedirect()
             self._vType = attrs['type']
             self._vID = attrs['id']
         if name == 'route':
             self.condOutputRedirect()
-            if 'id' in attrs:
+            if attrs.has_key('id'):
                 self._routeID = attrs['id']
             else:
                 self._routeID = "for vehicle " + self._vID
