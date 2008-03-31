@@ -614,6 +614,7 @@ GUIApplicationWindow::onCmdOpenConfiguration(FXObject*,FXSelector,void*)
 {
     // get the new file name
     FXFileDialog opendialog(this,"Open Simulation Configuration");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList(myConfigPattern.c_str());
     if (gCurrentFolder.length()!=0) {
@@ -634,6 +635,7 @@ GUIApplicationWindow::onCmdOpenNetwork(FXObject*,FXSelector,void*)
 {
     // get the new file name
     FXFileDialog opendialog(this,"Open Network");
+    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("SUMO nets (*.net.xml)\nAll files (*)");
     if (gCurrentFolder.length()!=0) {
