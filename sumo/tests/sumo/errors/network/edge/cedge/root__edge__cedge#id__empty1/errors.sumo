@@ -1,2 +1,2 @@
-Error: Trying to reference an unknown edge ('') in edge '1'.
+Error: Missing id of a 'cedge'-object.
 Quitting (on error).

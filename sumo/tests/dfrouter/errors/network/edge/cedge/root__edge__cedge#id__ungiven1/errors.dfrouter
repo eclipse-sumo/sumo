@@ -1,2 +1,2 @@
-Error: At edge '1': a succeeding edge has no id.
+Error: Missing id of a 'cedge'-object.
 Quitting (on error).

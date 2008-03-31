@@ -1,2 +1,2 @@
-Error: An edge without an id occured within 'net.net.xml'.
+Error: Missing id of a 'edge'-object.
 Quitting (on error).

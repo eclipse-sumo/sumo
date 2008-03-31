@@ -1,2 +1,2 @@
-Error: A junction without an id occured within 'net.net.xml'.
+Error: Missing id of a 'junction'-object.
 Quitting (on error).
