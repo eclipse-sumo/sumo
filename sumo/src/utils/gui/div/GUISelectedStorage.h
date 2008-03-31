@@ -80,11 +80,11 @@ class OutputDevice;
 class GUISelectedStorage
 {
 public:
-    /// Constructor
+    /// @brief Constructor
     GUISelectedStorage() throw();
 
 
-    /// Destructor
+    /// @brief Destructor
     ~GUISelectedStorage() throw();
 
 
