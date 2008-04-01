@@ -89,10 +89,10 @@ GUIVehicleControl::getVehicleNames()
 }
 
 
-std::vector<size_t>
+std::vector<GLuint>
 GUIVehicleControl::getVehicleIDs()
 {
-    std::vector<size_t> ret;
+    std::vector<GLuint> ret;
     ret.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
         MSVehicle *veh = (*i).second;

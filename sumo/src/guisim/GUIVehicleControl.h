@@ -33,6 +33,13 @@
 #include <vector>
 #include <microsim/MSVehicleControl.h>
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h> 
+
+
 
 // ===========================================================================
 // class definitions
@@ -68,7 +75,7 @@ public:
     std::vector<std::string> getVehicleNames();
 
     /** Returns the list of all known vehicles by gl-id */
-    std::vector<size_t> getVehicleIDs();
+    std::vector<GLuint> getVehicleIDs();
 
 };
 
