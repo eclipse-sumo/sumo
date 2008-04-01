@@ -67,7 +67,7 @@ def doIncAssign(net, verbose, Parcontrol, iter, endVertices, start, end, startVe
     return vehID, AssignedVeh, AssignedTrip
     
 # execute the C-Logit model with the given path set
-def doCLogitAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter):
+def doCLogitAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter, first):
     # matrixPlong and matrixTruck should be added if available.
     if verbose:
         print 'pathNum', elements.pathNum   
@@ -89,7 +89,7 @@ def doCLogitAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertic
                 for path in ODPaths:
                     path.choiceprob = math.exp(float(Parcontrol[4])*(-path.actpathtime - path.commfactor))/ sum_exputility  
                     path.helpflow = matrixPshort[start][end] * path.choiceprob
-                    if iter < 2:    
+                    if first and iter == 1:    
                         for edge in path.Edges:
                             if str(edge.source) != str(edge.target):
                                 edge.flow += path.helpflow

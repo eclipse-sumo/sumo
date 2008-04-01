@@ -212,8 +212,7 @@ def main():
 
             if options.verbose:
                 print 'number of new routes:', newRoutes
-            
-            first = False
+              
             stable = False            
             while not stable:
                 # the parameter in the MSA algorithm     
@@ -224,13 +223,15 @@ def main():
                     print 'SUE Tolerance:', sueTolerance
                         
                 # The matrixPlong and the matrixTruck should be added when considering the long-distance trips and the truck trips.
-                stable = doCLogitAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter_inside)
+                stable = doCLogitAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter_inside, first)
                 iter_inside += 1
                 
                 if options.verbose:
                     print 'stable:', stable
-
+            
+            first = False
             iter_outside += 1
+            
             if iter_outside > maxSUEIteration:
                 print 'The max. number of iterations is reached!'
                 foutlog.write('The max. number of iterations is reached!\n')
