@@ -30,6 +30,7 @@
 
 #include <cassert>
 #include <algorithm>
+#include <limits>
 #include "MSRoute.h"
 #include "MSEdge.h"
 #include "MSLane.h"
@@ -276,6 +277,59 @@ MSRoute::getLength() const
         ret += (*(*i)->getLanes())[0]->length();
     }
     return ret;
+}
+
+
+SUMOReal 
+MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* fromEdge, const MSEdge* toEdge) const
+{
+	bool isFirstIteration = true;
+	SUMOReal distance = -fromPos;
+
+	if ((find(fromEdge) == end()) || (find(toEdge) == end())) {
+		// start or destination not contained in route
+		return std::numeric_limits<SUMOReal>::max();
+	}
+
+	if (fromEdge == toEdge) {
+		if (fromPos <= toPos) {
+			// destination position is on start edge
+			return (toPos - fromPos);
+		} else {
+			// start and destination edge are equal: ensure that it's contained at least twice in the route
+			if (std::find(find(fromEdge)+1, end(), fromEdge) == end()) {
+				return std::numeric_limits<SUMOReal>::max();
+			}
+		}
+	}
+
+    for (MSRouteIterator it = find(fromEdge); it!=end(); ++it)
+    {
+        if ((*it) == toEdge && !isFirstIteration) {
+//                                    cerr << " lastEdge=" << (*it)->getID() << " " << toPos;
+			distance += toPos;
+//                                    cerr << " dist=" << distance << endl;
+			break;
+		} else {
+			const MSEdge::LaneCont& lanes = *((*it)->getLanes());
+            distance += lanes[0]->length();
+//			cerr << " edge=" << (*it)->getID() << " " << lanes[0]->length();
+#ifdef HAVE_INTERNAL_LANES
+			for (MSEdge::LaneCont::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); laneIt++) {
+				const MSLinkCont& links = (*laneIt)->getLinkCont();
+				for (MSLinkCont::const_iterator linkIt = links.begin(); linkIt != links.end(); linkIt++) {
+					if ((*linkIt)->getLane()->getEdge() == *(it+1)) {
+						distance += (*linkIt)->getLength();
+//						cerr << " link: + " << (*linkIt)->getLength();
+					}
+				}
+			}
+#endif
+		}
+		isFirstIteration = false;
+    }
+
+	return distance;
 }
 
 

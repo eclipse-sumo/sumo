@@ -100,6 +100,16 @@ public:
 
     SUMOReal getLength() const;
 
+	/**
+	 * Compute the distance between 2 given edges on this route, including the length of internal lanes.
+	 * @param fromPos:		position on the first edge, at wich the computed distance begins
+	 * @param toPos:		position on the last edge, at which the coumputed distance endsance
+	 * @param fromEdge:		edge at wich computation begins
+	 * @param toEdge:		edge at which distance computation shall stop
+	 * @return				distance between the position fromPos on fromEdge and toPos on toEdge
+	 */
+	SUMOReal getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* fromEdge, const MSEdge* toEdge) const;
+
 public:
     /** @brief Adds a route to the dictionary
         Returns true if the route could be added, fals if a route with the same name already exists */

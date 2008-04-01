@@ -1828,9 +1828,33 @@ MSVehicle::getPositionOnActiveMoveReminderLane(const MSLane * const searchedLane
 }
 
 
+SUMOReal 
+MSVehicle::getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge)
+{
+	SUMOReal distance = std::numeric_limits<SUMOReal>::max();
 
-/****************************************************************************/
+    if (getInTransit())
+    {
+		if (myLane->getEdge() == (*myCurrEdge))
+        {
+            // vehicle is on a normal edge
+			distance = myRoute->getDistanceBetween(getPositionOnLane(), destPos,
+					*myCurrEdge, destEdge);
+        } else {
+            // vehicle is on inner junction edge
+			distance = myLane->length() - getPositionOnLane();
+			distance += myRoute->getDistanceBetween(0, destPos, 
+				*(myCurrEdge+1), destEdge);
+        }
+	}
+
+	return distance;
+}
+
+
+
 #ifdef TRACI
+
 void
 MSVehicle::checkReroute(SUMOTime t)
 {
@@ -1885,7 +1909,6 @@ MSVehicle::changeEdgeWeightLocally(std::string edgeID, double travelTime, SUMOTi
     return true;
 }
 
-/****************************************************************************/
 
 bool
 MSVehicle::restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime)
@@ -1909,7 +1932,7 @@ MSVehicle::restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime)
             // the edge was already known to the vehicle, so it's original data (before any TraCI message
             // was sent) is restored
             infoCont[edgeToRestore]->neededTime = (*infoToRestore).second->neededTime;
-            infoCont[edgeToRestore]->time = (*infoToRestore).second->time;
+            infoCont[edgeToRestore]->time = currentTime;//(*infoToRestore).second->time;
         }
         edgesChangedByTraci.erase(infoToRestore);
     } else {
@@ -1919,7 +1942,6 @@ MSVehicle::restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime)
     return true;
 }
 
-/****************************************************************************/
 
 bool
 MSVehicle::startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime currentTime)
@@ -1938,7 +1960,6 @@ MSVehicle::startSpeedAdaption(float newSpeed, SUMOTime duration, SUMOTime curren
     return true;
 }
 
-/****************************************************************************/
 
 void
 MSVehicle::adaptSpeed()
@@ -1967,7 +1988,6 @@ MSVehicle::adaptSpeed()
     setIndividualMaxSpeed(maxSpeed);
 }
 
-/****************************************************************************/
 
 void 
 MSVehicle::checkLaneChangeConstraint(SUMOTime time) {
@@ -1983,7 +2003,6 @@ MSVehicle::checkLaneChangeConstraint(SUMOTime time) {
 	}
 }
 
-/****************************************************************************/
 
 void 
 MSVehicle::startLaneChange(int lane, SUMOTime stickyTime) {
@@ -1999,7 +2018,6 @@ MSVehicle::startLaneChange(int lane, SUMOTime stickyTime) {
 	checkForLaneChanges();
 }
 
-/****************************************************************************/
 
 void 
 MSVehicle::checkForLaneChanges() {
@@ -2032,7 +2050,7 @@ MSVehicle::checkForLaneChanges() {
     }
 }
 
-/****************************************************************************/
+
 void
 MSVehicle::processTraCICommands(SUMOTime time) {
 	// try to reroute in case of previous "changeRoute" messages
@@ -2045,9 +2063,9 @@ MSVehicle::processTraCICommands(SUMOTime time) {
 	adaptSpeed();
 }
 
-/****************************************************************************/
+
 void 
-MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOReal duration) {
+MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration) {
 	Stop newStop;
 
 	newStop.lane = lane;
@@ -2077,7 +2095,7 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOReal du
 			<< newStop.duration  <<  "  radius " << newStop.radius << std::endl;*/
 }
 
-/****************************************************************************/
+
 void 
 MSVehicle::sortTraCIStopToStopList(MSVehicle::Stop traciStop) {
 	if (myStops.size() == 0) {
@@ -2095,8 +2113,6 @@ MSVehicle::sortTraCIStopToStopList(MSVehicle::Stop traciStop) {
 		myStops.insert(iter, traciStop);
 	}
 }
-
-/****************************************************************************/
 
 
 #endif

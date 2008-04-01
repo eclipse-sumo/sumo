@@ -167,22 +167,6 @@ private:
 	void commandDistanceRequest(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
     void writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description);
-
-	/**
-	 * Converts a cartesian position to the closest road map position
-	 * 
-	 * @param pos	cartesian position that is to be converted
-	 * @return the closest road map position to the cartesian position
-	 */
-	TraCIServer::RoadMapPos convertCartesianToRoadMap(Position2D pos);
-
-	/**
-	 * Converts a road map position to a cartesian position
-	 *
-	 * @param pos road map position that is to be convertes
-	 * @return closest 2D position 
-	 */
-	Position2D convertRoadMapToCartesian(TraCIServer::RoadMapPos pos) throw(TraCIException);
 	
 	/**
 	 * Handles the request of a Scenario Command for obtaining information on
@@ -221,6 +205,22 @@ private:
 	 * the polygon domain.
 	 */
 	std::string handlePolygonDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) throw(TraCIException);
+
+	/**
+	 * Converts a cartesian position to the closest road map position
+	 * 
+	 * @param pos	cartesian position that is to be converted
+	 * @return the closest road map position to the cartesian position
+	 */
+	TraCIServer::RoadMapPos convertCartesianToRoadMap(Position2D pos);
+
+	/**
+	 * Converts a road map position to a cartesian position
+	 *
+	 * @param pos road map position that is to be convertes
+	 * @return closest 2D position 
+	 */
+	Position2D convertRoadMapToCartesian(TraCIServer::RoadMapPos pos) throw(TraCIException);
 
     // port on which server is listening on
     int port_;

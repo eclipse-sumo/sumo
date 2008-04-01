@@ -537,6 +537,17 @@ public:
         return myDevices;
     }
 
+	/**
+	 * Compute distance that will be covered, if the vehicle moves to a given position on its route,
+	 * starting at its current position.
+	 * @param destPos:	position on the destination edge that shall be reached
+	 * @param destEdge: destination edge that shall be reached
+	 * @return			distance from the vehicles current position to the destination position,
+	 *					or a near infinite real value if the destination position is not contained 
+	 *					within the vehicles route or the vehicle is not active
+	 */
+	SUMOReal getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge);
+
 #ifdef TRACI
 	/**
 	 * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
@@ -547,7 +558,7 @@ public:
 	 * @duration		after waiting for the time period duration, the vehicle will
 	 *					continue until the stop is reached again
 	 */
-	void addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOReal duration);
+	void addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration);
 
 	/**
 	 * Add a stop to the head of the vehicle's stop list to make it the next stop position.

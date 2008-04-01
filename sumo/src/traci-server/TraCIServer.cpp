@@ -119,7 +119,11 @@ TraCIServer::run()
 
 	// display warning if internal lanes are not used
 	if (!optCont.isSet("use-internal-links")) {
-		std::cout << "Warning: starting TraCI without using internal lanes! (Vehicles will jump over junctions)" << std::endl;
+		std::stringstream msg;
+		msg << "Warning: starting TraCI without using internal lanes! "
+			<< "Vehicles will jump over junctions; use option --use-internal-links "
+			<< "to avoid unexpected behavior" << std::endl;
+		std::cout << msg.str();
 	}
 
 	// map the internal id of all traffic lights, polygons and poi to external id and vice versa
@@ -1269,15 +1273,11 @@ throw(TraCIException)
 	// read distance type
 	int distType = requestMsg.readUnsignedByte();
 	
-	float distance = FLT_MAX;
+	float distance = 0.0;
 	if (distType == REQUEST_DRIVINGDIST) {
 		// compute driving distance
-//		EdgeEffort effortStruct;
 		std::vector<const MSEdge*> edges;
-//		SUMODijkstraRouter_ByProxi<MSEdge, MSVehicle, prohibited_noRestrictions<MSEdge, MSVehicle>, EdgeEffort > 
-//			router(MSEdge::dictSize(), true, &effortStruct, &EdgeEffort::getEffort);
 		TraCIDijkstraRouter<MSEdge> router(MSEdge::dictSize());
-//		MSEdge* startEdge = MSEdge::dictionary(roadPos1.roadId);
 
 		if ( (roadPos1.roadId.compare(roadPos2.roadId) == 0) 
 			&& (roadPos1.pos <= roadPos2.pos) ) {
@@ -1285,7 +1285,15 @@ throw(TraCIException)
 		} else {
 			router.compute(MSEdge::dictionary(roadPos1.roadId), MSEdge::dictionary(roadPos2.roadId), NULL,
 				MSNet::getInstance()->getCurrentTimeStep(), edges);
-			if (edges.size() != 0) {
+			cerr << "route: ";
+			for (MSRouteIterator it=edges.begin(); it != edges.end(); it++) {
+				cerr << " " << (*it)->getID();
+			}
+			cerr << endl;
+			MSRoute route("", edges, false);
+			distance = static_cast<float>(route.getDistanceBetween(roadPos1.pos, roadPos2.pos,
+				MSEdge::dictionary(roadPos1.roadId), MSEdge::dictionary(roadPos2.roadId)));
+			/*if (edges.size() != 0) {
 				distance = -roadPos1.pos;
 				for (std::vector<const MSEdge*>::iterator edge=edges.begin(); edge!=edges.end(); edge++) {
 					lanes = (*edge)->getLanes();
@@ -1293,56 +1301,13 @@ throw(TraCIException)
 				}
 				lanes = MSEdge::dictionary(roadPos2.roadId)->getLanes();
 				distance -= ((*lanes)[0]->getShape().length() - roadPos2.pos);
-			}
+			}*/
 		}
-/*		if (roadPos1.roadId.compare(roadPos2.roadId) == 0) {
-			// both positions are on the same edge
-			if (roadPos1.pos <= roadPos2.pos) {
-				distance = roadPos2.pos - roadPos1.pos;
-			} else {
-				// workaround for both positions beeing on the same edge. TODO: use custom router for computation
-				std::vector<MSEdge*> followingEdges = startEdge->getFollowingEdges();
-				if (followingEdges.size() != 0) {
-					for (std::vector<MSEdge*>::iterator it = followingEdges.begin(); it != followingEdges.end(); it++) {						
-						startEdge = (*it);	
-						edges.clear();
-						router.compute(startEdge, MSEdge::dictionary(roadPos2.roadId), NULL,
-							MSNet::getInstance()->getCurrentTimeStep(), edges);
-						float tempDist = FLT_MAX;
-						if (edges.size() != 0) {
-							lanes = startEdge->getLanes();
-							tempDist = (*lanes)[0]->getShape().length() - roadPos1.pos;
-							for (std::vector<const MSEdge*>::iterator edge=edges.begin(); edge!=edges.end(); edge++) {
-								lanes = (*edge)->getLanes();
-								tempDist += (*lanes)[0]->getShape().length();
-							}
-							lanes = MSEdge::dictionary(roadPos2.roadId)->getLanes();
-							tempDist -= ((*lanes)[0]->getShape().length() - roadPos2.pos);
-						}
-						distance = MIN2(distance, tempDist);
-					}
-				}
-			}
-		} else {
-			// positions are on different edges
-			router.compute(startEdge, MSEdge::dictionary(roadPos2.roadId), NULL,
-				MSNet::getInstance()->getCurrentTimeStep(), edges);
-
-			if (edges.size() != 0) {
-				distance = -roadPos1.pos;
-				for (std::vector<const MSEdge*>::iterator edge=edges.begin(); edge!=edges.end(); edge++) {
-					lanes = (*edge)->getLanes();
-					distance += (*lanes)[0]->getShape().length();
-				}
-				lanes = MSEdge::dictionary(roadPos2.roadId)->getLanes();
-				distance -= ((*lanes)[0]->getShape().length() - roadPos2.pos);
-			}
-		}	*/
 	} else {
 		// compute air distance (default)
 		// correct the distance type in case it was not valid
 		distType = REQUEST_AIRDIST;
-		distance = GeomHelper::distance(pos1, pos2);
+		distance = static_cast<float>(GeomHelper::distance(pos1, pos2));
 	}
 
 	// acknowledge distance request
@@ -1896,7 +1861,9 @@ throw(TraCIException)
 		}
         break;
 
+	// air distance from vehicle to a point
     case DOMVAR_AIRDISTANCE:
+	// driving distance from vehicle to a point
     case DOMVAR_DRIVINGDISTANCE:		
         if (veh != NULL)
         {
@@ -1950,39 +1917,7 @@ throw(TraCIException)
 			if (variableId == DOMVAR_AIRDISTANCE) {
                 response.writeFloat( veh->getPosition().euclidDistance(pos.x(), pos.y()));
             } else {
-                const MSRoute& route = veh->getRoute();
-                MSRouteIterator it;
-                float dist = 0.0;
-                if (veh->getInTransit() && route.contains(edge))
-                {
-                    if (veh->getLane().getEdge() == veh->succEdge(0))
-                    {
-                        // vehicle is on a normal edge
-                        dist = -veh->getPositionOnLane();
-                        it = veh->currEdgeIt();
-                    } else {
-                        // vehicle is on inner junction edge
-                        dist = veh->getLane().length() - veh->getPositionOnLane();
-                        it = veh->currEdgeIt() + 1;
-                    }
-                    for (; it!=route.end(); ++it)
-                    {
-                        if ((*it) != edge)
-                        {
-                            const MSEdge::LaneCont& lanes = *((*it)->getLanes());
-                            dist += lanes[0]->length();
-//                                    cerr << " edge=" << (*it)->getID() << " " << lanes[0]->length();
-                        } else {
-//                                    cerr << " lastEdge=" << edge->getID() << " " << destPos;
-                            dist += destPos;
-//                                    cerr << " dist=" << dist << endl;
-                            response.writeFloat(dist);
-                            return warning;
-                        }
-                    }
-                } else {
-                    response.writeFloat(40000000.0);
-                }
+				response.writeFloat(static_cast<float>(veh->getDistanceToPosition(destPos, MSEdge::dictionary(destEdge))));
             }
         } else {
 			throw TraCIException("Unable to retrieve node with given ID");
@@ -2473,6 +2408,7 @@ throw(TraCIException)
 
 	return warning;
 }
+
 
 /*****************************************************************************/
 }
