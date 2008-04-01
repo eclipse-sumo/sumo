@@ -61,6 +61,8 @@
 
 #ifdef WIN32
 #include <windows.h>
+#else
+#define APIENTRY
 #endif
 
 #include <GL/gl.h>
