@@ -80,10 +80,11 @@ def doCLogitAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertic
             end += 1
             if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                 ODPaths = net._paths[startVertex][endVertex]
-                for path in ODPaths: 
-                    path.updatePathActTime(net)
-                sum_exputility = calCommonality(net, ODPaths, Parcontrol)
                 
+                for path in ODPaths:
+                    path.updatePathActTime(net)
+                    
+                sum_exputility = calCommonality(net, ODPaths, Parcontrol)
                 # calculate the path choice probabilities and the path flows for the given OD Pair
                 for path in ODPaths:
                     path.choiceprob = math.exp(float(Parcontrol[4])*(-path.actpathtime - path.commfactor))/ sum_exputility  
@@ -105,8 +106,7 @@ def doCLogitAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertic
         if str(edge.source) != str(edge.target):
             if iter > 1:
                 exflow = edge.flow
-                edge.flow = edge.flow*(1-alpha) + alpha*edge.helpflow
-                
+                edge.flow = edge.flow*(1. - alpha) + alpha*edge.helpflow
                 if edge.flow > 0.:
                     if abs((edge.flow-exflow)/edge.flow) > float(Parcontrol[8]):
                         notstable += 1
@@ -125,6 +125,9 @@ def doCLogitAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertic
         stable = True
     
     if notstable < len(net._edges)*0.05 and iter > 20:
+        stable = True
+        
+    if iter > int(Parcontrol[7]):
         stable = True
      
     return stable
@@ -148,12 +151,13 @@ def calCommonality(net, ODPaths, Parcontrol):
    
     sum_exputility = 0.
     if len(ODPaths) > 1:
-        # calculate the commonality factors (CF) for the given OD pair 
+        # calculate the commonality factors (CF) for the given OD pair
         for pathone in ODPaths:   
             sum_overlap = 0.0 
             for pathtwo in ODPaths:
                 sum_overlap += math.pow(mtxOverlap[pathone][pathtwo]/(math.pow(pathone.actpathtime,0.5) * math.pow(pathtwo.actpathtime,0.5)), float(Parcontrol[1]))
             pathone.commfactor = float(Parcontrol[0]) * math.log(sum_overlap)
+
             sum_exputility += math.exp(float(Parcontrol[4])*(-pathone.actpathtime - pathone.commfactor))
     else:    
         for path in ODPaths:
@@ -203,7 +207,7 @@ def doCLogitVehAssign(net, verbose, counter, matrixPshort, Parcontrol, startVert
                         if path.pathflow < 0.:
                             print '*********************** the path flow on the path:%s < 0.!!!!', path.label
                     if verbose:
-                        foutpath.write('\npathID= %s, path flow=%2.2f, actpathtime=%2.2f, choiceprob=%2.2f, edges=' 
+                        foutpath.write('\npathID= %s, path flow=%4.4f, actpathtime=%4.4f, choiceprob=%4.4f, edges=' 
                                         %(path.label, path.pathflow, path.actpathtime, path.choiceprob))
                         for item in path.Edges:
                             foutpath.write('%s, ' %(item.label))

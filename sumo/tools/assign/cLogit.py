@@ -103,11 +103,11 @@ def main():
     #   - theta: perception deviation of the shortest travel time among drivers
     #   - alpha: moving-size sequence for updating link flows, which is applied in MSA. 
     #     alpha(n) = k1/(k2+n), where n : the number of iterations; 
-    #     SUEk1 a positive constant and determins the magnitude of the move; 
-    #     SUEk2: a nonnegative constant and acts as an offset to the starting step.
+    #     suek1 a positive constant and determins the magnitude of the move; 
+    #     suek2: a nonnegative constant and acts as an offset to the starting step.
     #   - NumEffPath: maximum number of effective routes
-    #   - MaxSUEIteration: maximum number of the SUE iterations
-    #   - SUETolerance: the difference of link flows between the two consequent iterations
+    #   - maxSUEIteration: maximum number of the SUE iterations
+    #   - sueTolerance: the difference of link flows between the two consequent iterations
     #   - KPaths: the number of k shortest paths for each OD pair
     #   - vehicle releasing method: 0: uniform randomly; 1: Poisson (arcontrol[10])
     #   - Number of the periods (Parcontrol[11])
@@ -117,15 +117,15 @@ def main():
     if options.verbose:
         print 'Control parameters(Parcontrol):', Parcontrol
     
-    Beta = float(Parcontrol[0])
-    Gamma = float(Parcontrol[1])
-    Lammda = float(Parcontrol[2])
-    Devi = float(Parcontrol[3])
-    Theta = float(Parcontrol[4])
-    SUEk1 = float(Parcontrol[5])
-    SUEk2 = float(Parcontrol[6])
-    MaxSUEIteration = int(Parcontrol[7])
-    SUETolerance = float(Parcontrol[8])
+    beta = float(Parcontrol[0])
+    gamma = float(Parcontrol[1])
+    lammda = float(Parcontrol[2])
+    devi = float(Parcontrol[3])
+    theta = float(Parcontrol[4])
+    suek1 = float(Parcontrol[5])
+    suek2 = float(Parcontrol[6])
+    maxSUEIteration = int(Parcontrol[7])
+    sueTolerance = float(Parcontrol[8])
     KPaths = int(Parcontrol[9])
     
     begintime = int(Parcontrol[(len(Parcontrol)-1)])
@@ -135,9 +135,10 @@ def main():
         print 'Begintime:', begintime, "O'Clock"
     
     # initialization
-    MatrixCounter = 0
+    matrixCounter = 0
     vehID = 0
     MatrixSum = 0.0
+    first =True
     net.initialPathSet()
     # initialize the map for recording the number of the assigned vehicles
     AssignedVeh = {}
@@ -160,9 +161,9 @@ def main():
         # delete all vehicle information related to the last matrix for saving the disk space
         net._vehicles = []                                              
         matrix = matrices[counter]
-        MatrixCounter += 1
+        matrixCounter += 1
         if options.verbose:
-            print 'Matrix: ', MatrixCounter
+            print 'Matrix: ', matrixCounter
         departtime = (begintime + int(counter)) * 3600
         if options.verbose:
             print 'departtime', departtime  
@@ -187,42 +188,50 @@ def main():
         # output the origin and destination zones and the number of effective OD pairs
         if options.debug:
 #            outputODZone(startVertices, endVertices, Pshort_EffCells, Plong_EffCells, Truck_EffCells)
-            outputODZone(startVertices, endVertices, Pshort_EffCells, MatrixCounter)  
+            outputODZone(startVertices, endVertices, Pshort_EffCells, matrixCounter)  
         
         # initialization    
-        iter = 1
+        iter_outside = 1
         newRoutes = 0
         stable = False
-
+        
         # execute the traffic assignment based on the C-Logit Model 
-        while not stable or newRoutes > 0:
-            foutlog.write('- SUE iteration:%s\n' %iter)
+        while iter_outside == 1 or newRoutes > 0:
+            iter_inside = 1
+            print 'iter_outside:', iter_outside
+            foutlog.write('- SUE iteration:%s\n' %iter_outside)
             # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
-            if counter == 0 and KPaths > 1:
+            if first and KPaths > 1:
                 newRoutes = net.calcPaths(options.verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort)
                 foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
+                if options.verbose:
+                    print 'KPaths:', KPaths 
+                    print 'number of new routes:', newRoutes
             else:
-                newRoutes = findNewPath(startVertices, endVertices, net, iter, newRoutes, matrixPshort)
-          
-            if options.verbose:
-                print 'KPaths:', KPaths 
-                print 'number of new routes:', newRoutes
-                        
-            # the parameter in the MSA algorithm     
-            alpha = SUEk1/float(SUEk2 + iter)
-            if options.verbose:
-                print 'iteration:', iter
-                print 'alpha:', alpha
-                print 'SUETolerance:', SUETolerance
-                    
-            # The matrixPlong and the matrixTruck should be added when considering the long-distance trips and the truck trips.
-            stable = doCLogitAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter)
-            
-            if options.verbose:
-                print 'stable:', stable
+                newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort)
 
-            iter += 1
-            if iter > MaxSUEIteration:
+            if options.verbose:
+                print 'number of new routes:', newRoutes
+            
+            first = False
+            stable = False            
+            while not stable:
+                # the parameter in the MSA algorithm     
+                alpha = suek1/float(suek2 + iter_inside)
+                if options.verbose:
+                    print 'iteration (inside):', iter_inside
+                    print 'alpha:', alpha
+                    print 'SUE Tolerance:', sueTolerance
+                        
+                # The matrixPlong and the matrixTruck should be added when considering the long-distance trips and the truck trips.
+                stable = doCLogitAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter_inside)
+                iter_inside += 1
+                
+                if options.verbose:
+                    print 'stable:', stable
+
+            iter_outside += 1
+            if iter_outside > maxSUEIteration:
                 print 'The max. number of iterations is reached!'
                 foutlog.write('The max. number of iterations is reached!\n')
                 foutlog.write('The number of new routes and the parameter stable will be set to zero and True respectively.\n')

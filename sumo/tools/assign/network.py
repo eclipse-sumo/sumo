@@ -117,7 +117,7 @@ class Net:
                             if verbose:
                                 foutkpath.write('%s, ' %(edge.label))
                             newpath.freepathtime += edge.freeflowtime
-                            
+                        newpath.freepathtime = newpath.freepathtime/3600.    
                         newpath.actpathtime = newpath.freepathtime
                         if verbose:
                             foutkpath.write('Path cost:%s' %newpath.actpathtime) 

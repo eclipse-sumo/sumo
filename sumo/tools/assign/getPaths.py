@@ -15,7 +15,7 @@ import os, random, string, sys
 from dijkstra import dijkstra
 from elements import Vertex, Edge, Path, pathNum
 
-def findNewPath(startVertices, endVertices, net, iter, newRoutes, matrixPshort):
+def findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort):
     newRoutes = 0
     start = -1
     for startVertex in startVertices:
@@ -42,20 +42,27 @@ def findNewPath(startVertices, endVertices, net, iter, newRoutes, matrixPshort):
                             if str(tempPath[i]) != str(tempPath[i+1]) and str(edge.source) == str(tempPath[i]) and str(edge.target) == str(tempPath[i+1]):
                                 helpPath.append(edge)
                     else:
-                        pathcost = D[endVertex]
+                        pathcost = D[endVertex]/3600.
 
                 ODPaths = net._paths[startVertex][endVertex]
-                NewPath = True                    
+                NewPath = True
+                nopath = False                    
                 for path in ODPaths:
-                    sameEdgeCount = 0                                           
+                    sameEdgeCount = 0
+                    sametraveltime = 0.                                           
                     if len(path.Edges) == len(helpPath):
                         for i in range (0, len(helpPath)):
                             if str(helpPath[i]) == str(path.Edges[i]):
                                 sameEdgeCount += 1
+                                sametraveltime += helpPath[i].actualtime
                     if sameEdgeCount == len(path.Edges):
                         samePath = path
                         NewPath = False
                         break
+                    elif sameEdgeCount == (len(path.Edges)-1) and abs(sametraveltime/3600. - pastcost) < 0.02:
+                        nopath = True
+                        break
+
                 if NewPath:
                     newpath = Path()
                     ODPaths.append(newpath)
@@ -66,6 +73,7 @@ def findNewPath(startVertices, endVertices, net, iter, newRoutes, matrixPshort):
                     for edge in newpath.Edges:
                         newpath.freepathtime += edge.freeflowtime
                     newRoutes += 1
-                else:
+                elif not NewPath:
                     samePath.actpathtime = pathcost
+
     return newRoutes

@@ -363,6 +363,8 @@ class Path:
         self.actpathtime = 0.
         for edge in self.Edges:
             self.actpathtime += edge.actualtime
+        
+        self.actpathtime = self.actpathtime/3600.
             
 # This cloass is used in the significance test.
 class Assign:
