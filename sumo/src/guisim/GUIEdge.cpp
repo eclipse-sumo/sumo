@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// An MSEdge extended by values needed for the gui
+// A road/street connecting two junctions (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -82,12 +82,10 @@ GUIEdge::initGeometry(GUIGlObjectStorage &idStorage)
         return;
     }
     // build the lane wrapper
-    LaneWrapperVector tmp;
+    myLaneGeoms.reserve(myLanes->size());
     for (LaneCont::reverse_iterator i=myLanes->rbegin(); i<myLanes->rend(); ++i) {
-        tmp.push_back((*i)->buildLaneWrapper(idStorage));
+        myLaneGeoms.push_back((*i)->buildLaneWrapper(idStorage));
     }
-    myLaneGeoms.reserve(tmp.size());
-    copy(tmp.rbegin(), tmp.rend(), back_inserter(myLaneGeoms));
 }
 
 
@@ -129,10 +127,10 @@ GUIEdge::getNames()
 }
 
 
-std::vector<size_t>
+std::vector<GLuint>
 GUIEdge::getIDs()
 {
-    std::vector<size_t> ret;
+    std::vector<GLuint> ret;
     ret.reserve(MSEdge::myDict.size());
     for (MSEdge::DictType::iterator i=MSEdge::myDict.begin();i!=MSEdge::myDict.end(); ++i) {
         ret.push_back(static_cast<GUIEdge*>((*i).second)->getGlID());

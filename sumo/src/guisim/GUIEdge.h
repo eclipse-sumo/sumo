@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// An MSEdge extended by values needed for the gui
+// A road/street connecting two junctions (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,6 +39,12 @@
 #include <utils/gui/globjects/GUIGlObject.h>
 #include "GUILaneWrapper.h"
 
+#ifdef _WIN32
+#include <windows.h>
+#endif
+
+#include <GL/gl.h> 
+
 
 // ===========================================================================
 // class declarations
@@ -54,17 +60,26 @@ class GUIGlObjectStorage;
 // ===========================================================================
 /**
  * @class GUIEdge
- * This is the gui-version of the MSEdge
+ * @brief A road/street connecting two junctions (gui-version)
+ *
+ * @see MSEdge
  */
 class GUIEdge : public MSEdge, public GUIGlObject
 {
 public:
-    /// constructor
+    /** @brief Constructor.
+     * @param[in] id The id of the edge
+     * @param[in] numericalID The numerical id (index) of the edge
+     * @param[in] idStorage The gl-objects storage to retrieve the gl-id for this edge from
+     * @see MSEdge
+     */
     GUIEdge(const std::string &id, size_t numericalID,
             GUIGlObjectStorage &idStorage) throw();
 
-    /// destructor
+
+    /// @brief Destructor.
     ~GUIEdge() throw();
+
 
     /// sets the junctions allowing the retrieval of the edge position (!!! why not private with a friend?)
     void initGeometry(GUIGlObjectStorage &idStorage);
@@ -73,7 +88,7 @@ public:
     static std::vector<std::string> getNames();
 
     /** Returns the list of all known junctions as their ids */
-    static std::vector<size_t> getIDs();
+    static std::vector<GLuint> getIDs();
 
     /// Returns the street's geometry
     Boundary getBoundary() const;
