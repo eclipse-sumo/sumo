@@ -413,14 +413,12 @@ private:
     static std::map<const MSVehicle*, MSDevice_C2C*> myVehiclesToDevicesMap;
 
 private:
-    /// @brief Default constructor.
-    MSDevice_C2C();
-
-    /// @brief Copy constructor.
+    /// @brief Invalidated copy constructor.
     MSDevice_C2C(const MSDevice_C2C&);
 
-    /// @brief Assignment operator.
+    /// @brief Invalidated assignment operator.
     MSDevice_C2C& operator=(const MSDevice_C2C&);
+
 
 };
 

@@ -203,14 +203,12 @@ private:
 
 
 private:
-    /// @brief Default constructor.
-    MSDevice_Routing();
-
-    /// @brief Copy constructor.
+    /// @brief Invalidated copy constructor.
     MSDevice_Routing(const MSDevice_Routing&);
 
-    /// @brief Assignment operator.
+    /// @brief Invalidated assignment operator.
     MSDevice_Routing& operator=(const MSDevice_Routing&);
+
 
 };
 
