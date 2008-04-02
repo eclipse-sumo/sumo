@@ -497,13 +497,6 @@ MSNet::writeOutput()
 }
 
 
-unsigned int
-MSNet::getWaitingVehicleNo() const
-{
-    return myEmitter->getWaitingVehicleNo();
-}
-
-
 void
 MSNet::addMeanData(MSMeanData_Net *newMeanData)
 {

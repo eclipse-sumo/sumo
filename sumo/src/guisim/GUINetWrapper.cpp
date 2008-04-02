@@ -39,6 +39,7 @@
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <utils/common/StringUtils.h>
 #include <microsim/MSVehicleControl.h>
+#include <microsim/MSEmitControl.h>
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 #include <microsim/logging/FuncBinding_IntParam.h>
@@ -97,7 +98,7 @@ GUINetWrapper::getParameterWindow(GUIMainWindow &app,
     ret->mkItem("vehicles loaded [#]", true,
                 new FunctionBinding<MSVehicleControl, unsigned int>(&(getNet().getVehicleControl()), &MSVehicleControl::getLoadedVehicleNo));
     ret->mkItem("vehicles waiting [#]", true,
-                new FunctionBinding<GUINet, unsigned int>(&(getNet()), &GUINet::getWaitingVehicleNo));
+                new FunctionBinding<MSEmitControl, unsigned int>(&(getNet().getEmitControl()), &MSEmitControl::getWaitingVehicleNo));
     ret->mkItem("end time [s]", false,
                 OptionsCont::getOptions().getInt("end"));
     ret->mkItem("begin time [s]", false,
