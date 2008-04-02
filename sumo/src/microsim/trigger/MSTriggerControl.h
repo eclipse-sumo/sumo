@@ -45,23 +45,64 @@ class MSTrigger;
 // ===========================================================================
 /**
  * @class MSTriggerControl
+ * @brief A simple container for "triggers".
+ *
+ * Please note that this control takes care of deletion of added triggers.
+ * That's basically all why this control is here. Retrieval is only done
+ *  for bus-stops.
+ *
+ * @see MSTrigger
  */
 class MSTriggerControl
 {
 public:
-    MSTriggerControl(/*const std::vector<MSTrigger*> &trigger*/);
-    ~MSTriggerControl();
-    /// adds a trigger
-    void addTrigger(MSTrigger *t);
-    void addTrigger(const std::vector<MSTrigger*> &all);
+    /** @brief Constructor
+     */
+    MSTriggerControl() throw();
 
-    MSTrigger *getTrigger(const std::string &id);
 
-    /// Definition of the container for items to initialise before starting
-    typedef std::vector<MSTrigger*> TriggerVector;
+    /// @brief Destructor
+    ~MSTriggerControl() throw();
+
+
+    /** @brief Adds a trigger
+     * 
+     * Stored the trigger in "myTrigger".
+     *
+     * @param[in] t The trigger to add
+     */
+    void addTrigger(MSTrigger *t) throw();
+
+
+    /** @brief Returns the named trigger
+     * 
+     * Searched for the name in "myTrigger". Returns the named trigger if
+     *  its id matches the given. Returns 0 if no matching trigger could be 
+     *  found.
+     *
+     * @param[in] t The trigger to add
+     * @todo This may be quite insecure as several triggers may have the same name
+     * @todo Searching in the list is not very fast...
+     */
+    MSTrigger *getTrigger(const std::string &id) throw();
+
 
 protected:
+    /// @brief Definition of a trigger vector
+    typedef std::vector<MSTrigger*> TriggerVector;
+
+    /// @brief The stored triggers
     TriggerVector myTrigger;
+
+
+private:
+    /// @brief Invalidated copy constructor.
+    MSTriggerControl(const MSTriggerControl&);
+
+    /// @brief Invalidated assignment operator.
+    MSTriggerControl& operator=(const MSTriggerControl&);
+
+
 };
 
 

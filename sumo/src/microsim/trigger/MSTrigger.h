@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The basic class for triggering artifacts
+// An abstract device that changes the state of the micro simulation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -38,15 +38,24 @@
 // ===========================================================================
 /**
  * @class MSTrigger
+ * @brief An abstract device that changes the state of the micro simulation
+ *
+ * We name most of the additional microsim-structures "trigger" in order to 
+ *  allow some common operation on them.
  */
 class MSTrigger : public Named
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     * 
+     * @param[in] id The id of the trigger
+     */
     MSTrigger(const std::string &id) throw() : Named(id) { }
 
-    /// Destructor
+
+    /// @brief Destructor
     virtual ~MSTrigger() throw() { }
+
 
 };
 

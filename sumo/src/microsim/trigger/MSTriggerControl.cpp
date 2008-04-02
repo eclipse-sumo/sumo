@@ -4,7 +4,7 @@
 /// @date    :iterator i=myTrigger.begin(); i!=myTrigger.end(); ++i) {
 /// @version $Id$
 ///
-// missing_desc
+// A storage for triggers
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -47,13 +47,12 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSTriggerControl::MSTriggerControl(/*const std::vector<MSTrigger*> &trigger*/)
-//    : myTrigger(trigger)
+MSTriggerControl::MSTriggerControl() throw()
 {
 }
 
 
-MSTriggerControl::~MSTriggerControl()
+MSTriggerControl::~MSTriggerControl() throw()
 {
     for (TriggerVector::iterator i=myTrigger.begin(); i!=myTrigger.end(); ++i) {
         delete(*i);
@@ -62,21 +61,14 @@ MSTriggerControl::~MSTriggerControl()
 
 
 void
-MSTriggerControl::addTrigger(MSTrigger *t)
+MSTriggerControl::addTrigger(MSTrigger *t) throw()
 {
     myTrigger.push_back(t);
 }
 
 
-void
-MSTriggerControl::addTrigger(const std::vector<MSTrigger*> &all)
-{
-    copy(all.begin(), all.end(), back_inserter(myTrigger));
-}
-
-
 MSTrigger *
-MSTriggerControl::getTrigger(const std::string &id)
+MSTriggerControl::getTrigger(const std::string &id) throw()
 {
     for (TriggerVector::iterator i=myTrigger.begin(); i!=myTrigger.end(); ++i) {
         if ((*i)->getID()==id) {
