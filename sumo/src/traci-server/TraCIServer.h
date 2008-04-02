@@ -32,6 +32,8 @@
 
 #ifdef TRACI
 
+#include "TraCIConstants.h"
+
 #define BUILD_TCPIP
 #include "foreign/tcpip/storage.h"
 #include "utils/common/SUMOTime.h"
@@ -285,6 +287,158 @@ private:
 
 
 };
+
+// Helper class for reading different data type values out of a storage message
+class DataTypeContainer
+{
+private:
+	int intValue;
+	double realValue;
+	std::string stringValue;
+	TraCIServer::RoadMapPos roadPosValue;
+	float posXValue;
+	float posYValue;
+	float posZValue;
+
+	int lastValueRead;
+
+public:
+	DataTypeContainer() :lastValueRead(-1) {};
+
+	void readValue(unsigned char dataType, tcpip::Storage& msg) throw(TraCIException) {
+		switch(dataType) {
+		case TYPE_UBYTE:
+			intValue = msg.readUnsignedByte();
+			break;
+		case TYPE_BYTE:
+			intValue = msg.readByte();
+			break;
+		case TYPE_INTEGER:
+			intValue = msg.readInt();
+			break;
+		case TYPE_FLOAT:
+			realValue = msg.readFloat();
+			break;
+		case TYPE_DOUBLE:
+			realValue = msg.readDouble();
+			break;
+		case POSITION_ROADMAP:
+			roadPosValue.roadId = msg.readString();
+			roadPosValue.pos = msg.readFloat();
+			roadPosValue.laneId = msg.readUnsignedByte();
+			break;
+		case POSITION_2D:
+		case POSITION_2_5D:
+		case POSITION_3D:
+			posXValue = msg.readFloat();
+			posYValue = msg.readFloat();
+			if (dataType != POSITION_2D) {
+				posZValue = msg.readFloat();
+			}
+			break;
+		case TYPE_STRING:
+			stringValue = msg.readString();
+			break;
+		default:
+			std::stringstream error;
+			error << "Can't read value from request message: the data type " << (int)dataType << " is not known";
+			throw TraCIException(error.str());
+		}
+		lastValueRead = dataType;
+	};
+
+	int getLastValueRead() {
+		return lastValueRead;
+	}
+
+	unsigned char getUByte() throw(TraCIException) {
+		if (lastValueRead == TYPE_UBYTE) {
+			return static_cast<unsigned char>(intValue);
+		} else {
+			throw TraCIException("An unsigned byte value has not been read");
+		}
+	};
+
+	char getByte() throw(TraCIException) {
+		if (lastValueRead == TYPE_BYTE) {
+			return static_cast<char>(intValue);
+		} else {
+			throw TraCIException("A byte value has not been read");
+		}
+	};
+
+	int getInteger() throw(TraCIException) {
+		if (lastValueRead == TYPE_INTEGER) {
+			return intValue;
+		} else {
+			throw TraCIException("An integer value has not been read");
+		}
+	};
+
+	float getFloat() throw(TraCIException) {
+		if (lastValueRead == TYPE_FLOAT) {
+			return static_cast<float>(realValue);
+		} else {
+			throw TraCIException("A float value has not been read");
+		}
+	};
+
+	double getDouble() throw(TraCIException) {
+		if (lastValueRead == TYPE_DOUBLE) {
+			return intValue;
+		} else {
+			throw TraCIException("A double value has not been read");
+		}
+	};
+
+	TraCIServer::RoadMapPos getRoadMapPosition() throw(TraCIException) {
+		if (lastValueRead == POSITION_ROADMAP) {
+			return roadPosValue;
+		} else {
+			throw TraCIException("A road map position has not been read");
+		}
+	};
+
+	void get3DPosition(float& inX, float& inY, float& inZ) throw(TraCIException) {
+		if (lastValueRead == POSITION_3D || lastValueRead == POSITION_2_5D) {
+			inX = posXValue;
+			inY = posYValue;
+			inZ = posZValue;
+		} else {
+			throw TraCIException("A 3d position has not been read");
+		}
+	};
+
+	void get2DPosition(float& inX, float& inY) throw(TraCIException) {
+		if (lastValueRead == POSITION_2D) {
+			inX = posXValue;
+			inY = posYValue;
+		} else {
+			throw TraCIException("A 2d position has not been read");
+		}
+	};
+
+	Position2D getAnyPosition() throw(TraCIException) {
+		if (lastValueRead == POSITION_2D 
+			|| lastValueRead == POSITION_3D 
+			|| lastValueRead == POSITION_2_5D) {
+			Position2D pos(static_cast<SUMOReal>(posXValue), 
+								static_cast<SUMOReal>(posYValue));
+			return pos;
+		} else {
+			throw TraCIException("No position has been read");
+		}
+	};
+
+	std::string getString() throw(TraCIException) {
+		if (lastValueRead == TYPE_STRING) {
+			return stringValue;
+		} else {
+			throw TraCIException("A string value has not been read");
+		}
+	};
+};
+
 }
 
 

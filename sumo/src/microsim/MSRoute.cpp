@@ -296,7 +296,7 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
 			// destination position is on start edge
 			return (toPos - fromPos);
 		} else {
-			// start and destination edge are equal: ensure that it's contained at least twice in the route
+			// start and destination edge are equal: ensure that this edge is contained at least twice in the route
 			if (std::find(find(fromEdge)+1, end(), fromEdge) == end()) {
 				return std::numeric_limits<SUMOReal>::max();
 			}
@@ -315,6 +315,7 @@ MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* from
             distance += lanes[0]->length();
 //			cerr << " edge=" << (*it)->getID() << " " << lanes[0]->length();
 #ifdef HAVE_INTERNAL_LANES
+			// add length of internal lanes to the result
 			for (MSEdge::LaneCont::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); laneIt++) {
 				const MSLinkCont& links = (*laneIt)->getLinkCont();
 				for (MSLinkCont::const_iterator linkIt = links.begin(); linkIt != links.end(); linkIt++) {

@@ -1783,7 +1783,7 @@ MSVehicle::getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge)
 {
 	SUMOReal distance = std::numeric_limits<SUMOReal>::max();
 
-    if (isOnRoad())
+    if (isOnRoad() && destEdge != NULL)
     {
 		if (myLane->getEdge() == (*myCurrEdge))
         {

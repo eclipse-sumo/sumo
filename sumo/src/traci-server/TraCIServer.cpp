@@ -1581,6 +1581,7 @@ throw(TraCIException)
 {
 	string name = "";
 	string warning = "";	// additional description for response
+	DataTypeContainer dataCont;
 
 	// domain object
 	int objectId = requestMsg.readInt();
@@ -1591,6 +1592,11 @@ throw(TraCIException)
 
 	// value data type
 	int dataType = requestMsg.readUnsignedByte();
+
+	// if end of message is not yet reached, the value parameter has to be read
+	if (requestMsg.valid_pos()) {
+		dataCont.readValue(dataType, requestMsg);
+	}
 
 	if (isWriteCommand) {
 		throw TraCIException("Road map domain does not contain writable variables");
@@ -1619,17 +1625,16 @@ throw(TraCIException)
 
 	// numerical id of an edge
 	case DOMVAR_EXTID:
-		if (dataType != TYPE_STRING) {
+		//if (dataType != TYPE_STRING) {
+		if (dataCont.getLastValueRead() != TYPE_STRING) {
 			throw TraCIException("Internal id must be given as string value");
 		}
-		name = requestMsg.readString();
+		//name = requestMsg.readString();
+		name = dataCont.getString();
 		edge = MSEdge::dictionary(name);
 		if (edge != NULL) {
 			response.writeUnsignedByte(TYPE_INTEGER);
 			response.writeInt(edge->getNumericalID());
-			if (dataType != TYPE_INTEGER) {
-				warning = "Warning: requested data type could not be used; using integer instead!";
-			}
 		} else {
 			std::stringstream msg;
 			msg << "Edge with internal id " << name << " not existing";
@@ -1696,6 +1701,7 @@ throw(TraCIException)
 	int count = 0;
 	MSVehicleControl* vehControl = NULL;
 	std::string warning = "";	// additional description for response
+	DataTypeContainer dataCont;
 
 	// domain object
 	int objectId = requestMsg.readInt();
@@ -1706,6 +1712,11 @@ throw(TraCIException)
 
 	// value data type
 	int dataType = requestMsg.readUnsignedByte();
+
+	// if end of message is not yet reached, the value parameter has to be read
+	if (requestMsg.valid_pos()) {
+		dataCont.readValue(dataType, requestMsg);
+	}
 
 	if (isWriteCommand) {
 		throw TraCIException("Vehicle domain does not contain writable variables");
@@ -1735,16 +1746,15 @@ throw(TraCIException)
 
 	// external id of the object
 	case DOMVAR_EXTID:
-		if (dataType != TYPE_STRING) {
+//		if (dataType != TYPE_STRING) {
+		if (dataCont.getLastValueRead() != TYPE_STRING) {
 			throw TraCIException("Internal id must be given as string value");
 		}
-		name = requestMsg.readString();
+//		name = requestMsg.readString();
+		name = dataCont.getString();
 		if (equippedVehicles_.find(name) != equippedVehicles_.end()) {
 			response.writeUnsignedByte(TYPE_INTEGER);
 			response.writeInt(equippedVehicles_[name]);
-			if (dataType != TYPE_INTEGER) {
-				warning = "Warning: requested data type could not be used; using integer instead!";
-			}
 		} else {
 			std::stringstream msg;
 			msg << "Vehicle with internal id " << name << " not existing or not accessible via TraCI";
@@ -1867,58 +1877,75 @@ throw(TraCIException)
     case DOMVAR_DRIVINGDISTANCE:		
         if (veh != NULL)
         {
-			Position2D pos;
-			string destEdge = "";
-			float destPos = 0;
-			int destLane = 0;
-			MSEdge* edge = NULL;
+			Position2D destPos;
+			RoadMapPos destRoadPos;
+			float distance = 0.0;
 
-			response.writeUnsignedByte(TYPE_FLOAT);
 			// read destinatin position
-            switch (dataType) 
-            {
-            case POSITION_ROADMAP:
-                {
-                    destEdge = requestMsg.readString();
-                    destPos = requestMsg.readFloat();
-                    destLane = requestMsg.readUnsignedByte();
-//                    cerr << " destEdge=" << destEdge << " destPos=" << destPos << " destLane=" << destLane << endl;
-                    edge = MSEdge::dictionary( destEdge );
-                    if (edge == NULL ) throw TraCIException("Unable to retrieve edge with given id");
-
-					const MSEdge::LaneCont& lanes = *(edge->getLanes());
-					if (destLane > lanes.size()-1) throw TraCIException("No lane existing with specified id on this edge");
-                    pos = lanes[destLane]->getShape().positionAtLengthPosition(destPos);         
-                }
-                break;
-            case POSITION_2D:
-            case POSITION_2_5D:
-            case POSITION_3D:
-                {
-                    float destX = requestMsg.readFloat();
-                    float destY = requestMsg.readFloat();
-					if ((dataType == POSITION_3D) || (dataType == POSITION_2_5D)) {
-						requestMsg.readFloat();	// z value is ignored
-					}
-					pos.set(destX, destY);
-
-					RoadMapPos roadPos = convertCartesianToRoadMap(pos);
-					destEdge = roadPos.roadId;
-					destPos = roadPos.pos;
-					destLane = roadPos.laneId;
-					edge = MSEdge::dictionary( destEdge );
-                }
-                break;
-            default:
+			float x,y;
+			switch(dataCont.getLastValueRead()) {
+			case POSITION_ROADMAP:
+				destRoadPos = dataCont.getRoadMapPosition();
+				destPos = convertRoadMapToCartesian(destRoadPos);
+				if (MSEdge::dictionary(destRoadPos.roadId) == NULL ) throw TraCIException("Unable to retrieve edge with given id");
+				break;
+			case POSITION_3D:
+			case POSITION_2_5D:
+			case POSITION_2D:
+				destPos = dataCont.getAnyPosition();
+				destRoadPos = convertCartesianToRoadMap(destPos);
+				break;
+			default:
                 throw TraCIException("Distance request to unknown destination");
-            }
+			}
+
+//            switch (dataType) 
+//            {
+//            case POSITION_ROADMAP:
+//                {
+//                    destEdge = requestMsg.readString();
+//                    destPos = requestMsg.readFloat();
+//                    destLane = requestMsg.readUnsignedByte();
+////                    cerr << " destEdge=" << destEdge << " destPos=" << destPos << " destLane=" << destLane << endl;
+//                    edge = MSEdge::dictionary( destEdge );
+//                    if (edge == NULL ) throw TraCIException("Unable to retrieve edge with given id");
+//
+//					const MSEdge::LaneCont& lanes = *(edge->getLanes());
+//					if (destLane > lanes.size()-1) throw TraCIException("No lane existing with specified id on this edge");
+//                    pos = lanes[destLane]->getShape().positionAtLengthPosition(destPos);         
+//                }
+//                break;
+//            case POSITION_2D:
+//            case POSITION_2_5D:
+//            case POSITION_3D:
+//                {
+//                    float destX = requestMsg.readFloat();
+//                    float destY = requestMsg.readFloat();
+//					if ((dataType == POSITION_3D) || (dataType == POSITION_2_5D)) {
+//						requestMsg.readFloat();	// z value is ignored
+//					}
+//					pos.set(destX, destY);
+//
+//					RoadMapPos roadPos = convertCartesianToRoadMap(pos);
+//					destEdge = roadPos.roadId;
+//					destPos = roadPos.pos;
+//					destLane = roadPos.laneId;
+//					edge = MSEdge::dictionary( destEdge );
+//                }
+//                break;
+//            default:
+//                throw TraCIException("Distance request to unknown destination");
+//            }
 			
 			// compute the distance to destination position
 			if (variableId == DOMVAR_AIRDISTANCE) {
-                response.writeFloat( veh->getPosition().euclidDistance(pos.x(), pos.y()));
+				distance = static_cast<float>(GeomHelper::distance(veh->getPosition(), destPos));
             } else {
-				response.writeFloat(static_cast<float>(veh->getDistanceToPosition(destPos, MSEdge::dictionary(destEdge))));
+				distance = static_cast<float>(veh->getDistanceToPosition(destRoadPos.pos, MSEdge::dictionary(destRoadPos.roadId)));
             }
+			// write response
+			response.writeUnsignedByte(TYPE_FLOAT);
+			response.writeFloat(distance);
         } else {
 			throw TraCIException("Unable to retrieve node with given ID");
 		}
@@ -1941,6 +1968,7 @@ throw(TraCIException)
 	int count = 0;
 	std::string name;
 	std::string warning = "";	// additional description for response
+	DataTypeContainer dataCont;
 
 	// domain object
 	int objectId = requestMsg.readInt();
@@ -1951,6 +1979,11 @@ throw(TraCIException)
 
 	// value data type
 	int dataType = requestMsg.readUnsignedByte();
+
+	// if end of message is not yet reached, the value parameter has to be read
+	if (requestMsg.valid_pos()) {
+		dataCont.readValue(dataType, requestMsg);
+	}	
 
 	if (isWriteCommand) {
 		throw TraCIException("Traffic Light domain does not contain writable variables");
@@ -1980,16 +2013,15 @@ throw(TraCIException)
 
 	// external id of the object
 	case DOMVAR_EXTID:
-		if (dataType != TYPE_STRING) {
+//		if (dataType != TYPE_STRING) {
+		if (dataCont.getLastValueRead() != TYPE_STRING) {
 			throw TraCIException("Internal id must be given as string value");
 		}
-		name = requestMsg.readString();
+//		name = requestMsg.readString();
+		name = dataCont.getString();
 		if (trafficLightsInt2ExtId.find(name) != trafficLightsInt2ExtId.end()) {
 			response.writeUnsignedByte(TYPE_INTEGER);
 			response.writeInt(trafficLightsInt2ExtId[name]);
-			if (dataType != TYPE_INTEGER) {
-				warning = "Warning: requested data type could not be used; using integer instead!";
-			}
 		} else {
 			std::stringstream msg;
 			msg << "Traffic Light with internal id " << name << " not existing";
@@ -2156,6 +2188,7 @@ throw(TraCIException)
 {
 	std::string name;
 	std::string warning = "";	// additional description for response
+	DataTypeContainer dataCont;
 
 	// domain object
 	int objectId = requestMsg.readInt();
@@ -2167,7 +2200,11 @@ throw(TraCIException)
 	// value data type
 	int dataType = requestMsg.readUnsignedByte();
 
-	// read the value that shall be written
+	// if end of message is not yet reached, the value parameter has to be read
+	if (requestMsg.valid_pos()) {
+		dataCont.readValue(dataType, requestMsg);
+	}
+
 	if (isWriteCommand) {
 		throw TraCIException("Point of interest domain does not contain writable variables");
 	}
@@ -2203,16 +2240,15 @@ throw(TraCIException)
 
 	// external id of the object
 	case DOMVAR_EXTID:
-		if (dataType != TYPE_STRING) {
+//		if (dataType != TYPE_STRING) {
+		if (dataCont.getLastValueRead() != TYPE_STRING) {
 			throw TraCIException("Internal id must be given as string value");
 		}
-		name = requestMsg.readString();
+//		name = requestMsg.readString();
+		name = dataCont.getString();
 		if (poiInt2ExtId.find(name) != poiInt2ExtId.end()) {
 			response.writeUnsignedByte(TYPE_INTEGER);
 			response.writeInt(poiInt2ExtId[name]);
-			if (dataType != TYPE_INTEGER) {
-				warning = "Warning: requested data type could not be used; using integer instead!";
-			}
 		} else {
 			std::stringstream msg;
 			msg << "Point of interest with internal id " << name << " not existing";
@@ -2278,6 +2314,7 @@ throw(TraCIException)
 {
 	std::string name;
 	std::string warning = "";	// additional description for response
+	DataTypeContainer dataCont;
 
 	// domain object
 	int objectId = requestMsg.readInt();
@@ -2289,7 +2326,11 @@ throw(TraCIException)
 	// value data type
 	int dataType = requestMsg.readUnsignedByte();
 
-	// read the value that shall be written
+	// if end of message is not yet reached, the value parameter has to be read
+	if (requestMsg.valid_pos()) {
+		dataCont.readValue(dataType, requestMsg);
+	}
+
 	if (isWriteCommand) {
 		throw TraCIException("Polygon domain does not contain writable variables");
 	}
@@ -2324,16 +2365,15 @@ throw(TraCIException)
 
 	// external id of the object
 	case DOMVAR_EXTID:
-		if (dataType != TYPE_STRING) {
+//		if (dataType != TYPE_STRING) {
+		if (dataCont.getLastValueRead() != TYPE_STRING) {
 			throw TraCIException("Internal id must be given as string value");
 		}
-		name = requestMsg.readString();
+//		name = requestMsg.readString();
+		name = dataCont.getString();
 		if (polygonInt2ExtId.find(name) != polygonInt2ExtId.end()) {
 			response.writeUnsignedByte(TYPE_INTEGER);
 			response.writeInt(polygonInt2ExtId[name]);
-			if (dataType != TYPE_INTEGER) {
-				warning = "Warning: requested data type could not be used; using integer instead!";
-			}
 		} else {
 			std::stringstream msg;
 			msg << "Polygon with internal id " << name << " not existing";
