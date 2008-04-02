@@ -730,8 +730,8 @@ GUISUMOAbstractView::allowRotation() const
 */
 
 void
-GUISUMOAbstractView::setTooltipPosition(size_t x, size_t y,
-                                        size_t mouseX, size_t mouseY)
+GUISUMOAbstractView::setTooltipPosition(FXint x, FXint y,
+                                        FXint mouseX, FXint mouseY)
 {
     myToolTipX = x;
     myToolTipY = y;
@@ -1052,11 +1052,11 @@ GUISUMOAbstractView::drawPolygon2D(const Polygon2D &polygon) const
         gluTessBeginPolygon(tobj, NULL);
         gluTessBeginContour(tobj);
         for (size_t i=0; i!=polygon.getPosition2DVector().size(); ++i) {
-            points[3*i]  = polygon.getPosition2DVector()[i].x();
-            points[3*i+1]  = polygon.getPosition2DVector()[i].y();
+            points[3*i]  = polygon.getPosition2DVector()[(int) i].x();
+            points[3*i+1]  = polygon.getPosition2DVector()[(int) i].y();
             points[3*i+2]  = 0;
-            glvert[0] = polygon.getPosition2DVector()[i].x();
-            glvert[1] = polygon.getPosition2DVector()[i].y();
+            glvert[0] = polygon.getPosition2DVector()[(int) i].x();
+            glvert[1] = polygon.getPosition2DVector()[(int) i].y();
             glvert[2] = 0;
             glvert[3] = 1;
             glvert[4] = 1;

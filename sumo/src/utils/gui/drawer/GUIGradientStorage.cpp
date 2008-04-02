@@ -101,12 +101,11 @@ GUIGradientStorage::~GUIGradientStorage()
 std::vector<RGBColor>
 GUIGradientStorage::getRGBColors(GradientName idx, FXint noCells)
 {
-    size_t i;
-    FXGradientBar *bar =
-        new FXGradientBar(myVirtualParent);
+    FXint i; 
+    FXGradientBar *bar = new FXGradientBar(myVirtualParent);
     FXGradient *gradients;
     FXMALLOC(&gradients, FXGradient, myGradients[idx].size());
-    for (i=0; i<myGradients[idx].size(); i++) {
+    for (i=0; i<(FXint) myGradients[idx].size(); i++) {
         gradients[i] = myGradients[idx][i];
     }
     bar->setGradients(gradients, (FXint) myGradients[idx].size());

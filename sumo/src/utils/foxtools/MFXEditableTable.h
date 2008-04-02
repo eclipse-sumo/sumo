@@ -136,7 +136,7 @@ public:
 protected:
     FXTextField *myEditor;
     FXTableItem *myEditedItem;
-    size_t myEditedCol, myEditedRow;
+    FXint myEditedCol, myEditedRow;
     std::set<int> myWriteProtectedCols;
     FXString myPreviousText;
 

@@ -134,7 +134,7 @@ public:
 //    bool allowRotation() const;
 
     /// Returns the gl-id of the object under the given coordinates
-    void setTooltipPosition(size_t x, size_t y, size_t mouseX, size_t mouseY);
+    void setTooltipPosition(FXint x, FXint y, FXint mouseX, FXint mouseY);
 
     /// A reimplementation due to some internal reasons
     FXbool makeCurrent();
@@ -178,7 +178,7 @@ public:
     void showViewportEditor();
     virtual void showViewschemeEditor() = 0;
     void showToolTips(bool val);
-    virtual void setColorScheme(char* data) { }
+    virtual void setColorScheme(char* ) { }
 
     void drawShapes(const ShapeContainer &sc, int maxLayer, SUMOReal width);
 
@@ -285,6 +285,7 @@ public:
 
         /// @name background visualization settings
         //@{
+
         /// The background color to use
         RGBColor backgroundColor;
         /// Information whether background decals (textures) shall be used
@@ -295,8 +296,10 @@ public:
         SUMOReal gridXSize, gridYSize;
         //@}
 
+
         /// @name lane visualization settings
         //@{
+
         /// The lane visualization scheme
         int laneEdgeMode;
         /// The map if used colors (scheme->used colors)
@@ -322,8 +325,10 @@ public:
         RGBColor edgeNameColor;
         //@}
 
+
         /// @name vehicle visualization settings
         //@{
+
         /// The vehicle visualization scheme
         int vehicleMode;
         /// The minimum size of vehicles to let them be drawn
@@ -346,8 +351,10 @@ public:
         RGBColor vehicleNameColor;
         //@}
 
+
         /// @name junction visualization settings
         //@{
+
         /// The junction visualization scheme
         int junctionMode;
         /// Information whether a link's tls index shall be drawn
@@ -362,11 +369,14 @@ public:
         RGBColor junctionNameColor;
         //@}
 
+
         /// Information whether lane-to-lane arrows shall be drawn
         bool showLane2Lane;
 
+
         /// @name additional structures visualization settings
         //@{
+
         /// The additional structures visualization scheme
         int addMode;
         /// The minimum size of additional structures to let them be drawn
@@ -381,8 +391,10 @@ public:
         //RGBColor addNameColor;
         //@}
 
+
         /// @name shapes visualization settings
         //@{
+
         /// The minimum size of shapes to let them be drawn
         float minPOISize;
         /// The additional shapes (upscale)
@@ -475,10 +487,10 @@ protected:
     GUIGLObjectToolTip *myToolTip;
 
     /// position to display the tooltip at
-    size_t myToolTipX, myToolTipY;
+    FXint myToolTipX, myToolTipY;
 
     /// The current mouse position (if the mouse is over this canvas)
-    size_t myMouseX, myMouseY;
+    FXint myMouseX, myMouseY;
 
     /// Offset to the mouse-hotspot from the mouse position
     int myMouseHotspotX, myMouseHotspotY;
