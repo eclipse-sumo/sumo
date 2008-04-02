@@ -1,3 +1,16 @@
+#!/usr/bin/env python
+"""
+@file    dua_iterate.py
+@author  Daniel.Krajzewicz@dlr.de,Michael.Behrisch@dlr.de
+@date    2008-02-13
+@version $Id$
+
+Run duarouter and sumo alternating to perform a dynamic user assignment.
+Based on the Perl script dua_iterate.pl.
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
+"""
 import os, sys, subprocess
 from datetime import datetime
 from optparse import OptionParser
