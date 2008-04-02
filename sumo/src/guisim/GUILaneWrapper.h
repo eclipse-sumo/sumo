@@ -146,7 +146,6 @@ public:
     bool forLane(const MSLane &lane) const;
 
 
-    SUMOReal getEdgeEffort(SUMOTime t) const;
 
     const MSLane::VehCont &getVehiclesSecure();
     void releaseVehicles();

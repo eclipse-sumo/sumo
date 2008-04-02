@@ -376,13 +376,5 @@ GUILaneWrapper::getEdgeLaneNumber() const
 }
 
 
-SUMOReal
-GUILaneWrapper::getEdgeEffort(SUMOTime t) const
-{
-    return (SUMOReal) myLane.getEdge()->getVehicleEffort(0, t);
-}
-
-
-
 /****************************************************************************/
 
