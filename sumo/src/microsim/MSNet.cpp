@@ -497,7 +497,7 @@ MSNet::writeOutput()
 }
 
 
-size_t
+unsigned int
 MSNet::getWaitingVehicleNo() const
 {
     return myEmitter->getWaitingVehicleNo();

@@ -137,7 +137,7 @@ public:
     void writeOutput();
 
     /// Returns the number of vehicles that wait for being emitted
-    size_t getWaitingVehicleNo() const;
+    unsigned int getWaitingVehicleNo() const;
 
     size_t getMeanDataSize() const;
     MSEdgeControl &getEdgeControl();

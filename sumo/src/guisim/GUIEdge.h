@@ -156,7 +156,7 @@ public:
     //@}
 
 #ifdef HAVE_MESOSIM
-    size_t getVehicleNo() const;
+    unsigned int getVehicleNo() const;
     SUMOReal getDensity() const;
     SUMOReal getRouteSpread() const;
     SUMOReal getMeanSpeed() const;
@@ -186,18 +186,19 @@ private:
         }
 
     private:
-        /// The time to search for
+        /// @brief The lane to search for
         const MSLane &myLane;
 
     };
 
 
 private:
-    /// invalidated copy constructor
+    /// @brief invalidated copy constructor
     GUIEdge(const GUIEdge &s);
 
-    /// invalidated assignment operator
+    /// @brief invalidated assignment operator
     GUIEdge &operator=(const GUIEdge &s);
+
 
 };
 

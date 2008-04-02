@@ -429,13 +429,14 @@ public:
     }
 
 
+
     /** @brief returns the number of steps waited
         A vehicle is meant to be "waiting" when it's speed is less than 0.1
         It is only computed for "critical" vehicles
         The method return a size_t, now, as we assume a vehicle will not wait for
         longer than about 50 hours which still fits into a size_t when the simulation
         runs in ms */
-    size_t getWaitingTime() const;
+    unsigned int getWaitingTime() const;
 
 
     void rebuildAllowedLanes(bool reinit=true);

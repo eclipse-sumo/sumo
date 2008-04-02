@@ -1194,7 +1194,7 @@ MSVehicle::getLaneChangeModel() const
 }
 
 
-size_t
+unsigned int
 MSVehicle::getWaitingTime() const
 {
     return myWaitingTime;

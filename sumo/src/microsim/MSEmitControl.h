@@ -4,7 +4,7 @@
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
-// vehicles into the net.
+// Inserts vehicles into the network when their departure time is reached
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -48,6 +48,8 @@ class MSVehicleControl;
 // ===========================================================================
 /**
  * @class MSEmitControl
+ * @brief Inserts vehicles into the network when their departure time is reached
+ *
  * A vehicle emitter; Holds a list of vehicles which may be extended by new
  * vehicles read by MSRouteLoaders. Tries to emit vehicles departing at a time
  * into the network when this time is reached and restores them when the emission
@@ -75,8 +77,15 @@ public:
     /// adds a list of vehicles to the container
     void moveFrom(MSVehicleContainer &cont);
 
-    /// Returns the number of waiting vehicles
-    size_t getWaitingVehicleNo() const;
+
+    /** @brief Returns the number of waiting vehicles
+     * 
+     * The sizes of refused emits (sum of vehicles in myRefusedEmits1 and
+     *  myRefusedEmits2) is returned.
+     * @return The number of vehicles that could not (yet) be inserted into the net
+     */
+    unsigned int getWaitingVehicleNo() const throw();
+
 
 private:
     /** @brief Tries to emit the vehicle
@@ -109,14 +118,13 @@ private:
     SUMOTime myMaxDepartDelay;
 
 private:
-    /// Default constructor.
-    MSEmitControl();
-
     /// Copy constructor.
     MSEmitControl(const MSEmitControl&);
 
     /// Assignment operator.
     MSEmitControl& operator=(const MSEmitControl&);
+
+
 };
 
 

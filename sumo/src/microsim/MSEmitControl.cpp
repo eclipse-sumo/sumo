@@ -4,7 +4,7 @@
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
-// vehicles into the net.
+// Inserts vehicles into the network when their departure time is reached
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -63,6 +63,7 @@ MSEmitControl::add(MSVehicle *veh)
 {
     myAllVeh.add(veh);
 }
+
 
 void
 MSEmitControl::moveFrom(MSVehicleContainer &cont)
@@ -166,12 +167,11 @@ MSEmitControl::checkPrevious(SUMOTime time)
 }
 
 
-size_t
-MSEmitControl::getWaitingVehicleNo() const
+unsigned int
+MSEmitControl::getWaitingVehicleNo() const throw()
 {
-    return myRefusedEmits1.size() + myRefusedEmits2.size();
+    return (unsigned int) (myRefusedEmits1.size() + myRefusedEmits2.size());
 }
-
 
 
 /****************************************************************************/

@@ -155,7 +155,7 @@ public:
 
     int getRepetitionNo() const;
     int getPeriod() const;
-    size_t getLastLaneChangeOffset() const;
+    unsigned int getLastLaneChangeOffset() const;
     size_t getDesiredDepart() const;
     const std::vector<LaneQ> &getBestLanes() const;
 

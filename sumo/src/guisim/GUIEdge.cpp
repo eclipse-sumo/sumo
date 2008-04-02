@@ -200,7 +200,7 @@ GUIEdge::getParameterWindow(GUIMainWindow &app,
     ret->mkItem("flow [veh/h/lane]", true,
                 new FunctionBinding<GUIEdge, SUMOReal>(this, &GUIEdge::getFlow));
     ret->mkItem("#vehicles", true,
-                new CastingFunctionBinding<GUIEdge, SUMOReal, size_t>(this, &GUIEdge::getVehicleNo));
+                new CastingFunctionBinding<GUIEdge, SUMOReal, unsigned int>(this, &GUIEdge::getVehicleNo));
     // close building
     ret->closeBuilding();
 #endif
@@ -237,12 +237,12 @@ GUIEdge::getCenteringBoundary() const throw()
 #include <mesosim/MESegment.h>
 #include <mesosim/MELoop.h>
 #include <microsim/MSGlobals.h>
-size_t
+unsigned int
 GUIEdge::getVehicleNo() const
 {
     MESegment *first = MSGlobals::gMesoNet->getSegmentForEdge((GUIEdge*)this);
     assert(first!=0);
-    size_t vehNo = 0;
+    unsigned int vehNo = 0;
     do {
         vehNo += first->noCars();
         first = first->getNextSegment();

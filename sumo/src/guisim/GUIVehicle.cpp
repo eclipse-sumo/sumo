@@ -271,9 +271,9 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
     ret->mkItem("left same route [#]", false, getRepetitionNo());
     ret->mkItem("emission period [s]", false, getPeriod());
     ret->mkItem("waiting time [s]", true,
-                new CastingFunctionBinding<MSVehicle, SUMOReal, size_t>(this, &MSVehicle::getWaitingTime));
+                new CastingFunctionBinding<MSVehicle, SUMOReal, unsigned int>(this, &MSVehicle::getWaitingTime));
     ret->mkItem("last lane change [s]", true,
-                new CastingFunctionBinding<GUIVehicle, SUMOReal, size_t>(this, &GUIVehicle::getLastLaneChangeOffset));
+                new CastingFunctionBinding<GUIVehicle, SUMOReal, unsigned int>(this, &GUIVehicle::getLastLaneChangeOffset));
     ret->mkItem("desired depart [s]", false, getDesiredDepart());
     ret->mkItem("position [m]", true,
                 new FunctionBinding<GUIVehicle, SUMOReal>(this, &GUIVehicle::getPositionOnLane));
@@ -327,7 +327,7 @@ GUIVehicle::getPeriod() const
 }
 
 
-size_t
+unsigned int
 GUIVehicle::getLastLaneChangeOffset() const
 {
     return myLastLaneChangeOffset;
