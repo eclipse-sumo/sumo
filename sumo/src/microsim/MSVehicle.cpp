@@ -263,7 +263,7 @@ MSVehicle::desiredDepart() const
 
 
 const MSEdge*
-MSVehicle::succEdge(unsigned int nSuccs) const
+MSVehicle::succEdge(unsigned int nSuccs) const throw()
 {
     if (hasSuccEdge(nSuccs)) {
         return *(myCurrEdge + nSuccs);
@@ -272,24 +272,9 @@ MSVehicle::succEdge(unsigned int nSuccs) const
     }
 }
 
-const MSRouteIterator& 
-MSVehicle::currEdgeIt() const
-{
-    return myCurrEdge;
-}
 
 bool
-MSVehicle::hasSuccEdge(unsigned int nSuccs) const
-{
-    if (myCurrEdge + nSuccs >= myRoute->end()) {
-        return false;
-    }
-    return true;
-}
-
-
-bool
-MSVehicle::destReached(const MSEdge* targetEdge)
+MSVehicle::destReached(const MSEdge* targetEdge) throw()
 {
     if (targetEdge->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
         return false;
@@ -315,10 +300,74 @@ MSVehicle::destReached(const MSEdge* targetEdge)
 }
 
 
-bool
-MSVehicle::endsOn(const MSLane &lane) const
-{
+bool 
+MSVehicle::endsOn(const MSLane &lane) const throw() {
     return lane.inEdge(myRoute->getLastEdge());
+}
+
+
+SUMOReal 
+MSVehicle::processNextStop(SUMOReal currentVelocity) throw()
+{
+    if (myStops.empty()) {
+        // no stops; pass
+        return currentVelocity;
+    }
+    if (myStops.begin()->reached) {
+        // ok, we have already reached the next stop
+        if (myStops.begin()->duration==0) {
+            // ... and have waited as long as needed
+            if (myStops.begin()->busstop!=0) {
+                // inform bus stop about leaving it
+                myStops.begin()->busstop->leaveFrom(this);
+            }
+            // the current stop is no longer valid
+            myStops.pop_front();
+            // maybe the next stop is on the same edge; let's rebuild best lanes
+            getBestLanes(true);
+            // continue as wished...
+        } else {
+            // we have to wait some more time
+            myStops.begin()->duration--;
+            myTarget = myLane;
+            return 0;
+        }
+    } else {
+        // is the next stop on the current lane?
+        if (myStops.begin()->lane==myLane) {
+            Stop &bstop = *myStops.begin();
+            // get the stopping position
+            SUMOReal endPos = bstop.pos;
+            bool busStopsMustHaveSpace = true;
+            if (bstop.busstop!=0) {
+                // on bus stops, we have to wait for free place if they are in use...
+                endPos = bstop.busstop->getLastFreePos();
+                if (endPos-5.<bstop.busstop->getBeginLanePosition()) { // !!! explicite offset
+                    busStopsMustHaveSpace = false;
+                }
+            }
+            if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
+                // ok, we may stop (have reached the stop)
+                bstop.reached = true;
+                // compute stopping time
+                if(bstop.until>=0) {
+                    if (bstop.duration==-1) {
+                        bstop.duration = bstop.until - MSNet::getInstance()->getCurrentTimeStep();
+                    } else {
+                        bstop.duration = MAX2(bstop.duration, bstop.until - MSNet::getInstance()->getCurrentTimeStep());
+                    }
+                }
+                if (bstop.busstop!=0) {
+                    // let the bus stop know the vehicle
+                    bstop.busstop->enter(this, myState.pos(), myState.pos()-myType->getLength());
+                }
+            }
+            // decelerate
+            // !!! should not v be 0 when we have reached the stop?
+            return myType->ffeS(myState.mySpeed, endPos-myState.pos());
+        }
+    }
+    return currentVelocity;
 }
 
 
@@ -341,51 +390,8 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
         SUMOReal nVSafe = myType->ffeV(myState.mySpeed, mgap, neigh->getSpeed());
         vSafe = MIN2(vSafe, nVSafe);
     }
-
-
-    if (!myStops.empty()) {
-        if (myStops.begin()->reached) {
-            if (myStops.begin()->duration==0) {
-                if (myStops.begin()->busstop!=0) {
-                    myStops.begin()->busstop->leaveFrom(this);
-                }
-                myStops.pop_front();
-            } else {
-                myStops.begin()->duration--;
-                myTarget = myLane;
-                myState.mySpeed = 0;
-                myLane->addMean2(*this, 0, oldV, gap);
-                return; // !!!detectore etc?
-            }
-        } else {
-            if (myStops.begin()->lane==myLane) {
-                Stop &bstop = *myStops.begin();
-                SUMOReal endPos = bstop.pos;
-                bool busStopsMustHaveSpace = true;
-                if (bstop.busstop!=0) {
-                    endPos = bstop.busstop->getLastFreePos();
-                    if (endPos-5.<bstop.busstop->getBeginLanePosition()) { // !!! explicite offset
-                        busStopsMustHaveSpace = false;
-                    }
-                }
-                if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
-                    bstop.reached = true;
-                    if(bstop.until>=0) {
-                        if (bstop.duration==-1) {
-                            bstop.duration = bstop.until - MSNet::getInstance()->getCurrentTimeStep();
-                        } else {
-                            bstop.duration = MAX2(bstop.duration, bstop.until - MSNet::getInstance()->getCurrentTimeStep());
-                        }
-                    }
-                    if (bstop.busstop!=0) {
-                        bstop.busstop->enter(this, myState.pos(), myState.pos()-myType->getLength());
-                    }
-                }
-
-                vSafe = MIN2(vSafe, myType->ffeS(myState.mySpeed, endPos-myState.pos()));
-            }
-        }
-    }
+    // take stops into account
+    vSafe = MIN2(vSafe, processNextStop(vSafe));
 
     SUMOReal maxNextSpeed = myType->maxNextSpeed(myState.mySpeed);
 
@@ -520,50 +526,8 @@ MSVehicle::moveFirstChecked()
         currentLane = link->getLane();
     }
 
-
-    if (!myStops.empty()) {
-        if (myStops.begin()->reached) {
-            if (myStops.begin()->duration==0) {
-                if (myStops.begin()->busstop!=0) {
-                    myStops.begin()->busstop->leaveFrom(this);
-                }
-                myStops.pop_front();
-            } else {
-                myStops.begin()->duration--;
-                myTarget = myLane;
-                myState.mySpeed = 0;
-                myLane->addMean2(*this, 0, oldV, -1);
-                return; // !!!detectore etc?
-            }
-        } else {
-            if (myStops.begin()->lane==myLane) {
-                Stop &bstop = *myStops.begin();
-                SUMOReal endPos = bstop.pos;
-                bool busStopsMustHaveSpace = true;
-                if (bstop.busstop!=0) {
-                    endPos = bstop.busstop->getLastFreePos();
-                    if (endPos-5.<bstop.busstop->getBeginLanePosition()) { // !!! explicite offset
-                        busStopsMustHaveSpace = false;
-                    }
-                }
-                if (myState.pos()>=endPos-BUS_STOP_OFFSET&&busStopsMustHaveSpace) {
-                    bstop.reached = true;
-                    if(bstop.until>=0) {
-                        if (bstop.duration==-1) {
-                            bstop.duration = bstop.until - MSNet::getInstance()->getCurrentTimeStep();
-                        } else {
-                            bstop.duration = MAX2(bstop.duration, bstop.until - MSNet::getInstance()->getCurrentTimeStep());
-                        }
-                    }
-                    if (bstop.busstop!=0) {
-                        bstop.busstop->enter(this, myState.pos(), myState.pos()-myType->getLength());
-                    }
-                }
-                vSafe = MIN2(vSafe, myType->ffeS(myState.mySpeed, endPos-myState.pos()));
-            }
-        }
-    }
-
+    // take stops into account
+    vSafe = MIN2(vSafe, processNextStop(vSafe));
     // compute vNext in considering dawdling
     SUMOReal vNext = myType->dawdle(vSafe);
     vNext =
@@ -1595,9 +1559,9 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
 
 
 const std::vector<MSVehicle::LaneQ> &
-MSVehicle::getBestLanes() const
+MSVehicle::getBestLanes(bool forceRebuild) const throw()
 {
-    if (myLastBestLanesEdge==myLane->getEdge()) {
+    if (myLastBestLanesEdge==myLane->getEdge()&&!forceRebuild) {
         std::vector<LaneQ> &lanes = *myBestLanes.begin();
         std::vector<LaneQ>::iterator i;
         for (i=lanes.begin(); i!=lanes.end(); ++i) {
@@ -1788,7 +1752,7 @@ MSVehicle::getEffort(const MSEdge * const e, SUMOReal t) const
 
 
 const std::vector<MSLane*> &
-MSVehicle::getBestLanesContinuation() const
+MSVehicle::getBestLanesContinuation() const throw()
 {
     if (myBestLanes.empty()||myBestLanes[0].empty()) {
         return myEmptyLaneVector;

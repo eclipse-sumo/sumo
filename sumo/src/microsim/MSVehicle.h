@@ -141,24 +141,44 @@ public:
     /// @name interaction with the route
     //@{
 
-    /** Returns the nSuccs'th successor of the vehicles current
-        route-edge or 0 if there is no nSucc'th edge. */
-    const MSEdge* succEdge(unsigned int nSuccs) const;
+    /** @brief Returns whether the vehicle has still to pass nSuccs edges
+     * @param[in] nSuccs The number of edge to look forward
+     * @return Whether the rest of the route is at least as long as nSuccs
+     */
+    inline bool hasSuccEdge(unsigned int nSuccs) const throw() {
+        return myCurrEdge + nSuccs < myRoute->end();
+    }
 
-    /** Returns the current edge as iterator of the vehicles route vector */
-    const MSRouteIterator& currEdgeIt() const;
+    /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
+     * 
+     * If the rest of the route (counted from the current edge) than nSuccs,
+     *  0 is returned.
+     * @param[in] nSuccs The number of edge to look forward
+     * @return The nSuccs'th following edge in the vehicle's route
+     */
+    const MSEdge* succEdge(unsigned int nSuccs) const throw();
 
-    /** Returns true if nSuccs'th successor of the vehicles current
-        route-edge exists. */
-    bool hasSuccEdge(unsigned int nSuccs) const;
+
+    /** @brief Returns the current edge as iterator of the vehicles route vector 
+     * @return Iterator pointing at the current position in the vehicle's route
+     */
+    const MSRouteIterator& currEdgeIt() const throw() {
+        return myCurrEdge;
+    }
+
 
     /** Returns true if vehicle is going to enter it's destination
         edge. False otherwise. Adjusts in both cases the route
-        iterator and the allowedLanes-container. */
-    bool destReached(const MSEdge* targetEdge);
+        iterator and the allowedLanes-container. 
+        @todo decribe, choose a proper name*/
+    bool destReached(const MSEdge* targetEdge) throw();
 
-    /// Returns the information whether the route ends on the given lane
-    bool endsOn(const MSLane &lane) const;
+
+    /** @brief Returns the information whether the route ends on the given lane's edge
+     * @param[in] lane The lane to ask for
+     * @return Whether the route ends on the lane's edge
+     */
+    bool endsOn(const MSLane &lane) const throw();
 
     /// Moves vehicle one edge forward, returns true if the route has ended
     bool proceedVirtualReturnWhetherEnded(const MSEdge *const to);
@@ -440,7 +460,6 @@ public:
 
 
     void rebuildAllowedLanes(bool reinit=true);
-    const std::vector<MSLane*> &getBestLanesContinuation() const;
 
     void quitRemindedEntered(MSVehicleQuitReminded *r);
     void quitRemindedLeft(MSVehicleQuitReminded *r);
@@ -452,6 +471,13 @@ public:
 
     std::string buildDeviceIDList() const;
 
+    /// @name stretegical/tactical lane choosing methods
+    /// @{
+
+    /** @struct LaneQ
+     * @brief A structure representing the best lanes for continuing the route
+     * @todo Describe
+     */
     struct LaneQ {
         MSLane *lane;
         SUMOReal length;
@@ -475,7 +501,23 @@ public:
         */
     };
 
-    virtual const std::vector<LaneQ> &getBestLanes() const;
+    /** @brief Returns the description of best lanes to use in order to continue the route
+     * 
+     * The information is rebuilt if the vehicle is on a different edge than
+     *  the one stored in "myLastBestLanesEdge" or "forceRebuild" is true.
+     * Otherwise, only the density changes on the stored lanes are adapted to
+     *  the container.
+     * @return The best lanes structure holding matching the current vehicle position and state ahead
+     */
+    virtual const std::vector<LaneQ> &getBestLanes(bool forceRebuild=false) const throw();
+
+
+    /** @brief Returns the subpart of best lanes that describes the vehicle's current lane and their successors
+     * @return The best lane information for the vehicle's current lane
+     * @todo Describe better
+     */
+    const std::vector<MSLane*> &getBestLanesContinuation() const throw();
+    /// @}
 
     SUMOReal getMovedDistance(void) const {
         return SPEED2DIST(myState.mySpeed);
@@ -496,12 +538,25 @@ public:
     void onTripEnd();
     void writeXMLRoute(OutputDevice &os, int index=-1) const;
 
+
+    /// @name vehicle stops definitions and i/o
+    //@{
+
+    /** @struct Stop
+     * @brief Definition of vehicle stop (position and duration)
+     */
     struct Stop {
+        /// @brief The lane to stop at
         MSLane *lane;
+        /// @brief (Optional) bus stop if one is assigned to the stop
         MSBusStop *busstop;
+        /// @brief The stopping position
         SUMOReal pos;
+        /// @brief The stopping duration
         SUMOTime duration;
+        /// @brief The time at which the vehicle may continue its journey
         SUMOTime until;
+        /// @brief Information whether the stop has been reached
         bool reached;
 #ifdef TRACI
 		bool isTraciStop;
@@ -509,15 +564,24 @@ public:
 #endif
     };
 
-    std::list<Stop> myStops;
 
-    void addStop(const Stop &stop) {
+    /** @brief Adds a stop
+     * 
+     * The stops are not sorted afterwards, they must be consecutively added.
+     * @param[in] stop The stop to add
+     */
+    void addStop(const Stop &stop) throw() {
         myStops.push_back(stop);
     }
 
+
+    /** @brief Returns whether the vehicle has to stop somewhere
+     * @return Whether the vehicle has to stop somewhere
+     */
     bool hasStops() {
         return !myStops.empty();
     }
+    /// @}
 
     SUMOVehicleClass getVehicleClass() const {
         return myType->getVehicleClass();
@@ -651,6 +715,14 @@ public:
 #endif
 
 protected:
+    /** @brief Processes stops, returns the velocity needed to reach the stop
+     * @return The velocity in dependance to the next/current stop
+     * @todo Describe more detailed
+     * @see Stop
+     * @see MSBusStop
+     */
+    SUMOReal processNextStop(SUMOReal currentVelocity) throw();
+
     void rebuildContinuationsFor(LaneQ &q, MSLane *l, MSRouteIterator ce, int seen) const;
     virtual void setBlinkerInformation() { }
 
@@ -717,6 +789,10 @@ protected:
 
     std::map<MSCORN::Pointer, void*> myPointerCORNMap;
     std::map<MSCORN::Function, int> myIntCORNMap;
+
+    /// @brief The vehicle's list of stops
+    std::list<Stop> myStops;
+
 
 private:
     std::vector<MSDevice*> myDevices;

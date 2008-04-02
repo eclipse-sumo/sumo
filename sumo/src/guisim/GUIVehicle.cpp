@@ -352,7 +352,7 @@ GUIVehicle::getCenteringBoundary() const throw()
 
 
 const std::vector<MSVehicle::LaneQ> &
-GUIVehicle::getBestLanes() const
+GUIVehicle::getBestLanes() const throw()
 {
     myLock.lock();
     const std::vector<MSVehicle::LaneQ> &ret = MSVehicle::getBestLanes();
