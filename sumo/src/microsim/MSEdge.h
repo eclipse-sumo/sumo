@@ -4,7 +4,7 @@
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
-// �missingDescription�
+// A road/street connecting two junctions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -43,12 +43,8 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-/**
- * @class MSEdge
- */
 class MSLane;
 class MSLaneChanger;
-class OutputDevice;
 
 
 // ===========================================================================
@@ -56,8 +52,9 @@ class OutputDevice;
 // ===========================================================================
 /**
  * @class MSEdge
- * A single connection between two junctions. As there is no certain
- * relationship over junctions, the word "street" or "road" may be ambigous.
+ * @brief A road/street connecting two junctions
+ * 
+ * A single connection between two junctions. 
  * Holds lanes which are reponsible for vehicle movements.
  */
 class MSEdge
@@ -151,8 +148,6 @@ public:
         normal street; see EdgeBasicFunction */
     EdgeBasicFunction getPurpose() const;
 
-    /// returns the information whether the edge is a source
-    virtual bool isSource() const;
 
     /// emits a vehicle on an appropriate lane
     virtual bool emit(MSVehicle &v, SUMOTime time) const;

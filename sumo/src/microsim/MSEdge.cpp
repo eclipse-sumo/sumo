@@ -4,7 +4,7 @@
 /// @date    Tue, 06 Mar 2001
 /// @version $Id$
 ///
-//  �missingDescription�
+// A road/street connecting two junctions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -338,13 +338,6 @@ MSEdge::EdgeBasicFunction
 MSEdge::getPurpose() const
 {
     return myFunction;
-}
-
-
-bool
-MSEdge::isSource() const
-{
-    return myFunction==EDGEFUNCTION_SOURCE;
 }
 
 

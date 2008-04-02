@@ -84,7 +84,7 @@ GUIVehicleDrawer::drawGLVehicles(size_t *onWhich, size_t maxEdges,
         for (size_t j=0; j<32; j++, pos<<=1) {
             if ((onWhich[i]&pos)!=0) {
                 GUIEdge *edge = static_cast<GUIEdge*>(myEdges[j+(i<<5)]);
-                if (edge->isSource()) {
+                if (edge->getPurpose()==MSEdge::EDGEFUNCTION_SOURCE) {
                     continue; // !!! optional
                 }
                 size_t noLanes = edge->nLanes();
