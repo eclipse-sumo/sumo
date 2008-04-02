@@ -206,7 +206,7 @@ GUIEmitter::GUIManip_TriggeredEmitter::GUIManip_TriggeredEmitter(
     FXVerticalFrame *f1 =
         new FXVerticalFrame(this, LAYOUT_FILL_X|LAYOUT_FILL_Y,0,0,0,0, 0,0,0,0);
 
-    myChosenValue = o.getActiveChildIndex();
+    myChosenValue = (FXint) o.getActiveChildIndex();
 
     FXGroupBox *gp = new FXGroupBox(f1, "Change Flow",
                                     GROUPBOX_TITLE_LEFT|FRAME_SUNKEN|FRAME_RIDGE,

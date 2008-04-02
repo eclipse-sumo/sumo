@@ -113,14 +113,14 @@ GUIPerspectiveChanger::onMouseMove(void *)
 {}
 
 
-int
+FXint
 GUIPerspectiveChanger::getMouseXPosition() const
 {
     return myMouseXPosition;
 }
 
 
-int
+FXint
 GUIPerspectiveChanger::getMouseYPosition() const
 {
     return myMouseYPosition;

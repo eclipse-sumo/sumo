@@ -118,10 +118,10 @@ public:
     virtual void setViewport(SUMOReal zoom, SUMOReal xPos, SUMOReal yPos) = 0;
 
     /// Returns the last mouse x-position an event occured at
-    int getMouseXPosition() const;
+    FXint getMouseXPosition() const;
 
     /// Returns the last mouse y-position an event occured at
-    int getMouseYPosition() const;
+    FXint getMouseYPosition() const;
 
     /// Sets the sizes of the network
     void setNetSizes(size_t width, size_t height);
@@ -143,7 +143,7 @@ protected:
     size_t myCanvasWidth, myCanvasHeight;
 
     /// the current mouse position
-    int myMouseXPosition, myMouseYPosition;
+    FXint myMouseXPosition, myMouseYPosition;
 
 };
 

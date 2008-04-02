@@ -263,7 +263,7 @@ GUIApplicationWindow::create()
     myWindowsMenu->create();
     myHelpMenu->create();
 
-    size_t width = getApp()->getNormalFont()->getTextWidth("8", 1)*22;
+    FXint width = getApp()->getNormalFont()->getTextWidth("8", 1)*22;
     myCartesianFrame->setWidth(width);
     myGeoFrame->setWidth(width);
 

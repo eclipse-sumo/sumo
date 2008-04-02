@@ -75,7 +75,7 @@ GUIGLObjectToolTip::~GUIGLObjectToolTip()
 
 void
 GUIGLObjectToolTip::setObjectTip(GUIGlObject *object,
-                                 size_t x, size_t y)
+                                 FXint x, FXint y)
 {
     // check whether the object has changed
     bool objectChanged = (myObject!=object);
@@ -91,7 +91,7 @@ GUIGLObjectToolTip::setObjectTip(GUIGlObject *object,
         // get the new name and width
         myObjectName = object->getFullName();
         label = myObjectName.c_str();
-        myWidth = myFont->getTextWidth(myObjectName.c_str(), myObjectName.length())+6;
+        myWidth = myFont->getTextWidth(myObjectName.c_str(), (FXuint) myObjectName.length())+6;
     }
     myHeight = myTextHeight+6;
     position(x+15, y-20, 1, 1);
@@ -119,12 +119,12 @@ GUIGLObjectToolTip::onPaint(FXObject*,FXSelector,void*)
     FXDCWindow dc(this);
     dc.setForeground(backColor);
     dc.fillRectangle(1, 1,
-                     myFont->getTextWidth(myObjectName.c_str(), myObjectName.length())+4, myTextHeight+4);
+                     myFont->getTextWidth(myObjectName.c_str(), (FXuint) myObjectName.length())+4, myTextHeight+4);
     dc.setFont(myFont);
     dc.setForeground(0);
     dc.drawText(3, myTextHeight,
-                myObjectName.c_str(), myObject->getFullName().length());
-    dc.drawRectangle(0, 0, myFont->getTextWidth(myObjectName.c_str(), myObjectName.length())+5, myTextHeight+5);
+                myObjectName.c_str(), (FXuint) myObject->getFullName().length());
+    dc.drawRectangle(0, 0, myFont->getTextWidth(myObjectName.c_str(), (FXuint) myObjectName.length())+5, myTextHeight+5);
     return 1;
 }
 

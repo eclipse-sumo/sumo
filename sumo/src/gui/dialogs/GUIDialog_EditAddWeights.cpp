@@ -269,7 +269,7 @@ GUIDialog_EditAddWeights::rebuildList()
     sort(gAddWeightsStorage.begin(), gAddWeightsStorage.end(), time_sorter());
 
     // set table attributes
-    myTable->setTableSize(gAddWeightsStorage.size()+1, 6);
+    myTable->setTableSize((FXint) gAddWeightsStorage.size()+1, 6);
     myTable->setColumnText(0, "EdgeID");
     myTable->setColumnText(1, "TimeBeg");
     myTable->setColumnText(2, "TimeEnd");
@@ -290,22 +290,17 @@ GUIDialog_EditAddWeights::rebuildList()
     header->setItemSize(5, 60); // !! check if the size will be changed
 
     // insert into table
-    size_t row = 0;
+    FXint row = 0;
     GUIAddWeightsStorage::iterator j;
     for (j=gAddWeightsStorage.begin(); j!=gAddWeightsStorage.end(); ++j) {
         GUIAddWeight &aw = *j;
         std::string name = aw.edgeID;
         myTable->setItemText(row, 0, name.c_str());
-        myTable->setItemText(row, 1,
-                             toString<int>((*j).timeBeg).c_str());
-        myTable->setItemText(row, 2,
-                             toString<int>((*j).timeEnd).c_str());
-        myTable->setItemText(row, 3,
-                             toString<SUMOReal>((*j).absolute).c_str());
-        myTable->setItemText(row, 4,
-                             toString<SUMOReal>((*j).summand).c_str());
-        myTable->setItemText(row, 5,
-                             toString<SUMOReal>((*j).factor).c_str());
+        myTable->setItemText(row, 1, toString<int>((*j).timeBeg).c_str());
+        myTable->setItemText(row, 2, toString<int>((*j).timeEnd).c_str());
+        myTable->setItemText(row, 3, toString<SUMOReal>((*j).absolute).c_str());
+        myTable->setItemText(row, 4, toString<SUMOReal>((*j).summand).c_str());
+        myTable->setItemText(row, 5, toString<SUMOReal>((*j).factor).c_str());
         // replace "invalid" values by empty fields
         for (k=1; k<6; k++) {
             string val = myTable->getItem(row, k)->getText().text();

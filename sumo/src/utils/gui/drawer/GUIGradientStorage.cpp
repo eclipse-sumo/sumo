@@ -99,7 +99,7 @@ GUIGradientStorage::~GUIGradientStorage()
 
 
 std::vector<RGBColor>
-GUIGradientStorage::getRGBColors(GradientName idx, size_t noCells)
+GUIGradientStorage::getRGBColors(GradientName idx, FXint noCells)
 {
     size_t i;
     FXGradientBar *bar =
@@ -109,7 +109,7 @@ GUIGradientStorage::getRGBColors(GradientName idx, size_t noCells)
     for (i=0; i<myGradients[idx].size(); i++) {
         gradients[i] = myGradients[idx][i];
     }
-    bar->setGradients(gradients, myGradients[idx].size());
+    bar->setGradients(gradients, (FXint) myGradients[idx].size());
 
     FXColor *ramp;
     FXMALLOC(&ramp, FXColor, noCells);

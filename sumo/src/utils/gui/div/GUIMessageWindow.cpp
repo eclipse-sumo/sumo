@@ -106,7 +106,7 @@ GUIMessageWindow::appendText(GUIEventType eType, const std::string &msg) throw()
         show();
     }
     // build the styled message
-    int style = 1;
+    FXint style = 1;
     switch (eType) {
     case EVENT_ERROR_OCCURED:
         // color: red
@@ -126,7 +126,7 @@ GUIMessageWindow::appendText(GUIEventType eType, const std::string &msg) throw()
     // continue message building
     std::string mmsg = msg + "\n";
     // insert message to buffer
-    FXText::appendStyledText(mmsg.c_str(), mmsg.length(), style+1, true);
+    FXText::appendStyledText(mmsg.c_str(), (FXint) mmsg.length(), style+1, true);
     FXText::setCursorPos(getLength()-1);
     FXText::setBottomLine(getLength()-1);
     if (isEnabled()) {
@@ -140,7 +140,7 @@ void
 GUIMessageWindow::addSeparator() throw()
 {
     std::string msg = "----------------------------------------------------------------------------------------\n";
-    FXText::appendStyledText(msg.c_str(), msg.length(), 1, true);
+    FXText::appendStyledText(msg.c_str(), (FXint) msg.length(), 1, true);
     FXText::setCursorPos(getLength()-1);
     FXText::setBottomLine(getLength()-1);
     if (isEnabled()) {

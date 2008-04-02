@@ -809,7 +809,7 @@ GUIDialog_ViewSettings::writeSettings()
 {
     const std::map<std::string, GUISUMOAbstractView::VisualizationSettings> &items = gSchemeStorage.getItems();
     const std::vector<std::string> &names = gSchemeStorage.getNames();
-    getApp()->reg().writeIntEntry("VisualizationSettings","settingNo",names.size()-3);//!!!
+    getApp()->reg().writeIntEntry("VisualizationSettings", "settingNo", (FXint) names.size()-3);//!!!
     size_t gidx = 0;
     for (std::vector<std::string>::const_iterator i=names.begin()+3; i!=names.end(); ++i, ++gidx) {
         size_t k, index;
@@ -1050,7 +1050,7 @@ GUIDialog_ViewSettings::loadSettings(const std::string &file)
         if (name=="showSizeLegend") setting.showSizeLegend = TplConvert<char>::_2bool(val.c_str());
 
     }
-    size_t index = mySchemeName->appendItem(setting.name.c_str());
+    FXint index = mySchemeName->appendItem(setting.name.c_str());
     gSchemeStorage.add(setting);
     mySchemeName->setCurrentItem(index);
     myParent->getColoringSchemesCombo().appendItem(setting.name.c_str());
@@ -1252,7 +1252,7 @@ GUIDialog_ViewSettings::rebuildList()
     header->setItemSize(7, 60); // !! check if the size will be changed
 
     // insert into table
-    size_t row = 0;
+    FXint row = 0;
     std::vector<GUISUMOAbstractView::Decal>::iterator j;
     for (j=myDecals->begin(); j!=myDecals->end(); ++j) {
         GUISUMOAbstractView::Decal &d = *j;

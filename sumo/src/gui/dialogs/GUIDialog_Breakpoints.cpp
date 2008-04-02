@@ -162,7 +162,7 @@ GUIDialog_Breakpoints::rebuildList()
     sort(gBreakpoints.begin(), gBreakpoints.end());
 
     // set table attributes
-    myTable->setTableSize(gBreakpoints.size()+1, 1);
+    myTable->setTableSize((FXint) gBreakpoints.size()+1, 1);
     myTable->setColumnText(0, "Time");
     FXHeader *header = myTable->getColumnHeader();
     header->setHeight(getApp()->getNormalFont()->getFontHeight()+getApp()->getNormalFont()->getFontAscent());
@@ -172,11 +172,10 @@ GUIDialog_Breakpoints::rebuildList()
     }
 
     // insert into table
-    size_t row = 0;
+    FXint row = 0;
     std::vector<int>::iterator j;
     for (j=gBreakpoints.begin(); j!=gBreakpoints.end(); ++j) {
-        myTable->setItemText(row, 0,
-                             toString<int>(*j).c_str());
+        myTable->setItemText(row, 0, toString<int>(*j).c_str());
         row++;
     }
     // insert dummy last field

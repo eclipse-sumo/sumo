@@ -57,7 +57,7 @@ public:
     ~GUIGradientStorage();
 
     /// Returns the named gradient as a list of colors
-    std::vector<RGBColor> getRGBColors(GradientName idx, size_t noCells);
+    std::vector<RGBColor> getRGBColors(GradientName idx, FXint noCells);
 
     /// Adds a gradient
     void set(GradientName idx, const std::vector<FXGradient> &gradient);

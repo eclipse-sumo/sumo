@@ -75,7 +75,7 @@ public:
 private:
     /// sets the tooltip displaying information about the given object at the given position
     void setObjectTip(GUIGlObject *object,
-                      size_t x, size_t y);
+                      FXint x, FXint y);
 
     /// removes the tooltip (undisplays it)
     void eraseTip();
