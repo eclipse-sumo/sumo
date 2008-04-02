@@ -172,15 +172,16 @@ private:
     LaneWrapperVector myLaneGeoms;
 
     /**
-     * A class to find the matching lane wrapper
+     * @class lane_wrapper_finder
+     * @brief A class to find the matching lane wrapper
      */
     class lane_wrapper_finder
     {
     public:
-        /** constructor */
+        /** @brief constructor */
         explicit lane_wrapper_finder(const MSLane &lane) : myLane(lane) { }
 
-        /** the comparing function */
+        /** @brief the comparing function */
         bool operator()(const GUILaneWrapper * const wrapper) {
             return wrapper->forLane(myLane);
         }
