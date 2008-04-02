@@ -80,9 +80,7 @@ class MSRouteLoader;
  * @class MSNet
  * @brief The simulated network and simulation perfomer
  *
- * The main simulation class. Holds the network and indirectly vehicles which
- * are stored within a MSEmitControl - emitter which itself is a part of
- * MSNet.
+ * The main simulation class.
  */
 class MSNet
 {
@@ -131,17 +129,10 @@ public:
 
     SUMOTime getCurrentTimeStep() const;
 
-    MSVehicleControl &getVehicleControl() const;
-    MSPersonControl &getPersonControl() const;
 
     void writeOutput();
 
     size_t getMeanDataSize() const;
-    MSEdgeControl &getEdgeControl();
-    MSDetectorControl &getDetectorControl();
-    MSTriggerControl &getTriggerControl();
-    MSTLLogicControl &getTLSControl();
-    MSJunctionControl &getJunctionControl();
     void addMeanData(MSMeanData_Net *newMeanData);
 
     virtual void closeBuilding(MSEdgeControl *edges,
@@ -165,34 +156,146 @@ public:
     void saveState(std::ostream &os);
     void loadState(BinaryInputDevice &bis);
 
-    ShapeContainer &getShapeContainer() const {
-        return *myShapeContainer;
-    }
-
     virtual MSRouteLoader *buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage);
 
     SUMOReal getTooSlowRTF() const;
 
-    MSEventControl &getBeginOfTimestepEvents() {
+
+    /// @name Retrieval of references to substructures
+    /// @{
+
+    /** @brief Returns the vehicle control
+     * @return The vehicle control
+     * @see MSVehicleControl
+     * @see myVehicleControl
+     */
+    MSVehicleControl &getVehicleControl() throw() {
+        return *myVehicleControl;
+    }
+
+
+    /** @brief Returns the person control
+     *
+     * If the person control does not exist, yet, it is created.
+     *
+     * @return The person control
+     * @see MSPersonControl
+     * @see myPersonControl
+     */
+    MSPersonControl &getPersonControl() throw();
+
+
+    /** @brief Returns the edge control
+     * @return The edge control
+     * @see MSEdgeControl
+     * @see myEdges
+     */
+    MSEdgeControl &getEdgeControl() throw() {
+        return *myEdges;
+    }
+
+
+    /** @brief Returns the emission control
+     * @return The emission control
+     * @see MSEmitControl
+     * @see myEmitter
+     */
+    MSEmitControl &getEmitControl() throw() {
+        return *myEmitter;
+    }
+
+
+    /** @brief Returns the detector control
+     * @return The detector control
+     * @see MSDetectorControl
+     * @see myDetectorControl
+     */
+    MSDetectorControl &getDetectorControl() throw() {
+        return *myDetectorControl;
+    }
+
+
+    /** @brief Returns the trigger control
+     * @return The trigger control
+     * @see MSTriggerControl
+     * @see myTriggerControl
+     */
+    MSTriggerControl &getTriggerControl() throw() {
+        return *myTriggerControl;
+    }
+
+
+    /** @brief Returns the tls logics control
+     * @return The tls logics control
+     * @see MSTLLogicControl
+     * @see myLogics
+     */
+    MSTLLogicControl &getTLSControl() throw() {
+        return *myLogics;
+    }
+
+
+    /** @brief Returns the junctions control
+     * @return The junctions control
+     * @see MSJunctionControl
+     * @see myJunctions
+     */
+    MSJunctionControl &getJunctionControl() throw() {
+        return *myJunctions;
+    }
+
+
+    /** @brief Returns the event control for events executed at the begin of a time step
+     * @return The control reponsible for events that are executed at the begin of a time step
+     * @see MSEventControl
+     * @see myBeginOfTimestepEvents
+     */
+    MSEventControl &getBeginOfTimestepEvents() throw() {
         return *myBeginOfTimestepEvents;
     }
 
-    MSEventControl &getEndOfTimestepEvents() {
+
+    /** @brief Returns the event control for events executed at the end of a time step
+     * @return The control reponsible for events that are executed at the end of a time step
+     * @see MSEventControl
+     * @see myEndOfTimestepEvents
+     */
+    MSEventControl &getEndOfTimestepEvents() throw() {
         return *myEndOfTimestepEvents;
     }
 
-    MSEventControl &getEmissionEvents() {
+
+    /** @brief Returns the event control for emission events
+     * @return The control reponsible for emission events
+     * @see MSEventControl
+     * @see myEmissionEvents
+     */
+    MSEventControl &getEmissionEvents() throw() {
         return *myEmissionEvents;
     }
 
-    /////////////////////////////////////////////
-    MSPhoneNet * getMSPhoneNet() {
+
+    /** @brief Returns the shapes container
+     * @return The shapes container
+     * @see ShapeContainer
+     * @see myShapeContainer
+     */
+    ShapeContainer &getShapeContainer() throw() {
+        return *myShapeContainer;
+    }
+
+
+    /** @brief Returns the GSM-network
+     * @return The GSM-network representation
+     * @deprecated MSPhoneNet should not be a part of MSNet
+     * @todo return a reference
+     */
+    MSPhoneNet * getMSPhoneNet() throw() {
         return myMSPhoneNet;
-    } ;
-    /////////////////////////////////////////////
+    }
+    /// @}
 
 protected:
-    MSPhoneNet * myMSPhoneNet;
     /** initialises the MeanData-container */
     static void initMeanData(std::vector<int> dumpMeanDataIntervals,
                              std::string baseNameDumpFiles);
@@ -202,18 +305,6 @@ protected:
 
     /// Unique ID.
     std::string myID;
-
-    /** Lane-changing is done by this object. */
-    MSEdgeControl* myEdges;
-
-    /// Sets the right-of-way rules and moves first cars.
-    MSJunctionControl* myJunctions;
-
-    /// Masks requests from cars having red
-    MSTLLogicControl *myLogics;
-
-    /// Emits cars into the lanes.
-    MSEmitControl* myEmitter;
 
     /** route loader for dynamic loading of routes */
     MSRouteLoaderControl *myRouteLoaders;
@@ -228,15 +319,38 @@ protected:
         of each lane is calculated and written to file. */
     std::vector<MSMeanData_Net*> myMeanData;
 
-    /** @brief An instance responsible for vehicle */
+    /// @name Substructures
+    /// @{
+
+    /** @brief Controls vehicle building and deletion; @see MSVehicleControl */
     MSVehicleControl *myVehicleControl;
-    mutable MSPersonControl *myPersonControl;
+    /** @brief Controls person building and deletion; @see MSPersonControl */
+    MSPersonControl *myPersonControl;
+    /** @brief Controls edges, performs vehicle movement; @see MSEdgeControl */
+    MSEdgeControl* myEdges;
+    /** @brief Controls junctions, realizes right-of-way rules; @see MSJunctionControl */
+    MSJunctionControl* myJunctions;
+    /** @brief Controls tls logics, realizes waiting on tls rules; @see MSJunctionControl */
+    MSTLLogicControl *myLogics;
+    /** @brief Controls vehicle emissions; @see MSEmitControl */
+    MSEmitControl* myEmitter;
+    /** @brief Controls detectors; @see MSDetectorControl */
     MSDetectorControl *myDetectorControl;
+    /** @brief Controls triggers; @see MSTriggerControl */
     MSTriggerControl *myTriggerControl;
+    /** @brief Controls events executed at the begin of a time step; @see MSEventControl */
     MSEventControl *myBeginOfTimestepEvents;
+    /** @brief Controls events executed at the end of a time step; @see MSEventControl */
     MSEventControl *myEndOfTimestepEvents;
+    /** @brief Controls emission events; @see MSEventControl */
     MSEventControl *myEmissionEvents;
+    /** @brief A container for geometrical shapes; @see  ShapeContainer*/
     ShapeContainer *myShapeContainer; // could be a direct member
+    /** @brief A GSM-network representation
+     * @deprecated Should not be a member of MSNet
+     */
+    MSPhoneNet * myMSPhoneNet;
+    /// @}
 
     //{@ data needed for computing performance values
     /// Information whether the simulation duration shall be logged
@@ -260,12 +374,15 @@ protected:
 
     SUMOReal myTooSlowRTF;
     int myTooManyVehicles;
+
+
 private:
-    /// Copy constructor.
+    /// @brief Invalidated copy constructor.
     MSNet(const MSNet&);
 
-    /// Assignment operator.
+    /// @brief Invalidated assignment operator.
     MSNet& operator=(const MSNet&);
+
 
 };
 

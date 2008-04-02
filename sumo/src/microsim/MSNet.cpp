@@ -453,13 +453,6 @@ MSNet::getCurrentTimeStep() const
 }
 
 
-MSVehicleControl &
-MSNet::getVehicleControl() const
-{
-    return *myVehicleControl;
-}
-
-
 void
 MSNet::writeOutput()
 {
@@ -515,40 +508,6 @@ MSNet::getMeanDataSize() const
 }
 
 
-MSEdgeControl &
-MSNet::getEdgeControl()
-{
-    return *myEdges;
-}
-
-
-MSDetectorControl &
-MSNet::getDetectorControl()
-{
-    return *myDetectorControl;
-}
-
-
-MSTriggerControl &
-MSNet::getTriggerControl()
-{
-    return *myTriggerControl;
-}
-
-
-MSTLLogicControl &
-MSNet::getTLSControl()
-{
-    return *myLogics;
-}
-
-MSJunctionControl &
-MSNet::getJunctionControl()
-{
-    return *myJunctions;
-}
-
-
 long
 MSNet::getSimStepDurationInMillis() const
 {
@@ -600,7 +559,7 @@ MSNet::getTooSlowRTF() const
 
 
 MSPersonControl &
-MSNet::getPersonControl() const
+MSNet::getPersonControl() throw()
 {
     if (myPersonControl==0) {
         myPersonControl = new MSPersonControl();
