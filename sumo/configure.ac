@@ -14,7 +14,7 @@ dnl the debug check has to be made before the program checks
 dnl because it modifies CXXFLAGS
 AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug],[enable sumo debugging code [default=no].])],
               [AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])
-CXXFLAGS="-g $CXXFLAGS"], [CXXFLAGS="-O2 -DNDEBUG -march=native $CXXFLAGS"])
+CXXFLAGS="-g $CXXFLAGS"], [CXXFLAGS="-O2 -DNDEBUG $CXXFLAGS"])
 if test x$enable_debug = xyes; then
    ac_enabled="$ac_enabled Debug"
 else
