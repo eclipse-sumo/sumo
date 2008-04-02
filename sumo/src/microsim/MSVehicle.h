@@ -661,7 +661,7 @@ protected:
               int repNo, int repOffset, int vehicleIndex);
 
     /// information how long ago the vehicle has performed a lane-change
-    SUMOTime myLastLaneChangeOffset;
+    unsigned int myLastLaneChangeOffset;
 
     /// the lane, the vehicle will be within the next time step
     MSLane *myTarget;
@@ -671,7 +671,7 @@ protected:
         It's a size_t, now, as we assume a vehicle will not wait for
         longer than about 50 hours which still fits into a size_t when the simulation
         runs in ms */
-    size_t myWaitingTime;
+    unsigned int myWaitingTime;
 
     // The time the vehicle waits, may mean the same like myWaitingTime
     int timeSinceStop;
