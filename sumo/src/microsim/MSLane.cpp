@@ -743,13 +743,6 @@ MSLane::isLinkEnd(MSLinkCont::iterator &i)
 }
 
 
-bool
-MSLane::inEdge(const MSEdge *edge) const
-{
-    return myEdge==edge;
-}
-
-
 const MSVehicle * const
 MSLane::getLastVehicle() const
 {

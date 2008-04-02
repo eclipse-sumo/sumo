@@ -203,8 +203,13 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
         of the list of links (is not valid) */
     bool isLinkEnd(MSLinkCont::iterator &i);
 
-    /// returns the information whether the given edge is the parent edge
-    virtual bool inEdge(const MSEdge *edge) const;
+    /** @brief Returns the information whether the given edge is the parent edge
+     * @param[in] edge The edge to test
+     * @return Whether this lane is a part of the given edge
+     */
+    inline bool inEdge(const MSEdge * const edge) const throw() {
+        return myEdge==edge;
+    }
 
     /// returns the last vehicle
     virtual const MSVehicle * const getLastVehicle() const;
