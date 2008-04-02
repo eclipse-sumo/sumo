@@ -235,28 +235,15 @@ class DistrictsReader(handler.ContentHandler):
             newEdge.connection = 2
 
 # The class is for parsing the XML input file (vehicle information). This class is used in the networkStatistics.py for
-# calculating the gloabal network performances, e.g. avg. travel time and avg. travel speed.
+# calculating the global network performances, e.g. avg. travel time and avg. travel speed.
 class VehInformationReader(handler.ContentHandler):
-    def __init__(self, vehList):
-        self._vehList = vehList
-        self._Vehicle = None
-        self._routeString = ''
+    def __init__(self, vehicles):
+        self._vehicles = vehicles
 
     def startElement(self, name, attrs):
-        if name == 'route':
-            self._routeString = ''
-        if name == 'vehicle':
-            self._Vehicle = Vehicle(attrs['id'])
-            self._Vehicle.depart = float(attrs['emittedAt'])
-            self._Vehicle.arrival = float(attrs['endedAt'])
-            self._vehList.append(self._Vehicle)
-
-    def characters(self, content):
-        if self._Vehicle:
-            self._routeString += content
-   
-    def endElement(self, name):
-        if name == 'vehicle':
-            self._Vehicle.route = self._routeString.split()
-            self._routeString = ''
-            self._Vehicle = None
+        if name == 'tripinfo':
+            vehicle = Vehicle(attrs['id'])
+            vehicle.traveltime = float(attrs['duration'])
+            vehicle.travellength = float(attrs['routeLength'])
+            vehicle.waittime = float(attrs['departDelay']) + float(attrs['waitSteps']) 
+            self._vehicles.append(vehicle)
