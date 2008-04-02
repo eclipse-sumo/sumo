@@ -81,8 +81,12 @@ public:
     ~GUIEdge() throw();
 
 
-    /// sets the junctions allowing the retrieval of the edge position (!!! why not private with a friend?)
-    void initGeometry(GUIGlObjectStorage &idStorage);
+    /** @brief Builds lane wrappers for this edge's lanes
+     *
+     * @param[in] idStorage The gl-objects storage to retrieve the gl-id for this edge's lanes from 
+     */
+    void initGeometry(GUIGlObjectStorage &idStorage) throw();
+
 
     /** Returns the list of all known junctions as their names */
     static std::vector<std::string> getNames();
