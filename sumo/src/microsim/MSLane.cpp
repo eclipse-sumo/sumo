@@ -591,7 +591,7 @@ MSLane::setCritical(std::vector<MSLane*> &into)
             hadProblem = true;
             continue;
         }
-        if (target!=0&&p->getInTransit()) {
+        if (target!=0&&p->isOnRoad()) {
             target->push(p);
             into.push_back(target);
         }

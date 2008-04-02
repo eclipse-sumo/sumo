@@ -408,23 +408,25 @@ public:
     /// Returns the lane the vehicle is on
     const MSLane &getLane() const;
 
-    /// Returns whether the vehicle is driving, what means myLane is not null.
-    bool getInTransit() const;
-
     /// @name usage of multiple vehicle emissions
     //@{
 
     /// Returns the information whether further vehicles of this type shall be emitted periodically
     bool periodical() const;
 
-    /// Returns the information whether the vehicle was aready emitted
-    bool running() const;
-
     /** @brief Returns the next "periodical" vehicle with the same route
         We have to duplicate the vehicle if a further has to be emitted with
         the same settings */
     virtual MSVehicle *getNextPeriodical() const;
     //@}
+
+
+    /** @brief Returns the information whether the vehicle is on a road (is simulated)
+     * @return Whether the vehicle is simulated
+     */
+    inline bool isOnRoad() const throw() {
+        return myLane!=0;
+    }
 
 
     /** @brief returns the number of steps waited

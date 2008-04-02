@@ -394,7 +394,7 @@ throw(TraCIException)
                     // vehicle is equipped
                     equippedVehicles_[vehicleId] = numEquippedVehicles_;
                     // put into active list?
-                    if (vehicle->getInTransit()) {
+                    if (vehicle->isOnRoad()) {
                         activeEquippedVehicles[numEquippedVehicles_] = vehicle;
                     }
                     numEquippedVehicles_++;
@@ -402,7 +402,7 @@ throw(TraCIException)
                     // vehicle is not equipped
                     equippedVehicles_[vehicleId] = -1;
                 }
-            } else if (equippedVeh->second >= 0 && vehicle->getInTransit()) {
+            } else if (equippedVeh->second >= 0 && vehicle->isOnRoad()) {
                 int extId = equippedVeh->second;
                 activeEquippedVehicles[extId] = vehicle;
                 // vehicle is equipped
@@ -1756,7 +1756,7 @@ throw(TraCIException)
 	case DOMVAR_COUNT:
 		vehControl = &MSNet::getInstance()->getVehicleControl();
 		for (MSVehicleControl::constVehIt vehIt = vehControl->loadedVehBegin(); vehIt != vehControl->loadedVehEnd(); vehIt++) {
-			if (vehIt->second->getInTransit()) {
+			if (vehIt->second->isOnRoad()) {
 				count++;
 			}
 		}

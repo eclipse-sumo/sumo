@@ -302,7 +302,7 @@ GUIVehicle::microsimID() const throw()
 bool
 GUIVehicle::active() const throw()
 {
-    return running();
+    return isOnRoad();
 }
 
 

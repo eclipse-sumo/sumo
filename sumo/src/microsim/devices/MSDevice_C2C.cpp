@@ -652,7 +652,7 @@ MSDevice_C2C::addNeighbors(vector<MSDevice_C2C*>* devices, SUMOTime time)
 void
 MSDevice_C2C::addVehNeighbors(MSDevice_C2C *device, SUMOTime time)
 {
-    if (!device->getHolder().getInTransit()) {
+    if (!device->getHolder().isOnRoad()) {
         // obviously, one of the vehicles is being teleported
         return;
     }

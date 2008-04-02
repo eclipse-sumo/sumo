@@ -81,7 +81,7 @@ GUIVehicleControl::getVehicleNames()
     ret.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
         MSVehicle *veh = (*i).second;
-        if (veh->running()) {
+        if (veh->isOnRoad()) {
             ret.push_back((*i).first);
         }
     }
@@ -96,7 +96,7 @@ GUIVehicleControl::getVehicleIDs()
     ret.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
         MSVehicle *veh = (*i).second;
-        if (veh->running()) {
+        if (veh->isOnRoad()) {
             ret.push_back(static_cast<GUIVehicle*>((*i).second)->getGlID());
         }
     }

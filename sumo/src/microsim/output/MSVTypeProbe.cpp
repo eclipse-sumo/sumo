@@ -74,7 +74,7 @@ MSVTypeProbe::writeXMLOutput(OutputDevice &dev,
     for (;it != end; ++it) {
         const MSVehicle *veh=(*it).second;
         if (myVType=="" || myVType==veh->getVehicleType().getID()) {
-            if (!veh->running()) {
+            if (!veh->isOnRoad()) {
                 continue;
             }
             Position2D pos = veh->getPosition();

@@ -907,13 +907,6 @@ MSVehicle::getPosition() const
 }
 
 
-bool
-MSVehicle::getInTransit() const
-{
-    return (myLane!=0);
-}
-
-
 const string &
 MSVehicle::getID() const
 {
@@ -1140,13 +1133,6 @@ MSVehicle::getNextPeriodical() const
         ret->myStops.push_back(*i);
     }
     return ret;
-}
-
-
-bool
-MSVehicle::running() const
-{
-    return myLane!=0;
 }
 
 
@@ -1833,7 +1819,7 @@ MSVehicle::getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge)
 {
 	SUMOReal distance = std::numeric_limits<SUMOReal>::max();
 
-    if (getInTransit())
+    if (isOnRoad())
     {
 		if (myLane->getEdge() == (*myCurrEdge))
         {
