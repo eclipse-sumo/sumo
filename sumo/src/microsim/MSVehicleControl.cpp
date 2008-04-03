@@ -123,7 +123,7 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
                 << "departLane=\"" << laneID << "\" "
                 << "departPos=\"" << departInfo->pos << "\" "
                 << "departSpeed=\"" << departInfo->speed << "\" "
-                << "departDelay=\"" << departInfo->time - v->desiredDepart() << "\" ";
+                << "departDelay=\"" << departInfo->time - v->getDesiredDepart() << "\" ";
             departTime = departInfo->time;
         } else {
             if(v->hasCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)) {
@@ -283,7 +283,7 @@ void
 MSVehicleControl::vehicleEmitted(MSVehicle *v)
 {
     if (MSCORN::wished(MSCORN::CORN_MEAN_VEH_WAITINGTIME)) {
-        myAbsVehWaitingTime += (v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME) - v->desiredDepart());
+        myAbsVehWaitingTime += (v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME) - v->getDesiredDepart());
     }
 }
 
@@ -354,7 +354,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis)
         string routeID;
         bis >> routeID;
         MSRoute* route;
-        unsigned int desiredDepart;
+        unsigned int desiredDepart; // !!! SUMOTime
         bis >> desiredDepart;
         string typeID;
         bis >> typeID;

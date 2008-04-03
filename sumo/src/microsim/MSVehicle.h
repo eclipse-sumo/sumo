@@ -125,14 +125,27 @@ public:
     /// @name needed during the emission
     //@{
 
-    /// returns the edge the vehicle starts from
-    const MSEdge &departEdge();
+    /** @brief Returns the edge the vehicle starts from
+     * @return The vehicle's departure edge
+     */
+    const MSEdge &getDepartEdge() const {
+        return **myCurrEdge;
+    }
 
-    /// Returns the lanes the vehicle may be emitted onto
-    const MSEdge::LaneCont& departLanes();
+
+    /** @brief Returns the lanes the vehicle may be emitted onto
+     * @return Lanes that are allowed to be used for emission
+     * @todo recheck this; are these lanes on which the vehicle's class is allowed, only?
+     */
+    const MSEdge::LaneCont &getDepartLanes() const {
+        return *(myAllowedLanes[0]);
+    }
+
 
     /// Returns the desired departure time.
-    SUMOTime desiredDepart() const;
+    SUMOTime getDesiredDepart() const throw() {
+        return myDesiredDepart;
+    }
     //@}
 
     void removeOnTripEnd(MSVehicle *veh) throw();

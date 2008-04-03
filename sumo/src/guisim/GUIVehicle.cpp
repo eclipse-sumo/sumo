@@ -334,13 +334,6 @@ GUIVehicle::getLastLaneChangeOffset() const
 }
 
 
-size_t
-GUIVehicle::getDesiredDepart() const
-{
-    return myDesiredDepart;
-}
-
-
 Boundary
 GUIVehicle::getCenteringBoundary() const throw()
 {

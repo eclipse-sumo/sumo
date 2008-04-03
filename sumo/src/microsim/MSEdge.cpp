@@ -324,7 +324,7 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
     if (myFunction!=EDGEFUNCTION_SOURCE) {
         return myDepartLane->emit(v);
     } else {
-        const LaneCont &lanes =  v.departLanes();
+        const LaneCont &lanes = v.getDepartLanes();
         int minI = 0;
         int ir = 0;
         unsigned int noCars = (unsigned int)(*getLanes())[0]->length();

@@ -128,8 +128,8 @@ unsigned int
 MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
                        MSVehicleContainer::VehicleVector &refusedEmits) throw()
 {
-    assert(veh->desiredDepart() <= time);
-    const MSEdge &edge = veh->departEdge();
+    assert(veh->getDesiredDepart() <= time);
+    const MSEdge &edge = veh->getDepartEdge();
     if (edge.getLastFailedEmissionTime()!=time && edge.emit(*veh, time)) {
         // Successful emission.
         veh->onDepart();
@@ -137,7 +137,7 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
         checkReemission(veh);
         return 1;
     }
-    if (myMaxDepartDelay != -1 && time - veh->desiredDepart() > myMaxDepartDelay) {
+    if (myMaxDepartDelay != -1 && time - veh->getDesiredDepart() > myMaxDepartDelay) {
         // Check whether another vehicle with the same parameter shall be emitted
         checkReemission(veh);
         // remove vehicles waiting too long for departure

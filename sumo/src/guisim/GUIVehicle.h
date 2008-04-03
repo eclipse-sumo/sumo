@@ -156,7 +156,6 @@ public:
     int getRepetitionNo() const;
     int getPeriod() const;
     unsigned int getLastLaneChangeOffset() const;
-    size_t getDesiredDepart() const;
 
     /** @brief Returns the description of best lanes to use in order to continue the route
      *

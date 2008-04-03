@@ -238,30 +238,6 @@ MSVehicle::MSVehicle(string id,
 }
 
 
-
-
-
-const MSEdge &
-MSVehicle::departEdge()
-{
-    return **myCurrEdge;
-}
-
-
-const MSEdge::LaneCont &
-MSVehicle::departLanes()
-{
-    return *(myAllowedLanes[0]);
-}
-
-
-SUMOTime
-MSVehicle::desiredDepart() const
-{
-    return myDesiredDepart;
-}
-
-
 const MSEdge*
 MSVehicle::succEdge(unsigned int nSuccs) const throw()
 {
@@ -1678,7 +1654,7 @@ MSVehicle::saveState(std::ostream &os)
     FileHelpers::writeInt(os, myRepetitionNumber);
     FileHelpers::writeInt(os, myPeriod);
     FileHelpers::writeString(os, myRoute->getID());
-    FileHelpers::writeUInt(os, myDesiredDepart);
+    FileHelpers::writeUInt(os, myDesiredDepart); // !!! SUMOTime
     FileHelpers::writeString(os, myType->getID());
     FileHelpers::writeUInt(os, myRoute->posInRoute(myCurrEdge));
     if (hasCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)) {
