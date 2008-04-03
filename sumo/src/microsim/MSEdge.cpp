@@ -301,10 +301,14 @@ MSEdge::decVaporization(SUMOTime) throw(ProcessError)
 bool
 MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
 {
+    // when vaporizing, no vehicles are emitted...
+    if(isVaporizing()) {
+        return false;
+    }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
-        v.update_segment(MSGlobals::gMesoNet->getSegmentForEdge(this));
-        v.update_tEvent((SUMOReal) time);
+        v.setSegment(MSGlobals::gMesoNet->getSegmentForEdge(this));
+        v.setEventTime((SUMOReal) time);
         bool insertToNet = false;
         if (MSGlobals::gMesoNet->getSegmentForEdge(this)->initialise2(&v, 0, time, insertToNet)) {
             if (insertToNet) {//MSGlobals::gMesoNet->getSegmentForEdge(this)->noCars()==1) {
@@ -317,10 +321,6 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
         }
     }
 #endif
-    // when vaporizing, no vehicles are emitted...
-    if(isVaporizing()) {
-        return false;
-    }
     if (myFunction!=EDGEFUNCTION_SOURCE) {
         return myDepartLane->emit(v);
     } else {

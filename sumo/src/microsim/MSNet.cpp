@@ -181,7 +181,7 @@ MSNet::closeBuilding(MSEdgeControl *edges, MSJunctionControl *junctions,
 
     // we may add it before the network is loaded
     if (myEdges!=0) {
-        myEdges->insertMeanData(myMeanData.size());
+        myEdges->insertMeanData((unsigned int) myMeanData.size());
     }
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {

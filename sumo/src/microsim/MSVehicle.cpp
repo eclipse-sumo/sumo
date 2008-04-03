@@ -1688,15 +1688,13 @@ MSVehicle::saveState(std::ostream &os)
     }
 #ifdef HAVE_MESOSIM
     // !!! several things may be missing
-    if (seg==0) {
+    if (mySegment==0) {
         FileHelpers::writeUInt(os, 0);
-        FileHelpers::writeFloat(os, tEvent);
-        FileHelpers::writeFloat(os, tLastEntry);
     } else {
-        FileHelpers::writeUInt(os, seg->get_index());
-        FileHelpers::writeFloat(os, tEvent);
-        FileHelpers::writeFloat(os, tLastEntry);
+        FileHelpers::writeUInt(os, mySegment->get_index());
     }
+    FileHelpers::writeFloat(os, myEventTime);
+    FileHelpers::writeFloat(os, tLastEntry);
     FileHelpers::writeByte(os, inserted);
 #endif
 }
