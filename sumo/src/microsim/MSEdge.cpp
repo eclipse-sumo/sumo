@@ -368,6 +368,10 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const
         }
     }
 #endif
+    // when vaporizing, no vehicles are emitted...
+    if(isVaporizing()) {
+        return false;
+    }
     if (myFunction!=EDGEFUNCTION_SOURCE) {
         return myDepartLane->emit(v);
     } else {
