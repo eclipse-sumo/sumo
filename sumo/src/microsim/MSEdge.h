@@ -38,6 +38,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/SUMOVehicleClass.h>
 #include <utils/common/FloatValueTimeLine.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -85,8 +86,17 @@ public:
     /// for access to the dictionary
     friend class GUIGrid;
 
-    /// Constructor.
-    MSEdge(const std::string &id, size_t numericalID);
+
+    /** @brief Constructor.
+     *
+     * After calling this constructor, the edge is not yet initialised
+     *  completely. A call to "initialize" with proper values is needed
+     *  for this.
+     *
+     * @param[in] id The id of the edge
+     * @param[in] numericalID The numerical id (index) of the edge
+     */
+    MSEdge(const std::string &id, unsigned int numericalID) throw();
 
     /// Container for lanes.
     typedef std::vector< MSLane* > LaneCont;
@@ -96,8 +106,9 @@ public:
     typedef std::map< const MSEdge*, LaneCont* > AllowedLanesCont;
     typedef std::map< SUMOVehicleClass, AllowedLanesCont > ClassedAllowedLanesCont;
 
-    /// Destructor.
-    virtual ~MSEdge();
+    /// @brief Destructor.
+    virtual ~MSEdge() throw();
+
 
     /// Initialize the edge.
     virtual void initialize(
@@ -192,6 +203,43 @@ public:
         return (*i).first;
     }
 
+    /// @name Access to vaporizing interface
+    /// @{
+
+    /** @brief Returns whether vehicles on this edge shall be vaporized
+     * @return Whether no vehicle shall be on this edge
+     */
+    bool isVaporizing() const throw() {
+        return myVaporizationRequests>0;
+    }
+
+
+    /** @brief Enables vaporization
+     * 
+     * The internal vaporization counter is increased enabling the 
+     *  vaporization.
+     * Called from the event handler.
+     * @param[in] t The current time (unused)
+     * @return Time to next call (always 0)
+     * @exception ProcessError not thrown by this method, just derived
+     */
+    SUMOTime incVaporization(SUMOTime t) throw(ProcessError);
+
+
+    /** @brief Disables vaporization
+     * 
+     * The internal vaporization counter is decreased what disables 
+     *  the vaporization if it was only once enabled.
+     * Called from the event handler.
+     * @param[in] t The current time (unused)
+     * @return Time to next call (always 0)
+     * @exception ProcessError not thrown by this method, just derived
+     */
+    SUMOTime decVaporization(SUMOTime t) throw(ProcessError);
+    /// @}
+
+
+
     virtual bool prohibits(const MSVehicle *) const {
         return false;
     }
@@ -205,45 +253,72 @@ public:
 
 
 protected:
-    /// Unique ID.
+    /// @brief Unique ID.
     std::string myID;
 
+    /// @brief This edge's numerical id
+    unsigned int myNumericalID;
+
     /** @brief Container for the edge's lane.
-        Should be sorted: (right-hand-traffic) the more left the lane, the
-        higher the
-        container-index. */
+     * Should be sorted: (right-hand-traffic) the more left the lane, the higher the container-index. */
     LaneCont* myLanes;
 
-    /** Associative container for destination-edge/allowed-lanes
-        matching. */
-    AllowedLanesCont* myAllowed;
-    ClassedAllowedLanesCont myClassedAllowed;
-    ClassedAllowedLanesCont myClassedNotAllowed;
-    bool myHaveClassConstraints;
 
-    /** @brief Lane from which vehicles will depart.
-        Usually the rightmost,
-        except for those countries which drive on the myWrong_
-        side. */
+    /// @name Storages for allowed lanes (depending on vehicle classes)
+    /// @{
+
+    /** @brief Associative container from destination-edge to allowed-lanes. */
+    AllowedLanesCont* myAllowed;
+
+    /** @brief From vehicle class to lanes allowed to be used by it */
+    ClassedAllowedLanesCont myClassedAllowed;
+
+    /** @brief From vehicle class to lanes that may not be used by it */
+    ClassedAllowedLanesCont myClassedNotAllowed;
+
+    /// @brief Whether any class constraints exist for this edge
+    bool myHaveClassConstraints;
+    /// @}
+
+
+    /** @brief Lane from which vehicles will depart, usually the rightmost */
     MSLane* myDepartLane;
 
-    /** This member will do the lane-change. */
+    /** @brief This member will do the lane-change. */
     MSLaneChanger* myLaneChanger;
 
-    /// the purpose of the edge
+    /// @brief the purpose of the edge
     EdgeBasicFunction myFunction;
 
-    /// definition of the static dictionary type
+    /// @brief Vaporizer counter
+    int myVaporizationRequests;
+
+
+    /// @name Static edge container
+    /// @{
+
+    /// @brief definition of the static dictionary type
     typedef std::map< std::string, MSEdge* > DictType;
 
-    /// Static dictionary to associate string-ids with objects.
+    /** @brief Static dictionary to associate string-ids with objects.
+     * @depracted Move to MSEdgeControl, make non-static
+     */
     static DictType myDict;
-    static std::vector<MSEdge*> myEdges;
 
+    /** @brief Static list of edges
+     * @depracted Move to MSEdgeControl, make non-static
+     */
+    static std::vector<MSEdge*> myEdges;
+    /// @}
+
+
+    /// @brief The time of last emission failure
     mutable SUMOTime myLastFailedEmissionTime;
 
-    size_t myNumericalID;
 
+    /// @name Edge weights container
+    /// @deprecated
+    /// @{
     FloatValueTimeLine myOwnValueLine;
     mutable bool myHaveBuildShortCut;
     bool myHaveLoadedWeights;
@@ -251,15 +326,14 @@ protected:
     mutable SUMOTime myShortCutBegin, myShortCutEnd, myShortCutInterval;
     mutable size_t myLastPackedIndex;
     bool myUseBoundariesOnOverride;
+    /// @}
+
 
 private:
-    /// Default constructor.
-    MSEdge();
-
-    /// Copy constructor.
+    /// @brief Invalidated copy constructor.
     MSEdge(const MSEdge&);
 
-    /// Assignment operator.
+    /// @brief assignment operator.
     MSEdge& operator=(const MSEdge&);
 
 };

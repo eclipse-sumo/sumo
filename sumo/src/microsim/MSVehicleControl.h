@@ -50,10 +50,18 @@ class BinaryInputDevice;
 // ===========================================================================
 /**
  * @class MSVehicleControl
- * This class is responsible for vehicle building and deletion. It was
- *  reinvented due to the handling of GUIVehicles and the different deletion
- *  modalities within the pure microsim and the gui version.
+ * @brief The class responsible for building and deletion of vehicles
+ *
+ * This class is responsible for vehicle building and deletion. It stores
+ *  vehicle types, vehicles and statistics about the last.
+ *
+ * This class also realizes the tripinfos and the vehroutes - outputs, both
+ *  generated when a vehicle is removed from the simulation, see 
+ *  scheduleVehicleRemoval.
+ *
  * Use this class for the pure microsim and GUIVehicleControl within the gui.
+ *
+ * @see GUIVehicleControl
  */
 class MSVehicleControl
 {
@@ -61,10 +69,23 @@ public:
     /// @brief Constructor
     MSVehicleControl();
 
+
     /// @brief Destructor
     virtual ~MSVehicleControl();
 
-    /// Builds a vehicle
+
+    /** @brief Builds a vehicle, increases the number of built vehicles
+     *
+     * Builds a MSVehicle instance using the given parameter
+     *
+     * @param[in] id The id of the vehicle to build
+     * @param[in] route The route of this vehicle
+     * @param[in] departTime The departure time of this vehicle
+     * @param[in] type The type of this vehicle
+     * @param[in] repNo The number of repetitions
+     * @param[in] repOffset The repetition offset
+     * @return The built vehicle (GUIVehicle instance)
+     */
     virtual MSVehicle *buildVehicle(std::string id, MSRoute* route,
                                     SUMOTime departTime, const MSVehicleType* type,
                                     int repNo, int repOffset);

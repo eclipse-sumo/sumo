@@ -49,38 +49,39 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSEmitControl::MSEmitControl(MSVehicleControl &vc, SUMOTime maxDepartDelay)
+MSEmitControl::MSEmitControl(MSVehicleControl &vc, 
+                             SUMOTime maxDepartDelay) throw()
         : myVehicleControl(vc), myMaxDepartDelay(maxDepartDelay)
 {}
 
 
-MSEmitControl::~MSEmitControl()
+MSEmitControl::~MSEmitControl() throw()
 {}
 
 
 void
-MSEmitControl::add(MSVehicle *veh)
+MSEmitControl::add(MSVehicle *veh) throw()
 {
     myAllVeh.add(veh);
 }
 
 
 void
-MSEmitControl::moveFrom(MSVehicleContainer &cont)
+MSEmitControl::moveFrom(MSVehicleContainer &cont) throw()
 {
     myAllVeh.moveFrom(cont);
 }
 
 
-size_t
-MSEmitControl::emitVehicles(SUMOTime time)
+unsigned int
+MSEmitControl::emitVehicles(SUMOTime time) throw()
 {
     checkPrevious(time);
     // check whether any vehicles shall be emitted within this time step
     if (!myAllVeh.anyWaitingFor(time)&&myRefusedEmits1.size()==0&&myRefusedEmits2.size()==0) {
         return 0;
     }
-    size_t noEmitted = 0;
+    unsigned int noEmitted = 0;
     // we use buffering for the refused emits to save time
     //  for this, we have two lists; one contains previously refused emits, the second
     //  will be used to append those vehicles that will not be able to depart in this
@@ -123,38 +124,56 @@ MSEmitControl::emitVehicles(SUMOTime time)
 }
 
 
-size_t
+unsigned int
 MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
-                       MSVehicleContainer::VehicleVector &refusedEmits)
+                       MSVehicleContainer::VehicleVector &refusedEmits) throw()
 {
     assert(veh->desiredDepart() <= time);
     const MSEdge &edge = veh->departEdge();
     if (edge.getLastFailedEmissionTime()!=time && edge.emit(*veh, time)) {
         // Successful emission.
         veh->onDepart();
-        // Check whether another vehicle shall be
-        //  emitted with the same parameter
-        if (veh->periodical()) {
-            MSVehicle *nextPeriodical = veh->getNextPeriodical();
-            if (nextPeriodical!=0) {
-                myNewPeriodicalAdds.push_back(nextPeriodical);
-                myVehicleControl.addVehicle(nextPeriodical->getID(), nextPeriodical);
-            }
-        }
+        // Check whether another vehicle with the same parameter shall be emitted
+        checkReemission(veh);
         return 1;
     }
-    if (myMaxDepartDelay == -1 || time - veh->desiredDepart() <= myMaxDepartDelay) {
-        refusedEmits.push_back(veh);
-    } else {
+    if (myMaxDepartDelay != -1 && time - veh->desiredDepart() > myMaxDepartDelay) {
+        // Check whether another vehicle with the same parameter shall be emitted
+        checkReemission(veh);
+        // remove vehicles waiting too long for departure
         myVehicleControl.deleteVehicle(veh);
+    } else if (edge.isVaporizing()) {
+        // remove vehicles if the edge shall be empty
+        veh->setWasVaporized(true);
+        // Check whether another vehicle with the same parameter shall be emitted
+        checkReemission(veh);
+        // delete vehicle
+        myVehicleControl.deleteVehicle(veh);
+    } else {
+        // let the vehicle wait one step, we'll retry then
+        refusedEmits.push_back(veh);
     }
     edge.setLastFailedEmissionTime(time);
     return 0;
 }
 
 
+void 
+MSEmitControl::checkReemission(MSVehicle *veh) throw()
+{
+    if (!veh->periodical()) {
+        return;
+    }
+    MSVehicle *nextPeriodical = veh->getNextPeriodical();
+    if (nextPeriodical!=0) {
+        myNewPeriodicalAdds.push_back(nextPeriodical);
+        myVehicleControl.addVehicle(nextPeriodical->getID(), nextPeriodical);
+    }
+}
+
+
 void
-MSEmitControl::checkPrevious(SUMOTime time)
+MSEmitControl::checkPrevious(SUMOTime time) throw()
 {
     // check to which list append to
     MSVehicleContainer::VehicleVector &previousRefused =

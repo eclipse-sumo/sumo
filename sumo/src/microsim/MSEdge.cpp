@@ -69,15 +69,15 @@ std::vector<MSEdge*> MSEdge::myEdges;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSEdge::MSEdge(const std::string &id, size_t numericalID)
-        : myID(id), myLanes(0), myAllowed(0), myLaneChanger(0),
-        myLastFailedEmissionTime(-1), myNumericalID(numericalID),
+MSEdge::MSEdge(const std::string &id, unsigned int numericalID) throw()
+        : myID(id), myNumericalID(numericalID), myLanes(0), myAllowed(0), 
+        myLaneChanger(0), myVaporizationRequests(0), myLastFailedEmissionTime(-1), 
         myHaveLoadedWeights(false), myHaveBuildShortCut(false), 
         myPackedValueLine(0), myUseBoundariesOnOverride(true)//!!!
 {}
 
 
-MSEdge::~MSEdge()
+MSEdge::~MSEdge() throw()
 {
     delete myLaneChanger;
     if (myAllowed!=0) {
@@ -308,11 +308,19 @@ MSEdge::nLanes() const
 }
 
 
-ostream&
-operator<<(ostream& os, const MSEdge& edge)
+SUMOTime 
+MSEdge::incVaporization(SUMOTime) throw(ProcessError) 
 {
-    os << "MSEdge: Id = " << edge.myID << endl;
-    return os;
+    ++myVaporizationRequests;
+    return 0;
+}
+
+
+SUMOTime 
+MSEdge::decVaporization(SUMOTime) throw(ProcessError) 
+{
+    --myVaporizationRequests;
+    return 0;
 }
 
 

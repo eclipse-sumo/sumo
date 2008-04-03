@@ -604,6 +604,8 @@ public:
         return myDevices;
     }
 
+    void setWasVaporized(bool onDepart);
+
 	/**
 	 * Compute distance that will be covered, if the vehicle moves to a given position on its route,
 	 * starting at its current position.

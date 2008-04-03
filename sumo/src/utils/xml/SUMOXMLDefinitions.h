@@ -58,7 +58,9 @@ enum SumoXMLTag {
     /** begin/end of the description of a junction */
     SUMO_TAG_JUNCTION,
     /** a detector */
+    /// @deprecated begins
     SUMO_TAG_DETECTOR,
+    /// @deprecated ends
     /** an e1-detector */
     SUMO_TAG_E1DETECTOR,
     /** an e2-detector */
@@ -166,6 +168,7 @@ enum SumoXMLTag {
     SUMO_TAG_STATE_INTERVAL,
     SUMO_TAG_ROUTE_DIST,
     SUMO_TAG_VTYPE_DIST,
+    SUMO_TAG_VAPORIZER,
 
     SUMO_TAG_WAY,
     SUMO_TAG_ND,

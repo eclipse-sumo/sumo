@@ -47,7 +47,9 @@ GenericSAXHandler::Tag sumotags[] = {
     { "lanes",            SUMO_TAG_LANES },
     { "cedge",            SUMO_TAG_CEDGE },
     { "junction",         SUMO_TAG_JUNCTION },
+    /// @deprecated begins
     { "detector",         SUMO_TAG_DETECTOR },
+    /// @deprecated ends
     { "e1-detector",      SUMO_TAG_E1DETECTOR },
     { "e2-detector",      SUMO_TAG_E2DETECTOR },
     { "e3-detector",      SUMO_TAG_E3DETECTOR },
@@ -116,6 +118,7 @@ GenericSAXHandler::Tag sumotags[] = {
     { "state-interval",   SUMO_TAG_STATE_INTERVAL },
     { "route-dist",       SUMO_TAG_ROUTE_DIST },
     { "vtype-dist",       SUMO_TAG_VTYPE_DIST },
+    { "vaporizer",        SUMO_TAG_VAPORIZER },
 
     { "way",              SUMO_TAG_WAY },
     { "nd",               SUMO_TAG_ND },

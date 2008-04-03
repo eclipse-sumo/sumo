@@ -102,42 +102,37 @@ void
 NLHandler::myStartElement(SumoXMLTag element,
                           const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
-    // check static net information
-        switch (element) {
-        case SUMO_TAG_EDGES:
-            setEdgeNumber(attrs);
-            break;
-        case SUMO_TAG_EDGE:
-            chooseEdge(attrs);
-            break;
-        case SUMO_TAG_LANE:
-            addLane(attrs);
-            break;
-        case SUMO_TAG_POLY:
-            addPoly(attrs);
-            break;
-        case SUMO_TAG_POI:
-            addPOI(attrs);
-            break;
-        case SUMO_TAG_CEDGE:
-            openAllowedEdge(attrs);
-            break;
-        case SUMO_TAG_JUNCTION:
-            openJunction(attrs);
-            break;
-        case SUMO_TAG_PHASE:
-            addPhase(attrs);
-            break;
-        case SUMO_TAG_SUCC:
-            openSucc(attrs);
-            break;
-        case SUMO_TAG_SUCCLANE:
-            addSuccLane(attrs);
-            break;
-        default:
-            break;
-        }
     switch (element) {
+    case SUMO_TAG_EDGES:
+        setEdgeNumber(attrs);
+        break;
+    case SUMO_TAG_EDGE:
+        chooseEdge(attrs);
+        break;
+    case SUMO_TAG_LANE:
+        addLane(attrs);
+        break;
+    case SUMO_TAG_POLY:
+        addPoly(attrs);
+        break;
+    case SUMO_TAG_POI:
+        addPOI(attrs);
+        break;
+    case SUMO_TAG_CEDGE:
+        openAllowedEdge(attrs);
+        break;
+    case SUMO_TAG_JUNCTION:
+        openJunction(attrs);
+        break;
+    case SUMO_TAG_PHASE:
+        addPhase(attrs);
+        break;
+    case SUMO_TAG_SUCC:
+        openSucc(attrs);
+        break;
+    case SUMO_TAG_SUCCLANE:
+        addSuccLane(attrs);
+        break;
     case SUMO_TAG_ROWLOGIC:
         myJunctionControlBuilder.initJunctionLogic();
         break;
@@ -147,55 +142,53 @@ NLHandler::myStartElement(SumoXMLTag element,
     case SUMO_TAG_LOGICITEM:
         addLogicItem(attrs);
         break;
+    case SUMO_TAG_WAUT:
+        openWAUT(attrs);
+        break;
+    case SUMO_TAG_WAUT_SWITCH:
+        addWAUTSwitch(attrs);
+        break;
+    case SUMO_TAG_WAUT_JUNCTION:
+        addWAUTJunction(attrs);
+        break;
+        /// @deprecated begins
+    case SUMO_TAG_DETECTOR:
+        addDetector(attrs);
+        break;
+        /// @deprecated ends
+    case SUMO_TAG_E1DETECTOR:
+        addE1Detector(attrs);
+        break;
+    case SUMO_TAG_E2DETECTOR:
+        addE2Detector(attrs);
+        break;
+    case SUMO_TAG_E3DETECTOR:
+        beginE3Detector(attrs);
+        break;
+    case SUMO_TAG_DET_ENTRY:
+        addE3Entry(attrs);
+        break;
+    case SUMO_TAG_DET_EXIT:
+        addE3Exit(attrs);
+        break;
+    case SUMO_TAG_VTYPEPROBE:
+        addVTypeProbeDetector(attrs);
+        break;
+    case SUMO_TAG_SOURCE:
+        addSource(attrs);
+        break;
+    case SUMO_TAG_TRIGGER:
+        addTrigger(attrs);
+        break;
+    case SUMO_TAG_TIMEDEVENT:
+        myActionBuilder.addAction(attrs, getFileName());
+        break;
+    case SUMO_TAG_VAPORIZER:
+        myTriggerBuilder.buildVaporizer(attrs);
+        break;
     default:
         break;
     }
-    // !!!
-    if (element == SUMO_TAG_WAUT) {
-        openWAUT(attrs);
-    }
-    if (element==SUMO_TAG_WAUT_SWITCH) {
-        addWAUTSwitch(attrs);
-    }
-    if (element==SUMO_TAG_WAUT_JUNCTION) {
-        addWAUTJunction(attrs);
-    }
-    // !!!!
-    // process detectors when wished
-        switch (element) {
-        case SUMO_TAG_DETECTOR:
-            addDetector(attrs);
-            break;
-        case SUMO_TAG_E1DETECTOR:
-            addE1Detector(attrs);
-            break;
-        case SUMO_TAG_E2DETECTOR:
-            addE2Detector(attrs);
-            break;
-        case SUMO_TAG_E3DETECTOR:
-            beginE3Detector(attrs);
-            break;
-        case SUMO_TAG_DET_ENTRY:
-            addE3Entry(attrs);
-            break;
-        case SUMO_TAG_DET_EXIT:
-            addE3Exit(attrs);
-            break;
-        case SUMO_TAG_VTYPEPROBE:
-            addVTypeProbeDetector(attrs);
-            break;
-        case SUMO_TAG_SOURCE:
-            addSource(attrs);
-            break;
-        case SUMO_TAG_TRIGGER:
-            addTrigger(attrs);
-            break;
-        case SUMO_TAG_TIMEDEVENT:
-            myActionBuilder.addAction(attrs, getFileName());
-            break;
-        default:
-            break;
-        }
     MSRouteHandler::myStartElement(element, attrs);
     if (element==SUMO_TAG_PARAM) {
         addParam(attrs);
@@ -1268,7 +1261,7 @@ NLHandler::addTrigger(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("e3-detector", id)) {
+    if(!attrs.setIDFromAttribues("trigger", id)) {
         return;
     }
     try {

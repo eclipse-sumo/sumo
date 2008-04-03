@@ -92,6 +92,7 @@ MSCORN::setWished(Function f)
         setWished(CORN_VEH_DEPART_INFO);
         setWished(CORN_VEH_ARRIVAL_INFO);
         setWished(CORN_VEH_WAITINGTIME);
+        setWished(CORN_VEH_VAPORIZED);
         break;
     case CORN_OUT_VEHROUTES:
         setWished(CORN_VEH_DEPART_TIME);

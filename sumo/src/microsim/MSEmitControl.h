@@ -50,78 +50,145 @@ class MSVehicleControl;
  * @class MSEmitControl
  * @brief Inserts vehicles into the network when their departure time is reached
  *
- * A vehicle emitter; Holds a list of vehicles which may be extended by new
- * vehicles read by MSRouteLoaders. Tries to emit vehicles departing at a time
- * into the network when this time is reached and restores them when the emission
- * fails.
- * Otherwise, the control is given to the lanes.
+ * A vehicle emitter; Holds a list of vehicles which may be filled by vehicles 
+ *  read by MSRouteLoaders. Tries to emit vehicles departing at a time into the 
+ *  network as soon this time is reached and keeps them as long the emission
+ *  fails.
+ *
+ * If a vehicle is emitted, the control about it is given to the lanes.
+ *
+ * Vehicles are not controlled (created, deleted) by this class.
  */
 class MSEmitControl
 {
 public:
-    /** Use this constructor only. It will sort the vehicles by their
-        departure time. */
-    MSEmitControl(MSVehicleControl &vc, SUMOTime maxDepartDelay);
+    /** @brief Constructor
+     *
+     * @param[in] vc The assigned vehicle control (needed for vehicle reemission and deletion)
+     * @param[in] maxDepartDelay Vehicles waiting longer than this for emission are deleted (-1: no deletion)
+     */
+    MSEmitControl(MSVehicleControl &vc, SUMOTime maxDepartDelay) throw();
 
-    /// Destructor.
-    ~MSEmitControl();
 
-    /** @brief Emits vehicles at time, if which want to depart at this.
-        If emission is not possible, the vehicles remain in the list.
-    Returns the number of emitted vehicles */
-    size_t emitVehicles(SUMOTime time);
+    /// @brief Destructor.
+    ~MSEmitControl() throw();
 
-    /** @brief Adds a single vehicle for departure */
-    void add(MSVehicle *veh);
 
-    /// adds a list of vehicles to the container
-    void moveFrom(MSVehicleContainer &cont);
+    /** @brief Emits vehicles that want to depart at the given time
+     *
+     * All vehicles scheduled for this time are tried to be emitted. This
+     *  includes those with a depart time as the given time and those that 
+     *  wait for being emitted due they could not be inserted in previous 
+     *  steps.
+     *
+     * For each vehicle, tryEmit is called. If this fails, a vehicle
+     *  keeps within the refused emit containers ("myRefusedEmits1", 
+     *  "myRefusedEmits2") so that it may be emitted within the next steps.
+     *
+     * Returns the number of vehicles that could be inserted into the net.
+     *
+     * @param[in] time The current simulation time
+     * @return The number of vehicles that could be inserted into the net
+     */
+    unsigned int emitVehicles(SUMOTime time) throw();
+
+
+    /** @brief Adds a single vehicle for departure
+     * 
+     * The vehicle is added to "myAllVeh".
+     *
+     * @param[in] veh The vehicle to add for later emission
+     */
+    void add(MSVehicle *veh) throw();
+
+
+    /** @brief Adds all vehicles from the given container to the internal
+     *
+     * All vehicles stored in "cont" are added to "myAllVeh". "cont"
+     *  is cleared.
+     *
+     * @param[in] cont The container of vehicles to move all vehicles from
+     */
+    void moveFrom(MSVehicleContainer &cont) throw();
 
 
     /** @brief Returns the number of waiting vehicles
      * 
-     * The sizes of refused emits (sum of vehicles in myRefusedEmits1 and
-     *  myRefusedEmits2) is returned.
+     * The sizes of refused emits (sum of vehicles in "myRefusedEmits1" and
+     *  "myRefusedEmits2") is returned.
+     *
      * @return The number of vehicles that could not (yet) be inserted into the net
+     * @todo Note that vehicles in emitters are not counted!
      */
     unsigned int getWaitingVehicleNo() const throw();
 
 
 private:
     /** @brief Tries to emit the vehicle
-        If the emission fails, the vehicle is inserted into the given
-        container.
-    Returns the number of emitted vehicles */
-    size_t tryEmit(SUMOTime time, MSVehicle *veh,
-                   MSVehicleContainer::VehicleVector &refusedEmits);
+     *
+     * If the emission fails, it is examined whether the reason was a vaporizing 
+     *  edge. If so, the vehicle is deleted. Otherwise, it is checked whether the
+     *  time the vehicle had to wait so far is larger than the maximum allowed
+     *  waiting time. If so, the vehicle is deleted, too. If both does not match,
+     *  the vehicle is reinserted to "refusedEmits" in order to be emitted in 
+     *  next steps.
+     *
+     * As soon as the vehicle is emitted or deleted, it is checked whether
+     *  a vehicle with same parameter shall be reinserter by calling
+     *  "checkReemission".
+     *
+     * @param[in] time The current simulation time
+     * @param[in] veh The vehicle to emit
+     * @param[in] refusedEmits Container to insert vehicles that could not be emitted into
+     * @return The number of emitted vehicles (0 or 1)
+     * @todo Reinsertion seems to be buggy - consecutive vehicles of one that wais a long time are inserted too late
+     */
+    unsigned int tryEmit(SUMOTime time, MSVehicle *veh,
+        MSVehicleContainer::VehicleVector &refusedEmits) throw();
 
-    /** Moves all vehicles which should have been emitted previously to the given time
-        into the container of previously refused vehicles */
-    void checkPrevious(SUMOTime time);
+
+    /** @brief Adds all vehicles that should have been emitted earlier to the refuse container
+     *
+     * @param[in] time The current simulation time
+     * @todo recheck
+     */
+    void checkPrevious(SUMOTime time) throw();
+
+
+    /** @brief Checks whether a further vehicle with the same parameter as the given shall be inserted
+     *
+     * If the vehicle is periodical, the next is built and inserted
+     *  into the list of vehicles to emit. These vehicles are inserted
+     *  into "myNewPeriodicalAdds", so that the main container his iterators
+     *  are not broken.
+     *
+     * @param[in] veh The vehicle to check
+     */
+    void checkReemission(MSVehicle *veh) throw();
+
 
 private:
+    /// @brief The assigned vehicle control (needed for vehicle reemission and deletion)
     MSVehicleControl &myVehicleControl;
-
-    /** @brief The entirety of loaded vehicles that will drive through the net.
-        The vehicles know their departure-time and route. The container
-        is sorted by the vehicles departure time. */
+    
+    /// @brief All loaded vehicles sorted by their departure time
     MSVehicleContainer myAllVeh;
 
-    /** Buffer#1 for vehicles that were not allowed to enter their lane. */
-    MSVehicleContainer::VehicleVector myRefusedEmits1;
+    /// @brief Buffers for vehicles that could not been inserted
+    MSVehicleContainer::VehicleVector myRefusedEmits1, myRefusedEmits2;
 
-    /** Buffer#1 for vehicles that were not allowed to enter their lane. */
-    MSVehicleContainer::VehicleVector myRefusedEmits2;
-
+    /// @brief Container for newly built periodical vehicles
     MSVehicleContainer::VehicleVector myNewPeriodicalAdds;
 
+    /// @brief The maximum waiting time; vehicles waiting longer are deleted (-1: no deletion)
     SUMOTime myMaxDepartDelay;
 
+
 private:
-    /// Copy constructor.
+    /// @brief Invalidated copy constructor.
     MSEmitControl(const MSEmitControl&);
 
-    /// Assignment operator.
+    /// @brief Invalidated assignment operator.
     MSEmitControl& operator=(const MSEmitControl&);
 
 

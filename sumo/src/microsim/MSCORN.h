@@ -78,6 +78,7 @@ public:
         CORN_VEH_LASTREROUTEOFFSET,
         CORN_VEH_BLINKER,
         CORN_VEH_NUMBERROUTE,
+        CORN_VEH_VAPORIZED,
 
 
         CORN_MAX

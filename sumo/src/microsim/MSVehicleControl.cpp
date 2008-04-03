@@ -170,7 +170,12 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v)
             od << '0';
         }
         od << "\" devices=\"" << v->buildDeviceIDList()
-            << "\" vtype=\"" << v->getVehicleType().getID() << "\"/>\n";
+            << "\" vtype=\"" << v->getVehicleType().getID()
+            << "\" vaporized=\"";
+        if(v->hasCORNIntValue(MSCORN::CORN_VEH_VAPORIZED)) {
+            od << 1 << ";" << v->getCORNIntValue(MSCORN::CORN_VEH_VAPORIZED);
+        }
+        od << "\"/>\n";
     }
 
     // check whether to generate the information about the vehicle's routes
@@ -241,7 +246,7 @@ MSVehicleControl::newUnbuildVehicleBuild()
 
 
 SUMOReal
-MSVehicleControl::getMeanWaitingTime() const
+MSVehicleControl::getMeanWaitingTime() const throw()
 {
     if (getEmittedVehicleNo()==0) {
         return -1;
@@ -251,7 +256,7 @@ MSVehicleControl::getMeanWaitingTime() const
 
 
 SUMOReal
-MSVehicleControl::getMeanTravelTime() const
+MSVehicleControl::getMeanTravelTime() const throw()
 {
     if (myEndedVehNo==0) {
         return -1;

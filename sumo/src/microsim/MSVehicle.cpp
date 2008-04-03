@@ -276,7 +276,15 @@ MSVehicle::succEdge(unsigned int nSuccs) const throw()
 bool
 MSVehicle::destReached(const MSEdge* targetEdge) throw()
 {
+    // vaporizing edge?
+    if(targetEdge->isVaporizing()) {
+        // yep, let's do the vaporization...
+        setWasVaporized(false);
+        return true;
+    }
+    // internal edge?
     if (targetEdge->getPurpose()==MSEdge::EDGEFUNCTION_INTERNAL) {
+        // yep, let's continue driving
         return false;
     }
     // search for the target in the vehicle's route. Usually there is
@@ -634,7 +642,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
     SUMOReal vLinkWait = vLinkPass;
     const std::vector<MSLane*> &bestLaneConts = getBestLanesContinuation();
 
-    size_t view = 1;
+    unsigned int view = 1;
     // loop over following lanes
     while (true) {
         SUMOReal laneLength = nextLane->length();
@@ -1411,7 +1419,7 @@ MSVehicle::rebuildAllowedLanes(bool reinit)
     // compute next allowed lanes up to 1000m into the future
     SUMOReal MIN_DIST = 1000;
     if (dist<MIN_DIST) {
-        size_t pos = distance(myRoute->begin(), myCurrEdge) + myAllowedLanes.size();
+        unsigned int pos = (unsigned int) distance(myRoute->begin(), myCurrEdge) + myAllowedLanes.size();
         if (pos>=myRoute->size()-1) {
             return;
         }
@@ -1801,6 +1809,13 @@ MSVehicle::getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge)
 	return distance;
 }
 
+void 
+MSVehicle::setWasVaporized(bool onDepart)
+{
+    if(MSCORN::wished(MSCORN::CORN_VEH_VAPORIZED)) {
+        myIntCORNMap[MSCORN::CORN_VEH_VAPORIZED] = onDepart ? 1 : 0;
+    }
+}
 
 
 #ifdef TRACI

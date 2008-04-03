@@ -103,6 +103,19 @@ public:
     MSTrigger *buildTrigger(MSNet &net, const SUMOSAXAttributes &attrs,
                             const std::string &base) throw(InvalidArgument);
 
+
+    /** @brief Builds a vaporization
+     *
+     * Parses the attributes, throws an InvalidArgument exception
+     *  if the time values are false or the edge is not known. 
+     * Instatiates events for enabling and disabling the vaporization otherwise.
+     * @param[in] attrs SAX-attributes which define the trigger
+     * @exception InvalidArgument If a parameter is not valid
+     * @recheck throwing the exception
+     */
+    void buildVaporizer(const SUMOSAXAttributes &attrs) throw(InvalidArgument);
+
+
 protected:
     /// @name parsing methods
     ///

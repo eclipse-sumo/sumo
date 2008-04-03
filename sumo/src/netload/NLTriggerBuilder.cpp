@@ -143,6 +143,34 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
 
 
 
+void
+NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw(InvalidArgument)
+{
+    bool ok;
+    SUMOTime begin = attrs.getIntReporting(SUMO_ATTR_BEGIN, "vaporizer", 0, ok);
+    SUMOTime end = attrs.getIntReporting(SUMO_ATTR_END, "vaporizer", 0, ok);
+    if(!ok) {
+        throw InvalidArgument("");
+    }
+    if(begin>end) {
+        throw InvalidArgument("A vaporization ends before it starts.");
+    }
+    if(begin==end) {
+        MsgHandler::getWarningInstance()->inform("A vaporization starts and ends at same time; discarded.");
+    }
+    MSEdge *e = MSEdge::dictionary(attrs.getStringSecure(SUMO_ATTR_ID, ""));
+    if(e==0) {
+        throw InvalidArgument("Missing or false edge id in vaporizer");
+    }
+    if(end>=OptionsCont::getOptions().getInt("begin")) {
+        Command* cb = new WrappingCommand< MSEdge >(e, &MSEdge::incVaporization);
+        MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(cb, begin, MSEventControl::ADAPT_AFTER_EXECUTION);
+        Command* ce = new WrappingCommand< MSEdge >(e, &MSEdge::decVaporization);
+        MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(ce, end, MSEventControl::ADAPT_AFTER_EXECUTION);
+    }
+}
+
+
 
 MSLaneSpeedTrigger *
 NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttributes &attrs,

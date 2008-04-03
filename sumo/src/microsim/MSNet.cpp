@@ -389,7 +389,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     // load routes
     myEmitter->moveFrom(myRouteLoaders->loadNext(step));
     // emit Vehicles
-    size_t emittedVehNo = myEmitter->emitVehicles(myStep);
+    unsigned int emittedVehNo = myEmitter->emitVehicles(myStep);
     myVehicleControl->vehiclesEmitted(emittedVehNo);
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(step);
@@ -442,7 +442,7 @@ MSNet::clearAll()
 unsigned
 MSNet::getNDumpIntervals(void)
 {
-    return myMeanData.size();
+    return (unsigned) myMeanData.size();
 }
 
 
