@@ -134,15 +134,15 @@ protected:
 
 
 private:
-    /// The name of the currently parsed file
+    /// @brief The name of the currently parsed file
     std::string myFileName;
 
 
 private:
-    /// invalidated copy constructor
+    /// @brief invalidated copy constructor
     SUMOSAXHandler(const SUMOSAXHandler &s);
 
-    /// invalidated assignment operator
+    /// @brief invalidated assignment operator
     const SUMOSAXHandler &operator=(const SUMOSAXHandler &s);
 
 };

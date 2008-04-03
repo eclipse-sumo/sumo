@@ -388,6 +388,9 @@ private:
 
     // the map from ids to their unicode-string representation
     AttrMap myPredefinedTags;
+
+    /// the map from ids to their string representation
+    std::map<SumoXMLAttr, std::string> myPredefinedTagsMML;
     //@}
 
 

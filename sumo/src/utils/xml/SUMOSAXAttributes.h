@@ -44,6 +44,8 @@
  * @brief Encapsulated SAX-Attributes
  *
  * This class is an interface for using encapsulated SAX-attributes. 
+ * Encapsulation is done to allow a common acces without the need to 
+ *  import all the Xerces-definitions.
  */
 class SUMOSAXAttributes 
 {
@@ -71,9 +73,31 @@ public:
         bool report=true) const throw();
 
 
+    /** @brief Tries to read given attribute assuming it is an int
+     *
+     * If an error occures (the attribute is not there, it is not numeric), "ok" is
+     *  set to false and an error message is written to MsgHandler::getErrorInstance.
+     *
+     * Otherwise, "ok" is set to true and the read value is returned.
+     *
+     * @param[in] attr The id of the attribute to read
+     * @param[in] objecttype The name of the parsed object type; used for error message generation
+     * @param[in] objectid The name of the parsed object; used for error message generation
+     * @param[out] ok Whether the value could be read
+     * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @return The read value; -1 if an error occured
+     */
+    int getIntReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+        bool report=true) const throw();
+
+
+
 
     //{ virtual methods for retrieving attribute values
     /** @brief Returns the information whether the named (by its enum-value) attribute is within the current list
+     *
+     * @param[in] id The id of the attribute to search for
+     * @return Whether the attribute is within the attributes
      */
     virtual bool hasAttribute(SumoXMLAttr id) const throw() = 0;
 
@@ -96,6 +120,8 @@ public:
      * If the value can not be parsed to a bool, TplConvert<XMLCh>::_2bool throws a
      *  BoolFormatException-exception which is passed.
      *
+     * @param[in] id The id of the attribute to return the value of
+     * @return The attribute's value as a bool, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception BoolFormatException If the attribute value can not be parsed to a bool
      */
@@ -110,6 +136,9 @@ public:
      *  EmptyData-exception which is passed. If the attribute==0, TplConvert<XMLCh>::_2boolSec
      *  returns the default value.
      *
+     * @param[in] id The id of the attribute to return the value of
+     * @param[in] val The default value to return if the attribute is not in attributes
+     * @return The attribute's value as a bool, if it could be read and parsed
      * @exception EmptyData If the attribute value is an empty string
      */
     virtual bool getBoolSecure(SumoXMLAttr id, bool val) const throw(EmptyData) = 0;
@@ -125,6 +154,8 @@ public:
      * If the value can not be parsed to an int, TplConvert<XMLCh>::_2int throws a
      *  NumberFormatException-exception which is passed.
      *
+     * @param[in] id The id of the attribute to return the value of
+     * @return The attribute's value as an int, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
@@ -142,6 +173,9 @@ public:
      * If the value can not be parsed to an int, TplConvert<XMLCh>::_2intSec throws a
      *  NumberFormatException-exception which is passed.
      *
+     * @param[in] id The id of the attribute to return the value of
+     * @param[in] def The default value to return if the attribute is not in attributes
+     * @return The attribute's value as an int, if it could be read and parsed
      * @exception EmptyData If the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an int
      */
@@ -156,6 +190,8 @@ public:
      *  If the attribute is ==0, TplConvert<XMLCh>::_2str throws an
      *  EmptyData-exception which is passed.
      *
+     * @param[in] id The id of the attribute to return the value of
+     * @return The attribute's value as a string, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
     virtual std::string getString(SumoXMLAttr id) const throw(EmptyData) = 0;
@@ -168,10 +204,13 @@ public:
      *  attribute  (which may be 0) is then parsed using TplConvert<XMLCh>::_2strSec.
      *  If the attribute is ==0, TplConvert<XMLCh>::_2strSec returns the default value.
      *
+     * @param[in] id The id of the attribute to return the value of
+     * @param[in] def The default value to return if the attribute is not in attributes
+     * @return The attribute's value as a string, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
     virtual std::string getStringSecure(SumoXMLAttr id,
-                                const std::string &str) const throw(EmptyData) = 0;
+                                const std::string &def) const throw(EmptyData) = 0;
 
 
     /**
@@ -184,6 +223,8 @@ public:
      * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMOReal throws a
      *  NumberFormatException-exception which is passed.
      *
+     * @param[in] id The id of the attribute to return the value of
+     * @return The attribute's value as a float, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
      */
@@ -200,6 +241,9 @@ public:
      * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMORealSec throws a
      *  NumberFormatException-exception which is passed.
      *
+     * @param[in] id The id of the attribute to return the value of
+     * @param[in] def The default value to return if the attribute is not in attributes
+     * @return The attribute's value as a float, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
      */
@@ -216,28 +260,43 @@ public:
      * If the value can not be parsed to a SUMOReal, TplConvert<XMLCh>::_2SUMOReal throws a
      *  NumberFormatException-exception which is passed.
      *
+     * @param[in] id The name of the attribute to return the value of
+     * @return The attribute's value as a float, if it could be read and parsed
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      * @exception NumberFormatException If the attribute value can not be parsed to an SUMOReal
      */
     virtual SUMOReal getFloat(const std::string &id) const throw(EmptyData, NumberFormatException) = 0;
+
 
     /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. 
      *  If the attribute is ==0, TplConvert<XMLCh>::_2strSec returns the default value.
+     * @param[in] id The name of the attribute to return the value of
+     * @param[in] def The default value to return if the attribute is not in attributes
+     * @return The attribute's value as a string, if it could be read and parsed
      */
     virtual std::string getStringSecure(const std::string &id,
-                                const std::string &str) const throw() = 0;
+                                const std::string &def) const throw() = 0;
     //}
 
 
+    /** @brief Converts the given attribute id into a man readable string
+     *
+     * @param[in] attr The id of the attribute to return the name of
+     * @return The name of the described attribute
+     */
+    virtual std::string getName(SumoXMLAttr attr) const throw() = 0;
+
+
 private:
-    /// we made the copy constructor invalid
+    /// @brief Invalidated copy constructor.
     SUMOSAXAttributes(const SUMOSAXAttributes &src);
 
-    /// we made the assignment operator invalid
+    /// @brief Invalidated assignment operator.
     SUMOSAXAttributes &operator=(const SUMOSAXAttributes &src);
+
 
 };
 

@@ -63,7 +63,8 @@ GenericSAXHandler::GenericSAXHandler(GenericSAXHandler::Tag *tags,
     i = 0;
     while (attrs[i].key != SUMO_ATTR_NOTHING) {
         assert(myPredefinedTags.find(attrs[i].key)==myPredefinedTags.end());
-        myPredefinedTags.insert(AttrMap::value_type(attrs[i].key, convert(attrs[i].name)));
+        myPredefinedTags[attrs[i].key] = convert(attrs[i].name);
+        myPredefinedTagsMML[attrs[i].key] = attrs[i].name;
         i++;
     }
 }
@@ -206,7 +207,7 @@ GenericSAXHandler::startElement(const XMLCh* const /*uri*/,
     //myTagTree.push(element);
     //_characters = "";
     myCharactersVector.clear();
-    SUMOSAXAttributesImpl_Xerces na(attrs, myPredefinedTags);
+    SUMOSAXAttributesImpl_Xerces na(attrs, myPredefinedTags, myPredefinedTagsMML);
     myStartElement(element, na);
 }
 

@@ -57,12 +57,52 @@ SUMOSAXAttributes::setIDFromAttribues(const char * objecttype,
     }
     if(id=="") {
         if(report) {
-            MsgHandler::getErrorInstance()->inform(string("Missing id of a '") + string(objecttype) + string("'-object."));
+            MsgHandler::getErrorInstance()->inform("Missing id of a '" + string(objecttype) + "'-object.");
         }
         return false;
     }
     return true;
 }
+
+
+int 
+SUMOSAXAttributes::getIntReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, 
+                          bool &ok, bool report) const throw()
+{
+    if(!hasAttribute(attr)) {
+        if(report) {
+            if(objectid!=0) {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' is missing in definition of " + string(objecttype) + " '" + string(objectid) + "'.");
+            } else {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' is missing in definition of a " + string(objecttype) + ".");
+            }
+        }
+        ok = false;
+        return -1;
+    }
+    try {
+        ok = true;
+        return getInt(attr);
+    } catch(NumberFormatException &) {
+        if(report) {
+            if(objectid!=0) {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " '" + string(objectid) + "' is not an int.");
+            } else {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " is not an int.");
+            }
+        }
+    } catch(EmptyData &) {
+        if(report) {
+            MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " '" + string(objectid) + "' is empty.");
+        } else {
+            MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " is empty.");
+        }
+    }
+    ok = false;
+    return -1;
+}
+
+
 
 
 /****************************************************************************/

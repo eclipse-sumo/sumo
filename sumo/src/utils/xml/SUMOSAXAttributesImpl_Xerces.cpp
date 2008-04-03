@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id: SUMOSAXAttributesImpl_Xerces.cpp 4934 2008-01-18 07:35:55Z dkrajzew $
 ///
-// A handler which converts occuring elements and attributes into enums
+// Encapsulated Xerces-SAX-attributes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -50,8 +50,10 @@ using namespace std;
 // class definitions
 // ===========================================================================
 SUMOSAXAttributesImpl_Xerces::SUMOSAXAttributesImpl_Xerces(const Attributes &attrs,
-        const std::map<SumoXMLAttr, XMLCh*> &predefinedTags) throw()
-        : myAttrs(attrs), myPredefinedTags(predefinedTags)
+        const std::map<SumoXMLAttr, XMLCh*> &predefinedTags,
+        const std::map<SumoXMLAttr, std::string> &predefinedTagsMML) throw()
+        : myAttrs(attrs), myPredefinedTags(predefinedTags), 
+        myPredefinedTagsMML(predefinedTagsMML)
 { }
 
 
@@ -164,6 +166,14 @@ SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string &id,
 }
 
 
+std::string 
+SUMOSAXAttributesImpl_Xerces::getName(SumoXMLAttr attr) const throw()
+{
+    if(myPredefinedTagsMML.find(attr)==myPredefinedTagsMML.end()) {
+        return "?";
+    }
+    return myPredefinedTagsMML.find(attr)->second;
+}
 
 
 /****************************************************************************/
