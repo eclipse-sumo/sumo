@@ -58,10 +58,10 @@ class BinaryInputDevice;
 class MSVehicleControl
 {
 public:
-    /// Constructor
+    /// @brief Constructor
     MSVehicleControl();
 
-    /// Destructor
+    /// @brief Destructor
     virtual ~MSVehicleControl();
 
     /// Builds a vehicle
@@ -78,23 +78,71 @@ public:
     /// Informs this instance the new vehicle was build
     void newUnbuildVehicleBuild();
 
-    /// Returns the number of build vehicles
-    unsigned int getLoadedVehicleNo() const;
 
-    /// Returns the number of removed vehicles
-    unsigned int getEndedVehicleNo() const;
+    /// @name Retrieval of vehicle statistics (always accessable)
+    /// @{
 
-    /// Returns the number of build and emitted, but not yet deleted vehicles
-    unsigned int getRunningVehicleNo() const;
+    /** @brief Returns the number of build vehicles
+     * @return The number of loaded (build) vehicles
+     */
+    unsigned int getLoadedVehicleNo() const throw() {
+        return myLoadedVehNo;
+    }
 
-    /// Returns the number of emitted vehicles
-    unsigned int getEmittedVehicleNo() const;
 
-    /// Return the meaning waiting time of vehicles (corn-dependent value)
-    SUMOReal getMeanWaitingTime() const;
+    /** @brief Returns the number of removed vehicles
+     * @return The number of vehicles that have left the simulation
+     */
+    unsigned int getEndedVehicleNo() const throw() {
+        return myEndedVehNo;
+    }
 
-    /// Return the meaning waiting time of vehicles (corn-dependent value)
-    SUMOReal getMeanTravelTime() const;
+
+    /** @brief Returns the number of build and emitted, but not yet deleted vehicles
+     * @return The number simulated vehicles (including those in teleporter)
+     */
+    unsigned int getRunningVehicleNo() const throw() {
+        return myRunningVehNo;
+    }
+
+
+    /** @brief Returns the number of emitted vehicles
+     * @return The number of vehicles that have entered the simulation so far
+     */
+    unsigned int getEmittedVehicleNo() const throw() {
+        return myRunningVehNo + myEndedVehNo;
+    }
+    /// @}
+
+
+
+    /// @name Retrieval of vehicle statistics (availability depends on simulation settings)
+    /// @{
+
+    /** @brief Returns the mean waiting time of vehicles (corn-dependent value)
+     *
+     * This value is only available if MSCORN::CORN_MEAN_VEH_WAITINGTIME is "wished".
+     *  This is the case if the emissions-output shall be generated.
+     * 
+     * @return The mean time vehicles had to wait for being emitted (-1 if no vehicle was emitted, yet)
+     * @see MSCORN
+     * @todo Enable this for guisim?
+     */
+    SUMOReal getMeanWaitingTime() const throw();
+
+
+    /** @brief Returns the mean travel time of vehicles (corn-dependent value)
+     *
+     * This value is only available if MSCORN::CORN_MEAN_VEH_TRAVELTIME is "wished".
+     *  This is the case if the emissions-output shall be generated.
+     * 
+     * @return The mean travel time of ended vehicles (-1 if no vehicle has ended, yet)
+     * @see MSCORN
+     * @todo Enable this for guisim?
+     */
+    SUMOReal getMeanTravelTime() const throw();
+    /// @}
+
 
     /// Informs this instance about the successfull emission of a vehicle
     void vehiclesEmitted(unsigned int no=1);
@@ -131,20 +179,30 @@ private:
     void deleteVehicle(const std::string &id);
 
 protected:
-    /// The number of build vehicles
+    /// @name Vehicle statistics (always accessable)
+    /// @{
+
+    /// @brief The number of build vehicles
     unsigned int myLoadedVehNo;
 
-    /// The number of vehicles within the network (build and emitted but not removed)
+    /// @brief The number of vehicles within the network (build and emitted but not removed)
     unsigned int myRunningVehNo;
 
-    /// The number of removed vehicles
+    /// @brief The number of removed vehicles
     unsigned int myEndedVehNo;
+    /// @}
 
-    /// The aggregated time vehicles had to wait for departure
+
+    /// @name Vehicle statistics (availability depends on simulation settings)
+    /// @{
+
+    /// @brief The aggregated time vehicles had to wait for departure
     long myAbsVehWaitingTime;
 
-    /// The aggregated time vehicles needed to aacomplish their route
+    /// @brief The aggregated time vehicles needed to aacomplish their route
     long myAbsVehTravelTime;
+    /// @}
+
 
     /// Vehicle dictionary type
     typedef std::map< std::string, MSVehicle* > VehicleDictType;

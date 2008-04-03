@@ -240,35 +240,6 @@ MSVehicleControl::newUnbuildVehicleBuild()
 }
 
 
-
-unsigned int
-MSVehicleControl::getLoadedVehicleNo() const
-{
-    return myLoadedVehNo;
-}
-
-
-unsigned int
-MSVehicleControl::getEndedVehicleNo() const
-{
-    return myEndedVehNo;
-}
-
-
-unsigned int
-MSVehicleControl::getRunningVehicleNo() const
-{
-    return myRunningVehNo;
-}
-
-
-unsigned int
-MSVehicleControl::getEmittedVehicleNo() const
-{
-    return myRunningVehNo + myEndedVehNo;
-}
-
-
 SUMOReal
 MSVehicleControl::getMeanWaitingTime() const
 {
