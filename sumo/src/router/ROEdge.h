@@ -88,7 +88,7 @@ public:
 
     /** @brief Returns the number of edges this edge is connected to
         (size of the list of reachable edges) */
-    size_t getNoFollowing() const;
+    unsigned int getNoFollowing() const;
 
     /// Returns the edge at the given position from the list of reachable edges
     ROEdge *getFollower(size_t pos) const;

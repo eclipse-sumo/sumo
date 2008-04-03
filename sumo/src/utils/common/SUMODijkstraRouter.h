@@ -215,8 +215,8 @@ public:
             SUMOReal effort = (SUMOReal)(minimumKnot->effort + getEffort(minEdge, vehicle, time + minimumKnot->effort));
                                          //+ (minEdge->*myOperation)(vehicle, (SUMOTime)(time + minimumKnot->effort)));
             // check all ways from the node with the minimal length
-            size_t i = 0;
-            size_t length_size = minEdge->getNoFollowing();
+            unsigned int i = 0;
+            unsigned int length_size = minEdge->getNoFollowing();
             for (i=0; i<length_size; i++) {
                 const E* help = minEdge->getFollower(i);
                 // check whether it can be used

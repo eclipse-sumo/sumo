@@ -215,13 +215,13 @@ ROEdge::getEffort(const ROVehicle *const, SUMOReal t) const
 }
 
 
-size_t
+unsigned int
 ROEdge::getNoFollowing() const
 {
     if (getType()==ET_SINK) {
         return 0;
     }
-    return myFollowingEdges.size();
+    return (unsigned int) myFollowingEdges.size();
 }
 
 
