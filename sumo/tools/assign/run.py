@@ -79,15 +79,19 @@ else:
     shotDir = "../oneshot%03i" % options.stats
     
 makeAndChangeDir("../statistics")
+duafiles = ""
 for step in [0, 24, 49]:
-    shutil.copy("%s/tripinfo_%s.xml" % (duaDir, step), "tripinfo_dua_%s.xml" % step)
+    targetfile = "tripinfo_dua_%s.xml" % step
+    shutil.copy("%s/tripinfo_%s.xml" % (duaDir, step), targetfile)
+    duafiles += targetfile + ","
     execute("networkStatistics.py -t tripinfo_dua_%s.xml -o networkStatistics_%s_%s.txt" % (step, os.path.basename(duaDir), step))
 if not options.duaonly:
+    shotfiles = ""
     for step in [-1, 1800, 300, 15]:
-        shutil.copy("%s/tripinfo_%s.xml" % (shotDir, step), "tripinfo_oneshot_%s.xml" % step)
-        execute("networkStatistics.py -t tripinfo_oneshot_%s.xml -o networkStatistics_%s_%s.txt" % (step, os.path.basename(shotDir), step))
+        targetfile =  "tripinfo_oneshot_%s.xml" % step
+        shutil.copy("%s/tripinfo_%s.xml" % (shotDir, step), targetfile)
+        shotfiles += targetfile + ","
     execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_successive.xml %s -l sumo_successive.log" % (netFile, succDir, sumoAdds))
-    execute("networkStatistics.py -t tripinfo_successive.xml -o networkStatistics_%s.txt" % os.path.basename(succDir))
     execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_clogit.xml %s -l sumo_clogit.log" % (netFile, clogDir, sumoAdds))
-    execute("networkStatistics.py -t tripinfo_clogit.xml -o networkStatistics_%s.txt" % os.path.basename(clogDir))
+    execute("networkStatisticsWithSgT.py -u %s -s %s -c tripinfo_clogit.xml -i tripinfo_successive.xml -o networkStatisticsWithSgT.txt" % (duafiles[:-1], shotfiles[:-1]))
 os.chdir("..")

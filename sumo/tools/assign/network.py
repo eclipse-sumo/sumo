@@ -27,7 +27,7 @@ class Net:
         self._startVertices = []
         self._endVertices = []
         self._paths = {}
-        self._duavehicles = []
+        self._duavehicles = {}
         self._oneshotvehicles = {}
         self._incremvehicles = []
         self._clogitvehicles = []

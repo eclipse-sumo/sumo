@@ -101,9 +101,41 @@ def vehPoissonDistr(net, Parcontrol, begintime):
         foutpoisson.write('The vehicular releasing times are generated randomly(uniform). ')
         foutpoisson.close()
         
-# output the results of the significance tests
-def getSignificanceTestOutput(net, tValueAvg, methods, normal, hValues):
+# output the network statistics based on the sumo-simulation results
+def getStatisticsOutput(net, outputfile):
+    foutveh = file(outputfile, 'w')
+    foutveh.write('average vehicular travel time(s) = the sum of all vehicular travel times / the number of vehicles\n')
+    foutveh.write('average vehicular travel length(m) = the sum of all vehicular travel lengths / the number of vehicles\n')
+    foutveh.write('average vehicular travel speed(m/s) = the sum of all vehicular travel speeds / the number of vehicles\n')
+    for method in net._assignments.itervalues():
+        foutveh.write('\nAssignment Method:%s\n' %method.label)
+        foutveh.write('- total number of vehicles:%s\n' %method.totalVeh)
+        foutveh.write('- total waiting time(s):%s, ' %method.totalWaitTime)    
+        foutveh.write('- average vehicular waiting time(s):%s\n' %method.avgWaitTime)
+        foutveh.write('- total travel time(s):%s, ' % method.totalTravelTime)    
+        foutveh.write('- average vehicular travel time(s):%s\n' %method.avgTravelTime)
+        foutveh.write('- total travel length(m):%s, ' %method.totalTravelLength)
+        foutveh.write('- average vehicular travel length(m):%s\n' %method.avgTravelLength)
+        foutveh.write('- average vehicular travel speed(m/s):%s\n' %method.avgTravelSpeed)
+    foutveh.close()
+       
+# output the results of the significance tests according to the sumo-simulation results
+def getSignificanceTestOutput(net, normal, tValueAvg, hValues):
     foutSGtest = file('SG_Test.txt', 'w')
+    
+    foutSGtest.write('The significances of the performance averages among the used assignment models are examined with the t test.\n')
+    for A in net._assignments.itervalues():
+        for B in net._assignments.itervalues():
+            if str(A.label) != str(B.label):
+                foutSGtest.write('\nmethod:%s' %A.label)
+                foutSGtest.write('\nmethod:%s' %B.label)
+                foutSGtest.write('\n   t-value for the avg. travel time:%s' %tValueAvg[A][B].avgtraveltime)
+                foutSGtest.write('\n   t-value for the avg. travel length:%s'%tValueAvg[A][B].avgtravellength)
+                foutSGtest.write('\n   t-value for the avg.travel speed:%s' %tValueAvg[A][B].avgtravelspeed)
+                foutSGtest.write('\n   t-value for the avg. wait time:%s\n' %tValueAvg[A][B].avgwaittime)
+                foutSGtest.write('\n95 t-value:%s' %tValueAvg[A][B].lowtvalue)
+                foutSGtest.write('\n99 t-value:%s\n' %tValueAvg[A][B].hightvalue)
+                
     if normal:
         foutSGtest.write('The significances of the performance averages among the used assignment models are examined with the t test.\n')
         for A in net._assignments.itervalues():
@@ -114,7 +146,7 @@ def getSignificanceTestOutput(net, tValueAvg, methods, normal, hValues):
                     foutSGtest.write('\n   t-value for the avg. travel time:%s' %tValueAvg[A][B].avgtraveltime)
                     foutSGtest.write('\n   t-value for the avg. travel length:%s'%tValueAvg[A][B].avgtravellength)
                     foutSGtest.write('\n   t-value for the avg.travel speed:%s' %tValueAvg[A][B].avgtravelspeed)
-                    foutSGtest.write('\n   t-value for the avg. stop time:%s\n' %tValueAvg[A][B].avgstoptime)
+                    foutSGtest.write('\n   t-value for the avg. wait time:%s\n' %tValueAvg[A][B].avgwaittime)
     else:
         foutSGtest.write('The samples are not normal distributed.\n')
         foutSGtest.write('The significance test among the different assignment methods is therefore done with the Kruskal-Wallis test.\n')
@@ -123,7 +155,7 @@ def getSignificanceTestOutput(net, tValueAvg, methods, normal, hValues):
             foutSGtest.write('\nH_traveltime:%s' %h.traveltime)
             foutSGtest.write('\nH_travelspeed:%s' %h.travelspeed)
             foutSGtest.write('\nH_travellength:%s' %h.travellength)
-            foutSGtest.write('\nH_stoptime:%s\n' %h.stoptime)
+            foutSGtest.write('\nH_waittime:%s\n' %h.waittime)
             foutSGtest.write('\n95 chi-square value:%s' %h.lowchivalue)
             foutSGtest.write('\n99 chi-square value:%s\n' %h.highchivalue)
     foutSGtest.close()

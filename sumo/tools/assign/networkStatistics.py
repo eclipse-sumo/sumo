@@ -48,7 +48,7 @@ for veh in vehicles:
     totaltime += veh.traveltime
     totallength += veh.travellength
     totalspeed += veh.speed
-    totalstoptime += veh.stoptime
+    totalstoptime += veh.waittime
 
 foutveh = file(options.outputfile, 'w')
 foutveh.write('average vehicular travel time(s) = the sum of all vehicular travel time / the number of vehicles\n')
