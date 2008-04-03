@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<!-- generated on 04/02/08 16:55:06 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>three_split.net.xml</net-file>
+      <additional-files>input_routes.rou.xml,input_additional2.add.xml</additional-files>
+   </input>
+
+   <output>
+      <tripinfo-output>tripinfos.xml</tripinfo-output>
+   </output>
+
+   <time>
+      <begin>100</begin>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<tripinfos>
+    <tripinfo id="5" depart="100" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="124" arrivalLane="beg_0" arrivalPos="15.34" arrivalSpeed="27.80" duration="24" routeLength="2001.09" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized="1;0"/>
+    <tripinfo id="6" depart="120" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="144" arrivalLane="beg_0" arrivalPos="15.34" arrivalSpeed="27.80" duration="24" routeLength="2001.09" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized="1;0"/>
+    <tripinfo id="7" depart="140" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="164" arrivalLane="beg_0" arrivalPos="15.34" arrivalSpeed="27.80" duration="24" routeLength="2001.09" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized="1;0"/>
+    <tripinfo id="8" depart="160" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="184" arrivalLane="beg_0" arrivalPos="15.34" arrivalSpeed="27.80" duration="24" routeLength="2001.09" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized="1;0"/>
+    <tripinfo id="9" depart="180" departLane="beg_0" departPos="0.00" departSpeed="0.00" departDelay="0" arrival="204" arrivalLane="beg_0" arrivalPos="15.34" arrivalSpeed="27.80" duration="24" routeLength="2001.09" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized="1;0"/>
+</tripinfos>

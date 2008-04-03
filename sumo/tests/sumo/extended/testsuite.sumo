@@ -22,3 +22,8 @@ stops
 # "one shot" in-simulation vehicle routing
 simulation_routing
 
+# vehicle removal via vaporizer
+vaporizer
+
+
+

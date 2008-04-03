@@ -1,0 +1,236 @@
+<net>
+
+   <edges no="9">beg beg2left beg2right end left left2end middle right right2end</edges>
+   <node_count>8</node_count>
+
+
+   <edge id="beg" Length="191.75" Speed="36.00" Name="beg" NoLanes="1" Xfrom="50.00" Yfrom="0.00" Xto="50.00" Yto="200.00" from="absBeg" to="beg" Priority="15" Angle="180.00" Type="19" function="normal">
+      <lanes>
+         <lane id="beg_0" depart="1" maxspeed="36.00" length="191.75" changeurge="0">51.75,4.00 51.75,195.75</lane>
+      </lanes>
+      <cedge id="beg2right" via=":beg">beg_0</cedge>
+      <cedge id="middle" via=":beg">beg_0</cedge>
+      <cedge id="beg2left" via=":beg">beg_0</cedge>
+   </edge>
+
+   <edge id="beg2left" Length="46.00" Speed="36.00" Name="beg2left" NoLanes="1" Xfrom="50.00" Yfrom="200.00" Xto="0.00" Yto="200.00" from="beg" to="begleft" Priority="15" Angle="90.00" Type="19" function="normal">
+      <lanes>
+         <lane id="beg2left_0" depart="1" maxspeed="36.00" length="46.00" changeurge="0">49.25,201.75 3.25,201.75</lane>
+      </lanes>
+      <cedge id="left" via=":begleft">beg2left_0</cedge>
+   </edge>
+
+   <edge id="beg2right" Length="45.75" Speed="36.00" Name="beg2right" NoLanes="1" Xfrom="50.00" Yfrom="200.00" Xto="100.00" Yto="200.00" from="beg" to="begright" Priority="15" Angle="270.00" Type="19" function="normal">
+      <lanes>
+         <lane id="beg2right_0" depart="1" maxspeed="36.00" length="45.75" changeurge="0">54.25,198.25 100.00,198.25</lane>
+      </lanes>
+      <cedge id="right" via=":begright">beg2right_0</cedge>
+   </edge>
+
+   <edge id="end" Length="191.75" Speed="36.00" Name="end" NoLanes="1" Xfrom="50.00" Yfrom="600.00" Xto="50.00" Yto="800.00" from="end" to="absEnd" Priority="15" Angle="180.00" Type="19" function="normal">
+      <lanes>
+         <lane id="end_0" depart="1" maxspeed="36.00" length="191.75" changeurge="0">51.75,604.25 51.75,796.00</lane>
+      </lanes>
+   </edge>
+
+   <edge id="left" Length="393.50" Speed="36.00" Name="left" NoLanes="1" Xfrom="0.00" Yfrom="200.00" Xto="0.00" Yto="600.00" from="begleft" to="endleft" Priority="15" Angle="180.00" Type="19" function="normal">
+      <lanes>
+         <lane id="left_0" depart="1" maxspeed="36.00" length="393.50" changeurge="0">1.75,203.25 1.75,596.75</lane>
+      </lanes>
+      <cedge id="left2end" via=":endleft">left_0</cedge>
+   </edge>
+
+   <edge id="left2end" Length="46.00" Speed="36.00" Name="left2end" NoLanes="1" Xfrom="0.00" Yfrom="600.00" Xto="50.00" Yto="600.00" from="endleft" to="end" Priority="15" Angle="270.00" Type="19" function="normal">
+      <lanes>
+         <lane id="left2end_0" depart="1" maxspeed="36.00" length="46.00" changeurge="0">3.25,598.25 49.25,598.25</lane>
+      </lanes>
+      <cedge id="end" via=":end">left2end_0</cedge>
+   </edge>
+
+   <edge id="middle" Length="391.50" Speed="36.00" Name="middle" NoLanes="1" Xfrom="50.00" Yfrom="200.00" Xto="50.00" Yto="600.00" from="beg" to="end" Priority="15" Angle="180.00" Type="19" function="normal">
+      <lanes>
+         <lane id="middle_0" depart="1" maxspeed="36.00" length="391.50" changeurge="0">51.75,204.25 51.75,595.75</lane>
+      </lanes>
+      <cedge id="end" via=":end">middle_0</cedge>
+   </edge>
+
+   <edge id="right" Length="400.00" Speed="36.00" Name="right" NoLanes="1" Xfrom="100.00" Yfrom="200.00" Xto="100.00" Yto="600.00" from="begright" to="endright" Priority="15" Angle="180.00" Type="19" function="normal">
+      <lanes>
+         <lane id="right_0" depart="1" maxspeed="36.00" length="400.00" changeurge="0">101.75,200.00 101.75,600.00</lane>
+      </lanes>
+      <cedge id="right2end" via=":endright">right_0</cedge>
+   </edge>
+
+   <edge id="right2end" Length="45.75" Speed="36.00" Name="right2end" NoLanes="1" Xfrom="100.00" Yfrom="600.00" Xto="50.00" Yto="600.00" from="endright" to="end" Priority="15" Angle="90.00" Type="19" function="normal">
+      <lanes>
+         <lane id="right2end_0" depart="1" maxspeed="36.00" length="45.75" changeurge="0">100.00,601.75 54.25,601.75</lane>
+      </lanes>
+      <cedge id="end" via=":end">right2end_0</cedge>
+   </edge>
+
+
+   <row-logic>
+      <key>beg</key>
+      <requestsize>3</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="000" foes="000"/>
+         <logicitem request="1" response="000" foes="000"/>
+         <logicitem request="2" response="000" foes="000"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>begleft</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>begright</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>end</key>
+      <requestsize>3</requestsize>
+      <lanenumber>3</lanenumber>
+      <logic>
+         <logicitem request="0" response="100" foes="110"/>
+         <logicitem request="1" response="001" foes="101"/>
+         <logicitem request="2" response="010" foes="011"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>endleft</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>endright</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+
+   <tl-logic type="static">
+      <key>end</key>
+      <logicno>0</logicno>
+      <phaseno>6</phaseno>
+      <offset>0</offset>
+      <inclanes>left2end_0 middle_0 right2end_0</inclanes>
+      <phase duration="20" phase="001" brake="110" yellow="000"/>
+      <phase duration="12" phase="000" brake="111" yellow="001"/>
+      <phase duration="20" phase="010" brake="101" yellow="000"/>
+      <phase duration="12" phase="000" brake="111" yellow="010"/>
+      <phase duration="20" phase="100" brake="011" yellow="000"/>
+      <phase duration="12" phase="000" brake="111" yellow="100"/>
+   </tl-logic>
+
+
+   <junction id="absBeg" type="DEAD_END" x="50.00" y="0.00">
+      <inclanes></inclanes>
+      <shape>50.25,4.00 53.25,4.00 50.25,4.00</shape>
+   </junction>
+
+   <junction id="absEnd" type="DEAD_END" x="50.00" y="800.00">
+      <inclanes>end_0</inclanes>
+      <shape>50.25,796.00 53.25,796.00 50.25,796.00</shape>
+   </junction>
+
+   <junction id="beg" type="priority" x="50.00" y="200.00">
+      <inclanes>beg_0</inclanes>
+      <shape>49.25,200.25 50.25,195.75 53.25,195.75 54.25,196.75 54.25,199.75 53.25,204.25 50.25,204.25 49.25,203.25 49.25,200.25</shape>
+   </junction>
+
+   <junction id="begleft" type="priority" x="0.00" y="200.00">
+      <inclanes>beg2left_0</inclanes>
+      <shape>0.25,203.25 3.25,200.25 3.25,203.25 0.25,203.25</shape>
+   </junction>
+
+   <junction id="begright" type="priority" x="100.00" y="200.00">
+      <inclanes>beg2right_0</inclanes>
+      <shape>100.25,196.75 103.25,196.75 103.25,199.75 100.25,196.75</shape>
+   </junction>
+
+   <junction id="end" type="right_before_left" x="50.00" y="600.00">
+      <inclanes>right2end_0 middle_0 left2end_0</inclanes>
+      <shape>49.25,596.75 50.25,595.75 53.25,595.75 54.25,600.25 54.25,603.25 53.25,604.25 50.25,604.25 49.25,599.75 49.25,596.75</shape>
+   </junction>
+
+   <junction id="endleft" type="priority" x="0.00" y="600.00">
+      <inclanes>left_0</inclanes>
+      <shape>0.25,596.75 3.25,596.75 3.25,599.75 0.25,596.75</shape>
+   </junction>
+
+   <junction id="endright" type="priority" x="100.00" y="600.00">
+      <inclanes>right_0</inclanes>
+      <shape>100.25,603.25 103.25,600.25 103.25,603.25 100.25,603.25</shape>
+   </junction>
+
+
+   <succ edge="beg" lane="beg_0" junction="beg">
+      <succlane lane="beg2right_0" via=":beg_0_0" yield="0" dir="r" state="M"/>
+      <succlane lane="middle_0" via=":beg_1_0" yield="0" dir="s" state="M"/>
+      <succlane lane="beg2left_0" via=":beg_2_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="beg2left" lane="beg2left_0" junction="begleft">
+      <succlane lane="left_0" via=":begleft_0_0" yield="0" dir="r" state="M"/>
+   </succ>
+
+   <succ edge="beg2right" lane="beg2right_0" junction="begright">
+      <succlane lane="right_0" via=":begright_0_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="end" lane="end_0" junction="absEnd">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="left" lane="left_0" junction="endleft">
+      <succlane lane="left2end_0" via=":endleft_0_0" yield="0" dir="r" state="M"/>
+   </succ>
+
+   <succ edge="left2end" lane="left2end_0" junction="end">
+      <succlane lane="end_0" via=":end_2_0" tl="end" linkno="2" yield="1" dir="l" state="t"/>
+   </succ>
+
+   <succ edge="middle" lane="middle_0" junction="end">
+      <succlane lane="end_0" via=":end_1_0" tl="end" linkno="1" yield="1" dir="s" state="t"/>
+   </succ>
+
+   <succ edge="right" lane="right_0" junction="endright">
+      <succlane lane="right2end_0" via=":endright_0_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="right2end" lane="right2end_0" junction="end">
+      <succlane lane="end_0" via=":end_0_0" tl="end" linkno="0" yield="1" dir="r" state="t"/>
+   </succ>
+
+
+   <edgepos id="beg" from="absBeg" to="beg" lane="0" function="normal"/>
+   <edgepos id="beg2left" from="beg" to="begleft" lane="0" function="normal"/>
+   <edgepos id="beg2right" from="beg" to="begright" lane="0" function="normal"/>
+   <edgepos id="end" from="end" to="absEnd" lane="0" function="normal"/>
+   <edgepos id="left" from="begleft" to="endleft" lane="0" function="normal"/>
+   <edgepos id="left2end" from="endleft" to="end" lane="0" function="normal"/>
+   <edgepos id="middle" from="beg" to="end" lane="0" function="normal"/>
+   <edgepos id="right" from="begright" to="endright" lane="0" function="normal"/>
+   <edgepos id="right2end" from="endright" to="end" lane="0" function="normal"/>
+
+</net>

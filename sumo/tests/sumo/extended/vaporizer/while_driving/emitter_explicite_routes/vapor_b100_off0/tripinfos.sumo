@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+
+<!-- generated on 04/02/08 16:45:06 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>three_split.net.xml</net-file>
+      <additional-files>input_routes.rou.xml,input_additional.add.xml,input_additional2.add.xml</additional-files>
+   </input>
+
+   <output>
+      <tripinfo-output>tripinfos.xml</tripinfo-output>
+   </output>
+
+   <time>
+      <begin>100</begin>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<tripinfos>
+    <tripinfo id="emitter_100_0" depart="100" departLane="beg_0" departPos="100.00" departSpeed="10.00" departDelay="0" arrival="117" arrivalLane="beg_0" arrivalPos="8.12" arrivalSpeed="27.80" duration="17" routeLength="1893.87" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized="1;0"/>
+    <tripinfo id="emitter_120_1" depart="120" departLane="beg_0" departPos="100.00" departSpeed="10.00" departDelay="0" arrival="137" arrivalLane="beg_0" arrivalPos="8.12" arrivalSpeed="27.80" duration="17" routeLength="1893.87" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized="1;0"/>
+    <tripinfo id="emitter_140_2" depart="140" departLane="beg_0" departPos="100.00" departSpeed="10.00" departDelay="0" arrival="157" arrivalLane="beg_0" arrivalPos="8.12" arrivalSpeed="27.80" duration="17" routeLength="1893.87" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized="1;0"/>
+    <tripinfo id="emitter_160_3" depart="160" departLane="beg_0" departPos="100.00" departSpeed="10.00" departDelay="0" arrival="177" arrivalLane="beg_0" arrivalPos="8.12" arrivalSpeed="27.80" duration="17" routeLength="1893.87" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized="1;0"/>
+    <tripinfo id="emitter_180_4" depart="180" departLane="beg_0" departPos="100.00" departSpeed="10.00" departDelay="0" arrival="197" arrivalLane="beg_0" arrivalPos="8.12" arrivalSpeed="27.80" duration="17" routeLength="1893.87" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized="1;0"/>
+</tripinfos>

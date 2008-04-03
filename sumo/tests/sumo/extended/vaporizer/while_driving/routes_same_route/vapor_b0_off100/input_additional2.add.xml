@@ -1,0 +1,5 @@
+<add>
+
+	<vaporizer id="middle" begin="100" end="86400"/>
+
+</add>
