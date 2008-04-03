@@ -86,7 +86,7 @@ public:
      * @param[in] repOffset The repetition offset
      * @return The built vehicle (GUIVehicle instance)
      */
-    virtual MSVehicle *buildVehicle(std::string id, MSRoute* route,
+    virtual MSVehicle *buildVehicle(const std::string &id, MSRoute* route,
                                     SUMOTime departTime, const MSVehicleType* type,
                                     int repNo, int repOffset);
 
@@ -184,7 +184,6 @@ public:
     virtual bool addVehicle(const std::string &id, MSVehicle *v);
     virtual MSVehicle *getVehicle(const std::string &id);
     virtual void deleteVehicle(MSVehicle *v);
-    MSVehicle *detachVehicle(const std::string &id);
 
     typedef std::map<std::string, MSVehicle*>::const_iterator constVehIt;
 

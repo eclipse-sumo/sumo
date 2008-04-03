@@ -88,7 +88,7 @@ MSVehicleControl::~MSVehicleControl()
 
 
 MSVehicle *
-MSVehicleControl::buildVehicle(std::string id, MSRoute* route,
+MSVehicleControl::buildVehicle(const std::string &id, MSRoute* route,
                                SUMOTime departTime,
                                const MSVehicleType* type,
                                int repNo, int repOffset)
@@ -444,19 +444,6 @@ void
 MSVehicleControl::deleteVehicle(MSVehicle *veh)
 {
     deleteVehicle(veh->getID());
-}
-
-
-MSVehicle *
-MSVehicleControl::detachVehicle(const std::string &id)
-{
-    VehicleDictType::iterator i = myVehicleDict.find(id);
-    if (i==myVehicleDict.end()) {
-        return 0;
-    }
-    MSVehicle *ret = (*i).second;
-    myVehicleDict.erase(id);
-    return ret;
 }
 
 
