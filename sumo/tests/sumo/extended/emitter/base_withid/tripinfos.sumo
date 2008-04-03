@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/19/08 16:10:22 by SUMO sumo Version 0.9.7
+<!-- generated on 04/03/08 11:06:29 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -21,14 +21,14 @@
 -->
 
 <tripinfos>
-    <tripinfo id="vehicle1" depart="0" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="0" arrival="76" arrivalLane="end_0" arrivalPos="3.99" arrivalSpeed="27.74" duration="76" routeLength="1889.74" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT"/>
-    <tripinfo id="foo1" depart="3" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="2" arrival="79" arrivalLane="end_0" arrivalPos="14.11" arrivalSpeed="27.74" duration="76" routeLength="1899.86" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT"/>
-    <tripinfo id="bar1" depart="6" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="4" arrival="83" arrivalLane="end_0" arrivalPos="22.33" arrivalSpeed="27.42" duration="77" routeLength="1908.08" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT"/>
-    <tripinfo id="bar2" depart="9" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="6" arrival="85" arrivalLane="end_0" arrivalPos="16.07" arrivalSpeed="27.06" duration="76" routeLength="1901.82" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT"/>
-    <tripinfo id="emitter_4_0" depart="12" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="8" arrival="89" arrivalLane="end_0" arrivalPos="26.91" arrivalSpeed="27.28" duration="77" routeLength="1912.66" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT"/>
-    <tripinfo id="emitter_5_1" depart="15" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="10" arrival="91" arrivalLane="end_0" arrivalPos="7.08" arrivalSpeed="27.66" duration="76" routeLength="1892.83" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT"/>
-    <tripinfo id="emitter_6_2" depart="18" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="12" arrival="95" arrivalLane="end_0" arrivalPos="21.11" arrivalSpeed="27.08" duration="77" routeLength="1906.86" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT"/>
-    <tripinfo id="emitter_7_3" depart="21" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="14" arrival="98" arrivalLane="end_0" arrivalPos="11.29" arrivalSpeed="27.57" duration="77" routeLength="1897.04" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT"/>
-    <tripinfo id="emitter_8_4" depart="24" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="16" arrival="101" arrivalLane="end_0" arrivalPos="9.52" arrivalSpeed="27.67" duration="77" routeLength="1895.27" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT"/>
-    <tripinfo id="emitter_9_5" depart="27" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="18" arrival="104" arrivalLane="end_0" arrivalPos="19.54" arrivalSpeed="27.44" duration="77" routeLength="1905.29" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT"/>
+    <tripinfo id="vehicle1" depart="0" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="0" arrival="76" arrivalLane="end_0" arrivalPos="3.99" arrivalSpeed="27.74" duration="76" routeLength="1889.74" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized=""/>
+    <tripinfo id="foo1" depart="3" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="2" arrival="79" arrivalLane="end_0" arrivalPos="14.11" arrivalSpeed="27.74" duration="76" routeLength="1899.86" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized=""/>
+    <tripinfo id="bar1" depart="6" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="4" arrival="83" arrivalLane="end_0" arrivalPos="22.33" arrivalSpeed="27.42" duration="77" routeLength="1908.08" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized=""/>
+    <tripinfo id="bar2" depart="9" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="6" arrival="85" arrivalLane="end_0" arrivalPos="16.07" arrivalSpeed="27.06" duration="76" routeLength="1901.82" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized=""/>
+    <tripinfo id="emitter_4_0" depart="12" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="8" arrival="89" arrivalLane="end_0" arrivalPos="26.91" arrivalSpeed="27.28" duration="77" routeLength="1912.66" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized=""/>
+    <tripinfo id="emitter_5_1" depart="15" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="10" arrival="91" arrivalLane="end_0" arrivalPos="7.08" arrivalSpeed="27.66" duration="76" routeLength="1892.83" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized=""/>
+    <tripinfo id="emitter_6_2" depart="18" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="12" arrival="95" arrivalLane="end_0" arrivalPos="21.11" arrivalSpeed="27.08" duration="77" routeLength="1906.86" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized=""/>
+    <tripinfo id="emitter_7_3" depart="21" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="14" arrival="98" arrivalLane="end_0" arrivalPos="11.29" arrivalSpeed="27.57" duration="77" routeLength="1897.04" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized=""/>
+    <tripinfo id="emitter_8_4" depart="24" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="16" arrival="101" arrivalLane="end_0" arrivalPos="9.52" arrivalSpeed="27.67" duration="77" routeLength="1895.27" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized=""/>
+    <tripinfo id="emitter_9_5" depart="27" departLane="beg_0" departPos="100.00" departSpeed="0.00" departDelay="18" arrival="104" arrivalLane="end_0" arrivalPos="19.54" arrivalSpeed="27.44" duration="77" routeLength="1905.29" waitSteps="0" rerouteNo="0" devices="" vtype="KRAUSS_DEFAULT" vaporized=""/>
 </tripinfos>
