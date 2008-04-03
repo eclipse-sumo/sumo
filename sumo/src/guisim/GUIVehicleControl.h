@@ -4,7 +4,7 @@
 /// @date    Wed, 10. Dec 2003
 /// @version $Id$
 ///
-// The class responsible for building and deletion of vehicles within the gui
+// The class responsible for building and deletion of vehicles (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -46,27 +46,40 @@
 // ===========================================================================
 /**
  * @class GUIVehicleControl
- * The gui-version of MSVehicleControl.
- * This version throws an exception if the color is not supplied and the
- *  vehicle removal differs from the microsim version: as a vehicle may have
- *  a tracker open, it is not always possible to delete the vehicle straight
- *  forward.
+ * @brief The class responsible for building and deletion of vehicles (gui-version)
+ *
+ * Builds GUIVehicle instances instead of MSVehicle.
+ *
+ * @see MSVehicleControl
  */
 class GUIVehicleControl : public MSVehicleControl
 {
 public:
-    /// Constructor
+    /// @brief Constructor
     GUIVehicleControl();
 
-    /// Destructor
+
+    /// @brief Destructor
     ~GUIVehicleControl();
 
-    /** @brief Throws an exception
-        Actually, this polymorph throws an exception  as each vehicle within
-        the gui-version should have a color */
-    MSVehicle *buildVehicle(std::string id, MSRoute* route,
+
+    /** @brief Builds a vehicle, increases the number of built vehicles
+     *
+     * Instead of a MSVehicle, a GUIVehicle is built
+     *
+     * @param[in] id The id of the vehicle to build
+     * @param[in] route The route of this vehicle
+     * @param[in] departTime The departure time of this vehicle
+     * @param[in] type The type of this vehicle
+     * @param[in] repNo The number of repetitions
+     * @param[in] repOffset The repetition offset
+     * @return The built vehicle (GUIVehicle instance)
+     * @see MSVehicleControl::buildVehicle
+     */
+    MSVehicle *buildVehicle(const std::string &id, MSRoute* route,
                             SUMOTime departTime, const MSVehicleType* type,
                             int repNo, int repOffset);
+
 
     /// Removes the vehicle
     virtual void deleteVehicle(MSVehicle *v);

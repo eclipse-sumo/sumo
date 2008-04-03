@@ -4,7 +4,7 @@
 /// @date    Wed, 10. Dec 2003
 /// @version $Id$
 ///
-// The class responsible for building and deletion of vehicles within the gui
+// The class responsible for building and deletion of vehicles (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -53,7 +53,7 @@ GUIVehicleControl::~GUIVehicleControl()
 
 
 MSVehicle *
-GUIVehicleControl::buildVehicle(std::string id, MSRoute* route,
+GUIVehicleControl::buildVehicle(const std::string &id, MSRoute* route,
                                 SUMOTime departTime,
                                 const MSVehicleType* type,
                                 int repNo, int repOffset)
