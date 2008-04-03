@@ -104,17 +104,20 @@ def doCLogitAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertic
     # link travel timess and link flows will be updated according to the latest traffic assingment  
     for edge in net._edges.itervalues():                                       
         if str(edge.source) != str(edge.target):
-            if iter > 1:
+            if (first and iter > 1) or (not first):
                 exflow = edge.flow
                 edge.flow = edge.flow*(1. - alpha) + alpha*edge.helpflow
+                
                 if edge.flow > 0.:
                     if abs((edge.flow-exflow)/edge.flow) > float(Parcontrol[8]):
                         notstable += 1
+                elif edge.flow == 0.:
+                    if exflow != 0. and abs((edge.flow-exflow)/exflow) > float(Parcontrol[8]):
+                        notstable += 1
                 elif edge.flow < 0.:
                     notstable += 1
-                
-                if edge.flow < 0.:
                     edge.flow = 0.
+            
             # reset the edge.helpflow for the next iteration
             edge.helpflow = 0.0                                                
             edge.getActualTravelTime(curvefile) 

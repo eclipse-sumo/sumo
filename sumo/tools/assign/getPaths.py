@@ -59,7 +59,7 @@ def findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort):
                         samePath = path
                         NewPath = False
                         break
-                    elif sameEdgeCount == (len(path.Edges)-1) and abs(sametraveltime/3600. - pastcost) < 0.02:
+                    elif (sameEdgeCount-len(path.Edges)) <= 5 and abs(sametraveltime/3600. - pastcost) < 0.05:
                         nopath = True
                         break
 
