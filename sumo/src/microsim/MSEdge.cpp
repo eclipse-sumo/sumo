@@ -104,21 +104,17 @@ MSEdge::~MSEdge() throw()
 
 void
 MSEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
-                   LaneCont* lanes, EdgeBasicFunction function)
+                   LaneCont* lanes, EdgeBasicFunction function) throw()
 {
     assert(allowed!=0);
-//!!!!    assert(departLane!=0);
     assert(lanes!=0);
-
     myAllowed = allowed;
     myDepartLane = departLane;
     myLanes = lanes;
     myFunction = function;
-
     if (myLanes->size() > 1 && function!=EDGEFUNCTION_INTERNAL) {
         myLaneChanger = new MSLaneChanger(myLanes);
     }
-
     // build the classed allowed lanes
     myHaveClassConstraints = false;
     if (myAllowed!=0) {
@@ -199,7 +195,7 @@ MSEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
 
 
 const MSEdge::LaneCont*
-MSEdge::allowedLanes(const MSEdge& destination, SUMOVehicleClass vclass) const
+MSEdge::allowedLanes(const MSEdge& destination, SUMOVehicleClass vclass) const throw()
 {
     if (!myHaveClassConstraints||vclass==SVC_UNKNOWN||myClassedAllowed.find(vclass)==myClassedAllowed.end()) {
         AllowedLanesCont::const_iterator it = myAllowed->find(&destination);
@@ -217,7 +213,7 @@ MSEdge::allowedLanes(const MSEdge& destination, SUMOVehicleClass vclass) const
             it = myAllowed->find(&destination);
         }
     }
-    if (it==myAllowed->end()/*||it->second->size()==0*/) { // it->second->size()==0 !!! clean up earlier
+    if (it==myAllowed->end()) {
         return 0;
     }
     // !!! missing: what happens to prohibited classes?
@@ -225,8 +221,8 @@ MSEdge::allowedLanes(const MSEdge& destination, SUMOVehicleClass vclass) const
 }
 
 
-MSLane*
-MSEdge::leftLane(const MSLane* lane) const
+MSLane * const 
+MSEdge::leftLane(const MSLane * const lane) const throw()
 {
     LaneCont::iterator laneIt = find(myLanes->begin(), myLanes->end(), lane);
     if (laneIt==myLanes->end()||laneIt==myLanes->end()-1) {
@@ -236,8 +232,8 @@ MSEdge::leftLane(const MSLane* lane) const
 }
 
 
-MSLane*
-MSEdge::rightLane(const MSLane* lane) const
+MSLane * const 
+MSEdge::rightLane(const MSLane * const lane) const throw()
 {
     LaneCont::iterator laneIt = find(myLanes->begin(), myLanes->end(), lane);
     if (laneIt==myLanes->end()||laneIt==myLanes->begin()) {
@@ -247,64 +243,42 @@ MSEdge::rightLane(const MSLane* lane) const
 }
 
 
-bool
-MSEdge::dictionary(string id, MSEdge* ptr)
+const MSEdge * const
+MSEdge::getFollower(unsigned int n) const throw()
 {
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        myDict.insert(DictType::value_type(id, ptr));
-        while (myEdges.size()<ptr->getNumericalID()+1) {
-            myEdges.push_back(0);
+    AllowedLanesCont::const_iterator i = myAllowed->begin();
+    while (n!=0) {
+        ++i;
+        --n;
+    }
+    return (*i).first;
+}
+
+
+std::vector<MSEdge *>
+MSEdge::getFollowingEdges() const throw()
+{
+    std::vector<MSEdge*> ret;
+    for (AllowedLanesCont::iterator i=myAllowed->begin(); i!=myAllowed->end(); ++i) {
+        ret.push_back((MSEdge*)(*i).first);
+    }
+    return ret;
+}
+
+
+std::vector<MSEdge*>
+MSEdge::getIncomingEdges() const throw()
+{
+    std::vector<MSEdge*> ret;
+    for (DictType::iterator edge = myDict.begin(); edge != myDict.end();
+            ++edge) {
+
+        const MSEdge::LaneCont *allowed = (*edge).second->allowedLanes(*this, SVC_UNKNOWN);
+        if (allowed!=0) {
+            ret.push_back(edge->second);
         }
-        myEdges[ptr->getNumericalID()] = ptr;
-        return true;
     }
-    return false;
-}
-
-
-MSEdge*
-MSEdge::dictionary(string id)
-{
-    DictType::iterator it = myDict.find(id);
-    if (it == myDict.end()) {
-        // id not in myDict.
-        return 0;
-    }
-    return it->second;
-}
-
-
-MSEdge*
-MSEdge::dictionary(size_t id)
-{
-    assert(myEdges.size()>id);
-    return myEdges[id];
-}
-
-
-size_t
-MSEdge::dictSize()
-{
-    return myDict.size();
-}
-
-
-void
-MSEdge::clear()
-{
-    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); ++i) {
-        delete(*i).second;
-    }
-    myDict.clear();
-}
-
-
-unsigned int
-MSEdge::nLanes() const
-{
-    return myLanes->size();
+    return ret;
 }
 
 
@@ -324,33 +298,8 @@ MSEdge::decVaporization(SUMOTime) throw(ProcessError)
 }
 
 
-void
-MSEdge::changeLanes()
-{
-    if (myFunction==EDGEFUNCTION_INTERNAL) {
-        return;
-    }
-    assert(myLaneChanger != 0);
-    myLaneChanger->laneChange();
-}
-
-
-const std::string &
-MSEdge::getID() const
-{
-    return myID;
-}
-
-
-MSEdge::EdgeBasicFunction
-MSEdge::getPurpose() const
-{
-    return myFunction;
-}
-
-
 bool
-MSEdge::emit(MSVehicle &v, SUMOTime time) const
+MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
 {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -403,29 +352,21 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const
 }
 
 
-vector< MSEdge* >
-MSEdge::getEdgeVector(void)
+void
+MSEdge::changeLanes() throw()
 {
-    vector< MSEdge* > edges;
-    edges.reserve(myDict.size());
-    for (DictType::iterator edge = myDict.begin(); edge != myDict.end();
-            ++edge) {
-        edges.push_back(edge->second);
+    if (myFunction==EDGEFUNCTION_INTERNAL) {
+        return;
     }
-    return edges;
+    assert(myLaneChanger != 0);
+    myLaneChanger->laneChange();
 }
 
-
-const MSEdge::LaneCont * const
-MSEdge::getLanes(void) const
-{
-    return myLanes;
-}
 
 
 #ifdef HAVE_INTERNAL_LANES
 const MSEdge *
-MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const
+MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const throw()
 {
     //@ to be optimized
     for (LaneCont::const_iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
@@ -442,52 +383,12 @@ MSEdge::getInternalFollowingEdge(MSEdge *followerAfterInternal) const
 }
 #endif
 
-SUMOTime
-MSEdge::getLastFailedEmissionTime() const
-{
-    return myLastFailedEmissionTime;
-}
-
-
-void
-MSEdge::setLastFailedEmissionTime(SUMOTime time) const
-{
-    myLastFailedEmissionTime = time;
-}
-
-
-std::vector<MSEdge *>
-MSEdge::getFollowingEdges() const
-{
-    std::vector<MSEdge*> ret;
-    for (AllowedLanesCont::iterator i=myAllowed->begin(); i!=myAllowed->end(); ++i) {
-        ret.push_back((MSEdge*)(*i).first);
-    }
-    return ret;
-}
-
-
-std::vector<MSEdge*>
-MSEdge::getIncomingEdges() const
-{
-    std::vector<MSEdge*> ret;
-    for (DictType::iterator edge = myDict.begin(); edge != myDict.end();
-            ++edge) {
-
-        const MSEdge::LaneCont *allowed = (*edge).second->allowedLanes(*this, SVC_UNKNOWN);
-        if (allowed!=0) {
-            ret.push_back(edge->second);
-        }
-    }
-    return ret;
-}
-
 
 bool myHaveWarned; // !!!
 
 
 SUMOReal
-MSEdge::getEffort(SUMOReal forTime) const
+MSEdge::getEffort(SUMOReal forTime) const throw()
 {
     if(!myHaveLoadedWeights) {
         return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();
@@ -522,7 +423,7 @@ MSEdge::getEffort(SUMOReal forTime) const
 
 
 SUMOReal
-MSEdge::getCurrentEffort() const
+MSEdge::getCurrentEffort() const throw()
 {
     SUMOReal v = 0;
     for(LaneCont::iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
@@ -538,7 +439,7 @@ MSEdge::getCurrentEffort() const
 
 
 void
-MSEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd)
+MSEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw()
 {
     myOwnValueLine.add(timeBegin, timeEnd, value);
     myHaveLoadedWeights = true;
@@ -546,24 +447,67 @@ MSEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd)
 
 
 SUMOReal
-MSEdge::getVehicleEffort(const MSVehicle * const v, SUMOReal t) const
+MSEdge::getVehicleEffort(const MSVehicle * const v, SUMOReal t) const throw()
 {
     SUMOReal teffort = v->getEffort(this, t);
-    if (teffort>0) {
+    if (teffort>=0) {
         return teffort;
     }
     return MIN2((*myLanes)[0]->length()/v->getMaxSpeed(), getEffort(t));
 }
 
 
-SUMOReal
-MSEdge::getCurrentVehicleEffort(const MSVehicle * const v, SUMOReal t) const
+bool
+MSEdge::dictionary(const string &id, MSEdge* ptr) throw()
 {
-    SUMOReal teffort = v->getEffort(this, t);
-    if (teffort>0) {
-        return teffort;
+    DictType::iterator it = myDict.find(id);
+    if (it == myDict.end()) {
+        // id not in myDict.
+        myDict[id] = ptr;
+        while (myEdges.size()<ptr->getNumericalID()+1) {
+            myEdges.push_back(0);
+        }
+        myEdges[ptr->getNumericalID()] = ptr;
+        return true;
     }
-    return MIN2((*myLanes)[0]->length()/v->getMaxSpeed(), getCurrentEffort());
+    return false;
+}
+
+
+MSEdge*
+MSEdge::dictionary(const string &id) throw()
+{
+    DictType::iterator it = myDict.find(id);
+    if (it == myDict.end()) {
+        // id not in myDict.
+        return 0;
+    }
+    return it->second;
+}
+
+
+MSEdge*
+MSEdge::dictionary(size_t id) throw()
+{
+    assert(myEdges.size()>id);
+    return myEdges[id];
+}
+
+
+size_t
+MSEdge::dictSize() throw()
+{
+    return myDict.size();
+}
+
+
+void
+MSEdge::clear() throw()
+{
+    for (DictType::iterator i=myDict.begin(); i!=myDict.end(); ++i) {
+        delete(*i).second;
+    }
+    myDict.clear();
 }
 
 

@@ -82,8 +82,20 @@ public:
         EDGEFUNCTION_INNERJUNCTION = 4
     };
 
+
+    /// @brief Container for lanes.
+    typedef std::vector< MSLane* > LaneCont;
+
+    /** @brief Suceeding edges (keys) and allowed lanes to reach these edges (values). */
+    typedef std::map< const MSEdge*, LaneCont* > AllowedLanesCont;
+
+    /** @brief Map from vehicle types to lanes that may be used to reach one of the next edges */
+    typedef std::map< SUMOVehicleClass, AllowedLanesCont > ClassedAllowedLanesCont;
+
+
 public:
     /// for access to the dictionary
+    /// @todo rework
     friend class GUIGrid;
 
 
@@ -98,110 +110,139 @@ public:
      */
     MSEdge(const std::string &id, unsigned int numericalID) throw();
 
-    /// Container for lanes.
-    typedef std::vector< MSLane* > LaneCont;
-
-    /** Associative container with suceeding edges (keys) and allowed
-        lanes to reach these edges. */
-    typedef std::map< const MSEdge*, LaneCont* > AllowedLanesCont;
-    typedef std::map< SUMOVehicleClass, AllowedLanesCont > ClassedAllowedLanesCont;
 
     /// @brief Destructor.
     virtual ~MSEdge() throw();
 
 
-    /// Initialize the edge.
-    virtual void initialize(
+    /** @brief Initialize the edge.
+     *
+     * @param[in] allowed Information which edges may be reached from which lanes
+     * @param[in] departLane The default departure lane (may be 0)
+     * @param[in] lanes List of this edge's lanes
+     * @param[in] function A basic type of the edge
+     */
+    void initialize(
         AllowedLanesCont* allowed, MSLane* departLane, LaneCont* lanes,
-        EdgeBasicFunction function);
+        EdgeBasicFunction function) throw();
+
 
     /** @brief Get the allowed lanes to reach the destination-edge.
-        If there is no such edge, get 0. Then you are on the wrong edge. */
+     *
+     * If there is no such edge, get 0. Then you are on the wrong edge.
+     *
+     * @param[in] destination The edge to reach
+     * @param[in] vclass The vehicle class for which this information shall be returned
+     * @return The lanes that may be used to reach the given edge, 0 if no such lanes exist
+     * @todo At the begin, three checks are done for determining whether the class is of importance. Consolidate this
+     * @todo There is also a further remark in the code that should be checked
+     */
     const LaneCont* allowedLanes(const MSEdge& destination,
-                                 SUMOVehicleClass vclass) const;
-
-    /** Returns the left-lane of lane if there is one, 0 otherwise. */
-    MSLane* leftLane(const MSLane* lane) const;
-    MSLane* rightLane(const MSLane* lane) const;
-
-    /** @brief Inserts edge into the static dictionary
-        Returns true if the key id isn't already in the dictionary. Otherwise
-        returns false. */
-    static bool dictionary(std::string id, MSEdge* edge);
-
-    /** Returns the MSEdge associated to the key id if exists, otherwise
-     * returns 0. */
-    static MSEdge* dictionary(std::string id);
-
-    /** Returns the MSEdge associated to the key id if exists, otherwise
-     * returns 0. */
-    static MSEdge* dictionary(size_t index);
-
-    static size_t dictSize();
-
-    /** Clears the dictionary */
-    static void clear();
-
-    /** Returns the edge's number of lanes. */
-    unsigned int nLanes() const;
-
-    /// outputs the id of the edge
-    friend std::ostream& operator<<(std::ostream& os, const MSEdge& edge);
-
-    /** Let the edge's vehicles try to change their lanes. */
-    virtual void changeLanes();
-
-    /** returns the id of the edge */
-    const std::string &getID() const;
-
-    /** @brief Returns the edge type
-        Returns information whether the edge is a sink, a source or a
-        normal street; see EdgeBasicFunction */
-    EdgeBasicFunction getPurpose() const;
+                                 SUMOVehicleClass vclass) const throw();
 
 
-    /// emits a vehicle on an appropriate lane
-    virtual bool emit(MSVehicle &v, SUMOTime time) const;
+    /// @name Access to the edge's lanes
+    /// @{
 
-    static std::vector< MSEdge* > getEdgeVector(void);
+    /** @brief Returns the lane left to the one given, 0 if the given lane is leftmost 
+     *
+     * @param[in] lane The lane right to the one to be returned
+     * @return The lane left to the given, 0 if no such lane exists
+     * @todo This method searches for the given in the container; probably, this could be done faster
+     */
+    MSLane * const leftLane(const MSLane * const lane) const throw();
 
-    const LaneCont * const getLanes(void) const;
 
-#ifdef HAVE_INTERNAL_LANES
-    const MSEdge *getInternalFollowingEdge(MSEdge *followerAfterInternal) const;
-#endif
+    /** @brief Returns the lane right to the one given, 0 if the given lane is rightmost 
+     *
+     * @param[in] lane The lane left to the one to be returned
+     * @return The lane right to the given, 0 if no such lane exists
+     * @todo This method searches for the given in the container; probably, this could be done faster
+     */
+    MSLane * const rightLane(const MSLane* const lane) const throw();
 
-    SUMOTime getLastFailedEmissionTime() const;
 
-    void setLastFailedEmissionTime(SUMOTime time) const;
+    /** @brief Returns this edge's lanes
+     *
+     * @return This edge's lanes
+     * @todo Why not a reference?
+     */
+    const LaneCont * const getLanes() const throw() {
+        return myLanes;
+    }
+    /// @}
 
-    std::vector<MSEdge*> getFollowingEdges() const;
 
-    std::vector<MSEdge*> getIncomingEdges() const;
 
-    const std::string &getID() {
+    /// @name Access to other edge attributes
+    /// @{
+
+    /** @brief Returns the edge's number of lanes. 
+     * @return This edge's number of lanes
+     */
+    unsigned int nLanes() const throw() {
+        return (unsigned int) myLanes->size();
+    }
+
+
+    /** @brief Returns the id of the edge 
+     * @return This edge's id
+     */
+    const std::string &getID() const throw() {
         return myID;
     }
 
-    SUMOReal getEffort(SUMOReal forTime) const;
-    SUMOReal getCurrentEffort() const;
 
-    size_t getNumericalID() const {
+    /** @brief Returns the edge type (EdgeBasicFunction)
+     * @return This edge's EdgeBasicFunction
+     * @see EdgeBasicFunction
+     */
+    EdgeBasicFunction getPurpose() const throw() {
+        return myFunction;
+    }
+
+
+    /** @brief Returns the numerical id of the edge 
+     * @return This edge's numerical id
+     */
+    unsigned int getNumericalID() const throw() {
         return myNumericalID;
     }
+    /// @}
 
-    size_t getNoFollowing() const {
-        return myAllowed->size();
+
+
+    /// @name Access to succeeding/predecciding edges
+    /// @{
+    /** @brief Returns the list of edges which may be reached from this edge
+     * @return Edges reachable from this edge
+     * @todo too slow
+     */
+    std::vector<MSEdge*> getFollowingEdges() const throw();
+
+
+    /** @brief Returns the list of edges from which this edge may be reached
+     * @return Edges from which this edge may be reached
+     * @todo too slow!
+     */
+    std::vector<MSEdge*> getIncomingEdges() const throw();
+
+
+    /** @brief Returns the number of edges that may be reached from this edge
+     * @return The number of following edges
+     */
+    unsigned int getNoFollowing() const throw() {
+        return (unsigned int) myAllowed->size();
     }
 
-    const MSEdge *getFollower(size_t num) const {
-        AllowedLanesCont::const_iterator i = myAllowed->begin();
-        while (num!=0) {
-            ++i;
-            --num;
-        }
-        return (*i).first;
-    }
+    /** @brief Returns the n-th of the following edges
+     * @param[in] n The index within following edges of the edge to return
+     * @return The n-th of the following edges
+     */
+    const MSEdge * const getFollower(unsigned int n) const throw();
+    /// @}
+
+
 
     /// @name Access to vaporizing interface
     /// @{
@@ -240,16 +281,126 @@ public:
 
 
 
-    virtual bool prohibits(const MSVehicle *) const {
+    /// @name Effort I/O
+    /// @{
+    /** @brief Returns the effort (travel time) for this edge and the given time
+     *
+     * If no travel time values have been loaded, the edge's length
+     *  divided by the allowed speed is returned. 
+     * Otherwise, the loaded weight matching the given time is returned.
+     * 
+     * @param[in] forTime The (entry) time for which the effort shall be returned
+     * @return The effort (travel time) to pass the edge for the given time
+     */
+    SUMOReal getEffort(SUMOReal forTime) const throw();
+
+
+    /** @brief Computes and returns the current effort (travel time) for this edge
+     *
+     * The mean travel time of all lanes is summed and divided by the number
+     *  of lanes. If the result is zero, 1000000. (a very large number) is 
+     *  returned, otherwise the edge's length divided by this speed.
+     * 
+     * @return The current effort (travel time) to pass the edge
+     */
+    SUMOReal getCurrentEffort() const throw();
+
+
+    /** @brief Returns the given vehicle's effort (travel time) for this edge and the given time
+     *
+     * If a call to the vehicle's member "getEffort" with this edge
+     *  and the given time returns a positive value, it is returned.
+     * Otherwise the value from "getEffort" is returned.
+     * 
+     * @param[in] v The vehicle which may have the effort stored
+     * @param[in] t The (entry) time for which the effort shall be returned
+     * @return The effort (travel time) to pass the edge for the given time
+     * @see getEffort
+     * @see MSVehicle::getEffort
+     * @deprecated This explicite combination is not variable enough; see determination in C2C-device
+     */
+    SUMOReal getVehicleEffort(const MSVehicle * const v, SUMOReal t) const throw();
+
+
+    /** @brief Adds a loaded weight
+     *
+     * @param[in] value The loaded effort (travel time)
+     * @param[in] timeBegin The first time step for which this value is valid
+     * @param[in] timeEnd The last time step for which this value is valid
+     * @todo The weights storage should be completely redesigned
+     */
+    void addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw();
+    /// @}
+
+
+
+    /// @name Methods releated to vehicle emission
+    /// @{
+
+    /** @brief Emission a vehicle on an appropriate lane
+     *
+     * @param[in] v The vehicle to emit
+     * @param[in] time The current simulation time
+     * @todo Describe
+     */
+    virtual bool emit(MSVehicle &v, SUMOTime time) const throw();
+
+
+    /** @brief Returns the last time a vehicle could not be inserted 
+     * @return The current value
+     */
+    inline SUMOTime getLastFailedEmissionTime() const throw() {
+        return myLastFailedEmissionTime;
+    }
+
+
+    /** @brief Sets the last time a vehicle could not be inserted 
+     * @param[in] time the new value
+     */
+    inline void setLastFailedEmissionTime(SUMOTime time) const throw() {
+        myLastFailedEmissionTime = time;
+    }
+    /// @}
+
+
+    /** @brief Performs lane changing on this edge */
+    virtual void changeLanes();
+
+
+#ifdef HAVE_INTERNAL_LANES
+    /// @extension: inner junctions are not filled
+    const MSEdge *getInternalFollowingEdge(MSEdge *followerAfterInternal) const throw();
+#endif
+
+    /// @todo recheck usage
+    virtual bool prohibits(const MSVehicle *) const throw() {
         return false;
     }
 
 
 
-    void addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd);
 
-    SUMOReal getVehicleEffort(const MSVehicle * const v, SUMOReal t) const;
-    SUMOReal getCurrentVehicleEffort(const MSVehicle * const v, SUMOReal t) const;
+
+
+
+
+
+    /** @brief Inserts edge into the static dictionary
+        Returns true if the key id isn't already in the dictionary. Otherwise
+        returns false. */
+    static bool dictionary(const std::string &id, MSEdge* edge) throw();
+
+    /** @brief IReturns the MSEdge associated to the key id if exists, otherwise returns 0. */
+    static MSEdge* dictionary(const std::string &id) throw();
+
+    /** @brief IReturns the MSEdge at the index */
+    static MSEdge* dictionary(size_t index) throw();
+
+    /// @brief Returns the number of edges
+    static size_t dictSize() throw();
+
+    /** @brief Clears the dictionary */
+    static void clear() throw();
 
 
 protected:
