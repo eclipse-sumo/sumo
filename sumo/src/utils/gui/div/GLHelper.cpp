@@ -122,7 +122,8 @@ GLHelper::drawBoxLines(const Position2DVector &geom,
                        const std::vector<SUMOReal> &lengths,
                        SUMOReal width) throw()
 {
-    for (size_t i=0; i<geom.size()-1; i++) {
+    int e = (int) geom.size() - 1;
+    for (int i=0; i<e; i++) {
         drawBoxLine(geom[i], rots[i], lengths[i], width);
     }
 }
@@ -135,8 +136,8 @@ GLHelper::drawBoxLines(const Position2DVector &geom1,
                        const std::vector<SUMOReal> &lengths,
                        SUMOReal width) throw()
 {
-    size_t minS = MIN4(rots.size(), lengths.size(), geom1.size(), geom2.size());
-    for (size_t i=0; i<minS; i++) {
+    int minS = (int) MIN4(rots.size(), lengths.size(), geom1.size(), geom2.size());
+    for (int i=0; i<minS; i++) {
         GLHelper::drawBoxLine(geom1[i], geom2[i], rots[i], lengths[i], width);
     }
 }
@@ -145,7 +146,8 @@ GLHelper::drawBoxLines(const Position2DVector &geom1,
 void
 GLHelper::drawBoxLines(const Position2DVector &geom, SUMOReal width) throw()
 {
-    for (size_t i=0; i<geom.size()-1; i++) {
+    int e = (int) geom.size() - 1;
+    for (int i=0; i<e; i++) {
         const Position2D &f = geom[i];
         const Position2D &s = geom[i+1];
         drawBoxLine(f,
@@ -190,7 +192,8 @@ void
 GLHelper::drawLine(const Position2DVector &v) throw()
 {
     glBegin(GL_LINES);
-    for (size_t i=0; i<v.size()-1; ++i) {
+    int e = (int) v.size() - 1;
+    for (int i=0; i<e; ++i) {
         glVertex2d(v[i].x(), v[i].y());
         glVertex2d(v[i+1].x(), v[i+1].y());
     }

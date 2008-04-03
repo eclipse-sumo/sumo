@@ -717,7 +717,7 @@ MSTLLogicControl::add(const std::string &id, const std::string &subID,
     TLSLogicVariants *tlmap = (*i).second;
     try {
         return tlmap->addLogic(subID, logic, myNetWasLoaded, newDefault);
-    } catch (ProcessError &e) {
+    } catch (ProcessError &) {
         throw ProcessError("No initial signal plan loaded for tls '" + id + "'.");
     }
 }

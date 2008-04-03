@@ -76,6 +76,7 @@ public:
      * Calls XMLPlatformUtils::Initialize(). If this fails, the exception is
      *  caught and its content is reported using a ProcessError. Otheriwse, a
      *  static SAX2XMLReader is built (stored in myReader)
+     * @exception ProcessError If the initialisation fails
      */
     static void init() throw(ProcessError);
 

@@ -88,7 +88,8 @@ GUILaneWrapper::GUILaneWrapper(GUIGlObjectStorage &idStorage,
     //
     myShapeRotations.reserve(myShape.size()-1);
     myShapeLengths.reserve(myShape.size()-1);
-    for (size_t i=0; i<myShape.size()-1; ++i) {
+    int e = (int) myShape.size() - 1;
+    for (int i=0; i<e; ++i) {
         const Position2D &f = myShape[i];
         const Position2D &s = myShape[i+1];
         myShapeLengths.push_back(GeomHelper::distance(f, s));

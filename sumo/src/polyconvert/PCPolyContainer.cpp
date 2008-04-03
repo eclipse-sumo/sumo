@@ -164,8 +164,8 @@ PCPolyContainer::clear()
 void
 PCPolyContainer::report()
 {
-    WRITE_MESSAGE("   " + toString<int>(getNoPolygons()) + " polygons loaded.");
-    WRITE_MESSAGE("   " + toString<int>(getNoPOIs()) + " pois loaded.");
+    WRITE_MESSAGE("   " + toString(getNoPolygons()) + " polygons loaded.");
+    WRITE_MESSAGE("   " + toString(getNoPOIs()) + " pois loaded.");
 }
 
 

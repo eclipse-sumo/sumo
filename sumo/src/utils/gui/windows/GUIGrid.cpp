@@ -194,7 +194,7 @@ GUIGrid::GridCell::removeIfIn(const GridCell &other)
 /* -------------------------------------------------------------------------
  * GUIGrid - methods
  * ----------------------------------------------------------------------- */
-GUIGrid::GUIGrid(size_t noXCells, size_t noYCells)
+GUIGrid::GUIGrid(int noXCells, int noYCells)
         : myXCellSize(0), myYCellSize(0), myBoundary(), myGrid(0),
         myXSize(noXCells), myYSize(noYCells)
 {
@@ -227,9 +227,9 @@ GUIGrid::getCellsContaining(Boundary boundary)
 {
     std::vector<size_t> cells;
     // compute the cells the boundary is going through
-    for (size_t y=0; y<myYSize; y++) {
+    for (int y=0; y<myYSize; y++) {
         SUMOReal ypos1 = SUMOReal(y) * myYCellSize + myBoundary.ymin();
-        for (size_t x=0; x<myXSize; x++) {
+        for (int x=0; x<myXSize; x++) {
             SUMOReal xpos1 = SUMOReal(x) * myXCellSize + myBoundary.xmin();
             Boundary cellBounds;
             cellBounds.add(xpos1, ypos1);
@@ -247,8 +247,8 @@ GUIGrid::getCellsContaining(Boundary boundary)
 void
 GUIGrid::buildRelationships()
 {
-    for (size_t y=0; y<myYSize; y++) {
-        for (size_t x=0; x<myXSize; x++) {
+    for (int y=0; y<myYSize; y++) {
+        for (int x=0; x<myXSize; x++) {
             size_t pos = y*myXSize + x;
             // build cont without upper
             GridCell cont = myGrid[pos];
@@ -295,7 +295,7 @@ GUIGrid::get(int what,
        SUMOReal ymin = y - yoff - myYCellSize;
        SUMOReal ymax = y + yoff + myYCellSize;
     */
-    for (size_t i=0; i<myXSize*myYSize; i++) {
+    for (int i=0; i<myXSize*myYSize; i++) {
         myVisHelper[i] = GPS_NOT_DRAWN;// = new bool[myXSize*myYSize];
     }
 

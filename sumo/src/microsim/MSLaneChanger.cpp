@@ -352,7 +352,7 @@ MSLaneChanger::getRealLeader(const ChangerIt &target)
         if (seen>dist) {
             return std::pair<MSVehicle *, SUMOReal>(0, -1);
         }
-        size_t view = 1;
+        unsigned int view = 1;
         // loop over following lanes
         MSLane* targetLane = target->lane;
         MSLane *nextLane = targetLane;
@@ -630,7 +630,7 @@ MSLaneChanger::findTarget()
     // neighboured lane that will bring it closer to an allowed one.
     // Certainly there is a more elegant way than looping over all lanes.
     ChangerIt nearestTarget = myChanger.end();
-    unsigned int minDist    = myChanger.size();
+    unsigned int minDist    = (unsigned int) myChanger.size();
 
     for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
 

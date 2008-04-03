@@ -193,7 +193,7 @@ initVehicleColoringSchemes()
             */
 #endif
     // build the colors map
-    for (size_t i=0; i<sm.size(); ++i) {
+    for (int i=0; i<(int) sm.size(); ++i) {
         vehColMap[i] = vector<RGBColor>();
         switch (sm.getColorSetType(i)) {
         case CST_SINGLE:
@@ -259,25 +259,23 @@ initLaneColoringSchemes()
     new GUIColorer_LaneNeighEdges<GUILaneWrapper>(this));
         */
     // build the colors map
-    {
-        for (size_t i=0; i<sm.size(); i++) {
-            laneColMap[i] = vector<RGBColor>();
-            switch (sm.getColorSetType(i)) {
-            case CST_SINGLE:
-                laneColMap[i].push_back(sm.getColorerInterface(i)->getSingleColor());
-                break;
-            case CST_MINMAX:
-                laneColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
-                laneColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
-                break;
-            case CST_MINMAX_OPT:
-                laneColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
-                laneColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
-                laneColMap[i].push_back(sm.getColorerInterface(i)->getFallbackColor());
-                break;
-            default:
-                break;
-            }
+    for (int i=0; i<(int) sm.size(); i++) {
+        laneColMap[i] = vector<RGBColor>();
+        switch (sm.getColorSetType(i)) {
+        case CST_SINGLE:
+            laneColMap[i].push_back(sm.getColorerInterface(i)->getSingleColor());
+            break;
+        case CST_MINMAX:
+            laneColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
+            laneColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
+            break;
+        case CST_MINMAX_OPT:
+            laneColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
+            laneColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
+            laneColMap[i].push_back(sm.getColorerInterface(i)->getFallbackColor());
+            break;
+        default:
+            break;
         }
     }
     return laneColMap;
@@ -317,25 +315,23 @@ initEdgeColoringSchemes()
     new GUIColorer_LaneNeighEdges<GUILaneWrapper>(this));
         */
     // build the colors map
-    {
-        for (size_t i=0; i<sm.size(); i++) {
-            edgeColMap[i] = vector<RGBColor>();
-            switch (sm.getColorSetType(i)) {
-            case CST_SINGLE:
-                edgeColMap[i].push_back(sm.getColorerInterface(i)->getSingleColor());
-                break;
-            case CST_MINMAX:
-                edgeColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
-                edgeColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
-                break;
-            case CST_MINMAX_OPT:
-                edgeColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
-                edgeColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
-                edgeColMap[i].push_back(sm.getColorerInterface(i)->getFallbackColor());
-                break;
-            default:
-                break;
-            }
+    for (int i=0; i<sm.size(); i++) {
+        edgeColMap[i] = vector<RGBColor>();
+        switch (sm.getColorSetType(i)) {
+        case CST_SINGLE:
+            edgeColMap[i].push_back(sm.getColorerInterface(i)->getSingleColor());
+            break;
+        case CST_MINMAX:
+            edgeColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
+            edgeColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
+            break;
+        case CST_MINMAX_OPT:
+            edgeColMap[i].push_back(sm.getColorerInterface(i)->getMinColor());
+            edgeColMap[i].push_back(sm.getColorerInterface(i)->getMaxColor());
+            edgeColMap[i].push_back(sm.getColorerInterface(i)->getFallbackColor());
+            break;
+        default:
+            break;
         }
     }
     return edgeColMap;

@@ -77,7 +77,7 @@ GUIEdge::~GUIEdge() throw()
 void
 GUIEdge::initGeometry(GUIGlObjectStorage &idStorage) throw()
 {
-    // do not this twice
+    // don't do this twice
     if (myLaneGeoms.size()>0) {
         return;
     }

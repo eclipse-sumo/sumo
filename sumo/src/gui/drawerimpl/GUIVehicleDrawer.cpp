@@ -216,12 +216,12 @@ GUIVehicleDrawer::drawLanesVehicles(GUILaneWrapper &lane,
     glTranslated(laneBeg.x(), laneBeg.y(), 0);
     glRotated(rots[0], 0, 0, 1);
     // go through the vehicles
-    size_t shapePos = 0;
+    int shapePos = 0;
     SUMOReal positionOffset = 0;
     for (v=vehicles.begin(); v!=vehicles.end(); v++) {
         GUIVehicle *veh = static_cast<GUIVehicle*>(*v);
         SUMOReal vehiclePosition = veh->getPositionOnLane();
-        while (shapePos<rots.size()-1 && vehiclePosition>positionOffset+lengths[shapePos]) {
+        while (shapePos<(int)rots.size()-1 && vehiclePosition>positionOffset+lengths[shapePos]) {
             glPopMatrix();
             positionOffset += lengths[shapePos];
             shapePos++;

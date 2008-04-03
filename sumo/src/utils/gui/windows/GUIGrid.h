@@ -65,7 +65,7 @@ public:
 
 
     /// Constructor
-    GUIGrid(size_t noXCells, size_t noYCells);
+    GUIGrid(int noXCells, int noYCells);
 
     /// Destructor
     ~GUIGrid();
@@ -264,7 +264,7 @@ private:
     GridCell *myRelations[3];
 
     /// The size of the grid in cells in x- and y-direction
-    size_t myXSize, myYSize;
+    int myXSize, myYSize;
 
     PaintState *myVisHelper;
 

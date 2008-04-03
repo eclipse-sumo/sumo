@@ -112,11 +112,15 @@ private:
     /** the matrix of roads to junction type mappings */
     NBJunctionTypesMatrix myJunctionTypes;
 
+
 private:
-    /** invalid copy constructor */
+    /** @brief invalid copy constructor */
     NBTypeCont(const NBTypeCont &s);
-    /** invalid assignment operator */
+
+    /** @brief invalid assignment operator */
     NBTypeCont &operator=(const NBTypeCont &s);
+
+
 };
 
 

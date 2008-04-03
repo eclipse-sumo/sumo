@@ -173,7 +173,7 @@ GUIHandler::addParsedVehicleType(const string &id, const SUMOReal length,
 void
 GUIHandler::closeRoute() throw(ProcessError)
 {
-    int size = myActiveRoute.size();
+    int size = (int) myActiveRoute.size();
     if (size==0) {
         if (myActiveRouteID[0]!='!') {
             MsgHandler::getErrorInstance()->inform("Route '" + myActiveRouteID + "' has no edges.");

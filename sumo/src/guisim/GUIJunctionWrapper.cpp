@@ -108,8 +108,8 @@ Boundary
 GUIJunctionWrapper::getBoundary() const
 {
     Boundary boundary;
-    size_t shapeLength = myShape.size();
-    for (size_t i=0; i<shapeLength; ++i) {
+    int shapeLength = (int) myShape.size();
+    for (int i=0; i<shapeLength; ++i) {
         const Position2D &pos = myShape[i];
         boundary.add(pos.x(), pos.y());
     }

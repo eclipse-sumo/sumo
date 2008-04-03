@@ -34,7 +34,6 @@
 #include <queue>
 #include <vector>
 #include <map>
-#include <string>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/UtilExceptions.h>
 
