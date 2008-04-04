@@ -46,22 +46,22 @@
  * @todo Check whether the vehicle type is used and makes sense herein
  */
 struct ODCell {
-    /// The number of vehicles
+    /// @brief The number of vehicles
     SUMOReal vehicleNumber;
 
-    /// The begin time this cell describes
+    /// @brief The begin time this cell describes
     SUMOTime begin;
 
-    /// The end time this cell describes
+    /// @brief The end time this cell describes
     SUMOTime end;
 
-    /// Name of the origin district
+    /// @brief Name of the origin district
     std::string origin;
 
-    /// Name of the destination district
+    /// @brief Name of the destination district
     std::string destination;
 
-    /// Name of the vehicle type
+    /// @brief Name of the vehicle type
     std::string vehicleType;
 
 };

@@ -59,11 +59,12 @@ public:
      *
      * Saves the given district containe in order to fill it.
      * @param[in] cont The container of districts to fill
+     * @param[in] file The file that will be processed
      */
     ODDistrictHandler(ODDistrictCont &cont, const std::string &file) throw();
 
 
-    /// Destructor
+    /// @brief Destructor
     ~ODDistrictHandler() throw();
 
 
@@ -167,6 +168,15 @@ private:
 
     /// The currently parsed district
     ODDistrict *myCurrentDistrict;
+
+
+private:
+    /// @brief invalidated copy constructor
+    ODDistrictHandler(const ODDistrictHandler &s);
+
+    /// @brief invalidated assignment operator
+    ODDistrictHandler &operator=(const ODDistrictHandler &s);
+
 
 };
 

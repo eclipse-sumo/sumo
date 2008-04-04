@@ -163,8 +163,11 @@ public:
     SUMOReal getNoDiscarded() const throw();
 
 
-    /// Splits the stored cells dividing them on the given time line
+    /** @brief Splits the stored cells dividing them on the given time line
+     * @todo Describe
+     */
     void applyCurve(const Distribution_Points &ps) throw();
+
 
 protected:
     /**
@@ -172,19 +175,15 @@ protected:
      * @brief An internal representation of a single vehicle
      */
     struct ODVehicle {
-        /// The id of the vehicle
+        /// @brief The id of the vehicle
         std::string id;
-
-        /// The departure time of the vehicle
-        SUMOTime depart;
-
-        /// The type of the vehicle
+        /// T@brief he departure time of the vehicle
+        unsigned int depart;
+        /// @brief The type of the vehicle
         std::string type;
-
-        /// The edge the vehicles shall start at
+        /// @brief The edge the vehicles shall start at
         std::string from;
-
-        /// The edge the vehicles shall end at
+        /// @brief The edge the vehicles shall end at
         std::string to;
 
     };
@@ -243,19 +242,19 @@ protected:
 
 
 protected:
-    /// The loaded cells
+    /// @brief The loaded cells
     CellVector myContainer;
 
-    /// The districts to retrieve sources/sinks from
+    /// @brief The districts to retrieve sources/sinks from
     const ODDistrictCont &myDistricts;
 
-    /// Number of loaded vehicles
+    /// @brief Number of loaded vehicles
     SUMOReal myNoLoaded;
 
-    /// Number of written vehicles
+    /// @brief Number of written vehicles
     SUMOReal myNoWritten;
 
-    /// Number of discarded vehicles
+    /// @brief Number of discarded vehicles
     SUMOReal myNoDiscarded;
 
 
@@ -266,7 +265,7 @@ protected:
     class cell_by_begin_sorter
     {
     public:
-        /// constructor
+        /// @brief constructor
         explicit cell_by_begin_sorter() { }
 
 
@@ -295,7 +294,7 @@ protected:
     class descending_departure_comperator
     {
     public:
-        /// constructor
+        /// @brief constructor
         descending_departure_comperator() { }
 
 

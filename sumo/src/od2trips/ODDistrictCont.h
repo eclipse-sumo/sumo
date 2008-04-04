@@ -64,7 +64,7 @@ public:
      *  if this district does not contain a source.
      *
      * @param[in] name The id of the district to get a random source from
-     * @return The is of a randomly chosen source
+     * @return The id of a randomly chosen source
      * @exception InvalidArgument If the named district is not known
      * @exception OutOfBoundsException If the named district has no sources
      * @see ODDistrict::getRandomSource
@@ -81,12 +81,21 @@ public:
      *  if this district does not contain a sink.
      *
      * @param[in] name The id of the district to get a random sink from
-     * @return The is of a randomly chosen sink
+     * @return The id of a randomly chosen sink
      * @exception InvalidArgument If the named district is not known
      * @exception OutOfBoundsException If the named district has no sinks
      * @see ODDistrict::getRandomSink
      */
     std::string getRandomSinkFromDistrict(const std::string &name) const throw(OutOfBoundsException, InvalidArgument);
+
+
+private:
+    /// @brief invalidated copy constructor
+    ODDistrictCont(const ODDistrictCont &s);
+
+    /// @brief invalidated assignment operator
+    ODDistrictCont &operator=(const ODDistrictCont &s);
+
 
 };
 

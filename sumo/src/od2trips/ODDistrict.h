@@ -58,7 +58,7 @@ public:
     ODDistrict(const std::string &id) throw();
 
 
-    /// Destructor
+    /// @brief Destructor
     ~ODDistrict() throw();
 
 
@@ -131,11 +131,19 @@ public:
 
 
 private:
-    /// Container of weighted sources
+    /// @brief Container of weighted sources
     RandomDistributor<std::string> mySources;
 
-    /// Container of weighted sinks
+    /// @brief Container of weighted sinks
     RandomDistributor<std::string> mySinks;
+
+
+private:
+    /// @brief invalidated copy constructor
+    ODDistrict(const ODDistrict &s);
+
+    /// @brief invalidated assignment operator
+    ODDistrict &operator=(const ODDistrict &s);
 
 
 };
