@@ -129,7 +129,7 @@ private:
     std::map< int, int > myMCell2LA;
 
     std::map< std::string, int > myLAChanges;
-    int lastTime;
+    SUMOTime lastTime;
     bool percentModus;
 
 

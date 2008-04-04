@@ -143,7 +143,7 @@ MSCORN::saveClusterInfoData(SUMOTime step, int id,
 void
 MSCORN::saveSavedInformationData(SUMOTime step, const std::string &veh,
                                  const std::string &edge, const std::string &type,
-                                 int time, SUMOReal nt)
+                                 SUMOTime time, SUMOReal nt)
 {
     if (!wished(CORN_OUT_SAVED_INFO)) {
         return;
@@ -164,7 +164,7 @@ MSCORN::saveSavedInformationData(SUMOTime step, const std::string &veh,
 
 void
 MSCORN::saveTransmittedInformationData(SUMOTime step, const std::string &from, const std::string &to,
-                                       const std::string &edge, int time, SUMOReal nt)
+                                       const std::string &edge, SUMOTime time, SUMOReal nt)
 {
     if (!wished(CORN_OUT_TRANS_INFO)) {
         return;

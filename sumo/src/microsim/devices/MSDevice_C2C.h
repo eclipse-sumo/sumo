@@ -249,7 +249,7 @@ private:
      * other the Neighbor of the Neighbor of this Vehicle.
      * A Vehicle cannot belong to two different cluster
      */
-    int buildMyCluster(int myStep, int clId);
+    int buildMyCluster(SUMOTime myStep, int clId);
 
 
     bool knowsEdgeTest(MSEdge &edge) const;

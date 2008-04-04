@@ -372,16 +372,15 @@ MSPhoneCell::setDynamicCalls(SUMOTime time)
 void
 MSPhoneCell::writeOutput(SUMOTime t)
 {
-    {
-        if (OptionsCont::getOptions().isSet("ss2-cell-output")) {
-            std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
-            timestr = timestr + " " + StringUtils::toTimeString(t);
-            long t1 = myVehicleTimes;
-            std::map<MSVehicle *, SUMOTime>::iterator i;
-            for (i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
-                t1 = t1 + (t - (*i).second);
-            }
-            OutputDevice::getDeviceByOption("ss2-cell-output")
+    if (OptionsCont::getOptions().isSet("ss2-cell-output")) {
+        std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
+        timestr = timestr + " " + StringUtils::toTimeString(t);
+        long t1 = myVehicleTimes;
+        std::map<MSVehicle *, SUMOTime>::iterator i;
+        for (i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
+            t1 = t1 + (long) ((t - (*i).second));
+        }
+        OutputDevice::getDeviceByOption("ss2-cell-output")
             << "02;" << timestr << ';'
             << myCellId << ';'
             << myStaticCallsIn << ';' << myStaticCallsOut << ';'
@@ -391,31 +390,28 @@ MSPhoneCell::writeOutput(SUMOTime t)
             << myLaterDynamicStarted << ';'
             << myVehiclesEntered << ';'
             << t1 << "\n";
-            myVehiclesEntered = 0;
-            myVehicleTimes = 0;
-            for (i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
-                (*i).second = t;
-            }
+        myVehiclesEntered = 0;
+        myVehicleTimes = 0;
+        for (i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
+            (*i).second = t;
         }
     }
-    {
-        if (OptionsCont::getOptions().isSet("ss2-sql-cell-output")) {
-            OutputDevice& od = OutputDevice::getDeviceByOption("ss2-sql-cell-output");
-            std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
-            timestr = timestr + " " + StringUtils::toTimeString(t);
-            if (od.getBoolMarker("hadFirstCall")) {
-                od << "," << "\n";
-            } else {
-                od.setBoolMarker("hadFirstCall", true);
-            }
-            od
+    if (OptionsCont::getOptions().isSet("ss2-sql-cell-output")) {
+        OutputDevice& od = OutputDevice::getDeviceByOption("ss2-sql-cell-output");
+        std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
+        timestr = timestr + " " + StringUtils::toTimeString((int) t);
+        if (od.getBoolMarker("hadFirstCall")) {
+            od << "," << "\n";
+        } else {
+            od.setBoolMarker("hadFirstCall", true);
+        }
+        od
             << "(NULL, \' \', '" << timestr << "',"
             << myCellId << ','
             << myStaticCallsIn << ',' << myStaticCallsOut << ','
             << myDynCallsIn << ',' << myDynCallsOut << ','
             << (mySumCalls + myStaticCallsIn + myStaticCallsOut) << ','
             << t << ")";
-        }
     }
     myDynCallsIn = myDynCallsOut = myLaterDynamicStarted = 0;
     mySumCalls = 0;
@@ -445,7 +441,7 @@ void MSPhoneCell::removeVehicle(MSVehicle& veh, SUMOTime t)
     SUMOTime prev = myVehicles[&veh];
     assert(t>=prev);
     assert(prev>t-300);
-    myVehicleTimes = myVehicleTimes + (t-prev);
+    myVehicleTimes = myVehicleTimes + (long) (t-prev);
     assert(myVehicles.find(&veh)!=myVehicles.end());
     myVehicles.erase(myVehicles.find(&veh));
 }

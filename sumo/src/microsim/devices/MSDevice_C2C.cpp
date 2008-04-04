@@ -816,52 +816,47 @@ MSDevice_C2C::getClusterId(void) const
 
 
 int
-MSDevice_C2C::buildMyCluster(int t, int clId)
+MSDevice_C2C::buildMyCluster(SUMOTime t, int clId)
 {
     int count = 1;
     // build the cluster
-    {
-        clusterId = clId;
-        std::map<MSDevice_C2C *, C2CConnection*>::iterator i;
-        for (i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
-            if ((*i).first->getClusterId()<0) {
-                count++;
-                (*i).second->connectedVeh->setClusterId(clId);
-                clusterCont.push_back((*i).second);
-                std::map<MSDevice_C2C *, C2CConnection*>::iterator j;
-                for (j=(*i).first->myNeighbors.begin(); j!=(*i).second->connectedVeh->myNeighbors.end(); j++) {
-                    if ((*i).first->getClusterId()<0) {
-                        count++;
-                        (*i).first->setClusterId(clId);
-                        clusterCont.push_back((*j).second);
-                    }
+    clusterId = clId;
+    std::map<MSDevice_C2C *, C2CConnection*>::iterator i;
+    for (i=myNeighbors.begin(); i!=myNeighbors.end(); ++i) {
+        if ((*i).first->getClusterId()<0) {
+            count++;
+            (*i).second->connectedVeh->setClusterId(clId);
+            clusterCont.push_back((*i).second);
+            std::map<MSDevice_C2C *, C2CConnection*>::iterator j;
+            for (j=(*i).first->myNeighbors.begin(); j!=(*i).second->connectedVeh->myNeighbors.end(); j++) {
+                if ((*i).first->getClusterId()<0) {
+                    count++;
+                    (*i).first->setClusterId(clId);
+                    clusterCont.push_back((*j).second);
                 }
-            } else if ((*i).second->connectedVeh->getClusterId()==clusterId) {
-                // du bist zwar mein Nachbarn, aber du wrdest von einem anderen Nachbarn von mir schon eingeladen,
-                // dann werde ich deine nachbarn einladen.
-                std::map<MSDevice_C2C *, C2CConnection*>::iterator j;
-                for (j=(*i).first->myNeighbors.begin(); j!=(*i).second->connectedVeh->myNeighbors.end(); j++) {
-                    if ((*i).first->getClusterId()<0) {
-                        count++;
-                        (*i).first->setClusterId(clId);
-                        clusterCont.push_back((*j).second);
-                    }
+            }
+        } else if ((*i).second->connectedVeh->getClusterId()==clusterId) {
+            // du bist zwar mein Nachbarn, aber du wrdest von einem anderen Nachbarn von mir schon eingeladen,
+            // dann werde ich deine nachbarn einladen.
+            std::map<MSDevice_C2C *, C2CConnection*>::iterator j;
+            for (j=(*i).first->myNeighbors.begin(); j!=(*i).second->connectedVeh->myNeighbors.end(); j++) {
+                if ((*i).first->getClusterId()<0) {
+                    count++;
+                    (*i).first->setClusterId(clId);
+                    clusterCont.push_back((*j).second);
                 }
             }
         }
     }
-
     // write output
-    {
-        ostringstream vehs;
-        for (std::vector<C2CConnection*>::const_iterator i=clusterCont.begin(); i!=clusterCont.end(); ++i) {
-            if (i!=clusterCont.begin()) {
-                vehs << ' ';
-            }
-            vehs << (*i)->connectedVeh->getID();
+    ostringstream vehs;
+    for (std::vector<C2CConnection*>::const_iterator i=clusterCont.begin(); i!=clusterCont.end(); ++i) {
+        if (i!=clusterCont.begin()) {
+            vehs << ' ';
         }
-        MSCORN::saveClusterInfoData(t, clId, getID(), vehs.str(), count);
+        vehs << (*i)->connectedVeh->getID();
     }
+    MSCORN::saveClusterInfoData(t, clId, getID(), vehs.str(), count);
     return count;
 }
 

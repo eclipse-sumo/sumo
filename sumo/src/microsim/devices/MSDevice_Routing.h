@@ -124,7 +124,7 @@ private:
      * @param[in] id The ID of the device
      * @param[in] period The period with which a new route shall be serached
      */
-    MSDevice_Routing(MSVehicle &holder, const std::string &id, int period) throw();
+    MSDevice_Routing(MSVehicle &holder, const std::string &id, SUMOTime period) throw();
 
 
     /// @brief Destructor.
@@ -184,7 +184,7 @@ private:
 
 private:
     /// @brief The period with which a vehicle shall be rerouted
-    int myPeriod;
+    SUMOTime myPeriod;
 
     /// @brief A static vehicle index for computing deterministic vehicle fractions
     static int myVehicleIndex;

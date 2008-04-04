@@ -106,7 +106,7 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
     bool haveByName = oc.isSet("device.routing.knownveh") && OptionsCont::getOptions().isInStringVector("device.routing.knownveh", v.getID());
     if (haveByNumber||haveByName) {
         // build the device
-        MSDevice_Routing* device = new MSDevice_Routing(v, "routing_" + v.getID(), oc.getInt("device.routing.period"));
+        MSDevice_Routing* device = new MSDevice_Routing(v, "routing_" + v.getID(), (SUMOTime) oc.getInt("device.routing.period")); // !!! SUMOTime-option
         into.push_back(device);
         // initialise edge efforts if not done before
         if(myEdgeEfforts.size()==0) {
@@ -135,7 +135,7 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
 // MSDevice_Routing-methods
 // ---------------------------------------------------------------------------
 MSDevice_Routing::MSDevice_Routing(MSVehicle &holder, const std::string &id, 
-                                   int period) throw()
+                                   SUMOTime period) throw()
         : MSDevice(holder, id), myPeriod(period), myRerouteCommand(0)
 {
 }

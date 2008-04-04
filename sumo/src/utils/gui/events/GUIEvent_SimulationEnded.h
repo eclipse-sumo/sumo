@@ -31,6 +31,7 @@
 #endif
 
 #include "GUIEvent.h"
+#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================
@@ -63,13 +64,13 @@ public:
     };
 
     /// constructor
-    GUIEvent_SimulationEnded(EndReason reason, size_t step);
+    GUIEvent_SimulationEnded(EndReason reason, SUMOTime step);
 
     /// destructor
     ~GUIEvent_SimulationEnded();
 
     /// Returns the time step the simulation has ended at
-    size_t getTimeStep() const;
+    SUMOTime getTimeStep() const;
 
     /// Returns the reason the simulation has ended due
     EndReason getReason() const;
@@ -79,7 +80,7 @@ protected:
     EndReason myReason;
 
     /// The time step the simulation has ended at
-    size_t myStep;
+    SUMOTime myStep;
 
 };
 

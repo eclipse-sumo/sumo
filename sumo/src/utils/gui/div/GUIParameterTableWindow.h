@@ -112,6 +112,7 @@ public:
     void mkItem(const char *name, bool dynamic, ValueSource<SUMOReal> *src) throw();
 
 
+#ifndef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
     /** @brief Adds a row which obtains its value from an SUMOTime-ValueSource
      *
      * @param[in] name The name of the row entry
@@ -119,7 +120,7 @@ public:
      * @param[in] src The value source to use
      */
     void mkItem(const char *name, bool dynamic, ValueSource<SUMOTime> *src) throw();
-
+#endif
 
     /** @brief Adds a row which shows a string-value
      *
@@ -151,6 +152,7 @@ public:
     void mkItem(const char *name, bool dynamic, SUMOReal value) throw();
 
 
+#ifndef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
     /** @brief Adds a row which shows a SUMOTime-value
      *
      * @param[in] name The name of the row entry
@@ -159,6 +161,7 @@ public:
      * @todo the dynamic-parameter is obsolete
      */
     void mkItem(const char *name, bool dynamic, SUMOTime value) throw();
+#endif
     /// @}
 
 

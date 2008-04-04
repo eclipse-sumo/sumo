@@ -187,7 +187,7 @@ private:
     /// the end of the time period that is currently processed
     SUMOTime myCurrentTimeEnd;
 
-    /// the edge the is currently being processed
+    /// the edge which is currently being processed
     std::string myCurrentEdgeID;
 
 

@@ -177,6 +177,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
 }
 
 
+#ifndef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
                                 ValueSource<SUMOTime> *src) throw()
@@ -185,6 +186,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
         myTable, myCurrentPos++, name, dynamic, src);
     myItems.push_back(i);
 }
+#endif
 
 
 void
@@ -217,6 +219,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
 }
 
 
+#ifndef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
 void
 GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
                                 SUMOTime value) throw()
@@ -225,6 +228,7 @@ GUIParameterTableWindow::mkItem(const char *name, bool dynamic,
         myTable, myCurrentPos++, name, dynamic, value);
     myItems.push_back(i);
 }
+#endif
 
 
 void

@@ -41,7 +41,7 @@
 // method definitions
 // ===========================================================================
 GUIEvent_SimulationEnded::GUIEvent_SimulationEnded(EndReason reason,
-        size_t step)
+        SUMOTime step)
         : GUIEvent(EVENT_SIMULATION_ENDED),
         myReason(reason), myStep(step)
 {}
@@ -51,7 +51,7 @@ GUIEvent_SimulationEnded::~GUIEvent_SimulationEnded()
 {}
 
 
-size_t
+SUMOTime
 GUIEvent_SimulationEnded::getTimeStep() const
 {
     return myStep;

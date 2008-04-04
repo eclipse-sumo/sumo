@@ -115,12 +115,12 @@ MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
     MSCORN::init();
     MSVehicleTransfer::setInstance(new MSVehicleTransfer());
     OptionsCont &oc = OptionsCont::getOptions();
-    myStep = oc.getInt("begin");
+    myStep = (SUMOTime) oc.getInt("begin"); // !!! SUMOTime-option
     myLogExecutionTime = !oc.getBool("no-duration-log");
     myLogStepNumber = !oc.getBool("no-step-log");
     myTooSlowRTF = oc.getFloat("too-slow-rtf");
     myTooManyVehicles = oc.getInt("too-many-vehicles");
-    myEmitter = new MSEmitControl(*vc, oc.getInt("max-depart-delay"));
+    myEmitter = new MSEmitControl(*vc, (SUMOTime) oc.getInt("max-depart-delay"));// !!! SUMOTime-option
     myVehicleControl = vc;
     myDetectorControl = new MSDetectorControl();
     myEdges = 0;

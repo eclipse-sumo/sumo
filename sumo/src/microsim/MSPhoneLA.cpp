@@ -119,29 +119,25 @@ void
 MSPhoneLA::writeOutput(SUMOTime t)
 {
     intervall = t - last_time;
-    {
-        if (OptionsCont::getOptions().isSet("ss2-la-output")) {
-            std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
-            timestr = timestr + " " + StringUtils::toTimeString(t);
-            OutputDevice::getDeviceByOption("ss2-la-output")
+    if (OptionsCont::getOptions().isSet("ss2-la-output")) {
+        std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
+        timestr = timestr + " " + StringUtils::toTimeString((int) t);
+        OutputDevice::getDeviceByOption("ss2-la-output")
             << "03;" << ';' << timestr << ';' << position_id << ';' << dir << ';' << sum_changes
             << ';' << quality_id << ';' << intervall << "\n";
-        }
     }
-    {
-        if (OptionsCont::getOptions().isSet("ss2-sql-la-output")) {
-            OutputDevice& od = OutputDevice::getDeviceByOption("ss2-sql-la-output");
-            std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
-            timestr = timestr + " " + StringUtils::toTimeString(t);
-            if (od.getBoolMarker("hadFirstCall")) {
-                od << "," << "\n";
-            } else {
-                od.setBoolMarker("hadFirstCall", true);
-            }
-            od
+    if (OptionsCont::getOptions().isSet("ss2-sql-la-output")) {
+        OutputDevice& od = OutputDevice::getDeviceByOption("ss2-sql-la-output");
+        std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
+        timestr = timestr + " " + StringUtils::toTimeString((int) t);
+        if (od.getBoolMarker("hadFirstCall")) {
+            od << "," << "\n";
+        } else {
+            od.setBoolMarker("hadFirstCall", true);
+        }
+        od
             << "(NULL, \' \', '" << timestr << "'," << position_id << ',' << dir << ',' << sum_changes << ','
             << quality_id << ',' << intervall << ")";
-        }
     }
     last_time = t;
     sum_changes = 0;

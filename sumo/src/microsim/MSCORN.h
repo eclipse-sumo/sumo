@@ -109,9 +109,9 @@ public:
                                     const std::string &vehs, int quantity);
     static void saveSavedInformationData(SUMOTime step, const std::string &veh,
                                          const std::string &edge, const std::string &type,
-                                         int time, SUMOReal nt);
+                                         SUMOTime time, SUMOReal nt);
     static void saveTransmittedInformationData(SUMOTime step, const std::string &from,
-            const std::string &to, const std::string &edge, int time, SUMOReal nt);
+            const std::string &to, const std::string &edge, SUMOTime time, SUMOReal nt);
     static void saveVehicleInRangeData(SUMOTime step, const std::string &veh1,
                                        const std::string &veh2,
                                        SUMOReal x1, SUMOReal y1,

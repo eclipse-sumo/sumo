@@ -138,7 +138,7 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes &attrs, bool isEdge)
                     } catch (EmptyData &) {
                         MsgHandler::getErrorInstance()->inform("Missing value '" + (*i)->myAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
                     } catch (NumberFormatException &) {
-                        MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + attrs.getStringSecure((*i)->myAttributeName, "") + "'\n In edge '" + myCurrentEdgeID + "' at time step " + toString<long>(myCurrentTimeBeg) + ".");
+                        MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + attrs.getStringSecure((*i)->myAttributeName, "") + "'\n In edge '" + myCurrentEdgeID + "' at time step " + toString(myCurrentTimeBeg) + ".");
                     }
                 } else {
                     (*i)->myHadAttribute = false;
@@ -159,7 +159,7 @@ SAXWeightsHandler::tryParse(const SUMOSAXAttributes &attrs, bool isEdge)
                 } catch (EmptyData &) {
                     MsgHandler::getErrorInstance()->inform("Missing value '" + (*i)->myAttributeName + "' in edge '" + myCurrentEdgeID + "'.");
                 } catch (NumberFormatException &) {
-                    MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + attrs.getStringSecure((*i)->myAttributeName, "") + "'\n In edge '" + myCurrentEdgeID + "' at time step " + toString<long>(myCurrentTimeBeg) + ".");
+                    MsgHandler::getErrorInstance()->inform("The value should be numeric, but is not ('" + attrs.getStringSecure((*i)->myAttributeName, "") + "'\n In edge '" + myCurrentEdgeID + "' at time step " + toString(myCurrentTimeBeg) + ".");
                 }
             }
         }

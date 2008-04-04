@@ -82,12 +82,12 @@ public:
     }
 
 private:
-    int last_time;
+    SUMOTime last_time;
     int position_id;
     int dir; //direction
     int sum_changes;
     int quality_id;
-    int intervall;
+    SUMOTime intervall;
     std::map<std::string, int> myCalls;
 };
 

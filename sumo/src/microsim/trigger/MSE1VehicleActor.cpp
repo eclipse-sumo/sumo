@@ -212,29 +212,25 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
             MSDevice_CPhone::State state = cp->GetState();
             if (state==MSDevice_CPhone::STATE_CONNECTED_IN||state==MSDevice_CPhone::STATE_CONNECTED_OUT) {
                 myPassedConnectedCPhonesNo++;
-                {
-                    if (OptionsCont::getOptions().isSet("ss2-output")) {
-                        std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
-                        timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
-                        // !!! recheck quality indicator
-                        OutputDevice::getDeviceByOption("ss2-output")
+                if (OptionsCont::getOptions().isSet("ss2-output")) {
+                    std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
+                    timestr = timestr + " " + StringUtils::toTimeString((int) MSNet::getInstance()->getCurrentTimeStep());
+                    // !!! recheck quality indicator
+                    OutputDevice::getDeviceByOption("ss2-output")
                         << "01;'" << timestr << "';" << cp->getCallId() << ';' << myAreaId << ';' << 0 << "\n"; // !!! check <CR><LF>-combination
-                    }
                 }
-                {
-                    if (OptionsCont::getOptions().isSet("ss2-sql-output")) {
-                        OutputDevice& od = OutputDevice::getDeviceByOption("ss2-sql-output");
-                        if (od.getBoolMarker("hadFirstCall")) {
-                            od << "," << "\n";
-                        } else {
-                            od.setBoolMarker("hadFirstCall", true);
-                        }
-                        std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
-                        timestr = timestr + " " + StringUtils::toTimeString(MSNet::getInstance()->getCurrentTimeStep());
-                        od
+                if (OptionsCont::getOptions().isSet("ss2-sql-output")) {
+                    OutputDevice& od = OutputDevice::getDeviceByOption("ss2-sql-output");
+                    if (od.getBoolMarker("hadFirstCall")) {
+                        od << "," << "\n";
+                    } else {
+                        od.setBoolMarker("hadFirstCall", true);
+                    }
+                    std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
+                    timestr = timestr + " " + StringUtils::toTimeString((int) MSNet::getInstance()->getCurrentTimeStep());
+                    od
                         << "(NULL, NULL, '" << timestr << "', " << myAreaId << ", " << cp->getCallId()
                         << ", " << 0 << ")"; // !!! recheck quality indicator
-                    }
                 }
             }
         }
