@@ -117,7 +117,7 @@ class Net:
                             if verbose:
                                 foutkpath.write('%s, ' %(edge.label))
                             newpath.freepathtime += edge.freeflowtime
-                        newpath.freepathtime = newpath.freepathtime/3600.    
+                            
                         newpath.actpathtime = newpath.freepathtime
                         if verbose:
                             foutkpath.write('Path cost:%s' %newpath.actpathtime) 
@@ -235,15 +235,17 @@ class DistrictsReader(handler.ContentHandler):
             newEdge.connection = 2
 
 # The class is for parsing the XML input file (vehicle information). This class is used in the networkStatistics.py for
-# calculating the global network performances, e.g. avg. travel time and avg. travel speed.
+# calculating the gloabal network performances, e.g. avg. travel time and avg. travel speed.
 class VehInformationReader(handler.ContentHandler):
-    def __init__(self, vehicles):
-        self._vehicles = vehicles
-
+    def __init__(self, vehList):
+        self._vehList = vehList
+        self._Vehicle = None
+        self._routeString = ''
+            
     def startElement(self, name, attrs):
         if name == 'tripinfo':
-            vehicle = Vehicle(attrs['id'])
-            vehicle.traveltime = float(attrs['duration'])
-            vehicle.travellength = float(attrs['routeLength'])
-            vehicle.waittime = float(attrs['departDelay']) + float(attrs['waitSteps']) 
-            self._vehicles.append(vehicle)
+            self._Vehicle = Vehicle(attrs['id'])
+            self._Vehicle.traveltime = float(attrs['duration'])
+            self._Vehicle.travellength = float(attrs['routeLength'])
+            self._Vehicle.waittime = float(attrs['departDelay']) + float(attrs['waitSteps']) 
+            self._vehList.append(self._Vehicle)
