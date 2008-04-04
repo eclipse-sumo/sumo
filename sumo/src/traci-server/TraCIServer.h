@@ -49,6 +49,7 @@
 
 #include <map>
 #include <string>
+#include <set>
 
 // ===========================================================================
 // class declarations
@@ -168,6 +169,10 @@ private:
 
 	void commandDistanceRequest(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
+    void commandSubscribeLifecycles(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+
+    void commandUnsubscribeLifecycles(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+
     void writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description);
 	
 	/**
@@ -207,6 +212,11 @@ private:
 	 * the polygon domain.
 	 */
 	std::string handlePolygonDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) throw(TraCIException);
+
+	/**
+	 * Notifies client of all lifecycle events it is subscribed to
+	 */
+	void handleLifecycleSubscriptions(tcpip::Storage& respMsg) throw(TraCIException);
 
 	/**
 	 * Converts a cartesian position to the closest road map position
@@ -279,6 +289,18 @@ private:
 
 	// maximum number of vehicles within the simulation
 	int totalNumVehicles_;
+
+    // holds all Domain Ids to whose objects' lifecycle the client subscribed
+    std::set<int> myLifecycleSubscriptions;
+
+    // external ids of all vehicles that are currently "living", i.e. have been created, but not yet destroyed
+    std::set<int> myLivingVehicles;
+
+    // external ids of all vehicles that have entered the simulation get inserted here
+    std::set<int> myCreatedVehicles;
+
+    // external ids of all vehicles that have quit the simulation get inserted here
+    std::set<int> myDestroyedVehicles;
 
     bool closeConnection_;
 

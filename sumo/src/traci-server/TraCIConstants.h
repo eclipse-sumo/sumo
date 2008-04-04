@@ -45,6 +45,18 @@
 // command: change target
 #define CMD_CHANGETARGET 0x31
 
+// command: subscribe lifecycles
+#define CMD_SUBSCRIBELIFECYCLES 0x61
+
+// command: unsubscribe lifecycles
+#define CMD_UNSUBSCRIBELIFECYCLES 0x62
+
+// command: object creation
+#define CMD_OBJECTCREATION 0x63
+
+// command: object destruction 
+#define CMD_OBJECTDESTRUCTION 0x64
+
 // command: Simulation Parameter
 #define CMD_SIMPARAMETER 0x70
 

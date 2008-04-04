@@ -289,6 +289,12 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
 	case CMD_DISTANCEREQUEST:
 		commandDistanceRequest(requestMsg, respMsg);
 		break;
+	case CMD_SUBSCRIBELIFECYCLES:
+		commandSubscribeLifecycles(requestMsg, respMsg);
+		break;
+	case CMD_UNSUBSCRIBELIFECYCLES:
+		commandUnsubscribeLifecycles(requestMsg, respMsg);
+		break;
     default:
         writeStatusCmd(respMsg, commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
         return false;
@@ -363,16 +369,8 @@ throw(TraCIException)
             cout << "Step #" << currentTime << (char) 13;
     }
 
-	// for each vehicle process any active traci command
-	for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin();
-            iter != equippedVehicles_.end(); ++iter) {
-        if ((*iter).second != -1) { // Look only at equipped vehicles
-            MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
-            if (veh != NULL) {
-				veh->processTraCICommands(currentTime);
-            }
-        }
-    }
+        // Everything is fine
+        writeStatusCmd(respMsg, CMD_SIMSTEP, RTYPE_OK, "");
 
     // prepare output
     try {
@@ -395,6 +393,7 @@ throw(TraCIException)
                     equippedVehicles_[vehicleId] = numEquippedVehicles_;
                     // put into active list?
                     if (vehicle->isOnRoad()) {
+	                if ((myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) && (myLivingVehicles.count(numEquippedVehicles_) == 0)) { myCreatedVehicles.insert(numEquippedVehicles_); myLivingVehicles.insert(numEquippedVehicles_); }
                         activeEquippedVehicles[numEquippedVehicles_] = vehicle;
                     }
                     numEquippedVehicles_++;
@@ -404,13 +403,34 @@ throw(TraCIException)
                 }
             } else if (equippedVeh->second >= 0 && vehicle->isOnRoad()) {
                 int extId = equippedVeh->second;
+	        if ((myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) && (myLivingVehicles.count(extId) == 0)) { myCreatedVehicles.insert(extId); myLivingVehicles.insert(extId); }
                 activeEquippedVehicles[extId] = vehicle;
                 // vehicle is equipped
             }
         }
+	if (myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) {
+		// iterate over all vehicles that are supposed to live
+		for (std::set<int>::const_iterator i = myLivingVehicles.begin(); i != myLivingVehicles.end(); i++) {
+			int extId = *i;
+			if (activeEquippedVehicles.find(extId) == activeEquippedVehicles.end()) {
+				myDestroyedVehicles.insert(extId);
+				myLivingVehicles.erase(extId);
+			}
+		}
+	}
 
-        // Everything is fine
-        writeStatusCmd(respMsg, CMD_SIMSTEP, RTYPE_OK, "");
+    handleLifecycleSubscriptions(respMsg);
+
+	// for each vehicle process any active traci command
+	for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin();
+            iter != equippedVehicles_.end(); ++iter) {
+        if ((*iter).second != -1) { // Look only at equipped vehicles
+            MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
+            if (veh != NULL) {
+				veh->processTraCICommands(currentTime);
+            }
+        }
+    }
 
         //out.writeChar( static_cast<unsigned char>(rtype) );
         //out.writeInt(numEquippedVehicles_);
@@ -1317,6 +1337,58 @@ throw(TraCIException)
 	respMsg.writeUnsignedByte(CMD_DISTANCEREQUEST);		// command type
 	respMsg.writeUnsignedByte(distType);		// distance type
 	respMsg.writeFloat(distance);	// distance;
+}
+
+/*****************************************************************************/
+
+void
+TraCIServer::commandSubscribeLifecycles(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+throw(TraCIException)
+{
+	// domain
+	int domain = requestMsg.readUnsignedByte();
+
+	if (domain != DOM_VEHICLE) {
+		// send negative command response
+		writeStatusCmd(respMsg, CMD_SUBSCRIBELIFECYCLES, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
+		return;
+	}
+
+	myLifecycleSubscriptions.insert(domain);
+
+	if (domain == DOM_VEHICLE) {
+		myCreatedVehicles.clear();
+		myDestroyedVehicles.clear();
+	}
+
+	// send positive command response
+	writeStatusCmd(respMsg, CMD_SUBSCRIBELIFECYCLES, RTYPE_OK, "");
+}
+
+/*****************************************************************************/
+
+void
+TraCIServer::commandUnsubscribeLifecycles(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+throw(TraCIException)
+{
+	// domain
+	int domain = requestMsg.readUnsignedByte();
+
+	if (domain != DOM_VEHICLE) {
+		// send negative command response
+		writeStatusCmd(respMsg, CMD_UNSUBSCRIBELIFECYCLES, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
+		return;
+	}
+
+	myLifecycleSubscriptions.erase(domain);
+
+	if (domain == DOM_VEHICLE) {
+		myCreatedVehicles.clear();
+		myDestroyedVehicles.clear();
+	}
+
+	// send positive command response
+	writeStatusCmd(respMsg, CMD_UNSUBSCRIBELIFECYCLES, RTYPE_OK, "");
 }
 
 /*****************************************************************************/
@@ -2449,7 +2521,38 @@ throw(TraCIException)
 	return warning;
 }
 
+/*****************************************************************************/
 
+void
+TraCIServer::handleLifecycleSubscriptions(tcpip::Storage& respMsg)
+throw(TraCIException)
+{
+	
+	if (myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) {
+
+		for (std::set<int>::const_iterator i = myDestroyedVehicles.begin(); i != myDestroyedVehicles.end(); i++) {
+			int extId = *i;
+
+			respMsg.writeUnsignedByte(sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint32_t));
+			respMsg.writeUnsignedByte(CMD_OBJECTDESTRUCTION);
+			respMsg.writeUnsignedByte(DOM_VEHICLE);
+			respMsg.writeInt(extId);
+		}
+		myDestroyedVehicles.clear();
+
+		for (std::set<int>::const_iterator i = myCreatedVehicles.begin(); i != myCreatedVehicles.end(); i++) {
+			int extId = *i;
+
+			respMsg.writeUnsignedByte(sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint32_t));
+			respMsg.writeUnsignedByte(CMD_OBJECTCREATION);
+			respMsg.writeUnsignedByte(DOM_VEHICLE);
+			respMsg.writeInt(extId);
+		}
+		myCreatedVehicles.clear();
+
+	}
+}
+    
 /*****************************************************************************/
 }
 
