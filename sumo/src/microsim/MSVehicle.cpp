@@ -1243,7 +1243,7 @@ MSVehicle::onDepart()
         myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_INFO] = (void*) i;
     }
     // inform the vehicle control
-    MSNet::getInstance()->getVehicleControl().vehicleEmitted(this);
+    MSNet::getInstance()->getVehicleControl().vehicleEmitted(*this);
 }
 
 

@@ -389,8 +389,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
     // load routes
     myEmitter->moveFrom(myRouteLoaders->loadNext(step));
     // emit Vehicles
-    unsigned int emittedVehNo = myEmitter->emitVehicles(myStep);
-    myVehicleControl->vehiclesEmitted(emittedVehNo);
+    myEmitter->emitVehicles(myStep);
     if (MSGlobals::gCheck4Accidents) {
         myEdges->detectCollisions(step);
     }

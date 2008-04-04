@@ -51,17 +51,22 @@
  * Builds GUIVehicle instances instead of MSVehicle.
  *
  * @see MSVehicleControl
+ * @todo This is partially unsecure due to concurrent access...
+ * @todo Recheck vehicle deletion
  */
 class GUIVehicleControl : public MSVehicleControl
 {
 public:
     /// @brief Constructor
-    GUIVehicleControl();
+    GUIVehicleControl() throw();
 
 
     /// @brief Destructor
-    ~GUIVehicleControl();
+    ~GUIVehicleControl() throw();
 
+
+    /// @name Vehicle creation
+    /// @{
 
     /** @brief Builds a vehicle, increases the number of built vehicles
      *
@@ -78,17 +83,41 @@ public:
      */
     MSVehicle *buildVehicle(const std::string &id, MSRoute* route,
                             SUMOTime departTime, const MSVehicleType* type,
-                            int repNo, int repOffset);
+                            int repNo, int repOffset) throw();
+    /// @}
 
 
-    /// Removes the vehicle
-    virtual void deleteVehicle(MSVehicle *v);
 
-    /** Returns the list of all known vehicles by name */
-    std::vector<std::string> getVehicleNames();
+    /// @name Insertion, deletion and retrieal of vehicles 
+    /// @{
 
-    /** Returns the list of all known vehicles by gl-id */
-    std::vector<GLuint> getVehicleIDs();
+    /** @brief Deletes the vehicle
+     *
+     * We are destroying this vehicle only if it is not in use 
+     *  with the visualization.
+     * 
+     * @param[in] v The vehicle to delete
+     * @todo Isn't this quite insecure?
+     * @see MSVehicleControl::deleteVehicle
+     */
+    virtual void deleteVehicle(MSVehicle *v) throw();
+    /// @}
+
+
+    /** @brief Returns the list of all known vehicles by gl-id 
+     * @param[fill] into The list to fill with vehicle ids
+     * @todo Well, what about concurrent modifications?
+     */
+    void insertVehicleIDs(std::vector<GLuint> &into) throw();
+
+
+private:
+    /// @brief invalidated copy constructor
+    GUIVehicleControl(const GUIVehicleControl &s);
+
+    /// @brief invalidated assignment operator
+    GUIVehicleControl &operator=(const GUIVehicleControl &s);
+
 
 };
 

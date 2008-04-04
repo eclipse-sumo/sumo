@@ -43,12 +43,12 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-GUIVehicleControl::GUIVehicleControl()
+GUIVehicleControl::GUIVehicleControl() throw()
         : MSVehicleControl()
 {}
 
 
-GUIVehicleControl::~GUIVehicleControl()
+GUIVehicleControl::~GUIVehicleControl() throw()
 {}
 
 
@@ -56,7 +56,7 @@ MSVehicle *
 GUIVehicleControl::buildVehicle(const std::string &id, MSRoute* route,
                                 SUMOTime departTime,
                                 const MSVehicleType* type,
-                                int repNo, int repOffset)
+                                int repNo, int repOffset) throw()
 {
     myLoadedVehNo++;
     return new GUIVehicle(
@@ -65,7 +65,7 @@ GUIVehicleControl::buildVehicle(const std::string &id, MSRoute* route,
 
 
 void
-GUIVehicleControl::deleteVehicle(MSVehicle *veh)
+GUIVehicleControl::deleteVehicle(MSVehicle *veh) throw()
 {
     static_cast<GUIVehicle*>(veh)->setRemoved();
     if (gIDStorage.remove(static_cast<GUIVehicle*>(veh)->getGlID())) {
@@ -74,33 +74,16 @@ GUIVehicleControl::deleteVehicle(MSVehicle *veh)
 }
 
 
-std::vector<std::string>
-GUIVehicleControl::getVehicleNames()
+void
+GUIVehicleControl::insertVehicleIDs(std::vector<GLuint> &into) throw()
 {
-    std::vector<std::string> ret;
-    ret.reserve(myVehicleDict.size());
+    into.reserve(myVehicleDict.size());
     for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
         MSVehicle *veh = (*i).second;
         if (veh->isOnRoad()) {
-            ret.push_back((*i).first);
+            into.push_back(static_cast<GUIVehicle*>((*i).second)->getGlID());
         }
     }
-    return ret;
-}
-
-
-std::vector<GLuint>
-GUIVehicleControl::getVehicleIDs()
-{
-    std::vector<GLuint> ret;
-    ret.reserve(myVehicleDict.size());
-    for (VehicleDictType::iterator i=myVehicleDict.begin(); i!=myVehicleDict.end(); ++i) {
-        MSVehicle *veh = (*i).second;
-        if (veh->isOnRoad()) {
-            ret.push_back(static_cast<GUIVehicle*>((*i).second)->getGlID());
-        }
-    }
-    return ret;
 }
 
 

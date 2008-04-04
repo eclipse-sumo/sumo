@@ -114,7 +114,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
         ids = GUIEdge::getIDs();
         break;
     case GLO_VEHICLE:
-        ids = static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).getVehicleIDs();
+        static_cast<GUIVehicleControl&>(MSNet::getInstance()->getVehicleControl()).insertVehicleIDs(ids);
         break;
     case GLO_TLLOGIC:
         ids = static_cast<GUINet*>(GUINet::getInstance())->getTLSIDs();

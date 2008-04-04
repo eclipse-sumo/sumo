@@ -374,7 +374,6 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         if (myDestLane->getEdge()->emit(*veh,  myNet.getCurrentTimeStep())) {
-            myNet.getVehicleControl().vehiclesEmitted(1);
             veh->onDepart();
             // insert vehicle into the dictionary
             if (!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {
@@ -389,7 +388,6 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
 #endif
         if (myDestLane->isEmissionSuccess(veh, state)) {
             veh->onDepart();
-            myNet.getVehicleControl().vehiclesEmitted(1);
             // insert vehicle into the dictionary
             if (!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {
                 // !!!

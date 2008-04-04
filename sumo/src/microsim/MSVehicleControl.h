@@ -66,17 +66,25 @@ class BinaryInputDevice;
 class MSVehicleControl
 {
 public:
+    /// @brief Definition of the internal vehicles map iterator
+    typedef std::map<std::string, MSVehicle*>::const_iterator constVehIt;
+
+public:
     /// @brief Constructor
-    MSVehicleControl();
+    MSVehicleControl() throw();
 
 
     /// @brief Destructor
-    virtual ~MSVehicleControl();
+    virtual ~MSVehicleControl() throw();
 
+
+    /// @name Vehicle creation
+    /// @{
 
     /** @brief Builds a vehicle, increases the number of built vehicles
      *
-     * Builds a MSVehicle instance using the given parameter
+     * Builds a MSVehicle instance using the given parameter.
+     *  Increases the number of loaded vehicles ("myLoadedVehNo").
      *
      * @param[in] id The id of the vehicle to build
      * @param[in] route The route of this vehicle
@@ -88,16 +96,107 @@ public:
      */
     virtual MSVehicle *buildVehicle(const std::string &id, MSRoute* route,
                                     SUMOTime departTime, const MSVehicleType* type,
-                                    int repNo, int repOffset);
+                                    int repNo, int repOffset) throw();
+    /// @}
 
-    /// Removes the vehicle
-    void scheduleVehicleRemoval(MSVehicle *v);
 
-    /// Informs this instance about the existance of a new, not yet build vehicle
-    void newUnbuildVehicleLoaded();
 
-    /// Informs this instance the new vehicle was build
-    void newUnbuildVehicleBuild();
+    /// @name Insertion, deletion and retrieal of vehicles 
+    /// @{
+
+    /** @brief Tries to insert the vehicle into the internal vehicle container
+     *
+     * Checks whether another vehicle with the same id exists; returns false
+     *  if so. Otherwise, the vehicle is added to "myVehicleDict" and
+     *  true is returned.
+     *
+     * The vehicle control gets responsible for vehicle deletion.
+     *
+     * @param[in] id The id of the vehicle
+     * @param[in] v The vehicle
+     * @return Whether the vehicle could be inserted (no other vehicle with the same id was inserted before)
+     */
+    virtual bool addVehicle(const std::string &id, MSVehicle *v) throw();
+
+
+    /** @brief Returns the vehicle with the given id
+     *
+     * If no vehicle with the given id is store din "myVehicleDict", 0 
+     *  is returned.
+     *
+     * @param[in] id The id of the vehicle to retrieve
+     * @return The vehicle with the given id, 0 if no such vehicle exists
+     */
+    virtual MSVehicle *getVehicle(const std::string &id) throw();
+
+
+    /** @brief Deletes the vehicle
+     *
+     * @param[in] v The vehicle to delete
+     * @todo Isn't this quite insecure?
+     */
+    virtual void deleteVehicle(MSVehicle *v) throw();
+
+
+    /** @brief Removes a vehicle after it has ended
+     *
+     * Writes output to tripinfos and vehroutes if wished; decrements
+     *  the number of running vehicles and increments the number of ended 
+     *  vehicles. Then deletes the vehicle using "deleteVehicle".
+     *
+     * This method should be called for each vehicle that was inserted 
+     *  into the network and quits its ride.
+     *
+     * @param[in] v The vehicle to remove
+     */
+    void scheduleVehicleRemoval(MSVehicle *v) throw();
+
+    
+    /** @brief Returns the begin of the internal vehicle map
+     *
+     * @return The begin of the internal vehicle map
+     */
+    constVehIt loadedVehBegin() const throw();
+
+
+    /** @brief Returns the end of the internal vehicle map
+     *
+     * @return The end of the internal vehicle map
+     */
+    constVehIt loadedVehEnd() const throw();
+
+    /// @}
+
+
+
+    /// @name Setting vehicle statistics
+    /// @{
+
+    /** @brief Informs this instance about the existance of a new, not yet build vehicle
+     */
+    inline void newUnbuildVehicleLoaded() throw() {
+        ++myLoadedVehNo;
+    }
+
+
+    /** @brief Informs this instance the new vehicle was build
+     */
+    inline void newUnbuildVehicleBuild() throw() {
+        --myLoadedVehNo;
+    }
+
+
+    /** @brief Informs this control about a vehicle's emission
+     * 
+     * If the mean waiting time shall be computed (f.e. for emissions-output),
+     *  the absolut waiting time is increased by the waiting time of the given
+     *  vehicle.
+     * @param[in] v The emitted vehicle
+     * @todo Consolidate with vehiclesEmitted
+     */
+    virtual void vehicleEmitted(const MSVehicle &v) throw();
+    /// @}
+
 
 
     /// @name Retrieval of vehicle statistics (always accessable)
@@ -133,6 +232,14 @@ public:
     unsigned int getEmittedVehicleNo() const throw() {
         return myRunningVehNo + myEndedVehNo;
     }
+
+
+    /** @brief Returns the information whether all build vehicles have been removed
+     * @return Whether all loaded vehicles have ended
+     */
+    bool haveAllVehiclesQuit() const throw() {
+        return myLoadedVehNo==myEndedVehNo;
+    }
     /// @}
 
 
@@ -165,38 +272,71 @@ public:
     /// @}
 
 
-    /// Informs this instance about the successfull emission of a vehicle
-    void vehiclesEmitted(unsigned int no=1);
 
-    /// Returns the information whether all build vehicles have been removed
-    bool haveAllVehiclesQuit() const;
 
-    /** @brief Informs this control about a vehicle's emission (corn-dependent value)
-        Normally, this is done "in a batch" as the number of emitted vehicles
-        is given and no explicite information about s single vehicle's emission
-        is needed.
-        Still, we do need this if we want to compute the mean waiting time. */
-    virtual void vehicleEmitted(MSVehicle *v);
+    /// @name Insertion and retrieal of vehcile types
+    /// @{
 
-    void saveState(std::ostream &os);
-    void loadState(BinaryInputDevice &bis);
+    /** @brief Returns one of the active vehicle types
+     * @return A random vehicle type (from active)
+     */
+    MSVehicleType *getRandomVType() const throw();
 
-    virtual bool addVehicle(const std::string &id, MSVehicle *v);
-    virtual MSVehicle *getVehicle(const std::string &id);
-    virtual void deleteVehicle(MSVehicle *v);
 
-    typedef std::map<std::string, MSVehicle*>::const_iterator constVehIt;
+    /** @brief Adds a vehicle type with his probability to be chosen
+     *
+     * If another vehicle ype with the same id exists, false is returned.
+     *  Otherwise, the vehicle type is added to the internal vehicle type
+     *  container "myVTypeDict" and to the vehicle type distribution 
+     *  "myVehicleTypeDistribution". 
+     *
+     * If no other type was loaded before, the default vehicle type is 
+     *  descheduled (but not deleted as there may be already vehicles
+     *  in the simulation that use it).
+     *
+     * This control get responsible for deletion of the added vehicle
+     *  type.
+     *
+     * @param[in] vehType The vehicle type to add
+     * @param[in] prob The probability to use the vehicle type
+     * @return Whether the vehicle type could be added
+     */
+    bool addVType(MSVehicleType* vehType, SUMOReal prob) throw();
 
-    constVehIt loadedVehBegin() const;
-    constVehIt loadedVehEnd() const;
 
-    MSVehicleType *getRandomVType() const;
-    bool addVType(MSVehicleType* vehType, SUMOReal prob);
-    MSVehicleType *getVType(const std::string &id);
+    /** @brief Returns the named vehicle type
+     * @param[in] id The id of the vehicle type to return
+     * @return The named vehicle type, or 0 if no such type exists
+     * @todo Recheck whether a descheduled default vehicle type may be returned, too
+     */
+    MSVehicleType *getVType(const std::string &id) throw();
+    /// @}
 
+
+
+
+    /// @name Loading and saving of this control's state (incomplete, works only with mesosim)
+    /// @{
+
+    /** @brief Loads the state of this control from the given stream
+     * @todo Does not work for microsim
+     */
+    void saveState(std::ostream &os) throw();
+
+    /** @brief Saves the current state into the given stream
+     * @todo Does not work for microsim
+     */
+    void loadState(BinaryInputDevice &bis) throw();
+    /// @}
 
 private:
-    void deleteVehicle(const std::string &id);
+    /** @brief Deletes the named vehicle
+     *
+     * Removed the vehicle from the internal dictionary
+     * @param[in] id The id of the vehicle to delete
+     */
+    void deleteVehicle(const std::string &id) throw();
+
 
 protected:
     /// @name Vehicle statistics (always accessable)
@@ -224,20 +364,41 @@ protected:
     /// @}
 
 
-    /// Vehicle dictionary type
+    /// @name Vehicle container
+    /// @{
+
+    /// @brief Vehicle dictionary type
     typedef std::map< std::string, MSVehicle* > VehicleDictType;
-
-    /// Dictionary of vehicles
+    /// @brief Dictionary of vehicles
     VehicleDictType myVehicleDict;
+    /// @}
 
+
+    /// @name Vehicle type container
+    /// @{
+
+    /// @brief Vehicle type dictionary type
     typedef std::map< std::string, MSVehicleType* > VehTypeDictType;
+    /// @brief Dictionary of vehicle types
     VehTypeDictType myVTypeDict;
 
+    /// @brief A distribution of vehicle types (probability->vehicle type)
     RandomDistributor<MSVehicleType*> myVehicleTypeDistribution;
 
+    /// @brief Whether no vehicle type was loaded
     bool myHaveDefaultVTypeOnly;
 
+    /// @brief Vehicle types that may no longer be assigned by a probability
     std::vector<MSVehicleType*> myObsoleteVehicleTypes;
+    
+
+private:
+    /// @brief invalidated copy constructor
+    MSVehicleControl(const MSVehicleControl &s);
+
+    /// @brief invalidated assignment operator
+    MSVehicleControl &operator=(const MSVehicleControl &s);
+
 
 };
 

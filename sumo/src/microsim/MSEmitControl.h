@@ -58,6 +58,8 @@ class MSVehicleControl;
  * If a vehicle is emitted, the control about it is given to the lanes.
  *
  * Vehicles are not controlled (created, deleted) by this class.
+ *
+ * @todo Whe a vehicle is deleted due to waiting too long or because of vaporizing, ths is not reported anywhere
  */
 class MSEmitControl
 {

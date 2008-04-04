@@ -514,7 +514,6 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child)
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         if (myDestLane->getEdge()->emit(*veh,  myNet.getCurrentTimeStep())) {
-            myNet.getVehicleControl().vehiclesEmitted(1);
             veh->onDepart();
             // insert vehicle into the dictionary
             if (!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {
@@ -530,7 +529,6 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child)
         if (myDestLane->isEmissionSuccess(veh, state)) {
             veh->enterLaneAtEmit(myDestLane, state);
             veh->onDepart();
-            myNet.getVehicleControl().vehiclesEmitted(1);
             // insert vehicle into the dictionary
             if (!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {
                 // !!!
