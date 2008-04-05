@@ -119,11 +119,11 @@ initVehicleColoringSchemes()
     sm.add("by waiting time",
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, unsigned int>(
                0, (SUMOReal)(5*60), RGBColor(0, 0, 1), RGBColor(1, 0, 0),
-               (size_t(GUIVehicle::*)() const) &GUIVehicle::getWaitingTime));
+               (unsigned int(GUIVehicle::*)() const) &GUIVehicle::getWaitingTime));
     sm.add("by time since last lanechange",
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, unsigned int>(
                0, (SUMOReal)(5*60), RGBColor(1, 1, 1), RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5),
-               (size_t(GUIVehicle::*)() const) &GUIVehicle::getLastLaneChangeOffset));
+               (unsigned int(GUIVehicle::*)() const) &GUIVehicle::getLastLaneChangeOffset));
     sm.add("by max speed",
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, SUMOReal>(
                0, (SUMOReal)(150.0/3.6), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
@@ -176,11 +176,11 @@ initVehicleColoringSchemes()
     sm.add("C2C: by information number",
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, unsigned int>(
                0, (SUMOReal)(200), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (size_t(GUIVehicle::*)() const) &GUIVehicle::getInformationNumber));
+               (unsigned int(GUIVehicle::*)() const) &GUIVehicle::getInformationNumber));
     sm.add("C2C: by connections number",
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, unsigned int>(
                0, (SUMOReal)(3), RGBColor(1, 0, 0), RGBColor(0, 0, 1),
-               (size_t(GUIVehicle::*)() const) &GUIVehicle::getConnectionsNumber));
+               (unsigned int(GUIVehicle::*)() const) &GUIVehicle::getConnectionsNumber));
     sm.add("C2C: by having a route information",
            new GUIColorer_ShadeByFunctionValue<GUIVehicle, bool>(
                0, 1, RGBColor((SUMOReal) .5, (SUMOReal) .5, (SUMOReal) .5), RGBColor(1, 1, 1),
