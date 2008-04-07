@@ -124,8 +124,9 @@ def getSignificanceTestOutput(net, normal, tValueAvg, hValues):
     foutSGtest = file('SG_Test.txt', 'w')
     
     foutSGtest.write('The significances of the performance averages among the used assignment models are examined with the t test.\n')
-    for A in net._assignments.itervalues():
-        for B in net._assignments.itervalues():
+    assignlist = list(net._assignments.itervalues())
+    for num, A in enumerate(assignlist):
+        for B in assignlist[num+1: ]:
             if str(A.label) != str(B.label):
                 foutSGtest.write('\nmethod:%s' %A.label)
                 foutSGtest.write('\nmethod:%s' %B.label)
@@ -138,8 +139,9 @@ def getSignificanceTestOutput(net, normal, tValueAvg, hValues):
                 
     if normal:
         foutSGtest.write('The significances of the performance averages among the used assignment models are examined with the t test.\n')
-        for A in net._assignments.itervalues():
-            for B in net._assignments.itervalues():
+        assignlist = list(net._assignments.itervalues())
+        for num, A in enumerate(assignlist):
+            for B in assignlist[num+1: ]:
                 if str(A.label) != str(B.label):
                     foutSGtest.write('\nmethod:%s' %A.label)
                     foutSGtest.write('\nmethod:%s' %B.label)

@@ -41,3 +41,24 @@ def dijkstra(start):
                 Q[w] = vwLength
                 P[w] = v
     return (D, P)
+    
+def dijkstraForLohse(start):
+    D = {}	# dictionary of final distances
+    P = {}	# dictionary of predecessors
+    Q = priorityDictionary()   # est.dist. of non-final vert.
+    Q[start] = 0
+#    print 'start=', start   
+    for v in Q:
+        D[v] = Q[v]
+#        print 'v=', v           
+        for edge in v.outEdges:
+            w = edge.target
+            vwLength = D[v] + edge.helpacttime
+            if w in D:
+                if vwLength < D[w]:
+                        raise ValueError, \
+    "Dijkstra: found better path to already-final vertex"
+            elif w not in Q or vwLength < Q[w]:
+                Q[w] = vwLength
+                P[w] = v
+    return (D, P)

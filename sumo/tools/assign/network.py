@@ -27,11 +27,7 @@ class Net:
         self._startVertices = []
         self._endVertices = []
         self._paths = {}
-        self._duavehicles = {}
-        self._oneshotvehicles = {}
-        self._incremvehicles = []
-        self._clogitvehicles = []
-        self._lohsevehicles = []
+        self._allvehicles = {}
         self._assignments = {}
         
     def newVertex(self):
@@ -97,6 +93,7 @@ class Net:
                 if str(startVertex) != str(endVertex) and matrixPshort[start][end] != 0.:
                     for startPred in endVertex.preds:
                         newpath = Path()
+                        newpath.usedcounts += 1
                         self._paths[startVertex][endVertex].append(newpath)
                         newpath.source = startVertex
                         newpath.target = endVertex
@@ -117,7 +114,7 @@ class Net:
                             if verbose:
                                 foutkpath.write('%s, ' %(edge.label))
                             newpath.freepathtime += edge.freeflowtime
-                            
+                        newpath.freepathtime = newpath.freepathtime/3600.    
                         newpath.actpathtime = newpath.freepathtime
                         if verbose:
                             foutkpath.write('Path cost:%s' %newpath.actpathtime) 

@@ -14,7 +14,7 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import os, random, string, sys
+import os, random, string, sys, math
 
 # This class is used for finding the k shortest paths.
 class Predecessor:
@@ -96,7 +96,17 @@ class Edge:
         self.weight = 0.0
         self.connection = 0
         self.edgetype = None
-        self.helpflow = 0.0     
+        self.helpflow = 0.0
+        # parameter in the Lohse traffic assignment
+        self.helpacttime = 0.
+        # parameter in the Lohse traffic assignment
+        self.fTT = 0.
+        # parameter in the Lohse traffic assignment
+        self.TT = 0.
+        # parameter in the Lohse traffic assignment                
+        self.delta = 0.
+        # parameter in the Lohse traffic assignment 
+        self.helpacttimeEx = 0.
         
     def init(self, speed, length, laneNumber):
         self.maxspeed = speed
@@ -106,6 +116,7 @@ class Edge:
             self.freeflowtime = 0.0
         else:
             self.freeflowtime = self.length / self.maxspeed
+            self.helpacttime = self.freeflowtime
         
     def __repr__(self):
         cap = str(self.capacity)
@@ -320,7 +331,30 @@ class Edge:
         f.close()
         foutcheck.close()        
         return self.actualtime
-              
+
+# reset link flows
+    def cleanFlow(self):
+        self.flow = 0.
+
+# update the parameter used in the Lohse-assignment (learning method - Lernverfahren)          
+    def getLohseParUpdate(self, under, upper, v1, v2, v3):
+        if self.helpacttime > 0.:
+            self.TT = abs(self.actualtime - self.helpacttime) / self.helpacttime
+            self.fTT = v1/(1 + math.exp(v2-v3*self.TT))
+            self.delta = under + (upper - under)/((1+self.TT)**self.fTT)
+            self.helpacttimeEx = self.helpacttime
+            self.helpacttime = self.helpacttime + self.delta*(self.actualtime - self.helpacttime)    
+            
+# check if the convergence reaches in the Lohse-assignment        
+    def stopCheck(self, verbose, cvg1, cvg2, cvg3):
+        stop = False
+        criteria = 0.
+        criteria = cvg1 * self.helpacttimeEx**(cvg2/cvg3)
+
+        if abs(self.actualtime - self.helpacttimeEx) <= criteria:
+            stop = True
+        return stop
+                      
 # This class is for storing vehicle information, such as departure time, route and travel time.
 class Vehicle:
     def __init__(self, label):
@@ -355,6 +389,10 @@ class Path:
         self.helpflow = 0.0
         self.commfactor = 0.0
         self.choiceprob = 0.0
+        # parameter used in the Lohse traffic assignment
+        self.usedcounts = 0
+        # parameter used in the Lohse traffic assignment          
+        self.pathhelpacttime = 0.    
     
     def __repr__(self):
         return "%s_%s_%s<%s|%s|%s|%s>" % (self.label, self.source, self.target, self.freepathtime, self.pathflow, self.actpathtime, self.Edges)
@@ -363,9 +401,18 @@ class Path:
         self.actpathtime = 0.
         for edge in self.Edges:
             self.actpathtime += edge.actualtime
-        
         self.actpathtime = self.actpathtime/3600.
-            
+        
+    # only used in the Lohse traffic assignment        
+    def getPathTimeUpdate(self, net): 
+        self.actpathtime = 0.
+        self.pathhelpacttime = 0.
+        for edge in self.Edges:
+            self.actpathtime += edge.actualtime
+            self.pathhelpacttime += edge.helpacttime
+        self.pathhelpacttime = self.pathhelpacttime/3600.
+        self.actpathtime = self.actpathtime/3600.
+         
 # This cloass is used in the significance test.
 class Assign:
     def __init__(self, method, totalVeh, totalTravelTime, totalTravelLength, totalWaitTime, avgTravelTime, avgTravelLength, avgTravelSpeed, avgWaitTime, SDTravelTime, SDLength, SDSpeed, SDWaitTime):

@@ -175,7 +175,7 @@ def main():
                 start += 1
                 end = -1 
                 D,P = dijkstra(startVertex)                                                                      
-                vehID, AssignedVeh, AssignedTrip = doIncAssign(net, options.verbose, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
+                AssignedVeh, AssignedTrip, vehID = doIncAssign(net, options.verbose, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
             
             for edgeID in net._edges:                                                   
                 edge = net._edges[edgeID]

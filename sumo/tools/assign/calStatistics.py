@@ -19,10 +19,8 @@ from elements import Vertex, Edge, Vehicle, Assign, T_Value, H_Value
 from network import Net
 from tables import chiSquareTable, tTable
     
-def getBasicStats(net, verbose, method, vehicles, totallist):
+def getBasicStats(net, verbose, method, vehicles, allvehlist, duavehlist, oneshotvehlist, duagroups, oneshotgroups):
     vehicleslist = vehicles
-    allvehlist = totallist
-    vehlist = []
     totalVeh = 0.
     totalTravelTime = 0.
     totalTravelLength = 0.
@@ -34,6 +32,11 @@ def getBasicStats(net, verbose, method, vehicles, totallist):
     totalDiffWaitTime = 0.
     totalDiffTravelTime = 0.
     
+    if method[9] == "d":
+        duagroups += 1.
+    elif method[9] == "o":
+        oneshotgroups += 1.
+        
     for veh in vehicleslist:
         totalVeh += 1
         veh.method = method
@@ -43,13 +46,13 @@ def getBasicStats(net, verbose, method, vehicles, totallist):
         totalTravelLength += veh.travellength
         totalWaitTime += veh.waittime
         totalTravelSpeed += veh.speed
-        if method == "tripinfo_dua_24.xml" or method == "increm" or method == "clogit" or method == "tripinfo_oneshot_1800.xml":
+        if method == "tripinfo_oneshot_1800.xml" or method == "tripinfo_successive.xml" or method == "tripinfo_dua_24.xml" or method == "tripinfo_clogit.xml":
             allvehlist.append(veh)
-        else:
-            vehlist.append(veh)
             
-        if method == "tripinfo_oneshot_1800.xml" or method == "tripinfo_dua_24.xml":
-            vehlist.append(veh)
+        if method[9] == "d":
+            duavehlist.append(veh)
+        elif method[9] == "o":
+            oneshotvehlist.append(veh)
   
     if verbose:    
         print 'totalVeh:', totalVeh
@@ -72,7 +75,8 @@ def getBasicStats(net, verbose, method, vehicles, totallist):
 
     net.addAssignment(Assign(method, totalVeh, totalTravelTime, totalTravelLength, totalWaitTime,
                      avgTravelTime, avgTravelLength, avgTravelSpeed, avgWaitTime, SDTravelTime, SDLength, SDSpeed, SDWaitTime))
-    return allvehlist, vehlist
+                     
+    return allvehlist, duavehlist, oneshotvehlist, duagroups, oneshotgroups
     
 # The observations should be drawn from a normally distributed population. 
 # For two independent samples, the t test has the additional requirement
@@ -80,9 +84,10 @@ def getBasicStats(net, verbose, method, vehicles, totallist):
 def doTTestForAvg(verbose, tValueAvg, assignments):
     if verbose:
        print 'begin the t test!'
-       
-    for A in assignments.itervalues():
-        for B in assignments.itervalues():
+    for num, A in enumerate(assignments):
+        for B in assignments[num+1: ]:
+#    for A in assignments.itervalues():
+#        for B in assignments.itervalues():
             sdABTravelTime = 0.
             sdABSpeed = 0.
             sdABLength = 0.
@@ -141,10 +146,10 @@ def doKruskalWallisTest(verbose, groups, combivehlist, assignments, label, hValu
         print 'methods:', label
         print 'number of samples:', len(combivehlist)
     adjlabel = label + '_' + "adjusted"
-    if groups >= 100:
-        groups = 100
-    lowvalue = csTable[groups-1][2]
-    highvalue = csTable[groups-1][4]
+    if groups >= 100.:
+        groups = 100.
+    lowvalue = csTable[int(groups)-1][2]
+    highvalue = csTable[int(groups)-1][4]
    
     H = H_Value(label, lowvalue, highvalue)
     adjH = H_Value(adjlabel, lowvalue, highvalue)

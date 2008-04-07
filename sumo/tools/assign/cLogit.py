@@ -19,7 +19,7 @@ from network import Net, NetworkReader, DistrictsReader
                                                   
 from inputs import getParameter, getMatrix, getConnectionTravelTime                 
 from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput, vehPoissonDistr
-from assign import doCLogitAssign, doCLogitVehAssign
+from assign import doSUEAssign, doSUEVehAssign # doCLogitAssign, doCLogitVehAssign
 from getPaths import findNewPath
 
 # for measuring the required time for reading input files
@@ -139,6 +139,7 @@ def main():
     vehID = 0
     MatrixSum = 0.0
     first =True
+    lohse = False
     net.initialPathSet()
     # initialize the map for recording the number of the assigned vehicles
     AssignedVeh = {}
@@ -198,7 +199,6 @@ def main():
         # execute the traffic assignment based on the C-Logit Model 
         while iter_outside == 1 or newRoutes > 0:
             iter_inside = 1
-            print 'iter_outside:', iter_outside
             foutlog.write('- SUE iteration:%s\n' %iter_outside)
             # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
             if first and KPaths > 1:
@@ -208,7 +208,7 @@ def main():
                     print 'KPaths:', KPaths 
                     print 'number of new routes:', newRoutes
             else:
-                newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort)
+                newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
 
             if options.verbose:
                 print 'number of new routes:', newRoutes
@@ -223,7 +223,8 @@ def main():
                     print 'SUE Tolerance:', sueTolerance
                         
                 # The matrixPlong and the matrixTruck should be added when considering the long-distance trips and the truck trips.
-                stable = doCLogitAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter_inside, first)
+#                stable = doCLogitAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter_inside, first)
+                stable = doSUEAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
                 iter_inside += 1
                 
                 if options.verbose:
@@ -241,8 +242,8 @@ def main():
                 newRoutes = 0
     
     # update the path choice probability and the path flows as well as generate vehicle data 	
-        AssignedVeh, AssignedTrip, vehID = doCLogitVehAssign(net, options.verbose, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID)
-                    
+#        AssignedVeh, AssignedTrip, vehID = doCLogitVehAssign(net, options.verbose, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID)
+        AssignedVeh, AssignedTrip, vehID = doSUEVehAssign(options.verbose, net, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)          
     # generate vehicle releasing time            
         net.vehRelease(options.verbose, Parcontrol, departtime, CurrentMatrixSum)
     
