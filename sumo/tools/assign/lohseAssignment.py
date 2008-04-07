@@ -1,8 +1,8 @@
 """
-@file    LohseAssignment.py
+@file    lohseAssignment.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2008-03-28
-@version $Id: cLogit.py 5249 2008-03-27 14:08:44Z yunpangwang $
+@version $Id$
 
 This script is for executing the traffic assignment with the assignment model proposed by Professor Dieter Lohse.
 
@@ -153,7 +153,7 @@ def main():
     starttime = datetime.datetime.now() 
     foutroute = open('routes.rou.xml', 'w')                                           # initialize the file for recording the routes
     print >> foutroute, """<?xml version="1.0"?>
-<!-- generated on %s by $Id: cLogit.py 5249 2008-03-27 14:08:44Z yunpangwang $ -->
+<!-- generated on %s by $Id$ -->
 <routes>""" % starttime
     
     for counter in range (0, len(matrices)):

@@ -49,10 +49,10 @@ parser = make_parser()
 
 net = Net()
 
-for file in options.vehfile.split(","):
-    net._allvehicles[file] = []
-    parser.setContentHandler(VehInformationReader(net._allvehicles[file]))
-    parser.parse(file)
+for filename in options.vehfile.split(","):
+    net._allvehicles[filename] = []
+    parser.setContentHandler(VehInformationReader(net._allvehicles[filename]))
+    parser.parse(filename)
 
 # Vehicles from dua, incremental, clogit and oneshot are in included in the allvehlist.
 allvehlist = []
@@ -64,7 +64,6 @@ tValueAvg = {}
 hValues = []
 
 # intitalization
-normal = False
 allgroups = 0.
 duagroups = 0.
 oneshotgroups = 0.
@@ -85,42 +84,33 @@ print 'The calculation of network statistics is done!'
 print 'begin the t test!'
 for A in net._assignments.itervalues():
     tValueAvg[A] = {}
-
 doTTestForAvg(options.verbose, tValueAvg, list(net._assignments.itervalues()))
-
 print 'The t test is done!'        
-if normal:
-    tTable = getTTable(options.tfile)
 
-    for A in net._assignments.itervalues():
-        tValueAvg[A] = {}
+# The Kruskal-Wallis test is applied for the data, not drawn from a normally distributed population.
+groups = 2
+values = list(net._allvehicles.iteritems())
+for num, A in enumerate(values):
+    for B in values[num+1: ]:
+        combilabel = ''
+        combivehlist = []
+        combilabel = A[0] + '_' + B[0]
+        print 'Test for:', combilabel
+        for veh in A[1]:
+            combivehlist.append(veh)
+        for veh in B[1]:
+            combivehlist.append(veh)
+            
+        doKruskalWallisTest(options.verbose, groups, combivehlist, net._assignments, combilabel, hValues)
+    
+doKruskalWallisTest(options.verbose, allgroups, allvehlist, net._assignments, allmethodlabel, hValues)
+print 'Test for:', allmethodlabel
+doKruskalWallisTest(options.verbose, oneshotgroups, oneshotvehlist, net._assignments, "alloneshots", hValues)
+print 'Test for: alloneshots'
+print 'groups:', oneshotgroups
+doKruskalWallisTest(options.verbose, duagroups, duavehlist, net._assignments, "duas", hValues)
+print 'Test for: duas'
+print 'groups:', duagroups
 
-    doTTestForAvg(options.verbose, tValueAvg, list(net._assignments.itervalues()))
-else:
-    # The Kruskal-Wallis test is applied for the data, not drawn from a normally distributed population.
-    groups = 2
-    values = list(net._allvehicles.iteritems())
-    for num, A in enumerate(values):
-        for B in values[num+1: ]:
-            combilabel = ''
-            combivehlist = []
-            combilabel = A[0] + '_' + B[0]
-            print 'Test for:', combilabel
-            for veh in A[1]:
-                combivehlist.append(veh)
-            for veh in B[1]:
-                combivehlist.append(veh)
-                
-            doKruskalWallisTest(options.verbose, groups, combivehlist, net._assignments, combilabel, hValues)
-        
-    doKruskalWallisTest(options.verbose, allgroups, allvehlist, net._assignments, allmethodlabel, hValues)
-    print 'Test for:', allmethodlabel
-    doKruskalWallisTest(options.verbose, oneshotgroups, oneshotvehlist, net._assignments, "alloneshots", hValues)
-    print 'Test for: alloneshots'
-    print 'groups:', oneshotgroups
-    doKruskalWallisTest(options.verbose, duagroups, duavehlist, net._assignments, "duas", hValues)
-    print 'Test for: duas'
-    print 'groups:', duagroups
-
-getSignificanceTestOutput(net, normal, tValueAvg, hValues)
+getSignificanceTestOutput(net, tValueAvg, hValues)
 print 'The Significance test is done!'

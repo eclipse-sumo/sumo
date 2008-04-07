@@ -65,6 +65,8 @@ if options.stats == 0:
     if not options.duaonly:
         clogDir = makeAndChangeDir("../clogit")
         execute("cLogit.py -d ../input/districts.xml -m %s -n %s -p ../clogit_parameter.txt -u ../CRcurve.txt" % (mtxNamesList, netFile))
+        lohseDir = makeAndChangeDir("../lohse")
+        execute("lohseAssignment.py -d ../input/districts.xml -m %s -n %s -p ../lohseparameter.txt -u ../CRcurve.txt" % (mtxNamesList, netFile))
         if options.od2trips:
             while not os.path.exists("%s/trips_0.rou.xml" % duaDir):
                 time.sleep(1)
@@ -76,22 +78,24 @@ else:
     succDir = "../successive%03i" % options.stats
     duaDir = "../dua%03i" % options.stats
     clogDir = "../clogit%03i" % options.stats
+    lohseDir = "../lohse%03i" % options.stats
     shotDir = "../oneshot%03i" % options.stats
     
 makeAndChangeDir("../statistics")
-duafiles = ""
-for step in [0, 24, 49]:
+tripinfos = ""
+for step in [0, 49]:
     targetfile = "tripinfo_dua_%s.xml" % step
     shutil.copy("%s/tripinfo_%s.xml" % (duaDir, step), targetfile)
-    duafiles += targetfile + ","
+    tripinfos += targetfile + ","
     execute("networkStatistics.py -t tripinfo_dua_%s.xml -o networkStatistics_%s_%s.txt" % (step, os.path.basename(duaDir), step))
 if not options.duaonly:
-    shotfiles = ""
-    for step in [-1, 1800, 300, 15]:
+    for step in [-1, 15]:
         targetfile =  "tripinfo_oneshot_%s.xml" % step
         shutil.copy("%s/tripinfo_%s.xml" % (shotDir, step), targetfile)
-        shotfiles += targetfile + ","
+        tripinfos += targetfile + ","
     execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_successive.xml %s -l sumo_successive.log" % (netFile, succDir, sumoAdds))
     execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_clogit.xml %s -l sumo_clogit.log" % (netFile, clogDir, sumoAdds))
-    execute("networkStatisticsWithSgT.py -u %s -s %s -c tripinfo_clogit.xml -i tripinfo_successive.xml -o networkStatisticsWithSgT.txt" % (duafiles[:-1], shotfiles[:-1]))
+    execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_lohse.xml %s -l sumo_lohse.log" % (netFile, lohseDir, sumoAdds))
+    tripinfos += targetfile + ",tripinfo_successive.xml,tripinfo_clogit.xml,tripinfo_lohse.xml"
+    execute("networkStatisticsWithSgT.py -t %s -o networkStatisticsWithSgT.txt" % tripinfos)
 os.chdir("..")
