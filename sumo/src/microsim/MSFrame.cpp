@@ -162,7 +162,7 @@ MSFrame::fillOptions()
 
 #ifdef HAVE_SUBSECOND_TIMESTEPS
 #ifdef HAVE_VARIABLE_SUBSECOND_TIMESTEPS
-    oc.doRegister("step-length", new Option_Float(.1));
+    oc.doRegister("step-length", new Option_Float((SUMOReal) .1));
     oc.addDescription("step-length", "Time", "Defines the step duration");
 #endif
 #endif
@@ -437,7 +437,7 @@ MSFrame::setMSGlobals(OptionsCont &oc)
     //
     MSGlobals::gUsingC2C = oc.getFloat("device.c2x.probability")!=0||oc.isSet("device.c2x.knownveh");
     MSGlobals::gLANRange = oc.getFloat("device.c2x.range");
-    MSGlobals::gLANRefuseOldInfosOffset = oc.getInt("device.c2x.keep-duration");
+    MSGlobals::gLANRefuseOldInfosOffset = (SUMOTime) oc.getInt("device.c2x.keep-duration"); // !!! SUMOTime-option
     MSGlobals::gAddInfoFactor = oc.getFloat("device.c2x.insert-info-factor");
     //
 #ifdef HAVE_SUBSECOND_TIMESTEPS
