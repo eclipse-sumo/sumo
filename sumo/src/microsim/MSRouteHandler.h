@@ -33,7 +33,6 @@
 #include <string>
 #include "MSVehicle.h"
 #include <utils/xml/SUMOSAXHandler.h>
-#include <utils/xml/SUMOBaseRouteHandler.h>
 #include <utils/common/SUMOTime.h>
 
 
@@ -55,7 +54,7 @@ class MSVehicleType;
  * their transfering to the MSNet::RouteDict
  * The result of the operations are single MSNet::Route-instances
  */
-class MSRouteHandler : public SUMOSAXHandler, public SUMOBaseRouteHandler
+class MSRouteHandler : public SUMOSAXHandler
 {
 public:
     /// standard constructor
@@ -144,11 +143,14 @@ protected:
     /// The vehicle control to use for vehicle building
     MSVehicleControl &myVehicleControl;
 
+    SUMOVehicleParameter *myVehicleParameter;
+
     /// the emission time of the vehicle read last
     SUMOTime myLastDepart;
 
     /// the last vehicle read
     MSVehicle *myLastReadVehicle;
+
 
     /// the current route
     MSEdgeVector myActiveRoute;
@@ -170,7 +172,7 @@ protected:
     bool myAmUsingIncrementalDUA;
 
     /// The current vehicle number (for inc-dua)
-    size_t myRunningVehicleNumber;
+    unsigned int myRunningVehicleNumber;
 
     /// The base for inc-dua
     int myIncrementalBase;

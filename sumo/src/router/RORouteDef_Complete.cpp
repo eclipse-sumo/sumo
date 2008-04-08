@@ -51,10 +51,11 @@ using namespace std;
 // method definitions
 // ===========================================================================
 RORouteDef_Complete::RORouteDef_Complete(const std::string &id,
-        const std::string &color,
+        const RGBColor &color,
         const std::vector<const ROEdge*> &edges) throw()
         : RORouteDef(id, color), myEdges(edges)
-{}
+{
+}
 
 
 RORouteDef_Complete::~RORouteDef_Complete() throw()
@@ -77,8 +78,27 @@ RORouteDef_Complete::getTo() const
 
 RORoute *
 RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
-                                       SUMOTime , const ROVehicle &) const
+                                       SUMOTime begin, const ROVehicle &veh) const
 {
+    if(true) {
+        std::vector<const ROEdge*> newEdges;
+        const std::vector<const ROEdge*> &oldEdges = myEdges;
+        newEdges.push_back(*(oldEdges.begin()));
+        for(std::vector<const ROEdge*>::const_iterator i=oldEdges.begin()+1; i!=oldEdges.end(); ++i) {
+            if((*(i-1))->isConnectedTo(*i)) {
+                newEdges.push_back(*i);
+            } else {
+                std::vector<const ROEdge*> edges;
+                router.compute(*(i-1), *i, &veh, begin, edges);
+                if(edges.size()==0) {
+                    return 0;
+                }
+                std::copy(edges.begin()+1, edges.end(), back_inserter(newEdges));
+
+            }
+        }
+        myEdges = newEdges;
+    }
     return new RORoute(myID, 0, 1, myEdges);
 }
 

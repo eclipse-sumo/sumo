@@ -43,6 +43,7 @@
 #include "RORouteDef_Alternatives.h"
 #include "RORouteDef_Complete.h"
 #include "RORoute.h"
+#include <utils/xml/SUMOVehicleParserHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -65,10 +66,10 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
         const std::string &dataName,
         const std::string &file)
         : ROTypedXMLRoutesLoader(vb, net, begin, end, file),
-        myDataName(dataName), myHaveNextRoute(false),
+        myVehicleParameter(0), myDataName(dataName), myHaveNextRoute(false),
         myCurrentAlternatives(0),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRouteNumber),
-        myCurrentRoute(0)
+        myCurrentRoute(0), myCurrentDepart(0)
 {}
 
 
@@ -90,9 +91,11 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_VEHICLE:
         // try to parse the vehicle definition
-        if (!SUMOBaseRouteHandler::openVehicle(attrs)) {
-            mySkipCurrent = true;
+        myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
+        if(myVehicleParameter!=0) {
+            myCurrentDepart = myVehicleParameter->depart;
         }
+        mySkipCurrent = myVehicleParameter==0;
         break;
     case SUMO_TAG_VTYPE:
         myCurrentVehicleType = 0;
@@ -114,13 +117,12 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
     if (myCurrentAlternatives==0) {
         // parse plain route...
         try {
-            mySkipCurrent = false;
-            if (myAmInEmbeddedMode) {
-                myCurrentRouteName = attrs.getStringSecure(SUMO_ATTR_ID, "!" + myActiveVehicleID);
+            if (myVehicleParameter!=0) {
+                myCurrentRouteName = attrs.getStringSecure(SUMO_ATTR_ID, "!" + myVehicleParameter->id);
             } else {
                 myCurrentRouteName = attrs.getString(SUMO_ATTR_ID);
             }
-            myColorString = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
+            myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, "-1,-1,-1"));
         } catch (EmptyData &) {
             myCurrentRouteName = "";
             getErrorHandlerMarkInvalid()->inform("Missing id in route.");
@@ -173,8 +175,8 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs)
     string id;
     try {
         mySkipCurrent = false;
-        if (myAmInEmbeddedMode) {
-            id = attrs.getStringSecure(SUMO_ATTR_ID, "!" + myActiveVehicleID);
+        if (myVehicleParameter!=0) {
+            id = attrs.getStringSecure(SUMO_ATTR_ID, "!" + myVehicleParameter->id);
         } else {
             id = attrs.getString(SUMO_ATTR_ID);
         }
@@ -189,9 +191,9 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs)
         return;
     }
     // try to get the color
-    myColorString = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
+    myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, "-1,-1,-1"));
     // build the alternative cont
-    myCurrentAlternatives = new RORouteDef_Alternatives(id, myColorString,
+    myCurrentAlternatives = new RORouteDef_Alternatives(id, myColor,
             index, myGawronBeta, myGawronA, myMaxRouteNumber);
 }
 
@@ -244,13 +246,19 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
     switch (element) {
     case SUMO_TAG_ROUTE:
         if (myCurrentRoute!=0&&!mySkipCurrent) {
-            myCurrentAlternatives = new RORouteDef_Alternatives(myCurrentRouteName, myColorString,
+            /*
+            myCurrentAlternatives = new RORouteDef_Alternatives(myCurrentRouteName, myColor,
                     0, myGawronBeta, myGawronA, myMaxRouteNumber);
             myCurrentAlternatives->addLoadedAlternative(myCurrentRoute);
-            if (!myAmInEmbeddedMode) {
+            */
+            if (myVehicleParameter==0) {
                 myHaveNextRoute = true;
             }
-            myNet.addRouteDef(myCurrentAlternatives);
+            if(myCurrentRoute->getEdgeVector().size()>2) {
+                myNet.addRouteDef(new RORouteDef_Complete(myCurrentRoute->getID(), RGBColor(),
+                    myCurrentRoute->getEdgeVector()));
+            }
+            delete myCurrentRoute;
             myCurrentRoute = 0;
             myCurrentAlternatives = 0;
         }
@@ -259,7 +267,7 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
         if (mySkipCurrent) {
             return;
         }
-        if (!myAmInEmbeddedMode) {
+        if (myVehicleParameter==0) {
             myHaveNextRoute = true;
         }
         myNet.addRouteDef(myCurrentAlternatives);
@@ -279,49 +287,36 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
 bool
 RORDLoader_SUMOBase::closeVehicle() throw()
 {
-    if (!SUMOBaseRouteHandler::closeVehicle()) {
-        return false;
-    }
     // get the vehicle id
-    if (myCurrentDepart<myBegin||myCurrentDepart>=myEnd) {
+    if (myVehicleParameter->depart<myBegin||myVehicleParameter->depart>=myEnd) {
         mySkipCurrent = true;
         return false;
     }
     // get vehicle type
-    ROVehicleType *type = myNet.getVehicleTypeSecure(myCurrentVType);
+    ROVehicleType *type = myNet.getVehicleTypeSecure(myVehicleParameter->vtypeid);
     // get the route
-    RORouteDef *route = myNet.getRouteDef(myCurrentRouteName);
+    RORouteDef *route = myNet.getRouteDef(myVehicleParameter->routeid);
     if (route==0) {
-        route = myNet.getRouteDef("!" + myActiveVehicleID);
+        route = myNet.getRouteDef("!" + myVehicleParameter->id);
     }
     if (route==0) {
-        getErrorHandlerMarkInvalid()->inform("The route of the vehicle '" + myActiveVehicleID + "' is not known.");
+        getErrorHandlerMarkInvalid()->inform("The route of the vehicle '" + myVehicleParameter->id + "' is not known.");
         return false;
     }
     // get the vehicle color
     // build the vehicle
     // get further optional information
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
-        if (myCurrentDepart<myBegin||myCurrentDepart>=myEnd) {
+        if (myVehicleParameter->depart<myBegin||myVehicleParameter->depart>=myEnd) {
             myNet.removeRouteSecure(route);
             // !!! was ist mit type?
             return false;
         }
-        ROVehicle *veh = myVehicleBuilder.buildVehicle(
-                             myActiveVehicleID, route, myCurrentDepart, type, myVehicleColorString,
-                             myRepOffset, myRepNumber);
-        myNet.addVehicle(myActiveVehicleID, veh);
+        ROVehicle *veh = myVehicleBuilder.buildVehicle(*myVehicleParameter, route, type);
+        myNet.addVehicle(myVehicleParameter->id, veh);
         return true;
     }
     return false;
-}
-
-
-bool
-RORDLoader_SUMOBase::parseVehicleColor(const SUMOSAXAttributes &attrs) throw()
-{
-    myVehicleColorString = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
-    return true;
 }
 
 
@@ -351,7 +346,7 @@ RORDLoader_SUMOBase::startVehType(const SUMOSAXAttributes &attrs)
         SUMOReal sigma = attrs.getFloatSecure(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA);
         SUMOReal tau = attrs.getFloatSecure(SUMO_ATTR_TAU, DEFAULT_VEH_TAU);
         std::string color = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
-        SUMOVehicleClass vclass = parseVehicleClass(attrs, "vehicle type", id);
+        SUMOVehicleClass vclass = SUMOVehicleParserHelper::parseVehicleClass(attrs, "vtype", id);
         // build the vehicle type
         //  by now, only vehicles using the krauss model are supported
         myCurrentVehicleType = new ROVehicleType_Krauss(

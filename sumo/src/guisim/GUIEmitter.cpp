@@ -151,7 +151,8 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::wrappedExecute(SUMOTime currentT
         mySource.init();
     }
     if (myVehicle==0) {
-        string aVehicleId = myParent.getID() + "_user_" +  toString(currentTime);
+        SUMOVehicleParameter p;
+        p.id = myParent.getID() + "_user_" +  toString(currentTime);
         MSRoute *aRoute = myRouteDist.getOverallProb()!=0
                           ? myRouteDist.get()
                           : mySource.hasRoutes()
@@ -170,8 +171,8 @@ GUIEmitter::GUIEmitterChild_UserTriggeredChild::wrappedExecute(SUMOTime currentT
             MsgHandler::getErrorInstance()->inform("Emitter '" + myParent.getID() + "' has no valid vehicle type.");
             return 0;
         }
-        myVehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(
-                        aVehicleId, aRoute, currentTime, aType, 0, 0);
+        p.depart = currentTime;
+        myVehicle = MSNet::getInstance()->getVehicleControl().buildVehicle(p, aRoute, aType);
         myParent.schedule(this, myVehicle, -1);
         if (myDescheduleVehicle) {
             MSNet::getInstance()->getVehicleControl().newUnbuildVehicleBuild();

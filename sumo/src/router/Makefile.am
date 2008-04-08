@@ -18,7 +18,6 @@ RORouteDefCont.cpp RORouteDefCont.h \
 RORouteDef_Alternatives.cpp RORouteDef_Alternatives.h \
 RORouteDef_Complete.cpp RORouteDef_Complete.h \
 RORouteDef_OrigDest.cpp RORouteDef_OrigDest.h \
-RORunningVehicle.cpp RORunningVehicle.h \
 ROTypedXMLRoutesLoader.cpp ROTypedXMLRoutesLoader.h \
 ROVehicle.cpp ROVehicle.h \
 ROVehicleBuilder.cpp ROVehicleBuilder.h ROVehicleCont.cpp ROVehicleCont.h \

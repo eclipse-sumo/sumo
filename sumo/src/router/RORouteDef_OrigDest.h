@@ -32,6 +32,7 @@
 
 #include <string>
 #include "RORouteDef.h"
+#include <utils/common/RGBColor.h>
 
 
 // ===========================================================================
@@ -53,7 +54,7 @@ class RORouteDef_OrigDest
 {
 public:
     /// Constructor
-    RORouteDef_OrigDest(const std::string &id, const std::string &color,
+    RORouteDef_OrigDest(const std::string &id, const RGBColor &color,
                         const ROEdge *from, const ROEdge *to, bool removeFirst=false) throw();
 
     /// Destructor

@@ -90,7 +90,6 @@ public:
         static_cast<const GUIRoute&>(getRoute()).setColor();
     }
 
-    void setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue);
 
     /// @name inherited from GUIGlObject
     //@{
@@ -143,11 +142,6 @@ public:
         changed the lane (is white after a lane change and becomes darker
         with each timestep */
     SUMOReal getTimeSinceLastLaneChangeAsReal() const;
-
-    /** @brief Returns the next "periodical" vehicle with the same route
-        We have to duplicate the vehicle if a further has to be emitted with
-        the same settings */
-    virtual MSVehicle *getNextPeriodical() const;
 
     friend class GUIVehicleControl;
 
@@ -216,8 +210,8 @@ class GUIVehiclePopupMenu : public GUIGLObjectPopupMenu
 protected:
     /// Use this constructor only.
     GUIVehicle(GUIGlObjectStorage &idStorage,
-               std::string id, MSRoute* route, SUMOTime departTime,
-               const MSVehicleType* type, int repNo, int repOffset,
+        SUMOVehicleParameter &pars, const MSRoute* route, 
+               const MSVehicleType* type, 
                int vehicleIndex) throw();
 
     void setBlinkerInformation();

@@ -100,7 +100,11 @@ MSEmitter::MSEmitter_FileTriggeredChild::processNextEntryReaderTriggered()
 void
 MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
 {
-    string aVehicleId = myParent.getID() + "_" + toString(myRunningID++);
+    SUMOVehicleParameter pars;
+    pars.id = myParent.getID() + "_" + toString(myRunningID++);
+    pars.depart = myOffset+1;
+    pars.repetitionNumber = -1;
+    pars.repetitionOffset = -1;
     MSVehicleType* aVehType = myVTypeDist.getOverallProb()>0
                               ? myVTypeDist.get()
                               : MSNet::getInstance()->getVehicleControl().getRandomVType();
@@ -118,8 +122,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::buildAndScheduleFlowVehicle()
     }
 
     MSVehicle *veh =
-        MSNet::getInstance()->getVehicleControl().buildVehicle(
-            aVehicleId, aEmitRoute, myOffset+1, aVehType, 0, 0);
+        MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType);
     myParent.schedule(this, veh, -1);
     myHaveNext = true;
 }
@@ -220,28 +223,31 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
 
     // check whethe the correct tag is read
     if (element==SUMO_TAG_EMIT) {
+        SUMOVehicleParameter pars;
+        pars.repetitionNumber = -1;
+        pars.repetitionOffset = -1;
         // check and assign emission time
-        int aEmitTime = attrs.getIntSecure(SUMO_ATTR_TIME, -1);
-        if (aEmitTime<myBeginTime) {
+        pars.depart = attrs.getIntSecure(SUMO_ATTR_TIME, -1);
+        if (pars.depart<myBeginTime) {
             // do not process the vehicle if the emission time is before the simulation begin
             return;
         }
         // check and assign id
-        string aVehicleId = attrs.getStringSecure(SUMO_ATTR_ID, "");
-        if (myVehicleControl.getVehicle(aVehicleId)!=0) {
-            WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + aVehicleId + " already exists.\n Generating a default id.");
-            aVehicleId = "";
+        pars.id = attrs.getStringSecure(SUMO_ATTR_ID, "");
+        if (myVehicleControl.getVehicle(pars.id)!=0) {
+            WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + pars.id + " already exists.\n Generating a default id.");
+            pars.id = "";
         }
-        if (aVehicleId=="") {
-            aVehicleId = myParent.getID() +  "_" + toString(aEmitTime) +  "_" + toString(myRunningID++);
-            if (myVehicleControl.getVehicle(aVehicleId)!=0) {
-                WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + aVehicleId + " already exists.\n Continuing with next element.");
+        if (pars.id=="") {
+            pars.id = myParent.getID() +  "_" + toString(pars.depart) +  "_" + toString(myRunningID++);
+            if (myVehicleControl.getVehicle(pars.id)!=0) {
+                WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + pars.id + " already exists.\n Continuing with next element.");
                 return;
             }
         }
         // check and assign vehicle type
-        string emitType = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
-        MSVehicleType* aVehType = MSNet::getInstance()->getVehicleControl().getVType(emitType);
+        pars.vtypeid = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+        MSVehicleType* aVehType = MSNet::getInstance()->getVehicleControl().getVType(pars.vtypeid);
         if (aVehType == 0) {
             if (myVTypeDist.getOverallProb()!=0) {
                 aVehType = myVTypeDist.get();
@@ -255,8 +261,8 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             }
         }
         // check and assign vehicle type
-        string emitRoute = attrs.getStringSecure(SUMO_ATTR_ROUTE, "");
-        MSRoute *aEmitRoute = MSRoute::dictionary(emitRoute);
+        pars.routeid = attrs.getStringSecure(SUMO_ATTR_ROUTE, "");
+        MSRoute *aEmitRoute = MSRoute::dictionary(pars.routeid);
         if (aEmitRoute==0) {
             if (myRouteDist.getOverallProb()!=0) {
                 aEmitRoute = myRouteDist.get();
@@ -268,13 +274,12 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             }
         }
         // build vehicle
-        SUMOReal aEmitSpeed = attrs.getFloatSecure(SUMO_ATTR_SPEED, -1);
+        pars.departSpeed = attrs.getFloatSecure(SUMO_ATTR_SPEED, -1);
         MSVehicle *veh =
-            MSNet::getInstance()->getVehicleControl().buildVehicle(
-                aVehicleId, aEmitRoute, aEmitTime, aVehType, 0, 0);
-        myParent.schedule(this, veh, aEmitSpeed);
+            MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType);
+        myParent.schedule(this, veh, pars.departSpeed);
         myHaveNext = true;
-        myOffset = SUMOTime(aEmitTime);
+        myOffset = SUMOTime(pars.depart);
     }
     // check whethe the correct tag is read
     if (element==SUMO_TAG_RESET) {

@@ -43,9 +43,9 @@
 #include "RORDGenerator_ODAmounts.h"
 #include "ROVehicle.h"
 #include "ROVehicleBuilder.h"
-#include "RORunningVehicle.h"
 #include "RORouteDef_Complete.h"
 #include "ROAbstractRouteDefLoader.h"
+#include <utils/xml/SUMOVehicleParserHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -239,18 +239,17 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs)
 {
     // get the vehicle id, the edges, the speed and position and
     //  the departure time and other information
-    myID = getVehicleID(attrs);
-    if (myKnownIDs.find(myID)!=myKnownIDs.end()) {
-        MsgHandler::getErrorInstance()->inform("The id '" + myID + "' appears twice within the flow descriptions.'");
+    string id = getVehicleID(attrs);
+    if (myKnownIDs.find(id)!=myKnownIDs.end()) {
+        MsgHandler::getErrorInstance()->inform("The id '" + id + "' appears twice within the flow descriptions.'");
         return;
     }
-    myKnownIDs.insert(myID); // !!! a local storage is not save
-    myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM, myID, false);
+    myKnownIDs.insert(id); // !!! a local storage is not save
+    myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM, id, false);
     myEndEdge = getEdge(attrs, "destination",
-                        SUMO_ATTR_TO, myID, myEmptyDestinationsAllowed);
-    myType = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
-    myPos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POSITION, myID);
-    mySpeed = getOptionalFloat(attrs, "speed", SUMO_ATTR_SPEED, myID);
+                        SUMO_ATTR_TO, id, myEmptyDestinationsAllowed);
+    myParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true, true);
+    myParameter->id = id;
     try {
         myIntervalBegin = attrs.getIntSecure(SUMO_ATTR_BEGIN, myUpperIntervalBegin);
     } catch (NumberFormatException &) {
@@ -263,15 +262,11 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs)
         MsgHandler::getErrorInstance()->inform("An interval end is not numeric.");
         return;
     }
-    myVehicle2EmitNumber = getTime(attrs, SUMO_ATTR_NO, myID);
+    myVehicle2EmitNumber = getTime(attrs, SUMO_ATTR_NO, id);
     if (myIntervalEnd<=myIntervalBegin) {
         MsgHandler::getErrorInstance()->inform("The interval must be larger than 0.\n The current values are: begin=" + toString<unsigned int>(myIntervalBegin) + " end=" + toString<unsigned int>(myIntervalEnd));
         return;
     }
-    myPeriodTime = -1;
-    myNumberOfRepetitions = -1;
-    myLane = getLane(attrs);
-    myColor = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
 }
 
 
@@ -330,9 +325,9 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
             return;
         }
         // add the vehicle type, the vehicle and the route to the net
-        RORouteDef *route = new RORouteDef_OrigDest(myID, myColor,
-                myBeginEdge, myEndEdge);
-        ROVehicleType *type = myNet.getVehicleTypeSecure(myType);
+        RORouteDef *route = new RORouteDef_OrigDest(myParameter->id, myParameter->color,
+                myBeginEdge, myEndEdge);//!!! set double in route def and flowdef?
+        ROVehicleType *type = myNet.getVehicleTypeSecure(myParameter->vtypeid);
         // check whether any errors occured
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return;
@@ -340,19 +335,13 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
         // build the vehicle
         myNet.addRouteDef(route);
         myNextRouteRead = true;
-        ROVehicle *vehicle = 0;
-        if (myPos>=0||mySpeed>=0) {
-            vehicle = myVehicleBuilder.buildRunningVehicle(myID, route, myDepartureTime,
-                      type, myLane, (SUMOReal) myPos, (SUMOReal) mySpeed, myColor, -1, -1);
-        } else {
-            vehicle = myVehicleBuilder.buildVehicle(myID, route, myDepartureTime,
-                                                    type, myColor, -1, -1);
-        }
+        ROVehicle *vehicle = myVehicleBuilder.buildVehicle(*myParameter, route, type);
         // add to the container
         FlowDef *fd =
             new FlowDef(vehicle, type, route, myIntervalBegin, myIntervalEnd,
                         myVehicle2EmitNumber, myRandom);
         myFlows.push_back(fd);
+        myParameter = 0;
     }
 }
 

@@ -30,7 +30,6 @@
 
 #include <string>
 #include "ROVehicle.h"
-#include "RORunningVehicle.h"
 #include "ROVehicleBuilder.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -50,25 +49,10 @@ ROVehicleBuilder::~ROVehicleBuilder()
 
 
 ROVehicle *
-ROVehicleBuilder::buildVehicle(const std::string &id, RORouteDef *route,
-                               unsigned int depart, ROVehicleType *type,
-                               const std::string &color, int period, int repNo)
+ROVehicleBuilder::buildVehicle(const SUMOVehicleParameter &pars, 
+              RORouteDef *route, ROVehicleType *type)
 {
-    return new ROVehicle(*this, id, route, depart, type, color, period, repNo);
-}
-
-
-RORunningVehicle *
-ROVehicleBuilder::buildRunningVehicle(const std::string &id,
-                                      RORouteDef *route, SUMOTime time,
-                                      ROVehicleType *type,
-                                      const std::string &lane,
-                                      SUMOReal pos, SUMOReal speed,
-                                      const std::string &col, int period,
-                                      int repNo)
-{
-    return new RORunningVehicle(*this, id, route, time, type, lane, pos, speed,
-                                col, period, repNo);
+    return new ROVehicle(*this, pars, route, type);
 }
 
 

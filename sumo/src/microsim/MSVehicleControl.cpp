@@ -88,13 +88,12 @@ MSVehicleControl::~MSVehicleControl() throw()
 
 
 MSVehicle *
-MSVehicleControl::buildVehicle(const std::string &id, MSRoute* route,
-                               SUMOTime departTime,
-                               const MSVehicleType* type,
-                               int repNo, int repOffset) throw()
+MSVehicleControl::buildVehicle(SUMOVehicleParameter &defs, 
+                               const MSRoute* route,
+                               const MSVehicleType* type) throw()
 {
     myLoadedVehNo++;
-    return new MSVehicle(id, route, departTime, type, repNo, repOffset, myLoadedVehNo-1);
+    return new MSVehicle(defs, route, type, myLoadedVehNo-1);
 }
 
 
@@ -314,23 +313,20 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
     // load vehicles
     bis >> size;
     while (size-->0) {
-        string id;
-        bis >> id;
+        SUMOVehicleParameter p;
+        bis >> p.id;
         SUMOTime lastLaneChangeOffset;
         bis >> lastLaneChangeOffset; // !!! check type= FileHelpers::readInt(os);
         unsigned int waitingTime;
         bis >> waitingTime;
-        int repetitionNumber;
-        bis >> repetitionNumber;
-        int period;
-        bis >> period;
-        string routeID;
-        bis >> routeID;
+        bis >> p.repetitionNumber;
+        bis >> p.repetitionOffset;
+        bis >> p.routeid;
         MSRoute* route;
         unsigned int desiredDepart; // !!! SUMOTime
         bis >> desiredDepart;
-        string typeID;
-        bis >> typeID;
+        p.depart = desiredDepart;
+        bis >> p.vtypeid;
         const MSVehicleType* type;
         unsigned int routeOffset;
         bis >> routeOffset;
@@ -346,13 +342,13 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         bool inserted;
         bis >> inserted;
 #endif
-        route = MSRoute::dictionary(routeID);
+        route = MSRoute::dictionary(p.routeid);
         assert(route!=0);
-        type = getVType(typeID);
+        type = getVType(p.vtypeid);
         assert(type!=0);
         assert(getVehicle(id)==0);
 
-        MSVehicle *v = buildVehicle(id, route, desiredDepart, type, repetitionNumber, period);
+        MSVehicle *v = buildVehicle(p, route, type);
         if (wasEmitted != -1) {
             v->myIntCORNMap[MSCORN::CORN_VEH_DEPART_TIME] = wasEmitted;
         }
@@ -371,8 +367,8 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
             v->inserted = inserted!=0;
         }
 #endif
-        if (!addVehicle(id, v)) {
-            MsgHandler::getErrorInstance()->inform("Error: Could not build vehicle " + id + "!");
+        if (!addVehicle(p.id, v)) {
+            MsgHandler::getErrorInstance()->inform("Error: Could not build vehicle " + p.id + "!");
         }
     }
 }

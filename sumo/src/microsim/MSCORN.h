@@ -69,6 +69,8 @@ public:
         CORN_OUT_VEH_IN_RANGE,
 
         CORN_VEH_DEPART_TIME,
+        CORN_VEH_DEPART_DEF,
+        CORN_VEH_ARRIVAL_DEF,
         CORN_VEH_DEPART_INFO,
         CORN_VEH_ARRIVAL_INFO,
         CORN_VEH_WAITINGTIME,
@@ -87,6 +89,8 @@ public:
     enum Pointer {
         CORN_P_VEH_DEPART_INFO,
         CORN_P_VEH_ARRIVAL_INFO,
+        CORN_P_VEH_DEPART_DEF,
+        CORN_P_VEH_ARRIVAL_DEF,
         CORN_P_VEH_OWNCOL,
         CORN_P_VEH_OLDROUTE,
         CORN_P_VEH_OLD_REPETITION_ROUTE,

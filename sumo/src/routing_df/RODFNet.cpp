@@ -83,8 +83,8 @@ RODFNet::buildApproachList()
     const map<string, ROEdge*> &edges = getEdgeMap();
     for (map<string, ROEdge*>::const_iterator rit = edges.begin(); rit != edges.end(); ++rit) {
         ROEdge *ce = (*rit).second;
-        size_t i = 0;
-        size_t length_size = ce->getNoFollowing();
+        unsigned int i = 0;
+        unsigned int length_size = ce->getNoFollowing();
         for (i=0; i<length_size; i++) {
             ROEdge *help = ce->getFollower(i);
             if (find(mySinks.begin(), mySinks.end(), help->getID())!=mySinks.end()) {

@@ -67,7 +67,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string &id,
-        const std::string &color,
+        const RGBColor &color,
         size_t lastUsed,
         SUMOReal gawronBeta,
         SUMOReal gawronA,

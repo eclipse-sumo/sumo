@@ -97,12 +97,6 @@ protected:
     /// Starts route processing
     void openRoute(const SUMOSAXAttributes &attrs);
 
-    /// Parses color from the attributes and stores it in myCurrentVehicleColor
-    bool parseVehicleColor(const SUMOSAXAttributes &attrs) throw();
-
-    /// Ends the processing of a vehicle
-    bool closeVehicle() throw(ProcessError);
-
 private:
     /// parses the shape of a junction
     void addJunctionShape(const std::string &chars);
@@ -110,9 +104,6 @@ private:
 private:
     /// The currently parsed route's color
     RGBColor myColor;
-
-    /// The vehicle's color
-    RGBColor myCurrentVehicleColor;
 
 private:
     /** invalid copy constructor */

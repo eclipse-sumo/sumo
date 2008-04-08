@@ -183,11 +183,9 @@ MSVehicle::~MSVehicle() throw()
 }
 
 
-MSVehicle::MSVehicle(string id,
-                     MSRoute* route,
-                     SUMOTime departTime,
+MSVehicle::MSVehicle(SUMOVehicleParameter &pars,
+                     const MSRoute* route,
                      const MSVehicleType* type,
-                     int repNo, int repOffset,
                      int vehicleIndex) :
 #ifdef HAVE_MESOSIM
         MEVehicle(this, 0, 0),
@@ -195,11 +193,11 @@ MSVehicle::MSVehicle(string id,
         myLastLaneChangeOffset(0),
         myTarget(0),
         myWaitingTime(0),
-        myRepetitionNumber(repNo),
-        myPeriod(repOffset),
-        myID(id),
+        myRepetitionNumber(pars.repetitionNumber),
+        myPeriod(pars.repetitionOffset),
+        myID(pars.id),
         myRoute(route),
-        myDesiredDepart(departTime),
+        myDesiredDepart(pars.depart),
         myState(0, 0), //
         myIndividualMaxSpeed(0.0),
         myIsIndividualMaxSpeedSet(false),
@@ -225,6 +223,17 @@ MSVehicle::MSVehicle(string id,
 		destinationLane(0)
 #endif
 {
+    // build departure definition
+    DepartArrivalDefinition *d = new DepartArrivalDefinition();
+    d->time = pars.depart;
+    d->lane = pars.departLane!="" ? MSLane::dictionary(pars.departLane) : 0; // !!! validate!
+    d->laneProcedure = pars.departLaneProcedure;
+    d->pos = pars.departPos;
+    d->posProcedure = pars.departPosProcedure;
+    d->speed = pars.departSpeed;
+    d->speedProcedure = pars.departSpeedProcedure;
+    myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_DEF] = (void*) d;
+    //
     rebuildAllowedLanes();
     myLaneChangeModel = new MSLCM_DK2004(*this);
     // init devices
@@ -1063,20 +1072,25 @@ MSVehicle::getNextPeriodical() const
     if (myRepetitionNumber<=0) {
         return 0;
     }
-    MSRoute *route = myRoute;
+    const MSRoute *route = myRoute;
     // in the case the vehicle was rerouted, give the next one the original route
     if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE)!=myPointerCORNMap.end()) {
         route = (MSRoute*) myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE)->second;
 //!!!        myPointerCORNMap.erase(MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE);
     }
     MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();
-    string nid = StringUtils::version1(myID);
-    while (vc.getVehicle(nid)!=0) {
-        nid = StringUtils::version1(nid);
+    SUMOVehicleParameter p;
+    p.id = StringUtils::version1(myID);
+    while (vc.getVehicle(p.id)!=0) {
+        p.id = StringUtils::version1(p.id);
     }
-    MSVehicle *ret = vc.buildVehicle(
-                         nid, route, myDesiredDepart+myPeriod,
-                         myType, myRepetitionNumber-1, myPeriod);
+    p.depart = myDesiredDepart+myPeriod;
+    p.repetitionNumber = myRepetitionNumber-1;
+    p.repetitionOffset = myPeriod;
+    if(myPointerCORNMap.find(MSCORN::CORN_P_VEH_OWNCOL)!=myPointerCORNMap.end()) {
+        p.color = *((RGBColor*) myPointerCORNMap.find(MSCORN::CORN_P_VEH_OWNCOL)->second);
+    }
+    MSVehicle *ret = vc.buildVehicle(p, route, myType);
     for (std::list<Stop>::const_iterator i=myStops.begin(); i!=myStops.end(); ++i) {
         ret->myStops.push_back(*i);
     }
@@ -1242,6 +1256,9 @@ MSVehicle::onDepart()
         i->speed = myState.speed();
         myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_INFO] = (void*) i;
     }
+    DepartArrivalDefinition *d = (DepartArrivalDefinition*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_DEF];
+    delete d;
+    myPointerCORNMap.erase(MSCORN::CORN_P_VEH_DEPART_DEF);
     // inform the vehicle control
     MSNet::getInstance()->getVehicleControl().vehicleEmitted(*this);
 }
@@ -1357,7 +1374,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
     if (!myRoute->inFurtherUse()) {
         MSRoute::erase(myRoute->getID());
     } else {
-        myPointerCORNMap[MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE] = myRoute;
+        myPointerCORNMap[MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE] = (void*) myRoute;
     }
 
     // assign new route
@@ -1617,7 +1634,7 @@ MSVehicle::getBestLanes(bool forceRebuild) const throw()
 void
 MSVehicle::writeXMLRoute(OutputDevice &os, int index) const
 {
-    MSRoute *route2Write = myRoute;
+    const MSRoute *route2Write = myRoute;
     // check if a previous route shall be written
     os << "      <route";
     if (index>=0) {
@@ -1790,6 +1807,15 @@ MSVehicle::setWasVaporized(bool onDepart)
         myIntCORNMap[MSCORN::CORN_VEH_VAPORIZED] = onDepart ? 1 : 0;
     }
 }
+
+
+const MSVehicle::DepartArrivalDefinition &
+MSVehicle::getDepartureDefinition() const
+{
+    DepartArrivalDefinition *d = (DepartArrivalDefinition*) myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEPART_DEF)->second;
+    return *d;
+}
+
 
 
 #ifdef TRACI

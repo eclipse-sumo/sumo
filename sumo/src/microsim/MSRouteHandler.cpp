@@ -51,6 +51,7 @@
 #include <microsim/trigger/MSTriggerControl.h>
 #include <microsim/trigger/MSBusStop.h>
 #include <microsim/MSGlobals.h>
+#include <utils/xml/SUMOVehicleParserHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -72,7 +73,7 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
                                int incDUABase,
                                int incDUAStage)
         : SUMOSAXHandler(file),
-        myVehicleControl(vc),
+        myVehicleControl(vc), myVehicleParameter(0),
         myLastDepart(0), myLastReadVehicle(0),
         myAddVehiclesDirectly(addVehiclesDirectly),
         myAmUsingIncrementalDUA(incDUAStage>0),
@@ -110,7 +111,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
 {
     switch (element) {
     case SUMO_TAG_VEHICLE:
-        openVehicle(attrs);
+        myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
         break;
     case SUMO_TAG_VTYPE:
         addVehicleType(attrs);
@@ -217,7 +218,7 @@ MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
                                  attrs.getFloatSecure(SUMO_ATTR_DECEL, DEFAULT_VEH_B),
                                  attrs.getFloatSecure(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
                                  attrs.getFloatSecure(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
-                                 parseVehicleClass(attrs, "vehicle", id),
+                                 SUMOVehicleParserHelper::parseVehicleClass(attrs, "vtype", id),
                                  attrs.getFloatSecure(SUMO_ATTR_PROB, (SUMOReal) 1.));
         } catch (EmptyData &) {
             MsgHandler::getErrorInstance()->inform("Missing attribute in a vehicletype-object.");
@@ -252,10 +253,10 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs)
     // get the id
     try {
         // check whether the id is really necessary
-        if (myAmInEmbeddedMode) {
+        if (myVehicleParameter!=0) {
             // ok, a vehicle is wrapping the route,
             //  we may use this vehicle's id as default
-            myActiveRouteID = "!" + myActiveVehicleID; // !!! document this
+            myActiveRouteID = "!" + myVehicleParameter->id; // !!! document this
         } else {
             myActiveRouteID = attrs.getString(SUMO_ATTR_ID);
         }
@@ -288,8 +289,8 @@ MSRouteHandler::addRouteElements(const std::string &chars)
 {
     StringTokenizer st(chars);
     if (st.size()==0) {
-        if (myAmInEmbeddedMode) {
-            throw ProcessError("Vehicle's '" + myActiveVehicleID + "' route has no edges.");
+        if (myVehicleParameter!=0) {
+            throw ProcessError("Vehicle's '" + myVehicleParameter->id + "' route has no edges.");
         } else {
             throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
         }
@@ -329,16 +330,16 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 void
 MSRouteHandler::closeRoute() throw(ProcessError)
 {
-    MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, !myAmInEmbeddedMode||myRepNumber>=1);
+    MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1);
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
         if (!MSGlobals::gStateLoaded) {
-            if (myAmInEmbeddedMode) {
-                if (myVehicleControl.getVehicle(myActiveVehicleID)==0) {
-                    throw ProcessError("Another route for vehicle '" + myActiveVehicleID + "' exists.");
+            if (myVehicleParameter!=0) {
+                if (myVehicleControl.getVehicle(myVehicleParameter->id)==0) {
+                    throw ProcessError("Another route for vehicle '" + myVehicleParameter->id + "' exists.");
                 } else {
-                    throw ProcessError("A vehicle with id '" + myActiveVehicleID + "' already exists.");
+                    throw ProcessError("A vehicle with id '" + myVehicleParameter->id + "' already exists.");
                 }
             } else {
                 throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
@@ -351,30 +352,27 @@ MSRouteHandler::closeRoute() throw(ProcessError)
 bool
 MSRouteHandler::closeVehicle() throw(ProcessError)
 {
-    myLastDepart = myCurrentDepart;
+    myLastDepart = myVehicleParameter->depart;
     // let's check whether this vehicle had to be emitted before the simulation starts
-    if (myCurrentDepart<OptionsCont::getOptions().getInt("begin")) {
+    if (myVehicleParameter->depart<OptionsCont::getOptions().getInt("begin")) {
         // yes, but maybe it's a repeating vehicle...
-        if (myRepNumber>=0&&myRepOffset>=0) {
-            while (myCurrentDepart<OptionsCont::getOptions().getInt("begin") && myRepNumber>=0) {
-                --myRepNumber;
-                myCurrentDepart += myRepOffset;
+        if (myVehicleParameter->repetitionNumber>=0&&myVehicleParameter->repetitionOffset>=0) {
+            while (myVehicleParameter->depart<OptionsCont::getOptions().getInt("begin") && myVehicleParameter->repetitionNumber>=0) {
+                --myVehicleParameter->repetitionNumber;
+                myVehicleParameter->depart += myVehicleParameter->repetitionOffset;
             }
         }
-        if (myCurrentDepart<OptionsCont::getOptions().getInt("begin")) {
+        if (myVehicleParameter->depart<OptionsCont::getOptions().getInt("begin")) {
             myVehicleStops.clear();
             return false;
         }
     }
-    if (!SUMOBaseRouteHandler::closeVehicle()) {
-        return false;
-    }
     // get the vehicle's type
     MSVehicleType *vtype = 0;
-    if (myCurrentVType!="") {
-        vtype = MSNet::getInstance()->getVehicleControl().getVType(myCurrentVType);
+    if (myVehicleParameter->vtypeid!="") {
+        vtype = MSNet::getInstance()->getVehicleControl().getVType(myVehicleParameter->vtypeid);
         if (vtype==0) {
-            throw ProcessError("The vehicle type '" + myCurrentVType + "' for vehicle '" + myActiveVehicleID + "' is not known.");
+            throw ProcessError("The vehicle type '" + myVehicleParameter->vtypeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
 
         }
     } else {
@@ -386,14 +384,14 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
     MSRoute *route = MSRoute::dictionary(myActiveRouteID);
     if (route==0) {
         // if not, try via the (hopefully) given route-id
-        route = MSRoute::dictionary(myCurrentRouteName);
+        route = MSRoute::dictionary(myVehicleParameter->routeid);
     }
     if (route==0) {
         // nothing found? -> error
-        if (myCurrentRouteName!="") {
-            throw ProcessError("The route '" + myCurrentRouteName + "' for vehicle '" + myActiveVehicleID + "' is not known.");
+        if (myVehicleParameter->routeid!="") {
+            throw ProcessError("The route '" + myVehicleParameter->routeid + "' for vehicle '" + myVehicleParameter->id + "' is not known.");
         } else {
-            throw ProcessError("Vehicle '" + myActiveVehicleID + "' has no route.");
+            throw ProcessError("Vehicle '" + myVehicleParameter->id + "' has no route.");
         }
     }
     myActiveRouteID = "";
@@ -402,13 +400,13 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
     const MSEdge *firstEdge = (*route)[0];
     if ((*firstEdge->getLanes())[0]->length()<=vtype->getLength()) {
         // the vehicle is too long -> report an error
-        throw ProcessError("Vehicle '" + myActiveVehicleID + "' is too long to start at '" + firstEdge->getID() + "'.");
+        throw ProcessError("Vehicle '" + myVehicleParameter->id + "' is too long to start at '" + firstEdge->getID() + "'.");
 
     }
 
     // try to build the vehicle
     MSVehicle *vehicle = 0;
-    if (myVehicleControl.getVehicle(myActiveVehicleID)==0) {
+    if (myVehicleControl.getVehicle(myVehicleParameter->id)==0) {
         // ok there was no other vehicle with the same id, yet
         // maybe we do not want this vehicle to be emitted due to using incremental dua
         bool add = true;
@@ -420,17 +418,16 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
         }
         if (add) {
             vehicle =
-                MSNet::getInstance()->getVehicleControl().buildVehicle(myActiveVehicleID,
-                        route, myCurrentDepart, vtype, myRepNumber, myRepOffset);
+                MSNet::getInstance()->getVehicleControl().buildVehicle(*myVehicleParameter, route, vtype);
             // add the vehicle to the vehicle control
-            myVehicleControl.addVehicle(myActiveVehicleID, vehicle);
+            myVehicleControl.addVehicle(myVehicleParameter->id, vehicle);
         }
     } else {
         // strange: another vehicle with the same id already exists
         if (!MSGlobals::gStateLoaded) {
             // and was not loaded while loading a simulation state
             // -> error
-            throw ProcessError("Another vehicle with the id '" + myActiveVehicleID + "' exists.");
+            throw ProcessError("Another vehicle with the id '" + myVehicleParameter->id + "' exists.");
         } else {
             // ok, it seems to be loaded previously while loading a simulation state
             vehicle = 0;
@@ -449,8 +446,11 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
         }
     }
     myVehicleStops.clear();
+    delete myVehicleParameter;
+    myVehicleParameter = 0;
     return true;
 }
+
 
 
 /****************************************************************************/

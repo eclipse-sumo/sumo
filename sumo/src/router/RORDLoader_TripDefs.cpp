@@ -38,11 +38,11 @@
 #include "RORouteDef_OrigDest.h"
 #include "RORDLoader_TripDefs.h"
 #include "ROVehicle.h"
-#include "RORunningVehicle.h"
 #include "RORouteDef_Complete.h"
 #include "ROAbstractRouteDefLoader.h"
 #include "ROVehicleBuilder.h"
 #include "ROVehicleType_Krauss.h"
+#include <utils/xml/SUMOVehicleParserHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -64,7 +64,8 @@ RORDLoader_TripDefs::RORDLoader_TripDefs(ROVehicleBuilder &vb, RONet &net,
         const std::string &fileName)
         : ROTypedXMLRoutesLoader(vb, net, begin, end, fileName),
         myEmptyDestinationsAllowed(emptyDestinationsAllowed),
-        myDepartureTime(0), myCurrentVehicleType(0)
+        myDepartureTime(0), myCurrentVehicleType(0),
+        myParameter(0)
 {}
 
 
@@ -80,19 +81,12 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_TRIPDEF) {
         // get the vehicle id, the edges, the speed and position and
         //  the departure time and other information
-        myID = getVehicleID(attrs);
-        myDepartureTime = getTime(attrs, SUMO_ATTR_DEPART, myID);
-        myBeginEdge = getEdge(attrs, "origin",
-                              SUMO_ATTR_FROM, myID, false);
-        myEndEdge = getEdge(attrs, "destination",
-                            SUMO_ATTR_TO, myID, myEmptyDestinationsAllowed);
-        myType = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
-        myPos = getOptionalFloat(attrs, "pos", SUMO_ATTR_POSITION, myID);
-        mySpeed = getOptionalFloat(attrs, "speed", SUMO_ATTR_SPEED, myID);
-        myPeriodTime = getPeriod(attrs, myID);
-        myNumberOfRepetitions = getRepetitionNumber(attrs, myID);
-        myLane = getLane(attrs);
-        myColor = attrs.getStringSecure(SUMO_ATTR_COLOR, "");
+        string id = getVehicleID(attrs);
+        myDepartureTime = getTime(attrs, SUMO_ATTR_DEPART, id);
+        myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM, id, false);
+        myEndEdge = getEdge(attrs, "destination", SUMO_ATTR_TO, id, myEmptyDestinationsAllowed);
+        myParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true);
+        myParameter->id = id;
         // recheck attributes
         if (myDepartureTime<0) {
             MsgHandler::getErrorInstance()->inform("The departure time must be positive.");
@@ -234,16 +228,8 @@ RORDLoader_TripDefs::getPeriod(const SUMOSAXAttributes &attrs,
         return -1;
     }
     // get the repetition period
-    try {
-        return attrs.getInt(SUMO_ATTR_PERIOD);
-    } catch (EmptyData &) {
-        return -1;
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The value of the period should be numeric but is not.");
-        if (id.length()!=0)
-            MsgHandler::getErrorInstance()->inform(" Route id='" + id + "'");
-    }
-    return -1;
+    bool ok;
+    return attrs.getIntReporting(SUMO_ATTR_PERIOD, "tripdef", id.c_str(), ok);
 }
 
 
@@ -254,17 +240,9 @@ RORDLoader_TripDefs::getRepetitionNumber(const SUMOSAXAttributes &attrs,
     if (!attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
         return -1;
     }
-    // get the repetition period
-    try {
-        return attrs.getInt(SUMO_ATTR_REPNUMBER);
-    } catch (EmptyData &) {
-        return -1;
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The number of cars that shall be emitted with the same parameter must be numeric.");
-        if (id.length()!=0)
-            MsgHandler::getErrorInstance()->inform(" Route id='" + id + "'");
-    }
-    return -1;
+    // get the repetition number
+    bool ok;
+    return attrs.getIntReporting(SUMO_ATTR_REPNUMBER, "tripdef", id.c_str(), ok);
 }
 
 
@@ -290,7 +268,7 @@ RORDLoader_TripDefs::myCharacters(SumoXMLTag element,
             string id = st.next();
             ROEdge *edge = myNet.getEdge(id);
             if (edge==0) {
-                MsgHandler::getErrorInstance()->inform("Could not find edge '" + id + "' within route '" + myID + "'.");
+                MsgHandler::getErrorInstance()->inform("Could not find edge '" + id + "' within route '" + myParameter->id + "'.");
                 return;
             }
             myEdges.push_back(edge);
@@ -310,13 +288,13 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError)
         }
         RORouteDef *route = 0;
         if (myEdges.size()==0) {
-            route = new RORouteDef_OrigDest(myID, myColor,
+            route = new RORouteDef_OrigDest(myParameter->id, myParameter->color,
                                             myBeginEdge, myEndEdge);
         } else {
-            route = new RORouteDef_Complete(myID, myColor,
+            route = new RORouteDef_Complete(myParameter->id, myParameter->color,
                                             myEdges);
         }
-        ROVehicleType *type = myNet.getVehicleTypeSecure(myType);
+        ROVehicleType *type = myNet.getVehicleTypeSecure(myParameter->vtypeid);
         // check whether any errors occured
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             return;
@@ -324,18 +302,9 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError)
         myNet.addRouteDef(route);
         myNextRouteRead = true;
         // build the vehicle
-        ROVehicle *veh = 0;
-        if (myPos>=0||mySpeed>=0) {
-            veh = myVehicleBuilder.buildRunningVehicle(
-                      myID, route, myDepartureTime,
-                      type, myLane, (SUMOReal) myPos, (SUMOReal) mySpeed, myColor, myPeriodTime,
-                      myNumberOfRepetitions);
-        } else {
-            veh = myVehicleBuilder.buildVehicle(
-                      myID, route, myDepartureTime,
-                      type, myColor, myPeriodTime, myNumberOfRepetitions);
-        }
-        myNet.addVehicle(myID, veh);
+        ROVehicle *veh = myVehicleBuilder.buildVehicle(*myParameter, route, type);
+        myNet.addVehicle(myParameter->id, veh);
+        myParameter = 0;
     }
 }
 

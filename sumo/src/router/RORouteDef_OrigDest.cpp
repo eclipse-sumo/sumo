@@ -55,7 +55,7 @@ using namespace std;
 // member method definitions
 // ===========================================================================
 RORouteDef_OrigDest::RORouteDef_OrigDest(const std::string &id,
-        const std::string &color,
+        const RGBColor &color,
         const ROEdge *from,
         const ROEdge *to,
         bool removeFirst) throw()

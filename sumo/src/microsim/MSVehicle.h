@@ -536,6 +536,18 @@ public:
         return SPEED2DIST(myState.mySpeed);
     }
 
+    struct DepartArrivalDefinition {
+        SUMOTime time;
+        MSLane *lane;
+        DepartLaneDefinition laneProcedure;
+        SUMOReal pos;
+        DepartPosDefinition posProcedure;
+        SUMOReal speed;
+        DepartSpeedDefinition speedProcedure;
+    };
+
+    const DepartArrivalDefinition &getDepartureDefinition() const;
+
     const MSVehicleType &getVehicleType() const;
 
     enum MoveOnReminderMode {
@@ -743,9 +755,8 @@ protected:
 
 
     /// Use this constructor only.
-    MSVehicle(std::string id, MSRoute* route, SUMOTime departTime,
-              const MSVehicleType* type,
-              int repNo, int repOffset, int vehicleIndex);
+    MSVehicle(SUMOVehicleParameter &pars, const MSRoute* route,
+              const MSVehicleType* type, int vehicleIndex);
 
     /// information how long ago the vehicle has performed a lane-change
     unsigned int myLastLaneChangeOffset;
@@ -773,7 +784,7 @@ protected:
     std::string myID;
 
     /// Vehicle's route.
-    MSRoute* myRoute;
+    const MSRoute* myRoute;
 
     /// Desired departure time (seconds).
     SUMOTime myDesiredDepart;
@@ -889,13 +900,13 @@ private:
     /// Definition of the vector which stores information about replaced routes
     typedef std::vector<RouteReplaceInfo> ReplacedRoutesVector;
 
+
     struct DepartArrivalInformation {
         SUMOTime time;
         MSLane *lane;
         SUMOReal pos;
         SUMOReal speed;
     };
-
 
 #ifdef TRACI
 	//struct TraciStop {

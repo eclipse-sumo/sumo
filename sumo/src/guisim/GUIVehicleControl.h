@@ -81,9 +81,8 @@ public:
      * @return The built vehicle (GUIVehicle instance)
      * @see MSVehicleControl::buildVehicle
      */
-    MSVehicle *buildVehicle(const std::string &id, MSRoute* route,
-                            SUMOTime departTime, const MSVehicleType* type,
-                            int repNo, int repOffset) throw();
+    MSVehicle *buildVehicle(SUMOVehicleParameter &defs, 
+        const MSRoute* route, const MSVehicleType* type) throw();
     /// @}
 
 

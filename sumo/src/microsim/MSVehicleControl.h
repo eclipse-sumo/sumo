@@ -34,6 +34,7 @@
 #include <map>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/RandomDistributor.h>
+#include <utils/common/SUMOVehicleParameter.h>
 
 
 // ===========================================================================
@@ -92,11 +93,10 @@ public:
      * @param[in] type The type of this vehicle
      * @param[in] repNo The number of repetitions
      * @param[in] repOffset The repetition offset
-     * @return The built vehicle (GUIVehicle instance)
+     * @return The built vehicle (MSVehicle instance)
      */
-    virtual MSVehicle *buildVehicle(const std::string &id, MSRoute* route,
-                                    SUMOTime departTime, const MSVehicleType* type,
-                                    int repNo, int repOffset) throw();
+    virtual MSVehicle *buildVehicle(SUMOVehicleParameter &defs, const MSRoute* route,
+                                    const MSVehicleType* type) throw();
     /// @}
 
 

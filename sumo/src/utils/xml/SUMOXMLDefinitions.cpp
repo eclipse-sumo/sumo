@@ -130,6 +130,7 @@ GenericSAXHandler::Tag sumotags[] = {
 
 GenericSAXHandler::Attr sumoattrs[] = {
     { "id",             SUMO_ATTR_ID },
+    { "id",             SUMO_ATTR_REFID },
     { "name",           SUMO_ATTR_NAME },
     { "type",           SUMO_ATTR_TYPE },
     { "priority",       SUMO_ATTR_PRIORITY },
@@ -154,6 +155,12 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "weight",         SUMO_ATTR_WEIGHT },
 
     { "depart",         SUMO_ATTR_DEPART },
+    { "departlane",     SUMO_ATTR_DEPARTLANE },
+    { "departpos",      SUMO_ATTR_DEPARTPOS },
+    { "departspeed",    SUMO_ATTR_DEPARTSPEED },
+    { "arrivallane",     SUMO_ATTR_ARRIVALLANE },
+    { "arrivalpos",      SUMO_ATTR_ARRIVALPOS },
+    { "arrivalspeed",    SUMO_ATTR_ARRIVALSPEED },
     { "route",          SUMO_ATTR_ROUTE },
     { "maxspeed",       SUMO_ATTR_MAXSPEED },
     { "accel",          SUMO_ATTR_ACCEL },

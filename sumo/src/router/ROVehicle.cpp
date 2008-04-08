@@ -40,6 +40,7 @@
 #include "ROVehicle.h"
 #include "RORouteDef_Alternatives.h"
 #include "RORoute.h"
+#include "ROHelper.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -56,13 +57,9 @@ using namespace std;
 // method definitions
 // ===========================================================================
 ROVehicle::ROVehicle(ROVehicleBuilder &,
-                     const std::string &id, RORouteDef *route,
-                     unsigned int depart, ROVehicleType *type,
-                     const std::string &color,
-                     int period, int repNo)
-        : myID(id), myColor(color), myType(type), myRoute(route),
-        myDepartTime(depart),
-        myRepetitionPeriod(period), myRepetitionNumber(repNo)
+                     const SUMOVehicleParameter &pars, 
+                     RORouteDef *route, ROVehicleType *type)
+        : myParameter(pars), myType(type), myRoute(route)
 {}
 
 
@@ -87,30 +84,32 @@ ROVehicle::getType() const
 const std::string&
 ROVehicle::getID() const
 {
-    return myID;
+    return myParameter.id;
 }
 
 SUMOTime
 ROVehicle::getDepartureTime() const
 {
-    return myDepartTime;
+    return myParameter.depart;
 }
 
 
 void
 ROVehicle::saveXMLVehicle(OutputDevice &dev) const
 {
-    dev << "<vehicle id=\"" << myID << "\"";
+    dev << "<vehicle id=\"" << myParameter.id << "\"";
     if (myType!=0) {
         dev << " type=\"" << myType->getID() << "\"";
     }
-    dev << " depart=\"" << myDepartTime << "\"";
-    if (myColor!="") {
-        dev << " color=\"" << myColor << "\"";
+    dev << " depart=\"" << myParameter.depart << "\"";
+    if ((myParameter.setParameter&VEHPARS_COLOR_SET)!=0) {
+        dev << " color=\"" << myParameter.color << "\"";
     }
-    if (myRepetitionPeriod!=-1) {
-        dev << " period=\"" << myRepetitionPeriod << "\"";
-        dev << " repno=\"" << myRepetitionNumber << "\"";
+    if ((myParameter.setParameter&VEHPARS_PERIODNUM_SET)!=0) {
+        dev << " repno=\"" << myParameter.repetitionNumber << "\"";
+    }
+    if ((myParameter.setParameter&VEHPARS_PERIODFREQ_SET)!=0) {
+        dev << " period=\"" << myParameter.repetitionOffset << "\"";
     }
     dev << ">\n";
 }
@@ -144,15 +143,15 @@ ROVehicle::saveAllAsXML(OutputDevice &os,
         // write the route
         const std::vector<const ROEdge*> &routee = route->getCurrentEdgeVector();
         os << "      <route";
-        const std::string &c = route->getColor();
-        if (c!="") {
+        const RGBColor &c = route->getColor();
+        if (c!=RGBColor()) {
             os << " color=\"" << c << "\"";
         }
         os << ">" << routee << "</route>\n";
         // check whether the alternatives shall be written
         if (altos!=0) {
             (*altos) << "      <routealt last=\"" << myRoute->getLastUsedIndex() << "\"";
-            if (c!="") {
+            if (c!=RGBColor()) {
                 (*altos) << " color=\"" << c << "\"";
             }
             (*altos) << ">\n";
@@ -189,8 +188,10 @@ ROVehicle::copy(ROVehicleBuilder &vb,
                 const std::string &id, unsigned int depTime,
                 RORouteDef *newRoute)
 {
-    return new ROVehicle(vb, id, newRoute, depTime, myType, myColor,
-                         myRepetitionPeriod, myRepetitionNumber);
+    SUMOVehicleParameter pars(myParameter);
+    pars.id = id;
+    pars.depart = depTime;
+    return new ROVehicle(vb, pars, newRoute, myType);
 }
 
 

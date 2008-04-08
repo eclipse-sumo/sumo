@@ -33,7 +33,8 @@
 #include <string>
 #include "ROTypedXMLRoutesLoader.h"
 #include <utils/xml/SUMOXMLDefinitions.h>
-#include <utils/xml/SUMOBaseRouteHandler.h>
+#include <utils/common/RGBColor.h>
+#include <utils/common/SUMOVehicleParameter.h>
 
 
 // ===========================================================================
@@ -58,7 +59,7 @@ class RORoute;
  *  single class (this one).
  */
 class RORDLoader_SUMOBase :
-            public ROTypedXMLRoutesLoader, public SUMOBaseRouteHandler
+            public ROTypedXMLRoutesLoader
 {
 public:
     /// Constructor
@@ -132,19 +133,15 @@ protected:
 
     bool closeVehicle() throw();
 
-    /// Stores color from the attributes
-    bool parseVehicleColor(const SUMOSAXAttributes &attrs) throw();
-
 
 protected:
+
+    SUMOVehicleParameter *myVehicleParameter;
     /// The type of the parsed file to allow a distinction
     std::string myDataName;
 
     /// The color of the current route
-    std::string myColorString;
-
-    /// The color of the current vehicle
-    std::string myVehicleColorString;
+    RGBColor myColor;
 
     /** @brief Information whether the current route shall not be processed
         This may occure on errors */
@@ -176,6 +173,11 @@ protected:
 
 
     RORoute *myCurrentRoute;
+
+    std::string myCurrentRouteName;
+
+    /// The currently read vehicle's depart
+    SUMOTime myCurrentDepart;
 
 };
 

@@ -321,34 +321,47 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
         }
     }
 #endif
-    if (myFunction!=EDGEFUNCTION_SOURCE) {
-        return myDepartLane->emit(v);
-    } else {
-        const LaneCont &lanes = v.getDepartLanes();
-        int minI = 0;
-        int ir = 0;
-        unsigned int noCars = (unsigned int)(*getLanes())[0]->length();
+    const MSVehicle::DepartArrivalDefinition &pars = v.getDepartureDefinition();
+    switch(pars.laneProcedure) {
+    case DEPART_LANE_GIVEN:
+        pars.lane->emit(v); // !!! unsecure
+        break;
+    case DEPART_LANE_RANDOM:
         {
-            for (LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); ++i, ++ir) {
-                if ((*i)->getVehicleNumber()<noCars) {
-                    minI = ir;
-                    noCars = (*i)->getVehicleNumber();
-                }
-            }
+            const LaneCont &lanes = v.getDepartLanes();
+            return RandHelper::getRandomFrom(lanes)->emit(v);
         }
-        if (lanes[minI]->emit(v)) {
-            return true;
-        } else {
-            ir = 0;
-            for (LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); ++i, ++ir) {
-                if (ir!=minI&&(*i)->emit(v)) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
+        break;
+    case DEPART_LANE_FREE:
+        // will be done below
+        break;
+    case DEPART_LANE_DEPARTLANE:
+    default:
+        return myDepartLane->emit(v);
+        break;
     }
+    // DEPART_LANE_FREE
+    const LaneCont &lanes = v.getDepartLanes();
+    int minI = 0;
+    int ir = 0;
+    unsigned int noCars = (unsigned int)(*getLanes())[0]->length();
+    for (LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); ++i, ++ir) {
+        if ((*i)->getVehicleNumber()<noCars) {
+            minI = ir;
+            noCars = (*i)->getVehicleNumber();
+        }
+    }
+    if (lanes[minI]->emit(v)) {
+        return true;
+    } else {
+        ir = 0;
+        for (LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); ++i, ++ir) {
+            if (ir!=minI&&(*i)->emit(v)) {
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 

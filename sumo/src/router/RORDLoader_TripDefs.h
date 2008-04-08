@@ -36,6 +36,7 @@
 #include <utils/xml/SUMOXMLDefinitions.h>
 #include "ROTypedXMLRoutesLoader.h"
 #include "RONet.h"
+#include <utils/common/SUMOVehicleParameter.h>
 
 
 // ===========================================================================
@@ -138,52 +139,28 @@ protected:
     /// generates numerical ids
     IDSupplier myIdSupplier;
 
-    /// The id of the vehicle
-    std::string myID;
-
     /// The starting edge
     ROEdge *myBeginEdge;
 
     /// The end edge
     ROEdge *myEndEdge;
 
-    /// The type of the vehicle
-    std::string myType;
-
-    /// The optional position the vehicle shall star at
-    SUMOReal myPos;
-
-    /// The optional speed the vehicle shall start with
-    SUMOReal mySpeed;
-
     /** @brief Information whether empty destinations are allowed
         This is a feature used for the handling of explicite routes within the
         jp-router where the destination is not necessary */
     bool myEmptyDestinationsAllowed;
 
-    /// The time the vehicle shall start at
-    SUMOTime myDepartureTime;
-
-    /// The period the next vehicle with the same route shall be emitted at
-    SUMOTime myPeriodTime;
-
-    /// The number of times cars with the current parameter shall be reemitted
-    int myNumberOfRepetitions;
-
-    /// The optional name of the lane the vehicle shall start at
-    std::string myLane;
-
     /// The list of edges to take when given
     std::vector<const ROEdge*> myEdges;
-
-    /// The color of the vehicle
-    std::string myColor;
 
     /// The information whether the next route was read
     bool myNextRouteRead;
 
     /// The vehicle type currently being parsed
     ROVehicleType *myCurrentVehicleType;
+
+    SUMOVehicleParameter *myParameter;
+    SUMOTime myDepartureTime;
 
 private:
     /// we made the copy constructor invalid

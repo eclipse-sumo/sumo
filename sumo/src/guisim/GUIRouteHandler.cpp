@@ -49,6 +49,7 @@
 #include <utils/common/RGBColor.h>
 #include <utils/options/OptionsCont.h>
 #include <microsim/MSGlobals.h>
+#include <utils/xml/SUMOVehicleParserHelper.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -95,7 +96,7 @@ GUIRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
                                  attrs.getFloatSecure(SUMO_ATTR_DECEL, DEFAULT_VEH_B),
                                  attrs.getFloatSecure(SUMO_ATTR_SIGMA, DEFAULT_VEH_SIGMA),
                                  attrs.getFloatSecure(SUMO_ATTR_TAU, DEFAULT_VEH_TAU),
-                                 parseVehicleClass(attrs, "vehicle", id),
+                                 SUMOVehicleParserHelper::parseVehicleClass(attrs, "vtype", id),
                                  col,
                                  attrs.getFloatSecure(SUMO_ATTR_PROB, 1.));
         } catch (EmptyData &) {
@@ -138,7 +139,7 @@ GUIRouteHandler::closeRoute() throw(ProcessError)
         }
     }
     GUIRoute *route =
-        new GUIRoute(myColor, myActiveRouteID, myActiveRoute, !myAmInEmbeddedMode||myRepNumber>=1);
+        new GUIRoute(myColor, myActiveRouteID, myActiveRoute, myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1);
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
 
@@ -147,7 +148,7 @@ GUIRouteHandler::closeRoute() throw(ProcessError)
             if (myActiveRouteID[0]!='!') {
                 throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
             } else {
-                if (myVehicleControl.getVehicle(myActiveVehicleID)==0) {
+                if (myVehicleControl.getVehicle(myVehicleParameter->id)==0) {
                     throw ProcessError("Another route for vehicle '" + myActiveRouteID.substr(1) + "' exists.");
                 } else {
                     throw ProcessError("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");
@@ -163,38 +164,8 @@ GUIRouteHandler::closeRoute() throw(ProcessError)
 void
 GUIRouteHandler::openRoute(const SUMOSAXAttributes &attrs)
 {
-    myColor =
-        RGBColor::parseColor(
-            attrs.getStringSecure(SUMO_ATTR_COLOR, "1,1,0"));
+    myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, "1,1,0"));
     MSRouteHandler::openRoute(attrs);
-}
-
-
-bool
-GUIRouteHandler::parseVehicleColor(const SUMOSAXAttributes &attrs) throw()
-{
-    try {
-        myCurrentVehicleColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, "-1,-1,-1"));
-    } catch (EmptyData &) {
-        return false;
-    } catch (NumberFormatException &) {
-        return false;
-    }
-    return true;
-}
-
-
-bool
-GUIRouteHandler::closeVehicle() throw(ProcessError)
-{
-    if (MSRouteHandler::closeVehicle()) {
-        GUIVehicle *vehicle = (GUIVehicle*)myVehicleControl.getVehicle(myActiveVehicleID);
-        if (vehicle!=0&&myCurrentVehicleColor!=RGBColor(-1,-1,-1)) {
-            vehicle->setCORNColor(myCurrentVehicleColor.red(), myCurrentVehicleColor.green(), myCurrentVehicleColor.blue());
-        }
-        return true;
-    }
-    return false;
 }
 
 

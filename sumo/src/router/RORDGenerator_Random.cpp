@@ -64,9 +64,8 @@ RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
         : ROAbstractRouteDefLoader(vb, net, begin, end), myIDSupplier("Rand"),
         myCurrentTime(0), myRemoveFirst(removeFirst)
 {
-    myColor = "";
     if (OptionsCont::getOptions().isSet("random-route-color")) {
-        myColor = OptionsCont::getOptions().getString("random-route-color");
+        myColor = RGBColor::parseColor(OptionsCont::getOptions().getString("random-route-color"));
     }
 }
 
@@ -114,10 +113,11 @@ RORDGenerator_Random::myReadRoutesAtLeastUntil(SUMOTime time)
             return false;
         }
         // build trip and add
-        string id = myIDSupplier.getNext();
-        RORouteDef *route =
-            new RORouteDef_OrigDest(id, myColor, from, to, myRemoveFirst);
-        myNet.addVehicle(id, myVehicleBuilder.buildVehicle(id, route, time, 0, "", -1, 0));
+        SUMOVehicleParameter pars;
+        pars.id = myIDSupplier.getNext();
+        pars.depart = time;
+        RORouteDef *route = new RORouteDef_OrigDest(pars.id, myColor, from, to, myRemoveFirst);
+        myNet.addVehicle(pars.id, myVehicleBuilder.buildVehicle(pars, route, 0));
         myNet.addRouteDef(route);
         myReadNewRoute = true;
         // decrement counter

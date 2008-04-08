@@ -32,6 +32,8 @@
 
 #include <string>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/RGBColor.h>
+#include <utils/common/SUMOVehicleParameter.h>
 
 
 // ===========================================================================
@@ -39,7 +41,6 @@
 // ===========================================================================
 class RORouteDef;
 class ROVehicle;
-class RORunningVehicle;
 class ROVehicleType;
 
 
@@ -80,32 +81,8 @@ public:
      * @todo Why is the depart time given as an int?
      * @todo Are there tests for loading vehicles with repetition information into routers?
      */
-    virtual ROVehicle *buildVehicle(const std::string &id, RORouteDef *route,
-                                    unsigned int depart, ROVehicleType *type,
-                                    const std::string &color, int period, int repNo);
-
-
-    /** @brief Builds a "running" vehicle
-     *
-     * @param[in] id The id of the vehicle to build
-     * @param[in] route The definition of the route the vehicle to build shall use
-     * @param[in] depart The depart time of the vehicle to build
-     * @param[in] type The type of the vehicle to build
-     * @param[in] lane The lane the vehicle shall start at
-     * @param[in] pos The position the vehicle shall start at
-     * @param[in] speed The initial speed of the vehicle
-     * @param[in] color The color of the vehicle to build
-     * @param[in] period The repetition period of the vehicle to build
-     * @param[in] repNo The repetition number of the vehicle to build
-     * @return The built vehicle
-     * 
-     * @todo Are there tests for loading vehicles with repetition information into routers?
-     * @todo Are there tests for loading "running" vehicles?
-     */
-    virtual RORunningVehicle *buildRunningVehicle(const std::string &id,
-            RORouteDef *route, SUMOTime time, ROVehicleType *type,
-            const std::string &lane, SUMOReal pos, SUMOReal speed,
-            const std::string &col, int period, int repNo);
+    virtual ROVehicle *buildVehicle(const SUMOVehicleParameter &pars, 
+              RORouteDef *route, ROVehicleType *type);
 
 
 };

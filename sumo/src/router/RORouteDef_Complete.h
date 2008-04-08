@@ -32,6 +32,7 @@
 
 #include <string>
 #include "RORouteDef.h"
+#include <utils/common/RGBColor.h>
 
 
 // ===========================================================================
@@ -55,7 +56,7 @@ class RORouteDef_Complete :
 {
 public:
     /// Constructor
-    RORouteDef_Complete(const std::string &id, const std::string &color,
+    RORouteDef_Complete(const std::string &id, const RGBColor &color,
                         const std::vector<const ROEdge*> &edges) throw();
 
     /// Destructor

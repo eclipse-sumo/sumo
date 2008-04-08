@@ -33,6 +33,7 @@
 #include <string>
 #include <vector>
 #include "RORouteDef.h"
+#include <utils/common/RGBColor.h>
 
 
 // ===========================================================================
@@ -52,7 +53,7 @@ class RORouteDef_Alternatives : public RORouteDef
 {
 public:
     /// Constructor
-    RORouteDef_Alternatives(const std::string &id, const std::string &color,
+    RORouteDef_Alternatives(const std::string &id, const RGBColor &color,
                             size_t lastUsed, SUMOReal gawronBeta, SUMOReal gawronA, int maxRoutes) throw();
 
     /// Destructor

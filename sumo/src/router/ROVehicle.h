@@ -33,6 +33,8 @@
 #include <string>
 #include <iostream>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/RGBColor.h>
+#include <utils/common/SUMOVehicleParameter.h>
 
 
 // ===========================================================================
@@ -68,9 +70,8 @@ public:
      * @todo Why is the vehicle builder given?
      * @todo Why is the depart time given as an int?
      */
-    ROVehicle(ROVehicleBuilder &vb,
-              const std::string &id, RORouteDef *route, unsigned int depart,
-              ROVehicleType *type, const std::string &color, int period, int repNo);
+    ROVehicle(ROVehicleBuilder &vb, const SUMOVehicleParameter &pars, 
+              RORouteDef *route, ROVehicleType *type);
 
 
     /// @brief Destructor
@@ -149,26 +150,14 @@ protected:
 
 
 protected:
-    /// @brief The name of the vehicle
-    std::string myID;
-
-    /// @brief The color of the vehicle
-    std::string myColor;
+    /// @brief The vehicle's parameter
+    SUMOVehicleParameter myParameter;
 
     /// @brief The type of the vehicle
     ROVehicleType *myType;
 
     /// @brief The route the vehicle takes
     RORouteDef *myRoute;
-
-    /// @brief The time the vehicle shall be emitted at
-    unsigned int myDepartTime;
-
-    /// @brief The repetition period (-1 if only one vehicle shall be emitted)
-    int myRepetitionPeriod;
-
-    /// @brief The number of times such vehicles shall be emitted
-    int myRepetitionNumber;
 
 };
 

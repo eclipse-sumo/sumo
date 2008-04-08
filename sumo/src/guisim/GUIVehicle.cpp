@@ -169,14 +169,16 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack(FXObject*,FXSelector,void*)
  * GUIVehicle - methods
  * ----------------------------------------------------------------------- */
 GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
-                       std::string id, MSRoute* route,
-                       SUMOTime departTime,
+                       SUMOVehicleParameter &pars, const MSRoute* route,
                        const MSVehicleType* type,
-                       int repNo, int repOffset, int vehicleIndex) throw()
-        : MSVehicle(id, route, departTime, type, repNo, repOffset, vehicleIndex),
-        GUIGlObject(idStorage, "vehicle:"+id)
+                       int vehicleIndex) throw()
+        : MSVehicle(pars, route, type, vehicleIndex),
+        GUIGlObject(idStorage, "vehicle:"+pars.id)
 {
     myIntCORNMap[MSCORN::CORN_VEH_BLINKER] = 0;
+    if (pars.color!=RGBColor(-1,-1,-1)) {
+        myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL] = new RGBColor(pars.color);
+    }
 }
 
 
@@ -196,28 +198,6 @@ SUMOReal
 GUIVehicle::getTimeSinceLastLaneChangeAsReal() const
 {
     return (SUMOReal) myLastLaneChangeOffset;
-}
-
-
-MSVehicle *
-GUIVehicle::getNextPeriodical() const
-{
-    GUIVehicle *ret = (GUIVehicle*)MSVehicle::getNextPeriodical();
-    if (ret!=0 && hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
-        RGBColor *col = (RGBColor *)getCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL);
-        ret->setCORNColor(col->red(), col->green(), col->blue());
-    }
-    return ret;
-}
-
-
-void
-GUIVehicle::setCORNColor(SUMOReal red, SUMOReal green, SUMOReal blue)
-{
-    if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
-        delete(RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
-    }
-    myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL] = new RGBColor(red, green, blue);
 }
 
 

@@ -263,7 +263,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
 
         const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
         // go through the simulation seconds
-        for (int time=startTime; time<endTime; time+=stepOffset) {
+        for (SUMOTime time=startTime; time<endTime; time+=stepOffset) {
             // get own (departure flow)
             if ((int) mflows.size()<=(int)((time/stepOffset) - startTime)) {
                 cout << mflows.size() << ":" << (int)(time/stepOffset) - startTime << endl;

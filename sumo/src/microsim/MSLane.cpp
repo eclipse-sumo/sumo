@@ -260,7 +260,36 @@ MSLane::detectCollisions(SUMOTime timestep)
 bool
 MSLane::emit(MSVehicle& veh)
 {
-    return isEmissionSuccess(&veh, MSVehicle::State(0, 0));
+    SUMOReal pos = 0;
+    SUMOReal speed = 0;
+    const MSVehicle::DepartArrivalDefinition &pars = veh.getDepartureDefinition();
+    switch(pars.posProcedure) {
+    case DEPART_POS_GIVEN:
+        pos = pars.pos;
+        break;
+    case DEPART_POS_RANDOM:
+        // !!! tbd
+        break;
+    case DEPART_POS_FREE:
+        // !!! tbd
+        break;
+    default:
+        break;
+    }
+    switch(pars.speedProcedure) {
+    case DEPART_SPEED_GIVEN:
+        speed = pars.speed;
+        break;
+    case DEPART_SPEED_RANDOM:
+        // !!! tbd
+        break;
+    case DEPART_SPEED_MAX:
+        speed = MIN2(veh.getMaxSpeed(), maxSpeed());
+        break;
+    default:
+        break;
+    }
+    return isEmissionSuccess(&veh, MSVehicle::State(pos, speed));
     /*
     // Here the emission starts
     if (empty()) {
