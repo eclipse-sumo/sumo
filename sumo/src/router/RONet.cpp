@@ -288,7 +288,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, SUMOAbstractRouter<ROEdge,
         if (lastTime!=currentTime&&lastTime!=-1) {
             // report writing progress
             if (options.getInt("stats-period")>=0 && ((int) currentTime%options.getInt("stats-period"))==0) {
-                WRITE_MESSAGE("Read: " + toString<int>(myReadRouteNo) + ",  Discarded: " + toString<int>(myDiscardedRouteNo) + ",  Written: " + toString<int>(myWrittenRouteNo));
+                WRITE_MESSAGE("Read: " + toString(myReadRouteNo) + ",  Discarded: " + toString(myDiscardedRouteNo) + ",  Written: " + toString(myWrittenRouteNo));
             }
         }
         lastTime = currentTime;
