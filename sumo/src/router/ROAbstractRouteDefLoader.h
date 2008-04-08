@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The basic class for loading routes
+// The basic class for loading routes or route definitions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -48,7 +48,7 @@ class ROVehicleBuilder;
 // ===========================================================================
 /**
  * @class ROAbstractRouteDefLoader
- * @brief Base class for loaders of route which do have a certain format.
+ * @brief The basic class for loading routes or route definitions
  *
  * XML-reading loaders are not derived directly, but use the derived
  *  ROTypedXMLRoutesLoader class as their upper class.
