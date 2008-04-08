@@ -946,10 +946,10 @@ MSLane::init(MSEdgeControl &, MSEdge::LaneCont::const_iterator firstNeigh, MSEdg
 }
 
 
-size_t
+unsigned int
 MSLane::getVehicleNumber() const
 {
-    return myVehicles.size();
+    return (unsigned int) myVehicles.size();
 }
 
 

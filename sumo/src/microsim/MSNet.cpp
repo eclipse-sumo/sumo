@@ -251,7 +251,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
                 otherQuit = 1;
             }
         }
-        if(myTooManyVehicles>0&&myVehicleControl->getRunningVehicleNo()>myTooManyVehicles) {
+        if(myTooManyVehicles>0&&(int) myVehicleControl->getRunningVehicleNo()>myTooManyVehicles) {
             otherQuit = 2;
         }
     } while (myStep<=stop && !myVehicleControl->haveAllVehiclesQuit() && otherQuit==0);

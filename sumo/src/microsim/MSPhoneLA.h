@@ -77,8 +77,8 @@ public:
         return position_id;
     };
     /// Returns the number of vehicles calling within this cell
-    size_t getVehicleNumber() const {
-        return myCalls.size();
+    unsigned int getVehicleNumber() const {
+        return (unsigned int) myCalls.size();
     }
 
 private:

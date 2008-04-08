@@ -104,8 +104,8 @@ public:
     //void decrementDynCallCount(){ --dyncallcount; }
 
     /// Returns the number of vehicles calling within this cell
-    size_t getVehicleNumber() const {
-        return myCalls.size();
+    unsigned int getVehicleNumber() const {
+        return (unsigned int) myCalls.size();
     }
 
     void addCPhone(const std::string &device_id, MSDevice_CPhone* device_pointer);

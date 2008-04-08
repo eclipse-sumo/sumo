@@ -230,7 +230,7 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     /// returns the vehicles
     virtual const VehCont &getVehiclesSecure();
 
-    size_t getVehicleNumber() const;
+    unsigned int getVehicleNumber() const;
 
 
 
