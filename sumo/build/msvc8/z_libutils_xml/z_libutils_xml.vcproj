@@ -358,10 +358,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\xml\SUMOBaseRouteHandler.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOSAXAttributes.cpp"
 				>
 			</File>
@@ -371,6 +367,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOSAXHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\xml\SUMOVehicleParserHelper.cpp"
 				>
 			</File>
 			<File
@@ -395,10 +395,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\utils\xml\SUMOBaseRouteHandler.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOSAXAttributes.h"
 				>
 			</File>
@@ -408,6 +404,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\xml\SUMOSAXHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\utils\xml\SUMOVehicleParserHelper.h"
 				>
 			</File>
 			<File
