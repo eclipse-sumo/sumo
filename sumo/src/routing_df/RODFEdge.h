@@ -53,8 +53,12 @@ class ROLane;
 class RODFEdge : public ROEdge
 {
 public:
-    /// Constructor
-    RODFEdge(const std::string &id, int index) throw();
+    /** @brief Constructor
+     *
+     * @param[in] id The id of the edge
+     * @param[in] index The numeric id of the edge
+     */
+    RODFEdge(const std::string &id, unsigned int index) throw();
 
     /// Destructor
     ~RODFEdge() throw();

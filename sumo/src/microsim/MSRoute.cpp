@@ -206,7 +206,7 @@ MSRoute::containsAnyOf(const std::vector<MSEdge*> &edgelist) const
 
 
 const MSEdge *
-MSRoute::operator[](unsigned index)
+MSRoute::operator[](unsigned index) const
 {
     return myEdges[index];
 }

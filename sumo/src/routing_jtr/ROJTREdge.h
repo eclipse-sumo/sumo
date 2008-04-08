@@ -59,9 +59,9 @@ public:
     /** @brief Constructor
      *
      * @param[in] id The id of the edge
-     * @param[in] index The numerical id of the edge
+     * @param[in] index The numeric id of the edge
      */
-    ROJTREdge(const std::string &id, int index) throw();
+    ROJTREdge(const std::string &id, unsigned int index) throw();
 
 
     /// Destructor

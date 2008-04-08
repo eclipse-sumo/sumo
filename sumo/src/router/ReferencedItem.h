@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Something that holds the number of references to it
+// Helper base for things that are referenced and have to be saved only once
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,31 +36,36 @@
 // ===========================================================================
 /**
  * @class ReferencedItem
+ * @brief Helper base for things that are referenced and have to be saved only once
+ *
  * Basic class for structures which are referenced by other classes. The wish
- * is to have an information whether an instance of a derived class was already
- * saved (together with a referencing class) or shall be saved this time.
+ *  is to have an information whether an instance of a derived class was already
+ *  saved (together with a referencing class) or shall be saved this time.
  */
 class ReferencedItem
 {
 public:
-    /// Constructor
-    ReferencedItem() : myWasSaved(false) { }
+    /// @brief Constructor
+    ReferencedItem() throw() : myWasSaved(false) { }
 
-    /// Destructor
-    virtual ~ReferencedItem() { }
 
-    /// Returns the information whether this item was already saved
-    bool isSaved() const {
+    /// @brief Destructor
+    virtual ~ReferencedItem() throw()  { }
+
+
+    /// @brief Returns the information whether this item was already saved
+    bool isSaved() const throw()  {
         return myWasSaved;
     }
 
-    /// Marks the item as saved
-    void markSaved() {
+    /// @brief Marks the item as saved
+    void markSaved() throw()  {
         myWasSaved = true;
     }
 
+
 private:
-    /// Information whether the item was already saved
+    /// @brief Information whether the item was already saved
     bool myWasSaved;
 
 };

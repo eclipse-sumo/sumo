@@ -82,14 +82,14 @@ protected:
     /** @brief Returns the index of the edge to built
      * @return Next valid edge index
      */
-    size_t getCurrentIndex() {
+    unsigned int getCurrentIndex() throw() {
         return myCurrentIndex++;
     }
 
 
 private:
     /// @brief The next edge's index
-    size_t myCurrentIndex;
+    unsigned int myCurrentIndex;
 
 };
 

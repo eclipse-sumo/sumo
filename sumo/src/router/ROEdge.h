@@ -69,8 +69,14 @@ public:
     };
 
 
-    /// Constructor
-    ROEdge(const std::string &id, int index, bool useBoundariesOnOverride) throw();
+    /** @brief Constructor
+     *
+     * @param[in] id The id of the edge
+     * @param[in] index The numeric id of the edge
+     * @param[in] useBoundariesOnOverride Whether the edge shall use a boundary value if the requested is beyond known time scale
+     * @todo useBoundariesOnOverride should not be a member of the edge
+     */
+    ROEdge(const std::string &id, unsigned int index, bool useBoundariesOnOverride) throw();
 
     /// Destructor
     virtual ~ROEdge() throw();
@@ -115,7 +121,7 @@ public:
     SUMOReal getLength() const;
 
     /// Returns the index (numeric id) of the edge
-    size_t getNumericalID() const;
+    unsigned int getNumericalID() const;
 
     /// returns the effort for this edge only
     virtual SUMOReal getEffort(const ROVehicle *const, SUMOReal time) const;
@@ -137,7 +143,7 @@ public:
 
     SUMOReal getSpeed() const;
 
-    int getLaneNo() const;
+    unsigned int getLaneNo() const;
 
     bool prohibits(const ROVehicle * const vehicle) const;
     bool allFollowersProhibit(const ROVehicle * const vehicle) const;
@@ -178,7 +184,7 @@ protected:
     EdgeType myType;
 
     /// The index (numeric id) of the edge
-    size_t myIndex;
+    unsigned int myIndex;
 
     /// The length of the edge
     SUMOReal myLength;

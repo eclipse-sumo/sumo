@@ -58,7 +58,7 @@ bool ROEdge::myHaveWarned = false;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROEdge::ROEdge(const std::string &id, int index, bool useBoundariesOnOverride) throw()
+ROEdge::ROEdge(const std::string &id, unsigned int index, bool useBoundariesOnOverride) throw()
         : myID(id), myDist(0), mySpeed(-1),
         mySupplementaryWeightAbsolut(0),
         mySupplementaryWeightAdd(0),
@@ -82,7 +82,7 @@ ROEdge::~ROEdge() throw()
 }
 
 
-size_t
+unsigned int
 ROEdge::getNumericalID() const
 {
     return myIndex;
@@ -302,10 +302,10 @@ ROEdge::getSpeed() const
 }
 
 
-int
+unsigned int
 ROEdge::getLaneNo() const
 {
-    return myLanes.size();
+    return (unsigned int) myLanes.size();
 }
 
 

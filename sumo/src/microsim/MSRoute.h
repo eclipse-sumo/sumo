@@ -87,7 +87,7 @@ public:
     bool contains(MSEdge *edge) const;
     bool containsAnyOf(const std::vector<MSEdge*> &edgelist) const;
 
-    const MSEdge *operator[](unsigned index);
+    const MSEdge *operator[](unsigned index) const;
 
     static void dict_saveState(std::ostream &os);
     static void dict_loadState(BinaryInputDevice &bis);

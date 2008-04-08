@@ -49,7 +49,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTREdge::ROJTREdge(const std::string &id, int index) throw()
+ROJTREdge::ROJTREdge(const std::string &id, unsigned int index) throw()
         : ROEdge(id, index, false)
 {}
 
