@@ -358,11 +358,11 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\ROEdgeVector.cpp"
+				RelativePath="..\..\..\src\router\ROFrame.cpp"
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\ROFrame.cpp"
+				RelativePath="..\..\..\src\router\ROHelper.cpp"
 				>
 			</File>
 			<File
@@ -479,10 +479,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\ROEdgeVector.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\router\ROFrame.h"
 				>
 			</File>
@@ -508,10 +504,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\RONode.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\router\RONodeCont.h"
 				>
 			</File>
 			<File
