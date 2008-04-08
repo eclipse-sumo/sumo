@@ -60,7 +60,7 @@ using namespace std;
 // ===========================================================================
 // included modules
 // ===========================================================================
-GUIEdge::GUIEdge(const std::string &id, size_t numericalID,
+GUIEdge::GUIEdge(const std::string &id, unsigned int numericalID,
                  GUIGlObjectStorage &idStorage) throw()
         : MSEdge(id, numericalID),
         GUIGlObject(idStorage, "edge:" + id)

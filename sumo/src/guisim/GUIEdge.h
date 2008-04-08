@@ -73,7 +73,7 @@ public:
      * @param[in] idStorage The gl-objects storage to retrieve the gl-id for this edge from
      * @see MSEdge
      */
-    GUIEdge(const std::string &id, size_t numericalID,
+    GUIEdge(const std::string &id, unsigned int numericalID,
             GUIGlObjectStorage &idStorage) throw();
 
 
