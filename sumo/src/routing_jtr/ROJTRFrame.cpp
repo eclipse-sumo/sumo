@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Some helping methods for usage within sumo and sumo-gui
+// Sets and checks options for jtr-routing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -62,13 +62,12 @@ ROJTRFrame::fillOptions()
     oc.addCallExample("-c <CONFIGURATION>");
 
     // insert options sub-topics
-    SystemFrame::addConfigurationOptions(oc); // fill this subtopic, too
+    SystemFrame::addConfigurationOptions(oc);
     oc.addOptionSubTopic("Input");
     oc.addOptionSubTopic("Output");
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("Time");
     oc.addOptionSubTopic("Report");
-
 
     ROFrame::fillOptions(oc);
     addJTROptions();

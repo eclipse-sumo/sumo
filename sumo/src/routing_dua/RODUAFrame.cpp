@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Some helping methods for usage within sumo and sumo-gui
+// Sets and checks options for dua-routing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -69,7 +69,6 @@ RODUAFrame::fillOptions()
     oc.addOptionSubTopic("Time");
     oc.addOptionSubTopic("Report");
 
-
     // insert options
     ROFrame::fillOptions(oc);
     addImportOptions();
@@ -95,7 +94,6 @@ RODUAFrame::addImportOptions()
     oc.doRegister("sumo-input", 's', new Option_FileName());
     oc.addSynonyme("sumo", "sumo-input");
     oc.addDescription("sumo-input", "Input", "Read sumo-routes from FILE");
-
 
     // register further processing options
     // ! The subtopic "Processing" must be initialised earlier !

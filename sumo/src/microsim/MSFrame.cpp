@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Some helping methods for usage within sumo and sumo-gui
+// Sets and checks options for microsim; inits global outputs and settings
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -377,25 +377,19 @@ MSFrame::checkOptions()
 {
     OptionsCont &oc = OptionsCont::getOptions();
     bool ok = true;
-    try {
-        oc.resetWritable();
-        // check the existance of a name for simulation file
-        if (!oc.isSet("n")) {
-            MsgHandler::getErrorInstance()->inform("No network file (-n) specified.");
-            ok = false;
-        }
-        // check if the begin and the end of the simulation are supplied
-        if (!oc.isSet("b")) {
-            MsgHandler::getErrorInstance()->inform("The begin of the simulation (-b) is not specified.");
-            ok = false;
-        }
-        if (!oc.isSet("e")) {
-            MsgHandler::getErrorInstance()->inform("The end of the simulation (-e) is not specified.");
-            ok = false;
-        }
-    } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-        return false;
+    // check the existance of a name for simulation file
+    if (!oc.isSet("n")) {
+        MsgHandler::getErrorInstance()->inform("No network file (-n) specified.");
+        ok = false;
+    }
+    // check if the begin and the end of the simulation are supplied
+    if (!oc.isSet("b")) {
+        MsgHandler::getErrorInstance()->inform("The begin of the simulation (-b) is not specified.");
+        ok = false;
+    }
+    if (!oc.isSet("e")) {
+        MsgHandler::getErrorInstance()->inform("The end of the simulation (-e) is not specified.");
+        ok = false;
     }
     //
     if (oc.isSet("default-lanechange-model")) {

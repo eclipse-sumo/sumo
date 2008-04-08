@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
-// Perfoms initialisation and verification of netimport-options
+// Sets and checks options for netimport
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -189,53 +189,9 @@ NIOptionsIO::fillOptions()
 bool
 NIOptionsIO::checkOptions()
 {
-    // !!! make this live
     return true;
 }
 
-
-bool
-NIOptionsIO::checkCompleteDescription()
-{
-    return false;
-}
-
-
-bool
-NIOptionsIO::checkNodes()
-{
-    OptionsCont &oc = OptionsCont::getOptions();
-    // check the existance of a name for the nodes file
-    if (oc.isSet("n") ||
-            oc.isSet("e") ||
-            oc.isSet("visum") ||
-            oc.isSet("vissim") ||
-            oc.isSet("tiger") ||
-            oc.isSet("elmar") ||
-            oc.isSet("arcview") ||
-            oc.isSet("sumo-net")) {
-        return true;
-    }
-    MsgHandler::getErrorInstance()->inform("The nodes must be supplied.");
-    return false;
-}
-
-
-bool
-NIOptionsIO::checkEdges()
-{
-    OptionsCont &oc = OptionsCont::getOptions();
-    // check whether at least a sections or a edges file is supplied
-    if (oc.isSet("e") ||
-            oc.isSet("visum") ||
-            oc.isSet("vissim") ||
-            oc.isSet("arcview") ||
-            oc.isSet("sumo-net")) {
-        return true;
-    }
-    MsgHandler::getErrorInstance()->inform("Edges must be supplied.");
-    return false;
-}
 
 
 /****************************************************************************/

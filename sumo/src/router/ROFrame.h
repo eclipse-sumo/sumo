@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Class encapsulating options common to routers
+// Sets and checks options for routing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -42,15 +42,31 @@ class OptionsCont;
 // ===========================================================================
 /**
  * @class ROFrame
- * @brief Class encapsulating options common to routers
+ * @brief Sets and checks options for routing
+ *
+ * Normally, these methods are called from another frame (ROJTRFrame, RODUAFrame)...
  */
 class ROFrame
 {
 public:
-    /// Builds the simulation options
+    /** @brief Inserts options used by routing applications into the OptionsCont-singleton
+     * @param[in] oc The options container to fill
+     * @todo Why is the container given? Everywhere else not...
+     */
     static void fillOptions(OptionsCont &oc);
 
-    /// Checks whether options are valid
+
+    /** @brief Checks whether options are valid
+     *
+     * To be valid, 
+     * @arg an output file must be given
+     * @arg max-alternatives must not be lower than 2
+     * 
+     * @param[in] oc The options container to fill
+     * @return Whether all needed options are set
+     * @todo Why is the container given? Everywhere else not...
+     * @todo probably, more things should be checked...
+     */
     static bool checkOptions(OptionsCont &oc);
 
 };

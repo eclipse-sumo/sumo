@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Some helping methods for usage within sumo and sumo-gui
+// Sets and checks options for dua-routing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,16 +36,40 @@
 // ===========================================================================
 /**
  * @class RODUAFrame
+ * @brief Sets and checks options for dua-routing
  */
 class RODUAFrame
 {
 public:
+    /** @brief Inserts options used by duarouter into the OptionsCont-singleton
+     *
+     * As duarouter shares several options with other routing appplications, the 
+     *  insertion of these is done via a call to ROFrame::fillOptions.
+     *
+     * duarouter-specific options are added afterwards via calls to 
+     *  "addImportOptions" and "addDUAOptions".
+     */
     static void fillOptions();
 
+
+    /** @brief Checks set options from the OptionsCont-singleton for being valid for usage within duarouter
+     *
+     * Currently, this is done via a call to "ROFrame::checkOptions". 
+     *
+     * @return Whether all needed options are set
+     * @todo probably, more things should be checked...
+     */
     static bool checkOptions();
 
+
+protected:
+    /** @brief Inserts import options used by duarouter into the OptionsCont-singleton
+     */
     static void addImportOptions();
 
+
+    /** @brief Inserts dua options used by duarouter into the OptionsCont-singleton
+     */
     static void addDUAOptions();
 
 

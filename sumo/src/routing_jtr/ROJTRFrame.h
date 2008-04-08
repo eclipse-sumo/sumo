@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Some helping methods for usage within sumo and sumo-gui
+// Sets and checks options for jtr-routing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,16 +36,33 @@
 // ===========================================================================
 /**
  * @class ROJTRFrame
+ * @brief Sets and checks options for jtr-routing
  */
 class ROJTRFrame
 {
 public:
-    /// Builds the simulation options
+    /** @brief Inserts options used by jtrrouter into the OptionsCont-singleton
+     *
+     * As jtrrouter shares several options with other routing appplications, the 
+     *  insertion of these is done via a call to ROFrame::fillOptions.
+     *
+     * jtrrouer-specific options are added afterwards via calls to "addJTROptions".
+     */
     static void fillOptions();
 
+
+    /** @brief Checks set options from the OptionsCont-singleton for being valid for usage within jtrrouter
+     * @return Whether all needed options are set
+     * @todo probably, more things should be checked...
+     */
     static bool checkOptions();
 
+
+protected:
+    /** @brief Inserts options used by jtrrouter only
+     */
     static void addJTROptions();
+
 
 };
 

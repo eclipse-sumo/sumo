@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Some helping methods for usage within sumo and sumo-gui
+// Sets and checks options for microsim; inits global outputs and settings
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -44,29 +44,51 @@ class OutputDevice;
 // ===========================================================================
 /**
  * @class MSFrame
- * This class holds some helping methods needed both by the sumo and the
- * sumo-gui module.
+ * @brief Sets and checks options for microsim; inits global outputs and settings
+ *
+ * In addition to setting and checking options, this frame also sets global
+ *  values via "setMSGlobals". They are stored in MSGlobals.
+ * 
+ * Also, global output streams are initialised within "buildStreams".
+ * 
+ * @see MSGlobals
  */
 class MSFrame
 {
 public:
-    /// Builds the simulation options
+    /** @brief Inserts options used by the simulation into the OptionsCont-singleton
+     *
+     * Device-options are inserted by calling the device's "insertOptions"
+     *  -methods.
+     */
     static void fillOptions();
+
 
     /** @brief Builds the streams used possibly by the simulation */
     static void buildStreams();
 
-    /**
-     * Checks the build settings. The following constraints must be valid:
-     * - the network-file was specified (otherwise no simulation is existing)
-     * - a junction folder must be given
-     *   (otherwise no junctions can be loaded)
-     * - the begin and the end of the simulation must be given
-     * Returns true when all constraints are valid
+
+    /** @brief Checks the set options.
+     *
+     * The following constraints must be valid:
+     * @arg the network-file was specified (otherwise no simulation is existing)
+     * @arg the begin and the end of the simulation must be given
+     * @arg The default lane change model must be known
+     * @arg incremental-dua-step must be lower than incremental-dua-base
+     * If one is not, false is returned.
+     *
+     * @return Whether the settings are valid
+     * @todo Rechek usage of the lane change model
+     * @todo probably, more things should be checked...
      */
     static bool checkOptions();
 
-    /** Sets the global microsim-options */
+
+    /** @brief Sets the global microsim-options 
+     * 
+     * @param[in] oc The options container to get the values from
+     * @see MSGlobals
+     */
     static void setMSGlobals(OptionsCont &oc);
 
 };

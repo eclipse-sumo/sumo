@@ -4,7 +4,7 @@
 /// @date    Thu, 16.03.2006
 /// @version $Id$
 ///
-// missing_desc
+// Sets and checks options for df-routing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,14 +36,21 @@
 // ===========================================================================
 /**
  * @class RODFFrame
- * @brief Some IO-initialisations for the DFROUTER
+ * @brief Sets and checks options for df-routing
  */
 class RODFFrame
 {
 public:
-    /// Builds the simulation options
+    /** @brief Inserts options used by dfrouter into the OptionsCont-singleton
+     */
     static void fillOptions();
 
+
+    /** @brief Checks set options from the OptionsCont-singleton for being valid for usage within dfrouter
+     *
+     * @return Whether all needed options are set
+     * @todo Unused currently; repair/fill
+     */
     static bool checkOptions();
 
 };

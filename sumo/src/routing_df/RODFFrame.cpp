@@ -4,7 +4,7 @@
 /// @date    Thu, 16.03.2006
 /// @version $Id$
 ///
-// Some IO-initialisations for the DFROUTER
+// Sets and checks options for df-routing
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007

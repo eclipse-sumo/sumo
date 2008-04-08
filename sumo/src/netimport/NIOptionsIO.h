@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
-// Perfoms initialisation and verification of netimport-options
+// Sets and checks options for netimport
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,33 +36,25 @@
 // ===========================================================================
 /**
  * @class NIOptionsIO
- * @brief Perfoms initialisation and verification of netimport-options
- *
- * This class is used to build the container of possible commands
- * (OptionsCont-typed) and process reading of options from the command
- * line and the configuration file. The options are also veryfied inside
- * this class
+ * @brief Sets and checks options for netimport
  */
 class NIOptionsIO
 {
 public:
+    /** @brief Inserts options used by the network importer and network building modules
+     *
+     * Calls "NBNetBuilder::insertNetBuildOptions" for inserting network
+     *  building options.
+     */
     static void fillOptions();
 
+
+    /** @brief Checks set options from the OptionsCont-singleton for being valid
+     * @return Whether all needed options are set
+     * @todo Unused currently; repair/fill
+     */
     static bool checkOptions();
 
-private:
-
-    /** checks whether the given option settings are ok */
-    static bool check();
-
-    /** checks whether all needed informations are given */
-    static bool checkCompleteDescription();
-
-    /** checks whether the node file definition is given */
-    static bool checkNodes();
-
-    /** checks whether the edge file definition is given */
-    static bool checkEdges();
 
 };
 
