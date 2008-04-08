@@ -111,9 +111,9 @@ GUIRunThread::init(GUINet *net, SUMOTime start, SUMOTime end)
 FXint
 GUIRunThread::run()
 {
-    SUMOTime beg = 0;
-    SUMOTime end = 0;
-    SUMOTime end2 = -1;
+    long beg = 0;
+    long end = 0;
+    long end2 = -1;
     // perform an endless loop
     while (!myQuit) {
         // if the simulation shall be perfomed, do it
@@ -192,7 +192,7 @@ GUIRunThread::makeStep()
         if (myNet->getVehicleControl().haveAllVehiclesQuit()) {
             myHalting = true;
             e = new GUIEvent_SimulationEnded(
-                GUIEvent_SimulationEnded::ER_NO_VEHICLES, myStep-1);
+                GUIEvent_SimulationEnded::ER_NO_VEHICLES, myStep-DELTA_T);
             myEventQue.add(e);
             myEventThrow.signal();
         }
@@ -228,7 +228,7 @@ GUIRunThread::makeStep()
         if (rtf<myNet->getTooSlowRTF()) {
             myHalting = true;
             e = new GUIEvent_SimulationEnded(
-                GUIEvent_SimulationEnded::ER_NO_VEHICLES, myStep-1);
+                GUIEvent_SimulationEnded::ER_NO_VEHICLES, myStep-DELTA_T);
             myEventQue.add(e);
             myEventThrow.signal();
         }

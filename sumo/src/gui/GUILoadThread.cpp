@@ -192,8 +192,8 @@ GUILoadThread::buildVehicleControl()
 
 void
 GUILoadThread::submitEndAndCleanup(GUINet *net,
-                                   int simStartTime,
-                                   int simEndTime)
+                                   SUMOTime simStartTime,
+                                   SUMOTime simEndTime)
 {
     // remove message callbacks
     MsgHandler::getErrorInstance()->removeRetriever(myErrorRetriever);

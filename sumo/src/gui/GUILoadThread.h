@@ -36,6 +36,7 @@
 #include <FXThread.h>
 #include <utils/gui/windows/GUIAbstractLoadThread.h>
 #include <utils/foxtools/FXThreadEvent.h>
+#include <utils/common/SUMOTime.h>
 
 
 // ===========================================================================
@@ -78,7 +79,7 @@ protected:
      * This method is called both on success and failure.
      * All message callbacks to this instance are removed and the parent
      * application is informed about the loading */
-    void submitEndAndCleanup(GUINet *net, int simStartTime, int simEndTime);
+    void submitEndAndCleanup(GUINet *net, SUMOTime simStartTime, SUMOTime simEndTime);
 
 };
 
