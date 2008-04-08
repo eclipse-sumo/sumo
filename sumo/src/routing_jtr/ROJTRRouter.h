@@ -31,7 +31,6 @@
 #endif
 
 #include <utils/common/SUMOAbstractRouter.h>
-#include <router/ROEdgeVector.h>
 
 
 // ===========================================================================
