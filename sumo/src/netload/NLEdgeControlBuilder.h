@@ -133,10 +133,10 @@ public:
 
 protected:
     /// @brief A running numer for lane numbering
-    size_t myCurrentNumericalLaneID;
+    unsigned int myCurrentNumericalLaneID;
 
     /// @brief A running numer for edge numbering
-    size_t myCurrentNumericalEdgeID;
+    unsigned int myCurrentNumericalEdgeID;
 
     /** @brief storage for edges
      *
