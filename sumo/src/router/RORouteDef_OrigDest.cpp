@@ -114,7 +114,7 @@ RORouteDef_OrigDest::copy(const std::string &id) const
 }
 
 
-const ROEdgeVector &
+const std::vector<const ROEdge*> &
 RORouteDef_OrigDest::getCurrentEdgeVector() const
 {
     return myCurrent->getEdgeVector();

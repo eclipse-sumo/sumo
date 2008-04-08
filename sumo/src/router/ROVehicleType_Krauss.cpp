@@ -51,13 +51,13 @@ using namespace std;
 ROVehicleType_Krauss::ROVehicleType_Krauss(const std::string &id,
         const std::string &col, SUMOReal length, SUMOVehicleClass vclass,
         SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed,
-        SUMOReal tau)
+        SUMOReal tau) throw()
         : ROVehicleType(id, col, length, vclass), myA(a), myB(b), myEps(eps),
         myMaxSpeed(maxSpeed), myTau(tau)
 {}
 
 
-ROVehicleType_Krauss::~ROVehicleType_Krauss()
+ROVehicleType_Krauss::~ROVehicleType_Krauss() throw()
 {}
 
 

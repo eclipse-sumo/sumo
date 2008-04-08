@@ -32,7 +32,6 @@
 
 #include <string>
 #include <utils/common/Named.h>
-#include "ROEdgeVector.h"
 
 
 // ===========================================================================
@@ -52,10 +51,6 @@ class OutputDevice;
 class RORoute : public Named
 {
 public:
-    /// Constructor
-    RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
-            const ROEdgeVector &route) throw();
-
     /// Constructor
     RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
             const std::vector<const ROEdge*> &route) throw();
@@ -90,12 +85,6 @@ public:
     /// Sets the probability of the route
     void setProbability(SUMOReal prop);
 
-    /// Recomputes the costs of the route by summing up the costs for every edge
-    SUMOReal recomputeCosts(const ROVehicle *const, SUMOTime begin) const;
-
-    /// Returns the information whether the given route matches to this one
-    bool equals(RORoute *ro) const;
-
     /// Returns the number of edges in this route
     size_t size() const;
 
@@ -103,7 +92,7 @@ public:
         used if this edge is too short to emit vehicles on */
     void pruneFirst();
 
-    const ROEdgeVector &getEdgeVector() const;
+    const std::vector<const ROEdge*> &getEdgeVector() const;
 
     void recheckForLoops();
 
@@ -115,7 +104,7 @@ private:
     SUMOReal myProbability;
 
     /// The edges the route consists of
-    ROEdgeVector myRoute;
+    std::vector<const ROEdge*> myRoute;
 
 };
 

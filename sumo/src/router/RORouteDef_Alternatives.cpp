@@ -40,6 +40,7 @@
 #include "RORouteDef.h"
 #include "RORoute.h"
 #include "ROVehicle.h"
+#include "ROHelper.h"
 #include <utils/common/SUMOAbstractRouter.h>
 #include "RORouteDef_Alternatives.h"
 #include <utils/common/StdDefs.h>
@@ -125,7 +126,7 @@ RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> 
     std::vector<const ROEdge*> edges;
     router.compute(getFrom(), getTo(), &veh, begin, edges);
     RORoute *opt = new RORoute(myID, 0, 1, edges);
-    opt->setCosts(opt->recomputeCosts(&veh, begin));
+    opt->setCosts(ROHelper::recomputeCosts(opt->getEdgeVector(), &veh, begin));
     // check whether the same route was already used
     myLastUsed = findRoute(opt);
     myNewRoute = true;
@@ -148,7 +149,7 @@ int
 RORouteDef_Alternatives::findRoute(RORoute *opt) const
 {
     for (size_t i=0; i<myAlternatives.size(); i++) {
-        if (myAlternatives[i]->equals(opt)) {
+        if (ROHelper::equal(opt->getEdgeVector(), myAlternatives[i]->getEdgeVector())) {
             return i;
         }
     }
@@ -164,7 +165,7 @@ RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *cur
     // add the route when it's new
     if (myLastUsed<0) {
         myAlternatives.push_back(current);
-        myLastUsed = myAlternatives.size()-1;
+        myLastUsed = (int) myAlternatives.size() - 1;
     }
     // recompute the costs and (when a new route was added) the probabilities
     AlternativesVector::iterator i;
@@ -175,7 +176,7 @@ RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *cur
         if ((*i)!=current||!myNewRoute) {
             // recompute the costs for old routes
             SUMOReal oldCosts = alt->getCosts();
-            SUMOReal newCosts = alt->recomputeCosts(veh, begin);
+            SUMOReal newCosts = ROHelper::recomputeCosts(alt->getEdgeVector(), veh, begin);
             if (newCosts<0) {
                 throw ProcessError("Route '" + current->getID() + "' (vehicle '" + veh->getID() + "') is not valid.");
             }
@@ -228,7 +229,7 @@ RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *cur
     }
     // find the route to use
     SUMOReal chosen = RandHelper::rand();
-    size_t pos = 0;
+    int pos = 0;
     for (i=myAlternatives.begin(); i!=myAlternatives.end()-1; i++, pos++) {
         chosen = chosen - (*i)->getProbability();
         if (chosen<=0) {
@@ -273,7 +274,7 @@ RORouteDef_Alternatives::copy(const std::string &id) const
 }
 
 
-const ROEdgeVector &
+const std::vector<const ROEdge*> &
 RORouteDef_Alternatives::getCurrentEdgeVector() const
 {
     assert(myLastUsed>=0&&((size_t) myLastUsed)<myAlternatives.size());
@@ -298,7 +299,7 @@ RORouteDef_Alternatives::addExplicite(const ROVehicle *const veh, RORoute *curre
             myAlternatives.erase(myAlternatives.begin());
         }
     }
-    myLastUsed = myAlternatives.size()-1;
+    myLastUsed = (int) myAlternatives.size() - 1;
     // recompute the costs and (when a new route was added) the probabilities
     AlternativesVector::iterator i;
     for (i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
@@ -308,7 +309,7 @@ RORouteDef_Alternatives::addExplicite(const ROVehicle *const veh, RORoute *curre
         if ((*i)!=current||!myNewRoute) {
             // recompute the costs for old routes
             SUMOReal oldCosts = alt->getCosts();
-            SUMOReal newCosts = alt->recomputeCosts(veh, begin);
+            SUMOReal newCosts = ROHelper::recomputeCosts(alt->getEdgeVector(), veh, begin);
             alt->setCosts(myGawronBeta * newCosts + (SUMOReal)(1.0-myGawronBeta) * oldCosts);
         }
         if (myNewRoute) {
@@ -365,7 +366,7 @@ RORouteDef_Alternatives::removeLast()
 {
     assert(myAlternatives.size()>=2);
     myAlternatives.erase(myAlternatives.end()-1);
-    myLastUsed = myAlternatives.size()-1;
+    myLastUsed = (int) myAlternatives.size() - 1;
     // !!! recompute probabilities
 }
 

@@ -32,9 +32,9 @@
 #include <iostream>
 #include <utils/common/Named.h>
 #include <utils/common/StringUtils.h>
-#include "ROEdgeVector.h"
 #include "ROEdge.h"
 #include "RORoute.h"
+#include "ROHelper.h"
 #include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -52,13 +52,6 @@ using namespace std;
 // method definitions
 // ===========================================================================
 RORoute::RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
-                 const ROEdgeVector &route) throw()
-        : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
-        myProbability(prop), myRoute(route)
-{}
-
-
-RORoute::RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
                  const std::vector<const ROEdge*> &route) throw()
         : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
         myProbability(prop), myRoute(route)
@@ -72,7 +65,7 @@ RORoute::~RORoute() throw()
 void
 RORoute::add(ROEdge *edge)
 {
-    myRoute.add(edge);
+    myRoute.push_back(edge);
 }
 
 
@@ -109,24 +102,17 @@ RORoute::setCosts(SUMOReal costs)
 }
 
 
-SUMOReal
-RORoute::recomputeCosts(const ROVehicle *const v, SUMOTime begin) const
-{
-    return myRoute.recomputeCosts(v, begin);
-}
-
-
 const ROEdge *
 RORoute::getFirst() const
 {
-    return myRoute.getFirst();
+    return myRoute[0];
 }
 
 
 const ROEdge *
 RORoute::getLast() const
 {
-    return myRoute.getLast();
+    return myRoute[myRoute.size()-1];
 }
 
 
@@ -135,13 +121,6 @@ SUMOReal
 RORoute::getProbability() const
 {
     return myProbability;
-}
-
-
-bool
-RORoute::equals(RORoute *ro) const
-{
-    return myRoute.equals(ro->myRoute);
 }
 
 
@@ -162,11 +141,11 @@ RORoute::setProbability(SUMOReal prop)
 void
 RORoute::pruneFirst()
 {
-    myRoute.removeFirst();
+    myRoute.erase(myRoute.begin());
 }
 
 
-const ROEdgeVector &
+const std::vector<const ROEdge*> &
 RORoute::getEdgeVector() const
 {
     return myRoute;
@@ -176,7 +155,7 @@ RORoute::getEdgeVector() const
 void
 RORoute::recheckForLoops()
 {
-    myRoute.recheckForLoops();
+    ROHelper::recheckForLoops(myRoute);
 }
 
 

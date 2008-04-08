@@ -32,7 +32,6 @@
 
 #include <string>
 #include <utils/common/Named.h>
-#include "ROEdgeVector.h"
 
 
 // ===========================================================================

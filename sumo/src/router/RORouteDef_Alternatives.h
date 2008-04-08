@@ -32,7 +32,6 @@
 
 #include <string>
 #include <vector>
-#include "ROEdgeVector.h"
 #include "RORouteDef.h"
 
 
@@ -79,7 +78,7 @@ public:
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;
 
-    const ROEdgeVector &getCurrentEdgeVector() const;
+    const std::vector<const ROEdge*> &getCurrentEdgeVector() const;
 
     void invalidateLast();
 

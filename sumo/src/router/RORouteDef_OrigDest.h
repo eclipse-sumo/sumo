@@ -77,7 +77,7 @@ public:
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;
 
-    const ROEdgeVector &getCurrentEdgeVector() const;
+    const std::vector<const ROEdge*> &getCurrentEdgeVector() const;
 
 protected:
     /// The origin and the destination edge of the route

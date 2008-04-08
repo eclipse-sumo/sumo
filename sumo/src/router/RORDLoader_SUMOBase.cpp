@@ -42,7 +42,6 @@
 #include "ROVehicle.h"
 #include "RORouteDef_Alternatives.h"
 #include "RORouteDef_Complete.h"
-#include "ROEdgeVector.h"
 #include "RORoute.h"
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -212,17 +211,19 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
         }
     }
     // build the list of edges
-    ROEdgeVector *list = new ROEdgeVector();
+    std::vector<const ROEdge*> *list = new std::vector<const ROEdge*>();
     StringTokenizer st(chars);
     bool ok = true;
     while (ok&&st.hasNext()) { // !!! too slow !!!
         string id = st.next();
         ROEdge *edge = myNet.getEdge(id);
         if (edge!=0) {
-            list->add(edge);
+            list->push_back(edge);
         } else {
-            getErrorHandlerMarkInvalid()->inform("The route '" + myCurrentAlternatives->getID() + "' contains the unknown edge '" + id + "'.");
-            ok = false;
+            if(false) {
+                getErrorHandlerMarkInvalid()->inform("The route '" + myCurrentAlternatives->getID() + "' contains the unknown edge '" + id + "'.");
+                ok = false;
+            }
         }
     }
     if (ok) {

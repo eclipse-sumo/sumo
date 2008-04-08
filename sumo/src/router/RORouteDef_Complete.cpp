@@ -30,7 +30,6 @@
 
 #include <string>
 #include <deque>
-#include "ROEdgeVector.h"
 #include "ROEdge.h"
 #include "RORouteDef.h"
 #include "RORoute.h"
@@ -53,7 +52,7 @@ using namespace std;
 // ===========================================================================
 RORouteDef_Complete::RORouteDef_Complete(const std::string &id,
         const std::string &color,
-        const ROEdgeVector &edges) throw()
+        const std::vector<const ROEdge*> &edges) throw()
         : RORouteDef(id, color), myEdges(edges)
 {}
 
@@ -65,14 +64,14 @@ RORouteDef_Complete::~RORouteDef_Complete() throw()
 const ROEdge * const
 RORouteDef_Complete::getFrom() const
 {
-    return myEdges.getFirst();
+    return myEdges[0];
 }
 
 
 const ROEdge * const
 RORouteDef_Complete::getTo() const
 {
-    return myEdges.getLast();
+    return myEdges[myEdges.size()-1];
 }
 
 
@@ -99,12 +98,11 @@ RORouteDef_Complete::copy(const std::string &id) const
 }
 
 
-const ROEdgeVector &
+const std::vector<const ROEdge*> &
 RORouteDef_Complete::getCurrentEdgeVector() const
 {
     return myEdges;
 }
-
 
 
 /****************************************************************************/

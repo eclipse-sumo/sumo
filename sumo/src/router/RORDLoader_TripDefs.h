@@ -174,7 +174,7 @@ protected:
     std::string myLane;
 
     /// The list of edges to take when given
-    ROEdgeVector myEdges;
+    std::vector<const ROEdge*> myEdges;
 
     /// The color of the vehicle
     std::string myColor;

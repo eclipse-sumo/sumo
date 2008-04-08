@@ -293,7 +293,7 @@ RORDLoader_TripDefs::myCharacters(SumoXMLTag element,
                 MsgHandler::getErrorInstance()->inform("Could not find edge '" + id + "' within route '" + myID + "'.");
                 return;
             }
-            myEdges.add(edge);
+            myEdges.push_back(edge);
         }
     }
 }

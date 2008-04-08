@@ -142,7 +142,7 @@ ROVehicle::saveAllAsXML(OutputDevice &os,
     // check whether the route shall be saved
     if (!route->isSaved()) {
         // write the route
-        const ROEdgeVector &routee = route->getCurrentEdgeVector();
+        const std::vector<const ROEdge*> &routee = route->getCurrentEdgeVector();
         os << "      <route";
         const std::string &c = route->getColor();
         if (c!="") {
@@ -169,7 +169,7 @@ ROVehicle::saveAllAsXML(OutputDevice &os,
                 }
             } else {
                 // ok, only one alternative; let's write it plain
-                (*altos) << "         <route cost=\"" << routee.recomputeCosts(this, getDepartureTime());
+                (*altos) << "         <route cost=\"" << ROHelper::recomputeCosts(routee, this, getDepartureTime());
                 (*altos) << "\" probability=\"1";
                 (*altos) << "\">" << routee << "</route>\n";
             }

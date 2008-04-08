@@ -42,13 +42,13 @@
 // method definitions
 // ===========================================================================
 ROVehicleType::ROVehicleType(const std::string &id, const std::string &col,
-                             SUMOReal length, SUMOVehicleClass vclass)
+                             SUMOReal length, SUMOVehicleClass vclass) throw()
         : ReferencedItem(), myID(id), myColor(col), myLength(length),
         myClass(vclass)
 {}
 
 
-ROVehicleType::~ROVehicleType()
+ROVehicleType::~ROVehicleType() throw()
 {}
 
 

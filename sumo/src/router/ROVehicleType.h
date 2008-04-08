@@ -73,11 +73,11 @@ public:
      * @param[in] vclass The vehicle class of vehicles of this type
      */
     ROVehicleType(const std::string &id, const std::string &col,
-                  SUMOReal length, SUMOVehicleClass vclass);
+                  SUMOReal length, SUMOVehicleClass vclass) throw();
 
 
     /// @brief Destructor
-    virtual ~ROVehicleType();
+    virtual ~ROVehicleType() throw();
 
 
     /** @brief Saves the type using SUMO-XML

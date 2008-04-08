@@ -33,7 +33,6 @@
 #include <fstream>
 #include <deque>
 #include <queue>
-#include "RONodeCont.h"
 #include "ROEdge.h"
 #include "RONode.h"
 #include "RONet.h"

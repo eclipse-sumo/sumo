@@ -31,6 +31,8 @@
 #endif
 
 #include <functional>
+#include <vector>
+#include "ROEdge.h"
 #include "ROVehicle.h"
 
 
@@ -71,6 +73,25 @@ public:
         return veh1->getDepartureTime()>veh2->getDepartureTime();
     }
 };
+
+
+namespace ROHelper {
+    SUMOReal recomputeCosts(const std::vector<const ROEdge*> &edges,
+        const ROVehicle * const v, SUMOTime time);
+
+
+    bool equal(const std::vector<const ROEdge*> &edges1,
+        const std::vector<const ROEdge*> &edges2);
+
+
+    bool isTurnaround(const ROEdge *e1, const ROEdge *e2);
+
+
+    void recheckForLoops(std::vector<const ROEdge*> &edges);
+};
+
+std::ostream &operator<<(std::ostream &os, const std::vector<const ROEdge*> &ev);
+
 
 
 #endif

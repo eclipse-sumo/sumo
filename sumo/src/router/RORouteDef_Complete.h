@@ -31,7 +31,6 @@
 #endif
 
 #include <string>
-#include "ROEdgeVector.h"
 #include "RORouteDef.h"
 
 
@@ -57,7 +56,7 @@ class RORouteDef_Complete :
 public:
     /// Constructor
     RORouteDef_Complete(const std::string &id, const std::string &color,
-                        const ROEdgeVector &edges) throw();
+                        const std::vector<const ROEdge*> &edges) throw();
 
     /// Destructor
     virtual ~RORouteDef_Complete() throw();
@@ -81,11 +80,11 @@ public:
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;
 
-    const ROEdgeVector &getCurrentEdgeVector() const;
+    const std::vector<const ROEdge*> &getCurrentEdgeVector() const;
 
 protected:
     /// The list of edges the driver passes
-    ROEdgeVector myEdges;
+    mutable std::vector<const ROEdge*> myEdges;
 
     /// The begin of the route
     SUMOTime myStartTime;

@@ -36,11 +36,10 @@
 #include <deque>
 #include <vector>
 #include "ROEdge.h"
-#include "RONodeCont.h"
+#include "RONode.h"
 #include "RORouteDefCont.h"
 #include "ROVehicleCont.h"
 #include "ROVehicle.h"
-#include "ROEdgeVector.h"
 #include "ROVehicleType.h"
 
 
@@ -161,7 +160,7 @@ protected:
     VehIDCont myVehIDs;
 
     /// Known nodes
-    RONodeCont myNodes;
+    NamedObjectCont<RONode*> myNodes;
 
     /// Known edges
     NamedObjectCont<ROEdge*> myEdges;

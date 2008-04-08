@@ -44,7 +44,6 @@ class ROEdge;
 class RORoute;
 class OptionsCont;
 class ROVehicle;
-class ROEdgeVector;
 
 
 // ===========================================================================
@@ -87,7 +86,7 @@ public:
     /** @brief Returns a copy of the route definition */
     virtual RORouteDef *copy(const std::string &id) const = 0;
 
-    virtual const ROEdgeVector &getCurrentEdgeVector() const = 0;
+    virtual const std::vector<const ROEdge*> &getCurrentEdgeVector() const = 0;
 
     /** @brief returns the index of the route that was used as last
     *

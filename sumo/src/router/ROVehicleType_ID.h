@@ -54,11 +54,11 @@ public:
      * 
      * @param[in] id The id of the vehicle type
      */
-    ROVehicleType_ID(const std::string &id);
+    ROVehicleType_ID(const std::string &id) throw();
 
 
     /// @brief Destructor
-    ~ROVehicleType_ID();
+    ~ROVehicleType_ID() throw();
 
 
     /// @name inherited from ROVehicleType

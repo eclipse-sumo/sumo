@@ -29,7 +29,6 @@
 #endif
 
 #include <string>
-#include "ROEdgeVector.h"
 #include "RONode.h"
 
 #ifdef CHECK_MEMORY_LEAKS

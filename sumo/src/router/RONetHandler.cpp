@@ -38,7 +38,6 @@
 #include "ROEdge.h"
 #include "ROLane.h"
 #include "RONode.h"
-#include "ROEdgeVector.h"
 #include "RONet.h"
 #include "RONetHandler.h"
 #include "ROAbstractEdgeBuilder.h"

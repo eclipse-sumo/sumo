@@ -48,12 +48,12 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROVehicleType_ID::ROVehicleType_ID(const std::string &id)
+ROVehicleType_ID::ROVehicleType_ID(const std::string &id) throw()
         : ROVehicleType(id, "", 1, SVC_UNKNOWN)
 {}
 
 
-ROVehicleType_ID::~ROVehicleType_ID()
+ROVehicleType_ID::~ROVehicleType_ID() throw()
 {}
 
 

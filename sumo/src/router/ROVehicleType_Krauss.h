@@ -62,11 +62,11 @@ public:
     ROVehicleType_Krauss(const std::string &id, const std::string &col,
                          SUMOReal length, SUMOVehicleClass vclass,
                          SUMOReal a, SUMOReal b, SUMOReal eps, SUMOReal maxSpeed,
-                         SUMOReal tau);
+                         SUMOReal tau) throw();
 
 
     /// @brief Destructor
-    ~ROVehicleType_Krauss();
+    ~ROVehicleType_Krauss() throw();
 
 
     /// @name inherited from ROVehicleType
