@@ -181,12 +181,18 @@ class NetReader(handler.ContentHandler):
            # save shape
            edge2plotLines[edge] = (xs, ys)
            # compute color
-           c = values2[edge]
+           if edge in values2:
+               c = values2[edge]
+           else:
+               c = 0
            edge2plotColors[edge] = toColor(c, colorMap)
            # compute width
-           w = values1[edge]
-           if w>0:
-               edge2plotWidth[edge] = 10. * math.log(1 + values1[edge]) + min_width
+           if edge in values1:
+               w = values1[edge]
+               if w>0:
+                   edge2plotWidth[edge] = 10. * math.log(1 + values1[edge]) + min_width
+               else:
+                   edge2plotWidth[edge] = min_width
            else:
                edge2plotWidth[edge] = min_width
         if options.verbose:
