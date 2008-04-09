@@ -235,7 +235,12 @@ class NetReader(handler.ContentHandler):
             self.plotData(weights, options, weights._edge2value1, weights._edge2value2, options.output, colorMap)
         else:
             for i in weights._intervalBegins:
-                self.plotData(weights, options, weights._unaggEdge2value1[i], weights._unaggEdge2value2[i], options.output % i, colorMap )
+                if options.verbose:
+                    print " Processing step %d..." % i
+                output = options.output
+                if output:
+                    output = output % i
+                self.plotData(weights, options, weights._unaggEdge2value1[i], weights._unaggEdge2value2[i], output, colorMap )
 
 
     def knowsEdge(self, id):
@@ -352,8 +357,8 @@ class WeightsReader(handler.ContentHandler):
             self.valueDependantNorm(self._edge2value2, self._minValue2, self._maxValue2, tendency, percSpeed and self._value2=="speed")
         else:
             for i in weights._intervalBegins:
-                self.valueDependantNorm(self._unaggEdge2value1, self._minValue1, self._maxValue1, False, percSpeed and self._value1=="speed")
-                self.valueDependantNorm(self._unaggEdge2value2, self._minValue2, self._maxValue2, tendency, percSpeed and self._value2=="speed")
+                self.valueDependantNorm(self._unaggEdge2value1[i], self._minValue1, self._maxValue1, False, percSpeed and self._value1=="speed")
+                self.valueDependantNorm(self._unaggEdge2value2[i], self._minValue2, self._maxValue2, tendency, percSpeed and self._value2=="speed")
 
     
 
