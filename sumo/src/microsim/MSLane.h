@@ -118,8 +118,23 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     /// Check if vehicles are too close.
     virtual void detectCollisions(SUMOTime timestep);
 
-    /// Emit vehicle with speed 0 into lane if possible.
-    virtual bool emit(MSVehicle& newVeh);
+    /** @brief Emits the given vehicle
+     *
+     * The emission position and speed are determined in dependence
+     *  to the vehicle's departure definition, first.
+     *
+     * If "isReinsertion" is set, meaning the vehicle tries to
+     *  end a teleportation, then the values for the fastest
+     *  emission are used (speed=max, pos=!!!).
+     *
+     * Then, the vehicle is tried to be inserted into the lane
+     *  using these values by a call to "isEmissionSuccess".
+     *
+     * @param[in] v The vehicle to emit
+     * @param[in] isReinsertion Whether the vehicle was already emitted
+     * @return Whether the vehicle could be emitted
+     */
+    virtual bool emit(MSVehicle& v, bool isReinsertion=false) throw();
 
     /** @brief Try to emit a vehicle with speed > 0
         i.e. from a source with initial speed values. */

@@ -108,10 +108,10 @@ GUIInternalLane::setCritical(std::vector<MSLane*> &into)
 
 
 bool
-GUIInternalLane::emit(MSVehicle& newVeh)
+GUIInternalLane::emit(MSVehicle& newVeh, bool isReinsertion) throw()
 {
     myLock.lock();
-    bool ret = MSInternalLane::emit(newVeh);
+    bool ret = MSInternalLane::emit(newVeh, isReinsertion);
     myLock.unlock();
     return ret;
 }

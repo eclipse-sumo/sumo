@@ -115,8 +115,7 @@ MSVehicleContainer::moveFrom(MSVehicleContainer &cont)
     if (cont.size()==0) {
         return;
     }
-    for (VehicleHeap::iterator i=cont.array.begin()+1;
-            i!=cont.array.begin()+cont.currentSize+1; ++i) {
+    for (VehicleHeap::iterator i=cont.array.begin()+1; i!=cont.array.begin()+cont.currentSize+1; ++i) {
         VehicleDepartureVector &v = (*i);
         add(v.first, v.second);
         v.second.clear();

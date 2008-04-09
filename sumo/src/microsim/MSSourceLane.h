@@ -74,8 +74,16 @@ public:
                                  const std::vector<SUMOVehicleClass> &allowed,
                                  const std::vector<SUMOVehicleClass> &disallowed);
 
-    /// Emit vehicle with speed 0 into lane if possible.
-    virtual bool emit(MSVehicle& newVeh);
+
+    /** @brief Emits the given vehicle
+     *
+     * @param[in] v The vehicle to emit
+     * @param[in] isReinsertion Whether the vehicle was already emitted
+     * @return Whether the vehicle could be emitted
+     * @see MSLane::emit
+     * @deprecated This method should be unnecessary with complete specification implementation
+     */
+    virtual bool emit(MSVehicle& newVeh, bool isReinsertion=false) throw();
 
 protected:
     /** Tries to emit veh into lane. there are four kind of possible

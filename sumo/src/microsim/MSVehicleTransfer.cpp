@@ -86,7 +86,7 @@ MSVehicleTransfer::checkEmissions(SUMOTime time)
         VehicleInformation &desc = *i;
         MSEdge *e = (MSEdge*) desc.myVeh->getEdge();
         // check whether the vehicle may be emitted onto a following edge
-        if (e->emit(*(desc.myVeh), time)) {
+        if (e->freeLaneEmit(*(desc.myVeh), time, true)) {
             // remove from this if so
             WRITE_WARNING("Vehicle '" + desc.myVeh->getID()+ "' ends teleporting on edge '" + e->getID()+ "', simulation time " + toString(MSNet::getInstance()->getCurrentTimeStep()) + ".");
             i = myVehicles.erase(i);

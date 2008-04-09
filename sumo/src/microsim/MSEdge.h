@@ -337,13 +337,42 @@ public:
     /// @name Methods releated to vehicle emission
     /// @{
 
-    /** @brief Emission a vehicle on an appropriate lane
+    /** @brief Emits the given vehicle
+     *
+     * The procedure for choosing the proper lane is determined, first.
+     *  In dependance to this, the proper emission lane is chosen.
+     *  Emission on th most free lane, is done by a call to
+     *  "freeLaneEmit". All other cases are perfomed directly
+     *  within "emit".
+     *
+     * Emission itself is done by calling the chose lane's "emit"
+     *  method.
      *
      * @param[in] v The vehicle to emit
      * @param[in] time The current simulation time
-     * @todo Describe
+     * @return Whether the vehicle could be emitted
+     * @see freeLaneEmit
+     * @see MSLane::emit
      */
     virtual bool emit(MSVehicle &v, SUMOTime time) const throw();
+
+
+    /** @brief Emits the given vehicle on the emptiest lane
+     *
+     * The emptiest lane is determined, first, and the vehicle
+     *  is tried to be emitted on it. If this fails,
+     *  the vehicle is tried to be emitted on any of this edge's
+     *  lanes.
+     * 
+     * Emission itself is done by calling the chose lane's "emit"
+     *  method.
+     *
+     * @param[in] v The vehicle to emit
+     * @param[in] time The current simulation time
+     * @return Whether the vehicle could be emitted
+     * @see MSLane::emit
+     */
+    bool freeLaneEmit(MSVehicle &v, SUMOTime time, bool isReinsertion=false) const throw();
 
 
     /** @brief Returns the last time a vehicle could not be inserted 

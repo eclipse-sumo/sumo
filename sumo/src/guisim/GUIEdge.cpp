@@ -74,6 +74,7 @@ GUIEdge::~GUIEdge() throw()
     }
 }
 
+
 void
 GUIEdge::initGeometry(GUIGlObjectStorage &idStorage) throw()
 {

@@ -78,9 +78,11 @@ MSSourceLane::MSSourceLane(string id, SUMOReal maxSpeed,
 /////////////////////////////////////////////////////////////////////////////
 
 bool
-MSSourceLane::emit(MSVehicle& veh)
+MSSourceLane::emit(MSVehicle& veh, bool isReinsertion) throw()
 {
-    return isEmissionSuccess(&veh, MSVehicle::State(0, 0));
+    return MSLane::emit(veh, isReinsertion);
+
+    //return isEmissionSuccess(&veh, MSVehicle::State(0, 0));
     /*
     // If this lane is empty, set newVeh on position beyond safePos =
     // brakeGap(laneMaxSpeed) + MaxVehicleLength. (in the hope of that

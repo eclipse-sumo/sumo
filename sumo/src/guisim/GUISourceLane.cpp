@@ -95,10 +95,10 @@ GUISourceLane::setCritical(std::vector<MSLane*> &into)
 
 
 bool
-GUISourceLane::emit(MSVehicle& newVeh)
+GUISourceLane::emit(MSVehicle& newVeh, bool isReinsertion) throw()
 {
     myLock.lock();
-    bool ret = MSSourceLane::emit(newVeh);
+    bool ret = MSSourceLane::emit(newVeh, isReinsertion);
     myLock.unlock();
     return ret;
 }

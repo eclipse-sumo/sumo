@@ -394,7 +394,6 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
         myEdges->detectCollisions(step);
     }
     MSVehicleTransfer::getInstance()->checkEmissions(myStep);
-    // execute endOfTimestepEvents
     myEmissionEvents->execute(myStep);
 
     // persons

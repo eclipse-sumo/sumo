@@ -299,6 +299,33 @@ MSEdge::decVaporization(SUMOTime) throw(ProcessError)
 
 
 bool
+MSEdge::freeLaneEmit(MSVehicle &v, SUMOTime time, bool isReinsertion) const throw()
+{
+    const LaneCont &lanes = v.getDepartLanes();
+    int minI = 0;
+    int ir = 0;
+    unsigned int noCars = (unsigned int)(*getLanes())[0]->length();
+    for (LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); ++i, ++ir) {
+        if ((*i)->getVehicleNumber()<noCars) {
+            minI = ir;
+            noCars = (*i)->getVehicleNumber();
+        }
+    }
+    if (lanes[minI]->emit(v, isReinsertion)) {
+        return true;
+    } else {
+        ir = 0;
+        for (LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); ++i, ++ir) {
+            if (ir!=minI&&(*i)->emit(v, isReinsertion)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+
+
+bool
 MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
 {
     // when vaporizing, no vehicles are emitted...
@@ -333,35 +360,12 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
         }
         break;
     case DEPART_LANE_FREE:
-        // will be done below
-        break;
+        return freeLaneEmit(v, time);
     case DEPART_LANE_DEPARTLANE:
     default:
         return myDepartLane->emit(v);
         break;
     }
-    // DEPART_LANE_FREE
-    const LaneCont &lanes = v.getDepartLanes();
-    int minI = 0;
-    int ir = 0;
-    unsigned int noCars = (unsigned int)(*getLanes())[0]->length();
-    for (LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); ++i, ++ir) {
-        if ((*i)->getVehicleNumber()<noCars) {
-            minI = ir;
-            noCars = (*i)->getVehicleNumber();
-        }
-    }
-    if (lanes[minI]->emit(v)) {
-        return true;
-    } else {
-        ir = 0;
-        for (LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); ++i, ++ir) {
-            if (ir!=minI&&(*i)->emit(v)) {
-                return true;
-            }
-        }
-    }
-    return false;
 }
 
 

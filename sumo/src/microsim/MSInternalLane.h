@@ -93,8 +93,8 @@ public:
     virtual bool moveCritical();
 
 
-    bool emit(MSVehicle&) {
-        throw 1;
+    bool emit(MSVehicle&, bool isReinsertion=false) throw() {
+        return false;
     }
 
     void setPassPosition(SUMOReal passPos);
