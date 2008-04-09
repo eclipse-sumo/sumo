@@ -59,16 +59,11 @@ public:
     /** @brief Constructor
      *
      * @param[in] vb The vehicle builder
-     * @param[in] id The id of the vehicle
+     * @param[in] pars Parameter of this vehicle
      * @param[in] route The definition of the route the vehicle shall use
-     * @param[in] depart The depart time of the vehicle
      * @param[in] type The type of the vehicle
-     * @param[in] color The color of the vehicle
-     * @param[in] period The repetition period of the vehicle
-     * @param[in] repNo The repetition number of the vehicle
      *
      * @todo Why is the vehicle builder given?
-     * @todo Why is the depart time given as an int?
      */
     ROVehicle(ROVehicleBuilder &vb, const SUMOVehicleParameter &pars, 
               RORouteDef *route, ROVehicleType *type);

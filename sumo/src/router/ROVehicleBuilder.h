@@ -69,13 +69,9 @@ public:
 
     /** @brief Builds a vehicle
      *
-     * @param[in] id The id of the vehicle to build
+     * @param[in] pars Parameter of this vehicle
      * @param[in] route The definition of the route the vehicle to build shall use
-     * @param[in] depart The depart time of the vehicle to build
      * @param[in] type The type of the vehicle to build
-     * @param[in] color The color of the vehicle to build
-     * @param[in] period The repetition period of the vehicle to build
-     * @param[in] repNo The repetition number of the vehicle to build
      * @return The built vehicle
      * 
      * @todo Why is the depart time given as an int?
