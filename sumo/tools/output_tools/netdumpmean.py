@@ -6,10 +6,9 @@
 @version $Id: netdumpdiff.py 625 2008-03-08 14:04:01Z behr_mi $
 
 
-This script reads two network dumps 
- and subtracts the values of the second 
- from the first writing the results
- into the output file
+This script reads two network dumps,
+ computes the mean values
+ and writes the results into the output file
 
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
@@ -42,11 +41,11 @@ class WeightsReader(handler.ContentHandler):
                 if attr!="id":
                     self._edgeValues[self._beginTime][self._id][attr] = float(attrs[attr])
     
-    def sub(self, weights):
+    def mean(self, weights):
          for t in self._edgeValues:
              for e in self._edgeValues[t]:
                  for a in self._edgeValues[t][e]:
-                     self._edgeValues[t][e][a] = self._edgeValues[t][e][a] - weights._edgeValues[t][e][a]
+                     self._edgeValues[t][e][a] = (self._edgeValues[t][e][a] + weights._edgeValues[t][e][a]) / 2.
  
     def write(self, options):
         fd = open(options.output, "w")
@@ -99,8 +98,8 @@ parser.setContentHandler(weights2)
 parser.parse(options.dump2)
 # process
 if options.verbose:
-    print "Computing diff..."
-weights1.sub(weights2)
+    print "Computing mean..."
+weights1.mean(weights2)
 # save
 if options.verbose:
     print "Writing..."
