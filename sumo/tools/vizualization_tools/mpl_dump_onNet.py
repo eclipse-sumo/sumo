@@ -30,13 +30,35 @@ def toHex(val):
     hex = "0123456789abcdef"
     return hex[int(val/16)] + hex[int(val - int(val/16)*16)]
 
+def toFloat(val):
+    """Converts the given value (0-255) into its hexadecimal representation"""
+    hex = "0123456789abcdef"
+    return float(hex.find(val[0])*16 + hex.find(val[1]))
 
-def toColor(val):
+
+def toColor(val, colormap):
     """Converts the given value (0-1) into a color definition parseable by matplotlib"""
-    r = 255. - (255. * val)
-    g = 255. * val
-    b = 0
-    return "#" + toHex(r) + toHex(g) + toHex(b)
+    for i in range(0, len(colormap)-1):
+        if colormap[i+1][0]>val:
+            scale = (val - colormap[i][0]) / (colormap[i+1][0] - colormap[i][0])
+            r = colormap[i][1][0] + (colormap[i+1][1][0] - colormap[i][1][0]) * scale 
+            g = colormap[i][1][1] + (colormap[i+1][1][1] - colormap[i][1][1]) * scale 
+            b = colormap[i][1][2] + (colormap[i+1][1][2] - colormap[i][1][2]) * scale 
+            return "#" + toHex(r) + toHex(g) + toHex(b)
+    return "#" + toHex(colormap[-1][1][0]) + toHex(colormap[-1][1][1]) + toHex(colormap[-1][1][2]) 
+
+
+def parseColorMap(mapDef):
+    ret = []
+    defs = mapDef.split(",")
+    for d in defs:
+        (value, color) = d.split(":")
+        r = color[1:3]
+        g = color[3:5]
+        b = color[5:7]
+        ret.append( (float(value), ( toFloat(r), toFloat(g), toFloat(b) ) ) )
+    return ret
+
 
 
 
@@ -119,7 +141,7 @@ class NetReader(handler.ContentHandler):
     
 
 
-    def plotData(self, weights, options, values1, values2, saveName):
+    def plotData(self, weights, options, values1, values2, saveName, colorMap):
         edge2plotLines = {}
         edge2plotColors = {}
         edge2plotWidth = {}
@@ -160,15 +182,16 @@ class NetReader(handler.ContentHandler):
            edge2plotLines[edge] = (xs, ys)
            # compute color
            c = values2[edge]
-           edge2plotColors[edge] = toColor(c)
+           edge2plotColors[edge] = toColor(c, colorMap)
            # compute width
            w = values1[edge]
            if w>0:
                edge2plotWidth[edge] = 10. * math.log(1 + values1[edge]) + min_width
            else:
                edge2plotWidth[edge] = min_width
-        print "x-limits: " + str(xmin) + " - " + str(xmax)
-        print "y-limits: " + str(ymin) + " - " + str(ymax)
+        if options.verbose:
+            print "x-limits: " + str(xmin) + " - " + str(xmax)
+            print "y-limits: " + str(ymin) + " - " + str(ymax)
         # set figure size
         if not options.show:
             rcParams['backend'] = 'Agg'
@@ -202,17 +225,17 @@ class NetReader(handler.ContentHandler):
            savefig(saveName);
 
 
-    def plot(self, weights, options):
+    def plot(self, weights, options, colorMap):
         self._minValue1 = weights._minValue1
         self._minValue2 = weights._minValue2
         self._maxValue1 = weights._maxValue1
         self._maxValue2 = weights._maxValue2
 
         if options.join:
-            self.plotData(weights, options, weights._edge2value1, weights._edge2value2, options.output)
+            self.plotData(weights, options, weights._edge2value1, weights._edge2value2, options.output, colorMap)
         else:
             for i in weights._intervalBegins:
-                self.plotData(weights, options, weights._unaggEdge2value1[i], weights._unaggEdge2value2[i], options.output % i)
+                self.plotData(weights, options, weights._unaggEdge2value1[i], weights._unaggEdge2value2[i], options.output % i, colorMap )
 
 
     def knowsEdge(self, id):
@@ -321,8 +344,9 @@ class WeightsReader(handler.ContentHandler):
             for i in weights._intervalBegins:
                 self.updateExtrema(self._unaggEdge2value1[i], self._unaggEdge2value2[i])
         # norm
-        print "w range: " + str(self._minValue1) + " - " + str(self._maxValue1)
-        print "c range: " + str(self._minValue2) + " - " + str(self._maxValue2)
+        if options.verbose:
+            print "w range: " + str(self._minValue1) + " - " + str(self._maxValue1)
+            print "c range: " + str(self._minValue2) + " - " + str(self._maxValue2)
         if options.join:
             self.valueDependantNorm(self._edge2value1, self._minValue1, self._maxValue1, False, percSpeed and self._value1=="speed")
             self.valueDependantNorm(self._edge2value2, self._minValue2, self._maxValue2, tendency, percSpeed and self._value2=="speed")
@@ -361,6 +385,8 @@ optParser.add_option("--percentage-speed", action="store_true", dest="percentage
                      default=False, help="speed is normed to maximum allowed speed on an edge")
 optParser.add_option("--values", dest="values", 
                      type="string", default="entered,speed", help="which values shall be parsed")
+optParser.add_option("--color-map", dest="colormap", 
+                     type="string", default="0:#ff0000,.5:#ffff00,1:#00ff00", help="Defines the color map")
     # axes/legend
 optParser.add_option("--xticks", dest="xticks",type="string", default="",
                      help="defines ticks on x-axis")
@@ -380,6 +406,8 @@ optParser.add_option("-s", "--show", action="store_true", dest="show",
 (options, args) = optParser.parse_args()
 
 
+# init color map
+colorMap = parseColorMap(options.colormap)
 # read network
 if options.verbose:
     print "Reading net..."
@@ -400,5 +428,5 @@ if options.verbose:
 weights.norm(options.tendency_coloring, options.percentage_speed)
 if options.verbose:
     print "Plotting..."
-net.plot(weights, options)
+net.plot(weights, options, colorMap)
 
