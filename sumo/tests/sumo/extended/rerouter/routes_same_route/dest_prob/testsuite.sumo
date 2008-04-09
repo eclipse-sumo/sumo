@@ -1,6 +1,3 @@
-# Ordered list of tests in test suite. Add as appropriate
-
-
 # Rerouting begins at 0, simulation at 0; two destinations
 dest_b0_off0
 
