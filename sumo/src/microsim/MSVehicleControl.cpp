@@ -346,7 +346,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         assert(route!=0);
         type = getVType(p.vtypeid);
         assert(type!=0);
-        assert(getVehicle(id)==0);
+        assert(getVehicle(p.id)==0);
 
         MSVehicle *v = buildVehicle(p, route, type);
         if (wasEmitted != -1) {
