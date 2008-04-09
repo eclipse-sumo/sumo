@@ -16,7 +16,6 @@ All rights reserved
 """
 
 from matplotlib import rcParams
-rcParams['text.fontname'] = 'cmr10'
 from pylab import *
 import os, string, sys, StringIO
 import math
