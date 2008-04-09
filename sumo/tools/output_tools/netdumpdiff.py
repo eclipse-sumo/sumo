@@ -42,11 +42,12 @@ class WeightsReader(handler.ContentHandler):
                 if attr!="id":
                     self._edgeValues[self._beginTime][self._id][attr] = float(attrs[attr])
     
-    def sub(self, weights):
+    def sub(self, weights, exclude):
          for t in self._edgeValues:
              for e in self._edgeValues[t]:
                  for a in self._edgeValues[t][e]:
-                     self._edgeValues[t][e][a] = self._edgeValues[t][e][a] - weights._edgeValues[t][e][a]
+                     if a not in exclude:
+                         self._edgeValues[t][e][a] = self._edgeValues[t][e][a] - weights._edgeValues[t][e][a]
  
     def write(self, options):
         fd = open(options.output, "w")
@@ -80,6 +81,8 @@ optParser.add_option("-2", "--dump2", dest="dump2",
                      help="Second  dump (mandatory)", metavar="FILE")
 optParser.add_option("-o", "--output", dest="output",
                      help="Name for the output", metavar="FILE")
+optParser.add_option("-e", "--exclude", dest="exclude",
+                     help="Exclude these values from being changed (stay as in 1)", metavar="FILE")
 # parse options
 (options, args) = optParser.parse_args()
 
@@ -100,7 +103,10 @@ parser.parse(options.dump2)
 # process
 if options.verbose:
     print "Computing diff..."
-weights1.sub(weights2)
+exclude = []
+if options.exclude:
+    exclude = options.exclude.split(",")
+weights1.sub(weights2, exclude)
 # save
 if options.verbose:
     print "Writing..."
