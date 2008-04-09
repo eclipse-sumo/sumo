@@ -1,11 +1,22 @@
-#!/usr/bin/python
-# This script reads a network and a dump file and
-#  draws the network, coloring it by the values
-#  found within the dump-file
-# matplotlib has to be installed for this purpose
+#!/usr/bin/env python
+"""
+@file    mpl_dump_onNet.py
+@author  Daniel.Krajzewicz@dlr.de
+@date    2007-10-25
+@version $Id: mpl_dump_onNet.py 625 2008-03-08 14:04:01Z behr_mi $
+
+
+This script reads a network and a dump file and
+ draws the network, coloring it by the values
+ found within the dump-file.
+
+matplotlib has to be installed for this purpose
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
+"""
 
 from matplotlib import rcParams
-rcParams['text.fontname'] = 'cmr10'
 from pylab import *
 import os, string, sys, StringIO
 import math
@@ -21,7 +32,7 @@ def toHex(val):
 
 
 def toColor(val):
-    """Converts the given value (0-1) into a color definition as parseable by matplotlib"""
+    """Converts the given value (0-1) into a color definition parseable by matplotlib"""
     r = 255. - (255. * val)
     g = 255. * val
     b = 0
@@ -116,6 +127,9 @@ class NetReader(handler.ContentHandler):
         xmax = -10000000.
         ymin = 10000000.
         ymax = -10000000.
+        min_width = 0
+        if options.min_width:
+            min_width = options.min_width
         for edge in self._edge2from:
            # compute shape
            xs = []
@@ -146,28 +160,18 @@ class NetReader(handler.ContentHandler):
            edge2plotLines[edge] = (xs, ys)
            # compute color
            c = values2[edge]
-           if options.tendency_coloring:
-               if c<0:
-                   c = 0
-               else:
-                   c = 1
-           else:
-               if options.percentage_speed:
-                   c = c / self._edge2speed[edge]
-               else:
-                   c = (c-self._minValue2) / (self._maxValue2-self._minValue2)
            edge2plotColors[edge] = toColor(c)
            # compute width
            w = values1[edge]
-           if w!=0:
-               edge2plotWidth[edge] = math.log(values1[edge]) + options.min_width
+           if w>0:
+               edge2plotWidth[edge] = 10. * math.log(1 + values1[edge]) + min_width
            else:
-               edge2plotWidth[edge] = options.min_width
-           if edge2plotWidth[edge]>options.max_width:
-               edge2plotWidth[edge] = options.max_width
+               edge2plotWidth[edge] = min_width
         print "x-limits: " + str(xmin) + " - " + str(xmax)
         print "y-limits: " + str(ymin) + " - " + str(ymax)
         # set figure size
+        if not options.show:
+            rcParams['backend'] = 'Agg'
         if options.size:
             f = figure(figsize=(options.size.split(",")))
         else:
@@ -208,7 +212,7 @@ class NetReader(handler.ContentHandler):
             self.plotData(weights, options, weights._edge2value1, weights._edge2value2, options.output)
         else:
             for i in weights._intervalBegins:
-                self.plotData(weights, options, weights._unaggEdge2value1[i], weights._unaggEdge2value1[i], options.output % i)
+                self.plotData(weights, options, weights._unaggEdge2value1[i], weights._unaggEdge2value2[i], options.output % i)
 
 
     def knowsEdge(self, id):
@@ -225,7 +229,8 @@ class WeightsReader(handler.ContentHandler):
         self._id = ''
         self._edge2value2 = {}
         self._edge2value1 = {}
-        self._edge2no = {}
+        self._edge2no1 = {}
+        self._edge2no2 = {}
         self._net = net
         self._intervalBegins = []
         self._unaggEdge2value2 = {}
@@ -246,12 +251,24 @@ class WeightsReader(handler.ContentHandler):
                 if self._id not in self._edge2value2:
                     self._edge2value2[self._id] = 0
                     self._edge2value1[self._id] = 0
-                    self._edge2no[self._id] = 0
-                self._edge2value2[self._id] = self._edge2value2[self._id] + float(attrs[self._value2])
-                self._edge2value1[self._id] = self._edge2value1[self._id] + float(attrs[self._value1])
-                self._edge2no[self._id] = self._edge2no[self._id] + 1
-                self._unaggEdge2value2[self._beginTime][self._id] = float(attrs[self._value2])
-                self._unaggEdge2value1[self._beginTime][self._id] = float(attrs[self._value1])
+                    self._edge2no1[self._id] = 0
+                    self._edge2no2[self._id] = 0
+                value1 = self._value1
+                if attrs.has_key(value1):
+                    value1 = float(attrs[value1])
+                    self._edge2no1[self._id] = self._edge2no1[self._id] + 1
+                else:
+                    value1 = float(value1)
+                self._edge2value1[self._id] = self._edge2value1[self._id] + value1
+                self._unaggEdge2value1[self._beginTime][self._id] = value1
+                value2 = self._value2
+                if attrs.has_key(value2):
+                    value2 = float(attrs[value2])
+                    self._edge2no2[self._id] = self._edge2no2[self._id] + 1
+                else:
+                    value2 = float(value2)
+                self._edge2value2[self._id] = self._edge2value2[self._id] + value2
+                self._unaggEdge2value2[self._beginTime][self._id] = value2
 
 
     def updateExtrema(self, values1ByEdge, values2ByEdge):
@@ -264,28 +281,55 @@ class WeightsReader(handler.ContentHandler):
                 self._minValue2 = values2ByEdge[edge]
             if self._maxValue2==-1 or self._maxValue2<values2ByEdge[edge]:
                 self._maxValue2 = values2ByEdge[edge]
-        if self._minValue2<options.min_color:
-            self._minValue2 = options.min_color
-        if self._maxValue2>options.max_color:
-            self._maxValue2 = options.max_color
 
-    def norm(self):
+    def valueDependantNorm(self, values, minV, maxV, tendency, percSpeed):
+        if tendency:
+            for edge in self._edge2value2:
+                if values[edge]<0:
+                    values[edge] = 0
+                else:
+                    values[edge] = 1
+        elif percSpeed:
+            for edge in self._edge2value2:
+                values[edge] = (values[edge] / self._net._edge2speed[edge])
+        elif minV!=maxV:
+            for edge in self._edge2value2:
+                values[edge] = (values[edge] - minV) / (maxV - minV)
+
+
+    def norm(self, tendency, percSpeed):
         self._minValue1 = -1
         self._maxValue1 = -1
         self._minValue2 = -1
         self._maxValue2 = -1
+        # compute mean value if join is set
         if options.join:
             for edge in self._edge2value2:
-                if float(self._edge2no[edge])!=0:
-                    self._edge2value2[edge] = float(self._edge2value2[edge]) / float(self._edge2no[edge])
-                    self._edge2value1[edge] = float(self._edge2value1[edge]) / float(self._edge2no[edge])
+                if float(self._edge2no1[edge])!=0:
+                    self._edge2value1[edge] = float(self._edge2value1[edge]) / float(self._edge2no1[edge])
                 else:
-                    self._edge2value2[edge] = float(self._edge2value2[edge])
                     self._edge2value1[edge] = float(self._edge2value1[edge])
+                if float(self._edge2no2[edge])!=0:
+                    self._edge2value2[edge] = float(self._edge2value2[edge]) / float(self._edge2no2[edge])
+                else:
+                    print "ha"
+                    self._edge2value2[edge] = float(self._edge2value2[edge])
+        # compute min/max
+        if options.join:
             self.updateExtrema(self._edge2value1, self._edge2value2)
         else:
             for i in weights._intervalBegins:
                 self.updateExtrema(self._unaggEdge2value1[i], self._unaggEdge2value2[i])
+        # norm
+        print "w range: " + str(self._minValue1) + " - " + str(self._maxValue1)
+        print "c range: " + str(self._minValue2) + " - " + str(self._maxValue2)
+        if options.join:
+            self.valueDependantNorm(self._edge2value1, self._minValue1, self._maxValue1, False, percSpeed and self._value1=="speed")
+            self.valueDependantNorm(self._edge2value2, self._minValue2, self._maxValue2, tendency, percSpeed and self._value2=="speed")
+        else:
+            for i in weights._intervalBegins:
+                self.valueDependantNorm(self._unaggEdge2value1, self._minValue1, self._maxValue1, False, percSpeed and self._value1=="speed")
+                self.valueDependantNorm(self._unaggEdge2value2, self._minValue2, self._maxValue2, tendency, percSpeed and self._value2=="speed")
 
     
 
@@ -304,13 +348,13 @@ optParser.add_option("-o", "--output", dest="output",
 optParser.add_option("-j", "--join", action="store_true", dest="join",
                      default=False, help="sums up values from all read intervals")
 optParser.add_option("-w", "--min-width", dest="min_width",
-                     type="float", default=0., help="sets minimum line width")
+                     type="float", help="sets minimum line width")
 optParser.add_option("-W", "--max-width", dest="max_width",
-                     type="float", default=100., help="sets maximum line width")
+                     type="float", help="sets maximum line width")
 optParser.add_option("-c", "--min-color", dest="min_color",
-                     type="float", default=0., help="sets minimum color (between 0 and 1)")
+                     type="float", help="sets minimum color (between 0 and 1)")
 optParser.add_option("-C", "--max-color", dest="max_color",
-                     type="float", default=1., help="sets maximum color (between 0 and 1)")
+                     type="float", help="sets maximum color (between 0 and 1)")
 optParser.add_option("--tendency-coloring", action="store_true", dest="tendency_coloring",
                      default=False, help="show only 0/1 color for egative/positive values")
 optParser.add_option("--percentage-speed", action="store_true", dest="percentage_speed",
@@ -353,7 +397,7 @@ parser.parse(options.dump)
 # process
 if options.verbose:
     print "Norming weights..."
-weights.norm()
+weights.norm(options.tendency_coloring, options.percentage_speed)
 if options.verbose:
     print "Plotting..."
 net.plot(weights, options)
