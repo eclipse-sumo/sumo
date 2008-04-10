@@ -1,0 +1,60 @@
+# checks using the default lane (depart)
+lane_default
+
+# checks using the depart lane (depart)
+lane_depart
+
+# checks using a free lane (!!!)
+lane_free
+
+# checks using the given lane (lane 0)
+lane_given0
+
+# checks using the given lane (lane 1)
+lane_given1
+
+# checks using a random lane
+lane_random
+
+
+# checks using the default position (0)
+pos_default
+
+# checks using the given position (0)
+pos_given0
+
+# checks using the given position (10)
+pos_given10
+
+# checks using the given position (-10)
+pos_given-10
+
+# checks using a random position (!!!)
+pos_random
+
+
+# checks using the default speed (0)
+speed_default
+
+# checks using the given speed (0)
+speed_given0
+
+# checks using the given speed (10)
+speed_given10
+
+# checks using the maximum speed (bounded by lane's vmax)
+speed_max__lanelimit
+
+# checks using the maximum speed (bounded by veh's vmax)
+speed_max__vehlimit
+
+# checks using the random speed (bounded by lane's vmax)
+speed_random__lanelimit
+
+# checks using the random speed (bounded by veh's vmax)
+speed_random__vehlimit
+
+
+
+
+

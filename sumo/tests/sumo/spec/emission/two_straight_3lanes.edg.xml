@@ -1,0 +1,7 @@
+<edges>
+
+   <edge id="beg" speed="27.80" nolanes="3" fromnode="beg" tonode="center"/>
+   <edge id="end" speed="27.80" nolanes="3" fromnode="center" tonode="end"/>
+
+</edges>
+

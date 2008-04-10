@@ -1,0 +1,6 @@
+<routes>
+
+	<vtype id="t1" vmax="70"/>
+	<vehicle id="1" depart="0" route="1" departspeed="max"/>
+
+</routes>
