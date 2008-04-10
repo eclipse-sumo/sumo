@@ -275,6 +275,7 @@ MSLane::emit(MSVehicle& veh, bool isReinsertion) throw()
         case DEPART_SPEED_MAX:
             speed = MIN2(veh.getMaxSpeed(), maxSpeed());
             break;
+        case DEPART_SPEED_DEFAULT:
         default:
             break;
         }
@@ -289,6 +290,7 @@ MSLane::emit(MSVehicle& veh, bool isReinsertion) throw()
         case DEPART_POS_FREE:
             // !!! tbd
             break;
+        case DEPART_POS_DEFAULT:
         default:
             break;
         }

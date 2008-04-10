@@ -1,5 +1,5 @@
 <routes>
 
-	<vehicle id="1" depart="0" route="1" startpos="free"/>
+	<vehicle id="1" depart="0" route="1" departpos="free"/>
 
 </routes>

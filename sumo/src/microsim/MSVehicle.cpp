@@ -226,7 +226,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter &pars,
     // build departure definition
     DepartArrivalDefinition *d = new DepartArrivalDefinition();
     d->time = pars.depart;
-    d->lane = pars.departLane!="" ? MSLane::dictionary(pars.departLane) : 0; // !!! validate!
+    d->lane = (*(*myCurrEdge)->getLanes())[pars.departLane]; // !!! validate!
     d->laneProcedure = pars.departLaneProcedure;
     d->pos = pars.departPos;
     if(d->pos<0) {

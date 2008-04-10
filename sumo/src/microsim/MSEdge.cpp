@@ -302,26 +302,17 @@ bool
 MSEdge::freeLaneEmit(MSVehicle &v, SUMOTime time, bool isReinsertion) const throw()
 {
     const LaneCont &lanes = v.getDepartLanes();
+    // !!! what if the vehicle may not use any lane?
     int minI = 0;
     int ir = 0;
-    unsigned int noCars = (unsigned int)(*getLanes())[0]->length();
+    unsigned int noCars = (unsigned int) lanes[0]->getVehicleNumber();
     for (LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); ++i, ++ir) {
         if ((*i)->getVehicleNumber()<noCars) {
             minI = ir;
             noCars = (*i)->getVehicleNumber();
         }
     }
-    if (lanes[minI]->emit(v, isReinsertion)) {
-        return true;
-    } else {
-        ir = 0;
-        for (LaneCont::const_iterator i=lanes.begin(); i!=lanes.end(); ++i, ++ir) {
-            if (ir!=minI&&(*i)->emit(v, isReinsertion)) {
-                return true;
-            }
-        }
-    }
-    return false;
+    return lanes[minI]->emit(v, isReinsertion);
 }
 
 
@@ -351,20 +342,18 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
     const MSVehicle::DepartArrivalDefinition &pars = v.getDepartureDefinition();
     switch(pars.laneProcedure) {
     case DEPART_LANE_GIVEN:
-        pars.lane->emit(v); // !!! unsecure
-        break;
+        return pars.lane->emit(v); // !!! unsecure
     case DEPART_LANE_RANDOM:
         {
             const LaneCont &lanes = v.getDepartLanes();
             return RandHelper::getRandomFrom(lanes)->emit(v);
         }
-        break;
     case DEPART_LANE_FREE:
         return freeLaneEmit(v, time);
     case DEPART_LANE_DEPARTLANE:
+    case DEPART_LANE_DEFAULT:
     default:
         return myDepartLane->emit(v);
-        break;
     }
 }
 
