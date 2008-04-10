@@ -194,7 +194,7 @@ ODMatrix::write(SUMOTime begin, SUMOTime end,
             if (!noVtype&&(*i).type.length()!=0) {
                 dev << " type=\"" << (*i).type << "\"";
             }
-            dev << "/>\n";
+            dev << " departlane=\"free\" departspeed=\"max\"/>\n";
         }
         while (vehicles.size()!=0&&(*vehicles.rbegin()).depart==t) {
             vehicles.pop_back();
