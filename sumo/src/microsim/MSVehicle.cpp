@@ -229,6 +229,9 @@ MSVehicle::MSVehicle(SUMOVehicleParameter &pars,
     d->lane = pars.departLane!="" ? MSLane::dictionary(pars.departLane) : 0; // !!! validate!
     d->laneProcedure = pars.departLaneProcedure;
     d->pos = pars.departPos;
+    if(d->pos<0) {
+        d->pos = (*(*myCurrEdge)->getLanes())[0]->length() + d->pos; // !!! validate!
+    }
     d->posProcedure = pars.departPosProcedure;
     d->speed = pars.departSpeed;
     d->speedProcedure = pars.departSpeedProcedure;

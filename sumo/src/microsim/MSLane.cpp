@@ -269,7 +269,8 @@ MSLane::emit(MSVehicle& veh, bool isReinsertion) throw()
             speed = pars.speed;
             break;
         case DEPART_SPEED_RANDOM:
-            // !!! tbd
+            speed = MIN2(veh.getMaxSpeed(), maxSpeed());
+            speed = RandHelper::rand(speed);
             break;
         case DEPART_SPEED_MAX:
             speed = MIN2(veh.getMaxSpeed(), maxSpeed());
@@ -282,7 +283,8 @@ MSLane::emit(MSVehicle& veh, bool isReinsertion) throw()
             pos = pars.pos;
             break;
         case DEPART_POS_RANDOM:
-            // !!! tbd
+            pos = length();
+            pos = RandHelper::rand(pos);
             break;
         case DEPART_POS_FREE:
             // !!! tbd
