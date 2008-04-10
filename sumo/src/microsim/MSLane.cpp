@@ -258,7 +258,7 @@ MSLane::detectCollisions(SUMOTime timestep)
 
 
 bool
-MSLane::emit(MSVehicle& veh, bool isReinsertion)
+MSLane::emit(MSVehicle& veh, bool isReinsertion) throw()
 {
     SUMOReal pos = 0;
     SUMOReal speed = 0;
