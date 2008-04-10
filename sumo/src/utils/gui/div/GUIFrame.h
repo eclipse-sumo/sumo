@@ -4,7 +4,7 @@
 /// @date    Tue, 29.04.2005
 /// @version $Id$
 ///
-// Options-IO for gui-applications
+// Sets and checks options for gui applications
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,7 +36,7 @@
 // ===========================================================================
 /**
  * @class GUIFrame
- * @brief Options-IO for gui-applications
+ * @brief Sets and checks options for gui applications
  *
  * This class holds methods for initialising and checking options of gui-
  *  applications.
@@ -53,7 +53,11 @@ public:
 
     /** @brief Checks the options stored in the options container Singleton for being valid gui-options
     *
+    * For gui applications,
+    * @arg width and height must be > 0
+    *
     * @return False, if the options are not valid
+    * @todo probably, more things should be checked...
     */
     static bool checkInitOptions();
 
