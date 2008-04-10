@@ -87,7 +87,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
             ret->departLaneProcedure = DEPART_LANE_FREE;
         } else {
             ret->departLaneProcedure = DEPART_LANE_GIVEN;
-            ret->departLane = helper;
+            ret->departLane = TplConvert<char>::_2int(helper.c_str());;
         }
     }
     // parse depart position information
