@@ -1,0 +1,8 @@
+#Wed Apr 09 13:48:14 CEST 2008
+eclipse.preferences.version=1
+encoding//src/fcdToRoutes/GenerateTaxiRoutes.py=latin1
+encoding//src/fcdToRoutes/TaxiTrajectory.py=latin1
+encoding//src/rawFCD/GenerateRawFCD.py=latin1
+encoding//src/taxiQuantity/QuantityOverDay.py=latin1
+encoding//src/taxiQuantity/SeparateVLSArea.py=latin1
+encoding//src/taxiQuantity/TaxisPerEdge.py=latin1
