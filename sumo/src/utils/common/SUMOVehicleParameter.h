@@ -120,7 +120,8 @@ enum DepartSpeedDefinition {
 class SUMOVehicleParameter {
 public:
     SUMOVehicleParameter() 
-        : depart(-1), departLaneProcedure(DEPART_LANE_DEFAULT), 
+        : depart(-1), departLane(0),
+        departLaneProcedure(DEPART_LANE_DEFAULT), 
         departPosProcedure(DEPART_POS_DEFAULT), departSpeedProcedure(DEPART_SPEED_DEFAULT),
         repetitionNumber(-1), repetitionOffset(-1), setParameter(0)
     {
@@ -145,8 +146,8 @@ public:
 
     /// @brief The vehicle's departure time
     SUMOTime depart;
-    /// @brief (optional) The lane the vehicle shall depart from
-    std::string departLane;
+    /// @brief (optional) The lane the vehicle shall depart from (index in edge)
+    int departLane;
     /// @brief Information how the vehicle shall choose the lane to depart from
     DepartLaneDefinition departLaneProcedure;
     /// @brief (optional) The position the vehicle shall depart from
