@@ -108,17 +108,35 @@ class Net:
             for edge in vertex.outEdges:
                 if edge.target != startVertex and edge.target.update(edge):
                     updatedVertices.append(edge.target)
+        self.printRoutes(startVertex)
 
-        lastVertex = vertex
-        for startPred in lastVertex.preds:
-            vertex = lastVertex  
-            pred = startPred
-            while vertex != startVertex:
-                if pred.edge.kind == "real":
-                    print pred.edge
-                vertex = pred.edge.source
-                pred = pred.pred
-            print
+    def printRoutes(self, startVertex):
+        if options.traveltime:
+	    weight="duration"
+	else:
+	    weight="length"
+        print "<routes>"
+        for lastVertex in self._vertices:
+            for num, startPred in enumerate(lastVertex.preds):
+                vertex = lastVertex  
+                pred = startPred
+		route = ""
+		lastEdge = None
+		firstEdge = None
+                while vertex != startVertex:
+                    if pred.edge.kind == "real":
+  		        firstEdge = pred.edge
+		        if not lastEdge:
+			    lastEdge = pred.edge
+                        route = pred.edge.label + " " + route
+                    vertex = pred.edge.source
+                    pred = pred.pred
+		if lastEdge != firstEdge:
+                    print '    <route id="route%s_%s_%s" %s="%s">%s</route>'\
+		          % (num, firstEdge.label, lastEdge.label,
+			     weight, startPred.distance, route[:-1])
+	    print
+        print "</routes>"
 
 
 class NetReader(handler.ContentHandler):
@@ -140,7 +158,10 @@ class NetReader(handler.ContentHandler):
             self._net.addEdge(newEdge)
         elif name == 'lane' and self._edge != '':
             edgeObj = self._net.getEdge(self._edge)
-            edgeObj.weight = float(attrs['length'])
+	    if options.traveltime:
+                edgeObj.weight = float(attrs['length']) / float(attrs['maxspeed'])
+	    else:
+                edgeObj.weight = float(attrs['length'])
 
     def characters(self, content):
         if self._edgeString != '':
@@ -162,6 +183,8 @@ optParser.add_option("-k", "--num-paths", type="int", dest="k",
                      default=3, help="calculate the shortest k paths")
 optParser.add_option("-s", "--start-edge", dest="start", default="",
                      help="start at the start vertex of this edge")
+optParser.add_option("-t", "--travel-time", action="store_true", dest="traveltime",
+                     help="use minimum travel time instead of length")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 (options, args) = optParser.parse_args()

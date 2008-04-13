@@ -23,15 +23,18 @@ class NetReader(handler.ContentHandler):
     def __init__(self):
         self._edge = ''
         self._nb = {}
-        self._edgeL = {}
+        self._edgeLength = {}
 
     def startElement(self, name, attrs):
         if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
             self._edge = attrs['id']
             self._nb[self._edge] = set()
-            self._edgeL[self._edge] = float(attrs['Length'])
-        if name == 'cedge':
+	    if attrs.has_key('Length'):
+                self._edgeLength[self._edge] = float(attrs['Length'])
+        elif name == 'cedge':
             self._nb[self._edge].add(attrs['id'])
+        elif name == 'lane' and not self._edge in self._edgeLength:
+            self._edgeLength[self._edge] = float(attrs['length'])
 
     def hasEdge(self, edge):
         return edge in self._nb
@@ -40,7 +43,7 @@ class NetReader(handler.ContentHandler):
         return dest in self._nb[orig]
 
     def getLength(self, edge):
-        return self._edgeL[edge]
+        return self._edgeLength[edge]
 
     def getIntermediateEdge(self, orig, dest):
         for inter in self._nb[orig]:
