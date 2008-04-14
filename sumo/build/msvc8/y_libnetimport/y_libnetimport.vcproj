@@ -368,6 +368,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_SUMO.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NILoader.cpp"
 				>
 			</File>
@@ -385,18 +389,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIOSMNodesHandler.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NISUMOHandlerDepth.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NISUMOHandlerEdges.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NISUMOHandlerNodes.cpp"
 				>
 			</File>
 			<File
@@ -453,6 +445,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_SUMO.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NILoader.h"
 				>
 			</File>
@@ -470,18 +466,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIOSMNodesHandler.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NISUMOHandlerDepth.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NISUMOHandlerEdges.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NISUMOHandlerNodes.h"
 				>
 			</File>
 			<File
