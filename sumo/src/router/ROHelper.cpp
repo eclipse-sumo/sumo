@@ -121,7 +121,7 @@ recheckForLoops(std::vector<const ROEdge*> &edges)
 }
 
 
-};
+}
 
 std::ostream &operator<<(std::ostream &os, const std::vector<const ROEdge*> &ev)
 {
