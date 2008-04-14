@@ -30,6 +30,7 @@
 #include <string>
 #include <utils/xml/SUMOSAXHandler.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/common/TplConvert.h>
 #include <utils/common/MsgHandler.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>
@@ -82,7 +83,7 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
         XMLSubSys::runParser(handler, *file);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
-    // build
+    // build edges
     map<string, EdgeAttrs*> &loadedEdges = handler.myEdges;
     NBNodeCont &nodesCont = nb.getNodeCont();
     NBEdgeCont &edgesCont = nb.getEdgeCont();
@@ -106,11 +107,41 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
             delete e;
             continue;
         }
-        // assign lane attributes
+        ed->builtEdge = e;
+    }
+    // assign lane attributes (edges are built)
+    for(map<string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
+        EdgeAttrs *ed = (*i).second;
+        if(ed->builtEdge==0) {
+            // earlier errors
+            continue;
+        }
+        for(size_t j=0; j<ed->lanes.size(); ++j) {
+            const vector<EdgeLane> &connections = ed->lanes[j]->connections;
+            for(std::vector<EdgeLane>::const_iterator k=connections.begin(); k!=connections.end(); ++k) {
+                string lane = (*k).lane;
+                string edge = lane.substr(0, lane.find('_'));
+                int index = TplConvert<char>::_2int(lane.substr(lane.find('_')+1).c_str());
+                if(loadedEdges.find(edge)==loadedEdges.end()) {
+                    MsgHandler::getErrorInstance()->inform("Unknown edge given in succlane (for lane '" + lane + "').");
+                    continue;
+                }   
+                NBEdge *ce = loadedEdges.find(edge)->second->builtEdge;
+                if(ce==0) {
+                    // earlier error
+                    continue;
+                }
+                ed->builtEdge->addLane2LaneConnection(j, ce, index, false);
+            }
+        }
     }
     // clean up
     for(map<string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
-        delete (*i).second;
+        EdgeAttrs *ed = (*i).second;
+        for(vector<LaneAttrs*>::const_iterator j=ed->lanes.begin(); j!=ed->lanes.end(); ++j) {
+            delete *j;
+        }
+        delete ed;
     }
 }
 
@@ -145,6 +176,12 @@ NIImporter_SUMO::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_JUNCTION:
         addJunction(attrs);
+        break;
+    case SUMO_TAG_SUCC:
+        addSuccEdge(attrs);
+        break;
+    case SUMO_TAG_SUCCLANE:
+        addSuccLane(attrs);
         break;
     }
 }
@@ -203,8 +240,9 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs)
     // get the origin and the destination node
     myCurrentEdge->fromNode = attrs.getStringSecure(SUMO_ATTR_FROM, "");
     myCurrentEdge->toNode = attrs.getStringSecure(SUMO_ATTR_TO, "");
-    myCurrentEdge->priority = attrs.getIntSecure(SUMO_ATTR_SPEED, -1);
+    myCurrentEdge->priority = attrs.getIntSecure(SUMO_ATTR_PRIORITY, -1);
     myCurrentEdge->maxSpeed = 0;
+    myCurrentEdge->builtEdge = 0;
 }
 
 
@@ -245,6 +283,44 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs)
         return;
     }
 }
+
+
+void
+NIImporter_SUMO::addSuccEdge(const SUMOSAXAttributes &attrs)
+{
+//    string edge = attrs.getStringSecure(SUMO_ATTR_EDGE, ""); // !!! never used?
+    string lane = attrs.getStringSecure(SUMO_ATTR_LANE, "");
+    string edge = lane.substr(0, lane.find('_'));
+    int index = TplConvert<char>::_2int(lane.substr(lane.find('_')+1).c_str());
+    myCurrentEdge = 0;
+    myCurrentLane = 0;
+    if(myEdges.find(edge)==myEdges.end()) {
+        MsgHandler::getErrorInstance()->inform("Unknown edge '" + edge + "' given in succedge.");
+        return;
+    }
+    myCurrentEdge = myEdges.find(edge)->second;
+    // !!! externalize retrieval of lane index by name
+    if(myCurrentEdge->lanes.size()<(size_t) index) {
+        MsgHandler::getErrorInstance()->inform("Unknown lane '" + lane + "' given in succedge.");
+        return;
+    }
+    myCurrentLane = myCurrentEdge->lanes[(size_t) index];
+}
+
+
+void
+NIImporter_SUMO::addSuccLane(const SUMOSAXAttributes &attrs)
+{
+    if(myCurrentLane==0) {
+        // had error
+        return;
+    }
+    string lane = attrs.getStringSecure(SUMO_ATTR_LANE, "");
+    EdgeLane el;
+    el.lane = lane;
+    myCurrentLane->connections.push_back(el);
+}
+
 
 
 /****************************************************************************/

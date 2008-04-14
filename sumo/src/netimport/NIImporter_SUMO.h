@@ -39,8 +39,7 @@
 // class declarations
 // ===========================================================================
 class NBNetBuilder;
-class myEdgeCont;
-class myNodeCont;
+class NBEdge;
 class OptionsCont;
 
 
@@ -144,10 +143,33 @@ private:
      * @param[in] attrs The attributes to get the junction's values from
      */
     void addJunction(const SUMOSAXAttributes &attrs);
+
+
+    /** @brief Parses a succedge-definition and saves it by assigning "myCurrentEdge" and "myCurrentLane" to the read values
+     * @param[in] attrs The attributes to get the succedge-definition from
+     * @todo Recheck: should the junction be read? What is this attribute for?
+     */
+    void addSuccEdge(const SUMOSAXAttributes &attrs);
+
+
+    /** @brief Parses a succlane-definition and saves it into the lane's definition stored in "myCurrentLane"
+     * @param[in] attrs The attributes to get the succlane-definition from
+     */
+    void addSuccLane(const SUMOSAXAttributes &attrs);
     //@}
 
 
 private:
+    /** 
+     * @struct EdgeLane
+     * @brief A connection description, made of a destination lane
+     */
+    struct EdgeLane {
+        /// @brief The connected lane
+        std::string lane;
+    };
+
+
     /** @struct LaneAttrs
      * @brief Describes the values found in a lane's definition
      */
@@ -160,6 +182,8 @@ private:
         SUMOReal maxSpeed;
         /// @brief This lane's shape
         Position2DVector shape;
+        /// @brief This lane's connections
+        std::vector<EdgeLane> connections;
     };
 
 
@@ -181,6 +205,8 @@ private:
         SUMOReal maxSpeed;
         /// @brief This edge's lanes
         std::vector<LaneAttrs*> lanes;
+        /// @brief The built edge
+        NBEdge *builtEdge;
     };
 
 
