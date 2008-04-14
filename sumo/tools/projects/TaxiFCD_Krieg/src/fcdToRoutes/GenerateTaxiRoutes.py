@@ -73,7 +73,7 @@ def readFCD():
             routes.append([(int)(mktime(strptime(words[0],format))-simDate),words[1]])
            
     inputFile.close() 
-    print len(taxis)
+    print len(taxis)    
         
 def writeRoutes():
     """Writes the collected values in a Sumo-Routes-File"""
