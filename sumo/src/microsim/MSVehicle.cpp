@@ -1430,6 +1430,10 @@ MSVehicle::rebuildAllowedLanes(bool reinit)
             }
         }
     }
+    if(myAllowedLanes.size()==0&&myCurrEdge!=myRoute->end()) {
+        unsigned int pos = (unsigned int) distance(myRoute->begin(), myCurrEdge);
+        throw ProcessError("Route of vehicle '" + getID() + "' is invalid:\nCould not find a valid connection between edges '" + (*myRoute)[pos]->getID() + "' and '" + (*myRoute)[pos+1]->getID() + "'."); 
+    }
 }
 
 void
