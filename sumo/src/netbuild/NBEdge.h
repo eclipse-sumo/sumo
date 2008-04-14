@@ -61,9 +61,6 @@ public:
     /** lane (index) -> list of reachable edges */
     typedef std::vector<EdgeLaneVector> ReachableFromLaneVector;
 
-    /** lane (index) -> list of link priorities */
-    typedef std::vector<BoolVector> ReachablePrioritiesFromLaneVector;
-
     /** edge -> list of this edge reaching lanes */
     typedef std::map<NBEdge*, LaneVector> LanesThatSucceedEdgeCont;
 
@@ -317,8 +314,6 @@ public:
                                      bool markAs2Recheck);
 
     NBEdge *getTurnDestination() const;
-
-    typedef std::map<std::string, std::vector<std::string> > StringContMap;
 
     std::string getLaneID(size_t lane);
 
