@@ -1,18 +1,11 @@
-
-# testing XML-import
-XML
-
-# Visum import tests
-visum
-
-# Tests for elmar(2)-import
-elmar
-
 # Tests for nodes building
 node_building
 
 # Tests for building inner lanes
 inner_lanes
+
+# testing import
+import
 
 # testing meta processing
 meta
