@@ -22,3 +22,8 @@ lane_expansion
 # tests whether vclass import works
 vclasses
 
+
+# testing error input and handling
+errors
+
+

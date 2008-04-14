@@ -10,10 +10,6 @@ unknown_option
 # Test for not buildable plain output
 false_plain_output
 
-# Tests for broken XML input
-XML
-
-
 
 
 
