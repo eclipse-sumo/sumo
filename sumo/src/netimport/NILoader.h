@@ -75,11 +75,7 @@ public:
 
 private:
     /** loads data from sumo-files */
-    void loadSUMO(OptionsCont &oc);
-
-    /** loads net or logics */
-    void loadSUMOFiles(OptionsCont &oc, 
-        const std::string &files, const std::string &type);
+    //void loadSUMO(OptionsCont &oc);
 
     /** loads data from XML-files */
     void loadXML(OptionsCont &oc);

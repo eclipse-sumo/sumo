@@ -57,9 +57,7 @@
 #include <netimport/NIVisumLoader.h>
 #include <netimport/vissim/NIVissimLoader.h>
 #include <netimport/NIArcView_Loader.h>
-#include <netimport/NISUMOHandlerNodes.h>
-#include <netimport/NISUMOHandlerEdges.h>
-#include <netimport/NISUMOHandlerDepth.h>
+#include <netimport/NIImporter_SUMO.h>
 #include <netimport/NITigerLoader.h>
 #include <netimport/NIOSMEdgesHandler.h>
 #include <netimport/NIOSMNodesHandler.h>
@@ -109,7 +107,7 @@ NILoader::load(OptionsCont &oc)
         new NIXMLTypesHandler(myNetBuilder.getTypeCont());
     loadXMLType(handler, oc.getStringVector("xml-type-files"), "types");
     // try to load using different methods
-    loadSUMO(oc);
+    NIImporter_SUMO::loadNetwork(oc, myNetBuilder);
     loadVisum(oc);
     loadArcView(oc);
     loadVissim(oc);
@@ -127,15 +125,15 @@ NILoader::load(OptionsCont &oc)
     // report loaded structures
     WRITE_MESSAGE(" Import done;");
     if (myNetBuilder.getDistrictCont().size()>0) {
-        WRITE_MESSAGE("   " + toString<int>(myNetBuilder.getDistrictCont().size()) + " districts loaded.");
+        WRITE_MESSAGE("   " + toString(myNetBuilder.getDistrictCont().size()) + " districts loaded.");
     }
-    WRITE_MESSAGE("   " + toString<int>(myNetBuilder.getNodeCont().size()) + " nodes loaded.");
+    WRITE_MESSAGE("   " + toString(myNetBuilder.getNodeCont().size()) + " nodes loaded.");
     if (myNetBuilder.getTypeCont().size()>0) {
-        WRITE_MESSAGE("   " + toString<int>(myNetBuilder.getTypeCont().size()) + " types loaded.");
+        WRITE_MESSAGE("   " + toString(myNetBuilder.getTypeCont().size()) + " types loaded.");
     }
-    WRITE_MESSAGE("   " + toString<int>(myNetBuilder.getEdgeCont().size()) + " edges loaded.");
+    WRITE_MESSAGE("   " + toString(myNetBuilder.getEdgeCont().size()) + " edges loaded.");
     if (myNetBuilder.getEdgeCont().getNoEdgeSplits()>0) {
-        WRITE_MESSAGE("The split of edges was performed "+ toString<int>(myNetBuilder.getEdgeCont().getNoEdgeSplits()) + " times.");
+        WRITE_MESSAGE("The split of edges was performed "+ toString(myNetBuilder.getEdgeCont().getNoEdgeSplits()) + " times.");
     }
 }
 
@@ -143,30 +141,17 @@ NILoader::load(OptionsCont &oc)
 /* -------------------------------------------------------------------------
  * file loading methods
  * ----------------------------------------------------------------------- */
+/*
 void
 NILoader::loadSUMO(OptionsCont &oc)
 {
     // load the network
     if (oc.isUsableFileList("sumo-net")) {
-        loadSUMOFiles(oc, oc.getString("sumo-net"), "sumo-net");
+        loadXMLType(new NIImporter_SUMO(myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont()),
+                oc.getStringVector("sumo-net"), "sumo-net");
     }
 }
-
-
-void
-NILoader::loadSUMOFiles(OptionsCont &, const string &/*files*/,
-                        const string &/*type*/)
-{
-    // build the handlers to load the data
-    std::vector<SUMOSAXHandler*> handlers;
-        handlers.push_back(
-            new NISUMOHandlerNodes(myNetBuilder.getNodeCont()));
-        handlers.push_back(
-            new NISUMOHandlerEdges(myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont()));
-        handlers.push_back(
-            new NISUMOHandlerDepth());
-}
-
+*/
 
 void
 NILoader::loadXML(OptionsCont &oc)
