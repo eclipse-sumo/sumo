@@ -1468,6 +1468,13 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
         // prese values
         LaneQ q;
         MSLane *qqq = (*k)->getLane();
+        if(qqq==0) {
+            q.hindernisPos = 0;
+            q.length = 0;
+            q.alllength = 0;
+            //throw ProcessError("Route of vehicle '" + getID() + "' is invalid:\nCould not find a valid follower of lane '" + l->getID() + "'."); 
+            continue;
+        }
         q.hindernisPos = qqq->getVehLenSum();
         q.length = qqq->length();
         q.alllength = 0;
@@ -1533,6 +1540,9 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
             for (MSEdge::LaneCont::const_iterator i=clanes->begin(); i!=clanes->end(); ++i) {
                 // go over all connected lanes
                 for (MSLinkCont::const_iterator k=lc.begin(); k!=lc.end(); ++k) {
+                    if((*k)->getLane()==0) {
+                        continue;
+                    }
                     // the best lane must be on the proper edge
                     if ((*k)->getLane()->getEdge()==*(ce)) {
                         MSEdge::LaneCont::const_iterator l=find(lanes->begin(), lanes->end(), (*k)->getLane());

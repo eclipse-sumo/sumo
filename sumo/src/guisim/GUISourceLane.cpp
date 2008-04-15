@@ -68,9 +68,14 @@ bool
 GUISourceLane::moveNonCritical()
 {
     myLock.lock();
-    bool ret = MSSourceLane::moveNonCritical();
-    myLock.unlock();
-    return ret;
+    try {
+        bool ret = MSSourceLane::moveNonCritical();
+        myLock.unlock();
+        return ret;
+    } catch (ProcessError &) {
+        myLock.unlock();
+        throw;
+    }
 }
 
 
@@ -78,9 +83,14 @@ bool
 GUISourceLane::moveCritical()
 {
     myLock.lock();
-    bool ret = MSSourceLane::moveCritical();
-    myLock.unlock();
-    return ret;
+    try {
+        bool ret = MSSourceLane::moveCritical();
+        myLock.unlock();
+        return ret;
+    } catch (ProcessError &) {
+        myLock.unlock();
+        throw;
+    }
 }
 
 
@@ -88,9 +98,14 @@ bool
 GUISourceLane::setCritical(std::vector<MSLane*> &into)
 {
     myLock.lock();
-    bool ret = MSSourceLane::setCritical(into);
-    myLock.unlock();
-    return ret;
+    try {
+        bool ret = MSSourceLane::setCritical(into);
+        myLock.unlock();
+        return ret;
+    } catch (ProcessError &) {
+        myLock.unlock();
+        throw;
+    }
 }
 
 
@@ -108,9 +123,14 @@ bool
 GUISourceLane::isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &vstate)
 {
     myLock.lock();
-    bool ret = MSSourceLane::isEmissionSuccess(aVehicle, vstate);
-    myLock.unlock();
-    return ret;
+    try {
+        bool ret = MSSourceLane::isEmissionSuccess(aVehicle, vstate);
+        myLock.unlock();
+        return ret;
+    } catch (ProcessError &) {
+        myLock.unlock();
+        throw;
+    }
 }
 
 
@@ -126,9 +146,14 @@ MSVehicle *
 GUISourceLane::removeFirstVehicle()
 {
     myLock.lock();
-    MSVehicle *ret = MSLane::removeFirstVehicle();
-    myLock.unlock();
-    return ret;
+    try {
+        MSVehicle *ret = MSLane::removeFirstVehicle();
+        myLock.unlock();
+        return ret;
+    } catch (ProcessError &) {
+        myLock.unlock();
+        throw;
+    }
 }
 
 
@@ -136,9 +161,14 @@ MSVehicle *
 GUISourceLane::removeVehicle(MSVehicle * remVehicle)
 {
     myLock.lock();
-    MSVehicle *ret = MSLane::removeVehicle(remVehicle);
-    myLock.unlock();
-    return ret;
+    try {
+        MSVehicle *ret = MSLane::removeVehicle(remVehicle);
+        myLock.unlock();
+        return ret;
+    } catch (ProcessError &) {
+        myLock.unlock();
+        throw;
+    }
 }
 
 
@@ -162,8 +192,13 @@ void
 GUISourceLane::swapAfterLaneChange()
 {
     myLock.lock();
-    MSLane::swapAfterLaneChange();
-    myLock.unlock();
+    try {
+        MSLane::swapAfterLaneChange();
+        myLock.unlock();
+    } catch (ProcessError &) {
+        myLock.unlock();
+        throw;
+    }
 }
 
 
@@ -171,9 +206,14 @@ bool
 GUISourceLane::integrateNewVehicle()
 {
     myLock.lock();
-    bool ret = MSLane::integrateNewVehicle();
-    myLock.unlock();
-    return ret;
+    try {
+        bool ret = MSLane::integrateNewVehicle();
+        myLock.unlock();
+        return ret;
+    } catch (ProcessError &) {
+        myLock.unlock();
+        throw;
+    }
 }
 
 
@@ -188,8 +228,13 @@ void
 GUISourceLane::detectCollisions(SUMOTime timestep)
 {
     myLock.lock();
-    MSLane::detectCollisions(timestep);
-    myLock.unlock();
+    try {
+        MSLane::detectCollisions(timestep);
+        myLock.unlock();
+    } catch (ProcessError &) {
+        myLock.unlock();
+        throw; 
+    }
 }
 
 
@@ -197,9 +242,14 @@ MSVehicle*
 GUISourceLane::pop()
 {
     myLock.lock();
-    MSVehicle *ret = MSLane::pop();
-    myLock.unlock();
-    return ret;
+    try {
+        MSVehicle *ret = MSLane::pop();
+        myLock.unlock();
+        return ret;
+    } catch (ProcessError &) {
+        myLock.unlock();
+        throw;
+    }
 }
 
 
