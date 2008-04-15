@@ -127,6 +127,7 @@ public:
 
 
 
+public:
     /// @name OutputDevice member methods
     /// @{
 
@@ -156,10 +157,16 @@ public:
 
 
     /** @brief Writes an XML header with optional configuration
+     *
+     * If something has been written (myXMLStack is not empty), nothing
+     *  is written and false returned. 
+     *
      * @param[in] rootElement The root element to use
      * @param[in] writeConfig Whether the configuration used while this file was generated shall be saved
      * @param[in] attrs Additional attributes to save within the rootElement
      * @param[in] comment Additional comment (saved in front the rootElement)
+     * @todo Check which parameter is used herein
+     * @todo Describe what is saved
      */
     bool writeXMLHeader(const std::string &rootElement,
                         const bool writeConfig=true,
@@ -184,8 +191,8 @@ public:
      * The topmost xml-element from the stack is written into the stream
      *  as a closing element ("</" + element + ">") and is then removed from
      *  the stack.
-
-     * @returns Whether the a further element existed in the stack and could be closed
+     * @returns Whether a further element existed in the stack and could be closed
+     * @todo it is not verified that the topmost element was closed
      */
     bool closeTag() throw();
 

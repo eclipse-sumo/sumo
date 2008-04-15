@@ -134,7 +134,7 @@ public:
 
 
 private:
-    /// @brief The necapsulated stream
+    /// @brief The encapsulated stream
     std::ifstream myStream;
 
     /// @brief The buffer used for string parsing

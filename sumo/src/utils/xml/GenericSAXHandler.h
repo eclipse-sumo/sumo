@@ -109,7 +109,7 @@ public:
 
 
     /**
-     * @brief parametrised constructor
+     * @brief Constructor
      *
      * This constructor gets the lists of known tag and attribute names with
      *  their enums (sumotags and sumoattrs in most cases). The list is closed
@@ -127,7 +127,7 @@ public:
     GenericSAXHandler(Tag *tags, Attr *attrs) throw();
 
 
-    /** destructor */
+    /** @brief Destructor */
     virtual ~GenericSAXHandler() throw();
 
 
@@ -340,6 +340,9 @@ protected:
      * @brief Callback method for an opening tag to implement by derived classes
      *
      * Called by "startElement" (see there).
+     * @param[in] element The element that contains the characters, given as a SumoXMLTag
+     * @param[in] attrs The SAX-attributes, wrapped as SUMOSAXAttributes
+     * @exceptions ProcessError These method may throw a ProcessError if something fails
      */
     virtual void myStartElement(SumoXMLTag element,
                                 const SUMOSAXAttributes &attrs) throw(ProcessError);
@@ -349,6 +352,9 @@ protected:
      * @brief Callback method for characters to implement by derived classes
      *
      * Called by "endElement" (see there).
+     * @param[in] element The opened element, given as a SumoXMLTag
+     * @param[in] chars The complete embedded character string
+     * @exceptions ProcessError These method may throw a ProcessError if something fails
      */
     virtual void myCharacters(SumoXMLTag element,
                               const std::string &chars) throw(ProcessError);
@@ -357,6 +363,8 @@ protected:
     /** @brief Callback method for a closing tag to implement by derived classes
      *
      * Called by "endElement" (see there).
+     * @param[in] element The closed element, given as a SumoXMLTag
+     * @exceptions ProcessError These method may throw a ProcessError if something fails
      */
     virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
 
@@ -366,6 +374,8 @@ private:
      * @brief converts from c++-string into unicode
      *
      * @todo recheck encoding
+     * @param[in] name The string to convert
+     * @return The string converted into a XMLCh-string
      */
     XMLCh *convert(const std::string &name) const throw();
 
@@ -375,6 +385,8 @@ private:
      *
      * Returns the enum-representation stored for the given tag. If the tag is not
      *  known, SUMO_TAG_NOTHING is returned.
+     * @param[in] tag The string to convert
+     * @return The SumoXMLTag-value that represents the string, SUMO_TAG_NOTHING if the named attribute is not known
      */
     SumoXMLTag convertTag(const std::string &tag) const throw();
 
