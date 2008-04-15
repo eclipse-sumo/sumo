@@ -2280,7 +2280,7 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
             newTo->addIncomingEdge(currentEdge);
         } else {
             string edgename = myID + "[" + toString(i-1) + "]";
-            currentEdge = new NBEdge(edgename, edgename, newFrom, newTo, myType, mySpeed, myNolanes,
+            currentEdge = new NBEdge(edgename, newFrom, newTo, myType, mySpeed, myNolanes,
                                      myPriority, myLaneSpreadFunction, myBasicType);
             if (!ec.insert(currentEdge)) {
                 throw ProcessError("Error on adding splitted edge '" + edgename + "'.");
