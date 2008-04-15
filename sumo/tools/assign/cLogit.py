@@ -138,8 +138,11 @@ def main():
     matrixCounter = 0
     vehID = 0
     MatrixSum = 0.0
-    first =True
     lohse = False
+    checkKPaths = False
+    if KPaths > 1:
+        checkKPaths = True    
+    
     net.initialPathSet()
     # initialize the map for recording the number of the assigned vehicles
     AssignedVeh = {}
@@ -181,6 +184,12 @@ def main():
         foutlog.write('number of current startVertices:%s\n' %len(startVertices))
         foutlog.write('number of current endVertices:%s\n' %len(endVertices))
         
+        for edgeID in net._edges:
+            edge = net._edges[edgeID]
+            edge.flow = 0.
+            edge.helpflow = 0.
+            edge.getActualTravelTime(options.curvefile)
+         
         # the number of origins, the umber of destinations and the number of the OD pairs
         origins = len(startVertices)                                    
         dests = len(endVertices)
@@ -193,25 +202,31 @@ def main():
         
         # initialization    
         iter_outside = 1
-        newRoutes = 0
+        newRoutes = 1
         stable = False
-        
+        first =True
         # execute the traffic assignment based on the C-Logit Model 
-        while iter_outside == 1 or newRoutes > 0:
+        while newRoutes > 0:
             iter_inside = 1
             foutlog.write('- SUE iteration:%s\n' %iter_outside)
             # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
-            if first and KPaths > 1:
-                newRoutes = net.calcPaths(options.verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort)
+            if checkKPaths:
+                newRoutes = net.calcKPaths(options.verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort)
                 foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
+                
                 if options.verbose:
                     print 'KPaths:', KPaths 
                     print 'number of new routes:', newRoutes
-            else:
+            elif not checkKPaths and iter_outside == 1 and counter == 0:
                 newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
-
+            
+            checkKPaths = False
+            
             if options.verbose:
                 print 'number of new routes:', newRoutes
+            print 'iter_outside:', iter_outside
+            print 'iter_inside:', iter_inside
+            print 'newroutes:', newRoutes
               
             stable = False            
             while not stable:
@@ -226,6 +241,8 @@ def main():
 #                stable = doCLogitAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter_inside, first)
                 stable = doSUEAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
                 iter_inside += 1
+                
+                newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
                 
                 if options.verbose:
                     print 'stable:', stable

@@ -126,10 +126,10 @@ def doSUEAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertices,
                 
                 if not lohse:
                     if edge.flow > 0.:
-                        if abs(edge.flow-exflow) > float(Parcontrol[8]):
+                        if abs(edge.flow-exflow)/edge.flow > float(Parcontrol[8]):
                             notstable += 1
                     elif edge.flow == 0.:
-                        if exflow != 0. and abs(edge.flow-exflow) > float(Parcontrol[8]):
+                        if exflow != 0. and abs(edge.flow-exflow)/exflow > float(Parcontrol[8]):
                             notstable += 1
                     elif edge.flow < 0.:
                         notstable += 1

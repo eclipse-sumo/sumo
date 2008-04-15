@@ -11,7 +11,7 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import os, random, string, sys, datetime, math
+import os, random, string, sys, datetime, math, operator
 from xml.sax import saxutils, make_parser, handler
 from elements import Predecessor, Vertex, Edge, Vehicle, Path
 
@@ -59,11 +59,16 @@ class Net:
             for endVertex in self._endVertices:
                 self._paths[startVertex][endVertex] = []
     
+    def cleanPathSet(self):
+        for startVertex in self._startVertices:
+            for endVertex in self._endVertices:
+                self._paths[startVertex][endVertex] = []
+                
     def addAssignment(self, assignObj):
         self._assignments[assignObj.label] = assignObj
         
 #    find the k shortest paths for each OD pair. The "k" is defined by users.
-    def calcPaths(self, verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort):
+    def calcKPaths(self, verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort):
         if verbose:
             foutkpath = file('kpaths.txt', 'w')
         start = -1
@@ -88,40 +93,72 @@ class Net:
     
             for endVertex in endVertices:
                 end += 1
+                ODPaths = self._paths[startVertex][endVertex]
                 if verbose:
                     print 'Number of the new Routes:', newRoutes
                 if str(startVertex) != str(endVertex) and matrixPshort[start][end] != 0.:
                     for startPred in endVertex.preds:
-                        newpath = Path()
-                        newpath.usedcounts += 1
-                        self._paths[startVertex][endVertex].append(newpath)
-                        newpath.source = startVertex
-                        newpath.target = endVertex
-                        
+                        temppath = []
+                        temppathcost = 0.
                         pred = startPred
                         vertex = endVertex
                         while vertex != startVertex:
                             if pred.edge.kind == "real":
-                                newpath.Edges.append(pred.edge)
+                                temppath.append(pred.edge)
                             vertex = pred.edge.source
                             pred = pred.pred
+                        
+                        for edge in temppath:
+                            temppathcost += edge.freeflowtime
+                        
+                        if len(ODPaths) > 0:
+                            minpath = min(ODPaths, key=operator.attrgetter('freepathtime'))
+                            if minpath.freepathtime*1.4 < temppathcost/3600.:
+                                if startVertex.label == "0" and endVertex.label == "5":
+                                    print '+++++++++start:', startVertex
+                                    print '+++++++++minpath.freepathtime:',minpath.freepathtime
+                                    print '+++++++++temppathcost:', temppathcost
+                                break
+                                
+                            else:
+                                newpath = Path()
+                                newpath.usedcounts += 1
+                                ODPaths.append(newpath)
+                                newpath.source = startVertex
+                                newpath.target = endVertex
+                                temppath.reverse()
+                                newpath.Edges = temppath
+                                newpath.freepathtime = temppathcost/3600.
+                                newpath.actpathtime = newpath.freepathtime
+                                newRoutes += 1
+                                if verbose:
+                                    foutkpath.write('\npathID:%s, source:%s, target:%s, Edges:' %(newpath.label, newpath.source, newpath.target))  
+                                    for edge in newpath.Edges:
+                                        foutkpath.write('%s, ' %(edge.label))
 
-                        newpath.Edges.reverse()    
-                        if verbose:
-                            foutkpath.write('\npathID:%s, source:%s, target:%s, Edges:' %(newpath.label, newpath.source, newpath.target))  
-    
-                        for edge in newpath.Edges:
+                                    foutkpath.write('Path cost:%s' %newpath.actpathtime) 
+                                
+                        else:
+                            newpath = Path()
+                            newpath.usedcounts += 1
+                            ODPaths.append(newpath)
+                            newpath.source = startVertex
+                            newpath.target = endVertex
+                            temppath.reverse()                           
+                            newpath.Edges = temppath
+                            newpath.freepathtime = temppathcost/3600.
+                            newpath.actpathtime = newpath.freepathtime
+                            newRoutes += 1     
                             if verbose:
-                                foutkpath.write('%s, ' %(edge.label))
-                            newpath.freepathtime += edge.freeflowtime
-                        newpath.freepathtime = newpath.freepathtime/3600.    
-                        newpath.actpathtime = newpath.freepathtime
-                        if verbose:
-                            foutkpath.write('Path cost:%s' %newpath.actpathtime) 
-                    newRoutes += 1
+                                foutkpath.write('\npathID:%s, source:%s, target:%s, Edges:' %(newpath.label, newpath.source, newpath.target))  
+                                for edge in newpath.Edges:
+                                    foutkpath.write('%s, ' %(edge.label))
+    
+                                foutkpath.write('Path cost:%s' %newpath.actpathtime) 
+                        
         if verbose:
             foutkpath.close()
-        
+            
         return newRoutes
 
     def vehRelease(self, verbose, Parcontrol, departtime, CurrentMatrixSum):

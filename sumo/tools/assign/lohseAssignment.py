@@ -137,7 +137,10 @@ def main():
     vehID = 0
     MatrixSum = 0.0
     lohse = True
-    first = True
+    checkKPaths = False
+    if KPaths > 1:
+        checkKPaths = True
+        
     net.initialPathSet()
     # initialize the map for recording the number of the assigned vehicles
     AssignedVeh = {}
@@ -184,47 +187,69 @@ def main():
         dests = len(endVertices)
         ODpairs = origins * dests
         
+        for edgeID in net._edges:
+            edge = net._edges[edgeID]
+            edge.flow = 0.
+            edge.helpflow = 0.
+            edge.getActualTravelTime(options.curvefile)
+            edge.resetLohseParameter()
+            edge.helpacttime = edge.freeflowtime
+            
         # output the origin and destination zones and the number of effective OD pairs
         if options.debug:
 #            outputODZone(startVertices, endVertices, Pshort_EffCells, Plong_EffCells, Truck_EffCells)
             outputODZone(startVertices, endVertices, Pshort_EffCells, matrixCounter)  
-        
+    
         # initialization    
         iter_outside = 1
-        newRoutes = 0
+        newRoutes = 1
         stable = False
+        first =True
         # traffic Assignment based on the Lohse Model
-        while iter_outside == 1 or newRoutes > 0:
+        while newRoutes > 0:
             iter_inside = 1
             # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
-            if first and KPaths > 1:
-                newRoutes = net.calcPaths(newRoutes, options.verbose, KPaths, startVertices, endVertices, matrixPshort)
+            if checkKPaths:
+                newRoutes = net.calcKPaths(newRoutes, options.verbose, KPaths, startVertices, endVertices, matrixPshort)
                 foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
+                
                 if options.verbose:
                     print 'iter_outside:', iter_outside
                     print 'KPaths:', KPaths 
                     print 'number of new routes:', newRoutes                
-            else:
+            elif not checkKPaths and iter_outside == 1 and counter == 0:
                 print 'search for the new path'
                 newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
+            
+            checkKPaths = False
+            
             if options.verbose:
                 print 'iter_outside:', iter_outside
                 print 'number of new routes:', newRoutes
             
             stable = False
             while not stable:
-                print 'iter_inside:', iter_inside
+                if options.verbose:
+                    print 'iter_inside:', iter_inside
                 doSUEAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
                 stable = doLohseStopCheck(net, options.verbose, stable, iter_inside, maxIter, Parcontrol, foutlog)
                 iter_inside += 1
             
+            newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
+            
+            if options.verbose:
+                print 'stable:', stable
+                
             first = False    
             iter_outside += 1
-            
+
             if iter_outside > maxIter:
+                print 'The max. number of iterations is reached!'
+                foutlog.write('The max. number of iterations is reached!\n')
+                foutlog.write('The number of new routes and the parameter stable will be set to zero and True respectively.\n')
+                print 'newRoutes:', newRoutes 
+                stable = True
                 newRoutes = 0
-                print 'Number of the max. iterations is reached!'
-                foutlog.write('- Number of the max. iterations is reached!.\n')
         
         # generate vehicle data
 #        AssignedVeh, AssignedTrip, vehID = doLohseVehAssign(options.verbose, net, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip,vehID, lohse)

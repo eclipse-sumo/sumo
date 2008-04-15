@@ -133,7 +133,8 @@ class Edge:
         f = file(parfile)
         for line in f:
             p = line.split()
-            periods = int(p[len(p)-2])
+            periods = float(p[len(p)-2])
+        periods = 0.6    
         # The respective rules will be developed accroding to the HBS. 
         self.estcapacity = float(self.numberlane * 1500) * periods           
 
@@ -144,7 +145,8 @@ class Edge:
         f = file(parfile)
         for line in f:
             p = line.split()
-            periods = int(p[(len(p)-2)])
+            periods = float(p[(len(p)-2)])
+        periods = 0.6
         if self.numberlane > 0:
             if self.maxspeed > 38.0:
                 self.estcapacity = float(self.numberlane * 1500) * periods
@@ -335,7 +337,14 @@ class Edge:
 # reset link flows
     def cleanFlow(self):
         self.flow = 0.
+        self.helpflow = 0.
 
+# reset the parameter used in the Lohse-assignment (learning method - Lernverfahren)   
+    def resetLohseParameter(self):
+        self.fTT = 0.
+        self.TT = 0.               
+        self.delta = 0.
+        self.helpacttimeEx = 0.  
 # update the parameter used in the Lohse-assignment (learning method - Lernverfahren)          
     def getLohseParUpdate(self, under, upper, v1, v2, v3):
         if self.helpacttime > 0.:
