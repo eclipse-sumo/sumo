@@ -84,7 +84,7 @@ MSRoute::end() const
 unsigned
 MSRoute::size() const
 {
-    return myEdges.size();
+    return (unsigned) myEdges.size();
 }
 
 
@@ -215,10 +215,10 @@ MSRoute::operator[](unsigned index) const
 void
 MSRoute::dict_saveState(std::ostream &os)
 {
-    FileHelpers::writeUInt(os, myDict.size());
+    FileHelpers::writeUInt(os, (unsigned int) myDict.size());
     for (RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
         FileHelpers::writeString(os, (*it).second->getID());
-        FileHelpers::writeUInt(os, (*it).second->myEdges.size());
+        FileHelpers::writeUInt(os, (unsigned int) (*it).second->myEdges.size());
         FileHelpers::writeByte(os, (*it).second->myMultipleReferenced);
         for (MSEdgeVector::const_iterator i = (*it).second->myEdges.begin(); i!=(*it).second->myEdges.end(); ++i) {
             FileHelpers::writeUInt(os, (*i)->getNumericalID());
@@ -265,7 +265,7 @@ MSRoute::dict_loadState(BinaryInputDevice &bis)
 unsigned
 MSRoute::posInRoute(const MSRouteIterator &currentEdge) const
 {
-    return distance(myEdges.begin(), currentEdge);
+    return (unsigned int) distance(myEdges.begin(), currentEdge);
 }
 
 
