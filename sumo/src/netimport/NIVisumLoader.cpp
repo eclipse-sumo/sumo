@@ -358,7 +358,7 @@ NIVisumLoader::parse_Edges()
         NBEdge::LaneSpreadFunction lsf = oneway_checked
                                          ? NBEdge::LANESPREAD_CENTER
                                          : NBEdge::LANESPREAD_RIGHT;
-        NBEdge *e = new NBEdge(myCurrentID, myCurrentID, from, to, type, speed, nolanes, prio, lsf);
+        NBEdge *e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio, lsf);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
             addError(" Duplicate edge occured ('" + myCurrentID + "').");
@@ -375,7 +375,7 @@ NIVisumLoader::parse_Edges()
         NBEdge::LaneSpreadFunction lsf = oneway_checked
                                          ? NBEdge::LANESPREAD_CENTER
                                          : NBEdge::LANESPREAD_RIGHT;
-        NBEdge *e = new NBEdge(myCurrentID, myCurrentID, from, to, type, speed, nolanes, prio, lsf);
+        NBEdge *e = new NBEdge(myCurrentID, from, to, type, speed, nolanes, prio, lsf);
         if (!myNetBuilder.getEdgeCont().insert(e)) {
             delete e;
             addError(" Duplicate edge occured ('" + myCurrentID + "').");
@@ -448,7 +448,7 @@ NIVisumLoader::parse_Connectors()
             addError("The district '" + bez + "' could not be built.");
             return;
         }
-        NBEdge *edge = new NBEdge(id, id, src, dest, "VisumConnector",
+        NBEdge *edge = new NBEdge(id, src, dest, "VisumConnector",
                                   100, 3/*nolanes*/, -1, NBEdge::LANESPREAD_RIGHT, NBEdge::EDGEFUNCTION_SOURCE);
         if (!myNetBuilder.getEdgeCont().insert(edge)) {
             addError("A duplicate edge id occured (ID='" + id + "').");
@@ -464,7 +464,7 @@ NIVisumLoader::parse_Connectors()
             return;
         }
         id = "-" + id;
-        NBEdge *edge = new NBEdge(id, id, dest, src, "VisumConnector",
+        NBEdge *edge = new NBEdge(id, dest, src, "VisumConnector",
                                   100, 3/*nolanes*/, -1, NBEdge::LANESPREAD_RIGHT, NBEdge::EDGEFUNCTION_SINK);
         if (!myNetBuilder.getEdgeCont().insert(edge)) {
             addError("A duplicate edge id occured (ID='" + id + "').");

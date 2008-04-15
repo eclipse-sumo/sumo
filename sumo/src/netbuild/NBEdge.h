@@ -115,13 +115,13 @@ public:
 
 public:
     /// constructor
-    NBEdge(const std::string &id, const std::string &name,
+    NBEdge(const std::string &id, 
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, size_t nolanes, int priority,
            LaneSpreadFunction spread=LANESPREAD_RIGHT,
            EdgeBasicFunction basic=EDGEFUNCTION_NORMAL) throw(ProcessError);
 
-    NBEdge(const std::string &id, const std::string &name,
+    NBEdge(const std::string &id, 
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, size_t nolanes, int priority,
            Position2DVector geom, LaneSpreadFunction spread=LANESPREAD_RIGHT,
@@ -153,9 +153,6 @@ public:
 
     /// returns the id of the edge
     const std::string &getID() const;
-
-    /// returns the name of the edge
-    std::string getName() const;
 
     /// returns the origin node of the edge
     NBNode *getFromNode();
@@ -487,9 +484,6 @@ private:
 
     /// the maximal speed
     SUMOReal  mySpeed;
-
-    /// the name of the edge
-    std::string  myName;
 
     /// information about connected edges
     EdgeVector myConnectedEdges;

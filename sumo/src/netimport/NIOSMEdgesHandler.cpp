@@ -255,14 +255,14 @@ NIOSMEdgesHandler::insertEdge(NIOSMEdgesHandler::Edge *e, int index, NBNode *fro
         NBEdge::LaneSpreadFunction lsf = addSecond
                                          ? NBEdge::LANESPREAD_RIGHT
                                          : NBEdge::LANESPREAD_CENTER;
-        NBEdge *nbe = new NBEdge(id, e->id, from, to, myHighWayType,
+        NBEdge *nbe = new NBEdge(id, from, to, myHighWayType,
                                  speed, noLanes, -1, shape, lsf);
         if (!myEdgeCont.insert(nbe)) {
             delete nbe;
             throw ProcessError("Could not add edge '" + id + "'.");
         }
         if (addSecond) {
-            nbe = new NBEdge("-" + id, e->id, to, from, myHighWayType,
+            nbe = new NBEdge("-" + id, to, from, myHighWayType,
                              speed, noLanes, -1, shape.reverse(), lsf);
             if (!myEdgeCont.insert(nbe)) {
                 delete nbe;

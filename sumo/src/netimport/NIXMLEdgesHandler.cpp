@@ -147,16 +147,14 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         // the edge must be allocated in dependence to whether a shape
         //  is given
         if (myShape.size()==0) {
-            myCurrentEdge = new NBEdge(
-                myCurrentID, myCurrentID,
+            myCurrentEdge = new NBEdge(myCurrentID, 
                 myFromNode, myToNode,
                 myCurrentType, myCurrentSpeed,
                 myCurrentLaneNo, myCurrentPriority, myLanesSpread,
                 myCurrentEdgeFunction);
             myCurrentEdge->setLoadedLength(myLength);
         } else {
-            myCurrentEdge = new NBEdge(
-                myCurrentID, myCurrentID,
+            myCurrentEdge = new NBEdge(myCurrentID,
                 myFromNode, myToNode,
                 myCurrentType, myCurrentSpeed,
                 myCurrentLaneNo, myCurrentPriority,

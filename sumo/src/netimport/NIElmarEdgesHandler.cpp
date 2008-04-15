@@ -110,7 +110,7 @@ NIElmarEdgesHandler::report(const std::string &result) throw(ProcessError)
     }
     // build the edge
     NBEdge *e =
-        new NBEdge(id, id, from, to, "DEFAULT", speed, nolanes, priority, NBEdge::LANESPREAD_CENTER);
+        new NBEdge(id, from, to, "DEFAULT", speed, nolanes, priority, NBEdge::LANESPREAD_CENTER);
     // add vehicle type information to the edge
     NINavTeqHelper::addVehicleClasses(*e, veh_type);
     // insert the edge to the network

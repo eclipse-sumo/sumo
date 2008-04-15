@@ -664,13 +664,12 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     avgSpeed *= OptionsCont::getOptions().getFloat("vissim.speed-norm");
 
     NBEdge *buildEdge = new NBEdge(
-        toString<int>(myID), myName, fromNode, toNode, myType,
+        toString<int>(myID), fromNode, toNode, myType,
         avgSpeed/(SUMOReal) 3.6, myNoLanes, -1, myGeom,
         NBEdge::LANESPREAD_CENTER, NBEdge::EDGEFUNCTION_NORMAL);
     for (i=0; i<(int) myNoLanes; i++) {
         if ((int) myLaneSpeeds.size()<=i||myLaneSpeeds[i]==-1) {
-            buildEdge->setLaneSpeed(i,
-                                    OptionsCont::getOptions().getFloat("vissim.default-speed"));
+            buildEdge->setLaneSpeed(i, OptionsCont::getOptions().getFloat("vissim.default-speed"));
         } else {
             buildEdge->setLaneSpeed(i, myLaneSpeeds[i]/(SUMOReal) 3.6);
         }

@@ -81,7 +81,6 @@ NGEdge::buildNBEdge(NBNetBuilder &nb) const throw(ProcessError)
 {
     return new NBEdge(
                myID, // id
-               myID, // name
                nb.getNodeCont().retrieve(myStartNode->getID()), // from
                nb.getNodeCont().retrieve(myEndNode->getID()), // to
                "netgen-default", // type

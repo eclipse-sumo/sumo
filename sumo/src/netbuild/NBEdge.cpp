@@ -170,7 +170,7 @@ NBEdge::MainDirections::includes(Direction d) const
 /* -------------------------------------------------------------------------
  * NBEdge-methods
  * ----------------------------------------------------------------------- */
-NBEdge::NBEdge(const string &id, const string &name, NBNode *from, NBNode *to,
+NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
                string type, SUMOReal speed, size_t nolanes,
                int priority, LaneSpreadFunction spread,
                EdgeBasicFunction basic) throw(ProcessError) :
@@ -178,7 +178,6 @@ NBEdge::NBEdge(const string &id, const string &name, NBNode *from, NBNode *to,
         myType(StringUtils::convertUmlaute(type)),
         myNolanes(nolanes), myFrom(from), myTo(to), myAngle(0),
         myPriority(priority), mySpeed(speed),
-        myName(StringUtils::convertUmlaute(name)),
         myTurnDestination(0),
         myFromJunctionPriority(-1), myToJunctionPriority(-1),
         myBasicType(basic), myLaneSpreadFunction(spread),
@@ -190,7 +189,7 @@ NBEdge::NBEdge(const string &id, const string &name, NBNode *from, NBNode *to,
 }
 
 
-NBEdge::NBEdge(const string &id, const string &name, NBNode *from, NBNode *to,
+NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
                string type, SUMOReal speed, size_t nolanes,
                int priority,
                Position2DVector geom, LaneSpreadFunction spread,
@@ -199,7 +198,7 @@ NBEdge::NBEdge(const string &id, const string &name, NBNode *from, NBNode *to,
         myType(StringUtils::convertUmlaute(type)),
         myNolanes(nolanes), myFrom(from), myTo(to), myAngle(0),
         myPriority(priority), mySpeed(speed),
-        myName(StringUtils::convertUmlaute(name)), myTurnDestination(0),
+        myTurnDestination(0),
         myFromJunctionPriority(-1), myToJunctionPriority(-1),
         myBasicType(basic), myGeom(geom), myLaneSpreadFunction(spread),
         myAllowedOnLanes(nolanes), myNotAllowedOnLanes(nolanes),
@@ -305,13 +304,6 @@ const string &
 NBEdge::getID() const
 {
     return myID;
-}
-
-
-string
-NBEdge::getName() const
-{
-    return myName;
 }
 
 

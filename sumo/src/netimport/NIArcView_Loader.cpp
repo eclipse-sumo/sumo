@@ -238,7 +238,7 @@ NIArcView_Loader::load(OptionsCont &)
                     dir=="B"||dir=="FALSE"
                     ? NBEdge::LANESPREAD_RIGHT
                     : NBEdge::LANESPREAD_CENTER;
-                NBEdge *edge = new NBEdge(id, name, from, to, type, speed, nolanes,
+                NBEdge *edge = new NBEdge(id, from, to, type, speed, nolanes,
                                           priority, shape, spread, function);
                 myEdgeCont.insert(edge);
             }
@@ -251,7 +251,7 @@ NIArcView_Loader::load(OptionsCont &)
                     dir=="B"||dir=="FALSE"
                     ? NBEdge::LANESPREAD_RIGHT
                     : NBEdge::LANESPREAD_CENTER;
-                NBEdge *edge = new NBEdge(id, name, to, from, type, speed, nolanes,
+                NBEdge *edge = new NBEdge(id, to, from, type, speed, nolanes,
                                           priority, shape.reverse(), spread, function);
                 myEdgeCont.insert(edge);
             }

@@ -125,7 +125,7 @@ NITigerLoader::load(OptionsCont &)
         if (nolanes!=-1&&length>0) {
             int priority = -1;
             NBEdge *e =
-                new NBEdge(eid, eid, from, to, type, speed, nolanes,
+                new NBEdge(eid, from, to, type, speed, nolanes,
                            priority, cposes);
             if (!myEdgeCont.insert(e)) {
                 delete e;
@@ -134,7 +134,7 @@ NITigerLoader::load(OptionsCont &)
             }
             eid = "-" + eid;
             e =
-                new NBEdge(eid, eid, to, from, type, speed, nolanes,
+                new NBEdge(eid, to, from, type, speed, nolanes,
                            priority, cposes.reverse());
             if (!myEdgeCont.insert(e)) {
                 delete e;
