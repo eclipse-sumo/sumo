@@ -252,7 +252,7 @@ public:
         /// @brief Constructor
         SingleTypeSelections() throw();
 
-        /// @brief Destrcutor
+        /// @brief Destructor
         ~SingleTypeSelections() throw();
 
 
