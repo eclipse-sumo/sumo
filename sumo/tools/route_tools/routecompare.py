@@ -197,7 +197,7 @@ def maxMatching(routeIDs1, routeIDs2, similarityMatrix, match):
     return matchVal
 
 
-optParser = optparse.OptionParser()
+optParser = optparse.OptionParser(usage="usage: %prog [options] <routes1> <routes2>")
 optParser.add_option("-d", "--districts-file", dest="districts",
                      default="", help="read districts from FILE", metavar="FILE")
 optParser.add_option("-s", "--simple-match", action="store_true", dest="simple",
@@ -210,7 +210,7 @@ optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
 
 
 if len(args) < 2:
-    print "Usage: " + sys.argv[0] + " <routes1> <routes2>"
+    optParser.print_help()
     sys.exit()
 routes1 = {}
 routes2 = {}

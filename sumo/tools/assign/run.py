@@ -83,19 +83,31 @@ else:
     
 makeAndChangeDir("../statistics")
 tripinfos = ""
+routes = []
 for step in [0, 49]:
-    targetfile = "tripinfo_dua_%s.xml" % step
-    shutil.copy("%s/tripinfo_%s.xml" % (duaDir, step), targetfile)
-    tripinfos += targetfile + ","
+    tripinfofile = "tripinfo_dua_%s.xml" % step
+    shutil.copy("%s/tripinfo_%s.xml" % (duaDir, step), tripinfofile)
+    tripinfos += tripinfofile + ","
     execute("networkStatistics.py -t tripinfo_dua_%s.xml -o networkStatistics_%s_%s.txt" % (step, os.path.basename(duaDir), step))
+    routes.append("%s/%s_%s.rou.xml" % (duaDir, trips, step))
 if not options.duaonly:
     for step in [-1, 15]:
-        targetfile =  "tripinfo_oneshot_%s.xml" % step
-        shutil.copy("%s/tripinfo_%s.xml" % (shotDir, step), targetfile)
-        tripinfos += targetfile + ","
+        tripinfofile =  "tripinfo_oneshot_%s.xml" % step
+        shutil.copy("%s/tripinfo_%s.xml" % (shotDir, step), tripinfofile)
+        tripinfos += tripinfofile + ","
+        routes.append("%s/vehroutes_%s.xml" % (shotDir, step))
     execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_successive.xml %s -l sumo_successive.log" % (netFile, succDir, sumoAdds))
     execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_clogit.xml %s -l sumo_clogit.log" % (netFile, clogDir, sumoAdds))
     execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_lohse.xml %s -l sumo_lohse.log" % (netFile, lohseDir, sumoAdds))
-    tripinfos += targetfile + ",tripinfo_successive.xml,tripinfo_clogit.xml,tripinfo_lohse.xml"
+    tripinfos += tripinfofile + ",tripinfo_successive.xml,tripinfo_clogit.xml,tripinfo_lohse.xml"
     execute("networkStatisticsWithSgT.py -t %s -o networkStatisticsWithSgT.txt" % tripinfos)
+    for dir in succDir, clogDir, lohseDir: 
+        routes.append(dir + "/routes.rou.xml")
+outfilename = "routecompare.txt"
+for idx, route1 in enumerate(routes):
+    for route2 in routes[idx+1:]:
+        outfile = open(outfilename, "a")
+        print >> outfile, route1, route2
+        outfile.close()
+        execute("routecompare.py -d ../input/districts.xml %s %s >> %s" % (route1, route2, outfilename))
 os.chdir("..")
