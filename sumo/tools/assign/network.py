@@ -220,7 +220,7 @@ class NetworkReader(handler.ContentHandler):
 #                newEdge = Edge(self._edge+"_"+self._edge, fromEdge.target, toEdge.source)
 #                self._net.addEdge(newEdge)
 #                fromEdge.finalizer = self._edge
-         elif name == 'cedge' and self._edge != '':
+        elif name == 'cedge' and self._edge != '':
              fromEdge = self._net.getEdge(self._edge)
              toEdge = self._net.getEdge(attrs['id'])
              newEdge = Edge(self._edge+"_"+attrs['id'], fromEdge.target, toEdge.source)
