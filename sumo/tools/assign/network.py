@@ -211,12 +211,21 @@ class NetworkReader(handler.ContentHandler):
             self._maxSpeed = 0
             self._laneNumber = 0
             self._length = 0
-        elif name == 'cedge' and self._edge != '':
-            fromEdge = self._net.getEdge(self._edge)
-            toEdge = self._net.getEdge(attrs['id'])
-            newEdge = Edge(self._edge+"_"+attrs['id'], fromEdge.target, toEdge.source)
-            self._net.addEdge(newEdge)
-            fromEdge.finalizer = attrs['id']
+        elif name == 'succ':
+            self._edge = attrs['edge']
+        elif name == 'succlane':
+            if attrs.has_key('dir') and attrs['dir']!="t":
+                fromEdge = self._net.getEdge(self._edge)
+                toEdge = self._net.getEdge(attrs['lane'][:-2])
+                newEdge = Edge(self._edge+"_"+self._edge, fromEdge.target, toEdge.source)
+                self._net.addEdge(newEdge)
+                fromEdge.finalizer = self._edge
+#        elif name == 'cedge' and self._edge != '':
+#            fromEdge = self._net.getEdge(self._edge)
+#            toEdge = self._net.getEdge(attrs['id'])
+#            newEdge = Edge(self._edge+"_"+attrs['id'], fromEdge.target, toEdge.source)
+#            self._net.addEdge(newEdge)
+#            fromEdge.finalizer = attrs['id']
         elif name == 'lane' and self._edge != '':
             self._maxSpeed = max(self._maxSpeed, float(attrs['maxspeed']))
             self._laneNumber = self._laneNumber + 1
