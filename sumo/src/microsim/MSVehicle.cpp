@@ -1696,6 +1696,16 @@ MSVehicle::writeXMLRoute(OutputDevice &os, int index) const
         os << "</replaced_route>\n";
     } else {
         os << "      <route>";
+        if (hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
+            int noReroutes = getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
+            std::map<MSCORN::Pointer, void*>::const_iterator it = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
+            assert(it!=myPointerCORNMap.end());
+            const ReplacedRoutesVector *v = (const ReplacedRoutesVector *)(*it).second;
+            assert((int) v->size()==noReroutes);
+            for (int i=0; i<noReroutes; ++i) {
+                (*v)[i].route->writeEdgeIDs(os, (*v)[i].edge);
+            }
+        }
         myRoute->writeEdgeIDs(os);
         os << "</route>\n";
     }

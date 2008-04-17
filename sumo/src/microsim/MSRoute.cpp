@@ -173,12 +173,15 @@ MSRoute::find(const MSEdge *e) const
 
 
 void
-MSRoute::writeEdgeIDs(OutputDevice &os) const
+MSRoute::writeEdgeIDs(OutputDevice &os, const MSEdge *upTo) const
 {
     MSEdgeVector::const_iterator i = myEdges.begin();
     for (;i!=myEdges.end(); ++i) {
         if (i!=myEdges.begin()) {
             os << ' ';
+        }
+        if ((*i) == upTo) {
+            return;
         }
         os << (*i)->getID();
     }

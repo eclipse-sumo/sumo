@@ -193,8 +193,8 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw()
             int noReroutes = v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
             for (int i=0; i<noReroutes; ++i) {
                 v->writeXMLRoute(od, i);
-                od << "\n";
             }
+            od << "\n";
         }
         v->writeXMLRoute(od);
         od << "   </vehicle>\n\n";

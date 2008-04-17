@@ -82,7 +82,8 @@ public:
 
     bool replaceBy(const MSEdgeVector &edges, MSRouteIterator &currentEdge);
 
-    void writeEdgeIDs(OutputDevice &os) const;
+    /// output the edge ids up to but not including the id of the given edge
+    void writeEdgeIDs(OutputDevice &os, const MSEdge *upTo=0) const;
 
     bool contains(MSEdge *edge) const;
     bool containsAnyOf(const std::vector<MSEdge*> &edgelist) const;
