@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/14/08 13:57:24 by SUMO sumo Version 0.9.7
+<!-- generated on 04/17/08 12:07:01 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -28,45 +28,45 @@
 </configuration>
 -->
 
-<vehicleroutes>
-   <vehicle id="0" emittedAt="0" endedAt="77">
+<routes>
+   <vehicle id="0" depart="0" arrival="77">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="1" emittedAt="20" endedAt="97">
+   <vehicle id="1" depart="20" arrival="97">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="2" emittedAt="40" endedAt="117">
+   <vehicle id="2" depart="40" arrival="117">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="3" emittedAt="60" endedAt="137">
+   <vehicle id="3" depart="60" arrival="137">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="4" emittedAt="80" endedAt="157">
+   <vehicle id="4" depart="80" arrival="157">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="5" emittedAt="100" endedAt="177">
+   <vehicle id="5" depart="100" arrival="177">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="6" emittedAt="120" endedAt="197">
+   <vehicle id="6" depart="120" arrival="197">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="7" emittedAt="140" endedAt="217">
+   <vehicle id="7" depart="140" arrival="217">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="8" emittedAt="160" endedAt="237">
+   <vehicle id="8" depart="160" arrival="237">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="9" emittedAt="180" endedAt="257">
+   <vehicle id="9" depart="180" arrival="257">
       <route>beg middle end rend</route>
    </vehicle>
 
-</vehicleroutes>
+</routes>

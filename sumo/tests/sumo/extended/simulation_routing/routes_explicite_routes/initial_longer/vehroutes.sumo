@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/14/08 13:57:24 by SUMO sumo Version 0.9.7
+<!-- generated on 04/17/08 12:07:02 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -28,65 +28,65 @@
 </configuration>
 -->
 
-<vehicleroutes>
-   <vehicle id="0" emittedAt="0" endedAt="77">
-      <route replacedOnEdge="beg"  replacedAtTime="0">beg beg2right right right2end end rend</route>
+<routes>
+   <vehicle id="0" depart="0" arrival="77">
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="0">beg beg2right right right2end end rend</replaced_route>
 
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="1" emittedAt="20" endedAt="97">
-      <route replacedOnEdge="beg"  replacedAtTime="20">beg beg2right right right2end end rend</route>
+   <vehicle id="1" depart="20" arrival="97">
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="20">beg beg2right right right2end end rend</replaced_route>
 
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="2" emittedAt="40" endedAt="117">
-      <route replacedOnEdge="beg"  replacedAtTime="40">beg beg2right right right2end end rend</route>
+   <vehicle id="2" depart="40" arrival="117">
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="40">beg beg2right right right2end end rend</replaced_route>
 
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="3" emittedAt="60" endedAt="137">
-      <route replacedOnEdge="beg"  replacedAtTime="60">beg beg2right right right2end end rend</route>
+   <vehicle id="3" depart="60" arrival="137">
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="60">beg beg2right right right2end end rend</replaced_route>
 
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="4" emittedAt="80" endedAt="157">
-      <route replacedOnEdge="beg"  replacedAtTime="80">beg beg2right right right2end end rend</route>
+   <vehicle id="4" depart="80" arrival="157">
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="80">beg beg2right right right2end end rend</replaced_route>
 
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="5" emittedAt="100" endedAt="177">
-      <route replacedOnEdge="beg"  replacedAtTime="100">beg beg2right right right2end end rend</route>
+   <vehicle id="5" depart="100" arrival="177">
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="100">beg beg2right right right2end end rend</replaced_route>
 
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="6" emittedAt="120" endedAt="197">
-      <route replacedOnEdge="beg"  replacedAtTime="120">beg beg2right right right2end end rend</route>
+   <vehicle id="6" depart="120" arrival="197">
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="120">beg beg2right right right2end end rend</replaced_route>
 
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="7" emittedAt="140" endedAt="217">
-      <route replacedOnEdge="beg"  replacedAtTime="140">beg beg2right right right2end end rend</route>
+   <vehicle id="7" depart="140" arrival="217">
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="140">beg beg2right right right2end end rend</replaced_route>
 
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="8" emittedAt="160" endedAt="237">
-      <route replacedOnEdge="beg"  replacedAtTime="160">beg beg2right right right2end end rend</route>
+   <vehicle id="8" depart="160" arrival="237">
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="160">beg beg2right right right2end end rend</replaced_route>
 
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="9" emittedAt="180" endedAt="257">
-      <route replacedOnEdge="beg"  replacedAtTime="180">beg beg2right right right2end end rend</route>
+   <vehicle id="9" depart="180" arrival="257">
+      <replaced_route replacedOnEdge="beg"  replacedAtTime="180">beg beg2right right right2end end rend</replaced_route>
 
       <route>beg middle end rend</route>
    </vehicle>
 
-</vehicleroutes>
+</routes>

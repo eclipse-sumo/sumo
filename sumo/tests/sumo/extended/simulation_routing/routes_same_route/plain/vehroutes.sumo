@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/14/08 13:57:22 by SUMO sumo Version 0.9.7
+<!-- generated on 04/17/08 12:07:01 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -28,49 +28,49 @@
 </configuration>
 -->
 
-<vehicleroutes>
-   <vehicle id="0" emittedAt="0" endedAt="77">
+<routes>
+   <vehicle id="0" depart="0" arrival="77">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_0" emittedAt="20" endedAt="97">
+   <vehicle id="0_0" depart="20" arrival="97">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_1" emittedAt="40" endedAt="117">
+   <vehicle id="0_1" depart="40" arrival="117">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_2" emittedAt="60" endedAt="137">
+   <vehicle id="0_2" depart="60" arrival="137">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_3" emittedAt="80" endedAt="157">
+   <vehicle id="0_3" depart="80" arrival="157">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_4" emittedAt="100" endedAt="177">
+   <vehicle id="0_4" depart="100" arrival="177">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_5" emittedAt="120" endedAt="197">
+   <vehicle id="0_5" depart="120" arrival="197">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_6" emittedAt="140" endedAt="217">
+   <vehicle id="0_6" depart="140" arrival="217">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_7" emittedAt="160" endedAt="237">
+   <vehicle id="0_7" depart="160" arrival="237">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_8" emittedAt="180" endedAt="257">
+   <vehicle id="0_8" depart="180" arrival="257">
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="0_9" emittedAt="200" endedAt="277">
+   <vehicle id="0_9" depart="200" arrival="277">
       <route>beg middle end rend</route>
    </vehicle>
 
-</vehicleroutes>
+</routes>
