@@ -10,54 +10,39 @@ Copyright (C) 2008 DLR/FS, Germany
 All rights reserved
 """
 
-from time import strptime
-from time import mktime
+from util.CalcTime import getTimeInSecs
+import util.Path as path
 
 #global vars
-fcdPath="D:/Krieg/Projekte/Diplom/Daten/originalFCD/Proz-fcd_nuremberg_2007-07-18.dat"
-routesPath="D:/Krieg/Projekte/Diplom/Daten/taxiRouten/taxiRoutes.rou.xml"
-netPath="D:/Krieg/Projekte/Diplom/Daten/sumoNetzFilesNurnbergIIProjektion/nuernberg_vls_new.net.xml"
-
-format="%Y-%m-%d %H:%M:%S" 
-# used simulation date in seconds
-simDate=mktime((2007,7,18,0,0,0,2,199,1))
-
 taxis=[]
 routes=[]
 vlsEdges=[]
 taxiIdDict={} #contains for each Taxi the actual "TaxiId" based on the number of single routes which are created for them
+fcdDict={}
 
-def GenerateTaxiRoutes():
-    """Main"""
+    
+def readVLS_Edges():    
+    """Reads the net file and returns a list of all edges""" 
     global vlsEdges
-    
-    print "start program"
-    vlsEdges=readVLS_Edges()    
-    readFCD()
-    writeRoutes()
-    
-    print "end"
-    
-def readVLS_Edges():
-    """Reads the net file and returns a list of all edges"""        
-    inputFile=open(netPath,'r')
+           
+    inputFile=open(path.net,'r')
     for line in inputFile:
         if line.find(" <edges")!=-1:
             #         delete edges tag at start and end    
             words=line[line.find(">")+1:line.find("</")].split(" ")            
             break
     inputFile.close()
-    return words
+    vlsEdges=words
+
 
 def getTaxiId(taxi):       
     return "%s_%s" %(taxi,taxiIdDict.setdefault(taxi,0))
-    
     
 
 def readFCD(): 
     """Reads the FCD and creates a list of Taxis and for each a list of routes"""
        
-    inputFile=open(fcdPath,'r')
+    inputFile=open(path.fcd,'r')
     for line in inputFile:
         words= line.split("\t")
         #add route
@@ -70,14 +55,40 @@ def readFCD():
         elif words[1] in vlsEdges: #if the edge is in the VLS-Area a new route is created 
             taxis.append(taxiId)
             #                 departTime               
-            routes.append([(int)(mktime(strptime(words[0],format))-simDate),words[1]])
+            routes.append([getTimeInSecs(words[0]),words[1]])
            
     inputFile.close() 
-    print len(taxis)    
+    print len(taxis) 
+    
+    
+def readFCDComplete():
+    """Reads the FCD-File and creates a list of Id's with a belonging List of Data tuples."""
+    readVLS_Edges()
+    
+    inputFile=open(path.fcd,'r')
+    for line in inputFile:
+        words= line.split("\t")
+        #add route
+        taxiId=getTaxiId(words[4])              
+        if taxiId in taxis:           
+            if words[1] in vlsEdges:
+                #routes[taxis.index(taxiId)].append(words[1])
+                fcdDict[taxiId].append((getTimeInSecs(words[0]),words[1],words[2]))
+            else:
+                taxiIdDict[words[4]]+=1                
+        elif words[1] in vlsEdges: #if the edge is in the VLS-Area a new route is created 
+            taxis.append(taxiId)
+            #                 departTime               
+            #routes.append([(int)(mktime(strptime(words[0],format))-simDate),words[1]])
+            fcdDict[taxiId]=[(getTimeInSecs(words[0]),words[1],words[2])]
+           
+    inputFile.close()
+    return fcdDict
+    
         
 def writeRoutes():
     """Writes the collected values in a Sumo-Routes-File"""
-    outputFile=open(routesPath,'w')
+    outputFile=open(path.routes,'w')
     
     outputFile.write("<routes>\n")
     # known for like used in java
@@ -95,5 +106,3 @@ def writeRoutes():
     outputFile.close()
     
     
-#start the program
-GenerateTaxiRoutes()
