@@ -26,6 +26,9 @@ pos_free
 # checks using a free position (3 vehicles)
 pos_free_3veh
 
+# checks using a free position (3 vehicles, starting with 10m/s)
+pos_free_3veh_10ms
+
 # checks using the given position (0)
 pos_given0
 

@@ -1,0 +1,7 @@
+<routes>
+
+	<vehicle id="1" depart="0" route="1" departpos="free" departspeed="10"/>
+	<vehicle id="2" depart="0" route="1" departpos="free" departspeed="10"/>
+	<vehicle id="3" depart="0" route="1" departpos="free" departspeed="10"/>
+
+</routes>
