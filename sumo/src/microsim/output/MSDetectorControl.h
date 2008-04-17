@@ -39,6 +39,10 @@
 #include <microsim/output/MSInductLoop.h>
 #include <microsim/output/MSVTypeProbe.h>
 
+#ifdef _MESSAGES
+#include <microsim/output/MSMsgInductLoop.h>
+#endif
+
 #ifdef HAVE_MESOSIM
 #include <mesosim/MEInductLoop.h>
 #endif
@@ -57,6 +61,11 @@ public:
     /// @name Definitions of containers for different detector types
     /// @{
 
+#ifdef _MESSAGES
+	/// @brief Map of MSMsgInductLoop by ID
+	typedef NamedObjectCont< MSMsgInductLoop*> MsgLoopDict;
+#endif
+	
     /// @brief Map of MSInductLoop by ID
     typedef NamedObjectCont< MSInductLoop*> LoopDict;
 
@@ -121,9 +130,18 @@ public:
     void close(SUMOTime step) throw(IOError);
 
 
-    /// @name Methods for adding detectors that are coupled to an own OutputDevice
+	/// @name Methods for adding detectors that are coupled to an own OutputDevice
     /// @{
 
+#ifdef _MESSAGES
+	/** @brief Adds a message induct loop into the containers
+	 *
+	 *
+	 *
+	 */
+	void add(MSMsgInductLoop *msgl, OutputDevice& device, int splInterval) throw(ProcessError);
+#endif
+    
     /** @brief Adds a induction loop into the containers
      *
      * The detector is tried to be added into "myLoops". If the detector
@@ -365,7 +383,12 @@ protected:
     /// @name Structures needed for assigning detectors to intervals
     /// @{
 
-    /// @brief A pair of a Detector with it's associated file-stream.
+#ifdef _MESSAGES
+	/// @brief MSMsgInductLoop dictionary
+	MsgLoopDict myMsgLoops;
+#endif
+    
+	/// @brief A pair of a Detector with it's associated file-stream.
     typedef std::pair< MSDetectorFileOutput*, OutputDevice* > DetectorFilePair;
 
     /// @brief Container holding DetectorFilePair (with the same interval).

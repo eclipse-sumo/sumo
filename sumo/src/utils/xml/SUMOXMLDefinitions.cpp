@@ -53,7 +53,11 @@ GenericSAXHandler::Tag sumotags[] = {
     { "e1-detector",      SUMO_TAG_E1DETECTOR },
     { "e2-detector",      SUMO_TAG_E2DETECTOR },
     { "e3-detector",      SUMO_TAG_E3DETECTOR },
-    { "det_entry",        SUMO_TAG_DET_ENTRY },
+#ifdef _MESSAGES
+	{ "msgemitter",		  SUMO_TAG_MSG_EMITTER },
+	{ "e4-detector",	  SUMO_TAG_MSG },
+#endif
+	{ "det_entry",        SUMO_TAG_DET_ENTRY },
     { "det_exit",         SUMO_TAG_DET_EXIT },
     { "vtypeprobe",       SUMO_TAG_VTYPEPROBE },
     { "vehicle",          SUMO_TAG_VEHICLE },
@@ -217,7 +221,14 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "via",            SUMO_ATTR_VIA },
     { "int_end",        SUMO_ATTR_INTERNALEND },
 
-    { "min_dur",        SUMO_ATTR_MINDURATION },
+#ifdef _MESSAGES
+	{ "msg",			SUMO_ATTR_MSG },
+	{ "emit_msg",		SUMO_ATTR_EVENTS },
+	{ "reverse",		SUMO_ATTR_REVERSE },
+	{ "table",			SUMO_ATTR_TABLE },
+	{ "xy",				SUMO_ATTR_XY },
+#endif
+	{ "min_dur",        SUMO_ATTR_MINDURATION },
     { "max_dur",        SUMO_ATTR_MAXDURATION },
     { "foes",           SUMO_ATTR_FOES },
     { "measures",       SUMO_ATTR_MEASURES },

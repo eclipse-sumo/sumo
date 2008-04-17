@@ -39,6 +39,10 @@
 #include <utils/options/OptionsCont.h>
 #include <utils/options/Option.h>
 
+#ifdef _MESSAGES
+#include <microsim/output/MSMsgInductLoop.h>
+#endif
+
 #ifdef HAVE_MESOSIM
 #include <mesosim/MEInductLoop.h>
 #endif
@@ -68,7 +72,13 @@ MSDetectorControl::~MSDetectorControl() throw()
     myMesoLoops.clear();
 #endif
     myLoops.clear();
-    myE2Detectors.clear();
+#ifdef _MESSAGES
+#ifdef _DEBUG
+	cout << "MSDetectorControl: clearing myMsgLoops" << endl;
+#endif
+	myMsgLoops.clear();
+#endif
+	myE2Detectors.clear();
     myE3Detectors.clear();
     myE2OverLanesDetectors.clear();
     myVTypeProbeDetectors.clear();
@@ -88,6 +98,21 @@ MSDetectorControl::close(SUMOTime step) throw(IOError)
     myIntervals.clear();
 }
 
+
+#ifdef _MESSAGES
+void
+MSDetectorControl::add(MSMsgInductLoop *msgl, OutputDevice& device, int splInterval) throw(ProcessError)
+{
+#ifdef _DEBUG
+	cout << "adding MSMsgInductLoop..." << endl;
+#endif
+	if (! myMsgLoops.add(msgl->getID(), msgl)) {
+		throw ProcessError("message induct loop '" + msgl->getID() + "' could not be build;"
+				+ "\n (declared twice?)");
+	}
+	addDetectorAndInterval(msgl, &device, splInterval);
+}
+#endif
 
 
 void

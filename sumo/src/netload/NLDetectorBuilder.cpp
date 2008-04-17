@@ -45,6 +45,10 @@
 #include "NLDetectorBuilder.h"
 #include <microsim/output/MSDetectorControl.h>
 
+#ifdef _MESSAGES
+#include <microsim/output/MSMsgInductLoop.h>
+#endif
+
 #ifdef HAVE_MESOSIM
 #include <mesosim/MEInductLoop.h>
 #include <mesosim/MELoop.h>
@@ -80,6 +84,35 @@ NLDetectorBuilder::E3DetectorDefinition::E3DetectorDefinition(const std::string 
 NLDetectorBuilder::E3DetectorDefinition::~E3DetectorDefinition() throw()
 {}
 
+
+#ifdef _MESSAGES
+void
+NLDetectorBuilder::buildMsgDetector(const std::string &id,
+									const std::string &lane, SUMOReal pos, int splInterval,
+									const std::string &msg,
+									OutputDevice& device, bool friendlyPos) throw(InvalidArgument)
+{
+#ifdef _DEBUG
+	cout << "building the e4-detector..." << endl;
+#endif
+	if (splInterval<0) {
+		throw InvalidArgument("Negative sampling frequency (in e4-detector '" + id + "').");
+	}
+	if (splInterval==0) {
+		throw InvalidArgument("Sampling frequency must not be zero (in e4-detector '" + id + "').");
+	}
+	if (msg == "") {
+		throw InvalidArgument("No Message given (in e4-detector '" + id + "').");
+	}
+	MSLane *clane = getLaneChecking(lane, id);
+	if (pos<0) {
+		pos = clane->length() + pos;
+	}
+		pos = getPositionChecking(pos, clane, friendlyPos, id);
+		MSMsgInductLoop *msgloop = createMsgInductLoop(id, msg, clane, pos);
+		myNet.getDetectorControl().add(msgloop, device, splInterval);
+	}
+#endif
 
 
 /* -------------------------------------------------------------------------
@@ -437,6 +470,15 @@ NLDetectorBuilder::buildMultiLaneE2Det(const MSEdgeContinuations &edgeContinuati
     ret->init(lane, length, edgeContinuations);
     return ret;
 }
+
+#ifdef _MESSAGES
+MSMsgInductLoop *
+NLDetectorBuilder::createMsgInductLoop(const std::string &id, const std::string &msg,
+									   MSLane *lane, SUMOReal pos) throw()
+{
+	return new MSMsgInductLoop(id, msg, lane, pos);
+}
+#endif
 
 
 MSInductLoop *

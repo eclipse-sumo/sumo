@@ -167,7 +167,12 @@ protected:
     /// Builds an e2-detector using the given specification
     virtual void addE2Detector(const SUMOSAXAttributes &attrs);
 
-    /// Starts building of an e3-detector using the given specification
+#ifdef _MESSAGES
+	/// Builds an e4-detector using the given specification
+	virtual void addMsgDetector(const SUMOSAXAttributes &attrs);
+#endif
+    
+	/// Starts building of an e3-detector using the given specification
     void beginE3Detector(const SUMOSAXAttributes &attrs);
 
     void addE3Entry(const SUMOSAXAttributes &attrs);
@@ -247,7 +252,12 @@ private:
     /// adds a source
     virtual void addSource(const SUMOSAXAttributes &attrs);
 
-    /// adds a trigger
+#ifdef _MESSAGES
+	/// adds a message emitter
+	void addMsgEmitter(const SUMOSAXAttributes &attrs);
+#endif
+    
+	/// adds a trigger
     void addTrigger(const SUMOSAXAttributes &attrs);
 
     /// opens the container of succeeding lanes for processing

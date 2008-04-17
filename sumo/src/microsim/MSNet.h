@@ -47,6 +47,9 @@
 #include "MSPhoneNet.h"
 #include <microsim/output/MSMeanData_Net.h>
 
+#ifdef _MESSAGES
+#include <utils/common/NamedObjectCont.h>
+#endif
 
 // ===========================================================================
 // class declarations
@@ -71,6 +74,9 @@ class MSTriggerControl;
 class ShapeContainer;
 class BinaryInputDevice;
 class MSRouteLoader;
+#ifdef _MESSAGES
+class MSMessageEmitter;
+#endif
 
 
 // ===========================================================================
@@ -97,7 +103,33 @@ public:
     /// Destructor.
     virtual ~MSNet();
 
-    /** @brief Simulates from timestep start to stop.
+#ifdef _MESSAGES
+	/// @brief Map of MSMsgEmitter by ID
+	typedef NamedObjectCont< MSMessageEmitter* > MsgEmitterDict;
+	
+	// TODO
+	/**
+	 * @brief Returns the Message Emitter needed
+	 *
+	 * @param whatemit std::string defining the requested MSMessageEmitter.
+	 * @return the first MessageEmitter found, which has the requested element enabled
+	 */
+	MSMessageEmitter *getMsgEmitter(const std::string& whatemit);
+
+	/**
+	 *
+	 *
+	 */
+	void createMsgEmitter(std::string& id,
+						  std::string& file,
+						  const std::string& base,
+						  std::string& whatemit,
+						  bool reverse,
+						  bool table,
+						  bool xy);
+#endif
+
+	/** @brief Simulates from timestep start to stop.
         start and stop in timesteps.
         In each timestep we emit Vehicles, move Vehicles,
         the Vehicles change Lanes.  The method returns true when the
@@ -383,6 +415,12 @@ private:
     /// @brief Invalidated assignment operator.
     MSNet& operator=(const MSNet&);
 
+#ifdef _MESSAGES
+	/// The message Emitter
+	MsgEmitterDict myMsgEmitter;
+	
+	std::vector<MSMessageEmitter*> msgEmitVec;
+#endif
 
 };
 

@@ -46,6 +46,14 @@ else
    ac_disabled="$ac_disabled GeometryChecks"
 fi
 
+AC_ARG_ENABLE([messages], [AS_HELP_STRING([--enable-messages],[enable static and dynamic messages emitted by vehicles [default=no].])],
+			  [AC_DEFINE(_MESSAGES, 1, [Define to 1 in order to enable messages.])])
+if test x$enable_messages = xyes; then
+	ac_enabled="$ac_enabled Messages"
+else
+	ac_disabled="$ac_disabled Messages"
+fi
+
 AC_ARG_ENABLE([memcheck], [AS_HELP_STRING([--enable-memcheck],[enable compilation of memory leak checks [default=no].])],
               [AC_DEFINE(CHECK_MEMORY_LEAKS, 1, [Define to 1 in order to enable memory checks.])])
 AM_CONDITIONAL(CHECK_MEMORY_LEAKS, test x$enable_memcheck = xyes)

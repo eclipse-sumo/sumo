@@ -10,6 +10,7 @@ MSInductLoop.cpp MSInductLoop.h \
 MSLaneMeanDataValues.h \
 MSMeanData_Net.cpp MSMeanData_Net.h \
 MSMeanData_Net_Utils.cpp MSMeanData_Net_Utils.h \
+MSMsgInductLoop.cpp MSMsgInductLoop.h \
 MSVTypeProbe.cpp MSVTypeProbe.h \
 MSXMLRawOut.cpp MSXMLRawOut.h
 

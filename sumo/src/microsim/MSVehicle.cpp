@@ -59,6 +59,9 @@
 #include "devices/MSDevice_C2C.h"
 #include "devices/MSDevice_Routing.h"
 
+#ifdef _MESSAGES
+#include "MSMessageEmitter.h"
+#endif
 
 #include "devices/MSDevice_CPhone.h"
 
@@ -223,6 +226,10 @@ MSVehicle::MSVehicle(SUMOVehicleParameter &pars,
 		destinationLane(0)
 #endif
 {
+#ifdef _MESSAGES
+	myLCMsgEmitter = MSNet::getInstance()->getMsgEmitter("lanechange");
+	myBMsgEmitter = MSNet::getInstance()->getMsgEmitter("break");
+#endif
     // build departure definition
     DepartArrivalDefinition *d = new DepartArrivalDefinition();
     d->time = pars.depart;
@@ -424,7 +431,15 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     // update position and speed
     myState.myPos  += SPEED2DIST(vNext);
     assert(myState.myPos < lane->length());
-    myState.mySpeed = vNext;
+#ifdef _MESSAGES
+	if(myBMsgEmitter!=0) {
+		if(vNext < oldV) {
+			SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
+			myBMsgEmitter->writeBreakEvent(myID, timeStep, myLane, myState.pos(), getPosition().x(), getPosition().y());
+		}
+	}
+#endif
+	myState.mySpeed = vNext;
     //@ to be optimized (move to somewhere else)
     if (hasCORNIntValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
         myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
@@ -549,6 +564,14 @@ MSVehicle::moveFirstChecked()
 
     // update position
     myState.myPos += SPEED2DIST(vNext);
+#ifdef _MESSAGES
+	if(myBMsgEmitter!=0) {
+		if(vNext < oldV) {
+			SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
+			myBMsgEmitter->writeBreakEvent(myID, timeStep, myLane, myState.pos(), getPosition().x(), getPosition().y());
+		}
+	}
+#endif
     // update speed
     myState.mySpeed = vNext;
     MSLane *approachedLane = myLane;
@@ -959,7 +982,13 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven)
 void
 MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane)
 {
-    myLane = enteredLane;
+#ifdef _MESSAGES
+	if(myLCMsgEmitter!=0) {
+		SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
+		myLCMsgEmitter->writeLaneChangeEvent(myID, timeStep, myLane, myState.pos(), enteredLane, getPosition().x(), getPosition().y());
+	}
+#endif
+	myLane = enteredLane;
     // switch to and activate the new lane's reminders
     // keep OldLaneReminders
     myMoveReminders = enteredLane->getMoveReminders();

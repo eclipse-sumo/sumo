@@ -62,6 +62,9 @@ class MSAbstractLaneChangeModel;
 class MSBusStop;
 class OutputDevice;
 class MSDevice;
+#ifdef _MESSAGES
+class MSMessageEmitter;
+#endif
 
 
 // ===========================================================================
@@ -782,6 +785,12 @@ protected:
 
     /// Unique ID.
     std::string myID;
+
+#ifdef _MESSAGES
+	/// The message emitters
+	MSMessageEmitter *myLCMsgEmitter;
+	MSMessageEmitter *myBMsgEmitter;
+#endif
 
     /// Vehicle's route.
     const MSRoute* myRoute;

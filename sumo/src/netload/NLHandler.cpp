@@ -156,7 +156,15 @@ NLHandler::myStartElement(SumoXMLTag element,
         addDetector(attrs);
         break;
         /// @deprecated ends
-    case SUMO_TAG_E1DETECTOR:
+#ifdef _MESSAGES
+	case SUMO_TAG_MSG_EMITTER:
+		addMsgEmitter(attrs);
+		break;
+	case SUMO_TAG_MSG:
+		addMsgDetector(attrs);
+		break;
+#endif
+	case SUMO_TAG_E1DETECTOR:
         addE1Detector(attrs);
         break;
     case SUMO_TAG_E2DETECTOR:
@@ -967,6 +975,42 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs)
 }
 
 
+#ifdef _MESSAGES
+void
+NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs)
+{
+	string id;
+	try {
+		id = attrs.getString(SUMO_ATTR_ID);
+	} catch (EmptyData &) {
+		MsgHandler::getErrorInstance()->inform("Missing id of a message emitter object.");
+		return;
+	}
+	string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+	// if no file given, use stdout
+	if (file=="") {
+		file = "-";
+	}
+#ifdef _DEBUG
+	cout << "id: '"+ id + "'" << endl
+		 << "file: '" + file + "'" << endl
+		 << "getFileName(): '" + getFileName() + "'" << endl;
+#endif
+	string whatemit;
+	bool reverse = attrs.getBoolSecure(SUMO_ATTR_REVERSE, false);
+	bool table = attrs.getBoolSecure(SUMO_ATTR_TABLE, true);
+	bool xycoord = attrs.getBoolSecure(SUMO_ATTR_XY, false);
+	try {
+		whatemit = attrs.getString(SUMO_ATTR_EVENTS);
+	} catch (EmptyData &) {
+		MsgHandler::getErrorInstance()->inform("Missing emit_msg of a message emitter object with id '" + id + "'.");
+		return;
+	}
+	myNet.createMsgEmitter(id, file, getFileName(), whatemit, reverse, table, xycoord);
+}
+#endif
+
+
 void
 NLHandler::addDetector(const SUMOSAXAttributes &attrs)
 {
@@ -996,7 +1040,70 @@ NLHandler::addDetector(const SUMOSAXAttributes &attrs)
         myCurrentDetectorType = "e3";
         return;
     }
+#ifdef _MESSAGES
+	// new induct loop, for static messages
+	if (type=="il_msg"||type=="E4"||type=="e4") {
+		addMsgDetector(attrs);
+		myCurrentDetectorType="e4";
+	}
+#endif
 }
+
+#ifdef _MESSAGES
+void
+NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs)
+{
+#ifdef _DEBUG
+	cout << "=====DEBUG OUTPUT=====" << endl << "Hier kommen die Detektoren rein..." << endl;
+#endif
+	string id = attrs.getStringSecure(SUMO_ATTR_ID, "");
+	if(id=="") {
+		MsgHandler::getErrorInstance()->inform("Missing id of a e4-detector-object.");
+		return;
+	}
+#ifdef _DEBUG
+	cout << "ID: " << id << endl;
+#endif
+	string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
+	if (file=="") {
+		MsgHandler::getErrorInstance()->inform("Missing output definition for detector '" + id + "'.");
+		return;
+	}
+#ifdef _DEBUG
+	cout << "File: " << file << endl;
+#endif
+	string msg = attrs.getStringSecure(SUMO_ATTR_MSG, "");
+	if (msg=="") {
+		MsgHandler::getErrorInstance()->inform("Missing message for detector '" + id + "'.");
+		return;
+	}
+#ifdef _DEBUG
+	cout << "Message: " << msg << endl;
+#endif
+	try {
+		myDetectorBuilder.buildMsgDetector(id,
+										   attrs.getString(SUMO_ATTR_LANE),
+										   attrs.getFloat(SUMO_ATTR_POSITION),
+										   attrs.getInt(SUMO_ATTR_FREQUENCY),
+										   attrs.getString(SUMO_ATTR_MSG),
+										   OutputDevice::getDevice(attrs.getString(SUMO_ATTR_FILE), getFileName()),
+										   attrs.getBoolSecure(SUMO_ATTR_FRIENDLY_POS, false));
+	} catch (InvalidArgument &e) {
+		MsgHandler::getErrorInstance()->inform(e.what());
+	} catch (EmptyData &) {
+		MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' does not contain a needed value.");
+	} catch (BoolFormatException &) {
+		MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' contains a broken boolean.");
+	} catch (NumberFormatException &) {
+		MsgHandler::getErrorInstance()->inform("The description of the detector '" + id + "' contains a broken number.");
+	} catch (IOError &e) {
+		MsgHandler::getErrorInstance()->inform(e.what());
+	}
+#ifdef _DEBUG
+	cout << "=====END DEBUG=====" << endl;
+#endif
+}
+#endif
 
 
 void

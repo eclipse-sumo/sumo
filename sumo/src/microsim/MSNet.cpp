@@ -73,6 +73,10 @@
 #include <ctime>
 #include "MSPerson.h"
 
+#ifdef _MESSAGES
+#include "MSMessageEmitter.h"
+#endif
+
 #ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
 #endif
@@ -218,6 +222,16 @@ MSNet::~MSNet()
     delete myMSPhoneNet;
     myMSPhoneNet = 0;
     delete myShapeContainer;
+#ifdef _MESSAGES
+#ifdef _DEBUG
+	cout << "MSNet: clearing myMsgEmitter" << endl;
+#endif
+	myMsgEmitter.clear();
+#ifdef _DEBUG
+	cout << "MSNet: clearing msgEmitVec" << endl;
+#endif
+	msgEmitVec.clear();
+#endif
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         delete MSGlobals::gMesoNet;
@@ -228,6 +242,39 @@ MSNet::~MSNet()
     GeoConvHelper::close();
     OutputDevice::closeAll();
 }
+
+
+#ifdef _MESSAGES
+MSMessageEmitter*
+MSNet::getMsgEmitter(const std::string& whatemit)
+{
+	msgEmitVec.clear();
+	msgEmitVec = myMsgEmitter.buildAndGetStaticVector();
+	MSMessageEmitter *msgEmitter = 0;
+	for(int i = 0; i < msgEmitVec.size(); ++i) {
+		if(msgEmitVec.at(i)->getEventsEnabled(whatemit)) {
+			msgEmitter = msgEmitVec.at(i);
+			break;
+		}
+	}
+	// returns 0 if the requested MessageEmitter is not in the map
+	return msgEmitter;
+}
+
+
+void
+MSNet::createMsgEmitter(std::string& id,
+						std::string& file,
+						const std::string& base,
+  std::string& whatemit,
+  bool reverse,
+  bool table,
+  bool xy)
+{
+	MSMessageEmitter *msgEmitter = new MSMessageEmitter(file, base, whatemit, reverse, table, xy);
+	myMsgEmitter.add(id, msgEmitter);
+}
+#endif
 
 
 int
