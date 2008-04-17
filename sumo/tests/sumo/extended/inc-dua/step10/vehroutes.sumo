@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 03/14/08 13:56:39 by SUMO sumo Version 0.9.7
+<!-- generated on 04/17/08 12:06:35 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -25,45 +25,45 @@
 </configuration>
 -->
 
-<vehicleroutes>
-   <vehicle id="horizontal01" emittedAt="100" endedAt="333">
+<routes>
+   <vehicle id="horizontal01" depart="100" arrival="333">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal02" emittedAt="105" endedAt="335">
+   <vehicle id="horizontal02" depart="105" arrival="335">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal03" emittedAt="110" endedAt="336">
+   <vehicle id="horizontal03" depart="110" arrival="336">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal04" emittedAt="115" endedAt="338">
+   <vehicle id="horizontal04" depart="115" arrival="338">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal05" emittedAt="120" endedAt="340">
+   <vehicle id="horizontal05" depart="120" arrival="340">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal06" emittedAt="125" endedAt="341">
+   <vehicle id="horizontal06" depart="125" arrival="341">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal07" emittedAt="130" endedAt="394">
+   <vehicle id="horizontal07" depart="130" arrival="394">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal08" emittedAt="135" endedAt="397">
+   <vehicle id="horizontal08" depart="135" arrival="397">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal09" emittedAt="140" endedAt="398">
+   <vehicle id="horizontal09" depart="140" arrival="398">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-   <vehicle id="horizontal10" emittedAt="145" endedAt="400">
+   <vehicle id="horizontal10" depart="145" arrival="400">
       <route>2fi 2si 1o 1fi 1si 2o 2fi</route>
    </vehicle>
 
-</vehicleroutes>
+</routes>
