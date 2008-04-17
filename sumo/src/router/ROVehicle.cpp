@@ -102,9 +102,75 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const
         dev << " type=\"" << myType->getID() << "\"";
     }
     dev << " depart=\"" << myParameter.depart << "\"";
+
+    // optional parameter
+        // depart-values
+            // departlane
+    if ((myParameter.setParameter&VEHPARS_DEPARTLANE_SET)!=0) {
+        string val;
+        switch(myParameter.departLaneProcedure) {
+        case DEPART_LANE_GIVEN:
+            val = toString(myParameter.departLane);
+            break;
+        case DEPART_LANE_RANDOM:
+            val = "random";
+            break;
+        case DEPART_LANE_FREE:
+            val = "free";
+            break;
+        case DEPART_LANE_DEPARTLANE:
+            val = "departlane";
+            break;
+        case DEPART_LANE_DEFAULT:
+        default:
+            cerr << "should not happen..." << endl;
+            break;
+        }
+        dev << " departlane=\"" << val << "\"";
+    }
+            // departpos
+    if ((myParameter.setParameter&VEHPARS_DEPARTPOS_SET)!=0) {
+        string val;
+        switch(myParameter.departPosProcedure) {
+        case DEPART_POS_GIVEN:
+            val = toString(myParameter.departPos);
+            break;
+        case DEPART_POS_RANDOM:
+            val = "random";
+            break;
+        case DEPART_POS_FREE:
+            val = "free";
+        case DEPART_POS_DEFAULT:
+        default:
+            break;
+        }
+        dev << " departpos=\"" << val << "\"";
+    }
+            // departspeed
+    if ((myParameter.setParameter&VEHPARS_DEPARTSPEED_SET)!=0) {
+        string val;
+        switch(myParameter.departSpeedProcedure) {
+        case DEPART_SPEED_GIVEN:
+            val = toString(myParameter.departSpeed);
+            break;
+        case DEPART_SPEED_RANDOM:
+            val = "random";
+            break;
+        case DEPART_SPEED_MAX:
+            val = "max";
+            break;
+        case DEPART_SPEED_DEFAULT:
+        default:
+            cerr << "should not happen..." << endl;
+            break;
+        }
+        dev << " departspeed=\"" << val << "\"";
+    }
+        // color
     if ((myParameter.setParameter&VEHPARS_COLOR_SET)!=0) {
         dev << " color=\"" << myParameter.color << "\"";
     }
+        // repetition values
     if ((myParameter.setParameter&VEHPARS_PERIODNUM_SET)!=0) {
         dev << " repno=\"" << myParameter.repetitionNumber << "\"";
     }
