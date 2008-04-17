@@ -1,6 +1,3 @@
-# Ordered list of tests in test suite. Add as appropriate
-
-
 # Test with 100 vehicles having one departure time, the type is given but not defined
 one_time
 
@@ -15,6 +12,9 @@ increasing_time_unsorted
 
 # Test whether import of colours works
 increasing_time_withcolor
+
+# Tests whether parameter passing works
+increasing_time_withparams
 
 # Test whether trips with unsorted are imported correctly, the type is given but not defined
 unsorted_time
