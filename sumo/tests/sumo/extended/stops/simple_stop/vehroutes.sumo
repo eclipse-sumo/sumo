@@ -20,13 +20,13 @@
 </configuration>
 -->
 
-<vehicleroutes>
-   <vehicle id="veh0" emittedAt="1" endedAt="56">
+<routes>
+   <vehicle id="veh0" depart="1" arrival="56">
       <route>1to2 out</route>
    </vehicle>
 
-   <vehicle id="veh1" emittedAt="56" endedAt="58">
+   <vehicle id="veh1" depart="56" arrival="58">
       <route>1to2 out</route>
    </vehicle>
 
-</vehicleroutes>
+</routes>
