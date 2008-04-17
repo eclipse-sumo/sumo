@@ -306,8 +306,11 @@ public:
         return myType->hasSafeGap(speed, gap, predSpeed, laneMaxSpeed);
     }
 
-    SUMOReal getSecureGap(SUMOReal speed, SUMOReal predSpeed, SUMOReal predLength) const {
-        return myType->getSecureGap(speed, predSpeed, predLength);
+    SUMOReal getSecureGap(SUMOReal speed, SUMOReal leaderSpeed, MSVehicle &leader) const {
+        SUMOReal leaderSpeedAfterDecel = leader.getSpeedAfterMaxDecel(leaderSpeed);
+        SUMOReal speedDiff = speed - leaderSpeedAfterDecel;
+        SUMOReal resGap = speedDiff * speedDiff / myType->getMaxDecel() + speed * myType->getTau();
+        return resGap;
     }
 
     SUMOReal ffeV(SUMOReal speed, SUMOReal gap2pred, SUMOReal predSpeed) const {

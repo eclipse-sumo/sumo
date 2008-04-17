@@ -277,12 +277,12 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal speed) throw()
             : -1;
         // get secure gaps
         SUMOReal frontGapNeeded = leader!=0
-            ? veh.getSecureGap(veh.getSpeed(), leader->getSpeed(), leader->getLength())
+            ? veh.getSecureGap(veh.getSpeed(), leader->getSpeed(), *leader)
             : -1;
-        SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), speed, veh.getLength());
+        SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), speed, veh);
         // compute needed room
         SUMOReal frontMax = leader!=0
-            ? leaderPos - frontGapNeeded
+            ? leaderPos - frontGapNeeded - leader->getLength()
             : length();
         SUMOReal backMin = followPos + backGapNeeded + veh.getLength();
         // check whether there is enough room
@@ -364,7 +364,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     if (predIt != myVehicles.end()) {
         // ok, there is one (a leader)
         MSVehicle* leader = *predIt;
-        SUMOReal frontGapNeeded = aVehicle->getSecureGap(vstate.speed(), leader->getSpeed(), leader->getLength());
+        SUMOReal frontGapNeeded = aVehicle->getSecureGap(vstate.speed(), leader->getSpeed(), *leader);
         SUMOReal gap = MSVehicle::gap(leader->getPositionOnLane(), leader->getLength(), vstate.pos());
         if (gap<frontGapNeeded) {
             return false;
@@ -373,7 +373,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     // check back vehicle
     if(predIt!=myVehicles.begin()) {
         MSVehicle *follower = *(predIt-1);
-        SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), vstate.speed(), aVehicle->getLength());
+        SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), vstate.speed(), *aVehicle);
         SUMOReal gap = MSVehicle::gap(vstate.pos(), aVehicle->getLength(), follower->getPositionOnLane());
         if (gap<backGapNeeded) {
             return false;
@@ -388,7 +388,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     std::pair<MSVehicle *, SUMOReal> approaching = getApproaching(dist, 0, vstate.speed());
     if(approaching.first!=0) {
         MSVehicle *follower = approaching.first;
-        SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), vstate.speed(), aVehicle->getLength());
+        SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), vstate.speed(), *aVehicle);
         SUMOReal gap = approaching.second - vstate.pos() - aVehicle->getLength();
         if (gap<backGapNeeded) {
             return false;

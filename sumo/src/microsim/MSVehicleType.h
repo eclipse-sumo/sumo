@@ -165,19 +165,6 @@ public:
         return MIN2(_vsafe(gap2pred, 0), maxNextSpeed(speed));
     }
 
-    SUMOReal getSecureGap(SUMOReal speed, SUMOReal predSpeed, SUMOReal predLength) const {
-        SUMOReal safeSpace2 = brakeGap(speed);
-        SUMOReal vSafe = ffeV(0, 0, predSpeed);
-        SUMOReal safeSpace3 =
-            ((vSafe - predSpeed)
-             * (SUMOReal)((vSafe+predSpeed) / 2.0 / (2.0 * MSVehicleType::getMinVehicleDecel()) + myTau))
-            + predSpeed * myTau;
-        SUMOReal safeSpace = MAX3(safeSpace2, safeSpace3, ACCEL2SPEED(myDecel));
-        safeSpace += predLength;
-        safeSpace += ACCEL2SPEED(getMaxAccel(speed));
-        return safeSpace;
-    }
-
     SUMOReal decelAbility() const {
         return ACCEL2SPEED(myDecel); // !!! really the speed?
     }
