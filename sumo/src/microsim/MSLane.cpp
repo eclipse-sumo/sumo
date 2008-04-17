@@ -293,6 +293,7 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal speed) throw()
             }
         }
     }
+    return false;
 }
 
 
