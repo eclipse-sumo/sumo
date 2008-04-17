@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/16/08 08:47:29 by SUMO sumo Version 0.9.7
+<!-- generated on 04/17/08 12:06:27 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -20,45 +20,45 @@
 </configuration>
 -->
 
-<vehicleroutes>
-   <vehicle id="emitter_0_0" emittedAt="0" endedAt="197">
+<routes>
+   <vehicle id="emitter_0_0" depart="0" arrival="197">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_1_1" emittedAt="3" endedAt="200">
+   <vehicle id="emitter_1_1" depart="3" arrival="200">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_2_2" emittedAt="6" endedAt="203">
+   <vehicle id="emitter_2_2" depart="6" arrival="203">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_3_3" emittedAt="9" endedAt="206">
+   <vehicle id="emitter_3_3" depart="9" arrival="206">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_4_4" emittedAt="12" endedAt="209">
+   <vehicle id="emitter_4_4" depart="12" arrival="209">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_5_5" emittedAt="15" endedAt="212">
+   <vehicle id="emitter_5_5" depart="15" arrival="212">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_6_6" emittedAt="18" endedAt="215">
+   <vehicle id="emitter_6_6" depart="18" arrival="215">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_7_7" emittedAt="21" endedAt="218">
+   <vehicle id="emitter_7_7" depart="21" arrival="218">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_8_8" emittedAt="24" endedAt="222">
+   <vehicle id="emitter_8_8" depart="24" arrival="222">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-   <vehicle id="emitter_9_9" emittedAt="27" endedAt="226">
+   <vehicle id="emitter_9_9" depart="27" arrival="226">
       <route>beg beg2left left left2end end rend</route>
    </vehicle>
 
-</vehicleroutes>
+</routes>

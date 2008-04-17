@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/16/08 09:16:27 by SUMO sumo Version 0.9.7
+<!-- generated on 04/17/08 12:06:32 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -20,5 +20,5 @@
 </configuration>
 -->
 
-<vehicleroutes>
-</vehicleroutes>
+<routes>
+</routes>
