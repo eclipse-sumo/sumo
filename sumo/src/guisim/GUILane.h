@@ -83,18 +83,6 @@ public:
         first; the access will be granted at the end of this method */
     bool setCritical(std::vector<MSLane*> &into);
 
-    /** @brief Emits the given vehicle
-     *
-     * The same as in MSLane, but locks the access for the visualisation
-     * first; the access will be granted at the end of this method.
-     *
-     * @param[in] v The vehicle to emit
-     * @param[in] isReinsertion Whether the vehicle was already emitted
-     * @return Whether the vehicle could be emitted
-     * @see MSLane::emit
-     */
-    bool emit(MSVehicle& v, bool isReinsertion=false) throw();
-
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
     bool isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &vstate);

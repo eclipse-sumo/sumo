@@ -35,7 +35,6 @@
 #include <guisim/GUIEdge.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUILane.h>
-#include <guisim/GUISourceLane.h>
 #include <guisim/GUIInternalLane.h>
 #include <microsim/MSJunction.h>
 #include <netload/NLBuilder.h>
@@ -102,14 +101,11 @@ GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
     parseVehicleClasses(vclasses, allowed, disallowed);
     MSLane *lane = 0;
     switch (m_Function) {
-    case MSEdge::EDGEFUNCTION_SOURCE:
-        lane = new GUISourceLane(/*net, */id, maxSpeed, length, myActiveEdge,
-                                          myCurrentNumericalLaneID++, shape, allowed, disallowed);
-        break;
     case MSEdge::EDGEFUNCTION_INTERNAL:
         lane = new GUIInternalLane(/*net, */id, maxSpeed, length, myActiveEdge,
                                             myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
+    case MSEdge::EDGEFUNCTION_SOURCE:
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_SINK:
     case MSEdge::EDGEFUNCTION_INNERJUNCTION:

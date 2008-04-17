@@ -134,11 +134,14 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
      * @param[in] isReinsertion Whether the vehicle was already emitted
      * @return Whether the vehicle could be emitted
      */
-    virtual bool emit(MSVehicle& v, bool isReinsertion=false) throw();
+    bool emit(MSVehicle& v, bool isReinsertion=false) throw();
 
     /** @brief Try to emit a vehicle with speed > 0
         i.e. from a source with initial speed values. */
     virtual bool isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &vstate);
+
+    bool freeEmit(MSVehicle& veh, SUMOReal speed) throw();
+
 
     /** Moves the critical vehicles
         This step is done after the responds have been set */
@@ -342,22 +345,6 @@ protected:
     /** Returns the first/front vehicle of the lane and removing it from the lane. */
     virtual MSVehicle* pop();
 
-    /** @brief Tries to emit veh into lane.
-        There are four kind of possible emits that have to be handled differently:
-        - The line is empty,
-        - emission as last veh (in driving direction) (front insert),
-        - as first veh (back insert)
-        - between a follower and a leader.
-        Regard that some of these methods are private, as the source lanes must
-        not insert vehicles in front of other vehicles.
-        True is returned for successful emission.
-        Use this when the lane is empty */
-    virtual bool emitTry(MSVehicle& veh);
-
-    /** Use this, when there is only a vehicle in front of the vehicle
-        to insert */
-    virtual bool emitTry(MSVehicle& veh, VehCont::iterator leaderIt);
-
     /** Resets the MeanData container at the beginning of a new interval.*/
     virtual void resetMeanData(unsigned index);
 
@@ -425,14 +412,6 @@ protected:
 
 
 protected:
-
-    /** Use this, when there is only a vehicle behind the vehicle to insert */
-    bool emitTry(VehCont::iterator followIt, MSVehicle& veh);   // back ins.
-
-    /** Use this, when the new vehicle shall be inserted between two other vehicles */
-    bool emitTry(VehCont::iterator followIt, MSVehicle& veh,
-                 VehCont::iterator leaderIt);  // in between ins.
-
     /// index of the first vehicle that may drive over the lane's end
     size_t myFirstUnsafe;
 

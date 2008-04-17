@@ -120,16 +120,6 @@ GUILane::setCritical(std::vector<MSLane*> &into)
 
 
 bool
-GUILane::emit(MSVehicle& newVeh, bool isReinsertion) throw()
-{
-    myLock.lock();
-    bool ret = MSLane::emit(newVeh, isReinsertion);
-    myLock.unlock();
-    return ret;
-}
-
-
-bool
 GUILane::isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &vstate)
 {
     myLock.lock();

@@ -33,7 +33,6 @@
 #include <map>
 #include <algorithm>
 #include <microsim/MSLane.h>
-#include <microsim/MSSourceLane.h>
 #include <microsim/MSInternalLane.h>
 #include <microsim/MSEdge.h>
 #include <microsim/MSEdgeControl.h>
@@ -133,14 +132,11 @@ NLEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
     parseVehicleClasses(vclasses, allowed, disallowed);
     MSLane *lane = 0;
     switch (m_Function) {
-    case MSEdge::EDGEFUNCTION_SOURCE:
-        lane = new MSSourceLane(/*net, */id, maxSpeed, length, myActiveEdge,
-                                         myCurrentNumericalLaneID++, shape, allowed, disallowed);
-        break;
     case MSEdge::EDGEFUNCTION_INTERNAL:
         lane = new MSInternalLane(/*net, */id, maxSpeed, length, myActiveEdge,
                                            myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
+    case MSEdge::EDGEFUNCTION_SOURCE:
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_SINK:
     case MSEdge::EDGEFUNCTION_INNERJUNCTION:

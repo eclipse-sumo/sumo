@@ -258,6 +258,45 @@ MSLane::detectCollisions(SUMOTime timestep)
 
 
 bool
+MSLane::freeEmit(MSVehicle& veh, SUMOReal speed) throw()
+{
+    // check whether we can emit in behind the last vehicle on the lane
+    if(isEmissionSuccess(&veh, MSVehicle::State(0, speed))) {
+        return true;
+    } 
+    // go through the lane, look for free positions
+    MSLane::VehCont::iterator predIt = myVehicles.begin();
+    while(predIt!=myVehicles.end()) {
+        MSVehicle *follower = *predIt;
+        MSVehicle *leader = predIt!=myVehicles.end()-1
+            ? *(predIt+1)
+            : 0;
+        SUMOReal followPos = follower->getPositionOnLane();
+        SUMOReal leaderPos = leader->getPositionOnLane() - leader->getLength();
+        // get secure gaps
+        SUMOReal frontGapNeeded = leader!=0
+            ? veh.getSecureGap(veh.getSpeed(), leader->getSpeed(), leader->getLength())
+            : -1;
+        SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), speed, veh.getLength());
+        // compute needed room
+        SUMOReal frontMax = frontGapNeeded>=0
+            ? leaderPos - frontGapNeeded
+            : length();
+        SUMOReal backMin = followPos + backGapNeeded + veh.getLength();
+        // check whether there is enough room
+        if (frontMax>0 && backMin<frontMax) {
+            // try emit vehicle (should be always ok)
+            if(isEmissionSuccess(&veh, MSVehicle::State((frontMax + backMin) / (SUMOReal) 2.0, speed))) {
+                return true;
+            } else {
+                cerr << "Strange behaviour:" << endl;
+            }
+        }
+    }
+}
+
+
+bool
 MSLane::emit(MSVehicle& veh, bool isReinsertion) throw()
 {
     SUMOReal pos = 0;
@@ -269,8 +308,7 @@ MSLane::emit(MSVehicle& veh, bool isReinsertion) throw()
             speed = pars.speed;
             break;
         case DEPART_SPEED_RANDOM:
-            speed = MIN2(veh.getMaxSpeed(), maxSpeed());
-            speed = RandHelper::rand(speed);
+            speed = RandHelper::rand(MIN2(veh.getMaxSpeed(), maxSpeed()));
             break;
         case DEPART_SPEED_MAX:
             speed = MIN2(veh.getMaxSpeed(), maxSpeed());
@@ -284,66 +322,20 @@ MSLane::emit(MSVehicle& veh, bool isReinsertion) throw()
             pos = pars.pos;
             break;
         case DEPART_POS_RANDOM:
-            pos = length();
-            pos = RandHelper::rand(pos);
+            pos = RandHelper::rand(length());
             break;
         case DEPART_POS_FREE:
-            // !!! tbd
-            break;
+            return freeEmit(veh, speed);
         case DEPART_POS_DEFAULT:
         default:
             break;
         }
     } else {
+        // vehicle reinsertion after teleportation
         speed = MIN2(veh.getMaxSpeed(), maxSpeed());
-        pos = 0; // !!! recheck, should be "free"
+        return freeEmit(veh, speed);
     }
     return isEmissionSuccess(&veh, MSVehicle::State(pos, speed));
-    /*
-    // Here the emission starts
-    if (empty()) {
-
-        return emitTry(veh);
-    }
-
-    // Try to emit as last veh. (in driving direction)
-    VehCont::iterator leaderIt = myVehicles.begin();
-    if (emitTry(veh, leaderIt)) {
-
-        return true;
-    }
-
-    // if there is only one veh on this lane, try to
-    // emit in front of this veh. (leader becomes follower)
-    if (leaderIt + 1 ==  myVehicles.end()) {
-
-        return emitTry(leaderIt, veh);
-    }
-
-    // At least two vehicles on lane.
-    // iterate over follow/leader -pairs
-    VehCont::iterator followIt = leaderIt;
-    ++leaderIt;
-    for (;;) {
-
-        // try to emit between follower and leader
-        if (emitTry(followIt, veh, leaderIt)) {
-
-            return true;
-        }
-
-        // if leader is the first veh on this lane, try
-        // to emit in front of it.
-        if (leaderIt + 1 == myVehicles.end()) {
-
-            return emitTry(leaderIt, veh);
-        }
-
-        // iterate
-        ++leaderIt;
-        ++followIt;
-    }
-    */
 }
 
 
@@ -362,7 +354,6 @@ bool
 MSLane::isEmissionSuccess(MSVehicle* aVehicle,
                           const MSVehicle::State &vstate)
 {
-//    aVehicle->departLane();
     MSLane::VehCont::iterator predIt =
         find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), vstate.pos()));
     // check predeccessor vehicle (!!! complte: what about vehicles that are on the next lane?
@@ -386,14 +377,14 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     }
     // check back vehicle
     if(predIt!=myVehicles.begin()) {
-        MSVehicle *leader = *(predIt-1);
-        SUMOReal headWay = leader->timeHeadWayGap(leader->getSpeed());   // !!!??
-        SUMOReal gap = MSVehicle::gap(vstate.pos(), aVehicle->getLength(), leader->getPositionOnLane());
+        MSVehicle *follower = *(predIt-1);
+        SUMOReal headWay = follower->timeHeadWayGap(follower->getSpeed());
+        SUMOReal gap = MSVehicle::gap(vstate.pos(), aVehicle->getLength(), follower->getPositionOnLane());
         if (gap<headWay) {
             return false;
         }
-        SUMOReal vsafe = leader->ffeV(leader->getSpeed(), gap, vstate.speed());
-        SUMOReal brakeWay = SPEED2DIST(leader->getSpeedAfterMaxDecel(vsafe));//vstate.speed() - aVehicle->decelSpeed();
+        SUMOReal vsafe = follower->ffeV(follower->getSpeed(), gap, vstate.speed());
+        SUMOReal brakeWay = SPEED2DIST(follower->getSpeedAfterMaxDecel(vsafe));
         if (vsafe<brakeWay) {
             return false;
         }
@@ -415,7 +406,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
             return false;
         }
     }
-    // check back vehicle
+    // enter
     aVehicle->enterLaneAtEmit(this, vstate);
     bool wasInactive = myVehicles.size()==0;
     myVehicles.insert(predIt, aVehicle);
@@ -425,161 +416,6 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     }
     add2MeanDataEmitted();
     return true;
-}
-
-
-bool
-MSLane::emitTry(MSVehicle& veh)
-{
-    SUMOReal speed = maxSpeed();
-    SUMOReal dist = speed * speed * SUMOReal(1./2.*4) + speed;
-    std::pair<MSVehicle *, SUMOReal> approaching = getApproaching(dist, 0, veh.getSpeed());
-    SUMOReal safeSpace =
-        approaching.first==0
-        ? 0
-        : approaching.first->getSecureGap(approaching.first->getSpeed(), veh.getSpeed(), veh.getLength());
-    safeSpace = MAX2(safeSpace, veh.getLength());
-    if (safeSpace<length()) {
-        MSVehicle::State state(safeSpace, 0);
-        veh.enterLaneAtEmit(this, state);
-        bool wasInactive = myVehicles.size()==0;
-        myVehicles.push_front(&veh);
-        myVehicleLengthSum += veh.getLength();
-        if (wasInactive) {
-            MSNet::getInstance()->getEdgeControl().gotActive(this);
-        }
-        add2MeanDataEmitted();
-        return true;
-    }
-    return false;
-}
-
-
-bool
-MSLane::emitTry(MSVehicle& veh, VehCont::iterator leaderIt)
-{
-    SUMOReal speed = maxSpeed();
-    SUMOReal dist = speed * speed * SUMOReal(1./2.*4) + speed;
-    std::pair<MSVehicle *, SUMOReal> approaching = getApproaching(dist, 0, veh.getSpeed());
-    SUMOReal safeSpace =
-        approaching.first==0
-        ? 0
-        : approaching.first->getSecureGap(approaching.first->getSpeed(), veh.getSpeed(), veh.getLength());
-    if (approaching.first==0) {
-        // emission as last car (in driving direction)
-        MSVehicle *leader = *leaderIt;
-        // get invoked vehicles' positions
-        SUMOReal leaderPos = (*leaderIt)->getPositionOnLane() - (*leaderIt)->getLength();
-        // get secure gaps
-        SUMOReal frontGapNeeded = veh.getSecureGap(veh.getSpeed(), leader->getSpeed(), leader->getLength());
-        // compute needed room
-        SUMOReal frontMax = leaderPos - frontGapNeeded;
-        // check whether there is enough room
-        if (frontMax>0) {
-            // emit vehicle if so
-            MSVehicle::State state(frontMax, 0);
-            veh.enterLaneAtEmit(this, state);
-            bool wasInactive = myVehicles.size()==0;
-            myVehicles.push_front(&veh);
-            myVehicleLengthSum += veh.getLength();
-            if (wasInactive) {
-                MSNet::getInstance()->getEdgeControl().gotActive(this);
-            }
-            add2MeanDataEmitted();
-            return true;
-        }
-        return false;
-    } else {
-        // another vehicle is approaching this lane
-        MSVehicle *leader = *leaderIt;
-        MSVehicle *follow = approaching.first;
-        // get invoked vehicles' positions
-        SUMOReal followPos = approaching.second;
-        SUMOReal leaderPos = leader->getPositionOnLane() - leader->getLength();
-        // get secure gaps
-        SUMOReal frontGapNeeded = veh.getSecureGap(veh.getSpeed(), leader->getSpeed(), leader->getLength());
-        SUMOReal backGapNeeded = follow->getSecureGap(follow->getSpeed(), veh.getSpeed(), veh.getLength());
-        // compute needed room
-        SUMOReal frontMax = leaderPos - frontGapNeeded;
-        SUMOReal backMin = followPos + backGapNeeded + veh.getLength();
-        // check whether there is enough room
-        if (frontMax>0 && backMin<frontMax) {
-            // emit vehicle if so
-            MSVehicle::State state((frontMax+backMin)/(SUMOReal) 2.0, 0);
-            veh.enterLaneAtEmit(this, state);
-            bool wasInactive = myVehicles.size()==0;
-            myVehicles.insert(leaderIt, &veh);
-            myVehicleLengthSum += veh.getLength();
-            if (wasInactive) {
-                MSNet::getInstance()->getEdgeControl().gotActive(this);
-            }
-            add2MeanDataEmitted();
-            return true;
-        }
-        return false;
-    }
-}
-
-
-bool
-MSLane::emitTry(VehCont::iterator followIt, MSVehicle& veh)
-{
-    // emission as first car (in driving direction)
-    MSVehicle *follow = *followIt;
-    // get invoked vehicles' positions
-    SUMOReal followPos = follow->getPositionOnLane();
-    // get secure gaps
-    SUMOReal backGapNeeded = follow->getSecureGap(follow->getSpeed(), veh.getSpeed(), veh.getLength());
-    // compute needed room
-    SUMOReal backMin = followPos + backGapNeeded + veh.getLength();
-    // check whether there is enough room
-    if (backMin<length()) {
-        // emit vehicle if so
-        MSVehicle::State state(backMin, 0);
-        veh.enterLaneAtEmit(this, state);
-        bool wasInactive = myVehicles.size()==0;
-        myVehicles.push_back(&veh);
-        myVehicleLengthSum += veh.getLength();
-        if (wasInactive) {
-            MSNet::getInstance()->getEdgeControl().gotActive(this);
-        }
-        add2MeanDataEmitted();
-        return true;
-    }
-    return false;
-}
-
-
-bool
-MSLane::emitTry(VehCont::iterator followIt, MSVehicle& veh,
-                VehCont::iterator leaderIt)
-{
-    MSVehicle *leader = *leaderIt;
-    MSVehicle *follow = *followIt;
-    // get invoked vehicles' positions
-    SUMOReal followPos = follow->getPositionOnLane();
-    SUMOReal leaderPos = leader->getPositionOnLane() - leader->getLength();
-    // get secure gaps
-    SUMOReal frontGapNeeded = veh.getSecureGap(veh.getSpeed(), leader->getSpeed(), leader->getLength());
-    SUMOReal backGapNeeded = follow->getSecureGap(follow->getSpeed(), veh.getSpeed(), veh.getLength());
-    // compute needed room
-    SUMOReal frontMax = leaderPos - frontGapNeeded;
-    SUMOReal backMin = followPos + backGapNeeded + veh.getLength();
-    // check whether there is enough room
-    if (frontMax>0 && backMin<frontMax) {
-        // emit vehicle if so
-        MSVehicle::State state((frontMax + backMin) / (SUMOReal) 2.0, 0);
-        veh.enterLaneAtEmit(this, state);
-        bool wasInactive = myVehicles.size()==0;
-        myVehicles.insert(leaderIt, &veh);
-        myVehicleLengthSum += veh.getLength();
-        if (wasInactive) {
-            MSNet::getInstance()->getEdgeControl().gotActive(this);
-        }
-        add2MeanDataEmitted();
-        return true;
-    }
-    return false;
 }
 
 
