@@ -185,9 +185,9 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw()
         SUMOTime realDepart = (SUMOTime) v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME);
         SUMOTime time = net->getCurrentTimeStep();
         od
-        << "   <vehicle id=\"" << v->getID() << "\" emittedAt=\""
+        << "   <vehicle id=\"" << v->getID() << "\" depart=\""
         << v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)
-        << "\" endedAt=\"" << MSNet::getInstance()->getCurrentTimeStep()
+        << "\" arrival=\"" << MSNet::getInstance()->getCurrentTimeStep()
         << "\">" << "\n";
         if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
             int noReroutes = v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);

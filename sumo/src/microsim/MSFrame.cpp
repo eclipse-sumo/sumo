@@ -300,7 +300,7 @@ MSFrame::buildStreams()
     OutputDevice::createDeviceByOption("netstate-dump", "sumo-netstate");
     OutputDevice::createDeviceByOption("emissions-output", "emissions");
     OutputDevice::createDeviceByOption("tripinfo-output", "tripinfos");
-    OutputDevice::createDeviceByOption("vehroute-output", "vehicleroutes");
+    OutputDevice::createDeviceByOption("vehroute-output", "routes");
     OutputDevice::createDeviceByOption("physical-states-output", "physical-states");
     // TrafficOnline-outputs
     OutputDevice::createDeviceByOption("ss2-output");

@@ -1651,10 +1651,9 @@ MSVehicle::getBestLanes(bool forceRebuild) const throw()
 void
 MSVehicle::writeXMLRoute(OutputDevice &os, int index) const
 {
-    const MSRoute *route2Write = myRoute;
     // check if a previous route shall be written
-    os << "      <route";
     if (index>=0) {
+        os << "      <replaced_route";
         std::map<MSCORN::Pointer, void*>::const_iterator i = myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE);
         assert(i!=myPointerCORNMap.end());
         const ReplacedRoutesVector *v = (const ReplacedRoutesVector *)(*i).second;
@@ -1662,14 +1661,15 @@ MSVehicle::writeXMLRoute(OutputDevice &os, int index) const
         // write edge on which the vehicle was when the route was valid
         os << " replacedOnEdge=\"" << (*v)[index].edge->getID() << "\" ";
         // write the time at which the route was replaced
-        os << " replacedAtTime=\"" << (*v)[index].time << "\"";
+        os << " replacedAtTime=\"" << (*v)[index].time << "\">";
         // get the route
-        route2Write = (*v)[index].route;
+        (*v)[index].route->writeEdgeIDs(os);
+        os << "</replaced_route>\n";
+    } else {
+        os << "      <route>";
+        myRoute->writeEdgeIDs(os);
+        os << "</route>\n";
     }
-    os << ">";
-    // write the route
-    route2Write->writeEdgeIDs(os);
-    os << "</route>" << "\n";
 }
 
 
