@@ -43,6 +43,9 @@ newstyle_with_vehtype_nodef
 # Checks whether processing color information works
 newstyle_colorcheck
 
+# Checks whether passing optional vehicle attributes works
+newstyle_withparams
+
 # Checks whether the vehicle class is processed
 newstyle_with_vehtype_withclass
 

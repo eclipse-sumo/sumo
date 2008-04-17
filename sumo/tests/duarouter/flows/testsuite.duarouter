@@ -19,6 +19,9 @@ flows2routes_200s_interval_ext
 # Test whether color definition works
 flows2routes_100s_interval_withcolor
 
+# Test whether passing optional vehicle attributes works
+flows2routes_100s_interval_withparams
+
 # Test whether types are used
 flows2routes_100s_interval_withtype
 

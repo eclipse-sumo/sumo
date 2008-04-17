@@ -1,0 +1,120 @@
+<?xml version="1.0"?>
+
+<!-- generated on 04/17/08 15:34:49 by SUMO duarouter Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <alternatives>input_alts.rou.xml.alt</alternatives>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+</configuration>
+-->
+
+<route-alternatives>
+   <vtype model="SUMO_KRAUSS" id="0" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00" color="1,1,0"/>
+   <vehicle id="0" type="0" depart="0">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="10" type="0" depart="10" color="0.00,0.00,0.00">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="11" type="0" depart="11" color="1.00,0.00,1.00">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="20" type="0" depart="20" departpos="0.00">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="21" type="0" depart="21" departpos="10.00">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="22" type="0" depart="22" departpos="free">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="23" type="0" depart="23" departpos="random">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="30" type="0" depart="30" departlane="0">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="31" type="0" depart="31" departlane="1">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="32" type="0" depart="32" departlane="random">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="33" type="0" depart="33" departlane="free">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="34" type="0" depart="34" departlane="departlane">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="40" type="0" depart="40" departspeed="0.00">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="41" type="0" depart="41" departspeed="1.00">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="42" type="0" depart="42" departspeed="max">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="43" type="0" depart="43" departspeed="random">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="50" type="0" depart="50" period="0">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="51" type="0" depart="51" period="1">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="60" type="0" depart="60" repno="0">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="61" type="0" depart="61" repno="1">
+      <routealt last="0">
+         <route cost="124.88" probability="1">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+</route-alternatives>
