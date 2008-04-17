@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="y_libguisim"
 	ProjectGUID="{9046260E-78AA-4458-BE80-0747860A0F70}"
 	>
@@ -666,10 +666,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\guisim\GUISourceLane.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\guisim\GUITrafficLightLogicWrapper.cpp"
 				>
 			</File>
@@ -788,10 +784,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\guisim\GUISelectionLoader.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\guisim\GUISourceLane.h"
 				>
 			</File>
 			<File

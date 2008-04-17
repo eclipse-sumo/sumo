@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <VisualStudioProject
 	ProjectType="Visual C++"
-	Version="8.00"
+	Version="8,00"
 	Name="y_libmicrosim"
 	ProjectGUID="{2A069662-6B6F-40D7-A808-211F9C9A4AAE}"
 	>
@@ -700,10 +700,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSSourceLane.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSVehicle.cpp"
 				>
 			</File>
@@ -885,10 +881,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\microsim\MSSaveState.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\microsim\MSSourceLane.h"
 				>
 			</File>
 			<File
