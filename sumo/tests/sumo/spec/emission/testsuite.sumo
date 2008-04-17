@@ -20,6 +20,12 @@ lane_random
 # checks using the default position (0)
 pos_default
 
+# checks using a free position (1 vehicle)
+pos_free
+
+# checks using a free position (3 vehicles)
+pos_free_3veh
+
 # checks using the given position (0)
 pos_given0
 
@@ -53,6 +59,22 @@ speed_random__lanelimit
 
 # checks using the random speed (bounded by veh's vmax)
 speed_random__vehlimit
+
+
+
+
+
+
+
+
+
+# unknown lane
+# lane not in edge
+# position larger than lane length (positive/negative)
+# position not numeric
+# speed negative
+# speed larger than vehicle's max
+# speed larger than lane's max
 
 
 
