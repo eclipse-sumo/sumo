@@ -86,14 +86,13 @@ NINavTeqHelper::getSpeed(const std::string &id, const std::string &speedClassS)
 
 
 size_t
-NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS,
-                              SUMOReal speed, bool useNewLaneNumberInfoPlain)
+NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS, SUMOReal speed)
 {
     try {
         int nolanes = TplConvert<char>::_2int(laneNoS.c_str());
         if (nolanes<0) {
             return 1;
-        } else if (nolanes/10>0&&(useNewLaneNumberInfoPlain||abs((nolanes%10)-(nolanes/10))<2)) {
+        } else if (nolanes/10 > 0) {
             return nolanes / 10;
         } else {
             switch (nolanes%10) {

@@ -174,10 +174,6 @@ NIOptionsIO::fillOptions()
     oc.addDescription("visum.use-net-prio", "Processing", "Uses priorities from types");
 
 
-    // register further navteq-options
-    oc.doRegister("navtech.rechecklanes", new Option_Bool(false));
-    oc.addDescription("navtech.rechecklanes", "Processing", "");
-
     // add netbuilding options
     NBNetBuilder::insertNetBuildOptions(oc);
 

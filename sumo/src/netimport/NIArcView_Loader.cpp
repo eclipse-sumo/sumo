@@ -72,14 +72,12 @@ NIArcView_Loader::NIArcView_Loader(OptionsCont &oc,
                                    NBTypeCont &tc,
                                    const std::string &dbf_name,
                                    const std::string &shp_name,
-                                   bool speedInKMH,
-                                   bool useNewLaneNumberInfoPlain)
+                                   bool speedInKMH)
         : FileErrorReporter("Navtech Edge description", dbf_name),
         myOptions(oc), mySHPName(shp_name),
         myNameAddition(0),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc),
         mySpeedInKMH(speedInKMH),
-        myUseNewLaneNumberInfoPlain(useNewLaneNumberInfoPlain),
         myRunningNodeID(0)
 {}
 
@@ -155,7 +153,7 @@ NIArcView_Loader::load(OptionsCont &)
         }
         string type = poFeature->GetFieldAsString("ST_TYP_AFT");
         SUMOReal speed = getSpeed(*poFeature, id);
-        size_t nolanes = getLaneNo(*poFeature, id, speed, myUseNewLaneNumberInfoPlain);
+        size_t nolanes = getLaneNo(*poFeature, id, speed);
         int priority = getPriority(*poFeature, id);
         if (nolanes==0||speed==0) {
             if (myOptions.getBool("arcview.use-defaults-on-failure")) {
@@ -295,7 +293,7 @@ NIArcView_Loader::getSpeed(OGRFeature &poFeature, const std::string &edgeid)
 
 size_t
 NIArcView_Loader::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
-                            SUMOReal speed, bool /*useNewLaneNumberInfoPlain*/)
+                            SUMOReal speed)
 {
     if (myOptions.isSet("arcview.type-id")) {
         return myTypeCont.getNoLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("arcview.type-id").c_str())));
@@ -317,7 +315,7 @@ NIArcView_Loader::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
     index = poFeature.GetDefnRef()->GetFieldIndex("LANE_CAT");
     if (index>=0&&poFeature.IsFieldSet(index)) {
         string def = poFeature.GetFieldAsString(index);
-        return NINavTeqHelper::getLaneNumber(edgeid, def, speed, myUseNewLaneNumberInfoPlain);
+        return NINavTeqHelper::getLaneNumber(edgeid, def, speed);
     }
     return 0;
 }

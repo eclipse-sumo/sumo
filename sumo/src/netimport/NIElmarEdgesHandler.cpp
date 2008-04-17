@@ -57,11 +57,9 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NIElmarEdgesHandler::NIElmarEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-        const std::string &file,
-        bool useNewLaneNumberInfoPlain) throw()
+        const std::string &file) throw()
         : FileErrorReporter("elmar-edges", file),
-        myNodeCont(nc), myEdgeCont(ec),
-        myUseNewLaneNumberInfoPlain(useNewLaneNumberInfoPlain)
+        myNodeCont(nc), myEdgeCont(ec)
 {}
 
 NIElmarEdgesHandler::~NIElmarEdgesHandler() throw()
@@ -97,8 +95,7 @@ NIElmarEdgesHandler::report(const std::string &result) throw(ProcessError)
     string brunnel_type = st.next();
     string street_type = st.next();
     speed = NINavTeqHelper::getSpeed(id, st.next());
-    nolanes =
-        NINavTeqHelper::getLaneNumber(id, st.next(), speed, myUseNewLaneNumberInfoPlain);
+    nolanes = NINavTeqHelper::getLaneNumber(id, st.next(), speed);
     // try to get the nodes
     NBNode *from = myNodeCont.retrieve(fromID);
     NBNode *to = myNodeCont.retrieve(toID);

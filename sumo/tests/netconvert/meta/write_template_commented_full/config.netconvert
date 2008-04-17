@@ -238,9 +238,6 @@
       <!-- Uses priorities from types -->
       <visum.use-net-prio>false</visum.use-net-prio>
 
-      <!--  -->
-      <navtech.rechecklanes>false</navtech.rechecklanes>
-
       <!-- Flips the y-coordinate along zero -->
       <flip-y>false</flip-y>
 

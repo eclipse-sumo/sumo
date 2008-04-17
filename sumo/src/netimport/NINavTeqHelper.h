@@ -57,7 +57,7 @@ public:
 
     /// Returns the lane number evaluating the given Navteq-description
     static size_t getLaneNumber(const std::string &id,
-                                const std::string &laneNoS, SUMOReal speed, bool useNewLaneNumberInfoPlain);
+                                const std::string &laneNoS, SUMOReal speed);
 
     /// Adds vehicle classes parsing the given list of allowed vehicles
     static void addVehicleClasses(NBEdge &e,

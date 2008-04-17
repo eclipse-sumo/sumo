@@ -59,11 +59,9 @@ using namespace std;
 NIElmar2EdgesHandler::NIElmar2EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
         const std::string &file,
         std::map<std::string,
-        Position2DVector> &geoms,
-        bool useNewLaneNumberInfoPlain) throw()
+        Position2DVector> &geoms) throw()
         : FileErrorReporter("elmar-edges", file),
-        myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms),
-        myUseNewLaneNumberInfoPlain(useNewLaneNumberInfoPlain)
+        myNodeCont(nc), myEdgeCont(ec), myGeoms(geoms)
 {}
 
 
@@ -115,8 +113,7 @@ NIElmar2EdgesHandler::report(const std::string &result) throw(ProcessError)
     string street_type = st.next();
     speed = NINavTeqHelper::getSpeed(id, st.next());
     // number of lanes
-    nolanes =
-        NINavTeqHelper::getLaneNumber(id, st.next(), speed, myUseNewLaneNumberInfoPlain);
+    nolanes = NINavTeqHelper::getLaneNumber(id, st.next(), speed);
     // skip some
     st.next(); // average_speed
     st.next(); // NAME_ID1

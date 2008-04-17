@@ -264,7 +264,7 @@ NILoader::loadArcView(OptionsCont &oc)
     // load the arcview files
     NIArcView_Loader loader(oc,
                             myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(), myNetBuilder.getTypeCont(),
-                            dbf_file, shp_file, oc.getBool("speed-in-kmh"), !oc.getBool("navtech.rechecklanes"));
+                            dbf_file, shp_file, oc.getBool("speed-in-kmh"));
     loader.load(oc);
 }
 
@@ -323,7 +323,7 @@ NILoader::loadElmar(OptionsCont &oc)
         std::string file = oc.getString(opt) + "_links.txt";
         // parse the file
         NIElmarEdgesHandler handler2(myNetBuilder.getNodeCont(),
-                                     myNetBuilder.getEdgeCont(), file, !oc.getBool("navtech.rechecklanes"));
+                                     myNetBuilder.getEdgeCont(), file);
         if (!useLineReader(lr, file, handler2)) {
             throw ProcessError();
         }
@@ -331,7 +331,7 @@ NILoader::loadElmar(OptionsCont &oc)
         std::string file = oc.getString(opt) + "_links_unsplitted.txt";
         // parse the file
         NIElmar2EdgesHandler handler2(myNetBuilder.getNodeCont(),
-                                      myNetBuilder.getEdgeCont(), file, myGeoms, !oc.getBool("navtech.rechecklanes"));
+                                      myNetBuilder.getEdgeCont(), file, myGeoms);
         if (!useLineReader(lr, file, handler2)) {
             throw ProcessError();
         }

@@ -64,7 +64,7 @@ public:
     NIArcView_Loader(OptionsCont &oc,
                      NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc,
                      const std::string &dbf_name, const std::string &shp_name,
-                     bool speedInKMH, bool useNewLaneNumberInfoPlain);
+                     bool speedInKMH);
 
     /// Destructor
     ~NIArcView_Loader();
@@ -79,8 +79,7 @@ private:
 
     /// parses the number of lanes of the edge currently processed
     size_t getLaneNo(OGRFeature &f,
-                     const std::string &edgeid, SUMOReal speed,
-                     bool useNewLaneNumberInfoPlain);
+                     const std::string &edgeid, SUMOReal speed);
 
     /// parses the priority of the edge currently processed
     int getPriority(OGRFeature &f, const std::string &edgeid);
@@ -95,10 +94,7 @@ private:
     NBEdgeCont &myEdgeCont;
     NBTypeCont &myTypeCont;
     bool mySpeedInKMH;
-    bool myUseNewLaneNumberInfoPlain;
-
     int myRunningNodeID;
-
 
 private:
     /// @brief Invalidated copy constructor.

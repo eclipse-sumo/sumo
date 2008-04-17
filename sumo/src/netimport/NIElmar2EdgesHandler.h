@@ -58,8 +58,8 @@ class NIElmar2EdgesHandler : public LineHandler,
 public:
     /// constructor
     NIElmar2EdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-                         const std::string &file, std::map<std::string, Position2DVector> &geoms,
-                         bool useNewLaneNumberInfoPlain) throw();
+                         const std::string &file, std::map<std::string,
+                         Position2DVector> &geoms) throw();
 
     /// destructor
     ~NIElmar2EdgesHandler() throw();
@@ -73,7 +73,6 @@ protected:
     NBNodeCont &myNodeCont;
     NBEdgeCont &myEdgeCont;
     std::map<std::string, Position2DVector> &myGeoms;
-    bool myUseNewLaneNumberInfoPlain;
 
 private:
     /// @brief Invalidated copy constructor.

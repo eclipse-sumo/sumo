@@ -58,7 +58,7 @@ class NIElmarEdgesHandler : public LineHandler,
 public:
     /// constructor
     NIElmarEdgesHandler(NBNodeCont &nc, NBEdgeCont &ec,
-                        const std::string &file, bool useNewLaneNumberInfoPlain) throw();
+                        const std::string &file) throw();
 
     /// destructor
     ~NIElmarEdgesHandler() throw();
@@ -71,7 +71,6 @@ public:
 protected:
     NBNodeCont &myNodeCont;
     NBEdgeCont &myEdgeCont;
-    bool myUseNewLaneNumberInfoPlain;
 
 private:
     /// @brief Invalidated copy constructor.
