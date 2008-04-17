@@ -272,26 +272,29 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal speed) throw()
             ? *(predIt+1)
             : 0;
         SUMOReal followPos = follower->getPositionOnLane();
-        SUMOReal leaderPos = leader->getPositionOnLane() - leader->getLength();
+        SUMOReal leaderPos = leader!=0
+            ? leader->getPositionOnLane() - leader->getLength()
+            : -1;
         // get secure gaps
         SUMOReal frontGapNeeded = leader!=0
             ? veh.getSecureGap(veh.getSpeed(), leader->getSpeed(), leader->getLength())
             : -1;
         SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), speed, veh.getLength());
         // compute needed room
-        SUMOReal frontMax = frontGapNeeded>=0
+        SUMOReal frontMax = leader!=0
             ? leaderPos - frontGapNeeded
             : length();
         SUMOReal backMin = followPos + backGapNeeded + veh.getLength();
         // check whether there is enough room
         if (frontMax>0 && backMin<frontMax) {
             // try emit vehicle (should be always ok)
-            if(isEmissionSuccess(&veh, MSVehicle::State((frontMax + backMin) / (SUMOReal) 2.0, speed))) {
+            if(isEmissionSuccess(&veh, MSVehicle::State(backMin, speed))) {
                 return true;
             } else {
                 cerr << "Strange behaviour:" << endl;
             }
         }
+        ++predIt;
     }
     return false;
 }
@@ -355,62 +358,51 @@ bool
 MSLane::isEmissionSuccess(MSVehicle* aVehicle,
                           const MSVehicle::State &vstate)
 {
+    // get the pointer to the vehicle next in front of the given position
     MSLane::VehCont::iterator predIt =
         find_if(myVehicles.begin(), myVehicles.end(), bind2nd(VehPosition(), vstate.pos()));
-    // check predeccessor vehicle (!!! complte: what about vehicles that are on the next lane?
     if (predIt != myVehicles.end()) {
-        MSVehicle* pred = *predIt;
-        SUMOReal headWay = aVehicle->timeHeadWayGap(pred->getSpeed());   // !!!??
-        SUMOReal gap = MSVehicle::gap(pred->getPositionOnLane(), pred->getLength(), vstate.pos());
-        if (gap<headWay) {
+        // ok, there is one (a leader)
+        MSVehicle* leader = *predIt;
+        SUMOReal frontGapNeeded = aVehicle->getSecureGap(vstate.speed(), leader->getSpeed(), leader->getLength());
+        SUMOReal gap = MSVehicle::gap(leader->getPositionOnLane(), leader->getLength(), vstate.pos());
+        if (gap<frontGapNeeded) {
             return false;
         }
-        SUMOReal vsafe = aVehicle->ffeV(vstate.speed(), gap, pred->getSpeed());
-        if (vsafe<vstate.speed()) {
-            return false;
-        }
-        SUMOReal brakeWay = SPEED2DIST(aVehicle->getSpeedAfterMaxDecel(vsafe));//vstate.speed() - aVehicle->decelSpeed();
-        if (vsafe<brakeWay) {
-            return false;
-        }
-    } else {
-        predIt = myVehicles.begin();
     }
     // check back vehicle
     if(predIt!=myVehicles.begin()) {
         MSVehicle *follower = *(predIt-1);
-        SUMOReal headWay = follower->timeHeadWayGap(follower->getSpeed());
+        SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), vstate.speed(), aVehicle->getLength());
         SUMOReal gap = MSVehicle::gap(vstate.pos(), aVehicle->getLength(), follower->getPositionOnLane());
-        if (gap<headWay) {
-            return false;
-        }
-        SUMOReal vsafe = follower->ffeV(follower->getSpeed(), gap, vstate.speed());
-        SUMOReal brakeWay = SPEED2DIST(follower->getSpeedAfterMaxDecel(vsafe));
-        if (vsafe<brakeWay) {
+        if (gap<backGapNeeded) {
             return false;
         }
     }
     // check approaching vehicle
-    SUMOReal tspeed = maxSpeed();
-    SUMOReal dist = tspeed * tspeed * SUMOReal(1./2.*4) + tspeed;
+    SUMOReal speed = maxSpeed();
+        // in order to look back, we'd need the minimum breaking ability of vehicles in the net...
+        // we'll assume it to be 4m/s^2
+        // !!!revisit
+    SUMOReal dist = speed * speed * SUMOReal(1./2.*4.) + SPEED2DIST(speed);
     std::pair<MSVehicle *, SUMOReal> approaching = getApproaching(dist, 0, vstate.speed());
     if(approaching.first!=0) {
-        MSVehicle *leader = approaching.first;
-        SUMOReal headWay = leader->timeHeadWayGap(leader->getSpeed());   // !!!??
+        MSVehicle *follower = approaching.first;
+        SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), vstate.speed(), aVehicle->getLength());
         SUMOReal gap = approaching.second - vstate.pos() - aVehicle->getLength();
-        if (gap<headWay) {
-            return false;
-        }
-        SUMOReal vsafe = leader->ffeV(leader->getSpeed(), gap, vstate.speed());
-        SUMOReal brakeWay = SPEED2DIST(leader->getSpeedAfterMaxDecel(vsafe));//vstate.speed() - aVehicle->decelSpeed();
-        if (vsafe<brakeWay) {
+        if (gap<backGapNeeded) {
             return false;
         }
     }
     // enter
     aVehicle->enterLaneAtEmit(this, vstate);
     bool wasInactive = myVehicles.size()==0;
-    myVehicles.insert(predIt, aVehicle);
+    if(predIt==myVehicles.end()) {
+        // vehicle will be the first on the lane
+        myVehicles.push_back(aVehicle);
+    } else {
+        myVehicles.insert(predIt, aVehicle);
+    }
     myVehicleLengthSum += aVehicle->getLength();
     if (wasInactive) {
         MSNet::getInstance()->getEdgeControl().gotActive(this);

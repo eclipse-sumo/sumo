@@ -172,8 +172,7 @@ public:
             ((vSafe - predSpeed)
              * (SUMOReal)((vSafe+predSpeed) / 2.0 / (2.0 * MSVehicleType::getMinVehicleDecel()) + myTau))
             + predSpeed * myTau;
-        SUMOReal safeSpace = safeSpace2 > safeSpace3 ? safeSpace2 : safeSpace3;
-        safeSpace = safeSpace > ACCEL2SPEED(myDecel) ? safeSpace : ACCEL2SPEED(myDecel);
+        SUMOReal safeSpace = MAX3(safeSpace2, safeSpace3, ACCEL2SPEED(myDecel));
         safeSpace += predLength;
         safeSpace += ACCEL2SPEED(getMaxAccel(speed));
         return safeSpace;
