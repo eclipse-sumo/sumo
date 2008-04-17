@@ -29,12 +29,14 @@ class RouteReader(handler.ContentHandler):
         
     def startElement(self, name, attrs):
         if name == 'vehicle':
-            if attrs.has_key('type'):
-                self._vType = ' type="%s"' % attrs['type']
+            self._vehicleAttrs = attrs
             self._vID = attrs['id']
-            self._vDepart = attrs['depart']
-            if attrs.has_key('route'):
-                self._routeString = self._routes[attrs['route']]
+            print '    <tripdef',
+            for key in attrs.keys():
+                if key == "route":
+                    self._routeString = self._routes[attrs['route']]
+                else:
+                    print '%s="%s"' % (key, attrs[key]),
         elif name == 'route':
             if not self._vID:
                 self._routeID = attrs['id']
@@ -52,9 +54,7 @@ class RouteReader(handler.ContentHandler):
             self._routeID = ''
         elif name == 'vehicle':
             edges = self._routeString.split()
-            print '    <tripdef depart="%s" from="%s" to="%s"%s/>'\
-                  % (self._vDepart, edges[0], edges[-1], self._vType)
-            self._vType = ''
+            print 'from="%s" to="%s"/>' % (edges[0], edges[-1])
             self._vID = ''
             self._routeString = ''
         elif name == 'routes':
