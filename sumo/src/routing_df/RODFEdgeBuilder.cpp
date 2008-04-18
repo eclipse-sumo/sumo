@@ -49,7 +49,7 @@ RODFEdgeBuilder::~RODFEdgeBuilder() throw()
 ROEdge *
 RODFEdgeBuilder::buildEdge(const std::string &name) throw()
 {
-    return new RODFEdge(name, getCurrentIndex());
+    return new RODFEdge(name, getNextIndex());
 }
 
 

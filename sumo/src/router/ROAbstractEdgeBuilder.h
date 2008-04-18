@@ -54,7 +54,7 @@ class ROEdge;
  *
  * The built edges are numbered in the order they are built, the current
  *  number (index) is stored in "myCurrentIndex" and the next to use may 
- *  be obtained via "getCurrentIndex".
+ *  be obtained via "getNextIndex".
  */
 class ROAbstractEdgeBuilder
 {
@@ -78,11 +78,12 @@ public:
     virtual ROEdge *buildEdge(const std::string &name) throw() = 0;
     /// @}
 
+
 protected:
     /** @brief Returns the index of the edge to built
      * @return Next valid edge index
      */
-    unsigned int getCurrentIndex() throw() {
+    unsigned int getNextIndex() throw() {
         return myCurrentIndex++;
     }
 
@@ -90,6 +91,14 @@ protected:
 private:
     /// @brief The next edge's index
     unsigned int myCurrentIndex;
+
+
+private:
+    /// @brief Invalidated copy constructor
+    ROAbstractEdgeBuilder(const ROAbstractEdgeBuilder &src);
+
+    /// @brief Invalidated assignment operator
+    ROAbstractEdgeBuilder &operator=(const ROAbstractEdgeBuilder &src);
 
 };
 

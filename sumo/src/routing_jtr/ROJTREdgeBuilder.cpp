@@ -56,7 +56,7 @@ ROJTREdgeBuilder::~ROJTREdgeBuilder() throw()
 ROEdge *
 ROJTREdgeBuilder::buildEdge(const std::string &name) throw()
 {
-    return new ROJTREdge(name, getCurrentIndex());
+    return new ROJTREdge(name, getNextIndex());
 }
 
 
