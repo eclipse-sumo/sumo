@@ -44,9 +44,11 @@ mtxNamesList = ",".join(["../input/" + item for item in glob.glob("*.fma")])
 addFiles = ",".join(["../input/" + item for item in glob.glob("*.add.xml")])
 pyAdds = ""
 sumoAdds = ""
+signalAdds = ""
 if addFiles:
     pyAdds = "-+ %s" % addFiles
     sumoAdds = "-a %s" % addFiles
+    signalAdds = "-s %s" % addFiles
 if options.od2trips:
     trips = "trips"
 else:
@@ -64,9 +66,9 @@ if options.stats == 0:
     duaProcess = subprocess.Popen("dua-iterate.py -e 90000 -C -n %s -t ../input/%s.trips.xml %s" % (netFile, trips, pyAdds), shell=True)
     if not options.duaonly:
         clogDir = makeAndChangeDir("../clogit")
-        execute("cLogit.py -d ../input/districts.xml -m %s -n %s -p ../clogit_parameter.txt -u ../CRcurve.txt" % (mtxNamesList, netFile))
+        execute("cLogit.py -d ../input/districts.xml -m %s -n %s -p ../clogit_parameter.txt -u ../CRcurve.txt %s" % (mtxNamesList, netFile, signalAdds))
         lohseDir = makeAndChangeDir("../lohse")
-        execute("lohseAssignment.py -d ../input/districts.xml -m %s -n %s -p ../lohseparameter.txt -u ../CRcurve.txt" % (mtxNamesList, netFile))
+        execute("lohseAssignment.py -d ../input/districts.xml -m %s -n %s -p ../lohseparameter.txt -u ../CRcurve.txt %s" % (mtxNamesList, netFile, signalAdds))
         if options.od2trips:
             while not os.path.exists("%s/trips_0.rou.xml" % duaDir):
                 time.sleep(1)
