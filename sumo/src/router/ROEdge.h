@@ -78,53 +78,169 @@ public:
      */
     ROEdge(const std::string &id, unsigned int index, bool useBoundariesOnOverride) throw();
 
+
     /// Destructor
     virtual ~ROEdge() throw();
 
-    /// Adds a lane to the edge while loading
-    virtual void addLane(ROLane *lane);
 
+    /// @name Set-up methods
+    //@{
+
+    /** @brief Adds a lane to the edge while loading
+     *
+     * The lane's length is adapted. Additionally, the information about allowed/disallowed
+     *  vehicle classes is patched using the information stored in the lane.
+     *
+     * @param[in] lane The lane to add
+     * @todo What about vehicle-type aware connections?
+     */
+    virtual void addLane(ROLane *lane) throw();
+
+
+    /** @brief Adds information about a connected edge
+     *
+     * The edge is added to "myFollowingEdges".
+     *
+     * @param[in] lane The lane to add
+     * @todo What about vehicle-type aware connections?
+     */
+    virtual void addFollower(ROEdge *s) throw();
+
+
+    /** @brief Sets the type of te edge
+     * @param[in] type The new type for the edge
+     */
+    void setType(EdgeType type) throw();
+
+
+    /** @brief Sets the information which nodes this edge connects
+     * @param[in] from The node this edge starts at
+     * @param[in] to The node this edge ends at
+     */
+    void setNodes(RONode *from, RONode *to) throw();
+    //@}
+
+
+
+    /// @name Getter methods
+    //@{
+
+    /** @brief Returns the id of the edge
+     * @return This edge's id
+     */
+    const std::string &getID() const throw() {
+        return myID;
+    }
+
+
+    /** @brief Returns the type of the edge
+     * @return This edge's type
+     * @see EdgeType
+     */
+    EdgeType getType() const throw() {
+        return myType;
+    }
+
+
+    /** @brief Returns the length of the edge
+     * @return This edge's length
+     */
+    SUMOReal getLength() const throw() {
+        return myLength;
+    }
+
+    /** @brief Returns the index (numeric id) of the edge
+     * @return This edge's numerical id
+     */
+    unsigned int getNumericalID() const throw() {
+        return myIndex;
+    }
+
+
+    /** @brief Returns the speed allowed on this edge
+     * @return The speed allowed on this edge
+     */
+    SUMOReal getSpeed() const throw() {
+        return mySpeed;
+    }
+
+
+    /** @brief Returns the number of lanes this edge has
+     * @return This edge's number of lanes
+     */
+    unsigned int getLaneNo() const throw() {
+        return (unsigned int) myLanes.size();
+    }
+
+
+    /** @brief Returns the node this edge starts at
+     * @return The node this edge starts at
+     */
+    RONode *getFromNode() const throw() {
+        return myFromNode;
+    }
+
+
+    /** @brief Returns the node this edge ends at
+     * @return The node this edge ends at
+     */
+    RONode *getToNode() const throw() {
+        return myToNode;
+    }
+
+
+    /** @brief returns the information whether this edge is directly connected to the given
+     * 
+     * @param[in] e The edge which may be connected
+     * @return Whether the given edge is a direct successor to this one
+     */
+    bool isConnectedTo(const ROEdge * const e) const throw() {
+        return std::find(myFollowingEdges.begin(), myFollowingEdges.end(), e)!=myFollowingEdges.end();
+    }
+    //@}
+
+
+
+    /// @name Methods for getting/setting travel cost information
+    //@{
+    
+    /** @brief Adds a weight definition
+     *
+     * @param[in] value The value to add
+     * @param[in] timeBegin The begin time of the interval the given value is valid for
+     * @param[in] timeEnd The end time of the interval the given value is valid for
+     * @todo Refactor weights usage
+     */
     void addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd);
 
-    /// Adds information about a connected edge
-    virtual void addFollower(ROEdge *s);
-
-    /// returns the information whether this edge is directly connected to the given
-    bool isConnectedTo(const ROEdge * const e) const;
 
     /** @brief Returns the number of edges this edge is connected to
-        (size of the list of reachable edges) */
-    unsigned int getNoFollowing() const;
+     *
+     * If this edge's type is set to "sink", 0 is returned, otherwise
+     *  the number of edges stored in "myFollowingEdges".
+     *
+     * @return The number of edges following this edge
+     */
+    unsigned int getNoFollowing() const throw();
 
-    /// Returns the edge at the given position from the list of reachable edges
-    ROEdge *getFollower(size_t pos) const;
 
+    /** @brief Returns the edge at the given position from the list of reachable edges
+     * @param[in] pos The position of the list within the list of following
+     * @return The following edge, stored at position pos
+     */
+    ROEdge *getFollower(unsigned int pos) const throw() {
+        return myFollowingEdges[pos];
+    }
+
+
+    /// returns the effort for this edge only
+    virtual SUMOReal getEffort(const ROVehicle *const, SUMOReal time) const;
     /// retrieves the cost of this edge at the given time
     SUMOReal getCost(const ROVehicle *const, SUMOTime time) const;
 
     /// Retrieves the time a vehicle needs to pass this edge starting at the given time
     SUMOReal getDuration(const ROVehicle *const, SUMOTime time) const;
 
-    /// Adds a connection, marking the effort to pas the connection (!!!)
-    bool addConnection(ROEdge *to, SUMOReal effort);
-
-    /// Returns the id of the edge
-    const std::string &getID() const;
-
-    /// Sets the type of te edge
-    void setType(EdgeType type);
-
-    /// Returns the type of the edge
-    EdgeType getType() const;
-
-    /// Returns the length of the edge
-    SUMOReal getLength() const;
-
-    /// Returns the index (numeric id) of the edge
-    unsigned int getNumericalID() const;
-
-    /// returns the effort for this edge only
-    virtual SUMOReal getEffort(const ROVehicle *const, SUMOReal time) const;
 
     /**
      * Takes pointers to FloatValueTimeLines and assigns them to the classes
@@ -141,70 +257,59 @@ public:
                                  FloatValueTimeLine* add,
                                  FloatValueTimeLine* mult);
 
-    SUMOReal getSpeed() const;
-
-    unsigned int getLaneNo() const;
-
     bool prohibits(const ROVehicle * const vehicle) const;
     bool allFollowersProhibit(const ROVehicle * const vehicle) const;
 
-    void setNodes(RONode *from, RONode *to);
 
-    RONode *getFromNode() const;
-    RONode *getToNode() const;
 
 protected:
-    /// The id of the edge
+    /// @brief The id of the edge
     std::string myID;
 
-    /// The maximum distance of this edge (including all lanes)
-    SUMOReal myDist;
-
-    /// The maximum speed allowed on this edge
+    /// @brief The maximum speed allowed on this edge
     SUMOReal mySpeed;
 
-    /// Container storing passing time varying over time for the edge
+    /// @brief Container storing passing time varying over time for the edge
     FloatValueTimeLine myOwnValueLine;
 
-    /// "Absolut" supplementary weights.
+    /// @brief "Absolut" supplementary weights.
     FloatValueTimeLine* mySupplementaryWeightAbsolut;
-    /// "Add" supplementary weights.
+    /// @brief "Add" supplementary weights.
     FloatValueTimeLine* mySupplementaryWeightAdd;
-    /// "Multiplication" supplementary weights.
+    /// @brief "Multiplication" supplementary weights.
     FloatValueTimeLine* mySupplementaryWeightMult;
 
-    /// List of edges that may be approached from this edge
+    /// @brief List of edges that may be approached from this edge
     std::vector<ROEdge*> myFollowingEdges;
 
-    /// information whether the time line shall be used instead of the length value
+    /// @brief Information whether the time line shall be used instead of the length value
     bool myUsingTimeLine;
 
 
-    /// The type of the edge
+    /// @brief The type of the edge
     EdgeType myType;
 
-    /// The index (numeric id) of the edge
+    /// @brief The index (numeric id) of the edge
     unsigned int myIndex;
 
-    /// The length of the edge
+    /// @brief The length of the edge
     SUMOReal myLength;
 
-    /// Flag that indicates, if the supplementary weights have been
-    /// set. Initially false.
+    /// @brief Flag that indicates, if the supplementary weights have been set. Initially false.
     bool myHasSupplementaryWeights;
 
-    /// Information whether the edge has reported missing weights
+    /// @brief Information whether the edge has reported missing weights
     static bool myHaveWarned;
 
     std::vector<ROLane*> myLanes;
 
-    /// The list of allowed vehicle classes
+    /// @brief The list of allowed vehicle classes
     std::vector<SUMOVehicleClass> myAllowedClasses;
 
-    /// The list of disallowed vehicle classes
+    /// @brief The list of disallowed vehicle classes
     std::vector<SUMOVehicleClass> myNotAllowedClasses;
 
-    /// The nodes this edge is connecting
+    /// @brief The nodes this edge is connecting
     RONode *myFromNode, *myToNode;
 
     bool myUseBoundariesOnOverride;
@@ -215,10 +320,10 @@ protected:
 
 
 private:
-    /// we made the copy constructor invalid
+    /// @brief Invalidated copy constructor
     ROEdge(const ROEdge &src);
 
-    /// we made the assignment operator invalid
+    /// @brief Invalidated assignment operator
     ROEdge &operator=(const ROEdge &src);
 
 };

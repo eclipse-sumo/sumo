@@ -59,7 +59,7 @@ bool ROEdge::myHaveWarned = false;
 // method definitions
 // ===========================================================================
 ROEdge::ROEdge(const std::string &id, unsigned int index, bool useBoundariesOnOverride) throw()
-        : myID(id), myDist(0), mySpeed(-1),
+        : myID(id), mySpeed(-1),
         mySupplementaryWeightAbsolut(0),
         mySupplementaryWeightAdd(0),
         mySupplementaryWeightMult(0),
@@ -82,20 +82,12 @@ ROEdge::~ROEdge() throw()
 }
 
 
-unsigned int
-ROEdge::getNumericalID() const
-{
-    return myIndex;
-}
-
-
 void
-ROEdge::addLane(ROLane *lane)
+ROEdge::addLane(ROLane *lane) throw()
 {
     SUMOReal length = lane->getLength();
     assert(myLength==-1||length==myLength);
     myLength = length;
-    myDist = length > myDist ? length : myDist;
     SUMOReal speed = lane->getSpeed();
     mySpeed = speed > mySpeed ? speed : mySpeed;
     myLanes.push_back(lane);
@@ -136,17 +128,17 @@ ROEdge::addLane(ROLane *lane)
 
 
 void
-ROEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd)
+ROEdge::addFollower(ROEdge *s) throw()
 {
-    myOwnValueLine.add(timeBegin, timeEnd, value);
-    myUsingTimeLine = true;
+    myFollowingEdges.push_back(s);
 }
 
 
 void
-ROEdge::addFollower(ROEdge *s)
+ROEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd)
 {
-    myFollowingEdges.push_back(s);
+    myOwnValueLine.add(timeBegin, timeEnd, value);
+    myUsingTimeLine = true;
 }
 
 
@@ -167,7 +159,7 @@ ROEdge::getEffort(const ROVehicle *const, SUMOReal t) const
 
     // ok, no absolute value was found, use the normal value (without)
     //  weight as default
-    SUMOReal value = (SUMOReal)(myDist / mySpeed);
+    SUMOReal value = (SUMOReal)(myLength / mySpeed);
     if (myUsingTimeLine) {
         if (!myHaveBuildShortCut) {
             myPackedValueLine = myOwnValueLine.buildShortCut(myShortCutBegin, myShortCutEnd, myLastPackedIndex, myShortCutInterval);
@@ -216,26 +208,12 @@ ROEdge::getEffort(const ROVehicle *const, SUMOReal t) const
 
 
 unsigned int
-ROEdge::getNoFollowing() const
+ROEdge::getNoFollowing() const throw()
 {
     if (getType()==ET_SINK) {
         return 0;
     }
     return (unsigned int) myFollowingEdges.size();
-}
-
-
-ROEdge *
-ROEdge::getFollower(size_t pos) const
-{
-    return myFollowingEdges[pos];
-}
-
-
-bool
-ROEdge::isConnectedTo(const ROEdge * const e) const
-{
-    return find(myFollowingEdges.begin(), myFollowingEdges.end(), e)!=myFollowingEdges.end();
 }
 
 
@@ -253,32 +231,12 @@ ROEdge::getDuration(const ROVehicle *const v, SUMOTime time) const
 }
 
 
-const std::string &
-ROEdge::getID() const
-{
-    return myID;
-}
-
-
 void
-ROEdge::setType(ROEdge::EdgeType type)
+ROEdge::setType(ROEdge::EdgeType type) throw()
 {
     myType = type;
 }
 
-
-ROEdge::EdgeType
-ROEdge::getType() const
-{
-    return myType;
-}
-
-
-SUMOReal
-ROEdge::getLength() const
-{
-    return myLength;
-}
 
 void
 ROEdge::setSupplementaryWeights(FloatValueTimeLine* absolut,
@@ -292,20 +250,6 @@ ROEdge::setSupplementaryWeights(FloatValueTimeLine* absolut,
            mySupplementaryWeightAdd     != 0 &&
            mySupplementaryWeightMult    != 0);
     myHasSupplementaryWeights = true;
-}
-
-
-SUMOReal
-ROEdge::getSpeed() const
-{
-    return mySpeed;
-}
-
-
-unsigned int
-ROEdge::getLaneNo() const
-{
-    return (unsigned int) myLanes.size();
 }
 
 
@@ -336,24 +280,10 @@ ROEdge::prohibits(const ROVehicle * const vehicle) const
 
 
 void
-ROEdge::setNodes(RONode *from, RONode *to)
+ROEdge::setNodes(RONode *from, RONode *to) throw()
 {
     myFromNode = from;
     myToNode = to;
-}
-
-
-RONode *
-ROEdge::getFromNode() const
-{
-    return myFromNode;
-}
-
-
-RONode *
-ROEdge::getToNode() const
-{
-    return myToNode;
 }
 
 

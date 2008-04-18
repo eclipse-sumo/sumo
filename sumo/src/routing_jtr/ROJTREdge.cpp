@@ -63,7 +63,7 @@ ROJTREdge::~ROJTREdge() throw()
 
 
 void
-ROJTREdge::addFollower(ROEdge *s)
+ROJTREdge::addFollower(ROEdge *s) throw()
 {
     ROEdge::addFollower(s);
     myFollowingDefs[static_cast<ROJTREdge*>(s)] = new FloatValueTimeLine();
