@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/27/07 08:13:35 by SUMO jtrrouter Version 0.9.7
+<!-- generated on 04/18/08 10:00:34 by SUMO jtrrouter Version 0.9.7
 <configuration>
 
    <input>
@@ -25,11 +25,11 @@
 -->
 
 <routes>
-   <vehicle id="Rand0" depart="1">
-      <route>left2end -middle beg2right right right2end -middle beg2left -beg2left beg2right right -right -beg2right middle -middle -beg beg beg2right right right2end -middle middle -left2end left2end -right2end -right -beg2right middle end -end -left2end left2end -middle beg2right right right2end end -end</route>
+   <vehicle id="Rand0" depart="0">
+      <route>left2end -middle -beg beg beg2right -beg2right beg2left left -left -beg2left middle end -end -right2end -right -beg2right beg2right right -right -beg2right beg2left left -left left -left left left2end -right2end -right -beg2right beg2left -beg2left -beg beg beg2right -beg2right beg2left</route>
    </vehicle>
    <vehicle id="Rand1" depart="1">
-      <route>beg2right -beg2right beg2left left left2end end -end -right2end -right right -right right -right right -right -beg2right beg2left -beg2left -beg beg beg2right -beg2right middle -right2end -right -beg2right beg2right right right2end -right2end -right -beg2right middle -left2end -left -beg2left -beg</route>
+      <route>right right2end -right2end -right -beg2right middle -left2end -left left left2end end -end -right2end right2end -right2end right2end -left2end -left left left2end -left2end -left left left2end -middle -beg beg -beg beg beg2right -beg2right beg2left left left2end end -end -left2end</route>
    </vehicle>
    <vehicle id="Rand2" depart="2">
       <route>-left2end -left left left2end end -end -middle beg2right -beg2right beg2left left -left -beg2left beg2right right -right right -right -beg2right beg2left -beg2left beg2right -beg2right -beg beg middle end -end -right2end -right -beg2right -beg beg middle -left2end -left left</route>
