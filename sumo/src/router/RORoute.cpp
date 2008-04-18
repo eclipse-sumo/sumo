@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A build route
+// A complete router's route
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -58,12 +58,19 @@ RORoute::RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
 {}
 
 
+RORoute::RORoute(const RORoute &src) throw()
+    : Named(src.myID), myCosts(src.myCosts), 
+    myProbability(src.myProbability), myRoute(src.myRoute)
+{
+}
+
+
 RORoute::~RORoute() throw()
 {}
 
 
 void
-RORoute::add(ROEdge *edge)
+RORoute::add(ROEdge *edge) throw()
 {
     myRoute.push_back(edge);
 }
@@ -88,72 +95,29 @@ RORoute::xmlOutEdges(OutputDevice &dev) const
 }
 
 
-SUMOReal
-RORoute::getCosts() const
-{
-    return myCosts;
-}
-
-
 void
-RORoute::setCosts(SUMOReal costs)
+RORoute::setCosts(SUMOReal costs) throw()
 {
     myCosts = costs;
 }
 
 
-const ROEdge *
-RORoute::getFirst() const
+void
+RORoute::setProbability(SUMOReal prob) throw()
 {
-    return myRoute[0];
-}
-
-
-const ROEdge *
-RORoute::getLast() const
-{
-    return myRoute[myRoute.size()-1];
-}
-
-
-
-SUMOReal
-RORoute::getProbability() const
-{
-    return myProbability;
-}
-
-
-size_t
-RORoute::size() const
-{
-    return myRoute.size();
+    myProbability = prob;
 }
 
 
 void
-RORoute::setProbability(SUMOReal prop)
-{
-    myProbability = prop;
-}
-
-
-void
-RORoute::pruneFirst()
+RORoute::pruneFirst() throw()
 {
     myRoute.erase(myRoute.begin());
 }
 
 
-const std::vector<const ROEdge*> &
-RORoute::getEdgeVector() const
-{
-    return myRoute;
-}
-
-
 void
-RORoute::recheckForLoops()
+RORoute::recheckForLoops() throw()
 {
     ROHelper::recheckForLoops(myRoute);
 }

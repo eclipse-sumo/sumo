@@ -49,8 +49,8 @@
 class RODFNet : public RONet
 {
 public:
-    RODFNet(bool amInHighwayMode);
-    ~RODFNet();
+    RODFNet(bool amInHighwayMode) throw();
+    ~RODFNet() throw();
     void buildApproachList();
 
     void computeTypes(RODFDetectorCon &dets,

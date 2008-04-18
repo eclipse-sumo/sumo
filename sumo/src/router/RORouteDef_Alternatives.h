@@ -63,12 +63,6 @@ public:
         An alternative may also be generated whicle DUA */
     virtual void addLoadedAlternative(RORoute *alternative);
 
-    /// Returns the trip's origin edge
-    const ROEdge * const getFrom() const;
-
-    /// returns the trip's destination edge
-    const ROEdge * const getTo() const;
-
     /// Build the next route
     RORoute *buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime begin,
                                const ROVehicle &veh) const;
@@ -129,6 +123,14 @@ private:
 
     /// The maximum route number
     int myMaxRouteNumber;
+
+
+private:
+    /// @brief Invalidated copy constructor
+    RORouteDef_Alternatives(const RORouteDef_Alternatives &src);
+
+    /// @brief Invalidated assignment operator
+    RORouteDef_Alternatives &operator=(const RORouteDef_Alternatives &src);
 
 };
 

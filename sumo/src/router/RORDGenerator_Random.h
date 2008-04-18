@@ -33,6 +33,7 @@
 #include <string>
 #include <utils/common/IDSupplier.h>
 #include <utils/common/RGBColor.h>
+#include <utils/common/UtilExceptions.h>
 #include "ROAbstractRouteDefLoader.h"
 
 
@@ -58,31 +59,52 @@ class RORDGenerator_Random :
 public:
     /// Constructor
     RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
-                         SUMOTime begin, SUMOTime end, bool removeFirst, const std::string &file="");
+                         SUMOTime begin, SUMOTime end, bool removeFirst) throw(ProcessError);
 
     /// Destructor
-    ~RORDGenerator_Random();
+    ~RORDGenerator_Random() throw();
 
-    /// Closes the reading of the routes
-    void closeReading();
 
-    /// Returns the name of the route type
-    std::string getDataName() const;
+    /// @name inherited from ROAbstractRouteDefLoader
+    //@{
 
-    /// Returns the information whether no routes are available from this loader anymore
-    bool ended() const;
+    /** @brief Returns the name of the read type
+     *
+     * @return The name of the data
+     */
+    std::string getDataName() const throw() {
+        return "random_trips";
+    }
 
-    /// Returns the time the current (last read) route starts at
-    SUMOTime getCurrentTimeStep() const;
 
-    /// reader dependent initialisation
-    virtual bool init(OptionsCont &options);
+    /** @brief Adds routes from the file until the given time is reached
+     *
+     * @param[in] time The time until which route definitions shall be loaded
+     * @param[in] skipping Whether routes shall not be added
+     * @return Whether any errors occured
+     * @see ROAbstractRouteDefLoader::readRoutesAtLeastUntil
+     */
+    bool readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw();
 
-protected:
-    /** @brief Reads the until the specified time is reached
-        Do read the comments on ROAbstractRouteDefLoader::myReadRoutesAtLeastUntil
-        for the modalities! */
-    bool myReadRoutesAtLeastUntil(SUMOTime time);
+
+    /** @brief Returns the time the current (last read) route starts at
+     *
+     * @return The least time step that was read by this reader
+     */
+    SUMOTime getLastReadTimeStep() const throw() {
+        return myCurrentTime;
+    }
+
+
+    /** @brief Returns the information whether no routes are available from this loader anymore
+     *
+     * @return Whether the whole input has been processed
+     */
+    bool ended() const throw() {
+        return false;
+    }
+    /// @}
+
 
 private:
     /** @brief The number of cars to emit per second
@@ -106,6 +128,14 @@ private:
 
     /// Information whether the first and last edge shall be removed
     bool myRemoveFirst;
+
+
+private:
+    /// @brief Invalidated copy constructor
+    RORDGenerator_Random(const RORDGenerator_Random &src);
+
+    /// @brief Invalidated assignment operator
+    RORDGenerator_Random &operator=(const RORDGenerator_Random &src);
 
 };
 

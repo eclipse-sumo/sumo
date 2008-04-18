@@ -60,12 +60,6 @@ public:
     /// Destructor
     virtual ~RORouteDef_OrigDest() throw();
 
-    /// Returns the begin of the trip
-    const ROEdge * const getFrom() const;
-
-    /// Returns the end of the trip
-    const ROEdge * const getTo() const;
-
     /// Builds the current route from the given information (perform routing, here)
     RORoute *buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime begin,
                                const ROVehicle &veh) const;
@@ -93,6 +87,14 @@ protected:
     /** @brief Information whether the first edge shall be removed
         */
     bool myRemoveFirst;
+
+
+private:
+    /// @brief Invalidated copy constructor
+    RORouteDef_OrigDest(const RORouteDef_OrigDest &src);
+
+    /// @brief Invalidated assignment operator
+    RORouteDef_OrigDest &operator=(const RORouteDef_OrigDest &src);
 
 };
 

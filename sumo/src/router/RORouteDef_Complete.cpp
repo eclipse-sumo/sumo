@@ -34,7 +34,9 @@
 #include "RORouteDef.h"
 #include "RORoute.h"
 #include <utils/common/SUMOAbstractRouter.h>
+#include <utils/common/UtilExceptions.h>
 #include "RORouteDef_Complete.h"
+#include "ROHelper.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -62,25 +64,12 @@ RORouteDef_Complete::~RORouteDef_Complete() throw()
 {}
 
 
-const ROEdge * const
-RORouteDef_Complete::getFrom() const
-{
-    return myEdges[0];
-}
-
-
-const ROEdge * const
-RORouteDef_Complete::getTo() const
-{
-    return myEdges[myEdges.size()-1];
-}
-
-
 RORoute *
 RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                                        SUMOTime begin, const ROVehicle &veh) const
 {
-    if(true) {
+    // !!!!
+    if(false) {
         std::vector<const ROEdge*> newEdges;
         const std::vector<const ROEdge*> &oldEdges = myEdges;
         newEdges.push_back(*(oldEdges.begin()));
@@ -98,6 +87,10 @@ RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
             }
         }
         myEdges = newEdges;
+    }
+    SUMOReal costs = ROHelper::recomputeCosts(myEdges, &veh, begin);
+    if(costs<0) {
+        throw ProcessError("Route '" + getID() + "' (vehicle '" + veh.getID() + "') is not valid.");
     }
     return new RORoute(myID, 0, 1, myEdges);
 }

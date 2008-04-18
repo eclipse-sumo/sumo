@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A build route
+// A complete router's route
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -46,65 +46,158 @@ class OutputDevice;
 // ===========================================================================
 /**
  * @class RORoute
- * A complete route
+ * @brief A complete router's route
+ *
+ * This class represents a single and complete vehicle route after being 
+ *  computed/imported.
  */
 class RORoute : public Named
 {
 public:
-    /// Constructor
-    RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
+    /** @brief Constructor
+     *
+     * @param[in] id The route's id
+     * @param[in] costs The route's costs 
+     * @param[in] prob The route's probability
+     * @param[in] route The list of edges the route is made of
+     *
+     * @todo Are costs/prob really mandatory?
+     */
+    RORoute(const std::string &id, SUMOReal costs, SUMOReal prob,
             const std::vector<const ROEdge*> &route) throw();
 
-    /// Destructor
+
+    /** @brief Copy constructor
+     *
+     * @param[in] src The route to copy
+     */
+    RORoute(const RORoute &src) throw();
+
+
+    /// @brief Destructor
     ~RORoute() throw();
 
-    /// Adds an edge to the end of the route
-    void add(ROEdge *id);
 
-    /// Saves the whole route (as a route)
+    /** @brief Adds an edge to the end of the route
+     *
+     * @param[in] edge The edge to add
+     * @todo What for? Isn't the route already complete?
+     */
+    void add(ROEdge *edge) throw();
+
+
+    /** @brief Saves the whole route (as a route)
+     * 
+     * @param[in] dev The device to save the route into
+     * @param[in] isPeriodical Whether the route shall be reused by other vehicles
+     * @todo is isPeriodical really needed?
+     */
     void xmlOut(OutputDevice &dev, bool isPeriodical) const;
 
-    /// Saves the edges the route consists of
+
+    /** @brief Saves the edges the route consists of
+     *
+     * @param[in] dev The device to save the route into
+     */
     void xmlOutEdges(OutputDevice &dev) const;
 
-    /// Returns the first edge in the route
-    const ROEdge *getFirst() const;
 
-    /// Returns the last edge in the route
-    const ROEdge *getLast() const;
+    /** @brief Returns the first edge in the route
+     *
+     * @return The route's first edge
+     */
+    const ROEdge *getFirst() const throw() {
+        return myRoute[0];
+    }
 
-    /// Returns the costs of the route
-    SUMOReal getCosts() const;
 
-    /// Returns the probability the driver will take this route with
-    SUMOReal getProbability() const;
+    /** @brief Returns the last edge in the route
+     *
+     * @return The route's last edge
+     */
+    const ROEdge *getLast() const throw() {
+        return myRoute[myRoute.size()-1];
+    }
 
-    /// Sets the costs of the route
-    void setCosts(SUMOReal costs);
 
-    /// Sets the probability of the route
-    void setProbability(SUMOReal prop);
+    /** @brief Returns the costs of the route
+     *
+     * @return The route's costs (normally the time needed to pass it)
+     * @todo Recheck why the costs are stored in a route
+     */
+    SUMOReal getCosts() const throw() {
+        return myCosts;
+    }
 
-    /// Returns the number of edges in this route
-    size_t size() const;
+
+    /** @brief Returns the probability the driver will take this route with
+     *
+     * @return The probability to choose the route
+     * @todo Recheck why the probability is stored in a route
+     */
+    SUMOReal getProbability() const throw() {
+        return myProbability;
+    }
+
+
+    /** @brief Sets the costs of the route
+     *
+     * @todo Recheck why the costs are stored in a route
+     */
+    void setCosts(SUMOReal costs) throw();
+
+
+    /** @brief Sets the probability of the route
+     *
+     * @todo Recheck why the probability is stored in a route
+     */
+    void setProbability(SUMOReal prob) throw();
+
+
+    /** @brief Returns the number of edges in this route
+     *
+     * @return The number of edges the route is made of
+     */
+    unsigned int size() const throw() {
+        return (unsigned int) myRoute.size();
+    }
+
 
     /** @brief Removes the first edge
-        used if this edge is too short to emit vehicles on */
-    void pruneFirst();
+     *
+     * Used if this edge is too short to emit vehicles on 
+     */
+    void pruneFirst() throw();
 
-    const std::vector<const ROEdge*> &getEdgeVector() const;
 
-    void recheckForLoops();
+    /** @brief Returns the list of edges this route consists of
+     *
+     * @return The edges this route consists of
+     */
+    const std::vector<const ROEdge*> &getEdgeVector() const throw() {
+        return myRoute;
+    }
+
+
+    /** @brief Checks whether this route contains loops and removes such
+     */
+    void recheckForLoops() throw();
+
 
 private:
-    /// The costs of the route
+    /// @brief The costs of the route
     SUMOReal myCosts;
 
-    /// The probability the driver will take this route with
+    /// @brief The probability the driver will take this route with
     SUMOReal myProbability;
 
-    /// The edges the route consists of
+    /// @brief The edges the route consists of
     std::vector<const ROEdge*> myRoute;
+
+
+private:
+    /// @brief Invalidated assignment operator
+    RORoute &operator=(const RORoute &src);
 
 };
 

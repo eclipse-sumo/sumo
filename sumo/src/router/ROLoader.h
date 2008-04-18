@@ -51,7 +51,6 @@ using namespace XERCES_CPP_NAMESPACE;
 // ===========================================================================
 class OptionsCont;
 class RONet;
-class RONetHandler;
 class ROAbstractRouteDefLoader;
 class ROAbstractEdgeBuilder;
 class ROVehicleBuilder;
@@ -80,6 +79,7 @@ public:
     virtual ~ROLoader();
 
     /// Loads the network
+    /// @todo Refactor this; a network instance should be given and filled
     virtual RONet *loadNet(ROAbstractEdgeBuilder &eb);
 
     /// Loads the net weights
@@ -91,7 +91,7 @@ public:
 
     /** @brief Builds and opens all route loaders
         Route loaders are derived from ROAbstractRouteDefLoader */
-    size_t openRoutes(RONet &net, SUMOReal gBeta, SUMOReal gA);
+    unsigned int openRoutes(RONet &net);
 
     /** @brief Loads routes stepwise
         This is done for all previously build route loaders */
@@ -103,25 +103,28 @@ public:
     virtual void processAllRoutes(SUMOTime start, SUMOTime end,
                                   RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router);
 
-    /** @brief Ends route reading
-        This is done for all previously build route loaders */
-    void closeReading();
-
     bool makeSingleStep(SUMOTime end, RONet &net, SUMOAbstractRouter<ROEdge,ROVehicle> &router);
 
-    friend class GUIRouterRunThread;
-
 protected:
-    /** @brief Opens routes
-        The loading structures were built in previous */
-    void openTypedRoutes(const std::string &optionName, RONet &net);
+    /** @brief Opens route handler of the given type
+     *
+     * Checks whether the given option name is set and his value is one
+     *  or a set of valid (existing) files. This is done via a call to
+     *  "OptionsCont::isUsableFileList" (which generates a proper error 
+     *  message).
+     *
+     * If the given files are valid, the proper instance is built using
+     *  "buildNamedHandler" and if this could be done, it is added to
+     *  the list of route handlers to use ("myHandler")
+     *
+     * Returns whether the wished handlers could be built.
+     *
+     * @param[in] optionName The name of the option that refers to which handler and which files shall be used
+     * @param[in] net The net to assign to the built handlers
+     * @return Whether the wished handler(s) could be built
+     */
+    bool openTypedRoutes(const std::string &optionName, RONet &net) throw();
 
-    /// Adds a route loader to the list of known route loaders
-    void addToHandlerList(const std::string &optionName, RONet &net);
-
-    /** @brief Skips routes which start before the wished time period
-        This is done for all previously build route loaders */
-    void skipUntilBegin();
 
     /// Returns the first known time step
     SUMOTime getMinTimeStep() const;
@@ -240,14 +243,15 @@ class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloa
 
 
 protected:
-    ROAbstractRouteDefLoader* buildNamedHandler(
-        const std::string &optionName, const std::string &file
-        , RONet &net);
+    ROAbstractRouteDefLoader* buildNamedHandler(const std::string &optionName, 
+        const std::string &file, RONet &net) throw(ProcessError);
 
-    void checkFile(const std::string &optionName
-                   , const std::string &file);
 
     void writeStats(SUMOTime time, SUMOTime start, int absNo);
+
+
+    /** @brief Deletes all handlers and clears their container ("myHandler") */
+    void destroyHandlers() throw();
 
 
 protected:
@@ -266,11 +270,12 @@ protected:
     /// The vehicle builder to use
     ROVehicleBuilder &myVehicleBuilder;
 
+
 private:
-    /// invalidated copy constructor
+    /// @brief Invalidated copy constructor
     ROLoader(const ROLoader &src);
 
-    /// invalidated assignment operator
+    /// @brief Invalidated assignment operator
     ROLoader &operator=(const ROLoader &src);
 
 };

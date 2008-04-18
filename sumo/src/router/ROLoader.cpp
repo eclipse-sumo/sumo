@@ -217,9 +217,7 @@ ROLoader::ROLoader(OptionsCont &oc, ROVehicleBuilder &vb,
 
 ROLoader::~ROLoader()
 {
-    for (RouteLoaderCont::iterator i=myHandler.begin(); i!=myHandler.end(); i++) {
-        delete(*i);
-    }
+    destroyHandlers();
 }
 
 
@@ -236,8 +234,8 @@ ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
         return 0;
     }
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading net...");
-    RONet *net = new RONet(myOptions.isSet("sumo-input"));
-    RONetHandler handler(myOptions, *net, eb);
+    RONet *net = new RONet();
+    RONetHandler handler(*net, eb);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file)) {
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");
@@ -246,51 +244,44 @@ ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
     } else {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
-    // build and prepare the parser
     return net;
 }
 
 
-size_t
-ROLoader::openRoutes(RONet &net, SUMOReal /*gBeta*/, SUMOReal /*gA*/)
+unsigned int
+ROLoader::openRoutes(RONet &net)
 {
     // build loader
-    // load additional precomputed sumo-routes when wished
-    openTypedRoutes("sumo-input", net);
-    // load the XML-trip definitions when wished
-    openTypedRoutes("trip-defs", net);
-    // load the cell-routes when wished
-    openTypedRoutes("cell-input", net);
-    // load the sumo-alternative file when wished
-    openTypedRoutes("alternatives", net);
+        // load sumo-routes when wished
+    bool ok = openTypedRoutes("sumo-input", net);
+        // load the XML-trip definitions when wished
+    ok = openTypedRoutes("trip-defs", net);
+        // load the sumo-alternative file when wished
+    ok = openTypedRoutes("alternatives", net);
+        // load the amount definitions if wished
+    ok = openTypedRoutes("flows", net);
     // build generators
-    // load the amount definitions if wished
-    openTypedRoutes("flows", net);
-    // check whether random routes shall be build, too
     if (myOptions.isSet("R")) {
-        RORDGenerator_Random *randGen =
-            new RORDGenerator_Random(myVehicleBuilder, net,
-                                     myOptions.getInt("begin"), myOptions.getInt("end"),
-                                     myOptions.getBool("prune-random"));
-        randGen->init(myOptions);
-        myHandler.push_back(randGen);
+        myHandler.push_back(new RORDGenerator_Random(myVehicleBuilder, net,
+            myOptions.getInt("begin"), myOptions.getInt("end"), myOptions.getBool("prune-random")));
     }
-    if (!myOptions.getBool("unsorted")) {
-        skipUntilBegin();
+    // check
+    if(myHandler.size()==0) {
+        throw ProcessError("No route input specified.");
     }
-    return myHandler.size();
-}
-
-void
-ROLoader::skipUntilBegin()
-{
-    if (myHandler.size()!=0) {
+    // skip routes prior to the begin time
+    if (ok&&!myOptions.getBool("unsorted")) {
         MsgHandler::getMessageInstance()->inform("Skipping...");
-        for (RouteLoaderCont::iterator i=myHandler.begin(); i!=myHandler.end(); i++) {
-            (*i)->skipUntilBegin();
+        for (RouteLoaderCont::iterator i=myHandler.begin(); ok&&i!=myHandler.end(); i++) {
+            ok &= (*i)->readRoutesAtLeastUntil(myOptions.getInt("begin"), true);
         }
         MsgHandler::getMessageInstance()->inform("Skipped until: " + toString<SUMOTime>(getMinTimeStep()));
     }
+    // check whether everything's ok
+    if(!ok) {
+        destroyHandlers();
+    }
+    return (unsigned int) myHandler.size();
 }
 
 
@@ -336,9 +327,12 @@ ROLoader::makeSingleStep(SUMOTime end, RONet &net, SUMOAbstractRouter<ROEdge,ROV
     if (myHandler.size()!= 0) {
         for (i=myHandler.begin(); i!=myHandler.end(); i++) {
             // load routes until the time point is reached
-            (*i)->readRoutesAtLeastUntil(end);
-            // save the routes
-            net.saveAndRemoveRoutesUntil(myOptions, router, end);
+            if((*i)->readRoutesAtLeastUntil(end, false)) {
+                // save the routes
+                net.saveAndRemoveRoutesUntil(myOptions, router, end);
+            } else {
+                return false;
+            }
         }
         return MsgHandler::getErrorInstance()->wasInformed();
     } else {
@@ -351,10 +345,10 @@ SUMOTime
 ROLoader::getMinTimeStep() const
 {
     RouteLoaderCont::const_iterator i=myHandler.begin();
-    SUMOTime ret = (*i)->getCurrentTimeStep();
+    SUMOTime ret = (*i)->getLastReadTimeStep();
     ++i;
     for (; i!=myHandler.end(); i++) {
-        SUMOTime akt = (*i)->getCurrentTimeStep();
+        SUMOTime akt = (*i)->getLastReadTimeStep();
         if (akt<ret) {
             ret = akt;
         }
@@ -371,7 +365,7 @@ ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
     long absNo = end - start;
     bool ok = true;
     for (RouteLoaderCont::iterator i=myHandler.begin(); ok&&i!=myHandler.end(); i++) {
-        (*i)->readRoutesAtLeastUntil(INT_MAX);
+        ok &= (*i)->readRoutesAtLeastUntil(INT_MAX, false);
     }
     // save the routes
     SUMOTime time = start;
@@ -383,54 +377,41 @@ ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
 }
 
 
-void
-ROLoader::closeReading()
-{
-    // close the reading
-    for (RouteLoaderCont::iterator i=myHandler.begin(); i!=myHandler.end(); i++) {
-        (*i)->closeReading();
-    }
-}
-
-
-void
+bool
 ROLoader::openTypedRoutes(const std::string &optionName,
-                          RONet &net)
+                          RONet &net) throw()
 {
-    // check whether the current loader is wished
-    if (!myOptions.isSet(optionName)) {
-        return;
+    // check whether the current loader is known 
+    //  (not all routers import all route formats)
+    if(!myOptions.exists(optionName)) {
+        return true;
     }
-    // allocate a reader and add it to the list
-    addToHandlerList(optionName, net);
-}
-
-
-void
-ROLoader::addToHandlerList(const std::string &optionName,
-                           RONet &net)
-{
+    // check whether the current loader is wished
+    //  and the file(s) can be used
+    if (!myOptions.isUsableFileList(optionName)) {
+        return !myOptions.isSet(optionName);
+    }
+    bool ok = true;
     vector<string> files = myOptions.getStringVector(optionName);
     for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
-        // check whether the file can be used
-        //  necessary due to the extensions within cell-import
-        checkFile(optionName, *fileIt);
         // build the instance when everything's all right
-        ROAbstractRouteDefLoader *instance =
-            buildNamedHandler(optionName, *fileIt, net);
-        if (!instance->init(myOptions)) {
-            delete instance;
-            throw ProcessError("The loader for " + optionName + " from file '" + *fileIt + "' could not be initialised.");
+        try {
+            ROAbstractRouteDefLoader *instance =
+                buildNamedHandler(optionName, *fileIt, net);
+            myHandler.push_back(instance);
+        } catch(ProcessError &) {
+            MsgHandler::getErrorInstance()->inform("The loader for " + optionName + " from file '" + *fileIt + "' could not be initialised.");
+            ok = false;
         }
-        myHandler.push_back(instance);
     }
+    return ok;
 }
 
 
 ROAbstractRouteDefLoader*
 ROLoader::buildNamedHandler(const std::string &optionName,
                             const std::string &file,
-                            RONet &net)
+                            RONet &net) throw(ProcessError)
 {
     if (optionName=="sumo-input") {
         return new RORDLoader_SUMOBase(myVehicleBuilder, net,
@@ -454,30 +435,7 @@ ROLoader::buildNamedHandler(const std::string &optionName,
                                            myOptions.getInt("begin"), myOptions.getInt("end"),
                                            myEmptyDestinationsAllowed, myOptions.getBool("randomize-flows"), file);
     }
-    throw 1;
-}
-
-
-void
-ROLoader::checkFile(const std::string &optionName,
-                    const std::string &file)
-{
-    if (optionName=="sumo-input"&&FileHelpers::exists(file)) {
-        return;
-    }
-    if (optionName=="trip-defs"&&FileHelpers::exists(file)) {
-        return;
-    }
-    if (optionName=="cell-input"&&FileHelpers::exists(file+".driver")&&FileHelpers::exists(file+".rinfo")) {
-        return;
-    }
-    if (optionName=="alternatives"&&FileHelpers::exists(file)) {
-        return;
-    }
-    if (optionName=="flows"&&FileHelpers::exists(file)) {
-        return;
-    }
-    throw ProcessError("File '" + file + "' used as " + optionName + " not found.");
+    return 0;
 }
 
 
@@ -541,6 +499,16 @@ ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo)
     }
 }
 
+
+
+void
+ROLoader::destroyHandlers() throw()
+{
+    for(RouteLoaderCont::const_iterator i=myHandler.begin(); i!=myHandler.end(); ++i) {
+        delete *i;
+    }
+    myHandler.clear();
+}
 
 
 /****************************************************************************/

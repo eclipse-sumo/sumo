@@ -76,34 +76,37 @@ public:
      * @param[in] begin The time step import shall start at
      * @param[in] end The time step import shall stop at
      * @param[in] file Name of the used input file 
+     * @exception ProcessError If an error occured during initialisation of parsing the xml-file
      */
     ROTypedXMLRoutesLoader(ROVehicleBuilder &vb, RONet &net,
-                           SUMOTime begin, SUMOTime end, const std::string &file="");
+                           SUMOTime begin, SUMOTime end, const std::string &file="") throw(ProcessError);
 
 
     /// @brief Destructor
     virtual ~ROTypedXMLRoutesLoader() throw();
 
 
-    /** @brief Initialises the handler for reading
-     * 
-     * Normally, is used to parse the first element.
+    /// @name inherited from ROAbstractRouteDefLoader
+    //@{
+
+    /** @brief Adds routes from the file until the given time is reached
      *
-     * @param[in] options Options to use (if needed)
-     * @todo Recheck usage of route loaders; it is not very fine to have one that use a parser and other that do not
+     * @param[in] time The time until which route definitions shall be loaded
+     * @param[in] skipping Whether routes shall not be added
+     * @return Whether any errors occured
+     * @see ROAbstractRouteDefLoader::readRoutesAtLeastUntil
      */
-    virtual bool init(OptionsCont &options);
+    bool readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw();
 
 
-    /** @brief Closes reading of routes
-     * 
-     * Normally, the parser is reset; still, both loaders that work on memory 
-     *  (RORDGenerator_Random and RORDGenerator_ODAmounts) do not have a parser
-     *  at all. Due to this, the method may be overridden.
+    /** @brief Returns the information whether no routes are available from this loader anymore
      *
-     * @todo Recheck usage of route loaders; it is not very fine to have one that use a parser and other that do not
+     * @return Whether the whole input has been processed
      */
-    virtual void closeReading();
+    bool ended() const throw() {
+        return myEnded;
+    }
+    /// @}
 
 
     /** @brief Called when the document has ended
@@ -112,21 +115,6 @@ public:
      */
     void endDocument();
 
-
-    /** @brief Returns the information whether no routes are available from this loader anymore
-     *
-     * @return Whether all routes have been parsed
-     */
-    bool ended() const;
-
-
-protected:
-    /** @brief Reads until the specified time is reached
-     *
-     * @param[in] time The time at which the loader shall stop parsing
-     * @todo recheck/refactor
-     */
-    bool myReadRoutesAtLeastUntil(SUMOTime time);
 
 
 protected:
@@ -138,14 +126,14 @@ protected:
      * @return Whether a further route was read
      * @todo recheck/refactor
      */
-    virtual bool nextRouteRead() = 0;
+    virtual bool nextRouteRead() throw() = 0;
 
 
     /** @brief Returns Initialises the reading of a further route
      *
      * @todo recheck/refactor
      */
-    virtual void beginNextRoute() = 0;
+    virtual void beginNextRoute() throw() = 0;
     /// @}
 
 
@@ -158,6 +146,14 @@ protected:
 
     /// @brief Information whether the whole file has been parsed
     bool myEnded;
+
+
+private:
+    /// @brief Invalidated copy constructor
+    ROTypedXMLRoutesLoader(const ROTypedXMLRoutesLoader &src);
+
+    /// @brief Invalidated assignment operator
+    ROTypedXMLRoutesLoader &operator=(const ROTypedXMLRoutesLoader &src);
 
 };
 

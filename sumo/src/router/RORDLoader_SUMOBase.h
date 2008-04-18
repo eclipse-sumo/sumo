@@ -67,17 +67,33 @@ public:
                         SUMOTime begin, SUMOTime end,
                         SUMOReal gawronBeta, SUMOReal gawronA,
                         int maxRouteNumber,
-                        const std::string &dataName, const std::string &file="");
+                        const std::string &dataName, const std::string &file="") throw(ProcessError);
 
     /// Destructor
     ~RORDLoader_SUMOBase() throw();
 
-    /** @brief Returns the name of the data
-        "precomputed sumo route alternatives" is returned here */
-    std::string getDataName() const;
 
-    /// Returns the time the current (last read) route starts at
-    SUMOTime getCurrentTimeStep() const;
+    /// @name inherited from ROAbstractRouteDefLoader
+    //@{
+
+    /** @brief Returns the name of the read type
+     *
+     * @return The name of the data
+     */
+    std::string getDataName() const throw() {
+        return myDataName;
+    }
+
+
+    /** @brief Returns the time the current (last read) route starts at
+     *
+     * @return The least time step that was read by this reader
+     */
+    SUMOTime getLastReadTimeStep() const throw() {
+        return myCurrentDepart;
+    }
+    /// @}
+
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -120,18 +136,35 @@ protected:
     /// Begins the parsing of a route alternative of the opened route
     void startRoute(const SUMOSAXAttributes &attrs);
 
-    /// Return the information whether a route was read
-    bool nextRouteRead();
-
-    /// Initialises the reading of a further route
-    void beginNextRoute();
-
     /// Parses a vehicle type
     void startVehType(const SUMOSAXAttributes &attrs);
 
-    MsgHandler *getErrorHandlerMarkInvalid();
+    MsgHandler *getErrorHandlerMarkInvalid() throw();
 
     bool closeVehicle() throw();
+
+
+
+    /// @name inherited from ROTypedXMLRoutesLoader
+    /// @{
+
+    /** Returns the information whether a route was read
+     *
+     * @return Whether a further route was read
+     * @see ROTypedXMLRoutesLoader::nextRouteRead
+     */
+    bool nextRouteRead() throw() {
+        return myHaveNextRoute;
+    }
+
+
+    /** @brief Returns Initialises the reading of a further route
+     *
+     * @todo recheck/refactor
+     * @see ROTypedXMLRoutesLoader::beginNextRoute
+     */
+    void beginNextRoute() throw();
+    //@}
 
 
 protected:
@@ -178,6 +211,14 @@ protected:
 
     /// The currently read vehicle's depart
     SUMOTime myCurrentDepart;
+
+
+private:
+    /// @brief Invalidated copy constructor
+    RORDLoader_SUMOBase(const RORDLoader_SUMOBase &src);
+
+    /// @brief Invalidated assignment operator
+    RORDLoader_SUMOBase &operator=(const RORDLoader_SUMOBase &src);
 
 };
 

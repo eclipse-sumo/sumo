@@ -161,10 +161,15 @@ RORDGenerator_ODAmounts::RORDGenerator_ODAmounts(ROVehicleBuilder &vb,
         SUMOTime end,
         bool emptyDestinationsAllowed,
         bool randomize,
-        const std::string &fileName)
+        const std::string &fileName) throw(ProcessError)
         : RORDLoader_TripDefs(vb, net, begin, end, emptyDestinationsAllowed, fileName),
-        myEnded(false), myRandom(randomize)
-{}
+        myRandom(randomize)
+{
+    // read the complete file on initialisation
+    myParser->parseReset(myToken);
+    myParser->parse(getFileName().c_str());
+    myDepartureTime = myBegin;
+}
 
 
 RORDGenerator_ODAmounts::~RORDGenerator_ODAmounts() throw()
@@ -176,10 +181,10 @@ RORDGenerator_ODAmounts::~RORDGenerator_ODAmounts() throw()
 
 
 bool
-RORDGenerator_ODAmounts::myReadRoutesAtLeastUntil(SUMOTime until)
+RORDGenerator_ODAmounts::readRoutesAtLeastUntil(SUMOTime until, bool skipping) throw()
 {
     // skip routes before begin
-    if (until<=myBegin) {
+    if (until<myBegin) {
         myDepartureTime = until;
         return true;
     }
@@ -190,7 +195,7 @@ RORDGenerator_ODAmounts::myReadRoutesAtLeastUntil(SUMOTime until)
 
 
 void
-RORDGenerator_ODAmounts::buildRoutes(SUMOTime until)
+RORDGenerator_ODAmounts::buildRoutes(SUMOTime until) throw()
 {
     SUMOTime t;
     for (t=myDepartureTime; t<until+1; t++) {
@@ -201,7 +206,7 @@ RORDGenerator_ODAmounts::buildRoutes(SUMOTime until)
 
 
 void
-RORDGenerator_ODAmounts::buildForTimeStep(SUMOTime time)
+RORDGenerator_ODAmounts::buildForTimeStep(SUMOTime time) throw()
 {
     if (time<myBegin||time>=myEnd) {
         return;
@@ -344,36 +349,6 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
         myParameter = 0;
     }
 }
-
-
-std::string
-RORDGenerator_ODAmounts::getDataName() const
-{
-    return "XML-flow definitions";
-}
-
-
-bool
-RORDGenerator_ODAmounts::init(OptionsCont &)
-{
-    // read in the file on initialisation
-    myParser->parse(getFileName().c_str());
-    myDepartureTime = myBegin;
-    return true;
-}
-
-
-bool
-RORDGenerator_ODAmounts::ended() const
-{
-    return myEnded;
-}
-
-
-void
-RORDGenerator_ODAmounts::closeReading()
-{}
-
 
 
 /****************************************************************************/

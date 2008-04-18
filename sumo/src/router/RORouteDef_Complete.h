@@ -62,12 +62,6 @@ public:
     /// Destructor
     virtual ~RORouteDef_Complete() throw();
 
-    /// returns the begin of the trip
-    const ROEdge * const getFrom() const;
-
-    /// Returns the end of the trip
-    const ROEdge * const getTo() const;
-
     /// Builds the route
     RORoute *buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime begin,
                                const ROVehicle &veh) const;
@@ -89,6 +83,14 @@ protected:
 
     /// The begin of the route
     SUMOTime myStartTime;
+
+
+private:
+    /// @brief Invalidated copy constructor
+    RORouteDef_Complete(const RORouteDef_Complete &src);
+
+    /// @brief Invalidated assignment operator
+    RORouteDef_Complete &operator=(const RORouteDef_Complete &src);
 
 };
 

@@ -70,20 +70,6 @@ RORouteDef_OrigDest::~RORouteDef_OrigDest() throw()
 }
 
 
-const ROEdge * const
-RORouteDef_OrigDest::getFrom() const
-{
-    return myFrom;
-}
-
-
-const ROEdge * const
-RORouteDef_OrigDest::getTo() const
-{
-    return myTo;
-}
-
-
 RORoute *
 RORouteDef_OrigDest::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                                        SUMOTime begin, const ROVehicle &veh) const

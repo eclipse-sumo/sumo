@@ -63,8 +63,8 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODFNet::RODFNet(bool amInHighwayMode)
-        : RONet(true), myAmInHighwayMode(amInHighwayMode),
+RODFNet::RODFNet(bool amInHighwayMode) throw()
+        : RONet(), myAmInHighwayMode(amInHighwayMode),
         mySourceNumber(0), mySinkNumber(0), myInBetweenNumber(0), myInvalidNumber(0)
 {
     mySinks = OptionsCont::getOptions().getStringVector("disallowed-edges");
@@ -72,7 +72,7 @@ RODFNet::RODFNet(bool amInHighwayMode)
 }
 
 
-RODFNet::~RODFNet()
+RODFNet::~RODFNet() throw()
 {
 }
 

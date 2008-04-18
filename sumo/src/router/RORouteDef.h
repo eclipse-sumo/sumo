@@ -67,12 +67,6 @@ public:
     /// Destructor
     virtual ~RORouteDef() throw();
 
-    /// Returns the route's origin edge
-    virtual const ROEdge * const getFrom() const = 0;
-
-    /// Returns the route's destination edge
-    virtual const ROEdge * const getTo() const = 0;
-
     /** @brief Builds the complete route
      *
      * (or chooses her from the list of alternatives, when existing) */
@@ -107,6 +101,14 @@ public:
 protected:
     /// The color the route shall have
     RGBColor myColor;
+
+
+private:
+    /// @brief Invalidated copy constructor
+    RORouteDef(const RORouteDef &src);
+
+    /// @brief Invalidated assignment operator
+    RORouteDef &operator=(const RORouteDef &src);
 
 };
 

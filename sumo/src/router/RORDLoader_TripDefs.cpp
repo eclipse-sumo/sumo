@@ -61,10 +61,10 @@ using namespace std;
 RORDLoader_TripDefs::RORDLoader_TripDefs(ROVehicleBuilder &vb, RONet &net,
         SUMOTime begin, SUMOTime end,
         bool emptyDestinationsAllowed,
-        const std::string &fileName)
+        const std::string &fileName) throw(ProcessError)
         : ROTypedXMLRoutesLoader(vb, net, begin, end, fileName),
         myEmptyDestinationsAllowed(emptyDestinationsAllowed),
-        myDepartureTime(0), myCurrentVehicleType(0),
+        myDepartureTime(-1), myCurrentVehicleType(0),
         myParameter(0)
 {}
 
@@ -138,16 +138,11 @@ RORDLoader_TripDefs::getVehicleID(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    attrs.setIDFromAttribues("to-edge", id, false);
+    attrs.setIDFromAttribues("tripdef", id, false);
     // get a valid vehicle id
-    while (id.length()==0) {
-        string tmp = myIdSupplier.getNext();
-        if (!myNet.isKnownVehicleID(tmp)) {
-            id = tmp;
-        }
+    if(id=="") {
+        id = myIdSupplier.getNext();
     }
-    // and save this vehicle id
-    myNet.addVehicleID(id); // !!! what for?
     return id;
 }
 
@@ -309,33 +304,11 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError)
 }
 
 
-std::string
-RORDLoader_TripDefs::getDataName() const
-{
-    return "XML-trip definitions";
-}
-
-
-bool
-RORDLoader_TripDefs::nextRouteRead()
-{
-    return myNextRouteRead;
-}
-
-
 void
-RORDLoader_TripDefs::beginNextRoute()
+RORDLoader_TripDefs::beginNextRoute() throw()
 {
     myNextRouteRead = false;
 }
-
-
-SUMOTime
-RORDLoader_TripDefs::getCurrentTimeStep() const
-{
-    return myDepartureTime;
-}
-
 
 
 /****************************************************************************/

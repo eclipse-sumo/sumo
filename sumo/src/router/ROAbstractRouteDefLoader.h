@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The basic class for loading routes or route definitions
+// The abstract base class for loading routes or route definitions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -48,7 +48,7 @@ class ROVehicleBuilder;
 // ===========================================================================
 /**
  * @class ROAbstractRouteDefLoader
- * @brief The basic class for loading routes or route definitions
+ * @brief The abstract base class for loading routes or route definitions
  *
  * XML-reading loaders are not derived directly, but use the derived
  *  ROTypedXMLRoutesLoader class as their upper class.
@@ -56,61 +56,77 @@ class ROVehicleBuilder;
 class ROAbstractRouteDefLoader
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     * 
+     * @param[in] vb The vehicle builder to use
+     * @param[in] net The network to add loaded route definitions to
+     * @param[in] begin Vehicles departing before this time shall not be loaded
+     * @param[in] end Vehicles departing after this time shall not be loaded
+     */
     ROAbstractRouteDefLoader(ROVehicleBuilder &vb, RONet &net,
-                             SUMOTime begin, SUMOTime end, const std::string &file="");
+                             SUMOTime begin, SUMOTime end) throw();
 
-    /// Destructor
-    virtual ~ROAbstractRouteDefLoader();
 
-    /** @brief Skips routes which begin before the given time
+    /// @brief Destructor
+    virtual ~ROAbstractRouteDefLoader() throw();
+
+
+    /// @name Methods to be implemented
+    /// @{
+
+    /** @brief Returns the name of the read type
      *
-     * This method uses the method myReadRoutesAtLeastUntil(time) to overread
-     * the first routes, so the loaders must determine by themselves whether
-     * to build a route or not (the departure time has to be between myBegin
-     * and the given timestep */
-    void skipUntilBegin();
+     * @return The name of the data
+     */
+    virtual std::string getDataName() const throw() = 0;
 
-    /// Adds routes from the file until the given time is reached
-    void readRoutesAtLeastUntil(SUMOTime time);
 
-    /// Closes the reading of the routes
-    virtual void closeReading() = 0;
+    /** @brief Adds routes from the file until the given time is reached
+     *
+     * Errors should be catched and reported to error-instance.
+     *
+     * @param[in] time The time until which route definitions shall be loaded
+     * @param[in] skipping Whether routes shall not be added
+     * @return Whether any errors occured
+     */
+    virtual bool readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw() = 0;
 
-    /// Returns the name of the route type
-    virtual std::string getDataName() const = 0;
 
-    /// Initialises the reader
-    virtual bool init(OptionsCont &options) = 0;
+    /** @brief Returns the time the current (last read) route starts at
+     *
+     * @return The least time step that was read by this reader
+     */
+    virtual SUMOTime getLastReadTimeStep() const throw() = 0;
 
-    /// Returns the time the current (last read) route starts at
-    virtual SUMOTime getCurrentTimeStep() const = 0;
 
-    /// Returns the information whether no routes are available from this loader anymore
-    virtual bool ended() const = 0;
+    /** @brief Returns the information whether no routes are available from this loader anymore
+     *
+     * @return Whether the whole input has been processed
+     */
+    virtual bool ended() const throw() = 0;
+    /// @}
 
-    friend class ROLoader;
 
 protected:
-    /** @brief Builds routes
-     *
-     * All routes between the loader's current time step and the one given shall
-     * be processed. If the route's departure time is lower than the value of
-     * "myBegin", the route should not be added into the container. */ // !!! not very good
-    virtual bool myReadRoutesAtLeastUntil(SUMOTime time) = 0;
-
-protected:
-    /// The network to add routes to
+    /// @brief The network to add routes to
     RONet &myNet;
 
-    /// The time for which the first route shall be compute
+    /// @brief The time for which the first route shall be loaded
     SUMOTime myBegin;
 
-    /// The time for which the first route shall be compute
+    /// @brief The time for which the first route shall be loaded
     SUMOTime myEnd;
 
-    /// The vehicle builder to use
+    /// @brief The vehicle builder to use
     ROVehicleBuilder &myVehicleBuilder;
+
+
+private:
+    /// @brief Invalidated copy constructor
+    ROAbstractRouteDefLoader(const ROAbstractRouteDefLoader &src);
+
+    /// @brief Invalidated assignment operator
+    ROAbstractRouteDefLoader &operator=(const ROAbstractRouteDefLoader &src);
 
 };
 

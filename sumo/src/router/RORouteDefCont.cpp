@@ -50,18 +50,18 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RORouteDefCont::RORouteDefCont()
+RORouteDefCont::RORouteDefCont() throw()
 {}
 
 
-RORouteDefCont::~RORouteDefCont()
+RORouteDefCont::~RORouteDefCont() throw()
 {
     clear();
 }
 
 
 bool
-RORouteDefCont::add(RORouteDef *def)
+RORouteDefCont::add(RORouteDef *def) throw()
 {
     string id = def->getID();
     // avoid usage of an id twice (from different files)
@@ -76,43 +76,20 @@ RORouteDefCont::add(RORouteDef *def)
     }
     // insert the route into the structures
     NamedObjectCont<RORouteDef*>::add(id, def);
-    myKnown.insert(idMap::value_type(std::pair<const ROEdge*, const ROEdge*>(def->getFrom(), def->getTo()), def)); // !!! not very well
     return true;
 }
 
 
-void
-RORouteDefCont::writeXML(std::ostream &)
-{}
-
-
 bool
-RORouteDefCont::known(ROEdge *from, ROEdge *to) const
-{
-    idMap::const_iterator i=myKnown.find(std::pair<ROEdge*, ROEdge*>(from, to));
-    return i!=myKnown.end();
-}
-
-bool
-RORouteDefCont::known(const std::string &name) const
+RORouteDefCont::known(const std::string &name) const throw()
 {
     return get(name)!=0;
 }
 
 
-std::string
-RORouteDefCont::getID(ROEdge *from, ROEdge *to) const
-{
-    idMap::const_iterator i=myKnown.find(std::pair<ROEdge*, ROEdge*>(from, to));
-    if (i==myKnown.end())
-        return "";
-    return (*i).second->getID();
-}
-
 void
-RORouteDefCont::clear()
+RORouteDefCont::clear() throw()
 {
-    myKnown.clear();
     NamedObjectCont<RORouteDef*>::clear();
 }
 

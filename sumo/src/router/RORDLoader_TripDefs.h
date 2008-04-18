@@ -54,17 +54,33 @@ public:
     /// Constructor
     RORDLoader_TripDefs(ROVehicleBuilder &vb,
                         RONet &net, SUMOTime begin, SUMOTime end,
-                        bool emptyDestinationsAllowed, const std::string &file="");
+                        bool emptyDestinationsAllowed, const std::string &file="") throw(ProcessError);
 
     /// Destructor
     ~RORDLoader_TripDefs() throw();
 
-    /** @brief Returns the name of the data read.
-        "XML-route definitions" is returned here */
-    std::string getDataName() const;
 
-    /// Returns the time the current (last read) route starts at
-    SUMOTime getCurrentTimeStep() const;
+    /// @name inherited from ROAbstractRouteDefLoader
+    //@{
+
+    /** @brief Returns the name of the read type
+     *
+     * @return The name of the data
+     */
+    std::string getDataName() const throw() {
+        return "XML-trip definitions";
+    }
+
+
+    /** @brief Returns the time the current (last read) route starts at
+     *
+     * @return The least time step that was read by this reader
+     */
+    SUMOTime getLastReadTimeStep() const throw() {
+        return myDepartureTime;
+    }
+    /// @}
+
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -101,12 +117,29 @@ protected:
     void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 
-protected:
-    /// Return the information whether a route was read
-    bool nextRouteRead();
 
-    /// Initialises the reading of a further route
-    void beginNextRoute();
+
+    /// @name inherited from ROTypedXMLRoutesLoader
+    /// @{
+
+    /** Returns the information whether a route was read
+     *
+     * @return Whether a further route was read
+     * @see ROTypedXMLRoutesLoader::nextRouteRead
+     */
+    bool nextRouteRead() throw() {
+        return myNextRouteRead;
+    }
+
+
+    /** @brief Returns Initialises the reading of a further route
+     *
+     * @todo recheck/refactor
+     * @see ROTypedXMLRoutesLoader::beginNextRoute
+     */
+    void beginNextRoute() throw();
+    //@}
+
 
 protected:
     /// Parses the vehicle id
@@ -163,10 +196,10 @@ protected:
     SUMOTime myDepartureTime;
 
 private:
-    /// we made the copy constructor invalid
+    /// @brief Invalidated copy constructor
     RORDLoader_TripDefs(const RORDLoader_TripDefs &src);
 
-    /// we made the assignment operator invalid
+    /// @brief Invalidated assignment operator
     RORDLoader_TripDefs &operator=(const RORDLoader_TripDefs &src);
 
 };

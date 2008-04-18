@@ -57,41 +57,32 @@ using namespace std;
 // method definitions
 // ===========================================================================
 RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
-        SUMOTime begin,
-        SUMOTime end,
-        bool removeFirst,
-        const std::string &)
-        : ROAbstractRouteDefLoader(vb, net, begin, end), myIDSupplier("Rand"),
-        myCurrentTime(0), myRemoveFirst(removeFirst)
+        SUMOTime begin, SUMOTime end, bool removeFirst) throw(ProcessError)
+    : ROAbstractRouteDefLoader(vb, net, begin, end), myIDSupplier("Rand"),
+    myCurrentTime(-1), myRemoveFirst(removeFirst)
 {
-    if (OptionsCont::getOptions().isSet("random-route-color")) {
+    OptionsCont &oc = OptionsCont::getOptions();
+    if (oc.isSet("random-route-color")) {
         myColor = RGBColor::parseColor(OptionsCont::getOptions().getString("random-route-color"));
+    }
+    myWishedPerSecond = oc.getFloat("random-per-second");
+    myCurrentProgress = 0;//myWishedPerSecond / (SUMOReal) 2.0;
+    if (myWishedPerSecond<0) {
+        throw ProcessError("We cannot less than no vehicle!");
     }
 }
 
 
-RORDGenerator_Random::~RORDGenerator_Random()
+RORDGenerator_Random::~RORDGenerator_Random() throw()
 {}
-
-
-void
-RORDGenerator_Random::closeReading()
-{}
-
-
-std::string
-RORDGenerator_Random::getDataName() const
-{
-    return "random_trips";
-}
 
 
 bool
-RORDGenerator_Random::myReadRoutesAtLeastUntil(SUMOTime time)
+RORDGenerator_Random::readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw()
 {
     // check whether the first route have to be skipped
-    if (time==myBegin) {
-        myCurrentTime = time + 1;
+    if (skipping) {
+        myCurrentTime = myBegin;
         myReadNewRoute = true;
         return true;
     }
@@ -133,33 +124,6 @@ RORDGenerator_Random::myReadRoutesAtLeastUntil(SUMOTime time)
     }
     return true;
 }
-
-
-bool
-RORDGenerator_Random::init(OptionsCont &options)
-{
-    myWishedPerSecond = options.getFloat("random-per-second");
-    myCurrentProgress = myWishedPerSecond / (SUMOReal) 2.0;
-    if (myWishedPerSecond<0) {
-        throw ProcessError("We cannot less than no vehicle!");
-    }
-    return true;
-}
-
-
-SUMOTime
-RORDGenerator_Random::getCurrentTimeStep() const
-{
-    return myCurrentTime;
-}
-
-
-bool
-RORDGenerator_Random::ended() const
-{
-    return false;
-}
-
 
 
 /****************************************************************************/

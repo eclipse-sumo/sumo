@@ -50,50 +50,40 @@ class ROEdge;
 // ===========================================================================
 /**
  * @class RORouteDefCont
- * A container for route definitions
+ * @brief A container for route definitions
+ *
+ * @todo Recheck whether this is really needed; seems to be a NamedObjectCont with no additional functionality (besides a buggy implementation of id reassignment)
  */
 class RORouteDefCont : public NamedObjectCont<RORouteDef*>
 {
 public:
-    /// Constructor
-    RORouteDefCont();
+    /// @brief Constructor
+    RORouteDefCont() throw();
 
-    /// Destructor
-    ~RORouteDefCont();
+
+    /// @brief Destructor
+    ~RORouteDefCont() throw();
+
 
     /// Adds a named route definition to the container
-    bool add(RORouteDef *def);
-
-    /// Writes the known routes into the given file using the XML-format
-    static void writeXML(std::ostream &os);
+    bool add(RORouteDef *def) throw();
 
     /// returns the information whether a route with the given name is known
-    bool known(const std::string &name) const;
-
-    /// Returns the information whether a route connecting the given edges is known
-    bool known(ROEdge *from, ROEdge *to) const;
-
-    /// returns the id of the route that connects the given edges (if known)
-    std::string getID(ROEdge *from, ROEdge *to) const;
+    bool known(const std::string &name) const throw();
 
     /// Removes all route definitions from the container
-    void clear();
+    void clear() throw();
 
 private:
-    /// Definitions of a container of route definitions from their start eand end points to the route definition
-    typedef std::map<std::pair<const ROEdge*, const ROEdge*>, RORouteDef*> idMap;
-
-    /// Container with routes definitions accessable by their starting and ending point
-    idMap myKnown;
-
     /// A supplier of further ids
     IDSupplier myIdSupplier;
 
+
 private:
-    /// we made the copy constructor invalid
+    /// @brief Invalidated copy constructor
     RORouteDefCont(const RORouteDefCont &src);
 
-    /// we made the assignment operator invalid
+    /// @brief Invalidated assignment operator
     RORouteDefCont &operator=(const RORouteDefCont &src);
 
 };

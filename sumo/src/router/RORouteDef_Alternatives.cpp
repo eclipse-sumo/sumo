@@ -94,37 +94,14 @@ RORouteDef_Alternatives::addLoadedAlternative(RORoute *alt)
 
 
 
-const ROEdge * const
-RORouteDef_Alternatives::getFrom() const
-{
-    // check whether the item was correctly initialised
-    if (myAlternatives.size()==0) {
-        throw 1; // !!!
-    }
-    return myAlternatives[0]->getFirst();
-}
-
-
-const ROEdge * const
-RORouteDef_Alternatives::getTo() const
-{
-    // check whether the item was correctly initialised
-    if (myAlternatives.size()==0) {
-        throw 1; // !!!
-    }
-    return myAlternatives[0]->getLast();
-}
-
-
 RORoute *
 RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
         SUMOTime begin, const ROVehicle &veh) const
 {
     // recompute duration of the last route used
     // build a new route to test whether it is better
-    //  !!! after some iterations, no further routes should be build
     std::vector<const ROEdge*> edges;
-    router.compute(getFrom(), getTo(), &veh, begin, edges);
+    router.compute(myAlternatives[0]->getFirst(), myAlternatives[0]->getLast(), &veh, begin, edges);
     RORoute *opt = new RORoute(myID, 0, 1, edges);
     opt->setCosts(ROHelper::recomputeCosts(opt->getEdgeVector(), &veh, begin));
     // check whether the same route was already used
@@ -140,7 +117,7 @@ RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> 
         myNewRoute = false;
         return myAlternatives[myLastUsed];
     }
-    // return the build route
+    // return the built route
     return opt;
 }
 
@@ -258,7 +235,7 @@ RORouteDef_Alternatives::gawronG(SUMOReal a, SUMOReal x)
     if (((1.0-(x*x))==0)) {
         return std::numeric_limits<SUMOReal>::max();
     }
-    return (SUMOReal) exp((a*x)/(1.0-(x*x))); // !!! ??
+    return (SUMOReal) exp((a*x)/(1.0-(x*x)));
 }
 
 

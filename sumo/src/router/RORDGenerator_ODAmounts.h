@@ -55,32 +55,36 @@ public:
     /// Constructor
     RORDGenerator_ODAmounts(ROVehicleBuilder &vb, RONet &net,
                             SUMOTime begin, SUMOTime end, bool emptyDestinationsAllowed,
-                            bool randomize, const std::string &file="");
+                            bool randomize, const std::string &file="") throw(ProcessError);
 
     /// Destructor
     ~RORDGenerator_ODAmounts() throw();
 
-    /** @brief Returns the name of the data read.
-        "XML-route definitions" is returned here */
-    std::string getDataName() const;
 
-    /// Returns the information whether no routes are available from this loader anymore
-    bool ended() const;
+    /// @name inherited from ROAbstractRouteDefLoader
+    //@{
 
-    /** @brief Closes the reading of routes
-        Overridden, as no parse toke is used herein as within the other parsers */
-    void closeReading();
+    /** @brief Returns the name of the read type
+     *
+     * @return The name of the data
+     */
+    std::string getDataName() const throw() {
+        return "XML-flow definitions";
+    }
 
-    /// reader dependent initialisation
-    virtual bool init(OptionsCont &options);
+
+    /** @brief Adds routes from the file until the given time is reached
+     *
+     * @param[in] time The time until which route definitions shall be loaded
+     * @param[in] skipping Whether routes shall not be added
+     * @return Whether any errors occured
+     * @see ROAbstractRouteDefLoader::readRoutesAtLeastUntil
+     */
+    bool readRoutesAtLeastUntil(SUMOTime until, bool skipping) throw();
+    /// @}
 
 
 protected:
-    /** @brief Reads the until the specified time is reached
-        Do read the comments on ROAbstractRouteDefLoader::myReadRoutesAtLeastUntil
-        for the modalities! */
-    bool myReadRoutesAtLeastUntil(SUMOTime until);
-
     /// @name inherited from GenericSAXHandler
     //@{
 
@@ -115,7 +119,6 @@ protected:
     void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 
-protected:
     /// Parses the interval information
     void parseInterval(const SUMOSAXAttributes &attrs);
 
@@ -188,10 +191,10 @@ protected:
 
 private:
     /// Builds the routes between the current time step and the one given
-    void buildRoutes(SUMOTime until);
+    void buildRoutes(SUMOTime until) throw();
 
     /// Builds the routes for the given time step
-    void buildForTimeStep(SUMOTime time);
+    void buildForTimeStep(SUMOTime time) throw();
 
 private:
     /// The begin of the interval current read
@@ -218,20 +221,18 @@ private:
     /// The definitions of the read flows
     FlowDefV myFlows;
 
-    /// The information whether no further routes exist
-    bool myEnded;
-
     /// A storage for ids (!!! this should be done router-wide)
     std::set<std::string> myKnownIDs;
 
     /// Information whether randomized departures are used
     bool myRandom;
 
+
 private:
-    /// we made the copy constructor invalid
+    /// @brief Invalidated copy constructor
     RORDGenerator_ODAmounts(const RORDGenerator_ODAmounts &src);
 
-    /// we made the assignment operator invalid
+    /// @brief Invalidated assignment operator
     RORDGenerator_ODAmounts &operator=(const RORDGenerator_ODAmounts &src);
 
 };

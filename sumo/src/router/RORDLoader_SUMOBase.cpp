@@ -64,12 +64,12 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
         SUMOReal gawronBeta, SUMOReal gawronA,
         int maxRouteNumber,
         const std::string &dataName,
-        const std::string &file)
+        const std::string &file) throw(ProcessError)
         : ROTypedXMLRoutesLoader(vb, net, begin, end, file),
         myVehicleParameter(0), myDataName(dataName), myHaveNextRoute(false),
         myCurrentAlternatives(0),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRouteNumber),
-        myCurrentRoute(0), myCurrentDepart(0)
+        myCurrentRoute(0), myCurrentDepart(-1)
 {}
 
 
@@ -246,21 +246,19 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
     switch (element) {
     case SUMO_TAG_ROUTE:
         if (myCurrentRoute!=0&&!mySkipCurrent) {
-            /*
-            myCurrentAlternatives = new RORouteDef_Alternatives(myCurrentRouteName, myColor,
-                    0, myGawronBeta, myGawronA, myMaxRouteNumber);
-            myCurrentAlternatives->addLoadedAlternative(myCurrentRoute);
-            */
+            if(myCurrentAlternatives==0) {
+                myCurrentAlternatives = new RORouteDef_Alternatives(myCurrentRouteName, myColor,
+                        0, myGawronBeta, myGawronA, myMaxRouteNumber);
+                myNet.addRouteDef(myCurrentAlternatives);
+                myCurrentAlternatives->addLoadedAlternative(myCurrentRoute);
+                myCurrentAlternatives = 0;
+            } else {
+                myCurrentAlternatives->addLoadedAlternative(myCurrentRoute);
+            }
             if (myVehicleParameter==0) {
                 myHaveNextRoute = true;
             }
-            if(myCurrentRoute->getEdgeVector().size()>2) {
-                myNet.addRouteDef(new RORouteDef_Complete(myCurrentRoute->getID(), RGBColor(),
-                    myCurrentRoute->getEdgeVector()));
-            }
-            delete myCurrentRoute;
             myCurrentRoute = 0;
-            myCurrentAlternatives = 0;
         }
         break;
     case SUMO_TAG_ROUTEALT:
@@ -320,14 +318,6 @@ RORDLoader_SUMOBase::closeVehicle() throw()
 }
 
 
-std::string
-RORDLoader_SUMOBase::getDataName() const
-{
-    return myDataName;
-}
-
-
-
 void
 RORDLoader_SUMOBase::startVehType(const SUMOSAXAttributes &attrs)
 {
@@ -358,15 +348,8 @@ RORDLoader_SUMOBase::startVehType(const SUMOSAXAttributes &attrs)
 }
 
 
-SUMOTime
-RORDLoader_SUMOBase::getCurrentTimeStep() const
-{
-    return myCurrentDepart;
-}
-
-
 MsgHandler *
-RORDLoader_SUMOBase::getErrorHandlerMarkInvalid()
+RORDLoader_SUMOBase::getErrorHandlerMarkInvalid() throw()
 {
     mySkipCurrent = true;
     return
@@ -376,15 +359,8 @@ RORDLoader_SUMOBase::getErrorHandlerMarkInvalid()
 }
 
 
-bool
-RORDLoader_SUMOBase::nextRouteRead()
-{
-    return myHaveNextRoute;
-}
-
-
 void
-RORDLoader_SUMOBase::beginNextRoute()
+RORDLoader_SUMOBase::beginNextRoute() throw()
 {
     myHaveNextRoute = false;
 }

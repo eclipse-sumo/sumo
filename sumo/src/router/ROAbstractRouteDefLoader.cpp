@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The basic class for loading routes or route definitions
+// The abstract base class for loading routes or route definitions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -52,33 +52,13 @@ using namespace std;
 // method definitions
 // ===========================================================================
 ROAbstractRouteDefLoader::ROAbstractRouteDefLoader(ROVehicleBuilder &vb,
-        RONet &net,
-        SUMOTime begin,
-        SUMOTime end,
-        const std::string &/*file*/)
-        : myNet(net), myBegin(begin), myEnd(end), myVehicleBuilder(vb)
+        RONet &net, SUMOTime begin, SUMOTime end) throw()
+    : myNet(net), myBegin(begin), myEnd(end), myVehicleBuilder(vb)
 {}
 
 
-ROAbstractRouteDefLoader::~ROAbstractRouteDefLoader()
+ROAbstractRouteDefLoader::~ROAbstractRouteDefLoader() throw()
 {}
-
-
-void
-ROAbstractRouteDefLoader::skipUntilBegin()
-{
-    myReadRoutesAtLeastUntil(myBegin);
-}
-
-
-void
-ROAbstractRouteDefLoader::readRoutesAtLeastUntil(SUMOTime time)
-{
-    if (!myReadRoutesAtLeastUntil(time)) {
-        throw ProcessError("Problems on parsing " + getDataName() + " file.");
-    }
-}
-
 
 
 /****************************************************************************/
