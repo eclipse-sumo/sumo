@@ -46,7 +46,7 @@ optParser.add_option("-u", "--curve-file", dest="curvefile", default="CRcurve.tx
 optParser.add_option("-d", "--district-file", dest="confile",
                      help="read OD Zones from FILE (mandatory)", metavar="FILE")  
 optParser.add_option("-s", "--extrasignal-file", dest="sigfile",
-                     help="read extra/updated signal timing plans from FILE (mandatory)", metavar="FILE")  
+                     help="read extra/updated signal timing plans from FILE", metavar="FILE")  
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-b", "--debug", action="store_true", dest="debug",
@@ -56,7 +56,7 @@ optParser.add_option("-b", "--debug", action="store_true", dest="debug",
 
 
 
-if not options.netfile:
+if not options.netfile or not options.confile or not options.mtxpsfile:
     optParser.print_help()
     sys.exit()
 
@@ -76,8 +76,9 @@ def main():
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(options.confile)
     
-    parser.setContentHandler(ExtraSignalInformationReader(net))
-    parser.parse(options.sigfile)
+    if options.sigfile:
+        parser.setContentHandler(ExtraSignalInformationReader(net))
+        parser.parse(options.sigfile)
     
     foutlog.write('- Reading network: done.\n')
     foutlog.write('number of total startVertices:%s\n' %len(net._startVertices))

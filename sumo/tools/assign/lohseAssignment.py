@@ -55,7 +55,7 @@ optParser.add_option("-b", "--debug", action="store_true", dest="debug",
 
 
 
-if not options.netfile:
+if not options.netfile or not options.confile or not options.mtxpsfile:
     optParser.print_help()
     sys.exit()
 
@@ -75,8 +75,9 @@ def main():
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(options.confile)
     
-    parser.setContentHandler(ExtraSignalInformationReader(net))
-    parser.parse(options.sigfile)
+    if options.sigfile:
+        parser.setContentHandler(ExtraSignalInformationReader(net))
+        parser.parse(options.sigfile)
     
     foutlog.write('- Reading network: done.\n')
     foutlog.write('number of total startVertices:%s\n' %len(net._startVertices))
