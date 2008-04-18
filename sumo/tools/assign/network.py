@@ -229,6 +229,7 @@ class NetworkReader(handler.ContentHandler):
             self._edgeObj.junction = attrs['junction']
         elif name == 'succlane':
             if attrs.has_key('tl'):
+                self._edgeObj.junction = attrs['tl']
                 self._edgeObj.junctiontype = 'signalized'
                 if attrs['dir'] == "r":
                     self._edgeObj.rightturn = attrs['linkno']
