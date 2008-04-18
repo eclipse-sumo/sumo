@@ -110,6 +110,9 @@ loadNet(ROLoader &loader, OptionsCont &oc)
 void
 startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
+    // initialise the loader
+    loader.openRoutes(net);
+    // build the router
     SUMOAbstractRouter<ROEdge, ROVehicle> *router;
     if (net.hasRestrictions()) {
         router = new SUMODijkstraRouter_Direct<ROEdge, ROVehicle, prohibited_withRestrictions<ROEdge, ROVehicle> >(
@@ -117,14 +120,6 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     } else {
         router = new SUMODijkstraRouter_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
             net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
-    }
-    // build the router
-    // initialise the loader
-    size_t noLoaders =
-        loader.openRoutes(net, oc.getFloat("gBeta"), oc.getFloat("gA"));
-    if (noLoaders==0) {
-        delete router;
-        throw ProcessError("No route input specified.");
     }
     // prepare the output
     try {
@@ -143,11 +138,9 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
             loader.processAllRoutes(oc.getInt("begin"), oc.getInt("end"), net, *router);
         }
         // end the processing
-        loader.closeReading();
         net.closeOutput();
         delete router;
     } catch (ProcessError &) {
-        loader.closeReading();
         net.closeOutput();
         delete router;
         throw;

@@ -163,10 +163,7 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     ROJTRRouter router(net, oc.getBool("continue-on-unbuild"),
                        oc.getBool("accept-all-destinations"));
     // initialise the loader
-    size_t noLoaders = loader.openRoutes(net, 1, 1);
-    if (noLoaders==0) {
-        throw ProcessError("No route input specified.");
-    }
+    loader.openRoutes(net);
     // prepare the output
     net.openOutput(oc.getString("output"), false);
     // the routes are sorted - process stepwise
@@ -178,7 +175,6 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
         loader.processAllRoutes(oc.getInt("begin"), oc.getInt("end"), net, router);
     }
     // end the processing
-    loader.closeReading();
     net.closeOutput();
 }
 
