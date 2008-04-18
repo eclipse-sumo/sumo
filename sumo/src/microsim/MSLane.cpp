@@ -290,8 +290,6 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal speed) throw()
             // try emit vehicle (should be always ok)
             if(isEmissionSuccess(&veh, MSVehicle::State(backMin, speed))) {
                 return true;
-            } else {
-                cerr << "Strange behaviour:" << endl;
             }
         }
         ++predIt;
