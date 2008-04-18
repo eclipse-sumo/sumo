@@ -1692,6 +1692,9 @@ MSVehicle::writeXMLRoute(OutputDevice &os, int index) const
         // write the time at which the route was replaced
         os << " replacedAtTime=\"" << (*v)[index].time << "\">";
         // get the route
+        for (int i=0; i<index; ++i) {
+            (*v)[i].route->writeEdgeIDs(os, (*v)[i].edge);
+        }
         (*v)[index].route->writeEdgeIDs(os);
         os << "</replaced_route>\n";
     } else {
