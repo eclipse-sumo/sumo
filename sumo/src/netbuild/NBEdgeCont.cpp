@@ -292,7 +292,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node)
 {
     return splitAt(dc, edge, node,
                    edge->getID() + "[0]", edge->getID() + "[1]",
-                   edge->myNolanes, edge->myNolanes);
+                   edge->myLanes.size(), edge->myLanes.size());
 }
 
 
@@ -335,20 +335,6 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
         geoms.second.pop_front();
         geoms.second.push_front(node->getPosition());
     }
-#ifdef myDEBUG
-#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
-    if (!geoms.first.assertNonEqual()) {
-        DEBUG_OUT << "first: " << edge->getID() << endl;
-        DEBUG_OUT << geoms.first << endl;
-        DEBUG_OUT << geoms.second << endl;
-    }
-    if (!geoms.second.assertNonEqual()) {
-        DEBUG_OUT << "second: " << edge->getID() << endl;
-        DEBUG_OUT << geoms.first << endl;
-        DEBUG_OUT << geoms.second << endl;
-    }
-#endif
-#endif
     // build and insert the edges
     NBEdge *one = new NBEdge(firstEdgeName, 
                              edge->myFrom, node, edge->myType, edge->mySpeed, noLanesFirstEdge,

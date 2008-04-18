@@ -113,22 +113,75 @@ public:
     };
 
 
+    /** @struct Lane
+     * @brief An (internal) definition of a single lane of this edge
+     */
+    struct Lane {
+        /// @brief The lane's shape
+        Position2DVector shape;
+        /// @brief The speed allowed on this lane
+        SUMOReal speed;
+        /// @brief List of vehicle types that are allowed on this lane
+        std::vector<SUMOVehicleClass> allowed;
+        /// @brief List of vehicle types that are not allowed on this lane
+        std::vector<SUMOVehicleClass> notAllowed;
+    };
+
+
 public:
     /// constructor
     NBEdge(const std::string &id, 
            NBNode *from, NBNode *to, std::string type,
-           SUMOReal speed, size_t nolanes, int priority,
+           SUMOReal speed, unsigned int nolanes, int priority,
            LaneSpreadFunction spread=LANESPREAD_RIGHT,
            EdgeBasicFunction basic=EDGEFUNCTION_NORMAL) throw(ProcessError);
 
     NBEdge(const std::string &id, 
            NBNode *from, NBNode *to, std::string type,
-           SUMOReal speed, size_t nolanes, int priority,
+           SUMOReal speed, unsigned int nolanes, int priority,
            Position2DVector geom, LaneSpreadFunction spread=LANESPREAD_RIGHT,
            EdgeBasicFunction basic=EDGEFUNCTION_NORMAL) throw(ProcessError);
 
     /// destructor
-    ~NBEdge();
+    ~NBEdge() throw();
+
+
+    /// @name Atomar getter methods
+    //@{
+
+    /// returns the id of the edge
+    const std::string &getID() const throw() {
+        return myID;
+    }
+
+    /// returns the number of lanes
+    unsigned int getNoLanes() const throw() {
+        return (unsigned int) myLanes.size();
+    }
+
+    /// returns the priority of the edge
+    int getPriority() const throw() {
+        return myPriority;
+    }
+
+
+    /// returns the origin node of the edge
+    NBNode * const getFromNode() const throw() {
+        return myFrom;
+    }
+
+    /// returns the destination node of the edge
+    NBNode * const getToNode() const throw() {
+        return myTo;
+    }
+
+    /// returns the type of the edge
+    const std::string &getType() const throw() {
+         return myType;
+    }
+    //@}
+
+
 
     /// computes which edge shall be the turn-around one, if any
     void computeTurningDirections();
@@ -136,32 +189,14 @@ public:
     /// returns the angle of the edge
     SUMOReal getAngle();
 
-    /// returns the priority of the edge
-    int getPriority() const;
-
     /// sets the junction priority of the edge
     void setJunctionPriority(NBNode *node, int prio);
 
     /// returns the junction priority (normalised for the node currently build)
     int getJunctionPriority(NBNode *node);
 
-    /// returns the number of lanes
-    size_t getNoLanes() const;
-
     /// returns the edges approached by the given lane
     const EdgeLaneVector & getEdgeLanesFromLane(size_t lane) const;
-
-    /// returns the id of the edge
-    const std::string &getID() const;
-
-    /// returns the origin node of the edge
-    NBNode *getFromNode();
-
-    /// returns the destination node of the edge
-    NBNode *getToNode();
-
-    /// returns the type of the edge
-    std::string getType();
 
     /// returns the length of the edge
     SUMOReal getLength();
@@ -245,8 +280,8 @@ public:
 
     SUMOReal getMaxLaneOffset();
 
-    Position2D getMinLaneOffsetPositionAt(NBNode *node, SUMOReal width);
-    Position2D getMaxLaneOffsetPositionAt(NBNode *node, SUMOReal width);
+    Position2D getMinLaneOffsetPositionAt(NBNode *node, SUMOReal width) const;
+    Position2D getMaxLaneOffsetPositionAt(NBNode *node, SUMOReal width) const;
 
     /// Returns the information whethe a connection to the given edge has been added (or computed)
     bool isConnectedTo(NBEdge *e);
@@ -314,9 +349,9 @@ public:
 
     std::string getLaneID(size_t lane);
 
-    void setLaneSpeed(int lane, SUMOReal speed);
+    void setLaneSpeed(unsigned int lane, SUMOReal speed);
 
-    SUMOReal getLaneSpeed(int lane) const;
+    SUMOReal getLaneSpeed(unsigned int lane) const;
 
     bool isNearEnough2BeJoined2(NBEdge *e);
 
@@ -326,9 +361,9 @@ public:
 
     void addGeometryPoint(int index, const Position2D &p);
 
-    void incLaneNo(int by);
+    void incLaneNo(unsigned int by);
 
-    void decLaneNo(int by, int dir=0);
+    void decLaneNo(unsigned int by, int dir=0);
 
     void copyConnectionsFrom(NBEdge *src);
 
@@ -341,7 +376,6 @@ public:
     void allowVehicleClass(int lane, SUMOVehicleClass vclass);
     void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
     std::vector<SUMOVehicleClass> getAllowedVehicleClasses() const;
-    std::vector<SUMOVehicleClass> getNotAllowedVehicleClasses() const;
 
     void disableConnection4TLS(int fromLane, NBEdge *toEdge, int toLane);
 
@@ -457,6 +491,48 @@ protected:
 
 
 private:
+    /** initialization routines common to all constructors */
+    void init(unsigned int noLanes) throw(ProcessError);
+
+    /** divides the lanes on the outgoing edges */
+    void divideOnEdges(const std::vector<NBEdge*> *outgoing);
+
+    /** recomputes the priorities and manipulates them for a distribution
+        of lanes on edges which is more like in real-life */
+    std::vector<size_t> *preparePriorities(
+        const std::vector<NBEdge*> *outgoing);
+
+    /** computes teh sum of the given list's entries (sic!) */
+    size_t computePrioritySum(std::vector<size_t> *priorities);
+
+    /** moves a connection one place to the left;
+        Attention! no checking for field validity */
+    void moveConnectionToLeft(size_t lane);
+
+    /** moves a connection one place to the right;
+        Attention! no checking for field validity */
+    void moveConnectionToRight(size_t lane);
+
+    /** returns the information about the connection to move and
+        removes it from the containers */
+    std::pair<NBEdge*, size_t> getConnectionRemoving(size_t srcLane, size_t pos);
+
+    /** writes information about the described lane into the given stream */
+    void writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) const;
+
+    // !!! describe
+    void writeConnected(OutputDevice &into, NBEdge *edge, LaneVector &lanes);
+
+    // !!! describe
+    void writeSucceeding(OutputDevice &into, size_t lane,
+                         bool includeInternal);
+
+    // !!! describe
+    void writeSingleSucceeding(OutputDevice &into,
+                               size_t fromlane, size_t destidx, bool includeInternal);
+
+
+private:
     /// the building step
     EdgeBuildingStep myStep;
 
@@ -467,7 +543,7 @@ private:
     std::string myType;
 
     /// the number of lanes
-    size_t     myNolanes;
+    //size_t     myNolanes;
 
     /// the source and the destination node
     NBNode  *myFrom, *myTo;
@@ -517,10 +593,8 @@ private:
     /// The information about how to spread the lanes
     LaneSpreadFunction myLaneSpreadFunction;
 
-    std::vector<Position2DVector> myLaneGeoms;
-    std::vector<SUMOReal> myLaneSpeeds;
-    std::vector<std::vector<SUMOVehicleClass> > myAllowedOnLanes;
-    std::vector<std::vector<SUMOVehicleClass> > myNotAllowedOnLanes;
+
+    std::vector<Lane> myLanes;
 
     SUMOReal myLoadedLength;
 
@@ -563,47 +637,6 @@ private:
 
     };
 
-
-private:
-    /** initialization routines common to all constructors */
-    void init() throw(ProcessError);
-
-    /** divides the lanes on the outgoing edges */
-    void divideOnEdges(const std::vector<NBEdge*> *outgoing);
-
-    /** recomputes the priorities and manipulates them for a distribution
-        of lanes on edges which is more like in real-life */
-    std::vector<size_t> *preparePriorities(
-        const std::vector<NBEdge*> *outgoing);
-
-    /** computes teh sum of the given list's entries (sic!) */
-    size_t computePrioritySum(std::vector<size_t> *priorities);
-
-    /** moves a connection one place to the left;
-        Attention! no checking for field validity */
-    void moveConnectionToLeft(size_t lane);
-
-    /** moves a connection one place to the right;
-        Attention! no checking for field validity */
-    void moveConnectionToRight(size_t lane);
-
-    /** returns the information about the connection to move and
-        removes it from the containers */
-    std::pair<NBEdge*, size_t> getConnectionRemoving(size_t srcLane, size_t pos);
-
-    /** writes information about the described lane into the given stream */
-    void writeLane(OutputDevice &into, size_t lane);
-
-    // !!! describe
-    void writeConnected(OutputDevice &into, NBEdge *edge, LaneVector &lanes);
-
-    // !!! describe
-    void writeSucceeding(OutputDevice &into, size_t lane,
-                         bool includeInternal);
-
-    // !!! describe
-    void writeSingleSucceeding(OutputDevice &into,
-                               size_t fromlane, size_t destidx, bool includeInternal);
 
 private:
     /** invalid copy constructor */
