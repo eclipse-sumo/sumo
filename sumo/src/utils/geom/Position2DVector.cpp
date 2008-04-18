@@ -76,15 +76,6 @@ Position2DVector::~Position2DVector()
 void
 Position2DVector::push_back(const Position2D &p)
 {
-#ifdef _DEBUG
-#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
-    if (myCont.size()!=0&&myCont[myCont.size()-1]==p) {
-        DEBUG_OUT << "on push_back" << endl;
-        DEBUG_OUT << *this << endl;
-    }
-#endif
-#endif
-//    assert(myCont.size()==0||myCont[myCont.size()-1]!=p);
     myCont.push_back(p);
 }
 
@@ -93,29 +84,12 @@ void
 Position2DVector::push_back(const Position2DVector &p)
 {
     copy(p.myCont.begin(), p.myCont.end(), back_inserter(myCont));
-#ifdef _DEBUG
-#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
-    if (!assertNonEqual()) {
-        DEBUG_OUT << "on push_back2" << endl;
-        throw 1;
-    }
-#endif
-#endif
 }
 
 
 void
 Position2DVector::push_front(const Position2D &p)
 {
-#ifdef _DEBUG
-#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
-    if (myCont.size()!=0&&myCont[0]==p) {
-        DEBUG_OUT << "on push_front" << endl;
-        DEBUG_OUT << *this << endl;
-        throw 1;
-    }
-#endif
-#endif
     assert(myCont.size()==0||myCont[0]!=p);
     myCont.push_front(p);
 }
@@ -557,15 +531,6 @@ Position2DVector::intersectsAtPoints(const Position2D &p1,
                                      const Position2D &p2) const
 {
     Position2DVector ret;
-#ifdef _DEBUG
-#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
-    if (!assertNonEqual()) {
-        DEBUG_OUT << *this << endl;
-        DEBUG_OUT << "in iintersects at points" << endl;
-        throw 1;
-    }
-#endif
-#endif
     for (ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {
         if (GeomHelper::intersects(*i, *(i+1), p1, p2)) {
             ret.push_back_noDoublePos(GeomHelper::intersection_position(*i, *(i+1), p1, p2));
@@ -579,20 +544,6 @@ int
 Position2DVector::appendWithCrossingPoint(const Position2DVector &v)
 {
     if (GeomHelper::distance(myCont[myCont.size()-1], v.myCont[0])<2) { // !!! heuristic
-#ifdef _DEBUG
-#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
-        if (!assertNonEqual()) {
-            DEBUG_OUT << "this in appendwithcrossing" << endl;
-            DEBUG_OUT << *this << endl;
-            throw 1;
-        }
-        if (!v.assertNonEqual()) {
-            DEBUG_OUT << "v in appendwithcrossing" << endl;
-            DEBUG_OUT << v << endl;
-            throw 1;
-        }
-#endif
-#endif
         copy(v.myCont.begin()+1, v.myCont.end(), back_inserter(myCont));
         return 1;
     }
@@ -605,27 +556,9 @@ Position2DVector::appendWithCrossingPoint(const Position2DVector &v)
         Position2D p = l1.intersectsAt(l2);
         myCont[myCont.size()-1] = p;
         copy(v.myCont.begin()+1, v.myCont.end(), back_inserter(myCont));
-#ifdef _DEBUG
-#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
-        if (!assertNonEqual()) {
-            DEBUG_OUT << "this in appendwithcrossing2" << endl;
-            DEBUG_OUT << *this << endl;
-            throw 1;
-        }
-#endif
-#endif
         return 2;
     } else {
         copy(v.myCont.begin(), v.myCont.end(), back_inserter(myCont));
-#ifdef _DEBUG
-#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
-        if (!assertNonEqual()) {
-            DEBUG_OUT << "this in appendwithcrossing3" << endl;
-            DEBUG_OUT << *this << endl;
-            throw 1;
-        }
-#endif
-#endif
         return 3;
     }
 }
@@ -1057,20 +990,6 @@ Position2DVector::closePolygon()
     if (myCont[0]==myCont[myCont.size()-1]) {
         return;
     }
-#ifdef _DEBUG
-#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
-    if (myCont.size()!=0&&myCont[myCont.size()-1]==myCont[0]) {
-        DEBUG_OUT << "on closePlygon" << endl;
-        DEBUG_OUT << *this << endl;
-        throw 1;
-    }
-    if (size()<2) {
-        DEBUG_OUT << *this << endl;
-        DEBUG_OUT << "nope1" << endl;
-        throw 1;
-    }
-#endif
-#endif
     push_back(myCont[0]);
 }
 
@@ -1169,23 +1088,6 @@ Position2DVector::insertAt(int index, const Position2D &p)
         myCont.insert(myCont.end()+index, p);
     }
 }
-
-
-#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
-bool
-Position2DVector::assertNonEqual() const
-{
-    if (myCont.size()<2) {
-        return true;
-    }
-    for (ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; ++i) {
-        if (*i==*(i+1)) {
-            return false;
-        }
-    }
-    return true;
-}
-#endif
 
 
 void

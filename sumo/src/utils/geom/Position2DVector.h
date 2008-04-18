@@ -241,10 +241,6 @@ public:
 
     SUMOReal distance(const Position2D &p) const;
 
-#ifdef CHECK_UNIQUE_POINTS_GEOMETRY
-    bool assertNonEqual() const;
-#endif
-
     void push_back_noDoublePos(const Position2D &p, SUMOReal eps=POSITION_EPS);
     void push_front_noDoublePos(const Position2D &p, SUMOReal eps=POSITION_EPS);
 
