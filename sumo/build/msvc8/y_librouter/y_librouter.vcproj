@@ -366,10 +366,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\ROLane.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\router\ROLoader.cpp"
 				>
 			</File>
