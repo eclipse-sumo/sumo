@@ -40,17 +40,17 @@
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-ROVehicleBuilder::ROVehicleBuilder()
+ROVehicleBuilder::ROVehicleBuilder() throw()
 {}
 
 
-ROVehicleBuilder::~ROVehicleBuilder()
+ROVehicleBuilder::~ROVehicleBuilder() throw()
 {}
 
 
 ROVehicle *
 ROVehicleBuilder::buildVehicle(const SUMOVehicleParameter &pars, 
-              RORouteDef *route, ROVehicleType *type)
+              RORouteDef *route, ROVehicleType *type) throw()
 {
     return new ROVehicle(*this, pars, route, type);
 }

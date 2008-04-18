@@ -68,6 +68,14 @@ private:
     /// @brief Information whether the item was already saved
     bool myWasSaved;
 
+
+private:
+    /// @brief Invalidated copy constructor
+    ReferencedItem(const ReferencedItem &src);
+
+    /// @brief Invalidated assignment operator
+    ReferencedItem &operator=(const ReferencedItem &src);
+
 };
 
 

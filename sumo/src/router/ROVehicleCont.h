@@ -54,11 +54,11 @@ class ROVehicleCont : public NamedObjectCont<ROVehicle*>
 {
 public:
     /// @brief Constructor
-    ROVehicleCont();
+    ROVehicleCont() throw();
 
 
     /// @brief Destructor
-    ~ROVehicleCont();
+    ~ROVehicleCont() throw();
 
 
     /** @brief Returns the vehicle that departs most early
@@ -68,7 +68,7 @@ public:
      *
      * @return The vehicle that departs most early
      */
-    const ROVehicle * const getTopVehicle() const;
+    const ROVehicle * const getTopVehicle() const throw();
 
 
     /** @brief Adds a vehicle to the container
@@ -84,7 +84,7 @@ public:
      * @return Whether the vehicle could be added
      * @see NamedObjectCont::add
      */
-    virtual bool add(const std::string &id, ROVehicle *item);
+    virtual bool add(const std::string &id, ROVehicle *item) throw();
 
 
     /** @brief Deletes all vehicles stored; clears the lists
@@ -94,7 +94,7 @@ public:
      *
      * @see NamedObjectCont::clear
      */
-    void clear();
+    void clear() throw();
 
 
     /** @brief Tries to remove (and delete) the named vehicle
@@ -108,7 +108,7 @@ public:
      * @return Whether the vehicle could be removed
      * @see NamedObjectCont::erase
      */
-    bool erase(const std::string &id);
+    bool erase(const std::string &id) throw();
 
 
 private:
@@ -119,7 +119,7 @@ private:
      *
      * @see NamedObjectCont::clear
      */
-    void rebuildSorted();
+    void rebuildSorted() throw();
 
 
 private:

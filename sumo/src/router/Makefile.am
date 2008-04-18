@@ -6,7 +6,7 @@ librouter_a_SOURCES = \
 ROAbstractEdgeBuilder.h \
 ROAbstractRouteDefLoader.cpp ROAbstractRouteDefLoader.h \
 ROEdge.cpp ROEdge.h \
-ROFrame.cpp ROFrame.h ROHelper.cpp ROHelper.h ROLane.cpp ROLane.h \
+ROFrame.cpp ROFrame.h ROHelper.cpp ROHelper.h ROLane.h \
 ROLoader.cpp ROLoader.h RONet.cpp RONet.h RONetHandler.cpp RONetHandler.h \
 RONode.cpp RONode.h \
 RORDGenerator_ODAmounts.cpp RORDGenerator_ODAmounts.h \

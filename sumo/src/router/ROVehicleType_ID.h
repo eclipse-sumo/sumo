@@ -74,6 +74,14 @@ public:
     OutputDevice &xmlOut(OutputDevice &dev) const;
     //@}
 
+
+private:
+    /// @brief Invalidated copy constructor
+    ROVehicleType_ID(const ROVehicleType_ID &src);
+
+    /// @brief Invalidated assignment operator
+    ROVehicleType_ID &operator=(const ROVehicleType_ID &src);
+
 };
 
 

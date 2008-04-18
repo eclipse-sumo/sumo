@@ -41,50 +41,84 @@ class ROEdge;
 // ===========================================================================
 /**
  * @class ROLane
- * The class for an edge's lane. Just a container for the speed and the
- * length of the lane.
+ * @brief A single lane the router may use
  */
 class ROLane : public Named
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     *
+     * @param[in] id The id of the lane
+     * @param[in] length The length of the lane
+     * @param[in] maxSpeed The maximum speed allowed on the lane
+     * @param[in] allowed Vehicle classes that may pass this lane
+     * @param[in] disallowed Vehicle classes that may not pass this lane
+     */
     ROLane(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
            const std::vector<SUMOVehicleClass> &allowed,
-           const std::vector<SUMOVehicleClass> &disallowed) throw();
+           const std::vector<SUMOVehicleClass> &disallowed) throw()
+           : Named(id), myLength(length), myMaxSpeed(maxSpeed),
+           myAllowedClasses(allowed), myNotAllowedClasses(disallowed)
+    {
+    }
 
-    /// Destructor
-    ~ROLane() throw();
 
-    /// Returns the length of the lane
-    SUMOReal getLength() const;
+    /// @brief Destructor
+    ~ROLane() throw() { }
 
-    /// Returns the maximum speed allowed on this lane
-    SUMOReal getSpeed() const;
 
-    /// Return the Edge
-    ROEdge *getEdge();
+    /** @brief Returns the length of the lane
+     * @return The length of this lane
+     */
+    SUMOReal getLength() const throw() {
+        return myLength;
+    }
 
-    /// Returns the list of allowed vehicle classes
-    const std::vector<SUMOVehicleClass> &getAllowedClasses() const;
 
-    /// Returns the list of not allowed vehicle classes
-    const std::vector<SUMOVehicleClass> &getNotAllowedClasses() const;
+    /** @brief Returns the maximum speed allowed on this lane
+     * @return The maximum speed allowed on this lane
+     */
+    SUMOReal getSpeed() const throw() {
+        return myMaxSpeed;
+    }
 
-protected:
 
-    ROEdge *myEdge;
+    /** @brief Returns the list of allowed vehicle classes
+     * @return The list of vehicle classes allowed on this lane
+     */
+    const std::vector<SUMOVehicleClass> &getAllowedClasses() const throw() {
+        return myAllowedClasses;
+    }
+
+
+    /** @brief Returns the list of not allowed vehicle classes
+     * @return The list of vehicle classes not allowed on this lane
+     */
+    const std::vector<SUMOVehicleClass> &getNotAllowedClasses() const throw() {
+        return myNotAllowedClasses;
+    }
+
+
 private:
-    /// The length of the lane
+    /// @brief The length of the lane
     SUMOReal myLength;
 
-    /// The maximum speed allowed on the lane
+    /// @brief The maximum speed allowed on the lane
     SUMOReal myMaxSpeed;
 
-    /// The list of allowed vehicle classes
+    /// @brief The list of allowed vehicle classes
     std::vector<SUMOVehicleClass> myAllowedClasses;
 
-    /// The list of disallowed vehicle classes
+    /// @brief The list of disallowed vehicle classes
     std::vector<SUMOVehicleClass> myNotAllowedClasses;
+
+
+private:
+    /// @brief Invalidated copy constructor
+    ROLane(const ROLane &src);
+
+    /// @brief Invalidated assignment operator
+    ROLane &operator=(const ROLane &src);
 
 };
 

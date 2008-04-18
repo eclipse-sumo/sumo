@@ -57,14 +57,12 @@ class ROVehicleType;
 class ROVehicleBuilder
 {
 public:
-    /** @brief Constructor
-     */
-    ROVehicleBuilder();
+    /** @brief Constructor */
+    ROVehicleBuilder() throw();
 
 
-    /** @brief Destructor
-     */
-    virtual ~ROVehicleBuilder();
+    /** @brief Destructor */
+    virtual ~ROVehicleBuilder() throw();
 
 
     /** @brief Builds a vehicle
@@ -78,8 +76,15 @@ public:
      * @todo Are there tests for loading vehicles with repetition information into routers?
      */
     virtual ROVehicle *buildVehicle(const SUMOVehicleParameter &pars, 
-              RORouteDef *route, ROVehicleType *type);
+              RORouteDef *route, ROVehicleType *type) throw();
 
+
+private:
+    /// @brief Invalidated copy constructor
+    ROVehicleBuilder(const ROVehicleBuilder &src);
+
+    /// @brief Invalidated assignment operator
+    ROVehicleBuilder &operator=(const ROVehicleBuilder &src);
 
 };
 

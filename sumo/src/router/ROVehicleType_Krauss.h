@@ -87,6 +87,14 @@ private:
     /// @brief Krauss-parameter
     SUMOReal myA, myB, myEps, myMaxSpeed, myTau;
 
+
+private:
+    /// @brief Invalidated copy constructor
+    ROVehicleType_Krauss(const ROVehicleType_Krauss &src);
+
+    /// @brief Invalidated assignment operator
+    ROVehicleType_Krauss &operator=(const ROVehicleType_Krauss &src);
+
 };
 
 

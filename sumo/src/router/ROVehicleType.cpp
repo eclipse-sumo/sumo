@@ -52,25 +52,5 @@ ROVehicleType::~ROVehicleType() throw()
 {}
 
 
-std::string
-ROVehicleType::getID() const
-{
-    return myID;
-}
-
-
-SUMOReal
-ROVehicleType::getLength() const
-{
-    return myLength;
-}
-
-
-SUMOVehicleClass
-ROVehicleType::getClass() const
-{
-    return myClass;
-}
-
 /****************************************************************************/
 

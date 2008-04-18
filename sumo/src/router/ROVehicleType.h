@@ -95,21 +95,27 @@ public:
      *
      * @return The id of the vehicle type
      */
-    std::string getID() const;
+    const std::string &getID() const throw() {
+        return myID;
+    }
 
 
     /** @brief Returns the length the vehicles of this type have
      *
      * @return the length of vehicles of this type
      */
-    SUMOReal getLength() const;
+    SUMOReal getLength() const throw() {
+        return myLength;
+    }
 
     
     /** @brief Returns the class of the vehicle
      *
      * @return The class of vehicles of this type
      */
-    SUMOVehicleClass getClass() const;
+    SUMOVehicleClass getClass() const throw() {
+        return myClass;
+    }
 
 
 protected:
@@ -124,6 +130,14 @@ protected:
 
     /// @brief The class of vehicles of this type
     SUMOVehicleClass myClass;
+
+
+private:
+    /// @brief Invalidated copy constructor
+    ROVehicleType(const ROVehicleType &src);
+
+    /// @brief Invalidated assignment operator
+    ROVehicleType &operator=(const ROVehicleType &src);
 
 };
 
