@@ -12,6 +12,7 @@ All rights reserved
 
 from util.CalcTime import getTimeInSecs
 import util.Path as path
+import util.Reader as reader
 
 #global vars
 taxis=[]
@@ -21,26 +22,13 @@ taxiIdDict={} #contains for each Taxi the actual "TaxiId" based on the number of
 fcdDict={}
 
     
-def readVLS_Edges():    
-    """Reads the net file and returns a list of all edges""" 
-    global vlsEdges
-           
-    inputFile=open(path.net,'r')
-    for line in inputFile:
-        if line.find(" <edges")!=-1:
-            #         delete edges tag at start and end    
-            words=line[line.find(">")+1:line.find("</")].split(" ")            
-            break
-    inputFile.close()
-    vlsEdges=words
-
-
 def getTaxiId(taxi):       
     return "%s_%s" %(taxi,taxiIdDict.setdefault(taxi,0))
     
 
 def readFCD(): 
     """Reads the FCD and creates a list of Taxis and for each a list of routes"""
+    vlsEdges=reader.readVLS_Edges()
        
     inputFile=open(path.fcd,'r')
     for line in inputFile:
@@ -63,7 +51,7 @@ def readFCD():
     
 def readFCDComplete():
     """Reads the FCD-File and creates a list of Id's with a belonging List of Data tuples."""
-    readVLS_Edges()
+    vlsEdges=reader.readVLS_Edges()
     
     inputFile=open(path.fcd,'r')
     for line in inputFile:

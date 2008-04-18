@@ -10,17 +10,19 @@ Copyright (C) 2008 DLR/FS, Germany
 All rights reserved
 """
 
-routesPath="D:/Krieg/Projekte/Diplom/Daten/taxiRouten/taxiRoutes.rou.xml"
+import util.Path as path
 
-def TaxiTrajectory():
-   """Main"""
+
+def main():   
    print "start program"
-    
+   readRoutesFile()
    print "end" 
     
-
+    
 def readRoutesFile():
+    print "Noch nichts weiter gemacht"
+
 
 #start the program
-TaxiTrajectory()
+main()
 

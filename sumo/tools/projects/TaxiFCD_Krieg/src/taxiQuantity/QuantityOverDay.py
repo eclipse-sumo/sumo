@@ -13,20 +13,17 @@ All rights reserved
 from pylab import * 
 import datetime 
 from matplotlib.dates import MinuteLocator, HourLocator, DateFormatter
+import util.Path as path
 
 
 #global vars
-#fcdPath="D:/Krieg/Projekte/Diplom/Daten/originalFCD/Proz-fcd_nuremberg_2007-07-18.dat"
-fcdPath="D:/Krieg/Projekte/Diplom/Daten/originalFCD/Proz-fcd_nuremberg_VLS_2007-07-18.dat"
 intervalDelta=datetime.timedelta(minutes=15)
-
+intervalDate=datetime.datetime( 2007, 7, 18,0,0 )
 format="%Y-%m-%d %H:%M:%S" 
 barList={}
-intervalDate=datetime.datetime( 2007, 7, 18,0,0 )
 
 
-def QuantityOverDay():
-    """Main"""    
+def main():     
     print "start program" 
     
     countTaxis()
@@ -56,6 +53,7 @@ def QuantityOverDay():
     #display the chart
     show()
 
+
 def countTaxis():
     """Analyzes the FCD and generates a list which is used to draw the bar chart."""    
     global barList
@@ -63,7 +61,7 @@ def countTaxis():
     taxis=set()
     
     #intervalDate+=intervalDelta
-    inputFile=open(fcdPath,'r')
+    inputFile=open(path.fcd,'r')
     for line in inputFile:
         words=line.split("\t")
         #if date >actual interval      (used intervalDate strptime function to get String in a datetime-format)
@@ -77,4 +75,4 @@ def countTaxis():
     
     
 #start the program
-QuantityOverDay()
+main()

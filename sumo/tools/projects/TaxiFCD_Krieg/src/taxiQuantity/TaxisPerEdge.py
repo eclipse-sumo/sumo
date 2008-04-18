@@ -10,17 +10,18 @@ Copyright (C) 2008 DLR/FS, Germany
 All rights reserved
 """
 
-edgeList={}
+import util.Path as path
 
-vlsPath="D:/Krieg/Projekte/Diplom/Daten/originalFCD/Proz-fcd_nuremberg_VLS_2007-07-18.dat"
+#global vars
 #outputPath="taxisPerEdge.out.xml"
-
-t1CompletePath="D:/Krieg/Projekte/Diplom/Daten/taxiRouten/t1Complete .rou.xml"
-taxiRoutesPath="D:/Krieg/Projekte/Diplom/Daten/taxiRouten/taxiRoutesFixed.rou.xml"
 outputPath="FCD_vs_completeRoute70_1.out.xml"
+t1CompletePath="D:/Krieg/Projekte/Diplom/Daten/taxiRouten/t1Complete.rou.xml"
+
+edgeList={}
 taxi="70_1" #the Taxi for which the output should be generated
 
-def TaxisPerEdge():
+
+def main():
     global edgeList
     
     print "start program"
@@ -29,10 +30,11 @@ def TaxisPerEdge():
     #countTaxisForEachEdge()
     writeOutput()
     print "end"
+
     
 def countTaxisForEachEdge():
     """counts the frequency of each edge"""
-    inputFile=open(vlsPath,'r')
+    inputFile=open(path.vls,'r')
     for line in inputFile:
         words= line.split("\t")
         edgeList.setdefault(words[1],set())
@@ -42,6 +44,7 @@ def countTaxisForEachEdge():
         print k
         print len(edgeList[k])
     print len(edgeList)
+
 
 def readRoutes():
     """reads the t1CompletePath and the taxiRoutesPath. 
@@ -61,7 +64,7 @@ def readRoutes():
     inputFile.close()
     
     #read taxiRoutesPath
-    inputFile=open(taxiRoutesPath,'r')
+    inputFile=open(path.routes,'r')
     for line in inputFile:
         if line.find("<vehicle id=\""+taxi+"\"")!=-1:
             line=inputFile.next()
@@ -76,6 +79,7 @@ def readRoutes():
             print edgeList
             
     inputFile.close()
+
     
 def writeOutput():
     """Writes an XML-File with the extracted results"""
@@ -87,6 +91,7 @@ def writeOutput():
         outputFile.write("\t\t<edge "+k+" color=\"1.0\"/>\n")
     outputFile.write("\t</interval>\n")        
     outputFile.write("</netstats>")
+
     
 #start the program
-TaxisPerEdge()
+main()

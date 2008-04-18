@@ -10,34 +10,21 @@ Copyright (C) 2008 DLR/FS, Germany
 All rights reserved
 """
 
-#global vars
-fcdPath="D:/Krieg/Projekte/Diplom/Daten/originalFCD/Proz-fcd_nuremberg_2007-07-18.dat"
-vlsPath="D:/Krieg/Projekte/Diplom/Daten/originalFCD/Proz-fcd_nuremberg_VLS_2007-07-18.dat"
-netPath="D:/Krieg/Projekte/Diplom/Daten/sumoNetzFilesNurnbergIIProjektion/nuernberg_vls_new.net.xml"
+import util.Path as path
+import util.Reader as reader
 
-def SeparateVLSArea():
-    """Main"""
+def main():    
     print "start"
     generateVLS_FCD_File()
     print"end"
     
-def readVLS_Edges():
-    """Reads the net file and returns a list of all edges"""        
-    inputFile=open(netPath,'r')
-    for line in inputFile:
-        if line.find(" <edges")!=-1:
-            #         delete edges tag at start and end    
-            words=line[line.find(">")+1:line.find("</")].split(" ")            
-            break
-    inputFile.close()    
-    return words
-
+    
 def generateVLS_FCD_File():
     """Creates a new FCD-file which contains only the rows which edges belongs to the VLS-Area"""    
-    outputVLSFile=open(vlsPath,'w')
-    inputFile=open(fcdPath,'r')
+    outputVLSFile=open(path.vls,'w')
+    inputFile=open(path.fcd,'r')
     
-    vlsEdgeList=readVLS_Edges()    
+    vlsEdgeList=reader.readVLS_Edges()   
     
     for line in inputFile:
         words=line.split("\t")
@@ -49,4 +36,4 @@ def generateVLS_FCD_File():
     
     
 #start the program
-SeparateVLSArea()
+main()

@@ -12,12 +12,8 @@ All rights reserved
 
 from GenerateTaxiRoutes import *
 
-def main():
-    """Main"""
-    
-    
+def main():        
     print "start program"
-    readVLS_Edges()  
     readFCD()
     writeRoutes()    
     print "end"
