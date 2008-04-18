@@ -100,7 +100,7 @@ public:
      *  ErrorHandler.
      *
      * @param[in] handler The handler to assign to the built reader
-     * @return The build Xerces-SAX-reader, 0 if something failed
+     * @return The built Xerces-SAX-reader, 0 if something failed
      */
     static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader * getSAXReader(SUMOSAXHandler &handler) throw();
 
