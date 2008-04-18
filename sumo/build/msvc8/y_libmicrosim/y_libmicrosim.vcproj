@@ -880,10 +880,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\microsim\MSSaveState.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\microsim\MSUpdateEachTimestep.h"
 				>
 			</File>
