@@ -42,6 +42,11 @@ class Vertex:
         for pred in newPreds:
             if pred.pred == updatePred:
                 return
+        pred = updatePred
+        while pred != None:
+            if pred.edge == edge:
+                return
+            pred = pred.pred
         newPreds.append(Predecessor(edge, updatePred,
                                     updatePred.distance + edge.actualtime))
 
