@@ -180,9 +180,9 @@ if options.verbose:
     print "Plotting..."
 if options.time_coloring and iterable(c):
     for i in range(0, len(c)):
-        plot(xs[i], ys[i], linestyle=None, marker='.', color=c[i], mfc=c[i])
+        plot(xs[i], ys[i], '.', color=c[i], mfc=c[i])
 else:
-    plot(xs, ys, marker=',', color=c, linestyle=None)
+    plot(xs, ys, ',', color=c)
 # set axes
 if options.xticks!="":
     (xb, xe, xd, xs) = options.xticks.split(",")
