@@ -55,9 +55,16 @@ class VehroutesReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'tripinfo':
-            id = attrs['vehicle_id']
+            if attrs.has_key('id'):
+                id = attrs['id']
+            else:
+                id = attrs['vehicle_id']
             self._veh2value[id] = float(attrs[self._value])
-            self._veh2time[id] = float(attrs["wished"])
+            if attrs.has_key('depart'):
+                self._veh2time[id] = float(attrs["depart"])
+            else:
+                self._veh2time[id] = float(attrs["wished"])
+
 
 
 
