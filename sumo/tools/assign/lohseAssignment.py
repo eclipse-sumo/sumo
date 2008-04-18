@@ -80,12 +80,15 @@ def main():
     if options.verbose:
         print len(net._edges), "edges read"
     
-    for edgeID in net._edges:                                                        
+    for edgeID in net._edges: 
         edge = net._edges[edgeID]
-        edge.getCapacity(options.parfile)
-        edge.getCRcurve()
-        edge.getActualTravelTime(options.curvefile)
-        edge.helpacttime = edge.freeflowtime
+        if edge.numberlane > 0.:
+            edge.getCapacity()
+            edge.getCRcurve()
+            edge.getDefaultCapacity()
+            edge.getAdjustedCapacity(net)
+            edge.getActualTravelTime(options.curvefile) 
+            edge.helpacttime = edge.freeflowtime
     # calculate link travel time for all district connectors 
     getConnectionTravelTime(net._startVertices, net._endVertices)
             

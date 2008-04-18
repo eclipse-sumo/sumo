@@ -85,11 +85,14 @@ def main():
     if options.verbose:
         print len(net._edges), "edges read"
     
-    for edgeID in net._edges:                                                        
+    for edgeID in net._edges: 
         edge = net._edges[edgeID]
-        edge.getCapacity(options.parfile)
-        edge.getCRcurve() 
-        edge.getActualTravelTime(options.curvefile)
+        if edge.numberlane > 0.:
+            edge.getCapacity()
+            edge.getCRcurve()
+            edge.getDefaultCapacity()
+            edge.getAdjustedCapacity(net)
+            edge.getActualTravelTime(options.curvefile)
     # calculate link travel time for all district connectors 
     getConnectionTravelTime(net._startVertices, net._endVertices)    
         
@@ -153,6 +156,11 @@ def main():
         if options.verbose:
             print 'Matrix und OD Zone already read for Interval', counter
         foutlog.write('Reading matrix and O-D zones: done.\n')
+        
+        for edgeID in net._edges:
+            edge = net._edges[edgeID]
+            edge.flow = 0.
+            edge.actualtime = edge.freeflowtime
         
         # the number of origins, the number of destinations and the number of the OD pairs
         origins = len(startVertices)                                             

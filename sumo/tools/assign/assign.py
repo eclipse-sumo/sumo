@@ -141,6 +141,8 @@ def doSUEAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertices,
             # reset the edge.helpflow for the next iteration
             edge.helpflow = 0.0                                                
             edge.getActualTravelTime(curvefile)
+            if edge.queuetime > 0.:
+                notstable += 1
             if lohse:
                 edge.getLohseParUpdate(under, upper, v1, v2, v3)
     if lohse and verbose:
@@ -333,8 +335,8 @@ def doLohseStopCheck(net, verbose, stable, iter, maxIter, Parcontrol, foutlog):
                 counts += 1
         if counts == len(net._edges):
             stable = True
-            foutlog.write('The defined convergence is reached. The number of required iterations:%s\n' %iter)
-        elif counts < len(net._edges)*0.05 and iter > 20:
+            foutlog.write('The defined convergence is reached. The number of the required iterations:%s\n' %iter)
+        elif counts < int(len(net._edges)*0.05) and iter > 50:
             stable = True
             foutlog.write('The number of the links with convergence is 95% of the total links. The number of executed iterations:%s\n' %iter)
 

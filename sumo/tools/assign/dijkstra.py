@@ -32,7 +32,7 @@ def dijkstra(start):
            
         for edge in v.outEdges:
             w = edge.target
-            vwLength = D[v] + edge.actualtime
+            vwLength = D[v] + edge.actualtime + edge.queuetime
             if w in D:
                 if vwLength < D[w]:
                         raise ValueError, \

@@ -14,7 +14,7 @@ All rights reserved
 import os, random, string, sys, datetime, math
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
-from elements import Predecessor, Vertex, Edge, Path, Vehicle
+from elements import Predecessor, Vertex, Edge, Path, Vehicle, TLJunction, Signalphase
 from network import Net, NetworkReader, DistrictsReader
                                                   
 from inputs import getParameter, getMatrix, getConnectionTravelTime                 
@@ -81,11 +81,14 @@ def main():
     if options.verbose:
         print len(net._edges), "edges read"
     
-    for edgeID in net._edges:                                                        
+    for edgeID in net._edges: 
         edge = net._edges[edgeID]
-        edge.getCapacity(options.parfile)
-        edge.getCRcurve()
-        edge.getActualTravelTime(options.curvefile)  
+        if edge.numberlane > 0.:
+            edge.getCapacity()
+            edge.getCRcurve()
+            edge.getDefaultCapacity()
+            edge.getAdjustedCapacity(net)
+            edge.getActualTravelTime(options.curvefile) 
     # calculate link travel time for all district connectors 
     getConnectionTravelTime(net._startVertices, net._endVertices)
             
@@ -101,11 +104,13 @@ def main():
     #   - lammda: used in the capacity contraint for calculating travel time penality
     #   - devi: Deviation of the travel time among  the effective routes
     #   - theta: perception deviation of the shortest travel time among drivers
-    #   - alpha: moving-size sequence for updating link flows, which is applied in MSA. 
-    #     alpha(n) = k1/(k2+n), where n : the number of iterations; 
+    #   - suek1 and suek2 are two parameter for calculating the alpha, 
+    #     the moving-size sequence for updating link flows, which is applied in MSA,
+    #     where alpha(n) = suek1/(suek2+n), where n : the number of iterations; 
     #     suek1 a positive constant and determins the magnitude of the move; 
     #     suek2: a nonnegative constant and acts as an offset to the starting step.
-    #   - NumEffPath: maximum number of effective routes
+    #     The suek1 and suek2 will not be used and alpha is set to be 1/n as default.
+    #   - NumEffPath: maximum number (k) of effective routes
     #   - maxSUEIteration: maximum number of the SUE iterations
     #   - sueTolerance: the difference of link flows between the two consequent iterations
     #   - KPaths: the number of k shortest paths for each OD pair
@@ -155,8 +160,9 @@ def main():
             AssignedVeh[startVertex][endVertex] = 0
             AssignedTrip[startVertex][endVertex] = 0.
     
-    starttime = datetime.datetime.now() 
-    foutroute = open('routes.rou.xml', 'w')                                           # initialize the file for recording the routes
+    starttime = datetime.datetime.now()
+    # initialize the file for recording the routes
+    foutroute = open('routes.rou.xml', 'w')
     print >> foutroute, """<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
 <routes>""" % starttime
@@ -188,7 +194,7 @@ def main():
             edge = net._edges[edgeID]
             edge.flow = 0.
             edge.helpflow = 0.
-            edge.getActualTravelTime(options.curvefile)
+            edge.actualtime = edge.freeflowtime
          
         # the number of origins, the umber of destinations and the number of the OD pairs
         origins = len(startVertices)                                    
@@ -224,21 +230,14 @@ def main():
             
             if options.verbose:
                 print 'number of new routes:', newRoutes
-            print 'iter_outside:', iter_outside
-            print 'iter_inside:', iter_inside
-            print 'newroutes:', newRoutes
               
             stable = False            
             while not stable:
-                # the parameter in the MSA algorithm     
-                alpha = suek1/float(suek2 + iter_inside)
                 if options.verbose:
                     print 'iteration (inside):', iter_inside
-                    print 'alpha:', alpha
                     print 'SUE Tolerance:', sueTolerance
                         
                 # The matrixPlong and the matrixTruck should be added when considering the long-distance trips and the truck trips.
-#                stable = doCLogitAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, alpha, iter_inside, first)
                 stable = doSUEAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
                 iter_inside += 1
                 

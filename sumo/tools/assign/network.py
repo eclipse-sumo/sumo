@@ -13,7 +13,7 @@ All rights reserved
 
 import os, random, string, sys, datetime, math, operator
 from xml.sax import saxutils, make_parser, handler
-from elements import Predecessor, Vertex, Edge, Vehicle, Path
+from elements import Predecessor, Vertex, Edge, Vehicle, Path, TLJunction, Signalphase
 
 # Net class stores the network (vertex and edge collection). 
 # Moreover, the methods for finding k shortest paths and for generating vehicular releasing times
@@ -29,6 +29,7 @@ class Net:
         self._paths = {}
         self._allvehicles = {}
         self._assignments = {}
+        self._junctions = {}
         
     def newVertex(self):
         v = Vertex(len(self._vertices))
@@ -66,11 +67,17 @@ class Net:
                 
     def addAssignment(self, assignObj):
         self._assignments[assignObj.label] = assignObj
+     
+    def addTLJunctions(self, junctionObj):
+        self._junctions[junctionObj.label] = junctionObj
         
 #    find the k shortest paths for each OD pair. The "k" is defined by users.
     def calcKPaths(self, verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort):
         if verbose:
-            foutkpath = file('kpaths.txt', 'w')
+            foutkpath = file('kpaths.xml', 'w')
+            print >> foutkpath, """<?xml version="1.0"?>
+<!-- generated on %s by $Id$ -->
+<routes>"""
         start = -1
       
         for startVertex in startVertices:
@@ -114,12 +121,7 @@ class Net:
                         if len(ODPaths) > 0:
                             minpath = min(ODPaths, key=operator.attrgetter('freepathtime'))
                             if minpath.freepathtime*1.4 < temppathcost/3600.:
-                                if startVertex.label == "0" and endVertex.label == "5":
-                                    print '+++++++++start:', startVertex
-                                    print '+++++++++minpath.freepathtime:',minpath.freepathtime
-                                    print '+++++++++temppathcost:', temppathcost
                                 break
-                                
                             else:
                                 newpath = Path()
                                 newpath.usedcounts += 1
@@ -132,12 +134,12 @@ class Net:
                                 newpath.actpathtime = newpath.freepathtime
                                 newRoutes += 1
                                 if verbose:
-                                    foutkpath.write('\npathID:%s, source:%s, target:%s, Edges:' %(newpath.label, newpath.source, newpath.target))  
-                                    for edge in newpath.Edges:
-                                        foutkpath.write('%s, ' %(edge.label))
-
-                                    foutkpath.write('Path cost:%s' %newpath.actpathtime) 
-                                
+                                    foutkpath.write('    <path id="%s" source="%s" target="%s" pathcost="%s">\n' %(newpath.label, newpath.source, newpath.target, newpath.actpathtime))  
+                                    foutkpath.write('        <route>')
+                                    for edge in newpath.Edges[1:-1]:
+                                        foutkpath.write('%s ' %edge.label)
+                                    foutkpath.write('</route>\n')
+                                    foutkpath.write('    </path>\n')
                         else:
                             newpath = Path()
                             newpath.usedcounts += 1
@@ -150,13 +152,14 @@ class Net:
                             newpath.actpathtime = newpath.freepathtime
                             newRoutes += 1     
                             if verbose:
-                                foutkpath.write('\npathID:%s, source:%s, target:%s, Edges:' %(newpath.label, newpath.source, newpath.target))  
-                                for edge in newpath.Edges:
-                                    foutkpath.write('%s, ' %(edge.label))
-    
-                                foutkpath.write('Path cost:%s' %newpath.actpathtime) 
-                        
+                                foutkpath.write('    <path id="%s", source="%s", target="%s", path cost="%s">\n' %(newpath.label, newpath.source, newpath.target, newpath.actpathtime))  
+                                foutkpath.write('        <route>')
+                                for edge in newpath.Edges[1:-1]:
+                                    foutkpath.write('%s ' %edge.label)
+                                foutkpath.write('</route>\n')
+                                foutkpath.write('    </path>\n')     
         if verbose:
+            foutkpath.write('</routes>\n')
             foutkpath.close()
             
         return newRoutes
@@ -173,8 +176,7 @@ class Net:
         else:
         # generate the departure time for each vehicle poisson randomly (based on a hourly matrix)
             random.shuffle(net._vehicles)
-            beta = float(3600. / CurrentMatrixSum)                       
-            print 'beta:', beta
+            beta = float(3600. / CurrentMatrixSum)
             releasetime = departtime
             for veh in self._vehicles:
                 if veh.depart == 0.:
@@ -193,17 +195,19 @@ class Net:
 class NetworkReader(handler.ContentHandler):
     def __init__(self, net):
         self._net = net
-        self._edgeString = ''
         self._edge = ''
         self._maxSpeed = 0
         self._laneNumber = 0
         self._length = 0
         self._edgeObj = None
+        self._junctionObj = None
+        self._phaseObj = None
+        self._chars = ''
+        self._counter = 0
 
     def startElement(self, name, attrs):
-        if name == 'edges':
-            self._edgeString = ' '
-        elif name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
+        self._chars = ''
+        if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
             self._edge = attrs['id']
             self._edgeObj = self._net.getEdge(self._edge)
             self._edgeObj.source.label = attrs['from']
@@ -211,15 +215,39 @@ class NetworkReader(handler.ContentHandler):
             self._maxSpeed = 0
             self._laneNumber = 0
             self._length = 0
-#        elif name == 'succ':
-#            self._edge = attrs['edge']
-#        elif name == 'succlane':
-#            if attrs.has_key('dir') and attrs['dir']!="xxx":
-#                fromEdge = self._net.getEdge(self._edge)
-#                toEdge = self._net.getEdge(attrs['lane'][:-2])
-#                newEdge = Edge(self._edge+"_"+self._edge, fromEdge.target, toEdge.source)
-#                self._net.addEdge(newEdge)
-#                fromEdge.finalizer = self._edge
+        elif name == 'tl-logic':
+            self._junctionObj = TLJunction()
+            self._counter = 0
+        elif name == 'phase':
+            self._newphase = Signalphase(float(attrs['duration']), attrs['phase'], attrs['brake'], attrs['yellow'])
+            self._junctionObj.phases.append(self._newphase)
+            self._counter += 1
+            self._newphase.label = self._counter
+        elif name == 'succ':
+            self._edge = attrs['edge']
+            self._edgeObj = self._net.getEdge(self._edge)
+            self._edgeObj.junction = attrs['junction']
+        elif name == 'succlane':
+            if attrs.has_key('tl'):
+                self._edgeObj.junctiontype = 'signalized'
+                if attrs['dir'] == "r":
+                    self._edgeObj.rightturn = attrs['linkno']
+                elif attrs['dir'] == "s": 
+                    self._edgeObj.straight = attrs['linkno']
+                elif attrs['dir'] == "l": 
+                    self._edgeObj.leftturn = attrs['linkno']
+                elif attrs['dir'] == "u": 
+                    self._edgeObj.uturn = attrs['linkno']
+            else:
+                self._edgeObj.junctiontype = 'prioritized'
+                if attrs['dir'] == "r":
+                    self._edgeObj.rightturn = attrs['state']
+                elif attrs['dir'] == "s": 
+                    self._edgeObj.straight = attrs['state']
+                elif attrs['dir'] == "l": 
+                    self._edgeObj.leftturn = attrs['state']
+                elif attrs['dir'] == "u": 
+                    self._edgeObj.uturn = attrs['state']
         elif name == 'cedge' and self._edge != '':
              fromEdge = self._net.getEdge(self._edge)
              toEdge = self._net.getEdge(attrs['id'])
@@ -232,17 +260,26 @@ class NetworkReader(handler.ContentHandler):
             self._length = float(attrs['length'])
       
     def characters(self, content):
-        if self._edgeString != '':
-            self._edgeString += content
+        self._chars += content
 
     def endElement(self, name):
         if name == 'edges':
-            for edge in self._edgeString.split():
+            for edge in self._chars.split():
                 self._net.addIsolatedRealEdge(edge)
-            self._edgeString = ''
+            self._chars = ''
         elif name == 'edge':
             self._edgeObj.init(self._maxSpeed, self._length, self._laneNumber)
             self._edge = ''
+        elif name == 'key':
+            if self._junctionObj:
+                self._junctionObj.label = self._chars
+                self._net.addTLJunctions(self._junctionObj)
+                self._chars = ''
+        elif name == 'phaseno':
+            self._junctionObj.phaseNum = int(self._chars)
+            self._chars = ''
+        elif name == 'tl-logic':
+            self._junctionObj = None
 
 # The class is for parsing the XML input file (districts). The data parsed is written into the net.
 class DistrictsReader(handler.ContentHandler):

@@ -84,14 +84,23 @@ class Edge:
         self.source = source
         self.target = target
         self.capacity = sys.maxint
+        # paramerter for estimating capacities according to signal timing plans
+        self.junction = None
+        self.junctiontype = None
+        self.rightturn = None
+        self.straight = None
+        self.leftturn = None
+        self.uturn = None
         self.flow = 0.0
+        self.detectedflow = 0.0
         self.kind = kind
         self.maxspeed = 1.0
         self.length = 0.0
-        self.numberlane = 0
-        self.freeflowtime = 0.0                            
+        self.numberlane = 0.
+        self.freeflowtime = 0.0
+        self.queuetime = 0.0                          
         self.estcapacity = 0.0                             
-        self.CRcurve = ''
+        self.CRcurve = None
         self.actualtime = 0.0
         self.weight = 0.0
         self.connection = 0
@@ -107,7 +116,7 @@ class Edge:
         self.delta = 0.
         # parameter in the Lohse traffic assignment 
         self.helpacttimeEx = 0.
-        
+
     def init(self, speed, length, laneNumber):
         self.maxspeed = speed
         self.length = length
@@ -122,34 +131,22 @@ class Edge:
         cap = str(self.capacity)
         if self.capacity == sys.maxint or self.connection != 0:
             cap = "inf"
-        return "%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self.kind, self.label, self.source, self.target,
+        return "%s_%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self.kind, self.label, self.source, self.target, self.junctiontype,
                                                       self.flow, self.length, self.numberlane,
                                                       self.CRcurve, self.estcapacity, cap, self.weight)
 
     def getFreeFlowTravelTime(self):
         return self.freeflowtime
                 
-    def getDefaultCapacity(self, parfile):
-        f = file(parfile)
-        for line in f:
-            p = line.split()
-            periods = float(p[len(p)-2])
-        periods = 0.6    
-        # The respective rules will be developed accroding to the HBS. 
-        self.estcapacity = float(self.numberlane * 1500) * periods           
-
-        return self.estcapacity
+    def getDefaultCapacity(self):
+        if self.numberlane > 0. and self.CRcurve == "None":
+            self.estcapacity = float(self.numberlane * 1500)
 
     # modified CR-curve database, defined in the PTV-Validate files
-    def getCapacity(self, parfile):
-        f = file(parfile)
-        for line in f:
-            p = line.split()
-            periods = float(p[(len(p)-2)])
-        periods = 0.6
-        if self.numberlane > 0:
+    def getCapacity(self):
+        if self.numberlane > 0.:
             if self.maxspeed > 38.0:
-                self.estcapacity = float(self.numberlane * 1500) * periods
+                self.estcapacity = float(self.numberlane * 1500)
                 if self.numberlane <= 2:
                     self.edgetype = '14'
                 elif self.numberlane == 3:
@@ -157,7 +154,7 @@ class Edge:
                 elif self.numberlane >= 4:
                     self.edgetype = '6'
             elif self.maxspeed > 34.0 and self.maxspeed <= 38.0:
-                self.estcapacity = float(self.numberlane * 1500) * periods
+                self.estcapacity = float(self.numberlane * 1500)
                 if self.numberlane == 2:
                     self.edgetype = '15'
                 elif self.numberlane == 3:
@@ -166,16 +163,16 @@ class Edge:
                     self.edgetype = '7'
             elif self.maxspeed > 33.0 and self.maxspeed <= 34.0:
                 if self.numberlane == 1:
-                    self.estcapacity = float(self.numberlane * 1400) * periods
+                    self.estcapacity = float(self.numberlane * 1400)
                     self.edgetype = '26'
                 if self.numberlane == 2:
-                    self.estcapacity = float(self.numberlane * 1400) * periods
+                    self.estcapacity = float(self.numberlane * 1400)
                     self.edgetype = '23'
                 elif self.numberlane >= 3:
-                    self.estcapacity = float(self.numberlane * 1500) * periods
+                    self.estcapacity = float(self.numberlane * 1500)
                     self.edgetype = '20'
             elif self.maxspeed > 30.0 and self.maxspeed <= 33.0:
-                self.estcapacity = float(self.numberlane * 1400) * periods
+                self.estcapacity = float(self.numberlane * 1400)
                 if self.numberlane <= 2:        
                     self.edgetype = '16'
                 if self.numberlane == 3:
@@ -184,112 +181,112 @@ class Edge:
                     self.edgetype = '8'
             elif self.maxspeed > 29.0 and self.maxspeed <= 30.0:
                 if self.numberlane == 1:
-                    self.estcapacity = float(self.numberlane * 1350) * periods       
+                    self.estcapacity = float(self.numberlane * 1350)       
                     self.edgetype = '18'
                 if self.numberlane == 2:
-                    self.estcapacity = float(self.numberlane * 1500) * periods
+                    self.estcapacity = float(self.numberlane * 1500)
                     self.edgetype = '24'
                 elif self.numberlane >= 3:
-                    self.estcapacity = float(self.numberlane * 1500) * periods
+                    self.estcapacity = float(self.numberlane * 1500)
                     self.edgetype = '21'
             elif self.maxspeed > 27.0 and self.maxspeed <= 29.0:
                 if self.numberlane == 1:
-                    self.estcapacity = float(self.numberlane * 1350) * periods       
+                    self.estcapacity = float(self.numberlane * 1350)       
                     self.edgetype = '64'
                 if self.numberlane >= 2:
-                    self.estcapacity = float(self.numberlane * 1400) * periods
+                    self.estcapacity = float(self.numberlane * 1400)
                     self.edgetype = '61'
             elif self.maxspeed >= 25.0 and self.maxspeed <= 27.0:
                 if self.numberlane == 1:
-                    self.estcapacity = float(self.numberlane * 1350) * periods       
+                    self.estcapacity = float(self.numberlane * 1350)       
                     self.edgetype = '19'
                 if self.numberlane == 2:
-                    self.estcapacity = float(self.numberlane * 1400) * periods
+                    self.estcapacity = float(self.numberlane * 1400)
                     self.edgetype = '17'
                 if self.numberlane == 3:
-                    self.estcapacity = float(self.numberlane * 1400) * periods
+                    self.estcapacity = float(self.numberlane * 1400)
                     self.edgetype = '13'
                 if self.numberlane >= 4:
-                    self.estcapacity = float(self.numberlane * 1400) * periods
+                    self.estcapacity = float(self.numberlane * 1400)
                     self.edgetype = '9'
             elif self.maxspeed > 22.0 and self.maxspeed < 25.0:
                 if self.numberlane == 1:
-                    self.estcapacity = float(self.numberlane * 1300) * periods
+                    self.estcapacity = float(self.numberlane * 1300)
                     self.edgetype = '29'
                 if self.numberlane == 2:
-                    self.estcapacity = float(self.numberlane * 1300) * periods
+                    self.estcapacity = float(self.numberlane * 1300)
                     self.edgetype = '33'
                 if self.numberlane >= 3:
-                    self.estcapacity = float(self.numberlane * 1400) * periods
+                    self.estcapacity = float(self.numberlane * 1400)
                     self.edgetype = '30'
             elif self.maxspeed > 19.0 and self.maxspeed <= 22.0:
                 if self.numberlane == 1:
-                    self.estcapacity = float(self.numberlane * 1200) * periods
+                    self.estcapacity = float(self.numberlane * 1200)
                     self.edgetype = '37'
                 if self.numberlane == 2:
-                    self.estcapacity = float(self.numberlane * 1350) * periods
+                    self.estcapacity = float(self.numberlane * 1350)
                     self.edgetype = '34'
                 if self.numberlane >= 3:
-                    self.estcapacity = float(self.numberlane * 1400) * periods
+                    self.estcapacity = float(self.numberlane * 1400)
                     self.edgetype = '31'
             elif self.maxspeed > 18.0 and self.maxspeed <= 19.0:
-                self.estcapacity = float(self.numberlane * 1300) * periods
+                self.estcapacity = float(self.numberlane * 1300)
                 self.edgetype = '84'
             elif self.maxspeed > 16.0 and self.maxspeed <= 18.0:
                 if self.numberlane == 1:
-                    self.estcapacity = float(self.numberlane * 1200) * periods
+                    self.estcapacity = float(self.numberlane * 1200)
                     self.edgetype = '38'
                 if self.numberlane == 2:
-                    self.estcapacity = float(self.numberlane * 1300) * periods
+                    self.estcapacity = float(self.numberlane * 1300)
                     self.edgetype = '35'
                 if self.numberlane == 3:
-                    self.estcapacity = float(self.numberlane * 1300) * periods
+                    self.estcapacity = float(self.numberlane * 1300)
                     self.edgetype = '32'
                 if self.numberlane >= 4:
-                    self.estcapacity = float(self.numberlane * 1100) * periods
+                    self.estcapacity = float(self.numberlane * 1100)
                     self.edgetype = '40'
             elif self.maxspeed > 15.0 and self.maxspeed <= 16.0:
                 if self.numberlane == 1:
-                    self.estcapacity = float(self.numberlane * 1000) * periods
+                    self.estcapacity = float(self.numberlane * 1000)
                     self.edgetype = '47'
                 if self.numberlane >= 2:
-                    self.estcapacity = float(self.numberlane * 1100) * periods
+                    self.estcapacity = float(self.numberlane * 1100)
                     self.edgetype = '44'
             elif self.maxspeed > 13.0 and self.maxspeed <= 15.0:
                 if self.numberlane == 1:
-                    self.estcapacity = float(self.numberlane * 1200) * periods
+                    self.estcapacity = float(self.numberlane * 1200)
                     self.edgetype = '39'
                 if self.numberlane == 2:
-                    self.estcapacity = float(self.numberlane * 1050) * periods
+                    self.estcapacity = float(self.numberlane * 1050)
                     self.edgetype = '45'
                 if self.numberlane >= 3:
-                    self.estcapacity = float(self.numberlane * 1110) * periods
+                    self.estcapacity = float(self.numberlane * 1110)
                     self.edgetype = '42'
             elif self.maxspeed > 12.0 and self.maxspeed <= 13.0:
-                self.estcapacity = float(self.numberlane * 800) * periods
+                self.estcapacity = float(self.numberlane * 800)
                 if self.numberlane == 1: 
                     self.edgetype = '49'
                 if self.numberlane == 2:
                     self.edgetype = '86'
             elif self.maxspeed > 11.0 and self.maxspeed <= 12.0:
                 if self.numberlane == 1: 
-                    self.estcapacity = float(self.numberlane * 800) * periods
+                    self.estcapacity = float(self.numberlane * 800)
                     self.edgetype = '83'
                 if self.numberlane >= 2:
-                    self.estcapacity = float(self.numberlane * 1000) * periods
+                    self.estcapacity = float(self.numberlane * 1000)
                     self.edgetype = '75'
             elif self.maxspeed > 9.0 and self.maxspeed <= 11.0:
                 if self.numberlane == 1:
-                    self.estcapacity = float(self.numberlane * 800) * periods
+                    self.estcapacity = float(self.numberlane * 800)
                     self.edgetype = '89'
                 if self.numberlane >= 2:
-                    self.estcapacity = float(self.numberlane * 1400) * periods
+                    self.estcapacity = float(self.numberlane * 1400)
                     self.edgetype = '87'
             elif self.maxspeed > 8.0 and self.maxspeed <= 9.0:
-                self.estcapacity = float(self.numberlane * 800) * periods
+                self.estcapacity = float(self.numberlane * 800)
                 self.edgetype = '79'
             elif self.maxspeed <= 8.0:
-                self.estcapacity = float(self.numberlane * 200) * periods
+                self.estcapacity = float(self.numberlane * 200)
                 self.edgetype = '94'
     
     def getCRcurve(self):
@@ -310,7 +307,48 @@ class Edge:
                     self.CRcurve = 'CR5'
             elif int(self.edgetype) >= 94 and int(self.edgetype) <= 99:
                     self.CRcurve = 'CR6'
-                    
+    
+    def getAdjustedCapacity(self, net):
+        straightGreen = 0.
+        rightGreen = 0.
+        leftGreen = 0.
+        greentime = 0.
+        straightSymbol = -1
+        rightSymbol = -1
+        leftSymbol = -1
+        cyclelength = 0.
+        count = 0
+        if self.numberlane > 0.:
+            if self.junctiontype == 'signalized':
+                junction = net._junctions[self.junction]
+                if self.rightturn != None:
+                    rightSymbol = int(self.rightturn)
+                if self.leftturn != None:
+                    leftSymbol = int(self.leftturn)
+                if self.straight != None:
+                    straightSymbol = int(self.straight)
+    
+                for phase in junction.phases[:]:
+                    count += 1
+                    cyclelength += phase.duration
+                    if straightSymbol != -1 and phase.green[straightSymbol] == "1":
+                        straightGreen += phase.duration
+                    if rightSymbol != -1 and phase.green[rightSymbol] == "1":
+                        rightGreen += phase.duration
+                    if leftSymbol != -1 and phase.green[leftSymbol] == "1":
+                        leftGreen += phase.duration
+    
+                if self.straight != None:
+                    self.estcapacity = (straightGreen*(3600./cyclelength))/2.0 * self.numberlane
+                else:
+                    greentime = max(rightGreen, leftGreen)
+                    self.estcapacity = (greentime*(3600./cyclelength))/2.0 * self.numberlane
+            else:
+                if self.straight == "m":
+                    self.estcapacity *= 0.8
+                elif self.straight == "None" and (self.rightturn == "m" or self.leftturn == "m"):
+                     self.estcapacity = self.estcapacity * 0.8
+                     
 # Function for calculating/updating link travel time
     def getActualTravelTime(self, curvefile):        
         foutcheck = file('time_flow.txt', 'a')
@@ -327,9 +365,18 @@ class Edge:
                     else:
                         self.actualtime = self.freeflowtime*(1+(float(itemCR[1])*(self.flow/(self.estcapacity*float(itemCR[3])))**float(itemCR[2])))
                 if self.flow > self.estcapacity and self.connection == 0 and str(self.source) != str(self.target):
-                    # travel time penalty 20% (can/should be modified)
-                    self.actualtime = self.actualtime*1.2
-                    foutcheck.write('****edge.label="%s": acutaltime is timed by 1.2.\n' %(self.label))
+                    # Link travel time penalty is calcuated according to the Lagrange method.
+                    # The Lagrange Multiplier should be between 0 and 1, and is set to 0.4 here.
+                    self.queuetime = self.queuetime + 0.4*(self.actualtime - self.freeflowtime*(1+(float(itemCR[1]))))
+                    foutcheck.write('****edge.label="%s": queuing time is %s.\n' %(self.label, self.queuetime))
+                    print '!!!!!!flow > capacity!!!!!!!'
+                    print 'self.freeflowtime*(1+(float(itemCR[1])):', self.freeflowtime*(1+(float(itemCR[1])))
+                    print 'actualtime:', self.actualtime
+                    if self.queuetime > 0.:
+                        print 'edge.label:', self.label
+                        print 'queuetime:', self.queuetime
+                elif self.flow <= self.estcapacity and self.connection == 0 and str(self.source) != str(self.target):
+                    self.queuetime = 0.
         f.close()
         foutcheck.close()        
         return self.actualtime
@@ -363,7 +410,7 @@ class Edge:
         if abs(self.actualtime - self.helpacttimeEx) <= criteria:
             stop = True
         return stop
-                      
+   
 # This class is for storing vehicle information, such as departure time, route and travel time.
 class Vehicle:
     def __init__(self, label):
@@ -410,6 +457,7 @@ class Path:
         self.actpathtime = 0.
         for edge in self.Edges:
             self.actpathtime += edge.actualtime
+            self.actpathtime += edge.queuetime
         self.actpathtime = self.actpathtime/3600.
         
     # only used in the Lohse traffic assignment        
@@ -418,11 +466,33 @@ class Path:
         self.pathhelpacttime = 0.
         for edge in self.Edges:
             self.actpathtime += edge.actualtime
+            self.actpathtime += edge.queuetime
             self.pathhelpacttime += edge.helpacttime
         self.pathhelpacttime = self.pathhelpacttime/3600.
         self.actpathtime = self.actpathtime/3600.
-         
-# This cloass is used in the significance test.
+
+class TLJunction:
+    def __init__(self):
+        self.label = None
+        self.phaseNum = 0
+        self.phases = []
+        
+    def __repr__(self):
+        return "%s_%s<%s>" % (self.label, self.phaseNum, self.phases)
+        
+class Signalphase:
+    def __init__(self, duration, phase, brake, yellow):
+        self.label= None
+        self.duration = duration
+        self.green = phase[::-1]
+        self.brake = brake[::-1]
+        self.yellow = yellow[::-1]
+    
+    def __repr__(self):
+        return "%s_%s<%s|%s|%s>" % (self.label, self.duration, self.green, self.brake, self.yellow)
+        
+                 
+# This class is used in the significance test.
 class Assign:
     def __init__(self, method, totalVeh, totalTravelTime, totalTravelLength, totalWaitTime, avgTravelTime, avgTravelLength, avgTravelSpeed, avgWaitTime, SDTravelTime, SDLength, SDSpeed, SDWaitTime):
         self.label = method

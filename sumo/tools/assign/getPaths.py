@@ -48,9 +48,6 @@ def findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
                         for edge in node.outEdges:
                             if str(tempPath[i]) != str(tempPath[i+1]) and str(edge.source) == str(tempPath[i]) and str(edge.target) == str(tempPath[i+1]):
                                 helpPath.append(edge)
-                                if str(tempPath[i]) == 'L11':
-                                    print 'get:', str(tempPath[i])
-                                    print 'pathcost:', D[endVertex]/3600.
                     else:
                         pathcost = D[endVertex]/3600.
 
@@ -65,6 +62,7 @@ def findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
                                 if str(helpPath[i]) == str(path.Edges[i]):
                                     sameEdgeCount += 1
                                     sametraveltime += helpPath[i].actualtime
+                                    sametraveltime += helpPath[i].queuetime
                         if sameEdgeCount == len(path.Edges):
                             samePath = path
                             newPath = False
