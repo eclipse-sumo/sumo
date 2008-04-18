@@ -15,7 +15,7 @@ import os, random, string, sys, datetime, math
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 from elements import Predecessor, Vertex, Edge, Path, Vehicle, TLJunction, Signalphase
-from network import Net, NetworkReader, DistrictsReader
+from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationReader
                                                   
 from inputs import getParameter, getMatrix, getConnectionTravelTime                 
 from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput, vehPoissonDistr
@@ -45,6 +45,8 @@ optParser.add_option("-u", "--curve-file", dest="curvefile", default="CRcurve.tx
                      help="read CRcurve from FILE", metavar="FILE")
 optParser.add_option("-d", "--district-file", dest="confile",
                      help="read OD Zones from FILE (mandatory)", metavar="FILE")  
+optParser.add_option("-s", "--extrasignal-file", dest="sigfile",
+                     help="read extra/updated signal timing plans from FILE (mandatory)", metavar="FILE")  
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-b", "--debug", action="store_true", dest="debug",
@@ -73,6 +75,9 @@ def main():
     
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(options.confile)
+    
+    parser.setContentHandler(ExtraSignalInformationReader(net))
+    parser.parse(options.sigfile)
     
     foutlog.write('- Reading network: done.\n')
     foutlog.write('number of total startVertices:%s\n' %len(net._startVertices))
@@ -249,6 +254,9 @@ def main():
             first = False
             iter_outside += 1
             
+            if newRoutes < 5 and iter_outside > 10:
+                newRoutes = 0
+                
             if iter_outside > maxSUEIteration:
                 print 'The max. number of iterations is reached!'
                 foutlog.write('The max. number of iterations is reached!\n')

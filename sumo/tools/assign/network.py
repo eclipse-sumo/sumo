@@ -71,6 +71,10 @@ class Net:
     def addTLJunctions(self, junctionObj):
         self._junctions[junctionObj.label] = junctionObj
         
+    def getJunction(self, junctionlabel):
+        return self._junctions[junctionlabel]
+        
+        
 #    find the k shortest paths for each OD pair. The "k" is defined by users.
     def calcKPaths(self, verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort):
         if verbose:
@@ -330,3 +334,37 @@ class VehInformationReader(handler.ContentHandler):
             self._Vehicle.travellength = float(attrs['routeLength'])
             self._Vehicle.waittime = float(attrs['departDelay']) + float(attrs['waitSteps']) 
             self._vehList.append(self._Vehicle)
+
+## This class is for parsing the additional/updated information about singal timing plans
+class ExtraSignalInformationReader(handler.ContentHandler):
+    def __init__(self, net):
+        self._net = net
+        self._junctionlabel = None
+        self._phaseObj = None
+        self._chars = ''
+        self._counter = 0
+
+    def startElement(self, name, attrs):
+        self._chars = ''
+        if name == 'tl-logic':
+            self._counter = 0
+        elif name == 'phase':
+            self._counter += 1
+            junction = self._net.getJunction(self._junctionlabel)
+            junction.phaseNum = self._counter
+            for phase in junction.phases[:]:
+                if phase.label == str(self._counter):
+                    phase.duration = float(attrs['duration'])
+                    phase.green = attrs['phase'][::-1]
+                    phase.brake = attrs['brake'][::-1]
+                    phase.yellow= attrs['yellow'][::-1]
+      
+    def characters(self, content):
+        self._chars += content
+
+    def endElement(self, name):
+        if name == 'key':
+            self._junctionlabel = self._chars
+            self._chars = ''
+        elif name == 'tl-logic':
+            self._junctionObj = None
