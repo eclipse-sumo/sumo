@@ -54,9 +54,9 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODFNetHandler::RODFNetHandler(OptionsCont &oc, RONet &net,
+RODFNetHandler::RODFNetHandler(RONet &net,
                                ROAbstractEdgeBuilder &eb)
-        : RONetHandler(oc, net, eb)
+        : RONetHandler(net, eb)
 {}
 
 

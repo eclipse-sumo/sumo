@@ -35,6 +35,7 @@
 #include <utils/common/SUMOTime.h>
 #include <utils/common/RGBColor.h>
 #include <utils/common/SUMOVehicleParameter.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -66,11 +67,11 @@ public:
      * @todo Why is the vehicle builder given?
      */
     ROVehicle(ROVehicleBuilder &vb, const SUMOVehicleParameter &pars, 
-              RORouteDef *route, ROVehicleType *type);
+              RORouteDef *route, ROVehicleType *type) throw();
 
 
     /// @brief Destructor
-    virtual ~ROVehicle();
+    virtual ~ROVehicle() throw();
 
 
     /** @brief Returns the definition of the route the vehicle takes
@@ -79,7 +80,9 @@ public:
      *
      * @todo Why not return a reference?
      */
-    RORouteDef * const getRoute() const;
+    RORouteDef * const getRoute() const throw() {
+        return myRoute;
+    }
 
 
     /** @brief Returns the type of the vehicle
@@ -88,21 +91,27 @@ public:
      *
      * @todo Why not return a reference?
      */
-    const ROVehicleType * const getType() const;
+    const ROVehicleType * const getType() const throw() {
+        return myType;
+    }
 
 
     /** @brief Returns the id of the vehicle
      *
      * @return The id of the vehicle
      */
-    const std::string &getID() const;
+    const std::string &getID() const throw() {
+        return myParameter.id;
+    }
 
 
     /** @brief Returns the time the vehicle starts at
      * 
      * @return The vehicle's depart time
      */
-    SUMOTime getDepartureTime() const;
+    SUMOTime getDepartureTime() const throw() {
+        return myParameter.depart;
+    }
 
 
     /** @brief Saves the complete vehicle description.
@@ -116,10 +125,11 @@ public:
      * @param[in] route !!!describe
      * @see saveXMLVehicle
      *
+     * @exception IOError If something fails (not yet implemented)
      * @todo What is the given route definition?
      */
     void saveAllAsXML(OutputDevice &os, OutputDevice * const altos,
-                      const RORouteDef * const route) const;
+                      const RORouteDef * const route) const throw(IOError);
 
 
     /** @brief Returns a copy of the vehicle using a new id, departure time and route
@@ -133,15 +143,16 @@ public:
      * @todo Is this used? What for if everything is replaced?
      */
     virtual ROVehicle *copy(ROVehicleBuilder &vb,
-                            const std::string &id, unsigned int depTime, RORouteDef *newRoute);
+                            const std::string &id, unsigned int depTime, RORouteDef *newRoute) throw();
 
 
 protected:
     /** @brief Saves the vehicle definition only into the given stream
      *
      * @param[in] dev The output device to store the vehicle definition into
+     * @exception IOError If something fails (not yet implemented)
      */
-    void saveXMLVehicle(OutputDevice &dev) const;
+    void saveXMLVehicle(OutputDevice &dev) const throw(IOError);
 
 
 protected:
@@ -153,6 +164,14 @@ protected:
 
     /// @brief The route the vehicle takes
     RORouteDef *myRoute;
+
+
+private:
+    /// @brief Invalidated copy constructor
+    ROVehicle(const ROVehicle &src);
+
+    /// @brief Invalidated assignment operator
+    ROVehicle &operator=(const ROVehicle &src);
 
 };
 

@@ -56,10 +56,10 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RONetHandler::RONetHandler(OptionsCont &oc, RONet &net,
+RONetHandler::RONetHandler(RONet &net,
                            ROAbstractEdgeBuilder &eb)
         : SUMOSAXHandler("sumo-network"),
-        myOptions(oc), myNet(net), myCurrentName(),
+        myNet(net), myCurrentName(),
         myCurrentEdge(0), myEdgeBuilder(eb)
 {}
 
@@ -266,15 +266,9 @@ void
 RONetHandler::myCharacters(SumoXMLTag element,
                            const std::string &chars) throw(ProcessError)
 {
-    if (element==SUMO_TAG_EDGES) {
-        preallocateEdges(chars);
+    if (element!=SUMO_TAG_EDGES) {
+        return;
     }
-}
-
-
-void
-RONetHandler::preallocateEdges(const std::string &chars)
-{
     StringTokenizer st(chars);
     while (st.hasNext()) {
         string id = st.next();
@@ -286,7 +280,6 @@ RONetHandler::preallocateEdges(const std::string &chars)
         myNet.addEdge(myEdgeBuilder.buildEdge(id)); // !!! where is the edge deleted when failing?
     }
 }
-
 
 
 /****************************************************************************/

@@ -58,44 +58,17 @@ using namespace std;
 // ===========================================================================
 ROVehicle::ROVehicle(ROVehicleBuilder &,
                      const SUMOVehicleParameter &pars, 
-                     RORouteDef *route, ROVehicleType *type)
+                     RORouteDef *route, ROVehicleType *type) throw()
         : myParameter(pars), myType(type), myRoute(route)
 {}
 
 
-ROVehicle::~ROVehicle()
+ROVehicle::~ROVehicle() throw()
 {}
 
 
-RORouteDef * const
-ROVehicle::getRoute() const
-{
-    return myRoute;
-}
-
-
-const ROVehicleType * const
-ROVehicle::getType() const
-{
-    return myType;
-}
-
-
-const std::string&
-ROVehicle::getID() const
-{
-    return myParameter.id;
-}
-
-SUMOTime
-ROVehicle::getDepartureTime() const
-{
-    return myParameter.depart;
-}
-
-
 void
-ROVehicle::saveXMLVehicle(OutputDevice &dev) const
+ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
 {
     dev << "<vehicle id=\"" << myParameter.id << "\"";
     if (myType!=0) {
@@ -184,7 +157,7 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const
 void
 ROVehicle::saveAllAsXML(OutputDevice &os,
                         OutputDevice * const altos,
-                        const RORouteDef * const route) const
+                        const RORouteDef * const route) const throw(IOError)
 {
     // check whether the vehicle's type was saved before
     if (myType!=0&&!myType->isSaved()) {
@@ -252,7 +225,7 @@ ROVehicle::saveAllAsXML(OutputDevice &os,
 ROVehicle *
 ROVehicle::copy(ROVehicleBuilder &vb,
                 const std::string &id, unsigned int depTime,
-                RORouteDef *newRoute)
+                RORouteDef *newRoute) throw()
 {
     SUMOVehicleParameter pars(myParameter);
     pars.id = id;

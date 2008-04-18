@@ -52,9 +52,9 @@ class RODFNetHandler : public RONetHandler
 {
 public:
     /// Constructor
-    RODFNetHandler(OptionsCont &oc, RONet &net, ROAbstractEdgeBuilder &eb);
+    RODFNetHandler(RONet &net, ROAbstractEdgeBuilder &eb);
 
-    /// Destrcutor
+    /// Destructor
     virtual ~RODFNetHandler() throw();
 
 protected:

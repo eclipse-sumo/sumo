@@ -77,7 +77,7 @@ RODFLoader::loadNet(ROAbstractEdgeBuilder &eb, bool amInHighwayMode)
         throw ProcessError("The network file '" + file + "' could not be found.");
     }
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading net...");
-    RODFNetHandler handler(myOptions, *net, eb);
+    RODFNetHandler handler(*net, eb);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file)) {
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");

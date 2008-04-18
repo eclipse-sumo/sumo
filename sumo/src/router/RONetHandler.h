@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// The handler for SUMO-Networks
+// The handler that parses a SUMO-network for its usage in a router
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -49,17 +49,25 @@ class ROAbstractEdgeBuilder;
 // ===========================================================================
 /**
  * @class RONetHandler
+ * @brief The handler that parses a SUMO-network for its usage in a router
+ *
  * SAX2-Handler for SUMO-network loading. As this class is used for both
  *  the dua- and the jp-router, a reference to the edge builder is given.
  */
 class RONetHandler : public SUMOSAXHandler
 {
 public:
-    /// Constructor
-    RONetHandler(OptionsCont &oc, RONet &net, ROAbstractEdgeBuilder &eb);
+    /** @brief Constructor
+     *
+     * @param[in] net The network instance to fill
+     * @param[in] eb The abstract edge builder to use
+     */
+    RONetHandler(RONet &net, ROAbstractEdgeBuilder &eb);
 
-    /// Destrcutor
+
+    /// @brief Destructor
     virtual ~RONetHandler() throw();
+
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -100,13 +108,8 @@ protected:
     /// Parses edge connections
     void parseConnEdge(const SUMOSAXAttributes &attrs);
 
-    /// Preallocates edges
-    void preallocateEdges(const std::string &chars);
 
 protected:
-    /// the options (program settings)
-    OptionsCont &myOptions;
-
     /// the net to store the information into
     RONet &myNet;
 
@@ -127,10 +130,10 @@ protected:
     ROAbstractEdgeBuilder &myEdgeBuilder;
 
 private:
-    /// invalidated copy constructor
+    /// @brief Invalidated copy constructor
     RONetHandler(const RONetHandler &src);
 
-    /// invalidated assignment operator
+    /// @brief Invalidated assignment operator
     RONetHandler &operator=(const RONetHandler &src);
 
 };

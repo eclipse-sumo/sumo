@@ -50,7 +50,7 @@ public:
     RODFDetectorHandler(OptionsCont &oc, RODFDetectorCon &con,
                         const std::string &file);
 
-    /// Destrcutor
+    /// Destructor
     virtual ~RODFDetectorHandler() throw();
 
 protected:

@@ -42,7 +42,7 @@ namespace ROHelper {
 
 SUMOReal 
 recomputeCosts(const std::vector<const ROEdge*> &edges,
-               const ROVehicle * const v, SUMOTime time) 
+               const ROVehicle * const v, SUMOTime time) throw()
 {
     SUMOReal costs = 0;
     for (std::vector<const ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); i++) {
@@ -58,7 +58,7 @@ recomputeCosts(const std::vector<const ROEdge*> &edges,
 
 bool 
 equal(const std::vector<const ROEdge*> &edges1,
-      const std::vector<const ROEdge*> &edges2)
+      const std::vector<const ROEdge*> &edges2) throw()
 {
     if (edges1.size()!=edges2.size()) {
         return false;
@@ -73,14 +73,14 @@ equal(const std::vector<const ROEdge*> &edges1,
 
 
 bool 
-isTurnaround(const ROEdge *e1, const ROEdge *e2)
+isTurnaround(const ROEdge *e1, const ROEdge *e2) throw()
 {
     return e1->getFromNode()==e2->getToNode() && e1->getToNode()==e2->getFromNode();
 }
 
 
 void 
-recheckForLoops(std::vector<const ROEdge*> &edges)
+recheckForLoops(std::vector<const ROEdge*> &edges) throw()
 {
     // forward
     {

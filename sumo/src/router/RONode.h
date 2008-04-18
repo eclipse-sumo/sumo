@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A single router's node
+// Base class for nodes used by the router
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,17 +39,24 @@
 // ===========================================================================
 /**
  * @class RONode
- * Not used yet, but kept as later on, nodes may be handled as vehicle
- *  decelerators that do affect the travelling speed.
+ * @brief Base class for nodes used by the router
  */
 class RONode : public Named
 {
 public:
-    /// Constructor
+    /// @brief Constructor
     RONode(const std::string &id) throw();
 
-    /// Destructor
+    /// @brief Destructor
     ~RONode() throw();
+
+
+private:
+    /// @brief Invalidated copy constructor
+    RONode(const RONode &src);
+
+    /// @brief Invalidated assignment operator
+    RONode &operator=(const RONode &src);
 
 };
 
