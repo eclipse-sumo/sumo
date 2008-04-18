@@ -4,8 +4,11 @@ lane_default
 # checks using the depart lane (depart)
 lane_depart
 
-# checks using a free lane (!!!)
+# checks using a free lane (1 vehicle)
 lane_free
+
+# checks using a free lane (3 vehicles)
+lane_free_3veh
 
 # checks using the given lane (lane 0)
 lane_given0
@@ -38,8 +41,11 @@ pos_given10
 # checks using the given position (-10)
 pos_given-10
 
-# checks using a random position (!!!)
+# checks using a random position (1 vehicle)
 pos_random
+
+# checks using a random position (3 vehicles)
+pos_random_3veh
 
 
 # checks using the default speed (0)
