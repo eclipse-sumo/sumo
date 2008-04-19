@@ -37,15 +37,6 @@ AM_PROG_LIBTOOL
 
 
 dnl Check for enable-features that shall go into config.h
-AC_ARG_ENABLE([geomcheck], [AS_HELP_STRING([--enable-geomcheck],[enable compilation of geometry checks [default=no].])],
-              [AC_DEFINE(CHECK_UNIQUE_POINTS_GEOMETRY, 1, [Define to 1 in order to enable geometry checking.])])
-AM_CONDITIONAL(CHECK_UNIQUE_POINTS_GEOMETRY, test x$enable_geomcheck = xyes)
-if test x$enable_geomcheck = xyes; then
-   ac_enabled="$ac_enabled GeometryChecks"
-else
-   ac_disabled="$ac_disabled GeometryChecks"
-fi
-
 AC_ARG_ENABLE([messages], [AS_HELP_STRING([--enable-messages],[enable static and dynamic messages emitted by vehicles [default=no].])],
 			  [AC_DEFINE(_MESSAGES, 1, [Define to 1 in order to enable messages.])])
 if test x$enable_messages = xyes; then
