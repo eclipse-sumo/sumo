@@ -2,7 +2,7 @@
 /// @file    TraCIDijkstraRouter.h
 /// @author  Friedemann Wesner <wesner@itm.uni-luebeck.de>
 /// @date    2008/03/29
-/// @version 
+/// @version $Id:$
 ///
 /// Dijkstra Router for use by TraCI
 /****************************************************************************/

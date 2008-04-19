@@ -65,6 +65,8 @@
 #include <cstdlib>
 #include <cfloat>
 
+
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -159,7 +161,7 @@ TraCIServer::run()
 		}
 	}
 
-	// determine the maximum number of vehicles by searching route and additional input files or "vehicle" tags
+	// determine the maximum number of vehicles by searching route and additional input files for "vehicle" tags
 	TraCIHandler xmlHandler;
 	SAX2XMLReader* xmlParser = XMLSubSys::getSAXReader(xmlHandler);
 	xmlParser->setContentHandler(&xmlHandler);
@@ -354,7 +356,8 @@ throw(TraCIException)
 
     // Position representation
     int resType = requestMsg.readUnsignedByte();
-    if (resType != POSITION_2D && resType != POSITION_ROADMAP) {
+    if (resType != POSITION_2D && resType != POSITION_ROADMAP
+		&& resType != POSITION_2_5D && resType != POSITION_3D) {
         writeStatusCmd(respMsg, CMD_SIMSTEP, RTYPE_ERR, "Error: unsupported return format requested.");
         return;
     }
@@ -439,32 +442,55 @@ throw(TraCIException)
         for (map<int, const MSVehicle*>::iterator iter = activeEquippedVehicles.begin(); iter != activeEquippedVehicles.end(); ++iter) {
             int extId = (*iter).first;
             const MSVehicle* vehicle = (*iter).second;
+			Storage tempMsg;
 
-            // command length
-            respMsg.writeUnsignedByte(23);
             // command type
-            respMsg.writeUnsignedByte(CMD_MOVENODE);
+            tempMsg.writeUnsignedByte(CMD_MOVENODE);
             // node id
-            respMsg.writeInt(extId);
+            tempMsg.writeInt(extId);
             // end time
-            respMsg.writeDouble(currentTime);
+            tempMsg.writeDouble(currentTime);
 
             if (resType == POSITION_2D) {
                 // return type
-                respMsg.writeUnsignedByte(POSITION_2D);
+                tempMsg.writeUnsignedByte(POSITION_2D);
 
                 Position2D pos = vehicle->getPosition();
                 //xpos
-                respMsg.writeFloat(pos.x() - getNetBoundary().xmin());
+                tempMsg.writeFloat(pos.x() - getNetBoundary().xmin());
                 // y pos
-                respMsg.writeFloat(pos.y() - getNetBoundary().ymin());
+                tempMsg.writeFloat(pos.y() - getNetBoundary().ymin());
             } else if (resType == POSITION_ROADMAP) {
                 // return type
-                respMsg.writeUnsignedByte(POSITION_ROADMAP);
+                tempMsg.writeUnsignedByte(POSITION_ROADMAP);
 
-                respMsg.writeString(vehicle->getEdge()->getID());
-                respMsg.writeFloat(vehicle->getPositionOnLane());
-            }
+                tempMsg.writeString(vehicle->getEdge()->getID());
+                tempMsg.writeFloat(vehicle->getPositionOnLane());
+
+				// determine index of the lane the vehicle is on
+				int laneId = 0;
+				const MSLane* lane = &vehicle->getLane();
+				while ((lane = lane->getRightLane()) != NULL) {
+					laneId++;
+				}
+				tempMsg.writeUnsignedByte(laneId);
+			} else if (resType == POSITION_3D || resType == POSITION_2_5D) {
+				// return type
+				tempMsg.writeUnsignedByte(resType);
+
+                Position2D pos = vehicle->getPosition();
+                //xpos
+                tempMsg.writeFloat(pos.x() - getNetBoundary().xmin());
+                // y pos
+                tempMsg.writeFloat(pos.y() - getNetBoundary().ymin());
+				// z pos: ignored
+				tempMsg.writeFloat(0);
+			}
+
+			// command length
+			respMsg.writeUnsignedByte(tempMsg.size()+1);
+			// content
+			respMsg.writeStorage(tempMsg);
 
         }
 
@@ -1398,10 +1424,10 @@ TraCIServer::writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, 
 {
     if (status == RTYPE_ERR) {
         closeConnection_ = true;
-        cerr << "Answered with error to command " << commandId
+        cerr << "Answered with error to command " << (int)commandId
         << ": " << description << endl;
     } else if (status == RTYPE_NOTIMPLEMENTED) {
-        cerr << "Requested command not implemented (" << commandId
+        cerr << "Requested command not implemented (" << (int)commandId
         << "): " << description << endl;
     }
 
