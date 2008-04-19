@@ -886,7 +886,7 @@ NBEdge::recheckLanes()
     // This check must be done for all lanes to assert that there is at
     //  least a dead end information (needed later for building the
     //  node request
-    assert(myNolanes==myReachable.size());
+    assert(myLanes.size()==myReachable.size());
     for (size_t i=0; i<myLanes.size(); i++) {
         if (myReachable[i].size()==0) {
             setConnection(i, 0, 0, false);
@@ -939,7 +939,7 @@ NBEdge::getConnectionLanes(NBEdge *currentOutgoing)
         return vector<size_t>();
     }
     map<NBEdge*, vector<size_t> >::iterator i=myToEdges.find(currentOutgoing);
-    assert(i==myToEdges.end()||(*i).second.size()<=myNolanes);
+    assert(i==myToEdges.end()||(*i).second.size()<=myLanes.size());
     if (i==myToEdges.end()) {
         return vector<size_t>();
     }
@@ -1574,7 +1574,7 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
         }
     }
 
-    assert(fromLane<0||fromLane<(int) myNolanes);
+    assert(fromLane<0||fromLane<(int) myLanes.size());
     // try to use information about the connections if given
     if (fromLane>=0&&toLane>=0) {
         // get the connections outgoing from this lane
@@ -1911,7 +1911,7 @@ NBEdge::getTurnDestination() const
 std::string
 NBEdge::getLaneID(size_t lane)
 {
-    assert(lane<myNolanes);
+    assert(lane<myLanes.size());
     return myID + "_" + toString<size_t>(lane);
 }
 
@@ -2026,7 +2026,7 @@ NBEdge::copyConnectionsFrom(NBEdge *src)
         myReachable[i] = src->myReachable[i];
     }
     mySucceedinglanes = src->mySucceedinglanes;
-    assert(myReachable.size()==myNolanes);
+    assert(myReachable.size()==myLanes.size());
 }
 
 
@@ -2112,7 +2112,7 @@ NBEdge::allowVehicleClass(int lane, SUMOVehicleClass vclass)
         }
         return;
     }
-    assert(lane<(int) myNolanes);
+    assert(lane<(int) myLanes.size());
     // add it only if not already done
     if (find(myLanes[lane].allowed.begin(), myLanes[lane].allowed.end(), vclass)==myLanes[lane].allowed.end()) {
         myLanes[lane].allowed.push_back(vclass);
