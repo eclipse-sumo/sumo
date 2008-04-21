@@ -257,38 +257,66 @@ MSLane::detectCollisions(SUMOTime timestep)
 }
 
 
+SUMOReal
+getMaxSpeedRegardingNextLanes(MSVehicle& veh, SUMOReal speed, SUMOReal pos)
+{
+    MSRouteIterator next = veh.getRoute().begin();
+    MSLane *currentLane = (*(*next)->getLanes())[0];
+    SUMOReal seen = currentLane->length() - pos;
+    SUMOReal dist = SPEED2DIST(speed) + veh.getVehicleType().brakeGap(speed);
+    SUMOReal tspeed = speed;
+    while(seen<dist&&next!=veh.getRoute().end()-1) {
+        ++next;
+        MSLane *nextLane = (*(*next)->getLanes())[0];
+        tspeed = MIN2(veh.getVehicleType().ffeV(tspeed, seen, nextLane->maxSpeed()), nextLane->maxSpeed());
+        dist = SPEED2DIST(tspeed) + veh.getVehicleType().brakeGap(tspeed);
+        seen += nextLane->maxSpeed();
+    }
+    return tspeed;
+}
+
+
 bool
-MSLane::freeEmit(MSVehicle& veh, SUMOReal speed) throw()
+MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw()
 {
     // check whether we can emit in behind the last vehicle on the lane
-    if(isEmissionSuccess(&veh, MSVehicle::State(0, speed))) {
+    if(isEmissionSuccess(&veh, MSVehicle::State(0, getMaxSpeedRegardingNextLanes(veh, mspeed, 0)))) {
         return true;
     } 
     // go through the lane, look for free positions
     MSLane::VehCont::iterator predIt = myVehicles.begin();
     while(predIt!=myVehicles.end()) {
-        MSVehicle *follower = *predIt;
+        // get leader (may be zero) and follower
         MSVehicle *leader = predIt!=myVehicles.end()-1
             ? *(predIt+1)
             : 0;
+        MSVehicle *follower = *predIt;
+        // compute the space needed to not let the follower collide
         SUMOReal followPos = follower->getPositionOnLane();
+        SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), mspeed, veh);
+        SUMOReal backMin = followPos + backGapNeeded + veh.getLength();
+        // quirck/hack:
+        //  if there is the leader, we can assume (temporary) to use a 
+        //  his position as boundary for our, otherwise we have to use the lane's end...
+        SUMOReal pos = leader!=0
+            ? leader->getPositionOnLane() 
+            : backMin;
+        SUMOReal tspeed = getMaxSpeedRegardingNextLanes(veh, mspeed, pos);
+
+        // compute the space needed to not collide with leader
         SUMOReal leaderPos = leader!=0
             ? leader->getPositionOnLane() - leader->getLength()
             : -1;
-        // get secure gaps
         SUMOReal frontGapNeeded = leader!=0
-            ? veh.getSecureGap(veh.getSpeed(), leader->getSpeed(), *leader)
+            ? veh.getSecureGap(tspeed, leader->getSpeed(), *leader)
             : -1;
-        SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), speed, veh);
-        // compute needed room
         SUMOReal frontMax = leader!=0
             ? leaderPos - frontGapNeeded - leader->getLength()
             : length();
-        SUMOReal backMin = followPos + backGapNeeded + veh.getLength();
         // check whether there is enough room
         if (frontMax>0 && backMin<frontMax) {
             // try emit vehicle (should be always ok)
-            if(isEmissionSuccess(&veh, MSVehicle::State(backMin, speed))) {
+            if(isEmissionSuccess(&veh, MSVehicle::State(backMin, tspeed))) {
                 return true;
             }
         }
