@@ -132,7 +132,7 @@ MSMessageEmitter::writeLaneChangeEvent(std::string& id, SUMOReal& timeStep,
 			}
 			myDev << "\" timestep=\"";
 			myDev << timeStep;
-			myDev << "\"/>\n";
+			myDev << "\" />\n";
 		} else {
 			myDev << "   <lanechange timestep=\"";
 			myDev << timeStep;
@@ -143,7 +143,7 @@ MSMessageEmitter::writeLaneChangeEvent(std::string& id, SUMOReal& timeStep,
 			if(xyCoords) {
 				myDev << "\" X=\"" << x << "\" Y=\"" << y;
 			}
-			myDev << "\"/>\n";
+			myDev << "\" />\n";
 		}
 	}
 }
@@ -212,7 +212,8 @@ MSMessageEmitter::writeBreakEvent(std::string& id, SUMOReal& timeStep, MSLane* l
 			if(xyCoords) {
 				myDev << "\" X=\"" << x << "\" Y=\"" << y;
 			}
-			myDev << "\"/>\n";
+			myDev << "\" pos=\"" << myPos;
+			myDev << "\" />\n";
 		} else {
 			myDev << "   <break timestep=\"";
 			myDev << timeStep;
@@ -221,7 +222,8 @@ MSMessageEmitter::writeBreakEvent(std::string& id, SUMOReal& timeStep, MSLane* l
 			if(xyCoords) {
 				myDev << "\" X=\"" << x << "\" Y=\"" << y;
 			}
-			myDev << "\"/>\n";
+			myDev << "\" pos=\"" << myPos;
+			myDev << "\" />\n";
 		}
 	}
 }
