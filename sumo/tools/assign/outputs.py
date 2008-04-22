@@ -73,7 +73,7 @@ def outputStatistics(net, starttime, Parcontrol):
 def sortedVehOutput(vehicles, foutroute):                                   
     vehicles.sort(key=operator.attrgetter('depart'))                         # sorting by departure times 
     for veh in vehicles:                                                     # output the generated routes 
-        foutroute.write('    <vehicle id="%s" depart="%d" departlane="free" departpos="free" departspeed="max">\n' %(veh.label, veh.depart))
+        foutroute.write('    <vehicle id="%s" depart="%d" departlane="free">\n' %(veh.label, veh.depart))
         foutroute.write('        <route>')
         for edge in veh.route[1:-1]:                       # for generating vehicle routes used in SUMO 
             foutroute.write('%s ' % edge.label)
