@@ -59,6 +59,7 @@
 
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 
+#include <stdint.h>
 #include <string>
 #include <map>
 #include <iostream>
