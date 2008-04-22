@@ -428,9 +428,6 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     // call reminders after vNext is set
     workOnMoveReminders(myState.myPos,
                         myState.myPos + SPEED2DIST(vNext), vNext);
-    // update position and speed
-    myState.myPos  += SPEED2DIST(vNext);
-    assert(myState.myPos < lane->length());
 #ifdef _MESSAGES
 	if(myBMsgEmitter!=0) {
 		if(vNext < oldV) {
@@ -439,6 +436,9 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
 		}
 	}
 #endif
+    // update position and speed
+    myState.myPos  += SPEED2DIST(vNext);
+    assert(myState.myPos < lane->length());
 	myState.mySpeed = vNext;
     //@ to be optimized (move to somewhere else)
     if (hasCORNIntValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
@@ -562,8 +562,6 @@ MSVehicle::moveFirstChecked()
 
     vNext = MIN2(vNext, getMaxSpeed());
 
-    // update position
-    myState.myPos += SPEED2DIST(vNext);
 #ifdef _MESSAGES
 	if(myBMsgEmitter!=0) {
 		if(vNext < oldV) {
@@ -572,6 +570,8 @@ MSVehicle::moveFirstChecked()
 		}
 	}
 #endif
+    // update position
+    myState.myPos += SPEED2DIST(vNext);
     // update speed
     myState.mySpeed = vNext;
     MSLane *approachedLane = myLane;
