@@ -435,7 +435,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
 	if(myBMsgEmitter!=0) {
 		if(vNext < oldV) {
 			SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-			myBMsgEmitter->writeBreakEvent(myID, timeStep, myLane, myState.pos(), getPosition().x(), getPosition().y());
+			myBMsgEmitter->writeBreakEvent(myID, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
 		}
 	}
 #endif
@@ -568,7 +568,7 @@ MSVehicle::moveFirstChecked()
 	if(myBMsgEmitter!=0) {
 		if(vNext < oldV) {
 			SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-			myBMsgEmitter->writeBreakEvent(myID, timeStep, myLane, myState.pos(), getPosition().x(), getPosition().y());
+			myBMsgEmitter->writeBreakEvent(myID, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
 		}
 	}
 #endif
@@ -985,7 +985,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane)
 #ifdef _MESSAGES
 	if(myLCMsgEmitter!=0) {
 		SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-		myLCMsgEmitter->writeLaneChangeEvent(myID, timeStep, myLane, myState.pos(), enteredLane, getPosition().x(), getPosition().y());
+		myLCMsgEmitter->writeLaneChangeEvent(myID, timeStep, myLane, myState.pos(), myState.speed(), enteredLane, getPosition().x(), getPosition().y());
 	}
 #endif
 	myLane = enteredLane;

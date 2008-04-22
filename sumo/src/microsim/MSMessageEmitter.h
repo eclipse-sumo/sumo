@@ -60,10 +60,10 @@ public:
 	virtual ~MSMessageEmitter();
 	
 	void writeLaneChangeEvent(std::string& id, SUMOReal& timeStep, MSLane *oldlane, SUMOReal myPos,
-							  MSLane *newlane, SUMOReal x, SUMOReal y);
+							  SUMOReal mySpeed, MSLane *newlane, SUMOReal x, SUMOReal y);
 	
 	void writeBreakEvent(std::string& id, SUMOReal& timeStep, MSLane *lane, SUMOReal myPos,
-						 SUMOReal x, SUMOReal y);
+						 SUMOReal speed, SUMOReal x, SUMOReal y);
 	
 	bool getWriteLCEvent();
 	
