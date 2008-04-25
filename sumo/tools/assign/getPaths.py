@@ -34,7 +34,9 @@ def findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
                 helpPath = []
                 pathcost = 0.0
                 ODPaths = net._paths[startVertex][endVertex]
-                
+                for path in ODPaths:
+                    path.currentshortest = False
+                    
                 while 1:
                     tempPath.append(endnode)
                     if endnode == startVertex: 
@@ -68,7 +70,7 @@ def findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
                             newPath = False
                             
                             break
-                        elif abs(sameEdgeCount - len(path.Edges)) <= 5 and abs(sametraveltime/3600. - pathcost) <= 0.05:
+                        elif abs(sameEdgeCount - len(path.Edges))/len(path.Edges) <= 0.1 and abs(sametraveltime/3600. - pathcost) <= 0.05:
                             notpath = True
                             newPath = False
                             break
@@ -77,6 +79,7 @@ def findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
                     ODPaths.append(newpath)
                     newpath.source = startVertex
                     newpath.target = endVertex
+                    newpath.currentshortest = True
                     if lohse:
                         newpath.pathhelpacttime = pathcost
                     else:    
@@ -92,5 +95,6 @@ def findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
                     else:
                         samePath.actpathtime = pathcost
                     samePath.usedcounts += 1
+                    samePath.currentshortest = True
     
     return newRoutes

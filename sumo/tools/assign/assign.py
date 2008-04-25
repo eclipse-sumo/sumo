@@ -15,6 +15,7 @@ import os, random, string, sys, math, operator
 import elements
 from elements import Vertex, Edge, Path, Vehicle
 from network import Net
+from getPaths import findNewPath
 
 def doIncAssign(net, verbose, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID): 
     # matrixPlong and matrixTruck should be added if available.
@@ -182,7 +183,6 @@ def calCommonalityAndChoiceProb(net, ODPaths, Parcontrol, lohse):
                             mtxOverlap[pathone][pathtwo] += edgeone.actualtime
             mtxOverlap[pathtwo][pathone] = mtxOverlap[pathone][pathtwo]
 
-
     if len(ODPaths) > 1:
         for pathone in ODPaths:
             sum_overlap = 0.0 
@@ -217,7 +217,6 @@ def calCommonalityAndChoiceProb(net, ODPaths, Parcontrol, lohse):
             path.commfactor = 0.
             path.choiceprob = 1.
             
-
 # calculate the path choice probabilities and the path flows and generate the vehicular data for each OD Pair    
 def doSUEVehAssign(verbose, net, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse):
     if verbose:
@@ -326,7 +325,7 @@ def doLohseStopCheck(net, verbose, stable, iter, maxIter, Parcontrol, foutlog):
     cvg1 = float(Parcontrol[5])                              # parameter for determining the modification degree of link flows at each iteration in SUE
     cvg2 = float(Parcontrol[6])                              # parameter for determining the modification degree of link flows at each iteration in SUE
     cvg3 = float(Parcontrol[7])
-    
+    stable = False
     if iter > 1 :                                        # Check if the convergence reaches.
         counts = 0    
         for edge in net._edges.itervalues():
@@ -348,4 +347,150 @@ def doLohseStopCheck(net, verbose, stable, iter, maxIter, Parcontrol, foutlog):
         print 'stop?:', stable
         print 'iter_inside:', iter
     return stable
-          
+
+def getLinkChoiceProportions(curvefile, verbose, net, matrixPshort, Parcontrol, startVertices, endVertices, linkChoiceProportions, foutlog):
+    if verbose:
+        print 'begin the "getLinkChoiceProportions - SUE"!'
+    # initialization for the traffic assignment
+    iter_outside = 1
+    newRoutes = 1
+    stable = False
+    first =True
+    
+    lohse = False
+    incremental = False
+    clogit = False
+    checkKPaths = False
+    
+    if Parcontrol[(len(Parcontrol)-1)] == "0":
+        incremental = True
+    elif Parcontrol[(len(Parcontrol)-1)] == "1":
+        lohse = True
+    elif Parcontrol[(len(Parcontrol)-1)] == "2":
+        clogit = True
+    if int(Parcontrol[9]) > 1:
+        checkKPaths = True
+        
+    if clogit:
+        maxIteration = int(Parcontrol[7])
+    elif lohse:
+        maxIteration = int(Parcontrol[8])
+    elif incremental:
+        iterations = int(Parcontrol[0])
+        
+    if clogit or lohse:
+        foutlog.write('- SUE assignment is adopted.\n')
+        while newRoutes > 0:
+            iter_inside = 1
+            # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
+            if checkKPaths:
+                newRoutes = net.calcKPaths(verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort)
+                foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
+
+            elif not checkKPaths and iter_outside == 1 and counter == 0:
+                newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
+            
+            checkKPaths = False
+              
+            stable = False            
+            while not stable:
+                if verbose:
+                    print 'iteration (inside):', iter_inside
+                        
+                # The matrixPlong and the matrixTruck should be added when considering the long-distance trips and the truck trips.
+                stable = doSUEAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
+                if lohse:
+                    stable = doLohseStopCheck(net, verbose, stable, iter_inside, maxIteration, Parcontrol, foutlog)
+                iter_inside += 1
+                
+                newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
+                
+                if verbose:
+                    print 'stable:', stable
+            
+            first = False
+            iter_outside += 1
+            
+            if newRoutes < 5 and iter_outside > 10:
+                newRoutes = 0
+                
+            if iter_outside > maxIteration:
+                print 'The max. number of iterations is reached!'
+                foutlog.write('The max. number of iterations is reached!\n')
+                foutlog.write('The number of new routes and the parameter stable will be set to zero and True respectively.\n')
+                print 'newRoutes:', newRoutes 
+                stable = True
+                newRoutes = 0
+        
+        linkChoiceProportions = calLinkChoiceProportion(self, net, Parcontrol, startVertices, endVertices, linkChoiceProportions, lohse)
+        if verbose:
+            print 'calLinkChoiceProportion - SUE is done!'
+    else:
+        if verbose:
+            print 'begin the "getLinkChoiceProportions - incremental"!'
+        foutlog.write('- incremetal assignment is adopted.\n')
+        iter = 0
+        while iter < iterations:
+            foutlog.write('- Current iteration(not executed yet):%s\n' %iter)
+            iter += 1
+            
+            findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
+            
+            for startVertex in startVertices:
+                start += 1
+                end = -1 
+                for endVertex in endVertices:
+                    end += 1
+                    if str(startVertex) != str(endVertex) and (matrixPshort[start][end] > 0.0):
+                        ODPaths = net._paths[startVertex][endVertex]
+                        for path in ODPaths:
+                            if path.currentshortest:
+                                shortestpath = path
+                                
+                        pathflow = float(matrixPshort[start][end]*float(Parcontrol[iter]))
+                        shortestpath.pathflow += pathflow
+                        
+                        for edge in shortestpath.Edges:
+                            edge.flow += pathflow
+                            linkChoiceProportions[edge][startVertex][endVertex] += pathflow/matrixPshort[start][end]
+
+            for edgeID in net._edges:
+                edge = net._edges[edgeID]
+                edge.getActualTravelTime(curvefile)
+                
+    return linkChoiceProportions
+                
+def calLinkChoiceProportion(verbose, net, Parcontrol, startVertices, endVertices, linkChoiceProportions, lohse):
+    if verbose:
+        print 'calLinkChoiceProportion - SUE is done!'
+    start = -1
+    for startVertex in startVertices:
+        start += 1
+        end = -1
+        for endVertex in endVertices:
+            end += 1
+            pathcount = 0
+            cumulatedflow = 0.
+            if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
+                ODPaths = net._paths[startVertex][endVertex]
+                
+                for path in ODPaths:
+                    path.getPathTimeUpdate(net)
+                    if lohse:                      
+                        path.helpacttime = path.actpathtime
+      
+                calCommonalityAndChoiceProb(net, ODPaths, Parcontrol, lohse)
+        
+                for path in ODPaths:
+                    pathcount += 1
+                    if pathcount < len(ODPaths):
+                        path.pathflow = matrixPshort[start][end] * path.choiceprob
+                        cumulatedflow += path.pathflow
+                    else:
+                        path.pathflow = matrixPshort[start][end] - cumulatedflow
+                    
+                    for edge in path.Edges:
+                        edge.flow += path.pathflow
+                        linkChoiceProportions[edge][startVertex][endVertex] += path.pathflow/matrixPshort[start][end]
+    
+    return linkChoiceProportions

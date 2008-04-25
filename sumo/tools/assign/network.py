@@ -30,6 +30,8 @@ class Net:
         self._allvehicles = {}
         self._assignments = {}
         self._junctions = {}
+        self._detectedLinkCounts = 0
+        self._flowVarianceMatrices = {}
         
     def newVertex(self):
         v = Vertex(len(self._vertices))
@@ -74,6 +76,8 @@ class Net:
     def getJunction(self, junctionlabel):
         return self._junctions[junctionlabel]
         
+    def addFlowVarianceMatrix(self, varianceObj):
+        self._flowVarianceMatrices[varianceObj.label] = varianceObj
         
 #    find the k shortest paths for each OD pair. The "k" is defined by users.
     def calcKPaths(self, verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort):
@@ -368,3 +372,11 @@ class ExtraSignalInformationReader(handler.ContentHandler):
             self._chars = ''
         elif name == 'tl-logic':
             self._junctionObj = None
+            
+class DetectedFlowsReader(handler.ContentHandler):
+    def __init__(self, net):
+        self._net = net
+        self._junctionlabel = None
+        self._phaseObj = None
+        self._chars = ''
+        self._counter = 0

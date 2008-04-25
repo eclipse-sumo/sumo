@@ -10,10 +10,9 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import os, random, string, sys, datetime
+import os, random, string, sys, datetime, operator, math
 from network import Net
 from elements import Vehicle
-import operator
 
 # calculate the time for reading the input data (matrix data are excluded.)
 def timeForInput(inputreaderstart):
@@ -73,7 +72,7 @@ def outputStatistics(net, starttime, Parcontrol):
 def sortedVehOutput(vehicles, foutroute):                                   
     vehicles.sort(key=operator.attrgetter('depart'))                         # sorting by departure times 
     for veh in vehicles:                                                     # output the generated routes 
-        foutroute.write('    <vehicle id="%s" depart="%d" departlane="free">\n' %(veh.label, veh.depart))
+        foutroute.write('    <vehicle id="%s" depart="%d" departlane="free" departpos="free" departspeed="max">\n' %(veh.label, veh.depart))
         foutroute.write('        <route>')
         for edge in veh.route[1:-1]:                       # for generating vehicle routes used in SUMO 
             foutroute.write('%s ' % edge.label)
@@ -146,3 +145,37 @@ def getSignificanceTestOutput(net, tValueAvg, hValues):
         foutSGtest.write('\n95 chi-square value:%s' %h.lowchivalue)
         foutSGtest.write('\n99 chi-square value:%s\n' %h.highchivalue)
     foutSGtest.close()
+
+# output the result of the matrix estimation with the traffic counts
+def outputMatrix(startVertices, endVertices, estMatrix):
+    foutmtx = file('estimatedMatrix.fma', 'w')
+    
+    foutmtx.write('$VMR;D2;estimated with the generalized least squares model\n')
+    foutmtx.write('* Verkehrsmittelkennung\n') 
+    foutmtx.write('   1\n')
+    foutmtx.write('* Von  Bis\n\n')
+    foutmtx.write('* Faktor\n')
+    foutmtx.write('1.00\n')
+    foutmtx.write('*\n')
+    foutmtx.write('* Deutsches Zentrum fuer Luft- und Raumfahrt e.V.\n')
+    foutmtx.write('* %s\n' %datetime.datetime.now())
+    foutmtx.write('* Anzahl Bezirke\n')
+    foutmtx.write('%s\n' %len(startVertices))
+    foutmtx.write('*\n')
+    for startVertex in startVertices:
+        foutmtx.write('%s ' %startVertex.label)
+    foutmtx.write('\n*')
+    start = -1
+    for startVertex in startVertices:
+        start += 1
+        end = -1
+        count = -1
+        foutmtx.write('\n* from: %s\n' %startVertex.label)
+        for endVertex in endVertices:
+            end += 1
+            count += 1
+            if operator.mod(count,12) != 0:
+                foutmtx.write('%s ' %estMatrix[start][end])
+            elif count > 12:
+                foutmtx.write('\n%s '%estMatrix[start][end])
+    foutmtx.close()

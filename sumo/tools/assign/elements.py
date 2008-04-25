@@ -97,7 +97,6 @@ class Edge:
         self.leftturn = None
         self.uturn = None
         self.flow = 0.0
-        self.detectedflow = 0.0
         self.kind = kind
         self.maxspeed = 1.0
         self.length = 0.0
@@ -121,7 +120,11 @@ class Edge:
         self.delta = 0.
         # parameter in the Lohse traffic assignment 
         self.helpacttimeEx = 0.
-
+        # parameter in the matrix estimation
+        self.detected = False
+        self.detecteddata = {}
+        self.detectedlanes = 0.
+        
     def init(self, speed, length, laneNumber):
         self.maxspeed = speed
         self.length = length
@@ -146,7 +149,10 @@ class Edge:
     def getDefaultCapacity(self):
         if self.numberlane > 0. and self.CRcurve == "None":
             self.estcapacity = float(self.numberlane * 1500)
-
+    
+    def addDetectedData(self, detecteddataObj):
+        self.detecteddata[detecteddataObj.label] = detecteddataObj
+        
     # modified CR-curve database, defined in the PTV-Validate files
     def getCapacity(self):
         if self.numberlane > 0.:
@@ -354,7 +360,7 @@ class Edge:
                 elif self.straight == "None" and (self.rightturn == "m" or self.leftturn == "m"):
                      self.estcapacity = self.estcapacity * 0.8
                      
-# Function for calculating/updating link travel time
+    # Function for calculating/updating link travel time
     def getActualTravelTime(self, curvefile):        
         foutcheck = file('time_flow.txt', 'a')
         f = file(curvefile)
@@ -386,18 +392,18 @@ class Edge:
         foutcheck.close()        
         return self.actualtime
 
-# reset link flows
+    # reset link flows
     def cleanFlow(self):
         self.flow = 0.
         self.helpflow = 0.
 
-# reset the parameter used in the Lohse-assignment (learning method - Lernverfahren)   
+    # reset the parameter used in the Lohse-assignment (learning method - Lernverfahren)   
     def resetLohseParameter(self):
         self.fTT = 0.
         self.TT = 0.               
         self.delta = 0.
         self.helpacttimeEx = 0.  
-# update the parameter used in the Lohse-assignment (learning method - Lernverfahren)          
+    # update the parameter used in the Lohse-assignment (learning method - Lernverfahren)          
     def getLohseParUpdate(self, under, upper, v1, v2, v3):
         if self.helpacttime > 0.:
             self.TT = abs(self.actualtime - self.helpacttime) / self.helpacttime
@@ -406,7 +412,7 @@ class Edge:
             self.helpacttimeEx = self.helpacttime
             self.helpacttime = self.helpacttime + self.delta*(self.actualtime - self.helpacttime)    
             
-# check if the convergence reaches in the Lohse-assignment        
+    # check if the convergence reaches in the Lohse-assignment        
     def stopCheck(self, verbose, cvg1, cvg2, cvg3):
         stop = False
         criteria = 0.
@@ -453,7 +459,9 @@ class Path:
         # parameter used in the Lohse traffic assignment
         self.usedcounts = 0
         # parameter used in the Lohse traffic assignment          
-        self.pathhelpacttime = 0.    
+        self.pathhelpacttime = 0.
+        # record if this path is the currrent shortest one.
+        self.currentshortest = None
     
     def __repr__(self):
         return "%s_%s_%s<%s|%s|%s|%s>" % (self.label, self.source, self.target, self.freepathtime, self.pathflow, self.actpathtime, self.Edges)
@@ -495,8 +503,18 @@ class Signalphase:
     
     def __repr__(self):
         return "%s_%s<%s|%s|%s>" % (self.label, self.duration, self.green, self.brake, self.yellow)
-        
-                 
+
+class HourlyDetectedValue:
+    def __init__(self):
+        self.label = None             # date
+        self.flowPger = 0.0
+        self.flowTruck = 0.0
+        self.speedPger = 0.0
+        self.speedTruck = 0.0
+        self.quality = 0.0
+
+    def __repr__(self):
+        return "%s_<%s|%s|%s|%s|%s>" % (self.label, self.flowPger, self.flowTruck, self.speedPger, self.speedTruck, self.quality)
 # This class is used in the significance test.
 class Assign:
     def __init__(self, method, totalVeh, totalTravelTime, totalTravelLength, totalWaitTime, avgTravelTime, avgTravelLength, avgTravelSpeed, avgWaitTime, SDTravelTime, SDLength, SDSpeed, SDWaitTime):
@@ -547,3 +565,9 @@ class H_Value:
         
     def __repr__(self):
         return "%<%s|%s|%s|%s|%s|%s>" % (self.traveltime, self.travelspeed, self.travellength, self.waittime, self.lowchivalue, self.highchivalue)
+        
+class VarianceFlowMatrix:
+    def __init__(self, label, passengerarray, truckarray):
+        self.label = label
+        self.passengerarray = passengerarray
+        self.truckarray = truckarray
