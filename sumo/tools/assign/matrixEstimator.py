@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 @file    matrixEstimator.py
 @author  Yun-Pang.Wang@dlr.de
