@@ -1,5 +1,6 @@
+#!/usr/bin/env python
 """
-@file    networkStatistics.py
+@file    networkStatisticsWithSgT.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-02-27
 @version $Id$
