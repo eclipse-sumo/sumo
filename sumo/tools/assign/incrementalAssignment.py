@@ -23,7 +23,7 @@ import os, string, sys, datetime, random, math
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
 from elements import Vertex, Edge, Vehicle
-from network import Net, NetworkReader, DistrictsReader
+from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationReader
 from dijkstra import dijkstra 
 from inputs import getParameter, getMatrix, getConnectionTravelTime
 from outputs import timeForInput, outputODZone, outputNetwork, sortedVehOutput, outputStatistics, vehPoissonDistr
@@ -51,7 +51,9 @@ optParser.add_option("-p", "--parameter-file", dest="parfile",
 optParser.add_option("-u", "--curve-file", dest="curvefile", default="CRcurve.txt",
                      help="read CRcurve from FILE", metavar="FILE")
 optParser.add_option("-d", "--district-file", dest="confile",  
-                     help="read OD Zones from FILE (mandatory)", metavar="FILE")  
+                     help="read OD Zones from FILE (mandatory)", metavar="FILE")
+optParser.add_option("-s", "--extrasignal-file", dest="sigfile",
+                     help="read extra/updated signal timing plans from FILE", metavar="FILE")                       
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-b", "--debug", action="store_true", dest="debug",
@@ -79,6 +81,10 @@ def main():
     
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(options.confile)
+    
+    if options.sigfile:
+        parser.setContentHandler(ExtraSignalInformationReader(net))
+        parser.parse(options.sigfile)
     
     foutlog.write('- Reading network: done.\n')
     
