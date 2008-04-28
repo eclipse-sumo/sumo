@@ -48,11 +48,11 @@ def arrangeData():
     outputFile=open(path.analysis,'w')
     outputFile.write("<vehicles>\n")
     
-    for taxiId in fcdDict:
-       outputFile.write("\t<vehicle id=\"%s\">\n" %taxiId)      
-       mainId=taxiId.split("_")[0]
-       #write vtypeprobe Infos
+    for taxiId in vtypeDict:
        if len(fcdDict[taxiId])>3: #if List is < 3 the taxiId dosen't exist because the route is to short
+           outputFile.write("\t<vehicle id=\"%s\">\n" %taxiId)      
+           mainId=taxiId.split("_")[0]
+           #write vtypeprobe Infos       
            try:
                for vtypeTuple in vtypeDict[taxiId]:
                    outputFile.write("\t\t<step time=\"%s\" source=\"vtypeProbe\" speed=\"%s\" rawSpeed=\"%s\" edge=\"%s\" lat=\"%s\" lon=\"%s\"/>\n" 

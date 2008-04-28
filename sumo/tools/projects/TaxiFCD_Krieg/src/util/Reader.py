@@ -11,6 +11,7 @@ All rights reserved
 """
 
 import util.Path as path
+from analysis.Taxi import * 
 
 
 def readVLS_Edges():    
@@ -24,3 +25,19 @@ def readVLS_Edges():
             break
     inputFile.close()
     return words
+
+def readAnalysisInfo():
+    """Reads the analysis file and returns a list off taxis with all available information"""
+    taxiList=[]
+    i=-1
+    inputFile=open(path.analysis,'r')
+    for line in inputFile:
+        words=line.split('"')
+        if words[0]=='\t<vehicle id=':            
+            taxiList.append(Taxi(words[1])) 
+            i+=1           
+        if words[0]=='\t\t<step time=':
+            taxiList[i].addStep(Step(words[1],words[3],words[5],words[7],words[9],words[11],words[13]))            
+               
+    return taxiList    
+        
