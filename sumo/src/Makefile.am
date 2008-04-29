@@ -25,11 +25,16 @@ endif
 if TRACI
 TRACI_LIBS = ./traci-server/libtraciserver.a
 TRACI_DIRS = traci-server
+
+TRACI_TESTCLIENT_APPS = traci-testclient
+traci_testclient_SOURCES = ./foreign/traci_testclient/tracitestclient_main.cpp
+traci_testclient_LDADD = ./foreign/traci_testclient/libtracitestclient.a\
+./foreign/tcpip/libtcpip.a
 endif
 
 bin_PROGRAMS = sumo sumo-netconvert sumo-netgen \
 sumo-duarouter sumo-dfrouter sumo-jtrrouter \
-sumo-od2trips sumo-polyconvert $(GUI_APPS)
+sumo-od2trips sumo-polyconvert $(GUI_APPS) $(TRACI_TESTCLIENT_APPS)
 
 COMMON_LIBS = ./utils/options/liboptions.a \
 ./utils/common/libcommon.a \

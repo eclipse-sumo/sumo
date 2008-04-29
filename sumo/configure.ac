@@ -346,6 +346,7 @@ src/foreign/nvwa/Makefile
 src/foreign/mersenne/Makefile
 src/foreign/polyfonts/Makefile
 src/foreign/tcpip/Makefile
+src/foreign/traci_testclient/Makefile
 src/gui/Makefile
 src/gui/dialogs/Makefile
 src/gui/drawerimpl/Makefile
