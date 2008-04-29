@@ -255,10 +255,10 @@ def main():
             first = False
             iter_outside += 1
             
-            if newRoutes < 5 and iter_outside > 6:
+            if newRoutes < 5 and iter_outside > 10:
                 newRoutes = 0
                 
-            if iter_outside > 40: # maxSUEIteration:
+            if iter_outside > maxSUEIteration:
                 print 'The max. number of iterations is reached!'
                 foutlog.write('The max. number of iterations is reached!\n')
                 foutlog.write('The number of new routes and the parameter stable will be set to zero and True respectively.\n')

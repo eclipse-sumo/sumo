@@ -142,8 +142,8 @@ def doSUEAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertices,
             # reset the edge.helpflow for the next iteration
             edge.helpflow = 0.0                                                
             edge.getActualTravelTime(curvefile)
-            if edge.queuetime > 0.:
-                notstable += 1
+ #           if edge.queuetime > 0.:
+ #               notstable += 1
             if lohse:
                 edge.getLohseParUpdate(under, upper, v1, v2, v3)
     if lohse and verbose:
