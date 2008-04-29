@@ -15,6 +15,8 @@ svn.exe up > %MAKELOG%
 "D:\Programme\Microsoft Visual Studio 8\Common7\IDE\devenv.exe" /rebuild "Release|Win32" build\msvc8\prj.sln /out %MAKELOG%
 "D:\Programme\Microsoft Visual Studio 8\Common7\IDE\devenv.exe" /rebuild "Debug|Win32" build\msvc8\prj.sln /out %MAKEALLLOG%
 
+"D:\Programme\Microsoft Visual Studio 8\Common7\IDE\devenv.exe" /rebuild "Release|Win32" build\msvc8\Traci_TestClient\Traci_TestClient.sln /out %MAKELOG%
+
 REM run tests
 cd tests
 SET TEXTTEST_TMP=%CD%\texttesttmp
