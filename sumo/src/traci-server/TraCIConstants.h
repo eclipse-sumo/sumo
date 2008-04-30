@@ -54,8 +54,17 @@
 // command: object creation
 #define CMD_OBJECTCREATION 0x63
 
-// command: object destruction 
+// command: object destruction
 #define CMD_OBJECTDESTRUCTION 0x64
+
+// command: object domain subscription
+#define CMD_SUBSCRIBEDOMAIN 0x65
+
+// command: object domain unsubscription
+#define CMD_UNSUBSCRIBEDOMAIN 0x66
+
+// command: object update
+#define CMD_UPDATEOBJECT 0x67
 
 // command: Simulation Parameter
 #define CMD_SIMPARAMETER 0x70
@@ -193,6 +202,10 @@
 #define DOMVAR_DRIVINGDISTANCE 0x11
 // external integer id of a certain object
 #define DOMVAR_EXTID 0x12
+// angle of a certain object, in degrees [0..360)
+#define DOMVAR_ANGLE 0x13
+// current simulation time 
+#define DOMVAR_SIMTIME 0x14
 
 // ****************************************
 // TRAFFIC LIGHT PHASES

@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    TraCIServer.cpp
 /// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
+/// @author  Christoph Sommer <christoph.sommer@informatik.uni-erlangen.de>
 /// @date    2007/10/24
 /// @version $Id$
 ///
@@ -298,6 +299,12 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
 	case CMD_UNSUBSCRIBELIFECYCLES:
 		commandUnsubscribeLifecycles(requestMsg, respMsg);
 		break;
+	case CMD_SUBSCRIBEDOMAIN:
+		commandSubscribeDomain(requestMsg, respMsg);
+		break;
+	case CMD_UNSUBSCRIBEDOMAIN:
+		commandUnsubscribeDomain(requestMsg, respMsg);
+		break;
     default:
         writeStatusCmd(respMsg, commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
         return false;
@@ -357,7 +364,7 @@ throw(TraCIException)
 
     // Position representation
     int resType = requestMsg.readUnsignedByte();
-    if (resType != POSITION_2D && resType != POSITION_ROADMAP
+    if (resType != POSITION_NONE && resType != POSITION_2D && resType != POSITION_ROADMAP
 		&& resType != POSITION_2_5D && resType != POSITION_3D) {
         writeStatusCmd(respMsg, CMD_SIMSTEP, RTYPE_ERR, "Error: unsupported return format requested.");
         return;
@@ -436,11 +443,13 @@ throw(TraCIException)
         }
     }
 
+    handleDomainSubscriptions(respMsg, currentTime, activeEquippedVehicles);
+
         //out.writeChar( static_cast<unsigned char>(rtype) );
         //out.writeInt(numEquippedVehicles_);
         // iterate over all active equipped vehicles
         // and generate a Move Node command for each vehicle
-        for (map<int, const MSVehicle*>::iterator iter = activeEquippedVehicles.begin(); iter != activeEquippedVehicles.end(); ++iter) {
+        if (resType != POSITION_NONE) for (map<int, const MSVehicle*>::iterator iter = activeEquippedVehicles.begin(); iter != activeEquippedVehicles.end(); ++iter) {
             int extId = (*iter).first;
             const MSVehicle* vehicle = (*iter).second;
 			Storage tempMsg;
@@ -1416,6 +1425,80 @@ throw(TraCIException)
 
 	// send positive command response
 	writeStatusCmd(respMsg, CMD_UNSUBSCRIBELIFECYCLES, RTYPE_OK, "");
+}
+
+/*****************************************************************************/
+
+void
+TraCIServer::commandSubscribeDomain(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+throw(TraCIException)
+{
+	// domain
+	int domainId = requestMsg.readUnsignedByte();
+
+	if (domainId != DOM_VEHICLE) {
+		// send negative command response
+		writeStatusCmd(respMsg, CMD_SUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can only subscribe to DOM_VEHICLE at this time");
+		return;
+	}
+
+    // variable count
+    int variableCount = requestMsg.readUnsignedByte();
+
+    // list of variable ids and types
+    std::list<std::pair<int, int> > subscribedVariables;
+    for (int i = 0; i < variableCount; i++) {
+		// variable id
+		int variableId = requestMsg.readUnsignedByte();
+
+		// value data type
+		int dataType = requestMsg.readUnsignedByte();
+
+		if (!( 
+				((domainId == DOM_VEHICLE) && (variableId == DOMVAR_SIMTIME) && (dataType == TYPE_DOUBLE))
+				||
+				((domainId == DOM_VEHICLE) && (variableId == DOMVAR_SPEED) && (dataType == TYPE_FLOAT))
+				||
+				((domainId == DOM_VEHICLE) && (variableId == DOMVAR_POSITION) && (dataType == POSITION_2D))
+				||
+				((domainId == DOM_VEHICLE) && (variableId == DOMVAR_POSITION) && (dataType == POSITION_ROADMAP))
+				||
+				((domainId == DOM_VEHICLE) && (variableId == DOMVAR_ANGLE) && (dataType == TYPE_FLOAT))
+				)) {
+			// send negative command response
+			writeStatusCmd(respMsg, CMD_SUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can not subscribe to this domain/variable/type combination");
+			return;
+		}
+
+		subscribedVariables.push_back(std::pair<int, int>(variableId, dataType));
+    }
+
+	// store subscription
+	myDomainSubscriptions[domainId] = subscribedVariables;
+
+	// send positive command response
+	writeStatusCmd(respMsg, CMD_SUBSCRIBEDOMAIN, RTYPE_OK, "");
+}
+
+/*****************************************************************************/
+
+void
+TraCIServer::commandUnsubscribeDomain(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+throw(TraCIException)
+{
+	// domain
+	int domain = requestMsg.readUnsignedByte();
+
+	if (domain != DOM_VEHICLE) {
+		// send negative command response
+		writeStatusCmd(respMsg, CMD_UNSUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
+		return;
+	}
+
+	myDomainSubscriptions.erase(domain);
+
+	// send positive command response
+	writeStatusCmd(respMsg, CMD_UNSUBSCRIBEDOMAIN, RTYPE_OK, "");
 }
 
 /*****************************************************************************/
@@ -2554,7 +2637,7 @@ void
 TraCIServer::handleLifecycleSubscriptions(tcpip::Storage& respMsg)
 throw(TraCIException)
 {
-	
+
 	if (myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) {
 
 		for (std::set<int>::const_iterator i = myDestroyedVehicles.begin(); i != myDestroyedVehicles.end(); i++) {
@@ -2578,6 +2661,68 @@ throw(TraCIException)
 		myCreatedVehicles.clear();
 
 	}
+}
+
+/*****************************************************************************/
+
+void
+TraCIServer::handleDomainSubscriptions(tcpip::Storage& respMsg, const SUMOTime& currentTime, const map<int, const MSVehicle*>& activeEquippedVehicles)
+throw(TraCIException)
+{
+
+	if (myDomainSubscriptions.count(DOM_VEHICLE) != 0) {
+
+		std::list<std::pair<int, int> > subscribedVariables = myDomainSubscriptions[DOM_VEHICLE];
+
+		// iterate over all objects
+		for (map<int, const MSVehicle*>::const_iterator iter = activeEquippedVehicles.begin(); iter != activeEquippedVehicles.end(); ++iter) {
+			int extId = (*iter).first;
+			const MSVehicle* vehicle = (*iter).second;
+			Storage tempMsg;
+
+			// buffer send of command
+			tempMsg.writeUnsignedByte(CMD_UPDATEOBJECT);
+
+			// buffer send of domain
+			tempMsg.writeByte(DOM_VEHICLE);
+
+			// buffer send of object id
+			tempMsg.writeInt(extId);
+
+			// buffer send of subscribed variables
+			for (std::list<std::pair<int, int> >::const_iterator i = subscribedVariables.begin(); i != subscribedVariables.end(); i++) {
+				int variableId = i->first;
+				int dataType = i->second;
+
+				if ((variableId == DOMVAR_SIMTIME) && (dataType == TYPE_DOUBLE)) {
+					tempMsg.writeDouble(currentTime);
+				}
+				if ((variableId == DOMVAR_SPEED) && (dataType == TYPE_FLOAT)) {
+					tempMsg.writeFloat(vehicle->getSpeed());
+				}
+				if ((variableId == DOMVAR_POSITION) && (dataType == POSITION_2D)) {
+					Position2D pos = vehicle->getPosition();
+					tempMsg.writeFloat(pos.x() - getNetBoundary().xmin());
+					tempMsg.writeFloat(pos.y() - getNetBoundary().ymin());
+				}
+				if ((variableId == DOMVAR_POSITION) && (dataType == POSITION_ROADMAP)) {
+					tempMsg.writeString(vehicle->getEdge()->getID());
+				}
+				if ((variableId == DOMVAR_ANGLE) && (dataType == TYPE_FLOAT)) {
+					tempMsg.writeFloat(vehicle->getLane().getShape().rotationDegreeAtLengthPosition(vehicle->getPositionOnLane()));
+				}
+			}
+
+			// send command length
+			respMsg.writeUnsignedByte(tempMsg.size()+1);
+
+			// send command
+			respMsg.writeStorage(tempMsg);
+		}
+
+
+	}
+
 }
     
 /*****************************************************************************/

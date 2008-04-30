@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    TraCIServer.h
 /// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
+/// @author  Christoph Sommer <christoph.sommer@informatik.uni-erlangen.de>
 /// @date    2007/10/24
 /// @version $Id$
 ///
@@ -173,6 +174,10 @@ private:
 
     void commandUnsubscribeLifecycles(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
+    void commandSubscribeDomain(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+
+    void commandUnsubscribeDomain(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+
     void writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description);
 	
 	/**
@@ -217,6 +222,11 @@ private:
 	 * Notifies client of all lifecycle events it is subscribed to
 	 */
 	void handleLifecycleSubscriptions(tcpip::Storage& respMsg) throw(TraCIException);
+
+	/**
+	 * Notifies client of all domain object update events it is subscribed to
+	 */
+	void handleDomainSubscriptions(tcpip::Storage& respMsg, const SUMOTime& currentTime, const std::map<int, const MSVehicle*>& activeEquippedVehicles) throw(TraCIException);
 
 	/**
 	 * Converts a cartesian position to the closest road map position
@@ -292,6 +302,9 @@ private:
 
     // holds all Domain Ids to whose objects' lifecycle the client subscribed
     std::set<int> myLifecycleSubscriptions;
+
+    // holds all Domain Ids to whose objects the client subscribed, along with the variable/type pairs the client is subscribed to
+    std::map<int, std::list<std::pair<int, int> > > myDomainSubscriptions;
 
     // external ids of all vehicles that are currently "living", i.e. have been created, but not yet destroyed
     std::set<int> myLivingVehicles;
