@@ -220,7 +220,10 @@ def main():
             iter_inside = 1
             # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
             if checkKPaths:
+                checkPathStart = datetime.datetime.now()
                 newRoutes = net.calcKPaths(newRoutes, options.verbose, KPaths, startVertices, endVertices, matrixPshort)
+                checkPathEnd = datetime.datetime.now() - checkPathStart
+                foutlog.write('- Time for finding the k-shortest paths: %s\n' %checkPathEnd)
                 foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
                 
                 if options.verbose:
@@ -245,8 +248,11 @@ def main():
                 stable = doLohseStopCheck(net, options.verbose, stable, iter_inside, maxIter, Parcontrol, foutlog)
                 iter_inside += 1
             
-            newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
-            
+            if (float(departtime)/3600.) < 10. or counter < 5:
+                newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
+            else:
+                newRoutes = 0
+                
             if options.verbose:
                 print 'stable:', stable
                 

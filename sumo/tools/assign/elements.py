@@ -350,19 +350,19 @@ class Edge:
                         leftGreen += phase.duration
     
                 if self.straight != None:
-                    self.estcapacity = (straightGreen*(3600./cyclelength))/2.0 * self.numberlane
+                    self.estcapacity = (straightGreen*(3600./cyclelength))/1.5 * self.numberlane
                 else:
                     greentime = max(rightGreen, leftGreen)
-                    self.estcapacity = (greentime*(3600./cyclelength))/2.0 * self.numberlane
+                    self.estcapacity = (greentime*(3600./cyclelength))/1.5 * self.numberlane
             else:
                 if self.straight == "m":
-                    self.estcapacity *= 0.8
+                    self.estcapacity *= 1.0
                 elif self.straight == "None" and (self.rightturn == "m" or self.leftturn == "m"):
-                     self.estcapacity = self.estcapacity * 0.8
+                     self.estcapacity = self.estcapacity * 1.0
                      
     # Function for calculating/updating link travel time
     def getActualTravelTime(self, curvefile):        
-        foutcheck = file('time_flow.txt', 'a')
+        foutcheck = file('queue_info.txt', 'a')
         f = file(curvefile)
         for line in f:
             itemCR = line.split()
@@ -379,13 +379,16 @@ class Edge:
                     # Link travel time penalty is calcuated according to the Lagrange method.
                     # The Lagrange Multiplier should be between 0 and 1, and is set to 0.4 here.
                     self.queuetime = self.queuetime + 0.4*(self.actualtime - self.freeflowtime*(1+(float(itemCR[1]))))
-                    foutcheck.write('****edge.label="%s": queuing time is %s.\n' %(self.label, self.queuetime))
+                    foutcheck.write('edge.label= %s: queuing time= %s.\n' %(self.label, self.queuetime))
+                    foutcheck.write('travel time at capacity: %s; actual travel time: %s.\n' %(self.freeflowtime*(1+(float(itemCR[1]))), self.actualtime))
                     print '!!!!!!flow > capacity!!!!!!!'
                     print 'self.freeflowtime*(1+(float(itemCR[1])):', self.freeflowtime*(1+(float(itemCR[1])))
                     print 'actualtime:', self.actualtime
-                    if self.queuetime > 0.:
+                    if self.queuetime > 1.:
                         print 'edge.label:', self.label
                         print 'queuetime:', self.queuetime
+                    else:
+                        self.queuetime = 0.
                 elif self.flow <= self.estcapacity and self.connection == 0 and str(self.source) != str(self.target):
                     self.queuetime = 0.
         f.close()

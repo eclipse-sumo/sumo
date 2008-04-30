@@ -155,7 +155,7 @@ def doSUEAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertices,
         else:
             stable = True
         
-        if notstable < len(net._edges)*0.05 and iter > 20:
+        if notstable < len(net._edges)*0.05:
             stable = True
             
         if iter > int(Parcontrol[7]):

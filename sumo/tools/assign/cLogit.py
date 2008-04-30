@@ -25,7 +25,7 @@ from getPaths import findNewPath
 # for measuring the required time for reading input files
 inputreaderstart = datetime.datetime.now()  
 # initialize the file for recording the process and the errors
-foutlog = file('SUE_log.txt', 'w')
+foutlog = file('CLogit_log.txt', 'w')
 foutlog.write('The stochastic user equilibrium traffic assignment will be executed with the C-logit model.\n')
 foutlog.write('All vehicular releasing times are determined randomly(uniform).\n')
 
@@ -223,7 +223,10 @@ def main():
             foutlog.write('- SUE iteration:%s\n' %iter_outside)
             # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
             if checkKPaths:
+                checkPathStart = datetime.datetime.now() 
                 newRoutes = net.calcKPaths(options.verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort)
+                checkPathEnd = datetime.datetime.now() - checkPathStart
+                foutlog.write('- Time for finding the k-shortest paths: %s\n' %checkPathEnd)
                 foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
                 
                 if options.verbose:
@@ -247,7 +250,10 @@ def main():
                 stable = doSUEAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
                 iter_inside += 1
                 
-                newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
+                if (float(departtime)/3600.) < 10. or counter < 5:
+                    newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
+                else:
+                    newRoutes = 0
                 
                 if options.verbose:
                     print 'stable:', stable

@@ -96,8 +96,6 @@ class Net:
                 vertex.wasUpdated = False
             startVertex.preds.append(Predecessor(None, None, 0))
             updatedVertices = [startVertex]
-            if verbose:
-                print 'updatedVertices:', updatedVertices
 
             while len(updatedVertices) > 0:
                 vertex = updatedVertices.pop(0)
@@ -109,8 +107,6 @@ class Net:
             for endVertex in endVertices:
                 end += 1
                 ODPaths = self._paths[startVertex][endVertex]
-                if verbose:
-                    print 'Number of the new Routes:', newRoutes
                 if str(startVertex) != str(endVertex) and matrixPshort[start][end] != 0.:
                     for startPred in endVertex.preds:
                         temppath = []
