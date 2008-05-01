@@ -65,16 +65,16 @@ if options.stats == 0:
     duaDir = makeAndChangeDir("../dua")
     duaProcess = subprocess.Popen("dua-iterate.py -e 90000 -C -n %s -t ../input/%s.trips.xml %s" % (netFile, trips, pyAdds), shell=True)
     if not options.duaonly:
-        clogDir = makeAndChangeDir("../clogit")
-        execute("cLogit.py -d ../input/districts.xml -m %s -n %s -p ../clogit_parameter.txt -u ../CRcurve.txt %s" % (mtxNamesList, netFile, signalAdds))
-        lohseDir = makeAndChangeDir("../lohse")
-        execute("lohseAssignment.py -d ../input/districts.xml -m %s -n %s -p ../lohseparameter.txt -u ../CRcurve.txt %s" % (mtxNamesList, netFile, signalAdds))
         if options.od2trips:
             while not os.path.exists("%s/trips_0.rou.xml" % duaDir):
                 time.sleep(1)
             shutil.copy("%s/trips_0.rou.xml" % duaDir, routes)
         shotDir = makeAndChangeDir("../oneshot")
         execute("one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds))
+        clogDir = makeAndChangeDir("../clogit")
+        execute("cLogit.py -d ../input/districts.xml -m %s -n %s -p ../clogit_parameter.txt -u ../CRcurve.txt %s" % (mtxNamesList, netFile, signalAdds))
+        lohseDir = makeAndChangeDir("../lohse")
+        execute("lohseAssignment.py -d ../input/districts.xml -m %s -n %s -p ../lohseparameter.txt -u ../CRcurve.txt %s" % (mtxNamesList, netFile, signalAdds))
     duaProcess.wait()
 else:
     succDir = "../successive%03i" % options.stats
