@@ -237,7 +237,7 @@ MSMsgInductLoop::writeXMLOutput(OutputDevice &dev,
     dev<<"nVehContrib=\""<<myVehicleDataCont.size()<<"\" flow=\""<<flow<<
     "\" occupancy=\""<<occupancy<<"\" speed=\""<<meanSpeed<<
     "\" length=\""<<meanLength<<
-    "\" nVehEntered=\""<<nVehCrossed<<"\" msg=\""<<myMsg<<"\" vId=\""<<myCurrentID<<"\"/>\n";
+    "\" nVehEntered=\""<<nVehCrossed<<"\" msg=\""<<myMsg<<"\" vID=\""<<myCurrentID<<"\"/>\n";
     reset();
 }
 

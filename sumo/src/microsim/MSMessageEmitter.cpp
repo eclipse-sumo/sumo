@@ -54,8 +54,10 @@ MSMessageEmitter::MSMessageEmitter(std::string& file,
 								   std::string& whatemit,
 								   bool reverse,
 								   bool tableOut,
-								   bool xy) : writeLCEvent(false), writeBEvent(false),
-								   					myDev(OutputDevice::getDevice(file, base))
+								   bool xy,
+								   SUMOReal step) : writeLCEvent(false), writeBEvent(false),
+													writeHBEvent(false),
+													myDev(OutputDevice::getDevice(file, base))
 {
 #ifdef _DEBUG
 	cout << "constructing MSMessageEmitter with file '" + file + "'" << endl;
@@ -63,6 +65,7 @@ MSMessageEmitter::MSMessageEmitter(std::string& file,
 	MSMessageEmitter::xyCoords = xy;
 	MSMessageEmitter::tableOutput = tableOut;
 	MSMessageEmitter::reverseOrder = reverse;
+	MSMessageEmitter::myStep = step;
 	setWriteEvents(whatemit);
 	if(!tableOutput)
 		initXML();
@@ -133,6 +136,7 @@ MSMessageEmitter::writeLaneChangeEvent(std::string& id, SUMOReal& timeStep,
 			if(xyCoords) {
 				myDev << "\" X=\"" << x << "\" Y=\"" << y;
 			}
+			myDev << "\" edge=\"" << oldlane->getEdge()->getID();
 			myDev << "\" timestep=\"";
 			myDev << timeStep;
 			myDev << "\" />\n";
@@ -144,6 +148,7 @@ MSMessageEmitter::writeLaneChangeEvent(std::string& id, SUMOReal& timeStep,
 					+ newlane->getID() + "\" pos=\"";
 			myDev << myPos;
 			myDev << "\" speed=\"" << mySpeed;
+			myDev << "\" edge=\"" << oldlane->getEdge()->getID();
 			if(xyCoords) {
 				myDev << "\" X=\"" << x << "\" Y=\"" << y;
 			}
@@ -168,6 +173,13 @@ MSMessageEmitter::getWriteBEvent()
 
 
 bool
+MSMessageEmitter::getWriteHBEvent()
+{
+	return writeHBEvent;
+}
+
+
+bool
 MSMessageEmitter::getEventsEnabled(const std::string& enabled)
 {
 	bool retVal = false;
@@ -175,8 +187,71 @@ MSMessageEmitter::getEventsEnabled(const std::string& enabled)
 		retVal = true;
 	} else if(enabled == "break" && writeBEvent) {
 		retVal = true;
+	} else if(enabled == "heartbeat" && writeHBEvent) {
+		retVal = true;
 	}
 	return retVal;
+}
+
+
+void
+MSMessageEmitter::writeHeartBeatEvent(std::string &id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
+									  SUMOReal speed, SUMOReal x, SUMOReal y)
+{
+	if(fmod(timeStep, myStep) == 0) {
+		if(tableOutput) {
+			if(!reverseOrder) {
+				myDev << id + "\t\t";
+				myDev << lane->getID();
+				myDev << "\t";
+				if(xyCoords) {
+					myDev << x << "\t" << y << "\t";
+				}
+				myDev << myPos;
+				myDev << "\t" << speed;
+				myDev << "\t";
+				myDev << timeStep;
+				myDev << "\t2\n";
+			} else {
+				myDev << timeStep;
+				myDev << "\t" + id + "\t\t";
+				myDev << lane->getID();
+				myDev << "\t";
+				if(xyCoords) {
+					myDev << x << "\t" << y << "\t";
+				}
+				myDev << myPos;
+				myDev << "\t" << speed;
+				myDev << "\t\t2\n";
+			}
+		} else {
+			if(!reverseOrder) {
+				myDev << "   <heartbeat vID=\"" + id + "\" lane=\"";
+				myDev << lane->getID();
+				myDev << "\" timestep=\"";
+				myDev << timeStep;
+				if(xyCoords) {
+					myDev << "\" X=\"" << x << "\" Y=\"" << y;
+				}
+				myDev << "\" edge=\"" << lane->getEdge()->getID();
+				myDev << "\" pos=\"" << myPos;
+				myDev << "\" speed=\"" << speed;
+				myDev << "\" />\n";
+			} else {
+				myDev << "   <heartbeat timestep=\"";
+				myDev << timeStep;
+				myDev << "\" vID=\"" + id + "\" lane=\"";
+				myDev << lane->getID();
+				if(xyCoords) {
+					myDev << "\" X=\"" << x << "\" Y=\"" << y;
+				}
+				myDev << "\" edge=\"" << lane->getEdge()->getID();
+				myDev << "\" pos=\"" << myPos;
+				myDev << "\" speed=\"" << speed;
+				myDev << "\" />\n";
+			}
+		}
+	}
 }
 
 
@@ -218,6 +293,7 @@ MSMessageEmitter::writeBreakEvent(std::string& id, SUMOReal& timeStep, MSLane* l
 			if(xyCoords) {
 				myDev << "\" X=\"" << x << "\" Y=\"" << y;
 			}
+			myDev << "\" edge=\"" << lane->getEdge()->getID();
 			myDev << "\" pos=\"" << myPos;
 			myDev << "\" speed=\"" << speed;
 			myDev << "\" />\n";
@@ -229,6 +305,7 @@ MSMessageEmitter::writeBreakEvent(std::string& id, SUMOReal& timeStep, MSLane* l
 			if(xyCoords) {
 				myDev << "\" X=\"" << x << "\" Y=\"" << y;
 			}
+			myDev << "\" edge=\"" << lane->getEdge()->getID();
 			myDev << "\" pos=\"" << myPos;
 			myDev << "\" speed=\"" << speed;
 			myDev << "\" />\n";
@@ -242,18 +319,23 @@ MSMessageEmitter::setWriteEvents(std::string &events)
 {
 	std::string tmp;
 	StringTokenizer st(events, ";");
-	while (st.hasNext()) {
+	while(st.hasNext()) {
 		tmp = trimmed(st.next());
-		if (tmp == "lanechange") {
+		if(tmp == "lanechange") {
 #ifdef _DEBUG
 			cout << "set event '" + tmp + "' to true" << endl;
 #endif
 			MSMessageEmitter::writeLCEvent = true;
-		} else if (tmp == "break") {
+		} else if(tmp == "break") {
 #ifdef _DEBUG
 			cout << "set event '" + tmp + "' to true" << endl;
 #endif
 			MSMessageEmitter::writeBEvent = true;
+		} else if(tmp == "heartbeat") {
+#ifdef _DEBUG
+			cout << "set event '" + tmp + "' to true" << endl;
+#endif
+			MSMessageEmitter::writeHBEvent = true;
 		} else {
 			cout << "unknown event '" + tmp + "', skipping" << endl;
 		}

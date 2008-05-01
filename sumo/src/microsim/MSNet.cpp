@@ -266,12 +266,13 @@ void
 MSNet::createMsgEmitter(std::string& id,
 						std::string& file,
 						const std::string& base,
-  std::string& whatemit,
-  bool reverse,
-  bool table,
-  bool xy)
+						std::string& whatemit,
+						bool reverse,
+						bool table,
+						bool xy,
+						SUMOReal step)
 {
-	MSMessageEmitter *msgEmitter = new MSMessageEmitter(file, base, whatemit, reverse, table, xy);
+	MSMessageEmitter *msgEmitter = new MSMessageEmitter(file, base, whatemit, reverse, table, xy, step);
 	myMsgEmitter.add(id, msgEmitter);
 }
 #endif

@@ -227,6 +227,7 @@ GenericSAXHandler::Attr sumoattrs[] = {
 	{ "reverse",		SUMO_ATTR_REVERSE },
 	{ "table",			SUMO_ATTR_TABLE },
 	{ "xy",				SUMO_ATTR_XY },
+	{ "step",			SUMO_ATTR_STEP },
 #endif
 	{ "min_dur",        SUMO_ATTR_MINDURATION },
     { "max_dur",        SUMO_ATTR_MAXDURATION },

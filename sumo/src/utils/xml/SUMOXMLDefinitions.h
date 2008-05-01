@@ -304,6 +304,8 @@ enum SumoXMLAttr {
 	SUMO_ATTR_TABLE,
 	/// xy coordinates?
 	SUMO_ATTR_XY,
+	/// Steps (for heartbeat)
+	SUMO_ATTR_STEP,
     // Attribute for detectors
 	/// What message to emit?
 	SUMO_ATTR_MSG,

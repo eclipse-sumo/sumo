@@ -126,7 +126,8 @@ public:
 						  std::string& whatemit,
 						  bool reverse,
 						  bool table,
-						  bool xy);
+						  bool xy,
+						  SUMOReal step);
 #endif
 
 	/** @brief Simulates from timestep start to stop.

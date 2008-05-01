@@ -1000,13 +1000,14 @@ NLHandler::addMsgEmitter(const SUMOSAXAttributes& attrs)
 	bool reverse = attrs.getBoolSecure(SUMO_ATTR_REVERSE, false);
 	bool table = attrs.getBoolSecure(SUMO_ATTR_TABLE, true);
 	bool xycoord = attrs.getBoolSecure(SUMO_ATTR_XY, false);
+	SUMOReal step = (SUMOReal)attrs.getIntSecure(SUMO_ATTR_STEP, 1);
 	try {
 		whatemit = attrs.getString(SUMO_ATTR_EVENTS);
 	} catch (EmptyData &) {
 		MsgHandler::getErrorInstance()->inform("Missing emit_msg of a message emitter object with id '" + id + "'.");
 		return;
 	}
-	myNet.createMsgEmitter(id, file, getFileName(), whatemit, reverse, table, xycoord);
+	myNet.createMsgEmitter(id, file, getFileName(), whatemit, reverse, table, xycoord, step);
 }
 #endif
 

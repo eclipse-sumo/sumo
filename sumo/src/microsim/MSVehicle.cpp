@@ -229,6 +229,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter &pars,
 #ifdef _MESSAGES
 	myLCMsgEmitter = MSNet::getInstance()->getMsgEmitter("lanechange");
 	myBMsgEmitter = MSNet::getInstance()->getMsgEmitter("break");
+	myHBMsgEmitter = MSNet::getInstance()->getMsgEmitter("heartbeat");
 #endif
     // build departure definition
     DepartArrivalDefinition *d = new DepartArrivalDefinition();
@@ -429,6 +430,12 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     workOnMoveReminders(myState.myPos,
                         myState.myPos + SPEED2DIST(vNext), vNext);
 #ifdef _MESSAGES
+	if(myHBMsgEmitter != 0) {
+		if(running()) {
+			SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
+			myHBMsgEmitter->writeHeartBeatEvent(myID, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
+		}
+	}
 	if(myBMsgEmitter!=0) {
 		if(vNext < oldV) {
 			SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
@@ -457,7 +464,15 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
                                  const MSVehicle* pred,
                                  const MSVehicle* /*neigh*/)
 {
-    myLFLinkLanes.clear();
+#ifdef _MESSAGES
+	if(myHBMsgEmitter != 0) {
+		if(running()) {
+			SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
+			myHBMsgEmitter->writeHeartBeatEvent(myID, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
+		}
+	}
+#endif
+	myLFLinkLanes.clear();
     // check whether the vehicle is not on an appropriate lane
     if (!myLane->appropriate(this)) {
         // decelerate to lane end when yes
@@ -563,6 +578,12 @@ MSVehicle::moveFirstChecked()
     vNext = MIN2(vNext, getMaxSpeed());
 
 #ifdef _MESSAGES
+	if(myHBMsgEmitter != 0) {
+		if(running()) {
+			SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
+			myHBMsgEmitter->writeHeartBeatEvent(myID, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
+		}
+	}
 	if(myBMsgEmitter!=0) {
 		if(vNext < oldV) {
 			SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
