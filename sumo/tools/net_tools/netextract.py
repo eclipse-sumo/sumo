@@ -42,8 +42,13 @@ def writeEdges(net):
         fd.write("\" speed=\"" + str(edge._speed))
         fd.write("\" priority=\"" + str(edge._priority))
         fd.write("\" nolanes=\"" + str(len(edge._lanes)) + "\"")
-#        if self._edge2shape[edge]!="":
-#           fd.write(" shape=\"" + self._edge2shape[edge] + "\"")
+        if len(edge._shape)>2:
+            fd.write(" shape=\"")
+            for i,c in enumerate(edge._shape):
+                if i!=0:
+                    fd.write(" ")
+                fd.write(str(c[0]) + "," + str(c[1]))
+            fd.write("\"")
         fd.write("/>\n")
     fd.write("</edges>\n")
 

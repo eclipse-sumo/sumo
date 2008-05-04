@@ -14,7 +14,6 @@ import os, string, sys
 import math
 from optparse import OptionParser
 from xml.sax import saxutils, make_parser, handler
-from numpy import append, array, dot, shape, transpose, zeros
 from itertools import *
 
 
@@ -23,6 +22,7 @@ class NetLane:
         self._edge = edge
         self._speed = speed
         self._length = length
+        self._shape = []
         edge.addLane(self)
 
     def getSpeed(self):
@@ -30,6 +30,12 @@ class NetLane:
 
     def getLength(self):
         return self._length 
+
+    def setShape(self, shape):
+        self._shape = shape
+
+    def getShape(self):
+        return self._shape 
 
 
 
@@ -46,6 +52,7 @@ class NetEdge:
         self._length = None
         self._incoming = []
         self._outgoing = []
+        self._shape = None
 
     def addLane(self, lane):
         self._lanes.append(lane)
@@ -60,12 +67,23 @@ class NetEdge:
         if edge not in self._incoming:
             self._incoming.append(edge)
 
+    def setShape(self, shape):
+        self._shape = shape
+
     def getIncoming(self):
         return self._incoming
 
     def getOutgoing(self):
         return self._outgoing
 
+    def getShape(self):
+        if not self._shape:
+            shape = []
+            shape.append(self._from._coord)
+            shape.append(self._to._coord)
+            return shape
+        return self._shape
+         
 
 
 class NetNode:
@@ -155,11 +173,42 @@ class NetReader(handler.ContentHandler):
 
     def characters(self, content):
         if self._currentLane!=None:
-            self._currentShape =self._currentShape + content
+            self._currentShape = self._currentShape + content
 
     def endElement(self, name):
-        if name == 'lane':
+        if name == 'lane' and self._currentLane:
+            cshape = []
+            es = self._currentShape.split(" ")
+            for e in es:
+                p = e.split(",")
+                cshape.append((float(p[0]), float(p[1])))
+            self._currentLane.setShape(cshape)
             self._currentLane = None
+            self._currentShape = ""
+        if name == 'edge' and self._currentEdge:
+            noShapes = len(self._currentEdge._lanes)
+            if noShapes%2 == 1:
+                self._currentEdge.setShape(self._currentEdge._lanes[int(noShapes/2)]._shape)
+            else:
+                shape = []
+                minLen = -1
+                for l in self._currentEdge._lanes:
+                    if minLen==-1 or minLen>len(l.getShape()):
+                        minLen = len(l._shape)
+                if minLen>2:
+                    for i in range(0, minLen):
+                        x = 0.
+                        y = 0.
+                        for j in range(0, len(self._currentEdge._lanes)):
+                            x = x + self._currentEdge._lanes[j]._shape[i][0]
+                            y = y + self._currentEdge._lanes[j]._shape[i][0][1]
+                        x = x / float(len(self._currentEdge._lanes))
+                        y = y / float(len(self._currentEdge._lanes))
+                        shape.append( [ x, y ] )
+                else:
+                    shape.append(self._currentEdge._from._coord)
+                    shape.append(self._currentEdge._to._coord)
+                self._currentEdge.setShape(shape)
         if name == 'edge':
             self._currentEdge = None
 
