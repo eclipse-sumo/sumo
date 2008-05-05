@@ -8,11 +8,8 @@ default:michael.behrisch@dlr.de,daniel.krajzewicz@dlr.de
 msvc8mesox64report:delphi-dev@dlr.de
 msvc8mesoWin32report:delphi-dev@dlr.de
 [batch_sender]
-default:behrisch@informatik.hu-berlin.de
-gcc3report:gcc3test@fileserv
-msvc8report:msvc8test@TTSTest
-msvc8mesox64report:michael.behrisch@dlr.de
-msvc8mesoWin32report:michael.behrisch@dlr.de
+default:michael.behrisch@dlr.de
+gcc4report:behrisch@informatik.hu-berlin.de
 [run_dependent_text]
 output:Version
 errors:UTFDataFormatException
