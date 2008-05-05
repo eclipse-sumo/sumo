@@ -61,7 +61,7 @@ def countTaxis():
     taxis=set()
     
     #intervalDate+=intervalDelta
-    inputFile=open(path.fcd,'r')
+    inputFile=open(path.vls,'r')
     for line in inputFile:
         words=line.split("\t")
         #if date >actual interval      (used intervalDate strptime function to get String in a datetime-format)

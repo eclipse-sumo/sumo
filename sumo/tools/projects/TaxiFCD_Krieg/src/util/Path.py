@@ -1,6 +1,6 @@
 # -*- coding: Latin-1 -*-
 """
-@file    CalcTime.py
+@file    Path.py
 @author  Sascha.Krieg@dlr.de
 @date    2008-04-17
 
@@ -13,8 +13,13 @@ All rights reserved
 fcd="D:/Krieg/Projekte/Diplom/Daten/originalFCD/Proz-fcd_nuremberg_2007-07-18.dat"
 vls="D:/Krieg/Projekte/Diplom/Daten/originalFCD/Proz-fcd_nuremberg_VLS_2007-07-18.dat"
 rawFcd="D:/Krieg/Projekte/Diplom/Daten/originalFCD/Roh-nuremberg_2007-07-18.dat"
-routes="D:/Krieg/Projekte/Diplom/Daten/taxiRouten/taxiRoutesFixed.rou.xml"
+taxiRoutes="D:/Krieg/Projekte/Diplom/Daten/taxiRouten/taxiRoutes.rou.xml"
+taxiRoutesComplete="D:/Krieg/Projekte/Diplom/Daten/taxiRouten/t1Complete.rou.xml"
 net="D:/Krieg/Projekte/Diplom/Daten/sumoNetzFilesNurnbergIIProjektion/nuernberg_vls_new.net.xml"
 vtypeprobe="D:/Krieg/Projekte/Diplom/Daten/simRawFCD/vtypeprobe2Mit_t1Complete.out.xml"
 analysis="D:/Krieg/Projekte/Diplom/Daten/auswertung/taxiAnalysisInformation.xml"
 simulatedRawFCD="D:/Krieg/Projekte/Diplom/Daten/simRawFCD/simulatedRawFCD.out.dat"
+taxiRoutes="D:/Krieg/Projekte/Diplom/Daten/taxiRouten/taxiRoutes.rou.xml"
+taxisPerEdge="D:/Krieg/Projekte/Diplom/Daten/mpl_dump_onNet__Files/taxisPerEdge.out.xml"
+fcdVsCompleteRoute="D:/Krieg/Projekte/Diplom/Daten/mpl_dump_onNet__Files/FCD_vs_completeRoute"
+taxiVsFCDSpeed="D:/Krieg/Projekte/Diplom/Daten/auswertung/geschwindigkeitsvergleich/taxiVsFCD.csv"

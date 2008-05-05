@@ -1,6 +1,6 @@
 # -*- coding: Latin-1 -*-
 """
-@file    CalcTime.py
+@file    Reader.py
 @author  Sascha.Krieg@dlr.de
 @date    2008-04-18
 

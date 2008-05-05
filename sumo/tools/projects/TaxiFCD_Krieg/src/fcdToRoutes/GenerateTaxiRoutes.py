@@ -47,8 +47,7 @@ def readFCD():
            
     inputFile.close() 
     print len(taxis) 
-    
-    
+
 def readFCDComplete():
     """Reads the FCD-File and creates a list of Id's with a belonging List of Data tuples."""
     vlsEdges=reader.readVLS_Edges()
@@ -72,11 +71,11 @@ def readFCDComplete():
            
     inputFile.close()
     return fcdDict
-    
+        
         
 def writeRoutes():
     """Writes the collected values in a Sumo-Routes-File"""
-    outputFile=open(path.routes,'w')
+    outputFile=open(path.taxiRoutes,'w')
     
     outputFile.write("<routes>\n")
     # known for like used in java
