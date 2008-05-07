@@ -15,7 +15,7 @@ the same origin and destination district are matched.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import sys, optparse
+import sys, optparse, array
 from xml.sax import make_parser, handler
 
 SCALE = 10000
@@ -23,8 +23,9 @@ INFINITY = 2**30
 
 class RouteReader(handler.ContentHandler):
 
-    def __init__(self, routeMap):
+    def __init__(self, routeMap, edges):
         self._routes = routeMap
+        self._edges = edges
         self._vID = ''
         self._routeID = ''
         self._routeString = ''
@@ -42,7 +43,12 @@ class RouteReader(handler.ContentHandler):
 
     def endElement(self, name):
         if name == 'route':
-            self._routes[self._routeID] = self._routeString.split()
+            route = array.array('L')
+            for edge in self._routeString.split():
+                if not edge in self._edges:
+                    self._edges[edge] = len(self._edges)
+                route.append(self._edges[edge])
+            self._routes[self._routeID] = route
 
     def characters(self, content):
         if self._routeID != '':
@@ -50,18 +56,27 @@ class RouteReader(handler.ContentHandler):
 
 class DistrictReader(handler.ContentHandler):
 
-    def __init__(self, sourceEdges, sinkEdges):
+    def __init__(self, sourceEdges, sinkEdges, edges):
         self._sources = sourceEdges
         self._sinks = sinkEdges
+        self._edges = edges
         self._districtID = ''
         
     def startElement(self, name, attrs):
         if name == 'district':
             self._districtID = attrs['id']
         elif name == 'dsource':
-            self._sources[attrs['id']] = self._districtID
+            if attrs['id'] in self._edges:
+                self._sources[self._edges[attrs['id']]] = self._districtID
+            else:
+                if options.verbose:
+                    print "Warning! No routes touching source edge %s of %s." % (attrs['id'], self._districtID) 
         elif name == 'dsink':
-            self._sinks[attrs['id']] = self._districtID
+            if attrs['id'] in self._edges:
+                self._sinks[self._edges[attrs['id']]] = self._districtID
+            else:
+                if options.verbose:
+                    print "Warning! No routes touching sink edge %s of %s." % (attrs['id'], self._districtID)
 
 
 def compare(first, second):
@@ -212,12 +227,17 @@ optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
 if len(args) < 2:
     optParser.print_help()
     sys.exit()
+edges = {}
 routes1 = {}
 routes2 = {}
 parser = make_parser()
-parser.setContentHandler(RouteReader(routes1))
+if options.verbose:
+    print "Reading first routes file %s" % args[0]
+parser.setContentHandler(RouteReader(routes1, edges))
 parser.parse(args[0])
-parser.setContentHandler(RouteReader(routes2))
+if options.verbose:
+    print "Reading second routes file %s" % args[1]
+parser.setContentHandler(RouteReader(routes2, edges))
 parser.parse(args[1])
 
 routeMatrix1 = {}
@@ -225,7 +245,9 @@ routeMatrix2 = {}
 if options.districts:
     sources = {}
     sinks = {}
-    parser.setContentHandler(DistrictReader(sources, sinks))
+    if options.verbose:
+        print "Reading districts %s" % options.districts
+    parser.setContentHandler(DistrictReader(sources, sinks, edges))
     parser.parse(options.districts)
     for routes, routeMatrix in [(routes1, routeMatrix1), (routes2, routeMatrix2)]:
         for routeID, route in routes.iteritems():
