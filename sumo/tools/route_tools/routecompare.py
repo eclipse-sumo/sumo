@@ -279,10 +279,15 @@ for source in routeMatrix1.iterkeys():
         if options.verbose and len(routeIDs1) != len(routeIDs2):
             print "Warning! Different route set sizes for start '%s' and end '%s'." % (source, sink)
         similarityMatrix = {}
-        for id1 in routeIDs1:
-            similarityMatrix[id1] = {}
-            for id2 in routeIDs2:
-                similarityMatrix[id1][id2] = compare(routes1[id1], routes2[id2])
+        for idx, id1 in enumerate(routeIDs1):
+            for oldID in routeIDs1[:idx]:
+                if routes1[oldID] == routes1[id1]:
+                    similarityMatrix[id1] = similarityMatrix[oldID]
+                    break
+            if not id1 in similarityMatrix:
+                similarityMatrix[id1] = {}
+                for id2 in routeIDs2:
+                    similarityMatrix[id1][id2] = compare(routes1[id1], routes2[id2])
         if options.simple:
             matchVal = matching(routeIDs1, routeIDs2, similarityMatrix, match)
         else:
