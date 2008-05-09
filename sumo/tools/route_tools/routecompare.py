@@ -100,6 +100,15 @@ def matching(routeIDs1, routeIDs2, similarityMatrix, match):
             matchVal += maxMatch
     return matchVal
 
+def identityCount(routeIDs1, routeIDs2, similarityMatrix):
+    matched = set()
+    for id1 in routeIDs1:
+        for id2 in routeIDs2:
+            if id2 not in matched and similarityMatrix[id1][id2] == SCALE:
+                matched.add(id2)
+                break
+    return len(matched)
+
 class Node:
     def __init__(self, routeID, weight):
         self.routeID = routeID
@@ -265,6 +274,7 @@ else:
 
 match = {}
 totalMatch = 0
+totalIdentical = 0
 for source in routeMatrix1.iterkeys():
     if not source in routeMatrix2:
         if options.verbose:
@@ -293,9 +303,11 @@ for source in routeMatrix1.iterkeys():
         else:
             matchVal = maxMatching(routeIDs1, routeIDs2, similarityMatrix, match)
         totalMatch += matchVal
+        identityVal = identityCount(routeIDs1, routeIDs2, similarityMatrix)
+        totalIdentical += identityVal
         if options.verbose:
-            print source, sink, float(matchVal) / len(routeIDs1) / SCALE
+            print source, sink, float(matchVal) / len(routeIDs1) / SCALE, float(identityVal) / len(routeIDs1)
 if options.printmatch:
     for r2, r1 in match.iteritems():
         print r1, r2
-print float(totalMatch) / len(routes1) / SCALE
+print float(totalMatch) / len(routes1) / SCALE, float(totalIdentical) / len(routes1) 
