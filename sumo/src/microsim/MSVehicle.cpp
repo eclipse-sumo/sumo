@@ -2019,6 +2019,7 @@ MSVehicle::adaptSpeed()
     if (isLastAdaption) {
         unsetIndividualMaxSpeed();
         adaptingSpeed = false;
+		isLastAdaption = false;
         return;
     }
 

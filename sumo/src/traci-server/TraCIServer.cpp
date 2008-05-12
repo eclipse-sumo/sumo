@@ -548,6 +548,7 @@ throw(TraCIException)
 		break;
 	default:
 		writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Not supported or unknown Position Format");
+		return;
 	}
 
 	// Radius
@@ -562,17 +563,20 @@ throw(TraCIException)
 
 	if (roadPos.pos < 0) {
         writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
+		return;
     }
 
 	// get the actual lane that is referenced by laneIndex
 	MSEdge* road = MSEdge::dictionary(roadPos.roadId);
     if (road == NULL) {
         writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Unable to retrieve road with given id");
+		return;
     }
 
     const MSEdge::LaneCont* const allLanes = road->getLanes();
 	if (roadPos.laneId >= allLanes->size()) {
         writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "No lane existing with such id on the given road");
+		return;
     }
 
 	actLane = (*allLanes)[0];
