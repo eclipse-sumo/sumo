@@ -415,6 +415,10 @@ optParser.add_option("-s", "--show", action="store_true", dest="show",
                      default=False, help="shows each plot after generating it")
 # parse options
 (options, args) = optParser.parse_args()
+# check set options
+if not options.show and not options.output:
+	print "Neither show (--show) not write (--output <FILE>)? Exiting..."
+	exit()
 
 
 # init color map

@@ -82,6 +82,10 @@ optParser.add_option("--ylim", dest="ylim",type="string",  default="",
                      help="defines y-axis range")
 # parse options
 (options, args) = optParser.parse_args()
+# check set options
+if not options.show and not options.output:
+	print "Neither show (--show) not write (--output <FILE>)? Exiting..."
+	exit()
 
 
 parser = make_parser()
