@@ -2038,14 +2038,13 @@ MSVehicle::adaptSpeed()
 void 
 MSVehicle::checkLaneChangeConstraint(SUMOTime time) {
 	if (!laneChangeConstraintActive) {
-	return;
+		return;
 	}
 
 	if ((time - timeBeforeLaneChange) >= laneChangeStickyTime) {
 		//myLaneChangeModel->setTraciState(0);
 		laneChangeConstraintActive = false;
-		//std::cerr << "TraCi: lane change constraint reset at " << time << std::endl;
-		//std::cerr << "TraCi: laneChanger new traciState: " << myLaneChangeModel->getTraciState() << std::endl;
+//		std::cerr << "TraCi: lane change constraint reset at " << time << std::endl;
 	}
 }
 
@@ -2084,6 +2083,9 @@ MSVehicle::checkForLaneChanges() {
 	while ( (tmpLane =tmpLane->getRightLane()) != NULL) {
 		currentLaneIndex++;
 	}
+
+//	std:cerr << "TraCI: currentLaneIndex=" << currentLaneIndex <<", destLane=" << destinationLane << " myLane=" << myLane->getID() << std::endl;
+
 	if (currentLaneIndex > destinationLane) {
 		myLaneChangeModel->requestLaneChange(REQUEST_RIGHT);
 		//std::cerr << "TraCI: " << "requesting lane change to right " << " | node: " << myID << " |time: " << MSNet::getInstance()->getCurrentTimeStep()  << std::endl;
@@ -2091,7 +2093,9 @@ MSVehicle::checkForLaneChanges() {
 	if (currentLaneIndex < destinationLane) {
 		myLaneChangeModel->requestLaneChange(REQUEST_LEFT);
 		//std::cerr << "TraCI: " << "requesting lane change to left " << " | node: " << myID << " |time: " << MSNet::getInstance()->getCurrentTimeStep()  << std::endl;
-	} else {
+	} 
+	if (currentLaneIndex == destinationLane) {
+//		std::cerr << "TraCI: holding lane" << std::endl;
         myLaneChangeModel->requestLaneChange(REQUEST_HOLD);
     }
 }
