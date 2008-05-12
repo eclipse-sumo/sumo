@@ -31,7 +31,7 @@ def writeNodes(net):
     fd = open("nodes.xml", "w")
     fd.write("<nodes>\n")
     for node in net._nodes:
-        fd.write("   <node id=\"" + node._id + "\" x=\"" + str(node._coord[0]) + "\" y=\"" + str(node._coord[0]) + "\"/>\n")
+        fd.write("   <node id=\"" + node._id + "\" x=\"" + str(node._coord[0]) + "\" y=\"" + str(node._coord[1]) + "\"/>\n")
     fd.write("</nodes>\n")
 
 def writeEdges(net):

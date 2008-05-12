@@ -10,9 +10,7 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import os, string, sys
-import math
-from optparse import OptionParser
+import os, sys
 from xml.sax import saxutils, make_parser, handler
 from itertools import *
 
