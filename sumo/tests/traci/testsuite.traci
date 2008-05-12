@@ -1,0 +1,16 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+# tests for <SimulationStep> command and <movenode> responses
+MoveNode
+
+# tests for command <SetMaximumSpeed>
+SetMaximumSpeed
+
+# tests for command <StopNode>
+StopNode
+
+# Tests for command <SlowDown>
+SlowDown
+
+# tests for command <changeLane>
+ChangeLane

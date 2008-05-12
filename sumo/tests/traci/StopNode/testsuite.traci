@@ -1,0 +1,10 @@
+# Ordered list of tests in test suite. Add as appropriate
+
+# test with 3d position format
+Position3D
+
+# test with 2d position format
+Position2D
+
+# test with road map position format
+PositionRoadMap

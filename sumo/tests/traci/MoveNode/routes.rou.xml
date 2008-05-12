@@ -1,0 +1,9 @@
+<routes>   
+    <vehicle id="veh0" depart="0">
+        <route> e_m4 e_m5 e_m6</route>
+    </vehicle>
+    <vehicle id="veh1" depart="0">
+        <route> e_m5 e_m6 e_shape0</route>
+    </vehicle>
+</routes>
+

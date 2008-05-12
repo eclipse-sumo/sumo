@@ -1,0 +1,1 @@
+sumo.exe --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8804 --netstate-dump netstate_dump.xml TraCITestClient.exe -def setmaxspeed.prog -p 8804 -h localhost -o testclient_out.txt

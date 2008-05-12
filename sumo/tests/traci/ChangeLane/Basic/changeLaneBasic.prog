@@ -1,0 +1,9 @@
+simstep_repeat 1 25 1 1
+changelane 0 2 25
+simstep_repeat 26 40 1 1
+changelane 0 1 10
+simstep_repeat 41 75 1 1
+changelane 0 0 10
+simstep_repeat 76 90 1 1
+changelane 0 1 10
+simstep_repeat 91 150 1 1

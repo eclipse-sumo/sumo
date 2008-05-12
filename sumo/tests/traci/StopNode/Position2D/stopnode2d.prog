@@ -1,0 +1,10 @@
+simstep 1 1
+
+stopnode2d 0 2600 495 0 5
+stopnode2d 0 3300 750 0 10
+
+stopnode2d 1 2650 500 0 5
+stopnode2d 1 3300 130 0 10
+stopnode2d 1 1000 500 0 10
+
+simstep_repeat 2 500 1 1
