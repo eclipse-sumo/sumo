@@ -1,0 +1,3 @@
+Answered with error to command 48: Could not set new travel time properly
+Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort

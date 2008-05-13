@@ -1,0 +1,2 @@
+Answered with error to command 48: Can not retrieve node with ID 1
+Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort

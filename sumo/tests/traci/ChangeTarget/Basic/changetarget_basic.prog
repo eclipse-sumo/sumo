@@ -1,0 +1,3 @@
+simstep_repeat 1 50 1 1
+changetarget 0 e_vo0
+simstep 200 1

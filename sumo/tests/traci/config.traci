@@ -1,20 +1,41 @@
 import_config_file:../config_all
 binary:$TEXTTEST_HOME\tracirunner.py
 
+copy_test_path:net.net.xml
+copy_test_path:routes.rou.xml
+
 copy_test_path:movenode_2d.prog
 copy_test_path:movenode_3d.prog
 copy_test_path:movenode_road.prog
+
 copy_test_path:setmaxspeed.prog
 copy_test_path:unsetmaxspeed.prog
+
 copy_test_path:stopnode2d.prog
 copy_test_path:stopnode3d.prog
 copy_test_path:stopnoderoadpos.prog
-copy_test_path:slowdown1.prog
-copy_test_path:net.net.xml
-copy_test_path:routes.rou.xml
+copy_test_path:stopnode_invalidnode.prog
+copy_test_path:stopnode_invalidposformat.prog
+
+copy_test_path:slowdown_basic.prog
+copy_test_path:slowdown_invalidnode.prog
+copy_test_path:slowdown_invalidinterval.prog
+
 copy_test_path:changeLaneBasic.prog
 copy_test_path:changeLaneRouteDis.prog
 copy_test_path:changeLanePassJunction.prog
+copy_test_path:changelane_invalidnode.prog
+copy_test_path:changelane_invalidlane.prog
+
+copy_test_path:changeroute_basic.prog
+copy_test_path:changeroute_reset.prog
+copy_test_path:changeroute_invalidedge.prog
+copy_test_path:changeroute_invalidnode.prog
+
+
+copy_test_path:changetarget_basic.prog
+copy_test_path:changetarget_unreachable.prog
+copy_test_path:changetarget_invalidnode.prog
 
 [collate_file]
 testclient_out:testclient_out.txt
@@ -22,5 +43,7 @@ net_state:netstate_dump.xml
 
 [run_dependent_text]
 testclient_out:Date
+testclient_out:Socket
 net_state:Version
 output:port
+errors:Socket

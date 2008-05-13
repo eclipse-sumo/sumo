@@ -1,0 +1,3 @@
+simstep 1 1
+slowdown 0 10 -1
+simstep 100

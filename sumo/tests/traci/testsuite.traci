@@ -14,3 +14,9 @@ SlowDown
 
 # tests for command <changeLane>
 ChangeLane
+
+# Test command <ChangeRoute>
+ChangeRoute
+
+# Test command <ChangeTarget>
+ChangeTarget

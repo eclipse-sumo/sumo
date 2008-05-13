@@ -1,0 +1,3 @@
+Answered with error to command 20: Invalid time interval
+Error while receiving command: tcpip::Socket::receive() @ recv: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer

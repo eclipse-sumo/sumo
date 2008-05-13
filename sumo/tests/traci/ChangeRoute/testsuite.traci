@@ -1,0 +1,11 @@
+# Test basic route changing
+Basic
+
+# Test resetting of a previous travel time
+ResetTravelTime
+
+# Test error on specifying an invalid edge id
+InvalidEdge
+
+# Test error on specifying an invalid node id
+InvalidNodeId

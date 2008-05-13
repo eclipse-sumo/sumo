@@ -1,0 +1,19 @@
+TraCITestClient output file. Date: Tue May 13 20:18:27 2008
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=1 2D-Position: x=0.1 y=491.85
+
+-> Command sent: <ChangeLane>:
+  NodeId=0 LaneId=100 fixTime=1
+.. Answered with error to command (19), [description: No lane existing with given id on the current road]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=100 PosFormat=1
+----
+Error while receiving command: tcpip::Socket::receive() @ recv: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer

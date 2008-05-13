@@ -1,0 +1,3 @@
+Answered with error to command 49: Can not retrieve road with given ID
+Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort

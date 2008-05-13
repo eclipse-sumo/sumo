@@ -8,3 +8,6 @@ Position2D
 
 # test with road map position format
 PositionRoadMap
+
+# Test error on specifying an invalid node id
+InvalidNode
