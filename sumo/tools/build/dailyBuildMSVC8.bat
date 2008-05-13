@@ -25,7 +25,6 @@ rmdir /S /Q %SUMO_REPORT%
 mkdir %SUMO_REPORT%
 call testEnv.bat
 texttest.py -b %SUMO_REPORT%
-texttest.py -b %SUMO_REPORT% -coll
 cd ..
 tools\build\status.py %MAKELOG% %MAKEALLLOG% %TEXTTEST_TMP% %SMTP_SERVER% > %STATUSLOG%
 

@@ -2,7 +2,6 @@ home_operating_system:posix
 batch_result_repository:$SUMO_BATCH_RESULT
 historical_report_location:$SUMO_REPORT
 smtp_server:$SMTP_SERVER
-batch_use_collection:true
 [batch_recipients]
 default:michael.behrisch@dlr.de,daniel.krajzewicz@dlr.de
 msvc8mesox64report:delphi-dev@dlr.de
