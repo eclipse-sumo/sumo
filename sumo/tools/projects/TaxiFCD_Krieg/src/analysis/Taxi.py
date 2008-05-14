@@ -56,6 +56,9 @@ class Taxi(object):
         return "%s, %s" %(self.id, self.steps)  
     def __repr__(self):
         return self.__str__()   
+    
+    def __eq__(self, id):
+        return self.id==id 
        
     
 

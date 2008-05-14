@@ -19,7 +19,6 @@ net="D:/Krieg/Projekte/Diplom/Daten/sumoNetzFilesNurnbergIIProjektion/nuernberg_
 vtypeprobe="D:/Krieg/Projekte/Diplom/Daten/simRawFCD/vtypeprobe2Mit_t1Complete.out.xml"
 analysis="D:/Krieg/Projekte/Diplom/Daten/auswertung/taxiAnalysisInformation.xml"
 simulatedRawFCD="D:/Krieg/Projekte/Diplom/Daten/simRawFCD/simulatedRawFCD.out.dat"
-taxiRoutes="D:/Krieg/Projekte/Diplom/Daten/taxiRouten/taxiRoutes.rou.xml"
 taxisPerEdge="D:/Krieg/Projekte/Diplom/Daten/mpl_dump_onNet__Files/taxisPerEdge.out.xml"
 fcdVsCompleteRoute="D:/Krieg/Projekte/Diplom/Daten/mpl_dump_onNet__Files/FCD_vs_completeRoute"
 taxiVsFCDSpeed="D:/Krieg/Projekte/Diplom/Daten/auswertung/geschwindigkeitsvergleich/taxiVsFCD.csv"
