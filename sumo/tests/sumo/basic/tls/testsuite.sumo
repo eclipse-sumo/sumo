@@ -1,3 +1,7 @@
+# The following subfolders test whether setting a different simulation begin affects the program
+#  Of course, this should not be the case, the program should be same (in case of static tls),
+#  independent of the time the simulation starts at
+
 # Simulation starts at 0
 begin0
 
