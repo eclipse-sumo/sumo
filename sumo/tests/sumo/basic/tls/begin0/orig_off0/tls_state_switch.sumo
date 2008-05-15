@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+
+<!-- generated on 09/03/07 14:44:48 by SUMO sumo Version 0.9.6
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+      <additional-files>input_additional.add.xml</additional-files>
+   </input>
+
+   <time>
+      <begin>0</begin>
+      <end>200</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<tls-switch-states>
+   <tlsstate time="0" id="0" subid="default">GGGGRRRRGGGGRRRR</tlsstate>
+   <tlsstate time="20" id="0" subid="default">YYGGRRRRYYGGRRRR</tlsstate>
+   <tlsstate time="24" id="0" subid="default">RRGGRRRRRRGGRRRR</tlsstate>
+   <tlsstate time="27" id="0" subid="default">RRYYRRRRRRYYRRRR</tlsstate>
+   <tlsstate time="31" id="0" subid="default">RRRRGGGGRRRRGGGG</tlsstate>
+   <tlsstate time="51" id="0" subid="default">RRRRYYGGRRRRYYGG</tlsstate>
+   <tlsstate time="55" id="0" subid="default">RRRRRRGGRRRRRRGG</tlsstate>
+   <tlsstate time="58" id="0" subid="default">RRRRRRYYRRRRRRYY</tlsstate>
+   <tlsstate time="62" id="0" subid="default">GGGGRRRRGGGGRRRR</tlsstate>
+   <tlsstate time="82" id="0" subid="default">YYGGRRRRYYGGRRRR</tlsstate>
+   <tlsstate time="86" id="0" subid="default">RRGGRRRRRRGGRRRR</tlsstate>
+   <tlsstate time="89" id="0" subid="default">RRYYRRRRRRYYRRRR</tlsstate>
+   <tlsstate time="93" id="0" subid="default">RRRRGGGGRRRRGGGG</tlsstate>
+   <tlsstate time="113" id="0" subid="default">RRRRYYGGRRRRYYGG</tlsstate>
+   <tlsstate time="117" id="0" subid="default">RRRRRRGGRRRRRRGG</tlsstate>
+   <tlsstate time="120" id="0" subid="default">RRRRRRYYRRRRRRYY</tlsstate>
+   <tlsstate time="124" id="0" subid="default">GGGGRRRRGGGGRRRR</tlsstate>
+   <tlsstate time="144" id="0" subid="default">YYGGRRRRYYGGRRRR</tlsstate>
+   <tlsstate time="148" id="0" subid="default">RRGGRRRRRRGGRRRR</tlsstate>
+   <tlsstate time="151" id="0" subid="default">RRYYRRRRRRYYRRRR</tlsstate>
+   <tlsstate time="155" id="0" subid="default">RRRRGGGGRRRRGGGG</tlsstate>
+   <tlsstate time="175" id="0" subid="default">RRRRYYGGRRRRYYGG</tlsstate>
+   <tlsstate time="179" id="0" subid="default">RRRRRRGGRRRRRRGG</tlsstate>
+   <tlsstate time="182" id="0" subid="default">RRRRRRYYRRRRRRYY</tlsstate>
+   <tlsstate time="186" id="0" subid="default">GGGGRRRRGGGGRRRR</tlsstate>
+</tls-switch-states>
