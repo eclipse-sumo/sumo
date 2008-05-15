@@ -1,0 +1,47 @@
+<?xml version="1.0"?>
+
+<!-- generated on 05/15/08 17:59:31 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+      <additional-files>input_additional.add.xml</additional-files>
+   </input>
+
+   <time>
+      <begin>50</begin>
+      <end>200</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<tls-switch-states>
+    <tlsstate time="50" id="0" subid="2" phase="4">RRRRGGGGRRRRGGGG</tlsstate>
+    <tlsstate time="63" id="0" subid="2" phase="5">RRRRYYGGRRRRYYGG</tlsstate>
+    <tlsstate time="67" id="0" subid="2" phase="6">RRRRRRGGRRRRRRGG</tlsstate>
+    <tlsstate time="70" id="0" subid="2" phase="7">RRRRRRYYRRRRRRYY</tlsstate>
+    <tlsstate time="74" id="0" subid="2" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="94" id="0" subid="2" phase="1">YYGGRRRRYYGGRRRR</tlsstate>
+    <tlsstate time="98" id="0" subid="2" phase="2">RRGGRRRRRRGGRRRR</tlsstate>
+    <tlsstate time="101" id="0" subid="2" phase="3">RRYYRRRRRRYYRRRR</tlsstate>
+    <tlsstate time="105" id="0" subid="2" phase="4">RRRRGGGGRRRRGGGG</tlsstate>
+    <tlsstate time="125" id="0" subid="2" phase="5">RRRRYYGGRRRRYYGG</tlsstate>
+    <tlsstate time="129" id="0" subid="2" phase="6">RRRRRRGGRRRRRRGG</tlsstate>
+    <tlsstate time="132" id="0" subid="2" phase="7">RRRRRRYYRRRRRRYY</tlsstate>
+    <tlsstate time="136" id="0" subid="2" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="156" id="0" subid="2" phase="1">YYGGRRRRYYGGRRRR</tlsstate>
+    <tlsstate time="160" id="0" subid="2" phase="2">RRGGRRRRRRGGRRRR</tlsstate>
+    <tlsstate time="163" id="0" subid="2" phase="3">RRYYRRRRRRYYRRRR</tlsstate>
+    <tlsstate time="167" id="0" subid="2" phase="4">RRRRGGGGRRRRGGGG</tlsstate>
+    <tlsstate time="187" id="0" subid="2" phase="5">RRRRYYGGRRRRYYGG</tlsstate>
+    <tlsstate time="191" id="0" subid="2" phase="6">RRRRRRGGRRRRRRGG</tlsstate>
+    <tlsstate time="194" id="0" subid="2" phase="7">RRRRRRYYRRRRRRYY</tlsstate>
+    <tlsstate time="198" id="0" subid="2" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+</tls-switch-states>
