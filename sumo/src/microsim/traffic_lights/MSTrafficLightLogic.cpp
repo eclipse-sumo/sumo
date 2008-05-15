@@ -113,7 +113,7 @@ MSTrafficLightLogic::MSTrafficLightLogic(
 {
     mySwitchCommand = new SwitchCommand(tlcontrol, this);
     MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-        mySwitchCommand, delay, MSEventControl::ADAPT_AFTER_EXECUTION);
+        mySwitchCommand, delay, MSEventControl::NO_CHANGE);
 }
 
 

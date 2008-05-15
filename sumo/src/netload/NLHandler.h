@@ -287,10 +287,6 @@ private:
     /// allocates edges from the initial list
     void allocateEdges(const std::string &chars);
 
-    /// sets the number of nodes (allocates storage when needed)
-    void setNodeNumber(const std::string &chars);
-
-
     /// adds the list of allowed following edges
     void addAllowedEdges(const std::string &chars);
 

@@ -68,9 +68,11 @@ Command_SaveTLSState::~Command_SaveTLSState() throw()
 SUMOTime
 Command_SaveTLSState::execute(SUMOTime currentTime) throw(ProcessError)
 {
-    myOutputDevice << "   <tlsstate time=\"" << currentTime
+    myOutputDevice << "    <tlsstate time=\"" << currentTime
     << "\" id=\"" << myLogics.getActive()->getID()
-    << "\" subid=\"" << myLogics.getActive()->getSubID() << "\">"
+    << "\" subid=\"" << myLogics.getActive()->getSubID()
+    << "\" phase=\"" << myLogics.getActive()->getStepNo()
+    << "\">"
     << myLogics.getActive()->buildStateList() << "</tlsstate>" << "\n";
     return 1;
 }

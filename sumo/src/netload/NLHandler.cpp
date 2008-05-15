@@ -164,7 +164,7 @@ NLHandler::myStartElement(SumoXMLTag element,
 		addMsgDetector(attrs);
 		break;
 #endif
-	case SUMO_TAG_E1DETECTOR:
+    case SUMO_TAG_E1DETECTOR:
         addE1Detector(attrs);
         break;
     case SUMO_TAG_E2DETECTOR:
@@ -213,9 +213,11 @@ NLHandler::myCharacters(SumoXMLTag element,
         case SUMO_TAG_EDGES:
             allocateEdges(chars);
             break;
+            /*
         case SUMO_TAG_NODECOUNT:
             setNodeNumber(chars);
             break;
+            */
         case SUMO_TAG_CEDGE:
             addAllowedEdges(chars);
             break;
@@ -370,21 +372,6 @@ NLHandler::allocateEdges(const std::string &chars)
     }
     if (wanted!=found) {
         throw ProcessError("The number of edges in the list mismatches the edge count.");
-    }
-}
-// ----
-
-
-// ---- the root/node_count - element
-void
-NLHandler::setNodeNumber(const std::string &chars)
-{
-    try {
-        myJunctionControlBuilder.prepare(TplConvert<char>::_2int(chars.c_str()));
-    } catch (EmptyData &) {
-        throw ProcessError("Missing number of nodes.");
-    } catch (NumberFormatException &) {
-        throw ProcessError("The number of nodes is not numeric.");
     }
 }
 // ----
@@ -876,8 +863,6 @@ NLHandler::addLogicItem(const SUMOSAXAttributes &attrs)
 void
 NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs)
 {
-    size_t absDuration = 0;
-    int requestSize = -1;
     SUMOReal detectorOffset = -1;
     myJunctionControlBuilder.initIncomingLanes();
     try {
@@ -893,8 +878,7 @@ NLHandler::initTrafficLightLogic(const SUMOSAXAttributes &attrs)
                 return;
             }
         }
-        myJunctionControlBuilder.initTrafficLightLogic(type,
-                absDuration, requestSize, detectorOffset);
+        myJunctionControlBuilder.initTrafficLightLogic(type, detectorOffset);
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("Missing traffic light type.");
         return;

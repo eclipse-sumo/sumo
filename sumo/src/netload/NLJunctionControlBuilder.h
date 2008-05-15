@@ -90,15 +90,6 @@ public:
     virtual ~NLJunctionControlBuilder() throw();
 
 
-    /** @brief Preallocates space for the found number of junctions
-     *
-     * unused!
-     * @param[in] no The number of junctions within the net
-     * @todo This method is completely useless; the built structure does not take the parameter, may be built in the constructor
-     */
-    void prepare(unsigned int no) throw();
-
-
     /** @brief Begins the processing of the named junction
      *
      * @param[in] id The ID of the junction
@@ -190,17 +181,12 @@ public:
      *  resetting them from read values.
      *
      * @param[in] type The type of the tls
-     * @param[in] absDuration The absolute duration (cycle time)
-     * @param[in] requestSize The size of the tls request
      * @param[in] detectorOffset The offset of the detectors to build
      * @todo Why is the type not verified?
-     * @todo Recheck, describe usage of absDuration (where does the information come from?)
-     * @todo Recheck, describe usage of requestSize (where does the information come from?)
      * @todo Recheck, describe usage of detectorOffset (where does the information come from?)
      * @todo detectorOffset is used only by one junction type. Is it not possible, to remove this from the call?
      */
     void initTrafficLightLogic(const std::string &type,
-                               size_t absDuration, int requestSize,
                                SUMOReal detectorOffset) throw();
 
 
@@ -389,17 +375,6 @@ public:
 
 
 protected:
-    /** @brief Adds an information about the initialisation of a tls
-     *
-     * The initialisation is done during the closing of junctions
-     *
-     * @param[in] key The tls logic to add a new initialisation info for
-     * @todo Why is this a separate method? It's only used in one place
-     * @todo No checks/exceptions?
-     */
-    void addJunctionInitInfo(MSTrafficLightLogic *key) throw();
-
-
     /** @brief Returns the current junction logic
      *
      * "Current" means the one with "myActiveID". If it is not built yet
@@ -410,20 +385,6 @@ protected:
      * @todo Where is this used?
      */
     MSJunctionLogic *getJunctionLogicSecure() throw(InvalidArgument);
-
-
-    /** @brief Computes the initial step of a tls-logic from the stored offset and duration
-     *
-     * @return The step the current tls has to begin with given current values (including simulation begin time)
-     */
-    SUMOTime computeInitTLSStep() const throw();
-
-
-    /** @brief Computes the time offset the tls shall for the first time
-     *
-     * @return The time to first switch of the current tls, given current values (including simulation begin time)
-     */
-    SUMOTime computeInitTLSEventOffset() const throw();
 
 
     /** @brief Returns the used tls control
@@ -470,6 +431,25 @@ protected:
     virtual MSJunction *buildInternalJunction() throw();
 #endif
     /// @}
+
+
+protected:
+    /**
+     * @enum JunctionType
+     * @brief numerical representations of junction types
+     */
+    enum JunctionType {
+        /// @brief a junction with no purpose
+        TYPE_NOJUNCTION = 0,
+        /// @brief a junction where vehicles coming from the right side may drive as first
+        TYPE_RIGHT_BEFORE_LEFT,
+        /// @brief a junction where one street has a higher priority
+        TYPE_PRIORITY_JUNCTION,
+        /// @brief a dead end (all roads end here)
+        TYPE_DEAD_END,
+        /// @brief an internal junction
+        TYPE_INTERNAL
+    };
 
 
 protected:
@@ -521,7 +501,7 @@ protected:
     std::string myActiveKey, myActiveSubKey;
 
     /// @brief The type of the currently chosen junction
-    int myType;
+    JunctionType myType;
 
     /// @brief The position of the junction
     Position2D myPosition;
@@ -589,28 +569,6 @@ protected:
 
     /// @brief Map of loaded junction logics
     std::map<std::string, MSJunctionLogic*> myLogics;
-
-
-protected:
-    /// @name numerical representations of junction types
-    /// @todo What? Use an enum!
-    /// @{
-
-    /// @brief numerical representation for a junction with no purpose
-    static const int TYPE_NOJUNCTION;
-
-    /** @brief numerical representation for a junction where vehicles coming from the right side may drive as first */
-    static const int TYPE_RIGHT_BEFORE_LEFT;
-
-    /** @brief numerical representation of a junction where a street has a higher priority */
-    static const int TYPE_PRIORITY_JUNCTION;
-
-    /** @brief a dead end (all roads end here) */
-    static const int TYPE_DEAD_END;
-
-    /** @brief an internal junction */
-    static const int TYPE_INTERNAL;
-    /// @}
 
 
 private:
