@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/18/07 16:55:17 by SUMO sumo Version 0.9.6
+<!-- generated on 05/15/08 18:07:39 by SUMO sumo Version 0.9.7
 <configuration>
 
    <input>
@@ -22,17 +22,17 @@
 -->
 
 <tls-switch-states>
-   <tlsstate time="0" id="0" subid="0">GGGGRRRRGGGGRRRR</tlsstate>
-   <tlsstate time="20" id="0" subid="0">YYGGRRRRYYGGRRRR</tlsstate>
-   <tlsstate time="24" id="0" subid="0">RRGGRRRRRRGGRRRR</tlsstate>
-   <tlsstate time="27" id="0" subid="0">RRYYRRRRRRYYRRRR</tlsstate>
-   <tlsstate time="31" id="0" subid="0">RRRRGGGGRRRRGGGG</tlsstate>
-   <tlsstate time="51" id="0" subid="0">RRRRYYGGRRRRYYGG</tlsstate>
-   <tlsstate time="55" id="0" subid="0">RRRRRRGGRRRRRRGG</tlsstate>
-   <tlsstate time="58" id="0" subid="0">RRRRRRYYRRRRRRYY</tlsstate>
-   <tlsstate time="62" id="0" subid="0">GGGGRRRRGGGGRRRR</tlsstate>
-   <tlsstate time="82" id="0" subid="0">YYGGRRRRYYGGRRRR</tlsstate>
-   <tlsstate time="86" id="0" subid="0">RRGGRRRRRRGGRRRR</tlsstate>
-   <tlsstate time="89" id="0" subid="0">RRYYRRRRRRYYRRRR</tlsstate>
-   <tlsstate time="93" id="0" subid="0">RRRRGGGGRRRRGGGG</tlsstate>
+    <tlsstate time="0" id="0" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="20" id="0" subid="0" phase="1">YYGGRRRRYYGGRRRR</tlsstate>
+    <tlsstate time="24" id="0" subid="0" phase="2">RRGGRRRRRRGGRRRR</tlsstate>
+    <tlsstate time="27" id="0" subid="0" phase="3">RRYYRRRRRRYYRRRR</tlsstate>
+    <tlsstate time="31" id="0" subid="0" phase="4">RRRRGGGGRRRRGGGG</tlsstate>
+    <tlsstate time="51" id="0" subid="0" phase="5">RRRRYYGGRRRRYYGG</tlsstate>
+    <tlsstate time="55" id="0" subid="0" phase="6">RRRRRRGGRRRRRRGG</tlsstate>
+    <tlsstate time="58" id="0" subid="0" phase="7">RRRRRRYYRRRRRRYY</tlsstate>
+    <tlsstate time="62" id="0" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="82" id="0" subid="0" phase="1">YYGGRRRRYYGGRRRR</tlsstate>
+    <tlsstate time="86" id="0" subid="0" phase="2">RRGGRRRRRRGGRRRR</tlsstate>
+    <tlsstate time="89" id="0" subid="0" phase="3">RRYYRRRRRRYYRRRR</tlsstate>
+    <tlsstate time="93" id="0" subid="0" phase="4">RRRRGGGGRRRRGGGG</tlsstate>
 </tls-switch-states>
