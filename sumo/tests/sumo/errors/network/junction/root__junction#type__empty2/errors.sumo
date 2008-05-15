@@ -1,3 +1,3 @@
-Error: An unknown junction type occured: '' on junction '2'.
+Error: An unknown or invalid junction type occured: '' on junction '2'.
  Can not build according junction.
 Quitting (on error).
