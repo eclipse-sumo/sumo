@@ -356,6 +356,17 @@ public:
                          const std::string &proc, bool synchron) throw(InvalidArgument);
 
 
+    /** @brief Closes the instatiation of a WAUT
+     *
+     * Passes the values directly to the used tls control. This throws an InvalidArgument
+     *  if the given id is already in use.
+     *
+     * @param[in] wautid The ID of the WAUT
+     * @exception InvalidArgument If the id is already used by another WAUT
+     */
+    void closeWAUT(const std::string &wautid) throw(InvalidArgument);
+
+
     /** @brief Returns the active name
      * @return The active id
      */

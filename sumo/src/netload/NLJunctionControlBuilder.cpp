@@ -497,6 +497,13 @@ NLJunctionControlBuilder::addWAUTJunction(const std::string &wautid,
 }
 
 
+void 
+NLJunctionControlBuilder::closeWAUT(const std::string &wautid) throw(InvalidArgument)
+{
+    getTLLogicControlToUse().closeWAUT(wautid);
+}
+
+
 const string &
 NLJunctionControlBuilder::getActiveID() const throw()
 {

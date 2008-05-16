@@ -295,10 +295,6 @@ NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
         case SUMO_TAG_SUCC:
             closeSuccLane();
             break;
-        default:
-            break;
-        }
-        switch (element) {
         case SUMO_TAG_ROWLOGIC:
             myJunctionControlBuilder.closeJunctionLogic();
             break;
@@ -306,14 +302,9 @@ NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
             myJunctionControlBuilder.closeTrafficLightLogic();
             myAmInTLLogicMode = false;
             break;
-        default:
+        case SUMO_TAG_WAUT:
+            closeWAUT();
             break;
-        }
-    // !!!
-    if (element==SUMO_TAG_WAUT) {
-        closeWAUT();
-    }
-        switch (element) {
         case SUMO_TAG_E3DETECTOR:
             endE3Detector();
             break;
@@ -1714,6 +1705,7 @@ NLHandler::endE3Detector()
 void
 NLHandler::closeWAUT()
 {
+    myJunctionControlBuilder.closeWAUT(myCurrentWAUTID);
     myCurrentWAUTID = "";
 }
 

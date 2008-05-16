@@ -300,7 +300,23 @@ public:
      */
     void addWAUTJunction(const std::string &wautid, const std::string &tls,
                          const std::string &proc, bool synchron) throw(InvalidArgument);
+
+
+    /** @brief Closes loading of a WAUT
+     *
+     * Insatntiates the first switch ("SwitchInitCommand") for the WAUT into the
+     *  network's simulation time step begin event control.
+     *
+     * Throws an InvalidArgument if the given WAUT id is not known.
+     *
+     * @param[in] wautid The ID of the WAUT
+     * @exception InvalidArgument If the named WAUT is not known
+     * @see SwitchInitCommand
+     */
+    void closeWAUT(const std::string &wautid) throw(InvalidArgument);
     /// @}
+
+
 
     /** @brief Checks whether any WAUT is trying to switch a tls into another program
      *
@@ -326,8 +342,8 @@ class SwitchInitCommand : public Command
     {
     public:
         // / Constructor
-        SwitchInitCommand(MSTLLogicControl &p, const std::string &wautid) throw()
-                : myParent(p), myWAUTID(wautid), myIndex(0) { }
+        SwitchInitCommand(MSTLLogicControl &p, const std::string &wautid, unsigned int index) throw()
+                : myParent(p), myWAUTID(wautid), myIndex(index) { }
 
         /// Destructor
         ~SwitchInitCommand() throw() { }
@@ -355,13 +371,15 @@ class SwitchInitCommand : public Command
         }
         /// @}
 
+
+
         /// Returns the WAUT-id
         const std::string &getWAUTID() const {
             return myWAUTID;
         }
 
         /// Returns a reference to the index
-        int &getIndex() {
+        unsigned int &getIndex() {
             return myIndex;
         }
 
@@ -373,7 +391,7 @@ class SwitchInitCommand : public Command
         std::string myWAUTID;
 
         /// The current index within the WAUT switch table
-        int myIndex;
+        unsigned int myIndex;
 
     private:
         /// @brief Invalidated copy constructor.

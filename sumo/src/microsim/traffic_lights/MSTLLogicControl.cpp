@@ -808,29 +808,8 @@ MSTLLogicControl::addWAUTSwitch(const std::string &wautid,
     // build and save the waut switch definition
     WAUTSwitch s;
     s.to = to;
-    s.when = when;
+    s.when = (myWAUTs[wautid]->refTime + when) % 86400;
     myWAUTs[wautid]->switches.push_back(s);
-    // activate it if it's the first one
-    if (myWAUTs[wautid]->switches.size()==1) {
-        SUMOTime begin = when;
-        // check reference time
-        if (myWAUTs[wautid]->refTime<=begin) {
-            // add the reference time if it's within the same day
-            begin += myWAUTs[wautid]->refTime;
-        }
-        if (myWAUTs[wautid]->refTime>begin) {
-            // make a day period
-            begin = begin - (86400-myWAUTs[wautid]->refTime);
-        }
-        begin = (86400 + begin);
-        while (begin>86400) {
-            begin -= 86400;
-        }
-        // activate
-        MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
-            new SwitchInitCommand(*this, wautid),
-            begin, MSEventControl::NO_CHANGE);
-    }
 }
 
 
@@ -860,11 +839,40 @@ MSTLLogicControl::addWAUTJunction(const std::string &wautid,
 }
 
 
+void
+MSTLLogicControl::closeWAUT(const std::string &wautid) throw(InvalidArgument)
+{
+    // try to get the waut
+    if (myWAUTs.find(wautid)==myWAUTs.end()) {
+        // report an error if the waut is not known
+        throw InvalidArgument("Waut '" + wautid + "' was not yet defined.");
+    }
+    WAUT *w = myWAUTs.find(wautid)->second;
+    // get the switch to be performed as first
+    vector<WAUTSwitch>::const_iterator first = w->switches.end();
+    SUMOTime minExecTime = -1;
+    int minIndex = -1;
+    for(vector<WAUTSwitch>::const_iterator i=w->switches.begin(); i!=w->switches.end(); ++i) {
+        if(minExecTime==-1||((*i).when>MSNet::getInstance()->getCurrentTimeStep()&&(*i).when<minExecTime)) {
+            minExecTime = (*i).when;
+            first = i;
+        }
+    }
+    // activate the first one
+    if(first!=w->switches.end()) {
+        vector<WAUTSwitch>::const_iterator mbegin = w->switches.begin();
+        MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
+            new SwitchInitCommand(*this, wautid, distance(mbegin, first)),
+            (*first).when, MSEventControl::NO_CHANGE);
+    }
+}
+
+
 SUMOTime
 MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
 {
     const std::string &wautid = cmd.getWAUTID();
-    int &index = cmd.getIndex();
+    unsigned int &index = cmd.getIndex();
     WAUTSwitch s = myWAUTs[wautid]->switches[index];
     for (std::vector<WAUTJunction>::iterator i=myWAUTs[wautid]->junctions.begin(); i!=myWAUTs[wautid]->junctions.end(); ++i) {
         // get the current program and the one to instantiate
@@ -892,7 +900,7 @@ MSTLLogicControl::initWautSwitch(MSTLLogicControl::SwitchInitCommand &cmd)
     if (index==(int) myWAUTs[wautid]->switches.size()) {
         return 0;
     }
-    return myWAUTs[wautid]->switches[index].when - myWAUTs[wautid]->switches[index-1].when;
+    return myWAUTs[wautid]->switches[index].when - MSNet::getInstance()->getCurrentTimeStep();
 }
 
 
