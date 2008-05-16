@@ -1,0 +1,15 @@
+<additional>
+    <timed_event type="SaveTLSSwitchStates" source="0" dest="tls_state_switch.xml"/>
+
+
+	<WAUT refTime="0" id="w1" startProg="0">
+		<wautSwitch time="100" to="off"/>
+	</WAUT>
+
+	<wautJunction wautID="w1" junctionID="0"/>
+
+
+
+
+
+</additional>

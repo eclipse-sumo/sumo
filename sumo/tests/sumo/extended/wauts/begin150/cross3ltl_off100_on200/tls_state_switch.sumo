@@ -1,0 +1,41 @@
+<?xml version="1.0"?>
+
+<!-- generated on 05/16/08 09:22:41 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+      <additional-files>input_additional.add.xml</additional-files>
+   </input>
+
+   <time>
+      <begin>150</begin>
+      <end>300</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<tls-switch-states>
+    <tlsstate time="150" id="0" subid="off" phase="0">OOOOOOOOOOOOOOOO</tlsstate>
+    <tlsstate time="200" id="0" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="206" id="0" subid="0" phase="1">YYGGRRRRYYGGRRRR</tlsstate>
+    <tlsstate time="210" id="0" subid="0" phase="2">RRGGRRRRRRGGRRRR</tlsstate>
+    <tlsstate time="213" id="0" subid="0" phase="3">RRYYRRRRRRYYRRRR</tlsstate>
+    <tlsstate time="217" id="0" subid="0" phase="4">RRRRGGGGRRRRGGGG</tlsstate>
+    <tlsstate time="237" id="0" subid="0" phase="5">RRRRYYGGRRRRYYGG</tlsstate>
+    <tlsstate time="241" id="0" subid="0" phase="6">RRRRRRGGRRRRRRGG</tlsstate>
+    <tlsstate time="244" id="0" subid="0" phase="7">RRRRRRYYRRRRRRYY</tlsstate>
+    <tlsstate time="248" id="0" subid="0" phase="0">GGGGRRRRGGGGRRRR</tlsstate>
+    <tlsstate time="268" id="0" subid="0" phase="1">YYGGRRRRYYGGRRRR</tlsstate>
+    <tlsstate time="272" id="0" subid="0" phase="2">RRGGRRRRRRGGRRRR</tlsstate>
+    <tlsstate time="275" id="0" subid="0" phase="3">RRYYRRRRRRYYRRRR</tlsstate>
+    <tlsstate time="279" id="0" subid="0" phase="4">RRRRGGGGRRRRGGGG</tlsstate>
+    <tlsstate time="299" id="0" subid="0" phase="5">RRRRYYGGRRRRYYGG</tlsstate>
+</tls-switch-states>

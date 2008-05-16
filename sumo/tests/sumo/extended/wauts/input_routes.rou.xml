@@ -1,11 +1,4 @@
 <routes>
    <route id="horizontal1" multi_ref="x">2fi 2si 1o 1fi</route>
-   <vehicle id="horizontal1" route="horizontal1" depart="0" period="20" repno="100"/>
-   <route id="horizontal2" multi_ref="x">1fi 1si 2o 2fi</route>
-   <vehicle id="horizontal2" route="horizontal2" depart="0" period="20" repno="100"/>
-
-   <route id="vertical1" multi_ref="x">3fi 3si 4o 4fi</route>
-   <vehicle id="vertical1" route="vertical1" depart="0" period="20" repno="100"/>
-   <route id="vertical2" multi_ref="x">4fi 4si 3o 3fi</route>
-   <vehicle id="vertical2" route="vertical2" depart="0" period="20" repno="100"/>
+   <vehicle id="horizontal1" route="horizontal1" depart="100000"/>
 </routes>

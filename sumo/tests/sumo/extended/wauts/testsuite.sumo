@@ -1,0 +1,15 @@
+# simulation starts at time=0
+begin0
+
+# simulation starts at time=50
+begin50
+
+# simulation starts at time=100
+begin100
+
+# simulation starts at time=150
+begin150
+
+
+
+
