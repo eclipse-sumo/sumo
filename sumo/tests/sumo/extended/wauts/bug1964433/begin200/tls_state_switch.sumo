@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+
+<!-- generated on 05/16/08 13:05:43 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+      <additional-files>input_additional.add.xml</additional-files>
+   </input>
+
+   <time>
+      <begin>200</begin>
+      <end>600</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<tls-switch-states>
+    <tlsstate time="200" id="0" subid="S2" phase="0">RRRRGGGGRRRRGGGG</tlsstate>
+    <tlsstate time="300" id="0" subid="S3" phase="0">GGGGGGGGGGGGGGGG</tlsstate>
+    <tlsstate time="400" id="0" subid="S2" phase="0">RRRRGGGGRRRRGGGG</tlsstate>
+    <tlsstate time="500" id="0" subid="S4" phase="0">RRRRRRRRRRRRRRRR</tlsstate>
+</tls-switch-states>
