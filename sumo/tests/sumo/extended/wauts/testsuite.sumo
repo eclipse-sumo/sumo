@@ -1,3 +1,7 @@
+# The test are split herein to assure waut switch times are
+#  processed correctly even if the simulation begin time changes
+#  (was: bug 1964433)
+
 # simulation starts at time=0
 begin0
 
@@ -12,4 +16,6 @@ begin150
 
 
 
+# tests for false waut definitions
+errors
 

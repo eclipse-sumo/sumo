@@ -13,9 +13,6 @@ routes
 # Tests for duplicate structures (replacing XMLIdAlreadyUsedException)
 duplicates
 
-# Tests for broken waut definitions
-wauts
-
 # Tests with broken networks
 network
 
