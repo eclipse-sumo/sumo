@@ -180,14 +180,9 @@ MSTLLogicControl::TLSLogicVariants::getActive() const
 
 
 bool
-MSTLLogicControl::TLSLogicVariants::switchTo(const std::string &subid)
+MSTLLogicControl::TLSLogicVariants::switchTo(MSTLLogicControl &tlc, const std::string &subid)
 {
-    if (ltVariants.find(subid)==ltVariants.end()) {
-        // we'll inform the user about the missing tls program
-        throw ProcessError("Could not switch tls '" + defaultTL->getID() + "' to program '" + subid + "':\n No such program exists.");
-    }
-    // try to get the program to switch to
-    MSTrafficLightLogic *touse = ltVariants[subid];
+    MSTrafficLightLogic *touse = getLogicInstantiatingOff(tlc, subid);
     // switch to the wished program
     // set the found wished sub-program as this tls' current one
     defaultTL = touse;
@@ -775,7 +770,7 @@ MSTLLogicControl::switchTo(const std::string &id, const std::string &subid)
     if (i==myLogics.end()) {
         throw ProcessError("Could not switch tls '" + id + "' to program '" + subid + "':\n No such tls exists.");
     }
-    return (*i).second->switchTo(subid);
+    return (*i).second->switchTo(*this, subid);
 }
 
 
@@ -834,8 +829,22 @@ MSTLLogicControl::addWAUTJunction(const std::string &wautid,
     j.procedure = proc;
     j.synchron = synchron;
     myWAUTs[wautid]->junctions.push_back(j);
-    // set the current program
-    switchTo(tls, myWAUTs[wautid]->startProg);
+
+    string initProg = myWAUTs[wautid]->startProg;
+    vector<WAUTSwitch>::const_iterator first = myWAUTs[wautid]->switches.end();
+    SUMOTime minExecTime = -1;
+    int minIndex = -1;
+    for(vector<WAUTSwitch>::const_iterator i=myWAUTs[wautid]->switches.begin(); i!=myWAUTs[wautid]->switches.end(); ++i) {
+        if((*i).when>MSNet::getInstance()->getCurrentTimeStep()&&(minExecTime==-1||(*i).when<minExecTime)) {
+            minExecTime = (*i).when;
+            first = i;
+        }
+        if(first!=myWAUTs[wautid]->switches.begin()) {
+            initProg = (*(first-1)).to;
+        }
+    }
+    // activate the first one
+    switchTo(tls, initProg);
 }
 
 
@@ -848,12 +857,13 @@ MSTLLogicControl::closeWAUT(const std::string &wautid) throw(InvalidArgument)
         throw InvalidArgument("Waut '" + wautid + "' was not yet defined.");
     }
     WAUT *w = myWAUTs.find(wautid)->second;
+    string initProg = myWAUTs[wautid]->startProg;
     // get the switch to be performed as first
     vector<WAUTSwitch>::const_iterator first = w->switches.end();
     SUMOTime minExecTime = -1;
     int minIndex = -1;
     for(vector<WAUTSwitch>::const_iterator i=w->switches.begin(); i!=w->switches.end(); ++i) {
-        if(minExecTime==-1||((*i).when>MSNet::getInstance()->getCurrentTimeStep()&&(*i).when<minExecTime)) {
+        if((*i).when>MSNet::getInstance()->getCurrentTimeStep()&&(minExecTime==-1||(*i).when<minExecTime)) {
             minExecTime = (*i).when;
             first = i;
         }
@@ -865,6 +875,12 @@ MSTLLogicControl::closeWAUT(const std::string &wautid) throw(InvalidArgument)
             new SwitchInitCommand(*this, wautid, distance(mbegin, first)),
             (*first).when, MSEventControl::NO_CHANGE);
     }
+    /*
+    // set the current program to all junctions
+    for(std::vector<WAUTJunction>::const_iterator i=w->junctions.begin(); i!=w->junctions.end(); ++i) {
+        switchTo((*i).junction, initProg);
+    }
+    */
 }
 
 

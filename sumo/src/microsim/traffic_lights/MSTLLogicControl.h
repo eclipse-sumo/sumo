@@ -112,7 +112,7 @@ public:
         void saveInitialStates();
         bool isActive(const MSTrafficLightLogic *tl) const;
         MSTrafficLightLogic* getActive() const;
-        bool switchTo(const std::string &subid);
+        bool switchTo(MSTLLogicControl &tlc, const std::string &subid);
         bool maskRedLinks();
         bool maskYellowLinks();
         MSTrafficLightLogic*getLogicInstantiatingOff(MSTLLogicControl &tlc,
