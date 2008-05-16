@@ -16,6 +16,11 @@ begin150
 
 
 
+# testing for correctness (bug reported as #1964433)
+bug1964433
+
+
+
 # tests for false waut definitions
 errors
 
