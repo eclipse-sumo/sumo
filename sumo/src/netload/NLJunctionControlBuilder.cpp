@@ -471,39 +471,6 @@ NLJunctionControlBuilder::getTLLogicControlToUse() const throw()
 }
 
 
-
-void
-NLJunctionControlBuilder::addWAUT(SUMOTime refTime, const std::string &id,
-                                  const std::string &startProg) throw(InvalidArgument)
-{
-    getTLLogicControlToUse().addWAUT(refTime, id, startProg);
-}
-
-
-void
-NLJunctionControlBuilder::addWAUTSwitch(const std::string &wautid,
-                                        SUMOTime when, const std::string &to) throw(InvalidArgument)
-{
-    getTLLogicControlToUse().addWAUTSwitch(wautid, when, to);
-}
-
-
-void
-NLJunctionControlBuilder::addWAUTJunction(const std::string &wautid,
-        const std::string &tls,
-        const std::string &proc, bool sync) throw(InvalidArgument)
-{
-    getTLLogicControlToUse().addWAUTJunction(wautid, tls, proc, sync);
-}
-
-
-void 
-NLJunctionControlBuilder::closeWAUT(const std::string &wautid) throw(InvalidArgument)
-{
-    getTLLogicControlToUse().closeWAUT(wautid);
-}
-
-
 const string &
 NLJunctionControlBuilder::getActiveID() const throw()
 {

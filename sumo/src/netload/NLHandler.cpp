@@ -669,7 +669,7 @@ NLHandler::openWAUT(const SUMOSAXAttributes &attrs)
     if (!myCurrentIsBroken) {
         myCurrentWAUTID = id;
         try {
-            myJunctionControlBuilder.addWAUT(t, id, pro);
+            myJunctionControlBuilder.getTLLogicControlToUse().addWAUT(t, id, pro);
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
             myCurrentIsBroken = true;
@@ -700,7 +700,7 @@ NLHandler::addWAUTSwitch(const SUMOSAXAttributes &attrs)
     }
     if (!myCurrentIsBroken) {
         try {
-            myJunctionControlBuilder.addWAUTSwitch(myCurrentWAUTID, t, to);
+            myJunctionControlBuilder.getTLLogicControlToUse().addWAUTSwitch(myCurrentWAUTID, t, to);
         } catch (InvalidArgument &e) {
             MsgHandler::getErrorInstance()->inform(e.what());
             myCurrentIsBroken = true;
@@ -729,7 +729,7 @@ NLHandler::addWAUTJunction(const SUMOSAXAttributes &attrs)
     try {
         bool synchron = attrs.getBoolSecure( SUMO_ATTR_SYNCHRON, false);
         if (!myCurrentIsBroken) {
-            myJunctionControlBuilder.addWAUTJunction(wautID, junctionID, procedure, synchron);
+            myJunctionControlBuilder.getTLLogicControlToUse().addWAUTJunction(wautID, junctionID, procedure, synchron);
         }
     } catch (BoolFormatException &) {
         MsgHandler::getErrorInstance()->inform("The information whether WAUT '" + wautID + "' is uncontrolled is not a valid bool.");
@@ -1705,7 +1705,14 @@ NLHandler::endE3Detector()
 void
 NLHandler::closeWAUT()
 {
-    myJunctionControlBuilder.closeWAUT(myCurrentWAUTID);
+    if(!myCurrentIsBroken) {
+        try {
+            myJunctionControlBuilder.getTLLogicControlToUse().closeWAUT(myCurrentWAUTID);
+        } catch (InvalidArgument &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+            myCurrentIsBroken = true;
+        }
+    }
     myCurrentWAUTID = "";
 }
 

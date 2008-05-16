@@ -1,2 +1,2 @@
-Error: Missing switch time for WAUT 'w1'.
+Error: Attribute 'time' is missing in definition of waut 'w1'.
 Quitting (on error).

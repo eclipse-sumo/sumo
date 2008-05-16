@@ -313,60 +313,6 @@ public:
     void addParam(const std::string &key, const std::string &value) throw();
 
 
-    /** @brief Adds a WAUT definition
-     *
-     * Passes the values directly to the used tls control. This throws an InvalidArgument
-     *  if the given id is already in use.
-     *
-     * @param[in] refTime The reference time of the WAUT
-     * @param[in] id The ID of the WAUT
-     * @param[in] startProg The begin program of the WAUT
-     * @exception InvalidArgument If the id is already used by another WAUT
-     */
-    void addWAUT(SUMOTime refTime, const std::string &id,
-                 const std::string &startProg) throw(InvalidArgument);
-
-
-    /** @brief Adds a WAUT switch step to a previously built WAUT
-     *
-     * Passes the values directly to the used tls control. This throws an InvalidArgument
-     *  if the given WAUT id is not known.
-     *
-     * @param[in] wautid The ID of the WAUT
-     * @param[in] when The switch procedure begin
-     * @param[in] to The program the WAUT shall start to switch to at the given time
-     * @exception InvalidArgument If the named WAUT is not known
-     */
-    void addWAUTSwitch(const std::string &wautid, SUMOTime when,
-                       const std::string &to) throw(InvalidArgument);
-
-
-    /** @brief Adds a tls to the list of tls to be switched by the named WAUT
-     *
-     * Passes the values directly to the used tls control. This throws an InvalidArgument
-     *  if the given WAUT id or the given junction id is not known.
-     *
-     * @param[in] wautid The ID of the WAUT
-     * @param[in] tls The id of the tls to be switched
-     * @param[in] proc The switching procedure to use
-     * @param[in] synchron Whether the switching shall be done in synchron mode
-     * @exception InvalidArgument If the named WAUT or the named tls are not known
-     */
-    void addWAUTJunction(const std::string &wautid, const std::string &tls,
-                         const std::string &proc, bool synchron) throw(InvalidArgument);
-
-
-    /** @brief Closes the instatiation of a WAUT
-     *
-     * Passes the values directly to the used tls control. This throws an InvalidArgument
-     *  if the given id is already in use.
-     *
-     * @param[in] wautid The ID of the WAUT
-     * @exception InvalidArgument If the id is already used by another WAUT
-     */
-    void closeWAUT(const std::string &wautid) throw(InvalidArgument);
-
-
     /** @brief Returns the active name
      * @return The active id
      */
@@ -385,6 +331,16 @@ public:
     const std::string &getActiveSubKey() const throw();
 
 
+    /** @brief Returns the used tls control
+     *
+     * This may be either the internal one ("myLogicControl"), or, if the network has
+     *  been already loaded and we are loading additional tls programs, the net's logic control.
+     *
+     * @return The tls control to use
+     */
+    MSTLLogicControl &getTLLogicControlToUse() const throw();
+
+
 protected:
     /** @brief Returns the current junction logic
      *
@@ -396,16 +352,6 @@ protected:
      * @todo Where is this used?
      */
     MSJunctionLogic *getJunctionLogicSecure() throw(InvalidArgument);
-
-
-    /** @brief Returns the used tls control
-     *
-     * This may be either the internal one ("myLogicControl"), or, if the network has
-     *  been already loaded and we are loading additional tls programs, the net's logic control.
-     *
-     * @return The tls control to use
-     */
-    MSTLLogicControl &getTLLogicControlToUse() const throw();
 
 
 protected:
