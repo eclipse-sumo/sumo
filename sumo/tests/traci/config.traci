@@ -1,5 +1,5 @@
 import_config_file:../config_all
-binary:$TEXTTEST_HOME\tracirunner.py
+binary:$TEXTTEST_HOME/tracirunner.py
 
 copy_test_path:net.net.xml
 copy_test_path:routes.rou.xml
