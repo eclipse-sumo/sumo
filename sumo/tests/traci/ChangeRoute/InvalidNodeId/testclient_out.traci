@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue May 13 20:16:39 2008
+TraCITestClient output file. Date: Sun May 18 18:11:42 2008
 
 
 -> Command sent: <SimulationStep>:
@@ -8,9 +8,12 @@ TraCITestClient output file. Date: Tue May 13 20:16:39 2008
   nodeId=0 targetTime=1 2D-Position: x=3491.85 y=488.75
 
 -> Command sent: <ChangeRoute>:
-  NodeId=1 RoadId=e_m6 travelTime=1.16189e+292
+  NodeId=1 RoadId=e_m6 travelTime=1
 .. Answered with error to command (48), [description: Can not retrieve node with ID 1]
 
--> Command sent: <Close>:
+-> Command sent: <SimulationStep>:
+  TargetTime=2 PosFormat=1
 ----
 Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort

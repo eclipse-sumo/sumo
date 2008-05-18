@@ -47,6 +47,16 @@ copy_test_path:posconversion_invalidroadid.prog
 copy_test_path:posconversion_invalidlaneid.prog
 copy_test_path:posconversion_invalidposonroad.prog
 
+copy_test_path:distrequest_3d3dair.prog
+copy_test_path:distrequest_3d3ddrive.prog
+copy_test_path:distrequest_roadroadair.prog
+copy_test_path:distrequest_roadroaddrive.prog
+copy_test_path:distrequest_3droadair.prog
+copy_test_path:distrequest_3droaddrive.prog
+copy_test_path:distrequest_road3dair.prog
+copy_test_path:distrequest_road3ddrive.prog
+copy_test_path:distrequest_invalidflag.prog
+
 [collate_file]
 testclient_out:testclient_out.txt
 net_state:netstate_dump.xml
