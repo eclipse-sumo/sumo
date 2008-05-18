@@ -1904,6 +1904,7 @@ void
 MSVehicle::checkReroute(SUMOTime t)
 {
     if (myWeightChangedViaTraci && myHaveRouteInfo && myStops.size()==0) {
+//		std::cerr << "traci: rerouting after weight change at timestep " << MSNet::getInstance()->getCurrentTimeStep() << std::endl;
         myHaveRouteInfo = false;
         SUMODijkstraRouter_Direct<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > 
             router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
@@ -1972,16 +1973,25 @@ MSVehicle::restoreEdgeWeightLocally(std::string edgeID, SUMOTime currentTime)
             // the edge was not known to the vehicle before any TraCI message, so it is
             // deleted now
             infoCont.erase(infoCont.find(edgeToRestore));
+//			std::cerr << "traci: deleted travel time info" << std::endl;
         } else {
 
             // the edge was already known to the vehicle, so it's original data (before any TraCI message
             // was sent) is restored
             infoCont[edgeToRestore]->neededTime = (*infoToRestore).second->neededTime;
             infoCont[edgeToRestore]->time = currentTime;//(*infoToRestore).second->time;
+//			std::cerr << "Traci: restored travel time" << std::endl;
         }
         edgesChangedByTraci.erase(infoToRestore);
     } else {
         return false;
+    }
+
+	myWeightChangedViaTraci = true;
+
+    // if the edge is on the vehicle's route, mark that a relevant information has been added
+    if (willPass(edgeToRestore)) {
+        myHaveRouteInfo = true;
     }
 
     return true;

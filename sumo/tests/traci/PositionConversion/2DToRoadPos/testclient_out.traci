@@ -1,0 +1,49 @@
+TraCITestClient output file. Date: Sun May 18 15:30:32 2008
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <PositionConversion>:
+ DestPosition-2D: x=2300 y=900 posId=4
+.. Command acknowledged (113), [description: ]
+.. Received Response <PositionConversion>:
+RoadMap-Position: roadId=e_o0 pos=191.95 laneId=2
+
+-> Command sent: <PositionConversion>:
+ DestPosition-2D: x=3900 y=1300 posId=4
+.. Command acknowledged (113), [description: ]
+.. Received Response <PositionConversion>:
+RoadMap-Position: roadId=e_x0 pos=300 laneId=0
+
+-> Command sent: <PositionConversion>:
+ DestPosition-2D: x=3330 y=1000 posId=4
+.. Command acknowledged (113), [description: ]
+.. Received Response <PositionConversion>:
+RoadMap-Position: roadId=e_o1 pos=338.05 laneId=0
+
+-> Command sent: <PositionConversion>:
+ DestPosition-2D: x=3400 y=200 posId=4
+.. Command acknowledged (113), [description: ]
+.. Received Response <PositionConversion>:
+RoadMap-Position: roadId=e_shape1 pos=330.727 laneId=0
+
+-> Command sent: <PositionConversion>:
+ DestPosition-2D: x=20 y=490 posId=4
+.. Command acknowledged (113), [description: ]
+.. Received Response <PositionConversion>:
+RoadMap-Position: roadId=e_m0 pos=20 laneId=0
+
+-> Command sent: <PositionConversion>:
+ DestPosition-2D: x=-100 y=489 posId=4
+.. Command acknowledged (113), [description: ]
+.. Received Response <PositionConversion>:
+RoadMap-Position: roadId=e_m0 pos=100 laneId=0
+
+-> Command sent: <SimulationStep>:
+  TargetTime=10 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

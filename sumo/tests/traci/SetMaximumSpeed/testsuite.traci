@@ -5,3 +5,6 @@ SetMaxSpeed
 
 # test unsetting of a previously set maximum speed
 UnsetMaxSpeed
+
+# Test error on specifying an invalid node id
+InalivNodeId

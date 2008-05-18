@@ -8,3 +8,6 @@ Position3D
 
 # test <SimulationStep> with position format <PositionRoadMap>
 PositionRoadMap
+
+# Test error on specifying an invalid position format
+InvalidPositionFormat

@@ -7,9 +7,11 @@ copy_test_path:routes.rou.xml
 copy_test_path:movenode_2d.prog
 copy_test_path:movenode_3d.prog
 copy_test_path:movenode_road.prog
+copy_test_path:movenode_invalidpos.prog
 
 copy_test_path:setmaxspeed.prog
 copy_test_path:unsetmaxspeed.prog
+copy_test_path:setmaxspeed_invalidnode.prog
 
 copy_test_path:stopnode2d.prog
 copy_test_path:stopnode3d.prog
@@ -32,10 +34,18 @@ copy_test_path:changeroute_reset.prog
 copy_test_path:changeroute_invalidedge.prog
 copy_test_path:changeroute_invalidnode.prog
 
-
 copy_test_path:changetarget_basic.prog
 copy_test_path:changetarget_unreachable.prog
 copy_test_path:changetarget_invalidnode.prog
+
+copy_test_path:posconversion_3dtoroadpos.prog
+copy_test_path:posconversion_2dtoroadpos.prog
+copy_test_path:posconversion_roadposto3d.prog
+copy_test_path:posconversion_sametype3d.prog
+copy_test_path:posconversion_sametyperoadpos.prog
+copy_test_path:posconversion_invalidroadid.prog
+copy_test_path:posconversion_invalidlaneid.prog
+copy_test_path:posconversion_invalidposonroad.prog
 
 [collate_file]
 testclient_out:testclient_out.txt

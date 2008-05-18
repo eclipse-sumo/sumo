@@ -1,0 +1,44 @@
+<?xml version="1.0"?>
+
+<!-- generated on 05/18/08 15:30:32 by SUMO sumo Version dev-SVN-r5510
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>routes.rou.xml</route-files>
+   </input>
+
+   <output>
+      <netstate-dump>netstate_dump.xml</netstate-dump>
+   </output>
+
+   <traffic_control_interface_(traci)_server>
+      <remote-port>8828</remote-port>
+      <penetration>1</penetration>
+   </traffic_control_interface_(traci)_server>
+
+</configuration>
+-->
+
+<sumo-netstate>
+   <timestep time="1">
+   </timestep>
+   <timestep time="2">
+   </timestep>
+   <timestep time="3">
+   </timestep>
+   <timestep time="4">
+   </timestep>
+   <timestep time="5">
+   </timestep>
+   <timestep time="6">
+   </timestep>
+   <timestep time="7">
+   </timestep>
+   <timestep time="8">
+   </timestep>
+   <timestep time="9">
+   </timestep>
+   <timestep time="10">
+   </timestep>
+</sumo-netstate>

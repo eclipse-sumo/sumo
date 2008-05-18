@@ -20,3 +20,6 @@ ChangeRoute
 
 # Test command <ChangeTarget>
 ChangeTarget
+
+# Test command <PositionConversion>
+PositionConversion

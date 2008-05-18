@@ -1,0 +1,17 @@
+TraCITestClient output file. Date: Sun May 18 16:05:20 2008
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <PositionConversion>:
+ DestPosition-RoadMap: roadId=e_m0 pos=0 laneId=100 posId=3
+.. Answered with error to command (113), [description: No lane existing with such id on the given road]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2 PosFormat=1
+----
+Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort

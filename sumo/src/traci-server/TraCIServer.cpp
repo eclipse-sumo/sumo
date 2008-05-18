@@ -633,28 +633,14 @@ throw(TraCIException)
         return;
     }
 
-	// Forward command to vehicle
 	/*const MSEdge* const road = veh->getEdge();
-    const MSEdge::LaneCont* const allLanes = road->getLanes();
-	if (laneIndex >= allLanes->size()) {
-        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "No lane existing with such id on the current road");
-    }*/
-
-	/*int index = 0;
-	MSLane* actLane = (*allLanes)[0];
-	while (road->rightLane(actLane) != NULL) {
-		actLane = road->rightLane(actLane);
-		index++;
-	}*/
-
-	veh->startLaneChange(static_cast<int>(laneIndex), static_cast<SUMOTime>(stickyTime));
+    const MSEdge::LaneCont* const allLanes = road->getLanes();*/
+	if ((laneIndex < 0) || (laneIndex >= veh->getEdge()->getLanes()->size())) {
+        writeStatusCmd(respMsg, CMD_CHANGELANE, RTYPE_ERR, "No lane existing with given id on the current road");
+    }
 	
-	/*if (index < laneIndex) {
-		veh->forceLaneChangeLeft(laneIndex - index, stickyTime);
-	}
-	if (index > laneIndex) {
-		veh->forceLaneChangeRight(index - laneIndex, stickyTime);
-	}*/
+	// Forward command to vehicle
+	veh->startLaneChange(static_cast<int>(laneIndex), static_cast<SUMOTime>(stickyTime));
 
     // create a reply message
     writeStatusCmd(respMsg, CMD_CHANGELANE, RTYPE_OK, "");
@@ -715,12 +701,12 @@ throw(TraCIException)
     const MSEdge* destEdge = MSEdge::dictionary(edgeID);
 
     if (veh == NULL) {
-        writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve node with given ID");
+        writeStatusCmd(respMsg, CMD_CHANGETARGET, RTYPE_ERR, "Can not retrieve node with given ID");
         return;
     }
 
     if (destEdge == NULL) {
-        writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Can not retrieve road with given ID");
+        writeStatusCmd(respMsg, CMD_CHANGETARGET, RTYPE_ERR, "Can not retrieve road with given ID");
         return;
     }
 
@@ -1112,6 +1098,10 @@ throw(TraCIException)
 			tmpResult.writeFloat(roadPos.pos);
 			tmpResult.writeUnsignedByte(roadPos.laneId);
 			break;	
+		case POSITION_3D:
+			writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, 
+						"Destination position type is same as source position type");
+			return;
 		default:
 			writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, 
 							"Destination position type not supported");
@@ -1151,6 +1141,10 @@ throw(TraCIException)
 			tmpResult.writeFloat(y);
 			tmpResult.writeFloat(z);
 			break;
+		case POSITION_ROADMAP:
+			writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, 
+						"Destination position type is same as source position type");
+			return;
 		default:
 			writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, 
 						"Destination position type not supported");

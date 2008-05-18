@@ -1,0 +1,1 @@
+sumo.exe --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8827 --netstate-dump netstate_dump.xml TraCITestClient.exe -def posconversion_3dtoroadpos.prog -p 8827 -h localhost -o testclient_out.txt

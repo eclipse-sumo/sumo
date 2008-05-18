@@ -1,0 +1,26 @@
+Answered with error to command 1: Error: unsupported return format requested.
+Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort

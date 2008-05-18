@@ -1,0 +1,8 @@
+simstep 1 1
+posconversion2d 2300 900 4
+posconversion2d 3900 1300 4
+posconversion2d 3330 1000 4
+posconversion2d 3400 200 4
+posconversion2d 20 490 4
+posconversion2d -100 489 4
+simstep 10 1

@@ -1,0 +1,59 @@
+TraCITestClient output file. Date: Sun May 18 14:43:45 2008
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1 PosFormat=100
+.. Answered with error to command (1), [description: Error: unsupported return format requested.]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2 PosFormat=100
+----
+Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort
