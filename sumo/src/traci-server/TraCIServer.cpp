@@ -1339,9 +1339,9 @@ throw(TraCIException)
 		} else {
 			router.compute(MSEdge::dictionary(roadPos1.roadId), MSEdge::dictionary(roadPos2.roadId), NULL,
 				MSNet::getInstance()->getCurrentTimeStep(), edges);
-			cerr << "route: ";
+//			cerr << "route: ";
 			for (MSRouteIterator it=edges.begin(); it != edges.end(); it++) {
-				cerr << " " << (*it)->getID();
+//				cerr << " " << (*it)->getID();
 			}
 			cerr << endl;
 			MSRoute route("", edges, false);
