@@ -26,3 +26,6 @@ PositionConversion
 
 # Test command <DistanceRequest>
 DistanceRequest
+
+# Test command <Scenario>
+Scenario

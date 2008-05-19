@@ -1,0 +1,8 @@
+# Test for variable shape
+Shape
+
+# Test for variable shape, giving invalid object id
+ShapeInvalidRoad
+
+# Test error on specifying an invalid variable id
+InvalidVariableId

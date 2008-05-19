@@ -1,0 +1,8 @@
+# Tests for road map domain
+DomRoadMap
+
+# Test error on specifying an invalid domain id
+InvalidDomain
+
+# Test error on specifying an invalid flag
+InvalidFlag

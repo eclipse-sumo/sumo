@@ -57,6 +57,12 @@ copy_test_path:distrequest_road3dair.prog
 copy_test_path:distrequest_road3ddrive.prog
 copy_test_path:distrequest_invalidflag.prog
 
+copy_test_path:scenario_roadmap_shape.prog
+copy_test_path:scenario_roadmap_shapeinvalidroad.prog
+copy_test_path:scenario_invaliddomain.prog
+copy_test_path:scenario_invalidflag.prog
+copy_test_path:scenario_invalidvariable.prog
+
 [collate_file]
 testclient_out:testclient_out.txt
 net_state:netstate_dump.xml

@@ -1,0 +1,4 @@
+simstep 1 1
+% invalid flag %
+scenario_novalue 254 0 0 1 0
+simstep 2 1

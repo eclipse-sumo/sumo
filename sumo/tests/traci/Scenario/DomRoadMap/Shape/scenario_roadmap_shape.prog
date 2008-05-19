@@ -1,0 +1,4 @@
+simstep 1 1
+% flag: get, domain: road map, domain id:0, variable: shape, valType: 0 %
+scenario_novalue 0 0 0 9 0
+simstep 2 1

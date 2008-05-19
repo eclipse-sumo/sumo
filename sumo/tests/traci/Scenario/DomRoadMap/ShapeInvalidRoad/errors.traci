@@ -1,0 +1,4 @@
+Answered with error to command 115: Invalid object id specified
+Answered with error to command 115: Wrong position in requestMessage after dispatching command. Expected command length was 10 but 8 Bytes were read.
+Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort

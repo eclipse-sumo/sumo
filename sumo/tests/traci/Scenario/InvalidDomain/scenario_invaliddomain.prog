@@ -1,0 +1,4 @@
+simstep 1 1
+% invalid domain %
+scenario_novalue 0 254 0 1 0
+simstep 2 1 
