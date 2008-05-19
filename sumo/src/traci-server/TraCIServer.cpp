@@ -1765,6 +1765,10 @@ throw(TraCIException)
 
 	// domain object
 	int objectId = requestMsg.readInt();
+	// check for valid object id
+	if (objectId < 0 || objectId >= MSEdge::dictSize()) {
+		throw TraCIException("Invalid object id specified");
+	}
 	MSEdge* edge = MSEdge::dictionary(objectId);
 
 	// variable id
