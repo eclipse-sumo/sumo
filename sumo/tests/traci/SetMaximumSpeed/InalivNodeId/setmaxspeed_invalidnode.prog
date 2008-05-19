@@ -1,0 +1,3 @@
+simstep 1 1
+setmaxspeed -1 10
+simstep 100 1

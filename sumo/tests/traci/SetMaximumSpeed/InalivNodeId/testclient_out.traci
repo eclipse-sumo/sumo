@@ -1,0 +1,19 @@
+TraCITestClient output file. Date: Sun May 18 14:32:07 2008
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=1 2D-Position: x=0.1 y=491.85
+
+-> Command sent: <SetMaximumSpeed>:
+  NodeId=-1 MaxSpeed=10
+.. Answered with error to command (17), [description: Can not retrieve node with given ID]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=100 PosFormat=1
+----
+Error while receiving command: tcpip::Socket::receive() @ recv: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer
