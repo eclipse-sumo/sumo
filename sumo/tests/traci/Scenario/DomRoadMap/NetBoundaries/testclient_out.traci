@@ -1,0 +1,19 @@
+TraCITestClient output file. Date: Mon May 19 22:11:25 2008
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Scenario>:
+  flag=0 domain=0 domainId=0 variable=3 valueDataType=0 [no value sent]
+.. Command acknowledged (115), [description: Warning: requested data type could not be used; using boundary box type instead!]
+.. Received Response <Scenario>:
+  flag=0  domain=0 domainId=0 variable=3 valueDataType=5 BoundaryBoxValue: lowerLeft x=0 y=0 upperRight x=3698.55 y=1008.45
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

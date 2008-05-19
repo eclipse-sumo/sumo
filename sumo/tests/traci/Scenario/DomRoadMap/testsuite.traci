@@ -6,3 +6,9 @@ ShapeInvalidRoad
 
 # Test error on specifying an invalid variable id
 InvalidVariableId
+
+# Test for variable netBoundaries
+NetBoundaries
+
+# Test for  variavle count
+Count

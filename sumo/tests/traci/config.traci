@@ -62,6 +62,8 @@ copy_test_path:scenario_roadmap_shapeinvalidroad.prog
 copy_test_path:scenario_invaliddomain.prog
 copy_test_path:scenario_invalidflag.prog
 copy_test_path:scenario_invalidvariable.prog
+copy_test_path:scenario_netboundaries.prog
+copy_test_path:scenario_count.prog
 
 [collate_file]
 testclient_out:testclient_out.txt
