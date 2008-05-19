@@ -70,6 +70,7 @@ duagroups = 0.
 oneshotgroups = 0.
 allmethodlabel = ''
 combilabel = ''
+tTest = False
 
 # calculate/read the basic statistics
 for method, vehicles in net._allvehicles.iteritems():
@@ -82,11 +83,12 @@ getStatisticsOutput(net, options.outputfile)
 print 'The calculation of network statistics is done!'              
    
 # begin the significance test for the observations with a normal distribution
-print 'begin the t test!'
-for A in net._assignments.itervalues():
-    tValueAvg[A] = {}
-doTTestForAvg(options.verbose, tValueAvg, list(net._assignments.itervalues()))
-print 'The t test is done!'        
+if tTest:
+    print 'begin the t test!'
+    for A in net._assignments.itervalues():
+        tValueAvg[A] = {}
+    doTTestForAvg(options.verbose, tValueAvg, list(net._assignments.itervalues()))
+    print 'The t test is done!'        
 
 # The Kruskal-Wallis test is applied for the data, not drawn from a normally distributed population.
 groups = 2
@@ -113,5 +115,5 @@ doKruskalWallisTest(options.verbose, duagroups, duavehlist, net._assignments, "d
 print 'Test for: duas'
 print 'groups:', duagroups
 
-getSignificanceTestOutput(net, tValueAvg, hValues)
+getSignificanceTestOutput(net, tTest, tValueAvg, hValues)
 print 'The Significance test is done!'

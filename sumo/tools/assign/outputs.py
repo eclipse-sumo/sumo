@@ -119,21 +119,21 @@ def getStatisticsOutput(net, outputfile):
     foutveh.close()
        
 # output the results of the significance tests according to the sumo-simulation results
-def getSignificanceTestOutput(net, tValueAvg, hValues):
+def getSignificanceTestOutput(net, tTest, tValueAvg, hValues):
     foutSGtest = file('SG_Test.txt', 'w')
-    
-    foutSGtest.write('The significances of the performance averages among the used assignment models are examined with the t test.\n')
-    assignlist = list(net._assignments.itervalues())
-    for num, A in enumerate(assignlist):
-        for B in assignlist[num+1: ]:
-            foutSGtest.write('\nmethod:%s' %A.label)
-            foutSGtest.write('\nmethod:%s' %B.label)
-            foutSGtest.write('\n   t-value for the avg. travel time:%s' %tValueAvg[A][B].avgtraveltime)
-            foutSGtest.write('\n   t-value for the avg. travel length:%s'%tValueAvg[A][B].avgtravellength)
-            foutSGtest.write('\n   t-value for the avg.travel speed:%s' %tValueAvg[A][B].avgtravelspeed)
-            foutSGtest.write('\n   t-value for the avg. wait time:%s\n' %tValueAvg[A][B].avgwaittime)
-            foutSGtest.write('\n95 t-value:%s' %tValueAvg[A][B].lowtvalue)
-            foutSGtest.write('\n99 t-value:%s\n' %tValueAvg[A][B].hightvalue)
+    if tTest:
+        foutSGtest.write('The significances of the performance averages among the used assignment models are examined with the t test.\n')
+        assignlist = list(net._assignments.itervalues())
+        for num, A in enumerate(assignlist):
+            for B in assignlist[num+1: ]:
+                foutSGtest.write('\nmethod:%s' %A.label)
+                foutSGtest.write('\nmethod:%s' %B.label)
+                foutSGtest.write('\n   t-value for the avg. travel time:%s' %tValueAvg[A][B].avgtraveltime)
+                foutSGtest.write('\n   t-value for the avg. travel length:%s'%tValueAvg[A][B].avgtravellength)
+                foutSGtest.write('\n   t-value for the avg.travel speed:%s' %tValueAvg[A][B].avgtravelspeed)
+                foutSGtest.write('\n   t-value for the avg. wait time:%s\n' %tValueAvg[A][B].avgwaittime)
+                foutSGtest.write('\n95 t-value:%s' %tValueAvg[A][B].lowtvalue)
+                foutSGtest.write('\n99 t-value:%s\n' %tValueAvg[A][B].hightvalue)
                 
     foutSGtest.write('The significance test among the different assignment methods is also done with the Kruskal-Wallis test.\n')
     for h in hValues:
