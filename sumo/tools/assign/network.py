@@ -82,16 +82,16 @@ class Net:
     def removeUTurnEdge(self, edge):
         outEdge = edge
         if outEdge.uturn != None:
-            for link in self._edges:
+            for link in self._edges.itervalues():
                 if str(link.source) == str(outEdge.target) and str(link.target) == str(outEdge.source):
-                    inEdge = link
-            for edge1 in outEdge.target.outEdges:
-                for edge2 in inEdge.source.inEdges:
-                    if edge1 == edge2:
-                        uTurnEdge = edge1
-            outEdge.target.outEdges.discard(uTurnEdge)
-            inEdge.source.inEdges.discard(uTurnEdge)
+                    for edge1 in outEdge.target.outEdges:
+                        for edge2 in link.source.inEdges:
+                            if edge1 == edge2:
+                                uTurnEdge = edge1
 
+                    outEdge.target.outEdges.discard(uTurnEdge)
+                    link.source.inEdges.discard(uTurnEdge)
+                    
 #    find the k shortest paths for each OD pair. The "k" is defined by users.
     def calcKPaths(self, verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort):
         if verbose:
@@ -264,7 +264,7 @@ class NetworkReader(handler.ContentHandler):
                     self._edgeObj.straight = attrs['state']
                 elif attrs['dir'] == "l": 
                     self._edgeObj.leftturn = attrs['state']
-                elif attrs['dir'] == "u": 
+                elif attrs['dir'] == "t": 
                     self._edgeObj.uturn = attrs['state']
                     
         elif name == 'cedge' and self._edge != '':
