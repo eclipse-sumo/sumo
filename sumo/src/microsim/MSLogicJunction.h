@@ -68,6 +68,9 @@ public:
         The respond is link-bound */
     typedef std::bitset<64> Respond;
 
+    /** @brief Container for link foes */
+    typedef std::bitset<64> LinkFoes;
+
     /** @brief Container for junction-internal lane occupation
         Each element of this container represents one particular
         junction-internal lane */

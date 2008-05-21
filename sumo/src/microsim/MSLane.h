@@ -4,7 +4,7 @@
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
-// operate.
+// Representation of a lane in the micro simulation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -66,6 +66,8 @@ class SSLaneMeanData;
 // ===========================================================================
 /**
  * @class MSLane
+ * @brief Representation of a lane in the micro simulation
+ *
  * Class which represents a single lane. Somekind of the main class of the
  * simulation. Allows moving vehicles.
  */
@@ -96,52 +98,133 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     };
 
 
-    /// Destructor.
-    virtual ~MSLane();
-
-    /** Use this constructor only. Later use initialize to complete
-        lane initialization. */
-    MSLane(std::string id, SUMOReal maxSpeed, SUMOReal length, MSEdge* edge,
-           size_t numericalID, const Position2DVector &shape,
+public:
+    /** @brief Constructor 
+     *
+     * @param[in] id The lane's id
+     * @param[in] maxSpeed The speed allwoed on this lane
+     * @param[in] length The lane's length
+     * @param[in] edge The edge this lane belongs to
+     * @param[in] numericalID The numerical id of the lane
+     * @param[in] allowed Vehicle classes that explicitely may drive on this lane
+     * @param[in] disallowed Vehicle classes that are explicitaly forbidden on this lane
+     * @see SUMOVehicleClass
+     */
+    MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge,
+           unsigned int numericalID, const Position2DVector &shape,
            const std::vector<SUMOVehicleClass> &allowed,
-           const std::vector<SUMOVehicleClass> &disallowed);
+           const std::vector<SUMOVehicleClass> &disallowed) throw();
 
-    /** Not all lane-members are known at the time the lane is born,
-        above all the pointers to other lanes, so we have to
-        initialize later. */
+
+    /// @brief Destructor
+    virtual ~MSLane() throw();
+
+
+
+    /// @name Additional initialisation
+    /// @{
+
+    /** @brief Delayed initialization
+     *
+     *  Not all lane-members are known at the time the lane is born, above all the pointers 
+     *   to other lanes, so we have to initialize later. 
+     * 
+     * @param[in] succs The list of (outgoing) links
+     * @todo Why are succs not const?
+     */
     void initialize(MSLinkCont* succs);
+    ///@}
+
+
+
+    /// @name interaction with MSMoveReminder
+    /// @{
+
+    /// @brief Definition of a container for move reminder
+    typedef std::vector< MSMoveReminder* > MoveReminderCont;
+
+
+    /** @brief Add a move-reminder to move-reminder container
+     *
+     * The move reminder will not be deleted by the lane 
+     *
+     * @param[in] rem The move reminder to add
+     */
+    virtual void addMoveReminder(MSMoveReminder* rem) throw();
+
+
+    /** @brief Return the list of this lane's move reminders
+     * @return Previously added move reminder
+     */
+    inline const MoveReminderCont &getMoveReminders() const throw() {
+        return myMoveReminders;
+    }
+    ///@}
+
+
+
+    /// @name Vehicle emission
+    ///@{
+
+    /** @brief Tries to emit the given vehicle
+     *
+     * The emission position and speed are determined in dependence
+     *  to the vehicle's departure definition, first.  If "isReinsertion" is set,
+     *  meaning the vehicle tries to end a teleportation, then the values for 
+     *  the fastest emission are used (speed=max, pos=free).
+     *
+     * Then, the vehicle is tried to be inserted into the lane
+     *  using these values by a call to "isEmissionSuccess". The result of
+     *  "isEmissionSuccess" is returned.
+     *
+     * @param[in] v The vehicle to emit
+     * @return Whether the vehicle could be emitted
+     * @see isEmissionSuccess
+     * @see MSVehicle::getDepartureDefinition
+     * @see MSVehicle::DepartArrivalDefinition
+     */
+    bool emit(MSVehicle& v) throw();
+
+
+    /** @brief Tries to emit the given vehicle with the given state (speed and pos)
+     *
+     * Checks whether the vehicle can be inserted at the given position with the
+     *  given speed so that no collisions with leader/follower occure and the speed
+     *  does not yield in unexpected behaviour on consecutive lanes. Returns false
+     *  if the vehicle can not be inserted.
+     *
+     * If the insertion can take place, the vehicle's "enterLaneAtEmit" method is called,
+     *  the vehicle is inserted into the lane's vehicle container ("myVehicles"), the
+     *  lane's statistical information is patched (including the mean data). true is returned.
+     *
+     * @param[in] vehicle The vehicle to emit
+     * @param[in] speed The speed with which it shall be emitted
+     * @param[in] pos The position at which it shall be emitted
+     * @param[in] recheckNextLanes Forces patching the speed for not being too fast on next lanes
+     * @return Whether the vehicle could be emitted
+     * @see MSVehicle::enterLaneAtEmit
+     */
+    virtual bool isEmissionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos,
+        bool recheckNextLanes) throw();
+
+
+    /** @brief Tries to emit the given vehicle on any place
+     *
+     * @param[in] veh The vehicle to emit
+     * @param[in] speed The maximum emission speed
+     * @return Whether the vehicle could be emitted
+     */
+    bool freeEmit(MSVehicle& veh, SUMOReal speed) throw();
+    ///@}
+
+
+
+    /// @name Vehicle movement (longitudinal)
+    /// @{
 
     virtual bool moveNonCritical();
 
     virtual bool moveCritical();
-
-    /// Check if vehicles are too close.
-    virtual void detectCollisions(SUMOTime timestep);
-
-    /** @brief Emits the given vehicle
-     *
-     * The emission position and speed are determined in dependence
-     *  to the vehicle's departure definition, first.
-     *
-     * If "isReinsertion" is set, meaning the vehicle tries to
-     *  end a teleportation, then the values for the fastest
-     *  emission are used (speed=max, pos=!!!).
-     *
-     * Then, the vehicle is tried to be inserted into the lane
-     *  using these values by a call to "isEmissionSuccess".
-     *
-     * @param[in] v The vehicle to emit
-     * @param[in] isReinsertion Whether the vehicle was already emitted
-     * @return Whether the vehicle could be emitted
-     */
-    bool emit(MSVehicle& v, bool isReinsertion=false) throw();
-
-    /** @brief Try to emit a vehicle with speed > 0
-        i.e. from a source with initial speed values. */
-    virtual bool isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &vstate);
-
-    bool freeEmit(MSVehicle& veh, SUMOReal speed) throw();
-
 
     /** Moves the critical vehicles
         This step is done after the responds have been set */
@@ -149,6 +232,13 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
 
     /// Insert buffered vehicle into the real lane.
     virtual bool integrateNewVehicle();
+    ///@}
+
+
+
+    /// Check if vehicles are too close.
+    virtual void detectCollisions(SUMOTime timestep);
+
 
     /** Returns the information whether this lane may be used to continue
         the current route */
@@ -197,9 +287,6 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
         return myDict.size();
     }
 
-    /// simple output operator
-    friend std::ostream& operator<<(std::ostream& os, const MSLane& lane);
-
     /// Container for vehicles.
     typedef std::deque< MSVehicle* > VehCont;
 
@@ -230,10 +317,8 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     }
 
     /// returns the last vehicle
-    virtual const MSVehicle * const getLastVehicle() const;
+    virtual MSVehicle * const getLastVehicle() const;
     virtual const MSVehicle * const getFirstVehicle() const;
-
-    virtual MSVehicle *getLastVehicle(MSLaneChanger &lc) const;
 
     MSVehicle::State myLastState;
 
@@ -251,11 +336,6 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
     unsigned int getVehicleNumber() const;
 
 
-
-    typedef std::vector< MSMoveReminder* > MoveReminderCont;
-    /// Add a move-reminder to move-reminder container
-    virtual void addMoveReminder(MSMoveReminder* rem);
-    MoveReminderCont getMoveReminders(void);
 
     // valid for gui-version only
     virtual GUILaneWrapper *buildLaneWrapper(GUIGlObjectStorage &idStorage);
@@ -312,7 +392,11 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
         return myIncomingLanes;
     }
 
-    std::pair<MSVehicle *, SUMOReal> getApproaching(SUMOReal dist, SUMOReal seen, SUMOReal leaderSpeed) const;
+    std::pair<MSVehicle * const, SUMOReal> getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, 
+        SUMOReal leaderSpeed) const;
+
+    std::pair<MSVehicle * const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, 
+        SUMOReal leaderSpeed, const MSVehicle &veh, const std::vector<MSLane*> &bestLaneConts) const;
 
 
 
@@ -351,7 +435,6 @@ protected:
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     virtual void swapAfterLaneChange();
 
-    void add2MeanDataEmitted();
 
 
 protected:
@@ -410,8 +493,6 @@ protected:
     /// @brief The end of this lane's edge's lane container
     MSEdge::LaneCont::const_iterator myLastNeigh;
 
-
-protected:
     /// index of the first vehicle that may drive over the lane's end
     size_t myFirstUnsafe;
 
@@ -429,29 +510,25 @@ protected:
     static DictType myDict;
 
 private:
-    /// Default constructor.
-    MSLane();
+    /// @brief This lane's move reminder
+    MoveReminderCont myMoveReminders;
 
-    /// Copy constructor.
-    MSLane(const MSLane&);
-
-    /// Assignment operator.
-    MSLane& operator=(const MSLane&);
-
-    MoveReminderCont moveRemindersM;
 
     /**
      * @class vehicle_position_sorter
-     * @brief !!!!
+     * @brief Sorts vehicles by their position (descending)
      */
     class vehicle_position_sorter
     {
     public:
-        /// constructor
+        /// @brief Constructor
         explicit vehicle_position_sorter() { }
 
 
         /** @brief Comparing operator
+         * @param[in] v1 First vehicle to compare
+         * @param[in] v2 Second vehicle to compare
+         * @return Whether the first vehicle is further on the lane than the second
          */
         int operator()(MSVehicle *v1, MSVehicle *v2) const {
             return v1->getPositionOnLane()>v2->getPositionOnLane();
@@ -459,6 +536,13 @@ private:
 
     };
 
+
+private:
+    /// @brief invalidated copy constructor
+    MSLane(const MSLane&);
+
+    /// @brief invalidated assignment operator
+    MSLane& operator=(const MSLane&);
 
 
 };

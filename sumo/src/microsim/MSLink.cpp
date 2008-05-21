@@ -69,8 +69,9 @@ MSLink::~MSLink() throw()
 
 
 void
-MSLink::setRequestInformation(MSLogicJunction::Request *request, size_t requestIdx,
-                              MSLogicJunction::Respond *respond, size_t respondIdx) throw()
+MSLink::setRequestInformation(MSLogicJunction::Request *request, unsigned int requestIdx,
+                              MSLogicJunction::Respond *respond, unsigned int respondIdx,
+                              const MSLogicJunction::LinkFoes &foes) throw()
 {
     assert(myRequest==0);
     assert(myRespond==0);
@@ -78,6 +79,7 @@ MSLink::setRequestInformation(MSLogicJunction::Request *request, size_t requestI
     myRequestIdx = requestIdx;
     myRespond = respond;
     myRespondIdx = respondIdx;
+    myFoes = foes;
 }
 
 
@@ -108,6 +110,17 @@ MSLink::opened() const throw()
         return true;
     }
     return myRespond->test(myRespondIdx);
+}
+
+
+bool 
+MSLink::hasApproachingFoe() const throw()
+{
+    if (myRequest==0) {
+        // !!! may this happen?
+        return false;
+    }
+    return (*myRequest&myFoes).any();
 }
 
 
@@ -189,7 +202,7 @@ MSLink::resetInternalPriority() throw()
 #endif
 
 
-size_t
+unsigned int
 MSLink::getRespondIndex() const throw()
 {
     return myRespondIdx;

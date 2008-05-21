@@ -510,9 +510,9 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child)
     SUMOReal speed = myToEmit[child].second;
     // check whether the speed shall be patched
     //TM
-    MSVehicle::State state(myPos+1, MIN2(myDestLane->maxSpeed(), veh->getMaxSpeed()));
-    if (speed>=0) {
-        state = MSVehicle::State(myPos+1, speed);
+    SUMOReal pos = myPos+1;
+    if (speed<0) {
+        speed = MIN2(myDestLane->maxSpeed(), veh->getMaxSpeed());
     }
     // try to emit
 #ifdef HAVE_MESOSIM
@@ -530,8 +530,7 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child)
         }
     } else {
 #endif
-        if (myDestLane->isEmissionSuccess(veh, state)) {
-            veh->enterLaneAtEmit(myDestLane, state);
+        if (myDestLane->isEmissionSuccess(veh, speed, pos, false)) {
             veh->onDepart();
             // insert vehicle into the dictionary
             if (!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {

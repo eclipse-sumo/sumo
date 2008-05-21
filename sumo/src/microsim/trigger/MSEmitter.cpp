@@ -371,9 +371,11 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
     SUMOReal speed = myToEmit[child].second;
     // !!! add warning if speed to high or negative
     // check whether the speed shall be patched
-    MSVehicle::State state(myPos, MIN2(myDestLane->maxSpeed(), veh->getMaxSpeed()));
-    if (speed>=0) {
-        state = MSVehicle::State(myPos, MIN2(state.speed(), speed));
+    SUMOReal pos = myPos;
+    if (speed<0) {
+        speed = MIN2(myDestLane->maxSpeed(), veh->getMaxSpeed());
+    } else {
+        speed = MIN3(myDestLane->maxSpeed(), veh->getMaxSpeed(), speed);
     }
     // try to emit
 #ifdef HAVE_MESOSIM
@@ -391,7 +393,7 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
         }
     } else {
 #endif
-        if (myDestLane->isEmissionSuccess(veh, state)) {
+        if (myDestLane->isEmissionSuccess(veh, speed, pos, false)) {
             veh->onDepart();
             // insert vehicle into the dictionary
             if (!myNet.getVehicleControl().addVehicle(veh->getID(), veh)) {

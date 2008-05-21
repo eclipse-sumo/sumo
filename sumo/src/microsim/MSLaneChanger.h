@@ -4,7 +4,7 @@
 /// @date    Fri, 01 Feb 2002
 /// @version $Id$
 ///
-// the edge's lanes.
+// Performs lane changing of vehicles
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -46,19 +46,19 @@ class MSVehicle;
 // ===========================================================================
 /**
  * @class MSLaneChanger
- * Class which performs the lane changing on a single, associated lane.
+ * @brief Performs lane changing of vehicles
  */
 class MSLaneChanger
 {
 public:
-    /// Destructor.
-    virtual ~MSLaneChanger();
-
     /// Constructor
     MSLaneChanger(MSEdge::LaneCont* lanes);
 
+    /// Destructor.
+    ~MSLaneChanger();
+
     /// Start lane-change-process for all vehicles on the edge'e lanes.
-    virtual void laneChange();
+    void laneChange();
 
 public:
     /** Structure used for lane-change. For every lane you have to
@@ -89,18 +89,21 @@ public:
     typedef std::vector< ChangeElem > Changer;
 
     /// the iterator moving over the ChangeElems
-    typedef Changer::iterator         ChangerIt;
+    typedef Changer::iterator ChangerIt;
+
+    /// the iterator moving over the ChangeElems
+    typedef Changer::const_iterator ConstChangerIt;
 
 protected:
     /// Initialize the changer before looping over all vehicles.
-    virtual void initChanger();
+    void initChanger();
 
     /** @brief Check if there is a single change-candidate in the changer.
         Returns true if there is one. */
-    virtual bool vehInChanger() {
+    bool vehInChanger() const throw() {
         // If there is at least one valid vehicle under the veh's in myChanger
         // return true.
-        for (ChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
+        for (ConstChangerIt ce = myChanger.begin(); ce != myChanger.end(); ++ce) {
             if (veh(ce) != 0) {
                 return true;
             }
@@ -110,7 +113,7 @@ protected:
 
     /** Returns a pointer to the changer-element-iterator vehicle, or 0 if
         there is none. */
-    virtual MSVehicle* veh(ChangerIt ce) {
+    MSVehicle* veh(ConstChangerIt ce) const throw() {
         // If ce has a valid vehicle, return it. Otherwise return 0.
         if (ce->veh != ce->lane->myVehicles.rend()) {
             return *(ce->veh);
@@ -120,15 +123,15 @@ protected:
 
 
     /** Find a new candidate and try to change it. */
-    virtual bool change();
+    bool change();
 
     /** After the possible change, update the changer. */
-    virtual void updateChanger(bool vehHasChanged);
+    void updateChanger(bool vehHasChanged);
 
     /** During lane-change a temporary vehicle container is filled within
         the lanes (bad pratice to modify foreign members, I know). Swap
         this container with the real one. */
-    virtual void updateLanes();
+    void updateLanes();
 
     /** @brief Find current candidate.
         If there is none, myChanger.end() is returned. */
@@ -136,56 +139,56 @@ protected:
 
     /** Returns true if the target's lane is an allowed lane
         for the candidate's vehicle . */
-    virtual bool candiOnAllowed(ChangerIt target) {
+    bool candiOnAllowed(ChangerIt target) {
         assert(veh(myCandi) != 0);
         return veh(myCandi)->onAllowed(target->lane);
     }
 
-    virtual int change2right(
-        const std::pair<MSVehicle*, SUMOReal> &leader,
-        const std::pair<MSVehicle*, SUMOReal> &rLead,
-        const std::pair<MSVehicle*, SUMOReal> &rFollow,
-        const std::vector<MSVehicle::LaneQ> &preb);
+    int change2right(
+        const std::pair<MSVehicle * const, SUMOReal> &leader,
+        const std::pair<MSVehicle * const, SUMOReal> &rLead,
+        const std::pair<MSVehicle * const, SUMOReal> &rFollow,
+        const std::vector<MSVehicle::LaneQ> &preb) const throw();
 
-    virtual int change2left(
-        const std::pair<MSVehicle*, SUMOReal> &leader,
-        const std::pair<MSVehicle*, SUMOReal> &rLead,
-        const std::pair<MSVehicle*, SUMOReal> &rFollow,
-        const std::vector<MSVehicle::LaneQ> &preb);
+    int change2left(
+        const std::pair<MSVehicle * const, SUMOReal> &leader,
+        const std::pair<MSVehicle * const, SUMOReal> &rLead,
+        const std::pair<MSVehicle * const, SUMOReal> &rFollow,
+        const std::vector<MSVehicle::LaneQ> &preb) const throw();
 
     /** If candidate isn't on an allowed lane, we need to find target-
         lane that takes it closer to an allowed one. */
-    virtual ChangerIt findTarget();
+    ChangerIt findTarget();
 
-    virtual void setOverlap(const std::pair<MSVehicle*, SUMOReal> &neighLead,
-                            const std::pair<MSVehicle*, SUMOReal> &neighFollow,
-                            /*const ChangerIt &target,*/ int &blocked);
+    void setOverlap(const std::pair<MSVehicle * const, SUMOReal> &neighLead,
+                            const std::pair<MSVehicle * const, SUMOReal> &neighFollow,
+                            /*const ChangerIt &target,*/ int &blocked) const throw();
 
-    virtual void setIsSafeChange(const std::pair<MSVehicle*, SUMOReal> &neighLead,
-                                 const std::pair<MSVehicle*, SUMOReal> &neighFollow,
-                                 const ChangerIt &target, int &blocked);
+    void setIsSafeChange(const std::pair<MSVehicle * const, SUMOReal> &neighLead,
+                                 const std::pair<MSVehicle * const, SUMOReal> &neighFollow,
+                                 const ChangerIt &target, int &blocked) const throw();
 
     /** Returns true, if candidate has an advantage by changing to the
         right. */
-    virtual int advan2right(
-        const std::pair<MSVehicle*, SUMOReal> &leader,
-        const std::pair<MSVehicle*, SUMOReal> &rLead,
-        const std::pair<MSVehicle*, SUMOReal> &rFollow,
+    int advan2right(
+        const std::pair<MSVehicle * const, SUMOReal> &leader,
+        const std::pair<MSVehicle * const, SUMOReal> &rLead,
+        const std::pair<MSVehicle * const, SUMOReal> &rFollow,
         int blocked,
-        const std::vector<MSVehicle::LaneQ> &preb);
+        const std::vector<MSVehicle::LaneQ> &preb) const throw();
 
     /** Returns true, if candidate has an advantage by changing to the
         left. */
-    virtual int advan2left(
-        const std::pair<MSVehicle*, SUMOReal> &leader,
-        const std::pair<MSVehicle*, SUMOReal> &rLead,
-        const std::pair<MSVehicle*, SUMOReal> &rFollow,
+    int advan2left(
+        const std::pair<MSVehicle * const, SUMOReal> &leader,
+        const std::pair<MSVehicle * const, SUMOReal> &rLead,
+        const std::pair<MSVehicle * const, SUMOReal> &rFollow,
         int blocked,
-        const std::vector<MSVehicle::LaneQ> &preb);
+        const std::vector<MSVehicle::LaneQ> &preb) const throw();
 
     /** Returns true if candidate overlaps with a vehicle, that
         already changed the lane.*/
-    virtual bool overlapWithHopped(ChangerIt target) {
+    bool overlapWithHopped(ChangerIt target) const throw() {
         MSVehicle *v1 = target->hoppedVeh;
         MSVehicle *v2 = veh(myCandi);
         if (v1!=0 && v2!=0) {
@@ -194,13 +197,15 @@ protected:
         return false;
     }
 
-    std::pair<MSVehicle *, SUMOReal> getRealThisLeader(const ChangerIt &target);
-    std::pair<MSVehicle *, SUMOReal> getRealFollower(const ChangerIt &target);
-    std::pair<MSVehicle *, SUMOReal> getRealRightFollower();
-    std::pair<MSVehicle *, SUMOReal> getRealLeftFollower();
-    std::pair<MSVehicle *, SUMOReal> getRealLeader(const ChangerIt &target);
-    std::pair<MSVehicle *, SUMOReal> getRealRightLeader();
-    std::pair<MSVehicle *, SUMOReal> getRealLeftLeader();
+    std::pair<MSVehicle * const, SUMOReal> getRealThisLeader(const ChangerIt &target) const throw();
+
+    std::pair<MSVehicle * const, SUMOReal> getRealFollower(const ChangerIt &target) const throw();
+    std::pair<MSVehicle * const, SUMOReal> getRealRightFollower() const throw();
+    std::pair<MSVehicle * const, SUMOReal> getRealLeftFollower() const throw();
+
+    std::pair<MSVehicle * const, SUMOReal> getRealLeader(const ChangerIt &target) const throw();
+    std::pair<MSVehicle * const, SUMOReal> getRealRightLeader() const throw();
+    std::pair<MSVehicle * const, SUMOReal> getRealLeftLeader() const throw();
 
 
 protected:

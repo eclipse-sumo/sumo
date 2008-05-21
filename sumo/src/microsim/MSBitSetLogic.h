@@ -110,6 +110,12 @@ public:
         return myConts;
     }
 
+    /// Returns the foes of the given link
+    const MSLogicJunction::LinkFoes &getFoesFor(unsigned int linkIndex) const {
+        return (*myLogic)[linkIndex];
+    }
+
+
 private:
     /// junctions logic based on std::bitset
     Logic* myLogic;

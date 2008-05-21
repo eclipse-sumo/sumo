@@ -4,7 +4,7 @@
 /// @date    Mon, 12 Mar 2001
 /// @version $Id$
 ///
-// micro-simulation Vehicles.
+// Representation of a vehicle in the micro simulation
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -72,12 +72,43 @@ class MSMessageEmitter;
 // ===========================================================================
 /**
  * @class MSVehicle
+ * @brief Representation of a vehicle in the micro simulation
  */
 class MSVehicle : public MSVehicleQuitReminded
 #ifdef HAVE_MESOSIM
             , public MEVehicle
 #endif
 {
+public:
+    /** @struct DepartArrivalDefinition
+     * @brief A structure which stores the vehicle's departure parameter
+     *
+     * The structure resembles the depart/arrival parameters of a vehicle
+     *  as described in Specification (http://sumo.sourceforge.net/wiki/index.php/Specification).
+     *
+     * It is used for four purposes: to define how the vehicle shall be inserted
+     *  into the network, how it shall leave the network, how it has been inserted
+     *  into the network and how it has left the network.
+     */
+    struct DepartArrivalDefinition {
+        /// @brief The time the vehicle wants to be emitted
+        SUMOTime time;
+        /// @brief Information how the emission lane shall be determined
+        DepartLaneDefinition laneProcedure;
+        /// @brief The lane the vehicle wants to start at (may be 0)
+        MSLane *lane;
+        /// @brief Information how the emission position shall be determined
+        DepartPosDefinition posProcedure;
+        /// @brief The position the vehicle wants to start at (may be unset)
+        SUMOReal pos;
+        /// @brief Information how the emission speed shall be determined
+        DepartSpeedDefinition speedProcedure;
+        /// @brief The speed with which the vehicle wants to start (may be unset)
+        SUMOReal speed;
+    };
+
+
+
 public:
 
     /// the lane changer sets myLastLaneChangeOffset
@@ -125,8 +156,22 @@ public:
     virtual ~MSVehicle() throw();
 
 
-    /// @name needed during the emission
+
+    /// @name emission handling
     //@{
+
+    /** @brief Returns the vehicle's departure definition
+     *
+     * This definition is built on vehicle construction and stored in CORN_P_VEH_DEPART_DEF.
+     *  It is deleted as soon the vehicle departs (see "onDepart"). Retrieving
+     *  the definition after the vehicle has departed yields in an undefined behaviour.
+     *
+     * @return The vehicle's departure definition
+     */
+    const DepartArrivalDefinition &getDepartureDefinition() const throw() {
+        return *((DepartArrivalDefinition*) myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEPART_DEF)->second);
+    }
+
 
     /** @brief Returns the edge the vehicle starts from
      * @return The vehicle's departure edge
@@ -151,7 +196,10 @@ public:
     }
     //@}
 
+
+
     void removeOnTripEnd(MSVehicle *veh) throw();
+
 
 
     /// @name interaction with the route
@@ -173,14 +221,6 @@ public:
      * @return The nSuccs'th following edge in the vehicle's route
      */
     const MSEdge* succEdge(unsigned int nSuccs) const throw();
-
-
-    /** @brief Returns the current edge as iterator of the vehicles route vector 
-     * @return Iterator pointing at the current position in the vehicle's route
-     */
-    const MSRouteIterator& currEdgeIt() const throw() {
-        return myCurrEdge;
-    }
 
 
     /** Returns true if vehicle is going to enter it's destination
@@ -208,15 +248,17 @@ public:
     /// Replaces the current route by the given edges
     bool replaceRoute(const MSEdgeVector &edges, SUMOTime simTime);
 
+    bool willPass(const MSEdge * const edge) const;
+
+    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, MSVehicle> &router);
+
+
+
     //@}
 
 
     /// moves the vehicles after their responds (right-of-way rules) are known
     void moveFirstChecked();
-
-    /** @brief An position assertion
-        (needed as state and lane are not accessable) */
-    void _assertPos() const;
 
 
     /** Returns the gap between pred and this vehicle. Assumes they
@@ -238,10 +280,6 @@ public:
         return predPos - predLength - pos;
     }
 
-
-    bool willPass(const MSEdge * const edge) const;
-
-    void reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, MSVehicle> &router);
 
     /// @name retrieval and setting of CORN values
     //@{
@@ -306,6 +344,9 @@ public:
         return myType->hasSafeGap(speed, gap, predSpeed, laneMaxSpeed);
     }
 
+    /** 
+     * !!! rework this - leader should not be given directly, rather his speed after decel...
+     */
     SUMOReal getSecureGap(SUMOReal speed, SUMOReal leaderSpeed, MSVehicle &leader) const {
         SUMOReal leaderSpeedAfterDecel = leader.getSpeedAfterMaxDecel(leaderSpeed);
         SUMOReal speedDiff = speed - leaderSpeedAfterDecel;
@@ -413,9 +454,10 @@ public:
     /** @brief Update when the vehicle enters a new lane in the emit step
      *
      * @param[in] enteredLane The lane the vehicle enters
-     * @param[in] state The vehicle's state during the emission
+     * @param[in] pos The position the vehicle was inserted into the lane
+     * @param[in] speed The speed with which the vehicle was inserted into the lane
      */
-    void enterLaneAtEmit(MSLane* enteredLane, const State &state);
+    void enterLaneAtEmit(MSLane* enteredLane, SUMOReal pos, SUMOReal speed);
 
 
     /** @brief Update when the vehicle enters a new lane in the laneChange step.
@@ -524,11 +566,21 @@ public:
      * 
      * The information is rebuilt if the vehicle is on a different edge than
      *  the one stored in "myLastBestLanesEdge" or "forceRebuild" is true.
+     *
      * Otherwise, only the density changes on the stored lanes are adapted to
-     *  the container.
+     *  the container only.
+     *
+     * A rebuild must be done if the vehicle leaves a stop; then, another lane may get
+     *  the best one.
+     *
+     * If no starting lane ("startLane") is given, the vehicle's current lane ("myLane")
+     *  is used as start of bect lanes building.
+     *
+     * @param[in] forceRebuild Whether the best lanes container shall be rebuilt even if the vehicle's edge has not changed
+     * @param[in] startLane The lane the process shall start at ("myLane" will be used if ==0)
      * @return The best lanes structure holding matching the current vehicle position and state ahead
      */
-    virtual const std::vector<LaneQ> &getBestLanes(bool forceRebuild=false) const throw();
+    virtual const std::vector<LaneQ> &getBestLanes(bool forceRebuild=false, MSLane *startLane=0) const throw();
 
 
     /** @brief Returns the subpart of best lanes that describes the vehicle's current lane and their successors
@@ -536,23 +588,17 @@ public:
      * @todo Describe better
      */
     const std::vector<MSLane*> &getBestLanesContinuation() const throw();
+
+    /** @brief Returns the subpart of best lanes that describes the given lane and their successors
+     * @return The best lane information for the given lane
+     * @todo Describe better
+     */
+    const std::vector<MSLane*> &getBestLanesContinuation(const MSLane * const l) const throw();
     /// @}
 
-    SUMOReal getMovedDistance(void) const {
+    SUMOReal getMovedDistance() const throw() {
         return SPEED2DIST(myState.mySpeed);
     }
-
-    struct DepartArrivalDefinition {
-        SUMOTime time;
-        MSLane *lane;
-        DepartLaneDefinition laneProcedure;
-        SUMOReal pos;
-        DepartPosDefinition posProcedure;
-        SUMOReal speed;
-        DepartSpeedDefinition speedProcedure;
-    };
-
-    const DepartArrivalDefinition &getDepartureDefinition() const;
 
     const MSVehicleType &getVehicleType() const;
 

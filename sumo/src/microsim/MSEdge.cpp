@@ -312,7 +312,11 @@ MSEdge::freeLaneEmit(MSVehicle &v, SUMOTime time, bool isReinsertion) const thro
             noCars = (*i)->getVehicleNumber();
         }
     }
-    return lanes[minI]->emit(v, isReinsertion);
+    if(isReinsertion) {
+        return lanes[minI]->freeEmit(v, MIN2(lanes[minI]->maxSpeed(), v.getMaxSpeed()));
+    } else {
+        return lanes[minI]->emit(v);
+    }
 }
 
 

@@ -81,7 +81,8 @@ MSInternalJunction::postloadInit()
         // ... set information for every link
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
             (*j)->setRequestInformation(&myRequest, requestPos,
-                                        &myRespond, requestPos);
+                                        &myRespond, requestPos,
+                                        MSLogicJunction::LinkFoes());
             requestPos++;
         }
     }

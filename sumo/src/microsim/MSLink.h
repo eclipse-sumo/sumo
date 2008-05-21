@@ -159,11 +159,13 @@ public:
      * @param[in] requestIdx This link's index within this request
      * @param[in] respond The respond of this link
      * @param[in] respondIdx This link's index within this respond
+     * @param[in] foes This link's foes
      * @todo Unsecure!
      */
     void setRequestInformation(
-        MSLogicJunction::Request *request, size_t requestIdx,
-        MSLogicJunction::Respond *respond, size_t respondIdx) throw();
+        MSLogicJunction::Request *request, unsigned int requestIdx,
+        MSLogicJunction::Respond *respond, unsigned int respondIdx,
+        const MSLogicJunction::LinkFoes &foes) throw();
 
 
     /** @brief Sets the information about an approaching vehicle
@@ -206,6 +208,15 @@ public:
     bool opened() const throw();
 
 
+    /** @brief Returns the information whether a vehicle is approaching on one of the link's foe streams
+     *
+     * Valid after the vehicles have set their requests
+     *
+     * @return Whether a foe of this link is approaching
+     */
+    bool hasApproachingFoe() const throw();
+
+
     /** @brief Removes the incoming vehicle's request
      *
      * Necessary to mask out vehicles having yellow or red.
@@ -245,7 +256,7 @@ public:
      *
      * @return The respond index for this link
      */
-    size_t getRespondIndex() const throw();
+    unsigned int getRespondIndex() const throw();
 
 
     /** @brief Returns whether this link is a major lin
@@ -296,13 +307,13 @@ private:
     MSLogicJunction::Request *myRequest;
 
     /// @brief The position of the link within this request
-    size_t myRequestIdx;
+    unsigned int myRequestIdx;
 
     /// @brief The respond to read whether the car may drive from
     MSLogicJunction::Respond *myRespond;
 
     /// @brief The position within this respond
-    size_t myRespondIdx;
+    unsigned int myRespondIdx;
 
     /// @brief The state of the link
     LinkState myState;
@@ -313,6 +324,8 @@ private:
     /// @brief The length of the link
     SUMOReal myLength;
 
+    /// @brief This links foes
+    MSLogicJunction::LinkFoes myFoes;
 
 #ifdef HAVE_INTERNAL_LANES
     /// @brief The following junction-internal lane if used

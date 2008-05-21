@@ -89,15 +89,14 @@ void
 MSRightOfWayJunction::postloadInit()
 {
     // inform links where they have to report approaching vehicles to
-    size_t requestPos = 0;
+    unsigned int requestPos = 0;
     LaneCont::iterator i;
     // going through the incoming lanes...
     for (i=myIncomingLanes.begin(); i!=myIncomingLanes.end(); ++i) {
         const MSLinkCont &links = (*i)->getLinkCont();
         // ... set information for every link
         for (MSLinkCont::const_iterator j=links.begin(); j!=links.end(); j++) {
-            (*j)->setRequestInformation(&myRequest, requestPos,
-                                        &myRespond, requestPos);
+            (*j)->setRequestInformation(&myRequest, requestPos, &myRespond, requestPos, myLogic->getFoesFor(requestPos));
             requestPos++;
         }
     }
@@ -198,7 +197,7 @@ MSRightOfWayJunction::deadlockKiller()
         }
         // Choose randomly an index out of [0,trueRequests.size()];
         // !!! random choosing may choose one of less priorised lanes
-        unsigned noLockIndex = RandHelper::rand(trueRequests.size());
+        unsigned int noLockIndex = (unsigned int) RandHelper::rand(trueRequests.size());
 
         // Create deadlock-free request.
         std::bitset<64> noLockRequest(false);

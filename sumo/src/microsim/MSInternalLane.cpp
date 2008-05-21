@@ -4,7 +4,7 @@
 /// @date    Sept 2003
 /// @version $Id$
 ///
-// Class representing junction-internal lanes
+// Representation of a lane over a junction
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -61,27 +61,33 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSInternalLane::MSInternalLane(/*MSNet &net, */string id, SUMOReal maxSpeed,
-        SUMOReal length, MSEdge *e, size_t numericalID,
+MSInternalLane::MSInternalLane(const std::string &id, SUMOReal maxSpeed,
+        SUMOReal length, MSEdge * const edge, unsigned int numericalID,
         const Position2DVector &shape,
         const std::vector<SUMOVehicleClass> &allowed,
-        const std::vector<SUMOVehicleClass> &disallowed)
-        :
-        MSLane(id, maxSpeed, length, e, numericalID, shape, allowed, disallowed),
-        myFoesIndex(-1)
+        const std::vector<SUMOVehicleClass> &disallowed) throw()
+    : MSLane(id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed),
+    myFoesIndex(-1)
 {}
 
 
-MSInternalLane::~MSInternalLane()
+MSInternalLane::~MSInternalLane() throw()
 {}
 
 
 void
-MSInternalLane::setParentJunctionInformation(MSLogicJunction::InnerState *foescont,
-        size_t foesIdx)
+MSInternalLane::setParentJunctionInformation(MSLogicJunction::InnerState * const foescont,
+        unsigned int foesIdx) throw()
 {
     myFoesCont = foescont;
-    myFoesIndex = foesIdx;
+    myFoesIndex = (int) foesIdx;
+}
+
+
+void
+MSInternalLane::setPassPosition(SUMOReal passPos) throw()
+{
+    myPassPosition = passPos;
 }
 
 
@@ -104,13 +110,6 @@ MSInternalLane::moveCritical()
         (*myFoesCont)[myFoesIndex] = true;
     }
     return MSLane::moveCritical();
-}
-
-
-void
-MSInternalLane::setPassPosition(SUMOReal passPos)
-{
-    myPassPosition = passPos;
 }
 
 
