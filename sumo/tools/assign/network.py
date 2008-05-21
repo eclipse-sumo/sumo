@@ -78,7 +78,20 @@ class Net:
         
     def addFlowVarianceMatrix(self, varianceObj):
         self._flowVarianceMatrices[varianceObj.label] = varianceObj
-        
+    
+    def removeUTurnEdge(self, edge):
+        outEdge = edge
+        if outEdge.uturn != None:
+            for link in self._edges:
+                if str(link.source) == str(outEdge.target) and str(link.target) == str(outEdge.source):
+                    inEdge = link
+            for edge1 in outEdge.target.outEdges:
+                for edge2 in inEdge.source.inEdges:
+                    if edge1 == edge2:
+                        uTurnEdge = edge1
+            outEdge.target.outEdges.discard(uTurnEdge)
+            inEdge.source.inEdges.discard(uTurnEdge)
+
 #    find the k shortest paths for each OD pair. The "k" is defined by users.
     def calcKPaths(self, verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort):
         if verbose:
@@ -253,6 +266,7 @@ class NetworkReader(handler.ContentHandler):
                     self._edgeObj.leftturn = attrs['state']
                 elif attrs['dir'] == "u": 
                     self._edgeObj.uturn = attrs['state']
+                    
         elif name == 'cedge' and self._edge != '':
              fromEdge = self._net.getEdge(self._edge)
              toEdge = self._net.getEdge(attrs['id'])

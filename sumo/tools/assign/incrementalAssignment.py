@@ -93,6 +93,7 @@ def main():
     
     for edgeID in net._edges: 
         edge = net._edges[edgeID]
+        net.removeUTurnEdge(edge)
         if edge.numberlane > 0.:
             edge.getCapacity()
             edge.getCRcurve()

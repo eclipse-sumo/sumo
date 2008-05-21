@@ -394,6 +394,7 @@ class Edge:
         f.close()
         foutcheck.close()        
         return self.actualtime
+    
 
     # reset link flows
     def cleanFlow(self):
