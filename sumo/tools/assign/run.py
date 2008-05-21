@@ -12,6 +12,26 @@ All rights reserved
 """
 import glob, os, shutil, subprocess, time, optparse
 
+def detectCPUs():
+    """Detects the number of effective CPUs in the system"""
+    #for Linux, Unix and MacOS
+    if hasattr(os, "sysconf"):
+        if os.sysconf_names.has_key("SC_NPROCESSORS_ONLN"): 
+            #Linux and Unix
+            ncpus = os.sysconf("SC_NPROCESSORS_ONLN")
+            if isinstance(ncpus, int) and ncpus > 0:
+                return ncpus
+        else: 
+            #MacOS X
+            return int(os.popen2("sysctl -n hw.ncpu")[1].read())
+    #for Windows
+    if os.environ.has_key("NUMBER_OF_PROCESSORS"):
+        ncpus = int(os.environ["NUMBER_OF_PROCESSORS"]);
+        if ncpus > 0:
+            return ncpus
+    #return the default value
+    return 1
+        
 def makeAndChangeDir(dirName):
     runID = 1
     fullName = "%s%03i" % (dirName, runID)
@@ -54,6 +74,7 @@ if options.od2trips:
 else:
     trips = "successive"
 routes = "../input/routes.rou.xml"
+ncpus = detectCPUs()
 
 if options.stats == 0:
     if not options.duaonly:
@@ -70,11 +91,17 @@ if options.stats == 0:
                 time.sleep(1)
             shutil.copy("%s/trips_0.rou.xml" % duaDir, routes)
         shotDir = makeAndChangeDir("../oneshot")
-        execute("one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds))
+        oneshotProcess = None
+        if ncpus > 2:
+            oneshotProcess = subprocess.Popen("one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds), shell=True)
+        else:
+            execute("one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds))
         clogDir = makeAndChangeDir("../clogit")
         execute("cLogit.py -d ../input/districts.xml -m %s -n %s -p ../clogit_parameter.txt -u ../CRcurve.txt %s" % (mtxNamesList, netFile, signalAdds))
         lohseDir = makeAndChangeDir("../lohse")
         execute("lohseAssignment.py -d ../input/districts.xml -m %s -n %s -p ../lohseparameter.txt -u ../CRcurve.txt %s" % (mtxNamesList, netFile, signalAdds))
+    if oneshotProcess:
+        oneshotProcess.wait()
     duaProcess.wait()
 else:
     succDir = "../successive%03i" % options.stats
@@ -98,9 +125,9 @@ if not options.duaonly:
         shutil.copy("%s/tripinfo_%s.xml" % (shotDir, step), tripinfofile)
         tripinfos += tripinfofile + ","
         routes.append("%s/vehroutes_%s.xml" % (shotDir, step))
-    execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_successive.xml %s -l sumo_successive.log" % (netFile, succDir, sumoAdds))
-    execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_clogit.xml %s -l sumo_clogit.log" % (netFile, clogDir, sumoAdds))
-    execute("sumo --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --tripinfo-output tripinfo_lohse.xml %s -l sumo_lohse.log" % (netFile, lohseDir, sumoAdds))
+    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_successive --dump-intervals 900 --emissions emissions_successive.xml --tripinfo-output tripinfo_successive.xml %s -l sumo_successive.log" % (netFile, succDir, sumoAdds))
+    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_clogit --dump-intervals 900 --emissions emissions_clogit.xml --tripinfo-output tripinfo_clogit.xml %s -l sumo_clogit.log" % (netFile, clogDir, sumoAdds))
+    execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_lohse --dump-intervals 900 --emissions emissions_lohse.xml --tripinfo-output tripinfo_lohse.xml %s -l sumo_lohse.log" % (netFile, lohseDir, sumoAdds))
     tripinfos += tripinfofile + ",tripinfo_successive.xml,tripinfo_clogit.xml,tripinfo_lohse.xml"
     execute("networkStatisticsWithSgT.py -t %s -o networkStatisticsWithSgT.txt" % tripinfos)
     for dir in succDir, clogDir, lohseDir: 
