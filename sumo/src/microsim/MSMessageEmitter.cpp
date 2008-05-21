@@ -2,7 +2,6 @@
 /// @file    MSMessageEmitter.cpp
 /// @author  Clemens Honomichl
 /// @date    Tue, 26 Feb 2008
-/// @version $Id:
 ///
 // Builds detectors for microsim
 /****************************************************************************/
@@ -129,7 +128,7 @@ MSMessageEmitter::writeLaneChangeEvent(std::string& id, SUMOReal& timeStep,
 		}
 	} else {
 		if(!reverseOrder) {
-			myDev << "   <lanechange vID=\"" + id + "\" oldlane=\""
+			myDev << "   <message vID=\"" + id + "\" oldlane=\""
 					+ oldlane->getID() + "\" newlane=\""
 					+ newlane->getID() + "\" pos=\"";
 			myDev << myPos;
@@ -140,9 +139,10 @@ MSMessageEmitter::writeLaneChangeEvent(std::string& id, SUMOReal& timeStep,
 			myDev << "\" edge=\"" << oldlane->getEdge()->getID();
 			myDev << "\" timestep=\"";
 			myDev << timeStep;
+			myDev << "\" event_type=\"lanechange";
 			myDev << "\" />\n";
 		} else {
-			myDev << "   <lanechange timestep=\"";
+			myDev << "   <message timestep=\"";
 			myDev << timeStep;
 			myDev << "\" vID=\"" + id + "\" oldlane=\""
 					+ oldlane->getID() + "\" newlane=\""
@@ -153,6 +153,7 @@ MSMessageEmitter::writeLaneChangeEvent(std::string& id, SUMOReal& timeStep,
 			if(xyCoords) {
 				myDev << "\" X=\"" << x << "\" Y=\"" << y;
 			}
+			myDev << "\" event_type=\"lanechange";
 			myDev << "\" />\n";
 		}
 	}
@@ -227,7 +228,7 @@ MSMessageEmitter::writeHeartBeatEvent(std::string &id, SUMOReal& timeStep, MSLan
 			}
 		} else {
 			if(!reverseOrder) {
-				myDev << "   <heartbeat vID=\"" + id + "\" lane=\"";
+				myDev << "   <message vID=\"" + id + "\" lane=\"";
 				myDev << lane->getID();
 				myDev << "\" timestep=\"";
 				myDev << timeStep;
@@ -237,9 +238,10 @@ MSMessageEmitter::writeHeartBeatEvent(std::string &id, SUMOReal& timeStep, MSLan
 				myDev << "\" edge=\"" << lane->getEdge()->getID();
 				myDev << "\" pos=\"" << myPos;
 				myDev << "\" speed=\"" << speed;
+				myDev << "\" event_type=\"heartbeat";
 				myDev << "\" />\n";
 			} else {
-				myDev << "   <heartbeat timestep=\"";
+				myDev << "   <message timestep=\"";
 				myDev << timeStep;
 				myDev << "\" vID=\"" + id + "\" lane=\"";
 				myDev << lane->getID();
@@ -249,6 +251,7 @@ MSMessageEmitter::writeHeartBeatEvent(std::string &id, SUMOReal& timeStep, MSLan
 				myDev << "\" edge=\"" << lane->getEdge()->getID();
 				myDev << "\" pos=\"" << myPos;
 				myDev << "\" speed=\"" << speed;
+				myDev << "\" event_type=\"heartbeat";
 				myDev << "\" />\n";
 			}
 		}
@@ -287,7 +290,7 @@ MSMessageEmitter::writeBreakEvent(std::string& id, SUMOReal& timeStep, MSLane* l
 		}
 	} else {
 		if(!reverseOrder) {
-			myDev << "   <break vID=\"" + id + "\" lane=\"";
+			myDev << "   <message vID=\"" + id + "\" lane=\"";
 			myDev << lane->getID();
 			myDev << "\" timestep=\"";
 			myDev << timeStep;
@@ -297,9 +300,10 @@ MSMessageEmitter::writeBreakEvent(std::string& id, SUMOReal& timeStep, MSLane* l
 			myDev << "\" edge=\"" << lane->getEdge()->getID();
 			myDev << "\" pos=\"" << myPos;
 			myDev << "\" speed=\"" << speed;
+			myDev << "\" event_type=\"break";
 			myDev << "\" />\n";
 		} else {
-			myDev << "   <break timestep=\"";
+			myDev << "   <message timestep=\"";
 			myDev << timeStep;
 			myDev << "\" vID=\"" + id + "\" lane=\"";
 			myDev << lane->getID();
@@ -309,6 +313,7 @@ MSMessageEmitter::writeBreakEvent(std::string& id, SUMOReal& timeStep, MSLane* l
 			myDev << "\" edge=\"" << lane->getEdge()->getID();
 			myDev << "\" pos=\"" << myPos;
 			myDev << "\" speed=\"" << speed;
+			myDev << "\" event_type=\"break";
 			myDev << "\" />\n";
 		}
 	}
