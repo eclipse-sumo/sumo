@@ -24,6 +24,7 @@ simDate=mktime((2007,7,18,0,0,0,2,199,1))
 def main(): 
     print "start program"
     getSecsInTime()
+    print getTimeInSecs("2007-03-13 00:04:33")
     print "end"
 
      
@@ -37,7 +38,10 @@ def getDateFromDepart(time):
 
 def getTimeInSecs(date):
     """calculates the depart time in seconds of the given date (date should be same as simDate)"""
-    return (int)(mktime(strptime(date,format))-simDate)
+    result=(int)(mktime(strptime(date,format))-simDate)
+    if result<0:
+        print "WARNING: calculated time is negative"
+    return result
 
 #start the program
 #main()

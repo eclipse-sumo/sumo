@@ -13,6 +13,7 @@ All rights reserved
 from util.CalcTime import getTimeInSecs
 import util.Path as path
 import util.Reader as reader
+from cPickle import load
 
 #global vars
 taxis=[]
@@ -20,11 +21,22 @@ routes=[]
 vlsEdges=[]
 taxiIdDict={} #contains for each Taxi the actual "TaxiId" based on the number of single routes which are created for them
 fcdDict={}
-
+vehIdListKeys=[]
+vehIdListValues=[]
     
-def getTaxiId(taxi):       
+def getTaxiId(taxi):   
+        
     return "%s_%s" %(taxi,taxiIdDict.setdefault(taxi,0))
     
+def getSimTaxiId(taxi):  
+    global vehIdListKeys, vehIdListValues
+    
+    if len(vehIdListKeys)<1:
+        vehIdList=load(open(path.rawFcdVehIdList,'r'))
+        vehIdListKeys=vehIdList.keys()
+        vehIdListValues=vehIdList.values()     
+   
+    return "%s" %( vehIdListKeys[vehIdListValues.index(int(taxi))])
 
 def readFCD(): 
     """Reads the FCD and creates a list of Taxis and for each a list of routes"""
@@ -48,18 +60,26 @@ def readFCD():
     inputFile.close() 
     print len(taxis) 
 
-def readFCDComplete():
+def readFCDComplete(fcdPath):
     """Reads the FCD-File and creates a list of Id's with a belonging List of Data tuples."""
+    #reset all
+    global taxis, routes, vlsEdges, taxiIdDict, fcdDict
+    taxis=[]
+    routes=[]
+    vlsEdges=[]
+    taxiIdDict={} 
+    fcdDict={}
+    
     vlsEdges=reader.readVLS_Edges()
     
-    inputFile=open(path.fcd,'r')
+    inputFile=open(fcdPath,'r')
     for line in inputFile:
         words= line.split("\t")
         #add route
         taxiId=getTaxiId(words[4])              
         if taxiId in taxis:           
             if words[1] in vlsEdges:
-                #routes[taxis.index(taxiId)].append(words[1])
+                #routes[taxis.index(taxiId)].append(words[1])                
                 fcdDict[taxiId].append((getTimeInSecs(words[0]),words[1],words[2]))
             else:
                 taxiIdDict[words[4]]+=1                
@@ -71,7 +91,29 @@ def readFCDComplete():
            
     inputFile.close()
     return fcdDict
-        
+    
+def readSimFCDComplete(fcdPath):
+    """Reads the FCD-File and creates a list of Id's with a belonging List of Data tuples. Uses the given taxiIds."""
+    #reset all
+    global taxis, routes, vlsEdges, taxiIdDict, fcdDict
+    taxis=[]
+    routes=[]
+    vlsEdges=[]
+    taxiIdDict={} 
+    fcdDict={}   
+    
+    inputFile=open(fcdPath,'r')
+    for line in inputFile:
+        words= line.split("\t")
+        #add route
+        taxiId=getSimTaxiId(words[4])               
+        if taxiId in taxis:
+            fcdDict[taxiId].append((getTimeInSecs(words[0]),words[1],words[2]))                       
+        else: 
+            taxis.append(taxiId)            
+            fcdDict[taxiId]=[(getTimeInSecs(words[0]),words[1],words[2])]           
+    inputFile.close()
+    return fcdDict    
         
 def writeRoutes():
     """Writes the collected values in a Sumo-Routes-File"""

@@ -28,6 +28,7 @@ def main():
     print "end"
     
 def getPiePieces():
+    """Classifies the relative time difference into pieces (intervals) used for drawing the pie chart."""
     taxis=reader.readAnalysisInfo()
     pieces=[0,0,0,0,0,0]
     for taxi in taxis:        
@@ -55,6 +56,7 @@ def getPiePieces():
     return pieces
       
 def getBars():
+   """Classifies the time difference in single bars."""
    taxis=reader.readAnalysisInfo()   
    barsDict={}
    for taxi in taxis:        
@@ -71,6 +73,7 @@ def getBars():
          
    return  barsDict
 def getTimeDiff(steps):
+    """Calculates the travel time for each source found in the steps."""
     global traveltimeList
     
     times=[None,None,None,None]
@@ -108,7 +111,7 @@ def getTimeDiff(steps):
       
         
 def drawPieChart():
-    
+    """Draws a pie chart with the relative travel time aberrance."""
     #sets the window size
     figure(1, figsize=(10,10))
     
@@ -121,7 +124,7 @@ def drawPieChart():
     
      
 def drawBarChart():
-    
+    """Draws a bar chart with the relative travel time aberrance."""
     barsDict=getBars()
     xList=[]
     yList=[]

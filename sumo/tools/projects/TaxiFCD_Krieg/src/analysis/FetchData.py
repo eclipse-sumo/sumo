@@ -14,11 +14,13 @@ All rights reserved
 import profile
 import util.Path as path
 from util.CalcTime import getTimeInSecs
-from fcdToRoutes.GenerateTaxiRoutes import readFCDComplete
+from fcdToRoutes.GenerateTaxiRoutes import readFCDComplete,readSimFCDComplete,getSimTaxiId  
 
 #global vars
 rawFcdDict={}
 fcdDict={}
+simRawFcdDict={}
+simFcdDict={}
 vtypeDict={}
 
 
@@ -32,33 +34,39 @@ def arrangeData():
     """
     Arranges all available Data in a file which looks like:
     <vehicle id=" ">
-                <step time="(in s)" source=" " speed="(km/h)" edge=" " lat=" " lon=" "/> 
+                <step time="(s)" source=" " speed="(km/h)" edge=" " lat=" " lon=" "/> 
                 ...
     </vehicle>
     """
     fcdTuple= None
     rawTuple= (None,None,None,None)
     
-    #readTaxiRoutes()
-    readRawFCD()
-    #read_VLS_FCD()
-    readVtypeprobe()
-    fcdDict=readFCDComplete()
+    #read needed files    
+    print "read rawFcdDict file"; rawFcdDict=readRawFCD(path.rawFcd)
+    print "read simRawFcdDict file"; simRawFcdDict=readRawFCD(path.simRawFcd, True)
+    
+    print "read readVtypeprobe file"; readVtypeprobe()    
+    
+    
+    print "read fcdDict file"; fcdDict=readFCDComplete(path.fcd)
+    print "read simFcdDict file"; simFcdDict=readSimFCDComplete(path.simFcd)
+    
     
     outputFile=open(path.analysis,'w')
     outputFile.write("<vehicles>\n")
     
-    for taxiId in vtypeDict:
-       if len(fcdDict[taxiId])>3: #if List is < 3 the taxiId dosen't exist because the route is to short
+    print "write Infos"  
+    #iterate over the lowest common denominator
+    for taxiId in simFcdDict.keys():       
            outputFile.write("\t<vehicle id=\"%s\">\n" %taxiId)      
            mainId=taxiId.split("_")[0]
-           #write vtypeprobe Infos       
+           #write vtypeprobe Infos           
            try:
                for vtypeTuple in vtypeDict[taxiId]:
                    outputFile.write("\t\t<step time=\"%s\" source=\"vtypeProbe\" speed=\"%s\" rawSpeed=\"%s\" edge=\"%s\" lat=\"%s\" lon=\"%s\"/>\n" 
                                     %(vtypeTuple[0],vtypeTuple[4],None,vtypeTuple[1],vtypeTuple[2],vtypeTuple[3]))
                 
-               #write fcd Infos (enhanced with Infos of raw-FCD)       
+               #write fcd Infos (enhanced with Infos of raw-FCD)                    
                for fcdTuple in fcdDict[taxiId]:                    
                    #search for proper tuple in raw-FCD
                    for tuple in rawFcdDict[mainId]:                   
@@ -72,32 +80,51 @@ def arrangeData():
                    
                    #Reset values after write of line:                   
                    rawTuple= (None,None,None,None)
+                
+               #write simFcd Infos (enhanced with Infos of raw-FCD)                            
+               for fcdTuple in simFcdDict[taxiId]: 
+                   #search for proper tuple in raw-FCD
+                   for tuple in simRawFcdDict[taxiId]:                   
+                       if fcdTuple[0]-2<tuple[0]<fcdTuple[0]+2: #if time is equal (+/- 5 secs)
+                           rawTuple=tuple
+                           break  
+                   
+                   #write results in file
+                   outputFile.write("\t\t<step time=\"%s\" source=\"simFCD\" speed=\"%s\" rawSpeed=\"%s\" edge=\"%s\" lat=\"%s\" lon=\"%s\"/>\n" 
+                                    %(fcdTuple[0],fcdTuple[2],rawTuple[3],fcdTuple[1],rawTuple[1],rawTuple[2]))
+                   
+                   #Reset values after write of line:                   
+                   rawTuple= (None,None,None,None)
            except KeyError:
                print "Warning: taxId %s not found!" %taxiId 
            outputFile.write("\t</vehicle>\n")                 
-           #break
+           
        
     outputFile.write("</vehicles>\n")
     outputFile.close()
 
 
-def readRawFCD():
+def readRawFCD(rawFcdPath, sim=False):
     """Reads the Raw-FCD-File and creates a list of Id's with a belonging List of Data tuples."""
-    inputFile=open(path.rawFcd,'r')
+    rawDict={}
+    inputFile=open(rawFcdPath,'r')
     inputFile.seek(30)
     for line in inputFile:
-        words= line.split("\t")
-        if words[0] in rawFcdDict:
+        words= line.split("\t") 
+        if sim: #id's of simulation raw data must be converted
+            words[0]=getSimTaxiId(words[0])
+              
+        if words[0] in rawDict:            
             #           Veh_ID            time                     lat       lon        speed
-            rawFcdDict[words[0]].append((getTimeInSecs(words[1]), words[3], words[2], words[5][:-1]))
+            rawDict[words[0]].append((getTimeInSecs(words[1]), words[3], words[2], words[5][:-1]))
         else:
             #           Veh_ID            time               lat       lon        speed
-            rawFcdDict[words[0]]=[(getTimeInSecs(words[1]),words[3], words[2], words[5][:-1])]        
+            rawDict[words[0]]=[(getTimeInSecs(words[1]),words[3], words[2], words[5][:-1])]        
     inputFile.close()
-    
+    return rawDict
          
 def readVtypeprobe():
-    """Reads the FCD-File and creates a list of Id's with a belonging List of Data tuples."""       
+    """Reads the vtypeprobe-File and creates a list of Id's with a belonging List of Data tuples."""       
     inputFile=open(path.vtypeprobe,'r')
     for line in inputFile:
         if line.find("<timestep")!=-1:

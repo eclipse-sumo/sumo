@@ -12,9 +12,10 @@ All rights reserved
 
 import util.Path as path
 from util.CalcTime import getDateFromDepart
+from cPickle import dump
 
 #global vars
-vehIdList={}
+vehIdDict={}
 vehId=0
 
 
@@ -36,6 +37,10 @@ def main():
                              '\t'+words[11][0:2]+'.'+words[11][2:7]+words[11][8:]+'\t'+"90"+'\t'+str(int(round(float(words[15])*3.6)))+'\n')    
     outputFile.close()    
     inputFile.close()
+    for key in vehIdDict: 
+        print key, vehIdDict[key],"\n"
+    #pickles the vehIdList 
+    dump(vehIdDict, open(path.rawFcdVehIdList,'w'))    
     print "end"
     
 
@@ -43,9 +48,9 @@ def main():
 def getVehId(orgId):
     """creates new vehicle id's which consists only numerics"""
     global vehId    
-    value=vehIdList.get(orgId,vehId)
+    value=vehIdDict.get(orgId,vehId)
     if value is vehId:
-        vehIdList[orgId]=vehId
+        vehIdDict[orgId]=vehId
         vehId+=1        
     return value
 
