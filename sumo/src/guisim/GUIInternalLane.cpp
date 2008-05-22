@@ -55,22 +55,33 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIInternalLane::GUIInternalLane(/*MSNet &net, */std::string id,
+GUIInternalLane::GUIInternalLane(const std::string &id,
         SUMOReal maxSpeed, SUMOReal length,
-        MSEdge* edge, size_t numericalID,
+        MSEdge * const edge, unsigned int numericalID,
         const Position2DVector &shape,
         const std::vector<SUMOVehicleClass> &allowed,
-        const std::vector<SUMOVehicleClass> &disallowed)
+        const std::vector<SUMOVehicleClass> &disallowed) throw()
         : MSInternalLane(id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed)
 {}
 
 
-GUIInternalLane::~GUIInternalLane()
+GUIInternalLane::~GUIInternalLane() throw()
 {
     // just to quit cleanly on a failure
     if (myLock.locked()) {
         myLock.unlock();
     }
+}
+
+
+bool
+GUIInternalLane::isEmissionSuccess(MSVehicle* aVehicle, SUMOReal speed, SUMOReal pos,
+                                   bool recheckNextLanes) throw()
+{
+    myLock.lock();
+    bool ret = MSInternalLane::isEmissionSuccess(aVehicle, speed, pos, recheckNextLanes);
+    myLock.unlock();
+    return ret;
 }
 
 
@@ -119,24 +130,6 @@ GUIInternalLane::setCritical(std::vector<MSLane*> &into)
 }
 
 
-
-
-
-bool
-GUIInternalLane::isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &vstate)
-{
-    myLock.lock();
-    try {
-        bool ret = MSInternalLane::isEmissionSuccess(aVehicle, vstate);
-        myLock.unlock();
-        return ret;
-    } catch (ProcessError &) {
-        myLock.unlock();
-        throw;
-    }
-}
-
-
 bool
 GUIInternalLane::push(MSVehicle* veh)
 {
@@ -149,7 +142,6 @@ GUIInternalLane::push(MSVehicle* veh)
         SUMOReal pspeed = veh->getSpeed();
         SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
         veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
-        veh->_assertPos();
         myLock.unlock();
         return false;
     } catch (ProcessError &) {

@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A grid of edges for faster drawing
+// Representation of a lane in the micro simulation (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -55,21 +55,32 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUILane::GUILane(/*MSNet &net, */std::string id, SUMOReal maxSpeed, SUMOReal length,
-                                 MSEdge* edge, size_t numericalID,
-                                 const Position2DVector &shape,
-                                 const std::vector<SUMOVehicleClass> &allowed,
-                                 const std::vector<SUMOVehicleClass> &disallowed)
-        : MSLane(/*net, */id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed)
+GUILane::GUILane(const std::string &id, SUMOReal maxSpeed, SUMOReal length,
+                 MSEdge * const edge, unsigned int numericalID,
+                 const Position2DVector &shape,
+                 const std::vector<SUMOVehicleClass> &allowed,
+                 const std::vector<SUMOVehicleClass> &disallowed) throw()
+        : MSLane(id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed)
 {}
 
 
-GUILane::~GUILane()
+GUILane::~GUILane() throw()
 {
     // just to quit cleanly on a failure
     if (myLock.locked()) {
         myLock.unlock();
     }
+}
+
+
+bool
+GUILane::isEmissionSuccess(MSVehicle* aVehicle, SUMOReal speed, SUMOReal pos,
+                           bool recheckNextLanes) throw()
+{
+    myLock.lock();
+    bool ret = MSLane::isEmissionSuccess(aVehicle, speed, pos, recheckNextLanes);
+    myLock.unlock();
+    return ret;
 }
 
 
@@ -118,22 +129,6 @@ GUILane::setCritical(std::vector<MSLane*> &into)
 }
 
 
-
-bool
-GUILane::isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &vstate)
-{
-    myLock.lock();
-    try {
-        bool ret = MSLane::isEmissionSuccess(aVehicle, vstate);
-        myLock.unlock();
-        return ret;
-    } catch (ProcessError &) {
-        myLock.unlock();
-        throw;
-    }
-}
-
-
 bool
 GUILane::push(MSVehicle* veh)
 {
@@ -148,7 +143,6 @@ GUILane::push(MSVehicle* veh)
             SUMOReal pspeed = veh->getSpeed();
             SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
             veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
-            veh->_assertPos();
             myLock.unlock();
             return false;
         } else {

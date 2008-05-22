@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A MSLane extended by some values needed by the gui
+// Representation of a lane in the micro simulation (gui-version)
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -53,23 +53,62 @@ class MSNet;
 // ===========================================================================
 /**
  * @class GUILane
+ * @brief Representation of a lane in the micro simulation (gui-version)
+ *
  * An extended MSLane. A mechanism to avoid concurrent
  * visualisation and simulation what may cause problems when vehicles
  * disappear is implemented using a mutex.
  */
-class GUILane :
-            public MSLane
+class GUILane : public MSLane
 {
 public:
-    /// constructor
-    GUILane(/*MSNet &net, */std::string id, SUMOReal maxSpeed,
-                            SUMOReal length, MSEdge* edge, size_t numericalID,
-                            const Position2DVector &shape,
-                            const std::vector<SUMOVehicleClass> &allowed,
-                            const std::vector<SUMOVehicleClass> &disallowed);
+    /** @brief Constructor 
+     *
+     * @param[in] id The lane's id
+     * @param[in] maxSpeed The speed allwoed on this lane
+     * @param[in] length The lane's length
+     * @param[in] edge The edge this lane belongs to
+     * @param[in] numericalID The numerical id of the lane
+     * @param[in] allowed Vehicle classes that explicitely may drive on this lane
+     * @param[in] disallowed Vehicle classes that are explicitaly forbidden on this lane
+     * @see SUMOVehicleClass
+     * @see MSLane
+     */
+    GUILane(const std::string &id, SUMOReal maxSpeed,
+        SUMOReal length, MSEdge * const edge, unsigned int numericalID,
+        const Position2DVector &shape,
+        const std::vector<SUMOVehicleClass> &allowed,
+        const std::vector<SUMOVehicleClass> &disallowed) throw();
 
-    /// destructor
-    ~GUILane();
+
+    /// @brief Destructor
+    ~GUILane() throw();
+
+
+
+    /// @name Vehicle emission
+    ///@{
+
+    /** @brief Tries to emit the given vehicle with the given state (speed and pos)
+     *
+     * Locks the lock, calls MSLane::isEmissionSuccess keeping the result,
+     *  unlocks the lock and returns the result.
+     *
+     * @param[in] vehicle The vehicle to emit
+     * @param[in] speed The speed with which it shall be emitted
+     * @param[in] pos The position at which it shall be emitted
+     * @param[in] recheckNextLanes Forces patching the speed for not being too fast on next lanes
+     * @return Whether the vehicle could be emitted
+     * @see MSLane::isEmissionSuccess
+     */
+    virtual bool isEmissionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos,
+        bool recheckNextLanes) throw();
+    ///@}
+
+
+
+    /// @name Vehicle movement (longitudinal)
+    /// @{
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
@@ -85,11 +124,10 @@ public:
 
     /** the same as in MSLane, but locks the access for the visualisation
         first; the access will be granted at the end of this method */
-    bool isEmissionSuccess(MSVehicle* aVehicle, const MSVehicle::State &vstate);
-
-    /** the same as in MSLane, but locks the access for the visualisation
-        first; the access will be granted at the end of this method */
     bool integrateNewVehicle();
+    ///@}
+
+
 
     /// allows the processing of vehicles for threads
     void releaseVehicles();
