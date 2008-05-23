@@ -83,6 +83,7 @@ MSMsgInductLoop::reset() throw()
 {
     myDismissedVehicleNumber = 0;
     myVehicleDataCont.clear();
+	myCurrentID = "";
 }
 
 
@@ -232,12 +233,13 @@ MSMsgInductLoop::writeXMLOutput(OutputDevice &dev,
     SUMOReal meanLength = myVehicleDataCont.size()!=0
                           ? accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, lengthSum) / (SUMOReal) myVehicleDataCont.size()
                           : -1;
-    dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
-    stopTime<<"\" "<<"id=\""<<getID()<<"\" ";
-    dev<<"nVehContrib=\""<<myVehicleDataCont.size()<<"\" flow=\""<<flow<<
+    //dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
+    //stopTime<<"\" "<<"id=\""<<getID()<<"\" ";
+	dev << "   <message timestep=\"" << startTime <<"\" "<<"vID=\""<<myCurrentID<<"\" ";//<<getID()<<"\" ";
+	dev<<"nVehContrib=\""<<myVehicleDataCont.size()<<"\" flow=\""<<flow<<
     "\" occupancy=\""<<occupancy<<"\" speed=\""<<meanSpeed<<
     "\" length=\""<<meanLength<<
-    "\" nVehEntered=\""<<nVehCrossed<<"\" msg=\""<<myMsg<<"\" vID=\""<<myCurrentID<<"\"/>\n";
+    "\" nVehEntered=\""<<nVehCrossed<<"\" event_type=\""<<myMsg<<"\" />\n";
     reset();
 }
 
@@ -276,7 +278,8 @@ MSMsgInductLoop::leaveDetectorByLaneChange(MSVehicle& veh) throw()
     // Discard entry data
     myVehiclesOnDet.erase(&veh);
     myDismissedVehicleNumber++;
-    myCurrentVehicle = 0;
+	myCurrentID = myCurrentVehicle->getID();
+	myCurrentVehicle = 0;
     veh.quitRemindedLeft(this);
 }
 

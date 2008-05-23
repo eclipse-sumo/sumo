@@ -1060,7 +1060,8 @@ NLHandler::addMsgDetector(const SUMOSAXAttributes &attrs)
 		myDetectorBuilder.buildMsgDetector(id,
 										   attrs.getString(SUMO_ATTR_LANE),
 										   attrs.getFloat(SUMO_ATTR_POSITION),
-										   attrs.getInt(SUMO_ATTR_FREQUENCY),
+										   //attrs.getInt(SUMO_ATTR_FREQUENCY),
+										   1,
 										   attrs.getString(SUMO_ATTR_MSG),
 										   OutputDevice::getDevice(attrs.getString(SUMO_ATTR_FILE), getFileName()),
 										   attrs.getBoolSecure(SUMO_ATTR_FRIENDLY_POS, false));
