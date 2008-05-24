@@ -1,0 +1,11 @@
+# Test for variable name
+Name
+
+# Test for avariable external id
+ExternalId
+
+# Test error on giving an invalid tl name string
+ExternalIdInvalidString
+
+# Test error on missing tl name string
+ExternalIdNoString

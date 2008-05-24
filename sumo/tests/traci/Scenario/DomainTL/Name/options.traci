@@ -1,0 +1,3 @@
+sumo.exe --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8872 --netstate-dump netstate_dump.xml
+endsumo
+TraCITestClient.exe -def scenario_tl_name.prog -p 8872 -h localhost -o testclient_out.txt

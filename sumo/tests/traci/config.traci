@@ -87,6 +87,11 @@ copy_test_path:scenario_vehicle_drivingdistance_3d.prog
 copy_test_path:scenario_vehicle_drivingdistance_roadpos.prog
 copy_test_path:scenario_vehicle_position.prog
 
+copy_test_path:scenario_tl_name.prog
+copy_test_path:scenario_tl_externalid.prog
+copy_test_path:scenario_tl_externalid_invalidstring.prog
+copy_test_path:scenario_tl_externalid_nostring.prog
+
 [collate_file]
 testclient_out:testclient_out.txt
 net_state:netstate_dump.xml

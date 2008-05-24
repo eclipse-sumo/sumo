@@ -9,3 +9,6 @@ InvalidFlag
 
 # Tests for vehicle domain
 DomainVehicle
+
+# Tests  for traffic light domain
+DomainTL

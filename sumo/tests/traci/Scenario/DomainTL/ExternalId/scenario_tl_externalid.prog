@@ -1,0 +1,4 @@
+simstep 1 1
+% flag: get, domain: traffic light, domain id:1, variable: external id , valueType: string %
+scenario_string 0 2 0 18 n_m5
+simstep 2 1
