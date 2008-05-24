@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/24/08 16:42:01 by SUMO sumo Version dev-SVN-r5552
+<!-- generated on 05/24/08 17:06:40 by SUMO sumo Version dev-SVN-r5552
 <configuration>
 
    <input>
@@ -11,11 +11,6 @@
    <output>
       <netstate-dump>netstate_dump.xml</netstate-dump>
    </output>
-
-   <time>
-      <begin>0</begin>
-      <end>1000</end>
-   </time>
 
    <traffic_control_interface_(traci)_server>
       <remote-port>8866</remote-port>
