@@ -1,0 +1,4 @@
+simstep 30 1
+% flag: get, domain: vehicle, domain id:0, variable: position, valueType: 0 %
+scenario_novalue 0 1 0 2 0
+simstep 31 1

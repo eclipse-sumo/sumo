@@ -83,6 +83,9 @@ copy_test_path:scenario_vehicle_airdistance3d.prog
 copy_test_path:scenario_vehicle_airdistanceroadpos.prog
 copy_test_path:scenario_vehicle_airdistance_nopos.prog
 copy_test_path:scenario_vehicle_airdistance_invalidpos.prog
+copy_test_path:scenario_vehicle_drivingdistance_3d.prog
+copy_test_path:scenario_vehicle_drivingdistance_roadpos.prog
+copy_test_path:scenario_vehicle_position.prog
 
 [collate_file]
 testclient_out:testclient_out.txt

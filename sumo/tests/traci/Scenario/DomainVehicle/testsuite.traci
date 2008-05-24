@@ -42,3 +42,12 @@ AirDistanceNoPosition
 
 # Test error for variable air distance when giving an invalid road map position
 AirDistanceInvalidPosition
+
+# Test for variavle driving distance giving a 3d positon
+DrivingDistance3D
+
+# Test for variavle driving distance giving a road map positon
+DrivingDistanceRoadPos
+
+# Test for variable position
+Position
