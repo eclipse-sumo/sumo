@@ -1,0 +1,4 @@
+<additional>
+    <poi id="poi0" type="its_a_poi" color="255,0,0" layer="0" x="250" y="250"/>
+    <poi id="poi1" type="its_another_poi" color="0,255,0" layer="0" x="350" y="250"/>
+</additional>

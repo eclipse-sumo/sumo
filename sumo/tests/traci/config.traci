@@ -3,6 +3,7 @@ binary:$TEXTTEST_HOME/tracirunner.py
 
 copy_test_path:net.net.xml
 copy_test_path:routes.rou.xml
+copy_test_path:additional.xml
 
 copy_test_path:movenode_2d.prog
 copy_test_path:movenode_3d.prog
@@ -96,6 +97,14 @@ copy_test_path:scenario_tl_count.prog
 copy_test_path:scenario_tl_position.prog
 copy_test_path:scenario_tl_actualphase.prog
 copy_test_path:scenario_tl_nextphasechange.prog
+
+copy_test_path:scenario_poi_name.prog
+copy_test_path:scenario_poi_externalid.prog
+copy_test_path:scenario_poi_externalid_invalidstring.prog
+copy_test_path:scenario_poi_externalid_nostring.prog
+copy_test_path:scenario_poi_invalidobjectid.prog
+copy_test_path:scenario_poi_position.prog
+copy_test_path:scenario_poi_type.prog
 
 [collate_file]
 testclient_out:testclient_out.txt

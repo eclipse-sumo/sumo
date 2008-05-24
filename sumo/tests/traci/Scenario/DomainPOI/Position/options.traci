@@ -1,0 +1,3 @@
+sumo.exe --net-file net.net.xml --route-files routes.rou.xml --additional-files additional.xml --penetration 1.0 --remote-port 8886 --netstate-dump netstate_dump.xml
+endsumo
+TraCITestClient.exe -def scenario_poi_position.prog -p 8886 -h localhost -o testclient_out.txt

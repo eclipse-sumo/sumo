@@ -1,0 +1,3 @@
+Answered with error to command 115: Unable to retrieve point of interest with given id
+Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort

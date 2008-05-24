@@ -1,0 +1,4 @@
+simstep 1 1
+% flag: get, domain: poi, domain id: 0, variable: external id , valueType: string %
+scenario_string 0 3 0 18 notexisting_poi
+simstep 2 1

@@ -12,3 +12,6 @@ DomainVehicle
 
 # Tests  for traffic light domain
 DomainTL
+
+# Tests for point of interest domain
+DomainPOI
