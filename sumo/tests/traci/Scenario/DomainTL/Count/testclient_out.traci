@@ -1,0 +1,19 @@
+TraCITestClient output file. Date: Sat May 24 17:31:02 2008
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Scenario>:
+  flag=0 domain=2 domainId=0 variable=1 valueDataType=0 [no value sent]
+.. Command acknowledged (115), [description: Warning: requested data type could not be used; using integer instead!]
+.. Received Response <Scenario>:
+  flag=0  domain=2 domainId=0 variable=1 valueDataType=9 Int value: 3
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

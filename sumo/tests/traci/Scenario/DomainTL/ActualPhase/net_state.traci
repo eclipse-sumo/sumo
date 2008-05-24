@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+
+<!-- generated on 05/24/08 17:41:54 by SUMO sumo Version dev-SVN-r5552
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>routes.rou.xml</route-files>
+   </input>
+
+   <output>
+      <netstate-dump>netstate_dump.xml</netstate-dump>
+   </output>
+
+   <traffic_control_interface_(traci)_server>
+      <remote-port>8879</remote-port>
+      <penetration>1</penetration>
+   </traffic_control_interface_(traci)_server>
+
+</configuration>
+-->
+
+<sumo-netstate>
+   <timestep time="1">
+   </timestep>
+   <timestep time="2">
+   </timestep>
+   <timestep time="3">
+   </timestep>
+   <timestep time="4">
+   </timestep>
+   <timestep time="5">
+   </timestep>
+   <timestep time="6">
+   </timestep>
+   <timestep time="7">
+   </timestep>
+   <timestep time="8">
+   </timestep>
+   <timestep time="9">
+   </timestep>
+   <timestep time="10">
+   </timestep>
+   <timestep time="11">
+   </timestep>
+   <timestep time="12">
+   </timestep>
+   <timestep time="13">
+   </timestep>
+   <timestep time="14">
+   </timestep>
+   <timestep time="15">
+   </timestep>
+   <timestep time="16">
+   </timestep>
+   <timestep time="17">
+   </timestep>
+   <timestep time="18">
+   </timestep>
+   <timestep time="19">
+   </timestep>
+   <timestep time="20">
+   </timestep>
+   <timestep time="21">
+   </timestep>
+   <timestep time="22">
+   </timestep>
+   <timestep time="23">
+   </timestep>
+   <timestep time="24">
+   </timestep>
+   <timestep time="25">
+   </timestep>
+   <timestep time="26">
+   </timestep>
+   <timestep time="27">
+   </timestep>
+   <timestep time="28">
+   </timestep>
+   <timestep time="29">
+   </timestep>
+   <timestep time="30">
+   </timestep>
+   <timestep time="31">
+   </timestep>
+   <timestep time="32">
+   </timestep>
+   <timestep time="33">
+   </timestep>
+   <timestep time="34">
+   </timestep>
+   <timestep time="35">
+   </timestep>
+   <timestep time="36">
+   </timestep>
+   <timestep time="37">
+   </timestep>
+   <timestep time="38">
+   </timestep>
+   <timestep time="39">
+   </timestep>
+   <timestep time="40">
+   </timestep>
+   <timestep time="41">
+   </timestep>
+</sumo-netstate>

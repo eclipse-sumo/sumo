@@ -91,6 +91,11 @@ copy_test_path:scenario_tl_name.prog
 copy_test_path:scenario_tl_externalid.prog
 copy_test_path:scenario_tl_externalid_invalidstring.prog
 copy_test_path:scenario_tl_externalid_nostring.prog
+copy_test_path:scenario_tl_invalidobjectid.prog
+copy_test_path:scenario_tl_count.prog
+copy_test_path:scenario_tl_position.prog
+copy_test_path:scenario_tl_actualphase.prog
+copy_test_path:scenario_tl_nextphasechange.prog
 
 [collate_file]
 testclient_out:testclient_out.txt

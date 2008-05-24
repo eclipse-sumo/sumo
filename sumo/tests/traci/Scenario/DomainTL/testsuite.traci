@@ -9,3 +9,18 @@ ExternalIdInvalidString
 
 # Test error on missing tl name string
 ExternalIdNoString
+
+# Test error on giving an invalid object id for any variable
+InvalidObjectId
+
+# Test for variable count
+Count
+
+# Test for variable position
+Position
+
+# Test for variable actual phase
+ActualPhase
+
+# Test for variable next phase change
+NextPhaseChange

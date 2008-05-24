@@ -1,0 +1,4 @@
+simstep 40 1
+% flag: get, domain: traffic light, domain id: 0, variable: actual phase , valueType: 0 %
+scenario_novalue 0 2 0 5 0
+simstep 41 1
