@@ -77,6 +77,12 @@ copy_test_path:scenario_vehicle_count.prog
 copy_test_path:scenario_vehicle_countmax.prog
 copy_test_path:scenario_vehicle_equippedcount.prog
 copy_test_path:scenario_vehicle_equippedcountmax.prog
+copy_test_path:scenario_vehicle_speed.prog
+copy_test_path:scenario_vehicle_route.prog
+copy_test_path:scenario_vehicle_airdistance3d.prog
+copy_test_path:scenario_vehicle_airdistanceroadpos.prog
+copy_test_path:scenario_vehicle_airdistance_nopos.prog
+copy_test_path:scenario_vehicle_airdistance_invalidpos.prog
 
 [collate_file]
 testclient_out:testclient_out.txt

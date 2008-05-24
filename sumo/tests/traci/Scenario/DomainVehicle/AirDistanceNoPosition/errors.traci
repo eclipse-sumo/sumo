@@ -1,0 +1,3 @@
+Answered with error to command 115: Distance request to unknown destination
+Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
+Error while sending command: send failed: Software caused tcpip::Socket abort

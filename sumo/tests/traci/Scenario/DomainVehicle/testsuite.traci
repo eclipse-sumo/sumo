@@ -21,3 +21,24 @@ ExternalIDInvalidString
 
 # Test variable equipped count
 EquippedCount
+
+# Test for variable equipped count max
+EquippedCountMax
+
+# Test for variable speed
+Speed
+
+# Test for variable route
+Route
+
+# Test for variable air distance giving a 3d position
+AirDistance3D
+
+# Test for variable air distance giving a road map position
+AirDistanceRoadPos
+
+# Test error for variable air distance when giving no position
+AirDistanceNoPosition
+
+# Test error for variable air distance when giving an invalid road map position
+AirDistanceInvalidPosition
