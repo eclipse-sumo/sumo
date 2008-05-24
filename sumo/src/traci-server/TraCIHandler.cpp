@@ -2,7 +2,7 @@
 /// @file    TraCIHandler.h
 /// @author  Friedemann Wesner <wesner@itm.uni-luebeck.de>
 /// @date    2008/03/20
-/// @version $Id:$
+/// @version $Id: TraCIHandler.cpp 2008-05-24 $
 ///
 /// XML-Handler used by TraCI to get information from sumo input files
 /****************************************************************************/
@@ -90,14 +90,15 @@ TraCIHandler::openVehicleTag(const SUMOSAXAttributes& attributes)
 	
 	// every found vehicle tag counts for one vehicle
 	currentVehCount = 1;
+//	std::cerr << "1 vehicle found, sim time: " << simStart << "-" << simEnd << std::endl;
 
 	// read value for emit period and number (if any)
 	try {
 		repNo = attributes.getInt(SUMO_ATTR_REPNUMBER);
 		period = attributes.getInt( SUMO_ATTR_PERIOD);
 	} catch(...) {
-		repNo = -1;
-		period = -1;
+		repNo = 0;
+		period = 0;
 	}
 
 	// read depart time
@@ -106,37 +107,26 @@ TraCIHandler::openVehicleTag(const SUMOSAXAttributes& attributes)
 	} catch (...) {
 		// no depart time: error, don't count vehicle
 		currentVehCount = 0;
+//		std::cerr << "no depart time, vehicle = 0" << std::endl;
 		return;
 	}
 
-	// if vehicle departs before the sim begins...
-	if (depart < simStart) {
-		// decrease number of emitted vehicles accordingly
-		if ( (repNo > 0) && (period > 0) ) {
-			while ((depart < simStart) && (repNo > 0)) {
-				depart += period;
-				repNo--;
-			}
-		} 
-		if (depart < simStart) {
-			currentVehCount = 0;
-			return;
-		}
-	}
-
-	// don't count the vehicle, if it departs after the sim has ended
-	if (depart >= simEnd) {
-		currentVehCount = 0;
-		return;
-	}
-
-	// don't count vehicles that are emitted after the sim ends
-	while(((depart + (repNo * period)) >= simEnd) && (repNo > 0)) {
+	while ((depart < simStart) && (repNo >= 0)) {
+		depart += period;
 		repNo--;
+//		std::cerr << "removing 1 vehicle from repno (depart before sim start)" << std::endl;
+	}
+
+	// don't count vehicles that depart / are emitted after the sim ends
+	while(((depart + (repNo * period)) > simEnd) && (repNo >= 0)) {
+		repNo--;
+//		std::cerr << "removing 1 vehicle from repno (depart after sim end)" << std::endl;
+
 	}
 
 	// add number of vehicles, that will be emitted until sim end, to total count
 	currentVehCount += repNo;
+//	std::cerr << "result: " << currentVehCount << " vehicles" << std::endl;
 }
 
 int 
