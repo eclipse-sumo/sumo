@@ -1,8 +1,8 @@
 # Test for variable shape
 Shape
 
-# Test for variable shape, giving invalid object id
-ShapeInvalidRoad
+# Test error on giving invalid object id
+InvalidObjectID
 
 # Test error on specifying an invalid variable id
 InvalidVariableId
@@ -15,3 +15,9 @@ Count
 
 # Test for variable Name
 Name
+
+# Test for variable external id
+ExternalID
+
+# Test error on missing string for variable external id
+ExternalIDNoString
