@@ -1,0 +1,21 @@
+TraCITestClient output file. Date: Sat May 24 15:13:50 2008
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=1 2D-Position: x=0.1 y=491.85
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=1 2D-Position: x=2992.05 y=1008.35
+
+-> Command sent: <Scenario>:
+  flag=0 domain=1 domainId=0 variable=18 valueDataType=0 [no value sent]
+.. Answered with error to command (115), [description: Internal id must be given as string value]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2 PosFormat=1
+----
+Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
+----
+Error while sending command: send failed: Software caused tcpip::Socket abort

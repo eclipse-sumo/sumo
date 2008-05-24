@@ -1,0 +1,19 @@
+TraCITestClient output file. Date: Sat May 24 15:33:03 2008
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Scenario>:
+  flag=0 domain=0 domainId=0 variable=9 valueDataType=0 [no value sent]
+.. Command acknowledged (115), [description: Warning: requested data type could not be used; using polygon type instead!]
+.. Received Response <Scenario>:
+  flag=0  domain=0 domainId=0 variable=9 valueDataType=6 PolygonValue: (0,495.05) (500,495.05) 
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

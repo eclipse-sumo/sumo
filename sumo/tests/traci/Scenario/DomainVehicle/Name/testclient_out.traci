@@ -1,0 +1,27 @@
+TraCITestClient output file. Date: Sat May 24 15:14:43 2008
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=1 2D-Position: x=0.1 y=491.85
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=1 2D-Position: x=2992.05 y=1008.35
+
+-> Command sent: <Scenario>:
+  flag=0 domain=1 domainId=0 variable=13 valueDataType=0 [no value sent]
+.. Command acknowledged (115), [description: Warning: requested data type could not be used; using string instead!]
+.. Received Response <Scenario>:
+  flag=0  domain=1 domainId=0 variable=13 valueDataType=12 string value: veh0
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2 PosFormat=1
+.. Command acknowledged (1), [description: ]
+.. Received Response <MoveNode>:
+  nodeId=0 targetTime=2 2D-Position: x=0.882016 y=491.85
+.. Received Response <MoveNode>:
+  nodeId=1 targetTime=2 2D-Position: x=2991.53 y=1008.35
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

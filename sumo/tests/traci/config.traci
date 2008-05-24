@@ -65,7 +65,18 @@ copy_test_path:scenario_invalidvariable.prog
 copy_test_path:scenario_netboundaries.prog
 copy_test_path:scenario_count.prog
 copy_test_path:scenario_name.prog
-copy_test_path:scenario_nameinvalidroad.prog
+copy_test_path:scenario_roadmap_externalid.prog
+copy_test_path:scenario_roadmap_externalid_nostring.prog
+
+copy_test_path:scenario_vehicle_name.prog
+copy_test_path:scenario_vehicle_externalid.prog
+copy_test_path:scenario_vehicle_externalid_nostring.prog
+copy_test_path:scenario_vehicle_externalid_invalidstring.prog
+copy_test_path:scenario_vehicle_invalidobjectid.prog
+copy_test_path:scenario_vehicle_count.prog
+copy_test_path:scenario_vehicle_countmax.prog
+copy_test_path:scenario_vehicle_equippedcount.prog
+copy_test_path:scenario_vehicle_equippedcountmax.prog
 
 [collate_file]
 testclient_out:testclient_out.txt

@@ -1,0 +1,3 @@
+Answered with error to command 115: Unable to retrieve node with given ID
+Error while receiving command: tcpip::Socket::receive() @ recv: Socket reset by peer
+Error while sending command: send failed: Socket reset by peer

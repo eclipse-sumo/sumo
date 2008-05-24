@@ -6,3 +6,6 @@ InvalidDomain
 
 # Test error on specifying an invalid flag
 InvalidFlag
+
+# Tests for vehicle domain
+DomainVehicle

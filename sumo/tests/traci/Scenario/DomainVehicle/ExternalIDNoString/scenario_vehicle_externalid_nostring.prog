@@ -1,0 +1,4 @@
+simstep 1 1
+% flag: get, domain: vehicle, domain id:0, variable: external id, valType: 0 %
+scenario_novalue 0 1 0 18 0
+simstep 2 1
