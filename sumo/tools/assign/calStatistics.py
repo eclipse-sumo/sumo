@@ -19,7 +19,7 @@ from elements import Vertex, Edge, Vehicle, Assign, T_Value, H_Value
 from network import Net
 from tables import chiSquareTable, tTable
     
-def getBasicStats(net, verbose, method, vehicles, allvehlist, duavehlist, oneshotvehlist, duagroups, oneshotgroups):
+def getBasicStats(net, verbose, method, vehicles):
     vehicleslist = vehicles
     totalVeh = 0.
     totalTravelTime = 0.
@@ -31,12 +31,7 @@ def getBasicStats(net, verbose, method, vehicles, allvehlist, duavehlist, onesho
     totalDiffLength = 0.
     totalDiffWaitTime = 0.
     totalDiffTravelTime = 0.
-    
-    if method[9] == "d":
-        duagroups += 1.
-    elif method[9] == "o":
-        oneshotgroups += 1.
-        
+          
     for veh in vehicleslist:
         totalVeh += 1
         veh.method = method
@@ -46,13 +41,6 @@ def getBasicStats(net, verbose, method, vehicles, allvehlist, duavehlist, onesho
         totalTravelLength += veh.travellength
         totalWaitTime += veh.waittime
         totalTravelSpeed += veh.speed
-        if method == "tripinfo_oneshot_1800.xml" or method == "tripinfo_successive.xml" or method == "tripinfo_dua_24.xml" or method == "tripinfo_clogit.xml":
-            allvehlist.append(veh)
-            
-        if method[9] == "d":
-            duavehlist.append(veh)
-        elif method[9] == "o":
-            oneshotvehlist.append(veh)
   
     if verbose:    
         print 'totalVeh:', totalVeh
@@ -76,7 +64,6 @@ def getBasicStats(net, verbose, method, vehicles, allvehlist, duavehlist, onesho
     net.addAssignment(Assign(method, totalVeh, totalTravelTime, totalTravelLength, totalWaitTime,
                      avgTravelTime, avgTravelLength, avgTravelSpeed, avgWaitTime, SDTravelTime, SDLength, SDSpeed, SDWaitTime))
                      
-    return allvehlist, duavehlist, oneshotvehlist, duagroups, oneshotgroups
     
 # The observations should be drawn from a normally distributed population. 
 # For two independent samples, the t test has the additional requirement
@@ -86,8 +73,6 @@ def doTTestForAvg(verbose, tValueAvg, assignments):
        print 'begin the t test!'
     for num, A in enumerate(assignments):
         for B in assignments[num+1: ]:
-#    for A in assignments.itervalues():
-#        for B in assignments.itervalues():
             sdABTravelTime = 0.
             sdABSpeed = 0.
             sdABLength = 0.

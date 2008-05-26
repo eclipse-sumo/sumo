@@ -56,28 +56,19 @@ for filename in options.vehfile.split(","):
     parser.parse(filename)
 
 # Vehicles from dua, incremental, clogit and oneshot are in included in the allvehlist.
-allvehlist = []
-duavehlist = []
-oneshotvehlist = []
+
 # The results of the t test are stored in the tValueAvg.
 tValueAvg = {}
 # The resultes of the Kruskal-Wallis test are stored in the hValues.
 hValues = []
 
 # intitalization
-allgroups = 0.
-duagroups = 0.
-oneshotgroups = 0.
-allmethodlabel = ''
 combilabel = ''
 tTest = False
 
 # calculate/read the basic statistics
 for method, vehicles in net._allvehicles.iteritems():
-    allvehlist, duavehlist, oneshotvehlist, duagroups, oneshotgroups = getBasicStats(net, options.verbose, method, vehicles, allvehlist, duavehlist, oneshotvehlist, duagroups, oneshotgroups)
-    if method == "tripinfo_oneshot_1800.xml" or method == "tripinfo_successive.xml" or method == "tripinfo_dua_24.xml" or method == "tripinfo_clogit.xml":
-        allmethodlabel = allmethodlabel + method + "_"
-        allgroups += 1
+    getBasicStats(net, options.verbose, method, vehicles)
 
 getStatisticsOutput(net, options.outputfile)
 print 'The calculation of network statistics is done!'              
@@ -106,14 +97,5 @@ for num, A in enumerate(values):
             
         doKruskalWallisTest(options.verbose, groups, combivehlist, net._assignments, combilabel, hValues)
     
-doKruskalWallisTest(options.verbose, allgroups, allvehlist, net._assignments, allmethodlabel, hValues)
-print 'Test for:', allmethodlabel
-doKruskalWallisTest(options.verbose, oneshotgroups, oneshotvehlist, net._assignments, "alloneshots", hValues)
-print 'Test for: alloneshots'
-print 'groups:', oneshotgroups
-doKruskalWallisTest(options.verbose, duagroups, duavehlist, net._assignments, "duas", hValues)
-print 'Test for: duas'
-print 'groups:', duagroups
-
 getSignificanceTestOutput(net, tTest, tValueAvg, hValues)
 print 'The Significance test is done!'
