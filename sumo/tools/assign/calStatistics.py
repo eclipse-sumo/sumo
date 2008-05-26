@@ -31,6 +31,7 @@ def getBasicStats(net, verbose, method, vehicles):
     totalDiffLength = 0.
     totalDiffWaitTime = 0.
     totalDiffTravelTime = 0.
+    totalDepartDelay = 0.
           
     for veh in vehicleslist:
         totalVeh += 1
@@ -41,14 +42,14 @@ def getBasicStats(net, verbose, method, vehicles):
         totalTravelLength += veh.travellength
         totalWaitTime += veh.waittime
         totalTravelSpeed += veh.speed
-  
+        totalDepartDelay += veh.departdelay  
     if verbose:    
         print 'totalVeh:', totalVeh
     avgTravelTime = totalTravelTime/totalVeh
     avgTravelLength = totalTravelLength/totalVeh
     avgTravelSpeed = totalTravelSpeed/totalVeh
     avgWaitTime = totalWaitTime/totalVeh
-    
+    avgDepartDelay = totalDepartDelay/totalVeh
     for veh in vehicleslist:
         totalDiffTravelTime += (veh.traveltime - avgTravelTime)**2
         totalDiffSpeed += (veh.speed - avgTravelSpeed)**2
@@ -61,10 +62,10 @@ def getBasicStats(net, verbose, method, vehicles):
     SDSpeed = (totalDiffSpeed/totalVeh)**(0.5)
     SDWaitTime = (totalDiffWaitTime/totalVeh)**(0.5)
 
-    net.addAssignment(Assign(method, totalVeh, totalTravelTime, totalTravelLength, totalWaitTime,
-                     avgTravelTime, avgTravelLength, avgTravelSpeed, avgWaitTime, SDTravelTime, SDLength, SDSpeed, SDWaitTime))
+    net.addAssignment(Assign(method, totalVeh, totalTravelTime, totalTravelLength, totalDepartDelay, totalWaitTime,
+                     avgTravelTime, avgTravelLength, avgTravelSpeed, avgDepartDelay, avgWaitTime, SDTravelTime, SDLength, SDSpeed, SDWaitTime))
                      
-    
+
 # The observations should be drawn from a normally distributed population. 
 # For two independent samples, the t test has the additional requirement
 # that the population standard deviations should be equal.

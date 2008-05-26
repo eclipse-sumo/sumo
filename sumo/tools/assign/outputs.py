@@ -109,6 +109,8 @@ def getStatisticsOutput(net, outputfile):
     for method in net._assignments.itervalues():
         foutveh.write('\nAssignment Method:%s\n' %method.label)
         foutveh.write('- total number of vehicles:%s\n' %method.totalVeh)
+        foutveh.write('- total departure delay(s):%s, ' %method.totalDepartDelay)    
+        foutveh.write('- average departure delay(s):%s\n' %method.avgDepartDelay)
         foutveh.write('- total waiting time(s):%s, ' %method.totalWaitTime)    
         foutveh.write('- average vehicular waiting time(s):%s\n' %method.avgWaitTime)
         foutveh.write('- total travel time(s):%s, ' % method.totalTravelTime)    
