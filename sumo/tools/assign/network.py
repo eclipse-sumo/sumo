@@ -81,14 +81,14 @@ class Net:
     
     def removeUTurnEdge(self, edge):
         outEdge = edge
-        if outEdge.uturn != None:
-            for link in self._edges.itervalues():
-                if str(link.source) == str(outEdge.target) and str(link.target) == str(outEdge.source):
-                    for edge1 in outEdge.target.outEdges:
-                        for edge2 in link.source.inEdges:
-                            if edge1 == edge2:
-                                uTurnEdge = edge1
-
+        for link in self._edges.itervalues():
+            if str(link.source) == str(outEdge.target) and str(link.target) == str(outEdge.source):
+                uTurnEdge = None
+                for edge1 in outEdge.target.outEdges:
+                    for edge2 in link.source.inEdges:
+                        if edge1 == edge2:
+                            uTurnEdge = edge1
+                if uTurnEdge:
                     outEdge.target.outEdges.discard(uTurnEdge)
                     link.source.inEdges.discard(uTurnEdge)
                     
@@ -99,11 +99,7 @@ class Net:
             print >> foutkpath, """<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
 <routes>"""
-        start = -1
-      
-        for startVertex in startVertices:
-            start += 1
-            end = -1
+        for start, startVertex in enumerate(startVertices):
             for vertex in self._vertices:
                 vertex.preds = []
                 vertex.wasUpdated = False
@@ -117,8 +113,7 @@ class Net:
                     if edge.target != startVertex and edge.target.update(KPaths, edge):
                         updatedVertices.append(edge.target)
     
-            for endVertex in endVertices:
-                end += 1
+            for end, endVertex in enumerate(endVertices):
                 ODPaths = self._paths[startVertex][endVertex]
                 if str(startVertex) != str(endVertex) and matrixPshort[start][end] != 0.:
                     for startPred in endVertex.preds:
@@ -254,7 +249,7 @@ class NetworkReader(handler.ContentHandler):
                     self._edgeObj.straight = attrs['linkno']
                 elif attrs['dir'] == "l": 
                     self._edgeObj.leftturn = attrs['linkno']
-                elif attrs['dir'] == "u": 
+                elif attrs['dir'] == "t": 
                     self._edgeObj.uturn = attrs['linkno']
             else:
                 self._edgeObj.junctiontype = 'prioritized'
