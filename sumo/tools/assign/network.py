@@ -98,7 +98,7 @@ class Net:
             foutkpath = file('kpaths.xml', 'w')
             print >> foutkpath, """<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
-<routes>"""
+<routes>""" % datetime.datetime.now()
         for start, startVertex in enumerate(startVertices):
             for vertex in self._vertices:
                 vertex.preds = []
@@ -164,7 +164,7 @@ class Net:
                             newpath.actpathtime = newpath.freepathtime
                             newRoutes += 1     
                             if verbose:
-                                foutkpath.write('    <path id="%s", source="%s", target="%s", path cost="%s">\n' %(newpath.label, newpath.source, newpath.target, newpath.actpathtime))  
+                                foutkpath.write('    <path id="%s" source="%s" target="%s" pathcost="%s">\n' %(newpath.label, newpath.source, newpath.target, newpath.actpathtime))  
                                 foutkpath.write('        <route>')
                                 for edge in newpath.Edges[1:-1]:
                                     foutkpath.write('%s ' %edge.label)
