@@ -43,10 +43,11 @@ class Vertex:
             if pred.pred == updatePred:
                 return
         pred = updatePred
-        while pred != None:
-            if pred.edge == edge:
-                return
-            pred = pred.pred
+        if edge.kind == "real":
+            while pred.edge != None:
+                if pred.edge.kind == "real" and pred.edge.source.label == edge.target.label:
+                    return
+                pred = pred.pred
         newPreds.append(Predecessor(edge, updatePred,
                                     updatePred.distance + edge.actualtime))
 
@@ -451,8 +452,8 @@ class Path:
     def __init__(self):
         self.source = None
         self.target = None
-        self.label = "%s" % pathNum
         global pathNum
+        self.label = "%s" % pathNum
         pathNum += 1
         self.Edges = []
         self.freepathtime = 0.0

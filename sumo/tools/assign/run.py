@@ -85,13 +85,13 @@ if options.stats == 0:
             execute("route2trips.py %s > ../input/successive.trips.xml" % routes)
     duaDir = makeAndChangeDir("../dua")
     duaProcess = subprocess.Popen("dua-iterate.py -e 90000 -C -n %s -t ../input/%s.trips.xml %s" % (netFile, trips, pyAdds), shell=True)
+    oneshotProcess = None
     if not options.duaonly:
         if options.od2trips:
             while not os.path.exists("%s/trips_0.rou.xml" % duaDir):
                 time.sleep(1)
             shutil.copy("%s/trips_0.rou.xml" % duaDir, routes)
         shotDir = makeAndChangeDir("../oneshot")
-        oneshotProcess = None
         if ncpus > 2:
             oneshotProcess = subprocess.Popen("one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds), shell=True)
         else:
