@@ -346,6 +346,7 @@ class VehInformationReader(handler.ContentHandler):
             self._Vehicle = Vehicle(attrs['id'])
             self._Vehicle.traveltime = float(attrs['duration'])
             self._Vehicle.travellength = float(attrs['routeLength'])
+            self._Vehicle.departdelay = float(attrs['departDelay'])
             self._Vehicle.waittime = float(attrs['departDelay']) + float(attrs['waitSteps']) 
             self._vehList.append(self._Vehicle)
 
