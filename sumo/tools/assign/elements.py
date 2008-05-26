@@ -437,6 +437,7 @@ class Vehicle:
         self.route = []
         self.traveltime = 0.
         self.travellength = 0.
+        self.departdelay = 0.
         self.waittime = 0.
         self.rank = 0.
 
@@ -521,15 +522,17 @@ class HourlyDetectedValue:
         return "%s_<%s|%s|%s|%s|%s>" % (self.label, self.flowPger, self.flowTruck, self.speedPger, self.speedTruck, self.quality)
 # This class is used in the significance test.
 class Assign:
-    def __init__(self, method, totalVeh, totalTravelTime, totalTravelLength, totalWaitTime, avgTravelTime, avgTravelLength, avgTravelSpeed, avgWaitTime, SDTravelTime, SDLength, SDSpeed, SDWaitTime):
+    def __init__(self, method, totalVeh, totalTravelTime, totalTravelLength, totalDepartDelay, totalWaitTime, avgTravelTime, avgTravelLength, avgTravelSpeed, avgDepartDelay, avgWaitTime, SDTravelTime, SDLength, SDSpeed, SDWaitTime):
         self.label = method
         self.totalVeh = totalVeh
         self.totalTravelTime = totalTravelTime
         self.totalTravelLength = totalTravelLength
+        self.totalDepartDelay = totalDepartDelay
         self.totalWaitTime = totalWaitTime
         self.avgTravelTime = avgTravelTime
         self.avgTravelLength = avgTravelLength
         self.avgTravelSpeed = avgTravelSpeed
+        self.avgDepartDelay = avgDepartDelay
         self.avgWaitTime = avgWaitTime
         self.SDTravelTime = SDTravelTime
         self.SDLength = SDLength      
