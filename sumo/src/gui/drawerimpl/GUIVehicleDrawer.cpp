@@ -138,7 +138,7 @@ drawAction_drawVehicleBlinker(GUIVehicle &veh)
     if (dir==0) {
         return;
     }
-    glColor3f(1., .8, 0);
+    glColor3f(1.f, .8f, 0);
     glTranslated(dir, BLINKER_POS_FRONT, 0);
     GLHelper::drawFilledCircle(.5, 6);
     glTranslated(0, -BLINKER_POS_FRONT-BLINKER_POS_BACK+veh.getLength(), 0);
