@@ -91,6 +91,24 @@ public:
         bool report=true) const throw();
 
 
+    /** @brief Tries to read given attribute assuming it is an SUMOReal
+     *
+     * If an error occures (the attribute is not there, it is not numeric), "ok" is
+     *  set to false and an error message is written to MsgHandler::getErrorInstance.
+     *
+     * Otherwise, "ok" is set to true and the read value is returned.
+     *
+     * @param[in] attr The id of the attribute to read
+     * @param[in] objecttype The name of the parsed object type; used for error message generation
+     * @param[in] objectid The name of the parsed object; used for error message generation
+     * @param[out] ok Whether the value could be read
+     * @param[in] report Whether errors shall be written to msg handler's error instance
+     * @return The read value; -1 if an error occured
+     */
+    SUMOReal getSUMORealReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
+        bool report=true) const throw();
+
+
 
 
     //{ virtual methods for retrieving attribute values

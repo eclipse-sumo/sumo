@@ -106,14 +106,14 @@ public:
 
     /** @brief Builds a vaporization
      *
-     * Parses the attributes, throws an InvalidArgument exception
-     *  if the time values are false or the edge is not known. 
+     * Parses the attributes, reporting errors if the time values are false 
+     *  or the edge is not known. 
      * Instatiates events for enabling and disabling the vaporization otherwise.
-     * @param[in] attrs SAX-attributes which define the trigger
-     * @exception InvalidArgument If a parameter is not valid
+     *
+     * @param[in] attrs SAX-attributes which define the vaporizer
      * @recheck throwing the exception
      */
-    void buildVaporizer(const SUMOSAXAttributes &attrs) throw(InvalidArgument);
+    void buildVaporizer(const SUMOSAXAttributes &attrs) throw();
 
 
 protected:

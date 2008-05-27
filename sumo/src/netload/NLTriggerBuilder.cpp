@@ -144,23 +144,40 @@ NLTriggerBuilder::buildTrigger(MSNet &net,
 
 
 void
-NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw(InvalidArgument)
+NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw()
 {
-    bool ok;
+    // get the id, throw if not given or empty...
+    string id;
+    if(!attrs.setIDFromAttribues("vaporizer", id, false)) {
+        MsgHandler::getErrorInstance()->inform("Missing or empty id in a vaporizer-object.");
+        return;
+    }
+    MSEdge *e = MSEdge::dictionary(id);
+    if(e==0) {
+        MsgHandler::getErrorInstance()->inform("Unknown edge referenced in a vaporizer ('" + id + "').");
+        return;
+    }
+    bool ok = true;
     SUMOTime begin = attrs.getIntReporting(SUMO_ATTR_BEGIN, "vaporizer", 0, ok);
     SUMOTime end = attrs.getIntReporting(SUMO_ATTR_END, "vaporizer", 0, ok);
     if(!ok) {
-        throw InvalidArgument("");
+        return;
+    }
+    if(begin<0) {
+        MsgHandler::getErrorInstance()->inform("A vaporization begin is negative (edge id='" + id + "').");
+        return;
+    }
+    if(end<0) {
+        MsgHandler::getErrorInstance()->inform("A vaporization end is negative (edge id='" + id + "').");
+        return;
     }
     if(begin>end) {
-        throw InvalidArgument("A vaporization ends before it starts.");
+        MsgHandler::getErrorInstance()->inform("A vaporization ends before it starts (edge id='" + id + "').");
+        return;
     }
     if(begin==end) {
-        MsgHandler::getWarningInstance()->inform("A vaporization starts and ends at same time; discarded.");
-    }
-    MSEdge *e = MSEdge::dictionary(attrs.getStringSecure(SUMO_ATTR_ID, ""));
-    if(e==0) {
-        throw InvalidArgument("Missing or false edge id in vaporizer ('" + attrs.getStringSecure(SUMO_ATTR_ID, "") + "').");
+        MsgHandler::getWarningInstance()->inform("A vaporization starts and ends at same time (edge id='" + id + "'); discarded.");
+        return;
     }
     if(end>=OptionsCont::getOptions().getInt("begin")) {
         Command* cb = new WrappingCommand< MSEdge >(e, &MSEdge::incVaporization);

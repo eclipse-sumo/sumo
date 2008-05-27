@@ -74,6 +74,45 @@ SUMOSAXAttributes::getIntReporting(SumoXMLAttr attr, const char *objecttype, con
             if(objectid!=0) {
                 MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' is missing in definition of " + string(objecttype) + " '" + string(objectid) + "'.");
             } else {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' is missing in definition of a(n) " + string(objecttype) + ".");
+            }
+        }
+        ok = false;
+        return -1;
+    }
+    try {
+        return getInt(attr);
+    } catch(NumberFormatException &) {
+        if(report) {
+            if(objectid!=0) {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " '" + string(objectid) + "' is not an int.");
+            } else {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of a(n) " + string(objecttype) + " is not an int.");
+            }
+        }
+    } catch(EmptyData &) {
+        if(report) {
+            if(objectid!=0) {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " '" + string(objectid) + "' is empty.");
+            } else {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of a(n) " + string(objecttype) + " is empty.");
+            }
+        }
+    }
+    ok = false;
+    return -1;
+}
+
+
+SUMOReal 
+SUMOSAXAttributes::getSUMORealReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, 
+                          bool &ok, bool report) const throw()
+{
+    if(!hasAttribute(attr)) {
+        if(report) {
+            if(objectid!=0) {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' is missing in definition of " + string(objecttype) + " '" + string(objectid) + "'.");
+            } else {
                 MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' is missing in definition of a " + string(objecttype) + ".");
             }
         }
@@ -81,8 +120,7 @@ SUMOSAXAttributes::getIntReporting(SumoXMLAttr attr, const char *objecttype, con
         return -1;
     }
     try {
-        ok = true;
-        return getInt(attr);
+        return getFloat(attr);
     } catch(NumberFormatException &) {
         if(report) {
             if(objectid!=0) {
@@ -93,13 +131,15 @@ SUMOSAXAttributes::getIntReporting(SumoXMLAttr attr, const char *objecttype, con
         }
     } catch(EmptyData &) {
         if(report) {
-            MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " '" + string(objectid) + "' is empty.");
-        } else {
-            MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " is empty.");
+            if(objectid!=0) {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " '" + string(objectid) + "' is empty.");
+            } else {
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " is empty.");
+            }
         }
     }
     ok = false;
-    return -1;
+    return (SUMOReal) -1;
 }
 
 
