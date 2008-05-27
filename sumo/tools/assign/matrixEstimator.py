@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 @file    matrixEstimator.py
 @author  Yun-Pang.Wang@dlr.de
@@ -6,7 +5,7 @@
 @version $Id: matrixEstimator.py 5458 2008-04-18 20:18:21Z behrisch $
 
 This script is to execute the matrix estimation with traffic counts.
-the model used here is the generalized least squared model, proposed by Cascetta(1984).
+The model used here is the generalized least squared model, proposed by Cascetta(1984).
 
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
@@ -16,12 +15,12 @@ import os, random, string, sys, datetime, math, operator
 from numpy import *
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
-from elements import Predecessor, Vertex, Edge, Path, Vehicle
+from elements import Predecessor, Vertex, Edge, Path, Vehicle, DetectedFlows
 from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationReader, DetectedFlowsReader                                                
 from inputs import getParameter, getMatrix, getConnectionTravelTime
 from outputs import timeForInput, outputODZone, outputNetwork, outputMatrix
 from assign import getLinkChoiceProportions
-from glsMatrixEstimation import doMatrixEstimation, initialLinkChoiceProportionsMatrix, getTimeSeriesDetectedFlow
+from glsMatrixEstimation import doMatrixEstimation, initialLinkChoiceProportionsMatrix, resetLinkChoiceMatrix, getWeekday
 
 # for measuring the required time for reading input files
 inputreaderstart = datetime.datetime.now()  
@@ -89,15 +88,20 @@ def main():
         
     if options.verbose:
         print len(net._edges), "edges read"
-    
+    foutflow = file('flowreader.txt', 'w')
     for edgeID in net._edges: 
         edge = net._edges[edgeID]
-        if edge.numberlane > 0.:
+        if edge.numberlane > 0. or edge.detectorNum > 0.:
             edge.getCapacity()
             edge.getCRcurve()
             edge.getDefaultCapacity()
             edge.getAdjustedCapacity(net)
-            edge.getActualTravelTime(options.curvefile) 
+            edge.getActualTravelTime(options.curvefile)
+        foutflow.write('    <edge id="%s" groupid="%s" detectors="%s">\n' %(edge, 000, edge.detectorNum))    
+        for data in edge.detecteddata.itervalues():
+            foutflow.write('        <flows weekday-time="%s" passengercars="%s" truckflows="%s">\n' %(data.label, data.flowPger, data.flowTruck)) 
+    foutflow.write('    </edge>\n') 
+
     # calculate link travel time for all district connectors 
     getConnectionTravelTime(net._startVertices, net._endVertices)
             
@@ -113,15 +117,16 @@ def main():
     #   - Parcontrol[1]: "upper" in the Lohse model; "gamma" in the c-logit model; percent at the 1st iteration 
     #   - Parcontrol[2]: "v1" in the Lohse model; "lammda" in the c-logit model; percent at the 2nd iteration 
     #   - Parcontrol[3]: "v2" in the Lohse model; "devi" in the c-logit model; percent at the 3rd iteration 
-    #   - Parcontrol[4]: "v3" in the Lohse model; "theta" in the c-logit model; percent at the n-th iteration
-    #   - Parcontrol[5]: "cvg1" in the Lohse model; "suek1" in the c-logit model; percent at the n-th iteration
-    #   - Parcontrol[6]: "cvg2" in the Lohse model; "suek2" in the c-logit model; percent at the n-th iteration
-    #   - Parcontrol[7]: "cvg3" in the Lohse model; "maxSUEIteration" in the c-logit model; percent at the n-th iteration
-    #   - Parcontrol[8]: "maxIter" in the Lohse model; "sueTolerance" in the c-logit model; percent at the n-th iteration
+    #   - Parcontrol[4]: "v3" in the Lohse model; "theta" in the c-logit model; percent at the 4-th iteration
+    #   - Parcontrol[5]: "cvg1" in the Lohse model; "suek1" in the c-logit model; percent at the 5-th iteration
+    #   - Parcontrol[6]: "cvg2" in the Lohse model; "suek2" in the c-logit model; percent at the 6-th iteration
+    #   - Parcontrol[7]: "cvg3" in the Lohse model; "maxSUEIteration" in the c-logit model; percent at the 7-th iteration
+    #   - Parcontrol[8]: "maxIter" in the Lohse model; "sueTolerance" in the c-logit model; percent at the 8-th iteration
     #   - Parcontrol[9]: "KPaths" in the Lohse model and the c-logit model; percent at the n-th iteration
-    #   - Parcontrol[10]: matrix growth factor for adjusting the SampleMatrix
-    #   - Parcontrol[11]: daytimeindex
-    #   - Parcontrol[12]: odtype
+    #   - Parcontrol[(len(Parcontrol)-5)]: matrix growth factor for adjusting the SampleMatrix
+    #   - Parcontrol[(len(Parcontrol)-4)]: weekday index: 1- tuesday, 2-wednesday, 3-thursday, 4-friday, 5-saturday, 6-sunday, 7-avgWkday, 8-avgWkend
+    #   - Parcontrol[(len(Parcontrol)-3)]: time index: ['-06-10', '-11-15', '-16-20', '-20-24', '-Allday']
+    #   - Parcontrol[(len(Parcontrol)-2)]: odtype, pgr/truck
     #   - Parcontrol[(len(Parcontrol)-1)]: 
     #    - equals to 0, the incremental assignment will be adopted.
     #    - equals to 1, the stochastic user equilibrium assignment ( C-Logit model) will be adopted.
@@ -130,26 +135,35 @@ def main():
     Parcontrol = getParameter(options.parfile)
     if options.verbose:
         print 'Control parameters(Parcontrol):', Parcontrol
-    
     # initialization
     matrixCounter = 0
     MatrixSum = 0.0
-    daytimeindex = Parcontrol[11]                # revised when the format of the detecter data file is ready.
-    odtype = Parcontrol[12]                      # revised when the format of the detecter data file is ready.
-    
+    weekday = Parcontrol[len(Parcontrol)-4]
+    weekday = getWeekday(weekday)
+
+    timeindex = Parcontrol[len(Parcontrol)-3]
+    odtype = Parcontrol[len(Parcontrol)-2]
+    assignMethod = Parcontrol[len(Parcontrol)-1]
     net.initialPathSet()
-    
+
+    daytimeindex = weekday + timeindex
+
+    if Parcontrol[(len(Parcontrol)-3)] == '-Allday':
+        periods = 1.                                                # should be 24
+    else:
+        periods = 4.
     starttime = datetime.datetime.now()
-    
-    
-    
     
     for counter in range (0, len(matrices)):
         matrix = matrices[counter]
-        MatrixCounter += 1
-        
-        getHourlyDetectedFlow(net, daytimetype, odtype)                  # revised when the format of the detecter data file is ready.
-        
+        matrixCounter += 1
+        net._detectedLinkCounts = 0
+        convergence = False
+        exRMSE = 99999.
+        iter = 0
+        iterations = 10
+        net.countDetectedLinks(weekday, timeindex, odtype)
+                
         # get the historical matrix
         matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum = getMatrix(net, options.verbose, matrix, MatrixSum)
         
@@ -160,41 +174,53 @@ def main():
         foutlog.write('CurrentMatrixSum:%s\n' %CurrentMatrixSum)
         foutlog.write('number of current startVertices:%s\n' %len(startVertices))
         foutlog.write('number of current endVertices:%s\n' %len(endVertices))
+               
         
-        for edgeID in net._edges:
-            edge = net._edges[edgeID]
-            edge.flow = 0.
-            edge.helpflow = 0.
-            edge.actualtime = edge.freeflowtime
-            if int(Parcontrol[len(Parcontrol)-1)]) == 2:
-                edge.getActualTravelTime(options.curvefile)
-                edge.resetLohseParameter()
-                edge.helpacttime = edge.freeflowtime    
-        
-        # the number of origins, the umber of destinations and the number of the OD pairs
-        origins = len(startVertices)                                    
-        dests = len(endVertices)
-        ODpairs = origins * dests
-        
+        convergence = False
         linkChoiceProportions = initialLinkChoiceProportionsMatrix(net, startVertices, endVertices, matrixPshort)
-
-        # output the origin and destination zones and the number of effective OD pairs
-        if options.debug:
-    #            outputODZone(startVertices, endVertices, Pshort_EffCells, Plong_EffCells, Truck_EffCells)
-            outputODZone(startVertices, endVertices, Pshort_EffCells, matrixCounter)  
-    
-        # execute the user-defined traffic assignment to get the route choioce proportions 
-        linkChoiceProportions = getLinkChoiceProportions(options.curvefile, options.verbose, net, matrixPshort, Parcontrol, startVertices, endVertices, linkChoiceProportions, foutlog)
-    
-        # excuate the GLS model     # revised the parameter "daytimeindex" and "odtype" when the format of the detecter data file is ready.
-        estimatedMatrix = doMatrixEstimation(net, verbose, Parcontrol, startVertices, endVertices, matrixPshort, linkChoiceProportions, daytimeindex, odtype)
         
+        while not convergence:
+        
+            for edgeID in net._edges:
+                edge = net._edges[edgeID]
+                edge.flow = 0.
+                edge.helpflow = 0.
+                edge.estcapacity *= periods 
+                edge.actualtime = edge.freeflowtime
+                if assignMethod == '2':
+                    edge.getActualTravelTime(options.curvefile)
+                    edge.resetLohseParameter()
+                    edge.helpacttime = edge.freeflowtime    
+            
+            # the number of origins, the umber of destinations and the number of the OD pairs
+            origins = len(startVertices)                                    
+            dests = len(endVertices)
+            ODpairs = origins * dests
+            
+            linkChoiceProportions = resetLinkChoiceMatrix(net, startVertices, endVertices, matrixPshort, linkChoiceProportions)
+    
+            # output the origin and destination zones and the number of effective OD pairs
+            if options.debug:
+                outputODZone(startVertices, endVertices, Pshort_EffCells, matrixCounter)
+        
+            # execute the user-defined traffic assignment to get the route choioce proportions 
+            linkChoiceProportions = getLinkChoiceProportions(options.curvefile, options.verbose, net, matrixPshort, Parcontrol, startVertices, endVertices, linkChoiceProportions, foutlog)
+        
+            # excuate the GLS model     # revised the parameter "daytimeindex" and "odtype" when the format of the detecter data file is ready.
+            estimatedMatrix = doMatrixEstimation(net, options.verbose, Parcontrol, startVertices, endVertices, matrixPshort, linkChoiceProportions, weekday, timeindex, odtype)
+            iter += 1
+            
+            # check convergence
+            convergence, exRMSE = stopCheck(net, options.verbose, iter, iterations, exRMSE, startVertices, endVertices, matrixPshort, estimatedMatrix)
+            
+            if not convergence:
+                matrixPshort = estimatedMatrix
+            
         # output the estiamted matrix                         
-        outputMatrix(startVertices, endVertices, estimatedMatrix)
-        
+        outputMatrix(startVertices, endVertices, estimatedMatrix, daytimeindex)
+     
         print 'estimatedMatrix:'
         print estimatedMatrix
-        
     foutlog.write('- Matrix estimation is completed and the respective matrix is generated in the file estimatedMatrix.fma.')
     foutlog.close()
       

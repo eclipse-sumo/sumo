@@ -149,8 +149,9 @@ def getSignificanceTestOutput(net, tTest, tValueAvg, hValues):
     foutSGtest.close()
 
 # output the result of the matrix estimation with the traffic counts
-def outputMatrix(startVertices, endVertices, estMatrix):
-    foutmtx = file('estimatedMatrix.fma', 'w')
+def outputMatrix(startVertices, endVertices, estMatrix, daytimeindex):
+    filename = 'estimatedMatri-' + daytimeindex + '.fma'
+    foutmtx = file(filename, 'w')
     
     foutmtx.write('$VMR;D2;estimated with the generalized least squares model\n')
     foutmtx.write('* Verkehrsmittelkennung\n') 

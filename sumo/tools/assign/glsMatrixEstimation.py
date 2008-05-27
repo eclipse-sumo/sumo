@@ -16,7 +16,7 @@ from network import Net
 from numpy import *
 from numpy.linalg import inv
 
-def doMatrixEstimation(net, verbose, Parcontrol, startVertices, endVertices, matrixPshort, linkChoiceProportions, daytimeindex, odtype):
+def doMatrixEstimation(net, verbose, Parcontrol, startVertices, endVertices, matrixPshort, linkChoiceProportions, weekday, timeindex, odtype):
     historicalMatrixArray = array(())
     sampleMatrixArray = array(())
     estimatedMatrix = zeros((len(startVertices), len(endVertices)))
@@ -41,41 +41,59 @@ def doMatrixEstimation(net, verbose, Parcontrol, startVertices, endVertices, mat
     varSampleMatrixArray = zeros((matrixElements, matrixElements))
     estMatrixArray = zeros((matrixElements, 1))
     muArray = zeros((matrixElements, 1))
-            
-    if float(Parcontrol[10]) != 1.:
-        sampleMatrixArray *= float(Parcontrol[10])
+    growthFactor = float(Parcontrol[(len(Parcontrol)-5)])       
+    if growthFactor != 1.:
+        sampleMatrixArray *= growthFactor
     
     sumSampleMatrix = sum(sampleMatrixArray)
     sumHistoricalMatrix = sum(historicalMatrixArray)
     
-    print 'len(startVertices):', len(startVertices)
-    print 'historicalMatrixArray-shape:', historicalMatrixArray.shape
-    print 'sampleArray-shape:', sampleArray.shape
-    print ' estMatrixArray-shape:',  estMatrixArray.shape
-    
+    print 'historicalmatrixArray:' 
+    print historicalMatrixArray
+    print 'sampleMatrixArray:'
+    print sampleMatrixArray
+    print 'estMatrixArray:'
+    print estMatrixArray
+
     # calculate the variance matrix of the sample matrix - matrix Q
-    if float(Parcontrol[10]) != 1.:
-        elem = ((sumSampleMatrix-sumHistoricalMatrix)*sumSampleMatrix)/((sumHistoricalMatrix-1)*pow(sumHistoricalMatrix,2.))
+    if growthFactor != 1.:
+        print 'growthFactor:', growthFactor
+        elem = ((sumSampleMatrix-sumHistoricalMatrix)*sumSampleMatrix)/((sumHistoricalMatrix-1)*pow(sumHistoricalMatrix,2))
+        print 'elem:', elem
         for i in range (0, matrixElements):
             # equation: Var[tij]=(T-N)*T/(N-1)N2*nij*(N-nij)
             varSampleMatrixArray[i][i]= elem * historicalMatrixArray[i] * (sumHistoricalMatrix - historicalMatrixArray[i])
-                    
+            print 'varSampleMatrixArray[i][i]:', varSampleMatrixArray[i][i]
     # calculate the variance matrices of link counts matrices
-    varFlowMatrixArray, detectedFlowArray = getDetectedLinkFlowAndVariance(net, startVertices, endVertices, daytimeindex, odtype)
-  
+    varFlowMatrixArray, detectedFlowArray = getDetectedLinkFlowAndVariance(net, startVertices, endVertices, weekday, timeindex, odtype)
+    print 'detectedFlowArray:'
+    print detectedFlowArray
     # calculate proportional matrix A or get it from the assignment model
     linkChoiceArray = getLinkChoiceArray(net, startVertices, endVertices, matrixPshort, linkChoiceProportions, matrixElements)
     
     inv_varSampleMatrixArray = inv(varSampleMatrixArray)
+    print 'inv_varSampleMatrixArray:'
+    print inv_varSampleMatrixArray 
     tran_linkChoiceArray = transpose(linkChoiceArray)
+    print 'tran_linkChoiceArray:'
+    print tran_linkChoiceArray
+    
+    print 'varFlowMatrixArray:'
+    print varFlowMatrixArray
     inv_varFlowMatrixArray = inv(varFlowMatrixArray)
-
+    print 'inv_varFlowMatrixArray:'
+    print inv_varFlowMatrixArray
     ProductFlowMatrix = dot(tran_linkChoiceArray, inv_varFlowMatrixArray)
-
+    print 'ProductFlowMatrix:'
+    print ProductFlowMatrix
     # calculate dMatrix (D): D = inverse(Q)+transpose(A)*inverse(W)*A
     dMatrix = inv_varSampleMatrixArray + dot(ProductFlowMatrix, linkChoiceArray)
+    print 'dMatrix:'
+    print dMatrix
     inv_dMatrix = inv(dMatrix)
-
+    print 'inv_dMatrix:'
+    print inv_dMatrix
+    
     tran_sampleMatrixArray = sampleMatrixArray.reshape(matrixElements, 1)
     
     sumFlowMatrix = dot(inv_varSampleMatrixArray, tran_sampleMatrixArray) + dot(ProductFlowMatrix, detectedFlowArray)
@@ -104,24 +122,43 @@ def doMatrixEstimation(net, verbose, Parcontrol, startVertices, endVertices, mat
             
     return estimatedMatrix
 
-def getDetectedLinkFlowAndVariance(net, startVertices, endVertices, daytimeindex, odtype):
+def getDetectedLinkFlowAndVariance(net, startVertices, endVertices, weekday, timeindex, odtype):
+    print 'now do the "getDetectedLinkFlowAndVariance"'
     linkcounts = net._detectedLinkCounts
+    print 'linkcounts:', linkcounts
     detectedFlowArray = array(())
     linkoder = -1
     varFlowMatrixArray = zeros((linkcounts, linkcounts))
+    
+    if weekday != 'avgWkday' and weekday != 'avgWkEnd':
+        daytimeindex = weekday + timeindex
+    else:
+        daytimeindex = timeindex[1:3]
+        
     for edge in net._edges.itervalues():
         if edge.detected:
             flowlist = array(())
             linkoder += 1
-            for data in edge._detecteddata.itervalues():
-                if str(data.label) == daytimeindex and odtype == "passenger":
-                    flowlist = append(flowlist, [[data.flowPger]])
-                    
-                elif str(data.label) == daytimeindex and odtype == "truck":
-                    flowlist = append(flowlist, [[data.flowTruck]])
+            for data in edge.detecteddata.itervalues():
+                if weekday != 'avgWkday' and weekday != 'avgWkEnd':
+                    if data.label == daytimeindex and odtype == "pgr":
+                        flowlist = append(flowlist, [[data.flowPger]])
+                    elif data.label == daytimeindex and odtype == "truck":
+                        flowlist = append(flowlist, [[data.flowTruck]])
+                elif weekday == 'avgWkday' :
+                    if data.label[0] != 'F' and data.label[0] != 'S' and data.label[4:6] == daytimeindex and odtype == "pgr":
+                        flowlist = append(flowlist, [[data.flowPger]])
+                    elif data.label[0] != 'F' and data.label[0] != 'S' and data.label[4:6] == daytimeindex and odtype == "truck":
+                        flowlist = append(flowlist, [[data.flowTruck]])
+                elif weekday == 'avgWkend' :
+                    if data.label[0] == 'S' and data.label[4:6] == daytimeindex and odtype == "pgr":
+                        flowlist = append(flowlist, [[data.flowPger]])
+                    elif data.label[0] != 'S' and data.label[4:6] == daytimeindex and odtype == "truck":
+                        flowlist = append(flowlist, [[data.flowTruck]])
+                        
             if len(flowlist) > 1:
                 detectedFlowArray = append(detectedFlowArray, [[average(flowlist)]])
-                varFlowMatrixArray[linkorder][linkorder] = (var(flowlist)* float(count(flowlist)))/(float(count(flowlist)) - 1.)
+                varFlowMatrixArray[linkoder][linkoder] = (var(flowlist)* float(size(flowlist)))/(float(size(flowlist)) - 1.)
             else:
                 detectedFlowArray = append(detectedFlowArray, [[flowlist]])
                 varFlowMatrixArray[linkoder][linkoder] = (flowlist[0]* 0.1/1.96)**2
@@ -133,6 +170,7 @@ def getDetectedLinkFlowAndVariance(net, startVertices, endVertices, daytimeindex
     return varFlowMatrixArray, detectedFlowArray
 
 def getLinkChoiceArray(net, startVertices, endVertices, matrixPshort, linkChoiceProportions, matrixElements):
+    print 'now do the "getlinkchoicearray"'
     linkcounts = net._detectedLinkCounts
     linkChoiceArray = zeros((linkcounts, matrixElements))
 
@@ -149,27 +187,62 @@ def getLinkChoiceArray(net, startVertices, endVertices, matrixPshort, linkChoice
                     end += 1
                     if str(startVertex) != str(endVertex) and matrixPshort[start][end] > 0.:
                         odpair += 1
+
+                        print linkChoiceProportions[edge.label][startVertex][endVertex]                                      
                         linkChoiceArray[edgestart][odpair] = linkChoiceProportions[edge.label][startVertex][endVertex]
-                        
+    print 'linkChoiceArray:'
+    print linkChoiceArray  
     return linkChoiceArray
 
 def initialLinkChoiceProportionsMatrix(net, startVertices, endVertices, matrixPshort):
     linkChoiceProportions = {}
-    for edge in edge._edges:
+    for edge in net._edges.itervalues():
         if edge.detected:
-            linkChoiceProportions[edge] = {}
+            linkChoiceProportions[edge.label] = {}
             start = -1
             for startVertex in startVertices:
                 start += 1
                 end = -1
-                linkChoiceProportions[edge][startVertex]={}
+                linkChoiceProportions[edge.label][startVertex]={}
                 for endVertex in endVertices:
                     end += 1
                     if str(startVertex) != str(endVertex) and matrixPshort[start][end] > 0.:
-                        linkChoiceProportions[edge][startVertex][endVertex] = 0.
+                        linkChoiceProportions[edge.label][startVertex][endVertex] = 0.
     return linkChoiceProportions
-    
-def getHourlyDetectedFlow(net, daytimetype, odtype):
-    for edge in net._edges.itervalue():
-        edge.detecteddata
-        
+
+def resetLinkChoiceMatrix(net, startVertices, endVertices, matrixPshort, linkChoiceProportions):
+
+    for edge in net._edges.itervalues():
+        if edge.detected:
+            start = -1
+            for startVertex in startVertices:
+                start += 1
+                end = -1
+                for endVertex in endVertices:
+                    end += 1
+                    if str(startVertex) != str(endVertex) and matrixPshort[start][end] > 0.:
+                        linkChoiceProportions[edge.label][startVertex][endVertex] = 0.
+    return linkChoiceProportions
+
+       
+def getWeekday(wday):
+    weekday = ''
+    if wday == '0':
+        weekday = 'MON'
+    elif wday == '1':
+        weekday = 'TUE'
+    elif wday == '2':
+        weekday = 'WED'
+    elif wday == '3':
+        weekday = 'THU'
+    elif wday == '4':
+        weekday = 'FRI'
+    elif wday == '5':
+        weekday = 'SAT'
+    elif wday == '6':
+        weekday = 'SUN'
+    elif wday == '7':
+        weekday = 'avgWkday'
+    elif wday == '8':
+        weekday = 'avgWkend'
+    return weekday

@@ -368,8 +368,10 @@ def getLinkChoiceProportions(curvefile, verbose, net, matrixPshort, Parcontrol, 
         lohse = True
     elif Parcontrol[(len(Parcontrol)-1)] == "2":
         clogit = True
-    if int(Parcontrol[9]) > 1:
-        checkKPaths = True
+    if not incremental:
+        if int(Parcontrol[9]) > 1:
+            checkKPaths = True
+            KPaths = int(Parcontrol[9])
         
     if clogit:
         maxIteration = int(Parcontrol[7])
@@ -430,12 +432,13 @@ def getLinkChoiceProportions(curvefile, verbose, net, matrixPshort, Parcontrol, 
             print 'begin the "getLinkChoiceProportions - incremental"!'
         foutlog.write('- incremetal assignment is adopted.\n')
         iter = 0
+        print 'iterations for the incremental assignment:', iterations
         while iter < iterations:
             foutlog.write('- Current iteration(not executed yet):%s\n' %iter)
             iter += 1
             
             findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
-            
+            start = -1
             for startVertex in startVertices:
                 start += 1
                 end = -1 
@@ -452,12 +455,26 @@ def getLinkChoiceProportions(curvefile, verbose, net, matrixPshort, Parcontrol, 
                         
                         for edge in shortestpath.Edges:
                             edge.flow += pathflow
-                            linkChoiceProportions[edge][startVertex][endVertex] += pathflow/matrixPshort[start][end]
+                            if edge.detected:
+                                linkChoiceProportions[edge.label][startVertex][endVertex] += pathflow/matrixPshort[start][end]
 
             for edgeID in net._edges:
                 edge = net._edges[edgeID]
                 edge.getActualTravelTime(curvefile)
-                
+    foutlink = file('linkproportion.txt', 'a')
+    
+    for edge in net._edges.itervalues():
+        if edge.detected:
+            foutlink.write('flow on Edge %s is detected.\n' %edge.label)
+            start = -1
+            for startVertex in startVertices:
+                start += 1
+                end = -1
+                for endVertex in endVertices:
+                    end += 1
+                    if str(startVertex) != str(endVertex) and (matrixPshort[start][end] > 0.0):
+                        foutlink.write('linkChoiceProportions[%s][%s][%s]=%s\n' %(edge.label, startVertex, endVertex, linkChoiceProportions[edge.label][startVertex][endVertex]))
+    foutlink.close()            
     return linkChoiceProportions
                 
 def calLinkChoiceProportion(verbose, net, Parcontrol, startVertices, endVertices, linkChoiceProportions, lohse):
@@ -476,7 +493,7 @@ def calLinkChoiceProportion(verbose, net, Parcontrol, startVertices, endVertices
                 
                 for path in ODPaths:
                     path.getPathTimeUpdate(net)
-                    if lohse:                      
+                    if lohse:
                         path.helpacttime = path.actpathtime
       
                 calCommonalityAndChoiceProb(net, ODPaths, Parcontrol, lohse)
@@ -491,6 +508,7 @@ def calLinkChoiceProportion(verbose, net, Parcontrol, startVertices, endVertices
                     
                     for edge in path.Edges:
                         edge.flow += path.pathflow
-                        linkChoiceProportions[edge][startVertex][endVertex] += path.pathflow/matrixPshort[start][end]
+                        if edge.detected:
+                            linkChoiceProportions[edge.label][startVertex][endVertex] += path.pathflow/matrixPshort[start][end]
     
     return linkChoiceProportions

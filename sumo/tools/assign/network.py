@@ -13,7 +13,7 @@ All rights reserved
 
 import os, random, string, sys, datetime, math, operator
 from xml.sax import saxutils, make_parser, handler
-from elements import Predecessor, Vertex, Edge, Vehicle, Path, TLJunction, Signalphase
+from elements import Predecessor, Vertex, Edge, Vehicle, Path, TLJunction, Signalphase, DetectedFlows
 
 # Net class stores the network (vertex and edge collection). 
 # Moreover, the methods for finding k shortest paths and for generating vehicular releasing times
@@ -30,7 +30,7 @@ class Net:
         self._allvehicles = {}
         self._assignments = {}
         self._junctions = {}
-        self._detectedLinkCounts = 0
+        self._detectedLinkCounts = 0.
         self._flowVarianceMatrices = {}
         
     def newVertex(self):
@@ -79,6 +79,21 @@ class Net:
     def addFlowVarianceMatrix(self, varianceObj):
         self._flowVarianceMatrices[varianceObj.label] = varianceObj
     
+    def countDetectedLinks(self, weekday, timeindex, odtype):
+        daytimeindex = weekday + timeindex
+        for edge in self._edges.itervalues():
+            counts= 0.
+            for data in edge.detecteddata.itervalues():
+                if (weekday != 'avgWkday' and weekday != 'avgWkend' and data.label == daytimeindex) or \
+                   (weekday == 'avgWkday' and data.label[0] != 'F' and data.label[0] != 'S') or \
+                   (weekday == 'avgWkend' and data.label[0] == 'S'):
+                    if (odtype == 'pgr' and data.flowPger > 0.) or (odtype == 'truck' and data.flowTruck > 0.):
+                        counts += 1.
+                        if not edge.detected:
+                            edge.detected = True
+            if counts > 0.:
+                self._detectedLinkCounts += 1.    
+        
     def removeUTurnEdge(self, edge):
         outEdge = edge
         for link in self._edges.itervalues():
@@ -382,7 +397,36 @@ class ExtraSignalInformationReader(handler.ContentHandler):
 class DetectedFlowsReader(handler.ContentHandler):
     def __init__(self, net):
         self._net = net
-        self._junctionlabel = None
-        self._phaseObj = None
-        self._chars = ''
-        self._counter = 0
+        self._edge = ''
+        self._edgeObj = None
+        self._detectorcounts = 0.
+        self._renew = False
+        self._skip = False
+    
+    def startElement(self, name, attrs):
+        if name == 'edge':
+            if self._edge != '' and self._edge == attrs['id']:
+                if self._edgeObj.detectorNum < float(attrs['detectors']):
+                    self._edgeObj.detectorNum = float(attrs['detectors'])
+                    self.renew = True
+                elif self._edgeObj.detectorNum > float(attrs['detectors']):
+                    self._skip = True
+            else:
+                self._edge = attrs['id']
+                self._edgeObj = self._net.getEdge(self._edge)
+                self._edgeObj.detectorNum = float(attrs['detectors'])
+             
+        elif name == 'flows':
+            if self._renew == True:
+                self._newdata.label = attrs['weekday-time']
+                self._newdata.flowPger = float(attrs['passengercars'])
+                self._newdawta.flowTruck = float(attrs['truckflows'])
+    
+            else:
+                if not self._skip:
+                    self._newdata = DetectedFlows(attrs['weekday-time'], float(attrs['passengercars']), float(attrs['truckflows']))
+                    self._edgeObj.detecteddata[self._newdata.label]= self._newdata
+                
+    def endElement(self, name):
+        if name == 'edge':
+            self._renew = False
