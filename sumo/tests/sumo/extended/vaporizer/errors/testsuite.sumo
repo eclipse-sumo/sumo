@@ -1,0 +1,42 @@
+# The id-attribute is not given
+id_missing
+
+# The id-attribute is empty
+id_empty
+
+# The edge named by the id is not known
+id_false
+
+
+
+# The begin-attribute is not given
+begin_missing
+
+# The begin-attribute is empty
+begin_empty
+
+# The begin-attribute does not contain an int
+begin_not_numeric
+
+# The begin is not negative
+begin_negative
+
+
+
+# The end-attribute is not given
+end_missing
+
+# The end-attribute is empty
+end_empty
+
+# The end-attribute does not contain an int
+end_not_numeric
+
+# The end is not negative
+end_negative
+
+
+
+# Vaporization ends before it starts 
+begin_larger_than_end
+
