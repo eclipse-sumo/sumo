@@ -160,7 +160,7 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw(InvalidAr
     }
     MSEdge *e = MSEdge::dictionary(attrs.getStringSecure(SUMO_ATTR_ID, ""));
     if(e==0) {
-        throw InvalidArgument("Missing or false edge id in vaporizer");
+        throw InvalidArgument("Missing or false edge id in vaporizer ('" + attrs.getStringSecure(SUMO_ATTR_ID, "") + "').");
     }
     if(end>=OptionsCont::getOptions().getInt("begin")) {
         Command* cb = new WrappingCommand< MSEdge >(e, &MSEdge::incVaporization);

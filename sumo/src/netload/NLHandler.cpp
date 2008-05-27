@@ -192,7 +192,11 @@ NLHandler::myStartElement(SumoXMLTag element,
         myActionBuilder.addAction(attrs, getFileName());
         break;
     case SUMO_TAG_VAPORIZER:
-        myTriggerBuilder.buildVaporizer(attrs);
+        try {
+            myTriggerBuilder.buildVaporizer(attrs);
+        } catch(InvalidArgument &e) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
         break;
     default:
         break;
@@ -1332,10 +1336,6 @@ NLHandler::addSource(const SUMOSAXAttributes &attrs)
         myTriggerBuilder.buildTrigger(myNet, attrs, getFileName());
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("The description of trigger '" + id + "' does not contain a needed value.");
-    } catch (IOError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
 
@@ -1352,10 +1352,6 @@ NLHandler::addTrigger(const SUMOSAXAttributes &attrs)
         myTriggerBuilder.buildTrigger(myNet, attrs, getFileName());
         return;
     } catch (InvalidArgument &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("The description of the trigger '" + id + "' does not contain a needed value.");
-    } catch (IOError &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
 }
