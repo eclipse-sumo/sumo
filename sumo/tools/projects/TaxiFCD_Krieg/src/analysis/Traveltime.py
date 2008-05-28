@@ -59,9 +59,11 @@ def getBars():
    """Classifies the time difference in single bars."""
    taxis=reader.readAnalysisInfo()   
    barsDict={}
+   barsDictSim={}
    for taxi in taxis:        
         try:
-            diff=getTimeDiff(taxi.getSteps())
+            diff=getTimeDiff(taxi.getSteps(),False)
+            diffSim=getTimeDiff(taxi.getSteps())
             if diff<-1000:  
                 print taxi.id
                 print "\n"
@@ -69,17 +71,21 @@ def getBars():
             print "Error by taxi %s : %s"  %(taxi.id,e.message) 
         #classify the absolute time difference
         barsDict[(diff/10)*10]=barsDict.setdefault((diff/10)*10,0)+1   
-       
+        barsDictSim[(diffSim/10)*10]=barsDictSim.setdefault((diffSim/10)*10,0)+1  
          
-   return  barsDict
-def getTimeDiff(steps):
+   return  (barsDictSim, barsDict)
+def getTimeDiff(steps,sim=True):
     """Calculates the travel time for each source found in the steps."""
     global traveltimeList
     
     times=[None,None,None,None]
     for step in steps: 
         #add first and last times of fcd and vtypeprobe to the timesList    
-        if step.source==SOURCE_VTYPE:
+        if sim:
+            source=SOURCE_SIMFCD
+        else:
+             source=SOURCE_VTYPE
+        if step.source==source:
             if times[0]!=None:
                 times[1]=step.time
             else:
@@ -125,30 +131,44 @@ def drawPieChart():
      
 def drawBarChart():
     """Draws a bar chart with the relative travel time aberrance."""
-    barsDict=getBars()
+    barsDictSim, barsDict=getBars()
     xList=[]
     yList=[]
+    xListSim=[]
+    yListSim=[]
     under200=0    
     over200=0
     for k in sorted(barsDict.keys()):
+       
+       if k >200:
+          over200+=0    
+       elif k<-200:
+           under200+=0
+       else:
+           xList.append(k)
+           yList.append(barsDict[k])
+      
+    for k in sorted(barsDictSim.keys()):
        
        if k >200:
           over200+=1    
        elif k<-200:
            under200+=1
        else:
-           xList.append(k)
-           yList.append(barsDict[k])
-      
+           xListSim.append(k)
+           yListSim.append(barsDictSim[k])
+           
 
    
     
-    b=bar(xList,yList, width=10)
-    legend( ('> 0 Sim schneller', '< 0 Sim langsammer','Taxis gesamt: '+str(sum(barsDict.values())),
+    
+    b=bar(xList,yList, width=10, alpha=0.5)
+    bSim=bar(xListSim,yListSim, width=10, color="red", alpha=0.5)    
+    legend((b[0], bSim[0]),('FCD-vtype', 'FCD-simFCD', '> 0 Sim schneller', '< 0 Sim langsammer','Taxis gesamt: '+str(sum(barsDict.values())),
              'Diff < -200%: '+str(under200),'Diff >  200%: '+str(over200),
              u'\u00f8'+' Reisezeit: '+str(sum(traveltimeList)/len(traveltimeList))+'s',), 
              shadow=True, loc=2)    
-    title("Differenz der Reisezeit zwischen simulierten Taxis und Taxi-FCD\n(nicht simulierten Taxi-FCD!)")
+    title("Differenz der Reisezeit zwischen simulierten Taxis und Taxi-FCD)")
     xlabel('Reisezeit-Differenz in %')
     ylabel('Taxis')
 #start the program

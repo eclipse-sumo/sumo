@@ -15,6 +15,7 @@ simFcd="D:/Krieg/Projekte/Diplom/Daten/simProzessiertFCD/nuremberg_sim_on_edges2
 vls="D:/Krieg/Projekte/Diplom/Daten/originalFCD/Proz-fcd_nuremberg_VLS_2007-07-18.dat"
 rawFcd="D:/Krieg/Projekte/Diplom/Daten/originalFCD/Roh-nuremberg_2007-07-18.dat"
 rawFcdVehIdList="D:/Krieg/Projekte/Diplom/Daten/simRawFCD/rawFcdVehIdList.pickle"
+edgeLengthDict="D:/Krieg/Projekte/Diplom/Daten/taxiRouten/edgeLengthDict.pickle"
 simRawFcd="D:/Krieg/Projekte/Diplom/Daten/simRawFCD/simulatedRawFCD2Mit_t1Complete.out.dat" #used input
 taxiRoutes="D:/Krieg/Projekte/Diplom/Daten/taxiRouten/taxiRoutes.rou.xml"
 taxiRoutesComplete="D:/Krieg/Projekte/Diplom/Daten/taxiRouten/t1Complete.rou.xml"

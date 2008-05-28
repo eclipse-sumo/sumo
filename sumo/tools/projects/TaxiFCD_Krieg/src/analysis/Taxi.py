@@ -13,6 +13,7 @@ All rights reserved
 #Constants
 SOURCE_VTYPE='vtypeProbe'
 SOURCE_FCD='FCD'
+SOURCE_SIMFCD='simFCD'
 
 
 class Step(object):
