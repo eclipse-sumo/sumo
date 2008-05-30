@@ -9,10 +9,10 @@
    </input>
 
    <output>
-      <dump-intervals>60 300 900</dump-intervals>
+      <dump-intervals>60,300,900</dump-intervals>
       <dump-basename>aggregated</dump-basename>
-      <dump-begins>0 900</dump-begins>
-      <dump-ends>119 1019</dump-ends>
+      <dump-begins>0,900</dump-begins>
+      <dump-ends>119,1019</dump-ends>
    </output>
 
    <time>

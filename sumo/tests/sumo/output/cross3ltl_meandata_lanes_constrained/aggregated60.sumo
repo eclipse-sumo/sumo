@@ -9,10 +9,10 @@
    </input>
 
    <output>
-      <lanedump-intervals>60 300 900</lanedump-intervals>
+      <lanedump-intervals>60,300,900</lanedump-intervals>
       <lanedump-basename>aggregated</lanedump-basename>
-      <dump-begins>0 900</dump-begins>
-      <dump-ends>119 1019</dump-ends>
+      <dump-begins>0,900</dump-begins>
+      <dump-ends>119,1019</dump-ends>
    </output>
 
    <time>

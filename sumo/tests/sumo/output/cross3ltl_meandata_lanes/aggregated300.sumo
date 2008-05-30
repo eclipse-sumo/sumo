@@ -9,7 +9,7 @@
    </input>
 
    <output>
-      <lanedump-intervals>300 900</lanedump-intervals>
+      <lanedump-intervals>300,900</lanedump-intervals>
       <lanedump-basename>aggregated</lanedump-basename>
    </output>
 

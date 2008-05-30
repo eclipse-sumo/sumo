@@ -9,7 +9,7 @@
    </input>
 
    <output>
-      <dump-intervals>300 900</dump-intervals>
+      <dump-intervals>300,900</dump-intervals>
       <dump-basename>aggregated</dump-basename>
    </output>
 
