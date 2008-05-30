@@ -586,7 +586,7 @@ Option_IntVector::getValueString() const throw(InvalidArgument)
     ostringstream s;
     for (IntVector::const_iterator i=myValue.begin(); i!=myValue.end(); i++) {
         if (i!=myValue.begin()) {
-            s << ' ';
+            s << ',';
         }
         s << (*i);
     }
