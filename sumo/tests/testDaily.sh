@@ -43,3 +43,4 @@ else
 fi
 
 texttest.py -b `basename $SUMO_REPORT`
+texttest.py -b `basename $SUMO_REPORT` -coll
