@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    TraCIServer.cpp
 /// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
+/// @author  Friedemann Wesner <wesner@itm.uni-luebeck.de>
 /// @author  Christoph Sommer <christoph.sommer@informatik.uni-erlangen.de>
 /// @date    2007/10/24
 /// @version $Id$
@@ -1946,7 +1947,7 @@ throw(TraCIException)
 		}
 		break;
 
-	// number of nodes
+	// number of active nodes
 	case DOMVAR_COUNT:
 		vehControl = &MSNet::getInstance()->getVehicleControl();
 		for (MSVehicleControl::constVehIt vehIt = vehControl->loadedVehBegin(); vehIt != vehControl->loadedVehEnd(); vehIt++) {
@@ -1970,16 +1971,22 @@ throw(TraCIException)
 		}
 		break;
 
-	// number of traci nodes
+	// number of active nodes accesible via traci
 	case DOMVAR_EQUIPPEDCOUNT:
+		for (std::map<std::string, int>::iterator it=equippedVehicles_.begin(); it != equippedVehicles_.end(); it++) {
+			MSVehicle* veh = MSNet::getInstance()->getVehicleControl().getVehicle(it->first);
+			if (veh->isOnRoad()) {
+				count++;
+			}
+		}
 		response.writeUnsignedByte(TYPE_INTEGER);
-		response.writeInt(numEquippedVehicles_);
+		response.writeInt(count);
 		if (dataType != TYPE_INTEGER) {
 			warning = "Warning: requested data type could not be used; using integer instead!";
 		}
 		break;
 
-	// upper bound for number of traci nodes
+	// upper bound for number of nodes accesible via traci
 	case DOMVAR_EQUIPPEDCOUNTMAX:
 		response.writeUnsignedByte(TYPE_INTEGER);
 		response.writeInt(static_cast<int>(0.5 + totalNumVehicles_ * penetration_));

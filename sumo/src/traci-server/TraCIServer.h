@@ -1,6 +1,7 @@
 /****************************************************************************/
 /// @file    TraCIServer.h
 /// @author  Axel Wegener <wegener@itm.uni-luebeck.de>
+/// @author  Friedemann Wesner <wesner@itm.uni-luebeck.de>
 /// @author  Christoph Sommer <christoph.sommer@informatik.uni-erlangen.de>
 /// @date    2007/10/24
 /// @version $Id$
@@ -189,7 +190,7 @@ private:
 	 * @param response storage object that will contain the variable dependant part of the
 	 *					response on this request
 	 * @param isWriteCommand true, if the command wants to write a value
-	 * @return string containig an optional warning (to be added to the response command) if
+	 * @return string containing an optional warning (to be added to the response command) if
 	 *			the requested variable type could not be used
 	 */
 	std::string handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) throw(TraCIException);
