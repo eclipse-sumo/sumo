@@ -391,17 +391,23 @@ GeomHelper::closestDistancePointLine(const Position2D &Point,
 
 	// if closest point does not fall within the line segment
 	// return line start or line end
-	if (U < 0.0f) {
-		outIntersection = LineStart;
-	}
-	if (U > 1.0f) {
-		outIntersection = LineEnd;
 		
-	}else {
-	outIntersection.set(
-        LineStart.x() + U * directVec.x(),
-        LineStart.y() + U * directVec.y());
+	if (U >= 0.0f && U <= 1.0f) {
+		outIntersection.set(
+			LineStart.x() + U * directVec.x(),
+			LineStart.y() + U * directVec.y());
+	} else {
+		if (U < 0.0f) {
+			outIntersection = LineStart;
+		}
+		if (U > 1.0f) {
+			outIntersection = LineEnd;
+		}
 	}
+
+//	std::cerr << std::endl <<  "........" << std::endl << "directVec = (" << directVec.x() << "," << directVec.y() 
+//		<< "), " << "U = " << U << ", Intersec = (" << outIntersection.x() << "," 
+//		<< outIntersection.y() << std::endl << "........" << std::endl;
 
     SUMOReal Distance = Magnitude(Point, outIntersection);
 

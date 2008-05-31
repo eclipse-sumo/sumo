@@ -1687,14 +1687,20 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos)
 		edge = MSEdge::dictionary((*itId));
 		const MSEdge::LaneCont * const allLanes = edge->getLanes();
 
+//		cerr << "--------" << endl << "Checking edge " << edge->getID() << endl << "--------" << endl;
+
 		// iterate through all lanes of this edge
 		for (MSEdge::LaneCont::const_iterator itLane = allLanes->begin(); itLane != allLanes->end(); itLane++) {
 			Position2DVector shape = (*itLane)->getShape();
+
+//			cerr << "### Lane: " << (*itLane)->getID() << endl;
 			
 			// iterate through all segments of this lane's shape
 			for (int i = 0; i < shape.size()-1; i++) {
 				lineStart = shape[i];
 				lineEnd = shape[i+1];
+
+//				cerr << "-Segment " << i << "(" << shape[i] << " - " << shape[i+1] << "): ";
 
 				// if this line is no candidate for lying closer to the cartesian position 
 				// than the line determined so far, skip it
@@ -1702,10 +1708,16 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos)
 					|| (lineStart.y() < (pos.y()-minDistance) && lineEnd.y() < (pos.y()-minDistance))
 					|| (lineStart.x() > (pos.x()+minDistance) && lineEnd.x() > (pos.x()+minDistance))
 					|| (lineStart.x() < (pos.x()-minDistance) && lineEnd.x() < (pos.x()-minDistance)) ) {
+
+//					cerr << "skipping (minDistance = " << minDistance << ")" << endl;
+
 					continue;
 				} else {
 					// else compute the distance and check it
 					newDistance = GeomHelper::closestDistancePointLine(pos, lineStart, lineEnd, intersection);
+
+//					cerr << "not skipping. ";
+
 					if (newDistance < minDistance && newDistance != -1.0) {
 						// new distance is shorter: save the found road map position
 						minDistance = newDistance;
@@ -1719,7 +1731,12 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos)
 						for (int j = 0; j < i; j++) {
 							result.pos += GeomHelper::distance(shape[j], shape[j+1]);
 						}
+
+//						cerr << "Saved new pos: " << result.pos << ", intersec at (" << intersection.x() << "," << intersection.y() 
+//								<< "), minDistance = " << minDistance;
 					}
+
+//					cerr << endl;
 				}
 			}
 		}
