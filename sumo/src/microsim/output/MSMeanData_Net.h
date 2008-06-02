@@ -72,10 +72,12 @@ public:
      * @param[in] dumpBegins Begin times of dumps
      * @param[in] dumpEnds End times of dumps
      * @param[in] useLanes Information whether lane-based or edge-based dump shall be generated
+     * @param[in] withEmpty Information whether empty lanes/edges shall be written
      */
     MSMeanData_Net(unsigned int t, unsigned int index,
                    MSEdgeControl &edges, const std::vector<int> &dumpBegins,
-                   const std::vector<int> &dumpEnds, bool useLanes) throw();
+                   const std::vector<int> &dumpEnds, bool useLanes,
+                   bool withEmptyEdges, bool withEmptyLanes) throw();
 
 
     /// @brief Destructor
@@ -191,14 +193,14 @@ protected:
                      SUMOReal &traveltime, SUMOReal &meanSpeed,
                      SUMOReal &meanDensity, SUMOReal &meanOccupancy) throw() {
 
-        if (values.nSamples==0) {
+        if (values.sampleSeconds==0) {
             assert(laneVMax>=0);
             traveltime = laneLength / laneVMax;
             meanSpeed = laneVMax;
             meanDensity = 0;
             meanOccupancy = 0;
         } else {
-            meanSpeed = values.speedSum / (SUMOReal) values.nSamples;
+            meanSpeed = values.speedSum / values.sampleSeconds;
             if (meanSpeed==0) {
                 traveltime = 1000000;//std::numeric_limits<SUMOReal>::max() / (SUMOReal) 100.;
             } else {
@@ -206,10 +208,10 @@ protected:
             }
             assert(period!=0);
             assert(laneLength!=0);
-            meanDensity = (SUMOReal) values.nSamples /
+            meanDensity = values.sampleSeconds /
                           (SUMOReal) period * (SUMOReal) 1000. / (SUMOReal) laneLength;
             meanOccupancy = (SUMOReal) values.vehLengthSum /
-                            (SUMOReal) period / (SUMOReal) laneLength;
+                            (SUMOReal) period / (SUMOReal) laneLength * (SUMOReal) 100.;
         }
     }
 
@@ -228,6 +230,9 @@ protected:
 
     /// @brief The first and the last time steps to write information (-1 indicates always)
     std::vector<int> myDumpBegins, myDumpEnds;
+
+    /// @brief Whether empty lanes/edges shall be written
+    bool myDumpEmptyEdges, myDumpEmptyLanes;
 
 private:
     /// @brief Invalidated copy constructor.

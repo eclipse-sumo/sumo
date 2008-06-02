@@ -391,6 +391,8 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     if (wasInactive) {
         MSNet::getInstance()->getEdgeControl().gotActive(this);
     }
+    // update mean data information
+    addMean2(*aVehicle, speed, speed, 0, pos-SPEED2DIST(speed)); // !!! revisit gap if its needed
     if (myMeanData.size()!=0) {
         for (size_t i=0; i<myMeanData.size(); ++i) {
             myMeanData[i].emitted++;
@@ -661,7 +663,7 @@ MSLane::push(MSVehicle* veh)
     // Add to mean data (edge/lane state dump)
     if (myMeanData.size()!=0) {
         for (size_t i=0; i<myMeanData.size(); ++i) {
-            myMeanData[i].entered++;
+            myMeanData[i].nVehEnteredLane++;
         }
     }
     if (! veh->destReached(myEdge)) {     // adjusts vehicles routeIterator
@@ -692,7 +694,7 @@ MSLane::pop()
     }
     if (myMeanData.size()!=0) {
         for (size_t i=0; i<myMeanData.size(); ++i) {
-            myMeanData[i].left++;
+            myMeanData[i].nVehLeftLane++;
         }
     }
     return first;
@@ -835,15 +837,22 @@ MSLane::resetMeanData(unsigned index)
 
 
 void
-MSLane::addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal gap)
+MSLane::addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal gap, SUMOReal oldPos)
 {
     // Add to mean data (edge/lane state dump)
     if (myMeanData.size()!=0) {
         SUMOReal l = veh.getLength();
+        SUMOReal fraction = 1.;
+        if(oldPos<0) {
+            fraction = (oldPos+SPEED2DIST(newV)) / newV;
+        }
+        if(oldPos+SPEED2DIST(newV)>length()) {
+            fraction -= (oldPos+SPEED2DIST(newV) - length()) / newV;
+        }
         for (size_t i=0; i<myMeanData.size(); ++i) {
-            myMeanData[i].nSamples++;
-            myMeanData[i].speedSum += newV;
-            myMeanData[i].vehLengthSum += l;
+            myMeanData[i].sampleSeconds += fraction;
+            myMeanData[i].speedSum += newV * fraction;
+            myMeanData[i].vehLengthSum += l * fraction;
             if (newV<0.1) { // !!! swell
                 myMeanData[i].haltSum++;
             }

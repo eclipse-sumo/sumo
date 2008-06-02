@@ -207,11 +207,12 @@ NLBuilder::buildNet()
     myJunctionBuilder.closeJunctions(myDetectorBuilder, myXMLHandler.getContinuations());
     MSEdgeControl *edges = myEdgeBuilder.build();
     MSFrame::buildStreams();
-    std::vector<MSMeanData_Net*> meanData = MSMeanData_Net_Utils::buildList(
-                                                myNet.getDetectorControl(), *edges,
-                                                m_pOptions.getIntVector("dump-intervals"), m_pOptions.getString("dump-basename"),
-                                                m_pOptions.getIntVector("lanedump-intervals"), m_pOptions.getString("lanedump-basename"),
-                                                m_pOptions.getIntVector("dump-begins"), m_pOptions.getIntVector("dump-ends"));
+    std::vector<MSMeanData_Net*> meanData = 
+        MSMeanData_Net_Utils::buildList(myNet.getDetectorControl(), *edges,
+            m_pOptions.getIntVector("dump-intervals"), m_pOptions.getString("dump-basename"),
+            m_pOptions.getIntVector("lanedump-intervals"), m_pOptions.getString("lanedump-basename"),
+            m_pOptions.getIntVector("dump-begins"), m_pOptions.getIntVector("dump-ends"),
+            !m_pOptions.getBool("exclude-empty-edges"), !m_pOptions.getBool("exclude-empty-lanes"));
     myNet.closeBuilding(
         edges,
         myJunctionBuilder.build(),

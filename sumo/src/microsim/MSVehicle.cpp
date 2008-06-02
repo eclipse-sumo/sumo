@@ -447,7 +447,8 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
 	}
 #endif
     // update position and speed
-    myState.myPos  += SPEED2DIST(vNext);
+    myLane->addMean2(*this, vNext, oldV, gap, myState.myPos);
+    myState.myPos += SPEED2DIST(vNext);
     assert(myState.myPos < lane->length());
 	myState.mySpeed = vNext;
     //@ to be optimized (move to somewhere else)
@@ -456,7 +457,6 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
             myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] + 1;
     }
     //@ to be optimized (move to somewhere else)
-    myLane->addMean2(*this, vNext, oldV, gap);
     //
     setBlinkerInformation();
 }
@@ -595,11 +595,12 @@ MSVehicle::moveFirstChecked()
 	}
 #endif
     // update position
+    SUMOReal oldPos = myState.myPos;
     myState.myPos += SPEED2DIST(vNext);
     // update speed
     myState.mySpeed = vNext;
     MSLane *approachedLane = myLane;
-    approachedLane->addMean2(*this, vNext, oldV, -1);
+    approachedLane->addMean2(*this, vNext, oldV, -1, oldPos);
 
     // move the vehicle forward
     size_t no = 0;
@@ -622,6 +623,7 @@ MSVehicle::moveFirstChecked()
         //  approach on the following lanes when a lane changing is performed
         assert(approachedLane!=0);
         myState.myPos -= approachedLane->length();
+        oldPos -= approachedLane->length();
         tmpPos -= approachedLane->length();
         assert(myState.myPos>0);
         if (approachedLane!=myLane) {
@@ -640,7 +642,7 @@ MSVehicle::moveFirstChecked()
 #endif
         }
         // set information about approaching
-        approachedLane->addMean2(*this, vNext, oldV, -1);
+        approachedLane->addMean2(*this, vNext, oldV, -1, oldPos);
         no++;
     }
 

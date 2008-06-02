@@ -62,7 +62,8 @@ MSMeanData_Net_Utils::buildList(MSDetectorControl &det2file,
                                 std::vector<int> laneDumpMeanDataIntervals,
                                 std::string baseNameLaneDumpFiles,
                                 const std::vector<int> &dumpBegins,
-                                const std::vector<int> &dumpEnds) throw(ProcessError)
+                                const std::vector<int> &dumpEnds,
+                                bool withEmptyEdges, bool withEmptyLanes) throw(ProcessError)
 {
     // check constraints
     if (dumpBegins.size()!=dumpEnds.size()) {
@@ -78,12 +79,12 @@ MSMeanData_Net_Utils::buildList(MSDetectorControl &det2file,
     std::vector<MSMeanData_Net*> ret;
     if (dumpMeanDataIntervals.size() > 0) {
         std::vector<MSMeanData_Net*> tmp =
-            buildList(det2file, ec, dumpMeanDataIntervals, baseNameDumpFiles, dumpBegins, dumpEnds, false);
+            buildList(det2file, ec, dumpMeanDataIntervals, baseNameDumpFiles, dumpBegins, dumpEnds, false, withEmptyEdges, withEmptyLanes);
         copy(tmp.begin(), tmp.end(), back_inserter(ret));
     }
     if (laneDumpMeanDataIntervals.size() > 0) {
         std::vector<MSMeanData_Net*> tmp =
-            buildList(det2file, ec, laneDumpMeanDataIntervals, baseNameLaneDumpFiles, dumpBegins, dumpEnds, true);
+            buildList(det2file, ec, laneDumpMeanDataIntervals, baseNameLaneDumpFiles, dumpBegins, dumpEnds, true, withEmptyEdges, withEmptyLanes);
         copy(tmp.begin(), tmp.end(), back_inserter(ret));
     }
     return ret;
@@ -97,7 +98,8 @@ MSMeanData_Net_Utils::buildList(MSDetectorControl &det2file,
                                 std::string baseNameDumpFiles,
                                 const std::vector<int> &dumpBegins,
                                 const std::vector<int> &dumpEnds,
-                                bool useLanes) throw()
+                                bool useLanes,
+                                bool withEmptyEdges, bool withEmptyLanes) throw()
 {
     std::vector<MSMeanData_Net*> ret;
     if (dumpMeanDataIntervals.size() > 0) {
@@ -107,7 +109,7 @@ MSMeanData_Net_Utils::buildList(MSDetectorControl &det2file,
         for (std::vector<int>::iterator it = dumpMeanDataIntervals.begin(); it != dumpMeanDataIntervals.end(); ++it) {
             string fileName = baseNameDumpFiles + "_" + toString(*it) + ".xml";
             OutputDevice* dev = &OutputDevice::getDevice(fileName);
-            MSMeanData_Net *det = new MSMeanData_Net(*it, (unsigned) ret.size(), ec, dumpBegins, dumpEnds, useLanes);
+            MSMeanData_Net *det = new MSMeanData_Net(*it, (unsigned) ret.size(), ec, dumpBegins, dumpEnds, useLanes, withEmptyEdges, withEmptyLanes);
             ret.push_back(det);
             det2file.addDetectorAndInterval(det, dev, *it);
         }

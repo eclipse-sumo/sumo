@@ -351,7 +351,7 @@ public:
 
     const std::string &getID() const;
 
-    void addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal gap);
+    void addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal gap, SUMOReal oldPos);
 
     /// The shape of the lane
     Position2DVector myShape;

@@ -47,32 +47,33 @@
 struct MSLaneMeanDataValues {
     /** @brief Constructor */
     MSLaneMeanDataValues() throw()
-            : nVehEntireLane(0), nSamples(0), nVehLeftLane(0), nVehEnteredLane(0),
+            : sampleSeconds(0), nVehLeftLane(0), nVehEnteredLane(0),
             speedSum(0), haltSum(0), vehLengthSum(0),
-            entered(0), emitted(0), left(0) {}
+            emitted(0)
+#ifdef HAVE_MESOSIM
+    , nVehEntireLane(0)
+#endif
+    {}
 
 
     /** @brief Resets values so they may be used for the next interval
      */
     void reset() throw() {
-        nVehEntireLane = 0;
-        nSamples = 0;
+        sampleSeconds = 0.;
         nVehLeftLane = 0;
         nVehEnteredLane = 0;
         speedSum = 0;
         haltSum = 0;
         vehLengthSum = 0;
-        entered = 0;
         emitted = 0;
-        left = 0;
+#ifdef HAVE_MESOSIM
+        nVehEntireLane = 0;
+#endif
     }
 
 
-    /// @brief The number of vehicles that passed the entire lane
-    unsigned nVehEntireLane;
-
-    /// @brief The number of samples (vehicle hits) that made up the aggregated data
-    SUMOReal nSamples;
+    /// @brief The number of sampled vehicle movements (in s)
+    SUMOReal sampleSeconds;
 
     /// @brief The number of vehicles that left this lane within the sample intervall
     unsigned nVehLeftLane;
@@ -89,14 +90,13 @@ struct MSLaneMeanDataValues {
     /// @brief The sum of the lengths the vehicles had
     SUMOReal vehLengthSum;
 
-    /// @brief The number of vehicles that entered the lane (excluding emission)
-    unsigned entered;
-
     /// @brief The number of vehicles that were emitted on the lane
     unsigned emitted;
 
-    /// @brief The number of vehicles that left the lane
-    unsigned left;
+#ifdef HAVE_MESOSIM
+    /// @brief The number of vehicles that passed the entire lane
+    unsigned nVehEntireLane;
+#endif
 
 };
 

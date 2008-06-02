@@ -68,6 +68,8 @@ public:
      * @param[in] baseNameLaneDumpFiles The base name of the lane-dumps
      * @param[in] dumpBegins Begin times of dumps
      * @param[in] dumpEnds End times of dumps
+     * @param[in] withEmptyEdges Information whether empty edges shall be written
+     * @param[in] withEmptyLanes Information whether empty lanes shall be written
      * @return The built list of network-wide mean data containers
      * @exception ProcessError If dump begins / ends are not valid
      * @see buildList
@@ -75,7 +77,8 @@ public:
     static std::vector<MSMeanData_Net*> buildList(MSDetectorControl &det2file, MSEdgeControl &ec,
             std::vector<int> dumpMeanDataIntervals, std::string baseNameDumpFiles,
             std::vector<int> laneDumpMeanDataIntervals, std::string baseNameLaneDumpFiles,
-            const std::vector<int> &dumpBegins, const std::vector<int> &dumpEnds) throw(ProcessError);
+            const std::vector<int> &dumpBegins, const std::vector<int> &dumpEnds,
+            bool withEmptyEdges, bool withEmptyLanes) throw(ProcessError);
 
 
 protected:
@@ -90,6 +93,8 @@ protected:
      * @param[in] dumpBegins Begin times of dumps
      * @param[in] dumpEnds End times of dumps
      * @param[in] useLanes Information whether lane-based or edge-based container shall be built
+     * @param[in] withEmptyEdges Information whether empty edges shall be written
+     * @param[in] withEmptyLanes Information whether empty lanes shall be written
      * @return The built list of network-wide mean data containers
      * @see buildUniqueList
      */
@@ -99,7 +104,7 @@ protected:
             std::string baseNameDumpFiles,
             const std::vector<int> &dumpBegins,
             const std::vector<int> &dumpEnds,
-            bool useLanes) throw();
+            bool useLanes, bool withEmptyEdges, bool withEmptyLanes) throw();
 
 
     /** @brief Builds a list with unique aggregation times
