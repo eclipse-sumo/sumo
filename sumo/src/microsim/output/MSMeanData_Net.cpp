@@ -218,9 +218,10 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         if (!myAmEdgeBased) {
             bool writeCheck = myDumpEmptyEdges;
             if(!writeCheck) {
-                for (lane = lanes->begin(); lane != lanes->end() && !writeCheck; ++lane) {
+                for (lane = lanes->begin(); lane != lanes->end(); ++lane) {
                     if((*lane)->getMeanData(myIndex).sampleSeconds>0) {
                         writeCheck = true;
+                        break;
                     }
                 }
             }

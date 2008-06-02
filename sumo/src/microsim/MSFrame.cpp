@@ -113,6 +113,8 @@ MSFrame::fillOptions()
     oc.addSynonyme("netstate-dump", "ndump");
     oc.addSynonyme("netstate-dump", "netstate");
     oc.addDescription("netstate-dump", "Output", "Save complete network states into FILE");
+    oc.doRegister("dump-empty-edges", new Option_Bool(false));
+    oc.addDescription("dump-empty-edges", "Output", "Write also empty edges completely when dumping");
 
     oc.doRegister("emissions-output", new Option_FileName());
     oc.addSynonyme("emissions-output", "emissions");
@@ -130,15 +132,14 @@ MSFrame::fillOptions()
     oc.addDescription("dump-intervals", "Output", "Build edge-based network dumps for given intervals");
     oc.doRegister("dump-basename", new Option_FileName());
     oc.addDescription("dump-basename", "Output", "Save edge-based network dumps with FILE as prefix");
-
     oc.doRegister("lanedump-intervals", new Option_IntVector(IntVector()));
     oc.addDescription("lanedump-intervals", "Output", "Build lane-based network dumps for given intervals");
     oc.doRegister("lanedump-basename", new Option_FileName());
     oc.addDescription("lanedump-basename", "Output", "Save lane-based network dumps with FILE as prefix");
-
-    oc.doRegister("dump-empty-edges", new Option_Bool(false));
-    oc.addDescription("dump-empty-edges", "Output", "Write also empty edges completely when dumping");
-
+    oc.doRegister("exclude-empty-edges", new Option_Bool(false));
+    oc.addDescription("exclude-empty-edges", "Output", "Do not write information about empty edges");
+    oc.doRegister("exclude-empty-lanes", new Option_Bool(false));
+    oc.addDescription("exclude-empty-lanes", "Output", "Do not write information about empty lanes");
     oc.doRegister("dump-begins", new Option_IntVector(IntVector()));
     oc.addDescription("dump-begins", "Output", "Use INT[] as times at which a dump must begin in order to be written");
     oc.doRegister("dump-ends", new Option_IntVector(IntVector()));
