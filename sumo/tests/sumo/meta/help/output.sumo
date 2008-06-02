@@ -26,6 +26,8 @@ Usage: sumo.exe [OPTION]*
 
  Output Options:
   --netstate-dump FILE                 Save complete network states into FILE
+  --dump-empty-edges                   Write also empty edges completely when
+                                         dumping
   --emissions-output FILE              Save aggregated vehicle emission inf.
                                          into FILE
   --tripinfo-output FILE               Save single vehicle trip inf. into FILE
@@ -38,8 +40,10 @@ Usage: sumo.exe [OPTION]*
                                          intervals
   --lanedump-basename FILE             Save lane-based network dumps with FILE
                                          as prefix
-  --dump-empty-edges                   Write also empty edges completely when
-                                         dumping
+  --exclude-empty-edges                Do not write information about empty
+                                         edges
+  --exclude-empty-lanes                Do not write information about empty
+                                         lanes
   --dump-begins INT[]                  Use INT[] as times at which a dump must
                                          begin in order to be written
   --dump-ends INT[]                    Use INT[] as times at which a dump must

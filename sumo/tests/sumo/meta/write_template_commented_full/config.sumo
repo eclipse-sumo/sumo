@@ -22,6 +22,9 @@
       <!-- Save complete network states into FILE -->
       <netstate-dump></netstate-dump>
 
+      <!-- Write also empty edges completely when dumping -->
+      <dump-empty-edges>false</dump-empty-edges>
+
       <!-- Save aggregated vehicle emission inf. into FILE -->
       <emissions-output></emissions-output>
 
@@ -43,8 +46,11 @@
       <!-- Save lane-based network dumps with FILE as prefix -->
       <lanedump-basename></lanedump-basename>
 
-      <!-- Write also empty edges completely when dumping -->
-      <dump-empty-edges>false</dump-empty-edges>
+      <!-- Do not write information about empty edges -->
+      <exclude-empty-edges>false</exclude-empty-edges>
+
+      <!-- Do not write information about empty lanes -->
+      <exclude-empty-lanes>false</exclude-empty-lanes>
 
       <!-- Use INT[] as times at which a dump must begin in order to be written -->
       <dump-begins></dump-begins>
