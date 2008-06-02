@@ -1,1 +1,0 @@
---no-step-log --no-duration-log --net-file=net.net.xml --routes=input_routes.rou.xml --physical-states-output=physstates.xml -b 0 -e 110

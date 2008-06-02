@@ -34,21 +34,11 @@ rawdump
 # Tests for vtypeprobe-output
 vtypeprobe
 
+# Tests for edge-based mean data output (aka "edgedump")
+meandata_edgebased
+
+# Tests for lane-based mean data output (aka "lanedump")
+meandata_lanebased
 
 
-
-# Tests whether edge meandata output works
-cross3ltl_meandata_edges
-
-# Tests whether lane meandata output works
-cross3ltl_meandata_lanes
-
-# Tests whether constraining edge meandata output works
-cross3ltl_meandata_edges_constrained
-
-# Tests whether constraining lane meandata output works
-cross3ltl_meandata_lanes_constrained
-
-# Tests whether physical-states-output work
-cross3ltl_physical_states
 

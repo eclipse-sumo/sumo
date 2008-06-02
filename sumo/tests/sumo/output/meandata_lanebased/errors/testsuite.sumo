@@ -1,0 +1,23 @@
+# Tests what happens if mean data constrains are incomplete (first begin is missing)
+missing_begin1
+
+# Tests what happens if mean data constrains are incomplete (second  begin is missing)
+missing_begin2
+
+# Tests what happens if mean data constrains are incomplete (second begin is missing, divider is there)
+missing_begin_divider
+
+# Tests what happens if mean data constrains are incomplete (first end is missing)
+missing_end1
+
+# Tests what happens if mean data constrains are incomplete (second  end is missing)
+missing_end2
+
+# Tests what happens if mean data constrains are incomplete (second end is missing, divider is there)
+missing_end_divider
+
+# Tests what happens if the order is false (begin>=end)
+false_order
+
+
+

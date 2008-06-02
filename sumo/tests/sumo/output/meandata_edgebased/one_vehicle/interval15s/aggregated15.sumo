@@ -1,0 +1,58 @@
+<?xml version="1.0"?>
+
+<!-- generated on 06/02/08 12:33:54 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <additional-files>input_routes.rou.xml,input_additional2.add.xml</additional-files>
+   </input>
+
+   <output>
+      <dump-intervals>15</dump-intervals>
+      <dump-basename>aggregated</dump-basename>
+      <exclude-empty-edges>true</exclude-empty-edges>
+   </output>
+
+   <time>
+      <begin>0</begin>
+      <end>1000</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="0" end="14" id="dump_15">
+      <edge id="4/1to3/1" traveltime="39.05" nSamples="15.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="1" left="0"/>
+   </interval>
+   <interval begin="15" end="29" id="dump_15">
+      <edge id="4/1to3/1" traveltime="39.05" nSamples="15.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+   </interval>
+   <interval begin="30" end="44" id="dump_15">
+      <edge id="3/1to2/1" traveltime="39.05" nSamples="14.95" density="2.55" occupancy="1.28" noStops="0" speed="10.00" entered="1" emitted="0" left="0"/>
+      <edge id="4/1to3/1" traveltime="39.05" nSamples="0.05" density="0.01" occupancy="0.00" noStops="0" speed="10.00" entered="0" emitted="0" left="1"/>
+   </interval>
+   <interval begin="45" end="59" id="dump_15">
+      <edge id="3/1to2/1" traveltime="39.05" nSamples="15.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+   </interval>
+   <interval begin="60" end="74" id="dump_15">
+      <edge id="2/1to1/1" traveltime="39.05" nSamples="5.90" density="1.01" occupancy="0.50" noStops="0" speed="10.00" entered="1" emitted="0" left="0"/>
+      <edge id="3/1to2/1" traveltime="39.05" nSamples="9.10" density="1.55" occupancy="0.78" noStops="0" speed="10.00" entered="0" emitted="0" left="1"/>
+   </interval>
+   <interval begin="75" end="89" id="dump_15">
+      <edge id="2/1to1/1" traveltime="39.05" nSamples="15.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+   </interval>
+   <interval begin="90" end="104" id="dump_15">
+      <edge id="2/1to1/1" traveltime="39.05" nSamples="15.00" density="2.56" occupancy="1.28" noStops="0" speed="10.00" entered="0" emitted="0" left="0"/>
+   </interval>
+   <interval begin="105" end="108" id="dump_15">
+      <edge id="1/1to0/1" traveltime="39.05" nSamples="0.85" density="0.54" occupancy="0.27" noStops="0" speed="10.00" entered="1" emitted="0" left="0"/>
+      <edge id="2/1to1/1" traveltime="39.05" nSamples="3.15" density="2.02" occupancy="1.01" noStops="0" speed="10.00" entered="0" emitted="0" left="1"/>
+   </interval>
+</netstats>

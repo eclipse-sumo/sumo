@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+
+<!-- generated on 06/02/08 13:05:35 by SUMO sumo Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <additional-files>input_routes.rou.xml,input_additional2.add.xml</additional-files>
+   </input>
+
+   <output>
+      <lanedump-intervals>15,60</lanedump-intervals>
+      <lanedump-basename>aggregated</lanedump-basename>
+      <exclude-empty-edges>true</exclude-empty-edges>
+   </output>
+
+   <time>
+      <begin>0</begin>
+      <end>1000</end>
+   </time>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<netstats>
+   <interval begin="0" end="59" id="dump_60">
+      <edge id="3/1to2/1">
+         <lane id="3/1to2/1_0" traveltime="39.05" nSamples="29.95" density="1.28" occupancy="0.64" noStops="0" speed="10.00" entered="1" emitted="0" left="0"/>
+      </edge>
+      <edge id="4/1to3/1">
+         <lane id="4/1to3/1_0" traveltime="39.05" nSamples="30.05" density="1.28" occupancy="0.64" noStops="0" speed="10.00" entered="0" emitted="1" left="1"/>
+      </edge>
+   </interval>
+   <interval begin="60" end="108" id="dump_60">
+      <edge id="1/1to0/1">
+         <lane id="1/1to0/1_0" traveltime="39.05" nSamples="0.85" density="0.04" occupancy="0.02" noStops="0" speed="10.00" entered="1" emitted="0" left="0"/>
+      </edge>
+      <edge id="2/1to1/1">
+         <lane id="2/1to1/1_0" traveltime="39.05" nSamples="39.05" density="2.04" occupancy="1.02" noStops="0" speed="10.00" entered="1" emitted="0" left="1"/>
+      </edge>
+      <edge id="3/1to2/1">
+         <lane id="3/1to2/1_0" traveltime="39.05" nSamples="9.10" density="0.48" occupancy="0.24" noStops="0" speed="10.00" entered="0" emitted="0" left="1"/>
+      </edge>
+   </interval>
+</netstats>

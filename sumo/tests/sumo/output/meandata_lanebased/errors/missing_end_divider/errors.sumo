@@ -1,0 +1,4 @@
+Error: While processing option 'dump-ends':
+ Empty element occured in 1019,
+Error: Could not parse commandline options.
+Quitting (on error).
