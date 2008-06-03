@@ -527,10 +527,6 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs)
             GeoConvHelper::x2cartesian(pos);
             shape.push_back(pos);
         }
-
-        if (shape.size()==1) {
-            MsgHandler::getErrorInstance()->inform("The shape of edge '" + myCurrentID + "' has only one entry.");
-        }
         return shape;
     } catch (EmptyData &) {
         MsgHandler::getErrorInstance()->inform("At least one number is missing in shape definition for edge '" + myCurrentID + "'.");
