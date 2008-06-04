@@ -168,18 +168,16 @@ protected:
     /// The number of mobile phones that have passed this actor being in connected mode
     unsigned int myPassedConnectedCPhonesNo;
 
+    bool percentOfActivity;
+
+
 private:
-
-    /// Hidden default constructor.
-    MSE1VehicleActor();
-
-    /// Hidden copy constructor.
+    /// @brief Invalidated copy constructor.
     MSE1VehicleActor(const MSE1VehicleActor&);
 
-    /// Hidden assignment operator.
+    /// @brief Invalidated assignment operator.
     MSE1VehicleActor& operator=(const MSE1VehicleActor&);
 
-    bool percentOfActivity;
 
 };
 

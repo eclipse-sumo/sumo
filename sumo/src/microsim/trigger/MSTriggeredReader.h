@@ -76,14 +76,12 @@ protected:
     bool myWasInitialised;
 
 private:
-    /// invalidated default constructor
-    MSTriggeredReader();
+    /// @brief Invalidated copy constructor.
+    MSTriggeredReader(const MSTriggeredReader&);
 
-    /// invalidated copy constructor
-    MSTriggeredReader(const MSTriggeredReader &s);
+    /// @brief Invalidated assignment operator.
+    MSTriggeredReader& operator=(const MSTriggeredReader&);
 
-    /// invalidated assignment operator
-    const MSTriggeredReader &operator=(const MSTriggeredReader &s);
 
 };
 

@@ -78,14 +78,12 @@ protected:
     bool myHaveMore;
 
 private:
-    /// invalidated default constructor
-    MSTriggeredXMLReader();
+    /// @brief Invalidated copy constructor.
+    MSTriggeredXMLReader(const MSTriggeredXMLReader&);
 
-    /// invalidated copy constructor
-    MSTriggeredXMLReader(const MSTriggeredXMLReader &s);
+    /// @brief Invalidated assignment operator.
+    MSTriggeredXMLReader& operator=(const MSTriggeredXMLReader&);
 
-    /// invalidated assignment operator
-    const MSTriggeredXMLReader &operator=(const MSTriggeredXMLReader &s);
 
 };
 

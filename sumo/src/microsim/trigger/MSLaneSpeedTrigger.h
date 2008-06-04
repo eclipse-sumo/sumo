@@ -126,6 +126,14 @@ protected:
     std::vector<std::pair<SUMOTime, SUMOReal> > myLoadedSpeeds;
     std::vector<std::pair<SUMOTime, SUMOReal> >::iterator myCurrentEntry;
 
+private:
+    /// @brief Invalidated copy constructor.
+    MSLaneSpeedTrigger(const MSLaneSpeedTrigger&);
+
+    /// @brief Invalidated assignment operator.
+    MSLaneSpeedTrigger& operator=(const MSLaneSpeedTrigger&);
+
+
 };
 
 

@@ -57,6 +57,14 @@ public:
     virtual ~MSTrigger() throw() { }
 
 
+private:
+    /// @brief Invalidated copy constructor.
+    MSTrigger(const MSTrigger&);
+
+    /// @brief Invalidated assignment operator.
+    MSTrigger& operator=(const MSTrigger&);
+
+
 };
 
 

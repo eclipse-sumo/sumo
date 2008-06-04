@@ -109,6 +109,14 @@ class Setter : public MSMoveReminder
         /// The rerouter used for rerouting the vehicle
         MSTriggeredRerouter *myParent;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        Setter(const Setter&);
+
+        /// @brief Invalidated assignment operator.
+        Setter& operator=(const Setter&);
+
+
     };
 
     /**
@@ -207,6 +215,14 @@ protected:
     /// new routes with probabilities
     RandomDistributor<MSRoute*> myCurrentRouteProb;
     //@}
+
+private:
+    /// @brief Invalidated copy constructor.
+    MSTriggeredRerouter(const MSTriggeredRerouter&);
+
+    /// @brief Invalidated assignment operator.
+    MSTriggeredRerouter& operator=(const MSTriggeredRerouter&);
+
 
 };
 

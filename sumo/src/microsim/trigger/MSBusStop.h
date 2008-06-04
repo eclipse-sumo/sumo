@@ -162,6 +162,14 @@ protected:
     SUMOReal myLastFreePos;
 
 
+private:
+    /// @brief Invalidated copy constructor.
+    MSBusStop(const MSBusStop&);
+
+    /// @brief Invalidated assignment operator.
+    MSBusStop& operator=(const MSBusStop&);
+
+
 };
 
 

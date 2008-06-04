@@ -154,7 +154,15 @@ public:
         /// The time offset till next emission
         mutable SUMOReal myTimeOffset;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        MSEmitterChild(const MSEmitterChild&);
+
+        /// @brief Invalidated assignment operator.
+        MSEmitterChild& operator=(const MSEmitterChild&);
+
     };
+
 
 public:
     /** Called by a MSEmitterChild (given as parameter) this method checks whether
@@ -207,6 +215,7 @@ protected:
         /// Returns the loaded flow
         SUMOReal getLoadedFlow() const;
 
+
     protected:
         /// @name inherited from GenericSAXHandler
         //@{
@@ -248,6 +257,14 @@ protected:
         /// Information about the simulation time the processing starts at; previous vehicles are discarded
         SUMOTime myBeginTime;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        MSEmitter_FileTriggeredChild(const MSEmitter_FileTriggeredChild&);
+
+        /// @brief Invalidated assignment operator.
+        MSEmitter_FileTriggeredChild& operator=(const MSEmitter_FileTriggeredChild&);
+
+
     };
 
 public:
@@ -272,6 +289,14 @@ protected:
 
     /// The currently active child
     MSEmitterChild *myActiveChild;
+
+private:
+    /// @brief Invalidated copy constructor.
+    MSEmitter(const MSEmitter&);
+
+    /// @brief Invalidated assignment operator.
+    MSEmitter& operator=(const MSEmitter&);
+
 
 };
 

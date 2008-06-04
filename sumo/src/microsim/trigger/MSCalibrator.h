@@ -154,6 +154,14 @@ public:
         /// The time offset till next emission
         mutable SUMOReal myTimeOffset;
 
+    private:
+        /// @brief Invalidated copy constructor.
+        MSCalibratorChild(const MSCalibratorChild&);
+
+        /// @brief Invalidated assignment operator.
+        MSCalibratorChild& operator=(const MSCalibratorChild&);
+
+
     };
 
 public:
@@ -252,6 +260,14 @@ protected:
         /// Information about the simulation time the processing starts at; previous vehicles are discarded
         SUMOTime myBeginTime;
 
+
+    private:
+        /// @brief Invalidated copy constructor.
+        MSCalibrator_FileTriggeredChild(const MSCalibrator_FileTriggeredChild&);
+
+        /// @brief Invalidated assignment operator.
+        MSCalibrator_FileTriggeredChild& operator=(const MSCalibrator_FileTriggeredChild&);
+
     };
 
 public:
@@ -293,6 +309,14 @@ protected:
     /// TM
     SUMOTime execute(SUMOTime currentTime) throw(ProcessError);
     static std::map<std::string, MSCalibrator*> calibratorMap;
+
+
+private:
+    /// @brief Invalidated copy constructor.
+    MSCalibrator(const MSCalibrator&);
+
+    /// @brief Invalidated assignment operator.
+    MSCalibrator& operator=(const MSCalibrator&);
 
 
 };
