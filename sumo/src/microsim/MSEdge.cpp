@@ -333,7 +333,7 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
         v.setEventTime((SUMOReal) time);
         bool insertToNet = false;
         if (MSGlobals::gMesoNet->getSegmentForEdge(this)->initialise2(&v, 0, time, insertToNet)) {
-            if (insertToNet) {//MSGlobals::gMesoNet->getSegmentForEdge(this)->noCars()==1) {
+            if (insertToNet) {
                 MSGlobals::gMesoNet->addCar(&v);
                 v.inserted = true;
             }

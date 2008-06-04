@@ -245,7 +245,7 @@ GUIEdge::getVehicleNo() const
     assert(first!=0);
     unsigned int vehNo = 0;
     do {
-        vehNo += first->noCars();
+        vehNo += first->getCarNumber();
         first = first->getNextSegment();
     } while (first!=0);
     return vehNo;
@@ -260,7 +260,7 @@ GUIEdge::getFlow() const
     SUMOReal flow = -1;
     int no = 0;
     do {
-        SUMOReal vehNo = (SUMOReal) first->noCars();
+        SUMOReal vehNo = (SUMOReal) first->getCarNumber();
         SUMOReal v = first->getMeanSpeed();
         if (vehNo!=0) {
             if (no==0) {
