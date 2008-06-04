@@ -82,8 +82,8 @@ MSMeanData_Net::resetOnly(const MSEdge &edge) throw()
         MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
         while (s!=0) {
             MSLaneMeanDataValues& meanData = s->getMeanData(myIndex);
-            s = s->getNextSegment();
             meanData.reset();
+            s = s->getNextSegment();
         }
     } else {
 #endif
@@ -156,7 +156,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
-        SUMOReal flowS = 0;
+        SUMOReal flow = -1;
         SUMOReal meanDensityS = 0;
         SUMOReal meanOccupancyS = 0;
         SUMOReal meanSpeedS = 0;
@@ -168,47 +168,61 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
         SUMOReal nVehS = 0;
         SUMOReal absLen = 0;
         int noSegments = 0;
+        int noNotEmpty = 0;
         while (s!=0) {
             SUMOReal traveltime = -42;
             SUMOReal meanSpeed = -43;
             SUMOReal meanDensity = -45;
             SUMOReal meanOccupancy = -46;
+            s->prepareMeanDataForWriting();
             MSLaneMeanDataValues& meanData = s->getMeanData(myIndex);
             conv(meanData, (stopTime-startTime+1),
-                 s->getLength(), s->getMaxSpeed(),
-                 traveltime, meanSpeed, meanDensity, meanOccupancy);
+                s->getLength(), s->getMaxSpeed(),
+                traveltime, meanSpeed, meanDensity, meanOccupancy);
             meanDensityS += meanDensity;
             meanOccupancyS += meanOccupancy;
-            meanSpeedS += meanSpeed;
             traveltimeS += traveltime;
             noStopsS += meanData.haltSum;
             noEmissionsS += meanData.emitted;
-            noLeftS += meanData.left;
-            noEnteredS += meanData.entered;
+            noLeftS += meanData.nVehLeftLane;
+            noEnteredS += meanData.nVehEnteredLane;
             nVehS += meanData.sampleSeconds;
-            flowS += s->getMeanData(myIndex).nVehEntireLane;
+            if(meanData.nVehLeftLane>0) {
+                flow = flow<0 ? (SUMOReal) meanData.nVehLeftLane : MIN2(flow, (SUMOReal) meanData.nVehLeftLane);
+            }
+            if(meanData.sampleSeconds>0) {
+                meanSpeedS += meanSpeed;
+                noNotEmpty++;
+            }
+            //s->flushMeanData(myIndex, stopTime+1);
+            noSegments++;
             absLen += s->getLength();
-            s->flushMeanData(myIndex, stopTime+1);
             s = s->getNextSegment();
             meanData.reset();
-            noSegments++;
         }
         if(myDumpEmptyEdges||nVehS>0) {
             meanDensityS = meanDensityS / (SUMOReal) noSegments;
             meanOccupancyS = meanOccupancyS / (SUMOReal) noSegments / (SUMOReal) edge.nLanes();
-            meanSpeedS = meanSpeedS / (SUMOReal) noSegments;
-            flowS = flowS / (SUMOReal) noSegments;
+            meanSpeedS = noNotEmpty!=0 ? meanSpeedS / (SUMOReal) noNotEmpty : 0;
+            if(nVehS==0) {
+                meanSpeedS = MSGlobals::gMesoNet->getSegmentForEdge(&edge)->getMaxSpeed();
+            } else {
+                traveltimeS = absLen / meanSpeedS;
+            }
+            if(flow<0) {
+                flow = 0;
+            }
             dev<<"      <edge id=\""<<edge.getID()<<
             "\" traveltime=\""<<traveltimeS<<
             "\" nSamples=\""<< nVehS <<
-            "\" density=\""<<meanDensityS<<
-            "\" occupancy=\""<<meanOccupancyS<<
-            "\" noStops=\""<<noStopsS<<
+            //"\" density=\""<<meanDensityS<<
+            //"\" occupancy=\""<<meanOccupancyS<<
+            //"\" noStops=\""<<noStopsS<<
             "\" speed=\""<<meanSpeedS<<
             "\" entered=\""<<noEnteredS<<
             "\" emitted=\""<<noEmissionsS<<
             "\" left=\""<<noLeftS<<
-            "\" flow=\""<<(flowS*3600./((SUMOReal)(stopTime-startTime+1)))<<  //!!!
+            "\" flow=\""<<(flow*3600./((SUMOReal)(stopTime-startTime+1)))<<  
             "\"/>\n";
         }
     } else {
