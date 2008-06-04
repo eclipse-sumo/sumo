@@ -138,7 +138,7 @@ GUILane::push(MSVehicle* veh)
     // Add to mean data (edge/lane state dump)
     if (myMeanData.size()!=0) {
         for (size_t i=0; i<myMeanData.size(); ++i) {
-            myMeanData[i].entered++;
+            myMeanData[i].nVehEnteredLane++;
         }
     }
     myLock.lock();
