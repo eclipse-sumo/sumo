@@ -363,7 +363,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
                 v->mySegment = MSGlobals::gMesoNet->next_segment(v->mySegment, v);
             }
             v->myEventTime = tEvent;
-            v->tLastEntry = tLastEntry;
+            v->myLastEntryTime = tLastEntry;
             v->inserted = inserted!=0;
         }
 #endif

@@ -156,7 +156,9 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
-        SUMOReal flow = -1;
+
+        SUMOReal flowOut = 0;
+        SUMOReal flowMean = 0;
         SUMOReal meanDensityS = 0;
         SUMOReal meanOccupancyS = 0;
         SUMOReal meanSpeedS = 0;
@@ -174,8 +176,8 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             SUMOReal meanSpeed = -43;
             SUMOReal meanDensity = -45;
             SUMOReal meanOccupancy = -46;
-            s->prepareMeanDataForWriting();
             MSLaneMeanDataValues& meanData = s->getMeanData(myIndex);
+            s->prepareMeanDataForWriting(meanData, (SUMOReal) stopTime/* + (SUMOReal) DELTA_T*/);
             conv(meanData, (stopTime-startTime+1),
                 s->getLength(), s->getMaxSpeed(),
                 traveltime, meanSpeed, meanDensity, meanOccupancy);
@@ -184,12 +186,9 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             traveltimeS += traveltime;
             noStopsS += meanData.haltSum;
             noEmissionsS += meanData.emitted;
-            noLeftS += meanData.nVehLeftLane;
             noEnteredS += meanData.nVehEnteredLane;
             nVehS += meanData.sampleSeconds;
-            if(meanData.nVehLeftLane>0) {
-                flow = flow<0 ? (SUMOReal) meanData.nVehLeftLane : MIN2(flow, (SUMOReal) meanData.nVehLeftLane);
-            }
+            flowMean += meanData.nVehLeftLane;
             if(meanData.sampleSeconds>0) {
                 meanSpeedS += meanSpeed;
                 noNotEmpty++;
@@ -197,6 +196,10 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             //s->flushMeanData(myIndex, stopTime+1);
             noSegments++;
             absLen += s->getLength();
+            if(s->getNextSegment()==0) {
+                flowOut = meanData.nVehLeftLane;
+                noLeftS = meanData.nVehLeftLane;
+            }
             s = s->getNextSegment();
             meanData.reset();
         }
@@ -209,20 +212,19 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             } else {
                 traveltimeS = absLen / meanSpeedS;
             }
-            if(flow<0) {
-                flow = 0;
-            }
+            flowMean /= (SUMOReal) noSegments;
             dev<<"      <edge id=\""<<edge.getID()<<
             "\" traveltime=\""<<traveltimeS<<
             "\" nSamples=\""<< nVehS <<
-            //"\" density=\""<<meanDensityS<<
-            //"\" occupancy=\""<<meanOccupancyS<<
+            "\" density=\""<<meanDensityS<<
+            "\" occupancy=\""<<meanOccupancyS<<
             //"\" noStops=\""<<noStopsS<<
             "\" speed=\""<<meanSpeedS<<
             "\" entered=\""<<noEnteredS<<
             "\" emitted=\""<<noEmissionsS<<
             "\" left=\""<<noLeftS<<
-            "\" flow=\""<<(flow*3600./((SUMOReal)(stopTime-startTime+1)))<<  
+            "\" flowMean=\""<<(flowMean*3600./((SUMOReal)(stopTime-startTime+1)))<<
+            "\" flow=\""<<(flowOut*3600./((SUMOReal)(stopTime-startTime+1)))<<  
             "\"/>\n";
         }
     } else {

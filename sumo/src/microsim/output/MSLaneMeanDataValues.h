@@ -30,6 +30,16 @@
 #include <config.h>
 #endif
 
+#ifdef HAVE_MESOSIM
+#include <map>
+#endif
+
+
+// ===========================================================================
+// class declarations
+// ===========================================================================
+class MEVehicle;
+
 
 // ===========================================================================
 // class definitions
@@ -50,9 +60,6 @@ struct MSLaneMeanDataValues {
             : sampleSeconds(0), nVehLeftLane(0), nVehEnteredLane(0),
             speedSum(0), haltSum(0), vehLengthSum(0),
             emitted(0)
-#ifdef HAVE_MESOSIM
-    , nVehEntireLane(0)
-#endif
     {}
 
 
@@ -66,9 +73,6 @@ struct MSLaneMeanDataValues {
         haltSum = 0;
         vehLengthSum = 0;
         emitted = 0;
-#ifdef HAVE_MESOSIM
-        nVehEntireLane = 0;
-#endif
     }
 
 
@@ -94,8 +98,7 @@ struct MSLaneMeanDataValues {
     unsigned emitted;
 
 #ifdef HAVE_MESOSIM
-    /// @brief The number of vehicles that passed the entire lane
-    unsigned nVehEntireLane;
+    std::map<MEVehicle*, std::pair<SUMOReal, SUMOReal> > myLastVehicleUpdateValues;
 #endif
 
 };

@@ -1764,7 +1764,7 @@ MSVehicle::saveState(std::ostream &os)
         FileHelpers::writeUInt(os, mySegment->get_index());
     }
     FileHelpers::writeFloat(os, myEventTime);
-    FileHelpers::writeFloat(os, tLastEntry);
+    FileHelpers::writeFloat(os, myLastEntryTime);
     FileHelpers::writeByte(os, inserted);
 #endif
 }
