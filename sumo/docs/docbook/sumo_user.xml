@@ -7908,8 +7908,7 @@ myDet1;0;10;2;100;80
                 </row>
 
                 <row>
-                  <entry><para><sgmltag>id</sgmltag> (in
-                  <sgmltag>timestep</sgmltag>)</para></entry>
+                  <entry><para><sgmltag>timestep@id</sgmltag></para></entry>
 
                   <entry><literal>-</literal></entry>
 
@@ -7925,8 +7924,7 @@ myDet1;0;10;2;100;80
                 </row>
 
                 <row>
-                  <entry><para><sgmltag>id</sgmltag> (in
-                  <sgmltag>vehicle</sgmltag>)</para></entry>
+                  <entry><para><sgmltag>vehicle@id</sgmltag></para></entry>
 
                   <entry><literal>-</literal></entry>
 
@@ -8186,9 +8184,11 @@ myDet1;0;10;2;100;80
           <programlisting><sgmltag>&lt;netstats&gt;</sgmltag>
    <sgmltag>&lt;interval begin="<replaceable>&lt;INTERVAL_BEGIN&gt;</replaceable>" end="<replaceable>&lt;INTERVAL_END&gt;</replaceable>"&gt;</sgmltag>
       <sgmltag>&lt;edge id="<replaceable>&lt;EDGE_ID&gt;</replaceable>"</sgmltag> <sgmltag>traveltime="&lt;<replaceable>MEAN_TRAVEL_TIME&gt;</replaceable>" \
-                 nSamples="&lt;VEHICLE_NUMBER&gt;" \
+                 sampledSeconds="<replaceable>&lt;COLLECTED_VEHICLE_SECONDS&gt;</replaceable>" \
                  density="<replaceable>&lt;MEAN_DENSITY&gt;</replaceable>" occupancy="<replaceable>&lt;MEAN_OCCUPANCY&gt;</replaceable>" \
-                 noStops="&lt;NUMBER_OF_HALTS&gt;" speed="&lt;MEAN_SPEED&gt;"/&gt;</sgmltag>
+                 noStops="<replaceable>&lt;NUMBER_OF_HALTS&gt;</replaceable>" speed="<replaceable>&lt;MEAN_SPEED&gt;</replaceable>" \
+                 entered="<replaceable>&lt;ENTERED_VEH_NUMBER&gt;</replaceable>" emitted="<replaceable>&lt;EMITTED_VEH_NUMBER&gt;</replaceable>" \
+                 left="<replaceable>&lt;LEFT_VEH_NUMBER&gt;</replaceable>"/&gt;</sgmltag>
 
       ... more edges ...
 
@@ -8228,11 +8228,13 @@ myDet1;0;10;2;100;80
    <sgmltag>&lt;interval begin="<replaceable>&lt;INTERVAL_BEGIN&gt;</replaceable>" end="<replaceable>&lt;INTERVAL_END&gt;</replaceable>"&gt;</sgmltag>
       <sgmltag>&lt;edge id="<replaceable>&lt;EDGE_ID&gt;</replaceable>"</sgmltag><sgmltag>&gt;</sgmltag>
          <sgmltag>&lt;lane id="<replaceable>&lt;LANE_ID&gt;</replaceable>"</sgmltag> <sgmltag>traveltime="&lt;<replaceable>MEAN_TRAVEL_TIME&gt;</replaceable>" \
-                 nSamples="&lt;VEHICLE_NUMBER&gt;" \
+                 sampledSeconds="<replaceable>&lt;COLLECTED_VEHICLE_SECONDS&gt;</replaceable>" \
                  density="<replaceable>&lt;MEAN_DENSITY&gt;</replaceable>" occupancy="<replaceable>&lt;MEAN_OCCUPANCY&gt;</replaceable>" \
-                 noStops="&lt;NUMBER_OF_HALTS&gt;" speed="&lt;MEAN_SPEED&gt;"/&gt;</sgmltag>
+                 noStops="<replaceable>&lt;NUMBER_OF_HALTS&gt;</replaceable>" speed="<replaceable>&lt;MEAN_SPEED&gt;</replaceable>" 
+                 entered="<replaceable>&lt;ENTERED_VEH_NUMBER&gt;</replaceable>" emitted="<replaceable>&lt;EMITTED_VEH_NUMBER&gt;</replaceable>" \
+                 left="<replaceable>&lt;LEFT_VEH_NUMBER&gt;</replaceable>"/&gt;</sgmltag>
 
-         ... more lanes
+         ... more lanes...
 
       <sgmltag>&lt;/edge&gt;</sgmltag>
 
@@ -8266,7 +8268,7 @@ myDet1;0;10;2;100;80
           <para>Both the edge-dump and the lane-dump are computing the values
           the same way: every vehicle move - even those with v=0 - is recorded
           and saved during the interval. After the interval has passed, these
-          values are written into the file after being normalised. In the case
+          values are written into the file after being normalized. In the case
           of the edge-dump the values are not only normalized by the number of
           the collected vehicle moves and the length of the lane, but also by
           the number of lanes of the edge.</para>
@@ -8333,7 +8335,7 @@ myDet1;0;10;2;100;80
                 </row>
 
                 <row>
-                  <entry><sgmltag>sampleSeconds</sgmltag></entry>
+                  <entry><sgmltag>sampledSeconds</sgmltag></entry>
 
                   <entry><literal>s</literal></entry>
 
@@ -8424,12 +8426,14 @@ myDet1;0;10;2;100;80
           When at least one combination is given, dumps will be written only
           if an according begin/end-pair exists for the current time. This
           means, only those intervals will be saved for which
-          dump-begins[x]&lt;=INTERVAL_END and
-          dump-ends[x]&gt;=INTERVAL_BEGIN.</para>
+          dump-begins[x]&lt;=INTERVAL_END and dump-ends[x]&gt;=INTERVAL_BEGIN.
+          All dumps will cover the complete simulation if the options
+          <option>--dump-begins</option> and <option>--dump-ends</option> are
+          not set.</para>
+        </sect3>
 
-          <para>Of course, all dumps will cover the complete simulation if the
-          options <option>--dump-begins</option> and
-          <option>--dump-ends</option> are not set.</para>
+        <sect3 id="user_chp06-output-edgelanedump-constraining">
+          <title>Misc</title>
 
           <para>Examples:</para>
 
@@ -8440,6 +8444,15 @@ myDet1;0;10;2;100;80
               outputs are written into the subfolder
               "<filename>output</filename>", four edge- and four lane-based,
               and for each of the intervals 15s, 60s, 300s, and 900s.</para>
+            </listitem>
+          </itemizedlist>
+
+          <para>Recent changes:</para>
+
+          <itemizedlist spacing="compact">
+            <listitem>
+              <para>The values have been revisited and partially changed for
+              version 0.10</para>
             </listitem>
           </itemizedlist>
         </sect3>
