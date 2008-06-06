@@ -215,7 +215,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             flowMean /= (SUMOReal) noSegments;
             dev<<"      <edge id=\""<<edge.getID()<<
             "\" traveltime=\""<<traveltimeS<<
-            "\" nSamples=\""<< nVehS <<
+            "\" sampledSeconds=\""<< nVehS <<
             "\" density=\""<<meanDensityS<<
             "\" occupancy=\""<<meanOccupancyS<<
             //"\" noStops=\""<<noStopsS<<
@@ -283,7 +283,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             if(myDumpEmptyEdges||nVehS>0) {
                 dev<<"      <edge id=\""<<edge.getID()<<
                 "\" traveltime=\""<<(traveltimeS/(SUMOReal) lanes->size())<<
-                "\" nSamples=\""<< nVehS <<
+                "\" sampledSeconds=\""<< nVehS <<
                 "\" density=\""<<meanDensityS<<
                 "\" occupancy=\""<<(meanOccupancyS/(SUMOReal) lanes->size())<<
                 "\" noStops=\""<<noStopsS<<
@@ -318,7 +318,7 @@ MSMeanData_Net::writeLane(OutputDevice &dev,
              traveltime, meanSpeed, meanDensity, meanOccupancy);
         dev<<"         <lane id=\""<<lane.getID()<<
         "\" traveltime=\""<<traveltime<<
-        "\" nSamples=\""<< meanData.sampleSeconds <<
+        "\" sampledSeconds=\""<< meanData.sampleSeconds <<
         "\" density=\""<<meanDensity<<
         "\" occupancy=\""<<meanOccupancy<<
         "\" noStops=\""<<meanData.haltSum<<
