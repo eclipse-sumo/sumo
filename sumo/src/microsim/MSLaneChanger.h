@@ -33,6 +33,7 @@
 #include "MSLane.h"
 #include "MSEdge.h"
 #include <vector>
+#include <utils/iodevices/OutputDevice.h>
 
 
 // ===========================================================================
@@ -52,7 +53,7 @@ class MSLaneChanger
 {
 public:
     /// Constructor
-    MSLaneChanger(MSEdge::LaneCont* lanes);
+    MSLaneChanger(MSEdge::LaneCont* lanes, OutputDevice *output=0);
 
     /// Destructor.
     ~MSLaneChanger();
@@ -207,6 +208,10 @@ protected:
     std::pair<MSVehicle * const, SUMOReal> getRealRightLeader() const throw();
     std::pair<MSVehicle * const, SUMOReal> getRealLeftLeader() const throw();
 
+    bool writeOutput(const MSVehicle * const veh,
+        const std::pair<MSVehicle * const, SUMOReal> &lead, 
+        const std::pair<MSVehicle * const, SUMOReal> &follow,
+        int dir, const MSVehicle * const swapped=0);
 
 protected:
     /// Container for ChangeElemements, one for every lane in the edge.
@@ -216,6 +221,9 @@ protected:
         will try to change. Every vehicle on the edge will be a candidate
         once in the change-process. */
     ChangerIt myCandi;
+
+    /// @brief The output device to write lane changings into
+    OutputDevice *myOutput;
 
 private:
     /// Default constructor.

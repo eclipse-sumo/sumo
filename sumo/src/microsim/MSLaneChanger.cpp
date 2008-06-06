@@ -53,7 +53,8 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSLaneChanger::MSLaneChanger(MSEdge::LaneCont* lanes)
+MSLaneChanger::MSLaneChanger(MSEdge::LaneCont* lanes, OutputDevice *output)
+    : myOutput(output)
 {
     assert(lanes->size() > 1);
 
@@ -118,6 +119,45 @@ MSLaneChanger::initChanger()
     }
 }
 
+bool
+MSLaneChanger::writeOutput(const MSVehicle * const vehicle,
+                           const std::pair<MSVehicle * const, SUMOReal> &lead, 
+                           const std::pair<MSVehicle * const, SUMOReal> &follow,
+                           int dir, const MSVehicle * const swapped)
+{
+    (*myOutput) << "    <lane_change time=\"" << MSNet::getInstance()->getCurrentTimeStep() 
+        << "\" id=\"" << vehicle->getID() 
+        << "\" dir=\"" << dir
+        << "\" source=\"" << myCandi->lane->getID() 
+        << "\" dest=\"" << (myCandi + dir)->lane->getID() 
+        << "\" pos=\"" << vehicle->getPositionOnLane()
+        << "\" speed=\"" << vehicle->getSpeed();
+    if(lead.first!=0) {
+        (*myOutput)
+            << "\" leader=\"" << lead.first->getID() 
+            << "\" leadergap=\"" << lead.second;
+    } else {
+        (*myOutput)
+            << "\" leader=\""
+            << "\" leadergap=\"";
+    }
+    if(follow.first!=0) {
+        (*myOutput)
+            << "\" leader=\"" << follow.first->getID() 
+            << "\" leadergap=\"" << follow.second;
+    } else {
+        (*myOutput)
+            << "\" leader=\""
+            << "\" leadergap=\"";
+    }
+    if(swapped!=0) {
+        (*myOutput) << "\" swapped=\"" << swapped->getID() ;
+    } else {
+        (*myOutput) << "\" swapped=\"";
+    }
+    (*myOutput) << "\"/>\n";
+}
+
 
 bool
 MSLaneChanger::change()
@@ -157,8 +197,8 @@ MSLaneChanger::change()
 		vehicle->getLaneChangeModel().fulfillChangeRequest(REQUEST_RIGHT);
 		/*std::cout << "TraCI: lane changer fulfilled request for RIGHT |time " << MSNet::getInstance()->getCurrentTimeStep() << "s" << std::endl;*/
 #endif
-        (myCandi - 1)->hoppedVeh = veh(myCandi);
-        (myCandi - 1)->lane->myTmpVehicles.push_front(veh(myCandi));
+        (myCandi - 1)->hoppedVeh = vehicle;
+        (myCandi - 1)->lane->myTmpVehicles.push_front(vehicle);
         vehicle->leaveLaneAtLaneChange();
         myCandi->lane->leftByLaneChange(vehicle);
         vehicle->enterLaneAtLaneChange((myCandi - 1)->lane);
@@ -166,6 +206,9 @@ MSLaneChanger::change()
         vehicle->myLastLaneChangeOffset = 0;
         vehicle->getLaneChangeModel().changed();
         (myCandi - 1)->dens += (myCandi - 1)->hoppedVeh->getLength();
+        if(myOutput!=0) {
+            writeOutput(vehicle, rLead, rFollow, -1);
+        }
         return true;
     }
     if ((state1&LCA_RIGHT)!=0&&(state1&LCA_URGENT)!=0) {
@@ -197,6 +240,9 @@ MSLaneChanger::change()
         vehicle->myLastLaneChangeOffset = 0;
         vehicle->getLaneChangeModel().changed();
         (myCandi + 1)->dens += (myCandi + 1)->hoppedVeh->getLength();
+        if(myOutput!=0) {
+            writeOutput(vehicle, lLead, lFollow, 1);
+        }
         return true;
     }
     if ((state2&LCA_LEFT)!=0&&(state2&LCA_URGENT)!=0) {
@@ -213,13 +259,16 @@ MSLaneChanger::change()
     if ((state1&(LCA_URGENT))!=0||(state2&(LCA_URGENT))!=0) {
         // get the direction ...
         ChangerIt target;
+        int dir;
         if ((state1&(LCA_URGENT))!=0) {
             // ... wants to go right
             target = myCandi - 1;
+            dir = -1;
         }
         if ((state2&(LCA_URGENT))!=0) {
             // ... wants to go left
             target = myCandi + 1;
+            dir = 1;
         }
         MSVehicle *prohibitor = target->lead;
         if (target->hoppedVeh!=0) {
@@ -279,6 +328,13 @@ MSLaneChanger::change()
                     prohibitor->myLastLaneChangeOffset = 0;
                     (myCandi)->dens += prohibitor->getLength();
                     (target)->dens += vehicle->getLength();
+                    if(myOutput!=0) {
+                        if(dir>0) {
+                            writeOutput(vehicle, lLead, lFollow, dir, prohibitor);
+                        } else {
+                            writeOutput(vehicle, rLead, rFollow, dir, prohibitor);
+                        }
+                    }
                     return true;
                 }
             }
