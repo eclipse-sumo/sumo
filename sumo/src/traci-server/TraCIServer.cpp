@@ -422,11 +422,13 @@ throw(TraCIException)
         }
 	if (myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) {
 		// iterate over all vehicles that are supposed to live
-		for (std::set<int>::const_iterator i = myLivingVehicles.begin(); i != myLivingVehicles.end(); i++) {
+		for (std::set<int>::const_iterator i = myLivingVehicles.begin(); i != myLivingVehicles.end(); ) {
 			int extId = *i;
 			if (activeEquippedVehicles.find(extId) == activeEquippedVehicles.end()) {
 				myDestroyedVehicles.insert(extId);
-				myLivingVehicles.erase(extId);
+				myLivingVehicles.erase(i++);
+			} else {
+				i++;
 			}
 		}
 	}
