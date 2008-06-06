@@ -94,7 +94,7 @@ protected:
     MSDetectorFileOutput *myDetector;
 
     /// @brief The last time the values were written
-    unsigned int myStartTime;
+    SUMOTime myStartTime;
 
 
 private:
