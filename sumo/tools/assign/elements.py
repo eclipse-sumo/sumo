@@ -240,7 +240,7 @@ class Edge:
                 if laneNum == 2.:
                     self.estcapacity = laneNum * 1350.
                     self.edgetype = '34'
-                if slaneNum >= 3.:
+                if laneNum >= 3.:
                     self.estcapacity = laneNum * 1400.
                     self.edgetype = '31'
             elif self.maxspeed > 18.0 and self.maxspeed <= 19.0:
