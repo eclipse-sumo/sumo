@@ -12,6 +12,7 @@ copy_test_path:input_definition2.def.xml
 [collate_file]
 detector:detector.xml
 emissions:emissions.xml
+aggregated1:aggregated_1.xml
 aggregated15:aggregated_15.xml
 aggregated25:aggregated_25.xml
 aggregated60:aggregated_60.xml
@@ -45,6 +46,7 @@ output:\r{REPLACE \n}
 output:sumo.exe{REPLACE sumo}
 detector:Version
 emissions:Version
+aggregated1:Version
 aggregated15:Version
 aggregated25:Version
 aggregated60:Version
