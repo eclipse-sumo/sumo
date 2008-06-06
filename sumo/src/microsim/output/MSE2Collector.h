@@ -420,6 +420,15 @@ private:
     unsigned myCurrentStartedHalts;
     /// @}
 
+
+private:
+    /// @brief Invalidated copy constructor.
+    MSE2Collector(const MSE2Collector&);
+
+    /// @brief Invalidated assignment operator.
+    MSE2Collector& operator=(const MSE2Collector&);
+
+
 };
 
 

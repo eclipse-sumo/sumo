@@ -112,9 +112,14 @@ private:
     static void writeVehicle(OutputDevice &of, const MSVehicle &veh,
                              unsigned int intend) throw(IOError);
 
+
 private:
-    /// @brief (Invalidated) Constructor
-    MSXMLRawOut() throw();
+    /// @brief Invalidated copy constructor.
+    MSXMLRawOut(const MSXMLRawOut&);
+
+    /// @brief Invalidated assignment operator.
+    MSXMLRawOut& operator=(const MSXMLRawOut&);
+
 
 };
 

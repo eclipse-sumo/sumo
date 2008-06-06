@@ -423,6 +423,15 @@ protected:
     /// @brief Information when the last reset has been done
     SUMOTime myLastResetTime;
 
+
+private:
+    /// @brief Invalidated copy constructor.
+    MSE3Collector(const MSE3Collector&);
+
+    /// @brief Invalidated assignment operator.
+    MSE3Collector& operator=(const MSE3Collector&);
+
+
 };
 
 

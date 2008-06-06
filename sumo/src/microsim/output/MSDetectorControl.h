@@ -451,6 +451,14 @@ protected:
     std::map<IntervalsKey, SUMOTime> myLastCalls;
 
 
+private:
+    /// @brief Invalidated copy constructor.
+    MSDetectorControl(const MSDetectorControl&);
+
+    /// @brief Invalidated assignment operator.
+    MSDetectorControl& operator=(const MSDetectorControl&);
+
+
 };
 
 

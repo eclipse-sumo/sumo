@@ -64,7 +64,7 @@ MSVTypeProbe::~MSVTypeProbe() throw()
 
 void
 MSVTypeProbe::writeXMLOutput(OutputDevice &dev,
-                                SUMOTime startTime, SUMOTime stopTime) throw(IOError)
+                                SUMOTime startTime, SUMOTime ) throw(IOError)
 {
     const std::string indent("    ");
     dev << indent << "<timestep time=\"" << startTime << "\" id=\"" << getID() << "\" vtype=\"" << myVType << "\">" << "\n";

@@ -370,14 +370,12 @@ protected:
 
 
 private:
-    /// @brief Hidden default constructor.
-    MSInductLoop();
-
-    /// @brief Hidden copy constructor.
+    /// @brief Invalidated copy constructor.
     MSInductLoop(const MSInductLoop&);
 
-    /// @brief Hidden assignment operator.
+    /// @brief Invalidated assignment operator.
     MSInductLoop& operator=(const MSInductLoop&);
+
 
 };
 

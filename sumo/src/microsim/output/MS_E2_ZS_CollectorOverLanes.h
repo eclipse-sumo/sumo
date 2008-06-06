@@ -268,6 +268,15 @@ protected:
     /// @brief Information about how this detector is used
     DetectorUsage myUsage;
 
+
+private:
+    /// @brief Invalidated copy constructor.
+    MS_E2_ZS_CollectorOverLanes(const MS_E2_ZS_CollectorOverLanes&);
+
+    /// @brief Invalidated assignment operator.
+    MS_E2_ZS_CollectorOverLanes& operator=(const MS_E2_ZS_CollectorOverLanes&);
+
+
 };
 
 

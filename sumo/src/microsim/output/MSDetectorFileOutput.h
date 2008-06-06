@@ -57,6 +57,10 @@ enum DetectorUsage {
 class MSDetectorFileOutput
 {
 public:
+    /// @brief Constructor
+    MSDetectorFileOutput() throw() { }
+
+
     /// @brief (virtual) destructor
     virtual ~MSDetectorFileOutput() throw() { }
 
@@ -93,6 +97,14 @@ public:
      * @todo Reckeck/refactor
      */
     virtual void reset() { }
+
+
+private:
+    /// @brief Invalidated copy constructor.
+    MSDetectorFileOutput(const MSDetectorFileOutput&);
+
+    /// @brief Invalidated assignment operator.
+    MSDetectorFileOutput& operator=(const MSDetectorFileOutput&);
 
 
 };

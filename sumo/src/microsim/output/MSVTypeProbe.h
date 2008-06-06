@@ -107,6 +107,14 @@ private:
     std::string myVType;
 
 
+private:
+    /// @brief Invalidated copy constructor.
+    MSVTypeProbe(const MSVTypeProbe&);
+
+    /// @brief Invalidated assignment operator.
+    MSVTypeProbe& operator=(const MSVTypeProbe&);
+
+
 };
 
 #endif

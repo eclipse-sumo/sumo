@@ -374,15 +374,15 @@ protected:
 	std::string myMsg;
 	
 	std::string myCurrentID;
-private:
-    /// @brief Hidden default constructor.
-    MSMsgInductLoop();
 
-    /// @brief Hidden copy constructor.
+
+private:
+    /// @brief Invalidated copy constructor.
     MSMsgInductLoop(const MSMsgInductLoop&);
 
-    /// @brief Hidden assignment operator.
+    /// @brief Invalidated assignment operator.
     MSMsgInductLoop& operator=(const MSMsgInductLoop&);
+
 
 };
 #endif //_MESSAGES
