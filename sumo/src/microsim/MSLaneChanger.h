@@ -208,7 +208,7 @@ protected:
     std::pair<MSVehicle * const, SUMOReal> getRealRightLeader() const throw();
     std::pair<MSVehicle * const, SUMOReal> getRealLeftLeader() const throw();
 
-    bool writeOutput(const MSVehicle * const veh,
+    void writeOutput(const MSVehicle * const veh,
         const std::pair<MSVehicle * const, SUMOReal> &lead, 
         const std::pair<MSVehicle * const, SUMOReal> &follow,
         int dir, const MSVehicle * const swapped=0);

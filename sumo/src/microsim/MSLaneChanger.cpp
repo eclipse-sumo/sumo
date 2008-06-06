@@ -119,7 +119,7 @@ MSLaneChanger::initChanger()
     }
 }
 
-bool
+void
 MSLaneChanger::writeOutput(const MSVehicle * const vehicle,
                            const std::pair<MSVehicle * const, SUMOReal> &lead, 
                            const std::pair<MSVehicle * const, SUMOReal> &follow,
