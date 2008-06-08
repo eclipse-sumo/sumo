@@ -46,6 +46,7 @@
 // ===========================================================================
 class MSLane;
 class MSLaneChanger;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -121,10 +122,11 @@ public:
      * @param[in] departLane The default departure lane (may be 0)
      * @param[in] lanes List of this edge's lanes
      * @param[in] function A basic type of the edge
+     * @param[in] lcOutput The iodevice to write lane change events to (0 if not used)
      */
     void initialize(
         AllowedLanesCont* allowed, MSLane* departLane, LaneCont* lanes,
-        EdgeBasicFunction function) throw();
+        EdgeBasicFunction function, OutputDevice *lcOutput) throw();
 
 
     /** @brief Get the allowed lanes to reach the destination-edge.

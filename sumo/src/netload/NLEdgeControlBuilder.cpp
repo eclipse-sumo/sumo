@@ -40,6 +40,7 @@
 #include <utils/common/UtilExceptions.h>
 #include "NLBuilder.h"
 #include "NLEdgeControlBuilder.h"
+#include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -56,7 +57,8 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NLEdgeControlBuilder::NLEdgeControlBuilder(unsigned int storageSize)
-        : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0)
+        : myCurrentNumericalLaneID(0), myCurrentNumericalEdgeID(0), myEdges(0),
+        myEdgesLaneChangeOutputDevice(0)
 {
     myActiveEdge = (MSEdge*) 0;
     m_pLaneStorage = new MSEdge::LaneCont();
@@ -65,6 +67,12 @@ NLEdgeControlBuilder::NLEdgeControlBuilder(unsigned int storageSize)
     m_pAllowedLanes = (MSEdge::AllowedLanesCont*) 0;
     m_pDepartLane = (MSLane*) 0;
     m_iNoSingle = m_iNoMulti = 0;
+    if(OptionsCont::getOptions().isSet("lanechange-output")) {
+        if(!OutputDevice::createDeviceByOption("lanechange-output", "lane_changes")) {
+            throw 1;
+        }
+        myEdgesLaneChangeOutputDevice = &OutputDevice::getDeviceByOption("lanechange-output");
+    }
 }
 
 
@@ -228,7 +236,7 @@ NLEdgeControlBuilder::closeEdge()
         throw InvalidArgument("Something is corrupt within the definition of lanes for the edge '" + myActiveEdge->getID() + "'.");
     }
     myActiveEdge->initialize(m_pAllowedLanes, m_pDepartLane,
-                             m_pLanes, m_Function);
+                             m_pLanes, m_Function, myEdgesLaneChangeOutputDevice);
     m_pLanes = 0;
     return myActiveEdge;
 }

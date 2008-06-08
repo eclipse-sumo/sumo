@@ -42,6 +42,7 @@
 class MSEdgeControl;
 class MSLane;
 class MSNet;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -176,6 +177,8 @@ protected:
 
     //
     bool myIsInner;
+
+    OutputDevice *myEdgesLaneChangeOutputDevice;
 
 private:
     /** invalidated copy constructor */

@@ -148,6 +148,9 @@ MSFrame::fillOptions()
     oc.doRegister("physical-states-output", new Option_FileName());
     oc.addDescription("physical-states-output", "Output", "Write vehicle states");
 
+    oc.doRegister("lanechange-output", new Option_FileName());
+    oc.addDescription("lanechange-output", "Output", "Write lane change information");
+
     oc.doRegister("save-state.times", new Option_IntVector(IntVector()));//!!! check, describe
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
     oc.doRegister("save-state.prefix", new Option_FileName());//!!! check, describe

@@ -120,7 +120,7 @@ MSLaneChanger::initChanger()
 }
 
 void
-MSLaneChanger::writeOutput(const MSVehicle * const vehicle,
+MSLaneChanger::writeOutput(const MSVehicle * const vehicle, int state,
                            const std::pair<MSVehicle * const, SUMOReal> &lead, 
                            const std::pair<MSVehicle * const, SUMOReal> &follow,
                            int dir, const MSVehicle * const swapped)
@@ -128,6 +128,7 @@ MSLaneChanger::writeOutput(const MSVehicle * const vehicle,
     (*myOutput) << "    <lane_change time=\"" << MSNet::getInstance()->getCurrentTimeStep() 
         << "\" id=\"" << vehicle->getID() 
         << "\" dir=\"" << dir
+        << "\" state=\"" << state 
         << "\" source=\"" << myCandi->lane->getID() 
         << "\" dest=\"" << (myCandi + dir)->lane->getID() 
         << "\" pos=\"" << vehicle->getPositionOnLane()
@@ -143,12 +144,12 @@ MSLaneChanger::writeOutput(const MSVehicle * const vehicle,
     }
     if(follow.first!=0) {
         (*myOutput)
-            << "\" leader=\"" << follow.first->getID() 
-            << "\" leadergap=\"" << follow.second;
+            << "\" follower=\"" << follow.first->getID() 
+            << "\" followergap=\"" << follow.second;
     } else {
         (*myOutput)
-            << "\" leader=\""
-            << "\" leadergap=\"";
+            << "\" follower=\""
+            << "\" followergap=\"";
     }
     if(swapped!=0) {
         (*myOutput) << "\" swapped=\"" << swapped->getID() ;
@@ -207,7 +208,7 @@ MSLaneChanger::change()
         vehicle->getLaneChangeModel().changed();
         (myCandi - 1)->dens += (myCandi - 1)->hoppedVeh->getLength();
         if(myOutput!=0) {
-            writeOutput(vehicle, rLead, rFollow, -1);
+            writeOutput(vehicle, state1, rLead, rFollow, -1);
         }
         return true;
     }
@@ -241,7 +242,7 @@ MSLaneChanger::change()
         vehicle->getLaneChangeModel().changed();
         (myCandi + 1)->dens += (myCandi + 1)->hoppedVeh->getLength();
         if(myOutput!=0) {
-            writeOutput(vehicle, lLead, lFollow, 1);
+            writeOutput(vehicle, state2, lLead, lFollow, 1);
         }
         return true;
     }
@@ -330,9 +331,9 @@ MSLaneChanger::change()
                     (target)->dens += vehicle->getLength();
                     if(myOutput!=0) {
                         if(dir>0) {
-                            writeOutput(vehicle, lLead, lFollow, dir, prohibitor);
+                            writeOutput(vehicle, state2, lLead, lFollow, dir, prohibitor);
                         } else {
-                            writeOutput(vehicle, rLead, rFollow, dir, prohibitor);
+                            writeOutput(vehicle, state1, rLead, rFollow, dir, prohibitor);
                         }
                     }
                     return true;

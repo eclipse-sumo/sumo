@@ -104,7 +104,8 @@ MSEdge::~MSEdge() throw()
 
 void
 MSEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
-                   LaneCont* lanes, EdgeBasicFunction function) throw()
+                   LaneCont* lanes, EdgeBasicFunction function,
+                   OutputDevice *lcOutput) throw()
 {
     assert(allowed!=0);
     assert(lanes!=0);
@@ -113,7 +114,7 @@ MSEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
     myLanes = lanes;
     myFunction = function;
     if (myLanes->size() > 1 && function!=EDGEFUNCTION_INTERNAL) {
-        myLaneChanger = new MSLaneChanger(myLanes);
+        myLaneChanger = new MSLaneChanger(myLanes, lcOutput);
     }
     // build the classed allowed lanes
     myHaveClassConstraints = false;
