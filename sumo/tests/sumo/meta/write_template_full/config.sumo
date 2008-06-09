@@ -23,6 +23,7 @@
       <dump-begins></dump-begins>
       <dump-ends></dump-ends>
       <physical-states-output></physical-states-output>
+      <lanechange-output></lanechange-output>
       <save-state.times></save-state.times>
       <save-state.prefix></save-state.prefix>
    </output>

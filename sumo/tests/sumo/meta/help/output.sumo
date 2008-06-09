@@ -49,6 +49,7 @@ Usage: sumo.exe [OPTION]*
   --dump-ends INT[]                    Use INT[] as times at which a dump must
                                          end in order to be written
   --physical-states-output FILE        Write vehicle states
+  --lanechange-output FILE             Write lane change information
   --save-state.times INT[]             Use INT[] as times at which a network
                                          state written
   --save-state.prefix FILE             Prefix for network states

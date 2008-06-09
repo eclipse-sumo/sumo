@@ -61,6 +61,9 @@
       <!-- Write vehicle states -->
       <physical-states-output></physical-states-output>
 
+      <!-- Write lane change information -->
+      <lanechange-output></lanechange-output>
+
       <!-- Use INT[] as times at which a network state written -->
       <save-state.times></save-state.times>
 
