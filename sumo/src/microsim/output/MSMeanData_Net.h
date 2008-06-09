@@ -161,15 +161,17 @@ protected:
     /** @brief Resets network value in order to allow processing of the next interval
      *
      * Goes through the lists of edges and starts "resetOnly" for each edge.
+     * @param [in] edge The last time step that is reported
      */
-    void resetOnly() throw();
+    void resetOnly(SUMOTime stopTime) throw();
 
 
     /** @brief Resets edge value in order to allow processing of the next interval
      *
      * @param [in] edge The edge to reset the value of
+     * @param [in] edge The last time step that is reported
      */
-    void resetOnly(const MSEdge &edge) throw();
+    void resetOnly(const MSEdge &edge, SUMOTime stopTime) throw();
 
 
     /** @brief Inline function for value conversion

@@ -75,13 +75,14 @@ MSMeanData_Net::~MSMeanData_Net() throw()
 
 
 void
-MSMeanData_Net::resetOnly(const MSEdge &edge) throw()
+MSMeanData_Net::resetOnly(const MSEdge &edge, SUMOTime stopTime) throw()
 {
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
         MESegment *s = MSGlobals::gMesoNet->getSegmentForEdge(&edge);
         while (s!=0) {
             MSLaneMeanDataValues& meanData = s->getMeanData(myIndex);
+            s->prepareMeanDataForWriting(meanData, (SUMOReal) stopTime);
             meanData.reset();
             s = s->getNextSegment();
         }
@@ -100,19 +101,19 @@ MSMeanData_Net::resetOnly(const MSEdge &edge) throw()
 
 
 void
-MSMeanData_Net::resetOnly() throw()
+MSMeanData_Net::resetOnly(SUMOTime stopTime) throw()
 {
     // reset data
     MSEdgeControl::EdgeCont::const_iterator edg;
     // single lane edges
     const MSEdgeControl::EdgeCont &ec1 = myEdges.getSingleLaneEdges();
     for (edg = ec1.begin(); edg != ec1.end(); ++edg) {
-        resetOnly(*(*edg));
+        resetOnly(*(*edg), stopTime);
     }
     // multi lane edges
     const MSEdgeControl::EdgeCont &ec2 = myEdges.getMultiLaneEdges();
     for (edg = ec2.begin(); edg != ec2.end(); ++edg) {
-        resetOnly(*(*edg));
+        resetOnly(*(*edg), stopTime);
     }
 }
 
@@ -128,7 +129,7 @@ MSMeanData_Net::write(OutputDevice &dev,
         }
     }
     if (!found) {
-        resetOnly();
+        resetOnly(stopTime);
         return;
     }
     // interval begin
@@ -177,7 +178,7 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             SUMOReal meanDensity = -45;
             SUMOReal meanOccupancy = -46;
             MSLaneMeanDataValues& meanData = s->getMeanData(myIndex);
-            s->prepareMeanDataForWriting(meanData, (SUMOReal) stopTime/* + (SUMOReal) DELTA_T*/);
+            s->prepareMeanDataForWriting(meanData, (SUMOReal) stopTime);
             conv(meanData, (stopTime-startTime+1),
                 s->getLength(), s->getMaxSpeed(),
                 traveltime, meanSpeed, meanDensity, meanOccupancy);
@@ -210,7 +211,11 @@ MSMeanData_Net::writeEdge(OutputDevice &dev,
             if(nVehS==0) {
                 meanSpeedS = MSGlobals::gMesoNet->getSegmentForEdge(&edge)->getMaxSpeed();
             } else {
-                traveltimeS = absLen / meanSpeedS;
+                if(meanSpeedS>0) {
+                    traveltimeS = absLen / meanSpeedS;
+                } else {
+                    traveltimeS = (SUMOReal) 1000000.00;
+                }
             }
             flowMean /= (SUMOReal) noSegments;
             dev<<"      <edge id=\""<<edge.getID()<<
