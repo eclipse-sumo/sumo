@@ -843,10 +843,10 @@ MSLane::addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal ga
     if (myMeanData.size()!=0) {
         SUMOReal l = veh.getLength();
         SUMOReal fraction = 1.;
-        if(oldPos<0) {
+        if(oldPos<0&&newV!=0) {
             fraction = (oldPos+SPEED2DIST(newV)) / newV;
         }
-        if(oldPos+SPEED2DIST(newV)>length()) {
+        if(oldPos+SPEED2DIST(newV)>length()&&newV!=0) {
             fraction -= (oldPos+SPEED2DIST(newV) - length()) / newV;
         }
         for (size_t i=0; i<myMeanData.size(); ++i) {
