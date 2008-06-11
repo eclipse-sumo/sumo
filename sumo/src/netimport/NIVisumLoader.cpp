@@ -1242,19 +1242,6 @@ NIVisumLoader::buildDistrictNode(const std::string &id, NBNode *dest,
     if (dist==0) {
         return 0;
     }
-    // get the coordinates of the new node
-    SUMOReal x = dest->getPosition().x()
-                 + (dist->getPosition().x() - dest->getPosition().x()) / 10;
-    SUMOReal y = dest->getPosition().y()
-                 + (dist->getPosition().y() - dest->getPosition().y()) / 10;
-    // translate in dependence to the type
-    if (dir==NBEdge::EDGEFUNCTION_SINK) {
-        x += (dist->getPosition().y() - dest->getPosition().y()) / 100;
-        y -= (dist->getPosition().x() - dest->getPosition().x()) / 100;
-    } else {
-        x -= (dist->getPosition().y() - dest->getPosition().y()) / 100;
-        y += (dist->getPosition().x() - dest->getPosition().x()) / 100;
-    }
     // build the id
     string nid;
     nid = id + "-" + dest->getID();
@@ -1262,13 +1249,8 @@ NIVisumLoader::buildDistrictNode(const std::string &id, NBNode *dest,
         nid = "-" + nid;
     }
     // insert the node
-    if (!myNetBuilder.getNodeCont().insert(nid, Position2D(x, y))) {
-        x += (SUMOReal) 0.1;
-        y -= (SUMOReal) 0.1;
-        if (!myNetBuilder.getNodeCont().insert(nid, Position2D(x, y), dist)) {
-            addError("Ups, this should not happen: A district lies on a node.");
-            return 0;
-        }
+    if (!myNetBuilder.getNodeCont().insert(nid, dist->getPosition())) {
+        addError("Could not build connetor node '" + nid + "'.");
     }
     // return the node
     return myNetBuilder.getNodeCont().retrieve(nid);
