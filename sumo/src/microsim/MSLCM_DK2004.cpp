@@ -99,11 +99,11 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     for (int p=0; p<(int) preb.size(); ++p) {
         if (preb[p].lane==&myVehicle.getLane()) {
             curr = preb[p];
-            bestLaneOffset = curr.dir;
+            bestLaneOffset = curr.bestLaneOffset;
             currentDist = curr.length;
-            currExtDist = curr.lane->length();//alllength;
+            currExtDist = curr.lane->length();
             neighDist = preb[p-1].length;
-            neighExtDist = preb[p-1].lane->length();//.alllength;
+            neighExtDist = preb[p-1].lane->length();
             best = preb[p+bestLaneOffset];
             currIdx = p;
         }
@@ -206,7 +206,7 @@ MSLCM_DK2004::wantsChangeToRight(MSAbstractLaneChangeModel::MSLCMessager &msgPas
     //  in this case, we do not want to get to the dead-end of an on-ramp
     //
     // THIS RULE APPLIES ONLY TO CHANGING TO THE RIGHT LANE
-    if (bestLaneOffset==0&&preb[currIdx-1].dir!=0&&myVehicle.getLane().maxSpeed()>80./3.6) {
+    if (bestLaneOffset==0&&preb[currIdx-1].bestLaneOffset!=0&&myVehicle.getLane().maxSpeed()>80./3.6) {
         return ret;
     }
 
@@ -327,11 +327,11 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     for (int p=0; p<(int) preb.size(); ++p) {
         if (preb[p].lane==&myVehicle.getLane()) {
             curr = preb[p];
-            bestLaneOffset = curr.dir;
+            bestLaneOffset = curr.bestLaneOffset;
             currentDist = curr.length;
-            currExtDist = curr.lane->length();//.alllength;
+            currExtDist = curr.lane->length();
             neighDist = preb[p+1].length;
-            neighExtDist = preb[p+1].lane->length();//.alllength;
+            neighExtDist = preb[p+1].lane->length();
             best = preb[p+bestLaneOffset];
             currIdx = p;
         }
@@ -476,7 +476,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     SUMOReal neighLaneVSafe, thisLaneVSafe;
     if (neighLead.first == 0) {
         neighLaneVSafe =
-            myVehicle.ffeV(myVehicle.getSpeed(), neighLane.length() - myVehicle.getPositionOnLane(), 0);
+            myVehicle.ffeV(myVehicle.getSpeed(), neighLane.length() - myVehicle.getPositionOnLane(), 0); // !!! warum nicht die Folgesgeschw.?
     } else {
         assert(neighLead.second>=0);
         neighLaneVSafe =
@@ -502,7 +502,7 @@ MSLCM_DK2004::wantsChangeToLeft(MSAbstractLaneChangeModel::MSLCMessager &msgPass
     } else {
         // right lane is better
         myChangeProbability += (SUMOReal)
-                               ((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane().maxSpeed()));
+                               ((neighLaneVSafe-thisLaneVSafe) / (myVehicle.getLane().maxSpeed())); // !!! Fahrzeuggeschw.!
     }
     //if(myChangeProbability>2./MAX2((SUMOReal) .1, myVehicle.getSpeed())) { // .1
     if (myChangeProbability>.2&&neighDist/MAX2((SUMOReal) .1, myVehicle.getSpeed())>20.) { // .1

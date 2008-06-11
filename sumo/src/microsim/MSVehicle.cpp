@@ -1515,13 +1515,10 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
         if(qqq==0) {
             q.hindernisPos = 0;
             q.length = 0;
-            q.alllength = 0;
-            //throw ProcessError("Route of vehicle '" + getID() + "' is invalid:\nCould not find a valid follower of lane '" + l->getID() + "'."); 
             continue;
         }
         q.hindernisPos = qqq->getVehLenSum();
         q.length = qqq->length();
-        q.alllength = 0;
         q.joined.push_back(qqq);
 
         bool stopForbids = false;
@@ -1608,11 +1605,9 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
                 best.hindernisPos = 0;
                 best.length = 0;
                 best.joined.clear();
-                best.alllength = 0;
             }
         }
     }
-    oq.alllength += best.alllength;
     oq.length += best.length;
     oq.hindernisPos += best.hindernisPos;
     copy(best.joined.begin(), best.joined.end(), back_inserter(oq.joined));
@@ -1654,23 +1649,20 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw()
     for (MSEdge::LaneCont::const_iterator i=lanes->begin(); i!=lanes->end(); ++i) {
         LaneQ q;
         q.lane = *i;
-        //q.laneLength2 = 0;//q.lane->length();
         q.length = 0;//q.lane->length();
-        //q.alllength = q.lane->length();
         q.hindernisPos = 0;//q.lane->getVehLenSum();
-        q.t1 = allowed==0||find(allowed->begin(), allowed->end(), q.lane)!=allowed->end();
+        q.allowsContinuation = allowed==0||find(allowed->begin(), allowed->end(), q.lane)!=allowed->end();
         if(!myStops.empty()&&myStops.front().lane->getEdge()==q.lane->getEdge()) {
-            q.t1 &= (myStops.front().lane==q.lane);
+            q.allowsContinuation &= (myStops.front().lane==q.lane);
         }
         myBestLanes[0].push_back(q);
     }
     if (ce!=myRoute->end()) {
         for (std::vector<MSVehicle::LaneQ>::iterator i=myBestLanes.begin()->begin(); i!=myBestLanes.begin()->end(); ++i) {
-            if ((*i).t1) {
+            if ((*i).allowsContinuation) {
                 rebuildContinuationsFor((*i), (*i).lane, ce, seen);
                 (*i).length += (*i).lane->length();
                 (*i).hindernisPos += (*i).lane->getVehLenSum();
-                (*i).alllength = (*i).lane->length();
             }
         }
     }
@@ -1688,7 +1680,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw()
     }
     run = 0;
     for (std::vector<MSVehicle::LaneQ>::iterator i=myBestLanes.begin()->begin(); i!=myBestLanes.begin()->end(); ++i, ++run) {
-        (*i).dir =  index - run;
+        (*i).bestLaneOffset =  index - run;
     }
 
     return *myBestLanes.begin();

@@ -542,24 +542,11 @@ public:
     struct LaneQ {
         MSLane *lane;
         SUMOReal length;
-        SUMOReal alllength;
         SUMOReal v;
         SUMOReal hindernisPos;
-        SUMOReal wish;
-        int dir;
-        bool t1;
+        int bestLaneOffset;
+        bool allowsContinuation;
         std::vector<MSLane*> joined;
-
-        /*
-        MSLane *lane;
-        std::vector<LaneQ> follower;
-        bool allowed2;
-        SUMOReal laneLength2;
-        SUMOReal seenLength2;
-        SUMOReal seenVehicles2;
-        SUMOReal leftDistance2;
-        int dir2;
-        */
     };
 
     /** @brief Returns the description of best lanes to use in order to continue the route
