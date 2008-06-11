@@ -2,7 +2,7 @@
 /// @file    TraCIHandler.h
 /// @author  Friedemann Wesner <wesner@itm.uni-luebeck.de>
 /// @date    2008/03/20
-/// @version $Id: TraCIHandler.cpp 2008-05-24 $
+/// @version $Id$
 ///
 /// XML-Handler used by TraCI to get information from sumo input files
 /****************************************************************************/

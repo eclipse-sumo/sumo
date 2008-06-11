@@ -2,7 +2,7 @@
 /// @file    SUMOVehicleParserHelper.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 07.04.2008
-/// @version $Id: SUMOVehicleParserHelper.cpp 5277 2008-03-31 09:27:36Z dkrajzew $
+/// @version $Id$
 ///
 // Helper methods for parsing vehicle attributes
 /****************************************************************************/

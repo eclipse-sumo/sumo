@@ -2,7 +2,7 @@
 /// @file    GUIEventControl.h
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 04 Feb 2008
-/// @version $Id: GUIEventControl.h 4669 2007-11-08 10:18:35Z behrisch $
+/// @version $Id$
 ///
 // Stores time-dependant events and executes them at the proper time (guisim)
 /****************************************************************************/

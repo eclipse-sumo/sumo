@@ -2,7 +2,7 @@
 /// @file    MSDevice_Routing.h
 /// @author  Michael Behrisch, Daniel Krajzewicz
 /// @date    Tue, 04 Dec 2007
-/// @version $Id: MSDevice_Routing.h 5048 2008-02-07 12:15:22Z behrisch $
+/// @version $Id$
 ///
 // A device that performs vehicle rerouting based on current edge speeds
 /****************************************************************************/

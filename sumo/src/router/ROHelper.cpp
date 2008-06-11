@@ -2,7 +2,7 @@
 /// @file    ROHelper.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: ROHelper.h 4669 2007-11-08 10:18:35Z behrisch $
+/// @version $Id$
 ///
 // Some helping methods for router
 /****************************************************************************/

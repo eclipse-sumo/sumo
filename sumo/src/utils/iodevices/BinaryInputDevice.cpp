@@ -2,7 +2,7 @@
 /// @file    BinaryInputDevice.cpp
 /// @author  Daniel Krajzewicz
 /// @date    2005-09-15
-/// @version $Id: BinaryInputDevice.cpp 4389 2007-08-28 10:21:00Z behrisch $
+/// @version $Id$
 ///
 // Encapsulates binary reading operations on a file
 /****************************************************************************/

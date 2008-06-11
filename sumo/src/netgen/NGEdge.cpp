@@ -2,7 +2,7 @@
 /// @file    NGEdge.cpp
 /// @author  Markus Hartinger
 /// @date    Mar, 2003
-/// @version $Id: NGNetElements.cpp 4389 2007-08-28 10:21:00Z behrisch $
+/// @version $Id$
 ///
 // A netgen-representation of an edge
 /****************************************************************************/

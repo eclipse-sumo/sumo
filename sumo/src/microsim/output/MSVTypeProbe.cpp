@@ -2,7 +2,7 @@
 /// @file    MSVTypeProbe.cpp
 /// @author  Tino Morenz
 /// @date    Wed, 24.10.2007
-/// @version $Id: $
+/// @version $Id$
 ///
 // Writes positions of vehicles that have a certain (named) type
 /****************************************************************************/

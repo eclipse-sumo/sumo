@@ -2,7 +2,7 @@
 /// @file    IncludeFileInputSource.h
 /// @author  Michael Behrisch
 /// @date    Nov 2007
-/// @version $Id: GenericSAXHandler.h 4727 2007-11-19 11:11:17Z dkrajzew $
+/// @version $Id$
 ///
 // A handler which converts occuring elements and attributes into enums
 /****************************************************************************/

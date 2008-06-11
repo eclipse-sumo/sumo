@@ -2,7 +2,7 @@
 /// @file    SUMOVehicleParameter.h
 /// @author  Daniel Krajzewicz
 /// @date    2006-01-24
-/// @version $Id: SUMOVehicleParameter.h 5002 2008-02-01 13:46:21Z dkrajzew $
+/// @version $Id$
 ///
 // Structure representing possible vehicle parameter
 /****************************************************************************/

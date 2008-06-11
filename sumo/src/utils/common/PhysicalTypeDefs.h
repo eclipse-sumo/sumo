@@ -2,7 +2,7 @@
 /// @file    PhysicalTypeDefs.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 29.04.2005
-/// @version $Id: PhysicalTypeDefs.h 4812 2007-12-12 12:50:07Z dkrajzew $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

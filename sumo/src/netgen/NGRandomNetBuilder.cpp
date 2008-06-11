@@ -2,7 +2,7 @@
 /// @file    NGRandomNetBuilder.cpp
 /// @author  Markus Hartinger
 /// @date    Mar, 2003
-/// @version $Id: NGRandomNetBuilder.cpp 4434 2007-09-09 21:37:54Z behrisch $
+/// @version $Id$
 ///
 // Additional structures for building random nets
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    SUMOSAXAttributesImpl_Xerces.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: SUMOSAXAttributesImpl_Xerces.cpp 4934 2008-01-18 07:35:55Z dkrajzew $
+/// @version $Id$
 ///
 // Encapsulated Xerces-SAX-attributes
 /****************************************************************************/

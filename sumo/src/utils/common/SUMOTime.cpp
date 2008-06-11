@@ -2,7 +2,7 @@
 /// @file    SUMOTime.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 29.04.2005
-/// @version $Id: SUMOTime.h 4084 2007-06-06 07:51:13Z behrisch $
+/// @version $Id$
 ///
 //
 /****************************************************************************/

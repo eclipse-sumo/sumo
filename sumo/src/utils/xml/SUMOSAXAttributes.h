@@ -2,7 +2,7 @@
 /// @file    SUMOSAXAttributes.h
 /// @author  Daniel Krajzewicz
 /// @date    Fri, 30 Mar 2007
-/// @version $Id: SUMOSAXAttributes.h 5002 2008-02-01 13:46:21Z dkrajzew $
+/// @version $Id$
 ///
 // Encapsulated SAX-Attributes
 /****************************************************************************/

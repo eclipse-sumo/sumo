@@ -2,7 +2,7 @@
 /// @file    MSOffTrafficLightLogic.cpp
 /// @author  Daniel Krajzewicz
 /// @date    08.05.2007
-/// @version $Id: MSOffTrafficLightLogic.cpp 3486 2007-02-19 13:38:00 +0100 (Mo, 19 Feb 2007) behrisch $
+/// @version $Id$
 ///
 // A traffic lights logic which represents a tls in an off-mode
 /****************************************************************************/

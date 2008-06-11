@@ -2,7 +2,7 @@
 /// @file    MSCalibrator.h
 /// @author  Tino Morenz
 /// @date    Wed, 24.10.2007
-/// @version $Id: $
+/// @version $Id$
 ///
 // Calibrates the number of vehicles on a lane
 /****************************************************************************/

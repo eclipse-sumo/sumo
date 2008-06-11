@@ -2,7 +2,7 @@
 /// @file    VectorHelper.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id: VectorHelper.h 4389 2007-08-28 10:21:00Z behrisch $
+/// @version $Id$
 ///
 // A simple vector of SUMOReals
 /****************************************************************************/

@@ -2,7 +2,7 @@
 /// @file    GUIEventControl.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Mon, 04 Feb 2008
-/// @version $Id: GUIEventControl.cpp 4700 2007-11-09 14:23:48Z dkrajzew $
+/// @version $Id$
 ///
 // Stores time-dependant events and executes them at the proper time (guisim)
 /****************************************************************************/

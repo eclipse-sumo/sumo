@@ -2,7 +2,7 @@
 /// @file    MSCalibrator.cpp
 /// @author  Tino Morenz
 /// @date    Wed, 24.10.2007
-/// @version $Id: $
+/// @version $Id$
 ///
 // A vehicle emitting device
 /****************************************************************************/

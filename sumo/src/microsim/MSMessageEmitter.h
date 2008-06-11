@@ -2,7 +2,7 @@
 /// @file    MSMessageEmitter.h
 /// @author  Clemens Honomichl
 /// @date    Tue, 26 Feb 2008
-/// @version $Id: $
+/// @version $Id$
 ///
 // Builds detectors for microsim
 /****************************************************************************/
