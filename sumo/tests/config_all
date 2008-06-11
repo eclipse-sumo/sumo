@@ -9,8 +9,8 @@ default:michael.behrisch@dlr.de,daniel.krajzewicz@dlr.de
 msvc8mesox64:delphi-dev@dlr.de
 msvc8mesoWin32:delphi-dev@dlr.de
 [batch_sender]
-default:"$SUMO_REPORT" <michael.behrisch@dlr.de>
-gcc4report:behrisch@informatik.hu-berlin.de
+default:"$FILEPREFIX" <michael.behrisch@dlr.de>
+gcc4:"gcc4" <behrisch@informatik.hu-berlin.de>
 [run_dependent_text]
 output:Version
 errors:UTFDataFormatException

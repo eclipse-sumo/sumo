@@ -42,5 +42,7 @@ else
   export SMTP_SERVER=$4
 fi
 
-texttest.py -b `basename $SUMO_REPORT`
-texttest.py -b `basename $SUMO_REPORT` -coll
+export FILEPREFIX=`basename $SUMO_REPORT report`
+
+texttest.py -b $FILEPREFIX
+texttest.py -b $FILEPREFIX -coll
