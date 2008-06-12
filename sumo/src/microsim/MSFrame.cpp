@@ -106,7 +106,8 @@ MSFrame::fillOptions()
 
     oc.doRegister("load-state", new Option_FileName());//!!! check, describe
     oc.addDescription("load-state", "Input", "Loads a network state from FILE");
-
+    oc.doRegister("load-state.offset", new Option_FileName());//!!! check, describe
+    oc.addDescription("load-state.offset", "Input", "Sets the time offset for vehicle segment exit times.");
 
     // register output options
     oc.doRegister("netstate-dump", new Option_FileName());
@@ -155,7 +156,6 @@ MSFrame::fillOptions()
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
     oc.doRegister("save-state.prefix", new Option_FileName());//!!! check, describe
     oc.addDescription("save-state.prefix", "Output", "Prefix for network states");
-
 
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));

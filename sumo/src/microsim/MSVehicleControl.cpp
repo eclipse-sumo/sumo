@@ -325,6 +325,9 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         MSRoute* route;
         unsigned int desiredDepart; // !!! SUMOTime
         bis >> desiredDepart;
+        if(OptionsCont::getOptions().isSet("load-state.offset")) {
+            desiredDepart -= (unsigned int) OptionsCont::getOptions().getFloat("load-state.offset");
+        }
         p.depart = desiredDepart;
         bis >> p.vtypeid;
         const MSVehicleType* type;
@@ -339,6 +342,10 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         bis >> tEvent;
         SUMOReal tLastEntry;
         bis >> tLastEntry;
+        if(OptionsCont::getOptions().isSet("load-state.offset")) {
+            tEvent -= OptionsCont::getOptions().getFloat("load-state.offset");
+            tLastEntry -= OptionsCont::getOptions().getFloat("load-state.offset");
+        }
         bool inserted;
         bis >> inserted;
 #endif
