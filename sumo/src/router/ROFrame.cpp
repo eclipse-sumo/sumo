@@ -107,8 +107,8 @@ ROFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("prune-random", new Option_Bool(false));
     oc.addDescription("prune-random", "Processing", "");
 
-    oc.doRegister("remove-loops", new Option_Bool(false)); // !!! undescibed
-    oc.addDescription("remove-loops", "Processing", "");
+    oc.doRegister("remove-loops", new Option_Bool(false));
+    oc.addDescription("remove-loops", "Processing", "Remove loops at start and end of the route");
 
 
     // register report options

@@ -126,7 +126,7 @@ int
 RORouteDef_Alternatives::findRoute(RORoute *opt) const
 {
     for (size_t i=0; i<myAlternatives.size(); i++) {
-        if (ROHelper::equal(opt->getEdgeVector(), myAlternatives[i]->getEdgeVector())) {
+        if (opt->getEdgeVector() == myAlternatives[i]->getEdgeVector()) {
             return i;
         }
     }

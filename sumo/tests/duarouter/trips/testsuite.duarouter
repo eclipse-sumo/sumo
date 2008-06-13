@@ -1,6 +1,9 @@
 # Test with 100 vehicles having one departure time, the type is given but not defined
 one_time
 
+# Testing loop removal with a single vehicle
+remove_loops
+
 # The same as one time, but telling the trip defs are not sorted, the type is given but not defined
 one_time_unsorted
 
@@ -42,4 +45,3 @@ unsorted_time_typedefined
 
 # Test whether the vehicle class is processed
 increasing_time_typedefined_withclass
-

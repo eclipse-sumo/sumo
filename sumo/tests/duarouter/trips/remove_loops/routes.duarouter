@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+
+<!-- generated on 06/13/08 14:21:58 by SUMO duarouter Version dev-SVN-r5622
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <trip-defs>input_trips.trips.xml</trip-defs>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+   <processing>
+      <remove-loops>true</remove-loops>
+   </processing>
+
+</configuration>
+-->
+
+<routes>
+   <vehicle id="0" type="0" depart="0">
+      <route>0/0to1/0 1/0to2/0 2/0to3/0</route>
+   </vehicle>
+</routes>

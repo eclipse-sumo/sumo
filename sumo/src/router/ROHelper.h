@@ -92,25 +92,6 @@ namespace ROHelper {
         const ROVehicle * const v, SUMOTime time) throw();
 
 
-    /** @brief Returns whether the given two lists are equal
-     * 
-     * @param[in] edges1 The first list to compare
-     * @param[in] edges2 The second list to compare
-     * @return Whether both lists are equal
-     */
-    bool equal(const std::vector<const ROEdge*> &edges1,
-        const std::vector<const ROEdge*> &edges2) throw();
-
-
-    /** @brief Returns whether the first edge is the turnaround direction of the second
-     * 
-     * @param[in] e1 The first edge
-     * @param[in] e2 The second edge
-     * @return Whether e1 is e2's reversed direction
-     */
-    bool isTurnaround(const ROEdge *e1, const ROEdge *e2) throw();
-
-
     /** @brief Checks whether the given edge list contains loops and removes them
      * 
      * @param[in] edges The list of edges to remove loops from

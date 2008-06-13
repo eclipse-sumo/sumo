@@ -55,7 +55,7 @@
       <!--  -->
       <prune-random>false</prune-random>
 
-      <!--  -->
+      <!-- remove loops at start and end of the route -->
       <remove-loops>false</remove-loops>
 
       <!-- Expand weights behind the simulation's end -->

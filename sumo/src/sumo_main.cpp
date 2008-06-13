@@ -161,11 +161,13 @@ main(int argc, char **argv)
         }
         MsgHandler::getErrorInstance()->inform("Quitting (on error).", false);
         ret = 1;
+        /*
 #ifndef _DEBUG
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("Quitting (on unknown error).", false);
         ret = 1;
 #endif
+        */
     }
     delete net;
     OutputDevice::closeAll();

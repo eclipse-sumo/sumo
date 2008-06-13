@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    ROHelper.h
+/// @file    ROHelper.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
 /// @version $Id$
@@ -56,67 +56,29 @@ recomputeCosts(const std::vector<const ROEdge*> &edges,
 }
 
 
-bool 
-equal(const std::vector<const ROEdge*> &edges1,
-      const std::vector<const ROEdge*> &edges2) throw()
-{
-    if (edges1.size()!=edges2.size()) {
-        return false;
-    }
-    for (size_t i=0; i<edges1.size(); i++) {
-        if (edges1[i]!=edges2[i]) {
-            return false;
-        }
-    }
-    return true;
-}
-
-
-bool 
-isTurnaround(const ROEdge *e1, const ROEdge *e2) throw()
-{
-    return e1->getFromNode()==e2->getToNode() && e1->getToNode()==e2->getFromNode();
-}
-
-
 void 
 recheckForLoops(std::vector<const ROEdge*> &edges) throw()
 {
-    // forward
-    {
-        int lastReversed = 0;
-        bool found = false;
-        for (int i=0; i<(int) edges.size()/2+1; i++) {
-            for (int j=i+1; j<(int) edges.size()/2+1; j++) {
-                if (isTurnaround(edges[i], edges[j])&&lastReversed<j) {
-                    lastReversed = j;
-                    found = true;
-                }
-            }
-        }
-        if (found) {
-            edges.erase(edges.begin(), edges.begin()+lastReversed-1);
+    RONode* start = edges[0]->getFromNode();
+    unsigned lastStart = 0;
+    for (unsigned i=1; i<edges.size(); i++) {
+        if (edges[i]->getFromNode() == start) {
+            lastStart = i;
         }
     }
-    //
-    if (edges.size()<2) {
-        return;
+    if (lastStart > 0) {
+        edges.erase(edges.begin(), edges.begin() + lastStart - 1);
     }
-    // backward
-    {
-        int lastReversed = (int) edges.size()-1;
-        bool found = false;
-        for (int i=(int) edges.size()-1; i>=0; i--) {
-            for (int j=i-1; j>=0; j--) {
-                if (isTurnaround(edges[i], edges[j])&&lastReversed>j) {
-                    lastReversed = j;
-                    found = true;
-                }
-            }
+    RONode* end = edges[edges.size()-1]->getToNode();
+    unsigned firstEnd = edges.size();
+    for (unsigned i=0; i<edges.size(); i++) {
+        if (edges[i]->getToNode() == end) {
+            firstEnd = i;
+            break;
         }
-        if (found) {
-            edges.erase(edges.begin()+lastReversed, edges.end());
-        }
+    }
+    if (firstEnd < edges.size()) {
+        edges.erase(edges.begin() + firstEnd + 2, edges.end());
     }
 }
 
