@@ -106,6 +106,12 @@ copy_test_path:scenario_poi_invalidobjectid.prog
 copy_test_path:scenario_poi_position.prog
 copy_test_path:scenario_poi_type.prog
 
+copy_test_path:gettlstatus_basic.prog
+copy_test_path:gettlstatus_invalidtlid.prog
+copy_test_path:gettlstatus_invalid_interval.prog
+copy_test_path:gettlstatus_invalid_interval2.prog
+copy_test_path:gettlstatus_invalid_interval3.prog
+
 [collate_file]
 testclient_out:testclient_out.txt
 net_state:netstate_dump.xml

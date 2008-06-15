@@ -1,0 +1,17 @@
+TraCITestClient output file. Date: Sun Jun 15 17:09:21 2008
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetTLStatus>:
+  TLId=-1 IntervalStart=1 IntervalEnd=160
+.. Answered with error to command (65), [description: Could not retrieve traffic light with given id]
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2 PosFormat=1
+----
+Error while receiving command: tcpip::Socket::receive() @ recv: Socket reset by peer
+----
+Error while sending command: send failed: Socket reset by peer

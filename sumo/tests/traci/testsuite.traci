@@ -29,3 +29,6 @@ DistanceRequest
 
 # Test command <Scenario>
 Scenario
+
+# tests for command <GetTrafficLightStatus>
+GetTrafficLightStatus

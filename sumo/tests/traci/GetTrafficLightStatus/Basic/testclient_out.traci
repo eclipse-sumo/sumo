@@ -1,0 +1,29 @@
+TraCITestClient output file. Date: Sun Jun 15 17:01:04 2008
+
+
+-> Command sent: <SimulationStep>:
+  TargetTime=1 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <GetTLStatus>:
+  TLId=1 IntervalStart=1 IntervalEnd=160
+.. Command acknowledged (65), [description: ]
+.. Received Response <TrafficLightSwitch>:
+  SwitchTime=51 PrecEdge=e_vo1 PosOnPrecEdge=497.1 SuccEdge=e_m5 NewPhase=1 YellowTime=20
+.. Received Response <TrafficLightSwitch>:
+  SwitchTime=51 PrecEdge=e_vu1 PosOnPrecEdge=477.3 SuccEdge=e_m5 NewPhase=3 YellowTime=0
+.. Received Response <TrafficLightSwitch>:
+  SwitchTime=102 PrecEdge=e_vu1 PosOnPrecEdge=477.3 SuccEdge=e_m5 NewPhase=1 YellowTime=20
+.. Received Response <TrafficLightSwitch>:
+  SwitchTime=102 PrecEdge=e_m4 PosOnPrecEdge=483.9 SuccEdge=e_m5 NewPhase=3 YellowTime=0
+.. Received Response <TrafficLightSwitch>:
+  SwitchTime=153 PrecEdge=e_vo1 PosOnPrecEdge=497.1 SuccEdge=e_m5 NewPhase=3 YellowTime=0
+.. Received Response <TrafficLightSwitch>:
+  SwitchTime=153 PrecEdge=e_m4 PosOnPrecEdge=483.9 SuccEdge=e_m5 NewPhase=1 YellowTime=20
+
+-> Command sent: <SimulationStep>:
+  TargetTime=2 PosFormat=1
+.. Command acknowledged (1), [description: ]
+
+-> Command sent: <Close>:
+.. Command acknowledged (127), [description: Goodbye]

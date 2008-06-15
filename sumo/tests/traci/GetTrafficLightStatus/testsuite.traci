@@ -1,0 +1,14 @@
+# test basic functionality
+Basic
+
+# test error on giving an invalid traffic light id
+InvalidTLId
+
+# test error when giving an invalid time interval
+InvalidTimeInterval
+
+# test error when giving an invalid time interval
+InvalidTimeInterval2
+
+# test error when giving an invalid time interval
+InvalidTimeInterval3

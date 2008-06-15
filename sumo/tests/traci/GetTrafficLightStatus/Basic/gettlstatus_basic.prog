@@ -1,0 +1,3 @@
+simstep 1 1 
+gettlstatus 1 1 160
+simstep 2 1
