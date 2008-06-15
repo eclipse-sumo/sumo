@@ -787,7 +787,7 @@ throw(TraCIException)
         return;
     }
     if ((timeTo < timeFrom) || (timeTo < 0) || (timeFrom < 0)) {
-        writeStatusCmd(respMsg, CMD_GETALLTLIDS, RTYPE_ERR, "The given time interval is not valid");
+        writeStatusCmd(respMsg, CMD_GETTLSTATUS, RTYPE_ERR, "The given time interval is not valid");
         return;
     }
 
