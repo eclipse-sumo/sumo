@@ -104,10 +104,10 @@ MSFrame::fillOptions()
     oc.addSynonyme("weight-files", "weights");
     oc.addDescription("weight-files", "Input", "Load weights from FILE");
 
+#ifdef HAVE_MESOSIM
     oc.doRegister("load-state", new Option_FileName());//!!! check, describe
     oc.addDescription("load-state", "Input", "Loads a network state from FILE");
-    oc.doRegister("load-state.offset", new Option_Float());//!!! check, describe
-    oc.addDescription("load-state.offset", "Input", "Sets the time offset for vehicle segment exit times.");
+#endif
 
     // register output options
     oc.doRegister("netstate-dump", new Option_FileName());
@@ -150,12 +150,15 @@ MSFrame::fillOptions()
     oc.addDescription("physical-states-output", "Output", "Write vehicle states");
 
     oc.doRegister("lanechange-output", new Option_FileName());
+    oc.addSynonyme("lanechange-output", "lanechanges");
     oc.addDescription("lanechange-output", "Output", "Write lane change information");
 
+#ifdef HAVE_MESOSIM
     oc.doRegister("save-state.times", new Option_IntVector(IntVector()));//!!! check, describe
     oc.addDescription("save-state.times", "Output", "Use INT[] as times at which a network state written");
     oc.doRegister("save-state.prefix", new Option_FileName());//!!! check, describe
     oc.addDescription("save-state.prefix", "Output", "Prefix for network states");
+#endif
 
     // register the simulation settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
@@ -199,15 +202,10 @@ MSFrame::fillOptions()
     oc.doRegister("time-to-teleport", new Option_Integer(300));
     oc.addDescription("time-to-teleport", "Processing", "Specify how long a vehicle may wait until being teleported");
 
-    oc.doRegister("lc-teleport.min-dist", new Option_Float(100));//!!! check, describe
-    oc.addDescription("lc-teleport.min-dist", "Processing", "");
-    oc.doRegister("lc-teleport.veh-maxv", new Option_Float(-1/*20.0/3.6*/));//!!! check, describe
-    oc.addDescription("lc-teleport.veh-maxv", "Processing", "");
-    oc.doRegister("lc-teleport.lane-min-vmax", new Option_Float((SUMOReal)(80.0/3.6))); //!!! check, describe
-    oc.addDescription("lc-teleport.lane-min-vmax", "Processing", "");
-
-    oc.doRegister("default-lanechange-model", new Option_String("dk1"));//!!! check, describe
-    oc.addDescription("default-lanechange-model", "Processing", "");
+    oc.doRegister("lanechange.min-sight", new Option_Float());//!!! check, describe
+    oc.addDescription("lanechange.min-sight", "Processing", "");
+    oc.doRegister("lanechange.min-sight-edges", new Option_Integer(8));//!!! check, describe
+    oc.addDescription("lanechange.min-sight-edges", "Processing", "");
 
     oc.doRegister("no-duration-log", new Option_Bool(false));
     oc.addDescription("no-duration-log", "Processing", "Disable performance reports for individual simulation steps");
@@ -270,9 +268,6 @@ MSFrame::fillOptions()
     oc.doRegister("log-file", 'l', new Option_FileName());
     oc.addDescription("log-file", "Report", "Writes all messages to FILE");
 
-
-    // debug
-    oc.doRegister("track", new Option_Float(0.));//!!! check, describe
 
     // TraCI server
 #ifdef TRACI
@@ -395,14 +390,6 @@ MSFrame::checkOptions()
         MsgHandler::getErrorInstance()->inform("The end of the simulation (-e) is not specified.");
         ok = false;
     }
-    //
-    if (oc.isSet("default-lanechange-model")) {
-        string t = oc.getString("default-lanechange-model");
-        if (t!="dk1") {
-            MsgHandler::getErrorInstance()->inform("Unknown lane change model");
-            ok = false;
-        }
-    }
     if (oc.isSet("incremental-dua-step") && oc.isSet("incremental-dua-base")) {
         if (oc.getInt("incremental-dua-step") > oc.getInt("incremental-dua-base")) {
             MsgHandler::getErrorInstance()->inform("Invalid dua step");
@@ -425,13 +412,14 @@ MSFrame::setMSGlobals(OptionsCont &oc)
     MSGlobals::gTimeToGridlock = oc.getInt("time-to-teleport")<0
                                  ? 0
                                  : oc.getInt("time-to-teleport");
-    // set the vehicle teleport on false lane options
-    MSGlobals::gMinLaneVMax4FalseLaneTeleport = oc.getFloat("lc-teleport.lane-min-vmax");
-    MSGlobals::gMaxVehV4FalseLaneTeleport = oc.getFloat("lc-teleport.veh-maxv");
-    MSGlobals::gMinVehDist4FalseLaneTeleport = oc.getFloat("lc-teleport.min-dist");
+    MSGlobals::gMinLaneChangeSight = oc.isSet("lanechange.min-sight")
+        ? oc.getFloat("lanechange.min-sight") : 3000.;
+    MSGlobals::gMinLaneChangeSightEdges = oc.getInt("lanechange.min-sight-edges");
     //
     MSGlobals::gCheck4Accidents = oc.getBool("check-accidents");
+#ifdef HAVE_MESOSIM
     MSGlobals::gStateLoaded = oc.isSet("load-state");
+#endif
     //
     MSGlobals::gUsingC2C = oc.getFloat("device.c2x.probability")!=0||oc.isSet("device.c2x.knownveh");
     MSGlobals::gLANRange = oc.getFloat("device.c2x.range");

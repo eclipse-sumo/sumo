@@ -63,24 +63,16 @@ public:
     /// Information whether the simulation regards internal lanes
     static bool gUsingInternalLanes;
 
-    /** minimum velocity a lane must allow in order to let vehicles being teleported
-        if being on this lane and the lane may not be used for further route */
-    static SUMOReal gMinLaneVMax4FalseLaneTeleport;
-
-    /** maximum velocity a vehicle must have in order to be teleported if being
-        on a false lane */
-    static SUMOReal gMaxVehV4FalseLaneTeleport;
-
-    /** maximum distance a vehicle must have to the false lane's en in order
-        to be teleported if being on a false lane */
-    static SUMOReal gMinVehDist4FalseLaneTeleport;
+    static SUMOReal gMinLaneChangeSight;
+    static int gMinLaneChangeSightEdges;
 
     /** information whether the network shall check for collisions */
     static bool gCheck4Accidents;
 
+#ifdef HAVE_MESOSIM
     /// Information whether a state has been loaded
     static bool gStateLoaded;
-
+#endif
 
     /// Information whether c2x communication shall be used
     static bool gUsingC2C;

@@ -44,21 +44,18 @@ bool MSGlobals::gUsingInternalLanes;
 
 size_t MSGlobals::gTimeToGridlock = 300;
 
-SUMOReal MSGlobals::gMinLaneVMax4FalseLaneTeleport;
-
-SUMOReal MSGlobals::gMaxVehV4FalseLaneTeleport;
-
-SUMOReal MSGlobals::gMinVehDist4FalseLaneTeleport;
-
 bool MSGlobals::gCheck4Accidents;
 
+#ifdef HAVE_MESOSIM
 bool MSGlobals::gStateLoaded;
+#endif
 
-
+SUMOReal MSGlobals::gMinLaneChangeSight;
+int MSGlobals::gMinLaneChangeSightEdges;
 
 bool MSGlobals::gUsingC2C = false;
 
-SUMOReal MSGlobals::gLANRange = 100;
+SUMOReal MSGlobals::gLANRange = 100; 
 
 SUMOReal MSGlobals::gNumberOfSendingPos = 732;
 
