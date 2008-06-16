@@ -5,7 +5,6 @@
       <route-files></route-files>
       <additional-files></additional-files>
       <weight-files></weight-files>
-      <load-state></load-state>
    </input>
 
    <output>
@@ -24,8 +23,6 @@
       <dump-ends></dump-ends>
       <physical-states-output></physical-states-output>
       <lanechange-output></lanechange-output>
-      <save-state.times></save-state.times>
-      <save-state.prefix></save-state.prefix>
    </output>
 
    <time>
@@ -43,10 +40,8 @@
       <incremental-dua-step>-1</incremental-dua-step>
       <incremental-dua-base>10</incremental-dua-base>
       <time-to-teleport>300</time-to-teleport>
-      <lc-teleport.min-dist>100</lc-teleport.min-dist>
-      <lc-teleport.veh-maxv>-1</lc-teleport.veh-maxv>
-      <lc-teleport.lane-min-vmax>22.2222</lc-teleport.lane-min-vmax>
-      <default-lanechange-model>dk1</default-lanechange-model>
+      <lanechange.min-sight></lanechange.min-sight>
+      <lanechange.min-sight-edges>8</lanechange.min-sight-edges>
       <no-duration-log>false</no-duration-log>
       <no-step-log>false</no-step-log>
       <max-depart-delay>-1</max-depart-delay>

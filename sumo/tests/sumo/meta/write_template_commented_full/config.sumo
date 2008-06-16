@@ -13,9 +13,6 @@
       <!-- Load weights from FILE -->
       <weight-files></weight-files>
 
-      <!-- Loads a network state from FILE -->
-      <load-state></load-state>
-
    </input>
 
    <output>
@@ -64,12 +61,6 @@
       <!-- Write lane change information -->
       <lanechange-output></lanechange-output>
 
-      <!-- Use INT[] as times at which a network state written -->
-      <save-state.times></save-state.times>
-
-      <!-- Prefix for network states -->
-      <save-state.prefix></save-state.prefix>
-
    </output>
 
    <time>
@@ -110,16 +101,10 @@
       <time-to-teleport>300</time-to-teleport>
 
       <!--  -->
-      <lc-teleport.min-dist>100</lc-teleport.min-dist>
+      <lanechange.min-sight></lanechange.min-sight>
 
       <!--  -->
-      <lc-teleport.veh-maxv>-1</lc-teleport.veh-maxv>
-
-      <!--  -->
-      <lc-teleport.lane-min-vmax>22.2222</lc-teleport.lane-min-vmax>
-
-      <!--  -->
-      <default-lanechange-model>dk1</default-lanechange-model>
+      <lanechange.min-sight-edges>8</lanechange.min-sight-edges>
 
       <!-- Disable performance reports for individual simulation steps -->
       <no-duration-log>false</no-duration-log>

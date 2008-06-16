@@ -11,151 +11,143 @@ Usage: sumo.exe [OPTION]*
   sumo.exe --help
  
  Configuration Options:
-  -c, --configuration-file FILE        Loads the named config on startup
-  --save-configuration FILE            Saves current configuration into FILE
-  --save-template FILE                 Saves a configuration template (empty)
-                                         into FILE
-  --save-template.commented            Adds comments to saved template
+  -c, --configuration-file FILE       Loads the named config on startup
+  --save-configuration FILE           Saves current configuration into FILE
+  --save-template FILE                Saves a configuration template (empty)
+                                        into FILE
+  --save-template.commented           Adds comments to saved template
 
  Input Options:
-  -n, --net-file FILE                  Load road network description from FILE
-  -r, --route-files FILE               Load routes descriptions from FILE(s)
-  -a, --additional-files FILE          Load further descriptions from FILE(s)
-  -w, --weight-files FILE              Load weights from FILE
-  --load-state FILE                    Loads a network state from FILE
+  -n, --net-file FILE                 Load road network description from FILE
+  -r, --route-files FILE              Load routes descriptions from FILE(s)
+  -a, --additional-files FILE         Load further descriptions from FILE(s)
+  -w, --weight-files FILE             Load weights from FILE
 
  Output Options:
-  --netstate-dump FILE                 Save complete network states into FILE
-  --dump-empty-edges                   Write also empty edges completely when
-                                         dumping
-  --emissions-output FILE              Save aggregated vehicle emission inf.
-                                         into FILE
-  --tripinfo-output FILE               Save single vehicle trip inf. into FILE
-  --vehroute-output FILE               Save single vehicle route inf. into FILE
-  --dump-intervals INT[]               Build edge-based network dumps for given
-                                         intervals
-  --dump-basename FILE                 Save edge-based network dumps with FILE
-                                         as prefix
-  --lanedump-intervals INT[]           Build lane-based network dumps for given
-                                         intervals
-  --lanedump-basename FILE             Save lane-based network dumps with FILE
-                                         as prefix
-  --exclude-empty-edges                Do not write information about empty
-                                         edges
-  --exclude-empty-lanes                Do not write information about empty
-                                         lanes
-  --dump-begins INT[]                  Use INT[] as times at which a dump must
-                                         begin in order to be written
-  --dump-ends INT[]                    Use INT[] as times at which a dump must
-                                         end in order to be written
-  --physical-states-output FILE        Write vehicle states
-  --lanechange-output FILE             Write lane change information
-  --save-state.times INT[]             Use INT[] as times at which a network
-                                         state written
-  --save-state.prefix FILE             Prefix for network states
+  --netstate-dump FILE                Save complete network states into FILE
+  --dump-empty-edges                  Write also empty edges completely when
+                                        dumping
+  --emissions-output FILE             Save aggregated vehicle emission inf.
+                                        into FILE
+  --tripinfo-output FILE              Save single vehicle trip inf. into FILE
+  --vehroute-output FILE              Save single vehicle route inf. into FILE
+  --dump-intervals INT[]              Build edge-based network dumps for given
+                                        intervals
+  --dump-basename FILE                Save edge-based network dumps with FILE
+                                        as prefix
+  --lanedump-intervals INT[]          Build lane-based network dumps for given
+                                        intervals
+  --lanedump-basename FILE            Save lane-based network dumps with FILE
+                                        as prefix
+  --exclude-empty-edges               Do not write information about empty
+                                        edges
+  --exclude-empty-lanes               Do not write information about empty
+                                        lanes
+  --dump-begins INT[]                 Use INT[] as times at which a dump must
+                                        begin in order to be written
+  --dump-ends INT[]                   Use INT[] as times at which a dump must
+                                        end in order to be written
+  --physical-states-output FILE       Write vehicle states
+  --lanechange-output FILE            Write lane change information
 
  Time Options:
-  -b, --begin INT                      Defines the begin time;
-                                         The simulation starts at this time
-  -e, --end INT                        Defines the end time;
-                                         The simulation ends at this time
+  -b, --begin INT                     Defines the begin time;
+                                        The simulation starts at this time
+  -e, --end INT                       Defines the end time;
+                                        The simulation ends at this time
 
  Processing Options:
-  -s, --route-steps INT                Load routes for the next INT steps ahead
-  -I, --use-internal-links             Enable internal links (must be in the
-                                         network)
-  --quit-on-accident                   Quit (with an error) if an accident
-                                         occures
-  --check-accidents                    Check whether accidents occure more
-                                         deeply
-  --too-slow-rtf FLOAT                 Quit simulation if the rtf gets too
-                                         small
-  --too-many-vehicles INT              Quit simulation if this number of
-                                         vehicles is exceeded
-  --incremental-dua-step INT           Perform the simulation as a step in
-                                         incremental DUA
-  --incremental-dua-base INT           Base value for incremental DUA
-  --time-to-teleport INT               Specify how long a vehicle may wait
-                                         until being teleported
-  --lc-teleport.min-dist FLOAT         
-  --lc-teleport.veh-maxv FLOAT         
-  --lc-teleport.lane-min-vmax FLOAT    
-  --default-lanechange-model STR       
-  --no-duration-log                    Disable performance reports for
-                                         individual simulation steps
-  --no-step-log                        Disable console output of current
-                                         simulation step
-  --max-depart-delay INT               How long vehicles wait for departure
-                                         before being skipped
+  -s, --route-steps INT               Load routes for the next INT steps ahead
+  -I, --use-internal-links            Enable internal links (must be in the
+                                        network)
+  --quit-on-accident                  Quit (with an error) if an accident
+                                        occures
+  --check-accidents                   Check whether accidents occure more
+                                        deeply
+  --too-slow-rtf FLOAT                Quit simulation if the rtf gets too small
+  --too-many-vehicles INT             Quit simulation if this number of
+                                        vehicles is exceeded
+  --incremental-dua-step INT          Perform the simulation as a step in
+                                        incremental DUA
+  --incremental-dua-base INT          Base value for incremental DUA
+  --time-to-teleport INT              Specify how long a vehicle may wait until
+                                        being teleported
+  --lanechange.min-sight FLOAT        
+  --lanechange.min-sight-edges INT    
+  --no-duration-log                   Disable performance reports for
+                                        individual simulation steps
+  --no-step-log                       Disable console output of current
+                                        simulation step
+  --max-depart-delay INT              How long vehicles wait for departure
+                                        before being skipped
 
  TLS Defaults Options:
-  --agent-tl.detector-len FLOAT        
-  --agent-tl.learn-horizon INT         
-  --agent-tl.decision-horizon INT      
-  --agent-tl.min-diff FLOAT            
-  --agent-tl.tcycle INT                
-  --actuated-tl.detector-pos FLOAT     
-  --actuated-tl.max-gap FLOAT          
-  --actuated-tl.detector-gap FLOAT     
-  --actuated-tl.passing-time FLOAT     
+  --agent-tl.detector-len FLOAT       
+  --agent-tl.learn-horizon INT        
+  --agent-tl.decision-horizon INT     
+  --agent-tl.min-diff FLOAT           
+  --agent-tl.tcycle INT               
+  --actuated-tl.detector-pos FLOAT    
+  --actuated-tl.max-gap FLOAT         
+  --actuated-tl.detector-gap FLOAT    
+  --actuated-tl.passing-time FLOAT    
 
  Report Options:
-  -v, --verbose                        Switches to verbose output
-  -W, --suppress-warnings              Disables output of warnings
-  -p, --print-options                  Prints option values before processing
-  -?, --help                           Prints this screen
-  -l, --log-file FILE                  Writes all messages to FILE
+  -v, --verbose                       Switches to verbose output
+  -W, --suppress-warnings             Disables output of warnings
+  -p, --print-options                 Prints option values before processing
+  -?, --help                          Prints this screen
+  -l, --log-file FILE                 Writes all messages to FILE
 
  C2C Options:
-  --device.c2x.probability FLOAT       The probability for a vehicle to have
-                                         c2c
-  --device.c2x.knownveh STR            Assign a device to named vehicles
-  --device.c2x.deterministic           The devices are set deterministic using
-                                         a fraction of 1000
-  --device.c2x.range FLOAT             The range of the c2c device
-  --device.c2x.keep-duration INT       Duration of keeping messages
+  --device.c2x.probability FLOAT      The probability for a vehicle to have c2c
+  --device.c2x.knownveh STR           Assign a device to named vehicles
+  --device.c2x.deterministic          The devices are set deterministic using a
+                                        fraction of 1000
+  --device.c2x.range FLOAT            The range of the c2c device
+  --device.c2x.keep-duration INT      Duration of keeping messages
   --device.c2x.insert-info-factor FLOAT  Factor for adding messages
-  --c2x.cluster-info FILE              Save cluster information into FILE
-  --c2x.edge-near-info FILE            Save 'connected' edges into FILE
-  --c2x.saved-info FILE                
-  --c2x.saved-info-freq FILE           
-  --c2x.transmitted-info FILE          Save transmitted information into FILE
-  --c2x.vehicle-in-range FILE          Save names of connected vehicles into
-                                         FILE
+  --c2x.cluster-info FILE             Save cluster information into FILE
+  --c2x.edge-near-info FILE           Save 'connected' edges into FILE
+  --c2x.saved-info FILE               
+  --c2x.saved-info-freq FILE          
+  --c2x.transmitted-info FILE         Save transmitted information into FILE
+  --c2x.vehicle-in-range FILE         Save names of connected vehicles into
+                                        FILE
 
  Routing Options:
-  --device.routing.probability FLOAT   The probability for a vehicle to have a
-                                         routing device
-  --device.routing.knownveh STR        Assign a device to named vehicles
-  --device.routing.deterministic       The devices are set deterministic using
-                                         a fraction of 1000
-  --device.routing.period INT          The period with which the vehicle shall
-                                         be rerouted
+  --device.routing.probability FLOAT  The probability for a vehicle to have a
+                                        routing device
+  --device.routing.knownveh STR       Assign a device to named vehicles
+  --device.routing.deterministic      The devices are set deterministic using a
+                                        fraction of 1000
+  --device.routing.period INT         The period with which the vehicle shall
+                                        be rerouted
   --device.routing.adaptation-weight FLOAT  The weight of prior edge weights.
 
  Cellular Options:
   --device.cell-phone.percent-of-activity  
-  --device.cell-phone.knownveh STR     
+  --device.cell-phone.knownveh STR    
   --device.cell-phone.probability FLOAT  
-  --ss2-output FILE                    
-  --ss2-sql-output FILE                
-  --ss2-cell-output FILE               
-  --ss2-sql-cell-output FILE           
-  --ss2-la-output FILE                 
-  --ss2-sql-la-output FILE             
-  --cellphone-dump FILE                
+  --ss2-output FILE                   
+  --ss2-sql-output FILE               
+  --ss2-cell-output FILE              
+  --ss2-sql-cell-output FILE          
+  --ss2-la-output FILE                
+  --ss2-sql-la-output FILE            
+  --cellphone-dump FILE               
   --cell-dynamic-callcount-scale-factor FLOAT  
   --cell-static-callcount-scale-factor FLOAT  
   --cell-dynamic-calldeviation-scale-factor FLOAT  
   --cell-dynamic-callduration-scale-factor FLOAT  
-  --cell-def-prob FLOAT                
+  --cell-def-prob FLOAT               
   --device.cell-phone.amount.min FLOAT  
   --device.cell-phone.amount.max FLOAT  
-  --device.cell-phone.sql-date STR     Sets the date to use in sql-dumps
+  --device.cell-phone.sql-date STR    Sets the date to use in sql-dumps
 
  Random Number Options:
-  --srand INT                          Initialises the random number generator
-                                         with the given value
-  --abs-rand                           Initialises the random number generator
-                                         with the current system time
+  --srand INT                         Initialises the random number generator
+                                        with the given value
+  --abs-rand                          Initialises the random number generator
+                                        with the current system time
 
