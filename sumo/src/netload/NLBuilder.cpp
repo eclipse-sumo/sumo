@@ -117,7 +117,7 @@ NLBuilder::NLBuilder(const OptionsCont &oc,
                      NLTriggerBuilder &tb,
                      NLGeomShapeBuilder &sb,
                      NLHandler &xmlHandler)
-        : m_pOptions(oc), myEdgeBuilder(eb), myJunctionBuilder(jb),
+        : myOptions(oc), myEdgeBuilder(eb), myJunctionBuilder(jb),
         myDetectorBuilder(db), myTriggerBuilder(tb), myShapeBuilder(sb),
         myNet(net), myXMLHandler(xmlHandler)
 {}
@@ -137,14 +137,15 @@ NLBuilder::build()
         return false;
     }
     buildNet();
+#ifdef HAVE_MESOSIM
     // load the previous state if wished
-    if (m_pOptions.isSet("load-state")) {
+    if (myOptions.isSet("load-state")) {
         long before = SysUtils::getCurrentMillis();
-        BinaryInputDevice strm(m_pOptions.getString("load-state"));
+        BinaryInputDevice strm(myOptions.getString("load-state"));
         if (!strm.good()) {
-            MsgHandler::getErrorInstance()->inform("Could not read state from '" + m_pOptions.getString("load-state") + "'!");
+            MsgHandler::getErrorInstance()->inform("Could not read state from '" + myOptions.getString("load-state") + "'!");
         } else {
-            MsgHandler::getMessageInstance()->beginProcessMsg("Loading state from '" + m_pOptions.getString("load-state") + "'...");
+            MsgHandler::getMessageInstance()->beginProcessMsg("Loading state from '" + myOptions.getString("load-state") + "'...");
             myNet.loadState(strm);
         }
         if (MsgHandler::getErrorInstance()->wasInformed()) {
@@ -153,14 +154,15 @@ NLBuilder::build()
         }
         MsgHandler::getMessageInstance()->endProcessMsg("done (" + toString(SysUtils::getCurrentMillis()-before) + "ms).");
     }
+#endif
     // load weights if wished
-    if (m_pOptions.isSet("weight-files")) {
-        if (!m_pOptions.isUsableFileList("weight-files")) {
+    if (myOptions.isSet("weight-files")) {
+        if (!myOptions.isUsableFileList("weight-files")) {
             delete parser;
             return false;
         }
         // start parsing; for each file in the list
-        StringTokenizer st(m_pOptions.getString("weight-files"), ';');
+        StringTokenizer st(myOptions.getString("weight-files"), ';');
         while (st.hasNext()) {
             string tmp = st.next();
             // report about loading when wished
@@ -182,14 +184,14 @@ NLBuilder::build()
         }
     }
     // load routes
-    if (m_pOptions.isSet("route-files")&&m_pOptions.getInt("route-steps")<=0) {
+    if (myOptions.isSet("route-files")&&myOptions.getInt("route-steps")<=0) {
         if (!load("route-files", *parser)) {
             delete parser;
             return false;
         }
     }
     // load additional net elements (sources, detectors, ...)
-    if (m_pOptions.isSet("additional-files")) {
+    if (myOptions.isSet("additional-files")) {
         if (!load("additional-files", *parser)) {
             delete parser;
             return false;
@@ -209,18 +211,19 @@ NLBuilder::buildNet()
     MSFrame::buildStreams();
     std::vector<MSMeanData_Net*> meanData = 
         MSMeanData_Net_Utils::buildList(myNet.getDetectorControl(), *edges,
-            m_pOptions.getIntVector("dump-intervals"), m_pOptions.getString("dump-basename"),
-            m_pOptions.getIntVector("lanedump-intervals"), m_pOptions.getString("lanedump-basename"),
-            m_pOptions.getIntVector("dump-begins"), m_pOptions.getIntVector("dump-ends"),
-            !m_pOptions.getBool("exclude-empty-edges"), !m_pOptions.getBool("exclude-empty-lanes"));
-    myNet.closeBuilding(
-        edges,
-        myJunctionBuilder.build(),
-        buildRouteLoaderControl(m_pOptions),
-        myJunctionBuilder.buildTLLogics(),
-        meanData,
-        m_pOptions.getIntVector("save-state.times"),
-        m_pOptions.getString("save-state.prefix"));
+            myOptions.getIntVector("dump-intervals"), myOptions.getString("dump-basename"),
+            myOptions.getIntVector("lanedump-intervals"), myOptions.getString("lanedump-basename"),
+            myOptions.getIntVector("dump-begins"), myOptions.getIntVector("dump-ends"),
+            !myOptions.getBool("exclude-empty-edges"), !myOptions.getBool("exclude-empty-lanes"));
+    vector<int> stateDumpTimes;
+    string stateDumpFiles;
+#ifdef HAVE_MESOSIM
+    stateDumpTimes = myOptions.getIntVector("save-state.times");
+    stateDumpFiles = myOptions.getString("save-state.prefix");
+#endif
+    myNet.closeBuilding(edges, myJunctionBuilder.build(),
+        buildRouteLoaderControl(myOptions), myJunctionBuilder.buildTLLogics(),
+        meanData, stateDumpTimes, stateDumpFiles);
 }
 
 

@@ -144,7 +144,7 @@ class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloa
 
 protected:
     /// @brief The options to get the names of the files to load and further information from
-    const OptionsCont &m_pOptions;
+    const OptionsCont &myOptions;
 
     /// @brief The edge control builder to use
     NLEdgeControlBuilder &myEdgeBuilder;
