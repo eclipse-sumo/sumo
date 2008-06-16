@@ -223,7 +223,7 @@ RORDLoader_TripDefs::getPeriod(const SUMOSAXAttributes &attrs,
         return -1;
     }
     // get the repetition period
-    bool ok;
+    bool ok = true;
     return attrs.getIntReporting(SUMO_ATTR_PERIOD, "tripdef", id.c_str(), ok);
 }
 
@@ -236,7 +236,7 @@ RORDLoader_TripDefs::getRepetitionNumber(const SUMOSAXAttributes &attrs,
         return -1;
     }
     // get the repetition number
-    bool ok;
+    bool ok = true;
     return attrs.getIntReporting(SUMO_ATTR_REPNUMBER, "tripdef", id.c_str(), ok);
 }
 
