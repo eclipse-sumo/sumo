@@ -240,9 +240,13 @@ MSRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
     if (!MSNet::getInstance()->getVehicleControl().addVType(myCurrentVehicleType, prob)) {
         delete myCurrentVehicleType;
         myCurrentVehicleType = 0;
+#ifdef HAVE_MESOSIM
         if (!MSGlobals::gStateLoaded) {
+#endif
             throw ProcessError("Another vehicle type with the id '" + id + "' exists.");
+#ifdef HAVE_MESOSIM
         }
+#endif
     }
 }
 
@@ -334,7 +338,9 @@ MSRouteHandler::closeRoute() throw(ProcessError)
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
         delete route;
+#ifdef HAVE_MESOSIM
         if (!MSGlobals::gStateLoaded) {
+#endif
             if (myVehicleParameter!=0) {
                 if (myVehicleControl.getVehicle(myVehicleParameter->id)==0) {
                     throw ProcessError("Another route for vehicle '" + myVehicleParameter->id + "' exists.");
@@ -344,7 +350,9 @@ MSRouteHandler::closeRoute() throw(ProcessError)
             } else {
                 throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
             }
+#ifdef HAVE_MESOSIM
         }
+#endif
     }
 }
 
@@ -424,14 +432,18 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
         }
     } else {
         // strange: another vehicle with the same id already exists
+#ifdef HAVE_MESOSIM
         if (!MSGlobals::gStateLoaded) {
+#endif
             // and was not loaded while loading a simulation state
             // -> error
             throw ProcessError("Another vehicle with the id '" + myVehicleParameter->id + "' exists.");
+#ifdef HAVE_MESOSIM
         } else {
             // ok, it seems to be loaded previously while loading a simulation state
             vehicle = 0;
         }
+#endif
     }
     // check whether the vehicle shall be added directly to the network or
     //  shall stay in the internal buffer

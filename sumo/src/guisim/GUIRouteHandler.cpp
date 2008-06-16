@@ -121,9 +121,13 @@ GUIRouteHandler::addParsedVehicleType(const string &id, const SUMOReal length,
     if (!MSNet::getInstance()->getVehicleControl().addVType(myCurrentVehicleType, prob)) {
         delete myCurrentVehicleType;
         myCurrentVehicleType = 0;
+#ifdef HAVE_MESOSIM
         if (!MSGlobals::gStateLoaded) {
+#endif
             throw ProcessError("Another vehicle type with the id '" + id + "' exists.");
+#ifdef HAVE_MESOSIM
         }
+#endif
     }
 }
 
@@ -144,7 +148,9 @@ GUIRouteHandler::closeRoute() throw(ProcessError)
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
 
         delete route;
+#ifdef HAVE_MESOSIM
         if (!MSGlobals::gStateLoaded) {
+#endif
             if (myActiveRouteID[0]!='!') {
                 throw ProcessError("Another route with the id '" + myActiveRouteID + "' exists.");
             } else {
@@ -154,9 +160,11 @@ GUIRouteHandler::closeRoute() throw(ProcessError)
                     throw ProcessError("A vehicle with id '" + myActiveRouteID.substr(1) + "' already exists.");
                 }
             }
+#ifdef HAVE_MESOSIM
         } else {
             route = static_cast<GUIRoute*>(MSRoute::dictionary(myActiveRouteID));
         }
+#endif
     }
 }
 
