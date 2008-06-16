@@ -641,7 +641,7 @@ MSNet::postSimStepOutput() const
             << ")                                              ";
             msg = oss.str();
         } else {
-            cout << " (0ms; no further information available)                                        ";
+            msg = " (0ms; no further information available)                                        ";
         }
         string prev = "Step #" + toString(myStep);
         msg = msg.substr(0, 78 - prev.length());
