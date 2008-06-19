@@ -50,7 +50,7 @@ def readEdgesLength():
     taxiList=readAnalysisInfo()
     for taxi in taxiList:
         for step in taxi.getSteps():
-            if step.source==SOURCE_FCD:
+            if step.source==SOURCE_FCD or step.source==SOURCE_SIMFCD:
                 edgeDict[step.edge]=0.0
                 
     #search the length  (in m)
