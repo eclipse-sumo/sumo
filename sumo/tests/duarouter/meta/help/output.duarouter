@@ -1,4 +1,4 @@
-SUMO duarouter Version dev-SVN-r5622
+SUMO duarouter Version 0.9.7
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Shortest path router and DUE computer for the microscopic road traffic
@@ -38,7 +38,7 @@ Usage: duarouter.exe [OPTION]*
   --max-alternatives INT              Prune the number of alternatives to INT
   -R, --random-per-second FLOAT       Emit FLOAT random vehicles per second
   --prune-random                      
-  --remove-loops                      remove loops at start and end of the
+  --remove-loops                      Remove loops at start and end of the
                                         route
   --expand-weights                    Expand weights behind the simulation's
                                         end
