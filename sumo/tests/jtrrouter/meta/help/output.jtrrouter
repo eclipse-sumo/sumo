@@ -1,4 +1,4 @@
-SUMO jtrrouter Version 0.9.6
+SUMO jtrrouter Version 0.9.7
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Router for the microscopic road traffic simulation SUMO based on junction
@@ -36,7 +36,7 @@ Usage: jtrrouter.exe [OPTION]*
   --max-alternatives INT           Prune the number of alternatives to INT
   -R, --random-per-second FLOAT    Emit FLOAT random vehicles per second
   --prune-random                   
-  --remove-loops                   
+  --remove-loops                   Remove loops at start and end of the route
   --max-edges-factor FLOAT         
   -T, --turn-defaults STR          Use STR as default turn definition
   -s, --sinks STR                  Use STR as sink list

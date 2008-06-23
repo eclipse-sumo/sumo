@@ -49,7 +49,7 @@
       <!--  -->
       <prune-random>false</prune-random>
 
-      <!--  -->
+      <!-- Remove loops at start and end of the route -->
       <remove-loops>false</remove-loops>
 
       <!--  -->
