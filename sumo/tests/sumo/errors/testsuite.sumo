@@ -4,9 +4,6 @@ unknown_option
 # Tests what happens the first parameter is missing
 missing_first_param
 
-# Tests for false meandata usage
-meandata
-
 # Tests for broken routes
 routes
 
