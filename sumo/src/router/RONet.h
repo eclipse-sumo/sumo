@@ -201,11 +201,23 @@ public:
     /// @name Processing stored vehicle definitions 
     //@{
 
-    /** @brief Computes routes described by their definitions and saves them */
+    /** @brief Computes routes described by their definitions and saves them
+     *
+     * As long a vehicle with a departure time not larger than the given
+     *  exists, its route is computed and it is written and removed from
+     *  the internal container.
+     *
+     * @param[in] options The options used during this process
+     * @param[in] router The router to use for routes computation
+     * @param[in] options The time until which route definitions shall be processed
+     */
     void saveAndRemoveRoutesUntil(OptionsCont &options,
                                   SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime time);
 
-    /** @brief Removes the route from the net when no further usage is needed */
+
+    /** @brief Removes the route from the net when no further usage is needed 
+     *
+     */
     virtual void removeRouteSecure(const RORouteDef * const route); // !!! was protected before
 
 
