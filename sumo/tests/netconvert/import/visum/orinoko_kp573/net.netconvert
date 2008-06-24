@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/15/08 15:54:15 by SUMO netconvert Version 0.9.7
+<!-- generated on 06/24/08 14:54:45 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -244,8 +244,8 @@
          <lane id="-905002548_3" depart="0" vclasses="" maxspeed="13.89" length="449.07">569.87,2952.66 657.41,2924.46 722.02,2895.63 765.79,2848.88 874.71,2729.97 911.52,2677.26</lane>
       </lanes>
       <cedge id="905002551">-905002548_0</cedge>
-      <cedge id="-905002550">-905002548_1 -905002548_0</cedge>
-      <cedge id="53091655">-905002548_3 -905002548_2</cedge>
+      <cedge id="-905002550">-905002548_0 -905002548_1</cedge>
+      <cedge id="53091655">-905002548_2 -905002548_3</cedge>
       <cedge id="905002548">-905002548_3</cedge>
    </edge>
 
