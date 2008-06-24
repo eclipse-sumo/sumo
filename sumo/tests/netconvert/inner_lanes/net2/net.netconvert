@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/15/08 15:31:09 by SUMO netconvert Version 0.9.7
+<!-- generated on 06/24/08 11:10:50 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -146,56 +146,56 @@
 
    <edge id=":1_0" function="internal">
       <lanes>
-         <lane id=":1_0_0" depart="0" maxspeed="13.90" length="4.82" >-1.17,1.17 -1.46,-0.29 -1.17,-1.17 -0.29,-1.46 1.17,-1.17</lane>
+         <lane id=":1_0_0" depart="0" maxspeed="13.90" length="9.64" >-1.17,1.17 -1.75,-1.75 -1.17,-3.50 0.58,-4.08 3.50,-3.50</lane>
       </lanes>
       <cedge id="1i">:1_0_0</cedge>
    </edge>
 
    <edge id=":1_1" function="internal">
       <lanes>
-         <lane id=":1_1_0" depart="0" maxspeed="13.90" length="9.64" >-1.17,1.17 -1.75,-1.75 -1.17,-3.50 0.58,-4.08 3.50,-3.50</lane>
+         <lane id=":1_1_0" depart="0" maxspeed="13.90" length="4.82" >-1.17,1.17 -1.46,-0.29 -1.17,-1.17 -0.29,-1.46 1.17,-1.17</lane>
       </lanes>
       <cedge id="1i">:1_1_0</cedge>
    </edge>
 
    <edge id=":2_0" function="internal">
       <lanes>
-         <lane id=":2_0_0" depart="0" maxspeed="13.90" length="4.82" >1001.17,998.83 1001.46,1000.29 1001.17,1001.17 1000.29,1001.46 998.83,1001.17</lane>
+         <lane id=":2_0_0" depart="0" maxspeed="13.90" length="9.64" >1001.17,998.83 1001.75,1001.75 1001.17,1003.50 999.42,1004.08 996.50,1003.50</lane>
       </lanes>
       <cedge id="2i">:2_0_0</cedge>
    </edge>
 
    <edge id=":2_1" function="internal">
       <lanes>
-         <lane id=":2_1_0" depart="0" maxspeed="13.90" length="9.64" >1001.17,998.83 1001.75,1001.75 1001.17,1003.50 999.42,1004.08 996.50,1003.50</lane>
+         <lane id=":2_1_0" depart="0" maxspeed="13.90" length="4.82" >1001.17,998.83 1001.46,1000.29 1001.17,1001.17 1000.29,1001.46 998.83,1001.17</lane>
       </lanes>
       <cedge id="2i">:2_1_0</cedge>
    </edge>
 
    <edge id=":3_0" function="internal">
       <lanes>
-         <lane id=":3_0_0" depart="0" maxspeed="13.90" length="4.82" >798.59,-0.85 799.93,-1.49 800.85,-1.41 801.34,-0.64 801.41,0.85</lane>
+         <lane id=":3_0_0" depart="0" maxspeed="13.90" length="9.64" >798.59,-0.85 801.27,-2.12 803.11,-1.98 804.10,-0.42 804.24,2.55</lane>
       </lanes>
       <cedge id="3i">:3_0_0</cedge>
    </edge>
 
    <edge id=":3_1" function="internal">
       <lanes>
-         <lane id=":3_1_0" depart="0" maxspeed="13.90" length="9.64" >798.59,-0.85 801.27,-2.12 803.11,-1.98 804.10,-0.42 804.24,2.55</lane>
+         <lane id=":3_1_0" depart="0" maxspeed="13.90" length="4.82" >798.59,-0.85 799.93,-1.49 800.85,-1.41 801.34,-0.64 801.41,0.85</lane>
       </lanes>
       <cedge id="3i">:3_1_0</cedge>
    </edge>
 
    <edge id=":4_0" function="internal">
       <lanes>
-         <lane id=":4_0_0" depart="0" maxspeed="13.90" length="4.82" >201.41,1000.85 200.07,1001.49 199.15,1001.41 198.66,1000.64 198.59,999.15</lane>
+         <lane id=":4_0_0" depart="0" maxspeed="13.90" length="9.64" >201.41,1000.85 198.73,1002.12 196.89,1001.98 195.90,1000.42 195.76,997.45</lane>
       </lanes>
       <cedge id="4i">:4_0_0</cedge>
    </edge>
 
    <edge id=":4_1" function="internal">
       <lanes>
-         <lane id=":4_1_0" depart="0" maxspeed="13.90" length="9.64" >201.41,1000.85 198.73,1002.12 196.89,1001.98 195.90,1000.42 195.76,997.45</lane>
+         <lane id=":4_1_0" depart="0" maxspeed="13.90" length="4.82" >201.41,1000.85 200.07,1001.49 199.15,1001.41 198.66,1000.64 198.59,999.15</lane>
       </lanes>
       <cedge id="4i">:4_1_0</cedge>
    </edge>
@@ -416,8 +416,8 @@
    </succ>
 
    <succ edge="1o" lane="1o_0" junction="1">
-      <succlane lane="1i_1" via=":1_0_0" yield="0" dir="t" state="M"/>
-      <succlane lane="1i_0" via=":1_1_0" yield="0" dir="t" state="M"/>
+      <succlane lane="1i_0" via=":1_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="1i_1" via=":1_1_0" yield="0" dir="t" state="M"/>
    </succ>
 
    <succ edge="2i" lane="2i_0" junction="0">
@@ -430,8 +430,8 @@
    </succ>
 
    <succ edge="2o" lane="2o_0" junction="2">
-      <succlane lane="2i_1" via=":2_0_0" yield="0" dir="t" state="M"/>
-      <succlane lane="2i_0" via=":2_1_0" yield="0" dir="t" state="M"/>
+      <succlane lane="2i_0" via=":2_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="2i_1" via=":2_1_0" yield="0" dir="t" state="M"/>
    </succ>
 
    <succ edge="3i" lane="3i_0" junction="0">
@@ -444,8 +444,8 @@
    </succ>
 
    <succ edge="3o" lane="3o_0" junction="3">
-      <succlane lane="3i_1" via=":3_0_0" yield="0" dir="t" state="M"/>
-      <succlane lane="3i_0" via=":3_1_0" yield="0" dir="t" state="M"/>
+      <succlane lane="3i_0" via=":3_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="3i_1" via=":3_1_0" yield="0" dir="t" state="M"/>
    </succ>
 
    <succ edge="4i" lane="4i_0" junction="0">
@@ -458,8 +458,8 @@
    </succ>
 
    <succ edge="4o" lane="4o_0" junction="4">
-      <succlane lane="4i_1" via=":4_0_0" yield="0" dir="t" state="M"/>
-      <succlane lane="4i_0" via=":4_1_0" yield="0" dir="t" state="M"/>
+      <succlane lane="4i_0" via=":4_0_0" yield="0" dir="t" state="M"/>
+      <succlane lane="4i_1" via=":4_1_0" yield="0" dir="t" state="M"/>
    </succ>
 
 
@@ -512,28 +512,28 @@
       <succlane lane="2o_0" tl="" linkno="0" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":1_0" lane=":1_0_0" junction="1">
-      <succlane lane="1i_1" tl="" linkno="" yield="0" dir="s" state="M"/>
-   </succ>
-   <succ edge=":1_1" lane=":1_1_0" junction="1">
       <succlane lane="1i_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
-   <succ edge=":2_0" lane=":2_0_0" junction="2">
-      <succlane lane="2i_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+   <succ edge=":1_1" lane=":1_1_0" junction="1">
+      <succlane lane="1i_1" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
-   <succ edge=":2_1" lane=":2_1_0" junction="2">
+   <succ edge=":2_0" lane=":2_0_0" junction="2">
       <succlane lane="2i_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
-   <succ edge=":3_0" lane=":3_0_0" junction="3">
-      <succlane lane="3i_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+   <succ edge=":2_1" lane=":2_1_0" junction="2">
+      <succlane lane="2i_1" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
-   <succ edge=":3_1" lane=":3_1_0" junction="3">
+   <succ edge=":3_0" lane=":3_0_0" junction="3">
       <succlane lane="3i_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
+   <succ edge=":3_1" lane=":3_1_0" junction="3">
+      <succlane lane="3i_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+   </succ>
    <succ edge=":4_0" lane=":4_0_0" junction="4">
-      <succlane lane="4i_1" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="4i_0" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
    <succ edge=":4_1" lane=":4_1_0" junction="4">
-      <succlane lane="4i_0" tl="" linkno="" yield="0" dir="s" state="M"/>
+      <succlane lane="4i_1" tl="" linkno="" yield="0" dir="s" state="M"/>
    </succ>
 
 </net>
