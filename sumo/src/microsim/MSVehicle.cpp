@@ -1513,11 +1513,11 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
         LaneQ q;
         MSLane *qqq = (*k)->getLane();
         if(qqq==0) {
-            q.hindernisPos = 0;
+            q.occupied = 0;
             q.length = 0;
             continue;
         }
-        q.hindernisPos = qqq->getVehLenSum();
+        q.occupied = qqq->getVehLenSum();
         q.length = qqq->length();
         q.joined.push_back(qqq);
 
@@ -1537,7 +1537,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
             //  reset values to zero (otherwise the lane but not its continuations)
             //  will still be regarded
             if ((*k)->getLane()->getEdge()!=*(ce)) {
-                q.hindernisPos = 0;
+                q.occupied = 0;
                 q.length = 0;
             }
         }
@@ -1599,17 +1599,17 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
                 }
             }
             if (bestL==l) {
-                best.hindernisPos = next->getVehLenSum();
+                best.occupied = next->getVehLenSum();
                 best.length = next->length();
             } else {
-                best.hindernisPos = 0;
+                best.occupied = 0;
                 best.length = 0;
                 best.joined.clear();
             }
         }
     }
     oq.length += best.length;
-    oq.hindernisPos += best.hindernisPos;
+    oq.occupied += best.occupied;
     copy(best.joined.begin(), best.joined.end(), back_inserter(oq.joined));
 }
 
@@ -1650,7 +1650,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw()
         LaneQ q;
         q.lane = *i;
         q.length = 0;//q.lane->length();
-        q.hindernisPos = 0;//q.lane->getVehLenSum();
+        q.occupied = 0;//q.lane->getVehLenSum();
         q.allowsContinuation = allowed==0||find(allowed->begin(), allowed->end(), q.lane)!=allowed->end();
         if(!myStops.empty()&&myStops.front().lane->getEdge()==q.lane->getEdge()) {
             q.allowsContinuation &= (myStops.front().lane==q.lane);
@@ -1662,7 +1662,7 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw()
             if ((*i).allowsContinuation) {
                 rebuildContinuationsFor((*i), (*i).lane, ce, seen);
                 (*i).length += (*i).lane->length();
-                (*i).hindernisPos += (*i).lane->getVehLenSum();
+                (*i).occupied += (*i).lane->getVehLenSum();
             }
         }
     }

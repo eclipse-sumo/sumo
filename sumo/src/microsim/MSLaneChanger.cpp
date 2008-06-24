@@ -175,7 +175,7 @@ MSLaneChanger::change()
     const std::vector<MSVehicle::LaneQ> &preb = vehicle->getBestLanes();
     assert(preb.size()==myChanger.size());
     for (int i=0; i<(int) myChanger.size(); ++i) {
-        ((std::vector<MSVehicle::LaneQ>&) preb)[i].hindernisPos = myChanger[i].dens + preb[i].v;
+        ((std::vector<MSVehicle::LaneQ>&) preb)[i].occupied = myChanger[i].dens + preb[i].v;
     }
 
     vehicle->getLaneChangeModel().prepareStep();

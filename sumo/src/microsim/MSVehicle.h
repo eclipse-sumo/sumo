@@ -543,7 +543,7 @@ public:
         MSLane *lane;
         SUMOReal length;
         SUMOReal v;
-        SUMOReal hindernisPos;
+        SUMOReal occupied;
         int bestLaneOffset;
         bool allowsContinuation;
         std::vector<MSLane*> joined;

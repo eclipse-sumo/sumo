@@ -488,12 +488,12 @@ GUIViewTraffic::drawBestLanes(const VehicleOps &vo)
     SUMOReal rmax = -1;
     for (std::vector<MSVehicle::LaneQ>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
         gmax = MAX2((*i).length, gmax);
-        rmax = MAX2((*i).hindernisPos, rmax);
+        rmax = MAX2((*i).occupied, rmax);
     }
     for (std::vector<MSVehicle::LaneQ>::const_iterator i=lanes.begin(); i!=lanes.end(); ++i) {
         const Position2DVector &shape = (*i).lane->getShape();
         SUMOReal g = (*i).length / gmax;
-        SUMOReal r = (*i).hindernisPos / rmax;
+        SUMOReal r = (*i).occupied / rmax;
         glColor3d(r, g, 0);
         GLHelper::drawBoxLines(shape, 0.5);
 
