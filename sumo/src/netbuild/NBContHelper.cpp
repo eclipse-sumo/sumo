@@ -181,25 +181,8 @@ NBContHelper::node_with_outgoing_finder::operator()(const NBNode * const n) cons
 
 
 /* -------------------------------------------------------------------------
- * methods from node_with_incoming_finder
+ * methods from !!!
  * ----------------------------------------------------------------------- */
-NBContHelper::edgelane_finder::edgelane_finder(NBEdge *toEdge, int toLane)
-        : myDestinationEdge(toEdge), myDestinationLane(toLane)
-{}
-
-
-bool
-NBContHelper::edgelane_finder::operator()(const EdgeLane &el) const
-{
-    return el.edge==myDestinationEdge
-           &&
-           ((int) el.lane ==  myDestinationLane || myDestinationLane<0);
-}
-
-
-
-
-
 NBContHelper::edge_with_destination_finder::edge_with_destination_finder(NBNode *dest)
         : myDestinationNode(dest)
 {}

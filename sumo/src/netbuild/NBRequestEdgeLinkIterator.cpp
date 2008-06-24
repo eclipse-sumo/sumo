@@ -79,7 +79,7 @@ NBRequestEdgeLinkIterator::init(
         size_t noLanes = incoming[i1]->getNoLanes();
         for (size_t i2=0; i2<noLanes; i2++) {
             NBEdge *fromEdge = incoming[i1];
-            const EdgeLaneVector &approached = fromEdge->getEdgeLanesFromLane(i2);
+            EdgeLaneVector approached = fromEdge->getEdgeLanesFromLane(i2);
             for (size_t i3=0; i3<approached.size(); i3++) {
                 assert(i3<approached.size());
                 NBEdge *toEdge = approached[i3].edge;
@@ -149,7 +149,7 @@ NBRequestEdgeLinkIterator::joinLaneLinksFunc(
         size_t noLanes = incoming[i1]->getNoLanes();
         for (size_t i2=0; i2<noLanes; i2++) {
             NBEdge *fromEdge = incoming[i1];
-            const EdgeLaneVector &approached = fromEdge->getEdgeLanesFromLane(i2);
+            EdgeLaneVector approached = fromEdge->getEdgeLanesFromLane(i2);
             myValid.set(pos++, 1);
             for (size_t i3=1; i3<approached.size(); i3++) {
                 myValid.set(pos++, 0);

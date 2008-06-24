@@ -552,7 +552,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     // patch connections
     //  add edge2edge-information
     for (i=edges.begin(); i!=edges.end(); i++) {
-        EdgeVector ev = (*i)->getConnected();
+        EdgeVector ev = (*i)->getConnectedEdges();
         for (EdgeVector::iterator j=ev.begin(); j!=ev.end(); j++) {
             newEdge->addEdge2EdgeConnection(*j);
         }

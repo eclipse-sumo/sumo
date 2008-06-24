@@ -153,28 +153,25 @@ NIVissimTL::NIVissimTLSignal::addTo(NBEdgeCont &ec, NBLoadedTLDef *tl) const
     NBConnectionVector assignedConnections;
     if (c==0) {
         // What to do if on an edge? -> close all outgoing connections
-        NBEdge *edge = ec.retrievePossiblySplitted(
-                           toString<int>(myEdgeID), myPosition);
+        NBEdge *edge = ec.retrievePossiblySplitted(toString<int>(myEdgeID), myPosition);
         assert(edge!=0);
         // Check whether it is already known, which edges are approached
         //  by which lanes
         // check whether to use the original lanes only
         if (edge->lanesWereAssigned()) {
-            const EdgeLaneVector &connections = edge->getEdgeLanesFromLane(myLane-1);
+            EdgeLaneVector connections = edge->getEdgeLanesFromLane(myLane-1);
             for (EdgeLaneVector::const_iterator i=connections.begin(); i!=connections.end(); i++) {
                 const EdgeLane &conn = *i;
                 assert(myLane-1<(int)edge->getNoLanes());
-                assignedConnections.push_back(
-                    NBConnection(edge, myLane-1, conn.edge, conn.lane));
+                assignedConnections.push_back(NBConnection(edge, myLane-1, conn.edge, conn.lane));
             }
         } else {
             WRITE_WARNING("Edge : Lanes were not assigned(!)");
             for (size_t j=0; j<edge->getNoLanes(); j++) {
-                const EdgeLaneVector &connections = edge->getEdgeLanesFromLane(j);
+                EdgeLaneVector connections = edge->getEdgeLanesFromLane(j);
                 for (EdgeLaneVector::const_iterator i=connections.begin(); i!=connections.end(); i++) {
                     const EdgeLane &conn = *i;
-                    assignedConnections.push_back(
-                        NBConnection(edge, j, conn.edge, conn.lane));
+                    assignedConnections.push_back(NBConnection(edge, j, conn.edge, conn.lane));
                 }
             }
         }

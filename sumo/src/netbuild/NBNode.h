@@ -102,7 +102,7 @@ class ApproachingDivider : public Bresenham::BresenhamCallBack
 
         /** the method that spreads the wished number of lanes from the
             the lane given by the bresenham-call to both left and right */
-        std::deque<size_t> *spread(const std::vector<size_t> &approachingLanes,
+        std::deque<int> *spread(const std::vector<int> &approachingLanes,
                                    SUMOReal dest) const;
 
     };
@@ -329,7 +329,7 @@ private:
 
     /** returns a list of edges which are connected to the given
         outgoing edge */
-    std::vector<NBEdge*> *getApproaching(NBEdge *currentOutgoing);
+    std::vector<NBEdge*> *getEdgesThatApproach(NBEdge *currentOutgoing);
 
     /// resets the position by the given amount
     void resetby(SUMOReal xoffset, SUMOReal yoffset);

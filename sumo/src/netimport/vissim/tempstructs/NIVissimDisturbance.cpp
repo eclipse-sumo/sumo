@@ -233,7 +233,7 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
         if (pcoe!=0&&pcie!=0&&pcoe->getToNode()==e->getToNode()) {
             // if so, simply prohibit the connections
             NBNode *node = e->getToNode();
-            const EdgeVector &connected = e->getConnected();
+            const EdgeVector &connected = e->getConnectedEdges();
             for (EdgeVector::const_iterator i=connected.begin(); i!=connected.end(); i++) {
                 node->addSortedLinkFoes(
                     NBConnection(e, *i),
@@ -285,7 +285,7 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
         if (bcoe!=0&&bcie!=0&&bcoe->getToNode()==e->getToNode()) {
             // if so, simply prohibit the connections
             NBNode *node = e->getToNode();
-            const EdgeVector &connected = e->getConnected();
+            const EdgeVector &connected = e->getConnectedEdges();
             for (EdgeVector::const_iterator i=connected.begin(); i!=connected.end(); i++) {
                 node->addSortedLinkFoes(
                     NBConnection(bcoe, bcie),

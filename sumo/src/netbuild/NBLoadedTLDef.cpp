@@ -594,7 +594,7 @@ NBLoadedTLDef::collectLinks()
         NBEdge *incoming = *i;
         size_t noLanes = incoming->getNoLanes();
         for (size_t j=0; j<noLanes; j++) {
-            const EdgeLaneVector &connected = incoming->getEdgeLanesFromLane(j);
+            EdgeLaneVector connected = incoming->getEdgeLanesFromLane(j);
             for (EdgeLaneVector::const_iterator k=connected.begin(); k!=connected.end(); k++) {
                 const EdgeLane &el = *k;
                 if (el.edge!=0) {

@@ -385,7 +385,7 @@ NBRequest::resetSignalised()
     for (EdgeVector::const_iterator i11=myIncoming->begin(); i11!=myIncoming->end(); i11++) {
         size_t noLanesEdge1 = (*i11)->getNoLanes();
         for (size_t j1=0; j1<noLanesEdge1; j1++) {
-            const EdgeLaneVector &el1 = (*i11)->getEdgeLanesFromLane(j1);
+            EdgeLaneVector el1 = (*i11)->getEdgeLanesFromLane(j1);
             for (EdgeLaneVector::const_iterator i12=el1.begin(); i12!=el1.end(); i12++) {
                 int idx1 = getIndex((*i11), (*i12).edge);
                 if (idx1<0) {
@@ -395,7 +395,7 @@ NBRequest::resetSignalised()
                 for (EdgeVector::const_iterator i21=myIncoming->begin(); i21!=myIncoming->end(); i21++) {
                     size_t noLanesEdge2 = (*i21)->getNoLanes();
                     for (size_t j2=0; j2<noLanesEdge2; j2++) {
-                        const EdgeLaneVector &el2 = (*i21)->getEdgeLanesFromLane(j2);
+                        EdgeLaneVector el2 = (*i21)->getEdgeLanesFromLane(j2);
                         for (EdgeLaneVector::const_iterator i22=el2.begin(); i22!=el2.end(); i22++) {
                             int idx2 = getIndex((*i21), (*i22).edge);
                             if (idx2<0) {
@@ -515,7 +515,7 @@ int
 NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
                              int fromLane, int pos)
 {
-    const EdgeLaneVector &connected = from->getEdgeLanesFromLane(fromLane);
+    EdgeLaneVector connected = from->getEdgeLanesFromLane(fromLane);
     for (EdgeLaneVector::const_iterator j=connected.begin(); j!=connected.end(); j++) {
         os << "         <logicitem request=\"" << pos++ << "\" response=\"";
         writeResponse(os, from, (*j).edge, fromLane, (*j).lane);
@@ -553,7 +553,7 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
         NBEdge *bla = *i;
         unsigned int noLanes = (*i)->getNoLanes();
         for (int j=noLanes; j-->0;) {
-            const EdgeLaneVector &connected = (*i)->getEdgeLanesFromLane(j);
+            EdgeLaneVector connected = (*i)->getEdgeLanesFromLane(j);
             size_t size = connected.size();
             for (int k=size; k-->0;) {
                 if (to==0) {
@@ -599,7 +599,7 @@ NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to, bool isInner
 
         unsigned int noLanes = (*i)->getNoLanes();
         for (unsigned int j=noLanes; j-->0;) {
-            const EdgeLaneVector &connected = (*i)->getEdgeLanesFromLane(j);
+            EdgeLaneVector connected = (*i)->getEdgeLanesFromLane(j);
             size_t size = connected.size();
             for (int k=size; k-->0;) {
                 if (to==0) {

@@ -178,7 +178,7 @@ NBTrafficLightDefinition::collectLinks()
         NBEdge *incoming = *i;
         size_t noLanes = incoming->getNoLanes();
         for (size_t j=0; j<noLanes; j++) {
-            const EdgeLaneVector &connected = incoming->getEdgeLanesFromLane(j);
+            EdgeLaneVector connected = incoming->getEdgeLanesFromLane(j);
             for (EdgeLaneVector::const_iterator k=connected.begin(); k!=connected.end(); k++) {
                 const EdgeLane &el = *k;
                 if (el.edge!=0) {
@@ -297,7 +297,7 @@ NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
     EdgeVector::const_iterator i;
     if (incnode!=outnode) {
         // the links are located at different nodes
-        const EdgeVector &ev1 = possProhibitedTo->getConnected();
+        const EdgeVector &ev1 = possProhibitedTo->getConnectedEdges();
         // go through the following edge,
         //  check whether one of these connections is prohibited
         for (i=ev1.begin(); i!=ev1.end(); ++i) {
@@ -321,7 +321,7 @@ NBTrafficLightDefinition::forbids(NBEdge *possProhibitorFrom,
             }
         }
 
-        const EdgeVector &ev2 = possProhibitorTo->getConnected();
+        const EdgeVector &ev2 = possProhibitorTo->getConnectedEdges();
         // go through the following edge,
         //  check whether one of these connections is prohibited
         for (i=ev2.begin(); i!=ev2.end(); ++i) {

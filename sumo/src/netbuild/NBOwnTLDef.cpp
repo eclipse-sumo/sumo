@@ -46,27 +46,33 @@
 
 
 // ===========================================================================
+// used namespaces
+// ===========================================================================
+using namespace std;
+
+
+// ===========================================================================
 // member method definitions
 // ===========================================================================
-NBOwnTLDef::NBOwnTLDef(const std::string &id,
-                       const std::set<NBNode*> &junctions) throw()
+NBOwnTLDef::NBOwnTLDef(const string &id,
+                       const set<NBNode*> &junctions) throw()
         : NBTrafficLightDefinition(id, junctions)
 {}
 
 
-NBOwnTLDef::NBOwnTLDef(const std::string &id, NBNode *junction) throw()
+NBOwnTLDef::NBOwnTLDef(const string &id, NBNode *junction) throw()
         : NBTrafficLightDefinition(id, junction)
 {}
 
 
-NBOwnTLDef::NBOwnTLDef(const std::string &id,
-                       std::string type,
+NBOwnTLDef::NBOwnTLDef(const string &id,
+                       string type,
                        NBNode *junction) throw()
         : NBTrafficLightDefinition(id, type, junction)
 {}
 
 
-NBOwnTLDef::NBOwnTLDef(const std::string &id) throw()
+NBOwnTLDef::NBOwnTLDef(const string &id) throw()
         : NBTrafficLightDefinition(id)
 {}
 
@@ -77,7 +83,7 @@ NBOwnTLDef::~NBOwnTLDef() throw()
 
 NBTrafficLightLogicVector *
 NBOwnTLDef::myCompute(const NBEdgeCont &,
-                      size_t breakingTime, std::string type, bool buildAll)
+                      size_t breakingTime, string type, bool buildAll)
 {
     bool appendSmallestOnly = true;
     bool skipLarger = true;
@@ -119,8 +125,8 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
 
 
 NBTrafficLightLogicVector *
-NBOwnTLDef::computeTrafficLightLogics(const std::string &key,
-                                      std::string type,
+NBOwnTLDef::computeTrafficLightLogics(const string &key,
+                                      string type,
                                       bool joinLaneLinks,
                                       bool removeTurnArounds,
                                       LinkRemovalType removal,
@@ -159,7 +165,7 @@ NBOwnTLDef::computeTrafficLightLogics(const std::string &key,
 }
 
 
-std::vector<std::bitset<64> > *
+vector<bitset<64> > *
 NBOwnTLDef::getPossibilityMatrix(bool joinLaneLinks,
                                  bool removeTurnArounds,
                                  LinkRemovalType removalType) const
@@ -167,9 +173,8 @@ NBOwnTLDef::getPossibilityMatrix(bool joinLaneLinks,
     // go through all links
     NBRequestEdgeLinkIterator cei1(this, joinLaneLinks, removeTurnArounds,
                                    removalType);
-    std::vector<std::bitset<64> > *ret =
-        new std::vector<std::bitset<64> >(cei1.getNoValidLinks(),
-                                          std::bitset<64>());
+    vector<bitset<64> > *ret =
+        new vector<bitset<64> >(cei1.getNoValidLinks(), bitset<64>());
     do {
         assert(ret!=0 && cei1.getLinkNumber()<ret->size());
         (*ret)[cei1.getLinkNumber()].set(cei1.getLinkNumber(), 1);
@@ -205,7 +210,7 @@ NBOwnTLDef::collectLinks()
         NBEdge *incoming = *i;
         size_t noLanes = incoming->getNoLanes();
         for (size_t j=0; j<noLanes; j++) {
-            const EdgeLaneVector &connected = incoming->getEdgeLanesFromLane(j);
+            EdgeLaneVector connected = incoming->getEdgeLanesFromLane(j);
             for (EdgeLaneVector::const_iterator k=connected.begin(); k!=connected.end(); k++) {
                 const EdgeLane &el = *k;
                 if (el.edge!=0) {

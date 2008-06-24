@@ -109,7 +109,7 @@ NBNodeShapeComputer::addInternalGeometry()
     for(EdgeVector::const_iterator i=myNode.myIncomingEdges->begin(); i!=myNode.myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for(size_t j=0; j<noLanesEdge; j++) {
-            const EdgeLaneVector *elv = (*i)->getEdgeLanesFromLane(j);
+            EdgeLaneVector elv = (*i)->getEdgeLanesFromLane(j);
             for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
                 if((*k).edge==0) {
                     continue;

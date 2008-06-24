@@ -128,35 +128,6 @@ public:
 
     };
 
-    /**
-     * relative_edgelane_sorter
-     * Class to sort edges by their angle
-     */
-    class relative_edgelane_sorter
-    {
-    public:
-        /// constructor
-        explicit relative_edgelane_sorter(NBEdge *e, NBNode *n)
-                : myEdge(e), myNode(n) {}
-
-    public:
-        /// comparing operation
-        int operator()(EdgeLane e1, EdgeLane e2) const {
-            SUMOReal relAngle1 = NBHelpers::normRelAngle(
-                                     myEdge->getAngle(), e1.edge->getAngle());
-            SUMOReal relAngle2 = NBHelpers::normRelAngle(
-                                     myEdge->getAngle(), e2.edge->getAngle());
-            return relAngle1 > relAngle2;
-        }
-
-    private:
-        /// the edge to compute the relative angle of
-        NBEdge *myEdge;
-
-        /// the node to use
-        NBNode *myNode;
-
-    };
 
     /**
      * edge_by_priority_sorter
@@ -286,23 +257,6 @@ public:
     };
 
 
-    /**
-     * @class edgelane_finder
-     */
-    class edgelane_finder
-    {
-    public:
-        /// constructor
-        edgelane_finder(NBEdge *toEdge, int toLane);
-
-        bool operator()(const EdgeLane &el) const;
-
-    private:
-        NBEdge *myDestinationEdge;
-
-        int myDestinationLane;
-
-    };
 
 
     class edge_with_destination_finder
@@ -362,7 +316,7 @@ public:
         std::pair<SUMOReal, SUMOReal> getMinMaxRelAngles(NBEdge *e) const {
             SUMOReal min = 360;
             SUMOReal max = 360;
-            const EdgeVector &ev = e->getConnected();
+            const EdgeVector &ev = e->getConnectedEdges();
             for (EdgeVector::const_iterator i=ev.begin(); i!=ev.end(); ++i) {
                 SUMOReal angle = NBHelpers::normRelAngle(
                                      e->getAngle(), (*i)->getAngle());

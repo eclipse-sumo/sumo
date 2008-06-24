@@ -117,10 +117,10 @@ NBNode::ApproachingDivider::execute(SUMOReal src, SUMOReal dest) throw()
     if (incomingEdge->getStep()==NBEdge::LANES2LANES) {
         return;
     }
-    vector<size_t> approachingLanes =
+    vector<int> approachingLanes =
         incomingEdge->getConnectionLanes(myCurrentOutgoing);
     assert(approachingLanes.size()!=0);
-    deque<size_t> *approachedLanes = spread(approachingLanes, dest);
+    deque<int> *approachedLanes = spread(approachingLanes, dest);
     assert(approachedLanes->size()<=myCurrentOutgoing->getNoLanes());
     // set lanes
     for (size_t i=0; i<approachedLanes->size(); i++) {
@@ -134,19 +134,19 @@ NBNode::ApproachingDivider::execute(SUMOReal src, SUMOReal dest) throw()
 }
 
 
-deque<size_t> *
-NBNode::ApproachingDivider::spread(const vector<size_t> &approachingLanes,
+deque<int> *
+NBNode::ApproachingDivider::spread(const vector<int> &approachingLanes,
                                    SUMOReal dest) const
 {
-    deque<size_t> *ret = new deque<size_t>();
+    deque<int> *ret = new deque<int>();
     size_t noLanes = approachingLanes.size();
     // when only one lane is approached, we check, whether the SUMOReal-value
     //  is assigned more to the left or right lane
     if (noLanes==1) {
-        if ((size_t)(dest+0.5)>(size_t) dest) {
-            ret->push_back((size_t) dest+1);
+        if ((int)(dest+0.5)>dest) {
+            ret->push_back(dest+1);
         } else {
-            ret->push_back((size_t) dest);
+            ret->push_back(dest);
         }
         return ret;
     }
@@ -626,7 +626,7 @@ NBNode::countInternalLanes(bool includeSplits)
     for (i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for (size_t j=0; j<noLanesEdge; j++) {
-            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
+            EdgeLaneVector elv = (*i)->getEdgeLanesFromLane(j);
             for (EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
                 if ((*k).edge==0) {
                     continue;
@@ -660,7 +660,7 @@ NBNode::writeXMLInternalLinks(OutputDevice &into)
     for (i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for (size_t j=0; j<noLanesEdge; j++) {
-            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
+            EdgeLaneVector elv = (*i)->getEdgeLanesFromLane(j);
             for (EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
                 if ((*k).edge==0) {
                     continue;
@@ -872,7 +872,7 @@ NBNode::getCrossingPosition(NBEdge *fromE, size_t fromL, NBEdge *toE, size_t toL
         for (EdgeVector::iterator i2=myIncomingEdges->begin(); i2!=myIncomingEdges->end(); i2++) {
             size_t noLanesEdge = (*i2)->getNoLanes();
             for (size_t j2=0; j2<noLanesEdge; j2++) {
-                const EdgeLaneVector &elv = (*i2)->getEdgeLanesFromLane(j2);
+                EdgeLaneVector elv = (*i2)->getEdgeLanesFromLane(j2);
                 for (EdgeLaneVector::const_iterator k2=elv.begin(); k2!=elv.end(); k2++) {
                     if ((*k2).edge==0) {
                         continue;
@@ -924,7 +924,7 @@ NBNode::getCrossingNames_dividedBySpace(NBEdge *fromE, size_t fromL,
         for (EdgeVector::iterator i2=myIncomingEdges->begin(); i2!=myIncomingEdges->end(); i2++) {
             size_t noLanesEdge = (*i2)->getNoLanes();
             for (size_t j2=0; j2<noLanesEdge; j2++) {
-                const EdgeLaneVector &elv = (*i2)->getEdgeLanesFromLane(j2);
+                EdgeLaneVector elv = (*i2)->getEdgeLanesFromLane(j2);
                 for (EdgeLaneVector::const_iterator k2=elv.begin(); k2!=elv.end(); k2++) {
                     if ((*k2).edge==0) {
                         continue;
@@ -972,7 +972,7 @@ NBNode::getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, size_t fromL,
         for (EdgeVector::iterator i2=myIncomingEdges->begin(); i2!=myIncomingEdges->end(); i2++) {
             size_t noLanesEdge = (*i2)->getNoLanes();
             for (size_t j2=0; j2<noLanesEdge; j2++) {
-                const EdgeLaneVector &elv = (*i2)->getEdgeLanesFromLane(j2);
+                EdgeLaneVector elv = (*i2)->getEdgeLanesFromLane(j2);
                 for (EdgeLaneVector::const_iterator k2=elv.begin(); k2!=elv.end(); k2++) {
                     if ((*k2).edge==0) {
                         continue;
@@ -1022,7 +1022,7 @@ NBNode::writeXMLInternalSuccInfos(OutputDevice &into)
     for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for (size_t j=0; j<noLanesEdge; j++) {
-            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
+            EdgeLaneVector elv = (*i)->getEdgeLanesFromLane(j);
             for (EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
                 if ((*k).edge==0) {
                     continue;
@@ -1082,7 +1082,7 @@ NBNode::writeXMLInternalNodes(OutputDevice &into)
     for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for (size_t j=0; j<noLanesEdge; j++) {
-            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
+            EdgeLaneVector elv = (*i)->getEdgeLanesFromLane(j);
             for (EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
                 if ((*k).edge==0) {
                     continue;
@@ -1129,31 +1129,12 @@ NBNode::writeXMLInternalNodes(OutputDevice &into)
 void
 NBNode::writeinternal(EdgeVector *myIncomingEdges, OutputDevice &into, const std::string &id)
 {
-    /*
-    size_t l = 0;
-    for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
-        size_t noLanesEdge = (*i)->getNoLanes();
-        for (size_t j=0; j<noLanesEdge; j++) {
-            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
-            for (EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
-                if ((*k).edge==0) {
-                    continue;
-                }
-                if (l!=0) {
-                    into << ' ';
-                }
-                into << ':' << id << '_' << l << "_0";
-                l++;
-            }
-        }
-    }
-    */
     size_t l = 0;
     size_t o = countInternalLanes(false);
     for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for (size_t j=0; j<noLanesEdge; j++) {
-            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
+            EdgeLaneVector elv = (*i)->getEdgeLanesFromLane(j);
             for (EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
                 if ((*k).edge==0) {
                     continue;
@@ -1441,7 +1422,7 @@ NBNode::computeLanes2Lanes()
     for (i=myOutgoingEdges->rbegin(); i!=myOutgoingEdges->rend(); i++) {
         NBEdge *currentOutgoing = *i;
         // get the information about edges that do approach this edge
-        vector<NBEdge*> *approaching = getApproaching(currentOutgoing);
+        vector<NBEdge*> *approaching = getEdgesThatApproach(currentOutgoing);
         if (approaching->size()!=0) {
             ApproachingDivider divider(approaching, currentOutgoing);
             Bresenham::compute(&divider, (SUMOReal) approaching->size(),
@@ -1485,7 +1466,7 @@ NBNode::computeLanes2Lanes()
 
 
 vector<NBEdge*> *
-NBNode::getApproaching(NBEdge *currentOutgoing)
+NBNode::getEdgesThatApproach(NBEdge *currentOutgoing)
 {
     // get the position of the node to get the approaching nodes of
     vector<NBEdge*>::const_iterator i = find(myAllEdges.begin(),
@@ -1497,8 +1478,7 @@ NBNode::getApproaching(NBEdge *currentOutgoing)
     for (; *i!=currentOutgoing;) {
         // check only incoming edges
         if ((*i)->getToNode()==this) {
-            vector<size_t> connLanes =
-                (*i)->getConnectionLanes(currentOutgoing);
+            vector<int> connLanes = (*i)->getConnectionLanes(currentOutgoing);
             if (connLanes.size()!=0) {
                 approaching->push_back(*i);
             }
@@ -1891,15 +1871,23 @@ NBNode::mustBrake(NBEdge *from, NBEdge *to, int toLane) const
         if ((*i)==from) {
             continue;
         }
+        const vector<NBEdge::Connection> &connections = (*i)->getConnections();
+        for(vector<NBEdge::Connection>::const_iterator j=connections.begin(); j!=connections.end(); ++j) {
+            if((*j).toEdge==to&&((*j).toLane<0||(*j).toLane==toLane)) {
+                return true;
+            }
+        }
+        /*
         size_t noLanesEdge1 = (*i)->getNoLanes();
         for (size_t j1=0; j1<noLanesEdge1; j1++) {
-            const EdgeLaneVector &el1 = (*i)->getEdgeLanesFromLane(j1);
+            EdgeLaneVector el1 = (*i)->getEdgeLanesFromLane(j1);
             for (EdgeLaneVector::const_iterator i2=el1.begin(); i2!=el1.end(); i2++) {
                 if ((*i2).edge==to&&((*i2).lane==-1||(*i2).lane==toLane)) {
                     return true;
                 }
             }
         }
+        */
     }
     return false;
 }
@@ -2217,7 +2205,7 @@ NBNode::getInternalLaneID(NBEdge *from, size_t fromlane,
     for (EdgeVector::const_iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
         size_t noLanesEdge = (*i)->getNoLanes();
         for (size_t j=0; j<noLanesEdge; j++) {
-            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
+            EdgeLaneVector elv = (*i)->getEdgeLanesFromLane(j);
             for (EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
                 if ((*k).edge==0) {
                     continue;
