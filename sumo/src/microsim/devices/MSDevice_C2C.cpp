@@ -111,13 +111,7 @@ MSDevice_C2C::buildLookUpInformation()
     // set neighborhood
     size_t i = 0;
     for (vector<Cell*>::const_iterator ci=myCells.begin(); ci!=myCells.end(); ++i, ++ci) {
-        if(i>=44&&i<=46) {
-            int bla = 0;
-        }
         vector<Cell*> neighbors = getNeighbors(i);
-        if(i>=44&&i<=46) {
-            int bla = 0;
-        }
         for (std::vector<Cell*>::iterator j=neighbors.begin(); j!=neighbors.end(); ++j) {
             Cell *neighbor = *j;
             for (std::vector<const MSEdge*>::iterator k=neighbor->ownEdges.begin(); k!=neighbor->ownEdges.end(); ++k) {
@@ -136,9 +130,6 @@ MSDevice_C2C::buildLookUpInformation()
                 const vector<const MSEdge*> &ownEdges = (*k)->ownEdges;
                 for(vector<const MSEdge*>::const_iterator l=ownEdges.begin(); l!=ownEdges.end(); ++l) {
                     if(find(edgeNeighbors.begin(), edgeNeighbors.end(), *l)==edgeNeighbors.end()) {
-                        if((*l)->getID()=="3o") {
-                            int bla = 0;
-                        }
                         edgeNeighbors.push_back(*l);
                     }
                 }
