@@ -13,6 +13,7 @@
       <osm-files></osm-files>
       <visum-file></visum-file>
       <vissim-file></vissim-file>
+      <robocup-net></robocup-net>
    </input>
 
    <output>
@@ -120,7 +121,6 @@
       <help>false</help>
       <log-file></log-file>
       <print-node-positions>false</print-node-positions>
-      <netbuild.debug>0</netbuild.debug>
    </report>
 
    <random_number>

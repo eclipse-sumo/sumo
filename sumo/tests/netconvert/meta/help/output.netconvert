@@ -32,6 +32,7 @@ Usage: netconvert.exe [OPTION]*
   --osm-files FILE                     Read OSM-network from path 'FILE(s)'
   --visum-file FILE                    Read VISUM-net from FILE
   --vissim-file FILE                   Read VISSIM-net from FILE
+  --robocup-net FILE                   Read RoboCup-net from DIR
 
  Output Options:
   -o, --output-file FILE               The generated net will be written to
@@ -152,7 +153,6 @@ Usage: netconvert.exe [OPTION]*
   -?, --help                           Prints this screen
   -l, --log-file FILE                  Writes all messages to FILE
   --print-node-positions               Prints the positions of read nodes
-  --netbuild.debug INT                 Enable debug mode
 
  Random Number Options:
   --srand INT                          Initialises the random number generator

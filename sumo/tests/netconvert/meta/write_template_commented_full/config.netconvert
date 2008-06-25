@@ -37,6 +37,9 @@
       <!-- Read VISSIM-net from FILE -->
       <vissim-file></vissim-file>
 
+      <!-- Read RoboCup-net from DIR -->
+      <robocup-net></robocup-net>
+
    </input>
 
    <output>
@@ -303,9 +306,6 @@
 
       <!-- Prints the positions of read nodes -->
       <print-node-positions>false</print-node-positions>
-
-      <!-- Enable debug mode -->
-      <netbuild.debug>0</netbuild.debug>
 
    </report>
 
