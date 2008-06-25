@@ -46,14 +46,14 @@
 class NBCapacity2Lanes
 {
 public:
-    /** @brief constructor
+    /** @brief Donstructor
      *
      * @param[in] divider Value for the norming divider
      */
     NBCapacity2Lanes(SUMOReal divider) throw() : myDivider(divider) { }
 
 
-    /// destructor
+    /// @brief Destructor
     ~NBCapacity2Lanes() throw() { }
 
 
@@ -78,7 +78,7 @@ public:
     }
 
 private:
-    /// the norming divider
+    /// @brief The norming divider
     SUMOReal myDivider;
 
 };
