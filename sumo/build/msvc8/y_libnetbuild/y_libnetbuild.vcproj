@@ -450,10 +450,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\netbuild\NBType.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\netbuild\NBTypeCont.cpp"
 				>
 			</File>
@@ -580,10 +576,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netbuild\NBTrafficLightPhases.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netbuild\NBType.h"
 				>
 			</File>
 			<File
