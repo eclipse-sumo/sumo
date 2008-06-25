@@ -368,6 +368,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_OpenStreetMap.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_SUMO.cpp"
 				>
 			</File>
@@ -381,14 +385,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIOptionsIO.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NIOSMEdgesHandler.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NIOSMNodesHandler.cpp"
 				>
 			</File>
 			<File
@@ -445,6 +441,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_OpenStreetMap.h"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_SUMO.h"
 				>
 			</File>
@@ -458,14 +458,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIOptionsIO.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NIOSMEdgesHandler.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\netimport\NIOSMNodesHandler.h"
 				>
 			</File>
 			<File
