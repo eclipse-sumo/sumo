@@ -372,6 +372,10 @@
 				>
 			</File>
 			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_RobocupRescue.cpp"
+				>
+			</File>
+			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_SUMO.cpp"
 				>
 			</File>
@@ -442,6 +446,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\netimport\NIImporter_OpenStreetMap.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\netimport\NIImporter_RobocupRescue.h"
 				>
 			</File>
 			<File
