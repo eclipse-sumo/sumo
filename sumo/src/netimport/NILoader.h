@@ -59,16 +59,20 @@ class NBNetBuilder;
  * @class NILoader
  * @brief Perfoms network import
  *
- * This class loads the specified data using a loading method that accords
- * to the data type specified by the user.
- * Subclasses may be used for the loading process, too, as it is done while
- * loading the XML-descriptions.
+ * A plain loader which encapsulates calls to the import modules. 
  */
 class NILoader
 {
 public:
-    NILoader(NBNetBuilder &nb);
-    ~NILoader();
+    /** @brief Constructor
+     * @param[in] nb The network builder to fill with loaded data
+     */
+    NILoader(NBNetBuilder &nb) throw();
+
+
+    /// @brief Destructor
+    ~NILoader() throw();
+
 
     /** loads data from the files specified in the given option container */
     void load(OptionsCont &oc);
@@ -104,7 +108,9 @@ private:
 
 
 private:
+    /// @brief The network builder to fill with loaded data
     NBNetBuilder &myNetBuilder;
+
 
 private:
     /// @brief Invalidated copy constructor.
@@ -112,6 +118,7 @@ private:
 
     /// @brief Invalidated assignment operator.
     NILoader& operator=(const NILoader&);
+
 
 };
 

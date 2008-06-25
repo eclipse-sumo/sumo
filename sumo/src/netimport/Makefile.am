@@ -7,6 +7,7 @@ NIElmarNodesHandler.cpp NIElmarNodesHandler.h \
 NIElmar2EdgesHandler.cpp NIElmar2EdgesHandler.h \
 NIElmar2NodesHandler.cpp NIElmar2NodesHandler.h \
 NIImporter_OpenStreetMap.cpp NIImporter_OpenStreetMap.h \
+NIImporter_RobocupRescue.cpp NIImporter_RobocupRescue.h \
 NIImporter_SUMO.cpp NIImporter_SUMO.h \
 NITigerLoader.cpp NITigerLoader.h \
 NIVisumLoader.cpp NIVisumLoader.h \

@@ -58,6 +58,7 @@
 #include <netimport/vissim/NIVissimLoader.h>
 #include <netimport/NIArcView_Loader.h>
 #include <netimport/NIImporter_SUMO.h>
+#include <netimport/NIImporter_RobocupRescue.h>
 #include <netimport/NITigerLoader.h>
 #include <netimport/NIImporter_OpenStreetMap.h>
 #include <utils/xml/XMLSubSys.h>
@@ -79,12 +80,12 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NILoader::NILoader(NBNetBuilder &nb)
+NILoader::NILoader(NBNetBuilder &nb) throw()
         : myNetBuilder(nb)
 {}
 
 
-NILoader::~NILoader()
+NILoader::~NILoader() throw()
 {}
 
 
@@ -107,6 +108,7 @@ NILoader::load(OptionsCont &oc)
     loadXMLType(handler, oc.getStringVector("xml-type-files"), "types");
     // try to load using different methods
     NIImporter_SUMO::loadNetwork(oc, myNetBuilder);
+    NIImporter_RobocupRescue::loadNetwork(oc, myNetBuilder);
     NIImporter_OpenStreetMap::loadNetwork(oc, myNetBuilder);
     loadVisum(oc);
     loadArcView(oc);
@@ -140,18 +142,6 @@ NILoader::load(OptionsCont &oc)
 /* -------------------------------------------------------------------------
  * file loading methods
  * ----------------------------------------------------------------------- */
-/*
-void
-NILoader::loadSUMO(OptionsCont &oc)
-{
-    // load the network
-    if (oc.isUsableFileList("sumo-net")) {
-        loadXMLType(new NIImporter_SUMO(myNetBuilder.getEdgeCont(), myNetBuilder.getNodeCont()),
-                oc.getStringVector("sumo-net"), "sumo-net");
-    }
-}
-*/
-
 void
 NILoader::loadXML(OptionsCont &oc)
 {

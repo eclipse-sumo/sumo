@@ -123,6 +123,9 @@ NIOptionsIO::fillOptions()
     oc.addSynonyme("vissim-file", "vissim");
     oc.addDescription("vissim-file", "Input", "Read VISSIM-net from FILE");
 
+    oc.doRegister("robocup-net", new Option_FileName());
+    oc.addDescription("robocup-net", "Input", "Read RoboCup-net from DIR");
+
 
     // register processing options
     oc.doRegister("dismiss-loading-errors", new Option_Bool(false)); // !!! describe, document
