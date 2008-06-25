@@ -859,11 +859,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
             {
                 bool hadInHighway = false;
                 for (EdgeVector::const_iterator j=inc.begin(); j!=inc.end(); ++j) {
-                    if ((*j)->getSpeed()>oc.getFloat("obscure-ramps.min-highway-speed")
-                            &&
-                            (*j)->getBasicType()!=NBEdge::EDGEFUNCTION_SOURCE
-                            &&
-                            (*j)->getBasicType()!=NBEdge::EDGEFUNCTION_SINK) {
+                    if ((*j)->getSpeed()>oc.getFloat("obscure-ramps.min-highway-speed")) {
 
                         hadInHighway = true;
                     }
@@ -875,11 +871,7 @@ NBNodeCont::guessRamps(OptionsCont &oc, NBEdgeCont &ec,
             {
                 bool hadOutHighway = false;
                 for (EdgeVector::const_iterator j=out.begin(); j!=out.end(); ++j) {
-                    if ((*j)->getSpeed()>oc.getFloat("obscure-ramps.min-highway-speed")
-                            &&
-                            (*j)->getBasicType()!=NBEdge::EDGEFUNCTION_SOURCE
-                            &&
-                            (*j)->getBasicType()!=NBEdge::EDGEFUNCTION_SINK) {
+                    if ((*j)->getSpeed()>oc.getFloat("obscure-ramps.min-highway-speed")) {
 
                         hadOutHighway = true;
                     }

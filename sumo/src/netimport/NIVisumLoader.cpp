@@ -229,10 +229,8 @@ NIVisumLoader::parse_Types()
     SUMOReal cap = getNamedFloat("Kap-IV", "KAPIV");
     int nolanes = myCapacity2Lanes.get(cap);
     // insert the type
-    NBType *type = new NBType(myCurrentID, nolanes, speed/(SUMOReal) 3.6, priority, NBEdge::EDGEFUNCTION_NORMAL);
-    if (!myNetBuilder.getTypeCont().insert(type)) {
+    if (!myNetBuilder.getTypeCont().insert(myCurrentID, nolanes, speed/(SUMOReal) 3.6, priority)) {
         addError(" Duplicate type occured ('" + myCurrentID + "').");
-        delete type;
     }
 }
 
@@ -443,13 +441,13 @@ NIVisumLoader::parse_Connectors()
     }
     // build the source when needed
     if (dir.find('Q')!=string::npos) {
-        NBNode *src = buildDistrictNode(bez, dest, NBEdge::EDGEFUNCTION_SOURCE);
+        NBNode *src = buildDistrictNode(bez, dest, true);
         if (src==0) {
             addError("The district '" + bez + "' could not be built.");
             return;
         }
         NBEdge *edge = new NBEdge(id, src, dest, "VisumConnector",
-                                  100, 3/*nolanes*/, -1, NBEdge::LANESPREAD_RIGHT, NBEdge::EDGEFUNCTION_SOURCE);
+                                  100, 3/*nolanes*/, -1, NBEdge::LANESPREAD_RIGHT);
         if (!myNetBuilder.getEdgeCont().insert(edge)) {
             addError("A duplicate edge id occured (ID='" + id + "').");
         } else {
@@ -458,14 +456,14 @@ NIVisumLoader::parse_Connectors()
     }
     // build the sink when needed
     if (dir.find('Z')!=string::npos) {
-        NBNode *src = buildDistrictNode(bez, dest, NBEdge::EDGEFUNCTION_SINK);
+        NBNode *src = buildDistrictNode(bez, dest, false);
         if (src==0) {
             addError("The district '" + bez + "' could not be built.");
             return;
         }
         id = "-" + id;
         NBEdge *edge = new NBEdge(id, dest, src, "VisumConnector",
-                                  100, 3/*nolanes*/, -1, NBEdge::LANESPREAD_RIGHT, NBEdge::EDGEFUNCTION_SINK);
+                                  100, 3/*nolanes*/, -1, NBEdge::LANESPREAD_RIGHT);
         if (!myNetBuilder.getEdgeCont().insert(edge)) {
             addError("A duplicate edge id occured (ID='" + id + "').");
         } else {
@@ -1235,7 +1233,7 @@ NIVisumLoader::getNamedString(const std::string &fieldName1,
 
 NBNode *
 NIVisumLoader::buildDistrictNode(const std::string &id, NBNode *dest,
-                                 NBEdge::EdgeBasicFunction dir) throw()
+                                 bool isSource) throw()
 {
     // get the district
     NBDistrict *dist = myNetBuilder.getDistrictCont().retrieve(id);
@@ -1245,7 +1243,7 @@ NIVisumLoader::buildDistrictNode(const std::string &id, NBNode *dest,
     // build the id
     string nid;
     nid = id + "-" + dest->getID();
-    if (dir==NBEdge::EDGEFUNCTION_SINK) {
+    if (!isSource) {
         nid = "-" + nid;
     }
     // insert the node

@@ -379,11 +379,6 @@ NBNode::computeType(const NBTypeCont &tc) const
     if (myIncomingEdges->size()==1) {
         return NODETYPE_PRIORITY_JUNCTION;
     }
-    // check whether the junction is a district and has no
-    //  special meaning
-    if (isDistrictCenter()) {
-        return NODETYPE_NOJUNCTION;
-    }
     if (isSimpleContinuation()) {
         return NODETYPE_PRIORITY_JUNCTION;
     }
@@ -440,13 +435,6 @@ NBNode::isSimpleContinuation() const
     }
     // nope
     return false;
-}
-
-
-bool
-NBNode::isDistrictCenter() const
-{
-    return myID.substr(0, 14)=="DistrictCenter";
 }
 
 
@@ -2260,23 +2248,16 @@ NBNode::getConnectionTo(NBNode *n) const
 bool
 NBNode::isNearDistrict() const
 {
+    if(isDistrict()) {
+        return false;
+    }
     EdgeVector edges;
     copy(getIncomingEdges().begin(), getIncomingEdges().end(),
          back_inserter(edges));
     copy(getOutgoingEdges().begin(), getOutgoingEdges().end(),
          back_inserter(edges));
-    bool districtFound = false;
-    if (edges.size()>8) {
-        return false;
-    }
-    bool amSelfDistrict = false;
-    for (EdgeVector::const_iterator j=edges.begin(); !amSelfDistrict&&j!=edges.end()&&!districtFound; ++j) {
+    for (EdgeVector::const_iterator j=edges.begin(); j!=edges.end(); ++j) {
         NBEdge *t = *j;
-        if (t->getBasicType()==NBEdge::EDGEFUNCTION_SOURCE||t->getBasicType()==NBEdge::EDGEFUNCTION_SINK) {
-            // is self a district
-            return false;
-            continue;
-        }
         NBNode *other = 0;
         if (t->getToNode()==this) {
             other = t->getFromNode();
@@ -2284,12 +2265,10 @@ NBNode::isNearDistrict() const
             other = t->getToNode();
         }
         EdgeVector edges2;
-        copy(other->getIncomingEdges().begin(), other->getIncomingEdges().end(),
-             back_inserter(edges2));
-        copy(other->getOutgoingEdges().begin(), other->getOutgoingEdges().end(),
-             back_inserter(edges2));
-        for (EdgeVector::const_iterator k=edges2.begin(); k!=edges2.end()&&!districtFound; ++k) {
-            if ((*k)->getBasicType()==NBEdge::EDGEFUNCTION_SOURCE||(*k)->getBasicType()==NBEdge::EDGEFUNCTION_SINK) {
+        copy(other->getIncomingEdges().begin(), other->getIncomingEdges().end(), back_inserter(edges2));
+        copy(other->getOutgoingEdges().begin(), other->getOutgoingEdges().end(), back_inserter(edges2));
+        for (EdgeVector::const_iterator k=edges2.begin(); k!=edges2.end(); ++k) {
+            if((*k)->getFromNode()->isDistrict()||(*k)->getToNode()->isDistrict()) {
                 return true;
             }
         }
@@ -2301,24 +2280,7 @@ NBNode::isNearDistrict() const
 bool
 NBNode::isDistrict() const
 {
-    if (myType==NODETYPE_DISTRICT) {
-        return true;
-    }
-    EdgeVector edges;
-    copy(getIncomingEdges().begin(), getIncomingEdges().end(),
-         back_inserter(edges));
-    copy(getOutgoingEdges().begin(), getOutgoingEdges().end(),
-         back_inserter(edges));
-    bool districtFound = false;
-    bool amSelfDistrict = false;
-    for (EdgeVector::const_iterator j=edges.begin(); !amSelfDistrict&&j!=edges.end()&&!districtFound; ++j) {
-        NBEdge *t = *j;
-        if (t->getBasicType()==NBEdge::EDGEFUNCTION_SOURCE||t->getBasicType()==NBEdge::EDGEFUNCTION_SINK) {
-            // is self a district
-            return true;
-        }
-    }
-    return false;
+    return myType==NODETYPE_DISTRICT;
 }
 
 

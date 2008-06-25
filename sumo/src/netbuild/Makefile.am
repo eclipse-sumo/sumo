@@ -18,7 +18,7 @@ NBTrafficLightLogic.cpp NBTrafficLightLogic.h \
 NBTrafficLightLogicCont.cpp NBTrafficLightLogicCont.h \
 NBTrafficLightLogicVector.cpp NBTrafficLightLogicVector.h \
 NBTrafficLightPhases.cpp NBTrafficLightPhases.h \
-NBType.cpp NBType.h NBTypeCont.cpp NBTypeCont.h \
+NBTypeCont.cpp NBTypeCont.h \
 NBOwnTLDef.cpp NBOwnTLDef.h \
 NBLoadedTLDef.cpp NBLoadedTLDef.h \
 NBNetBuilder.cpp NBNetBuilder.h \

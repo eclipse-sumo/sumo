@@ -172,15 +172,14 @@ NBEdge::MainDirections::includes(Direction d) const
  * ----------------------------------------------------------------------- */
 NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
                string type, SUMOReal speed, unsigned int nolanes,
-               int priority, LaneSpreadFunction spread,
-               EdgeBasicFunction basic) throw(ProcessError) :
+               int priority, LaneSpreadFunction spread) throw(ProcessError) :
         myStep(INIT), myID(StringUtils::convertUmlaute(id)),
         myType(StringUtils::convertUmlaute(type)),
         myFrom(from), myTo(to), myAngle(0),
         myPriority(priority), mySpeed(speed),
         myTurnDestination(0),
         myFromJunctionPriority(-1), myToJunctionPriority(-1),
-        myBasicType(basic), myLaneSpreadFunction(spread),
+        myLaneSpreadFunction(spread),
         myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0),
         myAmInnerEdge(false)
 {
@@ -191,15 +190,14 @@ NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
 NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
                string type, SUMOReal speed, unsigned int nolanes,
                int priority,
-               Position2DVector geom, LaneSpreadFunction spread,
-               EdgeBasicFunction basic) throw(ProcessError) :
+               Position2DVector geom, LaneSpreadFunction spread) throw(ProcessError) :
         myStep(INIT), myID(StringUtils::convertUmlaute(id)),
         myType(StringUtils::convertUmlaute(type)),
         myFrom(from), myTo(to), myAngle(0),
         myPriority(priority), mySpeed(speed),
         myTurnDestination(0),
         myFromJunctionPriority(-1), myToJunctionPriority(-1),
-        myBasicType(basic), myGeom(geom), myLaneSpreadFunction(spread),
+        myGeom(geom), myLaneSpreadFunction(spread),
         myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0),
         myAmInnerEdge(false)
 {
@@ -321,9 +319,6 @@ NBEdge::computeEdgeShape() throw()
         }
     }
     // recompute edge's length
-    if (myBasicType==EDGEFUNCTION_SOURCE||myBasicType==EDGEFUNCTION_SINK) {
-        return;
-    }
     SUMOReal length = 0;
     for (i=0; i<myLanes.size(); i++) {
         assert(myLanes[i].shape.length()>0);
@@ -387,9 +382,7 @@ NBEdge::computeTurningDirections()
     EdgeVector outgoing = myTo->getOutgoingEdges();
     for (EdgeVector::iterator i=outgoing.begin(); i!=outgoing.end(); i++) {
         NBEdge *outedge = *i;
-        if (outedge->getBasicType()==EDGEFUNCTION_SINK||myBasicType==EDGEFUNCTION_SOURCE) {
-            continue;
-        }
+
         SUMOReal relAngle =
             NBHelpers::relAngle(getAngle(*myTo), outedge->getAngle(*myTo));
         // do not append the turnaround
@@ -461,20 +454,7 @@ NBEdge::writeXMLStep1(OutputDevice &into)
     "\" to=\"" << myTo->getID() <<
     "\" priority=\"" << myPriority <<
     "\" type=\"" << myType <<
-    "\" function=\"";
-    switch (myBasicType) {
-    case EDGEFUNCTION_NORMAL:
-        into << "normal";
-        break;
-    case EDGEFUNCTION_SOURCE:
-        into << "source";
-        break;
-    case EDGEFUNCTION_SINK:
-        into << "sink";
-        break;
-    default:
-        throw 1;
-    }
+    "\" function=\"normal";
     if (myAmInnerEdge) {
         into << "\" inner=\"x";
     }
@@ -1645,13 +1625,6 @@ NBEdge::expandableBy(NBEdge *possContinuation) const
         return false;
     }
     */
-    // the next is quite too conservative here, but seems to work
-    if (myBasicType!=EDGEFUNCTION_NORMAL
-            &&
-            possContinuation->myBasicType!=EDGEFUNCTION_NORMAL) {
-
-        return false;
-    }
     // also, check whether the connections - if any exit do allow to join
     //  both edges
     // This edge must have a one-to-one connection to the following lanes
@@ -1889,7 +1862,7 @@ NBEdge::splitGeometry(NBEdgeCont &ec, NBNodeCont &nc)
         } else {
             string edgename = myID + "[" + toString(i-1) + "]";
             currentEdge = new NBEdge(edgename, newFrom, newTo, myType, mySpeed, myLanes.size(),
-                                     myPriority, myLaneSpreadFunction, myBasicType);
+                                     myPriority, myLaneSpreadFunction);
             if (!ec.insert(currentEdge)) {
                 throw ProcessError("Error on adding splitted edge '" + edgename + "'.");
 
@@ -1944,6 +1917,7 @@ NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass)
         myLanes[lane].notAllowed.push_back(vclass);
     }
 }
+
 
 
 void

@@ -338,8 +338,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     // build and insert the edges
     NBEdge *one = new NBEdge(firstEdgeName, 
                              edge->myFrom, node, edge->myType, edge->mySpeed, noLanesFirstEdge,
-                             edge->getPriority(), geoms.first, edge->myLaneSpreadFunction,
-                             edge->myBasicType);
+                             edge->getPriority(), geoms.first, edge->myLaneSpreadFunction);
     size_t i;
     for (i=0; i<noLanesFirstEdge&&i<edge->getNoLanes(); i++) {
         one->setLaneSpeed(i, edge->getLaneSpeed(i));
@@ -347,7 +346,7 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     NBEdge *two = new NBEdge(secondEdgeName, 
                              node, edge->myTo, edge->myType, edge->mySpeed, noLanesSecondEdge,
                              edge->getPriority(), geoms.second,
-                             edge->myLaneSpreadFunction, edge->myBasicType);
+                             edge->myLaneSpreadFunction);
     for (i=0; i<noLanesSecondEdge&&i<edge->getNoLanes(); i++) {
         two->setLaneSpeed(i, edge->getLaneSpeed(i));
     }
@@ -505,7 +504,6 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     SUMOReal speed = 0;
     int priority = 0;
     string id;
-    NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_UNKNOWN;
     sort(edges.begin(), edges.end(), NBContHelper::same_connection_edge_sorter());
     // retrieve the connected nodes
     NBEdge *tpledge = *(edges.begin());
@@ -523,16 +521,6 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
             id += "+";
         }
         id += (*i)->getID();
-        // build the edge type
-        if (function==NBEdge::EDGEFUNCTION_UNKNOWN) {
-            function = (*i)->getBasicType();
-        } else {
-            if (function!=NBEdge::EDGEFUNCTION_NORMAL) {
-                if (function!=(*i)->getBasicType()) {
-                    function = NBEdge::EDGEFUNCTION_NORMAL;
-                }
-            }
-        }
         // compute the speed
         speed += (*i)->getSpeed();
         // build the priority
@@ -543,7 +531,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     speed /= edges.size();
     // build the new edge
     NBEdge *newEdge = new NBEdge(id, from, to, "", speed,
-                                 nolanes, priority, tpledge->myLaneSpreadFunction, function);
+                                 nolanes, priority, tpledge->myLaneSpreadFunction);
     insert(newEdge);
     // replace old edge by current within the nodes
     //  and delete the old
@@ -689,20 +677,6 @@ NBEdgeCont::savePlain(const std::string &file)
         // write the spread type if not default ("right")
         if (e->getLaneSpreadFunction()!=NBEdge::LANESPREAD_RIGHT) {
             device << " spread_type=\"center\"";
-        }
-        // write the function if not "normal"
-        if (e->getBasicType()!=NBEdge::EDGEFUNCTION_NORMAL) {
-            switch (e->getBasicType()) {
-            case NBEdge::EDGEFUNCTION_SOURCE:
-                device << " function=\"source\"";
-                break;
-            case NBEdge::EDGEFUNCTION_SINK:
-                device << " function=\"sink\"";
-                break;
-            default:
-                // hmmm - do nothing? seems to be invalid anyhow
-                break;
-            }
         }
         // write the vehicles class if restrictions exist
         if (!e->hasRestrictions()) {

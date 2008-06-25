@@ -117,9 +117,6 @@ private:
     /// tries to parse the shape definition
     Position2DVector tryGetShape(const SUMOSAXAttributes &attrs);
 
-    void setGivenType(const SUMOSAXAttributes &attrs);
-
-
     /// Tries to set information needed by the nodes
     bool setNodes(const SUMOSAXAttributes &attrs);
 
@@ -150,9 +147,6 @@ private:
 
     /// The current edge's number of lanes
     int myCurrentLaneNo;
-
-    /// The current edge's function
-    NBEdge::EdgeBasicFunction myCurrentEdgeFunction;
 
     /// The current edge's type
     std::string myCurrentType;
@@ -216,6 +210,9 @@ private:
         SUMOReal myPosition;
 
     };
+
+    /// @brief Information whether one edge with a function-attribute occured and was reported
+    bool myHaveReportedAboutFunctionDeprecation;
 
 
 private:

@@ -721,11 +721,6 @@ NBNodeShapeComputer::computeUniqueDirectionList(
     while (changed) {
         changed = false;
         for (i2=newAll.begin(); !changed&&i2!=newAll.end();) {
-            if ((*i2)->getBasicType()!=NBEdge::EDGEFUNCTION_NORMAL) {
-                newAll.erase(i2);
-                changed = true;
-                continue;
-            }
             std::vector<NBEdge*> other;
             if (same.find(*i2)!=same.end()) {
                 other = same.find(*i2)->second;

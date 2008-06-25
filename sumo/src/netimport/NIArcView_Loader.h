@@ -54,7 +54,7 @@ class OGRFeature;
  * The current importer works only if SUMO was compiled with GDAL-support.
  *  If not, an error message is generated.
  *
- * @todo reinsert import vial shapelib
+ * @todo reinsert import via shapelib
  */
 class NIArcView_Loader :
             public FileErrorReporter

@@ -306,11 +306,6 @@ private:
     BasicNodeType computeType(const NBTypeCont &tc) const;
     bool isSimpleContinuation() const;
 
-    /** returns the information whether this node is the center of a district
-        for this, all incoming edges must be sinks while all outgoing
-        edges must be sources */
-    bool isDistrictCenter() const;
-
     /// computes the priorities of participating edges within this junction
     void setPriorities();
 

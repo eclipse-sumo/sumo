@@ -169,7 +169,6 @@ NIArcView_Loader::load(OptionsCont &)
             speed = speed / (SUMOReal) 3.6;
         }
 
-        NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_NORMAL;
         NBNode *from = 0;
         NBNode *to = 0;
 
@@ -237,7 +236,7 @@ NIArcView_Loader::load(OptionsCont &)
                     ? NBEdge::LANESPREAD_RIGHT
                     : NBEdge::LANESPREAD_CENTER;
                 NBEdge *edge = new NBEdge(id, from, to, type, speed, nolanes,
-                                          priority, shape, spread, function);
+                                          priority, shape, spread);
                 myEdgeCont.insert(edge);
             }
         }
@@ -250,7 +249,7 @@ NIArcView_Loader::load(OptionsCont &)
                     ? NBEdge::LANESPREAD_RIGHT
                     : NBEdge::LANESPREAD_CENTER;
                 NBEdge *edge = new NBEdge(id, to, from, type, speed, nolanes,
-                                          priority, shape.reverse(), spread, function);
+                                          priority, shape.reverse(), spread);
                 myEdgeCont.insert(edge);
             }
         }

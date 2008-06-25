@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
-// A storage for the available types of edges
+// A storage for available types of edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -33,8 +33,8 @@
 #include <string>
 #include <map>
 #include "NBNode.h"
-#include "NBType.h"
 #include "NBJunctionTypesMatrix.h"
+#include <utils/common/SUMOVehicleClass.h>
 
 
 // ===========================================================================
@@ -42,20 +42,32 @@
 // ===========================================================================
 /**
  * @class NBTypeCont
+ * @brief A storage for available types of edges
+ *
+ * NBTypeCont stores properties of types of edges. If one of needed edge
+ *  attributes is missing, but a type name is given, this attribute's 
+ *  value will be filled from what was defined for the type.
+ *
+ * Additionally, a default type is stored which is used if no type information
+ *  is given.
  */
 class NBTypeCont
 {
 public:
-    NBTypeCont();
+    /// @brief Constructor
+    NBTypeCont() throw() {}
 
-    ~NBTypeCont();
+
+    /// @brief Destructor
+    ~NBTypeCont() throw() {}
 
     /** sets the default values */
     void setDefaults(int defaultNoLanes,
                      SUMOReal defaultSpeed, int defaultPriority);
 
     /** adds a possible type into the list */
-    bool insert(NBType *type);
+    bool insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int prio, 
+        SUMOVehicleClass vClasses=SVC_UNKNOWN, bool oneWayIsDefault=false);
 
     /** returns the number of lanes
         (the default value if type does not exist) */
@@ -65,12 +77,13 @@ public:
         (the default value if the type does not exist) */
     SUMOReal getSpeed(const std::string &type);
 
-    /// Returns the function streets of the named type have
-    NBEdge::EdgeBasicFunction getFunction(const std::string &type);
-
     /** returns the priority of the section/edge with the given type
         (the default value if the type does not exist) */
     int getPriority(const std::string &type);
+
+    bool getIsOneWay(const std::string &type);
+    const std::vector<SUMOVehicleClass> &getAllowedClasses(const std::string &type);
+    const std::vector<SUMOVehicleClass> &getDisallowedClasses(const std::string &type);
 
     /** returns the default number of lanes */
     int getDefaultNoLanes();
@@ -87,26 +100,42 @@ public:
     /** returns the type of the junction between two edges of the given types */
     NBNode::BasicNodeType getJunctionType(SUMOReal speed1, SUMOReal speed2) const;
 
-    /** deletes all types */
-    void clear();
 
     bool knows(const std::string &type) const;
 
 private:
-    /** a container of types, accessed by the string key */
-    typedef std::map<std::string, NBType*> TypesCont;
+    struct TypeDefinition {
+        TypeDefinition() 
+            : noLanes(1), speed((SUMOReal) 13.9), priority(-1), oneWay(true)
+        { }
 
-private:
-    /** the default number of lanes of a section/edge */
-    int myDefaultNoLanes;
+        TypeDefinition(int _noLanes, SUMOReal _speed, int _priority) 
+            : noLanes(_noLanes), speed(_speed), priority(_priority), oneWay(true)
+        { }
 
-    /** the default maximal velocity on a section/edge in m/s */
-    SUMOReal myDefaultSpeed;
 
-    /** the default priority of a section/edge */
-    int myDefaultPriority;
+        /// @brief The number of lanes of an edge
+        int noLanes;
+        /// @brief The maximal velocity on an edge in m/s
+        SUMOReal speed;
+        /// @brief The priority of an edge
+        int priority;
+        /// @brief List of vehicle types that are allowed on this edge
+        std::vector<SUMOVehicleClass> allowed;
+        /// @brief List of vehicle types that are not allowed on this edge
+        std::vector<SUMOVehicleClass> notAllowed;
+        /// @brief Whether one-way traffic is mostly common for this type (mostly unused)
+        bool oneWay;
 
-    /** the container of types */
+    };
+
+    /// @brief The default type
+    TypeDefinition myDefaultType;
+
+    /// @brief A container of types, accessed by the string id
+    typedef std::map<std::string, TypeDefinition> TypesCont;
+
+    /// @brief The container of types
     TypesCont myTypes;
 
     /** the matrix of roads to junction type mappings */

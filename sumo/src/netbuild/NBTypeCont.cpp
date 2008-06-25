@@ -33,7 +33,6 @@
 #include <iostream>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
-#include "NBType.h"
 #include "NBTypeCont.h"
 #include "NBJunctionTypesMatrix.h"
 
@@ -51,35 +50,31 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBTypeCont::NBTypeCont()
-{}
-
-
-NBTypeCont::~NBTypeCont()
-{
-    clear();
-}
-
-
 void
 NBTypeCont::setDefaults(int defaultNoLanes,
                         SUMOReal defaultSpeed,
                         int defaultPriority)
 {
-    myDefaultNoLanes = defaultNoLanes;
-    myDefaultSpeed = defaultSpeed;
-    myDefaultPriority = defaultPriority;
+    myDefaultType.noLanes = defaultNoLanes;
+    myDefaultType.speed = defaultSpeed;
+    myDefaultType.priority = defaultPriority;
 }
 
 
 bool
-NBTypeCont::insert(NBType *type)
+NBTypeCont::insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int prio, 
+        SUMOVehicleClass vClasses, bool oneWayIsDefault)
 {
-    TypesCont::iterator i = myTypes.find(type->myName);
+    TypesCont::iterator i = myTypes.find(id);
     if (i!=myTypes.end()) {
         return false;
     }
-    myTypes[type->myName] = type;
+    NBTypeCont::TypeDefinition td(noLanes, maxSpeed, prio);
+    if(vClasses!=SVC_UNKNOWN) {
+        td.allowed.push_back(vClasses);
+    }
+    td.oneWay = oneWayIsDefault;
+    myTypes[id] = td;
     return true;
 }
 
@@ -89,9 +84,9 @@ NBTypeCont::getNoLanes(const string &type)
 {
     TypesCont::iterator i = myTypes.find(type);
     if (i==myTypes.end()) {
-        return NBTypeCont::myDefaultNoLanes;
+        return myDefaultType.noLanes;
     }
-    return (*i).second->myNoLanes;
+    return (*i).second.noLanes;
 }
 
 
@@ -100,20 +95,9 @@ NBTypeCont::getSpeed(const string &type)
 {
     TypesCont::iterator i = myTypes.find(type);
     if (i==myTypes.end()) {
-        return NBTypeCont::myDefaultSpeed;
+        return myDefaultType.speed;
     }
-    return (*i).second->mySpeed;
-}
-
-
-NBEdge::EdgeBasicFunction
-NBTypeCont::getFunction(const std::string &type)
-{
-    TypesCont::iterator i = myTypes.find(type);
-    if (i==myTypes.end()) {
-        return NBEdge::EDGEFUNCTION_NORMAL;
-    }
-    return (*i).second->myFunction;
+    return (*i).second.speed;
 }
 
 
@@ -122,10 +106,44 @@ NBTypeCont::getPriority(const string &type)
 {
     TypesCont::iterator i = myTypes.find(type);
     if (i==myTypes.end()) {
-        return NBTypeCont::myDefaultPriority;
+        return myDefaultType.priority;
     }
-    return (*i).second->myPriority;
+    return (*i).second.priority;
 }
+
+
+bool 
+NBTypeCont::getIsOneWay(const std::string &type)
+{
+    TypesCont::iterator i = myTypes.find(type);
+    if (i==myTypes.end()) {
+        return myDefaultType.oneWay;
+    }
+    return (*i).second.oneWay;
+}
+
+
+const std::vector<SUMOVehicleClass> &
+NBTypeCont::getAllowedClasses(const std::string &type)
+{
+    TypesCont::iterator i = myTypes.find(type);
+    if (i==myTypes.end()) {
+        return myDefaultType.allowed;
+    }
+    return (*i).second.allowed;
+}
+
+
+const std::vector<SUMOVehicleClass> &
+NBTypeCont::getDisallowedClasses(const std::string &type)
+{
+    TypesCont::iterator i = myTypes.find(type);
+    if (i==myTypes.end()) {
+        return myDefaultType.notAllowed;
+    }
+    return (*i).second.notAllowed;
+}
+
 
 bool
 NBTypeCont::knows(const std::string &type) const
@@ -137,21 +155,21 @@ NBTypeCont::knows(const std::string &type) const
 int
 NBTypeCont::getDefaultNoLanes()
 {
-    return NBTypeCont::myDefaultNoLanes;
+    return myDefaultType.noLanes;
 }
 
 
 int
 NBTypeCont::getDefaultPriority()
 {
-    return NBTypeCont::myDefaultPriority;
+    return myDefaultType.priority;
 }
 
 
 SUMOReal
 NBTypeCont::getDefaultSpeed()
 {
-    return NBTypeCont::myDefaultSpeed;
+    return myDefaultType.speed;
 }
 
 
@@ -167,17 +185,6 @@ NBTypeCont::getJunctionType(SUMOReal speed1, SUMOReal speed2) const
 {
     return myJunctionTypes.getType(speed1, speed2);
 }
-
-
-void
-NBTypeCont::clear()
-{
-    for (TypesCont::iterator i=myTypes.begin(); i!=myTypes.end(); i++) {
-        delete((*i).second);
-    }
-    myTypes.clear();
-}
-
 
 
 /****************************************************************************/

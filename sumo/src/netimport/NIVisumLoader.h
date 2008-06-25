@@ -317,10 +317,10 @@ private:
      *
      * @param[in] id Name of the district
      * @param[in] dest Name of the according network node
-     * @param[in] dir Information whether this node will be used as a sink or a source
+     * @param[in] isSource Information whether this node will be used as a source
      * @return The built node, zero if an error occured
      */
-    NBNode *buildDistrictNode(const std::string &id, NBNode *dest, NBEdge::EdgeBasicFunction dir) throw();
+    NBNode *buildDistrictNode(const std::string &id, NBNode *dest, bool isSource) throw();
 
 
     /** @brief Returns whether both nodes are a valid combination of from/to-nodes

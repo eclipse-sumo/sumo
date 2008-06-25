@@ -250,11 +250,6 @@ NBRequest::setBlocking(NBEdge *from1, NBEdge *to1,
     // mark the crossings as done
     myDone[idx1][idx2] = true;
     myDone[idx2][idx1] = true;
-    // do not wait on connections to sinks
-    if (to1->getBasicType()==NBEdge::EDGEFUNCTION_SINK||to2->getBasicType()==NBEdge::EDGEFUNCTION_SINK) {
-        return;
-    }
-
     // check if one of the links is a turn; this link is always not priorised
     //  true for right-before-left and priority
     if (from1->isTurningDirectionAt(myJunction, to1)) {

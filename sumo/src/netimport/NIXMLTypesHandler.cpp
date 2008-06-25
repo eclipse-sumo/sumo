@@ -57,7 +57,7 @@ using namespace std;
 // ===========================================================================
 NIXMLTypesHandler::NIXMLTypesHandler(NBTypeCont &tc)
         : SUMOSAXHandler("xml-types - file"),
-        myTypeCont(tc)
+        myTypeCont(tc), myHaveReportedAboutFunctionDeprecation(false)
 {}
 
 
@@ -77,6 +77,11 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
     if(!attrs.setIDFromAttribues("type", id), false) {
         WRITE_WARNING("No type id given... Skipping.");
         return;
+    }
+    // check deprecated (unused) attributes
+    if(!myHaveReportedAboutFunctionDeprecation&&attrs.hasAttribute(SUMO_ATTR_FUNCTION)) {
+        MsgHandler::getWarningInstance()->inform("While parsing type '" + id + "': 'function' is deprecated.\n All occurences are ignored.");
+        myHaveReportedAboutFunctionDeprecation = true;
     }
     int priority = 0;
     int noLanes = 0;
@@ -99,22 +104,10 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("Not numeric value for Speed (at tag ID='" + id + "').");
     }
-    // get the function
-    NBEdge::EdgeBasicFunction function = NBEdge::EDGEFUNCTION_NORMAL;
-    string functionS = attrs.getStringSecure(SUMO_ATTR_FUNCTION, "normal");
-    if (functionS=="source") {
-        function = NBEdge::EDGEFUNCTION_SOURCE;
-    } else if (functionS=="sink") {
-        function = NBEdge::EDGEFUNCTION_SINK;
-    } else if (functionS!="normal"&&functionS!="") {
-        MsgHandler::getErrorInstance()->inform("Unknown function '" + functionS + "' occured.");
-    }
     // build the type
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
-        NBType *type = new NBType(id, noLanes, speed, priority, function);
-        if (!myTypeCont.insert(type)) {
+        if (!myTypeCont.insert(id, noLanes, speed, priority)) {
             MsgHandler::getErrorInstance()->inform("Duplicate type occured. ID='" + id + "'");
-            delete type;
         }
     }
 }

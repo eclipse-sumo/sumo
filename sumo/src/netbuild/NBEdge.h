@@ -63,19 +63,6 @@ class OutputDevice;
 class NBEdge
 {
 public:
-    /** @enum EdgeBasicFunction
-     * @brief Edges may have certain functions listed here
-     */
-    enum EdgeBasicFunction {
-        /// @brief The edge is normal street within the network
-        EDGEFUNCTION_UNKNOWN,
-        /// @brief The edge is normal street within the network
-        EDGEFUNCTION_NORMAL,
-        /// @brief The edge is a source
-        EDGEFUNCTION_SOURCE,
-        /// @brief The edge is a sink
-        EDGEFUNCTION_SINK
-    };
 
 
     /**  @enum LaneSpreadFunction
@@ -159,14 +146,12 @@ public:
     NBEdge(const std::string &id, 
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
-           LaneSpreadFunction spread=LANESPREAD_RIGHT,
-           EdgeBasicFunction basic=EDGEFUNCTION_NORMAL) throw(ProcessError);
+           LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
     NBEdge(const std::string &id, 
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
-           Position2DVector geom, LaneSpreadFunction spread=LANESPREAD_RIGHT,
-           EdgeBasicFunction basic=EDGEFUNCTION_NORMAL) throw(ProcessError);
+           Position2DVector geom, LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
     
     /** @brief Destructor
@@ -235,15 +220,6 @@ public:
      */
     SUMOReal getLength() const throw() {
         return myLength;
-    }
-
-
-    /** @brief Returns the type of this edge
-     * @return This edge's type
-     * @see EdgeBasicFunction
-     */
-    EdgeBasicFunction getBasicType() const throw() {
-        return myBasicType;
     }
 
 
@@ -687,9 +663,6 @@ private:
 
     /// the priority normalised for the node the edge is incoming in
     int myToJunctionPriority;
-
-    /// the information what purpose the edge has within a simulation
-    EdgeBasicFunction myBasicType;
 
     /// An optional geometry for the edge
     Position2DVector myGeom;

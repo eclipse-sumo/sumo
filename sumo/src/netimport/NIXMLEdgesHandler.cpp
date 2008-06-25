@@ -72,7 +72,7 @@ NIXMLEdgesHandler::NIXMLEdgesHandler(NBNodeCont &nc,
         : SUMOSAXHandler("xml-edges - file"),
         myOptions(options),
         myNodeCont(nc), myEdgeCont(ec), myTypeCont(tc), myDistrictCont(dc),
-        myCurrentEdge(0)
+        myCurrentEdge(0), myHaveReportedAboutFunctionDeprecation(false)
 {}
 
 
@@ -92,11 +92,15 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         if(!attrs.setIDFromAttribues("edge", myCurrentID)) {
             return;
         }
+        // check deprecated (unused) attributes
+        if(!myHaveReportedAboutFunctionDeprecation&&attrs.hasAttribute(SUMO_ATTR_FUNCTION)) {
+            MsgHandler::getWarningInstance()->inform("While parsing edge '" + myCurrentID + "': 'function' is deprecated.\n All occurences are ignored.");
+            myHaveReportedAboutFunctionDeprecation = true;
+        }
         // use default values, first
         myCurrentSpeed = myTypeCont.getDefaultSpeed();
         myCurrentPriority = myTypeCont.getDefaultPriority();
         myCurrentLaneNo = myTypeCont.getDefaultNoLanes();
-        myCurrentEdgeFunction = NBEdge::EDGEFUNCTION_NORMAL;
         // check whether a type's values shall be used
         myCurrentType = "";
         if (attrs.hasAttribute(SUMO_ATTR_TYPE)) {
@@ -112,7 +116,6 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             myCurrentSpeed = myTypeCont.getSpeed(myCurrentType);
             myCurrentPriority = myTypeCont.getPriority(myCurrentType);
             myCurrentLaneNo = myTypeCont.getNoLanes(myCurrentType);
-            myCurrentEdgeFunction = myTypeCont.getFunction(myCurrentType);
         }
         // speed, priority and the number of lanes have now default values;
         // try to read the real values from the file
@@ -130,7 +133,6 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         }
         setGivenLanes(attrs);
         setGivenPriority(attrs);
-        setGivenType(attrs);
         // try to get the shape
         myShape = tryGetShape(attrs);
         // and how to spread the lanes
@@ -150,16 +152,14 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             myCurrentEdge = new NBEdge(myCurrentID, 
                 myFromNode, myToNode,
                 myCurrentType, myCurrentSpeed,
-                myCurrentLaneNo, myCurrentPriority, myLanesSpread,
-                myCurrentEdgeFunction);
+                myCurrentLaneNo, myCurrentPriority, myLanesSpread);
             myCurrentEdge->setLoadedLength(myLength);
         } else {
             myCurrentEdge = new NBEdge(myCurrentID,
                 myFromNode, myToNode,
                 myCurrentType, myCurrentSpeed,
                 myCurrentLaneNo, myCurrentPriority,
-                myShape, myLanesSpread,
-                myCurrentEdgeFunction);
+                myShape, myLanesSpread);
             myCurrentEdge->setLoadedLength(myLength);
         }
     }
@@ -389,28 +389,6 @@ NIXMLEdgesHandler::setGivenPriority(const SUMOSAXAttributes &attrs)
 }
 
 
-void
-NIXMLEdgesHandler::setGivenType(const SUMOSAXAttributes &attrs)
-{
-    if (!attrs.hasAttribute(SUMO_ATTR_FUNCTION)) {
-        return;
-    }
-    // try to get the tpe
-    string func = attrs.getStringSecure(SUMO_ATTR_FUNCTION, "");
-    if (func=="") {
-        MsgHandler::getErrorInstance()->inform("Empty edge function in edge '" + myCurrentID + "'.");
-        return;
-    }
-    if (func=="source") {
-        myCurrentEdgeFunction = NBEdge::EDGEFUNCTION_SOURCE;
-    } else if (func=="sink") {
-        myCurrentEdgeFunction = NBEdge::EDGEFUNCTION_SINK;
-    } else if (func!="normal") {
-        MsgHandler::getErrorInstance()->inform("Unknown edge function '" + func + "' in edge '" + myCurrentID + "'.");
-    }
-}
-
-
 bool
 NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs)
 {
@@ -522,7 +500,7 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs)
         string shpdef = attrs.getStringSecure(SUMO_ATTR_SHAPE, "");
         Position2DVector shape1 = GeomConvHelper::parseShape(shpdef);
         Position2DVector shape;
-        for (size_t i=0; i<shape1.size(); ++i) {
+        for (int i=0; i<(int) shape1.size(); ++i) {
             Position2D pos(shape1[i]);
             GeoConvHelper::x2cartesian(pos);
             shape.push_back(pos);
@@ -601,9 +579,9 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
             for (i=myExpansions.begin(); i!=myExpansions.end(); ++i) {
                 vector<int>::iterator k;
                 vector<int> lanes;
-                for (size_t l=0; l<e->getNoLanes(); ++l) {
+                for (unsigned int l=0; l<e->getNoLanes(); ++l) {
                     if (find((*i).lanes.begin(), (*i).lanes.end(), l)==(*i).lanes.end()) {
-                        lanes.push_back(l);
+                        lanes.push_back((int) l);
                     }
                 }
                 for (i2=i+1; i2!=myExpansions.end(); ++i2) {
