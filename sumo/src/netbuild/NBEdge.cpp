@@ -1919,6 +1919,16 @@ NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass)
 }
 
 
+void 
+NBEdge::setVehicleClasses(const vector<SUMOVehicleClass> &allowed, const vector<SUMOVehicleClass> &disallowed, int lane)
+{
+    for(vector<SUMOVehicleClass>::const_iterator i=allowed.begin(); i!=allowed.end(); ++i) {
+        allowVehicleClass(lane, *i);
+    }
+    for(vector<SUMOVehicleClass>::const_iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
+        disallowVehicleClass(lane, *i);
+    }
+}
 
 void
 NBEdge::recheckEdgeGeomForDoublePositions()

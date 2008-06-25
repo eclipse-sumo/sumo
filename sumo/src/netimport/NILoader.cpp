@@ -59,8 +59,7 @@
 #include <netimport/NIArcView_Loader.h>
 #include <netimport/NIImporter_SUMO.h>
 #include <netimport/NITigerLoader.h>
-#include <netimport/NIOSMEdgesHandler.h>
-#include <netimport/NIOSMNodesHandler.h>
+#include <netimport/NIImporter_OpenStreetMap.h>
 #include <utils/xml/XMLSubSys.h>
 #include "NILoader.h"
 #include <utils/common/TplConvert.h>
@@ -108,12 +107,12 @@ NILoader::load(OptionsCont &oc)
     loadXMLType(handler, oc.getStringVector("xml-type-files"), "types");
     // try to load using different methods
     NIImporter_SUMO::loadNetwork(oc, myNetBuilder);
+    NIImporter_OpenStreetMap::loadNetwork(oc, myNetBuilder);
     loadVisum(oc);
     loadArcView(oc);
     loadVissim(oc);
     loadElmar(oc);
     loadTiger(oc);
-    loadOSM(oc);
     loadXML(oc);
     // check the loaded structures
     if (myNetBuilder.getNodeCont().size()==0) {
@@ -351,28 +350,6 @@ NILoader::loadTiger(OptionsCont &oc)
                     oc.getString("tiger"));
     l.load(oc);
 }
-
-
-void
-NILoader::loadOSM(OptionsCont &oc)
-{
-    if (!oc.isSet("osm-files")) {
-        return;
-    }
-    std::map<int, NIOSMNode*> tmpNodes;
-    // load nodes
-    loadXMLType(new NIOSMNodesHandler(tmpNodes, oc),
-                oc.getStringVector("osm-files"), "nodes");
-    // load the edges
-    loadXMLType(new NIOSMEdgesHandler(tmpNodes,
-                                      myNetBuilder.getNodeCont(), myNetBuilder.getEdgeCont(),
-                                      myNetBuilder.getTypeCont(), myNetBuilder.getDistrictCont(), oc),
-                oc.getStringVector("osm-files"), "edges");
-    for (std::map<int, NIOSMNode*>::const_iterator i=tmpNodes.begin(); i!=tmpNodes.end(); ++i) {
-        delete(*i).second;
-    }
-}
-
 
 
 /****************************************************************************/

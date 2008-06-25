@@ -462,6 +462,7 @@ public:
     void allowVehicleClass(int lane, SUMOVehicleClass vclass);
     void disallowVehicleClass(int lane, SUMOVehicleClass vclass);
     std::vector<SUMOVehicleClass> getAllowedVehicleClasses() const;
+    void setVehicleClasses(const std::vector<SUMOVehicleClass> &allowed, const std::vector<SUMOVehicleClass> &disallowed, int lane=-1);
 
     void disableConnection4TLS(int fromLane, NBEdge *toEdge, int toLane);
 

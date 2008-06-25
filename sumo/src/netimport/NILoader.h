@@ -102,7 +102,6 @@ private:
 
     void loadTiger(OptionsCont &oc);
 
-    void loadOSM(OptionsCont &oc);
 
 private:
     NBNetBuilder &myNetBuilder;
