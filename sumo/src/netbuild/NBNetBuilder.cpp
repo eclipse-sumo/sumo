@@ -646,9 +646,6 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("print-node-positions", new Option_Bool(false)); // !!! not described
     oc.addDescription("print-node-positions", "Report", "Prints the positions of read nodes");
 
-    oc.doRegister("netbuild.debug", new Option_Integer(0)); // !!! not described
-    oc.addDescription("netbuild.debug", "Report", "Enable debug mode");
-
 }
 
 

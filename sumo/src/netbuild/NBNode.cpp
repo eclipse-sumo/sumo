@@ -1117,6 +1117,25 @@ NBNode::writeXMLInternalNodes(OutputDevice &into)
 void
 NBNode::writeinternal(EdgeVector *myIncomingEdges, OutputDevice &into, const std::string &id)
 {
+    /*
+    size_t l = 0;
+    for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
+        size_t noLanesEdge = (*i)->getNoLanes();
+        for (size_t j=0; j<noLanesEdge; j++) {
+            const EdgeLaneVector &elv = (*i)->getEdgeLanesFromLane(j);
+            for (EdgeLaneVector::const_iterator k=elv.begin(); k!=elv.end(); k++) {
+                if ((*k).edge==0) {
+                    continue;
+                }
+                if (l!=0) {
+                    into << ' ';
+                }
+                into << ':' << id << '_' << l << "_0";
+                l++;
+            }
+        }
+    }
+    */
     size_t l = 0;
     size_t o = countInternalLanes(false);
     for (EdgeVector::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); i++) {
@@ -1291,16 +1310,6 @@ NBNode::sortNodesEdges(const NBTypeCont &tc)
     if (myAllEdges.size()>1 && i!=myAllEdges.end()) {
         swapWhenReversed(myAllEdges.end()-1, myAllEdges.begin());
     }
-#ifdef _DEBUG
-    if (OptionsCont::getOptions().getInt("netbuild.debug")>0) {
-        DEBUG_OUT << "Node '" << myID << "': ";
-        const EdgeVector &ev = getEdges();
-        for (EdgeVector::const_iterator i=ev.begin(); i!=ev.end(); ++i) {
-            DEBUG_OUT << (*i)->getID() << ", ";
-        }
-        DEBUG_OUT << endl;
-    }
-#endif
     NBNode::BasicNodeType type = computeType(tc);
     // write if wished
     if (OptionsCont::getOptions().isSet("node-type-output")) {
