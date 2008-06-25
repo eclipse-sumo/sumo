@@ -13,9 +13,6 @@ shapes
 # tests whether connections are processed
 connections
 
-# tests whether definig function works
-function
-
 # tests whether lane expansions work
 lane_expansion
 
@@ -26,4 +23,7 @@ vclasses
 # testing error input and handling
 errors
 
+
+# tests for functions that are deprecated and will be removed some time
+_deprecated_
 
