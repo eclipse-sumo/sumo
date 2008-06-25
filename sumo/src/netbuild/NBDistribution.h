@@ -40,6 +40,7 @@
 // ===========================================================================
 /**
  * @class NBDistribution
+ * @brief The base class for statistical distribution descriptions
  */
 class NBDistribution
 {
