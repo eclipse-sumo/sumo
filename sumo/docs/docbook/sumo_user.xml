@@ -8430,6 +8430,14 @@ myDet1;0;10;2;100;80
           All dumps will cover the complete simulation if the options
           <option>--dump-begins</option> and <option>--dump-ends</option> are
           not set.</para>
+
+          <para>Normally, dumps also include information about streets/lanes
+          that were not used within the interval. Values for speed and
+          traveltime are in this case computed using the edges'/lanes' default
+          maximum speed. You can force to include only edges/lanes that were
+          occupied by vehicles using the options
+          <option>--exclude-empty-edges</option> and
+          <option>--exclude-empty-lanes</option>.</para>
         </sect3>
 
         <sect3 id="user_chp06-output-edgelanedump-misc">
@@ -8453,6 +8461,12 @@ myDet1;0;10;2;100;80
             <listitem>
               <para>The values have been revisited and partially changed for
               version 0.10</para>
+            </listitem>
+
+            <listitem>
+              <para>The options <option>--exclude-empty-edges</option> and
+              <option>--exclude-empty-lanes</option> were added in version
+              0.10</para>
             </listitem>
           </itemizedlist>
         </sect3>
