@@ -1,0 +1,117 @@
+<edges>
+	<!--
+	Ruta 1
+	-->
+   <edge id="busstation0i" fromnode="busstation" tonode="0" type="ReservedBusLane"/>
+   <edge id="busstation0o" fromnode="0" tonode="busstation" type="ReservedBusLane"/>
+   <edge id="01" fromnode="0" tonode="1" type="ReservedBusLane"/>
+   <edge id="13" fromnode="1" tonode="3" type="ReservedBusLane"/>
+   <edge id="34" fromnode="3" tonode="4" type="ReservedBusLane"/>
+   <edge id="4cruceA45" fromnode="4" tonode="cruceA45" type="ReservedBusLane"/>
+   <edge id="cruceA45cruceB45" fromnode="cruceA45" tonode="cruceB45" type="ReservedBusLane" />
+   <edge id="cruceB455" fromnode="cruceB45" tonode="5" type="ReservedBusLane" />
+   <edge id="56" fromnode="5" tonode="6" type="NormalRoad"/>
+   <edge id="67" fromnode="6" tonode="7" type="NormalRoad"/>
+   <edge id="711" fromnode="7" tonode="11" type="NormalRoad"/>
+   <edge id="1112" fromnode="11" tonode="12" type="NormalRoad"/>
+   <edge id="1213" fromnode="12" tonode="13" type="NormalRoad"/>
+   <edge id="135" fromnode="13" tonode="5" type="NormalRoad"/>
+   <edge id="5cruceB45" fromnode="5" tonode="cruceB45" type="ReservedBusLane"/>
+   <edge id="cruceB45cruceA45" fromnode="cruceB45" tonode="cruceA45" type="ReservedBusLane"/>
+   <edge id="cruceA454" fromnode="cruceA45" tonode="4" type="ReservedBusLane" />
+   <edge id="42" fromnode="4" tonode="2" type="ReservedBusLane"/>
+   <edge id="20" fromnode="2" tonode="0" type="ReservedBusLane"/>
+   
+   <!--
+   Ruta 2
+   -->
+   <edge id="78" fromnode="7" tonode="8" type="NormalRoad"/>
+   <edge id="89" fromnode="8" tonode="9" type="NormalRoad"/>
+   <edge id="910" fromnode="9" tonode="10" type="NormalRoad"/>
+   <edge id="1011" fromnode="10" tonode="11" type="NormalRoad"/>
+   
+   <!--
+   Trafico normal
+   -->
+   <!--
+   <edge id="cruce4iN" fromnode="cruce4N" tonode="4" type="NormalRoad"/>
+   <edge id="cruce4oN" fromnode="4" tonode="cruce4N" type="NormalRoad"/>
+   <edge id="cruce4iS" fromnode="cruce4S" tonode="4" type="NormalRoad"/>
+   <edge id="cruce4oS" fromnode="4" tonode="cruce4S" type="NormalRoad"/>
+   
+   <edge id="cruce4iN_" fromnode="cruce4N2" tonode="cruce4N" type="NormalRoad"/>
+   <edge id="cruce4oN_" fromnode="cruce4N" tonode="cruce4N2" type="NormalRoad"/>
+   <edge id="cruce4iS_" fromnode="cruce4S2" tonode="cruce4S" type="NormalRoad"/>
+   <edge id="cruce4oS_" fromnode="cruce4S" tonode="cruce4S2" type="NormalRoad"/>
+   -->
+   <!--
+   <edge id="cruceA45iN" fromnode="cruceA45N" tonode="cruceA45" type="NormalRoad"/>
+   <edge id="cruceA45oN" fromnode="cruceA45" tonode="cruceA45N" type="NormalRoad"/>
+   <edge id="cruceA45iS" fromnode="cruceA45S" tonode="cruceA45" type="NormalRoad"/>
+   <edge id="cruceA45oS" fromnode="cruceA45" tonode="cruceA45S" type="NormalRoad"/>
+   
+   <edge id="cruceA45iN_" fromnode="cruceA45N2" tonode="cruceA45N" type="NormalRoad"/>
+   <edge id="cruceA45oN_" fromnode="cruceA45N" tonode="cruceA45N2" type="NormalRoad"/>
+   <edge id="cruceA45iS_" fromnode="cruceA45S2" tonode="cruceA45S" type="NormalRoad"/>
+   <edge id="cruceA45oS_" fromnode="cruceA45S" tonode="cruceA45S2" type="NormalRoad"/>
+   -->
+   <!--
+   <edge id="cruceB45iN" fromnode="cruceB45N" tonode="cruceB45" type="NormalRoad"/>
+   <edge id="cruceB45oN" fromnode="cruceB45" tonode="cruceB45N" type="NormalRoad"/>
+   <edge id="cruceB45iS" fromnode="cruceB45S" tonode="cruceB45" type="NormalRoad"/>
+   <edge id="cruceB45oS" fromnode="cruceB45" tonode="cruceB45S" type="NormalRoad"/>
+   
+   <edge id="cruceB45iN_" fromnode="cruceB45N2" tonode="cruceB45N" type="NormalRoad"/>
+   <edge id="cruceB45oN_" fromnode="cruceB45N" tonode="cruceB45N2" type="NormalRoad"/>
+   <edge id="cruceB45iS_" fromnode="cruceB45S2" tonode="cruceB45S" type="NormalRoad"/>
+   <edge id="cruceB45oS_" fromnode="cruceB45S" tonode="cruceB45S2" type="NormalRoad"/>
+   -->
+   <edge id="cruce13iS" fromnode="cruce13S" tonode="13" type="NormalRoad"/>
+   <edge id="cruce13iS_" fromnode="cruce13S2" tonode="cruce13S" type="NormalRoad"/>
+   <edge id="cruce13oS" fromnode="13" tonode="cruce13S" type="NormalRoad"/>
+   <edge id="cruce13oS_" fromnode="cruce13S" tonode="cruce13S2" type="NormalRoad"/>
+   
+   <edge id="cruce6iN" fromnode="cruce6N" tonode="6" type="NormalRoad"/>
+   <edge id="cruce6oN" fromnode="6" tonode="cruce6N" type="NormalRoad"/>
+   <edge id="cruce6iN_" fromnode="cruce6N2" tonode="cruce6N" type="NormalRoad"/>
+   <edge id="cruce6oN_" fromnode="cruce6N" tonode="cruce6N2" type="NormalRoad"/>
+   
+   <edge id="cruce7iN" fromnode="cruce7N" tonode="7" type="NormalRoad"/>
+   <edge id="cruce7oN" fromnode="7" tonode="cruce7N" type="NormalRoad"/>
+   <edge id="cruce7iN_" fromnode="cruce7N2" tonode="cruce7N" type="NormalRoad"/>
+   <edge id="cruce7oN_" fromnode="cruce7N" tonode="cruce7N2" type="NormalRoad"/>
+   
+   <edge id="cruce8iN" fromnode="cruce8N" tonode="8" type="NormalRoad"/>
+   <edge id="cruce8oN" fromnode="8" tonode="cruce8N" type="NormalRoad"/>
+   <edge id="cruce8iN_" fromnode="cruce8N2" tonode="cruce8N" type="NormalRoad"/>
+   <edge id="cruce8oN_" fromnode="cruce8N" tonode="cruce8N2" type="NormalRoad"/>
+   
+   <edge id="cruce12iS" fromnode="cruce12S" tonode="12" type="NormalRoad"/>
+   <edge id="cruce12oS" fromnode="12" tonode="cruce12S" type="NormalRoad"/>
+   <edge id="cruce12iS_" fromnode="cruce12S2" tonode="cruce12S" type="NormalRoad"/>
+   <edge id="cruce12oS_" fromnode="cruce12S" tonode="cruce12S2" type="NormalRoad"/>
+   
+   <edge id="cruce9iS" fromnode="cruce9S" tonode="9" type="NormalRoad"/>
+   <edge id="cruce9oS" fromnode="9" tonode="cruce9S" type="NormalRoad"/>
+   <edge id="cruce9iS_" fromnode="cruce9S2" tonode="cruce9S" type="NormalRoad"/>
+   <edge id="cruce9oS_" fromnode="cruce9S" tonode="cruce9S2" type="NormalRoad"/>
+   
+   <edge id="615" fromnode="6" tonode="15" type="NormalRoad"/>
+   <edge id="1514" fromnode="15" tonode="14" type="NormalRoad"/>
+   <edge id="cruceB4515" fromnode="cruceB45" tonode="15" type="NormalRoad"/>
+   <edge id="15cruceB45" fromnode="15" tonode="cruceB45" type="NormalRoad"/>
+   <edge id="1716" fromnode="17" tonode="16" type="NormalRoad"/>
+   <edge id="1617" fromnode="16" tonode="17" type="NormalRoad"/>
+   <edge id="16cruceA45" fromnode="16" tonode="cruceA45" type="NormalRoad"/>
+   <edge id="1416" fromnode="14" tonode="16" type="NormalRoad"/>
+   <edge id="cruceA4518" fromnode="cruceA45" tonode="18" type="NormalRoad"/>
+   <edge id="cruceB4519" fromnode="cruceB45" tonode="19" type="NormalRoad"/>
+   <edge id="1918" fromnode="19" tonode="18" type="NormalRoad"/>
+   <edge id="1319" fromnode="13" tonode="19" type="NormalRoad"/>
+   
+   
+   <!--
+   <edge id="input_shared_traffic_lane" fromnode="input_shared_traffic" tonode="4" type="NormalRoad"/>
+   -->
+   
+</edges>

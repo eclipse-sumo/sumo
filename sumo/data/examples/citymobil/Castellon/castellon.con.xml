@@ -1,0 +1,18 @@
+<connections>
+<!--
+	<connection from="34" to="4cruceA45"/>
+    <connection from="cruceA454" to="42"/>
+    <connection from="cruce4iN" to="cruce4oS"/>
+    <connection from="cruce4iS" to="cruce4oN"/>
+    
+    <connection from="4cruceA45" to="cruceA45cruceB45"/>
+    <connection from="cruceB45cruceA45" to="cruceA454"/>
+    <connection from="cruceA45iN" to="cruceA45oS"/>
+    <connection from="cruceA45iS" to="cruceA45oN"/>
+    
+    <connection from="cruceA45cruceB45" to="cruceB455"/>
+    <connection from="5cruceB45" to="cruceB45cruceA45"/>
+    <connection from="cruceB45iN" to="cruceB45oS"/>
+    <connection from="cruceB45iS" to="cruceB45oN"/>
+-->
+</connections>

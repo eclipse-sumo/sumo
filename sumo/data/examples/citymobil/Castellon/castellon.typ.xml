@@ -1,0 +1,4 @@
+<types>
+   <type id="ReservedBusLane" priority="1" nolanes="1" speed="27.78"/>
+   <type id="NormalRoad" priority="10" nolanes="1" speed="13.88"/>
+</types>

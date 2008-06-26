@@ -1,0 +1,1423 @@
+<?xml version="1.0"?>
+
+<!-- generated on 03/04/08 10:20:13 by SUMO netconvert Version 0.9.8
+<configuration>
+
+   <input>
+      <xml-node-files>castellon.nod.xml</xml-node-files>
+      <xml-edge-files>castellon.edg.xml</xml-edge-files>
+      <xml-connection-files>castellon.con.xml</xml-connection-files>
+      <xml-type-files>castellon.typ.xml</xml-type-files>
+   </input>
+
+   <output>
+      <output-file>castellon.net.xml</output-file>
+   </output>
+
+   <processing>
+      <no-turnarounds>true</no-turnarounds>
+   </processing>
+
+</configuration>
+-->
+
+<net>
+
+   <net-offset>26.000000,1263.000000</net-offset>
+   <conv-boundary>0.000000,0.000000,2848.000000,1326.000000</conv-boundary>
+   <orig-boundary>-26.000000,-1263.000000,2822.000000,63.000000</orig-boundary>
+   <orig-proj>!</orig-proj>
+
+   <edges no="59">01 1011 1112 1213 13 1319 135 1416 1514 15cruceB45 1617 16cruceA45 1716 1918 20 34 42 4cruceA45 56 5cruceB45 615 67 711 78 89 910 busstation0i busstation0o cruce12iS cruce12iS_ cruce12oS cruce12oS_ cruce13iS cruce13iS_ cruce13oS cruce13oS_ cruce6iN cruce6iN_ cruce6oN cruce6oN_ cruce7iN cruce7iN_ cruce7oN cruce7oN_ cruce8iN cruce8iN_ cruce8oN cruce8oN_ cruce9iS cruce9iS_ cruce9oS cruce9oS_ cruceA4518 cruceA454 cruceA45cruceB45 cruceB4515 cruceB4519 cruceB455 cruceB45cruceA45</edges>
+   <node_count>48</node_count>
+
+
+   <edge id="01" from="0" to="1" priority="1" type="ReservedBusLane" function="normal">
+      <lanes>
+         <lane id="01_0" depart="1" vclasses="" maxspeed="27.78" length="47.90">23.34,1261.79 -1.44,1220.81</lane>
+      </lanes>
+      <cedge id="13">01_0</cedge>
+   </edge>
+
+   <edge id="1011" from="10" to="11" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="1011_0" depart="1" vclasses="" maxspeed="13.88" length="310.83">2352.42,393.60 2051.65,472.02</lane>
+      </lanes>
+      <cedge id="1112">1011_0</cedge>
+   </edge>
+
+   <edge id="1112" from="11" to="12" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="1112_0" depart="1" vclasses="" maxspeed="13.88" length="99.27">2047.05,469.99 2023.42,373.57</lane>
+      </lanes>
+      <cedge id="1213">1112_0</cedge>
+      <cedge id="cruce12oS">1112_0</cedge>
+   </edge>
+
+   <edge id="1213" from="12" to="13" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="1213_0" depart="1" vclasses="" maxspeed="13.88" length="364.06">2019.40,371.07 1656.84,404.04</lane>
+      </lanes>
+      <cedge id="135">1213_0</cedge>
+      <cedge id="1319">1213_0</cedge>
+      <cedge id="cruce13oS">1213_0</cedge>
+   </edge>
+
+   <edge id="13" from="1" to="3" priority="1" type="ReservedBusLane" function="normal">
+      <lanes>
+         <lane id="13_0" depart="1" vclasses="" maxspeed="27.78" length="350.26">-0.77,1218.54 314.29,1065.51</lane>
+      </lanes>
+      <cedge id="34">13_0</cedge>
+   </edge>
+
+   <edge id="1319" from="13" to="19" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="1319_0" depart="1" vclasses="" maxspeed="13.88" length="423.21">1645.57,405.51 1229.70,483.98</lane>
+      </lanes>
+      <cedge id="1918">1319_0</cedge>
+   </edge>
+
+   <edge id="135" from="13" to="5" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="135_0" depart="1" vclasses="" maxspeed="13.88" length="359.51">1654.90,407.88 1841.86,714.95</lane>
+      </lanes>
+      <cedge id="56">135_0</cedge>
+      <cedge id="5cruceB45">135_0</cedge>
+   </edge>
+
+   <edge id="1416" from="14" to="16" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="1416_0" depart="1" vclasses="" maxspeed="13.88" length="330.24">1461.37,1097.52 1158.50,965.89</lane>
+      </lanes>
+      <cedge id="1617">1416_0</cedge>
+      <cedge id="16cruceA45">1416_0</cedge>
+   </edge>
+
+   <edge id="1514" from="15" to="14" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="1514_0" depart="1" vclasses="" maxspeed="13.88" length="238.77">1662.89,967.00 1462.88,1097.40</lane>
+      </lanes>
+      <cedge id="1416">1514_0</cedge>
+   </edge>
+
+   <edge id="15cruceB45" from="15" to="cruceB45" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="15cruceB45_0" depart="1" vclasses="" maxspeed="13.88" length="218.07">1663.43,962.65 1515.60,802.34</lane>
+      </lanes>
+      <cedge id="cruceB45cruceA45">15cruceB45_0</cedge>
+      <cedge id="cruceB4519">15cruceB45_0</cedge>
+      <cedge id="cruceB455">15cruceB45_0</cedge>
+   </edge>
+
+   <edge id="1617" from="16" to="17" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="1617_0" depart="1" vclasses="" maxspeed="13.88" length="480.70">1154.32,966.43 777.02,1264.30</lane>
+      </lanes>
+   </edge>
+
+   <edge id="16cruceA45" from="16" to="cruceA45" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="16cruceA45_0" depart="1" vclasses="" maxspeed="13.88" length="92.82">1155.59,960.31 1200.29,878.96</lane>
+      </lanes>
+      <cedge id="cruceA454">16cruceA45_0</cedge>
+      <cedge id="cruceA4518">16cruceA45_0</cedge>
+      <cedge id="cruceA45cruceB45">16cruceA45_0</cedge>
+   </edge>
+
+   <edge id="1716" from="17" to="16" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="1716_0" depart="1" vclasses="" maxspeed="13.88" length="480.70">774.98,1261.70 1152.27,963.84</lane>
+      </lanes>
+      <cedge id="16cruceA45">1716_0</cedge>
+   </edge>
+
+   <edge id="1918" from="19" to="18" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="1918_0" depart="1" vclasses="" maxspeed="13.88" length="296.05">1223.05,485.06 929.59,524.19</lane>
+      </lanes>
+   </edge>
+
+   <edge id="20" from="2" to="0" priority="1" type="ReservedBusLane" function="normal">
+      <lanes>
+         <lane id="20_0" depart="1" vclasses="" maxspeed="27.78" length="341.43">331.78,1103.46 29.83,1262.84</lane>
+      </lanes>
+      <cedge id="busstation0o">20_0</cedge>
+      <cedge id="01">20_0</cedge>
+   </edge>
+
+   <edge id="34" from="3" to="4" priority="1" type="ReservedBusLane" function="normal">
+      <lanes>
+         <lane id="34_0" depart="1" vclasses="" maxspeed="27.78" length="40.73">315.33,1065.38 355.16,1073.92</lane>
+      </lanes>
+      <cedge id="4cruceA45">34_0</cedge>
+      <cedge id="42">34_0</cedge>
+   </edge>
+
+   <edge id="42" from="4" to="2" priority="1" type="ReservedBusLane" function="normal">
+      <lanes>
+         <lane id="42_0" depart="1" vclasses="" maxspeed="27.78" length="34.36">356.46,1078.88 332.16,1103.17</lane>
+      </lanes>
+      <cedge id="20">42_0</cedge>
+   </edge>
+
+   <edge id="4cruceA45" from="4" to="cruceA45" priority="1" type="ReservedBusLane" function="normal">
+      <lanes>
+         <lane id="4cruceA45_0" depart="1" vclasses="" maxspeed="27.78" length="861.90">358.96,1073.83 1197.01,872.46</lane>
+      </lanes>
+      <cedge id="cruceA4518">4cruceA45_0</cedge>
+      <cedge id="cruceA45cruceB45">4cruceA45_0</cedge>
+   </edge>
+
+   <edge id="56" from="5" to="6" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="56_0" depart="1" vclasses="" maxspeed="13.88" length="98.22">1847.79,722.75 1914.45,794.89</lane>
+      </lanes>
+      <cedge id="67">56_0</cedge>
+      <cedge id="cruce6oN">56_0</cedge>
+      <cedge id="615">56_0</cedge>
+   </edge>
+
+   <edge id="5cruceB45" from="5" to="cruceB45" priority="1" type="ReservedBusLane" function="normal">
+      <lanes>
+         <lane id="5cruceB45_0" depart="1" vclasses="" maxspeed="27.78" length="329.98">1840.90,722.17 1519.29,796.02</lane>
+      </lanes>
+      <cedge id="cruceB4515">5cruceB45_0</cedge>
+      <cedge id="cruceB45cruceA45">5cruceB45_0</cedge>
+      <cedge id="cruceB4519">5cruceB45_0</cedge>
+   </edge>
+
+   <edge id="615" from="6" to="15" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="615_0" depart="1" vclasses="" maxspeed="13.88" length="286.67">1910.62,804.50 1670.92,961.75</lane>
+      </lanes>
+      <cedge id="1514">615_0</cedge>
+      <cedge id="15cruceB45">615_0</cedge>
+   </edge>
+
+   <edge id="67" from="6" to="7" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="67_0" depart="1" vclasses="" maxspeed="13.88" length="266.26">1919.77,794.98 2151.66,664.12</lane>
+      </lanes>
+      <cedge id="711">67_0</cedge>
+      <cedge id="78">67_0</cedge>
+      <cedge id="cruce7oN">67_0</cedge>
+   </edge>
+
+   <edge id="711" from="7" to="11" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="711_0" depart="1" vclasses="" maxspeed="13.88" length="210.60">2153.19,659.59 2049.94,476.03</lane>
+      </lanes>
+      <cedge id="1112">711_0</cedge>
+   </edge>
+
+   <edge id="78" from="7" to="8" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="78_0" depart="1" vclasses="" maxspeed="13.88" length="710.71">2161.24,660.03 2842.86,458.80</lane>
+      </lanes>
+      <cedge id="89">78_0</cedge>
+      <cedge id="cruce8oN">78_0</cedge>
+   </edge>
+
+   <edge id="89" from="8" to="9" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="89_0" depart="1" vclasses="" maxspeed="13.88" length="204.10">2844.87,454.91 2779.22,261.66</lane>
+      </lanes>
+      <cedge id="910">89_0</cedge>
+      <cedge id="cruce9oS">89_0</cedge>
+   </edge>
+
+   <edge id="910" from="9" to="10" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="910_0" depart="1" vclasses="" maxspeed="13.88" length="443.15">2772.83,253.13 2352.52,393.57</lane>
+      </lanes>
+      <cedge id="1011">910_0</cedge>
+   </edge>
+
+   <edge id="busstation0i" from="busstation" to="0" priority="1" type="ReservedBusLane" function="normal">
+      <lanes>
+         <lane id="busstation0i_0" depart="1" vclasses="" maxspeed="27.78" length="46.54">24.35,1313.00 24.35,1266.46</lane>
+      </lanes>
+      <cedge id="01">busstation0i_0</cedge>
+   </edge>
+
+   <edge id="busstation0o" from="0" to="busstation" priority="1" type="ReservedBusLane" function="normal">
+      <lanes>
+         <lane id="busstation0o_0" depart="1" vclasses="" maxspeed="27.78" length="46.54">27.65,1266.46 27.65,1313.00</lane>
+      </lanes>
+   </edge>
+
+   <edge id="cruce12iS" from="cruce12S" to="12" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce12iS_0" depart="1" vclasses="" maxspeed="13.88" length="198.85">2025.65,169.00 2025.65,367.85</lane>
+      </lanes>
+      <cedge id="1213">cruce12iS_0</cedge>
+   </edge>
+
+   <edge id="cruce12iS_" from="cruce12S2" to="cruce12S" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce12iS__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">2025.65,119.00 2025.65,169.00</lane>
+      </lanes>
+      <cedge id="cruce12iS">cruce12iS__0</cedge>
+   </edge>
+
+   <edge id="cruce12oS" from="12" to="cruce12S" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce12oS_0" depart="1" vclasses="" maxspeed="13.88" length="198.85">2022.35,367.85 2022.35,169.00</lane>
+      </lanes>
+      <cedge id="cruce12oS_">cruce12oS_0</cedge>
+   </edge>
+
+   <edge id="cruce12oS_" from="cruce12S" to="cruce12S2" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce12oS__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">2022.35,169.00 2022.35,119.00</lane>
+      </lanes>
+   </edge>
+
+   <edge id="cruce13iS" from="cruce13S" to="13" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce13iS_0" depart="1" vclasses="" maxspeed="13.88" length="198.25">1651.65,203.00 1651.65,401.25</lane>
+      </lanes>
+      <cedge id="135">cruce13iS_0</cedge>
+      <cedge id="1319">cruce13iS_0</cedge>
+   </edge>
+
+   <edge id="cruce13iS_" from="cruce13S2" to="cruce13S" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce13iS__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">1651.65,153.00 1651.65,203.00</lane>
+      </lanes>
+      <cedge id="cruce13iS">cruce13iS__0</cedge>
+   </edge>
+
+   <edge id="cruce13oS" from="13" to="cruce13S" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce13oS_0" depart="1" vclasses="" maxspeed="13.88" length="198.25">1648.35,401.25 1648.35,203.00</lane>
+      </lanes>
+      <cedge id="cruce13oS_">cruce13oS_0</cedge>
+   </edge>
+
+   <edge id="cruce13oS_" from="cruce13S" to="cruce13S2" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce13oS__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">1648.35,203.00 1648.35,153.00</lane>
+      </lanes>
+   </edge>
+
+   <edge id="cruce6iN" from="cruce6N" to="6" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce6iN_0" depart="1" vclasses="" maxspeed="13.88" length="192.48">1914.35,999.00 1914.35,806.52</lane>
+      </lanes>
+      <cedge id="615">cruce6iN_0</cedge>
+      <cedge id="67">cruce6iN_0</cedge>
+   </edge>
+
+   <edge id="cruce6iN_" from="cruce6N2" to="cruce6N" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce6iN__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">1914.35,1049.00 1914.35,999.00</lane>
+      </lanes>
+      <cedge id="cruce6iN">cruce6iN__0</cedge>
+   </edge>
+
+   <edge id="cruce6oN" from="6" to="cruce6N" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce6oN_0" depart="1" vclasses="" maxspeed="13.88" length="192.48">1917.65,806.52 1917.65,999.00</lane>
+      </lanes>
+      <cedge id="cruce6oN_">cruce6oN_0</cedge>
+   </edge>
+
+   <edge id="cruce6oN_" from="cruce6N" to="cruce6N2" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce6oN__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">1917.65,999.00 1917.65,1049.00</lane>
+      </lanes>
+   </edge>
+
+   <edge id="cruce7iN" from="cruce7N" to="7" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce7iN_0" depart="1" vclasses="" maxspeed="13.88" length="196.72">2155.35,863.00 2155.35,666.28</lane>
+      </lanes>
+      <cedge id="711">cruce7iN_0</cedge>
+      <cedge id="78">cruce7iN_0</cedge>
+   </edge>
+
+   <edge id="cruce7iN_" from="cruce7N2" to="cruce7N" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce7iN__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">2155.35,913.00 2155.35,863.00</lane>
+      </lanes>
+      <cedge id="cruce7iN">cruce7iN__0</cedge>
+   </edge>
+
+   <edge id="cruce7oN" from="7" to="cruce7N" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce7oN_0" depart="1" vclasses="" maxspeed="13.88" length="196.72">2158.65,666.28 2158.65,863.00</lane>
+      </lanes>
+      <cedge id="cruce7oN_">cruce7oN_0</cedge>
+   </edge>
+
+   <edge id="cruce7oN_" from="cruce7N" to="cruce7N2" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce7oN__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">2158.65,863.00 2158.65,913.00</lane>
+      </lanes>
+   </edge>
+
+   <edge id="cruce8iN" from="cruce8N" to="8" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce8iN_0" depart="1" vclasses="" maxspeed="13.88" length="188.78">2846.35,659.00 2846.35,470.22</lane>
+      </lanes>
+      <cedge id="89">cruce8iN_0</cedge>
+   </edge>
+
+   <edge id="cruce8iN_" from="cruce8N2" to="cruce8N" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce8iN__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">2846.35,709.00 2846.35,659.00</lane>
+      </lanes>
+      <cedge id="cruce8iN">cruce8iN__0</cedge>
+   </edge>
+
+   <edge id="cruce8oN" from="8" to="cruce8N" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce8oN_0" depart="1" vclasses="" maxspeed="13.88" length="188.78">2849.65,470.22 2849.65,659.00</lane>
+      </lanes>
+      <cedge id="cruce8oN_">cruce8oN_0</cedge>
+   </edge>
+
+   <edge id="cruce8oN_" from="cruce8N" to="cruce8N2" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce8oN__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">2849.65,659.00 2849.65,709.00</lane>
+      </lanes>
+   </edge>
+
+   <edge id="cruce9iS" from="cruce9S" to="9" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce9iS_0" depart="1" vclasses="" maxspeed="13.88" length="199.64">2778.65,50.00 2778.65,249.64</lane>
+      </lanes>
+      <cedge id="910">cruce9iS_0</cedge>
+   </edge>
+
+   <edge id="cruce9iS_" from="cruce9S2" to="cruce9S" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce9iS__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">2778.65,0.00 2778.65,50.00</lane>
+      </lanes>
+      <cedge id="cruce9iS">cruce9iS__0</cedge>
+   </edge>
+
+   <edge id="cruce9oS" from="9" to="cruce9S" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce9oS_0" depart="1" vclasses="" maxspeed="13.88" length="199.64">2775.35,249.64 2775.35,50.00</lane>
+      </lanes>
+      <cedge id="cruce9oS_">cruce9oS_0</cedge>
+   </edge>
+
+   <edge id="cruce9oS_" from="cruce9S" to="cruce9S2" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruce9oS__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">2775.35,50.00 2775.35,0.00</lane>
+      </lanes>
+   </edge>
+
+   <edge id="cruceA4518" from="cruceA45" to="18" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruceA4518_0" depart="1" vclasses="" maxspeed="13.88" length="435.55">1200.57,867.87 928.01,528.14</lane>
+      </lanes>
+   </edge>
+
+   <edge id="cruceA454" from="cruceA45" to="4" priority="1" type="ReservedBusLane" function="normal">
+      <lanes>
+         <lane id="cruceA454_0" depart="1" vclasses="" maxspeed="27.78" length="861.90">1197.78,875.67 359.73,1077.04</lane>
+      </lanes>
+      <cedge id="42">cruceA454_0</cedge>
+   </edge>
+
+   <edge id="cruceA45cruceB45" from="cruceA45" to="cruceB45" priority="1" type="ReservedBusLane" function="normal">
+      <lanes>
+         <lane id="cruceA45cruceB45_0" depart="1" vclasses="" maxspeed="27.78" length="308.39">1205.55,870.41 1504.85,796.08</lane>
+      </lanes>
+      <cedge id="cruceB4519">cruceA45cruceB45_0</cedge>
+      <cedge id="cruceB455">cruceA45cruceB45_0</cedge>
+      <cedge id="cruceB4515">cruceA45cruceB45_0</cedge>
+   </edge>
+
+   <edge id="cruceB4515" from="cruceB45" to="15" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruceB4515_0" depart="1" vclasses="" maxspeed="13.88" length="218.07">1518.03,800.10 1665.86,960.41</lane>
+      </lanes>
+      <cedge id="1514">cruceB4515_0</cedge>
+   </edge>
+
+   <edge id="cruceB4519" from="cruceB45" to="19" priority="10" type="NormalRoad" function="normal">
+      <lanes>
+         <lane id="cruceB4519_0" depart="1" vclasses="" maxspeed="13.88" length="411.74">1506.09,791.98 1228.35,488.02</lane>
+      </lanes>
+      <cedge id="1918">cruceB4519_0</cedge>
+   </edge>
+
+   <edge id="cruceB455" from="cruceB45" to="5" priority="1" type="ReservedBusLane" function="normal">
+      <lanes>
+         <lane id="cruceB455_0" depart="1" vclasses="" maxspeed="27.78" length="329.98">1518.55,792.80 1840.17,718.96</lane>
+      </lanes>
+      <cedge id="56">cruceB455_0</cedge>
+   </edge>
+
+   <edge id="cruceB45cruceA45" from="cruceB45" to="cruceA45" priority="1" type="ReservedBusLane" function="normal">
+      <lanes>
+         <lane id="cruceB45cruceA45_0" depart="1" vclasses="" maxspeed="27.78" length="308.39">1505.64,799.28 1206.34,873.61</lane>
+      </lanes>
+      <cedge id="cruceA454">cruceB45cruceA45_0</cedge>
+      <cedge id="cruceA4518">cruceB45cruceA45_0</cedge>
+   </edge>
+
+
+   <row-logic>
+      <key>0</key>
+      <requestsize>3</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="000" foes="100"/>
+         <logicitem request="1" response="000" foes="000"/>
+         <logicitem request="2" response="001" foes="001"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>1</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>10</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>11</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="10"/>
+         <logicitem request="1" response="01" foes="01"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>12</key>
+      <requestsize>3</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="000" foes="100"/>
+         <logicitem request="1" response="000" foes="100"/>
+         <logicitem request="2" response="011" foes="011"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>13</key>
+      <requestsize>5</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00000" foes="01000"/>
+         <logicitem request="1" response="00000" foes="11000"/>
+         <logicitem request="2" response="11000" foes="11000"/>
+         <logicitem request="3" response="00011" foes="00111"/>
+         <logicitem request="4" response="00010" foes="00110"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>14</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>15</key>
+      <requestsize>3</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="000" foes="100"/>
+         <logicitem request="1" response="000" foes="100"/>
+         <logicitem request="2" response="011" foes="011"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>16</key>
+      <requestsize>3</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="000" foes="000"/>
+         <logicitem request="1" response="100" foes="100"/>
+         <logicitem request="2" response="000" foes="010"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>17</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="1" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>19</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="10"/>
+         <logicitem request="1" response="01" foes="01"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>2</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>3</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="0" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>4</key>
+      <requestsize>3</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="000" foes="100"/>
+         <logicitem request="1" response="000" foes="000"/>
+         <logicitem request="2" response="001" foes="001"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>5</key>
+      <requestsize>3</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="000" foes="100"/>
+         <logicitem request="1" response="000" foes="100"/>
+         <logicitem request="2" response="011" foes="011"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>6</key>
+      <requestsize>5</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00000" foes="10000"/>
+         <logicitem request="1" response="01100" foes="01100"/>
+         <logicitem request="2" response="00000" foes="00010"/>
+         <logicitem request="3" response="00000" foes="00010"/>
+         <logicitem request="4" response="00001" foes="00001"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>7</key>
+      <requestsize>5</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="01100" foes="11100"/>
+         <logicitem request="1" response="01000" foes="11000"/>
+         <logicitem request="2" response="00000" foes="00001"/>
+         <logicitem request="3" response="00000" foes="00011"/>
+         <logicitem request="4" response="00011" foes="00011"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>8</key>
+      <requestsize>3</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="110" foes="110"/>
+         <logicitem request="1" response="000" foes="001"/>
+         <logicitem request="2" response="000" foes="001"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>9</key>
+      <requestsize>3</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="000" foes="100"/>
+         <logicitem request="1" response="000" foes="100"/>
+         <logicitem request="2" response="011" foes="011"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>busstation</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="1" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>cruce12S</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>cruce12S2</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="1" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>cruce13S</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>cruce13S2</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="1" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>cruce6N</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>cruce6N2</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="1" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>cruce7N</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>cruce7N2</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="1" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>cruce8N</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>cruce8N2</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="1" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>cruce9S</key>
+      <requestsize>2</requestsize>
+      <lanenumber>2</lanenumber>
+      <logic>
+         <logicitem request="0" response="00" foes="00"/>
+         <logicitem request="1" response="00" foes="00"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>cruce9S2</key>
+      <requestsize>1</requestsize>
+      <lanenumber>1</lanenumber>
+      <logic>
+         <logicitem request="0" response="1" foes="0"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>cruceA45</key>
+      <requestsize>7</requestsize>
+      <lanenumber>3</lanenumber>
+      <logic>
+         <logicitem request="0" response="1110000" foes="1110000"/>
+         <logicitem request="1" response="1101100" foes="1101100"/>
+         <logicitem request="2" response="0100000" foes="0100010"/>
+         <logicitem request="3" response="1100000" foes="1100010"/>
+         <logicitem request="4" response="0000000" foes="0000001"/>
+         <logicitem request="5" response="0000000" foes="0001111"/>
+         <logicitem request="6" response="0000000" foes="0001011"/>
+      </logic>
+   </row-logic>
+
+   <row-logic>
+      <key>cruceB45</key>
+      <requestsize>9</requestsize>
+      <lanenumber>3</lanenumber>
+      <logic>
+         <logicitem request="0" response="000000000" foes="000010000"/>
+         <logicitem request="1" response="000000000" foes="111110000"/>
+         <logicitem request="2" response="000000000" foes="110110000"/>
+         <logicitem request="3" response="000000000" foes="100000000"/>
+         <logicitem request="4" response="000000111" foes="100000111"/>
+         <logicitem request="5" response="011000110" foes="011000110"/>
+         <logicitem request="6" response="000000010" foes="000100010"/>
+         <logicitem request="7" response="000000110" foes="000100110"/>
+         <logicitem request="8" response="000011110" foes="000011110"/>
+      </logic>
+   </row-logic>
+
+
+   <tl-logic type="static">
+      <key>11</key>
+      <subkey>0</subkey>
+      <phaseno>4</phaseno>
+      <offset>0</offset>
+      <phase duration="31" phase="01" brake="10" yellow="00"/>
+      <phase duration="4" phase="00" brake="11" yellow="01"/>
+      <phase duration="31" phase="10" brake="01" yellow="00"/>
+      <phase duration="4" phase="00" brake="11" yellow="10"/>
+   </tl-logic>
+
+   <tl-logic type="static">
+      <key>12</key>
+      <subkey>0</subkey>
+      <phaseno>4</phaseno>
+      <offset>0</offset>
+      <phase duration="31" phase="011" brake="100" yellow="000"/>
+      <phase duration="4" phase="000" brake="111" yellow="011"/>
+      <phase duration="31" phase="100" brake="011" yellow="000"/>
+      <phase duration="4" phase="000" brake="111" yellow="100"/>
+   </tl-logic>
+
+   <tl-logic type="static">
+      <key>13</key>
+      <subkey>0</subkey>
+      <phaseno>6</phaseno>
+      <offset>0</offset>
+      <phase duration="31" phase="00111" brake="11000" yellow="00000"/>
+      <phase duration="4" phase="00000" brake="11111" yellow="00111"/>
+      <phase duration="31" phase="11000" brake="00111" yellow="00000"/>
+      <phase duration="4" phase="10000" brake="01111" yellow="01000"/>
+      <phase duration="6" phase="10000" brake="01111" yellow="00000"/>
+      <phase duration="4" phase="00000" brake="11111" yellow="10000"/>
+   </tl-logic>
+
+   <tl-logic type="static">
+      <key>5</key>
+      <subkey>0</subkey>
+      <phaseno>4</phaseno>
+      <offset>0</offset>
+      <phase duration="31" phase="011" brake="100" yellow="000"/>
+      <phase duration="9" phase="000" brake="111" yellow="011"/>
+      <phase duration="31" phase="100" brake="011" yellow="000"/>
+      <phase duration="9" phase="000" brake="111" yellow="100"/>
+   </tl-logic>
+
+   <tl-logic type="static">
+      <key>6</key>
+      <subkey>0</subkey>
+      <phaseno>6</phaseno>
+      <offset>0</offset>
+      <phase duration="31" phase="01111" brake="10010" yellow="00000"/>
+      <phase duration="4" phase="00010" brake="11111" yellow="01101"/>
+      <phase duration="6" phase="00010" brake="11101" yellow="00000"/>
+      <phase duration="4" phase="00000" brake="11111" yellow="00010"/>
+      <phase duration="31" phase="11100" brake="00011" yellow="00000"/>
+      <phase duration="4" phase="00000" brake="11111" yellow="11100"/>
+   </tl-logic>
+
+   <tl-logic type="static">
+      <key>7</key>
+      <subkey>0</subkey>
+      <phaseno>6</phaseno>
+      <offset>0</offset>
+      <phase duration="31" phase="00011" brake="11100" yellow="00000"/>
+      <phase duration="4" phase="00010" brake="11101" yellow="00001"/>
+      <phase duration="6" phase="00010" brake="11101" yellow="00000"/>
+      <phase duration="4" phase="00000" brake="11111" yellow="00010"/>
+      <phase duration="31" phase="11100" brake="00011" yellow="00000"/>
+      <phase duration="4" phase="00000" brake="11111" yellow="11100"/>
+   </tl-logic>
+
+   <tl-logic type="static">
+      <key>8</key>
+      <subkey>0</subkey>
+      <phaseno>4</phaseno>
+      <offset>0</offset>
+      <phase duration="31" phase="001" brake="110" yellow="000"/>
+      <phase duration="4" phase="000" brake="111" yellow="001"/>
+      <phase duration="31" phase="110" brake="001" yellow="000"/>
+      <phase duration="4" phase="000" brake="111" yellow="110"/>
+   </tl-logic>
+
+   <tl-logic type="static">
+      <key>9</key>
+      <subkey>0</subkey>
+      <phaseno>4</phaseno>
+      <offset>0</offset>
+      <phase duration="31" phase="011" brake="100" yellow="000"/>
+      <phase duration="4" phase="000" brake="111" yellow="011"/>
+      <phase duration="31" phase="100" brake="011" yellow="000"/>
+      <phase duration="4" phase="000" brake="111" yellow="100"/>
+   </tl-logic>
+
+
+   <junction id="0" type="priority" x="26.00" y="1263.00">
+      <inclanes>busstation0i_0 20_0</inclanes>
+      <shape>22.75,1266.46 29.25,1266.46 30.58,1264.26 29.08,1261.43 24.71,1260.97 21.97,1262.62</shape>
+   </junction>
+
+   <junction id="1" type="priority" x="0.00" y="1220.00">
+      <inclanes>01_0</inclanes>
+      <shape>-2.81,1221.63 -0.07,1219.98 -1.47,1217.10</shape>
+   </junction>
+
+   <junction id="10" type="priority" x="2352.00" y="392.00">
+      <inclanes>910_0</inclanes>
+      <shape>2353.03,395.08 2352.01,392.05 2352.82,395.14</shape>
+   </junction>
+
+   <junction id="11" type="priority" x="2049.00" y="471.00">
+      <inclanes>711_0 1011_0</inclanes>
+      <shape>2048.54,476.82 2051.33,475.25 2052.05,473.56 2051.24,470.47 2048.61,469.60 2045.50,470.37</shape>
+   </junction>
+
+   <junction id="12" type="priority" x="2024.00" y="369.00">
+      <inclanes>1112_0 cruce12iS_0</inclanes>
+      <shape>2021.87,373.95 2024.97,373.18 2027.25,367.85 2020.75,367.85 2019.26,369.48 2019.55,372.67</shape>
+   </junction>
+
+   <junction id="13" type="priority" x="1650.00" y="403.00">
+      <inclanes>1213_0 cruce13iS_0</inclanes>
+      <shape>1653.53,408.71 1656.27,407.05 1656.98,405.63 1656.69,402.44 1653.25,401.25 1646.75,401.25 1645.28,403.94 1645.87,407.09</shape>
+   </junction>
+
+   <junction id="14" type="priority" x="1462.00" y="1096.00">
+      <inclanes>1514_0</inclanes>
+      <shape>1463.75,1098.74 1462.00,1096.06 1460.73,1098.99</shape>
+   </junction>
+
+   <junction id="15" type="right_before_left" x="1666.00" y="963.00">
+      <inclanes>615_0 cruceB4515_0</inclanes>
+      <shape>1671.80,963.08 1670.04,960.41 1667.04,959.33 1662.26,963.73 1662.02,965.66 1663.76,968.34</shape>
+   </junction>
+
+   <junction id="16" type="right_before_left" x="1156.00" y="963.00">
+      <inclanes>1416_0 1716_0</inclanes>
+      <shape>1157.86,967.35 1159.14,964.42 1157.00,961.08 1154.19,959.54 1151.28,962.58 1155.31,967.69</shape>
+   </junction>
+
+   <junction id="17" type="priority" x="776.00" y="1263.00">
+      <inclanes>1617_0</inclanes>
+      <shape>775.97,1262.96 773.99,1260.45 778.01,1265.55 776.03,1263.04</shape>
+   </junction>
+
+   <junction id="18" type="DEAD_END" x="926.00" y="523.00">
+      <inclanes>cruceA4518_0 1918_0</inclanes>
+      <shape>926.76,529.14 929.26,527.14 929.81,525.77 929.38,522.60</shape>
+   </junction>
+
+   <junction id="19" type="right_before_left" x="1226.00" y="483.00">
+      <inclanes>cruceB4519_0 1319_0</inclanes>
+      <shape>1227.17,489.10 1229.53,486.94 1229.99,485.55 1229.40,482.41 1222.84,483.47 1223.26,486.64</shape>
+   </junction>
+
+   <junction id="2" type="priority" x="331.00" y="1102.00">
+      <inclanes>42_0</inclanes>
+      <shape>333.29,1104.30 331.03,1102.04 332.52,1104.87</shape>
+   </junction>
+
+   <junction id="3" type="priority" x="315.00" y="1067.00">
+      <inclanes>13_0</inclanes>
+      <shape>314.99,1066.95 315.66,1063.82 313.60,1064.07 314.99,1066.95</shape>
+   </junction>
+
+   <junction id="4" type="priority" x="357.00" y="1076.00">
+      <inclanes>cruceA454_0 34_0</inclanes>
+      <shape>360.11,1078.60 358.59,1072.28 355.49,1072.35 354.82,1075.48 355.33,1077.74 357.59,1080.01</shape>
+   </junction>
+
+   <junction id="5" type="priority" x="1843.00" y="720.00">
+      <inclanes>135_0 cruceB455_0</inclanes>
+      <shape>1846.62,723.84 1848.97,721.67 1843.22,714.12 1840.49,715.78 1839.81,717.40 1841.26,723.73</shape>
+   </junction>
+
+   <junction id="6" type="priority" x="1916.00" y="799.00">
+      <inclanes>cruce6iN_0 56_0</inclanes>
+      <shape>1912.75,806.52 1919.25,806.52 1920.56,796.37 1918.98,793.58 1915.62,793.80 1913.27,795.98 1909.74,803.17 1911.50,805.84</shape>
+   </junction>
+
+   <junction id="7" type="priority" x="2157.00" y="663.00">
+      <inclanes>cruce7iN_0 67_0</inclanes>
+      <shape>2153.75,666.28 2160.25,666.28 2161.69,661.56 2160.78,658.49 2154.58,658.80 2151.79,660.37 2150.87,662.73 2152.44,665.51</shape>
+   </junction>
+
+   <junction id="8" type="priority" x="2848.00" y="459.00">
+      <inclanes>cruce8iN_0 78_0</inclanes>
+      <shape>2844.75,470.22 2851.25,470.22 2846.38,454.39 2843.35,455.42 2842.41,457.26 2843.31,460.33</shape>
+   </junction>
+
+   <junction id="9" type="priority" x="2777.00" y="250.00">
+      <inclanes>89_0 cruce9iS_0</inclanes>
+      <shape>2777.70,262.17 2780.73,261.14 2780.25,249.64 2773.75,249.64 2772.33,251.61 2773.34,254.65</shape>
+   </junction>
+
+   <junction id="busstation" type="priority" x="26.00" y="1313.00">
+      <inclanes>busstation0o_0</inclanes>
+      <shape>25.95,1313.00 22.75,1313.00 29.25,1313.00 26.05,1313.00</shape>
+   </junction>
+
+   <junction id="cruce12S" type="priority" x="2024.00" y="169.00">
+      <inclanes>cruce12oS_0 cruce12iS__0</inclanes>
+      <shape>2020.75,169.00 2027.25,169.00 2020.75,169.00</shape>
+   </junction>
+
+   <junction id="cruce12S2" type="priority" x="2024.00" y="119.00">
+      <inclanes>cruce12oS__0</inclanes>
+      <shape>2024.05,119.00 2027.25,119.00 2020.75,119.00 2023.95,119.00</shape>
+   </junction>
+
+   <junction id="cruce13S" type="priority" x="1650.00" y="203.00">
+      <inclanes>cruce13oS_0 cruce13iS__0</inclanes>
+      <shape>1646.75,203.00 1653.25,203.00 1646.75,203.00</shape>
+   </junction>
+
+   <junction id="cruce13S2" type="priority" x="1650.00" y="153.00">
+      <inclanes>cruce13oS__0</inclanes>
+      <shape>1650.05,153.00 1653.25,153.00 1646.75,153.00 1649.95,153.00</shape>
+   </junction>
+
+   <junction id="cruce4N" type="DEAD_END" x="357.00" y="1276.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="cruce4N2" type="DEAD_END" x="357.00" y="1326.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="cruce4S" type="DEAD_END" x="357.00" y="876.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="cruce4S2" type="DEAD_END" x="357.00" y="826.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="cruce6N" type="priority" x="1916.00" y="999.00">
+      <inclanes>cruce6iN__0 cruce6oN_0</inclanes>
+      <shape>1912.75,999.00 1919.25,999.00 1912.75,999.00</shape>
+   </junction>
+
+   <junction id="cruce6N2" type="priority" x="1916.00" y="1049.00">
+      <inclanes>cruce6oN__0</inclanes>
+      <shape>1915.95,1049.00 1912.75,1049.00 1919.25,1049.00 1916.05,1049.00</shape>
+   </junction>
+
+   <junction id="cruce7N" type="priority" x="2157.00" y="863.00">
+      <inclanes>cruce7iN__0 cruce7oN_0</inclanes>
+      <shape>2153.75,863.00 2160.25,863.00 2153.75,863.00</shape>
+   </junction>
+
+   <junction id="cruce7N2" type="priority" x="2157.00" y="913.00">
+      <inclanes>cruce7oN__0</inclanes>
+      <shape>2156.95,913.00 2153.75,913.00 2160.25,913.00 2157.05,913.00</shape>
+   </junction>
+
+   <junction id="cruce8N" type="priority" x="2848.00" y="659.00">
+      <inclanes>cruce8iN__0 cruce8oN_0</inclanes>
+      <shape>2844.75,659.00 2851.25,659.00 2844.75,659.00</shape>
+   </junction>
+
+   <junction id="cruce8N2" type="priority" x="2848.00" y="709.00">
+      <inclanes>cruce8oN__0</inclanes>
+      <shape>2847.95,709.00 2844.75,709.00 2851.25,709.00 2848.05,709.00</shape>
+   </junction>
+
+   <junction id="cruce9S" type="priority" x="2777.00" y="50.00">
+      <inclanes>cruce9oS_0 cruce9iS__0</inclanes>
+      <shape>2773.75,50.00 2780.25,50.00 2773.75,50.00</shape>
+   </junction>
+
+   <junction id="cruce9S2" type="priority" x="2777.00" y="0.00">
+      <inclanes>cruce9oS__0</inclanes>
+      <shape>2777.05,-0.00 2780.25,-0.00 2773.75,0.00 2776.95,0.00</shape>
+   </junction>
+
+   <junction id="cruceA45" type="priority" x="1206.00" y="872.00">
+      <inclanes>cruceB45cruceA45_0 4cruceA45_0 16cruceA45_0</inclanes>
+      <shape>1206.73,875.17 1205.16,868.86 1201.82,866.86 1199.32,868.87 1196.63,870.91 1198.15,877.23 1198.89,878.19 1201.69,879.73</shape>
+   </junction>
+
+   <junction id="cruceA45N" type="DEAD_END" x="1206.00" y="1072.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="cruceA45N2" type="DEAD_END" x="1206.00" y="1122.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="cruceA45S" type="DEAD_END" x="1206.00" y="672.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="cruceA45S2" type="DEAD_END" x="1206.00" y="622.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="cruceB45" type="priority" x="1512.00" y="796.00">
+      <inclanes>15cruceB45_0 5cruceB45_0 cruceA45cruceB45_0</inclanes>
+      <shape>1514.42,803.42 1519.20,799.02 1519.65,797.58 1518.19,791.24 1507.27,790.90 1504.91,793.05 1504.46,794.52 1506.03,800.83</shape>
+   </junction>
+
+   <junction id="cruceB45N" type="DEAD_END" x="1512.00" y="996.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="cruceB45N2" type="DEAD_END" x="1512.00" y="1046.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="cruceB45S" type="DEAD_END" x="1512.00" y="596.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="cruceB45S2" type="DEAD_END" x="1512.00" y="546.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+   <junction id="input_shared_traffic" type="DEAD_END" x="327.00" y="1276.00">
+      <inclanes></inclanes>
+      <shape></shape>
+   </junction>
+
+
+   <succ edge="01" lane="01_0" junction="1">
+      <succlane lane="13_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="1011" lane="1011_0" junction="11">
+      <succlane lane="1112_0" tl="11" linkno="1" yield="1" dir="l" state="t" int_end="x"/>
+   </succ>
+
+   <succ edge="1112" lane="1112_0" junction="12">
+      <succlane lane="1213_0" tl="12" linkno="0" yield="1" dir="r" state="t"/>
+      <succlane lane="cruce12oS_0" tl="12" linkno="1" yield="1" dir="s" state="t"/>
+   </succ>
+
+   <succ edge="1213" lane="1213_0" junction="13">
+      <succlane lane="135_0" tl="13" linkno="0" yield="1" dir="r" state="t"/>
+      <succlane lane="1319_0" tl="13" linkno="1" yield="1" dir="s" state="t"/>
+      <succlane lane="cruce13oS_0" tl="13" linkno="2" yield="1" dir="l" state="t" int_end="x"/>
+   </succ>
+
+   <succ edge="13" lane="13_0" junction="3">
+      <succlane lane="34_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="1319" lane="1319_0" junction="19">
+      <succlane lane="1918_0" yield="1" dir="s" state="="/>
+   </succ>
+
+   <succ edge="135" lane="135_0" junction="5">
+      <succlane lane="56_0" tl="5" linkno="0" yield="1" dir="s" state="t"/>
+      <succlane lane="5cruceB45_0" tl="5" linkno="1" yield="1" dir="l" state="t"/>
+   </succ>
+
+   <succ edge="1416" lane="1416_0" junction="16">
+      <succlane lane="1617_0" yield="0" dir="r" state="="/>
+      <succlane lane="16cruceA45_0" yield="1" dir="l" state="="/>
+   </succ>
+
+   <succ edge="1514" lane="1514_0" junction="14">
+      <succlane lane="1416_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="15cruceB45" lane="15cruceB45_0" junction="cruceB45">
+      <succlane lane="cruceB45cruceA45_0" yield="0" dir="r" state="M"/>
+      <succlane lane="cruceB4519_0" yield="0" dir="s" state="M"/>
+      <succlane lane="cruceB455_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="1617" lane="1617_0" junction="17">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="16cruceA45" lane="16cruceA45_0" junction="cruceA45">
+      <succlane lane="cruceA454_0" yield="0" dir="r" state="M"/>
+      <succlane lane="cruceA4518_0" yield="0" dir="R" state="M"/>
+      <succlane lane="cruceA45cruceB45_0" yield="0" dir="l" state="M"/>
+   </succ>
+
+   <succ edge="1716" lane="1716_0" junction="16">
+      <succlane lane="16cruceA45_0" yield="0" dir="s" state="="/>
+   </succ>
+
+   <succ edge="1918" lane="1918_0" junction="18">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="20" lane="20_0" junction="0">
+      <succlane lane="busstation0o_0" yield="0" dir="r" state="M"/>
+      <succlane lane="01_0" yield="1" dir="l" state="m"/>
+   </succ>
+
+   <succ edge="34" lane="34_0" junction="4">
+      <succlane lane="4cruceA45_0" yield="0" dir="s" state="M"/>
+      <succlane lane="42_0" yield="1" dir="l" state="m"/>
+   </succ>
+
+   <succ edge="42" lane="42_0" junction="2">
+      <succlane lane="20_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="4cruceA45" lane="4cruceA45_0" junction="cruceA45">
+      <succlane lane="cruceA4518_0" yield="1" dir="r" state="m"/>
+      <succlane lane="cruceA45cruceB45_0" yield="1" dir="s" state="m"/>
+   </succ>
+
+   <succ edge="56" lane="56_0" junction="6">
+      <succlane lane="67_0" tl="6" linkno="2" yield="1" dir="r" state="t"/>
+      <succlane lane="cruce6oN_0" tl="6" linkno="3" yield="1" dir="s" state="t"/>
+      <succlane lane="615_0" tl="6" linkno="4" yield="1" dir="l" state="t"/>
+   </succ>
+
+   <succ edge="5cruceB45" lane="5cruceB45_0" junction="cruceB45">
+      <succlane lane="cruceB4515_0" yield="0" dir="r" state="M"/>
+      <succlane lane="cruceB45cruceA45_0" yield="1" dir="s" state="m"/>
+      <succlane lane="cruceB4519_0" yield="1" dir="l" state="m"/>
+   </succ>
+
+   <succ edge="615" lane="615_0" junction="15">
+      <succlane lane="1514_0" yield="0" dir="s" state="="/>
+      <succlane lane="15cruceB45_0" yield="0" dir="l" state="="/>
+   </succ>
+
+   <succ edge="67" lane="67_0" junction="7">
+      <succlane lane="711_0" tl="7" linkno="2" yield="1" dir="r" state="t"/>
+      <succlane lane="78_0" tl="7" linkno="3" yield="1" dir="s" state="t"/>
+      <succlane lane="cruce7oN_0" tl="7" linkno="4" yield="1" dir="l" state="t" int_end="x"/>
+   </succ>
+
+   <succ edge="711" lane="711_0" junction="11">
+      <succlane lane="1112_0" tl="11" linkno="0" yield="1" dir="s" state="t"/>
+   </succ>
+
+   <succ edge="78" lane="78_0" junction="8">
+      <succlane lane="89_0" tl="8" linkno="1" yield="1" dir="r" state="t"/>
+      <succlane lane="cruce8oN_0" tl="8" linkno="2" yield="1" dir="l" state="t"/>
+   </succ>
+
+   <succ edge="89" lane="89_0" junction="9">
+      <succlane lane="910_0" tl="9" linkno="0" yield="1" dir="r" state="t"/>
+      <succlane lane="cruce9oS_0" tl="9" linkno="1" yield="1" dir="s" state="t"/>
+   </succ>
+
+   <succ edge="910" lane="910_0" junction="10">
+      <succlane lane="1011_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="busstation0i" lane="busstation0i_0" junction="0">
+      <succlane lane="01_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="busstation0o" lane="busstation0o_0" junction="busstation">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="cruce12iS" lane="cruce12iS_0" junction="12">
+      <succlane lane="1213_0" tl="12" linkno="2" yield="1" dir="l" state="t" int_end="x"/>
+   </succ>
+
+   <succ edge="cruce12iS_" lane="cruce12iS__0" junction="cruce12S">
+      <succlane lane="cruce12iS_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="cruce12oS" lane="cruce12oS_0" junction="cruce12S">
+      <succlane lane="cruce12oS__0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="cruce12oS_" lane="cruce12oS__0" junction="cruce12S2">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="cruce13iS" lane="cruce13iS_0" junction="13">
+      <succlane lane="135_0" tl="13" linkno="3" yield="1" dir="s" state="t"/>
+      <succlane lane="1319_0" tl="13" linkno="4" yield="1" dir="l" state="t"/>
+   </succ>
+
+   <succ edge="cruce13iS_" lane="cruce13iS__0" junction="cruce13S">
+      <succlane lane="cruce13iS_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="cruce13oS" lane="cruce13oS_0" junction="cruce13S">
+      <succlane lane="cruce13oS__0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="cruce13oS_" lane="cruce13oS__0" junction="cruce13S2">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="cruce6iN" lane="cruce6iN_0" junction="6">
+      <succlane lane="615_0" tl="6" linkno="0" yield="1" dir="r" state="t"/>
+      <succlane lane="67_0" tl="6" linkno="1" yield="1" dir="l" state="t" int_end="x"/>
+   </succ>
+
+   <succ edge="cruce6iN_" lane="cruce6iN__0" junction="cruce6N">
+      <succlane lane="cruce6iN_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="cruce6oN" lane="cruce6oN_0" junction="cruce6N">
+      <succlane lane="cruce6oN__0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="cruce6oN_" lane="cruce6oN__0" junction="cruce6N2">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="cruce7iN" lane="cruce7iN_0" junction="7">
+      <succlane lane="711_0" tl="7" linkno="0" yield="1" dir="s" state="t"/>
+      <succlane lane="78_0" tl="7" linkno="1" yield="1" dir="l" state="t"/>
+   </succ>
+
+   <succ edge="cruce7iN_" lane="cruce7iN__0" junction="cruce7N">
+      <succlane lane="cruce7iN_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="cruce7oN" lane="cruce7oN_0" junction="cruce7N">
+      <succlane lane="cruce7oN__0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="cruce7oN_" lane="cruce7oN__0" junction="cruce7N2">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="cruce8iN" lane="cruce8iN_0" junction="8">
+      <succlane lane="89_0" tl="8" linkno="0" yield="1" dir="s" state="t"/>
+   </succ>
+
+   <succ edge="cruce8iN_" lane="cruce8iN__0" junction="cruce8N">
+      <succlane lane="cruce8iN_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="cruce8oN" lane="cruce8oN_0" junction="cruce8N">
+      <succlane lane="cruce8oN__0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="cruce8oN_" lane="cruce8oN__0" junction="cruce8N2">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="cruce9iS" lane="cruce9iS_0" junction="9">
+      <succlane lane="910_0" tl="9" linkno="2" yield="1" dir="l" state="t" int_end="x"/>
+   </succ>
+
+   <succ edge="cruce9iS_" lane="cruce9iS__0" junction="cruce9S">
+      <succlane lane="cruce9iS_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="cruce9oS" lane="cruce9oS_0" junction="cruce9S">
+      <succlane lane="cruce9oS__0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="cruce9oS_" lane="cruce9oS__0" junction="cruce9S2">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="cruceA4518" lane="cruceA4518_0" junction="18">
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+   </succ>
+
+   <succ edge="cruceA454" lane="cruceA454_0" junction="4">
+      <succlane lane="42_0" yield="0" dir="s" state="M"/>
+   </succ>
+
+   <succ edge="cruceA45cruceB45" lane="cruceA45cruceB45_0" junction="cruceB45">
+      <succlane lane="cruceB4519_0" yield="1" dir="r" state="m"/>
+      <succlane lane="cruceB455_0" yield="1" dir="s" state="m"/>
+      <succlane lane="cruceB4515_0" yield="1" dir="l" state="m"/>
+   </succ>
+
+   <succ edge="cruceB4515" lane="cruceB4515_0" junction="15">
+      <succlane lane="1514_0" yield="1" dir="l" state="="/>
+   </succ>
+
+   <succ edge="cruceB4519" lane="cruceB4519_0" junction="19">
+      <succlane lane="1918_0" yield="0" dir="r" state="="/>
+   </succ>
+
+   <succ edge="cruceB455" lane="cruceB455_0" junction="5">
+      <succlane lane="56_0" tl="5" linkno="2" yield="1" dir="l" state="t" int_end="x"/>
+   </succ>
+
+   <succ edge="cruceB45cruceA45" lane="cruceB45cruceA45_0" junction="cruceA45">
+      <succlane lane="cruceA454_0" yield="1" dir="s" state="m"/>
+      <succlane lane="cruceA4518_0" yield="1" dir="l" state="m"/>
+   </succ>
+
+
+</net>

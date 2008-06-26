@@ -1,0 +1,78 @@
+<nodes>
+	<!--
+	Ruta 1
+	-->
+   <node id="0" x="0" y="0" />
+   <node id="1" x="-26" y="-43" />
+   <node id="2" x="305" y="-161" />
+   <node id="3" x="289" y="-196" />
+   <node id="4" x="331" y="-187" />
+   <node id="cruceA45" x="1180" y="-391" />
+   <node id="cruceB45" x="1486" y="-467" />
+   <node id="5" x="1817" y="-543" type="traffic_light"/>
+   <node id="6" x="1890" y="-464" type="traffic_light"/>
+   <node id="7" x="2131" y="-600" type="traffic_light"/>
+   <node id="11" x="2023" y="-792" type="traffic_light"/>
+   <node id="12" x="1998" y="-894" type="traffic_light"/>
+   <node id="13" x="1624" y="-860" type="traffic_light"/>
+   
+   <!--
+   Ruta 2
+   -->
+   <node id="8" x="2822" y="-804" type="traffic_light"/>
+   <node id="9" x="2751" y="-1013" type="traffic_light"/>
+   <node id="10" x="2326" y="-871" />
+   
+   <!--
+   Ruta corte
+   -->
+   <node id="14" x="1436" y="-167" />
+   <node id="15" x="1640" y="-300"/>
+   <node id="16" x="1130" y="-300"/>
+   <node id="17" x="750" y="0"/>
+   <node id="18" x="900" y="-740"/>
+   <node id="19" x="1200" y="-780"/>
+   
+   
+   <!--
+   Carreteras adicionales
+   -->
+   <node id="busstation" x="0" y="50"/>
+   
+   <node id="cruce4N" x="331" y="13"/>
+   <node id="cruce4N2" x="331" y="63"/>
+   <node id="cruce4S" x="331" y="-387"/>
+   <node id="cruce4S2" x="331" y="-437"/>
+   
+   <node id="cruceA45N" x="1180" y="-191"/>
+   <node id="cruceA45N2" x="1180" y="-141"/>
+   <node id="cruceA45S" x="1180" y="-591"/>
+   <node id="cruceA45S2" x="1180" y="-641"/>
+   
+   <node id="cruceB45N" x="1486" y="-267"/>
+   <node id="cruceB45N2" x="1486" y="-217"/>
+   <node id="cruceB45S" x="1486" y="-667"/>
+   <node id="cruceB45S2" x="1486" y="-717"/>
+   
+   <node id="cruce13S" x="1624" y="-1060"/>
+   <node id="cruce13S2" x="1624" y="-1110"/>
+   
+   <node id="cruce6N" x="1890" y="-264"/>
+   <node id="cruce6N2" x="1890" y="-214"/>
+   
+   <node id="cruce7N" x="2131" y="-400"/>
+   <node id="cruce7N2" x="2131" y="-350"/>
+   
+   <node id="cruce12S" x="1998" y="-1094"/>
+   <node id="cruce12S2" x="1998" y="-1144"/>
+   
+   <node id="cruce8N" x="2822" y="-604"/>
+   <node id="cruce8N2" x="2822" y="-554"/>
+  
+   <node id="cruce9S" x="2751" y="-1213"/>
+   <node id="cruce9S2" x="2751" y="-1263"/>
+   
+   <node id="input_shared_traffic" x="301" y="13"/>
+   
+   
+</nodes>

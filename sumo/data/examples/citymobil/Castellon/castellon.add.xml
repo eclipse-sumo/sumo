@@ -1,0 +1,671 @@
+<additional>
+	<trigger id="Universitat" objecttype="demand_bus_stop" objectid="01_0" from="10" to="35" passengersperminute="1" passengersalarm="20" stoptimeperpassenger="4"/>
+	<trigger id="Sos_Bayat_S" objecttype="demand_bus_stop" objectid="4cruceA45_0" from="20" to="45"  passengersperminute="1" passengersalarm="20" stoptimeperpassenger="4"/>
+	<trigger id="Riu_Sec_S" objecttype="demand_bus_stop" objectid="4cruceA45_0" from="475" to="500"  passengersperminute="1" passengersalarm="20" stoptimeperpassenger="4"/>
+	<trigger id="Paseo_de_Morella_Intermodal_S" objecttype="demand_bus_stop" objectid="cruceA45cruceB45_0" from="250" to="275"  passengersperminute="1" passengersalarm="20" stoptimeperpassenger="4"/>
+	<trigger id="Parc_Ribalta_S" objecttype="demand_bus_stop" objectid="cruceB455_0" from="290" to="315"  passengersperminute="1" passengersalarm="20" stoptimeperpassenger="4"/>
+	<trigger id="Farola" objecttype="demand_bus_stop" objectid="711_0" from="10" to="35"  passengersperminute="1" passengersalarm="20" stoptimeperpassenger="4"/>
+	<trigger id="Hospital" objecttype="demand_bus_stop" objectid="1213_0" from="170" to="195"  passengersperminute="1" passengersalarm="20" stoptimeperpassenger="4"/>
+	<trigger id="Parc_Ribalta_N" objecttype="demand_bus_stop" objectid="5cruceB45_0" from="15" to="40"  passengersperminute="1" passengersalarm="20" stoptimeperpassenger="4"/>
+	
+	<trigger id="Paseo_de_Morella_Intermodal_N" objecttype="demand_bus_stop" objectid="cruceB45cruceA45_0" from="30" to="55"  passengersperminute="8" passengersalarm="20" stoptimeperpassenger="4"/>
+	
+	<trigger id="Riu_Sec_N" objecttype="demand_bus_stop" objectid="cruceA454_0" from="360" to="385"  passengersperminute="1" passengersalarm="20" stoptimeperpassenger="4"/>
+	<trigger id="Sos_Bayat_N" objecttype="demand_bus_stop" objectid="cruceA454_0" from="815" to="840"  passengersperminute="1" passengersalarm="20" stoptimeperpassenger="4"/>
+	
+	
+	<vtype id="CAR" accel="5" decel="10" sigma="0.5" length="4" maxspeed="50" color="0,1,0" vclass="passenger"/>
+	<vtype id="BUS" accel="0.75" decel="1.64" sigma="0.5" length="12" maxspeed="40" color="1,0,0" vclass="public_bus"/>
+	<vtype id="autoBUS" accel="0.75" decel="1.64" sigma="0" length="12" maxspeed="70" color="1,0,0" vclass="public_bus"/>
+	<vtype id="sup_veh" accel="0.75" decel="1.64" sigma="0" length="12" maxspeed="70" color="0,0,0" vclass="public_bus"/>
+	
+	
+	<vehicle id="bus0" type="autoBUS" depart="0" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus1" type="autoBUS" depart="300" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus2" type="autoBUS" depart="600" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+		<vehicle id="bus3" type="autoBUS" depart="900" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus4" type="autoBUS" depart="1200" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus5" type="autoBUS" depart="1500" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+		<vehicle id="bus6" type="autoBUS" depart="1800" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus7" type="autoBUS" depart="2100" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus8" type="autoBUS" depart="2400" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+		<vehicle id="bus9" type="autoBUS" depart="2700" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus10" type="autoBUS" depart="3000" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus11" type="autoBUS" depart="3300" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+		<vehicle id="bus12" type="autoBUS" depart="3600" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+		<vehicle id="bus13" type="autoBUS" depart="3900" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus14" type="autoBUS" depart="4200" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus15" type="autoBUS" depart="4500" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+		<vehicle id="bus16" type="autoBUS" depart="4800" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus17" type="autoBUS" depart="5100" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus18" type="autoBUS" depart="5400" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+		<vehicle id="bus19" type="autoBUS" depart="5700" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus20" type="autoBUS" depart="6000" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus21" type="autoBUS" depart="6300" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+		<vehicle id="bus22" type="autoBUS" depart="6600" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus23" type="autoBUS" depart="6900" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+		<vehicle id="bus24" type="autoBUS" depart="7200" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+		<vehicle id="bus25" type="autoBUS" depart="7500" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus26" type="autoBUS" depart="7800" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus27" type="autoBUS" depart="8100" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+		<vehicle id="bus28" type="autoBUS" depart="8400" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus29" type="autoBUS" depart="8700" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus30" type="autoBUS" depart="9000" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+		<vehicle id="bus31" type="autoBUS" depart="9300" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus32" type="autoBUS" depart="9600" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus33" type="autoBUS" depart="9900" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+		<vehicle id="bus34" type="autoBUS" depart="10200" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	
+	<vehicle id="bus35" type="autoBUS" depart="10500" color="1,0,0">
+		<route>busstation0i 01 13 34 4cruceA45 cruceA45cruceB45 cruceB455 56 67 711 1112 1213 135 5cruceB45 cruceB45cruceA45 cruceA454 42 20 busstation0o</route> 
+			<stop demand_bus_stop="Universitat" duration="20" />
+			<stop demand_bus_stop="Sos_Bayat_S" duration="20" />
+			<stop demand_bus_stop="Riu_Sec_S" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_S" duration="20" /> 
+			<stop demand_bus_stop="Parc_Ribalta_S" duration="20" /> 
+			<stop demand_bus_stop="Farola" duration="20" /> 
+			
+			<stop demand_bus_stop="Hospital" duration="20" /> 
+			
+			<stop demand_bus_stop="Parc_Ribalta_N" duration="20" /> 
+			<stop demand_bus_stop="Paseo_de_Morella_Intermodal_N" duration="20" /> 
+			<stop demand_bus_stop="Riu_Sec_N" duration="20" /> 
+			<stop demand_bus_stop="Sos_Bayat_N" duration="20" />
+		
+	</vehicle>
+	   
+</additional>
