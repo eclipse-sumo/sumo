@@ -177,18 +177,18 @@ public:
 
 /*
     //{ methods for retrieving attribute values
-    /**
+    **
      * @brief Returns the information whether the named (by its enum-value) attribute is within the current list
      /
     bool hasAttribute(const Attributes &attrs, SumoXMLAttr id) throw();
 
-    /**
+    **
      * @brief Returns the information whether the named attribute is within the current list
      /
     bool hasAttribute(const Attributes &attrs, const XMLCh * const id) throw();
 
 
-    /**
+    **
      * @brief Returns the bool-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved
@@ -203,7 +203,7 @@ public:
      /
     bool getBool(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, BoolFormatException);
 
-    /**
+    **
      * @brief Returns the bool-value of the named (by its enum-value) attribute or the given value if the attribute is not known
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved
@@ -217,7 +217,7 @@ public:
     bool getBoolSecure(const Attributes &attrs, SumoXMLAttr id, bool val) const throw(EmptyData);
 
 
-    /**
+    **
      * @brief Returns the int-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved
@@ -232,7 +232,7 @@ public:
      /
     int getInt(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException);
 
-    /**
+    **
      * @brief Returns the int-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved
@@ -249,7 +249,7 @@ public:
     int getIntSecure(const Attributes &attrs, SumoXMLAttr id, int def) const throw(EmptyData, NumberFormatException);
 
 
-    /**
+    **
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved
@@ -261,7 +261,7 @@ public:
      /
     std::string getString(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData);
 
-    /**
+    **
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved
@@ -274,7 +274,7 @@ public:
                                 const std::string &str) const throw(EmptyData);
 
 
-    /**
+    **
      * @brief Returns the string-value of the named attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved
@@ -287,7 +287,7 @@ public:
                                 const std::string &str) const throw(EmptyData);
 
 
-    /**
+    **
      * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved
@@ -302,7 +302,7 @@ public:
      /
     SUMOReal getFloat(const Attributes &attrs, SumoXMLAttr id) const throw(EmptyData, NumberFormatException);
 
-    /**
+    **
      * @brief Returns the SUMOReal-value of the named (by its enum-value) attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved
@@ -318,7 +318,7 @@ public:
      /
     SUMOReal getFloatSecure(const Attributes &attrs, SumoXMLAttr id, SUMOReal def) const throw(EmptyData, NumberFormatException);
 
-    /**
+    **
      * @brief Returns the SUMOReal-value of the named attribute
      *
      * Tries to retrieve the attribute from the the attribute list. The retrieved

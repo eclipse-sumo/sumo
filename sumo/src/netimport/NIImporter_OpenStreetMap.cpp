@@ -423,7 +423,7 @@ NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
 }
 
 
-NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler()
+NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() throw()
 {
 }
 
