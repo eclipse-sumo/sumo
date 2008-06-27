@@ -36,7 +36,7 @@ for (File f : (new File("webapps/daily")).listFiles()) {
             } else  {
                 if (line.startsWith("batchreport")) {
                     String dir = line.split(" ")[0].substring(12);
-                    rows[rowIndex] += "<a href=\"" + prefix + "report/" + dir + "\">";
+                    rows[rowIndex] += "<a href=\"" + prefix + "report/" + dir + "/test_default.html\">";
                     rows[rowIndex] += line.substring(12) + "</a><br/>";
                 } else {
                     if (hadLinkLine || rowIndex == 0) {

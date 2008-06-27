@@ -93,7 +93,7 @@ foreach (glob("*status.log") as $filename) {
         $br = strstr($line, "batchreport");
         if ($br) {
             $br_arr = split(' ', $br);
-            $br_dir = substr($br_arr[0], 12).'/test_.html';
+            $br_dir = substr($br_arr[0], 12).'/test_default.html';
             $cells[$column][$row] .= '<a href="'.$prefix.'report/'.$br_dir.'">'.substr($br, 12).'</a><br/>';
         } else {
             if ($cells[$column][$row] == '' && $row > 0) {
