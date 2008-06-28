@@ -1,32 +1,33 @@
 #!/usr/bin/env python
-import os,subprocess,sys
+import os,subprocess,sys,time
 
 numParams = 1
 serverParams = []
 clientParams = []
 
-for i in range(1, len(sys.argv)):
-    if sys.argv[i] == "endsumo":
-        numParams = numParams+1
+for arg in sys.argv[1:]:
+    if arg == "endsumo":
+        numParams += 1
         break
-    if sys.argv[i] == "TraCITestClient.exe": 
+    if arg == "TraCITestClient.exe": 
         break
     else:
-        numParams = numParams+1
-        serverParams = serverParams[0:len(serverParams)] + [sys.argv[i]]
-        
-clientParams = sys.argv[numParams:len(sys.argv)]
+        numParams += 1
+        serverParams += [arg]
+clientParams = sys.argv[numParams:]
+
+sumoDir = 'bin'
+if os.name == 'posix':
+    sumoDir = 'src'
+    serverParams[0] = 'sumo'
+    clientParams[0] = 'traci-testclient'
 
 #start sumo as server    
-serverprocess = subprocess.Popen(os.path.join(os.path.dirname(sys.argv[0]), "..", "bin", " ".join(serverParams)), 
+serverprocess = subprocess.Popen(os.path.join(os.path.dirname(sys.argv[0]), "..", sumoDir, " ".join(serverParams)), 
                 shell=True, stdout=sys.stdout, stderr=sys.stderr)       
-#serverprocess = subprocess.Popen(os.path.join(os.path.dirname(sys.argv[0]), "..", "bin", " ".join(sys.argv[1:12])),
-#                shell=True, stdout=sys.stdout, stderr=sys.stderr)
-    
-subprocess.call(os.path.join(os.path.dirname(sys.argv[0]), "..", "bin", " ".join(clientParams)),
+time.sleep(1)
+subprocess.call(os.path.join(os.path.dirname(sys.argv[0]), "..", sumoDir, " ".join(clientParams)),
                 shell=True, stdout=sys.stdout, stderr=sys.stderr)
-#subprocess.call(os.path.join(os.path.dirname(sys.argv[0]), "..", "bin", " ".join(sys.argv[12:])),
-#                shell=True, stdout=sys.stdout, stderr=sys.stderr)
                 
 #wait for the server to finish
 serverprocess.wait()
