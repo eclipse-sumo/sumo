@@ -16,7 +16,6 @@ edge#id__missing1
 # Missing edge id (fourth edge)
 edge#id__missing4
 
-
 # Empty from node id (first edge)
 edge#fromnode__empty1
 
@@ -28,7 +27,6 @@ edge#fromnode__missing1
 
 # Missing from node id (fourth edge)
 edge#fromnode__missing4
-
 
 # Empty to node id (first edge)
 edge#tonode__empty1
@@ -42,7 +40,6 @@ edge#tonode__missing1
 # Missing to node id (fourth edge)
 edge#tonode__missing4
 
-
 # Empty length (first edge)
 edge#length__empty1
 
@@ -54,33 +51,6 @@ edge#length__false1
 
 # Invalid length (fourth edge)
 edge#length__false4
-
-
-# Empty from position (first edge)
-#edge#frompos__empty1
-
-# Empty from position (fourth edge)
-#edge#frompos__empty4
-
-# Invalid from position (first edge)
-#edge#frompos__false1
-
-# Invalid from position (fourth edge)
-#edge#frompos__false4
-
-
-# Empty function (first edge)
-edge#function__empty1
-
-# Empty function (fourth edge)
-edge#function__empty4
-
-# Invalid function (first edge)
-edge#function__false1
-
-# Invalid function (fourth edge)
-edge#function__false4
-
 
 # Empty lane number (first edge)
 edge#nolanes__empty1
@@ -94,7 +64,6 @@ edge#nolanes__false1
 # Invalid lane number (fourth edge)
 edge#nolanes__false4
 
-
 # Empty type (first edge)
 edge#type__empty1
 
@@ -107,13 +76,11 @@ edge#type__false1
 # Invalid type (fourth edge)
 edge#type__false4
 
-
 # Invalid priority (first edge)
 edge#priority__false1
 
 # Invalid priority (fourth edge)
 edge#priority__false4
-
 
 # Empty shape (first edge)
 edge#shape__empty1

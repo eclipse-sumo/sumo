@@ -1,15 +1,15 @@
-SUMO netgen Version dev-SVN-r5026
+SUMO netgen Version dev-SVN-r5664
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Road network generator for the microscopic road traffic simulation SUMO.
 
-Usage: netgen.exe [OPTION]*
+Usage: sumo-netgen [OPTION]*
  
  Examples:
-  netgen.exe -c <CONFIGURATION>
-  netgen.exe --grid-net [grid-network options] -o <OUTPUTFILE>
-  netgen.exe --spider-net [spider-network opts] -o <OUTPUTFILE>
-  netgen.exe --random-net [random-network opts] -o <OUTPUTFILE>
+  sumo-netgen -c <CONFIGURATION>
+  sumo-netgen --grid-net [grid-network options] -o <OUTPUTFILE>
+  sumo-netgen --spider-net [spider-network opts] -o <OUTPUTFILE>
+  sumo-netgen --random-net [random-network opts] -o <OUTPUTFILE>
  
  Either "--grid-net", "--spider-net" or "--random-net" must be 
   supplied. In dependance to these switches other options are used.
@@ -162,7 +162,6 @@ Usage: netgen.exe [OPTION]*
   -?, --help                           Prints this screen
   -l, --log-file FILE                  Writes all messages to FILE
   --print-node-positions               Prints the positions of read nodes
-  --netbuild.debug INT                 Enable debug mode
 
  Random Number Options:
   --srand INT                          Initialises the random number generator

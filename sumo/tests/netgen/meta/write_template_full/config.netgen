@@ -126,7 +126,6 @@
       <help>false</help>
       <log-file></log-file>
       <print-node-positions>false</print-node-positions>
-      <netbuild.debug>0</netbuild.debug>
    </report>
 
    <random_number>
