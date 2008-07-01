@@ -65,6 +65,12 @@
 
 #include "devices/MSDevice_CPhone.h"
 
+#ifdef HAVE_MESOSIM
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
+#include "MSGlobals.h"
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -1724,12 +1730,6 @@ MSVehicle::writeXMLRoute(OutputDevice &os, int index) const
     }
 }
 
-
-#ifdef HAVE_MESOSIM
-#include <mesosim/MESegment.h>
-#include <mesosim/MELoop.h>
-#include "MSGlobals.h"
-#endif
 
 void
 MSVehicle::saveState(std::ostream &os)

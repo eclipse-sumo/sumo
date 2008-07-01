@@ -39,13 +39,13 @@
 #include <utils/iodevices/OutputDevice.h>
 #include "devices/MSDevice_CPhone.h"
 
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
-
 #ifdef HAVE_MESOSIM
 #include <mesosim/MELoop.h>
 #endif
+
+#ifdef CHECK_MEMORY_LEAKS
+#include <foreign/nvwa/debug_new.h>
+#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================

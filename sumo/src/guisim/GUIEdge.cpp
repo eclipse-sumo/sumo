@@ -46,6 +46,12 @@
 #include <microsim/logging/CastingFunctionBinding.h>
 #include <microsim/logging/FunctionBinding.h>
 
+#ifdef HAVE_MESOSIM
+#include <mesosim/MESegment.h>
+#include <mesosim/MELoop.h>
+#include <microsim/MSGlobals.h>
+#endif
+
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
 #endif // CHECK_MEMORY_LEAKS
@@ -234,10 +240,6 @@ GUIEdge::getCenteringBoundary() const throw()
 
 
 #ifdef HAVE_MESOSIM
-
-#include <mesosim/MESegment.h>
-#include <mesosim/MELoop.h>
-#include <microsim/MSGlobals.h>
 unsigned int
 GUIEdge::getVehicleNo() const
 {
