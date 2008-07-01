@@ -504,6 +504,10 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
     }
     // erase
     for (std::vector<NBNode*>::iterator j=toRemove.begin(); j!=toRemove.end(); j++) {
+        const set<NBTrafficLightDefinition*> &tls = (*j)->getControllingTLS();
+        for(set<NBTrafficLightDefinition*>::const_iterator i=tls.begin(); i!=tls.end(); ++i) {
+            (*i)->removeNode(*j);
+        }
         erase(*j);
     }
     WRITE_MESSAGE("   " + toString<int>(no) + " nodes removed.");

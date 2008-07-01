@@ -280,6 +280,9 @@ public:
     std::string getCrossingSourcesNames_dividedBySpace(NBEdge *fromE, size_t fromL,
             NBEdge *toE, size_t toL);
 
+    const std::set<NBTrafficLightDefinition*> &getControllingTLS() const {
+        return myTrafficLights;
+    }
 
 private:
 

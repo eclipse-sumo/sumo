@@ -208,17 +208,6 @@ NBEdgeCont::recheckLanes()
 }
 
 
-/*
-bool
-NBEdgeCont::computeLinkPriorities(bool verbose)
-{
-    for(EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->computeLinkPriorities();
-    }
-    return true;
-}
-*/
-
 void
 NBEdgeCont::appendTurnarounds()
 {
@@ -601,20 +590,6 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const
         }
     }
     return 0;
-}
-
-
-void
-NBEdgeCont::search(NBEdge *e)
-{
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        DEBUG_OUT << (*i).second << ", " << (*i).second->getID() << endl;
-        if ((*i).second==e) {
-            int checkdummy = 0;
-            checkdummy += 2;
-        }
-    }
-    DEBUG_OUT << "--------------------------------\n";
 }
 
 

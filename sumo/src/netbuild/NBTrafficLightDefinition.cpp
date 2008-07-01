@@ -386,6 +386,17 @@ NBTrafficLightDefinition::addNode(NBNode *node)
 }
 
 
+void 
+NBTrafficLightDefinition::removeNode(NBNode *node)
+{
+    set<NBNode*>::iterator i=myControlledNodes.find(node);
+    if(i!=myControlledNodes.end()) {
+        myControlledNodes.erase(i);
+    }
+    // !!! remove in node?
+}
+
+
 void
 NBTrafficLightDefinition::addControlledInnerEdges(const std::vector<std::string> &edges)
 {

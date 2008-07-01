@@ -106,6 +106,10 @@ public:
     /// Adds a node to the traffic light logic
     void addNode(NBNode *node);
 
+    /// @brief Removes the given node from the list of controlled nodes
+    void removeNode(NBNode *node);
+
+
     /** @brief Returns the information whether the described flow must let any other flow pass
      *
      * If the from/to connection passes only one junction (from is incoming into

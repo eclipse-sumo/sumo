@@ -139,9 +139,6 @@ public:
     void joinSameNodeConnectingEdges(NBDistrictCont &dc,
                                      NBTrafficLightLogicCont &tlc, EdgeVector edges);
 
-    /// !!! debug only
-    void search(NBEdge *e);
-
     /// moves the geometry of the edges by the network offset
     void normaliseEdgePositions();
     void reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);

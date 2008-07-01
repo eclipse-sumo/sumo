@@ -486,13 +486,13 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
             try {
                 myCurrentEdge->myNoLanes = TplConvert<char>::_2int(value.c_str());
             } catch(NumberFormatException &) {
-                MsgHandler::getErrorInstance()->inform("Value of key '" + key + "' is not numeric ('" + value + "' in edge '" + myCurrentEdge->id + "'.");
+                MsgHandler::getErrorInstance()->inform("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
             }
         } else if (key=="maxspeed") {
             try {
                 myCurrentEdge->myMaxSpeed = TplConvert<char>::_2SUMOReal(value.c_str());
             } catch(NumberFormatException &) {
-                WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "' in edge '" + myCurrentEdge->id + "'.");
+                WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
             }
         } else if (key=="junction") {
             if ((value == "roundabout") && (myCurrentEdge->myIsOneWay == "")) {
