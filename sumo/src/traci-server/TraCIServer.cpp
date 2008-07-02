@@ -61,7 +61,6 @@
 
 #include <xercesc/sax2/SAX2XMLReader.hpp>
 
-#include <stdint.h>
 #include <string>
 #include <map>
 #include <iostream>
@@ -422,7 +421,7 @@ throw(TraCIException)
         }
 	if (myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) {
 		// iterate over all vehicles that are supposed to live
-		for (std::set<int>::const_iterator i = myLivingVehicles.begin(); i != myLivingVehicles.end(); ) {
+		for (std::set<int>::iterator i = myLivingVehicles.begin(); i != myLivingVehicles.end(); ) {
 			int extId = *i;
 			if (activeEquippedVehicles.find(extId) == activeEquippedVehicles.end()) {
 				myDestroyedVehicles.insert(extId);
@@ -2671,7 +2670,7 @@ throw(TraCIException)
 		for (std::set<int>::const_iterator i = myDestroyedVehicles.begin(); i != myDestroyedVehicles.end(); i++) {
 			int extId = *i;
 
-			respMsg.writeUnsignedByte(sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint32_t));
+			respMsg.writeUnsignedByte(1+1+1+4);
 			respMsg.writeUnsignedByte(CMD_OBJECTDESTRUCTION);
 			respMsg.writeUnsignedByte(DOM_VEHICLE);
 			respMsg.writeInt(extId);
@@ -2681,7 +2680,7 @@ throw(TraCIException)
 		for (std::set<int>::const_iterator i = myCreatedVehicles.begin(); i != myCreatedVehicles.end(); i++) {
 			int extId = *i;
 
-			respMsg.writeUnsignedByte(sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint8_t) + sizeof(uint32_t));
+			respMsg.writeUnsignedByte(1+1+1+4);
 			respMsg.writeUnsignedByte(CMD_OBJECTCREATION);
 			respMsg.writeUnsignedByte(DOM_VEHICLE);
 			respMsg.writeInt(extId);
