@@ -326,7 +326,8 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         unsigned int desiredDepart; // !!! SUMOTime
         bis >> desiredDepart;
         if(OptionsCont::getOptions().isSet("load-state.offset")) {
-            desiredDepart -= (unsigned int) OptionsCont::getOptions().getFloat("load-state.offset");
+            SUMOReal offset = OptionsCont::getOptions().getFloat("load-state.offset");
+            desiredDepart -= (unsigned int) offset;
         }
         p.depart = desiredDepart;
         bis >> p.vtypeid;
@@ -343,8 +344,9 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         SUMOReal tLastEntry;
         bis >> tLastEntry;
         if(OptionsCont::getOptions().isSet("load-state.offset")) {
-            tEvent -= OptionsCont::getOptions().getFloat("load-state.offset");
-            tLastEntry -= OptionsCont::getOptions().getFloat("load-state.offset");
+            SUMOReal offset = OptionsCont::getOptions().getFloat("load-state.offset");
+            tEvent -= offset;
+            tLastEntry -= offset;
         }
         bool inserted;
         bis >> inserted;
