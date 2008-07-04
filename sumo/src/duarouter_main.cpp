@@ -112,6 +112,12 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
     // initialise the loader
     loader.openRoutes(net);
+    // prepare the output
+    try {
+        net.openOutput(oc.getString("output"), true);
+    } catch (IOError &e) {
+        throw e;
+    }
     // build the router
     SUMOAbstractRouter<ROEdge, ROVehicle> *router;
     if (net.hasRestrictions()) {
@@ -120,13 +126,6 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
     } else {
         router = new SUMODijkstraRouter_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
             net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
-    }
-    // prepare the output
-    try {
-        net.openOutput(oc.getString("output"), true);
-    } catch (IOError &e) {
-        delete router;
-        throw e;
     }
     // the routes are sorted - process stepwise
     try {
