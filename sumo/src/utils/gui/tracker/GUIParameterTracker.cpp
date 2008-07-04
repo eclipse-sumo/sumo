@@ -267,7 +267,7 @@ GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
     FXFileDialog opendialog(this, "Save Data As...");
     opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
     opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*.csv"); // cdd=CsvDevilData
+    opendialog.setPatternList("*.csv");
     if (gCurrentFolder.length()!=0) {
         opendialog.setDirectory(gCurrentFolder.c_str());
     }
