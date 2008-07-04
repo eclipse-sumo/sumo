@@ -139,16 +139,14 @@ ODDistrictHandler::parseConnection(const SUMOSAXAttributes &attrs, const std::st
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the weight
-    try {
-        SUMOReal weight = attrs.getFloatSecure(SUMO_ATTR_WEIGHT, -1);
-        if (weight==-1) {
-            MsgHandler::getErrorInstance()->inform("The weight of the " + type + " '" + id + "' within district '" + myCurrentDistrict->getID() + "' is not given or <0.");
-            return std::pair<std::string, SUMOReal>("", -1);
+    bool ok = true;
+    SUMOReal weight = attrs.getSUMORealReporting(SUMO_ATTR_WEIGHT, type.c_str(), id.c_str(), ok);
+    if(ok) {
+        if(weight<0) {
+            MsgHandler::getErrorInstance()->inform("'probability' must be positive (in definition of " + type + " '" + id + "').");
+        } else {
+            return std::pair<std::string, SUMOReal>(id, weight);
         }
-        // return the values
-        return std::pair<std::string, SUMOReal>(id, weight);
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The weight of the " + type + " '" + id + "' within district '" + myCurrentDistrict->getID() + "' is not numeric.");
     }
     return std::pair<std::string, SUMOReal>("", -1);
 }
