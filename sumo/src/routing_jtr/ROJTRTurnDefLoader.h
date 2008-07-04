@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Jan 2004
 /// @version $Id$
 ///
-// Loader for the description of turning percentages
+// Loader for the of turning percentages and source/sink definitions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -49,25 +49,27 @@ class RONet;
 // ===========================================================================
 /**
  * @class ROJTRTurnDefLoader
- * Lays the given route over the edges using the dijkstra algorithm
+ * @brief Loader for the of turning percentages and source/sink definitions
+ *
+ * This handler parses XML-descriptions of jtrrouter-definitions, including
+ *  percentage ratios at junctions and definitions of sink/source edges.
+ *
+ * All read values are stored directly into the given network's structures
+ *   (edges).
  */
-class ROJTRTurnDefLoader : public SUMOSAXHandler,
-            public LineHandler
+class ROJTRTurnDefLoader : public SUMOSAXHandler
 {
 public:
-    /// Constructor
-    ROJTRTurnDefLoader(RONet &net);
+    /** @brief Constructor
+     *
+     * @param[in] net The net to add loaded turning percentages into
+     */
+    ROJTRTurnDefLoader(RONet &net) throw();
 
-    /// Destructor
+
+    /// @brief Destructor
     ~ROJTRTurnDefLoader() throw();
 
-    /** @brief Loads the turning definitions and additionally the sinks
-        While the sinks are returned on return, the turn definitions are stored
-        into the network directly */
-    void load(const std::string &file);
-
-    /** @brief used when csv instead of xml-descriptions are used */
-    bool report(const std::string &line) throw(ProcessError);
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -93,60 +95,48 @@ protected:
      */
     void myCharacters(SumoXMLTag element,
                       const std::string &chars) throw(ProcessError);
-
-
-    /** @brief Called when a closing tag occures
-     *
-     * @param[in] element ID of the currently opened element
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myEndElement
-     */
-    void myEndElement(SumoXMLTag element) throw(ProcessError);
     //@}
 
 
 private:
-    /// Begins the processing of an interval
-    void beginInterval(const SUMOSAXAttributes &attrs);
+    /** @brief Begins the processing of a incoming edge definition
+     *
+     * Tries to retrieve the currently described incoming edge. If the
+     *  edge id is not given in the attributes or the edge is not known,
+     *  an error is reported. 
+     *
+     * If everything is ok, the edge's address is stored in myEdge.
+     *
+     * @param[in] attrs The SAX-attributes to parse incoming edge from
+     */
+    void beginFromEdge(const SUMOSAXAttributes &attrs) throw();
 
-    /// Begins the processing of a incoming definition
-    void beginFromEdge(const SUMOSAXAttributes &attrs);
 
-    /** @brief Parses the percentage with which an outgoing edge is used
-        This is added to the current incoming edge */
-    void addToEdge(const SUMOSAXAttributes &attrs);
+    /** @brief Parses the probability to use a certain outgoing edge
+     *
+     * Tries to retreive the outgoing edge and then the probability to
+     *  use it. If one of both operations could not be accomplished,
+     *  an error is generated.
+     *
+     * If everything is ok, this means the destination edge is defined 
+     *  and known and the probability is valid, too, this probability
+     *  is added to "myEdge", the last parsed incoming edge. As time,
+     *  the previously parsed interval begin/end is used.
+     *
+     * @param[in] attrs The SAX-attributes to parse the destination edge and the probability to use it from
+     */
+    void addToEdge(const SUMOSAXAttributes &attrs) throw();
 
-    /// Parses the given string as a list of edge names to declare them as sinks
-    void addSink(const std::string &chars);
-
-    /// Ends the processing of an interval
-    void endInterval();
-
-    /// Ends the processing of an incoming edge
-    void endFromEdge();
-
-    /** @brief Returns a value from the columns parser
-        Catches and reports errors */
-    std::string getSecure(const std::string &name);
 
 private:
-    /// The begin and the end of the current interval
-    unsigned int myIntervalBegin, myIntervalEnd;
-
     /// The network to set the information into
     RONet &myNet;
 
-    /// The list of parsed sinks
-    std::set<ROJTREdge*> mySinks;
+    /// @brief The begin and the end of the current interval
+    SUMOTime myIntervalBegin, myIntervalEnd;
 
-    /// The current incoming edge the turning probabilities are set into
+    /// @brief The current incoming edge the turning probabilities are set into
     ROJTREdge *myEdge;
-
-    /// Information whether this loader was initialised for parsing lines
-    bool myAmInitialised;
-
-    /// The parser used in the case of csv-files
-    NamedColumnsParser myColumnsParser;
 
 };
 

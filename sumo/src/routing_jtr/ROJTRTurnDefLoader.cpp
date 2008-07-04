@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Jan 2004
 /// @version $Id$
 ///
-// Loader for the description of turning percentages
+// Loader for the of turning percentages and source/sink definitions
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -56,9 +56,9 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet &net)
-        : SUMOSAXHandler("turn-definitions"), myNet(net),
-        myAmInitialised(false)
+ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet &net) throw()
+        : SUMOSAXHandler("turn-definitions"), myNet(net), 
+        myIntervalBegin(0), myIntervalEnd(86400), myEdge(0)
 {}
 
 
@@ -67,34 +67,14 @@ ROJTRTurnDefLoader::~ROJTRTurnDefLoader() throw()
 
 
 void
-ROJTRTurnDefLoader::load(const std::string &file)
-{
-    setFileName(file);
-    FileHelpers::FileType type = FileHelpers::checkFileType(file);
-    switch (type) {
-    case FileHelpers::XML:
-        if (!XMLSubSys::runParser(*this, file)) {
-            throw ProcessError();
-        }
-        break;
-    case FileHelpers::CSV: {
-        LineReader lr(file);
-        lr.readAll(*this);
-    }
-    break;
-    default:
-        throw 1;
-    }
-}
-
-
-void
 ROJTRTurnDefLoader::myStartElement(SumoXMLTag element,
                                    const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
+    bool ok = true;
     switch (element) {
     case SUMO_TAG_INTERVAL:
-        beginInterval(attrs);
+        myIntervalBegin = attrs.getIntReporting(SUMO_ATTR_BEGIN, "interval", 0, ok);
+        myIntervalEnd = attrs.getIntReporting(SUMO_ATTR_END, "interval", 0, ok);
         break;
     case SUMO_TAG_FROMEDGE:
         beginFromEdge(attrs);
@@ -136,115 +116,9 @@ ROJTRTurnDefLoader::myCharacters(SumoXMLTag element,
 
 
 void
-ROJTRTurnDefLoader::myEndElement(SumoXMLTag element) throw(ProcessError)
+ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs) throw()
 {
-    switch (element) {
-    case SUMO_TAG_INTERVAL:
-        endInterval();
-        break;
-    case SUMO_TAG_FROMEDGE:
-        endFromEdge();
-        break;
-    default:
-        break;
-    }
-}
-
-
-bool
-ROJTRTurnDefLoader::report(const std::string &line) throw(ProcessError)
-{
-    if (!myAmInitialised) {
-        myColumnsParser.reinit(line, ";");
-        myAmInitialised = true;
-    } else {
-        try {
-            myColumnsParser.parseLine(line);
-            try {
-                myIntervalBegin =
-                    TplConvert<char>::_2int(getSecure("begin").c_str());
-            } catch (NumberFormatException &) {
-                MsgHandler::getErrorInstance()->inform("The attribute 'from' is not numeric.");
-                return false;
-            }
-            try {
-                myIntervalEnd =
-                    TplConvert<char>::_2int(getSecure("end").c_str());
-            } catch (NumberFormatException &) {
-                MsgHandler::getErrorInstance()->inform("The attribute 'to' is not numeric.");
-                return false;
-            }
-            string id = getSecure("from");
-            myEdge = static_cast<ROJTREdge*>(myNet.getEdge(id));
-            if (myEdge==0) {
-                MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known within the network (within a 'from-edge' tag).");
-                return false;
-            }
-            id = getSecure("to");
-            ROJTREdge *edge = static_cast<ROJTREdge*>(myNet.getEdge(id));
-            if (edge==0) {
-                MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known within the network (within a 'to-edge' tag).");
-                return false;
-            }
-            SUMOReal probability;
-            try {
-                probability =
-                    TplConvert<char>::_2SUMOReal(getSecure("split").c_str());
-            } catch (NumberFormatException &) {
-                MsgHandler::getErrorInstance()->inform("The attribute 'perc' is not numeric.");
-                return false;
-            }
-            myEdge->addFollowerProbability(edge, myIntervalBegin, myIntervalEnd, probability);
-        } catch (InvalidArgument &) {
-            return false;
-        }
-    }
-    return true;
-}
-
-
-std::string
-ROJTRTurnDefLoader::getSecure(const std::string &name)
-{
-    try {
-        return myColumnsParser.get(name);
-    } catch (UnknownElement &) {
-        MsgHandler::getErrorInstance()->inform("The definition of '" + name + "' is missing within the file.");
-        throw InvalidArgument("");
-    } catch (OutOfBoundsException &) {
-        MsgHandler::getErrorInstance()->inform("The definition of '" + name + "' is missing within the file.");
-        throw InvalidArgument("");
-    }
-}
-
-
-void
-ROJTRTurnDefLoader::beginInterval(const SUMOSAXAttributes &attrs)
-{
-    try {
-        myIntervalBegin = attrs.getInt(SUMO_ATTR_BEGIN);
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The attribute 'from' is not numeric ('" + attrs.getString(SUMO_ATTR_FROM) + "').");
-        return;
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("The 'from'-attribute is not given.");
-        return;
-    }
-    try {
-        myIntervalEnd = attrs.getInt(SUMO_ATTR_END);
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The attribute 'to' is not numeric ('" + attrs.getString(SUMO_ATTR_FROM) + "').");
-        return;
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("The 'to'-attribute is not given.");
-        return;
-    }
-}
-
-
-void
-ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs)
-{
+    myEdge = 0;
     // get the id, report an error if not given or empty...
     string id;
     if(!attrs.setIDFromAttribues("from-edge", id)) {
@@ -253,16 +127,18 @@ ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs)
     //
     myEdge = static_cast<ROJTREdge*>(myNet.getEdge(id));
     if (myEdge==0) {
-        MsgHandler::getErrorInstance()->inform(
-            "The edge '" + id + "' is not known within the network (within a 'from-edge' tag).");
+        MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known within the network (within a 'from-edge' tag).");
         return;
     }
 }
 
 
 void
-ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs)
+ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs) throw()
 {
+    if(myEdge==0) {
+        return;
+    }
     // get the id, report an error if not given or empty...
     string id;
     if(!attrs.setIDFromAttribues("to-edge", id)) {
@@ -274,27 +150,16 @@ ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs)
         MsgHandler::getErrorInstance()->inform("The edge '" + id + "' is not known within the network (within a 'to-edge' tag).");
         return;
     }
-    try {
-        SUMOReal probability = attrs.getFloat(SUMO_ATTR_PROB);
-        myEdge->addFollowerProbability(edge, myIntervalBegin, myIntervalEnd, probability);
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The attribute 'probability' is not numeric ('" + attrs.getString(SUMO_ATTR_PROB) + "').");
-        return;
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("The 'probability'-attribute is not given.");
-        return;
+    bool ok = true;
+    SUMOReal probability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "to-edge", id.c_str(), ok);
+    if(ok) {
+        if(probability<0) {
+            MsgHandler::getErrorInstance()->inform("'probability' must be positive (in definition of to-edge '" + id + "').");
+        } else {
+            myEdge->addFollowerProbability(edge, myIntervalBegin, myIntervalEnd, probability);
+        }
     }
 }
-
-
-void
-ROJTRTurnDefLoader::endInterval()
-{}
-
-
-void
-ROJTRTurnDefLoader::endFromEdge()
-{}
 
 
 

@@ -957,7 +957,7 @@
         <application>NETCONVERT</application> to spread lanes to both sides of
         the connection between the begin node and the end node or from the
         list of lines making up the shape. If not given, lanes are spread to
-        right, as default. </para>
+        right, as default.</para>
 
         <para>Let's list an edge's attributes again:</para>
 
@@ -5206,24 +5206,9 @@
         <para>The snippet defines that vehicles coming at the end of edge
         "myEdge0" within the time interval between 0s and 3600s will choose
         the edge "myEdge1" with a probability of 20%, "myEdge2" with a
-        probability of 70% and "myEdge3" with a probability of 10%. The
-        specification of such information is of course quite extensive and so
-        the <application>JTRROUTER</application> is also able to read the
-        turning ratios from a cvs file. The same information as above may be
-        coded the following way:</para>
-
-        <programlisting>begin;end;from;to;split
-0;3600;myEdge0;myEdge1;0.2
-0;3600;myEdge0;myEdge2;0.7
-0;3600;myEdge0;myEdge3;0.1</programlisting>
-
-        <para><caution>
-            <para>Do not forget to give the order of the attributes in the
-            first line of the file.</para>
-          </caution></para>
-
-        <para>Another possibility to save time on preparing the description is
-        to use default values. The parameter <option>--turn-defaults</option>
+        probability of 70% and "myEdge3" with a probability of 10%. Another
+        possibility to save time on preparing the description is to use
+        default values. The parameter <option>--turn-defaults</option>
         (<option>-T</option>)
         <option><replaceable>&lt;TURN_DEFAULTS&gt;</replaceable></option> can
         be used to describe the default ratios that will be used for all
@@ -5351,6 +5336,11 @@
           <listitem>
             <para>Default turn-percentages have to be divided using ',' since
             version 0.9.7 (prior versions used ';')</para>
+          </listitem>
+
+          <listitem>
+            <para>The possibility to use csv-files for turning ratios was
+            removed for version 0.10.0</para>
           </listitem>
         </itemizedlist>
 

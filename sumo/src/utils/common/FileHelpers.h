@@ -44,20 +44,6 @@
 class FileHelpers
 {
 public:
-    /**
-     * @enum FileType
-     * @brief A set of known encodings
-     */
-    enum FileType {
-        /// unknown
-        INVALID,
-        /// XML (eXtensible Markup Language) - derivates
-        XML,
-        /// CSV (Comma Separated Values) - derivates
-        CSV
-    };
-
-public:
     /// @name file access functions
     //@{
 
@@ -67,19 +53,6 @@ public:
      * @return Whether the named file exists
      */
     static bool exists(std::string path);
-
-
-    /** @brief Checks whether the given file is a xml or csv file
-     *
-     * The file is opened. If this fails, UNKNOWN is returned. Otherwise
-     *  a string is read from the file. If this string starts with a '<'
-     *  XML is returned, otherwise CSV.
-     *
-     * @todo test, recheck
-     * @param[in] filename The path to the file to be examined
-     * @return The assumed encoding of the file
-     */
-    static FileType checkFileType(const std::string &filename);
     //@}
 
 

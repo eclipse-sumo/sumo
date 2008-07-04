@@ -84,24 +84,6 @@ FileHelpers::exists(string path)
 }
 
 
-FileHelpers::FileType
-FileHelpers::checkFileType(const std::string &filename)
-{
-    ifstream strm(filename.c_str());
-    if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("File '" + filename + "' could not be found.");
-        return INVALID;
-    }
-    string l;
-    strm >> l;
-    if (l[0]=='<') {
-        return XML;
-    } else {
-        return CSV;
-    }
-}
-
-
 // ---------------------------------------------------------------------------
 // file path evaluating functions
 // ---------------------------------------------------------------------------

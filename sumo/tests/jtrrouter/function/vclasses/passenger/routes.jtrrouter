@@ -1,12 +1,12 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/12/07 09:55:50 by SUMO jtrrouter Version 0.9.6
+<!-- generated on 07/04/08 08:50:34 by SUMO jtrrouter Version 0.9.7
 <configuration>
 
    <input>
       <net-file>input_net.net.xml</net-file>
       <flow-definition>input_flows.flows.xml</flow-definition>
-      <turn-definition>input_turns.turns.csv</turn-definition>
+      <turn-definition>input_turns.turns.xml</turn-definition>
    </input>
 
    <output>

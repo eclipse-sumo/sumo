@@ -134,7 +134,9 @@ loadJTRDefinitions(RONet &net, OptionsCont &oc)
     // load the turning definitions (and possible sink definition)
     if (oc.isSet("turn-definition")) {
         ROJTRTurnDefLoader loader(net);
-        loader.load(oc.getString("turn-definition"));
+        if (!XMLSubSys::runParser(loader, oc.getString("turn-definition"))) {
+            throw ProcessError();
+        }
     }
     if (MsgHandler::getErrorInstance()->wasInformed() && oc.getBool("dismiss-loading-errors")) {
         MsgHandler::getErrorInstance()->clear();
@@ -159,13 +161,17 @@ loadJTRDefinitions(RONet &net, OptionsCont &oc)
 void
 startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
-    // build the router
-    ROJTRRouter router(net, oc.getBool("continue-on-unbuild"),
-                       oc.getBool("accept-all-destinations"));
     // initialise the loader
     loader.openRoutes(net);
     // prepare the output
-    net.openOutput(oc.getString("output"), false);
+    try {
+        net.openOutput(oc.getString("output"), false);
+    } catch (IOError &e) {
+        throw e;
+    }
+    // build the router
+    ROJTRRouter router(net, oc.getBool("continue-on-unbuild"),
+                       oc.getBool("accept-all-destinations"));
     // the routes are sorted - process stepwise
     if (!oc.getBool("unsorted")) {
         loader.processRoutesStepWise(oc.getInt("begin"), oc.getInt("end"), net, router);
@@ -213,11 +219,10 @@ main(int argc, char **argv)
         ROLoader loader(oc, vb, true);
         net = loadNet(loader, oc, defs);
         if (net!=0) {
-            // parse and set the turn defaults first
-
-            // build routes
             try {
+                // parse and set the turn defaults first
                 loadJTRDefinitions(*net, oc);
+                // build routes
                 startComputation(*net, loader, oc);
             } catch (SAXParseException &e) {
                 MsgHandler::getErrorInstance()->inform(toString<int>(e.getLineNumber()));

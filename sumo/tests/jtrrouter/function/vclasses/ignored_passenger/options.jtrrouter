@@ -1,2 +1,2 @@
---ignore-classes --output=routes.rou.xml --net-file=input_net.net.xml --flows=input_flows.flows.xml --sinks=end --turns=input_turns.turns.csv --continue-on-unbuild
+--ignore-classes --output=routes.rou.xml --net-file=input_net.net.xml --flows=input_flows.flows.xml --sinks=end --turns=input_turns.turns.xml --continue-on-unbuild
 
