@@ -43,9 +43,6 @@
       <!--  -->
       <randomize-flows>false</randomize-flows>
 
-      <!-- Move vehicles to the next edge if the first is too short -->
-      <move-on-short>false</move-on-short>
-
       <!-- Prune the number of alternatives to INT -->
       <max-alternatives>5</max-alternatives>
 

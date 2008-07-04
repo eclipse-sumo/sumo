@@ -33,8 +33,6 @@ Usage: duarouter.exe [OPTION]*
   --continue-on-unbuild               Continue if a route could not be build
   --unsorted                          Assume input is unsorted
   --randomize-flows                   
-  --move-on-short                     Move vehicles to the next edge if the
-                                        first is too short
   --max-alternatives INT              Prune the number of alternatives to INT
   -R, --random-per-second FLOAT       Emit FLOAT random vehicles per second
   --prune-random                      

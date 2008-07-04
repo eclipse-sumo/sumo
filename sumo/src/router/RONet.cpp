@@ -222,19 +222,7 @@ RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &
         delete current;
         return 0;
     }
-    // check whether the vehicle is able to start at this edge
-    //  (the edge must be longer than the vehicle)
-    SUMOReal vehLength = veh->getType()!=0 ? veh->getType()->getLength() : (SUMOReal) DEFAULT_VEH_LENGTH;
-    while (current->getFirst()->getLength()<=vehLength) {
-        if (!options.getBool("move-on-short")||current->size()<3) {
-            mh->inform("Vehicle '" + veh->getID() + "' was discarded due being too long to start at edge '" + current->getFirst()->getID() + "'.");
-            delete current;
-            return 0;
-        }
-        current->pruneFirst();
-        mh->inform("Vehicle '" + veh->getID() + "' is too long to start at edge '" + current->getFirst()->getID() + "'.\n The route was prunned (now starting at '" + current->getFirst()->getID() + "').");
-    }
-    // add build route
+    // add built route
     routeDef->addAlternative(veh, current, veh->getDepartureTime());
     return routeDef;
 }

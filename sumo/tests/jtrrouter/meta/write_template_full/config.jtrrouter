@@ -17,7 +17,6 @@
       <continue-on-unbuild>false</continue-on-unbuild>
       <unsorted>false</unsorted>
       <randomize-flows>false</randomize-flows>
-      <move-on-short>false</move-on-short>
       <max-alternatives>5</max-alternatives>
       <random-per-second></random-per-second>
       <prune-random>false</prune-random>

@@ -94,9 +94,6 @@ ROFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("randomize-flows", new Option_Bool(false)); // !!! undescibed
     oc.addDescription("randomize-flows", "Processing", "");
 
-    oc.doRegister("move-on-short", new Option_Bool(false));
-    oc.addDescription("move-on-short", "Processing", "Move vehicles to the next edge if the first is too short");
-
     oc.doRegister("max-alternatives", new Option_Integer(5));
     oc.addDescription("max-alternatives", "Processing", "Prune the number of alternatives to INT");
 
