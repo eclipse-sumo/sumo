@@ -905,8 +905,8 @@
         priority="<replaceable>&lt;UINT&gt;</replaceable>"
         length="<replaceable>&lt;FLOAT&gt;</replaceable>")]
         [shape="<replaceable>&lt;2D_POINT&gt; </replaceable>[
-        <replaceable>&lt;2D_POINT&gt;</replaceable>]*"] [spread_type="center"]
-        [function=( "source" | "sink" | "normal" ) ]/&gt;</sgmltag>.</para>
+        <replaceable>&lt;2D_POINT&gt;</replaceable>]*"]
+        [spread_type="center"]/&gt;</sgmltag>.</para>
 
         <para>What does it mean? Every one who knows how XML-files look like
         should have noticed brackets ('(' and ')') and pipes ('|') within the
@@ -957,19 +957,7 @@
         <application>NETCONVERT</application> to spread lanes to both sides of
         the connection between the begin node and the end node or from the
         list of lines making up the shape. If not given, lanes are spread to
-        right, as default. Using <sgmltag>function</sgmltag> you can define
-        whether the edge is a "<sgmltag>normal</sgmltag>" edge, a
-        "<sgmltag>source</sgmltag>", or a "<sgmltag>sink</sgmltag>" edge. The
-        default is "<sgmltag>normal</sgmltag>", of course. This information is
-        used for routing purposes (see "<link
-        linkend="user_chp05-own_routes-jtr">Using the Junction Turning Ratio -
-        Router</link>") and for vehicle emission (see "<link
-        linkend="user_chp06-vehicle_handling">Vehicles Handling
-        Revisited</link>"). Briefly, vehicles may be inserted on normal and
-        source edges (although the insertion procedure changes, see "<link
-        linkend="user_chp06-vehicle_handling">Vehicles Handling
-        Revisited</link>") and may leave the network on normal and sink
-        edges.</para>
+        right, as default. </para>
 
         <para>Let's list an edge's attributes again:</para>
 
@@ -1062,14 +1050,6 @@
                   <para><sgmltag>length</sgmltag>: The length of the edge in
                   meter; must be an float value</para>
                 </listitem>
-
-                <listitem>
-                  <para><sgmltag>function</sgmltag>: Information whether the
-                  edge is a plain edge, a source edge, or a sink edge. The
-                  value must be one of "<sgmltag>normal</sgmltag>",
-                  "<sgmltag>sink</sgmltag>",
-                  "<sgmltag>source</sgmltag>".</para>
-                </listitem>
               </itemizedlist>
             </listitem>
 
@@ -1156,6 +1136,11 @@
             <para>11.03.2008: False documentation updated:
             <option>--omit-corrupt-edges</option> is outdated; use
             <option>--dismiss-loading-errors</option> instead</para>
+          </listitem>
+
+          <listitem>
+            <para>The <sgmltag>function</sgmltag>-tag was removed for version
+            0.10.0; a warning is generated when this attribute is used</para>
           </listitem>
         </itemizedlist>
 
@@ -1246,8 +1231,7 @@
         id="<replaceable>&lt;STRING&gt;</replaceable>"
         nolanes="<replaceable>&lt;INT&gt;</replaceable>"
         speed="<replaceable>&lt;FLOAT&gt;</replaceable>"
-        priority="<replaceable>&lt;UINT&gt;</replaceable>" [function=(
-        "source" | "sink" | "normal" )]/&gt;</sgmltag>.</para>
+        priority="<replaceable>&lt;UINT&gt;</replaceable>"/&gt;</sgmltag>.</para>
 
         <para>The attributes of a type are of course exactly the same as for
         edges themselves:</para>
@@ -1271,13 +1255,6 @@
             <listitem>
               <para><sgmltag>priority</sgmltag>: The priority of the
               referencing edge; must be a positive integer value</para>
-            </listitem>
-
-            <listitem>
-              <para><sgmltag>function</sgmltag>: The function of the
-              referencing edge; must be one of "<sgmltag>source</sgmltag>",
-              "<sgmltag>sink</sgmltag>", or "<sgmltag>normal</sgmltag>".
-              "<sgmltag>normal</sgmltag>" is the default.</para>
             </listitem>
           </itemizedlist>The information about the nodes the edge starts and
         ends at is not given within the types' descriptions. They can only be
@@ -1341,6 +1318,11 @@
           <listitem>
             <para>The <sgmltag>function</sgmltag>-tag was added for version
             0.9.5</para>
+          </listitem>
+
+          <listitem>
+            <para>The <sgmltag>function</sgmltag>-tag was removed for version
+            0.10.0; a warning is generated when this attribute is used</para>
           </listitem>
         </itemizedlist>
       </sect2>
@@ -4388,6 +4370,22 @@
             <listitem>
               <para>Described our current procedure of importing
               networks</para>
+            </listitem>
+          </itemizedlist>
+        </listitem>
+
+        <listitem>
+          <para>Changes in version 0.10.0</para>
+
+          <itemizedlist>
+            <listitem>
+              <para>The <sgmltag>function</sgmltag>-tag within edges was
+              removed in version 0.10.0</para>
+            </listitem>
+
+            <listitem>
+              <para>The <sgmltag>function</sgmltag>-tag for edge types was
+              removed in version 0.10.0</para>
             </listitem>
           </itemizedlist>
         </listitem>
