@@ -34,6 +34,8 @@
 #include <utils/common/StringUtils.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/ToString.h>
+#include <utils/common/StringTokenizer.h>
+#include <utils/importio/LineReader.h>
 #include <utils/options/OptionsCont.h>
 #include <netbuild/NBEdge.h>
 #include <netbuild/NBEdgeCont.h>

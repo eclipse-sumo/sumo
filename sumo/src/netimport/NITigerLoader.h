@@ -32,9 +32,6 @@
 
 #include <string>
 #include <map>
-#include <utils/importio/LineHandler.h>
-#include <utils/importio/LineReader.h>
-#include <utils/importio/NamedColumnsParser.h>
 #include <utils/common/FileErrorReporter.h>
 #include <utils/geom/Position2DVector.h>
 

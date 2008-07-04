@@ -33,8 +33,6 @@
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
-#include <utils/importio/LineHandler.h>
-#include <utils/importio/LineReader.h>
 #include <utils/common/StringUtils.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/geom/GeomHelper.h>
