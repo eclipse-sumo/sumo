@@ -43,7 +43,6 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/xml/SAXWeightsHandler.h>
-#include <utils/importio/LineReader.h>
 #include "RONet.h"
 #include "RONetHandler.h"
 #include "ROLoader.h"
@@ -342,7 +341,7 @@ ROLoader::makeSingleStep(SUMOTime end, RONet &net, SUMOAbstractRouter<ROEdge,ROV
 
 
 SUMOTime
-ROLoader::getMinTimeStep() const
+ROLoader::getMinTimeStep() const throw()
 {
     RouteLoaderCont::const_iterator i=myHandler.begin();
     SUMOTime ret = (*i)->getLastReadTimeStep();
@@ -488,7 +487,7 @@ ROLoader::loadSupplementaryWeights(RONet& net)
 
 
 void
-ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo)
+ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) throw()
 {
     if (myOptions.getBool("verbose")) {
         SUMOReal perc = (SUMOReal)(time-start) / (SUMOReal) absNo;

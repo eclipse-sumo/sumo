@@ -34,7 +34,6 @@
 #include <utils/common/Named.h>
 #include <utils/common/SUMOVehicleClass.h>
 
-class ROEdge;
 
 // ===========================================================================
 // class definitions

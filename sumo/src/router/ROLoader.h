@@ -108,16 +108,20 @@ public:
 protected:
     /** @brief Opens route handler of the given type
      *
-     * Checks whether the given option name is set and his value is one
+     * Checks whether the given option name is known, returns true if
+     *  not (this means that everything's ok, though the according
+     *  handler is not built).
+     *
+     * Checks then whether the given option name is set and his value is one
      *  or a set of valid (existing) files. This is done via a call to
      *  "OptionsCont::isUsableFileList" (which generates a proper error 
      *  message).
      *
-     * If the given files are valid, the proper instance is built using
+     * If the given files are valid, the proper instance(s) is built using
      *  "buildNamedHandler" and if this could be done, it is added to
      *  the list of route handlers to use ("myHandler")
      *
-     * Returns whether the wished handlers could be built.
+     * Returns whether the wished handler(s) could be built.
      *
      * @param[in] optionName The name of the option that refers to which handler and which files shall be used
      * @param[in] net The net to assign to the built handlers
@@ -126,8 +130,18 @@ protected:
     bool openTypedRoutes(const std::string &optionName, RONet &net) throw();
 
 
-    /// Returns the first known time step
-    SUMOTime getMinTimeStep() const;
+    /** @brief Returns the first time step known by the built handlers
+     *
+     * The handlers are responsible for not adding route definitions
+     *  prior to "begin"-Option's value. These priori departures 
+     *  must also not be reported by them whaen asking via "getLastReadTimeStep".
+     *
+     * @return The first time step of loaded routes
+     * @see ROAbstractRouteDefLoader::getLastReadTimeStep
+     */
+    SUMOTime getMinTimeStep() const throw();
+
+
 
     /**
      * @class EdgeFloatTimeLineRetriever_EdgeWeight
@@ -151,6 +165,8 @@ class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloa
         RONet *myNet;
 
     };
+
+
 
     /**
      * @class EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight
@@ -247,7 +263,7 @@ protected:
         const std::string &file, RONet &net) throw(ProcessError);
 
 
-    void writeStats(SUMOTime time, SUMOTime start, int absNo);
+    void writeStats(SUMOTime time, SUMOTime start, int absNo) throw();
 
 
     /** @brief Deletes all handlers and clears their container ("myHandler") */
@@ -255,19 +271,19 @@ protected:
 
 
 protected:
-    /// Options to use
+    /// @brief Options to use
     OptionsCont &myOptions;
 
-    /// Definition of route loader list
+    /// @brief Definition of route loader list
     typedef std::vector<ROAbstractRouteDefLoader*> RouteLoaderCont;
 
-    /// List of route loaders
+    /// @brief List of route loaders
     RouteLoaderCont myHandler;
 
-    /// Information whether empty destinations are allowed
+    /// @brief Information whether empty destinations are allowed
     bool myEmptyDestinationsAllowed;
 
-    /// The vehicle builder to use
+    /// @brief The vehicle builder to use
     ROVehicleBuilder &myVehicleBuilder;
 
 
