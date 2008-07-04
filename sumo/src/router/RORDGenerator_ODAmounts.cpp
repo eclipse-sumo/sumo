@@ -103,16 +103,14 @@ RORDGenerator_ODAmounts::FlowDef::applicableForTime(SUMOTime t) const
 
 
 void
-RORDGenerator_ODAmounts::FlowDef::addRoutes(ROVehicleBuilder &vb,
-        RONet &net,
-        SUMOTime t)
+RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net, SUMOTime t)
 {
     assert(myIntervalBegin<=t&&myIntervalEnd>=t);
     //
     if (!myRandom) {
         unsigned int absPerEachStep = myVehicle2EmitNumber / (myIntervalEnd-myIntervalBegin);
         for (unsigned int i=0; i<absPerEachStep; i++) {
-            addSingleRoute(vb, net, t);
+            addSingleRoute(net, t);
         }
         // fraction
         SUMOReal toEmit =
@@ -120,11 +118,11 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(ROVehicleBuilder &vb,
             / (SUMOReal)(myIntervalEnd-myIntervalBegin)
             * (SUMOReal)(t-myIntervalBegin);
         if (toEmit>myEmitted) {
-            addSingleRoute(vb, net, t);
+            addSingleRoute(net, t);
         }
     } else {
         while (myDepartures.size()>0&&*(myDepartures.end()-1)==t) {
-            addSingleRoute(vb, net, t);
+            addSingleRoute(net, t);
             myDepartures.pop_back();
         }
     }
@@ -132,14 +130,12 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(ROVehicleBuilder &vb,
 
 
 void
-RORDGenerator_ODAmounts::FlowDef::addSingleRoute(ROVehicleBuilder &vb,
-        RONet &net,
-        SUMOTime t)
+RORDGenerator_ODAmounts::FlowDef::addSingleRoute(RONet &net, SUMOTime t)
 {
     string id = myVehicle->getID() + "_" + toString<unsigned int>(myEmitted);
     RORouteDef *rd = myRoute->copy(id);
     net.addRouteDef(rd);
-    ROVehicle *veh = myVehicle->copy(vb, id, t, rd);
+    ROVehicle *veh = myVehicle->copy(id, t, rd);
     net.addVehicle(id, veh);
     myEmitted++;
 }
@@ -216,7 +212,7 @@ RORDGenerator_ODAmounts::buildForTimeStep(SUMOTime time) throw()
         FlowDef *fd = *i;
         // skip flow definitions not valid for the current time
         if (fd->applicableForTime(time)) {
-            fd->addRoutes(myVehicleBuilder, myNet, time);
+            fd->addRoutes(myNet, time);
         }
         // check whether any further exists
         if (fd->getIntervalEnd()>time) {

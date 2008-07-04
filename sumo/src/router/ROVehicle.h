@@ -41,7 +41,6 @@
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class ROVehicleBuilder;
 class ROVehicleType;
 class RORouteDef;
 class OutputDevice;
@@ -59,14 +58,13 @@ class ROVehicle
 public:
     /** @brief Constructor
      *
-     * @param[in] vb The vehicle builder
      * @param[in] pars Parameter of this vehicle
      * @param[in] route The definition of the route the vehicle shall use
      * @param[in] type The type of the vehicle
      *
      * @todo Why is the vehicle builder given?
      */
-    ROVehicle(ROVehicleBuilder &vb, const SUMOVehicleParameter &pars, 
+    ROVehicle(const SUMOVehicleParameter &pars, 
               RORouteDef *route, ROVehicleType *type) throw();
 
 
@@ -80,7 +78,7 @@ public:
      *
      * @todo Why not return a reference?
      */
-    RORouteDef * const getRoute() const throw() {
+    RORouteDef * const getRouteDefinition() const throw() {
         return myRoute;
     }
 
@@ -134,7 +132,6 @@ public:
 
     /** @brief Returns a copy of the vehicle using a new id, departure time and route
      *
-     * @param[in] vb The vehicle builder to use
      * @param[in] id the new id to use
      * @param[in] depTime The new vehicle's departure time
      * @param[in] newRoute The new vehicle's route
@@ -142,8 +139,7 @@ public:
      *
      * @todo Is this used? What for if everything is replaced?
      */
-    virtual ROVehicle *copy(ROVehicleBuilder &vb,
-                            const std::string &id, unsigned int depTime, RORouteDef *newRoute) throw();
+    virtual ROVehicle *copy(const std::string &id, unsigned int depTime, RORouteDef *newRoute) throw();
 
 
 protected:

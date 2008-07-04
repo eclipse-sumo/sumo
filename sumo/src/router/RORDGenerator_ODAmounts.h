@@ -150,11 +150,10 @@ protected:
         bool applicableForTime(SUMOTime time) const;
 
         /// Adds routes to start within the given time into the given net
-        void addRoutes(ROVehicleBuilder &vb, RONet &net, SUMOTime time);
+        void addRoutes(RONet &net, SUMOTime time);
 
         /// Adds a single route to start within the given time into the given net
-        void addSingleRoute(ROVehicleBuilder &vb,
-                            RONet &net, SUMOTime time);
+        void addSingleRoute(RONet &net, SUMOTime time);
 
         /// Returns the end of the period this FlowDef describes
         SUMOTime getIntervalEnd() const;

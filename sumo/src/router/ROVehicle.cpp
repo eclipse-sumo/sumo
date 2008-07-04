@@ -56,8 +56,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROVehicle::ROVehicle(ROVehicleBuilder &,
-                     const SUMOVehicleParameter &pars, 
+ROVehicle::ROVehicle(const SUMOVehicleParameter &pars, 
                      RORouteDef *route, ROVehicleType *type) throw()
         : myParameter(pars), myType(type), myRoute(route)
 {}
@@ -223,14 +222,13 @@ ROVehicle::saveAllAsXML(OutputDevice &os,
 
 
 ROVehicle *
-ROVehicle::copy(ROVehicleBuilder &vb,
-                const std::string &id, unsigned int depTime,
+ROVehicle::copy(const std::string &id, unsigned int depTime,
                 RORouteDef *newRoute) throw()
 {
     SUMOVehicleParameter pars(myParameter);
     pars.id = id;
     pars.depart = depTime;
-    return new ROVehicle(vb, pars, newRoute, myType);
+    return new ROVehicle(pars, newRoute, myType);
 }
 
 

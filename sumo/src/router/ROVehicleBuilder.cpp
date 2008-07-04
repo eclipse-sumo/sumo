@@ -52,7 +52,7 @@ ROVehicle *
 ROVehicleBuilder::buildVehicle(const SUMOVehicleParameter &pars, 
               RORouteDef *route, ROVehicleType *type) throw()
 {
-    return new ROVehicle(*this, pars, route, type);
+    return new ROVehicle(pars, route, type);
 }
 
 

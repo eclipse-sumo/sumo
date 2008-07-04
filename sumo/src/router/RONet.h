@@ -215,13 +215,6 @@ public:
                                   SUMOAbstractRouter<ROEdge,ROVehicle> &router, SUMOTime time);
 
 
-    /** @brief Removes the route from the net when no further usage is needed 
-     *
-     */
-    virtual void removeRouteSecure(const RORouteDef * const route); // !!! was protected before
-
-
-
     /// Returns the information whether further vehicles are stored
     virtual bool furtherStored();
     //@}

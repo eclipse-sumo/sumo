@@ -190,7 +190,7 @@ RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &
     if (options.getBool("continue-on-unbuild")) {
         mh = MsgHandler::getWarningInstance();
     }
-    RORouteDef * const routeDef = veh->getRoute();
+    RORouteDef * const routeDef = veh->getRouteDefinition();
     // check if the route definition is valid
     if (routeDef==0) {
         mh->inform("The vehicle '" + veh->getID() + "' has no valid route.");
@@ -262,18 +262,11 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, SUMOAbstractRouter<ROEdge,
             myDiscardedRouteNo++;
         }
         // remove the route if it is not longer used
-        removeRouteSecure(veh->getRoute());
+        if (route!=0&&!myRoutes.erase(route->getID())) {
+            MsgHandler::getWarningInstance()->inform("Could not remove " + route->getID());
+        }
+        // and the vehicle
         myVehicles.erase(veh->getID());
-    }
-}
-
-
-void
-RONet::removeRouteSecure(const RORouteDef * const route)
-{
-    // !!! later, a counter should be used to keep computed routes in the memory
-    if (!myRoutes.erase(route->getID())) {
-        MsgHandler::getWarningInstance()->inform("Could not remove " + route->getID());
     }
 }
 

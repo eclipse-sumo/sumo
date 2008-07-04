@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Basic class for route definitions (not the computed routes)
+// Base class for a vehicle's route definition
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -52,20 +52,27 @@ class ROVehicle;
 // ===========================================================================
 /**
  * @class RORouteDef
- * @brief A RORouteDef is the upper class for all route definitions.
+ * @brief Base class for a vehicle's route definition
  *
- * Whether it is just the origin and the destination, the whole route through
- * the network or even a route with alternatives depends on the derived class.
+ * This class resembles what a vehicle knows about his route when being loaded
+ *  into a router. Whether it is just the origin and the destination, the whole 
+ *  route through the network or even a route with alternatives depends on 
+ *  the derived class.
  */
-class RORouteDef : public ReferencedItem,
-            public Named
+class RORouteDef : public ReferencedItem, public Named
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     *
+     * @param[in] id The id of the route
+     * @param[in] color The color of the route
+     */
     RORouteDef(const std::string &id, const RGBColor &color) throw();
 
-    /// Destructor
+
+    /// @brief Destructor
     virtual ~RORouteDef() throw();
+
 
     /** @brief Builds the complete route
      *

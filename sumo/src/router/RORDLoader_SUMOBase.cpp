@@ -305,11 +305,6 @@ RORDLoader_SUMOBase::closeVehicle() throw()
     // build the vehicle
     // get further optional information
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
-        if (myVehicleParameter->depart<myBegin||myVehicleParameter->depart>=myEnd) {
-            myNet.removeRouteSecure(route);
-            // !!! was ist mit type?
-            return false;
-        }
         ROVehicle *veh = myVehicleBuilder.buildVehicle(*myVehicleParameter, route, type);
         myNet.addVehicle(myVehicleParameter->id, veh);
         return true;
