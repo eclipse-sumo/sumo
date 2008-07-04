@@ -404,14 +404,6 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
     }
     myActiveRouteID = "";
 
-    // check whether the first edge is long enough for the vehicle
-    const MSEdge *firstEdge = (*route)[0];
-    if ((*firstEdge->getLanes())[0]->length()<=vtype->getLength()) {
-        // the vehicle is too long -> report an error
-        throw ProcessError("Vehicle '" + myVehicleParameter->id + "' is too long to start at '" + firstEdge->getID() + "'.");
-
-    }
-
     // try to build the vehicle
     MSVehicle *vehicle = 0;
     if (myVehicleControl.getVehicle(myVehicleParameter->id)==0) {
