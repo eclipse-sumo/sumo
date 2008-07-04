@@ -334,6 +334,20 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
             currentLane = nextLane;
         }
     }
+    if(seen<dist) {
+        SUMOReal nspeed = aVehicle->ffeV(speed, seen, 0);
+        if(nspeed<speed) {
+            if(patchSpeed) {
+                speed = MIN2(nspeed, speed);
+                dist = aVehicle->getVehicleType().brakeGap(speed);
+            } else {
+                // we may not drive with the given velocity - we crash into the leader
+                MsgHandler::getErrorInstance()->inform("Vehicle '" + aVehicle->getID() + "' will not be able to emit using given velocity!");
+                // !!! we probably should do something else...
+                return false;
+            }
+        }
+    }
 
     // get the pointer to the vehicle next in front of the given position
     MSLane::VehCont::iterator predIt =
