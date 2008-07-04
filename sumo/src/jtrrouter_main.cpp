@@ -43,7 +43,6 @@
 #include <router/ROFrame.h>
 #include <router/ROLoader.h>
 #include <router/RONet.h>
-#include <router/ROVehicleType_Krauss.h>
 #include <router/ROVehicleBuilder.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/options/Option.h>
