@@ -314,8 +314,8 @@ public:
 
 
 
-
-    /// @name Loading and saving of this control's state (incomplete, works only with mesosim)
+#ifdef HAVE_MESOSIM
+    /// @name State I/O (mesosim only)
     /// @{
 
     /** @brief Loads the state of this control from the given stream
@@ -328,6 +328,8 @@ public:
      */
     void loadState(BinaryInputDevice &bis) throw();
     /// @}
+#endif
+
 
 private:
     /** @brief Deletes the named vehicle

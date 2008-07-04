@@ -527,12 +527,14 @@ MSNet::writeOutput()
     }
     // write detector values
     myDetectorControl->writeOutput(myStep, false);
-    // netstate output.
+#ifdef HAVE_MESOSIM
+    // netstate output
     if (find(myStateDumpTimes.begin(), myStateDumpTimes.end(), myStep)!=myStateDumpTimes.end()) {
         string name = myStateDumpFiles + '_' + toString(myStep) + ".bin";
         ofstream strm(name.c_str(), fstream::out|fstream::binary);
         saveState(strm);
     }
+#endif
 }
 
 
@@ -561,8 +563,9 @@ MSNet::getSimStepDurationInMillis() const
 }
 
 
+#ifdef HAVE_MESOSIM
 void
-MSNet::saveState(std::ostream &os)
+MSNet::saveState(std::ostream &os) throw()
 {
     myVehicleControl->saveState(os);
 #ifdef HAVE_MESOSIM
@@ -574,7 +577,7 @@ MSNet::saveState(std::ostream &os)
 
 
 void
-MSNet::loadState(BinaryInputDevice &bis)
+MSNet::loadState(BinaryInputDevice &bis) throw()
 {
     myVehicleControl->loadState(bis);
 #ifdef HAVE_MESOSIM
@@ -583,6 +586,7 @@ MSNet::loadState(BinaryInputDevice &bis)
     }
 #endif
 }
+#endif
 
 
 MSRouteLoader *

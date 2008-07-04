@@ -215,8 +215,9 @@ MSRoute::operator[](unsigned index) const
 }
 
 
+#ifdef HAVE_MESOSIM
 void
-MSRoute::dict_saveState(std::ostream &os)
+MSRoute::dict_saveState(std::ostream &os) throw()
 {
     FileHelpers::writeUInt(os, (unsigned int) myDict.size());
     for (RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
@@ -231,7 +232,7 @@ MSRoute::dict_saveState(std::ostream &os)
 
 
 void
-MSRoute::dict_loadState(BinaryInputDevice &bis)
+MSRoute::dict_loadState(BinaryInputDevice &bis) throw()
 {
     unsigned int noRoutes;
     bis >> noRoutes;
@@ -263,6 +264,7 @@ MSRoute::dict_loadState(BinaryInputDevice &bis)
         noRoutes--;
     }
 }
+#endif
 
 
 unsigned

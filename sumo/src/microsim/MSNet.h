@@ -186,8 +186,26 @@ public:
     void postSimStepOutput() const;
     //}
 
-    void saveState(std::ostream &os);
-    void loadState(BinaryInputDevice &bis);
+
+
+#ifdef HAVE_MESOSIM
+    /// @name State I/O (mesosim only)
+    /// @{
+
+    /** @brief Saves the current state
+     *
+     * @param[in] os The stream to write the state into (binary)
+     */
+    void saveState(std::ostream &os) throw();
+
+
+    /** @brief Loads the network state
+     *
+     * @param[in] bis The input to read the state from (binary)
+     */
+    void loadState(BinaryInputDevice &bis) throw();
+    /// @}
+#endif
 
     virtual MSRouteLoader *buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage);
 

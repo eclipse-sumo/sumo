@@ -260,6 +260,7 @@ MSVehicleControl::vehicleEmitted(const MSVehicle &v) throw()
 }
 
 
+#ifdef HAVE_MESOSIM
 void
 MSVehicleControl::saveState(std::ostream &os) throw()
 {
@@ -381,6 +382,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         }
     }
 }
+#endif
 
 
 bool

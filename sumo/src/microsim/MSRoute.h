@@ -90,8 +90,24 @@ public:
 
     const MSEdge *operator[](unsigned index) const;
 
-    static void dict_saveState(std::ostream &os);
-    static void dict_loadState(BinaryInputDevice &bis);
+#ifdef HAVE_MESOSIM
+    /// @name State I/O (mesosim only)
+    /// @{
+
+    /** @brief Saves all known routes into the given stream
+     *
+     * @param[in] os The stream to write the routes into (binary)
+     */
+    static void dict_saveState(std::ostream &os) throw();
+
+
+    /** @brief Loads routes from the state
+     *
+     * @param[in] bis The input to read the routes from (binary)
+     */
+    static void dict_loadState(BinaryInputDevice &bis) throw();
+    /// @}
+#endif
 
     unsigned posInRoute(const MSRouteIterator &currentEdge) const;
 
