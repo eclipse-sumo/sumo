@@ -81,6 +81,9 @@
 #include <mesosim/MELoop.h>
 #endif
 
+#ifdef TRACI
+#include <traci-server/TraCIServer.h>
+#endif
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -302,17 +305,28 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
         if(myTooManyVehicles>0&&(int) myVehicleControl->getRunningVehicleNo()>myTooManyVehicles) {
             otherQuit = 2;
         }
-    } while (myStep<=stop && !myVehicleControl->haveAllVehiclesQuit() && otherQuit==0);
+#ifdef TRACI
+        if (traci::TraCIServer::wasClosed()) {
+            otherQuit = 3;
+        }
+#else
+        if (myVehicleControl->haveAllVehiclesQuit()) {
+            otherQuit = 4;
+        }
+#endif
+    } while (myStep<=stop && otherQuit==0);
     if (otherQuit!=0) {
         if(otherQuit==1) {
             WRITE_MESSAGE("Simulation End: The simulation got too slow.");
         } else if(otherQuit==2) {
-            WRITE_MESSAGE("Simulation End: To many vehicles.");
+            WRITE_MESSAGE("Simulation End: Too many vehicles.");
+        } else if(otherQuit==3) {
+            WRITE_MESSAGE("Simulation End: TraCI requested termination.");
+        } else {
+            WRITE_MESSAGE("Simulation End: All vehicles have left the simulation.");
         }
-    } else if (myStep>stop) {
-        WRITE_MESSAGE("Simulation End: The final simulation step has been reached.");
     } else {
-        WRITE_MESSAGE("Simulation End: All vehicles have left the simulation.");
+        WRITE_MESSAGE("Simulation End: The final simulation step has been reached.");
     }
     // exit simulation loop
     closeSimulation(start, stop);
@@ -377,6 +391,9 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
 void
 MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
 {
+#ifdef TRACI
+    bool doTraci = traci::TraCIServer::processCommandsUntilSimStep(myStep);
+#endif
     myStep = step;
     // execute beginOfTimestepEvents
     if (myLogExecutionTime) {
@@ -471,6 +488,11 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
         mySimDuration += mySimStepDuration;
         myVehiclesMoved += myVehicleControl->getRunningVehicleNo();
     }
+#ifdef TRACI
+    if (doTraci) {
+        traci::TraCIServer::processAfterSimStep();
+    }
+#endif
 }
 
 

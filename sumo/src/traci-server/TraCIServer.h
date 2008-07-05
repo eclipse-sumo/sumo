@@ -37,6 +37,7 @@
 #include "TraCIConstants.h"
 
 #define BUILD_TCPIP
+#include "foreign/tcpip/socket.h"
 #include "foreign/tcpip/storage.h"
 #include "utils/common/SUMOTime.h"
 
@@ -94,16 +95,14 @@ public:
 		RoadMapPos(): roadId(""), pos(0), laneId(0) {};
 	};
 
-    // Constructor
-    // Reads the needed parameters out of static OptionsCont
-    TraCIServer();
+    // process all commands until a simulation step is wanted
+    static bool processCommandsUntilSimStep(SUMOTime step);
 
-    // Destructor
-    // final cleanup
-    virtual ~TraCIServer(void);
+    // postprocess the simulation step(s)
+    static void processAfterSimStep();
 
-    // start server
-    void run();
+    // check whether close was requested
+    static bool wasClosed();
 
 private:
 
@@ -113,7 +112,15 @@ private:
 		};
 	};
 
-    bool dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg);
+    // Constructor
+    // Reads the needed parameters out of static OptionsCont
+    TraCIServer();
+
+    // Destructor
+    // final cleanup
+    virtual ~TraCIServer(void);
+
+    int dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg);
 
     // process command setMaximumSpeed
     // This command causes the node given by nodeId to limit its speed to a maximum speed (float).
@@ -134,6 +141,8 @@ private:
     // @param out contains node positions ready for output
     // @param length message length
     void commandSimulationStep(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+
+    void postProcessSimulationStep(tcpip::Storage& respMsg) throw(TraCIException);
 
     void commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
@@ -245,12 +254,16 @@ private:
 	 */
 	Position2D convertRoadMapToCartesian(TraCIServer::RoadMapPos pos) throw(TraCIException);
 
-    // port on which server is listening on
-    int port_;
+    // socket on which server is listening on
+    static TraCIServer* instance_;
+
+    // socket on which server is listening on
+    tcpip::Socket* socket_;
 
     // simulation begin and end time
     SUMOTime beginTime_;
     SUMOTime endTime_;
+    SUMOTime targetTime_;
 
     // penetration rate, measurement of equipped vehicles in simulation
     float penetration_;
@@ -320,6 +333,9 @@ private:
 
     Boundary* netBoundary_;
     const Boundary& getNetBoundary();
+
+    // hold position type of last simstep command
+    int resType_;
 
 
 };

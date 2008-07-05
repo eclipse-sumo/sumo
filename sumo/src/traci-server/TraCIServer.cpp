@@ -40,6 +40,7 @@
 #include "utils/common/SUMOTime.h"
 #include "utils/common/SUMODijkstraRouter.h"
 #include "utils/common/NamedObjectCont.h"
+#include "utils/common/RandHelper.h"
 #include "utils/shapes/PointOfInterest.h"
 #include "utils/shapes/ShapeContainer.h"
 #include "utils/shapes/Polygon2D.h"
@@ -64,9 +65,6 @@
 #include <string>
 #include <map>
 #include <iostream>
-#include <cstdlib>
-#include <cfloat>
-
 
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -81,20 +79,28 @@ using namespace std;
 using namespace tcpip;
 
 
+namespace traci
+{
+
+// ===========================================================================
+// static member definitions
+// ===========================================================================
+TraCIServer* TraCIServer::instance_ = 0;
+
+
 // ===========================================================================
 // method definitions
 // ===========================================================================
-namespace traci
-{
+
 /*****************************************************************************/
 
 TraCIServer::TraCIServer()
 {
     OptionsCont &oc = OptionsCont::getOptions();
 
-    port_ = oc.getInt("remote-port");
     beginTime_ = oc.getInt("begin");
     endTime_ = oc.getInt("end");
+    targetTime_ = INT_MAX;
     penetration_ = oc.getFloat("penetration");
     routeFile_ = oc.getString("route-files");
     isMapChanged_ = true;
@@ -102,27 +108,9 @@ TraCIServer::TraCIServer()
 	totalNumVehicles_ = 0;
     closeConnection_ = false;
     netBoundary_ = NULL;
-}
-
-/*****************************************************************************/
-
-TraCIServer::~TraCIServer()
-{
-    if (netBoundary_ != NULL) delete netBoundary_;
-}
-
-/*****************************************************************************/
-
-void
-TraCIServer::run()
-{
-	OptionsCont& optCont = OptionsCont::getOptions();
-
-    // Prepare simulation
-    MSNet::getInstance()->initialiseSimulation();
 
 	// display warning if internal lanes are not used
-	if (!optCont.isSet("use-internal-links")) {
+	if (!oc.isSet("use-internal-links")) {
 		std::stringstream msg;
 		msg << "Warning: starting TraCI without using internal lanes! "
 			<< "Vehicles will jump over junctions; use option --use-internal-links "
@@ -170,10 +158,10 @@ TraCIServer::run()
 	xmlParser->setErrorHandler(&xmlHandler);
 
 	// parse route files
-	if (optCont.isSet("route-files")) {
-		std::vector<std::string> fileList = optCont.getStringVector("route-files");
+	if (oc.isSet("route-files")) {
+		std::vector<std::string> fileList = oc.getStringVector("route-files");
 		for (std::vector<std::string>::iterator file=fileList.begin(); file != fileList.end(); file++) {
-			if (optCont.isUsableFileList("route-files")) {
+			if (oc.isUsableFileList("route-files")) {
 				xmlHandler.setFileName((*file));
 				xmlHandler.resetTotalVehicleCount();
 				xmlParser->parse(file->c_str());
@@ -186,10 +174,10 @@ TraCIServer::run()
 	}
 
 	// parse additional files
-	if (optCont.isSet("additional-files")) {
-		std::vector<std::string> fileList = optCont.getStringVector("additional-files");
+	if (oc.isSet("additional-files")) {
+		std::vector<std::string> fileList = oc.getStringVector("additional-files");
 		for (std::vector<std::string>::iterator file = fileList.begin(); file != fileList.end(); file++) {
-			if (optCont.isUsableFileList("additional-files")) {
+			if (oc.isUsableFileList("additional-files")) {
 				xmlHandler.setFileName((*file));
 				xmlHandler.resetTotalVehicleCount();
 				xmlParser->parse(file->c_str());
@@ -202,46 +190,97 @@ TraCIServer::run()
 	}
 	
 	delete xmlParser;
-	
+
     try {
+        int port = oc.getInt("remote-port");
         // Opens listening socket
-        std::cout << "***Starting server on port " << port_  << " ***" << std::endl;
-        Socket socket(port_);
-        socket.accept();
-
+        std::cout << "***Starting server on port " << port << " ***" << std::endl;
+        socket_ = new Socket(port);
+        socket_->accept();
         // When got here, a client has connected
-        // Simulation should run until
-        // 1. end time reached or
-        // 2. got CMD_CLOSE or
-        // 3. Client closes socket connection
-
-        while (!closeConnection_) {
-            Storage storIn;
-            Storage storOut;
-            // Read a message
-            socket.receiveExact(storIn);
-
-            while (storIn.valid_pos() && !closeConnection_) {
-                // dispatch each command
-                if (! dispatchCommand(storIn, storOut)) closeConnection_ = true;
-            }
-
-            // send out all answers as one storage
-            socket.sendExact(storOut);
-        }
-    } catch (TraCIException e) {
-        cerr << e.what() << endl;
     } catch (SocketException e) {
-        cerr << e.what() << endl;
+        throw new ProcessError(e.what());
     }
-
-    MSNet::getInstance()->closeSimulation(beginTime_, endTime_);
 
 }
 
 /*****************************************************************************/
 
+TraCIServer::~TraCIServer()
+{
+    if (netBoundary_ != NULL) delete netBoundary_;
+}
+
+/*****************************************************************************/
+
 bool
+TraCIServer::processCommandsUntilSimStep(SUMOTime step)
+{
+    try {
+        if (instance_ == 0) {
+            if (OptionsCont::getOptions().getInt("remote-port") != 0) {
+                instance_ = new traci::TraCIServer();
+            } else {
+                return false;
+            }
+        }
+        if (instance_->targetTime_ < step) {
+            return false;
+        }
+        // Simulation should run until
+        // 1. end time reached or
+        // 2. got CMD_CLOSE or
+        // 3. Client closes socket connection
+
+        while (!instance_->closeConnection_) {
+            Storage storIn;
+            Storage storOut;
+            // Read a message
+            instance_->socket_->receiveExact(storIn);
+
+            while (storIn.valid_pos() && !instance_->closeConnection_) {
+                // dispatch each command
+                if (instance_->dispatchCommand(storIn, storOut) == CMD_SIMSTEP) {
+                    return true;
+                }
+            }
+
+            // send out all answers as one storage
+            instance_->socket_->sendExact(storOut);
+        }
+    } catch (TraCIException e) {
+        throw new ProcessError(e.what());
+    } catch (SocketException e) {
+        throw new ProcessError(e.what());
+    }
+    instance_->targetTime_ = INT_MAX;
+    return false;
+}
+
+void
+TraCIServer::processAfterSimStep()
+{
+    try {
+        Storage storOut;
+        // send out all answers as one storage
+        instance_->postProcessSimulationStep(storOut);
+        instance_->socket_->sendExact(storOut);
+    } catch (TraCIException e) {
+        throw new ProcessError(e.what());
+    } catch (SocketException e) {
+        throw new ProcessError(e.what());
+    }
+}
+
+bool
+TraCIServer::wasClosed()
+{
+    return (instance_ != 0) && (instance_->closeConnection_);
+}
+
+/*****************************************************************************/
+
+int
 TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
 {
     int commandStart = requestMsg.position();
@@ -307,7 +346,7 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
 		break;
     default:
         writeStatusCmd(respMsg, commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
-        return false;
+        closeConnection_ = true;
     }
 
     if (requestMsg.position() != commandStart + commandLength) {
@@ -316,9 +355,9 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
         msg << " Expected command length was " << commandLength;
         msg << " but " << requestMsg.position() - commandStart << " Bytes were read.";
         writeStatusCmd(respMsg, commandId, RTYPE_ERR, msg.str() );
-        return false;
+        closeConnection_ = true;
     }
-    return true;
+    return commandId;
 }
 
 /*****************************************************************************/
@@ -357,40 +396,36 @@ throw(TraCIException)
     SUMOTime currentTime = net->getCurrentTimeStep();
 
     // TargetTime
-    SUMOTime targetTime = static_cast<SUMOTime>(requestMsg.readDouble()) + beginTime_;
-    if (targetTime > endTime_) {
-        targetTime = endTime_;
+    targetTime_ = static_cast<SUMOTime>(requestMsg.readDouble()) + beginTime_;
+    if (targetTime_ > endTime_) {
+        targetTime_ = endTime_;
     }
+    resType_ = requestMsg.readUnsignedByte();
+}
 
+void
+TraCIServer::postProcessSimulationStep(tcpip::Storage& respMsg) throw(TraCIException)
+{
     // Position representation
-    int resType = requestMsg.readUnsignedByte();
-    if (resType != POSITION_NONE && resType != POSITION_2D && resType != POSITION_ROADMAP
-		&& resType != POSITION_2_5D && resType != POSITION_3D) {
+    if (resType_ != POSITION_NONE && resType_ != POSITION_2D && resType_ != POSITION_ROADMAP
+		&& resType_ != POSITION_2_5D && resType_ != POSITION_3D) {
         writeStatusCmd(respMsg, CMD_SIMSTEP, RTYPE_ERR, "Error: unsupported return format requested.");
         return;
     }
-
-
-    // do simulation step
-    while (targetTime > currentTime) {
-        net->simulationStep(currentTime, currentTime + DELTA_T);
-        currentTime += DELTA_T;
-        isMapChanged_ = true;
-        if (!OptionsCont::getOptions().isSet("no-step-log"))
-            cout << "Step #" << currentTime << (char) 13;
-    }
-
-        // Everything is fine
-        writeStatusCmd(respMsg, CMD_SIMSTEP, RTYPE_OK, "");
+    isMapChanged_ = true;
+    // Everything is fine
+    writeStatusCmd(respMsg, CMD_SIMSTEP, RTYPE_OK, "");
 
     // prepare output
     try {
+    	MSNet *net = MSNet::getInstance();
         // map containing all active equipped vehicles. maps external id to MSVehicle*
         map<int, const MSVehicle*> activeEquippedVehicles;
         // get access to all vehicles in simulation
         MSVehicleControl &vehControl = net->getVehicleControl();
         // iterate over all vehicles in simulation
-        for (map<string, MSVehicle*>::const_iterator iter = vehControl.loadedVehBegin(); iter != vehControl.loadedVehEnd(); ++iter) {
+        for (map<string, MSVehicle*>::const_iterator iter = vehControl.loadedVehBegin();
+             iter != vehControl.loadedVehEnd(); ++iter) {
             // selected vehicle
             const string vehicleId   = (*iter).first;
             const MSVehicle *vehicle = (*iter).second;
@@ -398,13 +433,16 @@ throw(TraCIException)
             std::map<std::string, int>::const_iterator equippedVeh = equippedVehicles_.find(vehicleId);
             if (equippedVeh == equippedVehicles_.end()) {
                 // determine if vehicle is equipped
-                double rnd = double(rand())/RAND_MAX;
-                if (rnd <= penetration_) {
+                if (penetration_ >= 1. || RandHelper::rand() <= penetration_) {
                     // vehicle is equipped
                     equippedVehicles_[vehicleId] = numEquippedVehicles_;
                     // put into active list?
                     if (vehicle->isOnRoad()) {
-	                if ((myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) && (myLivingVehicles.count(numEquippedVehicles_) == 0)) { myCreatedVehicles.insert(numEquippedVehicles_); myLivingVehicles.insert(numEquippedVehicles_); }
+                        if ((myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) &&
+                            (myLivingVehicles.count(numEquippedVehicles_) == 0)) {
+                            myCreatedVehicles.insert(numEquippedVehicles_);
+                            myLivingVehicles.insert(numEquippedVehicles_);
+                        }
                         activeEquippedVehicles[numEquippedVehicles_] = vehicle;
                     }
                     numEquippedVehicles_++;
@@ -414,104 +452,107 @@ throw(TraCIException)
                 }
             } else if (equippedVeh->second >= 0 && vehicle->isOnRoad()) {
                 int extId = equippedVeh->second;
-	        if ((myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) && (myLivingVehicles.count(extId) == 0)) { myCreatedVehicles.insert(extId); myLivingVehicles.insert(extId); }
+                if ((myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) &&
+                    (myLivingVehicles.count(extId) == 0)) {
+                    myCreatedVehicles.insert(extId);
+                    myLivingVehicles.insert(extId);
+                }
                 activeEquippedVehicles[extId] = vehicle;
                 // vehicle is equipped
             }
         }
-	if (myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) {
-		// iterate over all vehicles that are supposed to live
-		for (std::set<int>::iterator i = myLivingVehicles.begin(); i != myLivingVehicles.end(); ) {
-			int extId = *i;
-			if (activeEquippedVehicles.find(extId) == activeEquippedVehicles.end()) {
-				myDestroyedVehicles.insert(extId);
-				myLivingVehicles.erase(i++);
-			} else {
-				i++;
-			}
-		}
-	}
-
-    handleLifecycleSubscriptions(respMsg);
-
-	// for each vehicle process any active traci command
-	for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin();
-            iter != equippedVehicles_.end(); ++iter) {
-        if ((*iter).second != -1) { // Look only at equipped vehicles
-            MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
-            if (veh != NULL) {
-				veh->processTraCICommands(currentTime);
+        if (myLifecycleSubscriptions.count(DOM_VEHICLE) != 0) {
+            // iterate over all vehicles that are supposed to live
+            for (std::set<int>::iterator i = myLivingVehicles.begin();
+                 i != myLivingVehicles.end(); ) {
+                int extId = *i;
+                if (activeEquippedVehicles.find(extId) == activeEquippedVehicles.end()) {
+                    myDestroyedVehicles.insert(extId);
+                    myLivingVehicles.erase(i++);
+                } else {
+                    i++;
+                }
             }
         }
-    }
 
-    handleDomainSubscriptions(respMsg, currentTime, activeEquippedVehicles);
+        handleLifecycleSubscriptions(respMsg);
+
+        // for each vehicle process any active traci command
+        for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin();
+             iter != equippedVehicles_.end(); ++iter) {
+            if ((*iter).second != -1) { // Look only at equipped vehicles
+                MSVehicle* veh = net->getVehicleControl().getVehicle((*iter).first);
+                if (veh != NULL) {
+                    veh->processTraCICommands(targetTime_);
+                }
+            }
+        }
+
+        handleDomainSubscriptions(respMsg, targetTime_, activeEquippedVehicles);
 
         //out.writeChar( static_cast<unsigned char>(rtype) );
         //out.writeInt(numEquippedVehicles_);
         // iterate over all active equipped vehicles
         // and generate a Move Node command for each vehicle
-        if (resType != POSITION_NONE) for (map<int, const MSVehicle*>::iterator iter = activeEquippedVehicles.begin(); iter != activeEquippedVehicles.end(); ++iter) {
-            int extId = (*iter).first;
-            const MSVehicle* vehicle = (*iter).second;
-			Storage tempMsg;
+        if (resType_ != POSITION_NONE) {
+            for (map<int, const MSVehicle*>::iterator iter = activeEquippedVehicles.begin();
+                 iter != activeEquippedVehicles.end(); ++iter) {
+                int extId = (*iter).first;
+                const MSVehicle* vehicle = (*iter).second;
+                Storage tempMsg;
 
-            // command type
-            tempMsg.writeUnsignedByte(CMD_MOVENODE);
-            // node id
-            tempMsg.writeInt(extId);
-            // end time
-            tempMsg.writeDouble(currentTime);
+                // command type
+                tempMsg.writeUnsignedByte(CMD_MOVENODE);
+                // node id
+                tempMsg.writeInt(extId);
+                // end time
+                tempMsg.writeDouble(targetTime_);
 
-            if (resType == POSITION_2D) {
-                // return type
-                tempMsg.writeUnsignedByte(POSITION_2D);
+                if (resType_ == POSITION_2D) {
+                    // return type
+                    tempMsg.writeUnsignedByte(POSITION_2D);
 
-                Position2D pos = vehicle->getPosition();
-                //xpos
-                tempMsg.writeFloat(pos.x() - getNetBoundary().xmin());
-                // y pos
-                tempMsg.writeFloat(pos.y() - getNetBoundary().ymin());
-            } else if (resType == POSITION_ROADMAP) {
-                // return type
-                tempMsg.writeUnsignedByte(POSITION_ROADMAP);
+                    Position2D pos = vehicle->getPosition();
+                    //xpos
+                    tempMsg.writeFloat(pos.x() - getNetBoundary().xmin());
+                    // y pos
+                    tempMsg.writeFloat(pos.y() - getNetBoundary().ymin());
+                } else if (resType_ == POSITION_ROADMAP) {
+                    // return type
+                    tempMsg.writeUnsignedByte(POSITION_ROADMAP);
 
-                tempMsg.writeString(vehicle->getEdge()->getID());
-                tempMsg.writeFloat(vehicle->getPositionOnLane());
+                    tempMsg.writeString(vehicle->getEdge()->getID());
+                    tempMsg.writeFloat(vehicle->getPositionOnLane());
 
-				// determine index of the lane the vehicle is on
-				int laneId = 0;
-				const MSLane* lane = &vehicle->getLane();
-				while ((lane = lane->getRightLane()) != NULL) {
-					laneId++;
-				}
-				tempMsg.writeUnsignedByte(laneId);
-			} else if (resType == POSITION_3D || resType == POSITION_2_5D) {
-				// return type
-				tempMsg.writeUnsignedByte(resType);
+                    // determine index of the lane the vehicle is on
+                    int laneId = 0;
+                    const MSLane* lane = &vehicle->getLane();
+                    while ((lane = lane->getRightLane()) != NULL) {
+                        laneId++;
+                    }
+                    tempMsg.writeUnsignedByte(laneId);
+                } else if (resType_ == POSITION_3D || resType_ == POSITION_2_5D) {
+                    // return type
+                    tempMsg.writeUnsignedByte(resType_);
 
-                Position2D pos = vehicle->getPosition();
-                //xpos
-                tempMsg.writeFloat(pos.x() - getNetBoundary().xmin());
-                // y pos
-                tempMsg.writeFloat(pos.y() - getNetBoundary().ymin());
-				// z pos: ignored
-				tempMsg.writeFloat(0);
-			}
+                    Position2D pos = vehicle->getPosition();
+                    //xpos
+                    tempMsg.writeFloat(pos.x() - getNetBoundary().xmin());
+                    // y pos
+                    tempMsg.writeFloat(pos.y() - getNetBoundary().ymin());
+                    // z pos: ignored
+                    tempMsg.writeFloat(0);
+                }
 
-			// command length
-			respMsg.writeUnsignedByte(tempMsg.size()+1);
-			// content
-			respMsg.writeStorage(tempMsg);
-
+                // command length
+                respMsg.writeUnsignedByte(tempMsg.size()+1);
+                // content
+                respMsg.writeStorage(tempMsg);
+            }
         }
-
     } catch (...) {
         writeStatusCmd(respMsg, CMD_SIMSTEP, RTYPE_ERR, "some error happen in command: simulation step. Sumo shuts down.");
-        return;
     }
-
-    return;
 }
 
 /*****************************************************************************/
@@ -936,9 +977,7 @@ void
 TraCIServer::commandCloseConnection(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
 throw(TraCIException)
 {
-    // Close simulation
     closeConnection_ = true;
-
     // write answer
     writeStatusCmd(respMsg, CMD_CLOSE, RTYPE_OK, "Goodbye");
 }
