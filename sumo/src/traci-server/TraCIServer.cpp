@@ -1714,7 +1714,7 @@ TraCIServer::convertCartesianToRoadMap(Position2D pos)
 	MSEdge* edge;
 	Position2D lineStart;
 	Position2D lineEnd;
-	double minDistance = DBL_MAX;
+	double minDistance = HUGE_VAL;
 	SUMOReal newDistance;
 	Position2D intersection;
 	MSLane* tmpLane;
