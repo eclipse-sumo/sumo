@@ -198,6 +198,17 @@ public:
 
 
 
+    /** @brief Returns the vehicle's arrival definition
+     *
+     * This definition is built on vehicle construction and stored in CORN_P_VEH_ARRIVAL_DEF.
+     *
+     * @return The vehicle's arrival definition
+     */
+    const DepartArrivalDefinition &getArrivalDefinition() const throw() {
+        return *((DepartArrivalDefinition*) myPointerCORNMap.find(MSCORN::CORN_P_VEH_ARRIVAL_DEF)->second);
+    }
+
+
     void removeOnTripEnd(MSVehicle *veh) throw();
 
 

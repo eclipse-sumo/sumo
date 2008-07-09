@@ -261,7 +261,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
     if (element==SUMO_TAG_VTYPEDISTELEM) {
         // get the id, report an error if not given or empty...
         string id;
-        if(!attrs.setIDFromAttribues("vtypedistelem", id)) {
+        if(!attrs.setIDFromAttributes("vtypedistelem", id)) {
             return;
         }
         SUMOReal prob = -1;

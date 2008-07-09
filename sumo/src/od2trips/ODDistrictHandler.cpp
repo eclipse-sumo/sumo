@@ -98,7 +98,7 @@ ODDistrictHandler::openDistrict(const SUMOSAXAttributes &attrs) throw()
     myCurrentDistrict = 0;
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("district", id)) {
+    if(!attrs.setIDFromAttributes("district", id)) {
         return;
     }
     myCurrentDistrict = new ODDistrict(id);
@@ -135,7 +135,7 @@ ODDistrictHandler::parseConnection(const SUMOSAXAttributes &attrs, const std::st
     }
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues(type.c_str(), id)) {
+    if(!attrs.setIDFromAttributes(type.c_str(), id)) {
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the weight

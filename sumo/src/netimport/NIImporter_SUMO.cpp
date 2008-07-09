@@ -230,7 +230,7 @@ NIImporter_SUMO::addEdge(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("edge", id)) {
+    if(!attrs.setIDFromAttributes("edge", id)) {
         return;
     }
     myCurrentEdge = new EdgeAttrs;
@@ -261,7 +261,7 @@ NIImporter_SUMO::addJunction(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("junction", id)) {
+    if(!attrs.setIDFromAttributes("junction", id)) {
         return;
     }
     if(id[0]==':') {

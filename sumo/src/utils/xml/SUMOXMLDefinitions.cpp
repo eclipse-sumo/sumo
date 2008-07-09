@@ -157,14 +157,15 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "response",       SUMO_ATTR_RESPONSE },
 
     { "weight",         SUMO_ATTR_WEIGHT },
+    { "edges",          SUMO_ATTR_EDGES },
 
     { "depart",         SUMO_ATTR_DEPART },
     { "departlane",     SUMO_ATTR_DEPARTLANE },
     { "departpos",      SUMO_ATTR_DEPARTPOS },
     { "departspeed",    SUMO_ATTR_DEPARTSPEED },
-    { "arrivallane",     SUMO_ATTR_ARRIVALLANE },
-    { "arrivalpos",      SUMO_ATTR_ARRIVALPOS },
-    { "arrivalspeed",    SUMO_ATTR_ARRIVALSPEED },
+    { "arrivallane",    SUMO_ATTR_ARRIVALLANE },
+    { "arrivalpos",     SUMO_ATTR_ARRIVALPOS },
+    { "arrivalspeed",   SUMO_ATTR_ARRIVALSPEED },
     { "route",          SUMO_ATTR_ROUTE },
     { "maxspeed",       SUMO_ATTR_MAXSPEED },
     { "accel",          SUMO_ATTR_ACCEL },

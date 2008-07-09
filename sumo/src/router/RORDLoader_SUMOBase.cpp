@@ -318,7 +318,7 @@ RORDLoader_SUMOBase::startVehType(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("vtype", id, false)) {
+    if(!attrs.setIDFromAttributes("vtype", id, false)) {
         getErrorHandlerMarkInvalid()->inform("Missing id in vtype.");
         return;
     }

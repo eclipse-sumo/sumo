@@ -69,7 +69,7 @@ public:
      * @param[in] report Whether missing id shall be reported to MsgHandler::getErrorInstance
      * @return Whether a valid id could be retrieved
      */
-    bool setIDFromAttribues(const char *objecttype, std::string &id, 
+    bool setIDFromAttributes(const char *objecttype, std::string &id, 
         bool report=true) const throw();
 
 

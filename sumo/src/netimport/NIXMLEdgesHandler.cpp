@@ -89,7 +89,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         myCurrentEdge = 0;
         myExpansions.clear();
         // get the id, report an error if not given or empty...
-        if(!attrs.setIDFromAttribues("edge", myCurrentID)) {
+        if(!attrs.setIDFromAttributes("edge", myCurrentID)) {
             return;
         }
         // check deprecated (unused) attributes

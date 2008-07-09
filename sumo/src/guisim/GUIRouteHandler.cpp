@@ -87,7 +87,7 @@ GUIRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
     // !!! unsecure
     // get the id, report an error if not given or empty...
     string id;
-    if(attrs.setIDFromAttribues("vtype", id)) {
+    if(attrs.setIDFromAttributes("vtype", id)) {
         try {
             addParsedVehicleType(id,
                                  attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),

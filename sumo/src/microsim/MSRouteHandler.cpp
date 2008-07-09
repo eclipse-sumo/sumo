@@ -209,7 +209,7 @@ void
 MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
 {
     string id;
-    if(attrs.setIDFromAttribues("vtype", id)) {
+    if(attrs.setIDFromAttributes("vtype", id)) {
         try {
             addParsedVehicleType(id,
                                  attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
@@ -268,6 +268,9 @@ MSRouteHandler::openRoute(const SUMOSAXAttributes &attrs)
         MsgHandler::getErrorInstance()->inform("Missing id of a route-object.");
         return;
     }
+    if (attrs.hasAttribute(SUMO_ATTR_EDGES)) {
+        addRouteElements(attrs.getString(SUMO_ATTR_EDGES));
+    }
 }
 
 
@@ -311,10 +314,17 @@ MSRouteHandler::addRouteElements(const std::string &chars)
         myActiveRoute.push_back(edge);
     }
     // check whether the route is long enough
+#ifdef NEW_SPEC
+    if (myActiveRoute.size()<1) {
+        throw ProcessError("SUMO assumes each route to be at least one edge long ('" + myActiveRouteID + "' has " + toString(myActiveRoute.size()) + ").");
+
+    }
+#else
     if (myActiveRoute.size()<2) {
         throw ProcessError("SUMO assumes each route to be at least two edges long ('" + myActiveRouteID + "' has " + toString(myActiveRoute.size()) + ").");
 
     }
+#endif
 }
 
 

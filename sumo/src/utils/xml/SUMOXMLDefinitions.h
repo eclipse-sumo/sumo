@@ -217,6 +217,8 @@ enum SumoXMLAttr {
     SUMO_ATTR_RESPONSE,
     /// the weight of a district's source or sink
     SUMO_ATTR_WEIGHT,
+    /// the edges of a route
+    SUMO_ATTR_EDGES,
     /* vehicle attributes */
     SUMO_ATTR_DEPART,
     SUMO_ATTR_DEPARTLANE,

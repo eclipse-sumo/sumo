@@ -70,7 +70,7 @@ PCTypeDefHandler::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_POLYTYPE) {
         // get the id, report an error if not given or empty...
         string id;
-        if(!attrs.setIDFromAttribues("polytype", id)) {
+        if(!attrs.setIDFromAttributes("polytype", id)) {
             return;
         }
         string type = attrs.getStringSecure(SUMO_ATTR_NAME, myOptions.getString("type"));

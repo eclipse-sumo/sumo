@@ -48,7 +48,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 bool 
-SUMOSAXAttributes::setIDFromAttribues(const char * objecttype, 
+SUMOSAXAttributes::setIDFromAttributes(const char * objecttype, 
                                       std::string &id, bool report) const throw()
 {
     id = "";

@@ -148,7 +148,7 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw()
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("vaporizer", id, false)) {
+    if(!attrs.setIDFromAttributes("vaporizer", id, false)) {
         MsgHandler::getErrorInstance()->inform("Missing or empty id in a vaporizer-object.");
         return;
     }
@@ -195,7 +195,7 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttribu
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("lane speed trigger", id, false)) {
+    if(!attrs.setIDFromAttributes("lane speed trigger", id, false)) {
         throw InvalidArgument("A lane speed trigger definition does not contain an id");
     }
     // get the file name to read further definitions from
@@ -228,7 +228,7 @@ NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net, const SUMOSAXAttribut
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("emitter", id, false)) {
+    if(!attrs.setIDFromAttributes("emitter", id, false)) {
         throw InvalidArgument("An emitter does not contain an id");
     }
     // get the file name to read further definitions from
@@ -244,7 +244,7 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("bus stop", id, false)) {
+    if(!attrs.setIDFromAttributes("bus stop", id, false)) {
         throw InvalidArgument("A bus stop does not contain an id");
     }
     // get the lane
@@ -283,7 +283,7 @@ NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net, const SUMOSAXAttributes 
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("vehicle actor", id, false)) {
+    if(!attrs.setIDFromAttributes("vehicle actor", id, false)) {
         throw InvalidArgument("A vehicle actor does not contain an id");
     }
     MSLane *lane = getLane(attrs, "vehicle_actor", id);
@@ -302,7 +302,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("calibrator", id, false)) {
+    if(!attrs.setIDFromAttributes("calibrator", id, false)) {
         throw InvalidArgument("A calibrator does not contain an id");
     }
     // get the file name to read further definitions (route distributions) from
@@ -321,7 +321,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("calibrator", id, false)) {
+    if(!attrs.setIDFromAttributes("calibrator", id, false)) {
         throw InvalidArgument("A calibrator does not contain an id");
     }
     // get the file name to read further definitions from
@@ -350,7 +350,7 @@ NLTriggerBuilder::parseAndBuildScaler(MSNet &net, const SUMOSAXAttributes &attrs
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("scaler", id, false)) {
+    if(!attrs.setIDFromAttributes("scaler", id, false)) {
         throw InvalidArgument("A scaler does not contain an id");
     }
     MSLane *lane = getLane(attrs, "scaler", id);
@@ -382,7 +382,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &att
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("rerouter", id, false)) {
+    if(!attrs.setIDFromAttributes("rerouter", id, false)) {
         throw InvalidArgument("A rerouter does not contain an id");
     }
     // get the file name to read further definitions from

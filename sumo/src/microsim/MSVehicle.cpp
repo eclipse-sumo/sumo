@@ -241,18 +241,34 @@ MSVehicle::MSVehicle(SUMOVehicleParameter &pars,
 	myHBMsgEmitter = MSNet::getInstance()->getMsgEmitter("heartbeat");
 #endif
     // build departure definition
-    DepartArrivalDefinition *d = new DepartArrivalDefinition();
-    d->time = pars.depart;
-    d->lane = (*(*myCurrEdge)->getLanes())[pars.departLane]; // !!! validate!
-    d->laneProcedure = pars.departLaneProcedure;
-    d->pos = pars.departPos;
-    if(d->pos<0) {
-        d->pos = (*(*myCurrEdge)->getLanes())[0]->length() + d->pos; // !!! validate!
+    DepartArrivalDefinition *departDef = new DepartArrivalDefinition();
+    departDef->time = pars.depart;
+    departDef->lane = (*(*myCurrEdge)->getLanes())[pars.departLane]; // !!! validate!
+    departDef->laneProcedure = pars.departLaneProcedure;
+    departDef->pos = pars.departPos;
+    if(departDef->pos<0) {
+        departDef->pos += departDef->lane->length(); // !!! validate!
     }
-    d->posProcedure = pars.departPosProcedure;
-    d->speed = pars.departSpeed;
-    d->speedProcedure = pars.departSpeedProcedure;
-    myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_DEF] = (void*) d;
+    departDef->posProcedure = pars.departPosProcedure;
+    departDef->speed = pars.departSpeed;
+    departDef->speedProcedure = pars.departSpeedProcedure;
+    myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_DEF] = (void*) departDef;
+#ifdef NEW_SPEC
+    // build arrival definition
+    DepartArrivalDefinition *arrivalDef = new DepartArrivalDefinition();
+    arrivalDef->pos = pars.arrivalPos;
+    SUMOReal lastLaneLength = (*(myRoute->getLastEdge()->getLanes()))[0]->length();
+    if(arrivalDef->pos<0) {
+        arrivalDef->pos += lastLaneLength; // !!! validate!
+    }
+    if(arrivalDef->pos<0) {
+        arrivalDef->pos = 0;
+    }
+    if(arrivalDef->pos>lastLaneLength) {
+        arrivalDef->pos = lastLaneLength;
+    }
+    myPointerCORNMap[MSCORN::CORN_P_VEH_ARRIVAL_DEF] = (void*) arrivalDef;
+#endif
     //
     rebuildAllowedLanes();
     myLaneChangeModel = new MSLCM_DK2004(*this);
@@ -457,6 +473,13 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     myState.myPos += SPEED2DIST(vNext);
     assert(myState.myPos < lane->length());
 	myState.mySpeed = vNext;
+#ifdef NEW_SPEC
+    if (endsOn(*lane) && myState.myPos > getArrivalDefinition().pos) {
+        onTripEnd();
+        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(this);
+        return;
+    }
+#endif
     //@ to be optimized (move to somewhere else)
     if (hasCORNIntValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
         myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
@@ -607,6 +630,13 @@ MSVehicle::moveFirstChecked()
     myState.mySpeed = vNext;
     MSLane *approachedLane = myLane;
     approachedLane->addMean2(*this, vNext, oldV, -1, oldPos);
+#ifdef NEW_SPEC
+    if (endsOn(*approachedLane) && myState.myPos > getArrivalDefinition().pos) {
+        onTripEnd();
+        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(this);
+        return;
+    }
+#endif
 
     // move the vehicle forward
     size_t no = 0;
@@ -649,6 +679,13 @@ MSVehicle::moveFirstChecked()
         }
         // set information about approaching
         approachedLane->addMean2(*this, vNext, oldV, -1, oldPos);
+#ifdef NEW_SPEC
+        if (endsOn(*approachedLane) && myState.myPos > getArrivalDefinition().pos) {
+            onTripEnd();
+            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(this);
+            return;
+        }
+#endif
         no++;
     }
 

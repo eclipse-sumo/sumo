@@ -379,7 +379,7 @@ NLHandler::chooseEdge(const SUMOSAXAttributes &attrs)
     myCurrentIsBroken = false;
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("edge", id)) {
+    if(!attrs.setIDFromAttributes("edge", id)) {
         myCurrentIsBroken = true;
         return;
     }
@@ -468,7 +468,7 @@ NLHandler::addLane(const SUMOSAXAttributes &attrs)
     }
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("lane", id)) {
+    if(!attrs.setIDFromAttributes("lane", id)) {
         myCurrentIsBroken = true;
         return;
     }
@@ -550,7 +550,7 @@ NLHandler::openAllowedEdge(const SUMOSAXAttributes &attrs)
     }
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("cedge", id)) {
+    if(!attrs.setIDFromAttributes("cedge", id)) {
         return;
     }
     MSEdge *edge = MSEdge::dictionary(id);
@@ -584,7 +584,7 @@ NLHandler::openJunction(const SUMOSAXAttributes &attrs)
     myCurrentIsBroken = false;
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("junction", id)) {
+    if(!attrs.setIDFromAttributes("junction", id)) {
         myCurrentIsBroken = true;
         return;
     }
@@ -653,7 +653,7 @@ NLHandler::openWAUT(const SUMOSAXAttributes &attrs)
     SUMOTime t;
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("waut", id)) {
+    if(!attrs.setIDFromAttributes("waut", id)) {
         myCurrentIsBroken = true;
         return;
     }
@@ -755,7 +755,7 @@ NLHandler::addPOI(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("poi", id)) {
+    if(!attrs.setIDFromAttributes("poi", id)) {
         return;
     }
     try {
@@ -784,7 +784,7 @@ NLHandler::addPoly(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("poly", id)) {
+    if(!attrs.setIDFromAttributes("poly", id)) {
         return;
     }
     try {
@@ -996,7 +996,7 @@ NLHandler::addDetector(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("detector", id)) {
+    if(!attrs.setIDFromAttributes("detector", id)) {
         return;
     }
     // try to get the type
@@ -1092,7 +1092,7 @@ NLHandler::addE1Detector(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("e1-detector", id)) {
+    if(!attrs.setIDFromAttributes("e1-detector", id)) {
         return;
     }
     string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
@@ -1130,7 +1130,7 @@ NLHandler::addVTypeProbeDetector(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("vtypeprobe", id)) {
+    if(!attrs.setIDFromAttributes("vtypeprobe", id)) {
         return;
     }
     string file = attrs.getStringSecure(SUMO_ATTR_FILE, "");
@@ -1163,7 +1163,7 @@ NLHandler::addE2Detector(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("e2-detector", id)) {
+    if(!attrs.setIDFromAttributes("e2-detector", id)) {
         return;
     }
     // check whether this is a detector connected to a tls an optionally to a link
@@ -1248,7 +1248,7 @@ NLHandler::beginE3Detector(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("e3-detector", id)) {
+    if(!attrs.setIDFromAttributes("e3-detector", id)) {
         return;
     }
     // get the file name; it should not be empty
@@ -1329,7 +1329,7 @@ NLHandler::addSource(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("source", id)) {
+    if(!attrs.setIDFromAttributes("source", id)) {
         return;
     }
     try {
@@ -1345,7 +1345,7 @@ NLHandler::addTrigger(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("trigger", id)) {
+    if(!attrs.setIDFromAttributes("trigger", id)) {
         return;
     }
     try {

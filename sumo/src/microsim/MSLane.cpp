@@ -680,18 +680,22 @@ MSLane::push(MSVehicle* veh)
             myMeanData[i].nVehEnteredLane++;
         }
     }
+#ifndef NEW_SPEC
     if (! veh->destReached(myEdge)) {     // adjusts vehicles routeIterator
+#endif
         myVehBuffer.push_back(veh);
         veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
         SUMOReal pspeed = veh->getSpeed();
         SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
         veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
         return false;
+#ifndef NEW_SPEC
     } else {
         veh->onTripEnd();
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return true;
     }
+#endif
 }
 
 

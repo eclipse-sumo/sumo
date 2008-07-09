@@ -54,7 +54,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     bool ok = true;
     string id;
     if(!skipID) {
-        if(!attrs.setIDFromAttribues("vehicle", id)) {
+        if(!attrs.setIDFromAttributes("vehicle", id)) {
             return 0;
         }
     }
@@ -118,7 +118,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     }
 
     ret->arrivalLane = attrs.getStringSecure(SUMO_ATTR_ARRIVALLANE, "");
-    ret->arrivalPos = attrs.getFloatSecure(SUMO_ATTR_ARRIVALPOS, -1); //!!! specs have strings
+    ret->arrivalPos = attrs.getFloatSecure(SUMO_ATTR_ARRIVALPOS, HUGE_VAL); //!!! specs have strings
     ret->arrivalSpeed = attrs.getFloatSecure(SUMO_ATTR_ARRIVALSPEED, -1); //!!! specs have strings
 
     // parse depart position information

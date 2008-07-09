@@ -74,7 +74,7 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
     }
     // get the id, report a warning if not given or empty...
     string id;
-    if(!attrs.setIDFromAttribues("type", id), false) {
+    if(!attrs.setIDFromAttributes("type", id), false) {
         WRITE_WARNING("No type id given... Skipping.");
         return;
     }

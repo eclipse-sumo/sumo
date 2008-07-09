@@ -97,7 +97,7 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_VTYPE) {
         // get the id, report an error if not given or empty...
         string id;
-        if(!attrs.setIDFromAttribues("vtype", id)) {
+        if(!attrs.setIDFromAttributes("vtype", id)) {
             return;
         }
         // get the rest of the parameter
@@ -138,7 +138,7 @@ RORDLoader_TripDefs::getVehicleID(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    attrs.setIDFromAttribues("tripdef", id, false);
+    attrs.setIDFromAttributes("tripdef", id, false);
     // get a valid vehicle id
     if(id=="") {
         id = myIdSupplier.getNext();
