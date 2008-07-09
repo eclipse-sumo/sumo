@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<routes>
-  <vtype accel="1" color="0,1,0" decel="5" id="Car" length="5" maxspeed="100"
-         sigma="0" />
-
-  <route id="route0" multi_ref="x">in 1to2 out</route>
-
-  <vehicle depart="1" id="route0" route="route0" type="Car" />
-</routes>

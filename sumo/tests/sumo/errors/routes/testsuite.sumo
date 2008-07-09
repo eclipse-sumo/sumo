@@ -1,9 +1,6 @@
 # Tests what happens if the user uses a route containing only one edge
 one_edge_route
 
-# Tests what happens if a vehicle is longer that the route it shall start at
-too_long_vehicle
-
 # Test with a vehicle and no route given
 no_route
 
