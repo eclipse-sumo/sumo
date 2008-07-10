@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 @file    elements.py
 @author  Yun-Pang.Wang@dlr.de
@@ -518,58 +519,7 @@ class DetectedFlows:
 
     def __repr__(self):
         return "%s_<%s|%s|%s|%s|%s>" % (self.label, self.flowPger, self.flowTruck)
-# This class is used in the significance test.
-class Assign:
-    def __init__(self, method, totalVeh, totalTravelTime, totalTravelLength, totalDepartDelay, totalWaitTime, avgTravelTime, avgTravelLength, avgTravelSpeed, avgDepartDelay, avgWaitTime, SDTravelTime, SDLength, SDSpeed, SDWaitTime):
-        self.label = method
-        self.totalVeh = totalVeh
-        self.totalTravelTime = totalTravelTime
-        self.totalTravelLength = totalTravelLength
-        self.totalDepartDelay = totalDepartDelay
-        self.totalWaitTime = totalWaitTime
-        self.avgTravelTime = avgTravelTime
-        self.avgTravelLength = avgTravelLength
-        self.avgTravelSpeed = avgTravelSpeed
-        self.avgDepartDelay = avgDepartDelay
-        self.avgWaitTime = avgWaitTime
-        self.SDTravelTime = SDTravelTime
-        self.SDLength = SDLength      
-        self.SDSpeed = SDSpeed
-        self.SDWaitTime = SDWaitTime
-        self.sumrank = 0.
-        
-    def __repr__(self):
-        return "%s_<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self.label, self.totalVeh, self.avgTravelTime, self.avgTravelLength, self.avgTravelSpeed,
-                                                     self.avgWaitTime, self.SDTravelTime, self.SDLength, self.SDSpeed, self.SDWaitTime)
 
-# This cloass is used for the t test in the significance test.
-class T_Value:
-    def __init__(self, avgtraveltime, avgtravelspeed, avgtravellength, avgwaittime, lowvalue, highvalue):
-        self.avgtraveltime = avgtraveltime
-        self.avgtravelspeed = avgtravelspeed
-        self.avgtravellength = avgtravellength
-        self.avgwaittime = avgwaittime
-        self.lowtvalue = lowvalue
-        self.hightvalue = highvalue
-        
-    def __repr__(self):
-        return "%<%s|%s|%s|%s>" % (self.avgtraveltime, self.avgtravelspeed, self.avgtravellength, self.avgwaittime)
-
-# This class is used for the Kruskal-Wallis test in the significance test.
-class H_Value:
-    def __init__(self, label, lowvalue, highvalue):
-        self.label = label
-        self.traveltime = 0.
-        self.travelspeed = 0.
-        self.travellength = 0.
-        self.waittime = 0.
-        # 95% confidence interval
-        self.lowchivalue = lowvalue 
-        # 99% confidence interval
-        self.highchivalue = highvalue
-        
-    def __repr__(self):
-        return "%<%s|%s|%s|%s|%s|%s>" % (self.traveltime, self.travelspeed, self.travellength, self.waittime, self.lowchivalue, self.highchivalue)
         
 class VarianceFlowMatrix:
     def __init__(self, label, passengerarray, truckarray):

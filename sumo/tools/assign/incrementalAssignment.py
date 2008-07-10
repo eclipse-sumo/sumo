@@ -184,13 +184,9 @@ def main():
         while iter < iteration:
             foutlog.write('- Current iteration(not executed yet):%s\n' %iter)
             iter += 1
-            start = -1
-
-            for startVertex in startVertices:
-                start += 1
-                end = -1 
+            for start, startVertex in enumerate(startVertices):
                 D,P = dijkstra(startVertex)                                                                      
-                AssignedVeh, AssignedTrip, vehID = doIncAssign(net, options.verbose, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
+                AssignedVeh, AssignedTrip, vehID = doIncAssign(net, options.verbose, Parcontrol, iter, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
             
             for edgeID in net._edges:                                                   
                 edge = net._edges[edgeID]

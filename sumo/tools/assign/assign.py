@@ -17,30 +17,23 @@ from elements import Vertex, Edge, Path, Vehicle
 from network import Net
 from getPaths import findNewPath
 
-def doIncAssign(net, verbose, Parcontrol, iter, endVertices, start, end, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID): 
+def doIncAssign(net, verbose, Parcontrol, iter, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID): 
     # matrixPlong and matrixTruck should be added if available.
-    for endVertex in endVertices:                                               
-        end += 1
-        endnode = endVertex
+    for end, endVertex in enumerate(endVertices): 
         if str(startVertex) != str(endVertex) and (matrixPshort[start][end] > 0.0):
         # if matrixPling and the matrixTruck exist, matrixPlong[start][end] > 0.0 or matrixTruck[start][end] > 0.0): should be added.
             Path = []
             helpPath = []
             pathtime = 0.
             pathlength = 0.
-            while 1:
-                Path.append(endnode)
-                if endnode == startVertex: 
-                    break
-                endnode = P[endnode]
-            Path.reverse()
-
-            for i in range(0, len(Path)):
-                if Path[i] != endVertex:
-                    node = Path[i]
-                    for edge in node.outEdges:
-                        if str(Path[i]) != str(Path[i+1]) and str(edge.source) == str(Path[i]) and str(edge.target) == str(Path[i+1]):
-                            helpPath.append(edge)
+        
+            vertex = endVertex
+            while vertex != startVertex:
+                if P[vertex].kind == "real":
+                    helpPath.append(P[vertex])
+                vertex = P[vertex].source
+            helpPath.reverse()
+            
             # for generating vehicle routes used in SUMO 
             for edge in helpPath[1:-1]: 
                 pathlength += edge.length
@@ -73,14 +66,10 @@ def doSUEAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertices,
 
     # matrixPlong and matrixTruck should be added if available.
     if verbose:
-        print 'pathNum', elements.pathNum   
-    start = -1                  
+        print 'pathNum', elements.pathNum           
     # calculate the overlapping factors between any two paths of a given OD pair
-    for startVertex in startVertices: 
-        start += 1
-        end = -1
-        for endVertex in endVertices:
-            end += 1
+    for start, startVertex in enumerate(startVertices): 
+        for end, endVertex in enumerate(endVertices):
             cumulatedflow = 0.
             pathcount = 0
                         
@@ -233,14 +222,11 @@ def doSUEVehAssign(verbose, net, counter, matrixPshort, Parcontrol, startVertice
         foutpath.write('the analyzed matrix=%s' %counter)
         
     TotalPath = 0
-    start = -1
-    for startVertex in startVertices:
-        start += 1
-        end = -1
+
+    for start, startVertex in enumerate(startVertices):
         if verbose:
             foutpath.write('\norigin=%s, ' %startVertex)
-        for endVertex in endVertices:
-            end += 1
+        for end, endVertex in enumerate(endVertices):
             pathcount = 0
             cumulatedflow = 0.
             if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
@@ -438,12 +424,8 @@ def getLinkChoiceProportions(curvefile, verbose, net, matrixPshort, Parcontrol, 
             iter += 1
             
             findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
-            start = -1
-            for startVertex in startVertices:
-                start += 1
-                end = -1 
-                for endVertex in endVertices:
-                    end += 1
+            for start, startVertex in enumerate(startVertices):
+                for end, endVertex in enumerate(endVertices):
                     if str(startVertex) != str(endVertex) and (matrixPshort[start][end] > 0.0):
                         ODPaths = net._paths[startVertex][endVertex]
                         for path in ODPaths:
@@ -466,12 +448,8 @@ def getLinkChoiceProportions(curvefile, verbose, net, matrixPshort, Parcontrol, 
     for edge in net._edges.itervalues():
         if edge.detected:
             foutlink.write('flow on Edge %s is detected.\n' %edge.label)
-            start = -1
-            for startVertex in startVertices:
-                start += 1
-                end = -1
-                for endVertex in endVertices:
-                    end += 1
+            for start, startVertex in enumerate(startVertices):
+                for end, endVertex in enumerate(endVertices):
                     if str(startVertex) != str(endVertex) and (matrixPshort[start][end] > 0.0):
                         foutlink.write('linkChoiceProportions[%s][%s][%s]=%s\n' %(edge.label, startVertex, endVertex, linkChoiceProportions[edge.label][startVertex][endVertex]))
     foutlink.close()            
@@ -480,12 +458,9 @@ def getLinkChoiceProportions(curvefile, verbose, net, matrixPshort, Parcontrol, 
 def calLinkChoiceProportion(verbose, net, Parcontrol, startVertices, endVertices, linkChoiceProportions, lohse):
     if verbose:
         print 'calLinkChoiceProportion - SUE is done!'
-    start = -1
-    for startVertex in startVertices:
-        start += 1
-        end = -1
-        for endVertex in endVertices:
-            end += 1
+
+    for start, startVertex in enumerate(startVertices):
+        for end, endVertex in enumerate(endVertices):
             pathcount = 0
             cumulatedflow = 0.
             if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):

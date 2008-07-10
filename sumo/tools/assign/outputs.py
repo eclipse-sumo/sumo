@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 """
 @file    outputs.py
 @author  Yun-Pang.Wang@dlr.de
@@ -100,54 +101,6 @@ def vehPoissonDistr(net, Parcontrol, begintime):
         foutpoisson.write('The vehicular releasing times are generated randomly(uniform). ')
         foutpoisson.close()
         
-# output the network statistics based on the sumo-simulation results
-def getStatisticsOutput(assignments, outputfile):
-    foutveh = file(outputfile, 'w')
-    foutveh.write('average vehicular travel time(s) = the sum of all vehicular travel times / the number of vehicles\n')
-    foutveh.write('average vehicular travel length(m) = the sum of all vehicular travel lengths / the number of vehicles\n')
-    foutveh.write('average vehicular travel speed(m/s) = the sum of all vehicular travel speeds / the number of vehicles\n')
-    for method in assignments.itervalues():
-        foutveh.write('\nAssignment Method:%s\n' %method.label)
-        foutveh.write('- total number of vehicles:%s\n' %method.totalVeh)
-        foutveh.write('- total departure delay(s):%s, ' %method.totalDepartDelay)    
-        foutveh.write('- average departure delay(s):%s\n' %method.avgDepartDelay)
-        foutveh.write('- total waiting time(s):%s, ' %method.totalWaitTime)    
-        foutveh.write('- average vehicular waiting time(s):%s\n' %method.avgWaitTime)
-        foutveh.write('- total travel time(s):%s, ' % method.totalTravelTime)    
-        foutveh.write('- average vehicular travel time(s):%s\n' %method.avgTravelTime)
-        foutveh.write('- total travel length(m):%s, ' %method.totalTravelLength)
-        foutveh.write('- average vehicular travel length(m):%s\n' %method.avgTravelLength)
-        foutveh.write('- average vehicular travel speed(m/s):%s\n' %method.avgTravelSpeed)
-    foutveh.close()
-       
-# output the results of the significance tests according to the sumo-simulation results
-def getSignificanceTestOutput(assignments, tTest, tValueAvg, hValues, outputfile):
-    foutSGtest = file(outputfile, 'w')
-    if tTest:
-        foutSGtest.write('The significances of the performance averages among the used assignment models are examined with the t test.\n')
-        assignlist = list(assignments.itervalues())
-        for num, A in enumerate(assignlist):
-            for B in assignlist[num+1: ]:
-                foutSGtest.write('\nmethod:%s' %A.label)
-                foutSGtest.write('\nmethod:%s' %B.label)
-                foutSGtest.write('\n   t-value for the avg. travel time:%s' %tValueAvg[A][B].avgtraveltime)
-                foutSGtest.write('\n   t-value for the avg. travel length:%s'%tValueAvg[A][B].avgtravellength)
-                foutSGtest.write('\n   t-value for the avg.travel speed:%s' %tValueAvg[A][B].avgtravelspeed)
-                foutSGtest.write('\n   t-value for the avg. wait time:%s\n' %tValueAvg[A][B].avgwaittime)
-                foutSGtest.write('\n95 t-value:%s' %tValueAvg[A][B].lowtvalue)
-                foutSGtest.write('\n99 t-value:%s\n' %tValueAvg[A][B].hightvalue)
-                
-    foutSGtest.write('The significance test among the different assignment methods is also done with the Kruskal-Wallis test.\n')
-    for h in hValues:
-        foutSGtest.write('\n\nmethods:%s' %h.label)
-        foutSGtest.write('\nH_traveltime:%s' %h.traveltime)
-        foutSGtest.write('\nH_travelspeed:%s' %h.travelspeed)
-        foutSGtest.write('\nH_travellength:%s' %h.travellength)
-        foutSGtest.write('\nH_waittime:%s\n' %h.waittime)
-        foutSGtest.write('\n95 chi-square value:%s' %h.lowchivalue)
-        foutSGtest.write('\n99 chi-square value:%s\n' %h.highchivalue)
-    foutSGtest.close()
-
 # output the result of the matrix estimation with the traffic counts
 def outputMatrix(startVertices, endVertices, estMatrix, daytimeindex):
     filename = 'estimatedMatri-' + daytimeindex + '.fma'
@@ -168,14 +121,10 @@ def outputMatrix(startVertices, endVertices, estMatrix, daytimeindex):
     for startVertex in startVertices:
         foutmtx.write('%s ' %startVertex.label)
     foutmtx.write('\n*')
-    start = -1
-    for startVertex in startVertices:
-        start += 1
-        end = -1
+    for start, startVertex in enumerate(startVertices):
         count = -1
         foutmtx.write('\n* from: %s\n' %startVertex.label)
-        for endVertex in endVertices:
-            end += 1
+        for end, endVertex in enumerate(endVertices):
             count += 1
             if operator.mod(count,12) != 0:
                 foutmtx.write('%s ' %estMatrix[start][end])

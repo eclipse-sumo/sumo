@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    networkStatisticsWithSgT.py
+@file    networkStatistics.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2007-02-27
 @version $Id$
@@ -20,13 +20,11 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import os, string, sys, datetime, random, math
+import os, sys, datetime, random, math
 
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
-from elements import Assign, T_Value, H_Value
-from network import VehInformationReader
-from outputs import getStatisticsOutput, getSignificanceTestOutput
+from statisticsElements import Assign, T_Value, H_Value, VehInformationReader, getStatisticsOutput, getSignificanceTestOutput
 from tables import chiSquareTable, tTable
 
 
