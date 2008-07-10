@@ -12,68 +12,44 @@ All rights reserved
 """
 
 import os, random, string, sys
-from dijkstra import dijkstra, dijkstraForLohse
+from dijkstra import dijkstra
 from elements import Vertex, Edge, Path, pathNum
 
 def findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse):
     newRoutes = 0
-    start = -1
-    for startVertex in startVertices:
-        start += 1
-        end = -1
-        if lohse:
-            D,P = dijkstraForLohse(startVertex)
-        else:
-            D,P = dijkstra(startVertex)
-            
-        for endVertex in endVertices:
-            end += 1
-            endnode = endVertex
+    for start, startVertex in enumerate(startVertices):
+        D,P = dijkstra(startVertex, lohse)            
+        for end, endVertex in enumerate(endVertices):
             if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                 tempPath = []
                 helpPath = []
-                pathcost = 0.0
+                pathcost = D[endVertex]/3600.
                 ODPaths = net._paths[startVertex][endVertex]
                 for path in ODPaths:
                     path.currentshortest = False
                     
-                while 1:
-                    tempPath.append(endnode)
-                    if endnode == startVertex: 
-                        break
-                    endnode = P[endnode]
-                tempPath.reverse()
-                
-                for i in range(0, len(tempPath)):
-                    if tempPath[i] != endVertex:
-                        node = tempPath[i]
-                        for edge in node.outEdges:
-                            if str(tempPath[i]) != str(tempPath[i+1]) and str(edge.source) == str(tempPath[i]) and str(edge.target) == str(tempPath[i+1]):
-                                helpPath.append(edge)
-                    else:
-                        pathcost = D[endVertex]/3600.
+                vertex = endVertex
+                while vertex != startVertex:
+                    if P[vertex].kind == "real":
+                        helpPath.append(P[vertex])
+                    vertex = P[vertex].source
+                helpPath.reverse()
 
                 newPath = True
                 notpath = False                    
                 if len(ODPaths) > 0:
                     for path in ODPaths:
-                        sameEdgeCount = 0
-                        sametraveltime = 0. 
-                        if len(path.Edges) == len(helpPath):
-                            for i in range (0, len(helpPath)):
-                                if str(helpPath[i]) == str(path.Edges[i]):
-                                    sameEdgeCount += 1
-                                    sametraveltime += helpPath[i].actualtime
-                                    sametraveltime += helpPath[i].queuetime
-                        if sameEdgeCount == len(path.Edges):
-                            samePath = path
-                            newPath = False
-                            
-                            break
-                        elif abs(sameEdgeCount - len(path.Edges))/len(path.Edges) <= 0.1 and abs(sametraveltime/3600. - pathcost) <= 0.05:
-                            notpath = True
-                            newPath = False
-                            break
+                        if path.Edges != helpPath:
+                            sameEdgeCount = 0
+                            sameTravelTime = 0.0
+                            for pos, edge in enumerate(helpPath):
+                                if pos < len(path.Edges) and path.Edges[pos] == edge:
+                                    sameEdgeCount += 1 
+                                    sameTravelTime += edge.actualtime
+                            if abs(sameEdgeCount - len(path.Edges))/len(path.Edges) <= 0.1 and abs(sametraveltime/3600. - pathcost) <= 0.05:
+                                notpath = True
+                                newPath = False
+                                break
                 if newPath:
                     newpath = Path()
                     ODPaths.append(newpath)

@@ -129,7 +129,7 @@ if not options.duaonly:
     execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_clogit --dump-intervals 900 --emissions emissions_clogit.xml --tripinfo-output tripinfo_clogit.xml %s -l sumo_clogit.log" % (netFile, clogDir, sumoAdds))
     execute("sumo -W --no-step-log -n %s -e 90000 -r %s/routes.rou.xml --dump-basename dump_lohse --dump-intervals 900 --emissions emissions_lohse.xml --tripinfo-output tripinfo_lohse.xml %s -l sumo_lohse.log" % (netFile, lohseDir, sumoAdds))
     tripinfos += tripinfofile + ",tripinfo_successive.xml,tripinfo_clogit.xml,tripinfo_lohse.xml"
-    execute("networkStatisticsWithSgT.py -t %s -o networkStatisticsWithSgT.txt" % tripinfos)
+    execute("networkStatistics.py -k -t %s -o networkStatisticsWithSgT.txt" % tripinfos)
     for dir in succDir, clogDir, lohseDir: 
         routes.append(dir + "/routes.rou.xml")
 outfilename = "routecompare.txt"

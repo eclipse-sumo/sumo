@@ -27,8 +27,6 @@ class Net:
         self._startVertices = []
         self._endVertices = []
         self._paths = {}
-        self._allvehicles = {}
-        self._assignments = {}
         self._junctions = {}
         self._detectedLinkCounts = 0.
         self._flowVarianceMatrices = {}
@@ -67,9 +65,6 @@ class Net:
             for endVertex in self._endVertices:
                 self._paths[startVertex][endVertex] = []
                 
-    def addAssignment(self, assignObj):
-        self._assignments[assignObj.label] = assignObj
-     
     def addTLJunctions(self, junctionObj):
         self._junctions[junctionObj.label] = junctionObj
         

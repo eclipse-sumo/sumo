@@ -101,12 +101,12 @@ def vehPoissonDistr(net, Parcontrol, begintime):
         foutpoisson.close()
         
 # output the network statistics based on the sumo-simulation results
-def getStatisticsOutput(net, outputfile):
+def getStatisticsOutput(assignments, outputfile):
     foutveh = file(outputfile, 'w')
     foutveh.write('average vehicular travel time(s) = the sum of all vehicular travel times / the number of vehicles\n')
     foutveh.write('average vehicular travel length(m) = the sum of all vehicular travel lengths / the number of vehicles\n')
     foutveh.write('average vehicular travel speed(m/s) = the sum of all vehicular travel speeds / the number of vehicles\n')
-    for method in net._assignments.itervalues():
+    for method in assignments.itervalues():
         foutveh.write('\nAssignment Method:%s\n' %method.label)
         foutveh.write('- total number of vehicles:%s\n' %method.totalVeh)
         foutveh.write('- total departure delay(s):%s, ' %method.totalDepartDelay)    
@@ -121,11 +121,11 @@ def getStatisticsOutput(net, outputfile):
     foutveh.close()
        
 # output the results of the significance tests according to the sumo-simulation results
-def getSignificanceTestOutput(net, tTest, tValueAvg, hValues):
-    foutSGtest = file('SG_Test.txt', 'w')
+def getSignificanceTestOutput(assignments, tTest, tValueAvg, hValues, outputfile):
+    foutSGtest = file(outputfile, 'w')
     if tTest:
         foutSGtest.write('The significances of the performance averages among the used assignment models are examined with the t test.\n')
-        assignlist = list(net._assignments.itervalues())
+        assignlist = list(assignments.itervalues())
         for num, A in enumerate(assignlist):
             for B in assignlist[num+1: ]:
                 foutSGtest.write('\nmethod:%s' %A.label)
