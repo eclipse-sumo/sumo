@@ -140,7 +140,7 @@ NBRequest::NBRequest(const NBEdgeCont &ec,
                 string ptID = prohibited.getTo()!=0 ? prohibited.getTo()->getID() : "UNKNOWN";
                 string bfID = sprohibiting.getFrom()!=0 ? sprohibiting.getFrom()->getID() : "UNKNOWN";
                 string btID = sprohibiting.getTo()!=0 ? sprohibiting.getTo()->getID() : "UNKNOWN";
-                WRITE_WARNING("could not prohibit " + pfID + "->" + ptID+ " by "+ bfID + "->" + ptID);
+                WRITE_WARNING("could not prohibit " + pfID + "->" + ptID+ " by "+ bfID + "->" + btID);
                 myNotBuild++;
             }
         }

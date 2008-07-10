@@ -88,7 +88,7 @@ NIXMLConnectionsHandler::parseConnection(const std::string &defRole, const strin
         fromDef = fromDef.substr(0, fromDef.find('_'));
     }
     if (toDef.find('_')!=string::npos) {
-        toDef = fromDef.substr(0, toDef.find('_'));
+        toDef = toDef.substr(0, toDef.find('_'));
     }
     // retrieve them now
     NBEdge *fromE = myEdgeCont.retrieve(fromDef);
