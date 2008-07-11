@@ -16,5 +16,11 @@ reuse_id_ok
 # Tests whether the new-style routes can be handled
 nested_ref
 
+# Tests whether giving the edge list as attribute works with nested routes
+edgeattr_nested
+
+# Tests whether giving the edge list as attribute works with nested routes
+edgeattr
+
 # Test repeated vehicle creation
 repeat

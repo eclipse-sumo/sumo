@@ -295,13 +295,6 @@ void
 MSRouteHandler::addRouteElements(const std::string &chars)
 {
     StringTokenizer st(chars);
-    if (st.size()==0) {
-        if (myVehicleParameter!=0) {
-            throw ProcessError("Vehicle's '" + myVehicleParameter->id + "' route has no edges.");
-        } else {
-            throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
-        }
-    }
     MSEdge *edge = 0;
     while (st.hasNext()) {
         string set = st.next();
@@ -313,18 +306,6 @@ MSRouteHandler::addRouteElements(const std::string &chars)
         }
         myActiveRoute.push_back(edge);
     }
-    // check whether the route is long enough
-#ifdef NEW_SPEC
-    if (myActiveRoute.size()<1) {
-        throw ProcessError("SUMO assumes each route to be at least one edge long ('" + myActiveRouteID + "' has " + toString(myActiveRoute.size()) + ").");
-
-    }
-#else
-    if (myActiveRoute.size()<2) {
-        throw ProcessError("SUMO assumes each route to be at least two edges long ('" + myActiveRouteID + "' has " + toString(myActiveRoute.size()) + ").");
-
-    }
-#endif
 }
 
 
@@ -344,6 +325,19 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 void
 MSRouteHandler::closeRoute() throw(ProcessError)
 {
+    if (myActiveRoute.size()==0) {
+        if (myVehicleParameter!=0) {
+            throw ProcessError("Vehicle's '" + myVehicleParameter->id + "' route has no edges.");
+        } else {
+            throw ProcessError("Route '" + myActiveRouteID + "' has no edges.");
+        }
+    }
+    // check whether the route is long enough
+#ifndef NEW_SPEC
+    if (myActiveRoute.size()<2) {
+        throw ProcessError("SUMO assumes each route to be at least two edges long ('" + myActiveRouteID + "' has " + toString(myActiveRoute.size()) + ").");
+    }
+#endif
     MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1);
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {

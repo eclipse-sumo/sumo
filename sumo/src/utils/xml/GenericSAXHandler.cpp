@@ -220,28 +220,30 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
     string name = TplConvert<XMLCh>::_2str(qname);
     SumoXMLTag element = convertTag(name);
     // collect characters
-    size_t len = 0;
-    unsigned i;
-    for (i=0; i<myCharactersVector.size(); ++i) {
-        len += myCharactersVector[i].length();
-    }
-    char *buf = new char[len+1];
-    size_t pos = 0;
-    for (i=0; i<myCharactersVector.size(); ++i) {
-        memcpy((unsigned char*) buf+pos, (unsigned char*) myCharactersVector[i].c_str(),
-               sizeof(char)*myCharactersVector[i].length());
-        pos += myCharactersVector[i].length();
-    }
-    buf[pos] = 0;
+    if(myCharactersVector.size()!=0) {
+        size_t len = 0;
+        unsigned i;
+        for (i=0; i<myCharactersVector.size(); ++i) {
+            len += myCharactersVector[i].length();
+        }
+        char *buf = new char[len+1];
+        size_t pos = 0;
+        for (i=0; i<myCharactersVector.size(); ++i) {
+            memcpy((unsigned char*) buf+pos, (unsigned char*) myCharactersVector[i].c_str(),
+                   sizeof(char)*myCharactersVector[i].length());
+            pos += myCharactersVector[i].length();
+        }
+        buf[pos] = 0;
 
-    // call user handler
-    try {
-        myCharacters(element, buf);
-    } catch (std::runtime_error &) {
+        // call user handler
+        try {
+            myCharacters(element, buf);
+        } catch (std::runtime_error &) {
+            delete[] buf;
+            throw;
+        }
         delete[] buf;
-        throw;
     }
-    delete[] buf;
     myEndElement(element);
 }
 

@@ -51,13 +51,14 @@ SUMOVehicleParameter *
 SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
                                                 bool skipID, bool skipDepart)
 {
-    bool ok = true;
     string id;
-    if(!skipID) {
-        if(!attrs.setIDFromAttributes("vehicle", id)) {
-            return 0;
-        }
+    if(!skipID && !attrs.setIDFromAttributes("vehicle", id)) {
+        throw ProcessError();
     }
+    if(attrs.hasAttribute(SUMO_ATTR_PERIOD) ^ attrs.hasAttribute(SUMO_ATTR_REPNUMBER)) {
+        throw ProcessError("The attributes '" + attrs.getName(SUMO_ATTR_PERIOD) + "' and '" + attrs.getName(SUMO_ATTR_REPNUMBER) + "' have to be given both in the definition of '" + id + "'.");
+    }
+    bool ok = true;
     SUMOVehicleParameter *ret = new SUMOVehicleParameter();
     ret->id = id;
     //ret->refid = attrs.getStringSecure(SUMO_ATTR_REFID, "");
@@ -121,7 +122,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     ret->arrivalPos = attrs.getFloatSecure(SUMO_ATTR_ARRIVALPOS, HUGE_VAL); //!!! specs have strings
     ret->arrivalSpeed = attrs.getFloatSecure(SUMO_ATTR_ARRIVALSPEED, -1); //!!! specs have strings
 
-    // parse depart position information
+    // parse repetition information
     if(attrs.hasAttribute(SUMO_ATTR_PERIOD)) {
         ret->setParameter |= VEHPARS_PERIODFREQ_SET;
         ret->repetitionOffset = attrs.getInt(SUMO_ATTR_PERIOD);
@@ -139,7 +140,7 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
 
     if(!ok) {
         delete ret;
-        ret = 0;
+        throw ProcessError();
     }
     return ret;
 }
