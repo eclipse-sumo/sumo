@@ -34,6 +34,7 @@
 #include "RORouteDef.h"
 #include "RORoute.h"
 #include <utils/common/SUMOAbstractRouter.h>
+#include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
 #include "RORouteDef_Complete.h"
 #include "ROHelper.h"
@@ -55,8 +56,9 @@ using namespace std;
 // ===========================================================================
 RORouteDef_Complete::RORouteDef_Complete(const std::string &id,
         const RGBColor &color,
-        const std::vector<const ROEdge*> &edges) throw()
-        : RORouteDef(id, color), myEdges(edges)
+        const std::vector<const ROEdge*> &edges,
+        bool tryRepair) throw()
+        : RORouteDef(id, color), myEdges(edges), myTryRepair(tryRepair)
 {
 }
 
@@ -69,8 +71,7 @@ RORoute *
 RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                                        SUMOTime begin, const ROVehicle &veh) const
 {
-    // !!!!
-    if(false) {
+    if(myTryRepair) {
         std::vector<const ROEdge*> newEdges;
         const std::vector<const ROEdge*> &oldEdges = myEdges;
         newEdges.push_back(*(oldEdges.begin()));
@@ -84,8 +85,17 @@ RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
                     return 0;
                 }
                 std::copy(edges.begin()+1, edges.end(), back_inserter(newEdges));
-
             }
+        }
+        if(myEdges!=newEdges) {
+            MsgHandler::getWarningInstance()->inform("Repaired route of vehicle '" + veh.getID() + "'.");
+        }
+        myEdges = newEdges;
+    } else {
+        std::vector<const ROEdge*> newEdges;
+        router.compute(myEdges[0], myEdges[myEdges.size()-1], &veh, begin, newEdges);
+        if(myEdges!=newEdges) {
+            MsgHandler::getWarningInstance()->inform("Found a faster/correct route for vehicle '" + veh.getID() + "'.");
         }
         myEdges = newEdges;
     }
@@ -108,7 +118,7 @@ RORouteDef_Complete::addAlternative(const ROVehicle *const, RORoute *current, SU
 RORouteDef *
 RORouteDef_Complete::copy(const std::string &id) const
 {
-    return new RORouteDef_Complete(id, myColor, myEdges);
+    return new RORouteDef_Complete(id, myColor, myEdges, myTryRepair);
 }
 
 
@@ -117,20 +127,17 @@ RORouteDef_Complete::writeXMLDefinition(OutputDevice &dev, const ROVehicle * con
 {
     // (optional) alternatives header
     if(asAlternatives) {
-        dev << "      <routealt last=\"1\"";
-        if (myColor!=RGBColor()) {
-             dev << " color=\"" << myColor << "\"";
-        }
-        dev << ">\n   ";
+        dev << "<routealt last=\"0\"";
+        dev << ">\n         ";
     }
     // the route
-    dev << "      <route";
-    if (myColor!=RGBColor()) {
-        dev << " color=\"" << myColor << "\"";
-    }
+    dev << "<route";
     if(asAlternatives) {
         dev << " cost=\"" << ROHelper::recomputeCosts(myEdges, veh, veh->getDepartureTime());
-        dev << "\" probability=\"1";
+        dev << "\" probability=\"1.00\"";
+    }
+    if (myColor!=RGBColor()) {
+        dev << " color=\"" << myColor << "\"";
     }
     dev << ">" << myEdges << "</route>\n";
     // (optional) alternatives end

@@ -57,7 +57,8 @@ class RORouteDef_Complete :
 public:
     /// Constructor
     RORouteDef_Complete(const std::string &id, const RGBColor &color,
-                        const std::vector<const ROEdge*> &edges) throw();
+                        const std::vector<const ROEdge*> &edges,
+                        bool tryRepair) throw();
 
     /// Destructor
     virtual ~RORouteDef_Complete() throw();
@@ -83,6 +84,8 @@ protected:
 
     /// The begin of the route
     SUMOTime myStartTime;
+
+    bool myTryRepair;
 
 
 private:

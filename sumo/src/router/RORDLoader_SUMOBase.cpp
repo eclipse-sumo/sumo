@@ -233,7 +233,7 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
             myCurrentAlternatives->addLoadedAlternative(
                 new RORoute(myCurrentAlternatives->getID(), myCost, myProbability, *list, myColor));
         } else {
-            myCurrentRoute = new RORoute(myCurrentRouteName, 0, 1, *list, myColor);
+            myCurrentRoute = new RORouteDef_Complete(myCurrentRouteName, myColor, *list, false);
         }
     }
     delete list;
@@ -247,13 +247,8 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
     case SUMO_TAG_ROUTE:
         if (myCurrentRoute!=0&&!mySkipCurrent) {
             if(myCurrentAlternatives==0) {
-                myCurrentAlternatives = new RORouteDef_Alternatives(myCurrentRouteName, myColor,
-                        0, myGawronBeta, myGawronA, myMaxRouteNumber);
-                myNet.addRouteDef(myCurrentAlternatives);
-                myCurrentAlternatives->addLoadedAlternative(myCurrentRoute);
-                myCurrentAlternatives = 0;
-            } else {
-                myCurrentAlternatives->addLoadedAlternative(myCurrentRoute);
+                myNet.addRouteDef(myCurrentRoute);
+                myCurrentRoute = 0;
             }
             if (myVehicleParameter==0) {
                 myHaveNextRoute = true;
@@ -301,9 +296,7 @@ RORDLoader_SUMOBase::closeVehicle() throw()
         getErrorHandlerMarkInvalid()->inform("The route of the vehicle '" + myVehicleParameter->id + "' is not known.");
         return false;
     }
-    // get the vehicle color
     // build the vehicle
-    // get further optional information
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
         ROVehicle *veh = myVehicleBuilder.buildVehicle(*myVehicleParameter, route, type);
         myNet.addVehicle(myVehicleParameter->id, veh);

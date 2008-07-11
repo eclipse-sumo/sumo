@@ -287,7 +287,7 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError)
                                             myBeginEdge, myEndEdge);
         } else {
             route = new RORouteDef_Complete(myParameter->id, myParameter->color,
-                                            myEdges);
+                                            myEdges, false); // !!!
         }
         ROVehicleType *type = myNet.getVehicleTypeSecure(myParameter->vtypeid);
         // check whether any errors occured

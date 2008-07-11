@@ -76,7 +76,7 @@ ROFrame::fillOptions(OptionsCont &oc)
     oc.addDescription("lane-weights", "Input", "Read lane-weights from FILE");
 
 
-    // register the simulation settings
+    // register the time settings
     oc.doRegister("begin", 'b', new Option_Integer(0));
     oc.addDescription("begin", "Time", "Defines the begin time; Previous trips will be discarded");
 
@@ -97,7 +97,6 @@ ROFrame::fillOptions(OptionsCont &oc)
     oc.doRegister("max-alternatives", new Option_Integer(5));
     oc.addDescription("max-alternatives", "Processing", "Prune the number of alternatives to INT");
 
-    // add possibility to insert random vehicles
     oc.doRegister("random-per-second", 'R', new Option_Float());
     oc.addDescription("random-per-second", "Processing", "Emit FLOAT random vehicles per second");
 
@@ -106,6 +105,9 @@ ROFrame::fillOptions(OptionsCont &oc)
 
     oc.doRegister("remove-loops", new Option_Bool(false));
     oc.addDescription("remove-loops", "Processing", "Remove loops at start and end of the route");
+
+    oc.doRegister("repair", new Option_Bool(false));
+    oc.addDescription("repair", "Processing", "Tries to correct a false route");
 
 
     // register report options

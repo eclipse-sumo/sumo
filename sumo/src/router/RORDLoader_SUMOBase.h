@@ -44,6 +44,7 @@ class ROVehicleType;
 class RORouteDef;
 class MsgHandler;
 class RORouteDef_Alternatives;
+class RORouteDef_Complete;
 class RORoute;
 
 
@@ -205,7 +206,7 @@ protected:
     int myMaxRouteNumber;
 
 
-    RORoute *myCurrentRoute;
+    RORouteDef_Complete *myCurrentRoute;
 
     std::string myCurrentRouteName;
 
