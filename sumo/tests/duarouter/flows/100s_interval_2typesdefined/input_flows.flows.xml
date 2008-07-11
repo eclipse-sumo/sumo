@@ -2,7 +2,7 @@
 	<vtype id="0" accel="1.6" decel="5.5" sigma="0.9" length="7" maxspeed="30" color="1,0,0"/>
 	<vtype id="1" accel="1.6" decel="5.5" sigma="0.9" length="7" maxspeed="30" color="1,0,0"/>
 
-	<flow id="0" from="beg" to="rend" begin="0" end="100" no="50" type="0"/>
-	<flow id="1" from="beg" to="rend" begin="0" end="100" no="50" type="1"/>
+	<flow id="0" from="beg" to="rend" begin="0" end="100" no="5" type="0"/>
+	<flow id="1" from="beg" to="rend" begin="0" end="100" no="5" type="1"/>
 
 </flowdefs>
