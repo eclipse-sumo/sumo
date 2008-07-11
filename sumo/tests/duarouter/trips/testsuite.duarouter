@@ -13,9 +13,6 @@ increasing_time
 # The same as increasing time, but telling the trip defs are not sorted, the type is given but not defined
 increasing_time_unsorted
 
-# Test whether import of colours works
-increasing_time_withcolor
-
 # Tests whether parameter passing works
 increasing_time_withparams
 

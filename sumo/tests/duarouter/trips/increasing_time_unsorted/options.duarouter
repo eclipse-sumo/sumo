@@ -1,2 +1,2 @@
---net-file=input_net.net.xml --trip-defs=input_trips.trips.xml -o routes.rou.xml
+--net-file=input_net.net.xml --trip-defs=input_trips.trips.xml -o routes.rou.xml --unsorted
 
