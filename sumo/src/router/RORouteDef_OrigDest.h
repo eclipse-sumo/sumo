@@ -72,7 +72,7 @@ public:
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;
 
-    const std::vector<const ROEdge*> &getCurrentEdgeVector() const;
+    virtual OutputDevice &writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives) const;
 
 protected:
     /// The origin and the destination edge of the route

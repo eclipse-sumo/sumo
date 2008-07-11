@@ -52,15 +52,17 @@ using namespace std;
 // method definitions
 // ===========================================================================
 RORoute::RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
-                 const std::vector<const ROEdge*> &route) throw()
+                 const std::vector<const ROEdge*> &route,
+                 const RGBColor &color) throw()
         : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
-        myProbability(prop), myRoute(route)
+        myProbability(prop), myRoute(route), myColor(color)
 {}
 
 
 RORoute::RORoute(const RORoute &src) throw()
     : Named(src.myID), myCosts(src.myCosts), 
-    myProbability(src.myProbability), myRoute(src.myRoute)
+    myProbability(src.myProbability), myRoute(src.myRoute),
+    myColor(src.myColor)
 {
 }
 
@@ -121,6 +123,33 @@ RORoute::recheckForLoops() throw()
 {
     ROHelper::recheckForLoops(myRoute);
 }
+
+
+OutputDevice &
+RORoute::writeXMLDefinition(OutputDevice &dev, bool asAlternatives) const
+{
+    // (optional) alternatives header
+    if(asAlternatives) {
+        dev << "<routealt last=\"0\"";
+        dev << ">\n         ";
+    }
+    // the route
+    dev << "<route";
+    if(asAlternatives) {
+        dev << " cost=\"" << myCosts;
+        dev << "\" probability=\"" << myProbability << "\"";
+    }
+    if(myColor!=RGBColor()) {
+        dev << " color=\"" << myColor << "\"";
+    }
+    dev << ">" << myRoute << "</route>\n";
+    // (optional) alternatives end
+    if(asAlternatives) {
+        dev << "      </routealt>\n";
+    }
+    return dev;
+}
+
 
 
 

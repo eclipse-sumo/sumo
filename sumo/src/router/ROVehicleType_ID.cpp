@@ -58,7 +58,7 @@ ROVehicleType_ID::~ROVehicleType_ID() throw()
 
 
 OutputDevice &
-ROVehicleType_ID::xmlOut(OutputDevice &dev) const
+ROVehicleType_ID::writeXMLDefinition(OutputDevice &dev) const
 {
     return dev;
 }

@@ -231,9 +231,9 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
     if (ok) {
         if (myCurrentAlternatives!=0) {
             myCurrentAlternatives->addLoadedAlternative(
-                new RORoute(myCurrentAlternatives->getID(), myCost, myProbability, *list));
+                new RORoute(myCurrentAlternatives->getID(), myCost, myProbability, *list, myColor));
         } else {
-            myCurrentRoute = new RORoute(myCurrentRouteName, 0, 1, *list);
+            myCurrentRoute = new RORoute(myCurrentRouteName, 0, 1, *list, myColor);
         }
     }
     delete list;

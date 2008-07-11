@@ -46,6 +46,7 @@
 #include <utils/common/StdDefs.h>
 #include <utils/common/RandHelper.h>
 #include <utils/common/UtilExceptions.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -68,11 +69,11 @@ using namespace std;
 // ===========================================================================
 RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string &id,
         const RGBColor &color,
-        size_t lastUsed,
+        unsigned int lastUsed,
         SUMOReal gawronBeta,
         SUMOReal gawronA,
         int maxRoutes) throw()
-        : RORouteDef(id, color), myLastUsed(lastUsed),
+        : RORouteDef(id, color), myLastUsed((int) lastUsed),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRoutes)
 {
 }
@@ -102,22 +103,20 @@ RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> 
     // build a new route to test whether it is better
     std::vector<const ROEdge*> edges;
     router.compute(myAlternatives[0]->getFirst(), myAlternatives[0]->getLast(), &veh, begin, edges);
-    RORoute *opt = new RORoute(myID, 0, 1, edges);
-    opt->setCosts(ROHelper::recomputeCosts(opt->getEdgeVector(), &veh, begin));
+    RORoute *opt = new RORoute(myID, 0, 1, edges, myColor);
+    SUMOReal costs = ROHelper::recomputeCosts(opt->getEdgeVector(), &veh, begin);
     // check whether the same route was already used
     myLastUsed = findRoute(opt);
     myNewRoute = true;
     // delete the route when it already existed
     if (myLastUsed>=0) {
-        // this is not completely correct as the value does not
-        //  come from the simulation itself but from the computing
-        //  using the network !!!
-//        myAlternatives[myLastUsed]->setCosts(opt->getCosts());
         delete opt;
         myNewRoute = false;
+        myAlternatives[myLastUsed]->setCosts(costs);
         return myAlternatives[myLastUsed];
     }
     // return the built route
+    opt->setCosts(costs);
     return opt;
 }
 
@@ -125,16 +124,14 @@ RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> 
 int
 RORouteDef_Alternatives::findRoute(RORoute *opt) const
 {
-    for (size_t i=0; i<myAlternatives.size(); i++) {
+    for (unsigned int i=0; i<myAlternatives.size(); i++) {
         if (opt->getEdgeVector() == myAlternatives[i]->getEdgeVector()) {
-            return i;
+            return (int) i;
         }
     }
     return -1;
 }
 
-
-SUMOReal mquiet_NaN = numeric_limits<SUMOReal>::quiet_NaN();
 
 void
 RORouteDef_Alternatives::addAlternative(const ROVehicle *const veh, RORoute *current, SUMOTime begin)
@@ -251,14 +248,6 @@ RORouteDef_Alternatives::copy(const std::string &id) const
 }
 
 
-const std::vector<const ROEdge*> &
-RORouteDef_Alternatives::getCurrentEdgeVector() const
-{
-    assert(myLastUsed>=0&&((size_t) myLastUsed)<myAlternatives.size());
-    return myAlternatives[myLastUsed]->getEdgeVector();
-}
-
-
 void
 RORouteDef_Alternatives::invalidateLast()
 {
@@ -348,24 +337,29 @@ RORouteDef_Alternatives::removeLast()
 }
 
 
-int
-RORouteDef_Alternatives::getLastUsedIndex() const
+OutputDevice &
+RORouteDef_Alternatives::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives) const
 {
-    return myLastUsed;
-}
-
-
-size_t
-RORouteDef_Alternatives::getAlternativesSize() const
-{
-    return myAlternatives.size();
-}
-
-
-const RORoute &
-RORouteDef_Alternatives::getAlternative(size_t i) const
-{
-    return *(myAlternatives[i]);
+    // (optional) alternatives header
+    if(asAlternatives) {
+        dev << "<routealt last=\"" << myLastUsed << "\"";
+        dev << ">\n";
+        for (size_t i=0; i!=myAlternatives.size(); i++) {
+            const RORoute &alt = *(myAlternatives[i]);
+            dev << "         <route cost=\"" << alt.getCosts();
+            dev << "\" probability=\"" << alt.getProbability();
+            if(alt.getColor()!=RGBColor()) {
+                dev << "\" color=\"" << alt.getColor();
+            } else if (myColor!=RGBColor()) {
+                dev << "\" color=\"" << myColor;
+            }
+            dev << "\">" << alt.getEdgeVector() << "</route>\n";
+        }
+        dev << "      </routealt>\n";
+        return dev;
+    } else {
+        return myAlternatives[myLastUsed]->writeXMLDefinition(dev, asAlternatives);
+    }
 }
 
 

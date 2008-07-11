@@ -258,8 +258,7 @@ public:
     void setRestrictionFound();
 
 protected:
-    /** Saves the given route together with her alternatives */
-    const RORouteDef * const computeRoute(OptionsCont &options,
+    bool computeRoute(OptionsCont &options,
                                           SUMOAbstractRouter<ROEdge,ROVehicle> &router, const ROVehicle * const veh);
 
     /// Initialises the lists of source and destination edges

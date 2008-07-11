@@ -32,6 +32,7 @@
 
 #include <string>
 #include <utils/common/Named.h>
+#include <utils/common/RGBColor.h>
 
 
 // ===========================================================================
@@ -64,7 +65,7 @@ public:
      * @todo Are costs/prob really mandatory?
      */
     RORoute(const std::string &id, SUMOReal costs, SUMOReal prob,
-            const std::vector<const ROEdge*> &route) throw();
+            const std::vector<const ROEdge*> &route, const RGBColor &color) throw();
 
 
     /** @brief Copy constructor
@@ -178,10 +179,21 @@ public:
         return myRoute;
     }
 
+    /** @brief Returns this route's color
+     *
+     * @return This route's color
+     */
+    const RGBColor &getColor() const throw() {
+        return myColor;
+    }
+
 
     /** @brief Checks whether this route contains loops and removes such
      */
     void recheckForLoops() throw();
+
+OutputDevice &
+writeXMLDefinition(OutputDevice &dev, bool asAlternatives) const;
 
 
 private:
@@ -194,6 +206,8 @@ private:
     /// @brief The edges the route consists of
     std::vector<const ROEdge*> myRoute;
 
+    /// @brief The color of the route
+    RGBColor myColor;
 
 private:
     /// @brief Invalidated assignment operator

@@ -45,6 +45,7 @@ class ROEdge;
 class RORoute;
 class OptionsCont;
 class ROVehicle;
+class OutputDevice;
 
 
 // ===========================================================================
@@ -88,22 +89,20 @@ public:
     /** @brief Returns a copy of the route definition */
     virtual RORouteDef *copy(const std::string &id) const = 0;
 
-    virtual const std::vector<const ROEdge*> &getCurrentEdgeVector() const = 0;
-
-    /** @brief returns the index of the route that was used as last
-    *
-     * Returns 0 for most of the implementations, as currently only alternatives may
-     * have more than just a single route */
-    virtual int getLastUsedIndex() const;
-
-    /** @brief returns the number of alternatives
-    *
-     * Returns 1 for most of the implementations, as currently only alternatives may
-     * have more than just a single route */
-    virtual size_t getAlternativesSize() const;
-
     /// Returns the color of the route
     const RGBColor &getColor() const;
+
+
+    /** @brief Saves the built route / route alternatives
+     *
+     * Writes the route into the given stream.
+     *
+     * @param[in] dev The device to write the route into
+     * @param[in] asAlternatives Whether the route shall be saved as route alternatives
+     * @return The same device for further usage
+     */
+    virtual OutputDevice &writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives) const = 0;
+
 
 protected:
     /// The color the route shall have

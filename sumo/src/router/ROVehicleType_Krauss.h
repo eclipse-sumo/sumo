@@ -80,7 +80,7 @@ public:
      * @param[in] dev The device to write the definition into
      * @return The same device for further usage
      */
-    OutputDevice &xmlOut(OutputDevice &dev) const;
+    OutputDevice &writeXMLDefinition(OutputDevice &dev) const;
     //@}
 
 private:

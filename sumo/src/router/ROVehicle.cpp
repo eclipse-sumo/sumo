@@ -155,15 +155,14 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
 
 void
 ROVehicle::saveAllAsXML(OutputDevice &os,
-                        OutputDevice * const altos,
-                        const RORouteDef * const route) const throw(IOError)
+                        OutputDevice * const altos) const throw(IOError)
 {
     // check whether the vehicle's type was saved before
     if (myType!=0&&!myType->isSaved()) {
         // ... save if not
-        myType->xmlOut(os);
+        myType->writeXMLDefinition(os);
         if (altos!=0) {
-            myType->xmlOut(*altos);
+            myType->writeXMLDefinition(*altos);
         }
         myType->markSaved();
     }
@@ -177,43 +176,14 @@ ROVehicle::saveAllAsXML(OutputDevice &os,
     }
 
     // check whether the route shall be saved
-    if (!route->isSaved()) {
-        // write the route
-        const std::vector<const ROEdge*> &routee = route->getCurrentEdgeVector();
-        os << "      <route";
-        const RGBColor &c = route->getColor();
-        if (c!=RGBColor()) {
-            os << " color=\"" << c << "\"";
-        }
-        os << ">" << routee << "</route>\n";
-        // check whether the alternatives shall be written
+    if (!myRoute->isSaved()) {
+        os << "      ";
+        myRoute->writeXMLDefinition(os, this, false);
         if (altos!=0) {
-            (*altos) << "      <routealt last=\"" << myRoute->getLastUsedIndex() << "\"";
-            if (c!=RGBColor()) {
-                (*altos) << " color=\"" << c << "\"";
-            }
-            (*altos) << ">\n";
-            if (myRoute->getAlternativesSize()!=1) {
-                // ok, we have here a RORouteDef_Alternatives
-                for (size_t i=0; i!=myRoute->getAlternativesSize(); i++) {
-                    const RORoute &alt =
-                        static_cast<RORouteDef_Alternatives*>(myRoute)->getAlternative(i);//myAlternatives[i];
-                    (*altos) << "         <route cost=\"" << alt.getCosts();
-                    (*altos) << "\" probability=\"" << alt.getProbability();
-                    (*altos) << "\">";
-                    alt.xmlOutEdges((*altos));
-                    (*altos) << "</route>\n";
-                }
-            } else {
-                // ok, only one alternative; let's write it plain
-                (*altos) << "         <route cost=\"" << ROHelper::recomputeCosts(routee, this, getDepartureTime());
-                (*altos) << "\" probability=\"1";
-                (*altos) << "\">" << routee << "</route>\n";
-            }
-            (*altos) << "      </routealt>\n";
+            (*altos) << "      ";
+            myRoute->writeXMLDefinition(*altos, this, true);
         }
     }
-
     os << "   </vehicle>\n";
     if (altos!=0) {
         (*altos) << "   </vehicle>\n";

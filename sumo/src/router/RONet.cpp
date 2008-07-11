@@ -182,7 +182,7 @@ RONet::addVehicle(const std::string &id, ROVehicle *veh) throw()
 }
 
 
-const RORouteDef * const
+bool
 RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                     const ROVehicle * const veh)
 {
@@ -194,18 +194,18 @@ RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &
     // check if the route definition is valid
     if (routeDef==0) {
         mh->inform("The vehicle '" + veh->getID() + "' has no valid route.");
-        return 0;
+        return false;
     }
     // check whether the route was already saved
     if (routeDef->isSaved()) {
-        return routeDef;
+        return true;
     }
     //
     RORoute *current =
         routeDef->buildCurrentRoute(router, veh->getDepartureTime(), *veh);
     if (current==0||current->getEdgeVector().size()==0) {
         delete current;
-        return 0;
+        return false;
     }
     // check whether we have to evaluate the route for not containing loops
     if (options.getBool("remove-loops")) {
@@ -220,11 +220,11 @@ RONet::computeRoute(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &
             mh->inform("The route '" + routeDef->getID() + "' is too short, probably ending at the starting edge.\n Skipping...");
         }
         delete current;
-        return 0;
+        return false;
     }
     // add built route
     routeDef->addAlternative(veh, current, veh->getDepartureTime());
-    return routeDef;
+    return true;
 }
 
 
@@ -232,12 +232,11 @@ void
 RONet::saveAndRemoveRoutesUntil(OptionsCont &options, SUMOAbstractRouter<ROEdge,ROVehicle> &router,
                                 SUMOTime time)
 {
-    // sort the list of route definitions
     SUMOTime lastTime = -1;
     // write all vehicles (and additional structures)
     while (myVehicles.size()!=0) {
         // get the next vehicle
-        const ROVehicle * const veh = myVehicles.getTopVehicle();//sortedVehicles.top();
+        const ROVehicle * const veh = myVehicles.getTopVehicle();
         SUMOTime currentTime = veh->getDepartureTime();
         // check whether it shall not yet be computed
         if (currentTime>time) {
@@ -253,17 +252,18 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, SUMOAbstractRouter<ROEdge,
         lastTime = currentTime;
 
         // ok, compute the route (try it)
-        const RORouteDef * const route = computeRoute(options, router, veh);
-        if (route!=0) {
+        if(computeRoute(options, router, veh)) {
             // write the route
-            veh->saveAllAsXML(*myRoutesOutput, myRouteAlternativesOutput, route);
+            veh->saveAllAsXML(*myRoutesOutput, myRouteAlternativesOutput);
             myWrittenRouteNo++;
+            // remove the route if it is not longer used
+            /*
+            if (!myRoutes.erase(route->getID())) {
+                MsgHandler::getWarningInstance()->inform("Could not remove " + route->getID());
+            }
+            */
         } else {
             myDiscardedRouteNo++;
-        }
-        // remove the route if it is not longer used
-        if (route!=0&&!myRoutes.erase(route->getID())) {
-            MsgHandler::getWarningInstance()->inform("Could not remove " + route->getID());
         }
         // and the vehicle
         myVehicles.erase(veh->getID());

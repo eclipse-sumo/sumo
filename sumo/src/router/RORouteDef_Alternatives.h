@@ -54,7 +54,7 @@ class RORouteDef_Alternatives : public RORouteDef
 public:
     /// Constructor
     RORouteDef_Alternatives(const std::string &id, const RGBColor &color,
-                            size_t lastUsed, SUMOReal gawronBeta, SUMOReal gawronA, int maxRoutes) throw();
+                            unsigned int lastUsed, SUMOReal gawronBeta, SUMOReal gawronA, int maxRoutes) throw();
 
     /// Destructor
     virtual ~RORouteDef_Alternatives() throw();
@@ -73,22 +73,13 @@ public:
     /** @brief Returns a copy of the route definition */
     RORouteDef *copy(const std::string &id) const;
 
-    const std::vector<const ROEdge*> &getCurrentEdgeVector() const;
-
     void invalidateLast();
 
     void addExplicite(const ROVehicle *const veh, RORoute *current, SUMOTime begin);
 
     void removeLast();
 
-    /** @brief returns the index of the route that was used as last */
-    virtual int getLastUsedIndex() const;
-
-    /** @brief returns the number of alternatives */
-    virtual size_t getAlternativesSize() const;
-
-    /// Returns the alternative at the given index
-    virtual const RORoute &getAlternative(size_t i) const;
+    virtual OutputDevice &writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives) const;
 
 private:
     /// Searches for the route within the list of alternatives

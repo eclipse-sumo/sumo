@@ -38,7 +38,9 @@
 #include <utils/common/SUMOAbstractRouter.h>
 #include "ROVehicle.h"
 #include "ROVehicleType.h"
+#include "ROHelper.h"
 #include <utils/common/MsgHandler.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -80,15 +82,16 @@ RORouteDef_OrigDest::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
         edges.erase(edges.begin());
         edges.erase(edges.end()-1);
     }
-    return new RORoute(myID, 0, 1, edges);
+    return new RORoute(myID, 0, 1, edges, myColor);
 }
 
 
 void
-RORouteDef_OrigDest::addAlternative(const ROVehicle *const, RORoute *current, SUMOTime begin)
+RORouteDef_OrigDest::addAlternative(const ROVehicle *const veh, RORoute *current, SUMOTime begin)
 {
     myCurrent = current;
     myStartTime = begin;
+    current->setCosts(ROHelper::recomputeCosts(current->getEdgeVector(), veh, begin));
 }
 
 
@@ -100,12 +103,11 @@ RORouteDef_OrigDest::copy(const std::string &id) const
 }
 
 
-const std::vector<const ROEdge*> &
-RORouteDef_OrigDest::getCurrentEdgeVector() const
+OutputDevice &
+RORouteDef_OrigDest::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives) const
 {
-    return myCurrent->getEdgeVector();
+    return myCurrent->writeXMLDefinition(dev, asAlternatives);
 }
-
 
 
 /****************************************************************************/

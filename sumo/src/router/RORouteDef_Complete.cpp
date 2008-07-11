@@ -37,6 +37,7 @@
 #include <utils/common/UtilExceptions.h>
 #include "RORouteDef_Complete.h"
 #include "ROHelper.h"
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -92,7 +93,7 @@ RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
     if(costs<0) {
         throw ProcessError("Route '" + getID() + "' (vehicle '" + veh.getID() + "') is not valid.");
     }
-    return new RORoute(myID, 0, 1, myEdges);
+    return new RORoute(myID, 0, 1, myEdges, myColor);
 }
 
 
@@ -111,11 +112,34 @@ RORouteDef_Complete::copy(const std::string &id) const
 }
 
 
-const std::vector<const ROEdge*> &
-RORouteDef_Complete::getCurrentEdgeVector() const
+OutputDevice &
+RORouteDef_Complete::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives) const
 {
-    return myEdges;
+    // (optional) alternatives header
+    if(asAlternatives) {
+        dev << "      <routealt last=\"1\"";
+        if (myColor!=RGBColor()) {
+             dev << " color=\"" << myColor << "\"";
+        }
+        dev << ">\n   ";
+    }
+    // the route
+    dev << "      <route";
+    if (myColor!=RGBColor()) {
+        dev << " color=\"" << myColor << "\"";
+    }
+    if(asAlternatives) {
+        dev << " cost=\"" << ROHelper::recomputeCosts(myEdges, veh, veh->getDepartureTime());
+        dev << "\" probability=\"1";
+    }
+    dev << ">" << myEdges << "</route>\n";
+    // (optional) alternatives end
+    if(asAlternatives) {
+        dev << "      </routealt>\n";
+    }
+    return dev;
 }
+
 
 
 /****************************************************************************/

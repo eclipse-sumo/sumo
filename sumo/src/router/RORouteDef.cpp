@@ -67,20 +67,6 @@ RORouteDef::~RORouteDef() throw()
 {}
 
 
-int
-RORouteDef::getLastUsedIndex() const
-{
-    return 0;
-}
-
-
-size_t
-RORouteDef::getAlternativesSize() const
-{
-    return 1;
-}
-
-
 const RGBColor &
 RORouteDef::getColor() const
 {

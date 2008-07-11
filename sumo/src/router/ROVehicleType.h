@@ -88,7 +88,7 @@ public:
      * @param[in] dev The device to write the definition into
      * @return The same device for further usage
      */
-    virtual OutputDevice &xmlOut(OutputDevice &dev) const = 0;
+    virtual OutputDevice &writeXMLDefinition(OutputDevice &dev) const = 0;
 
     
     /** @brief Returns the name of the type

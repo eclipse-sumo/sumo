@@ -62,9 +62,10 @@ ROVehicleType_Krauss::~ROVehicleType_Krauss() throw()
 
 
 OutputDevice &
-ROVehicleType_Krauss::xmlOut(OutputDevice &dev) const
+ROVehicleType_Krauss::writeXMLDefinition(OutputDevice &dev) const
 {
-    dev << "   <vtype model=\"SUMO_KRAUSS\""
+    dev << "   ";
+    dev << "<vtype model=\"SUMO_KRAUSS\""
     << " id=\"" << myID << "\""
     << " accel=\"" << myA << "\""
     << " decel=\"" << myB << "\""
