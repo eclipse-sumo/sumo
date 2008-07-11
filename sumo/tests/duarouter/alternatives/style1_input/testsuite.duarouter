@@ -1,0 +1,11 @@
+# Tests whether the import of route alternatives with one departure time works
+one_time
+
+# Tests with route alternatives which departure time increases
+increasing_time
+
+# Test whether route alternatives with unsorted are imported correctly
+unsorted_time
+
+
+
