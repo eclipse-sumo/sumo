@@ -1,0 +1,88 @@
+<routes>
+      <route id="0">beg middle end rend</route>
+   <vehicle id="0" type="0" route="0" depart="0">
+   </vehicle>
+
+
+      <route id="10">beg middle end rend</route>
+   <vehicle id="10" type="0" depart="10" route="10" color="0,0,0">
+   </vehicle>
+
+      <route id="11">beg middle end rend</route>
+   <vehicle id="11" type="0" depart="11" route="11" color="1,0,1">
+   </vehicle>
+
+
+      <route id="20">beg middle end rend</route>
+   <vehicle id="20" type="0" depart="20" route="20" departpos="0">
+   </vehicle>
+
+      <route id="21">beg middle end rend</route>
+   <vehicle id="21" type="0" depart="21" route="21" departpos="10">
+   </vehicle>
+
+      <route id="22">beg middle end rend</route>
+   <vehicle id="22" type="0" depart="22" route="22" departpos="free">
+   </vehicle>
+
+      <route id="23">beg middle end rend</route>
+   <vehicle id="23" type="0" depart="23" route="23" departpos="random">
+   </vehicle>
+
+
+      <route id="30">beg middle end rend</route>
+   <vehicle id="30" type="0" depart="30" route="30" departlane="0">
+   </vehicle>
+
+      <route id="31">beg middle end rend</route>
+   <vehicle id="31" type="0" depart="31" route="31" departlane="1">
+   </vehicle>
+
+      <route id="32">beg middle end rend</route>
+   <vehicle id="32" type="0" depart="32" route="32" departlane="random">
+   </vehicle>
+
+      <route id="33">beg middle end rend</route>
+   <vehicle id="33" type="0" depart="33" route="33" departlane="free">
+   </vehicle>
+
+      <route id="34">beg middle end rend</route>
+   <vehicle id="34" type="0" depart="34" route="34" departlane="departlane">
+   </vehicle>
+
+
+      <route id="40">beg middle end rend</route>
+   <vehicle id="40" type="0" depart="40" route="40" departspeed="0">
+   </vehicle>
+
+      <route id="41">beg middle end rend</route>
+   <vehicle id="41" type="0" depart="41" route="41" departspeed="1">
+   </vehicle>
+
+      <route id="42">beg middle end rend</route>
+   <vehicle id="42" type="0" depart="42" route="42" departspeed="max">
+   </vehicle>
+
+      <route id="43">beg middle end rend</route>
+   <vehicle id="43" type="0" depart="43" route="43" departspeed="random">
+   </vehicle>
+
+
+      <route id="50">beg middle end rend</route>
+   <vehicle id="50" type="0" depart="50" route="50" period="0">
+   </vehicle>
+
+      <route id="51">beg middle end rend</route>
+   <vehicle id="51" type="0" depart="51" route="51" period="1">
+   </vehicle>
+
+
+      <route id="60">beg middle end rend</route>
+   <vehicle id="60" type="0" depart="60" route="60" repno="0">
+   </vehicle>
+
+      <route id="61">beg middle end rend</route>
+   <vehicle id="61" type="0" depart="61" route="61" repno="1">
+   </vehicle>
+
+</routes>

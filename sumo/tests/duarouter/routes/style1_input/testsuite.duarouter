@@ -13,4 +13,5 @@ increasing_time_novehtype
 # Tests whether passing colors works
 increasing_time_color
 
-
+# Cheks whether parameter passing works
+withparams
