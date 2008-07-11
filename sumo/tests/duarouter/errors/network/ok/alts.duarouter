@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/10/07 12:12:20 by SUMO duarouter Version 0.9.6
+<!-- generated on 07/10/08 12:40:34 by SUMO duarouter Version 0.9.7
 <configuration>
 
    <input>
@@ -18,7 +18,7 @@
 <route-alternatives>
    <vehicle id="0" depart="0">
       <routealt last="0">
-         <route cost="10.53" probability="1">1 2</route>
+         <route cost="10.53" probability="1.00">1 2</route>
       </routealt>
    </vehicle>
 </route-alternatives>

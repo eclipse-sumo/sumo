@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 11/27/07 08:09:45 by SUMO duarouter Version 0.9.7
+<!-- generated on 07/10/08 12:40:33 by SUMO duarouter Version 0.9.7
 <configuration>
 
    <input>
@@ -27,22 +27,22 @@
 <route-alternatives>
    <vehicle id="Rand2" depart="2">
       <routealt last="0">
-         <route cost="71.49" probability="1">left left2end end</route>
+         <route cost="71.49" probability="1.00">left left2end end</route>
       </routealt>
    </vehicle>
    <vehicle id="Rand3" depart="3">
       <routealt last="0">
-         <route cost="53.50" probability="1">left2end end rend</route>
+         <route cost="53.50" probability="1.00">left2end end rend</route>
       </routealt>
    </vehicle>
    <vehicle id="Rand6" depart="6">
       <routealt last="0">
-         <route cost="53.55" probability="1">beg2left left</route>
+         <route cost="53.55" probability="1.00">beg2left left</route>
       </routealt>
    </vehicle>
    <vehicle id="Rand8" depart="8">
       <routealt last="0">
-         <route cost="71.49" probability="1">left left2end end</route>
+         <route cost="71.49" probability="1.00">left left2end end</route>
       </routealt>
    </vehicle>
 </route-alternatives>

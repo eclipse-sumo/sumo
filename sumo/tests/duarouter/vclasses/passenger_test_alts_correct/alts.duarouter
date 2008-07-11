@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/18/07 16:50:50 by SUMO duarouter Version 0.9.6
+<!-- generated on 07/10/08 14:11:28 by SUMO duarouter Version 0.9.7
 <configuration>
 
    <input>
@@ -19,7 +19,7 @@
    <vtype model="SUMO_KRAUSS" id="0" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00" vclass="passenger"/>
    <vehicle id="0_0" type="0" depart="0">
       <routealt last="0">
-         <route cost="125.11" probability="1">absBeg middle end absEnd</route>
+         <route cost="125.11" probability="1.00">absBeg middle end absEnd</route>
       </routealt>
    </vehicle>
 </route-alternatives>
