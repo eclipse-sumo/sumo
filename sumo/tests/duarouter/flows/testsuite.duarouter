@@ -7,11 +7,19 @@
 # Same as 100s_interval, but the interval is defined as being enclosing
 100s_interval_ext
 
+# Same as 100s_interval, but with random vehicle emission times
+100s_interval_random
+
+
 # Test with 10 vehicles being divided on 200s
 200s_interval
 
 # Same as 200s_interval, but the interval is defined as being enclosing
 200s_interval_ext
+
+# Same as 200s_interval, but with random vehicle emission times
+200s_interval_random
+
 
 # Test whether passing optional vehicle attributes works
 100s_interval_withparams

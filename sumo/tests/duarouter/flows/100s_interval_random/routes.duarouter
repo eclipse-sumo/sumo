@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/11/08 13:51:26 by SUMO duarouter Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <flow-definition>input_flows.flows.xml</flow-definition>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+   <processing>
+      <randomize-flows>true</randomize-flows>
+   </processing>
+
+</configuration>
+-->
+
+<routes>
+   <vehicle id="0_0" depart="11">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_1" depart="11">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_2" depart="17">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_3" depart="19">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_4" depart="22">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_5" depart="28">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_6" depart="42">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_7" depart="46">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_8" depart="75">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="0_9" depart="77">
+      <route>beg middle end rend</route>
+   </vehicle>
+</routes>
