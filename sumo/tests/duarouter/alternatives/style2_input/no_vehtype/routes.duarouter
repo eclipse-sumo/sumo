@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 04/08/08 15:05:14 by SUMO duarouter Version 0.9.7
+<!-- generated on 07/11/08 10:58:22 by SUMO duarouter Version 0.9.7
 <configuration>
 
    <input>
@@ -22,301 +22,28 @@
    <vehicle id="1" depart="0" color="0.00,0.00,0.00">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="10" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="100" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="11" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="12" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="13" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="14" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="15" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="16" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="17" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="18" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="19" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
    <vehicle id="2" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="20" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="21" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="22" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="23" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="24" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="25" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="26" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="27" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="28" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="29" depart="0" color="0.00,0.00,0.00">
       <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="3" depart="0" color="0.00,0.00,0.00">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="30" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="31" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="32" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="33" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="34" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="35" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="36" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="37" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="38" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="39" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
    <vehicle id="4" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="40" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="41" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="42" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="43" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="44" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="45" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="46" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="47" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="48" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="49" depart="0" color="0.00,0.00,0.00">
       <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="5" depart="0" color="0.00,0.00,0.00">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="50" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="51" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="52" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="53" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="54" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="55" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="56" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="57" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="58" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="59" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
    <vehicle id="6" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="60" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="61" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="62" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="63" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="64" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="65" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="66" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="67" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="68" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="69" depart="0" color="0.00,0.00,0.00">
       <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="7" depart="0" color="0.00,0.00,0.00">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="70" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="71" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="72" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="73" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="74" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="75" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="76" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="77" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="78" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="79" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
    <vehicle id="8" depart="0" color="0.00,0.00,0.00">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="80" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="81" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="82" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="83" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="84" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="85" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="86" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="87" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="88" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="89" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
    <vehicle id="9" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="90" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="91" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="92" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="93" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="94" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="95" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="96" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="97" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="98" depart="0" color="0.00,0.00,0.00">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="99" depart="0" color="0.00,0.00,0.00">
       <route>beg middle end rend</route>
    </vehicle>
 </routes>

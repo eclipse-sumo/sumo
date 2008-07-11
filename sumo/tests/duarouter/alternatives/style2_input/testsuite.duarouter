@@ -16,9 +16,6 @@ with_2vehtypes
 # same as noid_increasing_time, but a non-standard vehicle type is used but not defined
 with_vehtype_nodef
 
-# Checks whether processing color information works
-colorcheck
-
 # Checks whether passing optional vehicle attributes works
 withparams
 
