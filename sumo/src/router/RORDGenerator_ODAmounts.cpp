@@ -116,7 +116,7 @@ RORDGenerator_ODAmounts::FlowDef::addRoutes(RONet &net, SUMOTime t)
         SUMOReal toEmit =
             (SUMOReal) myVehicle2EmitNumber
             / (SUMOReal)(myIntervalEnd-myIntervalBegin)
-            * (SUMOReal)(t-myIntervalBegin);
+            * (SUMOReal)(t-myIntervalBegin+.5);
         if (toEmit>myEmitted) {
             addSingleRoute(net, t);
         }
