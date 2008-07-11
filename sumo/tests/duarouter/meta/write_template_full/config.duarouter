@@ -23,6 +23,7 @@
       <random-per-second></random-per-second>
       <prune-random>false</prune-random>
       <remove-loops>false</remove-loops>
+      <repair>false</repair>
       <expand-weights>false</expand-weights>
       <scheme>traveltime</scheme>
       <gBeta>0.3</gBeta>

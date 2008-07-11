@@ -38,6 +38,7 @@ Usage: duarouter.exe [OPTION]*
   --prune-random                      
   --remove-loops                      Remove loops at start and end of the
                                         route
+  --repair                            Tries to correct a false route
   --expand-weights                    Expand weights behind the simulation's
                                         end
   -x, --scheme STR                    
