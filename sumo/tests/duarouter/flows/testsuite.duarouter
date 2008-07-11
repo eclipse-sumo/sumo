@@ -1,37 +1,31 @@
-# Ordered list of tests in test suite. Add as appropriate
+# Test with 10 vehicles having one departure time
+1s_interval
 
+# Test with 10 vehicles being divided on 100s
+100s_interval
 
-# Test with 100 vehicles having one departure time
-flows2routes
+# Same as 100s_interval, but the interval is defined as being enclosing
+100s_interval_ext
 
-# Test with 100 vehicles being divided on 100s
-flows2routes_100s_interval
+# Test with 10 vehicles being divided on 200s
+200s_interval
 
-# Same as flows2routes_100s_interval, but the interval is defined as being enclosing
-flows2routes_100s_interval_ext
-
-# Test with 100 vehicles being divided on 200s
-flows2routes_200s_interval
-
-# Same as flows2routes_200s_interval, but the interval is defined as being enclosing
-flows2routes_200s_interval_ext
-
-# Test whether color definition works
-flows2routes_100s_interval_withcolor
+# Same as 200s_interval, but the interval is defined as being enclosing
+200s_interval_ext
 
 # Test whether passing optional vehicle attributes works
-flows2routes_100s_interval_withparams
+100s_interval_withparams
 
 # Test whether types are used
-flows2routes_100s_interval_withtype
+100s_interval_withtype
 
 # Test whether types may be defined
-flows2routes_100s_interval_typedefined
+100s_interval_typedefined
 
 # Test whether two types may be defined
-flows2routes_100s_interval_2typesdefined
+100s_interval_2typesdefined
 
 # Test whether the vehicle class is processed
-flows2routes_100s_interval_withtype_withclass
+100s_interval_withtype_withclass
 
 
