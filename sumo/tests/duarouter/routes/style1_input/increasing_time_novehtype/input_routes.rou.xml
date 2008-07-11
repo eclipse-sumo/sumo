@@ -1,0 +1,32 @@
+<routes>
+   <route id="0">beg middle end rend</route>
+   <vehicle id="0" route="0" depart="0"/>
+
+   <route id="1">beg middle end rend</route>
+   <vehicle id="1" route="1" depart="10"/>
+
+   <route id="2">beg middle end rend</route>
+   <vehicle id="2" route="2" depart="20"/>
+
+   <route id="3">beg middle end rend</route>
+   <vehicle id="3" route="3" depart="30"/>
+
+   <route id="4">beg middle end rend</route>
+   <vehicle id="4" route="4" depart="40"/>
+
+   <route id="5">beg middle end rend</route>
+   <vehicle id="5" route="5" depart="50"/>
+
+   <route id="6">beg middle end rend</route>
+   <vehicle id="6" route="6" depart="60"/>
+
+   <route id="7">beg middle end rend</route>
+   <vehicle id="7" route="7" depart="70"/>
+
+   <route id="8">beg middle end rend</route>
+   <vehicle id="8" route="8" depart="80"/>
+
+   <route id="9">beg middle end rend</route>
+   <vehicle id="9" route="9" depart="90"/>
+
+</routes>

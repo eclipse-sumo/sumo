@@ -1,0 +1,15 @@
+<routes>
+   <route id="0">beg middle end rend</route>
+   <vtype id="KRAUSS_DEFAULT" accel="2.6" decel="4.5" sigma="0.5" length="5" maxspeed="70" color="1,1,0"/>
+   <vehicle id="0" type="KRAUSS_DEFAULT" route="0" depart="0"/>
+
+   <route id="1" color="1,0,0">beg middle end rend</route>
+   <vehicle id="1" type="KRAUSS_DEFAULT" route="1" depart="10"/>
+
+   <route id="2">beg middle end rend</route>
+   <vehicle id="2" type="KRAUSS_DEFAULT" route="2" depart="20" color="1,0,0"/>
+
+   <route id="3" color="1,0,0">beg middle end rend</route>
+   <vehicle id="3" type="KRAUSS_DEFAULT" route="3" depart="30" color="1,0,0"/>
+
+</routes>

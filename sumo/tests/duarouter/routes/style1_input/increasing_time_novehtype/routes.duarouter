@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/11/08 13:18:52 by SUMO duarouter Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <sumo-input>input_routes.rou.xml</sumo-input>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+</configuration>
+-->
+
+<routes>
+   <vehicle id="0" depart="0">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="1" depart="10">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="2" depart="20">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="3" depart="30">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="4" depart="40">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="5" depart="50">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="6" depart="60">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="7" depart="70">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="8" depart="80">
+      <route>beg middle end rend</route>
+   </vehicle>
+   <vehicle id="9" depart="90">
+      <route>beg middle end rend</route>
+   </vehicle>
+</routes>
