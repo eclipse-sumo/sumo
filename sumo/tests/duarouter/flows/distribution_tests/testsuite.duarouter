@@ -1,0 +1,14 @@
+# 1 vehicle in 100s
+10s_interval_1veh
+
+# 2 vehicle in 100s
+10s_interval_2veh
+
+# 5 vehicle in 100s
+10s_interval_5veh
+
+# 10 vehicle in 100s
+10s_interval_10veh
+
+# 20 vehicle in 100s
+10s_interval_20veh

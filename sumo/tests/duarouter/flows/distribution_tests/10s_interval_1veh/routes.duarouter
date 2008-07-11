@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/11/08 13:57:49 by SUMO duarouter Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <flow-definition>input_flows.flows.xml</flow-definition>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+</configuration>
+-->
+
+<routes>
+   <vehicle id="0_0" depart="0">
+      <route>beg middle end rend</route>
+   </vehicle>
+</routes>

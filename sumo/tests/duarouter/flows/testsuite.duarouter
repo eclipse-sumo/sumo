@@ -37,3 +37,6 @@
 100s_interval_withtype_withclass
 
 
+
+# Additional tests for distributing vehicles over time
+distribution_tests
