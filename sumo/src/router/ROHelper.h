@@ -50,10 +50,10 @@ class ROVehicleByDepartureComperator : public std::less<ROVehicle*>
 {
 public:
     /// @brief Constructor
-    explicit ROVehicleByDepartureComperator() { }
+    explicit ROVehicleByDepartureComperator() throw() { }
 
     /// @brief Destructor
-    ~ROVehicleByDepartureComperator() { }
+    ~ROVehicleByDepartureComperator() throw() { }
 
     /** @brief Comparing operator
      *
@@ -66,7 +66,7 @@ public:
      * @return Whether the first vehicle departs later than the second
      * @todo Check whether both vehicles can be const
      */
-    bool operator()(ROVehicle *veh1, ROVehicle *veh2) const {
+    bool operator()(ROVehicle *veh1, ROVehicle *veh2) const throw() {
         if (veh1->getDepartureTime()==veh2->getDepartureTime()) {
             return veh1->getID()>veh2->getID();
         }
