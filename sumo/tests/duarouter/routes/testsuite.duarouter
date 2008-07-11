@@ -1,55 +1,8 @@
-# Ordered list of tests in test suite. Add as appropriate
+# Tests with routes stored in style1-input
+#  style1: <route .../><vehicle route="..." .../>
+style1_input
 
-
-# Tests whether the import of routes with one departure time works
-one_time
-
-# Tests with routes which departure time increases
-increasing_time
-
-# Test whether routes with unsorted are imported correctly
-unsorted_time
-
-# same as one_time but with new style definition (routes have an id)
-newstyle_withid_one_time
-
-# same as increasing_time but with new style definition (routes have an id)
-newstyle_withid_increasing_time
-
-# same as unsorted_time but with new style definition (routes have an id)
-newstyle_withid_unsorted_time
-
-# same as one_time but with new style definition (no id in routes)
-newstyle_noid_one_time
-
-# same as increasing_time but with new style definition (no id in routes)
-newstyle_noid_increasing_time
-
-# same as unsorted_time but with new style definition (no id in routes)
-newstyle_noid_unsorted_time
-
-# Test whether processing colors works
-newstyle_increasing_colors
-
-# same as newstyle_noid_increasing_time, but a non-standard vehicle type is defined
-newstyle_with_vehtype
-
-# same as newstyle_with_vehtype, but two non-standard vehicle types ae defined
-newstyle_with_2vehtypes
-
-# same as newstyle_noid_increasing_time, but a non-standard vehicle type is used but not defined
-newstyle_with_vehtype_nodef
-
-# Checks whether processing color information works
-newstyle_colorcheck
-
-# Checks whether passing optional vehicle attributes works
-newstyle_withparams
-
-# Checks whether the vehicle class is processed
-newstyle_with_vehtype_withclass
-
-# Checks whether the vehicle type can be omitted
-newstyle_no_vehtype
-
+# Tests with routes stored in style1-input
+#  style2: <vehicle ...><route .../></vehicle>
+style2_input
 
