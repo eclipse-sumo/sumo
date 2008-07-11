@@ -135,7 +135,7 @@ ROEdge::addFollower(ROEdge *s) throw()
 
 
 void
-ROEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd)
+ROEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw()
 {
     myOwnValueLine.add(timeBegin, timeEnd, value);
     myUsingTimeLine = true;
@@ -143,7 +143,7 @@ ROEdge::addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd)
 
 
 SUMOReal
-ROEdge::getEffort(const ROVehicle *const, SUMOReal t) const
+ROEdge::getEffort(const ROVehicle *const, SUMOReal t) const throw()
 {
     SUMOTime time = (SUMOTime) t;
     FloatValueTimeLine::SearchResult searchResult;
@@ -254,7 +254,7 @@ ROEdge::setSupplementaryWeights(FloatValueTimeLine* absolut,
 
 
 bool
-ROEdge::prohibits(const ROVehicle * const vehicle) const
+ROEdge::prohibits(const ROVehicle * const vehicle) const throw()
 {
     if (myAllowedClasses.size()==0&&myNotAllowedClasses.size()==0) {
         return false;
@@ -288,7 +288,7 @@ ROEdge::setNodes(RONode *from, RONode *to) throw()
 
 
 bool
-ROEdge::allFollowersProhibit(const ROVehicle * const vehicle) const
+ROEdge::allFollowersProhibit(const ROVehicle * const vehicle) const throw()
 {
     for (std::vector<ROEdge*>::const_iterator i=myFollowingEdges.begin(); i!=myFollowingEdges.end(); ++i) {
         if (!(*i)->prohibits(vehicle)) {

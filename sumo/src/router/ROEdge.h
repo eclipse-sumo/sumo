@@ -197,6 +197,20 @@ public:
     bool isConnectedTo(const ROEdge * const e) const throw() {
         return std::find(myFollowingEdges.begin(), myFollowingEdges.end(), e)!=myFollowingEdges.end();
     }
+
+
+    /** @brief Returns whether this edge prohibits the given vehicle to pass it 
+     * @param[in] vehicle The vehicle for which the information has to be returned
+     * @return Whether the vehicle must not enter this edge
+     */
+    bool prohibits(const ROVehicle * const vehicle) const throw();
+
+
+    /** @brief Returns whether this edge succeding edges prohibit the given vehicle to pass them
+     * @param[in] vehicle The vehicle for which the information has to be returned
+     * @return Whether the vehicle may continue its route on any of the following edges
+     */
+    bool allFollowersProhibit(const ROVehicle * const vehicle) const throw();
     //@}
 
 
@@ -211,7 +225,7 @@ public:
      * @param[in] timeEnd The end time of the interval the given value is valid for
      * @todo Refactor weights usage
      */
-    void addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd);
+    void addWeight(SUMOReal value, SUMOTime timeBegin, SUMOTime timeEnd) throw();
 
 
     /** @brief Returns the number of edges this edge is connected to
@@ -233,32 +247,55 @@ public:
     }
 
 
-    /// returns the effort for this edge only
-    virtual SUMOReal getEffort(const ROVehicle *const, SUMOReal time) const;
-    /// retrieves the cost of this edge at the given time
-    SUMOReal getCost(const ROVehicle *const, SUMOTime time) const;
+    /** @brief Returns the effort (normally the travel time) for this edge 
+     *
+     * @param[in] veh The vehicle for which the effort on this edge shall be retrieved
+     * @param[in] time The tim for which the effort shall be returned
+     * @return The effort needed by the given vehicle to pass the edge at the given time
+     * @todo Refactor weights usage
+     * @todo Recheck whether the vehicle's maximum speed is considered
+     * @todo What is the difference to getCost?
+     */
+    virtual SUMOReal getEffort(const ROVehicle * const veh, SUMOReal time) const throw();
 
-    /// Retrieves the time a vehicle needs to pass this edge starting at the given time
-    SUMOReal getDuration(const ROVehicle *const, SUMOTime time) const;
+
+    /** @brief retrieves the cost of this edge at the given time
+     *
+     * @param[in] veh The vehicle for which the cost on this edge shall be retrieved
+     * @param[in] time The tim for which the cost shall be returned
+     * @return The cost needed by the given vehicle to pass the edge at the given time
+     * @todo Refactor weights usage
+     * @todo Recheck whether the vehicle's maximum speed is considered
+     * @todo What is the difference to getEffort?
+     */
+    SUMOReal getCost(const ROVehicle * const veh, SUMOTime time) const throw();
 
 
-    /**
+    /** @brief Retrieves the travel time a vehicle needs to pass this edge starting at the given time 
+     * 
+     * @param[in] veh The vehicle for which the travel time on this edge shall be retrieved
+     * @param[in] time The tim for which the travel time shall be returned
+     * @return The travel time needed by the given vehicle to pass the edge at the given time
+     * @todo This is read from the smae container as cost??? Not good
+     */
+    SUMOReal getDuration(const ROVehicle *const, SUMOTime time) const throw();
+
+
+    /** @brief Sets additional weight information
+     *
      * Takes pointers to FloatValueTimeLines and assigns them to the classes
      *  supplementary weights. You must provide all three FloatValueTimeLines
      *  and they must be valid objects. These objects will be deleted on deletion
      *  of this ROEdge. The flag hasSupplementaryWeights will be set to true and
      *  getMyEffort() will use this supplementary weights in subsequent calls.
-     * @param absolut Pointer to the absolut-FloatValueTimeLine.
-     *
-     * @param add Pointer to the add-FloatValueTimeLine.
-     * @param mult Pointer to the mult-FloatValueTimeLine.
+     * @param[in] absolut Pointer to the absolut-FloatValueTimeLine.
+     * @param[in] add Pointer to the add-FloatValueTimeLine.
+     * @param[in] mult Pointer to the mult-FloatValueTimeLine.
      */
     void setSupplementaryWeights(FloatValueTimeLine* absolut,
                                  FloatValueTimeLine* add,
                                  FloatValueTimeLine* mult);
-
-    bool prohibits(const ROVehicle * const vehicle) const;
-    bool allFollowersProhibit(const ROVehicle * const vehicle) const;
+    //@}
 
 
 
@@ -269,6 +306,7 @@ protected:
     /// @brief The maximum speed allowed on this edge
     SUMOReal mySpeed;
 
+
     /// @brief Container storing passing time varying over time for the edge
     FloatValueTimeLine myOwnValueLine;
 
@@ -278,13 +316,28 @@ protected:
     FloatValueTimeLine* mySupplementaryWeightAdd;
     /// @brief "Multiplication" supplementary weights.
     FloatValueTimeLine* mySupplementaryWeightMult;
-
-    /// @brief List of edges that may be approached from this edge
-    std::vector<ROEdge*> myFollowingEdges;
+    /// @brief Flag that indicates, if the supplementary weights have been set. Initially false.
+    bool myHasSupplementaryWeights;
 
     /// @brief Information whether the time line shall be used instead of the length value
     bool myUsingTimeLine;
+    /// @brief Whether overriding weight boundaries shall be reported
+    bool myUseBoundariesOnOverride;
+    /// @brief Whether overriding weight shortcur has been built
+    mutable bool myHaveBuildShortCut;
+    /// @brief The weight shortcut
+    mutable SUMOReal *myPackedValueLine;
+    /// @brief The weight shortcut's parameter
+    mutable SUMOTime myShortCutBegin, myShortCutEnd, myShortCutInterval;
+    /// @brief Index of the last weights shortcut
+    mutable size_t myLastPackedIndex;
 
+    /// @brief Information whether the edge has reported missing weights
+    static bool myHaveWarned;
+
+
+    /// @brief List of edges that may be approached from this edge
+    std::vector<ROEdge*> myFollowingEdges;
 
     /// @brief The type of the edge
     EdgeType myType;
@@ -295,12 +348,7 @@ protected:
     /// @brief The length of the edge
     SUMOReal myLength;
 
-    /// @brief Flag that indicates, if the supplementary weights have been set. Initially false.
-    bool myHasSupplementaryWeights;
-
-    /// @brief Information whether the edge has reported missing weights
-    static bool myHaveWarned;
-
+    /// @brief This edge's lanes
     std::vector<ROLane*> myLanes;
 
     /// @brief The list of allowed vehicle classes
@@ -311,13 +359,6 @@ protected:
 
     /// @brief The nodes this edge is connecting
     RONode *myFromNode, *myToNode;
-
-    bool myUseBoundariesOnOverride;
-    mutable bool myHaveBuildShortCut;
-    mutable SUMOReal *myPackedValueLine;
-    mutable SUMOTime myShortCutBegin, myShortCutEnd, myShortCutInterval;
-    mutable size_t myLastPackedIndex;
-
 
 private:
     /// @brief Invalidated copy constructor
