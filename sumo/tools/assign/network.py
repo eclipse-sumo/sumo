@@ -14,6 +14,7 @@ All rights reserved
 import os, random, string, sys, datetime, math, operator
 from xml.sax import saxutils, make_parser, handler
 from elements import Predecessor, Vertex, Edge, Vehicle, Path, TLJunction, Signalphase, DetectedFlows
+from dijkstra import dijkstra
 
 # Net class stores the network (vertex and edge collection). 
 # Moreover, the methods for finding k shortest paths and for generating vehicular releasing times
@@ -102,6 +103,66 @@ class Net:
                     outEdge.target.outEdges.discard(uTurnEdge)
                     link.source.inEdges.discard(uTurnEdge)
                     
+    def findNewPath(self, startVertices, endVertices, newRoutes, matrixPshort, lohse):
+        """
+        This method finds the new paths for all OD pairs.
+        The Dijkstra algorithm is applied for searching the shortest paths.
+        """
+        newRoutes = 0
+        for start, startVertex in enumerate(startVertices):
+            D,P = dijkstra(startVertex, lohse)            
+            for end, endVertex in enumerate(endVertices):
+                if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
+                    helpPath = []
+                    pathcost = D[endVertex]/3600.
+                    ODPaths = self._paths[startVertex][endVertex]
+                    for path in ODPaths:
+                        path.currentshortest = False
+                        
+                    vertex = endVertex
+                    while vertex != startVertex:
+                        if P[vertex].kind == "real":
+                            helpPath.append(P[vertex])
+                        vertex = P[vertex].source
+                    helpPath.reverse()
+    
+                    newPath = True
+                    smallDiffPath = False                    
+                    for path in ODPaths:
+                        if path.edges == helpPath:
+                            newPath = False
+                            break
+                        else:
+                            sameEdgeCount = 0
+                            sameTravelTime = 0.0
+                            for edge in helpPath:
+                                if edge in path.edges:
+                                    sameEdgeCount += 1 
+                                    sameTravelTime += edge.actualtime
+                            if abs(sameEdgeCount - len(path.edges))/len(path.edges) <= 0.1 and abs(sametraveltime/3600. - pathcost) <= 0.05:
+                                newPath = False
+                                smallDiffPath = True
+                                break
+                    if newPath:
+                        newpath = Path(startVertex, endVertex, helpPath)
+                        ODPaths.append(newpath)
+                        if lohse:
+                            newpath.pathhelpacttime = pathcost
+                        else:    
+                            newpath.actpathtime = pathcost
+                        for edge in newpath.edges:
+                            newpath.freepathtime += edge.freeflowtime
+                        newRoutes += 1
+                    elif not smallDiffPath:
+                        if lohse:
+                            path.pathhelpacttime = pathcost
+                        else:
+                            path.actpathtime = pathcost
+                        path.usedcounts += 1
+                        path.currentshortest = True
+        
+        return newRoutes
+
 #    find the k shortest paths for each OD pair. The "k" is defined by users.
     def calcKPaths(self, verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort):
         if verbose:
@@ -134,78 +195,33 @@ class Net:
                         while vertex != startVertex:
                             if pred.edge.kind == "real":
                                 temppath.append(pred.edge)
+                                temppathcost += pred.edge.freeflowtime
                             vertex = pred.edge.source
                             pred = pred.pred
-                        
-                        for edge in temppath:
-                            temppathcost += edge.freeflowtime
                         
                         if len(ODPaths) > 0:
                             minpath = min(ODPaths, key=operator.attrgetter('freepathtime'))
                             if minpath.freepathtime*1.4 < temppathcost/3600.:
                                 break
-                            else:
-                                newpath = Path()
-                                newpath.usedcounts += 1
-                                ODPaths.append(newpath)
-                                newpath.source = startVertex
-                                newpath.target = endVertex
-                                temppath.reverse()
-                                newpath.Edges = temppath
-                                newpath.freepathtime = temppathcost/3600.
-                                newpath.actpathtime = newpath.freepathtime
-                                newRoutes += 1
-                                if verbose:
-                                    foutkpath.write('    <path id="%s" source="%s" target="%s" pathcost="%s">\n' %(newpath.label, newpath.source, newpath.target, newpath.actpathtime))  
-                                    foutkpath.write('        <route>')
-                                    for edge in newpath.Edges[1:-1]:
-                                        foutkpath.write('%s ' %edge.label)
-                                    foutkpath.write('</route>\n')
-                                    foutkpath.write('    </path>\n')
-                        else:
-                            newpath = Path()
-                            newpath.usedcounts += 1
-                            ODPaths.append(newpath)
-                            newpath.source = startVertex
-                            newpath.target = endVertex
-                            temppath.reverse()                           
-                            newpath.Edges = temppath
-                            newpath.freepathtime = temppathcost/3600.
-                            newpath.actpathtime = newpath.freepathtime
-                            newRoutes += 1     
-                            if verbose:
-                                foutkpath.write('    <path id="%s" source="%s" target="%s" pathcost="%s">\n' %(newpath.label, newpath.source, newpath.target, newpath.actpathtime))  
-                                foutkpath.write('        <route>')
-                                for edge in newpath.Edges[1:-1]:
-                                    foutkpath.write('%s ' %edge.label)
-                                foutkpath.write('</route>\n')
-                                foutkpath.write('    </path>\n')     
+                        temppath.reverse()
+                        newpath = Path(startVertex, endVertex, tempPath)
+                        ODPaths.append(newpath)
+                        newpath.freepathtime = temppathcost/3600.
+                        newpath.actpathtime = newpath.freepathtime
+                        newRoutes += 1
+                        if verbose:
+                            foutkpath.write('    <path id="%s" source="%s" target="%s" pathcost="%s">\n' %(newpath.label, newpath.source, newpath.target, newpath.actpathtime))  
+                            foutkpath.write('        <route>')
+                            for edge in newpath.edges[1:-1]:
+                                foutkpath.write('%s ' %edge.label)
+                            foutkpath.write('</route>\n')
+                            foutkpath.write('    </path>\n')
         if verbose:
             foutkpath.write('</routes>\n')
             foutkpath.close()
             
         return newRoutes
 
-    def vehRelease(self, verbose, Parcontrol, departtime, CurrentMatrixSum):
-        if verbose:
-            print 'RandomVehRelease:', Parcontrol[(len(Parcontrol)-3)]
-            print 'CurrentMatrixSum:', CurrentMatrixSum
-        # generate the departure time for each vehicle uniform randomly
-        if int(Parcontrol[(len(Parcontrol)-3)]) == 0:
-            for veh in self._vehicles:                                                       
-                if veh.depart == 0:
-                    veh.depart = random.randint(departtime, departtime + 3600)
-        else:
-        # generate the departure time for each vehicle poisson randomly (based on a hourly matrix)
-            random.shuffle(net._vehicles)
-            beta = float(3600. / CurrentMatrixSum)
-            releasetime = departtime
-            for veh in self._vehicles:
-                if veh.depart == 0.:
-                    probability = random.random()
-                    releasetime = releasetime + (-beta * (math.log(1.0 - probability)))
-                    veh.depart = releasetime      
-                        
     def printNet(self, foutnet):
         foutnet.write('Name\t Kind\t FrNode\t ToNode\t length\t MaxSpeed\t Lanes\t CR-Curve\t EstCap.\t Free-Flow TT\t Weight\t Connection\n')
         for edgeName, edgeObj in self._edges.iteritems():
@@ -337,23 +353,6 @@ class DistrictsReader(handler.ContentHandler):
             self._net.addEdge(newEdge)
             newEdge.weight = attrs['weight']
             newEdge.connection = 2
-
-# The class is for parsing the XML input file (vehicle information). This class is used in the networkStatistics.py for
-# calculating the gloabal network performances, e.g. avg. travel time and avg. travel speed.
-class VehInformationReader(handler.ContentHandler):
-    def __init__(self, vehList):
-        self._vehList = vehList
-        self._Vehicle = None
-        self._routeString = ''
-            
-    def startElement(self, name, attrs):
-        if name == 'tripinfo':
-            self._Vehicle = Vehicle(attrs['id'])
-            self._Vehicle.traveltime = float(attrs['duration'])
-            self._Vehicle.travellength = float(attrs['routeLength'])
-            self._Vehicle.departdelay = float(attrs['departDelay'])
-            self._Vehicle.waittime = float(attrs['departDelay']) + float(attrs['waitSteps']) 
-            self._vehList.append(self._Vehicle)
 
 ## This class is for parsing the additional/updated information about singal timing plans
 class ExtraSignalInformationReader(handler.ContentHandler):

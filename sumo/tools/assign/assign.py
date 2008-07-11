@@ -11,18 +11,16 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import os, random, string, sys, math, operator
+import math, operator
 import elements
 from elements import Vertex, Edge, Path, Vehicle
 from network import Net
-from getPaths import findNewPath
 
 def doIncAssign(net, verbose, Parcontrol, iter, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID): 
     # matrixPlong and matrixTruck should be added if available.
     for end, endVertex in enumerate(endVertices): 
         if str(startVertex) != str(endVertex) and (matrixPshort[start][end] > 0.0):
         # if matrixPling and the matrixTruck exist, matrixPlong[start][end] > 0.0 or matrixTruck[start][end] > 0.0): should be added.
-            Path = []
             helpPath = []
             pathtime = 0.
             pathlength = 0.
@@ -31,6 +29,7 @@ def doIncAssign(net, verbose, Parcontrol, iter, endVertices, start, startVertex,
             while vertex != startVertex:
                 if P[vertex].kind == "real":
                     helpPath.append(P[vertex])
+                    P[vertex].flow += matrixPshort[start][end]* float(Parcontrol[iter])                 
                 vertex = P[vertex].source
             helpPath.reverse()
             
@@ -45,12 +44,10 @@ def doIncAssign(net, verbose, Parcontrol, iter, endVertices, start, startVertex,
             
             AssignedTrip[startVertex][endVertex] += pathflow
             
-            AssignedVeh, AssignedTrip, vehID = assignVeh(verbose, net, startVertex, endVertex, helpPath, AssignedVeh, AssignedTrip, vehID)
+            vehID = assignVeh(verbose, net, startVertex, endVertex, helpPath, AssignedVeh, AssignedTrip, vehID)
 
-            for edge in helpPath:
-                edge.flow += matrixPshort[start][end]* float(Parcontrol[iter])                 
     
-    return AssignedVeh, AssignedTrip, vehID
+    return vehID
   
 # execute the SUE model with the given path set
 def doSUEAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, iter, lohse, first):
@@ -260,7 +257,7 @@ def doSUEVehAssign(verbose, net, counter, matrixPshort, Parcontrol, startVertice
                         
                     AssignedTrip[startVertex][endVertex] += path.pathflow
                     edges = path.Edges
-                    AssignedVeh, AssignedTrip, vehID = assignVeh(verbose, net, startVertex, endVertex, edges, AssignedVeh,  AssignedTrip, vehID)
+                    vehID = assignVeh(verbose, net, startVertex, endVertex, edges, AssignedVeh,  AssignedTrip, vehID)
                 if verbose:
                     foutpath.write('\n')
     if verbose:
@@ -268,7 +265,7 @@ def doSUEVehAssign(verbose, net, counter, matrixPshort, Parcontrol, startVertice
         foutpath.write('\ntotal Number of the used paths for the current matrix:%s' %TotalPath)
         foutpath.close()
         fouterror.close()
-    return AssignedVeh, AssignedTrip, vehID
+    return vehID
 
            
 def assignVeh(verbose, net, startVertex, endVertex, path, AssignedVeh, AssignedTrip, vehID):
@@ -283,7 +280,7 @@ def assignVeh(verbose, net, startVertex, endVertex, path, AssignedVeh, AssignedT
         print 'AssignedTrip[start][end]', AssignedTrip[startVertex][endVertex]
         print 'AssignedVeh[start][end]', AssignedVeh[startVertex][endVertex]
     
-    return AssignedVeh, AssignedTrip, vehID
+    return vehID
 
 def getThetaForCLogit(ODPaths):
     sum = 0.
@@ -376,7 +373,7 @@ def getLinkChoiceProportions(curvefile, verbose, net, matrixPshort, Parcontrol, 
                 foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
 
             elif not checkKPaths and iter_outside == 1 and counter == 0:
-                newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
+                newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, lohse)
             
             checkKPaths = False
               
@@ -391,7 +388,7 @@ def getLinkChoiceProportions(curvefile, verbose, net, matrixPshort, Parcontrol, 
                     stable = doLohseStopCheck(net, verbose, stable, iter_inside, maxIteration, Parcontrol, foutlog)
                 iter_inside += 1
                 
-                newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
+                newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, lohse)
                 
                 if verbose:
                     print 'stable:', stable
@@ -423,7 +420,7 @@ def getLinkChoiceProportions(curvefile, verbose, net, matrixPshort, Parcontrol, 
             foutlog.write('- Current iteration(not executed yet):%s\n' %iter)
             iter += 1
             
-            findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
+            net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, lohse)
             for start, startVertex in enumerate(startVertices):
                 for end, endVertex in enumerate(endVertices):
                     if str(startVertex) != str(endVertex) and (matrixPshort[start][end] > 0.0):

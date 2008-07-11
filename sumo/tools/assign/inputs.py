@@ -11,8 +11,6 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import os, random, string, sys, datetime
-
 # read the assignment parameters and put into the list 'Parcontrol'
 def getParameter(parfile):
     Parcontrol = []
@@ -25,15 +23,9 @@ def getParameter(parfile):
 # read the analyzed matrix         
 def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     matrixPshort = []
-# matrixPlong, matrixTruck are for the matrices regarding long-distance trips and truck trips.
-#    matrixPlong = []
-#    matrixTruck = []
     startVertices = []
     endVertices = []
     Pshort_EffCells = 0
-# the numberof OD pairs (demand > 0) in the matrixPlong and the matrixTruck    
-#    Plong_EffCells = 0
-#    Truck_EffCells = 0
 
     if verbose:
         print 'matrix:', str(matrix)                                 
@@ -81,73 +73,11 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
         print 'len(net._startVertices):', len(net._startVertices)
         print 'len(net._endVertices):', len(net._endVertices)
     
-#    itemend = -1.0
-#    ODpairs = 0
-#    for line in open(mtxplfile):
-#        if line[0] != '*' and itemend == -1.0:
-#            matrixPlong.append([])
-#            L = line.split('\n')
-#            for item in line.split():
-#                matrixPlong[-1].append(float(item))
-#                ODpairs += 1
-#                itemend = ODpairs%origins
-#                if float(item) > 0.0:
-#                    Plong_EffCells += 1
-#        elif line[0] != '*' and itemend == 0.:
-#            matrixPlong.append([])
-#            L = line.split('\n')
-#            for item in line.split():
-#                matrixPlong[-1].append(float(item))
-#                ODpairs += 1
-#                itemend = ODpairs%origins
-#                if float(item) > 0.0:
-#                    Plong_EffCells += 1
-#        elif line[0] != '*' and itemend != 0.:
-#            for item in line.split():
-#                matrixPlong[-1].append(float(item))
-#                ODpairs += 1
-#                itemend = ODpairs%origins
-#                if float(item) > 0.0:
-#                    Plong_EffCells += 1
-#        elif line[0] == '*':
-#            pass
-    
-#    itemend = -1.0
-#    ODpairs = 0
-#    for line in open(mtxtfile):
-#        if line[0] != '*' and itemend == -1.0:
-#            matrixTruck.append([])
-#            L = line.split('\n')
-#            for item in line.split():
-#                matrixTruck[-1].append(float(item))
-#                ODpairs += 1
-#                itemend = ODpairs%origins
-#                if float(item) > 0.0:
-#                    Truck_EffCells += 1
-#        elif line[0] != '*' and itemend == 0.:
-#            matrixTruck.append([])
-#            L = line.split('\n')
-#            for item in line.split():
-#                matrixTruck[-1].append(float(item))
-#                ODpairs += 1
-#                itemend = ODpairs%origins
-#                if float(item) > 0.0:
-#                    Truck_EffCells += 1
-#        elif line[0] != '*' and itemend != 0.:
-#            for item in line.split():
-#               matrixTruck[-1].append(float(item))
-#                ODpairs += 1
-#                itemend = ODpairs%origins
-#                if float(item) > 0.0:
-#                    Truck_EffCells += 1
-#        elif line[0] == '*':
-#            pass   
     return matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum #, matrixPlong, matrixTruck, Plong_EffCells, Truck_EffCells  
 
 # estimate the travel times on the district connectors
 # assumption: all vehilces can reach the access links within 10 min from the respective traffic zone
 def getConnectionTravelTime(startVertices, endVertices):
-    sum = 0.0
     for vertex in startVertices:
         sum = 0.0
         for edge in vertex.outEdges:     
@@ -164,4 +94,3 @@ def getConnectionTravelTime(startVertices, endVertices):
             edge.freeflowtime = (1-float(edge.weight)/sum) * 10 
                                               
             edge.actualtime = edge.freeflowtime
-    return edge.actualtime, edge.freeflowtime

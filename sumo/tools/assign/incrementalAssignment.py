@@ -18,7 +18,7 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import os, string, sys, datetime, random, math
+import sys, datetime
 
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
@@ -136,8 +136,8 @@ def main():
     AssignedTrip = {}                                               
     
     for startVertex in net._startVertices:
-        AssignedVeh[startVertex] ={}
-        AssignedTrip[startVertex] ={}
+        AssignedVeh[startVertex] = {}
+        AssignedTrip[startVertex] = {}
     
         for endVertex in net._endVertices:
             AssignedVeh[startVertex][endVertex] = 0
@@ -148,15 +148,13 @@ def main():
     print >> foutroute, """<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
 <routes>""" % starttime
-    for counter in range (0, len(matrices)):
+    for counter, matrix in enumerate(matrices):
         # delete all vehicle information related to the last matrix for saving the disk space
         net._vehicles = []
-        matrix = matrices[counter]
-        MatrixCounter += 1
         
         departtime = (begintime + int(counter)) * 3600
         if options.verbose:
-            print 'Matrix: ', MatrixCounter
+            print 'Matrix:', counter
             print 'departtime', departtime
         
         matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum = getMatrix(net, options.verbose, matrix, MatrixSum)
@@ -186,16 +184,14 @@ def main():
             iter += 1
             for start, startVertex in enumerate(startVertices):
                 D,P = dijkstra(startVertex)                                                                      
-                AssignedVeh, AssignedTrip, vehID = doIncAssign(net, options.verbose, Parcontrol, iter, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
+                vehID = doIncAssign(net, options.verbose, Parcontrol, iter, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
             
             for edgeID in net._edges:                                                   
                 edge = net._edges[edgeID]
                 edge.getActualTravelTime(options.curvefile)
 
-        net.vehRelease(options.verbose, Parcontrol, departtime, CurrentMatrixSum)                        
-    
         # output the generated vehicular releasing times and routes, based on the current matrix
-        sortedVehOutput(net._vehicles, foutroute)
+        sortedVehOutput(net._vehicles, departtime, foutroute)
     
     foutroute.write('</routes>\n')
     foutroute.close()

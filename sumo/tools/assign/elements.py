@@ -449,13 +449,13 @@ pathNum = 0
         
 # This class is for storing path information which is mainly for the C-logit model.
 class Path:
-    def __init__(self):
-        self.source = None
-        self.target = None
+    def __init__(self, source, target, edges):
+        self.source = source
+        self.target = target
         global pathNum
         self.label = "%s" % pathNum
         pathNum += 1
-        self.Edges = []
+        self.edges = edges
         self.freepathtime = 0.0
         self.actpathtime = 0.0
         self.pathflow = 0.0
@@ -463,18 +463,18 @@ class Path:
         self.commfactor = 0.0
         self.choiceprob = 0.0
         # parameter used in the Lohse traffic assignment
-        self.usedcounts = 0.
+        self.usedcounts = 1
         # parameter used in the Lohse traffic assignment          
         self.pathhelpacttime = 0.
         # record if this path is the currrent shortest one.
-        self.currentshortest = None
+        self.currentshortest = True
     
     def __repr__(self):
-        return "%s_%s_%s<%s|%s|%s|%s>" % (self.label, self.source, self.target, self.freepathtime, self.pathflow, self.actpathtime, self.Edges)
+        return "%s_%s_%s<%s|%s|%s|%s>" % (self.label, self.source, self.target, self.freepathtime, self.pathflow, self.actpathtime, self.edges)
 
     def updatePathActTime(self, net):
         self.actpathtime = 0.
-        for edge in self.Edges:
+        for edge in self.edges:
             self.actpathtime += edge.actualtime
             self.actpathtime += edge.queuetime
         self.actpathtime = self.actpathtime/3600.
@@ -483,7 +483,7 @@ class Path:
     def getPathTimeUpdate(self, net): 
         self.actpathtime = 0.
         self.pathhelpacttime = 0.
-        for edge in self.Edges:
+        for edge in self.edges:
             self.actpathtime += edge.actualtime
             self.actpathtime += edge.queuetime
             self.pathhelpacttime += edge.helpacttime

@@ -20,7 +20,6 @@ from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationR
 from inputs import getParameter, getMatrix, getConnectionTravelTime                 
 from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput, vehPoissonDistr
 from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign
-from getPaths import findNewPath
 
 # for measuring the required time for reading input files
 inputreaderstart = datetime.datetime.now()  
@@ -233,7 +232,7 @@ def main():
                     print 'number of new routes:', newRoutes                
             elif not checkKPaths and iter_outside == 1 and counter == 0:
                 print 'search for the new path'
-                newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
+                newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, lohse)
             
             checkKPaths = False
             
@@ -250,7 +249,7 @@ def main():
                 iter_inside += 1
             
             if (float(departtime)/3600.) < 10. or counter < 5:
-                newRoutes = findNewPath(startVertices, endVertices, net, newRoutes, matrixPshort, lohse)
+                newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, lohse)
             else:
                 newRoutes = 0
                 
@@ -273,12 +272,9 @@ def main():
         
         # generate vehicle data
 #        AssignedVeh, AssignedTrip, vehID = doLohseVehAssign(options.verbose, net, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip,vehID, lohse)
-        AssignedVeh, AssignedTrip, vehID = doSUEVehAssign(options.verbose, net, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)                
-        # generate vehicle releasing time
-        net.vehRelease(options.verbose, Parcontrol, departtime, CurrentMatrixSum)
-    
+        vehID = doSUEVehAssign(options.verbose, net, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)                
         # output vehicle releasing time and vehicle route 
-        sortedVehOutput(net._vehicles, foutroute)
+        sortedVehOutput(net._vehicles, departtime, foutroute)
     
     foutroute.write('</routes>\n')
     foutroute.close()

@@ -70,7 +70,10 @@ def outputStatistics(net, starttime, Parcontrol):
     return assigntime
 
 # output the releasing time and the route for each vehicle
-def sortedVehOutput(vehicles, foutroute):                                   
+def sortedVehOutput(vehicles, departtime, foutroute):                                   
+    for veh in vehicles:                                                       
+        if veh.depart == 0:
+            veh.depart = random.randint(departtime, departtime + 3600)
     vehicles.sort(key=operator.attrgetter('depart'))                         # sorting by departure times 
     for veh in vehicles:                                                     # output the generated routes 
         foutroute.write('    <vehicle id="%s" depart="%d" departlane="free">\n' %(veh.label, veh.depart))
