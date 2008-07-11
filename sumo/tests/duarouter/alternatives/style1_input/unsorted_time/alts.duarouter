@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/11/08 10:50:54 by SUMO duarouter Version 0.9.7
+<!-- generated on 07/11/08 13:18:59 by SUMO duarouter Version 0.9.7
 <configuration>
 
    <input>
@@ -21,52 +21,52 @@
 
 <route-alternatives>
    <vtype model="SUMO_KRAUSS" id="KRAUSS_DEFAULT" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00" color="1,1,0"/>
-   <vehicle id="9" type="KRAUSS_DEFAULT" depart="1" color="-1.00,-1.00,-1.00">
+   <vehicle id="9" type="KRAUSS_DEFAULT" depart="1">
       <routealt last="0">
          <route cost="124.88" probability="1.00">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="7" type="KRAUSS_DEFAULT" depart="20" color="-1.00,-1.00,-1.00">
+   <vehicle id="7" type="KRAUSS_DEFAULT" depart="20">
       <routealt last="0">
          <route cost="124.88" probability="1.00">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="5" type="KRAUSS_DEFAULT" depart="31" color="-1.00,-1.00,-1.00">
+   <vehicle id="5" type="KRAUSS_DEFAULT" depart="31">
       <routealt last="0">
          <route cost="124.88" probability="1.00">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="1" type="KRAUSS_DEFAULT" depart="34" color="-1.00,-1.00,-1.00">
+   <vehicle id="1" type="KRAUSS_DEFAULT" depart="34">
       <routealt last="0">
          <route cost="124.88" probability="1.00">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="0" type="KRAUSS_DEFAULT" depart="40" color="-1.00,-1.00,-1.00">
+   <vehicle id="0" type="KRAUSS_DEFAULT" depart="40">
       <routealt last="0">
          <route cost="124.88" probability="1.00">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="4" type="KRAUSS_DEFAULT" depart="45" color="-1.00,-1.00,-1.00">
+   <vehicle id="4" type="KRAUSS_DEFAULT" depart="45">
       <routealt last="0">
          <route cost="124.88" probability="1.00">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="6" type="KRAUSS_DEFAULT" depart="49" color="-1.00,-1.00,-1.00">
+   <vehicle id="6" type="KRAUSS_DEFAULT" depart="49">
       <routealt last="0">
          <route cost="124.88" probability="1.00">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="3" type="KRAUSS_DEFAULT" depart="69" color="-1.00,-1.00,-1.00">
+   <vehicle id="3" type="KRAUSS_DEFAULT" depart="69">
       <routealt last="0">
          <route cost="124.88" probability="1.00">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="2" type="KRAUSS_DEFAULT" depart="75" color="-1.00,-1.00,-1.00">
+   <vehicle id="2" type="KRAUSS_DEFAULT" depart="75">
       <routealt last="0">
          <route cost="124.88" probability="1.00">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="8" type="KRAUSS_DEFAULT" depart="99" color="-1.00,-1.00,-1.00">
+   <vehicle id="8" type="KRAUSS_DEFAULT" depart="99">
       <routealt last="0">
          <route cost="124.88" probability="1.00">beg middle end rend</route>
       </routealt>
