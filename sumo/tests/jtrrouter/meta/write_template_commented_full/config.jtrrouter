@@ -49,6 +49,9 @@
       <!-- Remove loops at start and end of the route -->
       <remove-loops>false</remove-loops>
 
+      <!-- Tries to correct a false route -->
+      <repair>false</repair>
+
       <!--  -->
       <max-edges-factor>2</max-edges-factor>
 

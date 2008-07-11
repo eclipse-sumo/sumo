@@ -35,6 +35,7 @@ Usage: jtrrouter.exe [OPTION]*
   -R, --random-per-second FLOAT    Emit FLOAT random vehicles per second
   --prune-random                   
   --remove-loops                   Remove loops at start and end of the route
+  --repair                         Tries to correct a false route
   --max-edges-factor FLOAT         
   -T, --turn-defaults STR          Use STR as default turn definition
   -s, --sinks STR                  Use STR as sink list

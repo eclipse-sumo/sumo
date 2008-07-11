@@ -21,6 +21,7 @@
       <random-per-second></random-per-second>
       <prune-random>false</prune-random>
       <remove-loops>false</remove-loops>
+      <repair>false</repair>
       <max-edges-factor>2</max-edges-factor>
       <turn-defaults>30,50,20</turn-defaults>
       <sinks></sinks>
