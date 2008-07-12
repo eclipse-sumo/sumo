@@ -1,2 +1,2 @@
-Error: Not numeric value for length in edge '1'.
+Error: Attribute 'speed' is missing in definition of edge '1'.
 Quitting (on error).
