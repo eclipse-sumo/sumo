@@ -105,12 +105,6 @@ protected:
     //@}
 
 private:
-    /// Sets the number of lanes from the given type or the given attributes
-    void setGivenLanes(const SUMOSAXAttributes &attrs);
-
-    /// Sets the priority from the given type or the given attributes
-    void setGivenPriority(const SUMOSAXAttributes &attrs);
-
     /// Sets the length of the edge, computing it in prior if necessary
     void setLength(const SUMOSAXAttributes &attrs);
 
@@ -124,9 +118,6 @@ private:
         Which position has to be parsed is defined by the given call variables */
     SUMOReal tryGetPosition(const SUMOSAXAttributes &attrs, SumoXMLAttr attrID,
                             const std::string &attrName);
-
-    /// Parses the optional information of how to spread the lanes
-    NBEdge::LaneSpreadFunction getSpreadFunction(const SUMOSAXAttributes &attrs);
 
     NBNode * insertNodeChecking(const Position2D &pos,
                                 const std::string &name, const std::string &dir);

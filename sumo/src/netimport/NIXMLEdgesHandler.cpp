@@ -85,6 +85,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                                   const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     if (element==SUMO_TAG_EDGE) {
+        bool ok = true;
         // initialise the edge
         myCurrentEdge = 0;
         myExpansions.clear();
@@ -131,12 +132,23 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         if (myOptions.getBool("speed-in-kmh")) {
             myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
         }
-        setGivenLanes(attrs);
-        setGivenPriority(attrs);
+        // try to get the number of lanes
+        if (attrs.hasAttribute(SUMO_ATTR_NOLANES)) {
+            myCurrentLaneNo = attrs.getIntReporting(SUMO_ATTR_NOLANES, "edge", myCurrentID.c_str(), ok);
+        }
+        // try to get the priority
+        if (attrs.hasAttribute(SUMO_ATTR_PRIORITY)) {
+            myCurrentPriority = attrs.getIntReporting(SUMO_ATTR_PRIORITY, "edge", myCurrentID.c_str(), ok);
+        }
+
         // try to get the shape
         myShape = tryGetShape(attrs);
         // and how to spread the lanes
-        myLanesSpread = getSpreadFunction(attrs);
+        if (attrs.getStringSecure(SUMO_ATTR_SPREADFUNC, "")=="center") {
+            myLanesSpread = NBEdge::LANESPREAD_CENTER;
+        } else {
+            myLanesSpread = NBEdge::LANESPREAD_RIGHT;
+        }
         // try to set the nodes
         if (!setNodes(attrs)) {
             // return if this failed
@@ -146,6 +158,9 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         setLength(attrs);
         /// insert the parsed edge into the edges map
         myCurrentEdge = 0;
+        if(!ok) {
+            return;
+        }
         // the edge must be allocated in dependence to whether a shape
         //  is given
         if (myShape.size()==0) {
@@ -199,8 +214,9 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
 
         // set information about later beginning lanes
         if (attrs.hasAttribute(SUMO_ATTR_FORCE_LENGTH)) {
-            try {
-                int forcedLength = attrs.getInt(SUMO_ATTR_FORCE_LENGTH); // !!! describe
+            bool ok = true;
+            int forcedLength = attrs.getIntReporting(SUMO_ATTR_FORCE_LENGTH, "lane", myCurrentID.c_str(), ok); // !!! edge id
+            if(ok) {
                 int nameid = forcedLength;
                 forcedLength = (int)(myCurrentEdge->getGeometry().length() - forcedLength);
                 std::vector<Expansion>::iterator i;
@@ -219,7 +235,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                 if (k!=(*i).lanes.end()) {
                     (*i).lanes.erase(k);
                 }
-            } catch (NumberFormatException &) {} catch (EmptyData &) {}
+            }
         }
         /*
         // to split?
@@ -355,40 +371,6 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
 }
 
 
-void
-NIXMLEdgesHandler::setGivenLanes(const SUMOSAXAttributes &attrs)
-{
-    if (!attrs.hasAttribute(SUMO_ATTR_NOLANES)) {
-        return;
-    }
-    // try to get the number of lanes
-    try {
-        myCurrentLaneNo = attrs.getInt(SUMO_ATTR_NOLANES);
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The lane number is not numeric in edge '" + myCurrentID + "'.");
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Empty lane number definition in edge '" + myCurrentID + "'.");
-    }
-}
-
-
-void
-NIXMLEdgesHandler::setGivenPriority(const SUMOSAXAttributes &attrs)
-{
-    if (!attrs.hasAttribute(SUMO_ATTR_PRIORITY)) {
-        return;
-    }
-    // try to retrieve given priority
-    try {
-        myCurrentPriority = attrs.getInt(SUMO_ATTR_PRIORITY);
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("Not numeric value for priority in edge '" + myCurrentID + "'.");
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Empty priority definition in edge '" + myCurrentID + "'.");
-    }
-}
-
-
 bool
 NIXMLEdgesHandler::setNodes(const SUMOSAXAttributes &attrs)
 {
@@ -512,16 +494,6 @@ NIXMLEdgesHandler::tryGetShape(const SUMOSAXAttributes &attrs)
         MsgHandler::getErrorInstance()->inform("A non-numeric value occured in shape definition for edge '" + myCurrentID + "'.");
     }
     return Position2DVector();
-}
-
-
-NBEdge::LaneSpreadFunction
-NIXMLEdgesHandler::getSpreadFunction(const SUMOSAXAttributes &attrs)
-{
-    if (attrs.getStringSecure(SUMO_ATTR_SPREADFUNC, "")=="center") {
-        return NBEdge::LANESPREAD_CENTER;
-    }
-    return NBEdge::LANESPREAD_RIGHT;
 }
 
 
