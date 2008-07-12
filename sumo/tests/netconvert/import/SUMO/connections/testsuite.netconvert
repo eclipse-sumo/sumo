@@ -1,0 +1,15 @@
+# Test for the unconstrained network
+cross3l_unconstrained
+
+# Test for edge2edge connections
+cross3l_edge2edge_conns
+
+# Test for edge2edge connections
+cross3l_lane2lane_conns
+
+# Test for not appending turnarounds
+cross3l_no_turnarounds
+
+# Test whether setting prohibitions works
+cross3l_prohibitions
+

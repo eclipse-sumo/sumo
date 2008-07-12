@@ -7,3 +7,6 @@ visum
 # Tests for elmar(2)-import
 elmar
 
+# testing SUMO-import
+SUMO
+
