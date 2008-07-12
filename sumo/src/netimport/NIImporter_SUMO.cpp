@@ -119,19 +119,21 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
         for(size_t j=0; j<ed->lanes.size(); ++j) {
             const vector<EdgeLane> &connections = ed->lanes[j]->connections;
             for(std::vector<EdgeLane>::const_iterator k=connections.begin(); k!=connections.end(); ++k) {
-                string lane = (*k).lane;
-                string edge = lane.substr(0, lane.find('_'));
-                int index = TplConvert<char>::_2int(lane.substr(lane.find('_')+1).c_str());
-                if(loadedEdges.find(edge)==loadedEdges.end()) {
-                    MsgHandler::getErrorInstance()->inform("Unknown edge given in succlane (for lane '" + lane + "').");
-                    continue;
-                }   
-                NBEdge *ce = loadedEdges.find(edge)->second->builtEdge;
-                if(ce==0) {
-                    // earlier error
-                    continue;
+                if((*k).lane!="SUMO_NO_DESTINATION") {
+                    string lane = (*k).lane;
+                    string edge = lane.substr(0, lane.find('_'));
+                    int index = TplConvert<char>::_2int(lane.substr(lane.find('_')+1).c_str());
+                    if(loadedEdges.find(edge)==loadedEdges.end()) {
+                        MsgHandler::getErrorInstance()->inform("Unknown edge given in succlane (for lane '" + lane + "').");
+                        continue;
+                    }   
+                    NBEdge *ce = loadedEdges.find(edge)->second->builtEdge;
+                    if(ce==0) {
+                        // earlier error
+                        continue;
+                    }
+                    ed->builtEdge->addLane2LaneConnection(j, ce, index, false);
                 }
-                ed->builtEdge->addLane2LaneConnection(j, ce, index, false);
             }
         }
     }
