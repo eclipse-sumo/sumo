@@ -218,14 +218,14 @@ ROEdge::getNoFollowing() const throw()
 
 
 SUMOReal
-ROEdge::getCost(const ROVehicle *const v, SUMOTime time) const
+ROEdge::getCost(const ROVehicle *const v, SUMOTime time) const throw()
 {
     return getEffort(v, time);
 }
 
 
 SUMOReal
-ROEdge::getDuration(const ROVehicle *const v, SUMOTime time) const
+ROEdge::getDuration(const ROVehicle *const v, SUMOTime time) const throw()
 {
     return getEffort(v, time);
 }
