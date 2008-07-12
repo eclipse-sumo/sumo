@@ -79,15 +79,19 @@ RORDLoader_TripDefs::myStartElement(SumoXMLTag element,
 {
     // check whether a trip definition shall be parsed
     if (element==SUMO_TAG_TRIPDEF) {
+        bool ok = true;
         // get the vehicle id, the edges, the speed and position and
         //  the departure time and other information
         string id = getVehicleID(attrs);
-        myDepartureTime = getTime(attrs, SUMO_ATTR_DEPART, id);
+        myDepartureTime = attrs.getIntReporting(SUMO_ATTR_DEPART, "tripdef", id.c_str(), ok);
         myBeginEdge = getEdge(attrs, "origin", SUMO_ATTR_FROM, id, false);
         myEndEdge = getEdge(attrs, "destination", SUMO_ATTR_TO, id, myEmptyDestinationsAllowed);
         myParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs, true);
         myParameter->id = id;
         // recheck attributes
+        if(!ok) {
+            return;
+        }
         if (myDepartureTime<0) {
             MsgHandler::getErrorInstance()->inform("The departure time must be positive.");
             return;
@@ -190,26 +194,6 @@ RORDLoader_TripDefs::getOptionalFloat(const SUMOSAXAttributes &attrs,
         MsgHandler::getErrorInstance()->inform("The value of '" + name + "' should be numeric but is not.");
         if (place.length()!=0)
             MsgHandler::getErrorInstance()->inform(" Route id='" + place + "')");
-    }
-    return -1;
-}
-
-
-SUMOTime
-RORDLoader_TripDefs::getTime(const SUMOSAXAttributes &attrs, SumoXMLAttr which,
-                             const std::string &id)
-{
-    // get the departure time
-    try {
-        return attrs.getInt(which);
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing time in description of a route.");
-        if (id.length()!=0)
-            MsgHandler::getErrorInstance()->inform(" Vehicle id='" + id + "'.");
-    } catch (NumberFormatException &) {
-        MsgHandler::getErrorInstance()->inform("The value of the departure time should be numeric but is not.");
-        if (id.length()!=0)
-            MsgHandler::getErrorInstance()->inform(" Route id='" + id + "'");
     }
     return -1;
 }

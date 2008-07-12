@@ -263,7 +263,8 @@ RORDGenerator_ODAmounts::parseFlowAmountDef(const SUMOSAXAttributes &attrs)
         MsgHandler::getErrorInstance()->inform("An interval end is not numeric.");
         return;
     }
-    myVehicle2EmitNumber = getTime(attrs, SUMO_ATTR_NO, id);
+    bool ok = true;
+    myVehicle2EmitNumber = attrs.getIntReporting(SUMO_ATTR_NO, "flow", id.c_str(), ok); // !!! no real error handling
     if (myIntervalEnd<=myIntervalBegin) {
         MsgHandler::getErrorInstance()->inform("The interval must be larger than 0.\n The current values are: begin=" + toString<unsigned int>(myIntervalBegin) + " end=" + toString<unsigned int>(myIntervalEnd));
         return;

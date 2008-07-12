@@ -154,10 +154,6 @@ protected:
     SUMOReal getOptionalFloat(const SUMOSAXAttributes &attrs,
                               const std::string &name, SumoXMLAttr which, const std::string &place);
 
-    /// Parses and returns the time the vehicle should start at
-    SUMOTime getTime(const SUMOSAXAttributes &attrs, SumoXMLAttr which,
-                     const std::string &id);
-
     /// Parses and returns the period the trip shall be repeated with
     SUMOTime getPeriod(const SUMOSAXAttributes &attrs, const std::string &id);
 
