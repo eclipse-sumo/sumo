@@ -138,8 +138,6 @@ public:
 
     void computeNodeShapes();
 
-    void printNodePositions();
-
     void removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
                              NBTrafficLightLogicCont &tlc);
 

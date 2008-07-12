@@ -442,17 +442,6 @@ NBNodeCont::computeNodeShapes()
 
 
 void
-NBNodeCont::printNodePositions()
-{
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        string ni = (*i).second->getID();
-        ni += ":" + toString<SUMOReal>((*i).second->getPosition().x()) + ", " + toString<SUMOReal>((*i).second->getPosition().y());
-        MsgHandler::getMessageInstance()->inform(ni);
-    }
-}
-
-
-void
 NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
                                 NBTrafficLightLogicCont &tlc)
 {
