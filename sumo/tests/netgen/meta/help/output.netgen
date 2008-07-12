@@ -161,7 +161,6 @@ Usage: sumo-netgen [OPTION]*
   -p, --print-options                  Prints option values before processing
   -?, --help                           Prints this screen
   -l, --log-file FILE                  Writes all messages to FILE
-  --print-node-positions               Prints the positions of read nodes
 
  Random Number Options:
   --srand INT                          Initialises the random number generator

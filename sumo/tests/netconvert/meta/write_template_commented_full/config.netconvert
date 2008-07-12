@@ -304,9 +304,6 @@
       <!-- Writes all messages to FILE -->
       <log-file></log-file>
 
-      <!-- Prints the positions of read nodes -->
-      <print-node-positions>false</print-node-positions>
-
    </report>
 
    <random_number>

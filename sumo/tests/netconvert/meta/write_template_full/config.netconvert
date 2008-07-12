@@ -120,7 +120,6 @@
       <print-options>false</print-options>
       <help>false</help>
       <log-file></log-file>
-      <print-node-positions>false</print-node-positions>
    </report>
 
    <random_number>
