@@ -121,13 +121,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         // speed, priority and the number of lanes have now default values;
         // try to read the real values from the file
         if (attrs.hasAttribute(SUMO_ATTR_SPEED)) {
-            try {
-                myCurrentSpeed = attrs.getFloat(SUMO_ATTR_SPEED);
-            } catch (NumberFormatException &) {
-                MsgHandler::getErrorInstance()->inform("Not numeric value for speed in edge '" + myCurrentID + "'.");
-            } catch (EmptyData &) {
-                MsgHandler::getErrorInstance()->inform("Empty speed definition in edge '" + myCurrentID + "'.");
-            }
+            myCurrentSpeed = attrs.getSUMORealReporting(SUMO_ATTR_SPEED, "edge", myCurrentID.c_str(), ok);
         }
         if (myOptions.getBool("speed-in-kmh")) {
             myCurrentSpeed = myCurrentSpeed / (SUMOReal) 3.6;
@@ -154,8 +148,12 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
             // return if this failed
             return;
         }
-        // compute the edge's length
-        setLength(attrs);
+        // get the length or compute it
+        if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
+            myLength = attrs.getSUMORealReporting(SUMO_ATTR_SPEED, "edge", myCurrentID.c_str(), ok);
+        } else {
+            myLength = 0;
+        }
         /// insert the parsed edge into the edges map
         myCurrentEdge = 0;
         if(!ok) {
@@ -349,9 +347,10 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         */
     }
     if (element==SUMO_TAG_EXPANSION) {
-        try {
-            Expansion e;
-            e.pos = attrs.getFloat(SUMO_ATTR_POSITION);
+        bool ok = true;
+        Expansion e;
+        e.pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "expansion", 0, ok);
+        if(ok) {
             if (myCurrentEdge==0) {
                 if (!OptionsCont::getOptions().isInStringVector("remove-edges", myCurrentID)) {
                     MsgHandler::getErrorInstance()->inform("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");
@@ -362,10 +361,6 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
                 e.pos = myCurrentEdge->getGeometry().length() + e.pos;
             }
             myExpansions.push_back(e);
-        } catch (EmptyData&) {
-            MsgHandler::getErrorInstance()->inform("The position of an expansion is missing (edge '" + myCurrentID + "').");
-        } catch (NumberFormatException&) {
-            MsgHandler::getErrorInstance()->inform("The position of an expansion is not numeric (edge '" + myCurrentID + "').");
         }
     }
 }
@@ -450,25 +445,6 @@ NIXMLEdgesHandler::insertNodeChecking(const Position2D &pos,
     }
     return ret;
 }
-
-
-void
-NIXMLEdgesHandler::setLength(const SUMOSAXAttributes &attrs)
-{
-    // get the length or compute it
-    if (attrs.hasAttribute(SUMO_ATTR_LENGTH)) {
-        try {
-            myLength = attrs.getFloat(SUMO_ATTR_LENGTH);
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("Not numeric value for length in edge '" + myCurrentID + "'.");
-        } catch (EmptyData &) {
-            MsgHandler::getErrorInstance()->inform("Empty length definition of edge '" + myCurrentID + "'.");
-        }
-    } else {
-        myLength = 0;
-    }
-}
-
 
 
 Position2DVector

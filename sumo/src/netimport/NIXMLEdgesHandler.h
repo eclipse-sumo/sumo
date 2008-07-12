@@ -105,8 +105,6 @@ protected:
     //@}
 
 private:
-    /// Sets the length of the edge, computing it in prior if necessary
-    void setLength(const SUMOSAXAttributes &attrs);
 
     /// tries to parse the shape definition
     Position2DVector tryGetShape(const SUMOSAXAttributes &attrs);
