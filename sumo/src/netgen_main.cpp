@@ -377,7 +377,7 @@ main(int argc, char **argv)
         // initialise the (default) types
         GeoConvHelper::init("!", Position2D());
         NBNetBuilder nb;
-        nb.getTypeCont().setDefaults(oc.getInt("L"), oc.getFloat("S"), oc.getInt("P"));
+        nb.getTypeCont().setDefaults(oc.getInt("lanenumber"), oc.getFloat("speed"), oc.getInt("priority"));
         // build the netgen-network description
         NGNet *net = buildNetwork(nb);
         // ... and we have to do this...
