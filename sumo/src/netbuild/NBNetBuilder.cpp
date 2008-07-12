@@ -63,7 +63,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NBNetBuilder::NBNetBuilder()
-        : myHaveBuildNet(false), myTypeCont()
+        : myTypeCont()
 {}
 
 
@@ -101,65 +101,50 @@ NBNetBuilder::inform(int &step, const std::string &about)
 
 
 void
-NBNetBuilder::removeDummyEdges(int &step)
+NBNetBuilder::compute(OptionsCont &oc)
 {
+    int step = 1;
+    //
     // Removes edges that are connecting the same node
     inform(step, "Removing dummy edges");
     myNodeCont.removeDummyEdges(myDistrictCont, myEdgeCont, myTLLCont);
-}
-
-
-void
-NBNetBuilder::joinEdges(int &step)
-{
+    //
     inform(step, "Joining double connections");
+    gJoinedEdges.init(myEdgeCont);
     myNodeCont.recheckEdges(myDistrictCont, myTLLCont, myEdgeCont);
-}
-
-
-void
-NBNetBuilder::removeUnwishedNodes(int &step, OptionsCont &oc)
-{
+    //
     if (oc.getBool("remove-geometry")) {
         inform(step, "Removing empty nodes and geometry nodes.");
         myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont);
     }
-}
-
-
-void
-NBNetBuilder::splitGeometry(int &step, OptionsCont &oc)
-{
+    //
+    if (oc.getBool("keep-edges.postload")) {
+        if (oc.isSet("keep-edges")) {
+            inform(step, "Removing unwished edges.");
+            myEdgeCont.removeUnwishedEdges(myDistrictCont, oc);
+        }
+        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont);
+    }
+    //
     if (oc.getBool("split-geometry")) {
         inform(step, "Splitting geometry edges.");
         myEdgeCont.splitGeometry(myNodeCont);
     }
-}
-
-
-void
-NBNetBuilder::removeUnwishedEdges(int &step, OptionsCont &oc)
-{
-    if (OptionsCont::getOptions().isSet("keep-edges")) {
-        inform(step, "Removing unwished edges.");
-        myEdgeCont.removeUnwishedEdges(myDistrictCont, oc);
+    //
+    if (!oc.getBool("disable-normalize-node-positions")) {
+        inform(step, "Normalising node positions");
+        myNodeCont.normaliseNodePositions();
+        myEdgeCont.normaliseEdgePositions();
+        myDistrictCont.normaliseDistrictPositions();
     }
-}
-
-
-void
-NBNetBuilder::guessRamps(int &step, OptionsCont &oc)
-{
+    // 
+    myEdgeCont.recomputeLaneShapes();
+    //
     if (oc.getBool("guess-ramps")||oc.getBool("guess-obscure-ramps")) {
         inform(step, "Guessing and setting on-/off-ramps");
         myNodeCont.guessRamps(oc, myEdgeCont, myDistrictCont);
     }
-}
-
-
-void
-NBNetBuilder::guessTLs(int &step, OptionsCont &oc)
-{
+    //
     inform(step, "Guessing and setting TLs");
     if (oc.isSet("explicite-tls")) {
         StringTokenizer st(oc.getString("explicite-tls"), ";");
@@ -168,120 +153,52 @@ NBNetBuilder::guessTLs(int &step, OptionsCont &oc)
         }
     }
     myNodeCont.guessTLs(oc, myTLLCont);
-}
-
-
-void
-NBNetBuilder::computeTurningDirections(int &step)
-{
+    //
     inform(step, "Computing turning directions");
     myEdgeCont.computeTurningDirections();
-}
-
-
-void
-NBNetBuilder::sortNodesEdges(int &step)
-{
+    //
+    OutputDevice::createDeviceByOption("node-type-output", "pois");
     inform(step, "Sorting nodes' edges");
     myNodeCont.sortNodesEdges(myTypeCont);
-}
-
-
-void
-NBNetBuilder::normaliseNodePositions(int &step)
-{
-    inform(step, "Normalising node positions");
-    myNodeCont.normaliseNodePositions();
-    myEdgeCont.normaliseEdgePositions();
-    myDistrictCont.normaliseDistrictPositions();
-}
-
-
-void
-NBNetBuilder::computeEdge2Edges(int &step)
-{
+    //
     inform(step, "Computing Approached Edges");
     myEdgeCont.computeEdge2Edges();
-}
-
-
-void
-NBNetBuilder::computeLanes2Edges(int &step)
-{
+    //
     inform(step, "Computing Approaching Lanes");
     myEdgeCont.computeLanes2Edges();
-}
-
-
-void
-NBNetBuilder::computeLanes2Lanes(int &step)
-{
+    //
     inform(step, "Dividing of Lanes on Approached Lanes");
     myNodeCont.computeLanes2Lanes();
     myEdgeCont.sortOutgoingLanesConnections();
-}
-
-void
-NBNetBuilder::recheckLanes(int &step)
-{
-    inform(step, "Rechecking of lane endings");
-    myEdgeCont.recheckLanes();
-}
-
-
-void
-NBNetBuilder::computeNodeShapes(int &step)
-{
-    inform(step, "Computing node shapes");
-    myNodeCont.computeNodeShapes();
-}
-
-
-void
-NBNetBuilder::computeEdgeShapes(int &step)
-{
-    inform(step, "Computing edge shapes");
-    myEdgeCont.computeEdgeShapes();
-}
-
-
-void
-NBNetBuilder::appendTurnarounds(int &step, OptionsCont &oc)
-{
+    //
     if (!oc.getBool("no-turnarounds")) {
         inform(step, "Appending Turnarounds");
         myEdgeCont.appendTurnarounds();
     }
-}
-
-
-void
-NBNetBuilder::setTLControllingInformation(int &step)
-{
+    //
+    inform(step, "Rechecking of lane endings");
+    myEdgeCont.recheckLanes();
+    // save plain nodes/edges/connections
+    if (oc.isSet("plain-output")) {
+        myNodeCont.savePlain(oc.getString("plain-output") + ".nod.xml");
+        myEdgeCont.savePlain(oc.getString("plain-output") + ".edg.xml");
+    }
+    //
+    inform(step, "Computing node shapes");
+    myNodeCont.computeNodeShapes();
+    //
+    inform(step, "Computing edge shapes");
+    myEdgeCont.computeEdgeShapes();
+    //
     inform(step, "Computing tls logics");
     myTLLCont.setTLControllingInformation(myEdgeCont);
-}
-
-
-void
-NBNetBuilder::computeLogic(int &step, OptionsCont &oc)
-{
+    //
     inform(step, "Computing node logics");
     myNodeCont.computeLogics(myEdgeCont, myJunctionLogicCont, oc);
-}
-
-
-void
-NBNetBuilder::computeTLLogic(int &step, OptionsCont &oc)
-{
+    //
     inform(step, "Computing traffic light logics");
     myTLLCont.computeLogics(myEdgeCont, oc);
-}
-
-
-void
-NBNetBuilder::reshiftRotateNet(int &step, OptionsCont &oc)
-{
+    //
     if (!oc.isDefault("x-offset-to-apply")) {
         inform(step, "Transposing network");
         SUMOReal xoff = oc.getFloat("x-offset-to-apply");
@@ -291,67 +208,9 @@ NBNetBuilder::reshiftRotateNet(int &step, OptionsCont &oc)
         myNodeCont.reshiftNodePositions(xoff, yoff, rot);
         myEdgeCont.reshiftEdgePositions(xoff, yoff, rot);
     }
-}
-
-
-void
-NBNetBuilder::compute(OptionsCont &oc)
-{
-    if (myHaveBuildNet) {
-        return;
-    }
-    int step = 1;
     //
-    removeDummyEdges(step);
-    gJoinedEdges.init(myEdgeCont);
-    joinEdges(step);
-    removeUnwishedNodes(step, oc);
-    if (oc.getBool("keep-edges.postload")) {
-        removeUnwishedEdges(step, oc);
-        removeUnwishedNodes(step, oc);
-    }
-    splitGeometry(step, oc);
-    if (!oc.getBool("disable-normalize-node-positions")) normaliseNodePositions(step);
-    myEdgeCont.recomputeLaneShapes();
-    guessRamps(step, oc);
-    guessTLs(step, oc);
-    computeTurningDirections(step);
-
-    OutputDevice::createDeviceByOption("node-type-output", "pois");
-    sortNodesEdges(step);
-
-    computeEdge2Edges(step);
-    computeLanes2Edges(step);
-    computeLanes2Lanes(step);
-    appendTurnarounds(step, oc);
-    recheckLanes(step);
-    // save plain nodes/edges/connections
-    if (oc.isSet("plain-output")) {
-        myNodeCont.savePlain(oc.getString("plain-output") + ".nod.xml");
-        myEdgeCont.savePlain(oc.getString("plain-output") + ".edg.xml");
-    }
-    computeNodeShapes(step);
-    computeEdgeShapes(step);
-//    if(ok) ok = computeLinkPriorities(step++);
-    setTLControllingInformation(step);
-    computeLogic(step, oc);
-    computeTLLogic(step, oc);
-
-    reshiftRotateNet(step, oc);
-
     NBNode::reportBuild();
     NBRequest::reportWarnings();
-    checkPrint(oc);
-    myHaveBuildNet = true;
-}
-
-
-void
-NBNetBuilder::checkPrint(OptionsCont &oc)
-{
-    if (oc.getBool("print-node-positions")) {
-        myNodeCont.printNodePositions();
-    }
 }
 
 
@@ -643,9 +502,6 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.doRegister("log-file", 'l', new Option_FileName());
     oc.addDescription("log-file", "Report", "Writes all messages to FILE");
 
-    oc.doRegister("print-node-positions", new Option_Bool(false)); // !!! not described
-    oc.addDescription("print-node-positions", "Report", "Prints the positions of read nodes");
-
 }
 
 
@@ -678,13 +534,6 @@ NBNetBuilder::preCheckOptions(OptionsCont &oc)
         throw ProcessError("No output defined.");
 
     }
-}
-
-
-bool
-NBNetBuilder::netBuild() const
-{
-    return myHaveBuildNet;
 }
 
 
