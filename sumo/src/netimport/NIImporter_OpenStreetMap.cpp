@@ -332,15 +332,9 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
 {
     myParentElements.push_back(element);
     if (element==SUMO_TAG_NODE) {
-        int id;
-        try {
-            // retrieve the id of the node
-            id = attrs.getInt(SUMO_ATTR_ID);
-        } catch (EmptyData &) {
-            WRITE_WARNING("No node id given... Skipping.");
-            return;
-        } catch (NumberFormatException &) {
-            MsgHandler::getErrorInstance()->inform("A node id is not numeric.");
+        bool ok = true;
+        int id = attrs.getIntReporting(SUMO_ATTR_ID, "node", 0, ok);
+        if(!ok) {
             return;
         }
         myLastNodeID = -1;
@@ -449,17 +443,14 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
     }
     // parse "nd" (node) elements
     if (element==SUMO_TAG_ND) {
-        try {
-            // retrieve the id of the (geometry) node
-            int ref = attrs.getInt(SUMO_ATTR_REF);
+        bool ok = true;
+        int ref = attrs.getIntReporting(SUMO_ATTR_REF, "nd", 0, ok);
+        if(ok) {
             if (myOSMNodes.find(ref)==myOSMNodes.end()) {
                 MsgHandler::getErrorInstance()->inform("The referenced geometry information (ref='" + toString(ref) + "') is not known");
                 return;
             }
             myCurrentEdge->myCurrentNodes.push_back(ref);
-        } catch (EmptyData &) {
-            WRITE_WARNING("No node id given... Skipping.");
-            return;
         }
     }
     // parse values
