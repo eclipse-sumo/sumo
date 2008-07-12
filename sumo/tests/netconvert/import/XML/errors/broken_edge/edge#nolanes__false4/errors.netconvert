@@ -1,2 +1,2 @@
-Error: The lane number is not numeric in edge '4'.
+Error: Attribute 'nolanes' in definition of edge '4' is not an int.
 Quitting (on error).

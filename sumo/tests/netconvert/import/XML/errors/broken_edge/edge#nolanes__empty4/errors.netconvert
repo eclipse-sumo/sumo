@@ -1,2 +1,2 @@
-Error: Empty lane number definition in edge '4'.
+Error: Attribute 'nolanes' in definition of edge '4' is empty.
 Quitting (on error).
