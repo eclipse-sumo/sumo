@@ -18,7 +18,7 @@ from elements import Predecessor, Vertex, Edge, Path, Vehicle
 from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationReader
                                                   
 from inputs import getParameter, getMatrix, getConnectionTravelTime                 
-from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput, vehPoissonDistr
+from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput
 from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign
 
 # for measuring the required time for reading input files
@@ -133,7 +133,7 @@ def main():
     cvg1 = float(Parcontrol[5])                              
     cvg2 = float(Parcontrol[6])
     cvg3 = float(Parcontrol[7])
-    maxIter = int(Parcontrol[8])
+    maxSUEIteration = int(Parcontrol[8])
     KPaths = int(Parcontrol[9])
     
     begintime = int(Parcontrol[(len(Parcontrol)-1)])
@@ -219,6 +219,7 @@ def main():
         # traffic Assignment based on the Lohse Model
         while newRoutes > 0:
             iter_inside = 1
+            foutlog.write('- SUE iteration:%s\n' %iter_outside)
             # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
             if checkKPaths:
                 checkPathStart = datetime.datetime.now() 
@@ -248,14 +249,14 @@ def main():
                 doSUEAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
                 stable = doLohseStopCheck(net, options.verbose, stable, iter_inside, maxIter, Parcontrol, foutlog)
                 iter_inside += 1
-            
-            if (float(departtime)/3600.) < 10. or counter < 5:
-                newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, lohse)
-            else:
-                newRoutes = 0
-                
-            if options.verbose:
-                print 'stable:', stable
+
+                if (float(departtime)/3600.) < 10. or counter < 5:
+                    newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, lohse)
+                else:
+                    newRoutes = 0
+
+                if options.verbose:
+                    print 'stable:', stable
                 
             first = False    
             iter_outside += 1
@@ -263,35 +264,24 @@ def main():
             if newRoutes < 5 and iter_outside > 10:
                 newRoutes = 0
                 
-            if iter_outside > maxIter:
+            if iter_outside > maxSUEIteration:
                 print 'The max. number of iterations is reached!'
                 foutlog.write('The max. number of iterations is reached!\n')
                 foutlog.write('The number of new routes and the parameter stable will be set to zero and True respectively.\n')
                 print 'newRoutes:', newRoutes 
                 stable = True
                 newRoutes = 0
-        
-        # generate vehicle data
-#        AssignedVeh, AssignedTrip, vehID = doLohseVehAssign(options.verbose, net, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip,vehID, lohse)
-        vehID = doSUEVehAssign(options.verbose, net, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)                
+
+	    # update the path choice probability and the path flows as well as generate vehicle data 	
+        vehID = doSUEVehAssign(options.verbose, net, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)
         # output vehicle releasing time and vehicle route 
         sortedVehOutput(net._vehicles, departtime, foutroute)
     
     foutroute.write('</routes>\n')
     foutroute.close()
-    
-    foutassign = file('assign.txt', 'a')
-    foutassign.write('\n')
-    for edge in net._edges.itervalues():
-        foutassign.write('\nedge:%s, flow:%s, traveltime:%s\n ' %(edge.label, edge.flow, edge.actualtime))
-    foutassign.close()
-    
+
     # output the global performance indices
     assigntime = outputStatistics(net, starttime, Parcontrol)
-    
-    # output the number of vehicles in the given time interval(10 sec) accoding to the Poisson distribution
-    if options.debug:
-        vehPoissonDistr(net, Parcontrol, begintime)
     
     foutlog.write('- Assignment is completed and all vehicular information is generated. ')
     foutlog.close()

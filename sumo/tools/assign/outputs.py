@@ -83,27 +83,6 @@ def sortedVehOutput(vehicles, departtime, foutroute):
         foutroute.write('</route>\n')
         foutroute.write('    </vehicle>\n') 
     
-# output the number of the released vehicles in the defined interval (when the Poisson distribution is used for generating vehicular releasing times)
-def vehPoissonDistr(net, Parcontrol, begintime):
-    foutpoisson = file('poisson.txt', 'w')
-    if int(Parcontrol[(len(Parcontrol)-3)]) == 1:
-        zaehler = 0
-        interval = 10
-        count = 0
-        for veh in net._vehicles:
-            if veh.depart <= float(begintime + interval):
-                zaehler += 1
-            else:
-                foutpoisson.write('interval:%s, count:%s, %s\n' %(begintime+ interval, count, zaehler))
-                zaehler = 1
-                interval += 10
-            count += 1
-        foutpoisson.write('interval:%s, count:%s, %s\n' %(begintime+ interval, count, zaehler))
-        foutpoisson.close()
-    else:
-        foutpoisson.write('The vehicular releasing times are generated randomly(uniform). ')
-        foutpoisson.close()
-        
 # output the result of the matrix estimation with the traffic counts
 def outputMatrix(startVertices, endVertices, estMatrix, daytimeindex):
     filename = 'estimatedMatri-' + daytimeindex + '.fma'

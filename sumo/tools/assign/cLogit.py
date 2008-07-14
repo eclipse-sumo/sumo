@@ -18,7 +18,7 @@ from elements import Predecessor, Vertex, Edge, Path, Vehicle
 from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationReader
                                                   
 from inputs import getParameter, getMatrix, getConnectionTravelTime                 
-from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput, vehPoissonDistr
+from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput
 from assign import doSUEAssign, doSUEVehAssign # doCLogitAssign, doCLogitVehAssign
 
 # for measuring the required time for reading input files
@@ -46,6 +46,8 @@ optParser.add_option("-d", "--district-file", dest="confile",
                      help="read OD Zones from FILE (mandatory)", metavar="FILE")  
 optParser.add_option("-s", "--extrasignal-file", dest="sigfile",
                      help="read extra/updated signal timing plans from FILE", metavar="FILE")  
+optParser.add_option("-i", "--max-sue-iteration", dest="maxsueiteration", type="int",
+                     default=100, help="maximum number of the assignment iterations")  
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-b", "--debug", action="store_true", dest="debug",
@@ -230,6 +232,7 @@ def main():
                 foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
                 
                 if options.verbose:
+                    print 'iter_outside:', iter_outside
                     print 'KPaths:', KPaths 
                     print 'number of new routes:', newRoutes
             elif not checkKPaths and iter_outside == 1 and counter == 0:
@@ -239,6 +242,7 @@ def main():
             checkKPaths = False
             
             if options.verbose:
+                print 'iter_outside:', iter_outside
                 print 'number of new routes:', newRoutes
             
             stable = False
@@ -250,18 +254,18 @@ def main():
                 # The matrixPlong and the matrixTruck should be added when considering the long-distance trips and the truck trips.
                 stable = doSUEAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
                 iter_inside += 1
-                
+
                 if (float(departtime)/3600.) < 10. or counter < 5:
                     newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, lohse)
                 else:
                     newRoutes = 0
-                
+
                 if options.verbose:
                     print 'stable:', stable
-            
-            first = False
+                
+            first = False    
             iter_outside += 1
-            
+
             if newRoutes < 5 and iter_outside > 10:
                 newRoutes = 0
                 
@@ -272,11 +276,10 @@ def main():
                 print 'newRoutes:', newRoutes 
                 stable = True
                 newRoutes = 0
-    
-    # update the path choice probability and the path flows as well as generate vehicle data 	
-#        AssignedVeh, AssignedTrip, vehID = doCLogitVehAssign(net, options.verbose, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID)
-        vehID = doSUEVehAssign(options.verbose, net, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)          
-    # output vehicle releasing time and vehicle route 
+
+	    # update the path choice probability and the path flows as well as generate vehicle data 	
+        vehID = doSUEVehAssign(options.verbose, net, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)
+        # output vehicle releasing time and vehicle route 
         sortedVehOutput(net._vehicles, departtime, foutroute)
     
     foutroute.write('</routes>\n')
@@ -284,9 +287,6 @@ def main():
 
     # output the global performance indices
     assigntime = outputStatistics(net, starttime, Parcontrol)
-    
-    # output the number of vehicles in the given time interval(10 sec) accoding to the Poisson distribution
-    vehPoissonDistr(net, Parcontrol, begintime)
     
     foutlog.write('- Assignment is completed and all vehicular information is generated. ')
     foutlog.close()
