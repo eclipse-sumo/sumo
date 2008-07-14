@@ -57,6 +57,7 @@
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
 #include <routing_dua/RODUAFrame.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -209,6 +210,7 @@ main(int argc, char **argv)
     }
     delete net;
     delete loader;
+    OutputDevice::closeAll();
     SystemFrame::close();
     if (ret==0) {
         cout << "Success." << endl;

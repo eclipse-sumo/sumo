@@ -59,6 +59,7 @@
 #include <routing_jtr/ROJTREdge.h>
 #include <routing_jtr/ROJTRTurnDefLoader.h>
 #include <routing_jtr/ROJTRFrame.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -249,6 +250,7 @@ main(int argc, char **argv)
 #endif
     }
     delete net;
+    OutputDevice::closeAll();
     SystemFrame::close();
     if (ret==0) {
         cout << "Success." << endl;

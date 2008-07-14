@@ -51,6 +51,7 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/xml/XMLSubSys.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -117,6 +118,7 @@ main(int argc, char **argv)
 #endif
     }
     NBDistribution::clear();
+    OutputDevice::closeAll();
     SystemFrame::close();
     // report about ending
     if (ret==0) {

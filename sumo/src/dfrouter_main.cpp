@@ -64,6 +64,7 @@
 #include <routing_df/DFDetFlowLoader.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
+#include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -398,6 +399,7 @@ main(int argc, char **argv)
 #endif
     }
     delete net;
+    OutputDevice::closeAll();
     SystemFrame::close();
     if (ret==0) {
         cout << "Success." << endl;
