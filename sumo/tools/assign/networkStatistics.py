@@ -20,7 +20,7 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import os, sys, datetime, random, math
+import os, sys, datetime, random, math, operator
 
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
