@@ -14,7 +14,7 @@ All rights reserved
 import os, random, string, sys, datetime, math
 from xml.sax import saxutils, make_parser, handler
 from optparse import OptionParser
-from elements import Predecessor, Vertex, Edge, Path, Vehicle, TLJunction, Signalphase
+from elements import Predecessor, Vertex, Edge, Path, Vehicle
 from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationReader
                                                   
 from inputs import getParameter, getMatrix, getConnectionTravelTime                 
@@ -152,8 +152,8 @@ def main():
     lohse = False
     checkKPaths = False
     if KPaths > 1:
-        checkKPaths = True    
-    
+        checkKPaths = True
+
     net.initialPathSet()
     # initialize the map for recording the number of the assigned vehicles
     AssignedVeh = {}
@@ -175,7 +175,7 @@ def main():
     
     for counter in range (0, len(matrices)):
         # delete all vehicle information related to the last matrix for saving the disk space
-        net._vehicles = []                                              
+        net._vehicles = []
         matrix = matrices[counter]
         matrixCounter += 1
         if options.verbose:
@@ -211,7 +211,7 @@ def main():
         if options.debug:
 #            outputODZone(startVertices, endVertices, Pshort_EffCells, Plong_EffCells, Truck_EffCells)
             outputODZone(startVertices, endVertices, Pshort_EffCells, matrixCounter)  
-        
+    
         # initialization    
         iter_outside = 1
         newRoutes = 1
@@ -233,14 +233,15 @@ def main():
                     print 'KPaths:', KPaths 
                     print 'number of new routes:', newRoutes
             elif not checkKPaths and iter_outside == 1 and counter == 0:
+                print 'search for the new path'
                 newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, lohse)
             
             checkKPaths = False
             
             if options.verbose:
                 print 'number of new routes:', newRoutes
-              
-            stable = False            
+            
+            stable = False
             while not stable:
                 if options.verbose:
                     print 'iteration (inside):', iter_inside

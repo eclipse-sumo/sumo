@@ -45,7 +45,7 @@ optParser.add_option("-u", "--curve-file", dest="curvefile", default="CRcurve.tx
 optParser.add_option("-d", "--district-file", dest="confile",
                      help="read OD Zones from FILE (mandatory)", metavar="FILE")  
 optParser.add_option("-s", "--extrasignal-file", dest="sigfile",
-                     help="read extra/updated signal timing plans from FILE (mandatory)", metavar="FILE")  
+                     help="read extra/updated signal timing plans from FILE", metavar="FILE")  
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-b", "--debug", action="store_true", dest="debug",
@@ -150,7 +150,7 @@ def main():
     checkKPaths = False
     if KPaths > 1:
         checkKPaths = True
-        
+
     net.initialPathSet()
     # initialize the map for recording the number of the assigned vehicles
     AssignedVeh = {}
@@ -163,8 +163,9 @@ def main():
             AssignedVeh[startVertex][endVertex] = 0
             AssignedTrip[startVertex][endVertex] = 0.
     
-    starttime = datetime.datetime.now() 
-    foutroute = open('routes.rou.xml', 'w')                                           # initialize the file for recording the routes
+    starttime = datetime.datetime.now()
+    # initialize the file for recording the routes
+    foutroute = open('routes.rou.xml', 'w')
     print >> foutroute, """<?xml version="1.0"?>
 <!-- generated on %s by $Id$ -->
 <routes>""" % starttime
@@ -192,11 +193,6 @@ def main():
         foutlog.write('number of current startVertices:%s\n' %len(startVertices))
         foutlog.write('number of current endVertices:%s\n' %len(endVertices))
         
-        # the number of origins, the umber of destinations and the number of the OD pairs
-        origins = len(startVertices)                                    
-        dests = len(endVertices)
-        ODpairs = origins * dests
-        
         for edgeID in net._edges:
             edge = net._edges[edgeID]
             edge.flow = 0.
@@ -205,6 +201,11 @@ def main():
             edge.resetLohseParameter()
             edge.helpacttime = edge.freeflowtime
             
+        # the number of origins, the umber of destinations and the number of the OD pairs
+        origins = len(startVertices)                                    
+        dests = len(endVertices)
+        ODpairs = origins * dests
+        
         # output the origin and destination zones and the number of effective OD pairs
         if options.debug:
 #            outputODZone(startVertices, endVertices, Pshort_EffCells, Plong_EffCells, Truck_EffCells)
@@ -220,8 +221,8 @@ def main():
             iter_inside = 1
             # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
             if checkKPaths:
-                checkPathStart = datetime.datetime.now()
-                newRoutes = net.calcKPaths(newRoutes, options.verbose, KPaths, startVertices, endVertices, matrixPshort)
+                checkPathStart = datetime.datetime.now() 
+                newRoutes = net.calcKPaths(options.verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort)
                 checkPathEnd = datetime.datetime.now() - checkPathStart
                 foutlog.write('- Time for finding the k-shortest paths: %s\n' %checkPathEnd)
                 foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
@@ -229,7 +230,7 @@ def main():
                 if options.verbose:
                     print 'iter_outside:', iter_outside
                     print 'KPaths:', KPaths 
-                    print 'number of new routes:', newRoutes                
+                    print 'number of new routes:', newRoutes
             elif not checkKPaths and iter_outside == 1 and counter == 0:
                 print 'search for the new path'
                 newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, lohse)
