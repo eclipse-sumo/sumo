@@ -15,7 +15,27 @@ All rights reserved
 """
 
 import string
-     
+from xml.sax import saxutils, make_parser, handler
+
+
+# This class is for storing vehicle information, such as departure time, route and travel time.
+class Vehicle:
+    def __init__(self, label):
+        self.label = label
+        self.method = None
+        self.depart = 0.
+        self.arrival = 0.       
+        self.speed = 0.
+        self.route = []
+        self.traveltime = 0.
+        self.travellength = 0.
+        self.departdelay = 0.
+        self.waittime = 0.
+        self.rank = 0.
+
+    def __repr__(self):
+        return "%s_%s_%s_%s_%s_%s<%s>" % (self.label, self.depart, self.arrival, self.speed, self.traveltime, self.travellength, self.route)
+
 # This class is used in the significance test.
 class Assign:
     def __init__(self, method, totalVeh, totalTravelTime, totalTravelLength, totalDepartDelay, totalWaitTime, avgTravelTime, avgTravelLength, avgTravelSpeed, avgDepartDelay, avgWaitTime, SDTravelTime, SDLength, SDSpeed, SDWaitTime):
