@@ -5,6 +5,7 @@ copy_test_path:input_net.net.xml
 [collate_file]
 net:net.net.xml
 config:config.cfg
+log:log.txt
 
 [run_dependent_text]
 output:netgen.exe{REPLACE sumo-netgen}

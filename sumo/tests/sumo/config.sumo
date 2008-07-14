@@ -40,6 +40,7 @@ c2x_transmitted_info:c2x_transmitted_info.xml
 c2x_vehicle_in_range:c2x_vehicle_in_range.xml
 c2x_saved_info_freq:c2x_saved_info_freq.xml
 c2x_edge_near_info:c2x_edge_near_info.xml
+log:log.txt
 
 [run_dependent_text]
 output:\r{REPLACE \n}

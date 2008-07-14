@@ -14,6 +14,7 @@ net:net.net.xml
 plain_nodes:plain.nod.xml
 plain_edges:plain.edg.xml
 config:config.cfg
+log:log.txt
 
 [run_dependent_text]
 output:netconvert.exe{REPLACE sumo-netconvert}

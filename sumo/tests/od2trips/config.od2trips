@@ -9,6 +9,7 @@ copy_test_path:input_od_o.fma
 [collate_file]
 config:config.cfg
 trips:trips.trips.xml
+log:log.txt
 
 [run_dependent_text]
 output:od2trips.exe{REPLACE sumo-od2trips}

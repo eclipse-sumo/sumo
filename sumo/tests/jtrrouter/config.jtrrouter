@@ -9,6 +9,7 @@ copy_test_path:net.net.xml
 routes:routes.rou.xml
 alts:routes.rou.xml.alt
 config:config.cfg
+log:log.txt
 
 [run_dependent_text]
 output:jtrrouter.exe{REPLACE sumo-jtrrouter}

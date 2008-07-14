@@ -1,0 +1,1 @@
+--grid-net --grid-number=10 --grid-length=400 --output-file=net.net.xml --log-file log.txt -v 

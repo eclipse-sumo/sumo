@@ -1,0 +1,2 @@
+--net-file=input_net.net.xml --flows=input_flows.flows.xml --output=routes.rou.xml --turn-defaults=50,50,0,0 --continue-on-unbuild --log-file log.txt -v 
+
