@@ -1,10 +1,10 @@
 # -*- coding: Latin-1 -*-
 """
-@file    VelocityOverRoute.py
+@file    VelocityOverTime.py
 @author  Sascha.Krieg@dlr.de
-@date    2008-05-26
+@date    2008-05-29
 
-Shows the velocity of the chosen taxi over the driven route for all available sources.
+Shows the velocityCurve of the chosen taxi for all available sources, thereby the time duration per Edge is apparent.
 
 Copyright (C) 2008 DLR/FS, Germany
 All rights reserved
