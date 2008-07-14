@@ -24,14 +24,11 @@ from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign
 # for measuring the required time for reading input files
 inputreaderstart = datetime.datetime.now()  
 # initialize the file for recording the process and the errors
-foutlog = file('Lohse_log.txt', 'w')
-foutlog.write('The stochastic user equilibrium traffic assignment will be executed with the Lohse model.\n')
-foutlog.write('All vehicular releasing times are determined randomly(uniform).\n')
 
 optParser = OptionParser()
 
 optParser.add_option("-m", "--matrix-file", dest="mtxpsfile", 
-                     help="read OD matrix for passenger vehilces(long dist.) from FILE (mandatory)", metavar="FILE")
+                     help="read OD matrix for passenger vehicles(long dist.) from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-n", "--net-file", dest="netfile",                          
                      help="read SUMO network from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-u", "--curve-file", dest="curvefile", default="CRcurve.txt",
@@ -51,7 +48,7 @@ optParser.add_option("-a", "--alpha-value", dest="alpha", type="float",
 optParser.add_option("-g", "--gamma-value", dest="gamma", type="float",
                      default=1., help="gamma value to determine the commonality factor")
 optParser.add_option("-U", "--under-value", dest="under", type="float",
-                     default=0.15, help="parameter 'under' to determine auxiliary link cost"
+                     default=0.15, help="parameter 'under' to determine auxiliary link cost")
 optParser.add_option("-p", "--upper-value", dest="upper", type="float",
                      default=0.5, help="parameter 'upper' to determine auxiliary link cost")
 optParser.add_option("-x", "--parameter-1-value", dest="v1", type="float",
@@ -70,12 +67,19 @@ optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-b", "--debug", action="store_true", dest="debug",
                      default=False, help="debug the program")
+optParser.add_option("-e", "--type", dest="type", type="choice",
+                     choices=('clogit', 'lohse'),
+                     default="clogit", help="type of assignment [default: %default]")
                                       
 (options, args) = optParser.parse_args()
 
 if not options.netfile or not options.confile or not options.mtxpsfile:
     optParser.print_help()
     sys.exit()
+
+foutlog = file('%s_log.txt' % options.type, 'w')
+foutlog.write('The stochastic user equilibrium traffic assignment will be executed with the %s model.\n' % options.type)
+foutlog.write('All vehicular releasing times are determined randomly(uniform).\n')
 
 def main():   
     matrices = options.mtxpsfile.split(",")    
@@ -128,7 +132,7 @@ def main():
     matrixCounter = 0
     vehID = 0
     MatrixSum = 0.0
-    lohse = True
+    lohse = (options.type == "lohse")
     checkKPaths = False
     if kPaths > 1:
         checkKPaths = True
@@ -180,10 +184,12 @@ def main():
             edge = net._edges[edgeID]
             edge.flow = 0.
             edge.helpflow = 0.
-            edge.getActualTravelTime(options.curvefile, lammda)
-            edge.resetLohseParameter()
-            edge.helpacttime = edge.freeflowtime
-            
+            if lohse:
+                edge.getActualTravelTime(options.curvefile, lammda)
+                edge.resetLohseParameter()
+                edge.helpacttime = edge.freeflowtime
+            else:
+                edge.actualtime = edge.freeflowtime
         # the number of origins, the umber of destinations and the number of the OD pairs
         origins = len(startVertices)                                    
         dests = len(endVertices)
@@ -199,7 +205,7 @@ def main():
         newRoutes = 1
         stable = False
         first =True
-        # traffic Assignment based on the Lohse Model
+        # traffic Assignment based on the C-Logit / Lohse Model
         while newRoutes > 0:
             iter_inside = 1
             foutlog.write('- SUE iteration:%s\n' %iter_outside)
@@ -230,7 +236,11 @@ def main():
                 if options.verbose:
                     print 'iter_inside:', iter_inside
                 doSUEAssign(options.curvefile, options.verbose, net, alpha, gamma, lammda, under, uppper, v1, v2, v3, sueTolerance, maxsueiteration, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
-                stable = doLohseStopCheck(net, options.verbose, stable, iter_inside, maxsueiteration, cvg1, cvg2, cvg3, foutlog)
+                # The matrixPlong and the matrixTruck should be added when considering the long-distance trips and the truck trips.
+                if lohse:
+                    stable = doLohseStopCheck(net, options.verbose, stable, iter_inside, maxsueiteration, cvg1, cvg2, cvg3, foutlog)
+                else:
+                    stable = doSUEAssign(options.curvefile, options.verbose, net, alpha, gamma, lammda, under, uppper, v1, v2, v3, sueTolerance, maxsueiteration, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
                 iter_inside += 1
 
                 if (float(departtime)/3600.) < 10. or counter < 5:

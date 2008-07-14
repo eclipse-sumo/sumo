@@ -97,9 +97,9 @@ if options.stats == 0:
         else:
             execute("one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds))
         clogDir = makeAndChangeDir("../clogit")
-        execute("cLogit.py -d ../input/districts.xml -m %s -n %s -p ../clogit_parameter.txt -u ../CRcurve.txt %s" % (mtxNamesList, netFile, signalAdds))
+        execute("SUEAssignment.py -d ../input/districts.xml -m %s -n %s -p ../clogit_parameter.txt -u ../CRcurve.txt %s" % (mtxNamesList, netFile, signalAdds))
         lohseDir = makeAndChangeDir("../lohse")
-        execute("lohseAssignment.py -d ../input/districts.xml -m %s -n %s -p ../lohseparameter.txt -u ../CRcurve.txt %s" % (mtxNamesList, netFile, signalAdds))
+        execute("SUEAssignment.py -e lohse -d ../input/districts.xml -m %s -n %s -p ../lohseparameter.txt -u ../CRcurve.txt %s" % (mtxNamesList, netFile, signalAdds))
     if oneshotProcess:
         oneshotProcess.wait()
     duaProcess.wait()
