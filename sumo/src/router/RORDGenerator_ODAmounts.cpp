@@ -291,14 +291,6 @@ RORDGenerator_ODAmounts::parseInterval(const SUMOSAXAttributes &attrs)
 
 
 void
-RORDGenerator_ODAmounts::myCharacters(SumoXMLTag element,
-                                      const std::string &chars) throw(ProcessError)
-{
-    RORDLoader_TripDefs::myCharacters(element, chars);
-}
-
-
-void
 RORDGenerator_ODAmounts::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
     RORDLoader_TripDefs::myEndElement(element);

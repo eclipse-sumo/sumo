@@ -237,26 +237,6 @@ RORDLoader_TripDefs::getLane(const SUMOSAXAttributes &attrs)
 
 
 void
-RORDLoader_TripDefs::myCharacters(SumoXMLTag element,
-                                  const std::string &chars) throw(ProcessError)
-{
-    if (element==SUMO_TAG_TRIPDEF) {
-        StringTokenizer st(chars);
-        myEdges.clear();
-        while (st.hasNext()) {
-            string id = st.next();
-            ROEdge *edge = myNet.getEdge(id);
-            if (edge==0) {
-                MsgHandler::getErrorInstance()->inform("Could not find edge '" + id + "' within route '" + myParameter->id + "'.");
-                return;
-            }
-            myEdges.push_back(edge);
-        }
-    }
-}
-
-
-void
 RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
     if (element==SUMO_TAG_TRIPDEF &&
@@ -265,14 +245,8 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError)
         if (myDepartureTime<myBegin||myDepartureTime>=myEnd) {
             return;
         }
-        RORouteDef *route = 0;
-        if (myEdges.size()==0) {
-            route = new RORouteDef_OrigDest(myParameter->id, myParameter->color,
+        RORouteDef *route = new RORouteDef_OrigDest(myParameter->id, myParameter->color,
                                             myBeginEdge, myEndEdge);
-        } else {
-            route = new RORouteDef_Complete(myParameter->id, myParameter->color,
-                                            myEdges, false); // !!!
-        }
         ROVehicleType *type = myNet.getVehicleTypeSecure(myParameter->vtypeid);
         // check whether any errors occured
         if (MsgHandler::getErrorInstance()->wasInformed()) {

@@ -97,17 +97,6 @@ protected:
                         const SUMOSAXAttributes &attrs) throw(ProcessError);
 
 
-    /** @brief Called when characters occure
-     *
-     * @param[in] element ID of the last opened element
-     * @param[in] chars The read characters (complete)
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myCharacters
-     */
-    void myCharacters(SumoXMLTag element,
-                      const std::string &chars) throw(ProcessError);
-
-
     /** @brief Called when a closing tag occures
      *
      * @param[in] element ID of the currently opened element
@@ -178,9 +167,6 @@ protected:
         This is a feature used for the handling of explicite routes within the
         jp-router where the destination is not necessary */
     bool myEmptyDestinationsAllowed;
-
-    /// The list of edges to take when given
-    std::vector<const ROEdge*> myEdges;
 
     /// The information whether the next route was read
     bool myNextRouteRead;
