@@ -151,9 +151,7 @@ MSVehicle::~MSVehicle() throw()
     if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)!=myPointerCORNMap.end()) {
         ReplacedRoutesVector *v = (ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE];
         for (ReplacedRoutesVector::iterator i=v->begin(); i!=v->end(); ++i) {
-            if (!(*i).route->inFurtherUse()) {
-                delete(*i).route;
-            }
+            delete(*i).route;
         }
         delete v;
     }
