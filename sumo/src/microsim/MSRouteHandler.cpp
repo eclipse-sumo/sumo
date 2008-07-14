@@ -86,7 +86,9 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
 
 
 MSRouteHandler::~MSRouteHandler() throw()
-{}
+{
+    delete myVehicleParameter;
+}
 
 
 SUMOTime
@@ -318,6 +320,8 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
         closeRoute();
     } else if (element == SUMO_TAG_VEHICLE) {
         closeVehicle();
+        delete myVehicleParameter;
+        myVehicleParameter = 0;
     }
 }
 
@@ -454,8 +458,6 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
         }
     }
     myVehicleStops.clear();
-    delete myVehicleParameter;
-    myVehicleParameter = 0;
     return true;
 }
 
