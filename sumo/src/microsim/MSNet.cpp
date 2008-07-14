@@ -241,6 +241,9 @@ MSNet::~MSNet()
     }
 #endif
     delete myTriggerControl;
+    delete myBeginOfTimestepEvents;
+    delete myEndOfTimestepEvents;
+    delete myEmissionEvents;
     clearAll();
     GeoConvHelper::close();
     OutputDevice::closeAll();

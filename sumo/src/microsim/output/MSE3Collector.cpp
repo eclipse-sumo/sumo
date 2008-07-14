@@ -142,10 +142,16 @@ MSE3Collector::MSE3Collector(const std::string &id,
 }
 
 
-MSE3Collector::~MSE3Collector(void) throw()
+MSE3Collector::~MSE3Collector() throw()
 {
     for (std::map<MSVehicle*, E3Values>::iterator pair = myEnteredContainer.begin(); pair!=myEnteredContainer.end(); ++pair) {
         pair->first->quitRemindedLeft(this);
+    }
+    for (vector<MSE3EntryReminder*>::iterator i = myEntryReminders.begin(); i!=myEntryReminders.end(); ++i) {
+        delete *i;
+    }
+    for (vector<MSE3LeaveReminder*>::iterator i = myLeaveReminders.begin(); i!=myLeaveReminders.end(); ++i) {
+        delete *i;
     }
 }
 

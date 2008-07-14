@@ -309,6 +309,12 @@ MSE2Collector::update(SUMOTime) throw()
     // norm current values
     myCurrentMeanSpeed = noVehicles!=0 ? myCurrentMeanSpeed / (SUMOReal) noVehicles : -1;
     myCurrentMeanLength = noVehicles!=0 ? myCurrentMeanLength / (SUMOReal) noVehicles : -1;
+
+    // clean up
+    for (std::vector<JamInfo*>::iterator i=jams.begin(); i!=jams.end(); ++i) {
+        delete *i;
+    }
+    jams.clear();
 }
 
 

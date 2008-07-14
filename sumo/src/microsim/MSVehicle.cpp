@@ -157,6 +157,10 @@ MSVehicle::~MSVehicle() throw()
         }
         delete v;
     }
+    if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEPART_DEF)!=myPointerCORNMap.end()) {
+        DepartArrivalInformation *i = (DepartArrivalInformation*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_DEF];
+        delete i;
+    }
     if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEPART_INFO)!=myPointerCORNMap.end()) {
         DepartArrivalInformation *i = (DepartArrivalInformation*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_INFO];
         delete i;
