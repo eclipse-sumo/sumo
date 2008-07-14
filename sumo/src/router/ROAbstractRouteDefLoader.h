@@ -32,6 +32,7 @@
 
 #include <string>
 #include <utils/common/SUMOTime.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -83,13 +84,16 @@ public:
 
     /** @brief Adds routes from the file until the given time is reached
      *
-     * Errors should be catched and reported to error-instance.
+     * If any error occurs that may not be handled (false input, f.e.), a ProcessError
+     *  which contains the error message should be thrown.
      *
      * @param[in] time The time until which route definitions shall be loaded
      * @param[in] skipping Whether routes shall not be added
+     * @exception ProcessError If a major error occured
      * @return Whether any errors occured
+     * @todo Recheck usage of exceptions vs. return value
      */
-    virtual bool readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw() = 0;
+    virtual bool readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw(ProcessError) = 0;
 
 
     /** @brief Returns the time the current (last read) route starts at

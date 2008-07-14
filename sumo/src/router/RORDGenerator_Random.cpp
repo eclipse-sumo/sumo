@@ -78,7 +78,7 @@ RORDGenerator_Random::~RORDGenerator_Random() throw()
 
 
 bool
-RORDGenerator_Random::readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw()
+RORDGenerator_Random::readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw(ProcessError)
 {
     // check whether the first route have to be skipped
     if (skipping) {

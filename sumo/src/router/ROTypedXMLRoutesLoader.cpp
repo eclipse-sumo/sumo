@@ -87,16 +87,12 @@ ROTypedXMLRoutesLoader::~ROTypedXMLRoutesLoader() throw()
 
 
 bool
-ROTypedXMLRoutesLoader::readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw()
+ROTypedXMLRoutesLoader::readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw(ProcessError)
 {
     while (getLastReadTimeStep()<time&&!ended()) {
         beginNextRoute();
         while (!nextRouteRead()&&!ended()) {
-            try {
-                myParser->parseNext(myToken);
-            } catch (std::string) {
-                return false;
-            }
+            myParser->parseNext(myToken);
         }
     }
     return true;

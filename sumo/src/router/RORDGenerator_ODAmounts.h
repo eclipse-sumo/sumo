@@ -78,9 +78,10 @@ public:
      * @param[in] time The time until which route definitions shall be loaded
      * @param[in] skipping Whether routes shall not be added
      * @return Whether any errors occured
+     * @exception ProcessError If a major error occured
      * @see ROAbstractRouteDefLoader::readRoutesAtLeastUntil
      */
-    bool readRoutesAtLeastUntil(SUMOTime until, bool skipping) throw();
+    bool readRoutesAtLeastUntil(SUMOTime until, bool skipping) throw(ProcessError);
     /// @}
 
 

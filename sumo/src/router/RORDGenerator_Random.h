@@ -82,9 +82,10 @@ public:
      * @param[in] time The time until which route definitions shall be loaded
      * @param[in] skipping Whether routes shall not be added
      * @return Whether any errors occured
+     * @exception ProcessError If a major error occured
      * @see ROAbstractRouteDefLoader::readRoutesAtLeastUntil
      */
-    bool readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw();
+    bool readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw(ProcessError);
 
 
     /** @brief Returns the time the current (last read) route starts at
