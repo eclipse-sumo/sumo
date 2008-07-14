@@ -53,17 +53,10 @@
       <route>beg middle end rend</route>
    </vehicle>
 
-   <vehicle id="50" type="0" depart="50" period="0">
+   <vehicle id="50" type="0" depart="50" period="0" repno="0">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="51" type="0" depart="51" period="1">
-      <route>beg middle end rend</route>
-   </vehicle>
-
-   <vehicle id="60" type="0" depart="60" repno="0">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="61" type="0" depart="61" repno="1">
+   <vehicle id="51" type="0" depart="51" period="1" repno="1">
       <route>beg middle end rend</route>
    </vehicle>
 

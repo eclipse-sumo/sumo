@@ -21,10 +21,8 @@
 	<flow id="42" from="beg" to="rend" begin="42" end="43" no="1" departspeed="max"/>
 	<flow id="43" from="beg" to="rend" begin="43" end="44" no="1" departspeed="random"/>
 
-	<flow id="50" from="beg" to="rend" begin="50" end="51" no="1" period="0"/>
-	<flow id="51" from="beg" to="rend" begin="51" end="52" no="1" period="1"/>
+	<flow id="50" from="beg" to="rend" begin="50" end="51" no="1" period="0" repno="0"/>
+	<flow id="51" from="beg" to="rend" begin="51" end="52" no="1" period="1" repno="1"/>
 
-	<flow id="60" from="beg" to="rend" begin="60" end="61" no="1" repno="0"/>
-	<flow id="61" from="beg" to="rend" begin="61" end="62" no="1" repno="1"/>
 
 </flowdefs>
