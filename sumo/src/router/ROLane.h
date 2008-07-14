@@ -41,6 +41,11 @@
 /**
  * @class ROLane
  * @brief A single lane the router may use
+ *
+ * Currently, the lane has no other purpose then storing the allowed vehicle 
+ *  classes. They are even only stored herein and used by computing the vehicle
+ *  classes allowed on the according edge.
+ * @see ROEdge
  */
 class ROLane : public Named
 {

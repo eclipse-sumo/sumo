@@ -101,7 +101,7 @@ namespace ROHelper {
 }
 
 
-/// @brief Output operator for edge lists (edge will be written as their ids, divided by spaces)
+/// @brief Output operator for edge lists (edges will be written as their ids, divided by spaces)
 std::ostream &operator<<(std::ostream &os, const std::vector<const ROEdge*> &ev);
 
 

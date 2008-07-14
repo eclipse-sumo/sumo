@@ -53,12 +53,17 @@ public:
     virtual ~ReferencedItem() throw()  { }
 
 
-    /// @brief Returns the information whether this item was already saved
+    /** @brief Returns the information whether this item was already saved
+     *
+     * @return Whether this item was saved
+     */
     bool isSaved() const throw()  {
         return myWasSaved;
     }
 
-    /// @brief Marks the item as saved
+
+    /** @brief Marks the item as saved
+     */
     void markSaved() throw()  {
         myWasSaved = true;
     }
