@@ -139,7 +139,7 @@ class Net:
                                 if edge in path.edges:
                                     sameEdgeCount += 1 
                                     sameTravelTime += edge.actualtime
-                            if abs(sameEdgeCount - len(path.edges))/len(path.edges) <= 0.1 and abs(sametraveltime/3600. - pathcost) <= 0.05:
+                            if abs(sameEdgeCount - len(path.edges))/len(path.edges) <= 0.1 and abs(sameTravelTime/3600. - pathcost) <= 0.05:
                                 newPath = False
                                 smallDiffPath = True
                                 break
@@ -204,7 +204,7 @@ class Net:
                             if minpath.freepathtime*1.4 < temppathcost/3600.:
                                 break
                         temppath.reverse()
-                        newpath = Path(startVertex, endVertex, tempPath)
+                        newpath = Path(startVertex, endVertex, temppath)
                         ODPaths.append(newpath)
                         newpath.freepathtime = temppathcost/3600.
                         newpath.actpathtime = newpath.freepathtime

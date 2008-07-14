@@ -93,11 +93,11 @@ def doSUEAssign(curvefile, verbose, Parcontrol, net, startVertices, endVertices,
                         if lohse and verbose:
                             foutassign.write('    last_path.helpflow:%s\n' % path.helpflow)
                     if first and iter == 1:
-                        for edge in path.Edges:
+                        for edge in path.edges:
                             if str(edge.source) != str(edge.target):
                                 edge.flow += path.helpflow
                     else:
-                        for edge in path.Edges:
+                        for edge in path.edges:
                             if str(edge.source) != str(edge.target):
                                 edge.helpflow += path.helpflow
     
@@ -160,8 +160,8 @@ def calCommonalityAndChoiceProb(net, ODPaths, Parcontrol, lohse):
     
     for pathone in ODPaths:
         for pathtwo in ODPaths:
-            for edgeone in pathone.Edges:
-                for edgetwo in pathtwo.Edges:
+            for edgeone in pathone.edges:
+                for edgetwo in pathtwo.edges:
                     if str(edgeone.label) == str(edgetwo.label):
                         if lohse:
                             mtxOverlap[pathone][pathtwo] += edgeone.helpacttime
@@ -252,11 +252,11 @@ def doSUEVehAssign(verbose, net, counter, matrixPshort, Parcontrol, startVertice
                     if verbose:
                         foutpath.write('\npathID= %s, path flow=%4.4f, actpathtime=%4.4f, choiceprob=%4.4f, edges=' 
                                         %(path.label, path.pathflow, path.actpathtime, path.choiceprob))
-                        for item in path.Edges:
+                        for item in path.edges:
                             foutpath.write('%s, ' %(item.label))
                         
                     AssignedTrip[startVertex][endVertex] += path.pathflow
-                    edges = path.Edges
+                    edges = path.edges
                     vehID = assignVeh(verbose, net, startVertex, endVertex, edges, AssignedVeh,  AssignedTrip, vehID)
                 if verbose:
                     foutpath.write('\n')
@@ -432,7 +432,7 @@ def getLinkChoiceProportions(curvefile, verbose, net, matrixPshort, Parcontrol, 
                         pathflow = float(matrixPshort[start][end]*float(Parcontrol[iter]))
                         shortestpath.pathflow += pathflow
                         
-                        for edge in shortestpath.Edges:
+                        for edge in shortestpath.edges:
                             edge.flow += pathflow
                             if edge.detected:
                                 linkChoiceProportions[edge.label][startVertex][endVertex] += pathflow/matrixPshort[start][end]
@@ -478,7 +478,7 @@ def calLinkChoiceProportion(verbose, net, Parcontrol, startVertices, endVertices
                     else:
                         path.pathflow = matrixPshort[start][end] - cumulatedflow
                     
-                    for edge in path.Edges:
+                    for edge in path.edges:
                         edge.flow += path.pathflow
                         if edge.detected:
                             linkChoiceProportions[edge.label][startVertex][endVertex] += path.pathflow/matrixPshort[start][end]
