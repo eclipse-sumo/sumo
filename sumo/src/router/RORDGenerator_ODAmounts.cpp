@@ -343,6 +343,7 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
             new FlowDef(vehicle, type, route, myIntervalBegin, myIntervalEnd,
                         myVehicle2EmitNumber, myRandom);
         myFlows.push_back(fd);
+        delete myParameter;
         myParameter = 0;
     }
 }

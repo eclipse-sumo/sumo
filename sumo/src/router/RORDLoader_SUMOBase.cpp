@@ -300,6 +300,8 @@ RORDLoader_SUMOBase::closeVehicle() throw()
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
         ROVehicle *veh = myVehicleBuilder.buildVehicle(*myVehicleParameter, route, type);
         myNet.addVehicle(myVehicleParameter->id, veh);
+        delete myVehicleParameter;
+        myVehicleParameter = 0;
         return true;
     }
     return false;

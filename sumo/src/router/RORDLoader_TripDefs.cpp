@@ -283,6 +283,7 @@ RORDLoader_TripDefs::myEndElement(SumoXMLTag element) throw(ProcessError)
         // build the vehicle
         ROVehicle *veh = myVehicleBuilder.buildVehicle(*myParameter, route, type);
         myNet.addVehicle(myParameter->id, veh);
+        delete myParameter;
         myParameter = 0;
     }
 }
