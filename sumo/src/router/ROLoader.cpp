@@ -208,7 +208,7 @@ ROLoader::EdgeFloatTimeLineRetriever_SupplementaryEdgeWeight::getMultRetriever()
 // ROLoader - methods
 // ---------------------------------------------------------------------------
 ROLoader::ROLoader(OptionsCont &oc, ROVehicleBuilder &vb,
-                   bool emptyDestinationsAllowed)
+                   bool emptyDestinationsAllowed) throw()
         : myOptions(oc), myEmptyDestinationsAllowed(emptyDestinationsAllowed),
         myVehicleBuilder(vb)
 {}
@@ -416,7 +416,8 @@ ROLoader::buildNamedHandler(const std::string &optionName,
         return new RORDLoader_SUMOBase(myVehicleBuilder, net,
                                        myOptions.getInt("begin"), myOptions.getInt("end"),
                                        myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
-                                       myOptions.getInt("max-alternatives"), "routes", file);
+                                       myOptions.getInt("max-alternatives"), myOptions.getBool("repair"), 
+                                       "routes", file);
     }
     if (optionName=="trip-defs") {
         return new RORDLoader_TripDefs(myVehicleBuilder, net,
@@ -427,7 +428,8 @@ ROLoader::buildNamedHandler(const std::string &optionName,
         return new RORDLoader_SUMOBase(myVehicleBuilder, net,
                                        myOptions.getInt("begin"), myOptions.getInt("end"),
                                        myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
-                                       myOptions.getInt("max-alternatives"), "alternatives", file);
+                                       myOptions.getInt("max-alternatives"), myOptions.getBool("repair"), 
+                                       "alternatives", file);
     }
     if (optionName=="flows") {
         return new RORDGenerator_ODAmounts(myVehicleBuilder, net,

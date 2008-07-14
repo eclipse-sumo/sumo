@@ -62,14 +62,14 @@ using namespace std;
 RORDLoader_SUMOBase::RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
         SUMOTime begin, SUMOTime end,
         SUMOReal gawronBeta, SUMOReal gawronA,
-        int maxRouteNumber,
+        int maxRouteNumber, bool tryRepair,
         const std::string &dataName,
         const std::string &file) throw(ProcessError)
         : ROTypedXMLRoutesLoader(vb, net, begin, end, file),
         myVehicleParameter(0), myDataName(dataName), myHaveNextRoute(false),
         myCurrentAlternatives(0),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRouteNumber),
-        myCurrentRoute(0), myCurrentDepart(-1)
+        myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair)
 {}
 
 
@@ -233,7 +233,7 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
             myCurrentAlternatives->addLoadedAlternative(
                 new RORoute(myCurrentAlternatives->getID(), myCost, myProbability, *list, myColor));
         } else {
-            myCurrentRoute = new RORouteDef_Complete(myCurrentRouteName, myColor, *list, false);
+            myCurrentRoute = new RORouteDef_Complete(myCurrentRouteName, myColor, *list, myTryRepair);
         }
     }
     delete list;

@@ -66,16 +66,24 @@ class ROVehicle;
  * @brief The data loader.
  *
  * Loads the network and route descriptions using further classes.
+ *
  * Is capable to either load all routes in one step or go through them step wise.
  */
 class ROLoader
 {
 public:
-    /// Constructor
+    /** @brief Constructor
+     *
+     * @param[in] oc The options to use
+     * @param[in] vb The vehicle builder to use
+     * @param[in] emptyDestinationsAllowed Whether tripdefs may be given without destinations
+     * @todo Recheck usage of emptyDestinationsAllowed
+     */
     ROLoader(OptionsCont &oc, ROVehicleBuilder &vb,
-             bool emptyDestinationsAllowed);
+             bool emptyDestinationsAllowed) throw();
 
-    /// Destructor
+
+    /// @brief Destructor
     virtual ~ROLoader();
 
     /// Loads the network

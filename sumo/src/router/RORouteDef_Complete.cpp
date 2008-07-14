@@ -91,13 +91,6 @@ RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
             MsgHandler::getWarningInstance()->inform("Repaired route of vehicle '" + veh.getID() + "'.");
         }
         myEdges = newEdges;
-    } else {
-        std::vector<const ROEdge*> newEdges;
-        router.compute(myEdges[0], myEdges[myEdges.size()-1], &veh, begin, newEdges);
-        if(myEdges!=newEdges) {
-            MsgHandler::getWarningInstance()->inform("Found a faster/correct route for vehicle '" + veh.getID() + "'.");
-        }
-        myEdges = newEdges;
     }
     SUMOReal costs = ROHelper::recomputeCosts(myEdges, &veh, begin);
     if(costs<0) {
