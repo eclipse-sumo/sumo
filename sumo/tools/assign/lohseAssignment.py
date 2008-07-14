@@ -17,7 +17,7 @@ from optparse import OptionParser
 from elements import Predecessor, Vertex, Edge, Path, Vehicle
 from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationReader
                                                   
-from inputs import getParameter, getMatrix, getConnectionTravelTime                 
+from inputs import getMatrix, getConnectionTravelTime                 
 from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput
 from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign
 
@@ -32,28 +32,46 @@ optParser = OptionParser()
 
 optParser.add_option("-m", "--matrix-file", dest="mtxpsfile", 
                      help="read OD matrix for passenger vehilces(long dist.) from FILE (mandatory)", metavar="FILE")
-#optParser.add_option("-k", "--matrixpl-file", dest="mtxplfile", 
-#                     help="read OD matrix for passenger vehilces(long dist.) from FILE (mandatory)", metavar="FILE")  
-#optParser.add_option("-t", "--matrixt-file", dest="mtxtfile",                     
-#                     help="read OD matrix for trucks from FILE (mandatory)", metavar="FILE")  
 optParser.add_option("-n", "--net-file", dest="netfile",                          
                      help="read SUMO network from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-p", "--parameter-file", dest="parfile", 
-                     help="read assignment parameters from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-u", "--curve-file", dest="curvefile", default="CRcurve.txt",
                      help="read CRcurve from FILE", metavar="FILE")
 optParser.add_option("-d", "--district-file", dest="confile",
                      help="read OD Zones from FILE (mandatory)", metavar="FILE")  
 optParser.add_option("-s", "--extrasignal-file", dest="sigfile",
-                     help="read extra/updated signal timing plans from FILE", metavar="FILE")  
+                     help="read extra/updated signal timing plans from FILE", metavar="FILE")
+optParser.add_option("-k", "--k-shortest-paths", dest="kPaths", type="int",
+                     default=4, help="number of the paths should be found at the first iteration")
+optParser.add_option("-i", "--max-sue-iteration", dest="maxsueiteration", type="int",
+                     default=20, help="maximum number of the assignment iterations")
+optParser.add_option("-t", "--sue-tolerance", dest="sueTolerance", type="float",
+                     default=0.01, help="difference tolerance for the convergence in the c-logit model")
+optParser.add_option("-a", "--alpha-value", dest="alpha", type="float",
+                     default=0.15, help="alpha value to determine the commonality factor")
+optParser.add_option("-g", "--gamma-value", dest="gamma", type="float",
+                     default=1., help="gamma value to determine the commonality factor")
+optParser.add_option("-U", "--under-value", dest="under", type="float",
+                     default=0.15, help="parameter 'under' to determine auxiliary link cost"
+optParser.add_option("-p", "--upper-value", dest="upper", type="float",
+                     default=0.5, help="parameter 'upper' to determine auxiliary link cost")
+optParser.add_option("-x", "--parameter-1-value", dest="v1", type="float",
+                     default=2.5, help="parameter 'v1' to determine auxiliary link cost")
+optParser.add_option("-y", "--parameter-2-value", dest="v2", type="float",
+                     default=4., help="parameter 'v2' to determine auxiliary link cost")
+optParser.add_option("-z", "--parameter-3-value", dest="v3", type="float",
+                     default=0.002, help="parameter 'v3' to determine auxiliary link cost")
+optParser.add_option("-c", "--convergence-parameter-1", dest="cvg1", type="float",
+                     default=1., help="parameter 'cvg1' to calculate the convergence value")
+optParser.add_option("-o", "--convergence-parameter-2", dest="cvg2", type="float",
+                     default=1., help="parameter 'cvg2' to calculate the convergence value")
+optParser.add_option("-q", "--convergence-parameter-3", dest="cvg3", type="float",
+                     default=10., help="parameter 'cvg3' to calculate the convergence value")
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-b", "--debug", action="store_true", dest="debug",
                      default=False, help="debug the program")
                                       
 (options, args) = optParser.parse_args()
-
-
 
 if not options.netfile or not options.confile or not options.mtxpsfile:
     optParser.print_help()
@@ -94,7 +112,7 @@ def main():
             edge.getCRcurve()
             edge.getDefaultCapacity()
             edge.getAdjustedCapacity(net)
-            edge.getActualTravelTime(options.curvefile) 
+            edge.getActualTravelTime(options.curvefile, lammda) 
             edge.helpacttime = edge.freeflowtime
     # calculate link travel time for all district connectors 
     getConnectionTravelTime(net._startVertices, net._endVertices)
@@ -106,49 +124,13 @@ def main():
     if options.debug:
         outputNetwork(net)
     
-    # read the control parameters for the Lohse traffic assignment:  
-    #   - under: used to alculate the parameter fTT, related to the link travel time.
-    #   - upper: used to alculate the parameter fTT, related to the link travel time.
-    #   - v1: used to calculate the parameter fTT, related to the link travel time.
-    #   - v2: used with v1 for calculating the parameter fTT
-    #   - v3: used with v1 and v2 for calculating the parameter fTT
-    #   - cvg1: convergence parameter used in the Lohse model
-    #   - cvg2: maximum number of effective routes
-    #   - cvg3: maximum number of the SUE iterations
-    #   - maxIter: the difference of link flows between the two consequent iterations
-    #   - KPaths: the number of k shortest paths for each OD pair
-    #   - vehicle releasing method: 0: uniform randomly; 1: Poisson (arcontrol[10])
-    #   - Number of the periods (Parcontrol[11])
-    #   - Begin time (Parcontrol[12])
-    
-    Parcontrol = getParameter(options.parfile)
-    if options.verbose:
-        print 'Control parameters(Parcontrol):', Parcontrol
-    
-    under = float(Parcontrol[0])
-    upper = float(Parcontrol[1])
-    v1 = float(Parcontrol[2])
-    v2 = float(Parcontrol[3])
-    v3 = float(Parcontrol[4])
-    cvg1 = float(Parcontrol[5])                              
-    cvg2 = float(Parcontrol[6])
-    cvg3 = float(Parcontrol[7])
-    maxSUEIteration = int(Parcontrol[8])
-    KPaths = int(Parcontrol[9])
-    
-    begintime = int(Parcontrol[(len(Parcontrol)-1)])
-    
-    if options.verbose:
-        print 'number of the analyzed matrices:', len(matrices)
-        print 'Begintime:', begintime, "O'Clock"
-    
     # initialization
     matrixCounter = 0
     vehID = 0
     MatrixSum = 0.0
     lohse = True
     checkKPaths = False
-    if KPaths > 1:
+    if kPaths > 1:
         checkKPaths = True
 
     net.initialPathSet()
@@ -175,15 +157,16 @@ def main():
         net._vehicles = []
         matrix = matrices[counter]
         matrixCounter += 1
-        if options.verbose:
-            print 'Matrix: ', matrixCounter
-        departtime = (begintime + int(counter)) * 3600
-        if options.verbose:
-            print 'departtime', departtime  
+
     
-        matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum = getMatrix(net, options.verbose, matrix, MatrixSum)
-       
+        matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime = getMatrix(net, options.verbose, matrix, MatrixSum)
+        
+        departtime = (begintime + int(counter)) * 3600
+        
         if options.verbose:
+            print 'number of the analyzed matrices:', len(matrices)
+            print 'Begintime:', begintime, "O'Clock"
+            print 'departtime', departtime
             print 'Matrix und OD Zone already read for Interval', counter
             print 'CurrentMatrixSum:', CurrentMatrixSum
         
@@ -197,7 +180,7 @@ def main():
             edge = net._edges[edgeID]
             edge.flow = 0.
             edge.helpflow = 0.
-            edge.getActualTravelTime(options.curvefile)
+            edge.getActualTravelTime(options.curvefile, lammda)
             edge.resetLohseParameter()
             edge.helpacttime = edge.freeflowtime
             
@@ -223,14 +206,14 @@ def main():
             # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
             if checkKPaths:
                 checkPathStart = datetime.datetime.now() 
-                newRoutes = net.calcKPaths(options.verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort)
+                newRoutes = net.calcKPaths(options.verbose, newRoutes, kPaths, startVertices, endVertices, matrixPshort)
                 checkPathEnd = datetime.datetime.now() - checkPathStart
                 foutlog.write('- Time for finding the k-shortest paths: %s\n' %checkPathEnd)
                 foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
                 
                 if options.verbose:
                     print 'iter_outside:', iter_outside
-                    print 'KPaths:', KPaths 
+                    print 'KPaths:', kPaths 
                     print 'number of new routes:', newRoutes
             elif not checkKPaths and iter_outside == 1 and counter == 0:
                 print 'search for the new path'
@@ -246,8 +229,8 @@ def main():
             while not stable:
                 if options.verbose:
                     print 'iter_inside:', iter_inside
-                doSUEAssign(options.curvefile, options.verbose, Parcontrol, net, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
-                stable = doLohseStopCheck(net, options.verbose, stable, iter_inside, maxIter, Parcontrol, foutlog)
+                doSUEAssign(options.curvefile, options.verbose, net, alpha, gamma, lammda, under, uppper, v1, v2, v3, sueTolerance, maxsueiteration, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
+                stable = doLohseStopCheck(net, options.verbose, stable, iter_inside, maxsueiteration, cvg1, cvg2, cvg3, foutlog)
                 iter_inside += 1
 
                 if (float(departtime)/3600.) < 10. or counter < 5:
@@ -264,7 +247,7 @@ def main():
             if newRoutes < 5 and iter_outside > 10:
                 newRoutes = 0
                 
-            if iter_outside > maxSUEIteration:
+            if iter_outside > maxsueiteration:
                 print 'The max. number of iterations is reached!'
                 foutlog.write('The max. number of iterations is reached!\n')
                 foutlog.write('The number of new routes and the parameter stable will be set to zero and True respectively.\n')
@@ -272,8 +255,8 @@ def main():
                 stable = True
                 newRoutes = 0
 
-	    # update the path choice probability and the path flows as well as generate vehicle data 	
-        vehID = doSUEVehAssign(options.verbose, net, counter, matrixPshort, Parcontrol, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)
+        # update the path choice probability and the path flows as well as generate vehicle data 	
+        vehID = doSUEVehAssign(options.verbose, net, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)
         # output vehicle releasing time and vehicle route 
         sortedVehOutput(net._vehicles, departtime, foutroute)
     
@@ -281,7 +264,7 @@ def main():
     foutroute.close()
 
     # output the global performance indices
-    assigntime = outputStatistics(net, starttime, Parcontrol)
+    assigntime = outputStatistics(net, starttime, len(matrices))
     
     foutlog.write('- Assignment is completed and all vehicular information is generated. ')
     foutlog.close()

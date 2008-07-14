@@ -366,7 +366,7 @@ class Edge:
                      self.estcapacity = self.estcapacity * 1.0
                      
     # Function for calculating/updating link travel time
-    def getActualTravelTime(self, curvefile):        
+    def getActualTravelTime(self, curvefile, lammda):        
         foutcheck = file('queue_info.txt', 'a')
         f = file(curvefile)
         for line in f:
@@ -381,9 +381,7 @@ class Edge:
                     else:
                         self.actualtime = self.freeflowtime*(1+(float(itemCR[1])*(self.flow/(self.estcapacity*float(itemCR[3])))**float(itemCR[2])))
                 if self.flow > self.estcapacity and self.connection == 0 and str(self.source) != str(self.target):
-                    # Link travel time penalty is calcuated according to the Lagrange method.
-                    # The Lagrange Multiplier should be between 0 and 1, and is set to 0.4 here.
-                    self.queuetime = self.queuetime + 0.4*(self.actualtime - self.freeflowtime*(1+(float(itemCR[1]))))
+                    self.queuetime = self.queuetime + lammda*(self.actualtime - self.freeflowtime*(1+(float(itemCR[1]))))
                     foutcheck.write('edge.label= %s: queuing time= %s.\n' %(self.label, self.queuetime))
                     foutcheck.write('travel time at capacity: %s; actual travel time: %s.\n' %(self.freeflowtime*(1+(float(itemCR[1]))), self.actualtime))
 

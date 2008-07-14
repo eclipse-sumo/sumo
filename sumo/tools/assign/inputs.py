@@ -11,15 +11,6 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-# read the assignment parameters and put into the list 'Parcontrol'
-def getParameter(parfile):
-    Parcontrol = []
-    sum = 0.
-    for line in open(parfile): 
-        Parcontrol = line.split()
-        
-    return Parcontrol
-
 # read the analyzed matrix         
 def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     matrixPshort = []

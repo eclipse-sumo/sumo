@@ -48,12 +48,12 @@ def outputNetwork(net):
     foutnet.close()
 
 # ouput the required CPU time for the assignment and the assignment results (e.g. link flows, link travel times)
-def outputStatistics(net, starttime, Parcontrol):
+def outputStatistics(net, starttime, periods):
     totaltime = 0.0
     totalflow = 0.0
     assigntime = datetime.datetime.now() - starttime
     foutMOE = file('MOE.txt', 'w')
-    foutMOE.write('Number of analyzed periods(hr):%s' %(int(Parcontrol[(len(Parcontrol)-2)])))
+    foutMOE.write('Number of analyzed periods(hr):%s' %periods)
     for edgeName, edgeObj in net._edges.iteritems():                                      # generate the output of the link travel times
         if str(edgeObj.source) != str(edgeObj.target) and edgeObj.estcapacity > 0.:
             totaltime += edgeObj.flow * edgeObj.actualtime

@@ -25,7 +25,7 @@ from optparse import OptionParser
 from elements import Vertex, Edge, Vehicle
 from network import Net, NetworkReader, DistrictsReader, ExtraSignalInformationReader
 from dijkstra import dijkstra 
-from inputs import getParameter, getMatrix, getConnectionTravelTime
+from inputs import getMatrix, getConnectionTravelTime
 from outputs import timeForInput, outputODZone, outputNetwork, sortedVehOutput, outputStatistics, vehPoissonDistr
 from assign import doIncAssign
 
@@ -40,20 +40,16 @@ optParser = OptionParser()
 
 optParser.add_option("-m", "--matrix-file", dest="mtxpsfile",      
                      help="read OD matrix for passenger vehilces(long dist.) from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-k", "--matrixpl-file", dest="mtxplfile",                    
-                     help="read OD matrix for passenger vehilces(long dist.) from FILE (mandatory)", metavar="FILE")  
-optParser.add_option("-t", "--matrixt-file", dest="mtxtfile",                     
-                     help="read OD matrix for trucks from FILE (mandatory)", metavar="FILE")  
 optParser.add_option("-n", "--net-file", dest="netfile", 
                      help="read SUMO network from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-p", "--parameter-file", dest="parfile",   
-                     help="read assignment parameters from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-u", "--curve-file", dest="curvefile", default="CRcurve.txt",
                      help="read CRcurve from FILE", metavar="FILE")
 optParser.add_option("-d", "--district-file", dest="confile",  
                      help="read OD Zones from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-s", "--extrasignal-file", dest="sigfile",
-                     help="read extra/updated signal timing plans from FILE", metavar="FILE")                       
+                     help="read extra/updated signal timing plans from FILE", metavar="FILE")
+optParser.add_option("-i", "--iterations", dest="iteration", type="int",
+                     default=20, help="number of the assignment iterations")                    
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
 optParser.add_option("-b", "--debug", action="store_true", dest="debug",
@@ -64,7 +60,6 @@ optParser.add_option("-b", "--debug", action="store_true", dest="debug",
 if not options.netfile:
     optParser.print_help()
     sys.exit()
-
     
 def main():
     matrices = options.mtxpsfile.split(",")
@@ -99,7 +94,7 @@ def main():
             edge.getCRcurve()
             edge.getDefaultCapacity()
             edge.getAdjustedCapacity(net)
-            edge.getActualTravelTime(options.curvefile)
+            edge.getActualTravelTime(options.curvefile, lammda)
     # calculate link travel time for all district connectors 
     getConnectionTravelTime(net._startVertices, net._endVertices)    
         
@@ -110,21 +105,7 @@ def main():
                                                     
     if options.debug:
         outputNetwork(net)
-      
-    # read the control parameters(the number of iterations, the assigned percentages of the matrix at each iteration,
-    # vehicle releasing method( 0: UniRandomRelease; 1: PoissonRandomRelease), the number of the analyzed periods and the beginning time
-    Parcontrol = getParameter(options.parfile)
-    if options.verbose:
-        print 'Parcontrol[number of iterations, n.%, Uni-/PoissonRandomRelease, number of periods, beginning time]:', Parcontrol 
-    
-    foutlog.write('Reading control parameters: done.\n')
-    
-    begintime = int(Parcontrol[(len(Parcontrol)-1)])
-    iteration = int(Parcontrol[0])
-    if options.verbose:
-        print 'number of the analyzed matrices:', len(matrices)
-        print 'Begin Time:', begintime, "o'Clock"
-    
+       
     # initialization
     MatrixCounter = 0
     vehID = 0
@@ -151,15 +132,18 @@ def main():
     for counter, matrix in enumerate(matrices):
         # delete all vehicle information related to the last matrix for saving the disk space
         net._vehicles = []
-        
+      
+        matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime = getMatrix(net, options.verbose, matrix, MatrixSum)
+
         departtime = (begintime + int(counter)) * 3600
+        
         if options.verbose:
+            print 'number of the analyzed matrices:', len(matrices)
+            print 'Begin Time:', begintime, "o'Clock"
             print 'Matrix:', counter
             print 'departtime', departtime
-        
-        matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum = getMatrix(net, options.verbose, matrix, MatrixSum)
-        if options.verbose:
             print 'Matrix und OD Zone already read for Interval', counter
+            
         foutlog.write('Reading matrix and O-D zones: done.\n')
         
         for edgeID in net._edges:
@@ -174,7 +158,6 @@ def main():
         
     # output the origin and destination zones and the number of effective OD pairs
         if options.debug:
-#            outputODZone(startVertices, endVertices, Pshort_EffCells, Plong_EffCells, Truck_EffCells)
             outputODZone(startVertices, endVertices, Pshort_EffCells, MatrixCounter) 
   
         iter = 0
@@ -184,11 +167,11 @@ def main():
             iter += 1
             for start, startVertex in enumerate(startVertices):
                 D,P = dijkstra(startVertex)                                                                      
-                vehID = doIncAssign(net, options.verbose, Parcontrol, iter, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
+                vehID = doIncAssign(net, options.verbose, iteration, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
             
             for edgeID in net._edges:                                                   
                 edge = net._edges[edgeID]
-                edge.getActualTravelTime(options.curvefile)
+                edge.getActualTravelTime(options.curvefile, lammda)
 
         # output the generated vehicular releasing times and routes, based on the current matrix
         sortedVehOutput(net._vehicles, departtime, foutroute)
@@ -197,11 +180,8 @@ def main():
     foutroute.close()
 
     # output the global performance indices
-    assigntime= outputStatistics(net, starttime, Parcontrol)
-    
-    # output the number of vehicles in the given time interval(10 sec) accoding to the Poisson distribution
-    vehPoissonDistr(net, Parcontrol, begintime)
-    
+    assigntime= outputStatistics(net, starttime, len(matrices))
+
     foutlog.write('- Assignment is completed and the all vehicular information is generated. ')
     foutlog.close()
                                      
