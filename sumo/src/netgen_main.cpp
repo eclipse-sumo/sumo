@@ -259,7 +259,6 @@ fillOptions()
 NGNet *
 buildNetwork(NBNetBuilder &nb)
 {
-    NGNet *net = new NGNet(nb);
     OptionsCont &oc = OptionsCont::getOptions();
     // spider-net
     if (oc.getBool("spider-net")) {
@@ -281,6 +280,7 @@ buildNetwork(NBNetBuilder &nb)
             throw ProcessError();
         }
         // build if everything's ok
+        NGNet *net = new NGNet(nb);
         net->createSpiderWeb(
             oc.getInt("arms"),
             oc.getInt("circles"),
@@ -326,6 +326,7 @@ buildNetwork(NBNetBuilder &nb)
             throw ProcessError();
         }
         // build if everything's ok
+        NGNet *net = new NGNet(nb);
         net->createChequerBoard(xNo, yNo, xLength, yLength, attachLength);
         return net;
     }
@@ -337,6 +338,7 @@ buildNetwork(NBNetBuilder &nb)
     neighborDist.add(4, oc.getFloat("dist4"));
     neighborDist.add(5, oc.getFloat("dist5"));
     neighborDist.add(6, oc.getFloat("dist6"));
+    NGNet *net = new NGNet(nb);
     NGRandomNetBuilder randomNet(*net,
                                  oc.getFloat("min-angle"),
                                  oc.getFloat("rand-min-distance"),
