@@ -53,7 +53,7 @@ class OutputDevice;
  * texts "Warning: " or "Error:" to the front of the message (done in
  * MsgHandler).
  *
- * A log-file is build within MsgHandler::initOutputOptions if a filename
+ * A log-file is built within MsgHandler::initOutputOptions if a filename
  *  was supplied using the "log-file"-option. It is also deleted within the
  *  MsgHandler.
  */
@@ -88,14 +88,14 @@ public:
 
 
 private:
-    /// The used file
+    /// @brief The used file
     OutputDevice &myOutput;
 
 private:
-    /// Copy constructor.
+    /// @brief invalidated copy constructor
     LogFile(const LogFile&);
 
-    /// Assignment operator.
+    /// @brief invalidated assignment operator
     LogFile& operator=(const LogFile&);
 
 };
