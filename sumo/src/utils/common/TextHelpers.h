@@ -2,7 +2,7 @@
 /// @file    TextHelpers.h
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id:TextHelpers.h 4690 2007-11-09 13:19:45Z dkrajzew $
 ///
 // Some text helping functions
 /****************************************************************************/

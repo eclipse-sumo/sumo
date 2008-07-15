@@ -2,7 +2,7 @@
 /// @file    TextHelpers.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id$
+/// @version $Id:TextHelpers.cpp 4690 2007-11-09 13:19:45Z dkrajzew $
 ///
 // Some text helping functions
 /****************************************************************************/
@@ -72,7 +72,7 @@ TextHelpers::version(std::string str)
     size_t idx2 = str.rfind(')');
     long val = TplConvert<char>::_2long(str.substr(idx1+1, idx2-idx1-1).c_str());
     ostringstream strm;
-    strm << str.substr(0, idx1) << val+1 << ")";
+    strm << str.substr(0, idx1+1) << val+1 << ")";
     return strm.str();
 }
 
