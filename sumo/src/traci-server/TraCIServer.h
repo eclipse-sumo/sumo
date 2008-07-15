@@ -329,7 +329,7 @@ private:
     // external ids of all vehicles that have quit the simulation get inserted here
     std::set<int> myDestroyedVehicles;
 
-    bool closeConnection_;
+    static bool closeConnection_;
 
     Boundary* netBoundary_;
     const Boundary& getNetBoundary();

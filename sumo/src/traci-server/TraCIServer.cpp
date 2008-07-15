@@ -86,7 +86,7 @@ namespace traci
 // static member definitions
 // ===========================================================================
 TraCIServer* TraCIServer::instance_ = 0;
-
+bool TraCIServer::closeConnection_ = false;
 
 // ===========================================================================
 // method definitions
@@ -208,6 +208,8 @@ TraCIServer::TraCIServer()
 
 TraCIServer::~TraCIServer()
 {
+    if (socket_ != NULL) delete socket_;
+
     if (netBoundary_ != NULL) delete netBoundary_;
 }
 
@@ -253,7 +255,13 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step)
     } catch (SocketException e) {
         throw new ProcessError(e.what());
     }
-    instance_->targetTime_ = INT_MAX;
+    if (instance_ != NULL) 
+    {
+        delete instance_;
+        instance_ = 0;
+        closeConnection_ = true;
+    }
+    //instance_->targetTime_ = INT_MAX;
     return false;
 }
 
@@ -275,7 +283,7 @@ TraCIServer::processAfterSimStep()
 bool
 TraCIServer::wasClosed()
 {
-    return (instance_ != 0) && (instance_->closeConnection_);
+    return closeConnection_;
 }
 
 /*****************************************************************************/
@@ -410,6 +418,7 @@ TraCIServer::postProcessSimulationStep(tcpip::Storage& respMsg) throw(TraCIExcep
     if (resType_ != POSITION_NONE && resType_ != POSITION_2D && resType_ != POSITION_ROADMAP
 		&& resType_ != POSITION_2_5D && resType_ != POSITION_3D) {
         writeStatusCmd(respMsg, CMD_SIMSTEP, RTYPE_ERR, "Error: unsupported return format requested.");
+        closeConnection_ = true;
         return;
     }
     isMapChanged_ = true;
