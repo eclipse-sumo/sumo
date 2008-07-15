@@ -10,7 +10,12 @@ unsorted_time
 # Tests whether the vehicle type may be omitted
 increasing_time_novehtype
 
+# Tests whether color information is processed properly
+increasing_time_color
 
 # Tests whether processing vehicle parameter works
 withparams
 
+
+# Checks handling of broken input
+errors

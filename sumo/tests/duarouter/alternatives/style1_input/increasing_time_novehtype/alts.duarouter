@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/11/08 13:18:59 by SUMO duarouter Version 0.9.7
+<!-- generated on 07/15/08 08:33:37 by SUMO duarouter Version 0.9.7
 <configuration>
 
    <input>
@@ -23,47 +23,17 @@
    </vehicle>
    <vehicle id="1" depart="10">
       <routealt last="0">
-         <route cost="124.88" probability="1.00">beg middle end rend</route>
+         <route cost="124.88" probability="1.00" color="1.00,1.00,0.00">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="2" depart="20">
+   <vehicle id="2" depart="20" color="1.00,1.00,0.00">
       <routealt last="0">
          <route cost="124.88" probability="1.00">beg middle end rend</route>
       </routealt>
    </vehicle>
-   <vehicle id="3" depart="30">
+   <vehicle id="3" depart="30" color="1.00,1.00,0.00">
       <routealt last="0">
-         <route cost="124.88" probability="1.00">beg middle end rend</route>
-      </routealt>
-   </vehicle>
-   <vehicle id="4" depart="40">
-      <routealt last="0">
-         <route cost="124.88" probability="1.00">beg middle end rend</route>
-      </routealt>
-   </vehicle>
-   <vehicle id="5" depart="50">
-      <routealt last="0">
-         <route cost="124.88" probability="1.00">beg middle end rend</route>
-      </routealt>
-   </vehicle>
-   <vehicle id="6" depart="60">
-      <routealt last="0">
-         <route cost="124.88" probability="1.00">beg middle end rend</route>
-      </routealt>
-   </vehicle>
-   <vehicle id="7" depart="70">
-      <routealt last="0">
-         <route cost="124.88" probability="1.00">beg middle end rend</route>
-      </routealt>
-   </vehicle>
-   <vehicle id="8" depart="80">
-      <routealt last="0">
-         <route cost="124.88" probability="1.00">beg middle end rend</route>
-      </routealt>
-   </vehicle>
-   <vehicle id="9" depart="90">
-      <routealt last="0">
-         <route cost="124.88" probability="1.00">beg middle end rend</route>
+         <route cost="124.88" probability="1.00" color="1.00,1.00,0.00">beg middle end rend</route>
       </routealt>
    </vehicle>
 </route-alternatives>

@@ -1,0 +1,5 @@
+Error: The attribute 'probability' is already used in element 'route'
+ In file 'input_alts.rou.xml.alt'
+ At line/column 10/57.
+
+Quitting (on error).

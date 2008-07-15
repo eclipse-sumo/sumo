@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/11/08 13:18:59 by SUMO duarouter Version 0.9.7
+<!-- generated on 07/15/08 08:33:37 by SUMO duarouter Version 0.9.7
 <configuration>
 
    <input>
@@ -20,30 +20,12 @@
       <route>beg middle end rend</route>
    </vehicle>
    <vehicle id="1" depart="10">
+      <route color="1.00,1.00,0.00">beg middle end rend</route>
+   </vehicle>
+   <vehicle id="2" depart="20" color="1.00,1.00,0.00">
       <route>beg middle end rend</route>
    </vehicle>
-   <vehicle id="2" depart="20">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="3" depart="30">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="4" depart="40">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="5" depart="50">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="6" depart="60">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="7" depart="70">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="8" depart="80">
-      <route>beg middle end rend</route>
-   </vehicle>
-   <vehicle id="9" depart="90">
-      <route>beg middle end rend</route>
+   <vehicle id="3" depart="30" color="1.00,1.00,0.00">
+      <route color="1.00,1.00,0.00">beg middle end rend</route>
    </vehicle>
 </routes>

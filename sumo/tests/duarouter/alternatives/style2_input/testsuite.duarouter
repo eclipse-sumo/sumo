@@ -25,3 +25,7 @@ with_vehtype_with_class
 # Checks whether processing of vehicles with no vevtapye works
 no_vehtype
 
+
+# Checks handling of broken input
+errors
+

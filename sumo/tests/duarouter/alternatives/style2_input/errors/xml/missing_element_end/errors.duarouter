@@ -1,0 +1,5 @@
+Error: Expected end of tag 'routealt'
+ In file 'input_alts.rou.xml.alt'
+ At line/column 14/6.
+
+Quitting (on error).

@@ -1,0 +1,22 @@
+# Vehicle's depart is empty
+vehicle_depart_empty
+
+# Vehicle's depart is not numeric
+vehicle_depart_false
+
+# Vehicle's depart is not given
+vehicle_depart_missing
+
+
+
+# Vehicle's id is empty
+vehicle_id_empty
+
+# Vehicle's id is not given
+vehicle_id_missing
+
+
+
+
+
+

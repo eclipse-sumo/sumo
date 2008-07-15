@@ -1,0 +1,5 @@
+Error: Expected end of tag 'vehicle'
+ In file 'input_alts.rou.xml.alt'
+ At line/column 13/6.
+
+Quitting (on error).

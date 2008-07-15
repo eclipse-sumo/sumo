@@ -1,0 +1,31 @@
+# Route's cost is empty
+route_cost_empty
+
+# Route's cost is not numeric
+route_cost_false
+
+# Route's cost is not given
+route_cost_missing
+
+# Route's cost is negative
+route_cost_negative
+
+
+# Route's probability is empty
+route_prob_empty
+
+# Route's probability is not numeric
+route_prob_false
+
+# Route's probability is not given
+route_prob_missing
+
+# Route's probability is negative
+route_prob_negative
+
+
+
+
+
+
+

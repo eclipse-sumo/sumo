@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/15/08 08:30:34 by SUMO duarouter Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <alternatives>input_alts.rou.xml.alt</alternatives>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+</configuration>
+-->
+
+<routes>
+   <vtype model="SUMO_KRAUSS" id="KRAUSS_DEFAULT" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00" color="1,1,0"/>
+   <vehicle id="0" type="KRAUSS_DEFAULT" depart="0">
+      <route>beg middle end rend</route>
+   </vehicle>
+</routes>
