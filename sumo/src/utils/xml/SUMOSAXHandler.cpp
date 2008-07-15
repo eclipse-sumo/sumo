@@ -83,7 +83,7 @@ SUMOSAXHandler::buildErrorMessage(const SAXParseException& exception) throw()
     buf << " In file '" << getFileName() << "'" << endl;
     buf << " At line/column " << exception.getLineNumber()+1
     << '/' << exception.getColumnNumber() << "." << endl;
-    delete[]pMsg;
+    XMLString::release(&pMsg);
     return buf.str();
 }
 
