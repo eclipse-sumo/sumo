@@ -366,7 +366,7 @@ class Edge:
                      self.estcapacity = self.estcapacity * 1.0
                      
     # Function for calculating/updating link travel time
-    def getActualTravelTime(self, curvefile, lammda):        
+    def getActualTravelTime(self, curvefile, lamda):        
         foutcheck = file('queue_info.txt', 'a')
         f = file(curvefile)
         for line in f:
@@ -381,7 +381,7 @@ class Edge:
                     else:
                         self.actualtime = self.freeflowtime*(1+(float(itemCR[1])*(self.flow/(self.estcapacity*float(itemCR[3])))**float(itemCR[2])))
                 if self.flow > self.estcapacity and self.connection == 0 and str(self.source) != str(self.target):
-                    self.queuetime = self.queuetime + lammda*(self.actualtime - self.freeflowtime*(1+(float(itemCR[1]))))
+                    self.queuetime = self.queuetime + lamda*(self.actualtime - self.freeflowtime*(1+(float(itemCR[1]))))
                     foutcheck.write('edge.label= %s: queuing time= %s.\n' %(self.label, self.queuetime))
                     foutcheck.write('travel time at capacity: %s; actual travel time: %s.\n' %(self.freeflowtime*(1+(float(itemCR[1]))), self.actualtime))
 
@@ -407,19 +407,19 @@ class Edge:
         self.delta = 0.
         self.helpacttimeEx = 0.  
     # update the parameter used in the Lohse-assignment (learning method - Lernverfahren)          
-    def getLohseParUpdate(self, under, upper, v1, v2, v3):
+    def getLohseParUpdate(self, options):
         if self.helpacttime > 0.:
             self.TT = abs(self.actualtime - self.helpacttime) / self.helpacttime
-            self.fTT = v1/(1 + math.exp(v2-v3*self.TT))
-            self.delta = under + (upper - under)/((1+self.TT)**self.fTT)
+            self.fTT = options.v1/(1 + math.exp(options.v2-options.v3*self.TT))
+            self.delta = options.under + (options.upper - options.under)/((1+self.TT)**self.fTT)
             self.helpacttimeEx = self.helpacttime
             self.helpacttime = self.helpacttime + self.delta*(self.actualtime - self.helpacttime)    
             
     # check if the convergence reaches in the Lohse-assignment        
-    def stopCheck(self, verbose, cvg1, cvg2, cvg3):
+    def stopCheck(self, options):
         stop = False
         criteria = 0.
-        criteria = cvg1 * self.helpacttimeEx**(cvg2/cvg3)
+        criteria = options.cvg1 * self.helpacttimeEx**(options.cvg2/options.cvg3)
 
         if abs(self.actualtime - self.helpacttimeEx) <= criteria:
             stop = True

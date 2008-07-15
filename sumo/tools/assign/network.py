@@ -164,7 +164,7 @@ class Net:
         return newRoutes
 
 #    find the k shortest paths for each OD pair. The "k" is defined by users.
-    def calcKPaths(self, verbose, newRoutes, KPaths, startVertices, endVertices, matrixPshort):
+    def calcKPaths(self, verbose, kPaths, newRoutes, startVertices, endVertices, matrixPshort):
         if verbose:
             foutkpath = file('kpaths.xml', 'w')
             print >> foutkpath, """<?xml version="1.0"?>
@@ -181,7 +181,7 @@ class Net:
                 vertex = updatedVertices.pop(0)
                 vertex.wasUpdated = False
                 for edge in vertex.outEdges:
-                    if edge.target != startVertex and edge.target.update(KPaths, edge):
+                    if edge.target != startVertex and edge.target.update(kPaths, edge):
                         updatedVertices.append(edge.target)
     
             for end, endVertex in enumerate(endVertices):

@@ -17,7 +17,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     startVertices = []
     endVertices = []
     Pshort_EffCells = 0
-
+    periodList = []
     if verbose:
         print 'matrix:', str(matrix)                                 
 
@@ -30,7 +30,10 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     for line in open(matrix):
         if line[0] != '*' and line[0] != '$':
             skipCount += 1
-            if skipCount > 3:
+            if skipCount == 2:
+                for elem in line.split():
+                    periodList.append(float(elem))
+            elif skipCount > 3:
                 if zones == 0:
                     for elem in line.split():
                         zones = int(elem)
@@ -55,16 +58,20 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                         CurrentMatrixSum += float(item) 
                         if float(item) > 0.0:
                             Pshort_EffCells += 1
+                            
+    begintime = int(periodList[0])
+
     if verbose:
         print 'Number of zones:', zones
         print 'Number of origins:', origins
         print 'Number of destinations:', dest
+        print 'begintime:', begintime
         print 'CurrentMatrixSum:', CurrentMatrixSum        
         print 'Effective O-D Cells:', Pshort_EffCells
         print 'len(net._startVertices):', len(net._startVertices)
         print 'len(net._endVertices):', len(net._endVertices)
     
-    return matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum #, matrixPlong, matrixTruck, Plong_EffCells, Truck_EffCells  
+    return matrixPshort, startVertices, endVertices, Pshort_EffCells, MatrixSum, CurrentMatrixSum, begintime #, matrixPlong, matrixTruck, Plong_EffCells, Truck_EffCells  
 
 # estimate the travel times on the district connectors
 # assumption: all vehilces can reach the access links within 10 min from the respective traffic zone
