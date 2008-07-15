@@ -312,8 +312,6 @@ ROLoader::processRoutesStepWise(SUMOTime start, SUMOTime end,
             &&
             !myOptions.getBool("continue-on-unbuild");
     }
-    time = end;
-    writeStats(time, start, absNo);
     MsgHandler::getMessageInstance()->inform("Routes found between time steps " + toString<int>(firstStep) + " and " + toString<int>(lastStep) + ".");
 }
 
@@ -372,7 +370,6 @@ ROLoader::processAllRoutes(SUMOTime start, SUMOTime end,
         writeStats(time, start, absNo);
         net.saveAndRemoveRoutesUntil(myOptions, router, time);
     }
-    writeStats(time, start, absNo);
 }
 
 
