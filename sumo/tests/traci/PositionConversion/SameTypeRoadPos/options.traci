@@ -1,1 +1,1 @@
-sumo.exe --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8830 --netstate-dump netstate_dump.xml TraCITestClient.exe -def posconversion_sametyperoadpos.prog -p 8830 -h localhost -o testclient_out.txt
+sumo.exe --no-step-log --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8830 --netstate-dump netstate_dump.xml TraCITestClient.exe -def posconversion_sametyperoadpos.prog -p 8830 -h localhost -o testclient_out.txt

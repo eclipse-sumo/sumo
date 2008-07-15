@@ -1,1 +1,1 @@
-sumo.exe --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8803 --netstate-dump netstate_dump.xml TraCITestClient.exe -def movenode_road.prog -p 8803 -h localhost -o testclient_out.txt
+sumo.exe --no-step-log --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8803 --netstate-dump netstate_dump.xml TraCITestClient.exe -def movenode_road.prog -p 8803 -h localhost -o testclient_out.txt

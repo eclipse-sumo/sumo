@@ -1,1 +1,1 @@
-sumo.exe --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8838 --netstate-dump netstate_dump.xml TraCITestClient.exe -def distrequest_roadroaddrive.prog -p 8838 -h localhost -o testclient_out.txt
+sumo.exe --no-step-log --net-file net.net.xml --route-files routes.rou.xml --penetration 1.0 --remote-port 8838 --netstate-dump netstate_dump.xml TraCITestClient.exe -def distrequest_roadroaddrive.prog -p 8838 -h localhost -o testclient_out.txt
