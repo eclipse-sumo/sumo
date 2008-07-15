@@ -63,7 +63,6 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
         SUMOTime begin, SUMOTime end,
         SUMOReal gawronBeta, SUMOReal gawronA,
         int maxRouteNumber, bool tryRepair,
-        const std::string &dataName,
         const std::string &file) throw(ProcessError)
         : ROTypedXMLRoutesLoader(vb, net, begin, end, file),
         myVehicleParameter(0), myDataName(dataName), myHaveNextRoute(false),

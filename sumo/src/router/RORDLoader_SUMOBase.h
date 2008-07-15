@@ -68,7 +68,7 @@ public:
                         SUMOTime begin, SUMOTime end,
                         SUMOReal gawronBeta, SUMOReal gawronA,
                         int maxRouteNumber, bool tryRepair,
-                        const std::string &dataName, const std::string &file="") throw(ProcessError);
+                        const std::string &file="") throw(ProcessError);
 
     /// Destructor
     ~RORDLoader_SUMOBase() throw();
@@ -76,15 +76,6 @@ public:
 
     /// @name inherited from ROAbstractRouteDefLoader
     //@{
-
-    /** @brief Returns the name of the read type
-     *
-     * @return The name of the data
-     */
-    std::string getDataName() const throw() {
-        return myDataName;
-    }
-
 
     /** @brief Returns the time the current (last read) route starts at
      *

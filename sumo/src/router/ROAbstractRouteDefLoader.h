@@ -75,13 +75,6 @@ public:
     /// @name Methods to be implemented
     /// @{
 
-    /** @brief Returns the name of the read type
-     *
-     * @return The name of the data
-     */
-    virtual std::string getDataName() const throw() = 0;
-
-
     /** @brief Adds routes from the file until the given time is reached
      *
      * If any error occurs that may not be handled (false input, f.e.), a ProcessError

@@ -68,15 +68,6 @@ public:
     /// @name inherited from ROAbstractRouteDefLoader
     //@{
 
-    /** @brief Returns the name of the read type
-     *
-     * @return The name of the data
-     */
-    std::string getDataName() const throw() {
-        return "random_trips";
-    }
-
-
     /** @brief Adds routes from the file until the given time is reached
      *
      * @param[in] time The time until which route definitions shall be loaded

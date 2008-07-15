@@ -63,15 +63,6 @@ public:
     /// @name inherited from ROAbstractRouteDefLoader
     //@{
 
-    /** @brief Returns the name of the read type
-     *
-     * @return The name of the data
-     */
-    std::string getDataName() const throw() {
-        return "XML-trip definitions";
-    }
-
-
     /** @brief Returns the time the current (last read) route starts at
      *
      * @return The least time step that was read by this reader

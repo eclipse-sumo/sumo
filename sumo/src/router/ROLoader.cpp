@@ -417,7 +417,7 @@ ROLoader::buildNamedHandler(const std::string &optionName,
                                        myOptions.getInt("begin"), myOptions.getInt("end"),
                                        myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
                                        myOptions.getInt("max-alternatives"), myOptions.getBool("repair"), 
-                                       "routes", file);
+                                       file);
     }
     if (optionName=="trip-defs") {
         return new RORDLoader_TripDefs(myVehicleBuilder, net,
@@ -429,7 +429,7 @@ ROLoader::buildNamedHandler(const std::string &optionName,
                                        myOptions.getInt("begin"), myOptions.getInt("end"),
                                        myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
                                        myOptions.getInt("max-alternatives"), myOptions.getBool("repair"), 
-                                       "alternatives", file);
+                                       file);
     }
     if (optionName=="flows") {
         return new RORDGenerator_ODAmounts(myVehicleBuilder, net,
