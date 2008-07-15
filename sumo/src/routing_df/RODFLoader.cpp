@@ -58,7 +58,7 @@ using namespace std;
 // member method definitions
 // ===========================================================================
 RODFLoader::RODFLoader(OptionsCont &oc, ROVehicleBuilder &vb,
-                       bool emptyDestinationsAllowed)
+                       bool emptyDestinationsAllowed) throw()
         : ROLoader(oc, vb, emptyDestinationsAllowed)
 {}
 
