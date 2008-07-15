@@ -124,9 +124,9 @@ SUMOSAXAttributes::getSUMORealReporting(SumoXMLAttr attr, const char *objecttype
     } catch(NumberFormatException &) {
         if(report) {
             if(objectid!=0) {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " '" + string(objectid) + "' is not an int.");
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " '" + string(objectid) + "' is not a real number.");
             } else {
-                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " is not an int.");
+                MsgHandler::getErrorInstance()->inform("Attribute '" + getName(attr) + "' in definition of " + string(objecttype) + " is not a real number.");
             }
         }
     } catch(EmptyData &) {
