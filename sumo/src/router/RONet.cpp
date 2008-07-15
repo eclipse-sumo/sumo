@@ -38,7 +38,6 @@
 #include "RONet.h"
 #include "RORoute.h"
 #include "RORouteDef.h"
-#include "RORouteDefCont.h"
 #include "ROVehicle.h"
 #include "ROVehicleType.h"
 #include "ROVehicleType_ID.h"
@@ -107,7 +106,7 @@ RONet::addNode(RONode *node) throw()
 bool
 RONet::addRouteDef(RORouteDef *def) throw()
 {
-    return myRoutes.add(def);
+    return myRoutes.add(def->getID(), def);
 }
 
 

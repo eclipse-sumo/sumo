@@ -418,10 +418,6 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\router\RORouteDefCont.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\router\ROTypedXMLRoutesLoader.cpp"
 				>
 			</File>
@@ -532,10 +528,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\router\RORouteDef_OrigDest.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\router\RORouteDefCont.h"
 				>
 			</File>
 			<File

@@ -14,7 +14,6 @@ RORDGenerator_Random.cpp RORDGenerator_Random.h \
 RORDLoader_SUMOBase.cpp RORDLoader_SUMOBase.h \
 RORDLoader_TripDefs.cpp RORDLoader_TripDefs.h \
 RORoute.cpp RORoute.h RORouteDef.cpp RORouteDef.h \
-RORouteDefCont.cpp RORouteDefCont.h \
 RORouteDef_Alternatives.cpp RORouteDef_Alternatives.h \
 RORouteDef_Complete.cpp RORouteDef_Complete.h \
 RORouteDef_OrigDest.cpp RORouteDef_OrigDest.h \

@@ -37,10 +37,11 @@
 #include <vector>
 #include "ROEdge.h"
 #include "RONode.h"
-#include "RORouteDefCont.h"
 #include "ROVehicleCont.h"
 #include "ROVehicle.h"
 #include "ROVehicleType.h"
+#include "RORouteDef.h"
+#include <utils/common/SUMOAbstractRouter.h>
 
 
 // ===========================================================================
@@ -281,7 +282,7 @@ protected:
     NamedObjectCont<ROVehicleType*> myVehicleTypes;
 
     /// Known routes
-    RORouteDefCont myRoutes;
+    NamedObjectCont<RORouteDef*> myRoutes;
 
     /// Known vehicles
     ROVehicleCont myVehicles;
