@@ -32,7 +32,6 @@
 #include <map>
 #include <string>
 #include <vector>
-#include <utils/common/TextHelpers.h>
 #include "RORouteDef_OrigDest.h"
 #include "RORouteDefCont.h"
 
@@ -64,16 +63,6 @@ bool
 RORouteDefCont::add(RORouteDef *def) throw()
 {
     string id = def->getID();
-    // avoid usage of an id twice (from different files)
-    if (known(id)) {
-        if (def==get(id)) {
-            delete def;
-        } else {
-            while (known(id)) {
-                id = TextHelpers::version(id);
-            }
-        }
-    }
     // insert the route into the structures
     NamedObjectCont<RORouteDef*>::add(id, def);
     return true;

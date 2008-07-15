@@ -388,10 +388,6 @@
 				RelativePath="..\..\..\src\utils\common\SysUtils.cpp"
 				>
 			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\TextHelpers.cpp"
-				>
-			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
@@ -499,10 +495,6 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\utils\common\SysUtils.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\utils\common\TextHelpers.h"
 				>
 			</File>
 			<File

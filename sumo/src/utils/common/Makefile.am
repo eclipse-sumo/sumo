@@ -19,7 +19,6 @@ SystemFrame.cpp SystemFrame.h SysUtils.h SysUtils.cpp \
 LogFile.cpp LogFile.h \
 MsgRetrievingFunction.h \
 SUMOVehicleClass.cpp SUMOVehicleClass.h \
-TextHelpers.cpp TextHelpers.h \
 ToString.h TplConvert.h TplConvertSec.h  \
 ValueTimeLine.h
 
