@@ -95,7 +95,7 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
         if(myVehicleParameter!=0) {
             myCurrentDepart = myVehicleParameter->depart;
         }
-        mySkipCurrent = myVehicleParameter==0;
+        myCurrentIsOk = myVehicleParameter!=0;
         break;
     case SUMO_TAG_VTYPE:
         myCurrentVehicleType = 0;
@@ -113,7 +113,7 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
 void
 RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
 {
-    mySkipCurrent = false;
+    myCurrentIsOk = true;
     if (myCurrentAlternatives==0) {
         // parse plain route...
         try {
@@ -125,44 +125,23 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
             myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, "-1,-1,-1"));
         } catch (EmptyData &) {
             myCurrentRouteName = "";
-            getErrorHandlerMarkInvalid()->inform("Missing id in route.");
+            MsgHandler::getErrorInstance()->inform("Missing id in route.");
+            myCurrentIsOk = false;
         }
         return;
     }
     // parse route alternative...
-    // try to get the costs
-    try {
-        myCost = attrs.getFloat(SUMO_ATTR_COST);
-    } catch (NumberFormatException &) {
-        getErrorHandlerMarkInvalid()->inform(
-            "Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + attrs.getString(SUMO_ATTR_COST) + ").");
-        mySkipCurrent = true;
-        return;
-    } catch (EmptyData &) {
-        getErrorHandlerMarkInvalid()->inform("Missing cost in alternative for route '" + myCurrentAlternatives->getID() + "'.");
-        mySkipCurrent = true;
+    myCost = attrs.getSUMORealReporting(SUMO_ATTR_COST, "route(alternative)", myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
+    myProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "route(alternative)", myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
+    myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, "-1,-1,-1"));
+    if (myCurrentIsOk&&myCost<0) {
+        MsgHandler::getErrorInstance()->inform("Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myCost) + ").");
+        myCurrentIsOk = false;
         return;
     }
-    if (myCost<0) {
-        getErrorHandlerMarkInvalid()->inform("Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myCost) + ").");
-        mySkipCurrent = true;
-        return;
-    }
-    // try to get the probability
-    try {
-        myProbability = attrs.getFloatSecure(SUMO_ATTR_PROB, -10000);
-    } catch (NumberFormatException &) {
-        getErrorHandlerMarkInvalid()->inform("Invalid probability in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myProbability) + ").");
-        mySkipCurrent = true;
-        return;
-    } catch (EmptyData &) {
-        getErrorHandlerMarkInvalid()->inform("Missing probability in alternative for route '" + myCurrentAlternatives->getID() + "'.");
-        mySkipCurrent = true;
-        return;
-    }
-    if (myProbability<0) {
-        getErrorHandlerMarkInvalid()->inform("Invalid probability in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myProbability) + ").");
-        mySkipCurrent = true;
+    if (myCurrentIsOk&&myProbability<0) {
+        MsgHandler::getErrorInstance()->inform("Invalid probability in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myProbability) + ").");
+        myCurrentIsOk = false;
         return;
     }
 }
@@ -174,20 +153,22 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs)
     // try to get the id
     string id;
     try {
-        mySkipCurrent = false;
+        myCurrentIsOk = true;
         if (myVehicleParameter!=0) {
             id = attrs.getStringSecure(SUMO_ATTR_ID, "!" + myVehicleParameter->id);
         } else {
             id = attrs.getString(SUMO_ATTR_ID);
         }
     } catch (EmptyData &) {
-        getErrorHandlerMarkInvalid()->inform("Missing route alternative name.");
+        MsgHandler::getErrorInstance()->inform("Missing route alternative name.");
+        myCurrentIsOk = false;
         return;
     }
     // try to get the index of the last element
-    int index = attrs.getIntSecure(SUMO_ATTR_LAST, -1);
-    if (index<0) {
-        getErrorHandlerMarkInvalid()->inform("Missing or non-numeric index of a route alternative (id='" + id + "'.");
+    int index = attrs.getIntReporting(SUMO_ATTR_LAST, "route", id.c_str(), myCurrentIsOk);
+    if (myCurrentIsOk&&index<0) {
+        MsgHandler::getErrorInstance()->inform("Negative index of a route alternative (id='" + id + "'.");
+        myCurrentIsOk = false;
         return;
     }
     // try to get the color
@@ -208,27 +189,26 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
     }
     // check whether the costs and the probability are valid
     if (myCurrentAlternatives!=0) {
-        if (myCost<0||myProbability<0||mySkipCurrent) {
+        if (myCost<0||myProbability<0||!myCurrentIsOk) {
             return;
         }
     }
     // build the list of edges
     std::vector<const ROEdge*> *list = new std::vector<const ROEdge*>();
     StringTokenizer st(chars);
-    bool ok = true;
-    while (ok&&st.hasNext()) { // !!! too slow !!!
+    while (myCurrentIsOk&&st.hasNext()) { // !!! too slow !!!
         string id = st.next();
         ROEdge *edge = myNet.getEdge(id);
         if (edge!=0) {
             list->push_back(edge);
         } else {
             if(false) {
-                getErrorHandlerMarkInvalid()->inform("The route '" + myCurrentAlternatives->getID() + "' contains the unknown edge '" + id + "'.");
-                ok = false;
+                MsgHandler::getErrorInstance()->inform("The route '" + myCurrentAlternatives->getID() + "' contains the unknown edge '" + id + "'.");
+                myCurrentIsOk = false;
             }
         }
     }
-    if (ok) {
+    if (myCurrentIsOk) {
         if (myCurrentAlternatives!=0) {
             myCurrentAlternatives->addLoadedAlternative(
                 new RORoute(myCurrentAlternatives->getID(), myCost, myProbability, *list, myColor));
@@ -245,7 +225,7 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_ROUTE:
-        if (myCurrentRoute!=0&&!mySkipCurrent) {
+        if (myCurrentRoute!=0&&myCurrentIsOk) {
             if(myCurrentAlternatives==0) {
                 myNet.addRouteDef(myCurrentRoute);
                 myCurrentRoute = 0;
@@ -257,7 +237,7 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
         }
         break;
     case SUMO_TAG_ROUTEALT:
-        if (mySkipCurrent) {
+        if (!myCurrentIsOk) {
             return;
         }
         if (myVehicleParameter==0) {
@@ -269,6 +249,8 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
         break;
     case SUMO_TAG_VEHICLE:
         closeVehicle();
+        delete myVehicleParameter;
+        myVehicleParameter = 0;
         myHaveNextRoute = true;
         break;
     default:
@@ -282,7 +264,7 @@ RORDLoader_SUMOBase::closeVehicle() throw()
 {
     // get the vehicle id
     if (myVehicleParameter->depart<myBegin||myVehicleParameter->depart>=myEnd) {
-        mySkipCurrent = true;
+        myCurrentIsOk = false;
         return false;
     }
     // get vehicle type
@@ -293,15 +275,14 @@ RORDLoader_SUMOBase::closeVehicle() throw()
         route = myNet.getRouteDef("!" + myVehicleParameter->id);
     }
     if (route==0) {
-        getErrorHandlerMarkInvalid()->inform("The route of the vehicle '" + myVehicleParameter->id + "' is not known.");
+        MsgHandler::getErrorInstance()->inform("The route of the vehicle '" + myVehicleParameter->id + "' is not known.");
+        myCurrentIsOk = false;
         return false;
     }
     // build the vehicle
     if (!MsgHandler::getErrorInstance()->wasInformed()) {
         ROVehicle *veh = myVehicleBuilder.buildVehicle(*myVehicleParameter, route, type);
         myNet.addVehicle(myVehicleParameter->id, veh);
-        delete myVehicleParameter;
-        myVehicleParameter = 0;
         return true;
     }
     return false;
@@ -314,7 +295,8 @@ RORDLoader_SUMOBase::startVehType(const SUMOSAXAttributes &attrs)
     // get the id, report an error if not given or empty...
     string id;
     if(!attrs.setIDFromAttributes("vtype", id, false)) {
-        getErrorHandlerMarkInvalid()->inform("Missing id in vtype.");
+        MsgHandler::getErrorInstance()->inform("Missing id in vtype.");
+        myCurrentIsOk = false;
         return;
     }
     // get the other values
@@ -335,17 +317,6 @@ RORDLoader_SUMOBase::startVehType(const SUMOSAXAttributes &attrs)
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("At least one parameter of vehicle type '" + id + "' is not numeric, but should be.");
     }
-}
-
-
-MsgHandler *
-RORDLoader_SUMOBase::getErrorHandlerMarkInvalid() throw()
-{
-    mySkipCurrent = true;
-    return
-        OptionsCont::getOptions().getBool("continue-on-unbuild")
-        ? MsgHandler::getWarningInstance()
-        : MsgHandler::getErrorInstance();
 }
 
 

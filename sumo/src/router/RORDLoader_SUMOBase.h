@@ -140,8 +140,6 @@ protected:
     /// Parses a vehicle type
     void startVehType(const SUMOSAXAttributes &attrs);
 
-    MsgHandler *getErrorHandlerMarkInvalid() throw();
-
     bool closeVehicle() throw();
 
 
@@ -177,9 +175,7 @@ protected:
     /// The color of the current route
     RGBColor myColor;
 
-    /** @brief Information whether the current route shall not be processed
-        This may occure on errors */
-    bool mySkipCurrent;
+    bool myCurrentIsOk;
 
     /// Information whether a further route has been read
     bool myHaveNextRoute;
