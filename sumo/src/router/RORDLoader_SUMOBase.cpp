@@ -65,11 +65,12 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
         int maxRouteNumber, bool tryRepair,
         const std::string &file) throw(ProcessError)
         : ROTypedXMLRoutesLoader(vb, net, begin, end, file),
-        myVehicleParameter(0), myDataName(dataName), myHaveNextRoute(false),
+        myVehicleParameter(0), myCurrentIsOk(true), myAltIsValid(true), myHaveNextRoute(false),
         myCurrentAlternatives(0),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRouteNumber),
         myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair)
-{}
+{
+}
 
 
 RORDLoader_SUMOBase::~RORDLoader_SUMOBase() throw()
@@ -77,6 +78,7 @@ RORDLoader_SUMOBase::~RORDLoader_SUMOBase() throw()
     // clean up (on failure)
     delete myCurrentAlternatives;
     delete myCurrentRoute;
+    delete myVehicleParameter;
 }
 
 
@@ -90,6 +92,8 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
         break;
     case SUMO_TAG_VEHICLE:
         // try to parse the vehicle definition
+        delete myVehicleParameter;
+        myVehicleParameter = 0;
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
         if(myVehicleParameter!=0) {
             myCurrentDepart = myVehicleParameter->depart;
@@ -97,14 +101,20 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
         myCurrentIsOk = myVehicleParameter!=0;
         break;
     case SUMO_TAG_VTYPE:
-        myCurrentVehicleType = 0;
         startVehType(attrs);
         break;
     case SUMO_TAG_ROUTEALT:
+        myAltIsValid = true;
         startAlternative(attrs);
+        if(!myCurrentIsOk) {
+            myAltIsValid = false;
+        }
         break;
     default:
         break;
+    }
+    if(!myCurrentIsOk) {
+        throw ProcessError();
     }
 }
 
@@ -112,8 +122,11 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
 void
 RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
 {
-    myCurrentIsOk = true;
+    if(!myAltIsValid) {
+        return;
+    }
     if (myCurrentAlternatives==0) {
+        myCurrentIsOk = true;
         // parse plain route...
         try {
             if (myVehicleParameter!=0) {
@@ -150,23 +163,26 @@ void
 RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs)
 {
     // try to get the id
+    myCurrentIsOk = true;
     string id;
-    try {
-        myCurrentIsOk = true;
-        if (myVehicleParameter!=0) {
-            id = attrs.getStringSecure(SUMO_ATTR_ID, "!" + myVehicleParameter->id);
-        } else {
-            id = attrs.getString(SUMO_ATTR_ID);
+    if (myVehicleParameter!=0) {
+        id = myVehicleParameter->id;
+        if(id=="") {
+            MsgHandler::getErrorInstance()->inform("Missing 'id' of a routealt.");
+            myCurrentIsOk = false;
+            return;    
         }
-    } catch (EmptyData &) {
-        MsgHandler::getErrorInstance()->inform("Missing route alternative name.");
-        myCurrentIsOk = false;
-        return;
+        id = "!" + id;
+    } else {
+        if(!attrs.setIDFromAttributes("routealt", id)) {
+            myCurrentIsOk = false;
+            return;
+        }
     }
     // try to get the index of the last element
     int index = attrs.getIntReporting(SUMO_ATTR_LAST, "route", id.c_str(), myCurrentIsOk);
     if (myCurrentIsOk&&index<0) {
-        MsgHandler::getErrorInstance()->inform("Negative index of a route alternative (id='" + id + "'.");
+        MsgHandler::getErrorInstance()->inform("Negative index of a route alternative (id='" + id + "').");
         myCurrentIsOk = false;
         return;
     }
@@ -184,6 +200,9 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
     // process routes only, all other elements do
     //  not have embedded characters
     if (element!=SUMO_TAG_ROUTE) {
+        return;
+    }
+    if(!myAltIsValid) {
         return;
     }
     // check whether the costs and the probability are valid
@@ -224,6 +243,9 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_ROUTE:
+        if(!myAltIsValid) {
+            return;
+        }
         if (myCurrentRoute!=0&&myCurrentIsOk) {
             if(myCurrentAlternatives==0) {
                 myNet.addRouteDef(myCurrentRoute);
@@ -254,6 +276,9 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
         break;
     default:
         break;
+    }
+    if(!myCurrentIsOk) {
+        throw ProcessError();
     }
 }
 
@@ -310,9 +335,8 @@ RORDLoader_SUMOBase::startVehType(const SUMOSAXAttributes &attrs)
         SUMOVehicleClass vclass = SUMOVehicleParserHelper::parseVehicleClass(attrs, "vtype", id);
         // build the vehicle type
         //  by now, only vehicles using the krauss model are supported
-        myCurrentVehicleType = new ROVehicleType_Krauss(
-            id, color, length, vclass, accel, decel, sigma, maxspeed, tau);
-        myNet.addVehicleType(myCurrentVehicleType);
+        ROVehicleType *vtype = new ROVehicleType_Krauss(id, color, length, vclass, accel, decel, sigma, maxspeed, tau);
+        myNet.addVehicleType(vtype);
     } catch (NumberFormatException &) {
         MsgHandler::getErrorInstance()->inform("At least one parameter of vehicle type '" + id + "' is not numeric, but should be.");
     }

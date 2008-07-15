@@ -158,47 +158,49 @@ protected:
 
 
 protected:
-
+    /// @brief The parsed vehicle parameter
     SUMOVehicleParameter *myVehicleParameter;
-    /// The type of the parsed file to allow a distinction
-    std::string myDataName;
 
-    /// The color of the current route
+    /// @brief The color of the current route/vehicle
     RGBColor myColor;
 
+    /// @brief Information whether the currently parsed item is valid
     bool myCurrentIsOk;
 
-    /// Information whether a further route has been read
+    /// @brief Information whether the currently parsed alternatives set is valid
+    bool myAltIsValid;
+
+    /// @brief Information whether a further route has been read
     bool myHaveNextRoute;
 
-    /// The vehicle type currently being parsed
-    ROVehicleType *myCurrentVehicleType;
-
-    /// The current route alternatives
+    /// @brief The currently parsed route alternatives
     RORouteDef_Alternatives *myCurrentAlternatives;
 
-    /// The costs of the current alternative
+    /// @brief The costs of the current alternative
     SUMOReal myCost;
 
-    /// The probability of the current alternative's usage
+    /// @brief The probability of the current alternative's usage
     SUMOReal myProbability;
 
-    /// gawron beta - value
+    /// @brief gawron beta - value
     SUMOReal myGawronBeta;
 
-    /// gawron beta - value
+    /// @brief gawron beta - value
     SUMOReal myGawronA;
 
-    /// The maximum route alternatives number
+    /// @brief The maximum route alternatives number
     int myMaxRouteNumber;
 
+    /// @brief Information whether a read route shall be tried to be repaired
     bool myTryRepair;
 
+    /// @brief The currently parsed route 
     RORouteDef_Complete *myCurrentRoute;
 
+    /// @brief The name of the currently parsed route
     std::string myCurrentRouteName;
 
-    /// The currently read vehicle's depart
+    /// @brief The currently read vehicle's depart
     SUMOTime myCurrentDepart;
 
 
