@@ -16,7 +16,7 @@ import elements
 from elements import Vertex, Edge, Path, Vehicle
 from network import Net
 
-def doIncAssign(net, verbose, iteration, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID): 
+def doIncAssign(vehicles, verbose, iteration, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID): 
     # matrixPlong and matrixTruck should be added if available.
     for end, endVertex in enumerate(endVertices): 
         if str(startVertex) != str(endVertex) and (matrixPshort[start][end] > 0.0):
@@ -44,7 +44,7 @@ def doIncAssign(net, verbose, iteration, endVertices, start, startVertex, matrix
             
             AssignedTrip[startVertex][endVertex] += pathflow
             
-            vehID = assignVeh(verbose, net, startVertex, endVertex, helpPath, AssignedVeh, AssignedTrip, vehID)
+            vehID = assignVeh(verbose, vehicles, startVertex, endVertex, helpPath, AssignedVeh, AssignedTrip, vehID)
 
     return vehID
   
@@ -121,7 +121,7 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
             
             # reset the edge.helpflow for the next iteration
             edge.helpflow = 0.0                                                
-            edge.getActualTravelTime(options.curvefile, options.lamda)
+            edge.getActualTravelTime(options.lamda)
  #           if edge.queuetime > 0.:
  #               notstable += 1
             if lohse:
@@ -198,7 +198,7 @@ def calCommonalityAndChoiceProb(net, ODPaths, alpha, gamma, lohse):
             path.choiceprob = 1.
             
 # calculate the path choice probabilities and the path flows and generate the vehicular data for each OD Pair    
-def doSUEVehAssign(net, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse):
+def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse):
     if options.verbose:
         if counter == 0:
             foutpath = file('paths.txt', 'w')
@@ -250,7 +250,7 @@ def doSUEVehAssign(net, options, counter, matrixPshort, startVertices, endVertic
                         
                     AssignedTrip[startVertex][endVertex] += path.pathflow
                     edges = path.edges
-                    vehID = assignVeh(options.verbose, net, startVertex, endVertex, edges, AssignedVeh, AssignedTrip, vehID)
+                    vehID = assignVeh(options.verbose, vehicles, startVertex, endVertex, edges, AssignedVeh, AssignedTrip, vehID)
                 if options.verbose:
                     foutpath.write('\n')
     if options.verbose:
@@ -261,10 +261,10 @@ def doSUEVehAssign(net, options, counter, matrixPshort, startVertices, endVertic
     return vehID
 
            
-def assignVeh(verbose, net, startVertex, endVertex, edges, AssignedVeh, AssignedTrip, vehID):
+def assignVeh(verbose, vehicles, startVertex, endVertex, edges, AssignedVeh, AssignedTrip, vehID):
     while AssignedVeh[startVertex][endVertex] < int(round(AssignedTrip[startVertex][endVertex])):
         vehID += 1
-        newVehicle = net.addVehicle(str(vehID))
+        vehicles.append(Vehicle(str(vehID)))
         newVehicle.route = edges
         AssignedVeh[startVertex][endVertex] += 1
     if verbose:

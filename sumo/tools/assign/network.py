@@ -24,24 +24,17 @@ class Net:
     def __init__(self):
         self._vertices = []
         self._edges = {}
-        self._vehicles = []
         self._startVertices = []
         self._endVertices = []
         self._paths = {}
         self._junctions = {}
         self._detectedLinkCounts = 0.
-        self._flowVarianceMatrices = {}
         
     def newVertex(self):
         v = Vertex(len(self._vertices))
         self._vertices.append(v)
         return v
 
-    def addVehicle(self, label):
-        t = Vehicle(label)
-        self._vehicles.append(t)
-        return t
-    
     def getEdge(self, edgeLabel):
         return self._edges[edgeLabel]
 
@@ -72,9 +65,6 @@ class Net:
     def getJunction(self, junctionlabel):
         return self._junctions[junctionlabel]
         
-    def addFlowVarianceMatrix(self, varianceObj):
-        self._flowVarianceMatrices[varianceObj.label] = varianceObj
-    
     def countDetectedLinks(self, weekday, timeindex, odtype):
         daytimeindex = weekday + timeindex
         for edge in self._edges.itervalues():

@@ -9,6 +9,22 @@ This file defines global tables for the significance tests.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
+crCurveTable = {"CR1": (1., 2., 1.),
+                "CR2": (1., 2., 1.),
+                "CR3": (1., 2., 1.),
+                "CR4": (1., 2., 1.),
+                "CR5": (1., 2., 1.),
+                "CR6": (1., 2., 1.),
+                "CR10": (1., 2., 1.),
+                "CR11": (0.25, 2., 1.)}
+laneTypeTable = {1:[[10., "CR27"], [20., 25], [1000., 34]],
+                 2:[[10., 24], [20., 25]],
+                 3:[[10., 24], [20., 25]],
+                 4:[[10., 24], [20., 25]]}
+typeList = laneTypeTable[min(laneNum, 4)]
+for type in typeList:
+    if type[0] >= maxSpeed:
+        break
 
 chiSquareTable = \
 [[ 0,        0.10,     0.05,    0.025,     0.01,    0.001],

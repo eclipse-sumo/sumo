@@ -79,7 +79,7 @@ ncpus = detectCPUs()
 if options.stats == 0:
     if not options.duaonly:
         succDir = makeAndChangeDir("../successive")
-        execute("incrementalAssignment.py -d ../input/districts.xml -m %s -n %s -p ../parameter.txt -u ../CRcurve.txt" % (mtxNamesList, netFile))
+        execute("Assignment.py -e incremental -d ../input/districts.xml -m %s -n %s" % (mtxNamesList, netFile))
         if not options.od2trips:
             shutil.copy("%s/routes.rou.xml" % succDir, routes)
             execute("route2trips.py %s > ../input/successive.trips.xml" % routes)
@@ -97,9 +97,9 @@ if options.stats == 0:
         else:
             execute("one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds))
         clogDir = makeAndChangeDir("../clogit")
-        execute("SUEAssignment.py -d ../input/districts.xml -m %s -n %s -p ../clogit_parameter.txt -u ../CRcurve.txt %s" % (mtxNamesList, netFile, signalAdds))
+        execute("Assignment.py -d ../input/districts.xml -m %s -n %s %s" % (mtxNamesList, netFile, signalAdds))
         lohseDir = makeAndChangeDir("../lohse")
-        execute("SUEAssignment.py -e lohse -d ../input/districts.xml -m %s -n %s -p ../lohseparameter.txt -u ../CRcurve.txt %s" % (mtxNamesList, netFile, signalAdds))
+        execute("Assignment.py -e lohse -d ../input/districts.xml -m %s -n %s %s" % (mtxNamesList, netFile, signalAdds))
     if oneshotProcess:
         oneshotProcess.wait()
     duaProcess.wait()

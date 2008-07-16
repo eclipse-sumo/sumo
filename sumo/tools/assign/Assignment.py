@@ -35,8 +35,6 @@ optParser.add_option("-m", "--matrix-file", dest="mtxpsfile",
                      help="read OD matrix for passenger vehicles(long dist.) from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-n", "--net-file", dest="netfile",                          
                      help="read SUMO network from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-u", "--curve-file", dest="curvefile", default="CRcurve.txt",
-                     help="read CRcurve from FILE", metavar="FILE")
 optParser.add_option("-d", "--district-file", dest="confile",
                      help="read OD Zones from FILE (mandatory)", metavar="FILE")  
 optParser.add_option("-s", "--extrasignal-file", dest="sigfile",
@@ -122,7 +120,7 @@ def main():
             edge.getCRcurve()
             edge.getDefaultCapacity()
             edge.getAdjustedCapacity(net)
-            edge.getActualTravelTime(options.curvefile, options.lamda) 
+            edge.getActualTravelTime(options.lamda) 
             edge.helpacttime = edge.freeflowtime
 
     # calculate link travel time for all district connectors 
@@ -167,7 +165,7 @@ def main():
     
     for counter, matrix in enumerate(matrices):  #for counter in range (0, len(matrices)):
         # delete all vehicle information related to the last matrix for saving the disk space
-        net._vehicles = []
+        vehicles = []
     
         matrixPshort, startVertices, endVertices, Pshort_EffCells, matrixSum, CurrentMatrixSum, begintime = getMatrix(net, options.verbose, matrix, matrixSum)
         departtime = begintime * 3600
@@ -190,7 +188,7 @@ def main():
             edge.flow = 0.
             edge.helpflow = 0.
             if lohse:
-                edge.getActualTravelTime(options.curvefile, options.lamda)
+                edge.getActualTravelTime(options.lamda)
                 edge.resetLohseParameter()
                 edge.helpacttime = edge.freeflowtime
             else:
@@ -213,14 +211,12 @@ def main():
                 iter += 1
                 for start, startVertex in enumerate(startVertices):
                     D,P = dijkstra(startVertex)                                                                      
-                    vehID = doIncAssign(net, options.verbose, options.maxiteration, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
+                    vehID = doIncAssign(vehicles, options.verbose, options.maxiteration, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
                 
                 for edgeID in net._edges:                                                   
                     edge = net._edges[edgeID]
-                    edge.getActualTravelTime(options.curvefile, options.lamda)
+                    edge.getActualTravelTime(options.lamda)
                     
-            # output the generated vehicular releasing times and routes, based on the current matrix
-            sortedVehOutput(net._vehicles, departtime, foutroute)
         else:
             print 'begin the', options.type, " assignment!"   
             # initialization for the clogit and the lohse assignment model
@@ -288,9 +284,10 @@ def main():
                     newRoutes = 0
     
             # update the path choice probability and the path flows as well as generate vehicle data 	
-            vehID = doSUEVehAssign(net, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)
-            # output vehicle releasing time and vehicle route 
-            sortedVehOutput(net._vehicles, departtime, foutroute)
+            vehID = doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)
+
+       # output the generated vehicular releasing times and routes, based on the current matrix
+        sortedVehOutput(vehicles, departtime, foutroute)
     
     foutroute.write('</routes>\n')
     foutroute.close()

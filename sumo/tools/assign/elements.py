@@ -15,7 +15,8 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
-import os, random, string, sys, math
+import sys, math
+from tables import crCurveTable
 
 # This class is used for finding the k shortest paths.
 class Predecessor:
@@ -158,150 +159,145 @@ class Edge:
         
     # modified CR-curve database, defined in the PTV-Validate files
     def getCapacity(self):
-        if self.numberlane > 0. or self.detectorNum > 0.:
-            laneNum = max(self.detectorNum, self.numberlane)
+        if self.numberlane > 0:
+            self.estcapacity = self.numberlane * 1500.
             if self.maxspeed > 38.0:
-                self.estcapacity = laneNum * 1500.
-                if laneNum <= 2.:
+                if self.numberlane <= 2:
                     self.edgetype = '14'
-                elif laneNum == 3.:
+                elif self.numberlane == 3:
                     self.edgetype = '10'
-                elif laneNum >= 4.:
+                elif self.numberlane >= 4:
                     self.edgetype = '6'
             elif self.maxspeed > 34.0 and self.maxspeed <= 38.0:
-                self.estcapacity = laneNum * 1500.
-                if laneNum == 2.:
+                if self.numberlane <= 2:
                     self.edgetype = '15'
-                elif laneNum == 3.:
+                elif self.numberlane == 3:
                     self.edgetype = '11'
-                elif laneNum >= 4.:
+                elif self.numberlane >= 4:
                     self.edgetype = '7'
             elif self.maxspeed > 33.0 and self.maxspeed <= 34.0:
-                if laneNum == 1.:
-                    self.estcapacity = laneNum * 1400.
+                if self.numberlane == 1:
+                    self.estcapacity = self.numberlane * 1400.
                     self.edgetype = '26'
-                if laneNum == 2.:
-                    self.estcapacity = laneNum * 1400.
+                if self.numberlane == 2:
+                    self.estcapacity = self.numberlane * 1400.
                     self.edgetype = '23'
-                elif laneNum >= 3.:
-                    self.estcapacity = laneNum * 1500.
+                elif self.numberlane >= 3:
                     self.edgetype = '20'
             elif self.maxspeed > 30.0 and self.maxspeed <= 33.0:
-                self.estcapacity = laneNum * 1400.
-                if laneNum <= 2.:        
+                self.estcapacity = self.numberlane * 1400.
+                if self.numberlane <= 2:        
                     self.edgetype = '16'
-                if laneNum == 3.:
+                if self.numberlane == 3:
                     self.edgetype = '12'
-                elif laneNum >= 3.:
+                elif self.numberlane >= 4:
                     self.edgetype = '8'
             elif self.maxspeed > 29.0 and self.maxspeed <= 30.0:
-                if laneNum == 1.:
-                    self.estcapacity = laneNum * 1350.   
+                if self.numberlane == 1.:
+                    self.estcapacity = self.numberlane * 1350.   
                     self.edgetype = '18'
-                if laneNum == 2.:
-                    self.estcapacity = laneNum * 1500.
+                if self.numberlane == 2.:
                     self.edgetype = '24'
-                elif laneNum >= 3.:
-                    self.estcapacity = laneNum * 1500.
+                elif self.numberlane >= 3.:
                     self.edgetype = '21'
             elif self.maxspeed > 27.0 and self.maxspeed <= 29.0:
-                if laneNum == 1.:
-                    self.estcapacity = laneNum * 1350.
+                if self.numberlane == 1.:
+                    self.estcapacity = self.numberlane * 1350.
                     self.edgetype = '64'
-                if laneNum >= 2.:
-                    self.estcapacity = laneNum * 1400.
+                if self.numberlane >= 2.:
+                    self.estcapacity = self.numberlane * 1400.
                     self.edgetype = '61'
             elif self.maxspeed >= 25.0 and self.maxspeed <= 27.0:
-                if laneNum == 1.:
-                    self.estcapacity = laneNum * 1350.     
+                if self.numberlane == 1.:
+                    self.estcapacity = self.numberlane * 1350.     
                     self.edgetype = '19'
-                if laneNum == 2.:
-                    self.estcapacity = laneNum * 1400.
+                if self.numberlane == 2.:
+                    self.estcapacity = self.numberlane * 1400.
                     self.edgetype = '17'
-                if laneNum == 3.:
-                    self.estcapacity = laneNum * 1400.
+                if self.numberlane == 3.:
+                    self.estcapacity = self.numberlane * 1400.
                     self.edgetype = '13'
-                if laneNum >= 4.:
-                    self.estcapacity = laneNum * 1400.
+                if self.numberlane >= 4.:
+                    self.estcapacity = self.numberlane * 1400.
                     self.edgetype = '9'
             elif self.maxspeed > 22.0 and self.maxspeed < 25.0:
-                if laneNum == 1.:
-                    self.estcapacity = laneNum * 1300.
+                if self.numberlane == 1.:
+                    self.estcapacity = self.numberlane * 1300.
                     self.edgetype = '29'
-                if laneNum == 2.:
-                    self.estcapacity = laneNum * 1300.
+                if self.numberlane == 2.:
+                    self.estcapacity = self.numberlane * 1300.
                     self.edgetype = '33'
-                if slaneNum >= 3.:
-                    self.estcapacity = laneNum * 1400.
+                if sself.numberlane >= 3.:
+                    self.estcapacity = self.numberlane * 1400.
                     self.edgetype = '30'
             elif self.maxspeed > 19.0 and self.maxspeed <= 22.0:
-                if laneNum == 1.:
-                    self.estcapacity = laneNum * 1200.
+                if self.numberlane == 1.:
+                    self.estcapacity = self.numberlane * 1200.
                     self.edgetype = '37'
-                if laneNum == 2.:
-                    self.estcapacity = laneNum * 1350.
+                if self.numberlane == 2.:
+                    self.estcapacity = self.numberlane * 1350.
                     self.edgetype = '34'
-                if laneNum >= 3.:
-                    self.estcapacity = laneNum * 1400.
+                if self.numberlane >= 3.:
+                    self.estcapacity = self.numberlane * 1400.
                     self.edgetype = '31'
             elif self.maxspeed > 18.0 and self.maxspeed <= 19.0:
-                self.estcapacity = laneNum * 1300.
+                self.estcapacity = self.numberlane * 1300.
                 self.edgetype = '84'
             elif self.maxspeed > 16.0 and self.maxspeed <= 18.0:
-                if laneNum == 1.:
-                    self.estcapacity = laneNum * 1200.
+                if self.numberlane == 1.:
+                    self.estcapacity = self.numberlane * 1200.
                     self.edgetype = '38'
-                if laneNum == 2.:
-                    self.estcapacity = laneNum * 1300.
+                if self.numberlane == 2.:
+                    self.estcapacity = self.numberlane * 1300.
                     self.edgetype = '35'
-                if laneNum == 3.:
-                    self.estcapacity = laneNum * 1300.
+                if self.numberlane == 3.:
+                    self.estcapacity = self.numberlane * 1300.
                     self.edgetype = '32'
-                if laneNum >= 4.:
-                    self.estcapacity = laneNum * 1100.
+                if self.numberlane >= 4.:
+                    self.estcapacity = self.numberlane * 1100.
                     self.edgetype = '40'
             elif self.maxspeed > 15.0 and self.maxspeed <= 16.0:
-                if laneNum == 1.:
-                    self.estcapacity = laneNum * 1000.
+                if self.numberlane == 1.:
+                    self.estcapacity = self.numberlane * 1000.
                     self.edgetype = '47'
-                if laneNum >= 2.:
-                    self.estcapacity = laneNum * 1100.
+                if self.numberlane >= 2.:
+                    self.estcapacity = self.numberlane * 1100.
                     self.edgetype = '44'
             elif self.maxspeed > 13.0 and self.maxspeed <= 15.0:
-                if laneNum == 1.:
-                    self.estcapacity = laneNum * 1200.
+                if self.numberlane == 1.:
+                    self.estcapacity = self.numberlane * 1200.
                     self.edgetype = '39'
-                if laneNum == 2.:
-                    self.estcapacity = laneNum * 1050.
+                if self.numberlane == 2.:
+                    self.estcapacity = self.numberlane * 1050.
                     self.edgetype = '45'
-                if laneNum >= 3.:
-                    self.estcapacity = laneNum * 1110.
+                if self.numberlane >= 3.:
+                    self.estcapacity = self.numberlane * 1110.
                     self.edgetype = '42'
             elif self.maxspeed > 12.0 and self.maxspeed <= 13.0:
-                self.estcapacity = laneNum * 800.
-                if laneNum == 1.: 
+                self.estcapacity = self.numberlane * 800.
+                if self.numberlane == 1.: 
                     self.edgetype = '49'
-                if laneNum == 2.:
+                if self.numberlane == 2.:
                     self.edgetype = '86'
             elif self.maxspeed > 11.0 and self.maxspeed <= 12.0:
-                if laneNum == 1.: 
-                    self.estcapacity = laneNum * 800.
+                if self.numberlane == 1.: 
+                    self.estcapacity = self.numberlane * 800.
                     self.edgetype = '83'
-                if laneNum >= 2.:
-                    self.estcapacity = laneNum * 1000.
+                if self.numberlane >= 2.:
+                    self.estcapacity = self.numberlane * 1000.
                     self.edgetype = '75'
             elif self.maxspeed > 9.0 and self.maxspeed <= 11.0:
-                if laneNum == 1.:
-                    self.estcapacity = laneNum * 800.
+                if self.numberlane == 1.:
+                    self.estcapacity = self.numberlane * 800.
                     self.edgetype = '89'
-                if laneNum >= 2.:
-                    self.estcapacity = laneNum * 1400.
+                if self.numberlane >= 2.:
+                    self.estcapacity = self.numberlane * 1400.
                     self.edgetype = '87'
             elif self.maxspeed > 8.0 and self.maxspeed <= 9.0:
-                self.estcapacity = laneNum * 800.
+                self.estcapacity = self.numberlane * 800.
                 self.edgetype = '79'
             elif self.maxspeed <= 8.0:
-                self.estcapacity = laneNum * 200.
+                self.estcapacity = self.numberlane * 200.
                 self.edgetype = '94'
     
     def getCRcurve(self):
@@ -333,8 +329,7 @@ class Edge:
         leftSymbol = -1
         cyclelength = 0.
         count = 0
-        if self.numberlane > 0. or self.detectorNum > 0.:
-            laneNum = max(self.detectorNum, self.numberlane)
+        if self.numberlane > 0:
             if self.junctiontype == 'signalized':
                 junction = net._junctions[self.junction]
                 if self.rightturn != None:
@@ -355,42 +350,33 @@ class Edge:
                         leftGreen += phase.duration
     
                 if self.straight != None:
-                    self.estcapacity = (straightGreen*(3600./cyclelength))/1.5 * laneNum
+                    self.estcapacity = (straightGreen*(3600./cyclelength))/1.5 * self.numberlane
                 else:
                     greentime = max(rightGreen, leftGreen)
-                    self.estcapacity = (greentime*(3600./cyclelength))/1.5 * laneNum
-            else:
-                if self.straight == "m":
-                    self.estcapacity *= 1.0
-                elif self.straight == "None" and (self.rightturn == "m" or self.leftturn == "m"):
-                     self.estcapacity = self.estcapacity * 1.0
+                    self.estcapacity = (greentime*(3600./cyclelength))/1.5 * self.numberlane
                      
     # Function for calculating/updating link travel time
-    def getActualTravelTime(self, curvefile, lamda):        
+    def getActualTravelTime(self, lamda):        
         foutcheck = file('queue_info.txt', 'a')
-        f = file(curvefile)
-        for line in f:
-            itemCR = line.split()
-            # get the parameters for the respective cost function
-            if itemCR[0] == self.CRcurve:
-                if self.flow == 0.0 or self.connection > 0 or self.numberlane == 0 or str(self.source) == str(self.target):
-                    self.actualtime = self.freeflowtime
+        if self.CRcurve in crCurveTable:
+            curve = crCurveTable[self.CRcurve]
+            if self.flow == 0.0 or self.connection > 0 or self.numberlane == 0 or str(self.source) == str(self.target):
+                self.actualtime = self.freeflowtime
+            else:
+                if self.estcapacity == 0.0:
+                    foutcheck.write('edge.label=%s: estcapacity=0\n' %(self.label))
                 else:
-                    if self.estcapacity == 0.0:
-                        foutcheck.write('edge.label=%s: estcapacity=0\n' %(self.label))
-                    else:
-                        self.actualtime = self.freeflowtime*(1+(float(itemCR[1])*(self.flow/(self.estcapacity*float(itemCR[3])))**float(itemCR[2])))
-                if self.flow > self.estcapacity and self.connection == 0 and str(self.source) != str(self.target):
-                    self.queuetime = self.queuetime + lamda*(self.actualtime - self.freeflowtime*(1+(float(itemCR[1]))))
-                    foutcheck.write('edge.label= %s: queuing time= %s.\n' %(self.label, self.queuetime))
-                    foutcheck.write('travel time at capacity: %s; actual travel time: %s.\n' %(self.freeflowtime*(1+(float(itemCR[1]))), self.actualtime))
+                    self.actualtime = self.freeflowtime*(1+(curve[0]*(self.flow/(self.estcapacity*curve[2]))**curve[1]))
+            if self.flow > self.estcapacity and self.connection == 0 and str(self.source) != str(self.target):
+                self.queuetime = self.queuetime + lamda*(self.actualtime - self.freeflowtime*(1+curve[0]))
+                foutcheck.write('edge.label= %s: queuing time= %s.\n' %(self.label, self.queuetime))
+                foutcheck.write('travel time at capacity: %s; actual travel time: %s.\n' %(self.freeflowtime*(1+curve[0]), self.actualtime))
 
-                    if self.queuetime < 1.:
-                        self.queuetime = 0.
-
-                elif self.flow <= self.estcapacity and self.connection == 0 and str(self.source) != str(self.target):
+                if self.queuetime < 1.:
                     self.queuetime = 0.
-        f.close()
+
+            elif self.flow <= self.estcapacity and self.connection == 0 and str(self.source) != str(self.target):
+                self.queuetime = 0.
         foutcheck.close()        
         return self.actualtime
     
