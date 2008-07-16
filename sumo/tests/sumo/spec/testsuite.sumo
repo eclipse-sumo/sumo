@@ -1,2 +1,5 @@
 # whether emission is implemented as described in specification
 emission
+
+# tests for the arrival part of the specification
+arrival
