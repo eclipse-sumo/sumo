@@ -147,18 +147,23 @@ MSVehicle::~MSVehicle() throw()
         MSRoute::erase(myRoute->getID());
     }
     // delete values in CORN
-    // prior routes
     if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)!=myPointerCORNMap.end()) {
         ReplacedRoutesVector *v = (ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE];
         for (ReplacedRoutesVector::iterator i=v->begin(); i!=v->end(); ++i) {
-            if (!(*i).route->inFurtherUse()) {
-                delete(*i).route;
-            }
+            delete(*i).route;
         }
         delete v;
     }
-    delete myParameter;
+    if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEPART_INFO)!=myPointerCORNMap.end()) {
+        DepartArrivalInformation *i = (DepartArrivalInformation*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_INFO];
+        delete i;
+    }
+    if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_ARRIVAL_INFO)!=myPointerCORNMap.end()) {
+        DepartArrivalInformation *i = (DepartArrivalInformation*) myPointerCORNMap[MSCORN::CORN_P_VEH_ARRIVAL_INFO];
+        delete i;
+    }
     //
+    delete myParameter;
     delete myLaneChangeModel;
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
         delete(*dev);

@@ -87,6 +87,7 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
 
 MSRouteHandler::~MSRouteHandler() throw()
 {
+    delete myVehicleParameter;
 }
 
 
@@ -112,6 +113,8 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
 {
     switch (element) {
     case SUMO_TAG_VEHICLE:
+        delete myVehicleParameter;
+        myVehicleParameter = 0;
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
         break;
     case SUMO_TAG_VTYPE:
@@ -319,6 +322,7 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
         closeRoute();
     } else if (element == SUMO_TAG_VEHICLE) {
         closeVehicle();
+        delete myVehicleParameter;
         myVehicleParameter = 0;
     }
 }
@@ -422,6 +426,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
                 MSNet::getInstance()->getVehicleControl().buildVehicle(myVehicleParameter, route, vtype);
             // add the vehicle to the vehicle control
             myVehicleControl.addVehicle(myVehicleParameter->id, vehicle);
+            myVehicleParameter = 0;
         }
     } else {
         // strange: another vehicle with the same id already exists
