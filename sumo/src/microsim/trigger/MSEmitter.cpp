@@ -230,6 +230,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
         pars->depart = attrs.getIntSecure(SUMO_ATTR_TIME, -1);
         if (pars->depart<myBeginTime) {
             // do not process the vehicle if the emission time is before the simulation begin
+            delete pars;
             return;
         }
         // check and assign id
@@ -242,6 +243,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             pars->id = myParent.getID() +  "_" + toString(pars->depart) +  "_" + toString(myRunningID++);
             if (myVehicleControl.getVehicle(pars->id)!=0) {
                 WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + pars->id + " already exists.\n Continuing with next element.");
+                delete pars;
                 return;
             }
         }
@@ -256,6 +258,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
                 aVehType = MSNet::getInstance()->getVehicleControl().getRandomVType();
                 if (aVehType==0) {
                     WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid vehicle type exists.\n Continuing with next element.");
+                    delete pars;
                     return;
                 }
             }
@@ -270,6 +273,7 @@ MSEmitter::MSEmitter_FileTriggeredChild::myStartElement(SumoXMLTag element,
             if (aEmitRoute==0) {
                 WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": no valid route exsists.");
                 WRITE_WARNING("Continuing with next element.");
+                delete pars;
                 return;
             }
         }
