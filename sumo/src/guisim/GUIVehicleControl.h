@@ -81,7 +81,7 @@ public:
      * @return The built vehicle (GUIVehicle instance)
      * @see MSVehicleControl::buildVehicle
      */
-    MSVehicle *buildVehicle(SUMOVehicleParameter &defs, 
+    MSVehicle *buildVehicle(SUMOVehicleParameter* defs, 
         const MSRoute* route, const MSVehicleType* type) throw();
     /// @}
 

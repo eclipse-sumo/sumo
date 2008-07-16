@@ -196,10 +196,10 @@ MSLane::emit(MSVehicle& veh) throw()
     bool patchSpeed = true; // whether the speed shall be adapted to infrastructure/traffic in front
 
     // determine the speed
-    const MSVehicle::DepartArrivalDefinition &pars = veh.getDepartureDefinition();
-    switch(pars.speedProcedure) {
+    const SUMOVehicleParameter &pars = veh.getParameter();
+    switch(pars.departSpeedProcedure) {
     case DEPART_SPEED_GIVEN:
-        speed = pars.speed;
+        speed = pars.departSpeed;
         patchSpeed = false;
         break;
     case DEPART_SPEED_RANDOM:
@@ -218,9 +218,13 @@ MSLane::emit(MSVehicle& veh) throw()
     }
 
     // determine the position
-    switch(pars.posProcedure) {
+    switch(pars.departPosProcedure) {
     case DEPART_POS_GIVEN:
-        pos = pars.pos;
+        if (pars.departPos >= 0.) {
+            pos = pars.departPos;
+        } else {
+            pos = pars.departPos + length();
+        }
         break;
     case DEPART_POS_RANDOM:
         pos = RandHelper::rand(length());
@@ -504,9 +508,7 @@ MSLane::detectCollisions(SUMOTime timestep)
     }
 
     VehCont::iterator lastVeh = myVehicles.end() - 1;
-    for (VehCont::iterator veh = myVehicles.begin();
-            veh != lastVeh;) {
-
+    for (VehCont::iterator veh = myVehicles.begin(); veh != lastVeh;) {
         VehCont::iterator pred = veh + 1;
         SUMOReal gap = (*pred)->getPositionOnLane() - (*pred)->getLength() - (*veh)->getPositionOnLane();
         if (gap < 0) {
@@ -629,6 +631,19 @@ MSLane::setCritical(std::vector<MSLane*> &into)
             vt->addVeh(veh);
         }
     }
+    // check for vehicle removal
+    for (VehCont::iterator veh = myVehicles.begin(); veh != myVehicles.end();) {
+        MSVehicle *vehV = *veh;
+        if (vehV->ends()) {
+            myVehicleLengthSum -= vehV->getLength();
+            vehV->leaveLaneAtLaneChange();
+            vehV->onTripEnd();
+            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(vehV);
+            veh = myVehicles.erase(veh); // remove current vehicle
+        } else {
+            ++veh;
+        }
+    }
     return myVehicles.size()==0;
 }
 
@@ -680,22 +695,18 @@ MSLane::push(MSVehicle* veh)
             myMeanData[i].nVehEnteredLane++;
         }
     }
-#ifndef NEW_SPEC
     if (! veh->destReached(myEdge)) {     // adjusts vehicles routeIterator
-#endif
         myVehBuffer.push_back(veh);
         veh->enterLaneAtMove(this, SPEED2DIST(veh->getSpeed()) - veh->getPositionOnLane());
         SUMOReal pspeed = veh->getSpeed();
         SUMOReal oldPos = veh->getPositionOnLane() - SPEED2DIST(veh->getSpeed());
         veh->workOnMoveReminders(oldPos, veh->getPositionOnLane(), pspeed);
         return false;
-#ifndef NEW_SPEC
     } else {
         veh->onTripEnd();
         MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(veh);
         return true;
     }
-#endif
 }
 
 

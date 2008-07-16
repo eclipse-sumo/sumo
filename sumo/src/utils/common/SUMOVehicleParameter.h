@@ -183,7 +183,7 @@ public:
     /// @}
 
 
-    /// @brief Information which parameter have been set
+    /// @brief Information for the router which parameter were set
     int setParameter;
 
 };

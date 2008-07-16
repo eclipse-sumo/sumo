@@ -87,7 +87,6 @@ MSRouteHandler::MSRouteHandler(const std::string &file,
 
 MSRouteHandler::~MSRouteHandler() throw()
 {
-    delete myVehicleParameter;
 }
 
 
@@ -320,7 +319,6 @@ MSRouteHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
         closeRoute();
     } else if (element == SUMO_TAG_VEHICLE) {
         closeVehicle();
-        delete myVehicleParameter;
         myVehicleParameter = 0;
     }
 }
@@ -337,11 +335,6 @@ MSRouteHandler::closeRoute() throw(ProcessError)
         }
     }
     // check whether the route is long enough
-#ifndef NEW_SPEC
-    if (myActiveRoute.size()<2) {
-        throw ProcessError("SUMO assumes each route to be at least two edges long ('" + myActiveRouteID + "' has " + toString(myActiveRoute.size()) + ").");
-    }
-#endif
     MSRoute *route = new MSRoute(myActiveRouteID, myActiveRoute, myVehicleParameter==0||myVehicleParameter->repetitionNumber>=1);
     myActiveRoute.clear();
     if (!MSRoute::dictionary(myActiveRouteID, route)) {
@@ -426,7 +419,7 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
         }
         if (add) {
             vehicle =
-                MSNet::getInstance()->getVehicleControl().buildVehicle(*myVehicleParameter, route, vtype);
+                MSNet::getInstance()->getVehicleControl().buildVehicle(myVehicleParameter, route, vtype);
             // add the vehicle to the vehicle control
             myVehicleControl.addVehicle(myVehicleParameter->id, vehicle);
         }

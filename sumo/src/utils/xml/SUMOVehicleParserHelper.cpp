@@ -119,7 +119,8 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     }
 
     ret->arrivalLane = attrs.getStringSecure(SUMO_ATTR_ARRIVALLANE, "");
-    ret->arrivalPos = attrs.getFloatSecure(SUMO_ATTR_ARRIVALPOS, HUGE_VAL); //!!! specs have strings
+    ret->arrivalPos = attrs.getFloatSecure(SUMO_ATTR_ARRIVALPOS, 0); //!!! specs have strings
+//    ret->arrivalPos = attrs.getFloatSecure(SUMO_ATTR_ARRIVALPOS, HUGE_VAL); //!!! default for the new spec
     ret->arrivalSpeed = attrs.getFloatSecure(SUMO_ATTR_ARRIVALSPEED, -1); //!!! specs have strings
 
     // parse repetition information

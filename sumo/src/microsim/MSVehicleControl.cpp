@@ -88,7 +88,7 @@ MSVehicleControl::~MSVehicleControl() throw()
 
 
 MSVehicle *
-MSVehicleControl::buildVehicle(SUMOVehicleParameter &defs, 
+MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs, 
                                const MSRoute* route,
                                const MSVehicleType* type) throw()
 {
@@ -314,15 +314,15 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
     // load vehicles
     bis >> size;
     while (size-->0) {
-        SUMOVehicleParameter p;
-        bis >> p.id;
+        SUMOVehicleParameter* p = new SUMOVehicleParameter();
+        bis >> p->id;
         SUMOTime lastLaneChangeOffset;
         bis >> lastLaneChangeOffset; // !!! check type= FileHelpers::readInt(os);
         unsigned int waitingTime;
         bis >> waitingTime;
-        bis >> p.repetitionNumber;
-        bis >> p.repetitionOffset;
-        bis >> p.routeid;
+        bis >> p->repetitionNumber;
+        bis >> p->repetitionOffset;
+        bis >> p->routeid;
         MSRoute* route;
         unsigned int desiredDepart; // !!! SUMOTime
         bis >> desiredDepart;
@@ -330,8 +330,8 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
             SUMOReal offset = OptionsCont::getOptions().getFloat("load-state.offset");
             desiredDepart -= (unsigned int) offset;
         }
-        p.depart = desiredDepart;
-        bis >> p.vtypeid;
+        p->depart = desiredDepart;
+        bis >> p->vtypeid;
         const MSVehicleType* type;
         unsigned int routeOffset;
         bis >> routeOffset;
@@ -352,11 +352,11 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         bool inserted;
         bis >> inserted;
 #endif
-        route = MSRoute::dictionary(p.routeid);
+        route = MSRoute::dictionary(p->routeid);
         assert(route!=0);
-        type = getVType(p.vtypeid);
+        type = getVType(p->vtypeid);
         assert(type!=0);
-        assert(getVehicle(p.id)==0);
+        assert(getVehicle(p->id)==0);
 
         MSVehicle *v = buildVehicle(p, route, type);
         if (wasEmitted != -1) {
@@ -377,8 +377,8 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
             v->inserted = inserted!=0;
         }
 #endif
-        if (!addVehicle(p.id, v)) {
-            MsgHandler::getErrorInstance()->inform("Error: Could not build vehicle " + p.id + "!");
+        if (!addVehicle(p->id, v)) {
+            MsgHandler::getErrorInstance()->inform("Error: Could not build vehicle " + p->id + "!");
         }
     }
 }

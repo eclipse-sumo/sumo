@@ -95,7 +95,7 @@ public:
      * @param[in] repOffset The repetition offset
      * @return The built vehicle (MSVehicle instance)
      */
-    virtual MSVehicle *buildVehicle(SUMOVehicleParameter &defs, const MSRoute* route,
+    virtual MSVehicle *buildVehicle(SUMOVehicleParameter* defs, const MSRoute* route,
                                     const MSVehicleType* type) throw();
     /// @}
 

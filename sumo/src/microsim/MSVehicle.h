@@ -80,36 +80,6 @@ class MSVehicle : public MSVehicleQuitReminded
 #endif
 {
 public:
-    /** @struct DepartArrivalDefinition
-     * @brief A structure which stores the vehicle's departure parameter
-     *
-     * The structure resembles the depart/arrival parameters of a vehicle
-     *  as described in Specification (http://sumo.sourceforge.net/wiki/index.php/Specification).
-     *
-     * It is used for four purposes: to define how the vehicle shall be inserted
-     *  into the network, how it shall leave the network, how it has been inserted
-     *  into the network and how it has left the network.
-     */
-    struct DepartArrivalDefinition {
-        /// @brief The time the vehicle wants to be emitted
-        SUMOTime time;
-        /// @brief Information how the emission lane shall be determined
-        DepartLaneDefinition laneProcedure;
-        /// @brief The lane the vehicle wants to start at (may be 0)
-        MSLane *lane;
-        /// @brief Information how the emission position shall be determined
-        DepartPosDefinition posProcedure;
-        /// @brief The position the vehicle wants to start at (may be unset)
-        SUMOReal pos;
-        /// @brief Information how the emission speed shall be determined
-        DepartSpeedDefinition speedProcedure;
-        /// @brief The speed with which the vehicle wants to start (may be unset)
-        SUMOReal speed;
-    };
-
-
-
-public:
 
     /// the lane changer sets myLastLaneChangeOffset
     friend class MSLaneChanger;
@@ -160,16 +130,12 @@ public:
     /// @name emission handling
     //@{
 
-    /** @brief Returns the vehicle's departure definition
+    /** @brief Returns the vehicle's parameter (including departure definition)
      *
-     * This definition is built on vehicle construction and stored in CORN_P_VEH_DEPART_DEF.
-     *  It is deleted as soon the vehicle departs (see "onDepart"). Retrieving
-     *  the definition after the vehicle has departed yields in an undefined behaviour.
-     *
-     * @return The vehicle's departure definition
+     * @return The vehicle's parameter
      */
-    const DepartArrivalDefinition &getDepartureDefinition() const throw() {
-        return *((DepartArrivalDefinition*) myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEPART_DEF)->second);
+    const SUMOVehicleParameter &getParameter() const throw() {
+        return *myParameter;
     }
 
 
@@ -192,21 +158,10 @@ public:
 
     /// Returns the desired departure time.
     SUMOTime getDesiredDepart() const throw() {
-        return myDesiredDepart;
+        return myParameter->depart;
     }
     //@}
 
-
-
-    /** @brief Returns the vehicle's arrival definition
-     *
-     * This definition is built on vehicle construction and stored in CORN_P_VEH_ARRIVAL_DEF.
-     *
-     * @return The vehicle's arrival definition
-     */
-    const DepartArrivalDefinition &getArrivalDefinition() const throw() {
-        return *((DepartArrivalDefinition*) myPointerCORNMap.find(MSCORN::CORN_P_VEH_ARRIVAL_DEF)->second);
-    }
 
 
     void removeOnTripEnd(MSVehicle *veh) throw();
@@ -241,11 +196,10 @@ public:
     bool destReached(const MSEdge* targetEdge) throw();
 
 
-    /** @brief Returns the information whether the route ends on the given lane's edge
-     * @param[in] lane The lane to ask for
-     * @return Whether the route ends on the lane's edge
+    /** @brief Returns the information whether the vehicle should end now
+     * @return Whether the route ends
      */
-    bool endsOn(const MSLane &lane) const throw();
+    bool ends() const throw();
 
     /// Moves vehicle one edge forward, returns true if the route has ended
     bool proceedVirtualReturnWhetherEnded(const MSEdge *const to);
@@ -503,12 +457,9 @@ public:
     /// @name usage of multiple vehicle emissions
     //@{
 
-    /// Returns the information whether further vehicles of this type shall be emitted periodically
-    bool periodical() const;
-
     /** @brief Returns the next "periodical" vehicle with the same route
         We have to duplicate the vehicle if a further has to be emitted with
-        the same settings */
+        the same settings. Returns 0 if no further vehicle shall be created. */
     virtual MSVehicle *getNextPeriodical() const;
     //@}
 
@@ -805,7 +756,7 @@ protected:
 
 
     /// Use this constructor only.
-    MSVehicle(SUMOVehicleParameter &pars, const MSRoute* route,
+    MSVehicle(SUMOVehicleParameter* pars, const MSRoute* route,
               const MSVehicleType* type, int vehicleIndex);
 
     /// information how long ago the vehicle has performed a lane-change
@@ -824,26 +775,17 @@ protected:
     // The time the vehicle waits, may mean the same like myWaitingTime
     int timeSinceStop;
 
-    /// The number of cars that shall be emitted with the same settings
-    int myRepetitionNumber;
-
-    /// The period of time to wait between emissions of cars with the same settings
-    int myPeriod;
-
-    /// Unique ID.
-    std::string myID;
-
 #ifdef _MESSAGES
 	/// The message emitters
 	MSMessageEmitter *myLCMsgEmitter;
 	MSMessageEmitter *myBMsgEmitter;
 #endif
 
+    /// Vehicle's parameter.
+    const SUMOVehicleParameter* myParameter;
+
     /// Vehicle's route.
     const MSRoute* myRoute;
-
-    /// Desired departure time (seconds).
-    SUMOTime myDesiredDepart;
 
     /// Vehicles driving state. here: pos and speed
     State myState;
@@ -875,6 +817,8 @@ protected:
     /// @brief The vehicle's list of stops
     std::list<Stop> myStops;
 
+    /// the position on the destination lane where the vehicle stops
+    SUMOReal myArrivalPos;
 
 private:
     std::vector<MSDevice*> myDevices;

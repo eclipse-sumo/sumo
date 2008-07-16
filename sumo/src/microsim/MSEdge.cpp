@@ -344,10 +344,10 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
         }
     }
 #endif
-    const MSVehicle::DepartArrivalDefinition &pars = v.getDepartureDefinition();
-    switch(pars.laneProcedure) {
+    const SUMOVehicleParameter &pars = v.getParameter();
+    switch(pars.departLaneProcedure) {
     case DEPART_LANE_GIVEN:
-        return pars.lane->emit(v); // !!! unsecure
+        return v.getDepartLanes()[pars.departLane]->emit(v); // !!! unsecure
     case DEPART_LANE_RANDOM:
         {
             const LaneCont &lanes = v.getDepartLanes();

@@ -89,8 +89,6 @@ public:
     enum Pointer {
         CORN_P_VEH_DEPART_INFO,
         CORN_P_VEH_ARRIVAL_INFO,
-        CORN_P_VEH_DEPART_DEF,
-        CORN_P_VEH_ARRIVAL_DEF,
         CORN_P_VEH_OWNCOL,
         CORN_P_VEH_OLDROUTE,
         CORN_P_VEH_OLD_REPETITION_ROUTE,

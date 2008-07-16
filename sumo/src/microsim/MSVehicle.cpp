@@ -151,22 +151,13 @@ MSVehicle::~MSVehicle() throw()
     if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_OLDROUTE)!=myPointerCORNMap.end()) {
         ReplacedRoutesVector *v = (ReplacedRoutesVector*) myPointerCORNMap[MSCORN::CORN_P_VEH_OLDROUTE];
         for (ReplacedRoutesVector::iterator i=v->begin(); i!=v->end(); ++i) {
-            delete(*i).route;
+            if (!(*i).route->inFurtherUse()) {
+                delete(*i).route;
+            }
         }
         delete v;
     }
-    if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEPART_DEF)!=myPointerCORNMap.end()) {
-        DepartArrivalInformation *i = (DepartArrivalInformation*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_DEF];
-        delete i;
-    }
-    if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_DEPART_INFO)!=myPointerCORNMap.end()) {
-        DepartArrivalInformation *i = (DepartArrivalInformation*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_INFO];
-        delete i;
-    }
-    if (myPointerCORNMap.find(MSCORN::CORN_P_VEH_ARRIVAL_INFO)!=myPointerCORNMap.end()) {
-        DepartArrivalInformation *i = (DepartArrivalInformation*) myPointerCORNMap[MSCORN::CORN_P_VEH_ARRIVAL_INFO];
-        delete i;
-    }
+    delete myParameter;
     //
     delete myLaneChangeModel;
     for (vector< MSDevice* >::iterator dev=myDevices.begin(); dev != myDevices.end(); ++dev) {
@@ -197,7 +188,7 @@ MSVehicle::~MSVehicle() throw()
 }
 
 
-MSVehicle::MSVehicle(SUMOVehicleParameter &pars,
+MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
                      const MSRoute* route,
                      const MSVehicleType* type,
                      int vehicleIndex) :
@@ -207,11 +198,8 @@ MSVehicle::MSVehicle(SUMOVehicleParameter &pars,
         myLastLaneChangeOffset(0),
         myTarget(0),
         myWaitingTime(0),
-        myRepetitionNumber(pars.repetitionNumber),
-        myPeriod(pars.repetitionOffset),
-        myID(pars.id),
+        myParameter(pars),
         myRoute(route),
-        myDesiredDepart(pars.depart),
         myState(0, 0), //
         myIndividualMaxSpeed(0.0),
         myIsIndividualMaxSpeedSet(false),
@@ -222,7 +210,8 @@ MSVehicle::MSVehicle(SUMOVehicleParameter &pars,
         myAllowedLanes(0),
         myMoveReminders(0),
         myOldLaneMoveReminders(0),
-        myOldLaneMoveReminderOffsets(0)
+        myOldLaneMoveReminderOffsets(0),
+        myArrivalPos(pars->arrivalPos)
 #ifdef TRACI
         ,myWeightChangedViaTraci(false),
         adaptingSpeed(false),
@@ -242,35 +231,17 @@ MSVehicle::MSVehicle(SUMOVehicleParameter &pars,
 	myBMsgEmitter = MSNet::getInstance()->getMsgEmitter("break");
 	myHBMsgEmitter = MSNet::getInstance()->getMsgEmitter("heartbeat");
 #endif
-    // build departure definition
-    DepartArrivalDefinition *departDef = new DepartArrivalDefinition();
-    departDef->time = pars.depart;
-    departDef->lane = (*(*myCurrEdge)->getLanes())[pars.departLane]; // !!! validate!
-    departDef->laneProcedure = pars.departLaneProcedure;
-    departDef->pos = pars.departPos;
-    if(departDef->pos<0) {
-        departDef->pos += departDef->lane->length(); // !!! validate!
-    }
-    departDef->posProcedure = pars.departPosProcedure;
-    departDef->speed = pars.departSpeed;
-    departDef->speedProcedure = pars.departSpeedProcedure;
-    myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_DEF] = (void*) departDef;
-#ifdef NEW_SPEC
     // build arrival definition
-    DepartArrivalDefinition *arrivalDef = new DepartArrivalDefinition();
-    arrivalDef->pos = pars.arrivalPos;
     SUMOReal lastLaneLength = (*(myRoute->getLastEdge()->getLanes()))[0]->length();
-    if(arrivalDef->pos<0) {
-        arrivalDef->pos += lastLaneLength; // !!! validate!
+    if(myArrivalPos < 0) {
+        myArrivalPos += lastLaneLength; // !!! validate!
     }
-    if(arrivalDef->pos<0) {
-        arrivalDef->pos = 0;
+    if(myArrivalPos<0) {
+        myArrivalPos = 0;
     }
-    if(arrivalDef->pos>lastLaneLength) {
-        arrivalDef->pos = lastLaneLength;
+    if(myArrivalPos>lastLaneLength) {
+        myArrivalPos = lastLaneLength;
     }
-    myPointerCORNMap[MSCORN::CORN_P_VEH_ARRIVAL_DEF] = (void*) arrivalDef;
-#endif
     //
     rebuildAllowedLanes();
     myLaneChangeModel = new MSLCM_DK2004(*this);
@@ -322,7 +293,7 @@ MSVehicle::destReached(const MSEdge* targetEdge) throw()
     // Check if destination-edge is reached. Update allowedLanes makes
     // only sense if destination isn't reached.
     MSRouteIterator destination = myRoute->end() - 1;
-    if (myCurrEdge == destination) {
+    if (myCurrEdge == destination && myState.myPos > myArrivalPos - POSITION_EPS) {
         return true;
     } else {
         rebuildAllowedLanes(false);
@@ -332,8 +303,8 @@ MSVehicle::destReached(const MSEdge* targetEdge) throw()
 
 
 bool 
-MSVehicle::endsOn(const MSLane &lane) const throw() {
-    return lane.inEdge(myRoute->getLastEdge());
+MSVehicle::ends() const throw() {
+    return myLane->inEdge(myRoute->getLastEdge()) && myState.myPos > myArrivalPos - POSITION_EPS;
 }
 
 
@@ -460,13 +431,13 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
 	if(myHBMsgEmitter != 0) {
 		if(running()) {
 			SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-			myHBMsgEmitter->writeHeartBeatEvent(myID, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
+			myHBMsgEmitter->writeHeartBeatEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
 		}
 	}
 	if(myBMsgEmitter!=0) {
 		if(vNext < oldV) {
 			SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-			myBMsgEmitter->writeBreakEvent(myID, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
+			myBMsgEmitter->writeBreakEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
 		}
 	}
 #endif
@@ -475,13 +446,6 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
     myState.myPos += SPEED2DIST(vNext);
     assert(myState.myPos < lane->length());
 	myState.mySpeed = vNext;
-#ifdef NEW_SPEC
-    if (endsOn(*lane) && myState.myPos > getArrivalDefinition().pos) {
-        onTripEnd();
-        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(this);
-        return;
-    }
-#endif
     //@ to be optimized (move to somewhere else)
     if (hasCORNIntValue(MSCORN::CORN_VEH_LASTREROUTEOFFSET)) {
         myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] =
@@ -502,7 +466,7 @@ MSVehicle::moveRegardingCritical(MSLane* lane,
 	if(myHBMsgEmitter != 0) {
 		if(running()) {
 			SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-			myHBMsgEmitter->writeHeartBeatEvent(myID, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
+			myHBMsgEmitter->writeHeartBeatEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
 		}
 	}
 #endif
@@ -615,13 +579,13 @@ MSVehicle::moveFirstChecked()
 	if(myHBMsgEmitter != 0) {
 		if(running()) {
 			SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-			myHBMsgEmitter->writeHeartBeatEvent(myID, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
+			myHBMsgEmitter->writeHeartBeatEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
 		}
 	}
 	if(myBMsgEmitter!=0) {
 		if(vNext < oldV) {
 			SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-			myBMsgEmitter->writeBreakEvent(myID, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
+			myBMsgEmitter->writeBreakEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), getPosition().x(), getPosition().y());
 		}
 	}
 #endif
@@ -632,13 +596,6 @@ MSVehicle::moveFirstChecked()
     myState.mySpeed = vNext;
     MSLane *approachedLane = myLane;
     approachedLane->addMean2(*this, vNext, oldV, -1, oldPos);
-#ifdef NEW_SPEC
-    if (endsOn(*approachedLane) && myState.myPos > getArrivalDefinition().pos) {
-        onTripEnd();
-        MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(this);
-        return;
-    }
-#endif
 
     // move the vehicle forward
     size_t no = 0;
@@ -681,13 +638,6 @@ MSVehicle::moveFirstChecked()
         }
         // set information about approaching
         approachedLane->addMean2(*this, vNext, oldV, -1, oldPos);
-#ifdef NEW_SPEC
-        if (endsOn(*approachedLane) && myState.myPos > getArrivalDefinition().pos) {
-            onTripEnd();
-            MSNet::getInstance()->getVehicleControl().scheduleVehicleRemoval(this);
-            return;
-        }
-#endif
         no++;
     }
 
@@ -957,7 +907,7 @@ MSVehicle::getPosition() const
 const string &
 MSVehicle::getID() const
 {
-    return myID;
+    return myParameter->id;
 }
 
 
@@ -1045,7 +995,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane)
 #ifdef _MESSAGES
 	if(myLCMsgEmitter!=0) {
 		SUMOReal timeStep = MSNet::getInstance()->getCurrentTimeStep();
-		myLCMsgEmitter->writeLaneChangeEvent(myID, timeStep, myLane, myState.pos(), myState.speed(), enteredLane, getPosition().x(), getPosition().y());
+		myLCMsgEmitter->writeLaneChangeEvent(myParameter->id, timeStep, myLane, myState.pos(), myState.speed(), enteredLane, getPosition().x(), getPosition().y());
 	}
 #endif
 	myLane = enteredLane;
@@ -1150,18 +1100,11 @@ MSVehicle::getLane() const
 }
 
 
-bool
-MSVehicle::periodical() const
-{
-    return myPeriod>0;
-}
-
-
 MSVehicle *
 MSVehicle::getNextPeriodical() const
 {
     // check whether another one shall be repated
-    if (myRepetitionNumber<=0) {
+    if (myParameter->repetitionNumber<=0) {
         return 0;
     }
     const MSRoute *route = myRoute;
@@ -1171,16 +1114,15 @@ MSVehicle::getNextPeriodical() const
 //!!!        myPointerCORNMap.erase(MSCORN::CORN_P_VEH_OLD_REPETITION_ROUTE);
     }
     MSVehicleControl &vc = MSNet::getInstance()->getVehicleControl();
-    SUMOVehicleParameter p;
-    p.id = StringUtils::version1(myID);
-    while (vc.getVehicle(p.id)!=0) {
-        p.id = StringUtils::version1(p.id);
+    SUMOVehicleParameter* p = new SUMOVehicleParameter(*myParameter);
+    p->id = StringUtils::version1(p->id);
+    while (vc.getVehicle(p->id)!=0) {
+        p->id = StringUtils::version1(p->id);
     }
-    p.depart = myDesiredDepart+myPeriod;
-    p.repetitionNumber = myRepetitionNumber-1;
-    p.repetitionOffset = myPeriod;
+    p->depart += p->repetitionOffset;
+    p->repetitionNumber--;
     if(myPointerCORNMap.find(MSCORN::CORN_P_VEH_OWNCOL)!=myPointerCORNMap.end()) {
-        p.color = *((RGBColor*) myPointerCORNMap.find(MSCORN::CORN_P_VEH_OWNCOL)->second);
+        p->color = *((RGBColor*) myPointerCORNMap.find(MSCORN::CORN_P_VEH_OWNCOL)->second);
     }
     MSVehicle *ret = vc.buildVehicle(p, route, myType);
     for (std::list<Stop>::const_iterator i=myStops.begin(); i!=myStops.end(); ++i) {
@@ -1348,9 +1290,6 @@ MSVehicle::onDepart()
         i->speed = myState.speed();
         myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_INFO] = (void*) i;
     }
-    DepartArrivalDefinition *d = (DepartArrivalDefinition*) myPointerCORNMap[MSCORN::CORN_P_VEH_DEPART_DEF];
-    delete d;
-    myPointerCORNMap.erase(MSCORN::CORN_P_VEH_DEPART_DEF);
     // inform the vehicle control
     MSNet::getInstance()->getVehicleControl().vehicleEmitted(*this);
 }
@@ -1474,6 +1413,11 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
     // rebuild in-vehicle route information
     myCurrEdge = myRoute->find(currentEdge);
     myLastBestLanesEdge = 0;
+    // update arrival definition
+    SUMOReal lastLaneLength = (*(myRoute->getLastEdge()->getLanes()))[0]->length();
+    if(myArrivalPos>lastLaneLength) {
+        myArrivalPos = lastLaneLength;
+    }
     // save information that the vehicle was rerouted
     //  !!! refactor the CORN-stuff
     myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
@@ -1773,13 +1717,13 @@ MSVehicle::writeXMLRoute(OutputDevice &os, int index) const
 void
 MSVehicle::saveState(std::ostream &os)
 {
-    FileHelpers::writeString(os, myID);
+    FileHelpers::writeString(os, myParameter->id);
     FileHelpers::writeInt(os, myLastLaneChangeOffset);
     FileHelpers::writeUInt(os, myWaitingTime);
-    FileHelpers::writeInt(os, myRepetitionNumber);
-    FileHelpers::writeInt(os, myPeriod);
+    FileHelpers::writeInt(os, myParameter->repetitionNumber);
+    FileHelpers::writeInt(os, myParameter->repetitionOffset);
     FileHelpers::writeString(os, myRoute->getID());
-    FileHelpers::writeUInt(os, myDesiredDepart); // !!! SUMOTime
+    FileHelpers::writeUInt(os, myParameter->depart); // !!! SUMOTime
     FileHelpers::writeString(os, myType->getID());
     FileHelpers::writeUInt(os, myRoute->posInRoute(myCurrEdge));
     if (hasCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)) {

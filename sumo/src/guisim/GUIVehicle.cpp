@@ -169,15 +169,15 @@ GUIVehicle::GUIVehiclePopupMenu::onCmdStopTrack(FXObject*,FXSelector,void*)
  * GUIVehicle - methods
  * ----------------------------------------------------------------------- */
 GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
-                       SUMOVehicleParameter &pars, const MSRoute* route,
+                       SUMOVehicleParameter* pars, const MSRoute* route,
                        const MSVehicleType* type,
                        int vehicleIndex) throw()
         : MSVehicle(pars, route, type, vehicleIndex),
-        GUIGlObject(idStorage, "vehicle:"+pars.id)
+        GUIGlObject(idStorage, "vehicle:"+pars->id)
 {
     myIntCORNMap[MSCORN::CORN_VEH_BLINKER] = 0;
-    if (pars.color!=RGBColor(-1,-1,-1)) {
-        myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL] = new RGBColor(pars.color);
+    if (pars->color!=RGBColor(-1,-1,-1)) {
+        myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL] = new RGBColor(pars->color);
     }
 }
 
@@ -248,8 +248,8 @@ GUIVehicle::getParameterWindow(GUIMainWindow &app,
         new GUIParameterTableWindow(app, *this, 9);
     // add items
     ret->mkItem("type [NAME]", false, myType->getID());
-    ret->mkItem("left same route [#]", false, getRepetitionNo());
-    ret->mkItem("emission period [s]", false, getPeriod());
+    ret->mkItem("left same route [#]", false, getParameter().repetitionNumber);
+    ret->mkItem("emission period [s]", false, getParameter().repetitionOffset);
     ret->mkItem("waiting time [s]", true,
                 new CastingFunctionBinding<MSVehicle, SUMOReal, unsigned int>(this, &MSVehicle::getWaitingTime));
     ret->mkItem("last lane change [s]", true,
@@ -290,20 +290,6 @@ void
 GUIVehicle::setRemoved()
 {
     myLane = 0;
-}
-
-
-int
-GUIVehicle::getRepetitionNo() const
-{
-    return myRepetitionNumber;
-}
-
-
-int
-GUIVehicle::getPeriod() const
-{
-    return myPeriod;
 }
 
 

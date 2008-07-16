@@ -147,8 +147,6 @@ public:
 
     void setRemoved();
 
-    int getRepetitionNo() const;
-    int getPeriod() const;
     unsigned int getLastLaneChangeOffset() const;
 
     /** @brief Returns the description of best lanes to use in order to continue the route
@@ -210,7 +208,7 @@ class GUIVehiclePopupMenu : public GUIGLObjectPopupMenu
 protected:
     /// Use this constructor only.
     GUIVehicle(GUIGlObjectStorage &idStorage,
-        SUMOVehicleParameter &pars, const MSRoute* route, 
+               SUMOVehicleParameter* pars, const MSRoute* route, 
                const MSVehicleType* type, 
                int vehicleIndex) throw();
 

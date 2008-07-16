@@ -53,7 +53,7 @@ GUIVehicleControl::~GUIVehicleControl() throw()
 
 
 MSVehicle *
-GUIVehicleControl::buildVehicle(SUMOVehicleParameter &defs, 
+GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs, 
         const MSRoute* route, const MSVehicleType* type) throw()
 {
     myLoadedVehNo++;

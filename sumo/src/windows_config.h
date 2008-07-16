@@ -47,7 +47,4 @@
 /* define to use TraCI server code */
 //#define TRACI 1
 
-/* define to use code adhering to the new specification */
-//#define NEW_SPEC 1
-
 #endif

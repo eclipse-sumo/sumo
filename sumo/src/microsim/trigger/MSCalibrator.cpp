@@ -204,11 +204,11 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::processNextEntryReaderTriggered()
 void
 MSCalibrator::MSCalibrator_FileTriggeredChild::buildAndScheduleFlowVehicle(SUMOReal speed)
 {
-    SUMOVehicleParameter pars;
-    pars.id = myParent.getID() + "_" + toString(myRunningID++);
-    pars.depart = myOffset+1;
-    pars.repetitionNumber = -1;
-    pars.repetitionOffset = -1;
+    SUMOVehicleParameter* pars = new SUMOVehicleParameter();
+    pars->id = myParent.getID() + "_" + toString(myRunningID++);
+    pars->depart = myOffset+1;
+    pars->repetitionNumber = -1;
+    pars->repetitionOffset = -1;
     MSVehicleType* aVehType = myVTypeDist.getOverallProb()>0
                               ? myVTypeDist.get()
                               : MSNet::getInstance()->getVehicleControl().getRandomVType();
@@ -321,31 +321,31 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
 
     // check whethe the correct tag is read
     if (element==SUMO_TAG_EMIT) {
-        SUMOVehicleParameter pars;
-        pars.repetitionNumber = -1;
-        pars.repetitionOffset = -1;
+        SUMOVehicleParameter* pars = new SUMOVehicleParameter();
+        pars->repetitionNumber = -1;
+        pars->repetitionOffset = -1;
         // check and assign emission time
-        pars.depart = attrs.getIntSecure(SUMO_ATTR_TIME, -1);
-        if (pars.depart<myBeginTime) {
+        pars->depart = attrs.getIntSecure(SUMO_ATTR_TIME, -1);
+        if (pars->depart<myBeginTime) {
             // do not process the vehicle if the emission time is before the simulation begin
             return;
         }
         // check and assign id
-        pars.id = attrs.getStringSecure(SUMO_ATTR_ID, "");
-        if (myVehicleControl.getVehicle(pars.id)!=0) {
-            WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + pars.id + " already exists.\n Generating a default id.");
-            pars.id = "";
+        pars->id = attrs.getStringSecure(SUMO_ATTR_ID, "");
+        if (myVehicleControl.getVehicle(pars->id)!=0) {
+            WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + pars->id + " already exists.\n Generating a default id.");
+            pars->id = "";
         }
-        if (pars.id=="") {
-            pars.id = myParent.getID() +  "_" + toString(pars.depart) +  "_" + toString(myRunningID++);
-            if (myVehicleControl.getVehicle(pars.id)!=0) {
-                WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + pars.id + " already exists.\n Continuing with next element.");
+        if (pars->id=="") {
+            pars->id = myParent.getID() +  "_" + toString(pars->depart) +  "_" + toString(myRunningID++);
+            if (myVehicleControl.getVehicle(pars->id)!=0) {
+                WRITE_WARNING("MSTriggeredSource " + myParent.getID()+ ": Vehicle " + pars->id + " already exists.\n Continuing with next element.");
                 return;
             }
         }
         // check and assign vehicle type
-        pars.vtypeid = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
-        MSVehicleType* aVehType = MSNet::getInstance()->getVehicleControl().getVType(pars.vtypeid);
+        pars->vtypeid = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+        MSVehicleType* aVehType = MSNet::getInstance()->getVehicleControl().getVType(pars->vtypeid);
         if (aVehType == 0) {
             if (myVTypeDist.getOverallProb()!=0) {
                 aVehType = myVTypeDist.get();
@@ -359,8 +359,8 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
             }
         }
         // check and assign vehicle type
-        pars.routeid = attrs.getStringSecure(SUMO_ATTR_ROUTE, "");
-        MSRoute *aEmitRoute = MSRoute::dictionary(pars.routeid);
+        pars->routeid = attrs.getStringSecure(SUMO_ATTR_ROUTE, "");
+        MSRoute *aEmitRoute = MSRoute::dictionary(pars->routeid);
         if (aEmitRoute==0) {
             if (myRouteDist.getOverallProb()!=0) {
                 aEmitRoute = myRouteDist.get();
@@ -372,12 +372,12 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
             }
         }
         // build vehicle
-        pars.departSpeed = attrs.getFloatSecure(SUMO_ATTR_SPEED, -1);
+        pars->departSpeed = attrs.getFloatSecure(SUMO_ATTR_SPEED, -1);
         MSVehicle *veh =
             MSNet::getInstance()->getVehicleControl().buildVehicle(pars, aEmitRoute, aVehType);
-        myParent.schedule(this, veh, pars.departSpeed);
+        myParent.schedule(this, veh, pars->departSpeed);
         myHaveNext = true;
-        myOffset = SUMOTime(pars.depart);
+        myOffset = SUMOTime(pars->depart);
     }
     // check whethe the correct tag is read
     if (element==SUMO_TAG_RESET) {

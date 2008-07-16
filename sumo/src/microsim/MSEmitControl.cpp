@@ -161,9 +161,6 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
 void 
 MSEmitControl::checkReemission(MSVehicle *veh) throw()
 {
-    if (!veh->periodical()) {
-        return;
-    }
     MSVehicle *nextPeriodical = veh->getNextPeriodical();
     if (nextPeriodical!=0) {
         myNewPeriodicalAdds.push_back(nextPeriodical);
