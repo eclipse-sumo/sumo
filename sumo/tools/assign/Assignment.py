@@ -39,6 +39,8 @@ optParser.add_option("-d", "--district-file", dest="confile",
                      help="read OD Zones from FILE (mandatory)", metavar="FILE")  
 optParser.add_option("-s", "--extrasignal-file", dest="sigfile",
                      help="read extra/updated signal timing plans from FILE", metavar="FILE")
+optParser.add_option("-u", "--crCurve-file", dest="curvefile",
+                     default=?????, help="read parameters used in cost functions from FILE (mandatory)", metavar="FILE")  
 optParser.add_option("-k", "--k-shortest-paths", dest="kPaths", type="int",
                      default=4, help="number of the paths should be found at the first iteration")
 optParser.add_option("-i", "--max-sue-iteration", dest="maxiteration", type="int",
@@ -120,7 +122,7 @@ def main():
             edge.getCRcurve()
             edge.getDefaultCapacity()
             edge.getAdjustedCapacity(net)
-            edge.getActualTravelTime(options.lamda) 
+            edge.getActualTravelTime(options) 
             edge.helpacttime = edge.freeflowtime
 
     # calculate link travel time for all district connectors 
@@ -188,7 +190,7 @@ def main():
             edge.flow = 0.
             edge.helpflow = 0.
             if lohse:
-                edge.getActualTravelTime(options.lamda)
+                edge.getActualTravelTime(options)
                 edge.resetLohseParameter()
                 edge.helpacttime = edge.freeflowtime
             else:
@@ -215,7 +217,7 @@ def main():
                 
                 for edgeID in net._edges:                                                   
                     edge = net._edges[edgeID]
-                    edge.getActualTravelTime(options.lamda)
+                    edge.getActualTravelTime(options)
                     
         else:
             print 'begin the', options.type, " assignment!"   
