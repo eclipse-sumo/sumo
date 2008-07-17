@@ -176,17 +176,11 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
         GUIGlObject(idStorage, "vehicle:"+pars->id)
 {
     myIntCORNMap[MSCORN::CORN_VEH_BLINKER] = 0;
-    if (pars->color!=RGBColor(-1,-1,-1)) {
-        myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL] = new RGBColor(pars->color);
-    }
 }
 
 
 GUIVehicle::~GUIVehicle() throw()
 {
-    if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
-        delete(RGBColor *) myPointerCORNMap[MSCORN::CORN_P_VEH_OWNCOL];
-    }
     // just to quit cleanly on a failure
     if (myLock.locked()) {
         myLock.unlock();

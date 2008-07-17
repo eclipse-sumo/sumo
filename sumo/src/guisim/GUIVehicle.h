@@ -75,10 +75,9 @@ public:
     ~GUIVehicle() throw();
 
     inline void setOwnDefinedColor() const {
-        if (hasCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL)) {
-            RGBColor *col = (RGBColor *)getCORNPointerValue(MSCORN::CORN_P_VEH_OWNCOL);
-            glColor3d(col->red(), col->green(), col ->blue());
-            return;
+        const RGBColor &col = myParameter->color;
+        if(col!=RGBColor()) {
+            glColor3d(col.red(), col.green(), col.blue());
         }
         glColor3d(1,1,0);
     }

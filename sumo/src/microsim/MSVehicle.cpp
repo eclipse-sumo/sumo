@@ -1125,9 +1125,6 @@ MSVehicle::getNextPeriodical() const
     }
     p->depart += p->repetitionOffset;
     p->repetitionNumber--;
-    if(myPointerCORNMap.find(MSCORN::CORN_P_VEH_OWNCOL)!=myPointerCORNMap.end()) {
-        p->color = *((RGBColor*) myPointerCORNMap.find(MSCORN::CORN_P_VEH_OWNCOL)->second);
-    }
     MSVehicle *ret = vc.buildVehicle(p, route, myType);
     for (std::list<Stop>::const_iterator i=myStops.begin(); i!=myStops.end(); ++i) {
         ret->myStops.push_back(*i);
