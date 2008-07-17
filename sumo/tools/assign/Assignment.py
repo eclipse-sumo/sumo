@@ -26,6 +26,7 @@ from dijkstra import dijkstra
 from inputs import getMatrix, getConnectionTravelTime                 
 from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics, sortedVehOutput
 from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign, doIncAssign
+from tables import updateCurveTable
 
 # for measuring the required time for reading input files
 inputreaderstart = datetime.datetime.now()  
@@ -40,7 +41,7 @@ optParser.add_option("-d", "--district-file", dest="confile",
 optParser.add_option("-s", "--extrasignal-file", dest="sigfile",
                      help="read extra/updated signal timing plans from FILE", metavar="FILE")
 optParser.add_option("-u", "--crCurve-file", dest="curvefile",
-                     default=?????, help="read parameters used in cost functions from FILE (mandatory)", metavar="FILE")  
+                     help="read parameters used in cost functions from FILE", metavar="FILE")  
 optParser.add_option("-k", "--k-shortest-paths", dest="kPaths", type="int",
                      default=4, help="number of the paths should be found at the first iteration")
 optParser.add_option("-i", "--max-sue-iteration", dest="maxiteration", type="int",
@@ -51,8 +52,8 @@ optParser.add_option("-a", "--alpha", dest="alpha", type="float",
                      default=0.15, help="alpha value to determine the commonality factor")
 optParser.add_option("-g", "--gamma", dest="gamma", type="float",
                      default=1., help="gamma value to determine the commonality factor")
-optParser.add_option("-l", "--lamda", dest="lamda", type="float",
-                     default=0.3, help="lamda value to determine the penality time due to queue")
+optParser.add_option("-l", "--lambda", dest="lamda", type="float",
+                     default=0.3, help="lambda value to determine the penalty time due to queue")
 optParser.add_option("-U", "--under-value", dest="under", type="float",
                      default=0.15, help="parameter 'under' to determine auxiliary link cost")
 optParser.add_option("-p", "--upper-value", dest="upper", type="float",
@@ -93,26 +94,22 @@ def main():
     
     if options.verbose:
         print "Reading net"
-    
-    # generate the investigated network from the respective SUMO-network
-    net = Net()                                                             
-    
+    net = Net()                                                                 
     parser.setContentHandler(NetworkReader(net))
     parser.parse(options.netfile)
-    
     parser.setContentHandler(DistrictsReader(net))
     parser.parse(options.confile)
-    
     if options.sigfile:
         parser.setContentHandler(ExtraSignalInformationReader(net))
         parser.parse(options.sigfile)
-    
     foutlog.write('- Reading network: done.\n')
     foutlog.write('number of total startVertices:%s\n' %len(net._startVertices))
     foutlog.write('number of total endVertices:%s\n' %len(net._endVertices))
-        
     if options.verbose:
         print len(net._edges), "edges read"
+
+    if options.curvefile:
+        updateCurveTable(options.curvefile)
 
     for edgeID in net._edges: 
         edge = net._edges[edgeID]
@@ -122,7 +119,7 @@ def main():
             edge.getCRcurve()
             edge.getDefaultCapacity()
             edge.getAdjustedCapacity(net)
-            edge.getActualTravelTime(options) 
+            edge.getActualTravelTime(options.lamda) 
             edge.helpacttime = edge.freeflowtime
 
     # calculate link travel time for all district connectors 
@@ -190,7 +187,7 @@ def main():
             edge.flow = 0.
             edge.helpflow = 0.
             if lohse:
-                edge.getActualTravelTime(options)
+                edge.getActualTravelTime(options.lamda)
                 edge.resetLohseParameter()
                 edge.helpacttime = edge.freeflowtime
             else:
@@ -217,7 +214,7 @@ def main():
                 
                 for edgeID in net._edges:                                                   
                     edge = net._edges[edgeID]
-                    edge.getActualTravelTime(options)
+                    edge.getActualTravelTime(options.lamda)
                     
         else:
             print 'begin the', options.type, " assignment!"   

@@ -121,7 +121,7 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
             
             # reset the edge.helpflow for the next iteration
             edge.helpflow = 0.0                                                
-            edge.getActualTravelTime(options)
+            edge.getActualTravelTime(options.lamda)
  #           if edge.queuetime > 0.:
  #               notstable += 1
             if lohse:
