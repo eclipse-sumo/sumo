@@ -526,7 +526,6 @@ MSVehicle::moveFirstChecked()
 
     assert(myLFLinkLanes.size()!=0);
     DriveItemVector::iterator i;
-    MSLane *currentLane = myLane;
     bool cont = true;
     for (i=myLFLinkLanes.begin(); i!=myLFLinkLanes.end()&&cont; ++i) {
         MSLink *link = (*i).myLink;
@@ -552,7 +551,6 @@ MSVehicle::moveFirstChecked()
             cont = false;
             break;
         }
-        currentLane = link->getLane();
     }
 
     // take stops into account
@@ -675,7 +673,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
     unsigned int view = 1;
     // loop over following lanes
     while (true) {
-        SUMOReal laneLength = nextLane->length();
+        // process stops
         if (!myStops.empty()&&myStops.begin()->lane->getEdge()==nextLane->getEdge()) {
             SUMOReal vsafeStop = myType->ffeS(myState.mySpeed, seen-(nextLane->length()-myStops.begin()->pos));
             vLinkPass = MIN2(vLinkPass, vsafeStop);
@@ -684,6 +682,8 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
 
         // get the next link used
         MSLinkCont::const_iterator link = myLane->succLinkSec(*this, view, *nextLane, bestLaneConts);
+        // and the length of the currently investigated lane
+        SUMOReal laneLength = nextLane->length();
 
         // check whether the lane is a dead end
         //  (should be valid only on further loop iterations
@@ -722,13 +722,15 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
 
         // the vehicle shall keep a secure distance to its predecessor
         //  (or approach the lane end if the predeccessor is too near)
-        SUMOReal vsafePredNextLane = 1000;
+        SUMOReal vsafePredNextLane = 100000;
 
         // !!! optimize this - make this optional
         SUMOReal r_dist2Pred = seen;
         if (nextLane->getLastVehicle()!=0) {
+            // there is a leader -> compute distance to him
             r_dist2Pred = r_dist2Pred + nextLane->myLastState.pos() - nextLane->getLastVehicle()->getLength();
         } else {
+            // no, no leader; we'll look until the currently investigated lane's end
             r_dist2Pred = r_dist2Pred + nextLane->length();
         }
 
@@ -777,7 +779,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                         continue;
                     }
                     const State &nextLanePred2 = nl2->myLastState;
-                    SUMOReal dist2Pred2 = dist2Pred;// @!!! the real length of the car
+                    SUMOReal dist2Pred2 = seen + nl->length();// @!!! the real length of the car
                     if (nl2->getLastVehicle()!=0) {
                         dist2Pred2 = dist2Pred2 + nextLanePred2.pos() - nl2->getLastVehicle()->getLength();
                     } else {
@@ -856,8 +858,7 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
 
         // if the link may not be used (is blocked by another vehicle) then let the
         //  vehicle decelerate until the end of the street
-        vLinkWait =
-            MIN3(vLinkPass, vLinkWait, myType->ffeS(myState.mySpeed, seen));
+        vLinkWait = MIN3(vLinkPass, vLinkWait, myType->ffeS(myState.mySpeed, seen));
         vLinkWait = MAX2(vLinkWait, myType->getSpeedAfterMaxDecel(myState.mySpeed));
 
         if ((*link)->getState()==MSLink::LINKSTATE_TL_YELLOW&&SPEED2DIST(vLinkWait)+myState.myPos<laneLength) {
@@ -950,9 +951,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven)
     for (size_t j=0; j<myMoveReminders.size(); j++) {
         myOldLaneMoveReminderOffsets.push_back(oldLaneLength);
     }
-
-    copy(myMoveReminders.begin(), myMoveReminders.end(),
-         back_inserter(myOldLaneMoveReminders));
+    copy(myMoveReminders.begin(), myMoveReminders.end(), back_inserter(myOldLaneMoveReminders));
     assert(myOldLaneMoveReminders.size()==myOldLaneMoveReminderOffsets.size());
     // set the entered lane as the current lane
     myLane = enteredLane;
