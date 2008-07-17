@@ -39,7 +39,7 @@
 // method definitions
 // ===========================================================================
 void
-MFXUtils::deleteChildren(FXWindow *w)
+MFXUtils::deleteChildren(FXWindow *w) throw()
 {
     while (w->numChildren()!=0) {
         FXWindow *child = w->childAtIndex(0);
@@ -50,7 +50,7 @@ MFXUtils::deleteChildren(FXWindow *w)
 
 FXbool
 MFXUtils::userPermitsOverwritingWhenFileExists(FXWindow * const parent,
-        const FXString &file)
+        const FXString &file) throw()
 {
     if (!FXFile::exists(file)) {
         return TRUE;
@@ -61,6 +61,24 @@ MFXUtils::userPermitsOverwritingWhenFileExists(FXWindow * const parent,
         return FALSE;
     }
     return TRUE;
+}
+
+
+FXString
+MFXUtils::getDocumentName(const FXString &filename) throw()
+{
+    FXString file = FXFile::name(filename);
+    return file.before('.');
+}
+
+
+FXString 
+MFXUtils::getTitleText(const FXString &appname, FXString filename) throw()
+{
+    if(filename.length()==0) {
+        return appname;
+    }
+    return getDocumentName(filename) + " - " + appname;
 }
 
 

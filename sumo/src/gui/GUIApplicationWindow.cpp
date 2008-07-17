@@ -46,6 +46,7 @@
 #include "GUIApplicationWindow.h"
 
 #include <utils/common/ToString.h>
+#include <utils/foxtools/MFXUtils.h>
 #include <utils/foxtools/FXLCDLabel.h>
 #include <utils/foxtools/FXRealSpinDial.h>
 #include <utils/foxtools/FXThreadEvent.h>
@@ -231,8 +232,7 @@ GUIApplicationWindow::dependentBuild(GUIThreadFactory &threadFactory)
         new FXProgressBar(myStatusbar, 0, 0, PROGRESSBAR_NORMAL|LAYOUT_FILL_X, 200);
     */
     // set the caption
-    string caption = "SUMO " + string(VERSION_STRING) + " - no simulation loaded";
-    setTitle(caption.c_str());
+    setTitle(MFXUtils::getTitleText(("SUMO " + string(VERSION_STRING)).c_str()));
 
     // start the simulation-thread
     //  (it will loop until the application ends deciding by itself whether
@@ -1001,8 +1001,8 @@ GUIApplicationWindow::handleEvent_SimulationLoaded(GUIEvent *e)
         }
 #endif
         // set simulation name on the caption
-        string caption = "SUMO " + string(VERSION_STRING) + " - " + ec->myFile;
-        setTitle(caption.c_str());
+        string caption = "SUMO " + string(VERSION_STRING);
+        setTitle(MFXUtils::getTitleText(caption.c_str(), ec->myFile.c_str()));
         ostringstream str;
         // set simulation step begin information
         str << (int) myRunThread->getCurrentTimeStep();
@@ -1167,8 +1167,7 @@ GUIApplicationWindow::closeAllWindows()
     delete gSimInfo;
     gSimInfo = 0;
     // reset the caption
-    string caption = "SUMO " + string(VERSION_STRING) + " - no simulation loaded";
-    setTitle(caption.c_str());
+    setTitle(MFXUtils::getTitleText(("SUMO " + string(VERSION_STRING)).c_str()));
     // delete other children
     while (myTrackerWindows.size()!=0) {
         delete myTrackerWindows[0];
