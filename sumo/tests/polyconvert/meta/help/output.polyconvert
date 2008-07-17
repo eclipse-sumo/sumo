@@ -1,0 +1,90 @@
+SUMO polyconvert Version 0.9.7
+ (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
+ 
+Importer of polygons and POIs for the road traffic simulation SUMO.
+
+Usage: polyconvert.exe [OPTION]*
+ 
+ Example:
+  polyconvert.exe -c <CONFIGURATION>
+ 
+ Configuration Options:
+  -c, --configuration-file FILE    Loads the named config on startup
+  --save-configuration FILE        Saves current configuration into FILE
+  --save-template FILE             Saves a configuration template (empty) into
+                                     FILE
+  --save-template.commented        Adds comments to saved template
+
+ Input Options:
+  -n, --net-file FILE              Loads SUMO-network FILE as reference to
+                                     offset and projection
+  --elmar FILE                     Reads polygons from FILE assuming they're
+                                     coded in Elmar-format
+  --elmar-points FILE              Reads pois from FILE assuming they're coded
+                                     in Elmar-format
+  --visum-file FILE                Reads polygons from FILE assuming it's a
+                                     Visum-net
+  --visum-points FILE              Reads pois from FILE assuming it's a
+                                     Visum-net
+  --xml-points FILE                Reads pois from FILE assuming they're coded
+                                     in XML
+  --typemap FILE                   Reads types from FILE
+
+ Output Options:
+  -o, --output FILE                Write generated polygons/pois to FILE
+
+ Projection Options:
+  --use-projection                 Enables reprojection from geo to cartesian
+  --proj.simple                    Uses a simple method for projection
+  --proj STR                       Uses STR as proj.4 definition for projection
+  --proj.inverse                   Inverses projection
+
+ Prunning Options:
+  --prune.on-net                   Enables prunning on net boundaries
+  --prune.on-net.offsets STR       Uses STR as offset definition added to the
+                                     net boundaries
+  --prune.boundary STR             Uses STR as prunning boundary
+  --prune.ignore STR               Items in STR will be kept though out of
+                                     boundary
+  --remove STR                     Items with names in STR will be removed
+
+ Building Defaults Options:
+  --color STR                      Sets STR as default color
+  --prefix STR                     Sets STR as default prefix
+  --type STR                       Sets STR as default type
+  --layer INT                      Sets INT as default layer
+
+ Report Options:
+  -v, --verbose                    Switches to verbose output
+  -W, --suppress-warnings          Disables output of warnings
+  -p, --print-options              Prints option values before processing
+  -?, --help                       Prints this screen
+  -l, --log-file FILE              Writes all messages to FILE
+
+ Projection Options:
+  --use-projection                 Enables reprojection from geo to cartesian
+  --proj.simple                    Uses a simple method for projection
+  --proj STR                       Uses STR as proj.4 definition for projection
+  --proj.inverse                   Inverses projection
+
+ Prunning Options:
+  --prune.on-net                   Enables prunning on net boundaries
+  --prune.on-net.offsets STR       Uses STR as offset definition added to the
+                                     net boundaries
+  --prune.boundary STR             Uses STR as prunning boundary
+  --prune.ignore STR               Items in STR will be kept though out of
+                                     boundary
+  --remove STR                     Items with names in STR will be removed
+
+ Building Defaults Options:
+  --color STR                      Sets STR as default color
+  --prefix STR                     Sets STR as default prefix
+  --type STR                       Sets STR as default type
+  --layer INT                      Sets INT as default layer
+
+ Random Number Options:
+  --srand INT                      Initialises the random number generator with
+                                     the given value
+  --abs-rand                       Initialises the random number generator with
+                                     the current system time
+
