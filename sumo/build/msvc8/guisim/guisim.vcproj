@@ -177,6 +177,8 @@
 				Name="VCLinkerTool"
 				AdditionalDependencies="$(PROJ_LIB) shell32.lib opengl32.lib glu32.lib $(XERCES_LIB) $(FOX14_LIB) user32.lib $(NOINHERIT) winmm.lib vfw32.lib gdi32.lib ws2_32.lib"
 				OutputFile=".\Release/guisim.exe"
+				SubSystem="2"
+				EntryPointSymbol="mainCRTStartup"
 			/>
 			<Tool
 				Name="VCALinkTool"
