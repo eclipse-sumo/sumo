@@ -16,7 +16,7 @@ All rights reserved
 """
 
 import sys, math
-from tables import crCurveTable
+from tables import crCurveTable, laneTypeTable
 
 # This class is used for finding the k shortest paths.
 class Predecessor:
@@ -150,175 +150,21 @@ class Edge:
     def getFreeFlowTravelTime(self):
         return self.freeflowtime
                 
-    def getDefaultCapacity(self):
-        if (self.numberlane > 0. or self.detectorNum > 0.) and self.CRcurve == "None":
-            self.estcapacity = max(self.numberlane, self.detectorNum) * 1500.
-    
     def addDetectedData(self, detecteddataObj):
         self.detecteddata[detecteddataObj.label] = detecteddataObj
         
     # modified CR-curve database, defined in the PTV-Validate files
     def getCapacity(self):
         if self.numberlane > 0:
-            self.estcapacity = self.numberlane * 1500.
-            if self.maxspeed > 38.0:
-                if self.numberlane <= 2:
-                    self.edgetype = '14'
-                elif self.numberlane == 3:
-                    self.edgetype = '10'
-                elif self.numberlane >= 4:
-                    self.edgetype = '6'
-            elif self.maxspeed > 34.0 and self.maxspeed <= 38.0:
-                if self.numberlane <= 2:
-                    self.edgetype = '15'
-                elif self.numberlane == 3:
-                    self.edgetype = '11'
-                elif self.numberlane >= 4:
-                    self.edgetype = '7'
-            elif self.maxspeed > 33.0 and self.maxspeed <= 34.0:
-                if self.numberlane == 1:
-                    self.estcapacity = self.numberlane * 1400.
-                    self.edgetype = '26'
-                if self.numberlane == 2:
-                    self.estcapacity = self.numberlane * 1400.
-                    self.edgetype = '23'
-                elif self.numberlane >= 3:
-                    self.edgetype = '20'
-            elif self.maxspeed > 30.0 and self.maxspeed <= 33.0:
-                self.estcapacity = self.numberlane * 1400.
-                if self.numberlane <= 2:        
-                    self.edgetype = '16'
-                if self.numberlane == 3:
-                    self.edgetype = '12'
-                elif self.numberlane >= 4:
-                    self.edgetype = '8'
-            elif self.maxspeed > 29.0 and self.maxspeed <= 30.0:
-                if self.numberlane == 1.:
-                    self.estcapacity = self.numberlane * 1350.   
-                    self.edgetype = '18'
-                if self.numberlane == 2.:
-                    self.edgetype = '24'
-                elif self.numberlane >= 3.:
-                    self.edgetype = '21'
-            elif self.maxspeed > 27.0 and self.maxspeed <= 29.0:
-                if self.numberlane == 1.:
-                    self.estcapacity = self.numberlane * 1350.
-                    self.edgetype = '64'
-                if self.numberlane >= 2.:
-                    self.estcapacity = self.numberlane * 1400.
-                    self.edgetype = '61'
-            elif self.maxspeed >= 25.0 and self.maxspeed <= 27.0:
-                if self.numberlane == 1.:
-                    self.estcapacity = self.numberlane * 1350.     
-                    self.edgetype = '19'
-                if self.numberlane == 2.:
-                    self.estcapacity = self.numberlane * 1400.
-                    self.edgetype = '17'
-                if self.numberlane == 3.:
-                    self.estcapacity = self.numberlane * 1400.
-                    self.edgetype = '13'
-                if self.numberlane >= 4.:
-                    self.estcapacity = self.numberlane * 1400.
-                    self.edgetype = '9'
-            elif self.maxspeed > 22.0 and self.maxspeed < 25.0:
-                if self.numberlane == 1.:
-                    self.estcapacity = self.numberlane * 1300.
-                    self.edgetype = '29'
-                if self.numberlane == 2.:
-                    self.estcapacity = self.numberlane * 1300.
-                    self.edgetype = '33'
-                if sself.numberlane >= 3.:
-                    self.estcapacity = self.numberlane * 1400.
-                    self.edgetype = '30'
-            elif self.maxspeed > 19.0 and self.maxspeed <= 22.0:
-                if self.numberlane == 1.:
-                    self.estcapacity = self.numberlane * 1200.
-                    self.edgetype = '37'
-                if self.numberlane == 2.:
-                    self.estcapacity = self.numberlane * 1350.
-                    self.edgetype = '34'
-                if self.numberlane >= 3.:
-                    self.estcapacity = self.numberlane * 1400.
-                    self.edgetype = '31'
-            elif self.maxspeed > 18.0 and self.maxspeed <= 19.0:
-                self.estcapacity = self.numberlane * 1300.
-                self.edgetype = '84'
-            elif self.maxspeed > 16.0 and self.maxspeed <= 18.0:
-                if self.numberlane == 1.:
-                    self.estcapacity = self.numberlane * 1200.
-                    self.edgetype = '38'
-                if self.numberlane == 2.:
-                    self.estcapacity = self.numberlane * 1300.
-                    self.edgetype = '35'
-                if self.numberlane == 3.:
-                    self.estcapacity = self.numberlane * 1300.
-                    self.edgetype = '32'
-                if self.numberlane >= 4.:
-                    self.estcapacity = self.numberlane * 1100.
-                    self.edgetype = '40'
-            elif self.maxspeed > 15.0 and self.maxspeed <= 16.0:
-                if self.numberlane == 1.:
-                    self.estcapacity = self.numberlane * 1000.
-                    self.edgetype = '47'
-                if self.numberlane >= 2.:
-                    self.estcapacity = self.numberlane * 1100.
-                    self.edgetype = '44'
-            elif self.maxspeed > 13.0 and self.maxspeed <= 15.0:
-                if self.numberlane == 1.:
-                    self.estcapacity = self.numberlane * 1200.
-                    self.edgetype = '39'
-                if self.numberlane == 2.:
-                    self.estcapacity = self.numberlane * 1050.
-                    self.edgetype = '45'
-                if self.numberlane >= 3.:
-                    self.estcapacity = self.numberlane * 1110.
-                    self.edgetype = '42'
-            elif self.maxspeed > 12.0 and self.maxspeed <= 13.0:
-                self.estcapacity = self.numberlane * 800.
-                if self.numberlane == 1.: 
-                    self.edgetype = '49'
-                if self.numberlane == 2.:
-                    self.edgetype = '86'
-            elif self.maxspeed > 11.0 and self.maxspeed <= 12.0:
-                if self.numberlane == 1.: 
-                    self.estcapacity = self.numberlane * 800.
-                    self.edgetype = '83'
-                if self.numberlane >= 2.:
-                    self.estcapacity = self.numberlane * 1000.
-                    self.edgetype = '75'
-            elif self.maxspeed > 9.0 and self.maxspeed <= 11.0:
-                if self.numberlane == 1.:
-                    self.estcapacity = self.numberlane * 800.
-                    self.edgetype = '89'
-                if self.numberlane >= 2.:
-                    self.estcapacity = self.numberlane * 1400.
-                    self.edgetype = '87'
-            elif self.maxspeed > 8.0 and self.maxspeed <= 9.0:
-                self.estcapacity = self.numberlane * 800.
-                self.edgetype = '79'
-            elif self.maxspeed <= 8.0:
-                self.estcapacity = self.numberlane * 200.
-                self.edgetype = '94'
-    
-    def getCRcurve(self):
-        self.CRcurve =''
-        if self.edgetype != None:
-            if int(self.edgetype) <= 5:
-                    self.CRcurve = 'CR12'
-                    self.estcapacity = 0.                    
-            elif int(self.edgetype) >= 6 and int(self.edgetype) <= 19:
-                    self.CRcurve = 'CR1'
-            elif int(self.edgetype) >= 20 and int(self.edgetype) <= 49:
-                    self.CRcurve = 'CR2'
-            elif int(self.edgetype) >= 50 and int(self.edgetype) <= 79:
-                    self.CRcurve = 'CR3'
-            elif int(self.edgetype) >= 80 and int(self.edgetype) <= 89:
-                    self.CRcurve = 'CR4'
-            elif int(self.edgetype) >= 90 and int(self.edgetype) <= 93:
-                    self.CRcurve = 'CR5'
-            elif int(self.edgetype) >= 94 and int(self.edgetype) <= 99:
-                    self.CRcurve = 'CR6'
-    
+            typeList = laneTypeTable[min(self.numberlane, 4)]
+            
+            for laneType in typeList:
+                if laneType[0] >= self.maxspeed:
+                    break
+            
+            self.estcapacity = self.numberlane * laneType[1]
+            self.CRcurve = laneType[2]
+              
     def getAdjustedCapacity(self, net):
         straightGreen = 0.
         rightGreen = 0.

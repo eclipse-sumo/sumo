@@ -4,7 +4,11 @@
 @date    2008-03-18
 @version $Id: calStatistics.py 2008-03-18$
 
-This file defines global tables for the significance tests.
+This file defines global tables used to:
+
+- define the parameters in link cost functions
+- define link cost functions
+- conduct significance tests
 
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
@@ -17,14 +21,12 @@ crCurveTable = {"CR1": (1., 2., 1.),
                 "CR6": (1., 2., 1.),
                 "CR10": (1., 2., 1.),
                 "CR11": (0.25, 2., 1.)}
-laneTypeTable = {1:[[10., "CR27"], [20., 25], [1000., 34]],
-                 2:[[10., 24], [20., 25]],
-                 3:[[10., 24], [20., 25]],
-                 4:[[10., 24], [20., 25]]}
-typeList = laneTypeTable[min(laneNum, 4)]
-for type in typeList:
-    if type[0] >= maxSpeed:
-        break
+                
+laneTypeTable = {1:[[7., 200., "CR6"], [9., 800., "CR3"], [12., 800., "CR4"], [13., 800., "CR2"], [18., 1200., "CR2"], [19., 1300., "CR4"], [22., 1200., "CR2"], [25., 1300., "CR2"], [30., 1350., "CR1"], [33., 1400., "CR1"] [999., 1500., "CR1"]], 
+                 2:[[7., 200., "CR6"], [9., 800., "CR3"], [13., 1000., "CR3"], [15., 1050., "CR2"], [16., 1100., "CR2"], [25., 1300., "CR2"], [27., 1400., "CR1"], [29., 1400., "CR3"], [30., 1500., "CR2"], [34., 1400., "CR2"], [999., 1500., "CR1"]],
+                 3:[[7., 200., "CR6"], [9., 800., "CR3"], [13., 1000, "CR3"], [16., 1100., "CR2"], [19., 1300., "CR2"], [25., 1400., "CR2"], [27., 1400., "CR1"], [30., 1500., "CR2"], [33., 1400., "CR1"], [999., 1500., "CR1"]],
+                 4:[[7., 200., "CR6"], [9., 800., "CR3"], [13., 1000., "CR3"], [17, 1100., "CR2"], [19., 1300., "CR1"], [25., 1400., "CR2"], [27., 1400., "CR2"], [29., 1400., "CR3"], [30., 1500., "CR2"], [33., 1400., "CR1"], [999., 1500., "CR1"]]}
+                 
 
 chiSquareTable = \
 [[ 0,        0.10,     0.05,    0.025,     0.01,    0.001],
