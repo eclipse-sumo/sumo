@@ -1,0 +1,7 @@
+# bug [ 1993928 ] --keep-edges.input-file does not remove empty
+#  When importing a large network and trying to reduce it by giving a list of
+#  edges to keep, the resulting network only contains the given edges. Ok, but
+#  ALL nodes are included, not only those used by the edges. Loading the
+#  network into guisim shows nothing...
+bug1993928
+
