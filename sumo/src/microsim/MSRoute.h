@@ -85,7 +85,10 @@ public:
     /// output the edge ids up to but not including the id of the given edge
     void writeEdgeIDs(OutputDevice &os, const MSEdge *upTo=0) const;
 
-    bool contains(MSEdge *edge) const;
+    bool contains(const MSEdge * const edge) const throw() {
+        return find(edge)!=myEdges.end();
+    }
+
     bool containsAnyOf(const std::vector<MSEdge*> &edgelist) const;
 
     const MSEdge *operator[](unsigned index) const;
@@ -98,14 +101,14 @@ public:
      *
      * @param[in] os The stream to write the routes into (binary)
      */
-    static void dict_saveState(std::ostream &os) throw();
+    static void dict_saveState(std::ostream &os);
 
 
     /** @brief Loads routes from the state
      *
      * @param[in] bis The input to read the routes from (binary)
      */
-    static void dict_loadState(BinaryInputDevice &bis) throw();
+    static void dict_loadState(BinaryInputDevice &bis);
     /// @}
 #endif
 

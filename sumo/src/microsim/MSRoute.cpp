@@ -189,13 +189,6 @@ MSRoute::writeEdgeIDs(OutputDevice &os, const MSEdge *upTo) const
 
 
 bool
-MSRoute::contains(MSEdge *edge) const
-{
-    return find(edge)!=myEdges.end();
-}
-
-
-bool
 MSRoute::containsAnyOf(const std::vector<MSEdge*> &edgelist) const
 {
     std::vector<MSEdge*>::const_iterator i = edgelist.begin();
