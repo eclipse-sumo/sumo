@@ -1,10 +1,10 @@
 <edges>
-   <edge id="1i" fromnode="1" tonode="0" speed="19.44" priority="78" nolanes="1"/>
-   <edge id="1o" fromnode="0" tonode="1" speed="11.11" priority="46" nolanes="1"/>
-   <edge id="2i" fromnode="2" tonode="0" speed="19.44" priority="78" nolanes="1"/>
-   <edge id="2o" fromnode="0" tonode="2" speed="11.11" priority="46" nolanes="1"/>
-   <edge id="3i" fromnode="3" tonode="0" speed="19.44" priority="78" nolanes="1"/>
-   <edge id="3o" fromnode="0" tonode="3" speed="11.11" priority="46" nolanes="1"/>
-   <edge id="4i" fromnode="4" tonode="0" speed="19.44" priority="78" nolanes="1"/>
-   <edge id="4o" fromnode="0" tonode="4" speed="11.11" priority="46" nolanes="1"/>
+   <edge id="1i" fromnode="1" tonode="0" speed="19.44" priority="78" spread_type="center" nolanes="1" shape="0.0,498.35 495.25,498.35"/>
+   <edge id="1o" fromnode="0" tonode="1" speed="11.11" priority="46" spread_type="center" nolanes="1" shape="495.25,501.65 0.0,501.65"/>
+   <edge id="2i" fromnode="2" tonode="0" speed="19.44" priority="78" spread_type="center" nolanes="1" shape="1000.0,501.65 504.75,501.65"/>
+   <edge id="2o" fromnode="0" tonode="2" speed="11.11" priority="46" spread_type="center" nolanes="1" shape="504.75,498.35 1000.0,498.35"/>
+   <edge id="3i" fromnode="3" tonode="0" speed="19.44" priority="78" spread_type="center" nolanes="1" shape="501.65,0.0 501.65,495.25"/>
+   <edge id="3o" fromnode="0" tonode="3" speed="11.11" priority="46" spread_type="center" nolanes="1" shape="498.35,495.25 498.35,0.0"/>
+   <edge id="4i" fromnode="4" tonode="0" speed="19.44" priority="78" spread_type="center" nolanes="1" shape="498.35,1000.0 498.35,504.75"/>
+   <edge id="4o" fromnode="0" tonode="4" speed="11.11" priority="46" spread_type="center" nolanes="1" shape="501.65,504.75 501.65,1000.0"/>
 </edges>

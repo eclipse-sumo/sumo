@@ -129,6 +129,7 @@ class Net:
 
     def addLane(self, edge, speed, length):
         lane = NetLane(edge, speed, length)
+        return lane
 
     def getEdge(self, id):
         return self._id2edge[id]
@@ -193,19 +194,15 @@ class NetReader(handler.ContentHandler):
                 for l in self._currentEdge._lanes:
                     if minLen==-1 or minLen>len(l.getShape()):
                         minLen = len(l._shape)
-                if minLen>2:
-                    for i in range(0, minLen):
-                        x = 0.
-                        y = 0.
-                        for j in range(0, len(self._currentEdge._lanes)):
-                            x = x + self._currentEdge._lanes[j]._shape[i][0]
-                            y = y + self._currentEdge._lanes[j]._shape[i][0][1]
-                        x = x / float(len(self._currentEdge._lanes))
-                        y = y / float(len(self._currentEdge._lanes))
-                        shape.append( [ x, y ] )
-                else:
-                    shape.append(self._currentEdge._from._coord)
-                    shape.append(self._currentEdge._to._coord)
+                for i in range(0, minLen):
+                    x = 0.
+                    y = 0.
+                    for j in range(0, len(self._currentEdge._lanes)):
+                        x = x + self._currentEdge._lanes[j]._shape[i][0]
+                        y = y + self._currentEdge._lanes[j]._shape[i][1]
+                    x = x / float(len(self._currentEdge._lanes))
+                    y = y / float(len(self._currentEdge._lanes))
+                    shape.append( [ x, y ] )
                 self._currentEdge.setShape(shape)
         if name == 'edge':
             self._currentEdge = None

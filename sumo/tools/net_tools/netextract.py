@@ -41,14 +41,15 @@ def writeEdges(net):
         fd.write("   <edge id=\"" + edge._id + "\" fromnode=\"" + edge._from._id + "\" tonode=\"" + edge._to._id)
         fd.write("\" speed=\"" + str(edge._speed))
         fd.write("\" priority=\"" + str(edge._priority))
+        fd.write("\" spread_type=\"center")
         fd.write("\" nolanes=\"" + str(len(edge._lanes)) + "\"")
-        if len(edge._shape)>2:
-            fd.write(" shape=\"")
-            for i,c in enumerate(edge._shape):
-                if i!=0:
-                    fd.write(" ")
-                fd.write(str(c[0]) + "," + str(c[1]))
-            fd.write("\"")
+        shape = edge.getShape()
+        fd.write(" shape=\"")
+        for i,c in enumerate(shape):
+            if i!=0:
+                fd.write(" ")
+            fd.write(str(c[0]) + "," + str(c[1]))
+        fd.write("\"")
         fd.write("/>\n")
     fd.write("</edges>\n")
 
