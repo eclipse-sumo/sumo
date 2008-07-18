@@ -410,7 +410,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
         MSNet::getInstance()->getEdgeControl().gotActive(this);
     }
     // update mean data information
-    addMean2(*aVehicle, speed, speed, 0, pos-SPEED2DIST(speed)); // !!! revisit gap if its needed
+    addMeanData(*aVehicle, speed, speed, 0, pos-SPEED2DIST(speed)); // !!! revisit gap if its needed
     if (myMeanData.size()!=0) {
         for (size_t i=0; i<myMeanData.size(); ++i) {
             myMeanData[i].emitted++;
@@ -648,6 +648,53 @@ MSLane::setCritical(std::vector<MSLane*> &into)
 }
 
 
+// ---------- Mean data collection
+void
+MSLane::insertMeanData(unsigned int number) throw()
+{
+    myMeanData.reserve(myMeanData.size() + number);
+    myMeanData.insert(myMeanData.end(), number, MSLaneMeanDataValues());
+}
+
+
+void
+MSLane::addMeanData(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal gap, SUMOReal oldPos) throw()
+{
+    // Add to mean data (edge/lane state dump)
+    if (myMeanData.size()!=0) {
+        SUMOReal l = veh.getLength();
+        SUMOReal fraction = 1.;
+        if(oldPos<0&&newV!=0) {
+            fraction = (oldPos+SPEED2DIST(newV)) / newV;
+        }
+        if(oldPos+SPEED2DIST(newV)>length()&&newV!=0) {
+            fraction -= (oldPos+SPEED2DIST(newV) - length()) / newV;
+        }
+        for (size_t i=0; i<myMeanData.size(); ++i) {
+            myMeanData[i].sampleSeconds += fraction;
+            myMeanData[i].speedSum += newV * fraction;
+            myMeanData[i].vehLengthSum += l * fraction;
+            if (newV<0.1) { // !!! swell
+                myMeanData[i].haltSum++;
+            }
+        }
+    }
+    /*
+    // Add to phys state
+    if (OptionsCont::getOptions().isSet("physical-states-output")) {
+        OutputDevice::getDeviceByOption("physical-states-output") << "   <vphys id=\"" << veh.getID()
+        << "\" t=\"" << MSNet::getInstance()->getCurrentTimeStep()
+        << "\" v=\"" << newV
+        << "\" a=\"" << (newV-oldV)
+        << "\" g=\"" << gap
+        << "\"/>" << "\n";
+    }
+    */
+}
+
+
+
+
 bool
 MSLane::dictionary(string id, MSLane* ptr)
 {
@@ -857,53 +904,6 @@ MSLane::succLinkSec(const MSVehicle& veh, unsigned int nRouteSuccs,
 
 
 
-void
-MSLane::resetMeanData(unsigned index)
-{
-    assert(index<myMeanData.size());
-    myMeanData[ index ].reset();
-}
-
-
-void
-MSLane::addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal gap, SUMOReal oldPos)
-{
-    // Add to mean data (edge/lane state dump)
-    if (myMeanData.size()!=0) {
-        SUMOReal l = veh.getLength();
-        SUMOReal fraction = 1.;
-        if(oldPos<0&&newV!=0) {
-            fraction = (oldPos+SPEED2DIST(newV)) / newV;
-        }
-        if(oldPos+SPEED2DIST(newV)>length()&&newV!=0) {
-            fraction -= (oldPos+SPEED2DIST(newV) - length()) / newV;
-        }
-        for (size_t i=0; i<myMeanData.size(); ++i) {
-            myMeanData[i].sampleSeconds += fraction;
-            myMeanData[i].speedSum += newV * fraction;
-            myMeanData[i].vehLengthSum += l * fraction;
-            if (newV<0.1) { // !!! swell
-                myMeanData[i].haltSum++;
-            }
-        }
-    }
-    /*
-    // Add to phys state
-    if (OptionsCont::getOptions().isSet("physical-states-output")) {
-        OutputDevice::getDeviceByOption("physical-states-output") << "   <vphys id=\"" << veh.getID()
-        << "\" t=\"" << MSNet::getInstance()->getCurrentTimeStep()
-        << "\" v=\"" << newV
-        << "\" a=\"" << (newV-oldV)
-        << "\" g=\"" << gap
-        << "\"/>" << "\n";
-    }
-    */
-}
-
-
-
-
-
 const MSLinkCont &
 MSLane::getLinkCont() const
 {
@@ -998,14 +998,6 @@ size_t
 MSLane::getNumericalID() const
 {
     return myNumericalID;
-}
-
-
-void
-MSLane::insertMeanData(unsigned int number)
-{
-    myMeanData.reserve(myMeanData.size() + number);
-    myMeanData.insert(myMeanData.end(), number, MSLaneMeanDataValues());
 }
 
 

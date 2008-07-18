@@ -236,6 +236,29 @@ public:
 
 
 
+    /// @name Mean data collection
+    /// @{
+
+    /** @brief Adds the given number of data collectors (used to collect mean data)
+     * @param[in] number The number of collectors to add
+     */
+    void insertMeanData(unsigned int number) throw();
+
+
+    /** @brief Adds information about a moving vehicle to the mean data container
+     *
+     * @param[in] veh The vehicles which data shall be saved
+     * @param[in] newV The vehicle's new velocity
+     * @param[in] oldV The vehicle's old velocity (the one in the prior step)
+     * @param[in] gap The vehicle's gap to the leader
+     * @param[in] oldPos The vehicle's old position
+     * @todo This method is rather a subject to change; something like calling instances of abstract data logger should be called
+     */
+    void addMeanData(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal gap, SUMOReal oldPos) throw();
+
+    ///@}
+
+
     /// Check if vehicles are too close.
     virtual void detectCollisions(SUMOTime timestep);
 
@@ -345,13 +368,10 @@ public:
 
     size_t getNumericalID() const;
 
-    void insertMeanData(unsigned int number);
 
     SUMOReal getMeanSpeed() const;
 
     const std::string &getID() const;
-
-    void addMean2(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal gap, SUMOReal oldPos);
 
     /// The shape of the lane
     Position2DVector myShape;
@@ -428,9 +448,6 @@ protected:
 
     /** Returns the first/front vehicle of the lane and removing it from the lane. */
     virtual MSVehicle* pop();
-
-    /** Resets the MeanData container at the beginning of a new interval.*/
-    virtual void resetMeanData(unsigned index);
 
     /// moves myTmpVehicles int myVehicles after a lane change procedure
     virtual void swapAfterLaneChange();

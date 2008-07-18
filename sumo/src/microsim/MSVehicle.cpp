@@ -447,7 +447,7 @@ MSVehicle::move(MSLane* lane, const MSVehicle* pred, const MSVehicle* neigh)
 	}
 #endif
     // update position and speed
-    myLane->addMean2(*this, vNext, oldV, gap, myState.myPos);
+    myLane->addMeanData(*this, vNext, oldV, gap, myState.myPos);
     myState.myPos += SPEED2DIST(vNext);
     assert(myState.myPos < lane->length());
 	myState.mySpeed = vNext;
@@ -598,7 +598,7 @@ MSVehicle::moveFirstChecked()
     // update speed
     myState.mySpeed = vNext;
     MSLane *approachedLane = myLane;
-    approachedLane->addMean2(*this, vNext, oldV, -1, oldPos);
+    approachedLane->addMeanData(*this, vNext, oldV, -1, oldPos);
 
     // move the vehicle forward
     size_t no = 0;
@@ -640,7 +640,7 @@ MSVehicle::moveFirstChecked()
 #endif
         }
         // set information about approaching
-        approachedLane->addMean2(*this, vNext, oldV, -1, oldPos);
+        approachedLane->addMeanData(*this, vNext, oldV, -1, oldPos);
         no++;
     }
 
