@@ -124,7 +124,8 @@ NBNetBuilder::compute(OptionsCont &oc)
             myEdgeCont.removeUnwishedEdges(myDistrictCont, oc);
         }
     }
-    if (oc.isSet("keep-edges") || oc.isSet("keep-edges.postload") || oc.isSet("keep-edges.by-vclass") || oc.isSet("keep-edges.input-file") ) {
+    if (oc.isSet("keep-edges") || oc.getBool("keep-edges.postload") || oc.isSet("keep-edges.by-vclass") || oc.isSet("keep-edges.input-file") ) {
+        inform(step, "Rechecking nodes after edge removal.");
         myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont);
     }
     //
