@@ -131,9 +131,6 @@ public:
     void removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
                           NBTrafficLightLogicCont &tc);
 
-    void searchEdgeInNode(const NBEdgeCont &ec,
-                          std::string nodeid, std::string edgeid);
-
     std::string getFreeID();
 
     void computeNodeShapes();

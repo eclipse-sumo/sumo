@@ -404,26 +404,6 @@ NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
 }
 
 
-void
-NBNodeCont::searchEdgeInNode(const NBEdgeCont &ec,
-                             string nodeid, string edgeid)
-{
-    NBNode *n = retrieve(nodeid);
-    NBEdge *e = ec.retrieve(edgeid);
-    if (n==0||e==0) {
-        return;
-    }
-
-    if (find(n->myOutgoingEdges->begin(), n->myOutgoingEdges->end(), e)
-            !=n->myOutgoingEdges->end()) {
-    }
-
-    if (find(n->myIncomingEdges->begin(), n->myIncomingEdges->end(), e)
-            !=n->myIncomingEdges->end()) {
-    }
-
-}
-
 std::string
 NBNodeCont::getFreeID()
 {
