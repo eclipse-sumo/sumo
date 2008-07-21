@@ -21,11 +21,6 @@
 /****************************************************************************/
 
 // ===========================================================================
-// compiler pragmas
-// ===========================================================================
-
-
-// ===========================================================================
 // included modules
 // ===========================================================================
 #include "TraCIConstants.h"
@@ -199,7 +194,7 @@ TraCIServer::TraCIServer()
         socket_->accept();
         // When got here, a client has connected
     } catch (SocketException e) {
-        throw new ProcessError(e.what());
+        throw ProcessError(e.what());
     }
 
 }
@@ -251,9 +246,9 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step)
             instance_->socket_->sendExact(storOut);
         }
     } catch (TraCIException e) {
-        throw new ProcessError(e.what());
+        throw ProcessError(e.what());
     } catch (SocketException e) {
-        throw new ProcessError(e.what());
+        throw ProcessError(e.what());
     }
     if (instance_ != NULL) 
     {
@@ -274,9 +269,9 @@ TraCIServer::processAfterSimStep()
         instance_->postProcessSimulationStep(storOut);
         instance_->socket_->sendExact(storOut);
     } catch (TraCIException e) {
-        throw new ProcessError(e.what());
+        throw ProcessError(e.what());
     } catch (SocketException e) {
-        throw new ProcessError(e.what());
+        throw ProcessError(e.what());
     }
 }
 
