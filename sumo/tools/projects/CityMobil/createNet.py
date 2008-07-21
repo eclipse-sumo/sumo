@@ -12,25 +12,15 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 import os
-
-PREFIX = "park" 
-DOUBLE_ROWS = 3
-ROW_DIST = 40
-SLOTS_PER_ROW = 5
-SLOT_WIDTH = 5
-SLOT_LENGTH = 9
+from constants import *
 
 nodes = open("%s.nod.xml" % PREFIX, "w")
 print >> nodes, "<nodes>"
 edges = open("%s.edg.xml" % PREFIX, "w")
 print >> edges, "<edges>"
-routes = open("%s.rou.xml" % PREFIX, "w")
-print >> routes, "<routes>"
-print >> routes, '    <route id="1">',
 #streets
 print >> nodes, '<node id="in" x="-100" y="0"/>' 
 print >> edges, '<edge id="mainin" fromnode="in" tonode="main0" nolanes="2" spread_type="center"/>'
-print >> routes, 'mainin', 
 for row in range(DOUBLE_ROWS+1):
     nodeID = "main%s" % row
     x = row * ROW_DIST
@@ -38,7 +28,6 @@ for row in range(DOUBLE_ROWS+1):
     if row > 0:
         edgeID = "main%sto%s" % (row-1, row)
         print >> edges, '<edge id="%s" fromnode="main%s" tonode="main%s" nolanes="2" spread_type="center"/>' % (edgeID, row-1, row) 
-        print >> routes, edgeID, 
     for slot in range(SLOTS_PER_ROW):
         slotID = "row%sslot%s" % (row, slot)
         print >> nodes, '<node id="%s" x="%s" y="%s"/>' % (slotID, x, (slot+1)*SLOT_WIDTH) 
@@ -53,12 +42,8 @@ for row in range(DOUBLE_ROWS+1):
             print >> edges, '<edge id="%slp" fromnode="%s" tonode="%sl" spread_type="center"/>' % (slotID, slotID, slotID)
             print >> edges, '<edge id="-%slp" fromnode="%sl" tonode="%s" spread_type="center"/>' % (slotID, slotID, slotID)
         nodeID = slotID
-    if row == 1:
-        print >> routes, "row1main1to0 row1row1slot0to1 row1slot1rp -row1slot1rp -row1row1slot0to1 -row1main1to0",
 print >> nodes, '<node id="out" x="%s" y="0"/>' % (x+100) 
 print >> edges, '<edge id="mainout" fromnode="main%s" tonode="out" nolanes="2" spread_type="center"/>' % row 
-print >> routes, "mainout</route>" 
-print >> routes, '<vehicle id="v" depart="1" period="10" repno="20" route="1"/>' 
 
 #footpaths
 y = (SLOTS_PER_ROW+1) * SLOT_WIDTH
@@ -74,13 +59,11 @@ for row in range(DOUBLE_ROWS):
         slotID = "foot%sslot%s" % (row, slot)
         print >> nodes, '<node id="%s" x="%s" y="%s"/>' % (slotID, x, (slot+1)*SLOT_WIDTH) 
         print >> edges, '<edge id="row%s%sto%s" fromnode="%s" tonode="%s" speed="5" spread_type="center"/>' % (row, nodeID, slot, nodeID, slotID)
-#        if row < DOUBLE_ROWS:
-#            print >> nodes, '<node id="%sr" x="%s" y="%s"/>' % (slotID, x+SLOT_LENGTH, (slot+1)*SLOT_WIDTH) 
-#            print >> edges, '<edge id="%srp" fromnode="%s" tonode="%sr" spread_type="center"/>' % (slotID, slotID, slotID)
-#            print >> edges, '<edge id="%srout" fromnode="%sr" tonode="%s" spread_type="center"/>' % (slotID, slotID, slotID)
-#        if row > 0:
-#            print >> nodes, '<node id="%sl" x="%s" y="%s"/>' % (slotID, x-SLOT_LENGTH, (slot+1)*SLOT_WIDTH) 
-#            print >> edges, '<edge id="%slout" fromnode="%sl" tonode="%s" spread_type="center"/>' % (slotID, slotID, slotID)
+        print >> nodes, '<node id="%sr" x="%s" y="%s"/>' % (slotID, x+SLOT_FOOT_LENGTH, (slot+1)*SLOT_WIDTH) 
+        print >> edges, '<edge id="%srp" fromnode="%s" tonode="%sr" spread_type="center"/>' % (slotID, slotID, slotID)
+        print >> edges, '<edge id="%srout" fromnode="%sr" tonode="%s" spread_type="center"/>' % (slotID, slotID, slotID)
+        print >> nodes, '<node id="%sl" x="%s" y="%s"/>' % (slotID, x-SLOT_FOOT_LENGTH, (slot+1)*SLOT_WIDTH) 
+        print >> edges, '<edge id="%slout" fromnode="%sl" tonode="%s" spread_type="center"/>' % (slotID, slotID, slotID)
         nodeID = slotID 
 print >> nodes, '<node id="footend" x="%s" y="%s"/>' % (x+100, y) 
 print >> edges, '<edge id="footout" fromnode="foot%s" tonode="footend" speed="5" spread_type="center"/>' % row 
@@ -92,15 +75,21 @@ print >> nodes, "</nodes>"
 nodes.close()
 print >> edges, "</edges>"
 edges.close()
-print >> routes, "</routes>"
+routes = open("%s.rou.xml" % PREFIX, "w")
+print >> routes, """<routes>
+    <vehicle id="v" depart="1" period="10" repno="20" arrivalpos="10000">
+        <route edges="mainin"/>
+    </vehicle>
+</routes>"""
 routes.close()
 
 os.system("netconvert -n %s.nod.xml -e %s.edg.xml --add-internal-links -o %s.net.xml" % (PREFIX, PREFIX, PREFIX))
 
 config = open("%s.sumo.cfg" % PREFIX, "w")
 print >> config, """<c>
-    <n>%s.net.xml</n>
-    <r>%s.rou.xml</r>
-    <I>x</I>
-</c>""" % (PREFIX, PREFIX)
+    <net-file>%s.net.xml</net-file>
+    <route-files>%s.rou.xml</route-files>
+    <use-internal-links>x</use-internal-links>
+    <remote-port>%s</remote-port>
+</c>""" % (PREFIX, PREFIX, PORT)
 config.close()
