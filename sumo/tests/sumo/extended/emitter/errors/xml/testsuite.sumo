@@ -1,0 +1,20 @@
+# The end element is not given (routedistelem)
+missing_element_end1
+
+# The end element is not given (vtypedistelem)
+missing_element_end2
+
+# The end element is not given (emit)
+missing_element_end3
+
+
+# The begin of an element is missing
+no_begin
+
+# The end of an element is missing
+no_end
+
+
+# An attribute occures twice
+double_attribute
+

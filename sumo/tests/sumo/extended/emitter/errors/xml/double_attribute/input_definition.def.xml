@@ -1,0 +1,17 @@
+<triggeredsource>
+	<routedistelem id="0" probability="1"/>
+	<vtypedistelem id="KRAUSS_DEFAULT2" probability="1"/>
+
+
+	<emit time="0" speed="1" speed="0"/>
+	<emit time="1" speed="0"/>
+	<emit time="2" speed="0"/>
+	<emit time="3" speed="0"/>
+	<emit time="4" speed="0"/>
+	<emit time="5" speed="0"/>
+	<emit time="6" speed="0"/>
+	<emit time="7" speed="0"/>
+	<emit time="8" speed="0"/>
+	<emit time="9" speed="0"/>
+
+</triggeredsource>

@@ -1,0 +1,5 @@
+Error: The input ended before all started tags were ended. Last tag started was 'triggeredsource'
+ In file 'input_definition.def.xml'
+ At line/column 18/1.
+
+Quitting (on error).

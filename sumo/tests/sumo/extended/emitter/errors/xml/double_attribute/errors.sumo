@@ -1,0 +1,5 @@
+Error: The attribute 'speed' is already used in element 'emit'
+ In file 'input_definition.def.xml'
+ At line/column 7/33.
+
+Quitting (on error).

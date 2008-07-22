@@ -1,0 +1,5 @@
+Error: Expected comment or processing instruction
+ In file 'input_definition.def.xml'
+ At line/column 4/2.
+
+Quitting (on error).
