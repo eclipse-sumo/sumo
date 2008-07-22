@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 """
 @file    constants.py
 @author  Michael.Behrisch@dlr.de
@@ -10,6 +9,8 @@ Defining constants for the CityMobil parking lot.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
+import os
+
 PREFIX = "park" 
 DOUBLE_ROWS = 3
 ROW_DIST = 35
@@ -18,8 +19,12 @@ SLOT_WIDTH = 5
 SLOT_LENGTH = 9
 SLOT_FOOT_LENGTH = 5
 PORT = 8813
-SUMO = "..\\..\\..\\bin\\sumoD"
-#SUMO = "..\\..\\..\\bin\\guisim"
+if os.name == "posix":
+#    SUMO = "../../../src/sumo"
+    SUMO = "../../../src/sumo-guisim"
+else:
+    SUMO = "..\\..\\..\\bin\\sumoD"
+#    SUMO = "..\\..\\..\\bin\\guisim"
 
 CMD_SIMSTEP = 0x01
 CMD_STOP = 0x12

@@ -57,7 +57,7 @@ def reroute(occupancy, vehicleID):
     slotEdge = ""
     for rowIdx, row in enumerate(occupancy):
         for idx, slot in enumerate(row):
-            if slot == 0:
+            if slot == -1:
                 row[idx] = vehicleID
                 dir = "l"
                 if rowIdx % 2 == 0:
@@ -68,19 +68,23 @@ def reroute(occupancy, vehicleID):
             break
     print slotEdge
     command = struct.pack("!BBii", 1+1+4+4+len(slotEdge), CMD_CHANGETARGET, vehicleID, len(slotEdge)) + slotEdge
-#    command += struct.pack("!BBiBi", 1+1+4+1+4+len(slotEdge)+4+1, CMD_STOP, vehicleID, POSITION_ROADMAP, len(slotEdge)) + slotEdge
-#    command += struct.pack("!fB", 1., 0)
+    command += struct.pack("!BBiBi", 1+1+4+1+4+len(slotEdge)+4+1+4+8, CMD_STOP, vehicleID, POSITION_ROADMAP, len(slotEdge)) + slotEdge
+    command += struct.pack("!fBfd", 1., 0, 1., 10000.)
     return command
 
 def main():
-    sumoProcess = subprocess.Popen("%s -c %s.sumo.cfg" % (SUMO, PREFIX))
-    time.sleep(1)
+    sumoProcess = subprocess.Popen("%s -c %s.sumo.cfg" % (SUMO, PREFIX), shell=True)
     sock = socket.socket()
-    sock.connect(("localhost", PORT))
-    occupancy = numpy.zeros((2*DOUBLE_ROWS, SLOTS_PER_ROW), int)
+    for wait in range(10):
+        try:
+            sock.connect(("localhost", PORT))
+	    break
+	except socket.error:
+            time.sleep(wait)
+    occupancy = -numpy.ones((2*DOUBLE_ROWS, SLOTS_PER_ROW), int)
     vehiclePos = {}
     
-    for step in range(1, 200):
+    for step in range(1, 2000):
         print "step", step
         command = struct.pack("!BBdB", 1+1+8+1, CMD_SIMSTEP, float(step), POSITION_ROADMAP)
         result = sendExact(sock, command)
