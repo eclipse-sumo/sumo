@@ -1,0 +1,5 @@
+Error: The attribute 'id' is already used in element 'dest_prob_reroute'
+ In file 'input_definition.def.xml'
+ At line/column 4/34.
+
+Quitting (on error).

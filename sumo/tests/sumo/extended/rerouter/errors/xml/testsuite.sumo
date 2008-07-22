@@ -1,0 +1,17 @@
+# The begin element is not given 
+destprob_no_begin
+
+# The end element is not given 
+destprob_no_end
+
+
+# The begin of an element is missing
+destprob_missing_element_begin
+
+# The end of an element is missing
+destprob_missing_element_end
+
+
+# An attribute occures twice
+destprob_double_attribute
+

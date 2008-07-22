@@ -1,0 +1,5 @@
+Error: Expected end of tag 'interval'
+ In file 'input_definition.def.xml'
+ At line/column 7/3.
+
+Quitting (on error).
