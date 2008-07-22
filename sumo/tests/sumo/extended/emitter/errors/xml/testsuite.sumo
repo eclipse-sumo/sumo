@@ -1,17 +1,17 @@
-# The end element is not given (routedistelem)
+# The end of an element is missing (routedistelem)
 missing_element_end1
 
-# The end element is not given (vtypedistelem)
+# The end of an element is missing (vtypedistelem)
 missing_element_end2
 
-# The end element is not given (emit)
+# The end of an element is missing (emit)
 missing_element_end3
 
 
-# The begin of an element is missing
+# The begin element is not given 
 no_begin
 
-# The end of an element is missing
+# The end element is not given 
 no_end
 
 
