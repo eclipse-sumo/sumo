@@ -19,7 +19,13 @@ SLOT_LENGTH = 9
 SLOT_FOOT_LENGTH = 5
 PORT = 8813
 SUMO = "..\\..\\..\\bin\\sumoD"
+#SUMO = "..\\..\\..\\bin\\guisim"
 
 CMD_SIMSTEP = 0x01
+CMD_STOP = 0x12
+CMD_CHANGETARGET = 0x31
+CMD_MOVENODE = 0x80
 
 POSITION_ROADMAP = 0x04
+
+RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}

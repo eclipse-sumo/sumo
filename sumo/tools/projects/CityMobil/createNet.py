@@ -78,7 +78,7 @@ edges.close()
 routes = open("%s.rou.xml" % PREFIX, "w")
 print >> routes, """<routes>
     <vehicle id="v" depart="1" period="10" repno="20" arrivalpos="10000">
-        <route edges="mainin"/>
+        <route edges="mainin main0to1"/>
     </vehicle>
 </routes>"""
 routes.close()
