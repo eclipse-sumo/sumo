@@ -245,6 +245,8 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step)
             // send out all answers as one storage
             instance_->socket_->sendExact(storOut);
         }
+    } catch (std::invalid_argument e) {
+        throw ProcessError(e.what());
     } catch (TraCIException e) {
         throw ProcessError(e.what());
     } catch (SocketException e) {
@@ -285,6 +287,7 @@ TraCIServer::wasClosed()
 
 int
 TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+throw(TraCIException, std::invalid_argument)
 {
     int commandStart = requestMsg.position();
     int commandLength = requestMsg.readUnsignedByte();
@@ -367,7 +370,7 @@ TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg
 
 void
 TraCIServer::commandSetMaximumSpeed(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-throw(TraCIException)
+throw(TraCIException, std::invalid_argument)
 {
     MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
     float maxspeed = requestMsg.readFloat();
@@ -393,7 +396,7 @@ throw(TraCIException)
 
 void
 TraCIServer::commandSimulationStep(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-throw(TraCIException)
+throw(TraCIException, std::invalid_argument)
 {
 	MSNet *net = MSNet::getInstance();
     SUMOTime currentTime = net->getCurrentTimeStep();
@@ -563,7 +566,7 @@ TraCIServer::postProcessSimulationStep(tcpip::Storage& respMsg) throw(TraCIExcep
 
 void
 TraCIServer::commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-throw(TraCIException)
+throw(TraCIException, std::invalid_argument)
 {
     //std::string roadID;
     //float lanePos;
@@ -574,6 +577,11 @@ throw(TraCIException)
     // NodeId
 	int nodeId = requestMsg.readInt();
     MSVehicle* veh = getVehicleByExtId(nodeId);   // external node id (equipped vehicle number)
+
+	if (veh == NULL) {
+        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Can not retrieve node with given ID");
+        return;
+    }
 
     // StopPosition
     unsigned char posType = requestMsg.readUnsignedByte();	// position type
@@ -603,11 +611,6 @@ throw(TraCIException)
     // waitTime
     double waitTime = requestMsg.readDouble();
   
-	if (veh == NULL) {
-        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Can not retrieve node with given ID");
-        return;
-    }
-
 	if (roadPos.pos < 0) {
         writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
 		return;
@@ -666,7 +669,7 @@ throw(TraCIException)
 /*****************************************************************************/
 void
 TraCIServer::commandChangeLane(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-throw(TraCIException)
+throw(TraCIException, std::invalid_argument)
 {
     // NodeId
     MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
@@ -698,7 +701,7 @@ throw(TraCIException)
 /*****************************************************************************/
 void
 TraCIServer::commandChangeRoute(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-throw(TraCIException)
+throw(TraCIException, std::invalid_argument)
 {
     // NodeId
     int vehId = requestMsg.readInt();
@@ -737,7 +740,7 @@ throw(TraCIException)
 /*****************************************************************************/
 void
 TraCIServer::commandChangeTarget(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-throw(TraCIException)
+throw(TraCIException, std::invalid_argument)
 {
     // NodeId
     MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
@@ -753,7 +756,7 @@ throw(TraCIException)
     }
 
     if (destEdge == NULL) {
-        writeStatusCmd(respMsg, CMD_CHANGETARGET, RTYPE_ERR, "Can not retrieve road with given ID");
+        writeStatusCmd(respMsg, CMD_CHANGETARGET, RTYPE_ERR, "Can not retrieve road with ID " + edgeID);
         return;
     }
 

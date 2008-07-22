@@ -120,7 +120,7 @@ private:
     // final cleanup
     virtual ~TraCIServer(void);
 
-    int dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg);
+    int dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException, std::invalid_argument);
 
     // process command setMaximumSpeed
     // This command causes the node given by nodeId to limit its speed to a maximum speed (float).
@@ -128,7 +128,7 @@ private:
     // @param in contains unparsed parameters targetTime, ResultType
     // @param out contains node positions ready for output
     // @param length message length
-    void commandSetMaximumSpeed(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+    void commandSetMaximumSpeed(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException, std::invalid_argument);
 
     // process command simStep
     // This is the basic comman that encourage the mobility generator to simulate up to the given TargetTime.
@@ -140,17 +140,17 @@ private:
     // @param in contains unparsed parameters targetTime, ResultType
     // @param out contains node positions ready for output
     // @param length message length
-    void commandSimulationStep(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+    void commandSimulationStep(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException, std::invalid_argument);
 
     void postProcessSimulationStep(tcpip::Storage& respMsg) throw(TraCIException);
 
-    void commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+    void commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException, std::invalid_argument);
 
-    void commandChangeLane(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+    void commandChangeLane(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException, std::invalid_argument);
 
-    void commandChangeRoute(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+    void commandChangeRoute(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException, std::invalid_argument);
 
-    void commandChangeTarget(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
+    void commandChangeTarget(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException, std::invalid_argument, std::invalid_argument);
 
     void commandCloseConnection(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) throw(TraCIException);
 
