@@ -7,7 +7,8 @@ from datetime import datetime
 failed = ""
 makelog = sys.argv[1]
 makealllog = sys.argv[2]
-print commonprefix([basename(makelog), basename(makealllog)]),
+build = commonprefix([basename(makelog), basename(makealllog)])
+print build,
 print datetime.now().ctime()
 print "--"
 print basename(makelog)
@@ -54,12 +55,12 @@ if failed and len(sys.argv) > 4:
     fromAddr = "michael.behrisch@dlr.de"
     toAddr = "delphi-dev@dlr.de"
     message = """\
-From: %s
+From: "%s" <%s>
 To: %s
 Subject: Error occured while building SUMO.
 
 %s
-""" % (fromAddr, toAddr, failed)
+""" % (build, fromAddr, toAddr, failed)
     server = smtplib.SMTP(sys.argv[4])        
     server.sendmail(fromAddr, toAddr, message)
     server.quit()
