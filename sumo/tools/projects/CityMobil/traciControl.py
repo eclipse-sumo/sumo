@@ -11,6 +11,8 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 import subprocess, socket, time, struct, numpy
+from optparse import OptionParser
+
 from constants import *
 
 class Storage:
@@ -66,14 +68,21 @@ def reroute(occupancy, vehicleID):
                 break
         if slotEdge:
             break
-    print slotEdge
     command = struct.pack("!BBii", 1+1+4+4+len(slotEdge), CMD_CHANGETARGET, vehicleID, len(slotEdge)) + slotEdge
     command += struct.pack("!BBiBi", 1+1+4+1+4+len(slotEdge)+4+1+4+8, CMD_STOP, vehicleID, POSITION_ROADMAP, len(slotEdge)) + slotEdge
+    command += struct.pack("!fBfd", SLOT_LENGTH-1., 0, 1., 10000.)
+    return command
+
+def stopPerson(edge, vehicleID):
+    command = struct.pack("!BBiBi", 1+1+4+1+4+len(edge)+4+1+4+8, CMD_STOP, vehicleID, POSITION_ROADMAP, len(edge)) + edge
     command += struct.pack("!fBfd", 1., 0, 1., 10000.)
     return command
 
 def main():
-    sumoProcess = subprocess.Popen("%s -c %s.sumo.cfg" % (SUMO, PREFIX), shell=True)
+    sumoExe = SUMO
+    if options.gui:
+        sumoExe = SUMOGUI
+    sumoProcess = subprocess.Popen("%s -c %s.sumo.cfg" % (sumoExe, PREFIX), shell=True)
     sock = socket.socket()
     for wait in range(10):
         try:
@@ -85,7 +94,8 @@ def main():
     vehiclePos = {}
     
     for step in range(1, 2000):
-        print "step", step
+        if options.verbose:
+            print "step", step
         command = struct.pack("!BBdB", 1+1+8+1, CMD_SIMSTEP, float(step), POSITION_ROADMAP)
         result = sendExact(sock, command)
         rerouteMsg = ""
@@ -95,11 +105,25 @@ def main():
 #            print info
             edge = result.readString()
             if not vehicleID in vehiclePos:
-                rerouteMsg += reroute(occupancy, vehicleID)
+                if edge == "mainin":
+                    rerouteMsg += reroute(occupancy, vehicleID)
+                elif "foot" in edge:
+                    rerouteMsg += stopPerson("-"+edge, vehicleID)
             vehiclePos[vehicleID] = edge
-            print edge, result.read("!fB")
+            if options.verbose:
+                print vehicleID, edge
+            pos = result.read("!fB")[0]
+            if edge.startswith("row") and edge.endswith("p") and pos >= SLOT_LENGTH-1.1:
+                if options.verbose:
+                    print "destReached", vehicleID, pos
         if rerouteMsg:
             sendExact(sock, rerouteMsg)
     time.sleep(1)
 
+optParser = OptionParser()
+optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+                     default=False, help="tell me what you are doing")
+optParser.add_option("-g", "--gui", action="store_true", dest="gui",
+                     default=False, help="run with GUI")
+(options, args) = optParser.parse_args()
 main()

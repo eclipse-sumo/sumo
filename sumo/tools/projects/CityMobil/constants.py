@@ -14,17 +14,17 @@ import os
 PREFIX = "park" 
 DOUBLE_ROWS = 3
 ROW_DIST = 35
-SLOTS_PER_ROW = 5
+SLOTS_PER_ROW = 8
 SLOT_WIDTH = 5
 SLOT_LENGTH = 9
 SLOT_FOOT_LENGTH = 5
 PORT = 8813
 if os.name == "posix":
-#    SUMO = "../../../src/sumo"
-    SUMO = "../../../src/sumo-guisim"
+    SUMO = "../../../src/sumo"
+    SUMOGUI = "../../../src/sumo-guisim"
 else:
     SUMO = "..\\..\\..\\bin\\sumoD"
-#    SUMO = "..\\..\\..\\bin\\guisim"
+    SUMOGUI = "..\\..\\..\\bin\\guisim"
 
 CMD_SIMSTEP = 0x01
 CMD_STOP = 0x12
