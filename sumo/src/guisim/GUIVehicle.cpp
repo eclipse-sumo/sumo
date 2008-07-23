@@ -32,6 +32,7 @@
 #include <vector>
 #include <string>
 #include <utils/common/StringUtils.h>
+#include <utils/common/SUMOVehicleParameter.h>
 #include <microsim/MSVehicle.h>
 #include "GUINet.h"
 #include "GUIVehicle.h"
@@ -176,6 +177,9 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
         GUIGlObject(idStorage, "vehicle:"+pars->id)
 {
     myIntCORNMap[MSCORN::CORN_VEH_BLINKER] = 0;
+    if ((pars->setParameter&VEHPARS_COLOR_SET)==0) {
+        pars->color = static_cast<const GUIVehicleType*>(type)->getColor();
+    }
 }
 
 

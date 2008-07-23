@@ -76,10 +76,7 @@ public:
 
     inline void setOwnDefinedColor() const {
         const RGBColor &col = myParameter->color;
-        if(col!=RGBColor()) {
-            glColor3d(col.red(), col.green(), col.blue());
-        }
-        glColor3d(1,1,0);
+        glColor3d(col.red(), col.green(), col.blue());
     }
 
     inline void setOwnTypeColor() const {
