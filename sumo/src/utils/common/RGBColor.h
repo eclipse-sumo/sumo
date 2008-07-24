@@ -44,7 +44,7 @@
 class RGBColor
 {
 public:
-    /// Default constructor - the color is marked as being undefined
+    /// Standard constructor
     RGBColor();
 
     /// Parametrised constructor
@@ -81,6 +81,11 @@ public:
         maxColor, giving weight to maxColor and 1-weight to minColor. */
     static RGBColor interpolate(const RGBColor &minColor, const RGBColor &maxColor, SUMOReal weight);
 
+    /// The string description of the default color
+    static const std::string RGBColor::DEFAULT_COLOR_STRING;
+
+    /// The default color (for vehicle types and vehicles)
+    static const RGBColor DEFAULT_COLOR;
 private:
     /// The color amounts
     SUMOReal myRed, myGreen, myBlue;

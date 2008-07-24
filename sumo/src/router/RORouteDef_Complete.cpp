@@ -129,7 +129,7 @@ RORouteDef_Complete::writeXMLDefinition(OutputDevice &dev, const ROVehicle * con
         dev << " cost=\"" << ROHelper::recomputeCosts(myEdges, veh, veh->getDepartureTime());
         dev << "\" probability=\"1.00\"";
     }
-    if (myColor!=RGBColor()) {
+    if (myColor!=RGBColor::DEFAULT_COLOR) {
         dev << " color=\"" << myColor << "\"";
     }
     dev << ">" << myEdges << "</route>\n";

@@ -254,7 +254,7 @@ private:
 	 */
 	Position2D convertRoadMapToCartesian(TraCIServer::RoadMapPos pos) throw(TraCIException);
 
-    // socket on which server is listening on
+    // singleton instance of the server
     static TraCIServer* instance_;
 
     // socket on which server is listening on

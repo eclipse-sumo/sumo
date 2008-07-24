@@ -348,9 +348,9 @@ RORouteDef_Alternatives::writeXMLDefinition(OutputDevice &dev, const ROVehicle *
             const RORoute &alt = *(myAlternatives[i]);
             dev << "         <route cost=\"" << alt.getCosts();
             dev << "\" probability=\"" << alt.getProbability();
-            if(alt.getColor()!=RGBColor()) {
+            if(alt.getColor()!=RGBColor::DEFAULT_COLOR) {
                 dev << "\" color=\"" << alt.getColor();
-            } else if (myColor!=RGBColor()) {
+            } else if (myColor!=RGBColor::DEFAULT_COLOR) {
                 dev << "\" color=\"" << myColor;
             }
             dev << "\">" << alt.getEdgeVector() << "</route>\n";

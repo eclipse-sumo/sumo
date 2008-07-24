@@ -139,7 +139,7 @@ RORoute::writeXMLDefinition(OutputDevice &dev, bool asAlternatives) const
         dev << " cost=\"" << myCosts;
         dev << "\" probability=\"" << myProbability << "\"";
     }
-    if(myColor!=RGBColor()) {
+    if(myColor!=RGBColor::DEFAULT_COLOR) {
         dev << " color=\"" << myColor << "\"";
     }
     dev << ">" << myRoute << "</route>\n";

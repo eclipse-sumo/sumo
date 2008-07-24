@@ -125,7 +125,7 @@ GUIHandler::addVehicleType(const SUMOSAXAttributes &attrs)
 {
     RGBColor col =
         RGBColor::parseColor(
-            attrs.getStringSecure(SUMO_ATTR_COLOR, "1,1,0"));
+            attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING));
     // !!! unsecure
     // get the id, report an error if not given or empty...
     string id;
@@ -217,7 +217,7 @@ void
 GUIHandler::openRoute(const SUMOSAXAttributes &attrs)
 {
     myColor =
-        RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, "1,1,0"));
+        RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING));
     MSRouteHandler::openRoute(attrs);
 }
 

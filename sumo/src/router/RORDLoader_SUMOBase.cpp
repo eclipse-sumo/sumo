@@ -68,7 +68,7 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
         myVehicleParameter(0), myCurrentIsOk(true), myAltIsValid(true), myHaveNextRoute(false),
         myCurrentAlternatives(0),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRouteNumber),
-        myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair)
+        myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myColor(RGBColor::DEFAULT_COLOR)
 {
 }
 
@@ -134,7 +134,7 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
             } else {
                 myCurrentRouteName = attrs.getString(SUMO_ATTR_ID);
             }
-            myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, "-1,-1,-1"));
+            myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING));
         } catch (EmptyData &) {
             myCurrentRouteName = "";
             MsgHandler::getErrorInstance()->inform("Missing id in route.");
@@ -145,7 +145,7 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
     // parse route alternative...
     myCost = attrs.getSUMORealReporting(SUMO_ATTR_COST, "route(alternative)", myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
     myProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "route(alternative)", myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
-    myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, "-1,-1,-1"));
+    myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING));
     if (myCurrentIsOk&&myCost<0) {
         MsgHandler::getErrorInstance()->inform("Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myCost) + ").");
         myCurrentIsOk = false;
@@ -187,7 +187,7 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs)
         return;
     }
     // try to get the color
-    myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, "-1,-1,-1"));
+    myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING));
     // build the alternative cont
     myCurrentAlternatives = new RORouteDef_Alternatives(id, myColor,
             index, myGawronBeta, myGawronA, myMaxRouteNumber);

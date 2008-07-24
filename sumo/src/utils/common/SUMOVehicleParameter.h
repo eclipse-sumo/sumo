@@ -124,7 +124,7 @@ public:
         : depart(-1), departLane(0),
         departLaneProcedure(DEPART_LANE_DEFAULT), 
         departPosProcedure(DEPART_POS_DEFAULT), departSpeedProcedure(DEPART_SPEED_DEFAULT),
-        repetitionNumber(-1), repetitionOffset(-1), setParameter(0), color(RGBColor(1,1,0))
+        repetitionNumber(-1), repetitionOffset(-1), setParameter(0), color(RGBColor::DEFAULT_COLOR)
     {
     }
 

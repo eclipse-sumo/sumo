@@ -40,6 +40,13 @@
 
 
 // ===========================================================================
+// static member definitions
+// ===========================================================================
+const std::string RGBColor::DEFAULT_COLOR_STRING = "1,1,0";
+const RGBColor RGBColor::DEFAULT_COLOR = RGBColor::parseColor(RGBColor::DEFAULT_COLOR_STRING);
+
+
+// ===========================================================================
 // method definitions
 // ===========================================================================
 RGBColor::RGBColor()
