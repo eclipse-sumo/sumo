@@ -83,111 +83,97 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * data processing methods
  * ----------------------------------------------------------------------- */
-RODFDetectorCon *
-readDetectors(OptionsCont &oc, RODFNet *optNet)
+void
+readDetectors(RODFDetectorCon &detectors, OptionsCont &oc, RODFNet *optNet)
 {
     if (!oc.isSet("detector-files")&&!oc.isSet("elmar-detector-files")) {
         throw ProcessError("No detector file given (use --detector-files <FILE>).");
     }
-    RODFDetectorCon *cont = new RODFDetectorCon();
     // read definitions stored in XML-format
-    {
-        vector<string> files = oc.getStringVector("detector-files");
-        for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
-            if (!FileHelpers::exists(*fileIt)) {
-                delete cont;
-                throw ProcessError("Could not open detector file '" + *fileIt + "'");
-            }
-            MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + *fileIt + "'... ");
-            RODFDetectorHandler handler(oc, *cont, *fileIt);
-            if (XMLSubSys::runParser(handler, *fileIt)) {
-                MsgHandler::getMessageInstance()->endProcessMsg("done.");
-            } else {
-                MsgHandler::getMessageInstance()->endProcessMsg("failed.");
-                delete cont;
-                throw ProcessError();
-            }
+    vector<string> files = oc.getStringVector("detector-files");
+    for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        if (!FileHelpers::exists(*fileIt)) {
+            throw ProcessError("Could not open detector file '" + *fileIt + "'");
+        }
+        MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + *fileIt + "'... ");
+        RODFDetectorHandler handler(oc, detectors, *fileIt);
+        if (XMLSubSys::runParser(handler, *fileIt)) {
+            MsgHandler::getMessageInstance()->endProcessMsg("done.");
+        } else {
+            MsgHandler::getMessageInstance()->endProcessMsg("failed.");
+            throw ProcessError();
         }
     }
     // read definitions from Elmar-format
-    {
-        vector<string> files = oc.getStringVector("elmar-detector-files");
-        if (files.size()!=0 && optNet==0) {
-            delete cont;
-            throw ProcessError("You need a network in order to read elmar definitions.");
-        }
-        for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
-            if (!FileHelpers::exists(*fileIt)) {
-                delete cont;
-                throw ProcessError("Could not open elmar detector file '" + *fileIt + "'");
-            }
-            MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + *fileIt + "'... ");
-            LineReader lr(*fileIt);
-            while (lr.hasMore()) {
-                string line = lr.readLine();
-                // skip comments and empty lines
-                if (line.length()==0||line[0]=='#') {
-                    continue;
-                }
-                // parse entries
-                StringTokenizer st(line, "\t");
-                vector<string> values = st.getVector();
-                // false number of values (error?)
-                if (values.size()<2) {
-                    continue;
-                }
-                // process detectors only
-                if (values[1]!="5") {
-                    continue;
-                }
-                // check
-                if (values.size()<6) {
-                    delete cont;
-                    throw ProcessError("Something is false with the following detector definition:\n " + line);
-                }
-                // parse
-                string edge = values[5];
-                string defs = values[2];
-                StringTokenizer st2(defs, ";");
-                if (st2.size()<3) {
-                    delete cont;
-                    throw ProcessError("Something is false with the following detector definition:\n " + line);
-                }
-                vector<string> values2 = st2.getVector();
-                string id = values2[0];
-                string dist = values2[2];
-                dist = dist.substr(8);
-                SUMOReal d = TplConvert<char>::_2SUMOReal(dist.c_str());
-                ROEdge *e = optNet->getEdge(edge);
-                if (e==0) {
-                    MsgHandler::getWarningInstance()->inform("Detector " + id + " lies on an edge not inside the network (" + edge + ").");
-                    continue;
-                }
-                for (int i=0; i<e->getLaneNo(); ++i) {
-                    string lane = edge + "_" + toString(i);
-                    string did = id + "_" + toString(i);
-                    RODFDetector *detector = new RODFDetector(did, lane, d, TYPE_NOT_DEFINED);
-                    if (!cont->addDetector(detector)) {
-                        MsgHandler::getErrorInstance()->inform("Could not add detector '" + id + "' (probably the id is already used).");
-                        delete detector;
-                    }
-                }
-            }
-            MsgHandler::getMessageInstance()->endProcessMsg("done.");
-        }
+    files = oc.getStringVector("elmar-detector-files");
+    if (files.size()!=0 && optNet==0) {
+        throw ProcessError("You need a network in order to read elmar definitions.");
     }
-    return cont;
-
+    for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
+        if (!FileHelpers::exists(*fileIt)) {
+            throw ProcessError("Could not open elmar detector file '" + *fileIt + "'");
+        }
+        MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + *fileIt + "'... ");
+        LineReader lr(*fileIt);
+        while (lr.hasMore()) {
+            string line = lr.readLine();
+            // skip comments and empty lines
+            if (line.length()==0||line[0]=='#') {
+                continue;
+            }
+            // parse entries
+            StringTokenizer st(line, "\t");
+            vector<string> values = st.getVector();
+            // false number of values (error?)
+            if (values.size()<2) {
+                continue;
+            }
+            // process detectors only
+            if (values[1]!="5") {
+                continue;
+            }
+            // check
+            if (values.size()<6) {
+                throw ProcessError("Something is false with the following detector definition:\n " + line);
+            }
+            // parse
+            string edge = values[5];
+            string defs = values[2];
+            StringTokenizer st2(defs, ";");
+            if (st2.size()<3) {
+                throw ProcessError("Something is false with the following detector definition:\n " + line);
+            }
+            vector<string> values2 = st2.getVector();
+            string id = values2[0];
+            string dist = values2[2];
+            dist = dist.substr(8);
+            SUMOReal d = TplConvert<char>::_2SUMOReal(dist.c_str());
+            ROEdge *e = optNet->getEdge(edge);
+            if (e==0) {
+                MsgHandler::getWarningInstance()->inform("Detector " + id + " lies on an edge not inside the network (" + edge + ").");
+                continue;
+            }
+            for (int i=0; i<e->getLaneNo(); ++i) {
+                string lane = edge + "_" + toString(i);
+                string did = id + "_" + toString(i);
+                RODFDetector *detector = new RODFDetector(did, lane, d, TYPE_NOT_DEFINED);
+                if (!detectors.addDetector(detector)) {
+                    MsgHandler::getErrorInstance()->inform("Could not add detector '" + id + "' (probably the id is already used).");
+                    delete detector;
+                }
+            }
+        }
+        MsgHandler::getMessageInstance()->endProcessMsg("done.");
+    }
 }
 
 
-RODFDetectorFlows *
-readDetectorFlows(OptionsCont &oc, RODFDetectorCon &dc)
+void
+readDetectorFlows(RODFDetectorFlows &flows, OptionsCont &oc, RODFDetectorCon &dc)
 {
-    RODFDetectorFlows *ret = new RODFDetectorFlows(oc.getInt("begin"), oc.getInt("end"), 60); // !!!
     if (!oc.isSet("detector-flow-files")) {
         // ok, not given, return an empty container
-        return ret;
+        return;
     }
     // check whether the file exists
     vector<string> files = oc.getStringVector("detector-flow-files");
@@ -197,43 +183,39 @@ readDetectorFlows(OptionsCont &oc, RODFDetectorCon &dc)
         }
         // parse
         MsgHandler::getMessageInstance()->beginProcessMsg("Loading flows from '" + *fileIt + "'... ");
-        DFDetFlowLoader dfl(dc, *ret, oc.getInt("begin"), oc.getInt("end"), oc.getInt("time-offset"));
+        DFDetFlowLoader dfl(dc, flows, oc.getInt("begin"), oc.getInt("end"), oc.getInt("time-offset"));
         dfl.read(*fileIt, oc.getBool("fast-flows"));
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
-    return ret;
 }
 
 
 void
-startComputation(RODFNet *optNet, OptionsCont &oc)
+startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &detectors, OptionsCont &oc)
 {
-    // read the detector definitions (mandatory)
-    RODFDetectorCon *detectors = readDetectors(oc, optNet);
-    RODFDetectorFlows *flows = readDetectorFlows(oc, *detectors);
-    if (flows!=0&&oc.getBool("print-absolute-flows")) {
-        flows->printAbsolute();
+    if (oc.getBool("print-absolute-flows")) {
+        flows.printAbsolute();
     }
 
     // if a network was loaded... (mode1)
     if (optNet!=0) {
         if (oc.getBool("remove-empty-detectors")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Removing empty detectors...");
-            optNet->removeEmptyDetectors(*detectors, *flows, oc.getInt("begin"), oc.getInt("end"), 60);
+            optNet->removeEmptyDetectors(detectors, flows, oc.getInt("begin"), oc.getInt("end"), 60);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         } else  if (oc.getBool("report-empty-detectors")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Scanning for empty detectors...");
-            optNet->reportEmptyDetectors(*detectors, *flows);
+            optNet->reportEmptyDetectors(detectors, flows);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
         // compute the detector types (optionally)
-        if (!detectors->detectorsHaveCompleteTypes()||oc.getBool("revalidate-detectors")) {
-            optNet->computeTypes(*detectors, oc.getBool("strict-sources"));
+        if (!detectors.detectorsHaveCompleteTypes()||oc.getBool("revalidate-detectors")) {
+            optNet->computeTypes(detectors, oc.getBool("strict-sources"));
         }
         // compute routes between the detectors (optionally)
-        if (!detectors->detectorsHaveRoutes()||oc.getBool("revalidate-routes")||oc.getBool("guess-empty-flows")) {
+        if (!detectors.detectorsHaveRoutes()||oc.getBool("revalidate-routes")||oc.getBool("guess-empty-flows")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Computing routes...");
-            optNet->buildRoutes(*detectors,
+            optNet->buildRoutes(detectors,
                                 oc.getBool("all-end-follower"), oc.getBool("keep-unfound-ends"),
                                 oc.getBool("routes-for-all"), !oc.getBool("keep-longer-routes"),
                                 oc.getInt("max-nodet-follower"));
@@ -243,45 +225,45 @@ startComputation(RODFNet *optNet, OptionsCont &oc)
 
     // check
     // whether the detectors are valid
-    if (!detectors->detectorsHaveCompleteTypes()) {
+    if (!detectors.detectorsHaveCompleteTypes()) {
         throw ProcessError("The detector types are not defined; use in combination with a network");
     }
     // whether the detectors have routes
-    if (!detectors->detectorsHaveRoutes()) {
+    if (!detectors.detectorsHaveRoutes()) {
         throw ProcessError("The emitters have no routes; use in combination with a network");
     }
 
     // save the detectors if wished
     if (oc.isSet("detectors-output")) {
-        detectors->save(oc.getString("detectors-output"));
+        detectors.save(oc.getString("detectors-output"));
     }
     // save their positions as POIs if wished
     if (oc.isSet("detectors-poi-output")) {
-        detectors->saveAsPOIs(oc.getString("detectors-poi-output"));
+        detectors.saveAsPOIs(oc.getString("detectors-poi-output"));
     }
 
     // save the routes file if it was changed or it's wished
-    if (detectors->detectorsHaveRoutes()&&oc.isSet("routes-output")) {
-        detectors->saveRoutes(oc.getString("routes-output"));
+    if (detectors.detectorsHaveRoutes()&&oc.isSet("routes-output")) {
+        detectors.saveRoutes(oc.getString("routes-output"));
     }
 
     // guess flows if wished
     if (oc.getBool("guess-empty-flows")) {
-        optNet->buildDetectorDependencies(*detectors);
-        detectors->guessEmptyFlows(*flows);
+        optNet->buildDetectorDependencies(detectors);
+        detectors.guessEmptyFlows(flows);
     }
 
     // save emitters if wished
     if (oc.isSet("emitters-output")||oc.isSet("emitters-poi-output")) {
-        optNet->buildEdgeFlowMap(*flows, *detectors, oc.getInt("begin"), oc.getInt("end"), 60); // !!!
+        optNet->buildEdgeFlowMap(flows, detectors, oc.getInt("begin"), oc.getInt("end"), 60); // !!!
         if (oc.getBool("revalidate-flows")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Rechecking loaded flows...");
-            optNet->revalidateFlows(*detectors, *flows, oc.getInt("begin"), oc.getInt("end"), 60);
+            optNet->revalidateFlows(detectors, flows, oc.getInt("begin"), oc.getInt("end"), 60);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
         if (oc.isSet("emitters-output")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitters...");
-            detectors->writeEmitters(oc.getString("emitters-output"), *flows,
+            detectors.writeEmitters(oc.getString("emitters-output"), flows,
                                      oc.getInt("begin"), oc.getInt("end"), 60,
                                      *optNet,
                                      oc.getBool("write-calibrators"),
@@ -293,7 +275,7 @@ startComputation(RODFNet *optNet, OptionsCont &oc)
         }
         if (oc.isSet("emitters-poi-output")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitter pois...");
-            detectors->writeEmitterPOIs(oc.getString("emitters-poi-output"), *flows,
+            detectors.writeEmitterPOIs(oc.getString("emitters-poi-output"), flows,
                                         oc.getInt("begin"), oc.getInt("end"), 60);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
@@ -301,21 +283,21 @@ startComputation(RODFNet *optNet, OptionsCont &oc)
     // save end speed trigger if wished
     if (oc.isSet("speed-trigger-output")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Writing speed triggers...");
-        detectors->writeSpeedTrigger(oc.getString("speed-trigger-output"), *flows,
+        detectors.writeSpeedTrigger(oc.getString("speed-trigger-output"), flows,
                                      oc.getInt("begin"), oc.getInt("end"), 60);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     // save checking detectors if wished
     if (oc.isSet("validation-output")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Writing validation detectors...");
-        detectors->writeValidationDetectors(oc.getString("validation-output"),
+        detectors.writeValidationDetectors(oc.getString("validation-output"),
                                             oc.getBool("validation-output.add-sources"), true, true); // !!!
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     // build global rerouter on end if wished
     if (oc.isSet("end-reroute-output")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Writing highway end rerouter...");
-        detectors->writeEndRerouterDetectors(oc.getString("end-reroute-output")); // !!!
+        detectors.writeEndRerouterDetectors(oc.getString("end-reroute-output")); // !!!
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     /*
@@ -325,9 +307,6 @@ startComputation(RODFNet *optNet, OptionsCont &oc)
        }
     */
     //
-    delete flows;
-    delete detectors;
-//!!!    delete routes;
 }
 
 
@@ -347,6 +326,8 @@ main(int argc, char **argv)
 #endif
     int ret = 0;
     RODFNet *net = 0;
+    RODFDetectorCon *detectors = 0;
+    RODFDetectorFlows *flows = 0;
     try {
         // initialise the application system (messaging, xml, options)
         XMLSubSys::init();
@@ -365,8 +346,14 @@ main(int argc, char **argv)
         net = new RODFNet(oc.getBool("highway-mode"));
         RODFEdgeBuilder builder;
         loader.loadNet(*net, builder);
+        // load detectors
+        detectors = new RODFDetectorCon();
+        readDetectors(*detectors, oc, net);
+        // load detector values
+        flows = new RODFDetectorFlows(oc.getInt("begin"), oc.getInt("end"), 60); // !!!
+        readDetectorFlows(*flows, oc, *detectors);
         // build routes
-        startComputation(net, oc);
+        startComputation(net, *flows, *detectors, oc);
     } catch (ProcessError &e) {
         if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
             MsgHandler::getErrorInstance()->inform(e.what());
@@ -380,6 +367,8 @@ main(int argc, char **argv)
 #endif
     }
     delete net;
+    delete flows;
+    delete detectors;
     OutputDevice::closeAll();
     SystemFrame::close();
     if (ret==0) {

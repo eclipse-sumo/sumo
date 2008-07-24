@@ -108,7 +108,7 @@ public:
                                 bool includeUnusedRoutes, SUMOReal scale, int maxFollower,
                                 bool emissionsOnly) const;
 
-    void addRoute(const RODFNet &net, DFRORouteDesc *nrd);
+    void addRoute(const RODFNet &net, DFRORouteDesc &nrd);
     void addRoutes(DFRORouteCont *routes);
     bool hasRoutes() const;
     bool writeRoutes(std::vector<std::string> &saved,
@@ -117,12 +117,12 @@ public:
                                  const RODFDetectorFlows &flows,
                                  SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
     void writeEndRerouterDetectors(const std::string &file);
-    const std::vector<DFRORouteDesc*> &getRouteVector() const;
+    const std::vector<DFRORouteDesc> &getRouteVector() const;
     void addPriorDetector(RODFDetector *det);
     void addFollowingDetector(RODFDetector *det);
     const std::vector<RODFDetector*> &getPriorDetectors() const;
     const std::vector<RODFDetector*> &getFollowerDetectors() const;
-    SUMOReal getUsage(const RODFDetectorCon &detectors,DFRORouteDesc*route, DFRORouteCont::RoutesMap *curr,
+    SUMOReal getUsage(const RODFDetectorCon &detectors,const DFRORouteDesc &route, DFRORouteCont::RoutesMap *curr,
                       SUMOTime time, const RODFDetectorFlows &flows) const;
 
 protected:

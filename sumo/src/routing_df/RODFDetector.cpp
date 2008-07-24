@@ -100,7 +100,7 @@ RODFDetector::computeDistanceFactor(const DFRORouteDesc &rd) const
 
 
 SUMOReal
-RODFDetector::getUsage(const RODFDetectorCon &detectors,DFRORouteDesc*route, DFRORouteCont::RoutesMap *curr,
+RODFDetector::getUsage(const RODFDetectorCon &detectors, const DFRORouteDesc &route, DFRORouteCont::RoutesMap *curr,
                        SUMOTime time, const RODFDetectorFlows &flows) const
 {
     if (curr->splitMap.size()==0) {
@@ -113,7 +113,7 @@ RODFDetector::getUsage(const RODFDetectorCon &detectors,DFRORouteDesc*route, DFR
     DFRORouteCont::RoutesMap *next = 0;
     for (std::map<ROEdge*, DFRORouteCont::RoutesMap*>::const_iterator i=curr->splitMap.begin(); i!=curr->splitMap.end(); ++i) {
         SUMOReal tprob = (SUMOReal) detectors.getAggFlowFor((*i).second->lastDetectorEdge, time, 30*60, flows);
-        if (find(route->edges2Pass.begin(), route->edges2Pass.end(), (*i).first)!=route->edges2Pass.end()) {
+        if (find(route.edges2Pass.begin(), route.edges2Pass.end(), (*i).first)!=route.edges2Pass.end()) {
             cProb += tprob;
             next = (*i).second;
         }
@@ -144,8 +144,8 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
     }
     DFRORouteCont::RoutesMap *routeMap = myRoutes->getRouteMap(net);
 
-    std::vector<DFRORouteDesc*>::const_iterator ri;
-    const std::vector<DFRORouteDesc*> &descs = myRoutes->get();
+    std::vector<DFRORouteDesc>::iterator ri;
+    std::vector<DFRORouteDesc> &descs = myRoutes->get();
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
     const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
     // iterate through time (in output interval steps)
@@ -157,7 +157,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
         for (ri=descs.begin(); ri!=descs.end(); ++ri, index++) {
             SUMOReal prob = getUsage(detectors, *ri, routeMap, time, flows);
             into[time]->add(prob, index);
-            (*ri)->overallProb = prob;
+            (*ri).overallProb = prob;
         }
     }
 
@@ -165,7 +165,7 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
 }
 
 
-const std::vector<DFRORouteDesc*> &
+const std::vector<DFRORouteDesc> &
 RODFDetector::getRouteVector() const
 {
     return myRoutes->get();
@@ -226,12 +226,12 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
     // routes
     if (!emissionsOnly) {
         if (myRoutes!=0&&myRoutes->get().size()!=0) {
-            const std::vector<DFRORouteDesc*> &routes = myRoutes->get();
-            std::vector<DFRORouteDesc*>::const_iterator i;
+            const std::vector<DFRORouteDesc> &routes = myRoutes->get();
+            std::vector<DFRORouteDesc>::const_iterator i;
             // compute the overall routes sum
             SUMOReal overallSum = 0;
             for (i=routes.begin(); i!=routes.end(); ++i) {
-                overallSum += (*i)->overallProb;
+                overallSum += (*i).overallProb;
             }
 
             int writtenRoutes = 0;
@@ -239,8 +239,8 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                 // !!! check things about intervals
                 // !!! optional
                 for (i=routes.begin(); i!=routes.end(); ++i) {
-                    if ((*i)->overallProb>0||includeUnusedRoutes) {
-                        out << "   <routedistelem id=\"" << (*i)->routename << "\" probability=\"" << ((*i)->overallProb/overallSum) << "\"/>\n"; // !!!
+                    if ((*i).overallProb>0||includeUnusedRoutes) {
+                        out << "   <routedistelem id=\"" << (*i).routename << "\" probability=\"" << ((*i).overallProb/overallSum) << "\"/>\n"; // !!!
                         writtenRoutes++;
                     }
                 }
@@ -249,7 +249,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
             //  let's save them all (should maybe be done optional)
             if (writtenRoutes==0) {
                 for (i=routes.begin(); i!=routes.end(); ++i) {
-                    out << "   <routedistelem id=\"" << (*i)->routename << "\" probability=\"1\"/>\n"; // !!!
+                    out << "   <routedistelem id=\"" << (*i).routename << "\" probability=\"1\"/>\n"; // !!!
                 }
             }
         } else {
@@ -310,7 +310,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                 << " time=\"" << ctime << "\""
                 << " speed=\"" << v << "\"";
                 if (!emissionsOnly&&destIndex>=0) {
-                    out << " route=\"" << myRoutes->get()[destIndex]->routename << "\""; // !!! optional
+                    out << " route=\"" << myRoutes->get()[destIndex].routename << "\""; // !!! optional
                 }
                 out  << "/>\n";
                 srcFD.isLKW += srcFD.fLKW;
@@ -333,7 +333,7 @@ RODFDetector::addRoutes(DFRORouteCont *routes)
 
 
 void
-RODFDetector::addRoute(const RODFNet &net, DFRORouteDesc *nrd)
+RODFDetector::addRoute(const RODFNet &net, DFRORouteDesc &nrd)
 {
     if (myRoutes==0) {
         myRoutes = new DFRORouteCont(net);
@@ -394,7 +394,11 @@ RODFDetectorCon::RODFDetectorCon()
 
 
 RODFDetectorCon::~RODFDetectorCon()
-{}
+{
+    for(vector<RODFDetector*>::iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+        delete *i;
+    }
+}
 
 
 bool

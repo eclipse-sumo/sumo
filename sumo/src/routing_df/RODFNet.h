@@ -105,7 +105,7 @@ protected:
     bool isDestination(const RODFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
                        const RODFDetectorCon &detectors) const;
 
-    void computeRoutesFor(ROEdge *edge, DFRORouteDesc *base, int no,
+    void computeRoutesFor(ROEdge *edge, DFRORouteDesc &base, int no,
                           bool allEndFollower, bool keepUnfoundEnds,
                           bool keepShortestOnly,
                           std::vector<ROEdge*> &visited, const RODFDetector &det,
@@ -139,8 +139,8 @@ protected:
         ~DFRouteDescByTimeComperator() { }
 
         /// Comparing method
-        bool operator()(const DFRORouteDesc *nod1, const DFRORouteDesc *nod2) const {
-            return nod1->duration_2>nod2->duration_2;
+        bool operator()(const DFRORouteDesc &nod1, const DFRORouteDesc &nod2) const {
+            return nod1.duration_2>nod2.duration_2;
         }
     };
 

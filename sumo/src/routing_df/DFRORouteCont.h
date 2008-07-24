@@ -55,13 +55,13 @@ public:
     DFRORouteCont(const RODFNet &net);
 //	DFRORouteCont(const DFRORouteCont &s);
     ~DFRORouteCont();
-    void addRouteDesc(DFRORouteDesc *desc);
-    bool removeRouteDesc(DFRORouteDesc *desc);
+    void addRouteDesc(DFRORouteDesc &desc);
+    bool removeRouteDesc(DFRORouteDesc &desc);
     bool readFrom(const std::string &file);
     bool save(std::vector<std::string> &saved,
               const std::string &prependix, OutputDevice& out);
     bool computed() const;
-    const std::vector<DFRORouteDesc*> &get() const;
+    std::vector<DFRORouteDesc> &get();
     void sortByDistance();
     void setDets2Follow(const std::map<ROEdge*, std::vector<ROEdge*> > &d2f);
     const std::map<ROEdge*, std::vector<ROEdge*> > &getDets2Follow() const;
@@ -92,8 +92,8 @@ protected:
         /// constructor
         explicit by_distance_sorter() { }
 
-        int operator()(DFRORouteDesc *p1, DFRORouteDesc *p2) {
-            return p1->distance2Last<p2->distance2Last;
+        int operator()(const DFRORouteDesc &p1, const DFRORouteDesc &p2) {
+            return p1.distance2Last<p2.distance2Last;
         }
     };
 
@@ -104,8 +104,8 @@ protected:
         explicit route_finder(const DFRORouteDesc &desc) : myDesc(desc) { }
 
         /** the comparing function */
-        bool operator()(DFRORouteDesc *desc) {
-            return myDesc.edges2Pass==desc->edges2Pass;
+        bool operator()(const DFRORouteDesc &desc) {
+            return myDesc.edges2Pass==desc.edges2Pass;
         }
 
     private:
@@ -119,7 +119,7 @@ protected:
 
 
 
-    std::vector<DFRORouteDesc*> myRoutes;
+    std::vector<DFRORouteDesc> myRoutes;
     std::map<ROEdge*, std::vector<ROEdge*> > myDets2Follow;
     const RODFNet &myNet;
 
