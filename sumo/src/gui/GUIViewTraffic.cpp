@@ -636,6 +636,14 @@ GUIViewTraffic::showViewschemeEditor()
 }
 
 
+void
+GUIViewTraffic::hideViewschemeEditor()
+{
+    delete myVisualizationChanger;
+    myVisualizationChanger = 0;
+}
+
+
 long
 GUIViewTraffic::onLeftBtnPress(FXObject *o,FXSelector sel,void *data)
 {

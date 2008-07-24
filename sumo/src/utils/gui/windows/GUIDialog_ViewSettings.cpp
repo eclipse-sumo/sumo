@@ -531,6 +531,7 @@ long
 GUIDialog_ViewSettings::onCmdOk(FXObject*,FXSelector,void*)
 {
     hide();
+    myParent->hideViewschemeEditor();
     return 1;
 }
 
@@ -540,6 +541,7 @@ GUIDialog_ViewSettings::onCmdCancel(FXObject*,FXSelector,void*)
 {
     hide();
     (*mySettings) = myBackup;
+    myParent->hideViewschemeEditor();
     return 1;
 }
 
@@ -779,6 +781,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
     if (tmpSettings.name[0]!='*') {
         tmpSettings.name = '*' + tmpSettings.name;
     }
+    gSchemeStorage.add(tmpSettings);
     int index = mySchemeName->getCurrentItem();
     if (index<3) { // !!!!
         index = mySchemeName->appendItem(tmpSettings.name.c_str());
@@ -792,13 +795,12 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
         myParent->getColoringSchemesCombo().setItemText(index, tmpSettings.name.c_str());
         myParent->setColorScheme((char*) tmpSettings.name.c_str());
     }
-    gSchemeStorage.add(tmpSettings);
     mySettings = &gSchemeStorage.get(tmpSettings.name);
 
     if (mySettings->laneEdgeMode!=prevLaneMode||mySettings->vehicleMode!=prevVehicleMode) {
         rebuildColorMatrices(true);
     }
-
+    myParent->forceRefresh();
     getApp()->forceRefresh();
     return 1;
 }

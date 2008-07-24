@@ -121,6 +121,7 @@ public:
     void hideBestLanes(GUIVehicle *v);
 
     void showViewschemeEditor();
+    void hideViewschemeEditor();
 
 
 
