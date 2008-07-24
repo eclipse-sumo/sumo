@@ -68,7 +68,7 @@ public:
      * @param[in] id The id of the route
      * @param[in] color The color of the route
      */
-    RORouteDef(const std::string &id, const RGBColor &color) throw();
+    RORouteDef(const std::string &id, const RGBColor * const color) throw();
 
 
     /// @brief Destructor
@@ -90,7 +90,9 @@ public:
     virtual RORouteDef *copy(const std::string &id) const = 0;
 
     /// Returns the color of the route
-    const RGBColor &getColor() const;
+    const RGBColor * const getColor() const {
+        return myColor;
+    }
 
 
     /** @brief Saves the built route / route alternatives
@@ -103,10 +105,12 @@ public:
      */
     virtual OutputDevice &writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives) const = 0;
 
+protected:
+    const RGBColor * const copyColorIfGiven() const throw();
 
 protected:
     /// The color the route shall have
-    RGBColor myColor;
+    const RGBColor * const myColor;
 
 
 private:

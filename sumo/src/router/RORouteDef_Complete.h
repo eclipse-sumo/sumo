@@ -56,7 +56,7 @@ class RORouteDef_Complete :
 {
 public:
     /// Constructor
-    RORouteDef_Complete(const std::string &id, const RGBColor &color,
+    RORouteDef_Complete(const std::string &id, const RGBColor * const color,
                         const std::vector<const ROEdge*> &edges,
                         bool tryRepair) throw();
 

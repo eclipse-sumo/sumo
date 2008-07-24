@@ -162,7 +162,7 @@ protected:
     SUMOVehicleParameter *myVehicleParameter;
 
     /// @brief The color of the current route/vehicle
-    RGBColor myColor;
+    RGBColor *myColor;
 
     /// @brief Information whether the currently parsed item is valid
     bool myCurrentIsOk;

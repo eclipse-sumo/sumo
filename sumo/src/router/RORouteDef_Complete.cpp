@@ -55,7 +55,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 RORouteDef_Complete::RORouteDef_Complete(const std::string &id,
-        const RGBColor &color,
+        const RGBColor * const color,
         const std::vector<const ROEdge*> &edges,
         bool tryRepair) throw()
         : RORouteDef(id, color), myEdges(edges), myTryRepair(tryRepair)
@@ -96,7 +96,7 @@ RORouteDef_Complete::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
     if(costs<0) {
         throw ProcessError("Route '" + getID() + "' (vehicle '" + veh.getID() + "') is not valid.");
     }
-    return new RORoute(myID, 0, 1, myEdges, myColor);
+    return new RORoute(myID, 0, 1, myEdges, copyColorIfGiven());
 }
 
 
@@ -111,7 +111,7 @@ RORouteDef_Complete::addAlternative(const ROVehicle *const, RORoute *current, SU
 RORouteDef *
 RORouteDef_Complete::copy(const std::string &id) const
 {
-    return new RORouteDef_Complete(id, myColor, myEdges, myTryRepair);
+    return new RORouteDef_Complete(id, copyColorIfGiven(), myEdges, myTryRepair);
 }
 
 
@@ -129,8 +129,8 @@ RORouteDef_Complete::writeXMLDefinition(OutputDevice &dev, const ROVehicle * con
         dev << " cost=\"" << ROHelper::recomputeCosts(myEdges, veh, veh->getDepartureTime());
         dev << "\" probability=\"1.00\"";
     }
-    if (myColor!=RGBColor::DEFAULT_COLOR) {
-        dev << " color=\"" << myColor << "\"";
+    if (myColor!=0) {
+        dev << " color=\"" << *myColor << "\"";
     }
     dev << ">" << myEdges << "</route>\n";
     // (optional) alternatives end

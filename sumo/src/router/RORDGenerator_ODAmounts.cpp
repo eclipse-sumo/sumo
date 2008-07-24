@@ -319,8 +319,8 @@ RORDGenerator_ODAmounts::myEndFlowAmountDef()
             return;
         }
         // add the vehicle type, the vehicle and the route to the net
-        RORouteDef *route = new RORouteDef_OrigDest(myParameter->id, myParameter->color,
-                myBeginEdge, myEndEdge);//!!! set double in route def and flowdef?
+        RGBColor *col = (myParameter->setParameter&VEHPARS_COLOR_SET)!=0 ? new RGBColor(myParameter->color) : 0;
+        RORouteDef *route = new RORouteDef_OrigDest(myParameter->id, col, myBeginEdge, myEndEdge);//!!! set double in route def and flowdef?
         ROVehicleType *type = myNet.getVehicleTypeSecure(myParameter->vtypeid);
         // check whether any errors occured
         if (MsgHandler::getErrorInstance()->wasInformed()) {

@@ -68,7 +68,7 @@ RORDLoader_SUMOBase::RORDLoader_SUMOBase(ROVehicleBuilder &vb, RONet &net,
         myVehicleParameter(0), myCurrentIsOk(true), myAltIsValid(true), myHaveNextRoute(false),
         myCurrentAlternatives(0),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRouteNumber),
-        myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myColor(RGBColor::DEFAULT_COLOR)
+        myCurrentRoute(0), myCurrentDepart(-1), myTryRepair(tryRepair), myColor(0)
 {
 }
 
@@ -79,6 +79,7 @@ RORDLoader_SUMOBase::~RORDLoader_SUMOBase() throw()
     delete myCurrentAlternatives;
     delete myCurrentRoute;
     delete myVehicleParameter;
+    delete myColor;
 }
 
 
@@ -122,6 +123,8 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
 void
 RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
 {
+    delete myColor;
+    myColor = 0;
     if(!myAltIsValid) {
         return;
     }
@@ -134,7 +137,9 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
             } else {
                 myCurrentRouteName = attrs.getString(SUMO_ATTR_ID);
             }
-            myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING));
+            if(attrs.hasAttribute(SUMO_ATTR_COLOR)) {
+                myColor = new RGBColor(RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)));
+            }
         } catch (EmptyData &) {
             myCurrentRouteName = "";
             MsgHandler::getErrorInstance()->inform("Missing id in route.");
@@ -145,7 +150,9 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
     // parse route alternative...
     myCost = attrs.getSUMORealReporting(SUMO_ATTR_COST, "route(alternative)", myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
     myProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "route(alternative)", myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
-    myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING));
+    if(attrs.hasAttribute(SUMO_ATTR_COLOR)) {
+        myColor = new RGBColor(RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)));
+    }
     if (myCurrentIsOk&&myCost<0) {
         MsgHandler::getErrorInstance()->inform("Invalid cost in alternative for route '" + myCurrentAlternatives->getID() + "' (" + toString<SUMOReal>(myCost) + ").");
         myCurrentIsOk = false;
@@ -186,11 +193,8 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs)
         myCurrentIsOk = false;
         return;
     }
-    // try to get the color
-    myColor = RGBColor::parseColor(attrs.getStringSecure(SUMO_ATTR_COLOR, RGBColor::DEFAULT_COLOR_STRING));
     // build the alternative cont
-    myCurrentAlternatives = new RORouteDef_Alternatives(id, myColor,
-            index, myGawronBeta, myGawronA, myMaxRouteNumber);
+    myCurrentAlternatives = new RORouteDef_Alternatives(id, index, myGawronBeta, myGawronA, myMaxRouteNumber);
 }
 
 void
@@ -233,6 +237,7 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
         } else {
             myCurrentRoute = new RORouteDef_Complete(myCurrentRouteName, myColor, *list, myTryRepair);
         }
+        myColor = 0;
     }
     delete list;
 }

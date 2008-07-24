@@ -107,7 +107,7 @@ RORDGenerator_Random::readRoutesAtLeastUntil(SUMOTime time, bool skipping) throw
         SUMOVehicleParameter pars;
         pars.id = myIDSupplier.getNext();
         pars.depart = time;
-        RORouteDef *route = new RORouteDef_OrigDest(pars.id, myColor, from, to, myRemoveFirst);
+        RORouteDef *route = new RORouteDef_OrigDest(pars.id, 0, from, to, myRemoveFirst);
         myNet.addVehicle(pars.id, myVehicleBuilder.buildVehicle(pars, route, 0));
         myNet.addRouteDef(route);
         myReadNewRoute = true;

@@ -57,7 +57,7 @@ using namespace std;
 // member method definitions
 // ===========================================================================
 RORouteDef_OrigDest::RORouteDef_OrigDest(const std::string &id,
-        const RGBColor &color,
+        const RGBColor * const color,
         const ROEdge *from,
         const ROEdge *to,
         bool removeFirst) throw()
@@ -82,7 +82,7 @@ RORouteDef_OrigDest::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> &rou
         edges.erase(edges.begin());
         edges.erase(edges.end()-1);
     }
-    return new RORoute(myID, 0, 1, edges, myColor);
+    return new RORoute(myID, 0, 1, edges, copyColorIfGiven());
 }
 
 
@@ -98,7 +98,7 @@ RORouteDef_OrigDest::addAlternative(const ROVehicle *const veh, RORoute *current
 RORouteDef *
 RORouteDef_OrigDest::copy(const std::string &id) const
 {
-    return new RORouteDef_OrigDest(id, myColor, myFrom, myTo,
+    return new RORouteDef_OrigDest(id, copyColorIfGiven(), myFrom, myTo,
                                    myRemoveFirst);
 }
 

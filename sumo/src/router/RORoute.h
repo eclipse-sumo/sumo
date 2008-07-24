@@ -61,11 +61,12 @@ public:
      * @param[in] costs The route's costs 
      * @param[in] prob The route's probability
      * @param[in] route The list of edges the route is made of
+     * @param[in] color The (optional) color of this route
      *
      * @todo Are costs/prob really mandatory?
      */
     RORoute(const std::string &id, SUMOReal costs, SUMOReal prob,
-            const std::vector<const ROEdge*> &route, const RGBColor &color) throw();
+            const std::vector<const ROEdge*> &route, const RGBColor * const color) throw();
 
 
     /** @brief Copy constructor
@@ -183,7 +184,7 @@ public:
      *
      * @return This route's color
      */
-    const RGBColor &getColor() const throw() {
+    const RGBColor * const getColor() const throw() {
         return myColor;
     }
 
@@ -207,7 +208,7 @@ private:
     std::vector<const ROEdge*> myRoute;
 
     /// @brief The color of the route
-    RGBColor myColor;
+    const RGBColor *myColor;
 
 private:
     /// @brief Invalidated assignment operator

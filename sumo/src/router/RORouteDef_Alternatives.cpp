@@ -68,12 +68,11 @@ using namespace std;
 // method definitions
 // ===========================================================================
 RORouteDef_Alternatives::RORouteDef_Alternatives(const std::string &id,
-        const RGBColor &color,
         unsigned int lastUsed,
         SUMOReal gawronBeta,
         SUMOReal gawronA,
         int maxRoutes) throw()
-        : RORouteDef(id, color), myLastUsed((int) lastUsed),
+        : RORouteDef(id, 0), myLastUsed((int) lastUsed),
         myGawronBeta(gawronBeta), myGawronA(gawronA), myMaxRouteNumber(maxRoutes)
 {
 }
@@ -103,7 +102,7 @@ RORouteDef_Alternatives::buildCurrentRoute(SUMOAbstractRouter<ROEdge,ROVehicle> 
     // build a new route to test whether it is better
     std::vector<const ROEdge*> edges;
     router.compute(myAlternatives[0]->getFirst(), myAlternatives[0]->getLast(), &veh, begin, edges);
-    RORoute *opt = new RORoute(myID, 0, 1, edges, myColor);
+    RORoute *opt = new RORoute(myID, 0, 1, edges, copyColorIfGiven());
     SUMOReal costs = ROHelper::recomputeCosts(opt->getEdgeVector(), &veh, begin);
     // check whether the same route was already used
     myLastUsed = findRoute(opt);
@@ -240,7 +239,7 @@ RORouteDef *
 RORouteDef_Alternatives::copy(const std::string &id) const
 {
     RORouteDef_Alternatives *ret = new RORouteDef_Alternatives(id,
-            myColor, myLastUsed, myGawronBeta, myGawronA, myMaxRouteNumber);
+            myLastUsed, myGawronBeta, myGawronA, myMaxRouteNumber);
     for (std::vector<RORoute*>::const_iterator i=myAlternatives.begin(); i!=myAlternatives.end(); i++) {
         ret->addLoadedAlternative(new RORoute(*(*i)));
     }
@@ -348,10 +347,10 @@ RORouteDef_Alternatives::writeXMLDefinition(OutputDevice &dev, const ROVehicle *
             const RORoute &alt = *(myAlternatives[i]);
             dev << "         <route cost=\"" << alt.getCosts();
             dev << "\" probability=\"" << alt.getProbability();
-            if(alt.getColor()!=RGBColor::DEFAULT_COLOR) {
-                dev << "\" color=\"" << alt.getColor();
-            } else if (myColor!=RGBColor::DEFAULT_COLOR) {
-                dev << "\" color=\"" << myColor;
+            if(alt.getColor()!=0) {
+                dev << "\" color=\"" << *alt.getColor();
+            } else if (myColor!=0) {
+                dev << "\" color=\"" << *myColor;
             }
             dev << "\">" << alt.getEdgeVector() << "</route>\n";
         }

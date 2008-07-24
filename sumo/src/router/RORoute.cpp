@@ -53,7 +53,7 @@ using namespace std;
 // ===========================================================================
 RORoute::RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
                  const std::vector<const ROEdge*> &route,
-                 const RGBColor &color) throw()
+                 const RGBColor * const color) throw()
         : Named(StringUtils::convertUmlaute(id)), myCosts(costs),
         myProbability(prop), myRoute(route), myColor(color)
 {}
@@ -61,14 +61,18 @@ RORoute::RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
 
 RORoute::RORoute(const RORoute &src) throw()
     : Named(src.myID), myCosts(src.myCosts), 
-    myProbability(src.myProbability), myRoute(src.myRoute),
-    myColor(src.myColor)
+    myProbability(src.myProbability), myRoute(src.myRoute), myColor(0)
 {
+    if(src.myColor!=0) {
+        myColor = new RGBColor(*src.myColor);
+    }
 }
 
 
 RORoute::~RORoute() throw()
-{}
+{
+    delete myColor;
+}
 
 
 void
@@ -139,8 +143,8 @@ RORoute::writeXMLDefinition(OutputDevice &dev, bool asAlternatives) const
         dev << " cost=\"" << myCosts;
         dev << "\" probability=\"" << myProbability << "\"";
     }
-    if(myColor!=RGBColor::DEFAULT_COLOR) {
-        dev << " color=\"" << myColor << "\"";
+    if(myColor!=0) {
+        dev << " color=\"" << *myColor << "\"";
     }
     dev << ">" << myRoute << "</route>\n";
     // (optional) alternatives end
