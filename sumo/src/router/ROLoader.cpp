@@ -220,30 +220,25 @@ ROLoader::~ROLoader()
 }
 
 
-RONet *
-ROLoader::loadNet(ROAbstractEdgeBuilder &eb)
+void
+ROLoader::loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb)
 {
     std::string file = myOptions.getString("net-file");
     if (file=="") {
-        MsgHandler::getErrorInstance()->inform("Missing definition of network to load!");
-        return 0;
+        throw ProcessError("Missing definition of network to load!");
     }
     if (!FileHelpers::exists(file)) {
-        MsgHandler::getErrorInstance()->inform("The network file '" + file + "' could not be found.");
-        return 0;
+        throw ProcessError("The network file '" + file + "' could not be found.");
     }
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading net...");
-    RONet *net = new RONet();
-    RONetHandler handler(*net, eb);
+    RONetHandler handler(toFill, eb);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file)) {
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");
-        delete net;
-        return 0;
+        throw ProcessError();
     } else {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
-    return net;
 }
 
 

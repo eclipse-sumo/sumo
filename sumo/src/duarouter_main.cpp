@@ -81,26 +81,22 @@ using namespace std;
  * The net is in this meaning made up by the net itself and the dynamic
  * weights which may be supplied in a separate file
  */
-RONet *
-loadNet(ROLoader &loader, OptionsCont &oc)
+void
+initNet(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
     // load the net
     RODUAEdgeBuilder builder(oc.getBool("expand-weights"));
-    RONet *net = loader.loadNet(builder);
-    if (net==0) {
-        throw ProcessError();
-    }
+    loader.loadNet(net, builder);
     // load the weights when wished/available
     if (oc.isSet("weights")) {
-        loader.loadWeights(*net, oc.getString("weights"), false);
+        loader.loadWeights(net, oc.getString("weights"), false);
     }
     if (oc.isSet("lane-weights")) {
-        loader.loadWeights(*net, oc.getString("lane-weights"), true);
+        loader.loadWeights(net, oc.getString("lane-weights"), true);
     }
     if (oc.isSet("S")) {
-        loader.loadSupplementaryWeights(*net);
+        loader.loadSupplementaryWeights(net);
     }
-    return net;
 }
 
 
@@ -109,7 +105,7 @@ loadNet(ROLoader &loader, OptionsCont &oc)
  * Computes the routes saving them
  */
 void
-startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
+computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
     // initialise the loader
     loader.openRoutes(net);
@@ -128,8 +124,9 @@ startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
         router = new SUMODijkstraRouter_Direct<ROEdge, ROVehicle, prohibited_noRestrictions<ROEdge, ROVehicle> >(
             net.getEdgeNo(), oc.getBool("continue-on-unbuild"), &ROEdge::getEffort);
     }
-    // the routes are sorted - process stepwise
+    // process route definitions
     try {
+        // the routes are sorted - process stepwise
         if (!oc.getBool("unsorted")) {
             loader.processRoutesStepWise(oc.getInt("begin"), oc.getInt("end"), net, *router);
         }
@@ -164,7 +161,6 @@ main(int argc, char **argv)
 #endif
     int ret = 0;
     RONet *net = 0;
-    ROLoader *loader = 0;
     try {
         XMLSubSys::init();
         RODUAFrame::fillOptions();
@@ -178,22 +174,17 @@ main(int argc, char **argv)
         RandHelper::initRandGlobal();
         // load data
         ROVehicleBuilder vb;
-        loader = new ROLoader(oc, vb, false);
-        net = loadNet(*loader, oc);
-        if (net!=0) {
-            // build routes
-            try {
-                startComputation(*net, *loader, oc);
-            } catch (SAXParseException &e) {
-                MsgHandler::getErrorInstance()->inform(
-                    toString<int>(e.getLineNumber()));
-                ret = 1;
-            } catch (SAXException &e) {
-                MsgHandler::getErrorInstance()->inform(
-                    TplConvert<XMLCh>::_2str(e.getMessage()));
-                ret = 1;
-            }
-        } else {
+        ROLoader loader(oc, vb, false);
+        net = new RONet();
+        initNet(*net, loader, oc);
+        // build routes
+        try {
+            computeRoutes(*net, loader, oc);
+        } catch (SAXParseException &e) {
+            MsgHandler::getErrorInstance()->inform(toString<int>(e.getLineNumber()));
+            ret = 1;
+        } catch (SAXException &e) {
+            MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
             ret = 1;
         }
     } catch (ProcessError &e) {
@@ -209,7 +200,6 @@ main(int argc, char **argv)
 #endif
     }
     delete net;
-    delete loader;
     OutputDevice::closeAll();
     SystemFrame::close();
     if (ret==0) {

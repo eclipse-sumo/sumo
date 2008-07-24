@@ -67,27 +67,23 @@ RODFLoader::~RODFLoader()
 {}
 
 
-RODFNet *
-RODFLoader::loadNet(ROAbstractEdgeBuilder &eb, bool amInHighwayMode)
+void
+RODFLoader::loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb)
 {
-    RODFNet *net = new RODFNet(amInHighwayMode);
     std::string file = myOptions.getString("n");
     if (file==""||!FileHelpers::exists(file)) {
-        delete net;
         throw ProcessError("The network file '" + file + "' could not be found.");
     }
     MsgHandler::getMessageInstance()->beginProcessMsg("Loading net...");
-    RODFNetHandler handler(*net, eb);
+    RODFNetHandler handler(toFill, eb);
     handler.setFileName(file);
     if (!XMLSubSys::runParser(handler, file)) {
         MsgHandler::getMessageInstance()->endProcessMsg("failed.");
-        delete net;
-        return 0;
+        throw ProcessError();
     } else {
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
-    net->buildApproachList();
-    return net;
+    static_cast<RODFNet&>(toFill).buildApproachList();
 }
 
 

@@ -87,8 +87,7 @@ public:
     virtual ~ROLoader();
 
     /// Loads the network
-    /// @todo Refactor this; a network instance should be given and filled
-    virtual RONet *loadNet(ROAbstractEdgeBuilder &eb);
+    virtual void loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb);
 
     /// Loads the net weights
     bool loadWeights(RONet &net, const std::string &file,

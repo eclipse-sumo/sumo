@@ -83,26 +83,6 @@ using namespace std;
 /* -------------------------------------------------------------------------
  * data processing methods
  * ----------------------------------------------------------------------- */
-/**
- * loads the net
- * The net is in this meaning made up by the net itself and the dynamic
- * weights which may be supplied in a separate file
- */
-RODFNet *
-loadNet(OptionsCont &oc)
-{
-    // load the network if wished
-    if (!oc.isSet("net-file")) {
-        return 0;
-    }
-    ROVehicleBuilder vb;
-    RODFLoader loader(oc, vb, false);
-    // load the net
-    RODFEdgeBuilder builder;
-    return loader.loadNet(builder, oc.getBool("highway-mode"));
-}
-
-
 RODFDetectorCon *
 readDetectors(OptionsCont &oc, RODFNet *optNet)
 {
@@ -379,11 +359,12 @@ main(int argc, char **argv)
         MsgHandler::initOutputOptions();
         if (!RODFFrame::checkOptions()) throw ProcessError();
         RandHelper::initRandGlobal();
-        // retrieve the options
-        net = loadNet(oc);
-        if (net==0) {
-            throw ProcessError();
-        }
+        // load data
+        ROVehicleBuilder vb;
+        RODFLoader loader(oc, vb, false);
+        net = new RODFNet(oc.getBool("highway-mode"));
+        RODFEdgeBuilder builder;
+        loader.loadNet(*net, builder);
         // build routes
         startComputation(net, oc);
     } catch (ProcessError &e) {

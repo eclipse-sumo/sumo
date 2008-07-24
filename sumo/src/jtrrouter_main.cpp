@@ -83,29 +83,25 @@ using namespace std;
  * The net is in this meaning made up by the net itself and the dynamic
  * weights which may be supplied in a separate file
  */
-RONet *
-loadNet(ROLoader &loader, OptionsCont &oc,
+void
+initNet(RONet &net, ROLoader &loader, OptionsCont &oc,
         const std::vector<SUMOReal> &turnDefs)
 {
     // load the net
     ROJTREdgeBuilder builder;
-    RONet *net = loader.loadNet(builder);
-    if (net==0) {
-        return 0;
-    }
+    loader.loadNet(net, builder);
     // set the turn defaults
-    const map<std::string, ROEdge*> &edges = net->getEdgeMap();
+    const map<std::string, ROEdge*> &edges = net.getEdgeMap();
     for(map<std::string, ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
         static_cast<ROJTREdge*>((*i).second)->setTurnDefaults(turnDefs);
     }
     // load the weights when wished/available
     if (oc.isSet("weights")) {
-        loader.loadWeights(*net, oc.getString("weights"), false);
+        loader.loadWeights(net, oc.getString("weights"), false);
     }
     if (oc.isSet("lane-weights")) {
-        loader.loadWeights(*net, oc.getString("lane-weights"), true);
+        loader.loadWeights(net, oc.getString("lane-weights"), true);
     }
-    return net;
 }
 
 std::vector<SUMOReal>
@@ -159,7 +155,7 @@ loadJTRDefinitions(RONet &net, OptionsCont &oc)
  * Computes the routes saving them
  */
 void
-startComputation(RONet &net, ROLoader &loader, OptionsCont &oc)
+computeRoutes(RONet &net, ROLoader &loader, OptionsCont &oc)
 {
     // initialise the loader
     loader.openRoutes(net);
@@ -217,22 +213,19 @@ main(int argc, char **argv)
         // load data
         ROVehicleBuilder vb;
         ROLoader loader(oc, vb, true);
-        net = loadNet(loader, oc, defs);
-        if (net!=0) {
-            try {
-                // parse and set the turn defaults first
-                loadJTRDefinitions(*net, oc);
-                // build routes
-                startComputation(*net, loader, oc);
-            } catch (SAXParseException &e) {
-                MsgHandler::getErrorInstance()->inform(toString<int>(e.getLineNumber()));
-                ret = 1;
-            } catch (SAXException &e) {
-                MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
-                ret = 1;
-            }
-        } else {
-            throw ProcessError();
+        net = new RONet();
+        initNet(*net, loader, oc, defs);
+        try {
+            // parse and set the turn defaults first
+            loadJTRDefinitions(*net, oc);
+            // build routes
+            computeRoutes(*net, loader, oc);
+        } catch (SAXParseException &e) {
+            MsgHandler::getErrorInstance()->inform(toString<int>(e.getLineNumber()));
+            ret = 1;
+        } catch (SAXException &e) {
+            MsgHandler::getErrorInstance()->inform(TplConvert<XMLCh>::_2str(e.getMessage()));
+            ret = 1;
         }
         if (MsgHandler::getErrorInstance()->wasInformed()) {
             throw ProcessError();

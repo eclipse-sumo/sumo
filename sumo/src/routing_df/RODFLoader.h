@@ -69,7 +69,7 @@ public:
 
 
     /// Builds the RODFNet
-    RODFNet *loadNet(ROAbstractEdgeBuilder &eb, bool amInHighwayMode);
+    void loadNet(RONet &toFill, ROAbstractEdgeBuilder &eb);
 
 };
 
