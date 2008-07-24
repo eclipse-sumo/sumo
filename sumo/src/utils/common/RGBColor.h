@@ -82,7 +82,7 @@ public:
     static RGBColor interpolate(const RGBColor &minColor, const RGBColor &maxColor, SUMOReal weight);
 
     /// The string description of the default color
-    static const std::string RGBColor::DEFAULT_COLOR_STRING;
+    static const std::string DEFAULT_COLOR_STRING;
 
     /// The default color (for vehicle types and vehicles)
     static const RGBColor DEFAULT_COLOR;
