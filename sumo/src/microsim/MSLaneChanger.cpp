@@ -193,7 +193,7 @@ MSLaneChanger::change()
     }
     // change if the vehicle wants to and is allowed to change
     if ((state1&LCA_RIGHT)!=0&&changingAllowed) {
-#ifdef TRACI
+#ifndef NO_TRACI
 		// inform lane change model about this change
 		vehicle->getLaneChangeModel().fulfillChangeRequest(REQUEST_RIGHT);
 		/*std::cout << "TraCI: lane changer fulfilled request for RIGHT |time " << MSNet::getInstance()->getCurrentTimeStep() << "s" << std::endl;*/
@@ -227,7 +227,7 @@ MSLaneChanger::change()
     vehicle->getLaneChangeModel().setState(state2|state1);
     // change if the vehicle wants to and is allowed to change
     if ((state2&LCA_LEFT)!=0&&changingAllowed) {
-#ifdef TRACI
+#ifndef NO_TRACI
 		// inform lane change model about this change
 		vehicle->getLaneChangeModel().fulfillChangeRequest(REQUEST_LEFT);
 		/*std::cout << "TraCI: lane changer fulfilled request for LEFT |time " << MSNet::getInstance()->getCurrentTimeStep() << "s" << std::endl;*/

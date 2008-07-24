@@ -169,7 +169,7 @@ MSVehicle::~MSVehicle() throw()
         delete(*dev);
     }
     myDevices.clear();
-#ifdef TRACI
+#ifndef NO_TRACI
     {
         // edges changed by TraCI
         for (InfoCont::iterator i=edgesChangedByTraci.begin(); i!=edgesChangedByTraci.end(); ++i) {
@@ -217,7 +217,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
         myOldLaneMoveReminders(0),
         myOldLaneMoveReminderOffsets(0),
         myArrivalPos(pars->arrivalPos)
-#ifdef TRACI
+#ifndef NO_TRACI
         ,myWeightChangedViaTraci(false),
         adaptingSpeed(false),
         isLastAdaption(false),
@@ -973,7 +973,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven)
         (*dev)->enterLaneAtMove(enteredLane, driven);
     }
 
-#ifdef TRACI
+#ifndef NO_TRACI
 	// remove all Stops that were added by Traci and were not reached for any reason
 	for (std::list<Stop>::iterator it = myStops.begin(); it != myStops.end(); it++) {
 		if (it->isTraciStop) {
@@ -1012,7 +1012,7 @@ MSVehicle::enterLaneAtLaneChange(MSLane* enteredLane)
         (*dev)->enterLaneAtLaneChange(enteredLane);
     }
 
-#ifdef TRACI
+#ifndef NO_TRACI
 	// check if further changes are necessary
 	checkForLaneChanges();
 #endif
@@ -1785,7 +1785,7 @@ MSVehicle::reroute(SUMOTime t, SUMOAbstractRouter<MSEdge, MSVehicle> &router)
 SUMOReal
 MSVehicle::getEffort(const MSEdge * const e, SUMOReal t) const
 {
-#ifdef TRACI
+#ifndef NO_TRACI
     if (infoCont.find(e)!=infoCont.end()) {
         return infoCont.find(e)->second->neededTime;
     }
@@ -1876,7 +1876,7 @@ MSVehicle::setWasVaporized(bool onDepart)
 
 
 
-#ifdef TRACI
+#ifndef NO_TRACI
 
 void
 MSVehicle::checkReroute(SUMOTime t)
@@ -2111,6 +2111,12 @@ MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime du
 	 * otherwise, a new list of stops associated with the given lane is created.
 	 * All stops are kept sorted by their position*/
 	TraciStopList stopList = myTraciStops[lane->getEdge()->getID()];
+    for (TraciStopList::iterator iter = stopList.begin(); iter != stopList.end(); iter++) {
+        if (iter->lane == lane && fabs(iter->pos - pos) < POSITION_EPS) {
+            iter->duration = duration;
+            return;
+        }
+    }
 	stopList.push_back(newStop);
 	myTraciStops[lane->getEdge()->getID()] = stopList;
 

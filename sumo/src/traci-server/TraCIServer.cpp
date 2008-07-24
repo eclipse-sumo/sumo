@@ -28,7 +28,7 @@
 #include "TraCIHandler.h"
 #include "TraCIDijkstraRouter.h"
 
-#ifdef TRACI
+#ifndef NO_TRACI
 
 #include "foreign/tcpip/socket.h"
 #include "foreign/tcpip/storage.h"

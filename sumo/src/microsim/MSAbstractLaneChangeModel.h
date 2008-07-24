@@ -99,7 +99,7 @@ public:
 
     MSAbstractLaneChangeModel(MSVehicle &v)
             : myVehicle(v), myState(0)
-#ifdef TRACI
+#ifndef NO_TRACI
 			,myChangeRequest(REQUEST_NONE)
 #endif
 	{ }
@@ -147,7 +147,7 @@ public:
 
 	virtual void changed() = 0;
 
-#ifdef TRACI
+#ifndef NO_TRACI
 	/**
 	 * The vehicle is requested to change the lane as soon as possible
 	 * without violating any directives defined by this lane change model
@@ -207,7 +207,7 @@ protected:
 protected:
     MSVehicle &myVehicle;
     int myState;
-#ifdef TRACI
+#ifndef NO_TRACI
 	ChangeRequest myChangeRequest;
 #endif
 };

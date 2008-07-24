@@ -44,7 +44,4 @@
 /* define to use nvwa for memory leak checking */
 //#define CHECK_MEMORY_LEAKS 1
 
-/* define to use TraCI server code */
-//#define TRACI 1
-
 #endif

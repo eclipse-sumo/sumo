@@ -81,7 +81,7 @@
 #include <mesosim/MELoop.h>
 #endif
 
-#ifdef TRACI
+#ifndef NO_TRACI
 #include <traci-server/TraCIServer.h>
 #endif
 
@@ -308,7 +308,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
         if(myTooManyVehicles>0&&(int) myVehicleControl->getRunningVehicleNo()>myTooManyVehicles) {
             otherQuit = 2;
         }
-#ifdef TRACI
+#ifndef NO_TRACI
         if (traci::TraCIServer::wasClosed()) {
             otherQuit = 3;
         }
@@ -394,7 +394,7 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
 void
 MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
 {
-#ifdef TRACI
+#ifndef NO_TRACI
     bool doTraci = traci::TraCIServer::processCommandsUntilSimStep(myStep);
 #endif
     myStep = step;
@@ -491,7 +491,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
         mySimDuration += mySimStepDuration;
         myVehiclesMoved += myVehicleControl->getRunningVehicleNo();
     }
-#ifdef TRACI
+#ifndef NO_TRACI
     if (doTraci) {
         traci::TraCIServer::processAfterSimStep();
     }

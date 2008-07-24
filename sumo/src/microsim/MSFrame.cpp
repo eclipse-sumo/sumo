@@ -78,7 +78,7 @@ MSFrame::fillOptions()
     oc.addOptionSubTopic("Processing");
     oc.addOptionSubTopic("TLS Defaults");
     oc.addOptionSubTopic("Report");
-#ifdef TRACI
+#ifndef NO_TRACI
     oc.addOptionSubTopic("Traffic Control Interface (TraCI) Server");
 #endif // TRACI
 #ifdef HAVE_MESOSIM
@@ -272,7 +272,7 @@ MSFrame::fillOptions()
 
 
     // TraCI server
-#ifdef TRACI
+#ifndef NO_TRACI
     //remote port 0 if not used
     oc.doRegister("remote-port", new Option_Integer(0));
     oc.addDescription("remote-port", "Traffic Control Interface (TraCI) Server", "Enables TraCI Server if set");

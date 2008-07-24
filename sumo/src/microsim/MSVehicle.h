@@ -584,7 +584,7 @@ public:
         SUMOTime until;
         /// @brief Information whether the stop has been reached
         bool reached;
-#ifdef TRACI
+#ifndef NO_TRACI
 		bool isTraciStop;
 		Stop(): isTraciStop(false) {};
 #endif
@@ -643,7 +643,7 @@ public:
 	 */
 	SUMOReal getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge);
 
-#ifdef TRACI
+#ifndef NO_TRACI
 	/**
 	 * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
 	 * will wait for the given duration before continuing on its route
@@ -908,7 +908,7 @@ private:
         SUMOReal speed;
     };
 
-#ifdef TRACI
+#ifndef NO_TRACI
 	//struct TraciStop {
 	//	MSLane *lane;
 	//	MSEdge* edge;

@@ -2,7 +2,7 @@
 /// @file    TraCIDijkstraRouter.h
 /// @author  Friedemann Wesner <wesner@itm.uni-luebeck.de>
 /// @date    2008/03/29
-/// @version $Id:$
+/// @version $Id$
 ///
 /// Dijkstra Router for use by TraCI
 /****************************************************************************/
@@ -30,7 +30,7 @@
 #include <config.h>
 #endif
 
-#ifdef TRACI
+#ifndef NO_TRACI
 
 #include "utils/common/SUMODijkstraRouter.h"
 

@@ -28,7 +28,7 @@
 // ===========================================================================
 #include "TraCIHandler.h"
 
-#ifdef TRACI
+#ifndef NO_TRACI
 
 #include "utils/options/OptionsCont.h"
 #include "utils/common/StdDefs.h"

@@ -32,7 +32,7 @@
 #include <config.h>
 #endif
 
-#ifdef TRACI
+#ifndef NO_TRACI
 
 #include "TraCIConstants.h"
 
