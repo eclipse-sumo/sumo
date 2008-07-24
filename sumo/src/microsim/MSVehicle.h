@@ -584,21 +584,16 @@ public:
         SUMOTime until;
         /// @brief Information whether the stop has been reached
         bool reached;
-#ifndef NO_TRACI
-		bool isTraciStop;
-		Stop(): isTraciStop(false) {};
-#endif
     };
 
 
     /** @brief Adds a stop
      * 
-     * The stops are not sorted afterwards, they must be consecutively added.
+     * The stop is put into the sorted list.
      * @param[in] stop The stop to add
+     * @return Whether the stop could be added
      */
-    void addStop(const Stop &stop) throw() {
-        myStops.push_back(stop);
-    }
+    bool addStop(const Stop &stop) throw();
 
 
     /** @brief Returns whether the vehicle has to stop somewhere
@@ -653,22 +648,7 @@ public:
 	 * @duration		after waiting for the time period duration, the vehicle will
 	 *					continue until the stop is reached again
 	 */
-	void addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration);
-
-	/**
-	 * Add a stop to the head of the vehicle's stop list to make it the next stop position.
-	 * If a continuous array of stops which are located at the same edge exists at the list's 
-	 * head, the new stop is sorted within the array by increasing position.
-	 */
-	void sortTraCIStopToStopList(Stop traciStop);
-
-	/** 
-	 * Comparison function for vehicle stops. 
-	 * Stops are sorted by their positions, starting with the lowest position.
-	 */
-	//bool compareStop(const Stop& left, const Stop& right);
-
-	
+	bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration);
 
     void checkReroute(SUMOTime t);
 
@@ -719,7 +699,7 @@ public:
 	 * @param lane	the lane index within the current edge, that is the destination of the change
 	 * @param stickyTime	duration for wich the constraint takes effect
 	 */ 
-	void startLaneChange(int lane, SUMOTime stickyTime);
+	void startLaneChange(unsigned lane, SUMOTime stickyTime);
 
 	/**
 	 * Forces the vehicle to change the given number of lanes to the right side
@@ -909,28 +889,6 @@ private:
     };
 
 #ifndef NO_TRACI
-	//struct TraciStop {
-	//	MSLane *lane;
-	//	MSEdge* edge;
-	//	SUMOReal pos;
-	//	SUMOReal radius;
-	//	SUMOTime duration;
-	//	SUMOTime remainingTime;
-	//	bool reached;
-
-	//	/* stops are sorted by their positions */
-	//	bool operator<(TraciStop arg) {
-	//		return ( (pos-radius) < (arg.pos - arg.radius) );
-	//	}
-	//};
-
-	typedef std::list<Stop> TraciStopList;
-	/* list of stops scheduled by TraCI*/
-	std::map<std::string, TraciStopList> myTraciStops;
-
-	/* iterator pointing to the closest, not yet passed stop on the current lane, if any*/
-	//TraciStopList::iterator nextTraciStop;
-
     bool myHaveRouteInfo;
     typedef std::map<const MSEdge * const, Information *> InfoCont;
     InfoCont infoCont;
@@ -972,7 +930,7 @@ private:
 	SUMOTime laneChangeStickyTime;
 
 	/* lane index of the destination road map position for an active lane change*/
-	int destinationLane;
+	unsigned myDestinationLane;
 	
 	/* true if any forced lane change is in effect*/
 	bool laneChangeConstraintActive;

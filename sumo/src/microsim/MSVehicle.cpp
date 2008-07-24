@@ -176,10 +176,6 @@ MSVehicle::~MSVehicle() throw()
             delete(*i).second;
         }
         edgesChangedByTraci.clear();
-		for (std::map<std::string, TraciStopList>::iterator i = myTraciStops.begin(); i!= myTraciStops.end(); i++) {
-			i->second.clear();
-		}
-		myTraciStops.clear();
     }
 #endif
     // persons
@@ -228,7 +224,7 @@ MSVehicle::MSVehicle(SUMOVehicleParameter* pars,
 		timeBeforeLaneChange(0),
 		laneChangeStickyTime(0),
 		laneChangeConstraintActive(false),
-		destinationLane(0)
+		myDestinationLane(0)
 #endif
 {
 #ifdef _MESSAGES
@@ -310,6 +306,27 @@ MSVehicle::destReached(const MSEdge* targetEdge) throw()
 bool 
 MSVehicle::ends() const throw() {
     return myLane->inEdge(myRoute->getLastEdge()) && myState.myPos > myArrivalPos - POSITION_EPS;
+}
+
+
+bool
+MSVehicle::addStop(const Stop &stop) throw() {
+    MSRouteIterator stopEdge = myRoute->find(stop.lane->getEdge());
+    if (myCurrEdge > stopEdge || (myCurrEdge == stopEdge && myState.myPos > stop.pos)) {
+        return false;
+    }
+    std::list<Stop>::iterator iter = myStops.begin();
+    while ((iter != myStops.end())
+		    && (myRoute->find(iter->lane->getEdge()) <= stopEdge)) {
+	    iter++;
+    }
+    while ((iter != myStops.end())
+		    && (stop.pos > iter->pos)
+		    && (myRoute->find(iter->lane->getEdge()) == stopEdge)) {
+	    iter++;
+    }
+    myStops.insert(iter, stop);
+    return true;
 }
 
 
@@ -941,6 +958,14 @@ MSVehicle::onAllowed() const
 void
 MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven)
 {
+#ifndef NO_TRACI
+	// remove all Stops that were added by Traci and were not reached for any reason
+	for (std::list<Stop>::iterator it = myStops.begin(); it != myStops.end(); it++) {
+        if (it->lane == myLane) {
+			it = myStops.erase(it);
+		}
+	}
+#endif
     // save the old work reminders, patching the position information
     // add the information about the new offset to the old lane reminders
     SUMOReal oldLaneLength = myLane->length();
@@ -974,20 +999,6 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven)
     }
 
 #ifndef NO_TRACI
-	// remove all Stops that were added by Traci and were not reached for any reason
-	for (std::list<Stop>::iterator it = myStops.begin(); it != myStops.end(); it++) {
-		if (it->isTraciStop) {
-			it = myStops.erase(it);
-		}
-	}
-	if (myTraciStops.find((*myCurrEdge)->getID()) != myTraciStops.end()) {
-		// all stops that where requested by TraCI and are located on this edge
-		// are inserted into the vehicles stop list	
-		TraciStopList stops = myTraciStops[(*myCurrEdge)->getID()];
-		for (TraciStopList::iterator i=stops.begin(); i!=stops.end(); i++) {
-			sortTraCIStopToStopList((*i));
-		}
-	}
 	checkForLaneChanges();
 #endif
 }
@@ -1423,6 +1434,14 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
     //  !!! refactor the CORN-stuff
     myIntCORNMap[MSCORN::CORN_VEH_LASTREROUTEOFFSET] = 0;
     myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] = myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1;
+    // recheck stops
+    for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end();) {
+        if (find(edges.begin(), edges.end(), iter->lane->getEdge())==edges.end()) {
+            iter = myStops.erase(iter);
+        } else {
+            ++iter;
+        }
+    }
     rebuildAllowedLanes();
     return true;
 }
@@ -2028,14 +2047,14 @@ MSVehicle::checkLaneChangeConstraint(SUMOTime time) {
 
 
 void 
-MSVehicle::startLaneChange(int lane, SUMOTime stickyTime) {
+MSVehicle::startLaneChange(unsigned lane, SUMOTime stickyTime) {
     //std::cerr << "TraCI: init lane change to lane " << lane << " for " << stickyTime << "s" << " | node: " << myID << std::endl;
 	if (lane < 0) {
 		return;
 	}
 	timeBeforeLaneChange = MSNet::getInstance()->getCurrentTimeStep();
 	laneChangeStickyTime = stickyTime;
-	destinationLane = lane;
+	myDestinationLane = lane;
 	laneChangeConstraintActive = true;
 
 	checkForLaneChanges();
@@ -2051,7 +2070,7 @@ MSVehicle::checkForLaneChanges() {
 		myLaneChangeModel->requestLaneChange(REQUEST_NONE);
 		return;
 	}
-	if ((*myCurrEdge)->nLanes() <= destinationLane) {
+	if ((*myCurrEdge)->nLanes() <= myDestinationLane) {
 		laneChangeConstraintActive = false;
 		//std::cerr << "TraCI: " << "aborting lane change, lane does not exist" << " |node: " << myID << " |time: " << MSNet::getInstance()->getCurrentTimeStep() << std::endl;
 		return;
@@ -2062,17 +2081,17 @@ MSVehicle::checkForLaneChanges() {
 		currentLaneIndex++;
 	}
 
-//	std:cerr << "TraCI: currentLaneIndex=" << currentLaneIndex <<", destLane=" << destinationLane << " myLane=" << myLane->getID() << std::endl;
+//	std:cerr << "TraCI: currentLaneIndex=" << currentLaneIndex <<", destLane=" << myDestinationLane << " myLane=" << myLane->getID() << std::endl;
 
-	if (currentLaneIndex > destinationLane) {
+	if (currentLaneIndex > myDestinationLane) {
 		myLaneChangeModel->requestLaneChange(REQUEST_RIGHT);
 		//std::cerr << "TraCI: " << "requesting lane change to right " << " | node: " << myID << " |time: " << MSNet::getInstance()->getCurrentTimeStep()  << std::endl;
 	}
-	if (currentLaneIndex < destinationLane) {
+	if (currentLaneIndex < myDestinationLane) {
 		myLaneChangeModel->requestLaneChange(REQUEST_LEFT);
 		//std::cerr << "TraCI: " << "requesting lane change to left " << " | node: " << myID << " |time: " << MSNet::getInstance()->getCurrentTimeStep()  << std::endl;
 	} 
-	if (currentLaneIndex == destinationLane) {
+	if (currentLaneIndex == myDestinationLane) {
 //		std::cerr << "TraCI: holding lane" << std::endl;
         myLaneChangeModel->requestLaneChange(REQUEST_HOLD);
     }
@@ -2092,60 +2111,28 @@ MSVehicle::processTraCICommands(SUMOTime time) {
 }
 
 
-void 
+bool 
 MSVehicle::addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration) {
-	Stop newStop;
 
+    //if the stop exists update the duration
+    for (std::list<Stop>::iterator iter = myStops.begin(); iter != myStops.end(); iter++) {
+        if (iter->lane == lane && fabs(iter->pos - pos) < POSITION_EPS) {
+            iter->duration = duration;
+            return true;
+        }
+    }
+
+    Stop newStop;
 	newStop.lane = lane;
-	/*newStop.edge = edge;*/
 	newStop.pos = pos;
 	/*newStop.radius = radius;*/
 	newStop.duration = duration;
 	newStop.until = -1;
-	/*newStop.remainingTime = duration;*/
 	newStop.reached = false;
 	newStop.busstop = NULL;
-	newStop.isTraciStop = true;
-
-	/* if a list of stops associated with the given lane exists, it will be expanded,
-	 * otherwise, a new list of stops associated with the given lane is created.
-	 * All stops are kept sorted by their position*/
-	TraciStopList stopList = myTraciStops[lane->getEdge()->getID()];
-    for (TraciStopList::iterator iter = stopList.begin(); iter != stopList.end(); iter++) {
-        if (iter->lane == lane && fabs(iter->pos - pos) < POSITION_EPS) {
-            iter->duration = duration;
-            return;
-        }
-    }
-	stopList.push_back(newStop);
-	myTraciStops[lane->getEdge()->getID()] = stopList;
-
-	// if located on the current lane, the new stop is  added to the vehicles stop list
-	if (newStop.lane->getEdge() == (*myCurrEdge)) {
-		sortTraCIStopToStopList(newStop);
-	}
-
+    return addStop(newStop);
 	/*std::cerr << "added tracistop:  lane " << newStop.lane->getID() << "  pos " << newStop.pos << "  duration " 
-			<< newStop.duration  <<  "  radius " << newStop.radius << std::endl;*/
-}
-
-
-void 
-MSVehicle::sortTraCIStopToStopList(MSVehicle::Stop traciStop) {
-	if (myStops.size() == 0) {
-		myStops.insert(myStops.begin(), traciStop);
-	} else {
-		std::list<Stop>::iterator iter = myStops.begin();
-		while ((iter != myStops.end())
-				&& (traciStop.pos > iter->pos)
-				&& (iter->lane->getEdge() == traciStop.lane->getEdge())) {
-			iter++;
-		}
-		if (iter == myStops.end()) {
-			iter--;
-		}
-		myStops.insert(iter, traciStop);
-	}
+			<< newStop.duration  <<  std::endl;*/
 }
 
 

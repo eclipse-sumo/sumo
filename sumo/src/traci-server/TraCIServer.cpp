@@ -690,7 +690,7 @@ throw(TraCIException, std::invalid_argument)
     }
 	
 	// Forward command to vehicle
-	veh->startLaneChange(static_cast<int>(laneIndex), static_cast<SUMOTime>(stickyTime));
+	veh->startLaneChange(static_cast<unsigned>(laneIndex), static_cast<SUMOTime>(stickyTime));
 
     // create a reply message
     writeStatusCmd(respMsg, CMD_CHANGELANE, RTYPE_OK, "");
