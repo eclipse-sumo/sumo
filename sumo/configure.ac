@@ -93,10 +93,10 @@ m4_if(m4_sysval,[0],[
    AC_SUBST([MESOGUI_DIRS])
 ])
 
-AC_ARG_ENABLE([traci],[AS_HELP_STRING([--enable-traci],[enable Traffic Control Interface (TraCI) Server [default=no].])],
-              [AC_DEFINE(TRACI, 1, [Define to 1 in order to enable TraCI Server.])])
-AM_CONDITIONAL(TRACI, test x$enable_traci = xyes)
-if test x$enable_traci = xyes; then
+AC_ARG_ENABLE([traci],[AS_HELP_STRING([--disable-traci],[disable Traffic Control Interface (TraCI) Server [default=no].])],
+              [AC_DEFINE(NO_TRACI, 1, [Define to 1 in order to disable TraCI Server.])])
+AM_CONDITIONAL(TRACI, test x$enable_traci != xno)
+if test x$enable_traci != xno; then
    ac_enabled="$ac_enabled TRACI"
 else
    ac_disabled="$ac_disabled TRACI"
