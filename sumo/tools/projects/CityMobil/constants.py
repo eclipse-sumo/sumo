@@ -28,12 +28,3 @@ if os.name == "posix":
 else:
     SUMO = "..\\..\\..\\bin\\sumoF"
     SUMOGUI = "..\\..\\..\\bin\\guisim"
-
-CMD_SIMSTEP = 0x01
-CMD_STOP = 0x12
-CMD_CHANGETARGET = 0x31
-CMD_MOVENODE = 0x80
-
-POSITION_ROADMAP = 0x04
-
-RESULTS = {0x00: "OK", 0x01: "Not implemented", 0xFF: "Error"}
