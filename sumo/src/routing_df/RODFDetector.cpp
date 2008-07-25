@@ -580,11 +580,11 @@ RODFDetectorCon::writeEmitters(const std::string &file,
 
         // write the declaration into the file
         if (det->getType()==SOURCE_DETECTOR) {
-            defFileName = FileHelpers::getFilePath(file) + "/emitter_" + det->getID() + ".def.xml";
+            defFileName = FileHelpers::getFilePath(file) + "emitter_" + det->getID() + ".def.xml";
         } else if (writeCalibrators&&det->getType()==BETWEEN_DETECTOR) {
-            defFileName = FileHelpers::getFilePath(file) + "/calibrator_" + det->getID() + ".def.xml";
+            defFileName = FileHelpers::getFilePath(file) + "calibrator_" + det->getID() + ".def.xml";
         } else {
-            defFileName = FileHelpers::getFilePath(file) + "/other_" + det->getID() + ".def.xml";
+            defFileName = FileHelpers::getFilePath(file) + "other_" + det->getID() + ".def.xml";
             continue;
         }
 //        cout << det->getID() << endl;
@@ -740,7 +740,7 @@ RODFDetectorCon::writeSpeedTrigger(const std::string &file,
         RODFDetector *det = *i;
         // write the declaration into the file
         if (det->getType()==SINK_DETECTOR&&flows.knows(det->getID())) {
-            string filename = FileHelpers::getFilePath(file) + "/vss_" + det->getID() + ".def.xml";
+            string filename = FileHelpers::getFilePath(file) + "vss_" + det->getID() + ".def.xml";
             out << "   <trigger id=\"vss_" << det->getID() << '\"'
             << " objecttype=\"lane\""
             << " objectid=\"" << det->getLaneID() << '\"'
