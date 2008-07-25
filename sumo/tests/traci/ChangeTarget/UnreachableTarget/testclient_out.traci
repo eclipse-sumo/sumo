@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue May 13 19:06:32 2008
+TraCITestClient output file. Date: Fri Jul 25 10:43:58 2008
 
 
 -> Command sent: <SimulationStep>:
@@ -9,11 +9,11 @@ TraCITestClient output file. Date: Tue May 13 19:06:32 2008
 
 -> Command sent: <ChangeTarget>:
   NodeId=0 RoadId=e_bla
-.. Answered with error to command (49), [description: Can not retrieve road with given ID]
+.. Answered with error to command (49), [description: Can not retrieve road with ID e_bla]
 
 -> Command sent: <SimulationStep>:
   TargetTime=200 PosFormat=1
 ----
-Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
+Error while receiving command: tcpip::Socket::receive() @ recv: No error
 ----
 Error while sending command: send failed: Software caused tcpip::Socket abort
