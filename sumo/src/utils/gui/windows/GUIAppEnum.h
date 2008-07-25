@@ -330,8 +330,6 @@ enum {
     MID_SETTINGS_OK,
     /// Cancel-button was pushed
     MID_SETTINGS_CANCEL,
-    /// Save-button was pushed
-    MID_SETTINGS_SAVE,
     //@}
 
 

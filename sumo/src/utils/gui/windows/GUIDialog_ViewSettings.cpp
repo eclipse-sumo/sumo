@@ -68,7 +68,6 @@ FXDEFMAP(GUIDialog_ViewSettings) GUIDialog_ViewSettingsMap[]= {
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_NAMECHANGE,     GUIDialog_ViewSettings::onCmdNameChange),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_OK,                GUIDialog_ViewSettings::onCmdOk),
     FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_CANCEL,            GUIDialog_ViewSettings::onCmdCancel),
-    FXMAPFUNC(SEL_COMMAND,  MID_SETTINGS_SAVE,              GUIDialog_ViewSettings::onCmdSave),
     FXMAPFUNC(SEL_CHANGED,  MFXAddEditTypedTable::ID_TEXT_CHANGED,  GUIDialog_ViewSettings::onCmdEditTable),
 
     FXMAPFUNC(SEL_COMMAND,  MID_SIMPLE_VIEW_SAVE,    GUIDialog_ViewSettings::onCmdSaveSetting),
@@ -513,7 +512,6 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
     FXHorizontalFrame *f2 = new FXHorizontalFrame(contentFrame, LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_FILL_X|PACK_UNIFORM_WIDTH,0,0,0,0, 10,10,5,5);
     FXButton *initial=new FXButton(f2,"&Use",NULL,this,MID_SETTINGS_OK,BUTTON_INITIAL|BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
     new FXButton(f2,"&Discard",NULL,this,MID_SETTINGS_CANCEL,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
-    new FXButton(f2,"&Save",NULL,this,MID_SETTINGS_SAVE,BUTTON_DEFAULT|FRAME_RAISED|FRAME_THICK|LAYOUT_TOP|LAYOUT_LEFT|LAYOUT_CENTER_X,0,0,0,0, 30,30,4,4);
     initial->setFocus();
 
     rebuildColorMatrices(false);
@@ -542,21 +540,6 @@ GUIDialog_ViewSettings::onCmdCancel(FXObject*,FXSelector,void*)
     hide();
     (*mySettings) = myBackup;
     myParent->hideViewschemeEditor();
-    return 1;
-}
-
-
-long
-GUIDialog_ViewSettings::onCmdSave(FXObject*,FXSelector,void*)
-{
-    string name = mySchemeName->getItemText(mySchemeName->getCurrentItem()).text();
-    if (gSchemeStorage.contains(name)) {
-        if (MBOX_CLICKED_NO==FXMessageBox::question(this,MBOX_YES_NO,"Overwrite Settings?","Overwrite existing settings '%s'?", mySchemeName->getItemText(mySchemeName->getCurrentItem()).text())) {
-            return 1;
-        }
-    }
-    mySettings->name = name;
-    gSchemeStorage.add(*mySettings);
     return 1;
 }
 

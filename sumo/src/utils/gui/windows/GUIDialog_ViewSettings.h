@@ -72,9 +72,6 @@ public:
     /// Called on Cancel-button pressure
     long onCmdCancel(FXObject*,FXSelector,void*);
 
-    /// Called on Cancel-button pressure
-    long onCmdSave(FXObject*,FXSelector,void*);
-
     long onCmdColorChange(FXObject*,FXSelector,void*);
     long onCmdEditTable(FXObject*,FXSelector,void*data);
 
