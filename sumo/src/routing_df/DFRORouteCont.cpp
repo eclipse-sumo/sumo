@@ -145,7 +145,7 @@ DFRORouteCont::save(std::vector<std::string> &saved,
             continue;
         }
         saved.push_back((*j).routename);
-        assert(desc->edges2Pass.size()>=1);
+        assert(desc.edges2Pass.size()>=1);
         out << "   <route id=\"" << prependix << desc.routename << "\" multi_ref=\"x\">";
         for (std::vector<ROEdge*>::const_iterator k=desc.edges2Pass.begin(); k!=desc.edges2Pass.end(); k++) {
             if (k!=desc.edges2Pass.begin()) {
