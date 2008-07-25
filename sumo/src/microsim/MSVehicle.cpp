@@ -1426,7 +1426,14 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
     myCurrEdge = myRoute->find(currentEdge);
     myLastBestLanesEdge = 0;
     // update arrival definition
+    myArrivalPos = myParameter->arrivalPos;
     SUMOReal lastLaneLength = (*(myRoute->getLastEdge()->getLanes()))[0]->length();
+    if(myArrivalPos < 0) {
+        myArrivalPos += lastLaneLength; // !!! validate!
+    }
+    if(myArrivalPos<0) {
+        myArrivalPos = 0;
+    }
     if(myArrivalPos>lastLaneLength) {
         myArrivalPos = lastLaneLength;
     }
