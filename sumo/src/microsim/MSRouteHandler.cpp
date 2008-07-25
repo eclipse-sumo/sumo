@@ -452,7 +452,10 @@ MSRouteHandler::closeVehicle() throw(ProcessError)
     }
     if (vehicle!=0) {
         for (std::vector<MSVehicle::Stop>::iterator i=myVehicleStops.begin(); i!=myVehicleStops.end(); ++i) {
-            vehicle->addStop(*i);
+            if (!vehicle->addStop(*i)) {
+                throw ProcessError("Stop for vehicle '" + myVehicleParameter->id +
+                                   "' on lane '" + i->lane->getID() + "' is not downstream the current route.");
+            }
         }
     }
     myVehicleStops.clear();

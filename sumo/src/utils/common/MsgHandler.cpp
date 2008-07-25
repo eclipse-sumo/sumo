@@ -119,7 +119,7 @@ MsgHandler::inform(string msg, bool addType)
     // report to cerr if wished
     if (myReport2CERR) {
         if (myAmProcessingProcess) {
-            cout << endl;
+            cerr << endl;
         }
         cerr << msg << endl;
     }

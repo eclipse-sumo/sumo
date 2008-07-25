@@ -312,11 +312,10 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
         if (traci::TraCIServer::wasClosed()) {
             otherQuit = 3;
         }
-#else
+#endif
         if (myVehicleControl->haveAllVehiclesQuit()) {
             otherQuit = 4;
         }
-#endif
     } while (myStep<=stop && otherQuit==0);
     if (otherQuit!=0) {
         if(otherQuit==1) {

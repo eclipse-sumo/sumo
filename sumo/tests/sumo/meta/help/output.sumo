@@ -1,4 +1,4 @@
-SUMO sumo Version 0.9.7
+SUMO sumo Version dev-SVN-r5833
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 A microscopic road traffic simulation.
@@ -98,6 +98,10 @@ Usage: sumo.exe [OPTION]*
   -p, --print-options                 Prints option values before processing
   -?, --help                          Prints this screen
   -l, --log-file FILE                 Writes all messages to FILE
+
+ Traffic Control Interface (TraCI) Server Options:
+  --remote-port INT                   Enables TraCI Server if set
+  --penetration FLOAT                 Value in 0..1 [default: 1]
 
  C2C Options:
   --device.c2x.probability FLOAT      The probability for a vehicle to have c2c

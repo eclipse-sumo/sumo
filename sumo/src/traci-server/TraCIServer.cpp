@@ -36,6 +36,7 @@
 #include "utils/common/SUMODijkstraRouter.h"
 #include "utils/common/NamedObjectCont.h"
 #include "utils/common/RandHelper.h"
+#include <utils/common/MsgHandler.h>
 #include "utils/shapes/PointOfInterest.h"
 #include "utils/shapes/ShapeContainer.h"
 #include "utils/shapes/Polygon2D.h"
@@ -106,11 +107,9 @@ TraCIServer::TraCIServer()
 
 	// display warning if internal lanes are not used
 	if (!oc.isSet("use-internal-links")) {
-		std::stringstream msg;
-		msg << "Warning: starting TraCI without using internal lanes! "
-			<< "Vehicles will jump over junctions; use option --use-internal-links "
-			<< "to avoid unexpected behavior" << std::endl;
-		std::cout << msg.str();
+		MsgHandler::getWarningInstance()->inform("Starting TraCI without using internal lanes!");
+		MsgHandler::getWarningInstance()->inform("Vehicles will jump over junctions.", false);
+        MsgHandler::getWarningInstance()->inform("Use option --use-internal-links to avoid unexpected behavior", false);
 	}
 
 	// map the internal id of all traffic lights, polygons and poi to external id and vice versa
@@ -189,7 +188,7 @@ TraCIServer::TraCIServer()
     try {
         int port = oc.getInt("remote-port");
         // Opens listening socket
-        std::cout << "***Starting server on port " << port << " ***" << std::endl;
+        MsgHandler::getMessageInstance()->inform("***Starting server on port " + toString(port) + " ***");
         socket_ = new Socket(port);
         socket_->accept();
         // When got here, a client has connected
@@ -647,7 +646,10 @@ throw(TraCIException, std::invalid_argument)
 	}
 
     // Forward command to vehicle
-	veh->addTraciStop(/*MSEdge::dictionary(roadPos.roadId),*/ actLane, roadPos.pos, radius, waitTime);
+    if (!veh->addTraciStop(actLane, roadPos.pos, radius, waitTime)) {
+        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Stop is not downstream on the current route");
+		return;
+    }
 
     // create a reply message
     writeStatusCmd(respMsg, CMD_STOP, RTYPE_OK, "");
@@ -1391,7 +1393,7 @@ throw(TraCIException)
 			for (MSRouteIterator it=edges.begin(); it != edges.end(); it++) {
 //				cerr << " " << (*it)->getID();
 			}
-			cerr << endl;
+//			cerr << endl;
 			MSRoute route("", edges, false);
 			distance = static_cast<float>(route.getDistanceBetween(roadPos1.pos, roadPos2.pos,
 				MSEdge::dictionary(roadPos1.roadId), MSEdge::dictionary(roadPos2.roadId)));
@@ -1554,11 +1556,11 @@ TraCIServer::writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, 
 {
     if (status == RTYPE_ERR) {
         closeConnection_ = true;
-        cerr << "Answered with error to command " << (int)commandId
-        << ": " << description << endl;
+        MsgHandler::getErrorInstance()->inform("Answered with error to command " + toString(commandId) +
+                                               ": " + description);
     } else if (status == RTYPE_NOTIMPLEMENTED) {
-        cerr << "Requested command not implemented (" << (int)commandId
-        << "): " << description << endl;
+        MsgHandler::getErrorInstance()->inform("Requested command not implemented (" + toString(commandId) +
+                                               "): " + description);
     }
 
     // command length
