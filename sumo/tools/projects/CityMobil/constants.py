@@ -18,12 +18,15 @@ SLOTS_PER_ROW = 8
 SLOT_WIDTH = 5
 SLOT_LENGTH = 9
 SLOT_FOOT_LENGTH = 5
+CAR_CAPACITY = 4
+CYBER_CAPACITY = 10
+
 PORT = 8813
 if os.name == "posix":
     SUMO = "../../../src/sumo"
     SUMOGUI = "../../../src/sumo-guisim"
 else:
-    SUMO = "..\\..\\..\\bin\\sumoD"
+    SUMO = "..\\..\\..\\bin\\sumoF"
     SUMOGUI = "..\\..\\..\\bin\\guisim"
 
 CMD_SIMSTEP = 0x01
