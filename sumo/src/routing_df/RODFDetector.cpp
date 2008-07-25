@@ -201,6 +201,15 @@ RODFDetector::getFollowerDetectors() const
 
 
 
+void
+RODFDetector::clearDists(std::map<size_t, RandomDistributor<size_t>* > &dists) const throw()
+{
+    for(map<size_t, RandomDistributor<size_t>* >::iterator i=dists.begin(); i!=dists.end(); ++i) {
+        delete (*i).second;
+    }
+}
+
+
 bool
 RODFDetector::writeEmitterDefinition(const std::string &file,
                                      const RODFDetectorCon &detectors,
@@ -254,6 +263,7 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
             }
         } else {
             MsgHandler::getErrorInstance()->inform("Detector '" + getID() + "' has no routes!?");
+            clearDists(dists);
             return false;
         }
     }
@@ -315,11 +325,11 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                 out  << "/>\n";
                 srcFD.isLKW += srcFD.fLKW;
             }
-            delete destDist;
         }
     }
 //    cout << "a5" << endl;
     out.close();
+    clearDists(dists);
     return true;
 }
 

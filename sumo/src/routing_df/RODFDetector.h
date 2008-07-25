@@ -135,6 +135,13 @@ protected:
     int getFlowFor(const ROEdge *edge, SUMOTime time) const;
     SUMOReal computeDistanceFactor(const DFRORouteDesc &rd) const;
 
+
+    /** @brief Clears the given distributions map, deleting the timed distributions
+     * @param[in] dists The distribution map to clear
+     */
+    void clearDists(std::map<size_t, RandomDistributor<size_t>* > &dists) const throw();
+
+
 protected:
     std::string myID;
     std::string myLaneID;
