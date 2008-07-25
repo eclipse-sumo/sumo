@@ -88,7 +88,7 @@ FileHelpers::exists(string path)
 // file path evaluating functions
 // ---------------------------------------------------------------------------
 std::string
-FileHelpers::removeFile(const std::string &path)
+FileHelpers::getFilePath(const std::string &path)
 {
     size_t beg = path.find_last_of("\\/");
     if (beg==string::npos||beg==0) {
@@ -102,7 +102,7 @@ std::string
 FileHelpers::getConfigurationRelative(const std::string &configPath,
                                       const std::string &path)
 {
-    string retPath = removeFile(configPath);
+    string retPath = getFilePath(configPath);
     return retPath + path;
 }
 

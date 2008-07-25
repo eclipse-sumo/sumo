@@ -65,7 +65,7 @@ public:
      * @param[in] path The path to the file to return the folder it is located in
      * @return The directory of the named file
      */
-    static std::string removeFile(const std::string &path);
+    static std::string getFilePath(const std::string &path);
 
 
     /** @brief Returns the second path as a relative path to the first file
