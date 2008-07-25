@@ -178,6 +178,8 @@ GeoConvHelper::x2cartesian(Position2D &from, bool includeInBoundary)
             }
             p = pj_fwd(p, myProjection);
         } else {
+            p.u = from.x();
+            p.v = from.y();
             p = pj_inv(p, myProjection);
             p.u *= 100000.0 * RAD_TO_DEG;
             p.v *= 100000.0 * RAD_TO_DEG;
