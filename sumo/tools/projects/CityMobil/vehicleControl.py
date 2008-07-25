@@ -36,19 +36,17 @@ def reroute(occupancy, vehicleID):
                 break
         if slotEdge:
             break
-    command = changeTarget(slotEdge, vehicleID)
-    command += stopObject(slotEdge, vehicleID, SLOT_LENGTH-1.)
-    return command
+    changeTarget(slotEdge, vehicleID)
+    stopObject(slotEdge, vehicleID, SLOT_LENGTH-1.)
 
 def reroutePerson(edge, vehicleID):
     row = int(edge[5])
     targetEdge = "footmain%sto%s" % (row, row+1)
     if row == DOUBLE_ROWS-1:
         targetEdge = "footmainout"
-    command = stopObject(edge, vehicleID, 1., 0.)
-    command += changeTarget(targetEdge, vehicleID)
-    command += stopObject(targetEdge, vehicleID, ROW_DIST-10.)
-    return command
+    stopObject(edge, vehicleID, 1., 0.)
+    changeTarget(targetEdge, vehicleID)
+    stopObject(targetEdge, vehicleID, ROW_DIST-10.)
 
 def main():
     sumoExe = SUMO
@@ -60,26 +58,20 @@ def main():
     vehicleStatus = {}
     persons = {}
     waiting = {}
-    rerouteMsg = ""
     
     for step in range(1, 2000):
         if options.verbose:
             print "step", step
-        result = simStep(step, rerouteMsg)
-        rerouteMsg = ""
-        while result.ready():
-            info = result.read("!BBidB")
-            vehicleID = info[2]
-#            print info
-            edge = result.readString()
+        moveNodes = simStep(step)
+        for vehicleID, edge, pos in moveNodes:
             if vehicleID in vehicleStatus:
                 vehicleStatus[vehicleID].edge = edge
             else:
                 vehicleStatus[vehicleID] = Status(edge)
                 if edge == "mainin":
-                    rerouteMsg += reroute(occupancy, vehicleID)
+                    reroute(occupancy, vehicleID)
                 elif "foot" in edge:
-                    rerouteMsg += stopObject("-"+edge, vehicleID)
+                    stopObject("-"+edge, vehicleID)
                     parkEdge = edge.replace("foot", "slot")
                     if not parkEdge in persons:
                         persons[parkEdge] = []
@@ -87,14 +79,13 @@ def main():
                     vehicleStatus[vehicleID].parking = True
             if options.verbose:
                 print vehicleID, edge
-            pos = result.read("!fB")[0]
             if edge in persons and pos >= SLOT_LENGTH-1.5:
                 if options.verbose:
                     print "destReached", vehicleID, pos
                 remaining = []
                 for person in persons[edge]:
                     if vehicleStatus[person].parking:
-                        rerouteMsg += reroutePerson(edge.replace("slot", "-foot"), person)
+                        reroutePerson(edge.replace("slot", "-foot"), person)
                         vehicleStatus[person].parking = False
                     else:
                         remaining.append(person)
@@ -110,15 +101,15 @@ def main():
                 if not vehicleStatus[vehicleID].parking:
                     if vehicleStatus[vehicleID].load < CYBER_CAPACITY:                
                         if footEdge in waiting and waiting[footEdge]:
-                            rerouteMsg += stopObject(edge, vehicleID, ROW_DIST-5.)
+                            stopObject(edge, vehicleID, ROW_DIST-5.)
                             vehicleStatus[vehicleID].parking = True
                 else:
                     if pos >= ROW_DIST - 10:
                         while waiting[footEdge] and vehicleStatus[vehicleID].load < CYBER_CAPACITY:
                             person = waiting[footEdge].pop(0)
-                            rerouteMsg += stopObject(footEdge, person, ROW_DIST-10., 0.)
+                            stopObject(footEdge, person, ROW_DIST-10., 0.)
                             vehicleStatus[vehicleID].load += 1
-                        rerouteMsg += stopObject(edge, vehicleID, ROW_DIST-5., 0.)
+                        stopObject(edge, vehicleID, ROW_DIST-5., 0.)
                         vehicleStatus[vehicleID].parking = False
 
 optParser = OptionParser()
