@@ -337,6 +337,10 @@ private:
     // hold position type of last simstep command
     int resType_;
 
+    tcpip::Storage myInputStorage;
+    tcpip::Storage myOutputStorage;
+    bool myDoingSimStep;
+
 
 };
 

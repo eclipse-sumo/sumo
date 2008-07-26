@@ -1,3 +1,4 @@
-Answered with error to command 18: Can not retrieve node with given ID
+Error: Answered with error to command 18: Can not retrieve node with given ID
+Error: Answered with error to command 18: Wrong position in requestMessage after dispatching command. Expected command length was 27 but 6 Bytes were read.
 Error while receiving command: tcpip::Socket::receive() @ recv: Software caused tcpip::Socket abort
 Error while sending command: send failed: Software caused tcpip::Socket abort

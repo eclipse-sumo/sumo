@@ -312,8 +312,10 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
         if (traci::TraCIServer::wasClosed()) {
             otherQuit = 3;
         }
-#endif
+        if (OptionsCont::getOptions().getInt("remote-port") == 0 && myVehicleControl->haveAllVehiclesQuit()) {
+#else
         if (myVehicleControl->haveAllVehiclesQuit()) {
+#endif
             otherQuit = 4;
         }
     } while (myStep<=stop && otherQuit==0);

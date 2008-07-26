@@ -104,6 +104,7 @@ TraCIServer::TraCIServer()
 	totalNumVehicles_ = 0;
     closeConnection_ = false;
     netBoundary_ = NULL;
+    myDoingSimStep = false;
 
 	// display warning if internal lanes are not used
 	if (!oc.isSet("use-internal-links")) {
@@ -227,22 +228,33 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step)
         // 1. end time reached or
         // 2. got CMD_CLOSE or
         // 3. Client closes socket connection
+        if (instance_->myDoingSimStep) {
+            instance_->postProcessSimulationStep(instance_->myOutputStorage);
+            instance_->myDoingSimStep = false;
+        }
 
-        while (!instance_->closeConnection_) {
-            Storage storIn;
-            Storage storOut;
-            // Read a message
-            instance_->socket_->receiveExact(storIn);
-
-            while (storIn.valid_pos() && !instance_->closeConnection_) {
+        while (!closeConnection_) {
+            if (!instance_->myInputStorage.valid_pos()) {
+                if (instance_->myOutputStorage.size() > 0) {
+                    // send out all answers as one storage
+                    instance_->socket_->sendExact(instance_->myOutputStorage);
+                }
+                instance_->myInputStorage.reset();
+                instance_->myOutputStorage.reset();
+                // Read a message
+                instance_->socket_->receiveExact(instance_->myInputStorage);
+            }
+            while (instance_->myInputStorage.valid_pos() && !closeConnection_) {
                 // dispatch each command
-                if (instance_->dispatchCommand(storIn, storOut) == CMD_SIMSTEP) {
+                if (instance_->dispatchCommand(instance_->myInputStorage, instance_->myOutputStorage) == CMD_SIMSTEP) {
+                    instance_->myDoingSimStep = true;
                     return true;
                 }
             }
-
+        }
+        if (closeConnection_ && instance_->myOutputStorage.size() > 0) {
             // send out all answers as one storage
-            instance_->socket_->sendExact(storOut);
+            instance_->socket_->sendExact(instance_->myOutputStorage);
         }
     } catch (std::invalid_argument e) {
         throw ProcessError(e.what());
@@ -251,13 +263,11 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step)
     } catch (SocketException e) {
         throw ProcessError(e.what());
     }
-    if (instance_ != NULL) 
-    {
+    if (instance_ != NULL) {
         delete instance_;
         instance_ = 0;
         closeConnection_ = true;
     }
-    //instance_->targetTime_ = INT_MAX;
     return false;
 }
 
@@ -265,10 +275,7 @@ void
 TraCIServer::processAfterSimStep()
 {
     try {
-        Storage storOut;
         // send out all answers as one storage
-        instance_->postProcessSimulationStep(storOut);
-        instance_->socket_->sendExact(storOut);
     } catch (TraCIException e) {
         throw ProcessError(e.what());
     } catch (SocketException e) {
@@ -647,7 +654,7 @@ throw(TraCIException, std::invalid_argument)
 
     // Forward command to vehicle
     if (!veh->addTraciStop(actLane, roadPos.pos, radius, waitTime)) {
-        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Stop is not downstream on the current route");
+        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Stop on " + actLane->getID() + " is not downstream on the current route");
 		return;
     }
 
