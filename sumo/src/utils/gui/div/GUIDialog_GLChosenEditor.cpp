@@ -164,10 +164,10 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*,FXSelector,void*)
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("*.txt");
     if (gCurrentFolder.length()!=0) {
-        opendialog.setDirectory(gCurrentFolder.c_str());
+        opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        gCurrentFolder = opendialog.getDirectory().text();
+        gCurrentFolder = opendialog.getDirectory();
         string file = opendialog.getFilename().text();
         myParent->loadSelection(file);
         rebuildList();
@@ -179,21 +179,12 @@ GUIDialog_GLChosenEditor::onCmdLoad(FXObject*,FXSelector,void*)
 long
 GUIDialog_GLChosenEditor::onCmdSave(FXObject*,FXSelector,void*)
 {
-    // get the new file name
-    FXFileDialog opendialog(this,"Save List of selected Items");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
-    opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*.txt");
-    if (gCurrentFolder.length()!=0) {
-        opendialog.setDirectory(gCurrentFolder.c_str());
-    }
-    if (!opendialog.execute()||!MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+    FXString file = MFXUtils::getFilename2Write(this, "Save List of selected Items", ".txt", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+    if(file=="") {
         return 1;
     }
-    gCurrentFolder = opendialog.getDirectory().text();
-    string file = opendialog.getFilename().text();
     try {
-        gSelected.save(-1, file);
+        gSelected.save(-1, file.text());
     } catch (IOError &e) {
         FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
     }

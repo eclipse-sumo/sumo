@@ -82,6 +82,46 @@ MFXUtils::getTitleText(const FXString &appname, FXString filename) throw()
 }
 
 
+FXString
+MFXUtils::assureExtension(const FXString &filename, const FXString &defaultExtension) throw()
+{
+    FXString ext = FXFile::extension(filename);
+    if(ext=="") {
+        if(filename.rfind('.')==filename.length()-1) {
+            return filename + defaultExtension;
+        }
+        return filename + "." + defaultExtension;
+    }
+    return filename;
+}
+
+
+FXString
+MFXUtils::getFilename2Write(FXWindow *parent,
+                            const FXString &header, const FXString &extension,
+                            FXIcon *icon, FXString &currentFolder) throw()
+{
+    // get the new file name
+    FXFileDialog opendialog(parent, header);
+    opendialog.setIcon(icon);
+    opendialog.setSelectMode(SELECTFILE_ANY);
+    opendialog.setPatternList("*" + extension);
+    if (currentFolder.length()!=0) {
+        opendialog.setDirectory(currentFolder);
+    }
+    if (!opendialog.execute()) {
+        return "";
+    }
+    FXString file = assureExtension(opendialog.getFilename(), extension.after('.')).text();
+    if(!userPermitsOverwritingWhenFileExists(parent, file)) {
+        return "";
+    }
+    currentFolder = opendialog.getDirectory();
+    return file;
+}
+
+
+
 
 /****************************************************************************/
 

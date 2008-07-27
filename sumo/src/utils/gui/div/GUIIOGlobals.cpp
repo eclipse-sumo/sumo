@@ -28,7 +28,7 @@
 #include <config.h>
 #endif
 
-#include <string>
+#include "GUIIOGlobals.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -38,7 +38,7 @@
 // ===========================================================================
 // global variable definitions
 // ===========================================================================
-std::string gCurrentFolder;
+FXString gCurrentFolder;
 
 
 

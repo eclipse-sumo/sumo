@@ -30,7 +30,7 @@
 #include <config.h>
 #endif
 
-#include <string>
+#include <fx.h>
 
 
 // ===========================================================================
@@ -41,7 +41,7 @@
  * This value is loaded and stored within the registry on startup/shutdown
  *  of the application. It is changed after a file was loaded/saved.
  */
-extern std::string gCurrentFolder;
+extern FXString gCurrentFolder;
 
 
 #endif

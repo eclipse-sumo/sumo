@@ -1142,7 +1142,7 @@ GUIDialog_ViewSettings::onCmdExportSetting(FXObject*,FXSelector,void*data)
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.txt");
     if (gCurrentFolder.length()!=0) {
-        opendialog.setDirectory(gCurrentFolder.c_str());
+        opendialog.setDirectory(gCurrentFolder);
     }
     if (!opendialog.execute()||!MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
         return 1;
@@ -1171,10 +1171,10 @@ GUIDialog_ViewSettings::onCmdImportSetting(FXObject*,FXSelector,void*data)
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.txt");
     if (gCurrentFolder.length()!=0) {
-        opendialog.setDirectory(gCurrentFolder.c_str());
+        opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        gCurrentFolder = opendialog.getDirectory().text();
+        gCurrentFolder = opendialog.getDirectory();
         loadSettings(opendialog.getFilename().text());
     }
     return 1;

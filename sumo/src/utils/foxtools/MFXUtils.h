@@ -89,6 +89,41 @@ public:
      */
     static FXString getDocumentName(const FXString &filename) throw();
 
+    
+    /** @brief Corrects missing extension
+     *
+     * At first, the extension is determined. If there is none, the given default
+     *  extension is appended to the file name/path. Otherwise the
+     *  file name/path remains as is. 
+     * The so obtained correct file name is returned.
+     * @param[in] filename The filename to evaluate
+     * @param[in] defaultExtension The default extension to use
+     * @return The corrected filename (with extension if no one was given
+     */
+    static FXString assureExtension(const FXString &filename, const FXString &defaultExtension) throw();
+
+
+    /** @brief Returns the file name to write
+     *
+     * A somehow complete procedure for determining the file name of a file
+     *  to write. Builds a file dialog, checks whether a file was chosen, 
+     *  if so, checks whether it's not existing or the user allows to
+     *  overwrite it etc. 
+     *
+     * Returns an empty string if the file shall not be created, the
+     *  filename if it shall.
+     *
+     * @param[in] parent The window needed to display dialogs
+     * @param[in] header Title of the save-dialog
+     * @param[in] extension The extension the file should have (must be in the form '.xxx'
+     * @param[in] icon The icon the dialog should have
+     * @param[in] currentFolder The string into which the information about the current folder shall be saved
+     * @return The name of the file to write
+     */
+    static FXString getFilename2Write(FXWindow *parent,
+        const FXString &header, const FXString &extension,
+        FXIcon *icon, FXString &currentFolder) throw();
+
 };
 
 

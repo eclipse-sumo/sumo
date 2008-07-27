@@ -263,21 +263,12 @@ GUIParameterTracker::onCmdChangeAggregation(FXObject*,FXSelector,void*)
 long
 GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
 {
-    // get the file name
-    FXFileDialog opendialog(this, "Save Data As...");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
-    opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*.csv");
-    if (gCurrentFolder.length()!=0) {
-        opendialog.setDirectory(gCurrentFolder.c_str());
-    }
-    if (!opendialog.execute()||!MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+    FXString file = MFXUtils::getFilename2Write(this, "Save Data", ".csv", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+    if(file=="") {
         return 1;
     }
-    gCurrentFolder = opendialog.getDirectory().text();
-    string file = opendialog.getFilename().text();
     try {
-        OutputDevice &dev = OutputDevice::getDevice(file);
+        OutputDevice &dev = OutputDevice::getDevice(file.text());
         // write header
         TrackedVarsVector::iterator i;
         dev << "# ";

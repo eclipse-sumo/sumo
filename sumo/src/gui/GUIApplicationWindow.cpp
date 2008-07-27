@@ -565,7 +565,7 @@ GUIApplicationWindow::onCmdQuit(FXObject*,FXSelector,void*)
     getApp()->reg().writeIntEntry("SETTINGS","y",getY());
     getApp()->reg().writeIntEntry("SETTINGS","width",getWidth());
     getApp()->reg().writeIntEntry("SETTINGS","height",getHeight());
-    getApp()->reg().writeStringEntry("SETTINGS","basedir", gCurrentFolder.c_str());
+    getApp()->reg().writeStringEntry("SETTINGS","basedir", gCurrentFolder.text());
     if (isMaximized()) {
         getApp()->reg().writeIntEntry("SETTINGS","maximized", 1);
     } else {
@@ -618,10 +618,10 @@ GUIApplicationWindow::onCmdOpenConfiguration(FXObject*,FXSelector,void*)
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList(myConfigPattern.c_str());
     if (gCurrentFolder.length()!=0) {
-        opendialog.setDirectory(gCurrentFolder.c_str());
+        opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        gCurrentFolder = opendialog.getDirectory().text();
+        gCurrentFolder = opendialog.getDirectory();
         string file = opendialog.getFilename().text();
         load(file, false);
         myRecentConfigs.appendFile(file.c_str());
@@ -639,10 +639,10 @@ GUIApplicationWindow::onCmdOpenNetwork(FXObject*,FXSelector,void*)
     opendialog.setSelectMode(SELECTFILE_EXISTING);
     opendialog.setPatternList("SUMO nets (*.net.xml)\nAll files (*)");
     if (gCurrentFolder.length()!=0) {
-        opendialog.setDirectory(gCurrentFolder.c_str());
+        opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        gCurrentFolder = opendialog.getDirectory().text();
+        gCurrentFolder = opendialog.getDirectory();
         string file = opendialog.getFilename().text();
         load(file, true);
         myRecentNets.appendFile(file.c_str());

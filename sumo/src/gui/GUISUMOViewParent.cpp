@@ -196,12 +196,12 @@ GUISUMOViewParent::onCmdMakeSnapshot(FXObject*,FXSelector,void*)
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList(patterns);
     if (gCurrentFolder.length()!=0) {
-        opendialog.setDirectory(gCurrentFolder.c_str());
+        opendialog.setDirectory(gCurrentFolder);
     }
     if (!opendialog.execute()||!MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
         return 1;
     }
-    gCurrentFolder = opendialog.getDirectory().text();
+    gCurrentFolder = opendialog.getDirectory();
     string file = opendialog.getFilename().text();
     FXColor *buf = myView->getSnapshot();
     // save

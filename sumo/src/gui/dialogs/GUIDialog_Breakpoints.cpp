@@ -193,10 +193,10 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*,FXSelector,void*)
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.txt");
     if (gCurrentFolder.length()!=0) {
-        opendialog.setDirectory(gCurrentFolder.c_str());
+        opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        gCurrentFolder = opendialog.getDirectory().text();
+        gCurrentFolder = opendialog.getDirectory();
         string file = opendialog.getFilename().text();
         ifstream strm(file.c_str());
         while (strm.good()) {
@@ -218,22 +218,13 @@ GUIDialog_Breakpoints::onCmdLoad(FXObject*,FXSelector,void*)
 long
 GUIDialog_Breakpoints::onCmdSave(FXObject*,FXSelector,void*)
 {
-    // get the new file name
-    FXFileDialog opendialog(this, "Save Breakpoints");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
-    opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*.txt");
-    if (gCurrentFolder.length()!=0) {
-        opendialog.setDirectory(gCurrentFolder.c_str());
-    }
-    if (!opendialog.execute()||!MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
+    FXString file = MFXUtils::getFilename2Write(this, "Save Breakpoints", ".txt", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+    if(file=="") {
         return 1;
     }
-    gCurrentFolder = opendialog.getDirectory().text();
-    string file = opendialog.getFilename().text();
     string content = encode2TXT();
     try {
-        OutputDevice &dev = OutputDevice::getDevice(file);
+        OutputDevice &dev = OutputDevice::getDevice(file.text());
         dev << content;
         dev.close();
     } catch (IOError &e) {

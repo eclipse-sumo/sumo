@@ -343,10 +343,10 @@ GUIDialog_EditAddWeights::onCmdLoad(FXObject*,FXSelector,void*)
     opendialog.setSelectMode(SELECTFILE_ANY);
     opendialog.setPatternList("*.xml");
     if (gCurrentFolder.length()!=0) {
-        opendialog.setDirectory(gCurrentFolder.c_str());
+        opendialog.setDirectory(gCurrentFolder);
     }
     if (opendialog.execute()) {
-        gCurrentFolder = opendialog.getDirectory().text();
+        gCurrentFolder = opendialog.getDirectory();
         string file = opendialog.getFilename().text();
         Retriever_AddWeights retriever;
         std::vector<SAXWeightsHandler::ToRetrieveDefinition*> defs;
@@ -364,26 +364,16 @@ GUIDialog_EditAddWeights::onCmdLoad(FXObject*,FXSelector,void*)
 long
 GUIDialog_EditAddWeights::onCmdSave(FXObject*,FXSelector,void*)
 {
-    // get the new file name
-    FXFileDialog opendialog(this, "Save Additional Weights");
-    opendialog.setIcon(GUIIconSubSys::getIcon(ICON_EMPTY));
-    opendialog.setSelectMode(SELECTFILE_ANY);
-    opendialog.setPatternList("*.xml");
-    if (gCurrentFolder.length()!=0) {
-        opendialog.setDirectory(gCurrentFolder.c_str());
-    }
-    if (!opendialog.execute()||!MFXUtils::userPermitsOverwritingWhenFileExists(this, opendialog.getFilename())) {
-        return 1;
-    }
-    gCurrentFolder = opendialog.getDirectory().text();
-    string file = opendialog.getFilename().text();
-    string content = encode2XML();
-    try {
-        OutputDevice &dev = OutputDevice::getDevice(file);
-        dev << content;
-        dev.close();
-    } catch (IOError &e) {
-        FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
+    FXString file = MFXUtils::getFilename2Write(this, "Save Additional Weights", ".xml", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
+    if(file!="") {
+        string content = encode2XML();
+        try {
+            OutputDevice &dev = OutputDevice::getDevice(file.text());
+            dev << content;
+            dev.close();
+        } catch (IOError &e) {
+            FXMessageBox::error(this, MBOX_OK, "Storing failed!", e.what());
+        }
     }
     return 1;
 }
