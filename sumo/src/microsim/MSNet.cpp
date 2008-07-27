@@ -396,7 +396,7 @@ void
 MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
 {
 #ifndef NO_TRACI
-    bool doTraci = traci::TraCIServer::processCommandsUntilSimStep(myStep);
+    traci::TraCIServer::processCommandsUntilSimStep(myStep);
 #endif
     myStep = step;
     // execute beginOfTimestepEvents
@@ -492,11 +492,6 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
         mySimDuration += mySimStepDuration;
         myVehiclesMoved += myVehicleControl->getRunningVehicleNo();
     }
-#ifndef NO_TRACI
-    if (doTraci) {
-        traci::TraCIServer::processAfterSimStep();
-    }
-#endif
 }
 
 

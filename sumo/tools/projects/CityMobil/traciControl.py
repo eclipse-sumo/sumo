@@ -14,6 +14,7 @@ import socket, time, struct
 CMD_SIMSTEP = 0x01
 CMD_STOP = 0x12
 CMD_CHANGETARGET = 0x31
+CMD_CLOSE = 0x7F
 CMD_MOVENODE = 0x80
 
 POSITION_ROADMAP = 0x04
@@ -62,10 +63,16 @@ def _sendExact():
     _socket.send(_message.string)
     _message.string = ""
     result = _recvExact()
-    prefix = result.read("!BBB")
-    err = result.readString()
-    if prefix[2] or err:
-        print prefix, RESULTS[prefix[2]], err
+    for command in _message.queue:
+        prefix = result.read("!BBB")
+        err = result.readString()
+        if prefix[2] or err:
+            print prefix, RESULTS[prefix[2]], err
+        elif prefix[1] != command:
+            print "Error! Received answer %s for command %s." % (prefix[1], command)
+        elif prefix[1] == CMD_STOP:
+            length = result.read("!B")[0] - 1
+            result.read("!%sx" % length)
     _message.queue = []
     return result
 
@@ -95,3 +102,9 @@ def stopObject(edge, objectID, pos=1., duration=10000.):
 def changeTarget(edge, objectID):
     _message.queue.append(CMD_CHANGETARGET)
     _message.string += struct.pack("!BBii", 1+1+4+4+len(edge), CMD_CHANGETARGET, objectID, len(edge)) + edge
+
+def close():
+    _message.queue.append(CMD_CLOSE)
+    _message.string += struct.pack("!BB", 1+1, CMD_CLOSE)
+    _sendExact()
+    _socket.close()

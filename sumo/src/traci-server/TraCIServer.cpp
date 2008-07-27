@@ -210,7 +210,7 @@ TraCIServer::~TraCIServer()
 
 /*****************************************************************************/
 
-bool
+void
 TraCIServer::processCommandsUntilSimStep(SUMOTime step)
 {
     try {
@@ -218,11 +218,11 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step)
             if (OptionsCont::getOptions().getInt("remote-port") != 0) {
                 instance_ = new traci::TraCIServer();
             } else {
-                return false;
+                return;
             }
         }
         if (instance_->targetTime_ < step) {
-            return false;
+            return;
         }
         // Simulation should run until
         // 1. end time reached or
@@ -248,7 +248,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step)
                 // dispatch each command
                 if (instance_->dispatchCommand(instance_->myInputStorage, instance_->myOutputStorage) == CMD_SIMSTEP) {
                     instance_->myDoingSimStep = true;
-                    return true;
+                    return;
                 }
             }
         }
@@ -267,19 +267,6 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step)
         delete instance_;
         instance_ = 0;
         closeConnection_ = true;
-    }
-    return false;
-}
-
-void
-TraCIServer::processAfterSimStep()
-{
-    try {
-        // send out all answers as one storage
-    } catch (TraCIException e) {
-        throw ProcessError(e.what());
-    } catch (SocketException e) {
-        throw ProcessError(e.what());
     }
 }
 

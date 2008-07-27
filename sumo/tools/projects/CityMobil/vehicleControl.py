@@ -14,7 +14,7 @@ import subprocess, numpy
 from optparse import OptionParser
 
 from constants import *
-from traciControl import initTraCI, simStep, stopObject, changeTarget
+from traciControl import initTraCI, simStep, stopObject, changeTarget, close
 
 class Status:
 
@@ -111,6 +111,7 @@ def main():
                             vehicleStatus[vehicleID].load += 1
                         stopObject(edge, vehicleID, ROW_DIST-5., 0.)
                         vehicleStatus[vehicleID].parking = False
+    close()
 
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",

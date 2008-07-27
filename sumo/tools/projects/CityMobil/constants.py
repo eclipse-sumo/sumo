@@ -26,5 +26,5 @@ if os.name == "posix":
     SUMO = "../../../src/sumo"
     SUMOGUI = "../../../src/sumo-guisim"
 else:
-    SUMO = "..\\..\\..\\bin\\sumoF"
+    SUMO = "..\\..\\..\\bin\\sumo"
     SUMOGUI = "..\\..\\..\\bin\\guisim"
