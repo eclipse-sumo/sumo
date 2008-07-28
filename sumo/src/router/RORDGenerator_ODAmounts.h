@@ -190,7 +190,7 @@ private:
     SUMOTime myUpperIntervalEnd;
 
     /// The number of vehicles to emit
-    size_t myVehicle2EmitNumber;
+    unsigned int myVehicle2EmitNumber;
 
     /// The current time step read
     SUMOTime myCurrentTimeStep;
