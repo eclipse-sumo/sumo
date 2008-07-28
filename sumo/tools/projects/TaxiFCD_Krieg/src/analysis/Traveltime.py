@@ -4,7 +4,9 @@
 @author  Sascha.Krieg@dlr.de
 @date    2008-04-21
 
-Compares the travel time of vtypeprobe and FCD.
+Compares the travel time of vtypeprobe and FCD. (avg=False)
+
+Secondly the average travel time will be calculate (avg=True). 
 
 Copyright (C) 2008 DLR/FS, Germany
 All rights reserved
@@ -13,18 +15,24 @@ All rights reserved
 from pylab import *
 from analysis.Taxi import * 
 import util.Reader  as reader
+from util import CalcTime 
 
 PERC=True #sets the view (absolute or relative)
 colorTupel=('#ff4500','#7fff00','#dc143c','#ffd700','#1e90ff','#9932cc')
 traveltimeList=[]
+avg=True
+
 def main(): 
     print "start program"
-    if PERC:   
-        #drawPieChart()
-        drawBarChart()
-    else:
-        drawBarChart()
-    show()
+    if avg: 
+        clacAvg()
+    else:    
+        if PERC:   
+            #drawPieChart()
+            drawBarChart()
+        else:
+            drawBarChart()
+        show()
     print "end"
     
 def getPiePieces():
@@ -96,25 +104,45 @@ def getTimeDiff(steps,sim=True):
             else:
                 times[2]=step.time   
     
-    if None in times:
+    if (None in times and not avg) or (avg and times[2]==None or times[3]==None):
         raise TypeError, "Can't calculate time difference because not all needed values are available. %s" %times
     
-    #clac travel time diff
-    traveltimeList.append(times[3]-times[2])
-    #traveltimeList.append(times[1]-times[0])
-    diff=(times[3]-times[2])-(times[1]-times[0])
-    if PERC:
-        if (100*diff)/(times[3]-times[2])<-1000:     
-            print  "%%",(100*diff)/(times[3]-times[2])         
-            print "Diff",diff
-            print "fcd",(times[3]-times[2])  
-            print "vtype",times[1]-times[0]
-            
-        return (100*diff)/(times[3]-times[2])
-    else:    
-        return diff
+    if not avg:
+        #clac travel time diff
+        traveltimeList.append(times[3]-times[2])
+        #traveltimeList.append(times[1]-times[0])
+        diff=(times[3]-times[2])-(times[1]-times[0])
+        if PERC:
+            if (100*diff)/(times[3]-times[2])<-1000:     
+                print  "%%",(100*diff)/(times[3]-times[2])         
+                print "Diff",diff
+                print "fcd",(times[3]-times[2])  
+                print "vtype",times[1]-times[0]
+                
+            return (100*diff)/(times[3]-times[2])
+        else:    
+            return diff
+    else: #for calc of avg    
+        return (times[3]-times[2])  #FCD duration 
     
-      
+def clacAvg():
+   durationList=[]
+   taxis=reader.readAnalysisInfo()   
+   for taxi in taxis:
+       try:    
+           dur=getTimeDiff(taxi.getSteps())
+           durationList.append(dur)
+           if dur >10000:
+               print taxi
+       except TypeError, e:
+            print "Error by taxi %s : %s"  %(taxi.id,e.message) 
+   print "no",len(durationList)
+   print "avg", sum(durationList)/(len(durationList)+0.0),"s =",
+   CalcTime.getSecsInTime(int(round(sum(durationList)/(len(durationList)+0.0)))) 
+   print "min", min(durationList),"s =",
+   CalcTime.getSecsInTime(min(durationList))
+   print "max", max(durationList),"s =",
+   CalcTime.getSecsInTime(max(durationList)) 
         
 def drawPieChart():
     """Draws a pie chart with the relative travel time aberrance."""

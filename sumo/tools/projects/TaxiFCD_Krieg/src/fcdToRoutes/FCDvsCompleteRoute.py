@@ -6,6 +6,9 @@
 
 Compares the FCD-route of an taxi with the generated route which is used in the simulation.
 The output data can be visualized with the script My_mpl_dump_onNet based on mpl_dump_onNet from Daniel.
+(avg=False)
+
+Secondly the average of added Edges per route will be calculate (avg=True). 
 
 Copyright (C) 2008 DLR/FS, Germany
 All rights reserved
@@ -16,13 +19,17 @@ import util.Path as path
 #global vars
 
 edgeList=[]
+routeDict= {}
 taxi="70_1" #the Taxi for which the output should be generated
-
+avg=True
 
 def main():
     print "start program"    
     readRoutes()
-    writeOutput()
+    if avg: 
+        clacAvg()
+    else:   
+        writeOutput()
     print "end"
     
 
@@ -31,9 +38,25 @@ def readRoutes():
         and sets for each edge in t1CompletePath the color=green
         and if the edge is also in taxiRoutesPath changes the color to red.
     """
+       
+    def countEdges(line): 
+        #get Taxi-Id
+        id=line.split('"')[1]
+        line=inputFile.next() #go to next line with edges
+         
+        words=line[line.find(">")+1:line.find("</")].split(" ")
+        lastEdge=words[0]
+        no=0
+        for edge in words[1:]:            
+            if lastEdge!=edge:
+                no+=1
+            lastEdge=edge
+        #no=len(line[line.find(">")+1:line.find("</")].split(" ")) #splited in single edges
+        routeDict.setdefault(id,[]).append(no)        
+            
     inputFile=open(path.taxiRoutesComplete,'r')
     for line in inputFile:
-        if line.find("<vehicle id=\""+taxi+"\"")!=-1:
+        if line.find("<vehicle id=\""+taxi+"\"")!=-1 and not avg:
             line=inputFile.next()
             #         delete edges tag at start and end    
             words=line[line.find(">")+1:line.find("</")].split(" ")
@@ -41,12 +64,15 @@ def readRoutes():
                 edgeList.append("id=\""+edge+"\" no=\"0.9\"")
             print edgeList
             
+        #for calc of avg    
+        if line.find("<vehicle id=")!=-1 and avg:
+            countEdges(line) 
     inputFile.close()
     
     #read taxiRoutesPath
     inputFile=open(path.taxiRoutes,'r')
     for line in inputFile:
-        if line.find("<vehicle id=\""+taxi+"\"")!=-1:
+        if line.find("<vehicle id=\""+taxi+"\"")!=-1 and not avg:
             line=inputFile.next()
             #         delete edges tag at start and end    
             words=line[line.find(">")+1:line.find("</")].split(" ")
@@ -58,8 +84,33 @@ def readRoutes():
                     edgeList.append("id=\""+edge+"\" no=\"0.5\"")
             print edgeList
             
+        #for calc of avg    
+        if line.find("<vehicle id=")!=-1 and avg:
+            countEdges(line) 
     inputFile.close()
 
+def clacAvg():
+    diffList=[]
+    orgList=[]
+    compList=[]
+    for id,noList in routeDict.iteritems():        
+        if len(noList)<2:
+            continue       
+        orgList.append(noList[1])  
+        compList.append(noList[0])  
+        diffList.append(noList[0]-noList[1])
+        #In Prozent
+        # Kanten die nur in Sumo sind mit "/" bei berechnung entfernen
+        
+        
+    print diffList
+    print "sum", sum(diffList)
+    print "len", len(diffList)
+    print "avg", sum(diffList)/(len(diffList)+0.0)
+    print "avgOrg", sum(orgList)/(len(orgList)+0.0)," edges"
+    print "avgCompleted", sum(compList)/(len(compList)+0.0)," edges"
+    print "div comp-org", (sum(compList)/(len(compList)+0.0))-(sum(orgList)/(len(orgList)+0.0))," edges"
+    
     
 def writeOutput():
     """Writes an XML-File with the extracted results"""

@@ -46,6 +46,34 @@ def readFCD():
     for line in inputFile:
         words= line.split("\t")
         #add route
+        taxiId=getTaxiId(words[4]) 
+        actTime=getTimeInSecs(words[0])              
+        if taxiId in taxis:
+            prevTime=routes[taxis.index(taxiId)][-1][0]           
+            if words[1] in vlsEdges and (actTime-prevTime)<180: #check if time lies not to far away from each other 
+                routes[taxis.index(taxiId)].append((actTime, words[1]))
+            elif words[1] in vlsEdges: #if time diff >3min add a new taxiId and start a new route
+                taxiIdDict[words[4]]+=1   #create new taxiId    
+                taxis.append(getTaxiId(words[4])) #append new created id
+                routes.append([(actTime,words[1])]) #append new list (list will be filled with edges) 
+            else:
+                taxiIdDict[words[4]]+=1                
+        elif words[1] in vlsEdges: #if the edge is in the VLS-Area a new route is created 
+            taxis.append(taxiId)
+            #                 departTime               
+            routes.append([(actTime,words[1])])
+           
+    inputFile.close() 
+    print len(taxis) 
+    
+def readFCDOLD(): 
+    """Reads the FCD and creates a list of Taxis and for each a list of routes"""
+    vlsEdges=reader.readVLS_Edges()
+       
+    inputFile=open(path.fcd,'r')
+    for line in inputFile:
+        words= line.split("\t")
+        #add route
         taxiId=getTaxiId(words[4])              
         if taxiId in taxis:           
             if words[1] in vlsEdges:
@@ -123,9 +151,9 @@ def writeRoutes():
     # known for like used in java
     for i in xrange(len(taxis)):              
         if len(routes[i])>3: 
-            outputFile.write("\t<vehicle id=\""+taxis[i]+"\" type=\"taxi\" depart=\""+ str(routes[i].pop(0))+"\" color=\"1,0,0\">\n")
+            outputFile.write("\t<vehicle id=\""+taxis[i]+"\" type=\"taxi\" depart=\""+ str(routes[i][0][0])+"\" color=\"1,0,0\">\n")
             outputFile.write("\t\t<route>")
-            for edge in routes[i]:
+            for time,edge in routes[i]:
                   outputFile.write(edge+" ")
             outputFile.seek(-1,1) #delete the space between the last edge and </route>
             outputFile.write("</route>\n")
