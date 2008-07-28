@@ -110,7 +110,7 @@ MSCalibrator::execute(SUMOTime timestep) throw(ProcessError)
     */
 
     //positive diff=too many vehicles, negative diff=not enough vehicles
-    SUMOReal veh_cnt = myIL->getNVehContributed();
+    unsigned veh_cnt = myIL->getNVehContributed();
     SUMOReal diff =  veh_cnt - vehPerInterval + myToCalibrate;
     SUMOReal meanSpeed = myIL->getCurrentSpeed();
 
@@ -123,7 +123,7 @@ MSCalibrator::execute(SUMOTime timestep) throw(ProcessError)
 
             myToCalibrate = diff - vehNum;
 
-            diff = vehNum;
+            diff = (SUMOReal)vehNum;
         } else {
             myToCalibrate = diff - floor(diff);
         }

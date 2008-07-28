@@ -30,6 +30,7 @@
 #include <config.h>
 #endif
 
+#include <utils/common/SUMOTime.h>
 #include "MSPhaseDefinition.h"
 
 
@@ -52,15 +53,15 @@ public:
     SUMOTime maxDuration;
 
     /// constructor
-    MSActuatedPhaseDefinition(size_t durationArg,
+    MSActuatedPhaseDefinition(SUMOTime durationArg,
                               const std::bitset<64> &driveMaskArg, const std::bitset<64> &breakMaskArg,
                               const std::bitset<64> &yellowMaskArg,
-                              int minDurationArg, int maxDurationArg)
+                              SUMOTime minDurationArg, SUMOTime maxDurationArg)
             : MSPhaseDefinition(durationArg, driveMaskArg,
                                 breakMaskArg, yellowMaskArg),
             minDuration(minDurationArg), maxDuration(maxDurationArg) {
         // defines minDuration
-        size_t minDurationDefault = 10;
+        SUMOTime minDurationDefault = 10;
         if (minDurationArg < 0) {
             if (durationArg < minDurationDefault) {
                 minDuration = durationArg;
@@ -71,7 +72,7 @@ public:
             minDuration = minDurationArg;
         }
         // defines maxDuration (maxDuration is only used in MSActuatedTraffifLight Logic)
-        size_t maxDurationDefault = 30;
+        SUMOTime maxDurationDefault = 30;
         if (maxDurationArg < 0) {
             if (durationArg > maxDurationDefault) {
                 maxDuration = durationArg;

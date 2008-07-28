@@ -84,8 +84,8 @@ void
 MSDevice_C2C::buildLookUpInformation()
 {
     Boundary boundary = GeoConvHelper::getConvBoundary();
-    myLookupXSize = (size_t)((boundary.xmax()-boundary.xmin())/MSGlobals::gLANRange) + 1;
-    myLookupYSize = (size_t)((boundary.ymax()-boundary.ymin())/MSGlobals::gLANRange) + 1;
+    myLookupXSize = (unsigned)((boundary.xmax()-boundary.xmin())/MSGlobals::gLANRange) + 1;
+    myLookupYSize = (unsigned)((boundary.ymax()-boundary.ymin())/MSGlobals::gLANRange) + 1;
     // allocate grid
     size_t size = myLookupXSize*myLookupYSize;
     // get the boundary
@@ -179,7 +179,7 @@ MSDevice_C2C::computeLaneCells(const Position2DVector &lane, const MSEdge *edge)
     SUMOReal y22 = end.y() - offsets.second;
 
     Boundary bb1;
-    for (size_t i=0; i<lane.size(); i++) {
+    for (unsigned i=0; i<lane.size(); i++) {
         bb1.add(lane[i]);
     }
     // compute the cells the lane is going through

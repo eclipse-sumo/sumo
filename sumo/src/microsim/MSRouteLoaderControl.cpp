@@ -78,7 +78,7 @@ MSRouteLoaderControl::loadNext(SUMOTime step)
         return myVehCont;
     }
     // load all routes for the specified time period
-    size_t run = step;
+    SUMOTime run = step;
     bool furtherAvailable = true;
     for (;
             furtherAvailable &&

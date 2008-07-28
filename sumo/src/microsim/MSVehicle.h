@@ -658,7 +658,7 @@ public:
      * @param travelTime: the new time to be set for the edge
      * @param currentTime: the current simulation time
      */
-    bool changeEdgeWeightLocally(std::string edgeID, double travelTime, SUMOTime currentTime);
+    bool changeEdgeWeightLocally(std::string edgeID, SUMOReal travelTime, SUMOTime currentTime);
 
     /**
      * Used by TraCIServer to restore the weight of an edge that was changed previously

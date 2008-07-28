@@ -157,12 +157,12 @@ MSAgentbasedTrafficLightLogic::lengthenCycleTime(size_t toLengthen)
 
     //lengthens the phases acording to the difference between duration and maxDuration
     for (GreenPhasesVector::iterator i=tmp_phases.begin(); i!=tmp_phases.end(); i++) {
-        size_t toLengthenPerPhase = 0;
+        SUMOTime toLengthenPerPhase = 0;
         SUMOReal tmpdb = ((*i).first * toLengthen / SUMOReal(maxLengthen)) + (SUMOReal) 0.5;
-        toLengthenPerPhase = static_cast<size_t>(tmpdb);
+        toLengthenPerPhase = static_cast<SUMOTime>(tmpdb);
         toLengthen = toLengthen - toLengthenPerPhase;
         maxLengthen = maxLengthen - (*i).first;
-        size_t newDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*i).second])->duration + toLengthenPerPhase;
+        SUMOTime newDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*i).second])->duration + toLengthenPerPhase;
         static_cast<MSActuatedPhaseDefinition*>(myPhases[(*i).second])->duration = newDur;
     }
 }
@@ -198,12 +198,12 @@ MSAgentbasedTrafficLightLogic::cutCycleTime(size_t toCut)
 
     //cuts the phases acording to the difference between duration and minDuration
     for (GreenPhasesVector::iterator i=tmp_phases.begin(); i!=tmp_phases.end(); i++) {
-        size_t toCutPerPhase = 0;
+        SUMOTime toCutPerPhase = 0;
         SUMOReal tmpdb = ((*i).first * toCut / SUMOReal(maxCut)) + (SUMOReal) 0.5;
-        toCutPerPhase = static_cast<size_t>(tmpdb);
+        toCutPerPhase = static_cast<SUMOTime>(tmpdb);
         toCut = toCut - toCutPerPhase;
         maxCut = maxCut - (*i).first;
-        size_t newDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*i).second])->duration - toCutPerPhase;
+        SUMOTime newDur = static_cast<MSActuatedPhaseDefinition*>(myPhases[(*i).second])->duration - toCutPerPhase;
         static_cast<MSActuatedPhaseDefinition*>(myPhases[(*i).second])->duration = newDur;
     }
 }

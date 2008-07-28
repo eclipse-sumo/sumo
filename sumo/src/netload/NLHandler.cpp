@@ -910,7 +910,7 @@ NLHandler::addPhase(const SUMOSAXAttributes &attrs)
         return;
     }
     // try to get the phase duration
-    size_t duration;
+    int duration;
     try {
         duration = attrs.getInt(SUMO_ATTR_DURATION);
     } catch (EmptyData &) {

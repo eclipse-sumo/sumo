@@ -1604,7 +1604,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
                     if ((*k)->getLane()->getEdge()==*(ce)) {
                         MSEdge::LaneCont::const_iterator l=find(lanes->begin(), lanes->end(), (*k)->getLane());
                         if (l!=lanes->end()) {
-                            int pos = distance(lanes->begin(), l);
+                            int pos = (int)distance(lanes->begin(), l);
                             int cdist = abs(pos-bestPos);
                             if (bestDistance==-100||bestDistance>cdist) {
                                 bestDistance = cdist;
@@ -1916,10 +1916,10 @@ MSVehicle::checkReroute(SUMOTime t)
 }
 
 bool
-MSVehicle::changeEdgeWeightLocally(std::string edgeID, double travelTime, SUMOTime currentTime)
+MSVehicle::changeEdgeWeightLocally(std::string edgeID, SUMOReal travelTime, SUMOTime currentTime)
 {
     MSEdge* edgeToChange = MSEdge::dictionary(edgeID);
-    double oldNeededTime = -1;
+    SUMOReal oldNeededTime = -1;
     SUMOTime oldTime = -1;
 
     if (edgeToChange == NULL || travelTime <= 0) {
@@ -2071,7 +2071,7 @@ MSVehicle::startLaneChange(unsigned lane, SUMOTime stickyTime) {
 void 
 MSVehicle::checkForLaneChanges() {
 	MSLane* tmpLane;
-	int currentLaneIndex = 0;
+	unsigned currentLaneIndex = 0;
 
 	if (!laneChangeConstraintActive) {
 		myLaneChangeModel->requestLaneChange(REQUEST_NONE);
