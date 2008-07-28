@@ -1,4 +1,19 @@
 #!/usr/bin/env python
+"""
+@file    version.py
+@author  Michael.Behrisch@dlr.de
+@date    2007
+@version $Id$
+
+This script rebuilds "/../../src/version.h", the file which
+ lets the applications know the version of their build.
+If a version file exists, it is kept, otherwise the current
+ SVN revision is used as version information.
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
+"""
+
 import sys
 from os.path import dirname, exists, getmtime
 
