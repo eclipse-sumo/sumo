@@ -1140,7 +1140,7 @@
 
           <listitem>
             <para>The <sgmltag>function</sgmltag>-tag was removed for version
-            0.10.0; a warning is generated when this attribute is used</para>
+            0.9.9; a warning is generated when this attribute is used</para>
           </listitem>
         </itemizedlist>
 
@@ -1322,7 +1322,7 @@
 
           <listitem>
             <para>The <sgmltag>function</sgmltag>-tag was removed for version
-            0.10.0; a warning is generated when this attribute is used</para>
+            0.9.9; a warning is generated when this attribute is used</para>
           </listitem>
         </itemizedlist>
       </sect2>
@@ -4375,17 +4375,17 @@
         </listitem>
 
         <listitem>
-          <para>Changes in version 0.10.0</para>
+          <para>Changes in version 0.9.9</para>
 
           <itemizedlist>
             <listitem>
               <para>The <sgmltag>function</sgmltag>-tag within edges was
-              removed in version 0.10.0</para>
+              removed in version 0.9.9</para>
             </listitem>
 
             <listitem>
               <para>The <sgmltag>function</sgmltag>-tag for edge types was
-              removed in version 0.10.0</para>
+              removed in version 0.9.9</para>
             </listitem>
           </itemizedlist>
         </listitem>
@@ -5340,7 +5340,7 @@
 
           <listitem>
             <para>The possibility to use csv-files for turning ratios was
-            removed for version 0.10.0</para>
+            removed for version 0.9.9</para>
           </listitem>
         </itemizedlist>
 
@@ -5633,7 +5633,7 @@
           </listitem>
 
           <listitem>
-            <para>Changes in 0.10.0 (!!!)<itemizedlist>
+            <para>Changes in 0.9.9<itemizedlist>
                 <listitem>
                   <para>The option <option>--vissim</option> is not longer
                   supported - the od-tables have to be given at the command
@@ -7957,7 +7957,8 @@ myDet1;0;10;2;100;80
 
                   <entry><literal>arcseconds</literal></entry>
 
-                  <entry>The lat-position of the vehicle within the net</entry>
+                  <entry>The lat-position of the vehicle within the
+                  net</entry>
                 </row>
 
                 <row>
@@ -7965,7 +7966,8 @@ myDet1;0;10;2;100;80
 
                   <entry><literal>arcseconds</literal></entry>
 
-                  <entry>The lon-position of the vehicle within the net</entry>
+                  <entry>The lon-position of the vehicle within the
+                  net</entry>
                 </row>
 
                 <row>
@@ -7984,7 +7986,7 @@ myDet1;0;10;2;100;80
 
           <itemizedlist spacing="compact">
             <listitem>
-              <para>Integrated in version 0.10.0.</para>
+              <para>Integrated in version 0.9.9.</para>
             </listitem>
           </itemizedlist>
         </sect3>
@@ -8448,13 +8450,13 @@ myDet1;0;10;2;100;80
           <itemizedlist spacing="compact">
             <listitem>
               <para>The values have been revisited and partially changed for
-              version 0.10</para>
+              version 0.9.9</para>
             </listitem>
 
             <listitem>
               <para>The options <option>--exclude-empty-edges</option> and
               <option>--exclude-empty-lanes</option> were added in version
-              0.10</para>
+              0.9.9</para>
             </listitem>
           </itemizedlist>
         </sect3>
@@ -8604,7 +8606,7 @@ myDet1;0;10;2;100;80
         </itemizedlist>
       </sect2>
 
-      <sect2 id="user_chp06-output-tripinfo" revision="0.10.0">
+      <sect2 id="user_chp06-output-tripinfo" revision="0.9.9">
         <title>Vehicle-Oriented Trip Information</title>
 
         <para>The simulation is forced to generate this output using:
@@ -8838,45 +8840,45 @@ myDet1;0;10;2;100;80
 
           <listitem>
             <para>The <sgmltag>vehicle_id</sgmltag> attribute was renamed to
-            <sgmltag>id</sgmltag> in version 0.10.0</para>
+            <sgmltag>id</sgmltag> in version 0.9.9</para>
           </listitem>
 
           <listitem>
             <para>The <sgmltag>start</sgmltag> attribute was renamed to
-            <sgmltag>depart</sgmltag> in version 0.10.0</para>
+            <sgmltag>depart</sgmltag> in version 0.9.9</para>
           </listitem>
 
           <listitem>
             <para>The attributes <sgmltag>departLane</sgmltag>,
             <sgmltag>departPos</sgmltag>, <sgmltag>departSpeed</sgmltag> were
-            added in version 0.10.0</para>
+            added in version 0.9.9</para>
           </listitem>
 
           <listitem>
             <para>The <sgmltag>end</sgmltag> attribute was renamed to
-            <sgmltag>arrival</sgmltag> in version 0.10.0</para>
+            <sgmltag>arrival</sgmltag> in version 0.9.9</para>
           </listitem>
 
           <listitem>
             <para>The attributes <sgmltag>arrivalLane</sgmltag>,
             <sgmltag>arrivalPos</sgmltag>, <sgmltag>arrivalSpeed</sgmltag>
-            were added in version 0.10.0</para>
+            were added in version 0.9.9</para>
           </listitem>
 
           <listitem>
-            <para>In version 0.10.0, the attribute <sgmltag>waited</sgmltag>
+            <para>In version 0.9.9, the attribute <sgmltag>waited</sgmltag>
             was removed; instead <sgmltag>departDelay</sgmltag> was
             introduced</para>
           </listitem>
 
           <listitem>
             <para>The attributes <sgmltag>routeLength</sgmltag> and
-            <sgmltag>waitSteps</sgmltag> were added in version 0.10.0</para>
+            <sgmltag>waitSteps</sgmltag> were added in version 0.9.9</para>
           </listitem>
 
           <listitem>
             <para>The <sgmltag>reroutes</sgmltag> attribute was renamed to
-            <sgmltag>rerouteNo</sgmltag> in version 0.10.0</para>
+            <sgmltag>rerouteNo</sgmltag> in version 0.9.9</para>
           </listitem>
         </itemizedlist>
       </sect2>
@@ -9333,7 +9335,7 @@ myDet1;0;10;2;100;80
 
       <para>We will now describe the emitters more deeply.</para>
 
-      <sect2 id="user_chp06-vehicle_handling-emitter" revision="0.10">
+      <sect2 id="user_chp06-vehicle_handling-emitter" revision="0.9.9">
         <title>Emitter</title>
 
         <para>Emitters may be used to define flows using induction loops as
@@ -9358,7 +9360,7 @@ myDet1;0;10;2;100;80
 
           <listitem>
             <para>The attribute vehtype was renamed to type while working on
-            version 0.10</para>
+            version 0.9.9</para>
           </listitem>
         </itemizedlist>
 
