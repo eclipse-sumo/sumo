@@ -305,7 +305,7 @@ MSVehicle::destReached(const MSEdge* targetEdge) throw()
 
 bool 
 MSVehicle::ends() const throw() {
-    return myLane->inEdge(myRoute->getLastEdge()) && myState.myPos > myArrivalPos - POSITION_EPS;
+    return myCurrEdge==myRoute->end()-1 && myState.myPos > myArrivalPos - POSITION_EPS;
 }
 
 
