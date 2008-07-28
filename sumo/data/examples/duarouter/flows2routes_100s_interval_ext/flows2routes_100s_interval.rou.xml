@@ -1,20 +1,16 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/17/08 09:50:55 by SUMO duarouter Version 0.9.7
+<!-- generated on 07/28/08 10:18:31 by SUMO duarouter Version 0.9.7
 <configuration>
 
    <input>
-      <net-file>../data/examples\duarouter\flows2routes_100s_interval_ext\flows2routes_100s_interval.net.xml</net-file>
-      <flow-definition>../data/examples\duarouter\flows2routes_100s_interval_ext\flows2routes_100s_interval.flows.xml</flow-definition>
+      <net-file>D:\projects\sumo\sumo\tools\examples_tools\../../data/examples/duarouter\flows2routes_100s_interval_ext\flows2routes_100s_interval.net.xml</net-file>
+      <flow-definition>D:\projects\sumo\sumo\tools\examples_tools\../../data/examples/duarouter\flows2routes_100s_interval_ext\flows2routes_100s_interval.flows.xml</flow-definition>
    </input>
 
    <output>
-      <output-file>../data/examples\duarouter\flows2routes_100s_interval_ext\flows2routes_100s_interval.rou.xml</output-file>
+      <output-file>D:\projects\sumo\sumo\tools\examples_tools\../../data/examples/duarouter\flows2routes_100s_interval_ext\flows2routes_100s_interval.rou.xml</output-file>
    </output>
-
-   <report>
-      <verbose>true</verbose>
-   </report>
 
 </configuration>
 -->
