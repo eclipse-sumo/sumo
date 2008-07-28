@@ -36,14 +36,11 @@
 #include <utils/common/MsgRetrievingFunction.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/UtilExceptions.h>
-#include <guisim/GUINet.h>
-#include <microsim/MSVehicleControl.h>
 #include <utils/gui/events/GUIEvent_Message.h>
 #include <utils/gui/events/GUIEvent_SimulationStep.h>
 #include <utils/gui/events/GUIEvent_SimulationEnded.h>
 #include <gui/GUIApplicationWindow.h>
 #include "GUIAbstractRunThread.h"
-// #include "GUIGlobals.h"
 #include <utils/options/OptionsCont.h>
 
 #ifdef CHECK_MEMORY_LEAKS

@@ -30,7 +30,6 @@
 
 #include <string>
 #include <fx.h>
-#include <guisim/GUINet.h>
 #include "GUIParameterTableWindow.h"
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/common/ToString.h>

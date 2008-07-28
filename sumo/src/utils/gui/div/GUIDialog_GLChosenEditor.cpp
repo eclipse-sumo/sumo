@@ -37,17 +37,12 @@
 #include <gui/GUIGlobals.h>
 #include <utils/gui/globjects/GUIGlObject.h>
 #include <utils/foxtools/MFXUtils.h>
-#include <guisim/GUINet.h>
 #include "GUIDialog_GLChosenEditor.h"
 #include <utils/gui/div/GUIGlobalSelection.h>
 #include <utils/gui/globjects/GUIGlObjectGlobals.h>
 #include <utils/gui/div/GUIIOGlobals.h>
 #include <utils/gui/windows/GUIAppGlobals.h>
 #include <utils/gui/images/GUIIconSubSys.h>
-
-#include <microsim/MSLane.h>
-#include <microsim/MSEdge.h>
-#include <guisim/GUIEdge.h>
 
 #ifdef _WIN32
 #include <windows.h>
