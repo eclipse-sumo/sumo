@@ -53,7 +53,6 @@
 #include <utils/common/SystemFrame.h>
 #include <utils/common/ToString.h>
 #include <utils/xml/XMLSubSys.h>
-#include <routing_df/RODFLoader.h>
 #include <routing_df/RODFFrame.h>
 #include <routing_df/RODFNet.h>
 #include <routing_df/RODFEdge.h>
@@ -342,10 +341,11 @@ main(int argc, char **argv)
         RandHelper::initRandGlobal();
         // load data
         ROVehicleBuilder vb;
-        RODFLoader loader(oc, vb, false);
+        ROLoader loader(oc, vb, false);
         net = new RODFNet(oc.getBool("highway-mode"));
         RODFEdgeBuilder builder;
         loader.loadNet(*net, builder);
+        net->buildApproachList();
         // load detectors
         detectors = new RODFDetectorCon();
         readDetectors(*detectors, oc, net);

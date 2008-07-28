@@ -70,34 +70,5 @@ RODFEdge::getFlows() const
 }
 
 
-void
-RODFEdge::setFromPosition(const Position2D &p)
-{
-    myFromPosition = p;
-}
-
-
-void
-RODFEdge::setToPosition(const Position2D &p)
-{
-    myToPosition = p;
-}
-
-
-const Position2D &
-RODFEdge::getFromPosition() const
-{
-    return myFromPosition;
-}
-
-
-const Position2D &
-RODFEdge::getToPosition() const
-{
-    return myToPosition;
-}
-
-
-
 /****************************************************************************/
 

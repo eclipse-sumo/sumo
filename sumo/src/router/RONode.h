@@ -32,6 +32,7 @@
 
 #include <string>
 #include <utils/common/Named.h>
+#include <utils/geom/Position2D.h>
 
 
 // ===========================================================================
@@ -44,11 +45,33 @@
 class RONode : public Named
 {
 public:
-    /// @brief Constructor
+    /** @brief Constructor
+     * @param[in] id The id of the node
+     */
     RONode(const std::string &id) throw();
+
 
     /// @brief Destructor
     ~RONode() throw();
+
+
+    /** @brief Sets the position of the node
+     * @param[in] p The node's position
+     */
+    void setPosition(const Position2D &p) throw();
+
+
+    /** @brief Returns the position of the node
+     * @return This node's position
+     */
+    const Position2D &getPosition() throw() {
+        return myPosition;
+    }
+
+
+private:
+    /// @brief This node's position
+    Position2D myPosition;
 
 
 private:

@@ -67,11 +67,6 @@ public:
 
     const std::vector<FlowDef> &getFlows() const;
 
-    void setFromPosition(const Position2D &p);
-    void setToPosition(const Position2D &p);
-
-    const Position2D &getFromPosition() const;
-    const Position2D &getToPosition() const;
 
 private:
     std::vector<FlowDef> myFlows;

@@ -236,7 +236,24 @@ void
 RONetHandler::parseJunction(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    attrs.setIDFromAttributes("junction", myCurrentName);
+    string id;
+    if(!attrs.setIDFromAttributes("junction", id)) {
+        return;
+    }
+    // get the position of the node
+    bool ok = true;
+    SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, "junction", id.c_str(), ok);
+    SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, "junction", id.c_str(), ok);
+    if(ok) {
+        RONode *n = myNet.getNode(id);
+        if(n==0) {
+            n = new RONode(id);
+            myNet.addNode(n);
+        }
+        n->setPosition(Position2D(x, y));
+    } else {
+        throw ProcessError();
+    }
 }
 
 

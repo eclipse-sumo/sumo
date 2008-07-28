@@ -441,15 +441,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFLoader.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\routing_df\RODFNet.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\routing_df\RODFNetHandler.cpp"
 				>
 			</File>
 		</Filter>
@@ -494,15 +486,7 @@
 				>
 			</File>
 			<File
-				RelativePath="..\..\..\src\routing_df\RODFLoader.h"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\routing_df\RODFNet.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\routing_df\RODFNetHandler.h"
 				>
 			</File>
 		</Filter>

@@ -90,8 +90,8 @@ SUMOReal
 RODFDetector::computeDistanceFactor(const DFRORouteDesc &rd) const
 {
     SUMOReal distance = GeomHelper::distance(
-                            static_cast<RODFEdge*>(rd.edges2Pass[0])->getFromPosition(),
-                            static_cast<RODFEdge*>(rd.edges2Pass[rd.edges2Pass.size()-1])->getToPosition());
+        rd.edges2Pass[0]->getFromNode()->getPosition(),
+        rd.edges2Pass[rd.edges2Pass.size()-1]->getToNode()->getPosition());
     SUMOReal length = 0;
     for (std::vector<ROEdge*>::const_iterator i=rd.edges2Pass.begin(); i!=rd.edges2Pass.end(); ++i) {
         length += (*i)->getLength();
