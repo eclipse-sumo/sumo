@@ -34,26 +34,7 @@ root__edge__lane#maxspeed__false21
 root__edge__lane#maxspeed__false22
 
 
-root__edge__lane__empty11
-root__edge__lane__empty12
-root__edge__lane__empty21
-root__edge__lane__empty22
-root__edge__lane__false11a
-root__edge__lane__false12a
-root__edge__lane__false21a
-root__edge__lane__false22a
-root__edge__lane__false11b
-root__edge__lane__false12b
-root__edge__lane__false21b
-root__edge__lane__false22b
-root__edge__lane__false11c
-root__edge__lane__false12c
-root__edge__lane__false21c
-root__edge__lane__false22c
-root__edge__lane__false11d
-root__edge__lane__false12d
-root__edge__lane__false21d
-root__edge__lane__false22d
+root__edge__lane__false
 
 
 
