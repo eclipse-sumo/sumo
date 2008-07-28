@@ -1577,7 +1577,7 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
         MSLane *next = 0;
         // we go over the next edge's lanes and determine the first that may be used
         for (MSEdge::LaneCont::const_iterator i=lanes->begin(); !oneFound&&i!=lanes->end();) {
-            if (find(allowed->begin(), allowed->end(), *i)!=allowed->end()) {
+            if (allowed!=0 && find(allowed->begin(), allowed->end(), *i)!=allowed->end()) {
                 oneFound = true;
                 next = *i;
             } else {

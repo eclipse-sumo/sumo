@@ -45,6 +45,8 @@ log:log.txt
 [run_dependent_text]
 output:\r{REPLACE \n}
 output:sumo.exe{REPLACE sumo}
+output:\([1-9][0-9]*ms\){REPLACE (TIME)}
+log:\([1-9][0-9]*ms\){REPLACE (TIME)}
 detector:Version
 emissions:Version
 aggregated1:Version
