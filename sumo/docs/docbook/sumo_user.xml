@@ -823,8 +823,7 @@
 
                 <listitem>
                   <para><sgmltag>traffic_light</sgmltag>: The junction is
-                  controlled by a traffic light. <remark>(TBD: would further
-                  types make sense?)</remark></para>
+                  controlled by a traffic light.</para>
                 </listitem>
               </itemizedlist>
             </listitem>
@@ -4509,7 +4508,7 @@
       overview.</para>
 
       <figure id="img_trips2routes">
-        <title>Building routes (!!! Netzwerk fehlt)</title>
+        <title>Building routes</title>
 
         <mediaobject>
           <imageobject>
@@ -4823,8 +4822,7 @@
           the route, but every n seconds (where n is the number defined in
           period), a vehicle using this route will be emitted. The number of
           vehicles to emit using this route may be additionally constrained
-          using <sgmltag>repno</sgmltag>. Otherwise, it is unlimited. !!! test
-          !!!</para>
+          using <sgmltag>repno</sgmltag>.</para>
 
           <para>Let's review a trip's parameter:</para>
 
@@ -5138,15 +5136,6 @@
             </imageobject>
           </mediaobject>
         </figure>
-
-        <para>There is also another problem with random routes: Often, the
-        route starts in the opposite direction of the destination - on the
-        wrong side of the road. This yields in a large amount of vehicles that
-        want to turn back using the first possibility. This is of course also
-        not common in the real world, especially not in areas as the one shown
-        above. To avoid this, we remove the first and the last edge from the
-        route per default when generating random routes. !!! revalidate
-        this!!!</para>
 
         <para>Options:</para>
 
@@ -5816,8 +5805,6 @@
 
     <sect1 id="user_chp05-dua" revision="0.9.6">
       <title>Dynamic User Assignment and Alternative Routes</title>
-
-      <para>!!! Weights fehlen!!!</para>
 
       <para>Dynamic Assignment is used to find out which routes the simulated
       driver really would take. One could assume that everyone is traing to
@@ -6705,7 +6692,7 @@ myDet1;0;10;2;100;80
 
             <listitem>
               <para>Types given in trips were always replaced by
-              "KRAUSS_DEFAULT"!!!. This has been patched. Now the type you
+              "KRAUSS_DEFAULT". This has been patched. Now the type you
               specify will be used and only if no type information was given,
               "KRAUSS_DEFAULT" will be used.</para>
             </listitem>
@@ -10971,15 +10958,6 @@ myDet1;0;10;2;100;80
       streets by coloring lanes by an aggregated value. Vehicles are not shown
       within the aggregated view.</para>
 
-      <caution>
-        <para>Aggregated views need additional simulation time and memory. For
-        larer netweorks it seems wise to switch them off using the menu-bar
-        option <menuchoice>
-            <guimenu>Settings-&gt;Application Settings-&gt;Allow aggregated
-            Views</guimenu>
-          </menuchoice></para>
-      </caution>
-
       <sect2 id="user_chp07-simulation_window-common">
         <title>Common Controls</title>
 
@@ -11023,266 +11001,6 @@ myDet1;0;10;2;100;80
                 simulation area and the middle of the loaded network will be
                 place into the middle of the view.</para>
               </listitem>
-
-              <listitem>
-                <para>Show Legend - Button <inlinegraphic
-                fileref="./gfx/user/show_legend.gif" format="GIF" /></para>
-
-                <para>Switches the legend (only the scale) on and off.</para>
-              </listitem>
-            </itemizedlist></para>
-        </sect3>
-
-        <sect3 id="user_chp07-simulation_window-common-view2">
-          <title>View Settings</title>
-
-          <para><itemizedlist spacing="compact">
-              <listitem>
-                <para>Change Lane Colouring Scheme - Button <inlinegraphic
-                fileref="./gfx/user/colour_lane.gif" format="GIF" /></para>
-
-                <para>The combobox allows you to choose how the view shall
-                determine a displayed lane's colour. The following coluring
-                schemes are avaliable for lanes:</para>
-
-                <itemizedlist spacing="compact">
-                  <listitem>
-                    <para>black: All lanes are black</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>by purpose: normal lanes are coloured black, sources
-                    green, sinks red and internal lanes blue</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>by speed: The lanes are coloured by the speed
-                    allowed on them, blue for fast lanes, red for slow</para>
-                  </listitem>
-                </itemizedlist>
-              </listitem>
-
-              <listitem>
-                <para>Show Grid - Button <inlinegraphic
-                fileref="./gfx/user/show_grid.gif" format="GIF" /></para>
-
-                <para>Turns the visualisation f the grid the network is mapped
-                onto on/off. This is rather a debugging feature.</para>
-              </listitem>
-
-              <listitem>
-                <para>Show Tool Tips - Button <inlinegraphic
-                fileref="./gfx/user/show_tooltips.gif" format="GIF" /></para>
-
-                <para>If this button is activated, the id for the object the
-                mouse pointer is over will be displayed.</para>
-              </listitem>
-
-              <listitem>
-                <para>Show Full Geometry - Button <inlinegraphic
-                fileref="./gfx/user/show_geometry.gif" format="GIF" /></para>
-
-                <para>Switches between full and simple - geometry. The picture
-                beyond shows the difference between full and simple geometry
-                mode.</para>
-
-                <figure id="img_geom">
-                  <title>The difference between simple (left) and full (right)
-                  geometry mode</title>
-
-                  <mediaobject>
-                    <imageobject>
-                      <imagedata align="center"
-                                 fileref="./gfx/user/simple_vs_full_geom.gif"
-                                 format="GIF" />
-                    </imageobject>
-                  </mediaobject>
-                </figure>
-              </listitem>
-            </itemizedlist></para>
-        </sect3>
-      </sect2>
-
-      <sect2 id="user_chp07-simulation_window-additional">
-        <title>Additional Microscopic View Controls</title>
-
-        <sect3 id="user_chp07-simulation_window-additional-tracking">
-          <title>Tracking Settings</title>
-
-          <para><itemizedlist spacing="compact">
-              <listitem>
-                <para>Locate Vehicle - Button <inlinegraphic
-                fileref="./gfx/user/locate_vehicle.gif" format="GIF" /></para>
-
-                <para>Opens a window that allows to choose a vehicle name from
-                the set of vehicle currently driving within the simulation.
-                Pressing ok with a chosen vehicle zooms the view to this
-                vehicle.</para>
-
-                <caution>
-                  <para>Under current development. (Better do not use it, may
-                  terminate the application with an error)</para>
-                </caution>
-              </listitem>
-            </itemizedlist></para>
-        </sect3>
-
-        <sect3 id="user_chp07-simulation_window-view">
-          <title>View Settings</title>
-
-          <para><itemizedlist spacing="compact">
-              <listitem>
-                <para>Change Vehicle Colouring Scheme - Button <inlinegraphic
-                fileref="./gfx/user/colour_vehicle.gif" format="GIF" /></para>
-
-                <para>The combobox allows you to choose how the view shall
-                determine a displayed vehicle's colour. The following coluring
-                schemes are avaliable for vehicles:</para>
-
-                <itemizedlist spacing="compact">
-                  <listitem>
-                    <para>by speed: The vehicle colour change continuously
-                    from blue to red with decreasing speed</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>specified: The loaded vehicle colours are
-                    used</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>by type: The vehicles are coloured as defined within
-                    the vehicle's type definition</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>by route: The vehicles are coloured as defined
-                    within the vehicle's route definition</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>random#1: Vehicles are coloured randomly (each
-                    vehicle has a certain colour)</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>random#2: Vehicles are coloured randomly (each
-                    vehicle has a certain colour); Quite the same as
-                    "random#1", but a different method is used to compute the
-                    random colour</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>lanechange#1: ... tbd ...</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>lanechange#2: ... tbd ...</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>lanechange#3: ... tbd ...</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>waiting#1: ... tbd ...</para>
-                  </listitem>
-                </itemizedlist>
-              </listitem>
-
-              <listitem>
-                <para>Change Lane Colouring Scheme - Button <inlinegraphic
-                fileref="./gfx/user/colour_lane.gif" format="GIF" /></para>
-
-                <para>The combobox allows you to choose how the view shall
-                determine a displayed lane's colour. The following coluring
-                schemes are avaliable for lanes:</para>
-
-                <itemizedlist spacing="compact">
-                  <listitem>
-                    <para>black: All lanes are black</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>by purpose: normal lanes are coloured black, sources
-                    green, sinks red and internal lanes blue</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>by speed: The lanes are coloured by the speed
-                    allowed on them, blue for fast lanes, red for slow</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>by selection: Selected lanes are coloures blueish,
-                    the other black</para>
-                  </listitem>
-                </itemizedlist>
-              </listitem>
-            </itemizedlist></para>
-        </sect3>
-      </sect2>
-
-      <sect2 id="user_chp07-simulation_window-aggragated">
-        <title>Additional Aggregated View Controls</title>
-
-        <sect3 id="user_chp07-simulation_window-aggragated-view">
-          <title>View Settings</title>
-
-          <para><itemizedlist spacing="compact">
-              <listitem>
-                <para>Change Lane Colouring Scheme - Button <inlinegraphic
-                fileref="./gfx/user/colour_lane.gif" format="GIF" /></para>
-
-                <para>The combobox allows you to choose how the view shall
-                determine a displayed lane's colour. The following coluring
-                schemes are avaliable for lanes:</para>
-
-                <itemizedlist spacing="compact">
-                  <listitem>
-                    <para>by density: The lanes are coloured by the mean
-                    density of vehicles over them</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>by mean speed: The lanes are coloured by the mean
-                    speed of vehicles passing them, blue for fast lanes, red
-                    for slow</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>by mean halts: <caution>
-                        <para>... not working, yet. ...</para>
-                      </caution></para>
-                  </listitem>
-
-                  <listitem>
-                    <para>black: All lanes are black</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>by purpose: normal lanes are coloured black, sources
-                    green, sinks red and internal lanes blue</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>by speed: The lanes are coloured by the speed
-                    allowed on them, blue for fast lanes, red for slow</para>
-                  </listitem>
-
-                  <listitem>
-                    <para>by selection: Selected lanes are coloures blueish,
-                    the other black</para>
-                  </listitem>
-                </itemizedlist>
-              </listitem>
-
-              <listitem>
-                <para>Remembering-factor dialer</para>
-
-                <para>This dialer enables you to change the "memory" of the
-                aggregated view.</para>
-              </listitem>
             </itemizedlist></para>
         </sect3>
       </sect2>
@@ -11323,30 +11041,6 @@ myDet1;0;10;2;100;80
 
               <para>Changes the view in a manner that the current object lies
               within the the view's center.</para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>Add To Selected</guimenuitem> <inlinegraphic
-              fileref="./gfx/user/show_grid.gif" format="GIF" /></para>
-
-              <para>Adds the object to the list of selected objects.</para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>Remove from Selected</guimenuitem>
-              <inlinegraphic fileref="./gfx/user/show_tooltips.gif"
-              format="GIF" /></para>
-
-              <para>Removes the object from the list of selected
-              objects.</para>
-            </listitem>
-
-            <listitem>
-              <para><guimenuitem>Show Parameter </guimenuitem><inlinegraphic
-              fileref="./gfx/user/show_geometry.gif" format="GIF" /></para>
-
-              <para>Opens a window in which the object's fixed and dynamic
-              parameter are displayed.</para>
             </listitem>
           </itemizedlist></para>
 
