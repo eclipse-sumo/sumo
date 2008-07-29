@@ -19,6 +19,6 @@ for root, dirs, files in os.walk(srcRoot):
     for name in files:
         if name.endswith(".h") or name.endswith(".cpp"):
             os.system("astyle --style=kr -U -l -n " + os.path.join(root, name))
-        for ignoreDir in ['.svn', 'foreign', 'itm-remoteserver']:
+        for ignoreDir in ['.svn', 'foreign']:
             if ignoreDir in dirs:
                 dirs.remove(ignoreDir)
