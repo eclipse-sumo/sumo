@@ -31,6 +31,7 @@
 #include <bitset>
 #include <iostream> // !!! debug only
 #include <cassert>
+#include <climits>
 #include "NBLinkCliqueContainer.h"
 #include "NBLinkPossibilityMatrix.h"
 #include "NBTrafficLightPhases.h"

@@ -29,6 +29,7 @@
 #endif
 
 #include <iostream>
+#include <cstring>
 #include "Option.h"
 #include "OptionsCont.h"
 #include "OptionsParser.h"
