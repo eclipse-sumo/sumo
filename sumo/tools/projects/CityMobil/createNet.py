@@ -91,14 +91,15 @@ for row in range(DOUBLE_ROWS):
     </vehicle>
     <vehicle id="p%sl" type="person" depart="0" period="1" repno="%s" arrivalpos="10000">
         <route edges="%sl -%sl"/>
-    </vehicle>""" % (slotID, CAR_CAPACITY, slotID, slotID, slotID, CAR_CAPACITY, slotID, slotID)
+    </vehicle>""" % (slotID, CAR_CAPACITY-1, slotID, slotID, slotID, CAR_CAPACITY-1, slotID, slotID)
 print >> nodes, '<node id="footend" x="%s" y="%s"/>' % (x+100, y) 
 print >> edges, '<edge id="footmainout" fromnode="foot%s" tonode="footend" speed="5" spread_type="center"/>' % row 
 
 #cybercar (automated bus)
-y = (SLOTS_PER_ROW+2) * SLOT_WIDTH
+y = (SLOTS_PER_ROW+3) * SLOT_WIDTH
 print >> nodes, '<node id="cyber" x="-100" y="%s"/>' % y
 print >> edges, '<edge id="cyberin" fromnode="cyber" tonode="cyber0" nolanes="2" spread_type="center"/>' 
+print >> edges, '<edge id="-cyberin" fromnode="cyber0" tonode="cyber" nolanes="2" spread_type="center"/>' 
 cyberroute = "cyberin"
 for row in range(DOUBLE_ROWS):
     nodeID = "cyber%s" % row
@@ -107,9 +108,14 @@ for row in range(DOUBLE_ROWS):
     if row > 0:
         edgeID = "cyber%sto%s" % (row-1, row)
         print >> edges, '<edge id="%s" fromnode="cyber%s" tonode="cyber%s" nolanes="2" spread_type="center"/>' % (edgeID, row-1, row)
+        print >> edges, '<edge id="-%s" fromnode="cyber%s" tonode="cyber%s" nolanes="2" spread_type="center"/>' % (edgeID, row, row-1)
         cyberroute += " " + edgeID 
 print >> nodes, '<node id="cyberend" x="%s" y="%s"/>' % (x+100, y) 
 print >> edges, '<edge id="cyberout" fromnode="cyber%s" tonode="cyberend" nolanes="2" spread_type="center"/>' % row 
+print >> edges, '<edge id="-cyberout" fromnode="cyberend" tonode="cyber%s" nolanes="2" spread_type="center"/>' % row 
+print >> nodes, '<node id="cyberdepot" x="0" y="%s"/>' % (y+50) 
+print >> edges, '<edge id="cyberdepotin" fromnode="cyberdepot" tonode="cyber0" spread_type="center"/>' 
+print >> edges, '<edge id="-cyberdepotin" fromnode="cyber0" tonode="cyberdepot" spread_type="center"/>' 
 cyberroute += " cyberout" 
 
 
@@ -118,14 +124,13 @@ nodes.close()
 print >> edges, "</edges>"
 edges.close()
 totalSlots = 2 * DOUBLE_ROWS * SLOTS_PER_ROW
-cyberCarsNeeded = totalSlots * CAR_CAPACITY / CYBER_CAPACITY
 print >> routes, """    <vehicle id="v" type="car" depart="1" period="10" repno="%s" arrivalpos="10000">
         <route edges="mainin"/>
     </vehicle>
-    <vehicle id="c" type="cybercar" depart="100" period="50" repno="%s" arrivalpos="10000">
+    <vehicle id="c" type="cybercar" depart="100" arrivalpos="10000">
         <route edges="%s"/>
     </vehicle>
-</routes>""" % (totalSlots-1, cyberCarsNeeded, cyberroute)
+</routes>""" % (totalSlots-1, cyberroute)
 routes.close()
 
 os.system("netconvert -n %s.nod.xml -e %s.edg.xml --add-internal-links -o %s.net.xml" % (PREFIX, PREFIX, PREFIX))

@@ -59,7 +59,7 @@ def main():
     persons = {}
     waiting = {}
     
-    for step in range(1, 2000):
+    for step in range(1, 10000):
         if options.verbose:
             print "step", step
         moveNodes = simStep(step)
@@ -96,23 +96,31 @@ def main():
                         waiting[edge] = []
                     waiting[edge].append(vehicleID)
                     vehicleStatus[vehicleID].parking = True
-            if edge.startswith("cyber"):
-                footEdge = edge.replace("cyber", "footmain")
-                if not vehicleStatus[vehicleID].parking:
-                    if vehicleStatus[vehicleID].load < CYBER_CAPACITY:                
-                        if footEdge in waiting and waiting[footEdge]:
-                            stopObject(edge, vehicleID, ROW_DIST-5.)
-                            vehicleStatus[vehicleID].parking = True
-                else:
-                    if pos >= ROW_DIST - 10:
-                        while waiting[footEdge] and vehicleStatus[vehicleID].load < CYBER_CAPACITY:
-                            person = waiting[footEdge].pop(0)
-                            stopObject(footEdge, person, ROW_DIST-10., 0.)
-                            vehicleStatus[vehicleID].load += 1
-                        stopObject(edge, vehicleID, ROW_DIST-5., 0.)
-                        vehicleStatus[vehicleID].parking = False
+            if edge.startswith("cyber") and edge != "cyberin":
+                if pos < 70:
+                    footEdge = edge.replace("cyber", "footmain")
+                    if not vehicleStatus[vehicleID].parking:
+                        if vehicleStatus[vehicleID].load < CYBER_CAPACITY:                
+                            if footEdge in waiting and waiting[footEdge]:
+                                stopObject(edge, vehicleID, ROW_DIST-15.)
+                                vehicleStatus[vehicleID].parking = True
+                    else:
+                        if pos >= ROW_DIST - 20:
+                            while waiting[footEdge] and vehicleStatus[vehicleID].load < CYBER_CAPACITY:
+                                person = waiting[footEdge].pop(0)
+                                stopObject(footEdge, person, ROW_DIST-10., 0.)
+                                vehicleStatus[vehicleID].load += 1
+                            stopObject(edge, vehicleID, ROW_DIST-15., 0.)
+                            vehicleStatus[vehicleID].parking = False
+            if edge == "cyberout" and pos >= 70 and not vehicleStatus[vehicleID].parking:
+                changeTarget("cyberin", vehicleID)
+                stopObject(edge, vehicleID, 90., vehicleStatus[vehicleID].load * 5.)
+                vehicleStatus[vehicleID].parking = True
+            if edge == "cyberin" and vehicleStatus[vehicleID].parking:
+                vehicleStatus[vehicleID].parking = False
+                vehicleStatus[vehicleID].load = 0
+                changeTarget("cyberout", vehicleID)
     close()
-
 optParser = OptionParser()
 optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
                      default=False, help="tell me what you are doing")
