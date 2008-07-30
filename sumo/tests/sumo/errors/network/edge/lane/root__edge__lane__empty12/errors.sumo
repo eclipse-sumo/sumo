@@ -1,4 +1,4 @@
-Error: Could not parse shape of lane '1_1'.
+Error: Shape of lane '1_1' is broken.
  Can not build according edge.
 Error: Trying to add an unknown lane ('1_1') as continuation.
 Error: An unknown lane ('1_1') was tried to be set as incoming to junction '2'.

@@ -461,6 +461,7 @@ NLHandler::closeLanes()
 void
 NLHandler::addLane(const SUMOSAXAttributes &attrs)
 {
+    myShape.clear();
     // omit internal edges if not wished and broken edges
     if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
         return;
@@ -497,7 +498,6 @@ NLHandler::addLaneShape(const std::string &chars)
     if (myCurrentIsInternalToSkip||myCurrentIsBroken) {
         return;
     }
-    myShape.clear();
     try {
         myShape = GeomConvHelper::parseShape(chars);
         return;
