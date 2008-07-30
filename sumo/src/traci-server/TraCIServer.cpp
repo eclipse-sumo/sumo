@@ -215,7 +215,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step)
 {
     try {
         if (instance_ == 0) {
-            if (OptionsCont::getOptions().getInt("remote-port") != 0) {
+            if (!closeConnection_ && OptionsCont::getOptions().getInt("remote-port") != 0) {
                 instance_ = new traci::TraCIServer();
             } else {
                 return;
