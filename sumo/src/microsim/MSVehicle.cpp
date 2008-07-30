@@ -1384,12 +1384,12 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
 
     // build a new one
     // build a new id, first
-    string id = myRoute->getID();
+    string id = getID();
     if (id[0]!='!') {
         id = "!" + id;
     }
-    if (id.find("!var#")!=string::npos) {
-        id = id.substr(0, id.rfind("!var#")+4) + toString(myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1);
+    if (myRoute->getID().find("!var#")!=string::npos) {
+        id = myRoute->getID().substr(0, myRoute->getID().rfind("!var#")+4) + toString(myIntCORNMap[MSCORN::CORN_VEH_NUMBERROUTE] + 1);
     } else {
         id = id + "!var#1";
     }
