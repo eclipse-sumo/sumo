@@ -212,113 +212,112 @@ void
 NLHandler::myCharacters(SumoXMLTag element,
                         const std::string &chars) throw(ProcessError)
 {
-    // check static net information
-        switch (element) {
-        case SUMO_TAG_EDGES:
-            allocateEdges(chars);
-            break;
-            /*
-        case SUMO_TAG_NODECOUNT:
-            setNodeNumber(chars);
-            break;
-            */
-        case SUMO_TAG_CEDGE:
-            addAllowedEdges(chars);
-            break;
-        case SUMO_TAG_POLY:
-            addPolyPosition(chars);
-            break;
-        case SUMO_TAG_INCOMING_LANES:
-            addIncomingLanes(chars);
-            break;
+    switch (element) {
+    case SUMO_TAG_EDGES:
+        allocateEdges(chars);
+        break;
+    case SUMO_TAG_CEDGE:
+        addAllowedEdges(chars);
+        break;
+    case SUMO_TAG_POLY:
+        addPolyPosition(chars);
+        break;
+    case SUMO_TAG_INCOMING_LANES:
+        addIncomingLanes(chars);
+        break;
 #ifdef HAVE_INTERNAL_LANES
-        case SUMO_TAG_INTERNAL_LANES:
-            addInternalLanes(chars);
-            break;
+    case SUMO_TAG_INTERNAL_LANES:
+        addInternalLanes(chars);
+        break;
 #endif
-        case SUMO_TAG_LANE:
-            addLaneShape(chars);
-            break;
-        case SUMO_TAG_REQUESTSIZE:
-            if (myJunctionControlBuilder.getActiveKey().length()!=0) {
-                setRequestSize(chars);
-            }
-            break;
-        case SUMO_TAG_LANENUMBER:
-            if (myJunctionControlBuilder.getActiveKey().length()!=0) {
-                setLaneNumber(chars);
-            }
-            break;
-        case SUMO_TAG_KEY:
-            setKey(chars);
-            break;
-        case SUMO_TAG_SUBKEY:
-            setSubKey(chars);
-            break;
-        case SUMO_TAG_OFFSET:
-            setOffset(chars);
-            break;
-        case SUMO_TAG_NET_OFFSET:
-            setNetOffset(chars);
-            break;
-        case SUMO_TAG_CONV_BOUNDARY:
-            setNetConv(chars);
-            break;
-        case SUMO_TAG_ORIG_BOUNDARY:
-            setNetOrig(chars);
-            break;
-        case SUMO_TAG_ORIG_PROJ:
-            GeoConvHelper::init(chars, myNetworkOffset, myOrigBoundary, myConvBoundary);
-            break;
-        default:
-            break;
+    case SUMO_TAG_LANE:
+        addLaneShape(chars);
+        break;
+    case SUMO_TAG_REQUESTSIZE:
+        if (myJunctionControlBuilder.getActiveKey().length()!=0) {
+            setRequestSize(chars);
         }
-        MSRouteHandler::myCharacters(element, chars);
+        break;
+    case SUMO_TAG_LANENUMBER:
+        if (myJunctionControlBuilder.getActiveKey().length()!=0) {
+            setLaneNumber(chars);
+        }
+        break;
+    case SUMO_TAG_KEY:
+        setKey(chars);
+        break;
+    case SUMO_TAG_SUBKEY:
+        setSubKey(chars);
+        break;
+    case SUMO_TAG_OFFSET:
+        setOffset(chars);
+        break;
+    case SUMO_TAG_NET_OFFSET:
+        setNetOffset(chars);
+        break;
+    case SUMO_TAG_CONV_BOUNDARY:
+        setNetConv(chars);
+        break;
+    case SUMO_TAG_ORIG_BOUNDARY:
+        setNetOrig(chars);
+        break;
+    case SUMO_TAG_ORIG_PROJ:
+        GeoConvHelper::init(chars, myNetworkOffset, myOrigBoundary, myConvBoundary);
+        break;
+    default:
+        break;
+    }
+    MSRouteHandler::myCharacters(element, chars);
 }
 
 
 void
 NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
-        switch (element) {
-        case SUMO_TAG_EDGE:
-            closeEdge();
-            break;
-        case SUMO_TAG_LANES:
-            closeLanes();
-            break;
-        case SUMO_TAG_LANE:
-            closeLane();
-            break;
-        case SUMO_TAG_CEDGE:
-            closeAllowedEdge();
-            break;
-        case SUMO_TAG_JUNCTION:
-            closeJunction();
-            break;
-        case SUMO_TAG_SUCC:
-            closeSuccLane();
-            break;
-        case SUMO_TAG_ROWLOGIC:
-            myJunctionControlBuilder.closeJunctionLogic();
-            break;
-        case SUMO_TAG_TLLOGIC:
-            myJunctionControlBuilder.closeTrafficLightLogic();
-            myAmInTLLogicMode = false;
-            break;
-        case SUMO_TAG_WAUT:
-            closeWAUT();
-            break;
-        case SUMO_TAG_E3DETECTOR:
-            endE3Detector();
-            break;
-        case SUMO_TAG_DETECTOR:
-            endDetector();
-            break;
-        default:
-            break;
+    switch (element) {
+    case SUMO_TAG_EDGES:
+        if (myEdgeControlBuilder.getEdgeCapacity()!=MSEdge::dictSize()) {
+            throw ProcessError("The number of edges in the list mismatches the edge count.");
         }
-        MSRouteHandler::myEndElement(element);
+        break;
+    case SUMO_TAG_EDGE:
+        closeEdge();
+        break;
+    case SUMO_TAG_LANES:
+        closeLanes();
+        break;
+    case SUMO_TAG_LANE:
+        closeLane();
+        break;
+    case SUMO_TAG_CEDGE:
+        closeAllowedEdge();
+        break;
+    case SUMO_TAG_JUNCTION:
+        closeJunction();
+        break;
+    case SUMO_TAG_SUCC:
+        closeSuccLane();
+        break;
+    case SUMO_TAG_ROWLOGIC:
+        myJunctionControlBuilder.closeJunctionLogic();
+        break;
+    case SUMO_TAG_TLLOGIC:
+        myJunctionControlBuilder.closeTrafficLightLogic();
+        myAmInTLLogicMode = false;
+        break;
+    case SUMO_TAG_WAUT:
+        closeWAUT();
+        break;
+    case SUMO_TAG_E3DETECTOR:
+        endE3Detector();
+        break;
+    case SUMO_TAG_DETECTOR:
+        endDetector();
+        break;
+    default:
+        break;
+    }
+    MSRouteHandler::myEndElement(element);
 }
 
 

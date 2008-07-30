@@ -1,9 +1,3 @@
 Error: Another edge with the id '1' exists.
-Error: Trying to reference an unknown edge ('2') in edge '1'.
-Error: Trying to define a not declared edge ('2').
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
-Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
-Error: Trying to close connections of an unknown lane ('2_0').
-Error: Trying to close connections of an unknown lane ('2_1').
+Error: The number of edges in the list mismatches the edge count.
 Quitting (on error).
