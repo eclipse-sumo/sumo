@@ -1,9 +1,9 @@
 #!/usr/bin/python
 """
-@file    apply_astyle.py
-@author  Michael.Behrisch@dlr.de
-@date    2007
-@version $Id: apply_astyle.py 5503 2008-05-09 08:39:14Z behrisch $
+@file    rebuild.py
+@author  Daniel.Krajzewicz@dlr.de
+@date    28-07-2008
+@version $Id: rebuild.py 5503 2008-05-09 08:39:14Z behrisch $
 
 Goes through all files in examples; executes found configurations 
  using the proper application.
@@ -16,29 +16,37 @@ import os, os.path, sys
 from optparse import OptionParser
 
 
-def runConfiguration(app, file, verbose, rebuild):
+def runConfiguration(app, file, appRoot, verbose, rebuild):
+    (path, file) = os.path.split(file)
+    oldDir = os.getcwd()
+    os.chdir(path)
+    print "----------------------------------"
     vS = ""
     if verbose:
-        vS = "-v "
-    print "----------------------------------"
+        vS = " -v"
+    rS = ""
+    if rebuild:
+        rS = " --save-configuration " + file + " --save-template.commented"
+    cmdOptions = "-c " + file + vS + rS
     print "Runnning: " + file
     if(sys.platform=="win32"):
-        (cin, cout) = os.popen4("..\\..\\bin\\" + app + " " + vS + "-c " + file)
+        (cin, cout) = os.popen4(appRoot + "/" + app + " " + cmdOptions)
     else:
         if app!="sumo":
             app = "sumo-" + app
-        (cin, cout) = os.popen4("../../src/" + app + " " + vS + "-c " + file)
+        (cin, cout) = os.popen4(appRoot + "/" + app + " " + cmdOptions)
     for line in cout:
         print line[:-1]
     print "----------------------------------\n"
+    os.chdir(oldDir)
 
 
-def scanAndRunConfigs(exRoot, cfgDefs, verbose, rebuild):
+def scanAndRunConfigs(exRoot, cfgDefs, appRoot, verbose, rebuild):
     for root, dirs, files in os.walk(exRoot):
         for file in files:
             for d in cfgDefs:
                 if file.endswith(d):
-                    runConfiguration(cfgDefs[d], os.path.join(root, file), verbose, rebuild)
+                    runConfiguration(cfgDefs[d], os.path.join(root, file), appRoot, verbose, rebuild)
 
 
 optParser = OptionParser()
@@ -55,22 +63,26 @@ optParser.add_option("--rebuild", action="store_true", dest="rebuild",
 (options, args) = optParser.parse_args()
 
 
-
+if(sys.platform=="win32"):
+    appRoot = "../../bin/"
+else:
+    appRoot = "../../src/"
+appRoot = os.path.abspath(appRoot)
 exRoot = os.path.join(os.path.dirname(sys.argv[0]), "../../data/examples/")
 if not options.no_nets:
     cfgDefs = {}
     cfgDefs[".netc.cfg"] = "netconvert"
     cfgDefs[".netg.cfg"] = "netgen"
-    scanAndRunConfigs(exRoot, cfgDefs, options.verbose, options.rebuild)
+    scanAndRunConfigs(exRoot, cfgDefs, appRoot, options.verbose, options.rebuild)
 if not options.no_routes:
     cfgDefs = {}
     cfgDefs[".df.cfg"] = "dfrouter"
     cfgDefs[".dua.cfg"] = "duarouter"
     cfgDefs[".jtr.cfg"] = "jtrrouter"
-    scanAndRunConfigs(exRoot, cfgDefs, options.verbose, options.rebuild)
+    scanAndRunConfigs(exRoot, cfgDefs, appRoot, options.verbose, options.rebuild)
 if not options.no_sims:
     cfgDefs = {}
     cfgDefs[".sumo.cfg"] = "sumo"
-    scanAndRunConfigs(exRoot, cfgDefs, options.verbose, options.rebuild)
+    scanAndRunConfigs(exRoot, cfgDefs, appRoot, options.verbose, options.rebuild)
 
 
