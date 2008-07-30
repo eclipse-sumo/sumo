@@ -714,23 +714,21 @@ throw(TraCIException, std::invalid_argument)
         return;
     }
 
+    bool result;
     if (travelTime < 0) {
-        //restore last travel time
-        veh->restoreEdgeWeightLocally(edgeID, MSNet::getInstance()->getCurrentTimeStep());
+        // restore last travel time
+        result = veh->restoreEdgeWeightLocally(edgeID, MSNet::getInstance()->getCurrentTimeStep());
     } else {
         // change edge weight for the vehicle
-        bool result = veh->changeEdgeWeightLocally(edgeID, travelTime,
+        result = veh->changeEdgeWeightLocally(edgeID, travelTime,
                       MSNet::getInstance()->getCurrentTimeStep());
-        if (!result) {
-            writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Could not set new travel time properly");
-            return;
-        }
     }
-
     // create a reply message
-    writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_OK, "");
-
-    return;
+    if (result) {
+        writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_OK, "");
+    } else {
+        writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Could not set travel time properly");
+    }
 }
 
 /*****************************************************************************/
@@ -763,14 +761,12 @@ throw(TraCIException, std::invalid_argument)
     SUMODijkstraRouter_Direct<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
     router.compute(currentEdge, destEdge, (const MSVehicle* const) veh,
                    MSNet::getInstance()->getCurrentTimeStep(), newRoute);
-
     // replace the vehicle's route by the new one
-    veh->replaceRoute(newRoute, MSNet::getInstance()->getCurrentTimeStep());
-
-    // create a reply message
-    writeStatusCmd(respMsg, CMD_CHANGETARGET, RTYPE_OK, "");
-
-    return;
+    if(veh->replaceRoute(newRoute, MSNet::getInstance()->getCurrentTimeStep())) {
+        writeStatusCmd(respMsg, CMD_CHANGETARGET, RTYPE_OK, "");
+    } else {
+        writeStatusCmd(respMsg, CMD_CHANGETARGET, RTYPE_ERR, "Route replacement failed for " + veh->getID());
+    }
 }
 
 /*****************************************************************************/
