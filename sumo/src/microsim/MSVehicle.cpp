@@ -1537,24 +1537,38 @@ MSVehicle::rebuildContinuationsFor(LaneQ &oq, MSLane *l, MSRouteIterator ce, int
         q.length = qqq->length();
         q.joined.push_back(qqq);
 
-        bool stopForbids = false;
-        if(!myStops.empty()&&myStops.front().lane->getEdge()==qqq->getEdge()) {
-            stopForbids = (myStops.front().lane!=qqq);
-        }
 
-        // check whether the lane is allowed for route continuation (has a link to the next
-        //  edge in route)
-        if (!stopForbids && (allowed==0||find(allowed->begin(), allowed->end(), (*k)->getLane())!=allowed->end())) {
-            // yes -> compute the best lane combination for consecutive lanes
-            gotOne = true;
-            rebuildContinuationsFor(q, qqq, ce, seen+1);
+        if(!myStops.empty()&&myStops.front().lane->getEdge()==qqq->getEdge()) {
+            if(myStops.front().lane==qqq) {
+                gotOne = true;
+                if(allowed==0||find(allowed->begin(), allowed->end(), (*k)->getLane())!=allowed->end()) {
+                    rebuildContinuationsFor(q, qqq, ce, seen+1);
+                }
+            } else {
+                q.occupied = qqq->getVehLenSum();
+                const Stop &s = myStops.front();
+                SUMOReal endPos = s.pos;
+                if (s.busstop!=0) {
+                    // on bus stops, we have to wait for free place if they are in use...
+                    endPos = s.busstop->getLastFreePos();
+                }
+                q.length = endPos;
+            }
         } else {
-            // no -> if the lane belongs to an edge not in our route,
-            //  reset values to zero (otherwise the lane but not its continuations)
-            //  will still be regarded
-            if ((*k)->getLane()->getEdge()!=*(ce)) {
-                q.occupied = 0;
-                q.length = 0;
+            // check whether the lane is allowed for route continuation (has a link to the next
+            //  edge in route)
+            if (allowed==0||find(allowed->begin(), allowed->end(), (*k)->getLane())!=allowed->end()) {
+                // yes -> compute the best lane combination for consecutive lanes
+                gotOne = true;
+                rebuildContinuationsFor(q, qqq, ce, seen+1);
+            } else {
+                // no -> if the lane belongs to an edge not in our route,
+                //  reset values to zero (otherwise the lane but not its continuations)
+                //  will still be regarded
+                if ((*k)->getLane()->getEdge()!=*(ce)) {
+                    q.occupied = 0;
+                    q.length = 0;
+                }
             }
         }
         // set best lane information
@@ -1667,9 +1681,24 @@ MSVehicle::getBestLanes(bool forceRebuild, MSLane *startLane) const throw()
         q.lane = *i;
         q.length = 0;//q.lane->length();
         q.occupied = 0;//q.lane->getVehLenSum();
-        q.allowsContinuation = allowed==0||find(allowed->begin(), allowed->end(), q.lane)!=allowed->end();
         if(!myStops.empty()&&myStops.front().lane->getEdge()==q.lane->getEdge()) {
-            q.allowsContinuation &= (myStops.front().lane==q.lane);
+            if(myStops.front().lane==q.lane) {
+                q.allowsContinuation = allowed==0||find(allowed->begin(), allowed->end(), q.lane)!=allowed->end();
+                q.length += q.lane->length();
+                q.occupied += q.lane->getVehLenSum();
+            } else {
+                q.allowsContinuation = false;
+                q.occupied = q.lane->getVehLenSum();
+                const Stop &s = myStops.front();
+                SUMOReal endPos = s.pos;
+                if (s.busstop!=0) {
+                    // on bus stops, we have to wait for free place if they are in use...
+                    endPos = s.busstop->getLastFreePos();
+                }
+                q.length = endPos;
+            }
+        } else {
+            q.allowsContinuation = allowed==0||find(allowed->begin(), allowed->end(), q.lane)!=allowed->end();
         }
         myBestLanes[0].push_back(q);
     }
