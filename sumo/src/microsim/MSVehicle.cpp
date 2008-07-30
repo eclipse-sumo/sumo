@@ -1384,7 +1384,7 @@ MSVehicle::replaceRoute(const MSEdgeVector &edges, SUMOTime simTime)
 
     // build a new one
     // build a new id, first
-    string id = getID();
+    string id = myRoute->getID();
     if (id[0]!='!') {
         id = "!" + id;
     }
