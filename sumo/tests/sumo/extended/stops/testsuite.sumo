@@ -9,3 +9,14 @@ max_delay
 
 # Tests whether 20000 cars may wait
 stress
+
+# Tests whether the vehicle stops correctly at four stops located on the same edge but different lanes
+four_on_same
+
+# Tests whether stops near the end of a lane are processed 
+second_near_end1
+
+# As second_near_end1, but the last stop is on a lane which can not be used to continue the route
+second_near_end2
+
+

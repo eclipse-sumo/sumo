@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+
+<!-- generated on 07/30/08 14:37:19 by SUMO sumo Version dev-SVN-r5875
+<configuration>
+
+   <input>
+      <net-file>net.net.xml</net-file>
+      <route-files>input_routes.rou.xml</route-files>
+   </input>
+
+   <output>
+      <vehroute-output>vehroutes.xml</vehroute-output>
+   </output>
+
+   <processing>
+      <no-duration-log>true</no-duration-log>
+      <no-step-log>true</no-step-log>
+   </processing>
+
+</configuration>
+-->
+
+<routes>
+   <vehicle id="veh0" depart="1" arrival="288">
+      <route>beg end</route>
+   </vehicle>
+
+</routes>
