@@ -271,13 +271,21 @@ protected:
 
         /** @brief Comparing operator
          *
-         * Compares two cells by the begin of the time they describe
+         * Compares two cells by the begin of the time they describe. The sort is stabilized
+         * (with secondary sort keys being origin and destination) to get comparable results
+         * with different platforms / compilers.
          *
          * @param[in] p1 First cell to compare
          * @param[in] p2 Second cell to compare
          * @return Whether the begin time of the first cell is lower than the one of the second
          */
         int operator()(ODCell *p1, ODCell *p2) const {
+            if (p1->begin == p2->begin) {
+                if (p1->origin == p2->origin) {
+                    return p1->destination < p2->destination;
+                }
+                return p1->origin < p2->origin;
+            }
             return p1->begin<p2->begin;
         }
 
