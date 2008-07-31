@@ -118,16 +118,16 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         mySchemeName->setNumVisible(5);
 
         new FXButton(frame0,"\t\tSave the setting to registry",
-                     GUIIconSubSys::getIcon(ICON_SAVE), this, MID_SIMPLE_VIEW_SAVE,
+                     GUIIconSubSys::getIcon(ICON_SAVEDB), this, MID_SIMPLE_VIEW_SAVE,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
         new FXButton(frame0,"\t\tRemove the setting from registry",
-                     GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_SIMPLE_VIEW_DELETE,
+                     GUIIconSubSys::getIcon(ICON_REMOVEDB), this, MID_SIMPLE_VIEW_DELETE,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
         new FXButton(frame0,"\t\tExport setting to file",
-                     GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_SIMPLE_VIEW_EXPORT,
+                     GUIIconSubSys::getIcon(ICON_SAVE), this, MID_SIMPLE_VIEW_EXPORT,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
         new FXButton(frame0,"\t\tLoad setting from file",
-                     GUIIconSubSys::getIcon(ICON_RELOAD), this, MID_SIMPLE_VIEW_IMPORT,
+                     GUIIconSubSys::getIcon(ICON_OPEN_CONFIG), this, MID_SIMPLE_VIEW_IMPORT,
                      ICON_ABOVE_TEXT|BUTTON_TOOLBAR|FRAME_RAISED|LAYOUT_TOP|LAYOUT_LEFT);
 
     }

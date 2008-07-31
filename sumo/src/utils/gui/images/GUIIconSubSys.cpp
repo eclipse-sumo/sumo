@@ -58,15 +58,11 @@
 #include "locate_shape.xpm"
 
 #include "colorwheel.xpm"
+#include "savedb.xpm"
+#include "removedb.xpm"
 #include "recenter_view.xpm"
 #include "allow_rotation.xpm"
-/*
-#include "colour_lane.xpm"
-#include "colour_vehicle.xpm"
-*/
-#include "show_grid.xpm"
 #include "show_tooltips.xpm"
-#include "show_geometry.xpm"
 #include "magnify.xpm"
 #include "yes.xpm"
 #include "no.xpm"
@@ -165,10 +161,10 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
     myIcons[ICON_LOCATEADD] = new FXXPMIcon(a, locate_add_xpm);
     myIcons[ICON_LOCATESHAPE] = new FXXPMIcon(a, locate_shape_xpm);
 
-    myIcons[ICON_SHOWGRID] = new FXXPMIcon(a, show_grid_xpm);
     myIcons[ICON_COLORWHEEL] = new FXXPMIcon(a, colorwheel_xpm);
+    myIcons[ICON_SAVEDB] = new FXXPMIcon(a, savedb_xpm);
+    myIcons[ICON_REMOVEDB] = new FXXPMIcon(a, removedb_xpm);
     myIcons[ICON_SHOWTOOLTIPS] = new FXXPMIcon(a, show_tooltips_xpm);
-    myIcons[ICON_SHOWFULLGEOM] = new FXXPMIcon(a, show_geometry_xpm);
     myIcons[ICON_YES] = new FXXPMIcon(a, yes_xpm);
     myIcons[ICON_NO] = new FXXPMIcon(a, no_xpm);
     myIcons[ICON_FLAG] = new FXGIFIcon(a, flag);
@@ -207,19 +203,6 @@ GUIIconSubSys::GUIIconSubSys(FXApp *a)
 
     myIcons[ICON_EXT]    = new FXXPMIcon(a, ext_xpm);
     myIcons[ICON_CUT_SWELL]    = new FXXPMIcon(a, cut_xpm);
-
-
-    // vss
-    myIcons[ICON_SPEEDLIMIT_020KMH] = 0;//new FXGIFIcon(a, vlimit_20);
-    myIcons[ICON_SPEEDLIMIT_040KMH] = 0;//new FXGIFIcon(a, vlimit_40);
-    myIcons[ICON_SPEEDLIMIT_060KMH] = 0;//new FXGIFIcon(a, vlimit_60);
-    myIcons[ICON_SPEEDLIMIT_080KMH] = 0;//new FXGIFIcon(a, vlimit_80);
-    myIcons[ICON_SPEEDLIMIT_100KMH] = 0;//new FXGIFIcon(a, vlimit_100);
-    myIcons[ICON_SPEEDLIMIT_120KMH] = 0;//new FXGIFIcon(a, vlimit_120);
-    myIcons[ICON_SPEEDLIMIT_140KMH] = 0;//new FXGIFIcon(a, vlimit_140);
-    myIcons[ICON_SPEEDLIMIT_160KMH] = 0;//new FXGIFIcon(a, vlimit_160);
-    myIcons[ICON_SPEEDLIMIT_180KMH] = 0;//new FXGIFIcon(a, vlimit_180);
-//    myIcons[ICON_SPEEDLIMIT_200KMH] = new FXGIFIcon(a, vlimit_200);
 
     // ... and create them
     for (int i=0; i<ICON_MAX; i++) {

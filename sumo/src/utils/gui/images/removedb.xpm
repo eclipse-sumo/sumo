@@ -1,6 +1,6 @@
 /* XPM */
 static const char * removedb_xpm[] = {
-"16 16 23 1",
+"16 16 22 1",
 " 	c None",
 ".	c Black",
 "o	c #939393",

@@ -18,9 +18,9 @@ p.xpm paintbrush1x.xpm paintbrush2x.xpm paintbrush3x.xpm paintbrush4x.xpm \
 paintbrush5x.xpm \
 pl_1.xpm pl_2.xpm pl_3.xpm play.xpm pr_1.xpm pr_2.xpm pr_3.xpm \
 rarify.xpm \
-recenter_view.xpm reload.xpm \
+recenter_view.xpm reload.xpm removedb.xpm \
 rubber1x.xpm rubber2x.xpm rubber3x.xpm rubber4x.xpm rubber5x.xpm \
-show_geometry.xpm show_grid.xpm show_tooltips.xpm \
+savedb.xpm show_tooltips.xpm \
 skeletonize.xpm \
 step.xpm stop.xpm view1.xpm view2.xpm view3.xpm \
 windows_cascade.xpm windows_tile_horizontally.xpm windows_tile_vertically.xpm \

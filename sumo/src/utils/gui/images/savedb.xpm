@@ -1,6 +1,6 @@
 /*  PM */
-static const char * savedb_ pm[] = {
-"16 16 30 1",
+static const char * savedb_xpm[] = {
+"16 16 29 1",
 " 	c None",
 ".	c Black",
 "o	c #939393",
