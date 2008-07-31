@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/15/08 15:30:50 by SUMO netgen Version 0.9.7
+<!-- generated on 07/31/08 15:26:02 by SUMO netgen Version dev-SVN-r5892
 <configuration>
 
    <grid_network>
@@ -26,9 +26,9 @@
 
 <net>
 
-   <net-offset>0.000000,0.000000</net-offset>
-   <conv-boundary>0.000000,0.000000,80.000000,80.000000</conv-boundary>
-   <orig-boundary>0.000000,0.000000,80.000000,80.000000</orig-boundary>
+   <net-offset>0.00,0.00</net-offset>
+   <conv-boundary>0.00,0.00,80.00,80.00</conv-boundary>
+   <orig-boundary>0.00,0.00,80.00,80.00</orig-boundary>
    <orig-proj>!</orig-proj>
 
    <edges no="24">0/0to0/1 0/0to1/0 0/1to0/0 0/1to0/2 0/1to1/1 0/2to0/1 0/2to1/2 1/0to0/0 1/0to1/1 1/0to2/0 1/1to0/1 1/1to1/0 1/1to1/2 1/1to2/1 1/2to0/2 1/2to1/1 1/2to2/2 2/0to1/0 2/0to2/1 2/1to1/1 2/1to2/0 2/1to2/2 2/2to1/2 2/2to2/1</edges>

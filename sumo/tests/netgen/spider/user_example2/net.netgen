@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 06/29/07 13:02:15 by SUMO netgen Version 0.9.6
+<!-- generated on 07/31/08 15:25:56 by SUMO netgen Version dev-SVN-r5892
 <configuration>
 
    <spider_network>
@@ -19,9 +19,9 @@
 
 <net>
 
-   <net-offset>300.000000,300.000000</net-offset>
-   <conv-boundary>0.000000,0.000000,600.000000,600.000000</conv-boundary>
-   <orig-boundary>-300.000000,-300.000000,300.000000,300.000000</orig-boundary>
+   <net-offset>300.00,300.00</net-offset>
+   <conv-boundary>0.00,0.00,600.00,600.00</conv-boundary>
+   <orig-boundary>-300.00,-300.00,300.00,300.00</orig-boundary>
    <orig-proj>!</orig-proj>
 
    <edges no="48">1/1to1 1/1to1/2 1/1to2/1 1/1to4/1 1/2to1/1 1/2to1/3 1/2to2/2 1/2to4/2 1/3to1/2 1/3to2/3 1/3to4/3 1to1/1 1to2/1 1to3/1 1to4/1 2/1to1 2/1to1/1 2/1to2/2 2/1to3/1 2/2to1/2 2/2to2/1 2/2to2/3 2/2to3/2 2/3to1/3 2/3to2/2 2/3to3/3 3/1to1 3/1to2/1 3/1to3/2 3/1to4/1 3/2to2/2 3/2to3/1 3/2to3/3 3/2to4/2 3/3to2/3 3/3to3/2 3/3to4/3 4/1to1 4/1to1/1 4/1to3/1 4/1to4/2 4/2to1/2 4/2to3/2 4/2to4/1 4/2to4/3 4/3to1/3 4/3to3/3 4/3to4/2</edges>

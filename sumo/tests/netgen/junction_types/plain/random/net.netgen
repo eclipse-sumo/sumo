@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/18/07 14:31:46 by SUMO netgen Version 0.9.6
+<!-- generated on 07/31/08 15:26:00 by SUMO netgen Version dev-SVN-r5892
 <configuration>
 
    <random_network>
@@ -21,9 +21,9 @@
 
 <net>
 
-   <net-offset>162.290466,362.770477</net-offset>
-   <conv-boundary>0.000000,0.000000,554.795837,574.233032</conv-boundary>
-   <orig-boundary>-162.290466,-362.770477,392.505371,211.462540</orig-boundary>
+   <net-offset>162.29,362.77</net-offset>
+   <conv-boundary>0.00,0.00,554.80,574.23</conv-boundary>
+   <orig-boundary>-162.29,-362.77,392.51,211.46</orig-boundary>
    <orig-proj>!</orig-proj>
 
    <edges no="10">11 13 15 17 19 25 3 38 7 9</edges>
