@@ -645,9 +645,7 @@ NBEdgeCont::savePlain(const std::string &file)
         << "\" speed=\"" << e->getSpeed() << "\"";
         // write the geometry only if larger than just the from/to positions
         if (e->getGeometry().size()>2) {
-            device.setPrecision(10);
             device << " shape=\"" << e->getGeometry() << "\"";
-            device.setPrecision();
         }
         // write the spread type if not default ("right")
         if (e->getLaneSpreadFunction()!=NBEdge::LANESPREAD_RIGHT) {

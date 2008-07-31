@@ -221,21 +221,24 @@ bool
 NBNetBuilder::save(OutputDevice &device, OptionsCont &oc)
 {
     device.writeXMLHeader("net");
-    device.setPrecision(6);
     device << "\n";
     // write network offsets
     device << "   <net-offset>" << GeoConvHelper::getOffset() << "</net-offset>\n";
     device << "   <conv-boundary>" << GeoConvHelper::getConvBoundary() << "</conv-boundary>\n";
-    device << "   <orig-boundary>" << GeoConvHelper::getOrigBoundary() << "</orig-boundary>\n";
-    if (!oc.getBool("use-projection")) {
-        device << "   <orig-proj>!</orig-proj>\n";
-    } else if (oc.getBool("proj.simple")) {
-        device << "   <orig-proj>-</orig-proj>\n";
+    if (oc.getBool("use-projection")) {
+        device.setPrecision(6);
+        device << "   <orig-boundary>" << GeoConvHelper::getOrigBoundary() << "</orig-boundary>\n";
+        device.setPrecision();
+        if (oc.getBool("proj.simple")) {
+            device << "   <orig-proj>-</orig-proj>\n";
+        } else {
+            device << "   <orig-proj>" << oc.getString("proj") << "</orig-proj>\n";
+        }
     } else {
-        device << "   <orig-proj>" << oc.getString("proj") << "</orig-proj>\n";
+        device << "   <orig-boundary>" << GeoConvHelper::getOrigBoundary() << "</orig-boundary>\n";
+        device << "   <orig-proj>!</orig-proj>\n";
     }
     device << "\n";
-    device.setPrecision();
 
     // write the numbers of some elements
     // edges

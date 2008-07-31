@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 06/24/08 12:14:23 by SUMO netconvert Version 0.9.7
+<!-- generated on 07/31/08 15:18:46 by SUMO netconvert Version dev-SVN-r5892
 <configuration>
 
    <input>
@@ -21,9 +21,9 @@
 
 <net>
 
-   <net-offset>500.000000,500.000000</net-offset>
-   <conv-boundary>0.000000,0.000000,1000.000000,1000.000000</conv-boundary>
-   <orig-boundary>-500.000000,-500.000000,500.000000,500.000000</orig-boundary>
+   <net-offset>500.00,500.00</net-offset>
+   <conv-boundary>0.00,0.00,1000.00,1000.00</conv-boundary>
+   <orig-boundary>-500.00,-500.00,500.00,500.00</orig-boundary>
    <orig-proj>!</orig-proj>
 
    <edges no="12">1fi 1o 1si 2fi 2o 2si 3fi 3o 3si 4fi 4o 4si</edges>

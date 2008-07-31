@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/08/07 12:25:42 by SUMO netconvert Version 0.9.6
+<!-- generated on 07/31/08 15:18:38 by SUMO netconvert Version dev-SVN-r5892
 <configuration>
 
    <input>
@@ -17,8 +17,8 @@
 -->
 
 <nodes>
-   <node id="dl" x="95.4929656982" y="0.0000000000"/>
-   <node id="dr" x="1295.4929199219" y="0.0000000000"/>
-   <node id="tl" x="95.4929656982" y="190.9899902344"/>
-   <node id="tr" x="1295.4929199219" y="190.9899902344"/>
+   <node id="dl" x="95.49" y="0.00"/>
+   <node id="dr" x="1295.49" y="0.00"/>
+   <node id="tl" x="95.49" y="190.99"/>
+   <node id="tr" x="1295.49" y="190.99"/>
 </nodes>

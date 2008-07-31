@@ -1024,7 +1024,6 @@ NBNodeCont::savePlain(const std::string &file)
 {
     OutputDevice& device = OutputDevice::getDevice(file);
     device.writeXMLHeader("nodes");
-    device.setPrecision(10);
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         NBNode *n = (*i).second;
         device << "   <node id=\"" << n->getID() << "\" ";

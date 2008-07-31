@@ -177,25 +177,21 @@ PCPolyContainer::save(const std::string &file, int /*layer*/)
     // write polygons
     {
         for (PolyCont::iterator i=myPolyCont.begin(); i!=myPolyCont.end(); ++i) {
-            out.setPrecision();
             out << "   <poly id=\"" << (*i).second->getName() << "\" type=\""
             << (*i).second->getType() << "\" color=\""
             << (*i).second->getColor() << "\" fill=\""
             << (*i).second->fill() << "\"";
             out << " layer=\"" << myPolyLayerMap[(*i).second] << "\"";
-            out.setPrecision(10);
             out << ">" << (*i).second->getPosition2DVector() << "</poly>\n";
         }
     }
     // write pois
     {
         for (POICont::iterator i=myPOICont.begin(); i!=myPOICont.end(); ++i) {
-            out.setPrecision();
             out << "   <poi id=\"" << (*i).second->getID() << "\" type=\""
             << (*i).second->getType() << "\" color=\""
             << *static_cast<RGBColor*>((*i).second) << '"';
             out << " layer=\"" << myPOILayerMap[(*i).second] << "\"";
-            out.setPrecision(10);
             out << " x=\"" << (*i).second->x() << "\""
             << " y=\"" << (*i).second->y() << "\""
             << "/>\n";
