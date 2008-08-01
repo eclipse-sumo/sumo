@@ -24,7 +24,7 @@ endif
 
 if TRACI
 TRACI_LIBS = ./traci-server/libtraciserver.a
-TRACI_DIRS = traci-server
+TRACI_DIRS = traci-server traci-testclient
 
 TRACI_TESTCLIENT_APPS = traci-testclient
 traci_testclient_SOURCES = ./foreign/traci_testclient/tracitestclient_main.cpp
