@@ -124,6 +124,7 @@ public:
         : depart(-1), departLane(0),
         departLaneProcedure(DEPART_LANE_DEFAULT), 
         departPosProcedure(DEPART_POS_DEFAULT), departSpeedProcedure(DEPART_SPEED_DEFAULT),
+        arrivalPos(0), arrivalSpeed(-1),
         repetitionNumber(-1), repetitionOffset(-1), setParameter(0), color(RGBColor::DEFAULT_COLOR)
     {
     }
@@ -162,14 +163,14 @@ public:
     /// @}
 
 
-    /// @name Departure definition
+    /// @name Arrival definition
     /// @{
 
-    /// @brief currently unused; not yet implemented
+    /// @brief (optional) The lane the vehicle shall arrive on (not used yet)
     std::string arrivalLane;
-    /// @brief currently unused; not yet implemented
+    /// @brief (optional) The position the vehicle shall arrive on
     SUMOReal arrivalPos;
-    /// @brief currently unused; not yet implemented
+    /// @brief (optional) The final speed of the vehicle (not used yet)
     SUMOReal arrivalSpeed;
     /// @}
 
