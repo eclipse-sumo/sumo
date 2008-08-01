@@ -272,6 +272,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libutils_gui_tracker", "z
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "z_libnetimport_vissim", "z_libnetimport_vissim\z_libnetimport_vissim.vcproj", "{F7F13336-3E29-4219-8580-A17C71E69718}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TraciTestClient", "traci-testclient\Traci_TestClient.vcproj", "{46274B55-07FE-4911-B4C0-D8B43A203B4A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Win32 = Debug|Win32
@@ -787,6 +789,15 @@ Global
 		{F7F13336-3E29-4219-8580-A17C71E69718}.Release|Win32.ActiveCfg = Release|Win32
 		{F7F13336-3E29-4219-8580-A17C71E69718}.Release|Win32.Build.0 = Release|Win32
 		{F7F13336-3E29-4219-8580-A17C71E69718}.Release|x64.ActiveCfg = Release|Win32
+		{46274B55-07FE-4911-B4C0-D8B43A203B4A}.Debug|Win32.ActiveCfg = Debug|Win32
+		{46274B55-07FE-4911-B4C0-D8B43A203B4A}.Debug|Win32.Build.0 = Debug|Win32
+		{46274B55-07FE-4911-B4C0-D8B43A203B4A}.Debug|x64.ActiveCfg = Debug|Win32
+		{46274B55-07FE-4911-B4C0-D8B43A203B4A}.Fastbuild|Win32.ActiveCfg = Release|Win32
+		{46274B55-07FE-4911-B4C0-D8B43A203B4A}.Fastbuild|Win32.Build.0 = Release|Win32
+		{46274B55-07FE-4911-B4C0-D8B43A203B4A}.Fastbuild|x64.ActiveCfg = Release|Win32
+		{46274B55-07FE-4911-B4C0-D8B43A203B4A}.Release|Win32.ActiveCfg = Release|Win32
+		{46274B55-07FE-4911-B4C0-D8B43A203B4A}.Release|Win32.Build.0 = Release|Win32
+		{46274B55-07FE-4911-B4C0-D8B43A203B4A}.Release|x64.ActiveCfg = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
