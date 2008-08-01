@@ -74,7 +74,7 @@ void
 MSInternalJunction::postloadInit()
 {
     // inform links where they have to report approaching vehicles to
-    size_t requestPos = 0;
+    unsigned int requestPos = 0;
     if (myIncomingLanes.size()!=0) {
         // for the first incoming lane
         const MSLinkCont &links = myIncomingLanes[0]->getLinkCont();

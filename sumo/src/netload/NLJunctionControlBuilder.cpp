@@ -359,7 +359,7 @@ NLJunctionControlBuilder::initTrafficLightLogic(const std::string &type,
 
 
 void
-NLJunctionControlBuilder::addPhase(size_t duration, const std::bitset<64> &phase,
+NLJunctionControlBuilder::addPhase(SUMOTime duration, const std::bitset<64> &phase,
                                    const std::bitset<64> &prios,
                                    const std::bitset<64> &yellow,
                                    int min, int max) throw()

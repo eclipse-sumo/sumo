@@ -200,9 +200,8 @@ public:
      * @param[in] max The maximum duration of the phase
      * @todo min/max is used only by one junction type. Recheck
      * @todo min/max: maybe only one type of a phase definition should be built
-     * @todo Check why the duration is not SUMOTime
      */
-    void addPhase(size_t duration, const std::bitset<64> &phase,
+    void addPhase(SUMOTime duration, const std::bitset<64> &phase,
                   const std::bitset<64> &prios, const std::bitset<64> &yellow,
                   int min, int max) throw();
 
