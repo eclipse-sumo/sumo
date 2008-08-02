@@ -346,7 +346,6 @@ src/foreign/nvwa/Makefile
 src/foreign/mersenne/Makefile
 src/foreign/polyfonts/Makefile
 src/foreign/tcpip/Makefile
-src/foreign/traci_testclient/Makefile
 src/gui/Makefile
 src/gui/dialogs/Makefile
 src/gui/drawerimpl/Makefile
@@ -373,6 +372,8 @@ src/router/Makefile
 src/routing_df/Makefile
 src/routing_dua/Makefile
 src/routing_jtr/Makefile
+src/traci-testclient/Makefile
+src/traci-server/Makefile
 src/utils/Makefile
 src/utils/common/Makefile
 src/utils/distribution/Makefile
@@ -391,7 +392,6 @@ src/utils/iodevices/Makefile
 src/utils/options/Makefile
 src/utils/shapes/Makefile
 src/utils/xml/Makefile
-src/traci-server/Makefile
 docs/Makefile
 docs/docbook/Makefile
 docs/docbook/xslt/Makefile
