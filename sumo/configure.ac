@@ -372,7 +372,7 @@ src/router/Makefile
 src/routing_df/Makefile
 src/routing_dua/Makefile
 src/routing_jtr/Makefile
-src/traci-testclient/Makefile
+src/traci_testclient/Makefile
 src/traci-server/Makefile
 src/utils/Makefile
 src/utils/common/Makefile

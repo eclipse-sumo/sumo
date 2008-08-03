@@ -88,7 +88,7 @@ public:
     size_t getPosition(SUMOTime simStep);
 
     /// returns the step (the phasenumber) of a given position of the cycle
-    size_t getStepFromPos(size_t position);
+    unsigned int getStepFromPos(unsigned int position);
 
     /// returns the position (start of a phase during a cycle) from of a given step
     size_t getPosFromStep(size_t step);

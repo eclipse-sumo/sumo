@@ -80,8 +80,8 @@ MSOffTrafficLightLogic::getPosition(SUMOTime simStep)
     return 0;
 }
 
-size_t
-MSOffTrafficLightLogic::getStepFromPos(size_t position)
+unsigned int
+MSOffTrafficLightLogic::getStepFromPos(unsigned int position)
 {
     return 0;
 }

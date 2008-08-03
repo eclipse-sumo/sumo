@@ -24,11 +24,11 @@ endif
 
 if TRACI
 TRACI_LIBS = ./traci-server/libtraciserver.a
-TRACI_DIRS = traci-server traci-testclient
+TRACI_DIRS = traci-server traci_testclient
 
 TRACI_TESTCLIENT_APPS = traci-testclient
-traci_testclient_SOURCES = ./foreign/traci_testclient/tracitestclient_main.cpp
-traci_testclient_LDADD = ./foreign/traci_testclient/libtracitestclient.a\
+traci_testclient_SOURCES = ./traci_testclient/tracitestclient_main.cpp
+traci_testclient_LDADD = ./traci_testclient/libtracitestclient.a\
 ./foreign/tcpip/libtcpip.a
 endif
 
