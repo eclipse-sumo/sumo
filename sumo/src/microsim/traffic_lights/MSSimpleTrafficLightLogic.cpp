@@ -51,7 +51,7 @@ MSSimpleTrafficLightLogic::MSSimpleTrafficLightLogic(MSNet& /*net*/,
         const std::string &subid,
         const Phases &phases,
         size_t step,
-        size_t delay)
+        SUMOTime delay)
         : MSTrafficLightLogic(tlcontrol, id, subid, delay), myPhases(phases),
         myStep(step), myCycleTime(0)
 {
@@ -210,19 +210,16 @@ MSSimpleTrafficLightLogic::getPosition(SUMOTime simStep)
     return position;
 }
 
-size_t
-MSSimpleTrafficLightLogic::getStepFromPos(size_t position)
+unsigned int
+MSSimpleTrafficLightLogic::getStepFromPos(unsigned int position)
 {
     assert(position <= myCycleTime);
-    size_t pos = position;
-    if (pos == myCycleTime) {
-        pos = 0;
-    }
-    if (pos == 0)	{
+    if (position == myCycleTime) {
         return 0;
     }
-    size_t testPos = 0;
-    for (size_t i=0; i < myPhases.size(); i++)	{
+    unsigned int pos = position;
+    unsigned int testPos = 0;
+    for (unsigned int i=0; i < myPhases.size(); i++)	{
         testPos = testPos + getPhaseFromStep(i).duration;
         if (testPos > pos) {
             return i;
@@ -236,20 +233,16 @@ MSSimpleTrafficLightLogic::getStepFromPos(size_t position)
 }
 
 
-size_t
-MSSimpleTrafficLightLogic::getPosFromStep(size_t step)
+unsigned int
+MSSimpleTrafficLightLogic::getPosFromStep(unsigned int step)
 {
     assert(step < myPhases.size());
-
-    size_t pos = 0;
-    size_t myStep = step;
-
-    if (myStep == 0) {
+    if (step == 0) {
         return 0;
     }
-
-    for (size_t i=0; i < myStep; i++)	{
-        pos = pos + getPhaseFromStep(i).duration;
+    unsigned int pos = 0;
+    for (size_t i=0; i < step; i++)	{
+        pos += getPhaseFromStep(i).duration;
     }
     return pos;
 }

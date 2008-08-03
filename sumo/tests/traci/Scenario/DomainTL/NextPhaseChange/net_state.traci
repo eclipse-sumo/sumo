@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 05/24/08 17:45:12 by SUMO sumo Version dev-SVN-r5552
+<!-- generated on 08/01/08 14:05:44 by SUMO sumo Version dev-SVN-r5892
 <configuration>
 
    <input>
@@ -12,6 +12,10 @@
       <netstate-dump>netstate_dump.xml</netstate-dump>
    </output>
 
+   <processing>
+      <no-step-log>true</no-step-log>
+   </processing>
+
    <traffic_control_interface_(traci)_server>
       <remote-port>8880</remote-port>
       <penetration>1</penetration>
@@ -21,6 +25,8 @@
 -->
 
 <sumo-netstate>
+   <timestep time="0">
+   </timestep>
    <timestep time="1">
    </timestep>
    <timestep time="2">

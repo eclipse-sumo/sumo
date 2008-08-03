@@ -94,9 +94,7 @@ TraCIServer::TraCIServer()
 {
     OptionsCont &oc = OptionsCont::getOptions();
 
-    beginTime_ = oc.getInt("begin");
-    endTime_ = oc.getInt("end");
-    targetTime_ = INT_MAX;
+    targetTime_ = 0;
     penetration_ = oc.getFloat("penetration");
     routeFile_ = oc.getString("route-files");
     isMapChanged_ = true;
@@ -221,7 +219,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step)
                 return;
             }
         }
-        if (instance_->targetTime_ < step) {
+        if (step < instance_->targetTime_) {
             return;
         }
         // Simulation should run until
@@ -229,7 +227,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step)
         // 2. got CMD_CLOSE or
         // 3. Client closes socket connection
         if (instance_->myDoingSimStep) {
-            instance_->postProcessSimulationStep(instance_->myOutputStorage);
+            instance_->postProcessSimulationStep();
             instance_->myDoingSimStep = false;
         }
 
@@ -246,7 +244,7 @@ TraCIServer::processCommandsUntilSimStep(SUMOTime step)
             }
             while (instance_->myInputStorage.valid_pos() && !closeConnection_) {
                 // dispatch each command
-                if (instance_->dispatchCommand(instance_->myInputStorage, instance_->myOutputStorage) == CMD_SIMSTEP) {
+                if (instance_->dispatchCommand() == CMD_SIMSTEP) {
                     instance_->myDoingSimStep = true;
                     return;
                 }
@@ -279,81 +277,81 @@ TraCIServer::wasClosed()
 /*****************************************************************************/
 
 int
-TraCIServer::dispatchCommand(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+TraCIServer::dispatchCommand()
 throw(TraCIException, std::invalid_argument)
 {
-    int commandStart = requestMsg.position();
-    int commandLength = requestMsg.readUnsignedByte();
+    int commandStart = myInputStorage.position();
+    int commandLength = myInputStorage.readUnsignedByte();
 
-    int commandId = requestMsg.readUnsignedByte();
+    int commandId = myInputStorage.readUnsignedByte();
 
     // dispatch commands
     switch (commandId) {
     case CMD_SETMAXSPEED:
-        commandSetMaximumSpeed(requestMsg, respMsg);
+        commandSetMaximumSpeed();
         break;
     case CMD_SIMSTEP:
-        commandSimulationStep(requestMsg,respMsg);
-        break;
+        targetTime_ = static_cast<SUMOTime>(myInputStorage.readDouble());
+        return commandId;
     case CMD_STOP:
-        commandStopNode(requestMsg, respMsg);
+        commandStopNode();
         break;
     case CMD_CHANGELANE:
-        commandChangeLane(requestMsg, respMsg);
+        commandChangeLane();
         break;
     case CMD_CHANGEROUTE:
-        commandChangeRoute(requestMsg, respMsg);
+        commandChangeRoute();
         break;
 	case CMD_CHANGETARGET:
-		commandChangeTarget(requestMsg, respMsg);
+		commandChangeTarget();
 		break;
     case CMD_GETALLTLIDS:
-        commandGetAllTLIds(requestMsg, respMsg);
+        commandGetAllTLIds();
         break;
 	case CMD_GETTLSTATUS:
-		commandGetTLStatus(requestMsg, respMsg);
+		commandGetTLStatus();
 		break;
     case CMD_CLOSE:
-        commandCloseConnection(requestMsg, respMsg);
+        commandCloseConnection();
         break;
     case CMD_UPDATECALIBRATOR:
-        commandUpdateCalibrator(requestMsg, respMsg);
+        commandUpdateCalibrator();
         break;
 	case CMD_POSITIONCONVERSION:
-		commandPositionConversion(requestMsg, respMsg);
+		commandPositionConversion();
 		break;
 	case CMD_SLOWDOWN:
-		commandSlowDown(requestMsg, respMsg);
+		commandSlowDown();
 		break;
 	case CMD_SCENARIO:
-		commandScenario(requestMsg, respMsg);
+		commandScenario();
 		break;
 	case CMD_DISTANCEREQUEST:
-		commandDistanceRequest(requestMsg, respMsg);
+		commandDistanceRequest();
 		break;
 	case CMD_SUBSCRIBELIFECYCLES:
-		commandSubscribeLifecycles(requestMsg, respMsg);
+		commandSubscribeLifecycles();
 		break;
 	case CMD_UNSUBSCRIBELIFECYCLES:
-		commandUnsubscribeLifecycles(requestMsg, respMsg);
+		commandUnsubscribeLifecycles();
 		break;
 	case CMD_SUBSCRIBEDOMAIN:
-		commandSubscribeDomain(requestMsg, respMsg);
+		commandSubscribeDomain();
 		break;
 	case CMD_UNSUBSCRIBEDOMAIN:
-		commandUnsubscribeDomain(requestMsg, respMsg);
+		commandUnsubscribeDomain();
 		break;
     default:
-        writeStatusCmd(respMsg, commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
+        writeStatusCmd(commandId, RTYPE_NOTIMPLEMENTED, "Command not implemented in sumo");
         closeConnection_ = true;
     }
 
-    if (requestMsg.position() != commandStart + commandLength) {
+    if (myInputStorage.position() != commandStart + commandLength) {
         ostringstream msg;
         msg << "Wrong position in requestMessage after dispatching command.";
         msg << " Expected command length was " << commandLength;
-        msg << " but " << requestMsg.position() - commandStart << " Bytes were read.";
-        writeStatusCmd(respMsg, commandId, RTYPE_ERR, msg.str() );
+        msg << " but " << myInputStorage.position() - commandStart << " Bytes were read.";
+        writeStatusCmd(commandId, RTYPE_ERR, msg.str() );
         closeConnection_ = true;
     }
     return commandId;
@@ -362,14 +360,13 @@ throw(TraCIException, std::invalid_argument)
 /*****************************************************************************/
 
 void
-TraCIServer::commandSetMaximumSpeed(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-throw(TraCIException, std::invalid_argument)
+TraCIServer::commandSetMaximumSpeed() throw(TraCIException, std::invalid_argument)
 {
-    MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
-    float maxspeed = requestMsg.readFloat();
+    MSVehicle* veh = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
+    float maxspeed = myInputStorage.readFloat();
 
     if (veh == NULL) {
-        writeStatusCmd(respMsg, CMD_SETMAXSPEED, RTYPE_ERR, "Can not retrieve node with given ID");
+        writeStatusCmd(CMD_SETMAXSPEED, RTYPE_ERR, "Can not retrieve node with given ID");
         return;
     }
 
@@ -380,7 +377,7 @@ throw(TraCIException, std::invalid_argument)
     }
 
     // create a reply message
-    writeStatusCmd(respMsg, CMD_SETMAXSPEED, RTYPE_OK, "");
+    writeStatusCmd(CMD_SETMAXSPEED, RTYPE_OK, "");
 
     return;
 }
@@ -388,33 +385,19 @@ throw(TraCIException, std::invalid_argument)
 /*****************************************************************************/
 
 void
-TraCIServer::commandSimulationStep(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-throw(TraCIException, std::invalid_argument)
-{
-	MSNet *net = MSNet::getInstance();
-    SUMOTime currentTime = net->getCurrentTimeStep();
-
-    // TargetTime
-    targetTime_ = static_cast<SUMOTime>(requestMsg.readDouble()) + beginTime_;
-    if (targetTime_ > endTime_) {
-        targetTime_ = endTime_;
-    }
-    resType_ = requestMsg.readUnsignedByte();
-}
-
-void
-TraCIServer::postProcessSimulationStep(tcpip::Storage& respMsg) throw(TraCIException)
+TraCIServer::postProcessSimulationStep() throw(TraCIException, std::invalid_argument)
 {
     // Position representation
-    if (resType_ != POSITION_NONE && resType_ != POSITION_2D && resType_ != POSITION_ROADMAP
-		&& resType_ != POSITION_2_5D && resType_ != POSITION_3D) {
-        writeStatusCmd(respMsg, CMD_SIMSTEP, RTYPE_ERR, "Error: unsupported return format requested.");
+    int resType = myInputStorage.readUnsignedByte();
+    if (resType != POSITION_NONE && resType != POSITION_2D && resType != POSITION_ROADMAP
+		&& resType != POSITION_2_5D && resType != POSITION_3D) {
+        writeStatusCmd(CMD_SIMSTEP, RTYPE_ERR, "Error: unsupported return format requested.");
         closeConnection_ = true;
         return;
     }
     isMapChanged_ = true;
     // Everything is fine
-    writeStatusCmd(respMsg, CMD_SIMSTEP, RTYPE_OK, "");
+    writeStatusCmd(CMD_SIMSTEP, RTYPE_OK, "");
 
     // prepare output
     try {
@@ -475,7 +458,7 @@ TraCIServer::postProcessSimulationStep(tcpip::Storage& respMsg) throw(TraCIExcep
             }
         }
 
-        handleLifecycleSubscriptions(respMsg);
+        handleLifecycleSubscriptions();
 
         // for each vehicle process any active traci command
         for (std::map<std::string, int>::iterator iter = equippedVehicles_.begin();
@@ -488,13 +471,13 @@ TraCIServer::postProcessSimulationStep(tcpip::Storage& respMsg) throw(TraCIExcep
             }
         }
 
-        handleDomainSubscriptions(respMsg, targetTime_, activeEquippedVehicles);
+        handleDomainSubscriptions(targetTime_, activeEquippedVehicles);
 
         //out.writeChar( static_cast<unsigned char>(rtype) );
         //out.writeInt(numEquippedVehicles_);
         // iterate over all active equipped vehicles
         // and generate a Move Node command for each vehicle
-        if (resType_ != POSITION_NONE) {
+        if (resType != POSITION_NONE) {
             for (map<int, const MSVehicle*>::iterator iter = activeEquippedVehicles.begin();
                  iter != activeEquippedVehicles.end(); ++iter) {
                 int extId = (*iter).first;
@@ -508,7 +491,7 @@ TraCIServer::postProcessSimulationStep(tcpip::Storage& respMsg) throw(TraCIExcep
                 // end time
                 tempMsg.writeDouble(targetTime_);
 
-                if (resType_ == POSITION_2D) {
+                if (resType == POSITION_2D) {
                     // return type
                     tempMsg.writeUnsignedByte(POSITION_2D);
 
@@ -517,7 +500,7 @@ TraCIServer::postProcessSimulationStep(tcpip::Storage& respMsg) throw(TraCIExcep
                     tempMsg.writeFloat(pos.x() - getNetBoundary().xmin());
                     // y pos
                     tempMsg.writeFloat(pos.y() - getNetBoundary().ymin());
-                } else if (resType_ == POSITION_ROADMAP) {
+                } else if (resType == POSITION_ROADMAP) {
                     // return type
                     tempMsg.writeUnsignedByte(POSITION_ROADMAP);
 
@@ -531,9 +514,9 @@ TraCIServer::postProcessSimulationStep(tcpip::Storage& respMsg) throw(TraCIExcep
                         laneId++;
                     }
                     tempMsg.writeUnsignedByte(laneId);
-                } else if (resType_ == POSITION_3D || resType_ == POSITION_2_5D) {
+                } else if (resType == POSITION_3D || resType == POSITION_2_5D) {
                     // return type
-                    tempMsg.writeUnsignedByte(resType_);
+                    tempMsg.writeUnsignedByte(resType);
 
                     Position2D pos = vehicle->getPosition();
                     //xpos
@@ -545,21 +528,20 @@ TraCIServer::postProcessSimulationStep(tcpip::Storage& respMsg) throw(TraCIExcep
                 }
 
                 // command length
-                respMsg.writeUnsignedByte(tempMsg.size()+1);
+                myOutputStorage.writeUnsignedByte(tempMsg.size()+1);
                 // content
-                respMsg.writeStorage(tempMsg);
+                myOutputStorage.writeStorage(tempMsg);
             }
         }
     } catch (...) {
-        writeStatusCmd(respMsg, CMD_SIMSTEP, RTYPE_ERR, "some error happen in command: simulation step. Sumo shuts down.");
+        writeStatusCmd(CMD_SIMSTEP, RTYPE_ERR, "some error happen in command: simulation step. Sumo shuts down.");
     }
 }
 
 /*****************************************************************************/
 
 void
-TraCIServer::commandStopNode(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-throw(TraCIException, std::invalid_argument)
+TraCIServer::commandStopNode() throw(TraCIException, std::invalid_argument)
 {
     //std::string roadID;
     //float lanePos;
@@ -568,57 +550,57 @@ throw(TraCIException, std::invalid_argument)
 	MSLane* actLane;
 
     // NodeId
-	int nodeId = requestMsg.readInt();
+	int nodeId = myInputStorage.readInt();
     MSVehicle* veh = getVehicleByExtId(nodeId);   // external node id (equipped vehicle number)
 
 	if (veh == NULL) {
-        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Can not retrieve node with given ID");
+        writeStatusCmd(CMD_STOP, RTYPE_ERR, "Can not retrieve node with given ID");
         return;
     }
 
     // StopPosition
-    unsigned char posType = requestMsg.readUnsignedByte();	// position type
+    unsigned char posType = myInputStorage.readUnsignedByte();	// position type
 	switch (posType) {
 	case POSITION_ROADMAP:
 		// read road map position
-		roadPos.roadId = requestMsg.readString();
-		roadPos.pos = requestMsg.readFloat();
-		roadPos.laneId = requestMsg.readUnsignedByte();
+		roadPos.roadId = myInputStorage.readString();
+		roadPos.pos = myInputStorage.readFloat();
+		roadPos.laneId = myInputStorage.readUnsignedByte();
 		break;
 	case POSITION_2D:
 	case POSITION_3D:
 		// convert other position type to road map position
-		roadPos = convertCartesianToRoadMap(Position2D(requestMsg.readFloat(),
-													requestMsg.readFloat()));
+		roadPos = convertCartesianToRoadMap(Position2D(myInputStorage.readFloat(),
+													myInputStorage.readFloat()));
 		if (posType == POSITION_3D) {
-			requestMsg.readFloat();	// z value is ignored
+			myInputStorage.readFloat();	// z value is ignored
 		}
 		break;
 	default:
-		writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Not supported or unknown Position Format");
+		writeStatusCmd(CMD_STOP, RTYPE_ERR, "Not supported or unknown Position Format");
 		return;
 	}
 
 	// Radius
-    float radius = requestMsg.readFloat();
+    float radius = myInputStorage.readFloat();
     // waitTime
-    double waitTime = requestMsg.readDouble();
+    double waitTime = myInputStorage.readDouble();
   
 	if (roadPos.pos < 0) {
-        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
+        writeStatusCmd(CMD_STOP, RTYPE_ERR, "Position on lane must not be negative");
 		return;
     }
 
 	// get the actual lane that is referenced by laneIndex
 	MSEdge* road = MSEdge::dictionary(roadPos.roadId);
     if (road == NULL) {
-        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Unable to retrieve road with given id");
+        writeStatusCmd(CMD_STOP, RTYPE_ERR, "Unable to retrieve road with given id");
 		return;
     }
 
     const MSEdge::LaneCont* const allLanes = road->getLanes();
 	if (roadPos.laneId >= allLanes->size()) {
-        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "No lane existing with such id on the given road");
+        writeStatusCmd(CMD_STOP, RTYPE_ERR, "No lane existing with such id on the given road");
 		return;
     }
 
@@ -641,76 +623,74 @@ throw(TraCIException, std::invalid_argument)
 
     // Forward command to vehicle
     if (!veh->addTraciStop(actLane, roadPos.pos, radius, waitTime)) {
-        writeStatusCmd(respMsg, CMD_STOP, RTYPE_ERR, "Stop on " + actLane->getID() + " is not downstream on the current route");
+        writeStatusCmd(CMD_STOP, RTYPE_ERR, "Stop on " + actLane->getID() + " is not downstream on the current route");
 		return;
     }
 
     // create a reply message
-    writeStatusCmd(respMsg, CMD_STOP, RTYPE_OK, "");
+    writeStatusCmd(CMD_STOP, RTYPE_OK, "");
 	// add a stopnode command containging the actually used road map position to the reply
 	int length = 1 + 1 + 4 + 1 + (4+roadPos.roadId.length()) + 4 + 1 + 4 + 8;
-	respMsg.writeUnsignedByte(length);				// lenght
-	respMsg.writeUnsignedByte(CMD_STOP);			// command id
-	respMsg.writeInt(nodeId);						// node id
-	respMsg.writeUnsignedByte(POSITION_ROADMAP);	// pos format
-	respMsg.writeString(roadPos.roadId);					// road id
-	respMsg.writeFloat(roadPos.pos);					// pos
-	respMsg.writeUnsignedByte(roadPos.laneId);			// lane id
-	respMsg.writeFloat(radius);						// radius
-	respMsg.writeDouble(waitTime);					// wait time
+	myOutputStorage.writeUnsignedByte(length);				// lenght
+	myOutputStorage.writeUnsignedByte(CMD_STOP);			// command id
+	myOutputStorage.writeInt(nodeId);						// node id
+	myOutputStorage.writeUnsignedByte(POSITION_ROADMAP);	// pos format
+	myOutputStorage.writeString(roadPos.roadId);					// road id
+	myOutputStorage.writeFloat(roadPos.pos);					// pos
+	myOutputStorage.writeUnsignedByte(roadPos.laneId);			// lane id
+	myOutputStorage.writeFloat(radius);						// radius
+	myOutputStorage.writeDouble(waitTime);					// wait time
 
     return;
 }
 
 /*****************************************************************************/
 void
-TraCIServer::commandChangeLane(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-throw(TraCIException, std::invalid_argument)
+TraCIServer::commandChangeLane() throw(TraCIException, std::invalid_argument)
 {
     // NodeId
-    MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
+    MSVehicle* veh = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
     // Lane ID
-    char laneIndex = requestMsg.readByte();
+    char laneIndex = myInputStorage.readByte();
     // stickyTime
-    float stickyTime = requestMsg.readFloat();
+    float stickyTime = myInputStorage.readFloat();
 
     if (veh == NULL) {
-        writeStatusCmd(respMsg, CMD_CHANGELANE, RTYPE_ERR, "Can not retrieve node with given ID");
+        writeStatusCmd(CMD_CHANGELANE, RTYPE_ERR, "Can not retrieve node with given ID");
         return;
     }
 
 	/*const MSEdge* const road = veh->getEdge();
     const MSEdge::LaneCont* const allLanes = road->getLanes();*/
 	if ((laneIndex < 0) || (laneIndex >= veh->getEdge()->getLanes()->size())) {
-        writeStatusCmd(respMsg, CMD_CHANGELANE, RTYPE_ERR, "No lane existing with given id on the current road");
+        writeStatusCmd(CMD_CHANGELANE, RTYPE_ERR, "No lane existing with given id on the current road");
     }
 	
 	// Forward command to vehicle
 	veh->startLaneChange(static_cast<unsigned>(laneIndex), static_cast<SUMOTime>(stickyTime));
 
     // create a reply message
-    writeStatusCmd(respMsg, CMD_CHANGELANE, RTYPE_OK, "");
+    writeStatusCmd(CMD_CHANGELANE, RTYPE_OK, "");
 
     return;
 }
 
 /*****************************************************************************/
 void
-TraCIServer::commandChangeRoute(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-throw(TraCIException, std::invalid_argument)
+TraCIServer::commandChangeRoute() throw(TraCIException, std::invalid_argument)
 {
     // NodeId
-    int vehId = requestMsg.readInt();
+    int vehId = myInputStorage.readInt();
     MSVehicle* veh = getVehicleByExtId(vehId);   // external node id (equipped vehicle number)
     // edgeID
-    std::string edgeID = requestMsg.readString();
+    std::string edgeID = myInputStorage.readString();
     // travelTime
-    double travelTime = requestMsg.readDouble();
+    double travelTime = myInputStorage.readDouble();
 
     if (veh == NULL) {
         std::ostringstream os;
         os << "Can not retrieve node with ID " << vehId;
-        writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, os.str());
+        writeStatusCmd(CMD_CHANGEROUTE, RTYPE_ERR, os.str());
         return;
     }
 
@@ -725,32 +705,31 @@ throw(TraCIException, std::invalid_argument)
     }
     // create a reply message
     if (result) {
-        writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_OK, "");
+        writeStatusCmd(CMD_CHANGEROUTE, RTYPE_OK, "");
     } else {
-        writeStatusCmd(respMsg, CMD_CHANGEROUTE, RTYPE_ERR, "Could not set travel time properly");
+        writeStatusCmd(CMD_CHANGEROUTE, RTYPE_ERR, "Could not set travel time properly");
     }
 }
 
 /*****************************************************************************/
 void
-TraCIServer::commandChangeTarget(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
-throw(TraCIException, std::invalid_argument)
+TraCIServer::commandChangeTarget() throw(TraCIException, std::invalid_argument)
 {
     // NodeId
-    MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
+    MSVehicle* veh = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
     // EdgeId
-    std::string edgeID = requestMsg.readString();
+    std::string edgeID = myInputStorage.readString();
 
     // destination edge
     const MSEdge* destEdge = MSEdge::dictionary(edgeID);
 
     if (veh == NULL) {
-        writeStatusCmd(respMsg, CMD_CHANGETARGET, RTYPE_ERR, "Can not retrieve node with given ID");
+        writeStatusCmd(CMD_CHANGETARGET, RTYPE_ERR, "Can not retrieve node with given ID");
         return;
     }
 
     if (destEdge == NULL) {
-        writeStatusCmd(respMsg, CMD_CHANGETARGET, RTYPE_ERR, "Can not retrieve road with ID " + edgeID);
+        writeStatusCmd(CMD_CHANGETARGET, RTYPE_ERR, "Can not retrieve road with ID " + edgeID);
         return;
     }
 
@@ -763,15 +742,15 @@ throw(TraCIException, std::invalid_argument)
                    MSNet::getInstance()->getCurrentTimeStep(), newRoute);
     // replace the vehicle's route by the new one
     if(veh->replaceRoute(newRoute, MSNet::getInstance()->getCurrentTimeStep())) {
-        writeStatusCmd(respMsg, CMD_CHANGETARGET, RTYPE_OK, "");
+        writeStatusCmd(CMD_CHANGETARGET, RTYPE_OK, "");
     } else {
-        writeStatusCmd(respMsg, CMD_CHANGETARGET, RTYPE_ERR, "Route replacement failed for " + veh->getID());
+        writeStatusCmd(CMD_CHANGETARGET, RTYPE_ERR, "Route replacement failed for " + veh->getID());
     }
 }
 
 /*****************************************************************************/
 void
-TraCIServer::commandGetAllTLIds(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+TraCIServer::commandGetAllTLIds()
 throw(TraCIException)
 {
     tcpip::Storage tempMsg;
@@ -783,27 +762,27 @@ throw(TraCIException)
 
     if (idList.size() == 0) {
         // create negative response message
-        writeStatusCmd(respMsg, CMD_GETALLTLIDS, RTYPE_ERR, "Could not retrieve any traffic light id");
+        writeStatusCmd(CMD_GETALLTLIDS, RTYPE_ERR, "Could not retrieve any traffic light id");
         return;
     }
 
     // create positive response message
-    writeStatusCmd(respMsg, CMD_GETALLTLIDS, RTYPE_OK, "");
+    writeStatusCmd(CMD_GETALLTLIDS, RTYPE_OK, "");
 
     // create a response command for each string id
     for (std::vector<std::string>::iterator iter = idList.begin(); iter != idList.end(); iter++) {
         // command length
-        respMsg.writeByte(2 + (4 + (*iter).size()));
+        myOutputStorage.writeByte(2 + (4 + (*iter).size()));
         // command type
-        respMsg.writeByte(CMD_TLIDLIST);
+        myOutputStorage.writeByte(CMD_TLIDLIST);
         // id string
-        respMsg.writeString((*iter));
+        myOutputStorage.writeString((*iter));
     }
 }
 
 /*****************************************************************************/
 void
-TraCIServer::commandGetTLStatus(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+TraCIServer::commandGetTLStatus()
 throw(TraCIException)
 {
     SUMOTime lookback = 60; // Time to look in history for recognizing yellowTimes
@@ -811,27 +790,27 @@ throw(TraCIException)
     tcpip::Storage tempMsg;
 
     // trafic light id
-    int extId = requestMsg.readInt();
+    int extId = myInputStorage.readInt();
     // start of time interval
-    double timeFrom = requestMsg.readDouble();
+    double timeFrom = myInputStorage.readDouble();
     // end of time interval
-    double timeTo = requestMsg.readDouble();
+    double timeTo = myInputStorage.readDouble();
 
     // get the running programm of the traffic light
     MSTrafficLightLogic* const tlLogic = getTLLogicByExtId(extId);
     
     // error checking
     if (tlLogic == NULL) {
-        writeStatusCmd(respMsg, CMD_GETTLSTATUS, RTYPE_ERR, "Could not retrieve traffic light with given id");
+        writeStatusCmd(CMD_GETTLSTATUS, RTYPE_ERR, "Could not retrieve traffic light with given id");
         return;
     }
     if ((timeTo < timeFrom) || (timeTo < 0) || (timeFrom < 0)) {
-        writeStatusCmd(respMsg, CMD_GETTLSTATUS, RTYPE_ERR, "The given time interval is not valid");
+        writeStatusCmd(CMD_GETTLSTATUS, RTYPE_ERR, "The given time interval is not valid");
         return;
     }
 
     // acknowledge the request
-    writeStatusCmd(respMsg, CMD_GETTLSTATUS, RTYPE_OK, "");
+    writeStatusCmd(CMD_GETTLSTATUS, RTYPE_OK, "");
     std::vector<MSLink::LinkState> linkStates;
     std::vector<double> yellowTimes;
     size_t lastStep = tlLogic->getStepNo();
@@ -915,16 +894,16 @@ throw(TraCIException)
 
 							if (tempMsg.size() <= 253) {
 								// command length
-								respMsg.writeUnsignedByte(1 + 1 + tempMsg.size());
+								myOutputStorage.writeUnsignedByte(1 + 1 + tempMsg.size());
 							} else {
 								// command length extended
-								respMsg.writeUnsignedByte(0);
-								respMsg.writeInt(1 + 4 + 1 + tempMsg.size());
+								myOutputStorage.writeUnsignedByte(0);
+								myOutputStorage.writeInt(1 + 4 + 1 + tempMsg.size());
 							}
 							// command type
-							respMsg.writeUnsignedByte(CMD_TLSWITCH);
+							myOutputStorage.writeUnsignedByte(CMD_TLSWITCH);
 							// command content
-							respMsg.writeStorage(tempMsg);
+							myOutputStorage.writeStorage(tempMsg);
                             tempMsg.reset();
                         }
                     }
@@ -938,90 +917,90 @@ throw(TraCIException)
 /*****************************************************************************/
 
 void
-TraCIServer::commandSlowDown(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+TraCIServer::commandSlowDown()
 throw(TraCIException)
 {
     // NodeId
-    MSVehicle* veh = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
+    MSVehicle* veh = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
     // speed
-    float newSpeed = MAX2(requestMsg.readFloat(), 0.0f);
+    float newSpeed = MAX2(myInputStorage.readFloat(), 0.0f);
     // time interval
-    double duration = requestMsg.readDouble();
+    double duration = myInputStorage.readDouble();
 
     if (veh == NULL) {
-        writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Can not retrieve node with given ID");
+        writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Can not retrieve node with given ID");
         return;
     }
     /*if (newSpeed < 0) {
-        writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Negative speed value");
+        writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Negative speed value");
         return;
     }*/
     if (duration <= 0) {
-        writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Invalid time interval");
+        writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Invalid time interval");
         return;
     }
 
     if (!veh->startSpeedAdaption(newSpeed, static_cast<SUMOTime>(duration), MSNet::getInstance()->getCurrentTimeStep())) {
-        writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_ERR, "Could not slow down");
+        writeStatusCmd(CMD_SLOWDOWN, RTYPE_ERR, "Could not slow down");
         return;
     }
 
     // create positive response message
-    writeStatusCmd(respMsg, CMD_SLOWDOWN, RTYPE_OK, "");
+    writeStatusCmd(CMD_SLOWDOWN, RTYPE_OK, "");
 }
 
 /*****************************************************************************/
 
 void
-TraCIServer::commandCloseConnection(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+TraCIServer::commandCloseConnection()
 throw(TraCIException)
 {
     closeConnection_ = true;
     // write answer
-    writeStatusCmd(respMsg, CMD_CLOSE, RTYPE_OK, "Goodbye");
+    writeStatusCmd(CMD_CLOSE, RTYPE_OK, "Goodbye");
 }
 
 /*****************************************************************************/
 
 void
-TraCIServer::commandSimulationParameter(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+TraCIServer::commandSimulationParameter()
 throw(TraCIException)
 {
-    bool setParameter = (requestMsg.readByte() != 0);
-    string parameter = requestMsg.readString();
+    bool setParameter = (myInputStorage.readByte() != 0);
+    string parameter = myInputStorage.readString();
 
     // Prepare response
     tcpip::Storage answerTmp;
 
     if (parameter.compare("maxX")) {
         if (setParameter) {
-            writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_ERR, "maxX is a read only parameter");
+            writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "maxX is a read only parameter");
             return;
         } else {
             answerTmp.writeFloat(getNetBoundary().getWidth());
         }
     } else if (parameter.compare("maxY")) {
         if (setParameter) {
-            writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_ERR, "maxY is a read only parameter");
+            writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "maxY is a read only parameter");
             return;
         } else {
             answerTmp.writeFloat(getNetBoundary().getHeight());
         }
     } else if (parameter.compare("numberOfNodes")) {
         if (setParameter) {
-            writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_ERR, "numberOfNodes is a read only parameter");
+            writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "numberOfNodes is a read only parameter");
         } else {
-            writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_NOTIMPLEMENTED, "numberOfNodes not implemented yet");
+            writeStatusCmd(CMD_SIMPARAMETER, RTYPE_NOTIMPLEMENTED, "numberOfNodes not implemented yet");
             return;
             //answerTmp.writeInt( --- Don't know where to get that information ---);
         }
     } else if (parameter.compare("airDistance")) {
-        MSVehicle* veh1 = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
-        MSVehicle* veh2 = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
+        MSVehicle* veh1 = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
+        MSVehicle* veh2 = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
 
         if (veh1 != NULL && veh2 != NULL) {
             if (setParameter) {
-                writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_ERR, "airDistance is a read only parameter");
+                writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "airDistance is a read only parameter");
                 return;
             } else {
                 float dx = veh1->getPosition().x() - veh2->getPosition().x();
@@ -1029,19 +1008,19 @@ throw(TraCIException)
                 answerTmp.writeFloat(sqrt(dx * dx + dy * dy));
             }
         } else {
-            writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_ERR, "Can not retrieve node with given ID");
+            writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "Can not retrieve node with given ID");
             return;
         }
     } else if (parameter.compare("drivingDistance")) {
-        MSVehicle* veh1 = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
-        MSVehicle* veh2 = getVehicleByExtId(requestMsg.readInt());   // external node id (equipped vehicle number)
+        MSVehicle* veh1 = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
+        MSVehicle* veh2 = getVehicleByExtId(myInputStorage.readInt());   // external node id (equipped vehicle number)
 
         if (veh1 != NULL && veh2 != NULL) {
             if (setParameter) {
-                writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_ERR, "airDistance is a read only parameter");
+                writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "airDistance is a read only parameter");
                 return;
             } else {
-                writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_NOTIMPLEMENTED, "drivingDistance not implemented yet");
+                writeStatusCmd(CMD_SIMPARAMETER, RTYPE_NOTIMPLEMENTED, "drivingDistance not implemented yet");
                 return;
                 //float dx = veh1->getPosition().x() - veh2->getPosition().x();
                 //float dy = veh1->getPosition().y() - veh2->getPosition().y();
@@ -1049,37 +1028,37 @@ throw(TraCIException)
                 // answerTmp.writeFloat( distance );
             }
         } else {
-            writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_ERR, "Can not retrieve node with given ID");
+            writeStatusCmd(CMD_SIMPARAMETER, RTYPE_ERR, "Can not retrieve node with given ID");
             return;
         }
     }
 
-    // When we get here, the response is stored in answerTmp -> put into respMsg
-    writeStatusCmd(respMsg, CMD_SIMPARAMETER, RTYPE_OK, "");
+    // When we get here, the response is stored in answerTmp -> put into myOutputStorage
+    writeStatusCmd(CMD_SIMPARAMETER, RTYPE_OK, "");
 
     // command length
-    respMsg.writeUnsignedByte(1 + 1 + 1 + 4 + static_cast<int>(parameter.length()) + answerTmp.size());
+    myOutputStorage.writeUnsignedByte(1 + 1 + 1 + 4 + static_cast<int>(parameter.length()) + answerTmp.size());
     // command type
-    respMsg.writeUnsignedByte(CMD_SIMPARAMETER);
+    myOutputStorage.writeUnsignedByte(CMD_SIMPARAMETER);
     // answer only to getParameter commands as setParameter
-    respMsg.writeUnsignedByte(1);
+    myOutputStorage.writeUnsignedByte(1);
     // Parameter
-    respMsg.writeString(parameter);
+    myOutputStorage.writeString(parameter);
     // and the parameter dependant part
-    respMsg.writeStorage(answerTmp);
+    myOutputStorage.writeStorage(answerTmp);
 }
 
 /*****************************************************************************/
 
 void
-TraCIServer::commandUpdateCalibrator(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+TraCIServer::commandUpdateCalibrator()
 throw(TraCIException)
 {
-    respMsg.reset();
+    myOutputStorage.reset();
 
-    int countTime = requestMsg.readInt();
-    int vehicleCount = requestMsg.readInt();
-    std::string calibratorId = requestMsg.readString();
+    int countTime = myInputStorage.readInt();
+    int vehicleCount = myInputStorage.readInt();
+    std::string calibratorId = myInputStorage.readString();
 
     MSCalibrator::updateCalibrator(calibratorId, countTime, vehicleCount);
 
@@ -1091,7 +1070,7 @@ throw(TraCIException)
 /*****************************************************************************/
 
 void
-TraCIServer::commandPositionConversion(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
+TraCIServer::commandPositionConversion() 
 throw(TraCIException)
 {
 	tcpip::Storage tmpResult;
@@ -1106,18 +1085,18 @@ throw(TraCIException)
 	std::ofstream file;
 
 	// actual position type that will be converted
-	unsigned char srcPosType = requestMsg.readUnsignedByte();
+	unsigned char srcPosType = myInputStorage.readUnsignedByte();
 
 	switch (srcPosType) {
 	case POSITION_2D:
 	case POSITION_3D:
-		x = requestMsg.readFloat();
-		y = requestMsg.readFloat();
+		x = myInputStorage.readFloat();
+		y = myInputStorage.readFloat();
 		if (srcPosType == POSITION_3D) {
-			z = requestMsg.readFloat();
+			z = myInputStorage.readFloat();
 		}
 		// destination position type
-		destPosType = requestMsg.readUnsignedByte();
+		destPosType = myInputStorage.readUnsignedByte();
 
 		switch (destPosType) {
 		case POSITION_ROADMAP:
@@ -1139,22 +1118,22 @@ throw(TraCIException)
 			tmpResult.writeUnsignedByte(roadPos.laneId);
 			break;	
 		case POSITION_3D:
-			writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, 
+			writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR, 
 						"Destination position type is same as source position type");
 			return;
 		default:
-			writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, 
+			writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR, 
 							"Destination position type not supported");
 			return;
 		}
 		break;
 	case POSITION_ROADMAP:	
-		roadPos.roadId = requestMsg.readString();
-		roadPos.pos = requestMsg.readFloat();
-		roadPos.laneId = requestMsg.readUnsignedByte();
+		roadPos.roadId = myInputStorage.readString();
+		roadPos.pos = myInputStorage.readFloat();
+		roadPos.laneId = myInputStorage.readUnsignedByte();
 
 		// destination position type
-		destPosType = requestMsg.readUnsignedByte();
+		destPosType = myInputStorage.readUnsignedByte();
 
 		switch (destPosType) {
 		case POSITION_3D:
@@ -1172,7 +1151,7 @@ throw(TraCIException)
 				file.write(out.str().c_str(), out.str().size());
 				file.close();*/
 			} catch (TraCIException e) {
-				writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, e.what());
+				writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR, e.what());
 			}
 			
 			// write result that is added to response msg
@@ -1182,116 +1161,84 @@ throw(TraCIException)
 			tmpResult.writeFloat(z);
 			break;
 		case POSITION_ROADMAP:
-			writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, 
+			writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR, 
 						"Destination position type is same as source position type");
 			return;
 		default:
-			writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, 
+			writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR, 
 						"Destination position type not supported");
 			return;
 		}
 		break;
 	default:
-		writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_ERR, 
+		writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_ERR, 
 					"Source position type not supported");
 		return;
 	}
 
 	// write response message
-	writeStatusCmd(respMsg, CMD_POSITIONCONVERSION, RTYPE_OK, "");	
+	writeStatusCmd(CMD_POSITIONCONVERSION, RTYPE_OK, "");	
 	// add converted Position to response
-	respMsg.writeUnsignedByte(1 + 1 + tmpResult.size() + 1);	// length
-	respMsg.writeUnsignedByte(CMD_POSITIONCONVERSION);	// command id
-	respMsg.writeStorage(tmpResult);	// position dependant part
-	respMsg.writeUnsignedByte(destPosType);	// destination type
+	myOutputStorage.writeUnsignedByte(1 + 1 + tmpResult.size() + 1);	// length
+	myOutputStorage.writeUnsignedByte(CMD_POSITIONCONVERSION);	// command id
+	myOutputStorage.writeStorage(tmpResult);	// position dependant part
+	myOutputStorage.writeUnsignedByte(destPosType);	// destination type
 }
 
 /*****************************************************************************/
 
 void
-TraCIServer::commandScenario(tcpip::Storage &requestMsg, tcpip::Storage &respMsg) 
-throw(TraCIException)
+TraCIServer::commandScenario() throw(TraCIException)
 {
 	Storage tmpResult;
 	string warning = "";	// additional description for response
 
 	// read/write flag
-	bool isWriteCommand = requestMsg.readUnsignedByte();
+	bool isWriteCommand = myInputStorage.readUnsignedByte();
 
 	// domain
-	int domain = requestMsg.readUnsignedByte();
+	int domain = myInputStorage.readUnsignedByte();
 
-	switch (domain) {
-	// road map domain
-	case DOM_ROADMAP:
-		try {
-			warning = handleRoadMapDomain(isWriteCommand, requestMsg, tmpResult);
-		} catch (TraCIException e) {
-			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
-			return;
-		}
-		break;
-
-	// vehicle domain
-	case DOM_VEHICLE:
-		try {
-			warning = handleVehicleDomain(isWriteCommand, requestMsg, tmpResult);
-		} catch (TraCIException e) {
-			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
-			return;
-		}
-		break;
-
-	// traffic light domain
-	case DOM_TRAFFICLIGHTS:
-		try {
-			warning = handleTrafficLightDomain(isWriteCommand, requestMsg, tmpResult);
-		} catch (TraCIException e) {
-			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
-			return;
-		}
-		break;
-
-	// point of interest domain
-	case DOM_POI:
-		try {
-			warning = handlePoiDomain(isWriteCommand, requestMsg, tmpResult);
-		} catch (TraCIException e) {
-			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
-			return;
-		}
-		break;
-
-	// polygon domain
-	case DOM_POLYGON:
-		try {
-			warning = handlePolygonDomain(isWriteCommand, requestMsg, tmpResult);
-		} catch (TraCIException e) {
-			writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, e.what());
-			return;
-		}
-		break;
-
-	// unknown domain
-	default:
-		writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_ERR, "Unknown domain specified");
+	try {
+    	switch (domain) {
+    	case DOM_ROADMAP:
+			warning = handleRoadMapDomain(isWriteCommand, tmpResult);
+    		break;
+    	case DOM_VEHICLE:
+			warning = handleVehicleDomain(isWriteCommand, tmpResult);
+    		break;
+    	case DOM_TRAFFICLIGHTS:
+			warning = handleTrafficLightDomain(isWriteCommand, tmpResult);
+    		break;
+    	case DOM_POI:
+			warning = handlePoiDomain(isWriteCommand, tmpResult);
+    		break;
+    	case DOM_POLYGON:
+			warning = handlePolygonDomain(isWriteCommand, tmpResult);
+    		break;
+    	default:
+	    	writeStatusCmd(CMD_SCENARIO, RTYPE_ERR, "Unknown domain specified");
+		    return;
+    	}
+	} catch (TraCIException e) {
+		writeStatusCmd(CMD_SCENARIO, RTYPE_ERR, e.what());
 		return;
 	}
 
 	// write response message
-	writeStatusCmd(respMsg, CMD_SCENARIO, RTYPE_OK, warning);
+	writeStatusCmd(CMD_SCENARIO, RTYPE_OK, warning);
 	// if necessary, add Scenario command containing the read value
 	if (!isWriteCommand) {
         if (tmpResult.size() <= 253 ) 
         {
-            respMsg.writeUnsignedByte(1 + 1 + tmpResult.size());	// command length
-		    respMsg.writeUnsignedByte(CMD_SCENARIO);	// command id
-		    respMsg.writeStorage(tmpResult);	// variable dependant part
+            myOutputStorage.writeUnsignedByte(1 + 1 + tmpResult.size());	// command length
+		    myOutputStorage.writeUnsignedByte(CMD_SCENARIO);	// command id
+		    myOutputStorage.writeStorage(tmpResult);	// variable dependant part
         } else {
-            respMsg.writeUnsignedByte(0);	// command length -> extended
-            respMsg.writeInt(1 + 4 + 1 + tmpResult.size());
-            respMsg.writeUnsignedByte(CMD_SCENARIO);	// command id
-		    respMsg.writeStorage(tmpResult);	// variable dependant part
+            myOutputStorage.writeUnsignedByte(0);	// command length -> extended
+            myOutputStorage.writeInt(1 + 4 + 1 + tmpResult.size());
+            myOutputStorage.writeUnsignedByte(CMD_SCENARIO);	// command id
+		    myOutputStorage.writeStorage(tmpResult);	// variable dependant part
         }
 	}
 }
@@ -1299,7 +1246,7 @@ throw(TraCIException)
 /*****************************************************************************/
 
 void 
-TraCIServer::commandDistanceRequest(tcpip::Storage& requestMsg, tcpip::Storage& respMsg) 
+TraCIServer::commandDistanceRequest() 
 throw(TraCIException)
 {
 	Position2D pos1;
@@ -1309,63 +1256,63 @@ throw(TraCIException)
 	const MSEdge::LaneCont* lanes;
 
 	// read position 1
-	int posType = requestMsg.readUnsignedByte();
+	int posType = myInputStorage.readUnsignedByte();
 	switch (posType) {
 	case POSITION_ROADMAP:
-		roadPos1.roadId = requestMsg.readString();
-		roadPos1.pos = requestMsg.readFloat();
-		roadPos1.laneId = requestMsg.readUnsignedByte();
+		roadPos1.roadId = myInputStorage.readString();
+		roadPos1.pos = myInputStorage.readFloat();
+		roadPos1.laneId = myInputStorage.readUnsignedByte();
 		try {
 			pos1 = convertRoadMapToCartesian(roadPos1);
 		} catch(TraCIException e) {
-			writeStatusCmd(respMsg, CMD_DISTANCEREQUEST, RTYPE_ERR, e.what());
+			writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, e.what());
 			return;
 		}
 		break;
 	case POSITION_2D:
 	case POSITION_2_5D:
 	case POSITION_3D:
-		pos1.set(requestMsg.readFloat(), requestMsg.readFloat());
+		pos1.set(myInputStorage.readFloat(), myInputStorage.readFloat());
 		if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
-			requestMsg.readFloat();		// z value is ignored
+			myInputStorage.readFloat();		// z value is ignored
 		}
 		roadPos1 = convertCartesianToRoadMap(pos1);
 		break;
 	default:
-		writeStatusCmd(respMsg, CMD_DISTANCEREQUEST, RTYPE_ERR, "Unknown position format used for distance request");
+		writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, "Unknown position format used for distance request");
 		return;
 	}
 
 	// read position 2
-	posType = requestMsg.readUnsignedByte();
+	posType = myInputStorage.readUnsignedByte();
 	switch (posType) {
 	case POSITION_ROADMAP:
-		roadPos2.roadId = requestMsg.readString();
-		roadPos2.pos = requestMsg.readFloat();
-		roadPos2.laneId = requestMsg.readUnsignedByte();
+		roadPos2.roadId = myInputStorage.readString();
+		roadPos2.pos = myInputStorage.readFloat();
+		roadPos2.laneId = myInputStorage.readUnsignedByte();
 		try {
 			pos2 = convertRoadMapToCartesian(roadPos2);
 		} catch(TraCIException e) {
-			writeStatusCmd(respMsg, CMD_DISTANCEREQUEST, RTYPE_ERR, e.what());
+			writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, e.what());
 			return;
 		}
 		break;
 	case POSITION_2D:
 	case POSITION_2_5D:
 	case POSITION_3D:
-		pos2.set(requestMsg.readFloat(), requestMsg.readFloat());
+		pos2.set(myInputStorage.readFloat(), myInputStorage.readFloat());
 		if ((posType == POSITION_2_5D) || (posType == POSITION_3D)) {
-			requestMsg.readFloat();		// z value is ignored
+			myInputStorage.readFloat();		// z value is ignored
 		}
 		roadPos2 = convertCartesianToRoadMap(pos2);
 		break;
 	default:
-		writeStatusCmd(respMsg, CMD_DISTANCEREQUEST, RTYPE_ERR, "Unknown position format used for distance request");
+		writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_ERR, "Unknown position format used for distance request");
 		return;
 	}
 
 	// read distance type
-	int distType = requestMsg.readUnsignedByte();
+	int distType = myInputStorage.readUnsignedByte();
 	
 	float distance = 0.0;
 	if (distType == REQUEST_DRIVINGDIST) {
@@ -1405,26 +1352,26 @@ throw(TraCIException)
 	}
 
 	// acknowledge distance request
-	writeStatusCmd(respMsg, CMD_DISTANCEREQUEST, RTYPE_OK, "");
+	writeStatusCmd(CMD_DISTANCEREQUEST, RTYPE_OK, "");
 	// write response command
-	respMsg.writeUnsignedByte(1 + 1 + 1 + 4);	// length
-	respMsg.writeUnsignedByte(CMD_DISTANCEREQUEST);		// command type
-	respMsg.writeUnsignedByte(distType);		// distance type
-	respMsg.writeFloat(distance);	// distance;
+	myOutputStorage.writeUnsignedByte(1 + 1 + 1 + 4);	// length
+	myOutputStorage.writeUnsignedByte(CMD_DISTANCEREQUEST);		// command type
+	myOutputStorage.writeUnsignedByte(distType);		// distance type
+	myOutputStorage.writeFloat(distance);	// distance;
 }
 
 /*****************************************************************************/
 
 void
-TraCIServer::commandSubscribeLifecycles(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+TraCIServer::commandSubscribeLifecycles()
 throw(TraCIException)
 {
 	// domain
-	int domain = requestMsg.readUnsignedByte();
+	int domain = myInputStorage.readUnsignedByte();
 
 	if (domain != DOM_VEHICLE) {
 		// send negative command response
-		writeStatusCmd(respMsg, CMD_SUBSCRIBELIFECYCLES, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
+		writeStatusCmd(CMD_SUBSCRIBELIFECYCLES, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
 		return;
 	}
 
@@ -1436,21 +1383,21 @@ throw(TraCIException)
 	}
 
 	// send positive command response
-	writeStatusCmd(respMsg, CMD_SUBSCRIBELIFECYCLES, RTYPE_OK, "");
+	writeStatusCmd(CMD_SUBSCRIBELIFECYCLES, RTYPE_OK, "");
 }
 
 /*****************************************************************************/
 
 void
-TraCIServer::commandUnsubscribeLifecycles(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+TraCIServer::commandUnsubscribeLifecycles()
 throw(TraCIException)
 {
 	// domain
-	int domain = requestMsg.readUnsignedByte();
+	int domain = myInputStorage.readUnsignedByte();
 
 	if (domain != DOM_VEHICLE) {
 		// send negative command response
-		writeStatusCmd(respMsg, CMD_UNSUBSCRIBELIFECYCLES, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
+		writeStatusCmd(CMD_UNSUBSCRIBELIFECYCLES, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
 		return;
 	}
 
@@ -1462,35 +1409,35 @@ throw(TraCIException)
 	}
 
 	// send positive command response
-	writeStatusCmd(respMsg, CMD_UNSUBSCRIBELIFECYCLES, RTYPE_OK, "");
+	writeStatusCmd(CMD_UNSUBSCRIBELIFECYCLES, RTYPE_OK, "");
 }
 
 /*****************************************************************************/
 
 void
-TraCIServer::commandSubscribeDomain(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+TraCIServer::commandSubscribeDomain()
 throw(TraCIException)
 {
 	// domain
-	int domainId = requestMsg.readUnsignedByte();
+	int domainId = myInputStorage.readUnsignedByte();
 
 	if (domainId != DOM_VEHICLE) {
 		// send negative command response
-		writeStatusCmd(respMsg, CMD_SUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can only subscribe to DOM_VEHICLE at this time");
+		writeStatusCmd(CMD_SUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can only subscribe to DOM_VEHICLE at this time");
 		return;
 	}
 
     // variable count
-    int variableCount = requestMsg.readUnsignedByte();
+    int variableCount = myInputStorage.readUnsignedByte();
 
     // list of variable ids and types
     std::list<std::pair<int, int> > subscribedVariables;
     for (int i = 0; i < variableCount; i++) {
 		// variable id
-		int variableId = requestMsg.readUnsignedByte();
+		int variableId = myInputStorage.readUnsignedByte();
 
 		// value data type
-		int dataType = requestMsg.readUnsignedByte();
+		int dataType = myInputStorage.readUnsignedByte();
 
 		if (!( 
 				((domainId == DOM_VEHICLE) && (variableId == DOMVAR_SIMTIME) && (dataType == TYPE_DOUBLE))
@@ -1504,7 +1451,7 @@ throw(TraCIException)
 				((domainId == DOM_VEHICLE) && (variableId == DOMVAR_ANGLE) && (dataType == TYPE_FLOAT))
 				)) {
 			// send negative command response
-			writeStatusCmd(respMsg, CMD_SUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can not subscribe to this domain/variable/type combination");
+			writeStatusCmd(CMD_SUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can not subscribe to this domain/variable/type combination");
 			return;
 		}
 
@@ -1515,34 +1462,34 @@ throw(TraCIException)
 	myDomainSubscriptions[domainId] = subscribedVariables;
 
 	// send positive command response
-	writeStatusCmd(respMsg, CMD_SUBSCRIBEDOMAIN, RTYPE_OK, "");
+	writeStatusCmd(CMD_SUBSCRIBEDOMAIN, RTYPE_OK, "");
 }
 
 /*****************************************************************************/
 
 void
-TraCIServer::commandUnsubscribeDomain(tcpip::Storage& requestMsg, tcpip::Storage& respMsg)
+TraCIServer::commandUnsubscribeDomain()
 throw(TraCIException)
 {
 	// domain
-	int domain = requestMsg.readUnsignedByte();
+	int domain = myInputStorage.readUnsignedByte();
 
 	if (domain != DOM_VEHICLE) {
 		// send negative command response
-		writeStatusCmd(respMsg, CMD_UNSUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
+		writeStatusCmd(CMD_UNSUBSCRIBEDOMAIN, RTYPE_NOTIMPLEMENTED, "Can only subscribe to lifecycle of DOM_VEHICLE at this time");
 		return;
 	}
 
 	myDomainSubscriptions.erase(domain);
 
 	// send positive command response
-	writeStatusCmd(respMsg, CMD_UNSUBSCRIBEDOMAIN, RTYPE_OK, "");
+	writeStatusCmd(CMD_UNSUBSCRIBEDOMAIN, RTYPE_OK, "");
 }
 
 /*****************************************************************************/
 
 void
-TraCIServer::writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, std::string description)
+TraCIServer::writeStatusCmd(int commandId, int status, std::string description)
 {
     if (status == RTYPE_ERR) {
         closeConnection_ = true;
@@ -1554,13 +1501,13 @@ TraCIServer::writeStatusCmd(tcpip::Storage& respMsg, int commandId, int status, 
     }
 
     // command length
-    respMsg.writeUnsignedByte(1 + 1 + 1 + 4 + static_cast<int>(description.length()));
+    myOutputStorage.writeUnsignedByte(1 + 1 + 1 + 4 + static_cast<int>(description.length()));
     // command type
-    respMsg.writeUnsignedByte(commandId);
+    myOutputStorage.writeUnsignedByte(commandId);
     // status
-    respMsg.writeUnsignedByte(status);
+    myOutputStorage.writeUnsignedByte(status);
     // description
-    respMsg.writeString(description);
+    myOutputStorage.writeString(description);
 
     return;
 }
@@ -1813,7 +1760,7 @@ throw(TraCIException)
 /*****************************************************************************/
 
 std::string
-TraCIServer::handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) 
+TraCIServer::handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& response) 
 throw(TraCIException)
 {
 	string name = "";
@@ -1821,7 +1768,7 @@ throw(TraCIException)
 	DataTypeContainer dataCont;
 
 	// domain object
-	int objectId = requestMsg.readInt();
+	int objectId = myInputStorage.readInt();
 	// check for valid object id
 	if (objectId < 0 || objectId >= MSEdge::dictSize()) {
 		throw TraCIException("Invalid object id specified");
@@ -1829,14 +1776,14 @@ throw(TraCIException)
 	MSEdge* edge = MSEdge::dictionary(objectId);
 
 	// variable id
-	int variableId = requestMsg.readUnsignedByte();
+	int variableId = myInputStorage.readUnsignedByte();
 
 	// value data type
-	int dataType = requestMsg.readUnsignedByte();
+	int dataType = myInputStorage.readUnsignedByte();
 
 	// if end of message is not yet reached, the value parameter has to be read
-	if (requestMsg.valid_pos()) {
-		dataCont.readValue(dataType, requestMsg);
+	if (myInputStorage.valid_pos()) {
+		dataCont.readValue(dataType, myInputStorage);
 	}
 
 	if (isWriteCommand) {
@@ -1870,7 +1817,7 @@ throw(TraCIException)
 		if (dataCont.getLastValueRead() != TYPE_STRING) {
 			throw TraCIException("Internal id must be given as string value");
 		}
-		//name = requestMsg.readString();
+		//name = myInputStorage.readString();
 		name = dataCont.getString();
 		edge = MSEdge::dictionary(name);
 		if (edge != NULL) {
@@ -1935,7 +1882,7 @@ throw(TraCIException)
 /*****************************************************************************/
 
 std::string
-TraCIServer::handleVehicleDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) 
+TraCIServer::handleVehicleDomain(bool isWriteCommand, tcpip::Storage& response) 
 throw(TraCIException)
 {
 	std::string name;
@@ -1945,18 +1892,18 @@ throw(TraCIException)
 	DataTypeContainer dataCont;
 
 	// domain object
-	int objectId = requestMsg.readInt();
+	int objectId = myInputStorage.readInt();
 	MSVehicle* veh = getVehicleByExtId(objectId);	//get node by id
 
 	// variable id
-	int variableId = requestMsg.readUnsignedByte();
+	int variableId = myInputStorage.readUnsignedByte();
 
 	// value data type
-	int dataType = requestMsg.readUnsignedByte();
+	int dataType = myInputStorage.readUnsignedByte();
 
 	// if end of message is not yet reached, the value parameter has to be read
-	if (requestMsg.valid_pos()) {
-		dataCont.readValue(dataType, requestMsg);
+	if (myInputStorage.valid_pos()) {
+		dataCont.readValue(dataType, myInputStorage);
 	}
 
 	if (isWriteCommand) {
@@ -1991,7 +1938,7 @@ throw(TraCIException)
 		if (dataCont.getLastValueRead() != TYPE_STRING) {
 			throw TraCIException("Internal id must be given as string value");
 		}
-//		name = requestMsg.readString();
+//		name = myInputStorage.readString();
 		name = dataCont.getString();
 		if (equippedVehicles_.find(name) != equippedVehicles_.end()) {
 			response.writeUnsignedByte(TYPE_INTEGER);
@@ -2150,9 +2097,9 @@ throw(TraCIException)
 //            {
 //            case POSITION_ROADMAP:
 //                {
-//                    destEdge = requestMsg.readString();
-//                    destPos = requestMsg.readFloat();
-//                    destLane = requestMsg.readUnsignedByte();
+//                    destEdge = myInputStorage.readString();
+//                    destPos = myInputStorage.readFloat();
+//                    destLane = myInputStorage.readUnsignedByte();
 ////                    cerr << " destEdge=" << destEdge << " destPos=" << destPos << " destLane=" << destLane << endl;
 //                    edge = MSEdge::dictionary( destEdge );
 //                    if (edge == NULL ) throw TraCIException("Unable to retrieve edge with given id");
@@ -2166,10 +2113,10 @@ throw(TraCIException)
 //            case POSITION_2_5D:
 //            case POSITION_3D:
 //                {
-//                    float destX = requestMsg.readFloat();
-//                    float destY = requestMsg.readFloat();
+//                    float destX = myInputStorage.readFloat();
+//                    float destY = myInputStorage.readFloat();
 //					if ((dataType == POSITION_3D) || (dataType == POSITION_2_5D)) {
-//						requestMsg.readFloat();	// z value is ignored
+//						myInputStorage.readFloat();	// z value is ignored
 //					}
 //					pos.set(destX, destY);
 //
@@ -2209,7 +2156,7 @@ throw(TraCIException)
 /*****************************************************************************/
 
 std::string
-TraCIServer::handleTrafficLightDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response)  
+TraCIServer::handleTrafficLightDomain(bool isWriteCommand, tcpip::Storage& response)  
 throw(TraCIException)
 {
 	int count = 0;
@@ -2218,18 +2165,18 @@ throw(TraCIException)
 	DataTypeContainer dataCont;
 
 	// domain object
-	int objectId = requestMsg.readInt();
+	int objectId = myInputStorage.readInt();
 	MSTrafficLightLogic* tlLogic = getTLLogicByExtId(objectId);
 
 	// variable id
-	int variableId = requestMsg.readUnsignedByte();
+	int variableId = myInputStorage.readUnsignedByte();
 
 	// value data type
-	int dataType = requestMsg.readUnsignedByte();
+	int dataType = myInputStorage.readUnsignedByte();
 
 	// if end of message is not yet reached, the value parameter has to be read
-	if (requestMsg.valid_pos()) {
-		dataCont.readValue(dataType, requestMsg);
+	if (myInputStorage.valid_pos()) {
+		dataCont.readValue(dataType, myInputStorage);
 	}	
 
 	if (isWriteCommand) {
@@ -2264,7 +2211,7 @@ throw(TraCIException)
 		if (dataCont.getLastValueRead() != TYPE_STRING) {
 			throw TraCIException("Internal id must be given as string value");
 		}
-//		name = requestMsg.readString();
+//		name = myInputStorage.readString();
 		name = dataCont.getString();
 		if (trafficLightsInt2ExtId.find(name) != trafficLightsInt2ExtId.end()) {
 			response.writeUnsignedByte(TYPE_INTEGER);
@@ -2430,7 +2377,7 @@ throw(TraCIException)
 /*****************************************************************************/
 
 std::string
-TraCIServer::handlePoiDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) 
+TraCIServer::handlePoiDomain(bool isWriteCommand, tcpip::Storage& response) 
 throw(TraCIException)
 {
 	std::string name;
@@ -2438,18 +2385,18 @@ throw(TraCIException)
 	DataTypeContainer dataCont;
 
 	// domain object
-	int objectId = requestMsg.readInt();
+	int objectId = myInputStorage.readInt();
 	PointOfInterest* poi = getPoiByExtId(objectId);
 
 	// variable id
-	int variableId = requestMsg.readUnsignedByte();
+	int variableId = myInputStorage.readUnsignedByte();
 
 	// value data type
-	int dataType = requestMsg.readUnsignedByte();
+	int dataType = myInputStorage.readUnsignedByte();
 
 	// if end of message is not yet reached, the value parameter has to be read
-	if (requestMsg.valid_pos()) {
-		dataCont.readValue(dataType, requestMsg);
+	if (myInputStorage.valid_pos()) {
+		dataCont.readValue(dataType, myInputStorage);
 	}
 
 	if (isWriteCommand) {
@@ -2491,7 +2438,7 @@ throw(TraCIException)
 		if (dataCont.getLastValueRead() != TYPE_STRING) {
 			throw TraCIException("Internal id must be given as string value");
 		}
-//		name = requestMsg.readString();
+//		name = myInputStorage.readString();
 		name = dataCont.getString();
 		if (poiInt2ExtId.find(name) != poiInt2ExtId.end()) {
 			response.writeUnsignedByte(TYPE_INTEGER);
@@ -2556,7 +2503,7 @@ throw(TraCIException)
 /*****************************************************************************/
 
 std::string
-TraCIServer::handlePolygonDomain(bool isWriteCommand, tcpip::Storage& requestMsg, tcpip::Storage& response) 
+TraCIServer::handlePolygonDomain(bool isWriteCommand, tcpip::Storage& response) 
 throw(TraCIException)
 {
 	std::string name;
@@ -2564,18 +2511,18 @@ throw(TraCIException)
 	DataTypeContainer dataCont;
 
 	// domain object
-	int objectId = requestMsg.readInt();
+	int objectId = myInputStorage.readInt();
 	Polygon2D* poly = getPolygonByExtId(objectId);
 
 	// variable id
-	int variableId = requestMsg.readUnsignedByte();
+	int variableId = myInputStorage.readUnsignedByte();
 
 	// value data type
-	int dataType = requestMsg.readUnsignedByte();
+	int dataType = myInputStorage.readUnsignedByte();
 
 	// if end of message is not yet reached, the value parameter has to be read
-	if (requestMsg.valid_pos()) {
-		dataCont.readValue(dataType, requestMsg);
+	if (myInputStorage.valid_pos()) {
+		dataCont.readValue(dataType, myInputStorage);
 	}
 
 	if (isWriteCommand) {
@@ -2616,7 +2563,7 @@ throw(TraCIException)
 		if (dataCont.getLastValueRead() != TYPE_STRING) {
 			throw TraCIException("Internal id must be given as string value");
 		}
-//		name = requestMsg.readString();
+//		name = myInputStorage.readString();
 		name = dataCont.getString();
 		if (polygonInt2ExtId.find(name) != polygonInt2ExtId.end()) {
 			response.writeUnsignedByte(TYPE_INTEGER);
@@ -2699,7 +2646,7 @@ throw(TraCIException)
 /*****************************************************************************/
 
 void
-TraCIServer::handleLifecycleSubscriptions(tcpip::Storage& respMsg)
+TraCIServer::handleLifecycleSubscriptions()
 throw(TraCIException)
 {
 
@@ -2708,20 +2655,20 @@ throw(TraCIException)
 		for (std::set<int>::const_iterator i = myDestroyedVehicles.begin(); i != myDestroyedVehicles.end(); i++) {
 			int extId = *i;
 
-			respMsg.writeUnsignedByte(1+1+1+4);
-			respMsg.writeUnsignedByte(CMD_OBJECTDESTRUCTION);
-			respMsg.writeUnsignedByte(DOM_VEHICLE);
-			respMsg.writeInt(extId);
+			myOutputStorage.writeUnsignedByte(1+1+1+4);
+			myOutputStorage.writeUnsignedByte(CMD_OBJECTDESTRUCTION);
+			myOutputStorage.writeUnsignedByte(DOM_VEHICLE);
+			myOutputStorage.writeInt(extId);
 		}
 		myDestroyedVehicles.clear();
 
 		for (std::set<int>::const_iterator i = myCreatedVehicles.begin(); i != myCreatedVehicles.end(); i++) {
 			int extId = *i;
 
-			respMsg.writeUnsignedByte(1+1+1+4);
-			respMsg.writeUnsignedByte(CMD_OBJECTCREATION);
-			respMsg.writeUnsignedByte(DOM_VEHICLE);
-			respMsg.writeInt(extId);
+			myOutputStorage.writeUnsignedByte(1+1+1+4);
+			myOutputStorage.writeUnsignedByte(CMD_OBJECTCREATION);
+			myOutputStorage.writeUnsignedByte(DOM_VEHICLE);
+			myOutputStorage.writeInt(extId);
 		}
 		myCreatedVehicles.clear();
 
@@ -2731,7 +2678,7 @@ throw(TraCIException)
 /*****************************************************************************/
 
 void
-TraCIServer::handleDomainSubscriptions(tcpip::Storage& respMsg, const SUMOTime& currentTime, const map<int, const MSVehicle*>& activeEquippedVehicles)
+TraCIServer::handleDomainSubscriptions(const SUMOTime& currentTime, const map<int, const MSVehicle*>& activeEquippedVehicles)
 throw(TraCIException)
 {
 
@@ -2779,10 +2726,10 @@ throw(TraCIException)
 			}
 
 			// send command length
-			respMsg.writeUnsignedByte(tempMsg.size()+1);
+			myOutputStorage.writeUnsignedByte(tempMsg.size()+1);
 
 			// send command
-			respMsg.writeStorage(tempMsg);
+			myOutputStorage.writeStorage(tempMsg);
 		}
 
 

@@ -478,10 +478,10 @@ protected:
         bool isPosAtGSP(SUMOTime step, MSSimpleTrafficLightLogic *testLogic);
 
         /// Returns the difference between an given position and the start of the phase
-        size_t getDiffToStartOfPhase(MSSimpleTrafficLightLogic *givenLogic, size_t pos);
+        unsigned int getDiffToStartOfPhase(MSSimpleTrafficLightLogic *givenLogic, unsigned int pos);
 
         // switches the given Logic directly to the given position
-        void switchToPos(SUMOTime simStep, MSSimpleTrafficLightLogic *givenLogic, size_t toPos);
+        void switchToPos(SUMOTime simStep, MSSimpleTrafficLightLogic *givenLogic, unsigned int toPos);
 
     protected:
         /// The current program of the tls to switch

@@ -60,7 +60,7 @@ public:
     /// constructor
     MSSimpleTrafficLightLogic(MSNet &net, MSTLLogicControl &tlcontrol,
                               const std::string &id, const std::string &subid,
-                              const Phases &phases, size_t step, size_t delay);
+                              const Phases &phases, size_t step, SUMOTime delay);
 
     /// destructor
     ~MSSimpleTrafficLightLogic();
@@ -84,10 +84,10 @@ public:
     size_t getPosition(SUMOTime simStep);
 
     /// returns the step (the phasenumber) of a given position of the cycle
-    size_t getStepFromPos(size_t position);
+    unsigned int getStepFromPos(unsigned int position);
 
     /// returns the position (start of a phase during a cycle) from of a given step
-    size_t getPosFromStep(size_t step);
+    unsigned int getPosFromStep(unsigned int step);
 
     /// Returns the phases of this tls
     const Phases &getPhases() const;

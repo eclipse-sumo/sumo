@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/15/08 11:19:30 by SUMO sumo Version dev-SVN-r5691
+<!-- generated on 08/01/08 12:56:40 by SUMO sumo Version dev-SVN-r5892
 <configuration>
 
    <input>
@@ -36,6 +36,22 @@
       <edge id="e_m5">
          <lane id="e_m5_0">
             <vehicle id="veh1" pos="0.00" speed="0.00"/>
+         </lane>
+         <lane id="e_m5_1"/>
+         <lane id="e_m5_2"/>
+      </edge>
+   </timestep>
+   <timestep time="1">
+      <edge id="e_m4">
+         <lane id="e_m4_0">
+            <vehicle id="veh0" pos="1.98" speed="1.98"/>
+         </lane>
+         <lane id="e_m4_1"/>
+         <lane id="e_m4_2"/>
+      </edge>
+      <edge id="e_m5">
+         <lane id="e_m5_0">
+            <vehicle id="veh1" pos="2.54" speed="2.54"/>
          </lane>
          <lane id="e_m5_1"/>
          <lane id="e_m5_2"/>

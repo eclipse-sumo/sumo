@@ -1,4 +1,4 @@
-TraCITestClient output file. Date: Tue May 13 20:18:59 2008
+TraCITestClient output file. Date: Fri Aug 01 12:57:06 2008
 
 
 -> Command sent: <SimulationStep>:
@@ -9,7 +9,7 @@ TraCITestClient output file. Date: Tue May 13 20:18:59 2008
 
 -> Command sent: <ChangeRoute>:
   NodeId=0 RoadId=xyz travelTime=1
-.. Answered with error to command (48), [description: Could not set new travel time properly]
+.. Answered with error to command (48), [description: Could not set travel time properly]
 
 -> Command sent: <SimulationStep>:
   TargetTime=100 PosFormat=1

@@ -273,32 +273,32 @@ MSTLLogicControl::WAUTSwitchProcedure::isPosAtGSP(SUMOTime step, MSSimpleTraffic
 }
 
 
-size_t
-MSTLLogicControl::WAUTSwitchProcedure::getDiffToStartOfPhase(MSSimpleTrafficLightLogic *givenLogic, size_t pos)
+unsigned int
+MSTLLogicControl::WAUTSwitchProcedure::getDiffToStartOfPhase(MSSimpleTrafficLightLogic *givenLogic, unsigned int pos)
 {
     MSSimpleTrafficLightLogic *myLogic = givenLogic;
-    size_t myPos = pos;
-    size_t stepOfMyPos = myLogic->getStepFromPos(myPos);
-    size_t startOfPhase = myLogic->getPosFromStep(stepOfMyPos);
+    unsigned int myPos = pos;
+    unsigned int stepOfMyPos = myLogic->getStepFromPos(myPos);
+    unsigned int startOfPhase = myLogic->getPosFromStep(stepOfMyPos);
     MSPhaseDefinition myPhase = myLogic->getPhaseFromStep(stepOfMyPos);
-    size_t durOfPhase = myPhase.duration;
+    unsigned int durOfPhase = myPhase.duration;
 
     assert(myPos >= startOfPhase);
-    size_t diff = myPos - startOfPhase;
+    unsigned int diff = myPos - startOfPhase;
     assert(diff <= durOfPhase);
     return diff;
 }
 
 
 void
-MSTLLogicControl::WAUTSwitchProcedure::switchToPos(SUMOTime simStep, MSSimpleTrafficLightLogic *givenLogic, size_t pos)
+MSTLLogicControl::WAUTSwitchProcedure::switchToPos(SUMOTime simStep, MSSimpleTrafficLightLogic *givenLogic, unsigned int pos)
 {
     MSSimpleTrafficLightLogic *myLogic = givenLogic;
-    size_t posTo = pos;
-    size_t stepTo = myLogic->getStepFromPos(posTo);
-    size_t diff = getDiffToStartOfPhase(myLogic, posTo);
+    unsigned int posTo = pos;
+    unsigned int stepTo = myLogic->getStepFromPos(posTo);
+    unsigned int diff = getDiffToStartOfPhase(myLogic, posTo);
     MSPhaseDefinition myPhase = myLogic->getPhaseFromStep(stepTo);
-    size_t dur = myPhase.duration - diff;
+    unsigned int dur = myPhase.duration - diff;
     myLogic->changeStepAndDuration(myControl ,simStep, stepTo, dur);
 }
 
@@ -349,7 +349,7 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::trySwitch(SUMOTime step)
         if (mySwitchSynchron) {
             adaptLogic(step);
         } else {
-            switchToPos(step, LogicTo, (size_t) posTo);
+            switchToPos(step, LogicTo, (unsigned int) posTo);
         }
         return true;
     }
@@ -363,7 +363,7 @@ MSTLLogicControl::WAUTSwitchProcedure_GSP::adaptLogic(SUMOTime step)
     SUMOTime simStep = step;
     MSSimpleTrafficLightLogic *LogicTo = (MSSimpleTrafficLightLogic*) myTo;
     SUMOReal gspTo = getGSPValue(myTo);
-    size_t stepTo = LogicTo->getStepFromPos((size_t) gspTo);
+    size_t stepTo = LogicTo->getStepFromPos((unsigned int) gspTo);
     size_t cycleTimeTo = LogicTo->getCycleTime();
     // gets the actual position from the myToLogic
     size_t actPosTo = LogicTo->getPosition(simStep);
