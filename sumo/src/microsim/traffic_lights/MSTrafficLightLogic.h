@@ -93,7 +93,7 @@ public:
     virtual size_t getPosition(SUMOTime simStep) = 0;
 
     /// returns the step (the phasenumber) of a given position of the cycle
-    virtual size_t getStepFromPos(size_t position) = 0;
+    virtual unsigned int getStepFromPos(unsigned int position) = 0;
 
     /// Returns the phase of a given step
     virtual const MSPhaseDefinition &getPhaseFromStep(size_t givenstep) const = 0;
