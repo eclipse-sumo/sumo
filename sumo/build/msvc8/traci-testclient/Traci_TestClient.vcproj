@@ -182,14 +182,6 @@
 			UniqueIdentifier="{4FC737F1-C7A5-4376-A066-2A32D752A2FF}"
 			>
 			<File
-				RelativePath="..\..\..\src\foreign\tcpip\socket.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\foreign\tcpip\storage.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\traci_testclient\TraCITestClient.cpp"
 				>
 			</File>
@@ -221,18 +213,6 @@
 			Filter="h;hpp;hxx;hm;inl;inc;xsd"
 			UniqueIdentifier="{93995380-89BD-4b04-88EB-625FBE52EBFB}"
 			>
-			<File
-				RelativePath="..\..\..\src\foreign\tcpip\socket.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\foreign\tcpip\storage.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\traci_testclient\TraCIConstants.h"
-				>
-			</File>
 			<File
 				RelativePath="..\..\..\src\traci_testclient\TraCITestClient.h"
 				>

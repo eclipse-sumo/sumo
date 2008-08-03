@@ -49,14 +49,16 @@ int main (int argc, char* argv[]) {
 
 	if (port == -1) {
 		std::cout << "Missing port" << std::endl;
+		return 1;
 	}
 	if (defFile.compare("") == 0) {
 		std::cout << "Missing definition file" << std::endl;
+		return 1;
 	}
 
 	client = new TraCITestClient(outFileName);
-	client->run(defFile, port, host);
+	bool success = client->run(defFile, port, host);
 	delete client;
 
-	return 0;
+	return !success;
 }

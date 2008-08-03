@@ -16,11 +16,11 @@
 #include <sstream>
 #include <ctime>
 
-#include "TraCIConstants.h"
+#include <traci-server/TraCIConstants.h>
 
 #define BUILD_TCPIP
-#include "foreign/tcpip/storage.h"
-#include "foreign/tcpip/socket.h"
+#include <foreign/tcpip/storage.h>
+#include <foreign/tcpip/socket.h>
 
 // ===========================================================================
 // used namespaces

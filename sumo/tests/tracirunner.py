@@ -25,9 +25,12 @@ if os.name == 'posix':
 #start sumo as server    
 serverprocess = subprocess.Popen(os.path.join(os.path.dirname(sys.argv[0]), "..", sumoDir, " ".join(serverParams)), 
                 shell=True, stdout=sys.stdout, stderr=sys.stderr)       
-time.sleep(1)
-subprocess.call(os.path.join(os.path.dirname(sys.argv[0]), "..", sumoDir, " ".join(clientParams)),
-                shell=True, stdout=sys.stdout, stderr=sys.stderr)
+for retry in range(10):
+    returnCode = subprocess.call(os.path.join(os.path.dirname(sys.argv[0]), "..", sumoDir, " ".join(clientParams)),
+                                 shell=True, stdout=sys.stdout, stderr=sys.stderr)
+    if returnCode == 0:
+        break
+    time.sleep(1)
                 
 #wait for the server to finish
 serverprocess.wait()
