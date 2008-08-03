@@ -33,7 +33,7 @@ make distclean &> /dev/null
 make -f Makefile.cvs clean &> /dev/null
 echo `basename $MAKELOG`.gz >> $STATUSLOG
 svn up &> $MAKELOG || (echo "svn up failed" | tee -a $STATUSLOG; tail -10 $MAKELOG)
-if test `wc -l < $MAKELOG` -le 13; then
+if test `wc -l < $MAKELOG` -le 5; then
 #  echo "no changes since last run, skipping build and test"
   exit
 fi
