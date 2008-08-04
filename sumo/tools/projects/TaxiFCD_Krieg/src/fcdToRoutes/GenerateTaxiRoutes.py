@@ -88,7 +88,7 @@ def readFCDOLD():
     inputFile.close() 
     print len(taxis) 
 
-def readFCDComplete(fcdPath):
+def readFCDCompleteOLD(fcdPath):
     """Reads the FCD-File and creates a list of Id's with a belonging List of Data tuples."""
     #reset all
     global taxis, routes, vlsEdges, taxiIdDict, fcdDict
@@ -119,7 +119,46 @@ def readFCDComplete(fcdPath):
            
     inputFile.close()
     return fcdDict
+
+def readFCDComplete(fcdPath): 
+    """Reads the FCD and creates a list of Taxis and for each a list of routes"""
+    #reset all
+    global taxis, routes, vlsEdges, taxiIdDict, fcdDict
+    taxis=[]
+    routes=[]
+    vlsEdges=[]
+    taxiIdDict={} 
+    fcdDict={}
     
+    vlsEdges=reader.readVLS_Edges()
+       
+    inputFile=open(path.fcd,'r')
+    for line in inputFile:
+        words= line.split("\t")
+        #add route
+        taxiId=getTaxiId(words[4]) 
+        actTime=getTimeInSecs(words[0])
+                 
+        if taxiId in taxis:
+            #prevTime=routes[taxis.index(taxiId)][-1][0]       
+            prevTime=fcdDict[taxiId][-1][0]          
+            if words[1] in vlsEdges and (actTime-prevTime)<180: #check if time lies not to far away from each other 
+                #routes[taxis.index(taxiId)].append((actTime, words[1]))
+                fcdDict[taxiId].append((actTime,words[1],words[2]))
+            elif words[1] in vlsEdges: #if time diff >3min add a new taxiId and start a new route
+                taxiIdDict[words[4]]+=1   #create new taxiId    
+                taxis.append(getTaxiId(words[4])) #append new created id
+                fcdDict[getTaxiId(words[4])]=[(actTime,words[1],words[2])] #append new list (list will be filled with edges) 
+            else:
+                taxiIdDict[words[4]]+=1                
+        elif words[1] in vlsEdges: #if the edge is in the VLS-Area a new route is created 
+            taxis.append(taxiId)
+            #                 departTime               
+            #routes.append([(actTime,words[1])])            
+            fcdDict[taxiId]=[(actTime,words[1],words[2])]
+    inputFile.close() 
+    return fcdDict
+        
 def readSimFCDComplete(fcdPath):
     """Reads the FCD-File and creates a list of Id's with a belonging List of Data tuples. Uses the given taxiIds."""
     #reset all

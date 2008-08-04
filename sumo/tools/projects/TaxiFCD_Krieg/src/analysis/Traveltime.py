@@ -113,13 +113,16 @@ def getTimeDiff(steps,sim=True):
         #traveltimeList.append(times[1]-times[0])
         diff=(times[3]-times[2])-(times[1]-times[0])
         if PERC:
-            if (100*diff)/(times[3]-times[2])<-1000:     
+            if (times[3]-times[2])>0 and (100*diff)/(times[3]-times[2])<-1000:     
                 print  "%%",(100*diff)/(times[3]-times[2])         
                 print "Diff",diff
                 print "fcd",(times[3]-times[2])  
                 print "vtype",times[1]-times[0]
                 
-            return (100*diff)/(times[3]-times[2])
+            if times[3]-times[2]==0:                
+                return 0
+            else:
+                return (100*diff)/(times[3]-times[2])
         else:    
             return diff
     else: #for calc of avg    

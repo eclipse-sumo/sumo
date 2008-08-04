@@ -57,6 +57,7 @@ def arrangeData():
     
     print "write Infos"  
     #iterate over the lowest common denominator
+   
     for taxiId in simFcdDict.keys():       
            outputFile.write("\t<vehicle id=\"%s\">\n" %taxiId)      
            mainId=taxiId.split("_")[0]
@@ -66,7 +67,7 @@ def arrangeData():
                    outputFile.write("\t\t<step time=\"%s\" source=\"vtypeProbe\" speed=\"%s\" rawSpeed=\"%s\" edge=\"%s\" lat=\"%s\" lon=\"%s\"/>\n" 
                                     %(vtypeTuple[0],vtypeTuple[4],None,vtypeTuple[1],vtypeTuple[2],vtypeTuple[3]))
                 
-               #write fcd Infos (enhanced with Infos of raw-FCD)                    
+               #write fcd Infos (enhanced with Infos of raw-FCD)
                for fcdTuple in fcdDict[taxiId]:                    
                    #search for proper tuple in raw-FCD
                    for tuple in rawFcdDict[mainId]:                   
@@ -99,7 +100,7 @@ def arrangeData():
                print "Warning: taxId %s not found!" %taxiId 
            outputFile.write("\t</vehicle>\n")                 
            
-       
+     
     outputFile.write("</vehicles>\n")
     outputFile.close()
 

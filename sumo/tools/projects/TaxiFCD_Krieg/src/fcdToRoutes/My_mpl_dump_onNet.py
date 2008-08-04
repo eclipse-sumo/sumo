@@ -294,8 +294,9 @@ class WeightsReader(handler.ContentHandler):
                 if attrs.has_key(value1):                    
                     value1 = float(attrs[value1])
                     self._edge2no1[self._id] = self._edge2no1[self._id] + 1
-                else:
-                    value1 = float(value1)
+                else:                    
+                        value1 = float(value1)
+                  
                 self._edge2value1[self._id] = self._edge2value1[self._id] + value1
                 self._unaggEdge2value1[self._beginTime][self._id] = value1
                 value2 = self._value2

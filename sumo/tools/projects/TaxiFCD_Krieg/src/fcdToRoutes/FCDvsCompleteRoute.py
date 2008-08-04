@@ -20,7 +20,7 @@ import util.Path as path
 
 edgeList=[]
 routeDict= {}
-taxi="70_1" #the Taxi for which the output should be generated
+taxi="54_3" #the Taxi for which the output should be generated
 avg=True
 
 def main():
@@ -37,7 +37,7 @@ def readRoutes():
     """reads the t1CompletePath and the taxiRoutesPath. 
         and sets for each edge in t1CompletePath the color=green
         and if the edge is also in taxiRoutesPath changes the color to red.
-    """
+    """  
        
     def countEdges(line): 
         #get Taxi-Id
@@ -47,8 +47,11 @@ def readRoutes():
         words=line[line.find(">")+1:line.find("</")].split(" ")
         lastEdge=words[0]
         no=0
-        for edge in words[1:]:            
-            if lastEdge!=edge:
+        for edge in words[1:]:
+            if edge.find('/')!=-1: #ignore edges with are used only in SUMO
+                continue   
+               
+            if lastEdge!=edge:                                              
                 no+=1
             lastEdge=edge
         #no=len(line[line.find(">")+1:line.find("</")].split(" ")) #splited in single edges
@@ -93,23 +96,39 @@ def clacAvg():
     diffList=[]
     orgList=[]
     compList=[]
-    for id,noList in routeDict.iteritems():        
+    ids=set()
+    diffList200=[]
+    orgList200=[]
+   
+    for id,noList in routeDict.iteritems(): 
         if len(noList)<2:
             continue       
         orgList.append(noList[1])  
         compList.append(noList[0])  
         diffList.append(noList[0]-noList[1])
+        if noList[0]-noList[1]>0:
+            #print id,noList 
+            ids.add(id)
+            diffList200.append(noList[0]-noList[1])
+            orgList200.append(noList[1])  
         #In Prozent
         # Kanten die nur in Sumo sind mit "/" bei berechnung entfernen
+    # Zeige Routen bei denen etwas hinzugfügt wurde    
         
-        
-    print diffList
-    print "sum", sum(diffList)
-    print "len", len(diffList)
-    print "avg", sum(diffList)/(len(diffList)+0.0)
+    
+   
+    print "len Routen gesamt", len(diffList)
+    print "avg (Absolut) Kanten hinzugefügt", sum(diffList)/(len(diffList)+0.0)
+    print "Relavg", sum(diffList)/(len(diffList)+0.0)/(sum(orgList)/(len(orgList)+0.0))*100, "%"
     print "avgOrg", sum(orgList)/(len(orgList)+0.0)," edges"
     print "avgCompleted", sum(compList)/(len(compList)+0.0)," edges"
-    print "div comp-org", (sum(compList)/(len(compList)+0.0))-(sum(orgList)/(len(orgList)+0.0))," edges"
+   
+    print
+    print "Betrachtung der hinzugefügten Kanten nur für die Taxis bei denen Tatsächlich auch Kanten hinzugefügt wurden"
+    print "ids (Taxis/Routen)", len(ids)
+    print "% der Gesamtrouten", 100.0*len(ids)/len(diffList)
+    print "avg 200 (ids)", sum(diffList200)/(len(diffList200)+0.0)
+    print "Relavg 200", sum(diffList200)/(len(diffList200)+0.0)/(sum(orgList200)/(len(orgList200)+0.0))*100, "%"
     
     
 def writeOutput():
