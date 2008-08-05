@@ -7,7 +7,7 @@ doc:
 
 dist-hook:
 	cd $(srcdir)
-	find build -name "*.vcproj" -o -name "*.vsprops" -o -name "*.sln" -print0 | xargs -0 cp --parents --target-directory $(distdir)
+	find build -regex ".*\.\(vcproj\|vsprops\|sln\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
 	find data -regex ".*\.\(nod\|edg\|rou\|add\|def\)\.xml" -print0 | xargs -0 cp --parents --target-directory $(distdir)
 	find data -name "*.cfg" -print0 | xargs -0 cp --parents --target-directory $(distdir)
 	find tools -regex ".*\.\(pl\|py\|java\|jar\|bat\)" -print0 | xargs -0 cp --parents --target-directory $(distdir)
