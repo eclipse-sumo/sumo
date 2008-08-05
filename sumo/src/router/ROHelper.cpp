@@ -38,9 +38,10 @@
 // ===========================================================================
 
 
-namespace ROHelper {
+namespace ROHelper
+{
 
-SUMOReal 
+SUMOReal
 recomputeCosts(const std::vector<const ROEdge*> &edges,
                const ROVehicle * const v, SUMOTime time) throw()
 {
@@ -56,7 +57,7 @@ recomputeCosts(const std::vector<const ROEdge*> &edges,
 }
 
 
-void 
+void
 recheckForLoops(std::vector<const ROEdge*> &edges) throw()
 {
     RONode* start = edges[0]->getFromNode();

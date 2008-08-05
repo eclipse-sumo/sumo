@@ -49,7 +49,7 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-MSEmitControl::MSEmitControl(MSVehicleControl &vc, 
+MSEmitControl::MSEmitControl(MSVehicleControl &vc,
                              SUMOTime maxDepartDelay) throw()
         : myVehicleControl(vc), myMaxDepartDelay(maxDepartDelay)
 {}
@@ -158,7 +158,7 @@ MSEmitControl::tryEmit(SUMOTime time, MSVehicle *veh,
 }
 
 
-void 
+void
 MSEmitControl::checkReemission(MSVehicle *veh) throw()
 {
     MSVehicle *nextPeriodical = veh->getNextPeriodical();
@@ -186,7 +186,7 @@ MSEmitControl::checkPrevious(SUMOTime time) throw()
 unsigned int
 MSEmitControl::getWaitingVehicleNo() const throw()
 {
-    return (unsigned int) (myRefusedEmits1.size() + myRefusedEmits2.size());
+    return (unsigned int)(myRefusedEmits1.size() + myRefusedEmits2.size());
 }
 
 

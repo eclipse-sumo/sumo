@@ -183,7 +183,7 @@ NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
         myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0),
         myAmInnerEdge(false)
 {
-	init(nolanes);
+    init(nolanes);
 }
 
 
@@ -201,7 +201,7 @@ NBEdge::NBEdge(const string &id, NBNode *from, NBNode *to,
         myLoadedLength(-1), myAmTurningWithAngle(0), myAmTurningOf(0),
         myAmInnerEdge(false)
 {
-	init(nolanes);
+    init(nolanes);
 }
 
 
@@ -233,11 +233,11 @@ NBEdge::init(unsigned int noLanes) throw(ProcessError)
         l.speed = mySpeed;
         myLanes.push_back(l);
     }
-	try {
-		computeLaneShapes();
-	} catch (InvalidArgument &ia) {
-		throw ProcessError(string(ia.what()) + " in edge " + myID + ".");
-	}
+    try {
+        computeLaneShapes();
+    } catch (InvalidArgument &ia) {
+        throw ProcessError(string(ia.what()) + " in edge " + myID + ".");
+    }
 }
 
 
@@ -366,8 +366,8 @@ EdgeLaneVector
 NBEdge::getEdgeLanesFromLane(size_t lane) const
 {
     EdgeLaneVector ret;
-    for(vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-        if((*i).fromLane==lane) {
+    for (vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+        if ((*i).fromLane==lane) {
             ret.push_back((*i).getEdgeLane());
         }
     }
@@ -474,8 +474,8 @@ NBEdge::writeXMLStep1(OutputDevice &into)
     delete tmp;
     for (vector<NBEdge*>::iterator l=sortedConnected.begin(); l!=sortedConnected.end(); l++) {
         LaneVector lanes;
-        for(vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-            if((*i).toEdge==*l && find(lanes.begin(), lanes.end(), (*i).fromLane)==lanes.end()) {
+        for (vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+            if ((*i).toEdge==*l && find(lanes.begin(), lanes.end(), (*i).fromLane)==lanes.end()) {
                 lanes.push_back((*i).fromLane);
             }
         }
@@ -676,9 +676,9 @@ NBEdge::writeSucceeding(OutputDevice &into, size_t lane,
     into << "   <succ edge=\"" << myID << "\" lane=\"" << myID << "_" << lane << "\" junction=\"" << myTo->getID() << "\">\n";
     // output list of connected lanes
     size_t count = 0;
-    for(vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-    //for (size_t j=0; j<noApproached; j++) {
-        if((*i).fromLane==lane) {
+    for (vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+        //for (size_t j=0; j<noApproached; j++) {
+        if ((*i).fromLane==lane) {
             writeSingleSucceeding(into, *i, includeInternal);
             ++count;
         }
@@ -846,7 +846,7 @@ NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest,
     if (myTo!=dest->myFrom) {
         return false;
     }
-    if(!addEdge2EdgeConnection(dest)) {
+    if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
     setConnection(from, dest, toLane, markAs2Recheck, mayUseSameDestination);
@@ -882,7 +882,7 @@ NBEdge::computeEdge2Edges()
     }
     if (myConnections.size()==0) {
         const EdgeVector &o = myTo->getOutgoingEdges();
-        for(EdgeVector::const_iterator i=o.begin(); i!=o.end(); ++i) {
+        for (EdgeVector::const_iterator i=o.begin(); i!=o.end(); ++i) {
             myConnections.push_back(Connection(-1, *i, -1));
         }
     }
@@ -915,11 +915,11 @@ bool
 NBEdge::recheckLanes()
 {
     vector<unsigned int> connNumbersPerLane(myLanes.size(), 0);
-    for(vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ) {
-        if((*i).toEdge==0||(*i).fromLane<0||(*i).toLane<0) {
+    for (vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end();) {
+        if ((*i).toEdge==0||(*i).fromLane<0||(*i).toLane<0) {
             i = myConnections.erase(i);
         } else {
-            if((*i).fromLane>=0) {
+            if ((*i).fromLane>=0) {
                 ++connNumbersPerLane[(*i).fromLane];
             }
             ++i;
@@ -950,11 +950,11 @@ NBEdge::recheckLanes()
     for (size_t i=0; i<myLanes.size(); i++) {
         connNumbersPerLane[i] = 0;
     }
-    for(vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ) {
-        if((*i).toEdge==0||(*i).fromLane<0||(*i).toLane<0) {
+    for (vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end();) {
+        if ((*i).toEdge==0||(*i).fromLane<0||(*i).toLane<0) {
             i = myConnections.erase(i);
         } else {
-            if((*i).fromLane>=0) {
+            if ((*i).fromLane>=0) {
                 ++connNumbersPerLane[(*i).fromLane];
             }
             ++i;
@@ -973,8 +973,8 @@ void
 NBEdge::moveConnectionToLeft(size_t lane)
 {
     size_t index = 0;
-    for(size_t i=0; i<myConnections.size(); ++i) {
-        if(myConnections[i].fromLane==lane) {
+    for (size_t i=0; i<myConnections.size(); ++i) {
+        if (myConnections[i].fromLane==lane) {
             index = i;
         }
     }
@@ -988,8 +988,8 @@ NBEdge::moveConnectionToLeft(size_t lane)
 void
 NBEdge::moveConnectionToRight(size_t lane)
 {
-    for(vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-        if((*i).fromLane==lane) {
+    for (vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+        if ((*i).fromLane==lane) {
             Connection c = *i;
             i = myConnections.erase(i);
             setConnection(lane-1, c.toEdge, c.toLane, false);
@@ -1004,9 +1004,9 @@ NBEdge::getConnectionLanes(NBEdge *currentOutgoing) const
 {
     vector<int> ret;
     if (currentOutgoing!=myTurnDestination) {
-        for(vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-            if((*i).toEdge==currentOutgoing) {
-                ret.push_back((*i).fromLane); 
+        for (vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+            if ((*i).toEdge==currentOutgoing) {
+                ret.push_back((*i).fromLane);
             }
         }
     }
@@ -1022,8 +1022,8 @@ NBEdge::getConnectedSorted()
     if (myConnections.size()==0) {
         outgoing = myTo->getOutgoingEdges();
     } else {
-        for(vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-            if(find(outgoing.begin(), outgoing.end(), (*i).toEdge)==outgoing.end()) {
+        for (vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+            if (find(outgoing.begin(), outgoing.end(), (*i).toEdge)==outgoing.end()) {
                 outgoing.push_back((*i).toEdge);
             }
         }
@@ -1049,7 +1049,7 @@ NBEdge::divideOnEdges(const vector<NBEdge*> *outgoing)
 {
     if (outgoing->size()==0) {
         // we have to do this, because the turnaround may have been added before
-        myConnections.clear(); 
+        myConnections.clear();
         return;
     }
     // precompute priorities; needed as some kind of assumptions for
@@ -1109,9 +1109,9 @@ NBEdge::divideOnEdges(const vector<NBEdge*> *outgoing)
     Bresenham::compute(&adder, (SUMOReal) myLanes.size(), (SUMOReal) noVirtual);
     const map<NBEdge*, vector<size_t> > &l2eConns = adder.getBuiltConnections();
     myConnections.clear();
-    for(map<NBEdge*, vector<size_t> >::const_iterator i=l2eConns.begin(); i!=l2eConns.end(); ++i) {
+    for (map<NBEdge*, vector<size_t> >::const_iterator i=l2eConns.begin(); i!=l2eConns.end(); ++i) {
         const vector<size_t> lanes = (*i).second;
-        for(vector<size_t>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
+        for (vector<size_t>::const_iterator j=lanes.begin(); j!=lanes.end(); ++j) {
             myConnections.push_back(Connection(*j, (*i).first, -1));
         }
     }
@@ -1210,19 +1210,19 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
     //  will be refused
     //
     if (!mayUseSameDestination) {
-        if(dest_edge!=0&&find_if(myConnections.begin(), myConnections.end(), connections_toedgelane_finder(dest_edge, dest_lane))!=myConnections.end()) {
+        if (dest_edge!=0&&find_if(myConnections.begin(), myConnections.end(), connections_toedgelane_finder(dest_edge, dest_lane))!=myConnections.end()) {
             return;
         }
     }
-    if(find_if(myConnections.begin(), myConnections.end(), connections_finder(src_lane, dest_edge, dest_lane))!=myConnections.end()) {
+    if (find_if(myConnections.begin(), myConnections.end(), connections_finder(src_lane, dest_edge, dest_lane))!=myConnections.end()) {
         return;
     }
     if (myLanes.size()<=src_lane) {
         MsgHandler::getErrorInstance()->inform("Could not set connection from '" + myID + "_" + toString(src_lane) + "' to '" + dest_edge->getID() + "_" + toString(dest_lane) + "'.");
         return;
     }
-    for(vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ) {
-        if((*i).toEdge==dest_edge && ((*i).fromLane==-1 || (*i).toLane==-1)) {
+    for (vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end();) {
+        if ((*i).toEdge==dest_edge && ((*i).fromLane==-1 || (*i).toLane==-1)) {
             i = myConnections.erase(i);
         } else {
             ++i;
@@ -1313,8 +1313,8 @@ void
 NBEdge::replaceInConnections(NBEdge *which, NBEdge *by, size_t laneOff)
 {
     // replace in "_connectedEdges"
-    for(vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-        if((*i).toEdge==which) {
+    for (vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+        if ((*i).toEdge==which) {
             (*i).toEdge = by;
         }
     }
@@ -1353,12 +1353,12 @@ NBEdge::isConnectedTo(NBEdge *e)
 }
 
 
-vector<NBEdge*> 
+vector<NBEdge*>
 NBEdge::getConnectedEdges() const throw()
 {
     vector<NBEdge*> ret;
-    for(vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-        if(find(ret.begin(), ret.end(), (*i).toEdge)==ret.end()) {
+    for (vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+        if (find(ret.begin(), ret.end(), (*i).toEdge)==ret.end()) {
             ret.push_back((*i).toEdge);
         }
     }
@@ -1387,9 +1387,9 @@ void
 NBEdge::removeFromConnections(NBEdge *which, int lane)
 {
     // remove from "myConnections"
-    for(vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ) {
+    for (vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end();) {
         Connection &c = *i;
-        if(c.toEdge==which && (lane<0 || c.fromLane==lane)) { // !!! chek fromlane/toLane
+        if (c.toEdge==which && (lane<0 || c.fromLane==lane)) { // !!! chek fromlane/toLane
             i = myConnections.erase(i);
         } else {
             ++i;
@@ -1504,14 +1504,14 @@ NBEdge::setControllingTLInformation(int fromLane, NBEdge *toEdge, int toLane,
     //  connections
     size_t no = 0;
     bool hadError = false;
-    for(vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-        if((*i).toEdge!=toEdge) {
+    for (vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+        if ((*i).toEdge!=toEdge) {
             continue;
         }
-        if(fromLane>=0&&fromLane!=(*i).fromLane) {
+        if (fromLane>=0&&fromLane!=(*i).fromLane) {
             continue;
         }
-        if(toLane>=0&&toLane!=(*i).toLane) {
+        if (toLane>=0&&toLane!=(*i).toLane) {
             continue;
         }
         if ((*i).tlID=="") {
@@ -1644,10 +1644,9 @@ NBEdge::expandableBy(NBEdge *possContinuation) const
     }
     break;
     case LANES2EDGES:
-    case LANES2LANES:        
-        {
+    case LANES2LANES: {
         // the possible continuation must be connected
-        if(find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(possContinuation))==myConnections.end()) {
+        if (find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(possContinuation))==myConnections.end()) {
             return false;
         }
         // all lanes must go to the possible continuation
@@ -1689,8 +1688,8 @@ NBEdge::append(NBEdge *e)
 bool
 NBEdge::hasSignalisedConnectionTo(NBEdge *e) const
 {
-    for(vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-        if((*i).toEdge==e && (*i).tlID!="") {
+    for (vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+        if ((*i).toEdge==e && (*i).tlID!="") {
             return true;
         }
     }
@@ -1919,13 +1918,13 @@ NBEdge::disallowVehicleClass(int lane, SUMOVehicleClass vclass)
 }
 
 
-void 
+void
 NBEdge::setVehicleClasses(const vector<SUMOVehicleClass> &allowed, const vector<SUMOVehicleClass> &disallowed, int lane)
 {
-    for(vector<SUMOVehicleClass>::const_iterator i=allowed.begin(); i!=allowed.end(); ++i) {
+    for (vector<SUMOVehicleClass>::const_iterator i=allowed.begin(); i!=allowed.end(); ++i) {
         allowVehicleClass(lane, *i);
     }
-    for(vector<SUMOVehicleClass>::const_iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
+    for (vector<SUMOVehicleClass>::const_iterator i=disallowed.begin(); i!=disallowed.end(); ++i) {
         disallowVehicleClass(lane, *i);
     }
 }
@@ -2003,7 +2002,7 @@ vector<SUMOVehicleClass>
 NBEdge::getAllowedVehicleClasses() const
 {
     vector<SUMOVehicleClass> ret;
-    for(vector<Lane>::const_iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
+    for (vector<Lane>::const_iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
         const vector<SUMOVehicleClass> &allowed = (*i).allowed;
         for (vector<SUMOVehicleClass>::const_iterator j=allowed.begin(); j!=allowed.end(); ++j) {
             if (find(ret.begin(), ret.end(), *j)==ret.end()) {
@@ -2021,8 +2020,8 @@ int
 NBEdge::getMinConnectedLane(NBEdge *of) const
 {
     int ret = -1;
-    for(vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-        if((*i).toEdge==of && (ret==-1 || (*i).toLane<ret)) {
+    for (vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+        if ((*i).toEdge==of && (ret==-1 || (*i).toLane<ret)) {
             ret = (*i).toLane;
         }
     }
@@ -2034,8 +2033,8 @@ int
 NBEdge::getMaxConnectedLane(NBEdge *of) const
 {
     int ret = -1;
-    for(vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-        if((*i).toEdge==of && (*i).toLane>ret) {
+    for (vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+        if ((*i).toEdge==of && (*i).toLane>ret) {
             ret = (*i).toLane;
         }
     }
@@ -2053,7 +2052,7 @@ NBEdge::setLoadedLength(SUMOReal val)
 void
 NBEdge::dismissVehicleClassInformation()
 {
-    for(vector<Lane>::iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
+    for (vector<Lane>::iterator i=myLanes.begin(); i!=myLanes.end(); ++i) {
         (*i).allowed.clear();
         (*i).notAllowed.clear();
     }

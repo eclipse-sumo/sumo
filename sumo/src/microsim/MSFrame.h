@@ -48,9 +48,9 @@ class OutputDevice;
  *
  * In addition to setting and checking options, this frame also sets global
  *  values via "setMSGlobals". They are stored in MSGlobals.
- * 
+ *
  * Also, global output streams are initialised within "buildStreams".
- * 
+ *
  * @see MSGlobals
  */
 class MSFrame
@@ -84,8 +84,8 @@ public:
     static bool checkOptions();
 
 
-    /** @brief Sets the global microsim-options 
-     * 
+    /** @brief Sets the global microsim-options
+     *
      * @param[in] oc The options container to get the values from
      * @see MSGlobals
      */

@@ -107,9 +107,9 @@
 
 
 static const char *empty_xpm[] = {
-"    1    1        1            1",
-". c None",
-"."
+    "    1    1        1            1",
+    ". c None",
+    "."
 };
 
 

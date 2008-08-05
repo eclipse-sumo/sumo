@@ -69,7 +69,7 @@ RODFDetectorHandler::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_DETECTOR_DEFINITION) {
         // get the id, report an error if not given or empty...
         string id;
-        if(!attrs.setIDFromAttributes("detector_definition", id, false)) {
+        if (!attrs.setIDFromAttributes("detector_definition", id, false)) {
             throw ProcessError("A detector_definition without an id occured within '" + getFileName() + ".");
         }
         string lane;

@@ -82,7 +82,7 @@ NIXMLNodesHandler::myStartElement(SumoXMLTag element,
         return;
     }
     // get the id, report a warning if not given or empty...
-    if(!attrs.setIDFromAttributes("node", myID), false) {
+    if (!attrs.setIDFromAttributes("node", myID), false) {
         WRITE_WARNING("No node id given... Skipping.");
         return;
     }

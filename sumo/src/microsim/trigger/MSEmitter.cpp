@@ -357,7 +357,7 @@ MSEmitter::childCheckEmit(MSEmitterChild *child)
     }
     if (child!=myActiveChild||myDestLane->getEdge()->isVaporizing()) {
         // check whether this is due to vaporization
-        if(myDestLane->getEdge()->isVaporizing()) {
+        if (myDestLane->getEdge()->isVaporizing()) {
             myToEmit[child].first->setWasVaporized(true);
         }
         // remove the vehicle previously inserted by the child

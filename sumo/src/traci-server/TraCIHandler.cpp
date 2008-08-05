@@ -46,99 +46,99 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-namespace traci 
+namespace traci
 {
-	
+
 TraCIHandler::TraCIHandler(const std::string& file)
 throw()
-		:SUMOSAXHandler(file),
-		totalVehicleCount(0),
-		currentVehCount(0)
+        :SUMOSAXHandler(file),
+        totalVehicleCount(0),
+        currentVehCount(0)
 {}
 
 TraCIHandler::~TraCIHandler()
 throw()
 {}
 
-void 
+void
 TraCIHandler::myStartElement(SumoXMLTag element, const SUMOSAXAttributes& attributes)
 throw(ProcessError)
 {
-	if (element == SUMO_TAG_VEHICLE) {
-		openVehicleTag(attributes);
-	}
+    if (element == SUMO_TAG_VEHICLE) {
+        openVehicleTag(attributes);
+    }
 }
 
-void 
+void
 TraCIHandler::myEndElement(SumoXMLTag element)
 throw(ProcessError)
 {
-	if (element == SUMO_TAG_VEHICLE) {
-		totalVehicleCount += currentVehCount;
-	}
+    if (element == SUMO_TAG_VEHICLE) {
+        totalVehicleCount += currentVehCount;
+    }
 }
 
 void
 TraCIHandler::openVehicleTag(const SUMOSAXAttributes& attributes)
 {
-	int repNo;
-	int period;
-	int depart;
-	OptionsCont& optCont = OptionsCont::getOptions();
-	int simStart = optCont.getInt("begin");
-	int simEnd = optCont.getInt("end");
-	
-	// every found vehicle tag counts for one vehicle
-	currentVehCount = 1;
+    int repNo;
+    int period;
+    int depart;
+    OptionsCont& optCont = OptionsCont::getOptions();
+    int simStart = optCont.getInt("begin");
+    int simEnd = optCont.getInt("end");
+
+    // every found vehicle tag counts for one vehicle
+    currentVehCount = 1;
 //	std::cerr << "1 vehicle found, sim time: " << simStart << "-" << simEnd << std::endl;
 
-	// read value for emit period and number (if any)
-	try {
-		repNo = attributes.getInt(SUMO_ATTR_REPNUMBER);
-		period = attributes.getInt( SUMO_ATTR_PERIOD);
-	} catch(...) {
-		repNo = 0;
-		period = 0;
-	}
+    // read value for emit period and number (if any)
+    try {
+        repNo = attributes.getInt(SUMO_ATTR_REPNUMBER);
+        period = attributes.getInt(SUMO_ATTR_PERIOD);
+    } catch (...) {
+        repNo = 0;
+        period = 0;
+    }
 
-	// read depart time
-	try {
-		depart = attributes.getInt(SUMO_ATTR_DEPART);
-	} catch (...) {
-		// no depart time: error, don't count vehicle
-		currentVehCount = 0;
+    // read depart time
+    try {
+        depart = attributes.getInt(SUMO_ATTR_DEPART);
+    } catch (...) {
+        // no depart time: error, don't count vehicle
+        currentVehCount = 0;
 //		std::cerr << "no depart time, vehicle = 0" << std::endl;
-		return;
-	}
+        return;
+    }
 
-	while ((depart < simStart) && (repNo >= 0)) {
-		depart += period;
-		repNo--;
+    while ((depart < simStart) && (repNo >= 0)) {
+        depart += period;
+        repNo--;
 //		std::cerr << "removing 1 vehicle from repno (depart before sim start)" << std::endl;
-	}
+    }
 
-	// don't count vehicles that depart / are emitted after the sim ends
-	while(((depart + (repNo * period)) > simEnd) && (repNo >= 0)) {
-		repNo--;
+    // don't count vehicles that depart / are emitted after the sim ends
+    while (((depart + (repNo * period)) > simEnd) && (repNo >= 0)) {
+        repNo--;
 //		std::cerr << "removing 1 vehicle from repno (depart after sim end)" << std::endl;
 
-	}
+    }
 
-	// add number of vehicles, that will be emitted until sim end, to total count
-	currentVehCount += repNo;
+    // add number of vehicles, that will be emitted until sim end, to total count
+    currentVehCount += repNo;
 //	std::cerr << "result: " << currentVehCount << " vehicles" << std::endl;
 }
 
-int 
+int
 TraCIHandler::getTotalVehicleCount()
 {
-	return totalVehicleCount;
+    return totalVehicleCount;
 }
 
-void 
+void
 TraCIHandler::resetTotalVehicleCount()
 {
-	totalVehicleCount = 0;
+    totalVehicleCount = 0;
 }
 
 }

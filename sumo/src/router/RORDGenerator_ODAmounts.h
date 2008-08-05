@@ -80,7 +80,7 @@ protected:
     /// @name inherited from GenericSAXHandler
     //@{
 
-    /** @brief Called on the opening of a tag; 
+    /** @brief Called on the opening of a tag;
      *
      * @param[in] element ID of the currently opened element
      * @param[in] attrs Attributes within the currently opened element

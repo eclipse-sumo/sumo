@@ -198,7 +198,7 @@ MSRouteHandler::myStartElement(SumoXMLTag element,
                 MsgHandler::getErrorInstance()->inform("The end time of a stop is not numeric.");
                 return;
             }
-            if(stop.duration<0&&stop.until<0) {
+            if (stop.duration<0&&stop.until<0) {
                 MsgHandler::getErrorInstance()->inform("Neither the duration nor the end time is given for a stop.");
                 return;
             }
@@ -213,7 +213,7 @@ void
 MSRouteHandler::addVehicleType(const SUMOSAXAttributes &attrs)
 {
     string id;
-    if(attrs.setIDFromAttributes("vtype", id)) {
+    if (attrs.setIDFromAttributes("vtype", id)) {
         try {
             addParsedVehicleType(id,
                                  attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),

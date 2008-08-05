@@ -91,7 +91,7 @@ protected:
     /// @name inherited from GenericSAXHandler
     //@{
 
-    /** @brief Called on the opening of a tag; 
+    /** @brief Called on the opening of a tag;
      *
      * @param[in] element ID of the currently opened element
      * @param[in] attrs Attributes within the currently opened element
@@ -194,7 +194,7 @@ protected:
     /// @brief Information whether a read route shall be tried to be repaired
     bool myTryRepair;
 
-    /// @brief The currently parsed route 
+    /// @brief The currently parsed route
     RORouteDef_Complete *myCurrentRoute;
 
     /// @brief The name of the currently parsed route

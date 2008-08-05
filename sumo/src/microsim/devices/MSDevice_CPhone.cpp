@@ -251,7 +251,7 @@ MSDevice_CPhone::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into)
     } else {
     !!!
     */
-        haveByNumber = RandHelper::rand()<=oc.getFloat("device.cell-phone.probability");
+    haveByNumber = RandHelper::rand()<=oc.getFloat("device.cell-phone.probability");
     // !!!}
     bool haveByName = oc.isSet("device.cell-phone.knownveh") && OptionsCont::getOptions().isInStringVector("device.cell-phone.knownveh", v.getID());
     if (haveByNumber||haveByName) {
@@ -620,7 +620,7 @@ MSDevice_CPhone::stateChangeCommandExecution(SUMOTime) throw(ProcessError)
 }
 
 
-void 
+void
 MSDevice_CPhone::enterLaneAtEmit(MSLane* , const MSVehicle::State &)
 {
     /*wenn dieses handy nicht von einer zelle getriggert wird, dann setze ihn selber*/

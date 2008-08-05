@@ -66,7 +66,7 @@ public:
 
 
     /** @brief Adds a trigger
-     * 
+     *
      * Stored the trigger in "myTrigger".
      *
      * @param[in] t The trigger to add
@@ -75,9 +75,9 @@ public:
 
 
     /** @brief Returns the named trigger
-     * 
+     *
      * Searched for the name in "myTrigger". Returns the named trigger if
-     *  its id matches the given. Returns 0 if no matching trigger could be 
+     *  its id matches the given. Returns 0 if no matching trigger could be
      *  found.
      *
      * @param[in] t The trigger to add

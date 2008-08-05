@@ -834,12 +834,12 @@ MSTLLogicControl::addWAUTJunction(const std::string &wautid,
     vector<WAUTSwitch>::const_iterator first = myWAUTs[wautid]->switches.end();
     SUMOTime minExecTime = -1;
     int minIndex = -1;
-    for(vector<WAUTSwitch>::const_iterator i=myWAUTs[wautid]->switches.begin(); i!=myWAUTs[wautid]->switches.end(); ++i) {
-        if((*i).when>MSNet::getInstance()->getCurrentTimeStep()&&(minExecTime==-1||(*i).when<minExecTime)) {
+    for (vector<WAUTSwitch>::const_iterator i=myWAUTs[wautid]->switches.begin(); i!=myWAUTs[wautid]->switches.end(); ++i) {
+        if ((*i).when>MSNet::getInstance()->getCurrentTimeStep()&&(minExecTime==-1||(*i).when<minExecTime)) {
             minExecTime = (*i).when;
             first = i;
         }
-        if(first!=myWAUTs[wautid]->switches.begin()) {
+        if (first!=myWAUTs[wautid]->switches.begin()) {
             initProg = (*(first-1)).to;
         }
     }
@@ -862,14 +862,14 @@ MSTLLogicControl::closeWAUT(const std::string &wautid) throw(InvalidArgument)
     vector<WAUTSwitch>::const_iterator first = w->switches.end();
     SUMOTime minExecTime = -1;
     int minIndex = -1;
-    for(vector<WAUTSwitch>::const_iterator i=w->switches.begin(); i!=w->switches.end(); ++i) {
-        if((*i).when>MSNet::getInstance()->getCurrentTimeStep()&&(minExecTime==-1||(*i).when<minExecTime)) {
+    for (vector<WAUTSwitch>::const_iterator i=w->switches.begin(); i!=w->switches.end(); ++i) {
+        if ((*i).when>MSNet::getInstance()->getCurrentTimeStep()&&(minExecTime==-1||(*i).when<minExecTime)) {
             minExecTime = (*i).when;
             first = i;
         }
     }
     // activate the first one
-    if(first!=w->switches.end()) {
+    if (first!=w->switches.end()) {
         vector<WAUTSwitch>::const_iterator mbegin = w->switches.begin();
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             new SwitchInitCommand(*this, wautid, distance(mbegin, first)),

@@ -263,19 +263,19 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
         if (oc.isSet("emitters-output")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitters...");
             detectors.writeEmitters(oc.getString("emitters-output"), flows,
-                                     oc.getInt("begin"), oc.getInt("end"), 60,
-                                     *optNet,
-                                     oc.getBool("write-calibrators"),
-                                     oc.getBool("include-unused-routes"),
-                                     oc.getFloat("scale"),
-                                     oc.getInt("max-nodet-follower"),
-                                     oc.getBool("emissions-only"));
+                                    oc.getInt("begin"), oc.getInt("end"), 60,
+                                    *optNet,
+                                    oc.getBool("write-calibrators"),
+                                    oc.getBool("include-unused-routes"),
+                                    oc.getFloat("scale"),
+                                    oc.getInt("max-nodet-follower"),
+                                    oc.getBool("emissions-only"));
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
         if (oc.isSet("emitters-poi-output")) {
             MsgHandler::getMessageInstance()->beginProcessMsg("Writing emitter pois...");
             detectors.writeEmitterPOIs(oc.getString("emitters-poi-output"), flows,
-                                        oc.getInt("begin"), oc.getInt("end"), 60);
+                                       oc.getInt("begin"), oc.getInt("end"), 60);
             MsgHandler::getMessageInstance()->endProcessMsg("done.");
         }
     }
@@ -283,14 +283,14 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
     if (oc.isSet("speed-trigger-output")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Writing speed triggers...");
         detectors.writeSpeedTrigger(oc.getString("speed-trigger-output"), flows,
-                                     oc.getInt("begin"), oc.getInt("end"), 60);
+                                    oc.getInt("begin"), oc.getInt("end"), 60);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     // save checking detectors if wished
     if (oc.isSet("validation-output")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Writing validation detectors...");
         detectors.writeValidationDetectors(oc.getString("validation-output"),
-                                            oc.getBool("validation-output.add-sources"), true, true); // !!!
+                                           oc.getBool("validation-output.add-sources"), true, true); // !!!
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
     // build global rerouter on end if wished

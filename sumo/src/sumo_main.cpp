@@ -84,7 +84,7 @@ load(OptionsCont &oc)
 {
     MSFrame::setMSGlobals(oc);
     MSNet *net = new MSNet(new MSVehicleControl(), new MSEventControl(),
-        new MSEventControl(), new MSEventControl());
+                           new MSEventControl(), new MSEventControl());
     NLEdgeControlBuilder eb;
     NLJunctionControlBuilder jb(*net, oc);
     NLDetectorBuilder db(*net);

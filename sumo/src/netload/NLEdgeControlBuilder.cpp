@@ -67,8 +67,8 @@ NLEdgeControlBuilder::NLEdgeControlBuilder(unsigned int storageSize)
     m_pAllowedLanes = (MSEdge::AllowedLanesCont*) 0;
     m_pDepartLane = (MSLane*) 0;
     m_iNoSingle = m_iNoMulti = 0;
-    if(OptionsCont::getOptions().isSet("lanechange-output")) {
-        if(!OutputDevice::createDeviceByOption("lanechange-output", "lane_changes")) {
+    if (OptionsCont::getOptions().isSet("lanechange-output")) {
+        if (!OutputDevice::createDeviceByOption("lanechange-output", "lane_changes")) {
             throw 1;
         }
         myEdgesLaneChangeOutputDevice = &OutputDevice::getDeviceByOption("lanechange-output");

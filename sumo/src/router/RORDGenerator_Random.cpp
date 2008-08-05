@@ -58,8 +58,8 @@ using namespace std;
 // ===========================================================================
 RORDGenerator_Random::RORDGenerator_Random(ROVehicleBuilder &vb, RONet &net,
         SUMOTime begin, SUMOTime end, bool removeFirst) throw(ProcessError)
-    : ROAbstractRouteDefLoader(vb, net, begin, end), myIDSupplier("Rand"),
-    myCurrentTime(-1), myRemoveFirst(removeFirst), myColor(RGBColor::DEFAULT_COLOR)
+        : ROAbstractRouteDefLoader(vb, net, begin, end), myIDSupplier("Rand"),
+        myCurrentTime(-1), myRemoveFirst(removeFirst), myColor(RGBColor::DEFAULT_COLOR)
 {
     OptionsCont &oc = OptionsCont::getOptions();
     if (oc.isSet("random-route-color")) {

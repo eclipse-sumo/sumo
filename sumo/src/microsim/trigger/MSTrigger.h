@@ -40,14 +40,14 @@
  * @class MSTrigger
  * @brief An abstract device that changes the state of the micro simulation
  *
- * We name most of the additional microsim-structures "trigger" in order to 
+ * We name most of the additional microsim-structures "trigger" in order to
  *  allow some common operation on them.
  */
 class MSTrigger : public Named
 {
 public:
     /** @brief Constructor
-     * 
+     *
      * @param[in] id The id of the trigger
      */
     MSTrigger(const std::string &id) throw() : Named(id) { }

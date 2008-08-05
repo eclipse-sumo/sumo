@@ -58,10 +58,10 @@ public:
 
     /** @brief Checks whether options are valid
      *
-     * To be valid, 
+     * To be valid,
      * @arg an output file must be given
      * @arg max-alternatives must not be lower than 2
-     * 
+     *
      * @param[in] oc The options container to fill
      * @return Whether all needed options are set
      * @todo Why is the container given? Everywhere else not...

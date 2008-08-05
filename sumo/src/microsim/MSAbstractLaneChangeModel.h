@@ -50,10 +50,10 @@ enum LaneChangeAction {
 };
 
 enum ChangeRequest {
-	REQUEST_NONE,  // vehicle doesn't want to change
-	REQUEST_LEFT,  // vehicle want's to change to left lane
-	REQUEST_RIGHT, // vehicle want's to change to right lane
-	REQUEST_HOLD   // vehicle want's to keep the current lane
+    REQUEST_NONE,  // vehicle doesn't want to change
+    REQUEST_LEFT,  // vehicle want's to change to left lane
+    REQUEST_RIGHT, // vehicle want's to change to right lane
+    REQUEST_HOLD   // vehicle want's to keep the current lane
 };
 
 // ===========================================================================
@@ -100,9 +100,9 @@ public:
     MSAbstractLaneChangeModel(MSVehicle &v)
             : myVehicle(v), myState(0)
 #ifndef NO_TRACI
-			,myChangeRequest(REQUEST_NONE)
+            ,myChangeRequest(REQUEST_NONE)
 #endif
-	{ }
+    { }
 
     virtual ~MSAbstractLaneChangeModel() { }
 
@@ -145,30 +145,30 @@ public:
     virtual SUMOReal patchSpeed(SUMOReal min, SUMOReal wanted, SUMOReal max,
                                 SUMOReal vsafe) = 0;
 
-	virtual void changed() = 0;
+    virtual void changed() = 0;
 
 #ifndef NO_TRACI
-	/**
-	 * The vehicle is requested to change the lane as soon as possible
-	 * without violating any directives defined by this lane change model
-	 *
-	 * @param request	indicates the requested change
-	 */
-	virtual void requestLaneChange(ChangeRequest request) {
-		myChangeRequest = request;
-	};
+    /**
+     * The vehicle is requested to change the lane as soon as possible
+     * without violating any directives defined by this lane change model
+     *
+     * @param request	indicates the requested change
+     */
+    virtual void requestLaneChange(ChangeRequest request) {
+        myChangeRequest = request;
+    };
 
-	/**
-	 * Inform the model that a certain lane change request has been fulfilled
-	 * by the lane changer, so the request won't be taken into account the next time.
-	 *
-	 * @param request	indicates the request that was fulfilled
-	 */
-	virtual void fulfillChangeRequest(ChangeRequest request) {
-		if (request == myChangeRequest) {
-			myChangeRequest = REQUEST_NONE;
-		}
-	}
+    /**
+     * Inform the model that a certain lane change request has been fulfilled
+     * by the lane changer, so the request won't be taken into account the next time.
+     *
+     * @param request	indicates the request that was fulfilled
+     */
+    virtual void fulfillChangeRequest(ChangeRequest request) {
+        if (request == myChangeRequest) {
+            myChangeRequest = REQUEST_NONE;
+        }
+    }
 #endif
 
 protected:
@@ -208,7 +208,7 @@ protected:
     MSVehicle &myVehicle;
     int myState;
 #ifndef NO_TRACI
-	ChangeRequest myChangeRequest;
+    ChangeRequest myChangeRequest;
 #endif
 };
 

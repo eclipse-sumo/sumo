@@ -74,12 +74,12 @@ NIXMLTypesHandler::myStartElement(SumoXMLTag element,
     }
     // get the id, report a warning if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("type", id), false) {
+    if (!attrs.setIDFromAttributes("type", id), false) {
         WRITE_WARNING("No type id given... Skipping.");
         return;
     }
     // check deprecated (unused) attributes
-    if(!myHaveReportedAboutFunctionDeprecation&&attrs.hasAttribute(SUMO_ATTR_FUNCTION)) {
+    if (!myHaveReportedAboutFunctionDeprecation&&attrs.hasAttribute(SUMO_ATTR_FUNCTION)) {
         MsgHandler::getWarningInstance()->inform("While parsing type '" + id + "': 'function' is deprecated.\n All occurences are ignored.");
         myHaveReportedAboutFunctionDeprecation = true;
     }

@@ -96,7 +96,7 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
         delete myVehicleParameter;
         myVehicleParameter = 0;
         myVehicleParameter = SUMOVehicleParserHelper::parseVehicleAttributes(attrs);
-        if(myVehicleParameter!=0) {
+        if (myVehicleParameter!=0) {
             myCurrentDepart = myVehicleParameter->depart;
         }
         myCurrentIsOk = myVehicleParameter!=0;
@@ -107,14 +107,14 @@ RORDLoader_SUMOBase::myStartElement(SumoXMLTag element,
     case SUMO_TAG_ROUTEALT:
         myAltIsValid = true;
         startAlternative(attrs);
-        if(!myCurrentIsOk) {
+        if (!myCurrentIsOk) {
             myAltIsValid = false;
         }
         break;
     default:
         break;
     }
-    if(!myCurrentIsOk) {
+    if (!myCurrentIsOk) {
         throw ProcessError();
     }
 }
@@ -125,7 +125,7 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
 {
     delete myColor;
     myColor = 0;
-    if(!myAltIsValid) {
+    if (!myAltIsValid) {
         return;
     }
     if (myCurrentAlternatives==0) {
@@ -137,7 +137,7 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
             } else {
                 myCurrentRouteName = attrs.getString(SUMO_ATTR_ID);
             }
-            if(attrs.hasAttribute(SUMO_ATTR_COLOR)) {
+            if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
                 myColor = new RGBColor(RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)));
             }
         } catch (EmptyData &) {
@@ -150,7 +150,7 @@ RORDLoader_SUMOBase::startRoute(const SUMOSAXAttributes &attrs)
     // parse route alternative...
     myCost = attrs.getSUMORealReporting(SUMO_ATTR_COST, "route(alternative)", myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
     myProbability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "route(alternative)", myCurrentAlternatives->getID().c_str(), myCurrentIsOk);
-    if(attrs.hasAttribute(SUMO_ATTR_COLOR)) {
+    if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
         myColor = new RGBColor(RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR)));
     }
     if (myCurrentIsOk&&myCost<0) {
@@ -174,14 +174,14 @@ RORDLoader_SUMOBase::startAlternative(const SUMOSAXAttributes &attrs)
     string id;
     if (myVehicleParameter!=0) {
         id = myVehicleParameter->id;
-        if(id=="") {
+        if (id=="") {
             MsgHandler::getErrorInstance()->inform("Missing 'id' of a routealt.");
             myCurrentIsOk = false;
-            return;    
+            return;
         }
         id = "!" + id;
     } else {
-        if(!attrs.setIDFromAttributes("routealt", id)) {
+        if (!attrs.setIDFromAttributes("routealt", id)) {
             myCurrentIsOk = false;
             return;
         }
@@ -206,7 +206,7 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
     if (element!=SUMO_TAG_ROUTE) {
         return;
     }
-    if(!myAltIsValid) {
+    if (!myAltIsValid) {
         return;
     }
     // check whether the costs and the probability are valid
@@ -224,7 +224,7 @@ RORDLoader_SUMOBase::myCharacters(SumoXMLTag element,
         if (edge!=0) {
             list->push_back(edge);
         } else {
-            if(false) {
+            if (false) {
                 MsgHandler::getErrorInstance()->inform("The route '" + myCurrentAlternatives->getID() + "' contains the unknown edge '" + id + "'.");
                 myCurrentIsOk = false;
             }
@@ -248,11 +248,11 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
 {
     switch (element) {
     case SUMO_TAG_ROUTE:
-        if(!myAltIsValid) {
+        if (!myAltIsValid) {
             return;
         }
         if (myCurrentRoute!=0&&myCurrentIsOk) {
-            if(myCurrentAlternatives==0) {
+            if (myCurrentAlternatives==0) {
                 myNet.addRouteDef(myCurrentRoute);
                 myCurrentRoute = 0;
             }
@@ -282,7 +282,7 @@ RORDLoader_SUMOBase::myEndElement(SumoXMLTag element) throw(ProcessError)
     default:
         break;
     }
-    if(!myCurrentIsOk) {
+    if (!myCurrentIsOk) {
         throw ProcessError();
     }
 }
@@ -323,7 +323,7 @@ RORDLoader_SUMOBase::startVehType(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("vtype", id, false)) {
+    if (!attrs.setIDFromAttributes("vtype", id, false)) {
         MsgHandler::getErrorInstance()->inform("Missing id in vtype.");
         myCurrentIsOk = false;
         return;

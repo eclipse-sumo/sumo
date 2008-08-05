@@ -60,10 +60,10 @@ RORoute::RORoute(const std::string &id, SUMOReal costs, SUMOReal prop,
 
 
 RORoute::RORoute(const RORoute &src) throw()
-    : Named(src.myID), myCosts(src.myCosts), 
-    myProbability(src.myProbability), myRoute(src.myRoute), myColor(0)
+        : Named(src.myID), myCosts(src.myCosts),
+        myProbability(src.myProbability), myRoute(src.myRoute), myColor(0)
 {
-    if(src.myColor!=0) {
+    if (src.myColor!=0) {
         myColor = new RGBColor(*src.myColor);
     }
 }
@@ -133,22 +133,22 @@ OutputDevice &
 RORoute::writeXMLDefinition(OutputDevice &dev, bool asAlternatives) const
 {
     // (optional) alternatives header
-    if(asAlternatives) {
+    if (asAlternatives) {
         dev << "<routealt last=\"0\"";
         dev << ">\n         ";
     }
     // the route
     dev << "<route";
-    if(asAlternatives) {
+    if (asAlternatives) {
         dev << " cost=\"" << myCosts;
         dev << "\" probability=\"" << myProbability << "\"";
     }
-    if(myColor!=0) {
+    if (myColor!=0) {
         dev << " color=\"" << *myColor << "\"";
     }
     dev << ">" << myRoute << "</route>\n";
     // (optional) alternatives end
-    if(asAlternatives) {
+    if (asAlternatives) {
         dev << "      </routealt>\n";
     }
     return dev;

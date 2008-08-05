@@ -181,7 +181,7 @@ MSPhoneCell::remCPhone(const std::string &device_id)
 }
 
 
-SUMOTime 
+SUMOTime
 MSPhoneCell::wrappedSetStatParamsExecute(SUMOTime time) throw(ProcessError)
 {
     return nextStatPeriod(time);
@@ -203,8 +203,8 @@ MSPhoneCell::setStatParams(int interval, int statcallcount)
 }
 
 
-SUMOTime 
-MSPhoneCell::wrappedSetDynParamsExecute(SUMOTime time) throw(ProcessError) 
+SUMOTime
+MSPhoneCell::wrappedSetDynParamsExecute(SUMOTime time) throw(ProcessError)
 {
     return nextDynPeriod(time);
 }
@@ -378,18 +378,18 @@ MSPhoneCell::writeOutput(SUMOTime t)
         long t1 = myVehicleTimes;
         std::map<MSVehicle *, SUMOTime>::iterator i;
         for (i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
-            t1 = t1 + (long) ((t - (*i).second));
+            t1 = t1 + (long)((t - (*i).second));
         }
         OutputDevice::getDeviceByOption("ss2-cell-output")
-            << "02;" << timestr << ';'
-            << myCellId << ';'
-            << myStaticCallsIn << ';' << myStaticCallsOut << ';'
-            << myDynCallsIn << ';' << myDynCallsOut << ';'
-            << (mySumCalls + myStaticCallsIn + myStaticCallsOut) << ';'
-            << t << ';'
-            << myLaterDynamicStarted << ';'
-            << myVehiclesEntered << ';'
-            << t1 << "\n";
+        << "02;" << timestr << ';'
+        << myCellId << ';'
+        << myStaticCallsIn << ';' << myStaticCallsOut << ';'
+        << myDynCallsIn << ';' << myDynCallsOut << ';'
+        << (mySumCalls + myStaticCallsIn + myStaticCallsOut) << ';'
+        << t << ';'
+        << myLaterDynamicStarted << ';'
+        << myVehiclesEntered << ';'
+        << t1 << "\n";
         myVehiclesEntered = 0;
         myVehicleTimes = 0;
         for (i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
@@ -406,12 +406,12 @@ MSPhoneCell::writeOutput(SUMOTime t)
             od.setBoolMarker("hadFirstCall", true);
         }
         od
-            << "(NULL, \' \', '" << timestr << "',"
-            << myCellId << ','
-            << myStaticCallsIn << ',' << myStaticCallsOut << ','
-            << myDynCallsIn << ',' << myDynCallsOut << ','
-            << (mySumCalls + myStaticCallsIn + myStaticCallsOut) << ','
-            << t << ")";
+        << "(NULL, \' \', '" << timestr << "',"
+        << myCellId << ','
+        << myStaticCallsIn << ',' << myStaticCallsOut << ','
+        << myDynCallsIn << ',' << myDynCallsOut << ','
+        << (mySumCalls + myStaticCallsIn + myStaticCallsOut) << ','
+        << t << ")";
     }
     myDynCallsIn = myDynCallsOut = myLaterDynamicStarted = 0;
     mySumCalls = 0;
@@ -441,7 +441,7 @@ void MSPhoneCell::removeVehicle(MSVehicle& veh, SUMOTime t)
     SUMOTime prev = myVehicles[&veh];
     assert(t>=prev);
     assert(prev>t-300);
-    myVehicleTimes = myVehicleTimes + (long) (t-prev);
+    myVehicleTimes = myVehicleTimes + (long)(t-prev);
     assert(myVehicles.find(&veh)!=myVehicles.end());
     myVehicles.erase(myVehicles.find(&veh));
 }

@@ -244,14 +244,14 @@ NLJunctionControlBuilder::closeTrafficLightLogic() throw(InvalidArgument)
     SUMOTime firstEventOffset = 0;
     SUMOTime offset = (myNet.getCurrentTimeStep() + ((int) myOffset%(int) myAbsDuration)) % (int) myAbsDuration;
     MSSimpleTrafficLightLogic::Phases::const_iterator i = myActivePhases.begin();
-    while(offset>=(*i)->duration) {
+    while (offset>=(*i)->duration) {
         step++;
         offset -= (*i)->duration;
         ++i;
     }
     firstEventOffset = (*i)->duration - offset + myNet.getCurrentTimeStep();
 
-    // 
+    //
     if (myActiveSubKey=="") {
         myActiveSubKey = "default";
     }

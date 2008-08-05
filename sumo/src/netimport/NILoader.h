@@ -59,7 +59,7 @@ class NBNetBuilder;
  * @class NILoader
  * @brief Perfoms network import
  *
- * A plain loader which encapsulates calls to the import modules. 
+ * A plain loader which encapsulates calls to the import modules.
  */
 class NILoader
 {

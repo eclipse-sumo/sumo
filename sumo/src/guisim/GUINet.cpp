@@ -148,9 +148,9 @@ GUINet::initDetectors()
                 continue;
             }
             */
-        GUIDetectorWrapper *wrapper = 
+        GUIDetectorWrapper *wrapper =
             static_cast<GUI_E2_ZS_Collector*>(e2i)->buildDetectorWrapper(
-                    gIDStorage, edge->getLaneGeometry(lane));
+                gIDStorage, edge->getLaneGeometry(lane));
         // add to dictionary
         myDetectorDict[wrapper->microsimID()] = wrapper;
     }

@@ -66,7 +66,7 @@ public:
      * @param[in] nb The network builder to fill
      */
     static void loadNetwork(const OptionsCont &oc, NBNetBuilder &nb);
-     
+
 
 protected:
     /** @brief Constructor

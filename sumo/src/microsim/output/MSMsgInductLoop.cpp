@@ -56,10 +56,10 @@ using namespace std;
 // method definitions
 // ===========================================================================
 MSMsgInductLoop::MSMsgInductLoop(const string& id, const string& msg,
-                           MSLane* lane,
-                           SUMOReal positionInMeters) throw()
+                                 MSLane* lane,
+                                 SUMOReal positionInMeters) throw()
         : MSMoveReminder(lane), Named(id), myMsg(msg), myCurrentVehicle(0),
-		myCurrentID(""),
+        myCurrentID(""),
         myPosition(positionInMeters), myLastLeaveTimestep(0),
         myVehiclesOnDet(), myVehicleDataCont()
 {
@@ -83,13 +83,13 @@ MSMsgInductLoop::reset() throw()
 {
     myDismissedVehicleNumber = 0;
     myVehicleDataCont.clear();
-	myCurrentID = "";
+    myCurrentID = "";
 }
 
 
 bool
 MSMsgInductLoop::isStillActive(MSVehicle& veh, SUMOReal oldPos,
-                            SUMOReal newPos, SUMOReal newSpeed) throw()
+                               SUMOReal newPos, SUMOReal newSpeed) throw()
 {
     if (newPos < myPosition) {
         // detector not reached yet
@@ -220,10 +220,10 @@ MSMsgInductLoop::writeXMLDetectorProlog(OutputDevice &dev) const throw(IOError)
 
 void
 MSMsgInductLoop::writeXMLOutput(OutputDevice &dev,
-                             SUMOTime startTime, SUMOTime stopTime) throw(IOError)
+                                SUMOTime startTime, SUMOTime stopTime) throw(IOError)
 {
-	//dev<< "	<interval begin=\""<<startTime<<"\" end=\""<<stopTime<<"\" id=\""<<getID()<<"\" msg=\""<<myMsg<<"\" />\n";
-	SUMOTime t(stopTime-startTime+1);
+    //dev<< "	<interval begin=\""<<startTime<<"\" end=\""<<stopTime<<"\" id=\""<<getID()<<"\" msg=\""<<myMsg<<"\" />\n";
+    SUMOTime t(stopTime-startTime+1);
     unsigned nVehCrossed = (unsigned) myVehicleDataCont.size() + myDismissedVehicleNumber;
     SUMOReal flow = ((SUMOReal) myVehicleDataCont.size() / (SUMOReal) t) / DELTA_T * (SUMOReal) 3600.0;
     SUMOReal occupancy = accumulate(myVehicleDataCont.begin(), myVehicleDataCont.end(), (SUMOReal) 0.0, occupancySum) / (SUMOReal) t * (SUMOReal) 100.;
@@ -235,8 +235,8 @@ MSMsgInductLoop::writeXMLOutput(OutputDevice &dev,
                           : -1;
     //dev<<"   <interval begin=\""<<startTime<<"\" end=\""<<
     //stopTime<<"\" "<<"id=\""<<getID()<<"\" ";
-	dev << "   <message timestep=\"" << startTime <<"\" "<<"vID=\""<<myCurrentID<<"\" ";//<<getID()<<"\" ";
-	dev<<"nVehContrib=\""<<myVehicleDataCont.size()<<"\" flow=\""<<flow<<
+    dev << "   <message timestep=\"" << startTime <<"\" "<<"vID=\""<<myCurrentID<<"\" ";//<<getID()<<"\" ";
+    dev<<"nVehContrib=\""<<myVehicleDataCont.size()<<"\" flow=\""<<flow<<
     "\" occupancy=\""<<occupancy<<"\" speed=\""<<meanSpeed<<
     "\" length=\""<<meanLength<<
     "\" nVehEntered=\""<<nVehCrossed<<"\" event_type=\""<<myMsg<<"\" />\n";
@@ -246,7 +246,7 @@ MSMsgInductLoop::writeXMLOutput(OutputDevice &dev,
 
 void
 MSMsgInductLoop::enterDetectorByMove(MSVehicle& veh,
-                                  SUMOReal entryTimestep) throw()
+                                     SUMOReal entryTimestep) throw()
 {
     myVehiclesOnDet.insert(make_pair(&veh, entryTimestep));
     veh.quitRemindedEntered(this);
@@ -256,7 +256,7 @@ MSMsgInductLoop::enterDetectorByMove(MSVehicle& veh,
 
 void
 MSMsgInductLoop::leaveDetectorByMove(MSVehicle& veh,
-                                  SUMOReal leaveTimestep) throw()
+                                     SUMOReal leaveTimestep) throw()
 {
     VehicleMap::iterator it = myVehiclesOnDet.find(&veh);
     assert(it != myVehiclesOnDet.end());
@@ -266,8 +266,8 @@ MSMsgInductLoop::leaveDetectorByMove(MSVehicle& veh,
     myVehicleDataCont.push_back(VehicleData(veh.getLength(), entryTimestep, leaveTimestep));
     myLastOccupancy = leaveTimestep - entryTimestep;
     myLastLeaveTimestep = leaveTimestep;
-	myCurrentID = myCurrentVehicle->getID();
-	myCurrentVehicle = 0;
+    myCurrentID = myCurrentVehicle->getID();
+    myCurrentVehicle = 0;
     veh.quitRemindedLeft(this);
 }
 
@@ -278,8 +278,8 @@ MSMsgInductLoop::leaveDetectorByLaneChange(MSVehicle& veh) throw()
     // Discard entry data
     myVehiclesOnDet.erase(&veh);
     myDismissedVehicleNumber++;
-	myCurrentID = myCurrentVehicle->getID();
-	myCurrentVehicle = 0;
+    myCurrentID = myCurrentVehicle->getID();
+    myCurrentVehicle = 0;
     veh.quitRemindedLeft(this);
 }
 

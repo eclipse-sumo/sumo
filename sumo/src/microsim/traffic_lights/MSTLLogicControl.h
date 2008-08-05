@@ -356,7 +356,7 @@ class SwitchInitCommand : public Command
          *
          * The parent's "initWautSwitch" method is called supporting
          *  this command as an argument. The result of "initWautSwitch"
-         *  is returned. 
+         *  is returned.
          *
          * "initWautSwitch" may throw an ProcessError if the program
          *  to switch to is not known.

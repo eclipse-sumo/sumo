@@ -71,12 +71,12 @@ public:
      * @param[in] route The definition of the route the vehicle to build shall use
      * @param[in] type The type of the vehicle to build
      * @return The built vehicle
-     * 
+     *
      * @todo Why is the depart time given as an int?
      * @todo Are there tests for loading vehicles with repetition information into routers?
      */
-    virtual ROVehicle *buildVehicle(const SUMOVehicleParameter &pars, 
-              RORouteDef *route, ROVehicleType *type) throw();
+    virtual ROVehicle *buildVehicle(const SUMOVehicleParameter &pars,
+                                    RORouteDef *route, ROVehicleType *type) throw();
 
 
 private:

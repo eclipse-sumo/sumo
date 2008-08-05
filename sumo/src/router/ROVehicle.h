@@ -64,7 +64,7 @@ public:
      *
      * @todo Why is the vehicle builder given?
      */
-    ROVehicle(const SUMOVehicleParameter &pars, 
+    ROVehicle(const SUMOVehicleParameter &pars,
               RORouteDef *route, ROVehicleType *type) throw();
 
 
@@ -104,7 +104,7 @@ public:
 
 
     /** @brief Returns the time the vehicle starts at
-     * 
+     *
      * @return The vehicle's depart time
      */
     SUMOTime getDepartureTime() const throw() {

@@ -53,7 +53,7 @@ class RORouteDef_Alternatives : public RORouteDef
 {
 public:
     /// Constructor
-    RORouteDef_Alternatives(const std::string &id, 
+    RORouteDef_Alternatives(const std::string &id,
                             unsigned int lastUsed, SUMOReal gawronBeta, SUMOReal gawronA, int maxRoutes) throw();
 
     /// Destructor

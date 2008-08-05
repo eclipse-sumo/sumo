@@ -75,7 +75,7 @@ public:
      * @param[in] net The network to add vehicles to
      * @param[in] begin The time step import shall start at
      * @param[in] end The time step import shall stop at
-     * @param[in] file Name of the used input file 
+     * @param[in] file Name of the used input file
      * @exception ProcessError If an error occured during initialisation of parsing the xml-file
      */
     ROTypedXMLRoutesLoader(ROVehicleBuilder &vb, RONet &net,

@@ -56,7 +56,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-ROVehicle::ROVehicle(const SUMOVehicleParameter &pars, 
+ROVehicle::ROVehicle(const SUMOVehicleParameter &pars,
                      RORouteDef *route, ROVehicleType *type) throw()
         : myParameter(pars), myType(type), myRoute(route)
 {}
@@ -76,11 +76,11 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
     dev << " depart=\"" << myParameter.depart << "\"";
 
     // optional parameter
-        // depart-values
-            // departlane
+    // depart-values
+    // departlane
     if ((myParameter.setParameter&VEHPARS_DEPARTLANE_SET)!=0) {
         string val;
-        switch(myParameter.departLaneProcedure) {
+        switch (myParameter.departLaneProcedure) {
         case DEPART_LANE_GIVEN:
             val = toString(myParameter.departLane);
             break;
@@ -100,10 +100,10 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
         }
         dev << " departlane=\"" << val << "\"";
     }
-            // departpos
+    // departpos
     if ((myParameter.setParameter&VEHPARS_DEPARTPOS_SET)!=0) {
         string val;
-        switch(myParameter.departPosProcedure) {
+        switch (myParameter.departPosProcedure) {
         case DEPART_POS_GIVEN:
             val = toString(myParameter.departPos);
             break;
@@ -118,10 +118,10 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
         }
         dev << " departpos=\"" << val << "\"";
     }
-            // departspeed
+    // departspeed
     if ((myParameter.setParameter&VEHPARS_DEPARTSPEED_SET)!=0) {
         string val;
-        switch(myParameter.departSpeedProcedure) {
+        switch (myParameter.departSpeedProcedure) {
         case DEPART_SPEED_GIVEN:
             val = toString(myParameter.departSpeed);
             break;
@@ -138,11 +138,11 @@ ROVehicle::saveXMLVehicle(OutputDevice &dev) const throw(IOError)
         }
         dev << " departspeed=\"" << val << "\"";
     }
-        // color
+    // color
     if ((myParameter.setParameter&VEHPARS_COLOR_SET)!=0) {
         dev << " color=\"" << myParameter.color << "\"";
     }
-        // repetition values
+    // repetition values
     if ((myParameter.setParameter&VEHPARS_PERIODNUM_SET)!=0) {
         dev << " repno=\"" << myParameter.repetitionNumber << "\"";
     }

@@ -204,8 +204,8 @@ class GUIVehiclePopupMenu : public GUIGLObjectPopupMenu
 protected:
     /// Use this constructor only.
     GUIVehicle(GUIGlObjectStorage &idStorage,
-               SUMOVehicleParameter* pars, const MSRoute* route, 
-               const MSVehicleType* type, 
+               SUMOVehicleParameter* pars, const MSRoute* route,
+               const MSVehicleType* type,
                int vehicleIndex) throw();
 
     void setBlinkerInformation();

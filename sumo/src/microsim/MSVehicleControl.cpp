@@ -88,7 +88,7 @@ MSVehicleControl::~MSVehicleControl() throw()
 
 
 MSVehicle *
-MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs, 
+MSVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
                                const MSRoute* route,
                                const MSVehicleType* type) throw()
 {
@@ -106,72 +106,72 @@ MSVehicleControl::scheduleVehicleRemoval(MSVehicle *v) throw()
         OutputDevice& od = OutputDevice::getDeviceByOption("tripinfo-output");
         // obtain and generate vehicle's trip information
         MSVehicle::DepartArrivalInformation *departInfo = v->hasCORNPointerValue(MSCORN::CORN_P_VEH_DEPART_INFO)
-            ? (MSVehicle::DepartArrivalInformation*) v->getCORNPointerValue(MSCORN::CORN_P_VEH_DEPART_INFO)
-            : 0;
-        MSVehicle::DepartArrivalInformation *arrivalInfo = v->hasCORNPointerValue(MSCORN::CORN_P_VEH_ARRIVAL_INFO) 
-            ? (MSVehicle::DepartArrivalInformation*) v->getCORNPointerValue(MSCORN::CORN_P_VEH_ARRIVAL_INFO)
-            : 0;
+                ? (MSVehicle::DepartArrivalInformation*) v->getCORNPointerValue(MSCORN::CORN_P_VEH_DEPART_INFO)
+                : 0;
+        MSVehicle::DepartArrivalInformation *arrivalInfo = v->hasCORNPointerValue(MSCORN::CORN_P_VEH_ARRIVAL_INFO)
+                ? (MSVehicle::DepartArrivalInformation*) v->getCORNPointerValue(MSCORN::CORN_P_VEH_ARRIVAL_INFO)
+                : 0;
         SUMOReal routeLength = v->getRoute().getLength();
         // write
         od << "    <tripinfo id=\"" << v->getID() << "\" ";
         SUMOTime departTime = -1;
-        if(departInfo!=0) {
+        if (departInfo!=0) {
             routeLength -= departInfo->pos;
             string laneID = departInfo->lane!=0 ? departInfo->lane->getID() : "";
             od << "depart=\"" << departInfo->time << "\" "
-                << "departLane=\"" << laneID << "\" "
-                << "departPos=\"" << departInfo->pos << "\" "
-                << "departSpeed=\"" << departInfo->speed << "\" "
-                << "departDelay=\"" << departInfo->time - v->getDesiredDepart() << "\" ";
+            << "departLane=\"" << laneID << "\" "
+            << "departPos=\"" << departInfo->pos << "\" "
+            << "departSpeed=\"" << departInfo->speed << "\" "
+            << "departDelay=\"" << departInfo->time - v->getDesiredDepart() << "\" ";
             departTime = departInfo->time;
         } else {
-            if(v->hasCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)) {
+            if (v->hasCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME)) {
                 departTime = v->getCORNIntValue(MSCORN::CORN_VEH_DEPART_TIME);
                 od << "depart=\"" << departTime << "\" ";
             } else {
                 od << "depart=\"\" ";
             }
             od << "departLane=\"\" "
-                << "departPos=\"\" "
-                << "departSpeed=\"\" "
-                << "departDelay=\"\" ";
+            << "departPos=\"\" "
+            << "departSpeed=\"\" "
+            << "departDelay=\"\" ";
         }
         SUMOTime arrivalTime = -1;
-        if(arrivalInfo!=0) {
+        if (arrivalInfo!=0) {
             string laneID = "";
             if (arrivalInfo->lane!=0) {
                 routeLength -= arrivalInfo->lane->length() - arrivalInfo->pos;
                 laneID = arrivalInfo->lane->getID();
             }
             od << "arrival=\"" << arrivalInfo->time << "\" "
-                << "arrivalLane=\"" << laneID << "\" "
-                << "arrivalPos=\"" << arrivalInfo->pos << "\" "
-                << "arrivalSpeed=\"" << arrivalInfo->speed << "\" ";
+            << "arrivalLane=\"" << laneID << "\" "
+            << "arrivalPos=\"" << arrivalInfo->pos << "\" "
+            << "arrivalSpeed=\"" << arrivalInfo->speed << "\" ";
             arrivalTime = arrivalInfo->time;
         } else {
             arrivalTime = MSNet::getInstance()->getCurrentTimeStep();
             od << "arrival=\"" << arrivalTime << "\" "
-                << "arrivalLane=\"\" "
-                << "arrivalPos=\"\" "
-                << "arrivalSpeed=\"\" ";
+            << "arrivalLane=\"\" "
+            << "arrivalPos=\"\" "
+            << "arrivalSpeed=\"\" ";
         }
-        if(departTime!=-1&&arrivalTime!=-1) {
+        if (departTime!=-1&&arrivalTime!=-1) {
             od << "duration=\"" << arrivalTime - departTime << "\" ";
         } else {
             od << "duration=\"\" ";
         }
         od << "routeLength=\"" << routeLength << "\" "
-            << "waitSteps=\"" << v->getCORNIntValue(MSCORN::CORN_VEH_WAITINGTIME) << "\" "
-            << "rerouteNo=\"";
+        << "waitSteps=\"" << v->getCORNIntValue(MSCORN::CORN_VEH_WAITINGTIME) << "\" "
+        << "rerouteNo=\"";
         if (v->hasCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE)) {
             od << v->getCORNIntValue(MSCORN::CORN_VEH_NUMBERROUTE);
         } else {
             od << '0';
         }
         od << "\" devices=\"" << v->buildDeviceIDList()
-            << "\" vtype=\"" << v->getVehicleType().getID()
-            << "\" vaporized=\"";
-        if(v->hasCORNIntValue(MSCORN::CORN_VEH_VAPORIZED)) {
+        << "\" vtype=\"" << v->getVehicleType().getID()
+        << "\" vaporized=\"";
+        if (v->hasCORNIntValue(MSCORN::CORN_VEH_VAPORIZED)) {
             od << 1 << ";" << v->getCORNIntValue(MSCORN::CORN_VEH_VAPORIZED);
         }
         od << "\"/>\n";
@@ -326,7 +326,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         MSRoute* route;
         unsigned int desiredDepart; // !!! SUMOTime
         bis >> desiredDepart;
-        if(OptionsCont::getOptions().isSet("load-state.offset")) {
+        if (OptionsCont::getOptions().isSet("load-state.offset")) {
             SUMOReal offset = OptionsCont::getOptions().getFloat("load-state.offset");
             desiredDepart -= (unsigned int) offset;
         }
@@ -344,7 +344,7 @@ MSVehicleControl::loadState(BinaryInputDevice &bis) throw()
         bis >> tEvent;
         SUMOReal tLastEntry;
         bis >> tLastEntry;
-        if(OptionsCont::getOptions().isSet("load-state.offset")) {
+        if (OptionsCont::getOptions().isSet("load-state.offset")) {
             SUMOReal offset = OptionsCont::getOptions().getFloat("load-state.offset");
             tEvent -= offset;
             tLastEntry -= offset;

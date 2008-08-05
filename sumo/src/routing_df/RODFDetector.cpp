@@ -90,8 +90,8 @@ SUMOReal
 RODFDetector::computeDistanceFactor(const DFRORouteDesc &rd) const
 {
     SUMOReal distance = GeomHelper::distance(
-        rd.edges2Pass[0]->getFromNode()->getPosition(),
-        rd.edges2Pass[rd.edges2Pass.size()-1]->getToNode()->getPosition());
+                            rd.edges2Pass[0]->getFromNode()->getPosition(),
+                            rd.edges2Pass[rd.edges2Pass.size()-1]->getToNode()->getPosition());
     SUMOReal length = 0;
     for (std::vector<ROEdge*>::const_iterator i=rd.edges2Pass.begin(); i!=rd.edges2Pass.end(); ++i) {
         length += (*i)->getLength();
@@ -205,8 +205,8 @@ RODFDetector::getFollowerDetectors() const
 void
 RODFDetector::clearDists(std::map<size_t, RandomDistributor<size_t>* > &dists) const throw()
 {
-    for(map<size_t, RandomDistributor<size_t>* >::iterator i=dists.begin(); i!=dists.end(); ++i) {
-        delete (*i).second;
+    for (map<size_t, RandomDistributor<size_t>* >::iterator i=dists.begin(); i!=dists.end(); ++i) {
+        delete(*i).second;
     }
 }
 
@@ -406,7 +406,7 @@ RODFDetectorCon::RODFDetectorCon()
 
 RODFDetectorCon::~RODFDetectorCon()
 {
-    for(vector<RODFDetector*>::iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
+    for (vector<RODFDetector*>::iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
         delete *i;
     }
 }

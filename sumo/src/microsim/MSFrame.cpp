@@ -415,7 +415,7 @@ MSFrame::setMSGlobals(OptionsCont &oc)
                                  ? 0
                                  : oc.getInt("time-to-teleport");
     MSGlobals::gMinLaneChangeSight = oc.isSet("lanechange.min-sight")
-        ? oc.getFloat("lanechange.min-sight") : 3000.f;
+                                     ? oc.getFloat("lanechange.min-sight") : 3000.f;
     MSGlobals::gMinLaneChangeSightEdges = oc.getInt("lanechange.min-sight-edges");
     //
     MSGlobals::gCheck4Accidents = oc.getBool("check-accidents");

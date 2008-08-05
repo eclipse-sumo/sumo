@@ -62,15 +62,15 @@ NBTypeCont::setDefaults(int defaultNoLanes,
 
 
 bool
-NBTypeCont::insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int prio, 
-        SUMOVehicleClass vClasses, bool oneWayIsDefault)
+NBTypeCont::insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int prio,
+                   SUMOVehicleClass vClasses, bool oneWayIsDefault)
 {
     TypesCont::iterator i = myTypes.find(id);
     if (i!=myTypes.end()) {
         return false;
     }
     NBTypeCont::TypeDefinition td(noLanes, maxSpeed, prio);
-    if(vClasses!=SVC_UNKNOWN) {
+    if (vClasses!=SVC_UNKNOWN) {
         td.allowed.push_back(vClasses);
     }
     td.oneWay = oneWayIsDefault;
@@ -112,7 +112,7 @@ NBTypeCont::getPriority(const string &type)
 }
 
 
-bool 
+bool
 NBTypeCont::getIsOneWay(const std::string &type)
 {
     TypesCont::iterator i = myTypes.find(type);

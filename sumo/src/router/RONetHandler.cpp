@@ -102,7 +102,7 @@ void
 RONetHandler::parseEdge(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    if(!attrs.setIDFromAttributes("edge", myCurrentName)) {
+    if (!attrs.setIDFromAttributes("edge", myCurrentName)) {
         return;
     }
     // get the edge
@@ -187,7 +187,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs)
     std::vector<SUMOVehicleClass> allowed, disallowed;
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("lane", id)) {
+    if (!attrs.setIDFromAttributes("lane", id)) {
         return;
     }
     // get the speed
@@ -237,16 +237,16 @@ RONetHandler::parseJunction(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("junction", id)) {
+    if (!attrs.setIDFromAttributes("junction", id)) {
         return;
     }
     // get the position of the node
     bool ok = true;
     SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, "junction", id.c_str(), ok);
     SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, "junction", id.c_str(), ok);
-    if(ok) {
+    if (ok) {
         RONode *n = myNet.getNode(id);
-        if(n==0) {
+        if (n==0) {
             n = new RONode(id);
             myNet.addNode(n);
         }
@@ -266,7 +266,7 @@ RONetHandler::parseConnEdge(const SUMOSAXAttributes &attrs)
     }
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("cedge", id)) {
+    if (!attrs.setIDFromAttributes("cedge", id)) {
         return;
     }
     ROEdge *succ = myNet.getEdge(id);

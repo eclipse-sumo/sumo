@@ -219,7 +219,7 @@ long
 GUIDialog_Breakpoints::onCmdSave(FXObject*,FXSelector,void*)
 {
     FXString file = MFXUtils::getFilename2Write(this, "Save Breakpoints", ".txt", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
-    if(file=="") {
+    if (file=="") {
         return 1;
     }
     string content = encode2TXT();

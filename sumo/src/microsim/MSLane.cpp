@@ -91,11 +91,11 @@ MSLane::PosGreater::operator()(first_argument_type veh1,
 MSLane::MSLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge,
                unsigned int numericalID, const Position2DVector &shape,
                const std::vector<SUMOVehicleClass> &allowed,
-               const std::vector<SUMOVehicleClass> &disallowed) throw() 
-    : myLastState(10000, 10000), myShape(shape), myID(id), myNumericalID(numericalID),
-    myVehicles(), myLength(length), myEdge(edge), myMaxSpeed(maxSpeed), 
-    myAllowedClasses(allowed), myNotAllowedClasses(disallowed),
-    myFirstUnsafe(0), myVehicleLengthSum(0)
+               const std::vector<SUMOVehicleClass> &disallowed) throw()
+        : myLastState(10000, 10000), myShape(shape), myID(id), myNumericalID(numericalID),
+        myVehicles(), myLength(length), myEdge(edge), myMaxSpeed(maxSpeed),
+        myAllowedClasses(allowed), myNotAllowedClasses(disallowed),
+        myFirstUnsafe(0), myVehicleLengthSum(0)
 {
 }
 
@@ -116,7 +116,7 @@ MSLane::initialize(MSLinkCont* links)
 }
 
 
-// ------ interaction with MSMoveReminder ------ 
+// ------ interaction with MSMoveReminder ------
 void
 MSLane::addMoveReminder(MSMoveReminder* rem) throw()
 {
@@ -125,42 +125,42 @@ MSLane::addMoveReminder(MSMoveReminder* rem) throw()
 
 
 
-// ------ Vehicle emission ------ 
+// ------ Vehicle emission ------
 bool
 MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw()
 {
     bool adaptableSpeed = true;
-    if(myVehicles.size()==0) {
-        if(isEmissionSuccess(&veh, mspeed, 0, adaptableSpeed)) {
+    if (myVehicles.size()==0) {
+        if (isEmissionSuccess(&veh, mspeed, 0, adaptableSpeed)) {
             return true;
-        } 
+        }
     } else {
         // check whether the vehicle can be put behind the last one if there is such
         MSVehicle *leader = *myVehicles.begin();
         SUMOReal leaderPos = leader->getPositionOnLane() - leader->getLength();
         SUMOReal speed = mspeed;
-        if(adaptableSpeed) {
+        if (adaptableSpeed) {
             speed = leader->getSpeed();
         }
         SUMOReal frontGapNeeded = veh.getSecureGap(speed, leader->getSpeed(), *leader);
-        if(leaderPos-frontGapNeeded>=0) {
+        if (leaderPos-frontGapNeeded>=0) {
             SUMOReal tspeed = MIN2(veh.getVehicleType().ffeV(mspeed, frontGapNeeded, leader->getSpeed()), mspeed);
             // check whether we can emit in behind the last vehicle on the lane
-            if(isEmissionSuccess(&veh, tspeed, 0, adaptableSpeed)) {
+            if (isEmissionSuccess(&veh, tspeed, 0, adaptableSpeed)) {
                 return true;
             }
-        } 
+        }
     }
     // go through the lane, look for free positions (starting after the last vehicle)
     MSLane::VehCont::iterator predIt = myVehicles.begin();
-    while(predIt!=myVehicles.end()) {
+    while (predIt!=myVehicles.end()) {
         // get leader (may be zero) and follower
         MSVehicle *leader = predIt!=myVehicles.end()-1 ? *(predIt+1) : 0;
         MSVehicle *follower = *predIt;
 
-        // patch speed if allowed 
+        // patch speed if allowed
         SUMOReal speed = mspeed;
-        if(adaptableSpeed&&leader!=0) {
+        if (adaptableSpeed&&leader!=0) {
             speed = MIN2(leader->getSpeed(), mspeed);
         }
 
@@ -177,7 +177,7 @@ MSLane::freeEmit(MSVehicle& veh, SUMOReal mspeed) throw()
         // check whether there is enough room
         if (frontMax>0 && backMin<frontMax) {
             // try emit vehicle (should be always ok)
-            if(isEmissionSuccess(&veh, speed, backMin, adaptableSpeed)) {
+            if (isEmissionSuccess(&veh, speed, backMin, adaptableSpeed)) {
                 return true;
             }
         }
@@ -197,7 +197,7 @@ MSLane::emit(MSVehicle& veh) throw()
 
     // determine the speed
     const SUMOVehicleParameter &pars = veh.getParameter();
-    switch(pars.departSpeedProcedure) {
+    switch (pars.departSpeedProcedure) {
     case DEPART_SPEED_GIVEN:
         speed = pars.departSpeed;
         patchSpeed = false;
@@ -218,7 +218,7 @@ MSLane::emit(MSVehicle& veh) throw()
     }
 
     // determine the position
-    switch(pars.departPosProcedure) {
+    switch (pars.departPosProcedure) {
     case DEPART_POS_GIVEN:
         if (pars.departPos >= 0.) {
             pos = pars.departPos;
@@ -249,7 +249,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
 {
     //  and the speed is not too high (vehicle should decelerate)
     // try to get a leader on consecutive lanes
-    //  we have to do this even if we have found a leader on our lane because it may 
+    //  we have to do this even if we have found a leader on our lane because it may
     //  be driving into another direction
     aVehicle->getBestLanes(true, this);
     const std::vector<MSLane*> &bestLaneConts = aVehicle->getBestLanesContinuation(this);
@@ -260,7 +260,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     MSRouteIterator ce = r.begin();
     MSLane *currentLane = this;
     MSLane *nextLane = this;
-    while(seen<dist&&ri!=bestLaneConts.end()&&nextLane!=0/*&&ce!=r.end()*/) {
+    while (seen<dist&&ri!=bestLaneConts.end()&&nextLane!=0/*&&ce!=r.end()*/) {
         // get the next link used...
         MSLinkCont::const_iterator link = currentLane->succLinkSec(*aVehicle, 1, *currentLane, bestLaneConts);
         // ...and the next used lane (including internal)
@@ -285,8 +285,8 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
             MSVehicle * leader = nextLane->getLastVehicle();
             if (leader!=0) {
                 SUMOReal nspeed = aVehicle->ffeV(speed, seen+leader->getPositionOnLane()-leader->getLength(), leader->getSpeed());
-                if(nspeed<speed) {
-                    if(patchSpeed) {
+                if (nspeed<speed) {
+                    if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
                         dist = aVehicle->getVehicleType().brakeGap(speed);
                     } else {
@@ -297,9 +297,9 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
             }
             // check next lane's maximum velocity
             SUMOReal nspeed = nextLane->maxSpeed();
-            if(nspeed<speed) {
+            if (nspeed<speed) {
                 // patch speed if needed
-                if(patchSpeed) {
+                if (patchSpeed) {
                     speed = MIN2(aVehicle->getVehicleType().ffeV(speed, seen, nspeed), speed);
                     dist = aVehicle->getVehicleType().brakeGap(speed);
                 } else {
@@ -308,10 +308,10 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
                 }
             }
             // check traffic on next junctions
-            if((*link)->hasApproachingFoe()) {
+            if ((*link)->hasApproachingFoe()) {
                 SUMOReal nspeed = aVehicle->ffeV(speed, seen, 0);
-                if(nspeed<speed) {
-                    if(patchSpeed) {
+                if (nspeed<speed) {
+                    if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
                         dist = aVehicle->getVehicleType().brakeGap(speed);
                     } else {
@@ -322,8 +322,8 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
             } else {
                 // we can only drive to the end of the current lane...
                 SUMOReal nspeed = aVehicle->ffeV(speed, seen, 0);
-                if(nspeed<speed) {
-                    if(patchSpeed) {
+                if (nspeed<speed) {
+                    if (patchSpeed) {
                         speed = MIN2(nspeed, speed);
                         dist = aVehicle->getVehicleType().brakeGap(speed);
                     } else {
@@ -338,10 +338,10 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
             currentLane = nextLane;
         }
     }
-    if(seen<dist) {
+    if (seen<dist) {
         SUMOReal nspeed = aVehicle->ffeV(speed, seen, 0);
-        if(nspeed<speed) {
-            if(patchSpeed) {
+        if (nspeed<speed) {
+            if (patchSpeed) {
                 speed = MIN2(nspeed, speed);
                 dist = aVehicle->getVehicleType().brakeGap(speed);
             } else {
@@ -368,7 +368,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     }
 
     // check back vehicle
-    if(predIt!=myVehicles.begin()) {
+    if (predIt!=myVehicles.begin()) {
         // there is direct follower on this lane
         MSVehicle *follower = *(predIt-1);
         SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), speed, *aVehicle);
@@ -380,12 +380,12 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     } else {
         // check approaching vehicle (consecutive follower)
         SUMOReal speed = maxSpeed();
-            // in order to look back, we'd need the minimum breaking ability of vehicles in the net...
-            //  we'll assume it to be 4m/s^2
-            //   !!!revisit
+        // in order to look back, we'd need the minimum breaking ability of vehicles in the net...
+        //  we'll assume it to be 4m/s^2
+        //   !!!revisit
         SUMOReal dist = speed * speed * SUMOReal(1./2.*4.) + SPEED2DIST(speed);
         std::pair<const MSVehicle * const, SUMOReal> approaching = getFollowerOnConsecutive(dist, 0, speed);
-        if(approaching.first!=0) {
+        if (approaching.first!=0) {
             const MSVehicle *const follower = approaching.first;
             SUMOReal backGapNeeded = follower->getSecureGap(follower->getSpeed(), speed, *aVehicle);
             SUMOReal gap = approaching.second - pos - aVehicle->getLength();
@@ -399,7 +399,7 @@ MSLane::isEmissionSuccess(MSVehicle* aVehicle,
     // enter
     aVehicle->enterLaneAtEmit(this, pos, speed);
     bool wasInactive = myVehicles.size()==0;
-    if(predIt==myVehicles.end()) {
+    if (predIt==myVehicles.end()) {
         // vehicle will be the first on the lane
         myVehicles.push_back(aVehicle);
     } else {
@@ -442,7 +442,7 @@ MSLane::moveNonCritical()
         }
     }
 
-    for (veh = myVehicles.begin(); !(*veh)->reachingCritical(myLength) && veh != lastBeforeEnd; ) {
+    for (veh = myVehicles.begin(); !(*veh)->reachingCritical(myLength) && veh != lastBeforeEnd;) {
 
         // get the leader
         //  ... there must be one, because the first vehicle is moved
@@ -549,7 +549,7 @@ getMaxSpeedRegardingNextLanes(MSVehicle& veh, SUMOReal speed, SUMOReal pos)
     SUMOReal seen = currentLane->length() - pos;
     SUMOReal dist = SPEED2DIST(speed) + veh.getVehicleType().brakeGap(speed);
     SUMOReal tspeed = speed;
-    while(seen<dist&&next!=veh.getRoute().end()-1) {
+    while (seen<dist&&next!=veh.getRoute().end()-1) {
         ++next;
         MSLane *nextLane = (*(*next)->getLanes())[0];
         tspeed = MIN2(veh.getVehicleType().ffeV(tspeed, seen, nextLane->maxSpeed()), nextLane->maxSpeed());
@@ -664,10 +664,10 @@ MSLane::addMeanData(const MSVehicle &veh, SUMOReal newV, SUMOReal oldV, SUMOReal
     if (myMeanData.size()!=0) {
         SUMOReal l = veh.getLength();
         SUMOReal fraction = 1.;
-        if(oldPos<0&&newV!=0) {
+        if (oldPos<0&&newV!=0) {
             fraction = (oldPos+SPEED2DIST(newV)) / newV;
         }
-        if(oldPos+SPEED2DIST(newV)>length()&&newV!=0) {
+        if (oldPos+SPEED2DIST(newV)>length()&&newV!=0) {
             fraction -= (oldPos+SPEED2DIST(newV) - length()) / newV;
         }
         for (size_t i=0; i<myMeanData.size(); ++i) {
@@ -1199,14 +1199,14 @@ MSLane::enteredByLaneChange(MSVehicle *v)
 }
 
 
-SUMOReal 
+SUMOReal
 MSLane::getMeanSpeed() const
 {
-    if(myVehicles.size()==0) {
+    if (myVehicles.size()==0) {
         return myMaxSpeed;
     }
     SUMOReal v = 0;
-    for(VehCont::const_iterator i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
+    for (VehCont::const_iterator i=myVehicles.begin(); i!=myVehicles.end(); ++i) {
         v += (*i)->getSpeed();
     }
     return v / (SUMOReal) myVehicles.size();

@@ -37,7 +37,7 @@
 #include <windows.h>
 #endif
 
-#include <GL/gl.h> 
+#include <GL/gl.h>
 
 
 
@@ -81,20 +81,20 @@ public:
      * @return The built vehicle (GUIVehicle instance)
      * @see MSVehicleControl::buildVehicle
      */
-    MSVehicle *buildVehicle(SUMOVehicleParameter* defs, 
-        const MSRoute* route, const MSVehicleType* type) throw();
+    MSVehicle *buildVehicle(SUMOVehicleParameter* defs,
+                            const MSRoute* route, const MSVehicleType* type) throw();
     /// @}
 
 
 
-    /// @name Insertion, deletion and retrieal of vehicles 
+    /// @name Insertion, deletion and retrieal of vehicles
     /// @{
 
     /** @brief Deletes the vehicle
      *
-     * We are destroying this vehicle only if it is not in use 
+     * We are destroying this vehicle only if it is not in use
      *  with the visualization.
-     * 
+     *
      * @param[in] v The vehicle to delete
      * @todo Isn't this quite insecure?
      * @see MSVehicleControl::deleteVehicle
@@ -103,7 +103,7 @@ public:
     /// @}
 
 
-    /** @brief Returns the list of all known vehicles by gl-id 
+    /** @brief Returns the list of all known vehicles by gl-id
      * @param[fill] into The list to fill with vehicle ids
      * @todo Well, what about concurrent modifications?
      */

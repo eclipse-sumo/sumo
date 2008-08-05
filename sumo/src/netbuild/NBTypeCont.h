@@ -45,7 +45,7 @@
  * @brief A storage for available types of edges
  *
  * NBTypeCont stores properties of types of edges. If one of needed edge
- *  attributes is missing, but a type name is given, this attribute's 
+ *  attributes is missing, but a type name is given, this attribute's
  *  value will be filled from what was defined for the type.
  *
  * Additionally, a default type is stored which is used if no type information
@@ -66,8 +66,8 @@ public:
                      SUMOReal defaultSpeed, int defaultPriority);
 
     /** adds a possible type into the list */
-    bool insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int prio, 
-        SUMOVehicleClass vClasses=SVC_UNKNOWN, bool oneWayIsDefault=false);
+    bool insert(const std::string &id, int noLanes, SUMOReal maxSpeed, int prio,
+                SUMOVehicleClass vClasses=SVC_UNKNOWN, bool oneWayIsDefault=false);
 
     /** returns the number of lanes
         (the default value if type does not exist) */
@@ -105,13 +105,11 @@ public:
 
 private:
     struct TypeDefinition {
-        TypeDefinition() 
-            : noLanes(1), speed((SUMOReal) 13.9), priority(-1), oneWay(true)
-        { }
+        TypeDefinition()
+                : noLanes(1), speed((SUMOReal) 13.9), priority(-1), oneWay(true) { }
 
-        TypeDefinition(int _noLanes, SUMOReal _speed, int _priority) 
-            : noLanes(_noLanes), speed(_speed), priority(_priority), oneWay(true)
-        { }
+        TypeDefinition(int _noLanes, SUMOReal _speed, int _priority)
+                : noLanes(_noLanes), speed(_speed), priority(_priority), oneWay(true) { }
 
 
         /// @brief The number of lanes of an edge

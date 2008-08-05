@@ -40,7 +40,7 @@
 #include <utils/gui/windows/GUIMainWindow.h>
 #include <microsim/MSJunction.h>
 #include <guisim/GUIVehicle.h>
-#include <guisim/GUIEdge.h> 
+#include <guisim/GUIEdge.h>
 #include <guisim/GUINet.h>
 #include <guisim/GUIVehicleControl.h>
 #include "GUIDialog_GLObjChooser.h"
@@ -52,7 +52,7 @@
 #include <windows.h>
 #endif
 
-#include <GL/gl.h> 
+#include <GL/gl.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -132,7 +132,7 @@ GUIDialog_GLObjChooser::GUIDialog_GLObjChooser(GUISUMOViewParent *parent,
         GUIGlObject *o = glStorage.getObjectBlocking(*i);
         if (o==0) {
             continue;
-        } 
+        }
         const std::string &name = o->microsimID();
         bool selected = false;
         if (type==GLO_EDGE) {

@@ -67,20 +67,20 @@ public:
 
     /** @brief Returns the title text in dependance to an optional file name
      *
-     * The title is computed as default on windows: The application name only if no 
-     *  file name is given. If a file name is given, it is used without the extension, 
+     * The title is computed as default on windows: The application name only if no
+     *  file name is given. If a file name is given, it is used without the extension,
      *  extended by the application name.
      *
      * @param[in] appname The name of the application to return the title of
      * @param[in] appname The name of the file loaded by the application
      * @return The built title
      */
-    static FXString getTitleText(const FXString &appname, 
-        FXString filename="") throw();
+    static FXString getTitleText(const FXString &appname,
+                                 FXString filename="") throw();
 
 
     /** @brief Returns the document name
-     * 
+     *
      * Removes the path first. Then, returns the part before the first '.'
      *  occurence of the so obtained string.
      *
@@ -89,12 +89,12 @@ public:
      */
     static FXString getDocumentName(const FXString &filename) throw();
 
-    
+
     /** @brief Corrects missing extension
      *
      * At first, the extension is determined. If there is none, the given default
      *  extension is appended to the file name/path. Otherwise the
-     *  file name/path remains as is. 
+     *  file name/path remains as is.
      * The so obtained correct file name is returned.
      * @param[in] filename The filename to evaluate
      * @param[in] defaultExtension The default extension to use
@@ -106,9 +106,9 @@ public:
     /** @brief Returns the file name to write
      *
      * A somehow complete procedure for determining the file name of a file
-     *  to write. Builds a file dialog, checks whether a file was chosen, 
+     *  to write. Builds a file dialog, checks whether a file was chosen,
      *  if so, checks whether it's not existing or the user allows to
-     *  overwrite it etc. 
+     *  overwrite it etc.
      *
      * Returns an empty string if the file shall not be created, the
      *  filename if it shall.
@@ -121,8 +121,8 @@ public:
      * @return The name of the file to write
      */
     static FXString getFilename2Write(FXWindow *parent,
-        const FXString &header, const FXString &extension,
-        FXIcon *icon, FXString &currentFolder) throw();
+                                      const FXString &header, const FXString &extension,
+                                      FXIcon *icon, FXString &currentFolder) throw();
 
 };
 

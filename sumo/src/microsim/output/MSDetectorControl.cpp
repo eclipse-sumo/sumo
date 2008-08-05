@@ -74,11 +74,11 @@ MSDetectorControl::~MSDetectorControl() throw()
     myLoops.clear();
 #ifdef _MESSAGES
 #ifdef _DEBUG
-	cout << "MSDetectorControl: clearing myMsgLoops" << endl;
+    cout << "MSDetectorControl: clearing myMsgLoops" << endl;
 #endif
-	myMsgLoops.clear();
+    myMsgLoops.clear();
 #endif
-	myE2Detectors.clear();
+    myE2Detectors.clear();
     myE3Detectors.clear();
     myE2OverLanesDetectors.clear();
     myVTypeProbeDetectors.clear();
@@ -104,13 +104,13 @@ void
 MSDetectorControl::add(MSMsgInductLoop *msgl, OutputDevice& device, int splInterval) throw(ProcessError)
 {
 #ifdef _DEBUG
-	cout << "adding MSMsgInductLoop..." << endl;
+    cout << "adding MSMsgInductLoop..." << endl;
 #endif
-	if (! myMsgLoops.add(msgl->getID(), msgl)) {
-		throw ProcessError("message induct loop '" + msgl->getID() + "' could not be build;"
-				+ "\n (declared twice?)");
-	}
-	addDetectorAndInterval(msgl, &device, splInterval);
+    if (! myMsgLoops.add(msgl->getID(), msgl)) {
+        throw ProcessError("message induct loop '" + msgl->getID() + "' could not be build;"
+                           + "\n (declared twice?)");
+    }
+    addDetectorAndInterval(msgl, &device, splInterval);
 }
 #endif
 
@@ -278,9 +278,9 @@ MSDetectorControl::addDetectorAndInterval(MSDetectorFileOutput* det,
         DetectorFileVec detAndFileVec;
         detAndFileVec.push_back(make_pair(det, device));
         myIntervals.insert(make_pair(key, detAndFileVec));
-        myLastCalls[key] = onStepBegin 
-            ? OptionsCont::getOptions().getInt("begin") - interval + 1
-            : OptionsCont::getOptions().getInt("begin");
+        myLastCalls[key] = onStepBegin
+                           ? OptionsCont::getOptions().getInt("begin") - interval + 1
+                           : OptionsCont::getOptions().getInt("begin");
     } else {
         DetectorFileVec& detAndFileVec = it->second;
         if (find_if(detAndFileVec.begin(), detAndFileVec.end(), bind2nd(detectorEquals(), det)) == detAndFileVec.end()) {

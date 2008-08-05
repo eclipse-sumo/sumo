@@ -103,7 +103,7 @@ private:
      *
      * Tries to retrieve the currently described incoming edge. If the
      *  edge id is not given in the attributes or the edge is not known,
-     *  an error is reported. 
+     *  an error is reported.
      *
      * If everything is ok, the edge's address is stored in myEdge.
      *
@@ -118,7 +118,7 @@ private:
      *  use it. If one of both operations could not be accomplished,
      *  an error is generated.
      *
-     * If everything is ok, this means the destination edge is defined 
+     * If everything is ok, this means the destination edge is defined
      *  and known and the probability is valid, too, this probability
      *  is added to "myEdge", the last parsed incoming edge. As time,
      *  the previously parsed interval begin/end is used.

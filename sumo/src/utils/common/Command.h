@@ -41,7 +41,7 @@
  * @class Command
  * @brief Base (microsim) event class
  *
- * Classes derived from Command may be added to MSEventControl instances in 
+ * Classes derived from Command may be added to MSEventControl instances in
  *  order to be executed at a certain time step.
  *
  * As soon as the simulation reaches the desired time step, the command (event)

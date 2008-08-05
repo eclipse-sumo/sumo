@@ -45,7 +45,7 @@
  * @class SUMOVehicleParserHelper
  * @brief Helper methods for parsing vehicle attributes
  *
- * This class supports helper methods for parsing a vehicle's attributes. 
+ * This class supports helper methods for parsing a vehicle's attributes.
  */
 class SUMOVehicleParserHelper
 {
@@ -62,7 +62,7 @@ public:
      * @return The parsed attribute structure if no error occured, 0 otherwise
      */
     static SUMOVehicleParameter *parseVehicleAttributes(const SUMOSAXAttributes &attrs,
-        bool skipID=false, bool skipDepart=false);
+            bool skipID=false, bool skipDepart=false);
 
 
     /**
@@ -75,7 +75,7 @@ public:
      *  is returned.
      */
     static SUMOVehicleClass parseVehicleClass(const SUMOSAXAttributes &attrs, const std::string &type,
-                                       const std::string &id) throw();
+            const std::string &id) throw();
 
 
 };

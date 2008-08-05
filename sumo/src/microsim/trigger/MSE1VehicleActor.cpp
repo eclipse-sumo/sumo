@@ -120,7 +120,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
     int deviceNumber = 0;
     for (vector<MSDevice*>::const_iterator i=devices.begin(); i!=devices.end(); ++i) {
         MSDevice_CPhone *cp = dynamic_cast<MSDevice_CPhone*>(*i);
-        if(cp==0) {
+        if (cp==0) {
             continue;
         }
         deviceNumber++;
@@ -133,7 +133,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
     MSPhoneNet *pPhone = MSNet::getInstance()->getMSPhoneNet();
     for (vector<MSDevice*>::const_iterator i=devices.begin(); !doBreak&&i!=devices.end(); ++i, ++currNo) {
         MSDevice_CPhone *cp = dynamic_cast<MSDevice_CPhone*>(*i);
-        if(cp==0) {
+        if (cp==0) {
             continue;
         }
         if (veh.getVehicleType().getID()=="SBahn"||veh.getVehicleType().getID()=="BUS"||veh.getVehicleType().getID()=="Zug") {
@@ -217,7 +217,7 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                     timestr = timestr + " " + StringUtils::toTimeString((int) MSNet::getInstance()->getCurrentTimeStep());
                     // !!! recheck quality indicator
                     OutputDevice::getDeviceByOption("ss2-output")
-                        << "01;'" << timestr << "';" << cp->getCallId() << ';' << myAreaId << ';' << 0 << "\n"; // !!! check <CR><LF>-combination
+                    << "01;'" << timestr << "';" << cp->getCallId() << ';' << myAreaId << ';' << 0 << "\n"; // !!! check <CR><LF>-combination
                 }
                 if (OptionsCont::getOptions().isSet("ss2-sql-output")) {
                     OutputDevice& od = OutputDevice::getDeviceByOption("ss2-sql-output");
@@ -229,8 +229,8 @@ MSE1VehicleActor::isStillActive(MSVehicle& veh,
                     std::string timestr= OptionsCont::getOptions().getString("device.cell-phone.sql-date");
                     timestr = timestr + " " + StringUtils::toTimeString((int) MSNet::getInstance()->getCurrentTimeStep());
                     od
-                        << "(NULL, NULL, '" << timestr << "', " << myAreaId << ", " << cp->getCallId()
-                        << ", " << 0 << ")"; // !!! recheck quality indicator
+                    << "(NULL, NULL, '" << timestr << "', " << myAreaId << ", " << cp->getCallId()
+                    << ", " << 0 << ")"; // !!! recheck quality indicator
                 }
             }
         }

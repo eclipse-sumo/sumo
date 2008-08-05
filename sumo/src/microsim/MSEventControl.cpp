@@ -99,7 +99,7 @@ MSEventControl::execute(SUMOTime execTime) throw(ProcessError)
             // Delete nonrecurring events, reinsert recurring ones
             // with new execution time = execTime + returned offset.
             if (time <= 0) {
-                if(time<0) {
+                if (time<0) {
                     WRITE_WARNING("Command returned negative repeat number; will be deleted.");
                 }
                 delete currEvent.first;

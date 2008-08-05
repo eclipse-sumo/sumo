@@ -118,15 +118,15 @@ enum DepartSpeedDefinition {
  * @see DepartPosDefinition
  * @see DepartSpeedDefinition
  */
-class SUMOVehicleParameter {
+class SUMOVehicleParameter
+{
 public:
-    SUMOVehicleParameter() 
-        : depart(-1), departLane(0),
-        departLaneProcedure(DEPART_LANE_DEFAULT), 
-        departPosProcedure(DEPART_POS_DEFAULT), departSpeedProcedure(DEPART_SPEED_DEFAULT),
-        arrivalPos(0), arrivalSpeed(-1),
-        repetitionNumber(-1), repetitionOffset(-1), setParameter(0), color(RGBColor::DEFAULT_COLOR)
-    {
+    SUMOVehicleParameter()
+            : depart(-1), departLane(0),
+            departLaneProcedure(DEPART_LANE_DEFAULT),
+            departPosProcedure(DEPART_POS_DEFAULT), departSpeedProcedure(DEPART_SPEED_DEFAULT),
+            arrivalPos(0), arrivalSpeed(-1),
+            repetitionNumber(-1), repetitionOffset(-1), setParameter(0), color(RGBColor::DEFAULT_COLOR) {
     }
 
 

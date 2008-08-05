@@ -113,7 +113,7 @@ MSLink::opened() const throw()
 }
 
 
-bool 
+bool
 MSLink::hasApproachingFoe() const throw()
 {
     if (myRequest==0) {

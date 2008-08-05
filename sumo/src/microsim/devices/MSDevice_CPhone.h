@@ -136,7 +136,7 @@ public:
         return notTriggeredByCell;
     };
 
-        SUMOTime stateChangeCommandExecution(SUMOTime currentTime) throw(ProcessError);
+    SUMOTime stateChangeCommandExecution(SUMOTime currentTime) throw(ProcessError);
 
 
     /// @name Methods called on vehicle movement / state change, overwriting MSDevice
@@ -154,7 +154,7 @@ public:
 
 private:
     /** @brief Constructor
-     * 
+     *
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */

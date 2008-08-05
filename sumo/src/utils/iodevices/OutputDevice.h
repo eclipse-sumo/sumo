@@ -159,7 +159,7 @@ public:
     /** @brief Writes an XML header with optional configuration
      *
      * If something has been written (myXMLStack is not empty), nothing
-     *  is written and false returned. 
+     *  is written and false returned.
      *
      * @param[in] rootElement The root element to use
      * @param[in] writeConfig Whether the configuration used while this file was generated shall be saved

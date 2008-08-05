@@ -103,7 +103,7 @@ class ApproachingDivider : public Bresenham::BresenhamCallBack
         /** the method that spreads the wished number of lanes from the
             the lane given by the bresenham-call to both left and right */
         std::deque<int> *spread(const std::vector<int> &approachingLanes,
-                                   SUMOReal dest) const;
+                                SUMOReal dest) const;
 
     };
 

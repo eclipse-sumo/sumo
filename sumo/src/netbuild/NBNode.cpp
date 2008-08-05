@@ -1866,8 +1866,8 @@ NBNode::mustBrake(NBEdge *from, NBEdge *to, int toLane) const
             continue;
         }
         const vector<NBEdge::Connection> &connections = (*i)->getConnections();
-        for(vector<NBEdge::Connection>::const_iterator j=connections.begin(); j!=connections.end(); ++j) {
-            if((*j).toEdge==to&&((*j).toLane<0||(*j).toLane==toLane)) {
+        for (vector<NBEdge::Connection>::const_iterator j=connections.begin(); j!=connections.end(); ++j) {
+            if ((*j).toEdge==to&&((*j).toLane<0||(*j).toLane==toLane)) {
                 return true;
             }
         }
@@ -2254,7 +2254,7 @@ NBNode::getConnectionTo(NBNode *n) const
 bool
 NBNode::isNearDistrict() const
 {
-    if(isDistrict()) {
+    if (isDistrict()) {
         return false;
     }
     EdgeVector edges;
@@ -2274,7 +2274,7 @@ NBNode::isNearDistrict() const
         copy(other->getIncomingEdges().begin(), other->getIncomingEdges().end(), back_inserter(edges2));
         copy(other->getOutgoingEdges().begin(), other->getOutgoingEdges().end(), back_inserter(edges2));
         for (EdgeVector::const_iterator k=edges2.begin(); k!=edges2.end(); ++k) {
-            if((*k)->getFromNode()->isDistrict()||(*k)->getToNode()->isDistrict()) {
+            if ((*k)->getFromNode()->isDistrict()||(*k)->getToNode()->isDistrict()) {
                 return true;
             }
         }

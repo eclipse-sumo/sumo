@@ -50,7 +50,7 @@ class OptionsCont;
  * Only two things are done herein, so far. The first is to insert
  *  options into the given options container that are used for dealing
  *  with the application's configuration.
- * 
+ *
  * Additionally, a closing method may be found, which closes all used
  *  subsystems.
  */

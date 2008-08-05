@@ -53,7 +53,7 @@ using namespace std;
 // ===========================================================================
 ROAbstractRouteDefLoader::ROAbstractRouteDefLoader(ROVehicleBuilder &vb,
         RONet &net, SUMOTime begin, SUMOTime end) throw()
-    : myNet(net), myBegin(begin), myEnd(end), myVehicleBuilder(vb)
+        : myNet(net), myBegin(begin), myEnd(end), myVehicleBuilder(vb)
 {}
 
 

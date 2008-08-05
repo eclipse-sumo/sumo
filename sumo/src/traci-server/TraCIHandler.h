@@ -44,61 +44,61 @@
 /**
  * @class TraCIHandler
  * XML-Handler that reads information from the sumo input files.
- * The class is currently used to determine the maximum number of vehicles 
+ * The class is currently used to determine the maximum number of vehicles
  * before simulation start.
  */
-namespace traci 
+namespace traci
 {
 class TraCIHandler : public SUMOSAXHandler
 {
 public:
-	/**
-	 * @brief Constructor
-	 * @param file the name of the parsed file
-	 */
-	TraCIHandler(const std::string& file = "") throw();
+    /**
+     * @brief Constructor
+     * @param file the name of the parsed file
+     */
+    TraCIHandler(const std::string& file = "") throw();
 
-	/**
-	 * @brief Destructor
-	 */
-	virtual ~TraCIHandler() throw();
+    /**
+     * @brief Destructor
+     */
+    virtual ~TraCIHandler() throw();
 
-	/**
-	 * @brief Get the determined maxmimum number of vehicles that will be 
-	 *			emitted during the simulation.
-	 */
-	int getTotalVehicleCount();
+    /**
+     * @brief Get the determined maxmimum number of vehicles that will be
+     *			emitted during the simulation.
+     */
+    int getTotalVehicleCount();
 
-	/**
-	 * @brief Reset number of counted vehicles to 0.
-	 */
-	void resetTotalVehicleCount();
+    /**
+     * @brief Reset number of counted vehicles to 0.
+     */
+    void resetTotalVehicleCount();
 
 protected:
-	/**
-	 * @brief Called on the opening of a xml tag.
-	 * @param element id of the opened element
-	 * @param attributes attributes of the opened element
-	 */
-	virtual void myStartElement(SumoXMLTag element, 
-								const SUMOSAXAttributes& attributes) throw(ProcessError);
+    /**
+     * @brief Called on the opening of a xml tag.
+     * @param element id of the opened element
+     * @param attributes attributes of the opened element
+     */
+    virtual void myStartElement(SumoXMLTag element,
+                                const SUMOSAXAttributes& attributes) throw(ProcessError);
 
-	/**
-	 * @brief Called on the closure of a xml tag.
-	 * @param element id of the closed element
-	 */
-	virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
-
-private:
-	int totalVehicleCount;
-
-	int currentVehCount;
+    /**
+     * @brief Called on the closure of a xml tag.
+     * @param element id of the closed element
+     */
+    virtual void myEndElement(SumoXMLTag element) throw(ProcessError);
 
 private:
-	/**
+    int totalVehicleCount;
+
+    int currentVehCount;
+
+private:
+    /**
      * Count each vehicle and all possibly emitted vehicles defined in each tag.
-	 */
-	void openVehicleTag(const SUMOSAXAttributes& attributes);
+     */
+    void openVehicleTag(const SUMOSAXAttributes& attributes);
 };
 }
 

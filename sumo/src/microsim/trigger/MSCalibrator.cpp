@@ -261,7 +261,7 @@ MSCalibrator::MSCalibrator_FileTriggeredChild::myStartElement(SumoXMLTag element
     if (element==SUMO_TAG_VTYPEDISTELEM) {
         // get the id, report an error if not given or empty...
         string id;
-        if(!attrs.setIDFromAttributes("vtypedistelem", id)) {
+        if (!attrs.setIDFromAttributes("vtypedistelem", id)) {
             return;
         }
         SUMOReal prob = -1;
@@ -495,7 +495,7 @@ MSCalibrator::childCheckEmit(MSCalibratorChild *child)
     }
     if (child!=myActiveChild||myDestLane->getEdge()->isVaporizing()) {
         // check whether this is due to vaporization
-        if(myDestLane->getEdge()->isVaporizing()) {
+        if (myDestLane->getEdge()->isVaporizing()) {
             myToEmit[child].first->setWasVaporized(true);
         }
         // remove the vehicle previously inserted by the child

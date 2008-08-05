@@ -56,7 +56,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 ROJTRTurnDefLoader::ROJTRTurnDefLoader(RONet &net) throw()
-        : SUMOSAXHandler("turn-definitions"), myNet(net), 
+        : SUMOSAXHandler("turn-definitions"), myNet(net),
         myIntervalBegin(0), myIntervalEnd(86400), myEdge(0)
 {}
 
@@ -120,7 +120,7 @@ ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs) throw()
     myEdge = 0;
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("from-edge", id)) {
+    if (!attrs.setIDFromAttributes("from-edge", id)) {
         return;
     }
     //
@@ -135,12 +135,12 @@ ROJTRTurnDefLoader::beginFromEdge(const SUMOSAXAttributes &attrs) throw()
 void
 ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs) throw()
 {
-    if(myEdge==0) {
+    if (myEdge==0) {
         return;
     }
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("to-edge", id)) {
+    if (!attrs.setIDFromAttributes("to-edge", id)) {
         return;
     }
     //
@@ -151,8 +151,8 @@ ROJTRTurnDefLoader::addToEdge(const SUMOSAXAttributes &attrs) throw()
     }
     bool ok = true;
     SUMOReal probability = attrs.getSUMORealReporting(SUMO_ATTR_PROB, "to-edge", id.c_str(), ok);
-    if(ok) {
-        if(probability<0) {
+    if (ok) {
+        if (probability<0) {
             MsgHandler::getErrorInstance()->inform("'probability' must be positive (in definition of to-edge '" + id + "').");
         } else {
             myEdge->addFollowerProbability(edge, myIntervalBegin, myIntervalEnd, probability);

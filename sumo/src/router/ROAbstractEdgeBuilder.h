@@ -50,10 +50,10 @@ class ROEdge;
  *  edges are build via a factory object derived from this class.
  *
  * The only method to be implemented is "buildEdge" which builds an edge
- *  of the needed ROEdge-subtype. 
+ *  of the needed ROEdge-subtype.
  *
  * The built edges are numbered in the order they are built, the current
- *  number (index) is stored in "myCurrentIndex" and the next to use may 
+ *  number (index) is stored in "myCurrentIndex" and the next to use may
  *  be obtained via "getNextIndex".
  */
 class ROAbstractEdgeBuilder

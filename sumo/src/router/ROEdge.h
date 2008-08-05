@@ -190,7 +190,7 @@ public:
 
 
     /** @brief returns the information whether this edge is directly connected to the given
-     * 
+     *
      * @param[in] e The edge which may be connected
      * @return Whether the given edge is a direct successor to this one
      */
@@ -199,7 +199,7 @@ public:
     }
 
 
-    /** @brief Returns whether this edge prohibits the given vehicle to pass it 
+    /** @brief Returns whether this edge prohibits the given vehicle to pass it
      * @param[in] vehicle The vehicle for which the information has to be returned
      * @return Whether the vehicle must not enter this edge
      */
@@ -217,7 +217,7 @@ public:
 
     /// @name Methods for getting/setting travel cost information
     //@{
-    
+
     /** @brief Adds a weight definition
      *
      * @param[in] value The value to add
@@ -247,7 +247,7 @@ public:
     }
 
 
-    /** @brief Returns the effort (normally the travel time) for this edge 
+    /** @brief Returns the effort (normally the travel time) for this edge
      *
      * @param[in] veh The vehicle for which the effort on this edge shall be retrieved
      * @param[in] time The tim for which the effort shall be returned
@@ -271,8 +271,8 @@ public:
     SUMOReal getCost(const ROVehicle * const veh, SUMOTime time) const throw();
 
 
-    /** @brief Retrieves the travel time a vehicle needs to pass this edge starting at the given time 
-     * 
+    /** @brief Retrieves the travel time a vehicle needs to pass this edge starting at the given time
+     *
      * @param[in] veh The vehicle for which the travel time on this edge shall be retrieved
      * @param[in] time The tim for which the travel time shall be returned
      * @return The travel time needed by the given vehicle to pass the edge at the given time

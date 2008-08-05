@@ -213,7 +213,7 @@ public:
             }
             (*visited)[minEdge->getNumericalID()] = true;
             SUMOReal effort = (SUMOReal)(minimumKnot->effort + getEffort(minEdge, vehicle, time + minimumKnot->effort));
-                                         //+ (minEdge->*myOperation)(vehicle, (SUMOTime)(time + minimumKnot->effort)));
+            //+ (minEdge->*myOperation)(vehicle, (SUMOTime)(time + minimumKnot->effort)));
             // check all ways from the node with the minimal length
             unsigned int i = 0;
             unsigned int length_size = minEdge->getNoFollowing();
@@ -341,9 +341,8 @@ public:
     typedef SUMOReal(EC::* Operation)(const E * const, const V * const, SUMOReal) const;
 
     SUMODijkstraRouter_ByProxi(size_t noE, bool unbuildIsWarningOnly, EC* receiver, Operation operation)
-        : SUMODijkstraRouterBase<E, V, PF>(noE, unbuildIsWarningOnly), 
-        myReceiver(receiver), myOperation(operation)
-    {}
+            : SUMODijkstraRouterBase<E, V, PF>(noE, unbuildIsWarningOnly),
+            myReceiver(receiver), myOperation(operation) {}
 
     inline SUMOReal getEffort(const E * const e, const V * const v, SUMOReal t) {
         return (myReceiver->*myOperation)(e, v, t);
@@ -369,8 +368,7 @@ public:
     typedef SUMOReal(E::* Operation)(const V * const, SUMOReal) const;
 
     SUMODijkstraRouter_Direct(size_t noE, bool unbuildIsWarningOnly, Operation operation)
-        : SUMODijkstraRouterBase<E, V, PF>(noE, unbuildIsWarningOnly), myOperation(operation)
-    {}
+            : SUMODijkstraRouterBase<E, V, PF>(noE, unbuildIsWarningOnly), myOperation(operation) {}
 
     inline SUMOReal getEffort(const E * const e, const V * const v, SUMOReal t) {
         return (e->*myOperation)(v, t);

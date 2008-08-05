@@ -70,15 +70,15 @@ PCTypeDefHandler::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_POLYTYPE) {
         // get the id, report an error if not given or empty...
         string id;
-        if(!attrs.setIDFromAttributes("polytype", id)) {
+        if (!attrs.setIDFromAttributes("polytype", id)) {
             return;
         }
         string type = attrs.getStringSecure(SUMO_ATTR_NAME, myOptions.getString("type"));
         string prefix = attrs.getStringSecure(SUMO_ATTR_PREFIX, myOptions.getString("prefix"));
         int layer = attrs.getIntSecure(SUMO_ATTR_LAYER, myOptions.getInt("layer"));
         string color = attrs.getStringSecure(SUMO_ATTR_COLOR, myOptions.getString("color"));
-        bool discard = attrs.getBoolSecure( SUMO_ATTR_DISCARD, false);
-        bool allowFill = attrs.getBoolSecure( SUMO_ATTR_FILL, true);
+        bool discard = attrs.getBoolSecure(SUMO_ATTR_DISCARD, false);
+        bool allowFill = attrs.getBoolSecure(SUMO_ATTR_FILL, true);
         if (!myContainer.add(id, type, color, prefix, layer, discard, allowFill)) {
             MsgHandler::getErrorInstance()->inform("Could not add polygon type '" + id + "' (probably the id is already used).");
         }

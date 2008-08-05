@@ -109,18 +109,18 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
         MSDevice_Routing* device = new MSDevice_Routing(v, "routing_" + v.getID(), (SUMOTime) oc.getInt("device.routing.period")); // !!! SUMOTime-option
         into.push_back(device);
         // initialise edge efforts if not done before
-        if(myEdgeEfforts.size()==0) {
+        if (myEdgeEfforts.size()==0) {
             const MSEdgeControl::EdgeCont &me = MSNet::getInstance()->getEdgeControl().getMultiLaneEdges();
-            for(MSEdgeControl::EdgeCont::const_iterator i=me.begin(); i!=me.end(); ++i) {
+            for (MSEdgeControl::EdgeCont::const_iterator i=me.begin(); i!=me.end(); ++i) {
                 myEdgeEfforts[*i] = (*i)->getCurrentEffort();
             }
             const MSEdgeControl::EdgeCont &se = MSNet::getInstance()->getEdgeControl().getSingleLaneEdges();
-            for(MSEdgeControl::EdgeCont::const_iterator i=se.begin(); i!=se.end(); ++i) {
+            for (MSEdgeControl::EdgeCont::const_iterator i=se.begin(); i!=se.end(); ++i) {
                 myEdgeEfforts[*i] = (*i)->getCurrentEffort();
             }
         }
         // make the weights be updated
-        if(myEdgeWeightSettingCommand==0) {
+        if (myEdgeWeightSettingCommand==0) {
             myEdgeWeightSettingCommand = new StaticCommand< MSDevice_Routing >(&MSDevice_Routing::adaptEdgeEfforts);
             MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
                 myEdgeWeightSettingCommand, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
@@ -134,7 +134,7 @@ MSDevice_Routing::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into
 // ---------------------------------------------------------------------------
 // MSDevice_Routing-methods
 // ---------------------------------------------------------------------------
-MSDevice_Routing::MSDevice_Routing(MSVehicle &holder, const std::string &id, 
+MSDevice_Routing::MSDevice_Routing(MSVehicle &holder, const std::string &id,
                                    SUMOTime period) throw()
         : MSDevice(holder, id), myPeriod(period), myRerouteCommand(0)
 {
@@ -144,7 +144,7 @@ MSDevice_Routing::MSDevice_Routing(MSVehicle &holder, const std::string &id,
 MSDevice_Routing::~MSDevice_Routing() throw()
 {
     // make the rerouting command invalid if there is one
-    if(myRerouteCommand!=0) {
+    if (myRerouteCommand!=0) {
         myRerouteCommand->deschedule();
     }
 }
@@ -153,11 +153,11 @@ MSDevice_Routing::~MSDevice_Routing() throw()
 void
 MSDevice_Routing::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &)
 {
-    SUMODijkstraRouter_ByProxi<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSDevice_Routing> 
-        router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
+    SUMODijkstraRouter_ByProxi<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSDevice_Routing>
+    router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
     myHolder.reroute(MSNet::getInstance()->getCurrentTimeStep(), router);
     // build repetition trigger if routing shall be done more often
-    if(myPeriod>0&&myRerouteCommand==0) {
+    if (myPeriod>0&&myRerouteCommand==0) {
         myRerouteCommand = new WrappingCommand< MSDevice_Routing >(this, &MSDevice_Routing::wrappedRerouteCommandExecute);
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(
             myRerouteCommand, myPeriod+MSNet::getInstance()->getCurrentTimeStep(),
@@ -166,17 +166,17 @@ MSDevice_Routing::enterLaneAtEmit(MSLane* enteredLane, const MSVehicle::State &)
 }
 
 
-SUMOTime 
+SUMOTime
 MSDevice_Routing::wrappedRerouteCommandExecute(SUMOTime currentTime) throw(ProcessError)
 {
-    SUMODijkstraRouter_ByProxi<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSDevice_Routing> 
-        router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
+    SUMODijkstraRouter_ByProxi<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle>, MSDevice_Routing>
+    router(MSEdge::dictSize(), true, this, &MSDevice_Routing::getEffort);
     myHolder.reroute(currentTime, router);
     return myPeriod;
 }
 
 
-SUMOReal 
+SUMOReal
 MSDevice_Routing::getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOReal t) const
 {
     assert(myEdgeEfforts.find(e)!=myEdgeEfforts.end());
@@ -188,13 +188,13 @@ SUMOTime
 MSDevice_Routing::adaptEdgeEfforts(SUMOTime currentTime) throw(ProcessError)
 {
     SUMOReal oldWeight = (SUMOReal) myAdaptationWeight;
-    SUMOReal newWeight = (SUMOReal) (1. - myAdaptationWeight);
+    SUMOReal newWeight = (SUMOReal)(1. - myAdaptationWeight);
     const MSEdgeControl::EdgeCont &me = MSNet::getInstance()->getEdgeControl().getMultiLaneEdges();
-    for(MSEdgeControl::EdgeCont::const_iterator i=me.begin(); i!=me.end(); ++i) {
+    for (MSEdgeControl::EdgeCont::const_iterator i=me.begin(); i!=me.end(); ++i) {
         myEdgeEfforts[*i] = myEdgeEfforts[*i] * oldWeight + (*i)->getCurrentEffort() * newWeight;
     }
     const MSEdgeControl::EdgeCont &se = MSNet::getInstance()->getEdgeControl().getSingleLaneEdges();
-    for(MSEdgeControl::EdgeCont::const_iterator i=se.begin(); i!=se.end(); ++i) {
+    for (MSEdgeControl::EdgeCont::const_iterator i=se.begin(); i!=se.end(); ++i) {
         myEdgeEfforts[*i] = myEdgeEfforts[*i] * oldWeight + (*i)->getCurrentEffort() * newWeight;
     }
     return 1;

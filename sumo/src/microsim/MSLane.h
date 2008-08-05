@@ -99,7 +99,7 @@ struct VehPosition : public std::binary_function< const MSVehicle*,
 
 
 public:
-    /** @brief Constructor 
+    /** @brief Constructor
      *
      * @param[in] id The lane's id
      * @param[in] maxSpeed The speed allwoed on this lane
@@ -126,9 +126,9 @@ public:
 
     /** @brief Delayed initialization
      *
-     *  Not all lane-members are known at the time the lane is born, above all the pointers 
-     *   to other lanes, so we have to initialize later. 
-     * 
+     *  Not all lane-members are known at the time the lane is born, above all the pointers
+     *   to other lanes, so we have to initialize later.
+     *
      * @param[in] succs The list of (outgoing) links
      * @todo Why are succs not const?
      */
@@ -146,7 +146,7 @@ public:
 
     /** @brief Add a move-reminder to move-reminder container
      *
-     * The move reminder will not be deleted by the lane 
+     * The move reminder will not be deleted by the lane
      *
      * @param[in] rem The move reminder to add
      */
@@ -170,7 +170,7 @@ public:
      *
      * The emission position and speed are determined in dependence
      *  to the vehicle's departure definition, first.  If "isReinsertion" is set,
-     *  meaning the vehicle tries to end a teleportation, then the values for 
+     *  meaning the vehicle tries to end a teleportation, then the values for
      *  the fastest emission are used (speed=max, pos=free).
      *
      * Then, the vehicle is tried to be inserted into the lane
@@ -205,7 +205,7 @@ public:
      * @see MSVehicle::enterLaneAtEmit
      */
     virtual bool isEmissionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos,
-        bool recheckNextLanes) throw();
+                                   bool recheckNextLanes) throw();
 
 
     /** @brief Tries to emit the given vehicle on any place
@@ -412,11 +412,11 @@ public:
         return myIncomingLanes;
     }
 
-    std::pair<MSVehicle * const, SUMOReal> getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen, 
-        SUMOReal leaderSpeed) const;
+    std::pair<MSVehicle * const, SUMOReal> getFollowerOnConsecutive(SUMOReal dist, SUMOReal seen,
+            SUMOReal leaderSpeed) const;
 
-    std::pair<MSVehicle * const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen, 
-        SUMOReal leaderSpeed, const MSVehicle &veh, const std::vector<MSLane*> &bestLaneConts) const;
+    std::pair<MSVehicle * const, SUMOReal> getLeaderOnConsecutive(SUMOReal dist, SUMOReal seen,
+            SUMOReal leaderSpeed, const MSVehicle &veh, const std::vector<MSLane*> &bestLaneConts) const;
 
 
 

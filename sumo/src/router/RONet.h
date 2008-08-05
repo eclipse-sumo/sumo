@@ -92,7 +92,7 @@ public:
 
     /** @brief Retrieves an edge from the network
      *
-     * This is not very pretty, but necessary, though, as routes run 
+     * This is not very pretty, but necessary, though, as routes run
      *  over instances, not over ids.
      *
      * @param[in] name The name of the edge to retrieve
@@ -133,7 +133,7 @@ public:
 
     /* @brief Adds a read vehicle type definition to the network
      *
-     * If the vehicle type definition is already known (another one with 
+     * If the vehicle type definition is already known (another one with
      *  the same id exists), false is returned, and the vehicle type
      *  is deleted.
      *
@@ -160,7 +160,7 @@ public:
 
     /* @brief Adds a route definition to the network
      *
-     * If the route definition is already known (another one with 
+     * If the route definition is already known (another one with
      *  the same id exists), false is returned, but the route definition
      *  is not deleted.
      *
@@ -170,7 +170,7 @@ public:
      */
     bool addRouteDef(RORouteDef *def) throw();
 
-    
+
     /** @brief Returns the named route definition
      *
      * @param[in] name The name of the route definition to retrieve
@@ -185,7 +185,7 @@ public:
 
     /* @brief Adds a vehicle to the network
      *
-     * If the vehicle is already known (another one with the same id 
+     * If the vehicle is already known (another one with the same id
      *  exists), false is returned, but the vehicle is not deleted.
      *
      * Otherwise, the number of loaded routes ("myReadRouteNo") is increased.
@@ -199,7 +199,7 @@ public:
 
 
 
-    /// @name Processing stored vehicle definitions 
+    /// @name Processing stored vehicle definitions
     //@{
 
     /** @brief Computes routes described by their definitions and saves them
@@ -229,7 +229,7 @@ public:
      * If the second parameter is true, a second file for route alternatives
      *  will be opened. The route alternatives files is simply the given
      *  name with ".alt" appended.
-     * If one of the file outputs can not be build, an IOError is thrown 
+     * If one of the file outputs can not be build, an IOError is thrown
      *
      * @param[in] filename The (base) name of the file(s) to create
      * @param[in] useAlternatives Whether a file for writing alternatives shall be created
@@ -260,7 +260,7 @@ public:
 
 protected:
     bool computeRoute(OptionsCont &options,
-                                          SUMOAbstractRouter<ROEdge,ROVehicle> &router, const ROVehicle * const veh);
+                      SUMOAbstractRouter<ROEdge,ROVehicle> &router, const ROVehicle * const veh);
 
     /// Initialises the lists of source and destination edges
     void checkSourceAndDestinations();

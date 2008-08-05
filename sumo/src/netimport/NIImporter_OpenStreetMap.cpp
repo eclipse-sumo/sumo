@@ -65,7 +65,7 @@ using namespace std;
 // ---------------------------------------------------------------------------
 // static methods (interface in this case)
 // ---------------------------------------------------------------------------
-void 
+void
 NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
 {
     // check whether the option is set (properly)
@@ -73,7 +73,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
         return;
     }
     // preset types
-        // for highways
+    // for highways
     NBTypeCont &tc = nb.getTypeCont();
     addTypeSecure(tc, "highway", "motorway", 3, (SUMOReal) 160., 13, SVC_UNKNOWN, true);
     addTypeSecure(tc, "highway", "motorway_link", 1, (SUMOReal) 80., 12, SVC_UNKNOWN, true);
@@ -107,7 +107,7 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
     addTypeSecure(tc, "highway", "bus_guideway", 1, (SUMOReal) 30., 1, SVC_BUS);
     addTypeSecure(tc, "highway", "bus_guideway", 1, (SUMOReal) 30., 1, SVC_BUS);
 
-        // for railways
+    // for railways
     addTypeSecure(tc, "railway", "rail", 1, (SUMOReal) 30., 1, SVC_RAIL_FAST);
     addTypeSecure(tc, "railway", "tram", 1, (SUMOReal) 30., 1, SVC_CITYRAIL);
     addTypeSecure(tc, "railway", "light_rail", 1, (SUMOReal) 30., 1, SVC_LIGHTRAIL);
@@ -190,18 +190,18 @@ NIImporter_OpenStreetMap::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
     }
     // delete nodes
     for (std::map<int, NIOSMNode*>::const_iterator i=nodes.begin(); i!=nodes.end(); ++i) {
-        delete (*i).second;
+        delete(*i).second;
     }
     // delete edges
     for (std::map<std::string, Edge*>::iterator i=edges.begin(); i!=edges.end(); ++i) {
-        delete (*i).second;
+        delete(*i).second;
     }
 }
 
 
 NBNode *
 NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNode*> &osmNodes, NBNodeCont &nc,
-                                             NBTrafficLightLogicCont &tlsc)
+        NBTrafficLightLogicCont &tlsc)
 {
     NBNode *from = nc.retrieve(toString(id));
     if (from==0) {
@@ -214,7 +214,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNo
             delete from;
             return 0;
         }
-        if(n->tlsControlled) {
+        if (n->tlsControlled) {
             // ok, this node is a traffic light node where no other nodes
             //  participate
             NBOwnTLDef *tlDef = new NBOwnTLDef(toString(id), from);
@@ -231,8 +231,8 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNo
 
 void
 NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *to,
-                              const std::vector<int> &passed, const std::map<int, NIOSMNode*> &osmNodes, 
-                              NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc)
+                                     const std::vector<int> &passed, const std::map<int, NIOSMNode*> &osmNodes,
+                                     NBNodeCont &nc, NBEdgeCont &ec, NBTypeCont &tc)
 {
     // patch the id
     string id = e->id;
@@ -247,7 +247,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
         GeoConvHelper::x2cartesian(pos);
         shape.push_back_noDoublePos(pos);
     }
-    if(!tc.knows(e->myHighWayType)) {
+    if (!tc.knows(e->myHighWayType)) {
         // we do not know the type -> something else, ignore
         return;
     }
@@ -301,14 +301,14 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
 }
 
 
-void 
+void
 NIImporter_OpenStreetMap::addTypeSecure(NBTypeCont &tc,
-                                        const std::string &mClass, const std::string &sClass, 
-                                        int noLanes, SUMOReal maxSpeed, int prio, 
+                                        const std::string &mClass, const std::string &sClass,
+                                        int noLanes, SUMOReal maxSpeed, int prio,
                                         SUMOVehicleClass vClasses, bool oneWayIsDefault)
 {
     string id = mClass + "." + sClass;
-    if(tc.knows(id)) {
+    if (tc.knows(id)) {
         return;
     }
     tc.insert(id, noLanes, maxSpeed/(SUMOReal) 3.6, prio, vClasses, oneWayIsDefault);
@@ -319,7 +319,7 @@ NIImporter_OpenStreetMap::addTypeSecure(NBTypeCont &tc,
 // definitions of NIImporter_OpenStreetMap::NodesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::NodesHandler::NodesHandler(std::map<int, NIOSMNode*> &toFill) throw()
-    : SUMOSAXHandler("osm-nodes - file"), myToFill(toFill), myLastNodeID(-1)
+        : SUMOSAXHandler("osm-nodes - file"), myToFill(toFill), myLastNodeID(-1)
 {}
 
 
@@ -334,11 +334,11 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
     if (element==SUMO_TAG_NODE) {
         bool ok = true;
         int id = attrs.getIntReporting(SUMO_ATTR_ID, "node", 0, ok);
-        if(!ok) {
+        if (!ok) {
             return;
         }
         myLastNodeID = -1;
-        if(myToFill.find(id)==myToFill.end()) {
+        if (myToFill.find(id)==myToFill.end()) {
             myLastNodeID = id;
             // assume we are loading multiple files...
             //  ... so we won't report duplicate nodes
@@ -386,8 +386,8 @@ NIImporter_OpenStreetMap::NodesHandler::myStartElement(SumoXMLTag element, const
             MsgHandler::getErrorInstance()->inform("'value' in node '" + toString(myLastNodeID) + "' misses a value.");
             return;
         }
-        if(key=="highway"&&value.find("traffic_signal")>=0) {
-            if(myLastNodeID>=0) {
+        if (key=="highway"&&value.find("traffic_signal")>=0) {
+            if (myLastNodeID>=0) {
                 myToFill[myLastNodeID]->tlsControlled = true;
             }
         }
@@ -409,10 +409,10 @@ NIImporter_OpenStreetMap::NodesHandler::myEndElement(SumoXMLTag element) throw(P
 // definitions of NIImporter_OpenStreetMap::EdgesHandler-methods
 // ---------------------------------------------------------------------------
 NIImporter_OpenStreetMap::EdgesHandler::EdgesHandler(
-            const std::map<int, NIOSMNode*> &osmNodes, 
-            std::map<std::string, Edge*> &toFill) throw()
-    : SUMOSAXHandler("osm-edges - file"),
-    myOSMNodes(osmNodes), myEdgeMap(toFill)
+    const std::map<int, NIOSMNode*> &osmNodes,
+    std::map<std::string, Edge*> &toFill) throw()
+        : SUMOSAXHandler("osm-edges - file"),
+        myOSMNodes(osmNodes), myEdgeMap(toFill)
 {
 }
 
@@ -424,7 +424,7 @@ NIImporter_OpenStreetMap::EdgesHandler::~EdgesHandler() throw()
 
 void
 NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
-                                  const SUMOSAXAttributes &attrs) throw(ProcessError)
+        const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     myParentElements.push_back(element);
     // parse "way" elements
@@ -445,7 +445,7 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
     if (element==SUMO_TAG_ND) {
         bool ok = true;
         int ref = attrs.getIntReporting(SUMO_ATTR_REF, "nd", 0, ok);
-        if(ok) {
+        if (ok) {
             if (myOSMNodes.find(ref)==myOSMNodes.end()) {
                 MsgHandler::getErrorInstance()->inform("The referenced geometry information (ref='" + toString(ref) + "') is not known");
                 return;
@@ -476,13 +476,13 @@ NIImporter_OpenStreetMap::EdgesHandler::myStartElement(SumoXMLTag element,
         } else if (key=="lanes") {
             try {
                 myCurrentEdge->myNoLanes = TplConvert<char>::_2int(value.c_str());
-            } catch(NumberFormatException &) {
+            } catch (NumberFormatException &) {
                 MsgHandler::getErrorInstance()->inform("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
             }
         } else if (key=="maxspeed") {
             try {
                 myCurrentEdge->myMaxSpeed = TplConvert<char>::_2SUMOReal(value.c_str());
-            } catch(NumberFormatException &) {
+            } catch (NumberFormatException &) {
                 WRITE_WARNING("Value of key '" + key + "' is not numeric ('" + value + "') in edge '" + myCurrentEdge->id + "'.");
             }
         } else if (key=="junction") {

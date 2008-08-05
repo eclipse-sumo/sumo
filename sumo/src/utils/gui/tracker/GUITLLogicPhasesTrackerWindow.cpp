@@ -99,7 +99,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
     new FXLabel(myToolBar, "(s)", 0, LAYOUT_CENTER_Y);
     //
     myConnector = new GLObjectValuePassConnector<std::pair<SUMOTime, MSPhaseDefinition> >(wrapper, src, this);
-    FXint height = (FXint) (myTLLogic->getLinks().size() * 20 + 30 + 8 + 30);
+    FXint height = (FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8 + 30);
     app.addChild(this, true);
     for (size_t i=0; i<myTLLogic->getLinks().size(); i++) {
         myLinkNames.push_back(toString<size_t>(i));
@@ -126,7 +126,7 @@ GUITLLogicPhasesTrackerWindow::GUITLLogicPhasesTrackerWindow(
         myToolBarDrag(0), myBeginOffset(0)
 {
     myConnector = 0;
-    FXint height = (FXint) (myTLLogic->getLinks().size() * 20 + 30 + 8);
+    FXint height = (FXint)(myTLLogic->getLinks().size() * 20 + 30 + 8);
     setTitle("TLS-Tracker");
     app.addChild(this, true);
     for (size_t i=0; i<myTLLogic->getLinks().size(); i++) {

@@ -50,7 +50,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-MSVTypeProbe::MSVTypeProbe(const string &id, 
+MSVTypeProbe::MSVTypeProbe(const string &id,
                            const string &vType) throw()
         : Named(id), myVType(vType)
 {
@@ -64,7 +64,7 @@ MSVTypeProbe::~MSVTypeProbe() throw()
 
 void
 MSVTypeProbe::writeXMLOutput(OutputDevice &dev,
-                                SUMOTime startTime, SUMOTime ) throw(IOError)
+                             SUMOTime startTime, SUMOTime) throw(IOError)
 {
     const std::string indent("    ");
     dev << indent << "<timestep time=\"" << startTime << "\" id=\"" << getID() << "\" vtype=\"" << myVType << "\">" << "\n";
@@ -79,12 +79,12 @@ MSVTypeProbe::writeXMLOutput(OutputDevice &dev,
             }
             Position2D pos = veh->getPosition();
             dev << indent << indent
-                << "<vehicle id=\"" << veh->getID()
+            << "<vehicle id=\"" << veh->getID()
 //                << "\" edge=\"" << veh->getEdge()->getID()
-                << "\" lane=\"" << veh->getLane().getID()
-                << "\" pos=\"" << veh->getPositionOnLane()
-                << "\" x=\"" << pos.x()
-                << "\" y=\"" << pos.y();
+            << "\" lane=\"" << veh->getLane().getID()
+            << "\" pos=\"" << veh->getPositionOnLane()
+            << "\" x=\"" << pos.x()
+            << "\" y=\"" << pos.y();
             if (GeoConvHelper::usingGeoProjection()) {
                 GeoConvHelper::cartesian2geo(pos);
                 dev << "\" lat=\"" << pos.y()*100000.0 << "\" lon=\"" << pos.x()*100000.0;

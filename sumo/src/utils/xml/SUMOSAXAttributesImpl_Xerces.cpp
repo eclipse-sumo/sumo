@@ -52,7 +52,7 @@ using namespace std;
 SUMOSAXAttributesImpl_Xerces::SUMOSAXAttributesImpl_Xerces(const Attributes &attrs,
         const std::map<SumoXMLAttr, XMLCh*> &predefinedTags,
         const std::map<SumoXMLAttr, std::string> &predefinedTagsMML) throw()
-        : myAttrs(attrs), myPredefinedTags(predefinedTags), 
+        : myAttrs(attrs), myPredefinedTags(predefinedTags),
         myPredefinedTagsMML(predefinedTagsMML)
 { }
 
@@ -96,7 +96,7 @@ SUMOSAXAttributesImpl_Xerces::getInt(SumoXMLAttr id) const throw(EmptyData, Numb
 
 int
 SUMOSAXAttributesImpl_Xerces::getIntSecure(SumoXMLAttr id,
-                                int def) const throw(EmptyData, NumberFormatException)
+        int def) const throw(EmptyData, NumberFormatException)
 {
     return TplConvertSec<XMLCh>::_2intSec(getAttributeValueSecure(id), def);
 }
@@ -111,7 +111,7 @@ SUMOSAXAttributesImpl_Xerces::getString(SumoXMLAttr id) const throw(EmptyData)
 
 std::string
 SUMOSAXAttributesImpl_Xerces::getStringSecure(SumoXMLAttr id,
-                                   const std::string &str) const throw(EmptyData)
+        const std::string &str) const throw(EmptyData)
 {
     return TplConvertSec<XMLCh>::_2strSec(getAttributeValueSecure(id), str);
 }
@@ -126,7 +126,7 @@ SUMOSAXAttributesImpl_Xerces::getFloat(SumoXMLAttr id) const throw(EmptyData, Nu
 
 SUMOReal
 SUMOSAXAttributesImpl_Xerces::getFloatSecure(SumoXMLAttr id,
-                                  SUMOReal def) const throw(EmptyData, NumberFormatException)
+        SUMOReal def) const throw(EmptyData, NumberFormatException)
 {
     return TplConvertSec<XMLCh>::_2SUMORealSec(getAttributeValueSecure(id), def);
 }
@@ -159,17 +159,17 @@ SUMOSAXAttributesImpl_Xerces::hasAttribute(const std::string &id) const throw()
 
 std::string
 SUMOSAXAttributesImpl_Xerces::getStringSecure(const std::string &id,
-                                              const std::string &str) const throw()
+        const std::string &str) const throw()
 {
     XMLCh *t = XMLString::transcode(id.c_str());
     return TplConvertSec<XMLCh>::_2strSec(myAttrs.getValue(t), str);
 }
 
 
-std::string 
+std::string
 SUMOSAXAttributesImpl_Xerces::getName(SumoXMLAttr attr) const throw()
 {
-    if(myPredefinedTagsMML.find(attr)==myPredefinedTagsMML.end()) {
+    if (myPredefinedTagsMML.find(attr)==myPredefinedTagsMML.end()) {
         return "?";
     }
     return myPredefinedTagsMML.find(attr)->second;

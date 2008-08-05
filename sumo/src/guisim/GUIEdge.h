@@ -43,7 +43,7 @@
 #include <windows.h>
 #endif
 
-#include <GL/gl.h> 
+#include <GL/gl.h>
 
 
 // ===========================================================================
@@ -83,7 +83,7 @@ public:
 
     /** @brief Builds lane wrappers for this edge's lanes
      *
-     * @param[in] idStorage The gl-objects storage to retrieve the gl-id for this edge's lanes from 
+     * @param[in] idStorage The gl-objects storage to retrieve the gl-id for this edge's lanes from
      */
     void initGeometry(GUIGlObjectStorage &idStorage) throw();
 

@@ -129,7 +129,7 @@ GUIHandler::addVehicleType(const SUMOSAXAttributes &attrs)
     // !!! unsecure
     // get the id, report an error if not given or empty...
     string id;
-    if(attrs.setIDFromAttributes("vtype", id)) {
+    if (attrs.setIDFromAttributes("vtype", id)) {
         try {
             addParsedVehicleType(id,
                                  attrs.getFloatSecure(SUMO_ATTR_LENGTH, DEFAULT_VEH_LENGTH),
@@ -168,7 +168,7 @@ GUIHandler::addParsedVehicleType(const string &id, const SUMOReal length,
 #ifdef HAVE_MESOSIM
         if (!MSGlobals::gStateLoaded) {
 #endif
-        MsgHandler::getErrorInstance()->inform("Another vehicle type with the id '" + id + "' exists.");
+            MsgHandler::getErrorInstance()->inform("Another vehicle type with the id '" + id + "' exists.");
 #ifdef HAVE_MESOSIM
         }
 #endif

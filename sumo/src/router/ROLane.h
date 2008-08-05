@@ -42,7 +42,7 @@
  * @class ROLane
  * @brief A single lane the router may use
  *
- * Currently, the lane has no other purpose then storing the allowed vehicle 
+ * Currently, the lane has no other purpose then storing the allowed vehicle
  *  classes. They are even only stored herein and used by computing the vehicle
  *  classes allowed on the according edge.
  * @see ROEdge
@@ -61,9 +61,8 @@ public:
     ROLane(const std::string &id, SUMOReal length, SUMOReal maxSpeed,
            const std::vector<SUMOVehicleClass> &allowed,
            const std::vector<SUMOVehicleClass> &disallowed) throw()
-           : Named(id), myLength(length), myMaxSpeed(maxSpeed),
-           myAllowedClasses(allowed), myNotAllowedClasses(disallowed)
-    {
+            : Named(id), myLength(length), myMaxSpeed(maxSpeed),
+            myAllowedClasses(allowed), myNotAllowedClasses(disallowed) {
     }
 
 

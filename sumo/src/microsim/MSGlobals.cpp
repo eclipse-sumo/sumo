@@ -55,7 +55,7 @@ int MSGlobals::gMinLaneChangeSightEdges;
 
 bool MSGlobals::gUsingC2C = false;
 
-SUMOReal MSGlobals::gLANRange = 100; 
+SUMOReal MSGlobals::gLANRange = 100;
 
 SUMOReal MSGlobals::gNumberOfSendingPos = 732;
 

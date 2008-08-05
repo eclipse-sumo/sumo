@@ -98,7 +98,7 @@ ODDistrictHandler::openDistrict(const SUMOSAXAttributes &attrs) throw()
     myCurrentDistrict = 0;
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("district", id)) {
+    if (!attrs.setIDFromAttributes("district", id)) {
         return;
     }
     myCurrentDistrict = new ODDistrict(id);
@@ -135,14 +135,14 @@ ODDistrictHandler::parseConnection(const SUMOSAXAttributes &attrs, const std::st
     }
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes(type.c_str(), id)) {
+    if (!attrs.setIDFromAttributes(type.c_str(), id)) {
         return std::pair<std::string, SUMOReal>("", -1);
     }
     // get the weight
     bool ok = true;
     SUMOReal weight = attrs.getSUMORealReporting(SUMO_ATTR_WEIGHT, type.c_str(), id.c_str(), ok);
-    if(ok) {
-        if(weight<0) {
+    if (ok) {
+        if (weight<0) {
             MsgHandler::getErrorInstance()->inform("'probability' must be positive (in definition of " + type + " '" + id + "').");
         } else {
             return std::pair<std::string, SUMOReal>(id, weight);

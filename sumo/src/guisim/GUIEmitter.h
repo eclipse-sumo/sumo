@@ -146,7 +146,7 @@ public:
     void toggleDrawRoutes();
 
 protected:
-    class GUIEmitterChild_UserTriggeredChild : public MSEmitter::MSEmitterChild
+class GUIEmitterChild_UserTriggeredChild : public MSEmitter::MSEmitterChild
     {
     public:
         GUIEmitterChild_UserTriggeredChild(

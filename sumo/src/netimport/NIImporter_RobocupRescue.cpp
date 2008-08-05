@@ -64,7 +64,7 @@ using namespace std;
 // ---------------------------------------------------------------------------
 // static methods (interface in this case)
 // ---------------------------------------------------------------------------
-void 
+void
 NIImporter_RobocupRescue::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
 {
     // check whether the option is set (properly)
@@ -109,7 +109,7 @@ NIImporter_RobocupRescue::~NIImporter_RobocupRescue() throw()
 }
 
 
-void 
+void
 NIImporter_RobocupRescue::loadNodes(const std::string &file)
 {
     BinaryInputDevice dev(file);
@@ -134,17 +134,17 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file)
         do {
             dev >> skip;
             --entrySize;
-        } while(entrySize!=0);
+        } while (entrySize!=0);
         Position2D pos((SUMOReal) posX / 1000., -(SUMOReal) posY / 1000.);
         GeoConvHelper::x2cartesian(pos);
         NBNode *node = new NBNode(toString(id), pos);
         myNodeCont.insert(node);
         --noNodes;
-    } while(noNodes!=0);
+    } while (noNodes!=0);
 }
 
 
-void 
+void
 NIImporter_RobocupRescue::loadEdges(const std::string &file)
 {
     BinaryInputDevice dev(file);
@@ -169,17 +169,17 @@ NIImporter_RobocupRescue::loadEdges(const std::string &file)
         do {
             dev >> skip;
             --entrySize;
-        } while(entrySize!=0);
+        } while (entrySize!=0);
         NBNode *fromNode = myNodeCont.retrieve(toString(begNode));
         NBNode *toNode = myNodeCont.retrieve(toString(endNode));
         SUMOReal speed = 50. / 3.6;
         int priority = -1;
         int noLanes = 2;
         NBEdge *edge = new NBEdge(toString(id), fromNode, toNode, "",
-            speed, noLanes, priority);
+                                  speed, noLanes, priority);
         myEdgeCont.insert(edge);
         --noEdges;
-    } while(noEdges!=0);
+    } while (noEdges!=0);
 }
 
 

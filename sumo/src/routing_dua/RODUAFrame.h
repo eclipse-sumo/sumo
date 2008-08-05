@@ -43,10 +43,10 @@ class RODUAFrame
 public:
     /** @brief Inserts options used by duarouter into the OptionsCont-singleton
      *
-     * As duarouter shares several options with other routing appplications, the 
+     * As duarouter shares several options with other routing appplications, the
      *  insertion of these is done via a call to ROFrame::fillOptions.
      *
-     * duarouter-specific options are added afterwards via calls to 
+     * duarouter-specific options are added afterwards via calls to
      *  "addImportOptions" and "addDUAOptions".
      */
     static void fillOptions();
@@ -54,7 +54,7 @@ public:
 
     /** @brief Checks set options from the OptionsCont-singleton for being valid for usage within duarouter
      *
-     * Currently, this is done via a call to "ROFrame::checkOptions". 
+     * Currently, this is done via a call to "ROFrame::checkOptions".
      *
      * @return Whether all needed options are set
      * @todo probably, more things should be checked...

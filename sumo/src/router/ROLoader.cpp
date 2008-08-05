@@ -246,21 +246,21 @@ unsigned int
 ROLoader::openRoutes(RONet &net)
 {
     // build loader
-        // load sumo-routes when wished
+    // load sumo-routes when wished
     bool ok = openTypedRoutes("sumo-input", net);
-        // load the XML-trip definitions when wished
+    // load the XML-trip definitions when wished
     ok = openTypedRoutes("trip-defs", net);
-        // load the sumo-alternative file when wished
+    // load the sumo-alternative file when wished
     ok = openTypedRoutes("alternatives", net);
-        // load the amount definitions if wished
+    // load the amount definitions if wished
     ok = openTypedRoutes("flows", net);
     // build generators
     if (myOptions.isSet("R")) {
         myHandler.push_back(new RORDGenerator_Random(myVehicleBuilder, net,
-            myOptions.getInt("begin"), myOptions.getInt("end"), myOptions.getBool("prune-random")));
+                            myOptions.getInt("begin"), myOptions.getInt("end"), myOptions.getBool("prune-random")));
     }
     // check
-    if(myHandler.size()==0) {
+    if (myHandler.size()==0) {
         throw ProcessError("No route input specified.");
     }
     // skip routes prior to the begin time
@@ -272,7 +272,7 @@ ROLoader::openRoutes(RONet &net)
         MsgHandler::getMessageInstance()->inform("Skipped until: " + toString<SUMOTime>(getMinTimeStep()));
     }
     // check whether everything's ok
-    if(!ok) {
+    if (!ok) {
         destroyHandlers();
     }
     return (unsigned int) myHandler.size();
@@ -319,7 +319,7 @@ ROLoader::makeSingleStep(SUMOTime end, RONet &net, SUMOAbstractRouter<ROEdge,ROV
     if (myHandler.size()!= 0) {
         for (i=myHandler.begin(); i!=myHandler.end(); i++) {
             // load routes until the time point is reached
-            if((*i)->readRoutesAtLeastUntil(end, false)) {
+            if ((*i)->readRoutesAtLeastUntil(end, false)) {
                 // save the routes
                 net.saveAndRemoveRoutesUntil(myOptions, router, end);
             } else {
@@ -372,9 +372,9 @@ bool
 ROLoader::openTypedRoutes(const std::string &optionName,
                           RONet &net) throw()
 {
-    // check whether the current loader is known 
+    // check whether the current loader is known
     //  (not all routers import all route formats)
-    if(!myOptions.exists(optionName)) {
+    if (!myOptions.exists(optionName)) {
         return true;
     }
     // check whether the current loader is wished
@@ -390,7 +390,7 @@ ROLoader::openTypedRoutes(const std::string &optionName,
             ROAbstractRouteDefLoader *instance =
                 buildNamedHandler(optionName, *fileIt, net);
             myHandler.push_back(instance);
-        } catch(ProcessError &) {
+        } catch (ProcessError &) {
             MsgHandler::getErrorInstance()->inform("The loader for " + optionName + " from file '" + *fileIt + "' could not be initialised.");
             ok = false;
         }
@@ -408,7 +408,7 @@ ROLoader::buildNamedHandler(const std::string &optionName,
         return new RORDLoader_SUMOBase(myVehicleBuilder, net,
                                        myOptions.getInt("begin"), myOptions.getInt("end"),
                                        myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
-                                       myOptions.getInt("max-alternatives"), myOptions.getBool("repair"), 
+                                       myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
                                        file);
     }
     if (optionName=="trip-defs") {
@@ -420,7 +420,7 @@ ROLoader::buildNamedHandler(const std::string &optionName,
         return new RORDLoader_SUMOBase(myVehicleBuilder, net,
                                        myOptions.getInt("begin"), myOptions.getInt("end"),
                                        myOptions.getFloat("gBeta"), myOptions.getFloat("gA"),
-                                       myOptions.getInt("max-alternatives"), myOptions.getBool("repair"), 
+                                       myOptions.getInt("max-alternatives"), myOptions.getBool("repair"),
                                        file);
     }
     if (optionName=="flows") {
@@ -497,7 +497,7 @@ ROLoader::writeStats(SUMOTime time, SUMOTime start, int absNo) throw()
 void
 ROLoader::destroyHandlers() throw()
 {
-    for(RouteLoaderCont::const_iterator i=myHandler.begin(); i!=myHandler.end(); ++i) {
+    for (RouteLoaderCont::const_iterator i=myHandler.begin(); i!=myHandler.end(); ++i) {
         delete *i;
     }
     myHandler.clear();

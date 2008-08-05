@@ -121,8 +121,7 @@ public:
     /** @struct Connection
      */
     struct Connection {
-        Connection(int fromLane_, NBEdge *toEdge_, int toLane_) : fromLane(fromLane_), toEdge(toEdge_), toLane(toLane_) 
-        {
+        Connection(int fromLane_, NBEdge *toEdge_, int toLane_) : fromLane(fromLane_), toEdge(toEdge_), toLane(toLane_) {
         }
         int fromLane;
         NBEdge *toEdge;
@@ -143,17 +142,17 @@ public:
 
 public:
     /// constructor
-    NBEdge(const std::string &id, 
+    NBEdge(const std::string &id,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
            LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
-    NBEdge(const std::string &id, 
+    NBEdge(const std::string &id,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
            Position2DVector geom, LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
-    
+
     /** @brief Destructor
      */
     ~NBEdge() throw();
@@ -170,7 +169,7 @@ public:
         return myID;
     }
 
-    
+
     /** @brief Returns the number of lanes
      * @returns This edge's number of lanes
      */
@@ -255,7 +254,7 @@ public:
 
 
     /** @brief (Re)sets the edge's geometry
-     * 
+     *
      * Replaces the edge's prior geometry by the given. Then, computes
      *  the geometries of all lanes using computeLaneShapes.
      * Definitely not the best way to have it accessable from outside...
@@ -268,7 +267,7 @@ public:
 
     /** @brief Computes the shape of the edge (regarding the nodes' shapes
      *
-     * Because an edge's shape should start/end at the boundaries of the nodes 
+     * Because an edge's shape should start/end at the boundaries of the nodes
      *  the edge starts/ends at, we have to recompute the edge's shape after
      *  we know the ones of the nodes. This is done within this method.
      * @todo Describe what is done here
@@ -619,7 +618,7 @@ private:
 
     // !!! describe
     void writeSingleSucceeding(OutputDevice &into,
-        const NBEdge::Connection &c, bool includeInternal);
+                               const NBEdge::Connection &c, bool includeInternal);
 
 
 
@@ -801,7 +800,7 @@ private:
         explicit connections_sorter() { }
 
         int operator()(const Connection &c1, const Connection &c2) const {
-            if(c1.fromLane!=c2.fromLane) {
+            if (c1.fromLane!=c2.fromLane) {
                 return c1.fromLane<c2.fromLane;
             }
             return c1.toLane<c2.toLane;
@@ -823,7 +822,7 @@ private:
     public:
         /// comparing operation
         int operator()(const Connection &c1, const Connection &c2) const {
-            if(c1.toEdge!=c2.toEdge) {
+            if (c1.toEdge!=c2.toEdge) {
                 SUMOReal relAngle1 = NBHelpers::normRelAngle(
                                          myEdge->getAngle(), c1.toEdge->getAngle());
                 SUMOReal relAngle2 = NBHelpers::normRelAngle(

@@ -92,7 +92,7 @@ initNet(RONet &net, ROLoader &loader, OptionsCont &oc,
     loader.loadNet(net, builder);
     // set the turn defaults
     const map<std::string, ROEdge*> &edges = net.getEdgeMap();
-    for(map<std::string, ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
+    for (map<std::string, ROEdge*>::const_iterator i=edges.begin(); i!=edges.end(); ++i) {
         static_cast<ROJTREdge*>((*i).second)->setTurnDefaults(turnDefs);
     }
     // load the weights when wished/available

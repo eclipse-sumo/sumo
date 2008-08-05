@@ -49,7 +49,7 @@ class OutputDevice;
  * @class RORoute
  * @brief A complete router's route
  *
- * This class represents a single and complete vehicle route after being 
+ * This class represents a single and complete vehicle route after being
  *  computed/imported.
  */
 class RORoute : public Named
@@ -58,7 +58,7 @@ public:
     /** @brief Constructor
      *
      * @param[in] id The route's id
-     * @param[in] costs The route's costs 
+     * @param[in] costs The route's costs
      * @param[in] prob The route's probability
      * @param[in] route The list of edges the route is made of
      * @param[in] color The (optional) color of this route
@@ -89,7 +89,7 @@ public:
 
 
     /** @brief Saves the whole route (as a route)
-     * 
+     *
      * @param[in] dev The device to save the route into
      * @param[in] isPeriodical Whether the route shall be reused by other vehicles
      * @todo is isPeriodical really needed?
@@ -167,7 +167,7 @@ public:
 
     /** @brief Removes the first edge
      *
-     * Used if this edge is too short to emit vehicles on 
+     * Used if this edge is too short to emit vehicles on
      */
     void pruneFirst() throw();
 
@@ -193,8 +193,8 @@ public:
      */
     void recheckForLoops() throw();
 
-OutputDevice &
-writeXMLDefinition(OutputDevice &dev, bool asAlternatives) const;
+    OutputDevice &
+    writeXMLDefinition(OutputDevice &dev, bool asAlternatives) const;
 
 
 private:

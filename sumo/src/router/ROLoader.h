@@ -121,7 +121,7 @@ protected:
      *
      * Checks then whether the given option name is set and his value is one
      *  or a set of valid (existing) files. This is done via a call to
-     *  "OptionsCont::isUsableFileList" (which generates a proper error 
+     *  "OptionsCont::isUsableFileList" (which generates a proper error
      *  message).
      *
      * If the given files are valid, the proper instance(s) is built using
@@ -140,7 +140,7 @@ protected:
     /** @brief Returns the first time step known by the built handlers
      *
      * The handlers are responsible for not adding route definitions
-     *  prior to "begin"-Option's value. These priori departures 
+     *  prior to "begin"-Option's value. These priori departures
      *  must also not be reported by them whaen asking via "getLastReadTimeStep".
      *
      * @return The first time step of loaded routes
@@ -266,8 +266,8 @@ class EdgeFloatTimeLineRetriever_EdgeWeight : public SAXWeightsHandler::EdgeFloa
 
 
 protected:
-    ROAbstractRouteDefLoader* buildNamedHandler(const std::string &optionName, 
-        const std::string &file, RONet &net) throw(ProcessError);
+    ROAbstractRouteDefLoader* buildNamedHandler(const std::string &optionName,
+            const std::string &file, RONet &net) throw(ProcessError);
 
 
     void writeStats(SUMOTime time, SUMOTime start, int absNo) throw();

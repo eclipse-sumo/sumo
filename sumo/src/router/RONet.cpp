@@ -96,7 +96,7 @@ RONet::addEdge(ROEdge *edge) throw()
 void
 RONet::addNode(RONode *node) throw()
 {
-    if(!myNodes.add(node->getID(), node)) {
+    if (!myNodes.add(node->getID(), node)) {
         MsgHandler::getErrorInstance()->inform("The node '" + node->getID() + "' occures at least twice.");
         delete node;
     }
@@ -161,7 +161,7 @@ RONet::getVehicleTypeSecure(const std::string &id) throw()
 bool
 RONet::addVehicleType(ROVehicleType *type) throw()
 {
-    if(!myVehicleTypes.add(type->getID(), type)) {
+    if (!myVehicleTypes.add(type->getID(), type)) {
         MsgHandler::getErrorInstance()->inform("The vehicle type '" + type->getID() + "' occures at least twice.");
         delete type;
         return false;
@@ -173,7 +173,7 @@ RONet::addVehicleType(ROVehicleType *type) throw()
 bool
 RONet::addVehicle(const std::string &id, ROVehicle *veh) throw()
 {
-    if(myVehicles.add(id, veh)) {
+    if (myVehicles.add(id, veh)) {
         myReadRouteNo++;
         return true;
     }
@@ -251,7 +251,7 @@ RONet::saveAndRemoveRoutesUntil(OptionsCont &options, SUMOAbstractRouter<ROEdge,
         lastTime = currentTime;
 
         // ok, compute the route (try it)
-        if(computeRoute(options, router, veh)) {
+        if (computeRoute(options, router, veh)) {
             // write the route
             veh->saveAllAsXML(*myRoutesOutput, myRouteAlternativesOutput);
             myWrittenRouteNo++;

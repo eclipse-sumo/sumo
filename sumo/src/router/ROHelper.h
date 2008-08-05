@@ -79,24 +79,25 @@ public:
  * @namespace ROHelper
  * @brief Some helping methods for router
  */
-namespace ROHelper {
-    /** @brief Computes the costs (travel time) for the given list of edges
-     * 
-     * @param[in] edges The edges to pass
-     * @param[in] v The vehicle that passes the edges
-     * @param[in] time The time at which the vehicle begins to pass the edges
-     * @return The time needed by the vehicle to pass the edges (completely)
-     * @todo Check whether vehicle's max speed is considered
-     */
-    SUMOReal recomputeCosts(const std::vector<const ROEdge*> &edges,
-        const ROVehicle * const v, SUMOTime time) throw();
+namespace ROHelper
+{
+/** @brief Computes the costs (travel time) for the given list of edges
+ *
+ * @param[in] edges The edges to pass
+ * @param[in] v The vehicle that passes the edges
+ * @param[in] time The time at which the vehicle begins to pass the edges
+ * @return The time needed by the vehicle to pass the edges (completely)
+ * @todo Check whether vehicle's max speed is considered
+ */
+SUMOReal recomputeCosts(const std::vector<const ROEdge*> &edges,
+                        const ROVehicle * const v, SUMOTime time) throw();
 
 
-    /** @brief Checks whether the given edge list contains loops and removes them
-     * 
-     * @param[in] edges The list of edges to remove loops from
-     */
-    void recheckForLoops(std::vector<const ROEdge*> &edges) throw();
+/** @brief Checks whether the given edge list contains loops and removes them
+ *
+ * @param[in] edges The list of edges to remove loops from
+ */
+void recheckForLoops(std::vector<const ROEdge*> &edges) throw();
 
 }
 

@@ -204,7 +204,7 @@
 #define DOMVAR_EXTID 0x12
 // angle of a certain object, in degrees [0..360)
 #define DOMVAR_ANGLE 0x13
-// current simulation time 
+// current simulation time
 #define DOMVAR_SIMTIME 0x14
 
 // ****************************************
@@ -215,7 +215,7 @@
 #define TLPHASE_RED 0x01
 // yellow phase
 #define TLPHASE_YELLOW 0x02
-// green phase 
+// green phase
 #define TLPHASE_GREEN 0x03
 // tl is blinking
 #define TLPHASE_BLINKING 0x04

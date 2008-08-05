@@ -63,7 +63,7 @@ class GUIGlObjectStorage;
  *
  * Junction-internal conflicts are managed by this class by setting the
  *  information about a vehicle being on an internal lane to the junction
- *  logic ("myFoesCont", the lane's index is stored in "myFoesIndex"). 
+ *  logic ("myFoesCont", the lane's index is stored in "myFoesIndex").
  * This logic than decides whether further vehicles may approach the
  *  junction.
  *
@@ -76,7 +76,7 @@ class GUIGlObjectStorage;
 class MSInternalLane : public MSLane
 {
 public:
-    /** @brief Constructor 
+    /** @brief Constructor
      *
      * @param[in] id The lane's id
      * @param[in] maxSpeed The speed allwoed on this lane
@@ -88,10 +88,10 @@ public:
      * @see SUMOVehicleClass
      * @see MSLane
      */
-    MSInternalLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge, 
-        unsigned int numericalID, const Position2DVector &shape,
-        const std::vector<SUMOVehicleClass> &allowed, 
-        const std::vector<SUMOVehicleClass> &disallowed) throw();
+    MSInternalLane(const std::string &id, SUMOReal maxSpeed, SUMOReal length, MSEdge * const edge,
+                   unsigned int numericalID, const Position2DVector &shape,
+                   const std::vector<SUMOVehicleClass> &allowed,
+                   const std::vector<SUMOVehicleClass> &disallowed) throw();
 
 
     /// @brief Destructor

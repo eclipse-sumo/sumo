@@ -58,7 +58,7 @@ class ROAbstractRouteDefLoader
 {
 public:
     /** @brief Constructor
-     * 
+     *
      * @param[in] vb The vehicle builder to use
      * @param[in] net The network to add loaded route definitions to
      * @param[in] begin Vehicles departing before this time shall not be loaded

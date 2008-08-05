@@ -386,11 +386,11 @@ NBTrafficLightDefinition::addNode(NBNode *node)
 }
 
 
-void 
+void
 NBTrafficLightDefinition::removeNode(NBNode *node)
 {
     set<NBNode*>::iterator i=myControlledNodes.find(node);
-    if(i!=myControlledNodes.end()) {
+    if (i!=myControlledNodes.end()) {
         myControlledNodes.erase(i);
     }
     // !!! remove in node?

@@ -205,7 +205,7 @@ protected:
          *
          * @param[in] currentTime The current simulation time
          * @return The time after which the command shall be executed again
-         * @exception ProcessError 
+         * @exception ProcessError
          * @todo Recheck, describe!!!
          */
         SUMOTime execute(SUMOTime currentTime) throw(ProcessError);

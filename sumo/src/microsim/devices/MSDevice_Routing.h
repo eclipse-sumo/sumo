@@ -53,16 +53,16 @@ class MSLane;
  * @brief A device that performs vehicle rerouting based on current edge speeds
  *
  * The routing-device system consists of in-vehicle devices that perform a routing
- *  and a simulation-wide (static) methods for colecting edge weights. 
+ *  and a simulation-wide (static) methods for colecting edge weights.
  *
- * The edge weights container "myEdgeEfforts" is pre-initialised as soon as one 
+ * The edge weights container "myEdgeEfforts" is pre-initialised as soon as one
  *  device is built and is kept updated via an event that adapts it to the current
  *  mean speed on the simulated network's edges.
  *
  * A device is assigned to a vehicle using the common explicite/probability - procedure.
  *
  * A device computes a new route for a vehicle as soon as the vehicle is emitted
- *  (within "enterLaneAtEmit") - and, if the given period is larger than 0 - each 
+ *  (within "enterLaneAtEmit") - and, if the given period is larger than 0 - each
  *  x time steps where x is the period. This is triggered by an event that executes
  *  "wrappedRerouteCommandExecute".
  */
@@ -81,7 +81,7 @@ public:
      *
      * When the first device is built, the static container of edge weights
      *  used for routing is initialised with the mean speed the edges allow.
-     *  In addition, an event is generated which updates these weights is 
+     *  In addition, an event is generated which updates these weights is
      *  built and added to the list of events to execute at a simulation end.
      *
      * For each seen vehicle, the global vehicle index is increased.
@@ -104,7 +104,7 @@ public:
      *  "getEffort" as the edge effort retrieval method.
      *
      * If the reroute period is larger than 0, an event is generated and added
-     *  to the list of simulation step begin events which executes 
+     *  to the list of simulation step begin events which executes
      *  "wrappedRerouteCommandExecute".
      *
      * @param[in] enteredLane The lane the vehicle enters
@@ -119,7 +119,7 @@ public:
 
 private:
     /** @brief Constructor
-     * 
+     *
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      * @param[in] period The period with which a new route shall be serached
@@ -152,7 +152,7 @@ private:
      * This method is given to the used router in order to obtain the efforts
      *  to pass an edge from the internal edge weights container.
      *
-     * The time is not used, here, as the current simulation state is 
+     * The time is not used, here, as the current simulation state is
      *  used in an aggregated way.
      *
      * @param[in] e The edge for which the effort to be passed shall be returned

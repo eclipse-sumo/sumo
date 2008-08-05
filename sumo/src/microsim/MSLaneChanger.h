@@ -162,12 +162,12 @@ protected:
     ChangerIt findTarget();
 
     void setOverlap(const std::pair<MSVehicle * const, SUMOReal> &neighLead,
-                            const std::pair<MSVehicle * const, SUMOReal> &neighFollow,
-                            /*const ChangerIt &target,*/ int &blocked) const throw();
+                    const std::pair<MSVehicle * const, SUMOReal> &neighFollow,
+                    /*const ChangerIt &target,*/ int &blocked) const throw();
 
     void setIsSafeChange(const std::pair<MSVehicle * const, SUMOReal> &neighLead,
-                                 const std::pair<MSVehicle * const, SUMOReal> &neighFollow,
-                                 const ChangerIt &target, int &blocked) const throw();
+                         const std::pair<MSVehicle * const, SUMOReal> &neighFollow,
+                         const ChangerIt &target, int &blocked) const throw();
 
     /** Returns true, if candidate has an advantage by changing to the
         right. */
@@ -209,9 +209,9 @@ protected:
     std::pair<MSVehicle * const, SUMOReal> getRealLeftLeader() const throw();
 
     void writeOutput(const MSVehicle * const veh, int state,
-        const std::pair<MSVehicle * const, SUMOReal> &lead, 
-        const std::pair<MSVehicle * const, SUMOReal> &follow,
-        int dir, const MSVehicle * const swapped=0);
+                     const std::pair<MSVehicle * const, SUMOReal> &lead,
+                     const std::pair<MSVehicle * const, SUMOReal> &follow,
+                     int dir, const MSVehicle * const swapped=0);
 
 protected:
     /// Container for ChangeElemements, one for every lane in the edge.

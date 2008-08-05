@@ -45,7 +45,7 @@
  *
  * This device allows to log the data of all running vehicles of the
  *  specified vehicle type, i.e. vehicle id, edge, lane=, position
- *  on lane, x/y coordinates and speed. 
+ *  on lane, x/y coordinates and speed.
  *
  * A frequency can be specified to generate the output in certain intervals,
  *  (e.g. every 10 seconds) and is used via the detector control by
@@ -63,7 +63,7 @@ public:
      * @param[in] id The id of the vehicle type probe
      * @param[in] vType The vtype of which vehicles to report must be ("" for all vehicles)
      */
-    MSVTypeProbe(const std::string &id, 
+    MSVTypeProbe(const std::string &id,
                  const std::string &vType) throw();
 
 
@@ -88,7 +88,7 @@ public:
      * @exception IOError If an error on writing occures (!!! not yet implemented)
      */
     void writeXMLOutput(OutputDevice &dev,
-        SUMOTime startTime, SUMOTime stopTime) throw(IOError);
+                        SUMOTime startTime, SUMOTime stopTime) throw(IOError);
 
 
     /** @brief Opens the XML-output using "detector" as root element

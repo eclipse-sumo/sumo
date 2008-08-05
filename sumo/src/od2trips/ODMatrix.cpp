@@ -121,7 +121,7 @@ ODMatrix::computeEmissions(ODCell *cell,
         veh.id = prefix + toString(vehName++);
 
         if (uniform) {
-            veh.depart = (unsigned int) (offset + cell->begin + ((SUMOReal)(cell->end - cell->begin) * (SUMOReal) i / (SUMOReal) vehicles2emit));
+            veh.depart = (unsigned int)(offset + cell->begin + ((SUMOReal)(cell->end - cell->begin) * (SUMOReal) i / (SUMOReal) vehicles2emit));
         } else {
             veh.depart = (unsigned int) RandHelper::rand((int) cell->begin, (int) cell->end);
         }

@@ -50,8 +50,8 @@ class MSVehicleControl;
  * @class MSEmitControl
  * @brief Inserts vehicles into the network when their departure time is reached
  *
- * A vehicle emitter; Holds a list of vehicles which may be filled by vehicles 
- *  read by MSRouteLoaders. Tries to emit vehicles departing at a time into the 
+ * A vehicle emitter; Holds a list of vehicles which may be filled by vehicles
+ *  read by MSRouteLoaders. Tries to emit vehicles departing at a time into the
  *  network as soon this time is reached and keeps them as long the emission
  *  fails.
  *
@@ -79,12 +79,12 @@ public:
     /** @brief Emits vehicles that want to depart at the given time
      *
      * All vehicles scheduled for this time are tried to be emitted. This
-     *  includes those with a depart time as the given time and those that 
-     *  wait for being emitted due they could not be inserted in previous 
+     *  includes those with a depart time as the given time and those that
+     *  wait for being emitted due they could not be inserted in previous
      *  steps.
      *
      * For each vehicle, tryEmit is called. If this fails, a vehicle
-     *  keeps within the refused emit containers ("myRefusedEmits1", 
+     *  keeps within the refused emit containers ("myRefusedEmits1",
      *  "myRefusedEmits2") so that it may be emitted within the next steps.
      *
      * Returns the number of vehicles that could be inserted into the net.
@@ -96,7 +96,7 @@ public:
 
 
     /** @brief Adds a single vehicle for departure
-     * 
+     *
      * The vehicle is added to "myAllVeh".
      *
      * @param[in] veh The vehicle to add for later emission
@@ -115,7 +115,7 @@ public:
 
 
     /** @brief Returns the number of waiting vehicles
-     * 
+     *
      * The sizes of refused emits (sum of vehicles in "myRefusedEmits1" and
      *  "myRefusedEmits2") is returned.
      *
@@ -128,11 +128,11 @@ public:
 private:
     /** @brief Tries to emit the vehicle
      *
-     * If the emission fails, it is examined whether the reason was a vaporizing 
+     * If the emission fails, it is examined whether the reason was a vaporizing
      *  edge. If so, the vehicle is deleted. Otherwise, it is checked whether the
      *  time the vehicle had to wait so far is larger than the maximum allowed
      *  waiting time. If so, the vehicle is deleted, too. If both does not match,
-     *  the vehicle is reinserted to "refusedEmits" in order to be emitted in 
+     *  the vehicle is reinserted to "refusedEmits" in order to be emitted in
      *  next steps.
      *
      * As soon as the vehicle is emitted or deleted, it is checked whether
@@ -146,7 +146,7 @@ private:
      * @todo Reinsertion seems to be buggy - consecutive vehicles of one that wais a long time are inserted too late
      */
     unsigned int tryEmit(SUMOTime time, MSVehicle *veh,
-        MSVehicleContainer::VehicleVector &refusedEmits) throw();
+                         MSVehicleContainer::VehicleVector &refusedEmits) throw();
 
 
     /** @brief Adds all vehicles that should have been emitted earlier to the refuse container
@@ -172,7 +172,7 @@ private:
 private:
     /// @brief The assigned vehicle control (needed for vehicle reemission and deletion)
     MSVehicleControl &myVehicleControl;
-    
+
     /// @brief All loaded vehicles sorted by their departure time
     MSVehicleContainer myAllVeh;
 

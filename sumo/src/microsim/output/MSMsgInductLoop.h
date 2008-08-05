@@ -85,14 +85,14 @@ public:
      * Adds reminder to MSLane.
      *
      * @param id Unique id.
-	 * @param msg The message to write
+     * @param msg The message to write
      * @param lane Lane where detector woks on.
      * @param position Position of the detector within the lane.
      * @param deleteDataAfterSeconds Dismiss-time for collected data.
      */
     MSMsgInductLoop(const std::string& id, const std::string& msg,
-                 MSLane* lane,
-                 SUMOReal positionInMeters) throw();
+                    MSLane* lane,
+                    SUMOReal positionInMeters) throw();
 
 
     /// @brief Destructor
@@ -370,10 +370,10 @@ protected:
     /// @brief Data for vehicles that have entered the detector
     VehicleMap myVehiclesOnDet;
 
-	/// @brief The message
-	std::string myMsg;
-	
-	std::string myCurrentID;
+    /// @brief The message
+    std::string myMsg;
+
+    std::string myCurrentID;
 
 
 private:

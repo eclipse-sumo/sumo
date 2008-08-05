@@ -61,7 +61,7 @@ public:
      * @param[in] operation The objects' method that will be called on execute()
      */
     StaticCommand(Operation operation) throw()
-            : myOperation(operation), myAmDescheduledByParent(false){}
+            : myOperation(operation), myAmDescheduledByParent(false) {}
 
 
     /// @brief Destructor
@@ -93,7 +93,7 @@ public:
      */
     SUMOTime execute(SUMOTime currentTime) throw(ProcessError) {
         // do not execute if the command was descheduled
-        if(myAmDescheduledByParent) {
+        if (myAmDescheduledByParent) {
             return 0;
         }
         // execute if stil valid
@@ -101,7 +101,7 @@ public:
     }
     /// @}
 
-    
+
 private:
     /// @brief The object's operation to perform.
     Operation myOperation;

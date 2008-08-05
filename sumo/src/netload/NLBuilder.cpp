@@ -209,12 +209,12 @@ NLBuilder::buildNet()
     myJunctionBuilder.closeJunctions(myDetectorBuilder, myXMLHandler.getContinuations());
     MSEdgeControl *edges = myEdgeBuilder.build();
     MSFrame::buildStreams();
-    std::vector<MSMeanData_Net*> meanData = 
+    std::vector<MSMeanData_Net*> meanData =
         MSMeanData_Net_Utils::buildList(myNet.getDetectorControl(), *edges,
-            myOptions.getIntVector("dump-intervals"), myOptions.getString("dump-basename"),
-            myOptions.getIntVector("lanedump-intervals"), myOptions.getString("lanedump-basename"),
-            myOptions.getIntVector("dump-begins"), myOptions.getIntVector("dump-ends"),
-            !myOptions.getBool("exclude-empty-edges"), !myOptions.getBool("exclude-empty-lanes"));
+                                        myOptions.getIntVector("dump-intervals"), myOptions.getString("dump-basename"),
+                                        myOptions.getIntVector("lanedump-intervals"), myOptions.getString("lanedump-basename"),
+                                        myOptions.getIntVector("dump-begins"), myOptions.getIntVector("dump-ends"),
+                                        !myOptions.getBool("exclude-empty-edges"), !myOptions.getBool("exclude-empty-lanes"));
     vector<int> stateDumpTimes;
     string stateDumpFiles;
 #ifdef HAVE_MESOSIM
@@ -222,8 +222,8 @@ NLBuilder::buildNet()
     stateDumpFiles = myOptions.getString("save-state.prefix");
 #endif
     myNet.closeBuilding(edges, myJunctionBuilder.build(),
-        buildRouteLoaderControl(myOptions), myJunctionBuilder.buildTLLogics(),
-        meanData, stateDumpTimes, stateDumpFiles);
+                        buildRouteLoaderControl(myOptions), myJunctionBuilder.buildTLLogics(),
+                        meanData, stateDumpTimes, stateDumpFiles);
 }
 
 

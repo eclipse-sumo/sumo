@@ -96,41 +96,41 @@ public:
      */
     static MSNet* getInstance();
 
-    MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents, 
-             MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents);
+    MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
+          MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents);
 
 
     /// Destructor.
     virtual ~MSNet();
 
 #ifdef _MESSAGES
-	/// @brief Map of MSMsgEmitter by ID
-	typedef NamedObjectCont< MSMessageEmitter* > MsgEmitterDict;
-	
-	// TODO
-	/**
-	 * @brief Returns the Message Emitter needed
-	 *
-	 * @param whatemit std::string defining the requested MSMessageEmitter.
-	 * @return the first MessageEmitter found, which has the requested element enabled
-	 */
-	MSMessageEmitter *getMsgEmitter(const std::string& whatemit);
+    /// @brief Map of MSMsgEmitter by ID
+    typedef NamedObjectCont< MSMessageEmitter* > MsgEmitterDict;
 
-	/**
-	 *
-	 *
-	 */
-	void createMsgEmitter(std::string& id,
-						  std::string& file,
-						  const std::string& base,
-						  std::string& whatemit,
-						  bool reverse,
-						  bool table,
-						  bool xy,
-						  SUMOReal step);
+    // TODO
+    /**
+     * @brief Returns the Message Emitter needed
+     *
+     * @param whatemit std::string defining the requested MSMessageEmitter.
+     * @return the first MessageEmitter found, which has the requested element enabled
+     */
+    MSMessageEmitter *getMsgEmitter(const std::string& whatemit);
+
+    /**
+     *
+     *
+     */
+    void createMsgEmitter(std::string& id,
+                          std::string& file,
+                          const std::string& base,
+                          std::string& whatemit,
+                          bool reverse,
+                          bool table,
+                          bool xy,
+                          SUMOReal step);
 #endif
 
-	/** @brief Simulates from timestep start to stop.
+    /** @brief Simulates from timestep start to stop.
         start and stop in timesteps.
         In each timestep we emit Vehicles, move Vehicles,
         the Vehicles change Lanes.  The method returns true when the
@@ -435,10 +435,10 @@ private:
     MSNet& operator=(const MSNet&);
 
 #ifdef _MESSAGES
-	/// The message Emitter
-	MsgEmitterDict myMsgEmitter;
-	
-	std::vector<MSMessageEmitter*> msgEmitVec;
+    /// The message Emitter
+    MsgEmitterDict myMsgEmitter;
+
+    std::vector<MSMessageEmitter*> msgEmitVec;
 #endif
 
 };

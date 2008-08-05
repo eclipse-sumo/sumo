@@ -77,7 +77,7 @@ public:
 
     /// Initialises the tls with information about incoming lanes
     virtual void init(NLDetectorBuilder &nb,
-              const MSEdgeContinuations &edgeContinuations);
+                      const MSEdgeContinuations &edgeContinuations);
 
     /// Destructor
     virtual ~MSTrafficLightLogic();

@@ -54,10 +54,10 @@ GenericSAXHandler::Tag sumotags[] = {
     { "e2-detector",      SUMO_TAG_E2DETECTOR },
     { "e3-detector",      SUMO_TAG_E3DETECTOR },
 #ifdef _MESSAGES
-	{ "msgemitter",		  SUMO_TAG_MSG_EMITTER },
-	{ "e4-detector",	  SUMO_TAG_MSG },
+    { "msgemitter",		  SUMO_TAG_MSG_EMITTER },
+    { "e4-detector",	  SUMO_TAG_MSG },
 #endif
-	{ "det_entry",        SUMO_TAG_DET_ENTRY },
+    { "det_entry",        SUMO_TAG_DET_ENTRY },
     { "det_exit",         SUMO_TAG_DET_EXIT },
     { "vtypeprobe",       SUMO_TAG_VTYPEPROBE },
     { "vehicle",          SUMO_TAG_VEHICLE },
@@ -223,14 +223,14 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "int_end",        SUMO_ATTR_INTERNALEND },
 
 #ifdef _MESSAGES
-	{ "msg",			SUMO_ATTR_MSG },
-	{ "emit_msg",		SUMO_ATTR_EVENTS },
-	{ "reverse",		SUMO_ATTR_REVERSE },
-	{ "table",			SUMO_ATTR_TABLE },
-	{ "xy",				SUMO_ATTR_XY },
-	{ "step",			SUMO_ATTR_STEP },
+    { "msg",			SUMO_ATTR_MSG },
+    { "emit_msg",		SUMO_ATTR_EVENTS },
+    { "reverse",		SUMO_ATTR_REVERSE },
+    { "table",			SUMO_ATTR_TABLE },
+    { "xy",				SUMO_ATTR_XY },
+    { "step",			SUMO_ATTR_STEP },
 #endif
-	{ "min_dur",        SUMO_ATTR_MINDURATION },
+    { "min_dur",        SUMO_ATTR_MINDURATION },
     { "max_dur",        SUMO_ATTR_MAXDURATION },
     { "foes",           SUMO_ATTR_FOES },
     { "measures",       SUMO_ATTR_MEASURES },

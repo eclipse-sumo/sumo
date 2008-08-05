@@ -66,7 +66,7 @@ class ROVehicleType : public ReferencedItem
 {
 public:
     /** @brief Constructor
-     * 
+     *
      * @param[in] id The id of the vehicle type
      * @param[in] col A string storing the vehicle type's color
      * @param[in] length The length of vehicles of this type
@@ -90,7 +90,7 @@ public:
      */
     virtual OutputDevice &writeXMLDefinition(OutputDevice &dev) const = 0;
 
-    
+
     /** @brief Returns the name of the type
      *
      * @return The id of the vehicle type
@@ -108,7 +108,7 @@ public:
         return myLength;
     }
 
-    
+
     /** @brief Returns the class of the vehicle
      *
      * @return The class of vehicles of this type

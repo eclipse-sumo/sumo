@@ -163,7 +163,7 @@ GUITrafficLightLogicWrapper::getPopUpMenu(GUIMainWindow &app,
         for (i=logics.begin(); i!=logics.end(); ++i, ++index) {
             if (!vars.isActive(*i)) {
                 new FXMenuCommand(ret, ("Switch to '" + (*i)->getSubID() + "'").c_str(),
-                                  GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, (FXSelector) (MID_SWITCH+index));
+                                  GUIIconSubSys::getIcon(ICON_FLAG_MINUS), ret, (FXSelector)(MID_SWITCH+index));
             }
         }
         new FXMenuSeparator(ret);

@@ -105,7 +105,7 @@ MSDevice_C2C::buildLookUpInformation()
     }
     // divide edges on grid
     size_t index = 0;
-    for(vector<MSEdge*>::iterator i=myAllEdges.begin(); i!=myAllEdges.end(); ++i, ++index) {
+    for (vector<MSEdge*>::iterator i=myAllEdges.begin(); i!=myAllEdges.end(); ++i, ++index) {
         computeEdgeCells(*i);
     }
     // set neighborhood
@@ -115,21 +115,21 @@ MSDevice_C2C::buildLookUpInformation()
         for (std::vector<Cell*>::iterator j=neighbors.begin(); j!=neighbors.end(); ++j) {
             Cell *neighbor = *j;
             for (std::vector<const MSEdge*>::iterator k=neighbor->ownEdges.begin(); k!=neighbor->ownEdges.end(); ++k) {
-                if(find((*ci)->neighborEdges.begin(), (*ci)->neighborEdges.end(), *k)==(*ci)->neighborEdges.end()) {
+                if (find((*ci)->neighborEdges.begin(), (*ci)->neighborEdges.end(), *k)==(*ci)->neighborEdges.end()) {
                     (*ci)->neighborEdges.push_back(*k);
                 }
             }
         }
     }
-    for(vector<MSEdge*>::iterator i=myAllEdges.begin(); i!=myAllEdges.end(); ++i, ++index) {
+    for (vector<MSEdge*>::iterator i=myAllEdges.begin(); i!=myAllEdges.end(); ++i, ++index) {
         vector<size_t> &edgeCells = myEdgeCells[*i];
         vector<const MSEdge*> edgeNeighbors;
         for (vector<size_t>::iterator j=edgeCells.begin(); j!=edgeCells.end(); ++j) {
             vector<Cell*> neighbors = getNeighbors(*j);
             for (vector<Cell*>::iterator k=neighbors.begin(); k!=neighbors.end(); ++k) {
                 const vector<const MSEdge*> &ownEdges = (*k)->ownEdges;
-                for(vector<const MSEdge*>::const_iterator l=ownEdges.begin(); l!=ownEdges.end(); ++l) {
-                    if(find(edgeNeighbors.begin(), edgeNeighbors.end(), *l)==edgeNeighbors.end()) {
+                for (vector<const MSEdge*>::const_iterator l=ownEdges.begin(); l!=ownEdges.end(); ++l) {
+                    if (find(edgeNeighbors.begin(), edgeNeighbors.end(), *l)==edgeNeighbors.end()) {
                         edgeNeighbors.push_back(*l);
                     }
                 }
@@ -137,7 +137,7 @@ MSDevice_C2C::buildLookUpInformation()
         }
         myEdgeNeighbors[*i] = edgeNeighbors;
     }
-    if(OutputDevice::createDeviceByOption("c2x.edge-near-info", "edge-neighbors")) {
+    if (OutputDevice::createDeviceByOption("c2x.edge-near-info", "edge-neighbors")) {
         writeNearEdges(OutputDevice::getDeviceByOption("c2x.edge-near-info"));
     }
 }
@@ -267,7 +267,7 @@ void
 MSDevice_C2C::writeNearEdges(OutputDevice &od)
 {
     size_t index = 0;
-    for(vector<MSEdge*>::iterator i=myAllEdges.begin(); i!=myAllEdges.end(); ++i, ++index) {
+    for (vector<MSEdge*>::iterator i=myAllEdges.begin(); i!=myAllEdges.end(); ++i, ++index) {
         MSEdge *e = *i;
         const vector<const MSEdge*> &neighbors = myEdgeNeighbors[e];
         od << "   <edge id=\"" << e->getID() << "\" neighborNo=\"" << neighbors.size() << "\">";
@@ -329,7 +329,7 @@ MSDevice_C2C::insertOptions() throw()
 
     myVehicleIndex = 0;
     for (vector<Cell*>::const_iterator i=myCells.begin(); i!=myCells.end(); ++i) {
-        delete (*i);
+        delete(*i);
     }
     myC2CComputationCommand = 0;
     myAllEdges.clear();
@@ -366,7 +366,7 @@ MSDevice_C2C::buildVehicleDevices(MSVehicle &v, std::vector<MSDevice*> &into) th
             buildLookUpInformation();
         }
         // make the weights be updated
-        if(myC2CComputationCommand==0) {
+        if (myC2CComputationCommand==0) {
             myC2CComputationCommand = new StaticCommand< MSDevice_C2C >(&MSDevice_C2C::computeC2CExecute);
             MSNet::getInstance()->getEndOfTimestepEvents().addEvent(
                 myC2CComputationCommand, 0, MSEventControl::ADAPT_AFTER_EXECUTION);
@@ -385,10 +385,10 @@ MSDevice_C2C::computeC2CExecute(SUMOTime t)
     // clean up prior information
     myConnected.clear();
     myClusterHeaders.clear();
-    // 
+    //
     for (map<const MSEdge*, vector<MSDevice_C2C*> >::iterator i=myEdgeVehicles.begin(); i!=myEdgeVehicles.end(); ++i) {
         vector<MSDevice_C2C*> &devices = (*i).second;
-        for(vector<MSDevice_C2C*>::iterator j=devices.begin(); j!=devices.end(); ++j) {
+        for (vector<MSDevice_C2C*>::iterator j=devices.begin(); j!=devices.end(); ++j) {
             // update own information
             // a) insert the current edge if the vehicle is standing for a long period
             // b) remove information older then a specified amount of time (MSGlobals::gLANRefuseOldInfosOffset)
@@ -398,12 +398,12 @@ MSDevice_C2C::computeC2CExecute(SUMOTime t)
             const vector<const MSEdge*> &neighborEdges = myEdgeNeighbors[(*i).first];
             for (vector<const MSEdge*>::const_iterator l=neighborEdges.begin(); l!=neighborEdges.end(); ++l) {
                 map<const MSEdge*, vector<MSDevice_C2C*> >::iterator ndi = myEdgeVehicles.find(*l);
-                if(ndi==myEdgeVehicles.end()) {
+                if (ndi==myEdgeVehicles.end()) {
                     // no c2c vehicle on this edge...
                     continue;
                 }
                 vector<MSDevice_C2C*> &neighborDevices = ndi->second;
-                for(vector<MSDevice_C2C*>::const_iterator m = neighborDevices.begin(); m!=neighborDevices.end(); ++m) {
+                for (vector<MSDevice_C2C*>::const_iterator m = neighborDevices.begin(); m!=neighborDevices.end(); ++m) {
                     if (*j!=*m) {
                         // update connection state
                         (*j)->addVehNeighbors(*m, t);
@@ -428,16 +428,16 @@ MSDevice_C2C::computeC2CExecute(SUMOTime t)
     int clusterId = 1;
     for (vector<MSDevice_C2C*>::iterator q1=myConnected.begin(); q1!=myConnected.end(); q1++) {
         if ((*q1)->getClusterId()<0) {
-                /*
-                q = q1;
-                for(q2=myConnected.begin(); q2!=connected.end(); q2++) {
-                    int size1 = (*q1)->getConnections().size();
-                    int size2 = (*q2)->getConnections().size();
-                if((*q2)->getClusterId() < 0 && size1 < size2){
-                q = q2;
-                }
-                }
-                */
+            /*
+            q = q1;
+            for(q2=myConnected.begin(); q2!=connected.end(); q2++) {
+                int size1 = (*q1)->getConnections().size();
+                int size2 = (*q2)->getConnections().size();
+            if((*q2)->getClusterId() < 0 && size1 < size2){
+            q = q2;
+            }
+            }
+            */
             myClusterHeaders.push_back(*q1);
             (*q1)->buildMyCluster(t, clusterId);
             clusterId++;
@@ -445,12 +445,12 @@ MSDevice_C2C::computeC2CExecute(SUMOTime t)
     }
 
     // send information
-    for (vector<MSDevice_C2C*>::iterator q = myClusterHeaders.begin();q!=myClusterHeaders.end();q++){
+    for (vector<MSDevice_C2C*>::iterator q = myClusterHeaders.begin();q!=myClusterHeaders.end();q++) {
         (*q)->sendInfos(t);
     }
 
     // Rerouting?
-    for (vector<MSDevice_C2C*>::iterator q1 = myConnected.begin();q1!=myConnected.end();q1++){
+    for (vector<MSDevice_C2C*>::iterator q1 = myConnected.begin();q1!=myConnected.end();q1++) {
         (*q1)->checkReroute(t);
     }
 
@@ -523,12 +523,12 @@ MSDevice_C2C::~MSDevice_C2C() throw()
 
 
 void
-MSDevice_C2C::enterLaneAtMove(MSLane *lane, SUMOReal )
+MSDevice_C2C::enterLaneAtMove(MSLane *lane, SUMOReal)
 {
     delete akt;
     akt = new Information(0, MSNet::getInstance()->getCurrentTimeStep());
     const MSEdge * const edge = lane->getEdge();
-    if(myEdgeVehicles.find(edge)==myEdgeVehicles.end()) {
+    if (myEdgeVehicles.find(edge)==myEdgeVehicles.end()) {
         myEdgeVehicles[edge] = vector<MSDevice_C2C*>();
     }
     myEdgeVehicles[edge].push_back(this);
@@ -541,7 +541,7 @@ MSDevice_C2C::enterLaneAtEmit(MSLane *lane, const MSVehicle::State &)
     delete akt;
     akt = new Information(0, MSNet::getInstance()->getCurrentTimeStep());
     const MSEdge * const edge = lane->getEdge();
-    if(myEdgeVehicles.find(edge)==myEdgeVehicles.end()) {
+    if (myEdgeVehicles.find(edge)==myEdgeVehicles.end()) {
         myEdgeVehicles[edge] = vector<MSDevice_C2C*>();
     }
     myEdgeVehicles[edge].push_back(this);
@@ -549,7 +549,7 @@ MSDevice_C2C::enterLaneAtEmit(MSLane *lane, const MSVehicle::State &)
 
 
 void
-MSDevice_C2C::leaveLaneAtMove(SUMOReal )
+MSDevice_C2C::leaveLaneAtMove(SUMOReal)
 {
     // checke whether the vehicle needed longer than expected
     SUMOReal factor = getHolder().getEdge()->getVehicleEffort(&getHolder(), MSNet::getInstance()->getCurrentTimeStep());
@@ -661,8 +661,8 @@ MSDevice_C2C::addVehNeighbors(MSDevice_C2C *device, SUMOTime time)
                 // the vehicles will establish a new connection
                 C2CConnection *con = new C2CConnection(device, time);
                 //con->state = disconnected;
-    //			con->timeSinceSeen = 1;
-    //			con->timeSinceConnect = 0;
+                //			con->timeSinceSeen = 1;
+                //			con->timeSinceConnect = 0;
                 myNeighbors[device] = con;
                 // the other car must inform THIS vehicle if it's removed from the network
                 device->getHolder().quitRemindedEntered(this);
@@ -672,7 +672,7 @@ MSDevice_C2C::addVehNeighbors(MSDevice_C2C *device, SUMOTime time)
                 (*i).second->lastTimeSeen = time;
             }
             MSCORN::saveVehicleInRangeData(time, getID(), device->getID(),
-                                       pos1.x(),pos1.y(), pos2.x(),pos2.y());
+                                           pos1.x(),pos1.y(), pos2.x(),pos2.y());
         }
     }
 }
@@ -958,7 +958,7 @@ MSDevice_C2C::getEffort(const MSEdge * const e, const MSVehicle * const v, SUMOR
 {
     MSDevice_C2C * device = myVehiclesToDevicesMap.find(v)->second;
     InfoCont::iterator i = device->infoCont.find(e);
-    if(i==device->infoCont.end()) {
+    if (i==device->infoCont.end()) {
         return e->getEffort(t);
     }
     return i->second->neededTime;
@@ -978,8 +978,8 @@ MSDevice_C2C::checkReroute(SUMOTime t)
     // try to reroute
     if (!myHolder.hasStops()) {
         myHaveRouteInfo = false;
-        SUMODijkstraRouter_Direct<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> > 
-            router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
+        SUMODijkstraRouter_Direct<MSEdge, MSVehicle, prohibited_withRestrictions<MSEdge, MSVehicle> >
+        router(MSEdge::dictSize(), true, &MSEdge::getVehicleEffort);
         myHolder.reroute(t, router);
     }
 }

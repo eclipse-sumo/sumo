@@ -125,7 +125,9 @@ public:
      * @return Whether this object is active (always true in this case)
      * @see GUIGlObject::active
      */
-    virtual bool active() const throw() { return true; }
+    virtual bool active() const throw() {
+        return true;
+    }
 
 
 protected:

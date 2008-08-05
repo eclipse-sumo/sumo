@@ -215,7 +215,7 @@ MSRoute::dict_saveState(std::ostream &os) throw()
     FileHelpers::writeUInt(os, (unsigned int) myDict.size());
     for (RouteDict::iterator it = myDict.begin(); it!=myDict.end(); ++it) {
         FileHelpers::writeString(os, (*it).second->getID());
-        FileHelpers::writeUInt(os, (unsigned int) (*it).second->myEdges.size());
+        FileHelpers::writeUInt(os, (unsigned int)(*it).second->myEdges.size());
         FileHelpers::writeByte(os, (*it).second->myMultipleReferenced);
         for (MSEdgeVector::const_iterator i = (*it).second->myEdges.begin(); i!=(*it).second->myEdges.end(); ++i) {
             FileHelpers::writeUInt(os, (*i)->getNumericalID());
@@ -267,70 +267,69 @@ MSRoute::posInRoute(const MSRouteIterator &currentEdge) const
 }
 
 
-SUMOReal 
+SUMOReal
 MSRoute::getLength() const
 {
     SUMOReal ret = 0;
-    for(MSEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
+    for (MSEdgeVector::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         ret += (*(*i)->getLanes())[0]->length();
     }
     return ret;
 }
 
 
-SUMOReal 
+SUMOReal
 MSRoute::getDistanceBetween(SUMOReal fromPos, SUMOReal toPos, const MSEdge* fromEdge, const MSEdge* toEdge) const
 {
-	bool isFirstIteration = true;
-	SUMOReal distance = -fromPos;
+    bool isFirstIteration = true;
+    SUMOReal distance = -fromPos;
 
-	if ((find(fromEdge) == end()) || (find(toEdge) == end())) {
-		// start or destination not contained in route
-		return std::numeric_limits<SUMOReal>::max();
-	}
+    if ((find(fromEdge) == end()) || (find(toEdge) == end())) {
+        // start or destination not contained in route
+        return std::numeric_limits<SUMOReal>::max();
+    }
 
-	if (fromEdge == toEdge) {
-		if (fromPos <= toPos) {
-			// destination position is on start edge
-			return (toPos - fromPos);
-		} else {
-			// start and destination edge are equal: ensure that this edge is contained at least twice in the route
-			if (std::find(find(fromEdge)+1, end(), fromEdge) == end()) {
-				return std::numeric_limits<SUMOReal>::max();
-			}
-		}
-	}
+    if (fromEdge == toEdge) {
+        if (fromPos <= toPos) {
+            // destination position is on start edge
+            return (toPos - fromPos);
+        } else {
+            // start and destination edge are equal: ensure that this edge is contained at least twice in the route
+            if (std::find(find(fromEdge)+1, end(), fromEdge) == end()) {
+                return std::numeric_limits<SUMOReal>::max();
+            }
+        }
+    }
 
-    for (MSRouteIterator it = find(fromEdge); it!=end(); ++it)
-    {
+    for (MSRouteIterator it = find(fromEdge); it!=end(); ++it) {
         if ((*it) == toEdge && !isFirstIteration) {
 //            cerr << " lastEdge " << (*it)->getID() << ": +" << toPos;
-			distance += toPos;
+            distance += toPos;
 //			cerr << "result: dist=" << distance << endl;
-			break;
-		} else {
-			const MSEdge::LaneCont& lanes = *((*it)->getLanes());
+            break;
+        } else {
+            const MSEdge::LaneCont& lanes = *((*it)->getLanes());
             distance += lanes[0]->length();
 //			cerr << " edge " << (*it)->getID() << ": +" << lanes[0]->length();
 #ifdef HAVE_INTERNAL_LANES
-			// add length of internal lanes to the result
-			for (MSEdge::LaneCont::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); laneIt++) {
-				const MSLinkCont& links = (*laneIt)->getLinkCont();
-				for (MSLinkCont::const_iterator linkIt = links.begin(); linkIt != links.end(); linkIt++) {
-					//if ((*linkIt)->getLane()->getEdge() == *(it+1)) {
-					std::string succLaneId = (*(*(it+1))->getLanes()->begin())->getID();
-					if ((*linkIt)->getLane()->getID().compare(succLaneId) == 0) {
-						distance += (*linkIt)->getLength();
+            // add length of internal lanes to the result
+            for (MSEdge::LaneCont::const_iterator laneIt = lanes.begin(); laneIt != lanes.end(); laneIt++) {
+                const MSLinkCont& links = (*laneIt)->getLinkCont();
+                for (MSLinkCont::const_iterator linkIt = links.begin(); linkIt != links.end(); linkIt++) {
+                    //if ((*linkIt)->getLane()->getEdge() == *(it+1)) {
+                    std::string succLaneId = (*(*(it+1))->getLanes()->begin())->getID();
+                    if ((*linkIt)->getLane()->getID().compare(succLaneId) == 0) {
+                        distance += (*linkIt)->getLength();
 //						cerr << " link: + " << (*linkIt)->getLength();
-					}
-				}
-			}
+                    }
+                }
+            }
 #endif
-		}
-		isFirstIteration = false;
+        }
+        isFirstIteration = false;
     }
 
-	return distance;
+    return distance;
 }
 
 

@@ -56,8 +56,8 @@ class OutputDevice;
  * @brief Base class for a vehicle's route definition
  *
  * This class resembles what a vehicle knows about his route when being loaded
- *  into a router. Whether it is just the origin and the destination, the whole 
- *  route through the network or even a route with alternatives depends on 
+ *  into a router. Whether it is just the origin and the destination, the whole
+ *  route through the network or even a route with alternatives depends on
  *  the derived class.
  */
 class RORouteDef : public ReferencedItem, public Named

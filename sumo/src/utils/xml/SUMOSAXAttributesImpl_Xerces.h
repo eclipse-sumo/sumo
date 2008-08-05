@@ -64,8 +64,8 @@ public:
      * @param[in] predefinedTagsMML Map of attribute ids to their (readable) string-representation
      */
     SUMOSAXAttributesImpl_Xerces(const Attributes &attrs,
-        const std::map<SumoXMLAttr, XMLCh*> &predefinedTags,
-        const std::map<SumoXMLAttr, std::string> &predefinedTagsMML) throw();
+                                 const std::map<SumoXMLAttr, XMLCh*> &predefinedTags,
+                                 const std::map<SumoXMLAttr, std::string> &predefinedTagsMML) throw();
 
 
     /// @brief Destructor
@@ -246,7 +246,7 @@ public:
     /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
-     * Tries to retrieve the attribute from the the attribute list. 
+     * Tries to retrieve the attribute from the the attribute list.
      *  If the attribute is ==0, TplConvert<XMLCh>::_2strSec returns the default value.
      * @param[in] id The name of the attribute to return the value of
      * @param[in] def The default value to return if the attribute is not in attributes

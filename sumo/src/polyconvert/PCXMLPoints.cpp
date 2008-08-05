@@ -92,7 +92,7 @@ PCXMLPoints::myStartElement(SumoXMLTag element,
     }
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("poi", id)) {
+    if (!attrs.setIDFromAttributes("poi", id)) {
         return;
     }
     string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");

@@ -90,11 +90,11 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         myCurrentEdge = 0;
         myExpansions.clear();
         // get the id, report an error if not given or empty...
-        if(!attrs.setIDFromAttributes("edge", myCurrentID)) {
+        if (!attrs.setIDFromAttributes("edge", myCurrentID)) {
             return;
         }
         // check deprecated (unused) attributes
-        if(!myHaveReportedAboutFunctionDeprecation&&attrs.hasAttribute(SUMO_ATTR_FUNCTION)) {
+        if (!myHaveReportedAboutFunctionDeprecation&&attrs.hasAttribute(SUMO_ATTR_FUNCTION)) {
             MsgHandler::getWarningInstance()->inform("While parsing edge '" + myCurrentID + "': 'function' is deprecated.\n All occurences are ignored.");
             myHaveReportedAboutFunctionDeprecation = true;
         }
@@ -156,23 +156,23 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         }
         /// insert the parsed edge into the edges map
         myCurrentEdge = 0;
-        if(!ok) {
+        if (!ok) {
             return;
         }
         // the edge must be allocated in dependence to whether a shape
         //  is given
         if (myShape.size()==0) {
-            myCurrentEdge = new NBEdge(myCurrentID, 
-                myFromNode, myToNode,
-                myCurrentType, myCurrentSpeed,
-                myCurrentLaneNo, myCurrentPriority, myLanesSpread);
+            myCurrentEdge = new NBEdge(myCurrentID,
+                                       myFromNode, myToNode,
+                                       myCurrentType, myCurrentSpeed,
+                                       myCurrentLaneNo, myCurrentPriority, myLanesSpread);
             myCurrentEdge->setLoadedLength(myLength);
         } else {
             myCurrentEdge = new NBEdge(myCurrentID,
-                myFromNode, myToNode,
-                myCurrentType, myCurrentSpeed,
-                myCurrentLaneNo, myCurrentPriority,
-                myShape, myLanesSpread);
+                                       myFromNode, myToNode,
+                                       myCurrentType, myCurrentSpeed,
+                                       myCurrentLaneNo, myCurrentPriority,
+                                       myShape, myLanesSpread);
             myCurrentEdge->setLoadedLength(myLength);
         }
     }
@@ -214,7 +214,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         if (attrs.hasAttribute(SUMO_ATTR_FORCE_LENGTH)) {
             bool ok = true;
             int forcedLength = attrs.getIntReporting(SUMO_ATTR_FORCE_LENGTH, "lane", myCurrentID.c_str(), ok); // !!! edge id
-            if(ok) {
+            if (ok) {
                 int nameid = forcedLength;
                 forcedLength = (int)(myCurrentEdge->getGeometry().length() - forcedLength);
                 std::vector<Expansion>::iterator i;
@@ -350,7 +350,7 @@ NIXMLEdgesHandler::myStartElement(SumoXMLTag element,
         bool ok = true;
         Expansion e;
         e.pos = attrs.getSUMORealReporting(SUMO_ATTR_POSITION, "expansion", 0, ok);
-        if(ok) {
+        if (ok) {
             if (myCurrentEdge==0) {
                 if (!OptionsCont::getOptions().isInStringVector("remove-edges", myCurrentID)) {
                     MsgHandler::getErrorInstance()->inform("Additional lane information could not been set - the edge with id '" + myCurrentID + "' is not known.");

@@ -72,7 +72,7 @@ Command_SaveTLSSwitchStates::execute(SUMOTime currentTime) throw(ProcessError)
     if (state!=myPreviousState||myLogics.getActive()->getSubID()!=myPreviousSubID) {
         myOutputDevice << "    <tlsstate time=\"" << currentTime
         << "\" id=\"" << myLogics.getActive()->getID()
-        << "\" subid=\"" << myLogics.getActive()->getSubID() 
+        << "\" subid=\"" << myLogics.getActive()->getSubID()
         << "\" phase=\"" << myLogics.getActive()->getStepNo()
         << "\">"
         << myLogics.getActive()->buildStateList() << "</tlsstate>" << "\n";

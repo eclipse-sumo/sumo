@@ -55,47 +55,47 @@ class MSLane;
 class MSMessageEmitter
 {
 public:
-	MSMessageEmitter(std::string& file, const std::string& base, std::string& whatemit,
-					 bool reverse = false, bool tableOut = true, bool xy = false, SUMOReal step = 1);
-	
-	virtual ~MSMessageEmitter();
-	
-	void writeLaneChangeEvent(std::string& id, SUMOReal& timeStep, MSLane *oldlane, SUMOReal myPos,
-							  SUMOReal mySpeed, MSLane *newlane, SUMOReal x, SUMOReal y);
-	
-	void writeBreakEvent(std::string& id, SUMOReal& timeStep, MSLane *lane, SUMOReal myPos,
-						 SUMOReal speed, SUMOReal x, SUMOReal y);
-	
-	void writeHeartBeatEvent(std::string &id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
-							 SUMOReal speed, SUMOReal x, SUMOReal y);
-	
-	bool getWriteLCEvent();
-	
-	bool getWriteBEvent();
-	
-	bool getWriteHBEvent();
-	
-	bool getEventsEnabled(const std::string& enabled);
-	
+    MSMessageEmitter(std::string& file, const std::string& base, std::string& whatemit,
+                     bool reverse = false, bool tableOut = true, bool xy = false, SUMOReal step = 1);
+
+    virtual ~MSMessageEmitter();
+
+    void writeLaneChangeEvent(std::string& id, SUMOReal& timeStep, MSLane *oldlane, SUMOReal myPos,
+                              SUMOReal mySpeed, MSLane *newlane, SUMOReal x, SUMOReal y);
+
+    void writeBreakEvent(std::string& id, SUMOReal& timeStep, MSLane *lane, SUMOReal myPos,
+                         SUMOReal speed, SUMOReal x, SUMOReal y);
+
+    void writeHeartBeatEvent(std::string &id, SUMOReal& timeStep, MSLane* lane, SUMOReal myPos,
+                             SUMOReal speed, SUMOReal x, SUMOReal y);
+
+    bool getWriteLCEvent();
+
+    bool getWriteBEvent();
+
+    bool getWriteHBEvent();
+
+    bool getEventsEnabled(const std::string& enabled);
+
 private:
-	// methods
-	std::string trimmed(const std::string& str, const char* sepSet = " \t\n\r");
-	
-	void setWriteEvents(std::string &events);
-	
-	void setFile(const std::string& file);
-	
-	void initXML();
-	// variables
-	OutputDevice &myDev;
-	
-	bool writeLCEvent;
-	bool writeBEvent;
-	bool writeHBEvent;
-	bool reverseOrder;
-	bool tableOutput;
-	bool xyCoords;
-	SUMOReal myStep;
+    // methods
+    std::string trimmed(const std::string& str, const char* sepSet = " \t\n\r");
+
+    void setWriteEvents(std::string &events);
+
+    void setFile(const std::string& file);
+
+    void initXML();
+    // variables
+    OutputDevice &myDev;
+
+    bool writeLCEvent;
+    bool writeBEvent;
+    bool writeHBEvent;
+    bool reverseOrder;
+    bool tableOutput;
+    bool xyCoords;
+    SUMOReal myStep;
 };
 #endif //_MESSAGES
 

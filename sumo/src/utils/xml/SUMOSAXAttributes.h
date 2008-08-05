@@ -43,11 +43,11 @@
  * @class SUMOSAXAttributes
  * @brief Encapsulated SAX-Attributes
  *
- * This class is an interface for using encapsulated SAX-attributes. 
- * Encapsulation is done to allow a common acces without the need to 
+ * This class is an interface for using encapsulated SAX-attributes.
+ * Encapsulation is done to allow a common acces without the need to
  *  import all the Xerces-definitions.
  */
-class SUMOSAXAttributes 
+class SUMOSAXAttributes
 {
 public:
     /// @brief Constructor
@@ -69,8 +69,8 @@ public:
      * @param[in] report Whether missing id shall be reported to MsgHandler::getErrorInstance
      * @return Whether a valid id could be retrieved
      */
-    bool setIDFromAttributes(const char *objecttype, std::string &id, 
-        bool report=true) const throw();
+    bool setIDFromAttributes(const char *objecttype, std::string &id,
+                             bool report=true) const throw();
 
 
     /** @brief Tries to read given attribute assuming it is an int
@@ -88,7 +88,7 @@ public:
      * @return The read value; -1 if an error occured
      */
     int getIntReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
-        bool report=true) const throw();
+                        bool report=true) const throw();
 
 
     /** @brief Tries to read given attribute assuming it is an SUMOReal
@@ -106,7 +106,7 @@ public:
      * @return The read value; -1 if an error occured
      */
     SUMOReal getSUMORealReporting(SumoXMLAttr attr, const char *objecttype, const char *objectid, bool &ok,
-        bool report=true) const throw();
+                                  bool report=true) const throw();
 
 
 
@@ -228,7 +228,7 @@ public:
      * @exception EmptyData If the attribute is not known or the attribute value is an empty string
      */
     virtual std::string getStringSecure(SumoXMLAttr id,
-                                const std::string &def) const throw(EmptyData) = 0;
+                                        const std::string &def) const throw(EmptyData) = 0;
 
 
     /**
@@ -289,14 +289,14 @@ public:
     /**
      * @brief Returns the string-value of the named (by its enum-value) attribute
      *
-     * Tries to retrieve the attribute from the the attribute list. 
+     * Tries to retrieve the attribute from the the attribute list.
      *  If the attribute is ==0, TplConvert<XMLCh>::_2strSec returns the default value.
      * @param[in] id The name of the attribute to return the value of
      * @param[in] def The default value to return if the attribute is not in attributes
      * @return The attribute's value as a string, if it could be read and parsed
      */
     virtual std::string getStringSecure(const std::string &id,
-                                const std::string &def) const throw() = 0;
+                                        const std::string &def) const throw() = 0;
     //}
 
 

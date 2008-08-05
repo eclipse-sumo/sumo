@@ -365,7 +365,7 @@ long
 GUIDialog_EditAddWeights::onCmdSave(FXObject*,FXSelector,void*)
 {
     FXString file = MFXUtils::getFilename2Write(this, "Save Additional Weights", ".xml", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
-    if(file!="") {
+    if (file!="") {
         string content = encode2XML();
         try {
             OutputDevice &dev = OutputDevice::getDevice(file.text());

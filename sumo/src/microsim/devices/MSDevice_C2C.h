@@ -82,7 +82,7 @@ public:
 
 
 public:
-    /** 
+    /**
      * @class Information
      * @brief An (exchanged) information about an edge
      */
@@ -100,7 +100,7 @@ public:
     };
 
 
-    /** 
+    /**
      * @class C2CConnection
      * @brief Description of a connection to another vehicle
      */
@@ -167,7 +167,7 @@ public:
      *
      * Computes the factor by which the edge was passed slower than estimated.
      *  If the factor is higher than the one defined in "device.c2x.insert-info-factor"
-     *  and the travel time was larger than 10s, then the information about the 
+     *  and the travel time was larger than 10s, then the information about the
      *  passed edge is inserted into the information container (if an information
      *  about the edge was existing, it is updated). Otherwise, the information
      *  about the edge is removed from the container.
@@ -180,7 +180,7 @@ public:
     void leaveLaneAtMove(SUMOReal driven);
 
 
-    /** @brief Called when the vehicle leaves the lane 
+    /** @brief Called when the vehicle leaves the lane
      *
      * Removes all information stored in clusters, connections, and edge information
      *  ("clusterCont", "myNeighbors", "infoCont").
@@ -194,7 +194,7 @@ public:
      *
      * This method is given to the used router in order to obtain the efforts
      *  to pass an edge. If the given vehicle knows the edge (either because
-     *  it has collected or because it has received an information about it), 
+     *  it has collected or because it has received an information about it),
      *  this information is used. Otherwise, we ask the edge for the effort.
      *
      * !!! which edge information is used?
@@ -210,7 +210,7 @@ public:
 
 private:
     /** @brief Constructor
-     * 
+     *
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
@@ -293,7 +293,7 @@ private:
         typedef std::vector<Cell*> CellCont;
         /// The container holding the Egdes
         Cont ownEdges;
-        /// 
+        ///
         Cont neighborEdges;
         /// all the Neighbors of the Cell
         CellCont _neighbors;
@@ -304,13 +304,13 @@ private:
     /// @name Methods for building speed-up cell/edge neighborhood
     /// @{
 
-    /** @brief Builds the look-up information 
+    /** @brief Builds the look-up information
      *
      * The look-up information is an array of cells (Cell) where
      *  each cell contains the edges that are within it and edges
      *  of the 4-neighbor cells. These are the edges at which a
      *  second vehicle must be in order to communicate with a vehicle
-     *  within the cell. Each cell has the height and width of the 
+     *  within the cell. Each cell has the height and width of the
      *  simulated C2C range. Additionally, the information in which
      *  cells each edge lies is stored in myEdgeCells.
      *

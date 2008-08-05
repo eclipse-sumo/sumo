@@ -47,8 +47,8 @@
  *
  * This router is basically the same as the SUMODijkstraRouter, except for the following:
  * If start and destination edge are the same, the computed route does not consist of just the
- * starting edge. Instead, if there is a path from the starting edge through the network back 
- * to itself, the route will consist of this path, containing the same edge both at the 
+ * starting edge. Instead, if there is a path from the starting edge through the network back
+ * to itself, the route will consist of this path, containing the same edge both at the
  * beginning and at the end.
  * Furthermore, no vehicle is regarded to determine the efforts of the edges,
  * therefore no prohibition function is used.
@@ -60,7 +60,7 @@ class TraCIDijkstraRouter : public SUMOAbstractRouter<E, MSVehicle>
 public:
     /// Constructor
     TraCIDijkstraRouter(size_t noE/*, bool unbuildIsWarningOnly*/)
-            : myNoE(noE), myReusableEdgeLists(true), myReusableEdgeInfoLists(true){ }
+            : myNoE(noE), myReusableEdgeLists(true), myReusableEdgeInfoLists(true) { }
 
     /// Destructor
     virtual ~TraCIDijkstraRouter() { }
@@ -119,9 +119,9 @@ public:
         }
     };
 
-	virtual SUMOReal getEffort(const E * const e, SUMOReal t) {
-		return e->getEffort(t);	
-	}
+    virtual SUMOReal getEffort(const E * const e, SUMOReal t) {
+        return e->getEffort(t);
+    }
 
 
     /** @brief Builds the route between the given edges using the minimum effort at the given time
@@ -159,7 +159,7 @@ public:
             EdgeInfo *ei = storage->add(actualKnot, 0, 0);
             frontierList.push(ei);
         }
-		bool isFirstIteration = true;
+        bool isFirstIteration = true;
 
         // loop
         while (!frontierList.empty()) {
@@ -173,7 +173,7 @@ public:
                 clearTemporaryStorages(visited, storage);
                 return;
             }
-			(*visited)[minEdge->getNumericalID()] = true;
+            (*visited)[minEdge->getNumericalID()] = true;
             SUMOReal effort = (SUMOReal)(minimumKnot->effort + getEffort(minEdge, time + minimumKnot->effort));
             // check all ways from the node with the minimal length
             unsigned int i = 0;
@@ -181,15 +181,15 @@ public:
             for (i=0; i<length_size; i++) {
                 const E* help = minEdge->getFollower(i);
 
-                if ( (!(*visited)[help->getNumericalID()] && effort < storage->getEffort(help))
-						|| (help == to)) {
+                if ((!(*visited)[help->getNumericalID()] && effort < storage->getEffort(help))
+                        || (help == to)) {
 //                    if (help!=from) {
-                        frontierList.push(storage->add(help, effort, minimumKnot));
+                    frontierList.push(storage->add(help, effort, minimumKnot));
 //                    }
                 }
             }
 
-			isFirstIteration = false;
+            isFirstIteration = false;
         }
         clearTemporaryStorages(visited, storage);
     }
@@ -198,14 +198,14 @@ public:
     /// Builds the path from marked edges
     void buildPathFrom(EdgeInfo *rbegin, std::vector<const E *> &edges) {
         std::deque<const E*> tmp;
-		EdgeInfo* last = rbegin;
+        EdgeInfo* last = rbegin;
         while (rbegin!=0) {
             tmp.push_front((E *) rbegin->edge); // !!!
             rbegin = rbegin->prev;
-			if (rbegin == last) {
-				tmp.push_front((E *) rbegin->edge);
-				break;
-			}	
+            if (rbegin == last) {
+                tmp.push_front((E *) rbegin->edge);
+                break;
+            }
         }
         std::copy(tmp.begin(), tmp.end(), std::back_inserter(edges));
     }

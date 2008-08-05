@@ -42,13 +42,13 @@
  * @class MSDevice
  * @brief Abstract in-vehicle device
  *
- * The MSDevice-interface brings the following interfaces to a vehicle that 
+ * The MSDevice-interface brings the following interfaces to a vehicle that
  *  may be overwritten by real devices:
  * @arg Retrieval of the vehicle that holds the device
  * @arg Building and retrieval of a device id
  * @arg Methods called on vehicle movement / state change
  *
- * The "methods called on vehicle movement / state change" are called for each 
+ * The "methods called on vehicle movement / state change" are called for each
  *  device within the corresponding vehicle methods. MSDevice brings already
  *  an empty (nothing doing) implementation of these.
  */
@@ -56,7 +56,7 @@ class MSDevice
 {
 public:
     /** @brief Constructor
-     * 
+     *
      * @param[in] holder The vehicle that holds this device
      * @param[in] id The ID of the device
      */
@@ -64,7 +64,7 @@ public:
             : myHolder(holder), myID(id) {
     }
 
-    
+
     /// @brief Destructor
     virtual ~MSDevice() throw() { }
 

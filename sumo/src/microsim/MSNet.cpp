@@ -116,7 +116,7 @@ MSNet::getInstance(void)
 }
 
 
-MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents, 
+MSNet::MSNet(MSVehicleControl *vc, MSEventControl *beginOfTimestepEvents,
              MSEventControl *endOfTimestepEvents, MSEventControl *emissionEvents)
 {
     MSCORN::init();
@@ -227,13 +227,13 @@ MSNet::~MSNet()
     delete myShapeContainer;
 #ifdef _MESSAGES
 #ifdef _DEBUG
-	cout << "MSNet: clearing myMsgEmitter" << endl;
+    cout << "MSNet: clearing myMsgEmitter" << endl;
 #endif
-	myMsgEmitter.clear();
+    myMsgEmitter.clear();
 #ifdef _DEBUG
-	cout << "MSNet: clearing msgEmitVec" << endl;
+    cout << "MSNet: clearing msgEmitVec" << endl;
 #endif
-	msgEmitVec.clear();
+    msgEmitVec.clear();
 #endif
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -254,32 +254,32 @@ MSNet::~MSNet()
 MSMessageEmitter*
 MSNet::getMsgEmitter(const std::string& whatemit)
 {
-	msgEmitVec.clear();
-	msgEmitVec = myMsgEmitter.buildAndGetStaticVector();
-	MSMessageEmitter *msgEmitter = 0;
-	for(int i = 0; i < msgEmitVec.size(); ++i) {
-		if(msgEmitVec.at(i)->getEventsEnabled(whatemit)) {
-			msgEmitter = msgEmitVec.at(i);
-			break;
-		}
-	}
-	// returns 0 if the requested MessageEmitter is not in the map
-	return msgEmitter;
+    msgEmitVec.clear();
+    msgEmitVec = myMsgEmitter.buildAndGetStaticVector();
+    MSMessageEmitter *msgEmitter = 0;
+    for (int i = 0; i < msgEmitVec.size(); ++i) {
+        if (msgEmitVec.at(i)->getEventsEnabled(whatemit)) {
+            msgEmitter = msgEmitVec.at(i);
+            break;
+        }
+    }
+    // returns 0 if the requested MessageEmitter is not in the map
+    return msgEmitter;
 }
 
 
 void
 MSNet::createMsgEmitter(std::string& id,
-						std::string& file,
-						const std::string& base,
-						std::string& whatemit,
-						bool reverse,
-						bool table,
-						bool xy,
-						SUMOReal step)
+                        std::string& file,
+                        const std::string& base,
+                        std::string& whatemit,
+                        bool reverse,
+                        bool table,
+                        bool xy,
+                        SUMOReal step)
 {
-	MSMessageEmitter *msgEmitter = new MSMessageEmitter(file, base, whatemit, reverse, table, xy, step);
-	myMsgEmitter.add(id, msgEmitter);
+    MSMessageEmitter *msgEmitter = new MSMessageEmitter(file, base, whatemit, reverse, table, xy, step);
+    myMsgEmitter.add(id, msgEmitter);
 }
 #endif
 
@@ -305,7 +305,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
                 otherQuit = 1;
             }
         }
-        if(myTooManyVehicles>0&&(int) myVehicleControl->getRunningVehicleNo()>myTooManyVehicles) {
+        if (myTooManyVehicles>0&&(int) myVehicleControl->getRunningVehicleNo()>myTooManyVehicles) {
             otherQuit = 2;
         }
 #ifndef NO_TRACI
@@ -318,13 +318,14 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
 #endif
             otherQuit = 4;
         }
-    } while (myStep<=stop && otherQuit==0);
+    }
+    while (myStep<=stop && otherQuit==0);
     if (otherQuit!=0) {
-        if(otherQuit==1) {
+        if (otherQuit==1) {
             WRITE_MESSAGE("Simulation End: The simulation got too slow.");
-        } else if(otherQuit==2) {
+        } else if (otherQuit==2) {
             WRITE_MESSAGE("Simulation End: Too many vehicles.");
-        } else if(otherQuit==3) {
+        } else if (otherQuit==3) {
             WRITE_MESSAGE("Simulation End: TraCI requested termination.");
         } else {
             WRITE_MESSAGE("Simulation End: All vehicles have left the simulation.");
@@ -339,8 +340,7 @@ MSNet::simulate(SUMOTime start, SUMOTime stop)
 
 
 void
-MSNet::initialiseSimulation()
-{
+MSNet::initialiseSimulation() {
     if (OptionsCont::getOptions().isSet("emissions-output")) {
         MSCORN::setWished(MSCORN::CORN_OUT_EMISSIONS);
     }
@@ -371,8 +371,7 @@ MSNet::initialiseSimulation()
 
 
 void
-MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
-{
+MSNet::closeSimulation(SUMOTime start, SUMOTime stop) {
     if (OptionsCont::getOptions().isSet("ss2-sql-output")) {
         OutputDevice::getDeviceByOption("ss2-sql-output") << ";\n";
     }
@@ -393,8 +392,7 @@ MSNet::closeSimulation(SUMOTime start, SUMOTime stop)
 
 
 void
-MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
-{
+MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step) {
 #ifndef NO_TRACI
     traci::TraCIServer::processCommandsUntilSimStep(myStep);
 #endif
@@ -496,8 +494,7 @@ MSNet::simulationStep(SUMOTime /*start*/, SUMOTime step)
 
 
 void
-MSNet::clearAll()
-{
+MSNet::clearAll() {
     // clear container
     MSEdge::clear();
     MSLane::clear();
@@ -507,22 +504,19 @@ MSNet::clearAll()
 
 
 unsigned
-MSNet::getNDumpIntervals(void)
-{
+MSNet::getNDumpIntervals(void) {
     return (unsigned) myMeanData.size();
 }
 
 
 SUMOTime
-MSNet::getCurrentTimeStep() const
-{
+MSNet::getCurrentTimeStep() const {
     return myStep;
 }
 
 
 void
-MSNet::writeOutput()
-{
+MSNet::writeOutput() {
     // update detector values
     myDetectorControl->updateDetectors(myStep);
     // check state dumps
@@ -560,8 +554,7 @@ MSNet::writeOutput()
 
 
 void
-MSNet::addMeanData(MSMeanData_Net *newMeanData)
-{
+MSNet::addMeanData(MSMeanData_Net *newMeanData) {
     myMeanData.push_back(newMeanData);
     // we may add it before the network is loaded
     if (myEdges!=0) {
@@ -571,23 +564,20 @@ MSNet::addMeanData(MSMeanData_Net *newMeanData)
 
 
 size_t
-MSNet::getMeanDataSize() const
-{
+MSNet::getMeanDataSize() const {
     return myMeanData.size();
 }
 
 
 long
-MSNet::getSimStepDurationInMillis() const
-{
+MSNet::getSimStepDurationInMillis() const {
     return mySimStepDuration;
 }
 
 
 #ifdef HAVE_MESOSIM
 void
-MSNet::saveState(std::ostream &os) throw()
-{
+MSNet::saveState(std::ostream &os) throw() {
     myVehicleControl->saveState(os);
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -598,8 +588,7 @@ MSNet::saveState(std::ostream &os) throw()
 
 
 void
-MSNet::loadState(BinaryInputDevice &bis) throw()
-{
+MSNet::loadState(BinaryInputDevice &bis) throw() {
     myVehicleControl->loadState(bis);
 #ifdef HAVE_MESOSIM
     if (MSGlobals::gUseMesoSim) {
@@ -611,8 +600,7 @@ MSNet::loadState(BinaryInputDevice &bis) throw()
 
 
 MSRouteLoader *
-MSNet::buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage)
-{
+MSNet::buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage) {
     // return a new build route loader
     //  the handler is
     //  a) not adding the vehicles directly
@@ -623,15 +611,13 @@ MSNet::buildRouteLoader(const std::string &file, int incDUABase, int incDUAStage
 
 
 SUMOReal
-MSNet::getTooSlowRTF() const
-{
+MSNet::getTooSlowRTF() const {
     return myTooSlowRTF;
 }
 
 
 MSPersonControl &
-MSNet::getPersonControl() throw()
-{
+MSNet::getPersonControl() throw() {
     if (myPersonControl==0) {
         myPersonControl = new MSPersonControl();
     }
@@ -640,16 +626,14 @@ MSNet::getPersonControl() throw()
 
 
 void
-MSNet::preSimStepOutput() const
-{
+MSNet::preSimStepOutput() const {
     cout << std::setprecision(OUTPUT_ACCURACY);
     cout << "Step #" << myStep;
 }
 
 
 void
-MSNet::postSimStepOutput() const
-{
+MSNet::postSimStepOutput() const {
     if (myLogExecutionTime) {
         string msg;
         if (mySimStepDuration!=0) {

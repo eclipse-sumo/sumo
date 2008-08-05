@@ -148,38 +148,38 @@ NLTriggerBuilder::buildVaporizer(const SUMOSAXAttributes &attrs) throw()
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("vaporizer", id, false)) {
+    if (!attrs.setIDFromAttributes("vaporizer", id, false)) {
         MsgHandler::getErrorInstance()->inform("Missing or empty id in a vaporizer-object.");
         return;
     }
     MSEdge *e = MSEdge::dictionary(id);
-    if(e==0) {
+    if (e==0) {
         MsgHandler::getErrorInstance()->inform("Unknown edge referenced in a vaporizer ('" + id + "').");
         return;
     }
     bool ok = true;
     SUMOTime begin = attrs.getIntReporting(SUMO_ATTR_BEGIN, "vaporizer", 0, ok);
     SUMOTime end = attrs.getIntReporting(SUMO_ATTR_END, "vaporizer", 0, ok);
-    if(!ok) {
+    if (!ok) {
         return;
     }
-    if(begin<0) {
+    if (begin<0) {
         MsgHandler::getErrorInstance()->inform("A vaporization begin is negative (edge id='" + id + "').");
         return;
     }
-    if(end<0) {
+    if (end<0) {
         MsgHandler::getErrorInstance()->inform("A vaporization end is negative (edge id='" + id + "').");
         return;
     }
-    if(begin>end) {
+    if (begin>end) {
         MsgHandler::getErrorInstance()->inform("A vaporization ends before it starts (edge id='" + id + "').");
         return;
     }
-    if(begin==end) {
+    if (begin==end) {
         MsgHandler::getWarningInstance()->inform("A vaporization starts and ends at same time (edge id='" + id + "'); discarded.");
         return;
     }
-    if(end>=OptionsCont::getOptions().getInt("begin")) {
+    if (end>=OptionsCont::getOptions().getInt("begin")) {
         Command* cb = new WrappingCommand< MSEdge >(e, &MSEdge::incVaporization);
         MSNet::getInstance()->getBeginOfTimestepEvents().addEvent(cb, begin, MSEventControl::ADAPT_AFTER_EXECUTION);
         Command* ce = new WrappingCommand< MSEdge >(e, &MSEdge::decVaporization);
@@ -195,7 +195,7 @@ NLTriggerBuilder::parseAndBuildLaneSpeedTrigger(MSNet &net, const SUMOSAXAttribu
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("lane speed trigger", id, false)) {
+    if (!attrs.setIDFromAttributes("lane speed trigger", id, false)) {
         throw InvalidArgument("A lane speed trigger definition does not contain an id");
     }
     // get the file name to read further definitions from
@@ -228,7 +228,7 @@ NLTriggerBuilder::parseAndBuildLaneEmitTrigger(MSNet &net, const SUMOSAXAttribut
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("emitter", id, false)) {
+    if (!attrs.setIDFromAttributes("emitter", id, false)) {
         throw InvalidArgument("An emitter does not contain an id");
     }
     // get the file name to read further definitions from
@@ -244,7 +244,7 @@ NLTriggerBuilder::parseAndBuildBusStop(MSNet &net, const SUMOSAXAttributes &attr
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("bus stop", id, false)) {
+    if (!attrs.setIDFromAttributes("bus stop", id, false)) {
         throw InvalidArgument("A bus stop does not contain an id");
     }
     // get the lane
@@ -283,7 +283,7 @@ NLTriggerBuilder::parseAndBuildVehicleActor(MSNet &net, const SUMOSAXAttributes 
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("vehicle actor", id, false)) {
+    if (!attrs.setIDFromAttributes("vehicle actor", id, false)) {
         throw InvalidArgument("A vehicle actor does not contain an id");
     }
     MSLane *lane = getLane(attrs, "vehicle_actor", id);
@@ -302,7 +302,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("calibrator", id, false)) {
+    if (!attrs.setIDFromAttributes("calibrator", id, false)) {
         throw InvalidArgument("A calibrator does not contain an id");
     }
     // get the file name to read further definitions (route distributions) from
@@ -321,7 +321,7 @@ NLTriggerBuilder::parseAndBuildCalibrator(MSNet &net, const SUMOSAXAttributes &a
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("calibrator", id, false)) {
+    if (!attrs.setIDFromAttributes("calibrator", id, false)) {
         throw InvalidArgument("A calibrator does not contain an id");
     }
     // get the file name to read further definitions from
@@ -350,7 +350,7 @@ NLTriggerBuilder::parseAndBuildScaler(MSNet &net, const SUMOSAXAttributes &attrs
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("scaler", id, false)) {
+    if (!attrs.setIDFromAttributes("scaler", id, false)) {
         throw InvalidArgument("A scaler does not contain an id");
     }
     MSLane *lane = getLane(attrs, "scaler", id);
@@ -382,7 +382,7 @@ NLTriggerBuilder::parseAndBuildRerouter(MSNet &net, const SUMOSAXAttributes &att
 {
     // get the id, throw if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("rerouter", id, false)) {
+    if (!attrs.setIDFromAttributes("rerouter", id, false)) {
         throw InvalidArgument("A rerouter does not contain an id");
     }
     // get the file name to read further definitions from
@@ -524,7 +524,7 @@ NLTriggerBuilder::getLane(const SUMOSAXAttributes &attrs,
 
 
 SUMOReal
-NLTriggerBuilder::getPosition(const SUMOSAXAttributes &attrs, 
+NLTriggerBuilder::getPosition(const SUMOSAXAttributes &attrs,
                               MSLane *lane,
                               const std::string &tt, const std::string &tid) throw(InvalidArgument)
 {

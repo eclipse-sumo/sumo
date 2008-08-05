@@ -43,7 +43,7 @@ class ROJTRFrame
 public:
     /** @brief Inserts options used by jtrrouter into the OptionsCont-singleton
      *
-     * As jtrrouter shares several options with other routing appplications, the 
+     * As jtrrouter shares several options with other routing appplications, the
      *  insertion of these is done via a call to ROFrame::fillOptions.
      *
      * jtrrouer-specific options are added afterwards via calls to "addJTROptions".

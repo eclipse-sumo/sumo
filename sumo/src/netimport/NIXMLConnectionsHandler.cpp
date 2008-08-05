@@ -269,7 +269,7 @@ NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
         }
         //
         try {
-            bool keepUncontrolled = attrs.getBoolSecure( SUMO_ATTR_UNCONTROLLED, false);
+            bool keepUncontrolled = attrs.getBoolSecure(SUMO_ATTR_UNCONTROLLED, false);
             if (keepUncontrolled) {
                 from->disableConnection4TLS(fromLane, to, toLane);
             }

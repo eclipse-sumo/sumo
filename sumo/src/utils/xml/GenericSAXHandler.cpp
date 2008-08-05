@@ -220,7 +220,7 @@ GenericSAXHandler::endElement(const XMLCh* const /*uri*/,
     string name = TplConvert<XMLCh>::_2str(qname);
     SumoXMLTag element = convertTag(name);
     // collect characters
-    if(myCharactersVector.size()!=0) {
+    if (myCharactersVector.size()!=0) {
         size_t len = 0;
         unsigned i;
         for (i=0; i<myCharactersVector.size(); ++i) {

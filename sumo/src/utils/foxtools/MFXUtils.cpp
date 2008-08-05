@@ -72,10 +72,10 @@ MFXUtils::getDocumentName(const FXString &filename) throw()
 }
 
 
-FXString 
+FXString
 MFXUtils::getTitleText(const FXString &appname, FXString filename) throw()
 {
-    if(filename.length()==0) {
+    if (filename.length()==0) {
         return appname;
     }
     return getDocumentName(filename) + " - " + appname;
@@ -86,8 +86,8 @@ FXString
 MFXUtils::assureExtension(const FXString &filename, const FXString &defaultExtension) throw()
 {
     FXString ext = FXFile::extension(filename);
-    if(ext=="") {
-        if(filename.rfind('.')==filename.length()-1) {
+    if (ext=="") {
+        if (filename.rfind('.')==filename.length()-1) {
             return filename + defaultExtension;
         }
         return filename + "." + defaultExtension;
@@ -113,7 +113,7 @@ MFXUtils::getFilename2Write(FXWindow *parent,
         return "";
     }
     FXString file = assureExtension(opendialog.getFilename(), extension.after('.')).text();
-    if(!userPermitsOverwritingWhenFileExists(parent, file)) {
+    if (!userPermitsOverwritingWhenFileExists(parent, file)) {
         return "";
     }
     currentFolder = opendialog.getDirectory();

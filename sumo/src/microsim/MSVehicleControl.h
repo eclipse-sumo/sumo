@@ -57,7 +57,7 @@ class BinaryInputDevice;
  *  vehicle types, vehicles and statistics about the last.
  *
  * This class also realizes the tripinfos and the vehroutes - outputs, both
- *  generated when a vehicle is removed from the simulation, see 
+ *  generated when a vehicle is removed from the simulation, see
  *  scheduleVehicleRemoval.
  *
  * Use this class for the pure microsim and GUIVehicleControl within the gui.
@@ -101,7 +101,7 @@ public:
 
 
 
-    /// @name Insertion, deletion and retrieal of vehicles 
+    /// @name Insertion, deletion and retrieal of vehicles
     /// @{
 
     /** @brief Tries to insert the vehicle into the internal vehicle container
@@ -121,7 +121,7 @@ public:
 
     /** @brief Returns the vehicle with the given id
      *
-     * If no vehicle with the given id is store din "myVehicleDict", 0 
+     * If no vehicle with the given id is store din "myVehicleDict", 0
      *  is returned.
      *
      * @param[in] id The id of the vehicle to retrieve
@@ -141,17 +141,17 @@ public:
     /** @brief Removes a vehicle after it has ended
      *
      * Writes output to tripinfos and vehroutes if wished; decrements
-     *  the number of running vehicles and increments the number of ended 
+     *  the number of running vehicles and increments the number of ended
      *  vehicles. Then deletes the vehicle using "deleteVehicle".
      *
-     * This method should be called for each vehicle that was inserted 
+     * This method should be called for each vehicle that was inserted
      *  into the network and quits its ride.
      *
      * @param[in] v The vehicle to remove
      */
     void scheduleVehicleRemoval(MSVehicle *v) throw();
 
-    
+
     /** @brief Returns the begin of the internal vehicle map
      *
      * @return The begin of the internal vehicle map
@@ -187,7 +187,7 @@ public:
 
 
     /** @brief Informs this control about a vehicle's emission
-     * 
+     *
      * If the mean waiting time shall be computed (f.e. for emissions-output),
      *  the absolut waiting time is increased by the waiting time of the given
      *  vehicle.
@@ -251,7 +251,7 @@ public:
      *
      * This value is only available if MSCORN::CORN_MEAN_VEH_WAITINGTIME is "wished".
      *  This is the case if the emissions-output shall be generated.
-     * 
+     *
      * @return The mean time vehicles had to wait for being emitted (-1 if no vehicle was emitted, yet)
      * @see MSCORN
      * @todo Enable this for guisim?
@@ -263,7 +263,7 @@ public:
      *
      * This value is only available if MSCORN::CORN_MEAN_VEH_TRAVELTIME is "wished".
      *  This is the case if the emissions-output shall be generated.
-     * 
+     *
      * @return The mean travel time of ended vehicles (-1 if no vehicle has ended, yet)
      * @see MSCORN
      * @todo Enable this for guisim?
@@ -287,10 +287,10 @@ public:
      *
      * If another vehicle ype with the same id exists, false is returned.
      *  Otherwise, the vehicle type is added to the internal vehicle type
-     *  container "myVTypeDict" and to the vehicle type distribution 
-     *  "myVehicleTypeDistribution". 
+     *  container "myVTypeDict" and to the vehicle type distribution
+     *  "myVehicleTypeDistribution".
      *
-     * If no other type was loaded before, the default vehicle type is 
+     * If no other type was loaded before, the default vehicle type is
      *  descheduled (but not deleted as there may be already vehicles
      *  in the simulation that use it).
      *
@@ -392,7 +392,7 @@ protected:
 
     /// @brief Vehicle types that may no longer be assigned by a probability
     std::vector<MSVehicleType*> myObsoleteVehicleTypes;
-    
+
 
 private:
     /// @brief invalidated copy constructor

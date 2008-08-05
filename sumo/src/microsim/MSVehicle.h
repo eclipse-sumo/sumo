@@ -180,7 +180,7 @@ public:
     }
 
     /** @brief Returns the nSuccs'th successor of edge the vehicle is currently at
-     * 
+     *
      * If the rest of the route (counted from the current edge) than nSuccs,
      *  0 is returned.
      * @param[in] nSuccs The number of edge to look forward
@@ -191,7 +191,7 @@ public:
 
     /** Returns true if vehicle is going to enter it's destination
         edge. False otherwise. Adjusts in both cases the route
-        iterator and the allowedLanes-container. 
+        iterator and the allowedLanes-container.
         @todo decribe, choose a proper name*/
     bool destReached(const MSEdge* targetEdge) throw();
 
@@ -309,7 +309,7 @@ public:
         return myType->hasSafeGap(speed, gap, predSpeed, laneMaxSpeed);
     }
 
-    /** 
+    /**
      * !!! rework this - leader should not be given directly, rather his speed after decel...
      */
     SUMOReal getSecureGap(SUMOReal speed, SUMOReal leaderSpeed, MSVehicle &leader) const {
@@ -512,7 +512,7 @@ public:
     };
 
     /** @brief Returns the description of best lanes to use in order to continue the route
-     * 
+     *
      * The information is rebuilt if the vehicle is on a different edge than
      *  the one stored in "myLastBestLanesEdge" or "forceRebuild" is true.
      *
@@ -588,7 +588,7 @@ public:
 
 
     /** @brief Adds a stop
-     * 
+     *
      * The stop is put into the sorted list.
      * @param[in] stop The stop to add
      * @return Whether the stop could be added
@@ -627,28 +627,28 @@ public:
 
     void setWasVaporized(bool onDepart);
 
-	/**
-	 * Compute distance that will be covered, if the vehicle moves to a given position on its route,
-	 * starting at its current position.
-	 * @param destPos:	position on the destination edge that shall be reached
-	 * @param destEdge: destination edge that shall be reached
-	 * @return			distance from the vehicles current position to the destination position,
-	 *					or a near infinite real value if the destination position is not contained 
-	 *					within the vehicles route or the vehicle is not active
-	 */
-	SUMOReal getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge);
+    /**
+     * Compute distance that will be covered, if the vehicle moves to a given position on its route,
+     * starting at its current position.
+     * @param destPos:	position on the destination edge that shall be reached
+     * @param destEdge: destination edge that shall be reached
+     * @return			distance from the vehicles current position to the destination position,
+     *					or a near infinite real value if the destination position is not contained
+     *					within the vehicles route or the vehicle is not active
+     */
+    SUMOReal getDistanceToPosition(SUMOReal destPos, const MSEdge* destEdge);
 
 #ifndef NO_TRACI
-	/**
-	 * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
-	 * will wait for the given duration before continuing on its route
-	 * @param lane		lane on wich to stop
-	 * @param pos		position on the given lane at wich to stop
-	 * @param radius	the vehicle will stop if it is within the range [pos-radius, pos+radius]
-	 * @duration		after waiting for the time period duration, the vehicle will
-	 *					continue until the stop is reached again
-	 */
-	bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration);
+    /**
+     * schedule a new stop for the vehicle; each time a stop is reached, the vehicle
+     * will wait for the given duration before continuing on its route
+     * @param lane		lane on wich to stop
+     * @param pos		position on the given lane at wich to stop
+     * @param radius	the vehicle will stop if it is within the range [pos-radius, pos+radius]
+     * @duration		after waiting for the time period duration, the vehicle will
+     *					continue until the stop is reached again
+     */
+    bool addTraciStop(MSLane* lane, SUMOReal pos, SUMOReal radius, SUMOTime duration);
 
     void checkReroute(SUMOTime t);
 
@@ -682,44 +682,44 @@ public:
      */
     void adaptSpeed();
 
-	/**
-	 * Checks if the sticky time for a "changelane" command has passed already
-	 * @param time current simulation time
-	 */
-	void checkLaneChangeConstraint(SUMOTime time);
+    /**
+     * Checks if the sticky time for a "changelane" command has passed already
+     * @param time current simulation time
+     */
+    void checkLaneChangeConstraint(SUMOTime time);
 
-	/**
-	 * After each changed lane, check if the lane requested by TraCI command "changeLane"
-	 * is reached and request for more changes if necessary.
-	 */
-	void checkForLaneChanges();
+    /**
+     * After each changed lane, check if the lane requested by TraCI command "changeLane"
+     * is reached and request for more changes if necessary.
+     */
+    void checkForLaneChanges();
 
-	/**
-	 * Initiate a lane change requested by TraCI command "changeLane".
-	 * @param lane	the lane index within the current edge, that is the destination of the change
-	 * @param stickyTime	duration for wich the constraint takes effect
-	 */ 
-	void startLaneChange(unsigned lane, SUMOTime stickyTime);
+    /**
+     * Initiate a lane change requested by TraCI command "changeLane".
+     * @param lane	the lane index within the current edge, that is the destination of the change
+     * @param stickyTime	duration for wich the constraint takes effect
+     */
+    void startLaneChange(unsigned lane, SUMOTime stickyTime);
 
-	/**
-	 * Forces the vehicle to change the given number of lanes to the right side
-	 * @param numLanes number of lanes that shall be passed
-	 * @param stickyTime duration for wich the lane change constraint takes effect
-	 */
-	//void forceLaneChangeRight(int numLanes, SUMOTime stickyTime);
+    /**
+     * Forces the vehicle to change the given number of lanes to the right side
+     * @param numLanes number of lanes that shall be passed
+     * @param stickyTime duration for wich the lane change constraint takes effect
+     */
+    //void forceLaneChangeRight(int numLanes, SUMOTime stickyTime);
 
-	/**
-	 * Forces the vehicle to change the given number of lanes to the left side
-	 * @param numLanes number of lanes that shall be passed
-	 * @param stickyTime duration for wich the lane change constraint takes effect
-	 */
-	//void forceLaneChangeLeft(int numLanes, SUMOTime stickyTime);
+    /**
+     * Forces the vehicle to change the given number of lanes to the left side
+     * @param numLanes number of lanes that shall be passed
+     * @param stickyTime duration for wich the lane change constraint takes effect
+     */
+    //void forceLaneChangeLeft(int numLanes, SUMOTime stickyTime);
 
-	/**
-	 * takes all action necessary during a simulation step to process any active command sent by TraCI 
-	 * @param time the current simulation time
-	 */
-	void processTraCICommands(SUMOTime time);
+    /**
+     * takes all action necessary during a simulation step to process any active command sent by TraCI
+     * @param time the current simulation time
+     */
+    void processTraCICommands(SUMOTime time);
 #endif
 
 protected:
@@ -756,9 +756,9 @@ protected:
     int timeSinceStop;
 
 #ifdef _MESSAGES
-	/// The message emitters
-	MSMessageEmitter *myLCMsgEmitter;
-	MSMessageEmitter *myBMsgEmitter;
+    /// The message emitters
+    MSMessageEmitter *myLCMsgEmitter;
+    MSMessageEmitter *myBMsgEmitter;
 #endif
 
     /// Vehicle's parameter.
@@ -911,29 +911,29 @@ private:
     bool adaptingSpeed;
     bool isLastAdaption;
 
-	/* speed of the vehicle before any speed adaption began */
+    /* speed of the vehicle before any speed adaption began */
     SUMOReal speedBeforeAdaption;
 
-	/* the amount by wich the speed shall be reduced */
+    /* the amount by wich the speed shall be reduced */
     SUMOReal speedReduction;
 
-	/* simulation time, when the last speed adaption started */
+    /* simulation time, when the last speed adaption started */
     SUMOTime timeBeforeAdaption;
 
-	/* duration of the last speed adaption */
+    /* duration of the last speed adaption */
     SUMOTime adaptDuration;
 
-	/* simulation time when the last lane change was forced */
-	SUMOTime timeBeforeLaneChange;
+    /* simulation time when the last lane change was forced */
+    SUMOTime timeBeforeLaneChange;
 
-	/* duration for which the last lane change will be in effect */
-	SUMOTime laneChangeStickyTime;
+    /* duration for which the last lane change will be in effect */
+    SUMOTime laneChangeStickyTime;
 
-	/* lane index of the destination road map position for an active lane change*/
-	unsigned myDestinationLane;
-	
-	/* true if any forced lane change is in effect*/
-	bool laneChangeConstraintActive;
+    /* lane index of the destination road map position for an active lane change*/
+    unsigned myDestinationLane;
+
+    /* true if any forced lane change is in effect*/
+    bool laneChangeConstraintActive;
 
 #endif
 

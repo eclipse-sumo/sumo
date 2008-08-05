@@ -47,7 +47,7 @@
  *
  * Because in some cases, the Command may live longer than the instance class,
  *  a boolean value indicates that the Command is "descheduled". It should
- *  be set via "deschedule" as soon as the class instance of which a method 
+ *  be set via "deschedule" as soon as the class instance of which a method
  *  is encapsulated is destroyed and forces that the command (calling of this
  *  instace's method) is not executed.
  *
@@ -72,7 +72,7 @@ public:
      */
     WrappingCommand(T* receiver, Operation operation) throw()
             : myReceiver(receiver), myOperation(operation),
-        myAmDescheduledByParent(false){}
+            myAmDescheduledByParent(false) {}
 
 
     /// @brief Destructor
@@ -104,7 +104,7 @@ public:
      */
     SUMOTime execute(SUMOTime currentTime) throw(ProcessError) {
         // do not execute if the command was descheduled
-        if(myAmDescheduledByParent) {
+        if (myAmDescheduledByParent) {
             return 0;
         }
         // execute if stil valid
@@ -112,7 +112,7 @@ public:
     }
     /// @}
 
-    
+
 private:
     /// @brief The object the action is directed to.
     T* myReceiver;

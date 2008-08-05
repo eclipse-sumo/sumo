@@ -56,11 +56,11 @@ using namespace std;
 // method definitions
 // ===========================================================================
 GUIInternalLane::GUIInternalLane(const std::string &id,
-        SUMOReal maxSpeed, SUMOReal length,
-        MSEdge * const edge, unsigned int numericalID,
-        const Position2DVector &shape,
-        const std::vector<SUMOVehicleClass> &allowed,
-        const std::vector<SUMOVehicleClass> &disallowed) throw()
+                                 SUMOReal maxSpeed, SUMOReal length,
+                                 MSEdge * const edge, unsigned int numericalID,
+                                 const Position2DVector &shape,
+                                 const std::vector<SUMOVehicleClass> &allowed,
+                                 const std::vector<SUMOVehicleClass> &disallowed) throw()
         : MSInternalLane(id, maxSpeed, length, edge, numericalID, shape, allowed, disallowed)
 {}
 

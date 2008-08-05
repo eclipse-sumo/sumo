@@ -48,7 +48,7 @@
 #include <windows.h>
 #endif
 
-#include <GL/gl.h> 
+#include <GL/gl.h>
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -139,7 +139,7 @@ GUIDialog_GLChosenEditor::rebuildList() throw()
     const std::vector<GLuint> &chosen = gSelected.getSelected();
     for (std::vector<GLuint>::const_iterator i=chosen.begin(); i!=chosen.end(); ++i) {
         GUIGlObject *object = gIDStorage.getObjectBlocking(*i);
-        if (object!=0) { 
+        if (object!=0) {
             std::string name = object->getFullName();
             FXListItem *item = myList->getItem(myList->appendItem(name.c_str()));
             item->setData((void*) *i);
@@ -175,7 +175,7 @@ long
 GUIDialog_GLChosenEditor::onCmdSave(FXObject*,FXSelector,void*)
 {
     FXString file = MFXUtils::getFilename2Write(this, "Save List of selected Items", ".txt", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
-    if(file=="") {
+    if (file=="") {
         return 1;
     }
     try {
@@ -195,7 +195,7 @@ GUIDialog_GLChosenEditor::onCmdDeselect(FXObject*,FXSelector,void*)
     vector<GLuint> selected;
     for (i=0; i<no; ++i) {
         if (myList->getItem(i)->isSelected()) {
-            selected.push_back((GLuint) (FXuval) myList->getItem(i)->getData());
+            selected.push_back((GLuint)(FXuval) myList->getItem(i)->getData());
         }
     }
     // remove items from list

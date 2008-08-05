@@ -51,7 +51,7 @@ class ROVehicleType_ID : public ROVehicleType
 {
 public:
     /** @brief Constructor
-     * 
+     *
      * @param[in] id The id of the vehicle type
      */
     ROVehicleType_ID(const std::string &id) throw();

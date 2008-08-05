@@ -117,7 +117,7 @@ MSTrafficLightLogic::MSTrafficLightLogic(
 }
 
 
-void 
+void
 MSTrafficLightLogic::init(NLDetectorBuilder &, const MSEdgeContinuations &)
 {
 }

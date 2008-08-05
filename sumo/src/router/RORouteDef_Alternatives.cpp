@@ -340,14 +340,14 @@ OutputDevice &
 RORouteDef_Alternatives::writeXMLDefinition(OutputDevice &dev, const ROVehicle * const veh, bool asAlternatives) const
 {
     // (optional) alternatives header
-    if(asAlternatives) {
+    if (asAlternatives) {
         dev << "<routealt last=\"" << myLastUsed << "\"";
         dev << ">\n";
         for (size_t i=0; i!=myAlternatives.size(); i++) {
             const RORoute &alt = *(myAlternatives[i]);
             dev << "         <route cost=\"" << alt.getCosts();
             dev << "\" probability=\"" << alt.getProbability();
-            if(alt.getColor()!=0) {
+            if (alt.getColor()!=0) {
                 dev << "\" color=\"" << *alt.getColor();
             } else if (myColor!=0) {
                 dev << "\" color=\"" << *myColor;

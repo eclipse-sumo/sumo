@@ -254,8 +254,8 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc &base, int /*no*/,
             // ok, no further connections to follow
             current.factor = 1.;
             SUMOReal cdist = GeomHelper::distance(
-                current.edges2Pass[0]->getFromNode()->getPosition(),
-                current.edges2Pass[current.edges2Pass.size()-1]->getToNode()->getPosition());
+                                 current.edges2Pass[0]->getFromNode()->getPosition(),
+                                 current.edges2Pass[current.edges2Pass.size()-1]->getToNode()->getPosition());
             if (minDist<cdist) {
                 into.addRouteDesc(current);
             }
@@ -280,8 +280,8 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc &base, int /*no*/,
                     }
                     current.factor = 1.;
                     SUMOReal cdist = GeomHelper::distance(
-                        current.edges2Pass[0]->getFromNode()->getPosition(),
-                        current.edges2Pass[current.edges2Pass.size()-1]->getToNode()->getPosition());
+                                         current.edges2Pass[0]->getFromNode()->getPosition(),
+                                         current.edges2Pass[current.edges2Pass.size()-1]->getToNode()->getPosition());
                     if (minDist<cdist) {
                         into.addRouteDesc(current);
                     }
@@ -318,8 +318,8 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc &base, int /*no*/,
                 unfoundEnds.push_back(current);
                 current.factor = 1.;
                 SUMOReal cdist = GeomHelper::distance(
-                    current.edges2Pass[0]->getFromNode()->getPosition(),
-                    current.edges2Pass[current.edges2Pass.size()-1]->getToNode()->getPosition());
+                                     current.edges2Pass[0]->getFromNode()->getPosition(),
+                                     current.edges2Pass[current.edges2Pass.size()-1]->getToNode()->getPosition());
                 if (minDist<cdist) {
                     into.addRouteDesc(current);
                 }
@@ -345,8 +345,8 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc &base, int /*no*/,
                 if (!hadOne||allEndFollower) {
                     t.factor = (SUMOReal) 1. / (SUMOReal) appr.size();
                     SUMOReal cdist = GeomHelper::distance(
-                        current.edges2Pass[0]->getFromNode()->getPosition(),
-                        current.edges2Pass[current.edges2Pass.size()-1]->getToNode()->getPosition());
+                                         current.edges2Pass[0]->getFromNode()->getPosition(),
+                                         current.edges2Pass[current.edges2Pass.size()-1]->getToNode()->getPosition());
                     if (minDist<cdist) {
                         into.addRouteDesc(t);
                     }

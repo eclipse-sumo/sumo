@@ -53,8 +53,8 @@ GUIVehicleControl::~GUIVehicleControl() throw()
 
 
 MSVehicle *
-GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs, 
-        const MSRoute* route, const MSVehicleType* type) throw()
+GUIVehicleControl::buildVehicle(SUMOVehicleParameter* defs,
+                                const MSRoute* route, const MSVehicleType* type) throw()
 {
     myLoadedVehNo++;
     return new GUIVehicle(gIDStorage, defs, route, type, myLoadedVehNo-1);

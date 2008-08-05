@@ -245,13 +245,13 @@ MSInductLoop::enterDetectorByMove(MSVehicle& veh,
 {
     myVehiclesOnDet.insert(make_pair(&veh, entryTimestep));
     veh.quitRemindedEntered(this);
-    if(myCurrentVehicle!=0&&myCurrentVehicle!=&veh) {
+    if (myCurrentVehicle!=0&&myCurrentVehicle!=&veh) {
         // in fact, this is an error - a second vehicle is on the detector
         //  before the first one leaves... (collision)
         // Still, this seems to happen, but should not be handled herein.
         //  we will inform the user, etc., but continue as nothing had happened
-        MsgHandler::getWarningInstance()->inform("Collision on e1-detector '" + getID() + "'.\n Vehicle '" + myCurrentVehicle->getID() + 
-            "' was aready at detector as '" + veh.getID() + "' entered.");
+        MsgHandler::getWarningInstance()->inform("Collision on e1-detector '" + getID() + "'.\n Vehicle '" + myCurrentVehicle->getID() +
+                "' was aready at detector as '" + veh.getID() + "' entered.");
         leaveDetectorByMove(*myCurrentVehicle, entryTimestep);
     }
     myCurrentVehicle = &veh;

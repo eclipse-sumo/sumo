@@ -264,7 +264,7 @@ long
 GUIParameterTracker::onCmdSave(FXObject*,FXSelector,void*)
 {
     FXString file = MFXUtils::getFilename2Write(this, "Save Data", ".csv", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
-    if(file=="") {
+    if (file=="") {
         return 1;
     }
     try {

@@ -62,7 +62,7 @@ class MSNet;
 class GUILane : public MSLane
 {
 public:
-    /** @brief Constructor 
+    /** @brief Constructor
      *
      * @param[in] id The lane's id
      * @param[in] maxSpeed The speed allwoed on this lane
@@ -75,10 +75,10 @@ public:
      * @see MSLane
      */
     GUILane(const std::string &id, SUMOReal maxSpeed,
-        SUMOReal length, MSEdge * const edge, unsigned int numericalID,
-        const Position2DVector &shape,
-        const std::vector<SUMOVehicleClass> &allowed,
-        const std::vector<SUMOVehicleClass> &disallowed) throw();
+            SUMOReal length, MSEdge * const edge, unsigned int numericalID,
+            const Position2DVector &shape,
+            const std::vector<SUMOVehicleClass> &allowed,
+            const std::vector<SUMOVehicleClass> &disallowed) throw();
 
 
     /// @brief Destructor
@@ -102,7 +102,7 @@ public:
      * @see MSLane::isEmissionSuccess
      */
     virtual bool isEmissionSuccess(MSVehicle* vehicle, SUMOReal speed, SUMOReal pos,
-        bool recheckNextLanes) throw();
+                                   bool recheckNextLanes) throw();
     ///@}
 
 

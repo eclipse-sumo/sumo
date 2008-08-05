@@ -87,13 +87,13 @@ class TraCIServer
 {
 public:
 
-	struct RoadMapPos {
-		std::string roadId;
-		float pos;
-		unsigned char laneId;
+    struct RoadMapPos {
+        std::string roadId;
+        float pos;
+        unsigned char laneId;
 
-		RoadMapPos(): roadId(""), pos(0), laneId(0) {};
-	};
+        RoadMapPos(): roadId(""), pos(0), laneId(0) {};
+    };
 
     // process all commands until a simulation step is wanted
     static void processCommandsUntilSimStep(SUMOTime step);
@@ -103,11 +103,11 @@ public:
 
 private:
 
-	struct EdgeEffort {
-		SUMOReal getEffort(const MSEdge* const edge, const MSVehicle* const veh, SUMOReal time) const {
-			return edge->getEffort(time);
-		};
-	};
+    struct EdgeEffort {
+        SUMOReal getEffort(const MSEdge* const edge, const MSVehicle* const veh, SUMOReal time) const {
+            return edge->getEffort(time);
+        };
+    };
 
     // Constructor
     // Reads the needed parameters out of static OptionsCont
@@ -166,11 +166,11 @@ private:
 
     void commandUpdateCalibrator() throw(TraCIException);
 
-	void commandPositionConversion() throw(TraCIException);
+    void commandPositionConversion() throw(TraCIException);
 
-	void commandScenario() throw(TraCIException);
+    void commandScenario() throw(TraCIException);
 
-	void commandDistanceRequest() throw(TraCIException);
+    void commandDistanceRequest() throw(TraCIException);
 
     void commandSubscribeLifecycles() throw(TraCIException);
 
@@ -181,70 +181,70 @@ private:
     void commandUnsubscribeDomain() throw(TraCIException);
 
     void writeStatusCmd(int commandId, int status, std::string description);
-	
-	/**
-	 * Handles the request of a Scenario Command for obtaining information on
-	 * the road map domain.
-	 * 
-	 * @param requestMsg original Scenario command message, the fields flag and 
-	 *						domain have already been read
-	 * @param response storage object that will contain the variable dependant part of the
-	 *					response on this request
-	 * @param isWriteCommand true, if the command wants to write a value
-	 * @return string containing an optional warning (to be added to the response command) if
-	 *			the requested variable type could not be used
-	 */
-	std::string handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
 
-	/**
-	 * Handles the request of a Scenario Command for obtaining information on
-	 * the vehicle domain.
-	 */
-	std::string handleVehicleDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
+    /**
+     * Handles the request of a Scenario Command for obtaining information on
+     * the road map domain.
+     *
+     * @param requestMsg original Scenario command message, the fields flag and
+     *						domain have already been read
+     * @param response storage object that will contain the variable dependant part of the
+     *					response on this request
+     * @param isWriteCommand true, if the command wants to write a value
+     * @return string containing an optional warning (to be added to the response command) if
+     *			the requested variable type could not be used
+     */
+    std::string handleRoadMapDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
 
-	/**
-	 * Handles  the request of a Scenario Command for obtaining information on
-	 * the traffic light domain.
-	 */
-	std::string handleTrafficLightDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
+    /**
+     * Handles the request of a Scenario Command for obtaining information on
+     * the vehicle domain.
+     */
+    std::string handleVehicleDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
 
-	/**
-	 * Handles  the request of a Scenario Command for obtaining information on
-	 * the point of interest domain.
-	 */
-	std::string handlePoiDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
+    /**
+     * Handles  the request of a Scenario Command for obtaining information on
+     * the traffic light domain.
+     */
+    std::string handleTrafficLightDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
 
-	/**
-	 * Handles  the request of a Scenario Command for obtaining information on
-	 * the polygon domain.
-	 */
-	std::string handlePolygonDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
+    /**
+     * Handles  the request of a Scenario Command for obtaining information on
+     * the point of interest domain.
+     */
+    std::string handlePoiDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
 
-	/**
-	 * Notifies client of all lifecycle events it is subscribed to
-	 */
-	void handleLifecycleSubscriptions() throw(TraCIException);
+    /**
+     * Handles  the request of a Scenario Command for obtaining information on
+     * the polygon domain.
+     */
+    std::string handlePolygonDomain(bool isWriteCommand, tcpip::Storage& response) throw(TraCIException);
 
-	/**
-	 * Notifies client of all domain object update events it is subscribed to
-	 */
-	void handleDomainSubscriptions(const SUMOTime& currentTime, const std::map<int, const MSVehicle*>& activeEquippedVehicles) throw(TraCIException);
+    /**
+     * Notifies client of all lifecycle events it is subscribed to
+     */
+    void handleLifecycleSubscriptions() throw(TraCIException);
 
-	/**
-	 * Converts a cartesian position to the closest road map position
-	 * 
-	 * @param pos	cartesian position that is to be converted
-	 * @return the closest road map position to the cartesian position
-	 */
-	TraCIServer::RoadMapPos convertCartesianToRoadMap(Position2D pos);
+    /**
+     * Notifies client of all domain object update events it is subscribed to
+     */
+    void handleDomainSubscriptions(const SUMOTime& currentTime, const std::map<int, const MSVehicle*>& activeEquippedVehicles) throw(TraCIException);
 
-	/**
-	 * Converts a road map position to a cartesian position
-	 *
-	 * @param pos road map position that is to be convertes
-	 * @return closest 2D position 
-	 */
-	Position2D convertRoadMapToCartesian(TraCIServer::RoadMapPos pos) throw(TraCIException);
+    /**
+     * Converts a cartesian position to the closest road map position
+     *
+     * @param pos	cartesian position that is to be converted
+     * @return the closest road map position to the cartesian position
+     */
+    TraCIServer::RoadMapPos convertCartesianToRoadMap(Position2D pos);
+
+    /**
+     * Converts a road map position to a cartesian position
+     *
+     * @param pos road map position that is to be convertes
+     * @return closest 2D position
+     */
+    Position2D convertRoadMapToCartesian(TraCIServer::RoadMapPos pos) throw(TraCIException);
 
     // singleton instance of the server
     static TraCIServer* instance_;
@@ -271,38 +271,38 @@ private:
     bool isMapChanged_;
     void convertExt2IntId(int extId, std::string& intId);
 
-	// maps all internal traffic light ids to external ids
-	std::map<int, std::string> trafficLightsExt2IntId;
-	// maps all external traffic light ids to internal ids
-	std::map<std::string, int> trafficLightsInt2ExtId;
+    // maps all internal traffic light ids to external ids
+    std::map<int, std::string> trafficLightsExt2IntId;
+    // maps all external traffic light ids to internal ids
+    std::map<std::string, int> trafficLightsInt2ExtId;
 
-	// maps all internal point of interest ids to external ids
-	std::map<int, std::string> poiExt2IntId;
-	// maps all external point of interest ids to internal ids
-	std::map<std::string, int> poiInt2ExtId;
+    // maps all internal point of interest ids to external ids
+    std::map<int, std::string> poiExt2IntId;
+    // maps all external point of interest ids to internal ids
+    std::map<std::string, int> poiInt2ExtId;
 
-	// maps all internal polygon ids to external ids
-	std::map<int, std::string> polygonExt2IntId;
-	// maps all external polygon ids to internal ids
-	std::map<std::string, int> polygonInt2ExtId;
+    // maps all internal polygon ids to external ids
+    std::map<int, std::string> polygonExt2IntId;
+    // maps all external polygon ids to internal ids
+    std::map<std::string, int> polygonInt2ExtId;
 
-	// return vehicle that is referenced by the given external id
+    // return vehicle that is referenced by the given external id
     MSVehicle* getVehicleByExtId(int extId);
-	
-	// return traffic light logic that is referenced by the given external id
-	MSTrafficLightLogic* getTLLogicByExtId(int extId);
 
-	// return point of interest that is referenced by the given external id
-	PointOfInterest* getPoiByExtId(int extId);
+    // return traffic light logic that is referenced by the given external id
+    MSTrafficLightLogic* getTLLogicByExtId(int extId);
 
-	// return polygon that is referenced by the given external id
-	Polygon2D* getPolygonByExtId(int extId);
+    // return point of interest that is referenced by the given external id
+    PointOfInterest* getPoiByExtId(int extId);
+
+    // return polygon that is referenced by the given external id
+    Polygon2D* getPolygonByExtId(int extId);
 
     // hold number of all equipped vehicles
     int numEquippedVehicles_;
 
-	// maximum number of vehicles within the simulation
-	int totalNumVehicles_;
+    // maximum number of vehicles within the simulation
+    int totalNumVehicles_;
 
     // holds all Domain Ids to whose objects' lifecycle the client subscribed
     std::set<int> myLifecycleSubscriptions;
@@ -335,151 +335,151 @@ private:
 class DataTypeContainer
 {
 private:
-	int intValue;
-	double realValue;
-	std::string stringValue;
-	TraCIServer::RoadMapPos roadPosValue;
-	float posXValue;
-	float posYValue;
-	float posZValue;
+    int intValue;
+    double realValue;
+    std::string stringValue;
+    TraCIServer::RoadMapPos roadPosValue;
+    float posXValue;
+    float posYValue;
+    float posZValue;
 
-	int lastValueRead;
+    int lastValueRead;
 
 public:
-	DataTypeContainer() :lastValueRead(-1) {};
+    DataTypeContainer() :lastValueRead(-1) {};
 
-	void readValue(unsigned char dataType, tcpip::Storage& msg) throw(TraCIException) {
-		switch(dataType) {
-		case TYPE_UBYTE:
-			intValue = msg.readUnsignedByte();
-			break;
-		case TYPE_BYTE:
-			intValue = msg.readByte();
-			break;
-		case TYPE_INTEGER:
-			intValue = msg.readInt();
-			break;
-		case TYPE_FLOAT:
-			realValue = msg.readFloat();
-			break;
-		case TYPE_DOUBLE:
-			realValue = msg.readDouble();
-			break;
-		case POSITION_ROADMAP:
-			roadPosValue.roadId = msg.readString();
-			roadPosValue.pos = msg.readFloat();
-			roadPosValue.laneId = msg.readUnsignedByte();
-			break;
-		case POSITION_2D:
-		case POSITION_2_5D:
-		case POSITION_3D:
-			posXValue = msg.readFloat();
-			posYValue = msg.readFloat();
-			if (dataType != POSITION_2D) {
-				posZValue = msg.readFloat();
-			}
-			break;
-		case TYPE_STRING:
-			stringValue = msg.readString();
-			break;
-		default:
-			std::stringstream error;
-			error << "Can't read value from request message: the data type " << (int)dataType << " is not known";
-			throw TraCIException(error.str());
-		}
-		lastValueRead = dataType;
-	};
+    void readValue(unsigned char dataType, tcpip::Storage& msg) throw(TraCIException) {
+        switch (dataType) {
+        case TYPE_UBYTE:
+            intValue = msg.readUnsignedByte();
+            break;
+        case TYPE_BYTE:
+            intValue = msg.readByte();
+            break;
+        case TYPE_INTEGER:
+            intValue = msg.readInt();
+            break;
+        case TYPE_FLOAT:
+            realValue = msg.readFloat();
+            break;
+        case TYPE_DOUBLE:
+            realValue = msg.readDouble();
+            break;
+        case POSITION_ROADMAP:
+            roadPosValue.roadId = msg.readString();
+            roadPosValue.pos = msg.readFloat();
+            roadPosValue.laneId = msg.readUnsignedByte();
+            break;
+        case POSITION_2D:
+        case POSITION_2_5D:
+        case POSITION_3D:
+            posXValue = msg.readFloat();
+            posYValue = msg.readFloat();
+            if (dataType != POSITION_2D) {
+                posZValue = msg.readFloat();
+            }
+            break;
+        case TYPE_STRING:
+            stringValue = msg.readString();
+            break;
+        default:
+            std::stringstream error;
+            error << "Can't read value from request message: the data type " << (int)dataType << " is not known";
+            throw TraCIException(error.str());
+        }
+        lastValueRead = dataType;
+    };
 
-	int getLastValueRead() {
-		return lastValueRead;
-	}
+    int getLastValueRead() {
+        return lastValueRead;
+    }
 
-	unsigned char getUByte() throw(TraCIException) {
-		if (lastValueRead == TYPE_UBYTE) {
-			return static_cast<unsigned char>(intValue);
-		} else {
-			throw TraCIException("An unsigned byte value has not been read");
-		}
-	};
+    unsigned char getUByte() throw(TraCIException) {
+        if (lastValueRead == TYPE_UBYTE) {
+            return static_cast<unsigned char>(intValue);
+        } else {
+            throw TraCIException("An unsigned byte value has not been read");
+        }
+    };
 
-	char getByte() throw(TraCIException) {
-		if (lastValueRead == TYPE_BYTE) {
-			return static_cast<char>(intValue);
-		} else {
-			throw TraCIException("A byte value has not been read");
-		}
-	};
+    char getByte() throw(TraCIException) {
+        if (lastValueRead == TYPE_BYTE) {
+            return static_cast<char>(intValue);
+        } else {
+            throw TraCIException("A byte value has not been read");
+        }
+    };
 
-	int getInteger() throw(TraCIException) {
-		if (lastValueRead == TYPE_INTEGER) {
-			return intValue;
-		} else {
-			throw TraCIException("An integer value has not been read");
-		}
-	};
+    int getInteger() throw(TraCIException) {
+        if (lastValueRead == TYPE_INTEGER) {
+            return intValue;
+        } else {
+            throw TraCIException("An integer value has not been read");
+        }
+    };
 
-	float getFloat() throw(TraCIException) {
-		if (lastValueRead == TYPE_FLOAT) {
-			return static_cast<float>(realValue);
-		} else {
-			throw TraCIException("A float value has not been read");
-		}
-	};
+    float getFloat() throw(TraCIException) {
+        if (lastValueRead == TYPE_FLOAT) {
+            return static_cast<float>(realValue);
+        } else {
+            throw TraCIException("A float value has not been read");
+        }
+    };
 
-	double getDouble() throw(TraCIException) {
-		if (lastValueRead == TYPE_DOUBLE) {
-			return intValue;
-		} else {
-			throw TraCIException("A double value has not been read");
-		}
-	};
+    double getDouble() throw(TraCIException) {
+        if (lastValueRead == TYPE_DOUBLE) {
+            return intValue;
+        } else {
+            throw TraCIException("A double value has not been read");
+        }
+    };
 
-	TraCIServer::RoadMapPos getRoadMapPosition() throw(TraCIException) {
-		if (lastValueRead == POSITION_ROADMAP) {
-			return roadPosValue;
-		} else {
-			throw TraCIException("A road map position has not been read");
-		}
-	};
+    TraCIServer::RoadMapPos getRoadMapPosition() throw(TraCIException) {
+        if (lastValueRead == POSITION_ROADMAP) {
+            return roadPosValue;
+        } else {
+            throw TraCIException("A road map position has not been read");
+        }
+    };
 
-	void get3DPosition(float& inX, float& inY, float& inZ) throw(TraCIException) {
-		if (lastValueRead == POSITION_3D || lastValueRead == POSITION_2_5D) {
-			inX = posXValue;
-			inY = posYValue;
-			inZ = posZValue;
-		} else {
-			throw TraCIException("A 3d position has not been read");
-		}
-	};
+    void get3DPosition(float& inX, float& inY, float& inZ) throw(TraCIException) {
+        if (lastValueRead == POSITION_3D || lastValueRead == POSITION_2_5D) {
+            inX = posXValue;
+            inY = posYValue;
+            inZ = posZValue;
+        } else {
+            throw TraCIException("A 3d position has not been read");
+        }
+    };
 
-	void get2DPosition(float& inX, float& inY) throw(TraCIException) {
-		if (lastValueRead == POSITION_2D) {
-			inX = posXValue;
-			inY = posYValue;
-		} else {
-			throw TraCIException("A 2d position has not been read");
-		}
-	};
+    void get2DPosition(float& inX, float& inY) throw(TraCIException) {
+        if (lastValueRead == POSITION_2D) {
+            inX = posXValue;
+            inY = posYValue;
+        } else {
+            throw TraCIException("A 2d position has not been read");
+        }
+    };
 
-	Position2D getAnyPosition() throw(TraCIException) {
-		if (lastValueRead == POSITION_2D 
-			|| lastValueRead == POSITION_3D 
-			|| lastValueRead == POSITION_2_5D) {
-			Position2D pos(static_cast<SUMOReal>(posXValue), 
-								static_cast<SUMOReal>(posYValue));
-			return pos;
-		} else {
-			throw TraCIException("No position has been read");
-		}
-	};
+    Position2D getAnyPosition() throw(TraCIException) {
+        if (lastValueRead == POSITION_2D
+                || lastValueRead == POSITION_3D
+                || lastValueRead == POSITION_2_5D) {
+            Position2D pos(static_cast<SUMOReal>(posXValue),
+                           static_cast<SUMOReal>(posYValue));
+            return pos;
+        } else {
+            throw TraCIException("No position has been read");
+        }
+    };
 
-	std::string getString() throw(TraCIException) {
-		if (lastValueRead == TYPE_STRING) {
-			return stringValue;
-		} else {
-			throw TraCIException("A string value has not been read");
-		}
-	};
+    std::string getString() throw(TraCIException) {
+        if (lastValueRead == TYPE_STRING) {
+            return stringValue;
+        } else {
+            throw TraCIException("A string value has not been read");
+        }
+    };
 };
 
 }

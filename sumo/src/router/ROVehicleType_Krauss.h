@@ -48,7 +48,7 @@ class ROVehicleType_Krauss : public ROVehicleType
 {
 public:
     /** @brief Constructor
-     * 
+     *
      * @param[in] id The id of the vehicle type
      * @param[in] col A string storing the vehicle type's color
      * @param[in] length The length of vehicles of this type

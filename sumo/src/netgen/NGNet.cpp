@@ -64,12 +64,12 @@ NGNet::NGNet(NBNetBuilder &nb) throw()
 
 NGNet::~NGNet() throw()
 {
-        for (NGEdgeList::iterator ni=myEdgeList.begin(); ni!=myEdgeList.end(); ++ni) {
-            delete *ni;
-        }
-        for (NGNodeList::iterator ni=myNodeList.begin(); ni!=myNodeList.end(); ++ni) {
-            delete *ni;
-        }
+    for (NGEdgeList::iterator ni=myEdgeList.begin(); ni!=myEdgeList.end(); ++ni) {
+        delete *ni;
+    }
+    for (NGNodeList::iterator ni=myNodeList.begin(); ni!=myNodeList.end(); ++ni) {
+        delete *ni;
+    }
 }
 
 

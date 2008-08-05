@@ -86,19 +86,19 @@ public:
     /// @{
 
 #ifdef _MESSAGES
-	/** @brief Builds an e4-detector and adds it to the net
-	 *
-	 *	@param[in] id The id the detector shall have
-	 *	@param[in] lane The name of the lane the detector is placed at
-	 */
-	void
-	buildMsgDetector(const std::string &id,
-					 const std::string &lane, SUMOReal pos, int splInterval,
-					 const std::string &msg,
-					 OutputDevice& device, bool friendlyPos) throw(InvalidArgument);
+    /** @brief Builds an e4-detector and adds it to the net
+     *
+     *	@param[in] id The id the detector shall have
+     *	@param[in] lane The name of the lane the detector is placed at
+     */
+    void
+    buildMsgDetector(const std::string &id,
+                     const std::string &lane, SUMOReal pos, int splInterval,
+                     const std::string &msg,
+                     OutputDevice& device, bool friendlyPos) throw(InvalidArgument);
 #endif
-    
-	/** @brief Builds an e1-detector and adds it to the net
+
+    /** @brief Builds an e1-detector and adds it to the net
      *
      * Checks the given values, first. If one of the values is invalid
      *  (lane is not known, sampling frequency<=0, position is larger
@@ -316,15 +316,15 @@ public:
     /// @{
 
 #ifdef _MESSAGES
-	/** @brief Creates an instance of an e4-detector using the given values
-	 *
-	 * Simply calls the MSMsgInductLoop constructor
-	 */
-	virtual MSMsgInductLoop *createMsgInductLoop(const std::string &id, const std::string &msg,
-												 MSLane *lane, SUMOReal pos) throw();
+    /** @brief Creates an instance of an e4-detector using the given values
+     *
+     * Simply calls the MSMsgInductLoop constructor
+     */
+    virtual MSMsgInductLoop *createMsgInductLoop(const std::string &id, const std::string &msg,
+            MSLane *lane, SUMOReal pos) throw();
 #endif
-    
-	/** @brief Creates an instance of an e1-detector using the given values
+
+    /** @brief Creates an instance of an e1-detector using the given values
      *
      * Simply calls the MSInductLoop constructor
      *

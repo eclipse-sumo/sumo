@@ -106,8 +106,8 @@ public:
 
     /** @brief Builds a vaporization
      *
-     * Parses the attributes, reporting errors if the time values are false 
-     *  or the edge is not known. 
+     * Parses the attributes, reporting errors if the time values are false
+     *  or the edge is not known.
      * Instatiates events for enabling and disabling the vaporization otherwise.
      *
      * @param[in] attrs SAX-attributes which define the vaporizer
@@ -407,7 +407,7 @@ protected:
      * @return The named lane if it is known
      * @exception InvalidArgument If the named lane does not exist or a lane is not named
      */
-    MSLane *getLane(const SUMOSAXAttributes &attrs, 
+    MSLane *getLane(const SUMOSAXAttributes &attrs,
                     const std::string &tt, const std::string &tid) throw(InvalidArgument);
 
 
@@ -424,7 +424,7 @@ protected:
      * @return The position on the lane
      * @exception InvalidArgument If the position is beyond the lane
      */
-    SUMOReal getPosition(const SUMOSAXAttributes &attrs, 
+    SUMOReal getPosition(const SUMOSAXAttributes &attrs,
                          MSLane *lane, const std::string &tt, const std::string &tid) throw(InvalidArgument);
     /// @}
 

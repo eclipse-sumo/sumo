@@ -49,9 +49,9 @@ class MSLane;
  * @class MSBusStop
  * @brief A lane area vehicles can halt at
  *
- * The bus stops tracks the last free space a vehicle may halt at by being 
+ * The bus stops tracks the last free space a vehicle may halt at by being
  *  informed about a vehicle's entering and depart. It keeps the information
- *  about entered vehicles' begin and end position within an internal 
+ *  about entered vehicles' begin and end position within an internal
  *  container ("myEndPositions") and is so able to compute the last free space.
  *
  * Please remark that using the last free space disallows vehicles to enter a
