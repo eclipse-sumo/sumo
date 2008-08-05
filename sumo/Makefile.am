@@ -31,3 +31,17 @@ dist-tests:
 dist-complete: dist dist-doc dist-tests
 	mv $(PACKAGE)-$(VERSION).tar.gz $(PACKAGE)-src-$(VERSION).tar.gz
 	mv $(PACKAGE)-$(VERSION).zip $(PACKAGE)-src-$(VERSION).zip
+
+sumo$(EXEEXT) sumo-netconvert$(EXEEXT) \
+        sumo-netgen$(EXEEXT) sumo-duarouter$(EXEEXT) \
+        sumo-dfrouter$(EXEEXT) sumo-jtrrouter$(EXEEXT) \
+        sumo-od2trips$(EXEEXT) sumo-polyconvert$(EXEEXT) \
+        sumo-guisim$(EXEEXT) traci-testclient$(EXEEXT):
+	$(MAKE) -C src $@
+
+netconvert$(EXEEXT) \
+        netgen$(EXEEXT) duarouter$(EXEEXT) \
+        dfrouter$(EXEEXT) jtrrouter$(EXEEXT) \
+        od2trips$(EXEEXT) polyconvert$(EXEEXT) \
+        guisim$(EXEEXT):
+	$(MAKE) -C src sumo-$@
