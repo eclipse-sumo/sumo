@@ -249,18 +249,18 @@ ROLoader::openRoutes(RONet &net)
     // load sumo-routes when wished
     bool ok = openTypedRoutes("sumo-input", net);
     // load the XML-trip definitions when wished
-    ok = openTypedRoutes("trip-defs", net);
+    ok &= openTypedRoutes("trip-defs", net);
     // load the sumo-alternative file when wished
-    ok = openTypedRoutes("alternatives", net);
+    ok &= openTypedRoutes("alternatives", net);
     // load the amount definitions if wished
-    ok = openTypedRoutes("flows", net);
+    ok &= openTypedRoutes("flows", net);
     // build generators
     if (myOptions.isSet("R")) {
         myHandler.push_back(new RORDGenerator_Random(myVehicleBuilder, net,
                             myOptions.getInt("begin"), myOptions.getInt("end"), myOptions.getBool("prune-random")));
     }
     // check
-    if (myHandler.size()==0) {
+    if (ok&&myHandler.size()==0) {
         throw ProcessError("No route input specified.");
     }
     // skip routes prior to the begin time
@@ -274,6 +274,7 @@ ROLoader::openRoutes(RONet &net)
     // check whether everything's ok
     if (!ok) {
         destroyHandlers();
+        throw ProcessError();
     }
     return (unsigned int) myHandler.size();
 }
