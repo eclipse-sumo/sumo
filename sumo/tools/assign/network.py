@@ -65,21 +65,7 @@ class Net:
     def getJunction(self, junctionlabel):
         return self._junctions[junctionlabel]
         
-    def countDetectedLinks(self, weekday, timeindex, odtype):
-        daytimeindex = weekday + timeindex
-        for edge in self._edges.itervalues():
-            counts= 0.
-            for data in edge.detecteddata.itervalues():
-                if (weekday != 'avgWkday' and weekday != 'avgWkend' and data.label == daytimeindex) or \
-                   (weekday == 'avgWkday' and data.label[0] != 'F' and data.label[0] != 'S') or \
-                   (weekday == 'avgWkend' and data.label[0] == 'S'):
-                    if (odtype == 'pgr' and data.flowPger > 0.) or (odtype == 'truck' and data.flowTruck > 0.):
-                        counts += 1.
-                        if not edge.detected:
-                            edge.detected = True
-            if counts > 0.:
-                self._detectedLinkCounts += 1.    
-        
+
     def removeUTurnEdge(self, edge):
         outEdge = edge
         for link in self._edges.itervalues():
@@ -100,7 +86,7 @@ class Net:
         """
         newRoutes = 0
         for start, startVertex in enumerate(startVertices):
-            D,P = dijkstra(startVertex, lohse)            
+            D,P = dijkstra(self, startVertex, lohse)            
             for end, endVertex in enumerate(endVertices):
                 if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                     helpPath = []
@@ -136,6 +122,7 @@ class Net:
                     if newPath:
                         newpath = Path(startVertex, endVertex, helpPath)
                         ODPaths.append(newpath)
+                        newpath.getPathLength()
                         if lohse:
                             newpath.pathhelpacttime = pathcost
                         else:    
@@ -150,7 +137,6 @@ class Net:
                             path.actpathtime = pathcost
                         path.usedcounts += 1
                         path.currentshortest = True
-        
         return newRoutes
 
 #    find the k shortest paths for each OD pair. The "k" is defined by users.
@@ -195,6 +181,7 @@ class Net:
                                 break
                         temppath.reverse()
                         newpath = Path(startVertex, endVertex, temppath)
+                        newpath.getPathLength()
                         ODPaths.append(newpath)
                         newpath.freepathtime = temppathcost/3600.
                         newpath.actpathtime = newpath.freepathtime
@@ -265,6 +252,8 @@ class NetworkReader(handler.ContentHandler):
                     self._edgeObj.straight = attrs['linkno']
                 elif attrs['dir'] == "l": 
                     self._edgeObj.leftturn = attrs['linkno']
+                    self._edgeObj.leftlink = attrs['lane']
+                    self._edgeObj.leftlink = self._edgeObj.leftlink[:-2]
                 elif attrs['dir'] == "t": 
                     self._edgeObj.uturn = attrs['linkno']
             else:
@@ -275,6 +264,8 @@ class NetworkReader(handler.ContentHandler):
                     self._edgeObj.straight = attrs['state']
                 elif attrs['dir'] == "l": 
                     self._edgeObj.leftturn = attrs['state']
+                    self._edgeObj.leftlink = attrs['lane']
+                    self._edgeObj.leftlink = self._edgeObj.leftlink[:-2]
                 elif attrs['dir'] == "t": 
                     self._edgeObj.uturn = attrs['state']
                     

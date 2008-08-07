@@ -68,8 +68,8 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
                 ODPaths = net._paths[startVertex][endVertex]
                 
                 for path in ODPaths:
-                    path.getPathTimeUpdate(net)
-                calCommonalityAndChoiceProb(net, ODPaths, options.alpha, options.gamma, lohse)
+                    path.getPathTimeUpdate()
+                calCommonalityAndChoiceProb(ODPaths, options.alpha, options.gamma, lohse)
                 
                 # calculate the path choice probabilities and the path flows for the given OD Pair
                 for path in ODPaths:
@@ -88,19 +88,19 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
                             foutassign.write('    last_path.helpflow:%s\n' % path.helpflow)
                     if first and iter == 1:
                         for edge in path.edges:
-                            if str(edge.source) != str(edge.target):
+                            if edge.source.label != edge.target.label:
                                 edge.flow += path.helpflow
                     else:
                         for edge in path.edges:
-                            if str(edge.source) != str(edge.target):
+                            if edge.source.label != edge.target.label:
                                 edge.helpflow += path.helpflow
     
     # Reset the convergence index for the C-Logit model
     notstable = 0
-    stable =False
+    stable = False
     # link travel timess and link flows will be updated according to the latest traffic assingment  
     for edge in net._edges.itervalues():                                       
-        if str(edge.source) != str(edge.target):
+        if edge.source.label != edge.target.label:
             if (first and iter > 1) or (not first):
                 exflow = edge.flow
                 edge.flow = edge.flow + (1./iter)*(edge.helpflow - edge.flow)
@@ -129,13 +129,10 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
     if lohse and options.verbose:
         foutassign.close()
                                                                
-    if not lohse:
-        if notstable > 0 or iter == 1:
-            stable = False
-        else:
-            stable = True
-        
-        if notstable < len(net._edges)*0.05:
+    if not lohse and iter > 3:
+        if notstable == 0:
+            stable = True        
+        elif notstable < len(net._edges)*0.05:
             stable = True
             
         if iter > options.maxiteration:
@@ -144,7 +141,7 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
     return stable
 
 # calculate the commonality factors in the C-Logit model
-def calCommonalityAndChoiceProb(net, ODPaths, alpha, gamma, lohse):
+def calCommonalityAndChoiceProb(ODPaths, alpha, gamma, lohse):
     # initialize the overlapping matrix
     mtxOverlap = {}
     for pathone in ODPaths:
@@ -156,21 +153,23 @@ def calCommonalityAndChoiceProb(net, ODPaths, alpha, gamma, lohse):
         for pathtwo in ODPaths:
             for edgeone in pathone.edges:
                 for edgetwo in pathtwo.edges:
-                    if str(edgeone.label) == str(edgetwo.label):
-                        if lohse:
-                            mtxOverlap[pathone][pathtwo] += edgeone.helpacttime
-                        else:
-                            mtxOverlap[pathone][pathtwo] += edgeone.actualtime
+                    if edgeone.label == edgetwo.label:
+                        mtxOverlap[pathone][pathtwo] += edgeone.length
+#                        if lohse:
+#                            mtxOverlap[pathone][pathtwo] += edgeone.helpacttime
+#                        else:
+#                            mtxOverlap[pathone][pathtwo] += edgeone.actualtime
             mtxOverlap[pathtwo][pathone] = mtxOverlap[pathone][pathtwo]
 
     if len(ODPaths) > 1:
         for pathone in ODPaths:
             sum_overlap = 0.0 
             for pathtwo in ODPaths:
-                if lohse:
-                    sum_overlap += math.pow(mtxOverlap[pathone][pathtwo]/(math.pow(pathone.pathhelpacttime,0.5) * math.pow(pathtwo.pathhelpacttime,0.5)), gamma)
-                else:
-                    sum_overlap += math.pow(mtxOverlap[pathone][pathtwo]/(math.pow(pathone.actpathtime,0.5) * math.pow(pathtwo.actpathtime,0.5)), gamma)
+                sum_overlap += math.pow(mtxOverlap[pathone][pathtwo]/(math.pow(pathone.length,0.5) * math.pow(pathtwo.length,0.5)), gamma)
+#                if lohse:
+#                    sum_overlap += math.pow(mtxOverlap[pathone][pathtwo]/(math.pow(pathone.pathhelpacttime,0.5) * math.pow(pathtwo.pathhelpacttime,0.5)), gamma)
+#                else:
+#                    sum_overlap += math.pow(mtxOverlap[pathone][pathtwo]/(math.pow(pathone.actpathtime,0.5) * math.pow(pathtwo.actpathtime,0.5)), gamma)
             
             pathone.commfactor = alpha * math.log(sum_overlap)
         
@@ -227,11 +226,11 @@ def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices,
                 
                 for path in ODPaths:
                     TotalPath += 1
-                    path.getPathTimeUpdate(net)
+                    path.getPathTimeUpdate()
                     if lohse:                      
                         path.helpacttime = path.actpathtime
       
-                calCommonalityAndChoiceProb(net, ODPaths, options.alpha, options.gamma, lohse)
+                calCommonalityAndChoiceProb(ODPaths, options.alpha, options.gamma, lohse)
         
                 for path in ODPaths:
                     pathcount += 1
@@ -264,8 +263,10 @@ def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices,
 def assignVeh(verbose, vehicles, startVertex, endVertex, edges, AssignedVeh, AssignedTrip, vehID):
     while AssignedVeh[startVertex][endVertex] < int(round(AssignedTrip[startVertex][endVertex])):
         vehID += 1
-        vehicles.append(Vehicle(str(vehID)))
+        newVehicle = Vehicle(str(vehID))
         newVehicle.route = edges
+        vehicles.append(newVehicle)
+        
         AssignedVeh[startVertex][endVertex] += 1
     if verbose:
         print 'vehID:', vehID

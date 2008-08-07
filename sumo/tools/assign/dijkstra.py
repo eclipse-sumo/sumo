@@ -13,6 +13,7 @@ will be stored in the lists P and D respectively.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
+import math
 
 class priorityDictionary(dict):
     def __init__(self):
@@ -82,7 +83,7 @@ class priorityDictionary(dict):
             self[key] = other[key]
 
 
-def dijkstra(start, lohse=False):
+def dijkstra(net, start, lohse=False):
     # dictionary of final distances
     D = {}
     # dictionary of predecessors
@@ -90,16 +91,53 @@ def dijkstra(start, lohse=False):
     # est.dist. of non-final vert.
     Q = priorityDictionary()
     Q[start] = 0
-  
+    weightFactor = 0.6
     for v in Q:
         D[v] = Q[v]
-           
+
+        if v != start and P[v].againstlinkexist == None and P[v].kind == 'real':
+            for vertex in net._vertices:
+                if vertex.label == v.label and vertex != v:
+                    for link in vertex.outEdges:
+                        if link.target.label == P[v].source.label and len(vertex.inEdges) > 1:
+                            P[v].againstlinkexist = True
+#                            print 'against-P[v]:', P[v].label
+#                            print 'against-link.label:', link.label
+                            break
+                        else:
+                            P[v].againstlinkexist = False
+                    if P[v].againstlinkexist == True:
+                        break
+                              
         for edge in v.outEdges:
+            leftTurn = False
             w = edge.target
+            if v != start:
+                for link in w.outEdges:
+#                    if link.label == P[v].leftlink:
+#                        print 'P[v]:', P[v].label
+#                        print 'link.label:', link.label
+#                        print 'P[v].againstlinkexist:',P[v].againstlinkexist
+#                        print 'P[v].straight:', P[v].straight
+                    if link.label == P[v].leftlink and P[v].againstlinkexist and P[v].straight != None:
+                        leftTurn = True
+#                        print 'leftTurn:', leftTurn
+                        break
+#                    print 'leftTurn:', leftTurn
             if lohse:
                 vwLength = D[v] + edge.helpacttime
             else:
-                vwLength = D[v] + edge.actualtime + edge.queuetime
+                if v == start or not leftTurn:
+                    vwLength = D[v] + edge.actualtime + edge.queuetime
+                else:
+                    weightFactor = 0.65       #1.0
+                    if P[v].numberlane == 2.:
+                        weightFactor *= 0.4   #0.85
+                    elif P[v].numberlane > 2.:
+                        weightFactor *= 0.3   #0.65
+                    vwLength = D[v] + edge.actualtime + edge.queuetime + P[v].actualtime*(math.exp(P[v].flow/P[v].estcapacity) - 1.)*weightFactor
+                
+
             if w in D:
                 if vwLength < D[w]:
                         raise ValueError, \

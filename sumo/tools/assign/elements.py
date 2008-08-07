@@ -99,6 +99,8 @@ class Edge:
         self.straight = None
         self.leftturn = None
         self.uturn = None
+        self.leftlink = None
+        self.againstlinkexist = None  
         self.flow = 0.0
         self.kind = kind
         self.maxspeed = 1.0
@@ -146,22 +148,21 @@ class Edge:
         return "%s_%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self.kind, self.label, self.source, self.target, self.junctiontype,
                                                       self.flow, self.length, self.numberlane,
                                                       self.CRcurve, self.estcapacity, cap, self.weight)
-
     def getFreeFlowTravelTime(self):
         return self.freeflowtime
                 
     def addDetectedData(self, detecteddataObj):
         self.detecteddata[detecteddataObj.label] = detecteddataObj
         
-    # modified CR-curve database, defined in the PTV-Validate files
     def getCapacity(self):
+        """
+        modified CR-curve database, defined in the PTV-Validate files
+        """
         if self.numberlane > 0:
-            typeList = laneTypeTable[min(self.numberlane, 4)]
-            
+            typeList = laneTypeTable[min(int(self.numberlane), 4)]
             for laneType in typeList:
                 if laneType[0] >= self.maxspeed:
                     break
-            
             self.estcapacity = self.numberlane * laneType[1]
             self.CRcurve = laneType[2]
               
@@ -201,19 +202,21 @@ class Edge:
                     greentime = max(rightGreen, leftGreen)
                     self.estcapacity = (greentime*(3600./cyclelength))/1.5 * self.numberlane
                      
-    # Function for calculating/updating link travel time
-    def getActualTravelTime(self, lamda):        
+    def getActualTravelTime(self, lamda):
+        """
+        Function for calculating/updating link travel time
+        """  
         foutcheck = file('queue_info.txt', 'a')
         if self.CRcurve in crCurveTable:
             curve = crCurveTable[self.CRcurve]
-            if self.flow == 0.0 or self.connection > 0 or self.numberlane == 0 or str(self.source) == str(self.target):
+            if self.flow == 0.0 or self.connection > 0 or self.numberlane == 0 or self.source.label == self.target.label:
                 self.actualtime = self.freeflowtime
             else:
                 if self.estcapacity == 0.0:
                     foutcheck.write('edge.label=%s: estcapacity=0\n' %(self.label))
                 else:
                     self.actualtime = self.freeflowtime*(1+(curve[0]*(self.flow/(self.estcapacity*curve[2]))**curve[1]))
-            if self.flow > self.estcapacity and self.connection == 0 and str(self.source) != str(self.target):
+            if self.flow > self.estcapacity and self.connection == 0 and self.source.label != self.target.label:
                 self.queuetime = self.queuetime + lamda*(self.actualtime - self.freeflowtime*(1+curve[0]))
                 foutcheck.write('edge.label= %s: queuing time= %s.\n' %(self.label, self.queuetime))
                 foutcheck.write('travel time at capacity: %s; actual travel time: %s.\n' %(self.freeflowtime*(1+curve[0]), self.actualtime))
@@ -221,34 +224,40 @@ class Edge:
                 if self.queuetime < 1.:
                     self.queuetime = 0.
 
-            elif self.flow <= self.estcapacity and self.connection == 0 and str(self.source) != str(self.target):
+            elif self.flow <= self.estcapacity and self.connection == 0 and self.source.label != self.target.label:
                 self.queuetime = 0.
         foutcheck.close()        
         return self.actualtime
     
-
-    # reset link flows
     def cleanFlow(self):
+        """ reset link flows """
         self.flow = 0.
         self.helpflow = 0.
-
-    # reset the parameter used in the Lohse-assignment (learning method - Lernverfahren)   
+  
     def resetLohseParameter(self):
+        """
+        reset the parameter used in the Lohse-assignment (learning method - Lernverfahren)
+        """
         self.fTT = 0.
         self.TT = 0.               
         self.delta = 0.
         self.helpacttimeEx = 0.  
-    # update the parameter used in the Lohse-assignment (learning method - Lernverfahren)          
+            
     def getLohseParUpdate(self, options):
+        """
+        update the parameter used in the Lohse-assignment (learning method - Lernverfahren)
+        """
         if self.helpacttime > 0.:
             self.TT = abs(self.actualtime - self.helpacttime) / self.helpacttime
             self.fTT = options.v1/(1 + math.exp(options.v2-options.v3*self.TT))
             self.delta = options.under + (options.upper - options.under)/((1+self.TT)**self.fTT)
             self.helpacttimeEx = self.helpacttime
             self.helpacttime = self.helpacttime + self.delta*(self.actualtime - self.helpacttime)    
-            
-    # check if the convergence reaches in the Lohse-assignment        
+                
     def stopCheck(self, options):
+        """
+        check if the convergence reaches in the Lohse-assignment
+        """
         stop = False
         criteria = 0.
         criteria = options.cvg1 * self.helpacttimeEx**(options.cvg2/options.cvg3)
@@ -256,9 +265,11 @@ class Edge:
         if abs(self.actualtime - self.helpacttimeEx) <= criteria:
             stop = True
         return stop
-   
-# This class is for storing vehicle information, such as departure time, route and travel time.
+
 class Vehicle:
+    """
+    This class is for storing vehicle information, such as departure time, route and travel time.
+    """
     def __init__(self, label):
         self.label = label
         self.method = None
@@ -277,8 +288,10 @@ class Vehicle:
         
 pathNum = 0
         
-# This class is for storing path information which is mainly for the C-logit model.
 class Path:
+    """
+    This class is for storing path information which is mainly for the C-logit and the Lohse models.
+    """
     def __init__(self, source, target, edges):
         self.source = source
         self.target = target
@@ -286,6 +299,7 @@ class Path:
         self.label = "%s" % pathNum
         pathNum += 1
         self.edges = edges
+        self.length = 0.0
         self.freepathtime = 0.0
         self.actpathtime = 0.0
         self.pathflow = 0.0
@@ -301,19 +315,46 @@ class Path:
     
     def __repr__(self):
         return "%s_%s_%s<%s|%s|%s|%s>" % (self.label, self.source, self.target, self.freepathtime, self.pathflow, self.actpathtime, self.edges)
-
-    def updatePathActTime(self, net):
-        self.actpathtime = 0.
+    
+    def getPathLength(self):
         for edge in self.edges:
+            self.length += edge.length
+    
+    def updatePathActTime(self):
+        self.actpathtime = 0.
+        preEdge = None
+        weightFactor = 0.65
+        for edge in self.edges:
+            if preEdge != None and edge.label == preEdge.leftlink:
+                weightFactor = 0.65     # 1.0
+                if P[v].numberlane == 2.:
+                    weightFactor *= 0.4  # 0.85
+                elif P[v].numberlane > 2.:
+                    weightFactor *= 0.3   # 0.4
+                self.actpathtime += preEdge.actualtime * (math.exp(preEdge.flow/preEdge.estcapacity) - 1) * weightFactor
+                self.pathhelpacttime += preEdge.pathhelpacttime * (math.exp(preEdge.flow/preEdge.estcapacity) - 1) * weightFactor
             self.actpathtime += edge.actualtime
             self.actpathtime += edge.queuetime
+            preEdge = edge
         self.actpathtime = self.actpathtime/3600.
-        
-    # only used in the Lohse traffic assignment        
-    def getPathTimeUpdate(self, net): 
+            
+    def getPathTimeUpdate(self):
+        """
+        used to update the path travel time in the c-logit and the Lohse traffic assignments
+        """
         self.actpathtime = 0.
         self.pathhelpacttime = 0.
+        preEdge = None
+        weightFactor = 0.65     #1.0
         for edge in self.edges:
+            if preEdge != None and edge.label == preEdge.leftlink:
+                weightFactor = 0.65
+                if P[v].numberlane == 2.:
+                    weightFactor *= 0.4     #0.85
+                elif P[v].numberlane > 2.:
+                    weightFactor *= 0.3     #0.65
+                self.actpathtime += preEdge.actualtime * (math.exp(preEdge.flow/preEdge.estcapacity) - 1) * weightFactor
+                self.pathhelpacttime += preEdge.pathhelpacttime * (math.exp(preEdge.flow/preEdge.estcapacity) - 1) * weightFactor
             self.actpathtime += edge.actualtime
             self.actpathtime += edge.queuetime
             self.pathhelpacttime += edge.helpacttime

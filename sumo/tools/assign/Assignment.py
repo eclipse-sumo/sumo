@@ -47,7 +47,7 @@ optParser.add_option("-k", "--k-shortest-paths", dest="kPaths", type="int",
 optParser.add_option("-i", "--max-sue-iteration", dest="maxiteration", type="int",
                      default=20, help="maximum number of the assignment iterations")
 optParser.add_option("-t", "--sue-tolerance", dest="sueTolerance", type="float",
-                     default=0.01, help="difference tolerance for the convergence in the c-logit model")
+                     default=0.001, help="difference tolerance for the convergence in the c-logit model")
 optParser.add_option("-a", "--alpha", dest="alpha", type="float",
                      default=0.15, help="alpha value to determine the commonality factor")
 optParser.add_option("-g", "--gamma", dest="gamma", type="float",
@@ -116,8 +116,6 @@ def main():
         net.removeUTurnEdge(edge)
         if edge.numberlane > 0.:
             edge.getCapacity()
-            edge.getCRcurve()
-            edge.getDefaultCapacity()
             edge.getAdjustedCapacity(net)
             edge.getActualTravelTime(options.lamda) 
             edge.helpacttime = edge.freeflowtime
@@ -186,12 +184,12 @@ def main():
             edge = net._edges[edgeID]
             edge.flow = 0.
             edge.helpflow = 0.
+            edge.actualtime = edge.freeflowtime
+            
             if lohse:
-                edge.getActualTravelTime(options.lamda)
                 edge.resetLohseParameter()
                 edge.helpacttime = edge.freeflowtime
-            else:
-                edge.actualtime = edge.freeflowtime
+                
         # the number of origins, the umber of destinations and the number of the OD pairs
         origins = len(startVertices)                                    
         dests = len(endVertices)
@@ -209,7 +207,7 @@ def main():
                 foutlog.write('- Current iteration(not executed yet):%s\n' %iter)
                 iter += 1
                 for start, startVertex in enumerate(startVertices):
-                    D,P = dijkstra(startVertex)                                                                      
+                    D,P = dijkstra(net, startVertex)                                                                      
                     vehID = doIncAssign(vehicles, options.verbose, options.maxiteration, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
                 
                 for edgeID in net._edges:                                                   
@@ -222,10 +220,9 @@ def main():
             iter_outside = 1
             newRoutes = 1
             stable = False
-            first =True
+            first = True
             # begin the traffic Assignment
             while newRoutes > 0:
-                iter_inside = 1
                 foutlog.write('- SUE iteration:%s\n' %iter_outside)
                 # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
                 if checkKPaths:
@@ -234,11 +231,11 @@ def main():
                     checkPathEnd = datetime.datetime.now() - checkPathStart
                     foutlog.write('- Time for finding the k-shortest paths: %s\n' %checkPathEnd)
                     foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
-                    
                     if options.verbose:
                         print 'iter_outside:', iter_outside
                         print 'number of k shortest paths:', options.kPaths 
                         print 'number of new routes:', newRoutes
+                
                 elif not checkKPaths and iter_outside == 1 and counter == 0:
                     print 'search for the new path'
                     newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, lohse)
@@ -250,15 +247,15 @@ def main():
                     print 'number of new routes:', newRoutes
                 
                 stable = False
+                iter_inside = 1
                 while not stable:
                     if options.verbose:
                         print 'iter_inside:', iter_inside
-                    doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
+                    stable = doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
                     # The matrixPlong and the matrixTruck should be added when considering the long-distance trips and the truck trips.
                     if lohse:
                         stable = doLohseStopCheck(net, options, stable, iter_inside, options.maxiteration, foutlog)
-                    else:
-                        stable = doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
+
                     iter_inside += 1
     
                     if options.verbose:
