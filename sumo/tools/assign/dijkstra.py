@@ -101,8 +101,6 @@ def dijkstra(net, start, lohse=False):
                     for link in vertex.outEdges:
                         if link.target.label == P[v].source.label and len(vertex.inEdges) > 1:
                             P[v].againstlinkexist = True
-#                            print 'against-P[v]:', P[v].label
-#                            print 'against-link.label:', link.label
                             break
                         else:
                             P[v].againstlinkexist = False
@@ -114,29 +112,21 @@ def dijkstra(net, start, lohse=False):
             w = edge.target
             if v != start:
                 for link in w.outEdges:
-#                    if link.label == P[v].leftlink:
-#                        print 'P[v]:', P[v].label
-#                        print 'link.label:', link.label
-#                        print 'P[v].againstlinkexist:',P[v].againstlinkexist
-#                        print 'P[v].straight:', P[v].straight
                     if link.label == P[v].leftlink and P[v].againstlinkexist and P[v].straight != None:
                         leftTurn = True
-#                        print 'leftTurn:', leftTurn
                         break
-#                    print 'leftTurn:', leftTurn
             if lohse:
                 vwLength = D[v] + edge.helpacttime
             else:
                 if v == start or not leftTurn:
                     vwLength = D[v] + edge.actualtime + edge.queuetime
                 else:
-                    weightFactor = 0.65       #1.0
+                    weightFactor = 1.0
                     if P[v].numberlane == 2.:
-                        weightFactor *= 0.4   #0.85
+                        weightFactor *= 0.8
                     elif P[v].numberlane > 2.:
-                        weightFactor *= 0.3   #0.65
+                        weightFactor *= 0.4
                     vwLength = D[v] + edge.actualtime + edge.queuetime + P[v].actualtime*(math.exp(P[v].flow/P[v].estcapacity) - 1.)*weightFactor
-                
 
             if w in D:
                 if vwLength < D[w]:

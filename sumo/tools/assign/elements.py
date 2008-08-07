@@ -323,14 +323,14 @@ class Path:
     def updatePathActTime(self):
         self.actpathtime = 0.
         preEdge = None
-        weightFactor = 0.65
+        weightFactor = 1.0
         for edge in self.edges:
             if preEdge != None and edge.label == preEdge.leftlink:
-                weightFactor = 0.65     # 1.0
+                weightFactor = 1.0     
                 if P[v].numberlane == 2.:
-                    weightFactor *= 0.4  # 0.85
+                    weightFactor *= 0.8  
                 elif P[v].numberlane > 2.:
-                    weightFactor *= 0.3   # 0.4
+                    weightFactor *= 0.4 
                 self.actpathtime += preEdge.actualtime * (math.exp(preEdge.flow/preEdge.estcapacity) - 1) * weightFactor
                 self.pathhelpacttime += preEdge.pathhelpacttime * (math.exp(preEdge.flow/preEdge.estcapacity) - 1) * weightFactor
             self.actpathtime += edge.actualtime
@@ -345,14 +345,14 @@ class Path:
         self.actpathtime = 0.
         self.pathhelpacttime = 0.
         preEdge = None
-        weightFactor = 0.65     #1.0
+        weightFactor = 1.0
         for edge in self.edges:
             if preEdge != None and edge.label == preEdge.leftlink:
-                weightFactor = 0.65
+                weightFactor = 1.0
                 if P[v].numberlane == 2.:
-                    weightFactor *= 0.4     #0.85
+                    weightFactor *= 0.8
                 elif P[v].numberlane > 2.:
-                    weightFactor *= 0.3     #0.65
+                    weightFactor *= 0.4
                 self.actpathtime += preEdge.actualtime * (math.exp(preEdge.flow/preEdge.estcapacity) - 1) * weightFactor
                 self.pathhelpacttime += preEdge.pathhelpacttime * (math.exp(preEdge.flow/preEdge.estcapacity) - 1) * weightFactor
             self.actpathtime += edge.actualtime
