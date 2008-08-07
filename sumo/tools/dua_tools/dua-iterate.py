@@ -27,7 +27,6 @@ class TeeFile:
 def writeRouteConf(step, options, file, output):
     fd = open("iteration_" + str(step) + ".rou.cfg", "w")
     fd.write("<configuration>\n")
-    fd.write("<move-on-short>x</move-on-short>\n") # !!!
     fd.write("<remove-loops>x</remove-loops>\n") # !!!
     fd.write("   <files>\n")
     fd.write("      <net-file>" + options.net + "</net-file>\n")
