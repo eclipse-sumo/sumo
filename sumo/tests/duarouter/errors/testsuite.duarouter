@@ -1,6 +1,3 @@
-# Ordered list of tests in test suite. Add as appropriate
-
-
 # Tests what happens if the net is not given
 no_net
 
@@ -19,6 +16,22 @@ no_input
 # Tests what happens if an unknown option is passed
 unknown_option
 
+
+# Tests what happens if the given alternatives do not exist
+false_input_alts
+
+# Tests what happens if the given flows do not exist
+false_input_flows
+
+# Tests what happens if the given sumo-routes do not exist
+false_input_sumo
+
+# Tests what happens if the given trip-definitions do not exist
+false_input_trips
+
+
+
+# Tests for broken network description handling
 network
 
 
