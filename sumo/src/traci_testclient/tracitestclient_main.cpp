@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include <string>
+#include <cstdlib>
 #include "TraCITestClient.h"
 
 using namespace testclient;
