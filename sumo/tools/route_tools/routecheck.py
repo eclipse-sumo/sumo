@@ -31,8 +31,12 @@ class NetReader(handler.ContentHandler):
             self._nb[self._edge] = set()
 	    if attrs.has_key('Length'):
                 self._edgeLength[self._edge] = float(attrs['Length'])
-        elif name == 'cedge':
-            self._nb[self._edge].add(attrs['id'])
+        elif name == 'succ':
+            self._ce = attrs['edge']
+        elif name == 'succlane':
+            l = attrs['lane']
+            if l!="SUMO_NO_DESTINATION":
+                self._nb[self._ce].add(l[:l.rfind('_')])
         elif name == 'lane' and not self._edge in self._edgeLength:
             self._edgeLength[self._edge] = float(attrs['length'])
 
