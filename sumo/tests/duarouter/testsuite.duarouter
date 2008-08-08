@@ -19,6 +19,9 @@ vclasses
 # testing random route generation
 random
 
+# testing some additional options
+function
+
 # testing meta processing
 meta
 

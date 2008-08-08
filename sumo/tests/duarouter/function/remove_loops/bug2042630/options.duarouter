@@ -1,0 +1,1 @@
+--remove-loops --net-file input_net.net.xml --output routes.rou.xml --trip-defs=input_trips.trips.xml -b 0 -e 90000 --continue-on-unbuild --suppress-warnings -v
