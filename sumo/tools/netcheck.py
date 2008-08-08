@@ -13,30 +13,20 @@ class NetReader(handler.ContentHandler):
     def __init__(self):
         self._edge = ''
         self._nb = {}
-        self._edgeString = ''
         self._components = list()
 
     def startElement(self, name, attrs):
-        if name == 'edges':
-            self._edgeString = ' '
-        if name == 'edge':
-            if 'function' in attrs and attrs['function'] == 'internal':
-                del(self._nb[attrs['id']])
-            else:
-                self._edge = attrs['id']
-        if name == 'cedge' and self._edge != '':
-            self._nb[self._edge].add(attrs['id'])
-            self._nb[attrs['id']].add(self._edge)
-
-    def characters(self, content):
-        if self._edgeString != '':
-            self._edgeString += content
-
-    def endElement(self, name):
-        if name == 'edges':
-            for edge in self._edgeString.split():
-                self._nb[edge] = set()
-            self._edgeString = ''
+        if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
+            self._nb[edge] = set()
+        elif name == 'succ':
+            self._edge = attrs['edge']
+            if self._edge[0]==':':
+                self._edge = ''
+        elif name == 'succlane' and self._edge != '':
+            id = attrs['lane']
+            id = self._net.getEdge(id[:id.rfind('_')])
+            self._nb[self._edge].add(id)
+            self._nb[id].add(self._edge)
 
     def isWeaklyConnected(self):
         if self.getNumEdges() == 0:
