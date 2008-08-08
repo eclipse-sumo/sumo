@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<routes>
+   <vehicle depart="0" type="0" id="0_0">
+      <route>absBeg beg2left left left2end end absEnd</route>
+   </vehicle><!-- added edges: left -->
+</routes>

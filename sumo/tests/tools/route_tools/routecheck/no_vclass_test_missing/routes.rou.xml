@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<routes>
+   <vtype model="SUMO_KRAUSS" id="0" accel="2.60" decel="4.50" sigma="0.50" length="5.00" maxspeed="70.00" tau="1.00"/>
+   <vehicle id="0_0" type="0" depart="0">
+      <route>absBeg beg2left left2end end absEnd</route>
+   </vehicle>
+</routes>

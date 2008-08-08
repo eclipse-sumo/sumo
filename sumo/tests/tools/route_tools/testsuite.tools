@@ -1,1 +1,7 @@
+# Tests for <SUMO_DIST>/tools/route_tools/routecompare.py
 routecompare
+
+# Tests for <SUMO_DIST>/tools/route_tools/routecheck.py
+routecheck
+
+

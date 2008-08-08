@@ -7,3 +7,4 @@ copy_test_path:input_net.net.xml
 [collate_file]
 edges:edges.xml
 nodes:nodes.xml
+fixed:routes.rou.xml.fixed

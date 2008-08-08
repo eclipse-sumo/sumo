@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<routes>
+   <vehicle id="0_0" type="0" depart="0">
+      <route>absBeg beg2left left2end end absEnd</route>
+   </vehicle>
+</routes>
