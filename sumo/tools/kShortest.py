@@ -161,9 +161,10 @@ class NetReader(handler.ContentHandler):
         elif name == 'succlane' and self._edge != '':
             fromEdge = self._net.getEdge(self._edge)
             l = attrs['lane']
-            toEdge = self._net.getEdge(l[:l.rfind('_')])
-            newEdge = Edge(self._edge+"_"+attrs['id'], fromEdge.target, toEdge.source)
-            self._net.addEdge(newEdge)
+            if l!="SUMO_NO_DESTINATION":
+                toEdge = self._net.getEdge(l[:l.rfind('_')])
+                newEdge = Edge(self._edge+"_"+l[:l.rfind('_')], fromEdge.target, toEdge.source)
+                self._net.addEdge(newEdge)
         elif name == 'lane' and self._edge != '':
             edgeObj = self._net.getEdge(self._edge)
             if options.traveltime:

@@ -24,9 +24,10 @@ class NetReader(handler.ContentHandler):
                 self._edge = ''
         elif name == 'succlane' and self._edge != '':
             id = attrs['lane']
-            id = self._net.getEdge(id[:id.rfind('_')])
-            self._nb[self._edge].add(id)
-            self._nb[id].add(self._edge)
+            if id!="SUMO_NO_DESTINATION":
+                id = self._net.getEdge(id[:id.rfind('_')])
+                self._nb[self._edge].add(id)
+                self._nb[id].add(self._edge)
 
     def isWeaklyConnected(self):
         if self.getNumEdges() == 0:

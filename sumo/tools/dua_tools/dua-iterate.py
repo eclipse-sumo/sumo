@@ -129,7 +129,7 @@ optParser.add_option("--inc-base", dest="incBase",
 optParser.add_option("--incrementation", dest="incValue",
                      type="int", default=1, help="Give the incrementation")
 optParser.add_option("--time-inc", dest="timeInc",
-                     type="int", default=-1, help="Give the time incrementation")
+                     type="int", default=0, help="Give the time incrementation")
 
 
 optParser.add_option("-f", "--first-step", dest="firstStep",

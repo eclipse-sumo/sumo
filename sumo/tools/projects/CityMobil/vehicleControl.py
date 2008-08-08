@@ -18,10 +18,23 @@ from traciControl import initTraCI, simStep, stopObject, changeTarget, close
 
 class Status:
 
-    def __init__(self, edge):
+    def __init__(self, edge, pos):
         self.edge = edge
+        self.pos = pos
         self.parking = False
         self.load = 0
+
+occupancy = -numpy.ones((2*DOUBLE_ROWS, SLOTS_PER_ROW), int)
+vehicleStatus = {}
+step = 0
+persons = {}
+
+def init():
+    sumoExe = SUMO
+    if options.gui:
+        sumoExe = SUMOGUI
+    sumoProcess = subprocess.Popen("%s -c %s.sumo.cfg" % (sumoExe, PREFIX), shell=True)
+    initTraCI(PORT)
 
 def reroute(occupancy, vehicleID):
     slotEdge = ""
@@ -48,48 +61,55 @@ def reroutePerson(edge, vehicleID):
     changeTarget(targetEdge, vehicleID)
     stopObject(targetEdge, vehicleID, ROW_DIST-10.)
 
+def doStep():
+    global step
+    step += 1
+    if options.verbose:
+        print "step", step
+    moveNodes = simStep(step)
+    for vehicleID, edge, pos in moveNodes:
+        if vehicleID in vehicleStatus:
+            vehicleStatus[vehicleID].edge = edge
+            vehicleStatus[vehicleID].pos = pos
+        else:
+            vehicleStatus[vehicleID] = Status(edge, pos)
+            if edge == "mainin":
+                reroute(occupancy, vehicleID)
+            elif "foot" in edge:
+                stopObject("-"+edge, vehicleID)
+                parkEdge = edge.replace("foot", "slot")
+                if not parkEdge in persons:
+                    persons[parkEdge] = []
+                persons[parkEdge].append(vehicleID)
+                vehicleStatus[vehicleID].parking = True
+        if options.verbose:
+            print vehicleID, edge
+        if edge in persons and pos >= SLOT_LENGTH-1.5:
+            if options.verbose:
+                print "destReached", vehicleID, pos
+            remaining = []
+            for person in persons[edge]:
+                if vehicleStatus[person].parking:
+                    reroutePerson(edge.replace("slot", "-foot"), person)
+                    vehicleStatus[person].parking = False
+                else:
+                    remaining.append(person)
+            persons[edge] = remaining
+
+"""
+events to generate:
+NewPersonGroup(size, source, destination)
+NewCyberCar(capacity, position)
+Boarding(numPersons, cyberCarID)
+"""
 def main():
-    sumoExe = SUMO
-    if options.gui:
-        sumoExe = SUMOGUI
-    sumoProcess = subprocess.Popen("%s -c %s.sumo.cfg" % (sumoExe, PREFIX), shell=True)
-    initTraCI(PORT)
-    occupancy = -numpy.ones((2*DOUBLE_ROWS, SLOTS_PER_ROW), int)
-    vehicleStatus = {}
-    persons = {}
     waiting = {}
     
-    for step in range(1, 10000):
-        if options.verbose:
-            print "step", step
-        moveNodes = simStep(step)
-        for vehicleID, edge, pos in moveNodes:
-            if vehicleID in vehicleStatus:
-                vehicleStatus[vehicleID].edge = edge
-            else:
-                vehicleStatus[vehicleID] = Status(edge)
-                if edge == "mainin":
-                    reroute(occupancy, vehicleID)
-                elif "foot" in edge:
-                    stopObject("-"+edge, vehicleID)
-                    parkEdge = edge.replace("foot", "slot")
-                    if not parkEdge in persons:
-                        persons[parkEdge] = []
-                    persons[parkEdge].append(vehicleID)
-                    vehicleStatus[vehicleID].parking = True
-            if options.verbose:
-                print vehicleID, edge
-            if edge in persons and pos >= SLOT_LENGTH-1.5:
-                if options.verbose:
-                    print "destReached", vehicleID, pos
-                remaining = []
-                for person in persons[edge]:
-                    if vehicleStatus[person].parking:
-                        reroutePerson(edge.replace("slot", "-foot"), person)
-                        vehicleStatus[person].parking = False
-                    else:
-                        remaining.append(person)
-                persons[edge] = remaining
+    while True:
+        doStep()
+        for vehicleID, status in vehicleStatus.iteritems():
+            edge = status.edge
+            pos = status.pos
             if edge.startswith("footmain"):
                 if not vehicleStatus[vehicleID].parking:
                     if not edge in waiting:
@@ -121,10 +141,13 @@ def main():
                 vehicleStatus[vehicleID].load = 0
                 changeTarget("cyberout", vehicleID)
     close()
-optParser = OptionParser()
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
-optParser.add_option("-g", "--gui", action="store_true", dest="gui",
-                     default=False, help="run with GUI")
-(options, args) = optParser.parse_args()
-main()
+
+
+if __name__ == "__main__":
+    optParser = OptionParser()
+    optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+                         default=False, help="tell me what you are doing")
+    optParser.add_option("-g", "--gui", action="store_true", dest="gui",
+                         default=False, help="run with GUI")
+    (options, args) = optParser.parse_args()
+    main()

@@ -241,7 +241,7 @@ class NetworkReader(handler.ContentHandler):
             self._newphase.label = self._counter
         elif name == 'succ':
             self._edge = attrs['edge']
-            if self._edge[0]!=':'
+            if self._edge[0]!=':':
                 self._edgeObj = self._net.getEdge(self._edge)
                 self._edgeObj.junction = attrs['junction']
             else:
@@ -272,12 +272,13 @@ class NetworkReader(handler.ContentHandler):
                     self._edgeObj.leftlink = self._edgeObj.leftlink[:-2]
                 elif attrs['dir'] == "t": 
                     self._edgeObj.uturn = attrs['state']
-             fromEdge = self._net.getEdge(self._edge)
-             l = attrs['lane']
-             toEdge = self._net.getEdge(l[:l.rfind('_')])
-             newEdge = Edge(self._edge+"_"+attrs['id'], fromEdge.target, toEdge.source)
-             self._net.addEdge(newEdge)
-             fromEdge.finalizer = attrs['id']
+            fromEdge = self._net.getEdge(self._edge)
+            l = attrs['lane']
+            if l!="SUMO_NO_DESTINATION":
+                toEdge = self._net.getEdge(l[:l.rfind('_')])
+                newEdge = Edge(self._edge+"_"+l[:l.rfind('_')], fromEdge.target, toEdge.source)
+                self._net.addEdge(newEdge)
+                fromEdge.finalizer = l[:l.rfind('_')]
         elif name == 'lane' and self._edge != '':
             self._maxSpeed = max(self._maxSpeed, float(attrs['maxspeed']))
             self._laneNumber = self._laneNumber + 1
@@ -287,7 +288,7 @@ class NetworkReader(handler.ContentHandler):
         self._chars += content
 
     def endElement(self, name):
-        elif name == 'edge':
+        if name == 'edge':
             self._edgeObj.init(self._maxSpeed, self._length, self._laneNumber)
             self._edge = ''
         elif name == 'key':
