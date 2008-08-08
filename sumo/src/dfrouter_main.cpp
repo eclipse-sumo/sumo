@@ -152,7 +152,7 @@ readDetectors(RODFDetectorCon &detectors, OptionsCont &oc, RODFNet *optNet)
                 MsgHandler::getWarningInstance()->inform("Detector " + id + " lies on an edge not inside the network (" + edge + ").");
                 continue;
             }
-            for (int i=0; i<e->getLaneNo(); ++i) {
+            for (unsigned int i=0; i<e->getLaneNo(); ++i) {
                 string lane = edge + "_" + toString(i);
                 string did = id + "_" + toString(i);
                 RODFDetector *detector = new RODFDetector(did, lane, d, TYPE_NOT_DEFINED);

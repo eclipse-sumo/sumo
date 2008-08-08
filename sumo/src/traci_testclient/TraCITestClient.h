@@ -2,8 +2,20 @@
 /// @file    TraCITestClient.h
 /// @author  Friedemann Wesner <wesner@itm.uni-luebeck.de>
 /// @date    2008/04/07
+/// @version $Id: TraCIHandler.cpp 5922 2008-08-05 08:15:53Z dkrajzew $
 ///
 /// A dummy client to simulate communication to a TraCI server
+/****************************************************************************/
+// SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
+// copyright : (C) 2001-2007
+//  by DLR (http://www.dlr.de/) and ZAIK (http://www.zaik.uni-koeln.de/AFS)
+/****************************************************************************/
+//
+//   This program is free software; you can redistribute it and/or modify
+//   it under the terms of the GNU General Public License as published by
+//   the Free Software Foundation; either version 2 of the License, or
+//   (at your option) any later version.
+//
 /****************************************************************************/
 #ifndef TRACITESTCLIENT_H
 #define TRACITESTCLIENT_H
