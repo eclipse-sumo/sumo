@@ -224,6 +224,7 @@ class NetworkReader(handler.ContentHandler):
         self._chars = ''
         if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
             self._edge = attrs['id']
+            self._net.addIsolatedRealEdge(self._edge)
             self._edgeObj = self._net.getEdge(self._edge)
             self._edgeObj.source.label = attrs['from']
             self._edgeObj.target.label = attrs['to']
@@ -240,9 +241,12 @@ class NetworkReader(handler.ContentHandler):
             self._newphase.label = self._counter
         elif name == 'succ':
             self._edge = attrs['edge']
-            self._edgeObj = self._net.getEdge(self._edge)
-            self._edgeObj.junction = attrs['junction']
-        elif name == 'succlane':
+            if self._edge[0]!=':'
+                self._edgeObj = self._net.getEdge(self._edge)
+                self._edgeObj.junction = attrs['junction']
+            else:
+                self._edge = ""
+        elif name == 'succlane' and self._edge!="":
             if attrs.has_key('tl'):
                 self._edgeObj.junction = attrs['tl']
                 self._edgeObj.junctiontype = 'signalized'
@@ -268,10 +272,9 @@ class NetworkReader(handler.ContentHandler):
                     self._edgeObj.leftlink = self._edgeObj.leftlink[:-2]
                 elif attrs['dir'] == "t": 
                     self._edgeObj.uturn = attrs['state']
-                    
-        elif name == 'cedge' and self._edge != '':
              fromEdge = self._net.getEdge(self._edge)
-             toEdge = self._net.getEdge(attrs['id'])
+             l = attrs['lane']
+             toEdge = self._net.getEdge(l[:l.rfind('_')])
              newEdge = Edge(self._edge+"_"+attrs['id'], fromEdge.target, toEdge.source)
              self._net.addEdge(newEdge)
              fromEdge.finalizer = attrs['id']
@@ -284,10 +287,6 @@ class NetworkReader(handler.ContentHandler):
         self._chars += content
 
     def endElement(self, name):
-        if name == 'edges':
-            for edge in self._chars.split():
-                self._net.addIsolatedRealEdge(edge)
-            self._chars = ''
         elif name == 'edge':
             self._edgeObj.init(self._maxSpeed, self._length, self._laneNumber)
             self._edge = ''
