@@ -1,3 +1,0 @@
-Error: At edge '1': succeeding edge '2' does not exist.
-Error: An unknown edge occured within 'net.net.xml' (id='2').
-Quitting (on error).
