@@ -427,19 +427,21 @@ class NetDetectorFlowReader(handler.ContentHandler):
 
     def __init__(self, net):
         self._net = net
-        self._edgeString = ''
         self._edge = ''
         self._lane2edge = {}
         self._detReader = None
 
     def startElement(self, name, attrs):
-        if name == 'edges':
-            self._edgeString = ' '
-        elif name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
-            self._edge = attrs['id']
-        elif name == 'cedge' and self._edge != '':
+        if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
+            self._net.addIsolatedRealEdge(attrs['id'])
+        elif name == 'succ':
+            self._edge = attrs['edge']
+            if self._edge[0]==':':
+                self._edge = ''
+        elif name == 'succlane' and self._edge != '':
             fromEdge = self._net.getEdge(self._edge)
-            toEdge = self._net.getEdge(attrs['id'])
+            l = attrs['lane']
+            toEdge = self._net.getEdge(l[:l.rfind('_')])
             newEdge = Edge(self._edge+"_"+attrs['id'], fromEdge.target, toEdge.source)
             self._net.addEdge(newEdge)
             fromEdge.finalizer = attrs['id']
@@ -449,16 +451,8 @@ class NetDetectorFlowReader(handler.ContentHandler):
             edgeObj.maxSpeed = max(edgeObj.maxSpeed, float(attrs['maxspeed']))
             edgeObj.length = float(attrs['length'])
 
-    def characters(self, content):
-        if self._edgeString != '':
-            self._edgeString += content
-
     def endElement(self, name):
-        if name == 'edges':
-            for edge in self._edgeString.split():
-                self._net.addIsolatedRealEdge(edge)
-            self._edgeString = ''
-        elif name == 'edge':
+        if name == 'edge':
             self._edge = ''
 
     def readDetectors(self, detFile):
