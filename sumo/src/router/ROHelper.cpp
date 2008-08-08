@@ -70,15 +70,14 @@ recheckForLoops(std::vector<const ROEdge*> &edges) throw()
     if (lastStart > 0) {
         edges.erase(edges.begin(), edges.begin() + lastStart - 1);
     }
-    RONode* end = edges[edges.size()-1]->getToNode();
-    unsigned firstEnd = edges.size();
-    for (unsigned i=0; i<edges.size(); i++) {
+    RONode* end = edges.back()->getToNode();
+    size_t firstEnd = edges.size()-1;
+    for (unsigned i=0; i<firstEnd; i++) {
         if (edges[i]->getToNode() == end) {
             firstEnd = i;
-            break;
         }
     }
-    if (firstEnd < edges.size()) {
+    if (firstEnd < edges.size()-1) {
         edges.erase(edges.begin() + firstEnd + 2, edges.end());
     }
 }
