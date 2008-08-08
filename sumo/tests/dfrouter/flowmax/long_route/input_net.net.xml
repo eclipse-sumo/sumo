@@ -5,7 +5,6 @@
    <orig-boundary>0.000000,-100.000000,300.000000,105.000000</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="9">1to2 2to3 3to4 in1 in2 out3 out4 post3 post4</edges>
    <node_count>10</node_count>
 
 
@@ -13,50 +12,42 @@
       <lanes>
          <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="95.30">3.25,98.35 98.55,98.35</lane>
       </lanes>
-      <cedge id="2to3">1to2_0</cedge>
    </edge>
 
    <edge id="2to3" from="r2" to="r3" priority="-1" type="" function="normal">
       <lanes>
          <lane id="2to3_0" depart="1" vclasses="" maxspeed="13.90" length="93.80">104.75,98.35 198.55,98.35</lane>
       </lanes>
-      <cedge id="3to4">2to3_0</cedge>
-      <cedge id="out3">2to3_0</cedge>
    </edge>
 
    <edge id="3to4" from="r3" to="r4" priority="-1" type="" function="normal">
       <lanes>
          <lane id="3to4_0" depart="1" vclasses="" maxspeed="13.90" length="95.30">204.75,98.35 300.05,98.35</lane>
       </lanes>
-      <cedge id="out4">3to4_0</cedge>
    </edge>
 
    <edge id="in1" from="i1" to="r1" priority="-1" type="" function="normal">
       <lanes>
          <lane id="in1_0" depart="1" vclasses="" maxspeed="13.90" length="96.75">1.65,0.00 1.65,96.75</lane>
       </lanes>
-      <cedge id="1to2">in1_0</cedge>
    </edge>
 
    <edge id="in2" from="i2" to="r2" priority="-1" type="" function="normal">
       <lanes>
          <lane id="in2_0" depart="1" vclasses="" maxspeed="13.90" length="95.25">101.65,0.00 101.65,95.25</lane>
       </lanes>
-      <cedge id="2to3">in2_0</cedge>
    </edge>
 
    <edge id="out3" from="r3" to="o3" priority="-1" type="" function="normal">
       <lanes>
          <lane id="out3_0" depart="1" vclasses="" maxspeed="13.90" length="98.55">201.65,101.45 201.65,200.00</lane>
       </lanes>
-      <cedge id="post3">out3_0</cedge>
    </edge>
 
    <edge id="out4" from="r4" to="o4" priority="-1" type="" function="normal">
       <lanes>
          <lane id="out4_0" depart="1" vclasses="" maxspeed="13.90" length="100.05">301.65,99.95 301.65,200.00</lane>
       </lanes>
-      <cedge id="post4">out4_0</cedge>
    </edge>
 
    <edge id="post3" from="o3" to="p3" priority="-1" type="" function="normal">

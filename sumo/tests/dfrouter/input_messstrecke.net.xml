@@ -5,7 +5,6 @@
    <orig-boundary>-100.000000,-200.000000,2025.420044,200.000000</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="36">AltglienickerBreitN AltglienickerBreitS AltglienickerN AltglienickerS AltglienickerSinkN AltglienickerSinkS EinsteinN EinsteinS EinsteinSinkN EinsteinSinkS ErnstRuska1O ErnstRuska1W ErnstRuska231O ErnstRuska231W ErnstRuska232O ErnstRuska232W ErnstRuska2O ErnstRuska2W ErnstRuska3O ErnstRuska3W ErnstRuska4O ErnstRuska4W ErnstRuska5O ErnstRuska5W ErnstRuskaSink1O ErnstRuskaSink1W ErnstRuskaSink5O ErnstRuskaSink5W HavestadtN HavestadtS HavestadtSinkN HavestadtSinkS VolmerN VolmerS VolmerSinkN VolmerSinkS</edges>
    <node_count>19</node_count>
 
 
@@ -14,36 +13,30 @@
          <lane id="AltglienickerBreitN_0" depart="1" vclasses="" maxspeed="14.00" length="10.45">1913.42,181.50 1913.42,191.95</lane>
          <lane id="AltglienickerBreitN_1" depart="0" vclasses="" maxspeed="14.00" length="10.45">1910.12,181.50 1910.12,191.95</lane>
       </lanes>
-      <cedge id="ErnstRuska5O">AltglienickerBreitN_0</cedge>
-      <cedge id="ErnstRuska4W">AltglienickerBreitN_0 AltglienickerBreitN_1</cedge>
    </edge>
 
    <edge id="AltglienickerBreitS" from="ErnstRuskaAltglienicker" to="AltglienickerBreit" priority="-1" type="" function="normal">
       <lanes>
          <lane id="AltglienickerBreitS_0" depart="1" vclasses="" maxspeed="14.00" length="10.45">1906.82,191.95 1906.82,181.50</lane>
       </lanes>
-      <cedge id="AltglienickerS">AltglienickerBreitS_0</cedge>
    </edge>
 
    <edge id="AltglienickerN" from="AltglienickerEnd" to="AltglienickerBreit" priority="-1" type="" function="normal">
       <lanes>
          <lane id="AltglienickerN_0" depart="1" vclasses="" maxspeed="14.00" length="78.50">1910.12,100.00 1910.12,178.50</lane>
       </lanes>
-      <cedge id="AltglienickerBreitN">AltglienickerN_0</cedge>
    </edge>
 
    <edge id="AltglienickerS" from="AltglienickerBreit" to="AltglienickerEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="AltglienickerS_0" depart="1" vclasses="" maxspeed="14.00" length="78.50">1906.82,178.50 1906.82,100.00</lane>
       </lanes>
-      <cedge id="AltglienickerSinkS">AltglienickerS_0</cedge>
    </edge>
 
    <edge id="AltglienickerSinkN" from="AltglienickerSinkEnd" to="AltglienickerEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="AltglienickerSinkN_0" depart="1" vclasses="" maxspeed="14.00" length="100.00">1910.12,0.00 1910.12,100.00</lane>
       </lanes>
-      <cedge id="AltglienickerN">AltglienickerSinkN_0</cedge>
    </edge>
 
    <edge id="AltglienickerSinkS" from="AltglienickerEnd" to="AltglienickerSinkEnd" priority="-1" type="" function="normal">
@@ -56,15 +49,12 @@
       <lanes>
          <lane id="EinsteinN_0" depart="1" vclasses="" maxspeed="14.00" length="91.95">296.56,208.05 296.56,300.00</lane>
       </lanes>
-      <cedge id="EinsteinSinkN">EinsteinN_0</cedge>
    </edge>
 
    <edge id="EinsteinS" from="EinsteinEnd" to="ErnstRuskaEinstein" priority="-1" type="" function="normal">
       <lanes>
          <lane id="EinsteinS_0" depart="1" vclasses="" maxspeed="14.00" length="91.95">293.26,300.00 293.26,208.05</lane>
       </lanes>
-      <cedge id="ErnstRuska1W">EinsteinS_0</cedge>
-      <cedge id="ErnstRuska2O">EinsteinS_0</cedge>
    </edge>
 
    <edge id="EinsteinSinkN" from="EinsteinEnd" to="EinsteinSinkEnd" priority="-1" type="" function="normal">
@@ -77,7 +67,6 @@
       <lanes>
          <lane id="EinsteinSinkS_0" depart="1" vclasses="" maxspeed="14.00" length="100.00">293.26,400.00 293.26,300.00</lane>
       </lanes>
-      <cedge id="EinsteinS">EinsteinSinkS_0</cedge>
    </edge>
 
    <edge id="ErnstRuska1O" from="ErnstRuskaEnd1" to="ErnstRuskaEinstein" priority="1" type="" function="normal">
@@ -85,8 +74,6 @@
          <lane id="ErnstRuska1O_0" depart="1" vclasses="" maxspeed="19.00" length="190.16">100.00,195.05 290.16,195.05</lane>
          <lane id="ErnstRuska1O_1" depart="0" vclasses="" maxspeed="19.00" length="190.16">100.00,198.35 290.16,198.35</lane>
       </lanes>
-      <cedge id="ErnstRuska2O">ErnstRuska1O_0 ErnstRuska1O_1</cedge>
-      <cedge id="EinsteinN">ErnstRuska1O_1</cedge>
    </edge>
 
    <edge id="ErnstRuska1W" from="ErnstRuskaEinstein" to="ErnstRuskaEnd1" priority="1" type="" function="normal">
@@ -94,7 +81,6 @@
          <lane id="ErnstRuska1W_0" depart="1" vclasses="" maxspeed="19.00" length="190.16">290.16,204.95 100.00,204.95</lane>
          <lane id="ErnstRuska1W_1" depart="0" vclasses="" maxspeed="19.00" length="190.16">290.16,201.65 100.00,201.65</lane>
       </lanes>
-      <cedge id="ErnstRuskaSink1W">ErnstRuska1W_0 ErnstRuska1W_1</cedge>
    </edge>
 
    <edge id="ErnstRuska231O" from="ErnstRuskaHavestadtDiv1" to="ErnstRuskaHavestadt" priority="1" type="" function="normal">
@@ -103,8 +89,6 @@
          <lane id="ErnstRuska231O_1" depart="0" vclasses="" maxspeed="19.00" length="20.45">986.75,195.05 1007.20,195.05</lane>
          <lane id="ErnstRuska231O_2" depart="0" vclasses="" maxspeed="19.00" length="20.45">986.75,198.35 1007.20,198.35</lane>
       </lanes>
-      <cedge id="ErnstRuska232O">ErnstRuska231O_0 ErnstRuska231O_1</cedge>
-      <cedge id="HavestadtN">ErnstRuska231O_2</cedge>
    </edge>
 
    <edge id="ErnstRuska231W" from="ErnstRuskaHavestadt" to="ErnstRuskaHavestadtDiv1" priority="1" type="" function="normal">
@@ -112,7 +96,6 @@
          <lane id="ErnstRuska231W_0" depart="1" vclasses="" maxspeed="19.00" length="20.45">1007.20,204.95 986.75,204.95</lane>
          <lane id="ErnstRuska231W_1" depart="0" vclasses="" maxspeed="19.00" length="20.45">1007.20,201.65 986.75,201.65</lane>
       </lanes>
-      <cedge id="ErnstRuska2W">ErnstRuska231W_0 ErnstRuska231W_1</cedge>
    </edge>
 
    <edge id="ErnstRuska232O" from="ErnstRuskaHavestadt" to="ErnstRuskaHavestadtDiv2" priority="1" type="" function="normal">
@@ -121,7 +104,6 @@
          <lane id="ErnstRuska232O_1" depart="0" vclasses="" maxspeed="19.00" length="20.45">1023.30,195.05 1043.75,195.05</lane>
          <lane id="ErnstRuska232O_2" depart="0" vclasses="" maxspeed="19.00" length="20.45">1023.30,198.35 1043.75,198.35</lane>
       </lanes>
-      <cedge id="ErnstRuska3O">ErnstRuska232O_0 ErnstRuska232O_1</cedge>
    </edge>
 
    <edge id="ErnstRuska232W" from="ErnstRuskaHavestadtDiv2" to="ErnstRuskaHavestadt" priority="1" type="" function="normal">
@@ -129,8 +111,6 @@
          <lane id="ErnstRuska232W_0" depart="1" vclasses="" maxspeed="19.00" length="20.45">1043.75,204.95 1023.30,204.95</lane>
          <lane id="ErnstRuska232W_1" depart="0" vclasses="" maxspeed="19.00" length="20.45">1043.75,201.65 1023.30,201.65</lane>
       </lanes>
-      <cedge id="HavestadtN">ErnstRuska232W_0</cedge>
-      <cedge id="ErnstRuska231W">ErnstRuska232W_0 ErnstRuska232W_1</cedge>
    </edge>
 
    <edge id="ErnstRuska2O" from="ErnstRuskaEinstein" to="ErnstRuskaHavestadtDiv1" priority="1" type="" function="normal">
@@ -138,7 +118,6 @@
          <lane id="ErnstRuska2O_0" depart="1" vclasses="" maxspeed="19.00" length="684.09">299.66,195.05 983.75,195.05</lane>
          <lane id="ErnstRuska2O_1" depart="0" vclasses="" maxspeed="19.00" length="684.09">299.66,198.35 983.75,198.35</lane>
       </lanes>
-      <cedge id="ErnstRuska231O">ErnstRuska2O_0 ErnstRuska2O_1</cedge>
    </edge>
 
    <edge id="ErnstRuska2W" from="ErnstRuskaHavestadtDiv1" to="ErnstRuskaEinstein" priority="1" type="" function="normal">
@@ -146,8 +125,6 @@
          <lane id="ErnstRuska2W_0" depart="1" vclasses="" maxspeed="19.00" length="684.09">983.75,204.95 299.66,204.95</lane>
          <lane id="ErnstRuska2W_1" depart="0" vclasses="" maxspeed="19.00" length="684.09">983.75,201.65 299.66,201.65</lane>
       </lanes>
-      <cedge id="EinsteinN">ErnstRuska2W_0</cedge>
-      <cedge id="ErnstRuska1W">ErnstRuska2W_0 ErnstRuska2W_1</cedge>
    </edge>
 
    <edge id="ErnstRuska3O" from="ErnstRuskaHavestadtDiv2" to="ErnstRuskaVolmer" priority="1" type="" function="normal">
@@ -155,8 +132,6 @@
          <lane id="ErnstRuska3O_0" depart="1" vclasses="" maxspeed="19.00" length="533.25">1046.75,195.05 1580.00,195.05</lane>
          <lane id="ErnstRuska3O_1" depart="0" vclasses="" maxspeed="19.00" length="533.25">1046.75,198.35 1580.00,198.35</lane>
       </lanes>
-      <cedge id="ErnstRuska4O">ErnstRuska3O_0 ErnstRuska3O_1</cedge>
-      <cedge id="VolmerN">ErnstRuska3O_1</cedge>
    </edge>
 
    <edge id="ErnstRuska3W" from="ErnstRuskaVolmer" to="ErnstRuskaHavestadtDiv2" priority="1" type="" function="normal">
@@ -164,7 +139,6 @@
          <lane id="ErnstRuska3W_0" depart="1" vclasses="" maxspeed="19.00" length="533.25">1580.00,204.95 1046.75,204.95</lane>
          <lane id="ErnstRuska3W_1" depart="0" vclasses="" maxspeed="19.00" length="533.25">1580.00,201.65 1046.75,201.65</lane>
       </lanes>
-      <cedge id="ErnstRuska232W">ErnstRuska3W_0 ErnstRuska3W_1</cedge>
    </edge>
 
    <edge id="ErnstRuska4O" from="ErnstRuskaVolmer" to="ErnstRuskaAltglienicker" priority="1" type="" function="normal">
@@ -172,8 +146,6 @@
          <lane id="ErnstRuska4O_0" depart="1" vclasses="" maxspeed="19.00" length="314.22">1589.50,195.05 1903.72,195.05</lane>
          <lane id="ErnstRuska4O_1" depart="0" vclasses="" maxspeed="19.00" length="314.22">1589.50,198.35 1903.72,198.35</lane>
       </lanes>
-      <cedge id="AltglienickerBreitS">ErnstRuska4O_0</cedge>
-      <cedge id="ErnstRuska5O">ErnstRuska4O_0 ErnstRuska4O_1</cedge>
    </edge>
 
    <edge id="ErnstRuska4W" from="ErnstRuskaAltglienicker" to="ErnstRuskaVolmer" priority="1" type="" function="normal">
@@ -181,8 +153,6 @@
          <lane id="ErnstRuska4W_0" depart="1" vclasses="" maxspeed="19.00" length="314.22">1903.72,204.95 1589.50,204.95</lane>
          <lane id="ErnstRuska4W_1" depart="0" vclasses="" maxspeed="19.00" length="314.22">1903.72,201.65 1589.50,201.65</lane>
       </lanes>
-      <cedge id="VolmerN">ErnstRuska4W_0</cedge>
-      <cedge id="ErnstRuska3W">ErnstRuska4W_0 ErnstRuska4W_1</cedge>
    </edge>
 
    <edge id="ErnstRuska5O" from="ErnstRuskaAltglienicker" to="ErnstRuskaEnd2" priority="1" type="" function="normal">
@@ -190,7 +160,6 @@
          <lane id="ErnstRuska5O_0" depart="1" vclasses="" maxspeed="19.00" length="107.40">1916.52,195.05 2023.92,195.05</lane>
          <lane id="ErnstRuska5O_1" depart="0" vclasses="" maxspeed="19.00" length="107.40">1916.52,198.35 2023.92,198.35</lane>
       </lanes>
-      <cedge id="ErnstRuskaSink5O">ErnstRuska5O_0 ErnstRuska5O_1</cedge>
    </edge>
 
    <edge id="ErnstRuska5W" from="ErnstRuskaEnd2" to="ErnstRuskaAltglienicker" priority="1" type="" function="normal">
@@ -199,8 +168,6 @@
          <lane id="ErnstRuska5W_1" depart="0" vclasses="" maxspeed="19.00" length="107.40">2023.92,204.95 1916.52,204.95</lane>
          <lane id="ErnstRuska5W_2" depart="0" vclasses="" maxspeed="19.00" length="107.40">2023.92,201.65 1916.52,201.65</lane>
       </lanes>
-      <cedge id="ErnstRuska4W">ErnstRuska5W_0 ErnstRuska5W_1</cedge>
-      <cedge id="AltglienickerBreitS">ErnstRuska5W_2</cedge>
    </edge>
 
    <edge id="ErnstRuskaSink1O" from="ErnstRuskaSink1" to="ErnstRuskaEnd1" priority="1" type="" function="normal">
@@ -208,7 +175,6 @@
          <lane id="ErnstRuskaSink1O_0" depart="1" vclasses="" maxspeed="19.00" length="100.00">0.00,195.05 100.00,195.05</lane>
          <lane id="ErnstRuskaSink1O_1" depart="0" vclasses="" maxspeed="19.00" length="100.00">0.00,198.35 100.00,198.35</lane>
       </lanes>
-      <cedge id="ErnstRuska1O">ErnstRuskaSink1O_0 ErnstRuskaSink1O_1</cedge>
    </edge>
 
    <edge id="ErnstRuskaSink1W" from="ErnstRuskaEnd1" to="ErnstRuskaSink1" priority="1" type="" function="normal">
@@ -230,7 +196,6 @@
          <lane id="ErnstRuskaSink5W_0" depart="1" vclasses="" maxspeed="19.00" length="98.50">2125.42,204.95 2026.92,204.95</lane>
          <lane id="ErnstRuskaSink5W_1" depart="0" vclasses="" maxspeed="19.00" length="98.50">2125.42,201.65 2026.92,201.65</lane>
       </lanes>
-      <cedge id="ErnstRuska5W">ErnstRuskaSink5W_0 ErnstRuskaSink5W_1</cedge>
    </edge>
 
    <edge id="HavestadtN" from="ErnstRuskaHavestadt" to="HavestadtEnd" priority="-1" type="" function="normal">
@@ -238,7 +203,6 @@
          <lane id="HavestadtN_0" depart="1" vclasses="" maxspeed="14.00" length="91.95">1020.20,208.05 1020.20,300.00</lane>
          <lane id="HavestadtN_1" depart="0" vclasses="" maxspeed="14.00" length="91.95">1016.90,208.05 1016.90,300.00</lane>
       </lanes>
-      <cedge id="HavestadtSinkN">HavestadtN_0 HavestadtN_1</cedge>
    </edge>
 
    <edge id="HavestadtS" from="HavestadtEnd" to="ErnstRuskaHavestadt" priority="-1" type="" function="normal">
@@ -246,8 +210,6 @@
          <lane id="HavestadtS_0" depart="1" vclasses="" maxspeed="14.00" length="91.95">1010.30,300.00 1010.30,208.05</lane>
          <lane id="HavestadtS_1" depart="0" vclasses="" maxspeed="14.00" length="91.95">1013.60,300.00 1013.60,208.05</lane>
       </lanes>
-      <cedge id="ErnstRuska231W">HavestadtS_0</cedge>
-      <cedge id="ErnstRuska232O">HavestadtS_1</cedge>
    </edge>
 
    <edge id="HavestadtSinkN" from="HavestadtEnd" to="HavestadtSinkEnd" priority="-1" type="" function="normal">
@@ -262,22 +224,18 @@
          <lane id="HavestadtSinkS_0" depart="1" vclasses="" maxspeed="14.00" length="100.00">1010.30,400.00 1010.30,300.00</lane>
          <lane id="HavestadtSinkS_1" depart="0" vclasses="" maxspeed="14.00" length="100.00">1013.60,400.00 1013.60,300.00</lane>
       </lanes>
-      <cedge id="HavestadtS">HavestadtSinkS_0 HavestadtSinkS_1</cedge>
    </edge>
 
    <edge id="VolmerN" from="ErnstRuskaVolmer" to="VolmerEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="VolmerN_0" depart="1" vclasses="" maxspeed="14.00" length="91.95">1586.40,208.05 1586.40,300.00</lane>
       </lanes>
-      <cedge id="VolmerSinkN">VolmerN_0</cedge>
    </edge>
 
    <edge id="VolmerS" from="VolmerEnd" to="ErnstRuskaVolmer" priority="-1" type="" function="normal">
       <lanes>
          <lane id="VolmerS_0" depart="1" vclasses="" maxspeed="14.00" length="91.95">1583.10,300.00 1583.10,208.05</lane>
       </lanes>
-      <cedge id="ErnstRuska3W">VolmerS_0</cedge>
-      <cedge id="ErnstRuska4O">VolmerS_0</cedge>
    </edge>
 
    <edge id="VolmerSinkN" from="VolmerEnd" to="VolmerSinkEnd" priority="-1" type="" function="normal">
@@ -290,7 +248,6 @@
       <lanes>
          <lane id="VolmerSinkS_0" depart="1" vclasses="" maxspeed="14.00" length="100.00">1583.10,400.00 1583.10,300.00</lane>
       </lanes>
-      <cedge id="VolmerS">VolmerSinkS_0</cedge>
    </edge>
 
 

@@ -5,7 +5,6 @@
    <orig-boundary>0.000000,0.000000,510.000000,100.000000</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="11">10out 1to2 2to3 2to9split 3to4 4to5 5out 6to7 7to8 8to9 9to10</edges>
    <node_count>12</node_count>
 
 
@@ -19,36 +18,30 @@
       <lanes>
          <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="98.52">100.00,-1.65 198.52,-1.65</lane>
       </lanes>
-      <cedge id="2to3">1to2_0</cedge>
-      <cedge id="2to9split">1to2_0</cedge>
    </edge>
 
    <edge id="2to3" from="2" to="3" priority="-1" type="" function="normal">
       <lanes>
          <lane id="2to3_0" depart="1" vclasses="" maxspeed="13.90" length="93.95">206.05,-1.65 300.00,-1.65</lane>
       </lanes>
-      <cedge id="3to4">2to3_0</cedge>
    </edge>
 
    <edge id="2to9split" from="2" to="9" priority="-1" type="" function="normal">
       <lanes>
          <lane id="2to9split_0" depart="1" vclasses="" maxspeed="13.90" length="130.70">204.48,2.14 296.89,94.56</lane>
       </lanes>
-      <cedge id="9to10">2to9split_0</cedge>
    </edge>
 
    <edge id="3to4" from="3" to="4" priority="-1" type="" function="normal">
       <lanes>
          <lane id="3to4_0" depart="1" vclasses="" maxspeed="13.90" length="100.00">300.00,-1.65 400.00,-1.65</lane>
       </lanes>
-      <cedge id="4to5">3to4_0</cedge>
    </edge>
 
    <edge id="4to5" from="4" to="5" priority="-1" type="" function="normal">
       <lanes>
          <lane id="4to5_0" depart="1" vclasses="" maxspeed="13.90" length="100.00">400.00,-1.65 500.00,-1.65</lane>
       </lanes>
-      <cedge id="5out">4to5_0</cedge>
    </edge>
 
    <edge id="5out" from="5" to="5a" priority="-1" type="" function="normal">
@@ -61,28 +54,24 @@
       <lanes>
          <lane id="6to7_0" depart="1" vclasses="" maxspeed="13.90" length="100.00">0.00,98.35 100.00,98.35</lane>
       </lanes>
-      <cedge id="7to8">6to7_0</cedge>
    </edge>
 
    <edge id="7to8" from="7" to="8" priority="-1" type="" function="normal">
       <lanes>
          <lane id="7to8_0" depart="1" vclasses="" maxspeed="13.90" length="100.00">100.00,98.35 200.00,98.35</lane>
       </lanes>
-      <cedge id="8to9">7to8_0</cedge>
    </edge>
 
    <edge id="8to9" from="8" to="9" priority="-1" type="" function="normal">
       <lanes>
          <lane id="8to9_0" depart="1" vclasses="" maxspeed="13.90" length="95.32">200.00,98.35 295.32,98.35</lane>
       </lanes>
-      <cedge id="9to10">8to9_0</cedge>
    </edge>
 
    <edge id="9to10" from="9" to="10" priority="-1" type="" function="normal">
       <lanes>
          <lane id="9to10_0" depart="1" vclasses="" maxspeed="13.90" length="97.15">302.85,98.35 400.00,98.35</lane>
       </lanes>
-      <cedge id="10out">9to10_0</cedge>
    </edge>
 
 
