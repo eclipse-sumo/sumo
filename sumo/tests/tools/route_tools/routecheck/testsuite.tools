@@ -15,7 +15,7 @@ no_vclass_fix_missing
 passenger_test_routes_correct
 
 # Tests for importing passenger-routes (previous was false)
-passenger_test_routes_false
+#passenger_test_routes_false
 
 
 
@@ -23,7 +23,7 @@ passenger_test_routes_false
 bus_test_routes_correct
 
 # Tests for importing bus-routes (previous was false)
-bus_test_routes_false
+#bus_test_routes_false
 
 
 
