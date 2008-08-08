@@ -18,7 +18,6 @@
    <orig-boundary>0.000000,0.000000,400.000000,100.000000</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="26">0/0to0/1 0/0to1/0 0/1to0/0 0/1to1/1 1/0to0/0 1/0to1/1 1/0to2/0 1/1to0/1 1/1to1/0 1/1to2/1 2/0to1/0 2/0to2/1 2/0to3/0 2/1to1/1 2/1to2/0 2/1to3/1 3/0to2/0 3/0to3/1 3/0to4/0 3/1to2/1 3/1to3/0 3/1to4/1 4/0to3/0 4/0to4/1 4/1to3/1 4/1to4/0</edges>
    <node_count>10</node_count>
 
 
@@ -26,226 +25,156 @@
       <lanes>
          <lane id="0/0to0/1_0" depart="1" vclasses="" maxspeed="13.90" length="93.50">1.65,3.25 1.65,96.75</lane>
       </lanes>
-      <cedge id="0/1to1/1">0/0to0/1_0</cedge>
-      <cedge id="0/1to0/0">0/0to0/1_0</cedge>
    </edge>
 
    <edge id="0/0to1/0" from="0/0" to="1/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="0/0to1/0_0" depart="1" vclasses="" maxspeed="13.90" length="92.00">3.25,-1.65 95.25,-1.65</lane>
       </lanes>
-      <cedge id="1/0to2/0">0/0to1/0_0</cedge>
-      <cedge id="1/0to1/1">0/0to1/0_0</cedge>
-      <cedge id="1/0to0/0">0/0to1/0_0</cedge>
    </edge>
 
    <edge id="0/1to0/0" from="0/1" to="0/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="0/1to0/0_0" depart="1" vclasses="" maxspeed="13.90" length="93.50">-1.65,96.75 -1.65,3.25</lane>
       </lanes>
-      <cedge id="0/0to1/0">0/1to0/0_0</cedge>
-      <cedge id="0/0to0/1">0/1to0/0_0</cedge>
    </edge>
 
    <edge id="0/1to1/1" from="0/1" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="0/1to1/1_0" depart="1" vclasses="" maxspeed="13.90" length="92.00">3.25,98.35 95.25,98.35</lane>
       </lanes>
-      <cedge id="1/1to1/0">0/1to1/1_0</cedge>
-      <cedge id="1/1to2/1">0/1to1/1_0</cedge>
-      <cedge id="1/1to0/1">0/1to1/1_0</cedge>
    </edge>
 
    <edge id="1/0to0/0" from="1/0" to="0/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/0to0/0_0" depart="1" vclasses="" maxspeed="13.90" length="92.00">95.25,1.65 3.25,1.65</lane>
       </lanes>
-      <cedge id="0/0to0/1">1/0to0/0_0</cedge>
-      <cedge id="0/0to1/0">1/0to0/0_0</cedge>
    </edge>
 
    <edge id="1/0to1/1" from="1/0" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/0to1/1_0" depart="1" vclasses="" maxspeed="13.90" length="90.50">101.65,4.75 101.65,95.25</lane>
       </lanes>
-      <cedge id="1/1to2/1">1/0to1/1_0</cedge>
-      <cedge id="1/1to0/1">1/0to1/1_0</cedge>
-      <cedge id="1/1to1/0">1/0to1/1_0</cedge>
    </edge>
 
    <edge id="1/0to2/0" from="1/0" to="2/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/0to2/0_0" depart="1" vclasses="" maxspeed="13.90" length="90.50">104.75,-1.65 195.25,-1.65</lane>
       </lanes>
-      <cedge id="2/0to3/0">1/0to2/0_0</cedge>
-      <cedge id="2/0to2/1">1/0to2/0_0</cedge>
-      <cedge id="2/0to1/0">1/0to2/0_0</cedge>
    </edge>
 
    <edge id="1/1to0/1" from="1/1" to="0/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/1to0/1_0" depart="1" vclasses="" maxspeed="13.90" length="92.00">95.25,101.65 3.25,101.65</lane>
       </lanes>
-      <cedge id="0/1to0/0">1/1to0/1_0</cedge>
-      <cedge id="0/1to1/1">1/1to0/1_0</cedge>
    </edge>
 
    <edge id="1/1to1/0" from="1/1" to="1/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/1to1/0_0" depart="1" vclasses="" maxspeed="13.90" length="90.50">98.35,95.25 98.35,4.75</lane>
       </lanes>
-      <cedge id="1/0to0/0">1/1to1/0_0</cedge>
-      <cedge id="1/0to2/0">1/1to1/0_0</cedge>
-      <cedge id="1/0to1/1">1/1to1/0_0</cedge>
    </edge>
 
    <edge id="1/1to2/1" from="1/1" to="2/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="1/1to2/1_0" depart="1" vclasses="" maxspeed="13.90" length="90.50">104.75,98.35 195.25,98.35</lane>
       </lanes>
-      <cedge id="2/1to2/0">1/1to2/1_0</cedge>
-      <cedge id="2/1to3/1">1/1to2/1_0</cedge>
-      <cedge id="2/1to1/1">1/1to2/1_0</cedge>
    </edge>
 
    <edge id="2/0to1/0" from="2/0" to="1/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2/0to1/0_0" depart="1" vclasses="" maxspeed="13.90" length="90.50">195.25,1.65 104.75,1.65</lane>
       </lanes>
-      <cedge id="1/0to1/1">2/0to1/0_0</cedge>
-      <cedge id="1/0to0/0">2/0to1/0_0</cedge>
-      <cedge id="1/0to2/0">2/0to1/0_0</cedge>
    </edge>
 
    <edge id="2/0to2/1" from="2/0" to="2/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2/0to2/1_0" depart="1" vclasses="" maxspeed="13.90" length="90.50">201.65,4.75 201.65,95.25</lane>
       </lanes>
-      <cedge id="2/1to3/1">2/0to2/1_0</cedge>
-      <cedge id="2/1to1/1">2/0to2/1_0</cedge>
-      <cedge id="2/1to2/0">2/0to2/1_0</cedge>
    </edge>
 
    <edge id="2/0to3/0" from="2/0" to="3/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2/0to3/0_0" depart="1" vclasses="" maxspeed="13.90" length="90.50">204.75,-1.65 295.25,-1.65</lane>
       </lanes>
-      <cedge id="3/0to4/0">2/0to3/0_0</cedge>
-      <cedge id="3/0to3/1">2/0to3/0_0</cedge>
-      <cedge id="3/0to2/0">2/0to3/0_0</cedge>
    </edge>
 
    <edge id="2/1to1/1" from="2/1" to="1/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2/1to1/1_0" depart="1" vclasses="" maxspeed="13.90" length="90.50">195.25,101.65 104.75,101.65</lane>
       </lanes>
-      <cedge id="1/1to0/1">2/1to1/1_0</cedge>
-      <cedge id="1/1to1/0">2/1to1/1_0</cedge>
-      <cedge id="1/1to2/1">2/1to1/1_0</cedge>
    </edge>
 
    <edge id="2/1to2/0" from="2/1" to="2/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2/1to2/0_0" depart="1" vclasses="" maxspeed="13.90" length="90.50">198.35,95.25 198.35,4.75</lane>
       </lanes>
-      <cedge id="2/0to1/0">2/1to2/0_0</cedge>
-      <cedge id="2/0to3/0">2/1to2/0_0</cedge>
-      <cedge id="2/0to2/1">2/1to2/0_0</cedge>
    </edge>
 
    <edge id="2/1to3/1" from="2/1" to="3/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="2/1to3/1_0" depart="1" vclasses="" maxspeed="13.90" length="90.50">204.75,98.35 295.25,98.35</lane>
       </lanes>
-      <cedge id="3/1to3/0">2/1to3/1_0</cedge>
-      <cedge id="3/1to4/1">2/1to3/1_0</cedge>
-      <cedge id="3/1to2/1">2/1to3/1_0</cedge>
    </edge>
 
    <edge id="3/0to2/0" from="3/0" to="2/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3/0to2/0_0" depart="1" vclasses="" maxspeed="13.90" length="90.50">295.25,1.65 204.75,1.65</lane>
       </lanes>
-      <cedge id="2/0to2/1">3/0to2/0_0</cedge>
-      <cedge id="2/0to1/0">3/0to2/0_0</cedge>
-      <cedge id="2/0to3/0">3/0to2/0_0</cedge>
    </edge>
 
    <edge id="3/0to3/1" from="3/0" to="3/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3/0to3/1_0" depart="1" vclasses="" maxspeed="13.90" length="90.50">301.65,4.75 301.65,95.25</lane>
       </lanes>
-      <cedge id="3/1to4/1">3/0to3/1_0</cedge>
-      <cedge id="3/1to2/1">3/0to3/1_0</cedge>
-      <cedge id="3/1to3/0">3/0to3/1_0</cedge>
    </edge>
 
    <edge id="3/0to4/0" from="3/0" to="4/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3/0to4/0_0" depart="1" vclasses="" maxspeed="13.90" length="92.00">304.75,-1.65 396.75,-1.65</lane>
       </lanes>
-      <cedge id="4/0to4/1">3/0to4/0_0</cedge>
-      <cedge id="4/0to3/0">3/0to4/0_0</cedge>
    </edge>
 
    <edge id="3/1to2/1" from="3/1" to="2/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3/1to2/1_0" depart="1" vclasses="" maxspeed="13.90" length="90.50">295.25,101.65 204.75,101.65</lane>
       </lanes>
-      <cedge id="2/1to1/1">3/1to2/1_0</cedge>
-      <cedge id="2/1to2/0">3/1to2/1_0</cedge>
-      <cedge id="2/1to3/1">3/1to2/1_0</cedge>
    </edge>
 
    <edge id="3/1to3/0" from="3/1" to="3/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3/1to3/0_0" depart="1" vclasses="" maxspeed="13.90" length="90.50">298.35,95.25 298.35,4.75</lane>
       </lanes>
-      <cedge id="3/0to2/0">3/1to3/0_0</cedge>
-      <cedge id="3/0to4/0">3/1to3/0_0</cedge>
-      <cedge id="3/0to3/1">3/1to3/0_0</cedge>
    </edge>
 
    <edge id="3/1to4/1" from="3/1" to="4/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="3/1to4/1_0" depart="1" vclasses="" maxspeed="13.90" length="92.00">304.75,98.35 396.75,98.35</lane>
       </lanes>
-      <cedge id="4/1to4/0">3/1to4/1_0</cedge>
-      <cedge id="4/1to3/1">3/1to4/1_0</cedge>
    </edge>
 
    <edge id="4/0to3/0" from="4/0" to="3/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4/0to3/0_0" depart="1" vclasses="" maxspeed="13.90" length="92.00">396.75,1.65 304.75,1.65</lane>
       </lanes>
-      <cedge id="3/0to3/1">4/0to3/0_0</cedge>
-      <cedge id="3/0to2/0">4/0to3/0_0</cedge>
-      <cedge id="3/0to4/0">4/0to3/0_0</cedge>
    </edge>
 
    <edge id="4/0to4/1" from="4/0" to="4/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4/0to4/1_0" depart="1" vclasses="" maxspeed="13.90" length="93.50">401.65,3.25 401.65,96.75</lane>
       </lanes>
-      <cedge id="4/1to3/1">4/0to4/1_0</cedge>
-      <cedge id="4/1to4/0">4/0to4/1_0</cedge>
    </edge>
 
    <edge id="4/1to3/1" from="4/1" to="3/1" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4/1to3/1_0" depart="1" vclasses="" maxspeed="13.90" length="92.00">396.75,101.65 304.75,101.65</lane>
       </lanes>
-      <cedge id="3/1to2/1">4/1to3/1_0</cedge>
-      <cedge id="3/1to3/0">4/1to3/1_0</cedge>
-      <cedge id="3/1to4/1">4/1to3/1_0</cedge>
    </edge>
 
    <edge id="4/1to4/0" from="4/1" to="4/0" priority="-1" type="netgen-default" function="normal">
       <lanes>
          <lane id="4/1to4/0_0" depart="1" vclasses="" maxspeed="13.90" length="93.50">398.35,96.75 398.35,3.25</lane>
       </lanes>
-      <cedge id="4/0to3/0">4/1to4/0_0</cedge>
-      <cedge id="4/0to4/1">4/1to4/0_0</cedge>
    </edge>
 
 

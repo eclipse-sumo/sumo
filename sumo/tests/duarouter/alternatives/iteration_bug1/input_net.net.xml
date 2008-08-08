@@ -5,7 +5,6 @@
    <orig-boundary>-1000.000000,-500.000000,2000.000000,2500.000000</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="32">L1 L10 L11 L12 L13 L14 L15 L16 L17 L18 L19 L2 L20 L21 L22 L23 L24 L25 L26 L27 L28 L29 L3 L30 L31 L32 L4 L5 L6 L7 L8 L9</edges>
    <node_count>20</node_count>
 
 
@@ -15,7 +14,6 @@
          <lane id="L1_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">0.00,1995.05 300.00,1995.05</lane>
          <lane id="L1_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">0.00,1998.35 300.00,1998.35</lane>
       </lanes>
-      <cedge id="L9">L1_0 L1_1 L1_2</cedge>
    </edge>
 
    <edge id="L10" from="12" to="21" priority="3" type="a" function="normal">
@@ -24,10 +22,6 @@
          <lane id="L10_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">300.00,995.05 988.65,995.05</lane>
          <lane id="L10_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">300.00,998.35 988.65,998.35</lane>
       </lanes>
-      <cedge id="L27">L10_0</cedge>
-      <cedge id="L19">L10_0 L10_1</cedge>
-      <cedge id="L18">L10_2</cedge>
-      <cedge id="L26">L10_2</cedge>
    </edge>
 
    <edge id="L11" from="13" to="21" priority="3" type="a" function="normal">
@@ -36,10 +30,6 @@
          <lane id="L11_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">1004.95,300.00 1004.95,988.65</lane>
          <lane id="L11_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">1001.65,300.00 1001.65,988.65</lane>
       </lanes>
-      <cedge id="L19">L11_0</cedge>
-      <cedge id="L18">L11_1 L11_2</cedge>
-      <cedge id="L26">L11_2</cedge>
-      <cedge id="L27">L11_2</cedge>
    </edge>
 
    <edge id="L12" from="14" to="22" priority="3" type="a" function="normal">
@@ -48,10 +38,6 @@
          <lane id="L12_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">2004.95,300.00 2004.95,988.65</lane>
          <lane id="L12_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">2001.65,300.00 2001.65,988.65</lane>
       </lanes>
-      <cedge id="L29">L12_0</cedge>
-      <cedge id="L21">L12_0 L12_1</cedge>
-      <cedge id="L20">L12_2</cedge>
-      <cedge id="L28">L12_2</cedge>
    </edge>
 
    <edge id="L13" from="15" to="22" priority="3" type="a" function="normal">
@@ -60,10 +46,6 @@
          <lane id="L13_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">2700.00,1004.95 2011.35,1004.95</lane>
          <lane id="L13_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">2700.00,1001.65 2011.35,1001.65</lane>
       </lanes>
-      <cedge id="L21">L13_0</cedge>
-      <cedge id="L20">L13_1 L13_2</cedge>
-      <cedge id="L28">L13_2</cedge>
-      <cedge id="L29">L13_2</cedge>
    </edge>
 
    <edge id="L14" from="16" to="23" priority="3" type="a" function="normal">
@@ -72,10 +54,6 @@
          <lane id="L14_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">2700.00,2004.95 2011.35,2004.95</lane>
          <lane id="L14_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">2700.00,2001.65 2011.35,2001.65</lane>
       </lanes>
-      <cedge id="L31">L14_0</cedge>
-      <cedge id="L23">L14_0 L14_1</cedge>
-      <cedge id="L22">L14_2</cedge>
-      <cedge id="L30">L14_2</cedge>
    </edge>
 
    <edge id="L15" from="17" to="23" priority="3" type="a" function="normal">
@@ -84,10 +62,6 @@
          <lane id="L15_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">1995.05,2700.00 1995.05,2011.35</lane>
          <lane id="L15_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">1998.35,2700.00 1998.35,2011.35</lane>
       </lanes>
-      <cedge id="L23">L15_0</cedge>
-      <cedge id="L22">L15_1 L15_2</cedge>
-      <cedge id="L30">L15_2</cedge>
-      <cedge id="L31">L15_2</cedge>
    </edge>
 
    <edge id="L16" from="18" to="20" priority="3" type="a" function="normal">
@@ -96,10 +70,6 @@
          <lane id="L16_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">995.05,2700.00 995.05,2011.35</lane>
          <lane id="L16_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">998.35,2700.00 998.35,2011.35</lane>
       </lanes>
-      <cedge id="L25">L16_0</cedge>
-      <cedge id="L17">L16_0 L16_1</cedge>
-      <cedge id="L24">L16_2</cedge>
-      <cedge id="L32">L16_2</cedge>
    </edge>
 
    <edge id="L17" from="20" to="21" priority="3" type="a" function="normal">
@@ -108,10 +78,6 @@
          <lane id="L17_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">995.05,1988.65 995.05,1011.35</lane>
          <lane id="L17_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">998.35,1988.65 998.35,1011.35</lane>
       </lanes>
-      <cedge id="L26">L17_0</cedge>
-      <cedge id="L27">L17_0 L17_1</cedge>
-      <cedge id="L19">L17_1 L17_2</cedge>
-      <cedge id="L18">L17_2</cedge>
    </edge>
 
    <edge id="L18" from="21" to="20" priority="3" type="a" function="normal">
@@ -120,10 +86,6 @@
          <lane id="L18_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">1004.95,1011.35 1004.95,1988.65</lane>
          <lane id="L18_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">1001.65,1011.35 1001.65,1988.65</lane>
       </lanes>
-      <cedge id="L24">L18_0 L18_1</cedge>
-      <cedge id="L32">L18_1</cedge>
-      <cedge id="L25">L18_2</cedge>
-      <cedge id="L17">L18_2</cedge>
    </edge>
 
    <edge id="L19" from="21" to="22" priority="3" type="a" function="normal">
@@ -132,10 +94,6 @@
          <lane id="L19_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">1011.35,995.05 1988.65,995.05</lane>
          <lane id="L19_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">1011.35,998.35 1988.65,998.35</lane>
       </lanes>
-      <cedge id="L28">L19_0</cedge>
-      <cedge id="L29">L19_0 L19_1</cedge>
-      <cedge id="L21">L19_1 L19_2</cedge>
-      <cedge id="L20">L19_2</cedge>
    </edge>
 
    <edge id="L2" from="92" to="12" priority="2" type="b" function="normal">
@@ -144,7 +102,6 @@
          <lane id="L2_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">0.00,995.05 300.00,995.05</lane>
          <lane id="L2_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">0.00,998.35 300.00,998.35</lane>
       </lanes>
-      <cedge id="L10">L2_0 L2_1 L2_2</cedge>
    </edge>
 
    <edge id="L20" from="22" to="21" priority="3" type="a" function="normal">
@@ -153,10 +110,6 @@
          <lane id="L20_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">1988.65,1004.95 1011.35,1004.95</lane>
          <lane id="L20_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">1988.65,1001.65 1011.35,1001.65</lane>
       </lanes>
-      <cedge id="L18">L20_0 L20_1</cedge>
-      <cedge id="L26">L20_1</cedge>
-      <cedge id="L27">L20_2</cedge>
-      <cedge id="L19">L20_2</cedge>
    </edge>
 
    <edge id="L21" from="22" to="23" priority="3" type="a" function="normal">
@@ -165,10 +118,6 @@
          <lane id="L21_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">2004.95,1011.35 2004.95,1988.65</lane>
          <lane id="L21_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">2001.65,1011.35 2001.65,1988.65</lane>
       </lanes>
-      <cedge id="L30">L21_0</cedge>
-      <cedge id="L31">L21_0 L21_1</cedge>
-      <cedge id="L23">L21_1 L21_2</cedge>
-      <cedge id="L22">L21_2</cedge>
    </edge>
 
    <edge id="L22" from="23" to="22" priority="3" type="a" function="normal">
@@ -177,10 +126,6 @@
          <lane id="L22_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">1995.05,1988.65 1995.05,1011.35</lane>
          <lane id="L22_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">1998.35,1988.65 1998.35,1011.35</lane>
       </lanes>
-      <cedge id="L20">L22_0 L22_1</cedge>
-      <cedge id="L28">L22_1</cedge>
-      <cedge id="L29">L22_2</cedge>
-      <cedge id="L21">L22_2</cedge>
    </edge>
 
    <edge id="L23" from="23" to="20" priority="3" type="a" function="normal">
@@ -189,10 +134,6 @@
          <lane id="L23_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">1988.65,2004.95 1011.35,2004.95</lane>
          <lane id="L23_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">1988.65,2001.65 1011.35,2001.65</lane>
       </lanes>
-      <cedge id="L32">L23_0</cedge>
-      <cedge id="L25">L23_0 L23_1</cedge>
-      <cedge id="L17">L23_1 L23_2</cedge>
-      <cedge id="L24">L23_2</cedge>
    </edge>
 
    <edge id="L24" from="20" to="23" priority="3" type="a" function="normal">
@@ -201,10 +142,6 @@
          <lane id="L24_1" depart="0" vclasses="" maxspeed="13.89" length="977.30">1011.35,1995.05 1988.65,1995.05</lane>
          <lane id="L24_2" depart="0" vclasses="" maxspeed="13.89" length="977.30">1011.35,1998.35 1988.65,1998.35</lane>
       </lanes>
-      <cedge id="L22">L24_0 L24_1</cedge>
-      <cedge id="L30">L24_1</cedge>
-      <cedge id="L31">L24_2</cedge>
-      <cedge id="L23">L24_2</cedge>
    </edge>
 
    <edge id="L25" from="20" to="91" priority="1" type="c" function="normal">
@@ -213,7 +150,6 @@
          <lane id="L25_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">988.65,2004.95 0.00,2004.95</lane>
          <lane id="L25_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">988.65,2001.65 0.00,2001.65</lane>
       </lanes>
-      <cedge id="L1">L25_2</cedge>
    </edge>
 
    <edge id="L26" from="21" to="92" priority="1" type="c" function="normal">
@@ -222,7 +158,6 @@
          <lane id="L26_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">988.65,1004.95 0.00,1004.95</lane>
          <lane id="L26_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">988.65,1001.65 0.00,1001.65</lane>
       </lanes>
-      <cedge id="L2">L26_2</cedge>
    </edge>
 
    <edge id="L27" from="21" to="93" priority="1" type="c" function="normal">
@@ -231,7 +166,6 @@
          <lane id="L27_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">995.05,988.65 995.05,0.00</lane>
          <lane id="L27_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">998.35,988.65 998.35,0.00</lane>
       </lanes>
-      <cedge id="L3">L27_2</cedge>
    </edge>
 
    <edge id="L28" from="22" to="94" priority="1" type="c" function="normal">
@@ -240,7 +174,6 @@
          <lane id="L28_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">1995.05,988.65 1995.05,0.00</lane>
          <lane id="L28_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">1998.35,988.65 1998.35,0.00</lane>
       </lanes>
-      <cedge id="L4">L28_2</cedge>
    </edge>
 
    <edge id="L29" from="22" to="95" priority="1" type="c" function="normal">
@@ -249,7 +182,6 @@
          <lane id="L29_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">2011.35,995.05 3000.00,995.05</lane>
          <lane id="L29_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">2011.35,998.35 3000.00,998.35</lane>
       </lanes>
-      <cedge id="L5">L29_2</cedge>
    </edge>
 
    <edge id="L3" from="93" to="13" priority="2" type="b" function="normal">
@@ -258,7 +190,6 @@
          <lane id="L3_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">1004.95,0.00 1004.95,300.00</lane>
          <lane id="L3_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">1001.65,0.00 1001.65,300.00</lane>
       </lanes>
-      <cedge id="L11">L3_0 L3_1 L3_2</cedge>
    </edge>
 
    <edge id="L30" from="23" to="96" priority="1" type="c" function="normal">
@@ -267,7 +198,6 @@
          <lane id="L30_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">2011.35,1995.05 3000.00,1995.05</lane>
          <lane id="L30_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">2011.35,1998.35 3000.00,1998.35</lane>
       </lanes>
-      <cedge id="L6">L30_2</cedge>
    </edge>
 
    <edge id="L31" from="23" to="97" priority="1" type="c" function="normal">
@@ -276,7 +206,6 @@
          <lane id="L31_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">2004.95,2011.35 2004.95,3000.00</lane>
          <lane id="L31_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">2001.65,2011.35 2001.65,3000.00</lane>
       </lanes>
-      <cedge id="L7">L31_2</cedge>
    </edge>
 
    <edge id="L32" from="20" to="98" priority="1" type="c" function="normal">
@@ -285,7 +214,6 @@
          <lane id="L32_1" depart="0" vclasses="" maxspeed="13.89" length="988.65">1004.95,2011.35 1004.95,3000.00</lane>
          <lane id="L32_2" depart="0" vclasses="" maxspeed="13.89" length="988.65">1001.65,2011.35 1001.65,3000.00</lane>
       </lanes>
-      <cedge id="L8">L32_2</cedge>
    </edge>
 
    <edge id="L4" from="94" to="14" priority="2" type="b" function="normal">
@@ -294,7 +222,6 @@
          <lane id="L4_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">2004.95,0.00 2004.95,300.00</lane>
          <lane id="L4_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">2001.65,0.00 2001.65,300.00</lane>
       </lanes>
-      <cedge id="L12">L4_0 L4_1 L4_2</cedge>
    </edge>
 
    <edge id="L5" from="95" to="15" priority="2" type="b" function="normal">
@@ -303,7 +230,6 @@
          <lane id="L5_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">3000.00,1004.95 2700.00,1004.95</lane>
          <lane id="L5_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">3000.00,1001.65 2700.00,1001.65</lane>
       </lanes>
-      <cedge id="L13">L5_0 L5_1 L5_2</cedge>
    </edge>
 
    <edge id="L6" from="96" to="16" priority="2" type="b" function="normal">
@@ -312,7 +238,6 @@
          <lane id="L6_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">3000.00,2004.95 2700.00,2004.95</lane>
          <lane id="L6_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">3000.00,2001.65 2700.00,2001.65</lane>
       </lanes>
-      <cedge id="L14">L6_0 L6_1 L6_2</cedge>
    </edge>
 
    <edge id="L7" from="97" to="17" priority="2" type="b" function="normal">
@@ -321,7 +246,6 @@
          <lane id="L7_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">1995.05,3000.00 1995.05,2700.00</lane>
          <lane id="L7_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">1998.35,3000.00 1998.35,2700.00</lane>
       </lanes>
-      <cedge id="L15">L7_0 L7_1 L7_2</cedge>
    </edge>
 
    <edge id="L8" from="98" to="18" priority="2" type="b" function="normal">
@@ -330,7 +254,6 @@
          <lane id="L8_1" depart="0" vclasses="" maxspeed="11.11" length="300.00">995.05,3000.00 995.05,2700.00</lane>
          <lane id="L8_2" depart="0" vclasses="" maxspeed="11.11" length="300.00">998.35,3000.00 998.35,2700.00</lane>
       </lanes>
-      <cedge id="L16">L8_0 L8_1 L8_2</cedge>
    </edge>
 
    <edge id="L9" from="11" to="20" priority="3" type="a" function="normal">
@@ -339,10 +262,6 @@
          <lane id="L9_1" depart="0" vclasses="" maxspeed="13.89" length="688.65">300.00,1995.05 988.65,1995.05</lane>
          <lane id="L9_2" depart="0" vclasses="" maxspeed="13.89" length="688.65">300.00,1998.35 988.65,1998.35</lane>
       </lanes>
-      <cedge id="L17">L9_0</cedge>
-      <cedge id="L24">L9_1 L9_2</cedge>
-      <cedge id="L32">L9_2</cedge>
-      <cedge id="L25">L9_2</cedge>
    </edge>
 
 
