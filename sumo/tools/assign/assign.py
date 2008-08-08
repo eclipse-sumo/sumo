@@ -155,10 +155,7 @@ def calCommonalityAndChoiceProb(ODPaths, alpha, gamma, lohse):
                 for edgetwo in pathtwo.edges:
                     if edgeone.label == edgetwo.label:
                         mtxOverlap[pathone][pathtwo] += edgeone.length
-#                        if lohse:
-#                            mtxOverlap[pathone][pathtwo] += edgeone.helpacttime
-#                        else:
-#                            mtxOverlap[pathone][pathtwo] += edgeone.actualtime
+
             mtxOverlap[pathtwo][pathone] = mtxOverlap[pathone][pathtwo]
 
     if len(ODPaths) > 1:
@@ -166,11 +163,7 @@ def calCommonalityAndChoiceProb(ODPaths, alpha, gamma, lohse):
             sum_overlap = 0.0 
             for pathtwo in ODPaths:
                 sum_overlap += math.pow(mtxOverlap[pathone][pathtwo]/(math.pow(pathone.length,0.5) * math.pow(pathtwo.length,0.5)), gamma)
-#                if lohse:
-#                    sum_overlap += math.pow(mtxOverlap[pathone][pathtwo]/(math.pow(pathone.pathhelpacttime,0.5) * math.pow(pathtwo.pathhelpacttime,0.5)), gamma)
-#                else:
-#                    sum_overlap += math.pow(mtxOverlap[pathone][pathtwo]/(math.pow(pathone.actpathtime,0.5) * math.pow(pathtwo.actpathtime,0.5)), gamma)
-            
+          
             pathone.commfactor = alpha * math.log(sum_overlap)
         
         if lohse:

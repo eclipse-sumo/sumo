@@ -115,17 +115,21 @@ def dijkstra(net, start, lohse=False):
                     if link.label == P[v].leftlink and P[v].againstlinkexist and P[v].straight != None:
                         leftTurn = True
                         break
-            if lohse:
-                vwLength = D[v] + edge.helpacttime
-            else:
-                if v == start or not leftTurn:
-                    vwLength = D[v] + edge.actualtime + edge.queuetime
+
+            if v == start or not leftTurn:
+                if lohse:
+                    vwLength = D[v] + edge.helpacttime
                 else:
-                    weightFactor = 1.0
-                    if P[v].numberlane == 2.:
-                        weightFactor *= 0.8
-                    elif P[v].numberlane > 2.:
-                        weightFactor *= 0.4
+                    vwLength = D[v] + edge.actualtime + edge.queuetime
+            else:
+                weightFactor = 1.0
+                if P[v].numberlane == 2.:
+                    weightFactor *= 0.8
+                elif P[v].numberlane > 2.:
+                    weightFactor *= 0.4
+                if lohse:
+                    vwLength = D[v] + edge.helpacttime + P[v].helpacttime*(math.exp(P[v].flow/P[v].estcapacity) - 1.)*weightFactor
+                else:    
                     vwLength = D[v] + edge.actualtime + edge.queuetime + P[v].actualtime*(math.exp(P[v].flow/P[v].estcapacity) - 1.)*weightFactor
 
             if w in D:
