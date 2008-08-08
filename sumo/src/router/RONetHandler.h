@@ -73,7 +73,7 @@ protected:
     /// @name inherited from GenericSAXHandler
     //@{
 
-    /** @brief Called on the opening of a tag;
+    /** @brief Called on the opening of a tag; 
      *
      * @param[in] element ID of the currently opened element
      * @param[in] attrs Attributes within the currently opened element
@@ -82,17 +82,6 @@ protected:
      */
     virtual void myStartElement(SumoXMLTag element,
                                 const SUMOSAXAttributes &attrs) throw(ProcessError);
-
-
-    /** @brief Called when characters occure
-     *
-     * @param[in] element ID of the last opened element
-     * @param[in] chars The read characters (complete)
-     * @exception ProcessError If something fails
-     * @see GenericSAXHandler::myCharacters
-     */
-    virtual void myCharacters(SumoXMLTag element,
-                              const std::string &chars) throw(ProcessError);
     //@}
 
 protected:
@@ -105,8 +94,8 @@ protected:
     /// Parses a junction
     void parseJunction(const SUMOSAXAttributes &attrs);
 
-    /// Parses edge connections
-    void parseConnEdge(const SUMOSAXAttributes &attrs);
+    void parseConnectingEdge(const SUMOSAXAttributes &attrs);
+    void parseConnectedEdge(const SUMOSAXAttributes &attrs);
 
 
 protected:

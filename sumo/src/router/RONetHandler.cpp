@@ -87,10 +87,11 @@ RONetHandler::myStartElement(SumoXMLTag element,
     case SUMO_TAG_JUNCTION:
         parseJunction(attrs);
         break;
-    case SUMO_TAG_CEDGE:
-        if (myProcess) {
-            parseConnEdge(attrs);
-        }
+    case SUMO_TAG_SUCC:
+        parseConnectingEdge(attrs);
+        break;
+    case SUMO_TAG_SUCCLANE:
+        parseConnectedEdge(attrs);
         break;
     default:
         break;
@@ -102,8 +103,8 @@ void
 RONetHandler::parseEdge(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    if (!attrs.setIDFromAttributes("edge", myCurrentName)) {
-        return;
+    if(!attrs.setIDFromAttributes("edge", myCurrentName)) {
+        throw ProcessError();
     }
     // get the edge
     myCurrentEdge = 0;
@@ -112,12 +113,9 @@ RONetHandler::parseEdge(const SUMOSAXAttributes &attrs)
         //  !!! recheck this; internal edges may be of importance during the dua
         return;
     }
-    myCurrentEdge = myNet.getEdge(myCurrentName);
-    if (myCurrentEdge==0) {
-        MsgHandler::getErrorInstance()->inform("An unknown edge occured within '" + getFileName() + "' (id='" + myCurrentName + "').");
-        return;
-    }
-
+    myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName);
+    myNet.addEdge(myCurrentEdge); // !!! where is the edge deleted when failing? 
+    // !!! secure??
     // get the type of the edge
     try {
         string type = attrs.getString(SUMO_ATTR_FUNCTION);
@@ -187,7 +185,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs)
     std::vector<SUMOVehicleClass> allowed, disallowed;
     // get the id, report an error if not given or empty...
     string id;
-    if (!attrs.setIDFromAttributes("lane", id)) {
+    if(!attrs.setIDFromAttributes("lane", id)) {
         return;
     }
     // get the speed
@@ -237,16 +235,16 @@ RONetHandler::parseJunction(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if (!attrs.setIDFromAttributes("junction", id)) {
+    if(!attrs.setIDFromAttributes("junction", id)) {
         return;
     }
     // get the position of the node
     bool ok = true;
     SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, "junction", id.c_str(), ok);
     SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, "junction", id.c_str(), ok);
-    if (ok) {
+    if(ok) {
         RONode *n = myNet.getNode(id);
-        if (n==0) {
+        if(n==0) {
             n = new RONode(id);
             myNet.addNode(n);
         }
@@ -258,18 +256,24 @@ RONetHandler::parseJunction(const SUMOSAXAttributes &attrs)
 
 
 void
-RONetHandler::parseConnEdge(const SUMOSAXAttributes &attrs)
+RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs)
 {
-    if (myCurrentEdge==0) {
-        // was an internal edge to skip
+    string id = attrs.getString(SUMO_ATTR_EDGE);
+    myCurrentEdge = myNet.getEdge(id);
+    if(myCurrentEdge==0) {
+        throw ProcessError("An unknown edge occured (id='" + id + "').");
+    }
+}
+
+
+void
+RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs)
+{
+    string id = attrs.getString(SUMO_ATTR_LANE);
+    if(id=="SUMO_NO_DESTINATION") {
         return;
     }
-    // get the id, report an error if not given or empty...
-    string id;
-    if (!attrs.setIDFromAttributes("cedge", id)) {
-        return;
-    }
-    ROEdge *succ = myNet.getEdge(id);
+    ROEdge *succ = myNet.getEdge(id.substr(0, id.rfind('_')));
     if (succ!=0) {
         // connect edge
         myCurrentEdge->addFollower(succ);
@@ -278,25 +282,6 @@ RONetHandler::parseConnEdge(const SUMOSAXAttributes &attrs)
     }
 }
 
-
-void
-RONetHandler::myCharacters(SumoXMLTag element,
-                           const std::string &chars) throw(ProcessError)
-{
-    if (element!=SUMO_TAG_EDGES) {
-        return;
-    }
-    StringTokenizer st(chars);
-    while (st.hasNext()) {
-        string id = st.next();
-        if (id[0]==':') {
-            // this is an internal edge - we will not use it
-            //  !!! recheck this; internal edges may be of importance during the dua
-            continue;
-        }
-        myNet.addEdge(myEdgeBuilder.buildEdge(id)); // !!! where is the edge deleted when failing?
-    }
-}
 
 
 /****************************************************************************/
