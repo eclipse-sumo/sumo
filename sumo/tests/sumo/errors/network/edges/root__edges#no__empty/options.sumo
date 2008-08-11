@@ -1,2 +1,0 @@
--n net.net.xml -r input_routes.rou.xml -b 0 -e 1 --no-duration-log 
-
