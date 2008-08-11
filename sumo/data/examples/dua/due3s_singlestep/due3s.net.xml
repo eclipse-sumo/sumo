@@ -1,15 +1,15 @@
 <?xml version="1.0"?>
 
-<!-- generated on 01/21/08 09:24:51 by SUMO netconvert Version 0.9.7
+<!-- generated on 08/11/08 13:14:39 by SUMO netconvert Version dev-SVN-r5964
 <configuration>
 
    <input>
-      <xml-node-files>../data/examples\dua\due3s_singlestep\due3s.nod.xml</xml-node-files>
-      <xml-edge-files>../data/examples\dua\due3s_singlestep\due3s.edg.xml</xml-edge-files>
+      <xml-node-files>due3s.nod.xml</xml-node-files>
+      <xml-edge-files>due3s.edg.xml</xml-edge-files>
    </input>
 
    <output>
-      <output-file>../data/examples\dua\due3s_singlestep\due3s.net.xml</output-file>
+      <output-file>due3s.net.xml</output-file>
    </output>
 
    <processing>
@@ -25,80 +25,69 @@
 
 <net>
 
-   <net-offset>50.000000,400.000000</net-offset>
-   <conv-boundary>0.000000,0.000000,100.000000,800.000000</conv-boundary>
-   <orig-boundary>-50.000000,-400.000000,50.000000,400.000000</orig-boundary>
+   <net-offset>50.00,400.00</net-offset>
+   <conv-boundary>0.00,0.00,100.00,800.00</conv-boundary>
+   <orig-boundary>-50.00,-400.00,50.00,400.00</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="19">:beg_0 :beg_1 :beg_2 :begleft_0 :begright_0 :end_0 :end_1 :end_2 :endleft_0 :endright_0 beg beg2left beg2right end left left2end middle right right2end</edges>
    <edge id=":beg_0" function="internal">
       <lanes>
          <lane id=":beg_0_0" depart="0" maxspeed="36.00" length="5.00" >51.65,195.25 51.84,196.61 52.43,197.58 53.39,198.16 54.75,198.35</lane>
       </lanes>
-      <cedge id="beg2right">:beg_0_0</cedge>
    </edge>
 
    <edge id=":beg_1" function="internal">
       <lanes>
          <lane id=":beg_1_0" depart="0" maxspeed="36.00" length="9.50" >51.65,195.25 51.65,204.75</lane>
       </lanes>
-      <cedge id="middle">:beg_1_0</cedge>
    </edge>
 
    <edge id=":beg_2" function="internal">
       <lanes>
          <lane id=":beg_2_0" depart="0" maxspeed="36.00" length="7.85" >51.65,195.25 51.46,198.05 50.88,200.05 49.91,201.25 48.55,201.65</lane>
       </lanes>
-      <cedge id="beg2left">:beg_2_0</cedge>
    </edge>
 
    <edge id=":begleft_0" function="internal">
       <lanes>
          <lane id=":begleft_0_0" depart="0" maxspeed="36.00" length="2.58" >3.25,201.65 2.55,201.75 2.05,202.05 1.75,202.55 1.65,203.25</lane>
       </lanes>
-      <cedge id="left">:begleft_0_0</cedge>
    </edge>
 
    <edge id=":begright_0" function="internal">
       <lanes>
          <lane id=":begright_0_0" depart="0" maxspeed="36.00" length="2.58" >100.05,198.35 100.75,198.45 101.25,198.75 101.55,199.25 101.65,199.95</lane>
       </lanes>
-      <cedge id="right">:begright_0_0</cedge>
    </edge>
 
    <edge id=":end_0" function="internal">
       <lanes>
          <lane id=":end_0_0" depart="0" maxspeed="36.00" length="5.00" >54.75,601.65 53.39,601.84 52.43,602.43 51.84,603.39 51.65,604.75</lane>
       </lanes>
-      <cedge id="end">:end_0_0</cedge>
    </edge>
 
    <edge id=":end_1" function="internal">
       <lanes>
          <lane id=":end_1_0" depart="0" maxspeed="36.00" length="9.50" >51.65,595.25 51.65,604.75</lane>
       </lanes>
-      <cedge id="end">:end_1_0</cedge>
    </edge>
 
    <edge id=":end_2" function="internal">
       <lanes>
          <lane id=":end_2_0" depart="0" maxspeed="36.00" length="7.85" >48.55,598.35 49.91,598.75 50.88,599.95 51.46,601.95 51.65,604.75</lane>
       </lanes>
-      <cedge id="end">:end_2_0</cedge>
    </edge>
 
    <edge id=":endleft_0" function="internal">
       <lanes>
          <lane id=":endleft_0_0" depart="0" maxspeed="36.00" length="2.58" >1.65,596.75 1.75,597.45 2.05,597.95 2.55,598.25 3.25,598.35</lane>
       </lanes>
-      <cedge id="left2end">:endleft_0_0</cedge>
    </edge>
 
    <edge id=":endright_0" function="internal">
       <lanes>
          <lane id=":endright_0_0" depart="0" maxspeed="36.00" length="2.58" >101.65,600.05 101.55,600.75 101.25,601.25 100.75,601.55 100.05,601.65</lane>
       </lanes>
-      <cedge id="right2end">:endright_0_0</cedge>
    </edge>
 
 
@@ -109,23 +98,18 @@
       <lanes>
          <lane id="beg_0" depart="1" vclasses="" maxspeed="36.00" length="195.25">51.65,0.00 51.65,195.25</lane>
       </lanes>
-      <cedge id="beg2right">beg_0</cedge>
-      <cedge id="middle">beg_0</cedge>
-      <cedge id="beg2left">beg_0</cedge>
    </edge>
 
    <edge id="beg2left" from="beg" to="begleft" priority="-1" type="" function="normal">
       <lanes>
          <lane id="beg2left_0" depart="1" vclasses="" maxspeed="36.00" length="45.30">48.55,201.65 3.25,201.65</lane>
       </lanes>
-      <cedge id="left">beg2left_0</cedge>
    </edge>
 
    <edge id="beg2right" from="beg" to="begright" priority="-1" type="" function="normal">
       <lanes>
          <lane id="beg2right_0" depart="1" vclasses="" maxspeed="36.00" length="45.30">54.75,198.35 100.05,198.35</lane>
       </lanes>
-      <cedge id="right">beg2right_0</cedge>
    </edge>
 
    <edge id="end" from="end" to="absEnd" priority="-1" type="" function="normal">
@@ -138,35 +122,30 @@
       <lanes>
          <lane id="left_0" depart="1" vclasses="" maxspeed="36.00" length="393.50">1.65,203.25 1.65,596.75</lane>
       </lanes>
-      <cedge id="left2end">left_0</cedge>
    </edge>
 
    <edge id="left2end" from="endleft" to="end" priority="-1" type="" function="normal">
       <lanes>
          <lane id="left2end_0" depart="1" vclasses="" maxspeed="36.00" length="45.30">3.25,598.35 48.55,598.35</lane>
       </lanes>
-      <cedge id="end">left2end_0</cedge>
    </edge>
 
    <edge id="middle" from="beg" to="end" priority="-1" type="" function="normal">
       <lanes>
          <lane id="middle_0" depart="1" vclasses="" maxspeed="36.00" length="390.50">51.65,204.75 51.65,595.25</lane>
       </lanes>
-      <cedge id="end">middle_0</cedge>
    </edge>
 
    <edge id="right" from="begright" to="endright" priority="-1" type="" function="normal">
       <lanes>
          <lane id="right_0" depart="1" vclasses="" maxspeed="36.00" length="400.10">101.65,199.95 101.65,600.05</lane>
       </lanes>
-      <cedge id="right2end">right_0</cedge>
    </edge>
 
    <edge id="right2end" from="endright" to="end" priority="-1" type="" function="normal">
       <lanes>
          <lane id="right2end_0" depart="1" vclasses="" maxspeed="36.00" length="45.30">100.05,601.65 54.75,601.65</lane>
       </lanes>
-      <cedge id="end">right2end_0</cedge>
    </edge>
 
 

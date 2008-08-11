@@ -28,7 +28,7 @@
    <orig-boundary>-26.000000,-1263.000000,2822.000000,63.000000</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="59">01 1011 1112 1213 13 1319 135 1416 1514 15cruceB45 1617 16cruceA45 1716 1918 20 34 42 4cruceA45 56 5cruceB45 615 67 711 78 89 910 busstation0i busstation0o cruce12iS cruce12iS_ cruce12oS cruce12oS_ cruce13iS cruce13iS_ cruce13oS cruce13oS_ cruce6iN cruce6iN_ cruce6oN cruce6oN_ cruce7iN cruce7iN_ cruce7oN cruce7oN_ cruce8iN cruce8iN_ cruce8oN cruce8oN_ cruce9iS cruce9iS_ cruce9oS cruce9oS_ cruceA4518 cruceA454 cruceA45cruceB45 cruceB4515 cruceB4519 cruceB455 cruceB45cruceA45</edges>
+   
    <node_count>48</node_count>
 
 
@@ -36,77 +36,77 @@
       <lanes>
          <lane id="01_0" depart="1" vclasses="" maxspeed="27.78" length="47.90">23.34,1261.79 -1.44,1220.81</lane>
       </lanes>
-      <cedge id="13">01_0</cedge>
+      
    </edge>
 
    <edge id="1011" from="10" to="11" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="1011_0" depart="1" vclasses="" maxspeed="13.88" length="310.83">2352.42,393.60 2051.65,472.02</lane>
       </lanes>
-      <cedge id="1112">1011_0</cedge>
+      
    </edge>
 
    <edge id="1112" from="11" to="12" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="1112_0" depart="1" vclasses="" maxspeed="13.88" length="99.27">2047.05,469.99 2023.42,373.57</lane>
       </lanes>
-      <cedge id="1213">1112_0</cedge>
-      <cedge id="cruce12oS">1112_0</cedge>
+      
+      
    </edge>
 
    <edge id="1213" from="12" to="13" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="1213_0" depart="1" vclasses="" maxspeed="13.88" length="364.06">2019.40,371.07 1656.84,404.04</lane>
       </lanes>
-      <cedge id="135">1213_0</cedge>
-      <cedge id="1319">1213_0</cedge>
-      <cedge id="cruce13oS">1213_0</cedge>
+      
+      
+      
    </edge>
 
    <edge id="13" from="1" to="3" priority="1" type="ReservedBusLane" function="normal">
       <lanes>
          <lane id="13_0" depart="1" vclasses="" maxspeed="27.78" length="350.26">-0.77,1218.54 314.29,1065.51</lane>
       </lanes>
-      <cedge id="34">13_0</cedge>
+      
    </edge>
 
    <edge id="1319" from="13" to="19" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="1319_0" depart="1" vclasses="" maxspeed="13.88" length="423.21">1645.57,405.51 1229.70,483.98</lane>
       </lanes>
-      <cedge id="1918">1319_0</cedge>
+      
    </edge>
 
    <edge id="135" from="13" to="5" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="135_0" depart="1" vclasses="" maxspeed="13.88" length="359.51">1654.90,407.88 1841.86,714.95</lane>
       </lanes>
-      <cedge id="56">135_0</cedge>
-      <cedge id="5cruceB45">135_0</cedge>
+      
+      
    </edge>
 
    <edge id="1416" from="14" to="16" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="1416_0" depart="1" vclasses="" maxspeed="13.88" length="330.24">1461.37,1097.52 1158.50,965.89</lane>
       </lanes>
-      <cedge id="1617">1416_0</cedge>
-      <cedge id="16cruceA45">1416_0</cedge>
+      
+      
    </edge>
 
    <edge id="1514" from="15" to="14" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="1514_0" depart="1" vclasses="" maxspeed="13.88" length="238.77">1662.89,967.00 1462.88,1097.40</lane>
       </lanes>
-      <cedge id="1416">1514_0</cedge>
+      
    </edge>
 
    <edge id="15cruceB45" from="15" to="cruceB45" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="15cruceB45_0" depart="1" vclasses="" maxspeed="13.88" length="218.07">1663.43,962.65 1515.60,802.34</lane>
       </lanes>
-      <cedge id="cruceB45cruceA45">15cruceB45_0</cedge>
-      <cedge id="cruceB4519">15cruceB45_0</cedge>
-      <cedge id="cruceB455">15cruceB45_0</cedge>
+      
+      
+      
    </edge>
 
    <edge id="1617" from="16" to="17" priority="10" type="NormalRoad" function="normal">
@@ -119,16 +119,16 @@
       <lanes>
          <lane id="16cruceA45_0" depart="1" vclasses="" maxspeed="13.88" length="92.82">1155.59,960.31 1200.29,878.96</lane>
       </lanes>
-      <cedge id="cruceA454">16cruceA45_0</cedge>
-      <cedge id="cruceA4518">16cruceA45_0</cedge>
-      <cedge id="cruceA45cruceB45">16cruceA45_0</cedge>
+      
+      
+      
    </edge>
 
    <edge id="1716" from="17" to="16" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="1716_0" depart="1" vclasses="" maxspeed="13.88" length="480.70">774.98,1261.70 1152.27,963.84</lane>
       </lanes>
-      <cedge id="16cruceA45">1716_0</cedge>
+      
    </edge>
 
    <edge id="1918" from="19" to="18" priority="10" type="NormalRoad" function="normal">
@@ -141,103 +141,103 @@
       <lanes>
          <lane id="20_0" depart="1" vclasses="" maxspeed="27.78" length="341.43">331.78,1103.46 29.83,1262.84</lane>
       </lanes>
-      <cedge id="busstation0o">20_0</cedge>
-      <cedge id="01">20_0</cedge>
+      
+      
    </edge>
 
    <edge id="34" from="3" to="4" priority="1" type="ReservedBusLane" function="normal">
       <lanes>
          <lane id="34_0" depart="1" vclasses="" maxspeed="27.78" length="40.73">315.33,1065.38 355.16,1073.92</lane>
       </lanes>
-      <cedge id="4cruceA45">34_0</cedge>
-      <cedge id="42">34_0</cedge>
+      
+      
    </edge>
 
    <edge id="42" from="4" to="2" priority="1" type="ReservedBusLane" function="normal">
       <lanes>
          <lane id="42_0" depart="1" vclasses="" maxspeed="27.78" length="34.36">356.46,1078.88 332.16,1103.17</lane>
       </lanes>
-      <cedge id="20">42_0</cedge>
+      
    </edge>
 
    <edge id="4cruceA45" from="4" to="cruceA45" priority="1" type="ReservedBusLane" function="normal">
       <lanes>
          <lane id="4cruceA45_0" depart="1" vclasses="" maxspeed="27.78" length="861.90">358.96,1073.83 1197.01,872.46</lane>
       </lanes>
-      <cedge id="cruceA4518">4cruceA45_0</cedge>
-      <cedge id="cruceA45cruceB45">4cruceA45_0</cedge>
+      
+      
    </edge>
 
    <edge id="56" from="5" to="6" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="56_0" depart="1" vclasses="" maxspeed="13.88" length="98.22">1847.79,722.75 1914.45,794.89</lane>
       </lanes>
-      <cedge id="67">56_0</cedge>
-      <cedge id="cruce6oN">56_0</cedge>
-      <cedge id="615">56_0</cedge>
+      
+      
+      
    </edge>
 
    <edge id="5cruceB45" from="5" to="cruceB45" priority="1" type="ReservedBusLane" function="normal">
       <lanes>
          <lane id="5cruceB45_0" depart="1" vclasses="" maxspeed="27.78" length="329.98">1840.90,722.17 1519.29,796.02</lane>
       </lanes>
-      <cedge id="cruceB4515">5cruceB45_0</cedge>
-      <cedge id="cruceB45cruceA45">5cruceB45_0</cedge>
-      <cedge id="cruceB4519">5cruceB45_0</cedge>
+      
+      
+      
    </edge>
 
    <edge id="615" from="6" to="15" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="615_0" depart="1" vclasses="" maxspeed="13.88" length="286.67">1910.62,804.50 1670.92,961.75</lane>
       </lanes>
-      <cedge id="1514">615_0</cedge>
-      <cedge id="15cruceB45">615_0</cedge>
+      
+      
    </edge>
 
    <edge id="67" from="6" to="7" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="67_0" depart="1" vclasses="" maxspeed="13.88" length="266.26">1919.77,794.98 2151.66,664.12</lane>
       </lanes>
-      <cedge id="711">67_0</cedge>
-      <cedge id="78">67_0</cedge>
-      <cedge id="cruce7oN">67_0</cedge>
+      
+      
+      
    </edge>
 
    <edge id="711" from="7" to="11" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="711_0" depart="1" vclasses="" maxspeed="13.88" length="210.60">2153.19,659.59 2049.94,476.03</lane>
       </lanes>
-      <cedge id="1112">711_0</cedge>
+      
    </edge>
 
    <edge id="78" from="7" to="8" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="78_0" depart="1" vclasses="" maxspeed="13.88" length="710.71">2161.24,660.03 2842.86,458.80</lane>
       </lanes>
-      <cedge id="89">78_0</cedge>
-      <cedge id="cruce8oN">78_0</cedge>
+      
+      
    </edge>
 
    <edge id="89" from="8" to="9" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="89_0" depart="1" vclasses="" maxspeed="13.88" length="204.10">2844.87,454.91 2779.22,261.66</lane>
       </lanes>
-      <cedge id="910">89_0</cedge>
-      <cedge id="cruce9oS">89_0</cedge>
+      
+      
    </edge>
 
    <edge id="910" from="9" to="10" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="910_0" depart="1" vclasses="" maxspeed="13.88" length="443.15">2772.83,253.13 2352.52,393.57</lane>
       </lanes>
-      <cedge id="1011">910_0</cedge>
+      
    </edge>
 
    <edge id="busstation0i" from="busstation" to="0" priority="1" type="ReservedBusLane" function="normal">
       <lanes>
          <lane id="busstation0i_0" depart="1" vclasses="" maxspeed="27.78" length="46.54">24.35,1313.00 24.35,1266.46</lane>
       </lanes>
-      <cedge id="01">busstation0i_0</cedge>
+      
    </edge>
 
    <edge id="busstation0o" from="0" to="busstation" priority="1" type="ReservedBusLane" function="normal">
@@ -250,21 +250,21 @@
       <lanes>
          <lane id="cruce12iS_0" depart="1" vclasses="" maxspeed="13.88" length="198.85">2025.65,169.00 2025.65,367.85</lane>
       </lanes>
-      <cedge id="1213">cruce12iS_0</cedge>
+      
    </edge>
 
    <edge id="cruce12iS_" from="cruce12S2" to="cruce12S" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="cruce12iS__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">2025.65,119.00 2025.65,169.00</lane>
       </lanes>
-      <cedge id="cruce12iS">cruce12iS__0</cedge>
+      
    </edge>
 
    <edge id="cruce12oS" from="12" to="cruce12S" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="cruce12oS_0" depart="1" vclasses="" maxspeed="13.88" length="198.85">2022.35,367.85 2022.35,169.00</lane>
       </lanes>
-      <cedge id="cruce12oS_">cruce12oS_0</cedge>
+      
    </edge>
 
    <edge id="cruce12oS_" from="cruce12S" to="cruce12S2" priority="10" type="NormalRoad" function="normal">
@@ -277,22 +277,22 @@
       <lanes>
          <lane id="cruce13iS_0" depart="1" vclasses="" maxspeed="13.88" length="198.25">1651.65,203.00 1651.65,401.25</lane>
       </lanes>
-      <cedge id="135">cruce13iS_0</cedge>
-      <cedge id="1319">cruce13iS_0</cedge>
+      
+      
    </edge>
 
    <edge id="cruce13iS_" from="cruce13S2" to="cruce13S" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="cruce13iS__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">1651.65,153.00 1651.65,203.00</lane>
       </lanes>
-      <cedge id="cruce13iS">cruce13iS__0</cedge>
+      
    </edge>
 
    <edge id="cruce13oS" from="13" to="cruce13S" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="cruce13oS_0" depart="1" vclasses="" maxspeed="13.88" length="198.25">1648.35,401.25 1648.35,203.00</lane>
       </lanes>
-      <cedge id="cruce13oS_">cruce13oS_0</cedge>
+      
    </edge>
 
    <edge id="cruce13oS_" from="cruce13S" to="cruce13S2" priority="10" type="NormalRoad" function="normal">
@@ -305,22 +305,22 @@
       <lanes>
          <lane id="cruce6iN_0" depart="1" vclasses="" maxspeed="13.88" length="192.48">1914.35,999.00 1914.35,806.52</lane>
       </lanes>
-      <cedge id="615">cruce6iN_0</cedge>
-      <cedge id="67">cruce6iN_0</cedge>
+      
+      
    </edge>
 
    <edge id="cruce6iN_" from="cruce6N2" to="cruce6N" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="cruce6iN__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">1914.35,1049.00 1914.35,999.00</lane>
       </lanes>
-      <cedge id="cruce6iN">cruce6iN__0</cedge>
+      
    </edge>
 
    <edge id="cruce6oN" from="6" to="cruce6N" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="cruce6oN_0" depart="1" vclasses="" maxspeed="13.88" length="192.48">1917.65,806.52 1917.65,999.00</lane>
       </lanes>
-      <cedge id="cruce6oN_">cruce6oN_0</cedge>
+      
    </edge>
 
    <edge id="cruce6oN_" from="cruce6N" to="cruce6N2" priority="10" type="NormalRoad" function="normal">
@@ -333,22 +333,22 @@
       <lanes>
          <lane id="cruce7iN_0" depart="1" vclasses="" maxspeed="13.88" length="196.72">2155.35,863.00 2155.35,666.28</lane>
       </lanes>
-      <cedge id="711">cruce7iN_0</cedge>
-      <cedge id="78">cruce7iN_0</cedge>
+      
+      
    </edge>
 
    <edge id="cruce7iN_" from="cruce7N2" to="cruce7N" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="cruce7iN__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">2155.35,913.00 2155.35,863.00</lane>
       </lanes>
-      <cedge id="cruce7iN">cruce7iN__0</cedge>
+      
    </edge>
 
    <edge id="cruce7oN" from="7" to="cruce7N" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="cruce7oN_0" depart="1" vclasses="" maxspeed="13.88" length="196.72">2158.65,666.28 2158.65,863.00</lane>
       </lanes>
-      <cedge id="cruce7oN_">cruce7oN_0</cedge>
+      
    </edge>
 
    <edge id="cruce7oN_" from="cruce7N" to="cruce7N2" priority="10" type="NormalRoad" function="normal">
@@ -361,21 +361,21 @@
       <lanes>
          <lane id="cruce8iN_0" depart="1" vclasses="" maxspeed="13.88" length="188.78">2846.35,659.00 2846.35,470.22</lane>
       </lanes>
-      <cedge id="89">cruce8iN_0</cedge>
+      
    </edge>
 
    <edge id="cruce8iN_" from="cruce8N2" to="cruce8N" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="cruce8iN__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">2846.35,709.00 2846.35,659.00</lane>
       </lanes>
-      <cedge id="cruce8iN">cruce8iN__0</cedge>
+      
    </edge>
 
    <edge id="cruce8oN" from="8" to="cruce8N" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="cruce8oN_0" depart="1" vclasses="" maxspeed="13.88" length="188.78">2849.65,470.22 2849.65,659.00</lane>
       </lanes>
-      <cedge id="cruce8oN_">cruce8oN_0</cedge>
+      
    </edge>
 
    <edge id="cruce8oN_" from="cruce8N" to="cruce8N2" priority="10" type="NormalRoad" function="normal">
@@ -388,21 +388,21 @@
       <lanes>
          <lane id="cruce9iS_0" depart="1" vclasses="" maxspeed="13.88" length="199.64">2778.65,50.00 2778.65,249.64</lane>
       </lanes>
-      <cedge id="910">cruce9iS_0</cedge>
+      
    </edge>
 
    <edge id="cruce9iS_" from="cruce9S2" to="cruce9S" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="cruce9iS__0" depart="1" vclasses="" maxspeed="13.88" length="50.00">2778.65,0.00 2778.65,50.00</lane>
       </lanes>
-      <cedge id="cruce9iS">cruce9iS__0</cedge>
+      
    </edge>
 
    <edge id="cruce9oS" from="9" to="cruce9S" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="cruce9oS_0" depart="1" vclasses="" maxspeed="13.88" length="199.64">2775.35,249.64 2775.35,50.00</lane>
       </lanes>
-      <cedge id="cruce9oS_">cruce9oS_0</cedge>
+      
    </edge>
 
    <edge id="cruce9oS_" from="cruce9S" to="cruce9S2" priority="10" type="NormalRoad" function="normal">
@@ -421,45 +421,45 @@
       <lanes>
          <lane id="cruceA454_0" depart="1" vclasses="" maxspeed="27.78" length="861.90">1197.78,875.67 359.73,1077.04</lane>
       </lanes>
-      <cedge id="42">cruceA454_0</cedge>
+      
    </edge>
 
    <edge id="cruceA45cruceB45" from="cruceA45" to="cruceB45" priority="1" type="ReservedBusLane" function="normal">
       <lanes>
          <lane id="cruceA45cruceB45_0" depart="1" vclasses="" maxspeed="27.78" length="308.39">1205.55,870.41 1504.85,796.08</lane>
       </lanes>
-      <cedge id="cruceB4519">cruceA45cruceB45_0</cedge>
-      <cedge id="cruceB455">cruceA45cruceB45_0</cedge>
-      <cedge id="cruceB4515">cruceA45cruceB45_0</cedge>
+      
+      
+      
    </edge>
 
    <edge id="cruceB4515" from="cruceB45" to="15" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="cruceB4515_0" depart="1" vclasses="" maxspeed="13.88" length="218.07">1518.03,800.10 1665.86,960.41</lane>
       </lanes>
-      <cedge id="1514">cruceB4515_0</cedge>
+      
    </edge>
 
    <edge id="cruceB4519" from="cruceB45" to="19" priority="10" type="NormalRoad" function="normal">
       <lanes>
          <lane id="cruceB4519_0" depart="1" vclasses="" maxspeed="13.88" length="411.74">1506.09,791.98 1228.35,488.02</lane>
       </lanes>
-      <cedge id="1918">cruceB4519_0</cedge>
+      
    </edge>
 
    <edge id="cruceB455" from="cruceB45" to="5" priority="1" type="ReservedBusLane" function="normal">
       <lanes>
          <lane id="cruceB455_0" depart="1" vclasses="" maxspeed="27.78" length="329.98">1518.55,792.80 1840.17,718.96</lane>
       </lanes>
-      <cedge id="56">cruceB455_0</cedge>
+      
    </edge>
 
    <edge id="cruceB45cruceA45" from="cruceB45" to="cruceA45" priority="1" type="ReservedBusLane" function="normal">
       <lanes>
          <lane id="cruceB45cruceA45_0" depart="1" vclasses="" maxspeed="27.78" length="308.39">1505.64,799.28 1206.34,873.61</lane>
       </lanes>
-      <cedge id="cruceA454">cruceB45cruceA45_0</cedge>
-      <cedge id="cruceA4518">cruceB45cruceA45_0</cedge>
+      
+      
    </edge>
 
 
