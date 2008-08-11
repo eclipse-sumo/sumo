@@ -129,7 +129,9 @@ XMLSubSys::runParser(SUMOSAXHandler &handler,
         myReader->setErrorHandler(&handler);
         myReader->parse(file.c_str());
     } catch (ProcessError &e) {
-        MsgHandler::getErrorInstance()->inform(e.what());
+        if (string(e.what())!=string("Process Error") && string(e.what())!=string("")) {
+            MsgHandler::getErrorInstance()->inform(e.what());
+        }
         return false;
     } catch (...) {
         MsgHandler::getErrorInstance()->inform("An error occured.");
