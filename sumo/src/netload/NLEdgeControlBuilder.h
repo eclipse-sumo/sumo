@@ -54,43 +54,53 @@ class OutputDevice;
  *
  * This class is the container for MSEdge-instances while they are build.
  *
- * As instances of the MSEdge-class contain references to other instances of
- *  this class which may not yet be known at their generation, they are
- *  prebuild first and initialised with their correct values in a second step.
- *
- * While building instances of MSEdge, these are stored in a preallocated list to
- *  avoid memory fraction. For the same reason, the list of edges, later split
- *  into two lists, one containing single-lane-edges and one containing multi-lane-edges,
- *  is preallocated to the size that was previously computed by counting the edges
- *  in the first parser step.
+ * While building instances of MSEdge, these are stored in a list. The list of 
+ *  edges is later split into two lists, one containing single-lane-edges and 
+ *  one containing multi-lane-edges.
+ * @todo Assignment of lanes is not really well. Should be reworked after shapes are given as params.
  */
 class NLEdgeControlBuilder
 {
 public:
-    /// definition of the used storage for edges
+    /// @brief definition of the used storage for edges
     typedef std::vector<MSEdge*> EdgeCont;
 
 public:
-    /** @brief standard constructor;
-        the parameter is a hint for the maximal number of lanes inside an edge */
-    NLEdgeControlBuilder(unsigned int storageSize=10);
+    /// @brief Constructor
+    NLEdgeControlBuilder();
 
-    /// Destructor
+
+    /// @brief Destructor
     virtual ~NLEdgeControlBuilder();
 
-    /// chooses the previously added edge as the current edge
-    void chooseEdge(const std::string &id,
+
+    /** @brieg Begins building of an MSEdge
+     *
+     * Builds an instance of MSEdge using "buildEdge". Stores it
+     *  as the current edge in "myActiveEdge" and appends it to the list
+     *  of built edges ("myEdges").
+     *
+     * The given information is used to build the edge.
+     * @param[in] id The id of the edge
+     * @param[in] function The function of the edge
+     * @param[in] inner Whether the edge is an junction-inner edge
+     * @exception InvalidArgument If an edge with the same name was already built
+     */
+    void beginEdgeParsing(const std::string &id,
                     MSEdge::EdgeBasicFunction function,
-                    bool inner);
+                    bool inner) throw(InvalidArgument);
 
 
     /** @brief Adds a lane to the current edge;
         This method throws an ProcessError when the
         lane is marked to be the depart lane and another so marked lane
-        was added before */
-    virtual MSLane *addLane(/*MSNet &net, */const std::string &id,
-                                            SUMOReal maxSpeed, SUMOReal length, bool isDepart,
-                                            const Position2DVector &shape, const std::string &vclasses);
+        was added before 
+     * @todo Definitely not a good way
+     */
+    virtual MSLane *addLane(const std::string &id, SUMOReal maxSpeed, 
+        SUMOReal length, bool isDepart, const Position2DVector &shape, 
+        const std::string &vclasses);
+
 
     /// closes (ends) the addition of lanes to the current edge
     void closeLanes();
@@ -102,32 +112,40 @@ public:
     /// builds the MSEdgeControl-class which holds all edges
     MSEdgeControl *build();
 
-    MSEdge *getActiveEdge() const;
+protected:
+    /** @brief Builds an edge instance (MSEdge in this case)
+     *
+     * Builds an MSEdge-instance using the given name and the current index
+     *  "myCurrentNumericalEdgeID". Post-increments the index, returns
+     *  the built edge.
+     *
+     * @param[in] id The id of the edge to build
+     */
+    virtual MSEdge *buildEdge(const std::string &id) throw();
 
+
+    /** @brief Parses the given definition of allwed/disallowed vehicle classes into the given container
+     *
+     * @param[in] allowedS Definition which classes are allowed
+     * @param[out] allowed The vector of allowed vehicle classes to fill
+     * @param[out] disallowed The vector of disallowed vehicle classes to fill
+     */
     void parseVehicleClasses(const std::string &allowedS,
                              std::vector<SUMOVehicleClass> &allowed,
-                             std::vector<SUMOVehicleClass> &disallowed);
+                             std::vector<SUMOVehicleClass> &disallowed) throw();
 
-    size_t getEdgeCapacity() const;
 
-protected:
-    virtual MSEdge *buildEdge(const std::string &id);
+
 
 protected:
-    /// @brief A running numer for lane numbering
+    /// @brief A running number for lane numbering
     unsigned int myCurrentNumericalLaneID;
 
-    /// @brief A running numer for edge numbering
+    /// @brief A running number for edge numbering
     unsigned int myCurrentNumericalEdgeID;
 
-    /** @brief storage for edges
-     *
-     * to allow the splitting of edges after their number is known, they are hold inside this vector
-     *  and laterly moved into two vectors, one for single-lane-edges and one for multi-lane-edges
-     *  respectively.
-     * @todo Check whether this can be a plain vector, too, not a pointer to one
-     */
-    EdgeCont *myEdges;
+    /// @brief Temporary, internal storage for built edges
+    EdgeCont myEdges;
 
     /// @brief pointer to the currently chosen edge
     MSEdge *myActiveEdge;
@@ -156,10 +174,10 @@ protected:
     OutputDevice *myEdgesLaneChangeOutputDevice;
 
 private:
-    /** invalidated copy constructor */
+    /// @brief invalidated copy constructor
     NLEdgeControlBuilder(const NLEdgeControlBuilder &s);
 
-    /** invalidated assignment operator */
+    /// @brief invalidated assignment operator
     NLEdgeControlBuilder &operator=(const NLEdgeControlBuilder &s);
 
 };

@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// Derivation of NLEdgeControlBuilder which build gui-edges
+// Derivation of NLEdgeControlBuilder which builds gui-edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -48,40 +48,56 @@ class MSJunction;
 // ===========================================================================
 /**
  * @class GUIEdgeControlBuilder
- * @brief Derivation of NLEdgeControlBuilder which build gui-edges
+ * @brief Derivation of NLEdgeControlBuilder which builds gui-edges
+ *
+ * Instead of building pure microsim-objects (MSEdge and MSLane), this class 
+ *  builds GUIEdges and GUILanes.
+ * @see NLEdgeControlBuilder
  */
 class GUIEdgeControlBuilder : public NLEdgeControlBuilder
 {
 public:
-    /** standard constructor; the parameter is a hint for the maximal number
-        of lanes inside an edge */
-    GUIEdgeControlBuilder(GUIGlObjectStorage &glObjectIDStorage,
-                          unsigned int storageSize=10);
+    /** @brief Constructor
+     * @param[in] glObjectIDStorage Storage of gl-ids used to assign new ids to built edges
+     */
+    GUIEdgeControlBuilder(GUIGlObjectStorage &glObjectIDStorage) throw();
 
-    /// standard destructor
-    ~GUIEdgeControlBuilder();
+
+    /// @brief Destructor
+    ~GUIEdgeControlBuilder() throw();
+
 
     /// Builds the lane to add
-    virtual MSLane *addLane(/*MSNet &net, */const std::string &id,
-                                            SUMOReal maxSpeed, SUMOReal length, bool isDepart,
-                                            const Position2DVector &shape, const std::string &vclasses);
+    virtual MSLane *addLane(const std::string &id,
+        SUMOReal maxSpeed, SUMOReal length, bool isDepart,
+        const Position2DVector &shape, const std::string &vclasses);
+
 
     MSEdge *closeEdge();
 
 
 protected:
-    MSEdge *buildEdge(const std::string &id);
+    /** @brief Builds an edge instance (GUIEdge in this case)
+     *
+     * Builds an GUIEdge-instance using the given name, the current index
+     *  "myCurrentNumericalEdgeID" and the gl-id storage ("myGlObjectIDStorage"). 
+     *  Post-increments the index, returns the built edge.
+     *
+     * @param[in] id The id of the edge to build
+     */
+    MSEdge *buildEdge(const std::string &id) throw();
+
 
 private:
-    /// The gl-object id giver
+    /// @brief The gl-object id giver
     GUIGlObjectStorage &myGlObjectIDStorage;
 
 
 private:
-    /** invalid copy constructor */
+    /// @brief invalidated copy constructor
     GUIEdgeControlBuilder(const GUIEdgeControlBuilder &s);
 
-    /** invalid assignment operator */
+    /// @brief invalidated assignment operator
     GUIEdgeControlBuilder &operator=(const GUIEdgeControlBuilder &s);
 
 };

@@ -104,7 +104,7 @@ NLHandler::myStartElement(SumoXMLTag element,
 {
     switch (element) {
     case SUMO_TAG_EDGE:
-        chooseEdge(attrs);
+        beginEdgeParsing(attrs);
         break;
     case SUMO_TAG_LANE:
         addLane(attrs);
@@ -304,7 +304,7 @@ NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
 
 // ---- the root/edge - element
 void
-NLHandler::chooseEdge(const SUMOSAXAttributes &attrs)
+NLHandler::beginEdgeParsing(const SUMOSAXAttributes &attrs)
 {
     myCurrentIsBroken = false;
     // get the id, report an error if not given or empty...
@@ -352,7 +352,7 @@ NLHandler::chooseEdge(const SUMOSAXAttributes &attrs)
     bool isInner = attrs.getBoolSecure( SUMO_ATTR_INNER, false);
     //
     try {
-        myEdgeControlBuilder.chooseEdge(id, funcEnum, isInner);
+        myEdgeControlBuilder.beginEdgeParsing(id, funcEnum, isInner);
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
         myCurrentIsBroken = true;

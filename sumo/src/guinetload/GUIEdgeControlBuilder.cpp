@@ -56,13 +56,13 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-GUIEdgeControlBuilder::GUIEdgeControlBuilder(
-    GUIGlObjectStorage &glObjectIDStorage, unsigned int storageSize)
-        : NLEdgeControlBuilder(storageSize),
+GUIEdgeControlBuilder::GUIEdgeControlBuilder(GUIGlObjectStorage &glObjectIDStorage) throw()
+        : NLEdgeControlBuilder(),
         myGlObjectIDStorage(glObjectIDStorage)
 {}
 
-GUIEdgeControlBuilder::~GUIEdgeControlBuilder()
+
+GUIEdgeControlBuilder::~GUIEdgeControlBuilder() throw()
 {}
 
 
@@ -76,7 +76,7 @@ GUIEdgeControlBuilder::closeEdge()
 
 
 MSLane *
-GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
+GUIEdgeControlBuilder::addLane(const std::string &id,
         SUMOReal maxSpeed, SUMOReal length, bool isDepart,
         const Position2DVector &shape,
         const std::string &vclasses)
@@ -113,7 +113,7 @@ GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
 
 
 MSEdge *
-GUIEdgeControlBuilder::buildEdge(const std::string &id)
+GUIEdgeControlBuilder::buildEdge(const std::string &id) throw()
 {
     return new GUIEdge(id, myCurrentNumericalEdgeID++, myGlObjectIDStorage);
 }

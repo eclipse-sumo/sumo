@@ -212,7 +212,7 @@ private:
     void addLaneShape(const std::string &chars);
 
     /// begins the processing of an edge
-    void chooseEdge(const SUMOSAXAttributes &attrs);
+    void beginEdgeParsing(const SUMOSAXAttributes &attrs);
 
     /// adds a lane to the previously opened edge
     void addLane(const SUMOSAXAttributes &attrs);
