@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/31/08 15:18:32 by SUMO netconvert Version dev-SVN-r5892
+<!-- generated on 08/11/08 12:11:39 by SUMO netconvert Version dev-SVN-r5964
 <configuration>
 
    <input>
@@ -31,173 +31,148 @@
    <orig-boundary>-500.00,-500.00,500.00,500.00</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="32">:0_0 :0_1 :0_2 :0_3 :0_4 :0_5 :0_6 :0_7 :0_8 :0_9 :0_10 :0_11 :0_12 :0_13 :0_14 :0_15 :1_0 :1_1 :2_0 :2_1 :3_0 :3_1 :4_0 :4_1 1i 1o 2i 2o 3i 3o 4i 4o</edges>
    <edge id=":0_0" function="internal">
       <lanes>
          <lane id=":0_0_0" depart="0" maxspeed="13.90" length="6.06" >501.76,508.76 500.25,507.56 498.92,507.13 497.75,507.49 496.75,508.62</lane>
       </lanes>
-      <cedge id="4o">:0_0_0</cedge>
    </edge>
 
    <edge id=":0_1" function="internal">
       <lanes>
          <lane id=":0_1_0" depart="0" maxspeed="13.90" length="15.32" >501.76,508.76 498.70,504.98 496.97,501.64 495.59,498.65 493.57,495.91</lane>
       </lanes>
-      <cedge id="1o">:0_1_0</cedge>
    </edge>
 
    <edge id=":0_2" function="internal">
       <lanes>
          <lane id=":0_2_0" depart="0" maxspeed="13.90" length="12.05" >504.09,506.43 501.73,503.17 500.80,499.58 503.10,491.70</lane>
       </lanes>
-      <cedge id=":0_12">:0_2_0</cedge>
    </edge>
 
    <edge id=":0_12" function="internal">
       <lanes>
          <lane id=":0_12_0" depart="0" maxspeed="13.90" length="4.34" >503.10,491.70 503.25,491.38</lane>
       </lanes>
-      <cedge id="3o">:0_12_0</cedge>
    </edge>
 
    <edge id=":0_3" function="internal">
       <lanes>
          <lane id=":0_3_0" depart="0" maxspeed="13.90" length="10.10" >508.91,494.77 507.09,498.12 506.08,500.79 505.85,502.78 506.43,504.09</lane>
       </lanes>
-      <cedge id="2o">:0_3_0</cedge>
    </edge>
 
    <edge id=":0_4" function="internal">
       <lanes>
          <lane id=":0_4_0" depart="0" maxspeed="13.90" length="18.13" >506.08,493.08 503.02,498.18 500.63,502.16 498.64,505.48 496.75,508.62</lane>
       </lanes>
-      <cedge id="4o">:0_4_0</cedge>
    </edge>
 
    <edge id=":0_5" function="internal">
       <lanes>
          <lane id=":0_5_0" depart="0" maxspeed="13.90" length="5.58" >506.08,493.08 500.77,498.18</lane>
       </lanes>
-      <cedge id=":0_13">:0_5_0</cedge>
    </edge>
 
    <edge id=":0_13" function="internal">
       <lanes>
          <lane id=":0_13_0" depart="0" maxspeed="13.90" length="9.99" >500.77,498.18 500.08,498.58 496.89,498.26 493.57,495.91</lane>
       </lanes>
-      <cedge id="1o">:0_13_0</cedge>
    </edge>
 
    <edge id=":0_6" function="internal">
       <lanes>
          <lane id=":0_6_0" depart="0" maxspeed="13.90" length="6.06" >498.24,491.24 499.75,492.44 501.08,492.87 502.25,492.51 503.25,491.38</lane>
       </lanes>
-      <cedge id="3o">:0_6_0</cedge>
    </edge>
 
    <edge id=":0_7" function="internal">
       <lanes>
          <lane id=":0_7_0" depart="0" maxspeed="13.90" length="15.32" >498.24,491.24 501.30,495.02 503.03,498.36 504.41,501.35 506.43,504.09</lane>
       </lanes>
-      <cedge id="2o">:0_7_0</cedge>
    </edge>
 
    <edge id=":0_8" function="internal">
       <lanes>
          <lane id=":0_8_0" depart="0" maxspeed="13.90" length="12.05" >495.91,493.57 498.27,496.83 499.20,500.42 496.90,508.30</lane>
       </lanes>
-      <cedge id=":0_14">:0_8_0</cedge>
    </edge>
 
    <edge id=":0_14" function="internal">
       <lanes>
          <lane id=":0_14_0" depart="0" maxspeed="13.90" length="4.34" >496.90,508.30 496.75,508.62</lane>
       </lanes>
-      <cedge id="4o">:0_14_0</cedge>
    </edge>
 
    <edge id=":0_9" function="internal">
       <lanes>
          <lane id=":0_9_0" depart="0" maxspeed="13.90" length="10.10" >491.09,505.23 492.91,501.88 493.92,499.21 494.15,497.22 493.57,495.91</lane>
       </lanes>
-      <cedge id="1o">:0_9_0</cedge>
    </edge>
 
    <edge id=":0_10" function="internal">
       <lanes>
          <lane id=":0_10_0" depart="0" maxspeed="13.90" length="18.13" >493.92,506.92 496.98,501.82 499.37,497.84 501.36,494.52 503.25,491.38</lane>
       </lanes>
-      <cedge id="3o">:0_10_0</cedge>
    </edge>
 
    <edge id=":0_11" function="internal">
       <lanes>
          <lane id=":0_11_0" depart="0" maxspeed="13.90" length="5.58" >493.92,506.92 499.23,501.82</lane>
       </lanes>
-      <cedge id=":0_15">:0_11_0</cedge>
    </edge>
 
    <edge id=":0_15" function="internal">
       <lanes>
          <lane id=":0_15_0" depart="0" maxspeed="13.90" length="9.99" >499.23,501.82 499.92,501.42 503.11,501.74 506.43,504.09</lane>
       </lanes>
-      <cedge id="2o">:0_15_0</cedge>
    </edge>
 
    <edge id=":1_0" function="internal">
       <lanes>
          <lane id=":1_0_0" depart="0" maxspeed="13.90" length="9.64" >-1.17,1.17 -1.75,-1.75 -1.17,-3.50 0.58,-4.08 3.50,-3.50</lane>
       </lanes>
-      <cedge id="1i">:1_0_0</cedge>
    </edge>
 
    <edge id=":1_1" function="internal">
       <lanes>
          <lane id=":1_1_0" depart="0" maxspeed="13.90" length="4.82" >-1.17,1.17 -1.46,-0.29 -1.17,-1.17 -0.29,-1.46 1.17,-1.17</lane>
       </lanes>
-      <cedge id="1i">:1_1_0</cedge>
    </edge>
 
    <edge id=":2_0" function="internal">
       <lanes>
          <lane id=":2_0_0" depart="0" maxspeed="13.90" length="9.64" >1001.17,998.83 1001.75,1001.75 1001.17,1003.50 999.42,1004.08 996.50,1003.50</lane>
       </lanes>
-      <cedge id="2i">:2_0_0</cedge>
    </edge>
 
    <edge id=":2_1" function="internal">
       <lanes>
          <lane id=":2_1_0" depart="0" maxspeed="13.90" length="4.82" >1001.17,998.83 1001.46,1000.29 1001.17,1001.17 1000.29,1001.46 998.83,1001.17</lane>
       </lanes>
-      <cedge id="2i">:2_1_0</cedge>
    </edge>
 
    <edge id=":3_0" function="internal">
       <lanes>
          <lane id=":3_0_0" depart="0" maxspeed="13.90" length="9.64" >798.59,-0.85 801.27,-2.12 803.11,-1.98 804.10,-0.42 804.24,2.55</lane>
       </lanes>
-      <cedge id="3i">:3_0_0</cedge>
    </edge>
 
    <edge id=":3_1" function="internal">
       <lanes>
          <lane id=":3_1_0" depart="0" maxspeed="13.90" length="4.82" >798.59,-0.85 799.93,-1.49 800.85,-1.41 801.34,-0.64 801.41,0.85</lane>
       </lanes>
-      <cedge id="3i">:3_1_0</cedge>
    </edge>
 
    <edge id=":4_0" function="internal">
       <lanes>
          <lane id=":4_0_0" depart="0" maxspeed="13.90" length="9.64" >201.41,1000.85 198.73,1002.12 196.89,1001.98 195.90,1000.42 195.76,997.45</lane>
       </lanes>
-      <cedge id="4i">:4_0_0</cedge>
    </edge>
 
    <edge id=":4_1" function="internal">
       <lanes>
          <lane id=":4_1_0" depart="0" maxspeed="13.90" length="4.82" >201.41,1000.85 200.07,1001.49 199.15,1001.41 198.66,1000.64 198.59,999.15</lane>
       </lanes>
-      <cedge id="4i">:4_1_0</cedge>
    </edge>
 
 
@@ -209,16 +184,12 @@
          <lane id="1i_0" depart="1" vclasses="" maxspeed="13.90" length="699.67">3.50,-3.50 498.24,491.24</lane>
          <lane id="1i_1" depart="0" vclasses="" maxspeed="13.90" length="699.67">1.17,-1.17 495.91,493.57</lane>
       </lanes>
-      <cedge id="3o">1i_0</cedge>
-      <cedge id="2o">1i_0</cedge>
-      <cedge id="4o">1i_1</cedge>
    </edge>
 
    <edge id="1o" from="0" to="1" priority="1" type="" function="normal">
       <lanes>
          <lane id="1o_0" depart="1" vclasses="" maxspeed="13.90" length="699.67">493.57,495.91 -1.17,1.17</lane>
       </lanes>
-      <cedge id="1i">1o_0</cedge>
    </edge>
 
    <edge id="2i" from="2" to="0" priority="2" type="" function="normal">
@@ -226,16 +197,12 @@
          <lane id="2i_0" depart="1" vclasses="" maxspeed="13.90" length="699.67">996.50,1003.50 501.76,508.76</lane>
          <lane id="2i_1" depart="0" vclasses="" maxspeed="13.90" length="699.67">998.83,1001.17 504.09,506.43</lane>
       </lanes>
-      <cedge id="4o">2i_0</cedge>
-      <cedge id="1o">2i_0</cedge>
-      <cedge id="3o">2i_1</cedge>
    </edge>
 
    <edge id="2o" from="0" to="2" priority="1" type="" function="normal">
       <lanes>
          <lane id="2o_0" depart="1" vclasses="" maxspeed="13.90" length="699.67">506.43,504.09 1001.17,998.83</lane>
       </lanes>
-      <cedge id="2i">2o_0</cedge>
    </edge>
 
    <edge id="3i" from="3" to="0" priority="2" type="" function="normal">
@@ -243,16 +210,12 @@
          <lane id="3i_0" depart="1" vclasses="" maxspeed="13.90" length="574.03">804.24,2.55 508.91,494.77</lane>
          <lane id="3i_1" depart="0" vclasses="" maxspeed="13.90" length="574.03">801.41,0.85 506.08,493.08</lane>
       </lanes>
-      <cedge id="2o">3i_0</cedge>
-      <cedge id="4o">3i_1</cedge>
-      <cedge id="1o">3i_1</cedge>
    </edge>
 
    <edge id="3o" from="0" to="3" priority="1" type="" function="normal">
       <lanes>
          <lane id="3o_0" depart="1" vclasses="" maxspeed="13.90" length="574.03">503.25,491.38 798.59,-0.85</lane>
       </lanes>
-      <cedge id="3i">3o_0</cedge>
    </edge>
 
    <edge id="4i" from="4" to="0" priority="2" type="" function="normal">
@@ -260,16 +223,12 @@
          <lane id="4i_0" depart="1" vclasses="" maxspeed="13.90" length="574.03">195.76,997.45 491.09,505.23</lane>
          <lane id="4i_1" depart="0" vclasses="" maxspeed="13.90" length="574.03">198.59,999.15 493.92,506.92</lane>
       </lanes>
-      <cedge id="1o">4i_0</cedge>
-      <cedge id="3o">4i_1</cedge>
-      <cedge id="2o">4i_1</cedge>
    </edge>
 
    <edge id="4o" from="0" to="4" priority="1" type="" function="normal">
       <lanes>
          <lane id="4o_0" depart="1" vclasses="" maxspeed="13.90" length="574.03">496.75,508.62 201.41,1000.85</lane>
       </lanes>
-      <cedge id="4i">4o_0</cedge>
    </edge>
 
 

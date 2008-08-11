@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/31/08 15:19:07 by SUMO netconvert Version dev-SVN-r5892
+<!-- generated on 08/11/08 12:11:59 by SUMO netconvert Version dev-SVN-r5964
 <configuration>
 
    <input>
@@ -26,7 +26,6 @@
    <orig-boundary>11.59,1937.83,301.14,2104.88</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="3">1 2 3</edges>
    <node_count>4</node_count>
 
 
@@ -35,7 +34,6 @@
          <lane id="1_0" depart="1" vclasses="" maxspeed="15.00" length="365.47">278.40,172.00 -4.95,172.00 -4.95,86.58</lane>
          <lane id="1_1" depart="0" vclasses="" maxspeed="15.00" length="365.47">278.40,168.70 -1.65,168.70 -1.65,86.58</lane>
       </lanes>
-      <cedge id="3">1_0 1_1</cedge>
    </edge>
 
    <edge id="2" from="node103" to="node123" priority="75" type="" function="normal">
@@ -43,7 +41,6 @@
          <lane id="2_0" depart="1" vclasses="" maxspeed="15.00" length="288.09">289.54,82.91 1.45,82.91</lane>
          <lane id="2_1" depart="0" vclasses="" maxspeed="15.00" length="288.09">289.54,79.61 1.45,79.61</lane>
       </lanes>
-      <cedge id="3">2_0 2_1</cedge>
    </edge>
 
    <edge id="3" from="node123" to="node125" priority="75" type="" function="normal">

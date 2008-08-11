@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/31/08 15:26:00 by SUMO netgen Version dev-SVN-r5892
+<!-- generated on 08/11/08 12:12:08 by SUMO netgen Version dev-SVN-r5964
 <configuration>
 
    <random_network>
@@ -30,7 +30,6 @@
    <orig-boundary>-162.29,-362.77,392.51,211.46</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="10">11 13 15 17 19 25 3 38 7 9</edges>
    <node_count>10</node_count>
 
 
@@ -44,7 +43,6 @@
       <lanes>
          <lane id="13_0" depart="1" vclasses="" maxspeed="13.90" length="129.35">109.65,134.56 229.84,182.37</lane>
       </lanes>
-      <cedge id="38">13_0</cedge>
    </edge>
 
    <edge id="15" from="2" to="14" priority="-1" type="netgen-default" function="normal">
@@ -57,7 +55,6 @@
       <lanes>
          <lane id="17_0" depart="1" vclasses="" maxspeed="13.90" length="224.28">367.64,365.14 233.90,185.09</lane>
       </lanes>
-      <cedge id="38">17_0</cedge>
    </edge>
 
    <edge id="19" from="8" to="18" priority="-1" type="netgen-default" function="normal">
@@ -76,8 +73,6 @@
       <lanes>
          <lane id="3_0" depart="1" vclasses="" maxspeed="13.90" length="226.97">159.54,358.40 106.55,137.71</lane>
       </lanes>
-      <cedge id="15">3_0</cedge>
-      <cedge id="13">3_0</cedge>
    </edge>
 
    <edge id="38" from="12" to="37" priority="-1" type="netgen-default" function="normal">
@@ -96,9 +91,6 @@
       <lanes>
          <lane id="9_0" depart="1" vclasses="" maxspeed="13.90" length="198.74">167.10,361.30 365.69,368.84</lane>
       </lanes>
-      <cedge id="17">9_0</cedge>
-      <cedge id="19">9_0</cedge>
-      <cedge id="25">9_0</cedge>
    </edge>
 
 

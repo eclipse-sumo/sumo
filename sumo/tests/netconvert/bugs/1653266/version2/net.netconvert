@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/31/08 15:19:07 by SUMO netconvert Version dev-SVN-r5892
+<!-- generated on 08/11/08 12:11:59 by SUMO netconvert Version dev-SVN-r5964
 <configuration>
 
    <input>
@@ -17,7 +17,6 @@
    <orig-boundary>-500.00,0.00,511.00,0.00</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="2">1to2 out</edges>
    <node_count>4</node_count>
 
 

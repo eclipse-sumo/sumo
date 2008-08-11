@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/31/08 15:18:58 by SUMO netconvert Version dev-SVN-r5892
+<!-- generated on 08/11/08 12:11:53 by SUMO netconvert Version dev-SVN-r5964
 <configuration>
 
    <input>
@@ -25,7 +25,6 @@
    <orig-boundary>-500.00,-500.00,500.00,500.00</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="8">-1 -2 -3 -4 1 2 3 4</edges>
    <node_count>5</node_count>
 
 
@@ -35,7 +34,6 @@
          <lane id="-1_1" depart="0" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="55.56" length="488.65">511.35,495.05 1000.00,495.05</lane>
          <lane id="-1_2" depart="0" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="55.56" length="488.65">511.35,498.35 1000.00,498.35</lane>
       </lanes>
-      <cedge id="1">-1_2</cedge>
    </edge>
 
    <edge id="-2" from="0" to="2" priority="-1" type="DEFAULT" function="normal">
@@ -44,7 +42,6 @@
          <lane id="-2_1" depart="0" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="55.56" length="488.65">488.65,504.95 0.00,504.95</lane>
          <lane id="-2_2" depart="0" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="55.56" length="488.65">488.65,501.65 0.00,501.65</lane>
       </lanes>
-      <cedge id="2">-2_2</cedge>
    </edge>
 
    <edge id="-3" from="0" to="3" priority="-1" type="DEFAULT" function="normal">
@@ -53,7 +50,6 @@
          <lane id="-3_1" depart="0" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="55.56" length="488.65">504.95,511.35 504.95,1000.00</lane>
          <lane id="-3_2" depart="0" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="55.56" length="488.65">501.65,511.35 501.65,1000.00</lane>
       </lanes>
-      <cedge id="3">-3_2</cedge>
    </edge>
 
    <edge id="-4" from="0" to="4" priority="-1" type="DEFAULT" function="normal">
@@ -62,7 +58,6 @@
          <lane id="-4_1" depart="0" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="55.56" length="488.65">495.05,488.65 495.05,0.00</lane>
          <lane id="-4_2" depart="0" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="55.56" length="488.65">498.35,488.65 498.35,0.00</lane>
       </lanes>
-      <cedge id="4">-4_2</cedge>
    </edge>
 
    <edge id="1" from="1" to="0" priority="-1" type="DEFAULT" function="normal">
@@ -71,10 +66,6 @@
          <lane id="1_1" depart="0" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="55.56" length="488.65">1000.00,504.95 511.35,504.95</lane>
          <lane id="1_2" depart="0" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="55.56" length="488.65">1000.00,501.65 511.35,501.65</lane>
       </lanes>
-      <cedge id="-3">1_0</cedge>
-      <cedge id="-2">1_0 1_1 1_2</cedge>
-      <cedge id="-4">1_2</cedge>
-      <cedge id="-1">1_2</cedge>
    </edge>
 
    <edge id="2" from="2" to="0" priority="-1" type="DEFAULT" function="normal">
@@ -83,10 +74,6 @@
          <lane id="2_1" depart="0" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="55.56" length="488.65">0.00,495.05 488.65,495.05</lane>
          <lane id="2_2" depart="0" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="55.56" length="488.65">0.00,498.35 488.65,498.35</lane>
       </lanes>
-      <cedge id="-4">2_0</cedge>
-      <cedge id="-1">2_0 2_1 2_2</cedge>
-      <cedge id="-3">2_2</cedge>
-      <cedge id="-2">2_2</cedge>
    </edge>
 
    <edge id="3" from="3" to="0" priority="-1" type="DEFAULT" function="normal">
@@ -94,10 +81,6 @@
          <lane id="3_0" depart="1" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="33.33" length="488.65">495.05,1000.00 495.05,511.35</lane>
          <lane id="3_1" depart="0" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="33.33" length="488.65">498.35,1000.00 498.35,511.35</lane>
       </lanes>
-      <cedge id="-2">3_0</cedge>
-      <cedge id="-4">3_1</cedge>
-      <cedge id="-1">3_1</cedge>
-      <cedge id="-3">3_1</cedge>
    </edge>
 
    <edge id="4" from="4" to="0" priority="-1" type="DEFAULT" function="normal">
@@ -105,10 +88,6 @@
          <lane id="4_0" depart="1" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="33.33" length="488.65">504.95,0.00 504.95,488.65</lane>
          <lane id="4_1" depart="0" vclasses="passenger;hov;public_emergency;taxi;public_transport;bus;delivery;transport" maxspeed="33.33" length="488.65">501.65,0.00 501.65,488.65</lane>
       </lanes>
-      <cedge id="-1">4_0</cedge>
-      <cedge id="-3">4_1</cedge>
-      <cedge id="-2">4_1</cedge>
-      <cedge id="-4">4_1</cedge>
    </edge>
 
 

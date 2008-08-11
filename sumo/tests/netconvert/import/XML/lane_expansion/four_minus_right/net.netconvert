@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 07/31/08 15:18:41 by SUMO netconvert Version dev-SVN-r5892
+<!-- generated on 08/11/08 12:11:44 by SUMO netconvert Version dev-SVN-r5964
 <configuration>
 
    <input>
@@ -21,7 +21,6 @@
    <orig-boundary>0.00,0.00,100.00,0.00</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="2">1 1/50</edges>
    <node_count>3</node_count>
 
 
@@ -31,7 +30,6 @@
          <lane id="1_1" depart="0" vclasses="" maxspeed="28.00" length="48.50">0.00,-4.95 48.50,-4.95</lane>
          <lane id="1_2" depart="0" vclasses="" maxspeed="28.00" length="48.50">0.00,-1.65 48.50,-1.65</lane>
       </lanes>
-      <cedge id="1/50">1_0 1_1 1_2</cedge>
    </edge>
 
    <edge id="1/50" from="1/50" to="SUMOGenerated1" priority="-1" type="" function="normal">
