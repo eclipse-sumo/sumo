@@ -1,6 +1,5 @@
 <net>
 
-   <edges no="12">1fi 1o 1si 2fi 2o 2si 3fi 3o 3si 4fi 4o 4si</edges>
    <node_count>9</node_count>
 
 
@@ -8,14 +7,12 @@
       <lanes>
          <lane id="1fi_0" depart="1" maxspeed="11.11" length="250.15" changeurge="0">-1.65,498.35 248.50,498.35</lane>
       </lanes>
-      <cedge id="1si" via=":m1">1fi_0</cedge>
    </edge>
 
    <edge id="1o" Length="487.00" Speed="11.11" Name="1o" NoLanes="1" XFrom="500.00" YFrom="500.00" XTo="0.00" YTo="500.00" From="0" To="1" Priority="46" Angle="90.00" Type="" function="normal">
       <lanes>
          <lane id="1o_0" depart="1" maxspeed="11.11" length="487.00" changeurge="0">488.65,501.65 1.65,501.65</lane>
       </lanes>
-      <cedge id="1fi" via=":1">1o_0</cedge>
    </edge>
 
    <edge id="1si" Length="237.15" Speed="13.89" Name="1si" NoLanes="3" XFrom="250.00" YFrom="500.00" XTo="500.00" YTo="500.00" From="m1" To="0" Priority="74" Angle="270.00" Type="" function="normal">
@@ -24,24 +21,18 @@
          <lane id="1si_1" depart="0" maxspeed="13.89" length="237.15" changeurge="0">251.50,495.05 488.65,495.05</lane>
          <lane id="1si_2" depart="0" maxspeed="13.89" length="237.15" changeurge="0">251.50,498.35 488.65,498.35</lane>
       </lanes>
-      <cedge id="3o" via=":0">1si_0</cedge>
-      <cedge id="2o" via=":0">1si_1</cedge>
-      <cedge id="4o" via=":0">1si_2</cedge>
-      <cedge id="1o" via=":0">1si_2</cedge>
    </edge>
 
    <edge id="2fi" Length="250.15" Speed="11.11" Name="2fi" NoLanes="1" XFrom="1000.00" YFrom="500.00" XTo="750.00" YTo="500.00" From="2" To="m2" Priority="46" Angle="90.00" Type="" function="normal">
       <lanes>
          <lane id="2fi_0" depart="1" maxspeed="11.11" length="250.15" changeurge="0">1001.65,501.65 751.50,501.65</lane>
       </lanes>
-      <cedge id="2si" via=":m2">2fi_0</cedge>
    </edge>
 
    <edge id="2o" Length="487.00" Speed="11.11" Name="2o" NoLanes="1" XFrom="500.00" YFrom="500.00" XTo="1000.00" YTo="500.00" From="0" To="2" Priority="46" Angle="270.00" Type="" function="normal">
       <lanes>
          <lane id="2o_0" depart="1" maxspeed="11.11" length="487.00" changeurge="0">511.35,498.35 998.35,498.35</lane>
       </lanes>
-      <cedge id="2fi" via=":2">2o_0</cedge>
    </edge>
 
    <edge id="2si" Length="237.15" Speed="13.89" Name="2si" NoLanes="3" XFrom="750.00" YFrom="500.00" XTo="500.00" YTo="500.00" From="m2" To="0" Priority="74" Angle="90.00" Type="" function="normal">
@@ -50,24 +41,18 @@
          <lane id="2si_1" depart="0" maxspeed="13.89" length="237.15" changeurge="0">748.50,504.95 511.35,504.95</lane>
          <lane id="2si_2" depart="0" maxspeed="13.89" length="237.15" changeurge="0">748.50,501.65 511.35,501.65</lane>
       </lanes>
-      <cedge id="4o" via=":0">2si_0</cedge>
-      <cedge id="1o" via=":0">2si_1</cedge>
-      <cedge id="3o" via=":0">2si_2</cedge>
-      <cedge id="2o" via=":0">2si_2</cedge>
    </edge>
 
    <edge id="3fi" Length="250.15" Speed="11.11" Name="3fi" NoLanes="1" XFrom="500.00" YFrom="0.00" XTo="500.00" YTo="250.00" From="3" To="m3" Priority="46" Angle="180.00" Type="" function="normal">
       <lanes>
          <lane id="3fi_0" depart="1" maxspeed="11.11" length="250.15" changeurge="0">501.65,-1.65 501.65,248.50</lane>
       </lanes>
-      <cedge id="3si" via=":m3">3fi_0</cedge>
    </edge>
 
    <edge id="3o" Length="487.00" Speed="11.11" Name="3o" NoLanes="1" XFrom="500.00" YFrom="500.00" XTo="500.00" YTo="0.00" From="0" To="3" Priority="46" Angle="0.00" Type="" function="normal">
       <lanes>
          <lane id="3o_0" depart="1" maxspeed="11.11" length="487.00" changeurge="0">498.35,488.65 498.35,1.65</lane>
       </lanes>
-      <cedge id="3fi" via=":3">3o_0</cedge>
    </edge>
 
    <edge id="3si" Length="237.15" Speed="13.89" Name="3si" NoLanes="3" XFrom="500.00" YFrom="250.00" XTo="500.00" YTo="500.00" From="m3" To="0" Priority="74" Angle="180.00" Type="" function="normal">
@@ -76,24 +61,18 @@
          <lane id="3si_1" depart="0" maxspeed="13.89" length="237.15" changeurge="0">504.95,251.50 504.95,488.65</lane>
          <lane id="3si_2" depart="0" maxspeed="13.89" length="237.15" changeurge="0">501.65,251.50 501.65,488.65</lane>
       </lanes>
-      <cedge id="2o" via=":0">3si_0</cedge>
-      <cedge id="4o" via=":0">3si_1</cedge>
-      <cedge id="1o" via=":0">3si_2</cedge>
-      <cedge id="3o" via=":0">3si_2</cedge>
    </edge>
 
    <edge id="4fi" Length="250.15" Speed="11.11" Name="4fi" NoLanes="1" XFrom="500.00" YFrom="1000.00" XTo="500.00" YTo="750.00" From="4" To="m4" Priority="46" Angle="0.00" Type="" function="normal">
       <lanes>
          <lane id="4fi_0" depart="1" maxspeed="11.11" length="250.15" changeurge="0">498.35,1001.65 498.35,751.50</lane>
       </lanes>
-      <cedge id="4si" via=":m4">4fi_0</cedge>
    </edge>
 
    <edge id="4o" Length="487.00" Speed="11.11" Name="4o" NoLanes="1" XFrom="500.00" YFrom="500.00" XTo="500.00" YTo="1000.00" From="0" To="4" Priority="46" Angle="180.00" Type="" function="normal">
       <lanes>
          <lane id="4o_0" depart="1" maxspeed="11.11" length="487.00" changeurge="0">501.65,511.35 501.65,998.35</lane>
       </lanes>
-      <cedge id="4fi" via=":4">4o_0</cedge>
    </edge>
 
    <edge id="4si" Length="237.15" Speed="13.89" Name="4si" NoLanes="3" XFrom="500.00" YFrom="750.00" XTo="500.00" YTo="500.00" From="m4" To="0" Priority="74" Angle="0.00" Type="" function="normal">
@@ -102,10 +81,6 @@
          <lane id="4si_1" depart="0" maxspeed="13.89" length="237.15" changeurge="0">495.05,748.50 495.05,511.35</lane>
          <lane id="4si_2" depart="0" maxspeed="13.89" length="237.15" changeurge="0">498.35,748.50 498.35,511.35</lane>
       </lanes>
-      <cedge id="1o" via=":0">4si_0</cedge>
-      <cedge id="3o" via=":0">4si_1</cedge>
-      <cedge id="2o" via=":0">4si_2</cedge>
-      <cedge id="4o" via=":0">4si_2</cedge>
    </edge>
 
 

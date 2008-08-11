@@ -1,4 +1,3 @@
-Error: Trying to add an unknown lane ('1_0') as continuation.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Quitting (on error).

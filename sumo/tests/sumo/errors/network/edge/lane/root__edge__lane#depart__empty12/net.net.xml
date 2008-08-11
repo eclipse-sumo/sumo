@@ -5,7 +5,6 @@
    <orig-boundary>-100.000000,0.000000,100.000000,0.000000</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="2">1 2</edges>
    <node_count>3</node_count>
 
 
@@ -14,7 +13,6 @@
          <lane id="1_0" depart="1" vclasses="" maxspeed="19.00" length="100.00">0.00,-4.95 100.00,-4.95</lane>
          <lane id="1_1" depart="" vclasses="" maxspeed="19.00" length="100.00">0.00,-1.65 100.00,-1.65</lane>
       </lanes>
-      <cedge id="2">1_0 1_1</cedge>
    </edge>
 
    <edge id="2" from="2" to="3" priority="1" type="" function="normal">

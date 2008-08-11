@@ -21,7 +21,6 @@
    <orig-boundary>0.000000,0.000000,1000000.000000,0.000000</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="2">1to2 out</edges>
    <node_count>3</node_count>
 
 
@@ -29,7 +28,6 @@
       <lanes>
          <lane id="1to2_0" depart="1" vclasses="" maxspeed="13.90" length="1000000.00">1000000.00,1.65 0.00,1.65</lane>
       </lanes>
-      <cedge id="out">1to2_0</cedge>
    </edge>
 
    <edge id="out" from="SUMOGenerated1" to="SUMOGenerated2" priority="-1" type="" function="normal">

@@ -1,7 +1,3 @@
-Error: Trying to define a not declared edge ('a').
-Error: An unknown lane ('2_0') was tried to be set as incoming to junction '3'.
-Error: An unknown lane ('2_0') should be set as a follower for lane '1_0'.
-Error: An unknown lane ('2_1') should be set as a follower for lane '1_1'.
-Error: Trying to close connections of an unknown lane ('2_0').
-Error: Trying to close connections of an unknown lane ('2_1').
+Error: The edge '2' within route 'route0' is not known.
+ The route can not be build.
 Quitting (on error).

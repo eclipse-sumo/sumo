@@ -18,7 +18,6 @@
    <orig-boundary>0.000000,0.000000,2500.000000,520.000000</orig-boundary>
    <orig-proj>!</orig-proj>
 
-   <edges no="7">beg beg2left end left left2end middle rend</edges>
    <node_count>10</node_count>
 
 
@@ -26,43 +25,36 @@
       <lanes>
          <lane id="beg_0" depart="1" vclasses="" maxspeed="27.80" length="498.55">0.00,18.35 498.55,18.35</lane>
       </lanes>
-      <cedge id="middle">beg_0</cedge>
-      <cedge id="beg2left">beg_0</cedge>
    </edge>
 
    <edge id="beg2left" from="beg" to="begleft" priority="-1" type="" function="normal">
       <lanes>
          <lane id="beg2left_0" depart="1" vclasses="" maxspeed="27.80" length="495.30">501.65,21.45 501.65,516.75</lane>
       </lanes>
-      <cedge id="left">beg2left_0</cedge>
    </edge>
 
    <edge id="end" from="end" to="absEnd" priority="-1" type="" function="normal">
       <lanes>
          <lane id="end_0" depart="1" vclasses="" maxspeed="27.80" length="498.55">1501.45,18.35 2000.00,18.35</lane>
       </lanes>
-      <cedge id="rend">end_0</cedge>
    </edge>
 
    <edge id="left" from="begleft" to="endleft" priority="-1" type="" function="normal">
       <lanes>
          <lane id="left_0" depart="1" vclasses="" maxspeed="27.80" length="993.50">503.25,518.35 1496.75,518.35</lane>
       </lanes>
-      <cedge id="left2end">left_0</cedge>
    </edge>
 
    <edge id="left2end" from="endleft" to="end" priority="-1" type="" function="normal">
       <lanes>
          <lane id="left2end_0" depart="1" vclasses="" maxspeed="27.80" length="495.30">1498.35,516.75 1498.35,21.45</lane>
       </lanes>
-      <cedge id="end">left2end_0</cedge>
    </edge>
 
    <edge id="middle" from="beg" to="end" priority="-1" type="" function="normal">
       <lanes>
          <lane id="middle_0" depart="1" vclasses="" maxspeed="13.90" length="990.50">504.75,18.35 1495.25,18.35</lane>
       </lanes>
-      <cedge id="end">middle_0</cedge>
    </edge>
 
    <edge id="rend" from="absEnd" to="rabsEnd" priority="-1" type="" function="normal">

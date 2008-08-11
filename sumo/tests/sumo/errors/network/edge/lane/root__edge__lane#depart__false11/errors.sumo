@@ -1,6 +1,5 @@
 Error: Value of depart definition of lane '1_0' is invalid.
  Can not build according edge.
-Error: Trying to add an unknown lane ('1_0') as continuation.
 Error: An unknown lane ('1_0') was tried to be set as incoming to junction '2'.
 Error: Trying to close connections of an unknown lane ('1_0').
 Error: Trying to close connections of an unknown lane ('1_1').

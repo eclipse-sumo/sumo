@@ -1,6 +1,5 @@
 <net>
 
-   <edges no="7">beg beg2left end left left2end middle rend</edges>
    <node_count>10</node_count>
 
 
@@ -9,15 +8,12 @@
          <lane id="beg_0" depart="1" maxspeed="27.80" length="501.85" changeurge="0">-4.95,15.05 498.55,15.05</lane>
          <lane id="beg_1" depart="0" maxspeed="27.80" length="501.85" changeurge="0">-1.65,18.35 498.55,18.35</lane>
       </lanes>
-      <cedge id="middle" via=":beg">beg_0</cedge>
-      <cedge id="beg2left" via=":beg">beg_1</cedge>
    </edge>
 
    <edge id="beg2left" Length="495.30" Speed="27.80" Name="beg2left" NoLanes="1" XFrom="500.00" YFrom="20.00" XTo="500.00" YTo="520.00" From="beg" To="begleft" Priority="1" Angle="180.00" Type="" function="normal">
       <lanes>
          <lane id="beg2left_0" depart="1" maxspeed="27.80" length="495.30" changeurge="0">501.65,21.45 501.65,516.75</lane>
       </lanes>
-      <cedge id="left" via=":begleft">beg2left_0</cedge>
    </edge>
 
    <edge id="end" Length="498.55" Speed="27.80" Name="end" NoLanes="2" XFrom="1500.00" YFrom="20.00" XTo="2000.00" YTo="20.00" From="end" To="absEnd" Priority="1" Angle="270.00" Type="" function="normal">
@@ -25,28 +21,24 @@
          <lane id="end_0" depart="1" maxspeed="27.80" length="498.55" changeurge="0">1501.45,15.05 2000.00,15.05</lane>
          <lane id="end_1" depart="0" maxspeed="27.80" length="498.55" changeurge="0">1501.45,18.35 2000.00,18.35</lane>
       </lanes>
-      <cedge id="rend" via=":absEnd">end_0 end_1</cedge>
    </edge>
 
    <edge id="left" Length="993.50" Speed="27.80" Name="left" NoLanes="1" XFrom="500.00" YFrom="520.00" XTo="1500.00" YTo="520.00" From="begleft" To="endleft" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
          <lane id="left_0" depart="1" maxspeed="27.80" length="993.50" changeurge="0">503.25,518.35 1496.75,518.35</lane>
       </lanes>
-      <cedge id="left2end" via=":endleft">left_0</cedge>
    </edge>
 
    <edge id="left2end" Length="495.30" Speed="27.80" Name="left2end" NoLanes="1" XFrom="1500.00" YFrom="520.00" XTo="1500.00" YTo="20.00" From="endleft" To="end" Priority="1" Angle="0.00" Type="" function="normal">
       <lanes>
          <lane id="left2end_0" depart="1" maxspeed="27.80" length="495.30" changeurge="0">1498.35,516.75 1498.35,21.45</lane>
       </lanes>
-      <cedge id="end" via=":end">left2end_0</cedge>
    </edge>
 
    <edge id="middle" Length="990.50" Speed="13.90" Name="middle" NoLanes="1" XFrom="500.00" YFrom="20.00" XTo="1500.00" YTo="20.00" From="beg" To="end" Priority="1" Angle="270.00" Type="" function="normal">
       <lanes>
          <lane id="middle_0" depart="1" maxspeed="13.90" length="990.50" changeurge="0">504.75,18.35 1495.25,18.35</lane>
       </lanes>
-      <cedge id="end" via=":end">middle_0</cedge>
    </edge>
 
    <edge id="rend" Length="496.70" Speed="27.80" Name="rend" NoLanes="2" XFrom="2000.00" YFrom="20.00" XTo="2500.00" YTo="20.00" From="absEnd" To="rabsEnd" Priority="1" Angle="270.00" Type="" function="normal">
