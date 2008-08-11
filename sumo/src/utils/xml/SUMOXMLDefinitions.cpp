@@ -157,6 +157,7 @@ GenericSAXHandler::Attr sumoattrs[] = {
     { "response",       SUMO_ATTR_RESPONSE },
 
     { "weight",         SUMO_ATTR_WEIGHT },
+    { "edge",           SUMO_ATTR_EDGE },
     { "edges",          SUMO_ATTR_EDGES },
 
     { "depart",         SUMO_ATTR_DEPART },
