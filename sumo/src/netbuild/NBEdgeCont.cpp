@@ -218,30 +218,6 @@ NBEdgeCont::appendTurnarounds()
 
 
 void
-NBEdgeCont::writeXMLEdgeList(OutputDevice &into, std::vector<std::string> toAdd)
-{
-    into << "   <edges no=\"" << (myEdges.size()+toAdd.size()) << "\">";
-    for (vector<string>::iterator j=toAdd.begin(); j!=toAdd.end(); j++) {
-        if (j!=toAdd.begin()) {
-            into << ' ';
-        }
-        into << (*j);
-    }
-    if (toAdd.size()!=0) {
-        into << ' ';
-    }
-
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        if (i!=myEdges.begin()) {
-            into << ' ';
-        }
-        into << (*i).first;
-    }
-    into << "</edges>\n";
-}
-
-
-void
 NBEdgeCont::writeXMLStep1(OutputDevice &into)
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {

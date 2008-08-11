@@ -105,7 +105,6 @@ public:
     /// sorts the nodes' edges
     void sortNodesEdges(const NBTypeCont &tc);
 
-    std::vector<std::string> getInternalNamesList();
     /// writes the number nodes into the given ostream
     void writeXMLNumber(OutputDevice &into);
 

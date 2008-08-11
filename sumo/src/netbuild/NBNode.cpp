@@ -592,20 +592,6 @@ NBNode::rotateIncomingEdges(int norot)
 }
 
 
-std::vector<std::string>
-NBNode::getInternalNamesList()
-{
-    std::vector<std::string> ret;
-    size_t noInternalLanes = countInternalLanes(true);
-    if (noInternalLanes!=0) {
-        for (size_t i=0; i<noInternalLanes; i++) {
-            ret.push_back(":" + myID + "_" + toString<size_t>(i));
-        }
-    }
-    return ret;
-}
-
-
 size_t
 NBNode::countInternalLanes(bool includeSplits)
 {
@@ -683,8 +669,6 @@ NBNode::writeXMLInternalLinks(OutputDevice &into)
                     << split.first
                     << "</lane>\n";
                     into << "      </lanes>\n";
-                    into << "      <cedge id=\":" << myID << "_" << toString<size_t>(splitNo+noInternalNoSplits)
-                    << "\">" << id << "_0" << "</cedge>\n";
                     into << "   </edge>\n\n";
                     lno++;
 
@@ -699,8 +683,6 @@ NBNode::writeXMLInternalLinks(OutputDevice &into)
                     << split.second
                     << "</lane>\n";
                     into << "      </lanes>\n";
-                    into << "      <cedge id=\"" << (*k).edge->getID()
-                    << "\">" << id << "_0" << "</cedge>\n";
                     into << "   </edge>\n\n";
                     splitNo++;
                 } else {
@@ -714,8 +696,6 @@ NBNode::writeXMLInternalLinks(OutputDevice &into)
                     << shape
                     << "</lane>\n";
                     into << "      </lanes>\n";
-                    into << "      <cedge id=\"" << (*k).edge->getID()
-                    << "\">" << id << "_0" << "</cedge>\n";
                     into << "   </edge>\n\n";
                     lno++;
                 }

@@ -479,9 +479,6 @@ NBEdge::writeXMLStep1(OutputDevice &into)
                 lanes.push_back((*i).fromLane);
             }
         }
-        if (lanes.size()!=0) {
-            writeConnected(into, *l, lanes);
-        }
     }
     // close the edge
     into << "   </edge>\n\n";
@@ -647,25 +644,6 @@ NBEdge::laneOffset(const Position2D &from, const Position2D &to,
         yoff += (offsets.second * (SUMOReal) lane) - (offsets.second * (SUMOReal) myLanes.size() / (SUMOReal) 2.0);
     }
     return pair<SUMOReal, SUMOReal>(xoff, yoff);
-}
-
-
-void
-NBEdge::writeConnected(OutputDevice &into, NBEdge *edge, LaneVector &lanes)
-{
-    if (edge==0) {
-        return;
-    }
-    into << "      <cedge id=\"" << edge->getID() << "\">";
-    size_t noApproachers = lanes.size();
-    for (size_t i=0; i<noApproachers; i++) {
-        assert(i<lanes.size());
-        into << myID << '_' << lanes[i];
-        if (i<noApproachers-1) {
-            into << ' ';
-        }
-    }
-    into << "</cedge>\n";
 }
 
 

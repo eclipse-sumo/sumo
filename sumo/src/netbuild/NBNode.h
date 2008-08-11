@@ -171,8 +171,6 @@ public:
     /// returns the list of all edgs
     const EdgeVector &getEdges() const;
 
-    std::vector<std::string> getInternalNamesList();
-
     void writeXMLInternalLinks(OutputDevice &into);
     void writeXMLInternalSuccInfos(OutputDevice &into);
     void writeXMLInternalNodes(OutputDevice &into);

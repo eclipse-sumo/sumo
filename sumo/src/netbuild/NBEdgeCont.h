@@ -118,10 +118,6 @@ public:
     /** Removes the given edge from the container (deleting it) */
     void erase(NBDistrictCont &dc, NBEdge *edge);
 
-    /** writes the list of edge names into the given stream */
-    void writeXMLEdgeList(OutputDevice &into,
-                          std::vector<std::string> toAdd);
-
     /** writes the edge definitions with lanes and connected edges
         into the given stream */
     void writeXMLStep1(OutputDevice &into);

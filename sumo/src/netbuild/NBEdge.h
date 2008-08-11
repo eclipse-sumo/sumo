@@ -606,9 +606,6 @@ private:
     void writeLane(OutputDevice &into, NBEdge::Lane &lane, unsigned int index) const;
 
     // !!! describe
-    void writeConnected(OutputDevice &into, NBEdge *edge, LaneVector &lanes);
-
-    // !!! describe
     void writeSucceeding(OutputDevice &into, size_t lane,
                          bool includeInternal);
 

@@ -246,19 +246,6 @@ NBNodeCont::writeXMLNumber(OutputDevice &into)
 }
 
 
-std::vector<std::string>
-NBNodeCont::getInternalNamesList()
-{
-    std::vector<std::string> ret;
-    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-        std::vector<std::string> nodes = (*i).second->getInternalNamesList();
-        copy(nodes.begin(), nodes.end(), back_inserter(ret));
-    }
-    return ret;
-}
-
-
-
 void
 NBNodeCont::writeXMLInternalLinks(OutputDevice &into)
 {

@@ -242,11 +242,6 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc)
 
     // write the numbers of some elements
     // edges
-    std::vector<std::string> ids;
-    if (oc.getBool("add-internal-links")) {
-        ids = myNodeCont.getInternalNamesList();
-    }
-    myEdgeCont.writeXMLEdgeList(device, ids);
     if (oc.getBool("add-internal-links")) {
         myNodeCont.writeXMLInternalLinks(device);
     }
