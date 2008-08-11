@@ -67,18 +67,6 @@ GUIEdgeControlBuilder::~GUIEdgeControlBuilder()
 
 
 MSEdge *
-GUIEdgeControlBuilder::addEdge(const string &id)
-{
-    MSEdge *edge = new GUIEdge(id, myCurrentNumericalEdgeID++, myGlObjectIDStorage);
-    if (!MSEdge::dictionary(id, edge)) {
-        throw InvalidArgument("Another edge with the id '" + id + "' exists.");
-    }
-    myEdges->push_back(edge);
-    return edge;
-}
-
-
-MSEdge *
 GUIEdgeControlBuilder::closeEdge()
 {
     MSEdge *ret = NLEdgeControlBuilder::closeEdge();
@@ -123,6 +111,12 @@ GUIEdgeControlBuilder::addLane(/*MSNet &net, */const std::string &id,
 }
 
 
+
+MSEdge *
+GUIEdgeControlBuilder::buildEdge(const std::string &id)
+{
+    return new GUIEdge(id, myCurrentNumericalEdgeID++, myGlObjectIDStorage);
+}
 
 /****************************************************************************/
 

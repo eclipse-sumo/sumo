@@ -64,15 +64,15 @@ NLEdgeControlBuilder::NLEdgeControlBuilder(unsigned int storageSize)
     m_pLaneStorage = new MSEdge::LaneCont();
     m_pLaneStorage->reserve(storageSize);
     m_pLanes = (MSEdge::LaneCont*) 0;
-    m_pAllowedLanes = (MSEdge::AllowedLanesCont*) 0;
     m_pDepartLane = (MSLane*) 0;
     m_iNoSingle = m_iNoMulti = 0;
-    if (OptionsCont::getOptions().isSet("lanechange-output")) {
-        if (!OutputDevice::createDeviceByOption("lanechange-output", "lane_changes")) {
+    if(OptionsCont::getOptions().isSet("lanechange-output")) {
+        if(!OutputDevice::createDeviceByOption("lanechange-output", "lane_changes")) {
             throw 1;
         }
         myEdgesLaneChangeOutputDevice = &OutputDevice::getDeviceByOption("lanechange-output");
     }
+    myEdges = new EdgeCont();
 }
 
 
@@ -85,39 +85,24 @@ NLEdgeControlBuilder::~NLEdgeControlBuilder()
 
 
 void
-NLEdgeControlBuilder::prepare(unsigned int no)
-{
-    myEdges = new EdgeCont();
-    myEdges->reserve(no);
-}
-
-
-MSEdge *
-NLEdgeControlBuilder::addEdge(const string &id)
-{
-    if (myEdges==0) {
-        throw ProcessError();
-    }
-    MSEdge *edge = new MSEdge(id, myCurrentNumericalEdgeID++);
-    if (!MSEdge::dictionary(id, edge)) {
-        throw InvalidArgument("Another edge with the id '" + id + "' exists.");
-    }
-    myEdges->push_back(edge);
-    return edge;
-}
-
-
-void
 NLEdgeControlBuilder::chooseEdge(const string &id,
                                  MSEdge::EdgeBasicFunction function,
                                  bool inner)
 {
-    myActiveEdge = MSEdge::dictionary(id);
+    if (myEdges==0) {
+        throw ProcessError();
+    }
+    myActiveEdge = buildEdge(id);
+    if (!MSEdge::dictionary(id, myActiveEdge)) {
+        throw InvalidArgument("Another edge with the id '" + id + "' exists.");
+    }
+    myEdges->push_back(myActiveEdge);
+    /*
     if (myActiveEdge==0) {
         throw InvalidArgument("Trying to define a not declared edge ('" + id + "').");
     }
+    */
     m_pDepartLane = (MSLane*) 0;
-    m_pAllowedLanes = new MSEdge::AllowedLanesCont();
     m_Function = function;
     if (inner) {
         m_Function = MSEdge::EDGEFUNCTION_INNERJUNCTION;
@@ -197,45 +182,13 @@ NLEdgeControlBuilder::closeLanes()
 }
 
 
-void
-NLEdgeControlBuilder::openAllowedEdge(MSEdge *edge)
-{
-    m_pCurrentDestination = edge;
-}
-
-
-void
-NLEdgeControlBuilder::addAllowed(MSLane *lane)
-{
-    // checks if the lane is inside the edge
-    MSEdge::LaneCont::iterator i1 = find(m_pLanes->begin(), m_pLanes->end(), lane);
-    if (i1==m_pLanes->end()) {
-        throw InvalidArgument("Broken net: lane '" + lane->getID() + "' is not within the current edge.");
-    }
-    m_pLaneStorage->push_back(lane);
-}
-
-
-void
-NLEdgeControlBuilder::closeAllowedEdge()
-{
-    MSEdge::LaneCont *lanes = new MSEdge::LaneCont();
-    lanes->reserve(m_pLaneStorage->size());
-    for (MSEdge::LaneCont::iterator i1=m_pLaneStorage->begin(); i1!=m_pLaneStorage->end(); i1++) {
-        lanes->push_back(*i1);
-    }
-    m_pLaneStorage->clear();
-    (*m_pAllowedLanes)[m_pCurrentDestination] = lanes;
-}
-
-
 MSEdge *
 NLEdgeControlBuilder::closeEdge()
 {
-    if (m_pAllowedLanes==0 || /*m_pDepartLane==0 ||*/ m_pLanes==0) {
+    if (m_pLanes==0) {
         throw InvalidArgument("Something is corrupt within the definition of lanes for the edge '" + myActiveEdge->getID() + "'.");
     }
-    myActiveEdge->initialize(m_pAllowedLanes, m_pDepartLane,
+    myActiveEdge->initialize(m_pDepartLane,
                              m_pLanes, m_Function, myEdgesLaneChangeOutputDevice);
     m_pLanes = 0;
     return myActiveEdge;
@@ -250,6 +203,7 @@ NLEdgeControlBuilder::build()
     singleLanes->reserve(m_iNoSingle);
     multiLanes->reserve(m_iNoMulti);
     for (EdgeCont::iterator i1=myEdges->begin(); i1!=myEdges->end(); i1++) {
+        (*i1)->closeBuilding();
         if ((*i1)->nLanes()==1) {
             singleLanes->push_back(*i1);
         } else {
@@ -271,6 +225,13 @@ size_t
 NLEdgeControlBuilder::getEdgeCapacity() const
 {
     return myEdges==0 ? 0 : myEdges->capacity();
+}
+
+
+MSEdge *
+NLEdgeControlBuilder::buildEdge(const std::string &id)
+{
+    return new MSEdge(id, myCurrentNumericalEdgeID++);
 }
 
 

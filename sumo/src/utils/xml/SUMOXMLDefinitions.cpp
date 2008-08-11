@@ -45,7 +45,6 @@ GenericSAXHandler::Tag sumotags[] = {
     { "poi",              SUMO_TAG_POI },
     { "poly",             SUMO_TAG_POLY },
     { "lanes",            SUMO_TAG_LANES },
-    { "cedge",            SUMO_TAG_CEDGE },
     { "junction",         SUMO_TAG_JUNCTION },
     /// @deprecated begins
     { "detector",         SUMO_TAG_DETECTOR },
@@ -74,7 +73,6 @@ GenericSAXHandler::Tag sumotags[] = {
     { "district",         SUMO_TAG_DISTRICT },
     { "dsource",          SUMO_TAG_DSOURCE },
     { "dsink",            SUMO_TAG_DSINK },
-    { "edges",            SUMO_TAG_EDGES },
     { "node_count",       SUMO_TAG_NODECOUNT },
     { "tl-logic",         SUMO_TAG_TLLOGIC },
     { "offset",           SUMO_TAG_OFFSET },

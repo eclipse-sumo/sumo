@@ -70,9 +70,9 @@ std::vector<MSEdge*> MSEdge::myEdges;
 // member method definitions
 // ===========================================================================
 MSEdge::MSEdge(const std::string &id, unsigned int numericalID) throw()
-        : myID(id), myNumericalID(numericalID), myLanes(0), myAllowed(0),
-        myLaneChanger(0), myVaporizationRequests(0), myLastFailedEmissionTime(-1),
-        myHaveLoadedWeights(false), myHaveBuildShortCut(false),
+        : myID(id), myNumericalID(numericalID), myLanes(0), myAllowed(0), 
+        myLaneChanger(0), myVaporizationRequests(0), myLastFailedEmissionTime(-1), 
+        myHaveLoadedWeights(false), myHaveBuildShortCut(false), 
         myPackedValueLine(0), myUseBoundariesOnOverride(true)//!!!
 {}
 
@@ -103,18 +103,35 @@ MSEdge::~MSEdge() throw()
 
 
 void
-MSEdge::initialize(AllowedLanesCont* allowed, MSLane* departLane,
+MSEdge::initialize(MSLane* departLane,
                    LaneCont* lanes, EdgeBasicFunction function,
                    OutputDevice *lcOutput) throw()
 {
-    assert(allowed!=0);
     assert(lanes!=0);
-    myAllowed = allowed;
     myDepartLane = departLane;
     myLanes = lanes;
     myFunction = function;
     if (myLanes->size() > 1 && function!=EDGEFUNCTION_INTERNAL) {
         myLaneChanger = new MSLaneChanger(myLanes, lcOutput);
+    }
+}
+
+void 
+MSEdge::closeBuilding()
+{
+    myAllowed = new AllowedLanesCont();
+    for(LaneCont::iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
+        const MSLinkCont &lc = (*i)->getLinkCont();
+        for(MSLinkCont::const_iterator j=lc.begin(); j!=lc.end(); ++j) {
+            MSLane *toL = (*j)->getLane();
+            if(toL!=0) {
+                const MSEdge * const to = toL->getEdge();
+                if(myAllowed->find(to)==myAllowed->end()) {
+                    (*myAllowed)[to] = new LaneCont();
+                }
+                (*myAllowed)[to]->push_back(*i);
+            }
+        }
     }
     // build the classed allowed lanes
     myHaveClassConstraints = false;
@@ -222,7 +239,7 @@ MSEdge::allowedLanes(const MSEdge& destination, SUMOVehicleClass vclass) const t
 }
 
 
-MSLane * const
+MSLane * const 
 MSEdge::leftLane(const MSLane * const lane) const throw()
 {
     LaneCont::iterator laneIt = find(myLanes->begin(), myLanes->end(), lane);
@@ -233,7 +250,7 @@ MSEdge::leftLane(const MSLane * const lane) const throw()
 }
 
 
-MSLane * const
+MSLane * const 
 MSEdge::rightLane(const MSLane * const lane) const throw()
 {
     LaneCont::iterator laneIt = find(myLanes->begin(), myLanes->end(), lane);
@@ -283,16 +300,16 @@ MSEdge::getIncomingEdges() const throw()
 }
 
 
-SUMOTime
-MSEdge::incVaporization(SUMOTime) throw(ProcessError)
+SUMOTime 
+MSEdge::incVaporization(SUMOTime) throw(ProcessError) 
 {
     ++myVaporizationRequests;
     return 0;
 }
 
 
-SUMOTime
-MSEdge::decVaporization(SUMOTime) throw(ProcessError)
+SUMOTime 
+MSEdge::decVaporization(SUMOTime) throw(ProcessError) 
 {
     --myVaporizationRequests;
     return 0;
@@ -313,7 +330,7 @@ MSEdge::freeLaneEmit(MSVehicle &v, SUMOTime time, bool isReinsertion) const thro
             noCars = (*i)->getVehicleNumber();
         }
     }
-    if (isReinsertion) {
+    if(isReinsertion) {
         return lanes[minI]->freeEmit(v, MIN2(lanes[minI]->maxSpeed(), v.getMaxSpeed()));
     } else {
         return lanes[minI]->emit(v);
@@ -325,7 +342,7 @@ bool
 MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
 {
     // when vaporizing, no vehicles are emitted...
-    if (isVaporizing()) {
+    if(isVaporizing()) {
         return false;
     }
 #ifdef HAVE_MESOSIM
@@ -345,13 +362,13 @@ MSEdge::emit(MSVehicle &v, SUMOTime time) const throw()
     }
 #endif
     const SUMOVehicleParameter &pars = v.getParameter();
-    switch (pars.departLaneProcedure) {
+    switch(pars.departLaneProcedure) {
     case DEPART_LANE_GIVEN:
         return v.getDepartLanes()[pars.departLane]->emit(v); // !!! unsecure
     case DEPART_LANE_RANDOM: {
-        const LaneCont &lanes = v.getDepartLanes();
-        return RandHelper::getRandomFrom(lanes)->emit(v);
-    }
+            const LaneCont &lanes = v.getDepartLanes();
+            return RandHelper::getRandomFrom(lanes)->emit(v);
+        }
     case DEPART_LANE_FREE:
         return freeLaneEmit(v, time);
     case DEPART_LANE_DEPARTLANE:
@@ -400,7 +417,7 @@ bool myHaveWarned; // !!!
 SUMOReal
 MSEdge::getEffort(SUMOReal forTime) const throw()
 {
-    if (!myHaveLoadedWeights) {
+    if(!myHaveLoadedWeights) {
         return (*myLanes)[0]->length() / (*myLanes)[0]->maxSpeed();
     }
     if (!myHaveBuildShortCut) {
@@ -436,11 +453,11 @@ SUMOReal
 MSEdge::getCurrentEffort() const throw()
 {
     SUMOReal v = 0;
-    for (LaneCont::iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
+    for(LaneCont::iterator i=myLanes->begin(); i!=myLanes->end(); ++i) {
         v += (*i)->getMeanSpeed();
     }
     v /= (SUMOReal) myLanes->size();
-    if (v!=0) {
+    if(v!=0) {
         return (*myLanes)[0]->length() / v;
     } else {
         return 1000000.;

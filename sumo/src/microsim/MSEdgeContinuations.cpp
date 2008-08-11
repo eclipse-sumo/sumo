@@ -4,7 +4,7 @@
 /// @date    2005-11-09
 /// @version $Id$
 ///
-// »missingDescription«
+// Stores predeccessor-successor-relations of MSEdges.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -40,36 +40,39 @@
 // ===========================================================================
 // used namespaces
 // ===========================================================================
-
 using namespace std;
 
-MSEdgeContinuations::MSEdgeContinuations()
+
+// ===========================================================================
+// method definitions
+// ===========================================================================
+MSEdgeContinuations::MSEdgeContinuations() throw()
 {}
 
 
-MSEdgeContinuations::~MSEdgeContinuations()
+MSEdgeContinuations::~MSEdgeContinuations() throw()
 {}
 
 
 void
-MSEdgeContinuations::add(MSEdge *to, MSEdge *from)
+MSEdgeContinuations::add(const MSEdge *const to, const MSEdge *const from) throw()
 {
     if (myContinuations.find(to)==myContinuations.end()) {
-        myContinuations[to] = vector<MSEdge*>();
+        myContinuations[to] = vector<const MSEdge *const>();
     }
     myContinuations[to].push_back(from);
 }
 
 
-const std::vector<MSEdge*> &
-MSEdgeContinuations::getInFrontOfEdge(const MSEdge &toEdge) const
+const std::vector<const MSEdge *const> &
+MSEdgeContinuations::getInFrontOfEdge(const MSEdge &toEdge) const throw()
 {
     return myContinuations.find(static_cast<MSEdge*>(& ((MSEdge&) toEdge)))->second;
 }
 
 
 bool
-MSEdgeContinuations::hasFurther(const MSEdge &toEdge) const
+MSEdgeContinuations::hasFurther(const MSEdge &toEdge) const throw()
 {
     return myContinuations.find(static_cast<MSEdge*>(& ((MSEdge&) toEdge)))!=myContinuations.end();
 }

@@ -37,6 +37,7 @@
 #include <microsim/MSLinkCont.h>
 #include <microsim/MSGlobals.h>
 #include <microsim/traffic_lights/MSTrafficLightLogic.h>
+#include <microsim/MSEdgeContinuations.h>
 #include "NLBuilder.h"
 #include "NLSucceedingLaneBuilder.h"
 #include "NLJunctionControlBuilder.h"
@@ -58,8 +59,9 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NLSucceedingLaneBuilder::NLSucceedingLaneBuilder(NLJunctionControlBuilder &jb) throw()
-        : myJunctionControlBuilder(jb)
+NLSucceedingLaneBuilder::NLSucceedingLaneBuilder(NLJunctionControlBuilder &jb,
+                                                 MSEdgeContinuations &ec) throw()
+        : myJunctionControlBuilder(jb), myEdgeContinuations(ec)
 {
     mySuccLanes = new MSLinkCont();
     mySuccLanes->reserve(10);
@@ -167,6 +169,7 @@ NLSucceedingLaneBuilder::addSuccLane(bool yield, const string &laneId,
     }
     // add the link to the container
     mySuccLanes->push_back(link);
+    myEdgeContinuations.add(MSLane::dictionary(myCurrentLane)->getEdge(), lane->getEdge());
 }
 
 

@@ -78,15 +78,6 @@ public:
     /// Destructor
     virtual ~NLEdgeControlBuilder();
 
-    /** Prepares the builder for the building of the specified number of
-        edges (preallocates ressources) */
-    void prepare(unsigned int no);
-
-    /** @brief Adds an edge with the given id to the list of edges;
-        This method throws an ProcessError when the id was
-        already used for another edge */
-    virtual MSEdge *addEdge(const std::string &id);
-
     /// chooses the previously added edge as the current edge
     void chooseEdge(const std::string &id,
                     MSEdge::EdgeBasicFunction function,
@@ -104,18 +95,6 @@ public:
     /// closes (ends) the addition of lanes to the current edge
     void closeLanes();
 
-    /** Begins the specification of lanes that may be used to reach the given
-        edge from the current edge */
-    void openAllowedEdge(MSEdge *edge);
-
-    /** @brief Adds a lane that may be used to reach the edge previously specified by "openAllowedEdge"
-        This method throws a ProcessError when the lane is
-        not belonging to the current edge */
-    void addAllowed(MSLane *lane);
-
-    /// closes the specification of lanes that may be used to reach an edge
-    void closeAllowedEdge();
-
     /** @brief Closes the building of an edge;
         The edge is completely described by now and may not be opened again */
     virtual MSEdge *closeEdge();
@@ -131,6 +110,8 @@ public:
 
     size_t getEdgeCapacity() const;
 
+protected:
+    virtual MSEdge *buildEdge(const std::string &id);
 
 protected:
     /// @brief A running numer for lane numbering
@@ -156,12 +137,6 @@ protected:
 
     /// @brief list of the lanes that belong to the current edge
     MSEdge::LaneCont          *m_pLanes;
-
-    /// @brief pointer to the following edge the structure is currently working on
-    MSEdge                    *m_pCurrentDestination;
-
-    /// connection to following edges from the current edge
-    MSEdge::AllowedLanesCont  *m_pAllowedLanes;
 
     /// pointer to the depart lane
     MSLane                    *m_pDepartLane;

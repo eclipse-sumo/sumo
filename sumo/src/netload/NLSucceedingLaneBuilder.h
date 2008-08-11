@@ -39,6 +39,7 @@
 // ===========================================================================
 class MSJunction;
 class NLJunctionControlBuilder;
+class MSEdgeContinuations;
 
 
 // ===========================================================================
@@ -55,8 +56,10 @@ public:
     /** @brief Constructor
      *
      * @param[in] jb The junction control builder to obtain referenced tls from
+     * @param[in] ec The edge continuations to fill
      */
-    NLSucceedingLaneBuilder(NLJunctionControlBuilder &jb) throw();
+    NLSucceedingLaneBuilder(NLJunctionControlBuilder &jb,
+        MSEdgeContinuations &ec) throw();
 
 
     /// @brief Destructor
@@ -128,6 +131,9 @@ private:
 
     /// @brief The junction control builder to obtain referenced tls from
     NLJunctionControlBuilder &myJunctionControlBuilder;
+
+    // @brief The edge continuations to build
+    MSEdgeContinuations &myEdgeContinuations;
 
 
 private:

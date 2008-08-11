@@ -201,10 +201,6 @@ protected:
     /// Closes the process of building lanes of an edge
     virtual void closeLanes();
 
-    /// Closes the process of the connections between edges
-    virtual void closeAllowedEdge();
-
-
 
 protected:
     /// The net to fill (preinitialised)
@@ -214,9 +210,6 @@ protected:
 private:
     /// add the shape to the Lane
     void addLaneShape(const std::string &chars);
-
-    /// sets the number of edges the network contains
-    void setEdgeNumber(const SUMOSAXAttributes &attrs);
 
     /// begins the processing of an edge
     void chooseEdge(const SUMOSAXAttributes &attrs);
@@ -232,9 +225,6 @@ private:
 
     /// add the position to the Polygon
     void addPolyPosition(const std::string &chars);
-
-    /// opens the list of next edges for processing
-    void openAllowedEdge(const SUMOSAXAttributes &attrs);
 
     /// adds a logic item to the current logic
     void addLogicItem(const SUMOSAXAttributes &attrs);
@@ -283,12 +273,6 @@ private:
     void addWAUTSwitch(const SUMOSAXAttributes &attrs);
     void addWAUTJunction(const SUMOSAXAttributes &attrs);
 
-
-    /// allocates edges from the initial list
-    void allocateEdges(const std::string &chars);
-
-    /// adds the list of allowed following edges
-    void addAllowedEdges(const std::string &chars);
 
     /// adds the route elements
     void addRouteElements(const std::string &name, const std::string &chars);

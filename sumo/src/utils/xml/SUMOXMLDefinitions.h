@@ -53,8 +53,6 @@ enum SumoXMLTag {
     SUMO_TAG_POLY,
     /** begin/end of the list of lane descriptions */
     SUMO_TAG_LANES,
-    /** description of a connected edge */
-    SUMO_TAG_CEDGE,
     /** begin/end of the description of a junction */
     SUMO_TAG_JUNCTION,
 #ifdef _MESSAGES
@@ -107,8 +105,6 @@ enum SumoXMLTag {
     SUMO_TAG_DSOURCE,
     /** a sink within a district (connection road) */
     SUMO_TAG_DSINK,
-    /** the list of edge names for preallocation */
-    SUMO_TAG_EDGES,
     /** the number of nodes within the net */
     SUMO_TAG_NODECOUNT,
     /** a traffic light logic */

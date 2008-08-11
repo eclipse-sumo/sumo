@@ -61,11 +61,6 @@ public:
     /// standard destructor
     ~GUIEdgeControlBuilder();
 
-    /** adds an edge with the given id to the list of edges; this method
-        throws an ProcessError when the id was already used for
-        another edge */
-    MSEdge *addEdge(const std::string &id);
-
     /// Builds the lane to add
     virtual MSLane *addLane(/*MSNet &net, */const std::string &id,
                                             SUMOReal maxSpeed, SUMOReal length, bool isDepart,
@@ -73,6 +68,9 @@ public:
 
     MSEdge *closeEdge();
 
+
+protected:
+    MSEdge *buildEdge(const std::string &id);
 
 private:
     /// The gl-object id giver

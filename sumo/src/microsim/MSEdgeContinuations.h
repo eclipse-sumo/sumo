@@ -4,7 +4,7 @@
 /// @date    2005-11-09
 /// @version $Id$
 ///
-// 	»missingDescription«
+// Stores predeccessor-successor-relations of MSEdges.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -39,25 +39,53 @@
 // ===========================================================================
 class MSEdge;
 
+
 // ===========================================================================
 // class definitions
 // ===========================================================================
 /**
  * @class MSEdgeContinuations
- *
- * Stores predeccessor-successor-relations of MSEdges.
+ * @brief Stores predeccessor-successor-relations of MSEdges.
  */
 class MSEdgeContinuations
 {
 public:
-    MSEdgeContinuations();
-    ~MSEdgeContinuations();
-    void add(MSEdge *to, MSEdge *from);
-    const std::vector<MSEdge*> &getInFrontOfEdge(const MSEdge &toEdge) const;
-    bool hasFurther(const MSEdge &toEdge) const;
+    /// @brief Constructor
+    MSEdgeContinuations() throw();
+
+
+    /// @brief Destrcutor
+    ~MSEdgeContinuations() throw();
+
+
+    /** @brief Adds a connection between edges
+     * 
+     * @param[in] to The connected edge
+     * @param[in] from The edge that connects the first one
+     */
+    void add(const MSEdge * const to, const MSEdge * const from) throw();
+
+
+    /** @brief Returns the list of edges that yield in the given
+     *
+     * @param[in] toEdge The list asked for
+     * @return List of edges which yield in the given
+     */
+    const std::vector<const MSEdge * const> &getInFrontOfEdge(const MSEdge &toEdge) const throw();
+
+
+    /** @brief Returns whether the given edge has any incoming edge
+     *
+     * @param[in] toEdge The edge to examine
+     * @return Whether any edge yields in the given
+     */
+    bool hasFurther(const MSEdge &toEdge) const throw();
 
 private:
-    std::map<MSEdge*, std::vector<MSEdge*> > myContinuations;
+    /// @brief Internal container that stores for each edge the list of edges that connect it
+    std::map<const MSEdge * const, std::vector<const MSEdge * const> > myContinuations;
+
+
 };
 
 
