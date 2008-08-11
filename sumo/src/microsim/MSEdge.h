@@ -128,6 +128,7 @@ public:
         MSLane* departLane, LaneCont* lanes,
         EdgeBasicFunction function, OutputDevice *lcOutput) throw();
 
+    /// @todo Has to be called after all edges were built and all connections were set...; Still, is not very nice
     void closeBuilding();
 
     /** @brief Get the allowed lanes to reach the destination-edge.
@@ -235,7 +236,7 @@ public:
      * @return The number of following edges
      */
     unsigned int getNoFollowing() const throw() {
-        return (unsigned int) myAllowed->size();
+        return (unsigned int) myAllowed.size();
     }
 
     /** @brief Returns the n-th of the following edges
@@ -450,13 +451,13 @@ protected:
     /// @name Storages for allowed lanes (depending on vehicle classes)
     /// @{
 
-    /** @brief Associative container from destination-edge to allowed-lanes. */
-    AllowedLanesCont* myAllowed;
+    /// @brief Associative container from destination-edge to allowed-lanes.
+    AllowedLanesCont myAllowed;
 
-    /** @brief From vehicle class to lanes allowed to be used by it */
+    /// @brief From vehicle class to lanes allowed to be used by it
     ClassedAllowedLanesCont myClassedAllowed;
 
-    /** @brief From vehicle class to lanes that may not be used by it */
+    /// @brief From vehicle class to lanes that may not be used by it
     ClassedAllowedLanesCont myClassedNotAllowed;
 
     /// @brief Whether any class constraints exist for this edge
