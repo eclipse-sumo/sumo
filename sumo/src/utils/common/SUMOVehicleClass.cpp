@@ -69,7 +69,7 @@ std::string sSVC_PEDESTRIAN("pedestrian");
 // method definitions
 // ===========================================================================
 std::string
-getVehicleClassName(SUMOVehicleClass id)
+getVehicleClassName(SUMOVehicleClass id) throw()
 {
     std::string ret;
     if ((id&SVC_PRIVATE)!=0) {
@@ -140,7 +140,7 @@ getVehicleClassName(SUMOVehicleClass id)
 
 
 SUMOVehicleClass
-getVehicleClassID(const std::string &name)
+getVehicleClassID(const std::string &name) throw()
 {
     SUMOVehicleClass ret = SVC_UNKNOWN;
     if (name.find(sSVC_PRIVATE)!=string::npos) {

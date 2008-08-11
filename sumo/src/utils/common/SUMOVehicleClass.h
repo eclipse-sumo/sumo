@@ -112,8 +112,8 @@ enum SUMOVehicleClass {
 // ===========================================================================
 // method declarations
 // ===========================================================================
-extern std::string getVehicleClassName(SUMOVehicleClass id);
-extern SUMOVehicleClass getVehicleClassID(const std::string &name);
+extern std::string getVehicleClassName(SUMOVehicleClass id) throw();
+extern SUMOVehicleClass getVehicleClassID(const std::string &name) throw();
 
 
 // ===========================================================================
