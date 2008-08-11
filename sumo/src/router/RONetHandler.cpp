@@ -256,7 +256,7 @@ RONetHandler::parseJunction(const SUMOSAXAttributes &attrs)
 
 
 void
-RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs)
+RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     string id = attrs.getString(SUMO_ATTR_EDGE);
     myCurrentEdge = myNet.getEdge(id);
