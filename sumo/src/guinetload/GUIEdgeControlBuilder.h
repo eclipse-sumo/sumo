@@ -58,6 +58,7 @@ class GUIEdgeControlBuilder : public NLEdgeControlBuilder
 {
 public:
     /** @brief Constructor
+     *
      * @param[in] glObjectIDStorage Storage of gl-ids used to assign new ids to built edges
      */
     GUIEdgeControlBuilder(GUIGlObjectStorage &glObjectIDStorage) throw();
