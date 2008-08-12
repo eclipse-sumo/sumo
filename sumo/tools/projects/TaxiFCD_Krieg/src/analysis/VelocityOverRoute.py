@@ -30,7 +30,7 @@ def main():
     global taxis, edgeDict 
     
     #decide if you want to save charts for every taxi or show a single one 
-    all=False; 
+    all=True; 
     taxiId="332_4"
     
     #load data
@@ -62,7 +62,7 @@ def plotAllTaxis():
             print "**",
             lastProz=actProz
         plotIt(taxis[i].id)
-        savefig("D:/Krieg/Projekte/Diplom/Daten/auswertung/Geschwindigkeitsganglinie/ZeitproKante/taxi_"+str(taxis[i].id)+".png", format="png")
+        savefig(path.vOverRouteDir+"taxi_"+str(taxis[i].id)+".png", format="png")
         close() #close the figure
            
 def fetchData(taxiId):    

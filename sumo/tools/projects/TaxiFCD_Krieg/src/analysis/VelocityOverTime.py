@@ -29,7 +29,7 @@ def main():
     edgeDict=load(open(path.edgeLengthDict,'r'))
     taxis=reader.readAnalysisInfo()
     plotAllTaxis()
-    # plotIt(taxiId)
+    #plotIt(taxiId)
     #reader.readEdgesLength()
     print "end"
 
@@ -49,7 +49,7 @@ def plotAllTaxis():
             print "**",
             lastProz=actProz
         plotIt(taxis[i].id) 
-        savefig("D:/Krieg/Projekte/Diplom/Daten/auswertung/GeschwindigkeitUeberRoute/taxi_"+str(taxis[i].id)+".png", format="png")
+        savefig(path.vOverTimeDir+"taxi_"+str(taxis[i].id)+".png", format="png")
         close() #close the figure
            
 def fetchData(taxiId):    

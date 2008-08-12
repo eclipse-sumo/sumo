@@ -135,8 +135,8 @@ def clacAvg():
        try:    
            dur=getTimeDiff(taxi.getSteps())
            durationList.append(dur)
-           if dur >10000:
-               print taxi
+           if dur >=1479:
+               print "maxtaxi", taxi
        except TypeError, e:
             print "Error by taxi %s : %s"  %(taxi.id,e.message) 
    print "no",len(durationList)

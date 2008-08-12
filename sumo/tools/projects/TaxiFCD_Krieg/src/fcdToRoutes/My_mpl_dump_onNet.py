@@ -181,12 +181,10 @@ class NetReader(handler.ContentHandler):
            # save shape
            edge2plotLines[edge] = (xs, ys)
            # compute color
-           if edge in values2:
-               
-               
+           if edge in values2: 
                c = values2[edge]
            else:
-               c = 0
+               c = 0               
            edge2plotColors[edge] = toColor(c, colorMap)
            # compute width
            if edge in values1:
@@ -227,7 +225,8 @@ class NetReader(handler.ContentHandler):
            ylim(yb, ye)
         else:
            ylim(ymin, ymax)
-
+        #legend
+        #legend(('green','red'))
         if options.show:
            show()
         if saveName:

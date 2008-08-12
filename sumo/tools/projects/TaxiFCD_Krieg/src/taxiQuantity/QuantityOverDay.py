@@ -17,7 +17,7 @@ import util.Path as path
 
 
 #global vars
-intervalDelta=datetime.timedelta(minutes=15)
+intervalDelta=datetime.timedelta(minutes=60)
 intervalDate=datetime.datetime( 2007, 7, 18,0,0 )
 format="%Y-%m-%d %H:%M:%S" 
 barList={}
@@ -42,9 +42,9 @@ def main():
     ax.xaxis.set_major_formatter(DateFormatter("%H:%M"))
     ax.xaxis.set_minor_locator(MinuteLocator())
     ax.grid(True)
-    xlabel('time')
-    ylabel('quantity')
-    title('Taxi quantity of a day')
+    xlabel('Zeit (s)')
+    ylabel('Quantit'+u'\u00E4'+'t')
+    title('Menge der Taxis im VLS-Gebiet')
     ax.autoscale_view()
     
     #shows the text of the x-axis in a way that it looks nice

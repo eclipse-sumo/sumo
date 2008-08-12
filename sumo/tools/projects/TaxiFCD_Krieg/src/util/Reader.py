@@ -13,10 +13,11 @@ All rights reserved
 import util.Path as path
 from analysis.Taxi import * 
 from cPickle import dump
+from cPickle import load
+from os.path import exists
 
 def readVLS_Edges():    
-    """Reads the net file and returns a list of all edges.""" 
-               
+    """Reads the net file and returns a list of all edges."""                
     inputFile=open(path.net,'r')
     for line in inputFile:
         if line.find(" <edges")!=-1:
@@ -26,11 +27,33 @@ def readVLS_Edges():
     inputFile.close()
     return words
 
-def readAnalysisInfo():
+
+def readRoute_Edges(buildNew=False):
+    """Reads the route file of the 'normal' traffic. 
+       Goal is to fetch all edges of the net where traffic was generated."""
+    edgesSet=set()
+    if not exists(path.drivenEdges) or buildNew:
+        inputFile=open(path.normalTrafficRoutes,'r')
+        for line in inputFile:
+            if line.find("<route>")!=-1:                             
+                words=line[line.find(">")+1:line.find("</")].split(" ") 
+                #add edges to set but ignore the first and the last edge
+                edgesSet=edgesSet|set(words[1:-1]) 
+        inputFile.close()
+        dump(edgesSet, open(path.drivenEdges,'w')) 
+    else:
+        edgesSet=load(open(path.drivenEdges,'r'))
+    return edgesSet
+
+
+def readAnalysisInfo(WEE=False):
     """Reads the analysis file and returns a list off taxis with all available information."""
     taxiList=[]
-    i=-1
-    inputFile=open(path.analysis,'r')
+    i=-1    
+    if WEE:        
+        inputFile=open(path.analysisWEE,'r')
+    else:
+        inputFile=open(path.analysis,'r')
     for line in inputFile:
         words=line.split('"')
         if words[0]=='\t<vehicle id=':            
