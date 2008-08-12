@@ -33,12 +33,10 @@
 #include <iostream>
 #include <fstream>
 #include <set>
-#include <guisim/GUILaneWrapper.h>
 #include <gui/GUIApplicationWindow.h>
 #include <utils/gui/windows/GUIAppEnum.h>
 #include <gui/GUIGlobals.h>
 #include <utils/gui/globjects/GUIGlObject.h>
-#include <guisim/GUINet.h>
 #include <utils/foxtools/MFXUtils.h>
 #include <utils/common/ToString.h>
 #include <utils/common/TplConvert.h>
@@ -219,7 +217,7 @@ long
 GUIDialog_Breakpoints::onCmdSave(FXObject*,FXSelector,void*)
 {
     FXString file = MFXUtils::getFilename2Write(this, "Save Breakpoints", ".txt", GUIIconSubSys::getIcon(ICON_EMPTY), gCurrentFolder);
-    if (file=="") {
+    if(file=="") {
         return 1;
     }
     string content = encode2TXT();
