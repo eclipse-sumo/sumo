@@ -66,7 +66,10 @@ void
 ROJTREdge::addFollower(ROEdge *s) throw()
 {
     ROEdge::addFollower(s);
-    myFollowingDefs[static_cast<ROJTREdge*>(s)] = new FloatValueTimeLine();
+    ROJTREdge *js = static_cast<ROJTREdge*>(s);
+    if(myFollowingDefs.find(js)==myFollowingDefs.end()) {
+        myFollowingDefs[js] = new FloatValueTimeLine();
+    }
 }
 
 
