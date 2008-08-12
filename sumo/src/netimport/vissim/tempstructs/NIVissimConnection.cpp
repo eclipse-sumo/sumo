@@ -395,8 +395,8 @@ NIVissimConnection::dict_buildNBEdgeConnections(NBEdgeCont &ec)
             for (IntVector::const_iterator k=toLanes.begin(); k!=toLanes.end(); k++) {
 
                 if (!fromEdge->addLane2LaneConnection((*j), toEdge, (*k), false)) {
-                    throw ProcessError("Could not set connection!!!");
-
+                    MsgHandler::getWarningInstance()->inform("Could not set connection between '" + fromEdge->getID() + "_" + toString(*j) + " and " + toEdge->getID() + "_" + toString(*k) + ".");
+//                    throw ProcessError("Could not set connection!!!");
                 }
             }
         }

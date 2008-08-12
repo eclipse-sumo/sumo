@@ -267,6 +267,10 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
 
         NBEdge *e = ec.retrievePossiblySplitted(
                         toString<int>(myEdge.getEdgeID()), myEdge.getPosition());
+        if(e==0) {
+            WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' - it was not built.");
+            return false;
+        }
         string nid1 = e->getID() + "[0]";
         string nid2 = e->getID() + "[1]";
         if (e->getFromNode()==e->getToNode()) {

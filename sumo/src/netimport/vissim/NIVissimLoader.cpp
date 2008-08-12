@@ -332,6 +332,23 @@ NIVissimLoader::NIVissimLoader(NBNetBuilder &nb, const std::string &file)
 
 NIVissimLoader::~NIVissimLoader()
 {
+    NIVissimAbstractEdge::clearDict();
+    NIVissimClosures::clearDict();
+    NIVissimDistrictConnection::clearDict();
+    NIVissimDisturbance::clearDict();
+    NIVissimNodeCluster::clearDict();
+    NIVissimNodeDef::clearDict();
+    NIVissimSource::clearDict();
+    NIVissimTL::clearDict();
+    NIVissimTL::NIVissimTLSignal::clearDict();
+    NIVissimTL::NIVissimTLSignalGroup::clearDict();
+    NIVissimTrafficDescription::clearDict();
+    NIVissimVehTypeClass::clearDict();
+    NIVissimVehicleType::clearDict();
+    NIVissimConnectionCluster::clearDict();
+    NIVissimEdge::clearDict();
+    NIVissimAbstractEdge::clearDict();
+    NIVissimConnection::clearDict();
     for (ToParserMap::iterator i=myParsers.begin(); i!=myParsers.end(); i++) {
         delete(*i).second;
     }
@@ -382,6 +399,7 @@ NIVissimLoader::readContents(istream &strm)
         myLastSecure = "";
         ToElemIDMap::iterator i=myKnownElements.find(
                                     StringUtils::to_lower_case(tag));
+//        cout << tag << endl;
         if (i==myKnownElements.end()) {
             continue;
         }
@@ -451,20 +469,6 @@ NIVissimLoader::postLoadBuild(SUMOReal offset)
     NIVissimTL::dict_SetSignals(myNetBuilder.getTLLogicCont(),
                                 myNetBuilder.getEdgeCont());
 
-    NIVissimAbstractEdge::clearDict();
-    NIVissimClosures::clearDict();
-    NIVissimDistrictConnection::clearDict();
-    NIVissimDisturbance::clearDict();
-    NIVissimNodeCluster::clearDict();
-    NIVissimNodeDef::clearDict();
-    NIVissimSource::clearDict();
-    NIVissimTL::clearDict();
-    NIVissimTL::NIVissimTLSignal::clearDict();
-    NIVissimTL::NIVissimTLSignalGroup::clearDict();
-    NIVissimTrafficDescription::clearDict();
-    NIVissimVehTypeClass::clearDict();
-    NIVissimVehicleType::clearDict();
-    NIVissimConnectionCluster::clearDict();
 }
 
 

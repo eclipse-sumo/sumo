@@ -545,7 +545,7 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const
     std::vector<string> names;
     names.push_back(id + "[1]");
     names.push_back(id + "[0]");
-    while (true) {
+    while (names.size()>0) {
         // retrieve the first subelement (to follow)
         string cid = names[names.size()-1];
         names.pop_back();

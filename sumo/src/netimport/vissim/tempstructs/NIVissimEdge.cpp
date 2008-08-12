@@ -663,6 +663,11 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     avgSpeed /= (SUMOReal) myLaneSpeeds.size();
     avgSpeed *= OptionsCont::getOptions().getFloat("vissim.speed-norm");
 
+    if(fromNode==toNode) {
+        // !!!!
+        return;
+    }
+
     NBEdge *buildEdge = new NBEdge(
         toString<int>(myID), fromNode, toNode, myType,
         avgSpeed/(SUMOReal) 3.6, myNoLanes, -1, myGeom,
