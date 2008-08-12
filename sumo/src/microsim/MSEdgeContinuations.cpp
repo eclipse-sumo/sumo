@@ -55,16 +55,16 @@ MSEdgeContinuations::~MSEdgeContinuations() throw()
 
 
 void
-MSEdgeContinuations::add(const MSEdge *const to, const MSEdge *const from) throw()
+MSEdgeContinuations::add(const MSEdge *to, const MSEdge *from) throw()
 {
     if (myContinuations.find(to)==myContinuations.end()) {
-        myContinuations[to] = vector<const MSEdge *const>();
+        myContinuations[to] = vector<const MSEdge *>();
     }
     myContinuations[to].push_back(from);
 }
 
 
-const std::vector<const MSEdge *const> &
+const std::vector<const MSEdge *> &
 MSEdgeContinuations::getInFrontOfEdge(const MSEdge &toEdge) const throw()
 {
     return myContinuations.find(static_cast<MSEdge*>(& ((MSEdge&) toEdge)))->second;

@@ -186,11 +186,10 @@ MS_E2_ZS_CollectorOverLanes::getLanePredeccessorLanes(MSLane *l,
         return std::vector<MSLane*>();
     }
     // get predecessing edges
-    const std::vector<const MSEdge *const> &predEdges =
-        edgeContinuations.getInFrontOfEdge(*l->getEdge());
+    const std::vector<const MSEdge *> &predEdges = edgeContinuations.getInFrontOfEdge(*l->getEdge());
     std::vector<MSLane*> ret;
     // find predecessing lanes
-    std::vector<const MSEdge *const>::const_iterator i=predEdges.begin();
+    std::vector<const MSEdge *>::const_iterator i=predEdges.begin();
     for (; i!=predEdges.end(); ++i) {
         const MSEdge *const e = *i;
         assert(e!=0);

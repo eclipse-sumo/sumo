@@ -71,7 +71,7 @@ public:
      * @param[in] toEdge The list asked for
      * @return List of edges which yield in the given
      */
-    const std::vector<const MSEdge * const> &getInFrontOfEdge(const MSEdge &toEdge) const throw();
+    const std::vector<const MSEdge *> &getInFrontOfEdge(const MSEdge &toEdge) const throw();
 
 
     /** @brief Returns whether the given edge has any incoming edge
@@ -83,7 +83,7 @@ public:
 
 private:
     /// @brief Internal container that stores for each edge the list of edges that connect it
-    std::map<const MSEdge * const, std::vector<const MSEdge * const> > myContinuations;
+    std::map<const MSEdge *, std::vector<const MSEdge *> > myContinuations;
 
 
 };
