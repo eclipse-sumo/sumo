@@ -540,6 +540,13 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const
     if (edge!=0) {
         return edge;
     }
+    size_t maxLength = 0;
+    string tid = id + "[";
+    for(EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
+        if((*i).first.find(tid)==0) {
+            maxLength = MAX2(maxLength, (*i).first.length());
+        }
+    }
     // find the part of the edge which matches the position
     SUMOReal seen = 0;
     std::vector<string> names;
@@ -553,8 +560,10 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const
         // The edge was splitted; check its subparts within the
         //  next step
         if (edge==0) {
-            names.push_back(cid + "[1]");
-            names.push_back(cid + "[0]");
+            if(cid.length()+3<maxLength) {
+                names.push_back(cid + "[1]");
+                names.push_back(cid + "[0]");
+            }
         }
         // an edge with the name was found,
         //  check whether the position lies within it

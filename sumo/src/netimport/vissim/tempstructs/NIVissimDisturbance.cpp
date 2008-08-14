@@ -215,10 +215,14 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
         // The connection will be prohibitesd by all connections
         //  outgoing from the "real" edge
 
-        NBEdge *e = ec.retrievePossiblySplitted(
-                        toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
+        NBEdge *e = ec.retrievePossiblySplitted(toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
+        if(e==0) {
+            WRITE_WARNING("Could not prohibit '"+ toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID())+ "'. Have not found disturbance.");
+            refusedProhibits++;
+            return false;
+        }
         if (e->getFromNode()==e->getToNode()) {
-            WRITE_WARNING("Could not prohibit '"+ toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID())+ "'.");
+            WRITE_WARNING("Could not prohibit '"+ toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID())+ "'. Disturbance connects same node.");
             refusedProhibits++;
             // What to do with dummy edges?
             return false;

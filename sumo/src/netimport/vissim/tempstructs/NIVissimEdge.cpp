@@ -664,7 +664,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     avgSpeed *= OptionsCont::getOptions().getFloat("vissim.speed-norm");
 
     if(fromNode==toNode) {
-        // !!!!
+        MsgHandler::getWarningInstance()->inform("Could not build edge '" + toString(myID) + "'; would connect same node.");
         return;
     }
 
