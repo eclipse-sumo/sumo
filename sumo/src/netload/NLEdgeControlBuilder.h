@@ -102,9 +102,6 @@ public:
         const std::string &vclasses);
 
 
-    /// closes (ends) the addition of lanes to the current edge
-    void closeLanes();
-
     /** @brief Closes the building of an edge;
         The edge is completely described by now and may not be opened again */
     virtual MSEdge *closeEdge();
@@ -152,9 +149,6 @@ protected:
 
     /// @brief pointer to a temporary lane storage
     MSEdge::LaneCont          *m_pLaneStorage;
-
-    /// @brief list of the lanes that belong to the current edge
-    MSEdge::LaneCont          *m_pLanes;
 
     /// pointer to the depart lane
     MSLane                    *m_pDepartLane;

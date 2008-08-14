@@ -62,7 +62,6 @@ NLEdgeControlBuilder::NLEdgeControlBuilder()
 {
     myActiveEdge = (MSEdge*) 0;
     m_pLaneStorage = new MSEdge::LaneCont();
-    m_pLanes = (MSEdge::LaneCont*) 0;
     m_pDepartLane = (MSLane*) 0;
     m_iNoSingle = m_iNoMulti = 0;
     if(OptionsCont::getOptions().isSet("lanechange-output")) {
@@ -77,7 +76,6 @@ NLEdgeControlBuilder::NLEdgeControlBuilder()
 NLEdgeControlBuilder::~NLEdgeControlBuilder()
 {
     delete m_pLaneStorage;
-    delete m_pLanes;
 }
 
 
@@ -136,31 +134,20 @@ NLEdgeControlBuilder::addLane(const std::string &id,
 }
 
 
-void
-NLEdgeControlBuilder::closeLanes()
+MSEdge *
+NLEdgeControlBuilder::closeEdge()
 {
-    m_pLanes = new MSEdge::LaneCont();
-    m_pLanes->reserve(m_pLaneStorage->size());
-    copy(m_pLaneStorage->begin(), m_pLaneStorage->end(),
-         back_inserter(*m_pLanes));
+    MSEdge::LaneCont *lanes = new MSEdge::LaneCont();
+    lanes->reserve(m_pLaneStorage->size());
+    copy(m_pLaneStorage->begin(), m_pLaneStorage->end(), back_inserter(*lanes));
     if (m_pLaneStorage->size()==1) {
         m_iNoSingle++;
     } else {
         m_iNoMulti++;
     }
     m_pLaneStorage->clear();
-}
-
-
-MSEdge *
-NLEdgeControlBuilder::closeEdge()
-{
-    if (m_pLanes==0) {
-        throw InvalidArgument("Something is corrupt within the definition of lanes for the edge '" + myActiveEdge->getID() + "'.");
-    }
     myActiveEdge->initialize(m_pDepartLane,
-                             m_pLanes, m_Function, myEdgesLaneChangeOutputDevice);
-    m_pLanes = 0;
+                             lanes, m_Function, myEdgesLaneChangeOutputDevice);
     return myActiveEdge;
 }
 

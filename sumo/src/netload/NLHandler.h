@@ -198,9 +198,6 @@ protected:
     /// Closes the process of building a lane
     virtual void closeLane();
 
-    /// Closes the process of building lanes of an edge
-    virtual void closeLanes();
-
 
 protected:
     /// The net to fill (preinitialised)

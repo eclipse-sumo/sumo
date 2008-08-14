@@ -266,9 +266,6 @@ NLHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
     case SUMO_TAG_EDGE:
         closeEdge();
         break;
-    case SUMO_TAG_LANES:
-        closeLanes();
-        break;
     case SUMO_TAG_LANE:
         closeLane();
         break;
@@ -377,14 +374,6 @@ NLHandler::closeEdge()
     } catch (InvalidArgument &e) {
         MsgHandler::getErrorInstance()->inform(e.what());
     }
-}
-
-
-//       ---- the root/edge/lanes - element
-void
-NLHandler::closeLanes()
-{
-    myEdgeControlBuilder.closeLanes();
 }
 
 
