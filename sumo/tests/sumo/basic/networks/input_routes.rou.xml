@@ -1,0 +1,4 @@
+<routes>
+   <vtype id="1" accel="2.6" decel="4.5" sigma="0" length="5" maxspeed="70" color="1,1,0"/>
+   <vehicle id="0" type="1" depart="0" color="-1,-1,-1"><route>beg middle end</route></vehicle>
+</routes>

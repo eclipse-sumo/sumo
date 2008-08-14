@@ -10,3 +10,6 @@ vtypes
 
 # tests whether vehicles move properly
 dynamics
+
+# tests whether loading networks works
+networks
