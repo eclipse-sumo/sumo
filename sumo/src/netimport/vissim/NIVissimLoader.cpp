@@ -91,6 +91,7 @@
 #include "typeloader/NIVissimSingleTypeParser__XVerteilungsdefinition.h"
 #include "typeloader/NIVissimSingleTypeParser__XKurvedefinition.h"
 #include "typeloader/NIVissimSingleTypeParser_Kantensperrung.h"
+#include "typeloader/NIVissimSingleTypeParser_Rautedefinition.h"
 
 
 #include "tempstructs/NIVissimTL.h"
@@ -397,18 +398,32 @@ NIVissimLoader::readContents(istream &strm)
             strm >> tag;
         }
         myLastSecure = "";
-        ToElemIDMap::iterator i=myKnownElements.find(
-                                    StringUtils::to_lower_case(tag));
-//        cout << tag << endl;
-        if (i==myKnownElements.end()) {
-            continue;
+        bool parsed = false;
+        while (!parsed&&strm.good()&&ok) {
+            ToElemIDMap::iterator i=myKnownElements.find(StringUtils::to_lower_case(tag));
+            if (i!=myKnownElements.end()) {
+                ToParserMap::iterator j=myParsers.find((*i).second);
+                if (j!=myParsers.end()) {
+                    VissimSingleTypeParser *parser = (*j).second;
+                    ok = parser->parse(strm);
+                    parsed = true;
+                }
+            }
+            if(!parsed) {
+                cout << "skipping " << tag << endl;
+                string line;
+                size_t pos;
+                do {
+                    pos = strm.tellg();
+                    getline(strm, line);
+                } while(strm.good()&&(line==""||line[0]==' '||line[0]=='-'));
+                if(!strm.good()) {
+                    return true;
+                }
+                    strm.seekg(pos);
+                    strm >> tag;
+            }
         }
-        ToParserMap::iterator j=myParsers.find((*i).second);
-        if (j==myParsers.end()) {
-            continue;
-        }
-        VissimSingleTypeParser *parser = (*j).second;
-        ok = parser->parse(strm);
     }
     return ok;
 }
@@ -528,6 +543,7 @@ NIVissimLoader::insertKnownElements()
     myKnownElements["teapac"] = VE_TEAPACdefinition;
     myKnownElements["netzobjekt"] = VE_Netzobjektdefinition;
     myKnownElements["richtungspfeil"] = VE_Richtungspfeildefinition;
+    myKnownElements["raute"] = VE_Rautedefinition;
     myKnownElements["fahrverhalten"] = VE_Fahrverhaltendefinition;
     myKnownElements["fahrtverlaufdateien"] = VE_Fahrtverlaufdateien;
     myKnownElements["emission"] = VE_Emission;
@@ -605,6 +621,8 @@ NIVissimLoader::buildParsers()
         new NIVissimSingleTypeParser_Verlustzeitmessungsdefinition(*this);
     myParsers[VE_Stauzaehlerdefinition] =
         new NIVissimSingleTypeParser_Stauzaehlerdefinition(*this);
+    myParsers[VE_Rautedefinition] =
+        new NIVissimSingleTypeParser_Rautedefinition(*this);
     myParsers[VE_Richtungspfeildefinition] =
         new NIVissimSingleTypeParser_Richtungspfeildefinition(*this);
     myParsers[VE_Parkplatzdefinition] =

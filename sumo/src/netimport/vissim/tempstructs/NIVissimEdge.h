@@ -97,7 +97,7 @@ public:
     void removeFromConnectionCluster(NIVissimConnectionCluster *c);
     void addToConnectionCluster(NIVissimConnectionCluster *c);
     void setSpeed(size_t lane, int speedDist);
-    void addToTreatAsSame(NIVissimEdge *e);
+    bool addToTreatAsSame(NIVissimEdge *e);
 
     NIVissimConnection* getConnectionTo(NIVissimEdge *e);
     const std::vector<NIVissimEdge*> &getToTreatAsSame() const;

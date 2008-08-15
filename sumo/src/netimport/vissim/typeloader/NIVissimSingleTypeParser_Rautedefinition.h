@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    NIVissimSingleTypeParser_Liniendefinition.cpp
+/// @file    NIVissimSingleTypeParser_Rautedefinition.h
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 18 Dec 2002
-/// @version $Id$
+/// @version $Id: NIVissimSingleTypeParser_Rautedefinition.h 4389 2007-08-28 10:21:00Z behrisch $
 ///
 //
 /****************************************************************************/
@@ -17,6 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
+#ifndef NIVissimSingleTypeParser_Rautedefinition_h
+#define NIVissimSingleTypeParser_Rautedefinition_h
 
 
 // ===========================================================================
@@ -29,47 +31,33 @@
 #endif
 
 #include <iostream>
-#include <utils/common/TplConvert.h>
 #include "../NIVissimLoader.h"
-#include "../tempstructs/NIVissimClosures.h"
-#include "NIVissimSingleTypeParser_Liniendefinition.h"
-
-#ifdef CHECK_MEMORY_LEAKS
-#include <foreign/nvwa/debug_new.h>
-#endif // CHECK_MEMORY_LEAKS
 
 
 // ===========================================================================
-// used namespaces
+// class definitions
 // ===========================================================================
-using namespace std;
-
-
-// ===========================================================================
-// method definitions
-// ===========================================================================
-NIVissimSingleTypeParser_Liniendefinition::NIVissimSingleTypeParser_Liniendefinition(NIVissimLoader &parent)
-        : NIVissimLoader::VissimSingleTypeParser(parent)
-{}
-
-
-NIVissimSingleTypeParser_Liniendefinition::~NIVissimSingleTypeParser_Liniendefinition()
-{}
-
-
-bool
-NIVissimSingleTypeParser_Liniendefinition::parse(std::istream &from)
+/**
+ * @class NIVissimSingleTypeParser_Rautedefinition
+ *
+ */
+class NIVissimSingleTypeParser_Rautedefinition :
+            public NIVissimLoader::VissimSingleTypeParser
 {
-    string tag;
-    from >> tag;
-    //cout << tag << endl;
-    do {
-        getline(from, tag);
-    } while(tag.length()>0&&tag[0]==' ');
-    return true;
-}
+public:
+    /// Constructor
+    NIVissimSingleTypeParser_Rautedefinition(NIVissimLoader &parent);
+
+    /// Destructor
+    ~NIVissimSingleTypeParser_Rautedefinition();
+
+    /// Parses the data type from the given stream
+    bool parse(std::istream &from);
+
+};
 
 
+#endif
 
 /****************************************************************************/
 

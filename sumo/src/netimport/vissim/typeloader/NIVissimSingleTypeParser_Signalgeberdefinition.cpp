@@ -94,6 +94,10 @@ NIVissimSingleTypeParser_Signalgeberdefinition::parse(std::istream &from)
         WRITE_WARNING("Omitting unknown traffic light.");
         return true;
     }
+    if(tag=="typ") {
+        from >> tag; // typ-value
+        from >> tag; // "ort"
+    }
 
     //
     from >> tag;

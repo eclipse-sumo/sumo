@@ -56,6 +56,8 @@ NIVissimSingleTypeParser_Querschnittsmessungsdefinition.cpp \
 NIVissimSingleTypeParser_Querschnittsmessungsdefinition.h \
 NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition.cpp \
 NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition.h \
+NIVissimSingleTypeParser_Rautedefinition.cpp \
+NIVissimSingleTypeParser_Rautedefinition.h \
 NIVissimSingleTypeParser_Reisezeitmessungsdefinition.cpp \
 NIVissimSingleTypeParser_Reisezeitmessungsdefinition.h \
 NIVissimSingleTypeParser_Richtungsentscheidungsdefinition.cpp \

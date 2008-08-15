@@ -110,8 +110,8 @@ NIVissimSingleTypeParser_Signalgruppendefinition::parse(std::istream &from)
     if (type=="pos") {
         return parsePOS(id, name, lsaid, from);
     }
-    MsgHandler::getErrorInstance()->inform("Unsupported LSA-Type '" + type + "' occured.");
-    return false;
+    MsgHandler::getWarningInstance()->inform("Unsupported LSA-Type '" + type + "' occured.");
+    return true;
 }
 
 

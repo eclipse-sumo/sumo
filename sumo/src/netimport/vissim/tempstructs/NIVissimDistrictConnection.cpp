@@ -228,11 +228,12 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
             // get the edge to connect the parking place to
             NBEdge *e = ec.retrieve(toString<int>(c->myEdgeID));
             if (e==0) {
-                e = ec.retrievePossiblySplitted(
-                        toString<int>(c->myEdgeID),
-                        c->myPosition);
+                e = ec.retrievePossiblySplitted(toString<int>(c->myEdgeID), c->myPosition);
             }
-            assert(e!=0);
+            if(e==0) {
+                MsgHandler::getWarningInstance()->inform("Could not build district '" + toString<int>((*k).first) + "' - edge '" + toString<int>(c->myEdgeID) + "' is missing.");
+                continue;
+            }
             string id = "ParkingPlace" + toString<int>(*l);
             NBNode *parkingPlace = nc.retrieve(id);
             if (parkingPlace==0) {

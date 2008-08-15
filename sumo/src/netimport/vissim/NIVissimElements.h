@@ -85,6 +85,7 @@ enum NIVissimElement {
     VE_TEAPACdefinition,
     VE_Netzobjektdefinition,
     VE_Richtungspfeildefinition,
+    VE_Rautedefinition,
     VE_Fahrverhaltendefinition,
     VE_Fahrtverlaufdateien,
     VE_Emission,

@@ -51,7 +51,6 @@ class NBLoadedTLDef;
 class NBEdgeCont;
 
 class NIVissimTL
-            /*  : public NIVissimBoundedClusterObject */
 {
 public:
     NIVissimTL(int id, const std::string &type, const std::string &name,

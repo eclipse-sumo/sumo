@@ -39,7 +39,6 @@
 
 
 class NIVissimNodeDef
-            /*        : public NIVissimBoundedClusterObject*/
 {
 public:
     NIVissimNodeDef(int id, const std::string &name);

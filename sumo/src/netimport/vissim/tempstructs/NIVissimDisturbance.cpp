@@ -57,7 +57,7 @@
 using namespace std;
 
 NIVissimDisturbance::DictType NIVissimDisturbance::myDict;
-int NIVissimDisturbance::myRunningID = 0;
+int NIVissimDisturbance::myRunningID = 100000000;
 
 int NIVissimDisturbance::refusedProhibits = 0;
 
@@ -85,20 +85,13 @@ NIVissimDisturbance::dictionary(int id,
                                 const NIVissimExtendedEdgePoint &by,
                                 SUMOReal timegap, SUMOReal waygap, SUMOReal vmax)
 {
-    int nid = id;
-    if (id<0) {
-        nid = myRunningID++;
+    int nid = myRunningID++;
+    NIVissimDisturbance *o =
+        new NIVissimDisturbance(nid, name, edge, by, timegap, waygap, vmax);
+    if (!dictionary(nid, o)) {
+        delete o;
     }
-    while (true) {
-        NIVissimDisturbance *o =
-            new NIVissimDisturbance(nid, name, edge, by, timegap, waygap, vmax);
-        if (!dictionary(nid, o)) {
-            delete o;
-            nid = myRunningID++;
-        } else {
-            return true;
-        }
-    }
+    return true;
 }
 
 
@@ -142,8 +135,12 @@ NIVissimDisturbance::computeBounding()
 {
     assert(myBoundary==0);
     Boundary *bound = new Boundary();
-    bound->add(myEdge.getGeomPosition());
-    bound->add(myDisturbance.getGeomPosition());
+    if(NIVissimAbstractEdge::dictionary(myEdge.getEdgeID())!=0) {
+        bound->add(myEdge.getGeomPosition());
+    }
+    if(NIVissimAbstractEdge::dictionary(myDisturbance.getEdgeID())!=0) {
+        bound->add(myDisturbance.getGeomPosition());
+    }
     myBoundary = bound;
     assert(myBoundary!=0&&myBoundary->xmax()>=myBoundary->xmin());
 }

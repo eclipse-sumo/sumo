@@ -79,7 +79,8 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parse(std::istream &fr
 bool
 NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parseOnlyMe(std::istream &from)
 {
-    readEndSecure(from);
+    string tag;
+    from >> tag;
     return true;
 }
 
@@ -174,9 +175,13 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream 
     string tag;
     int laneno;
     from >> tag;
-    from >> laneno; // type-checking is missing!
+    from >> tag;
     IntVector lanes;
-    lanes.push_back(laneno);
+    if(tag=="ALLE") {
+        //lanes.push_back(1); // !!!
+    } else {
+        lanes.push_back(TplConvert<char>::_2int(tag.c_str()));
+    }
     //
     SUMOReal position;
     from >> tag;

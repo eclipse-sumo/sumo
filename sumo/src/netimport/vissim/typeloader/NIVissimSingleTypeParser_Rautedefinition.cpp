@@ -1,8 +1,8 @@
 /****************************************************************************/
-/// @file    NIVissimSingleTypeParser_Stopschilddefinition.cpp
+/// @file    NIVissimSingleTypeParser_Rautedefinition.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Wed, 18 Dec 2002
-/// @version $Id$
+/// @version $Id: NIVissimSingleTypeParser_Rautedefinition.cpp 4389 2007-08-28 10:21:00Z behrisch $
 ///
 //
 /****************************************************************************/
@@ -31,7 +31,8 @@
 #include <iostream>
 #include <utils/common/TplConvert.h>
 #include "../NIVissimLoader.h"
-#include "NIVissimSingleTypeParser_Stopschilddefinition.h"
+#include "../tempstructs/NIVissimSource.h"
+#include "NIVissimSingleTypeParser_Rautedefinition.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -47,39 +48,20 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIVissimSingleTypeParser_Stopschilddefinition::NIVissimSingleTypeParser_Stopschilddefinition(NIVissimLoader &parent)
+NIVissimSingleTypeParser_Rautedefinition::NIVissimSingleTypeParser_Rautedefinition(NIVissimLoader &parent)
         : NIVissimLoader::VissimSingleTypeParser(parent)
 {}
 
 
-NIVissimSingleTypeParser_Stopschilddefinition::~NIVissimSingleTypeParser_Stopschilddefinition()
+NIVissimSingleTypeParser_Rautedefinition::~NIVissimSingleTypeParser_Rautedefinition()
 {}
 
 
 bool
-NIVissimSingleTypeParser_Stopschilddefinition::parse(std::istream &from)
+NIVissimSingleTypeParser_Rautedefinition::parse(std::istream &from)
 {
-    readUntil(from, "strecke");
-    string tag;
-    from >> tag; // edge name
-    from >> tag; // "spur"
-    from >> tag; // lane no
-    from >> tag; // "bei"
-    from >> tag; // pos
-    from >> tag;
-    if(tag=="RTOR") {
-        from >> tag; // "lsa"
-        from >> tag; // lsa id
-        from >> tag; // "gruppe"
-        from >> tag; // gruppe id
-    } else {
-        while (tag=="fahrzeugklasse") {
-            from >> tag; // class no
-            from >> tag; // "zeiten"
-            from >> tag; // times no
-            tag = readEndSecure(from, "fahrzeugklasse");
-        }
-    }
+    string t;
+    getline(from, t);
     return true;
 }
 

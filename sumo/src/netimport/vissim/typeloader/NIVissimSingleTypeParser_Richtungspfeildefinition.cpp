@@ -60,7 +60,9 @@ NIVissimSingleTypeParser_Richtungspfeildefinition::~NIVissimSingleTypeParser_Ric
 bool
 NIVissimSingleTypeParser_Richtungspfeildefinition::parse(std::istream &from)
 {
-    return skipOverreading(from, "strecke");
+    string t;
+    getline(from, t);
+    return true;
 }
 
 

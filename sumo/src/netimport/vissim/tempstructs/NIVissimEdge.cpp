@@ -1135,26 +1135,31 @@ NIVissimEdge::dict_checkEdges2Join()
 }
 
 
-void
+bool
 NIVissimEdge::addToTreatAsSame(NIVissimEdge *e)
 {
     if (e==this) {
-        return;
+        return false;
     }
     // check whether this edge already knows about the other
     if (find(myToTreatAsSame.begin(), myToTreatAsSame.end(), e)==myToTreatAsSame.end()) {
         myToTreatAsSame.push_back(e);
+        return true;
     } else {
-        return; // !!! check this
+        return false; // !!! check this
     }
     //
     std::vector<NIVissimEdge*>::iterator i;
     // add to all other that shall be treated as same
-    for (i=myToTreatAsSame.begin(); i!=myToTreatAsSame.end(); i++) {
-        (*i)->addToTreatAsSame(e);
-    }
-    for (i=myToTreatAsSame.begin(); i!=myToTreatAsSame.end(); i++) {
-        e->addToTreatAsSame(*i);
+    bool changed = true;
+    while(changed) {
+        changed = false;
+        for (i=myToTreatAsSame.begin(); !changed&&i!=myToTreatAsSame.end(); i++) {
+            changed |= (*i)->addToTreatAsSame(e);
+        }
+        for (i=myToTreatAsSame.begin(); !changed&&i!=myToTreatAsSame.end(); i++) {
+            changed |= e->addToTreatAsSame(*i);
+        }
     }
 }
 
