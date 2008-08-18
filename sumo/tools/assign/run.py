@@ -56,6 +56,8 @@ optParser.add_option("-s", "--statistics", dest="stats", type="int",
                      default=0, help="use od2trips instead of trips from incremental assignment")
 optParser.add_option("-d", "--dua-only", action="store_true", dest="duaonly",
                      default=False, help="just run dua with current routes from input")
+optParser.add_option("-m", "--mesosim", action="store_true", dest="mesosim",
+                     default=False, help="run in mesosim mode")
 (options, args) = optParser.parse_args()
 
 os.chdir("input")
@@ -84,7 +86,10 @@ if options.stats == 0:
             shutil.copy("%s/routes.rou.xml" % succDir, routes)
             execute("route2trips.py %s > ../input/successive.trips.xml" % routes)
     duaDir = makeAndChangeDir("../dua")
-    duaProcess = subprocess.Popen("dua-iterate.py -e 90000 -C -n %s -t ../input/%s.trips.xml %s" % (netFile, trips, pyAdds), shell=True)
+    duaCall = "dua-iterate.py -e 90000 -C -n %s -t ../input/%s.trips.xml %s" % (netFile, trips, pyAdds)
+    if options.mesosim:
+        duaCall = duaCall + " --mesosim"
+    duaProcess = subprocess.Popen(duaCall, shell=True)
     oneshotProcess = None
     if not options.duaonly:
         if options.od2trips:
@@ -92,10 +97,13 @@ if options.stats == 0:
                 time.sleep(1)
             shutil.copy("%s/trips_0.rou.xml" % duaDir, routes)
         shotDir = makeAndChangeDir("../oneshot")
+        shotCall = "one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds)
+        if options.mesosim:
+            shotCall = shotCall + " --mesosim"
         if ncpus > 2:
-            oneshotProcess = subprocess.Popen("one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds), shell=True)
+            oneshotProcess = subprocess.Popen(shotCall, shell=True)
         else:
-            execute("one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds))
+            execute(shotCall)
         clogDir = makeAndChangeDir("../clogit")
         execute("Assignment.py -d ../input/districts.xml -m %s -n %s %s" % (mtxNamesList, netFile, signalAdds))
         lohseDir = makeAndChangeDir("../lohse")
