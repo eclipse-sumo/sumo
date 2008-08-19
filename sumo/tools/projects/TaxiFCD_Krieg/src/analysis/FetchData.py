@@ -15,7 +15,7 @@ import profile
 import util.Path as path
 from util.CalcTime import getTimeInSecs
 from fcdToRoutes.GenerateTaxiRoutes import readFCDComplete,readSimFCDComplete,getSimTaxiId  
-from util.Reader import readRoute_Edges
+from util.Reader import readRoute_EdgesMod
 
 #global vars
 rawFcdDict={}
@@ -54,7 +54,7 @@ def arrangeData():
     print "read simFcdDict file"; simFcdDict=readSimFCDComplete(path.simFcd)
     
     if withoutEmptyEdges: 
-        print "read drivenEdges file"; drivenEdgesSet=readRoute_Edges()
+        print "read drivenEdges file"; drivenEdgesSet=readRoute_EdgesMod()
         outputFile=open(path.analysisWEE,'w')
     else: outputFile=open(path.analysis,'w')
     outputFile.write("<vehicles>\n")

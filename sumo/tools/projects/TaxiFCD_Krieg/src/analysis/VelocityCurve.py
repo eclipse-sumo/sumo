@@ -15,13 +15,13 @@ from analysis.Taxi import *
 import util.Reader  as reader
 
 #global Vars
-WEE=False #=withoutEmptyEdges decide which analysis file should be used
+WEE=True #=withoutEmptyEdges decide which analysis file should be used
 
 def main(): 
     print "start program"
         
     taxiId='154_2'
-    interval=900     
+    interval=900    
     plotCurve(interval)
     
     show()
@@ -31,25 +31,42 @@ def plotCurve(interval=10, taxiId=None):
     """plots the  velocity time-variation curve for a single taxi or averaged values of the hole day."""
     if taxiId==None:
         values, interval=getAveragedValues(interval) 
-        legendText=('FCD','simFCD','intervall: '+str(interval)+'s')
+        legendText=('reale FCD','sim. FCD','sim. FC-Rohdaten')
     else:    
         values, starttime=getDataForTaxi(taxiId) 
-        legendText=('FCD','simFCD','vtype','start: '+str(starttime))
+        legendText=('reale FCD','sim. FCD','vtype','start: '+str(starttime))
+    textsize=16   
+    
+   
+    subplot(211)
+    
+    #plot(values[0], values[1], values[0], values[2],'red',values[0], values[3],'grey')
+    plot(values[0],values[7]) #rel Error
+    #plot(values[0],values[8]) #abs Error
+    #plot(values[0], values[1], values[0], values[2],values[0], values[8]) #abs Error mit Vs
+    #plot(values[0], values[4], values[0], values[5],'red') #taxiAnz
+    
+    xticks(range(0,86400+3600,3600*2),range(0,25,2),size=textsize)
+    axis([axis()[0],86400,axis()[2],axis()[3]])
+    yticks(size=textsize)    
+    subplots_adjust(left=0.05, right=0.95, bottom=0.05, top=0.95)
+    #xlabel("t (s)", size=textsize)    
+    xlabel("\nt [h]  (Aggregationsintervall="+str(interval)+"s)", size=textsize)    
        
-    subplot(211)    
-    plot(values[0], values[1], values[0], values[2])
-    legend(legendText)   
-    title("Geschwindigkeitsganglinie")
-    xticks([])   
-    ylabel("v (km/h)")
-    subplot(212)
-    plot(values[0], values[4], values[0], values[5])
-    xlabel("t (s)")
-    ylabel("q")
-    legend(('FCD','simFCD'))
-    title("Anzahl der Fahrzeuge")
-    #set that the axis begin at 0
-    #axis([axis()[0],axis()[1],0,axis()[3]]) 
+    #ylabel("v [km/h]", size=textsize)
+    ylabel("relative Abweichung [%]", size=textsize)
+    #ylabel("absolute Abweichung [km/h]", size=textsize)
+    #ylabel("Anzahl der Fahrzeuge",size=textsize)
+    #legend(legendText) 
+    #legend(('FCD','simFCD','simFCD-FCD',))
+    #legend(('reale FCD','sim. FCD'))   
+    
+    
+    
+    
+   
+    
+    
     
    
         
@@ -79,8 +96,10 @@ def getAveragedValues(interval):
     fcdValues=[[] for i in range(0,86410,interval)]
     simFcdValues=[[] for i in range(0,86410,interval)]      
     vtypeValues=[[] for i in range(0,86410,interval)]
+    relErrorValues=[[] for i in range(0,86410,interval)]   
+    absErrorValues=[[] for i in range(0,86410,interval)]       
     fcdValuesNo=[set() for i in range(0,86410,interval)] 
-    simFcdValuesNo=[set() for i in range(0,86410,interval)]
+    simFcdValuesNo=[set() for i in range(0,86410,interval)]    
     vtypeValuesNo=[set() for i in range(0,86410,interval)] 
     taxis=reader.readAnalysisInfo(WEE) 
     
@@ -112,12 +131,23 @@ def getAveragedValues(interval):
                vtypeValuesNo[step.time/interval].add(taxi.id) 
      
     vtypeValues=calcAverageOrLen(vtypeValues)
-    fcdValues=calcAverageOrLen(fcdValues)
+    fcdValues=calcAverageOrLen(fcdValues)    
     simFcdValues=calcAverageOrLen(simFcdValues)
     vtypeValuesNo=calcAverageOrLen(vtypeValuesNo,True)
     fcdValuesNo=calcAverageOrLen(fcdValuesNo,True)
     simFcdValuesNo=calcAverageOrLen(simFcdValuesNo,True)
-    return ([timeValues, fcdValues,simFcdValues,vtypeValues, fcdValuesNo, simFcdValuesNo, vtypeValuesNo],interval)
+    
+    #calc relative Error
+    for i in range(len(fcdValues)):
+        if simFcdValues[i]==None or fcdValues[i]==None:
+           relErrorValues[i]=None
+           absErrorValues[i]=None
+        else: 
+            #(angezeigter-richtiger Wert)        
+            absErr=simFcdValues[i]-fcdValues[i]
+            relErrorValues[i]=absErr/float(fcdValues[i])*100  
+            absErrorValues[i]=absErr  
+    return ([timeValues, fcdValues,simFcdValues,vtypeValues, fcdValuesNo, simFcdValuesNo, vtypeValuesNo,relErrorValues, absErrorValues],interval)
     
         
 #start the program

@@ -10,6 +10,7 @@ Copyright (C) 2008 DLR/FS, Germany
 All rights reserved
 """
 
+
 from pylab import *
 import profile
 import util.Path as path
@@ -17,33 +18,21 @@ import util.Reader as reader
 from cPickle import load
 from analysis.Taxi import * 
 
-from matplotlib.collections import LineCollection
-from matplotlib.colors import colorConverter
-
 #global vars
-
+WEE=True #=withoutEmptyEdges decide which analysis file should be used
+taxiId="26_5"
 edgeDict={}
 taxis=[]
 
 def main(): 
     print "start program"
     global taxis, edgeDict 
-    
-    #decide if you want to save charts for every taxi or show a single one 
-    all=True; 
-    taxiId="332_4"
-    
     #load data
     edgeDict=load(open(path.edgeLengthDict,'r'))
-    taxis=reader.readAnalysisInfo()
+    taxis=reader.readAnalysisInfo(WEE)
+    plotAllTaxis()
+    #plotIt(taxiId)
     #reader.readEdgesLength()
-    
-    if all:
-        plotAllTaxis()
-    else:    
-        plotIt(taxiId)
-        show()    
-    
     print "end"
 
 def plotAllTaxis():
@@ -61,115 +50,97 @@ def plotAllTaxis():
         if actProz!=lastProz and actProz%5==0:
             print "**",
             lastProz=actProz
-        plotIt(taxis[i].id)
-        savefig(path.vOverRouteDir+"taxi_"+str(taxis[i].id)+".png", format="png")
+        if plotIt(taxis[i].id)!=-1: 
+            savefig(path.vOverRouteDir+"taxi_"+str(taxis[i].id)+".png", format="png")
         close() #close the figure
            
 def fetchData(taxiId):    
     """fetch the data for the given taxi"""      
-    route=[[],[],[],[]] #route of the taxi (edge, length, edgeSimFCD(to find doubles))
-    values=[[],[],[],[]] #x,y1,x2,y2 (position, vFCD,vSIMFCD)
+    route=[[],[],[]] #route of the taxi (edge, length, edgeSimFCD(to find doubles))
+    values=[[],[],[]] #x,y1,y2 (position, vFCD,vSIMFCD)
     actLen=0
-    x=0
-    def getTime(s,v): 
-        if v==0:
-            return 0
-        return s/(v/3.6)
-    
     for step in taxis[taxis.index(taxiId)].getSteps():        
-        if step.source==SOURCE_FCD or step.source==SOURCE_SIMFCD:
+        if step.source==SOURCE_FCD:
             routeLen=edgeDict[step.edge]
             
-            #save the simFCD infos in apart Lists
-            if step.source==SOURCE_SIMFCD and len(values[2])<=0:
-                x=2
-                actLen=0   
-                
-            if len(route[0+x])>0 and step.edge==route[0+x][-1]:
+            if len(route[0])>0 and step.edge==route[0][-1]:
                 #print step.edge
-                values[1+x][-1]=(values[1+x][-1]+step.speed)/2.0
-                values[1+x][-2]=values[1+x][-1]
+                values[1][-1]=(values[1][-1]+step.speed)/2.0
+                values[1][-2]=values[1][-1]
             else:    
                 #start point of route
-                values[0+x].append(actLen)
-                values[1+x].append(step.speed)
+                values[0].append(actLen)
+                values[1].append(step.speed)
                 
-                actLen+=getTime(routeLen,step.speed)                 
-                route[0+x].append(step.edge) #label                
-                route[1+x].append(actLen) #location
+                actLen+=routeLen                 
+                route[0].append(step.edge) #label                
+                route[1].append(actLen) #location
                 
                 #end point of route            
-                values[0+x].append(actLen)
-                values[1+x].append(step.speed)
-
+                values[0].append(actLen)
+                values[1].append(step.speed)
+        if step.source==SOURCE_SIMFCD:
+            if len(values[2])<1:
+                values[2]=[None for i in range(len(values[1]))]             
+            if step.edge in route[0]: #if edge is used in the original FCD-Route
+                #find right value index
+                index=(route[0].index(step.edge)*2)
+                    
+                if len(route[2])>0 and step.edge==route[2][-1]:
+                    values[2][index]=(values[2][index]+step.speed)/2.0 #TODO: Mittelwertbildung ist falsch überarbeiten
+                    values[2][index+1]=values[2][index]                    
+                else:                    
+                    #start point of route
+                    values[2][index]=step.speed
+                    #end point of route    
+                    values[2][index+1]=step.speed
+                    
+                    route[2].append(step.edge)                               
     return route,values
     
 
 def plotIt(taxiId):
     """draws the chart"""
-    width=12 #1200px
-    height=9 #900px
-    
-    #fetch data
+    width=12
+    height=9
     route,values=fetchData(taxiId)
     
-    #make nice labels   
-    maxRoute=max((route[1][-1]),route[3][-1])
-    minDist=(maxRoute/(width-4.5))
-    
-    def makethemNice(source=SOURCE_FCD):
-        """create labels of the x-Axis for the FCD and simFCD chart"""
-        if source==SOURCE_FCD:
-            label=0;  loc=1
-        elif source==SOURCE_SIMFCD:
-            label=2; loc=3
+    #check if a route exists for this vehicle
+    if len(route[1])<1 or len(values[1])<1 or len(values[2])<1:        
+        return -1
+        
+    #make nice labels
+    lastShown=route[1][0]     
+    minDist=(route[1][-1]/(width-4.5))
+   
+    for i in range(len(route[0])):
+        if i==0 or i==len(route[0])-1:           
+            route[0][i]=str(route[1][i])+"\n"+route[0][i]                       
+        elif route[1][i]-lastShown>minDist: #if distance between last Label location and actual location big enough                         
+            route[0][i]=str(route[1][i])+"\n"+route[0][i] 
+            lastShown=route[1][i]
         else:
-            assert False
-            
-        lastShown=route[loc][0]                  
-        for i in range(len(route[label])):
-            if i==0 or i==len(route[label])-1:           
-                route[label][i]=str(int(round(route[loc][i])))+"\n"+route[label][i]                       
-            elif route[loc][i]-lastShown>minDist: #if distance between last Label location and actual location big enough                         
-                route[label][i]=str(int(round(route[loc][i])))+"\n"+route[label][i] 
-                lastShown=route[loc][i]
-            else:
-                route[label][i]=""    
-        if route[loc][-1]-lastShown<minDist: #check if the last shown element troubles the last    
-            route[label][route[loc].index(lastShown)]=""  
-    
-    makethemNice(SOURCE_FCD)
-    makethemNice(SOURCE_SIMFCD)
-    
+            route[0][i]=""    
+    if route[1][-1]-lastShown<minDist: #check if the last shown element troubles the last    
+        route[0][route[1].index(lastShown)]=""  
     
     #plot the results
-    fig=figure(figsize=(width,height), dpi=96)
-        
-    subplot(211)
-    title(U"Geschwindigkeit  \u00FCber Zeit pro Kante")    
+    fig=figure(figsize=(width,height), dpi=96)    
+    plot(values[0],values[1],values[0],values[2])      
+    legend(("FCD","simulierte FCD"))
+    title(U"Geschwindigkeit  \u00FCber Strecke")
+    xlabel("\n\ns (m)   unterteilt in Routenabschnitte (Kanten)\n\n")
     ylabel("v (km/h)")
-    grid(True)     
     #set the x scale
-    xticks(route[1],route[0])    
-    plot(values[0],values[1], label='FCD')    
-    legend() 
-    #set that the axis 
-    axis([axis()[0],maxRoute,0,max(max(values[1]),max(values[3]))+10])  
-    
-    subplot(212)    
-    xlabel("\n\nt (s)   unterteilt in Routenabschnitte (Kanten)\n\n")
-    ylabel("v (km/h)")
+    xticks(route[1],route[0])     
+    #set that the axis begin at 0 and ends at max V +10km/h
+    axis([axis()[0],axis()[1],0,max(max(values[1]),max(values[2]))+10])   
     grid(True)
-    #set the x scale
-    xticks(route[3],route[2])    
-    plot(values[2],values[3], label='simulierte FCD', color='g')
-    legend() 
-    #set that the axis 
-    axis([axis()[0],maxRoute,0,max(max(values[1]),max(values[3]))+10])  
     
    
+    #show()    
+    return 1
     
-
     
 #start the program
 #profile.run('main()')

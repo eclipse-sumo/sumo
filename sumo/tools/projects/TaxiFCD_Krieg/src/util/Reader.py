@@ -45,6 +45,20 @@ def readRoute_Edges(buildNew=False):
         edgesSet=load(open(path.drivenEdges,'r'))
     return edgesSet
 
+def readRoute_EdgesMod(buildNew=False):
+    """Reads a selectedLane file which contains all edges of the net with 'good' traffic."""
+    edgesSet=set()
+    if not exists(path.drivenEdges) or buildNew:
+        inputFile=open("D:/Krieg/Projekte/Diplom/Daten/auswertung/used2.txt",'r')
+        for line in inputFile:
+             edge=line[5:-3]
+             edgesSet.add(edge)
+        inputFile.close()
+        dump(edgesSet, open(path.drivenEdges,'w'))
+    else:
+        edgesSet=load(open(path.drivenEdges,'r'))    
+    return edgesSet  
+
 
 def readAnalysisInfo(WEE=False):
     """Reads the analysis file and returns a list off taxis with all available information."""
