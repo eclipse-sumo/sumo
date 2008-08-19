@@ -21,7 +21,7 @@ from os.path import join
 #13: %nicht erkannterKanten ->ja
 index=11
 
-#absSwitch decide if the Value should be transform into an absolute Value
+#absSwitch decide if the Value should be transformed into an absolute Value
 absSwitch=True
 xt = []
 yt = []
