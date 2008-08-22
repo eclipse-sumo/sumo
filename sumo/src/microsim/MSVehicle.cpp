@@ -315,9 +315,20 @@ MSVehicle::addStop(const Stop &stop) throw()
 {
     MSRouteIterator stopEdge = myRoute->find(stop.lane->getEdge());
     if (myCurrEdge > stopEdge || (myCurrEdge == stopEdge && myState.myPos > stop.pos)) {
+        // do not add the stop if the vehicle is already behind it
         return false;
     }
+    // check whether the stop lies at the end of a route
     std::list<Stop>::iterator iter = myStops.begin();
+    MSRouteIterator last = myRoute->begin();
+    if(myStops.size()>0) {
+        last = myRoute->find(myStops.back().lane->getEdge());
+        last = myRoute->find(stop.lane->getEdge(), last);
+        if(last!=myRoute->end()) {
+            iter = myStops.end();
+            stopEdge = last;
+        }
+    }
     while ((iter != myStops.end())
             && (myRoute->find(iter->lane->getEdge()) <= stopEdge)) {
         iter++;

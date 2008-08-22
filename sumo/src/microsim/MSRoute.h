@@ -146,6 +146,7 @@ public:
     static void erase(std::string id);
 
     MSRouteIterator find(const MSEdge *e) const;
+    MSRouteIterator find(const MSEdge *e, const MSRouteIterator &startingAt) const;
 
 
 private:

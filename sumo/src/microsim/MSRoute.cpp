@@ -171,6 +171,12 @@ MSRoute::find(const MSEdge *e) const
     return std::find(myEdges.begin(), myEdges.end(), e);
 }
 
+MSRouteIterator 
+MSRoute::find(const MSEdge *e, const MSRouteIterator &startingAt) const
+{
+    return std::find(startingAt, myEdges.end(), e);
+}
+
 
 void
 MSRoute::writeEdgeIDs(OutputDevice &os, const MSEdge *upTo) const
