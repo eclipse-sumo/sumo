@@ -909,6 +909,12 @@ MSVehicle::vsafeCriticalCont(SUMOReal boundVSafe)
                 vLinkPass = vLinkWait;
             }
         }
+        // process stops
+        if (!myStops.empty()&&myStops.begin()->lane->getEdge()==nextLane->getEdge()) {
+            SUMOReal vsafeStop = myType->ffeS(myState.mySpeed, seen+myStops.begin()->pos);
+            vLinkPass = MIN2(vLinkPass, vsafeStop);
+            vLinkWait = MIN2(vLinkWait, vsafeStop);
+        }
         myLFLinkLanes.push_back(DriveProcessItem(*link, vLinkPass, vLinkWait));
         if (vLinkPass>0&&dist-seen>0) {
             (*link)->setApproaching(this);
@@ -973,10 +979,8 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven)
 {
 #ifndef NO_TRACI
     // remove all Stops that were added by Traci and were not reached for any reason
-    for (std::list<Stop>::iterator it = myStops.begin(); it != myStops.end(); it++) {
-        if (it->lane == myLane) {
-            it = myStops.erase(it);
-        }
+    while(!myStops.empty()&&myStops.begin()->lane==myLane) {
+        myStops.pop_front();
     }
 #endif
     // save the old work reminders, patching the position information
