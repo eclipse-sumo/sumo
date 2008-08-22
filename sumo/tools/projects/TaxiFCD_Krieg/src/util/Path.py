@@ -52,8 +52,8 @@ FQedgeDumpPickle=newPath(main,"fcdQualitaet/edgedumpFcdPickleDict.pickle")
 FQvtype=newPath(main,"fcdQualitaet/vtypeprobeFcdQuality_1s_6Uhr.out.xml")
 FQvtypePickle=newPath(main,"fcdQualitaet/vtypeprobePickleDict.pickle")
 FQvehPickle=newPath(main,"fcdQualitaet/vehiclePickleList.pickle")
-FQoutput=newPath(main,"fcdQualitaet/output/paramEffects_")
-
+FQoutput=newPath(main,"fcdQualitaet/output/plotData/paramEffects_")
+FQrawFCD=newPath(main,"fcdQualitaet/output/rawData/rawData_")
 
 
 

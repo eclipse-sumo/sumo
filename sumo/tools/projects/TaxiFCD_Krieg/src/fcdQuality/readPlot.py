@@ -2,7 +2,7 @@
 from pylab import * 
 from os import walk
 from os.path import join
-
+import util.Path as path
 #index = int(sys.argv[2])
 
 #0: Frequenz; ->belegt
@@ -23,16 +23,16 @@ XML=True
 TXT=False
 RELSPEED=11
 EDGENO=12
-filePath="D:/Krieg/Projekte/Diplom/Daten/fcdQualitaet/readPlotData/outDir/"
+filePath=path.main+"/fcdQualitaet/readPlotData/outDir/"
 
-load=TXT
+load=XML
 
 if load==XML: 
     RELSPEED=15; EDGENO=17 
-    filePath="D:/Krieg/Projekte/Diplom/Daten/fcdQualitaet/output/"
+    filePath=path.main+"/fcdQualitaet/output/"
  
-#showVal=RELSPEED
-showVal=EDGENO
+showVal=RELSPEED
+#showVal=EDGENO
 
 #absSwitch decide if the Value should be transformed into an absolute Value
 absSwitch=True
@@ -112,24 +112,24 @@ def plotData():
     marr=fetchData()       
     textsize=18
     
-    contourf(marr, 30)#levels=arange(mmin-mmin*.1, mmax+mmax*.1, (mmax-mmin)/10.))     
-    #set fontsize and ticks for the colorbar:
-    if showVal==EDGENO:
-        cb = colorbar(ticks=[0,10,20,30,40,50,60,70,80,90,100]) 
-    else:
-        cb = colorbar() 
-        
-    for t in cb.ax.get_yticklabels(): #set colorbar fontsize of each tick    
-         t.set_fontsize(textsize)
-         
     yticks([0,1,2,3,4,5,6,7,8,9,10], xt, size=textsize)
     ylabel("Periode [s]", size=textsize)
     xticks([0,1,2,3,4,5,6,7,8,9,10], yt, size=textsize)
     xlabel("Ausstattung [%]", size=textsize)
-    #title("Abweichung der Geschwindigkeit zwischen FCD und des simulierten Verkehrs", size=textsize)
-    title("Relative Anzahl erfasster Kanten", size=textsize)
+    title("Abweichung der Geschwindigkeit zwischen FCD und des simulierten Verkehrs", size=textsize)
+    #title("Relative Anzahl erfasster Kanten", size=textsize)
     figtext(0.7865,0.92,'[%]', size=textsize)
-    
+        
+    contourf(marr, 500)#levels=arange(mmin-mmin*.1, mmax+mmax*.1, (mmax-mmin)/10.))     
+    #set fontsize and ticks for the colorbar:
+    if showVal==EDGENO:
+        cb = colorbar(ticks=[0,10,20,30,40,50,60,70,80,90,100]) 
+    else:
+        cb = colorbar(ticks=range(17)) 
+        
+    for t in cb.ax.get_yticklabels(): #set colorbar fontsize of each tick    
+         t.set_fontsize(textsize)
+         
     show()
     
     

@@ -26,14 +26,23 @@ import util.Path as path
 from cPickle import dump
 from cPickle import load
 from util import BinarySearch
+from util.CalcTime import getDateFromDepart
+#cons
+W_FCD=1 #write vehicles which are chosen as taxis to a raw-fcd-file to process them 
+U_FCD=2 #use processed FCD to create output for readPlot
+U_RAW=3 #use the vtypeprobe-data directly to create output for readPlot
+
+
 #global vars
+mode=U_RAW  #choose the mode
 simStartTime=21600 # =6 o'clock  ->begin in edgeDump
 aggInterval=900 #aggregation Interval of the edgeDump
-period=[1,2,5,10,20,50,100,200,500] #period in seconds | single element or a hole list
+period=[20,50,100,200,500]#[1,2,5,10,20,50,100,200,500] #period in seconds | single element or a hole list
 quota=[0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 10.0, 20., 50.] #how many taxis in percent of the total vehicles | single element or a hole list
-iteration=10
+iteration=1
 
-outputTextList=[] #alle lines which should be written to the output-file 
+vehId=0
+vehIdDict={}
 edgeDumpDict=None
 vtypeDict=None
 vehList=None
@@ -51,15 +60,20 @@ def main():
     vehList=make(path.FQvehPickle,path.FQvtypePickle,getVehicleList,False,vtypeDict)
     vehSum=len(vehList)
     
-    orgPath=path.FQoutput
+    orgPath=path.FQoutput; 
+    if mode==W_FCD: orgPath=path.FQrawFCD;
     orgPeriod=period
     orgQuota=quota
     for i in range(iteration):
         print "iteration: ",i
-        path.FQoutput=orgPath+"interval900s_iteration"+str(i)+".out.xml"
         period=orgPeriod
         quota=orgQuota
-        createOutput()
+        path.FQoutput=orgPath+"interval900s_iteration"+str(i)+".out.xml"
+        path.FQrawFCD=orgPath+"interval900s_iteration"+str(i)+".out.dat"
+        if mode==U_RAW:
+            createOutput()
+        elif mode==W_FCD:
+            writeRawFCD()
     
     print "end"
 
@@ -124,8 +138,8 @@ def readVtype():
             timestep=int(words[1])
             begin=True  
         if begin and words[0].find("<vehicle id=")!=-1:            
-            #                       time                 id    edge           speed 
-            vtypeDict.setdefault(timestep,[]).append((words[1],words[3][:-2],words[15]))
+            #                       time                 id    edge           speed       x           y 
+            vtypeDict.setdefault(timestep,[]).append((words[1],words[3][:-2],words[15], words[13], words[11]))
             #break 
     inputFile.close()        
     return vtypeDict
@@ -173,37 +187,49 @@ def chooseTaxis(vehList):
 
 def reduceVtype(taxis):
     """Reduces the vtypeDict to the relevant information."""
-    taxis.sort() #sort it for binary search
+    taxis.sort() #sort it for binary search    
     newVtypeDict={}
     for timestep in vtypeDict:
         if timestep%period==0: #timesteps which are a multiple of the period 
             newVtypeDict[timestep]=([tup for tup in vtypeDict[timestep] if BinarySearch.isElmInList(taxis,tup[0])])
     return newVtypeDict
 
-def reduceVtypeToMean(taxis):
-    simpleTaxiMeanVList=[0,0]
-    drivenEdgesSet=set()    
-    vehList=[]
-    i=0
-    taxis.sort() #sort it for binary search
-    for timestep in vtypeDict:
-       if timestep%period==0: #timesteps which are a multiple of the period 
-           #begin=time.time()
-           for tup in vtypeDict[timestep]:
-               i+=1
-               #if tup[0] in taxis:
-               if BinarySearch.isElmInList(taxis,tup[0]):
-                   vehList.append(tup[0])
-                   simpleTaxiMeanVList[0]+=float(tup[2])
-                   simpleTaxiMeanVList[1]+=1
-                   drivenEdgesSet.add(tup[1])
-          # end=time.time()
-          # print end-begin
-    print i               
-    vSimFCD=simpleTaxiMeanVList[0]/simpleTaxiMeanVList[1]    
-    return vSimFCD,drivenEdgesSet
 
-
+def writeRawFCD():
+    """Creates a file in the raw-fcd-format of the chosen taxis"""
+    global vehId,vehIdDict
+    vehIdDict={}
+    vehId=0
+    day=0
+    def getVehId(orgId):
+        """creates new vehicle id's which consists only numerics"""        
+        global vehId,vehIdDict        
+        value=vehIdDict.get(orgId,vehId)
+        if value is vehId:
+            vehIdDict[orgId]=vehId
+            vehId+=1        
+        return value
+        
+    outputFile=open(path.FQrawFCD,'w')
+    for period, quota, vtypeDictR, taxiSum in generatePeriodQuotaSets():
+        day+=86400        
+        vehIdDict={} #reset dict so that every taxi (even if the vehicle is chosen several times) gets its own id
+        
+        sortedKeys=vtypeDictR.keys()
+        sortedKeys.sort()
+        for timestep in sortedKeys:
+            taxiList=vtypeDictR[timestep]
+            for tup in taxiList: #all elements in this timestep            
+                #calc timestep ->for every period /quota set a new day
+                time=timestep+day
+                time=getDateFromDepart(time)
+                #print ouptut                   
+                #                veh_id         date (time to simDate+time)    x (remove and set comma new)             
+                outputFile.write(str(getVehId(tup[0]))+'\t'+time+'\t'+tup[3][0:2]+'.'+tup[3][2:7]+tup[3][8:]+
+                                 #     y (remove and set comma new)              status      speed form m/s in km/h
+                                 '\t'+tup[4][0:2]+'.'+tup[4][2:7]+tup[4][8:]+'\t'+"90"+'\t'+str(int(round(float(tup[2])*3.6)))+'\n')     
+    outputFile.close()
+    
 def createOutput():
     """Creates a file with a comparison of speeds for each edge 
     between the taxis and the average speed from the current edge."""
