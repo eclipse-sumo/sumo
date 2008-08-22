@@ -77,11 +77,11 @@ optParser.add_option("-R", "--route-steps", dest="routeSteps",
 optParser.add_option("-a", "--aggregation", dest="aggregation",
                      type="int", default=900, help="Set main weights aggregation period")
 
-optParser.add_option("-E", "--disable-emissions", dest="noEmissions",
+optParser.add_option("-E", "--disable-emissions", action="store_true", dest="noEmissions",
                      default=False, help="No emissions are written by the simulation")
-optParser.add_option("-T", "--disable-tripinfos", dest="noTripinfo",
+optParser.add_option("-T", "--disable-tripinfos", action="store_true", dest="noTripinfo",
                      default=False, help="No tripinfos are written by the simulation")
-optParser.add_option("-m", "--mesosim", dest="mesosim",
+optParser.add_option("-m", "--mesosim", action="store_true", dest="mesosim",
                      default=False, help="Whether mesosim shall be used")
 optParser.add_option("-+", "--additional", dest="additional",
                      default="", help="Additional files")

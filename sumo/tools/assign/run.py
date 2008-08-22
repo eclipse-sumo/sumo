@@ -78,14 +78,18 @@ else:
 routes = "../input/routes.rou.xml"
 ncpus = detectCPUs()
 
+mesoAppendix = ""
+if options.mesosim:
+    mesoAppendix = "meso_"
+
 if options.stats == 0:
     if not options.duaonly:
-        succDir = makeAndChangeDir("../successive")
+        succDir = makeAndChangeDir("../" + mesoAppendix + "successive")
         execute("Assignment.py -e incremental -d ../input/districts.xml -m %s -n %s" % (mtxNamesList, netFile))
         if not options.od2trips:
             shutil.copy("%s/routes.rou.xml" % succDir, routes)
             execute("route2trips.py %s > ../input/successive.trips.xml" % routes)
-    duaDir = makeAndChangeDir("../dua")
+    duaDir = makeAndChangeDir("../" + mesoAppendix + "dua")
     duaCall = "dua-iterate.py -e 90000 -C -n %s -t ../input/%s.trips.xml %s" % (netFile, trips, pyAdds)
     if options.mesosim:
         duaCall = duaCall + " --mesosim"
@@ -96,7 +100,7 @@ if options.stats == 0:
             while not os.path.exists("%s/trips_0.rou.xml" % duaDir):
                 time.sleep(1)
             shutil.copy("%s/trips_0.rou.xml" % duaDir, routes)
-        shotDir = makeAndChangeDir("../oneshot")
+        shotDir = makeAndChangeDir("../" + mesoAppendix + "oneshot")
         shotCall = "one-shot.py -e 90000 -n %s -t %s %s" % (netFile, routes, pyAdds)
         if options.mesosim:
             shotCall = shotCall + " --mesosim"
@@ -104,21 +108,21 @@ if options.stats == 0:
             oneshotProcess = subprocess.Popen(shotCall, shell=True)
         else:
             execute(shotCall)
-        clogDir = makeAndChangeDir("../clogit")
+        clogDir = makeAndChangeDir("../" + mesoAppendix + "clogit")
         execute("Assignment.py -d ../input/districts.xml -m %s -n %s %s" % (mtxNamesList, netFile, signalAdds))
-        lohseDir = makeAndChangeDir("../lohse")
+        lohseDir = makeAndChangeDir("../" + mesoAppendix + "lohse")
         execute("Assignment.py -e lohse -d ../input/districts.xml -m %s -n %s %s" % (mtxNamesList, netFile, signalAdds))
     if oneshotProcess:
         oneshotProcess.wait()
     duaProcess.wait()
 else:
-    succDir = "../successive%03i" % options.stats
-    duaDir = "../dua%03i" % options.stats
-    clogDir = "../clogit%03i" % options.stats
-    lohseDir = "../lohse%03i" % options.stats
-    shotDir = "../oneshot%03i" % options.stats
+    succDir = "../" + mesoAppendix + "successive%03i" % options.stats
+    duaDir = "../" + mesoAppendix + "dua%03i" % options.stats
+    clogDir = "../" + mesoAppendix + "clogit%03i" % options.stats
+    lohseDir = "../" + mesoAppendix + "lohse%03i" % options.stats
+    shotDir = "../" + mesoAppendix + "oneshot%03i" % options.stats
     
-makeAndChangeDir("../statistics")
+makeAndChangeDir("../" + mesoAppendix + "statistics")
 tripinfos = ""
 routes = []
 for step in [0, 49]:
@@ -140,11 +144,11 @@ if not options.duaonly:
     execute("networkStatistics.py -k -t %s -o networkStatisticsWithSgT.txt" % tripinfos)
     for dir in succDir, clogDir, lohseDir: 
         routes.append(dir + "/routes.rou.xml")
-outfilename = "routecompare.txt"
-for idx, route1 in enumerate(routes):
-    for route2 in routes[idx+1:]:
-        outfile = open(outfilename, "a")
-        print >> outfile, route1, route2
-        outfile.close()
-        execute("routecompare.py -d ../input/districts.xml %s %s >> %s" % (route1, route2, outfilename))
+#outfilename = "routecompare.txt"
+#for idx, route1 in enumerate(routes):
+#    for route2 in routes[idx+1:]:
+#        outfile = open(outfilename, "a")
+#        print >> outfile, route1, route2
+#        outfile.close()
+#        execute("routecompare.py -d ../input/districts.xml %s %s >> %s" % (route1, route2, outfilename))
 os.chdir("..")
