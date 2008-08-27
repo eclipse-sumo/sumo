@@ -142,13 +142,6 @@ NBOwnTLDef::computeTrafficLightLogics(const string &key,
     NBRequestEdgeLinkIterator cei1(this,
                                    joinLaneLinks, removeTurnArounds, removal);
     size_t maxStromAnz = cei1.getNoValidLinks();
-
-#ifdef TL_DEBUG
-    if (maxStromAnz>=10) {
-        DEBUG_OUT << myJunction->getID() << ":" << maxStromAnz << endl;
-    }
-#endif
-
     // compute the link cliquen
     NBLinkCliqueContainer cliquen(v, maxStromAnz);
     // compute the phases

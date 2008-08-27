@@ -231,13 +231,6 @@ NBLinkCliqueContainer::buildCliques(NBLinkPossibilityMatrix *v,
             j = 0;
         }
     }
-#ifdef TL_DEBUG
-    DEBUG_OUT << "Cliquen:" << endl;
-    for (LinkCliqueContainer::iterator a=myCliques.begin(); a!=myCliques.end(); a++) {
-        DEBUG_OUT << (*a) << endl;
-    }
-    DEBUG_OUT << "--------------------------------" << endl;
-#endif
 }
 
 
@@ -260,12 +253,6 @@ NBLinkCliqueContainer::buildFurther()
         myFurther[i] = current;
     }
     //
-#ifdef TL_DEBUG
-    DEBUG_OUT << "------------" << endl << "Cliquen: " << endl;
-    for (i=0; i<myCliques.size(); i++) {
-        DEBUG_OUT << myCliques[i] << endl;
-    }
-#endif
 }
 
 
