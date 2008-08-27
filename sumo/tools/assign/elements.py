@@ -179,11 +179,11 @@ class Edge:
         if self.numberlane > 0:
             if self.junctiontype == 'signalized':
                 junction = net._junctions[self.junction]
-                if self.rightturn != None:
+                if self.rightturn != None and self.rightturn != 'O' and self.rightturn != 'o':
                     rightSymbol = int(self.rightturn)
-                if self.leftturn != None:
+                if self.leftturn != None and self.leftturn != 'O' and self.leftturn != 'o':
                     leftSymbol = int(self.leftturn)
-                if self.straight != None:
+                if self.straight != None and self.straight != 'O' and self.straight != 'o':
                     straightSymbol = int(self.straight)
     
                 for phase in junction.phases[:]:
