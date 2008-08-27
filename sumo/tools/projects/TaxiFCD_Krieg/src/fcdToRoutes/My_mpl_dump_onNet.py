@@ -12,6 +12,10 @@ This script reads a network and a dump file and
 
 matplotlib has to be installed for this purpose
 
+-n E:/DLR/Projekte/Diplom/Daten/sumoNetzFilesNurnbergIV/nuernberg_vls_new.net.xml
+-d E:/DLR/Projekte/Diplom/Daten/mpl_dump_onNet__Files/FCD_vs_completeRoute351_11.out.xml 
+--values no,no --show --color-map 0:#888888,.4:#ff0000,1:#00ff00
+
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
@@ -182,20 +186,16 @@ class NetReader(handler.ContentHandler):
            edge2plotLines[edge] = (xs, ys)
            # compute color
            if edge in values2: 
+#               print values2[edge]
                c = values2[edge]
            else:
                c = 0               
            edge2plotColors[edge] = toColor(c, colorMap)
            # compute width
            if edge in values1:
-               
-               w =10 #values1[edge]
-               if w>0:
-                   edge2plotWidth[edge] =1.0 #10. * math.log(1 + values1[edge]) + min_width
-               else:
-                   edge2plotWidth[edge] = min_width
+               edge2plotWidth[edge] = 1.0
            else:
-               edge2plotWidth[edge] = min_width
+               edge2plotWidth[edge] = 0.2
         if options.verbose:
             print "x-limits: " + str(xmin) + " - " + str(xmax)
             print "y-limits: " + str(ymin) + " - " + str(ymax)
@@ -206,8 +206,13 @@ class NetReader(handler.ContentHandler):
             f = figure(figsize=(options.size.split(",")))
         else:
             f = figure()
+        plot([-1000,-2000], [-1000,-2000], color=toColor(.9, colorMap), label="gegeben")
+        plot([-1000,-2000], [-1000,-2000], color=toColor(.5, colorMap), label="hinzugefuegt")
+        plot([-1000,-2000], [-1000,-2000], color=toColor(0, colorMap), label="nicht befahren")
+
         for edge in edge2plotLines:
            plot(edge2plotLines[edge][0], edge2plotLines[edge][1], color=edge2plotColors[edge], linewidth=edge2plotWidth[edge])
+        legend()
         # set axes
         if options.xticks!="":
            (xb, xe, xd, xs) = options.xticks.split(",")
@@ -326,12 +331,12 @@ class WeightsReader(handler.ContentHandler):
                     values[edge] = 0
                 else:
                     values[edge] = 1
-        elif percSpeed:
-            for edge in self._edge2value2:
-                values[edge] = (values[edge] / self._net._edge2speed[edge])
-        elif minV!=maxV:
-            for edge in self._edge2value2:
-                values[edge] = (values[edge] - minV) / (maxV - minV)
+#        elif percSpeed:
+ #           for edge in self._edge2value2:
+  #              values[edge] = (values[edge] / self._net._edge2speed[edge])
+   #     elif minV!=maxV:
+    #        for edge in self._edge2value2:
+     #           values[edge] = (values[edge] - minV) / (maxV - minV)
 
 
     def norm(self, tendency, percSpeed):

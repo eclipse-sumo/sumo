@@ -20,7 +20,8 @@ from util import CalcTime
 PERC=True #sets the view (absolute or relative)
 colorTupel=('#ff4500','#7fff00','#dc143c','#ffd700','#1e90ff','#9932cc')
 traveltimeList=[]
-avg=True
+avg=False
+WEE=True
 
 def main(): 
     print "start program"
@@ -65,10 +66,12 @@ def getPiePieces():
       
 def getBars():
    """Classifies the time difference in single bars."""
-   taxis=reader.readAnalysisInfo()   
+   taxis=reader.readAnalysisInfo(WEE)   
    barsDict={}
    barsDictSim={}
-   for taxi in taxis:        
+   for taxi in taxis:
+        if len(taxi.getSteps())<1:
+            continue        
         try:
             diff=getTimeDiff(taxi.getSteps(),False)
             diffSim=getTimeDiff(taxi.getSteps())
@@ -76,7 +79,8 @@ def getBars():
                 print taxi.id
                 print "\n"
         except TypeError, e:
-            print "Error by taxi %s : %s"  %(taxi.id,e.message) 
+            tueNichts=True
+            #print "Error by taxi %s : %s"  %(taxi.id,e.message) 
         #classify the absolute time difference
         barsDict[(diff/10)*10]=barsDict.setdefault((diff/10)*10,0)+1   
         barsDictSim[(diffSim/10)*10]=barsDictSim.setdefault((diffSim/10)*10,0)+1  
@@ -105,28 +109,31 @@ def getTimeDiff(steps,sim=True):
                 times[2]=step.time   
     
     if (None in times and not avg) or (avg and times[2]==None or times[3]==None):
-        raise TypeError, "Can't calculate time difference because not all needed values are available. %s" %times
+        raise TypeError, "Can't calculate time difference because not all needed values are available. %s Source:%s" %(times,source)
     
     if not avg:
         #clac travel time diff
         traveltimeList.append(times[3]-times[2])
         #traveltimeList.append(times[1]-times[0])
-        diff=(times[3]-times[2])-(times[1]-times[0])
+        fcd=times[3]-times[2]
+        sim=(times[1]-times[0])
+        diff=sim-fcd
         if PERC:
+            """
             if (times[3]-times[2])>0 and (100*diff)/(times[3]-times[2])<-1000:     
                 print  "%%",(100*diff)/(times[3]-times[2])         
                 print "Diff",diff
                 print "fcd",(times[3]-times[2])  
                 print "vtype",times[1]-times[0]
-                
-            if times[3]-times[2]==0:                
+            """    
+            if fcd==0:                
                 return 0
             else:
-                return (100*diff)/(times[3]-times[2])
+                return (100*diff)/fcd
         else:    
             return diff
     else: #for calc of avg    
-        return (times[3]-times[2])  #FCD duration 
+        return fcd  #FCD duration 
     
 def clacAvg():
    durationList=[]
@@ -167,41 +174,51 @@ def drawBarChart():
     yList=[]
     xListSim=[]
     yListSim=[]
-    under200=0    
-    over200=0
+    under100=0    
+    over100=0
+    simFaster=0
+    simSlower=0
+    """
     for k in sorted(barsDict.keys()):
        
-       if k >200:
-          over200+=0    
-       elif k<-200:
-           under200+=0
+       if k >100:
+          over100+=0    
+       elif k<-100:
+           under100+=0
        else:
            xList.append(k)
            yList.append(barsDict[k])
-      
+    """  
     for k in sorted(barsDictSim.keys()):
-       
-       if k >200:
-          over200+=1    
-       elif k<-200:
-           under200+=1
+       #anna
+       if k>200:
+           print k
+       if k >=100:
+          over100+=barsDictSim[k]              
+       elif k<-100:
+           under100+=barsDictSim[k]
        else:
            xListSim.append(k)
            yListSim.append(barsDictSim[k])
-           
-
+           if k<0:             
+             simSlower+=barsDictSim[k]
+           else:    
+             simFaster+=barsDictSim[k]   
    
     
-    
-    b=bar(xList,yList, width=10, alpha=0.5)
+    textsize=18
+    subplots_adjust(left=0.10, right=0.60, bottom=0.10, top=0.90)
+    xticks(range(-210,210,20), size=textsize)
+    yticks(size=textsize)
+    #b=bar(xList,yList, width=10, alpha=0.5)
     bSim=bar(xListSim,yListSim, width=10, color="red", alpha=0.5)    
-    legend((b[0], bSim[0]),('FCD-vtype', 'FCD-simFCD', '> 0 Sim schneller', '< 0 Sim langsammer','Taxis gesamt: '+str(sum(barsDict.values())),
-             'Diff < -200%: '+str(under200),'Diff >  200%: '+str(over200),
-             u'\u00f8'+' Reisezeit: '+str(sum(traveltimeList)/len(traveltimeList))+'s',), 
-             shadow=True, loc=2)    
-    title("Differenz der Reisezeit zwischen simulierten Taxis und Taxi-FCD)")
-    xlabel('Reisezeit-Differenz in %')
-    ylabel('Taxis')
+    legend((None,),('Taxis gesamt: '+str(sum(barsDict.values())),'> 0 Sim. schneller', '< 0 Sim. langsammer'), shadow=True)    
+    #u'\u00f8'+' Reisezeit: '+str(sum(traveltimeList)/len(traveltimeList))+'s'
+    title("Abweichung der Reisezeit zwischen realen und simulierten FCD", size=textsize)
+    xlabel('\nrelative Abweichung der Reisezeiten [%] (bei '+str(over100)+' Taxis > 100%)', size=textsize)
+    ylabel('Anzahl der Taxis', size=textsize)
+    
+    
 #start the program
 #profile.run('main()')
 main()

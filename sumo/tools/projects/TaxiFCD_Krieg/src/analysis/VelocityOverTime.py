@@ -71,7 +71,7 @@ def fetchData(taxiId):
     values=[[],[],[],[]] #x,y1,x2,y2 (position, vFCD,vSIMFCD)
     actLen=0
     x=0
-    def getTime(s,v): 
+    def getTime(s,veh): 
         if v==0:
             return 0
         return s/(v/3.6)

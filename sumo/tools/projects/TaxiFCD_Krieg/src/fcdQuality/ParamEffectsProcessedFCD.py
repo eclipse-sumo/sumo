@@ -26,7 +26,9 @@ import util.Path as path
 from cPickle import dump
 from cPickle import load
 from util import BinarySearch
-from util.CalcTime import getDateFromDepart
+import util.CalcTime as calcTime
+
+
 #cons
 W_FCD=1 #write vehicles which are chosen as taxis to a raw-fcd-file to process them 
 U_FCD=2 #use processed FCD to create output for readPlot
@@ -34,11 +36,11 @@ U_RAW=3 #use the vtypeprobe-data directly to create output for readPlot
 
 
 #global vars
-mode=U_RAW  #choose the mode
+mode=U_FCD  #choose the mode
 simStartTime=21600 # =6 o'clock  ->begin in edgeDump
 aggInterval=900 #aggregation Interval of the edgeDump
-period=[20,50,100,200,500]#[1,2,5,10,20,50,100,200,500] #period in seconds | single element or a hole list
-quota=[0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 10.0, 20., 50.] #how many taxis in percent of the total vehicles | single element or a hole list
+period=[20,50,100,200,500]#[1,2,5,10,20,50,100,200,500]#[20,50,100,200,500] #period in seconds | single element or a hole list
+quota=[0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 10.0, 20., 50.]#[0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 10.0, 20., 50.] #how many taxis in percent of the total vehicles | single element or a hole list
 iteration=1
 
 vehId=0
@@ -47,19 +49,23 @@ edgeDumpDict=None
 vtypeDict=None
 vehList=None
 vehSum=None
+procFcdDict=None
 
 
 
 def main():
-    global edgeDumpDict, vtypeDict, vehList, vehSum, period, quota 
+    global edgeDumpDict, vtypeDict, vehList, vehSum, period, quota,procFcdDict
         
     print "start program"
-   
     edgeDumpDict=make(path.FQedgeDumpPickle,path.FQedgeDump,readEdgeDump)    
     vtypeDict=make(path.FQvtypePickle,path.FQvtype,readVtype)
     vehList=make(path.FQvehPickle,path.FQvtypePickle,getVehicleList,False,vtypeDict)
     vehSum=len(vehList)
-    
+    if mode==U_FCD: 
+        print "load source: ",os.path.basename(path.FQprocessedFCD),"...",
+        procFcdDict=readProcessedFCD()
+        print "Done!"    
+        
     orgPath=path.FQoutput; 
     if mode==W_FCD: orgPath=path.FQrawFCD;
     orgPeriod=period
@@ -70,10 +76,10 @@ def main():
         quota=orgQuota
         path.FQoutput=orgPath+"interval900s_iteration"+str(i)+".out.xml"
         path.FQrawFCD=orgPath+"interval900s_iteration"+str(i)+".out.dat"
-        if mode==U_RAW:
-            createOutput()
-        elif mode==W_FCD:
+        if mode==W_FCD:
             writeRawFCD()
+        else:
+            createOutput()
     
     print "end"
 
@@ -92,13 +98,16 @@ def generatePeriodQuotaSets(stopByPeriod=False):
         if stopByPeriod:         
             yield (period,None,None,None)
         for quota in qList:           
-            print "create output for: period ",period," quota ",quota 
+            print "create output for: period ",period," quota ",quota             
             taxis=chooseTaxis(vehList)
             taxiSum=len(taxis)
-            vtypeDictR=reduceVtype(taxis); del taxis
-            #vSimFCD,drivenEdgesSet=reduceVtypeToMean(taxis); del taxis
+            if mode==U_FCD: 
+                vtypeDictR=procFcdDict[(period,quota)]
+            else:
+                vtypeDictR=reduceVtype(taxis); 
+            del taxis            
             yield(period,quota,vtypeDictR,taxiSum)
-            #createOutput(edgeDumpDict, vtypeDictR,vehSum, taxiSum)
+            
             
 def readEdgeDump():
     """Get for each interval all edges with corresponding speed."""
@@ -117,11 +126,12 @@ def readEdgeDump():
             begin=True            
         if begin and words[0].find("<edge id")!=-1:
             edge=words[1]
-            speed=float(words[13])
-            entered = int(words[15])
-            if entered==0: #if no vehicle drove of the edge ignore the edge  
-                continue
-            edgeDumpDict.setdefault(interval,[]).append((edge,speed))
+            if edge[0]!=':':
+                speed=float(words[13])
+                entered = int(words[15])
+                if entered==0: #if no vehicle drove of the edge ignore the edge  
+                    continue
+                edgeDumpDict.setdefault(interval,[]).append((edge,speed))
     inputFile.close()
     return edgeDumpDict
 
@@ -138,11 +148,43 @@ def readVtype():
             timestep=int(words[1])
             begin=True  
         if begin and words[0].find("<vehicle id=")!=-1:            
-            #                       time                 id    edge           speed       x           y 
-            vtypeDict.setdefault(timestep,[]).append((words[1],words[3][:-2],words[15], words[13], words[11]))
-            #break 
+            if words[3][0]!=':': #    except inner edges
+                edge=words[3][:-2]
+                #del / Part of edge
+                if edge.find("/")!=-1:
+                    edge=edge.split("/")[0]                    
+                #                       time                 id    edge           speed               x           y 
+                vtypeDict.setdefault(timestep,[]).append((words[1],edge,float(words[15]), words[13], words[11]))
+            
     inputFile.close()        
     return vtypeDict
+
+def readProcessedFCD():
+    """Reads the processed FCD and creates a List of vtypeDict fakes with can be used similarly."""
+    procFcdDict={}
+    pqDateDict={} #each date is a period / quota tupel assigned
+    simDate='2007-07-18 '   
+    day=0
+    #create keys for the procFcdDict 
+    for p in period:        
+        for q in quota:            
+            day+=86400
+            date,time=calcTime.getDateFromDepart(day).split(" ")  
+            pqDateDict.setdefault(date,(p,q))
+            procFcdDict.setdefault((p,q),{})
+            #print date,p,q 
+    
+            
+    inputFile=open(path.FQprocessedFCD,'r')    
+    for line in inputFile:
+        timestamp,edge,speed,cover,id=line.split('\t')
+        date,time=calcTime.getNiceTimeLabel(timestamp).split(" ")
+        #add values to actual Dict
+        timestep= calcTime.getTimeInSecs(simDate+time)        
+        procFcdDict[pqDateDict[date]].setdefault(timestep,[]).append((id,edge,float(speed)/3.6))        
+    inputFile.close()  
+    
+    return procFcdDict
 
 
 def getVehicleList(vtypeDict):
@@ -190,7 +232,7 @@ def reduceVtype(taxis):
     taxis.sort() #sort it for binary search    
     newVtypeDict={}
     for timestep in vtypeDict:
-        if timestep%period==0: #timesteps which are a multiple of the period 
+        if timestep%period==0: #timesteps which are a multiple of the period            
             newVtypeDict[timestep]=([tup for tup in vtypeDict[timestep] if BinarySearch.isElmInList(taxis,tup[0])])
     return newVtypeDict
 
@@ -211,10 +253,11 @@ def writeRawFCD():
         return value
         
     outputFile=open(path.FQrawFCD,'w')
+    
     for period, quota, vtypeDictR, taxiSum in generatePeriodQuotaSets():
         day+=86400        
         vehIdDict={} #reset dict so that every taxi (even if the vehicle is chosen several times) gets its own id
-        
+        #dataset=0
         sortedKeys=vtypeDictR.keys()
         sortedKeys.sort()
         for timestep in sortedKeys:
@@ -222,12 +265,14 @@ def writeRawFCD():
             for tup in taxiList: #all elements in this timestep            
                 #calc timestep ->for every period /quota set a new day
                 time=timestep+day
-                time=getDateFromDepart(time)
+                time=calcTime.getDateFromDepart(time)
+                #dataset+=1
                 #print ouptut                   
                 #                veh_id         date (time to simDate+time)    x (remove and set comma new)             
                 outputFile.write(str(getVehId(tup[0]))+'\t'+time+'\t'+tup[3][0:2]+'.'+tup[3][2:7]+tup[3][8:]+
                                  #     y (remove and set comma new)              status      speed form m/s in km/h
-                                 '\t'+tup[4][0:2]+'.'+tup[4][2:7]+tup[4][8:]+'\t'+"90"+'\t'+str(int(round(float(tup[2])*3.6)))+'\n')     
+                                 '\t'+tup[4][0:2]+'.'+tup[4][2:7]+tup[4][8:]+'\t'+"90"+'\t'+str(int(round(tup[2]*3.6)))+'\n')     
+        #print dataset, time
     outputFile.close()
     
 def createOutput():
@@ -237,10 +282,10 @@ def createOutput():
     firstPeriod=True
     #get edge No
     edgesNo=0
-    edgesSet=set()
-    for i in edgeDumpDict.keys(): #all intervals
-        for edge,v in edgeDumpDict[i]: 
-            edgesSet.add(edge)
+    edgesSet=set()    
+    for timestep,taxiList in vtypeDict.iteritems():
+                for tup in taxiList:                    
+                    edgesSet.add(tup[1]) 
     edgesNo=len(edgesSet)
     
         
@@ -253,32 +298,52 @@ def createOutput():
             else: firstPeriod=False            
             outputFile.write('\t<periods period="%d">\n' %(period))
         else:
-            simpleTaxiMeanVList=[0,0]
-            simpleEdgeMeanVList=[0,0]
+            simpleTaxiMeanVList=[0,1]
+            simpleEdgeMeanVList=[0,1]
             drivenEdgesSet=set()    
-            #create mean from all taxi speed values
-            for timestep,taxiList in vtypeDictR.iteritems():
-                for tup in taxiList: #all elements in this timestep 
-                 simpleTaxiMeanVList[0]+=float(tup[2])
-                 simpleTaxiMeanVList[1]+=1
-                 drivenEdgesSet.add(tup[1])              
+            
+            if len(vtypeDictR)==0: #if the processed FCD returns no Values 
+                print "noData p",period," q",quota                
+                drivenEdgesSet.add(0)  
+            else: #create mean from all taxi speed values
+                for timestep,taxiList in vtypeDictR.iteritems():
+                    for tup in taxiList: #all elements in this timestep 
+                     simpleTaxiMeanVList[0]+=tup[2]
+                     simpleTaxiMeanVList[1]+=1                     
+                     drivenEdgesSet.add(tup[1])              
             #create mean from all edge speed values which are driven by the chosen taxis
             drivenEdgesList=list(drivenEdgesSet)
             drivenEdgesList.sort()
+            #print "dataSets ",simpleTaxiMeanVList[1] 
+            
+            #--edgeDump--#
+            """
             for i in edgeDumpDict.keys(): #all intervals
-                for edge,v in edgeDumpDict[i]: 
-                   #if edge in drivenEdgesSet:
+                for edge,v in edgeDumpDict[i]:                   
                    if BinarySearch.isElmInList(drivenEdgesList,edge):
                        simpleEdgeMeanVList[0]+=v
                        simpleEdgeMeanVList[1]+=1
-                       
-            #calc values for output               
+            """
+            #--vtype--#
+            
+            for timestep,taxiList in vtypeDict.iteritems():
+                for tup in taxiList:
+                    if BinarySearch.isElmInList(drivenEdgesList,tup[1]):                        
+                        simpleEdgeMeanVList[0]+=tup[2]
+                        simpleEdgeMeanVList[1]+=1
+            
+            
+            #calc values for output 
             detectedEdges=len(drivenEdgesSet) 
             relDetectedEdges=detectedEdges*100.0/edgesNo            
             vSim=simpleEdgeMeanVList[0]/simpleEdgeMeanVList[1]
             vSimFCD=simpleTaxiMeanVList[0]/simpleTaxiMeanVList[1]
             vAbsDiff=vSimFCD-vSim
-            vRelDiff=vAbsDiff/vSim*100
+            if vSim!=0:
+                vRelDiff=vAbsDiff/vSim*100
+            else:                
+                vRelDiff=100
+            if vRelDiff<-40: vRelDiff=-35
                        
             outputFile.write('\t\t<values taxiQuota="%f" taxis="%d" simMeanSpeed="%f" simFcdMeanSpeed="%f" ' %(quota,taxiSum, vSim,vSimFCD,))
             outputFile.write('detectedEdges="%d" notDetectedEdges="%d" ' %(detectedEdges,edgesNo-detectedEdges))

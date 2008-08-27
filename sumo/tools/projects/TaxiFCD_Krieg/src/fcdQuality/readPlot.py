@@ -29,8 +29,12 @@ load=XML
 
 if load==XML: 
     RELSPEED=15; EDGENO=17 
-    filePath=path.main+"/fcdQualitaet/output/"
- 
+    #filePath=path.main+"/fcdQualitaet/output/plotData/vtypeImmerAlleKanten/"
+    #filePath=path.main+"/fcdQualitaet/output/plotData/vtypeNurBefahreneKanten/"
+    #filePath=path.main+"/fcdQualitaet/output/plotData/edgeDumpImmerAlleKanten/"
+    #filePath=path.main+"/fcdQualitaet/output/plotData/edgeDumpNurBefahreneKanten/"
+    #filePath=path.main+"/fcdQualitaet/output/plotData/prozFCD_vtypeImmerAlleKanten/"
+    filePath=path.main+"/fcdQualitaet/output/plotData/prozFCD_vtypeNurBefahreneKanten"
 showVal=RELSPEED
 #showVal=EDGENO
 
@@ -77,6 +81,9 @@ def fetchData():
             value = float(words[showVal])                  
             if absSwitch:
                 value = abs(value) 
+                if value>=40: 
+                    value=-1  
+                                     
             valueDict.setdefault(period,{}).setdefault(quota,[]).append(value)
             #get the used quotas
             if firstFile and len(xt)==1:            
@@ -120,13 +127,13 @@ def plotData():
     #title("Relative Anzahl erfasster Kanten", size=textsize)
     figtext(0.7865,0.92,'[%]', size=textsize)
         
-    contourf(marr, 500)#levels=arange(mmin-mmin*.1, mmax+mmax*.1, (mmax-mmin)/10.))     
+    contourf(marr, 50)#levels=arange(mmin-mmin*.1, mmax+mmax*.1, (mmax-mmin)/10.))     
     #set fontsize and ticks for the colorbar:
     if showVal==EDGENO:
         cb = colorbar(ticks=[0,10,20,30,40,50,60,70,80,90,100]) 
     else:
-        cb = colorbar(ticks=range(17)) 
-        
+        #cb = colorbar(ticks=range(17)) 
+        cb = colorbar()
     for t in cb.ax.get_yticklabels(): #set colorbar fontsize of each tick    
          t.set_fontsize(textsize)
          

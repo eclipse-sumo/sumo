@@ -43,5 +43,9 @@ def getTimeInSecs(date):
         print "WARNING: calculated time is negative"
     return result
 
+def getNiceTimeLabel(label='20070718000020'):
+    #returns 2007-07-18 00:00:20
+    return label[:4]+"-"+label[4:6]+"-"+label[6:8]+" "+label[8:10]+":"+label[10:12]+":"+label[12:]
+    
 #start the program
 #main()
