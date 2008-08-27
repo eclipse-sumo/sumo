@@ -254,11 +254,6 @@ NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
             ret->addStep(breakingTime, std::bitset<64>(), inv, yellow);
         }
     }
-#ifdef TL_DEBUG
-    DEBUG_OUT << "Phasenfolge (Ende):" << endl;
-    ret->myDebugWritePhases();
-    DEBUG_OUT << "----------------------------------" << endl;
-#endif
     return ret;
 }
 

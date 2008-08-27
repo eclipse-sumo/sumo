@@ -77,7 +77,6 @@ using namespace std;
 // ===========================================================================
 /** Definition how many points an internal lane-geometry should be made of */
 #define NO_INTERNAL_POINTS 5
-#define DEBUG_OUT cout
 
 
 // ===========================================================================
