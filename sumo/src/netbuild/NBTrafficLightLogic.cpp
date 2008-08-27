@@ -117,16 +117,6 @@ NBTrafficLightLogic::writeXML(OutputDevice &into, size_t no, SUMOReal /*distance
 }
 
 
-void
-NBTrafficLightLogic::myDebugWritePhases() const
-{
-    for (PhaseDefinitionVector::const_iterator i=myPhases.begin();
-            i!=myPhases.end(); i++) {
-        DEBUG_OUT << (*i).duration << "s : " << (*i).driveMask << endl;
-    }
-}
-
-
 bool
 NBTrafficLightLogic::equals(const NBTrafficLightLogic &logic) const
 {

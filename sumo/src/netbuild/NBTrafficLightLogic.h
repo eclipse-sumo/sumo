@@ -75,9 +75,6 @@ public:
                   std::string type, const std::set<std::string> &inLanes) const;
     // !!! the key should be given here, too, instead of storing it
 
-    /// Debug method showing the phases
-    void myDebugWritePhases() const;
-
     /// Information whether the given logic is equal to this
     bool equals(const NBTrafficLightLogic &logic) const;
 
