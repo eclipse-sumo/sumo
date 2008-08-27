@@ -218,7 +218,7 @@ NIImporter_OpenStreetMap::insertNodeChecking(int id, const std::map<int, NIOSMNo
             // ok, this node is a traffic light node where no other nodes
             //  participate
             NBOwnTLDef *tlDef = new NBOwnTLDef(toString(id), from);
-            if (!tlsc.insert(toString(id), tlDef)) {
+            if (!tlsc.insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
                 throw ProcessError("Could not allocate tls '" + toString(id) + "'.");

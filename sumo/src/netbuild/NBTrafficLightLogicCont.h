@@ -61,9 +61,17 @@ public:
     NBTrafficLightLogicCont();
     ~NBTrafficLightLogicCont();
 
-    /// inserts a named logic definition into the container
-    bool insert(const std::string &id,
-                NBTrafficLightDefinition *logics);
+
+    /** @brief Adds a logic definition to the dictionary
+     *
+     * "true" is returned if the logic is accepted - no logic with the same
+     *  name exists within this container. If another logic with the same name 
+     *  exists, false is returned.
+     *
+     * @param[in] logic The logic to add
+     * @return Whether the logic was valid (no logic with the same id is already known)
+     */
+    bool insert(NBTrafficLightDefinition *logic) throw();
 
     /// computes the traffic light logics using the definitions and stores the results
     void computeLogics(NBEdgeCont &ec, OptionsCont &oc);

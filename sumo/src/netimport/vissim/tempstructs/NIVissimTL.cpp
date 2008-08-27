@@ -440,7 +440,7 @@ NIVissimTL::dict_SetSignals(NBTrafficLightLogicCont &tlc,
         		}*/
         string id = toString<int>(tl->myID);
         NBLoadedTLDef *def = new NBLoadedTLDef(id);
-        if (!tlc.insert(id, def)) {
+        if (!tlc.insert(def)) {
             MsgHandler::getErrorInstance()->inform("Error on adding a traffic light\n Must be a multiple id ('" + id + "')");
             continue;
         }

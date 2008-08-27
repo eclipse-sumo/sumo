@@ -231,7 +231,7 @@ NIVisumTL::build(NBTrafficLightLogicCont &tlc)
     for (NodeVector::iterator ni = myNodes.begin(); ni != myNodes.end(); ni++) {
         NBNode *Node = (*ni);
         NBLoadedTLDef *def = new NBLoadedTLDef(Node->getID(), Node);
-        tlc.insert(Node->getID(), def);
+        tlc.insert(def);
         def->setCycleDuration((size_t) myCycleTime);
         // signalgroups
         for (SignalGroupMap::iterator gi = mySignalGroups.begin(); gi != mySignalGroups.end(); gi++) {

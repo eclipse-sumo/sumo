@@ -159,7 +159,7 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
         if (tlDef==0) {
             // this traffic light is visited the first time
             tlDef = new NBOwnTLDef(tlID, currentNode);
-            if (!myTLLogicCont.insert(tlID, tlDef)) {
+            if (!myTLLogicCont.insert(tlDef)) {
                 // actually, nothing should fail here
                 delete tlDef;
                 throw ProcessError("Could not allocate tls '" + tlID + "'.");
@@ -172,10 +172,10 @@ NIXMLNodesHandler::processTrafficLightDefinitions(const SUMOSAXAttributes &attrs
         // ok, this node is a traffic light node where no other nodes
         //  participate
         tlDef = new NBOwnTLDef(myID, currentNode);
-        if (!myTLLogicCont.insert(myID, tlDef)) {
+        if (!myTLLogicCont.insert(tlDef)) {
             // actually, nothing should fail here
             delete tlDef;
-            throw ProcessError("Could not allocate tls '" + tlID + "'.");
+            throw ProcessError("Could not allocate tls '" + myID + "'.");
 
         }
     }

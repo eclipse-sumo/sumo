@@ -78,14 +78,13 @@ NBTrafficLightLogicCont::insert(const std::string &id,
 
 
 bool
-NBTrafficLightLogicCont::insert(const std::string &id,
-                                NBTrafficLightDefinition *logics)
+NBTrafficLightLogicCont::insert(NBTrafficLightDefinition *logic) throw()
 {
-    DefinitionContType::iterator i=myDefinitions.find(id);
+    DefinitionContType::iterator i=myDefinitions.find(logic->getID());
     if (i!=myDefinitions.end()) {
         return false;
     }
-    myDefinitions[id] = logics;
+    myDefinitions[logic->getID()] = logic;
     return true;
 }
 
