@@ -995,9 +995,8 @@ NBNodeCont::setAsTLControlled(const std::string &name,
                       + "\n The node '" + name + "' is not known.");
         return;
     }
-    NBTrafficLightDefinition *tlDef =
-        new NBOwnTLDef(name, node);
-    if (!tlc.insert(name, tlDef)) {
+    NBTrafficLightDefinition *tlDef = new NBOwnTLDef(name, node);
+    if (!tlc.insert(tlDef)) {
         // actually, nothing should fail here
         WRITE_WARNING("Building a tl-logic for node '" + name + "' twice is not possible.");
         delete tlDef;
