@@ -12,13 +12,14 @@ AM_INIT_AUTOMAKE([gnu dist-zip tar-ustar])
 
 dnl the debug check has to be made before the program checks
 dnl because it modifies CXXFLAGS
-AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug],[enable sumo debugging code [default=no].])],
-              [AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])
-CXXFLAGS="-g $CXXFLAGS"], [CXXFLAGS="-O2 -DNDEBUG $CXXFLAGS"])
+AC_ARG_ENABLE([debug], [AS_HELP_STRING([--enable-debug],[enable sumo debugging code [default=no].])])
 if test x$enable_debug = xyes; then
-   ac_enabled="$ac_enabled Debug"
+    AC_DEFINE(_DEBUG, 1, [Define to 1 in order to enable sumo debugging code.])
+    CXXFLAGS="-g $CXXFLAGS"
+    ac_enabled="$ac_enabled Debug"
 else
-   ac_disabled="$ac_disabled Debug"
+    CXXFLAGS="-O2 -DNDEBUG $CXXFLAGS"
+    ac_disabled="$ac_disabled Debug"
 fi
 
 
@@ -37,54 +38,53 @@ AM_PROG_LIBTOOL
 
 
 dnl Check for enable-features that shall go into config.h
-AC_ARG_ENABLE([messages], [AS_HELP_STRING([--enable-messages],[enable static and dynamic messages emitted by vehicles [default=no].])],
-			  [AC_DEFINE(_MESSAGES, 1, [Define to 1 in order to enable messages.])])
+AC_ARG_ENABLE([messages], [AS_HELP_STRING([--enable-messages],[enable static and dynamic messages emitted by vehicles [default=no].])])
 if test x$enable_messages = xyes; then
-	ac_enabled="$ac_enabled Messages"
+    AC_DEFINE(_MESSAGES, 1, [Define to 1 in order to enable messages.])
+    ac_enabled="$ac_enabled Messages"
 else
-	ac_disabled="$ac_disabled Messages"
+    ac_disabled="$ac_disabled Messages"
 fi
 
-AC_ARG_ENABLE([memcheck], [AS_HELP_STRING([--enable-memcheck],[enable compilation of memory leak checks [default=no].])],
-              [AC_DEFINE(CHECK_MEMORY_LEAKS, 1, [Define to 1 in order to enable memory checks.])])
+AC_ARG_ENABLE([memcheck], [AS_HELP_STRING([--enable-memcheck],[enable compilation of memory leak checks [default=no].])])
 AM_CONDITIONAL(CHECK_MEMORY_LEAKS, test x$enable_memcheck = xyes)
 if test x$enable_memcheck = xyes; then
-   ac_enabled="$ac_enabled MemoryChecks"
+    AC_DEFINE(CHECK_MEMORY_LEAKS, 1, [Define to 1 in order to enable memory checks.])
+    ac_enabled="$ac_enabled MemoryChecks"
 else
-   ac_disabled="$ac_disabled MemoryChecks"
+    ac_disabled="$ac_disabled MemoryChecks"
 fi
 
-AC_ARG_ENABLE([speedcheck], [AS_HELP_STRING([--enable-speedcheck],[enable sumo speedchecking code [default=no].])],
-              [AC_DEFINE(_SPEEDCHECK, 1, [Define to 1 in order to enable simulation-speed checking.])])
+AC_ARG_ENABLE([speedcheck], [AS_HELP_STRING([--enable-speedcheck],[enable sumo speedchecking code [default=no].])])
 if test x$enable_speedcheck = xyes; then
-   ac_enabled="$ac_enabled SpeedChecks"
+    AC_DEFINE(_SPEEDCHECK, 1, [Define to 1 in order to enable simulation-speed checking.])
+    ac_enabled="$ac_enabled SpeedChecks"
 else
-   ac_disabled="$ac_disabled SpeedChecks"
+    ac_disabled="$ac_disabled SpeedChecks"
 fi
 
-AC_ARG_ENABLE([internal-lanes], [AS_HELP_STRING([--disable-internal-lanes],[Disable junction internal lanes.])],
-              [],[AC_DEFINE(HAVE_INTERNAL_LANES, 1, [Define to 1 if you want junction internal lanes])])
+AC_ARG_ENABLE([internal-lanes], [AS_HELP_STRING([--disable-internal-lanes],[Disable junction internal lanes.])])
 if test x$enable_internal_lanes != xno; then
-   ac_enabled="$ac_enabled InternalLanes"
+    AC_DEFINE(HAVE_INTERNAL_LANES, 1, [Define to 1 if you want junction internal lanes])
+    ac_enabled="$ac_enabled InternalLanes"
 else
-   ac_disabled="$ac_disabled InternalLanes"
+    ac_disabled="$ac_disabled InternalLanes"
 fi
 
-AC_ARG_ENABLE([double-precision], [AS_HELP_STRING([--enable-double-precision],[Use "double" instead of "float" for calculations.])],
-              [AC_DEFINE([SUMOReal], [double], [defines the precision of floats])],
-              [AC_DEFINE([SUMOReal], [float], [defines the precision of floats])])
+AC_ARG_ENABLE([double-precision], [AS_HELP_STRING([--enable-double-precision],[Use "double" instead of "float" for calculations.])])
 if test x$enable_double_precision = xyes; then
-   ac_enabled="$ac_enabled DoublePrecision"
+    AC_DEFINE([SUMOReal], [double], [defines the precision of floats])
+    ac_enabled="$ac_enabled DoublePrecision"
 else
-   ac_disabled="$ac_disabled DoublePrecision"
+    AC_DEFINE([SUMOReal], [float], [defines the precision of floats])
+    ac_disabled="$ac_disabled DoublePrecision"
 fi
 
 AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position comparison])
 AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma in output])
 
 AM_CONDITIONAL(MESOSIM, test -d src/mesosim)
-m4_syscmd([test -d src/mesosim])
-m4_if(m4_sysval,[0],[
+AS_IF([test -d src/mesosim],[
    AC_DEFINE([HAVE_MESOSIM], [1], [Define to enable mesoscopic simulation code.])
    AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile])
    MESO_DIRS=mesosim
@@ -93,12 +93,12 @@ m4_if(m4_sysval,[0],[
    AC_SUBST([MESOGUI_DIRS])
 ])
 
-AC_ARG_ENABLE([traci],[AS_HELP_STRING([--disable-traci],[disable Traffic Control Interface (TraCI) Server [default=no].])],
-              [AC_DEFINE(NO_TRACI, 1, [Define to 1 in order to disable TraCI Server.])])
+AC_ARG_ENABLE([traci],[AS_HELP_STRING([--disable-traci],[disable Traffic Control Interface (TraCI) Server [default=no].])])
 AM_CONDITIONAL(TRACI, test x$enable_traci != xno)
 if test x$enable_traci != xno; then
    ac_enabled="$ac_enabled TRACI"
 else
+   AC_DEFINE(NO_TRACI, 1, [Define to 1 in order to disable TraCI Server.])
    ac_disabled="$ac_disabled TRACI"
 fi
 
@@ -261,45 +261,47 @@ dnl - - - - - - - - - - - - - - - - - - - - - - -
 dnl  ... for fox
 fox_include_prefix="fox-1.4"
 AC_ARG_WITH([fox], [AS_HELP_STRING([--with-fox=DIR],[where Fox is installed (libraries in DIR/lib, headers in DIR/include/fox-1.4).])])
-if test x"$with_fox" != x; then
-   if test x"$with_fox_libraries" = x; then
-      with_fox_libraries=$with_fox/lib
-   fi
-   if test x"$with_fox_includes" = x; then
-      with_fox_includes=$with_fox/include/$fox_include_prefix
-   fi
-fi
+if test x"$with_fox" != xno; then
+    if test x"$with_fox" != x; then
+       if test x"$with_fox_libraries" = x; then
+           with_fox_libraries=$with_fox/lib
+       fi
+       if test x"$with_fox_includes" = x; then
+           with_fox_includes=$with_fox/include/$fox_include_prefix
+       fi
+    fi
 
 dnl   ... for libs
-LIB_FOX="FOX-1.4"
-AC_ARG_WITH([fox-libraries], [AS_HELP_STRING([--with-fox-libraries=DIR],[where the Fox library is installed.])])
-if test x"$with_fox_libraries" = x; then
-   AC_CHECK_LIB([$LIB_FOX], [main], [with_fox_libraries=yes], [AC_MSG_WARN([fox-lib not found. Specify path with option --with-fox-libraries=DIR for gui applications.])])
-else
-   save_ldflags=$LDFLAGS
-   LDFLAGS="-L$with_fox_libraries"
-   export LDFLAGS
-   AC_CHECK_LIB([$LIB_FOX], [main], [FOX_LDFLAGS=$LDFLAGS], [AC_MSG_ERROR([fox-lib not found in "$with_fox_libraries".])])
-   LDFLAGS=$save_ldflags
-   AC_SUBST(FOX_LDFLAGS)
-fi
-AC_SUBST(LIB_FOX)
+    LIB_FOX="FOX-1.4"
+    AC_ARG_WITH([fox-libraries], [AS_HELP_STRING([--with-fox-libraries=DIR],[where the Fox library is installed.])])
+    if test x"$with_fox_libraries" = x; then
+        AC_CHECK_LIB([$LIB_FOX], [main], [with_fox_libraries=yes], [AC_MSG_WARN([fox-lib not found. Specify path with option --with-fox-libraries=DIR for gui applications.])])
+    else
+        save_ldflags=$LDFLAGS
+        LDFLAGS="-L$with_fox_libraries"
+        export LDFLAGS
+        AC_CHECK_LIB([$LIB_FOX], [main], [FOX_LDFLAGS=$LDFLAGS], [AC_MSG_ERROR([fox-lib not found in "$with_fox_libraries".])])
+        LDFLAGS=$save_ldflags
+        AC_SUBST(FOX_LDFLAGS)
+    fi
+    AC_SUBST(LIB_FOX)
 
 dnl   ... for includes
-AC_ARG_WITH([fox-includes], [AS_HELP_STRING([--with-fox-includes=DIR],[where the Fox includes are.])])
-if test x"$with_fox_includes" = x; then
-   save_cppflags=$CPPFLAGS
-   CPPFLAGS="$CPPFLAGS -I/usr/local/include/fox-1.4 -I/usr/include/fox-1.4"
-   export CPPFLAGS
-   AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
-   with_fox_includes=yes], [AC_MSG_WARN([fox-includes not found. Specify path with option --with-fox-includes=DIR for gui applications.])])
-   CPPFLAGS=$save_cppflags
-else
-   save_cppflags=$CPPFLAGS
-   CPPFLAGS="-I$with_fox_includes"
-   export CPPFLAGS
-   AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([fox-includes not found in "$with_fox_includes".])])
-   CPPFLAGS=$save_cppflags
+    AC_ARG_WITH([fox-includes], [AS_HELP_STRING([--with-fox-includes=DIR],[where the Fox includes are.])])
+    if test x"$with_fox_includes" = x; then
+        save_cppflags=$CPPFLAGS
+        CPPFLAGS="$CPPFLAGS -I/usr/local/include/fox-1.4 -I/usr/include/fox-1.4"
+        export CPPFLAGS
+        AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
+        with_fox_includes=yes], [AC_MSG_WARN([fox-includes not found. Specify path with option --with-fox-includes=DIR for gui applications.])])
+        CPPFLAGS=$save_cppflags
+    else
+        save_cppflags=$CPPFLAGS
+        CPPFLAGS="-I$with_fox_includes"
+        export CPPFLAGS
+        AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([fox-includes not found in "$with_fox_includes".])])
+        CPPFLAGS=$save_cppflags
+    fi
 fi
 AM_CONDITIONAL([WITH_GUI], [test x"$with_fox_includes" != x && test x"$with_fox_libraries" != x])
 if test x"$with_fox_includes" != x && test x"$with_fox_libraries" != x; then
