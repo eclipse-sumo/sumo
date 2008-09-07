@@ -84,7 +84,8 @@ AC_DEFINE([POSITION_EPS], [0.1], [defines the epsilon to use on position compari
 AC_DEFINE([OUTPUT_ACCURACY], [2], [defines the number of digits after the comma in output])
 
 AM_CONDITIONAL(MESOSIM, test -d src/mesosim)
-AS_IF([test -d src/mesosim],[
+m4_syscmd([test -d src/mesosim])
+m4_if(m4_sysval,[0],[
    AC_DEFINE([HAVE_MESOSIM], [1], [Define to enable mesoscopic simulation code.])
    AC_CONFIG_FILES([src/mesogui/Makefile src/mesosim/Makefile])
    MESO_DIRS=mesosim
