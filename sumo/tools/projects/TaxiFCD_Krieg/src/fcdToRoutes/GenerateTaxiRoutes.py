@@ -11,6 +11,7 @@ All rights reserved
 """
 
 from util.CalcTime import getTimeInSecs
+from util.CalcTime import getNiceTimeLabel
 import util.Path as path
 import util.Reader as reader
 from cPickle import load
@@ -175,10 +176,10 @@ def readSimFCDComplete(fcdPath):
         #add route
         taxiId=getSimTaxiId(words[4])               
         if taxiId in taxis:
-            fcdDict[taxiId].append((getTimeInSecs(words[0]),words[1],words[2]))                       
+            fcdDict[taxiId].append((getTimeInSecs(getNiceTimeLabel(words[0])),words[1],words[2]))                       
         else: 
             taxis.append(taxiId)            
-            fcdDict[taxiId]=[(getTimeInSecs(words[0]),words[1],words[2])]           
+            fcdDict[taxiId]=[(getTimeInSecs(getNiceTimeLabel(words[0])),words[1],words[2])]           
     inputFile.close()
     return fcdDict    
         

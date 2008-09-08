@@ -23,7 +23,7 @@ simDate=mktime((2007,7,18,0,0,0,2,199,1))
 
 def main(): 
     print "start program"
-    getSecsInTime()
+    getSecsInTime(46861)
    # print getTimeInSecs("2007-03-13 00:04:33")
     print "end"
 

@@ -21,6 +21,9 @@ vehId=0
 
 def main():
     print "starting"
+    #change path for multi
+    path.vtypeprobe=path.newPath(path.main,"simRawFCD/t2MitVerschiedenenLosfahrzeiten/vtypeprobe_-4.out.xml")
+    path.simulatedRawFCD=path.newPath(path.main,"simRawFCD/t2MitVerschiedenenLosfahrzeiten/simulatedRawFCD_-4.out.dat") 
     inputFile=open(path.vtypeprobe,'r')
     outputFile=open(path.simulatedRawFCD,'w')
     for line in inputFile:

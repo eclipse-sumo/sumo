@@ -30,8 +30,8 @@ def main():
     global taxis, edgeDict 
     
     #decide if you want to save charts for every taxi or show a single one 
-    all=True; 
-    taxiId="332_4"
+    all=False; 
+    taxiId="316_3"
     
     #load data
     edgeDict=load(open(path.edgeLengthDict,'r'))
@@ -71,7 +71,7 @@ def fetchData(taxiId):
     values=[[],[],[],[]] #x,y1,x2,y2 (position, vFCD,vSIMFCD)
     actLen=0
     x=0
-    def getTime(s,veh): 
+    def getTime(s,v): 
         if v==0:
             return 0
         return s/(v/3.6)
@@ -94,7 +94,8 @@ def fetchData(taxiId):
                 values[0+x].append(actLen)
                 values[1+x].append(step.speed)
                 
-                actLen+=getTime(routeLen,step.speed)                 
+                actLen+=getTime(routeLen,step.speed) 
+                print "l ",actLen," rL ",routeLen," s ",step.speed                 
                 route[0+x].append(step.edge) #label                
                 route[1+x].append(actLen) #location
                 

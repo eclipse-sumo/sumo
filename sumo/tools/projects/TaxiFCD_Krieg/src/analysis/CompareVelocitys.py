@@ -11,21 +11,49 @@ All rights reserved
 """
 
 import util.Path as path
-
+import util.Reader  as reader
+from analysis.Taxi import * 
 
 #global vars
 fcdEdgeDict={}
 vtypeEdgeDict={}
-
+WEE=True
 
 def main():
     print "start program"   
-    getVtypeV()
-    getFcdV()
+    #getVtypeV()
+    #getFcdV()
+    
+    getSpeeds()
+    writeSelLanesOutput()
     writeOutput()
     print "end"
 
- 
+
+def getSpeeds():
+    """Reads the speeds from the analysis file"""
+    
+    taxis=reader.readAnalysisInfo(WEE)   
+    #read speeds for every edge
+    for taxi in taxis:
+        for step in taxi.getSteps():
+            if step.source==SOURCE_SIMFCD:            
+                vtypeEdgeDict.setdefault(step.edge,[]).append(float(step.speed))    
+            elif step.source==SOURCE_FCD:
+                fcdEdgeDict.setdefault(step.edge,[]).append(float(step.speed))
+    #calc avg speed for each edge
+    #print fcdEdgeDict["558300689"]
+    #print vtypeEdgeDict["558300689"]
+    for edge in fcdEdgeDict:        
+        fcdEdgeDict[edge]=sum(fcdEdgeDict[edge])/len(fcdEdgeDict[edge])
+    print len(fcdEdgeDict)
+    
+    for edge in vtypeEdgeDict:        
+        vtypeEdgeDict[edge]=sum(vtypeEdgeDict[edge])/len(vtypeEdgeDict[edge])
+    print len(vtypeEdgeDict)
+     
+            
+#deprecated            
 def getVtypeV():
     """Reads the vyteprobe-File and creates a dict of edges with list of velocities.
        In a second step generates for each edge a average speed in km/h.  
@@ -41,7 +69,7 @@ def getVtypeV():
         vtypeEdgeDict[edge]=sum(vtypeEdgeDictSpeedList[edge])/len(vtypeEdgeDictSpeedList[edge])
     print len(vtypeEdgeDict)
     
-    
+#deprecated      
 def getFcdV():
     """Reads the fcd-File and creates a dict of edges with list of velocities.
        In a second step generates for each edge a average speed in km/h.  
@@ -56,7 +84,23 @@ def getFcdV():
         fcdEdgeDict[edge]=sum(fcdEdgeDictSpeedList[edge])/len(fcdEdgeDictSpeedList[edge])
     print len(fcdEdgeDict)
 
-          
+def writeSelLanesOutput():
+    outputFile=open(path.taxiVsFCDSpeedSelLanes,'w') 
+    i=0
+    for edge in fcdEdgeDict:#each edge
+        if edge in vtypeEdgeDict:
+            #clac average speed             
+            absDeviation=vtypeEdgeDict[edge]-fcdEdgeDict[edge]   
+            relDeviation=absDeviation/fcdEdgeDict[edge]*100   
+            #write output only if Taxi speed for this edge exists
+            #print relDeviation
+            if relDeviation<-50 or relDeviation>50: 
+                i+=1
+                print "relDev ",relDeviation," edge ",edge
+                outputFile.write("lane:"+edge+"_0\n")
+    print "total",i
+    outputFile.close()
+              
 def writeOutput():
     """Writes the collected results to a file."""
     outputFile=open(path.taxiVsFCDSpeed,'w') 
@@ -64,7 +108,7 @@ def writeOutput():
     for edge in fcdEdgeDict:#each edge
         if edge in vtypeEdgeDict:
             #clac average speed 
-            absDeviation=fcdEdgeDict[edge]-vtypeEdgeDict[edge]   
+            absDeviation=vtypeEdgeDict[edge]-fcdEdgeDict[edge]   
             relDeviation=absDeviation/fcdEdgeDict[edge]*100   
             #write output only if Taxi speed for this edge exists
             outputFile.write('%s;%.2f;%.2f;%.2f;%.2f\n' %(edge,fcdEdgeDict[edge],vtypeEdgeDict[edge],absDeviation,relDeviation))

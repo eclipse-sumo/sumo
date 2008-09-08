@@ -20,8 +20,8 @@ import util.Path as path
 
 edgeList=[]
 routeDict= {}
-taxi="54_3" #the Taxi for which the output should be generated
-avg=True
+taxi="351_11" #the Taxi for which the output should be generated
+avg=False
 
 def main():
     print "start program"    

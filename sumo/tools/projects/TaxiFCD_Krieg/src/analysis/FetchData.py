@@ -28,6 +28,11 @@ withoutEmptyEdges=True # if True edges with no computed traffic in the net will 
 
 def main(): 
     print "start program"
+    #multi change pathes (routen müssen immer extra neu erstellt werden wegen taxiIDpickleList)
+    path.simFcd=path.newPath(path.main,"simProzessiertFCD/t2MitVerschiedenenLosfahrzeiten/linkspeeds.simulatedRawFCD_-4.dat")
+    path.vtypeprobe=path.newPath(path.main,"simRawFCD/t2MitVerschiedenenLosfahrzeiten/vtypeprobe_-4.out.xml")
+    path.simRawFcd=path.newPath(path.main,"simRawFCD/t2MitVerschiedenenLosfahrzeiten/simulatedRawFCD_-4.out.dat")
+    path.analysisWEE=path.newPath(path.main,"auswertung/reisezeit/analysisFiles/taxiAnalysisInformationWEE_-4.xml")
     arrangeData()
     print "end"
      

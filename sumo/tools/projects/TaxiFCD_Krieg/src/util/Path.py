@@ -27,20 +27,26 @@ main="../../../../Projekte/Diplom/Daten"
 fcd=newPath(main,"originalFCD/Proz-fcd_nuremberg_2007-07-18.dat")
 simFcd=newPath(main,"simProzessiertFCD/nuremberg_sim_on_edges3Mit_t2Complete.dat")
 vls=newPath(main,"originalFCD/Proz-fcd_nuremberg_VLS_2007-07-18.dat")
-rawFcd=newPath(main+"originalFCD/Roh-nuremberg_2007-07-18.dat")
+rawFcd=newPath(main,"originalFCD/Roh-nuremberg_2007-07-18.dat")
 rawFcdVehIdList=newPath(main,"simRawFCD/rawFcdVehIdList.pickle")
 edgeLengthDict=newPath(main,"taxiRouten/edgeLengthDict.pickle")
 simRawFcd=newPath(main,"simRawFCD/simulatedRawFCD3Mit_t2Complete.out.dat") #used input
 taxiRoutes=newPath(main,"taxiRouten/taxiRoutes.rou.xml")
 taxiRoutesComplete=newPath(main,"taxiRouten/t2Complete.rou.xml")
+taxiRoutesDiffDepart=newPath(main,"taxiRouten/t2MitVerschiedenenLosfahrzeiten/t2Complete_")
 net=newPath(main,"sumoNetzFilesNurnbergIIProjektion/nuernberg_vls_new.net.xml")
 vtypeprobe=newPath(main,"simRawFCD/vtypeprobe3Mit_t2Complete.out.xml")
+
+
 analysis=newPath(main,"auswertung/taxiAnalysisInformation.xml")
 analysisWEE=newPath(main,"auswertung/taxiAnalysisInformationWithoutEmptyEdges.xml")
 simulatedRawFCD=newPath(main,"simRawFCD/simulatedRawFCD.out.dat") #generated output
+
+
 taxisPerEdge=newPath(main,"mpl_dump_onNet__Files/taxisPerEdge.out.xml")
 fcdVsCompleteRoute=newPath(main,"mpl_dump_onNet__Files/FCD_vs_completeRoute")
 taxiVsFCDSpeed=newPath(main,"auswertung/geschwindigkeitsvergleich/taxiVsFCD.csv")
+taxiVsFCDSpeedSelLanes=newPath(main,"auswertung/geschwindigkeitsvergleich/taxiVsFCD_SelectedLanes.txt")
 normalTrafficRoutes=newPath(main,"sumoNetzFilesNurnbergIV/joined_a5f.rou.xml")
 drivenEdges=newPath(main,"sumoNetzFilesNurnbergIV/drivenEdgesSet.pickle")
 vOverTimeDir=newPath(main,"auswertung/Geschwindigkeitsganglinie/ZeitproKante/")

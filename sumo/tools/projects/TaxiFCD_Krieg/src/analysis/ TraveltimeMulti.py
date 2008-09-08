@@ -15,8 +15,10 @@ All rights reserved
 from pylab import *
 from analysis.Taxi import * 
 import util.Reader  as reader
+import util.Path as path
 from util import CalcTime 
 from math import sqrt
+from glob import iglob
 
 PERC=True #sets the view (absolute or relative)
 colorTupel=('#ff4500','#7fff00','#dc143c','#ffd700','#1e90ff','#9932cc')
@@ -26,6 +28,7 @@ WEE=True
 
 def main(): 
     print "start program"
+    
     if avg: 
         clacAvg()
     else:    
@@ -35,6 +38,8 @@ def main():
         else:
             drawBarChart()
         show()
+    
+    #getBarsMulti()
     print "end"
     
 def getPiePieces():
@@ -64,7 +69,65 @@ def getPiePieces():
     print pieces    
     print sum(pieces)
     return pieces
-      
+
+def median(vList):
+        """Calculates the median value of a list."""
+        try:            
+            if len(vList)%2: #unequal 
+                return vList[((len(vList)+1)/2)-1]
+            else:
+                return vList[((len(vList)/2)+1)-1]
+            
+        except IndexError:             
+            print "IndexError in 'median'"
+            
+def getBarsMulti():
+    """Classifies the time difference in single bars.
+     But uses insted of getBars() several analysis-File and calculates a mean value"""          
+        
+    fileIter=iglob(path.newPath(path.main,"auswertung/reisezeit/analysisFiles/taxiAnalysisInformation*.xml"))
+    fcdDiffDict={}
+    simDiffDict={}
+    barsDict={}
+    barsDictSim={}
+    stdDev=[]
+    mw=[]
+    #calc diffs
+    for file in fileIter: #for each 
+        path.analysisWEE=path.newPath(file)
+        print path.analysisWEE
+        taxis=reader.readAnalysisInfo(WEE)
+        
+        for taxi in taxis:
+            if len(taxi.getSteps())<1:                
+                continue        
+            try:
+                #diff=getTimeDiff(taxi.getSteps(),False)
+                diffSim,fcd,sim,no=getTimeDiff(taxi.getSteps())
+                simDiffDict.setdefault(taxi.id,[]).append(sim)
+                fcdDiffDict.setdefault(taxi.id,fcd)
+                
+            except TypeError, e:
+                tueNichts=True                
+                #print "Error by taxi %s : %s"  %(taxi.id,e.message) 
+       
+        
+    for taxi,simList in simDiffDict.iteritems():
+        simDiffDict[taxi]=sum(simList)/(len(simList)+0.0) 
+    #create barsDict
+    for taxi in fcdDiffDict:
+        fcd=fcdDiffDict[taxi]
+        sim=simDiffDict[taxi]
+        diff=sim-fcd
+        relDiff=int(round(((100.0*diff)/fcd)))
+        barsDictSim[(relDiff/10)*10]=barsDictSim.setdefault((relDiff/10)*10,0)+1 
+        #standard deviation 
+        stdDev.append((relDiff-9.53)*(relDiff-9.53))   
+        mw.append(relDiff) 
+    print "mw",sum(mw)/(len(mw)+0.0)#9.91 #kor 0.48
+    print "standard deviation ",sqrt(sum(stdDev)/(len(stdDev)+0.0))     
+    return  (barsDictSim, barsDict)
+          
 def getBars():
    """Classifies the time difference in single bars."""
    taxis=reader.readAnalysisInfo(WEE)   
@@ -187,7 +250,7 @@ def drawPieChart():
      
 def drawBarChart():
     """Draws a bar chart with the relative travel time aberrance."""
-    barsDictSim, barsDict=getBars()
+    barsDictSim, barsDict=getBarsMulti()
     xList=[]
     yList=[]
     xListSim=[]
@@ -228,7 +291,7 @@ def drawBarChart():
     yticks(size=textsize)
     #b=bar(xList,yList, width=10, alpha=0.5)
     bSim=bar(xListSim,yListSim, width=10, color="red", alpha=0.5)    
-    legend((None,),('Taxis gesamt: '+str(sum(barsDictSim.values())),'> 0 Sim. schneller', '< 0 Sim. langsammer'), shadow=True)    
+    legend((None,),('Taxis gesamt: '+str(sum(barsDictSim.values())),'> 0 Sim. langsammer', '< 0 Sim. schneller'), shadow=True)    
     #u'\u00f8'+' Reisezeit: '+str(sum(traveltimeList)/len(traveltimeList))+'s'
     title("Abweichung der Reisezeit zwischen realen und simulierten FCD", size=textsize)
     xlabel('\nrelative Abweichung der Reisezeiten [%] (bei '+str(over100)+' Taxis > 100%)', size=textsize)

@@ -36,12 +36,12 @@ U_RAW=3 #use the vtypeprobe-data directly to create output for readPlot
 
 
 #global vars
-mode=U_FCD  #choose the mode
+mode=W_FCD  #choose the mode
 simStartTime=21600 # =6 o'clock  ->begin in edgeDump
 aggInterval=900 #aggregation Interval of the edgeDump
-period=[20,50,100,200,500]#[1,2,5,10,20,50,100,200,500]#[20,50,100,200,500] #period in seconds | single element or a hole list
+period=[20,40,60,80,100,150,200,250,300] #[5,10]#[20,40,60,80,100,150,200,250,300]#[1,2,5,10,20,50,100,200,500]#[20,50,100,200,500] #period in seconds | single element or a hole list
 quota=[0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 10.0, 20., 50.]#[0.1, 0.2, 0.5, 1.0, 2.0, 5.0, 10.0, 20., 50.] #how many taxis in percent of the total vehicles | single element or a hole list
-iteration=1
+iteration=2
 
 vehId=0
 vehIdDict={}
@@ -249,7 +249,7 @@ def writeRawFCD():
         value=vehIdDict.get(orgId,vehId)
         if value is vehId:
             vehIdDict[orgId]=vehId
-            vehId+=1        
+            vehId=(vehId+1)%65500        
         return value
         
     outputFile=open(path.FQrawFCD,'w')
@@ -273,6 +273,7 @@ def writeRawFCD():
                                  #     y (remove and set comma new)              status      speed form m/s in km/h
                                  '\t'+tup[4][0:2]+'.'+tup[4][2:7]+tup[4][8:]+'\t'+"90"+'\t'+str(int(round(tup[2]*3.6)))+'\n')     
         #print dataset, time
+        print vehId
     outputFile.close()
     
 def createOutput():

@@ -279,28 +279,29 @@ def plotScatterRel():
 
 
 def plotBarChart(mode="relDiff"):
-	l = []
-	barsDict={}
-	i=0
-	for veh in data:
+    l = []
+    barsDict={}
+    i=0
+    print "total", len(data)
+    for veh in data:
 		if len(data[veh])<2:
 			continue
 		travelTimeDict=calcTraveltime(data[veh])
 		
-		xticks(range(-200,210,10))
-		if -100<=travelTimeDict[mode]*100<=100:  
+		#xticks(range(-200,210,10))
+		#if -100<=travelTimeDict[mode]*100<=100:  
 			#l.append(travelTimeDict[mode]*100)
-			diff=int(travelTimeDict[mode]*100) 
-			barsDict[(diff/10)*10]=barsDict.setdefault((diff/10)*10,0)+1
+		diff=int(travelTimeDict[mode]*100) 
+		barsDict[(diff/10)*10]=barsDict.setdefault((diff/10)*10,0)+1
 			
-		else:
+		#else:
 		  #print travelTimeDict[mode]*100
-		  i+=1
-	b=bar(barsDict.keys(),barsDict.values(), width=10, alpha=0.5)		   
+		  #i+=1
+    b=bar(barsDict.keys(),barsDict.values(), width=10, alpha=0.5)		   
 	#hist(l, bins=41)
 	#savefig(mainPath+"norm_abw_hist.png")
-	print i
-	show()
+    print "over100",i
+    show()
 
 
 #start the program
