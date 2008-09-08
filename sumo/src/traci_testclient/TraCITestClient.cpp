@@ -2,7 +2,7 @@
 /// @file    TraCITestClient.cpp
 /// @author  Friedemann Wesner <wesner@itm.uni-luebeck.de>
 /// @date    2008/04/07
-/// @version $Id: TraCIHandler.cpp 5922 2008-08-05 08:15:53Z dkrajzew $
+/// @version $Id$
 ///
 /// A dummy client to simulate communication to a TraCI server
 /****************************************************************************/
