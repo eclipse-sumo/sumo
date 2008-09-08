@@ -99,7 +99,7 @@ def dijkstra(net, start, targets, lohse=False):
         for edge in v.outEdges:
             w = edge.target
 
-            if v == start or P[v].conflictlink == None:
+            if v == start or P[v].conflictlink == None or edge != P[v].leftlink:
                 if lohse:
                     vwLength = D[v] + edge.helpacttime
                 else:
