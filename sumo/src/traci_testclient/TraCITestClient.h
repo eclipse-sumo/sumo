@@ -87,7 +87,7 @@ public:
     bool close();
 
     // simulation commands
-    void commandSimulationStep(double time, int posFormat) throw ();
+    void commandSimulationStep(double time, int posFormat);
 
     void commandSetMaximumSpeed(int nodeId, float speed);
 
