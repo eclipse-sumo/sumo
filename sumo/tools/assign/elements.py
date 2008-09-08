@@ -133,6 +133,7 @@ class Edge:
         self.detectorNum = 0.
         self.detecteddata = {}
         self.detectedlanes = 0.
+        self.penalty = 0.
         
     def init(self, speed, length, laneNumber):
         self.maxspeed = speed
@@ -240,6 +241,16 @@ class Edge:
 
             elif self.flow <= self.estcapacity and self.connection == 0 and self.source.label != self.target.label:
                 self.queuetime = 0.
+            if self.conflictlink != None:
+                weightFactor = 1.0
+                if self.numberlane == 2.:
+                    weightFactor = 0.8
+                elif self.numberlane > 2.:
+                    weightFactor = 0.4
+                self.penalty = (math.exp(self.flow/self.estcapacity) - 1. + math.exp(self.conflictlink.flow/self.conflictlink.estcapacity) - 1.)/2.
+                self.penalty *= weightFactor
+            else:
+                self.penalty = 0.
         foutcheck.close()        
         return self.actualtime
     

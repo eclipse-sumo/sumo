@@ -86,7 +86,7 @@ class Net:
         """
         newRoutes = 0
         for start, startVertex in enumerate(startVertices):
-            D,P = dijkstra(self, startVertex, lohse)            
+            D,P = dijkstra(self, startVertex, list(endVertices), lohse)            
             for end, endVertex in enumerate(endVertices):
                 if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                     helpPath = []

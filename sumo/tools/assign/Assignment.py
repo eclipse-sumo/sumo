@@ -154,8 +154,15 @@ def main():
                 foutlog.write('- Current iteration(not executed yet):%s\n' %iter)
                 iter += 1
                 for start, startVertex in enumerate(startVertices):
-                    D,P = dijkstra(net, startVertex)                                                                      
-                    vehID = doIncAssign(vehicles, options.verbose, options.maxiteration, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID)
+                    targets = set()
+                    for end, endVertex in enumerate(endVertices):
+                        if matrixPshort[start][end] > 0.:
+                            targets.add(endVertex)
+                    if len(targets) > 0:
+                        D,P = dijkstra(net, startVertex, targets)                                                                      
+                        vehID = doIncAssign(vehicles, options.verbose, options.maxiteration,
+                                            endVertices, start, startVertex, matrixPshort,
+                                            D, P, AssignedVeh, AssignedTrip, vehID)
                 
                 for edgeID in net._edges:                                                   
                     edge = net._edges[edgeID]

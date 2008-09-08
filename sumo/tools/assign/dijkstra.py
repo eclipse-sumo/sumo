@@ -83,7 +83,7 @@ class priorityDictionary(dict):
             self[key] = other[key]
 
 
-def dijkstra(net, start, lohse=False):
+def dijkstra(net, start, targets, lohse=False):
     # dictionary of final distances
     D = {}
     # dictionary of predecessors
@@ -91,10 +91,11 @@ def dijkstra(net, start, lohse=False):
     # est.dist. of non-final vert.
     Q = priorityDictionary()
     Q[start] = 0
-    weightFactor = 0.6
     for v in Q:
         D[v] = Q[v]
-
+        if targets.discard(v):
+            if len(targets) == 0:
+                return (D, P)
         for edge in v.outEdges:
             w = edge.target
 
@@ -103,19 +104,11 @@ def dijkstra(net, start, lohse=False):
                     vwLength = D[v] + edge.helpacttime
                 else:
                     vwLength = D[v] + edge.actualtime + edge.queuetime
-            elif P[v].conflictlink != None:
-                weightFactor = 1.0
-                if P[v].numberlane == 2.:
-                    weightFactor *= 0.8
-                elif P[v].numberlane > 2.:
-                    weightFactor *= 0.4
-                    
-                penalty = (math.exp(P[v].flow/P[v].estcapacity) - 1. + math.exp(P[v].conflictlink.flow/P[v].conflictlink.estcapacity) - 1.)/2.
+            else:
                 if lohse:
-                    vwLength = D[v] + edge.helpacttime + P[v].helpacttime*(math.exp(P[v].flow/P[v].estcapacity) - 1.)*weightFactor
-                else:
-                    
-                    vwLength = D[v] + edge.actualtime + edge.queuetime + P[v].actualtime * penalty * weightFactor
+                    vwLength = D[v] + edge.helpacttime + P[v].helpacttime * P[v].penalty
+                else:                    
+                    vwLength = D[v] + edge.actualtime + edge.queuetime + P[v].actualtime * P[v].penalty
 
             if w in D:
                 if vwLength < D[w]:
