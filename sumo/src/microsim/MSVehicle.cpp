@@ -343,6 +343,14 @@ MSVehicle::addStop(const Stop &stop) throw()
 }
 
 
+bool
+MSVehicle::isStopped()
+{
+    return !myStops.empty() && myStops.begin()->reached
+           && myStops.begin()->duration>0;
+}
+
+
 SUMOReal
 MSVehicle::processNextStop(SUMOReal currentVelocity) throw()
 {

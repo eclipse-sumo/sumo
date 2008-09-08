@@ -618,6 +618,7 @@ MSLane::setCritical(std::vector<MSLane*> &into)
     }
     if (myVehicles.size()>0) {
         if (MSGlobals::gTimeToGridlock>0
+            && !(*(myVehicles.end()-1))->isStopped()
                 &&
                 (*(myVehicles.end()-1))->getWaitingTime()>MSGlobals::gTimeToGridlock) {
 

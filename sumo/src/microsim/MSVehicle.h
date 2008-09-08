@@ -602,6 +602,11 @@ public:
     bool hasStops() {
         return !myStops.empty();
     }
+
+    /** @brief Returns whether the vehicle is at a stop
+     * @return Whether the has stopped
+     */
+    bool isStopped();
     /// @}
 
     SUMOVehicleClass getVehicleClass() const {
