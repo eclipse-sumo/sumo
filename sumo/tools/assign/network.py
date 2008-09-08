@@ -248,54 +248,39 @@ class NetworkReader(handler.ContentHandler):
             else:
                 self._edge = ""
         elif name == 'succlane' and self._edge!="":
-            self._turnlink = None
-            if attrs.has_key('tl'):
-                self._edgeObj.junction = attrs['tl']
-                self._edgeObj.junctiontype = 'signalized'
-                if attrs['dir'] == "r":
-                    self._edgeObj.rightturn = attrs['linkno']
-                    self._turnlink = attrs['lane']
-                    self._turnlink = self._turnlink[:-2]
-                    self._edgeObj.rightlink = self._net.getEdge(self._turnlink)
-                elif attrs['dir'] == "s": 
-                    self._edgeObj.straight = attrs['linkno']
-                    self._turnlink = attrs['lane']
-                    self._turnlink = self._turnlink[:-2]
-                    self._edgeObj.straightlink = self._net.getEdge(self._turnlink)
-                elif attrs['dir'] == "l": 
-                    self._edgeObj.leftturn = attrs['linkno']
-                    self._turnlink = attrs['lane']
-                    self._turnlink = self._turnlink[:-2]
-                    self._edgeObj.leftlink = self._net.getEdge(self._turnlink)
-                elif attrs['dir'] == "t": 
-                    self._edgeObj.uturn = attrs['linkno']
-            else:
-                self._edgeObj.junctiontype = 'prioritized'
-                if attrs['dir'] == "r":
-                    self._edgeObj.rightturn = attrs['state']
-                    self._turnlink = attrs['lane']
-                    self._turnlink = self._turnlink[:-2]
-                    self._edgeObj.rightlink = self._net.getEdge(self._turnlink)
-                elif attrs['dir'] == "s": 
-                    self._edgeObj.straight = attrs['state']
-                    self._turnlink = attrs['lane']
-                    self._turnlink = self._turnlink[:-2]
-
-                    self._edgeObj.straightlink = self._net.getEdge(self._turnlink)
-                elif attrs['dir'] == "l": 
-                    self._edgeObj.leftturn = attrs['state']
-                    self._turnlink = attrs['lane']
-                    self._turnlink = self._turnlink[:-2]
-                    self._edgeObj.leftlink = self._net.getEdge(self._turnlink)
-                elif attrs['dir'] == "t": 
-                    self._edgeObj.uturn = attrs['state']
-            fromEdge = self._net.getEdge(self._edge)
             l = attrs['lane']
-            if l!="SUMO_NO_DESTINATION":
+            if l != "SUMO_NO_DESTINATION":
                 toEdge = self._net.getEdge(l[:l.rfind('_')])
-                newEdge = Edge(self._edge+"_"+l[:l.rfind('_')], fromEdge.target, toEdge.source)
+                newEdge = Edge(self._edge+"_"+l[:l.rfind('_')], self._edgeObj.target, toEdge.source)
                 self._net.addEdge(newEdge)
-                fromEdge.finalizer = l[:l.rfind('_')]
+                self._edgeObj.finalizer = l[:l.rfind('_')]
+                if attrs.has_key('tl'):
+                    self._edgeObj.junction = attrs['tl']
+                    self._edgeObj.junctiontype = 'signalized'
+                    if attrs['dir'] == "r":
+                        self._edgeObj.rightturn = attrs['linkno']
+                        self._edgeObj.rightlink = toEdge
+                    elif attrs['dir'] == "s": 
+                        self._edgeObj.straight = attrs['linkno']
+                        self._edgeObj.straightlink = toEdge
+                    elif attrs['dir'] == "l": 
+                        self._edgeObj.leftturn = attrs['linkno']
+                        self._edgeObj.leftlink = toEdge
+                    elif attrs['dir'] == "t": 
+                        self._edgeObj.uturn = attrs['linkno']
+                else:
+                    self._edgeObj.junctiontype = 'prioritized'
+                    if attrs['dir'] == "r":
+                        self._edgeObj.rightturn = attrs['state']
+                        self._edgeObj.rightlink = toEdge
+                    elif attrs['dir'] == "s": 
+                        self._edgeObj.straight = attrs['state']
+                        self._edgeObj.straightlink = toEdge
+                    elif attrs['dir'] == "l": 
+                        self._edgeObj.leftturn = attrs['state']
+                        self._edgeObj.leftlink = toEdge
+                    elif attrs['dir'] == "t": 
+                        self._edgeObj.uturn = attrs['state']
         elif name == 'lane' and self._edge != '':
             self._maxSpeed = max(self._maxSpeed, float(attrs['maxspeed']))
             self._laneNumber = self._laneNumber + 1

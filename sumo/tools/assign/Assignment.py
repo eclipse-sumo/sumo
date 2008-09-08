@@ -28,67 +28,14 @@ from outputs import timeForInput, outputODZone, outputNetwork, outputStatistics,
 from assign import doSUEAssign, doLohseStopCheck, doSUEVehAssign, doIncAssign
 from tables import updateCurveTable
 
-# for measuring the required time for reading input files
-inputreaderstart = datetime.datetime.now()  
-
-optParser = OptionParser()
-optParser.add_option("-m", "--matrix-file", dest="mtxpsfile", 
-                     help="read OD matrix for passenger vehicles(long dist.) from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-n", "--net-file", dest="netfile",                          
-                     help="read SUMO network from FILE (mandatory)", metavar="FILE")
-optParser.add_option("-d", "--district-file", dest="confile",
-                     help="read OD Zones from FILE (mandatory)", metavar="FILE")  
-optParser.add_option("-s", "--extrasignal-file", dest="sigfile",
-                     help="read extra/updated signal timing plans from FILE", metavar="FILE")
-optParser.add_option("-u", "--crCurve-file", dest="curvefile",
-                     help="read parameters used in cost functions from FILE", metavar="FILE")  
-optParser.add_option("-k", "--k-shortest-paths", dest="kPaths", type="int",
-                     default=4, help="number of the paths should be found at the first iteration")
-optParser.add_option("-i", "--max-sue-iteration", dest="maxiteration", type="int",
-                     default=20, help="maximum number of the assignment iterations")
-optParser.add_option("-t", "--sue-tolerance", dest="sueTolerance", type="float",
-                     default=0.001, help="difference tolerance for the convergence in the c-logit model")
-optParser.add_option("-a", "--alpha", dest="alpha", type="float",
-                     default=0.15, help="alpha value to determine the commonality factor")
-optParser.add_option("-g", "--gamma", dest="gamma", type="float",
-                     default=1., help="gamma value to determine the commonality factor")
-optParser.add_option("-l", "--lambda", dest="lamda", type="float",
-                     default=0.3, help="lambda value to determine the penalty time due to queue")
-optParser.add_option("-U", "--under-value", dest="under", type="float",
-                     default=0.15, help="parameter 'under' to determine auxiliary link cost")
-optParser.add_option("-p", "--upper-value", dest="upper", type="float",
-                     default=0.5, help="parameter 'upper' to determine auxiliary link cost")
-optParser.add_option("-x", "--parameter-1", dest="v1", type="float",
-                     default=2.5, help="parameter 'v1' to determine auxiliary link cost in the lohse model")
-optParser.add_option("-y", "--parameter-2", dest="v2", type="float",
-                     default=4., help="parameter 'v2' to determine auxiliary link cost in the lohse model")
-optParser.add_option("-z", "--parameter-3", dest="v3", type="float",
-                     default=0.002, help="parameter 'v3' to determine auxiliary link cost in the lohse model")
-optParser.add_option("-c", "--convergence-parameter-1", dest="cvg1", type="float",
-                     default=1., help="parameter 'cvg1' to calculate the convergence value in the lohse model")
-optParser.add_option("-o", "--convergence-parameter-2", dest="cvg2", type="float",
-                     default=1., help="parameter 'cvg2' to calculate the convergence value in the lohse model")
-optParser.add_option("-q", "--convergence-parameter-3", dest="cvg3", type="float",
-                     default=10., help="parameter 'cvg3' to calculate the convergence value in the lohse model")
-optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                     default=False, help="tell me what you are doing")
-optParser.add_option("-b", "--debug", action="store_true", dest="debug",
-                     default=False, help="debug the program")
-optParser.add_option("-e", "--type", dest="type", type="choice",
-                     choices=('clogit', 'lohse', 'incremental'),
-                     default="clogit", help="type of assignment [default: %default]")
-                                      
-(options, args) = optParser.parse_args()
-
-if not options.netfile or not options.confile or not options.mtxpsfile:
-    optParser.print_help()
-    sys.exit()
-
-foutlog = file('%s_log.txt' % options.type, 'w')
-foutlog.write('The stochastic user equilibrium traffic assignment will be executed with the %s model.\n' % options.type)
-foutlog.write('All vehicular releasing times are determined randomly(uniform).\n')
 
 def main():   
+    # for measuring the required time for reading input files
+    inputreaderstart = datetime.datetime.now()
+    foutlog = file('%s_log.txt' % options.type, 'w')
+    foutlog.write('The stochastic user equilibrium traffic assignment will be executed with the %s model.\n' % options.type)
+    foutlog.write('All vehicular releasing times are determined randomly(uniform).\n')
+  
     matrices = options.mtxpsfile.split(",")    
     parser = make_parser()
     
@@ -296,6 +243,72 @@ def main():
                                               
     print 'Duration for traffic assignment:', assigntime
     print 'Total assigned vehicles:', vehID
-    print 'Total number of the assigend trips:', matrixSum
+    print 'Total number of the assigned trips:', matrixSum
+
+
     
-main()
+optParser = OptionParser()
+optParser.add_option("-m", "--matrix-file", dest="mtxpsfile", 
+                     help="read OD matrix for passenger vehicles(long dist.) from FILE (mandatory)", metavar="FILE")
+optParser.add_option("-n", "--net-file", dest="netfile",                          
+                     help="read SUMO network from FILE (mandatory)", metavar="FILE")
+optParser.add_option("-d", "--district-file", dest="confile",
+                     help="read OD Zones from FILE (mandatory)", metavar="FILE")  
+optParser.add_option("-s", "--extrasignal-file", dest="sigfile",
+                     help="read extra/updated signal timing plans from FILE", metavar="FILE")
+optParser.add_option("-u", "--crCurve-file", dest="curvefile",
+                     help="read parameters used in cost functions from FILE", metavar="FILE")  
+optParser.add_option("-k", "--k-shortest-paths", dest="kPaths", type="int",
+                     default=4, help="number of the paths should be found at the first iteration")
+optParser.add_option("-i", "--max-sue-iteration", dest="maxiteration", type="int",
+                     default=20, help="maximum number of the assignment iterations")
+optParser.add_option("-t", "--sue-tolerance", dest="sueTolerance", type="float",
+                     default=0.001, help="difference tolerance for the convergence in the c-logit model")
+optParser.add_option("-a", "--alpha", dest="alpha", type="float",
+                     default=0.15, help="alpha value to determine the commonality factor")
+optParser.add_option("-g", "--gamma", dest="gamma", type="float",
+                     default=1., help="gamma value to determine the commonality factor")
+optParser.add_option("-l", "--lambda", dest="lamda", type="float",
+                     default=0.3, help="lambda value to determine the penalty time due to queue")
+optParser.add_option("-U", "--under-value", dest="under", type="float",
+                     default=0.15, help="parameter 'under' to determine auxiliary link cost")
+optParser.add_option("-p", "--upper-value", dest="upper", type="float",
+                     default=0.5, help="parameter 'upper' to determine auxiliary link cost")
+optParser.add_option("-x", "--parameter-1", dest="v1", type="float",
+                     default=2.5, help="parameter 'v1' to determine auxiliary link cost in the lohse model")
+optParser.add_option("-y", "--parameter-2", dest="v2", type="float",
+                     default=4., help="parameter 'v2' to determine auxiliary link cost in the lohse model")
+optParser.add_option("-z", "--parameter-3", dest="v3", type="float",
+                     default=0.002, help="parameter 'v3' to determine auxiliary link cost in the lohse model")
+optParser.add_option("-c", "--convergence-parameter-1", dest="cvg1", type="float",
+                     default=1., help="parameter 'cvg1' to calculate the convergence value in the lohse model")
+optParser.add_option("-o", "--convergence-parameter-2", dest="cvg2", type="float",
+                     default=1., help="parameter 'cvg2' to calculate the convergence value in the lohse model")
+optParser.add_option("-q", "--convergence-parameter-3", dest="cvg3", type="float",
+                     default=10., help="parameter 'cvg3' to calculate the convergence value in the lohse model")
+optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+                     default=False, help="tell me what you are doing")
+optParser.add_option("-b", "--debug", action="store_true", dest="debug",
+                     default=False, help="debug the program")
+optParser.add_option("-e", "--type", dest="type", type="choice",
+                     choices=('clogit', 'lohse', 'incremental'),
+                     default="clogit", help="type of assignment [default: %default]")
+optParser.add_option("-r", "--profile", action="store_true", dest="profile",                          
+                     default=False, help="writing profiling info")
+                                      
+(options, args) = optParser.parse_args()
+
+if not options.netfile or not options.confile or not options.mtxpsfile:
+    optParser.print_help()
+    sys.exit()
+
+if options.profile:
+    import hotshot, hotshot.stats
+    hotshotFile = "hotshot_%s_stats" % options.type
+    prof = hotshot.Profile(hotshotFile)
+    prof.runcall(main)
+    prof.close()
+    s = hotshot.stats.load(hotshotFile)
+    s.sort_stats("time").print_stats()
+else:
+    main()
