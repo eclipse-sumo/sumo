@@ -7,7 +7,7 @@ dnl create an config-header
 AC_CONFIG_HEADER(src/config.h)
 
 dnl enable automake-support
-AM_INIT_AUTOMAKE([gnu dist-zip tar-ustar])
+AM_INIT_AUTOMAKE([gnu dist-zip tar-ustar dist-bzip2])
 
 
 dnl the debug check has to be made before the program checks
