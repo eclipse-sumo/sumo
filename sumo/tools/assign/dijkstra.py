@@ -95,42 +95,27 @@ def dijkstra(net, start, lohse=False):
     for v in Q:
         D[v] = Q[v]
 
-        if v != start and P[v].againstlinkexist == None and P[v].kind == 'real':
-            for vertex in net._vertices:
-                if vertex.label == v.label and vertex != v:
-                    for link in vertex.outEdges:
-                        if link.target.label == P[v].source.label and len(vertex.inEdges) > 1:
-                            P[v].againstlinkexist = True
-                            break
-                        else:
-                            P[v].againstlinkexist = False
-                    if P[v].againstlinkexist == True:
-                        break
-                              
         for edge in v.outEdges:
-            leftTurn = False
             w = edge.target
-            if v != start:
-                for link in w.outEdges:
-                    if link.label == P[v].leftlink and P[v].againstlinkexist and P[v].straight != None:
-                        leftTurn = True
-                        break
 
-            if v == start or not leftTurn:
+            if v == start or P[v].conflictlink == None:
                 if lohse:
                     vwLength = D[v] + edge.helpacttime
                 else:
                     vwLength = D[v] + edge.actualtime + edge.queuetime
-            else:
+            elif P[v].conflictlink != None:
                 weightFactor = 1.0
                 if P[v].numberlane == 2.:
                     weightFactor *= 0.8
                 elif P[v].numberlane > 2.:
                     weightFactor *= 0.4
+                    
+                penalty = (math.exp(P[v].flow/P[v].estcapacity) - 1. + math.exp(P[v].conflictlink.flow/P[v].conflictlink.estcapacity) - 1.)/2.
                 if lohse:
                     vwLength = D[v] + edge.helpacttime + P[v].helpacttime*(math.exp(P[v].flow/P[v].estcapacity) - 1.)*weightFactor
-                else:    
-                    vwLength = D[v] + edge.actualtime + edge.queuetime + P[v].actualtime*(math.exp(P[v].flow/P[v].estcapacity) - 1.)*weightFactor
+                else:
+                    
+                    vwLength = D[v] + edge.actualtime + edge.queuetime + P[v].actualtime * penalty * weightFactor
 
             if w in D:
                 if vwLength < D[w]:

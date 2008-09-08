@@ -219,6 +219,7 @@ class NetworkReader(handler.ContentHandler):
         self._phaseObj = None
         self._chars = ''
         self._counter = 0
+        self._turnlink = None
 
     def startElement(self, name, attrs):
         self._chars = ''
@@ -247,29 +248,45 @@ class NetworkReader(handler.ContentHandler):
             else:
                 self._edge = ""
         elif name == 'succlane' and self._edge!="":
+            self._turnlink = None
             if attrs.has_key('tl'):
                 self._edgeObj.junction = attrs['tl']
                 self._edgeObj.junctiontype = 'signalized'
                 if attrs['dir'] == "r":
                     self._edgeObj.rightturn = attrs['linkno']
+                    self._turnlink = attrs['lane']
+                    self._turnlink = self._turnlink[:-2]
+                    self._edgeObj.rightlink = self._net.getEdge(self._turnlink)
                 elif attrs['dir'] == "s": 
                     self._edgeObj.straight = attrs['linkno']
+                    self._turnlink = attrs['lane']
+                    self._turnlink = self._turnlink[:-2]
+                    self._edgeObj.straightlink = self._net.getEdge(self._turnlink)
                 elif attrs['dir'] == "l": 
                     self._edgeObj.leftturn = attrs['linkno']
-                    self._edgeObj.leftlink = attrs['lane']
-                    self._edgeObj.leftlink = self._edgeObj.leftlink[:-2]
+                    self._turnlink = attrs['lane']
+                    self._turnlink = self._turnlink[:-2]
+                    self._edgeObj.leftlink = self._net.getEdge(self._turnlink)
                 elif attrs['dir'] == "t": 
                     self._edgeObj.uturn = attrs['linkno']
             else:
                 self._edgeObj.junctiontype = 'prioritized'
                 if attrs['dir'] == "r":
                     self._edgeObj.rightturn = attrs['state']
+                    self._turnlink = attrs['lane']
+                    self._turnlink = self._turnlink[:-2]
+                    self._edgeObj.rightlink = self._net.getEdge(self._turnlink)
                 elif attrs['dir'] == "s": 
                     self._edgeObj.straight = attrs['state']
+                    self._turnlink = attrs['lane']
+                    self._turnlink = self._turnlink[:-2]
+
+                    self._edgeObj.straightlink = self._net.getEdge(self._turnlink)
                 elif attrs['dir'] == "l": 
                     self._edgeObj.leftturn = attrs['state']
-                    self._edgeObj.leftlink = attrs['lane']
-                    self._edgeObj.leftlink = self._edgeObj.leftlink[:-2]
+                    self._turnlink = attrs['lane']
+                    self._turnlink = self._turnlink[:-2]
+                    self._edgeObj.leftlink = self._net.getEdge(self._turnlink)
                 elif attrs['dir'] == "t": 
                     self._edgeObj.uturn = attrs['state']
             fromEdge = self._net.getEdge(self._edge)
@@ -301,6 +318,7 @@ class NetworkReader(handler.ContentHandler):
             self._chars = ''
         elif name == 'tl-logic':
             self._junctionObj = None
+
 
 # The class is for parsing the XML input file (districts). The data parsed is written into the net.
 class DistrictsReader(handler.ContentHandler):

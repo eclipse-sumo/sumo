@@ -100,7 +100,10 @@ class Edge:
         self.leftturn = None
         self.uturn = None
         self.leftlink = None
-        self.againstlinkexist = None  
+        self.straightlink = None
+        self.rightlink = None
+        self.conflictlink = None
+#        self.againstlinkexist = None  
         self.flow = 0.0
         self.kind = kind
         self.maxspeed = 1.0
@@ -148,6 +151,17 @@ class Edge:
         return "%s_%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self.kind, self.label, self.source, self.target, self.junctiontype,
                                                       self.flow, self.length, self.numberlane,
                                                       self.CRcurve, self.estcapacity, cap, self.weight)
+                                                      
+    def getConflictLink(self):
+        if self.kind == 'real' and self.conflictlink == None and self.leftlink != None: 
+            for edge in self.leftlink.source.inEdges:
+                conEdge = edge
+            for edge in conEdge.source.inEdges:
+                for incominglink in edge.source.inEdges:
+                    for upsteamlink in incominglink.source.inEdges:
+                        if upstreamlink.rightlink == self.leftlink and upstreamlink.straightlink != None:
+                            self.conflictlink = upstreamlink
+    
     def getFreeFlowTravelTime(self):
         return self.freeflowtime
                 
