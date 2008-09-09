@@ -284,8 +284,6 @@ public:
 
 private:
 
-    /// rotates the junction so that the key fits
-    void rotateIncomingEdges(int norot);
 
     /// sets the computed non - permutating key
     void setKey(std::string key);
@@ -295,9 +293,6 @@ private:
 
     /// build the logic using the NBRequest
     void buildBitfieldLogic();
-
-    /// builds the list of incoming and outgoing lanes/edges
-    void buildList();
 
     /** sorts edges with same direction (other direction lanes) in a way that
         the outgoing lanes are "earlier" in the list */

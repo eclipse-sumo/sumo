@@ -261,10 +261,9 @@ void
 NBNode::addIncomingEdge(NBEdge *edge)
 {
     assert(edge!=0);
-    if (find(myIncomingEdges->begin(), myIncomingEdges->end(), edge)
-            ==myIncomingEdges->end()) {
-
+    if (find(myIncomingEdges->begin(), myIncomingEdges->end(), edge)==myIncomingEdges->end()) {
         myIncomingEdges->push_back(edge);
+        myAllEdges.push_back(edge);
         for (std::vector<NBEdge*>::iterator i=myOutgoingEdges->begin(); i!=myOutgoingEdges->end(); ++i) {
             if ((*i)->getToNode()==edge->getFromNode()) {
                 (*i)->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
@@ -279,10 +278,9 @@ void
 NBNode::addOutgoingEdge(NBEdge *edge)
 {
     assert(edge!=0);
-    if (find(myOutgoingEdges->begin(), myOutgoingEdges->end(), edge)
-            ==myOutgoingEdges->end()) {
-
+    if (find(myOutgoingEdges->begin(), myOutgoingEdges->end(), edge)==myOutgoingEdges->end()) {
         myOutgoingEdges->push_back(edge);
+        myAllEdges.push_back(edge);
         for (std::vector<NBEdge*>::iterator i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); ++i) {
             if ((*i)->getFromNode()==edge->getToNode()) {
                 (*i)->setLaneSpreadFunction(NBEdge::LANESPREAD_RIGHT);
@@ -318,16 +316,6 @@ const EdgeVector &
 NBNode::getEdges() const
 {
     return myAllEdges;
-}
-
-
-void
-NBNode::buildList()
-{
-    copy(myIncomingEdges->begin(), myIncomingEdges->end(),
-         back_inserter(myAllEdges));
-    copy(myOutgoingEdges->begin(), myOutgoingEdges->end(),
-         back_inserter(myAllEdges));
 }
 
 
@@ -568,26 +556,6 @@ NBNode::extractAndMarkFirst(vector<NBEdge*> &s)
     s.erase(s.begin());
     ret->setJunctionPriority(this, 1);
     return ret;
-}
-
-
-void
-NBNode::rotateIncomingEdges(int norot)
-{
-    if (myIncomingEdges->size()==0) {
-        return;
-    }
-    while (norot>0) {
-        NBEdge *e = (*myIncomingEdges)[0];
-        unsigned int i;
-        for (i=0; i<myIncomingEdges->size()-1; i++) {
-            assert(myIncomingEdges!=0&&myIncomingEdges->size()>i+1);
-            (*myIncomingEdges)[i] = (*myIncomingEdges)[i+1];
-        }
-        assert(myIncomingEdges!=0&&i<myIncomingEdges->size());
-        (*myIncomingEdges)[i] = e;
-        norot--;
-    }
 }
 
 
@@ -1271,7 +1239,6 @@ void
 NBNode::sortNodesEdges(const NBTypeCont &tc)
 {
     // sort the edges
-    buildList();
     sort(myAllEdges.begin(), myAllEdges.end(), NBContHelper::edge_by_junction_angle_sorter(this));
     sort(myIncomingEdges->begin(), myIncomingEdges->end(), NBContHelper::edge_by_junction_angle_sorter(this));
     sort(myOutgoingEdges->begin(), myOutgoingEdges->end(), NBContHelper::edge_by_junction_angle_sorter(this));
@@ -1481,16 +1448,16 @@ NBNode::reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
 void
 NBNode::replaceOutgoing(NBEdge *which, NBEdge *by, size_t laneOff)
 {
-    size_t i;
     // replace the edge in the list of outgoing nodes
-    for (i=0; i<myOutgoingEdges->size(); i++) {
-        if ((*myOutgoingEdges)[i]==which) {
-            (*myOutgoingEdges)[i] = by;
-        }
+    vector<NBEdge*>::iterator i=find(myOutgoingEdges->begin(), myOutgoingEdges->end(), which);
+    if(i!=myOutgoingEdges->end()) {
+        (*i) = by;
+        i = find(myAllEdges.begin(), myAllEdges.end(), which);
+        (*i) = by;
     }
     // replace the edge in connections of incoming edges
-    for (i=0; i<myIncomingEdges->size(); i++) {
-        (*myIncomingEdges)[i]->replaceInConnections(which, by, laneOff);
+    for (i=myIncomingEdges->begin(); i!=myIncomingEdges->end(); ++i) {
+        (*i)->replaceInConnections(which, by, laneOff);
     }
     // replace within the connetion prohibition dependencies
     replaceInConnectionProhibitions(which, by, 0, laneOff);
@@ -1520,10 +1487,11 @@ void
 NBNode::replaceIncoming(NBEdge *which, NBEdge *by, size_t laneOff)
 {
     // replace the edge in the list of incoming nodes
-    for (size_t i=0; i<myIncomingEdges->size(); i++) {
-        if ((*myIncomingEdges)[i]==which) {
-            (*myIncomingEdges)[i] = by;
-        }
+    vector<NBEdge*>::iterator i=find(myIncomingEdges->begin(), myIncomingEdges->end(), which);
+    if(i!=myIncomingEdges->end()) {
+        (*i) = by;
+        i = find(myAllEdges.begin(), myAllEdges.end(), which);
+        (*i) = by;
     }
     // replace within the connetion prohibition dependencies
     replaceInConnectionProhibitions(which, by, laneOff, 0);
@@ -1607,6 +1575,17 @@ NBNode::removeDoubleEdges()
         while (j<myOutgoingEdges->size()) {
             if ((*myOutgoingEdges)[i]==(*myOutgoingEdges)[j]) {
                 myOutgoingEdges->erase(myOutgoingEdges->begin()+j);
+            } else {
+                j++;
+            }
+        }
+    }
+    // check all
+    for (i=0; myAllEdges.size()>0&&i<myAllEdges.size()-1; i++) {
+        j = i + 1;
+        while (j<myAllEdges.size()) {
+            if (myAllEdges[i]==myAllEdges[j]) {
+                myAllEdges.erase(myAllEdges.begin()+j);
             } else {
                 j++;
             }
@@ -1745,10 +1724,11 @@ NBNode::eraseDummies(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont
 void
 NBNode::removeOutgoing(NBEdge *edge)
 {
-    EdgeVector::iterator i =
-        find(myOutgoingEdges->begin(), myOutgoingEdges->end(), edge);
+    EdgeVector::iterator i = find(myOutgoingEdges->begin(), myOutgoingEdges->end(), edge);
     if (i!=myOutgoingEdges->end()) {
         myOutgoingEdges->erase(i);
+        i = find(myAllEdges.begin(), myAllEdges.end(), edge);
+            myAllEdges.erase(i);
     }
 }
 
@@ -1756,10 +1736,11 @@ NBNode::removeOutgoing(NBEdge *edge)
 void
 NBNode::removeIncoming(NBEdge *edge)
 {
-    EdgeVector::iterator i =
-        find(myIncomingEdges->begin(), myIncomingEdges->end(), edge);
+    EdgeVector::iterator i = find(myIncomingEdges->begin(), myIncomingEdges->end(), edge);
     if (i!=myIncomingEdges->end()) {
         myIncomingEdges->erase(i);
+        i = find(myAllEdges.begin(), myAllEdges.end(), edge);
+            myAllEdges.erase(i);
     }
 }
 
