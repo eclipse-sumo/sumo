@@ -29,7 +29,9 @@ class Predecessor:
 # This class is used to build the nodes in the investigated network and 
 # includes the update-function for searching the k shortest paths.
 class Vertex:
-
+    """
+    This class is to store node attributes and the respective incoming/outgoing links.
+    """
     def __init__(self, num):
         self.inEdges = set()
         self.outEdges = set()
@@ -87,6 +89,9 @@ class Vertex:
 # as well as flow and capacity for the flow computation and some parameters
 # read from the net.
 class Edge:
+    """
+    This class is to record link attributes
+    """
     def __init__(self, label, source, target, kind="junction"):
         self.label = label
         self.source = source
@@ -136,10 +141,10 @@ class Edge:
         self.penalty = 0.
         
     def init(self, speed, length, laneNumber):
-        self.maxspeed = speed
-        self.length = length
-        self.numberlane = laneNumber
-        if str(self.source) == str(self.target):
+        self.maxspeed = float(speed)
+        self.length = float(length)
+        self.numberlane = float(laneNumber)
+        if self.source.label == self.target.label:
             self.freeflowtime = 0.0
         else:
             self.freeflowtime = self.length / self.maxspeed
@@ -149,20 +154,21 @@ class Edge:
         cap = str(self.capacity)
         if self.capacity == sys.maxint or self.connection != 0:
             cap = "inf"
-        return "%s_%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self.kind, self.label, self.source, self.target, self.junctiontype,
+        return "%s_%s_%s_%s<%s|%s|%s|%s|%s|%s|%s|%s|%s>" % (self.kind, self.label, self.source, self.target, self.junctiontype, self.maxspeed,
                                                       self.flow, self.length, self.numberlane,
                                                       self.CRcurve, self.estcapacity, cap, self.weight)
                                                       
     def getConflictLink(self):
-        if self.kind == 'real' and self.conflictlink == None and self.leftlink != None: 
+        """
+        method to get the conflict link for each link, when the respective left-turn behavior is allowed
+        """
+        if self.kind == 'real' and self.leftlink != None:
             for edge in self.leftlink.source.inEdges:
-                conEdge = edge
-            for edge in conEdge.source.inEdges:
-                for incominglink in edge.source.inEdges:
-                    for upsteamlink in incominglink.source.inEdges:
-                        if upstreamlink.rightlink == self.leftlink and upstreamlink.straightlink != None:
-                            self.conflictlink = upstreamlink
-    
+                for upsteamlink in edge.source.inEdges:
+                    if upsteamlink.rightlink == self.leftlink and upsteamlink.straightlink != None:
+                        if upsteamlink.straightlink.target.label == self.source.label:
+                            self.conflictlink = upsteamlink
+                            
     def getFreeFlowTravelTime(self):
         return self.freeflowtime
                 
@@ -171,17 +177,22 @@ class Edge:
         
     def getCapacity(self):
         """
-        modified CR-curve database, defined in the PTV-Validate files
+        method to read the link capacity and the cr-curve type from the table.py
+        the applied CR-curve database is retrived from VISUM-Validate-network und VISUM-Koeln-network
         """
-        if self.numberlane > 0:
+        if self.numberlane > 0.:
             typeList = laneTypeTable[min(int(self.numberlane), 4)]
             for laneType in typeList:
                 if laneType[0] >= self.maxspeed:
                     break
+
             self.estcapacity = self.numberlane * laneType[1]
             self.CRcurve = laneType[2]
               
     def getAdjustedCapacity(self, net):
+        """
+        method to adjust the link capacity based on the given signal timing plans
+        """
         straightGreen = 0.
         rightGreen = 0.
         leftGreen = 0.
@@ -219,7 +230,7 @@ class Edge:
                      
     def getActualTravelTime(self, lamda):
         """
-        Function for calculating/updating link travel time
+        method to calculate/update link travel time
         """  
         foutcheck = file('queue_info.txt', 'a')
         if self.CRcurve in crCurveTable:
@@ -241,27 +252,28 @@ class Edge:
 
             elif self.flow <= self.estcapacity and self.connection == 0 and self.source.label != self.target.label:
                 self.queuetime = 0.
+                
+            self.penalty = 0.
             if self.conflictlink != None:
                 weightFactor = 1.0
                 if self.numberlane == 2.:
                     weightFactor = 0.8
                 elif self.numberlane > 2.:
                     weightFactor = 0.4
-                self.penalty = (math.exp(self.flow/self.estcapacity) - 1. + math.exp(self.conflictlink.flow/self.conflictlink.estcapacity) - 1.)/2.
-                self.penalty *= weightFactor
-            else:
-                self.penalty = 0.
-        foutcheck.close()        
-        return self.actualtime
+                if self.conflictlink.estcapacity != 0. and self.conflictlink.flow/self.conflictlink.estcapacity > 0.1:
+                    self.penalty = (math.exp(self.flow/self.estcapacity) - 1. + math.exp(self.conflictlink.flow/self.conflictlink.estcapacity) - 1.)/2.
+                    self.penalty *= weightFactor
+
+        foutcheck.close()
     
     def cleanFlow(self):
-        """ reset link flows """
+        """ method to reset link flows """
         self.flow = 0.
         self.helpflow = 0.
   
     def resetLohseParameter(self):
         """
-        reset the parameter used in the Lohse-assignment (learning method - Lernverfahren)
+        method to reset the parameter used in the Lohse-assignment (learning method - Lernverfahren)
         """
         self.fTT = 0.
         self.TT = 0.               
@@ -270,7 +282,7 @@ class Edge:
             
     def getLohseParUpdate(self, options):
         """
-        update the parameter used in the Lohse-assignment (learning method - Lernverfahren)
+        method to update the parameter used in the Lohse-assignment (learning method - Lernverfahren)
         """
         if self.helpacttime > 0.:
             self.TT = abs(self.actualtime - self.helpacttime) / self.helpacttime
@@ -281,7 +293,7 @@ class Edge:
                 
     def stopCheck(self, options):
         """
-        check if the convergence reaches in the Lohse-assignment
+        method to check if the convergence reaches in the Lohse-assignment
         """
         stop = False
         criteria = 0.
@@ -293,7 +305,7 @@ class Edge:
 
 class Vehicle:
     """
-    This class is for storing vehicle information, such as departure time, route and travel time.
+    This class is to store vehicle information, such as departure time, route and travel time.
     """
     def __init__(self, label):
         self.label = label
@@ -315,7 +327,7 @@ pathNum = 0
         
 class Path:
     """
-    This class is for storing path information which is mainly for the C-logit and the Lohse models.
+    This class is to store path information which is mainly for the C-logit and the Lohse models.
     """
     def __init__(self, source, target, edges):
         self.source = source

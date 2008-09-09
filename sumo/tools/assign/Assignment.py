@@ -61,9 +61,11 @@ def main():
     for edgeID in net._edges: 
         edge = net._edges[edgeID]
         net.removeUTurnEdge(edge)
+
         if edge.numberlane > 0.:
             edge.getCapacity()
             edge.getAdjustedCapacity(net)
+            edge.getConflictLink()
             edge.getActualTravelTime(options.lamda) 
             edge.helpacttime = edge.freeflowtime
 
@@ -167,7 +169,6 @@ def main():
                 for edgeID in net._edges:                                                   
                     edge = net._edges[edgeID]
                     edge.getActualTravelTime(options.lamda)
-                    
         else:
             print 'begin the', options.type, " assignment!"   
             # initialization for the clogit and the lohse assignment model
