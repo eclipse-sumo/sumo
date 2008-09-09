@@ -338,8 +338,7 @@ main(int argc, char **argv)
             prune = true;
         }
 
-        StringTokenizer st(oc.getString("remove"), ";");
-        PCPolyContainer toFill(prune, prunningBoundary, st.getVector());
+        PCPolyContainer toFill(prune, prunningBoundary, oc.getStringVector("remove"));
 
         // read in the type defaults
         PCTypeMap tm;
