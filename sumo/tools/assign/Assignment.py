@@ -58,6 +58,7 @@ def main():
     if options.curvefile:
         updateCurveTable(options.curvefile)
 
+#    net.reduce() 
     for edgeID in net._edges: 
         edge = net._edges[edgeID]
         net.removeUTurnEdge(edge)
@@ -317,6 +318,6 @@ if options.profile:
     prof.runcall(main)
     prof.close()
     s = hotshot.stats.load(hotshotFile)
-    s.sort_stats("time").print_stats()
+    s.strip_dirs().sort_stats("time").print_stats(20)
 else:
     main()
