@@ -135,7 +135,7 @@ NIImporter_RobocupRescue::loadNodes(const std::string &file)
             dev >> skip;
             --entrySize;
         } while (entrySize!=0);
-        Position2D pos((SUMOReal) posX / 1000., -(SUMOReal) posY / 1000.);
+        Position2D pos((SUMOReal) (posX / 1000.), -(SUMOReal) (posY / 1000.));
         GeoConvHelper::x2cartesian(pos);
         NBNode *node = new NBNode(toString(id), pos);
         myNodeCont.insert(node);

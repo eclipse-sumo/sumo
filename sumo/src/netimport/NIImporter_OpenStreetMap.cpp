@@ -253,7 +253,7 @@ NIImporter_OpenStreetMap::insertEdge(Edge *e, int index, NBNode *from, NBNode *t
     }
     // otherwise it is not an edge and will be ignored
     int noLanes = tc.getNoLanes(e->myHighWayType);
-    double speed = tc.getSpeed(e->myHighWayType);
+    SUMOReal speed = tc.getSpeed(e->myHighWayType);
     bool defaultsToOneWay = tc.getIsOneWay(e->myHighWayType);
     vector<SUMOVehicleClass> allowedClasses = tc.getAllowedClasses(e->myHighWayType);
     vector<SUMOVehicleClass> disallowedClasses = tc.getDisallowedClasses(e->myHighWayType);
