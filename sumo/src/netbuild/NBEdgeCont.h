@@ -243,36 +243,135 @@ public:
         return myEdgesSplit;
     }
     /// @}
-    void computeEdge2Edges();
 
-    /// computes edges, step2: computation of which lanes approach the edges)
-    void computeLanes2Edges();
 
-    /** sorts all lanes of all edges within the container by their direction */
-    void sortOutgoingLanesConnections();
 
-    /** computes the turn-around directions of all edges within the
-        container */
-    void computeTurningDirections();
+    /// @name processing methods
+    /// @{
 
-    /** rechecks whether all lanes have a successor */
-    void recheckLanes();
+    /** @brief Computes the turn-around directions for all edges
+     *
+     * Calls "NBEdge::computeTurningDirections" for all edges within the container.
+     * 
+     * @todo Recheck whether a visitor-pattern should be used herefor
+     * @see NBEdge::computeTurningDirections
+     */
+    void computeTurningDirections() throw();
 
-    /** appends turnarounds */
-    void appendTurnarounds();
 
-    /** deletes all edges */
+    /** @brief Sorts all lanes of all edges within the container by their direction
+     *
+     * Calls "NBEdge::sortOutgoingLanesConnections" for all edges within the container.
+     * 
+     * @todo Recheck whether a visitor-pattern should be used herefor
+     * @see NBEdge::sortOutgoingLanesConnections
+     */
+    void sortOutgoingLanesConnections() throw();
 
-    /// joins the given edges as they connect the same nodes
+
+    /** @brief Computes for each edge the approached edges
+     *
+     * Calls "NBEdge::computeEdge2Edges" for all edges within the container.
+     * 
+     * @todo Recheck whether a visitor-pattern should be used herefor
+     * @see NBEdge::computeEdge2Edges
+     */
+    void computeEdge2Edges() throw();
+
+
+    /** @brief Computes for each edge which lanes approach the next edges
+     *
+     * Calls "NBEdge::computeLanes2Edges" for all edges within the container.
+     * 
+     * @todo Recheck whether a visitor-pattern should be used herefor
+     * @see NBEdge::computeLanes2Edges
+     */
+    void computeLanes2Edges() throw();
+
+
+    /** @brief Rechecks whether all lanes have a successor for each of the stored edges
+     *
+     * Calls "NBEdge::recheckLanes" for all edges within the container.
+     * 
+     * @todo Recheck whether a visitor-pattern should be used herefor
+     * @see NBEdge::recheckLanes
+     */
+    void recheckLanes() throw();
+
+
+    /** @brief Appends turnarounds to all edges stored in the container
+     *
+     * Calls "NBEdge::appendTurnaround" for all edges within the container.
+     * 
+     * @todo Recheck whether a visitor-pattern should be used herefor
+     * @see NBEdge::appendTurnaround
+     */
+    void appendTurnarounds() throw();
+
+
+    /** @brief Moves the geometries of all known edges by the network offset
+     *
+     * Calls "NBEdge::normalisePosition" for all edges within the container.
+     * 
+     * @todo Recheck whether a visitor-pattern should be used herefor
+     * @see NBEdge::normalisePosition
+     */
+    void normaliseEdgePositions() throw();
+
+
+    /** @brief Translates and rotates the geometries of all known edges by the given values
+     *
+     * Calls "NBEdge::reshiftPosition" for all edges within the container.
+     * 
+     * @todo Recheck whether a visitor-pattern should be used herefor
+     * @todo Recheck usage
+     * @see NBEdge::reshiftPosition
+     */
+    void reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) throw();
+
+
+    /** @brief Computes the shapes of all edges stored in the container
+     *
+     * Calls "NBEdge::computeEdgeShape" for all edges within the container.
+     * 
+     * @todo Recheck whether a visitor-pattern should be used herefor
+     * @todo Recheck usage
+     * @see NBEdge::computeEdgeShape
+     */
+    void computeEdgeShapes() throw();
+
+
+    /** @brief Computes the shapes of all lanes of all edges stored in the container
+     *
+     * Calls "NBEdge::computeLaneShapes" for all edges within the container.
+     * 
+     * @todo Recheck whether a visitor-pattern should be used herefor
+     * @todo Recheck usage
+     * @see NBEdge::computeLaneShapes
+     */
+    void recomputeLaneShapes() throw();
+
+
+    /** @brief Removes double occurences of the same position in all edge geomeries
+     *
+     * Calls "NBEdge::recheckEdgeGeomForDoublePositions" for all edges within the container.
+     * 
+     * @todo Recheck whether a visitor-pattern should be used herefor
+     * @todo Recheck usage
+     * @see NBEdge::recheckEdgeGeomForDoublePositions
+     */
+    void recheckEdgeGeomsForDoublePositions() throw();
+
+
+    /** @brief Joins the given edges because they connect the same nodes
+     *
+     * @param[in] dc The district container needed to remove edges 
+     * @param[in] tlc The tls container needed to remove edges 
+     * @param[in] edges The edges to join
+     * @todo Recheck and describe usage
+     */
     void joinSameNodeConnectingEdges(NBDistrictCont &dc,
-                                     NBTrafficLightLogicCont &tlc, EdgeVector edges);
-
-    /// moves the geometry of the edges by the network offset
-    void normaliseEdgePositions();
-    void reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
-
-    void computeEdgeShapes();
-
+                                     NBTrafficLightLogicCont &tlc, EdgeVector edges) throw();
 
 
     /** @brief Removes unwished edges (not in keep-edges)
@@ -282,13 +381,25 @@ public:
      */
     void removeUnwishedEdges(NBDistrictCont &dc) throw();
 
-    void recomputeLaneShapes();
 
-    void splitGeometry(NBNodeCont &nc);
+    /** @brief Splits edges into multiple if they have a complex geometry
+     *
+     * Calls "NBEdge::splitGeometry" for all edges within the container which
+     *  have more than three positions in their geometry.
+     * 
+     * @param[in] nc The node container needed to build (geometry) nodes
+     * @see NBEdge::splitGeometry
+     */
+    void splitGeometry(NBNodeCont &nc) throw();
 
-    void recheckLaneSpread();
 
-    void recheckEdgeGeomsForDoublePositions();
+    /** @brief Rechecks whether the lane spread is proper
+     *
+     * @todo Recheck usage; check whether this is really needed and whether it works at all
+     */
+    void recheckLaneSpread() throw();
+    /// @}
+
 
 
     /// @name output methods

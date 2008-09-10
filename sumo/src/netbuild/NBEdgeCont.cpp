@@ -407,8 +407,9 @@ NBEdgeCont::getAllNames() const throw()
 
 
 
+// ----- processing methods
 void
-NBEdgeCont::computeTurningDirections()
+NBEdgeCont::computeTurningDirections() throw()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeTurningDirections();
@@ -417,7 +418,7 @@ NBEdgeCont::computeTurningDirections()
 
 
 void
-NBEdgeCont::sortOutgoingLanesConnections()
+NBEdgeCont::sortOutgoingLanesConnections() throw()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->sortOutgoingLanesConnections();
@@ -426,7 +427,7 @@ NBEdgeCont::sortOutgoingLanesConnections()
 
 
 void
-NBEdgeCont::computeEdge2Edges()
+NBEdgeCont::computeEdge2Edges() throw()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeEdge2Edges();
@@ -435,7 +436,7 @@ NBEdgeCont::computeEdge2Edges()
 
 
 void
-NBEdgeCont::computeLanes2Edges()
+NBEdgeCont::computeLanes2Edges() throw()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->computeLanes2Edges();
@@ -444,7 +445,7 @@ NBEdgeCont::computeLanes2Edges()
 
 
 void
-NBEdgeCont::recheckLanes()
+NBEdgeCont::recheckLanes() throw()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->recheckLanes();
@@ -453,7 +454,7 @@ NBEdgeCont::recheckLanes()
 
 
 void
-NBEdgeCont::appendTurnarounds()
+NBEdgeCont::appendTurnarounds() throw()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
         (*i).second->appendTurnaround();
@@ -461,26 +462,55 @@ NBEdgeCont::appendTurnarounds()
 }
 
 
-
-
-
-std::vector<std::string>
-NBEdgeCont::buildPossibilities(const std::vector<std::string> &s)
+void
+NBEdgeCont::normaliseEdgePositions() throw()
 {
-    std::vector<std::string> ret;
-    for (std::vector<std::string>::const_iterator i=s.begin(); i!=s.end(); i++) {
-        ret.push_back((*i) + "[0]");
-        ret.push_back((*i) + "[1]");
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
+        (*i).second->normalisePosition();
     }
-    return ret;
 }
 
+
+void
+NBEdgeCont::reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) throw()
+{
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
+        (*i).second->reshiftPosition(xoff, yoff, rot);
+    }
+}
+
+
+void
+NBEdgeCont::computeEdgeShapes() throw()
+{
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
+        (*i).second->computeEdgeShape();
+    }
+}
+
+
+void
+NBEdgeCont::recomputeLaneShapes() throw()
+{
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
+        (*i).second->computeLaneShapes();
+    }
+}
+
+
+void
+NBEdgeCont::recheckEdgeGeomsForDoublePositions() throw()
+{
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
+        (*i).second->recheckEdgeGeomForDoublePositions();
+    }
+}
 
 
 void
 NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
                                         NBTrafficLightLogicCont &tlc,
-                                        EdgeVector edges)
+                                        EdgeVector edges) throw()
 {
     // !!! Attention!
     //  No merging of the geometry to come is being done
@@ -488,7 +518,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     //   the replacement where the edge is a node's incoming edge.
 
     // count the number of lanes, the speed and the id
-    size_t nolanes = 0;
+    unsigned int nolanes = 0;
     SUMOReal speed = 0;
     int priority = 0;
     string id;
@@ -534,7 +564,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
         }
     }
     //  move lane2lane-connections
-    size_t currLane = 0;
+    unsigned int currLane = 0;
     for (i=edges.begin(); i!=edges.end(); i++) {
         newEdge->moveOutgoingConnectionsFrom(*i, currLane, false);
         currLane += (*i)->getNoLanes();
@@ -542,8 +572,8 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     // patch tl-information
     currLane = 0;
     for (i=edges.begin(); i!=edges.end(); i++) {
-        size_t noLanes = (*i)->getNoLanes();
-        for (size_t j=0; j<noLanes; j++, currLane++) {
+        unsigned int noLanes = (*i)->getNoLanes();
+        for (unsigned int j=0; j<noLanes; j++, currLane++) {
             // replace in traffic lights
             tlc.replaceRemoved(*i, j, newEdge, currLane);
         }
@@ -555,38 +585,9 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
 }
 
 
-
-void
-NBEdgeCont::normaliseEdgePositions()
-{
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->normalisePosition();
-    }
-}
-
-
-void
-NBEdgeCont::reshiftEdgePositions(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
-{
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->reshiftPosition(xoff, yoff, rot);
-    }
-}
-
-
-void
-NBEdgeCont::computeEdgeShapes()
-{
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->computeEdgeShape();
-    }
-}
-
-
 void
 NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) throw()
 {
-    //
     std::vector<NBEdge*> toRemove;
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end();) {
         NBEdge *edge = (*i).second;
@@ -604,16 +605,7 @@ NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) throw()
 
 
 void
-NBEdgeCont::recomputeLaneShapes()
-{
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        (*i).second->computeLaneShapes();
-    }
-}
-
-
-void
-NBEdgeCont::splitGeometry(NBNodeCont &nc)
+NBEdgeCont::splitGeometry(NBNodeCont &nc) throw()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         if ((*i).second->getGeometry().size()<3) {
@@ -625,7 +617,7 @@ NBEdgeCont::splitGeometry(NBNodeCont &nc)
 
 
 void
-NBEdgeCont::recheckLaneSpread()
+NBEdgeCont::recheckLaneSpread() throw()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         string oppositeID;
@@ -643,14 +635,6 @@ NBEdgeCont::recheckLaneSpread()
     }
 }
 
-
-void
-NBEdgeCont::recheckEdgeGeomsForDoublePositions()
-{
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        (*i).second->recheckEdgeGeomForDoublePositions();
-    }
-}
 
 
 // ----- output methods
