@@ -210,7 +210,7 @@ protected:
         if (myShowToolTips) {
             glPushName(lane.getGlID());
         }
-        if (lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
+        if(lane.getPurpose()!=MSEdge::EDGEFUNCTION_INTERNAL) {
             GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), SUMO_const_halfLaneWidth*mult);
         } else {
             GLHelper::drawBoxLines(lane.getShape(), lane.getShapeRotations(), lane.getShapeLengths(), SUMO_const_quarterLaneWidth*mult);
@@ -277,6 +277,13 @@ protected:
 
     /// Information whether the gl-id shall be set
     bool myShowToolTips;
+
+private:
+    /// @brief Invalidated copy constructor.
+    GUILaneDrawer<E1, E2, L1>(const GUILaneDrawer<E1, E2, L1>&);
+
+    /// @brief Invalidated assignment operator.
+    GUILaneDrawer<E1, E2, L1>& operator=(const GUILaneDrawer<E1, E2, L1>&);
 
 };
 
