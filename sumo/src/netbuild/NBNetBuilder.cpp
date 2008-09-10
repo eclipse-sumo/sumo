@@ -99,6 +99,8 @@ NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError)
     }
     // apply options to type control
     myTypeCont.setDefaults(oc.getInt("lanenumber"), oc.getFloat("speed"), oc.getInt("priority"));
+    // apply options to edge control
+    myEdgeCont.applyOptions(oc);
 }
 
 

@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
-// A container for all of the net's edges
+// Storage for edges, including some functionality operating on multiple edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -34,13 +34,15 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <set>
 #include "NBCont.h"
+#include <utils/common/SUMOVehicleClass.h>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class NBSection;
 class NBNodeCont;
 class NBEdge;
 class NBNode;
@@ -60,15 +62,58 @@ class OutputDevice;
 class NBEdgeCont
 {
 public:
-    NBEdgeCont();
-    ~NBEdgeCont();
+    /// @brief Constructor
+    NBEdgeCont() throw();
 
-    /** adds an edge to the dictionary;
-        returns false if the edge already was in the dictionary */
-    bool insert(NBEdge *edge);
 
-    /// returns the edge that has the given id
-    NBEdge *retrieve(const std::string &id) const;
+    /// @brief Destructor
+    ~NBEdgeCont() throw();
+
+
+    /** @brief Initialises the storage by applying given options
+     *
+     * Options, mainly steering the acceptance of edges, are parsed
+     *  and the according internal variables are set.
+     *
+     * @param[in] oc The options container to read options from
+     * @todo Recheck exceptions
+     */
+    void applyOptions(OptionsCont &oc);
+
+
+    /** @brief Deletes all edges */
+    void clear() throw();
+
+
+
+    
+    /// @name edge access methods
+    /// @{
+
+    /** @brief Adds an edge to the dictionary
+     *
+     * First, it is determined whether the edge shall not be discarded due to any 
+     *  reasons (being outside a boundary, or not in the optional list of edges to 
+     *  import, etc.). If so, the edge is deleted and "true" is returned.
+     * "true" is also returned if the edge is accepted - no edge with the same
+     *  name exists within this container. If another edge with the same name 
+     *  exists, false is returned.
+     *
+     * @param[in] edge The edge to add
+     * @return Whether the edge was valid (no edge with the same id is already known)
+     */
+    bool insert(NBEdge *edge) throw();
+
+
+    /** @brief Returns the edge that has the given id
+     *
+     * If no edge that has the given id is known, 0 is returned.
+     *
+     * @param[in] id The id of the edge to retrieve
+     * @return The edge with the given id, 0 if no such edge exists
+     */
+    NBEdge *retrieve(const std::string &id) const throw();
+
 
     /** @brief Tries to retrieve an edge, even if it is splitted
         To describe which part of the edge shall be returned, the
@@ -129,7 +174,6 @@ public:
     int size();
 
     /** deletes all edges */
-    void clear();
 
     /// joins the given edges as they connect the same nodes
     void joinSameNodeConnectingEdges(NBDistrictCont &dc,
@@ -179,12 +223,37 @@ private:
     /// the number of splits of edges during the building
     size_t myEdgesSplit;
 
+
+    /// @name Settings for accepting/dismissing edges
+    /// @{
+
+    /// @brief The minimum speed an edge may have in order to be kept (default: -1)
+    SUMOReal myEdgesMinSpeed;
+
+    /// @brief Whether edges shall be joined first, then removed
+    bool myRemoveEdgesAfterJoining;
+
+    /// @brief Vector of ids of edges which shall explicitely be kept
+    std::vector<std::string> myEdges2Keep;
+
+    /// @brief Vector of ids of edges which shall explicitely be removed
+    std::vector<std::string> myEdges2Remove;
+
+    /// @brief Vector of vehicle types which must be allowed on edges in order to keep them
+    std::set<SUMOVehicleClass> myVehicleClasses2Keep;
+
+    /// @brief Vector of vehicle types which must not be disallowed on edges in order to keep them
+    std::set<SUMOVehicleClass> myVehicleClasses2Remove;
+
+    /// @}
+
 private:
-    /** invalid copy constructor */
+    /// @brief invalidated copy constructor
     NBEdgeCont(const NBEdgeCont &s);
 
-    /** invalid assignment operator */
+    /// @brief invalidated assignment operator
     NBEdgeCont &operator=(const NBEdgeCont &s);
+
 
 };
 

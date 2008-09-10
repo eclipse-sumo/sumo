@@ -4,7 +4,7 @@
 /// @date    Tue, 20 Nov 2001
 /// @version $Id$
 ///
-// A container for all of the nets edges
+// Storage for edges, including some functionality operating on multiple edges
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -38,6 +38,7 @@
 #include <utils/geom/GeomHelper.h>
 #include <utils/common/MsgHandler.h>
 #include <utils/common/ToString.h>
+#include <utils/common/TplConvert.h>
 #include <utils/options/OptionsCont.h>
 #include "NBEdgeCont.h"
 #include "NBNodeCont.h"
@@ -66,37 +67,70 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBEdgeCont::NBEdgeCont()
+NBEdgeCont::NBEdgeCont() throw()
         : myEdgesSplit(0)
-{}
+{
+}
 
 
-NBEdgeCont::~NBEdgeCont()
+NBEdgeCont::~NBEdgeCont() throw()
 {
     clear();
 }
 
+
+void 
+NBEdgeCont::applyOptions(OptionsCont &oc)
+{
+    // set edges dismiss/accept options
+    myEdgesMinSpeed = oc.isSet("edges-min-speed") ? oc.getFloat("edges-min-speed") : -1;
+    myRemoveEdgesAfterJoining = OptionsCont::getOptions().getBool("keep-edges.postload");
+    myEdges2Keep = oc.isSet("keep-edges") ? oc.getStringVector("keep-edges") : vector<string>();
+    myEdges2Remove = oc.isSet("remove-edges") ? oc.getStringVector("remove-edges") : vector<string>();
+    if(oc.isSet("remove-edges.by-vclass")) {
+        vector<string> classes = oc.getStringVector("remove-edges.by-vclass");
+        for(vector<string>::iterator i=classes.begin(); i!=classes.end(); ++i) {
+            myVehicleClasses2Remove.insert(getVehicleClassID(*i));
+        }
+    }
+    if(oc.isSet("keep-edges.by-vclass")) {
+        vector<string> classes = oc.getStringVector("keep-edges.by-vclass");
+        for(vector<string>::iterator i=classes.begin(); i!=classes.end(); ++i) {
+            myVehicleClasses2Keep.insert(getVehicleClassID(*i));
+        }
+    }
+}
+
+
+void
+NBEdgeCont::clear() throw()
+{
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
+        delete((*i).second);
+    }
+    myEdges.clear();
+}
+
+
+
+// ----- edge access methods
 bool
-NBEdgeCont::insert(NBEdge *edge)
+NBEdgeCont::insert(NBEdge *edge) throw()
 {
     EdgeCont::iterator i = myEdges.find(edge->getID());
     if (i!=myEdges.end()) {
         return false;
     }
-    if (OptionsCont::getOptions().isSet("edges-min-speed")) {
-        if (edge->getSpeed()<OptionsCont::getOptions().getFloat("edges-min-speed")) {
-            edge->getFromNode()->removeOutgoing(edge);
-            edge->getToNode()->removeIncoming(edge);
-            delete edge;
-            return true;
-        }
+    // remove edges which allow a speed below a set one (set using "edges-min-speed")
+    if (edge->getSpeed()<myEdgesMinSpeed) {
+        edge->getFromNode()->removeOutgoing(edge);
+        edge->getToNode()->removeIncoming(edge);
+        delete edge;
+        return true;
     }
     // check whether the edge is a named edge to keep
-    if (!OptionsCont::getOptions().getBool("keep-edges.postload")
-            &&
-            OptionsCont::getOptions().isSet("keep-edges")) {
-
-        if (!OptionsCont::getOptions().isInStringVector("keep-edges", edge->getID())) {
+    if (!myRemoveEdgesAfterJoining && myEdges2Keep.size()!=0) {
+        if (find(myEdges2Keep.begin(), myEdges2Keep.end(), edge->getID())==myEdges2Keep.end()) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;
@@ -104,8 +138,27 @@ NBEdgeCont::insert(NBEdge *edge)
         }
     }
     // check whether the edge is a named edge to remove
-    if (OptionsCont::getOptions().isSet("remove-edges")) {
-        if (OptionsCont::getOptions().isInStringVector("remove-edges", edge->getID())) {
+    if (myEdges2Remove.size()!=0) {
+        if (find(myEdges2Remove.begin(), myEdges2Remove.end(), edge->getID())!=myEdges2Remove.end()) {
+            edge->getFromNode()->removeOutgoing(edge);
+            edge->getToNode()->removeIncoming(edge);
+            delete edge;
+            return true;
+        }
+    }
+    // check whether the edge shall be removed due to allowing unwished classes only
+    if (myVehicleClasses2Remove.size()!=0) {
+        int matching = 0;
+        std::vector<SUMOVehicleClass> allowed = edge->getAllowedVehicleClasses();
+        for(set<SUMOVehicleClass>::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
+            std::vector<SUMOVehicleClass>::iterator j = find(allowed.begin(), allowed.end(), *i);
+            if (j!=allowed.end()) {
+                allowed.erase(j);
+                matching++;
+            }
+        }
+        // remove the edge if all allowed
+        if (allowed.size()==0&&matching!=0) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;
@@ -113,21 +166,18 @@ NBEdgeCont::insert(NBEdge *edge)
         }
     }
     // check whether the edge shall be removed due to a allow an unwished class
-    if (OptionsCont::getOptions().isSet("remove-edges.by-vclass")) {
+    if (myVehicleClasses2Keep.size()!=0) {
         int matching = 0;
         std::vector<SUMOVehicleClass> allowed = edge->getAllowedVehicleClasses();
-        // !!! don't do this each time
-        StringTokenizer st(OptionsCont::getOptions().getString("remove-edges.by-vclass"), ";");
-        while (st.hasNext()) {
-            SUMOVehicleClass vclass = getVehicleClassID(st.next());
-            std::vector<SUMOVehicleClass>::iterator i = find(allowed.begin(), allowed.end(), vclass);
-            if (i!=allowed.end()) {
-                allowed.erase(i);
+        for(set<SUMOVehicleClass>::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
+            std::vector<SUMOVehicleClass>::iterator j = find(allowed.begin(), allowed.end(), *i);
+            if (j!=allowed.end()) {
+                allowed.erase(j);
                 matching++;
             }
         }
         // remove the edge if all allowed
-        if (allowed.size()==0&&matching!=0) {
+        if (matching==0&&allowed.size()!=0) {
             edge->getFromNode()->removeOutgoing(edge);
             edge->getToNode()->removeIncoming(edge);
             delete edge;
@@ -143,7 +193,7 @@ NBEdgeCont::insert(NBEdge *edge)
 
 
 NBEdge *
-NBEdgeCont::retrieve(const string &id) const
+NBEdgeCont::retrieve(const string &id) const throw()
 {
     EdgeCont::const_iterator i = myEdges.find(id);
     if (i==myEdges.end()) return 0;
@@ -227,16 +277,6 @@ NBEdgeCont::writeXMLStep2(OutputDevice &into, bool includeInternal)
 int NBEdgeCont::size()
 {
     return myEdges.size();
-}
-
-
-void
-NBEdgeCont::clear()
-{
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        delete((*i).second);
-    }
-    myEdges.clear();
 }
 
 
