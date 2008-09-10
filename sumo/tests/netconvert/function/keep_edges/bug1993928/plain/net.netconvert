@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/11/08 15:06:46 by SUMO netconvert Version 0.9.7
+<!-- generated on 08/29/08 14:10:49 by SUMO netconvert Version 0.9.7
 <configuration>
 
    <input>
@@ -223,21 +223,6 @@
    </row-logic>
 
 
-   <tl-logic type="static">
-      <key>0</key>
-      <subkey>0</subkey>
-      <phaseno>8</phaseno>
-      <offset>0</offset>
-      <phase duration="31" phase="0000111100001111" brake="1111110011111100" yellow="0000000000000000"/>
-      <phase duration="4" phase="0000110000001100" brake="1111111111111111" yellow="0000001100000011"/>
-      <phase duration="6" phase="0000110000001100" brake="1111001111110011" yellow="0000000000000000"/>
-      <phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="0000110000001100"/>
-      <phase duration="31" phase="1111000011110000" brake="1100111111001111" yellow="0000000000000000"/>
-      <phase duration="4" phase="1100000011000000" brake="1111111111111111" yellow="0011000000110000"/>
-      <phase duration="6" phase="1100000011000000" brake="0011111100111111" yellow="0000000000000000"/>
-      <phase duration="4" phase="0000000000000000" brake="1111111111111111" yellow="1100000011000000"/>
-   </tl-logic>
-
 
    <junction id="0" type="priority" x="500.00" y="500.00">
       <inclanes>4si_0 4si_1 4si_2 2si_0 2si_1 2si_2 3si_0 3si_1 3si_2 1si_0 1si_1 1si_2</inclanes>
@@ -300,16 +285,16 @@
    </succ>
 
    <succ edge="1si" lane="1si_0" junction="0">
-      <succlane lane="3o_0" tl="0" linkno="12" yield="1" dir="r" state="t"/>
+      <succlane lane="3o_0" yield="1" dir="r" state="m"/>
    </succ>
 
    <succ edge="1si" lane="1si_1" junction="0">
-      <succlane lane="2o_0" tl="0" linkno="13" yield="1" dir="s" state="t"/>
+      <succlane lane="2o_0" yield="1" dir="s" state="m"/>
    </succ>
 
    <succ edge="1si" lane="1si_2" junction="0">
-      <succlane lane="4o_0" tl="0" linkno="14" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="1o_0" tl="0" linkno="15" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="4o_0" yield="1" dir="l" state="m"/>
+      <succlane lane="1o_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="2fi" lane="2fi_0" junction="m2">
@@ -327,16 +312,16 @@
    </succ>
 
    <succ edge="2si" lane="2si_0" junction="0">
-      <succlane lane="4o_0" tl="0" linkno="4" yield="1" dir="r" state="t"/>
+      <succlane lane="4o_0" yield="1" dir="r" state="m"/>
    </succ>
 
    <succ edge="2si" lane="2si_1" junction="0">
-      <succlane lane="1o_0" tl="0" linkno="5" yield="1" dir="s" state="t"/>
+      <succlane lane="1o_0" yield="1" dir="s" state="m"/>
    </succ>
 
    <succ edge="2si" lane="2si_2" junction="0">
-      <succlane lane="3o_0" tl="0" linkno="6" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="2o_0" tl="0" linkno="7" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="3o_0" yield="1" dir="l" state="m"/>
+      <succlane lane="2o_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="3fi" lane="3fi_0" junction="m3">
@@ -354,16 +339,16 @@
    </succ>
 
    <succ edge="3si" lane="3si_0" junction="0">
-      <succlane lane="2o_0" tl="0" linkno="8" yield="1" dir="r" state="t"/>
+      <succlane lane="2o_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="3si" lane="3si_1" junction="0">
-      <succlane lane="4o_0" tl="0" linkno="9" yield="1" dir="s" state="t"/>
+      <succlane lane="4o_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="3si" lane="3si_2" junction="0">
-      <succlane lane="1o_0" tl="0" linkno="10" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="3o_0" tl="0" linkno="11" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="1o_0" yield="1" dir="l" state="m"/>
+      <succlane lane="3o_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="4fi" lane="4fi_0" junction="m4">
@@ -381,16 +366,16 @@
    </succ>
 
    <succ edge="4si" lane="4si_0" junction="0">
-      <succlane lane="1o_0" tl="0" linkno="0" yield="1" dir="r" state="t"/>
+      <succlane lane="1o_0" yield="0" dir="r" state="M"/>
    </succ>
 
    <succ edge="4si" lane="4si_1" junction="0">
-      <succlane lane="3o_0" tl="0" linkno="1" yield="1" dir="s" state="t"/>
+      <succlane lane="3o_0" yield="0" dir="s" state="M"/>
    </succ>
 
    <succ edge="4si" lane="4si_2" junction="0">
-      <succlane lane="2o_0" tl="0" linkno="2" yield="1" dir="l" state="t" int_end="x"/>
-      <succlane lane="4o_0" tl="0" linkno="3" yield="1" dir="t" state="t" int_end="x"/>
+      <succlane lane="2o_0" yield="1" dir="l" state="m"/>
+      <succlane lane="4o_0" yield="1" dir="t" state="m"/>
    </succ>
 
 

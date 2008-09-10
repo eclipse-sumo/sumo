@@ -5,3 +5,6 @@
 #  network into guisim shows nothing...
 bug1993928
 
+
+# tests whether dividing edges by a ';' yields in a deprecation warning (based on bug1993928/removing_bottom)
+_deprecated_
