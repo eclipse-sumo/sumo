@@ -1,0 +1,1 @@
+-v --remove-edges 2fi,2si,2o --xml-edge-files=input_edges.edg.xml --xml-node-files=input_nodes.nod.xml --output-file=net.net.xml
