@@ -1,3 +1,6 @@
 # Tests for keeping edges (--keep-edges)
 keep_edges
 
+# Tests for removing edges (--remove-edges)
+remove_edges
+
