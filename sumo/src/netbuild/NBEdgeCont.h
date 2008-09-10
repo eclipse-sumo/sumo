@@ -143,6 +143,24 @@ public:
      */
     NBEdge *retrievePossiblySplitted(const std::string &id, SUMOReal pos) const throw();
 
+    /** @brief Splits the edge at the position nearest to the given node */
+    bool splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node);
+
+    /** @brief Splits the edge at the position nearest to the given node using the given modifications */
+    bool splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
+                 const std::string &firstEdgeName, const std::string &secondEdgeName,
+                 size_t noLanesFirstEdge, size_t noLanesSecondEdge);
+
+    /** @brief Splits the edge at the position nearest to the given node using the given modifications */
+    bool splitAt(NBDistrictCont &dc, NBEdge *edge, SUMOReal edgepos, NBNode *node,
+                 const std::string &firstEdgeName, const std::string &secondEdgeName,
+                 size_t noLanesFirstEdge, size_t noLanesSecondEdge);
+
+
+
+    /** returns the number of edges */
+    int size();
+
     /** computes edges, step1: computation of approached edges */
     void computeEdge2Edges();
 
@@ -162,32 +180,6 @@ public:
     /** appends turnarounds */
     void appendTurnarounds();
 
-    /** @brief Splits the edge at the position nearest to the given node */
-    bool splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node);
-
-    /** @brief Splits the edge at the position nearest to the given node using the given modifications */
-    bool splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
-                 const std::string &firstEdgeName, const std::string &secondEdgeName,
-                 size_t noLanesFirstEdge, size_t noLanesSecondEdge);
-
-    /** @brief Splits the edge at the position nearest to the given node using the given modifications */
-    bool splitAt(NBDistrictCont &dc, NBEdge *edge, SUMOReal edgepos, NBNode *node,
-                 const std::string &firstEdgeName, const std::string &secondEdgeName,
-                 size_t noLanesFirstEdge, size_t noLanesSecondEdge);
-
-    /** Removes the given edge from the container (deleting it) */
-    void erase(NBDistrictCont &dc, NBEdge *edge);
-
-    /** writes the edge definitions with lanes and connected edges
-        into the given stream */
-    void writeXMLStep1(OutputDevice &into);
-
-    /** writes the successor definitions of edges */
-    void writeXMLStep2(OutputDevice &into, bool includeInternal);
-
-    /** returns the number of edges */
-    int size();
-
     /** deletes all edges */
 
     /// joins the given edges as they connect the same nodes
@@ -202,7 +194,6 @@ public:
 
     std::vector<std::string> getAllNames();
 
-    bool savePlain(const std::string &file);
 
     /** @brief Removes unwished edges (not in keep-edges)
      *
@@ -221,22 +212,57 @@ public:
 
     size_t getNoEdgeSplits();
 
+    /// @name output methods
+    /// @{
+
+    /** @brief Writes the edge definitions with lanes into the given stream 
+     *
+     * Calls "NBEdge::writeXMLStep1" for all edges within the container.
+     * 
+     * @param[in] into The stream to write the definieions into
+     * @exception IOError (not yet implemented)
+     */
+    void writeXMLStep1(OutputDevice &into) throw(IOError);
+
+
+    /** @brief Writes the successor definitions of edges into the given stream 
+     *
+     * Calls "NBEdge::writeXMLStep2" for all edges within the container.
+     * 
+     * @param[in] into The stream to write the definieions into
+     * @param[in] includeInternal Whether internal successors shal be written, too
+     * @exception IOError (not yet implemented)
+     */
+    void writeXMLStep2(OutputDevice &into, bool includeInternal) throw(IOError);
+
+
+    /** @brief Writes the stored edges as an XML-edge-file
+     * @param[in] file The path to write the edge definitions into
+     * @exception IOError If the file could not be opened
+     */
+    void savePlain(const std::string &file) throw(IOError);
+    /// @}
+
+
 private:
-    std::vector<std::string> buildPossibilities(
-        const std::vector<std::string> &s);
+    /** @brief Returns the edges which have been built by splitting the edge of the given id
+     *
+     * @param[in] id The id of the original edge
+     * @return List of all edges which have been built by splitting the original edge
+     * @todo Recheck usage
+     */
+    EdgeVector getGeneratedFrom(const std::string &id) const throw();
 
-
-    EdgeVector getGeneratedFrom(const std::string &id) const;
 
 private:
-    /// the type of the dictionary where a node may be found by her id
+    /// @brief The type of the dictionary where an edge may be found by her id
     typedef std::map<std::string, NBEdge*> EdgeCont;
 
-    /// the instance of the dictionary
+    /// @brief The instance of the dictionary (id->edge)
     EdgeCont myEdges;
 
-    /// the number of splits of edges during the building
-    size_t myEdgesSplit;
+    /// @brief the number of splits of edges during the building
+    unsigned int myEdgesSplit;
 
 
     /// @name Settings for accepting/dismissing edges

@@ -338,25 +338,6 @@ NBEdgeCont::appendTurnarounds()
 }
 
 
-void
-NBEdgeCont::writeXMLStep1(OutputDevice &into)
-{
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->writeXMLStep1(into);
-    }
-    into << "\n";
-}
-
-
-void
-NBEdgeCont::writeXMLStep2(OutputDevice &into, bool includeInternal)
-{
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        (*i).second->writeXMLStep2(into, includeInternal);
-    }
-    into << "\n";
-}
-
 int NBEdgeCont::size()
 {
     return myEdges.size();
@@ -473,47 +454,6 @@ NBEdgeCont::erase(NBDistrictCont &dc, NBEdge *edge)
 }
 
 
-EdgeVector
-NBEdgeCont::getGeneratedFrom(const std::string &id) const
-{
-    size_t len = id.length();
-    EdgeVector ret;
-    for (EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        string curr = (*i).first;
-        // the next check makes it possibly faster - we don not have
-        //  to compare the names
-        if (curr.length()<=len) {
-            continue;
-        }
-        // the name must be the same as the given id but something
-        //  beginning with a '[' must be appended to it
-        if (curr.substr(0, len)==id&&curr[len]=='[') {
-            ret.push_back((*i).second);
-            continue;
-        }
-        // ok, maybe the edge is a compound made during joining of edges
-        size_t pos = curr.find(id);
-        // surely not
-        if (pos==string::npos) {
-            continue;
-        }
-        // check leading char
-        if (pos>0) {
-            if (curr[pos-1]!=']'&&curr[pos-1]!='+') {
-                // actually, this is another id
-                continue;
-            }
-        }
-        if (pos+id.length()<curr.length()) {
-            if (curr[pos+id.length()]!='['&&curr[pos+id.length()]!='+') {
-                // actually, this is another id
-                continue;
-            }
-        }
-        ret.push_back((*i).second);
-    }
-    return ret;
-}
 
 std::vector<std::string>
 NBEdgeCont::buildPossibilities(const std::vector<std::string> &s)
@@ -645,40 +585,6 @@ NBEdgeCont::getAllNames()
 }
 
 
-bool
-NBEdgeCont::savePlain(const std::string &file)
-{
-    OutputDevice& device = OutputDevice::getDevice(file);
-    device.writeXMLHeader("edges");
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
-        NBEdge *e = (*i).second;
-        device << "   <edge id=\"" << e->getID()
-        << "\" fromnode=\"" << e->getFromNode()->getID()
-        << "\" tonode=\"" << e->getToNode()->getID()
-        << "\" nolanes=\"" << e->getNoLanes()
-        << "\" speed=\"" << e->getSpeed() << "\"";
-        // write the geometry only if larger than just the from/to positions
-        if (e->getGeometry().size()>2) {
-            device << " shape=\"" << e->getGeometry() << "\"";
-        }
-        // write the spread type if not default ("right")
-        if (e->getLaneSpreadFunction()!=NBEdge::LANESPREAD_RIGHT) {
-            device << " spread_type=\"center\"";
-        }
-        // write the vehicles class if restrictions exist
-        if (!e->hasRestrictions()) {
-            device << "/>\n";
-        } else {
-            device << ">\n";
-            e->writeLanesPlain(device);
-            device << "   </edge>\n";
-        }
-    }
-    device.close();
-    return true;
-}
-
-
 void
 NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) throw()
 {
@@ -754,5 +660,106 @@ NBEdgeCont::getNoEdgeSplits()
 {
     return myEdgesSplit;
 }
+
+
+// ----- output methods
+void
+NBEdgeCont::writeXMLStep1(OutputDevice &into) throw(IOError)
+{
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
+        (*i).second->writeXMLStep1(into);
+    }
+    into << "\n";
+}
+
+
+void
+NBEdgeCont::writeXMLStep2(OutputDevice &into, bool includeInternal) throw(IOError)
+{
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
+        (*i).second->writeXMLStep2(into, includeInternal);
+    }
+    into << "\n";
+}
+
+
+
+void
+NBEdgeCont::savePlain(const std::string &file) throw(IOError)
+{
+    OutputDevice& device = OutputDevice::getDevice(file);
+    device.writeXMLHeader("edges");
+    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
+        NBEdge *e = (*i).second;
+        device << "   <edge id=\"" << e->getID()
+        << "\" fromnode=\"" << e->getFromNode()->getID()
+        << "\" tonode=\"" << e->getToNode()->getID()
+        << "\" nolanes=\"" << e->getNoLanes()
+        << "\" speed=\"" << e->getSpeed() << "\"";
+        // write the geometry only if larger than just the from/to positions
+        if (e->getGeometry().size()>2) {
+            device << " shape=\"" << e->getGeometry() << "\"";
+        }
+        // write the spread type if not default ("right")
+        if (e->getLaneSpreadFunction()!=NBEdge::LANESPREAD_RIGHT) {
+            device << " spread_type=\"center\"";
+        }
+        // write the vehicles class if restrictions exist
+        if (!e->hasRestrictions()) {
+            device << "/>\n";
+        } else {
+            device << ">\n";
+            e->writeLanesPlain(device);
+            device << "   </edge>\n";
+        }
+    }
+    device.close();
+}
+
+
+
+// ----- other
+EdgeVector
+NBEdgeCont::getGeneratedFrom(const std::string &id) const throw()
+{
+    size_t len = id.length();
+    EdgeVector ret;
+    for (EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
+        string curr = (*i).first;
+        // the next check makes it possibly faster - we don not have
+        //  to compare the names
+        if (curr.length()<=len) {
+            continue;
+        }
+        // the name must be the same as the given id but something
+        //  beginning with a '[' must be appended to it
+        if (curr.substr(0, len)==id&&curr[len]=='[') {
+            ret.push_back((*i).second);
+            continue;
+        }
+        // ok, maybe the edge is a compound made during joining of edges
+        size_t pos = curr.find(id);
+        // surely not
+        if (pos==string::npos) {
+            continue;
+        }
+        // check leading char
+        if (pos>0) {
+            if (curr[pos-1]!=']'&&curr[pos-1]!='+') {
+                // actually, this is another id
+                continue;
+            }
+        }
+        if (pos+id.length()<curr.length()) {
+            if (curr[pos+id.length()]!='['&&curr[pos+id.length()]!='+') {
+                // actually, this is another id
+                continue;
+            }
+        }
+        ret.push_back((*i).second);
+    }
+    return ret;
+}
+
 
 /****************************************************************************/
