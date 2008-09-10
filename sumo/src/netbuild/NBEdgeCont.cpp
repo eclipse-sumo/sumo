@@ -394,6 +394,19 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
 
 
 
+// ----- container access methods
+std::vector<std::string>
+NBEdgeCont::getAllNames() const throw()
+{
+    std::vector<std::string> ret;
+    for (EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
+        ret.push_back((*i).first);
+    }
+    return ret;
+}
+
+
+
 void
 NBEdgeCont::computeTurningDirections()
 {
@@ -448,10 +461,6 @@ NBEdgeCont::appendTurnarounds()
 }
 
 
-int NBEdgeCont::size()
-{
-    return myEdges.size();
-}
 
 
 
@@ -574,17 +583,6 @@ NBEdgeCont::computeEdgeShapes()
 }
 
 
-std::vector<std::string>
-NBEdgeCont::getAllNames()
-{
-    std::vector<std::string> ret;
-    for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        ret.push_back((*i).first);
-    }
-    return ret;
-}
-
-
 void
 NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) throw()
 {
@@ -652,13 +650,6 @@ NBEdgeCont::recheckEdgeGeomsForDoublePositions()
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
         (*i).second->recheckEdgeGeomForDoublePositions();
     }
-}
-
-
-size_t
-NBEdgeCont::getNoEdgeSplits()
-{
-    return myEdgesSplit;
 }
 
 

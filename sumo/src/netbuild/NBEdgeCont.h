@@ -218,10 +218,31 @@ public:
 
 
 
-    /** returns the number of edges */
-    int size();
+    /// @name container access methods
+    /// @{
 
-    /** computes edges, step1: computation of approached edges */
+    /** @brief Returns the number of edges 
+     * @return The number of edges stored in this container
+     */
+    unsigned int size() const throw() {
+        return (unsigned int) myEdges.size();
+    }
+
+
+    /** @brief Returns all ids of known edges 
+     * @return All ids of known edges
+     * @todo Recheck usage, probably, filling a given vector would be better...
+     */
+    std::vector<std::string> getAllNames() const throw();
+
+
+    /** @brief Returns the number of edge splits
+     * @return How often an edge was split
+     */
+    unsigned int getNoEdgeSplits() const throw() {
+        return myEdgesSplit;
+    }
+    /// @}
     void computeEdge2Edges();
 
     /// computes edges, step2: computation of which lanes approach the edges)
@@ -252,7 +273,6 @@ public:
 
     void computeEdgeShapes();
 
-    std::vector<std::string> getAllNames();
 
 
     /** @brief Removes unwished edges (not in keep-edges)
@@ -270,7 +290,6 @@ public:
 
     void recheckEdgeGeomsForDoublePositions();
 
-    size_t getNoEdgeSplits();
 
     /// @name output methods
     /// @{
