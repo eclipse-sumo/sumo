@@ -143,18 +143,78 @@ public:
      */
     NBEdge *retrievePossiblySplitted(const std::string &id, SUMOReal pos) const throw();
 
-    /** @brief Splits the edge at the position nearest to the given node */
-    bool splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node);
 
-    /** @brief Splits the edge at the position nearest to the given node using the given modifications */
+    /** @brief Removes the given edge from the container (deleting it) 
+     *
+     * @param[in] dc The district container, in order to remove the edge from sources/sinks
+     * @param[in] edge The edge to remove
+     * @todo Recheck whether the district cont is needed - if districts are processed using an external tool
+     */
+    void erase(NBDistrictCont &dc, NBEdge *edge) throw();
+    /// @}
+
+
+
+    /// @name explicite edge manipulation methods
+    /// @{
+
+    /** @brief Splits the edge at the position nearest to the given node
+     *
+     * Uses "splitAt(NBDistrictCont &, NBEdge *, NBNode *, const std::string &, const std::string &, unsigned int , unsigned int)"
+     *  to perform the split; the edge names are built by appending "[0]" and "[1]",
+     *  respectively. Both edges will have the same number of lanes.
+     *
+     * @param[in] dc The district container, in order to remove/add the edge from/to sources/sinks
+     * @param[in] edge The edge to split
+     * @param[in] node The node to split the edge at
+     * @return Whether the edge could be split
+     * @exception ProcessError If connections between the edges can not be built
+     * @see NBEdge::splitAt(NBDistrictCont &, NBEdge *, NBNode *, const std::string &, const std::string &, unsigned int , unsigned int)
+     */
+    bool splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node) throw(ProcessError);
+
+
+    /** @brief Splits the edge at the position nearest to the given node using the given modifications 
+     *
+     * Determines the position of the split by finding the nearest position on the 
+     *  edge to the given node. If this position is too near to the edges begin/end, 
+     *  false is returned.
+     * 
+     * Otherwise, "splitAt(NBDistrictCont &, NBEdge *, SUMOReal, NBNode *, const std::string &, const std::string &, unsigned int , unsigned int)"
+     *  is used to perform the split.
+     *
+     * @param[in] dc The district container, in order to remove/add the edge from/to sources/sinks
+     * @param[in] edge The edge to split
+     * @param[in] node The node to split the edge at
+     * @param[in] firstEdgeName The id the first part of the split edge shall have
+     * @param[in] secondEdgeName The id the second part of the split edge shall have
+     * @param[in] noLanesFirstEdge The number of lanes the second part of the split edge shall have
+     * @param[in] noLanesSecondEdge The number of lanes the second part of the split edge shall have
+     * @return Whether the edge could be split
+     * @exception ProcessError If connections between the edges can not be built
+     * @see NBEdge::splitAt(NBDistrictCont &, NBEdge *, SUMOReal, NBNode *, const std::string &, const std::string &, unsigned int , unsigned int)
+     */
     bool splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
                  const std::string &firstEdgeName, const std::string &secondEdgeName,
-                 size_t noLanesFirstEdge, size_t noLanesSecondEdge);
+                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) throw(ProcessError);
 
-    /** @brief Splits the edge at the position nearest to the given node using the given modifications */
+
+    /** @brief Splits the edge at the position nearest to the given node using the given modifications
+     *
+     * @param[in] dc The district container, in order to remove/add the edge from/to sources/sinks
+     * @param[in] edge The edge to split
+     * @param[in] node The node to split the edge at
+     * @param[in] firstEdgeName The id the first part of the split edge shall have
+     * @param[in] secondEdgeName The id the second part of the split edge shall have
+     * @param[in] noLanesFirstEdge The number of lanes the second part of the split edge shall have
+     * @param[in] noLanesSecondEdge The number of lanes the second part of the split edge shall have
+     * @return Whether the edge could be split
+     * @exception ProcessError If connections between the edges can not be built
+     */
     bool splitAt(NBDistrictCont &dc, NBEdge *edge, SUMOReal edgepos, NBNode *node,
                  const std::string &firstEdgeName, const std::string &secondEdgeName,
-                 size_t noLanesFirstEdge, size_t noLanesSecondEdge);
+                 unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) throw(ProcessError);
+    /// @}
 
 
 

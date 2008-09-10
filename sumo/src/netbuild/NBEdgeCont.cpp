@@ -285,6 +285,116 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const 
 
 
 void
+NBEdgeCont::erase(NBDistrictCont &dc, NBEdge *edge) throw()
+{
+    myEdges.erase(edge->getID());
+    edge->myFrom->removeOutgoing(edge);
+    edge->myTo->removeIncoming(edge);
+    dc.removeFromSinksAndSources(edge);
+    delete edge;
+}
+
+
+
+// ----- explicite edge manipulation methods
+bool
+NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node) throw(ProcessError)
+{
+    return splitAt(dc, edge, node, edge->getID() + "[0]", edge->getID() + "[1]",
+        (unsigned int) edge->myLanes.size(), (unsigned int) edge->myLanes.size());
+}
+
+
+bool
+NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
+                    const std::string &firstEdgeName,
+                    const std::string &secondEdgeName,
+                    unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) throw(ProcessError)
+{
+    SUMOReal pos;
+    pos = edge->getGeometry().nearest_position_on_line_to_point(node->getPosition());
+    if (pos<=0) {
+        pos = GeomHelper::nearest_position_on_line_to_point(
+                  edge->myFrom->getPosition(), edge->myTo->getPosition(),
+                  node->getPosition());
+    }
+    if (pos<=0||pos+POSITION_EPS>edge->getGeometry().length()) {
+        return false;
+    }
+    return splitAt(dc, edge, pos, node, firstEdgeName, secondEdgeName,
+                   noLanesFirstEdge, noLanesSecondEdge);
+}
+
+
+bool
+NBEdgeCont::splitAt(NBDistrictCont &dc,
+                    NBEdge *edge, SUMOReal pos, NBNode *node,
+                    const std::string &firstEdgeName,
+                    const std::string &secondEdgeName,
+                    unsigned int noLanesFirstEdge, unsigned int noLanesSecondEdge) throw(ProcessError)
+{
+    // build the new edges' geometries
+    std::pair<Position2DVector, Position2DVector> geoms =
+        edge->getGeometry().splitAt(pos);
+    if (geoms.first[-1]!=node->getPosition()) {
+        geoms.first.pop_back();
+        geoms.first.push_back(node->getPosition());
+    }
+
+    if (geoms.second[0]!=node->getPosition()) {
+        geoms.second.pop_front();
+        geoms.second.push_front(node->getPosition());
+    }
+    // build and insert the edges
+    NBEdge *one = new NBEdge(firstEdgeName, 
+                             edge->myFrom, node, edge->myType, edge->mySpeed, noLanesFirstEdge,
+                             edge->getPriority(), geoms.first, edge->myLaneSpreadFunction);
+    for (unsigned int i=0; i<noLanesFirstEdge&&i<edge->getNoLanes(); i++) {
+        one->setLaneSpeed(i, edge->getLaneSpeed(i));
+    }
+    NBEdge *two = new NBEdge(secondEdgeName, 
+                             node, edge->myTo, edge->myType, edge->mySpeed, noLanesSecondEdge,
+                             edge->getPriority(), geoms.second,
+                             edge->myLaneSpreadFunction);
+    for (unsigned int i=0; i<noLanesSecondEdge&&i<edge->getNoLanes(); i++) {
+        two->setLaneSpeed(i, edge->getLaneSpeed(i));
+    }
+    two->copyConnectionsFrom(edge);
+    // replace information about this edge within the nodes
+    edge->myFrom->replaceOutgoing(edge, one, 0);
+    edge->myTo->replaceIncoming(edge, two, 0);
+    // the edge is now occuring twice in both nodes...
+    //  clean up
+    edge->myFrom->removeDoubleEdges();
+    edge->myTo->removeDoubleEdges();
+    // add connections from the first to the second edge
+    // check special case:
+    //  one in, one out, the outgoing has one lane more
+    if (noLanesFirstEdge==noLanesSecondEdge-1) {
+        for (unsigned int i=0; i<one->getNoLanes(); i++) {
+            if (!one->addLane2LaneConnection(i, two, i+1, false)) {// !!! Bresenham, here!!!
+                throw ProcessError("Could not set connection!");
+            }
+        }
+        one->addLane2LaneConnection(0, two, 0, false);
+    } else {
+        for (unsigned int i=0; i<one->getNoLanes()&&i<two->getNoLanes(); i++) {
+            if (!one->addLane2LaneConnection(i, two, i, false)) {// !!! Bresenham, here!!!
+                throw ProcessError("Could not set connection!");
+            }
+        }
+    }
+    // erase the splitted edge
+    erase(dc, edge);
+    insert(one);
+    insert(two);
+    myEdgesSplit++;
+    return true;
+}
+
+
+
+void
 NBEdgeCont::computeTurningDirections()
 {
     for (EdgeCont::iterator i=myEdges.begin(); i!=myEdges.end(); i++) {
@@ -341,116 +451,6 @@ NBEdgeCont::appendTurnarounds()
 int NBEdgeCont::size()
 {
     return myEdges.size();
-}
-
-
-bool
-NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node)
-{
-    return splitAt(dc, edge, node,
-                   edge->getID() + "[0]", edge->getID() + "[1]",
-                   edge->myLanes.size(), edge->myLanes.size());
-}
-
-
-bool
-NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node,
-                    const std::string &firstEdgeName,
-                    const std::string &secondEdgeName,
-                    size_t noLanesFirstEdge, size_t noLanesSecondEdge)
-{
-    SUMOReal pos;
-    pos = edge->getGeometry().nearest_position_on_line_to_point(node->getPosition());
-    if (pos<=0) {
-        pos = GeomHelper::nearest_position_on_line_to_point(
-                  edge->myFrom->getPosition(), edge->myTo->getPosition(),
-                  node->getPosition());
-    }
-    if (pos<=0||pos+POSITION_EPS>edge->getGeometry().length()) {
-        return false;
-    }
-    return splitAt(dc, edge, pos, node, firstEdgeName, secondEdgeName,
-                   noLanesFirstEdge, noLanesSecondEdge);
-}
-
-bool
-NBEdgeCont::splitAt(NBDistrictCont &dc,
-                    NBEdge *edge, SUMOReal pos, NBNode *node,
-                    const std::string &firstEdgeName,
-                    const std::string &secondEdgeName,
-                    size_t noLanesFirstEdge, size_t noLanesSecondEdge)
-{
-    // build the new edges' geometries
-    std::pair<Position2DVector, Position2DVector> geoms =
-        edge->getGeometry().splitAt(pos);
-    if (geoms.first[-1]!=node->getPosition()) {
-        geoms.first.pop_back();
-        geoms.first.push_back(node->getPosition());
-    }
-
-    if (geoms.second[0]!=node->getPosition()) {
-        geoms.second.pop_front();
-        geoms.second.push_front(node->getPosition());
-    }
-    // build and insert the edges
-    NBEdge *one = new NBEdge(firstEdgeName,
-                             edge->myFrom, node, edge->myType, edge->mySpeed, noLanesFirstEdge,
-                             edge->getPriority(), geoms.first, edge->myLaneSpreadFunction);
-    size_t i;
-    for (i=0; i<noLanesFirstEdge&&i<edge->getNoLanes(); i++) {
-        one->setLaneSpeed(i, edge->getLaneSpeed(i));
-    }
-    NBEdge *two = new NBEdge(secondEdgeName,
-                             node, edge->myTo, edge->myType, edge->mySpeed, noLanesSecondEdge,
-                             edge->getPriority(), geoms.second,
-                             edge->myLaneSpreadFunction);
-    for (i=0; i<noLanesSecondEdge&&i<edge->getNoLanes(); i++) {
-        two->setLaneSpeed(i, edge->getLaneSpeed(i));
-    }
-    two->copyConnectionsFrom(edge);
-    // replace information about this edge within the nodes
-    edge->myFrom->replaceOutgoing(edge, one, 0);
-    edge->myTo->replaceIncoming(edge, two, 0);
-    // the edge is now occuring twice in both nodes...
-    //  clean up
-    edge->myFrom->removeDoubleEdges();
-    edge->myTo->removeDoubleEdges();
-    // add connections from the first to the second edge
-    // check special case:
-    //  one in, one out, the outgoing has one lane more
-    if (noLanesFirstEdge==noLanesSecondEdge-1) {
-        for (i=0; i<one->getNoLanes(); i++) {
-            if (!one->addLane2LaneConnection(i, two, i+1, false)) {// !!! Bresenham, here!!!
-                throw ProcessError("Could not set connection!");
-
-            }
-        }
-        one->addLane2LaneConnection(0, two, 0, false);
-    } else {
-        for (i=0; i<one->getNoLanes()&&i<two->getNoLanes(); i++) {
-            if (!one->addLane2LaneConnection(i, two, i, false)) {// !!! Bresenham, here!!!
-                throw ProcessError("Could not set connection!");
-
-            }
-        }
-    }
-    // erase the splitted edge
-    erase(dc, edge);
-    insert(one);
-    insert(two);
-    myEdgesSplit++;
-    return true;
-}
-
-
-void
-NBEdgeCont::erase(NBDistrictCont &dc, NBEdge *edge)
-{
-    myEdges.erase(edge->getID());
-    edge->myFrom->removeOutgoing(edge);
-    edge->myTo->removeIncoming(edge);
-    dc.removeFromSinksAndSources(edge);
-    delete edge;
 }
 
 
