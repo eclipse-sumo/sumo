@@ -17,5 +17,8 @@ dismissing__removing_peds
 dismissing__removing_peds_cycles
 
 
+# some tests that use a deprecated divider (';')
+_deprecated_
+
 
 

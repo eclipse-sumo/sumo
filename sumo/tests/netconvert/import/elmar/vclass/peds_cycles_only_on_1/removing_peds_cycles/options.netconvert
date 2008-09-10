@@ -1,1 +1,1 @@
---remove-edges.by-vclass pedestrian;bicycles --elmar2=elmar --output-file=net.net.xml -v
+--remove-edges.by-vclass pedestrian,bicycles --elmar2=elmar --output-file=net.net.xml -v

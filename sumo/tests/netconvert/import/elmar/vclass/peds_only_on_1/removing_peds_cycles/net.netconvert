@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/11/08 12:11:54 by SUMO netconvert Version dev-SVN-r5964
+<!-- generated on 09/10/08 13:18:15 by SUMO netconvert Version dev-SVN-r6028
 <configuration>
 
    <input>
@@ -12,7 +12,7 @@
    </output>
 
    <edge_removal>
-      <remove-edges.by-vclass>pedestrian;bicycles</remove-edges.by-vclass>
+      <remove-edges.by-vclass>pedestrian,bicycles</remove-edges.by-vclass>
    </edge_removal>
 
    <report>
