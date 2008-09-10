@@ -201,6 +201,89 @@ NBEdgeCont::retrieve(const string &id) const throw()
 }
 
 
+NBEdge *
+NBEdgeCont::retrievePossiblySplitted(const std::string &id,
+                                     const std::string &hint,
+                                     bool incoming) const throw()
+{
+    // try to retrieve using the given name (iterative)
+    NBEdge *edge = retrieve(id);
+    if (edge!=0) {
+        return edge;
+    }
+    // now, we did not find it; we have to look over all possibilities
+    EdgeVector hints;
+    // check whether at least the hint was not splitted
+    NBEdge *hintedge = retrieve(hint);
+    if (hintedge==0) {
+        hints = getGeneratedFrom(hint);
+    } else {
+        hints.push_back(hintedge);
+    }
+    EdgeVector candidates = getGeneratedFrom(id);
+    for (EdgeVector::iterator i=hints.begin(); i!=hints.end(); i++) {
+        NBEdge *hintedge = (*i);
+        for (EdgeVector::iterator j=candidates.begin(); j!=candidates.end(); j++) {
+            NBEdge *poss_searched = (*j);
+            NBNode *node = incoming
+                           ? poss_searched->myTo : poss_searched->myFrom;
+            const EdgeVector &cont = incoming
+                                     ? node->getOutgoingEdges() : node->getIncomingEdges();
+            if (find(cont.begin(), cont.end(), hintedge)!=cont.end()) {
+                return poss_searched;
+            }
+        }
+    }
+    return 0;
+}
+
+
+NBEdge *
+NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const throw()
+{
+    // check whether the edge was not split, yet
+    NBEdge *edge = retrieve(id);
+    if (edge!=0) {
+        return edge;
+    }
+    size_t maxLength = 0;
+    string tid = id + "[";
+    for(EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
+        if((*i).first.find(tid)==0) {
+            maxLength = MAX2(maxLength, (*i).first.length());
+        }
+    }
+    // find the part of the edge which matches the position
+    SUMOReal seen = 0;
+    std::vector<string> names;
+    names.push_back(id + "[1]");
+    names.push_back(id + "[0]");
+    while (names.size()>0) {
+        // retrieve the first subelement (to follow)
+        string cid = names[names.size()-1];
+        names.pop_back();
+        edge = retrieve(cid);
+        // The edge was splitted; check its subparts within the
+        //  next step
+        if (edge==0) {
+            if(cid.length()+3<maxLength) {
+                names.push_back(cid + "[1]");
+                names.push_back(cid + "[0]");
+            }
+        }
+        // an edge with the name was found,
+        //  check whether the position lies within it
+        else {
+            seen += edge->getLength();
+            if (seen>=pos) {
+                return edge;
+            }
+        }
+    }
+    return 0;
+}
+
+
 void
 NBEdgeCont::computeTurningDirections()
 {
@@ -390,43 +473,6 @@ NBEdgeCont::erase(NBDistrictCont &dc, NBEdge *edge)
 }
 
 
-NBEdge *
-NBEdgeCont::retrievePossiblySplitted(const std::string &id,
-                                     const std::string &hint,
-                                     bool incoming) const
-{
-    // try to retrieve using the given name (iterative)
-    NBEdge *edge = retrieve(id);
-    if (edge!=0) {
-        return edge;
-    }
-    // now, we did not find it; we have to look over all possibilities
-    EdgeVector hints;
-    // check whether at least the hint was not splitted
-    NBEdge *hintedge = retrieve(hint);
-    if (hintedge==0) {
-        hints = getGeneratedFrom(hint);
-    } else {
-        hints.push_back(hintedge);
-    }
-    EdgeVector candidates = getGeneratedFrom(id);
-    for (EdgeVector::iterator i=hints.begin(); i!=hints.end(); i++) {
-        NBEdge *hintedge = (*i);
-        for (EdgeVector::iterator j=candidates.begin(); j!=candidates.end(); j++) {
-            NBEdge *poss_searched = (*j);
-            NBNode *node = incoming
-                           ? poss_searched->myTo : poss_searched->myFrom;
-            const EdgeVector &cont = incoming
-                                     ? node->getOutgoingEdges() : node->getIncomingEdges();
-            if (find(cont.begin(), cont.end(), hintedge)!=cont.end()) {
-                return poss_searched;
-            }
-        }
-    }
-    return 0;
-}
-
-
 EdgeVector
 NBEdgeCont::getGeneratedFrom(const std::string &id) const
 {
@@ -559,51 +605,6 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     }
 }
 
-
-NBEdge *
-NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const
-{
-    // check whether the edge was not split, yet
-    NBEdge *edge = retrieve(id);
-    if (edge!=0) {
-        return edge;
-    }
-    size_t maxLength = 0;
-    string tid = id + "[";
-    for(EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        if((*i).first.find(tid)==0) {
-            maxLength = MAX2(maxLength, (*i).first.length());
-        }
-    }
-    // find the part of the edge which matches the position
-    SUMOReal seen = 0;
-    std::vector<string> names;
-    names.push_back(id + "[1]");
-    names.push_back(id + "[0]");
-    while (names.size()>0) {
-        // retrieve the first subelement (to follow)
-        string cid = names[names.size()-1];
-        names.pop_back();
-        edge = retrieve(cid);
-        // The edge was splitted; check its subparts within the
-        //  next step
-        if (edge==0) {
-            if(cid.length()+3<maxLength) {
-                names.push_back(cid + "[1]");
-                names.push_back(cid + "[0]");
-            }
-        }
-        // an edge with the name was found,
-        //  check whether the position lies within it
-        else {
-            seen += edge->getLength();
-            if (seen>=pos) {
-                return edge;
-            }
-        }
-    }
-    return 0;
-}
 
 
 void

@@ -116,17 +116,32 @@ public:
 
 
     /** @brief Tries to retrieve an edge, even if it is splitted
-        To describe which part of the edge shall be returned, the
-        id of a second edge, participating at the node and the information
-        whether to return the outgoing or the incoming is needed */
-    NBEdge *retrievePossiblySplitted(
-        const std::string &id, const std::string &hint, bool incoming) const;
+     *
+     * To describe which part of the edge shall be returned, the
+     *  id of a second edge, participating at the node and the information
+     *  whether to return the outgoing or the incoming is needed.
+     *
+     * @param[in] id The id of the edge to retrieve
+     * @param[in] hint An additional information which helps to retrieve the correct edge
+     * @param[in] incoming Whether the edge to find is an incoming edge at the node "hint" participates
+     * @return The searched edge
+     * @todo Recheck usage
+     */
+    NBEdge *retrievePossiblySplitted(const std::string &id, 
+        const std::string &hint, bool incoming) const throw();
+
 
     /** @brief Tries to retrieve an edge, even if it is splitted
-        To describe which part of the edge shall be returned, a
-        position hint is supplied */
-    NBEdge *retrievePossiblySplitted(
-        const std::string &id, SUMOReal pos) const;
+     *
+     * To describe which part of the edge shall be returned, a
+     *  position hint is supplied.
+     *
+     * @param[in] id The id of the edge to retrieve
+     * @param[in] pos An additional about the position of the basic edge's subpart
+     * @return The searched edge
+     * @todo Recheck usage
+     */
+    NBEdge *retrievePossiblySplitted(const std::string &id, SUMOReal pos) const throw();
 
     /** computes edges, step1: computation of approached edges */
     void computeEdge2Edges();
