@@ -58,11 +58,23 @@ public:
     /// Destructor
     ~NBNetBuilder();
 
+
+    /** @brief Initialises the storage by applying given options
+     *
+     * Options, mainly steering the acceptance of edges, are parsed
+     *  and the according internal variables are set.
+     * @param[in] oc The options container to read options from
+     * @exception ProcessError If something fails (message is included)
+     */
+    void applyOptions(OptionsCont &oc) throw(ProcessError);
+
+
+
+
     void buildLoaded();
 
     static void insertNetBuildOptions(OptionsCont &oc);
 
-    void preCheckOptions(OptionsCont &oc);
 
     /**
      * @brief computes the structures

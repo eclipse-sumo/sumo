@@ -376,16 +376,14 @@ main(int argc, char **argv)
         MsgHandler::initOutputOptions();
         if (!checkOptions()) throw ProcessError();
         RandHelper::initRandGlobal();
-        // initialise the (default) types
         GeoConvHelper::init("!", Position2D());
         NBNetBuilder nb;
-        nb.getTypeCont().setDefaults(oc.getInt("lanenumber"), oc.getFloat("speed"), oc.getInt("priority"));
+        nb.applyOptions(oc);
         // build the netgen-network description
         NGNet *net = buildNetwork(nb);
         // ... and we have to do this...
         oc.resetWritable();
         // transfer to the netbuilding structures
-        nb.preCheckOptions(oc);
         net->toNB();
         delete net;
         // report generated structures

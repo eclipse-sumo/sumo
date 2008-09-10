@@ -145,7 +145,12 @@ public:
 
     bool savePlain(const std::string &file);
 
-    void removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &oc);
+    /** @brief Removes unwished edges (not in keep-edges)
+     *
+     * @param[in] dc The district container needed to remove edges 
+     * @todo Recheck usage; check whether keep-edges.postload is really useful
+     */
+    void removeUnwishedEdges(NBDistrictCont &dc) throw();
 
     void recomputeLaneShapes();
 

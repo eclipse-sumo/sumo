@@ -91,10 +91,8 @@ main(int argc, char **argv)
         if (!NIOptionsIO::checkOptions()) throw ProcessError();
         RandHelper::initRandGlobal();
         NBNetBuilder nb;
-        // initialise the (default) types
-        nb.getTypeCont().setDefaults(oc.getInt("lanenumber"), oc.getFloat("speed"), oc.getInt("priority"));
+        nb.applyOptions(oc);
         // load data
-        nb.preCheckOptions(oc);
         NILoader nl(nb);
         nl.load(oc);
         if (oc.getBool("dismiss-loading-errors")) {

@@ -639,7 +639,7 @@ NBEdgeCont::savePlain(const std::string &file)
 
 
 void
-NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc, OptionsCont &)
+NBEdgeCont::removeUnwishedEdges(NBDistrictCont &dc) throw()
 {
     //
     std::vector<NBEdge*> toRemove;

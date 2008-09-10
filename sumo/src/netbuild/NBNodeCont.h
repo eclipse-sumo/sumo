@@ -140,8 +140,7 @@ public:
     void guessRamps(OptionsCont &oc, NBEdgeCont &ec, NBDistrictCont &dc);
     void guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc);
 
-    void setAsTLControlled(const std::string &name,
-                           NBTrafficLightLogicCont &tlc);
+    void setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id="");
 
     bool savePlain(const std::string &file);
 

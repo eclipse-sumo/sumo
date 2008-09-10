@@ -908,7 +908,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
         for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
             NBNode *cur = (*i).second;
             if (cur->isNearDistrict()) {
-                setAsTLControlled((*i).first, tlc);
+                setAsTLControlled(cur, tlc);
             }
         }
     }
@@ -919,13 +919,11 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
     // build list of definitely not tls-controlled junctions
     std::vector<NBNode*> ncontrolled;
     if (oc.isSet("explicite-no-tls")) {
-        StringTokenizer st(oc.getString("explicite-no-tls"), ";");
-        while (st.hasNext()) {
-            string name = st.next();
-            NBNode *n = NBNodeCont::retrieve(name);
+        vector<string> notTLControlledNodes = oc.getStringVector("explicite-no-tls");
+        for(vector<string>::const_iterator i=notTLControlledNodes.begin(); i!=notTLControlledNodes.end(); ++i) {
+            NBNode *n = NBNodeCont::retrieve(*i);
             if (n==0) {
-                throw ProcessError(" The node '" + name + "' to set as not-controlled is not known.");
-
+                throw ProcessError(" The node '" + *i + "' to set as not-controlled is not known.");
             }
             ncontrolled.push_back(n);
         }
@@ -979,26 +977,22 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
         }
 
         // hmmm, should be tls-controlled (probably)
-        setAsTLControlled((*i).first, tlc);
+        setAsTLControlled((*i).second, tlc);
 
     }
 }
 
 
 void
-NBNodeCont::setAsTLControlled(const std::string &name,
-                              NBTrafficLightLogicCont &tlc)
+NBNodeCont::setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id)
 {
-    NBNode *node = retrieve(name);
-    if (node==0) {
-        WRITE_WARNING("Building a tl-logic for node '" + name + "' is not possible."
-                      + "\n The node '" + name + "' is not known.");
-        return;
+    if(id=="") {
+        id = node->getID();
     }
-    NBTrafficLightDefinition *tlDef = new NBOwnTLDef(name, node);
+    NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, node);
     if (!tlc.insert(tlDef)) {
         // actually, nothing should fail here
-        WRITE_WARNING("Building a tl-logic for node '" + name + "' twice is not possible.");
+        WRITE_WARNING("Building a tl-logic for node '" + id + "' twice is not possible.");
         delete tlDef;
         return;
     }
@@ -1035,7 +1029,7 @@ NBNodeCont::writeTLSasPOIs(const std::string &file)
         }
         device.close();
         return true;
-    } catch (IOError e) {
+    } catch (IOError &) {
         MsgHandler::getErrorInstance()->inform("POI file '" + file + "' could not be opened.");
         return false;
     }

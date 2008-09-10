@@ -71,6 +71,37 @@ NBNetBuilder::~NBNetBuilder()
 {}
 
 
+void 
+NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError)
+{
+    // we possibly have to load the edges to keep
+    if (oc.isSet("keep-edges.input-file")) {
+        ifstream strm(oc.getString("keep-edges.input-file").c_str());
+        if (!strm.good()) {
+            throw ProcessError("Could not load names of edges too keep from '" + oc.getString("keep-edges.input-file") + "'.");
+        }
+        std::ostringstream oss;
+        bool first = true;
+        while (strm.good()) {
+            if (!first) {
+                oss << ';';
+            }
+            string name;
+            strm >> name;
+            oss << name;
+            first = false;
+        }
+        oc.set("keep-edges", oss.str());
+    }
+    // check whether at least one output file is given
+    if (!oc.isSet("o")&&!oc.isSet("plain-output")&&!oc.isSet("map-output")) {
+        throw ProcessError("No output defined.");
+    }
+    // apply options to type control
+    myTypeCont.setDefaults(oc.getInt("lanenumber"), oc.getFloat("speed"), oc.getInt("priority"));
+}
+
+
 void
 NBNetBuilder::buildLoaded()
 {
@@ -121,10 +152,10 @@ NBNetBuilder::compute(OptionsCont &oc)
     if (oc.getBool("keep-edges.postload")) {
         if (oc.isSet("keep-edges")) {
             inform(step, "Removing unwished edges.");
-            myEdgeCont.removeUnwishedEdges(myDistrictCont, oc);
+            myEdgeCont.removeUnwishedEdges(myDistrictCont);
         }
     }
-    if (oc.isSet("keep-edges") || oc.getBool("keep-edges.postload") || oc.isSet("keep-edges.by-vclass") || oc.isSet("keep-edges.input-file")) {
+    if (oc.isSet("keep-edges") || oc.isSet("remove-edges") || oc.getBool("keep-edges.postload") || oc.isSet("keep-edges.by-vclass") || oc.isSet("keep-edges.input-file")) {
         inform(step, "Rechecking nodes after edge removal.");
         myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont);
     }
@@ -150,9 +181,14 @@ NBNetBuilder::compute(OptionsCont &oc)
     //
     inform(step, "Guessing and setting TLs");
     if (oc.isSet("explicite-tls")) {
-        StringTokenizer st(oc.getString("explicite-tls"), ";");
-        while (st.hasNext()) {
-            myNodeCont.setAsTLControlled(st.next(), myTLLCont);
+        vector<string> tlControlledNodes = oc.getStringVector("explicite-tls");
+        for(vector<string>::const_iterator i=tlControlledNodes.begin(); i!=tlControlledNodes.end(); ++i) {
+            NBNode *node = myNodeCont.retrieve(*i);
+            if (node==0) {
+                WRITE_WARNING("Building a tl-logic for node '" + *i + "' is not possible." + "\n The node '" + *i + "' is not known.");
+            } else {
+                myNodeCont.setAsTLControlled(node, myTLLCont);
+            }
         }
     }
     myNodeCont.guessTLs(oc, myTLLCont);
@@ -505,37 +541,6 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
 
 }
 
-
-
-void
-NBNetBuilder::preCheckOptions(OptionsCont &oc)
-{
-    // we possibly have to load the edges to keep
-    if (oc.isSet("keep-edges.input-file")) {
-        ifstream strm(oc.getString("keep-edges.input-file").c_str());
-        if (!strm.good()) {
-            throw ProcessError("Could not load names of edges too keep from '" + oc.getString("keep-edges.input-file") + "'.");
-
-        }
-        std::ostringstream oss;
-        bool first = true;
-        while (strm.good()) {
-            if (!first) {
-                oss << ';';
-            }
-            string name;
-            strm >> name;
-            oss << name;
-            first = false;
-        }
-        oc.set("keep-edges", oss.str());
-    }
-    // check whether at least one output file is given
-    if (!oc.isSet("o")&&!oc.isSet("plain-output")&&!oc.isSet("map-output")) {
-        throw ProcessError("No output defined.");
-
-    }
-}
 
 
 NBEdgeCont &
