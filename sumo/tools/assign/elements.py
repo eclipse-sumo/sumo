@@ -262,7 +262,7 @@ class Edge:
                     weightFactor = 0.4
                 if self.conflictlink.estcapacity != 0. and self.conflictlink.flow/self.conflictlink.estcapacity > 0.1:
                     self.penalty = (math.exp(self.flow/self.estcapacity) - 1. + math.exp(self.conflictlink.flow/self.conflictlink.estcapacity) - 1.)/2.
-                    self.penalty *= weightFactor
+                    self.penalty *= weightFactor * self.actualtime
 
         foutcheck.close()
     
@@ -289,7 +289,9 @@ class Edge:
             self.fTT = options.v1/(1 + math.exp(options.v2-options.v3*self.TT))
             self.delta = options.under + (options.upper - options.under)/((1+self.TT)**self.fTT)
             self.helpacttimeEx = self.helpacttime
-            self.helpacttime = self.helpacttime + self.delta*(self.actualtime - self.helpacttime)    
+            self.helpacttime = self.helpacttime + self.delta*(self.actualtime - self.helpacttime)
+            if self.penalty > 0:
+                self.penalty *= self.helpacttime / self.actualtime     
                 
     def stopCheck(self, options):
         """

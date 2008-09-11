@@ -221,7 +221,7 @@ def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices,
                     TotalPath += 1
                     path.getPathTimeUpdate()
                     if lohse:                      
-                        path.helpacttime = path.actpathtime
+                        path.pathhelpacttime = path.actpathtime
       
                 calCommonalityAndChoiceProb(ODPaths, options.alpha, options.gamma, lohse)
         

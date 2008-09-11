@@ -13,8 +13,6 @@ will be stored in the lists P and D respectively.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import math
-
 class priorityDictionary(dict):
     def __init__(self):
         '''Initialize priorityDictionary by creating binary heap
@@ -96,25 +94,17 @@ def dijkstra(net, start, targets, lohse=False):
         if targets.discard(v):
             if len(targets) == 0:
                 return (D, P)
+        isConflictCandidate = (v != start) and (P[v].conflictlink != None)
         for edge in v.outEdges:
             w = edge.target
-
-            if v == start or P[v].conflictlink == None or edge != P[v].leftlink:
-                if lohse:
-                    vwLength = D[v] + edge.helpacttime
-                else:
-                    vwLength = D[v] + edge.actualtime + edge.queuetime
+            if lohse:
+                vwLength = D[v] + edge.helpacttime
             else:
-                if lohse:
-                    vwLength = D[v] + edge.helpacttime + P[v].helpacttime * P[v].penalty
-                else:                    
-                    vwLength = D[v] + edge.actualtime + edge.queuetime + P[v].actualtime * P[v].penalty
+                vwLength = D[v] + edge.actualtime + edge.queuetime
+            if isConflictCandidate and P[v].leftlink == edge:
+                vwLength += P[v].penalty
 
-            if w in D:
-                if vwLength < D[w]:
-                        raise ValueError, \
-    "Dijkstra: found better path to already-final vertex"
-            elif w not in Q or vwLength < Q[w]:
+            if w not in D and (w not in Q or vwLength < Q[w]):
                 Q[w] = vwLength
                 P[w] = edge
     return (D, P)
