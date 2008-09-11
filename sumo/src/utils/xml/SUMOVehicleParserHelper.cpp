@@ -137,6 +137,8 @@ SUMOVehicleParserHelper::parseVehicleAttributes(const SUMOSAXAttributes &attrs,
     if (attrs.hasAttribute(SUMO_ATTR_COLOR)) {
         ret->setParameter |= VEHPARS_COLOR_SET;
         ret->color = RGBColor::parseColor(attrs.getString(SUMO_ATTR_COLOR));
+    } else {
+        ret->color = RGBColor(1,1,0);
     }
 
     if (!ok) {

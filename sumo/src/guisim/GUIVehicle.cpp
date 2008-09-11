@@ -177,9 +177,6 @@ GUIVehicle::GUIVehicle(GUIGlObjectStorage &idStorage,
         GUIGlObject(idStorage, "vehicle:"+pars->id)
 {
     myIntCORNMap[MSCORN::CORN_VEH_BLINKER] = 0;
-    if ((pars->setParameter&VEHPARS_COLOR_SET)==0) {
-        pars->color = static_cast<const GUIVehicleType*>(type)->getColor();
-    }
 }
 
 
