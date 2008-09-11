@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A single traffic light logic (a possible variant)
+// A SUMO-compliant built logic for a traffic light
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,6 +36,8 @@
 #include <utility>
 #include <set>
 #include "NBConnectionDefs.h"
+#include <utils/common/SUMOTime.h>
+#include <utils/common/Named.h>
 
 
 // ===========================================================================
@@ -49,82 +51,103 @@ class OutputDevice;
 // ===========================================================================
 /**
  * @class NBTrafficLightLogic
- * A completely build logic for a traffic light; Held until being saved
- * at the end of a networks's building
+ * @brief A SUMO-compliant built logic for a traffic light
  */
-class NBTrafficLightLogic
+class NBTrafficLightLogic : public Named
 {
 public:
-    /// Constructor
-    NBTrafficLightLogic(const std::string &key, size_t noLinks);
+    /** @brief Constructor
+     *
+     */
+    NBTrafficLightLogic(const std::string &id, const std::string &subid,
+        const std::string &type, unsigned int noLinks) throw();
 
-    /// Copy constructor
-    NBTrafficLightLogic(const NBTrafficLightLogic &s);
 
-    /// Destructor
-    ~NBTrafficLightLogic();
+    /// @brief Destructor
+    ~NBTrafficLightLogic() throw();
+
 
     /** @brief Adds a phase to the logic
-        This is done during the building, the new phase is inserted at the end of
-        the list of already added phases */
-    void addStep(size_t duration, std::bitset<64> driveMask,
-                 std::bitset<64> brakeMask, std::bitset<64> yellowMask);
+     *
+     * This is done during the building; the new phase is inserted at the end of
+     * the list of already added phases 
+     *
+     * @param[in] duration The duration of the phase to add
+     * @param[in] driveMask Information which links may drive during the phase to add
+     * @param[in] brakeMask Information which links have to decelerate during the phase to add
+     * @param[in] yellowMask Information which links have yellow during the phase to add
+     */
+    void addStep(SUMOTime duration, std::bitset<64> driveMask,
+                 std::bitset<64> brakeMask, std::bitset<64> yellowMask) throw();
 
-    /// Writes the traffic light logic into the given stream in it's XML-representation
+
+    /** @brief Writes the traffic light logic into the given stream in it's XML-representation
+     *
+     * @param[in] into The stream to write the definition into
+     * @param[in] no Index (subid) of the program
+     * @param[in] distance !!!unused
+     * @param[in] type The type of the tls
+     * @param[in] inLanes !!!unused
+     */
     void writeXML(OutputDevice &into, size_t no, SUMOReal distance,
-                  std::string type, const std::set<std::string> &inLanes) const;
+                  std::string type, const std::set<std::string> &inLanes) const throw();
     // !!! the key should be given here, too, instead of storing it
 
     /// Information whether the given logic is equal to this
-    bool equals(const NBTrafficLightLogic &logic) const;
+    bool equals(const NBTrafficLightLogic &logic) const throw();
 
     /// closes the building process (joins equal steps)
-    void closeBuilding();
+    void closeBuilding() throw();
 
-private:
-    size_t getOffset() const;
-
-    bool checkOffsetFor(const std::string &optionName) const;
-
-    size_t computeOffsetFor(SUMOReal offsetMult) const;
+    SUMOTime getDuration() const throw();
+    void setOffset(SUMOTime offset) throw() {
+        myOffset = offset;
+    }
 
 
 private:
-    /// The key (id) of the logic
-    std::string myKey;
+    SUMOTime computeOffsetFor(SUMOReal offsetMult) const throw();
 
-    /// The number of participating links
-    size_t myNoLinks;
 
+private:
     /**
      * @class PhaseDefinition
-     * The definition of a single phase of the logic
+     * @brief The definition of a single phase of the logic
      */
     class PhaseDefinition
     {
     public:
-        /// The duration of the phase in s
-        size_t              duration;
+        /// @brief The duration of the phase in s
+        SUMOTime duration;
 
-        /// The information which links may drive within this phase
-        std::bitset<64>     driveMask;
+        /// @brief The information which links may drive within this phase
+        std::bitset<64> driveMask;
 
-        /// The information which links have to brake within this phase
-        std::bitset<64>     brakeMask;
+        /// @brief The information which links have to brake within this phase
+        std::bitset<64> brakeMask;
 
-        std::bitset<64>     yellowMask;
+        /// @brief The information which links have yellow within this phase
+        std::bitset<64> yellowMask;
 
-        /// Constructor
-        PhaseDefinition(size_t durationArg, std::bitset<64> driveMaskArg,
-                        std::bitset<64> brakeMaskArg, std::bitset<64> yellowMaskArg)
+        /** @brief Constructor
+         * @param[in] durationArg The duration of the phase
+         * @param[in] driveMaskArg Information which links may drive during the phase
+         * @param[in] brakeMaskArg Information which links have to decelerate during the phase
+         * @param[in] yellowMaskArg Information which links have yellow during the phase
+         */
+        PhaseDefinition(SUMOTime durationArg, std::bitset<64> driveMaskArg,
+                        std::bitset<64> brakeMaskArg, std::bitset<64> yellowMaskArg) throw()
                 : duration(durationArg), driveMask(driveMaskArg),
                 brakeMask(brakeMaskArg), yellowMask(yellowMaskArg) { }
 
-        /// Destructor
-        ~PhaseDefinition() { }
+        /// @brief Destructor
+        ~PhaseDefinition() throw() { }
 
-        /// Comparison operator
-        bool operator!=(const PhaseDefinition &pd) const {
+        /** @brief Comparison operator
+         * @param[in] pd A second phase
+         * @return Whether this and the given phases are same
+         */
+        bool operator!=(const PhaseDefinition &pd) const throw() {
             return pd.duration != duration ||
                    pd.driveMask != driveMask ||
                    pd.brakeMask != brakeMask ||
@@ -133,11 +156,26 @@ private:
 
     };
 
-    /// Definition of a vector of traffic light phases
+
+private:
+    /// @brief The number of participating links
+    unsigned int myNoLinks;
+
+    /// @brief The tls program's subid
+    std::string mySubID;
+    
+    /// @brief The tls program's type
+    std::string myType;
+    
+    /// @brief The tls program's offset
+    SUMOTime myOffset;
+    
+    /// @brief Definition of a vector of traffic light phases
     typedef std::vector<PhaseDefinition> PhaseDefinitionVector;
 
-    /// The junction logic's storage for traffic light phase list
+    /// @brief The junction logic's storage for traffic light phase list
     PhaseDefinitionVector myPhases;
+
 
 };
 

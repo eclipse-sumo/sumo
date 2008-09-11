@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A single traffic light logic (a possible variant)
+// A SUMO-compliant built logic for a traffic light
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -56,26 +56,23 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-NBTrafficLightLogic::NBTrafficLightLogic(const std::string &key,
-        size_t noLinks)
-        : myKey(key), myNoLinks(noLinks)
+NBTrafficLightLogic::NBTrafficLightLogic(const std::string &id, 
+        const std::string &subid, const std::string &type, 
+        unsigned int noLinks) throw()
+        : Named(id), myNoLinks(noLinks), mySubID(subid), myType(type), 
+        myOffset(0)
 {}
 
 
-NBTrafficLightLogic::NBTrafficLightLogic(const NBTrafficLightLogic &s)
-        : myKey(s.myKey), myNoLinks(s.myNoLinks), myPhases(s.myPhases)
-{}
-
-
-NBTrafficLightLogic::~NBTrafficLightLogic()
+NBTrafficLightLogic::~NBTrafficLightLogic() throw()
 {}
 
 
 void
-NBTrafficLightLogic::addStep(size_t duration,
+NBTrafficLightLogic::addStep(SUMOTime duration,
                              std::bitset<64> driveMask,
                              std::bitset<64> brakeMask,
-                             std::bitset<64> yellowMask)
+                             std::bitset<64> yellowMask) throw()
 {
     myPhases.push_back(PhaseDefinition(duration, driveMask, brakeMask, yellowMask));
 }
@@ -84,14 +81,13 @@ NBTrafficLightLogic::addStep(size_t duration,
 void
 NBTrafficLightLogic::writeXML(OutputDevice &into, size_t no, SUMOReal /*distance*/,
                               std::string type,
-                              const std::set<string> &/*inLanes*/) const
+                              const std::set<string> &/*inLanes*/) const throw()
 {
     into << "   <tl-logic type=\"" << type << "\">\n";
-    into << "      <key>" << myKey << "</key>\n";
+    into << "      <key>" << getID() << "</key>\n";
     into << "      <subkey>" << no << "</subkey>\n";
     into << "      <phaseno>" << myPhases.size() << "</phaseno>\n";
-    int offset = getOffset();
-    into << "      <offset>" << offset << "</offset>\n";
+    into << "      <offset>" << myOffset << "</offset>\n";
     // write the phases
     for (PhaseDefinitionVector::const_iterator i=myPhases.begin(); i!=myPhases.end(); i++) {
         std::bitset<64> mask = (*i).driveMask;
@@ -118,7 +114,7 @@ NBTrafficLightLogic::writeXML(OutputDevice &into, size_t no, SUMOReal /*distance
 
 
 bool
-NBTrafficLightLogic::equals(const NBTrafficLightLogic &logic) const
+NBTrafficLightLogic::equals(const NBTrafficLightLogic &logic) const throw()
 {
     if (myPhases.size()!=logic.myPhases.size()) {
         return false;
@@ -134,8 +130,19 @@ NBTrafficLightLogic::equals(const NBTrafficLightLogic &logic) const
 }
 
 
+SUMOTime 
+NBTrafficLightLogic::getDuration() const throw()
+{
+    SUMOTime duration = 0;
+    for (PhaseDefinitionVector::const_iterator i=myPhases.begin(); i!=myPhases.end(); ++i) {
+        duration += (*i).duration;
+    }
+    return duration;
+}
+
+
 void
-NBTrafficLightLogic::closeBuilding()
+NBTrafficLightLogic::closeBuilding() throw()
 {
     for (size_t i=0; i<myPhases.size()-1;) {
         if (myPhases[i].driveMask!=myPhases[i+1].driveMask
@@ -154,53 +161,15 @@ NBTrafficLightLogic::closeBuilding()
 }
 
 
-size_t
-NBTrafficLightLogic::getOffset() const
+
+SUMOTime
+NBTrafficLightLogic::computeOffsetFor(SUMOReal offsetMult) const throw()
 {
-    // check whether any offsets shall be manipulated by setting
-    //  them to half of the duration
-    if (OptionsCont::getOptions().isSet("tl-logics.half-offset")) {
-        if (checkOffsetFor("tl-logics.half-offset")) {
-            return computeOffsetFor(0.5);
-        }
-    }
-    // check whether any offsets shall be manipulated by setting
-    //  them to half of the duration
-    if (OptionsCont::getOptions().isSet("tl-logics.quarter-offset")) {
-        if (checkOffsetFor("tl-logics.quarter-offset")) {
-            return computeOffsetFor(0.25);
-        }
-    }
-    // The key was not found within the offsets to change
-    //  or nothing shall be changed
-    return 0;
-}
-
-
-bool
-NBTrafficLightLogic::checkOffsetFor(const std::string &optionName) const
-{
-    string offsets =
-        OptionsCont::getOptions().getString(optionName);
-    StringTokenizer st(offsets, ";");
-    while (st.hasNext()) {
-        string key = st.next();
-        if (key==myKey) {
-            return true;
-        }
-    }
-    return false;
-}
-
-
-size_t
-NBTrafficLightLogic::computeOffsetFor(SUMOReal offsetMult) const
-{
-    size_t dur = 0;
+    SUMOTime dur = 0;
     for (size_t i=0; i<myPhases.size(); ++i) {
         dur += myPhases[i].duration;
     }
-    return (size_t)((SUMOReal) dur * offsetMult);
+    return (SUMOTime) ((SUMOReal) dur * offsetMult);
 }
 
 

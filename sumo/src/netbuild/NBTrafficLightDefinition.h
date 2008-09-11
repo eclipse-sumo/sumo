@@ -37,6 +37,7 @@
 #include <set>
 #include <utils/common/Named.h>
 #include <utils/common/VectorHelper.h>
+#include <utils/common/SUMOTime.h>
 #include "NBCont.h"
 #include "NBConnection.h"
 #include "NBConnectionDefs.h"
@@ -49,7 +50,6 @@
 class NBNode;
 class OptionsCont;
 class NBTrafficLightLogicVector;
-class NBTrafficLightPhases;
 
 
 // ===========================================================================
@@ -172,7 +172,7 @@ protected:
     /// Computes the traffic light logic finally in dependence to the type
     virtual NBTrafficLightLogicVector *myCompute(const NBEdgeCont &ec,
             size_t breakingTime,
-            std::string type, bool buildAll) = 0;
+            std::string type) = 0;
 
     /// Returns a pair of <number participating lanes, number participating links>
     std::pair<size_t, size_t> getSizes() const;

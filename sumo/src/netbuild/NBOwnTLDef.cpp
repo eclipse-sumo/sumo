@@ -83,7 +83,7 @@ NBOwnTLDef::~NBOwnTLDef() throw()
 
 NBTrafficLightLogicVector *
 NBOwnTLDef::myCompute(const NBEdgeCont &,
-                      size_t breakingTime, string type, bool buildAll)
+                      size_t breakingTime, string type)
 {
     bool appendSmallestOnly = true;
     bool skipLarger = true;
@@ -91,35 +91,9 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
     bool joinLaneLinks = false;
     bool removeTurnArounds = true;
     LinkRemovalType removal = LRT_REMOVE_WHEN_NOT_OWN;
-    NBTrafficLightLogicVector *logics1 =
-        computeTrafficLightLogics(getID(), type,
-                                  joinLaneLinks, removeTurnArounds, removal,
-                                  appendSmallestOnly, skipLarger, breakingTime);
-
-    if (buildAll) {
-        joinLaneLinks = false;
-        removeTurnArounds = true;
-        removal = LRT_NO_REMOVAL;
-        NBTrafficLightLogicVector *logics2 =
-            computeTrafficLightLogics(getID(), type,
-                                      joinLaneLinks, removeTurnArounds, removal,
-                                      appendSmallestOnly, skipLarger, breakingTime);
-
-        joinLaneLinks = false;
-        removeTurnArounds = true;
-        removal = LRT_REMOVE_ALL_LEFT;
-        NBTrafficLightLogicVector *logics3 =
-            computeTrafficLightLogics(getID(), type,
-                                      joinLaneLinks, removeTurnArounds, removal,
-                                      appendSmallestOnly, skipLarger, breakingTime);
-
-        // join build logics
-        logics1->add(*logics2);
-        logics1->add(*logics3);
-        delete logics2;
-        delete logics3;
-    }
-    return logics1;
+    return computeTrafficLightLogics(getID(), type,
+        joinLaneLinks, removeTurnArounds, removal,
+        appendSmallestOnly, skipLarger, breakingTime);
 }
 
 

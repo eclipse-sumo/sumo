@@ -38,12 +38,10 @@
 #include <utils/options/OptionsCont.h>
 #include "NBTrafficLightLogicVector.h"
 #include "NBTrafficLightDefinition.h"
-#include "NBTrafficLightPhases.h"
 #include "NBLinkPossibilityMatrix.h"
 #include "NBTrafficLightLogic.h"
 #include "NBContHelper.h"
 #include "NBRequestEdgeLinkIterator.h"
-#include "NBLinkCliqueContainer.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -108,10 +106,10 @@ NBTrafficLightDefinition::compute(const NBEdgeCont &ec, OptionsCont &oc)
     size_t breakingTime = computeBrakingTime(oc.getFloat("min-decel"));
     // perform the computation depending on whether the traffic light
     //  definition was loaded or shall be computed new completely
-    if (OptionsCont::getOptions().isSet("traffic-light-yellow")) {
-        breakingTime = OptionsCont::getOptions().getInt("traffic-light-yellow");
+    if (oc.isSet("traffic-light-yellow")) {
+        breakingTime = oc.getInt("traffic-light-yellow");
     }
-    return myCompute(ec, breakingTime, myType, oc.getBool("all-logics"));
+    return myCompute(ec, breakingTime, myType);
 }
 
 

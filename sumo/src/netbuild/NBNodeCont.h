@@ -36,6 +36,7 @@
 #include "NBEdgeCont.h"
 #include "NBJunctionLogicCont.h"
 #include "NBNode.h"
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
@@ -44,6 +45,7 @@
 class NBDistrict;
 class OptionsCont;
 class OutputDevice;
+
 
 // ===========================================================================
 // class definitions
@@ -144,7 +146,12 @@ public:
 
     bool savePlain(const std::string &file);
 
-    bool writeTLSasPOIs(const std::string &file);
+    /** @brief Writes positions of traffic lights as a list of points of interest (POIs)
+     *
+     * @param[in] device The device to write the pois into
+     * @exception IOError (not yet implemented)
+     */
+    void writeTLSasPOIs(OutputDevice &device) throw(IOError);
 
 private:
     bool mayNeedOnRamp(OptionsCont &oc, NBNode *cur) const;

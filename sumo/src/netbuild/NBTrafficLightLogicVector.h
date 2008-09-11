@@ -76,6 +76,9 @@ public:
     /// Returns the type of this traffic light logic
     const std::string &getType() const;
 
+    void setOffsetsToHalf();
+    void setOffsetsToQuarter();
+
 private:
     /// The links participating in this junction
     NBConnectionVector myInLinks;

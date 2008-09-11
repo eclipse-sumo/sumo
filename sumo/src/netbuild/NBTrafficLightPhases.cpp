@@ -167,7 +167,7 @@ NBTrafficLightPhases::computeLogics(const std::string &key,
         for (size_t j=0; j<myPhasesVectorsByLength[i].size(); j++) {
             ret->add(
                 buildTrafficLightsLogic(
-                    key, noLinks, myPhasesVectorsByLength[i][j], cei1,
+                    key, noLinks, type, myPhasesVectorsByLength[i][j], cei1,
                     breakingTime));
         }
     }
@@ -178,12 +178,12 @@ NBTrafficLightPhases::computeLogics(const std::string &key,
 NBTrafficLightLogic *
 NBTrafficLightPhases::buildTrafficLightsLogic(const std::string &key,
         size_t noLinks,
+        const std::string &type,
         const PhaseIndexVector &phaseList,
         const NBRequestEdgeLinkIterator &cei1,
         size_t breakingTime) const
 {
-    NBTrafficLightLogic *ret =
-        new NBTrafficLightLogic(key, noLinks);
+    NBTrafficLightLogic *ret = new NBTrafficLightLogic(key, "0", type, noLinks);
     for (size_t i=0; i<phaseList.size(); i++) {
         // build and add the complete phase
         std::bitset<64> driveMask;

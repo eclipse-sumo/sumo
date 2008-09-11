@@ -4,7 +4,7 @@
 /// @date    Sept 2002
 /// @version $Id$
 ///
-// A container for traffic light logic vectors
+// A container for traffic light definitions and built programs
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -49,17 +49,37 @@ class OutputDevice;
 // ===========================================================================
 /**
  * @class NBTrafficLightLogicCont
+ * @brief A container for traffic light definitions and built programs
+ *
  * This container class holds definitions of traffic light logics during
- * the loading of the network. After all information has been loaded, these
- * definitions are used to build the traffic light logics.
- * The build traffic light logics are saved within this container during their
- * building and written to the network file at the end.
+ *  the loading of the network. After all information has been loaded, these
+ *  definitions are used to build the traffic light logics.
+ *
+ * The built traffic light logics are kept stored within this container during 
+ *  their building and written to the network file at the end.
+ *
+ * @see NBTrafficLightDefinition
+ * @see NBTrafficLightLogicVector
  */
 class NBTrafficLightLogicCont
 {
 public:
-    NBTrafficLightLogicCont();
-    ~NBTrafficLightLogicCont();
+    /// @brief Constructor
+    NBTrafficLightLogicCont() throw();
+
+    /// @brief Destructor
+    ~NBTrafficLightLogicCont() throw();
+
+
+    /** @brief Initialises the storage by applying given options
+     *
+     * Options, mainly setting offsets, are parsed
+     *  and the according internal variables are set.
+     *
+     * @param[in] oc The options container to read options from
+     * @todo Recheck exceptions
+     */
+    void applyOptions(OptionsCont &oc);
 
 
     /** @brief Adds a logic definition to the dictionary
@@ -73,44 +93,104 @@ public:
      */
     bool insert(NBTrafficLightDefinition *logic) throw();
 
-    /// computes the traffic light logics using the definitions and stores the results
-    void computeLogics(NBEdgeCont &ec, OptionsCont &oc);
 
-    /// saves all known logics
-    void writeXML(OutputDevice &into);
+    /** @brief Computes the traffic light logics using the stored definitions and stores the results
+     * 
+     * Goes through all stored definitions and calls "NBTrafficLightDefinition::compute"
+     *  for each. Stores the result using "insert".
+     *
+     * @param[in] ec The edge container used during the computation
+     * @param[in] oc Options used during the computation
+     * @see NBTrafficLightDefinition::compute
+     */
+    void computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw();
 
-    /// destroys all stored logics
-    void clear();
 
+    /** @brief Saves all known logics into the given stream
+     *
+     * Calls "writeXML" for each of the stored NBTrafficLightLogicVector.
+     *
+     * @param[in] into The stream to write the logics into
+     * @exception IOError (not yet implemented)
+     * @see NBTrafficLightLogicVector::writeXML
+     */
+    void writeXML(OutputDevice &into) throw(IOError);
+
+
+    /** @brief Destroys all stored definitions and logics
+     */
+    void clear() throw();
+
+
+    /** @brief Replaces occurences of the removed edge in incoming/outgoing edges of all definitions
+     *
+     * @param[in] removed The removed edge
+     * @param[in] incoming The edges to use instead if an incoming edge was removed
+     * @param[in] outgoing The edges to use instead if an outgoing edge was removed
+     * @todo Recheck usage
+     */
     void remapRemoved(NBEdge *removed,
-                      const EdgeVector &incoming, const EdgeVector &outgoing);
+                      const EdgeVector &incoming, const EdgeVector &outgoing) throw();
 
+
+    /** @brief Replaces occurences of the removed edge/lane in all definitions by the given edge
+     *
+     * @param[in] removed The removed edge
+     * @param[in] removed The removed lane
+     * @param[in] by The edge to use instead
+     * @param[in] byLane The lane to use instead
+     * @todo Recheck usage
+     */
     void replaceRemoved(NBEdge *removed, int removedLane,
-                        NBEdge *by, int byLane);
+                        NBEdge *by, int byLane) throw();
 
-    NBTrafficLightDefinition *getDefinition(const std::string &id);
 
-    void setTLControllingInformation(const NBEdgeCont &ec);
+    /** @brief Returns the named definition
+     *
+     * @param[in] id The id of the definition to return
+     * @return The named definition, 0 if it is not known
+     */
+    NBTrafficLightDefinition *getDefinition(const std::string &id) const throw();
+
+
+    /** @brief Informs the edges about being controlled by a tls
+     *
+     * Goes through all definition, calling eachs "setParticipantsInformation" method.
+     * Goes through all definition, calling eachs "setTLControllingInformation" method.
+     *
+     * @param[in] ec The ede control to set information into
+     * @see NBTrafficLightDefinition::setParticipantsInformation
+     * @see NBTrafficLightDefinition::setTLControllingInformation
+     */
+    void setTLControllingInformation(const NBEdgeCont &ec) throw();
 
 
 private:
-    /// inserts a named logic into the container
+    /** @brief Inserts a built logic into the container
+     */
     bool insert(const std::string &id,
-                NBTrafficLightLogicVector *logics);
+                NBTrafficLightLogicVector *logics) throw();
 
 
 private:
-    /// Definition of the container type for tl-ids to previously computed logics
+    /// @brief Definition of the container type for tl-ids to previously computed logics
     typedef std::map<std::string, NBTrafficLightLogicVector*> ComputedContType;
 
-    /// The container for previously computed tl-logics
+    /// @brief The container for previously computed tl-logics
     ComputedContType myComputed;
 
-    /// Definition of the container type for tl-ids to their definitions
+    /// @brief Definition of the container type for tl-ids to their definitions
     typedef std::map<std::string, NBTrafficLightDefinition*> DefinitionContType;
 
-    /// The container for tl-ids to their definitions
+    /// @brief The container for tl-ids to their definitions
     DefinitionContType myDefinitions;
+
+    /// @brief List of tls which shall have an offset of T/2
+    std::vector<std::string> myHalfOffsetTLS;
+
+    /// @brief List of tls which shall have an offset of T/2
+    std::vector<std::string> myQuarterOffsetTLS;
+
 
 };
 

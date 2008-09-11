@@ -1013,26 +1013,20 @@ NBNodeCont::savePlain(const std::string &file)
     return true;
 }
 
-bool
-NBNodeCont::writeTLSasPOIs(const std::string &file)
+
+void
+NBNodeCont::writeTLSasPOIs(OutputDevice &device) throw(IOError)
 {
-    try {
-        OutputDevice& device = OutputDevice::getDevice(file);
-        device.writeXMLHeader("pois");
-        for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
-            NBNode *n = (*i).second;
-            if (n->isTLControlled()) {
-                device << "   <poi id=\"" << (*i).first
+    device.writeXMLHeader("pois");
+    for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
+        NBNode *n = (*i).second;
+        if (n->isTLControlled()) {
+            device << "   <poi id=\"" << (*i).first
                 << "\" type=\"tls controlled node\" color=\"1,1,0\""
                 << " x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>\n";
-            }
         }
-        device.close();
-        return true;
-    } catch (IOError &) {
-        MsgHandler::getErrorInstance()->inform("POI file '" + file + "' could not be opened.");
-        return false;
     }
+    device.close();
 }
 
 

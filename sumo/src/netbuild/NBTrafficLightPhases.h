@@ -84,7 +84,7 @@ public:
 private:
     /** Build a single traffic lights logic from the given values */
     NBTrafficLightLogic *buildTrafficLightsLogic(const std::string &key,
-            size_t noLinks, const PhaseIndexVector &phaseList,
+            size_t noLinks, const std::string &type, const PhaseIndexVector &phaseList,
             const NBRequestEdgeLinkIterator &cei1,
             size_t breakingTime) const;
 

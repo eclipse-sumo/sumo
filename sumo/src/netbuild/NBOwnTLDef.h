@@ -85,7 +85,7 @@ protected:
     /// Computes the traffic light logic
     NBTrafficLightLogicVector *myCompute(const NBEdgeCont &ec,
                                          size_t breakingTime,
-                                         std::string type, bool buildAll);
+                                         std::string type);
 
     /// Collects the nodes participating in this traffic light
     void collectNodes();

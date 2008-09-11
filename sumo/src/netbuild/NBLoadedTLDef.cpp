@@ -364,16 +364,14 @@ NBLoadedTLDef::NBLoadedTLDef(const std::string &id) throw()
 
 NBLoadedTLDef::~NBLoadedTLDef() throw()
 {
-    {
-        for (SignalGroupCont::iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); ++i) {
-            delete(*i).second;
-        }
+    for (SignalGroupCont::iterator i=mySignalGroups.begin(); i!=mySignalGroups.end(); ++i) {
+        delete(*i).second;
     }
 }
 
 
 NBTrafficLightLogicVector *
-NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string type, bool /*buildAll*/)
+NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string type)
 {
     MsgHandler::getWarningInstance()->clear(); // !!!
     NBLoadedTLDef::SignalGroupCont::const_iterator i;
@@ -409,7 +407,7 @@ NBLoadedTLDef::myCompute(const NBEdgeCont &ec, size_t breakingTime, std::string 
     }
     // build the phases
     NBTrafficLightLogic *logic =
-        new NBTrafficLightLogic(getID(), noSignals);
+        new NBTrafficLightLogic(getID(), "0", type, noSignals);
     for (std::vector<SUMOReal>::iterator l=switchTimes.begin(); l!=switchTimes.end(); l++) {
         // compute the duration of the current phase
         size_t duration;

@@ -4,7 +4,7 @@
 /// @date    20 Nov 2001
 /// @version $Id$
 ///
-// The instance responsible for building networks
+// Instance responsible for building networks 
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -62,12 +62,12 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NBNetBuilder::NBNetBuilder()
+NBNetBuilder::NBNetBuilder() throw()
         : myTypeCont()
 {}
 
 
-NBNetBuilder::~NBNetBuilder()
+NBNetBuilder::~NBNetBuilder() throw()
 {}
 
 
@@ -94,47 +94,42 @@ NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError)
         oc.set("keep-edges", oss.str());
     }
     // check whether at least one output file is given
-    if (!oc.isSet("o")&&!oc.isSet("plain-output")&&!oc.isSet("map-output")) {
+    if (!oc.isSet("output")&&!oc.isSet("plain-output")&&!oc.isSet("map-output")) {
         throw ProcessError("No output defined.");
     }
     // apply options to type control
     myTypeCont.setDefaults(oc.getInt("lanenumber"), oc.getFloat("speed"), oc.getInt("priority"));
     // apply options to edge control
     myEdgeCont.applyOptions(oc);
+    // apply options to traffic light logics control
+    myTLLCont.applyOptions(oc);
 }
 
 
 void
-NBNetBuilder::buildLoaded()
+NBNetBuilder::buildLoaded() throw(IOError)
 {
     // perform the computation
     OptionsCont &oc = OptionsCont::getOptions();
     compute(oc);
     // save network
-    OutputDevice& device = OutputDevice::getDevice(oc.getString("o"));
+    OutputDevice& device = OutputDevice::getDevice(oc.getString("output"));
     save(device, oc);
     // save the mapping information when wished
     if (oc.isSet("map-output")) {
-        saveMap(oc.getString("map-output"));
+        OutputDevice& mdevice = OutputDevice::getDevice(oc.getString("map-output"));
+        mdevice << gJoinedEdges;
     }
     // save the tls positions as a list of pois
     if (oc.isSet("tls-poi-output")) {
-        myNodeCont.writeTLSasPOIs(oc.getString("tls-poi-output"));
+        OutputDevice& mdevice = OutputDevice::getDevice(oc.getString("tls-poi-output"));
+        myNodeCont.writeTLSasPOIs(mdevice);
     }
 }
 
 
-
 void
-NBNetBuilder::inform(int &step, const std::string &about)
-{
-    WRITE_MESSAGE("Computing step " + toString<int>(step)+ ": " + about);
-    step++;
-}
-
-
-void
-NBNetBuilder::compute(OptionsCont &oc)
+NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError)
 {
     int step = 1;
     //
@@ -255,8 +250,18 @@ NBNetBuilder::compute(OptionsCont &oc)
 }
 
 
-bool
-NBNetBuilder::save(OutputDevice &device, OptionsCont &oc)
+void
+NBNetBuilder::inform(int &step, const std::string &about) throw()
+{
+    WRITE_MESSAGE("Computing step " + toString<int>(step)+ ": " + about);
+    step++;
+}
+
+
+
+// ----- proetected methods
+void
+NBNetBuilder::save(OutputDevice &device, OptionsCont &oc) throw(IOError)
 {
     device.writeXMLHeader("net");
     device << "\n";
@@ -306,23 +311,11 @@ NBNetBuilder::save(OutputDevice &device, OptionsCont &oc)
         myNodeCont.writeXMLInternalSuccInfos(device);
     }
     device.close();
-    return true;
 }
 
 
-bool
-NBNetBuilder::saveMap(const string &path)
-{
-    try {
-        OutputDevice::getDevice(path) << gJoinedEdges;
-        return true;
-    } catch (IOError e) {
-        MsgHandler::getErrorInstance()->inform("Map output '" + path + "' could not be opened.");
-        return false;
-    }
-}
 
-
+// ----- static methods
 void
 NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
 {
@@ -542,50 +535,5 @@ NBNetBuilder::insertNetBuildOptions(OptionsCont &oc)
     oc.addDescription("log-file", "Report", "Writes all messages to FILE");
 
 }
-
-
-
-NBEdgeCont &
-NBNetBuilder::getEdgeCont()
-{
-    return myEdgeCont;
-}
-
-
-NBNodeCont &
-NBNetBuilder::getNodeCont()
-{
-    return myNodeCont;
-}
-
-
-NBTypeCont &
-NBNetBuilder::getTypeCont()
-{
-    return myTypeCont;
-}
-
-
-NBTrafficLightLogicCont &
-NBNetBuilder::getTLLogicCont()
-{
-    return myTLLCont;
-}
-
-
-NBJunctionLogicCont &
-NBNetBuilder::getJunctionLogicCont()
-{
-    return myJunctionLogicCont;
-}
-
-
-NBDistrictCont &
-NBNetBuilder::getDistrictCont()
-{
-    return myDistrictCont;
-}
-
-
 
 /****************************************************************************/

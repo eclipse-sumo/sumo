@@ -34,8 +34,6 @@
 #include <vector>
 #include <map>
 #include <bitset>
-#include "NBTrafficLightPhases.h"
-#include "NBLinkCliqueContainer.h"
 #include "NBTrafficLightLogicVector.h"
 #include "NBConnectionDefs.h"
 #include "NBContHelper.h"
@@ -47,7 +45,6 @@
 class NBEdge;
 class NBJunctionTypeIO;
 class NBTrafficLightLogic;
-class NBTrafficLightPhases;
 class OptionsCont;
 class NBTrafficLightDefinition;
 class NBEdgeCont;
