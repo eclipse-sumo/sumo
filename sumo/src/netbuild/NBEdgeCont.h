@@ -485,7 +485,6 @@ private:
     /// @brief invalidated assignment operator
     NBEdgeCont &operator=(const NBEdgeCont &s);
 
-
 };
 
 
