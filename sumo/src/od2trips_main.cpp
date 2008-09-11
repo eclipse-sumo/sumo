@@ -204,7 +204,7 @@ checkOptions()
         MsgHandler::getErrorInstance()->inform("No input specified.");
         ok = false;
     }
-    if (!oc.isSet("o")) {
+    if (!oc.isSet("output")) {
         MsgHandler::getErrorInstance()->inform("No trip table output file (-o) specified.");
         ok = false;
     }
