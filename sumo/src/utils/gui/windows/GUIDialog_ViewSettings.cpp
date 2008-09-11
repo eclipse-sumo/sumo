@@ -4,7 +4,7 @@
 /// @date    Wed, 21. Dec 2005
 /// @version $Id$
 ///
-// The view-settings dialog
+// The dialog to change the view (gui) settings.
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -94,7 +94,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
     BaseSchemeInfoSource *laneEdgeModeSource,
     BaseSchemeInfoSource *vehicleModeSource,
     std::vector<GUISUMOAbstractView::Decal> *decals,
-    MFXMutex *decalsLock)
+    MFXMutex *decalsLock) throw()
         : FXDialogBox(parent, "View Settings"),
         myParent(parent), mySettings(settings),
         myLaneColoringInfoSource(laneEdgeModeSource),
@@ -198,6 +198,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
         myLaneEdgeColorMode = new FXComboBox(m21, 30, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
         laneEdgeModeSource->fill(*myLaneEdgeColorMode);
         myLaneEdgeColorMode->setNumVisible(10);
+        myLaneEdgeColorMode->setCurrentItem(settings->laneEdgeMode);
 
         myLaneColorSettingFrame =
             new FXVerticalFrame(frame2, LAYOUT_FILL_Y,  0,0,0,0, 10,10,2,8, 5,2);
@@ -264,6 +265,7 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
             myVehicleColorMode = new FXComboBox(m32, 20, this, MID_SIMPLE_VIEW_COLORCHANGE, FRAME_SUNKEN|LAYOUT_LEFT|LAYOUT_TOP|COMBOBOX_STATIC);
             myVehicleColoringInfoSource->fill(*myVehicleColorMode);
             myVehicleColorMode->setNumVisible(10);
+            myVehicleColorMode->setCurrentItem(settings->vehicleMode);
 
             myVehicleColorSettingFrame =
                 new FXVerticalFrame(frame3, LAYOUT_FILL_Y,  0,0,0,0, 10,10,2,8, 5,2);
@@ -519,9 +521,18 @@ GUIDialog_ViewSettings::GUIDialog_ViewSettings(
 }
 
 
-GUIDialog_ViewSettings::~GUIDialog_ViewSettings()
+GUIDialog_ViewSettings::~GUIDialog_ViewSettings() throw()
 {
     myParent->remove(this);
+}
+
+
+void
+GUIDialog_ViewSettings::setCurrent(GUISUMOAbstractView::VisualizationSettings *settings) throw()
+{
+    mySettings = settings;
+    myBackup = (*settings);
+    onCmdNameChange(0, 0, 0);
 }
 
 
@@ -529,7 +540,6 @@ long
 GUIDialog_ViewSettings::onCmdOk(FXObject*,FXSelector,void*)
 {
     hide();
-    myParent->hideViewschemeEditor();
     return 1;
 }
 
@@ -539,7 +549,6 @@ GUIDialog_ViewSettings::onCmdCancel(FXObject*,FXSelector,void*)
 {
     hide();
     (*mySettings) = myBackup;
-    myParent->hideViewschemeEditor();
     return 1;
 }
 
@@ -554,17 +563,19 @@ GUIDialog_ViewSettings::onChgNameChange(FXObject*,FXSelector,void*)
 long
 GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
 {
-    FXString dataS = (char*) data; // !!!unicode
-    // check whether this item has been added twice
-    if (dataS==mySchemeName->getItemText(mySchemeName->getNumItems()-1)) {
-        for (int i=0; i<mySchemeName->getNumItems()-1; ++i) {
-            if (dataS==mySchemeName->getItemText(i)) {
-                mySchemeName->removeItem(i);
+    if(data!=0) {
+        FXString dataS = (char*) data; // !!!unicode
+        // check whether this item has been added twice
+        if (dataS==mySchemeName->getItemText(mySchemeName->getNumItems()-1)) {
+            for (int i=0; i<mySchemeName->getNumItems()-1; ++i) {
+                if (dataS==mySchemeName->getItemText(i)) {
+                    mySchemeName->removeItem(i);
+                }
             }
         }
+        myBackup = gSchemeStorage.get(dataS.text());
+        mySettings = &gSchemeStorage.get(dataS.text());
     }
-    myBackup = gSchemeStorage.get(dataS.text());
-    mySettings = &gSchemeStorage.get(dataS.text());
     rebuildColorMatrices(true);
 
     myBackgroundColor->setRGBA(convert(mySettings->backgroundColor));
@@ -878,7 +889,7 @@ GUIDialog_ViewSettings::writeSettings()
 
 
 void
-GUIDialog_ViewSettings::saveSettings(const std::string &file)
+GUIDialog_ViewSettings::saveSettings(const std::string &file) throw()
 {
     size_t index, k;
     std::map<int, std::vector<RGBColor> >::const_iterator j;
@@ -955,7 +966,7 @@ GUIDialog_ViewSettings::saveSettings(const std::string &file)
 
 
 void
-GUIDialog_ViewSettings::loadSettings(const std::string &file)
+GUIDialog_ViewSettings::loadSettings(const std::string &file) throw()
 {
     GUISUMOAbstractView::VisualizationSettings setting = gSchemeStorage.getItems().begin()->second;
     LineReader lr(file);
@@ -1190,7 +1201,7 @@ GUIDialog_ViewSettings::onUpdImportSetting(FXObject*sender,FXSelector,void*ptr)
 
 
 RGBColor
-GUIDialog_ViewSettings::convert(const FXColor c)
+GUIDialog_ViewSettings::convert(const FXColor c) throw()
 {
     return RGBColor(
                (SUMOReal) FXREDVAL(c) / (SUMOReal) 255.,
@@ -1200,14 +1211,14 @@ GUIDialog_ViewSettings::convert(const FXColor c)
 
 
 FXColor
-GUIDialog_ViewSettings::convert(const RGBColor &c)
+GUIDialog_ViewSettings::convert(const RGBColor &c) throw()
 {
     return FXRGB(c.red()*255., c.green()*255., c.blue()*255.);
 }
 
 
 void
-GUIDialog_ViewSettings::rebuildList()
+GUIDialog_ViewSettings::rebuildList() throw()
 {
     myDecalsTable->clearItems();
 
@@ -1260,7 +1271,7 @@ GUIDialog_ViewSettings::rebuildList()
 
 
 void
-GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate)
+GUIDialog_ViewSettings::rebuildColorMatrices(bool doCreate) throw()
 {
     {
         // decals
@@ -1494,14 +1505,14 @@ GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
 
 
 std::string
-GUIDialog_ViewSettings::getCurrentScheme() const
+GUIDialog_ViewSettings::getCurrentScheme() const throw()
 {
     return mySchemeName->getItem(mySchemeName->getCurrentItem()).text();
 }
 
 
 void
-GUIDialog_ViewSettings::setCurrentScheme(const std::string &name)
+GUIDialog_ViewSettings::setCurrentScheme(const std::string &name) throw()
 {
     if (name.c_str()==mySchemeName->getItemText(mySchemeName->getCurrentItem())) {
         return;

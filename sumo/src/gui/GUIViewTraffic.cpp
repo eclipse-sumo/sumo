@@ -631,16 +631,10 @@ GUIViewTraffic::showViewschemeEditor()
             &myLaneColoringSchemes, &myVehicleColoringSchemes,
             &myDecals, &myDecalsLock);
         myVisualizationChanger->create();
+    } else {
+        myVisualizationChanger->setCurrent(myVisualizationSettings);
     }
     myVisualizationChanger->show();
-}
-
-
-void
-GUIViewTraffic::hideViewschemeEditor()
-{
-    delete myVisualizationChanger;
-    myVisualizationChanger = 0;
 }
 
 

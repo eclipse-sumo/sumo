@@ -177,7 +177,6 @@ public:
 
     void showViewportEditor();
     virtual void showViewschemeEditor() = 0;
-    virtual void hideViewschemeEditor() = 0;
     void showToolTips(bool val);
     virtual void setColorScheme(char*) { }
 
