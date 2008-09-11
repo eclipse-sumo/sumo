@@ -13,6 +13,8 @@ will be stored in the lists P and D respectively.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
+import operator
+
 class priorityDictionary(dict):
     def __init__(self):
         '''Initialize priorityDictionary by creating binary heap
@@ -33,7 +35,7 @@ class priorityDictionary(dict):
             while 1:
                 smallChild = 2*insertionPoint+1
                 if smallChild+1 < len(heap) and \
-                        heap[smallChild] > heap[smallChild+1]:
+                        heap[smallChild][0] > heap[smallChild+1][0]:
                     smallChild += 1
                 if smallChild >= len(heap) or lastItem <= heap[smallChild]:
                     heap[insertionPoint] = lastItem
@@ -64,8 +66,7 @@ class priorityDictionary(dict):
             newPair = (val,key)
             insertionPoint = len(heap)
             heap.append(None)
-            while insertionPoint > 0 and \
-                    newPair < heap[(insertionPoint-1)//2]:
+            while insertionPoint > 0 and val < heap[(insertionPoint-1)//2][0]:
                 heap[insertionPoint] = heap[(insertionPoint-1)//2]
                 insertionPoint = (insertionPoint-1)//2
             heap[insertionPoint] = newPair
