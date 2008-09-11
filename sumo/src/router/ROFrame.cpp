@@ -136,7 +136,7 @@ bool
 ROFrame::checkOptions(OptionsCont &oc)
 {
     // check whether the output is valid and can be build
-    if (!oc.isSet("o")) {
+    if (!oc.isSet("output")) {
         MsgHandler::getErrorInstance()->inform("No output specified.");
         return false;
     }
