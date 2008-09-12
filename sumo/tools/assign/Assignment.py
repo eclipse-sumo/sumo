@@ -58,10 +58,10 @@ def main():
     if options.curvefile:
         updateCurveTable(options.curvefile)
 
-#    net.reduce() 
     for edgeID in net._edges: 
         edge = net._edges[edgeID]
-        net.removeUTurnEdge(edge)
+        if options.type != "incremental" and options.kPaths > 1:
+            net.removeUTurnEdge(edge)
 
         if edge.numberlane > 0.:
             edge.getCapacity()
@@ -69,6 +69,7 @@ def main():
             edge.getConflictLink()
             edge.getActualTravelTime(options.lamda) 
             edge.helpacttime = edge.freeflowtime
+    net.reduce() 
 
     # calculate link travel time for all district connectors 
     getConnectionTravelTime(net._startVertices, net._endVertices)

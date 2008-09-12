@@ -13,8 +13,6 @@ will be stored in the lists P and D respectively.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import operator
-
 class priorityDictionary(dict):
     def __init__(self):
         '''Initialize priorityDictionary by creating binary heap
@@ -102,8 +100,10 @@ def dijkstra(net, start, targets, lohse=False):
                 vwLength = D[v] + edge.helpacttime
             else:
                 vwLength = D[v] + edge.actualtime + edge.queuetime
-            if isConflictCandidate and P[v].leftlink == edge:
-                vwLength += P[v].penalty
+            if isConflictCandidate:
+                if (edge.kind == "junction" and P[v].leftlink == iter(edge.target.outEdges).next()) or\
+                   (edge.kind != "junction" and P[v].leftlink == edge):
+                    vwLength += P[v].penalty
 
             if w not in D and (w not in Q or vwLength < Q[w]):
                 Q[w] = vwLength
