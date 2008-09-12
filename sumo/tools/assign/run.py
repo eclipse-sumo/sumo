@@ -94,6 +94,10 @@ mesoAppendix = ""
 if options.mesosim:
     mesoAppendix = "meso_"
 
+mesoAppendix = ""
+if options.mesosim:
+    mesoAppendix = "meso_"
+
 if options.stats == 0:
     if not options.duaonly:
         succDir = makeAndChangeDir("../" + mesoAppendix + "successive")
