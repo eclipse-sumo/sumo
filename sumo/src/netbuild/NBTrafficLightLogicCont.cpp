@@ -190,7 +190,7 @@ NBTrafficLightLogicCont::setTLControllingInformation(const NBEdgeCont &ec) throw
 
 bool
 NBTrafficLightLogicCont::insert(const std::string &id,
-                                NBTrafficLightLogicVector *logics)
+                                NBTrafficLightLogicVector *logics) throw()
 {
     if (logics==0) {
         return false;
