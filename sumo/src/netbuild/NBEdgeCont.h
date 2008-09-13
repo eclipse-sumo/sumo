@@ -57,7 +57,7 @@ class OutputDevice;
 // ===========================================================================
 /**
  * @class NBEdgeCont
- *
+ * @brief Storage for edges, including some functionality operating on multiple edges
  */
 class NBEdgeCont
 {
