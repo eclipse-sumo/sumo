@@ -801,7 +801,7 @@ GUIDialog_ViewSettings::onCmdColorChange(FXObject*sender,FXSelector,void*val)
 
 
 void
-GUIDialog_ViewSettings::writeSettings()
+GUIDialog_ViewSettings::writeSettings() throw()
 {
     const std::map<std::string, GUISUMOAbstractView::VisualizationSettings> &items = gSchemeStorage.getItems();
     const std::vector<std::string> &names = gSchemeStorage.getNames();
