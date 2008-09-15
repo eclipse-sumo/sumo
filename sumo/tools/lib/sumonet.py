@@ -81,6 +81,13 @@ class NetEdge:
             shape.append(self._to._coord)
             return shape
         return self._shape
+
+    def getSpeed(self):
+        return self._speed
+
+    def getLaneNumber(self):
+        return len(self._lanes)
+
          
 
 
