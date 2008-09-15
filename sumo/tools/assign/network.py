@@ -118,13 +118,15 @@ class Net:
             for out in list(link.target.outEdges):
                 if out.kind == "junction" and len(out.target.inEdges) == 1:
                     link.target.outEdges.remove(out)
-                    for edge in out.source.inEdges:
-                        edge.target = out.target
+                    for edge in out.target.outEdges:
+                        link.target.outEdges.add(edge)
+                        edge.source = link.target
             for incoming in list(link.source.inEdges):
                 if incoming.kind == "junction" and len(incoming.source.outEdges) == 1:
                     link.source.inEdges.remove(incoming)
-                    for edge in incoming.target.outEdges:
-                        edge.source = incoming.source
+                    for edge in incoming.source.inEdges:
+                        link.source.inEdges.add(edge)
+                        edge.target = link.source
                     
     def removeUTurnEdge(self, edge):
         outEdge = edge
