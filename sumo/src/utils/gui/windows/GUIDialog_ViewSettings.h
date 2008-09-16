@@ -145,7 +145,7 @@ protected:
     RGBColor convert(const FXColor c) throw();
 
 
-    /** @brief Converts a RGBColor into a FOX-color 
+    /** @brief Converts a RGBColor into a FOX-color
      * @param[in] c The color to convert
      * @return The converted color
      */
@@ -157,7 +157,7 @@ protected:
      */
     void rebuildColorMatrices(bool doCreate=false) throw();
 
-    
+
     /** @brief Rebuilds the decals table */
     void rebuildList() throw();
 

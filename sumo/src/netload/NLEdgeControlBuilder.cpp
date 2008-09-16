@@ -64,8 +64,8 @@ NLEdgeControlBuilder::NLEdgeControlBuilder()
     m_pLaneStorage = new MSEdge::LaneCont();
     m_pDepartLane = (MSLane*) 0;
     m_iNoSingle = m_iNoMulti = 0;
-    if(OptionsCont::getOptions().isSet("lanechange-output")) {
-        if(!OutputDevice::createDeviceByOption("lanechange-output", "lane_changes")) {
+    if (OptionsCont::getOptions().isSet("lanechange-output")) {
+        if (!OutputDevice::createDeviceByOption("lanechange-output", "lane_changes")) {
             throw 1;
         }
         myEdgesLaneChangeOutputDevice = &OutputDevice::getDeviceByOption("lanechange-output");
@@ -81,8 +81,8 @@ NLEdgeControlBuilder::~NLEdgeControlBuilder()
 
 void
 NLEdgeControlBuilder::beginEdgeParsing(const string &id,
-                                 MSEdge::EdgeBasicFunction function,
-                                 bool inner) throw(InvalidArgument)
+                                       MSEdge::EdgeBasicFunction function,
+                                       bool inner) throw(InvalidArgument)
 {
     myActiveEdge = buildEdge(id);
     if (!MSEdge::dictionary(id, myActiveEdge)) {
@@ -100,9 +100,9 @@ NLEdgeControlBuilder::beginEdgeParsing(const string &id,
 
 MSLane *
 NLEdgeControlBuilder::addLane(const std::string &id,
-        SUMOReal maxSpeed, SUMOReal length, bool isDepart,
-        const Position2DVector &shape,
-        const std::string &vclasses)
+                              SUMOReal maxSpeed, SUMOReal length, bool isDepart,
+                              const Position2DVector &shape,
+                              const std::string &vclasses)
 {
     // checks if the depart lane was set before
     if (isDepart&&m_pDepartLane!=0) {
@@ -114,14 +114,14 @@ NLEdgeControlBuilder::addLane(const std::string &id,
     switch (m_Function) {
     case MSEdge::EDGEFUNCTION_INTERNAL:
         lane = new MSInternalLane(id, maxSpeed, length, myActiveEdge,
-            myCurrentNumericalLaneID++, shape, allowed, disallowed);
+                                  myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     case MSEdge::EDGEFUNCTION_SOURCE:
     case MSEdge::EDGEFUNCTION_NORMAL:
     case MSEdge::EDGEFUNCTION_SINK:
     case MSEdge::EDGEFUNCTION_INNERJUNCTION:
         lane = new MSLane(id, maxSpeed, length, myActiveEdge,
-            myCurrentNumericalLaneID++, shape, allowed, disallowed);
+                          myCurrentNumericalLaneID++, shape, allowed, disallowed);
         break;
     default:
         throw InvalidArgument("Unrecognised edge type.");

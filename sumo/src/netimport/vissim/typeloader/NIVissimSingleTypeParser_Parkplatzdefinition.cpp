@@ -111,7 +111,7 @@ NIVissimSingleTypeParser_Parkplatzdefinition::parse(std::istream &from)
     from >> tag; // "Kapazität"-value
 
     tag = myRead(from);
-    if(tag=="belegung") {
+    if (tag=="belegung") {
         from >> tag;
         tag = myRead(from); // "fahrzeugklasse"
     }

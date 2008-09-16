@@ -230,7 +230,7 @@ NIVissimDistrictConnection::dict_BuildDistricts(NBDistrictCont &dc,
             if (e==0) {
                 e = ec.retrievePossiblySplitted(toString<int>(c->myEdgeID), c->myPosition);
             }
-            if(e==0) {
+            if (e==0) {
                 MsgHandler::getWarningInstance()->inform("Could not build district '" + toString<int>((*k).first) + "' - edge '" + toString<int>(c->myEdgeID) + "' is missing.");
                 continue;
             }

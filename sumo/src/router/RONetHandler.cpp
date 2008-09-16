@@ -103,7 +103,7 @@ void
 RONetHandler::parseEdge(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
-    if(!attrs.setIDFromAttributes("edge", myCurrentName)) {
+    if (!attrs.setIDFromAttributes("edge", myCurrentName)) {
         throw ProcessError();
     }
     // get the edge
@@ -114,7 +114,7 @@ RONetHandler::parseEdge(const SUMOSAXAttributes &attrs)
         return;
     }
     myCurrentEdge = myEdgeBuilder.buildEdge(myCurrentName);
-    myNet.addEdge(myCurrentEdge); // !!! where is the edge deleted when failing? 
+    myNet.addEdge(myCurrentEdge); // !!! where is the edge deleted when failing?
     // !!! secure??
     // get the type of the edge
     try {
@@ -185,7 +185,7 @@ RONetHandler::parseLane(const SUMOSAXAttributes &attrs)
     std::vector<SUMOVehicleClass> allowed, disallowed;
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("lane", id)) {
+    if (!attrs.setIDFromAttributes("lane", id)) {
         return;
     }
     // get the speed
@@ -235,16 +235,16 @@ RONetHandler::parseJunction(const SUMOSAXAttributes &attrs)
 {
     // get the id, report an error if not given or empty...
     string id;
-    if(!attrs.setIDFromAttributes("junction", id)) {
+    if (!attrs.setIDFromAttributes("junction", id)) {
         return;
     }
     // get the position of the node
     bool ok = true;
     SUMOReal x = attrs.getSUMORealReporting(SUMO_ATTR_X, "junction", id.c_str(), ok);
     SUMOReal y = attrs.getSUMORealReporting(SUMO_ATTR_Y, "junction", id.c_str(), ok);
-    if(ok) {
+    if (ok) {
         RONode *n = myNet.getNode(id);
-        if(n==0) {
+        if (n==0) {
             n = new RONode(id);
             myNet.addNode(n);
         }
@@ -260,7 +260,7 @@ RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessE
 {
     string id = attrs.getString(SUMO_ATTR_EDGE);
     myCurrentEdge = myNet.getEdge(id);
-    if(myCurrentEdge==0) {
+    if (myCurrentEdge==0) {
         throw ProcessError("An unknown edge occured (id='" + id + "').");
     }
 }
@@ -270,7 +270,7 @@ void
 RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs)
 {
     string id = attrs.getString(SUMO_ATTR_LANE);
-    if(id=="SUMO_NO_DESTINATION") {
+    if (id=="SUMO_NO_DESTINATION") {
         return;
     }
     ROEdge *succ = myNet.getEdge(id.substr(0, id.rfind('_')));

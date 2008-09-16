@@ -153,7 +153,7 @@ Position2DVector::intersects(const Position2D &p1, const Position2D &p2) const
 bool
 Position2DVector::intersects(const Position2DVector &v1) const
 {
-    if(size()<2) {
+    if (size()<2) {
         return false;
     }
     for (ContType::const_iterator i=myCont.begin(); i!=myCont.end()-1; i++) {

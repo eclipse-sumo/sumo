@@ -4,7 +4,7 @@
 /// @date    20 Nov 2001
 /// @version $Id$
 ///
-// Instance responsible for building networks 
+// Instance responsible for building networks
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -71,7 +71,7 @@ NBNetBuilder::~NBNetBuilder() throw()
 {}
 
 
-void 
+void
 NBNetBuilder::applyOptions(OptionsCont &oc) throw(ProcessError)
 {
     // we possibly have to load the edges to keep
@@ -179,7 +179,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError)
     inform(step, "Guessing and setting TLs");
     if (oc.isSet("explicite-tls")) {
         vector<string> tlControlledNodes = oc.getStringVector("explicite-tls");
-        for(vector<string>::const_iterator i=tlControlledNodes.begin(); i!=tlControlledNodes.end(); ++i) {
+        for (vector<string>::const_iterator i=tlControlledNodes.begin(); i!=tlControlledNodes.end(); ++i) {
             NBNode *node = myNodeCont.retrieve(*i);
             if (node==0) {
                 WRITE_WARNING("Building a tl-logic for node '" + *i + "' is not possible." + "\n The node '" + *i + "' is not known.");

@@ -1450,7 +1450,7 @@ NBNode::replaceOutgoing(NBEdge *which, NBEdge *by, size_t laneOff)
 {
     // replace the edge in the list of outgoing nodes
     vector<NBEdge*>::iterator i=find(myOutgoingEdges->begin(), myOutgoingEdges->end(), which);
-    if(i!=myOutgoingEdges->end()) {
+    if (i!=myOutgoingEdges->end()) {
         (*i) = by;
         i = find(myAllEdges.begin(), myAllEdges.end(), which);
         (*i) = by;
@@ -1488,7 +1488,7 @@ NBNode::replaceIncoming(NBEdge *which, NBEdge *by, size_t laneOff)
 {
     // replace the edge in the list of incoming nodes
     vector<NBEdge*>::iterator i=find(myIncomingEdges->begin(), myIncomingEdges->end(), which);
-    if(i!=myIncomingEdges->end()) {
+    if (i!=myIncomingEdges->end()) {
         (*i) = by;
         i = find(myAllEdges.begin(), myAllEdges.end(), which);
         (*i) = by;
@@ -1728,7 +1728,7 @@ NBNode::removeOutgoing(NBEdge *edge)
     if (i!=myOutgoingEdges->end()) {
         myOutgoingEdges->erase(i);
         i = find(myAllEdges.begin(), myAllEdges.end(), edge);
-            myAllEdges.erase(i);
+        myAllEdges.erase(i);
     }
 }
 
@@ -1740,7 +1740,7 @@ NBNode::removeIncoming(NBEdge *edge)
     if (i!=myIncomingEdges->end()) {
         myIncomingEdges->erase(i);
         i = find(myAllEdges.begin(), myAllEdges.end(), edge);
-            myAllEdges.erase(i);
+        myAllEdges.erase(i);
     }
 }
 

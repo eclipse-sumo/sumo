@@ -54,8 +54,8 @@ class OutputDevice;
  *
  * This class is the container for MSEdge-instances while they are build.
  *
- * While building instances of MSEdge, these are stored in a list. The list of 
- *  edges is later split into two lists, one containing single-lane-edges and 
+ * While building instances of MSEdge, these are stored in a list. The list of
+ *  edges is later split into two lists, one containing single-lane-edges and
  *  one containing multi-lane-edges.
  * @todo Assignment of lanes is not really well. Should be reworked after shapes are given as params.
  */
@@ -87,19 +87,19 @@ public:
      * @exception InvalidArgument If an edge with the same name was already built
      */
     void beginEdgeParsing(const std::string &id,
-                    MSEdge::EdgeBasicFunction function,
-                    bool inner) throw(InvalidArgument);
+                          MSEdge::EdgeBasicFunction function,
+                          bool inner) throw(InvalidArgument);
 
 
     /** @brief Adds a lane to the current edge;
         This method throws an ProcessError when the
         lane is marked to be the depart lane and another so marked lane
-        was added before 
+        was added before
      * @todo Definitely not a good way
      */
-    virtual MSLane *addLane(const std::string &id, SUMOReal maxSpeed, 
-        SUMOReal length, bool isDepart, const Position2DVector &shape, 
-        const std::string &vclasses);
+    virtual MSLane *addLane(const std::string &id, SUMOReal maxSpeed,
+                            SUMOReal length, bool isDepart, const Position2DVector &shape,
+                            const std::string &vclasses);
 
 
     /** @brief Closes the building of an edge;

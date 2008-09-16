@@ -59,7 +59,7 @@ public:
 
 
     /** @brief Adds a connection between edges
-     * 
+     *
      * @param[in] to The connected edge
      * @param[in] from The edge that connects the first one
      */

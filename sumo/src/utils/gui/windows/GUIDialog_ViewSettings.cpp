@@ -563,7 +563,7 @@ GUIDialog_ViewSettings::onChgNameChange(FXObject*,FXSelector,void*)
 long
 GUIDialog_ViewSettings::onCmdNameChange(FXObject*,FXSelector,void*data)
 {
-    if(data!=0) {
+    if (data!=0) {
         FXString dataS = (char*) data; // !!!unicode
         // check whether this item has been added twice
         if (dataS==mySchemeName->getItemText(mySchemeName->getNumItems()-1)) {

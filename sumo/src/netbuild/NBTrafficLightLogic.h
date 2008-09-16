@@ -60,7 +60,7 @@ public:
      *
      */
     NBTrafficLightLogic(const std::string &id, const std::string &subid,
-        const std::string &type, unsigned int noLinks) throw();
+                        const std::string &type, unsigned int noLinks) throw();
 
 
     /// @brief Destructor
@@ -70,7 +70,7 @@ public:
     /** @brief Adds a phase to the logic
      *
      * This is done during the building; the new phase is inserted at the end of
-     * the list of already added phases 
+     * the list of already added phases
      *
      * @param[in] duration The duration of the phase to add
      * @param[in] driveMask Information which links may drive during the phase to add
@@ -163,13 +163,13 @@ private:
 
     /// @brief The tls program's subid
     std::string mySubID;
-    
+
     /// @brief The tls program's type
     std::string myType;
-    
+
     /// @brief The tls program's offset
     SUMOTime myOffset;
-    
+
     /// @brief Definition of a vector of traffic light phases
     typedef std::vector<PhaseDefinition> PhaseDefinitionVector;
 

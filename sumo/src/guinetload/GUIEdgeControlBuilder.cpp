@@ -77,9 +77,9 @@ GUIEdgeControlBuilder::closeEdge()
 
 MSLane *
 GUIEdgeControlBuilder::addLane(const std::string &id,
-        SUMOReal maxSpeed, SUMOReal length, bool isDepart,
-        const Position2DVector &shape,
-        const std::string &vclasses)
+                               SUMOReal maxSpeed, SUMOReal length, bool isDepart,
+                               const Position2DVector &shape,
+                               const std::string &vclasses)
 {
     // checks if the depart lane was set before
     if (isDepart&&m_pDepartLane!=0) {

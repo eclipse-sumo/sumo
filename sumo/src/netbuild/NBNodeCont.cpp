@@ -920,7 +920,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
     std::vector<NBNode*> ncontrolled;
     if (oc.isSet("explicite-no-tls")) {
         vector<string> notTLControlledNodes = oc.getStringVector("explicite-no-tls");
-        for(vector<string>::const_iterator i=notTLControlledNodes.begin(); i!=notTLControlledNodes.end(); ++i) {
+        for (vector<string>::const_iterator i=notTLControlledNodes.begin(); i!=notTLControlledNodes.end(); ++i) {
             NBNode *n = NBNodeCont::retrieve(*i);
             if (n==0) {
                 throw ProcessError(" The node '" + *i + "' to set as not-controlled is not known.");
@@ -986,7 +986,7 @@ NBNodeCont::guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc)
 void
 NBNodeCont::setAsTLControlled(NBNode *node, NBTrafficLightLogicCont &tlc, std::string id)
 {
-    if(id=="") {
+    if (id=="") {
         id = node->getID();
     }
     NBTrafficLightDefinition *tlDef = new NBOwnTLDef(id, node);
@@ -1022,8 +1022,8 @@ NBNodeCont::writeTLSasPOIs(OutputDevice &device) throw(IOError)
         NBNode *n = (*i).second;
         if (n->isTLControlled()) {
             device << "   <poi id=\"" << (*i).first
-                << "\" type=\"tls controlled node\" color=\"1,1,0\""
-                << " x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>\n";
+            << "\" type=\"tls controlled node\" color=\"1,1,0\""
+            << " x=\"" << n->getPosition().x() << "\" y=\"" << n->getPosition().y() << "\"/>\n";
         }
     }
     device.close();

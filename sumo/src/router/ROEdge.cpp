@@ -130,7 +130,7 @@ ROEdge::addLane(ROLane *lane) throw()
 void
 ROEdge::addFollower(ROEdge *s) throw()
 {
-    if(find(myFollowingEdges.begin(), myFollowingEdges.end(), s)==myFollowingEdges.end()) {
+    if (find(myFollowingEdges.begin(), myFollowingEdges.end(), s)==myFollowingEdges.end()) {
         myFollowingEdges.push_back(s);
     }
 }

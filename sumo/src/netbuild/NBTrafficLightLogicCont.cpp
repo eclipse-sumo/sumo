@@ -62,7 +62,7 @@ NBTrafficLightLogicCont::~NBTrafficLightLogicCont() throw()
 }
 
 
-void 
+void
 NBTrafficLightLogicCont::applyOptions(OptionsCont &oc)
 {
     // check whether any offsets shall be manipulated by setting
@@ -100,10 +100,10 @@ NBTrafficLightLogicCont::computeLogics(NBEdgeCont &ec, OptionsCont &oc) throw()
         NBTrafficLightLogicVector *built = def->compute(ec, oc);
         // compute offset
         string id = (*i).first;
-        if(find(myHalfOffsetTLS.begin(), myHalfOffsetTLS.end(), id)!=myHalfOffsetTLS.end()) {
+        if (find(myHalfOffsetTLS.begin(), myHalfOffsetTLS.end(), id)!=myHalfOffsetTLS.end()) {
             built->setOffsetsToHalf();
         }
-        if(find(myQuarterOffsetTLS.begin(), myQuarterOffsetTLS.end(), id)!=myQuarterOffsetTLS.end()) {
+        if (find(myQuarterOffsetTLS.begin(), myQuarterOffsetTLS.end(), id)!=myQuarterOffsetTLS.end()) {
             built->setOffsetsToQuarter();
         }
         // and insert the result after computation

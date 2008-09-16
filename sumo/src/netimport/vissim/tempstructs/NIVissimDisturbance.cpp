@@ -135,10 +135,10 @@ NIVissimDisturbance::computeBounding()
 {
     assert(myBoundary==0);
     Boundary *bound = new Boundary();
-    if(NIVissimAbstractEdge::dictionary(myEdge.getEdgeID())!=0) {
+    if (NIVissimAbstractEdge::dictionary(myEdge.getEdgeID())!=0) {
         bound->add(myEdge.getGeomPosition());
     }
-    if(NIVissimAbstractEdge::dictionary(myDisturbance.getEdgeID())!=0) {
+    if (NIVissimAbstractEdge::dictionary(myDisturbance.getEdgeID())!=0) {
         bound->add(myDisturbance.getGeomPosition());
     }
     myBoundary = bound;
@@ -213,7 +213,7 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
         //  outgoing from the "real" edge
 
         NBEdge *e = ec.retrievePossiblySplitted(toString<int>(myDisturbance.getEdgeID()), myDisturbance.getPosition());
-        if(e==0) {
+        if (e==0) {
             WRITE_WARNING("Could not prohibit '"+ toString<int>(myEdge.getEdgeID()) + "' by '" + toString<int>(myDisturbance.getEdgeID())+ "'. Have not found disturbance.");
             refusedProhibits++;
             return false;
@@ -268,7 +268,7 @@ NIVissimDisturbance::addToNode(NBNode *node, NBDistrictCont &dc,
 
         NBEdge *e = ec.retrievePossiblySplitted(
                         toString<int>(myEdge.getEdgeID()), myEdge.getPosition());
-        if(e==0) {
+        if (e==0) {
             WRITE_WARNING("Could not prohibit '" + toString<int>(myEdge.getEdgeID()) + "' - it was not built.");
             return false;
         }

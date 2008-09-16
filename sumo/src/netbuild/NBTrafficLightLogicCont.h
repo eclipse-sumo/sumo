@@ -55,7 +55,7 @@ class OutputDevice;
  *  the loading of the network. After all information has been loaded, these
  *  definitions are used to build the traffic light logics.
  *
- * The built traffic light logics are kept stored within this container during 
+ * The built traffic light logics are kept stored within this container during
  *  their building and written to the network file at the end.
  *
  * @see NBTrafficLightDefinition
@@ -85,7 +85,7 @@ public:
     /** @brief Adds a logic definition to the dictionary
      *
      * "true" is returned if the logic is accepted - no logic with the same
-     *  name exists within this container. If another logic with the same name 
+     *  name exists within this container. If another logic with the same name
      *  exists, false is returned.
      *
      * @param[in] logic The logic to add
@@ -95,7 +95,7 @@ public:
 
 
     /** @brief Computes the traffic light logics using the stored definitions and stores the results
-     * 
+     *
      * Goes through all stored definitions and calls "NBTrafficLightDefinition::compute"
      *  for each. Stores the result using "insert".
      *

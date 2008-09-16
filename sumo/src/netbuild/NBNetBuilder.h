@@ -4,7 +4,7 @@
 /// @date    Fri, 29.04.2005
 /// @version $Id$
 ///
-// Instance responsible for building networks 
+// Instance responsible for building networks
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -53,7 +53,7 @@ class OutputDevice;
 // ===========================================================================
 /**
  * @class NBNetBuilder
- * @brief Instance responsible for building networks 
+ * @brief Instance responsible for building networks
  */
 class NBNetBuilder
 {
@@ -147,7 +147,7 @@ public:
 protected:
     /**
      * @brief Performs the network building steps
-     * 
+     *
      * Performs subsequently the building steps.
      *
      * @param[in] oc Container that contains options for building
@@ -170,7 +170,7 @@ protected:
 
     /** @brief Saves the generated network
      *
-     * Instances the network is made of are written by called methods from 
+     * Instances the network is made of are written by called methods from
      *  sub-containers.
      *
      * @param[in] device The device to write the network into

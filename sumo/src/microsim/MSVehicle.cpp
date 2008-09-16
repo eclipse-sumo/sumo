@@ -321,10 +321,10 @@ MSVehicle::addStop(const Stop &stop) throw()
     // check whether the stop lies at the end of a route
     std::list<Stop>::iterator iter = myStops.begin();
     MSRouteIterator last = myRoute->begin();
-    if(myStops.size()>0) {
+    if (myStops.size()>0) {
         last = myRoute->find(myStops.back().lane->getEdge());
         last = myRoute->find(stop.lane->getEdge(), last);
-        if(last!=myRoute->end()) {
+        if (last!=myRoute->end()) {
             iter = myStops.end();
             stopEdge = last;
         }
@@ -987,7 +987,7 @@ MSVehicle::enterLaneAtMove(MSLane* enteredLane, SUMOReal driven)
 {
 #ifndef NO_TRACI
     // remove all Stops that were added by Traci and were not reached for any reason
-    while(!myStops.empty()&&myStops.begin()->lane==myLane) {
+    while (!myStops.empty()&&myStops.begin()->lane==myLane) {
         myStops.pop_front();
     }
 #endif

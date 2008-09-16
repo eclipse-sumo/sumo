@@ -60,7 +60,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 NLSucceedingLaneBuilder::NLSucceedingLaneBuilder(NLJunctionControlBuilder &jb,
-                                                 MSEdgeContinuations &ec) throw()
+        MSEdgeContinuations &ec) throw()
         : myJunctionControlBuilder(jb), myEdgeContinuations(ec)
 {
     mySuccLanes = new MSLinkCont();

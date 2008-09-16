@@ -74,7 +74,7 @@ protected:
     /// @name inherited from GenericSAXHandler
     //@{
 
-    /** @brief Called on the opening of a tag; 
+    /** @brief Called on the opening of a tag;
      *
      * @param[in] element ID of the currently opened element
      * @param[in] attrs Attributes within the currently opened element
@@ -102,7 +102,7 @@ protected:
      */
     void parseEdge(const SUMOSAXAttributes &attrs);
 
-    
+
     /** @brief Parses and builds a lane
      *
      * Parses attributes from an "lane"-element (speed, length, vehicle classes, etc.).
@@ -142,7 +142,7 @@ protected:
      *
      * Called on the occurence of a "succlane" element, this method
      *  retrieves the id of the approachable edge. If this edge is known
-     *  and valid, the approaching edge is informed about it (by calling 
+     *  and valid, the approaching edge is informed about it (by calling
      *  "ROEdge::addFollower").
      *
      * @param[in] attrs The attributes (of the "succlane"-element) to parse

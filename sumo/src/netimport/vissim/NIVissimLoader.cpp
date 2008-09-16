@@ -409,19 +409,19 @@ NIVissimLoader::readContents(istream &strm)
                     parsed = true;
                 }
             }
-            if(!parsed) {
+            if (!parsed) {
                 cout << "skipping " << tag << endl;
                 string line;
                 size_t pos;
                 do {
                     pos = strm.tellg();
                     getline(strm, line);
-                } while(strm.good()&&(line==""||line[0]==' '||line[0]=='-'));
-                if(!strm.good()) {
+                } while (strm.good()&&(line==""||line[0]==' '||line[0]=='-'));
+                if (!strm.good()) {
                     return true;
                 }
-                    strm.seekg(pos);
-                    strm >> tag;
+                strm.seekg(pos);
+                strm >> tag;
             }
         }
     }

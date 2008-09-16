@@ -663,7 +663,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     avgSpeed /= (SUMOReal) myLaneSpeeds.size();
     avgSpeed *= OptionsCont::getOptions().getFloat("vissim.speed-norm");
 
-    if(fromNode==toNode) {
+    if (fromNode==toNode) {
         MsgHandler::getWarningInstance()->inform("Could not build edge '" + toString(myID) + "'; would connect same node.");
         return;
     }
@@ -1152,7 +1152,7 @@ NIVissimEdge::addToTreatAsSame(NIVissimEdge *e)
     std::vector<NIVissimEdge*>::iterator i;
     // add to all other that shall be treated as same
     bool changed = true;
-    while(changed) {
+    while (changed) {
         changed = false;
         for (i=myToTreatAsSame.begin(); !changed&&i!=myToTreatAsSame.end(); i++) {
             changed |= (*i)->addToTreatAsSame(e);

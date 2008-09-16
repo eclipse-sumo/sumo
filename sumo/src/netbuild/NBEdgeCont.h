@@ -86,17 +86,17 @@ public:
 
 
 
-    
+
     /// @name edge access methods
     /// @{
 
     /** @brief Adds an edge to the dictionary
      *
-     * First, it is determined whether the edge shall not be discarded due to any 
-     *  reasons (being outside a boundary, or not in the optional list of edges to 
+     * First, it is determined whether the edge shall not be discarded due to any
+     *  reasons (being outside a boundary, or not in the optional list of edges to
      *  import, etc.). If so, the edge is deleted and "true" is returned.
      * "true" is also returned if the edge is accepted - no edge with the same
-     *  name exists within this container. If another edge with the same name 
+     *  name exists within this container. If another edge with the same name
      *  exists, false is returned.
      *
      * @param[in] edge The edge to add
@@ -127,8 +127,8 @@ public:
      * @return The searched edge
      * @todo Recheck usage
      */
-    NBEdge *retrievePossiblySplitted(const std::string &id, 
-        const std::string &hint, bool incoming) const throw();
+    NBEdge *retrievePossiblySplitted(const std::string &id,
+                                     const std::string &hint, bool incoming) const throw();
 
 
     /** @brief Tries to retrieve an edge, even if it is splitted
@@ -144,7 +144,7 @@ public:
     NBEdge *retrievePossiblySplitted(const std::string &id, SUMOReal pos) const throw();
 
 
-    /** @brief Removes the given edge from the container (deleting it) 
+    /** @brief Removes the given edge from the container (deleting it)
      *
      * @param[in] dc The district container, in order to remove the edge from sources/sinks
      * @param[in] edge The edge to remove
@@ -174,12 +174,12 @@ public:
     bool splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node) throw(ProcessError);
 
 
-    /** @brief Splits the edge at the position nearest to the given node using the given modifications 
+    /** @brief Splits the edge at the position nearest to the given node using the given modifications
      *
-     * Determines the position of the split by finding the nearest position on the 
-     *  edge to the given node. If this position is too near to the edges begin/end, 
+     * Determines the position of the split by finding the nearest position on the
+     *  edge to the given node. If this position is too near to the edges begin/end,
      *  false is returned.
-     * 
+     *
      * Otherwise, "splitAt(NBDistrictCont &, NBEdge *, SUMOReal, NBNode *, const std::string &, const std::string &, unsigned int , unsigned int)"
      *  is used to perform the split.
      *
@@ -221,7 +221,7 @@ public:
     /// @name container access methods
     /// @{
 
-    /** @brief Returns the number of edges 
+    /** @brief Returns the number of edges
      * @return The number of edges stored in this container
      */
     unsigned int size() const throw() {
@@ -229,7 +229,7 @@ public:
     }
 
 
-    /** @brief Returns all ids of known edges 
+    /** @brief Returns all ids of known edges
      * @return All ids of known edges
      * @todo Recheck usage, probably, filling a given vector would be better...
      */
@@ -252,7 +252,7 @@ public:
     /** @brief Computes the turn-around directions for all edges
      *
      * Calls "NBEdge::computeTurningDirections" for all edges within the container.
-     * 
+     *
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::computeTurningDirections
      */
@@ -262,7 +262,7 @@ public:
     /** @brief Sorts all lanes of all edges within the container by their direction
      *
      * Calls "NBEdge::sortOutgoingLanesConnections" for all edges within the container.
-     * 
+     *
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::sortOutgoingLanesConnections
      */
@@ -272,7 +272,7 @@ public:
     /** @brief Computes for each edge the approached edges
      *
      * Calls "NBEdge::computeEdge2Edges" for all edges within the container.
-     * 
+     *
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::computeEdge2Edges
      */
@@ -282,7 +282,7 @@ public:
     /** @brief Computes for each edge which lanes approach the next edges
      *
      * Calls "NBEdge::computeLanes2Edges" for all edges within the container.
-     * 
+     *
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::computeLanes2Edges
      */
@@ -292,7 +292,7 @@ public:
     /** @brief Rechecks whether all lanes have a successor for each of the stored edges
      *
      * Calls "NBEdge::recheckLanes" for all edges within the container.
-     * 
+     *
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::recheckLanes
      */
@@ -302,7 +302,7 @@ public:
     /** @brief Appends turnarounds to all edges stored in the container
      *
      * Calls "NBEdge::appendTurnaround" for all edges within the container.
-     * 
+     *
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::appendTurnaround
      */
@@ -312,7 +312,7 @@ public:
     /** @brief Moves the geometries of all known edges by the network offset
      *
      * Calls "NBEdge::normalisePosition" for all edges within the container.
-     * 
+     *
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @see NBEdge::normalisePosition
      */
@@ -322,7 +322,7 @@ public:
     /** @brief Translates and rotates the geometries of all known edges by the given values
      *
      * Calls "NBEdge::reshiftPosition" for all edges within the container.
-     * 
+     *
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @todo Recheck usage
      * @see NBEdge::reshiftPosition
@@ -333,7 +333,7 @@ public:
     /** @brief Computes the shapes of all edges stored in the container
      *
      * Calls "NBEdge::computeEdgeShape" for all edges within the container.
-     * 
+     *
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @todo Recheck usage
      * @see NBEdge::computeEdgeShape
@@ -344,7 +344,7 @@ public:
     /** @brief Computes the shapes of all lanes of all edges stored in the container
      *
      * Calls "NBEdge::computeLaneShapes" for all edges within the container.
-     * 
+     *
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @todo Recheck usage
      * @see NBEdge::computeLaneShapes
@@ -355,7 +355,7 @@ public:
     /** @brief Removes double occurences of the same position in all edge geomeries
      *
      * Calls "NBEdge::recheckEdgeGeomForDoublePositions" for all edges within the container.
-     * 
+     *
      * @todo Recheck whether a visitor-pattern should be used herefor
      * @todo Recheck usage
      * @see NBEdge::recheckEdgeGeomForDoublePositions
@@ -365,8 +365,8 @@ public:
 
     /** @brief Joins the given edges because they connect the same nodes
      *
-     * @param[in] dc The district container needed to remove edges 
-     * @param[in] tlc The tls container needed to remove edges 
+     * @param[in] dc The district container needed to remove edges
+     * @param[in] tlc The tls container needed to remove edges
      * @param[in] edges The edges to join
      * @todo Recheck and describe usage
      */
@@ -376,7 +376,7 @@ public:
 
     /** @brief Removes unwished edges (not in keep-edges)
      *
-     * @param[in] dc The district container needed to remove edges 
+     * @param[in] dc The district container needed to remove edges
      * @todo Recheck usage; check whether keep-edges.postload is really useful
      */
     void removeUnwishedEdges(NBDistrictCont &dc) throw();
@@ -386,7 +386,7 @@ public:
      *
      * Calls "NBEdge::splitGeometry" for all edges within the container which
      *  have more than three positions in their geometry.
-     * 
+     *
      * @param[in] nc The node container needed to build (geometry) nodes
      * @see NBEdge::splitGeometry
      */
@@ -405,20 +405,20 @@ public:
     /// @name output methods
     /// @{
 
-    /** @brief Writes the edge definitions with lanes into the given stream 
+    /** @brief Writes the edge definitions with lanes into the given stream
      *
      * Calls "NBEdge::writeXMLStep1" for all edges within the container.
-     * 
+     *
      * @param[in] into The stream to write the definieions into
      * @exception IOError (not yet implemented)
      */
     void writeXMLStep1(OutputDevice &into) throw(IOError);
 
 
-    /** @brief Writes the successor definitions of edges into the given stream 
+    /** @brief Writes the successor definitions of edges into the given stream
      *
      * Calls "NBEdge::writeXMLStep2" for all edges within the container.
-     * 
+     *
      * @param[in] into The stream to write the definieions into
      * @param[in] includeInternal Whether internal successors shal be written, too
      * @exception IOError (not yet implemented)

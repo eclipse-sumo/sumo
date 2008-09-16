@@ -171,7 +171,7 @@ MSRoute::find(const MSEdge *e) const
     return std::find(myEdges.begin(), myEdges.end(), e);
 }
 
-MSRouteIterator 
+MSRouteIterator
 MSRoute::find(const MSEdge *e, const MSRouteIterator &startingAt) const
 {
     return std::find(startingAt, myEdges.end(), e);

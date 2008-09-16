@@ -177,7 +177,7 @@ NIVissimSingleTypeParser_Querverkehrsstoerungsdefinition::parsePos(std::istream 
     from >> tag;
     from >> tag;
     IntVector lanes;
-    if(tag=="ALLE") {
+    if (tag=="ALLE") {
         //lanes.push_back(1); // !!!
     } else {
         lanes.push_back(TplConvert<char>::_2int(tag.c_str()));

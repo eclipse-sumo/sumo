@@ -59,7 +59,7 @@ public:
      * @param[in] ec The edge continuations to fill
      */
     NLSucceedingLaneBuilder(NLJunctionControlBuilder &jb,
-        MSEdgeContinuations &ec) throw();
+                            MSEdgeContinuations &ec) throw();
 
 
     /// @brief Destructor

@@ -50,7 +50,7 @@ class MSJunction;
  * @class GUIEdgeControlBuilder
  * @brief Derivation of NLEdgeControlBuilder which builds gui-edges
  *
- * Instead of building pure microsim-objects (MSEdge and MSLane), this class 
+ * Instead of building pure microsim-objects (MSEdge and MSLane), this class
  *  builds GUIEdges and GUILanes.
  * @see NLEdgeControlBuilder
  */
@@ -70,8 +70,8 @@ public:
 
     /// Builds the lane to add
     virtual MSLane *addLane(const std::string &id,
-        SUMOReal maxSpeed, SUMOReal length, bool isDepart,
-        const Position2DVector &shape, const std::string &vclasses);
+                            SUMOReal maxSpeed, SUMOReal length, bool isDepart,
+                            const Position2DVector &shape, const std::string &vclasses);
 
 
     MSEdge *closeEdge();
@@ -81,7 +81,7 @@ protected:
     /** @brief Builds an edge instance (GUIEdge in this case)
      *
      * Builds an GUIEdge-instance using the given name, the current index
-     *  "myCurrentNumericalEdgeID" and the gl-id storage ("myGlObjectIDStorage"). 
+     *  "myCurrentNumericalEdgeID" and the gl-id storage ("myGlObjectIDStorage").
      *  Post-increments the index, returns the built edge.
      *
      * @param[in] id The id of the edge to build

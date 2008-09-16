@@ -55,8 +55,8 @@ class OutputDevice;
 /**
  * @class MSEdge
  * @brief A road/street connecting two junctions
- * 
- * A single connection between two junctions. 
+ *
+ * A single connection between two junctions.
  * Holds lanes which are reponsible for vehicle movements.
  */
 class MSEdge
@@ -148,7 +148,7 @@ public:
     /// @name Access to the edge's lanes
     /// @{
 
-    /** @brief Returns the lane left to the one given, 0 if the given lane is leftmost 
+    /** @brief Returns the lane left to the one given, 0 if the given lane is leftmost
      *
      * @param[in] lane The lane right to the one to be returned
      * @return The lane left to the given, 0 if no such lane exists
@@ -157,7 +157,7 @@ public:
     MSLane * const leftLane(const MSLane * const lane) const throw();
 
 
-    /** @brief Returns the lane right to the one given, 0 if the given lane is rightmost 
+    /** @brief Returns the lane right to the one given, 0 if the given lane is rightmost
      *
      * @param[in] lane The lane left to the one to be returned
      * @return The lane right to the given, 0 if no such lane exists
@@ -181,7 +181,7 @@ public:
     /// @name Access to other edge attributes
     /// @{
 
-    /** @brief Returns the edge's number of lanes. 
+    /** @brief Returns the edge's number of lanes.
      * @return This edge's number of lanes
      */
     unsigned int nLanes() const throw() {
@@ -189,7 +189,7 @@ public:
     }
 
 
-    /** @brief Returns the id of the edge 
+    /** @brief Returns the id of the edge
      * @return This edge's id
      */
     const std::string &getID() const throw() {
@@ -206,7 +206,7 @@ public:
     }
 
 
-    /** @brief Returns the numerical id of the edge 
+    /** @brief Returns the numerical id of the edge
      * @return This edge's numerical id
      */
     unsigned int getNumericalID() const throw() {
@@ -260,8 +260,8 @@ public:
 
 
     /** @brief Enables vaporization
-     * 
-     * The internal vaporization counter is increased enabling the 
+     *
+     * The internal vaporization counter is increased enabling the
      *  vaporization.
      * Called from the event handler.
      * @param[in] t The current time (unused)
@@ -272,8 +272,8 @@ public:
 
 
     /** @brief Disables vaporization
-     * 
-     * The internal vaporization counter is decreased what disables 
+     *
+     * The internal vaporization counter is decreased what disables
      *  the vaporization if it was only once enabled.
      * Called from the event handler.
      * @param[in] t The current time (unused)
@@ -290,9 +290,9 @@ public:
     /** @brief Returns the effort (travel time) for this edge and the given time
      *
      * If no travel time values have been loaded, the edge's length
-     *  divided by the allowed speed is returned. 
+     *  divided by the allowed speed is returned.
      * Otherwise, the loaded weight matching the given time is returned.
-     * 
+     *
      * @param[in] forTime The (entry) time for which the effort shall be returned
      * @return The effort (travel time) to pass the edge for the given time
      */
@@ -302,9 +302,9 @@ public:
     /** @brief Computes and returns the current effort (travel time) for this edge
      *
      * The mean travel time of all lanes is summed and divided by the number
-     *  of lanes. If the result is zero, 1000000. (a very large number) is 
+     *  of lanes. If the result is zero, 1000000. (a very large number) is
      *  returned, otherwise the edge's length divided by this speed.
-     * 
+     *
      * @return The current effort (travel time) to pass the edge
      */
     SUMOReal getCurrentEffort() const throw();
@@ -315,7 +315,7 @@ public:
      * If a call to the vehicle's member "getEffort" with this edge
      *  and the given time returns a positive value, it is returned.
      * Otherwise the value from "getEffort" is returned.
-     * 
+     *
      * @param[in] v The vehicle which may have the effort stored
      * @param[in] t The (entry) time for which the effort shall be returned
      * @return The effort (travel time) to pass the edge for the given time
@@ -367,7 +367,7 @@ public:
      *  is tried to be emitted on it. If this fails,
      *  the vehicle is tried to be emitted on any of this edge's
      *  lanes.
-     * 
+     *
      * Emission itself is done by calling the chose lane's "emit"
      *  method.
      *
@@ -379,7 +379,7 @@ public:
     bool freeLaneEmit(MSVehicle &v, SUMOTime time, bool isReinsertion=false) const throw();
 
 
-    /** @brief Returns the last time a vehicle could not be inserted 
+    /** @brief Returns the last time a vehicle could not be inserted
      * @return The current value
      */
     inline SUMOTime getLastFailedEmissionTime() const throw() {
@@ -387,7 +387,7 @@ public:
     }
 
 
-    /** @brief Sets the last time a vehicle could not be inserted 
+    /** @brief Sets the last time a vehicle could not be inserted
      * @param[in] time the new value
      */
     inline void setLastFailedEmissionTime(SUMOTime time) const throw() {

@@ -56,10 +56,10 @@ using namespace std;
 // ===========================================================================
 // member method definitions
 // ===========================================================================
-NBTrafficLightLogic::NBTrafficLightLogic(const std::string &id, 
-        const std::string &subid, const std::string &type, 
+NBTrafficLightLogic::NBTrafficLightLogic(const std::string &id,
+        const std::string &subid, const std::string &type,
         unsigned int noLinks) throw()
-        : Named(id), myNoLinks(noLinks), mySubID(subid), myType(type), 
+        : Named(id), myNoLinks(noLinks), mySubID(subid), myType(type),
         myOffset(0)
 {}
 
@@ -130,7 +130,7 @@ NBTrafficLightLogic::equals(const NBTrafficLightLogic &logic) const throw()
 }
 
 
-SUMOTime 
+SUMOTime
 NBTrafficLightLogic::getDuration() const throw()
 {
     SUMOTime duration = 0;
@@ -169,7 +169,7 @@ NBTrafficLightLogic::computeOffsetFor(SUMOReal offsetMult) const throw()
     for (size_t i=0; i<myPhases.size(); ++i) {
         dur += myPhases[i].duration;
     }
-    return (SUMOTime) ((SUMOReal) dur * offsetMult);
+    return (SUMOTime)((SUMOReal) dur * offsetMult);
 }
 
 

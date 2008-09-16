@@ -88,7 +88,7 @@ MSE2Collector::isStillActive(MSVehicle& veh, SUMOReal oldPos,
     if (newPos - veh.getLength() > myEndPos) {
         veh.quitRemindedLeft(this);
         std::list<MSVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
-        if(i!=myKnownVehicles.end()) {
+        if (i!=myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
         }
         return false;
@@ -102,7 +102,7 @@ MSE2Collector::dismissByLaneChange(MSVehicle& veh) throw()
 {
     if (veh.getPositionOnLane() >= myStartPos && veh.getPositionOnLane() - veh.getLength() < myEndPos) {
         std::list<MSVehicle*>::iterator i = find(myKnownVehicles.begin(), myKnownVehicles.end(), &veh);
-        if(i!=myKnownVehicles.end()) {
+        if (i!=myKnownVehicles.end()) {
             myKnownVehicles.erase(i);
         }
         veh.quitRemindedLeft(this);

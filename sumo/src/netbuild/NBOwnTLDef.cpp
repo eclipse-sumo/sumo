@@ -92,8 +92,8 @@ NBOwnTLDef::myCompute(const NBEdgeCont &,
     bool removeTurnArounds = true;
     LinkRemovalType removal = LRT_REMOVE_WHEN_NOT_OWN;
     return computeTrafficLightLogics(getID(), type,
-        joinLaneLinks, removeTurnArounds, removal,
-        appendSmallestOnly, skipLarger, breakingTime);
+                                     joinLaneLinks, removeTurnArounds, removal,
+                                     appendSmallestOnly, skipLarger, breakingTime);
 }
 
 

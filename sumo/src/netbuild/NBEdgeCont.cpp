@@ -79,7 +79,7 @@ NBEdgeCont::~NBEdgeCont() throw()
 }
 
 
-void 
+void
 NBEdgeCont::applyOptions(OptionsCont &oc)
 {
     // set edges dismiss/accept options
@@ -87,15 +87,15 @@ NBEdgeCont::applyOptions(OptionsCont &oc)
     myRemoveEdgesAfterJoining = OptionsCont::getOptions().getBool("keep-edges.postload");
     myEdges2Keep = oc.isSet("keep-edges") ? oc.getStringVector("keep-edges") : vector<string>();
     myEdges2Remove = oc.isSet("remove-edges") ? oc.getStringVector("remove-edges") : vector<string>();
-    if(oc.isSet("remove-edges.by-vclass")) {
+    if (oc.isSet("remove-edges.by-vclass")) {
         vector<string> classes = oc.getStringVector("remove-edges.by-vclass");
-        for(vector<string>::iterator i=classes.begin(); i!=classes.end(); ++i) {
+        for (vector<string>::iterator i=classes.begin(); i!=classes.end(); ++i) {
             myVehicleClasses2Remove.insert(getVehicleClassID(*i));
         }
     }
-    if(oc.isSet("keep-edges.by-vclass")) {
+    if (oc.isSet("keep-edges.by-vclass")) {
         vector<string> classes = oc.getStringVector("keep-edges.by-vclass");
-        for(vector<string>::iterator i=classes.begin(); i!=classes.end(); ++i) {
+        for (vector<string>::iterator i=classes.begin(); i!=classes.end(); ++i) {
             myVehicleClasses2Keep.insert(getVehicleClassID(*i));
         }
     }
@@ -150,7 +150,7 @@ NBEdgeCont::insert(NBEdge *edge) throw()
     if (myVehicleClasses2Remove.size()!=0) {
         int matching = 0;
         std::vector<SUMOVehicleClass> allowed = edge->getAllowedVehicleClasses();
-        for(set<SUMOVehicleClass>::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
+        for (set<SUMOVehicleClass>::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
             std::vector<SUMOVehicleClass>::iterator j = find(allowed.begin(), allowed.end(), *i);
             if (j!=allowed.end()) {
                 allowed.erase(j);
@@ -169,7 +169,7 @@ NBEdgeCont::insert(NBEdge *edge) throw()
     if (myVehicleClasses2Keep.size()!=0) {
         int matching = 0;
         std::vector<SUMOVehicleClass> allowed = edge->getAllowedVehicleClasses();
-        for(set<SUMOVehicleClass>::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
+        for (set<SUMOVehicleClass>::const_iterator i=myVehicleClasses2Remove.begin(); i!=myVehicleClasses2Remove.end(); ++i) {
             std::vector<SUMOVehicleClass>::iterator j = find(allowed.begin(), allowed.end(), *i);
             if (j!=allowed.end()) {
                 allowed.erase(j);
@@ -248,8 +248,8 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const 
     }
     size_t maxLength = 0;
     string tid = id + "[";
-    for(EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
-        if((*i).first.find(tid)==0) {
+    for (EdgeCont::const_iterator i=myEdges.begin(); i!=myEdges.end(); ++i) {
+        if ((*i).first.find(tid)==0) {
             maxLength = MAX2(maxLength, (*i).first.length());
         }
     }
@@ -266,7 +266,7 @@ NBEdgeCont::retrievePossiblySplitted(const std::string &id, SUMOReal pos) const 
         // The edge was splitted; check its subparts within the
         //  next step
         if (edge==0) {
-            if(cid.length()+3<maxLength) {
+            if (cid.length()+3<maxLength) {
                 names.push_back(cid + "[1]");
                 names.push_back(cid + "[0]");
             }
@@ -301,7 +301,7 @@ bool
 NBEdgeCont::splitAt(NBDistrictCont &dc, NBEdge *edge, NBNode *node) throw(ProcessError)
 {
     return splitAt(dc, edge, node, edge->getID() + "[0]", edge->getID() + "[1]",
-        (unsigned int) edge->myLanes.size(), (unsigned int) edge->myLanes.size());
+                   (unsigned int) edge->myLanes.size(), (unsigned int) edge->myLanes.size());
 }
 
 
@@ -346,13 +346,13 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
         geoms.second.push_front(node->getPosition());
     }
     // build and insert the edges
-    NBEdge *one = new NBEdge(firstEdgeName, 
+    NBEdge *one = new NBEdge(firstEdgeName,
                              edge->myFrom, node, edge->myType, edge->mySpeed, noLanesFirstEdge,
                              edge->getPriority(), geoms.first, edge->myLaneSpreadFunction);
     for (unsigned int i=0; i<noLanesFirstEdge&&i<edge->getNoLanes(); i++) {
         one->setLaneSpeed(i, edge->getLaneSpeed(i));
     }
-    NBEdge *two = new NBEdge(secondEdgeName, 
+    NBEdge *two = new NBEdge(secondEdgeName,
                              node, edge->myTo, edge->myType, edge->mySpeed, noLanesSecondEdge,
                              edge->getPriority(), geoms.second,
                              edge->myLaneSpreadFunction);

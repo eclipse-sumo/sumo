@@ -131,22 +131,22 @@ NBTrafficLightLogicVector::getType() const
 }
 
 
-void 
+void
 NBTrafficLightLogicVector::setOffsetsToHalf()
 {
-    for(LogicVector::const_iterator i=myCont.begin(); i!=myCont.end(); ++i) {
+    for (LogicVector::const_iterator i=myCont.begin(); i!=myCont.end(); ++i) {
         SUMOTime T = (*i)->getDuration();
-        (*i)->setOffset((SUMOTime) (T/2.));
+        (*i)->setOffset((SUMOTime)(T/2.));
     }
 }
 
 
-void 
+void
 NBTrafficLightLogicVector::setOffsetsToQuarter()
 {
-    for(LogicVector::const_iterator i=myCont.begin(); i!=myCont.end(); ++i) {
+    for (LogicVector::const_iterator i=myCont.begin(); i!=myCont.end(); ++i) {
         SUMOTime T = (*i)->getDuration();
-        (*i)->setOffset((SUMOTime) (T/4.));
+        (*i)->setOffset((SUMOTime)(T/4.));
     }
 }
 
