@@ -3254,7 +3254,7 @@
         <para>You may also set junctions as tls-controlled using
         "<option>--explicite-tls</option>" or as uncontrolled using
         "<option>--explicite-no-tls</option>". Both options assume to get a
-        list of node names divided by ';' as parameter. The behaviour when a
+        list of node names divided by ',' as parameter. The behaviour when a
         node is in both lists is undefined.</para>
 
         <para>If you want to know where traffic lights have been inserted and
@@ -3300,7 +3300,7 @@
         by half of their duration or by a quarter of their duration. The
         options for this are: "<option>--tl-logics.half-offset</option>" and
         "<option>--tl-logics.quarter-offset</option>". Both options assume to
-        get a list of node names divided by ';' as parameter. The behaviour
+        get a list of node names divided by ',' as parameter. The behaviour
         when a node is in both lists or if the node is not meant to be
         controlled by a tls is undefined.</para>
 
@@ -3379,7 +3379,7 @@
 
           <varlistentry>
             <term><option>--explicite-tls
-            <replaceable>&lt;JUNCTION_ID&gt;</replaceable>[;<replaceable>&lt;JUNCTION_ID&gt;</replaceable>]*</option></term>
+            <replaceable>&lt;JUNCTION_ID&gt;</replaceable>[,<replaceable>&lt;JUNCTION_ID&gt;</replaceable>]*</option></term>
 
             <listitem>
               <para>Informs the network builder that the given junctions shall
@@ -3391,7 +3391,7 @@
 
           <varlistentry>
             <term><option>--explicite-no-tls
-            <replaceable>&lt;JUNCTION_ID&gt;</replaceable>[;<replaceable>&lt;JUNCTION_ID&gt;</replaceable>]*</option></term>
+            <replaceable>&lt;JUNCTION_ID&gt;</replaceable>[,<replaceable>&lt;JUNCTION_ID&gt;</replaceable>]*</option></term>
 
             <listitem>
               <para>Informs the network builder that the given junctions shall
@@ -3481,7 +3481,22 @@
             </listitem>
           </itemizedlist></para>
 
-        <para>Examples: none yet</para>
+        <para>Recent changes:</para>
+
+        <para><itemizedlist spacing="compact">
+            <listitem>
+              <para>Since version 0.9.10, <option>--explicite-tls</option> and
+              <option>--explicite-no-tls</option> are divided using
+              ','.</para>
+            </listitem>
+
+            <listitem>
+              <para>Since version 0.9.10,
+              <option>--tl-logics.half-offset</option> and
+              <option>--tl-logics.quarter-offset</option> are divided using
+              ','.</para>
+            </listitem>
+          </itemizedlist></para>
       </sect2>
 
       <sect2 id="user_chp04-further_options-guessing_ramps">
@@ -3713,7 +3728,7 @@
         is to name all the edges you want to keep. You can either do this on
         the command line/within your configuration directly using
         <option>--keep-edges
-        <replaceable>&lt;EDGE_ID&gt;[;&lt;EDGE_ID&gt;]+</replaceable></option>
+        <replaceable>&lt;EDGE_ID&gt;[,&lt;EDGE_ID&gt;]+</replaceable></option>
         where each <option><replaceable>&lt;EDGE_ID&gt;</replaceable></option>
         represents the id of an edge you want to keep or you can save this
         list into a file where each id is stored in a seperate line and then
@@ -3740,7 +3755,7 @@
         <variablelist>
           <varlistentry>
             <term><option>--keep-edges
-            <replaceable>&lt;EDGE_ID&gt;[;&lt;EDGE_ID&gt;]+</replaceable></option></term>
+            <replaceable>&lt;EDGE_ID&gt;[,&lt;EDGE_ID&gt;]+</replaceable></option></term>
 
             <listitem>
               <para>Forces <application>NETCONVERT</application> to remove all
@@ -3794,6 +3809,11 @@
             contains the information about the shape, the lane spread and the
             basic type if differing from the defaults since version
             0.9.5.</para>
+          </listitem>
+
+          <listitem>
+            <para>Since version 0.9.10, <option>--keep-edges</option> uses ','
+            as divider.</para>
           </listitem>
         </itemizedlist>
       </sect2>
@@ -5222,7 +5242,7 @@
         as soon as it comes to a sink edge. As not all networks have sink
         edges defined, one can support a list of edges to be declared as sinks
         using <option>--sinks
-        <replaceable>&lt;EDGE_ID&gt;[;&lt;EDGE_ID&gt;]*</replaceable></option>.
+        <replaceable>&lt;EDGE_ID&gt;[,&lt;EDGE_ID&gt;]*</replaceable></option>.
         You may also add your sink definitions to a turn-file (XML
         only):</para>
 
@@ -5446,7 +5466,7 @@
 
           <varlistentry>
             <term><option>( --od-files | --od | -d )
-            <replaceable>&lt;OD_FILE&gt;[;&lt;OD_FILE&gt;]*</replaceable></option></term>
+            <replaceable>&lt;OD_FILE&gt;[,&lt;OD_FILE&gt;]*</replaceable></option></term>
 
             <listitem>
               <para>Tells <application>OD2TRIPS</application> to use the given
@@ -6185,7 +6205,7 @@
         <replaceable>&lt;SUMO_NET_FILE&gt;</replaceable></option> - option,
         the list of induction loops using <option>--detector-files</option>
         (or <option>--detectors</option> or <option>-d</option> for short)
-        <option><replaceable>&lt;DETECTOR_FILE&gt;[;&lt;DETECTOR_FILE&gt;]+</replaceable></option>.
+        <option><replaceable>&lt;DETECTOR_FILE&gt;[,&lt;DETECTOR_FILE&gt;]+</replaceable></option>.
         A detector file should look as following:</para>
 
         <programlisting><sgmltag>&lt;detectors&gt;</sgmltag>
@@ -6247,7 +6267,7 @@
         <variablelist>
           <varlistentry>
             <term><option>( --detector-files | --detectors | -d )
-            <replaceable>&lt;DETECTOR_FILE&gt;[;&lt;DETECTOR_FILE&gt;]+</replaceable></option></term>
+            <replaceable>&lt;DETECTOR_FILE&gt;[,&lt;DETECTOR_FILE&gt;]+</replaceable></option></term>
 
             <listitem>
               <para>The list of descriptions of detectors to use.
@@ -6398,7 +6418,7 @@
         network. The flows are given to <application>DFROUTER</application>
         using <option>--detector-flow-files</option> (or
         <option>--detflows</option>, <option>-f</option> for short)
-        <option><replaceable>&lt;DETECTOR_FLOWS&gt;[;&lt;DETECTOR_FLOWS&gt;]+</replaceable></option>.
+        <option><replaceable>&lt;DETECTOR_FLOWS&gt;[,&lt;DETECTOR_FLOWS&gt;]+</replaceable></option>.
         They are assumed to be stored in CSV-format using ';' as dividing
         character. The file should look as following:</para>
 
@@ -6472,7 +6492,7 @@ myDet1;0;10;2;100;80
         <variablelist>
           <varlistentry>
             <term><option>( --detector-flow-files | --detflows | -f)
-            <replaceable>&lt;DETECTOR_FLOWS&gt;[;&lt;DETECTOR_FLOWS&gt;]+</replaceable></option></term>
+            <replaceable>&lt;DETECTOR_FLOWS&gt;[,&lt;DETECTOR_FLOWS&gt;]+</replaceable></option></term>
 
             <listitem>
               <para>Describes the files to read detector flows from.
@@ -6788,7 +6808,7 @@ myDet1;0;10;2;100;80
 
         <para>Use the <option>--route-files</option> (or
         <option>--routes</option> or <option>-r</option>)
-        <option><replaceable>&lt;FILE&gt;</replaceable>[;<replaceable>&lt;FILE&gt;</replaceable>]*</option>
+        <option><replaceable>&lt;FILE&gt;</replaceable>[,<replaceable>&lt;FILE&gt;</replaceable>]*</option>
         option to specify which files shall be used to read routes from. In
         this case, the name is not ambigous - multiple files can be
         used.</para>
@@ -8145,7 +8165,7 @@ myDet1;0;10;2;100;80
           <replaceable>&lt;PATH_AND_FILE_PREFIX&gt;</replaceable></option>
           describes where to write the dumps to and how the begin of the file
           name is, b) <option>--dump-intervals
-          <replaceable>&lt;INTERVAL&gt;</replaceable>[;<replaceable>&lt;INTERVAL&gt;</replaceable>]*</option>
+          <replaceable>&lt;INTERVAL&gt;</replaceable>[,<replaceable>&lt;INTERVAL&gt;</replaceable>]*</option>
           describes over what time the values shall be collected and
           aggregated ("interval length"). Each aggregation interval is written
           into an own, single file. The file name is made up from the base
@@ -8153,7 +8173,7 @@ myDet1;0;10;2;100;80
           <filename><replaceable>&lt;FILENAME&gt;</replaceable> =
           <replaceable>&lt;PATH_AND_FILE_PREFIX&gt;</replaceable>_<replaceable>&lt;INTERVAL&gt;</replaceable>.xml</filename>.
           An example: <option>--dump-basename=./output/lanedump
-          --dump-intervals=300;600</option> will build two files:
+          --dump-intervals=300,600</option> will build two files:
           <filename>./output/lanedump_300.xml</filename> and
           <filename>./output/lanedump_600.xml</filename>. For edge-based state
           dumps, the output file will look like the following:</para>
@@ -8198,7 +8218,7 @@ myDet1;0;10;2;100;80
           options <option>--lanedump-basename
           <replaceable>&lt;PATH_AND_FILE_PREFIX&gt;</replaceable></option> and
           <option>--lanedump-intervals
-          <replaceable>&lt;INTERVAL&gt;</replaceable>[;<replaceable>&lt;INTERVAL&gt;</replaceable>]*</option>.
+          <replaceable>&lt;INTERVAL&gt;</replaceable>[,<replaceable>&lt;INTERVAL&gt;</replaceable>]*</option>.
           The generated output looks like the following:</para>
 
           <programlisting><sgmltag>&lt;netstats&gt;</sgmltag>
@@ -8397,9 +8417,9 @@ myDet1;0;10;2;100;80
           <para>If you need only information about the network states during
           certain time periods, you may constraint generation of the dumps
           using the options <option>--dump-begins
-          <replaceable>&lt;TIME&gt;[;&lt;TIME&gt;]+</replaceable></option> and
+          <replaceable>&lt;TIME&gt;[,&lt;TIME&gt;]+</replaceable></option> and
           <option>--dump-ends
-          <replaceable>&lt;TIME&gt;[;&lt;TIME&gt;]+</replaceable></option>.
+          <replaceable>&lt;TIME&gt;[,&lt;TIME&gt;]+</replaceable></option>.
           When at least one combination is given, dumps will be written only
           if an according begin/end-pair exists for the current time. This
           means, only those intervals will be saved for which
