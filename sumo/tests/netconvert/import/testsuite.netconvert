@@ -5,7 +5,7 @@ XML
 visum
 
 # Vissim import tests
-vissim
+#vissim
 
 # Tests for elmar(2)-import
 elmar
