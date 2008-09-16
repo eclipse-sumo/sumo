@@ -20,8 +20,8 @@ export JTRROUTER_BINARY="$SUMO_BIN/sumo-jtrrouter"
 export NETCONVERT_BINARY="$SUMO_BIN/sumo-netconvert"
 export NETGEN_BINARY="$SUMO_BIN/sumo-netgen"
 export OD2TRIPS_BINARY="$SUMO_BIN/sumo-od2trips"
+export POLYCONVERT_BINARY="$SUMO_BIN/sumo-polyconvert"
 export SUMO_BINARY="$SUMO_BIN/sumo"
-export POLYCONVERT_BINARY="$SUMO_BIN/polyconvert"
 
 if test x"$2" = x; then
   TEXTTEST=texttest.py
