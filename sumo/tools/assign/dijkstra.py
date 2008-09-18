@@ -101,8 +101,8 @@ def dijkstra(net, start, targets, lohse=False):
             else:
                 vwLength = D[v] + edge.actualtime + edge.queuetime
             if isConflictCandidate:
-                if (edge.kind == "junction" and P[v].leftlink == iter(edge.target.outEdges).next()) or\
-                   (edge.kind != "junction" and P[v].leftlink == edge):
+                if (edge.kind == "junction" and iter(edge.target.outEdges).next() in P[v].leftlink) or\
+                   (edge.kind != "junction" and edge in P[v].leftlink):
                     vwLength += P[v].penalty
 
             if w not in D and (w not in Q or vwLength < Q[w]):
