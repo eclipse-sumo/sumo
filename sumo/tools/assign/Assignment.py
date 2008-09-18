@@ -60,10 +60,8 @@ def main():
 
     for edgeID in net._edges: 
         edge = net._edges[edgeID]
-        if options.type != "incremental" and options.kPaths > 1:
-            net.removeUTurnEdge(edge)
-
         if edge.numberlane > 0.:
+
             edge.getCapacity()
             edge.getAdjustedCapacity(net)
             edge.getConflictLink()

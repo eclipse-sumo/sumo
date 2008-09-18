@@ -118,29 +118,14 @@ class Net:
             for out in list(link.target.outEdges):
                 if out.kind == "junction" and len(out.target.inEdges) == 1:
                     link.target.outEdges.remove(out)
-                    for edge in out.target.outEdges:
-                        link.target.outEdges.add(edge)
-                        edge.source = link.target
+                    for edge in out.source.inEdges:
+                        edge.target = out.target
             for incoming in list(link.source.inEdges):
                 if incoming.kind == "junction" and len(incoming.source.outEdges) == 1:
                     link.source.inEdges.remove(incoming)
-                    for edge in incoming.source.inEdges:
-                        link.source.inEdges.add(edge)
-                        edge.target = link.source
-                    
-    def removeUTurnEdge(self, edge):
-        outEdge = edge
-        for link in self._edges.itervalues():
-            if str(link.source) == str(outEdge.target) and str(link.target) == str(outEdge.source):
-                uTurnEdge = None
-                for edge1 in outEdge.target.outEdges:
-                    for edge2 in link.source.inEdges:
-                        if edge1 == edge2:
-                            uTurnEdge = edge1
-                if uTurnEdge:
-                    outEdge.target.outEdges.discard(uTurnEdge)
-                    link.source.inEdges.discard(uTurnEdge)
-                    
+                    for edge in incoming.target.outEdges:
+                        edge.source = incoming.source
+                                      
     def findNewPath(self, startVertices, endVertices, newRoutes, matrixPshort, lohse):
         """
         This method finds the new paths for all OD pairs.
@@ -321,26 +306,26 @@ class NetworkReader(handler.ContentHandler):
                     self._edgeObj.junctiontype = 'signalized'
                     if attrs['dir'] == "r":
                         self._edgeObj.rightturn = attrs['linkno']
-                        self._edgeObj.rightlink = toEdge
+                        self._edgeObj.rightlink.append(toEdge)
                     elif attrs['dir'] == "s": 
                         self._edgeObj.straight = attrs['linkno']
-                        self._edgeObj.straightlink = toEdge
+                        self._edgeObj.straightlink.append(toEdge)
                     elif attrs['dir'] == "l": 
                         self._edgeObj.leftturn = attrs['linkno']
-                        self._edgeObj.leftlink = toEdge
+                        self._edgeObj.leftlink.append(toEdge)
                     elif attrs['dir'] == "t": 
                         self._edgeObj.uturn = attrs['linkno']
                 else:
                     self._edgeObj.junctiontype = 'prioritized'
                     if attrs['dir'] == "r":
                         self._edgeObj.rightturn = attrs['state']
-                        self._edgeObj.rightlink = toEdge
+                        self._edgeObj.rightlink.append(toEdge)
                     elif attrs['dir'] == "s": 
                         self._edgeObj.straight = attrs['state']
-                        self._edgeObj.straightlink = toEdge
+                        self._edgeObj.straightlink.append(toEdge)
                     elif attrs['dir'] == "l": 
                         self._edgeObj.leftturn = attrs['state']
-                        self._edgeObj.leftlink = toEdge
+                        self._edgeObj.leftlink.append(toEdge)
                     elif attrs['dir'] == "t": 
                         self._edgeObj.uturn = attrs['state']
         elif name == 'lane' and self._edge != '':

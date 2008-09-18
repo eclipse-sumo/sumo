@@ -104,10 +104,10 @@ class Edge:
         self.straight = None
         self.leftturn = None
         self.uturn = None
-        self.leftlink = None
-        self.straightlink = None
-        self.rightlink = None
-        self.conflictlink = None
+        self.leftlink = []
+        self.straightlink = []
+        self.rightlink = []
+        self.conflictlink = []
 #        self.againstlinkexist = None  
         self.flow = 0.0
         self.kind = kind
@@ -160,14 +160,14 @@ class Edge:
                                                       
     def getConflictLink(self):
         """
-        method to get the conflict link for each link, when the respective left-turn behavior is allowed
+        method to get the conflict links for each link, when the respective left-turn behavior exists.
         """
-        if self.kind == 'real' and self.leftlink != None:
-            for edge in self.leftlink.source.inEdges:
-                for upsteamlink in edge.source.inEdges:
-                    if upsteamlink.rightlink == self.leftlink and upsteamlink.straightlink != None:
-                        if upsteamlink.straightlink.target.label == self.source.label:
-                            self.conflictlink = upsteamlink
+        if self.kind == 'real' and len(self.leftlink) > 0:
+            for leftEdge in self.leftlink:
+                for edge in leftEdge.source.inEdges:
+                    for upsteamlink in edge.source.inEdges:
+                        if leftEdge in upsteamlink.rightlink and len(upsteamlink.straightlink) > 0:
+                            self.conflictlink.append(upsteamlink)
                             
     def getFreeFlowTravelTime(self):
         return self.freeflowtime
@@ -254,14 +254,21 @@ class Edge:
                 self.queuetime = 0.
                 
             self.penalty = 0.
-            if self.conflictlink != None:
+            if len(self.conflictlink) > 0:
                 weightFactor = 1.0
                 if self.numberlane == 2.:
                     weightFactor = 0.8
                 elif self.numberlane > 2.:
                     weightFactor = 0.4
-                if self.conflictlink.estcapacity != 0. and self.conflictlink.flow/self.conflictlink.estcapacity > 0.1:
-                    self.penalty = (math.exp(self.flow/self.estcapacity) - 1. + math.exp(self.conflictlink.flow/self.conflictlink.estcapacity) - 1.)/2.
+                flowCapRatio = 0.
+                conflictEdge = self.conflictlink[0]
+
+                for edge in self.conflictlink:
+                    if edge.estcapacity > 0. and edge.flow/edge.estcapacity >= flowCapRatio:
+                        conflictEdge = edge
+
+                if conflictEdge.estcapacity > 0. and conflictEdge.flow/conflictEdge.estcapacity > 0.15:
+                    self.penalty = (math.exp(self.flow/self.estcapacity) - 1. + math.exp(conflictEdge.flow/conflictEdge.estcapacity) - 1.)/2.
                     self.penalty *= weightFactor * self.actualtime
 
         foutcheck.close()
