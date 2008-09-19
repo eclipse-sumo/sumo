@@ -67,67 +67,43 @@ class Net:
         
 
     def reduce(self):
+        visited = set()
         for link in self._edges.itervalues():
-            successorNodes = set()
-            for out in link.target.outEdges:
-                if out.kind != "junction":
-                    successorNodes.clear()
+            if link.target in visited:
+                continue
+            sourceNodes = set([link.target])
+            targetNodes = set()
+            pendingSources = [link.target]
+            pendingTargets = []
+            while pendingSources or pendingTargets:
+                if pendingSources:
+                    source = pendingSources.pop()
+                    for out in source.outEdges:
+                        if out.target not in targetNodes:
+                            targetNodes.add(out.target)
+                            pendingTargets.append(out.target)
+                if pendingTargets:
+                    target = pendingTargets.pop()
+                    for incoming in target.inEdges:
+                        if incoming.source not in sourceNodes:
+                            sourceNodes.add(incoming.source)
+                            pendingSources.append(incoming.source)
+            visited.update(sourceNodes)
+            complete = True
+            for source in sourceNodes:
+                if len(source.outEdges) < len(targetNodes):
+                    complete = False
                     break
-                successorNodes.add(out.target)
-            predecessorNodes = set()
-            for incoming in link.source.inEdges:
-                if incoming.kind != "junction":
-                    predecessorNodes.clear()
-                    break
-                predecessorNodes.add(incoming.source)
-            for neighbor in self._edges.itervalues():
-                if neighbor.label > link.label:
-                    if len(successorNodes) > 0 and neighbor.target != link.target:  
-                        commonSuccessors = 0
-                        found = True
-                        for out in neighbor.target.outEdges:
-                            if out.kind == "junction" and out.target in successorNodes:
-                                commonSuccessors += 1
-                            else:
-                                found = False
-                                break
-                        if found and commonSuccessors == len(successorNodes):
-                            for junctionEdge in link.target.outEdges:
-                                junctionEdge.target.inEdges.remove(junctionEdge)
-                            for edge in list(link.target.inEdges):
-                                neighbor.target.inEdges.add(edge)
-                                edge.target.inEdges.remove(edge)
-                                edge.target = neighbor.target
-                    if len(predecessorNodes) > 0 and neighbor.source != link.source:  
-                        commonPredecessors = 0
-                        found = True
-                        for incoming in neighbor.source.inEdges:
-                            if incoming.kind == "junction" and incoming.source in predecessorNodes:
-                                commonPredecessors += 1
-                            else:
-                                found = False
-                                break
-                        if found and commonPredecessors == len(predecessorNodes):
-                            for junctionEdge in link.source.inEdges:
-                                junctionEdge.source.outEdges.remove(junctionEdge)
-                            for edge in list(link.source.outEdges):
-                                neighbor.source.outEdges.add(edge)
-                                edge.source.outEdges.remove(edge)
-                                edge.source = neighbor.source
-        for link in self._edges.itervalues():
-            for out in list(link.target.outEdges):
-                if out.kind == "junction" and len(out.target.inEdges) == 1:
-                    link.target.outEdges.remove(out)
-                    for edge in out.target.outEdges:
+            if complete:
+                for target in targetNodes:
+                    for edge in target.outEdges:
                         link.target.outEdges.add(edge)
                         edge.source = link.target
-            for incoming in list(link.source.inEdges):
-                if incoming.kind == "junction" and len(incoming.source.outEdges) == 1:
-                    link.source.inEdges.remove(incoming)
-                    for edge in incoming.source.inEdges:
-                        link.source.inEdges.add(edge)
-                        edge.target = link.source
-                                      
+                for source in sourceNodes:
+                    for edge in source.inEdges:
+                        link.target.inEdges.add(edge)
+                        edge.target = link.target
+
     def findNewPath(self, startVertices, endVertices, newRoutes, matrixPshort, lohse):
         """
         This method finds the new paths for all OD pairs.
@@ -135,7 +111,11 @@ class Net:
         """
         newRoutes = 0
         for start, startVertex in enumerate(startVertices):
-            D,P = dijkstra(self, startVertex, list(endVertices), lohse)            
+            endSet = set()
+            for end, endVertex in enumerate(endVertices):
+                if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
+                    endSet.add(endVertex)
+            D,P = dijkstra(self, startVertex, endSet, lohse)            
             for end, endVertex in enumerate(endVertices):
                 if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                     helpPath = []
