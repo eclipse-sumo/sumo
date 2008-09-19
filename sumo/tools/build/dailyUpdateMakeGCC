@@ -14,8 +14,8 @@ MAKELOG=$PREFIX/${FILEPREFIX}make.log
 RUNLOG=$PREFIX/${FILEPREFIX}examplelogs.tar.gz
 MAKEALLLOG=$PREFIX/${FILEPREFIX}makealloptions.log
 STATUSLOG=$PREFIX/${FILEPREFIX}status.log
-BATCH_RESULT_DIR=$PREFIX/${FILEPREFIX}batch_result
-REPORT_DIR=$PREFIX/${FILEPREFIX}report
+export SUMO_BATCH_RESULT=$PREFIX/${FILEPREFIX}batch_result
+export SUMO_REPORT=$PREFIX/${FILEPREFIX}report
 
 rm -f $STATUSLOG
 echo -n "$FILEPREFIX, " > $STATUSLOG
@@ -45,11 +45,11 @@ if test -e $PREFIX/bin/sumo -a $PREFIX/bin/sumo -nt $PREFIX/sumo/configure; then
   # run tests
   export PATH=$PREFIX/texttest/bin:$PATH
   export TEXTTEST_TMP=$PREFIX/texttesttmp
-  find $BATCH_RESULT_DIR -mtime +20 -type f | xargs -r rm
-  rm -rf $REPORT_DIR/* $TEXTTEST_TMP/*
-  tests/testDaily.sh $PREFIX/bin $BATCH_RESULT_DIR $REPORT_DIR $SMTP_SERVER &> $TEXTTEST_TMP/${FILEPREFIX}test.log
+  find $SUMO_BATCH_RESULT -mtime +20 -type f | xargs -r rm
+  rm -rf $SUMO_REPORT/* $TEXTTEST_TMP/*
+  tests/runTests.sh $PREFIX/bin "texttest.py -b $FILEPREFIX; texttest.py -b $FILEPREFIX -coll" &> $TEXTTEST_TMP/${FILEPREFIX}test.log
   find $TEXTTEST_TMP -name batchreport."*" -exec echo -n '{} ' \; -exec head -1 '{}' \; | sort >> $STATUSLOG
-  scp -qr $REPORT_DIR $REMOTEDIR
+  scp -qr $SUMO_REPORT $REMOTEDIR
 
   # run examples
   find data/examples -name "*.sumo.cfg" -exec src/sumo -c '{}' -l '{}'.log \; &> /dev/null
