@@ -1,20 +1,18 @@
 #
-# spec file for package sumo (Version 0.9.9)
+# spec file for package sumo (Version 0.9.10)
 #
-# Copyright (c) 2008.
-# This file and all modifications and additions to the pristine
-# package are under the same license as the package itself.
-
-
+# norootforbuild
 Name:           sumo
 Summary:        Microscopic Traffic Simulation
-Version:        0.9.9
+Version:        0.9.10
 Release:        1
 Url:            http://sumo.sourceforge.net/
 Source0:        %{name}-%{version}.tar.bz2
 License:        GPL v2.1 or later
 Group:          Productivity/Scientific/Other
 BuildRoot:      %{_tmppath}/%{name}-%{version}-build
+BuildRequires: gcc-c++ libproj-devel libgdal-devel Xerces-c-devel fox14-devel
+Requires:      libproj libgdal Xerces-c fox14
 
 %description
 "Simulation of Urban MObility" (SUMO) is an open source,
