@@ -9,14 +9,7 @@ if test "x$2" = "x"; then
 else
   FILEPREFIX=$2
 fi
-if test "x$3" = "x"; then
-  REMOTEDIR="behrisch,sumo@web.sourceforge.net:/home/groups/s/su/sumo/htdocs/daily/"
-else
-  REMOTEDIR=$3
-fi
-if test "x$4" != "x"; then
-  SMTP_SERVER=$4
-fi
+REMOTEDIR="behrisch,sumo@web.sourceforge.net:/home/groups/s/su/sumo/htdocs/daily/"
 MAKELOG=$PREFIX/${FILEPREFIX}make.log
 RUNLOG=$PREFIX/${FILEPREFIX}examplelogs.tar.gz
 MAKEALLLOG=$PREFIX/${FILEPREFIX}makealloptions.log

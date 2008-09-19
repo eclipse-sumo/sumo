@@ -38,7 +38,7 @@ else
 fi
 
 if test x"$4" = x; then
-  export SMTP_SERVER=mail
+  export SMTP_SERVER=localhost
 else
   export SMTP_SERVER=$4
 fi
