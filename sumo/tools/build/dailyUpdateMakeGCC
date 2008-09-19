@@ -10,7 +10,7 @@ else
   FILEPREFIX=$2
 fi
 if test "x$3" = "x"; then
-  REMOTEDIR="shell.sf.net:sumo-www/daily/"
+  REMOTEDIR="behrisch,sumo@web.sourceforge.net:/home/groups/s/su/sumo/htdocs/daily/"
 else
   REMOTEDIR=$3
 fi
