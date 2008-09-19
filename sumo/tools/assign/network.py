@@ -115,7 +115,7 @@ class Net:
             for end, endVertex in enumerate(endVertices):
                 if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                     endSet.add(endVertex)
-            D,P = dijkstra(self, startVertex, endSet, lohse)            
+            D,P = dijkstra(startVertex, endSet)            
             for end, endVertex in enumerate(endVertices):
                 if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                     helpPath = []

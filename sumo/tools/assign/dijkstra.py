@@ -80,7 +80,7 @@ class priorityDictionary(dict):
             self[key] = other[key]
 
 
-def dijkstra(net, start, targets, lohse=False):
+def dijkstra(start, targets):
     # dictionary of final distances
     D = {}
     # dictionary of predecessors
@@ -96,10 +96,7 @@ def dijkstra(net, start, targets, lohse=False):
         isConflictCandidate = (v != start) and (P[v].conflictlink != None)
         for edge in v.outEdges:
             w = edge.target
-            if lohse:
-                vwLength = D[v] + edge.helpacttime
-            else:
-                vwLength = D[v] + edge.actualtime + edge.queuetime
+            vwLength = D[v] + edge.helpacttime
             if isConflictCandidate:
                 if (edge.kind == "junction" and iter(edge.target.outEdges).next() in P[v].leftlink) or\
                    (edge.kind != "junction" and edge in P[v].leftlink):
@@ -111,7 +108,7 @@ def dijkstra(net, start, targets, lohse=False):
     return (D, P)
 
 
-def dijkstraPlain(net, start, targets, lohse=False):
+def dijkstraPlain(start, targets):
     # dictionary of final distances
     D = {}
     # dictionary of predecessors
@@ -126,10 +123,7 @@ def dijkstraPlain(net, start, targets, lohse=False):
                 return (D, P)
         for edge in v.outEdges:
             w = edge.target
-            if lohse:
-                vwLength = D[v] + edge.helpacttime
-            else:
-                vwLength = D[v] + edge.actualtime + edge.queuetime
+            vwLength = D[v] + edge.helpacttime
 
             if w not in D and (w not in Q or vwLength < Q[w]):
                 Q[w] = vwLength

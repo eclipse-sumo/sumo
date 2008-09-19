@@ -2,7 +2,7 @@
 @file    matrixEstimator.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2008-04-21
-@version $Id: matrixEstimator.py 5458 2008-04-18 20:18:21Z behrisch $
+@version $Id$
 
 This script is to execute the matrix estimation with traffic counts.
 The model used here is the generalized least squared model, proposed by Cascetta(1984).

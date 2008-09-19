@@ -228,7 +228,7 @@ class Edge:
                     greentime = max(rightGreen, leftGreen)
                     self.estcapacity = (greentime*(3600./cyclelength))/1.5 * self.numberlane
                      
-    def getActualTravelTime(self, lamda):
+    def getActualTravelTime(self, options, lohse):
         """
         method to calculate/update link travel time
         """  
@@ -243,7 +243,7 @@ class Edge:
                 else:
                     self.actualtime = self.freeflowtime*(1+(curve[0]*(self.flow/(self.estcapacity*curve[2]))**curve[1]))
             if self.flow > self.estcapacity and self.connection == 0 and self.source.label != self.target.label:
-                self.queuetime = self.queuetime + lamda*(self.actualtime - self.freeflowtime*(1+curve[0]))
+                self.queuetime = self.queuetime + options.lamda*(self.actualtime - self.freeflowtime*(1+curve[0]))
                 foutcheck.write('edge.label= %s: queuing time= %s.\n' %(self.label, self.queuetime))
                 foutcheck.write('travel time at capacity: %s; actual travel time: %s.\n' %(self.freeflowtime*(1+curve[0]), self.actualtime))
 
@@ -268,8 +268,13 @@ class Edge:
                         conflictEdge = edge
 
                 if conflictEdge.estcapacity > 0. and conflictEdge.flow/conflictEdge.estcapacity > 0.15:
-                    self.penalty = (math.exp(self.flow/self.estcapacity) - 1. + math.exp(conflictEdge.flow/conflictEdge.estcapacity) - 1.)/2.
-                    self.penalty *= weightFactor * self.actualtime
+                    self.penalty = weightFactor * (math.exp(self.flow/self.estcapacity) - 1. + math.exp(conflictEdge.flow/conflictEdge.estcapacity) - 1.)/2.
+            if lohse:
+                self.getLohseParUpdate(options)
+                self.penalty *= self.helpacttime
+            else:
+                self.helpacttime = self.actualtime + self.queuetime
+                self.penalty *= self.actualtime
 
         foutcheck.close()
     
@@ -278,15 +283,6 @@ class Edge:
         self.flow = 0.
         self.helpflow = 0.
   
-    def resetLohseParameter(self):
-        """
-        method to reset the parameter used in the Lohse-assignment (learning method - Lernverfahren)
-        """
-        self.fTT = 0.
-        self.TT = 0.               
-        self.delta = 0.
-        self.helpacttimeEx = 0.  
-            
     def getLohseParUpdate(self, options):
         """
         method to update the parameter used in the Lohse-assignment (learning method - Lernverfahren)
@@ -297,8 +293,6 @@ class Edge:
             self.delta = options.under + (options.upper - options.under)/((1+self.TT)**self.fTT)
             self.helpacttimeEx = self.helpacttime
             self.helpacttime = self.helpacttime + self.delta*(self.actualtime - self.helpacttime)
-            if self.penalty > 0:
-                self.penalty *= self.helpacttime / self.actualtime     
                 
     def stopCheck(self, options):
         """

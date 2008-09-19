@@ -3,7 +3,7 @@
 @file    statisticsElements.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2008-07-10
-@version $Id: statisticsElements.py 5605 2008-07-10 07:47:00Z yunpangwang $
+@version $Id$
 
 This script is to define classes, functions, parse-reader and output files/format for
 - calculating network performances

@@ -3,7 +3,7 @@
 @file    Assignment.py
 @author  Yun-Pang.Wang@dlr.de
 @date    2008-03-28
-@version $Id: Assignment.py 5774 2008-07-14 13:10:31Z behrisch $
+@version $Id$
 
 This script is for executing the traffic assignment.
 Three assignment models are available:
@@ -65,7 +65,7 @@ def main():
             edge.getCapacity()
             edge.getAdjustedCapacity(net)
             edge.getConflictLink()
-            edge.getActualTravelTime(options.lamda) 
+            edge.getActualTravelTime(options, False) 
             edge.helpacttime = edge.freeflowtime
     net.reduce() 
 
@@ -106,7 +106,7 @@ def main():
     # initialize the file for recording the routes
     foutroute = open('routes.rou.xml', 'w')
     print >> foutroute, """<?xml version="1.0"?>
-<!-- generated on %s by $Id: SUEAssignment.py 5774 2008-07-14 13:10:31Z behrisch $ -->
+<!-- generated on %s by $Id$ -->
 <routes>""" % starttime
     
     for counter, matrix in enumerate(matrices):  #for counter in range (0, len(matrices)):
@@ -134,10 +134,11 @@ def main():
             edge.flow = 0.
             edge.helpflow = 0.
             edge.actualtime = edge.freeflowtime
-            
-            if lohse:
-                edge.resetLohseParameter()
-                edge.helpacttime = edge.freeflowtime
+            edge.helpacttime = edge.freeflowtime
+            edge.fTT = 0.
+            edge.TT = 0.               
+            edge.delta = 0.
+            edge.helpacttimeEx = 0.  
                 
         # the number of origins, the umber of destinations and the number of the OD pairs
         origins = len(startVertices)                                    
@@ -161,14 +162,14 @@ def main():
                         if matrixPshort[start][end] > 0.:
                             targets.add(endVertex)
                     if len(targets) > 0:
-                        D,P = dijkstra(net, startVertex, targets)                                                                      
+                        D,P = dijkstra(startVertex, targets)                                                                      
                         vehID = doIncAssign(vehicles, options.verbose, options.maxiteration,
                                             endVertices, start, startVertex, matrixPshort,
                                             D, P, AssignedVeh, AssignedTrip, vehID)
                 
                 for edgeID in net._edges:                                                   
                     edge = net._edges[edgeID]
-                    edge.getActualTravelTime(options.lamda)
+                    edge.getActualTravelTime(options, False)
         else:
             print 'begin the', options.type, " assignment!"   
             # initialization for the clogit and the lohse assignment model
