@@ -51,7 +51,7 @@ class SUMOSAXHandler;
  *
  * As we use xerces for both the input files and the configuration we
  *  would have to check whether the system was initialised before. Instead,
- *  we call XMLSubSys::init() once at the beginning of our application and
+ *  we call XMLSubSys::init(bool) once at the beginning of our application and
  *  XMLSubSys::close() at the end.
  *
  * Closing and initialising the XML subsystem is necessary. Still, we never
@@ -74,11 +74,17 @@ public:
      * @brief Initialises the xml-subsystem, returns whether the initialisation succeeded.
      *
      * Calls XMLPlatformUtils::Initialize(). If this fails, the exception is
-     *  caught and its content is reported using a ProcessError. Otheriwse, a
-     *  static SAX2XMLReader is built (stored in myReader)
+     *  caught and its content is reported using a ProcessError. Otherwise, a
+     *  static SAX2XMLReader is built using "getSAXReader()" (stored in "myReader").
+     *
+     * The information whether validationis wanted is stored in "myEnableValidation" for
+     *  later usage.
+     *
+     * @param[in] enableValidation Whether validation of XML-documents against schemata shall be enabled
      * @exception ProcessError If the initialisation fails
+     * @see getSAXReader()
      */
-    static void init() throw(ProcessError);
+    static void init(bool enableValidation) throw(ProcessError);
 
 
     /**
@@ -92,15 +98,13 @@ public:
     /**
      * @brief Builds a reader and assigns the handler to it
      *
-     * Tries to build a SAX2XMLReader using XMLReaderFactory::createXMLReader. If this
-     *  fails, 0 is returned.
-     *
-     * If the reader could be built, validation is turned off, first. Then the given
-     *  handler is assigned to the reader as the current DefaultHandler and
-     *  ErrorHandler.
+     * Tries to build a SAX2XMLReader using "getSAXReader()". If this
+     *  fails, 0 is returned. Otherwise, the given handler is assigned 
+     *  to the reader as the current DefaultHandler and ErrorHandler.
      *
      * @param[in] handler The handler to assign to the built reader
      * @return The built Xerces-SAX-reader, 0 if something failed
+     * @see getSAXReader()
      */
     static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader * getSAXReader(SUMOSAXHandler &handler) throw();
 
@@ -128,6 +132,19 @@ public:
 
 protected:
     /**
+     * @brief Builds a reader
+     *
+     * Tries to build a SAX2XMLReader using XMLReaderFactory::createXMLReader. If this
+     *  fails, 0 is returned. Otherwise the validation is set matching the value of
+     *  "myEnableValidation". If validation is not wanted, a WFXMLScanner is used
+     *  (see http://www.ibm.com/developerworks/library/x-xercesperf.html).
+     *
+     * @return The built Xerces-SAX-reader, 0 if something failed
+     */
+    static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader * getSAXReader() throw();
+
+
+    /**
      * @brief Sets the named feature of the given reader to the given value
      *
      * The given feature name is translated into an XMLCh* and set.
@@ -141,8 +158,11 @@ protected:
 
 
 private:
-    /// The XML Reader used for repeated parsing
+    /// @brief The XML Reader used for repeated parsing
     static XERCES_CPP_NAMESPACE_QUALIFIER SAX2XMLReader * myReader;
+
+    /// @brief Information whether built reader/parser shall validate XML-documents against schemata
+    static bool myEnableValidation;
 
 };
 

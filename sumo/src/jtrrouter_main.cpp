@@ -199,7 +199,7 @@ main(int argc, char **argv)
     RONet *net = 0;
     try {
         // initialise the application system (messaging, xml, options)
-        XMLSubSys::init();
+        XMLSubSys::init(false);
         ROJTRFrame::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
         if (oc.processMetaOptions(argc < 2)) {

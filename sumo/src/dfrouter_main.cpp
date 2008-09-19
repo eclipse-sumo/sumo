@@ -329,7 +329,7 @@ main(int argc, char **argv)
     RODFDetectorFlows *flows = 0;
     try {
         // initialise the application system (messaging, xml, options)
-        XMLSubSys::init();
+        XMLSubSys::init(false);
         RODFFrame::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
         if (oc.processMetaOptions(argc < 2)) {

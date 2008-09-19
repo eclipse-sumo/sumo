@@ -118,7 +118,7 @@ main(int argc, char **argv)
     MSNet *net = 0;
     try {
         // initialise subsystems
-        XMLSubSys::init();
+        XMLSubSys::init(false);
         MSFrame::fillOptions();
         OptionsIO::getOptions(true, argc, argv);
         if (oc.processMetaOptions(argc < 2)) {

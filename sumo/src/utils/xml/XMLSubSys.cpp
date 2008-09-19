@@ -60,27 +60,19 @@ using namespace std;
 // static member variables
 // ===========================================================================
 SAX2XMLReader* XMLSubSys::myReader;
+bool XMLSubSys::myEnableValidation;
 
 
 // ===========================================================================
 // method definitions
 // ===========================================================================
 void
-XMLSubSys::init() throw(ProcessError)
+XMLSubSys::init(bool enableValidation) throw(ProcessError)
 {
+    myEnableValidation = enableValidation;
     try {
         XMLPlatformUtils::Initialize();
-        myReader = XMLReaderFactory::createXMLReader();
-        setFeature(*myReader,
-                   "http://xml.org/sax/features/namespaces", false);
-        setFeature(*myReader,
-                   "http://apache.org/xml/features/validation/schema", false);
-        setFeature(*myReader,
-                   "http://apache.org/xml/features/validation/schema-full-checking", false);
-        setFeature(*myReader,
-                   "http://xml.org/sax/features/validation", false);
-        setFeature(*myReader,
-                   "http://apache.org/xml/features/validation/dynamic" , false);
+        myReader = getSAXReader();
     } catch (const XMLException& e) {
         throw ProcessError("Error during XML-initialization:\n " + TplConvert<XMLCh>::_2str(e.getMessage()));
     }
@@ -99,21 +91,10 @@ XMLSubSys::close() throw()
 SAX2XMLReader *
 XMLSubSys::getSAXReader(SUMOSAXHandler &handler) throw()
 {
-    SAX2XMLReader *reader = XMLReaderFactory::createXMLReader();
+    SAX2XMLReader *reader = getSAXReader();
     if (reader==0) {
-        MsgHandler::getErrorInstance()->inform("The XML-parser could not be build");
         return 0;
     }
-    setFeature(*reader,
-               "http://xml.org/sax/features/namespaces", false);
-    setFeature(*reader,
-               "http://apache.org/xml/features/validation/schema", false);
-    setFeature(*reader,
-               "http://apache.org/xml/features/validation/schema-full-checking", false);
-    setFeature(*reader,
-               "http://xml.org/sax/features/validation", false);
-    setFeature(*reader,
-               "http://apache.org/xml/features/validation/dynamic" , false);
     reader->setContentHandler(&handler);
     reader->setErrorHandler(&handler);
     return reader;
@@ -138,6 +119,26 @@ XMLSubSys::runParser(SUMOSAXHandler &handler,
         return false;
     }
     return !MsgHandler::getErrorInstance()->wasInformed();
+}
+
+
+SAX2XMLReader *
+XMLSubSys::getSAXReader() throw()
+{
+    SAX2XMLReader *reader = XMLReaderFactory::createXMLReader();
+    if (reader==0) {
+        MsgHandler::getErrorInstance()->inform("The XML-parser could not be build");
+        return 0;
+    }
+    if(!myEnableValidation) {
+        reader->setProperty(XMLUni::fgXercesScannerName, (void *)XMLUni::fgWFXMLScanner);
+    }
+    setFeature(*reader, "http://xml.org/sax/features/namespaces", false);
+    setFeature(*reader, "http://apache.org/xml/features/validation/schema", myEnableValidation);
+    setFeature(*reader, "http://apache.org/xml/features/validation/schema-full-checking", myEnableValidation);
+    setFeature(*reader, "http://xml.org/sax/features/validation", myEnableValidation);
+    setFeature(*reader, "http://apache.org/xml/features/validation/dynamic", myEnableValidation);
+    return reader;
 }
 
 
