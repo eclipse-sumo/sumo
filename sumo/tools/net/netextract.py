@@ -3,7 +3,7 @@
 @file    netextract.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2007-02-21
-@version $Id: $
+@version $Id$
 
 
 This script reads in the network given as

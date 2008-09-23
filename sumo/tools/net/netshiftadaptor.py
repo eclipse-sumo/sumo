@@ -3,7 +3,7 @@
 @file    netshiftadaptor.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2008-09-01
-@version $Id: $
+@version $Id$
 
 
 This class performs a network reprojection

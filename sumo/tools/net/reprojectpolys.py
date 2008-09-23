@@ -3,7 +3,7 @@
 @file    reprojectpolys.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2008-03-27
-@version $Id: $
+@version $Id$
 
 This script computes projection needed to make net2 (-2) fit
  to net1 (-1). The read polygons (-p) are then reprojected

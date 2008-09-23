@@ -3,7 +3,7 @@
 @file    patchNetFiles.py
 @author  Daniel.Krajzewicz@dlr.de 
 @date    2008-08-13
-@version $Id: $
+@version $Id$
 
 Reads in a file where junctions controlled by
  tls are stored and one which contains correct

@@ -3,7 +3,7 @@
 @file    prepareVISUM.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2008-09-01
-@version $Id: $
+@version $Id$
 
 
 Parses a VISUM-file and writes a modified
