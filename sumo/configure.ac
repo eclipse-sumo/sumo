@@ -142,12 +142,14 @@ dnl   ... for libs
 LIB_XERCES="xerces-c"
 AC_ARG_WITH([xerces-libraries], [AS_HELP_STRING([--with-xerces-libraries=DIR],[where the Xerces-C library is installed.])])
 if test x"$with_xerces_libraries" = x; then
-   AC_CHECK_LIB([$LIB_XERCES], [main], [true], [AC_MSG_ERROR([xerces-lib not found. Specify path with option --with-xerces-libraries=DIR.])])
+   AC_CHECK_LIB([$LIB_XERCES], [main], [true],
+                [AC_MSG_ERROR([xerces-lib not found. Specify path with option --with-xerces-libraries=DIR.])])
 else
    save_ldflags=$LDFLAGS
    LDFLAGS="-L$with_xerces_libraries"
    export LDFLAGS
-   AC_CHECK_LIB([$LIB_XERCES], [main], [XERCES_LDFLAGS=$LDFLAGS], [AC_MSG_ERROR([xerces-lib not found in "$with_xerces_libraries".])])
+   AC_CHECK_LIB([$LIB_XERCES], [main], [XERCES_LDFLAGS=$LDFLAGS],
+                [AC_MSG_ERROR([xerces-lib not found in "$with_xerces_libraries".])])
    LDFLAGS=$save_ldflags
    AC_SUBST(XERCES_LDFLAGS)
 fi
@@ -156,12 +158,14 @@ AC_SUBST(LIB_XERCES)
 dnl   ... for includes
 AC_ARG_WITH([xerces-includes], [AS_HELP_STRING([--with-xerces-includes=DIR],[where the Xerces-C includes are.])])
 if test x"$with_xerces_includes" = x; then
-   AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp], [], [AC_MSG_ERROR([xerces-includes not found. Specify path with option --with-xerces-includes=DIR.])])
+   AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp], [],
+                   [AC_MSG_ERROR([xerces-includes not found. Specify path with option --with-xerces-includes=DIR.])])
 else
    save_cppflags=$CPPFLAGS
    CPPFLAGS="-I$with_xerces_includes"
    export CPPFLAGS
-   AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([xerces-includes not found in "$with_xerces_includes".])])
+   AC_CHECK_HEADER([xercesc/util/XercesVersion.hpp], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
+                   [AC_MSG_ERROR([xerces-includes not found in "$with_xerces_includes".])])
    CPPFLAGS=$save_cppflags
 fi
 
@@ -190,12 +194,14 @@ dnl   ... for libs
 LIB_PROJ="proj"
 AC_ARG_WITH([proj-libraries], [AS_HELP_STRING([--with-proj-libraries=DIR],[where the PROJ library is installed (overrides previous settings).])])
 if test x"$with_proj_libraries" = x; then
-   AC_CHECK_LIB([$LIB_PROJ], [main], [true], [AC_MSG_WARN([proj-lib not found. Specify path with option --with-proj-libraries=DIR.])])
+   AC_CHECK_LIB([$LIB_PROJ], [main], [with_proj_libraries=yes],
+                [AC_MSG_WARN([proj-lib not found. Specify path with option --with-proj-libraries=DIR.])])
 else
    save_ldflags=$LDFLAGS
    LDFLAGS="-L$with_proj_libraries"
    export LDFLAGS
-   AC_CHECK_LIB([$LIB_PROJ], [main], [PROJ_LDFLAGS=$LDFLAGS], [AC_MSG_ERROR([proj-lib not found in "$with_proj_libraries".])])
+   AC_CHECK_LIB([$LIB_PROJ], [main], [PROJ_LDFLAGS=$LDFLAGS],
+                [AC_MSG_ERROR([proj-lib not found in "$with_proj_libraries".])])
    LDFLAGS=$save_ldflags
    AC_SUBST(PROJ_LDFLAGS)
 fi
@@ -204,12 +210,14 @@ AC_SUBST(LIB_PROJ)
 dnl   ... for includes
 AC_ARG_WITH([proj-includes], [AS_HELP_STRING([--with-proj-includes=DIR],[where the PROJ includes are (overrides previous settings).])])
 if test x"$with_proj_includes" = x; then
-   AC_CHECK_HEADER([proj_api.h], [], [AC_MSG_WARN([proj-includes not found. Specify path with option --with-proj-includes=DIR.])])
+   AC_CHECK_HEADER([proj_api.h], [with_proj_includes=yes],
+                   [AC_MSG_WARN([proj-includes not found. Specify path with option --with-proj-includes=DIR.])])
 else
    save_cppflags=$CPPFLAGS
    CPPFLAGS="-I$with_proj_includes"
    export CPPFLAGS
-   AC_CHECK_HEADER([proj_api.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([proj-includes not found in "$with_proj_includes".])])
+   AC_CHECK_HEADER([proj_api.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
+                   [AC_MSG_ERROR([proj-includes not found in "$with_proj_includes".])])
    CPPFLAGS=$save_cppflags
 fi
 AM_CONDITIONAL([WITH_PROJ], [test x"$with_proj_includes" != x && test x"$with_proj_libraries" != x])
@@ -227,12 +235,14 @@ dnl   ... for libs
 LIB_GDAL="gdal"
 AC_ARG_WITH([gdal-libraries], [AS_HELP_STRING([--with-gdal-libraries=DIR],[where the GDAL library is installed (overrides previous settings).])])
 if test x"$with_gdal_libraries" = x; then
-   AC_CHECK_LIB([$LIB_GDAL], [main], [true], [AC_MSG_WARN([gdal-lib not found. Specify path with option --with-gdal-libraries=DIR.])])
+   AC_CHECK_LIB([$LIB_GDAL], [main], [with_gdal_libraries=yes],
+                [AC_MSG_WARN([gdal-lib not found. Specify path with option --with-gdal-libraries=DIR.])])
 else
    save_ldflags=$LDFLAGS
    LDFLAGS="-L$with_gdal_libraries"
    export LDFLAGS
-   AC_CHECK_LIB([$LIB_GDAL], [main], [GDAL_LDFLAGS=$LDFLAGS], [AC_MSG_ERROR([gdal-lib not found in "$with_gdal_libraries".])])
+   AC_CHECK_LIB([$LIB_GDAL], [main], [GDAL_LDFLAGS=$LDFLAGS],
+                [AC_MSG_ERROR([gdal-lib not found in "$with_gdal_libraries".])])
    LDFLAGS=$save_ldflags
    AC_SUBST(GDAL_LDFLAGS)
 fi
@@ -240,15 +250,20 @@ AC_SUBST(LIB_GDAL)
 
 dnl   ... for includes
 AC_ARG_WITH([gdal-includes], [AS_HELP_STRING([--with-gdal-includes=DIR],[where the GDAL includes are (overrides previous settings).])])
+save_cppflags=$CPPFLAGS
 if test x"$with_gdal_includes" = x; then
-   AC_CHECK_HEADER([ogr_api.h], [], [AC_MSG_WARN([gdal-includes not found. Specify path with option --with-gdal-includes=DIR.])])
+    CPPFLAGS="$CPPFLAGS -I/usr/local/include/gdal -I/usr/include/gdal"
+    export CPPFLAGS
+    AC_CHECK_HEADER([ogr_api.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
+                                  with_gdal_includes=yes],
+                    [AC_MSG_WARN([gdal-includes not found. Specify path with option --with-gdal-includes=DIR.])])
 else
-   save_cppflags=$CPPFLAGS
-   CPPFLAGS="-I$with_gdal_includes"
-   export CPPFLAGS
-   AC_CHECK_HEADER([ogr_api.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([gdal-includes not found in "$with_gdal_includes".])])
-   CPPFLAGS=$save_cppflags
+    CPPFLAGS="-I$with_gdal_includes"
+    export CPPFLAGS
+    AC_CHECK_HEADER([ogr_api.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
+                    [AC_MSG_ERROR([gdal-includes not found in "$with_gdal_includes".])])
 fi
+CPPFLAGS=$save_cppflags
 AM_CONDITIONAL([WITH_GDAL], [test x"$with_gdal_includes" != x && test x"$with_gdal_libraries" != x])
 if test x"$with_gdal_includes" != x && test x"$with_gdal_libraries" != x; then
    AC_DEFINE([HAVE_GDAL], [1], [defined if GDAL is available])
@@ -276,12 +291,14 @@ dnl   ... for libs
     LIB_FOX="FOX-1.4"
     AC_ARG_WITH([fox-libraries], [AS_HELP_STRING([--with-fox-libraries=DIR],[where the Fox library is installed.])])
     if test x"$with_fox_libraries" = x; then
-        AC_CHECK_LIB([$LIB_FOX], [main], [with_fox_libraries=yes], [AC_MSG_WARN([fox-lib not found. Specify path with option --with-fox-libraries=DIR for gui applications.])])
+        AC_CHECK_LIB([$LIB_FOX], [main], [with_fox_libraries=yes],
+                     [AC_MSG_WARN([fox-lib not found. Specify path with option --with-fox-libraries=DIR for gui applications.])])
     else
         save_ldflags=$LDFLAGS
         LDFLAGS="-L$with_fox_libraries"
         export LDFLAGS
-        AC_CHECK_LIB([$LIB_FOX], [main], [FOX_LDFLAGS=$LDFLAGS], [AC_MSG_ERROR([fox-lib not found in "$with_fox_libraries".])])
+        AC_CHECK_LIB([$LIB_FOX], [main], [FOX_LDFLAGS=$LDFLAGS],
+                     [AC_MSG_ERROR([fox-lib not found in "$with_fox_libraries".])])
         LDFLAGS=$save_ldflags
         AC_SUBST(FOX_LDFLAGS)
     fi
@@ -289,20 +306,20 @@ dnl   ... for libs
 
 dnl   ... for includes
     AC_ARG_WITH([fox-includes], [AS_HELP_STRING([--with-fox-includes=DIR],[where the Fox includes are.])])
+    save_cppflags=$CPPFLAGS
     if test x"$with_fox_includes" = x; then
-        save_cppflags=$CPPFLAGS
         CPPFLAGS="$CPPFLAGS -I/usr/local/include/fox-1.4 -I/usr/include/fox-1.4"
         export CPPFLAGS
         AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"
-        with_fox_includes=yes], [AC_MSG_WARN([fox-includes not found. Specify path with option --with-fox-includes=DIR for gui applications.])])
-        CPPFLAGS=$save_cppflags
+                                    with_fox_includes=yes],
+                        [AC_MSG_WARN([fox-includes not found. Specify path with option --with-fox-includes=DIR for gui applications.])])
     else
-        save_cppflags=$CPPFLAGS
         CPPFLAGS="-I$with_fox_includes"
         export CPPFLAGS
-        AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"], [AC_MSG_ERROR([fox-includes not found in "$with_fox_includes".])])
-        CPPFLAGS=$save_cppflags
+        AC_CHECK_HEADER([fxver.h], [AM_CPPFLAGS="$CPPFLAGS $AM_CPPFLAGS"],
+                        [AC_MSG_ERROR([fox-includes not found in "$with_fox_includes".])])
     fi
+    CPPFLAGS=$save_cppflags
 fi
 AM_CONDITIONAL([WITH_GUI], [test x"$with_fox_includes" != x && test x"$with_fox_libraries" != x])
 if test x"$with_fox_includes" != x && test x"$with_fox_libraries" != x; then
