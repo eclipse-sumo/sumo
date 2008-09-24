@@ -9,6 +9,7 @@ if test "x$2" = "x"; then
 else
   FILEPREFIX=$2
 fi
+export FILEPREFIX
 REMOTEDIR="behrisch,sumo@web.sourceforge.net:/home/groups/s/su/sumo/htdocs/daily/"
 MAKELOG=$PREFIX/${FILEPREFIX}make.log
 RUNLOG=$PREFIX/${FILEPREFIX}examplelogs.tar.gz
