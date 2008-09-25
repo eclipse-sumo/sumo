@@ -16,106 +16,32 @@ Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 
+import os, sys, optparse
 
+optParser = optparse.OptionParser(usage="usage: %prog [options] <visum.net>")
+optParser.add_option("-s", "--sumo-netconvert", dest="netconvert",
+                     default="netconvert",
+                     help="netconvert executable", metavar="FILE")
+(options, args) = optParser.parse_args()
+if len(args) != 1:
+    print >> sys.stderr, "Net argument missing."
+    optParser.print_help()
+    sys.exit(1)
 
+types2import = { 2:1, 10:2, 11:4, 12:3, 13:2, 14:2, 15:3, 16:3, 17:3, 18:3, 19:1,
+                20:2, 21:3, 22:2, 23:2, 24:1, 25:1, 26:1, 27:2, 28:2, 29:2,
+                30:3, 31:2, 32:2, 33:2, 34:1, 35:1, 36:1, 37:2, 38:1, 39:3,
+                40:3, 41:1, 42:1, 43:2, 44:3, 45:2, 46:1, 47:1, 49:3,
+                50:2, 51:3, 52:3, 53:1, 54:3, 55:3, 56:3, 57:3, 58:3, 59:3,
+                60:1, 61:1, 62:1, 63:1, 64:1, 65:1, 66:1, 68:2, 69:2,
+                70:1, 71:2, 72:3, 73:3, 74:3, 75:1, 76:1, 77:3, 78:3, 79:1,
+                80:1, 81:1, 82:1, 83:1, 84:1, 85:3, 86:3, 87:3, 88:3, 89:3,
+                90:1, 91:1, 92:1, 93:1, 94:2, 95:1, 96:1, 97:1, 98:2, 99:2}
 
-import sys
-
-
-types2import = {}
-types2import[2] = 1
-types2import[10] = 2
-types2import[11] = 4
-types2import[12] = 3
-types2import[13] = 2
-types2import[14] = 2
-types2import[15] = 3
-types2import[16] = 3
-types2import[17] = 3
-types2import[18] = 3
-types2import[19] = 1
-types2import[20] = 2
-types2import[21] = 3
-types2import[22] = 2
-types2import[23] = 2
-types2import[24] = 1
-types2import[25] = 1
-types2import[26] = 1
-types2import[27] = 2
-types2import[28] = 2
-types2import[29] = 2
-types2import[30] = 3
-types2import[31] = 2
-types2import[32] = 2
-types2import[33] = 2
-types2import[34] = 1
-types2import[35] = 1
-types2import[36] = 1
-types2import[37] = 2
-types2import[38] = 1
-types2import[39] = 3
-types2import[40] = 3
-types2import[41] = 1
-types2import[42] = 1
-types2import[43] = 2
-types2import[44] = 3
-types2import[45] = 2
-types2import[46] = 1
-types2import[47] = 1
-types2import[49] = 3
-types2import[50] = 2
-types2import[51] = 3
-types2import[52] = 3
-types2import[53] = 1
-types2import[54] = 3
-types2import[55] = 3
-types2import[56] = 3
-types2import[57] = 3
-types2import[58] = 3
-types2import[59] = 3
-types2import[60] = 1
-types2import[61] = 1
-types2import[62] = 1
-types2import[63] = 1
-types2import[64] = 1
-types2import[65] = 1
-types2import[66] = 1
-types2import[68] = 2
-types2import[69] = 2
-types2import[70] = 1
-types2import[71] = 2
-types2import[72] = 3
-types2import[73] = 3
-types2import[74] = 3
-types2import[75] = 1
-types2import[76] = 1
-types2import[77] = 3
-types2import[78] = 3
-types2import[79] = 1
-types2import[80] = 1
-types2import[81] = 1
-types2import[82] = 1
-types2import[83] = 1
-types2import[84] = 1
-types2import[85] = 3
-types2import[86] = 3
-types2import[87] = 3
-types2import[88] = 3
-types2import[89] = 3
-types2import[90] = 1
-types2import[91] = 1
-types2import[92] = 1
-types2import[93] = 1
-types2import[94] = 2
-types2import[95] = 1
-types2import[96] = 1
-types2import[97] = 1
-types2import[98] = 2
-types2import[99] = 2
-
-
-fdi = open(sys.argv[1])
-fdo = open(sys.argv[1] + "_mod.net", "w")
+fdi = open(args[0])
+modifiedVisumNet = os.path.basename(args[0])[:-4] + "_mod.net"
+sumoNet = modifiedVisumNet + ".xml"
+fdo = open(modifiedVisumNet, "w")
 process = False
 skip = False
 for line in fdi:
@@ -137,3 +63,5 @@ for line in fdi:
 fdi.close()
 fdo.close()
 
+os.system("%s --visum-file %s --dismiss-loading-errors -o %s"\
+          % (options.netconvert, modifiedVisumNet, sumoNet))
