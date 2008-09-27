@@ -19,6 +19,7 @@ Requires:      libproj libgdal Xerces-c fox14
 highly portable, microscopic road traffic simulation package
 designed to handle large road networks.
 
+%debug_package
 %prep
 %setup -q
 
