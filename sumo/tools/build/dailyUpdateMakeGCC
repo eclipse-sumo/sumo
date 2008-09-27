@@ -1,15 +1,7 @@
 #!/bin/bash
-if test "x$1" = "x"; then
-  PREFIX=$HOME
-else
-  PREFIX=$1
-fi
-if test "x$2" = "x"; then
-  FILEPREFIX=gcc4
-else
-  FILEPREFIX=$2
-fi
-export FILEPREFIX
+PREFIX=$1
+export FILEPREFIX=$2
+export SMTP_SERVER=$3
 REMOTEDIR="behrisch,sumo@web.sourceforge.net:/home/groups/s/su/sumo/htdocs/daily/"
 MAKELOG=$PREFIX/${FILEPREFIX}make.log
 RUNLOG=$PREFIX/${FILEPREFIX}examplelogs.tar.gz
@@ -17,7 +9,6 @@ MAKEALLLOG=$PREFIX/${FILEPREFIX}makealloptions.log
 STATUSLOG=$PREFIX/${FILEPREFIX}status.log
 export SUMO_BATCH_RESULT=$PREFIX/${FILEPREFIX}batch_result
 export SUMO_REPORT=$PREFIX/${FILEPREFIX}report
-export SMTP_SERVER=localhost
 
 rm -f $STATUSLOG
 echo -n "$FILEPREFIX, " > $STATUSLOG
