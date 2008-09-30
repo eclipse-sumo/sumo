@@ -286,13 +286,6 @@ NBNodeCont::writeXML(OutputDevice &into)
 }
 
 
-int
-NBNodeCont::size()
-{
-    return myNodes.size();
-}
-
-
 void
 NBNodeCont::clear()
 {
@@ -381,12 +374,12 @@ void
 NBNodeCont::removeDummyEdges(NBDistrictCont &dc, NBEdgeCont &ec,
                              NBTrafficLightLogicCont &tc)
 {
-    size_t no = 0;
+    unsigned int no = 0;
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         no += (*i).second->eraseDummies(dc, ec, tc);
     }
     if (no!=0) {
-        WRITE_WARNING(toString<int>(no) + " dummy edge(s) removed.");
+        WRITE_WARNING(toString(no) + " dummy edge(s) removed.");
     }
 }
 
@@ -410,9 +403,10 @@ NBNodeCont::computeNodeShapes()
 
 void
 NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
-                                NBTrafficLightLogicCont &tlc)
+                                NBTrafficLightLogicCont &tlc,
+                                bool removeGeometryNodes) throw()
 {
-    size_t no = 0;
+    unsigned int no = 0;
     std::vector<NBNode*> toRemove;
     for (NodeCont::iterator i=myNodes.begin(); i!=myNodes.end(); i++) {
         NBNode *current = (*i).second;
@@ -427,19 +421,16 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
             remove = true;
         }
         // check for nodes which are only geometry nodes
-        if ((current->getOutgoingEdges().size()==1
-                &&
-                current->getIncomingEdges().size()==1)
+        if(removeGeometryNodes) {
+            if ((current->getOutgoingEdges().size()==1 && current->getIncomingEdges().size()==1)
                 ||
-                (current->getOutgoingEdges().size()==2
-                 &&
-                 current->getIncomingEdges().size()==2)) {
-
-            // ok, one in, one out or two in, two out
-            //  -> ask the node whether to join
-            remove = current->checkIsRemovable();
-            if (remove) {
-                toJoin = current->getEdgesToJoin();
+                (current->getOutgoingEdges().size()==2 && current->getIncomingEdges().size()==2)) {
+                // ok, one in, one out or two in, two out
+                //  -> ask the node whether to join
+                remove = current->checkIsRemovable();
+                if (remove) {
+                    toJoin = current->getEdgesToJoin();
+                }
             }
         }
         // remove the node and join the geometries when wished
@@ -466,7 +457,7 @@ NBNodeCont::removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
         }
         erase(*j);
     }
-    WRITE_MESSAGE("   " + toString<int>(no) + " nodes removed.");
+    WRITE_MESSAGE("   " + toString(no) + " nodes removed.");
 }
 
 

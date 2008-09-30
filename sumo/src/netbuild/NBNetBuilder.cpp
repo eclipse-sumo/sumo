@@ -143,7 +143,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError)
     //
     if (oc.getBool("remove-geometry")) {
         inform(step, "Removing empty nodes and geometry nodes.");
-        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont);
+        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont, oc.getBool("remove-geometry"));
     }
     //
     if (oc.getBool("keep-edges.postload")) {
@@ -154,7 +154,7 @@ NBNetBuilder::compute(OptionsCont &oc) throw(ProcessError)
     }
     if (oc.isSet("keep-edges") || oc.isSet("remove-edges") || oc.getBool("keep-edges.postload") || oc.isSet("keep-edges.by-vclass") || oc.isSet("keep-edges.input-file")) {
         inform(step, "Rechecking nodes after edge removal.");
-        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont);
+        myNodeCont.removeUnwishedNodes(myDistrictCont, myEdgeCont, myTLLCont, oc.getBool("remove-geometry"));
     }
     //
     if (oc.getBool("split-geometry")) {

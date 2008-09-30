@@ -118,8 +118,12 @@ public:
     /// writes the nodes into the given ostream
     void writeXML(OutputDevice &into);
 
-    /// returns the number of known nodes
-    int size();
+    /** @brief Returns the number of known nodes
+     * @return The number of nodes stored in this container
+     */
+    unsigned int size() const throw() {
+        return (unsigned int) myNodes.size();
+    }
 
     /** deletes all nodes */
     void clear();
@@ -136,8 +140,22 @@ public:
 
     void computeNodeShapes();
 
+    /** @brief Removes "unwished" nodes
+     *
+     * Removes nodes if a) no incoming/outgoing edges exist or
+     *  b) if the node is a "geometry" node. In the second case,
+     *  edges that participate at the node will be joined. 
+     * Whether the node is a geometry node or not, is determined
+     *  by a call to NBNode::checkIsRemovable.
+     * The node is removed from the list of tls-controlled nodes.
+     * @param[in, mod] dc The district container needed if a node shall be removed
+     * @param[in, mod] ec The edge container needed for joining edges
+     * @param[in, mod] tlc The traffic lights container to remove nodes from
+     * @param[in] removeGeometryNodes Whether geometry nodes shall also be removed
+     */
     void removeUnwishedNodes(NBDistrictCont &dc, NBEdgeCont &ec,
-                             NBTrafficLightLogicCont &tlc);
+                             NBTrafficLightLogicCont &tlc,
+                             bool removeGeometryNodes) throw();
 
     void guessRamps(OptionsCont &oc, NBEdgeCont &ec, NBDistrictCont &dc);
     void guessTLs(OptionsCont &oc, NBTrafficLightLogicCont &tlc);
