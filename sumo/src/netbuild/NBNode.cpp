@@ -1674,14 +1674,14 @@ NBNode::getPossiblySplittedOutgoing(const std::string &edgeid)
 }
 
 
-size_t
+unsigned int
 NBNode::eraseDummies(NBDistrictCont &dc, NBEdgeCont &ec, NBTrafficLightLogicCont &tc)
 {
-    size_t ret = 0;
+    unsigned int ret = 0;
     if (myOutgoingEdges==0||myIncomingEdges==0) {
         return ret;
     }
-    size_t pos = 0;
+    unsigned int pos = 0;
     EdgeVector::const_iterator j=myIncomingEdges->begin();
     while (j!=myIncomingEdges->end()) {
         // skip edges which are only incoming and not outgoing

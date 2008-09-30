@@ -213,7 +213,7 @@ public:
     NBEdge *getPossiblySplittedIncoming(const std::string &edgeid);
     NBEdge *getPossiblySplittedOutgoing(const std::string &edgeid);
 
-    size_t eraseDummies(NBDistrictCont &dc, NBEdgeCont &ec,
+    unsigned int eraseDummies(NBDistrictCont &dc, NBEdgeCont &ec,
                         NBTrafficLightLogicCont &tc);
 
     void removeOutgoing(NBEdge *edge);
