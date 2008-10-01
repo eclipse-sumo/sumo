@@ -142,10 +142,16 @@ optParser.add_option("-p", "--path", dest="path",
 
 
 if (sys.platform=="win32"):        
-        duaBinary = os.path.join(options.path, "duarouter.exe")
+    duaBinary = os.path.join(options.path, "duarouter.exe")
+    if options.mesosim:
+        sumoBinary = os.path.join(options.path, "meso.exe")
+    else:
         sumoBinary = os.path.join(options.path, "sumo.exe")
 else:
-        duaBinary = os.path.join(options.path, "sumo-duarouter")
+    duaBinary = os.path.join(options.path, "sumo-duarouter")
+    if options.mesosim:
+        sumoBinary = os.path.join(options.path, "meso")
+    else:
         sumoBinary = os.path.join(options.path, "sumo")
 log = open("dua-log.txt", "w")
 logQuiet = open("dua-log-quiet.txt", "w")
