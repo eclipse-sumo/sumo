@@ -62,19 +62,7 @@ optParser.add_option("-m", "--mesosim", action="store_true", dest="mesosim",
 
 os.chdir("input")
 netFile = "../input/" + glob.glob("*.net.xml")[0]
-mtxNamesList = ",".join(["../input/" + item for item in glob.glob("*.fma")])
-
-tempList = []
-filenames = ''
-for elem in mtxNamesList.split(","):
-    tempList.append(elem)
-tempList.sort()
-for count, elem in enumerate(tempList):
-    if count < (len(tempList)-1):
-        filenames += elem + ","
-    else:
-        filenames += elem
-mtxNamesList = filenames
+mtxNamesList = ",".join(["../input/" + item for item in sorted(glob.glob("*.fma"))])
 
 addFiles = ",".join(["../input/" + item for item in glob.glob("*.add.xml")])
 pyAdds = ""
@@ -90,9 +78,6 @@ else:
     trips = "successive"
 routes = "../input/routes.rou.xml"
 ncpus = detectCPUs()
-mesoAppendix = ""
-if options.mesosim:
-    mesoAppendix = "meso_"
 
 mesoAppendix = ""
 if options.mesosim:
