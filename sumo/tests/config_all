@@ -14,3 +14,5 @@ gcc4:"gcc4" <behrisch@informatik.hu-berlin.de>
 [run_dependent_text]
 output:Version
 errors:UTFDataFormatException
+[batch_filter_file]
+meso:$TEXTTEST_HOME/meso_filter
