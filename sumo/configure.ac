@@ -55,14 +55,6 @@ else
     ac_disabled="$ac_disabled MemoryChecks"
 fi
 
-AC_ARG_ENABLE([speedcheck], [AS_HELP_STRING([--enable-speedcheck],[enable sumo speedchecking code [default=no].])])
-if test x$enable_speedcheck = xyes; then
-    AC_DEFINE(_SPEEDCHECK, 1, [Define to 1 in order to enable simulation-speed checking.])
-    ac_enabled="$ac_enabled SpeedChecks"
-else
-    ac_disabled="$ac_disabled SpeedChecks"
-fi
-
 AC_ARG_ENABLE([internal-lanes], [AS_HELP_STRING([--disable-internal-lanes],[Disable junction internal lanes.])])
 if test x$enable_internal_lanes != xno; then
     AC_DEFINE(HAVE_INTERNAL_LANES, 1, [Define to 1 if you want junction internal lanes])
