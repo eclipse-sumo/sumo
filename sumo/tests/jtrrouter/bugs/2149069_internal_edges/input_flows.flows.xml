@@ -1,0 +1,6 @@
+<flowdefs>
+
+	<vtype id="passenger" vclass="passenger"/>
+	<flow id="0" from="beg" begin="0" end="1" no="100" type="passenger"/>
+
+</flowdefs>
