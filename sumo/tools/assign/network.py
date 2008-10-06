@@ -273,7 +273,8 @@ class NetworkReader(handler.ContentHandler):
             self._edge = attrs['edge']
             if self._edge[0]!=':':
                 self._edgeObj = self._net.getEdge(self._edge)
-                self._edgeObj.junction = attrs['junction']
+                if self._edgeObj.junction == 'None':
+                    self._edgeObj.junction = attrs['junction']
             else:
                 self._edge = ""
         elif name == 'succlane' and self._edge!="":
