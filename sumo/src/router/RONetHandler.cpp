@@ -259,6 +259,10 @@ void
 RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessError)
 {
     string id = attrs.getString(SUMO_ATTR_EDGE);
+    if(id[0]==':') {
+        myCurrentEdge = 0;
+        return;
+    }
     myCurrentEdge = myNet.getEdge(id);
     if (myCurrentEdge==0) {
         throw ProcessError("An unknown edge occured (id='" + id + "').");
@@ -269,6 +273,10 @@ RONetHandler::parseConnectingEdge(const SUMOSAXAttributes &attrs) throw(ProcessE
 void
 RONetHandler::parseConnectedEdge(const SUMOSAXAttributes &attrs)
 {
+    if(myCurrentEdge==0) {
+        // earlier error or internal link
+        return;
+    }
     string id = attrs.getString(SUMO_ATTR_LANE);
     if (id=="SUMO_NO_DESTINATION") {
         return;

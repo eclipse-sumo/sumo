@@ -1,0 +1,36 @@
+<?xml version="1.0"?>
+
+<!-- generated on 12/10/07 15:00:37 by SUMO dfrouter Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <detector-files>input_detectors.det.xml</detector-files>
+      <detector-flow-files>input_flows.txt</detector-flow-files>
+   </input>
+
+   <output>
+      <routes-output>routes.rou.xml</routes-output>
+      <detectors-output>detectors_def.det.xml</detectors-output>
+      <emitters-output>emitters.add.xml</emitters-output>
+   </output>
+
+   <time>
+      <end>60</end>
+   </time>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
+<detectors>
+   <detector_definition id="LI" lane="11_21_0" pos="100.00" type="source"/>
+   <detector_definition id="LO" lane="20_10_0" pos="100.00" type="sink"/>
+   <detector_definition id="RI" lane="60_50_0" pos="100.00" type="source"/>
+   <detector_definition id="RO" lane="51_61_0" pos="100.00" type="sink"/>
+   <detector_definition id="BI" lane="a5_a4_0" pos="50.00" type="source"/>
+   <detector_definition id="BO" lane="a4_a5_0" pos="50.00" type="sink"/>
+</detectors>

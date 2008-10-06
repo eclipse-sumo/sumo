@@ -1,0 +1,60 @@
+<edges>
+	<!-- main direction edges -->
+	<edge id="10_00" fromnode="10" tonode="00" nolanes="1"/>
+	<edge id="01_11" fromnode="01" tonode="11" nolanes="1"/>
+
+	<edge id="20_10" fromnode="20" tonode="10" nolanes="1"/>
+	<edge id="11_21" fromnode="11" tonode="21" nolanes="1"/>
+
+	<edge id="30_20" fromnode="30" tonode="20" nolanes="1"/>
+	<edge id="21_31" fromnode="21" tonode="31" nolanes="1"/>
+
+
+	<edge id="50_40" fromnode="50" tonode="40" nolanes="1"/>
+	<edge id="41_51" fromnode="41" tonode="51" nolanes="1"/>
+
+	<edge id="60_50" fromnode="60" tonode="50" nolanes="1"/>
+	<edge id="51_61" fromnode="51" tonode="61" nolanes="1"/>
+
+	<edge id="70_60" fromnode="70" tonode="60" nolanes="1"/>
+	<edge id="61_71" fromnode="61" tonode="71" nolanes="1"/>
+
+
+	<!-- additional (disturbing) connections within the main direction -->
+	<edge id="20_21" fromnode="20" tonode="21" nolanes="1"/>
+	<edge id="21_20" fromnode="21" tonode="20" nolanes="1"/>
+
+	<edge id="50_51" fromnode="50" tonode="51" nolanes="1"/>
+	<edge id="51_50" fromnode="51" tonode="50" nolanes="1"/>
+
+
+	<!-- main junction (inner) edges -->
+	<edge id="40_30" fromnode="40" tonode="30" nolanes="1"/>
+	<edge id="31_41" fromnode="31" tonode="41" nolanes="1"/>
+
+	<edge id="30_31" fromnode="30" tonode="31" nolanes="1"/>
+	<edge id="41_40" fromnode="41" tonode="40" nolanes="1"/>
+
+
+	<!-- second direction edges -->
+	<edge id="30_a0" fromnode="30" tonode="a0" nolanes="1"/>
+	<edge id="a1_40" fromnode="a1" tonode="40" nolanes="1"/>
+
+	<edge id="a0_a2" fromnode="a0" tonode="a2" nolanes="1"/>
+	<edge id="a2_a1" fromnode="a2" tonode="a1" nolanes="1"/>
+
+	<edge id="a2_a3" fromnode="a2" tonode="a3" nolanes="1"/>
+	<edge id="a3_a2" fromnode="a3" tonode="a2" nolanes="1"/>
+
+	<edge id="a3_a4" fromnode="a3" tonode="a4" nolanes="1"/>
+	<edge id="a4_a3" fromnode="a4" tonode="a3" nolanes="1"/>
+
+	<edge id="a4_a5" fromnode="a4" tonode="a5" nolanes="1"/>
+	<edge id="a5_a4" fromnode="a5" tonode="a4" nolanes="1"/>
+
+	<!-- additional disturbance -->
+	<edge id="a3_b1" fromnode="a3" tonode="b1" nolanes="1"/>
+	<edge id="b1_a3" fromnode="b1" tonode="a3" nolanes="1"/>
+
+</edges>
+

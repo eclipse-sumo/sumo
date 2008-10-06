@@ -22,3 +22,6 @@ errors
 # testing flow maximization
 flowmax
 
+# testing things that were buggy before
+bugs
+

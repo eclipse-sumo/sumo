@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+
+<!-- generated on 12/10/07 15:00:37 by SUMO dfrouter Version 0.9.7
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <detector-files>input_detectors.det.xml</detector-files>
+      <detector-flow-files>input_flows.txt</detector-flow-files>
+   </input>
+
+   <output>
+      <routes-output>routes.rou.xml</routes-output>
+      <detectors-output>detectors_def.det.xml</detectors-output>
+      <emitters-output>emitters.add.xml</emitters-output>
+   </output>
+
+   <time>
+      <end>60</end>
+   </time>
+
+   <report>
+      <verbose>true</verbose>
+   </report>
+
+</configuration>
+-->
+
+<triggeredsource>
+   <routedistelem id="a5_a4_to_a3_b1" probability="1"/>
+   <routedistelem id="a5_a4_to_20_10" probability="1"/>
+   <routedistelem id="a5_a4_to_51_61" probability="1"/>
+   <routedistelem id="a5_a4_to_a4_a5" probability="1"/>
+   <emit id="emitter_BI_0" time="0" speed="100.00"/>
+   <emit id="emitter_BI_15" time="15" speed="100.00"/>
+   <emit id="emitter_BI_30" time="30" speed="100.00"/>
+   <emit id="emitter_BI_45" time="45" speed="100.00"/>
+</triggeredsource>
