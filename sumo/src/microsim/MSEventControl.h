@@ -106,7 +106,7 @@ public:
      *
      * Each executed event must return the time that has to pass until it shall
      *  be executed again. If the returned time is 0, the event is deleted.
-     *  Otheriwse it is readded, after the new execution time (returned + current)
+     *  Otherwise it is readded, after the new execution time (returned + current)
      *  is computed.
      *
      * ProcessErrors thrown by executed commands are rethrown.
