@@ -28,4 +28,7 @@ meta
 # testing error input
 errors
 
+# Testing previously buggy behaviour
+bugs
+
 

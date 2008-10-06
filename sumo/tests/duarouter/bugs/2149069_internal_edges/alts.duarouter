@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+
+<!-- generated on 10/06/08 11:26:39 by SUMO duarouter Version dev-SVN-r6103
+<configuration>
+
+   <input>
+      <net-file>input_net.net.xml</net-file>
+      <flow-definition>input_flows.flows.xml</flow-definition>
+   </input>
+
+   <output>
+      <output-file>routes.rou.xml</output-file>
+   </output>
+
+</configuration>
+-->
+
+<route-alternatives>
+   <vehicle id="0_0" depart="0">
+      <routealt last="0">
+         <route cost="125.11" probability="1.00">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="0_1" depart="0">
+      <routealt last="0">
+         <route cost="125.11" probability="1.00">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="0_2" depart="0">
+      <routealt last="0">
+         <route cost="125.11" probability="1.00">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="0_3" depart="0">
+      <routealt last="0">
+         <route cost="125.11" probability="1.00">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="0_4" depart="0">
+      <routealt last="0">
+         <route cost="125.11" probability="1.00">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="0_5" depart="0">
+      <routealt last="0">
+         <route cost="125.11" probability="1.00">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="0_6" depart="0">
+      <routealt last="0">
+         <route cost="125.11" probability="1.00">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="0_7" depart="0">
+      <routealt last="0">
+         <route cost="125.11" probability="1.00">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="0_8" depart="0">
+      <routealt last="0">
+         <route cost="125.11" probability="1.00">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+   <vehicle id="0_9" depart="0">
+      <routealt last="0">
+         <route cost="125.11" probability="1.00">beg middle end rend</route>
+      </routealt>
+   </vehicle>
+</route-alternatives>
