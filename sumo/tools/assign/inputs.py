@@ -28,7 +28,11 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
     skipCount = 0
     zones = 0
     for line in open(matrix):
-        if line[0] != '*' and line[0] != '$':
+        if line[0] == '$':
+            visumCode = line[1:4]
+            if visumCode != 'VMR':
+                skipCount += 1
+        elif line[0] != '*' and line[0] != '$':
             skipCount += 1
             if skipCount == 2:
                 for elem in line.split():
