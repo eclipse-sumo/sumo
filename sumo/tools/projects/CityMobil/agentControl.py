@@ -54,11 +54,7 @@ def reroutePerson(edge, vehicleID):
     stopObject(targetEdge, vehicleID, ROW_DIST-10.)
 
 def main():
-    sumoExe = SUMO
-    if options.gui:
-        sumoExe = SUMOGUI
-    sumoProcess = subprocess.Popen("%s -c %s.sumo.cfg" % (sumoExe, PREFIX), shell=True)
-    initTraCI(PORT)
+    init(options.gui)
     occupancy = -numpy.ones((2*DOUBLE_ROWS, SLOTS_PER_ROW), int)
     agents = {}
     persons = {}
@@ -72,7 +68,7 @@ def main():
             if vehicleID in agents:
                 agents[vehicleID].edge = edge
             else:
-                agents[vehicleID] = Status(edge)
+                agents[vehicleID] = CyberAgent(edge)
                 if edge == "mainin":
                     reroute(occupancy, vehicleID)
                 elif "foot" in edge:

@@ -29,9 +29,9 @@ vehicleStatus = {}
 step = 0
 persons = {}
 
-def init():
+def init(gui):
     sumoExe = SUMO
-    if options.gui:
+    if gui:
         sumoExe = SUMOGUI
     sumoProcess = subprocess.Popen("%s -c %s.sumo.cfg" % (sumoExe, PREFIX), shell=True)
     initTraCI(PORT)
@@ -103,6 +103,7 @@ NewCyberCar(capacity, position)
 Boarding(numPersons, cyberCarID)
 """
 def main():
+    init(options.gui)
     waiting = {}
     
     while True:
