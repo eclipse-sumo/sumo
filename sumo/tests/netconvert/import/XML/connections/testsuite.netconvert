@@ -1,3 +1,6 @@
+# Test for the omitting connections
+cross3l_noconnection
+
 # Test for the unconstrained network
 cross3l_unconstrained
 
@@ -12,4 +15,3 @@ cross3l_no_turnarounds
 
 # Test whether setting prohibitions works
 cross3l_prohibitions
-
