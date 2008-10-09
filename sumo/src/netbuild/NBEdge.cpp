@@ -791,7 +791,7 @@ NBEdge::addEdge2EdgeConnection(NBEdge *dest)
     // check whether the node was merged and now a connection between
     //  not matching edges is tried to be added
     //  This happens f.e. within the ptv VISSIM-example "Beijing"
-    if (myTo!=dest->myFrom) {
+    if (dest!=0 && myTo!=dest->myFrom) {
         return false;
     }
     if (find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(dest))==myConnections.end()) {
