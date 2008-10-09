@@ -75,19 +75,28 @@ class Net:
             targetNodes = set()
             pendingSources = [link.target]
             pendingTargets = []
-            while pendingSources or pendingTargets:
+            stop = False
+            while not stop and (pendingSources or pendingTargets):
                 if pendingSources:
                     source = pendingSources.pop()
                     for out in source.outEdges:
+                        if out.kind == "real":
+                            stop = True
+                            break
                         if out.target not in targetNodes:
                             targetNodes.add(out.target)
                             pendingTargets.append(out.target)
-                if pendingTargets:
+                if not stop and pendingTargets:
                     target = pendingTargets.pop()
                     for incoming in target.inEdges:
+                        if incoming.kind == "real":
+                            stop = True
+                            break
                         if incoming.source not in sourceNodes:
                             sourceNodes.add(incoming.source)
                             pendingSources.append(incoming.source)
+            if stop:
+                continue
             visited.update(sourceNodes)
             complete = True
             for source in sourceNodes:
@@ -352,18 +361,18 @@ class DistrictsReader(handler.ContentHandler):
             self._net._startVertices.append(self._StartDTIn)
             self._net._endVertices.append(self._StartDTOut)
         elif name == 'dsink':
-            sourcelink = self._net.getEdge(attrs['id'])
-            self.I += 1
-            conlink = self._StartDTOut.label + str(self.I)
-            newEdge = Edge(conlink, sourcelink.target, self._StartDTOut, "real")
-            self._net.addEdge(newEdge)
-            newEdge.weight = attrs['weight']
-            newEdge.connection = 1
-        elif name == 'dsource':
             sinklink = self._net.getEdge(attrs['id'])
             self.I += 1
+            conlink = self._StartDTOut.label + str(self.I)
+            newEdge = Edge(conlink, sinklink.target, self._StartDTOut, "real")
+            self._net.addEdge(newEdge)
+            newEdge.weight = attrs['weight']
+            newEdge.connection = 1              
+        elif name == 'dsource':
+            sourcelink = self._net.getEdge(attrs['id'])
+            self.I += 1
             conlink = self._StartDTIn.label + str(self.I)
-            newEdge = Edge(conlink, self._StartDTIn, sinklink.source, "real")
+            newEdge = Edge(conlink, self._StartDTIn, sourcelink.source, "real")
             self._net.addEdge(newEdge)
             newEdge.weight = attrs['weight']
             newEdge.connection = 2
