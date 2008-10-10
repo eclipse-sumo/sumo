@@ -1,5 +1,5 @@
 <connections>
 
-	<connection from="1o" type="lanebound"/>
+	<connection from="1o"/>
 
 </connections>

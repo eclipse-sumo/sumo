@@ -280,8 +280,7 @@
    </succ>
 
    <succ edge="1o" lane="1o_0" junction="1">
-      <succlane lane="1fi_0" yield="0" dir="t" state="M"/>
-      <succlane lane="1fi_1" yield="0" dir="t" state="M"/>
+      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
    </succ>
 
    <succ edge="1si" lane="1si_0" junction="0">
