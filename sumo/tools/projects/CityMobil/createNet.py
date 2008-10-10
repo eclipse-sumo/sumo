@@ -22,7 +22,7 @@ routes = open("%s.rou.xml" % PREFIX, "w")
 print >> routes, """<routes>
     <vtype id="car" length="6" maxspeed="50" color="0.6,0.6,0.6"/>
     <vtype id="person" length=".5" maxspeed="5" color="1,0.2,0.2"/>
-    <vtype id="cybercar" length="7" maxspeed="15" color="0,1,0"/>"""
+    <vtype id="cybercar" length="7" maxspeed="5" color="0,1,0"/>"""
 #streets
 nodeID = "main-0"
 print >> nodes, '<node id="in" x="-100" y="0"/>' 
