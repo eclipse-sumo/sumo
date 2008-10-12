@@ -92,16 +92,20 @@ for row in range(DOUBLE_ROWS):
     <vehicle id="p%sl" type="person" depart="0" period="1" repno="%s" arrivalpos="10000">
         <route edges="%sl -%sl"/>
     </vehicle>""" % (slotID, CAR_CAPACITY-1, slotID, slotID, slotID, CAR_CAPACITY-1, slotID, slotID)
+x = DOUBLE_ROWS * ROW_DIST + ROW_DIST/2
+print >> nodes, '<node id="foot%s" x="%s" y="%s"/>' % (DOUBLE_ROWS, x, y) 
+edgeID = "footmain%sto%s" % (DOUBLE_ROWS-1, DOUBLE_ROWS)
+print >> edges, '<edge id="%s" fromnode="foot%s" tonode="foot%s" speed="5" spread_type="center"/>' % (edgeID, DOUBLE_ROWS-1, DOUBLE_ROWS)
 print >> nodes, '<node id="footend" x="%s" y="%s"/>' % (x+100, y) 
-print >> edges, '<edge id="footmainout" fromnode="foot%s" tonode="footend" speed="5" spread_type="center"/>' % row 
+print >> edges, '<edge id="footmainout" fromnode="foot%s" tonode="footend" speed="5" spread_type="center"/>' % DOUBLE_ROWS 
 
 #cybercar (automated bus)
 y = (SLOTS_PER_ROW+3) * SLOT_WIDTH
 print >> nodes, '<node id="cyber" x="-100" y="%s"/>' % y
 print >> edges, '<edge id="cyberin" fromnode="cyber" tonode="cyber0" nolanes="2" spread_type="center"/>' 
 print >> edges, '<edge id="-cyberin" fromnode="cyber0" tonode="cyber" nolanes="2" spread_type="center"/>' 
-cyberroute = "cyberin"
-for row in range(DOUBLE_ROWS):
+cyberroute = "cyberdepotin"
+for row in range(DOUBLE_ROWS+1):
     nodeID = "cyber%s" % row
     x = row * ROW_DIST + ROW_DIST/2
     print >> nodes, '<node id="%s" x="%s" y="%s"/>' % (nodeID, x, y) 
@@ -127,7 +131,7 @@ totalSlots = 2 * DOUBLE_ROWS * SLOTS_PER_ROW
 print >> routes, """    <vehicle id="v" type="car" depart="1" period="10" repno="%s" arrivalpos="10000">
         <route edges="mainin"/>
     </vehicle>
-    <vehicle id="c" type="cybercar" depart="100" arrivalpos="10000">
+    <vehicle id="c" type="cybercar" depart="100" period="100" repno="1" arrivalpos="10000">
         <route edges="%s"/>
     </vehicle>
 </routes>""" % (totalSlots-1, cyberroute)

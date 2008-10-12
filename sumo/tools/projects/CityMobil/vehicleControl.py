@@ -82,8 +82,6 @@ def _rerouteCar(vehicleID):
 def _reroutePerson(edge, vehicleID):
     row = int(edge[5])
     targetEdge = "footmain%sto%s" % (row, row+1)
-    if row == DOUBLE_ROWS-1:
-        targetEdge = "footmainout"
     stopObject(edge, vehicleID, 1., 0.)
     stopAt(vehicleID, targetEdge, ROW_DIST-10.)
 
