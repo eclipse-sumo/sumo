@@ -171,7 +171,6 @@ def main():
                         vehID = doIncAssign(vehicles, options.verbose, options.maxiteration,
                                             endVertices, start, startVertex, matrixPshort,
                                             D, P, AssignedVeh, AssignedTrip, edgeNums, vehID)
-                
                 for edgeID in net._edges:                                                   
                     edge = net._edges[edgeID]
                     edge.getActualTravelTime(options, False)

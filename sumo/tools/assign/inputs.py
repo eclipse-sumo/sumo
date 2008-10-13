@@ -61,8 +61,7 @@ def getMatrix(net, verbose, matrix, MatrixSum):#, mtxplfile, mtxtfile):
                         MatrixSum += float(item)
                         CurrentMatrixSum += float(item) 
                         if float(item) > 0.0:
-                            Pshort_EffCells += 1
-                            
+                            Pshort_EffCells += 1                    
     begintime = int(periodList[0])
 
     if verbose:

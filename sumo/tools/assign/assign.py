@@ -176,7 +176,6 @@ def calCommonalityAndChoiceProb(ODPaths, mtxOverlap, alpha, gamma, lohse):
                     mtxOverlap[pathone][pathtwo] = mtxOverlap[pathone][pathtwo]/1000.
                     mtxOverlap[pathtwo][pathone] = mtxOverlap[pathone][pathtwo]
                 doCal = False
-    
     if len(ODPaths) > 1:
         for pathone in ODPaths:
             sum_overlap = 0.0 
