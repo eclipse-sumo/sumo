@@ -547,6 +547,13 @@ RODFDetectorCon::getDetector(const std::string &id) const
 }
 
 
+bool
+RODFDetectorCon::knows(const std::string &id) const
+{
+    return myDetectorMap.find(id)!=myDetectorMap.end();
+}
+
+
 /*
 bool
 RODFDetectorCon::isDetector( std::string id )

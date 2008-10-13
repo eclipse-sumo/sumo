@@ -181,6 +181,7 @@ public:
     void saveRoutes(const std::string &file) const;
 
     const RODFDetector &getDetector(const std::string &id) const;
+    bool knows(const std::string &id) const;
     void writeEmitters(const std::string &file,
                        const RODFDetectorFlows &flows,
                        SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,

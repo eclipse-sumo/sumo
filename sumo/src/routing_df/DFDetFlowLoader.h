@@ -33,9 +33,7 @@
 #include <string>
 #include <vector>
 #include <utils/importio/NamedColumnsParser.h>
-#include <utils/importio/LineHandler.h>
-#include <utils/importio/LineReader.h>
-#include <utils/common/IDSupplier.h>
+#include <utils/common/UtilExceptions.h>
 #include <routing_df/RODFDetector.h>
 #include <routing_df/RODFDetectorFlow.h>
 
@@ -53,50 +51,57 @@ class Options;
  * @class DFDetFlowLoader
  * @brief A loader for detector flows
  */
-class DFDetFlowLoader :
-            public LineHandler
+class DFDetFlowLoader
 {
 public:
-    /// Constructor
-    ///!!!DFDetFlowLoader();
-    DFDetFlowLoader(RODFDetectorCon &dets, RODFDetectorFlows &into,
+    /** @brief Constructor
+     *
+     * @param[in] dets Definitions of known detectors
+     * @param[in, filled] into Container to store read values into
+     * @param[in] startTime The first time step for which values shall be read
+     * @param[in] endTime The last time step for which values shall be read
+     * @param[in] timeOffset The offset which shall be applied to the read times
+     */
+    DFDetFlowLoader(const RODFDetectorCon &dets, RODFDetectorFlows &into,
                     SUMOTime startTime, SUMOTime endTime,
                     int timeOffset) throw();
 
-    /// Destructor
+
+    /// @brief Destructor
     ~DFDetFlowLoader() throw();
 
-    void read(const std::string &file);
+    /** @brief Reads the given file assuming it contains detector values
+     * 
+     * Reads the first line, first, and parses it assuming it contains
+     *  the names of the columns that follow within the next lines.
+     *  
+     * Then, the rest of the file is read and the read values for vehicle/heavy vehicle
+     *  amounts and speeds are stored into "myStorage". Values that lie
+     *  before "myStartTime" and behind "myEndTime" as well as values
+     *  which refer to an unknown detector are omitted.
+     *
+     * @param[in] file The name of the file to read
+     * @exception IOError Not yet implemented!
+     * @exception ProcessError Thrown if a value could not be parsed properly or a needed value is missing
+     */
+    void read(const std::string &file) throw(IOError, ProcessError);
 
-    /* ----- from the LineHandler - "interface" ----- */
-    /** @brief Receives input from a line reader (watch full description!)
-        Here, either input from the route file or from the route index file
-        (when existing) is received. In the first case, the list of route
-        indices is build - and read in the second case */
-    bool report(const std::string &result) throw(ProcessError);
 
 private:
+    /// @brief The container for read detector values
     RODFDetectorFlows &myStorage;
 
+    /// @brief The time offset to apply to read time values
     int myTimeOffset;
 
+    /// @brief The first and the last time step to read
     SUMOTime myStartTime, myEndTime;
 
-    /// The used reader
-    LineReader myReader;
-
-    /// Information whether the next line is the first one
-    bool myFirstLine;
-
-/// The value extractor
+    /// @brief The value extractor
     NamedColumnsParser myLineHandler;
 
-    /// Supplier for route ids
-    IDSupplier myRouteIDSupplier;
-
-    /// The path information is found under
-    //std::string fname;
-    RODFDetectorCon &myDetectorContainer;
+    /// @brief Container holding known detectors
+    const RODFDetectorCon &myDetectorContainer;
 
 
 private:

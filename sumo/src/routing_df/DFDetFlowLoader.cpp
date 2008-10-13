@@ -38,7 +38,7 @@
 #include <string>
 #include <fstream>
 #include <sstream>
-#include <utils/importio/LineHandler.h>
+#include <utils/importio/LineReader.h>
 #include <utils/options/OptionsCont.h>
 #include <utils/common/IDSupplier.h>
 #include <utils/common/StringTokenizer.h>
@@ -62,7 +62,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-DFDetFlowLoader::DFDetFlowLoader(RODFDetectorCon &dets,
+DFDetFlowLoader::DFDetFlowLoader(const RODFDetectorCon &dets,
                                  RODFDetectorFlows &into,
                                  SUMOTime startTime, SUMOTime endTime,
                                  int timeOffset) throw()
@@ -77,30 +77,24 @@ DFDetFlowLoader::~DFDetFlowLoader() throw()
 
 
 void
-DFDetFlowLoader::read(const std::string &file)
+DFDetFlowLoader::read(const std::string &file) throw(IOError, ProcessError)
 {
-    myFirstLine = true;
-    myReader.setFile(file);
-    myReader.readAll(*this);
-}
-
-
-bool
-DFDetFlowLoader::report(const std::string &result) throw(ProcessError)
-{
-    // parse the flows
-    if (myFirstLine) {
-        myLineHandler.reinit(result, ";", ";", true, true);
-        myFirstLine = false;
-        return true;
-    } else {
-        myLineHandler.parseLine(result);
+    LineReader lr(file);
+    // parse first line
+    myLineHandler.reinit(lr.readLine(), ";", ";", true, true);
+    // parse values
+    while(lr.hasMore()) {
+        string line = lr.readLine();
+        myLineHandler.parseLine(line);
         try {
             string detName = myLineHandler.get("detector");
+            if(!myDetectorContainer.knows(detName)) {
+                continue;
+            }
             int time = TplConvert<char>::_2int((myLineHandler.get("time").c_str()));
             time -= myTimeOffset;
             if (time<myStartTime||time>myEndTime) {
-                return true;
+                continue;
             }
             FlowDef fd;
             fd.isLKW = 0;
@@ -125,14 +119,13 @@ DFDetFlowLoader::report(const std::string &result) throw(ProcessError)
                 fd.qPKW -= fd.qLKW;
             }
             myStorage.addFlow(detName, time, fd);
-            return true;
+            continue;
         } catch (UnknownElement &) {} catch (OutOfBoundsException &) {} catch (NumberFormatException &) {}
-        throw ProcessError("The detector-flow-file '" + myReader.getFileName() + "' is corrupt;\n"
+        throw ProcessError("The detector-flow-file '" + lr.getFileName() + "' is corrupt;\n"
                            + " The following values must be supplied : 'Detector', 'Time', 'qPKW', 'vPKW'\n"
                            + " The according column names must be given in the first line of the file.");
     }
 }
-
 
 
 /****************************************************************************/
