@@ -4,7 +4,7 @@
 /// @date    Thu, 16.03.2006
 /// @version $Id$
 ///
-// missing_desc
+// A DFROUTER-network
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -145,10 +145,10 @@ protected:
     };
 
 private:
-    // map of edge name->list of names of this edge approaching edges
+    /// @brief Map of edge name->list of names of this edge approaching edges
     std::map<ROEdge*, std::vector<ROEdge*> > myApproachingEdges;
 
-    // map of edge name->list of names of edges approached by this edge
+    /// @brief Map of edge name->list of names of edges approached by this edge
     std::map<ROEdge*, std::vector<ROEdge*> > myApproachedEdges;
 
     mutable std::map<ROEdge*, std::vector<std::string> > myDetectorsOnEdges;
@@ -158,7 +158,10 @@ private:
     bool myAmInHighwayMode;
     mutable size_t mySourceNumber, mySinkNumber, myInBetweenNumber, myInvalidNumber;
 
-    std::vector<std::string> mySinks;
+    /// @brief List of ids of edges that shall not be used
+    std::vector<std::string> myDisallowedEdges;
+
+
     bool myKeepTurnarounds;
 
 };

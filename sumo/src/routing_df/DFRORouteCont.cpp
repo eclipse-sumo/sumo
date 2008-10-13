@@ -50,6 +50,9 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
+// ---------------------------------------------------------------------------
+// DFRORouteCont::RoutesMap - methods
+// ---------------------------------------------------------------------------
 DFRORouteCont::RoutesMap::RoutesMap()
 {
 }
@@ -61,6 +64,7 @@ DFRORouteCont::RoutesMap::~RoutesMap()
         delete(*i).second;
     }
 }
+
 
 std::ostream &
 operator<<(std::ostream &os, const DFRORouteCont::RoutesMap &rm)
@@ -92,6 +96,9 @@ DFRORouteCont::RoutesMap::write(std::ostream &os, size_t offset) const
 
 
 
+// ---------------------------------------------------------------------------
+// DFRORouteCont - methods
+// ---------------------------------------------------------------------------
 DFRORouteCont::DFRORouteCont(const RODFNet &net)
         : myNet(net)
 {}
@@ -128,13 +135,6 @@ DFRORouteCont::removeRouteDesc(DFRORouteDesc &desc)
 
 
 bool
-DFRORouteCont::readFrom(const std::string &)
-{
-    throw 1;
-}
-
-
-bool
 DFRORouteCont::save(std::vector<std::string> &saved,
                     const std::string &prependix, OutputDevice& out)
 {
@@ -157,13 +157,6 @@ DFRORouteCont::save(std::vector<std::string> &saved,
         haveSavedOnAtLeast = true;
     }
     return haveSavedOnAtLeast;
-}
-
-
-bool
-DFRORouteCont::computed() const
-{
-    return myRoutes.size()!=0;
 }
 
 

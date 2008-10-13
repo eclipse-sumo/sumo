@@ -67,7 +67,7 @@ struct FlowDef {
 // class definitions
 // ===========================================================================
 /**
- * @class RODFDetector
+ * @class RODFDetectorFlows
  * @brief A container for flows
  */
 class RODFDetectorFlows

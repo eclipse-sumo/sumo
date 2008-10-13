@@ -4,7 +4,7 @@
 /// @date    Thu, 16.03.2006
 /// @version $Id$
 ///
-// missing_desc
+// A container for routes
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -53,14 +53,12 @@ class DFRORouteCont
 {
 public:
     DFRORouteCont(const RODFNet &net);
-//	DFRORouteCont(const DFRORouteCont &s);
+
     ~DFRORouteCont();
     void addRouteDesc(DFRORouteDesc &desc);
     bool removeRouteDesc(DFRORouteDesc &desc);
-    bool readFrom(const std::string &file);
     bool save(std::vector<std::string> &saved,
               const std::string &prependix, OutputDevice& out);
-    bool computed() const;
     std::vector<DFRORouteDesc> &get();
     void sortByDistance();
     void setDets2Follow(const std::map<ROEdge*, std::vector<ROEdge*> > &d2f);

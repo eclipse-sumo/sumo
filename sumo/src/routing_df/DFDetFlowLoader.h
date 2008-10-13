@@ -70,6 +70,7 @@ public:
     /// @brief Destructor
     ~DFDetFlowLoader() throw();
 
+
     /** @brief Reads the given file assuming it contains detector values
      * 
      * Reads the first line, first, and parses it assuming it contains

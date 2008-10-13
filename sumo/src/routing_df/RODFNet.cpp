@@ -67,7 +67,7 @@ RODFNet::RODFNet(bool amInHighwayMode) throw()
         : RONet(), myAmInHighwayMode(amInHighwayMode),
         mySourceNumber(0), mySinkNumber(0), myInBetweenNumber(0), myInvalidNumber(0)
 {
-    mySinks = OptionsCont::getOptions().getStringVector("disallowed-edges");
+    myDisallowedEdges = OptionsCont::getOptions().getStringVector("disallowed-edges");
     myKeepTurnarounds = OptionsCont::getOptions().getBool("keep-turnarounds");
 }
 
@@ -87,7 +87,7 @@ RODFNet::buildApproachList()
         unsigned int length_size = ce->getNoFollowing();
         for (i=0; i<length_size; i++) {
             ROEdge *help = ce->getFollower(i);
-            if (find(mySinks.begin(), mySinks.end(), help->getID())!=mySinks.end()) {
+            if (find(myDisallowedEdges.begin(), myDisallowedEdges.end(), help->getID())!=myDisallowedEdges.end()) {
                 // edges in sinks will not be used
                 continue;
             }

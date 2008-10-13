@@ -50,7 +50,9 @@ class RODFDetector;
  * @brief A route within the DFROUTER
  */
 struct DFRORouteDesc {
+    /// @brief The edges the route is made of
     std::vector<ROEdge*> edges2Pass;
+    /// @brief The name of the route
     std::string routename;
     SUMOReal duration_2;
     SUMOReal distance;
