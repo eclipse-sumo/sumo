@@ -67,7 +67,10 @@ def main():
             edge.getConflictLink()
             edge.getActualTravelTime(options, False) 
             edge.helpacttime = edge.freeflowtime
-    net.reduce() 
+    net.reduce()
+    if options.verbose:
+        print "after network reduction:", len(net._edges), "edges read"
+    edgeNums = len(net._edges)
 
     # calculate link travel time for all district connectors 
     getConnectionTravelTime(net._startVertices, net._endVertices)
@@ -89,14 +92,16 @@ def main():
         for endVertex in net._endVertices:
             AssignedVeh[startVertex][endVertex] = 0
             AssignedTrip[startVertex][endVertex] = 0.
-        
+    # initialize the map for recording the Commonality factor in the c-logit and the lohse model
+    mtxOverlap = {}
+    
     # initialization
     vehID = 0
     matrixSum = 0.0
     lohse = (options.type == "lohse")
     incremental = (options.type == "incremental")
     checkKPaths = False
-
+    
     if not incremental and options.kPaths > 1:
         checkKPaths = True
     if not incremental:
@@ -165,7 +170,7 @@ def main():
                         D,P = dijkstra(startVertex, targets)                                                                      
                         vehID = doIncAssign(vehicles, options.verbose, options.maxiteration,
                                             endVertices, start, startVertex, matrixPshort,
-                                            D, P, AssignedVeh, AssignedTrip, vehID)
+                                            D, P, AssignedVeh, AssignedTrip, edgeNums, vehID)
                 
                 for edgeID in net._edges:                                                   
                     edge = net._edges[edgeID]
@@ -207,7 +212,7 @@ def main():
                 while not stable:
                     if options.verbose:
                         print 'iter_inside:', iter_inside
-                    stable = doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
+                    stable = doSUEAssign(net, options, startVertices, endVertices, matrixPshort, mtxOverlap, iter_inside, lohse, first)
                     # The matrixPlong and the matrixTruck should be added when considering the long-distance trips and the truck trips.
                     if lohse:
                         stable = doLohseStopCheck(net, options, stable, iter_inside, options.maxiteration, foutlog)
@@ -217,14 +222,12 @@ def main():
                     if options.verbose:
                         print 'stable:', stable
                     
-    #            if (float(departtime)/3600.) < 10. or counter < 5:
                 newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, lohse)
-    #            else:
-    #                newRoutes = 0
+
                 first = False    
                 iter_outside += 1
     
-                if newRoutes < 2 and iter_outside > int((options.maxiteration)/2):
+                if newRoutes < 3 and iter_outside > int((options.maxiteration)/2):
                     newRoutes = 0
                     
                 if iter_outside > options.maxiteration:
@@ -236,7 +239,7 @@ def main():
                     newRoutes = 0
     
             # update the path choice probability and the path flows as well as generate vehicle data 	
-            vehID = doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)
+            vehID = doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, mtxOverlap, vehID, lohse)
 
        # output the generated vehicular releasing times and routes, based on the current matrix
         sortedVehOutput(vehicles, departtime, foutroute)
@@ -258,7 +261,9 @@ def main():
     
 optParser = OptionParser()
 optParser.add_option("-m", "--matrix-file", dest="mtxpsfile", 
-                     help="read OD matrix for passenger vehicles(long dist.) from FILE (mandatory)", metavar="FILE")
+                     help="read OD matrix for passenger vehicles from FILE (mandatory)", metavar="FILE")
+optParser.add_option("-G", "--globalmatrix-file", dest="glbmtxfile", 
+                     help="read daily OD matrix for passenger vehicles from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-n", "--net-file", dest="netfile",                          
                      help="read SUMO network from FILE (mandatory)", metavar="FILE")
 optParser.add_option("-d", "--district-file", dest="confile",

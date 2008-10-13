@@ -16,7 +16,7 @@ import elements
 from elements import Vertex, Edge, Path, Vehicle
 from network import Net
 
-def doIncAssign(vehicles, verbose, iteration, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, vehID): 
+def doIncAssign(vehicles, verbose, iteration, endVertices, start, startVertex, matrixPshort, D, P, AssignedVeh, AssignedTrip, edgeNums, vehID): 
     # matrixPlong and matrixTruck should be added if available.
     for end, endVertex in enumerate(endVertices): 
         if str(startVertex) != str(endVertex) and (matrixPshort[start][end] > 0.0):
@@ -29,7 +29,20 @@ def doIncAssign(vehicles, verbose, iteration, endVertices, start, startVertex, m
             while vertex != startVertex:
                 if P[vertex].kind == "real":
                     helpPath.append(P[vertex])
-                    P[vertex].flow += (matrixPshort[start][end]* (1./float(iteration)))
+                    if len(helpPath) > edgeNums:
+                        print 'len(helpPath) > edgeNums!'
+                        print 'startVertex:', startVertex.label
+                        print 'endVertex:', endVertex.label
+                        foutroutecheck = file('routeCheck.txt','a')
+                        helpPath.reverse()
+                        for line, link in enumerate(helpPath):
+                            if link % 20 == 0:
+                                foutroutecheck.write('\n')
+                            foutroutecheck.write('%s ' %link)
+                        foutroutecheck.close()
+                        print 'check the file: routeCheck.txt!'
+                        sys.exit()
+                    P[vertex].flow += (matrixPshort[start][end]/float(iteration))
                 vertex = P[vertex].source
             helpPath.reverse()
             
@@ -38,7 +51,7 @@ def doIncAssign(vehicles, verbose, iteration, endVertices, start, startVertex, m
                 pathlength += edge.length
                 pathtime += edge.actualtime
             # the amount of the pathflow, which will be released at this iteration
-            pathflow = float(matrixPshort[start][end]) * (1./float(iteration)) 
+            pathflow = float(matrixPshort[start][end]/float(iteration))
             if verbose:
                 print 'pathflow:', pathflow
             
@@ -49,7 +62,7 @@ def doIncAssign(vehicles, verbose, iteration, endVertices, start, startVertex, m
     return vehID
   
 # execute the SUE model with the given path set
-def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lohse, first): 
+def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, mtxOverlap, iter, lohse, first): 
     if lohse:
         if options.verbose:
             foutassign = file('lohse_pathSet.txt', 'a')
@@ -69,7 +82,7 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
                 
                 for path in ODPaths:
                     path.getPathTimeUpdate()
-                calCommonalityAndChoiceProb(ODPaths, options.alpha, options.gamma, lohse)
+                calCommonalityAndChoiceProb(ODPaths, mtxOverlap, options.alpha, options.gamma, lohse)
                 
                 # calculate the path choice probabilities and the path flows for the given OD Pair
                 for path in ODPaths:
@@ -139,28 +152,38 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
     return stable
 
 # calculate the commonality factors in the C-Logit model
-def calCommonalityAndChoiceProb(ODPaths, alpha, gamma, lohse):
+def calCommonalityAndChoiceProb(ODPaths, mtxOverlap, alpha, gamma, lohse):
     # initialize the overlapping matrix
-    mtxOverlap = {}
     for pathone in ODPaths:
-        mtxOverlap[pathone]={}
+        doCal = False
+        if not pathone in mtxOverlap:
+            mtxOverlap[pathone]={}
+            doCal = True
         for pathtwo in ODPaths:
-            mtxOverlap[pathone][pathtwo] = 0.
+            if doCal or not pathtwo in mtxOverlap[pathone]:
+                if not pathtwo in mtxOverlap[pathone]:
+                    mtxOverlap[pathone][pathtwo] = 0.
+                    doCal = True
+                if not pathtwo in mtxOverlap:
+                    mtxOverlap[pathtwo] = {}
+                    mtxOverlap[pathtwo][pathone] = 0.
+                    doCal = True
+                if doCal:
+                    for edgeone in pathone.edges:
+                        for edgetwo in pathtwo.edges:
+                            if edgeone.label == edgetwo.label:
+                                mtxOverlap[pathone][pathtwo] += edgeone.length
+                    mtxOverlap[pathone][pathtwo] = mtxOverlap[pathone][pathtwo]/1000.
+                    mtxOverlap[pathtwo][pathone] = mtxOverlap[pathone][pathtwo]
+                doCal = False
     
-    for pathone in ODPaths:
-        for pathtwo in ODPaths:
-            for edgeone in pathone.edges:
-                for edgetwo in pathtwo.edges:
-                    if edgeone.label == edgetwo.label:
-                        mtxOverlap[pathone][pathtwo] += edgeone.length
-
-            mtxOverlap[pathtwo][pathone] = mtxOverlap[pathone][pathtwo]
-
     if len(ODPaths) > 1:
         for pathone in ODPaths:
             sum_overlap = 0.0 
+            lengthOne = pathone.length/1000.
             for pathtwo in ODPaths:
-                sum_overlap += math.pow(mtxOverlap[pathone][pathtwo]/(math.pow(pathone.length,0.5) * math.pow(pathtwo.length,0.5)), gamma)
+                lengthTwo = pathtwo.length/1000.
+                sum_overlap += math.pow(mtxOverlap[pathone][pathtwo]/(math.pow(lengthOne,0.5) * math.pow(lengthTwo,0.5)), gamma)
           
             pathone.commfactor = alpha * math.log(sum_overlap)
         
@@ -188,7 +211,7 @@ def calCommonalityAndChoiceProb(ODPaths, alpha, gamma, lohse):
             path.choiceprob = 1.
             
 # calculate the path choice probabilities and the path flows and generate the vehicular data for each OD Pair    
-def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse):
+def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, mtxOverlap, vehID, lohse):
     if options.verbose:
         if counter == 0:
             foutpath = file('paths.txt', 'w')
@@ -221,7 +244,7 @@ def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices,
                     if lohse:                      
                         path.pathhelpacttime = path.actpathtime
       
-                calCommonalityAndChoiceProb(ODPaths, options.alpha, options.gamma, lohse)
+                calCommonalityAndChoiceProb(ODPaths, mtxOverlap, options.alpha, options.gamma, lohse)
         
                 for path in ODPaths:
                     pathcount += 1
