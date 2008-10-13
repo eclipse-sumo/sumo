@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    DFRORouteCont.cpp
+/// @file    RODFRouteCont.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
 /// @version $Id$
@@ -30,8 +30,8 @@
 
 #include <fstream>
 #include <cassert>
-#include "DFRORouteDesc.h"
-#include "DFRORouteCont.h"
+#include "RODFRouteDesc.h"
+#include "RODFRouteCont.h"
 #include "RODFNet.h"
 #include <router/ROEdge.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -51,14 +51,14 @@ using namespace std;
 // method definitions
 // ===========================================================================
 // ---------------------------------------------------------------------------
-// DFRORouteCont::RoutesMap - methods
+// RODFRouteCont::RoutesMap - methods
 // ---------------------------------------------------------------------------
-DFRORouteCont::RoutesMap::RoutesMap()
+RODFRouteCont::RoutesMap::RoutesMap()
 {
 }
 
 
-DFRORouteCont::RoutesMap::~RoutesMap()
+RODFRouteCont::RoutesMap::~RoutesMap()
 {
     for (std::map<ROEdge*, RoutesMap*>::iterator i=splitMap.begin(); i!=splitMap.end(); ++i) {
         delete(*i).second;
@@ -67,7 +67,7 @@ DFRORouteCont::RoutesMap::~RoutesMap()
 
 
 std::ostream &
-operator<<(std::ostream &os, const DFRORouteCont::RoutesMap &rm)
+operator<<(std::ostream &os, const RODFRouteCont::RoutesMap &rm)
 {
     rm.write(os, 0);
     return os;
@@ -75,7 +75,7 @@ operator<<(std::ostream &os, const DFRORouteCont::RoutesMap &rm)
 
 
 void
-DFRORouteCont::RoutesMap::write(std::ostream &os, size_t offset) const
+RODFRouteCont::RoutesMap::write(std::ostream &os, size_t offset) const
 {
     for (size_t j=0; j<offset; ++j) {
         cout << " ";
@@ -97,36 +97,36 @@ DFRORouteCont::RoutesMap::write(std::ostream &os, size_t offset) const
 
 
 // ---------------------------------------------------------------------------
-// DFRORouteCont - methods
+// RODFRouteCont - methods
 // ---------------------------------------------------------------------------
-DFRORouteCont::DFRORouteCont(const RODFNet &net)
+RODFRouteCont::RODFRouteCont(const RODFNet &net)
         : myNet(net)
 {}
 
 
-DFRORouteCont::~DFRORouteCont()
+RODFRouteCont::~RODFRouteCont()
 {
 }
 
 
 void
-DFRORouteCont::addRouteDesc(DFRORouteDesc &desc)
+RODFRouteCont::addRouteDesc(RODFRouteDesc &desc)
 {
     // routes may be duplicate as in-between routes may have different starting points
     if (find_if(myRoutes.begin(), myRoutes.end(), route_finder(desc))==myRoutes.end()) {
         myNet.computeID4Route(desc);
         myRoutes.push_back(desc);
     } else {
-        DFRORouteDesc &prev = *find_if(myRoutes.begin(), myRoutes.end(), route_finder(desc));
+        RODFRouteDesc &prev = *find_if(myRoutes.begin(), myRoutes.end(), route_finder(desc));
         prev.overallProb += desc.overallProb;
     }
 }
 
 
 bool
-DFRORouteCont::removeRouteDesc(DFRORouteDesc &desc)
+RODFRouteCont::removeRouteDesc(RODFRouteDesc &desc)
 {
-    std::vector<DFRORouteDesc>::const_iterator j = find_if(myRoutes.begin(), myRoutes.end(), route_finder(desc));
+    std::vector<RODFRouteDesc>::const_iterator j = find_if(myRoutes.begin(), myRoutes.end(), route_finder(desc));
     if (j==myRoutes.end()) {
         return false;
     }
@@ -135,12 +135,12 @@ DFRORouteCont::removeRouteDesc(DFRORouteDesc &desc)
 
 
 bool
-DFRORouteCont::save(std::vector<std::string> &saved,
+RODFRouteCont::save(std::vector<std::string> &saved,
                     const std::string &prependix, OutputDevice& out)
 {
     bool haveSavedOnAtLeast = false;
-    for (std::vector<DFRORouteDesc>::const_iterator j=myRoutes.begin(); j!=myRoutes.end(); ++j) {
-        const DFRORouteDesc &desc = (*j);
+    for (std::vector<RODFRouteDesc>::const_iterator j=myRoutes.begin(); j!=myRoutes.end(); ++j) {
+        const RODFRouteDesc &desc = (*j);
         if (find(saved.begin(), saved.end(), desc.routename)!=saved.end()) {
             continue;
         }
@@ -160,39 +160,39 @@ DFRORouteCont::save(std::vector<std::string> &saved,
 }
 
 
-std::vector<DFRORouteDesc> &
-DFRORouteCont::get()
+std::vector<RODFRouteDesc> &
+RODFRouteCont::get()
 {
     return myRoutes;
 }
 
 
 void
-DFRORouteCont::sortByDistance()
+RODFRouteCont::sortByDistance()
 {
     sort(myRoutes.begin(), myRoutes.end(), by_distance_sorter());
 }
 
 
 void
-DFRORouteCont::setDets2Follow(const std::map<ROEdge*, std::vector<ROEdge*> > &d2f)
+RODFRouteCont::setDets2Follow(const std::map<ROEdge*, std::vector<ROEdge*> > &d2f)
 {
     myDets2Follow = d2f;
 }
 
 
 const std::map<ROEdge*, std::vector<ROEdge*> > &
-DFRORouteCont::getDets2Follow() const
+RODFRouteCont::getDets2Follow() const
 {
     return myDets2Follow;
 }
 
 
 void
-DFRORouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals)
+RODFRouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals)
 {
-    for (std::vector<DFRORouteDesc>::iterator i=myRoutes.begin(); i!=myRoutes.end();) {
-        DFRORouteDesc &desc = *i;
+    for (std::vector<RODFRouteDesc>::iterator i=myRoutes.begin(); i!=myRoutes.end();) {
+        RODFRouteDesc &desc = *i;
         bool remove = false;
         for (std::vector<std::vector<ROEdge*> >::const_iterator j=illegals.begin(); !remove&&j!=illegals.end(); ++j) {
             int noFound = 0;
@@ -215,7 +215,7 @@ DFRORouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals)
 
 
 void
-DFRORouteCont::determineEndDetector(const RODFNet &net, DFRORouteCont::RoutesMap *rmap) const
+RODFRouteCont::determineEndDetector(const RODFNet &net, RODFRouteCont::RoutesMap *rmap) const
 {
     rmap->lastDetectorEdge = 0;
     // get and set the last detector on this map's edges
@@ -235,20 +235,20 @@ DFRORouteCont::determineEndDetector(const RODFNet &net, DFRORouteCont::RoutesMap
 }
 
 
-DFRORouteCont::RoutesMap *
-DFRORouteCont::getRouteMap(const RODFNet &net) const
+RODFRouteCont::RoutesMap *
+RODFRouteCont::getRouteMap(const RODFNet &net) const
 {
-    DFRORouteCont::RoutesMap *ret = new DFRORouteCont::RoutesMap();
+    RODFRouteCont::RoutesMap *ret = new RODFRouteCont::RoutesMap();
     if (myRoutes.size()>0) {
-        std::vector<DFRORouteDesc>::const_iterator i = myRoutes.begin();
+        std::vector<RODFRouteDesc>::const_iterator i = myRoutes.begin();
         ret->common = (*i).edges2Pass;
         // from here on a valid map is stored in "ret" which must be split/extended
         //  by following routes
 
         // for each following route
         for (i=myRoutes.begin()+1; i!=myRoutes.end(); ++i) {
-            DFRORouteCont::RoutesMap *curr = ret;
-            const DFRORouteDesc &d = *i;
+            RODFRouteCont::RoutesMap *curr = ret;
+            const RODFRouteDesc &d = *i;
             // find the position where the current route splits from the one in curr
             std::vector<ROEdge*>::const_iterator j1, j2;
             j1 = d.edges2Pass.begin();

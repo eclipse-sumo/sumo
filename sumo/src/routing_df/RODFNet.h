@@ -33,8 +33,8 @@
 #include <router/RONet.h>
 #include <utils/options/OptionsCont.h>
 #include <routing_df/RODFDetector.h>
-#include <routing_df/DFRORouteDesc.h>
-#include <routing_df/DFRORouteCont.h>
+#include <routing_df/RODFRouteDesc.h>
+#include <routing_df/RODFRouteCont.h>
 #include <utils/common/StdDefs.h>
 #include <utils/common/SUMOTime.h>
 
@@ -80,7 +80,7 @@ public:
 
     void mesoJoin(RODFDetectorCon &detectors, RODFDetectorFlows &flows);
 
-    void computeID4Route(DFRORouteDesc &desc) const;
+    void computeID4Route(RODFRouteDesc &desc) const;
     bool hasDetector(ROEdge *edge) const;
     const std::vector<std::string> &getDetectorList(ROEdge *edge) const;
 
@@ -105,11 +105,11 @@ protected:
     bool isDestination(const RODFDetector &det, ROEdge *edge, std::vector<ROEdge*> &seen,
                        const RODFDetectorCon &detectors) const;
 
-    void computeRoutesFor(ROEdge *edge, DFRORouteDesc &base, int no,
+    void computeRoutesFor(ROEdge *edge, RODFRouteDesc &base, int no,
                           bool allEndFollower, bool keepUnfoundEnds,
                           bool keepShortestOnly,
                           std::vector<ROEdge*> &visited, const RODFDetector &det,
-                          DFRORouteCont &into, const RODFDetectorCon &detectors,
+                          RODFRouteCont &into, const RODFDetectorCon &detectors,
                           int maxFollowingLength,
                           std::vector<ROEdge*> &seen) const;
 
@@ -139,7 +139,7 @@ protected:
         ~DFRouteDescByTimeComperator() { }
 
         /// Comparing method
-        bool operator()(const DFRORouteDesc &nod1, const DFRORouteDesc &nod2) const {
+        bool operator()(const RODFRouteDesc &nod1, const RODFRouteDesc &nod2) const {
             return nod1.duration_2>nod2.duration_2;
         }
     };

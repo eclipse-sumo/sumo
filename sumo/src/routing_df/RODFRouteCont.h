@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    DFRORouteCont.h
+/// @file    RODFRouteCont.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
 /// @version $Id$
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef DFRORouteCont_h
-#define DFRORouteCont_h
+#ifndef RODFRouteCont_h
+#define RODFRouteCont_h
 
 
 // ===========================================================================
@@ -32,7 +32,7 @@
 
 #include <vector>
 #include <map>
-#include "DFRORouteDesc.h"
+#include "RODFRouteDesc.h"
 
 
 // ===========================================================================
@@ -46,20 +46,20 @@ class OutputDevice;
 // class definitions
 // ===========================================================================
 /**
- * @class DFRORouteCont
+ * @class RODFRouteCont
  * @brief A container for routes
  */
-class DFRORouteCont
+class RODFRouteCont
 {
 public:
-    DFRORouteCont(const RODFNet &net);
+    RODFRouteCont(const RODFNet &net);
 
-    ~DFRORouteCont();
-    void addRouteDesc(DFRORouteDesc &desc);
-    bool removeRouteDesc(DFRORouteDesc &desc);
+    ~RODFRouteCont();
+    void addRouteDesc(RODFRouteDesc &desc);
+    bool removeRouteDesc(RODFRouteDesc &desc);
     bool save(std::vector<std::string> &saved,
               const std::string &prependix, OutputDevice& out);
-    std::vector<DFRORouteDesc> &get();
+    std::vector<RODFRouteDesc> &get();
     void sortByDistance();
     void setDets2Follow(const std::map<ROEdge*, std::vector<ROEdge*> > &d2f);
     const std::map<ROEdge*, std::vector<ROEdge*> > &getDets2Follow() const;
@@ -81,7 +81,7 @@ public:
 
     RoutesMap *getRouteMap(const RODFNet &net) const;
 
-    void determineEndDetector(const RODFNet &net, DFRORouteCont::RoutesMap *rmap) const;
+    void determineEndDetector(const RODFNet &net, RODFRouteCont::RoutesMap *rmap) const;
 
 protected:
     class by_distance_sorter
@@ -90,7 +90,7 @@ protected:
         /// constructor
         explicit by_distance_sorter() { }
 
-        int operator()(const DFRORouteDesc &p1, const DFRORouteDesc &p2) {
+        int operator()(const RODFRouteDesc &p1, const RODFRouteDesc &p2) {
             return p1.distance2Last<p2.distance2Last;
         }
     };
@@ -99,16 +99,16 @@ protected:
     {
     public:
         /** constructor */
-        explicit route_finder(const DFRORouteDesc &desc) : myDesc(desc) { }
+        explicit route_finder(const RODFRouteDesc &desc) : myDesc(desc) { }
 
         /** the comparing function */
-        bool operator()(const DFRORouteDesc &desc) {
+        bool operator()(const RODFRouteDesc &desc) {
             return myDesc.edges2Pass==desc.edges2Pass;
         }
 
     private:
         /// The time to search for
-        const DFRORouteDesc &myDesc;
+        const RODFRouteDesc &myDesc;
 
     };
 
@@ -117,7 +117,7 @@ protected:
 
 
 
-    std::vector<DFRORouteDesc> myRoutes;
+    std::vector<RODFRouteDesc> myRoutes;
     std::map<ROEdge*, std::vector<ROEdge*> > myDets2Follow;
     const RODFNet &myNet;
 

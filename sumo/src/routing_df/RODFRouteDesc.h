@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    DFRORouteDesc.h
+/// @file    RODFRouteDesc.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
 /// @version $Id$
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef DFRORouteDesc_h
-#define DFRORouteDesc_h
+#ifndef RODFRouteDesc_h
+#define RODFRouteDesc_h
 
 
 // ===========================================================================
@@ -46,10 +46,10 @@ class RODFDetector;
 // struct definitions
 // ===========================================================================
 /**
- * @struct DFRORouteDesc
+ * @struct RODFRouteDesc
  * @brief A route within the DFROUTER
  */
-struct DFRORouteDesc {
+struct RODFRouteDesc {
     /// @brief The edges the route is made of
     std::vector<ROEdge*> edges2Pass;
     /// @brief The name of the route

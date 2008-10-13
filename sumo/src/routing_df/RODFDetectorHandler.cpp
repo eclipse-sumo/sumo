@@ -87,7 +87,7 @@ RODFDetectorHandler::myStartElement(SumoXMLTag element,
             throw ProcessError("Not numeric lane position within '" + getFileName() + "' (detector id='" + id + ").");
         }
         string mml_type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
-        RORODFDetectorType type = TYPE_NOT_DEFINED;
+        RODFDetectorType type = TYPE_NOT_DEFINED;
         if (mml_type=="between") {
             type = BETWEEN_DETECTOR;
         } else if (mml_type=="source"||mml_type=="highway_source") { // !!! highway-source is legacy (removed accoring output on 06.08.2007)

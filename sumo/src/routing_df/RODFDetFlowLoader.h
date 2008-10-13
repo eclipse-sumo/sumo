@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    DFDetFlowLoader.h
+/// @file    RODFDetFlowLoader.h
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
 /// @version $Id$
@@ -17,8 +17,8 @@
 //   (at your option) any later version.
 //
 /****************************************************************************/
-#ifndef DFDetFlowLoader_h
-#define DFDetFlowLoader_h
+#ifndef RODFDetFlowLoader_h
+#define RODFDetFlowLoader_h
 
 
 // ===========================================================================
@@ -39,19 +39,13 @@
 
 
 // ===========================================================================
-// class declarations
-// ===========================================================================
-class Options;
-
-
-// ===========================================================================
 // class definitions
 // ===========================================================================
 /**
- * @class DFDetFlowLoader
+ * @class RODFDetFlowLoader
  * @brief A loader for detector flows
  */
-class DFDetFlowLoader
+class RODFDetFlowLoader
 {
 public:
     /** @brief Constructor
@@ -62,13 +56,13 @@ public:
      * @param[in] endTime The last time step for which values shall be read
      * @param[in] timeOffset The offset which shall be applied to the read times
      */
-    DFDetFlowLoader(const RODFDetectorCon &dets, RODFDetectorFlows &into,
+    RODFDetFlowLoader(const RODFDetectorCon &dets, RODFDetectorFlows &into,
                     SUMOTime startTime, SUMOTime endTime,
                     int timeOffset) throw();
 
 
     /// @brief Destructor
-    ~DFDetFlowLoader() throw();
+    ~RODFDetFlowLoader() throw();
 
 
     /** @brief Reads the given file assuming it contains detector values
@@ -107,10 +101,10 @@ private:
 
 private:
     /// @brief Invalidated copy constructor
-    DFDetFlowLoader(const DFDetFlowLoader &src);
+    RODFDetFlowLoader(const RODFDetFlowLoader &src);
 
     /// @brief Invalidated assignment operator
-    DFDetFlowLoader &operator=(const DFDetFlowLoader &src);
+    RODFDetFlowLoader &operator=(const RODFDetFlowLoader &src);
 
 };
 

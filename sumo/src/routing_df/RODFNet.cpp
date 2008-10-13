@@ -40,7 +40,7 @@
 #include <vector>
 #include "RODFNet.h"
 #include <routing_df/RODFDetector.h>
-#include <routing_df/DFRORouteDesc.h>
+#include <routing_df/RODFRouteDesc.h>
 #include "RODFDetectorFlow.h"
 #include "RODFEdge.h"
 #include <cmath>
@@ -212,24 +212,24 @@ RODFNet::hasSourceDetector(ROEdge *edge,
 
 
 void
-RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc &base, int /*no*/,
+RODFNet::computeRoutesFor(ROEdge *edge, RODFRouteDesc &base, int /*no*/,
                           bool allEndFollower, bool keepUnfoundEnds,
                           bool keepShortestOnly,
                           std::vector<ROEdge*> &/*visited*/,
-                          const RODFDetector &det, DFRORouteCont &into,
+                          const RODFDetector &det, RODFRouteCont &into,
                           const RODFDetectorCon &detectors,
                           int maxFollowingLength,
                           std::vector<ROEdge*> &seen) const
 {
-    std::vector<DFRORouteDesc> unfoundEnds;
-    priority_queue<DFRORouteDesc, vector<DFRORouteDesc>, DFRouteDescByTimeComperator> toSolve;
+    std::vector<RODFRouteDesc> unfoundEnds;
+    priority_queue<RODFRouteDesc, vector<RODFRouteDesc>, DFRouteDescByTimeComperator> toSolve;
     std::map<ROEdge*, std::vector<ROEdge*> > dets2Follow;
     dets2Follow[edge] = std::vector<ROEdge*>();
     base.passedNo = 0;
     SUMOReal minDist = OptionsCont::getOptions().getFloat("min-distance");
     toSolve.push(base);
     while (!toSolve.empty()) {
-        DFRORouteDesc current = toSolve.top();
+        RODFRouteDesc current = toSolve.top();
         toSolve.pop();
         ROEdge *last = *(current.edges2Pass.end()-1);
         if (hasDetector(last)) {
@@ -334,7 +334,7 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc &base, int /*no*/,
                 // do not append an edge twice (do not build loops)
                 continue;
             }
-            DFRORouteDesc t(current);
+            RODFRouteDesc t(current);
             t.duration_2 += (appr[i]->getLength()/appr[i]->getSpeed());//!!!
             t.distance += appr[i]->getLength();
             t.edges2Pass.push_back(appr[i]);
@@ -358,7 +358,7 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc &base, int /*no*/,
     into.setDets2Follow(dets2Follow);
     //
     if (!keepUnfoundEnds) {
-        std::vector<DFRORouteDesc>::iterator i;
+        std::vector<RODFRouteDesc>::iterator i;
         std::vector<const ROEdge*> lastDetEdges;
         for (i=unfoundEnds.begin(); i!=unfoundEnds.end(); ++i) {
             if (find(lastDetEdges.begin(), lastDetEdges.end(), (*i).lastDetectorEdge)==lastDetEdges.end()) {
@@ -372,7 +372,7 @@ RODFNet::computeRoutesFor(ROEdge *edge, DFRORouteDesc &base, int /*no*/,
         // !!! patch the factors
     }
     while (!toSolve.empty()) {
-//        DFRORouteDesc d = toSolve.top();
+//        RODFRouteDesc d = toSolve.top();
         toSolve.pop();
 //        delete d;
     }
@@ -426,7 +426,7 @@ RODFNet::buildRoutes(RODFDetectorCon &detcont, bool allEndFollower,
     // build needed information first
     buildDetectorEdgeDependencies(detcont);
     // then build the routes
-    std::map<ROEdge*, DFRORouteCont * > doneEdges;
+    std::map<ROEdge*, RODFRouteCont * > doneEdges;
     const std::vector< RODFDetector*> &dets = detcont.getDetectors();
     for (std::vector< RODFDetector*>::const_iterator i=dets.begin(); i!=dets.end(); ++i) {
         if ((*i)->getType()!=SOURCE_DETECTOR) {
@@ -436,13 +436,13 @@ RODFNet::buildRoutes(RODFDetectorCon &detcont, bool allEndFollower,
         ROEdge *e = getDetectorEdge(**i);
         if (doneEdges.find(e)!=doneEdges.end()) {
             // use previously build routes
-            (*i)->addRoutes(new DFRORouteCont(*doneEdges[e]));
+            (*i)->addRoutes(new RODFRouteCont(*doneEdges[e]));
             continue;
         }
         std::vector<ROEdge*> seen;
-        DFRORouteCont *routes = new DFRORouteCont(*this);
+        RODFRouteCont *routes = new RODFRouteCont(*this);
         doneEdges[e] = routes;
-        DFRORouteDesc rd;
+        RODFRouteDesc rd;
         rd.edges2Pass.push_back(e);
         rd.duration_2 = (e->getLength()/e->getSpeed());//!!!;
         rd.endDetectorEdge = 0;
@@ -463,9 +463,9 @@ RODFNet::buildRoutes(RODFDetectorCon &detcont, bool allEndFollower,
         // add routes to in-between detectors if wished
         if (includeInBetween) {
             // go through the routes
-            const std::vector<DFRORouteDesc> &r = routes->get();
-            for (std::vector<DFRORouteDesc>::const_iterator j=r.begin(); j!=r.end(); ++j) {
-                const DFRORouteDesc &mrd = *j;
+            const std::vector<RODFRouteDesc> &r = routes->get();
+            for (std::vector<RODFRouteDesc>::const_iterator j=r.begin(); j!=r.end(); ++j) {
+                const RODFRouteDesc &mrd = *j;
                 SUMOReal duration = mrd.duration_2;
                 SUMOReal distance = mrd.distance;
                 // go through each route's edges
@@ -483,7 +483,7 @@ RODFNet::buildRoutes(RODFDetectorCon &detcont, bool allEndFollower,
                     for (std::vector<std::string>::const_iterator l=dets.begin(); l!=dets.end(); ++l) {
                         const RODFDetector &m = detcont.getDetector(*l);
                         if (m.getType()==BETWEEN_DETECTOR) {
-                            DFRORouteDesc nrd;
+                            RODFRouteDesc nrd;
                             copy(k, routeend, back_inserter(nrd.edges2Pass));
                             nrd.duration_2 = duration;//!!!;
                             nrd.endDetectorEdge = mrd.endDetectorEdge;
@@ -1119,8 +1119,8 @@ RODFNet::buildDetectorDependencies(RODFDetectorCon &detectors)
             }
         }
         // iterate over the current detector's routes
-        const std::vector<DFRORouteDesc> &routes = det.getRouteVector();
-        for (std::vector<DFRORouteDesc>::const_iterator j=routes.begin(); j!=routes.end(); ++j) {
+        const std::vector<RODFRouteDesc> &routes = det.getRouteVector();
+        for (std::vector<RODFRouteDesc>::const_iterator j=routes.begin(); j!=routes.end(); ++j) {
             const std::vector<ROEdge*> &edges2Pass = (*j).edges2Pass;
             for (std::vector<ROEdge*>::const_iterator k=edges2Pass.begin()+1; k!=edges2Pass.end(); ++k) {
                 if (myDetectorsOnEdges.find(*k)!=myDetectorsOnEdges.end()) {
@@ -1145,7 +1145,7 @@ RODFNet::buildDetectorDependencies(RODFDetectorCon &detectors)
 
 
 void
-RODFNet::computeID4Route(DFRORouteDesc &desc) const
+RODFNet::computeID4Route(RODFRouteDesc &desc) const
 {
     ROEdge *first = *(desc.edges2Pass.begin());
     ROEdge *last = *(desc.edges2Pass.end()-1);

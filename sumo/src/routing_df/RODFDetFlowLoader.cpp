@@ -1,5 +1,5 @@
 /****************************************************************************/
-/// @file    DFDetFlowLoader.cpp
+/// @file    RODFDetFlowLoader.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Thu, 16.03.2006
 /// @version $Id$
@@ -46,7 +46,7 @@
 #include <utils/common/FileHelpers.h>
 #include <utils/common/TplConvert.h>
 #include <utils/common/UtilExceptions.h>
-#include "DFDetFlowLoader.h"
+#include "RODFDetFlowLoader.h"
 
 #ifdef CHECK_MEMORY_LEAKS
 #include <foreign/nvwa/debug_new.h>
@@ -62,7 +62,7 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-DFDetFlowLoader::DFDetFlowLoader(const RODFDetectorCon &dets,
+RODFDetFlowLoader::RODFDetFlowLoader(const RODFDetectorCon &dets,
                                  RODFDetectorFlows &into,
                                  SUMOTime startTime, SUMOTime endTime,
                                  int timeOffset) throw()
@@ -72,12 +72,12 @@ DFDetFlowLoader::DFDetFlowLoader(const RODFDetectorCon &dets,
 
 
 
-DFDetFlowLoader::~DFDetFlowLoader() throw()
+RODFDetFlowLoader::~RODFDetFlowLoader() throw()
 {}
 
 
 void
-DFDetFlowLoader::read(const std::string &file) throw(IOError, ProcessError)
+RODFDetFlowLoader::read(const std::string &file) throw(IOError, ProcessError)
 {
     LineReader lr(file);
     // parse first line

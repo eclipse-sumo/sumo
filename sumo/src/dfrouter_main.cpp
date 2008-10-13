@@ -58,9 +58,9 @@
 #include <routing_df/RODFEdge.h>
 #include <routing_df/RODFDetector.h>
 #include <routing_df/RODFDetectorHandler.h>
-#include <routing_df/DFRORouteCont.h>
+#include <routing_df/RODFRouteCont.h>
 #include <routing_df/RODFDetectorFlow.h>
-#include <routing_df/DFDetFlowLoader.h>
+#include <routing_df/RODFDetFlowLoader.h>
 #include <utils/xml/XMLSubSys.h>
 #include <utils/common/FileHelpers.h>
 #include <utils/iodevices/OutputDevice.h>
@@ -121,7 +121,7 @@ readDetectorFlows(RODFDetectorFlows &flows, OptionsCont &oc, RODFDetectorCon &dc
         }
         // parse
         MsgHandler::getMessageInstance()->beginProcessMsg("Loading flows from '" + *fileIt + "'... ");
-        DFDetFlowLoader dfl(dc, flows, oc.getInt("begin"), oc.getInt("end"), oc.getInt("time-offset"));
+        RODFDetFlowLoader dfl(dc, flows, oc.getInt("begin"), oc.getInt("end"), oc.getInt("time-offset"));
         dfl.read(*fileIt);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }

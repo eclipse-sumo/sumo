@@ -36,18 +36,18 @@
 #include <map>
 #include <utils/common/SUMOTime.h>
 #include <utils/common/RandomDistributor.h>
-#include "DFRORouteCont.h"
+#include "RODFRouteCont.h"
 
 
 // ===========================================================================
 // class declarations
 // ===========================================================================
-class DFRORouteCont;
+class RODFRouteCont;
 class RODFDetectorFlows;
 class ROEdge;
 class RODFDetectorCon;
 class RODFNet;
-struct DFRORouteDesc;
+struct RODFRouteDesc;
 class OutputDevice;
 
 
@@ -55,10 +55,10 @@ class OutputDevice;
 // enumerations
 // ===========================================================================
 /**
- * @enum RORODFDetectorType
+ * @enum RODFDetectorType
  * @brief Numerical representation of different detector types
  */
-enum RORODFDetectorType {
+enum RODFDetectorType {
     /// A not yet defined detector
     TYPE_NOT_DEFINED = 0,
 
@@ -85,7 +85,7 @@ class RODFDetector
 {
 public:
     RODFDetector(const std::string &Id, const std::string &laneId,
-                 SUMOReal pos, const RORODFDetectorType type);
+                 SUMOReal pos, const RODFDetectorType type);
     RODFDetector(const std::string &Id, const RODFDetector &f);
     ~RODFDetector();
     const std::string &getID() const {
@@ -97,10 +97,10 @@ public:
     SUMOReal getPos() const {
         return myPosition;
     };
-    RORODFDetectorType getType() const {
+    RODFDetectorType getType() const {
         return myType;
     };
-    void setType(RORODFDetectorType type);
+    void setType(RODFDetectorType type);
     bool writeEmitterDefinition(const std::string &file,
                                 const RODFDetectorCon &detectors, const RODFDetectorFlows &flows,
                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
@@ -108,8 +108,8 @@ public:
                                 bool includeUnusedRoutes, SUMOReal scale, int maxFollower,
                                 bool emissionsOnly) const;
 
-    void addRoute(const RODFNet &net, DFRORouteDesc &nrd);
-    void addRoutes(DFRORouteCont *routes);
+    void addRoute(const RODFNet &net, RODFRouteDesc &nrd);
+    void addRoutes(RODFRouteCont *routes);
     bool hasRoutes() const;
     bool writeRoutes(std::vector<std::string> &saved,
                      OutputDevice& out);
@@ -117,12 +117,12 @@ public:
                                  const RODFDetectorFlows &flows,
                                  SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
     void writeEndRerouterDetectors(const std::string &file);
-    const std::vector<DFRORouteDesc> &getRouteVector() const;
+    const std::vector<RODFRouteDesc> &getRouteVector() const;
     void addPriorDetector(RODFDetector *det);
     void addFollowingDetector(RODFDetector *det);
     const std::vector<RODFDetector*> &getPriorDetectors() const;
     const std::vector<RODFDetector*> &getFollowerDetectors() const;
-    SUMOReal getUsage(const RODFDetectorCon &detectors,const DFRORouteDesc &route, DFRORouteCont::RoutesMap *curr,
+    SUMOReal getUsage(const RODFDetectorCon &detectors,const RODFRouteDesc &route, RODFRouteCont::RoutesMap *curr,
                       SUMOTime time, const RODFDetectorFlows &flows) const;
 
 protected:
@@ -133,7 +133,7 @@ protected:
                                       std::map<size_t, RandomDistributor<size_t>* > &into,
                                       int maxFollower) const;
     int getFlowFor(const ROEdge *edge, SUMOTime time) const;
-    SUMOReal computeDistanceFactor(const DFRORouteDesc &rd) const;
+    SUMOReal computeDistanceFactor(const RODFRouteDesc &rd) const;
 
 
     /** @brief Clears the given distributions map, deleting the timed distributions
@@ -146,8 +146,8 @@ protected:
     std::string myID;
     std::string myLaneID;
     SUMOReal myPosition;
-    RORODFDetectorType myType;
-    DFRORouteCont *myRoutes;
+    RODFDetectorType myType;
+    RODFRouteCont *myRoutes;
     std::vector<RODFDetector*> myPriorDetectors, myFollowingDetectors;
 
 
