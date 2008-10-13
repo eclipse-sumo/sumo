@@ -10,9 +10,6 @@
       <!-- Loads detector descriptions from FILE -->
       <detector-files></detector-files>
 
-      <!-- Loads elmar detector descriptions from FILE -->
-      <elmar-detector-files></elmar-detector-files>
-
       <!-- Loads detector flows from FILE(s) -->
       <detector-flow-files></detector-flow-files>
 

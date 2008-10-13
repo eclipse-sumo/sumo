@@ -84,9 +84,6 @@ RODFFrame::fillOptions()
     oc.addSynonyme("detector-files", "detectors");
     oc.addDescription("detector-files", "Input", "Loads detector descriptions from FILE");
 
-    oc.doRegister("elmar-detector-files", 'E', new Option_FileName()); // !!! describe
-    oc.addDescription("elmar-detector-files", "Input", "Loads elmar detector descriptions from FILE");
-
     oc.doRegister("detector-flow-files", 'f', new Option_FileName());
     oc.addSynonyme("detector-flow-files", "detflows");
     oc.addDescription("detector-flow-files", "Input", "Loads detector flows from FILE(s)");

@@ -4,7 +4,6 @@
       <net-file></net-file>
       <routes-input></routes-input>
       <detector-files></detector-files>
-      <elmar-detector-files></elmar-detector-files>
       <detector-flow-files></detector-flow-files>
    </input>
 

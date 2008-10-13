@@ -1,4 +1,4 @@
-SUMO dfrouter Version 0.9.7
+SUMO dfrouter Version dev-SVN-r6121
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Builds vehicle routes for SUMO using detector values.
@@ -19,8 +19,6 @@ Usage: dfrouter.exe [OPTION]*
   -n, --net-file FILE                Loads the SUMO-network FILE
   -r, --routes-input FILE            Loads SUMO-routes from FILE
   -d, --detector-files FILE          Loads detector descriptions from FILE
-  -E, --elmar-detector-files FILE    Loads elmar detector descriptions from
-                                       FILE
   -f, --detector-flow-files FILE     Loads detector flows from FILE(s)
 
  Output Options:

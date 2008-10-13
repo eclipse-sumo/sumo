@@ -85,7 +85,7 @@ using namespace std;
 void
 readDetectors(RODFDetectorCon &detectors, OptionsCont &oc, RODFNet *optNet)
 {
-    if (!oc.isSet("detector-files")&&!oc.isSet("elmar-detector-files")) {
+    if (!oc.isSet("detector-files")) {
         throw ProcessError("No detector file given (use --detector-files <FILE>).");
     }
     // read definitions stored in XML-format
@@ -102,67 +102,6 @@ readDetectors(RODFDetectorCon &detectors, OptionsCont &oc, RODFNet *optNet)
             MsgHandler::getMessageInstance()->endProcessMsg("failed.");
             throw ProcessError();
         }
-    }
-    // read definitions from Elmar-format
-    files = oc.getStringVector("elmar-detector-files");
-    if (files.size()!=0 && optNet==0) {
-        throw ProcessError("You need a network in order to read elmar definitions.");
-    }
-    for (vector<string>::const_iterator fileIt=files.begin(); fileIt!=files.end(); ++fileIt) {
-        if (!FileHelpers::exists(*fileIt)) {
-            throw ProcessError("Could not open elmar detector file '" + *fileIt + "'");
-        }
-        MsgHandler::getMessageInstance()->beginProcessMsg("Loading detector definitions from '" + *fileIt + "'... ");
-        LineReader lr(*fileIt);
-        while (lr.hasMore()) {
-            string line = lr.readLine();
-            // skip comments and empty lines
-            if (line.length()==0||line[0]=='#') {
-                continue;
-            }
-            // parse entries
-            StringTokenizer st(line, "\t");
-            vector<string> values = st.getVector();
-            // false number of values (error?)
-            if (values.size()<2) {
-                continue;
-            }
-            // process detectors only
-            if (values[1]!="5") {
-                continue;
-            }
-            // check
-            if (values.size()<6) {
-                throw ProcessError("Something is false with the following detector definition:\n " + line);
-            }
-            // parse
-            string edge = values[5];
-            string defs = values[2];
-            StringTokenizer st2(defs, ";");
-            if (st2.size()<3) {
-                throw ProcessError("Something is false with the following detector definition:\n " + line);
-            }
-            vector<string> values2 = st2.getVector();
-            string id = values2[0];
-            string dist = values2[2];
-            dist = dist.substr(8);
-            SUMOReal d = TplConvert<char>::_2SUMOReal(dist.c_str());
-            ROEdge *e = optNet->getEdge(edge);
-            if (e==0) {
-                MsgHandler::getWarningInstance()->inform("Detector " + id + " lies on an edge not inside the network (" + edge + ").");
-                continue;
-            }
-            for (unsigned int i=0; i<e->getLaneNo(); ++i) {
-                string lane = edge + "_" + toString(i);
-                string did = id + "_" + toString(i);
-                RODFDetector *detector = new RODFDetector(did, lane, d, TYPE_NOT_DEFINED);
-                if (!detectors.addDetector(detector)) {
-                    MsgHandler::getErrorInstance()->inform("Could not add detector '" + id + "' (probably the id is already used).");
-                    delete detector;
-                }
-            }
-        }
-        MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
 }
 
