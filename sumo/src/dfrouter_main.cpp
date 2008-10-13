@@ -122,7 +122,7 @@ readDetectorFlows(RODFDetectorFlows &flows, OptionsCont &oc, RODFDetectorCon &dc
         // parse
         MsgHandler::getMessageInstance()->beginProcessMsg("Loading flows from '" + *fileIt + "'... ");
         DFDetFlowLoader dfl(dc, flows, oc.getInt("begin"), oc.getInt("end"), oc.getInt("time-offset"));
-        dfl.read(*fileIt, oc.getBool("fast-flows"));
+        dfl.read(*fileIt);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }
 }

@@ -33,7 +33,6 @@
       <disallowed-edges></disallowed-edges>
       <keep-turnarounds>false</keep-turnarounds>
       <min-distance>-1</min-distance>
-      <fast-flows>false</fast-flows>
       <time-offset>0</time-offset>
       <write-calibrators>false</write-calibrators>
       <include-unused-routes>false</include-unused-routes>

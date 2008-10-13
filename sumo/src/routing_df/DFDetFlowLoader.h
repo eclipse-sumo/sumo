@@ -51,7 +51,7 @@ class Options;
 // ===========================================================================
 /**
  * @class DFDetFlowLoader
- * A loader for Detector Flows
+ * @brief A loader for detector flows
  */
 class DFDetFlowLoader :
             public LineHandler
@@ -66,7 +66,7 @@ public:
     /// Destructor
     ~DFDetFlowLoader() throw();
 
-    void read(const std::string &file, bool fast);
+    void read(const std::string &file);
 
     /* ----- from the LineHandler - "interface" ----- */
     /** @brief Receives input from a line reader (watch full description!)
@@ -74,9 +74,6 @@ public:
         (when existing) is received. In the first case, the list of route
         indices is build - and read in the second case */
     bool report(const std::string &result) throw(ProcessError);
-
-protected:
-    bool parseFast(const std::string &file);
 
 private:
     RODFDetectorFlows &myStorage;
@@ -101,6 +98,13 @@ private:
     //std::string fname;
     RODFDetectorCon &myDetectorContainer;
 
+
+private:
+    /// @brief Invalidated copy constructor
+    DFDetFlowLoader(const DFDetFlowLoader &src);
+
+    /// @brief Invalidated assignment operator
+    DFDetFlowLoader &operator=(const DFDetFlowLoader &src);
 
 };
 

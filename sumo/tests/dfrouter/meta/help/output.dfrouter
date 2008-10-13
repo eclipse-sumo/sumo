@@ -53,8 +53,6 @@ Usage: dfrouter.exe [OPTION]*
   --keep-turnarounds                 Allow turnarounds as route continuations
   --min-distance FLOAT               According sink must be at least that far
                                        away
-  --fast-flows                       Assumes flows to be stored in a less
-                                       complex format
   --time-offset INT                  Subtracts INT from flow times
   --write-calibrators                
   --include-unused-routes            

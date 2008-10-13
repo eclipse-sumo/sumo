@@ -85,9 +85,6 @@
       <!-- According sink must be at least that far away -->
       <min-distance>-1</min-distance>
 
-      <!-- Assumes flows to be stored in a less complex format -->
-      <fast-flows>false</fast-flows>
-
       <!-- Subtracts INT from flow times -->
       <time-offset>0</time-offset>
 

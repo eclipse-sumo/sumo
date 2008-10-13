@@ -4,7 +4,7 @@
 /// @date    Thu, 16.03.2006
 /// @version $Id$
 ///
-// }
+// A loader for detector flows
 /****************************************************************************/
 // SUMO, Simulation of Urban MObility; see http://sumo.sourceforge.net/
 // copyright : (C) 2001-2007
@@ -36,7 +36,6 @@
 #endif
 
 #include <string>
-#include <iostream> // !!! debug only
 #include <fstream>
 #include <sstream>
 #include <utils/importio/LineHandler.h>
@@ -78,50 +77,11 @@ DFDetFlowLoader::~DFDetFlowLoader() throw()
 
 
 void
-DFDetFlowLoader::read(const std::string &file, bool fast)
+DFDetFlowLoader::read(const std::string &file)
 {
-    if (fast) {
-        parseFast(file);
-    } else {
-        myFirstLine = true;
-        myReader.setFile(file);
-        myReader.readAll(*this);
-    }
-}
-
-
-bool
-DFDetFlowLoader::parseFast(const std::string &file)
-{
-    ifstream strm(file.c_str());
-    if (!strm.good()) {
-        MsgHandler::getErrorInstance()->inform("Could not open '" + file + "'.");
-        return false;
-    }
-    while (strm.good()) {
-        FlowDef fd;
-        string detName;
-        int time;
-        fd.isLKW = 0;
-        strm >> time;
-        time -= myTimeOffset;
-        strm >> detName;
-        strm >> fd.qPKW;
-        strm >> fd.qLKW;
-        strm >> fd.vPKW;
-        strm >> fd.vLKW;
-        if (time<myStartTime||time>myEndTime) {
-            continue;
-        }
-        if (fd.qLKW<0) {
-            fd.qLKW = 0;
-        }
-        if (fd.qPKW<0) {
-            fd.qPKW = 0;
-        }
-        myStorage.addFlow(detName, time, fd);
-    }
-    return true;
+    myFirstLine = true;
+    myReader.setFile(file);
+    myReader.readAll(*this);
 }
 
 

@@ -165,9 +165,6 @@ RODFFrame::fillOptions()
 
 
     // flow reading
-    oc.doRegister("fast-flows", new Option_Bool(false));
-    oc.addDescription("fast-flows", "Processing", "Assumes flows to be stored in a less complex format");
-
     oc.doRegister("time-offset", new Option_Integer(0));
     oc.addDescription("time-offset", "Processing", "Subtracts INT from flow times");
 
