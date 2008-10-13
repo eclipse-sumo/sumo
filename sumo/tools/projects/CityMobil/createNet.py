@@ -104,7 +104,7 @@ y = (SLOTS_PER_ROW+3) * SLOT_WIDTH
 print >> nodes, '<node id="cyber" x="-100" y="%s"/>' % y
 print >> edges, '<edge id="cyberin" fromnode="cyber" tonode="cyber0" nolanes="2" spread_type="center"/>' 
 print >> edges, '<edge id="-cyberin" fromnode="cyber0" tonode="cyber" nolanes="2" spread_type="center"/>' 
-cyberroute = "cyberdepotin"
+cyberroute = "cyberin"
 for row in range(DOUBLE_ROWS+1):
     nodeID = "cyber%s" % row
     x = row * ROW_DIST + ROW_DIST/2
@@ -117,9 +117,6 @@ for row in range(DOUBLE_ROWS+1):
 print >> nodes, '<node id="cyberend" x="%s" y="%s"/>' % (x+100, y) 
 print >> edges, '<edge id="cyberout" fromnode="cyber%s" tonode="cyberend" nolanes="2" spread_type="center"/>' % row 
 print >> edges, '<edge id="-cyberout" fromnode="cyberend" tonode="cyber%s" nolanes="2" spread_type="center"/>' % row 
-print >> nodes, '<node id="cyberdepot" x="0" y="%s"/>' % (y+50) 
-print >> edges, '<edge id="cyberdepotin" fromnode="cyberdepot" tonode="cyber0" spread_type="center"/>' 
-print >> edges, '<edge id="-cyberdepotin" fromnode="cyber0" tonode="cyberdepot" spread_type="center"/>' 
 cyberroute += " cyberout" 
 
 

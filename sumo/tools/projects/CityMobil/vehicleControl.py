@@ -56,13 +56,14 @@ def stopAt(vehicleID, edge, pos=1.):
     vehicleStatus[vehicleID].target = edge
     vehicleStatus[vehicleID].targetPos = pos
 
-def leaveStop(vehicleID, newTarget=None):
+def leaveStop(vehicleID, newTarget=None, delay=0.):
     v = vehicleStatus[vehicleID]
     if newTarget:
         changeTarget(newTarget, vehicleID)
-    stopObject(v.target, vehicleID, v.targetPos, 0.)
+    stopObject(v.target, vehicleID, v.targetPos, delay)
     v.target = None
     v.targetPos = None
+    v.parking = False
 
 def _rerouteCar(vehicleID):
     slotEdge = ""
@@ -93,6 +94,8 @@ def _checkInitialPositions(vehicleID, edge, pos):
         vehicleStatus[vehicleID] = Status(edge, pos)
         if edge == "mainin":
             _rerouteCar(vehicleID)
+        elif edge == "cyberin":
+            stopAt(vehicleID, "cyber0to1", ROW_DIST-15.)
         elif "foot" in edge:
             stopObject("-"+edge, vehicleID)
             parkEdge = edge.replace("foot", "slot")
@@ -121,9 +124,10 @@ def doStep():
     moveNodes = simStep(setting.step)
     for vehicleID, edge, pos in moveNodes:
         _checkInitialPositions(vehicleID, edge, pos)
-        if edge.startswith("footmain"):
-            if not vehicleStatus[vehicleID].parking:
-                setting.manager.personArrived(vehicleID, edge)
+        if edge == vehicleStatus[vehicleID].target and not vehicleStatus[vehicleID].parking:
+            if edge.startswith("footmain"):
                 vehicleStatus[vehicleID].parking = True
-        if edge.startswith("cyber"):
-            setting.manager.cyberCarArrived(vehicleID, edge, pos)
+                setting.manager.personArrived(vehicleID, edge)
+            if edge.startswith("cyber"):
+                vehicleStatus[vehicleID].parking = True
+                setting.manager.cyberCarArrived(vehicleID, edge, pos)

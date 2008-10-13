@@ -11,6 +11,8 @@ All rights reserved
 """
 import os
 
+INFINITY = 1e400
+
 PREFIX = "park" 
 DOUBLE_ROWS = 3
 ROW_DIST = 35
@@ -20,6 +22,7 @@ SLOT_LENGTH = 9
 SLOT_FOOT_LENGTH = 5
 CAR_CAPACITY = 4
 CYBER_CAPACITY = 10
+WAIT_PER_PERSON = 5
 
 PORT = 8813
 if os.name == "posix":

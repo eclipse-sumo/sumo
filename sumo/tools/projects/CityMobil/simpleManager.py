@@ -5,64 +5,51 @@
 @date    2008-10-09
 @version $Id$
 
-Control the CityMobil parking lot via TraCI.
+Control the CityMobil parking lot with a simple first come first serve approach.
 
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
 from optparse import OptionParser
 
-import vehicleControl, traciControl
+import vehicleControl
 from constants import *
-
-class CyberCar:
-    def __init__(self):
-        self.parking = False
-        self.load = 0
 
 class SimpleManager(vehicleControl.Manager):
 
     def __init__(self):
-        self.cyberCars = {}
-        self.waiting = {}
+        self.cyberCarLoad = {}
+        self.personsWaitingAt = {}
 
-    def personArrived(self, vehicleID, edge):
-        if not edge in self.waiting:
-            self.waiting[edge] = []
-        self.waiting[edge].append(vehicleID)
+    def personArrived(self, personID, edge):
+        if not edge in self.personsWaitingAt:
+            self.personsWaitingAt[edge] = []
+        self.personsWaitingAt[edge].append(personID)
 
     def cyberCarArrived(self, vehicleID, edge, pos):
-        if not vehicleID in self.cyberCars:
-            self.cyberCars[vehicleID] = CyberCar()
-        cyberCar = self.cyberCars[vehicleID]
-        if edge != "cyberin":
-            if pos < 70:
-                footEdge = edge.replace("cyber", "footmain")
-                if not cyberCar.parking:
-                    if cyberCar.load < CYBER_CAPACITY:                
-                        if footEdge in self.waiting and self.waiting[footEdge]:
-                            vehicleControl.stopAt(vehicleID, edge, ROW_DIST-15.)
-                            cyberCar.parking = True
-                else:
-                    if pos >= ROW_DIST - 20:
-                        while self.waiting[footEdge] and cyberCar.load < CYBER_CAPACITY:
-                            person = self.waiting[footEdge].pop(0)
-                            vehicleControl.leaveStop(person)
-                            cyberCar.load += 1
-                        vehicleControl.leaveStop(vehicleID, "cyberout")
-                        cyberCar.parking = False
-        if edge == "cyberout" and pos >= 70 and not cyberCar.parking:
-            traciControl.changeTarget("cyberin", vehicleID)
-            traciControl.stopObject(edge, vehicleID, 90., cyberCar.load * 5.)
-            cyberCar.parking = True
-        if edge == "cyberin" and cyberCar.parking:
-            cyberCar.parking = False
-            cyberCar.load = 0
-            traciControl.changeTarget("cyberout", vehicleID)
+        load = self.cyberCarLoad.get(vehicleID, 0)
+        if edge == "cyberout":
+            vehicleControl.leaveStop(vehicleID, delay=load*WAIT_PER_PERSON)
+            load = 0
+            vehicleControl.stopAt(vehicleID, "cyber0to1", ROW_DIST-15.)
+        else:
+            footEdge = edge.replace("cyber", "footmain")
+            wait = 0
+            while self.personsWaitingAt.get(footEdge, []) and load < CYBER_CAPACITY:
+                person = self.personsWaitingAt[footEdge].pop(0)
+                vehicleControl.leaveStop(person)
+                load += 1
+                wait += WAIT_PER_PERSON
+            vehicleControl.leaveStop(vehicleID, delay=wait)
+            row = int(edge[5])
+            if row < DOUBLE_ROWS-1:
+                vehicleControl.stopAt(vehicleID, "cyber%sto%s" % (row+1, row+2), ROW_DIST-15.)
+            else:
+                vehicleControl.stopAt(vehicleID, "cyberout", 90.)
+        self.cyberCarLoad[vehicleID] = load
 
 def main():
     vehicleControl.init(options.gui, SimpleManager(), options.verbose)
-    
     while True:
         vehicleControl.doStep()
     close()
