@@ -60,7 +60,8 @@ public:
      */
     RODFEdge(const std::string &id, unsigned int index) throw();
 
-    /// Destructor
+
+    /// @brief Destructor
     ~RODFEdge() throw();
 
     void setFlows(const std::vector<FlowDef> &flows);
@@ -71,13 +72,11 @@ public:
 private:
     std::vector<FlowDef> myFlows;
 
-    Position2D myFromPosition, myToPosition;
-
 private:
-    /// we made the copy constructor invalid
+    /// @brief Invalidated copy constructor
     RODFEdge(const RODFEdge &src);
 
-    /// we made the assignment operator invalid
+    /// @brief Invalidated assignment operator
     RODFEdge &operator=(const RODFEdge &src);
 
 };

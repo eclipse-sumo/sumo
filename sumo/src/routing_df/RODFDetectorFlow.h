@@ -95,6 +95,13 @@ protected:
     SUMOTime myBeginTime, myEndTime, myStepOffset;
     mutable SUMOReal myMaxDetectorFlow;
 
+private:
+    /// @brief Invalidated copy constructor
+    RODFDetectorFlows(const RODFDetectorFlows &src);
+
+    /// @brief Invalidated assignment operator
+    RODFDetectorFlows &operator=(const RODFDetectorFlows &src);
+
 };
 
 

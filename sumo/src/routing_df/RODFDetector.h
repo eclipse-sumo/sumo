@@ -150,6 +150,14 @@ protected:
     DFRORouteCont *myRoutes;
     std::vector<RODFDetector*> myPriorDetectors, myFollowingDetectors;
 
+
+private:
+    /// @brief Invalidated copy constructor
+    RODFDetector(const RODFDetector &src);
+
+    /// @brief Invalidated assignment operator
+    RODFDetector &operator=(const RODFDetector &src);
+
 };
 
 
@@ -208,6 +216,13 @@ protected:
     std::vector<RODFDetector*> myDetectors;
     std::map<std::string, RODFDetector*> myDetectorMap;
     std::map<std::string, std::vector<RODFDetector*> > myDetectorEdgeMap;
+
+private:
+    /// @brief Invalidated copy constructor
+    RODFDetectorCon(const RODFDetectorCon &src);
+
+    /// @brief Invalidated assignment operator
+    RODFDetectorCon &operator=(const RODFDetectorCon &src);
 
 };
 
