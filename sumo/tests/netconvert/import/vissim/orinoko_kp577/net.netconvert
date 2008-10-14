@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/14/08 10:06:17 by SUMO netconvert Version dev-SVN-r6134
+<!-- generated on 10/14/08 16:04:11 by SUMO netconvert Version dev-SVN-r6134
 <configuration>
 
    <input>
@@ -60,8 +60,8 @@
 
    <edge id="1000702[1]+1000701" from="605001197" to="605001196" priority="0" type="" function="normal">
       <lanes>
-         <lane id="1000702[1]+1000701_0" depart="1" vclasses="" maxspeed="3.86" length="62.87">2120.77,1561.05 2080.77,1609.55</lane>
-         <lane id="1000702[1]+1000701_1" depart="0" vclasses="" maxspeed="3.86" length="62.87">2118.23,1558.95 2078.23,1607.45</lane>
+         <lane id="1000702[1]+1000701_0" depart="1" vclasses="" maxspeed="13.89" length="62.87">2120.77,1561.05 2080.77,1609.55</lane>
+         <lane id="1000702[1]+1000701_1" depart="0" vclasses="" maxspeed="13.89" length="62.87">2118.23,1558.95 2078.23,1607.45</lane>
       </lanes>
    </edge>
 
@@ -79,8 +79,8 @@
 
    <edge id="1000705[1]+1000704" from="605001198" to="605001196" priority="0" type="" function="normal">
       <lanes>
-         <lane id="1000705[1]+1000704_0" depart="1" vclasses="" maxspeed="3.86" length="4.52">2124.35,1653.68 2121.09,1650.56</lane>
-         <lane id="1000705[1]+1000704_1" depart="0" vclasses="" maxspeed="3.86" length="4.52">2126.64,1651.31 2123.37,1648.18</lane>
+         <lane id="1000705[1]+1000704_0" depart="1" vclasses="" maxspeed="13.89" length="4.52">2124.35,1653.68 2121.09,1650.56</lane>
+         <lane id="1000705[1]+1000704_1" depart="0" vclasses="" maxspeed="13.89" length="4.52">2126.64,1651.31 2123.37,1648.18</lane>
       </lanes>
    </edge>
 
@@ -98,8 +98,8 @@
 
    <edge id="1000708[1]+1000707" from="605001199" to="605001196" priority="0" type="" function="normal">
       <lanes>
-         <lane id="1000708[1]+1000707_0" depart="1" vclasses="" maxspeed="3.86" length="46.70">2040.13,1655.80 2069.03,1619.12</lane>
-         <lane id="1000708[1]+1000707_1" depart="0" vclasses="" maxspeed="3.86" length="46.70">2042.72,1657.84 2071.63,1621.16</lane>
+         <lane id="1000708[1]+1000707_0" depart="1" vclasses="" maxspeed="13.89" length="46.70">2040.13,1655.80 2069.03,1619.12</lane>
+         <lane id="1000708[1]+1000707_1" depart="0" vclasses="" maxspeed="13.89" length="46.70">2042.72,1657.84 2071.63,1621.16</lane>
       </lanes>
    </edge>
 
@@ -117,8 +117,8 @@
 
    <edge id="1000711[1]+1000710" from="605001200" to="605001196" priority="0" type="" function="normal">
       <lanes>
-         <lane id="1000711[1]+1000710_0" depart="1" vclasses="" maxspeed="3.86" length="6.07">2033.56,1568.24 2038.23,1572.11</lane>
-         <lane id="1000711[1]+1000710_1" depart="0" vclasses="" maxspeed="3.86" length="6.07">2031.45,1570.77 2036.13,1574.65</lane>
+         <lane id="1000711[1]+1000710_0" depart="1" vclasses="" maxspeed="13.89" length="6.07">2033.56,1568.24 2038.23,1572.11</lane>
+         <lane id="1000711[1]+1000710_1" depart="0" vclasses="" maxspeed="13.89" length="6.07">2031.45,1570.77 2036.13,1574.65</lane>
       </lanes>
    </edge>
 

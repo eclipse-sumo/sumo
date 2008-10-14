@@ -256,12 +256,13 @@ Warning: The traffic light '452' has no incoming edges; it will not be build.
 Warning: Could not build traffic lights '452'
 Warning: The traffic light '453' has no incoming edges; it will not be build.
 Warning: Could not build traffic lights '453'
-Warning: TYellow of signal group '10' was less than the computed one; patched (was:0, is:1)
-Warning: TYellow of signal group '12' was less than the computed one; patched (was:0, is:1)
-Warning: TYellow of signal group '13' was less than the computed one; patched (was:0, is:1)
-Warning: TYellow of signal group '7' was less than the computed one; patched (was:0, is:1)
-Warning: TYellow of signal group '8' was less than the computed one; patched (was:0, is:1)
-Warning: TYellow of signal group '9' was less than the computed one; patched (was:0, is:1)
+Warning: TYellow of signal group '1' was less than the computed one; patched (was:3, is:4)
+Warning: TYellow of signal group '10' was less than the computed one; patched (was:0, is:4)
+Warning: TYellow of signal group '12' was less than the computed one; patched (was:0, is:4)
+Warning: TYellow of signal group '13' was less than the computed one; patched (was:0, is:4)
+Warning: TYellow of signal group '7' was less than the computed one; patched (was:0, is:4)
+Warning: TYellow of signal group '8' was less than the computed one; patched (was:0, is:4)
+Warning: TYellow of signal group '9' was less than the computed one; patched (was:0, is:4)
 Warning: During computation of traffic light '454'.
 Warning: The traffic light '455' has no incoming edges; it will not be build.
 Warning: Could not build traffic lights '455'
@@ -271,3 +272,10 @@ Warning: The traffic light '503' has no incoming edges; it will not be build.
 Warning: Could not build traffic lights '503'
 Warning: The traffic light '531' has no incoming edges; it will not be build.
 Warning: Could not build traffic lights '531'
+Warning: TYellow of signal group '1' was less than the computed one; patched (was:3, is:4)
+Warning: TYellow of signal group '5' was less than the computed one; patched (was:3, is:4)
+Warning: TYellow of signal group '6' was less than the computed one; patched (was:3, is:4)
+Warning: During computation of traffic light '532'.
+Warning: TYellow of signal group '4' was less than the computed one; patched (was:3, is:4)
+Warning: TYellow of signal group '5' was less than the computed one; patched (was:3, is:4)
+Warning: During computation of traffic light '534'.

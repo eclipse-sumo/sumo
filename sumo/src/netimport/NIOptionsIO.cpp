@@ -166,7 +166,7 @@ NIOptionsIO::fillOptions()
     oc.doRegister("vissim.offset", new Option_Float(5.0f));
     oc.addDescription("vissim.offset", "Processing", "Structure join offset (VISSIM)");
 
-    oc.doRegister("vissim.default-speed", new Option_Float(50.0f/3.6f));
+    oc.doRegister("vissim.default-speed", new Option_Float(50.0f));
     oc.addDescription("vissim.default-speed", "Processing", "Use FLOAT as default speed (VISSIM)");
 
     oc.doRegister("vissim.speed-norm", new Option_Float(1.0f));

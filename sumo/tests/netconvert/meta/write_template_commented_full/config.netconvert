@@ -233,7 +233,7 @@
       <vissim.offset>5</vissim.offset>
 
       <!-- Use FLOAT as default speed (VISSIM) -->
-      <vissim.default-speed>13.8889</vissim.default-speed>
+      <vissim.default-speed>50</vissim.default-speed>
 
       <!-- Factor for edge velocity (VISSIM) -->
       <vissim.speed-norm>1</vissim.speed-norm>

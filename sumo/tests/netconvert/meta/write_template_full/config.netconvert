@@ -92,7 +92,7 @@
       <arcview.utm>32</arcview.utm>
       <arcview.guess-projection>false</arcview.guess-projection>
       <vissim.offset>5</vissim.offset>
-      <vissim.default-speed>13.8889</vissim.default-speed>
+      <vissim.default-speed>50</vissim.default-speed>
       <vissim.speed-norm>1</vissim.speed-norm>
       <vissim.report-unset-speeds>false</vissim.report-unset-speeds>
       <visum.use-net-prio>false</visum.use-net-prio>
