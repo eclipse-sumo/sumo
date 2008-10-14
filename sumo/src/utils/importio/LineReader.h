@@ -32,6 +32,7 @@
 
 #include <string>
 #include <fstream>
+#include <utils/common/UtilExceptions.h>
 
 
 // ===========================================================================
