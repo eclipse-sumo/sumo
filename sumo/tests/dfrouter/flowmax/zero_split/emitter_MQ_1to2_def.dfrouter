@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 09/10/07 09:25:35 by SUMO dfrouter Version 0.9.6
+<!-- generated on 10/14/08 17:01:08 by SUMO dfrouter Version dev-SVN-r6134
 <configuration>
 
    <input>
@@ -19,14 +19,14 @@
 
 <triggeredsource>
    <routedistelem id="1to2_to_4to5" probability="1.00"/>
-   <emit id="emitter_MQ_1to2_0" time="0" speed="100.00" route="1to2_to_4to5"/>
-   <emit id="emitter_MQ_1to2_6" time="6" speed="100.00" route="1to2_to_4to5"/>
-   <emit id="emitter_MQ_1to2_12" time="12" speed="100.00" route="1to2_to_4to5"/>
-   <emit id="emitter_MQ_1to2_18" time="18" speed="100.00" route="1to2_to_4to5"/>
-   <emit id="emitter_MQ_1to2_24" time="24" speed="100.00" route="1to2_to_4to5"/>
-   <emit id="emitter_MQ_1to2_30" time="30" speed="100.00" route="1to2_to_4to5"/>
-   <emit id="emitter_MQ_1to2_36" time="36" speed="100.00" route="1to2_to_4to5"/>
-   <emit id="emitter_MQ_1to2_42" time="42" speed="100.00" route="1to2_to_4to5"/>
-   <emit id="emitter_MQ_1to2_48" time="48" speed="100.00" route="1to2_to_4to5"/>
-   <emit id="emitter_MQ_1to2_54" time="54" speed="100.00" route="1to2_to_4to5"/>
+   <emit id="emitter_MQ_1to2_0" time="0" speed="27.78" route="1to2_to_4to5"/>
+   <emit id="emitter_MQ_1to2_6" time="6" speed="27.78" route="1to2_to_4to5"/>
+   <emit id="emitter_MQ_1to2_12" time="12" speed="27.78" route="1to2_to_4to5"/>
+   <emit id="emitter_MQ_1to2_18" time="18" speed="27.78" route="1to2_to_4to5"/>
+   <emit id="emitter_MQ_1to2_24" time="24" speed="27.78" route="1to2_to_4to5"/>
+   <emit id="emitter_MQ_1to2_30" time="30" speed="27.78" route="1to2_to_4to5"/>
+   <emit id="emitter_MQ_1to2_36" time="36" speed="27.78" route="1to2_to_4to5"/>
+   <emit id="emitter_MQ_1to2_42" time="42" speed="27.78" route="1to2_to_4to5"/>
+   <emit id="emitter_MQ_1to2_48" time="48" speed="27.78" route="1to2_to_4to5"/>
+   <emit id="emitter_MQ_1to2_54" time="54" speed="27.78" route="1to2_to_4to5"/>
 </triggeredsource>
