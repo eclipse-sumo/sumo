@@ -8,4 +8,6 @@ orinoko_kp573
 # KP577 from ORINOKO project by Julia Ringel
 orinoko_kp577
 
+# as orinoko_kp573 but unset speeds are reported
+orinoko_kp573_report_unset_v
 

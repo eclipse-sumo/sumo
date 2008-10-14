@@ -238,6 +238,9 @@
       <!-- Factor for edge velocity (VISSIM) -->
       <vissim.speed-norm>1</vissim.speed-norm>
 
+      <!-- Writes lanes without an explicite speed set. -->
+      <vissim.report-unset-speeds>false</vissim.report-unset-speeds>
+
       <!-- Uses priorities from types -->
       <visum.use-net-prio>false</visum.use-net-prio>
 

@@ -130,7 +130,17 @@ public:
 
     static void dict_checkEdges2Join();
 
-//    static void replaceSpeed(int id, int lane, SUMOReal speed);
+
+    /** @brief Writes edges with unset speeds to the warnings message log instance
+     *
+     * Vissim has no direct speed definition of edges; still, we try to propagate
+     *  speed changes along the streets. If a lane is not covered by such, its id
+     *  is put into the static container "myLanesWithMissingSpeeds". 
+     * If the option "vissim.report-unset-speeds" is set, all lane ids stored within
+     *  this container are written.
+     */
+    static void reportUnsetSpeeds() throw();
+
 
 private:
     /// The definition for a container for connection clusters
@@ -256,15 +266,16 @@ private:
     std::vector<NIVissimEdge*> myToTreatAsSame;
 
 private:
-    /// Definition of the dictionary type
+    /// @brief Definition of the dictionary type
     typedef std::map<int, NIVissimEdge*> DictType;
 
-    /// The dictionary
+    /// @brief The dictionary
     static DictType myDict;
 
-    /** @brief The current maximum id;
-        needed for further id assignment */
+    /// @brief The current maximum id; needed for further id assignment
     static int myMaxID;
+
+    static std::vector<std::string> myLanesWithMissingSpeeds;
 
 };
 

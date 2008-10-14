@@ -172,7 +172,10 @@ NIOptionsIO::fillOptions()
     oc.doRegister("vissim.speed-norm", new Option_Float(1.0f));
     oc.addDescription("vissim.speed-norm", "Processing", "Factor for edge velocity (VISSIM)");
 
-    // register further vissim-options
+    oc.doRegister("vissim.report-unset-speeds", new Option_Bool(false));
+    oc.addDescription("vissim.report-unset-speeds", "Processing", "Writes lanes without an explicite speed set.");
+
+    // register further visum-options
     oc.doRegister("visum.use-net-prio", new Option_Bool(false));
     oc.addDescription("visum.use-net-prio", "Processing", "Uses priorities from types");
 

@@ -1,4 +1,4 @@
-SUMO netconvert Version dev-SVN-r5409
+SUMO netconvert Version dev-SVN-r6134
  (c) DLR/ZAIK 2000-2007; http://sumo.sourceforge.net
  
 Road network importer / builder for the road traffic simulation SUMO.
@@ -128,6 +128,8 @@ Usage: netconvert.exe [OPTION]*
   --vissim.offset FLOAT                Structure join offset (VISSIM)
   --vissim.default-speed FLOAT         Use FLOAT as default speed (VISSIM)
   --vissim.speed-norm FLOAT            Factor for edge velocity (VISSIM)
+  --vissim.report-unset-speeds         Writes lanes without an explicite speed
+                                         set.
   --visum.use-net-prio                 Uses priorities from types
   --flip-y                             Flips the y-coordinate along zero
   --dismiss-vclasses                   

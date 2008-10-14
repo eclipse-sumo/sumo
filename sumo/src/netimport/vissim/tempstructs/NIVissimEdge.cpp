@@ -35,6 +35,7 @@
 #include <iomanip>
 #include <cmath>
 #include <iostream>
+#include <sstream>
 #include <utils/common/ToString.h>
 #include <utils/geom/Position2DVector.h>
 #include <utils/geom/GeomHelper.h>
@@ -60,6 +61,14 @@
 // used namespaces
 // ===========================================================================
 using namespace std;
+
+
+// ===========================================================================
+// static members
+// ===========================================================================
+NIVissimEdge::DictType NIVissimEdge::myDict;
+int NIVissimEdge::myMaxID = 0;
+std::vector<std::string> NIVissimEdge::myLanesWithMissingSpeeds;
 
 
 // ===========================================================================
@@ -113,11 +122,6 @@ NIVissimEdge::connection_cluster_position_sorter::operator()(
 }
 
 
-
-
-
-NIVissimEdge::DictType NIVissimEdge::myDict;
-int NIVissimEdge::myMaxID = 0;
 
 
 NIVissimEdge::NIVissimEdge(int id, const std::string &name,
@@ -292,10 +296,6 @@ NIVissimEdge::dict_propagateSpeeds(/* NBDistribution &dc */)
             edge->checkUnconnectedLaneSpeeds(/* dc */);
         }
     }
-    /*    for(i=myDict.begin(); i!=myDict.end(); i++) {
-            NIVissimEdge *edge = (*i).second;
-            edge->setUnsetSpeed(5000);
-        }*/
 }
 
 
@@ -654,7 +654,7 @@ NIVissimEdge::buildNBEdge(NBDistrictCont &dc, NBNodeCont &nc, NBEdgeCont &ec,
     int i;
     for (i=0; i<(int) myNoLanes; i++) {
         if (myLaneSpeeds.size()<=(size_t) i||myLaneSpeeds[i]==-1) {
-            WRITE_WARNING("Unset speed on edge:" + toString<int>(myID) + ", lane:" + toString<int>(i) + "; using default.");
+            myLanesWithMissingSpeeds.push_back(toString(myID) + "_" + toString(i));
             avgSpeed += OptionsCont::getOptions().getFloat("vissim.default-speed");
         } else {
             avgSpeed += myLaneSpeeds[i];
@@ -1058,15 +1058,6 @@ NIVissimEdge::checkDistrictConnectionExistanceAt(SUMOReal pos)
     }
 }
 
-/*
-void
-NIVissimEdge::replaceSpeed(int id, int lane, SUMOReal speed)
-{
-    DictType::iterator i = myDict.find(id);
-    assert(i!=myDict.end());
-    (*i).second->replaceSpeed(lane, speed);
-}
-*/
 
 void
 NIVissimEdge::setSpeed(size_t lane, int speedDist)
@@ -1189,6 +1180,23 @@ NIVissimEdge::getToTreatAsSame() const
     return myToTreatAsSame;
 }
 
+
+void 
+NIVissimEdge::reportUnsetSpeeds() throw()
+{
+    if(myLanesWithMissingSpeeds.size()==0) {
+        return;
+    }
+    ostringstream str;
+    str << "The following lanes have no explicite speed information:\n  ";
+    for(vector<string>::iterator i=myLanesWithMissingSpeeds.begin(); i!=myLanesWithMissingSpeeds.end(); ++i) {
+        if(i!=myLanesWithMissingSpeeds.begin()) {
+            str << ", ";
+        }
+        str << *i;
+    }
+    MsgHandler::getWarningInstance()->inform(str.str());
+}
 
 
 /****************************************************************************/
