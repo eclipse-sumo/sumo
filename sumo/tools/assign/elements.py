@@ -346,6 +346,7 @@ class Path:
         self.helpflow = 0.0
         self.commfactor = 0.0
         self.choiceprob = 0.0
+        self.sumOverlap = 0.0
         # parameter used in the Lohse traffic assignment
         self.usedcounts = 1
         # parameter used in the Lohse traffic assignment          
@@ -359,6 +360,16 @@ class Path:
     def getPathLength(self):
         for edge in self.edges:
             self.length += edge.length
+            
+    def updateSumOverlap(self, newpath, gamma):
+        overlapLength = 0.
+        for edge in self.edges:
+            if edge in newpath.edges:
+                overlapLength += edge.length
+        overlapLength = overlapLength/1000.
+        lengthOne = self.length/1000.
+        lengthTwo = newpath.length/1000.
+        self.sumOverlap += math.pow(overlapLength/(math.pow(lengthOne,0.5) * math.pow(lengthTwo,0.5)), gamma)
     
     def updatePathActTime(self):
         self.actpathtime = 0.

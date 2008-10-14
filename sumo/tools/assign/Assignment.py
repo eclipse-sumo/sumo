@@ -92,9 +92,7 @@ def main():
         for endVertex in net._endVertices:
             AssignedVeh[startVertex][endVertex] = 0
             AssignedTrip[startVertex][endVertex] = 0.
-    # initialize the map for recording the Commonality factor in the c-logit and the lohse model
-    mtxOverlap = {}
-    
+
     # initialization
     vehID = 0
     matrixSum = 0.0
@@ -187,7 +185,7 @@ def main():
                 # Generate the effective routes als intital path solutions, when considering k shortest paths (k is defined by the user.)
                 if checkKPaths:
                     checkPathStart = datetime.datetime.now() 
-                    newRoutes = net.calcKPaths(options.verbose, options.kPaths, newRoutes, startVertices, endVertices, matrixPshort)
+                    newRoutes = net.calcKPaths(options.verbose, options.kPaths, newRoutes, startVertices, endVertices, matrixPshort, options.gamma)
                     checkPathEnd = datetime.datetime.now() - checkPathStart
                     foutlog.write('- Time for finding the k-shortest paths: %s\n' %checkPathEnd)
                     foutlog.write('- Finding the k-shortest paths for each OD pair: done.\n')
@@ -198,7 +196,7 @@ def main():
                 
                 elif not checkKPaths and iter_outside == 1 and counter == 0:
                     print 'search for the new path'
-                    newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, lohse)
+                    newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, options.gamma, lohse)
                 
                 checkKPaths = False
                 
@@ -211,7 +209,7 @@ def main():
                 while not stable:
                     if options.verbose:
                         print 'iter_inside:', iter_inside
-                    stable = doSUEAssign(net, options, startVertices, endVertices, matrixPshort, mtxOverlap, iter_inside, lohse, first)
+                    stable = doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter_inside, lohse, first)
                     # The matrixPlong and the matrixTruck should be added when considering the long-distance trips and the truck trips.
                     if lohse:
                         stable = doLohseStopCheck(net, options, stable, iter_inside, options.maxiteration, foutlog)
@@ -221,7 +219,7 @@ def main():
                     if options.verbose:
                         print 'stable:', stable
                     
-                newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, lohse)
+                newRoutes = net.findNewPath(startVertices, endVertices, newRoutes, matrixPshort, options.gamma, lohse)
 
                 first = False    
                 iter_outside += 1
@@ -238,7 +236,7 @@ def main():
                     newRoutes = 0
     
             # update the path choice probability and the path flows as well as generate vehicle data 	
-            vehID = doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, mtxOverlap, vehID, lohse)
+            vehID = doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse)
 
        # output the generated vehicular releasing times and routes, based on the current matrix
         sortedVehOutput(vehicles, departtime, foutroute)

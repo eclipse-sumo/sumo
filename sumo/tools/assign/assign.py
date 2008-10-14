@@ -62,7 +62,7 @@ def doIncAssign(vehicles, verbose, iteration, endVertices, start, startVertex, m
     return vehID
   
 # execute the SUE model with the given path set
-def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, mtxOverlap, iter, lohse, first): 
+def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lohse, first): 
     if lohse:
         if options.verbose:
             foutassign = file('lohse_pathSet.txt', 'a')
@@ -82,7 +82,7 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, mtxOverl
                 
                 for path in ODPaths:
                     path.getPathTimeUpdate()
-                calCommonalityAndChoiceProb(ODPaths, mtxOverlap, options.alpha, options.gamma, lohse)
+                calCommonalityAndChoiceProb(ODPaths, options.alpha, lohse)
                 
                 # calculate the path choice probabilities and the path flows for the given OD Pair
                 for path in ODPaths:
@@ -152,39 +152,11 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, mtxOverl
     return stable
 
 # calculate the commonality factors in the C-Logit model
-def calCommonalityAndChoiceProb(ODPaths, mtxOverlap, alpha, gamma, lohse):
-    # initialize the overlapping matrix
-    for pathone in ODPaths:
-        doCal = False
-        if not pathone in mtxOverlap:
-            mtxOverlap[pathone]={}
-            doCal = True
-        for pathtwo in ODPaths:
-            if doCal or not pathtwo in mtxOverlap[pathone]:
-                if not pathtwo in mtxOverlap[pathone]:
-                    mtxOverlap[pathone][pathtwo] = 0.
-                    doCal = True
-                if not pathtwo in mtxOverlap:
-                    mtxOverlap[pathtwo] = {}
-                    mtxOverlap[pathtwo][pathone] = 0.
-                    doCal = True
-                if doCal:
-                    for edgeone in pathone.edges:
-                        for edgetwo in pathtwo.edges:
-                            if edgeone.label == edgetwo.label:
-                                mtxOverlap[pathone][pathtwo] += edgeone.length
-                    mtxOverlap[pathone][pathtwo] = mtxOverlap[pathone][pathtwo]/1000.
-                    mtxOverlap[pathtwo][pathone] = mtxOverlap[pathone][pathtwo]
-                doCal = False
+def calCommonalityAndChoiceProb(ODPaths, alpha, lohse):
     if len(ODPaths) > 1:
-        for pathone in ODPaths:
-            sum_overlap = 0.0 
-            lengthOne = pathone.length/1000.
-            for pathtwo in ODPaths:
-                lengthTwo = pathtwo.length/1000.
-                sum_overlap += math.pow(mtxOverlap[pathone][pathtwo]/(math.pow(lengthOne,0.5) * math.pow(lengthTwo,0.5)), gamma)
-          
-            pathone.commfactor = alpha * math.log(sum_overlap)
+        for path in ODPaths:
+            path.commfactor = alpha * math.log(path.sumOverlap)
+
         
         if lohse:
             minpath = min(ODPaths, key=operator.attrgetter('pathhelpacttime'))
@@ -196,7 +168,7 @@ def calCommonalityAndChoiceProb(ODPaths, mtxOverlap, alpha, gamma, lohse):
         for pathone in ODPaths:
             sum_exputility = 0.
             for pathtwo in ODPaths:
-                if str(pathone.label) != str(pathtwo.label):
+                if pathone != pathtwo:
                     if not lohse:
                         sum_exputility += math.exp(theta*(-pathtwo.actpathtime + pathone.actpathtime + pathone.commfactor - pathtwo.commfactor))
                     else:
@@ -210,7 +182,7 @@ def calCommonalityAndChoiceProb(ODPaths, mtxOverlap, alpha, gamma, lohse):
             path.choiceprob = 1.
             
 # calculate the path choice probabilities and the path flows and generate the vehicular data for each OD Pair    
-def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, mtxOverlap, vehID, lohse):
+def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices, endVertices, AssignedVeh, AssignedTrip, vehID, lohse):
     if options.verbose:
         if counter == 0:
             foutpath = file('paths.txt', 'w')
@@ -243,7 +215,7 @@ def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices,
                     if lohse:                      
                         path.pathhelpacttime = path.actpathtime
       
-                calCommonalityAndChoiceProb(ODPaths, mtxOverlap, options.alpha, options.gamma, lohse)
+                calCommonalityAndChoiceProb(ODPaths, options.alpha, lohse)
         
                 for path in ODPaths:
                     pathcount += 1
@@ -252,7 +224,7 @@ def doSUEVehAssign(net, vehicles, options, counter, matrixPshort, startVertices,
                         cumulatedflow += path.pathflow
                     else:
                         path.pathflow = matrixPshort[start][end] - cumulatedflow
-                        if path.pathflow < 0.:
+                        if options.verbose and path.pathflow < 0.:
                             fouterror.write('*********************** the path flow on the path:%s < 0.!!' %path.label)
                     if options.verbose:
                         foutpath.write('\npathID= %s, path flow=%4.4f, actpathtime=%4.4f, choiceprob=%4.4f, edges=' 
