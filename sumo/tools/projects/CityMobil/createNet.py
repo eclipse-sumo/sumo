@@ -128,7 +128,7 @@ totalSlots = 2 * DOUBLE_ROWS * SLOTS_PER_ROW
 print >> routes, """    <vehicle id="v" type="car" depart="1" period="10" repno="%s" arrivalpos="10000">
         <route edges="mainin"/>
     </vehicle>
-    <vehicle id="c" type="cybercar" depart="100" period="100" repno="1" arrivalpos="10000">
+    <vehicle id="c" type="cybercar" depart="1" period="100" repno="1" arrivalpos="10000">
         <route edges="%s"/>
     </vehicle>
 </routes>""" % (totalSlots-1, cyberroute)
