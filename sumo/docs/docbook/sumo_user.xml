@@ -6469,15 +6469,7 @@ myDet1;0;10;2;100;80
         output. We had to constrain the
         <replaceable>&lt;DETECTOR_FLOWS&gt;</replaceable> files this way
         because <application>DFROUTER</application> is meant to read very many
-        of such definitions and to do this as fast as possible. Because even
-        this scheme was too slow for some purposes, flow amounts can also be
-        marked as more valid using the option <option>--fast-flows</option>.
-        If set, <application>DFROUTER</application> assumes that there is no
-        header line and that the values are separated using spaces. In this
-        case, the columns must be in the order <property>time</property>,
-        <property>detector name</property>, <property>qPKW</property>,
-        <property>qLKW</property>, <property>vPKW</property>, and
-        <property>vLKW</property>.</para>
+        of such definitions and to do this as fast as possible.</para>
 
         <para>Because in some cases one reads detector flow definitions
         starting at a certain time but wants his simulation begin at another,
@@ -6497,16 +6489,6 @@ myDet1;0;10;2;100;80
             <listitem>
               <para>Describes the files to read detector flows from.
               <remark>Optional, type:filename, default: none</remark></para>
-            </listitem>
-          </varlistentry>
-
-          <varlistentry>
-            <term><option>--fast-flows</option></term>
-
-            <listitem>
-              <para>Says that the flows are stored in a more constrained,
-              faster to read format <remark>Optional (pregiven), type:bool,
-              default: false</remark></para>
             </listitem>
           </varlistentry>
 
@@ -6532,6 +6514,17 @@ myDet1;0;10;2;100;80
               <listitem>
                 <para>vPKW and vLKW should now be supplied in km/h, not in
                 m/s</para>
+              </listitem>
+            </itemizedlist>
+          </listitem>
+
+          <listitem>
+            <para>Changes in version 0.9.x</para>
+
+            <itemizedlist>
+              <listitem>
+                <para><option>--fast-flows</option> is no longer
+                existing</para>
               </listitem>
             </itemizedlist>
           </listitem>
