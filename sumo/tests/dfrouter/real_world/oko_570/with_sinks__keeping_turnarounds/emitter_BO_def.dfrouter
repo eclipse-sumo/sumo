@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 12/11/07 10:41:27 by SUMO dfrouter Version 0.9.7
+<!-- generated on 10/14/08 17:00:49 by SUMO dfrouter Version dev-SVN-r6134
 <configuration>
 
    <input>
@@ -34,8 +34,8 @@
 <triggeredsource>
    <routedistelem id="a4_a5_to_20_10" probability="0.50"/>
    <routedistelem id="a4_a5_to_51_61" probability="0.50"/>
-   <emit id="emitter_BO_0" time="0" speed="100.00" route="a4_a5_to_51_61"/>
-   <emit id="emitter_BO_15" time="15" speed="100.00" route="a4_a5_to_51_61"/>
-   <emit id="emitter_BO_30" time="30" speed="100.00" route="a4_a5_to_20_10"/>
-   <emit id="emitter_BO_45" time="45" speed="100.00" route="a4_a5_to_20_10"/>
+   <emit id="emitter_BO_0" time="0" speed="27.78" route="a4_a5_to_51_61"/>
+   <emit id="emitter_BO_15" time="15" speed="27.78" route="a4_a5_to_51_61"/>
+   <emit id="emitter_BO_30" time="30" speed="27.78" route="a4_a5_to_20_10"/>
+   <emit id="emitter_BO_45" time="45" speed="27.78" route="a4_a5_to_20_10"/>
 </triggeredsource>

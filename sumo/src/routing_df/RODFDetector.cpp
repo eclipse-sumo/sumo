@@ -57,14 +57,14 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-RODFDetector::RODFDetector(const std::string &Id, const std::string &laneId,
-                           SUMOReal pos, const RODFDetectorType type)
-        : myID(Id), myLaneID(laneId), myPosition(pos), myType(type), myRoutes(0)
+RODFDetector::RODFDetector(const std::string &id, const std::string &laneID,
+                           SUMOReal pos, const RODFDetectorType type) throw()
+        : myID(id), myLaneID(laneID), myPosition(pos), myType(type), myRoutes(0)
 {}
 
 
-RODFDetector::RODFDetector(const std::string &Id, const RODFDetector &f)
-        : myID(Id), myLaneID(f.myLaneID), myPosition(f.myPosition),
+RODFDetector::RODFDetector(const std::string &id, const RODFDetector &f) throw()
+        : myID(id), myLaneID(f.myLaneID), myPosition(f.myPosition),
         myType(f.myType), myRoutes(0)
 {
     if (f.myRoutes!=0) {
@@ -73,7 +73,7 @@ RODFDetector::RODFDetector(const std::string &Id, const RODFDetector &f)
 }
 
 
-RODFDetector::~RODFDetector()
+RODFDetector::~RODFDetector() throw()
 {
     delete myRoutes;
 }
@@ -221,7 +221,8 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
                                      bool includeUnusedRoutes,
                                      SUMOReal scale,
                                      int maxFollower,
-                                     bool emissionsOnly) const
+                                     bool emissionsOnly, 
+                                     SUMOReal defaultSpeed) const
 {
     OutputDevice& out = OutputDevice::getDevice(file);
     if (getType()==SOURCE_DETECTOR) {
@@ -301,12 +302,12 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
 //!!!	    			type = pkwTypes[vehSpeedDist.get()];
                     v = srcFD.vPKW;
                 }
-                if (v<=0) {
-                    v = (SUMOReal)(100 / 3.6);
-                } else if (v>=180) {
-                    v = (SUMOReal)(100 / 3.6);
+                // compute emission speed
+                if (v<0||v>250) {
+                    v = defaultSpeed;
+                } else {
+                    v = (SUMOReal) (v/3.6);
                 }
-
                 // compute the departure time
                 int ctime = (int)(time + ((SUMOReal) stepOffset * (SUMOReal) car / (SUMOReal) carNo));
 
@@ -554,20 +555,6 @@ RODFDetectorCon::knows(const std::string &id) const
 }
 
 
-/*
-bool
-RODFDetectorCon::isDetector( std::string id )
-{
-	bool ret = false;
-	for(std::vector<RODFDetector*>::const_iterator i=myDetectors.begin(); i!=myDetectors.end(); ++i) {
-		if ( (*i)->getID() == id )
-			ret = true;
-	}
-	return ret;
-}
-*/
-
-
 void
 RODFDetectorCon::writeEmitters(const std::string &file,
                                const RODFDetectorFlows &flows,
@@ -596,7 +583,8 @@ RODFDetectorCon::writeEmitters(const std::string &file,
         }
 //        cout << det->getID() << endl;
         // try to write the definition
-        if (!det->writeEmitterDefinition(defFileName, *this, flows, startTime, endTime, stepOffset, net, includeUnusedRoutes, scale, maxFollower, emissionsOnly)) {
+        SUMOReal defaultSpeed = net.getEdge(det->getEdgeID())->getSpeed();
+        if (!det->writeEmitterDefinition(defFileName, *this, flows, startTime, endTime, stepOffset, net, includeUnusedRoutes, scale, maxFollower, emissionsOnly, defaultSpeed)) {
             // skip if something failed... (!!!)
             continue;
         }

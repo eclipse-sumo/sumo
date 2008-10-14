@@ -84,29 +84,82 @@ enum RODFDetectorType {
 class RODFDetector
 {
 public:
-    RODFDetector(const std::string &Id, const std::string &laneId,
-                 SUMOReal pos, const RODFDetectorType type);
-    RODFDetector(const std::string &Id, const RODFDetector &f);
-    ~RODFDetector();
-    const std::string &getID() const {
+    /** @brief Constructor
+     *
+     * This constructor is used when detectors are read from a file
+     *
+     * @param[in] id The id of the detector
+     * @param[in] laneID The id of the lane the detector is placed at
+     * @param[in] pos The position of the detector at the lane
+     * @param[in] type The df-router type of the detector
+     * @see RODFDetectorType
+     */
+    RODFDetector(const std::string &id, const std::string &laneID,
+                 SUMOReal pos, const RODFDetectorType type) throw();
+
+
+    /** @brief Constructor
+     * 
+     * This constructor is used when detectors shall be joined
+     *
+     * @param[in] id The id of the detector
+     * @param[in] f A detector from which routes shall be copied
+     */
+    RODFDetector(const std::string &id, const RODFDetector &f) throw();
+
+
+    /// @brief Destructor
+    ~RODFDetector() throw();
+
+
+    /** @brief Returns the ID of this detector
+     * @return The id of this detector
+     */
+    const std::string &getID() const throw() {
         return myID;
     };
-    const std::string &getLaneID() const {
+
+
+    /** @brief Returns the id of the lane this detector is placed on
+     * @return The id of the lane this detector is placed on
+     */
+    const std::string &getLaneID() const throw() {
         return myLaneID;
     };
-    SUMOReal getPos() const {
+
+
+    /** @brief Returns the id of the edge this detector is placed on
+     * @return The id of the edge this detector is placed on
+     */
+    std::string getEdgeID() const throw() {
+        return myLaneID.substr(0, myLaneID.rfind('_'));
+    }
+
+
+    /** @brief Returns the position at which the detector lies
+     * @return The position of the detector at the lane
+     */
+    SUMOReal getPos() const throw() {
         return myPosition;
     };
-    RODFDetectorType getType() const {
+
+
+    /** @brief Returns the type of the detector
+     * @return This detector's type
+     * @see RODFDetectorType 
+     */
+    RODFDetectorType getType() const throw() {
         return myType;
     };
+
+
     void setType(RODFDetectorType type);
     bool writeEmitterDefinition(const std::string &file,
                                 const RODFDetectorCon &detectors, const RODFDetectorFlows &flows,
                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
                                 const RODFNet &net,
                                 bool includeUnusedRoutes, SUMOReal scale, int maxFollower,
-                                bool emissionsOnly) const;
+                                bool emissionsOnly, SUMOReal defaultSpeed) const;
 
     void addRoute(const RODFNet &net, RODFRouteDesc &nrd);
     void addRoutes(RODFRouteCont *routes);
@@ -170,7 +223,6 @@ class RODFDetectorCon
 public:
     RODFDetectorCon();
     ~RODFDetectorCon();
-    //bool isDetector(std::string id);
     bool addDetector(RODFDetector *dfd);
     void removeDetector(const std::string &id);
     bool detectorsHaveCompleteTypes() const;

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Sep 10 00:02:16 2007 by SUMO dfrouter Version dev-SVN-r4433
+<!-- generated on 10/14/08 17:00:32 by SUMO dfrouter Version dev-SVN-r6134
 <configuration>
 
    <input>
@@ -35,14 +35,14 @@
    <routedistelem id="beg_to_end" probability="1.00"/>
    <routedistelem id="beg_to_end_1" probability="0.00"/>
    <routedistelem id="beg_to_end_2" probability="0.00"/>
-   <emit id="emitter_MQ_beg_0" time="0" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_6" time="6" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_12" time="12" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_18" time="18" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_24" time="24" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_30" time="30" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_36" time="36" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_42" time="42" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_48" time="48" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_54" time="54" speed="100.00" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_0" time="0" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_6" time="6" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_12" time="12" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_18" time="18" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_24" time="24" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_30" time="30" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_36" time="36" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_42" time="42" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_48" time="48" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_54" time="54" speed="27.78" route="beg_to_end"/>
 </triggeredsource>

@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on Mon Sep 10 00:02:14 2007 by SUMO dfrouter Version dev-SVN-r4433
+<!-- generated on 10/14/08 17:00:29 by SUMO dfrouter Version dev-SVN-r6134
 <configuration>
 
    <input>
@@ -30,44 +30,44 @@
    <routedistelem id="beg_to_end" probability="0.25"/>
    <routedistelem id="beg_to_end_1" probability="0.25"/>
    <routedistelem id="beg_to_end_2" probability="0.50"/>
-   <emit id="emitter_MQ_beg_0" time="0" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_1" time="1" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_3" time="3" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_4" time="4" speed="100.00" route="beg_to_end_1"/>
-   <emit id="emitter_MQ_beg_6" time="6" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_7" time="7" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_9" time="9" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_10" time="10" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_12" time="12" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_13" time="13" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_15" time="15" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_16" time="16" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_18" time="18" speed="100.00" route="beg_to_end_1"/>
-   <emit id="emitter_MQ_beg_19" time="19" speed="100.00" route="beg_to_end_1"/>
-   <emit id="emitter_MQ_beg_21" time="21" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_22" time="22" speed="100.00" route="beg_to_end_1"/>
-   <emit id="emitter_MQ_beg_24" time="24" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_25" time="25" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_27" time="27" speed="100.00" route="beg_to_end_1"/>
-   <emit id="emitter_MQ_beg_28" time="28" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_30" time="30" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_31" time="31" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_33" time="33" speed="100.00" route="beg_to_end_1"/>
-   <emit id="emitter_MQ_beg_34" time="34" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_36" time="36" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_37" time="37" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_39" time="39" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_40" time="40" speed="100.00" route="beg_to_end_1"/>
-   <emit id="emitter_MQ_beg_42" time="42" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_43" time="43" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_45" time="45" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_46" time="46" speed="100.00" route="beg_to_end_1"/>
-   <emit id="emitter_MQ_beg_48" time="48" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_49" time="49" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_51" time="51" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_52" time="52" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_54" time="54" speed="100.00" route="beg_to_end_2"/>
-   <emit id="emitter_MQ_beg_55" time="55" speed="100.00" route="beg_to_end_1"/>
-   <emit id="emitter_MQ_beg_57" time="57" speed="100.00" route="beg_to_end"/>
-   <emit id="emitter_MQ_beg_58" time="58" speed="100.00" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_0" time="0" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_1" time="1" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_3" time="3" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_4" time="4" speed="27.78" route="beg_to_end_1"/>
+   <emit id="emitter_MQ_beg_6" time="6" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_7" time="7" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_9" time="9" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_10" time="10" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_12" time="12" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_13" time="13" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_15" time="15" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_16" time="16" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_18" time="18" speed="27.78" route="beg_to_end_1"/>
+   <emit id="emitter_MQ_beg_19" time="19" speed="27.78" route="beg_to_end_1"/>
+   <emit id="emitter_MQ_beg_21" time="21" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_22" time="22" speed="27.78" route="beg_to_end_1"/>
+   <emit id="emitter_MQ_beg_24" time="24" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_25" time="25" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_27" time="27" speed="27.78" route="beg_to_end_1"/>
+   <emit id="emitter_MQ_beg_28" time="28" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_30" time="30" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_31" time="31" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_33" time="33" speed="27.78" route="beg_to_end_1"/>
+   <emit id="emitter_MQ_beg_34" time="34" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_36" time="36" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_37" time="37" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_39" time="39" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_40" time="40" speed="27.78" route="beg_to_end_1"/>
+   <emit id="emitter_MQ_beg_42" time="42" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_43" time="43" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_45" time="45" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_46" time="46" speed="27.78" route="beg_to_end_1"/>
+   <emit id="emitter_MQ_beg_48" time="48" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_49" time="49" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_51" time="51" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_52" time="52" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_54" time="54" speed="27.78" route="beg_to_end_2"/>
+   <emit id="emitter_MQ_beg_55" time="55" speed="27.78" route="beg_to_end_1"/>
+   <emit id="emitter_MQ_beg_57" time="57" speed="27.78" route="beg_to_end"/>
+   <emit id="emitter_MQ_beg_58" time="58" speed="27.78" route="beg_to_end"/>
 </triggeredsource>
