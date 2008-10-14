@@ -26,7 +26,7 @@ class SimpleManager(vehicleControl.Manager):
             self.personsWaitingAt[edge] = []
         self.personsWaitingAt[edge].append(personID)
 
-    def cyberCarArrived(self, vehicleID, edge, pos):
+    def cyberCarArrived(self, vehicleID, edge, step):
         load = self.cyberCarLoad.get(vehicleID, 0)
         if edge == "cyberout":
             vehicleControl.leaveStop(vehicleID, delay=load*WAIT_PER_PERSON)

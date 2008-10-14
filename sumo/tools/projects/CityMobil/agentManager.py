@@ -26,28 +26,35 @@ class PersonAgent:
         for car in cybers:
             cost = car.request(self, source, target) 
             if (cost < minCost):
+                if minCar:
+                    minCar.reject(self)
                 minCar = car
                 minCost = cost
-        for car in cybers:
-            if car == minCar:
-                car.accept(self, source, target)
-            else: 
-                car.reject(self, source, target)
+            else:
+                car.reject(self)
+        minCar.accept(self)
 
 class CyberAgent:
     def __init__(self, id):
         self.id = id
         self.load = 0
+        self.pending = {}
         self.tasks = []
+        self.costMatrix = {}
+        self.totalEstimatedCost = 0
         
     def request(self, person, source, target):
-        return INFINITY
+        self.pending[person] = (person, source, target)
+        if (source, target) in self.costMatrix:
+            return self.totalEstimatedCost + self.costMatrix[(source, target)]
+        else:
+            return self.totalEstimatedCost + 2 * DOUBLE_ROWS * ROW_DIST / CYBER_SPEED
 
     def accept(self, person, source, target):
-        self.tasks.append((person, source, target))
+        self.tasks.append(self.pending[person])
 
     def reject(self, person, source, target):
-        pass
+        del self.pending[person]
 
 class AgentManager(vehicleControl.Manager):
 
@@ -61,7 +68,7 @@ class AgentManager(vehicleControl.Manager):
             self.agents[personID] = person
             person.startRequest(edge, "cyberout", self.cyberCars)
 
-    def cyberCarArrived(self, vehicleID, edge, pos):
+    def cyberCarArrived(self, vehicleID, edge, step):
         if not vehicleID in self.agents:
             cyberCar = CyberAgent(vehicleID)
             self.agents[vehicleID] = cyberCar

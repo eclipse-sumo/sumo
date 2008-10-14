@@ -18,7 +18,7 @@ from traciControl import initTraCI, simStep, stopObject, changeTarget, close
 class Manager:
     def personArrived(self, vehicleID, edge):
         raise NotImplementedError
-    def cyberCarArrived(self, vehicleID, edge, pos):
+    def cyberCarArrived(self, vehicleID, edge, step):
         raise NotImplementedError
 
 class Status:
@@ -130,4 +130,4 @@ def doStep():
                 setting.manager.personArrived(vehicleID, edge)
             if edge.startswith("cyber"):
                 vehicleStatus[vehicleID].parking = True
-                setting.manager.cyberCarArrived(vehicleID, edge, pos)
+                setting.manager.cyberCarArrived(vehicleID, edge, setting.step)
