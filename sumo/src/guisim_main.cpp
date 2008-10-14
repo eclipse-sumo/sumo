@@ -446,7 +446,7 @@ main(int argc, char **argv)
         gSuppressEndInfo = oc.getBool("suppress-end-info");
         bool useConfig = oc.isSet("configuration-file");
         string configFile = useConfig ? oc.getString("configuration-file") : "";
-        bool runAfterLoad = !oc.isSet("no-start");
+        bool runAfterLoad = !oc.getBool("no-start");
 
         // build the main window
         GUIThreadFactory tf;
