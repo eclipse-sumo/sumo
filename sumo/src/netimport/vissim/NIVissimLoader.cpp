@@ -410,7 +410,6 @@ NIVissimLoader::readContents(istream &strm)
                 }
             }
             if (!parsed) {
-                cout << "skipping " << tag << endl;
                 string line;
                 size_t pos;
                 do {
