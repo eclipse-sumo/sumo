@@ -405,14 +405,6 @@
 			Filter="cpp;c;cxx;rc;def;r;odl;idl;hpj;bat"
 			>
 			<File
-				RelativePath="..\..\..\src\routing_df\DFDetFlowLoader.cpp"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\routing_df\DFRORouteCont.cpp"
-				>
-			</File>
-			<File
 				RelativePath="..\..\..\src\dfrouter_main.cpp"
 				>
 			</File>
@@ -426,6 +418,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\routing_df\RODFDetectorHandler.cpp"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\routing_df\RODFDetFlowLoader.cpp"
 				>
 			</File>
 			<File
@@ -444,23 +440,15 @@
 				RelativePath="..\..\..\src\routing_df\RODFNet.cpp"
 				>
 			</File>
+			<File
+				RelativePath="..\..\..\src\routing_df\RODFRouteCont.cpp"
+				>
+			</File>
 		</Filter>
 		<Filter
 			Name="Header-Dateien"
 			Filter="h;hpp;hxx;hm;inl"
 			>
-			<File
-				RelativePath="..\..\..\src\routing_df\DFDetFlowLoader.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\routing_df\DFRORouteCont.h"
-				>
-			</File>
-			<File
-				RelativePath="..\..\..\src\routing_df\DFRORouteDesc.h"
-				>
-			</File>
 			<File
 				RelativePath="..\..\..\src\routing_df\RODFDetector.h"
 				>
@@ -471,6 +459,10 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\routing_df\RODFDetectorHandler.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\routing_df\RODFDetFlowLoader.h"
 				>
 			</File>
 			<File
@@ -487,6 +479,14 @@
 			</File>
 			<File
 				RelativePath="..\..\..\src\routing_df\RODFNet.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\routing_df\RODFRouteCont.h"
+				>
+			</File>
+			<File
+				RelativePath="..\..\..\src\routing_df\RODFRouteDesc.h"
 				>
 			</File>
 		</Filter>
