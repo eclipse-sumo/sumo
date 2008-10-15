@@ -110,11 +110,12 @@ private:
     std::vector<SUMOReal> myParsedTurnings;
 
 private:
-    /// we made the copy constructor invalid
+    /// @brief invalidated copy constructor
     ROJTREdge(const ROJTREdge &src);
 
-    /// we made the assignment operator invalid
+    /// @brief invalidated assignment operator
     ROJTREdge &operator=(const ROJTREdge &src);
+
 
 };
 
