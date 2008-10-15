@@ -61,15 +61,13 @@ class CyberAgent:
 
     def accept(self, person):
         task = self.pending[person]
-        if len(self.tasks) == 0:
-            self.running.append(task)
+        self.tasks.append(task)
+        if len(self.tasks) == 1:
             if self.position == task.source:
                 self.checkBoarding(task.source, 0)
-            else:
+            elif self.position:
                 vehicleControl.leaveStop(self.id)
                 vehicleControl.stopAt(self.id, task.source, ROW_DIST-15.)
-        else:
-            self.tasks.append(task)
         del self.pending[person]
 
     def reject(self, person):
@@ -83,20 +81,20 @@ class CyberAgent:
         for task in self.running:
             if task.target < minTarget:
                 minTarget = task.target
-            if task.target < minDownstreamTarget and task.target > edge:
+            if task.target < minDownstreamTarget and task.target > self.position:
                 minDownstreamTarget = task.target
             if task.source < minSource:
                 minSource = task.source
-            if task.source < minDownstreamSource and task.source > edge:
+            if task.source < minDownstreamSource and task.source > self.position:
                 minDownstreamSource = task.source
         if minDownstreamTarget != "z":
             minTarget = minDownstreamTarget 
-        if minDownstreamSource != "z":
-            minSource = minDownstreamSource
-        if self.load < CYBER_CAPACITY and minSource < minTarget:
-            return minSource
-        else:
-            return minTarget
+        if self.load < CYBER_CAPACITY:
+            if minDownstreamSource < minTarget:
+                return minDownstreamSource
+            if minTarget < self.position and minSource < minTarget:
+                return minSource
+        return minTarget
 
     def checkBoarding(self, edge, step):
         self.position = edge
@@ -135,7 +133,7 @@ class AgentManager(vehicleControl.Manager):
         if not personID in self.agents:
             person = PersonAgent(personID)
             self.agents[personID] = person
-            person.startRequest(edge, "cyberout", self.cyberCars)
+            person.startRequest(edge.replace("footmain", "cyber"), "cyberout", self.cyberCars)
 
     def cyberCarArrived(self, vehicleID, edge, step):
         if vehicleID in self.agents:

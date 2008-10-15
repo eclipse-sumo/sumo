@@ -51,6 +51,8 @@ def init(gui, manager, verbose):
     setting.verbose = verbose
 
 def stopAt(vehicleID, edge, pos=1.):
+    if setting.verbose:
+        print "stopAt", vehicleID, edge
     changeTarget(edge, vehicleID)
     stopObject(edge, vehicleID, pos)
     vehicleStatus[vehicleID].target = edge
