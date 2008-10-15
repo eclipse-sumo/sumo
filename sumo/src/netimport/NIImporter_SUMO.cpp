@@ -107,7 +107,7 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
             delete e;
             continue;
         }
-        ed->builtEdge = e;
+        ed->builtEdge = edgesCont.retrieve(ed->id);
     }
     // assign lane attributes (edges are built)
     for (map<string, EdgeAttrs*>::const_iterator i=loadedEdges.begin(); i!=loadedEdges.end(); ++i) {
@@ -129,7 +129,7 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
                     }
                     NBEdge *ce = loadedEdges.find(edge)->second->builtEdge;
                     if (ce==0) {
-                        // earlier error
+                        // earlier error or edge removal
                         continue;
                     }
                     ed->builtEdge->addLane2LaneConnection(j, ce, index, NBEdge::L2L_VALIDATED);
