@@ -1344,7 +1344,11 @@ NBNode::computeLanes2Lanes()
 {
     // special case:
     //  one in, one out, the outgoing has one lane more
-    if (myIncomingEdges->size()==1&&myOutgoingEdges->size()==1&&(*myIncomingEdges)[0]->getNoLanes()==(*myOutgoingEdges)[0]->getNoLanes()-1&&(*myIncomingEdges)[0]!=(*myOutgoingEdges)[0]) {
+    if (myIncomingEdges->size()==1&&myOutgoingEdges->size()==1
+        &&(*myIncomingEdges)[0]->getNoLanes()==(*myOutgoingEdges)[0]->getNoLanes()-1
+        &&(*myIncomingEdges)[0]!=(*myOutgoingEdges)[0]
+        &&(*myIncomingEdges)[0]->isConnectedTo((*myOutgoingEdges)[0]) ) {
+
         NBEdge *incoming = (*myIncomingEdges)[0];
         NBEdge *outgoing = (*myOutgoingEdges)[0];
         for (int i=0; i<(int) incoming->getNoLanes(); ++i) {

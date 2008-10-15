@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<!-- generated on 10/15/08 14:18:10 by SUMO netconvert Version dev-SVN-r6145
+<!-- generated on 08/11/08 12:11:43 by SUMO netconvert Version dev-SVN-r5964
 <configuration>
 
    <input>
@@ -120,20 +120,20 @@
       <requestsize>14</requestsize>
       <lanenumber>12</lanenumber>
       <logic>
-         <logicitem request="0" response="00000000000000" foes="00001001000000"/>
-         <logicitem request="1" response="00000000000000" foes="10111001000000"/>
-         <logicitem request="2" response="00000110000000" foes="10000111000000"/>
+         <logicitem request="0" response="00000000100000" foes="10001000100000"/>
+         <logicitem request="1" response="00000000100000" foes="01111000100000"/>
+         <logicitem request="2" response="00000110100000" foes="01000111100000"/>
          <logicitem request="3" response="00000100010000" foes="00000100010000"/>
          <logicitem request="4" response="00000100000000" foes="00000100001000"/>
-         <logicitem request="5" response="11111111111111" foes="00000000000000"/>
-         <logicitem request="6" response="00001100000111" foes="00001100000111"/>
-         <logicitem request="7" response="00000000000000" foes="10000000000100"/>
-         <logicitem request="8" response="00000000000000" foes="10000001011100"/>
-         <logicitem request="9" response="00000000000011" foes="10000001000011"/>
+         <logicitem request="5" response="00001100000000" foes="10001100000111"/>
+         <logicitem request="6" response="01000010000100" foes="01000010000100"/>
+         <logicitem request="7" response="01000000000000" foes="01000001000100"/>
+         <logicitem request="8" response="01000000000000" foes="01000000111100"/>
+         <logicitem request="9" response="01000000000011" foes="11000000100011"/>
          <logicitem request="10" response="00100000000010" foes="00100000000010"/>
          <logicitem request="11" response="00000000000010" foes="00010000000010"/>
-         <logicitem request="12" response="11111111111111" foes="00000000000000"/>
-         <logicitem request="13" response="00001110000110" foes="00001110000110"/>
+         <logicitem request="12" response="00000000000110" foes="00001111000110"/>
+         <logicitem request="13" response="00001000100001" foes="00001000100001"/>
       </logic>
    </row-logic>
 
@@ -288,11 +288,11 @@
    </succ>
 
    <succ edge="1si" lane="1si_1" junction="0">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="2o_0" yield="1" dir="s" state="m"/>
    </succ>
 
    <succ edge="1si" lane="1si_2" junction="0">
-      <succlane lane="2o_0" yield="1" dir="s" state="m"/>
+      <succlane lane="1o_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="2fi" lane="2fi_0" junction="m2">
@@ -314,11 +314,11 @@
    </succ>
 
    <succ edge="2si" lane="2si_1" junction="0">
-      <succlane lane="SUMO_NO_DESTINATION" yield="1" dir="s" state="O"/>
+      <succlane lane="1o_0" yield="1" dir="s" state="m"/>
    </succ>
 
    <succ edge="2si" lane="2si_2" junction="0">
-      <succlane lane="1o_0" yield="1" dir="s" state="m"/>
+      <succlane lane="2o_0" yield="1" dir="t" state="m"/>
    </succ>
 
    <succ edge="3fi" lane="3fi_0" junction="m3">
@@ -336,11 +336,11 @@
    </succ>
 
    <succ edge="3si" lane="3si_0" junction="0">
-      <succlane lane="2o_0" yield="0" dir="r" state="M"/>
+      <succlane lane="2o_0" yield="1" dir="r" state="m"/>
    </succ>
 
    <succ edge="3si" lane="3si_1" junction="0">
-      <succlane lane="4o_0" yield="0" dir="s" state="M"/>
+      <succlane lane="4o_0" yield="1" dir="s" state="m"/>
    </succ>
 
    <succ edge="3si" lane="3si_2" junction="0">
@@ -363,11 +363,11 @@
    </succ>
 
    <succ edge="4si" lane="4si_0" junction="0">
-      <succlane lane="1o_0" yield="0" dir="r" state="M"/>
+      <succlane lane="1o_0" yield="1" dir="r" state="m"/>
    </succ>
 
    <succ edge="4si" lane="4si_1" junction="0">
-      <succlane lane="3o_0" yield="0" dir="s" state="M"/>
+      <succlane lane="3o_0" yield="1" dir="s" state="m"/>
    </succ>
 
    <succ edge="4si" lane="4si_2" junction="0">

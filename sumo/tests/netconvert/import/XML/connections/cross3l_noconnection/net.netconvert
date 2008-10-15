@@ -1,11 +1,12 @@
 <?xml version="1.0"?>
 
-<!-- generated on 08/11/08 12:11:42 by SUMO netconvert Version dev-SVN-r5964
+<!-- generated on 10/15/08 13:47:35 by SUMO netconvert Version dev-SVN-r6145
 <configuration>
 
    <input>
       <xml-node-files>input_nodes.nod.xml</xml-node-files>
       <xml-edge-files>input_edges.edg.xml</xml-edge-files>
+      <xml-connection-files>input_connections.con.xml</xml-connection-files>
    </input>
 
    <output>
@@ -140,11 +141,10 @@
 
    <row-logic>
       <key>1</key>
-      <requestsize>2</requestsize>
+      <requestsize>1</requestsize>
       <lanenumber>1</lanenumber>
       <logic>
-         <logicitem request="0" response="00" foes="00"/>
-         <logicitem request="1" response="00" foes="00"/>
+         <logicitem request="0" response="1" foes="0"/>
       </logic>
    </row-logic>
 

@@ -411,7 +411,9 @@ NBEdge::computeTurningDirections()
     EdgeVector outgoing = myTo->getOutgoingEdges();
     for (EdgeVector::iterator i=outgoing.begin(); i!=outgoing.end(); i++) {
         NBEdge *outedge = *i;
-
+        if(myConnections.size()!=0&&!isConnectedTo(outedge)) {
+            continue;
+        }
         SUMOReal relAngle =
             NBHelpers::relAngle(getAngle(*myTo), outedge->getAngle(*myTo));
         // do not append the turnaround
@@ -909,8 +911,13 @@ NBEdge::computeLanes2Edges()
     // get list of possible outgoing edges sorted by direction clockwise
     //  the edge in the backward direction (turnaround) is not in the list
     const vector<NBEdge*> *edges = getConnectedSorted();
-    // divide the lanes on reachable edges
-    divideOnEdges(edges);
+    if(myConnections.size()!=0&&edges->size()==0) {
+        // dead end per definition!?
+        myConnections.clear();
+    } else {
+        // divide the lanes on reachable edges
+        divideOnEdges(edges);
+    }
     delete edges;
     myStep = LANES2EDGES;
     return true;
@@ -1353,6 +1360,9 @@ NBEdge::moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff)
 bool
 NBEdge::isConnectedTo(NBEdge *e)
 {
+    if(e==myTurnDestination) {
+        return true;
+    }
     return
         find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(e))
         !=
