@@ -54,7 +54,7 @@ public:
     MSEdgeContinuations() throw();
 
 
-    /// @brief Destrcutor
+    /// @brief Destructor
     ~MSEdgeContinuations() throw();
 
 
