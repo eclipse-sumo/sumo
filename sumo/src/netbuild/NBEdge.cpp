@@ -806,7 +806,7 @@ NBEdge::addEdge2EdgeConnection(NBEdge *dest)
 
 bool
 NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest,
-                               size_t toLane, bool markAs2Recheck,
+                               size_t toLane, Lane2LaneInfoType type,
                                bool mayUseSameDestination)
 {
     if (myStep==INIT_REJECT_CONNECTIONS) {
@@ -821,7 +821,7 @@ NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest,
     if (!addEdge2EdgeConnection(dest)) {
         return false;
     }
-    setConnection(from, dest, toLane, markAs2Recheck, mayUseSameDestination);
+    setConnection(from, dest, toLane, type, mayUseSameDestination);
     return true;
 }
 
@@ -829,8 +829,7 @@ NBEdge::addLane2LaneConnection(size_t from, NBEdge *dest,
 bool
 NBEdge::addLane2LaneConnections(size_t fromLane,
                                 NBEdge *dest, size_t toLane,
-                                size_t no,
-                                bool markAs2Recheck,
+                                size_t no, Lane2LaneInfoType type,
                                 bool invalidatePrevious)
 {
     if (invalidatePrevious) {
@@ -838,7 +837,7 @@ NBEdge::addLane2LaneConnections(size_t fromLane,
     }
     bool ok = true;
     for (size_t i=0; i<no&&ok; i++) {
-        ok &= addLane2LaneConnection(fromLane+i, dest, toLane+i, markAs2Recheck);
+        ok &= addLane2LaneConnection(fromLane+i, dest, toLane+i, type);
     }
     return ok;
 }
@@ -897,7 +896,7 @@ NBEdge::recheckLanes()
             ++i;
         }
     }
-    if (myStep!=LANES2LANES) {
+    if (myStep!=LANES2LANES_DONE&&myStep!=LANES2LANES_USER) {
         // check #1:
         // If there is a lane with no connections and any neighbour lane has
         //  more than one connections, try to move one of them.
@@ -934,7 +933,7 @@ NBEdge::recheckLanes()
     }
     for (size_t i=0; i<myLanes.size(); i++) {
         if (connNumbersPerLane[i]==0) {
-            setConnection(i, 0, 0, false);
+            setConnection(i, 0, 0, L2L_VALIDATED, false);
         }
     }
     return true;
@@ -953,7 +952,7 @@ NBEdge::moveConnectionToLeft(size_t lane)
     vector<Connection>::iterator i = myConnections.begin() + index;
     Connection c = *i;
     myConnections.erase(i);
-    setConnection(lane+1, c.toEdge, c.toLane, false);
+    setConnection(lane+1, c.toEdge, c.toLane, L2L_VALIDATED, false);
 }
 
 
@@ -964,7 +963,7 @@ NBEdge::moveConnectionToRight(size_t lane)
         if ((*i).fromLane==lane) {
             Connection c = *i;
             i = myConnections.erase(i);
-            setConnection(lane-1, c.toEdge, c.toLane, false);
+            setConnection(lane-1, c.toEdge, c.toLane, L2L_VALIDATED, false);
             return;
         }
     }
@@ -1148,8 +1147,8 @@ NBEdge::computePrioritySum(vector<size_t> *priorities)
 void
 NBEdge::appendTurnaround()
 {
-    if (myTurnDestination!=0) {
-        setConnection(myLanes.size()-1, myTurnDestination, myTurnDestination->getNoLanes()-1, false);
+    if (myTurnDestination!=0&&myStep!=LANES2LANES_USER) {
+        setConnection(myLanes.size()-1, myTurnDestination, myTurnDestination->getNoLanes()-1, L2L_VALIDATED, false);
     }
 }
 
@@ -1164,7 +1163,7 @@ NBEdge::sortOutgoingLanesConnections()
 
 void
 NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
-                      size_t dest_lane, bool markAs2Recheck,
+                      size_t dest_lane, Lane2LaneInfoType type,
                       bool mayUseSameDestination)
 {
     if (myStep==INIT_REJECT_CONNECTIONS) {
@@ -1201,15 +1200,18 @@ NBEdge::setConnection(size_t src_lane, NBEdge *dest_edge,
         }
     }
     myConnections.push_back(Connection(src_lane, dest_edge, dest_lane));
-
-    // check whether we have to take another look at it later
-    if (markAs2Recheck) {
-        // yes, the connection was set using an algorithm which requires a recheck
-        myStep = LANES2LANES_RECHECK;
+    if(type==L2L_USER) {
+        myStep = LANES2LANES_USER;
     } else {
-        // ok, let's only not recheck it if we did no add something that has to be recheked
-        if (myStep!=LANES2LANES_RECHECK) {
-            myStep = LANES2LANES;
+        // check whether we have to take another look at it later
+        if (type==L2L_COMPUTED) {
+            // yes, the connection was set using an algorithm which requires a recheck
+            myStep = LANES2LANES_RECHECK;
+        } else {
+            // ok, let's only not recheck it if we did no add something that has to be recheked
+            if (myStep!=LANES2LANES_RECHECK) {
+                myStep = LANES2LANES_DONE;
+            }
         }
     }
 }
@@ -1298,8 +1300,7 @@ NBEdge::replaceInConnections(NBEdge *which, NBEdge *by, size_t laneOff)
 
 
 void
-NBEdge::moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff,
-                                    bool markAs2Recheck)
+NBEdge::moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff)
 {
     size_t lanes = e->getNoLanes();
     for (size_t i=0; i<lanes; i++) {
@@ -1307,7 +1308,7 @@ NBEdge::moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff,
         for (EdgeLaneVector::const_iterator j=elv.begin(); j!=elv.end(); j++) {
             EdgeLane el = (*j);
             assert(el.tlID=="");
-            bool ok = addLane2LaneConnection(i+laneOff, el.edge, el.lane, markAs2Recheck);
+            bool ok = addLane2LaneConnection(i+laneOff, el.edge, el.lane, L2L_COMPUTED);
             assert(ok);
         }
     }
@@ -1361,7 +1362,7 @@ NBEdge::removeFromConnections(NBEdge *which, int lane)
     // remove from "myConnections"
     for (vector<Connection>::iterator i=myConnections.begin(); i!=myConnections.end();) {
         Connection &c = *i;
-        if (c.toEdge==which && (lane<0 || c.fromLane==lane)) { // !!! chek fromlane/toLane
+        if (c.toEdge==which && (lane<0 || c.fromLane==lane)) {
             i = myConnections.erase(i);
         } else {
             ++i;
@@ -1390,7 +1391,7 @@ NBEdge::invalidateConnections(bool reallowSetting)
 bool
 NBEdge::lanesWereAssigned() const
 {
-    return myStep==LANES2LANES;
+    return myStep==LANES2LANES_DONE||myStep==LANES2LANES_USER;
 }
 
 
@@ -1616,7 +1617,9 @@ NBEdge::expandableBy(NBEdge *possContinuation) const
     }
     break;
     case LANES2EDGES:
-    case LANES2LANES: {
+    case LANES2LANES_RECHECK:
+    case LANES2LANES_DONE:
+    case LANES2LANES_USER: {
         // the possible continuation must be connected
         if (find_if(myConnections.begin(), myConnections.end(), connections_toedge_finder(possContinuation))==myConnections.end()) {
             return false;
@@ -1798,7 +1801,7 @@ void
 NBEdge::markAsInLane2LaneState()
 {
     assert(myTo->getOutgoingEdges().size()==0);
-    myStep = LANES2LANES;
+    myStep = LANES2LANES_DONE;
 }
 
 
@@ -1905,68 +1908,6 @@ void
 NBEdge::recheckEdgeGeomForDoublePositions()
 {
     myGeom.removeDoublePoints();
-}
-
-
-void
-NBEdge::addAdditionalConnections()
-{
-    if (myStep==LANES2LANES) {
-        return;
-    }
-    /*
-    // go through the lanes
-    for (size_t i=0; i<myLanes.size(); i++) {
-        // get the connections from the current lane
-        EdgeLaneVector reachableFromLane = myReachable[i];
-        // go through these connections
-        for (int j=0; j<(int) reachableFromLane.size(); ++j) {
-            // get the current connection
-            const EdgeLane &el = reachableFromLane[j];
-            // get all connections that approach the current destination edge
-            vector<int> other = getConnectionLanes(el.edge);
-            // check whether we may add a connection on the right side
-            //  we may not do this directly because the containers will change
-            //  during the addition
-            bool mayAddRight = false;
-            bool mayAddRight2 = false;
-            bool mayAddLeft = false;
-            bool mayAddLeft2 = false;
-            if (i!=0 && el.lane!=0 && find(other.begin(), other.end(), i-1)==other.end()) {
-                mayAddRight = true;
-            }
-            if (i==0 && el.lane!=0 && find_if(reachableFromLane.begin(), reachableFromLane.end(), NBContHelper::edgelane_finder(el.edge, el.lane-1))==reachableFromLane.end()) {
-                mayAddRight2 = true;
-            }
-            if (i+1<myLanes.size() && el.lane+1<el.edge->getNoLanes() && find(other.begin(), other.end(), i+1)==other.end()) {
-                mayAddLeft = true;
-            }
-            if (i+1==myLanes.size() && el.lane+1<el.edge->getNoLanes() && find_if(reachableFromLane.begin(), reachableFromLane.end(), NBContHelper::edgelane_finder(el.edge, el.lane+1))==reachableFromLane.end()) {
-                mayAddLeft2 = true;
-            }
-            // add the connections if possible
-            if (mayAddRight) {
-                cout << getID() << "->" << el.edge->getID() << endl;
-                addLane2LaneConnection(i-1, el.edge, el.lane-1, false);
-                j = -1;
-            }
-            if (mayAddRight2) {
-                cout << getID() << "->" << el.edge->getID() << endl;
-                addLane2LaneConnection(i, el.edge, el.lane-1, false);
-                j = -1;
-            }
-            if (mayAddLeft) {
-                addLane2LaneConnection(i+1, el.edge, el.lane+1, false);
-                j = -1;
-            }
-            if (mayAddLeft2) {
-                addLane2LaneConnection(i, el.edge, el.lane+1, false);
-                j = -1;
-            }
-            reachableFromLane = myReachable[i];
-        }
-    }
-    */
 }
 
 

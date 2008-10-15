@@ -372,14 +372,14 @@ NBEdgeCont::splitAt(NBDistrictCont &dc,
     //  one in, one out, the outgoing has one lane more
     if (noLanesFirstEdge==noLanesSecondEdge-1) {
         for (unsigned int i=0; i<one->getNoLanes(); i++) {
-            if (!one->addLane2LaneConnection(i, two, i+1, false)) {// !!! Bresenham, here!!!
+            if (!one->addLane2LaneConnection(i, two, i+1, NBEdge::L2L_COMPUTED)) {// !!! Bresenham, here!!!
                 throw ProcessError("Could not set connection!");
             }
         }
-        one->addLane2LaneConnection(0, two, 0, false);
+        one->addLane2LaneConnection(0, two, 0, NBEdge::L2L_COMPUTED);
     } else {
         for (unsigned int i=0; i<one->getNoLanes()&&i<two->getNoLanes(); i++) {
-            if (!one->addLane2LaneConnection(i, two, i, false)) {// !!! Bresenham, here!!!
+            if (!one->addLane2LaneConnection(i, two, i, NBEdge::L2L_COMPUTED)) {// !!! Bresenham, here!!!
                 throw ProcessError("Could not set connection!");
             }
         }
@@ -566,7 +566,7 @@ NBEdgeCont::joinSameNodeConnectingEdges(NBDistrictCont &dc,
     //  move lane2lane-connections
     unsigned int currLane = 0;
     for (i=edges.begin(); i!=edges.end(); i++) {
-        newEdge->moveOutgoingConnectionsFrom(*i, currLane, false);
+        newEdge->moveOutgoingConnectionsFrom(*i, currLane);
         currLane += (*i)->getNoLanes();
     }
     // patch tl-information

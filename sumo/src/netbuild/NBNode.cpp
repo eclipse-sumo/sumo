@@ -113,7 +113,7 @@ NBNode::ApproachingDivider::execute(SUMOReal src, SUMOReal dest) throw()
     assert(myApproaching->size()>src);
     // get the origin edge
     NBEdge *incomingEdge = (*myApproaching)[(int) src];
-    if (incomingEdge->getStep()==NBEdge::LANES2LANES) {
+    if (incomingEdge->getStep()==NBEdge::LANES2LANES_DONE||incomingEdge->getStep()==NBEdge::LANES2LANES_USER) {
         return;
     }
     vector<int> approachingLanes =
@@ -127,7 +127,7 @@ NBNode::ApproachingDivider::execute(SUMOReal src, SUMOReal dest) throw()
         assert(approachedLanes->size()>i);
         assert(approachingLanes.size()>i);
         incomingEdge->setConnection(approachingLanes[i], myCurrentOutgoing,
-                                    approached, true);
+            approached, NBEdge::L2L_COMPUTED);
     }
     delete approachedLanes;
 }
@@ -1348,9 +1348,9 @@ NBNode::computeLanes2Lanes()
         NBEdge *incoming = (*myIncomingEdges)[0];
         NBEdge *outgoing = (*myOutgoingEdges)[0];
         for (int i=0; i<(int) incoming->getNoLanes(); ++i) {
-            incoming->setConnection(i, outgoing, i+1, false);
+            incoming->setConnection(i, outgoing, i+1, NBEdge::L2L_COMPUTED);
         }
-        incoming->setConnection(0, outgoing, 0, false);
+        incoming->setConnection(0, outgoing, 0, NBEdge::L2L_COMPUTED);
         return;
     }
 
@@ -1378,30 +1378,6 @@ NBNode::computeLanes2Lanes()
             (*i)->markAsInLane2LaneState();
         }
     }
-    // ... the next extension is to allow vehicles move from a lane to different
-    //  next lanes. We take a look at each combination of from-lane and to-lane
-    //  and if a lane beside the to-lane is free we will also add a connection
-    //  to it as long as it is not approached by any other lane from the same edge
-    if (myOutgoingEdges->size()==1&&myIncomingEdges->size()==1) {
-        vector<NBEdge*>::iterator i2;
-        for (i2=myIncomingEdges->begin(); i2!=myIncomingEdges->end(); i2++) {
-            NBEdge *currentIncoming = *i2;
-            currentIncoming->addAdditionalConnections();
-        }
-    }
-    /*
-        // ... it seems like this should also be done on traffic light controlled junctions
-        if (myTrafficLights.size()!=0) {
-            if(this->getID()=="15031315") {
-                int bla = 0;
-            }
-            vector<NBEdge*>::iterator i2;
-            for (i2=myIncomingEdges->begin(); i2!=myIncomingEdges->end(); i2++) {
-                NBEdge *currentIncoming = *i2;
-                currentIncoming->addAdditionalConnections();
-            }
-        }
-    */
 }
 
 

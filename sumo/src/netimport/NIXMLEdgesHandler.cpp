@@ -561,14 +561,14 @@ NIXMLEdgesHandler::myEndElement(SumoXMLTag element) throw(ProcessError)
                         // how many lanes on the right are missing?
                         int off = exp.lanes[0] - lastRightLane;
                         lastRightLane = exp.lanes[0];
-                        pe->addLane2LaneConnections(0, ne, off, pe->getNoLanes(), false, true);
+                        pe->addLane2LaneConnections(0, ne, off, pe->getNoLanes(), NBEdge::L2L_VALIDATED, true);
                         // add to the right?
                         if (off>0) {
-                            pe->addLane2LaneConnection(0, ne, off-1, false, false);
+                            pe->addLane2LaneConnection(0, ne, off-1, NBEdge::L2L_VALIDATED, false);
                         }
                         // add to the left?
                         if (off+exp.lanes.size()<ne->getNoLanes()) {
-                            pe->addLane2LaneConnection(pe->getNoLanes()-1, ne, off+exp.lanes.size(), false, false);
+                            pe->addLane2LaneConnection(pe->getNoLanes()-1, ne, off+exp.lanes.size(), NBEdge::L2L_VALIDATED, false);
                         }
                         // move to next
                         e = pe;

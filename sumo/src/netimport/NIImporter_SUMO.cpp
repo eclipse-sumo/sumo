@@ -132,7 +132,7 @@ NIImporter_SUMO::loadNetwork(const OptionsCont &oc, NBNetBuilder &nb)
                         // earlier error
                         continue;
                     }
-                    ed->builtEdge->addLane2LaneConnection(j, ce, index, false);
+                    ed->builtEdge->addLane2LaneConnection(j, ce, index, NBEdge::L2L_VALIDATED);
                 }
             }
         }

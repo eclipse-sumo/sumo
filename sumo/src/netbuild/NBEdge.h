@@ -63,8 +63,6 @@ class OutputDevice;
 class NBEdge
 {
 public:
-
-
     /**  @enum LaneSpreadFunction
      * @brief Information how the edge's lateral offset shall be computed
      *
@@ -96,10 +94,25 @@ public:
         EDGE2EDGES,
         /// @brief Lanes to edges - relationships are computed/loaded
         LANES2EDGES,
-        /// @brief Lanes to lanes - relationships are loaded; no recheck is necessary/wished
-        LANES2LANES,
         /// @brief Lanes to lanes - relationships are computed; should be recheked
-        LANES2LANES_RECHECK
+        LANES2LANES_RECHECK,
+        /// @brief Lanes to lanes - relationships are computed; no recheck is necessary/wished
+        LANES2LANES_DONE,
+        /// @brief Lanes to lanes - relationships are loaded; no recheck is necessary/wished
+        LANES2LANES_USER,
+    };
+
+
+    /** @enum Lane2LaneInfoType
+    * @brief Modes of setting connections between lanes
+    */
+    enum Lane2LaneInfoType {
+        /// @brief The connection was computed
+        L2L_COMPUTED,
+        /// @brief The connection was given by the used
+        L2L_USER,
+        /// @brief The connection was computed and validated
+        L2L_VALIDATED,
     };
 
 
@@ -119,17 +132,23 @@ public:
 
 
     /** @struct Connection
+     * @brief A structure which describes a connection between edges or lanes
      */
     struct Connection {
-        Connection(int fromLane_, NBEdge *toEdge_, int toLane_) : fromLane(fromLane_), toEdge(toEdge_), toLane(toLane_) {
-        }
-        int fromLane;
-        NBEdge *toEdge;
-        int toLane;
-        std::string tlID;
-        unsigned int tlLinkNo;
+        /** @brief Constructor
+         * @param[in] fromLane_ The lane the connections starts at
+         * @param[in] toEdge_ The edge the connections yields in
+         * @param[in] toLane_ The lane the connections yields in
+         */
+        Connection(int fromLane_, NBEdge *toEdge_, int toLane_) throw()
+            : fromLane(fromLane_), toEdge(toEdge_), toLane(toLane_) 
+        { }
 
-        EdgeLane getEdgeLane() const {
+
+        /** @brief Returns this connection's EdgeLane-representation
+         * @return This connection as an EdgeLane-object
+         */
+        EdgeLane getEdgeLane() const throw() {
             EdgeLane el;
             el.edge = toEdge;
             el.lane = toLane;
@@ -137,16 +156,57 @@ public:
             el.tlLinkNo = tlLinkNo;
             return el;
         }
+
+        /// @brief The lane the connections starts at 
+        int fromLane;
+        /// @brief The edge the connections yields in
+        NBEdge *toEdge;
+        /// @brief The lane the connections yields in
+        int toLane;
+        /// @brief The id of the traffic light that controls this connection
+        std::string tlID;
+        /// @brief The index of this connection within the controlling traffic light
+        unsigned int tlLinkNo;
+
     };
 
 
 public:
-    /// constructor
+    /** @brief Constructor
+     *
+     * Use this if no edge geometry is given.
+     * 
+     * @param[in] id The id of the edge
+     * @param[in] from The node the edge starts at
+     * @param[in] to The node the edge ends at
+     * @param[in] type The type of the edge (my be =="")
+     * @param[in] speed The maximum velocity allowed on this edge
+     * @param[in] nolanes The number of lanes this edge has
+     * @param[in] priority This edge's priority
+     * @param[in] spread How the lateral offset of the lanes shall be computed
+     * @see LaneSpreadFunction
+     */
     NBEdge(const std::string &id,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
            LaneSpreadFunction spread=LANESPREAD_RIGHT) throw(ProcessError);
 
+
+    /** @brief Constructor
+     *
+     * Use this if the edge's geometry is given.
+     * 
+     * @param[in] id The id of the edge
+     * @param[in] from The node the edge starts at
+     * @param[in] to The node the edge ends at
+     * @param[in] type The type of the edge (my be =="")
+     * @param[in] speed The maximum velocity allowed on this edge
+     * @param[in] nolanes The number of lanes this edge has
+     * @param[in] priority This edge's priority
+     * @param[in] geom The edge's geomatry
+     * @param[in] spread How the lateral offset of the lanes shall be computed
+     * @see LaneSpreadFunction
+     */
     NBEdge(const std::string &id,
            NBNode *from, NBNode *to, std::string type,
            SUMOReal speed, unsigned int nolanes, int priority,
@@ -330,13 +390,13 @@ public:
 
     /** adds a connection between the specified this edge's lane and an approached one */
     bool addLane2LaneConnection(size_t fromLane, NBEdge *dest,
-                                size_t toLane, bool markAs2Recheck,
+                                size_t toLane, Lane2LaneInfoType type,
                                 bool mayUseSameDestination=false);
 
     /** builds no connections starting at the given lanes */
     bool addLane2LaneConnections(size_t fromLane,
                                  NBEdge *dest, size_t toLane, size_t no,
-                                 bool markAs2Recheck, bool invalidatePrevious=false);
+                                 Lane2LaneInfoType type, bool invalidatePrevious=false);
 
     /// computes the edge (step1: computation of approached edges)
     bool computeEdge2Edges();
@@ -359,7 +419,8 @@ public:
 
     /// adds a connection to a certain lane of a certain edge
     void setConnection(size_t lane, NBEdge *destEdge,
-                       size_t destLane, bool markAs2Recheck,
+                       size_t destLane, 
+                       Lane2LaneInfoType type,
                        bool mayUseSameDestination=false);
 
     /** returns the information whether the given edge is the opposite
@@ -432,8 +493,7 @@ public:
 
     friend class NBEdgeCont;
 
-    void moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff,
-                                     bool markAs2Recheck);
+    void moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff);
 
     NBEdge *getTurnDestination() const;
 
@@ -466,8 +526,6 @@ public:
     void disableConnection4TLS(int fromLane, NBEdge *toEdge, int toLane);
 
     void recheckEdgeGeomForDoublePositions();
-
-    void addAdditionalConnections();
 
     int getMinConnectedLane(NBEdge *of) const;
     int getMaxConnectedLane(NBEdge *of) const;

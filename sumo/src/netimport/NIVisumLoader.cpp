@@ -964,7 +964,7 @@ void NIVisumLoader::parse_LanesConnections()
         return;
     }
     //
-    fromEdge->addLane2LaneConnection(fromLane, toEdge, toLane, false);
+    fromEdge->addLane2LaneConnection(fromLane, toEdge, toLane, NBEdge::L2L_VALIDATED);
 }
 
 

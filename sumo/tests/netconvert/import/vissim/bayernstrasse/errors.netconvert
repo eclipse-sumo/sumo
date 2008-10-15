@@ -243,12 +243,16 @@ Warning: Edge : Lanes were not assigned(!)
 Warning: Edge : Lanes were not assigned(!)
 Warning: Edge : Lanes were not assigned(!)
 Warning: Edge : Lanes were not assigned(!)
+Warning: Edge : Lanes were not assigned(!)
+Warning: Edge : Lanes were not assigned(!)
 Warning: The signal '5321' could not be assigned to tl '532'.
 Warning: Could not set tls signal at edge '30009' - the edge was not built.
 Warning: The signal '5323' could not be assigned to tl '532'.
 Warning: The signal '53212' could not be assigned to tl '532'.
 Warning: Could not set tls signal at edge '30009' - the edge was not built.
 Warning: The signal '53222' could not be assigned to tl '532'.
+Warning: Edge : Lanes were not assigned(!)
+Warning: Edge : Lanes were not assigned(!)
 Warning: Could not set 9 of 37 signals.
 Warning: The traffic light '451' has no incoming edges; it will not be build.
 Warning: Could not build traffic lights '451'
