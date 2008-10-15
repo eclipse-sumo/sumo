@@ -61,62 +61,14 @@ using namespace std;
 // ===========================================================================
 // method definitions
 // ===========================================================================
-NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont &ec)
-        : SUMOSAXHandler("xml-connection-description"), myEdgeCont(ec)
+NIXMLConnectionsHandler::NIXMLConnectionsHandler(NBEdgeCont &ec) throw()
+        : SUMOSAXHandler("xml-connection-description"), myEdgeCont(ec),
+        myHaveReportedAboutFunctionDeprecation(false)
 {}
 
 
 NIXMLConnectionsHandler::~NIXMLConnectionsHandler() throw()
 {}
-
-
-NBConnection
-NIXMLConnectionsHandler::parseConnection(const std::string &defRole, const string &def)
-{
-    // split from/to
-    size_t div = def.find("->");
-    if (div==string::npos) {
-        MsgHandler::getErrorInstance()->inform("Missing connection divider in " + defRole + " '" + def + "'");
-        return NBConnection(0, 0);
-    }
-    string fromDef = def.substr(0, div);
-    string toDef = def.substr(div+2);
-
-    // retrieve the edges
-    // check whether the definition includes a lane information (do not process it)
-    if (fromDef.find('_')!=string::npos) {
-        fromDef = fromDef.substr(0, fromDef.find('_'));
-    }
-    if (toDef.find('_')!=string::npos) {
-        toDef = toDef.substr(0, toDef.find('_'));
-    }
-    // retrieve them now
-    NBEdge *fromE = myEdgeCont.retrieve(fromDef);
-    NBEdge *toE = myEdgeCont.retrieve(toDef);
-    // check
-    if (fromE==0) {
-        MsgHandler::getErrorInstance()->inform("Could not find edge '" + fromDef + "' in " + defRole + " '" + def + "'");
-        return NBConnection(0, 0);
-    }
-    if (toE==0) {
-        MsgHandler::getErrorInstance()->inform("Could not find edge '" + toDef + "' in " + defRole + " '" + def + "'");
-        return NBConnection(0, 0);
-    }
-    return NBConnection(fromE, toE);
-}
-
-
-NBNode *
-NIXMLConnectionsHandler::getNode(const string &def)
-{
-    // split from/to (we can omit some checks as they already have been done in parseConnection)
-    size_t div = def.find("->");
-    string fromDef = def.substr(0, div);
-    if (fromDef.find('_')!=string::npos) {
-        fromDef = fromDef.substr(0, fromDef.find('_'));
-    }
-    return myEdgeCont.retrieve(fromDef)->getToNode();
-}
 
 
 void
@@ -166,15 +118,16 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
             MsgHandler::getErrorInstance()->inform("The connection-destination edge '" + to + "' is not known.");
             return;
         }
-        // parse the id
-        string type = attrs.getStringSecure(SUMO_ATTR_TYPE, "");
+        // parse optional lane information
+        if (!myHaveReportedAboutFunctionDeprecation&&attrs.hasAttribute(SUMO_ATTR_TYPE)) {
+            MsgHandler::getWarningInstance()->inform("While parsing connections: 'type' is deprecated.\n All occurences are ignored.");
+            myHaveReportedAboutFunctionDeprecation = true;
+        }
         string laneConn = attrs.getStringSecure(SUMO_ATTR_LANE, "");
-        if (type=="edgebound"||laneConn=="") {
-            parseEdgeBound(attrs, fromEdge, toEdge);
-        } else if (type=="lanebound"||laneConn.size()!=0) {
-            parseLaneBound(attrs, fromEdge, toEdge);
+        if (laneConn=="") {
+            fromEdge->addEdge2EdgeConnection(toEdge);
         } else {
-            MsgHandler::getErrorInstance()->inform("Unknown type of connection");
+            parseLaneBound(attrs, fromEdge, toEdge);
         }
     }
     if (element==SUMO_TAG_PROHIBITION) {
@@ -186,39 +139,53 @@ NIXMLConnectionsHandler::myStartElement(SumoXMLTag element,
             // something failed
             return;
         }
-        NBNode *n = getNode(prohibitor);
+        NBNode *n = prohibitorC.getFrom()->getToNode();
         n->addSortedLinkFoes(prohibitorC, prohibitedC);
     }
 }
 
-void
-NIXMLConnectionsHandler::parseEdgeBound(const SUMOSAXAttributes &/*attrs*/,
-                                        NBEdge *from,
-                                        NBEdge *to)
+
+NBConnection
+NIXMLConnectionsHandler::parseConnection(const std::string &defRole, 
+                                         const string &def) throw()
 {
-    from->addEdge2EdgeConnection(to);
-    /*    int noLanes;
-        try {
-            noLanes = attrs.getIntSecure(SUMO_ATTR_NOLANES, -1);
-        } catch (NumberFormatException e) {
-            addError("Not numeric lane in connection");
-            return;
-        }
-        if(noLanes<0) {
-            // !!! (what to do??)
-        } else {
-            // add connection
-            for(size_t i=0; i<noLanes; i++) {
-                from->addLane2LaneConnection(i, to, i);
-            }
-        }*/
+    // split from/to
+    size_t div = def.find("->");
+    if (div==string::npos) {
+        MsgHandler::getErrorInstance()->inform("Missing connection divider in " + defRole + " '" + def + "'");
+        return NBConnection(0, 0);
+    }
+    string fromDef = def.substr(0, div);
+    string toDef = def.substr(div+2);
+
+    // retrieve the edges
+    // check whether the definition includes a lane information (do not process it)
+    if (fromDef.find('_')!=string::npos) {
+        fromDef = fromDef.substr(0, fromDef.find('_'));
+    }
+    if (toDef.find('_')!=string::npos) {
+        toDef = toDef.substr(0, toDef.find('_'));
+    }
+    // retrieve them now
+    NBEdge *fromE = myEdgeCont.retrieve(fromDef);
+    NBEdge *toE = myEdgeCont.retrieve(toDef);
+    // check
+    if (fromE==0) {
+        MsgHandler::getErrorInstance()->inform("Could not find edge '" + fromDef + "' in " + defRole + " '" + def + "'");
+        return NBConnection(0, 0);
+    }
+    if (toE==0) {
+        MsgHandler::getErrorInstance()->inform("Could not find edge '" + toDef + "' in " + defRole + " '" + def + "'");
+        return NBConnection(0, 0);
+    }
+    return NBConnection(fromE, toE);
 }
 
 
 void
 NIXMLConnectionsHandler::parseLaneBound(const SUMOSAXAttributes &attrs,
                                         NBEdge *from,
-                                        NBEdge *to)
+                                        NBEdge *to) throw()
 {
     if (to==0) {
         // do nothing if it's a dead end

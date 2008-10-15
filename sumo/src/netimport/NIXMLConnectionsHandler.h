@@ -47,15 +47,22 @@ class NBEdgeCont;
 /**
  * @class NIArcView_Loader
  * @brief Importer for edge connections stored in XML
+ *
+ * This importer parses connections, and prohibitions, and is able 
+ *  to reset connections between edges.
  */
 class NIXMLConnectionsHandler : public SUMOSAXHandler
 {
 public:
-    /// standard constructor
-    NIXMLConnectionsHandler(NBEdgeCont &ec);
+    /** @brief Constructor
+     * @param[in] ec The edge container which includes the edges to change connections of
+     */
+    NIXMLConnectionsHandler(NBEdgeCont &ec) throw();
 
-    /// destructor
+
+    /// @brief Destructor
     ~NIXMLConnectionsHandler() throw();
+
 
 protected:
     /// @name inherited from GenericSAXHandler
@@ -73,36 +80,41 @@ protected:
     //@}
 
 private:
-    // parses a connection when it describes a edge-2-edge relationship
-    void parseEdgeBound(const SUMOSAXAttributes &attrs, NBEdge *from,
-                        NBEdge *to);
+    /** @brief Returns the connection described by def
+     *
+     * def should have the following format <FROM_EDGE_ID>[_<FROM_LANE_NO>]-><TO_EDGE_ID>[_<TO_LANE_NO>].
+     *
+     * @param[in] defRole "prohibitor" or "prohibited" - used for error reporting
+     * @param[in] def The definition of the connection
+     * @return The parsed connection
+     */
+    NBConnection parseConnection(const std::string &defRole, const std::string &def) throw();
 
-    // parses a connection when it describes a lane-2-lane relationship
+
+    /** @brief Parses a connection when it describes a lane-2-lane relationship
+     * @param[in] attrs The attributes to get further information about the connection from
+     * @param[in] from The edge at which the connection starts (the on incoming into a node)
+     * @param[in] to The edge at which the connection ends (the on outgoing from a node)
+     */
     void parseLaneBound(const SUMOSAXAttributes &attrs,NBEdge *from,
-                        NBEdge *to);
+                        NBEdge *to) throw();
 
-    /** @brief returns the connection described by def
-     *
-     * def should have the following format <FROM_EDGE_ID>[_<FROM_LANE_NO>]-><TO_EDGE_ID>[_<TO_LANE_NO>]
-     */
-    NBConnection parseConnection(const std::string &defRole, const std::string &def);
-
-    /** @brief Returns the node over which the connection defined by def goes
-     *
-     * def should have the following format <FROM_EDGE_ID>[_<FROM_LANE_NO>]-><TO_EDGE_ID>[_<TO_LANE_NO>]
-     * As node the node the from-edge is incoming to is chosen
-     */
-    NBNode *getNode(const std::string &def);
 
 private:
+    /// @brief Whether an information about an occured, deprecated attributes has bee printed
+    bool myHaveReportedAboutFunctionDeprecation;
+
+    /// @brief The edge container to fill
     NBEdgeCont &myEdgeCont;
 
+
 private:
-    /** invalid copy constructor */
+    /// @brief invalidated copy constructor
     NIXMLConnectionsHandler(const NIXMLConnectionsHandler &s);
 
-    /** invalid assignment operator */
+    /// @brief invalidated assignment operator
     NIXMLConnectionsHandler &operator=(const NIXMLConnectionsHandler &s);
+
 
 };
 
