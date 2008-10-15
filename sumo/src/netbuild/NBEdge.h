@@ -325,6 +325,18 @@ public:
     void setGeometry(const Position2DVector &g) throw();
 
 
+    /** @brief Adds a further geometry point
+     * 
+     * Some importer do not know an edge's geometry when it is initialised.
+     *  This method allows to insert further geometry points after the edge
+     *  has been built.
+     *
+     * @param[in] index The position at which the point shall be added
+     * @param[in] p The point to add
+     */
+    void addGeometryPoint(int index, const Position2D &p) throw();
+
+
     /** @brief Computes the shape of the edge (regarding the nodes' shapes
      *
      * Because an edge's shape should start/end at the boundaries of the nodes
@@ -340,16 +352,38 @@ public:
      */
     const Position2DVector &getLaneShape(unsigned int i) const throw();
 
-    void setLaneSpreadFunction(LaneSpreadFunction spread);
 
-    LaneSpreadFunction getLaneSpreadFunction() const;
+    /** @brief (Re)sets how the lanes lateral offset shall be computed
+     * @param[in] spread The type of lateral offset to apply
+     * @see LaneSpreadFunction
+     */
+    void setLaneSpreadFunction(LaneSpreadFunction spread) throw();
 
-    void addGeometryPoint(int index, const Position2D &p);
 
-    void normalisePosition();
+    /** @brief Returns how this edge's lanes' lateral offset is computed
+     * @return The type of lateral offset that is applied on this edge
+     * @see LaneSpreadFunction
+     */
+    LaneSpreadFunction getLaneSpreadFunction() const throw() {
+        return myLaneSpreadFunction;
+    }
 
-    void reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot);
 
+    /** @brief Resets this edge's position, so that the network starts at (0,0)
+     *
+     * GeoConvHelper::getOffset() is applied to both the edge's and all lanes'
+     *  geometries.
+     * @see GeoConvHelper::getOffset()
+     */
+    void normalisePosition() throw();
+
+
+    /** @brief Applies an additional offset and rotation on the network
+     * @param[in] xoff The x-offset to apply
+     * @param[in] yoff The y-offset to apply
+     * @param[in] rot The rotation to apply
+     */
+    void reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) throw();
     //@}
 
 

@@ -329,10 +329,45 @@ NBEdge::getLaneShape(unsigned int i) const throw()
 }
 
 
+void
+NBEdge::setLaneSpreadFunction(LaneSpreadFunction spread) throw()
+{
+    myLaneSpreadFunction = spread;
+}
+
+
+void
+NBEdge::addGeometryPoint(int index, const Position2D &p) throw()
+{
+    myGeom.insertAt(index, p);
+}
+
+
+void
+NBEdge::normalisePosition() throw()
+{
+    myGeom.resetBy(GeoConvHelper::getOffset());
+    for (size_t i=0; i<myLanes.size(); i++) {
+        myLanes[i].shape.resetBy(GeoConvHelper::getOffset());
+    }
+}
+
+
+void
+NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) throw()
+{
+    myGeom.reshiftRotate(xoff, yoff, rot);
+    for (size_t i=0; i<myLanes.size(); i++) {
+        myLanes[i].shape.reshiftRotate(xoff, yoff, rot);
+    }
+}
 
 
 
 
+
+
+// ----------- 
 
 int
 NBEdge::getJunctionPriority(NBNode *node)
@@ -1516,26 +1551,6 @@ NBEdge::disableConnection4TLS(int fromLane, NBEdge *toEdge, int toLane)
 }
 
 
-void
-NBEdge::normalisePosition()
-{
-    myGeom.resetBy(GeoConvHelper::getOffset());
-    for (size_t i=0; i<myLanes.size(); i++) {
-        myLanes[i].shape.resetBy(GeoConvHelper::getOffset());
-    }
-}
-
-
-void
-NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot)
-{
-    myGeom.reshiftRotate(xoff, yoff, rot);
-    for (size_t i=0; i<myLanes.size(); i++) {
-        myLanes[i].shape.reshiftRotate(xoff, yoff, rot);
-    }
-}
-
-
 Position2DVector
 NBEdge::getCWBoundaryLine(const NBNode &n, SUMOReal offset) const
 {
@@ -1724,13 +1739,6 @@ NBEdge::getNormedAngle() const
 
 
 void
-NBEdge::addGeometryPoint(int index, const Position2D &p)
-{
-    myGeom.insertAt(index, p);
-}
-
-
-void
 NBEdge::incLaneNo(unsigned int by)
 {
     size_t newLaneNo = myLanes.size() + by;
@@ -1780,20 +1788,6 @@ NBEdge::copyConnectionsFrom(NBEdge *src)
 {
     myStep = src->myStep;
     myConnections = src->myConnections;
-}
-
-
-void
-NBEdge::setLaneSpreadFunction(LaneSpreadFunction spread)
-{
-    myLaneSpreadFunction = spread;
-}
-
-
-NBEdge::LaneSpreadFunction
-NBEdge::getLaneSpreadFunction() const
-{
-    return myLaneSpreadFunction;
 }
 
 
