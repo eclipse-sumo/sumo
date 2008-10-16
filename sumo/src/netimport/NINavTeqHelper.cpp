@@ -49,7 +49,7 @@ using namespace std;
 // method definitions
 // ===========================================================================
 SUMOReal
-NINavTeqHelper::getSpeed(const std::string &id, const std::string &speedClassS)
+NINavTeqHelper::getSpeed(const std::string &id, const std::string &speedClassS) throw(ProcessError)
 {
     try {
         int speedClass = TplConvert<char>::_2int(speedClassS.c_str());
@@ -74,19 +74,15 @@ NINavTeqHelper::getSpeed(const std::string &id, const std::string &speedClassS)
             return (SUMOReal) 5 / (SUMOReal) 3.6; //< 11 KPH / < 6 MPH
         default:
             throw ProcessError("Invalid speed code (edge '" + id + "').");
-
         }
     } catch (NumberFormatException &) {
-        throw ProcessError(
-            "Non-numerical value for an edge's speed type occured (edge '" + id + "').");
-
+        throw ProcessError("Non-numerical value for an edge's speed type occured (edge '" + id + "').");
     }
-    throw ProcessError();
 }
 
 
-size_t
-NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS, SUMOReal speed)
+unsigned int
+NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS, SUMOReal speed) throw(ProcessError)
 {
     try {
         int nolanes = TplConvert<char>::_2int(laneNoS.c_str());
@@ -108,19 +104,16 @@ NINavTeqHelper::getLaneNumber(const std::string &id, const std::string &laneNoS,
                 return 4;
             default:
                 throw ProcessError("Invalid lane number (edge '" + id + "').");
-
             }
         }
     } catch (NumberFormatException &) {
         throw ProcessError("Non-numerical value for an edge's lane number occured (edge '" + id + "'.");
-
     }
-    throw ProcessError();
 }
 
 
 void
-NINavTeqHelper::addVehicleClasses(NBEdge &e, const std::string &oclassS)
+NINavTeqHelper::addVehicleClasses(NBEdge &e, const std::string &oclassS) throw()
 {
     string classS = "0000000000" + oclassS;
     classS = classS.substr(classS.length() - 10);
@@ -171,7 +164,7 @@ NINavTeqHelper::addVehicleClasses(NBEdge &e, const std::string &oclassS)
 
 
 void
-NINavTeqHelper::addVehicleClass(NBEdge &e, SUMOVehicleClass c)
+NINavTeqHelper::addVehicleClass(NBEdge &e, SUMOVehicleClass c) throw()
 {
     for (size_t i=0; i<e.getNoLanes(); i++) {
         e.allowVehicleClass(i, c);

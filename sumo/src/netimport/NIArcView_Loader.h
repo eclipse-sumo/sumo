@@ -75,7 +75,7 @@ private:
     SUMOReal getSpeed(OGRFeature &f, const std::string &edgeid);
 
     /// parses the number of lanes of the edge currently processed
-    size_t getLaneNo(OGRFeature &f,
+    unsigned int getLaneNo(OGRFeature &f,
                      const std::string &edgeid, SUMOReal speed);
 
     /// parses the priority of the edge currently processed

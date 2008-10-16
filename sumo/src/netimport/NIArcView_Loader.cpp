@@ -151,7 +151,7 @@ NIArcView_Loader::load(OptionsCont &)
         }
         string type = poFeature->GetFieldAsString("ST_TYP_AFT");
         SUMOReal speed = getSpeed(*poFeature, id);
-        size_t nolanes = getLaneNo(*poFeature, id, speed);
+        unsigned int nolanes = getLaneNo(*poFeature, id, speed);
         int priority = getPriority(*poFeature, id);
         if (nolanes==0||speed==0) {
             if (myOptions.getBool("arcview.use-defaults-on-failure")) {
@@ -288,26 +288,26 @@ NIArcView_Loader::getSpeed(OGRFeature &poFeature, const std::string &edgeid)
 }
 
 
-size_t
+unsigned int
 NIArcView_Loader::getLaneNo(OGRFeature &poFeature, const std::string &edgeid,
                             SUMOReal speed)
 {
     if (myOptions.isSet("arcview.type-id")) {
-        return myTypeCont.getNoLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("arcview.type-id").c_str())));
+        return (unsigned int) myTypeCont.getNoLanes(poFeature.GetFieldAsString((char*)(myOptions.getString("arcview.type-id").c_str())));
     }
     // try to get definitions as to be found in SUMO-XML-definitions
     //  idea by John Michael Calandrino
     int index = poFeature.GetDefnRef()->GetFieldIndex("nolanes");
     if (index>=0&&poFeature.IsFieldSet(index)) {
-        return poFeature.GetFieldAsInteger(index);
+        return (unsigned int) poFeature.GetFieldAsInteger(index);
     }
     index = poFeature.GetDefnRef()->GetFieldIndex("NOLANES");
     if (index>=0&&poFeature.IsFieldSet(index)) {
-        return poFeature.GetFieldAsInteger(index);
+        return (unsigned int) poFeature.GetFieldAsInteger(index);
     }
     index = poFeature.GetDefnRef()->GetFieldIndex("rnol");
     if (index>=0&&poFeature.IsFieldSet(index)) {
-        return poFeature.GetFieldAsInteger(index);
+        return (unsigned int) poFeature.GetFieldAsInteger(index);
     }
     index = poFeature.GetDefnRef()->GetFieldIndex("LANE_CAT");
     if (index>=0&&poFeature.IsFieldSet(index)) {
