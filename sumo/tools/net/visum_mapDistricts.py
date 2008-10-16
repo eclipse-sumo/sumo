@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 """
-@file    mpl_dump_onNet.py
+@file    visum_mapDistricts.py
 @author  Daniel.Krajzewicz@dlr.de
 @date    2007-10-25
 @version $Id$
@@ -181,9 +181,8 @@ for n1 in nodes1:
 		d = d[1:]
 	if d not in origDistrictNodes:
 		origDistrictNodes[d] = []
-#	if d!="38208908":
-#		continue
-	print "District: " + d
+	if options.verbose:
+		print "District: " + d
 	isHighwayNode = False
 	isHighwaySink = False
 	isHighwaySource = False
@@ -205,10 +204,8 @@ for n1 in nodes1:
 			noIncoming = noIncoming + 1
 		if e.getSpeed()>99:
 			noInConns = noInConns + 1
-	print "Check"
-	print un1._id
-	print noOutgoing
-	print noIncoming
+	if options.verbose:
+		print "Check", un1._id, noOutgoing, noIncoming
 	if isHighwayNode:
 		if noOutgoing==0:
 			highwaySinks1.add(n1)
@@ -251,7 +248,8 @@ for n1 in nodes1:
 			nmap2to1[best] = []
 		if n1 not in nmap2to1[best]:
 			nmap2to1[best].append(n1)
-		print "a: " + d + "<->" + best._id
+		if options.verbose:
+			print "a: " + d + "<->" + best._id
 		if best not in origDistrictNodes[d]:
 			origDistrictNodes[d].append(best)
 	
@@ -286,12 +284,13 @@ for n1 in nodes1:
 
 
 
-print "Found " + str(len(highwaySinks1)) + " highway sinks in net1"
-for n in highwaySinks1:
-	print n._id
-print "Found " + str(len(highwaySources1)) + " highway sources in net1"
-for n in highwaySources1:
-	print n._id
+if options.verbose:
+	print "Found " + str(len(highwaySinks1)) + " highway sinks in net1"
+	for n in highwaySinks1:
+		print n._id
+	print "Found " + str(len(highwaySources1)) + " highway sources in net1"
+	for n in highwaySources1:
+		print n._id
 
 
 connectedNodesConnections = {}
@@ -327,8 +326,10 @@ for d in nmap1to2:
 					net1.getNet().addLane(e1, 20, 100.)
 					if len(n2._incoming)==1:
 						fdd.write('    <connection from="' + n2._incoming[0]._id + '" to="' + e1._id + '" lane="' + str(i) + ':' + str(i) + '"/>\n')
+				fdd.write('    <connection from="' + e1._id + '"/>\n')
 		if haveOutgoing:
-			print "has outgoing"
+			if options.verbose:
+				print "has outgoing"
 			e2 = net1.getNet().addEdge("i" + n2._id, n1i._id, n2._id, -2)
 			if haveIncoming:
 				net1.getNet().addLane(e2, 20, 100.)
@@ -417,6 +418,7 @@ for d in nmap1to2:
 					net1.getNet().addLane(e1, 19, 100.)
 					fdd.write('    <connection from="' + "i" + d + "#"  + n2._id + '" to="' + dn1o._outgoing[0]._id + '" lane="' + str(i) + ':' + str(runningOutLaneNumber) + '"/>\n')
 					runningOutLaneNumber = runningOutLaneNumber + 1
+				fdd.write('    <connection from="' + dn1o._outgoing[0]._id + '"/>\n')
 				if incomingLaneNo==0:
 					net1.getNet().addLane(e1, 19, 100.)
 					runningOutLaneNumber = runningOutLaneNumber + 1
