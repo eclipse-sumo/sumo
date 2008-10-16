@@ -114,10 +114,6 @@ RODFDetFlowLoader::read(const std::string &file) throw(IOError, ProcessError)
             if (fd.qPKW<0) {
                 fd.qPKW = 0;
             }
-            if (false) { // !!!!
-                assert(fd.qPKW>=fd.qLKW);
-                fd.qPKW -= fd.qLKW;
-            }
             myStorage.addFlow(detName, time, fd);
             continue;
         } catch (UnknownElement &) {} catch (OutOfBoundsException &) {} catch (NumberFormatException &) {}
