@@ -35,11 +35,15 @@ class PersonAgent:
         minCar.accept(self)
 
 class Task:
-    def __init__(self, person, source, target):
+    def __init__(self, person, source, target, estCost):
         self.person = person
         self.source = source
         self.target = target
+        self.estCost = estCost
         self.startStep = None
+        
+    def __repr__(self):
+        return "<%s %s %s %s>" % (self.person.id, self.source, self.target, self.startStep)
 
 class CyberAgent:
     def __init__(self, id):
@@ -53,16 +57,18 @@ class CyberAgent:
         self.position = None
         
     def request(self, person, source, target):
-        self.pending[person] = Task(person, source, target)
         if (source, target) in self.costMatrix:
-            return self.totalEstimatedCost + self.costMatrix[(source, target)]
+            estCost = self.costMatrix[(source, target)]
         else:
-            return self.totalEstimatedCost + 2 * DOUBLE_ROWS * ROW_DIST / CYBER_SPEED
+            estCost = 2 * DOUBLE_ROWS * ROW_DIST / CYBER_SPEED
+        self.pending[person] = Task(person, source, target, estCost)
+        return self.totalEstimatedCost + estCost
 
     def accept(self, person):
         task = self.pending[person]
         self.tasks.append(task)
-        if len(self.tasks) == 1:
+        self.totalEstimatedCost += task.estCost
+        if not self.running and len(self.tasks) == 1:
             if self.position == task.source:
                 self.checkBoarding(task.source, 0)
             elif self.position:
@@ -105,13 +111,15 @@ class CyberAgent:
                 self.load -= 1
                 wait += WAIT_PER_PERSON
                 self.costMatrix[(task.source, task.target)] = step - task.startStep
+                self.totalEstimatedCost -= task.estCost
             else:
                 running.append(task)
         self.running = running
         if self.load < CYBER_CAPACITY: 
             tasks = []
             for task in self.tasks:
-                if task.source == edge:
+                if task.source == edge and self.load < CYBER_CAPACITY:
+                    vehicleControl.leaveStop(task.person.id)
                     self.load += 1
                     wait += WAIT_PER_PERSON
                     task.startStep = step
@@ -119,9 +127,14 @@ class CyberAgent:
                 else:
                     tasks.append(task)
             self.tasks = tasks
+        nextStop = None
         if self.running:
+            nextStop = self._findNextTarget()
+        elif self.tasks:
+            nextStop = self.tasks[0].source
+        if nextStop:
             vehicleControl.leaveStop(self.id, delay=wait)
-            vehicleControl.stopAt(self.id, self._findNextTarget(), ROW_DIST-15.)
+            vehicleControl.stopAt(self.id, nextStop, ROW_DIST-15.)
 
 class AgentManager(vehicleControl.Manager):
 
