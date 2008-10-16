@@ -99,7 +99,7 @@ public:
         /// @brief Lanes to lanes - relationships are computed; no recheck is necessary/wished
         LANES2LANES_DONE,
         /// @brief Lanes to lanes - relationships are loaded; no recheck is necessary/wished
-        LANES2LANES_USER,
+        LANES2LANES_USER
     };
 
 
@@ -112,7 +112,7 @@ public:
         /// @brief The connection was given by the used
         L2L_USER,
         /// @brief The connection was computed and validated
-        L2L_VALIDATED,
+        L2L_VALIDATED
     };
 
 
