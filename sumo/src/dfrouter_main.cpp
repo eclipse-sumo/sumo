@@ -221,7 +221,7 @@ startComputation(RODFNet *optNet, RODFDetectorFlows &flows, RODFDetectorCon &det
     // save end speed trigger if wished
     if (oc.isSet("speed-trigger-output")) {
         MsgHandler::getMessageInstance()->beginProcessMsg("Writing speed triggers...");
-        detectors.writeSpeedTrigger(oc.getString("speed-trigger-output"), flows,
+        detectors.writeSpeedTrigger(optNet, oc.getString("speed-trigger-output"), flows,
                                     oc.getInt("begin"), oc.getInt("end"), 60);
         MsgHandler::getMessageInstance()->endProcessMsg("done.");
     }

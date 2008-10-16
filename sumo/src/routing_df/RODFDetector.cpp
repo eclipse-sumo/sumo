@@ -286,15 +286,12 @@ RODFDetector::writeEmitterDefinition(const std::string &file,
             RandomDistributor<size_t> *destDist = dists.size()>time ? dists[time] : 0;
             // go through the cars
             size_t carNo = (size_t)((srcFD.qPKW + srcFD.qLKW) * scale);
-//            cout << "b1 " << carNo <<  endl;
             for (size_t car=0; car<carNo; ++car) {
                 // get the vehicle parameter
                 string type = "test";
                 SUMOReal v = -1;
-                int destIndex = destDist!=0 && destDist->getOverallProb()>0 ? destDist->get() : -1;
-//!!! micro srcIndex = srcDist.get();
-//				std::vector<std::string> route = droutes[destIndex]->edges2Pass;
-                if (srcFD.isLKW>1) {
+                int destIndex = destDist!=0 && destDist->getOverallProb()>0 ? (int) destDist->get() : -1;
+                if (srcFD.isLKW>=1) {
                     srcFD.isLKW = srcFD.isLKW - (SUMOReal) 1.;
 //!!!		        	type = lkwTypes[vehSpeedDist.get()];
                     v = srcFD.vLKW;
@@ -375,7 +372,7 @@ void
 RODFDetector::writeSingleSpeedTrigger(const std::string &file,
                                       const RODFDetectorFlows &flows,
                                       SUMOTime startTime, SUMOTime endTime,
-                                      SUMOTime stepOffset)
+                                      SUMOTime stepOffset, SUMOReal defaultSpeed)
 {
     OutputDevice& out = OutputDevice::getDevice(file);
     out.writeXMLHeader("vss");
@@ -383,10 +380,11 @@ RODFDetector::writeSingleSpeedTrigger(const std::string &file,
     for (SUMOTime t=startTime; t<endTime; t+=stepOffset) {
         const FlowDef &srcFD = mflows[(int)(t/stepOffset) - startTime]; // !!! check stepOffset
         SUMOReal speed = MAX2(srcFD.vLKW, srcFD.vPKW);
-        if (speed==0) {
-            speed = 200; // !!! no limit
+        if (speed<=0||speed>250) {
+            speed = defaultSpeed;
+        } else {
+            speed = (SUMOReal)(speed / 3.6);
         }
-        speed = (SUMOReal)(speed / 3.6);
         out << "   <step time=\"" << t << "\" speed=\"" << speed << "\"/>\n";
     }
     out.close();
@@ -724,7 +722,8 @@ RODFDetectorCon::getAggFlowFor(const ROEdge *edge, SUMOTime time, SUMOTime perio
 
 
 void
-RODFDetectorCon::writeSpeedTrigger(const std::string &file,
+RODFDetectorCon::writeSpeedTrigger(const RODFNet * const net,
+                                   const std::string &file,
                                    const RODFDetectorFlows &flows,
                                    SUMOTime startTime, SUMOTime endTime,
                                    SUMOTime stepOffset)
@@ -741,7 +740,8 @@ RODFDetectorCon::writeSpeedTrigger(const std::string &file,
             << " objectid=\"" << det->getLaneID() << '\"'
             << " attr=\"speed\" "
             << " file=\"" << filename << "\"/>\n";
-            det->writeSingleSpeedTrigger(filename, flows, startTime, endTime, stepOffset);
+            SUMOReal defaultSpeed = net!=0 ? net->getEdge(det->getEdgeID())->getSpeed() : (SUMOReal) 200.;
+            det->writeSingleSpeedTrigger(filename, flows, startTime, endTime, stepOffset, defaultSpeed);
         }
     }
     out.close();

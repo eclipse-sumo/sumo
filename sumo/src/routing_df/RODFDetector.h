@@ -168,7 +168,8 @@ public:
                      OutputDevice& out);
     void writeSingleSpeedTrigger(const std::string &file,
                                  const RODFDetectorFlows &flows,
-                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
+                                 SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset,
+                                 SUMOReal defaultSpeed);
     void writeEndRerouterDetectors(const std::string &file);
     const std::vector<RODFRouteDesc> &getRouteVector() const;
     void addPriorDetector(RODFDetector *det);
@@ -246,7 +247,7 @@ public:
                           const RODFDetectorFlows &flows,
                           SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 
-    void writeSpeedTrigger(const std::string &file,
+    void writeSpeedTrigger(const RODFNet * const net, const std::string &file,
                            const RODFDetectorFlows &flows,
                            SUMOTime startTime, SUMOTime endTime, SUMOTime stepOffset);
 
