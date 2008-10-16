@@ -2,7 +2,7 @@
 /// @file    NIArcView_Loader.cpp
 /// @author  Daniel Krajzewicz
 /// @date    Sept 2002
-/// @version $Id:NIArcView_Loader.cpp 4701 2007-11-09 14:29:29Z dkrajzew $
+/// @version $Id$
 ///
 // Importer for networks stored in ArcView-shape format
 /****************************************************************************/
