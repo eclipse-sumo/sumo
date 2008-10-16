@@ -166,7 +166,7 @@ NINavTeqHelper::addVehicleClasses(NBEdge &e, const std::string &oclassS) throw()
 void
 NINavTeqHelper::addVehicleClass(NBEdge &e, SUMOVehicleClass c) throw()
 {
-    for (size_t i=0; i<e.getNoLanes(); i++) {
+    for (unsigned int i=0; i<e.getNoLanes(); i++) {
         e.allowVehicleClass(i, c);
     }
 }
