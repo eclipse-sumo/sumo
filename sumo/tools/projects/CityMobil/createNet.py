@@ -11,9 +11,10 @@ of the CityMobil parking lot.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import os
+import os, numpy, random
 from constants import *
 
+occupied = 0
 nodes = open("%s.nod.xml" % PREFIX, "w")
 print >> nodes, "<nodes>"
 edges = open("%s.edg.xml" % PREFIX, "w")
@@ -84,20 +85,38 @@ for row in range(DOUBLE_ROWS):
         print >> nodes, '<node id="%slt" x="%s" y="%s"/>' % (slotID, x-SLOT_FOOT_LENGTH, (slot+1)*SLOT_WIDTH) 
         print >> edges, '<edge id="%sl" fromnode="%s" tonode="%slt" spread_type="center"/>' % (slotID, slotID, slotID)
         print >> edges, '<edge id="-%sl" fromnode="%slt" tonode="%s" spread_type="center"/>' % (slotID, slotID, slotID)
-        nodeID = slotID 
-        print >> routes, """\
+        nodeID = slotID
+        vSlot = slotID.replace("foot", "slot") 
+        if random.uniform(0,1) < OCCUPATION_PROBABILITY:
+            occupied += 1
+            print >> routes, """\
+    <vehicle id="v%sr" type="car" depart="0" arrivalpos="10000">
+        <route edges="%sr -%sr"/>
+    </vehicle>""" % (vSlot, vSlot, vSlot)
+        else:
+            print >> routes, """\
     <vehicle id="p%sr" type="person" depart="0" period="1" repno="%s" arrivalpos="10000">
         <route edges="%sr -%sr"/>
-    </vehicle>
+    </vehicle>""" % (slotID, CAR_CAPACITY-1, slotID, slotID)
+        if random.uniform(0,1) < OCCUPATION_PROBABILITY:
+            occupied += 1
+            print >> routes, """\
+    <vehicle id="v%sl" type="car" depart="0" arrivalpos="10000">
+        <route edges="%sl -%sl"/>
+    </vehicle>""" % (vSlot, vSlot, vSlot)
+        else:
+            print >> routes, """\
     <vehicle id="p%sl" type="person" depart="0" period="1" repno="%s" arrivalpos="10000">
         <route edges="%sl -%sl"/>
-    </vehicle>""" % (slotID, CAR_CAPACITY-1, slotID, slotID, slotID, CAR_CAPACITY-1, slotID, slotID)
+    </vehicle>""" % (slotID, CAR_CAPACITY-1, slotID, slotID)
 x = DOUBLE_ROWS * ROW_DIST + ROW_DIST/2
 print >> nodes, '<node id="foot%s" x="%s" y="%s"/>' % (DOUBLE_ROWS, x, y) 
 edgeID = "footmain%sto%s" % (DOUBLE_ROWS-1, DOUBLE_ROWS)
 print >> edges, '<edge id="%s" fromnode="foot%s" tonode="foot%s" speed="5" spread_type="center"/>' % (edgeID, DOUBLE_ROWS-1, DOUBLE_ROWS)
 print >> nodes, '<node id="footend" x="%s" y="%s"/>' % (x+100, y) 
 print >> edges, '<edge id="footmainout" fromnode="foot%s" tonode="footend" speed="5" spread_type="center"/>' % DOUBLE_ROWS 
+print >> nodes, '<node id="fair" x="%s" y="%s"/>' % (x+100, y-10)
+print >> edges, '<edge id="footfairin" fromnode="fair" tonode="foot%s" speed="5" spread_type="center"/>' % DOUBLE_ROWS
 
 #cybercar (automated bus)
 y = (SLOTS_PER_ROW+3) * SLOT_WIDTH
@@ -124,14 +143,20 @@ print >> nodes, "</nodes>"
 nodes.close()
 print >> edges, "</edges>"
 edges.close()
+
 totalSlots = 2 * DOUBLE_ROWS * SLOTS_PER_ROW
-print >> routes, """    <vehicle id="v" type="car" depart="1" period="10" repno="%s" arrivalpos="10000">
+if occupied < totalSlots:
+    print >> routes, """    <vehicle id="v" type="car" depart="1" period="10" repno="%s" arrivalpos="10000">
         <route edges="mainin"/>
-    </vehicle>
-    <vehicle id="c" type="cybercar" depart="1" period="100" repno="1" arrivalpos="10000">
+    </vehicle>""" % (totalSlots-occupied-1)
+if occupied > 0:
+    print >> routes, """    <vehicle id="p" type="person" depart="1" period="1" repno="%s" arrivalpos="10000">
+        <route edges="footfairin"/>
+    </vehicle>""" % (occupied*CAR_CAPACITY-1)
+print >> routes, """    <vehicle id="c" type="cybercar" depart="1" period="100" repno="1" arrivalpos="10000">
         <route edges="%s"/>
     </vehicle>
-</routes>""" % (totalSlots-1, cyberroute)
+</routes>""" % cyberroute
 routes.close()
 
 os.system("netconvert -n %s.nod.xml -e %s.edg.xml --add-internal-links -o %s.net.xml" % (PREFIX, PREFIX, PREFIX))

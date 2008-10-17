@@ -98,6 +98,8 @@ def _checkInitialPositions(vehicleID, edge, pos):
             _rerouteCar(vehicleID)
         elif edge == "cyberin":
             stopAt(vehicleID, "cyber0to1", ROW_DIST-15.)
+        elif edge == "footfairin":
+            stopAt(vehicleID, "footmainout", 90.)
         elif "foot" in edge:
             stopObject("-"+edge, vehicleID)
             parkEdge = edge.replace("foot", "slot")
@@ -105,6 +107,8 @@ def _checkInitialPositions(vehicleID, edge, pos):
                 persons[parkEdge] = []
             persons[parkEdge].append(vehicleID)
             vehicleStatus[vehicleID].parking = True
+        elif "slot" in edge:
+            stopAt(vehicleID, edge, SLOT_LENGTH-1.)
     if setting.verbose:
         print vehicleID, edge
     if edge in persons and pos >= SLOT_LENGTH-1.5:
