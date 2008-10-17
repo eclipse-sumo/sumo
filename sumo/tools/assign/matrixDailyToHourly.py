@@ -43,8 +43,8 @@ def getMatrix(verbose, matrix):#, mtxplfile, mtxtfile):
     zones = 0
     for line in open(matrix):
         if line[0] == '$':
-            visumCode = line[1:4]
-            if visumCode != 'VMR':
+            visumCode = line[1:3]
+            if visumCode != 'VM':
                 skipCount += 1
         elif line[0] != '*' and line[0] != '$':
             skipCount += 1
