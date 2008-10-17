@@ -1,0 +1,20 @@
+###########################################################
+#
+# Redirects for the SUMO-Wiki
+#
+###########################################################
+
+RewriteEngine On
+
+RewriteCond	%{REQUEST_URI}	^/wiki/
+RewriteRule	^wiki/index.php/(.+)	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=$1
+RewriteRule	^wiki/(.+)	http://apps.sourceforge.net/mediawiki/sumo/$1
+
+RewriteCond	%{REQUEST_URI}	^/projects.shtml
+RewriteRule	.*	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=Projects
+
+RewriteCond	%{REQUEST_URI}	^/links/
+RewriteRule	.*	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=Links
+
+RewriteCond	%{REQUEST_URI}	^/contact.shtml
+RewriteRule	.*	http://apps.sourceforge.net/mediawiki/sumo/index.php?title=Contact
