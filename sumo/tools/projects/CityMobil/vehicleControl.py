@@ -9,14 +9,14 @@ Control the CityMobil parking lot via TraCI.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import subprocess, numpy
+import subprocess
 from optparse import OptionParser
 
 from constants import *
 from traciControl import initTraCI, simStep, stopObject, changeTarget, close
 
 class Manager:
-    def personArrived(self, vehicleID, edge):
+    def personArrived(self, vehicleID, edge, target):
         raise NotImplementedError
     def cyberCarArrived(self, vehicleID, edge, step):
         raise NotImplementedError
@@ -29,6 +29,7 @@ class Status:
         self.parking = False
         self.target = None
         self.targetPos = None
+        self.slot = None
 
 class Setting:
     step = 0
@@ -36,7 +37,7 @@ class Setting:
     verbose = False
 
 setting = Setting()
-occupancy = -numpy.ones((2*DOUBLE_ROWS, SLOTS_PER_ROW), int)
+occupancy = {}
 vehicleStatus = {}
 persons = {}
 waiting = {}
@@ -69,24 +70,25 @@ def leaveStop(vehicleID, newTarget=None, delay=0.):
 
 def _rerouteCar(vehicleID):
     slotEdge = ""
-    for rowIdx, row in enumerate(occupancy):
-        for idx, slot in enumerate(row):
-            if slot == -1:
-                row[idx] = vehicleID
-                dir = "l"
-                if rowIdx % 2 == 1:
-                    dir = "r"
-                slotEdge = "slot%s-%s%s" % (rowIdx/2, idx, dir)
-                break
-        if slotEdge:
-            break
-    stopAt(vehicleID, slotEdge, SLOT_LENGTH-1.)
+    for rowIdx in range(DOUBLE_ROWS):
+        for idx in range(SLOTS_PER_ROW):
+            for dir in ["l", "r"]:
+                slotEdge = "slot%s-%s%s" % (rowIdx, idx, dir)
+                if not slotEdge in occupancy:
+                    occupancy[slotEdge] = vehicleID
+                    stopAt(vehicleID, slotEdge, SLOT_LENGTH-1.)
+                    return
 
-def _reroutePerson(edge, vehicleID):
-    row = int(edge[5])
-    targetEdge = "footmain%sto%s" % (row, row+1)
-    stopObject(edge, vehicleID, 1., 0.)
-    stopAt(vehicleID, targetEdge, ROW_DIST-10.)
+def _reroutePersons(edge):
+    if edge in persons:
+        for person in persons[edge]:
+            if not vehicleStatus[person].slot:
+                row = int(edge[4])
+                targetEdge = "footmain%sto%s" % (row, row+1)
+                stopObject(edge.replace("slot", "-foot"), person, 1., 0.)
+                stopAt(person, targetEdge, ROW_DIST-10.)
+                vehicleStatus[person].parking = False
+                vehicleStatus[person].slot = edge
 
 def _checkInitialPositions(vehicleID, edge, pos):
     if vehicleID in vehicleStatus:
@@ -107,21 +109,10 @@ def _checkInitialPositions(vehicleID, edge, pos):
                 persons[parkEdge] = []
             persons[parkEdge].append(vehicleID)
             vehicleStatus[vehicleID].parking = True
-        elif "slot" in edge:
+        elif edge.startswith("slot"):
             stopAt(vehicleID, edge, SLOT_LENGTH-1.)
-    if setting.verbose:
-        print vehicleID, edge
-    if edge in persons and pos >= SLOT_LENGTH-1.5:
-        if setting.verbose:
-            print "destReached", vehicleID, pos
-        remaining = []
-        for person in persons[edge]:
-            if vehicleStatus[person].parking:
-                _reroutePerson(edge.replace("slot", "-foot"), person)
-                vehicleStatus[person].parking = False
-            else:
-                remaining.append(person)
-        persons[edge] = remaining
+            occupancy[edge] = vehicleID
+    _reroutePersons(edge)
 
 def doStep():
     setting.step += 1
@@ -133,7 +124,10 @@ def doStep():
         if edge == vehicleStatus[vehicleID].target and not vehicleStatus[vehicleID].parking:
             if edge.startswith("footmain"):
                 vehicleStatus[vehicleID].parking = True
-                setting.manager.personArrived(vehicleID, edge)
+                target = "footmainout"
+                if edge == "footmainout":
+                    target = "footmain0to1"
+                setting.manager.personArrived(vehicleID, edge, target)
             if edge.startswith("cyber"):
                 vehicleStatus[vehicleID].parking = True
                 setting.manager.cyberCarArrived(vehicleID, edge, setting.step)

@@ -21,31 +21,34 @@ class SimpleManager(vehicleControl.Manager):
         self.cyberCarLoad = {}
         self.personsWaitingAt = {}
 
-    def personArrived(self, personID, edge):
+    def personArrived(self, personID, edge, target):
         if not edge in self.personsWaitingAt:
             self.personsWaitingAt[edge] = []
-        self.personsWaitingAt[edge].append(personID)
+        self.personsWaitingAt[edge].append((personID, target))
 
     def cyberCarArrived(self, vehicleID, edge, step):
-        load = self.cyberCarLoad.get(vehicleID, 0)
-        if edge == "cyberout":
-            vehicleControl.leaveStop(vehicleID, delay=load*WAIT_PER_PERSON)
-            load = 0
-            vehicleControl.stopAt(vehicleID, "cyber0to1", ROW_DIST-15.)
-        else:
-            footEdge = edge.replace("cyber", "footmain")
-            wait = 0
-            while self.personsWaitingAt.get(footEdge, []) and load < CYBER_CAPACITY:
-                person = self.personsWaitingAt[footEdge].pop(0)
-                vehicleControl.leaveStop(person)
-                load += 1
+        footEdge = edge.replace("cyber", "footmain")
+        wait = 0
+        load = []
+        for target in self.cyberCarLoad.get(vehicleID, []):
+            if target == footEdge:
                 wait += WAIT_PER_PERSON
-            vehicleControl.leaveStop(vehicleID, delay=wait)
-            row = int(edge[5])
-            if row < DOUBLE_ROWS-1:
-                vehicleControl.stopAt(vehicleID, "cyber%sto%s" % (row+1, row+2), ROW_DIST-15.)
             else:
-                vehicleControl.stopAt(vehicleID, "cyberout", 90.)
+                load.append(target)
+        while self.personsWaitingAt.get(footEdge, []) and len(load) < CYBER_CAPACITY:
+            person, target = self.personsWaitingAt[footEdge].pop(0)
+            vehicleControl.leaveStop(person)
+            load.append(target)
+            wait += WAIT_PER_PERSON
+        vehicleControl.leaveStop(vehicleID, delay=wait)
+        if edge == "cyberout":
+            row = -1
+        else:
+            row = int(edge[5])
+        if row < DOUBLE_ROWS-1:
+            vehicleControl.stopAt(vehicleID, "cyber%sto%s" % (row+1, row+2), ROW_DIST-15.)
+        else:
+            vehicleControl.stopAt(vehicleID, "cyberout", 90.)
         self.cyberCarLoad[vehicleID] = load
 
 def main():

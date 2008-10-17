@@ -11,7 +11,7 @@ of the CityMobil parking lot.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import os, numpy, random
+import os, random
 from constants import *
 
 occupied = 0
@@ -123,7 +123,6 @@ y = (SLOTS_PER_ROW+3) * SLOT_WIDTH
 print >> nodes, '<node id="cyber" x="-100" y="%s"/>' % y
 print >> edges, '<edge id="cyberin" fromnode="cyber" tonode="cyber0" nolanes="2" spread_type="center"/>' 
 print >> edges, '<edge id="-cyberin" fromnode="cyber0" tonode="cyber" nolanes="2" spread_type="center"/>' 
-cyberroute = "cyberin"
 for row in range(DOUBLE_ROWS+1):
     nodeID = "cyber%s" % row
     x = row * ROW_DIST + ROW_DIST/2
@@ -132,11 +131,9 @@ for row in range(DOUBLE_ROWS+1):
         edgeID = "cyber%sto%s" % (row-1, row)
         print >> edges, '<edge id="%s" fromnode="cyber%s" tonode="cyber%s" nolanes="2" spread_type="center"/>' % (edgeID, row-1, row)
         print >> edges, '<edge id="-%s" fromnode="cyber%s" tonode="cyber%s" nolanes="2" spread_type="center"/>' % (edgeID, row, row-1)
-        cyberroute += " " + edgeID 
 print >> nodes, '<node id="cyberend" x="%s" y="%s"/>' % (x+100, y) 
 print >> edges, '<edge id="cyberout" fromnode="cyber%s" tonode="cyberend" nolanes="2" spread_type="center"/>' % row 
 print >> edges, '<edge id="-cyberout" fromnode="cyberend" tonode="cyber%s" nolanes="2" spread_type="center"/>' % row 
-cyberroute += " cyberout" 
 
 
 print >> nodes, "</nodes>"
@@ -144,19 +141,19 @@ nodes.close()
 print >> edges, "</edges>"
 edges.close()
 
+print >> routes, """    <vehicle id="c" type="cybercar" depart="0" period="100" repno="1" arrivalpos="10000">
+        <route edges="cyberin"/>
+    </vehicle>"""
 totalSlots = 2 * DOUBLE_ROWS * SLOTS_PER_ROW
 if occupied < totalSlots:
-    print >> routes, """    <vehicle id="v" type="car" depart="1" period="10" repno="%s" arrivalpos="10000">
+    print >> routes, """    <vehicle id="v" type="car" depart="10" period="10" repno="%s" arrivalpos="10000">
         <route edges="mainin"/>
     </vehicle>""" % (totalSlots-occupied-1)
 if occupied > 0:
-    print >> routes, """    <vehicle id="p" type="person" depart="1" period="1" repno="%s" arrivalpos="10000">
+    print >> routes, """    <vehicle id="p" type="person" depart="10" period="5" repno="%s" arrivalpos="10000">
         <route edges="footfairin"/>
-    </vehicle>""" % (occupied*CAR_CAPACITY-1)
-print >> routes, """    <vehicle id="c" type="cybercar" depart="1" period="100" repno="1" arrivalpos="10000">
-        <route edges="%s"/>
     </vehicle>
-</routes>""" % cyberroute
+</routes>""" % (occupied*CAR_CAPACITY-1)
 routes.close()
 
 os.system("netconvert -n %s.nod.xml -e %s.edg.xml --add-internal-links -o %s.net.xml" % (PREFIX, PREFIX, PREFIX))
