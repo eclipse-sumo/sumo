@@ -9,7 +9,7 @@ Control the CityMobil parking lot via TraCI.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import subprocess
+import subprocess, random
 from optparse import OptionParser
 
 from constants import *
@@ -42,14 +42,28 @@ vehicleStatus = {}
 persons = {}
 waiting = {}
 
-def init(gui, manager, verbose):
+def init(manager):
+    optParser = OptionParser()
+    optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
+                         default=False, help="tell me what you are doing")
+    optParser.add_option("-g", "--gui", action="store_true", dest="gui",
+                         default=False, help="run with GUI")
+    optParser.add_option("-c", "--cyber", action="store_true", dest="cyber",
+                         default=False, help="use small cybercars instead of big busses")
+    (options, args) = optParser.parse_args()
     sumoExe = SUMO
-    if gui:
+    if options.gui:
         sumoExe = SUMOGUI
-    sumoProcess = subprocess.Popen("%s -c %s.sumo.cfg" % (sumoExe, PREFIX), shell=True)
+    sumoConfig = PREFIX + ".sumo.cfg"
+    if options.cyber:
+        sumoConfig = PREFIX + "_cyber.sumo.cfg"
+    sumoProcess = subprocess.Popen("%s -c %s" % (sumoExe, sumoConfig), shell=True)
     initTraCI(PORT)
     setting.manager = manager
-    setting.verbose = verbose
+    setting.verbose = options.verbose
+    while True:
+        doStep()
+    close()
 
 def stopAt(vehicleID, edge, pos=1.):
     if setting.verbose:
@@ -126,7 +140,8 @@ def doStep():
                 vehicleStatus[vehicleID].parking = True
                 target = "footmainout"
                 if edge == "footmainout":
-                    target = "footmain0to1"
+                    row = random.randrange(0, DOUBLE_ROWS)
+                    target = "footmain%sto%s" % (row, row+1)
                 setting.manager.personArrived(vehicleID, edge, target)
             if edge.startswith("cyber"):
                 vehicleStatus[vehicleID].parking = True

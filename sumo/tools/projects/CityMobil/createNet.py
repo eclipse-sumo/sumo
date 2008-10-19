@@ -141,9 +141,10 @@ nodes.close()
 print >> edges, "</edges>"
 edges.close()
 
-print >> routes, """    <vehicle id="c" type="cybercar" depart="0" period="100" repno="1" arrivalpos="10000">
+numBusses = TOTAL_CAPACITY / BUS_CAPACITY
+print >> routes, """    <vehicle id="c" type="cybercar" depart="0" period="100" repno="%s" arrivalpos="10000">
         <route edges="cyberin"/>
-    </vehicle>"""
+    </vehicle>""" % (numBusses - 1)
 totalSlots = 2 * DOUBLE_ROWS * SLOTS_PER_ROW
 if occupied < totalSlots:
     print >> routes, """    <vehicle id="v" type="car" depart="10" period="10" repno="%s" arrivalpos="10000">
@@ -154,6 +155,14 @@ if occupied > 0:
         <route edges="footfairin"/>
     </vehicle>
 </routes>""" % (occupied*CAR_CAPACITY-1)
+routes.close()
+
+routes = open("%s_cyber.rou.xml" % PREFIX, "w")
+print >> routes, """<routes>
+    <vehicle id="c" type="cybercar" depart="50" period="100" repno="%s" arrivalpos="10000">
+        <route edges="cyberin"/>
+    </vehicle>
+</routes>""" % (TOTAL_CAPACITY / CYBER_CAPACITY - numBusses - 1)
 routes.close()
 
 os.system("netconvert -n %s.nod.xml -e %s.edg.xml --add-internal-links -o %s.net.xml" % (PREFIX, PREFIX, PREFIX))
@@ -167,4 +176,15 @@ print >> config, """<c>
     <time-to-teleport>0</time-to-teleport>
     <remote-port>%s</remote-port>
 </c>""" % (PREFIX, PREFIX, PORT)
+config.close()
+
+config = open("%s_cyber.sumo.cfg" % PREFIX, "w")
+print >> config, """<c>
+    <net-file>%s.net.xml</net-file>
+    <route-files>%s.rou.xml,%s_cyber.rou.xml</route-files>
+    <use-internal-links>x</use-internal-links>
+    <no-step-log>x</no-step-log>
+    <time-to-teleport>0</time-to-teleport>
+    <remote-port>%s</remote-port>
+</c>""" % (PREFIX, PREFIX, PREFIX, PORT)
 config.close()

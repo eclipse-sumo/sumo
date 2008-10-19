@@ -26,7 +26,7 @@ class SimpleManager(vehicleControl.Manager):
             self.personsWaitingAt[edge] = []
         self.personsWaitingAt[edge].append((personID, target))
 
-    def cyberCarArrived(self, vehicleID, edge, step):
+    def cyberCarArrived(self, vehicleID, capacity, edge, step):
         footEdge = edge.replace("cyber", "footmain")
         wait = 0
         load = []
@@ -35,7 +35,7 @@ class SimpleManager(vehicleControl.Manager):
                 wait += WAIT_PER_PERSON
             else:
                 load.append(target)
-        while self.personsWaitingAt.get(footEdge, []) and len(load) < CYBER_CAPACITY:
+        while self.personsWaitingAt.get(footEdge, []) and len(load) < capacity:
             person, target = self.personsWaitingAt[footEdge].pop(0)
             vehicleControl.leaveStop(person)
             load.append(target)
@@ -51,18 +51,5 @@ class SimpleManager(vehicleControl.Manager):
             vehicleControl.stopAt(vehicleID, "cyberout", 90.)
         self.cyberCarLoad[vehicleID] = load
 
-def main():
-    vehicleControl.init(options.gui, SimpleManager(), options.verbose)
-    while True:
-        vehicleControl.doStep()
-    close()
-
-
 if __name__ == "__main__":
-    optParser = OptionParser()
-    optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                         default=False, help="tell me what you are doing")
-    optParser.add_option("-g", "--gui", action="store_true", dest="gui",
-                         default=False, help="run with GUI")
-    (options, args) = optParser.parse_args()
-    main()
+    vehicleControl.init(SimpleManager())

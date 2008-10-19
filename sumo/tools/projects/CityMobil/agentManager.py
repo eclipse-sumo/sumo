@@ -158,18 +158,5 @@ class AgentManager(vehicleControl.Manager):
             self.cyberCars.append(cyberCar)
         cyberCar.checkBoarding(edge, step)
 
-def main():
-    vehicleControl.init(options.gui, AgentManager(), options.verbose)
-    while True:
-        vehicleControl.doStep()
-    close()
-
-
 if __name__ == "__main__":
-    optParser = OptionParser()
-    optParser.add_option("-v", "--verbose", action="store_true", dest="verbose",
-                         default=False, help="tell me what you are doing")
-    optParser.add_option("-g", "--gui", action="store_true", dest="gui",
-                         default=False, help="run with GUI")
-    (options, args) = optParser.parse_args()
-    main()
+    vehicleControl.init(AgentManager())
