@@ -143,11 +143,13 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
     if not lohse and iter > 3:
         if notstable == 0:
             stable = True        
-        elif notstable < len(net._edges)*0.05:
+        elif notstable < len(net._edges)*0.01:
             stable = True
             
         if iter > options.maxiteration:
             stable = True
+            print 'Number of max. iterations is reached!'
+            print 'stable:', stable
          
     return stable
 
@@ -156,11 +158,13 @@ def calCommonalityAndChoiceProb(ODPaths, alpha, lohse):
     if len(ODPaths) > 1:
         for path in ODPaths:
             path.commfactor = alpha * math.log(path.sumOverlap)
-
+            if not lohse:
+                path.utility = path.commfactor + path.actpathtime
+            else:
+                path.utility = path.commfactor + path.pathhelpacttime
         
         if lohse:
             minpath = min(ODPaths, key=operator.attrgetter('pathhelpacttime'))
-            minpathcost = minpath.pathhelpacttime + minpath.commfactor
             beta = 12./(1.+ math.exp(0.7 - 0.015 * minpath.pathhelpacttime))
         else:
             theta = getThetaForCLogit(ODPaths)
@@ -170,11 +174,11 @@ def calCommonalityAndChoiceProb(ODPaths, alpha, lohse):
             for pathtwo in ODPaths:
                 if pathone != pathtwo:
                     if not lohse:
-                        sum_exputility += math.exp(theta*(-pathtwo.actpathtime + pathone.actpathtime + pathone.commfactor - pathtwo.commfactor))
+                        sum_exputility += math.exp(theta*(pathone.utility - pathtwo.utility))
                     else:
-                        pathonecost = pathone.pathhelpacttime + pathone.commfactor
-                        pathtwocost = pathtwo.pathhelpacttime + pathtwo.commfactor
-                        sum_exputility += math.exp(-(beta*(pathtwocost/minpathcost -1.))**2.+(beta*(pathonecost/minpathcost -1.))**2.)
+                        pathtwoPart = beta*(pathtwo.utility/minpath.utility -1.)
+                        pathonePart = beta*(pathone.utility/minpath.utility -1.)
+                        sum_exputility += math.exp(-(pathtwoPart*pathtwoPart)+ pathonePart*pathonePart)
             pathone.choiceprob = 1./(1. + sum_exputility)
     else:
         for path in ODPaths:

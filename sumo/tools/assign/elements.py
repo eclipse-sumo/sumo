@@ -347,6 +347,7 @@ class Path:
         self.commfactor = 0.0
         self.choiceprob = 0.0
         self.sumOverlap = 0.0
+        self.utility = 0.0
         # parameter used in the Lohse traffic assignment
         self.usedcounts = 1
         # parameter used in the Lohse traffic assignment          

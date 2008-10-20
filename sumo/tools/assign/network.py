@@ -113,22 +113,22 @@ class Net:
                         link.target.inEdges.add(edge)
                         edge.target = link.target
 
-    def checkSmallDiff(self, ODPaths, helpPath, helpPathSet, pathcost):
+    def checkSmallDiff(self, ODPaths, helpPath, pathcost):
         for path in ODPaths:
             if path.edges == helpPath:
                 return False, False
             else:
                 sameEdgeCount = 0
                 sameTravelTime = 0.0
-                for edge in path.edges:
-                    if edge in helpPathSet:
+                for edge in helpPath:
+                    if edge in path.edges:
                         sameEdgeCount += 1 
                         sameTravelTime += edge.actualtime
                 if abs(sameEdgeCount - len(path.edges))/len(path.edges) <= 0.1 and abs(sameTravelTime/3600. - pathcost) <= 0.05:
                     return False, True
         return True, False
                         
-    def findNewPath(self, startVertices, endVertices, newRoutes, matrixPshort, lohse):
+    def findNewPath(self, startVertices, endVertices, newRoutes, matrixPshort, gamma, lohse):
         """
         This method finds the new paths for all OD pairs.
         The Dijkstra algorithm is applied for searching the shortest paths.
@@ -143,7 +143,6 @@ class Net:
             for end, endVertex in enumerate(endVertices):
                 if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                     helpPath = []
-                    helpPathSet = set()
                     pathcost = D[endVertex]/3600.
                     ODPaths = self._paths[startVertex][endVertex]
                     for path in ODPaths:
@@ -153,16 +152,20 @@ class Net:
                     while vertex != startVertex:
                         if P[vertex].kind == "real":
                             helpPath.append(P[vertex])
-                            helpPathSet.add(P[vertex])
                         vertex = P[vertex].source
                     helpPath.reverse()
     
-                    newPath, smallDiffPath = self.checkSmallDiff(ODPaths, helpPath, helpPathSet, pathcost)
+                    newPath, smallDiffPath = self.checkSmallDiff(ODPaths, helpPath, pathcost)
 
                     if newPath:
                         newpath = Path(startVertex, endVertex, helpPath)
                         ODPaths.append(newpath)
                         newpath.getPathLength()
+                        for route in ODPaths:
+                            route.updateSumOverlap(newpath, gamma)
+                        if len(ODPaths)> 1:
+                            for route in ODPaths[:-1]:
+                                newpath.updateSumOverlap(route, gamma)
                         if lohse:
                             newpath.pathhelpacttime = pathcost
                         else:    
@@ -180,7 +183,7 @@ class Net:
         return newRoutes
 
 #    find the k shortest paths for each OD pair. The "k" is defined by users.
-    def calcKPaths(self, verbose, kPaths, newRoutes, startVertices, endVertices, matrixPshort):
+    def calcKPaths(self, verbose, kPaths, newRoutes, startVertices, endVertices, matrixPshort, gamma):
         if verbose:
             foutkpath = file('kpaths.xml', 'w')
             print >> foutkpath, """<?xml version="1.0"?>
@@ -223,6 +226,11 @@ class Net:
                         newpath = Path(startVertex, endVertex, temppath)
                         newpath.getPathLength()
                         ODPaths.append(newpath)
+                        for route in ODPaths:
+                            route.updateSumOverlap(newpath, gamma)
+                        if len(ODPaths)> 1:
+                            for route in ODPaths[:-1]:
+                                newpath.updateSumOverlap(route, gamma)
                         newpath.freepathtime = temppathcost/3600.
                         newpath.actpathtime = newpath.freepathtime
                         newRoutes += 1
