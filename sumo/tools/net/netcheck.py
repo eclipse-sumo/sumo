@@ -1,9 +1,19 @@
-#!/usr/bin/python
-# This script does simple checks for the network.
-# It tests whether the network is (weakly) connected
-# and optionally whether the routes cover the net.
-# It needs at least one parameter, the SUMO net (.net.xml).
-# All parameters starting from the second are considered route files.
+#!/usr/bin/env python
+"""
+@file    netcheck.py
+@author  Michael.Behrisch@dlr.de
+@date    2007-03-20
+@version $Id$
+
+This script does simple checks for the network.
+It tests whether the network is (weakly) connected
+and optionally whether the routes cover the net.
+It needs at least one parameter, the SUMO net (.net.xml).
+All parameters starting from the second are considered route files.
+
+Copyright (C) 2008 DLR/TS, Germany
+All rights reserved
+"""
 import os, string, sys, StringIO
 
 from xml.sax import saxutils, make_parser, handler
@@ -17,7 +27,7 @@ class NetReader(handler.ContentHandler):
 
     def startElement(self, name, attrs):
         if name == 'edge' and (not attrs.has_key('function') or attrs['function'] != 'internal'):
-            self._nb[edge] = set()
+            self._nb[attrs['id']] = set()
         elif name == 'succ':
             self._edge = attrs['edge']
             if self._edge[0]==':':
@@ -25,7 +35,7 @@ class NetReader(handler.ContentHandler):
         elif name == 'succlane' and self._edge != '':
             id = attrs['lane']
             if id!="SUMO_NO_DESTINATION":
-                id = self._net.getEdge(id[:id.rfind('_')])
+                id = id[:id.rfind('_')]
                 self._nb[self._edge].add(id)
                 self._nb[id].add(self._edge)
 
