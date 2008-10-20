@@ -312,11 +312,6 @@ for d in nmap1to2:
 			if e._id[0]!="i" and e._id[0]!="o":
 				haveOutgoing = True
 				outgoingLaneNo = outgoingLaneNo + e.getLaneNumber()
-#		print n2._id
-#		print n2._outgoing
-#		print n2._incoming
-#		print incomingLaneNo 
-#		print outgoingLaneNo
 		if haveIncoming:
 			e1 = net1.getNet().addEdge("o" + n2._id, n2._id, n1o._id, -2)
 			if haveOutgoing:
@@ -326,7 +321,6 @@ for d in nmap1to2:
 					net1.getNet().addLane(e1, 20, 100.)
 					if len(n2._incoming)==1:
 						fdd.write('    <connection from="' + n2._incoming[0]._id + '" to="' + e1._id + '" lane="' + str(i) + ':' + str(i) + '"/>\n')
-				fdd.write('    <connection from="' + e1._id + '"/>\n')
 		if haveOutgoing:
 			if options.verbose:
 				print "has outgoing"
@@ -364,6 +358,7 @@ for d in nmap1to2:
 			districtSources[d] = ni._outgoing[0]._id
 		if len(no._incoming)>0:
 			districtSinks[d] = no._incoming[0]._id
+		fdd.write('    <connection from="' + no._incoming[0]._id + '"/>\n')
 	else:
 		incomingLaneNoG = 0
 		outgoingLaneNoG = 0
@@ -412,11 +407,10 @@ for d in nmap1to2:
 				for e in n2._incoming:
 					if e._id[0]!="i" and e._id[0]!="o":
 						incomingLaneNo = incomingLaneNo + e.getLaneNumber()
-#				n1i = net1.getNet().addNode("i" + d + "#" + n2._id, nnn[n2]._coord)
-				e1 = net1.getNet().addEdge("i" + d + "#"  + n2._id, no._id, dn1o._id, -2)
+				e1 = net1.getNet().addEdge("o" + d + "#"  + n2._id, no._id, dn1o._id, -2)
 				for i in range(0, incomingLaneNo):
 					net1.getNet().addLane(e1, 19, 100.)
-					fdd.write('    <connection from="' + "i" + d + "#"  + n2._id + '" to="' + dn1o._outgoing[0]._id + '" lane="' + str(i) + ':' + str(runningOutLaneNumber) + '"/>\n')
+					fdd.write('    <connection from="' + "o" + d + "#"  + n2._id + '" to="' + dn1o._outgoing[0]._id + '" lane="' + str(i) + ':' + str(runningOutLaneNumber) + '"/>\n')
 					runningOutLaneNumber = runningOutLaneNumber + 1
 				fdd.write('    <connection from="' + dn1o._outgoing[0]._id + '"/>\n')
 				if incomingLaneNo==0:
@@ -427,11 +421,10 @@ for d in nmap1to2:
 				for e in n2._outgoing:
 					if e._id[0]!="i" and e._id[0]!="o":
 						outgoingLaneNo = outgoingLaneNo + e.getLaneNumber()
-#				n1o = net1.getNet().addNode("o" + d + "#" + n2._id, nnn[n2]._coord)
-				e2 = net1.getNet().addEdge("o" + d + "#"  + n2._id, dn1i._id, ni._id, -2)
+				e2 = net1.getNet().addEdge("i" + d + "#"  + n2._id, dn1i._id, ni._id, -2)
 				for i in range(0, outgoingLaneNo):
 					net1.getNet().addLane(e2, 18, 100.)
-					fdd.write('    <connection from="' + dn1i._incoming[0]._id + '" to="' + "o" + d + "#"  + n2._id + '" lane="' + str(runningInLaneNumber) + ':' + str(i) + '"/>\n')
+					fdd.write('    <connection from="' + dn1i._incoming[0]._id + '" to="' + "i" + d + "#"  + n2._id + '" lane="' + str(runningInLaneNumber) + ':' + str(i) + '"/>\n')
 					runningInLaneNumber = runningInLaneNumber + 1
 				if outgoingLaneNo==0:
 					net1.getNet().addLane(e2, 18, 100.)
