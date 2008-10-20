@@ -21,9 +21,9 @@ edges = open("%s.edg.xml" % PREFIX, "w")
 print >> edges, "<edges>"
 routes = open("%s.rou.xml" % PREFIX, "w")
 print >> routes, """<routes>
-    <vtype id="car" length="6" maxspeed="50" color="0.6,0.6,0.6"/>
+    <vtype id="car" length="6" maxspeed="50" color="0.7,0.7,0.7"/>
     <vtype id="person" length=".5" maxspeed="5" color="1,0.2,0.2"/>
-    <vtype id="cybercar" length="7" maxspeed="%s" color="0,1,0"/>""" % CYBER_SPEED
+    <vtype id="cybercar" length="9" maxspeed="%s" color="0,1,0"/>""" % CYBER_SPEED
 #streets
 nodeID = "main-0"
 print >> nodes, '<node id="in" x="-100" y="0"/>' 
@@ -141,20 +141,13 @@ nodes.close()
 print >> edges, "</edges>"
 edges.close()
 
+os.system("netconvert -n %s.nod.xml -e %s.edg.xml --add-internal-links -o %s.net.xml" % (PREFIX, PREFIX, PREFIX))
+
 numBusses = TOTAL_CAPACITY / BUS_CAPACITY
 print >> routes, """    <vehicle id="b" type="cybercar" depart="0" period="100" repno="%s" arrivalpos="10000">
         <route edges="cyberin"/>
-    </vehicle>""" % (numBusses - 1)
-totalSlots = 2 * DOUBLE_ROWS * SLOTS_PER_ROW
-if occupied < totalSlots:
-    print >> routes, """    <vehicle id="v" type="car" depart="10" period="20" repno="%s" arrivalpos="10000">
-        <route edges="mainin"/>
-    </vehicle>""" % (totalSlots-occupied-1)
-if occupied > 0:
-    print >> routes, """    <vehicle id="p" type="person" depart="10" period="15" repno="%s" arrivalpos="10000">
-        <route edges="footfairin"/>
     </vehicle>
-</routes>""" % (occupied*CAR_CAPACITY-1)
+</routes>""" % (numBusses - 1)
 routes.close()
 
 routes = open("%s_cyber.rou.xml" % PREFIX, "w")
@@ -165,26 +158,43 @@ print >> routes, """<routes>
 </routes>""" % (TOTAL_CAPACITY / CYBER_CAPACITY - numBusses - 1)
 routes.close()
 
-os.system("netconvert -n %s.nod.xml -e %s.edg.xml --add-internal-links -o %s.net.xml" % (PREFIX, PREFIX, PREFIX))
+totalSlots = 2 * DOUBLE_ROWS * SLOTS_PER_ROW
+bat = open("%s.bat" % PREFIX, "w")
+for period in range(5, 50, 5):
+    routes = open("%s_demand%02i.rou.xml" % (PREFIX, period), "w")
+    print >> routes, "<routes>"
+    if occupied < totalSlots:
+        print >> routes, """    <vehicle id="v" type="car" depart="10" period="%s" repno="%s" arrivalpos="10000">
+            <route edges="mainin"/>
+        </vehicle>""" % (period, totalSlots-occupied-1)
+    if occupied > 0:
+        print >> routes, """    <vehicle id="p" type="person" depart="10" period="%s" repno="%s" arrivalpos="10000">
+            <route edges="footfairin"/>
+        </vehicle>""" % (period, occupied*CAR_CAPACITY-1)
+    print >> routes, "</routes>"
+    routes.close()
 
-config = open("%s.sumo.cfg" % PREFIX, "w")
-print >> config, """<c>
-    <net-file>%s.net.xml</net-file>
-    <route-files>%s.rou.xml</route-files>
-    <use-internal-links>x</use-internal-links>
-    <no-step-log>x</no-step-log>
-    <time-to-teleport>0</time-to-teleport>
-    <remote-port>%s</remote-port>
-</c>""" % (PREFIX, PREFIX, PORT)
-config.close()
-
-config = open("%s_cyber.sumo.cfg" % PREFIX, "w")
-print >> config, """<c>
-    <net-file>%s.net.xml</net-file>
-    <route-files>%s.rou.xml,%s_cyber.rou.xml</route-files>
-    <use-internal-links>x</use-internal-links>
-    <no-step-log>x</no-step-log>
-    <time-to-teleport>0</time-to-teleport>
-    <remote-port>%s</remote-port>
-</c>""" % (PREFIX, PREFIX, PREFIX, PORT)
-config.close()
+    config = open("%s%02i.sumo.cfg" % (PREFIX, period), "w")
+    print >> config, """<c>
+        <net-file>%s.net.xml</net-file>
+        <route-files>%s.rou.xml,%s_demand%02i.rou.xml</route-files>
+        <use-internal-links>x</use-internal-links>
+        <no-step-log>x</no-step-log>
+        <time-to-teleport>0</time-to-teleport>
+        <remote-port>%s</remote-port>
+    </c>""" % (PREFIX, PREFIX, PREFIX, period, PORT)
+    config.close()
+    print >> bat, "simpleManager.py -d %s" % period
+    
+    config = open("%s%02i_cyber.sumo.cfg" % (PREFIX, period), "w")
+    print >> config, """<c>
+        <net-file>%s.net.xml</net-file>
+        <route-files>%s.rou.xml,%s_cyber.rou.xml,%s_demand%02i.rou.xml</route-files>
+        <use-internal-links>x</use-internal-links>
+        <no-step-log>x</no-step-log>
+        <time-to-teleport>0</time-to-teleport>
+        <remote-port>%s</remote-port>
+    </c>""" % (PREFIX, PREFIX, PREFIX, PREFIX, period, PORT)
+    config.close()
+    print >> bat, "agentManager.py -c -d %s" % period
+bat.close()

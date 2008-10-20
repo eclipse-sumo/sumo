@@ -52,6 +52,8 @@ def init(manager):
                          default=False, help="run with GUI")
     optParser.add_option("-c", "--cyber", action="store_true", dest="cyber",
                          default=False, help="use small cybercars instead of big busses")
+    optParser.add_option("-d", "--demand", type="int", dest="demand",
+                         default=15, help="period with which the persons are emitted")
     (options, args) = optParser.parse_args()
     sumoExe = SUMO
     if options.gui:
