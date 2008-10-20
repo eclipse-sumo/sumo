@@ -1398,7 +1398,7 @@ long
 GUIDialog_ViewSettings::onCmdEditTable(FXObject*,FXSelector,void*data)
 {
     MFXEditedTableItem *i = (MFXEditedTableItem*) data;
-    string value = i->item->getText().text();
+    string value = i->item->getText().trim().text();
     // check whether the inserted value is empty
     if (value.find_first_not_of(" ")==string::npos) {
         return 1;
