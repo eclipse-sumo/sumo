@@ -12,6 +12,7 @@ All rights reserved
 import subprocess, random
 from optparse import OptionParser
 
+import statistics
 from constants import *
 from traciControl import initTraCI, simStep, stopObject, changeTarget, close
 
@@ -35,6 +36,7 @@ class Setting:
     step = 0
     manager = None 
     verbose = False
+    cyber = False
 
 setting = Setting()
 occupancy = {}
@@ -61,13 +63,26 @@ def init(manager):
     initTraCI(PORT)
     setting.manager = manager
     setting.verbose = options.verbose
-    while True:
-        doStep()
-    close()
+    setting.cyber = options.cyber
+    try:
+        while setting.step < 100 or statistics.personsRunning > 0:
+            doStep()
+    finally:
+        close()
+    statistics.evaluate()
 
-def stopAt(vehicleID, edge, pos=1.):
+def getCapacity():
+    if setting.cyber:
+        return CYBER_CAPACITY
+    return BUS_CAPACITY
+
+def stopAt(vehicleID, edge, pos=None):
     if setting.verbose:
         print "stopAt", vehicleID, edge
+    if pos == None:
+        pos = ROW_DIST-15.
+        if edge.endswith("out"):
+            pos = 90.
     changeTarget(edge, vehicleID)
     stopObject(edge, vehicleID, pos)
     vehicleStatus[vehicleID].target = edge
@@ -100,7 +115,7 @@ def _reroutePersons(edge):
                 row = int(edge[4])
                 targetEdge = "footmain%sto%s" % (row, row+1)
                 stopObject(edge.replace("slot", "-foot"), person, 1., 0.)
-                stopAt(person, targetEdge, ROW_DIST-10.)
+                stopAt(person, targetEdge)
                 vehicleStatus[person].parking = False
                 vehicleStatus[person].slot = edge
 
@@ -113,9 +128,9 @@ def _checkInitialPositions(vehicleID, edge, pos):
         if edge == "mainin":
             _rerouteCar(vehicleID)
         elif edge == "cyberin":
-            stopAt(vehicleID, "cyber0to1", ROW_DIST-15.)
+            stopAt(vehicleID, "cyber0to1")
         elif edge == "footfairin":
-            stopAt(vehicleID, "footmainout", 90.)
+            stopAt(vehicleID, "footmainout")
         elif "foot" in edge:
             stopObject("-"+edge, vehicleID)
             parkEdge = edge.replace("foot", "slot")
@@ -142,6 +157,7 @@ def doStep():
                 if edge == "footmainout":
                     row = random.randrange(0, DOUBLE_ROWS)
                     target = "footmain%sto%s" % (row, row+1)
+                statistics.personArrived(vehicleID, edge, target, setting.step)
                 setting.manager.personArrived(vehicleID, edge, target)
             if edge.startswith("cyber"):
                 vehicleStatus[vehicleID].parking = True

@@ -10,10 +10,7 @@ Control the CityMobil parking lot with a multi agent system.
 Copyright (C) 2008 DLR/TS, Germany
 All rights reserved
 """
-import sys
-from optparse import OptionParser
-
-import vehicleControl
+import vehicleControl, statistics
 from constants import *
 
 class PersonAgent:
@@ -73,7 +70,7 @@ class CyberAgent:
                 self.checkBoarding(task.source, 0)
             elif self.position:
                 vehicleControl.leaveStop(self.id)
-                vehicleControl.stopAt(self.id, task.source, ROW_DIST-15.)
+                vehicleControl.stopAt(self.id, task.source)
         del self.pending[person]
 
     def reject(self, person):
@@ -95,7 +92,7 @@ class CyberAgent:
                 minDownstreamSource = task.source
         if minDownstreamTarget != "z":
             minTarget = minDownstreamTarget 
-        if self.load < CYBER_CAPACITY:
+        if self.load < vehicleControl.getCapacity():
             if minDownstreamSource < minTarget:
                 return minDownstreamSource
             if minTarget < self.position and minSource < minTarget:
@@ -108,6 +105,7 @@ class CyberAgent:
         running = []
         for task in self.running:
             if task.target == edge:
+                statistics.personUnloaded(task.person.id, step)
                 self.load -= 1
                 wait += WAIT_PER_PERSON
                 self.costMatrix[(task.source, task.target)] = step - task.startStep
@@ -115,11 +113,12 @@ class CyberAgent:
             else:
                 running.append(task)
         self.running = running
-        if self.load < CYBER_CAPACITY: 
+        if self.load < vehicleControl.getCapacity(): 
             tasks = []
             for task in self.tasks:
-                if task.source == edge and self.load < CYBER_CAPACITY:
+                if task.source == edge and self.load < vehicleControl.getCapacity():
                     vehicleControl.leaveStop(task.person.id)
+                    statistics.personLoaded(task.person.id, step)
                     self.load += 1
                     wait += WAIT_PER_PERSON
                     task.startStep = step
@@ -134,7 +133,7 @@ class CyberAgent:
             nextStop = self.tasks[0].source
         if nextStop:
             vehicleControl.leaveStop(self.id, delay=wait)
-            vehicleControl.stopAt(self.id, nextStop, ROW_DIST-15.)
+            vehicleControl.stopAt(self.id, nextStop)
 
 class AgentManager(vehicleControl.Manager):
 

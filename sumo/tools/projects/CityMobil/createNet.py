@@ -142,16 +142,16 @@ print >> edges, "</edges>"
 edges.close()
 
 numBusses = TOTAL_CAPACITY / BUS_CAPACITY
-print >> routes, """    <vehicle id="c" type="cybercar" depart="0" period="100" repno="%s" arrivalpos="10000">
+print >> routes, """    <vehicle id="b" type="cybercar" depart="0" period="100" repno="%s" arrivalpos="10000">
         <route edges="cyberin"/>
     </vehicle>""" % (numBusses - 1)
 totalSlots = 2 * DOUBLE_ROWS * SLOTS_PER_ROW
 if occupied < totalSlots:
-    print >> routes, """    <vehicle id="v" type="car" depart="10" period="10" repno="%s" arrivalpos="10000">
+    print >> routes, """    <vehicle id="v" type="car" depart="10" period="20" repno="%s" arrivalpos="10000">
         <route edges="mainin"/>
     </vehicle>""" % (totalSlots-occupied-1)
 if occupied > 0:
-    print >> routes, """    <vehicle id="p" type="person" depart="10" period="5" repno="%s" arrivalpos="10000">
+    print >> routes, """    <vehicle id="p" type="person" depart="10" period="15" repno="%s" arrivalpos="10000">
         <route edges="footfairin"/>
     </vehicle>
 </routes>""" % (occupied*CAR_CAPACITY-1)
