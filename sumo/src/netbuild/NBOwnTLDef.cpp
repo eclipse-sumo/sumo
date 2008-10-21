@@ -177,15 +177,15 @@ NBOwnTLDef::collectLinks()
         NBEdge *incoming = *i;
         size_t noLanes = incoming->getNoLanes();
         for (size_t j=0; j<noLanes; j++) {
-            EdgeLaneVector connected = incoming->getEdgeLanesFromLane(j);
-            for (EdgeLaneVector::const_iterator k=connected.begin(); k!=connected.end(); k++) {
-                const EdgeLane &el = *k;
-                if (el.edge!=0) {
-                    if (el.lane>=el.edge->getNoLanes()) {
-                        throw ProcessError("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.edge->getID() + "_" + toString(el.lane) + "' yields in a not existing lane.");
+            vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
+            for (vector<NBEdge::Connection>::iterator k=connected.begin(); k!=connected.end(); k++) {
+                const NBEdge::Connection &el = *k;
+                if (el.toEdge!=0) {
+                    if (el.toLane>=el.toEdge->getNoLanes()) {
+                        throw ProcessError("Connection '" + incoming->getID() + "_" + toString(j) + "->" + el.toEdge->getID() + "_" + toString(el.toLane) + "' yields in a not existing lane.");
 
                     }
-                    myControlledLinks.push_back(NBConnection(incoming, j, el.edge, el.lane));
+                    myControlledLinks.push_back(NBConnection(incoming, j, el.toEdge, el.toLane));
                 }
             }
         }

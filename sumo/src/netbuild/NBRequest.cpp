@@ -378,21 +378,21 @@ NBRequest::resetSignalised()
 {
     // go through possible prohibitions
     for (EdgeVector::const_iterator i11=myIncoming->begin(); i11!=myIncoming->end(); i11++) {
-        size_t noLanesEdge1 = (*i11)->getNoLanes();
-        for (size_t j1=0; j1<noLanesEdge1; j1++) {
-            EdgeLaneVector el1 = (*i11)->getEdgeLanesFromLane(j1);
-            for (EdgeLaneVector::const_iterator i12=el1.begin(); i12!=el1.end(); i12++) {
-                int idx1 = getIndex((*i11), (*i12).edge);
+        unsigned int noLanesEdge1 = (*i11)->getNoLanes();
+        for (unsigned int j1=0; j1<noLanesEdge1; j1++) {
+            vector<NBEdge::Connection> el1 = (*i11)->getConnectionsFromLane(j1);
+            for (vector<NBEdge::Connection>::iterator i12=el1.begin(); i12!=el1.end(); ++i12) {
+                int idx1 = getIndex((*i11), (*i12).toEdge);
                 if (idx1<0) {
                     continue;
                 }
                 // go through possibly prohibited
                 for (EdgeVector::const_iterator i21=myIncoming->begin(); i21!=myIncoming->end(); i21++) {
-                    size_t noLanesEdge2 = (*i21)->getNoLanes();
-                    for (size_t j2=0; j2<noLanesEdge2; j2++) {
-                        EdgeLaneVector el2 = (*i21)->getEdgeLanesFromLane(j2);
-                        for (EdgeLaneVector::const_iterator i22=el2.begin(); i22!=el2.end(); i22++) {
-                            int idx2 = getIndex((*i21), (*i22).edge);
+                    unsigned int noLanesEdge2 = (*i21)->getNoLanes();
+                    for (unsigned int j2=0; j2<noLanesEdge2; j2++) {
+                        vector<NBEdge::Connection> el2 = (*i21)->getConnectionsFromLane(j2);
+                        for (vector<NBEdge::Connection>::iterator i22=el2.begin(); i22!=el2.end(); i22++) {
+                            int idx2 = getIndex((*i21), (*i22).toEdge);
                             if (idx2<0) {
                                 continue;
                             }
@@ -413,7 +413,7 @@ NBRequest::resetSignalised()
                             }
                             // supposing, we don not have to
                             //  brake if we are no foes
-                            if (!foes(*i11, (*i12).edge, *i21, (*i22).edge)) {
+                            if (!foes(*i11, (*i12).toEdge, *i21, (*i22).toEdge)) {
                                 continue;
                             }
                             // otherwise:
@@ -434,18 +434,18 @@ NBRequest::resetSignalised()
 }
 
 
-pair<size_t, size_t>
+pair<unsigned int, unsigned int>
 NBRequest::getSizes() const
 {
-    size_t noLanes = 0;
-    size_t noLinks = 0;
+    unsigned int noLanes = 0;
+    unsigned int noLinks = 0;
     for (EdgeVector::const_iterator i=myIncoming->begin();
             i!=myIncoming->end(); i++) {
-        size_t noLanesEdge = (*i)->getNoLanes();
-        for (size_t j=0; j<noLanesEdge; j++) {
+        unsigned int noLanesEdge = (*i)->getNoLanes();
+        for (unsigned int j=0; j<noLanesEdge; j++) {
             // assert that at least one edge is approached from this lane
-            assert((*i)->getEdgeLanesFromLane(j).size()!=0);
-            noLinks += (*i)->getEdgeLanesFromLane(j).size();
+            assert((*i)->getConnectionsFromLane(j).size()!=0);
+            noLinks += (*i)->getConnectionsFromLane(j).size();
         }
         noLanes += noLanesEdge;
     }
@@ -510,15 +510,15 @@ int
 NBRequest::writeLaneResponse(std::ostream &os, NBEdge *from,
                              int fromLane, int pos)
 {
-    EdgeLaneVector connected = from->getEdgeLanesFromLane(fromLane);
-    for (EdgeLaneVector::const_iterator j=connected.begin(); j!=connected.end(); j++) {
+    vector<NBEdge::Connection> connected = from->getConnectionsFromLane(fromLane);
+    for (vector<NBEdge::Connection>::iterator j=connected.begin(); j!=connected.end(); j++) {
         os << "         <logicitem request=\"" << pos++ << "\" response=\"";
-        writeResponse(os, from, (*j).edge, fromLane, (*j).lane);
+        writeResponse(os, from, (*j).toEdge, fromLane, (*j).toLane);
         os << "\" foes=\"";
-        writeAreFoes(os, from, (*j).edge, myJunction->getCrossingPosition(from, fromLane, (*j).edge, (*j).lane).first>=0);
+        writeAreFoes(os, from, (*j).toEdge, myJunction->getCrossingPosition(from, fromLane, (*j).toEdge, (*j).toLane).first>=0);
         os << "\"";
         if (OptionsCont::getOptions().getBool("add-internal-links")) {
-            if (myJunction->getCrossingPosition(from, fromLane, (*j).edge, (*j).lane).first>=0) {
+            if (myJunction->getCrossingPosition(from, fromLane, (*j).toEdge, (*j).toLane).first>=0) {
                 os << " cont=\"1\"";
             } else {
                 os << " cont=\"0\"";
@@ -548,7 +548,7 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
         NBEdge *bla = *i;
         unsigned int noLanes = (*i)->getNoLanes();
         for (int j=noLanes; j-->0;) {
-            EdgeLaneVector connected = (*i)->getEdgeLanesFromLane(j);
+            vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             size_t size = connected.size();
             for (int k=size; k-->0;) {
                 if (to==0) {
@@ -561,11 +561,11 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
                     assert((size_t) idx<myIncoming->size()*myOutgoing->size());
                     assert(connected[k].edge==0 || (size_t) getIndex(*i, connected[k].edge)<myIncoming->size()*myOutgoing->size());
                     // check whether the connection is prohibited by another one
-                    if (connected[k].edge!=0
+                    if (/*connected[k].definitelyUndisturbed 
+                        || */
+                        (connected[k].toEdge!=0 && myForbids[getIndex(*i, connected[k].toEdge)][idx])
                             &&
-                            myForbids[getIndex(*i, connected[k].edge)][idx]
-                            &&
-                            toLane == connected[k].lane) {
+                            toLane == connected[k].toLane) {
 
                         os << '1';
                         continue;
@@ -594,14 +594,14 @@ NBRequest::writeAreFoes(std::ostream &os, NBEdge *from, NBEdge *to, bool isInner
 
         unsigned int noLanes = (*i)->getNoLanes();
         for (unsigned int j=noLanes; j-->0;) {
-            EdgeLaneVector connected = (*i)->getEdgeLanesFromLane(j);
+            vector<NBEdge::Connection> connected = (*i)->getConnectionsFromLane(j);
             size_t size = connected.size();
             for (int k=size; k-->0;) {
                 if (to==0) {
                     os << '0';
                 } else {
 //                    if (foes(from, to, (*i), connected[k].edge) && !isInnerEnd) {
-                    if (foes(from, to, (*i), connected[k].edge)) {
+                    if (foes(from, to, (*i), connected[k].toEdge)) {
                         os << '1';
                     } else {
                         os << '0';

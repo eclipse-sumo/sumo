@@ -76,13 +76,13 @@ NBRequestEdgeLinkIterator::init(
     size_t i1;
     for (i1=0; i1<incoming.size(); i1++) {
         assert(i1<incoming.size());
-        size_t noLanes = incoming[i1]->getNoLanes();
-        for (size_t i2=0; i2<noLanes; i2++) {
+        unsigned int noLanes = incoming[i1]->getNoLanes();
+        for (unsigned int i2=0; i2<noLanes; i2++) {
             NBEdge *fromEdge = incoming[i1];
-            EdgeLaneVector approached = fromEdge->getEdgeLanesFromLane(i2);
+            vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
             for (size_t i3=0; i3<approached.size(); i3++) {
                 assert(i3<approached.size());
-                NBEdge *toEdge = approached[i3].edge;
+                NBEdge *toEdge = approached[i3].toEdge;
                 myFromEdges.push_back(fromEdge);
                 myFromLanes.push_back(i2);
                 myToEdges.push_back(toEdge);
@@ -146,10 +146,10 @@ NBRequestEdgeLinkIterator::joinLaneLinksFunc(
     size_t pos = 0;
     for (size_t i1=0; i1<incoming.size(); i1++) {
         assert(i1<incoming.size());
-        size_t noLanes = incoming[i1]->getNoLanes();
-        for (size_t i2=0; i2<noLanes; i2++) {
+        unsigned int noLanes = incoming[i1]->getNoLanes();
+        for (unsigned int i2=0; i2<noLanes; i2++) {
             NBEdge *fromEdge = incoming[i1];
-            EdgeLaneVector approached = fromEdge->getEdgeLanesFromLane(i2);
+            vector<NBEdge::Connection> approached = fromEdge->getConnectionsFromLane(i2);
             myValid.set(pos++, 1);
             for (size_t i3=1; i3<approached.size(); i3++) {
                 myValid.set(pos++, 0);

@@ -590,14 +590,13 @@ NBLoadedTLDef::collectLinks()
     // build the list of links which are controled by the traffic light
     for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         NBEdge *incoming = *i;
-        size_t noLanes = incoming->getNoLanes();
-        for (size_t j=0; j<noLanes; j++) {
-            EdgeLaneVector connected = incoming->getEdgeLanesFromLane(j);
-            for (EdgeLaneVector::const_iterator k=connected.begin(); k!=connected.end(); k++) {
-                const EdgeLane &el = *k;
-                if (el.edge!=0) {
-                    myControlledLinks.push_back(
-                        NBConnection(incoming, j, el.edge, el.lane));
+        unsigned int noLanes = incoming->getNoLanes();
+        for (unsigned int j=0; j<noLanes; j++) {
+            vector<NBEdge::Connection> elv = incoming->getConnectionsFromLane(j);
+            for (vector<NBEdge::Connection>::iterator k=elv.begin(); k!=elv.end(); k++) {
+                NBEdge::Connection el = *k;
+                if (el.toEdge!=0) {
+                    myControlledLinks.push_back(NBConnection(incoming, j, el.toEdge, el.toLane));
                 }
             }
         }

@@ -105,29 +105,7 @@ NBNodeShapeComputer::compute()
 void
 NBNodeShapeComputer::addInternalGeometry()
 {
-    /*
-    for(EdgeVector::const_iterator i=myNode.myIncomingEdges->begin(); i!=myNode.myIncomingEdges->end(); i++) {
-        size_t noLanesEdge = (*i)->getNoLanes();
-        for(size_t j=0; j<noLanesEdge; j++) {
-            EdgeLaneVector elv = (*i)->getEdgeLanesFromLane(j);
-            for(EdgeLaneVector::const_iterator k=elv->begin(); k!=elv->end(); k++) {
-                if((*k).edge==0) {
-                    continue;
-                }
-                Position2DVector shape =
-                    computeInternalLaneShape(*i, j, (*k).edge, (*k).lane);
-                if(shape.length()==0) {
-                    continue;
-                }
-                Position2DVector l(shape);
-                l.move2side(1.5);
-                Position2DVector r(shape);
-                l.move2side(-1.5);
-                myPoly.push_back(shape);
-            }
-        }
-    }
-    */
+    // !!!
 }
 
 

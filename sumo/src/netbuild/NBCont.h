@@ -40,38 +40,6 @@ class NBEdge;
 // ===========================================================================
 // container definitions
 // ===========================================================================
-/**
- * @class NBCont
- *
- * structure specifying a certain lane on a certain edge
- */
-class EdgeLane
-{
-public:
-    /// The according edge (semantics may change)
-    NBEdge *edge;
-
-    /// The according lane (semantics may change)
-    size_t lane;
-
-    /// The id of the traffic light this link is steered by
-    std::string tlID;
-
-    /// The position within the traffic light logic of this link's information
-    size_t tlLinkNo;
-
-    /// output operator
-    friend bool operator==(const EdgeLane &lhs, const EdgeLane &rhs) {
-        return lhs.edge==rhs.edge && lhs.lane==rhs.lane;
-    }
-
-};
-
-
-/** container for (sorted) lanes of edges */
-typedef std::vector<EdgeLane> EdgeLaneVector;
-
-
 /** container for (sorted) edges */
 typedef std::vector<NBEdge*> EdgeVector;
 

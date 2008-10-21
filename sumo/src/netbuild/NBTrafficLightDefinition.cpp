@@ -168,14 +168,13 @@ NBTrafficLightDefinition::collectLinks()
     // build the list of links which are controled by the traffic light
     for (EdgeVector::iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
         NBEdge *incoming = *i;
-        size_t noLanes = incoming->getNoLanes();
-        for (size_t j=0; j<noLanes; j++) {
-            EdgeLaneVector connected = incoming->getEdgeLanesFromLane(j);
-            for (EdgeLaneVector::const_iterator k=connected.begin(); k!=connected.end(); k++) {
-                const EdgeLane &el = *k;
-                if (el.edge!=0) {
-                    myControlledLinks.push_back(
-                        NBConnection(incoming, j, el.edge, el.lane));
+        unsigned int noLanes = incoming->getNoLanes();
+        for (unsigned int j=0; j<noLanes; j++) {
+            vector<NBEdge::Connection> connected = incoming->getConnectionsFromLane(j);
+            for (vector<NBEdge::Connection>::iterator k=connected.begin(); k!=connected.end(); k++) {
+                const NBEdge::Connection &el = *k;
+                if (el.toEdge!=0) {
+                    myControlledLinks.push_back(NBConnection(incoming, j, el.toEdge, el.toLane));
                 }
             }
         }
@@ -195,16 +194,16 @@ NBTrafficLightDefinition::collectLinks()
 }
 
 
-pair<size_t, size_t>
+pair<unsigned int, unsigned int>
 NBTrafficLightDefinition::getSizes() const
 {
-    size_t noLanes = 0;
-    size_t noLinks = 0;
+    unsigned int noLanes = 0;
+    unsigned int noLinks = 0;
     for (EdgeVector::const_iterator i=myIncomingEdges.begin(); i!=myIncomingEdges.end(); i++) {
-        size_t noLanesEdge = (*i)->getNoLanes();
-        for (size_t j=0; j<noLanesEdge; j++) {
-            assert((*i)->getEdgeLanesFromLane(j).size()!=0);
-            noLinks += (*i)->getEdgeLanesFromLane(j).size();
+        unsigned int noLanesEdge = (*i)->getNoLanes();
+        for (unsigned int j=0; j<noLanesEdge; j++) {
+            assert((*i)->getConnectionsFromLane(j).size()!=0);
+            noLinks += (*i)->getConnectionsFromLane(j).size();
         }
         noLanes += noLanesEdge;
     }

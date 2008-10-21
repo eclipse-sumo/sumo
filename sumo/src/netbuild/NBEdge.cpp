@@ -363,11 +363,23 @@ NBEdge::reshiftPosition(SUMOReal xoff, SUMOReal yoff, SUMOReal rot) throw()
 }
 
 
-
+// ----------- Setting and getting connections
+vector<NBEdge::Connection>
+NBEdge::getConnectionsFromLane(unsigned int lane) const throw()
+{
+    vector<NBEdge::Connection> ret;
+    for (vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
+        if ((*i).fromLane==lane) {
+            ret.push_back(*i);
+        }
+    }
+    return ret;
+}
 
 
 
 // ----------- 
+
 
 int
 NBEdge::getJunctionPriority(NBNode *node)
@@ -388,19 +400,6 @@ NBEdge::setJunctionPriority(NBNode *node, int prio)
     } else {
         myToJunctionPriority = prio;
     }
-}
-
-
-EdgeLaneVector
-NBEdge::getEdgeLanesFromLane(size_t lane) const
-{
-    EdgeLaneVector ret;
-    for (vector<Connection>::const_iterator i=myConnections.begin(); i!=myConnections.end(); ++i) {
-        if ((*i).fromLane==lane) {
-            ret.push_back((*i).getEdgeLane());
-        }
-    }
-    return ret;
 }
 
 
@@ -1346,11 +1345,11 @@ NBEdge::moveOutgoingConnectionsFrom(NBEdge *e, size_t laneOff)
 {
     size_t lanes = e->getNoLanes();
     for (size_t i=0; i<lanes; i++) {
-        EdgeLaneVector elv = e->getEdgeLanesFromLane(i);
-        for (EdgeLaneVector::const_iterator j=elv.begin(); j!=elv.end(); j++) {
-            EdgeLane el = (*j);
+        vector<NBEdge::Connection> elv = e->getConnectionsFromLane(i);
+        for (vector<NBEdge::Connection>::iterator j=elv.begin(); j!=elv.end(); j++) {
+            NBEdge::Connection el = *j;
             assert(el.tlID=="");
-            bool ok = addLane2LaneConnection(i+laneOff, el.edge, el.lane, L2L_COMPUTED);
+            bool ok = addLane2LaneConnection(i+laneOff, el.toEdge, el.toLane, L2L_COMPUTED);
             assert(ok);
         }
     }

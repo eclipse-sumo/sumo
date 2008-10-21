@@ -145,18 +145,6 @@ public:
         { }
 
 
-        /** @brief Returns this connection's EdgeLane-representation
-         * @return This connection as an EdgeLane-object
-         */
-        EdgeLane getEdgeLane() const throw() {
-            EdgeLane el;
-            el.edge = toEdge;
-            el.lane = toLane;
-            el.tlID = tlID;
-            el.tlLinkNo = tlLinkNo;
-            return el;
-        }
-
         /// @brief The lane the connections starts at 
         int fromLane;
         /// @brief The edge the connections yields in
@@ -388,6 +376,19 @@ public:
 
 
 
+    /// @name Setting and getting connections
+    /// @{
+
+    /** @brief Returns connections from a given lane
+     *
+     * @param[in] lane The lane which connections shall be returned
+     * @return The connections from the given lane
+     * @see NBEdge::Connection
+     */
+    std::vector<Connection> getConnectionsFromLane(unsigned int lane) const throw();
+
+    /// @}
+
 
     /// computes which edge shall be the turn-around one, if any
     void computeTurningDirections();
@@ -398,9 +399,6 @@ public:
 
     /// returns the junction priority (normalised for the node currently build)
     int getJunctionPriority(NBNode *node);
-
-    /// returns the edges approached by the given lane
-    EdgeLaneVector getEdgeLanesFromLane(size_t lane) const;
 
 
     /** writes the edge definition with lanes and connected edges
