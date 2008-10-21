@@ -157,11 +157,10 @@ def doSUEAssign(net, options, startVertices, endVertices, matrixPshort, iter, lo
 def calCommonalityAndChoiceProb(ODPaths, alpha, lohse):
     if len(ODPaths) > 1:
         for path in ODPaths:
-            path.commfactor = alpha * math.log(path.sumOverlap)
             if not lohse:
-                path.utility = path.commfactor + path.actpathtime
+                path.utility = path.actpathtime + alpha * math.log(path.sumOverlap)
             else:
-                path.utility = path.commfactor + path.pathhelpacttime
+                path.utility = path.pathhelpacttime + alpha * math.log(path.sumOverlap)
         
         if lohse:
             minpath = min(ODPaths, key=operator.attrgetter('pathhelpacttime'))
@@ -182,7 +181,6 @@ def calCommonalityAndChoiceProb(ODPaths, alpha, lohse):
             pathone.choiceprob = 1./(1. + sum_exputility)
     else:
         for path in ODPaths:
-            path.commfactor = 0.
             path.choiceprob = 1.
             
 # calculate the path choice probabilities and the path flows and generate the vehicular data for each OD Pair    

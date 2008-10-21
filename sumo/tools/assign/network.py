@@ -65,7 +65,6 @@ class Net:
     def getJunction(self, junctionlabel):
         return self._junctions[junctionlabel]
         
-
     def reduce(self):
         visited = set()
         for link in self._edges.itervalues():
@@ -113,20 +112,20 @@ class Net:
                         link.target.inEdges.add(edge)
                         edge.target = link.target
 
-    def checkSmallDiff(self, ODPaths, helpPath, pathcost):
+    def checkSmallDiff(self, ODPaths, helpPath, helpPathSet, pathcost):
         for path in ODPaths:
             if path.edges == helpPath:
                 return False, False
             else:
                 sameEdgeCount = 0
                 sameTravelTime = 0.0
-                for edge in helpPath:
-                    if edge in path.edges:
+                for edge in path.edges:
+                    if edge in helpPathSet:
                         sameEdgeCount += 1 
                         sameTravelTime += edge.actualtime
                 if abs(sameEdgeCount - len(path.edges))/len(path.edges) <= 0.1 and abs(sameTravelTime/3600. - pathcost) <= 0.05:
                     return False, True
-        return True, False
+        return True, Fals
                         
     def findNewPath(self, startVertices, endVertices, newRoutes, matrixPshort, gamma, lohse):
         """
@@ -143,6 +142,7 @@ class Net:
             for end, endVertex in enumerate(endVertices):
                 if matrixPshort[start][end] > 0. and str(startVertex) != str(endVertex):
                     helpPath = []
+                    helpPathSet = set()
                     pathcost = D[endVertex]/3600.
                     ODPaths = self._paths[startVertex][endVertex]
                     for path in ODPaths:
@@ -152,10 +152,11 @@ class Net:
                     while vertex != startVertex:
                         if P[vertex].kind == "real":
                             helpPath.append(P[vertex])
+                            helpPathSet.add(P[vertex])
                         vertex = P[vertex].source
                     helpPath.reverse()
     
-                    newPath, smallDiffPath = self.checkSmallDiff(ODPaths, helpPath, pathcost)
+                    newPath, smallDiffPath = self.checkSmallDiff(ODPaths, helpPath, helpPathSet, pathcost)
 
                     if newPath:
                         newpath = Path(startVertex, endVertex, helpPath)

@@ -344,7 +344,6 @@ class Path:
         self.actpathtime = 0.0
         self.pathflow = 0.0
         self.helpflow = 0.0
-        self.commfactor = 0.0
         self.choiceprob = 0.0
         self.sumOverlap = 0.0
         self.utility = 0.0
