@@ -175,7 +175,7 @@ protected:
             std::string type) = 0;
 
     /// Returns a pair of <number participating lanes, number participating links>
-    std::pair<size_t, size_t> getSizes() const;
+    std::pair<unsigned int, unsigned int> getSizes() const;
 
     /// Build the list of participating links
     virtual void collectLinks();

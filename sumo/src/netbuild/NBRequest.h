@@ -83,7 +83,7 @@ public:
 
     /** returns the number of the junction's lanes and the number
         of the junction's links in respect */
-    std::pair<size_t, size_t> getSizes() const;
+    std::pair<unsigned int, unsigned int> getSizes() const;
 
     bool mustBrake(NBEdge *from1, NBEdge *to1,
                    NBEdge *from2, NBEdge *to2) const;
