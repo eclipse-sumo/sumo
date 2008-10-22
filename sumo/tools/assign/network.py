@@ -125,7 +125,7 @@ class Net:
                         sameTravelTime += edge.actualtime
                 if abs(sameEdgeCount - len(path.edges))/len(path.edges) <= 0.1 and abs(sameTravelTime/3600. - pathcost) <= 0.05:
                     return False, True
-        return True, Fals
+        return True, False
                         
     def findNewPath(self, startVertices, endVertices, newRoutes, matrixPshort, gamma, lohse):
         """
