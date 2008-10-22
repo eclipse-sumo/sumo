@@ -72,12 +72,11 @@ net2 = sumonet.NetReader()
 parser.setContentHandler(net2)
 parser.parse(options.net2)
 
-
+# reproject the visum net onto the navteq net
 adaptor = netshiftadaptor.NetShiftAdaptor(net1.getNet(), net2.getNet(), options.nodes1.split(","), options.nodes2.split(","))
 adaptor.reproject(options.verbose)
 
-
-
+# build a speed-up grid
 xmin = 100000
 xmax = -100000
 ymin = 100000
@@ -96,11 +95,6 @@ xmin = xmin - .1
 xmax = xmax + .1
 ymin = ymin - .1
 ymax = ymax + .1
-
-
-nmap1to2 = {}
-nmap2to1 = {}
-
 
 
 CELLSIZE = 100
@@ -125,11 +119,15 @@ for n in net1.getNet()._nodes:
 	arr2[int(cy)][int(cx)].append(n)
 
 
+# map
+nmap1to2 = {}
+nmap2to1 = {}
 nodes1 = net2.getNet()._nodes
 nodes2 = net1.getNet()._nodes
 highwayNodes2 = set()
 highwaySinks2 = set()
 highwaySources2 = set()
+urbanNodes2 = set()
 for n2 in nodes2:
 	noIncoming = 0
 	noOutgoing = 0
@@ -148,6 +146,8 @@ for n2 in nodes2:
 			highwaySinks2.add(n2)
 		if noIncoming==0:
 			highwaySources2.add(n2)
+	else:
+		urbanNodes2.add(n2)
 print "Found " + str(len(highwaySinks2)) + " highway sinks in net2"
 cont = ""
 for n in highwaySinks2:
@@ -162,8 +162,6 @@ print cont
 
 fdd = open("dconns.con.xml", "w")
 fdd.write("<connections>\n");
-
-
 highwaySinks1 = set()
 highwaySources1 = set()
 origDistrictNodes = {}
@@ -171,6 +169,8 @@ nnn = {}
 for n1 in nodes1:
 	if n1._id.find('-', 1)<0:
 		continue
+#	if n1._id.find("38208387")<0:
+#		continue
 	un1 = None
 	for e in n1._outgoing:
 		un1 = e._to
@@ -220,13 +220,9 @@ for n1 in nodes1:
 			highwaySources1.add(n1)
 			isHighwaySource = True
 
-#	print isHighwayNode
-#	print isHighwaySink
-#	print isHighwaySource
-
 	best = None
 	bestDist = -1
-	check = nodes2
+	check = urbanNodes2
 	if n1 in highwaySinks1:
 		check = highwaySinks2
 	elif n1 in highwaySources1:
@@ -444,7 +440,6 @@ fd.close()
 
 
 def writeNode(fd, node):
-#	print node._id
 	fd.write("   <node id=\"" + node._id + "\" x=\"" + str(node._coord[0]) + "\" y=\"" + str(node._coord[1]) + "\"/>\n")
 
 def writeEdge(fd, edge, withGeom=True):
@@ -488,32 +483,3 @@ fdd.write("</connections>\n");
 writeNodes(net1.getNet())
 writeEdges(net1.getNet())
 
-
-#fd = open("joined_nodes.xml", "w")
-#fd.write("<nodes>\n")
-#for node in net1.getNet()._nodes:
-#	node._id = "1_" + node._id
-#	writeNode(fd, node)
-#for node in net2.getNet()._nodes:
-#	node._id = "2_" + node._id
-#	writeNode(fd, node)
-#fd.write("</nodes>\n")
-#fd.close()
-
-#fd = open("joined_edges.xml", "w")
-#fd.write("<edges>\n")
-#for edge in net1.getNet()._edges:
-#	edge._id = "1_" + edge._id
-#	writeEdge(fd, edge)
-#for edge in net2.getNet()._edges:
-#	edge._id = "2_" + edge._id
-#	writeEdge(fd, edge)
-#fd.write("</edges>\n")
-#fd.close()
-
-#fd = open("joined_shapes.xml", "w")
-#fd.write("<pois>\n")
-#for n1 in nmap1to2:
-#	fd.write("    <poly id=\"" + n1._id + "to" + nmap1to2[n1]._id + "\" type=\"none\" color=\"1,0,0\" layer=\"1\">" + str(n1._coord[0]) + "," + str(n1._coord[1]) + " " + str(nmap1to2[n1]._coord[0]) + "," + str(nmap1to2[n1]._coord[1]) + "</poly>\n")
-#fd.write("</pois>\n")
-#fd.close()
