@@ -559,7 +559,7 @@ NBRequest::writeResponse(std::ostream &os, NBEdge *from, NBEdge *to,
                 } else {
                     assert(k<(int) connected.size());
                     assert((size_t) idx<myIncoming->size()*myOutgoing->size());
-                    assert(connected[k].edge==0 || (size_t) getIndex(*i, connected[k].edge)<myIncoming->size()*myOutgoing->size());
+                    assert(connected[k].toEdge==0 || (size_t) getIndex(*i, connected[k].toEdge)<myIncoming->size()*myOutgoing->size());
                     // check whether the connection is prohibited by another one
                     if (/*connected[k].definitelyUndisturbed 
                         || */
