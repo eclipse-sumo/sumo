@@ -161,7 +161,7 @@ public:
                                 bool includeUnusedRoutes, SUMOReal scale, int maxFollower,
                                 bool emissionsOnly, SUMOReal defaultSpeed) const;
 
-    void addRoute(const RODFNet &net, RODFRouteDesc &nrd);
+    void addRoute(RODFRouteDesc &nrd);
     void addRoutes(RODFRouteCont *routes);
     bool hasRoutes() const;
     bool writeRoutes(std::vector<std::string> &saved,

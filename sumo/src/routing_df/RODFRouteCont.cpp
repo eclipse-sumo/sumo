@@ -34,6 +34,7 @@
 #include "RODFRouteCont.h"
 #include "RODFNet.h"
 #include <router/ROEdge.h>
+#include <utils/common/ToString.h>
 #include <utils/iodevices/OutputDevice.h>
 
 #ifdef CHECK_MEMORY_LEAKS
@@ -99,22 +100,31 @@ RODFRouteCont::RoutesMap::write(std::ostream &os, size_t offset) const
 // ---------------------------------------------------------------------------
 // RODFRouteCont - methods
 // ---------------------------------------------------------------------------
-RODFRouteCont::RODFRouteCont(const RODFNet &net)
-        : myNet(net)
+RODFRouteCont::RODFRouteCont() throw()
 {}
 
 
-RODFRouteCont::~RODFRouteCont()
+RODFRouteCont::~RODFRouteCont() throw()
 {
 }
 
 
 void
-RODFRouteCont::addRouteDesc(RODFRouteDesc &desc)
+RODFRouteCont::addRouteDesc(RODFRouteDesc &desc) throw()
 {
     // routes may be duplicate as in-between routes may have different starting points
     if (find_if(myRoutes.begin(), myRoutes.end(), route_finder(desc))==myRoutes.end()) {
-        myNet.computeID4Route(desc);
+        // compute route id
+        ROEdge *first = *(desc.edges2Pass.begin());
+        ROEdge *last = *(desc.edges2Pass.end()-1);
+        pair<ROEdge*, ROEdge*> c(desc.edges2Pass[0], desc.edges2Pass.back());
+        desc.routename = first->getID() + "_to_" + last->getID();
+        if (myConnectionOccurences.find(c)==myConnectionOccurences.end()) {
+            myConnectionOccurences[c] = 0;
+        } else {
+            myConnectionOccurences[c] = myConnectionOccurences[c] + 1;
+            desc.routename = desc.routename + "_" + toString(myConnectionOccurences[c]);
+        }
         myRoutes.push_back(desc);
     } else {
         RODFRouteDesc &prev = *find_if(myRoutes.begin(), myRoutes.end(), route_finder(desc));
@@ -124,7 +134,7 @@ RODFRouteCont::addRouteDesc(RODFRouteDesc &desc)
 
 
 bool
-RODFRouteCont::removeRouteDesc(RODFRouteDesc &desc)
+RODFRouteCont::removeRouteDesc(RODFRouteDesc &desc) throw()
 {
     std::vector<RODFRouteDesc>::const_iterator j = find_if(myRoutes.begin(), myRoutes.end(), route_finder(desc));
     if (j==myRoutes.end()) {
@@ -136,9 +146,9 @@ RODFRouteCont::removeRouteDesc(RODFRouteDesc &desc)
 
 bool
 RODFRouteCont::save(std::vector<std::string> &saved,
-                    const std::string &prependix, OutputDevice& out)
+                    const std::string &prependix, OutputDevice& out) throw(IOError)
 {
-    bool haveSavedOnAtLeast = false;
+    bool haveSavedOneAtLeast = false;
     for (std::vector<RODFRouteDesc>::const_iterator j=myRoutes.begin(); j!=myRoutes.end(); ++j) {
         const RODFRouteDesc &desc = (*j);
         if (find(saved.begin(), saved.end(), desc.routename)!=saved.end()) {
@@ -154,42 +164,21 @@ RODFRouteCont::save(std::vector<std::string> &saved,
             out << (*k)->getID();
         }
         out << "</route>\n";
-        haveSavedOnAtLeast = true;
+        haveSavedOneAtLeast = true;
     }
-    return haveSavedOnAtLeast;
-}
-
-
-std::vector<RODFRouteDesc> &
-RODFRouteCont::get()
-{
-    return myRoutes;
+    return haveSavedOneAtLeast;
 }
 
 
 void
-RODFRouteCont::sortByDistance()
+RODFRouteCont::sortByDistance() throw()
 {
     sort(myRoutes.begin(), myRoutes.end(), by_distance_sorter());
 }
 
 
 void
-RODFRouteCont::setDets2Follow(const std::map<ROEdge*, std::vector<ROEdge*> > &d2f)
-{
-    myDets2Follow = d2f;
-}
-
-
-const std::map<ROEdge*, std::vector<ROEdge*> > &
-RODFRouteCont::getDets2Follow() const
-{
-    return myDets2Follow;
-}
-
-
-void
-RODFRouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals)
+RODFRouteCont::removeIllegal(const std::vector<std::vector<ROEdge*> > &illegals) throw()
 {
     for (std::vector<RODFRouteDesc>::iterator i=myRoutes.begin(); i!=myRoutes.end();) {
         RODFRouteDesc &desc = *i;

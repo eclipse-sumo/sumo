@@ -80,7 +80,6 @@ public:
 
     void mesoJoin(RODFDetectorCon &detectors, RODFDetectorFlows &flows);
 
-    void computeID4Route(RODFRouteDesc &desc) const;
     bool hasDetector(ROEdge *edge) const;
     const std::vector<std::string> &getDetectorList(ROEdge *edge) const;
 
@@ -153,7 +152,6 @@ private:
 
     mutable std::map<ROEdge*, std::vector<std::string> > myDetectorsOnEdges;
     mutable std::map<std::string, ROEdge*> myDetectorEdges;
-    mutable std::map<std::pair<ROEdge*, ROEdge*>, int> myConnectionOccurences;
 
     bool myAmInHighwayMode;
     mutable size_t mySourceNumber, mySinkNumber, myInBetweenNumber, myInvalidNumber;

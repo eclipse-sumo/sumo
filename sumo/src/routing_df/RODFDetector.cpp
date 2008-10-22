@@ -148,7 +148,6 @@ RODFDetector::buildDestinationDistribution(const RODFDetectorCon &detectors,
     std::vector<RODFRouteDesc>::iterator ri;
     std::vector<RODFRouteDesc> &descs = myRoutes->get();
     const std::vector<FlowDef> &mflows = flows.getFlowDefs(myID);
-    const std::map<ROEdge*, std::vector<ROEdge*> > &dets2Follow = myRoutes->getDets2Follow();
     // iterate through time (in output interval steps)
     int time;
     for (time=startTime; time<endTime; time+=stepOffset) {
@@ -342,13 +341,14 @@ RODFDetector::addRoutes(RODFRouteCont *routes)
 
 
 void
-RODFDetector::addRoute(const RODFNet &net, RODFRouteDesc &nrd)
+RODFDetector::addRoute(RODFRouteDesc &nrd)
 {
     if (myRoutes==0) {
-        myRoutes = new RODFRouteCont(net);
+        myRoutes = new RODFRouteCont();
     }
     myRoutes->addRouteDesc(nrd);
 }
+
 
 bool
 RODFDetector::hasRoutes() const

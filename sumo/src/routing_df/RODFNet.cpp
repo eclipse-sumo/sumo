@@ -355,7 +355,6 @@ RODFNet::computeRoutesFor(ROEdge *edge, RODFRouteDesc &base, int /*no*/,
             }
         }
     }
-    into.setDets2Follow(dets2Follow);
     //
     if (!keepUnfoundEnds) {
         std::vector<RODFRouteDesc>::iterator i;
@@ -440,7 +439,7 @@ RODFNet::buildRoutes(RODFDetectorCon &detcont, bool allEndFollower,
             continue;
         }
         std::vector<ROEdge*> seen;
-        RODFRouteCont *routes = new RODFRouteCont(*this);
+        RODFRouteCont *routes = new RODFRouteCont();
         doneEdges[e] = routes;
         RODFRouteDesc rd;
         rd.edges2Pass.push_back(e);
@@ -493,7 +492,7 @@ RODFNet::buildRoutes(RODFDetectorCon &detcont, bool allEndFollower,
                             nrd.duration2Last = mrd.duration2Last;
                             nrd.overallProb = mrd.overallProb;
                             nrd.factor = mrd.factor;
-                            ((RODFDetector&) m).addRoute(*this, nrd);
+                            ((RODFDetector&) m).addRoute(nrd);
                         }
                     }
                     duration -= (*k)->getLength()/(*k)->getSpeed();
@@ -1140,22 +1139,6 @@ RODFNet::buildDetectorDependencies(RODFDetectorCon &detectors)
                 }
             }
         }
-    }
-}
-
-
-void
-RODFNet::computeID4Route(RODFRouteDesc &desc) const
-{
-    ROEdge *first = *(desc.edges2Pass.begin());
-    ROEdge *last = *(desc.edges2Pass.end()-1);
-    pair<ROEdge*, ROEdge*> c(desc.edges2Pass[0], desc.edges2Pass.back());
-    desc.routename = first->getID() + "_to_" + last->getID();
-    if (myConnectionOccurences.find(c)==myConnectionOccurences.end()) {
-        myConnectionOccurences[c] = 0;
-    } else {
-        myConnectionOccurences[c] = myConnectionOccurences[c] + 1;
-        desc.routename = desc.routename + "_" + toString(myConnectionOccurences[c]);
     }
 }
 
